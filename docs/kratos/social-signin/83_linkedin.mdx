@@ -24,13 +24,13 @@ Follow these steps to add LinkedIn as a social sign-in provider to your project 
 6. The following **Scopes** are available once **Sign In with LinkedInV2** has been activated:
     - `r_emailaddress`
     - `r_liteprofile`
-8. On the **Auth** page, copy the **Client Secret** field.
-8. Copy the **Client Secret** from the registered application in LinkedIn to the **Client Secret** field in the Ory Console.
-9. Copy the **Client ID** from the registered application in LinkedIn to the **Client ID** field in the form in the Ory Console.
-10. In the **Scopes** field of the form in the Ory Console, add the following scopes:
+7. Copy the following data from the LinkedIn **Auth** page to the corresponding fields in the form in the Ory Console:
+  - Client ID
+  - Client secret
+8. In the **Scopes** field of the form in the Ory Console, add the following scopes:
     - `r_emailaddress`
     - `r_liteprofile`
-11. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet,
+9. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet,
     which maps the desired claims to the Ory Identity schema:
 
    ```jsonnet
@@ -56,7 +56,7 @@ Follow these steps to add LinkedIn as a social sign-in provider to your project 
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
    ```
 
-12. Click **Save Configuration**.
+10. Click **Save Configuration**.
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
@@ -106,10 +106,8 @@ Follow these steps to add LinkedIn as a social sign-in provider to your project 
    ```shell
    ## List all available projects
    ory list projects
-   ## Export the project id
-   export project_id={project-id}
    ## Get config
-   ory get identity-config $project-id --format yaml > identity-config-$project-id.yaml
+   ory get identity-config {project-id} --format yaml > identity-config-$project-id.yaml
    ```
 
 6. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
