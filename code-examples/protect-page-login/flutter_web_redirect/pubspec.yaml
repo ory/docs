@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  dio: ^4.0.4
+  dio: ^5.0.3
   flutter_dotenv: ^5.0.2
   pretty_json: 2.0.0
 
