@@ -6,10 +6,9 @@ toc_max_heading_level: 4
 ---
 
 OAuth2 and OpenID Connect are widely used authorization and authentication delegation protocols that enable secure access to APIs
-and web applications. In this article, we will explain the OAuth2 and OpenID Connect Authorization Code flow in a way that
-everyone can understand. We will also discuss different parameters such as `grant_type`, `redirect_uri`, `prompt`, `scope`,
-`state` and explain how to get ID tokens and refresh tokens. Additionally, we will cover how to perform PKCE on top of the
-Authorization Code flow.
+and web applications. We also discuss different parameters such as `grant_type`, `redirect_uri`, `prompt`, `scope`, `state` and
+explain how to get ID tokens and refresh tokens. Additionally, we will cover how to perform PKCE on top of the Authorization Code
+flow.
 
 The Authorization Code flow is the most secure and widely used OAuth2 flow for web applications. Here is the high-level overview
 of the Authorization Code flow:
@@ -43,8 +42,8 @@ import Mermaid from "@site/src/theme/Mermaid";
 
 ### Step 1: Get the user's permission
 
-In the first step, the user clicks on a link or button on a web page that requests access to a resource. The requesting
-application sends a request to the Authorization Server with the following parameters:
+The user clicks on a link or button on a web page that requests access to a resource. The requesting application sends a request
+to the Authorization Server with the following parameters:
 
 - `response_type`: The value of this parameter should be set to `code` to indicate that the Authorization Code flow will be used.
 - `client_id`: The ID of the client that is making the request.
@@ -67,17 +66,20 @@ application sends a request to the Authorization Server with the following param
   logged in by the request, then the Authorization Server returns a positive response; otherwise, it returns an error, typically
   `login_required`. It does not matter if the ID Token is expired or not.
 
-### Step 2: Redirect back to the app
+### Step 2: Redirect to the Authorization Server
 
-In the second step, the user is redirected to the Authorization Server, where they authenticate themselves and grant permission to
-the requesting application. The Authorization Server may ask the user to login or prompt them to authorize the access request. If
-the user grants permission, the Authorization Server generates an authorization code and redirects the user back to the requesting
-application with the authorization code.
+The user is redirected to the Authorization Server, where they authenticate themselves and grant permission to the requesting
+application. The Authorization Server could ask the user to log in or prompt them to authorize the access request.
 
-### Step 3: Exchange code for token
+### Step 3: Redirect back to the app
 
-In the third step, the requesting application exchanges the authorization code for an access token that can be used to access the
-protected resource. The requesting application sends a POST request to the Authorization Server with the following parameters:
+If the user grants permission, the Authorization Server generates an authorization code and redirects the user back to the
+requesting application with the authorization code.
+
+### Step 4: Exchange code for token
+
+The requesting application exchanges the authorization code for an access token that can be used to access the protected resource.
+The requesting application sends a POST request to the Authorization Server with the following parameters:
 
 - `grant_type`: The value of this parameter should be set to `authorization_code` to indicate that the authorization code will be
   exchanged for an access token.
@@ -200,9 +202,8 @@ use of public clients with PKCE, confidential clients, custom redirect schemes i
 Mobile and native applications cannot store client secrets securely, so they are typically considered public clients. In this
 scenario, the Authorization Code flow with PKCE can be used to provide a secure authorization and authentication mechanism.
 
-In this example, we will use a custom redirect scheme (`myapp://callback`) to receive the authorization code after the user has
-granted permission. We will also generate a random code verifier and transform it into a code challenge using the SHA-256 hash
-algorithm.
+In this example, we use a custom redirect scheme (`myapp://callback`) to receive the authorization code after the user has granted
+permission. We also generate a random code verifier and transform it into a code challenge using the SHA-256 hash algorithm.
 
 #### Create OAuth2 client
 
@@ -248,9 +249,9 @@ In this code, we exchange the authorization code received from the Authorization
 Single page applications (SPAs) typically use a public client model, where the client ID is publicly known. In this scenario, the
 Authorization Code flow with PKCE can be used to provide a secure authorization and authentication mechanism.
 
-In this example, we will use a standard HTTPS redirect (`https://myapp.com/callback`) to receive the authorization code after the
-user has granted permission. We will also generate a random code verifier and transform it into a code challenge using the SHA-256
-hash algorithm.
+In this example, we use a standard HTTPS redirect (`https://myapp.com/callback`) to receive the authorization code after the user
+has granted permission. We also generate a random code verifier and transform it into a code challenge using the SHA-256 hash
+algorithm.
 
 #### Create OAuth2 client
 

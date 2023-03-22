@@ -12,13 +12,13 @@ and services on behalf of users. OpenID Connect, built on top of OAuth2, is requ
 Ory OAuth2 & OpenID Connect, built on top of the widely deployed open-source
 [Ory Hydra Federation Server](https://github.com/ory/hydra) is available out of the box in the Ory Network and is the perfect
 solution for securely connecting users, applications, and services. Whether you need single sign-on (SSO), mobile and third-party
-application authorization, API access management, server-to-server communication, or federated identity, Ory OAuth2 & OpenID
-Connect has got you covered.
+application authorization, API access management, server-to-server communication, or federated identity, you can find a solution
+based on Ory OAuth2 & OpenID Connect.
 
 ## Features
 
-Ory OAuth2 & OpenID Connect comes packed with a wide range of features that make it the ideal solution for securely connecting
-users, applications, and services.
+Ory OAuth2 & OpenID Connect comes with a range of features that make it the ideal solution for securely connecting users,
+applications, and services.
 
 ### Certified OpenID Connect implementation
 
@@ -87,8 +87,6 @@ Ory OAuth2 & OpenID Connect can be used for a wide range of use cases, including
 
 ## Next steps
 
-Ready to get started with Ory OAuth2 & OpenID Connect? Check out the
-[Ory Network OAuth2 quickstart guide](https://www.ory.sh/docs/getting-started/ory-network-oauth2) to learn how to set up your own
-OAuth2 and OpenID Connect provider in just a few minutes. The guide will walk you through the process of setting up Ory OAuth2 &
-OpenID Connect and configuring a sample application to use the service. Try it out today and see how easy it is to securely
-connect your users, applications, and services with Ory OAuth2 & OpenID Connect!
+See [Ory Network OAuth2 quickstart guide](https://www.ory.sh/docs/getting-started/ory-network-oauth2) to learn how to set up your
+own OAuth2 and OpenID Connect provider in just a few minutes. The guide walks you through the process of setting up Ory OAuth2 &
+OpenID Connect and configuring a sample application to use the service.
