@@ -4,8 +4,8 @@ title: Cryptographic key management and JSON Web Key Sets (JWKS)
 sidebar_label: Cryptographic key management
 ---
 
-Cryptographic keys play a vital role in securing the transmission of sensitive information. In the context of Ory OAuth2 and
-OpenID Connect, cryptographic keys are used to sign and verify ID tokens and JWT access tokens.
+Cryptographic keys play a vital role in securing the transmission of sensitive information. In the context of Ory OAuth2 & OpenID
+Connect, cryptographic keys are used to sign and verify ID tokens and JWT access tokens.
 
 The two most commonly used cryptographic keys in Ory are RS256 and ES256. RS256 is an asymmetric cryptographic algorithm that
 generates a public key and a private key. The private key is used to sign the token, while the public key is used to verify its
@@ -22,13 +22,6 @@ JSON Web Keys (JWKs) are a JSON data structure that represents a cryptographic k
 
 JWKs are used to represent public and private keys in a standard format that is widely supported across all languages. Here is an
 example of a JWKS with both private and public keys included:
-
-:::note
-
-Interested in playing around with a JWK generator? Try the online [mkjwk](https://mkjwk.org/) generator. **Use online service for
-experimentation only and never for production keys.**
-
-:::
 
 ```
 {
@@ -51,7 +44,16 @@ experimentation only and never for production keys.**
 }
 ```
 
+:::note
+
+If you are interested in experimenting with a JWK generator, try the online [mkjwk](https://mkjwk.org/) generator. **Use the
+online service for experimentation only and never for production keys.**
+
+:::
+
 ### Public key only
+
+Here is an example of a JWKS including only the public key:
 
 ```
 {
@@ -66,7 +68,7 @@ experimentation only and never for production keys.**
 
 ## Default cryptographic keys in Ory
 
-By default, Ory OAuth2 and OpenID Connect generates two cryptographic keys for each Ory Network project: one for ID Tokens and one
+By default, Ory OAuth2 & OpenID Connect generates two cryptographic keys for each Ory Network project: one for ID Tokens and one
 for JWT Access Tokens. The keys are stored securely and encrypted at rest using AES256-GCM and the system secret.
 
 ## How to rotate cryptographic keys
@@ -82,7 +84,7 @@ ory create jwks \
   hydra.openid.id-token
 ```
 
-### Rotate OAuth 2.0 access tokens JWT keys
+### Rotate OAuth 2.0 access token JWT keys
 
 ```
 ory create jwks \
@@ -93,7 +95,7 @@ ory create jwks \
 ## The role of `/.well-known/jwks.json`
 
 The `/.well-known/jwks.json` file is a standard endpoint that contains the public keys for verifying ID tokens and JWT access
-tokens. Ory OAuth2 and OpenID Connect exposes this endpoint by default for each Ory Network project at
+tokens. Ory OAuth2 & OpenID Connect exposes this endpoint by default for each Ory Network project at:
 
 ```
 https://{project.slug}.projects.oryapis.com/.well-known/jwks.json

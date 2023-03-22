@@ -5,15 +5,11 @@ sidebar_label: JWT access tokens
 ---
 
 JSON Web Tokens (JWTs) are a widely used format for representing claims securely between parties. They can be used as access
-tokens, which are used to grant access to protected resources, such as APIs. JWTs consist of three parts: a header, a payload, and
-a signature. The header contains metadata about the token, such as the algorithm used to sign it. The payload contains claims,
-which are statements about an entity (typically, the user) and additional data. The signature is used to verify that the token was
-not tampered with.
+tokens, which are used to grant access to protected resources, such as APIs. JWTs consist of three parts:
 
-|            | opaque tokens | jwt tokens |
-| ---------- | ------------- | ---------- |
-| revokation | immediate     | eventually |
-| latency    | ~50ms         | ~1ms       |
+- **Header:** contains metadata about the token, such as the algorithm used to sign it.
+- **Payload:** contains claims, which are statements about an entity (typically, the user) and additional data.
+- **Signature:** used to verify that the token was not tampered with.
 
 ## Opaque access tokens versus JWT
 
@@ -39,6 +35,11 @@ database. JWTs, on the other hand, have a delay between being marked as invalid 
 problem in some cases. However, it's worth noting that opaque tokens require a network roundtrip to the introspection API to
 validate, which can be slower than validating a JWT.
 
+|            | opaque tokens | jwt tokens |
+| ---------- | ------------- | ---------- |
+| revocation | immediate     | eventually |
+| latency    | ~50ms         | ~1ms       |
+
 ## Refresh tokens are always opaque
 
 Ory uses opaque tokens for refresh tokens. Refresh tokens are used in OAuth 2.0 to obtain new access tokens once the original
@@ -48,7 +49,7 @@ access token has expired. Refresh tokens are always opaque tokens in Ory because
 
 ### Global configuration
 
-To configure Ory OAuth2 to issue JWT access tokens for all clients, you'll need to update the configuration as Ory defaults to
+To configure Ory OAuth2 to issue JWT access tokens for all clients, it is necessary to update the configuration as Ory defaults to
 opaque tokens:
 
 ```shell
@@ -72,8 +73,9 @@ The setting is also available through the Ory Console under the clients' setting
 
 ### Revoking JSON Web Tokens
 
-One limitation of using JSON Web Tokens (JWTs) as access tokens is that they can't be immediately revoked once issued. Instead,
-revoking a JWT requires either waiting for it to expire or using a blacklist or revocation list to mark the token as invalid.
+One limitation of using JSON Web Tokens (JWTs) as access tokens is that they can't be revoked immediately after being issued.
+Instead, revoking a JWT requires either waiting for it to expire or using a blacklist or revocation list to mark the token as
+invalid.
 
 However, there is another option for checking whether a JWT has been revoked: OAuth 2.0 token introspection. Token introspection
 is a feature of OAuth 2.0 that allows a client to query the authorization server to determine the validity and other metadata of
@@ -98,14 +100,14 @@ While JWTs have many benefits as access tokens, there are also some limitations 
 - OAuth 2.0 Access Tokens represent internal state but are public knowledge: An Access Token often contains internal data (such as
   session data) or other sensitive data (such as user roles and permissions) and is sometimes used as a means of transporting
   system-relevant information in a stateless manner. Therefore, making these tokens transparent (by using JSON Web Tokens as
-  Access Tokens) comes with risk of exposing this information, and with the downside of not storing this information in the OAuth
-  2.0 Access Token at all.
+  Access Tokens) comes with the risk of exposing this information, and with the downside of not storing this information in the
+  OAuth 2.0 Access Token at all.
 - JSON Web Tokens can't hold secrets: Unless encrypted, JSON Web Tokens can be read by everyone, including third parties.
-  Therefore, they can't keep secrets. This point is similar to (1), but it's important to stress this.
-- Access Tokens as JSON Web Tokens can't be revoked: You can revoke them, but they will be considered valid until the "expiry" of
-  the token is reached. But you can check Ory's APIs if the token was revoked if required.
-- Certain OpenID Connect features won't work: When using JSON Web Tokens as access tokens, certain OpenID Connect features may not
-  work, such as the pairwise subject identifier algorithm.
+  **Therefore, they can't keep secrets.**
+- Access Tokens as JSON Web Tokens can't be revoked: You can revoke a JWT token, but the token is still considered valid until the
+  token's expiry time is reached. If required, however, you can use the introspection API to check if the token was revoked.
+- Certain OpenID Connect features don't work: When using JSON Web Tokens as access tokens, certain OpenID Connect features might
+  not work, such as the pairwise subject identifier algorithm.
 
 ### JSON Web Token validation
 
@@ -128,7 +130,7 @@ import customClaimTsExample from '!!raw-loader!../../code-examples/sdk/typescrip
 <CodeBlock language="tsx">{customClaimTsExample}</CodeBlock>
 ```
 
-which will result in the following access token:
+Which results in the following access token:
 
 ```json5
 {
@@ -141,12 +143,12 @@ which will result in the following access token:
 }
 ```
 
-If you instead want `some_custom_claim` to be added top-level in the access token, you need to modify the
-`/oauth2/allowed_top_level_claims` configuration:
+If you want `some_custom_claim` to be added to the top level (instead of a nested level) in the access token, you need to modify
+the `/oauth2/allowed_top_level_claims` configuration:
 
 :::note
 
-Required JWT claims can not be overwritten by custom claims.
+Required JWT claims cannot be overwritten by custom claims.
 
 :::
 
@@ -155,7 +157,7 @@ ory patch oauth2-config {project.id} \
   --replace "/oauth2/allowed_top_level_claims=[\"some_custom_claim\"]"
 ```
 
-which results in an access token with the following structure:
+Which results in an access token with the following structure:
 
 ```json
 {
