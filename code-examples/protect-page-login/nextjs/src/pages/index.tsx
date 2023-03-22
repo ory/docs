@@ -5,6 +5,7 @@ import styles from "@/styles/Home.module.css"
 // highlight-start
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
+
 import { Configuration, FrontendApi, Session, Identity } from "@ory/client"
 import { edgeConfig } from "@ory/integrations/next"
 

@@ -16,7 +16,7 @@ import webm from '../_static/nextjs/screencast.webm'
 />
 ```
 
-## Create Next.js app
+## Next.js 13
 
 First we create a new Next.js project:
 
@@ -25,7 +25,7 @@ npx create-next-app@latest --typescript
 cd <your-project-directory>
 ```
 
-create-next Settings used in this tutorial:
+`create-next-app` Settings used in this tutorial:
 
 ```
 ✔ Would you like to use ESLint with this project? … Yes
@@ -34,7 +34,7 @@ create-next Settings used in this tutorial:
 ✔ What import alias would you like configured? … @
 ```
 
-## Install Ory
+### Install Ory
 
 Ory provides integration tools that quickly combine Ory with Next.js. Let's install Ory's SDK, used to make API calls to Ory, and
 Ory's Integration Tools for JavaScript frameworks:
@@ -47,7 +47,7 @@ and create a special route in `[...paths].js` at `pages/api/.ory/`.
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
-import apiRoute from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/pages/api/.ory/\[...paths\].ts'
+import apiRoute from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/src/pages/api/.ory/\[...paths\].ts'
 
 <CodeBlock language="tsx">{apiRoute}</CodeBlock>
 ```
@@ -55,25 +55,31 @@ import apiRoute from '!!raw-loader!../../../code-examples/protect-page-login/nex
 This route connects your Next.js app with Ory's APIs and ensures that all cookies and credentials are set up. Without it, your
 Next.js application won't be able to talk to Ory's APIs.
 
-## Require login to access the home page
+:::tip
+
+This route from ory/integrations works in a similar way as ory tunnel, read more about it
+[here](https://www.ory.sh/docs/guides/cli/proxy-and-tunnel). It is only required when developing locally. It can be removed when
+going to production with a custom domain. More details in the "Go to production" section below.
+
+:::
+
+### Require login to access the home page
 
 Next we add a session check to the default home page of the Next.js example application.The highlighted code is what we added to
 check whether the user is signed in, and redirect them to the login page if not:
 
 ```mdx-code-block
-import homePage from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/pages/index.tsx'
+import homePage from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/src/pages/index.tsx'
 
 <CodeBlock language="tsx">{homePage}</CodeBlock>
 ```
 
-## Run your Next.js app
+### Run your Next.js app
 
 Great, that's it. Let's run your application. Set up your environment variables to connect with Ory's APIs
 
-```mdx-code-block
-import SdkEnvVar from '@site/src/components/SdkEnvVar'
-
-<SdkEnvVar />
+```shell-session
+export NEXT_PUBLIC_ORY_SDK_URL="https://<your-ory-project>.projects.oryapis.com"
 ```
 
 and start the Next.js development server:
@@ -87,15 +93,42 @@ sign up and create your first user.
 
 ## Go to production
 
+When upgrading to production, you need to set up a custom domain and configure your Next.js app to use it. Once you have
+configured a custom domain and deployed your application the integrations package is no longer needed:
+
+````diff
+- import { edgeConfig } from "@ory/integrations/next"
+- const ory = new FrontendApi(new Configuration(edgeConfig))
++ const basePath = process.env.NEXT_PUBLIC_ORY_SDK_URL;
+
++ const ory = new FrontendApi(
++   new Configuration({
++     basePath: basePath,
++     baseOptions: {
++       withCredentials: true,
++     },
++   })
++ );
+
+...
+
+- return router.push(edgeConfig.basePath + "/ui/login")
++ return router.push(basePath + "/ui/login");
+
+...
+```
+
+You can now also remove the `pages/api/.ory/` route.
+
 Release your app bundled with Ory to production using:
 
 ```mdx-code-block
 import VercelDeploy from '@site/src/components/VercelDeploy'
 
 <VercelDeploy />
-```
+````
 
-## Next.js 12 tutorial
+## Next.js 12 and below
 
 First we create a new Next.js 12 project:
 
@@ -116,11 +149,18 @@ npm i --save @ory/integrations @ory/client
 and create a special route in `[...paths].js` at `pages/api/.ory/`.
 
 ```mdx-code-block
-import CodeBlock from '@theme/CodeBlock'
-import apiRoute from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/pages/api/.ory/\[...paths\].ts'
+import apiRoute12 from '!!raw-loader!../../../code-examples/protect-page-login/nextjs-12/pages/api/.ory/\[...paths\].ts'
 
-<CodeBlock language="tsx">{apiRoute}</CodeBlock>
+<CodeBlock language="tsx">{apiRoute12}</CodeBlock>
 ```
+
+:::tip
+
+This route from ory/integrations works in a similar way as ory tunnel, read more about it
+[here](https://www.ory.sh/docs/guides/cli/proxy-and-tunnel). It is only required when developing locally. It can be removed when
+going to production with a custom domain. More details in the "Go to production" section above.
+
+:::
 
 This route connects your Next.js app with Ory's APIs and ensures that all cookies and credentials are set up. Without it, your
 Next.js application won't be able to talk to Ory's APIs.
@@ -131,9 +171,9 @@ Next we add a session check to the default home page of the Next.js example appl
 check whether the user is signed in, and redirect them to the login page if not:
 
 ```mdx-code-block
-import homePage from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/pages/index.tsx'
+import homePage12 from '!!raw-loader!../../../code-examples/protect-page-login/nextjs-12/pages/index.tsx'
 
-<CodeBlock language="tsx">{homePage}</CodeBlock>
+<CodeBlock language="tsx">{homePage12}</CodeBlock>
 ```
 
 ### Run your Next.js app
@@ -141,9 +181,9 @@ import homePage from '!!raw-loader!../../../code-examples/protect-page-login/nex
 Great, that's it. Let's run your application. Set up your environment variables to connect with Ory's APIs
 
 ```mdx-code-block
-import SdkEnvVar from '@site/src/components/SdkEnvVar'
+import SdkEnvVar12 from '@site/src/components/SdkEnvVar'
 
-<SdkEnvVar />
+<SdkEnvVar12 />
 ```
 
 and start the Next.js development server:

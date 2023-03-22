@@ -1,10 +1,10 @@
 import Head from "next/head"
 import Image from "next/image"
 import styles from "../styles/Home.module.css"
+// highlight-start
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 
-// highlight-start
 import { Configuration, FrontendApi, Session, Identity } from "@ory/client"
 import { edgeConfig } from "@ory/integrations/next"
 
