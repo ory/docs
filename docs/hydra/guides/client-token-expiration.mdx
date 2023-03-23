@@ -4,8 +4,8 @@ title: Configure token expiration time
 sidebar_label: Configure token expiration
 ---
 
-This guide will help you configure the token expiration time for various tokens in Ory, including the user login and consent flow,
-access tokens, ID tokens, auth codes, and refresh tokens.
+This document describes how to configure the token expiration time for various tokens in Ory, including the user login and consent
+flow, access tokens, ID tokens, auth codes, and refresh tokens.
 
 ## Access token
 
@@ -44,7 +44,7 @@ ory patch oauth2-config {project.id} \
 ## Authorization code
 
 Auth codes are temporary codes that are exchanged for access tokens. By default, the auth code in Ory lasts for ten minutes. For
-example, if you want the auth code to last for five minutes, you can set the config as follows:
+example, if you want the auth code to last for five minutes, set the config as follows:
 
 ```shell
 ory patch oauth2-config {project.id} \
@@ -52,7 +52,7 @@ ory patch oauth2-config {project.id} \
   --format yaml
 ```
 
-## ID Token
+## ID token
 
 ID tokens are JSON Web Tokens (JWTs) that contain user identity information. By default, the ID token in Ory lasts for one hour.
 However, you can modify this value using:
