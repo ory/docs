@@ -58,7 +58,7 @@ receives access requests from the OAuth2 client and verifies the access token pr
 request is authorized. If the access token is valid and authorized, the resource server returns the appropriate resources to the
 client. If the access token is invalid or unauthorized, the resource server returns an error message to the client.
 
-### The authorization server: Ory OAuth2 & OpenID Connect
+### The authorization server: Ory OAuth2 and OpenID Connect
 
 The authorization server is a critical component in OAuth2 flows. It receives requests from the client for access tokens and
 issues them upon successful authentication and consent by the resource owner. The authorization server exposes two endpoints: the
@@ -79,7 +79,7 @@ Scopes are an important concept in OAuth2 as they are used to specify the exact 
 For example, a scope may include read access to a user's email, write access to a user's calendar, or access to a specific set of
 files. The acceptable scope values, and which resources they relate to, are dependent on the resource server.
 
-Ory OAuth2 & OpenID Connect has pre-defined OAuth2 scope values:
+Ory OAuth2 and OpenID Connect has pre-defined OAuth2 scope values:
 
 - `offline_access`: Include this scope if you want to receive a refresh token
 - `openid`: Include this scope if you want to perform OpenID Connect requests.
