@@ -369,7 +369,7 @@ module.exports = {
   ],
   selfhosting: [
     "ecosystem/projects",
-    "self-hosted/examples",
+    "ecosystem/community",
     "ecosystem/roadmap",
     "ecosystem/changelog",
     "ecosystem/versioning",
@@ -378,7 +378,6 @@ module.exports = {
     "ecosystem/upgrading",
     "ecosystem/logging",
     "ecosystem/sqa",
-    "ecosystem/community",
     {
       type: "category",
       label: "Projects",
