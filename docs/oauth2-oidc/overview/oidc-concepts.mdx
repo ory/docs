@@ -119,9 +119,10 @@ resembles the concept of an identity card, in a standard JWT format, signed by t
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL215LWRvbWFpbi5wcm9qZWN0cy5vcnlhcGlzLmNvbSIsInN1YiI6InNvbWUtaWRlbnRpdHktaWQiLCJhdWQiOiJzb21lLWNsaWVudC1pZCIsImV4cCI6MTMxMTI4MTk3MCwiaWF0IjoxMzExMjgwOTcwLCJub25jZSI6Ikt4U3R5MTNiMkwiLCJuYW1lIjoiSmFuZSBEb2UiLCJnaXZlbl9uYW1lIjoiSmFuZSIsImZhbWlseV9uYW1lIjoiRG9lIiwiZW1haWwiOiJqYW5lQGV4YW1wbGUub3JnIiwiZW1haWxfdmVyaWZpZWQiOnRydWV9.50GMfrkHp1GcBdotJK6oirdr_bZUdJ1P5i4NlShOj2M
 ```
 
-The ID token asserts the identity of the user, specifies the issuing authority, and is generated for a particular audience (the client). It may contain a nonce, specify when and how the user was authenticated, and include additional requested details
-about the subject, such as name and email address. The ID token has an issue time and an expiration time, and is digitally signed,
-so it can be verified by the intended recipients.
+The ID token asserts the identity of the user, specifies the issuing authority, and is generated for a particular audience (the
+client). It may contain a nonce, specify when and how the user was authenticated, and include additional requested details about
+the subject, such as name and email address. The ID token has an issue time and an expiration time, and is digitally signed, so it
+can be verified by the intended recipients.
 
 The procedure to receive an ID token is the same as obtaining an access token in a strictly OAuth flow. When the client queries
 the OpenID Provider, the end-user is redirected to an authorization prompt. If the OpenID Provider is compatible with OpenID

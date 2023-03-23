@@ -4,8 +4,8 @@ title: Cryptographic key management and JSON Web Key Sets (JWKS)
 sidebar_label: Cryptographic key management
 ---
 
-Cryptographic keys play a vital role in securing the transmission of sensitive information. In the context of Ory OAuth2 and OpenID
-Connect, cryptographic keys are used to sign and verify ID tokens and JWT access tokens.
+Cryptographic keys play a vital role in securing the transmission of sensitive information. In the context of Ory OAuth2 and
+OpenID Connect, cryptographic keys are used to sign and verify ID tokens and JWT access tokens.
 
 The two most commonly used cryptographic keys in Ory are RS256 and ES256. RS256 is an asymmetric cryptographic algorithm that
 generates a public key and a private key. The private key is used to sign the token, while the public key is used to verify its
@@ -46,7 +46,8 @@ example of a JWKS with both private and public keys included:
 
 :::note
 
-If you are interested in experimenting with a JWK generator, try the [mkjwk](https://mkjwk.org/) generator. Use the service for experimentation only. Don't use it to generate keys for the production environment.
+If you are interested in experimenting with a JWK generator, try the [mkjwk](https://mkjwk.org/) generator. Use the service for
+experimentation only. Don't use it to generate keys for the production environment.
 
 :::
 

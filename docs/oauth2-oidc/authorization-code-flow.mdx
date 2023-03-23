@@ -6,9 +6,9 @@ toc_max_heading_level: 4
 ---
 
 OAuth2 and OpenID Connect are widely used authorization and authentication delegation protocols that enable secure access to APIs
-and web applications.
-This document explains how to obtain ID tokens and refresh tokens, and also discusses various parameters, such as `grant_type`, `redirect_uri`, `prompt`, `scope`, `state`.
-Additionally, this document describes how to perform PKCE on top of the Authorization Code flow.
+and web applications. This document explains how to obtain ID tokens and refresh tokens, and also discusses various parameters,
+such as `grant_type`, `redirect_uri`, `prompt`, `scope`, `state`. Additionally, this document describes how to perform PKCE on top
+of the Authorization Code flow.
 
 The Authorization Code flow is the most secure and widely used OAuth2 flow for web applications. Here is the high-level overview
 of the Authorization Code flow:
@@ -61,9 +61,9 @@ to the Authorization Server with the following parameters:
 - `max_age` (optional): specifies the allowable elapsed time in seconds since the last time the End-User was actively
   authenticated by Ory OAuth2 and OpenID Connect. If the elapsed time is greater than this value, the Login HTML Form must be
   shown and the End-User must re-authenticate.
-- `id_token_hint` (optional): ID Token previously issued by Ory OAuth2 and OpenID Connect being passed as a hint about the
-  user's current or past authenticated session with the Client. If the user identified by the ID Token is logged in or is
-  logged in by the request, then the Authorization Server returns a positive response; otherwise, it returns an error, typically
+- `id_token_hint` (optional): ID Token previously issued by Ory OAuth2 and OpenID Connect being passed as a hint about the user's
+  current or past authenticated session with the Client. If the user identified by the ID Token is logged in or is logged in by
+  the request, then the Authorization Server returns a positive response; otherwise, it returns an error, typically
   `login_required`. It does not matter if the ID Token is expired or not.
 
 ### Step 2: Redirect to the Authorization Server
