@@ -1,6 +1,6 @@
 ---
 id: deployment
-title: Deployment fundamentals and requirements
+title: Database
 ---
 
 ## Integrates with Kubernetes
@@ -130,11 +130,3 @@ Additionally, the following DSN parameters are supported:
 
 To set such a parameter, append it to the DSN query, for example:
 `cockroach://user:password@host:123/database?sslmode=verify-full`
-
-## Prometheus
-
-Ory technology exposes an endpoint for snapshot Prometheus data. This endpoint is usually found at the administrative port for Ory
-Kratos, Ory Hydra under the `/metrics/prometheus` path. If you run the default configuration, it will be exposed at:
-
-- Ory Hydra: `http://<host>:4445/metrics/prometheus`
-- Ory Kratos: `http://<host>:4434/metrics/prometheus`
