@@ -23,8 +23,8 @@ applications, and services.
 ### Certified OpenID Connect implementation
 
 Ory OAuth2 and OpenID Connect is a [Certified OpenID Connect Implementation](https://openid.net/developers/certified/) that meets
-all requirements set by the OpenID Foundation. You can trust Ory OAuth2 and OpenID Connect to meet the highest standards of security
-and reliability.
+all requirements set by the OpenID Foundation. You can trust Ory OAuth2 and OpenID Connect to meet the highest standards of
+security and reliability.
 
 ### Flexible user management
 
@@ -52,8 +52,8 @@ industry best practices.
 
 ### Cryptographic key storage
 
-In addition to OAuth2 functionality, Ory OAuth2 and OpenID Connect offers safe storage for cryptographic keys that can be used, for
-example, to sign JSON Web Tokens.
+In addition to OAuth2 functionality, Ory OAuth2 and OpenID Connect offers safe storage for cryptographic keys that can be used,
+for example, to sign JSON Web Tokens.
 
 ## Benefits
 
@@ -64,10 +64,10 @@ applications, and services. With Ory OAuth2 and OpenID Connect, you can:
   and OpenID Connect provider that meets all industry standards and covers a wide range of use cases.
 - **Ensure regulatory compliance:** Ory OAuth2 and OpenID Connect is designed to comply with the latest security standards and
   regulatory requirements, making it easy to meet your compliance needs.
-- **Improve user experience:** With support for SSO and mobile authentication, Ory OAuth2 and OpenID Connect makes it easy for users
-  to access your applications securely and quickly.
-- **Scale with ease:** Ory OAuth2 and OpenID Connect is built on a cloud-native architecture that makes it easy to deploy and scale
-  the service to meet your needs, whether you're serving thousands or millions of users.
+- **Improve user experience:** With support for SSO and mobile authentication, Ory OAuth2 and OpenID Connect makes it easy for
+  users to access your applications securely and quickly.
+- **Scale with ease:** Ory OAuth2 and OpenID Connect is built on a cloud-native architecture that makes it easy to deploy and
+  scale the service to meet your needs, whether you're serving thousands or millions of users.
 - **Minimize security risks:** Ory OAuth2 and OpenID Connect's security-first architecture and cryptographic key storage help
   minimize security risks, ensuring that your users and data are protected from unauthorized access and malicious attacks.
 
