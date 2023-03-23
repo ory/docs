@@ -26,77 +26,6 @@ import webm from '../_static/nextjs/screencast.webm'
     {label: 'Next.js 13', value: '13'},
     {label: 'Next.js 12', value: '12'}
   ]}>
-  <TabItem value="12">
-
-## Create Next.js app
-
-First we create a new Next.js project:
-
-```shell-session
-npx create-next-app@12.1 --typescript
-cd <your-project-directory>
-```
-
-### Install Ory
-
-Ory provides integration tools that quickly combine Ory with Next.js. Let's install Ory's SDK, used to make API calls to Ory, and
-Ory's Integration Tools for JavaScript frameworks:
-
-```shell-session
-npm i --save @ory/integrations @ory/client
-```
-
-and create a special route in `[...paths].js` at `pages/api/.ory/`.
-
-```mdx-code-block
-import apiRoute12 from '!!raw-loader!../../../code-examples/protect-page-login/nextjs-12/pages/api/.ory/\[...paths\].ts'
-
-<CodeBlock language="tsx">{apiRoute12}</CodeBlock>
-```
-
-:::tip
-
-This route from ory/integrations works in a similar way as ory tunnel, read more about it
-[here](https://www.ory.sh/docs/guides/cli/proxy-and-tunnel). It is only required when developing locally. It can be removed when
-going to production with a custom domain. More details in the "Go to production" section above.
-
-:::
-
-This route connects your Next.js app with Ory's APIs and ensures that all cookies and credentials are set up. Without it, your
-Next.js application won't be able to talk to Ory's APIs.
-
-### Require login to access the home page
-
-Next we add a session check to the default home page of the Next.js example application.The highlighted code is what we added to
-check whether the user is signed in, and redirect them to the login page if not:
-
-```mdx-code-block
-import homePage12 from '!!raw-loader!../../../code-examples/protect-page-login/nextjs-12/pages/index.tsx'
-
-<CodeBlock language="tsx">{homePage12}</CodeBlock>
-```
-
-### Run your Next.js app
-
-Great, that's it. Let's run your application. Set up your environment variables to connect with Ory's APIs
-
-```mdx-code-block
-import SdkEnvVar12 from '@site/src/components/SdkEnvVar'
-
-<SdkEnvVar12 />
-```
-
-and start the Next.js development server:
-
-```shell-session
-npm run dev
-```
-
-Then open [http://localhost:3000](http://localhost:3000) in your browser. are presented with Ory's Sign In page. Let's click on
-sign up and create your first user.
-
-  </TabItem>
-
 <TabItem value="13">
 
 ## Create Next.js app
@@ -175,6 +104,78 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser. are pr
 sign up and create your first user.
 
   </TabItem>
+
+  <TabItem value="12">
+
+## Create Next.js app
+
+First we create a new Next.js project:
+
+```shell-session
+npx create-next-app@12.1 --typescript
+cd <your-project-directory>
+```
+
+### Install Ory
+
+Ory provides integration tools that quickly combine Ory with Next.js. Let's install Ory's SDK, used to make API calls to Ory, and
+Ory's Integration Tools for JavaScript frameworks:
+
+```shell-session
+npm i --save @ory/integrations @ory/client
+```
+
+and create a special route in `[...paths].js` at `pages/api/.ory/`.
+
+```mdx-code-block
+import apiRoute12 from '!!raw-loader!../../../code-examples/protect-page-login/nextjs-12/pages/api/.ory/\[...paths\].ts'
+
+<CodeBlock language="tsx">{apiRoute12}</CodeBlock>
+```
+
+:::tip
+
+This route from ory/integrations works in a similar way as ory tunnel, read more about it
+[here](https://www.ory.sh/docs/guides/cli/proxy-and-tunnel). It is only required when developing locally. It can be removed when
+going to production with a custom domain. More details in the "Go to production" section above.
+
+:::
+
+This route connects your Next.js app with Ory's APIs and ensures that all cookies and credentials are set up. Without it, your
+Next.js application won't be able to talk to Ory's APIs.
+
+### Require login to access the home page
+
+Next we add a session check to the default home page of the Next.js example application.The highlighted code is what we added to
+check whether the user is signed in, and redirect them to the login page if not:
+
+```mdx-code-block
+import homePage12 from '!!raw-loader!../../../code-examples/protect-page-login/nextjs-12/pages/index.tsx'
+
+<CodeBlock language="tsx">{homePage12}</CodeBlock>
+```
+
+### Run your Next.js app
+
+Great, that's it. Let's run your application. Set up your environment variables to connect with Ory's APIs
+
+```mdx-code-block
+import SdkEnvVar12 from '@site/src/components/SdkEnvVar'
+
+<SdkEnvVar12 />
+```
+
+and start the Next.js development server:
+
+```shell-session
+npm run dev
+```
+
+Then open [http://localhost:3000](http://localhost:3000) in your browser. are presented with Ory's Sign In page. Let's click on
+sign up and create your first user.
+
+  </TabItem>
+
 </Tabs>
 
 ## Go to production
