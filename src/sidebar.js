@@ -401,6 +401,7 @@ module.exports = {
     "ecosystem/upgrading",
     "ecosystem/sqa",
     "ecosystem/changelog",
+    "ecosystem/benchmark",
     {
       type: "category",
       label: "Ory Kratos",
@@ -523,7 +524,7 @@ module.exports = {
             },
           ],
         },
-        "hydra/benchmark",
+        "ecosystem/benchmark",
         "hydra/case-study",
         "hydra/faq",
       ],
