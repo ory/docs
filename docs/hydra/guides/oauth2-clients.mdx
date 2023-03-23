@@ -142,7 +142,7 @@ To delete an existing OAuth2 client, use the following methods:
 1. Sign in to Ory Console and select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth).
 2. Locate the client you want to update.
 3. Click on **pen symbol** to update the client's configuration.
-3. Scroll to the bottom and click **delete client**.
+3. Scroll to the bottom and click **Delete Client**.
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
@@ -169,11 +169,11 @@ See [API documentation](../../reference/api#tag/oAuth2/operation/deleteOAuth2Cli
 </Tabs>
 ````
 
-## OpenID dynamic client registration
+## OpenID Dynamic Client Registration
 
 OpenID Dynamic Client Registration enables automatic registration of OAuth2 clients with the authorization server. When enabled,
 clients can be created, retrieved, updated, patched, and deleted dynamically without manual configuration. To enable OpenID
-dynamic client registration, use the Ory CLI:
+Dynamic Client Registration, use the Ory CLI:
 
 ```shell
 ory patch oauth2-config {project.id}

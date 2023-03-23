@@ -62,7 +62,7 @@ to the Authorization Server with the following parameters:
   authenticated by Ory OAuth2 and OpenID Connect. If the elapsed time is greater than this value, the Login HTML Form must be
   shown and the End-User must re-authenticate.
 - `id_token_hint` (optional): ID Token previously issued by Ory OAuth2 and OpenID Connect being passed as a hint about the
-  End-User's current or past authenticated session with the Client. If the End-User identified by the ID Token is logged in or is
+  user's current or past authenticated session with the Client. If the user identified by the ID Token is logged in or is
   logged in by the request, then the Authorization Server returns a positive response; otherwise, it returns an error, typically
   `login_required`. It does not matter if the ID Token is expired or not.
 

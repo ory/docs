@@ -49,7 +49,7 @@ access token has expired. Refresh tokens are always opaque tokens in Ory because
 
 ### Global configuration
 
-To configure Ory OAuth2 to issue JWT access tokens for all clients, it is necessary to update the configuration as Ory defaults to
+To configure Ory OAuth2 to issue JWT access tokens for all clients, you must update the configuration as Ory defaults to
 opaque tokens:
 
 ```shell
@@ -103,7 +103,6 @@ While JWTs have many benefits as access tokens, there are also some limitations 
   Access Tokens) comes with the risk of exposing this information, and with the downside of not storing this information in the
   OAuth 2.0 Access Token at all.
 - JSON Web Tokens can't hold secrets: Unless encrypted, JSON Web Tokens can be read by everyone, including third parties.
-  **Therefore, they can't keep secrets.**
 - Access Tokens as JSON Web Tokens can't be revoked: You can revoke a JWT token, but the token is still considered valid until the
   token's expiry time is reached. If required, however, you can use the introspection API to check if the token was revoked.
 - Certain OpenID Connect features don't work: When using JSON Web Tokens as access tokens, certain OpenID Connect features might
@@ -148,7 +147,7 @@ the `/oauth2/allowed_top_level_claims` configuration:
 
 :::note
 
-Required JWT claims cannot be overwritten by custom claims.
+Required JWT claims can't be overwritten by custom claims.
 
 :::
 
