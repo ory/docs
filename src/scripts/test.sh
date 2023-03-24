@@ -14,10 +14,15 @@ npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,3009,4002,4003,4004,4005
 
 # Apps which are protected by a proxy we run on ports 40xx
 
-## NextJS example ##
+## NextJS-12 example ##
 ## proxy and app run on port 3001
-cd code-examples/protect-page-login/nextjs && \
+cd code-examples/protect-page-login/nextjs-12 && \
   npm run start -- --port=3001 &
+
+## NextJS-13 example ##
+## proxy and app run on port 3008
+cd code-examples/protect-page-login/nextjs && \
+  npm run start -- --port=3008 &
 
 ## ExpressJs example ##
 ## proxy runs on 3002
@@ -80,6 +85,7 @@ npx wait-on -v -t 300000 \
   tcp:127.0.0.1:3005 \
   tcp:127.0.0.1:3006 \
   tcp:127.0.0.1:3007 \
+  tcp:127.0.0.1:3008 \
   tcp:127.0.0.1:3009 \
   tcp:127.0.0.1:4002 \
   tcp:127.0.0.1:4003 \
