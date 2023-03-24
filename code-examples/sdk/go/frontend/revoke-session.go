@@ -1,7 +1,4 @@
-// Copyright © 2022 Ory Corp
-// SPDX-License-Identifier: Apache-2.0
-
-package main
+package frontend
 
 import (
 	"context"
@@ -10,8 +7,6 @@ import (
 
 	"github.com/ory/client-go"
 )
-
-var ory *client.APIClient
 
 func init() {
 	cfg := client.NewConfiguration()
@@ -22,15 +17,15 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func Logout(ctx context.Context, sessionToken string) error {
+func RevokeSession(ctx context.Context, sessionToken string, sessionToRevokeId string) error {
 	// highlight-start
-	_, err := ory.FrontendApi.PerformNativeLogout(ctx).
-		PerformNativeLogoutBody(*client.NewPerformNativeLogoutBody(sessionToken)).
+	_, err := ory.FrontendApi.DisableMySession(ctx, sessionToRevokeId).
+		XSessionToken(sessionToken).
 		Execute()
 	if err != nil {
+		// error revoking the session, for example due to expired token provided
 		return err
 	}
-	// Logout was successful
 	// highlight-end
 
 	return nil

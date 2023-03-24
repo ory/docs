@@ -1,4 +1,4 @@
-package main
+package frontend
 
 import (
 	"context"
@@ -7,8 +7,6 @@ import (
 
 	"github.com/ory/client-go"
 )
-
-var ory *client.APIClient
 
 func init() {
 	cfg := client.NewConfiguration()
@@ -19,9 +17,9 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func CreateLogin(ctx context.Context) (*client.LoginFlow, error) {
+func CreateRecovery(ctx context.Context) (*client.RecoveryFlow, error) {
 	// highlight-start
-	flow, _, err := ory.FrontendApi.CreateNativeLoginFlow(ctx).Execute()
+	flow, _, err := ory.FrontendApi.CreateNativeRecoveryFlow(ctx).Execute()
 	if err != nil {
 		return nil, err
 	}

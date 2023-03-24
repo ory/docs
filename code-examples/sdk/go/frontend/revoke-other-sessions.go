@@ -1,4 +1,4 @@
-package main
+package frontend
 
 import (
 	"context"
@@ -7,8 +7,6 @@ import (
 
 	"github.com/ory/client-go"
 )
-
-var ory *client.APIClient
 
 func init() {
 	cfg := client.NewConfiguration()
@@ -19,13 +17,16 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func GetVerification(ctx context.Context, flowId string) (*client.VerificationFlow, error) {
+func RevokeOtherSessions(ctx context.Context, sessionToken string) (*client.DeleteMySessionsCount, error) {
 	// highlight-start
-	flow, _, err := ory.FrontendApi.GetVerificationFlow(ctx).Id(flowId).Execute()
+	revokedSessionsCount, _, err := ory.FrontendApi.DisableMyOtherSessions(ctx).
+		XSessionToken(sessionToken).
+		Execute()
 	if err != nil {
+		// error revoking the sessions, for example due to expired token provided
 		return nil, err
 	}
-
-	return flow, nil
 	// highlight-end
+
+	return revokedSessionsCount, nil
 }

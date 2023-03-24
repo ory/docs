@@ -1,10 +1,11 @@
-package main
+package frontend
 
 import (
 	"context"
 	"fmt"
-	"github.com/ory/client-go"
 	"os"
+
+	"github.com/ory/client-go"
 )
 
 func init() {
@@ -16,16 +17,16 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func RevokeOtherSessions(ctx context.Context, sessionToken string) (*client.DeleteMySessionsCount, error) {
+func CheckSession(ctx context.Context, sessionToken string) (session *client.Session, err error) {
 	// highlight-start
-	revokedSessionsCount, _, err := ory.FrontendApi.DisableMyOtherSessions(ctx).
+	session, _, err = ory.FrontendApi.ToSession(ctx).
 		XSessionToken(sessionToken).
 		Execute()
+	// highlight-end
 	if err != nil {
-		// error revoking the sessions, for example due to expired token provided
+		// error revoking the session, for example due to expired token provided
 		return nil, err
 	}
-	// highlight-end
 
-	return revokedSessionsCount, nil
+	return session, nil
 }

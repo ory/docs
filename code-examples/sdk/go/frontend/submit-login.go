@@ -1,4 +1,4 @@
-package main
+package frontend
 
 import (
 	"context"
@@ -7,8 +7,6 @@ import (
 
 	"github.com/ory/client-go"
 )
-
-var ory *client.APIClient
 
 func init() {
 	cfg := client.NewConfiguration()
@@ -19,9 +17,9 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func SubmitRegistration(ctx context.Context, flowId string, body client.UpdateRegistrationFlowBody) (*client.SuccessfulNativeRegistration, error) {
-	// highlight-start
-	flow, _, err := ory.FrontendApi.UpdateRegistrationFlow(ctx).Flow(flowId).UpdateRegistrationFlowBody(body).Execute()
+func SubmitLogin(ctx context.Context, flowId string, body client.UpdateLoginFlowBody) (*client.SuccessfulNativeLogin, error) {
+	//highlight-start
+	flow, _, err := ory.FrontendApi.UpdateLoginFlow(ctx).Flow(flowId).UpdateLoginFlowBody(body).Execute()
 	if err != nil {
 		return nil, err
 	}
