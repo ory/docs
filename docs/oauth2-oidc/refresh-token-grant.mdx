@@ -8,8 +8,8 @@ In OAuth2 and OpenID Connect (OIDC) protocols, access tokens and ID tokens have 
 user needs to obtain a new token to continue accessing the protected resource. The process of obtaining a new token is called
 token refresh.
 
-In this article, we will explain how to refresh OAuth2 and OIDC tokens with Ory. We will cover the refresh token, the requirements
-for obtaining a refresh token, the refresh token flow, refreshing access and ID tokens, refresh token rotation, and security
+In this document, we explain how to refresh OAuth2 and OIDC tokens with Ory. We cover the refresh token, the requirements for
+obtaining a refresh token, the refresh token flow, refreshing access and ID tokens, refresh token rotation, and security
 protections.
 
 :::info
@@ -28,7 +28,7 @@ token expires.
 
 ## Refresh token flow
 
-Here's a Mermaid diagram that shows the refresh token flow:
+Here's a sequence diagram that shows the refresh token flow:
 
 ```mdx-code-block
 import Mermaid from "@site/src/theme/Mermaid";
@@ -147,7 +147,7 @@ ory patch oauth2-config {project.id} \
 When using a custom UI for the consent screen, it's essential to include the `offline_access` scope in the list of `grant_scope`
 for a refresh token to be returned.
 
-Here's an example of how to include the `offline_access` scope in the list of grant_scope when using a custom UI for the consent
+Here's an example of how to include the `offline_access` scope in the list of `grant_scope` when using a custom UI for the consent
 screen:
 
 ```mdx-code-block

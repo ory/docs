@@ -23,13 +23,6 @@ JSON Web Keys (JWKs) are a JSON data structure that represents a cryptographic k
 JWKs are used to represent public and private keys in a standard format that is widely supported across all languages. Here is an
 example of a JWKS with both private and public keys included:
 
-:::note
-
-Interested in playing around with a JWK generator? Try the online [mkjwk](https://mkjwk.org/) generator. **Use online service for
-experimentation only and never for production keys.**
-
-:::
-
 ```
 {
     "keys": [
@@ -51,7 +44,16 @@ experimentation only and never for production keys.**
 }
 ```
 
+:::note
+
+If you are interested in experimenting with a JWK generator, try the [mkjwk](https://mkjwk.org/) generator. Use the service for
+experimentation only. Don't use it to generate keys for the production environment.
+
+:::
+
 ### Public key only
+
+Here is an example of a JWKS including only the public key:
 
 ```
 {
@@ -82,7 +84,7 @@ ory create jwks \
   hydra.openid.id-token
 ```
 
-### Rotate OAuth 2.0 access tokens JWT keys
+### Rotate OAuth 2.0 access token JWT keys
 
 ```
 ory create jwks \
@@ -93,7 +95,7 @@ ory create jwks \
 ## The role of `/.well-known/jwks.json`
 
 The `/.well-known/jwks.json` file is a standard endpoint that contains the public keys for verifying ID tokens and JWT access
-tokens. Ory OAuth2 and OpenID Connect exposes this endpoint by default for each Ory Network project at
+tokens. Ory OAuth2 and OpenID Connect exposes this endpoint by default for each Ory Network project at:
 
 ```
 https://{project.slug}.projects.oryapis.com/.well-known/jwks.json
