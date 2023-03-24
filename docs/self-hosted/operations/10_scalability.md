@@ -17,7 +17,7 @@ Ory Kratos processes emails by storing them in an email queue on your database a
 queue. To avoid processing the same email multiple times, only one instance of this mail courier should be run at one time. For
 simple single-instance Ory Kratos deployments, the courier can simply be run as a background worker, but for multi-instance Ory
 Kratos deployments, it needs to be run a distinct singleton foreground worker. For setup details, visit to the
-[**Out of Band Communication guide**](../self-hosted/mail-courier-selfhosted).
+[**Out of Band Communication guide**](../../kratos/self-hosted/mail-courier-selfhosted).
 
 Ory Kratos doesn't have any special requirements when it comes to high availability as it doesn't manage state itself but instead
 relies on the SQL database for that.

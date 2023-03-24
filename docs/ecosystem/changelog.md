@@ -9,9 +9,6 @@ title: Changelog and Roadmap
 > announcing important software updates via the [Ory Security Newsletter](http://eepurl.com/di390P). Never miss an update and
 > **[sign up now to important release updates!](http://eepurl.com/di390P)**
 
-All parts of the Ory ecosystem are actively developing. You can get an overview of what's coming in our [roadmap](./roadmap.md)
-and what is already built in the release notes:
-
 :::warning
 
 Changelogs contain important information about the changes and breaking changes introduced in the code. Please read the relevant
@@ -30,9 +27,8 @@ project's changelog before you [upgrade](./upgrading.md) to a new version.
 
 ## Roadmap
 
-Ory is actively being developed. The [maturity of our software](versioning.md) varies from product to product. If you are
-interested in a particular project, it's best to check out the [open issues & pull requests ](#milestones-issues-pull-requests)
-for that project.
+Ory is actively being developed. If you are interested in a particular project, it's best to check out the
+[open issues & pull requests ](#milestones-issues-pull-requests) for that project.
 
 Please note that our roadmap is **subject to change**. This means that development is considering feedback both from the Open
 Source community as well as The Ory Network users.
