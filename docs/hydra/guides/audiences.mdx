@@ -4,18 +4,20 @@ title: OAuth2 token audience
 sidebar_label: Token audience
 ---
 
-In the context of OAuth 2.0 and OpenID Connect, there are two types of audience concepts that developers should be aware of.
+There are two types of audience concepts in OAuth 2.0 and OpenID Connect:
 
 - **OAuth 2.0 access token audience:** OAuth 2.0 access tokens are "internal-facing". In other words, the `aud` claim of an OAuth
   2.0 access token defines the endpoints at which the token can be used.
-- **OpenID Connect ID token audience:** On the other hand, the OpenID Connect ID Token is "external-facing". The aud claim of an
-  OpenID Connect ID Token defines which clients should accept it.
+- **OpenID Connect ID token audience:** OpenID Connect ID tokens are "external-facing". The `aud` claim of an OpenID Connect ID
+  Token defines which clients should accept it.
 
 ## Add audiences to the client allow list
 
 To specify the intended audiences for an OAuth 2.0 access token, the OAuth 2.0 client needs to proactively define the audiences it
 needs access to when creating or updating the client. This can be done by including the audience parameter in the client's
-metadata. The audience parameter should contain a list of case-sensitive URLs, and URLs must not contain whitespaces.
+metadata.
+
+The `audience` parameter is a list of case-sensitive URLs. The URLs can't contain whitespaces.
 
 ```json5
 {
@@ -29,22 +31,22 @@ metadata. The audience parameter should contain a list of case-sensitive URLs, a
 If you're a developer looking to manage OAuth2 clients, you can find more information in the
 [Manage OAuth2 Clients document](./oauth2-clients.mdx).
 
-## Audience in Authorization Code, Implicit, and Hybrid Flows
+## Audience in Authorization Code, Implicit, and hybrid flows
 
-When performing an OAuth 2.0 authorization code, implicit, or hybrid flow, developers can request audiences at the `/oauth2/auth`
-endpoint using the `audience` query parameter. For example,
+When performing an OAuth 2.0 Authorization Code Grant, Implicit Grant, or hybrid flow, developers can request audiences at the
+`/oauth2/auth` endpoint using the `audience` query parameter:
 
-```
+```text
 https://{project.slug}.projects.oryapis.com/oauth2/auth
   ?client_id=...
   &scope=...
   &audience=https://api.my-cloud.com/user+https://some-tenant.my-cloud.com/
 ```
 
-The audience query parameter may contain multiple strings separated by a URL-encoded space (`+` or `%20`). The audience values
-themselves must also be URL-encoded.
+The `audience` query parameter can contain multiple strings separated by a URL-encoded space (`+` or `%20`). The audience values
+must also be URL-encoded.
 
-The values will be validated against the allowed audiences defined in the OAuth 2.0 client. For instance, if an OAuth 2.0 client
+The values are validated against the allowed audiences defined in the OAuth 2.0 client. For instance, if an OAuth 2.0 client
 allows the audience `https://api.my-cloud/user`, it can request audience values like `https://api.my-cloud/user` or
 `https://api.my-cloud/user/1234`, but not `https://api.my-cloud/not-user` or `https://something-else/`.
 
@@ -59,7 +61,7 @@ import tsExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/oa
 <CodeBlock language="tsx">{tsExample}</CodeBlock>
 ```
 
-When introspecting the OAuth 2.0 Access Token, the response payload will include the audience. For instance,
+When introspecting the OAuth 2.0 Access Token, the response payload includes the audience:
 
 ```mdx-code-block
 import audExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/token-introspect-audience.ts'
@@ -69,6 +71,6 @@ import audExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/o
 
 ## Audiences in Client Credentials Grant
 
-When performing the client credentials grant, the audience parameter from the POST body of the /oauth2/token is decoded and
-validated according to the same rules of the previous section, except for the login and consent part which does not exist for this
-flow.
+When performing the Client Credentials Grant, the `audience` parameter from the POST body of the `/oauth2/token` request is
+decoded and validated according to the rules described in the previous section, excluding login and consent, which are not a part
+of this flow.

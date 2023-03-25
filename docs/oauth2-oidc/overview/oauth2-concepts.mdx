@@ -6,10 +6,10 @@ sidebar_label: OAuth2
 
 # OAuth2 fundamentals
 
-OAuth2 is an authorization framework that enables applications to access user accounts on an HTTP service. This document provides
-an overview of OAuth 2 roles, grant types, use cases, and flows, geared towards application developers. OAuth2 provides access to
-resources hosted by other web apps on behalf of a user, without sharing the user's credentials. The specification also covers
-delegated access to client types such as browser-based, server-side web, native/mobile apps, and connected devices.
+OAuth2 is an authorization framework that enables applications to access user accounts on an HTTP service. This document describes
+OAuth 2 roles, grant types, use cases, and flows, geared towards application developers. OAuth2 provides access to resources
+hosted by other web apps on behalf of a user, without sharing the user's credentials. The specification also covers delegated
+access to client types such as browser-based, server-side web, native/mobile apps, and connected devices.
 
 ## OAuth2 actors
 
@@ -58,7 +58,7 @@ receives access requests from the OAuth2 client and verifies the access token pr
 request is authorized. If the access token is valid and authorized, the resource server returns the appropriate resources to the
 client. If the access token is invalid or unauthorized, the resource server returns an error message to the client.
 
-### The authorization server: Ory OAuth2 & OpenID Connect
+### The authorization server: Ory OAuth2 and OpenID Connect
 
 The authorization server is a critical component in OAuth2 flows. It receives requests from the client for access tokens and
 issues them upon successful authentication and consent by the resource owner. The authorization server exposes two endpoints: the
@@ -79,7 +79,7 @@ Scopes are an important concept in OAuth2 as they are used to specify the exact 
 For example, a scope may include read access to a user's email, write access to a user's calendar, or access to a specific set of
 files. The acceptable scope values, and which resources they relate to, are dependent on the resource server.
 
-Ory OAuth2 & OpenID Connect has pre-defined OAuth2 scope values:
+Ory OAuth2 and OpenID Connect has pre-defined OAuth2 scope values:
 
 - `offline_access`: Include this scope if you want to receive a refresh token
 - `openid`: Include this scope if you want to perform OpenID Connect requests.
@@ -87,9 +87,9 @@ Ory OAuth2 & OpenID Connect has pre-defined OAuth2 scope values:
 ### Scopes vs permissions
 
 What's the difference between scopes and permissions? Scopes define what the client is authorized to access in the name of the
-user. Permissions (think RBAC, ACL) define what the user themselves are allowed to do. By using scopes, users can control the
-level of access that clients have to protected resources. Permissions ensure user has access to "their" resources only, not the
-resources of other users.
+user. Permissions (RBAC, ACL) define what the user themselves are allowed to do. By using scopes, users can control the level of
+access that clients have to protected resources. Permissions ensure a user has access to their resources only, not the resources
+of other users.
 
 ## OAuth2 access token audience
 
@@ -108,12 +108,15 @@ audience without user interaction.
 Creating an OAuth2 client is a necessary step to enable your application to use OAuth2 flows. Before using OAuth with your
 application, you must register your application with the service you plan to integrate with. This is done through a registration
 form in the developer or API portion of the service's website, where you provide the following information about your application:
-application name, application website, and a redirect URI or callback URL.
+
+- Application name
+- Application website
+- Redirect URI or callback URL.
 
 The application name and website are basic pieces of information that identify your application. The redirect URI or callback URL
-is a crucial part of the registration process as it defines where the service will redirect the user after they authorize (or
-deny) your application. The redirect URI is also where your application will handle authorization codes or access tokens, making
-it an important component of the OAuth2 flow.
+is a crucial part of the registration process as it defines where the service redirects the user after the user authorizes (or
+denies) your application. The redirect URI is also where your application handles authorization codes or access tokens, making it
+an important component of the OAuth2 flow.
 
 It is important to ensure that the redirect URI or callback URL is correctly specified during the registration process, as it's a
 critical part of OAuth2 flows. Without a correctly specified redirect URI, OAuth2 flows can't be completed successfully, resulting
@@ -132,9 +135,8 @@ requesting an access token. This parameter is included in the request to the tok
 including `client_secret_basic` (default), `client_secret_post`, and `none`. The value of this parameter can affect how the client
 authenticates itself to the authorization server.
 
-For example, if the value of the `token_endpoint_auth_method` parameter is set to `client_secret_basic`, the client will
-authenticate itself to the authorization server by including the client ID and client secret in the `Authorization` header of the
-request:
+For example, if the value of the `token_endpoint_auth_method` parameter is set to `client_secret_basic`, the client authenticates
+itself to the authorization server by including the client ID and client secret in the `Authorization` header of the request:
 
 ```shell
 POST /oauth2/token
@@ -143,8 +145,8 @@ Content-Type: application/x-www-form-urlencoded
 Authorization: Basic base64(urlencoded(id):urlencoded(secret))
 ```
 
-If the value of the `token_endpoint_auth_method` parameter is set to `client_secret_post`, the client will authenticate itself to
-the authorization server by including the client ID and client Secret in the form body of the request:
+If the value of the `token_endpoint_auth_method` parameter is set to `client_secret_post`, the client authenticates itself to the
+authorization server by including the client ID and client Secret in the form body of the request:
 
 ```shell
 POST /oauth2/token
@@ -169,7 +171,7 @@ client is authenticated using its client ID and client secret. In this flow, the
 authorization server, including its credentials and a request for an access token. If the credentials are verified, the
 authorization server returns an access token to the application, which can then use it to access its own account.
 
-Fore more information, see the [Client Credentials Flow](../client-credentials.mdx).
+For more information, see the [Client Credentials Flow](../client-credentials.mdx).
 
 ### Authorization Code Flow
 
@@ -187,7 +189,7 @@ that the application is requesting, and acceptable scope values are dependent on
 code flow is a redirection-based flow that relies on the user-agent (the user's web browser) and API authorization codes to
 securely handle authentication and consent.
 
-Fore more information, see the [OAuth2 Authorization Code Flow](../authorization-code-flow.mdx).
+For more information, see the [OAuth2 Authorization Code Flow](../authorization-code-flow.mdx).
 
 ## Use case examples
 
@@ -205,7 +207,7 @@ and sent to the authorization endpoint along with the request.
 ### Mobile apps
 
 The [OAuth2 Authorization Code Flow](../authorization-code-flow.mdx) is the recommended flow to use with mobile applications.
-Because mobile apps are considered "public clients," it's highly recommended to use the Authorization Code Flow with the PKCE
+Because mobile apps are considered public clients, it's highly recommended to use the Authorization Code Flow with the PKCE
 extension.
 
 ### Single-page apps
@@ -255,7 +257,7 @@ fetch("https://api.example.com/resource", {
 
 In this example, the access token is included in the `Authorization` header of the GET request sent to the resource server API
 endpoint. The `Bearer` keyword indicates that the token is a bearer token, which is a type of access token that can be used by any
-client to access the protected resources. The resource server will then verify the token and grant or deny access based on the
+client to access the protected resources. The resource server then verifies the token and grant or deny access based on the
 token's validity and the scope of access that was granted.
 
 The resource server needs to ensure that the access token is valid and has not been tampered with or expired before allowing

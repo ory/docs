@@ -1,40 +1,39 @@
 ---
 id: jwt
-title: JSON Web Tokens (JWT) profile for OAuth2
+title: JSON Web Token (JWT) profile for OAuth2
 sidebar_label: JWT profile for OAuth2
 toc_max_heading_level: 4
 ---
 
-JSON Web Tokens (JWT) for OAuth Client Authorization Grants is an extension to OAuth2 framework. It allows a client to send a
-signed JWT token to an OpenID Connect Provider in exchange for an OAuth 2.0 access token.
+JSON Web Token (JWT) for OAuth 2.0 Client Authentication and Authorization Grants is an extension to OAuth2 framework. It allows a
+client to send a signed JWT token to an OpenID Connect Provider in exchange for an OAuth 2.0 access token.
 
-## Usage Scenario
+## Usage scenario
 
-A usage scenario for this feature could be an electric company that needs to receive automatic monthly payments from a customer's
-online bank account. If the electric company and the online bank have a trusted relationship, the electric company can send a
-signed JWT token with the required claims to the OpenID Connect Provider configured for the online bank to request an OAuth 2.0
-access token each month. The electric company can then use the access token to cash the monthly payments from the online bank.
+ELECTRO, an electric company that needs to receive automatic monthly payments from a customer's online bank account uses this
+extension. If the electric company and the online bank have a trusted relationship, ELECTRO can send a signed JWT token with the
+required claims to the OpenID Connect Provider configured for the online bank to request an OAuth 2.0 access token each month.
+ELECTRO can then use the access token to cash the monthly payments from the online bank.
 
 ## Ory JWT profile capabilities
 
-Ory supports both methods described in [RFC 7523](https://www.rfc-editor.org/rfc/rfc7523) for using JWTs as authorization grants
-and client authentication:
+Ory supports both methods for using JWTs as authorization grants and client authentication described in
+[RFC 7523](https://www.rfc-editor.org/rfc/rfc7523):
 
-- Using JWTs as Authorization Grants: Allows exchanging a JSON Web Token for an access token using an established trust
-  relationship.
-- Using JWTs for Client Authentication: Allows OAuth 2.0 client authentication using public/private keys via JSON Web Tokens.
+- Using JWTs as authorization grants allows exchanging JSON Web Tokens for access tokens using an established trust relationship.
+- Using JWTs for client authenticationa allows OAuth 2.0 client authentication using public/private keys via JSON Web Tokens.
 
 ## Using JWTs as Authorization Grants
 
-To use the `urn:ietf:params:oauth:grant-type:jwt-bearer` Authorization Grant, the client must make an OAuth 2.0 Access Token
-Request using the following specific parameter values and encodings:
+To use the `urn:ietf:params:oauth:grant-type:jwt-bearer` Authorization Grant, the client must make an OAuth 2.0 access token
+request using the following specific parameter values and encodings:
 
 - `grant_type` value must be `urn:ietf:params:oauth:grant-type:jwt-bearer`.
 - The `assertion` parameter must contain a single JWT.
 
-The `scope` parameter may also be included to indicate the requested scope:
+You can also add the `scope` parameter to indicate the requested scope:
 
-```
+```curl
 POST /oauth2/token HTTP/1.1
 Host: {project.slug}.projects.oryapis.com
 Content-Type: application/x-www-form-urlencoded
@@ -42,19 +41,19 @@ Content-Type: application/x-www-form-urlencoded
 scope=foo+bar
 &grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
 &assertion=eyJhbGciOiJFUzI1NiIsImtpZCI6IjE2In0.
-eyJpc3Mi[...omitted for brevity...].
-J9l-ZhwP[...omitted for brevity...]
+eyJpc3Mi[...].
+J9l-ZhwP[...]
 ```
 
 ### Establishing a trust relationship
 
-Before using this grant type, a trust relationship must be established in Ory OAuth2 and OpenID Connect. Trust relationships come
-in two flavors:
+Before using this grant type, a trust relationship must be established in Ory OAuth2 and OpenID Connect. There are two types of
+trust relationships:
 
 - Trust relationships restricted to a single subject. This means that the issuer is only allowed to sign JWTs for the trusted
   subject.
-- Trust relationships that allow issuing tokens for any subject. This may be useful for some cases (like implementing a Secure
-  Token Service), but gives the issuer the ability to impersonate any user, so this should only be done if the issuer is as
+- Trust relationships that allow issuing tokens for any subject. While this can be useful to implement a secure token service, it
+  gives the issuer the ability to impersonate any user. As such, this relationship should only be established if the issuer is as
   trusted as your own Ory OAuth2 and OpenID Connect instance.
 
 Restricted trust relationships require registering the issuer, subject, and the public key using the Ory SDK:
@@ -66,25 +65,60 @@ import trustExample from '!!raw-loader!../../../code-examples/sdk/typescript/src
 <CodeBlock language="tsx">{trustExample}</CodeBlock>
 ```
 
+::tip
+
 You can also [delete](../../reference/api#tag/oAuth2/operation/deleteTrustedOAuth2JwtGrantIssuer),
 [get](../../reference/api#tag/oAuth2/operation/getTrustedOAuth2JwtGrantIssuer), and
 [list](../../reference/api#tag/oAuth2/operation/listTrustedOAuth2JwtGrantIssuers) trust relationships.
 
+:::
+
 ### Exchanging JWT assertion for access token
 
-To exchange a JWT for an access token at the OAuth2 token endpoint, you need to make a POST request to the OAuth2 token endpoint
-with the following parameters:
+To exchange a JWT for an access token at the OAuth2 token endpoint, you send a POST request to the OAuth2 token endpoint with the
+following parameters:
 
 - `grant_type`: set to `urn:ietf:params:oauth:grant-type:jwt-bearer`
 - `assertion`: the JWT, which should be passed in the request body or in the `assertion` parameter of the request body.
 
-Here is an example HTTP request to exchange the JWT
+````mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="curl" label="Sample call" default>
+
+This sample request exchanges a JWT for an OAuth2 access token:
+
+:::note
+
+The `scope` parameter is optional.
+
+:::
+
+```curl
+POST /oauth2/token HTTP/1.1
+Host: {project.slug}.projects.oryapis.com
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
+&scope=read
+&assertion=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL215LWlzc3Vlci5jb20iLCJzdWIiOiJhbGljZUBleGFtcGxlLm9yZyIsImF1ZCI6IjcxNDZkZDBiLWYyNDMtNDNiYS04MTVjLTdhMDAyMTZiNDgyMyIsIm5iZiI6MTMwMDgxNTc4MCwiZXhwIjoxMzAwODE5MzgwfQ.Dpn7zYEhaWxi7CLxr1c8Db2zxOJDzpu5QTZgeM6me68aGt7jgpKujunfx2FBhhuKY2oJmIAhXJWXplGH2NnbCGxNzx17Y4CPGJE9jLC2ZxprvV_5Cdmx5GkGcFjpOXsgBSonhmsyKkxYhS3C-mq4u2Tx9Zi494G2EbDH0L2BSuWYi411qm4LrIHQRdiFP9v34VH-5hU005bvrlGJBA9W-Eom4krFYtC4_Zgc7XY2mcChBw0AYz3A1B0_7ui95iDR-33D5tBAGRn6iGgnVBeR1GmZX5y4jz7Nht2lbPQkrCyLsoPxn2ZQPqvbOUKxdgsrhkcs0UGND8GsDwDzISuuAw
+```
+
+</TabItem>
+<TabItem value="jwt" label="JWT used">
+
+This is the JWT used in the sample call:
 
 ```
 eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL215LWlzc3Vlci5jb20iLCJzdWIiOiJhbGljZUBleGFtcGxlLm9yZyIsImF1ZCI6IjcxNDZkZDBiLWYyNDMtNDNiYS04MTVjLTdhMDAyMTZiNDgyMyIsIm5iZiI6MTMwMDgxNTc4MCwiZXhwIjoxMzAwODE5MzgwfQ.Dpn7zYEhaWxi7CLxr1c8Db2zxOJDzpu5QTZgeM6me68aGt7jgpKujunfx2FBhhuKY2oJmIAhXJWXplGH2NnbCGxNzx17Y4CPGJE9jLC2ZxprvV_5Cdmx5GkGcFjpOXsgBSonhmsyKkxYhS3C-mq4u2Tx9Zi494G2EbDH0L2BSuWYi411qm4LrIHQRdiFP9v34VH-5hU005bvrlGJBA9W-Eom4krFYtC4_Zgc7XY2mcChBw0AYz3A1B0_7ui95iDR-33D5tBAGRn6iGgnVBeR1GmZX5y4jz7Nht2lbPQkrCyLsoPxn2ZQPqvbOUKxdgsrhkcs0UGND8GsDwDzISuuAw
 ```
 
-which has the claims
+</TabItem>
+<TabItem value="scopes" label="Scopes in JWT">
+
+The JWT has the following scopes:
 
 ```json5
 {
@@ -96,20 +130,12 @@ which has the claims
 }
 ```
 
-for an OAuth2 Access Token (the `scope` parameter is optional):
-
-```
-POST /oauth2/token HTTP/1.1
-Host: {project.slug}.projects.oryapis.com
-Content-Type: application/x-www-form-urlencoded
-
-grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
-&scope=read
-&assertion=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL215LWlzc3Vlci5jb20iLCJzdWIiOiJhbGljZUBleGFtcGxlLm9yZyIsImF1ZCI6IjcxNDZkZDBiLWYyNDMtNDNiYS04MTVjLTdhMDAyMTZiNDgyMyIsIm5iZiI6MTMwMDgxNTc4MCwiZXhwIjoxMzAwODE5MzgwfQ.Dpn7zYEhaWxi7CLxr1c8Db2zxOJDzpu5QTZgeM6me68aGt7jgpKujunfx2FBhhuKY2oJmIAhXJWXplGH2NnbCGxNzx17Y4CPGJE9jLC2ZxprvV_5Cdmx5GkGcFjpOXsgBSonhmsyKkxYhS3C-mq4u2Tx9Zi494G2EbDH0L2BSuWYi411qm4LrIHQRdiFP9v34VH-5hU005bvrlGJBA9W-Eom4krFYtC4_Zgc7XY2mcChBw0AYz3A1B0_7ui95iDR-33D5tBAGRn6iGgnVBeR1GmZX5y4jz7Nht2lbPQkrCyLsoPxn2ZQPqvbOUKxdgsrhkcs0UGND8GsDwDzISuuAw
-```
+</TabItem>
+</Tabs>
+````
 
 In the example above, the JWT is passed in the `assertion` parameter of the request body. The `grant_type` parameter is set to
-`urn:ietf:params:oauth:grant-type:jwt-bearer` to indicate that we are exchanging a JWT for an access token.
+`urn:ietf:params:oauth:grant-type:jwt-bearer` to indicate the exchange of a JWT for an access token.
 
 The OAuth2 token endpoint will then verify the signature of the JWT and check the claims to ensure that it is valid. If the JWT is
 valid, the OAuth2 token endpoint will issue an access token that can be used to access protected resources:
