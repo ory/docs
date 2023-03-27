@@ -22,6 +22,40 @@ expires after a certain time. Users must input this password before it expires t
 You can enable Time-Based One-Time Password (TOTP) authentication in Ory Identities (Kratos) to allow users to perform 2FA with
 TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.github.io/).
 
+When enabled, users can pair a TOTP app to their account:
+
+:::note
+
+The example screenshot is captured using the Ory Account Experience.
+
+:::
+
+```mdx-code-block
+<BrowserWindow url="https://playground.projects.oryapis.com/ui">
+
+![TOTP linking in Ory Account Experience](../_static/mfa/1.png)
+
+</BrowserWindow>
+```
+
+When attempting to perform actions while having 2FA enabled, users are asked to enter the short code in the Ory Identities UI.
+This proves that they have access to their chosen second factor.
+
+```mdx-code-block
+<BrowserWindow url="https://playground.projects.oryapis.com/ui">
+
+![2FA with Google Authenticator](../_static/mfa/2.png)
+
+</BrowserWindow>
+```
+
+:::info
+
+In this example, the user identifier (email - `alice@example.com`) is used. To learn how to enable this behavior, read
+[Distinguishing identities requesting TOTP](#distinguishing-identities-requesting-totp).
+
+:::
+
 ## Enabling TOTP authentication
 
 ```mdx-code-block
@@ -43,13 +77,13 @@ TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.g
    </BrowserWindow>
    ```
 
-5. After TOTP has been enabled for the Ory Network project, a user can enable TOTP for their own account by signing in and going
-   to the **Authenticator App** section of the **Account Settings** page (see
-   [Pairing a TOTP app with your account](#pairing-a-totp-app-with-your-account)).
-
+5. After TOTP has been enabled for the Ory Network project, each user is responsible for enabling TOTP in their own account by pairing their
+   account with a TOTP app.
+   
    :::note
 
    In the Ory Account Experience, users are **not** automatically prompted to enable TOTP on their account.
+   A user can enable TOTP in their account by signing in and going to the **Authenticator App** section of the **Account Settings** page.
 
    :::
 
@@ -88,13 +122,13 @@ TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.g
    ory update identity-config <project-id> --file identity-config.yaml
    ```
 
-4. After TOTP has been enabled for the Ory Network project, a user can enable TOTP for their own account by signing in and going
-   to the **Authenticator App** section of the **Account Settings** page (see
-   [Pairing a TOTP app with your account](#pairing-a-totp-app-with-your-account)).
-
+4. After TOTP has been enabled for the Ory Network project, each user is responsible for enabling TOTP in their own account by pairing their
+   account with a TOTP app.
+   
    :::note
 
    In the Ory Account Experience, users are **not** automatically prompted to enable TOTP on their account.
+   A user can enable TOTP in their account by signing in and going to the **Authenticator App** section of the **Account Settings** page.
 
    :::
 
@@ -102,72 +136,6 @@ TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.g
 </TabItem>
 </Tabs>
 ```
-
-## Account Experience with TOTP
-
-After TOTP has been enabled in the Ory Network project, users have the ability to manage their own TOTP configuration using
-**Account Settings**.
-
-### Pairing a TOTP app with your account
-
-If TOTP is enabled in the Ory Network project, you can pair a TOTP app with your account, as follows:
-
-1. If you do not already have a TOTP app installed on your mobile phone, install a recommended TOTP app now.
-2. On your desktop machine, sign in to your account in the Ory Account Experience and go to **Account Settings**.
-3. Go to the **Authenticator App** section of account settings to find the QR code for pairing with the TOTP app.
-4. Open the TOTP app on your phone and scan the QR code to create a new account in the TOTP app.
-
-   ```mdx-code-block
-   <BrowserWindow url="https://playground.projects.oryapis.com/ui">
-
-   ![TOTP linking in Ory Account Experience](../_static/mfa/1.png)
-
-   </BrowserWindow>
-   ```
-
-   :::note
-
-   The example screenshot is captured using the Ory Account Experience.
-
-   :::
-
-5. On your phone, tap the new account in the TOTP app to generate a short code.
-6. Enter the short code in the **Verify code** field in your account settings and click **Save**.
-7. Ory Account Experience prompts you to confirm this action by signing in. Sign in to confirm the TOTP pairing.
-
-### Authenticating with TOTP as the second factor
-
-After pairing the TOTP app with your account, Ory Account Experience requires you to provide the TOTP code as a second factor when
-you are signing in. The new sign-in flow works as follows:
-
-1. Initiate sign-in with the Ory Account Experience.
-2. Ory Account Experience prompts you to log in with your first authentication factor (for example, user ID and password).
-3. Ory Account Experience prompts you log in with TOTP as the second factor. Open the TOTP app on your phone, tap the relevant
-   account button to generate a TOTP, enter the code in the **Authentication code** field, and click **Use Authenticator**.
-
-   ```mdx-code-block
-   <BrowserWindow url="https://playground.projects.oryapis.com/ui">
-
-   ![2FA with Google Authenticator](../_static/mfa/2.png)
-
-   </BrowserWindow>
-   ```
-
-   :::info
-
-   In this example, the user identifier (email - `alice@example.com`) is used. To learn how to enable this behavior, read
-   [Distinguishing identities requesting TOTP](#distinguishing-identities-requesting-totp).
-
-   :::
-
-### Disabling the TOTP second factor
-
-You can disable the TOTP second factor on your account at any time, as follows:
-
-1. Sign in to your account in the Ory Account Experience.
-2. Go to **Account Settings** and then go to the **Authenticator App** section.
-3. Click the **Unlink TOTP Authenticator App** button.
-4. On your phone, delete the corresponding account entry in the TOTP app, as this pairing is no longer valid.
 
 ## Custom identity schema
 
