@@ -8,6 +8,10 @@ import (
 	"github.com/ory/client-go"
 )
 
+type oryMiddleware struct {
+	ory *ory.APIClient
+}
+
 func init() {
 	cfg := client.NewConfiguration()
 	cfg.Servers = client.ServerConfigurations{
