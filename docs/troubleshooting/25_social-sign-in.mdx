@@ -51,7 +51,7 @@ Ory does a total of 5 steps when a user registers via Social Sign-in:
 1. Redirect to the social provider
 2. Redirect back to Ory with a `code` query parameter
 3. Ory exchanges the `code` for an access token and retrieves the user information
-4. Ory maps the user information to the [Identity Schema traits](../manage-identities/identity-schema)
+4. Ory maps the user information to the [Identity Schema traits](../kratos/manage-identities/identity-schema)
 5. (optional) Ory redirects back to the registration page with the missing traits filled in
 
 When step 4 fails, Ory will be stuck in a redirect loop as shown below.
