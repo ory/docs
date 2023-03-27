@@ -38,12 +38,25 @@ Lastly, ensure that the custom domain is added to the social provider as an auth
 
 ### Redirect loops after successful registration
 
-If you are redirected back to the registration page with only a `Continue` button, this is likely due to a misconfiguration of the
-social provider. In a Social Sign-in registration flow the social provider redirects back to Ory with a `code` query parameter.
-Ory then exchanges this code for an access token which retrieves the relevant user information. Ory then maps the user information
-retrieved from the social provider to the [Identity Schema traits](../manage-identities/identity-schema). When the triats do not
-match, Ory redirects to the registration flow to allow the user to fill in the missing information, such as name or age.
+There are two cases where Ory will redirect back to the registration page after a successful OIDC flow:
 
-The problem is most likely due to an incorrect Jsonnet configuration. Since the Identity Schema can be customized, Ory relies on
-Jsonnet to map the retrieved information to the Identity Schema traits. Please take a look at
-[Social Sign-in data mapping](../social-signin/data-mapping) for further information.
+1. Some required traits couldn't be mapped from the Social Provider and need manual input from the user, for example a phone
+   number.
+2. The Jsonnet configuration for the Social Provider is incorrect and cannot map the data correctly.
+
+In this section, we will focus on the second case.
+
+Ory does a total of 5 steps when a user registers via Social Sign-in:
+
+1. Redirect to the social provider
+2. Redirect back to Ory with a `code` query parameter
+3. Ory exchanges the `code` for an access token and retrieves the user information
+4. Ory maps the user information to the [Identity Schema traits](../manage-identities/identity-schema)
+5. (optional) Ory redirects back to the registration page with the missing traits filled in
+
+When step 4 fails, Ory will be stuck in a redirect loop as shown below.
+
+![Registration page with only a `Continue` button](./_static/registration-page-with-continue-button.png)
+
+Since the Identity Schema can be customized, Ory relies on Jsonnet to map the retrieved information to the Identity Schema traits.
+Please take a look at [Social Sign-in data mapping](../kratos/social-signin/data-mapping) for further information.
