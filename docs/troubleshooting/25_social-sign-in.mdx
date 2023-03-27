@@ -1,0 +1,49 @@
+---
+id: troubleshooting-social-sign-in
+title: Social Sign-in Troubleshooting
+sidebar_label: Social Sign-in Troubleshooting
+slug: troubleshooting-social-sign-in
+---
+
+### `redirect_uri` mismatch
+
+Ensure that the `redirect_uri` query parameter in the URL matches the authorized redirect URI added to the social provider.
+
+```
+https://<provider>/o/oauth2/v2/auth?client_id=(...)&
+redirect_uri=https://{project.slug}.projects.oryapis.com/self-service/methods/oidc/callback/<provider>&
+response_type=code&scope=email+profile+openid
+```
+
+:::info
+
+This is also a known problem with projects created before September 2022 that use a custom domain. Please see
+[Social sign-in `redirect_uri_mismatch` error](./oidc-redirect-url-cname-OTA-092022-01) for further information.
+
+:::
+
+### Domain `oryapis.com` requires verification
+
+Integrating with a social provider may require you to prove your ownership of the authorized redirect URI domain. In this case,
+the `https://{project.slug}.projects.oryapis.com` URL cannot be used as the redirect URI and only a custom domain can be used.
+
+To configure Ory to add your domain to the `redirect_uri` query parameter when redirecting to the social provider, you need to
+adjust your project OIDC `base_redirect_uri` configuration.
+
+```shell
+ory patch identity-config <project-id> --add '/selfservice/methods/oidc/config/base_redirect_uri="https://my-custom-domain.com"'
+```
+
+Lastly, ensure that the custom domain is added to the social provider as an authorized redirect URI.
+
+### Redirect loops after successful registration
+
+If you are redirected back to the registration page with only a `Continue` button, this is likely due to a misconfiguration of the
+social provider. In a Social Sign-in registration flow the social provider redirects back to Ory with a `code` query parameter.
+Ory then exchanges this code for an access token which retrieves the relevant user information. Ory then maps the user information
+retrieved from the social provider to the [Identity Schema traits](../manage-identities/identity-schema). When the triats do not
+match, Ory redirects to the registration flow to allow the user to fill in the missing information, such as name or age.
+
+The problem is most likely due to an incorrect Jsonnet configuration. Since the Identity Schema can be customized, Ory relies on
+Jsonnet to map the retrieved information to the Identity Schema traits. Please take a look at
+[Social Sign-in data mapping](../social-signin/data-mapping) for further information.
