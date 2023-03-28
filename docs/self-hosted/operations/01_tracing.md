@@ -76,7 +76,11 @@ At a glance, you are able to see that:
 - The hash comparison to validate the client's credentials took a whopping 70ms. Bcrypt is expensive!
 - The various database operations performed
 
-_Note: in order to see spans around database interactions, you must be using a SQL backend (i.e. MySQL or Postgres)._
+:::note
+
+To see spans around database interactions, you must be using a SQL backend, such as MySQL or Postgres.
+
+:::
 
 ### Tracing configurations
 
