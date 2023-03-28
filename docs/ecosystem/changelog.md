@@ -1,6 +1,6 @@
 ---
 id: changelog
-title: Changelog and Roadmap
+title: Changelog and roadmap
 ---
 
 ## Changelog

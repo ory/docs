@@ -1,6 +1,6 @@
 ---
 id: benchmark
-title: Performance and Benchmarks
+title: Performance and benchmarks
 ---
 
 We don't include benchmarks against databases (for example MySQL, PostgreSQL, SQLite or CockroachDB).The performance differs a lot

@@ -1,6 +1,6 @@
 ---
 id: upgrading
-title: Versioning and Upgrades
+title: Versioning and upgrades
 ---
 
 ## Upgrades
@@ -32,7 +32,7 @@ important security releases in this newsletter.
 The Ory ecosystem consists of multiple services versioned using [semantic versioning](https://semver.org). This section explains
 how we define service versions and what they mean.
 
-## Development Stages
+## Development stages
 
 :::important
 
