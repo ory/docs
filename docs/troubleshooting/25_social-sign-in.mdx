@@ -1,8 +1,7 @@
 ---
 id: troubleshooting-social-sign-in
 title: Troubleshooting social sign-in integrations
-sidebar_label: Social Sign-in Troubleshooting
-slug: troubleshooting-social-sign-in
+sidebar_label: Social sign-in troubleshooting
 ---
 
 ### `redirect_uri` mismatch
@@ -10,8 +9,8 @@ slug: troubleshooting-social-sign-in
 Ensure that the `redirect_uri` query parameter in the URL matches the authorized redirect URI added to the social provider.
 
 ```
-https://<provider>/o/oauth2/v2/auth?client_id=(...)&
-redirect_uri=https://{project.slug}.projects.oryapis.com/self-service/methods/oidc/callback/<provider>&
+https://{provider}/o/oauth2/v2/auth?client_id=(...)&
+redirect_uri=https://{project.slug}.projects.oryapis.com/self-service/methods/oidc/callback/{provider}&
 response_type=code&scope=email+profile+openid
 ```
 
@@ -22,7 +21,7 @@ This is also a known problem with projects created before September 2022 that us
 
 :::
 
-### Domain `oryapis.com` requires verification
+## 'oryapis.com' doesn't work as authorized redirect URI
 
 Integrating with a social provider may require you to prove your ownership of the authorized redirect URI domain. In this case,
 the `https://{project.slug}.projects.oryapis.com` URL cannot be used as the redirect URI and only a custom domain can be used.
@@ -31,7 +30,7 @@ To configure Ory to add your domain to the `redirect_uri` query parameter when r
 adjust your project OIDC `base_redirect_uri` configuration.
 
 ```shell
-ory patch identity-config <project-id> --add '/selfservice/methods/oidc/config/base_redirect_uri="https://my-custom-domain.com"'
+ory patch identity-config {project-id} --add '/selfservice/methods/oidc/config/base_redirect_uri="https://ory.your-custom-domain.com"'
 ```
 
 Lastly, ensure that the custom domain is added to the social provider as an authorized redirect URI.
