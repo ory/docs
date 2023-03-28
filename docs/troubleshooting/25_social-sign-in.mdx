@@ -4,7 +4,7 @@ title: Troubleshooting social sign-in integrations
 sidebar_label: Social sign-in troubleshooting
 ---
 
-### `redirect_uri` mismatch
+## 'redirect_uri' mismatch
 
 Ensure that the `redirect_uri` query parameter in the URL matches the authorized redirect URI added to the social provider.
 
@@ -35,15 +35,14 @@ ory patch identity-config {project-id} --add '/selfservice/methods/oidc/config/b
 
 Lastly, ensure that the custom domain is added to the social provider as an authorized redirect URI.
 
-### Redirect loops after successful registration
+## Redirect loops after successful registration
 
-There are two cases where Ory will redirect back to the registration page after a successful OIDC flow:
+Ory will redirect back to the registration page after a successful OIDC flow when some traits couldn't be mapped from the Social
+Provider and require manual input from the user, for example a phone number.
 
-1. Some required traits couldn't be mapped from the Social Provider and need manual input from the user, for example a phone
-   number.
-2. The Jsonnet configuration for the Social Provider is incorrect and cannot map the data correctly.
-
-In this section, we will focus on the second case.
+However, when the Jsonnet configuration for the Social Provider is incorrect and cannot map the data correctly, no input fields
+will be present and the registration page with be stuck in a redirect loop. To understand how to fix the problem, we will go
+through how Ory handles the OIDC registration flow.
 
 Ory does a total of 5 steps when a user registers via Social Sign-in:
 
@@ -53,9 +52,8 @@ Ory does a total of 5 steps when a user registers via Social Sign-in:
 4. Ory maps the user information to the [Identity Schema traits](../kratos/manage-identities/identity-schema)
 5. (optional) Ory redirects back to the registration page with the missing traits filled in
 
-When step 4 fails, Ory will be stuck in a redirect loop as shown below.
+When step 4 fails, Ory will be stuck in a redirect loop as shown below. To fix the redirect loop, the Jsonnet configuration for
+the Social Provider needs to be adjusted.
 
-![Registration page with only a `Continue` button](./_static/registration-page-with-continue-button.png)
-
-Since the Identity Schema can be customized, Ory relies on Jsonnet to map the retrieved information to the Identity Schema traits.
-Please take a look at [Social Sign-in data mapping](../kratos/social-signin/data-mapping) for further information.
+Ory relies on the Jsonnet configuration to map the retrieved information to the Identity Schema traits. Please take a look at
+[Social Sign-in data mapping](../kratos/social-signin/data-mapping) for further information.
