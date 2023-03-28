@@ -13,19 +13,12 @@ their system against phishing attacks, but they would like to understand more an
 
 ## How does Ory support passwordless authentication?
 
-For browser-based apps, Ory supports passwordless authentication out of the box. Ory's self-service flows support passwordless
-authentication by integrating with the
+Ory's self-service flows support passwordless authentication for browser-based apps by integrating with the
 [W3C Web Authentication (WebAuthn) API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API) for browsers.
 After enabling WebAuthn in an Ory project, the Ory Account Experience automatically presents passwordless as an option in the
-registration and login flows. When developing your own authentication UI, the steps for integrating your application with the
-passwordless registration and login flows is described
+registration and login flows. When developing your own authentication UI for a browser-based app, the steps for integrating your
+application with the passwordless registration and login flows are described
 [in the documentation](https://www.ory.sh/docs/kratos/bring-your-own-ui/custom-ui-advanced-integration#passwordless-authentication).
-
-Support for passkeys and passwordless varies, depending on whether you are using a browser-based app or a native app:
-
-- For browser-based apps, passwordless works out of the box (leveraging WebAuthn).
-- For native apps, you need to implement your own integration with the underlying platform, using the protocol defined in the
-  CTAP2 specification.
 
 Because passwordless is a relatively new technology, at the time of writing it has not yet been rolled out across all browsers and
 platforms, but adoption is spreading rapidly. Very soon, passwordless authentication is expected to become available on all major
@@ -55,7 +48,7 @@ From the end user's perspective, passwordless login with an on-device authentica
 3. The Ory Account Experience displays the sign-in preparation dialog, which gives the user time to prepare the physical device
    for passwordless login. The user clicks **Continue** to proceed to the next step.
 4. The platform verifies the user's identity using the chosen method.
-5. Login/registration completes automatically.
+5. Login completes automatically.
 
 ### External authenticator for passwordless login flow
 
@@ -69,7 +62,7 @@ From the end user's perspective, passwordless login with an external authenticat
    ![Choose external authenticator device](./_static/external-device-choose.png)
 5. The platform verifies the user's identity using the chosen method.
    ![Verify identity with USB security key](./_static/external-device-verify-identity.png)
-6. Login/registration completes automatically.
+6. Login completes automatically.
 
 ### Authenticator options for passwordless
 
@@ -118,23 +111,23 @@ Consider the following diagram, which illustrates the passwordless-based login f
 
 The main steps in the passwordless login flow are, as follows:
 
-1. The frontend app detects that a user session is needed and sends a request to the application backend (server) to initiate
-   authentication.
-2. The server generates a challenge (consisting essentially of randomized data) and sends it back to the frontend app.
-3. The frontend app requests identity verification through the browser API (WebAuthn), passing the challenge from the server and
-   the ID that identifies this particular app (the _relying party ID_).
-4. WebAuthn pops up a dialog in the browser, presenting the user with options for verifying their identity.
-5. After the user selects a verification option, WebAuthn asks the platform (through the CTAP2 protocol) to verify the user's
-   identity using the chosen authenticator.
-6. The platform verifies the user identity using either:
-   - An on-device authenticator
-   - An external authenticator
-7. If the user identity is verified, the platform retrieves the key pair for the application and uses the private key (passkey) to
-   sign the challenge issued by the server.
-8. The platform returns the signed response to the browser and the frontend app.
-9. The frontend app returns the signed response to the server.
-10. The server validates the signed reponse, using the public key from the user's account to verify the signature (where the
-    user's public key was obtained during the passwordless sign-up flow).
+1. In the frontend app, a user enters their ID and clicks the **Sign in with security key** button, which initiates the
+   passwordless login flow on Ory Identities.
+2. Ory Identities sends a cryptographic challenge (consisting essentially of unique, random data, also known as a _nonce_) to the
+   frontend app.
+3. The frontend app requests verification of the user's identity by calling the WebAuthn API. WebAuthn automatically opens a
+   dialog in the browser, asking the user to choose an authenticator.
+4. WebAuthn delegates identity verification to the platform (operating system), passing the challenge and the choice of
+   authenticator to the platform. The platform invokes the chosen authenticator to verify the user's identity.
+
+   - **On-device authenticator:** If the user authenticates successfully, the platform selects the key pair that matches this app
+     and uses the private key to sign the challenge.
+   - **External authenticator:** Identity verification is delegated to the external device, which holds the private key that is
+     used to sign the challenge.
+
+5. The platform returns the cryptographic response (the signed challenge) to the frontend app, which forwards it on to Ory
+   Identities. Ory Identities uses the public key from the user account to verify the cryptographic response (the public key gets
+   stored in Ory Identities when the user signs up).
 
 :::note
 
@@ -147,9 +140,8 @@ in the database. The corresponding passkey (private key) never leaves the keycha
 ## How passkeys and passwordless are related
 
 Passkey-based authentication and passwordless authentication are often talked about together. But if you are new to passwordless,
-it's not always clear how these concepts are related.
-
-At some level, passkeys are always involved in the passwordless authentication process, in one of the following ways:
+it's not always clear how these concepts are related. At some level, passkeys are always involved in the passwordless
+authentication process, in one of the following ways:
 
 - **Implicit use of passkeys** &mdash; for example, when a user authenticates using fingerprint recognition or face recognition,
   the platform implicitly creates a symmetric key pair, but this detail is hidden from the user.
@@ -166,8 +158,8 @@ If you need to log in with a passkey across multiple devices, the following opti
 
 ### One-off authentication using an external device
 
-Passkeys can also be used to perform login across devices. WebAuthn defines a protocol for performing passkey authentication
-remotely over a (secured) BLE connection.
+Passkeys can be used to perform login across devices. WebAuthn defines a protocol for performing passkey authentication remotely
+over a (secured) BLE connection.
 
 For example, consider the case where the passkey for a particular application is stored in the Android OS on your mobile phone. If
 you need to log into the application from a PC, you can use the passkey on your mobile phone to verify your identity. In this
