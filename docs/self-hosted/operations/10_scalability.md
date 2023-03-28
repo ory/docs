@@ -3,13 +3,13 @@ id: scalability
 title: Scalability
 ---
 
-Ory services are running in high-scale production environments that do millions of requests per day. To scale Ory, simply spin up
-another VM / Docker Container / Pod of Ory Kratos, Hydra or Keto with the same configuration. Ory scales effortlessly to thousands
-of pods without any additional work. There is no need for complex key/value stores or message queues to serve high traffic
-environments.
+Ory services are running in high-scale production environments that handle millions of requests per day. To scale Ory, spin up
+another VM, Docker container, or pod of Ory Kratos, Ory Hydra or Keto with the same configuration. Ory scales effortlessly to
+thousands of pods without any additional work. There is no need for complex key-value stores or message queues to serve high
+traffic environments.
 
-If you use multiple SQL instances make use of HAProxy or similar technology to do
-[SQL Load Balancing](https://severalnines.com/resources/database-management-tutorials/mysql-load-balancing-haproxy-tutorial).
+If you use multiple SQL instances use HAProxy or similar technology for
+[SQL load balancing](https://severalnines.com/resources/database-management-tutorials/mysql-load-balancing-haproxy-tutorial).
 
 ## Mail courier
 
