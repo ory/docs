@@ -1,6 +1,6 @@
 ---
 id: deployment
-title: Deployment fundamentals and requirements
+title: Database
 ---
 
 ## Integrates with Kubernetes
@@ -8,7 +8,7 @@ title: Deployment fundamentals and requirements
 Ory technology is cloud first and runs natively on Docker and Kubernetes and naturally supports Kubernetes Helm Charts. Head over
 to our [Kubernetes Helm Chart Repository](https://k8s.ory.sh/helm) for Charts and accompanying Documentation.
 
-## Data Storage and persistence
+## Data storage and persistence
 
 All Ory projects support storing data in memory and in relational databases such as PostgreSQL, MySQL, SQLite and CockroachDB.
 
@@ -130,11 +130,3 @@ Additionally, the following DSN parameters are supported:
 
 To set such a parameter, append it to the DSN query, for example:
 `cockroach://user:password@host:123/database?sslmode=verify-full`
-
-## Prometheus
-
-Ory technology exposes an endpoint for snapshot Prometheus data. This endpoint is usually found at the administrative port for Ory
-Kratos, Ory Hydra under the `/metrics/prometheus` path. If you run the default configuration, it will be exposed at:
-
-- Ory Hydra: `http://<host>:4445/metrics/prometheus`
-- Ory Kratos: `http://<host>:4434/metrics/prometheus`
