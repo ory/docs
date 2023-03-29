@@ -26,11 +26,11 @@ If you get a `redirect_uri` mismatch error in a project created before September
 
 ## 'oryapis.com' doesn't work as authorized redirect URI
 
-Integrate with social sign-in providers may require proving the ownership of the authorized redirect URI domain. If that is the
+Integration with social sign-in providers may require proving the ownership of the authorized redirect URI domain. If that is the
 case, you must use a custom domain and the `https://{project.slug}.projects.oryapis.com` URL can't be used as the redirect URI.
 
 To add your domain to the `redirect_uri` query parameter when redirecting to the social sign-in provider, adjust your project's
-`base_redirect_uri` configuration. To do that, use Ory CLI:
+`base_redirect_uri` configuration. To do that, use the Ory CLI:
 
 ```shell
 ory patch identity-config {project-id} --add '/selfservice/methods/oidc/config/base_redirect_uri="https://ory.your-custom-domain.com"'
@@ -50,14 +50,14 @@ number, couldn't be mapped using the data received from the social sign-in provi
 However, when the Jsonnet configuration for the social sign-in provider is incorrect and Ory can't map the data correctly, the
 user sees no input fields and the registration page gets stuck in a redirect loop.
 
-To understand how to fix the problem, let's look at how Ory handles the OIDC registration flow. There are 5 the system performs
-users register with a social sign-in provider:
+To understand how to fix the problem, let's look at how Ory handles the OIDC registration flow. There are 5 steps that the system
+performs when users register with a social sign-in provider:
 
 1. Redirect to the social sign-in provider.
 2. Redirect back to Ory with a `code` query parameter.
 3. Ory exchanges the `code` for an access token and retrieves the user information.
 4. Ory maps the user information to the [Identity Schema traits](../kratos/manage-identities/identity-schema).
-5. (optional) Ory redirects back to the registration page with the missing traits filled in.
+5. (optional) Ory redirects back to the registration page, requiring the user to provide the values for the missing traits.
 
 When step 4 fails, Ory becomes stuck in a redirect loop. To fix the redirect loop, adjust the Jsonnet configuration for the social
 sign-in provider so that the data from the provider gets mapped correctly to the Identity Schema.
