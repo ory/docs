@@ -11,8 +11,8 @@ import CodeBlock from "@theme/CodeBlock"
 const parser = new RefParser()
 
 const refs = {
-  "ory://tracing-config": `https://raw.githubusercontent.com/ory/x/v0.0.344/tracing/config.schema.json`,
-  "ory://logging-config": `https://raw.githubusercontent.com/ory/x/v0.0.344/logrusx/config.schema.json`,
+  "ory://tracing-config": `https://raw.githubusercontent.com/ory/x/v0.0.543/otelx/config.schema.json`,
+  "ory://logging-config": `https://raw.githubusercontent.com/ory/x/v0.0.543/logrusx/config.schema.json`,
 }
 
 const enhance =
@@ -212,8 +212,8 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
       <p>
         You can load the config file from another source using the{" "}
         <code>-c path/to/config.yaml</code> or{" "}
-        <code>--config path/to/config.yaml</code>
-        flag: <code>${props.binary} --config path/to/config.yaml</code>.
+        <code>--config path/to/config.yaml</code> flag:{" "}
+        <code>${props.binary} --config path/to/config.yaml</code>.
       </p>
       <p>
         Config files can be formatted as JSON, YAML and TOML. Some configuration
