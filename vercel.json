@@ -1093,6 +1093,11 @@
       "source": "/docs/hydra/benchmark",
       "destination": "https://www.ory.sh/docs/ecosystem/benchmark",
       "permanent": false
+    },
+    {
+      "source": "/docs/cli",
+      "destination": "/docs/guides/cli/installation",
+      "permanent": false
     }
   ]
 }
