@@ -69,7 +69,7 @@ If `LOG_LEVEL=trace`, traces will be included for log calls and errors:
 }
 ```
 
-## Log Fields
+## Log fields
 
 Ory provides as much context as possible for each log operation.
 
@@ -83,7 +83,7 @@ time=2020-05-20T11:57:09+02:00 level=info msg=An example log message. audience=a
 time=2020-05-20T11:57:29+02:00 level=info msg=Login successful. audience=audit service_name=foo service_version=bar
 ```
 
-### HTTP Request Context
+### HTTP request context
 
 We include vital HTTP request info whenever possible:
 

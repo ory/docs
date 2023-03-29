@@ -1,6 +1,6 @@
 ---
 id: configuring
-title: Configuring Ory services
+title: Configuration
 ---
 
 All Ory services share the same configuration system. This page documents the details and edge cases that apply to all Ory

@@ -56,7 +56,7 @@ In this example, the user identifier (email - `alice@example.com`) is used. To l
 
 :::
 
-## Configuration
+## Enabling TOTP authentication
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
@@ -67,15 +67,25 @@ In this example, the user identifier (email - `alice@example.com`) is used. To l
 2. In the **TOTP Authenticator App** section, use the switch to enable TOTP.
 3. Define the name of the requesting party in the **Display Name**. The users see this name in the TOTP application when getting a
    one-time password.
-4. Click **Save** to finish.
+4. Click **Save**.
 
-```mdx-code-block
-<BrowserWindow url="https://console.ory.sh/">
+   ```mdx-code-block
+   <BrowserWindow url="https://console.ory.sh/">
 
-![TOTP setup in Ory Console](../_static/mfa/3.png)
+   ![TOTP setup in Ory Console](../_static/mfa/3.png)
 
-</BrowserWindow>
-```
+   </BrowserWindow>
+   ```
+
+5. After TOTP has been enabled for the Ory Network project, each user is responsible for enabling TOTP in their own account by
+   pairing their account with a TOTP app.
+
+   :::note
+
+   In the Ory Account Experience, users are not automatically prompted to enable TOTP for their accounts. To enable TOTP, users
+   must sign in to their accounts and go to the **Authenticator App** section of the **Account Settings** page.
+
+   :::
 
 ```mdx-code-block
 </TabItem>
@@ -112,23 +122,33 @@ In this example, the user identifier (email - `alice@example.com`) is used. To l
    ory update identity-config <project-id> --file identity-config.yaml
    ```
 
+4. After TOTP has been enabled for the Ory Network project, each user is responsible for enabling TOTP in their own account by
+   pairing their account with a TOTP app.
+
+   :::note
+
+   In the Ory Account Experience, users are not automatically prompted to enable TOTP for their accounts. To enable TOTP, users
+   must sign in to their accounts and go to the **Authenticator App** section of the **Account Settings** page.
+
+   :::
+
 ```mdx-code-block
 </TabItem>
 </Tabs>
 ```
+
+## Custom identity schema
+
+By default, the identity schema is preconfigured to display the user's email address when requesting the TOTP short code. If you
+are working with a custom identity schema, however, you must ensure that the identity schema is properly configured to work with
+TOTP.
 
 ### Distinguishing identities requesting TOTP
 
 To help users distinguish which identity the registered TOTP code belongs to, add a `totp` section to the identity schema section
 of the trait you want to show up in the TOTP app.
 
-In this example, the user's email address is the identifier:
-
-:::note
-
-This configuration is the default behavior on the Ory Network.
-
-:::
+For example, to select the user's email address as the identifier for TOTP:
 
 ```json title="sample identity schema"
 {
