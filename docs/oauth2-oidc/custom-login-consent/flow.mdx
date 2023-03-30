@@ -117,17 +117,59 @@ The way you collect the consent information from the end user is up to you. In m
 </form>
 ```
 
+### Skipping consent for trusted, first-party clients
+
+For trusted, first-party OAuth2 clients you can configure the client so that the user doesn't have to accept the consent. In the
+Ory Network Console, the setting is part of the OAuth2 client edit form.
+
+Consider the `challenge` object returned from
+[getOAuth2ConsentRequest](https://www.ory.sh/docs/hydra/reference/api#tag/oAuth2/operation/getOAuth2ConsentRequest). If the
+consent is skipped for the OAuth2 client, `challenge.client.skip_consent` is true.
+
+For TypeScript, the following snippet shows how to determine whether to skip the consent UI:
+
+```ts
+const { consent_challenge } = req.query // the HTTP request
+
+const challenge = await oauth2
+  .getOAuth2ConsentRequest({ consentChallenge: String(consent_challenge) })
+  .then(({ data: body }) => body)
+
+const skipConsent =
+  challenge.skip || // skip because the user accepted the consent previously
+  challenge.client.skip_consent // skip because the client is trusted
+
+if (skipConsent) {
+  // If the consent is skipped, we accept the consent request immediately.
+  await oauth2.acceptOAuth2ConsentRequest({
+    consentChallenge: String(consent_challenge),
+    acceptOAuth2ConsentRequest: {
+      grant_scope: challenge.requested_scope,
+      grant_access_token_audience: challenge.requested_access_token_audience,
+      session,
+    },
+  })
+}
+
+// TODO: show the consent UI
+// ...
+```
+
+A full-application example of a consent screen can be found at
+[github.com/ory/hydra-login-consent-node](https://github.com/ory/hydra-login-consent-node/blob/f6ab9d1156aeabbd941f9920ff85408ca0a1f2d4/src/routes/consent.ts#L41).
+
 ### Previous consent
 
-A consent has four distinctive attributes:
+A consent has five distinctive attributes:
 
 1. The requested scope (`scope=email+profile+offline_access`);
 2. The OAuth2 client (`client_id=abcd`);
 3. The end user (this is the subject set in the Login Flow);
 4. If a previous consent exists, the previous consent has `remember: true`, and the scope granted by the user (did the user accept
    all of `email`, `profile`, `offline_access`).
+5. Whether or not the OAuth2 client is set to always skip consent.
 
-There are three possible states:
+There are four possible states:
 
 1. The user has never before authorized ("consent") the OAuth2 client before.
 2. The user has authorized ("consent") the OAuth2 client before and chose to remember the "consent".
