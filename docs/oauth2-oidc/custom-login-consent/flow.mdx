@@ -1,6 +1,7 @@
 ---
 id: flow
 title: User login and consent flow
+toc_max_heading_level: 4
 ---
 
 This guide will walk you through the process of customizing Ory OAuth2 and OpenID Connect to work with your user database, login
@@ -117,16 +118,40 @@ The way you collect the consent information from the end user is up to you. In m
 </form>
 ```
 
-### Skipping consent for trusted, first-party clients
+### Skipping consent for trusted clients
 
-For trusted, first-party OAuth2 clients you can configure the client so that the user doesn't have to accept the consent. In the
-Ory Network Console, the setting is part of the OAuth2 client edit form.
+When you create an OAuth2 client in your Ory Network project, you can configure it to skip the "consent screen", which is the
+screen where the user must explicitly agree to giving the client access to access their data and perform operations on their
+behalf.
 
-Consider the `challenge` object returned from
-[getOAuth2ConsentRequest](https://www.ory.sh/docs/hydra/reference/api#tag/oAuth2/operation/getOAuth2ConsentRequest). If the
-consent is skipped for the OAuth2 client, `challenge.client.skip_consent` is true.
+This approach is useful when you're working with trusted, first-party clients that don't require access to sensitive data. When
+the client must access sensitive data or functionality, don't skip the consent screen and ensure that the user is well informed
+before they allow the client to act on their behalf.
 
-For TypeScript, the following snippet shows how to determine whether to skip the consent UI:
+You can turn on skipping the consent screen on a per-client basis through the Ory Console. Follow these steps to enable consent
+screen skipping for existing OAuth2 clients:
+
+1. Sign in to the Ory Console and go to [**OAuth2** → **Clients**](https://console.ory.sh/projects/current/oauth).
+2. Find the client for which you want to turn on consent skipping and click the [**pencil icon**] in the **Actions** column.
+3. Use the **Skip consent** toggle in the **Consent screen** section to manage the feature. When you turn this feature on, consent
+   skipping is enabled for the client.
+4. Scroll back to the top and click **Save**.
+
+:::tip
+
+You can enable consent skipping when you create new OAuth2 clients. Use the **Skip consent** toggle in the **Consent screen**
+section to manage the feature.
+
+:::
+
+#### Implementation
+
+Skipping the consent screen is managed by the `challenge` object returned from
+[getOAuth2ConsentRequest](https://www.ory.sh/docs/hydra/reference/api#tag/oAuth2/operation/getOAuth2ConsentRequest).
+
+If the consent is skipped for the given OAuth2 client, `challenge.client.skip_consent` is `true`.
+
+For TypeScript, the following snippet shows how to determine whether to skip the consent screen UI:
 
 ```ts
 const { consent_challenge } = req.query // the HTTP request
@@ -151,12 +176,11 @@ if (skipConsent) {
   })
 }
 
-// TODO: show the consent UI
-// ...
+// Next, add code that shows the consent screen.
+// This is used when the client doesn't have consent skipping enabled.
+// Check out an example consent screen implementation in an app here:
+// https://github.com/ory/hydra-login-consent-node/blob/master/src/routes/consent.ts#L41
 ```
-
-A full-application example of a consent screen can be found at
-[github.com/ory/hydra-login-consent-node](https://github.com/ory/hydra-login-consent-node/blob/f6ab9d1156aeabbd941f9920ff85408ca0a1f2d4/src/routes/consent.ts#L41).
 
 ### Previous consent
 
