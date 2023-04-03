@@ -45,8 +45,8 @@ orchestrate the self-service flows offers the following advantages to applicatio
 ### Social sign-in for native apps
 
 ACME Corporation was particularly interested in the possibility of enabling social sign-in in the new mobile app, which would
-enable users to sign in using their existing social media accounts such as Google, Facebook, and Microsoft.
-For example, after enabling social sign-in for the ACME mobile app, users would be presented with a registration form like the following:
+enable users to sign in using their existing social media accounts such as Google, Facebook, and Microsoft. For example, after
+enabling social sign-in for the ACME mobile app, users would be presented with a registration form like the following:
 
 ![Social sign-in registration form](./_static/social-reg.png)
 
@@ -56,10 +56,12 @@ Where this form presents the user with three sign-up options:
 - Sign up using a Google account
 - Register directly with the ACME mobile app
 
-If the user already has an account with Github, for example, they could click the **Continue with Github button** to log in to their Github account.
-After giving consent for the ACME mobile app to access a limited amount of personal data from Github, registration completes automatically and the user gets access to the ACME mobile app.
+If the user already has an account with Github, for example, they could click the **Continue with Github button** to log in to
+their Github account. After giving consent for the ACME mobile app to access a limited amount of personal data from Github,
+registration completes automatically and the user gets access to the ACME mobile app.
 
-From the user's perspective, this procedure is simpler and quicker, so they are much more likely to sign up using the social sign-in flow.
+From the user's perspective, this procedure is simpler and quicker, so they are much more likely to sign up using the social
+sign-in flow.
 
 ## Implementing authentication for a native app
 
@@ -114,8 +116,8 @@ of Ory Network.
 Finally, ACME Corporation finished the development phase and were ready to go to production with their app.
 
 1. Before going into production, ACME Corporation upgraded Ory Network to a paid subscription tier. The paid subscription tier is
-   necessary to provide the level of scaling and support required for a production system.
-   It is also a prerequisite for using a custom domain with the Ory Network project.
+   necessary to provide the level of scaling and support required for a production system. It is also a prerequisite for using a
+   custom domain with the Ory Network project.
 
 2. ACME Corporation started training their Help Desk staff on how to work with Ory Console and Ory CLI, so that the staff could
    provide assistance to users who might need help with their accounts.
