@@ -12,7 +12,7 @@ const frontend = new FrontendApi(
 
 const route = (req: Request, res: Response) => {
   frontend
-    .createBrowserLogoutFlow(req.cookies["ory_kratos_session"])
+    .createBrowserLogoutFlow({ cookie: req.header("cookie") })
     .then(({ data }) => {
       console.log(data.logout_url) // The logout URL
       console.log(data.logout_token) // The logout token
