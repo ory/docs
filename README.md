@@ -304,6 +304,13 @@ import ExamplePartial from './_common/example.md'
 ```
 ````
 
+> Headings contained in the partial aren't added to the Docusaurus table of
+> contents (ToC). To make sure users can access all headings through the ToC,
+> don't add headings to partials. Instead, add appropriate headings manually and
+> introduce partials after them. To see an implementation of this approach, look
+> at
+> [this file](https://github.com/ory/docs/blob/0137302d511b2a6b0e17a570e917d92fcdff1d1f/docs/kratos/social-signin/10_google.mdx?plain=1#L237)
+
 ### Code snippets
 
 #### From GitHub
