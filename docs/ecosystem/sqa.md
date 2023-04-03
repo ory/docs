@@ -20,9 +20,9 @@ The data processing pipeline has the following steps:
 
 1. Telemetry data is collected at each service.
 2. Periodically this data is sent to `sqa.ory.sh`.
-3. Segment forwards this data to a private AWS S3 Bucket owned by the Ory organization. The data isn't shared with any other
+3. Data is forwarded to a private Google cloud storage Bucket owned by the Ory organization. The data isn't shared with any other
    party.
-4. The AWS S3 Bucket(s) are periodically downloaded onto on of our on-premise servers.
+4. The GCS Bucket(s) are periodically downloaded onto Google compute engine virtual machines.
 5. The downloaded data is extracted, filtered, processed, and analyzed. The output is a CSV report which we analyze using Open
    Office.
 
@@ -97,13 +97,17 @@ We collect the following system metrics:
 
 ### Request telemetry
 
-The IP addresses of both host and client are anonymized to `0.0.0.0`. Any identifiable information in the URL path and query is
-hashed with SHA-256 using a randomly assigned UUID v4 salt:
+The IP addresses of both host and client are anonymized to `0.0.0.0`.
 
-- `/clients/foo` with salt `ABCDEFGH` becomes `/clients/sha256("foo|ABCDEFGH")`:
-  `/clients/0301424a80469ad03a208de925563a97ec6ab2f9dc7a2ad71b2ded85a7f7a7af`
-- `/policies?owner=foo` with salt `ABCDEFGH` becomes `/policies?owner=sha256("foo|ABCDEFGH")`:
-  `/policies?owner=0301424a80469ad03a208de925563a97ec6ab2f9dc7a2ad71b2ded85a7f7a7af`).
+We collect the following request metrics:
+
+- `host`: Request URL host name
+- `path`: AllowList defined part of the request URL path
+  `/policies?owner=foo` becomes `/policies`:
+  `/self-service/login/browser?refresh=true&aal=aal1` becomes `/self-service/login/browser`).
+- `method`: Request HTTP method
+- `latency`: Request execution time in milliseconds
+- `size`: Response size
 
 ### Source code
 
