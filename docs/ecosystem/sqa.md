@@ -103,8 +103,8 @@ We collect the following request metrics:
 
 - `host`: Request URL host name
 - `path`: AllowList defined part of the request URL path
-  `/policies?owner=foo` becomes `/policies`:
-  `/self-service/login/browser?refresh=true&aal=aal1` becomes `/self-service/login/browser`).
+  - `/self-service/login/browser?refresh=true&aal=aal1` becomes `/self-service/login/browser`
+  - `/policies?owner=foo` becomes `/policies`
 - `method`: Request HTTP method
 - `latency`: Request execution time in milliseconds
 - `size`: Response size
