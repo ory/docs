@@ -1,4 +1,4 @@
-package main
+package frontend
 
 import (
 	"context"
@@ -8,7 +8,9 @@ import (
 	"github.com/ory/client-go"
 )
 
-var ory *client.APIClient
+type oryMiddleware struct {
+	ory *ory.APIClient
+}
 
 func init() {
 	cfg := client.NewConfiguration()
@@ -19,9 +21,9 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func SubmitRecovery(ctx context.Context, flowId string, body client.UpdateRecoveryFlowBody) (*client.RecoveryFlow, error) {
+func GetRecovery(ctx context.Context, flowId string) (*client.RecoveryFlow, error) {
 	// highlight-start
-	flow, _, err := ory.FrontendApi.UpdateRecoveryFlow(ctx).Flow(flowId).UpdateRecoveryFlowBody(body).Execute()
+	flow, _, err := ory.FrontendApi.GetRecoveryFlow(ctx).Id(flowId).Execute()
 	if err != nil {
 		return nil, err
 	}

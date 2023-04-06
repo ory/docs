@@ -1,4 +1,4 @@
-package main
+package frontend
 
 import (
 	"context"
@@ -8,7 +8,9 @@ import (
 	"github.com/ory/client-go"
 )
 
-var ory *client.APIClient
+type oryMiddleware struct {
+	ory *ory.APIClient
+}
 
 func init() {
 	cfg := client.NewConfiguration()

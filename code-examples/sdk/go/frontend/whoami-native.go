@@ -1,11 +1,16 @@
-package main
+package frontend
 
 import (
 	"context"
 	"fmt"
-	"github.com/ory/client-go"
 	"os"
+
+	"github.com/ory/client-go"
 )
+
+type oryMiddleware struct {
+	ory *ory.APIClient
+}
 
 func init() {
 	cfg := client.NewConfiguration()
@@ -16,16 +21,16 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func RevokeSession(ctx context.Context, sessionToken string, sessionToRevokeId string) error {
+func CheckSession(ctx context.Context, sessionToken string) (session *client.Session, err error) {
 	// highlight-start
-	_, err := ory.FrontendApi.DisableMySession(ctx, sessionToRevokeId).
+	session, _, err = ory.FrontendApi.ToSession(ctx).
 		XSessionToken(sessionToken).
 		Execute()
+	// highlight-end
 	if err != nil {
 		// error revoking the session, for example due to expired token provided
-		return err
+		return nil, err
 	}
-	// highlight-end
 
-	return nil
+	return session, nil
 }

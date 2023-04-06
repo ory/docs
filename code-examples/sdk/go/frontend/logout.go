@@ -1,7 +1,13 @@
-package session
+// Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
+
+package frontend
 
 import (
 	"context"
+	"fmt"
+	"os"
+
 	"github.com/ory/client-go"
 )
 
@@ -18,16 +24,16 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func GetSession(ctx context.Context, sessionId string, expandOptions []string) (session *client.Session, err error) {
+func Logout(ctx context.Context, sessionToken string) error {
 	// highlight-start
-	session, _, err = ory.IdentityApi.GetSession(ContextWithToken(ctx), sessionId).
-		Expand(expandOptions).
+	_, err := ory.FrontendApi.PerformNativeLogout(ctx).
+		PerformNativeLogoutBody(*client.NewPerformNativeLogoutBody(sessionToken)).
 		Execute()
+	if err != nil {
+		return err
+	}
+	// Logout was successful
 	// highlight-end
 
-	if err != nil {
-		return nil, err
-	}
-
-	return session, err
+	return nil
 }

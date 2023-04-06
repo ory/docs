@@ -1,4 +1,4 @@
-package main
+package frontend
 
 import (
 	"context"
@@ -8,7 +8,9 @@ import (
 	"github.com/ory/client-go"
 )
 
-var ory *client.APIClient
+type oryMiddleware struct {
+	ory *ory.APIClient
+}
 
 func init() {
 	cfg := client.NewConfiguration()
@@ -19,9 +21,9 @@ func init() {
 	ory = client.NewAPIClient(cfg)
 }
 
-func GetRegistration(ctx context.Context, flowId string) (*client.RegistrationFlow, error) {
+func CreateVerification(ctx context.Context) (*client.VerificationFlow, error) {
 	// highlight-start
-	flow, _, err := ory.FrontendApi.GetRegistrationFlow(ctx).Id(flowId).Execute()
+	flow, _, err := ory.FrontendApi.CreateNativeVerificationFlow(ctx).Execute()
 	if err != nil {
 		return nil, err
 	}

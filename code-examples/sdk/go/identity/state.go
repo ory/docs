@@ -1,16 +1,16 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-package main
+package identity
 
 import (
 	"context"
 	"fmt"
-	"github.com/ory/client-go"
 	"os"
+
+	client "github.com/ory/client-go"
 )
 
-var ory *client.APIClient
 var authed = context.WithValue(context.Background(), client.ContextAccessToken, os.Getenv("ORY_API_KEY"))
 
 func init() {
