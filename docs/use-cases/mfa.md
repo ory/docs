@@ -30,16 +30,9 @@ only for a short time (usually 30 seconds or less). This is how the _time-based 
 
 ### W3C Web Authentication (WebAuthn)
 
-WebAuthn is a 2FA authentication method based on symmetric key algorithms, which can be used _only_ with browser-based apps. The
+WebAuthn is a 2FA authentication method based on symmetric key algorithms, which can be used **only** with browser-based apps. The
 WebAuthn part of the standard (developed in collaboration between the FIDO alliance and the W3C consortium) works only in a
 browser, which is why it is a browser-only authentication method.
-
-:::note
-
-The FIDO Alliance also defines a protocol for performing 2FA authentication through the platform (the CTAP1 and CTAP2 standards),
-which can be used with native apps, but this requires you to integrate the authentication flow yourself.
-
-:::
 
 The WebAuthn 2FA authentication method is a flexible mechanism that delegates authentication to the underlying platform. There are
 many different ways a user can verify their identity, including biometric authentication devices and external hardware.
@@ -49,7 +42,7 @@ There are two main categories of authenticators you can use with WebAuthn:
 - **On-device authenticators** which includes platform-based biometric authentication protocols, such as TouchID, FaceID, Windows
   Hello, or Android Biometric Authentication
 - **External authenticators** which includes NFC devices, USB keys, or Bluetooth Low Energy (BLE) devices, for example a
-  [YubiKey](https://www.yubico.com/why-yubico/how-the-yubikey-works/)
+  [YubiKey](https://www.yubico.com/why-yubico/how-the-yubikey-works/).
 
 In practice, the user experience of working with WebAuthn is simple. Whenever the user is expected to authenticate using the
 WebAuthn second factor, the web browser displays a special prompt. For example, Google Chrome shows a prompt like the following:
@@ -64,30 +57,23 @@ technology. For more details, see [PassKeys and passwordless sign-in](passwordle
 
 ## Ory MFA in practice
 
-When it comes to using MFA in practice, there are a variety of different strategies you can use for authentication with the second
-factor. For example, you might decide to require a user to log in with two factors right at the start of the session.
-Alternatively, you could allow the user to start the session by logging in with the first factor and only require the second
-factor at the point where the user is about to perform a security-sensitive operation (step up authenticaiton).
+When it comes to using MFA in practice, there are a variety of strategies you can use for authentication with the second factor.
+For example, you might decide to require a user to log in with two factors right at the start of the session. Alternatively, you
+could allow the user to start the session by logging in with the first factor and only require the second factor at the point
+where the user is about to perform a security-sensitive operation (step up authenticaiton).
 
 ### Supported MFA combinations
 
 Ory Identities enables you to combine first and second factor authentication methods in a variety of ways, as shown in the
-following table.
+following table. The valid combinations depend on whether you are developing a browser-based app or a native app.
 
-| First factor           | Second factor (Browser-based)                    | Second factor (Native) |
-| ---------------------- | ------------------------------------------------ | ---------------------- |
-| Password               | TOTP, Passkey, Biometric, External authenticator | TOTP                   |
-| Social sign-in         | TOTP, Passkey, Biometric, External authenticator | TOTP                   |
-| Passkey                | TOTP                                             | TOTP                   |
-| Biometric              | TOTP                                             | TOTP                   |
-| External authenticator | TOTP                                             | TOTP                   |
-
-:::note
-
-It is also possible to use passkey, biometric, or external authenticator methods with a native app. However, in this case an app
-developer must write the code to integrate with the platform (using the CTAP2 protocol from the FIDO alliance).
-
-:::
+| First factor           | Second factor (Browser-based app)                | Second factor (Native app |
+| ---------------------- | ------------------------------------------------ | ------------------------- |
+| Password               | TOTP, Passkey, Biometric, External authenticator | TOTP                      |
+| Social sign-in         | TOTP, Passkey, Biometric, External authenticator | TOTP                      |
+| Passkey                | TOTP                                             | TOTP                      |
+| Biometric              | TOTP                                             | TOTP                      |
+| External authenticator | TOTP                                             | TOTP                      |
 
 ### Step-up authentication
 
@@ -112,35 +98,51 @@ in the following figure:
 
 TBD - FIRST STEP_UP AUTHN STRATEGY
 
-1. In this example, the user is only required to login with a single factor to start the session in the app. At this stage, the
-   user session has an authenticator assurance level (AAL) equal to 1.
-2. At a certain point, the app detects that the user is about to perform a sensitive action (for example, paying for the items in
-   the shopping cart).
-3. Because the current AAL is equal to 1 (single-factor authenticaion only), the app triggers step-up authentication and requires
-   the user to log in with a second factor.
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid";
+
+<Mermaid
+  chart={`flowchart LR
+subgraph AAL 1
+  direction TB
+  A[Login] --> B{Sensitive?} --> C[2FA Authn]
+end
+subgraph AAL 2
+  direction TB
+  D[Perform sensitive action]
+end
+`} />
+```
+
+1. In this example, the user is only required to login with a single factor to start the session in the app. The user session
+   initially has an authenticator assurance level (AAL) equal to 1.
+2. At a certain point, the app detects that the user is about to perform a sensitive action (for example, paying for items in a
+   shopping cart).
+3. Because the current AAL of 1 is insufficient for performing a sensitive action, the app triggers step-up authentication and
+   requires the user to log in with a second factor.
 4. After successfully authenticating with the second factor, the user session has an AAL equal to 2 (second-factor authentication)
    and the user is allowed to perform sensitive operations.
 
-To support this scenario, Ory Identities automatically sets the authenticator assurance level (AAL) to 1 or 2 in the current
-session, indicating whether the session has been authenticated by one or two factors.
+To support this scenario, Ory Identities automatically sets the AAL to 1 or 2 in the current session, indicating whether the
+session has been authenticated by one or two factors.
 
 #### Requiring a fresh 2FA session for sensitive operations
 
 A further refinement of the step-up authentication flow is to require, not only that the user has performed second-factor
-authentication, but also that the second-factor authentication is _fresh_.
+authentication, but also that the second-factor authentication is fresh.
 
 For example, consider the scenario where an attacker has managed to hijack a user's session. If the second-factor is required to
-be fresh, it is more than likely that the second-factor is stale by the time the attacker hijacks the session, preventing the
-attacker from executing any security-sensitive operations.
+be fresh, it is likely that the second-factor is stale by the time the attacker hijacks the session, preventing the attacker from
+executing any security-sensitive operations.
 
 Consider the case where a user is initially required to log in with two factors, but the second factor times out before the user
 attempts to perform a security-sensitive operation, as illustrated in the following figure:
 
 TBD - SECOND STEP_UP AUTHN STRATEGY
 
-1. In this example, the user is required to login with _two factors_ to start the session in the app. At this stage, the user
-   session has an authenticator assurance level (AAL) equal to 2.
-2. After a certain period of time (defined by the app), the second factor times out and is treated as stale.
+1. In this example, the user is required to login with _two factors_ to start the session in the app. The user session initially
+   has an authenticator assurance level (AAL) equal to 2.
+2. After a certain period of time, defined by the app, the second factor times out and is treated as stale.
 3. At a certain later time, the app detects that the user is about to perform a sensitive action (for example, paying for the
    items in the shopping cart).
 4. Because the second factor for this session has timed out, the app triggers step-up authentication and requires the user to log
@@ -165,8 +167,8 @@ Account Experience UI:
 
 ![Recovery Codes in Ory Account Experience](_static/mfa-recovery-codes.png)
 
-If the user loses access to the second factor at a later time, they are given the option of entering a recovery code to regain
-access to their account (where the recovery codes must be used in sequence and each code is valid for single use only).
+If the user loses access to the second factor at a later time, they are presented with the option of entering a recovery code to
+regain access to their account (where the recovery codes must be used in sequence and each code is valid for single use only).
 
 You could also customize the user experience in your app to prompt a user to create the recovery codes immediately after they
 register their second factor.

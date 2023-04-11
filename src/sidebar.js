@@ -7,7 +7,13 @@ module.exports = {
       type: "category",
       label: "Use cases",
       collapsed: false,
-      items: ["use-cases/greenfield", "use-cases/gdpr", "use-cases/mailchimp"],
+      items: [
+        "use-cases/greenfield",
+        "use-cases/greenfield-native-app",
+        "use-cases/gdpr",
+        "use-cases/mailchimp",
+        "use-cases/hubspot",
+      ],
     },
     {
       type: "category",

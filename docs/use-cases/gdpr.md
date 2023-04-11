@@ -4,13 +4,13 @@ title: GDPR compliance
 sidebar_label: GDPR compliance
 ---
 
-## Use case:
-
 ## How Ory Network helps you to be GDPR compliant
 
-With the option of hosting personal data on EU based servers and with Ory's dedication to upholding the highest standards in data
-protection, adopting Ory Network as your identity management solution represents a big step towards becoming GDPR compliant. The
-following GDPR checklist provides an overview of how Ory Network can bring you closer to overall GDPR compliance.
+Adopting Ory Network as your identity management solution represents a big step towards becoming GDPR compliant. Ory is dedicated
+to upholding the highest standards in data protection and also provides you with the option of hosting personal data on EU based
+servers.
+
+The following GDPR checklist provides an overview of how Ory Network can bring you closer to overall GDPR compliance.
 
 ### GDPR checklist
 
