@@ -20,49 +20,55 @@ registration and login flows. When developing your own authentication UI for a b
 application with the passwordless registration and login flows are described
 [in the documentation](https://www.ory.sh/docs/kratos/bring-your-own-ui/custom-ui-advanced-integration#passwordless-authentication).
 
-Because passwordless is a relatively new technology, at the time of writing it has not yet been rolled out across all browsers and
-platforms, but adoption is spreading rapidly. Very soon, passwordless authentication is expected to become available on all major
-platforms and browsers. To check the current status of adoption, consult the FAQ on the
-[FIDO Alliance](https://fidoalliance.org/passkeys/) website.
-
 ## What is passwordless authentication?
 
-As the name implies, passwordless authentication is intended to replace traditional password-based authentication, enabling users
-to verify their identity using authenticators bound to the device they are using&mdash;for example, biometric measurement.
-Passkeys and passwordless authentication is a technology based on the specifications published by the
+Passwordless authentication is intended to replace traditional password-based authentication, enabling users to verify their
+identity using authenticators bound to the device they are using&mdash;for example, biometric measurement. Passkeys and
+passwordless authentication is a technology based on the specifications published by the
 [FIDO Alliance](https://fidoalliance.org/), sponsored by software companies with an interest in security technology and standards.
 
 There are two different classes of authenticators that can be used with passwordless:
 
-- On-device authenticator &mdash; an authenticator available directly on the device you are using, for example fingerprint
+- **On-device authenticator:** an authenticator available directly on the device you are using, for example fingerprint
   recognition on a mobile phone.
-- External authenticator &mdash; an authenticator provided by an external device, such as a USB key or an NFC device.
+- **External authenticator:** an authenticator provided by an external device, such as a USB key or an NFC device.
 
-### On-device authenticator for passwordless login flow
+For applications that use the authentication flows from Ory's Account Experience, the user experiences the passwordless login flow
+as follows.
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="on-device" label="On-device authenticator" default>
 
 From the end user's perspective, passwordless login with an on-device authenticator is simple:
 
-1. Ory's self-service login flow presents an option to log in using passwordless (below the option for signing in with a
-   password). ![Ory Account Experience login](./_static/ax-login-options.png)
+1. Ory's self-service login flow presents an option to log in using passwordless (below the option for signing in with a password).
+   ![Ory Account Experience login](./_static/ax-login-options.png)
 2. To sign in with passwordless, the user enters their ID and clicks the **Sign in with security key** button.
-3. The Ory Account Experience displays the sign-in preparation dialog, which gives the user time to prepare the physical device
-   for passwordless login. The user clicks **Continue** to proceed to the next step.
+3. The Ory Account Experience displays the sign-in preparation dialog, which gives the user time to prepare the physical device for passwordless login. The user clicks **Continue** to proceed to the next step.
 4. The platform verifies the user's identity using the chosen method.
 5. Login completes automatically.
 
-### External authenticator for passwordless login flow
+</TabItem>
+<TabItem value="external" label="External authenticator">
 
 From the end user's perspective, passwordless login with an external authenticator is simple:
 
 1. Ory's self-service login flow presents an option to log in using passwordless.
 2. To sign in with passwordless, the user enters their ID and clicks the **Sign in with security key** button.
-3. The Ory Account Experience displays the sign-in preparation dialog, which gives the user time to prepare the physical device
-   for passwordless login. The user clicks **Continue** to proceed to the next step.
+3. The Ory Account Experience displays the sign-in preparation dialog, which gives the user time to prepare the physical device for passwordless login. The user clicks **Continue** to proceed to the next step.
 4. The user chooses the external authenticator to use for sign-in (for example, a USB security key).
    ![Choose external authenticator device](./_static/external-device-choose.png)
-5. The platform verifies the user's identity using the chosen method.
+4. The platform verifies the user's identity using the chosen method.
    ![Verify identity with USB security key](./_static/external-device-verify-identity.png)
-6. Login completes automatically.
+5. Login completes automatically.
+
+</TabItem>
+</Tabs>
+```
 
 ### Authenticator options for passwordless
 
@@ -132,8 +138,8 @@ The main steps in the passwordless login flow are, as follows:
 :::note
 
 Neither the public key nor the private key are exposed to the app during this authentication flow. The only time the public key is
-sent over the network is during sign-up (registration flow), at which point the server stores the public key in the user's account
-in the database. The corresponding passkey (private key) never leaves the keychain on the user's device.
+sent over the network is during sign-up (registration flow), at which point the server stores the public key in the database entry
+for the user's account. The corresponding passkey (private key) never leaves the keychain on the user's device.
 
 :::
 
@@ -154,7 +160,7 @@ If you need to log in with a passkey across multiple devices, the following opti
 
 - One-off authentication using an external device
 - Secure transfer of the passkey to the new device
-- Platform specific passkey sharing between devices
+- Platform-specific passkey sharing between devices
 
 ### One-off authentication using an external device
 
@@ -163,9 +169,9 @@ over a (secured) BLE connection.
 
 For example, consider the case where the passkey for a particular application is stored in the Android OS on your mobile phone. If
 you need to log into the application from a PC, you can use the passkey on your mobile phone to verify your identity. In this
-case, you would select a BLE (Bluetooth Low Energy) device as the external authenticator on the PC and, after pairing your phone
-with the PC, you are prompted to verify your identity on the mobile phone. This authentication step is a one-off and, in
-particular, the passkey **is not transferred to the PC**.
+case, you select a BLE (Bluetooth Low Energy) device as the external authenticator on the PC and, after pairing your phone with
+the PC, you are prompted to verify your identity on the mobile phone. This authentication step is a one-off and the passkey is not
+transferred to the PC.
 
 Using this remote authentication protocol, you can use your mobile phone as an external authenticator for any device that supports
 WebAuthn, without leaving any trace of your credentials on that device.
@@ -175,15 +181,15 @@ WebAuthn, without leaving any trace of your credentials on that device.
 On the other hand, if you want to transfer passkey credentials from your mobile phone to your PC, this is also supported by the
 FIDO standard. Support for this feature is not available on all platforms, however, as it is a recent addition to the standard.
 
-For example, consider the case where a passkey for a particular appplication is stored on your mobile phone, but you also want to
+For example, consider the case where a passkey for a particular application is stored on your mobile phone, but you also want to
 have this passkey available on your personal laptop, so that you don't need to take out your phone every time you log in from your
 laptop. If your platform has support for this, you see an option to securely transfer the passkey to your laptop, while performing
 remote authentication over BLE. If you choose to transfer the passkey, it will be stored permanently (and securely) on your
 laptop's OS and in future you will be able to log in to the application directly from your laptop.
 
-### Platform specific passkey sharing between devices
+### Platform-specific passkey sharing between devices
 
-If all of your devices belong to the same platform ecosystem (for example, Android, Apple, or Windows), you might find there is a
-platform-specific mechanism available for sharing passkeys securely between devices. For example, the Apple iCloud keychain is
-capable of sharing passkeys for passwordless login across multiple apple devices (assuming these devices have access to the same
+If all of your devices belong to the same platform ecosystem (for example, Android, macOS, or Windows), you might find there is a
+platform-specific mechanism available for sharing passkeys securely between devices. For example, the Apple iCloud Keychain is
+capable of sharing passkeys for passwordless login across multiple Apple devices (assuming these devices have access to the same
 Apple iCloud account).
