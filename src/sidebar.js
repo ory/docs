@@ -324,6 +324,7 @@ module.exports = {
       type: "category",
       label: "Security and compliance",
       items: [
+        "security-compliance/compliance-and-certifications",
         "ecosystem/security",
         "kratos/concepts/security",
         "security-compliance/token-formats",
