@@ -325,12 +325,12 @@ module.exports = {
       label: "Security and compliance",
       items: [
         "security-compliance/compliance-and-certifications",
+        "security-compliance/gdpr",
         "ecosystem/security",
         "kratos/concepts/security",
         "security-compliance/token-formats",
         "concepts/password-policy",
         "hydra/security-architecture",
-        "security-compliance/gdpr",
       ],
     },
     {
