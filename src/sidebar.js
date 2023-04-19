@@ -5,6 +5,11 @@ module.exports = {
   docs: [
     {
       type: "category",
+      label: "Get started",
+      items: ["get-started/single-page-app"],
+    },
+    {
+      type: "category",
       label: "Use cases",
       collapsed: false,
       items: [
