@@ -4,7 +4,7 @@ export const basic: PropTypes = {
   id: "basic",
   title: "Basic examples",
   description:
-    "Guides, tutorials, and configurations for using Ory services. Examples are maintained and tested by the Ory team.",
+    "Guides, tutorials, and configurations for using Ory services. Examples are maintained by the Ory team.",
   examples: [
     {
       title: "Protect a page with login: Next.js/React",
@@ -87,7 +87,7 @@ export const basic: PropTypes = {
       docs: "https://www.ory.sh/securing-flask-application-using-kratos-and-keto/",
     },
     {
-      title: "Protect a page with login: Dotnet",
+      title: "Protect a page with login: .NET Core",
       language: "dotnet",
       author: "ory",
       tested: true,
@@ -95,15 +95,7 @@ export const basic: PropTypes = {
       docs: "https://www.ory.sh/docs/getting-started/integrate-auth/dotnet",
     },
     {
-      title: "Ory Cloud with Supabase Backend",
-      language: "go",
-      author: "ory",
-      tested: false,
-      repo: "https://github.com/ory/examples/tree/master/supabase-ory-cloud",
-      docs: "https://github.com/ory/examples/blob/master/supabase-ory-cloud/README.md",
-    },
-    {
-      title: "Ory Network with ASP.NET Core",
+      title: "Protect a page with login: ASP.NET Core",
       language: "dotnet",
       author: "ory",
       tested: false,
@@ -118,7 +110,7 @@ export const customui: PropTypes = {
   id: "customui",
   title: "Custom UI examples",
   description:
-    "Guides, tutorials, and configurations for building a custom UI for Ory services. Examples are maintained and tested by the Ory team.",
+    "Guides, tutorials, and configurations for building a custom UI for Ory services. Examples are maintained by the Ory team.",
   examples: [
     {
       title: "Customize self-service UI: Node.js",
