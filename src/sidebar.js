@@ -29,6 +29,7 @@ module.exports = {
           ],
         },
         "guides/permissions/overview",
+        "getting-started/custom-ui",
       ],
     },
     {
