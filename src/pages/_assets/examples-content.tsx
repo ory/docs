@@ -141,7 +141,7 @@ export const customui: PropTypes = {
 
 export const community: PropTypes = {
   id: "community",
-  title: "Community Examples",
+  title: "Community examples",
   description:
     "Guides, tutorials, and configurations for using Ory services contributed by the Ory community.",
   examples: [
