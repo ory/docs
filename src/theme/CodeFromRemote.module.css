@@ -1,3 +1,15 @@
 .container {
   margin-bottom: var(--ifm-leading);
 }
+
+.codeblock {
+  margin-bottom: 0.4em;
+}
+
+.link {
+  font-size: 0.8em;
+  color: #06b6d4;
+  text-align: end;
+  margin-bottom: var(--ifm-leading);
+  text-decoration: underline;
+}
