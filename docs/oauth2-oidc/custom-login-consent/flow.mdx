@@ -1,6 +1,7 @@
 ---
 id: flow
 title: User login and consent flow
+toc_max_heading_level: 4
 ---
 
 This guide will walk you through the process of customizing Ory OAuth2 and OpenID Connect to work with your user database, login
@@ -117,22 +118,86 @@ The way you collect the consent information from the end user is up to you. In m
 </form>
 ```
 
+### Skipping consent for trusted clients
+
+When you create an OAuth2 client in your Ory Network project, you can configure it to skip the "consent screen", which is the
+screen where the user must explicitly agree to giving the client access to their data and allow perform operations on their
+behalf.
+
+This approach is useful when you're working with trusted, first-party clients managed by the same entity that manages the Ory
+Network project.
+
+You can turn on skipping the consent screen on a per-client basis through the Ory Console. Follow these steps to enable consent
+screen skipping for existing OAuth2 clients:
+
+1. Sign in to the Ory Console and go to [**OAuth2** → **Clients**](https://console.ory.sh/projects/current/oauth).
+2. Find the client for which you want to turn on consent skipping and click the [**pencil icon**] in the **Actions** column.
+3. Use the **Skip consent** toggle in the **Consent screen** section to manage the feature. When you turn this feature on, consent
+   skipping is enabled for the client.
+4. Scroll back to the top and click **Save**.
+
+:::tip
+
+You can enable consent skipping when you create new OAuth2 clients. Use the **Skip consent** toggle in the **Consent screen**
+section to manage the feature.
+
+:::
+
+#### Implementation
+
+Skipping the consent screen is managed by the `challenge` object returned from
+[getOAuth2ConsentRequest](https://www.ory.sh/docs/hydra/reference/api#tag/oAuth2/operation/getOAuth2ConsentRequest).
+
+If the consent is skipped for the given OAuth2 client, `challenge.client.skip_consent` is `true`.
+
+For TypeScript, the following snippet shows how to determine whether to skip the consent screen UI:
+
+```ts
+const { consent_challenge } = req.query // the HTTP request
+
+const challenge = await oauth2
+  .getOAuth2ConsentRequest({ consentChallenge: String(consent_challenge) })
+  .then(({ data: body }) => body)
+
+const skipConsent =
+  challenge.skip || // skip because the user accepted the consent previously
+  challenge.client.skip_consent // skip because the client is trusted
+
+if (skipConsent) {
+  // If the consent is skipped, we accept the consent request immediately.
+  await oauth2.acceptOAuth2ConsentRequest({
+    consentChallenge: String(consent_challenge),
+    acceptOAuth2ConsentRequest: {
+      grant_scope: challenge.requested_scope,
+      grant_access_token_audience: challenge.requested_access_token_audience,
+      session,
+    },
+  })
+}
+
+// Next, add code that shows the consent screen.
+// This is used when the client doesn't have consent skipping enabled.
+// Check out an example consent screen implementation in an app here:
+// https://github.com/ory/hydra-login-consent-node/blob/f6ab9d1156aeabbd941f9920ff85408ca0a1f2d4/src/routes/consent.ts#L41
+```
+
 ### Previous consent
 
-A consent has four distinctive attributes:
+A consent has five distinctive attributes:
 
-1. The requested scope (`scope=email+profile+offline_access`);
-2. The OAuth2 client (`client_id=abcd`);
-3. The end user (this is the subject set in the Login Flow);
+1. The requested scope (`scope=email+profile+offline_access`)
+2. The OAuth2 client (`client_id=abcd`)
+3. The end user (this is the subject set in the Login Flow)
 4. If a previous consent exists, the previous consent has `remember: true`, and the scope granted by the user (did the user accept
    all of `email`, `profile`, `offline_access`).
+5. Whether or not the OAuth2 client is set to always skip consent.
 
 There are three possible states:
 
 1. The user has never before authorized ("consent") the OAuth2 client before.
 2. The user has authorized ("consent") the OAuth2 client before and chose to remember the "consent".
 3. The user has authorized ("consent") the OAuth2 client before, and chose to remember the "consent", but the OAuth2 client now
-   also wants additional permissions ("has changed the token scope" in /oauth2/auth?scope=...).
+   also wants additional permissions ("has changed the token scope" in `/oauth2/auth?scope=...`).
 
 Regardless of which of these three states we're in, the end user's browser is always redirected to the Consent Endpoint. What
 changes is the skip value, as explained a bit later.

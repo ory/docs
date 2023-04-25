@@ -11,6 +11,13 @@ social sign-in flows can fail with the following message:
 Unable to complete OpenID Connect flow because the OpenID Provider returned error "redirect_uri_mismatch": The redirect_uri MUST match the registered callback URL for this application.
 ```
 
+:::info
+
+If you get this error in projects created after September 2022, read [Social sign-in troubleshooting](./25_social-sign-in.mdx) for
+more information.
+
+:::
+
 ## Mitigation
 
 To fix the problem, remove the `/selfservice/methods/oidc/config/base_redirect_uri` configuration entry. Run this Ory CLI command:

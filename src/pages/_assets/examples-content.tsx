@@ -1,10 +1,10 @@
 import { PropTypes } from "../../components/Examples/example-list"
 
-export const official: PropTypes = {
-  id: "official",
-  title: "Official examples",
+export const basic: PropTypes = {
+  id: "basic",
+  title: "Basic examples",
   description:
-    "Guides, tutorials, and configurations for using Ory services. Examples maintained and tested by the Ory team.",
+    "Guides, tutorials, and configurations for using Ory services. Examples are maintained by the Ory team.",
   examples: [
     {
       title: "Protect a page with login: Next.js/React",
@@ -87,13 +87,31 @@ export const official: PropTypes = {
       docs: "https://www.ory.sh/securing-flask-application-using-kratos-and-keto/",
     },
     {
-      title: "Protect a page with login: Dotnet",
+      title: "Protect a page with login: .NET Core",
       language: "dotnet",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/dotnet",
       docs: "https://www.ory.sh/docs/getting-started/integrate-auth/dotnet",
     },
+    {
+      title: "Protect a page with login: ASP.NET Core",
+      language: "dotnet",
+      author: "ory",
+      tested: false,
+      repo: "https://github.com/ory/examples/tree/master/dotnet-ory-network",
+      docs: "https://github.com/ory/examples/blob/master/dotnet-ory-network/README.md",
+      description: "Advanced example",
+    },
+  ],
+}
+
+export const customui: PropTypes = {
+  id: "customui",
+  title: "Custom UI examples",
+  description:
+    "Guides, tutorials, and configurations for building a custom UI for Ory services. Examples are maintained by the Ory team.",
+  examples: [
     {
       title: "Customize self-service UI: Node.js",
       language: "nodejs",
@@ -118,29 +136,12 @@ export const official: PropTypes = {
       repo: "https://github.com/ory/kratos-selfservice-ui-react-native",
       docs: "https://www.ory.sh/login-react-native-authentication-example-api/",
     },
-    {
-      title: "Ory Cloud with Supabase Backend",
-      language: "go",
-      author: "ory",
-      tested: false,
-      repo: "https://github.com/ory/examples/tree/master/supabase-ory-cloud",
-      docs: "https://github.com/ory/examples/blob/master/supabase-ory-cloud/README.md",
-    },
-    {
-      title: "Ory Network with ASP.NET Core",
-      language: "dotnet",
-      author: "ory",
-      tested: false,
-      repo: "https://github.com/ory/examples/tree/master/dotnet-ory-network",
-      docs: "https://github.com/ory/examples/blob/master/dotnet-ory-network/README.md",
-      description: "Advanced example",
-    },
   ],
 }
 
 export const community: PropTypes = {
   id: "community",
-  title: "Community Examples",
+  title: "Community examples",
   description:
     "Guides, tutorials, and configurations for using Ory services contributed by the Ory community.",
   examples: [

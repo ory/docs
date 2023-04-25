@@ -94,7 +94,7 @@ The response of this request will then be sent to the client that made the reque
 ### Access Control Decision API
 
 The Ory Oathkeeper Access Control Decision API follows best-practices and works with most (if not all) modern API gateways and
-reverse proxies. To verify a request, send it to the `decisions` endpoint located at the Ory Authkeeper API port. It matches every
+reverse proxies. To verify a request, send it to the `decisions` endpoint located at the Ory Oathkeeper API port. It matches every
 sub-path and HTTP Method:
 
 - `GET /decisions/v1/api`

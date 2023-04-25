@@ -64,7 +64,7 @@ an API Gateway or Authorization Proxy. Administrative endpoints include:
 
 - All `/clients` endpoints.
 - All `/keys` endpoints.
-- All `/health`, `/metrics`, `/version` endpoints.
+- All `/health`, `/admin/metrics/prometheus`, `/admin/version` endpoints.
 - All `/oauth2/auth/requests` endpoints.
 - Endpoint `/oauth2/introspect`.
 - Endpoint `/oauth2/flush`.

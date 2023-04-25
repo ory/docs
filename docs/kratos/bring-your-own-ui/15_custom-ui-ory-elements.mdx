@@ -2,7 +2,6 @@
 id: custom-ui-ory-elements
 title: Learn how to create custom TypeScript SPA with Ory Elements
 sidebar_label: Build UI with Ory Elements
-toc_max_heading_level: 4
 ---
 
 # Custom UI with Ory Elements
@@ -52,7 +51,17 @@ Follow these steps to get the sample application code and run it on your machine
      git clone --depth 1 git@github.com:ory/elements.git
      cd elements
      npm run initialize
+     npm run build:clean
      cd examples/react-spa
+     ```
+
+     Running the application outside the `ory/elements` repository:
+
+     ```shell
+     git clone --depth 1 git@github.com:ory/elements.git
+     cp -r elements/examples/react-spa .
+     cd react-spa
+     npm i @ory/elements-react @ory/client @ory/elements-test
      ```
 
      </TabItem>
@@ -62,7 +71,17 @@ Follow these steps to get the sample application code and run it on your machine
      git clone --depth 1 git@github.com:ory/elements.git
      cd elements
      npm run initialize
+     npm run build:clean
      cd examples/preact-spa
+     ```
+
+     Running the application outside the `ory/elements` repository:
+
+     ```shell
+     git clone --depth 1 git@github.com:ory/elements.git
+     cp -r elements/examples/preact-spa .
+     cd preact-spa
+     npm i @ory/elements-preact @ory/client @ory/elements-test
      ```
 
      </TabItem>
@@ -72,7 +91,17 @@ Follow these steps to get the sample application code and run it on your machine
      git clone --depth 1 git@github.com:ory/elements.git
      cd elements
      npm run initialize
+     npm run build:clean
      cd examples/nextjs-spa
+     ```
+
+     Running the application outside the `ory/elements` repository:
+
+     ```shell
+     git clone --depth 1 git@github.com:ory/elements.git
+     cp -r elements/examples/nextjs-spa .
+     cd nextjs-spa
+     npm i @ory/elements @ory/client @ory/elements-test
      ```
 
      </TabItem>
@@ -469,6 +498,14 @@ losing access to a second authentication factor.
   </TabItem>
 </Tabs>
 ```
+
+## End-to-end tests
+
+The examples provided by Ory Elements contain end-to-end tests through the `@ory/elements-test` library which provides convenience
+functions to test the login, registration, recovery, verification, and settings flows. In these examples, the tests are located in
+the `e2e` folder and are based on the [Playwright](https://playwright.dev/) library.
+
+To run the tests, execute the `npm run test` command inside the example directory.
 
 ## Learn more
 

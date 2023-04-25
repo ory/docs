@@ -29,6 +29,9 @@ Alternatively, use Docker to automatically get the required images.
 # clone the repository if you don't have it yet
 git clone git@github.com:ory/keto.git && cd keto
 
+# Alternatively, you can use 'https' to clone if ssh cloning gives permission denied error. (Configure ssh keys in github to resolve the issue.)
+git clone https://github.com/ory/keto.git && cd keto
+
 docker-compose -f contrib/cat-videos-example/docker-compose.yml up
 # or
 ./contrib/cat-videos-example/up.sh
