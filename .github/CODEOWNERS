@@ -1,4 +1,4 @@
-*                               @vinckr @tomekpapiernik @aeneasr @zepatrik @piotrmsc @fbolton
-*.md                            @tomekpapiernik @vinckr @aeneasr @fbolton
-*.mdx                           @tomekpapiernik @vinckr @aeneasr @fbolton
-/code-examples/                 @aeneasr @zepatrik @piotrmsc @Benehiko
+*                               @vinckr @kmherrmann @aeneasr @zepatrik @piotrmsc 
+*.md                            @kmherrmann @vinckr @aeneasr
+*.mdx                           @kmherrmann @vinckr @aeneasr
+/code-examples/                 @aeneasr @zepatrik @piotrmsc
