@@ -1,6 +1,6 @@
 ---
 id: native-apps
-title: Social sign-in for native apps
+title: Social sign-in for native and mobile apps
 sidebar_label: Native apps
 ---
 
@@ -13,7 +13,7 @@ import CodeFromRemote from "@theme/CodeFromRemote"
 
 ## Overview
 
-This page covers how to implement social sign-in for native applications via OIDC and OAUth 2.0. The user interaction looks like
+This page covers how to implement social sign-in for native applications via OIDC and OAuth 2.0. The user interaction looks like
 this:
 
 - The user is presented with a login or registration screen that includes a social sign-in button.
@@ -63,7 +63,7 @@ sequenceDiagram
 ### Implementation
 
 The following sections describe how to implement the native app authentication flow. The code examples are written in TypeScript
-for React Native. The numbers in the headlines refer to the steps in the flow above.
+for React Native. The steps refer to the steps in the flow diagram above.
 
 #### Steps 1-5: Create an API flow with return_session_token_exchange_code=true
 
@@ -99,7 +99,7 @@ contains the URL of the identity provider in the `redirect_browser_to` field.
 />
 
 [WebBrowser.openAuthSessionAsync](https://docs.expo.dev/versions/latest/sdk/webbrowser/#webbrowseropenauthsessionasyncurl-redirecturl-options)
-opens a browser tab for authentication for the specified `url` (7+8). Impementations in other languages and frameworks may vary.
+opens a browser tab for authentication for the specified `url` (7+8). Implementations in other languages and frameworks may vary.
 
 <CodeFromRemote
   lang="ts"
