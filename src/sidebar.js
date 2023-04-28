@@ -227,6 +227,7 @@ module.exports = {
       label: "Permissions and relationships",
       items: [
         "keto/index",
+        "keto/guides/simple-access-check-guide",
         "keto/modeling/create-permission-model",
         {
           Concepts: [
@@ -238,7 +239,6 @@ module.exports = {
         },
         {
           Guides: [
-            "keto/guides/simple-access-check-guide",
             "keto/guides/list-api-display-objects",
             "keto/guides/expand-api-display-who-has-access",
             "keto/guides/rbac",
