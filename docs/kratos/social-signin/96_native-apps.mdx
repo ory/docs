@@ -53,8 +53,9 @@ sequenceDiagram
   U->>I: login, consent
   I->>-B: redirect to <IdP callback URL>
   B->>O: open <IdP callback URL>
+  O->>B: Ok 200
+  B->>A: redirect with App link to <return to>/?code=...
   deactivate B
-  O->>A: redirect with App link to <return to>/?code=...
   A->>O: exchange code for session token
   O->>-A: session token
 `}/>
