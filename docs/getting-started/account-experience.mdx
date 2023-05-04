@@ -1,0 +1,77 @@
+---
+id: account-experience
+title: Account Experience
+sidebar_label: Account Experience
+---
+
+The Ory Account Experience provides a user interface hosted on Ory Network for login, registration, account recovery, account
+setting, and account verification flows. You can use the Ory Account experience as an fully featured out-of-the-box UI for your
+application. The source code is available on [GitHub](https://github.com/ory/kratos-selfservice-ui-node).
+
+## Procedure
+
+1. Open the [Ory Console](https://console.ory.sh).
+
+   :::note
+
+   If you have already created more than one project, use the [**Projects**](https://console.ory.sh/projects) page on the Console
+   to choose the project to use with the Account Experience.
+
+   :::
+
+2. From the current project, open the **Access & APIs** tab and launch the Account Experience.
+3. The Account Experience opens on the Welcome page, which provides you with a launchpad for running Ory's web-based self-service
+   flows in the current project.
+4. In the sidebar, click **Sign Up** to initiate the registration flow.
+5. Use the login form to log in to the user account you created earlier.
+
+   :::note
+
+   If you did not yet create a user account in this project, click the **Sign up** link at the bottom of the form to initiate the
+   registration flow.
+
+   :::
+
+6. After signing in, the Account Experience brings you back to the **Welcome** page. In the sidebar, you can see that some of the
+   previously greyed out links are now active.
+7. Click **Account Settings** to initiate the account settings self-service flow. The account settings page opens in a new tab.
+8. From the account settings page, you can view and edit your user profile. For example, you could change the email address or
+   password associated with this account.
+9. Click **Logout** in the sidebar, to log out from this user account.
+
+## Next steps
+
+The Account Experience provides a rich environment for further exploration of advanced authentication options and self-service
+flows. With Account Experience, you don't even need a demo application to explore many of the features of Ory Network.
+
+- Try out [time-based one time passwords (TOTP)](https://www.ory.sh/docs/kratos/mfa/totp). After enabling TOTP in the Ory Console,
+  you can see the following changes in the Account Experience:
+  - On the **Account Settings** page, a QR code is shown under the **Authenticator App** section, which can be used to pair your
+    account with a TOTP app on your mobile phone.
+  - After pairing with the TOTP app, you are prompted to enter a one-time code each time you log in.
+- Enable [recovery codes (lookup secrets)](https://www.ory.sh/docs/kratos/mfa/lookup-secrets). After enabling recovery codes in
+  the Ory Console, you can see the following changes in the Account Experience:
+  - On the **Account Settings** page, a **2FA Backup Codes** section is shown.
+- Try out [passwordless login](https://www.ory.sh/docs/kratos/passwordless/passkeys). After enabling passwordless login in the Ory
+  Console, you can see the following changes in the Account Experience:
+  - When you sign up for a new account, you are given the option of configuring a passwordless login option.
+  - On the login page, there is a new option to **Sign in with security key**, in addition to the regular password-based login
+    option.
+  - On the **Account Settings** page, there is a new section for managing hardware tokens.
+- Try out [social sign-in](https://www.ory.sh/docs/kratos/social-signin/overview). After configuring a social sign-in provider in
+  the Ory Console, you can see the following changes in the Account Experience:
+  - On the login page, there is a new option to log in using the social sign-in provider.
+  - On the **Account Settings** page, there is a new **Social Sign In** section, which can be used to link social sign-in
+    providers to your account.
+
+:::info
+
+You need to use the **Link {social-sign-in-provider}** buttons, if you want to link more than one social sign-in provider with
+your account. For technical reasons, this feature is necessary to protect against certain kind of attacks.
+
+:::
+
+### Bring your own UI
+
+If you want to take full control of the user interface, you can bring your own UI. Visit the
+[Custom UI](http://ory.sh/docs/kratos/bring-your-own-ui/custom-ui-overview) documentation to get started.
