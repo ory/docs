@@ -16,7 +16,10 @@ Nowadays, many of the passwords in use can be easily compromised because:
 - They are considered "weak" because they are short, have obvious, derivable patterns, or contain easy-to-guess character strings.
 
 By enabling two-factor authentication in your project, you introduce an additional verification step that can protect user login
-or self-service actions, such as updating account information or credentials, from malicious actors.
+or self-service actions, such as updating account information or credentials, from malicious actors.  
+For example, you might decide to require a user to log in with two factors right at the start of the session. Alternatively, you
+could allow the user to start the session by logging in with the first factor and only require the second factor at the point
+where the user is about to perform a security-sensitive operation (step up authenticaiton).
 
 ## Available methods
 
@@ -24,10 +27,8 @@ Ory offers multiple second-factor authentication methods:
 
 ### Time-based one-time password (TOTP)
 
-Time-based one-time passwords are codes made up of digits, that are valid for a short amount of time, usually 30 seconds or less.
-Users generate these passwords with companion apps such as [Google Authenticator](https://g.co/kgs/YgRFR5) or
-[FreeOTP](https://freeotp.github.io/) and enter them when asked to provide their second authentication factor. Read
-[Time-based one-time passwords (TOTP)](./15_totp.mdx) to learn more.
+Time-based one time passwords (TOTP) are a flexible 2FA authentication method based on a shared secret, and can be used both with
+browser-based apps and native apps. Read [Time-based one-time passwords (TOTP)](./15_totp.mdx) to learn more.
 
 ### WebAuthn
 
