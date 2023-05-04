@@ -14,10 +14,12 @@ import TabItem from '@theme/TabItem';
 WebAuthn uses the [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API) of the
 browser, which allows servers to register and authenticate users using public-key cryptography.
 
-This method is used with:
+There are two main categories of authenticators you can use with WebAuthn:
 
-- USB, NFC, or Bluetooth Low Energy devices, for example a [YubiKey](https://www.yubico.com/why-yubico/how-the-yubikey-works/)
-- OS-level biometric authentication protocols, such as TouchID, FaceID, Windows Hello, or Android Biometric Authentication
+- **On-device authenticators**: platform-based biometric authentication protocols, such as TouchID, FaceID, Windows Hello, or
+  Android Biometric Authentication
+- **External authenticators**: NFC devices, USB keys, or Bluetooth Low Energy (BLE) devices, for example a
+  [YubiKey](https://www.yubico.com/why-yubico/how-the-yubikey-works/).
 
 When accessing resources protected with the second-factor requirement, the browser presents the user with a prompt asking to
 confirm their identity with their configured authentication method, for example, by touching the fingerprint reader.
@@ -37,11 +39,7 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 </BrowserWindow>
 ```
 
-:::note
-
 The look of the prompt depends on the web browser. The screenshot shows a Google Chrome prompt.
-
-:::
 
 ## Limitations
 
