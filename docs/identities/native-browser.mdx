@@ -15,6 +15,8 @@ such as sign in, registration, profile changes, and so on. When using this endpo
 When a user signs in successfully, Ory will issue an Ory Session Cookie. Calling `ory.toSession()` will return the same session
 but does not require any additional calls when used in client-side browser apps (for example React, Vue, Angular).
 
+![Architecture for browser-based app integrated with Ory Identities](./_static/browser.svg)
+
 ## Native apps
 
 Native apps use the `https://{project.slug}.projects.oryapis.com/self-service/{flow-type}/api` endpoint to initialize flows such
@@ -25,3 +27,5 @@ returns the same session response when calling `ory.toSession({ xSessionToken: "
 
 Because it is very dangerous to use native app endpoints in a browser context, Ory prevents you from using these APIs in the
 browser.
+
+![Architecture for a native integrated with Ory Identities](./_static/native.svg)
