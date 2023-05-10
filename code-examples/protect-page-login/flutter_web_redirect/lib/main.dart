@@ -8,7 +8,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_web_redirect/services/auth.dart';
-import 'package:pretty_json/pretty_json.dart';
 
 Future main() async {
   // load the env file
@@ -43,18 +42,18 @@ Future main() async {
     return;
   }
 
-  runApp(MyApp(dio, auth));
+  runApp(MyApp(dio: dio, auth: auth));
 }
 
 void _launchURL(String url) async {
-  window.open(url+'/self-service/login/browser', '_self');
+  window.open("$url/self-service/login/browser", '_self');
 }
 
 class MyApp extends StatelessWidget {
   final Dio dio;
   final AuthService auth;
 
-  MyApp(this.dio, this.auth);
+  const MyApp({Key? key, required this.dio, required this.auth}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -70,7 +69,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title, required this.auth}) : super(key: key);
+  const MyHomePage({Key? key, required this.title, required this.auth}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -122,7 +121,8 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Session Information:${prettyJson(widget.auth.identity)}'),
+            Text('Session Information:${widget.auth.identity.toString()}'),
+            TextButton(onPressed: widget.auth.logout, child: const Text('Logout')),
           ],
         ),
       ),
