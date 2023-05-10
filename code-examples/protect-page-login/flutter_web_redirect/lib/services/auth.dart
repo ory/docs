@@ -1,23 +1,35 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-
-import 'dart:convert';
+import 'dart:html';
 
 import 'package:dio/dio.dart';
+import 'package:ory_client/ory_client.dart';
 
 class AuthService {
-  final Dio _dio;
-  Map<String, dynamic> _identity = {};
+  final FrontendApi _ory;
+  Session? _identity;
 
-  AuthService(this._dio);
+  AuthService(Dio dio) :
+    _ory = OryClient(dio: dio).getFrontendApi();
 
   Future<bool> isAuthenticated() async {
-    return _dio.get('/sessions/whoami').then((value) {
-      if (value.statusCode == 200) {
-        _identity = value.data;
+    return _ory.toSession().then((resp)  {
+      if (resp.statusCode == 200) {
+        _identity = resp.data;
         return true;
       }
       return false;
+    })
+    .catchError((error) {
+      return false;
+    });
+  }
+
+  Future logout() async {
+    return _ory.createBrowserLogoutFlow().then((resp) {
+      return _ory.updateLogoutFlow(token: resp.data!.logoutToken).then((resp) {
+        window.location.reload();
+      });
     });
   }
 

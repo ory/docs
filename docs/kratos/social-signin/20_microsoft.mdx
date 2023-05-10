@@ -2,7 +2,6 @@
 id: microsoft
 title: Add Microsoft as a social sign-in provider in Ory
 sidebar_label: Microsoft
-toc_max_heading_level: 4
 ---
 
 # Microsoft
@@ -182,13 +181,16 @@ Follow these steps to add Microsoft as a social sign-in provider to your project
 
 ## Selecting a Tenant
 
-When you add Microsoft as a social sign-in provider, you can define which user groups can sign in and sign up with Microsoft by
-setting a specific value of the **Tenant** field:
+When you add Microsoft as a social sign-in provider, you have two alternatives to define which user groups can sign in and sign up
+with Microsoft by setting the **Tenant** field:
 
 1. To authenticate users that belong to a single, specific organization (Azure Active Directory), set the value to **Directory
    (tenant) ID** or the organization's domain, for example, `example.onmicrosoft.com`.
 
-2. To authenticate users with Microsoft accounts that are not limited to a specific organization, set **Tenant** value to:
+OR
+
+2. To authenticate users with Microsoft accounts that are not limited to a specific organization, choose from the following values
+   for the **Tenant** field:
 
    - `organizations` to allow users with work or school accounts
    - `consumers` to allow users with personal accounts
@@ -248,3 +250,11 @@ To do that, add the `subject_source` field set to `me` to the social sign-in pro
    ```shell
    ory update identity-config {project-id} --file identity-config.yaml
    ```
+
+## Troubleshooting
+
+```mdx-code-block
+import SocialSigninTroubleshooting from '../_common/social-sign-in-troubleshooting.mdx'
+
+<SocialSigninTroubleshooting />
+```

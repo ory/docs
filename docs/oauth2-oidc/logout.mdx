@@ -3,40 +3,44 @@ id: oidc-logout
 title: OpenID Connect logout
 ---
 
-Ory OAuth2 & OpenID Connect is a powerful tool implementing OpenID Connect RP-Initiated Logout 1.0, OpenID Connect Front-Channel
-Logout 1.0, and OpenID Connect Back-Channel Logout 1.0 flows. In this guide, we will show you how to perform OpenID Connect front-
-and back-channel logout using Ory OAuth2 & OpenID Connect.
+Ory OAuth2 and OpenID Connect allows you to implement:
+
+- OpenID Connect RP-Initiated Logout 1.0,
+- OpenID Connect Front-Channel Logout 1.0
+- OpenID Connect Back-Channel Logout 1.0
+
+This document shows how to perform OpenID Connect front-channel and back-channel logout using Ory OAuth2 and OpenID Connect.
 
 ## OpenID Connect Front-Channel Logout 1.0
 
-OpenID Connect Front-Channel Logout 1.0 is a feature that allows an OAuth2 client to register fields `frontchannel_logout_uri`. If
-`frontchannel_logout_uri` is set to a valid URL, Ory will redirect the user-agent (typically browser) to that URL after a logout
-occurred. This allows the OAuth2 client application to log out the end-user in its own system as well, for example by deleting a
-cookie or otherwise invalidating the user session.
+OpenID Connect Front-Channel Logout 1.0 allows an OAuth2 client to register a `frontchannel_logout_uri` field. If
+`frontchannel_logout_uri` is set to a valid URL, Ory redirects the user-agent (typically browser) to that URL after a logout
+occurred. This allows the OAuth2 client application to log out the end user in its own system as well, for example by deleting a
+cookie or invalidating the user session.
 
-Ory OAuth2 & OpenID Connect always appends query parameters values `iss` and `sid` to the Front-Channel Logout URI. Each OpenID
-Connect ID Token is issued with a `sid` claim that will match the `sid` value from the Front-Channel Logout URI. Ory OAuth2 &
-OpenID Connect will automatically execute the required HTTP Redirects to make this work. No extra work is required.
+Ory OAuth2 and OpenID Connect always appends query parameters values `iss` and `sid` to the Front-Channel Logout URI. Each OpenID
+Connect ID token is issued with a `sid` claim that will match the `sid` value from the Front-Channel Logout URI. Ory OAuth2 and
+OpenID Connect automatically executes the required HTTP redirects to make this work.
 
-To use OpenID Connect Front-Channel Logout 1.0 with Ory OAuth2 & OpenID Connect, follow these steps:
+To use OpenID Connect Front-Channel Logout 1.0 with Ory OAuth2 and OpenID Connect, follow these steps:
 
-1. Register a field `frontchannel_logout_uri` with a valid URL in your OAuth2 client application.
-2. When a logout occurs, Ory will redirect the user-agent (browser) to the specified URL.
-3. The OAuth2 client application can then log out the end-user in its own system as well, for example by deleting a cookie or
-   otherwise invalidating the user session.
+1. Register a `frontchannel_logout_uri` field with a valid URL in your OAuth2 client application.
+2. When a logout occurs, Ory redirects the user-agent (browser) to the specified URL.
+3. The OAuth2 client application can then log out the end user in its own system as well, for example by deleting a cookie or
+   invalidating the user session.
 
 ## OpenID Connect Back-Channel Logout 1.0
 
-OpenID Connect Back-Channel Logout 1.0 is a feature that allows an OAuth2 client to register fields `backchannel_logout_uri` and
-`backchannel_logout_session_required`. If `backchannel_logout_uri` is set to a valid URL, a HTTP Post request with
-`Content-Type application/x-www-form-urlencoded` and a `logout_token` will be made to that URL when a end-user logs out. The
-`logout_token` is a JWT signed with the same key that's used to sign OpenID Connect ID Tokens. You should thus validate the
-`logout_token` using the ID Token Public Key (can be fetched from `/.well-known/jwks.json`). The `logout_token` contains the
-following claims:
+OpenID Connect Back-Channel Logout 1.0 is a feature that allows an OAuth2 client to register `backchannel_logout_uri` and
+`backchannel_logout_session_required` fields. If `backchannel_logout_uri` is set to a valid URL, a HTTP POST request with
+`Content-Type application/x-www-form-urlencoded` and a `logout_token`is sent to the set URL when the end user logs out. The
+`logout_token` is a JWT signed with the same key that's used to sign OpenID Connect ID tokens. You should thus validate the
+`logout_token` using the ID token public key (get it from `/.well-known/jwks.json`). The `logout_token` contains the following
+claims:
 
-- `iss`: Issuer Identifier for the Issuer of the response. The iss value is a case-sensitive URL using the https scheme that
-  contains scheme, host, and optionally, port number and path components and no query or fragment components.
-- `aud`: Audience(s) that this ID Token is intended for. It contains the OAuth 2.0 client_id of the as an audience value.
+- `iss`: Issuer identifier for the issuer of the response. The `iss` value is a case-sensitive URL that uses the HTTPS scheme. URL
+  contains scheme, host, and optionally port number and path components. No query or fragment components allowed.
+- `aud`: Audience(s) that this ID token is intended for. It contains the OAuth 2.0 `client_id` of the as an audience value.
 - `iat`: Time at which the JWT was issued. Can be used to determine the age of the JWT.
 - `jti`: A unique identifier for the JWT. Can be used to prevent the JWT from being replayed. This is helpful for a one time use
   token.
@@ -69,7 +73,7 @@ Pragma: no-cache
 Since the back-channel logout flow is not executed using the user-agent (such as a browser), the session cookie of the end-user is
 not available to the OAuth 2.0 Client, and the session has to be invalidated by some other means.
 
-## Send the ID Token in `id_token_hint`
+## Send the ID token in 'id_token_hint'
 
 `id_token_hint` is an optional query parameter that can be provided in the logout request to indicate which OpenID Connect ID
 Token was used to authenticate the user. This parameter is useful for identifying the user's session and ensuring that the user is

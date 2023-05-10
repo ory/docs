@@ -4,8 +4,13 @@ title: Software Development Kit (SDK)
 sidebar_label: Ory Oathkeeper SDK
 ---
 
-Before using the SDK, consult the Ory Oathkeeper [REST](../reference/api.mdx) API documentation, which includes code samples and
-examples for various programming languages.
+The Ory Oathkeeper SDK allows for integration with [Ory Oathkeeper](https://github.com/ory/oathkeeper).
+
+Before using the SDK, consult the Ory Oathkeeper [REST](../reference/api.mdx) API documentation.
+
+To view the source code for the generated SDKs, visit the
+[Ory Oathkeeper SDK GitHub repository](https://github.com/ory/sdk/tree/master/clients/oathkeeper/). Ory SDKs are generated using
+the [openapi-generator](https://github.com/OpenAPITools/openapi-generator).
 
 ## Download the SDK
 

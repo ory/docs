@@ -3,167 +3,77 @@ id: go
 title: Go
 ---
 
-import CodeBlock from "@theme/CodeBlock"
-import { useLatestRelease } from "@site/src/hooks"
+In this document you can find code examples for the Ory Permissions Go SDK.
 
-Ory Keto exposes two APIs for integration
+:::info
 
+Missing an example? Please create a
+[feature request](https://github.com/ory/docs/issues/new?assignees=&labels=feat&template=FEATURE-REQUEST.yml) and it will be added
+here.
+
+You can find more examples of SDK usage in the auto-generated documentation
+[`client-go`](https://github.com/ory/client-go/tree/master/docs).
+
+:::
+
+Ory Permissions exposes two APIs for integration
+
+- REST
+  - [Permission API](https://www.ory.sh/docs/reference/api#tag/permission)
+  - [Relationship API](https://www.ory.sh/docs/reference/api#tag/relationship)
 - [gRPC](http://ory.sh/docs/keto/reference/proto-api)
-- [REST](http://ory.sh/docs/keto/reference/rest-api)
 
 ## Installation
 
-### Installation gRPC API
-
-```mdx-code-block
-
-<CodeBlock className="language-shell">{`go get github.com/ory/keto/proto@${useLatestRelease('keto')}`}</CodeBlock>
-
-```
-
 ### Installation REST API
 
-```mdx-code-block
-<CodeBlock className="language-shell">{`go get github.com/ory/keto-client-go@${useLatestRelease('keto')}`}</CodeBlock>
+```go
+go get github.com/ory/client-go
 ```
 
-## Configuration
-
-### Configuration gRPC API
+### Installation gRPC API
 
 ```go
-package main
+go get github.com/ory/keto/proto
+```
 
-import (
-	"google.golang.org/grpc"
+## REST API examples
 
-	acl "github.com/ory/keto/proto/ory/keto/acl/v1alpha1"
-)
+As an example, let's create the following minimal permission rules. These just contain a `User` and `Blog` namespace as well as
+the `view` permission for the `Blog` namespace.
 
-func main() {
-	conn, err := grpc.Dial("127.0.0.1:4467", grpc.WithInsecure())
-	if err != nil {
-		panic("Encountered error: " + err.Error())
-	}
+```
+import { Namespace, SubjectSet, Context } from "@ory/keto-namespace-types"
 
-	writeClient := acl.NewWriteServiceClient(conn)
+class User implements Namespace { }
 
-	// _, err = client.TransactRelationTuples(context.Background() ...
-	conn, err = grpc.Dial("127.0.0.1:4466", grpc.WithInsecure())
+class Blog implements Namespace {
+  related: {
+    viewers: User[]
+  }
 
-	readClient := acl.NewReadServiceClient(conn)
-	// _, err = readClient.ListRelationTuples(context.Background()...
-
-	conn, err = grpc.Dial("127.0.0.1:4466", grpc.WithInsecure())
-	checkClient := acl.NewCheckServiceClient(conn)
-	// _, err = checkClient.Check(context.Background() ...
-
-	conn, err = grpc.Dial("127.0.0.1:4466", grpc.WithInsecure())
-	expandClient := acl.NewExpandServiceClient(conn)
-	// _, err = expandClient.Expand(context.Background() ...
+  permits = {
+    view: (ctx: Context): boolean =>
+      this.related.viewers.includes(ctx.subject)
+  }
 }
 ```
 
-### Configuration REST API
+If you want to learn more about creating permission rules read the
+[Create a permission model](https://www.ory.sh/docs/keto/modeling/create-permission-model) guide.
 
-```go
-package main
+### CreateRelationship and CheckPermission
 
-import (
-	client "github.com/ory/keto-client-go"
-)
-
-func main() {
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://127.0.0.1:4467", // Write API
-		},
-	}
-	writeClient := client.NewAPIClient(configuration)
-	// resp, r, err := writeClient.WriteApi.CreateRelationTuple(context.Background())...
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://127.0.0.1:4466", // Read API
-		},
-	}
-	readClient := client.NewAPIClient(configuration)
-
-	// resp, r, err := readClient.ReadApi.GetCheck(context.Background()...
-	// resp, r, err := readClient.ReadApi.GetExpand(context.Background()...
-	// resp, r, err := readClient.ReadApi.GetRelationTuples(context.Background()...
-}
-```
-
-## Make requests
-
-As an example, let's create the following relation tuple and check that `alice` has access to `my-first-blog-post` object
+The following code creates and checks the following permission:
 
 ```
-blog_posts:my-first-blog-post#read@alice
+Blog:secret_post#view@Bob
 ```
 
-### Making requests with gRPC API
+This means Bob can view the `secret_post` in the `Blog` namespace.
 
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-
-	"google.golang.org/grpc"
-
-	acl "github.com/ory/keto/proto/ory/keto/acl/v1alpha1"
-)
-
-func main() {
-	conn, err := grpc.Dial("127.0.0.1:4467", grpc.WithInsecure())
-	if err != nil {
-		panic("Encountered error: " + err.Error())
-	}
-
-	client := acl.NewWriteServiceClient(conn)
-
-	_, err = client.TransactRelationTuples(context.Background(), &acl.TransactRelationTuplesRequest{
-		RelationTupleDeltas: []*acl.RelationTupleDelta{
-			{
-				Action: acl.RelationTupleDelta_INSERT,
-				RelationTuple: &acl.RelationTuple{
-					Namespace: "blog_posts",
-					Object:    "my-first-blog-post",
-					Relation:  "read",
-					Subject:   acl.NewSubjectID("alice"),
-				},
-			},
-		},
-	})
-	if err != nil {
-		panic("Encountered error: " + err.Error())
-	}
-
-	fmt.Println("Successfully created tuple")
-	readConn, err := grpc.Dial("127.0.0.1:4466", grpc.WithInsecure())
-	if err != nil {
-		panic("Encountered error: " + err.Error())
-	}
-	checkClient := acl.NewCheckServiceClient(readConn)
-
-	check, err := checkClient.Check(context.Background(), &acl.CheckRequest{
-		Namespace: "blog_posts",
-		Object:    "my-first-blog-post",
-		Relation:  "read",
-		Subject:   acl.NewSubjectID("alice"),
-	})
-
-	if check.Allowed {
-		fmt.Println("Alice has access to my-first-blog-post")
-	}
-
-}
-```
-
-### Making requests with REST API
+1. Export your API Key as "ORY_API_KEY"
+1. Run the example and send the request with `go run main.go`
 
 ```go
 package main
@@ -173,59 +83,47 @@ import (
 	"fmt"
 	"os"
 
-	client "github.com/ory/keto-client-go"
+	ory "github.com/ory/client-go"
 )
 
+// Use this context to access Ory APIs which require an Ory API Key.
+var oryAuthedContext = context.WithValue(context.Background(), ory.ContextAccessToken, os.Getenv("ORY_API_KEY"))
+var namespace = "Blog"
+var object = "secret_post"
+var relation = "view"
+var subjectId = "Bob"
+
 func main() {
-	relationQuery := *client.NewRelationQuery()
-	relationQuery.SetNamespace("blog_posts")
-	relationQuery.SetObject("my-first-blog-post")
-	relationQuery.SetRelation("read")
-	relationQuery.SetSubjectId("alice")
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
+	payload := ory.CreateRelationshipBody{
+		Namespace: &namespace,
+		Object:    &object,
+		Relation:  &relation,
+		SubjectId: &subjectId,
+	}
+	configuration := ory.NewConfiguration()
+	configuration.Servers = []ory.ServerConfiguration{
 		{
-			URL: "http://127.0.0.1:4467", // Write API
+			URL: "https://practical-swirles-whg26u2ofh.projects.oryapis.com", // Write API
 		},
 	}
-	writeClient := client.NewAPIClient(configuration)
-	_, r, err := writeClient.WriteApi.CreateRelationTuple(context.Background()).RelationQuery(relationQuery).Execute()
+	ory := ory.NewAPIClient(configuration)
+	_, r, err := ory.RelationshipApi.CreateRelationship(oryAuthedContext).CreateRelationshipBody(payload).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 		panic("Encountered error: " + err.Error())
 	}
-
 	fmt.Println("Successfully created tuple")
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://127.0.0.1:4466", // Write API
-		},
-	}
-	readClient := client.NewAPIClient(configuration)
-
-	check, r, err := readClient.ReadApi.GetCheck(context.Background()).
-		Namespace("blog_posts").
-		Object("my-first-blog-post").
-		Relation("read").
-		SubjectId("alice").
-		Execute()
+	check, r, err := ory.PermissionApi.CheckPermission(oryAuthedContext).
+		Namespace(*&namespace).
+		Object(*&object).
+		Relation(*&relation).
+		SubjectId(*&subjectId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 		panic("Encountered error: " + err.Error())
 	}
-
 	if check.Allowed {
-		fmt.Println("Alice has access to my-first-blog-post")
+		fmt.Println(*&subjectId + " can " + *&relation + " the " + *&object)
 	}
-
 }
 ```
-
-## More examples REST API
-
-- [Write API documentation](https://github.com/ory/keto-client-go/blob/master/docs/WriteApi.md)
-- [Read API documentation](https://github.com/ory/keto-client-go/blob/master/docs/ReadApi.md)
-
-## More examples gRPC API
-
-- [Protocol Buffer API](https://www.ory.sh/docs/keto/reference/proto-api)

@@ -3,280 +3,389 @@ id: go
 title: Go
 ---
 
-This guide shows how you can use Go SDK with Ory Kratos.
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeBlock from "@theme/CodeBlock"
+```
+
+In this document you can find code examples for the Ory Identities Go SDK.
+
+:::info
+
+Missing an example? Please create a
+[feature request](https://github.com/ory/docs/issues/new?assignees=&labels=feat&template=FEATURE-REQUEST.yml) and it will be added
+here.
+
+You can find more examples of SDK usage in the auto-generated documentation
+[`client-go`](https://github.com/ory/client-go/tree/master/docs).
+
+:::
 
 ## Installation
 
+If you are starting from scratch, first set up a new Go project
+
+```bash
+mkdir myproject
+cd myproject
+go mod init myproject
+```
+
+Install the Ory Go SDK
+
+```go
+go get github.com/ory/client-go
+```
+
+## Frontend API
+
+The following code examples show how to use the Frontend API [`frontend`](https://www.ory.sh/docs/reference/api#tag/frontend).
+These endpoints are used by frontend applications (e.g. Single-Page-App, Native Apps, Server Apps, ...) to manage a user's own
+profile. There are two types of flows: native flows and browser flows. Native flows are used by **API clients**. Browser flows are
+used by **browser clients**. Read the [Browser vs. native apps](https://www.ory.sh/docs/identities/native-browser) document and
+the [Self-service flows](https://www.ory.sh/docs/kratos/self-service) overview to learn more.
+
+### Browser clients
+
+### API clients
+
+### Create login flow
+
+[Create a login flow for API clients](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createNativeRegistrationFlow)
+such as mobile devices or native applications. For browser clients use
+[`CreateBrowserLoginFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserLoginFlow).
+
 ```mdx-code-block
-import CodeBlock from '@theme/CodeBlock'
-import { useLatestRelease } from '@site/src/hooks'
+import createLogin from '!!raw-loader!../../../code-examples/sdk/go/frontend/create-login.go'
 
-<CodeBlock className="language-shell">{`go get  github.com/ory/client-go@${useLatestRelease('keto')}`}</CodeBlock>
+<CodeBlock language="go" title="login.go">{createLogin}</CodeBlock>
 ```
 
-## Configuration
+### Create registration flow
 
-The following code example shows how to set up and configure Ory Kratos using the Go SDK:
+[Create a registration flow for API clients](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createNativeRegistrationFlow)
+such as mobile devices or native applications. For browser clients use
+[`createBrowserLoginFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserLoginFlow).
+
+```mdx-code-block
+import createRegistration from '!!raw-loader!../../../code-examples/sdk/go/frontend/create-registration.go'
+
+<CodeBlock language="go" title="login.go">{createRegistration}</CodeBlock>
+```
+
+### Create recovery flow
+
+[Create a recovery flow for API clients](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createNativeRecoveryFlow)
+such as mobile devices or native applications. For browser clients use
+[`createBrowserRecoveryFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserRecoveryFlow).
+
+```mdx-code-block
+import createRecovery from '!!raw-loader!../../../code-examples/sdk/go/frontend/create-recovery.go'
+
+<CodeBlock language="go" title="login.go">{createRecovery}</CodeBlock>
+```
+
+### Create verification flow
+
+[Create a verification flow for API clients](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createNativeVerificationFlow)
+such as mobile devices or native applications. For browser clients use
+[`createBrowserRecoveryFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserVerificationFlow).
+
+```mdx-code-block
+import createVerification from '!!raw-loader!../../../code-examples/sdk/go/frontend/create-verification.go'
+
+<CodeBlock language="go" title="login.go">{createVerification}</CodeBlock>
+```
+
+### Get registration flow
+
+[Get a registration flow](https://www.ory.sh/docs/reference/api#tag/frontend/operation/getRegistrationFlow).
+
+```mdx-code-block
+import getRegistration from '!!raw-loader!../../../code-examples/sdk/go/frontend/get-registration.go'
+
+<CodeBlock language="go" title="login.go">{getRegistration}</CodeBlock>
+```
+
+### Get recovery flow
+
+[Get a recovery flow](https://www.ory.sh/docs/reference/api#tag/frontend/operation/getRecoveryFlow).
+
+```mdx-code-block
+import getRecovery from '!!raw-loader!../../../code-examples/sdk/go/frontend/get-recovery.go'
+
+<CodeBlock language="go" title="login.go">{getRecovery}</CodeBlock>
+```
+
+### Get verification flow
+
+[Get a verification flow](https://www.ory.sh/docs/reference/api#tag/frontend/operation/getVerificationFlow).
+
+```mdx-code-block
+import getVerification from '!!raw-loader!../../../code-examples/sdk/go/frontend/get-verification.go'
+
+<CodeBlock language="go" title="login.go">{getVerification}</CodeBlock>
+```
+
+### Submit login flow
+
+To submit or complete a login flow you need to call the
+[`updateLoginFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/updateLoginFlow) endpoint.
+
+```mdx-code-block
+import submitLogin from '!!raw-loader!../../../code-examples/sdk/go/frontend/submit-login.go'
+
+<CodeBlock language="go" title="login.go">{submitLogin}</CodeBlock>
+```
+
+### Submit registration flow
+
+To submit or complete a registration flow you need to call the
+[`updateRegistrationFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/updateRegistrationFlow) endpoint.
+
+```mdx-code-block
+import submitRegistration from '!!raw-loader!../../../code-examples/sdk/go/frontend/submit-registration.go'
+
+<CodeBlock language="go" title="login.go">{submitRegistration}</CodeBlock>
+```
+
+### Submit recovery flow
+
+To submit or complete a recovery flow you need to call the
+[`updateRecoveryFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/updateRecoveryFlow) endpoint.
+
+```mdx-code-block
+import submitRecovery from '!!raw-loader!../../../code-examples/sdk/go/frontend/submit-recovery.go'
+
+<CodeBlock language="go" title="login.go">{submitRecovery}</CodeBlock>
+```
+
+### Submit verification flow
+
+To submit or complete a recovery flow you need to call the
+[`updateVerificationFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/updateVerificationFlow) endpoint.
+
+```mdx-code-block
+import submitVerification from '!!raw-loader!../../../code-examples/sdk/go/frontend/submit-verification.go'
+
+<CodeBlock language="go" title="login.go">{submitVerification}</CodeBlock>
+```
+
+### Browser - check who the current HTTP session belongs to
+
+This example uses [toSession](https://www.ory.sh/docs/reference/api#tag/frontend/operation/toSession) call to check if the session
+is active.
+
+1. Open the [Ory Identities Playground](https://playground.projects.oryapis.com/ui/) in your browser
+1. Open **Sign Up** to create an account and log in
+1. Copy the `ory_session_playground` cookie from the **Application** tab in your browser developer tools
+1. Add the cookie value in `cookie`
+1. Run the example and send the request with `go run main.go`
+
+The response should look like this.
 
 ```go
-package main
-
-import (
-	"context"
-
-	client "github.com/ory/client-go"
-)
-
-func main() {
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://127.0.0.1:4434", // Kratos Admin API
-		},
-	}
-	apiClient := client.NewAPIClient(configuration)
-	// resp, r, err := apiClient.FrontendApi.ToSession(context.Background()).Cookie("ory_Kratos_session").Execute()
-}
-
+Traits  map[email:youremail@example.com]
 ```
 
-## Make requests
+```mdx-code-block
+import whoamiBrowser from '!!raw-loader!../../../code-examples/sdk/go/frontend/whoami-browser.go'
 
-The following code example shows how to use make a toSession call to check the active session using the Kratos Go SDK.
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-
-	client "github.com/ory/client-go"
-)
-
-func main() {
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://127.0.0.1:4434", // Kratos Admin API
-		},
-	}
-	apiClient := client.NewAPIClient(configuration)
-	cookie := "ory_kratos_session=MTY0ODgyMTExN3xEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRkZDVFVKbFNIcEJOalZyY0Vad1JEZ3dNMng1V0RsWlpEQlFXa3RoUjNJenzKCLhzCkox1OmvNJlKcqtWuNkSnPLrUgM6Ew2EMYksfg=="
-	resp, r, err := apiClient.FrontendApi.ToSession(context.Background()).Cookie(cookie).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.ToSession``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ToSession`: Session
-	fmt.Fprintf(os.Stdout, "Traits  %v\n", resp.Identity.Traits)
-}
+<CodeBlock language="go" title="login.go">{whoamiBrowser}</CodeBlock>
 ```
 
-## Gin-middleware
+### Native - check who the current HTTP session belongs to
 
-The following code example shows how to use the Kratos Go SDK with the [Gin Web Framework](https://github.com/gin-gonic/gin):
+This example uses [toSession](https://www.ory.sh/docs/reference/api#tag/frontend/operation/toSession) call to check if the session
+is active.
 
-```go
-package main
+```mdx-code-block
+import whoamiNative from '!!raw-loader!../../../code-examples/sdk/go/frontend/whoami-native.go'
 
-import (
-	"context"
-	"errors"
-	"net/http"
-
-	"github.com/gin-gonic/gin"
-	client "github.com/ory/client-go"
-)
-
-type kratosMiddleware struct {
-	client *client.APIClient
-}
-
-func NewMiddleware() *kratosMiddleware {
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://127.0.0.1:4434", // Kratos Admin API
-		},
-	}
-	return &kratosMiddleware{
-		client: client.NewAPIClient(configuration),
-	}
-}
-func (k *kratosMiddleware) Session() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		session, err := k.validateSession(c.Request)
-		if err != nil {
-			c.Redirect(http.StatusMovedPermanently, "http://127.0.0.1:4455/login")
-			return
-		}
-		if !*session.Active {
-			c.Redirect(http.StatusMovedPermanently, "http://your_endpoint")
-			return
-		}
-		c.Next()
-	}
-}
-func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, error) {
-	cookie, err := r.Cookie("ory_kratos_session")
-	if err != nil {
-		return nil, err
-	}
-	if cookie == nil {
-		return nil, errors.New("no session found in cookie")
-	}
-	resp, _, err := k.client.FrontendApi.ToSession(context.Background()).Cookie(cookie.String()).Execute()
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-func main() {
-
-	r := gin.Default()
-	k := NewMiddleware()
-
-	r.Use(k.Session())
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
-}
+<CodeBlock language="go" title="login.go">{whoamiNative}</CodeBlock>
 ```
 
-## Echo middleware
+### Get active sessions
 
-The following code example shows how to use Kratos Go SDK with the [Echo framework](https://echo.labstack.com):
+[Get all active sessions](https://www.ory.sh/docs/reference/api#tag/frontend/operation/listMySessions) for the current user.
 
-```go
-package main
+```mdx-code-block
+import getActiveSessions from '!!raw-loader!../../../code-examples/sdk/go/frontend/get-active-sessions.go'
 
-import (
-	"context"
-	"errors"
-	"net/http"
-
-	"github.com/labstack/echo/v4"
-
-	client "github.com/ory/client-go"
-)
-
-type kratosMiddleware struct {
-	client *client.APIClient
-}
-
-func NewMiddleware() *kratosMiddleware {
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://127.0.0.1:4434", // Kratos Admin API
-		},
-	}
-	return &kratosMiddleware{
-		client: client.NewAPIClient(configuration),
-	}
-}
-func (k *kratosMiddleware) Session(next echo.HandlerFunc) echo.HandlerFunc {
-	return func(c echo.Context) error {
-		session, err := k.validateSession(c.Request())
-		if err != nil {
-			return c.Redirect(http.StatusMovedPermanently, "http://127.0.0.1:4455/login")
-		}
-		if !*session.Active {
-			return c.Redirect(http.StatusMovedPermanently, "http://your_endpoint")
-		}
-		return next(c)
-	}
-}
-func (k *kratosMiddleware) validateSession(r *http.Request) (*client.Session, error) {
-	cookie, err := r.Cookie("ory_kratos_session")
-	if err != nil {
-		return nil, err
-	}
-	if cookie == nil {
-		return nil, errors.New("no session found in cookie")
-	}
-	resp, _, err := k.client.FrontendApi.ToSession(context.Background()).Cookie(cookie.String()).Execute()
-	if err != nil {
-		return nil, err
-	}
-	return resp, nil
-}
-func main() {
-
-	k := NewMiddleware()
-	e := echo.New()
-	e.Use(k.Session)
-	e.GET("/hello", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
-	})
-	e.Logger.Fatal(e.Start(":1323"))
-}
+<CodeBlock language="go" title="login.go">{getActiveSessions}</CodeBlock>
 ```
 
-## Use admin API
+### Perform logout flow
 
-```go
-package main
+Use [performNativeLogout](https://www.ory.sh/docs/reference/api#tag/frontend/operation/performNativeLogout) to log out the current
+user for API clients such as mobile devices or native applications. For browser clients create a logout URL using
+[`createBrowserLogoutFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserLogoutFlow). .
 
-import (
-	"context"
-	"fmt"
-	"os"
+```mdx-code-block
+import logout from '!!raw-loader!../../../code-examples/sdk/go/frontend/logout.go'
 
-	client "github.com/ory/client-go"
-)
-
-func main() {
-	configuration := client.NewConfiguration()
-	configuration.Servers = []client.ServerConfiguration{
-		{
-			URL: "http://127.0.0.1:4434", // Kratos Admin API
-		},
-	}
-	apiClient := client.NewAPIClient(configuration)
-	adminCreateIdentityBody := *client.NewAdminCreateIdentityBody(
-		"default",
-		map[string]interface{}{
-			"email": "foo@example.com",
-			"name": map[string]string{
-				"first": "foo",
-				"last":  "bar",
-			},
-		},
-	) // AdminCreateIdentityBody |  (optional)
-
-	createdIdentity, r, err := apiClient.FrontendApi.AdminCreateIdentity(context.Background()).AdminCreateIdentityBody(adminCreateIdentityBody).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.AdminCreateIdentity``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `AdminCreateIdentity`: Identity
-	fmt.Fprintf(os.Stdout, "Created identity with ID: %v\n", createdIdentity.Id)
-	getIdentity, r, err := apiClient.FrontendApi.AdminGetIdentity(context.Background(), createdIdentity.Id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.AdminGetIdentity``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	fmt.Fprintf(os.Stdout, "Email for identity with id %v. Traits %v\n", createdIdentity.Id, getIdentity.Traits)
-
-	r, err = apiClient.FrontendApi.AdminDeleteIdentity(context.Background(), getIdentity.Id).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.AdminDeleteIdentity``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	fmt.Println("Successfully Removed identity")
-
-}
+<CodeBlock language="go" title="login.go">{logout}</CodeBlock>
 ```
 
-## More examples
+### Disable session
 
-You can find more examples of SDK usage in the auto-generated documentation:
+[Revoke a specific session](https://www.ory.sh/docs/reference/api#tag/identity/operation/disableSession) for the current user.
 
-- [`client-go`](https://github.com/ory/client-go/tree/master/docs) for the Ory Network
-- [`kratos-client`](https://github.com/ory/kratos-client-go/tree/master/docs) for self-hosted Ory Kratos
+```mdx-code-block
+import revokeSession from '!!raw-loader!../../../code-examples/sdk/go/frontend/revoke-session.go'
+
+<CodeBlock language="go" title="login.go">{revokeSession}</CodeBlock>
+```
+
+### Disable all other sessions
+
+[Revoke all other sessions](https://www.ory.sh/docs/reference/api#tag/frontend/operation/disableMyOtherSessions) for the current
+user.
+
+```mdx-code-block
+import revokeOtherSessions from '!!raw-loader!../../../code-examples/sdk/go/frontend/revoke-other-sessions.go'
+
+<CodeBlock language="go" title="login.go">{revokeOtherSessions}</CodeBlock>
+```
+
+## Identity API
+
+To use the Identity Management API [`identity`](https://www.ory.sh/docs/reference/api#tag/identity) requests need to be
+authorized.
+
+- Create a free Developer project with the [Ory CLI](https://www.ory.sh/docs/guides/cli/installation) or
+  [Ory Console](https://console.ory.sh/guides):  
+   `ory create project --name "Ory IdentityAPI Example"`
+- Create a new [API key](https://www.ory.sh/docs/concepts/personal-access-token) and export it `export ORY_API_KEY=<your-api-key>`
+- Run the example with `go run main.go`
+
+### Create and delete identity
+
+With this example you [create an identity](https://www.ory.sh/docs/reference/api#tag/identity/operation/createIdentity) and
+[delete it](https://www.ory.sh/docs/reference/api#tag/identity/operation/deleteIdentity).
+
+```mdx-code-block
+import createDeleteIdentity from '!!raw-loader!../../../code-examples/sdk/go/identity/create-delete-identity.go'
+
+<CodeBlock language="go" title="create-delete-identity.go">{createDeleteIdentity}</CodeBlock>
+```
+
+### Get identity
+
+[Get an identity](https://www.ory.sh/docs/reference/api#tag/identity/operation/getIdentity) by its ID. You can optionally include
+credentials, in this example social sign in connections.
+
+```mdx-code-block
+import gettoken from '!!raw-loader!../../../code-examples/sdk/go/social/get_token.go'
+
+<CodeBlock language="go" title="state.go">{gettoken}</CodeBlock>
+```
+
+### Patch identity
+
+[Patch an identity](https://www.ory.sh/docs/reference/api#tag/identity/operation/patchIdentity). In this example this is used to
+set the identity `state`.
+
+```mdx-code-block
+import state from '!!raw-loader!../../../code-examples/sdk/go/identity/state.go'
+
+<CodeBlock language="go" title="state.go">{state}</CodeBlock>
+```
+
+### Delete session
+
+[Delete a specific session](https://www.ory.sh/docs/reference/api#tag/identity/operation/disableSession).
+
+```mdx-code-block
+import disableSession from '!!raw-loader!../../../code-examples/sdk/go/session/disable-session.go'
+
+<CodeBlock language="go" title="login.go">{disableSession}</CodeBlock>
+```
+
+### Delete sessions
+
+[Delete all sessions](https://www.ory.sh/docs/reference/api#tag/identity/operation/deleteIdentitySessions) for a user.
+
+```mdx-code-block
+import deleteIdentitySessions from '!!raw-loader!../../../code-examples/sdk/go/session/delete-sessions.go'
+
+<CodeBlock language="go" title="login.go">{deleteIdentitySessions}</CodeBlock>
+```
+
+### Get session
+
+[Get a specifc session](https://www.ory.sh/docs/reference/api#tag/identity/operation/getSessio<n).
+
+```mdx-code-block
+import getSession from '!!raw-loader!../../../code-examples/sdk/go/session/get-session.go'
+
+<CodeBlock language="go" title="login.go">{getSession}</CodeBlock>
+```
+
+### Get sessions
+
+[Get all sessions](https://www.ory.sh/docs/reference/api#tag/identity/operation/listSessions) for all users.
+
+```mdx-code-block
+import listSessions from '!!raw-loader!../../../code-examples/sdk/go/session/get-sessions.go'
+
+<CodeBlock language="go" title="login.go">{listSessions}</CodeBlock>
+```
+
+### Refresh session
+
+[Extend a session](https://www.ory.sh/docs/reference/api#tag/identity/operation/extendSession).
+
+```mdx-code-block
+import extendSession from '!!raw-loader!../../../code-examples/sdk/go/session/refresh-session.go'
+
+<CodeBlock language="go" title="login.go">{extendSession}</CodeBlock>
+```
+
+## Go frameworks
+
+### Gin middleware
+
+The following code example shows how to use the Ory Identities Go SDK with the
+[Gin Web Framework](https://github.com/gin-gonic/gin). Follow the instructions in the
+[README](https://github.com/gin-gonic/gin/blob/master/README.md) to install Gin.
+
+1. Run the Gin middleware with `go run main.go`
+1. Open the [Ory Identities Playground](https://playground.projects.oryapis.com/ui/) in your browser
+1. Open **Sign Up** to create an account and log in
+1. Copy the `ory_session_playground` cookie from the **Application** tab in your browser developer tools
+1. Add the cooie to the cUrl request below:
+
+```curl
+curl 'http://localhost:8080/ping' -b 'ory_session_playground=<your-session-cookie-here>'
+pong
+```
+
+```mdx-code-block
+import gin from '!!raw-loader!../../../code-examples/sdk/go/frameworks/gin.go'
+
+<CodeBlock language="go" title="state.go">{gin}</CodeBlock>
+```
+
+### Echo middleware
+
+The following code example shows how to use Ory Identities Go SDK with the [Echo framework](https://echo.labstack.com). Follow the
+[instructions](https://echo.labstack.com/guide/#installation) to install Echo.
+
+1. Run the Echo middleware with `go run main.go`
+1. Open the [Ory Identities Playground](https://playground.projects.oryapis.com/ui/) in your browser
+1. Open **Sign Up** to create an account and log in
+1. Copy the `ory_session_playground` cookie from the **Application** tab in your browser developer tools
+1. Add the cooie to the cUrl request below:
+
+```curl
+curl 'http://localhost:3000/hello' -b 'ory_session_playground=<your-session-cookie-here>'
+Hello World
+```
+
+```mdx-code-block
+import echo from '!!raw-loader!../../../code-examples/sdk/go/frameworks/echo.go'
+
+<CodeBlock language="go" title="state.go">{echo}</CodeBlock>
+```

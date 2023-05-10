@@ -27,8 +27,8 @@ to set the domain in HTTP Cookies to the same domain as the application that con
 - When working with an application that runs on `http://localhost:3000` for local development, Ory must be able to set
   `domain=localhost` in the HTTP cookie.
 
-Ory offers SDKs for certain deployment options such as [Vercel](getting-started/integrate-auth/nextjs.mdx) which mirror Ory's APIs
-without the need of running another process.
+Ory offers SDKs for certain deployment options such as [Vercel](getting-started/integrate-auth/15_nextjs.mdx) which mirror Ory's
+APIs without the need of running another process.
 
 - When working with an application that runs on `https://app.example.org`, Ory must be able to set `domain=example.org` in the
   HTTP cookie.
@@ -173,4 +173,6 @@ third-party integration with your application (for example, in the form of the f
 ## What about access tokens / refresh tokens?
 
 You can generate access and refresh tokens using [Ory OAuth2 & OpenID](https://www.ory.sh/federated-identity-management/). We do
-not recommend using access and refresh tokens for session management!
+not recommend using access and refresh tokens for session management! Visit
+[ Why you probably do not need OAuth2 / OpenID Connect](https://www.ory.sh/oauth2-openid-connect-do-you-need-use-cases-examples/)
+to read more about it.

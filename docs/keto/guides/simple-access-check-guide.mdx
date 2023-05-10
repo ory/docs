@@ -1,109 +1,118 @@
 ---
-title: Check whether a user has access to something
+title: How to integrate permission checks to your application
+sidebar_label: Integrate permission checks
 ---
 
 import Mermaid from "@site/src/theme/Mermaid"
-import CodeTabs from "@site/src/theme/CodeTabs"
 
-This guide will explain how you can use Ory Keto's [check-API](../concepts/25_api-overview.mdx#check-relation-tuple) to determine
-whether a [subject](../concepts/15_subjects.mdx) has a specific [relation](../concepts/01_relation-tuples.mdx) on an
-[object](../concepts/10_objects.mdx). The result can be used for controlling access to specific resources.
+# Integrate permission checks into your application
+
+Access control and permissions management are critical components of modern applications, ensuring that users have the right level
+of access to resources and data. Ory Permissions is a powerful service that provides these capabilities backed by Ory Keto, a
+popular open-source access control server.
+
+Ory Permissions leverages the design and concepts of Google Zanzibar, which is a highly scalable and secure solution for managing
+access to resources across distributed systems. This allows Ory Permissions to provide a flexible and powerful system for managing
+roles and permissions in your application.
+
+In this guide we will explore how Ory Permissions fits into your architecture and how to integrate it into your application.
+Whether you're building a new application from scratch or adding access control to an existing one, Ory Permissions can help you
+manage your permissions in a secure and efficient way.
+
+## Understanding Ory Permissions
+
+In Ory Permissions, relationships and permissions are two key concepts that allow you to manage access control and permissions in
+your application.
+
+Relationships are facts about entities that are stored in Ory Permissions. A relationship consists of three elements: an object
+entity, a relation string, and a subject entity. Relationships represent real relationships between different entities in your
+application. For example, you might define a relationship between a user and a file to indicate that the user owns the file.
+
+Permissions, on the other hand, are defined in the Ory Permission Language, which is a subset of TypeScript. Permissions are
+essentially TypeScript functions that return a boolean value based on the relationships that are defined in Ory Permissions. These
+functions allow you to define the access control policies for your application. Permissions can be used to create very
+fine-grained permissions that can be tailored to the specific needs of your application.
+
+By combining relationships and permissions, you can define complex access control policies that allow you to manage access to
+resources and data in your application. Ory Permissions allows you to build flexible permission models that can be customized to
+fit any application need. This means you can create access control policies that are as simple or as complex as you need them to
+be, while still ensuring that your application remains secure and protected.
+
+Ory Permissions provides a number of features that make it easy to manage relationships and permissions in your application. For
+example, you can define namespaces to organize your entities, and use the Ory Permissions API to create and manage relationships
+and permissions programmatically.
+
+In the next section, we'll provide an example of how to use relationships and permissions in Ory Permissions to manage access
+control in your application.
 
 ## Synchronous authorization flow
 
-We recommend offloading the whole burden of access control to Ory Keto. Typically, this means that the application forwards every
-incoming request as a check request to Ory Keto. The following chart demonstrates how such a flow can look like:
+It is crucial that all permission checks are performed using Ory Permissions. This means that before any action is taken, the
+required permission should be checked to ensure that the action can be performed. For instance, when returning the content of a
+file, the request subject's read permission on the file should be checked first.
+
+:::info
+
+Authentication is not part of the permission check API, but it is a prerequisite for any permission check to be meaningful. One
+way to implement authentication is to use [Ory Identities](https://www.ory.sh/docs/welcome#identities-and-sessions), which provide
+a secure and robust authentication system for your application.
+
+:::
+
+Once the subject is authenticated, you can perform permission checks by calling the check method of the OryPermissions client. The
+check method takes the subject, permission, and object as parameters and returns a boolean value indicating whether the permission
+is granted or not.
 
 <Mermaid
   chart={`
 sequenceDiagram
-    participant U as User 'john'
-    participant A as Application
-    participant K as Ory Keto
-%%
-    U->>A: decypher(02y_15_4w350m3)
-    A->>K: check(messages:02y_15_4w350m3#35;decypher@john)
-%%
-    alt is allowed
-      K-->>A: true
-      A-->>U: ory_is_awesome
-    else isn't allowed
-      K-->>A: false
-      A-->>U: Error 403
-    end
+    participant Subject
+    participant App
+    participant Ory Identities
+    participant Ory Permissions
+%
+    Subject->>+App: Request Resource
+    App->>+Ory Identities: Authenticate Subject
+    Ory Identities->>-App: Subject Authenticated
+    App->>+Ory Permissions: Check "subject" has "read" permission on "resource x"
+    Ory Permissions->>-App: Permissions Granted
+    App->>-Subject: Return Resource
 `}
 />
 
-Note that the channel of communication between user <-> application, and application <-> Ory Keto can vastly differ. The
-application could offer a JSON API towards the user, while communicating with Keto through gRPC.
+It's up to your permission model what permissions are available and need to be checked. In this example we assume that there is a
+`read` permission on the resource's namespace, and some kind of relationships are established to indicate whether a user has that
+`read` permission. Please head over to the [Permission Model Guide](../modeling/create-permission-model) for more information.
 
-As a first step, the application has to authenticate the user reliably to provide the subject to Keto. This can be achieved by
-using [Ory Identities](https://www.ory.sh/kratos/docs/) or any other authentication system.
+## Best practices
 
-The request (here `decypher` of the message `02y_15_4w350m3`) is then translated into a request to Ory Keto's
-[check-API](../concepts/25_api-overview.mdx#check-relation-tuple). Basically, the application is asking Keto "Is john allowed to
-decypher the text 02y_15_4w350m3?"
+By following these best practices, you can ensure that your application is secure and that users have access only to the resources
+they need.
 
-This question is encoded as the following [relationship](../concepts/01_relation-tuples.mdx):
+### Do not cache permission checks
 
-```keto-relation-tuples
-messages:02y_15_4w350m3#decypher@john
-```
+Ory provides a low-latency, globally distributed system with appropriate caching, cache invalidation, and other optimizations. You
+don't need to worry about correctly caching the permission checks in your application. Incorrect caching can lead to security
+vulnerabilities, so it's best to avoid it altogether.
 
-:::caution Important
+### Perform permission checks in every critical path of the application
 
-It's up to the application and its defined relationships how the check requests have to be encoded. In this example we assume that
-the known cypher messages are stored in Ory Keto and access to the cleartext is encoded by the `decypher` relation.
+Anytime an action is taken that requires a permission check, make sure to perform that check using Ory Permissions. This includes
+creating, reading, updating, and deleting resources.
 
-:::
+### Use fine-grained permissions
 
-### Directly defined access
+Ory Permissions allows you to define very fine-grained permissions, which can help you enforce the principle of least privilege.
+This means that you can give users only the permissions they need, and nothing more.
 
-Ory Keto can know the exact relationship that the application is checking. Intuitively, this means that `john` was allowed to
-`decypher` the message `02y_15_4w350m3` directly (imagine a "Share with `john`" input in a UI).
+### Regularly audit permissions
 
-Try this yourself by first adding the relationship using the [write API](../concepts/25_api-overview.mdx#write-apis) (note that
-the flag `--insecure-disable-transport-security` is necessary with newer versions of the Keto CLI if you run Keto without TLS):
-
-<CodeTabs sampleId="simple-access-check-guide/00-write-direct-access" version="v0.7.0-alpha.1" />
-
-Now, we can use the check-API to verify that `john` is allowed to `decypher` the message:
-
-<CodeTabs sampleId="simple-access-check-guide/01-check-direct-access" version="v0.7.0-alpha.1" />
-
-### Indirectly defined access
-
-On the other hand, it's possible to indirectly grant `john` access to the resource. This could be done by adding a group, lets
-call it `hackers`. Now we can grant access to the resource to everyone in that group by adding the following relationship to Ory
-Keto:
-
-```keto-relation-tuples
-messages:02y_15_4w350m3#decypher@(groups:hackers#member)
-```
-
-We also have to make `john` a `member` of `hackers` by adding the relationship:
-
-```keto-relation-tuples
-groups:hackers#member@john
-```
-
-Now, when Keto receives above check request, it will resolve the [subject set](../concepts/15_subjects.mdx#subject-sets)
-
-```keto-relation-tuples
-groups:hackers#member
-```
-
-and determine that `john` is a subject in the resulting set. Therefore, it approves the check request.
-
-There is no limit on the number of indirections through subject sets.
-
-## Caching Keto responses
-
-We don't recommend that you cache the responses from Ory Keto. It's designed to respond quickly and still provide some consistency
-guarantees. For the revocation of access it's important to not use a local cache. Be ensured that Ory Keto heavily utilizes
-caching wherever possible.
+It's important to regularly review and audit permissions to ensure that users only have the access they need. Use Ory Permissions'
+powerful query capabilities to find and fix any permissions that are no longer necessary.
 
 ## Conclusion
 
-We learned how to integrate check requests and access control into an application using Ory Keto's
-[check-API](../concepts/25_api-overview.mdx#check-relation-tuple).
+In conclusion, access control and permissions management are critical components of modern applications, ensuring that users have
+the right level of access to resources and data. With Ory Permissions backed by Ory Keto, developers can implement a scalable and
+secure solution for managing roles and permissions in their applications. This guide explained how Ory Permissions fits into your
+architecture and how to integrate it into your application.

@@ -4,6 +4,11 @@ title: Customize login and registration flows with webhooks and actions
 sidebar_label: Customize login and registration
 ---
 
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+```
+
 # Customize login and registration behavior
 
 You can customize login and registration flows using Ory Actions. This includes calling external services or logic with webhooks
@@ -125,3 +130,74 @@ created account to get access to your services, but instead can access all the f
 
 1. Go to Ory Console → [**Base Settings**](https://console.ory.sh/projects/current/auth).
 2. Toggle **Sign In After Registration**.
+
+## Show verification after successful registration
+
+If you want to show the verification screen after registration, follow these steps:
+
+```mdx-code-block
+<Tabs>
+  <TabItem value="Server rendered browser client">
+```
+
+For server rendered applications, such as an Express.js app, or when using the Ory Account Experience, Ory Identities can be
+configured to redirect to the verification screen automatically after registration.
+
+1. Go to Ory Console → [**Email Verification**](https://console.ory.sh/projects/current/verification).
+2. Toggle **Show verification screen** for the respective methods.
+
+Or using the [Ory CLI](../../guides/cli/01_installation.mdx):
+
+```shell
+ory patch identity-config {project_id} \
+  --add '/selfservice/flows/registration/after/password/hooks=[{"hook": "show_verification_ui"}]' \
+  --add '/selfservice/flows/registration/after/oidc/hooks=[{"hook": "show_verification_ui"}]' \
+  --add '/selfservice/flows/registration/after/webauthn/hooks=[{"hook": "show_verification_ui"}]'
+```
+
+:::note
+
+If your identity schema defines multiple verifiable addresses, Ory Identities redirects to the verification flow of only one of
+the addresses.
+
+:::
+
+```mdx-code-block
+  </TabItem>
+  <TabItem value="SPA & Native clients">
+```
+
+For SPA and native clients, the response from the registration endpoint contains a `continue_with` field. This field lists
+possible actions, the user might need to or can take next. For example, an object containing the ID of the verification flow
+created as part of the registration flow:
+
+```json
+{
+  "continue_with": [
+    {
+      "action": "show_verification_ui",
+      "flow": {
+        "id": "d859f6af-1dfe-453e-9320-d572e10edeea",
+        "verifiable_address": "example@ory.sh"
+      }
+    }
+    // Other items
+  ]
+}
+```
+
+You can use this ID to fetch the verification flow information, using the
+[`getVerificationFlow`](../../reference/api#tag/frontend/operation/getVerificationFlow) API method.
+
+:::note
+
+The response from the registration endpoint always contains the `continue_with` field with the `verification_ui` action, if
+verification is enabled and the identity schema defines at least one verifiable address. Because of this, the
+`show_verification_ui` hook has no effect for API and SPA clients.
+
+:::
+
+```mdx-code-block
+  </TabItem>
+</Tabs>
+```

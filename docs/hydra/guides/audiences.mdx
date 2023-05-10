@@ -1,0 +1,76 @@
+---
+id: audiences
+title: OAuth2 token audience
+sidebar_label: Token audience
+---
+
+There are two types of audience concepts in OAuth 2.0 and OpenID Connect:
+
+- **OAuth 2.0 access token audience:** OAuth 2.0 access tokens are "internal-facing". In other words, the `aud` claim of an OAuth
+  2.0 access token defines the endpoints at which the token can be used.
+- **OpenID Connect ID token audience:** OpenID Connect ID tokens are "external-facing". The `aud` claim of an OpenID Connect ID
+  Token defines which clients should accept it.
+
+## Add audiences to the client allow list
+
+To specify the intended audiences for an OAuth 2.0 access token, the OAuth 2.0 client needs to proactively define the audiences it
+needs access to when creating or updating the client. This can be done by including the audience parameter in the client's
+metadata.
+
+The `audience` parameter is a list of case-sensitive URLs. The URLs can't contain whitespaces.
+
+```json5
+{
+  client_id: "...",
+  // ..
+  audience: ["https://api.my-cloud.com/user", "https://some-tenant.my-cloud.com/"],
+  // ..
+}
+```
+
+If you're a developer looking to manage OAuth2 clients, you can find more information in the
+[Manage OAuth2 Clients document](./oauth2-clients.mdx).
+
+## Audience in Authorization Code, Implicit, and hybrid flows
+
+When performing an OAuth 2.0 Authorization Code Grant, Implicit Grant, or hybrid flow, developers can request audiences at the
+`/oauth2/auth` endpoint using the `audience` query parameter:
+
+```text
+https://{project.slug}.projects.oryapis.com/oauth2/auth
+  ?client_id=...
+  &scope=...
+  &audience=https://api.my-cloud.com/user+https://some-tenant.my-cloud.com/
+```
+
+The `audience` query parameter can contain multiple strings separated by a URL-encoded space (`+` or `%20`). The audience values
+must also be URL-encoded.
+
+The values are validated against the allowed audiences defined in the OAuth 2.0 client. For instance, if an OAuth 2.0 client
+allows the audience `https://api.my-cloud/user`, it can request audience values like `https://api.my-cloud/user` or
+`https://api.my-cloud/user/1234`, but not `https://api.my-cloud/not-user` or `https://something-else/`.
+
+The requested audience from the query parameter is then part of the login and consent request payload as the field
+`requested_access_token_audience`. Developers can then alter the audience using `grant_audience.access_token` when accepting the
+consent request. For example:
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import tsExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/consent-audience.ts'
+
+<CodeBlock language="tsx">{tsExample}</CodeBlock>
+```
+
+When introspecting the OAuth 2.0 Access Token, the response payload includes the audience:
+
+```mdx-code-block
+import audExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/token-introspect-audience.ts'
+
+<CodeBlock language="tsx">{audExample}</CodeBlock>
+```
+
+## Audiences in Client Credentials Grant
+
+When performing the Client Credentials Grant, the `audience` parameter from the POST body of the `/oauth2/token` request is
+decoded and validated according to the rules described in the previous section, excluding login and consent, which are not a part
+of this flow.

@@ -2,7 +2,6 @@
 id: sending-emails-smtp
 title: Use a custom SMTP server to send recovery and verification messages to users
 sidebar_label: SMTP server configuration
-toc_max_heading_level: 4
 ---
 
 ```mdx-code-block
@@ -140,7 +139,32 @@ smtp://{YOUR_POSTMARK_SEVER_API_TOKEN}:{YOUR_POSTMARK_SEVER_API_TOKEN}@smtp.post
 # smtp://thetoken:thetoken@smtp.postmarkapp.com:587/
 ```
 
-### Troubleshooting
+## Troubleshooting
 
-If you have problems setting up email delivery, you can view outgoing messages on the **Monitoring** → **Email Delivery** page in
-the [Ory Console](https://console.ory.sh/projects/current/email-delivery)
+In general, if you have problems setting up email delivery, you can view outgoing messages on the **Monitoring** → **Email
+Delivery** page in the [Ory Console](https://console.ory.sh/projects/current/email-delivery).
+
+:::note
+
+The `Sent` state of an email only indicates whether Ory Identities successfully "handed" off the email to the SMTP server.
+
+:::
+
+### Emails do not arrive
+
+The best way to figure out, why an email did not arrive is checking the
+[**Email Delivery**](https://console.ory.sh/projects/current/email-delivery) dashboard in the Ory Console. It will show all emails
+sent by your project, along with its delivery state. If the Ory Network could not reach your SMTP server or there was an
+authentication failure, it will be indicated here along with the error message.
+
+If the email's status is `Sent`, but it did not arrive, please check the spam folder or the logs of your custom SMTP server (if
+configured).
+
+### Emails are marked as spam
+
+If you're using a custom domain, but no custom SMTP server, some (or all) emails the Ory Network sends, can be marked as spam or
+blocked by the email providers of your users, such as Gmail. This is due to the phishing/spam protection these providers have in
+place to protect their users.
+
+To read more, see [Automated Emails](../../guides/custom-domains.mdx#automated-emails) but in short: we recommend setting up a
+custom SMTP server, if you use custom domains.

@@ -18,6 +18,10 @@ const config = {
   staticDirectories: ["src/static"],
   themeConfig: {
     respectPrefersColorScheme: true,
+    tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 4,
+    },
     prism: {
       additionalLanguages: [
         "powershell",
@@ -74,7 +78,7 @@ const config = {
         alt: "Ory",
         src: `/docs/img/logo-docs.svg`,
         srcDark: `/docs/img/logo-docs-dark.svg`,
-        href: `https://www.ory.sh/docs`,
+        href: `https://www.ory.sh`,
       },
       items: [
         {
@@ -100,11 +104,6 @@ const config = {
           position: "left",
           sidebarId: "selfhosting",
           label: "Self-hosting",
-        },
-        {
-          to: "https://www.ory.sh/",
-          label: `Website`,
-          position: "right",
         },
         {
           href: `https://github.com/ory/cloud/discussions`,

@@ -279,7 +279,7 @@ example) to the configured settings URL.
   <TabItem value="oc">
 
 The Ory Network offers a default UI implementation. Visit
-[Bring Your Own UI](https://www.ory.sh/docs/guides/configure-ory-to-use-your-ui) to learn how to implement a custom UI.
+[Bring Your Own UI](https://www.ory.sh/docs/kratos/bring-your-own-ui/custom-ui-overview) to learn how to implement a custom UI.
 
   </TabItem>
   <TabItem value="oss">
@@ -972,6 +972,36 @@ curl -s -X POST -H "Accept: application/json" -H "Content-Type: application/json
   "state": "success"
 }
 ```
+
+## Show verification form after updating a verifiable address
+
+:::info
+
+Showing the verification form after a settings update is currently only supported on native or SPA clients.
+
+:::
+
+For SPA and native clients, the response from the registration endpoint contains a `continue_with` field. This field lists
+possible actions the user might need to take next. For example, an object containing the ID of the verification flow created as
+part of the settings flow:
+
+```json
+{
+  "continue_with": [
+    {
+      "action": "verification_ui",
+      "flow": {
+        "id": "d859f6af-1dfe-453e-9320-d572e10edeea",
+        "verifiable_address": "example@ory.sh"
+      }
+    }
+    // Other items
+  ]
+}
+```
+
+You can use this ID to fetch the verification flow information, using the
+[getVerificationFlow](../../reference/api#tag/frontend/operation/getVerificationFlow) API method.
 
 ## Code Examples for Node.js, React.js, Go, ...
 

@@ -25,11 +25,11 @@ better understanding of your customers and make data-driven decisions.
 In the following example, you set up an action which calls
 [Segment's Identify API](https://segment.com/docs/connections/spec/identify/) during registration to identify the user.
 
-:::info
+```mdx-code-block
+import JsonnetInfo from './_common/jsonnetinfo.mdx'
 
-Unsure what JsonNet is? Read the [Ory Actions webhook guide](../../guides/integrate-with-ory-cloud-through-webhooks.mdx).
-
-:::
+<JsonnetInfo />
+```
 
 1. First, create a Jsonnet file. It transforms the identity data from Ory to a format Segment understands:
 

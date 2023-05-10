@@ -1,0 +1,51 @@
+---
+id: js
+title: JavaScript
+---
+
+In this document you can find code examples for the Ory Hydra JavaScript SDK.
+
+:::warning
+
+Don't consume the `/oauth2/auth` and `/oauth2/token` endpoints using this SDK. Use
+[golang.org/x/oauth2](https://godoc.org/golang.org/x/oauth2). For more information visit the
+[Using OAuth2](../guides/using-oauth2.mdx) guide.
+
+:::
+
+:::info
+
+Missing an example? Please create a
+[feature request](https://github.com/ory/docs/issues/new?assignees=&labels=feat&template=FEATURE-REQUEST.yml) and it will be added
+here.
+
+You can find more auto-generated examples of SDK usage in the API documentation
+[`hydra-client`](https://github.com/ory/sdk/blob/master/clients/hydra/typescript/api.ts).
+
+:::
+
+## Installation
+
+To install the JavaScript SDK, run:
+
+```
+npm install --save @ory/hydra-client
+```
+
+## Basic configuration
+
+```js
+import { Configuration, PublicApi, AdminApi } from "@ory/hydra-client"
+
+const hydraPublic = new PublicApi(
+  new Configuration({
+    basePath: "https://public.hydra:4444/",
+  }),
+)
+
+const hydraAdmin = new AdminApi(
+  new Configuration({
+    basePath: "https://public.hydra:4445/",
+  }),
+)
+```

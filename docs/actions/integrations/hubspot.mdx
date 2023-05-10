@@ -4,37 +4,64 @@ title: HubSpot integration with Ory Actions
 sidebar_label: HubSpot
 ---
 
-[HubSpot](https://www.hubspot.com) is an inbound marketing, sales, and customer service platform. It provides a suite of tools and
-services that allow businesses to manage and optimize their online presence, including website content, email marketing, social
-media, lead generation, and analytics. HubSpot's platform is designed to be a one-stop-shop for businesses to manage their
-marketing and sales efforts, and the platform integrates with a variety of third-party tools and services to provide a
-comprehensive and seamless experience for users. Ory can synchronize user data with HubSpot via the
-[HubSpot contact list API](https://developers.hubspot.com/docs/api/crm/contacts).
+[HubSpot](https://www.hubspot.com/) is a CRM platform that can be used to manage data from marketing, sales, content management,
+and customer service. The HubSpot API in combination with Ory Actions makes it possible to integrate any of the Ory self-service
+flows with HubSpot. A common use case is to integrate via the
+[HubSpot Contacts API](https://developers.hubspot.com/docs/api/crm/contacts) with the Ory registration flow, so that new contacts
+are automatically created in the HubSpot contacts list whenever a new user signs up to our service.
 
-To integrate HubSpot using Ory Actions, you must complete these steps:
+The advantage of integrating Ory with HubSpot is that users signing up automatically become available to the CRM platform,
+facilitating lead generation and marketing campaigns (provided that users give the appropriate consents).
 
-1. Create a HubSpot account and set up the necessary contact lists for your customer data.
-2. Create a [private app access token](https://developers.hubspot.com/docs/api/private-apps) in HubSpot.
-3. In your Ory Network project, set up an Ory Action trigger that will send data to the HubSpot destination when a specific event
-   occurs, for example on successful registration.
+## How Ory integrates with HubSpot
+
+The following diagram illustrates how Ory integrates with HubSpot. In this example, we consider the case where the registration
+flow in Ory triggers an API call to HubSpot, automatically creating a new contact in HubSpot. In other words, a new record is
+created simultaneously in the Ory Identities database and in the HubSpot contacts list.
+
+![Registration flow with HubSpot integration](./_static/hubspot-reg-flow.png)
+
+In this example, the API call to HubSpot is triggered as follows:
+
+1. The end user signs up to a new account using Ory Identities, completing the registration self-service flow.
+2. Upon completion, the registration flow triggers any actions registered under the `flows.registration.after.hooks` section of
+   Ory Identities configuration.
+3. The hook for the HubSpot CRM platform, registered under `flows.registration.after.hooks`, is now triggered, and Ory evaluates
+   the Jsonnet template to construct the body of the API call.
+4. The Ory action invokes the `/com/v3/objects/contacts` HubSpot API endpoint to create a new contact in HubSpot.
+
+## Create a HubSpot webhook
+
+![Configuring HubSpot integration](./_static/hubspot-config.png)
+
+To set up the integration follow these steps
+
+1. Set up the necessary [contact lists](https://knowledge.hubspot.com/lists/create-active-or-static-lists) for your customer data.
+   Creates a new private app for this integration in the Hubspot settings. For details of how to create a private app in HubSpot,
+   see the [Private apps](https://developers.hubspot.com/docs/api/private-apps) page in the HubSpot documentation.
+2. Copies the access token from the new private app.
+3. Using the access key from the previous step, create and register an Ory Action for triggering a HubSpot API call whenever a
+   user completes the registration flow.
 4. Test the integration to ensure that data is routed correctly from your application to HubSpot.
 
-## Configuration
+### Configuration
 
-:::info
+Follow these steps to configure an integration that adds every newly registered user to your HubSpot contacts:
 
-Not sure what Jsonnet is? Read the [Ory Actions webhook guide](../../guides/integrate-with-ory-cloud-through-webhooks.mdx).
+```mdx-code-block
+import JsonnetInfo from './_common/jsonnetinfo.mdx'
 
-:::
+<JsonnetInfo />
+```
 
-1. First, create a Jsonnet file. It transforms the identity data from Ory to a format Hubspot understands:
+1. Create a Jsonnet file. It transforms the identity data from Ory to a format HubSpot understands.
 
    ```jsonnet title="./hubspot_identify.jsonnet"
    function(ctx) {
    properties: {
       email: ctx.identity.traits.email,
-      firstname: ctx.identity.traits.name,
-      // ...
+      firstname: ctx.identity.traits.name, # User's first name taken from the "name" identity trait.
+      # ... # You can get more user data depending on the identity schema you're using.
    },
    }
    ```
@@ -45,7 +72,7 @@ Not sure what Jsonnet is? Read the [Ory Actions webhook guide](../../guides/inte
    cat hubspot_identify.jsonnet | base64 | pbcopy
    ```
 
-3. Next, define the Ory Action as a JSON Object. Remember to replace the placeholders with your data.
+3. Define the Ory Action as a JSON object. Remember to replace the placeholders with your data.
 
    ```json title="./webhook-action.json"
    {
@@ -58,20 +85,20 @@ Not sure what Jsonnet is? Read the [Ory Actions webhook guide](../../guides/inte
          "type": "api_key",
          "config": {
            "name": "Authorization",
-           "value": "Bearer {YOUR_API_KEY_HERE}",
+           "value": "Bearer {PRIVATE_APP_ACCESS_TOKEN}",
            "in": "header"
          }
        },
        "url": "https://api.hubapi.com/crm/v3/objects/contacts",
        "method": "POST",
-       "body": "base64://{ENCODED_JSONNET}"
+       "body": "base64://{BASE64_ENCODED_JSONNET}"
      }
    }
    ```
 
-4. Finally, add this action to your Ory Network Project using the Ory CLI.
+4. Add this action to your Ory Network project using the Ory CLI.
 
-- You can trigger this webhook after successful registration:
+- Use this command to trigger this action after all successful registrations:
 
   ```shell
   ory patch identity-config {project-id} \
@@ -79,10 +106,17 @@ Not sure what Jsonnet is? Read the [Ory Actions webhook guide](../../guides/inte
     --format yaml
   ```
 
-- Alternatively, you can trigger this action only when the user signs up with a password or social sign-in:
+- Alternatively, use this command to trigger the action only for registrations with social sign-in profiles:
 
   ```shell
   ory patch identity-config {project-id} \
-    --add "/selfservice/flows/registration/after/password/hooks/0=$(cat webhook-action.json)" \
+    --add "/selfservice/flows/registration/after/oidc/hooks/0=$(cat webhook-action.json)" \
     --format yaml
   ```
+
+:::tip
+
+Read [this document](../../kratos/hooks/01_configure-hooks.mdx) to learn more about choosing the authentication/registration
+method that triggers the action.
+
+:::

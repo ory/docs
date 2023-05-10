@@ -1,0 +1,146 @@
+---
+id: native-apps
+title: Social sign-in for native and mobile apps
+sidebar_label: Native apps
+---
+
+```mdx-code-block
+import Mermaid from '@theme/Mermaid';
+import CodeFromRemote from "@theme/CodeFromRemote"
+```
+
+## Overview
+
+This page covers how to implement social sign-in for native applications via OIDC and OAuth 2.0. The user interaction looks like
+this:
+
+- The user is presented with a login or registration screen that includes a social sign-in button.
+- The user clicks the social sign-in button. A browser window opens (using
+  [ASWebAuthenticationSession](https://developer.apple.com/documentation/authenticationservices/aswebauthenticationsession) on iOS
+  or [Custom Tabs](https://developer.chrome.com/docs/android/custom-tabs/) on Android).
+- The user authenticates with the identity provider and grants the application access to profile information.
+- The user is redirected back to the application and is logged in.
+
+## The native app authentication flow
+
+From a high level, the native app initializes a login or registration flow and receives the first part of the session token
+exchange code from the Ory Network. After the user performed the social sign-in, the user is redirected back to the native
+application via an [iOS Universal Link](https://developer.apple.com/ios/universal-links/) or
+[Android App Link](https://developer.android.com/training/app-links). The native application then exchanges the session token
+exchange code for a session token.
+
+The flow looks like this:
+
+```mdx-code-block
+<Mermaid chart={`
+sequenceDiagram
+  actor U as user
+  participant A as Native App
+  participant B as Browser
+  participant O as Ory Network
+  participant I as Identity Provider
+  autonumber
+  U->>+A: Open login screen
+  A->>+O: create API flow with return_session_token_exchange_code=true
+  O->>A: flow.session_token_exchange_code: ...
+  U->>A: choose SSO provider
+  A->>O: submit form with provider=...
+  O->>A: Status 422 with err.response.data.redirect_browser_to=<IdP auth URL>
+  A->>+B: go to <IdP auth URL>
+  B->>+I: open <IdP auth URL>
+  U->>I: login, consent
+  I->>-B: redirect to <IdP callback URL>
+  B->>O: open <IdP callback URL>
+  O->>B: 302 Found
+  B->>A: redirect with App link to <return to>/?code=...
+  deactivate B
+  A->>O: exchange code for session token
+  O->>-A: session token
+`}/>
+```
+
+### Implementation
+
+The following sections describe how to implement the native app authentication flow. The code examples are written in TypeScript
+for React Native. The steps refer to the steps in the flow diagram above.
+
+#### Steps 1-5: Create an API flow with return_session_token_exchange_code=true
+
+The user opens the login screen (1) and the native application initializes a login or registration flow through the Ory Network
+APIs (2) with the following parameters:
+
+- The flow is of type `api`.
+- The `return_to` parameter is set to the URL of the native application. This URL is used to redirect the user back to the app
+  after the social sign-in.
+- The `return_session_token_exchange_code` parameter is set to `true` to receive the session token exchange code in the response
+  (3).
+
+<CodeFromRemote
+  lang="ts"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/2ef61d58aac508ad8890c01dac4b5fd4740265ff/src/components/Routes/Login.tsx"
+  startAt="  const initializeFlow = () =>"
+  endAt="      .then(({ data: f }) => setFlow(f))"
+/>
+
+Upon rendering the form, the user selects the specific social sign-in provider (4). The native application submits the form to the
+Ory Network (5).
+
+#### Steps 6-12: Open the identity provider authentication URL in a browser
+
+Ory Network returns a `422` status code if the user needs to perform a social sign-in from a flow of type `api` (6). The response
+contains the URL of the identity provider in the `redirect_browser_to` field.
+
+<CodeFromRemote
+  lang="ts"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/2ef61d58aac508ad8890c01dac4b5fd4740265ff/src/helpers/form.tsx"
+  startAt="        case 422:"
+  endAt="          )"
+/>
+
+[WebBrowser.openAuthSessionAsync](https://docs.expo.dev/versions/latest/sdk/webbrowser/#webbrowseropenauthsessionasyncurl-redirecturl-options)
+opens a browser tab for authentication for the specified `url` (7+8). Implementations in other languages and frameworks may vary.
+
+<CodeFromRemote
+  lang="ts"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/2ef61d58aac508ad8890c01dac4b5fd4740265ff/src/helpers/form.tsx"
+  startAt="  const result = await WebBrowser.openAuthSessionAsync("
+  endAt="  )"
+/>
+
+The user authenticates with the identity provider and grants the application access to profile information (9). The identity
+provider then issues a redirect to the Ory Network callback URL (10), which the browser follows (11).
+
+#### Steps 12-14: Exchange the session token exchange code for a session token
+
+Finally, Ory Network issues a session for the user and redirects the browser to the application's `return_to` URL (12). The native
+application receives the second part of the session token exchange code in the `code` URL query parameter. In the example below,
+the call to
+[WebBrowser.maybeCompleteAuthSession](https://docs.expo.dev/versions/latest/sdk/webbrowser/#webbrowsermaybecompleteauthsessionoptions)
+is used to close the browser tab and return the control flow to the code that awaited the call to
+`WebBrowser.openAuthSessionAsync`.
+
+<CodeFromRemote
+  lang="tsx"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/2ef61d58aac508ad8890c01dac4b5fd4740265ff/src/components/Routes/Callback.tsx"
+  startAt="const Callback = (props: Props) => {"
+  endAt="  )"
+/>
+
+The native application then exchanges the session token exchange code for a session token (13) using the first part of the code
+returned from the flow initialization, and the second part of the code returned from the `return_to` query parameter.
+
+<CodeFromRemote
+  lang="ts"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/2ef61d58aac508ad8890c01dac4b5fd4740265ff/src/helpers/form.tsx"
+  startAt="  const fetchToken = (params: FrontendApiExchangeSessionTokenRequest) =>"
+  endAt='    newOrySdk("").exchangeSessionToken(params)'
+/>
+
+Finally, the native application stores the session token in the secure storage (14) and redirects the user to the home screen.
+
+<CodeFromRemote
+  lang="ts"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/2ef61d58aac508ad8890c01dac4b5fd4740265ff/src/helpers/form.tsx"
+  startAt="  const setToken = (res: Awaited<ReturnType<typeof fetchToken>>) =>"
+  endAt="    })"
+/>

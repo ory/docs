@@ -356,7 +356,7 @@
     },
     {
       "source": "/docs/kratos/guides/login-session",
-      "destination": "https://www.ory.sh/docs/guides/session-management/check-session",
+      "destination": "https://www.ory.sh/docs/kratos/session-management/overview",
       "permanent": false
     },
     {
@@ -741,7 +741,7 @@
     },
     {
       "source": "/docs/kratos/guides/account-recovery-password-reset",
-      "destination": "https://www.ory.sh/docs/kratos/self-hosted/account-recovery-password-reset",
+      "destination": "https://www.ory.sh/docs/kratos/self-service/flows/account-recovery-password-reset",
       "permanent": false
     },
     {
@@ -752,6 +752,16 @@
     {
       "source": "/docs/kratos/guides/integration-with-other-systems-using-web-hooks",
       "destination": "https://www.ory.sh/docs/kratos/hooks/webhooks-integrations",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/sdk/01_overview.md",
+      "destination": "https://www.ory.sh/docs/kratos/sdk/overview",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/configure-ory-to-use-your-ui",
+      "destination": "https://www.ory.sh/docs/kratos/bring-your-own-ui/custom-ui-overview",
       "permanent": false
     },
     {
@@ -931,7 +941,7 @@
     },
     {
       "source": "/docs/kratos/hooks/webhooks-integrations",
-      "destination": "https://www.ory.sh/guides/integrate-with-ory-cloud-through-webhooks",
+      "destination": "https://www.ory.sh/docs/guides/integrate-with-ory-cloud-through-webhooks",
       "permanent": false
     },
     {
@@ -1042,6 +1052,51 @@
     {
       "source": "/docs/hydra",
       "destination": "/docs/oauth2-oidc",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/self-hosted/examples",
+      "destination": "https://www.ory.sh/docs/ecosystem/community",
+      "permanent": false
+    },
+    {
+      "source": "/docs/ecosystem/deployment",
+      "destination": "https://www.ory.sh/docs/self-hosted/deployment",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/high-availability-ha",
+      "destination": "https://www.ory.sh/docs/self-hosted/operations/scalability",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/self-hosted/scaling-hydra",
+      "destination": "https://www.ory.sh/docs/self-hosted/operations/scalability",
+      "permanent": false
+    },
+    {
+      "source": "/docs/ecosystem/logging",
+      "destination": "https://www.ory.sh/docs/self-hosted/operations/logging",
+      "permanent": false
+    },
+    {
+      "source": "/docs/ecosystem/versioning",
+      "destination": "https://www.ory.sh/docs/ecosystem/upgrading",
+      "permanent": false
+    },
+    {
+      "source": "/docs/ecosystem/roadmap",
+      "destination": "https://www.ory.sh/docs/ecosystem/changelog",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/benchmark",
+      "destination": "https://www.ory.sh/docs/ecosystem/benchmark",
+      "permanent": false
+    },
+    {
+      "source": "/docs/cli",
+      "destination": "/docs/guides/cli/installation",
       "permanent": false
     }
   ]

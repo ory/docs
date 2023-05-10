@@ -1,0 +1,130 @@
+---
+id: go
+title: Go
+---
+
+In this document you can find code examples for the Ory Keto Go SDK.
+
+:::info
+
+Missing an example? Please create a
+[feature request](https://github.com/ory/docs/issues/new?assignees=&labels=feat&template=FEATURE-REQUEST.yml) and it will be added
+here.
+
+You can find more examples of SDK usage in the auto-generated documentation
+[`keto-client-go`](https://github.com/ory/keto-client-go/tree/master/docs).
+
+:::
+
+Ory Keto exposes two APIs for integration
+
+- [gRPC](http://ory.sh/docs/keto/reference/proto-api)
+- [REST](http://ory.sh/docs/keto/reference/rest-api)
+
+## Installation
+
+### Installation gRPC API
+
+```
+go get github.com/ory/keto/proto
+```
+
+### Installation REST API
+
+```
+go get github.com/ory/keto-client-go
+```
+
+## REST API examples
+
+As an example, let's create the following minimal permission rules. These just contain a `User` and `Blog` namespace as well as
+the `view` permission for the `Blog` namespace.
+
+```
+import { Namespace, SubjectSet, Context } from "@ory/keto-namespace-types"
+
+class User implements Namespace { }
+
+class Blog implements Namespace {
+  related: {
+    viewers: User[]
+  }
+
+  permits = {
+    view: (ctx: Context): boolean =>
+      this.related.viewers.includes(ctx.subject)
+  }
+}
+```
+
+If you want to learn more about creating permission rules read the
+[Create a permission model](https://www.ory.sh/docs/keto/modeling/create-permission-model) guide.
+
+### CreateRelationship and CheckPermission
+
+The following code creates and checks the following permission:
+
+```
+Blog:secret_post#view@Bob
+```
+
+This means Bob can view the `secret_post` in the `Blog` namespace.
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	ory "github.com/ory/keto-client-go"
+)
+
+// Use this context to access Ory APIs which require an Ory API Key.
+var namespace = "Blog"
+var object = "secret_post"
+var relation = "view"
+var subjectId = "Bob"
+
+func main() {
+	payload := ory.CreateRelationshipBody{
+		Namespace: &namespace,
+		Object:    &object,
+		Relation:  &relation,
+		SubjectId: &subjectId,
+	}
+	configuration := ory.NewConfiguration()
+	configuration.Servers = []ory.ServerConfiguration{
+		{
+			URL: "http://127.0.0.1:4467", // Write API
+		},
+	}
+	writeClient := ory.NewAPIClient(configuration)
+	_, r, err := writeClient.RelationshipApi.CreateRelationship(context.Background()).CreateRelationshipBody(payload).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+		panic("Encountered error: " + err.Error())
+	}
+	fmt.Println("Successfully created tuple")
+	configuration.Servers = []client.ServerConfiguration{
+		{
+			URL: "http://127.0.0.1:4466", // Read API
+		},
+	}
+	readClient := client.NewAPIClient(configuration)
+
+	check, r, err := readClient.PermissionApi.CheckPermission(context.Background()).
+		Namespace(*&namespace).
+		Object(*&object).
+		Relation(*&relation).
+		SubjectId(*&subjectId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+		panic("Encountered error: " + err.Error())
+	}
+	if check.Allowed {
+		fmt.Println(*&subjectId + " can " + *&relation + " the " + *&object)
+	}
+}
+```

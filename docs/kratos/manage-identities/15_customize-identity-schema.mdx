@@ -2,7 +2,6 @@
 id: customize-identity-schema
 title: Learn how to customize Ory identity schemas
 sidebar_label: Customize identity schemas
-toc_max_heading_level: 4
 ---
 
 # Customize identity schemas
@@ -600,6 +599,99 @@ Specifies that the field can be used to send an account recovery code or link.
   }
 }
 ```
+
+## Mandatory fields for registration
+
+Use `required` to define which identity schema fields users must fill in during registration. When users try to register without
+filling in the mandatory fields, Ory Account Experience shows a message that tells users they must provide the mandatory
+information to proceed. Additionally, required fields are marked with an asterisk for easy visual identification.
+
+The sample identity schema has two mandatory fields: email address and last name.
+
+:::note
+
+For nested objects such as `name`, add the `required` property inside of the object.
+
+:::
+
+````mdx-code-block
+<Tabs>
+<TabItem value="schema" label="Identity schema" default>
+
+```json
+{
+  "$id": "https://schemas.ory.sh/presets/kratos/identity.basic.schema.json",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "Email address",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              },
+              "webauthn": {
+                "identifier": true
+              },
+              "totp": {
+                "account_name": true
+              }
+            },
+            "recovery": {
+              "via": "email"
+            },
+            "verification": {
+              "via": "email"
+            }
+          },
+          "maxLength": 320
+        },
+        "name": {
+          "type": "object",
+          # highlight-start
+          "required": [
+            "last"
+          ],
+          # highlight-end
+          "properties": {
+            "first": {
+              "type": "string",
+              "title": "First name",
+              "maxLength": 256
+            },
+            "last": {
+              "type": "string",
+              "title": "Last name",
+              "maxLength": 256
+            }
+          }
+        }
+      },
+      # highlight-start
+      "required": [
+        "email"
+      ],
+      # highlight-end
+      "additionalProperties": false
+    }
+  }
+}
+```
+
+</TabItem>
+<TabItem value="UI" label="Generated UI">
+
+![Identity schema with many mandatory fields UI](../_static/customize-identity-schema/4.png)
+
+</TabItem>
+</Tabs>
+````
 
 ## Choosing between username, email, and phone number
 

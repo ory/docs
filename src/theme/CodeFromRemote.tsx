@@ -58,20 +58,24 @@ const findLine = (needle: string | undefined, haystack: Array<string>) => {
 
 const transform =
   ({ startAt, endAt }: { startAt?: string; endAt?: string }) =>
-  (content: string) => {
+  (content: string): [string, number, number] => {
     let lines = content.split("\n")
+    let startLineNum = 1
+    let endLineNum = lines.length
 
     const startIndex = findLine(startAt, lines)
     if (startIndex > 0) {
       lines = ["// ...", ...lines.slice(startIndex, -1)]
+      startLineNum = startIndex + 1
     }
 
     const endIndex = findLine(endAt, lines)
     if (endIndex > 0) {
       lines = [...lines.slice(0, endIndex + 1), "// ..."]
+      endLineNum = startLineNum + endIndex - 1
     }
 
-    return lines.join("\n")
+    return [lines.join("\n"), startLineNum, endLineNum]
   }
 
 const CodeFromRemote = (props: {
@@ -80,9 +84,12 @@ const CodeFromRemote = (props: {
   contentOverride?: string
   startAt?: string
   endAt?: string
+  showLink?: boolean
 }) => {
   const { src, title, contentOverride } = props
   const [content, setContent] = useState(contentOverride || "")
+  const [startLineNum, setStartLineNum] = useState(0)
+  const [endLineNum, setEndLineNum] = useState(0)
 
   useEffect(() => {
     if (contentOverride) {
@@ -96,21 +103,29 @@ const CodeFromRemote = (props: {
     )
       .then((body) => body.text())
       .then(transform(props))
-      .then(setContent)
+      .then(([content, startLineNum, endLineNum]) => {
+        setContent(content)
+        setStartLineNum(startLineNum)
+        setEndLineNum(endLineNum)
+      })
       .catch(console.error)
   }, [contentOverride, src])
 
   const lang = `language-${detectLanguage(src)}`
-  const metaString = `title="${title || findPath(src)}"`
 
   return (
     <div className={styles.container}>
       <CodeBlock
-        metastring={metaString}
-        className={lang}
+        title={title || findPath(src)}
+        className={`${lang} ${styles.codeblock}`}
         children={content}
         showLineNumbers={true}
       />
+      <div className={styles.link}>
+        <a href={src + `#L${startLineNum}-L${endLineNum}`}>
+          see full code on GitHub
+        </a>
+      </div>
     </div>
   )
 }

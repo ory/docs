@@ -2,7 +2,6 @@
 id: custom-ui-advanced-integration
 title: Advanced information you need to integrate your UI with Ory
 sidebar_label: Advanced integration
-toc_max_heading_level: 4
 ---
 
 # Advanced integration
@@ -98,6 +97,30 @@ the flow data across two forms.
     {/*Map the other flow groups here such as `default` and `password`*/}
 </form>
 ```
+
+#### Upstream provider parameters
+
+In some cases, it is possible to pass additional parameters to the upstream provider. For example, when using the Google provider,
+it is possible to pass the `login_hint` and `hd` parameters.
+
+The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the
+proper session. The `hd` parameter limits the login/registration process to a Google Organization, for example `mycollege.edu`. To
+pass these parameters on `login`, `registration` and `settings` flows, the application can use the submit form body to pass the
+parameters. For example:
+
+```html
+<form action="https://{project.slug}.projects.oryapis.com/self-service/login?flow=<flow-id>" method="POST">
+  <input type="submit" name="provider" value="google" />
+  <input type="hidden" name="upstream_parameters.login_hint" value="foo@bar.com" />
+  <input type="hidden" name="upstream_parameters.hd" value="bar.com" />
+</form>
+```
+
+:::note
+
+Only the `login_hint` and `hd` parameters are currently supported.
+
+:::
 
 ### Two-factor authentication
 

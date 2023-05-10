@@ -1,10 +1,10 @@
 import { PropTypes } from "../../components/Examples/example-list"
 
-export const official: PropTypes = {
-  id: "official",
-  title: "Official examples",
+export const basic: PropTypes = {
+  id: "basic",
+  title: "Basic examples",
   description:
-    "Guides, tutorials, and configurations for using Ory services. Examples maintained and tested by the Ory team.",
+    "Guides, tutorials, and configurations for using Ory services. Examples are maintained by the Ory team.",
   examples: [
     {
       title: "Protect a page with login: Next.js/React",
@@ -87,13 +87,31 @@ export const official: PropTypes = {
       docs: "https://www.ory.sh/securing-flask-application-using-kratos-and-keto/",
     },
     {
-      title: "Protect a page with login: Dotnet",
+      title: "Protect a page with login: .NET Core",
       language: "dotnet",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/dotnet",
       docs: "https://www.ory.sh/docs/getting-started/integrate-auth/dotnet",
     },
+    {
+      title: "Protect a page with login: ASP.NET Core",
+      language: "dotnet",
+      author: "ory",
+      tested: false,
+      repo: "https://github.com/ory/examples/tree/master/dotnet-ory-network",
+      docs: "https://github.com/ory/examples/blob/master/dotnet-ory-network/README.md",
+      description: "Advanced example",
+    },
+  ],
+}
+
+export const customui: PropTypes = {
+  id: "customui",
+  title: "Custom UI examples",
+  description:
+    "Guides, tutorials, and configurations for building a custom UI for Ory services. Examples are maintained by the Ory team.",
+  examples: [
     {
       title: "Customize self-service UI: Node.js",
       language: "nodejs",
@@ -118,29 +136,12 @@ export const official: PropTypes = {
       repo: "https://github.com/ory/kratos-selfservice-ui-react-native",
       docs: "https://www.ory.sh/login-react-native-authentication-example-api/",
     },
-    {
-      title: "Ory Cloud with Supabase Backend",
-      language: "go",
-      author: "ory",
-      tested: false,
-      repo: "https://github.com/ory/examples/tree/master/supabase-ory-cloud",
-      docs: "https://github.com/ory/examples/blob/master/supabase-ory-cloud/README.md",
-    },
-    {
-      title: "Ory Network with ASP.NET Core",
-      language: "dotnet",
-      author: "ory",
-      tested: false,
-      repo: "https://github.com/ory/examples/tree/master/dotnet-ory-network",
-      docs: "https://github.com/ory/examples/blob/master/dotnet-ory-network/README.md",
-      description: "Advanced example",
-    },
   ],
 }
 
 export const community: PropTypes = {
   id: "community",
-  title: "Community Examples",
+  title: "Community examples",
   description:
     "Guides, tutorials, and configurations for using Ory services contributed by the Ory community.",
   examples: [
@@ -231,88 +232,6 @@ export const community: PropTypes = {
       tested: false,
       repo: "https://github.com/ardetrick/ory-hydra-refrence-java",
       docs: "https://github.com/ardetrick/ory-hydra-refrence-java/blob/main/README.md",
-    },
-  ],
-}
-
-export const selfhosted: PropTypes = {
-  id: "selfhosted",
-  title: "Selfhosted examples",
-  description:
-    "Guides, tutorials, and configurations for self-hosting Ory services. These examples are partly contributed by the Ory community, in parts by the Ory team.",
-  examples: [
-    {
-      title: "API Gateway using Kong, Ory Kratos & Ory Oathkeeper",
-      language: "ory",
-      author: "ory",
-      tested: false,
-      repo: "https://github.com/ory/examples/tree/master/kratos-oathkeeper-kong",
-      docs: "https://www.ory.sh/zero-trust-api-security-ory-tutorial/",
-    },
-    {
-      title: "Ory Oathkeeper configurations",
-      language: "ory",
-      author: "ory",
-      tested: false,
-      repo: "https://github.com/ory/examples/tree/master/oathkeeper",
-      docs: "https://github.com/ory/examples/blob/master/oathkeeper/README.md",
-    },
-    {
-      title: "Ory Hydra Nginx configurations",
-      language: "ory",
-      author: "ory",
-      tested: false,
-      repo: "https://github.com/ory/examples/tree/master/hydra-nginx",
-      docs: "https://github.com/ory/examples/blob/master/hydra-nginx/README.md",
-    },
-    {
-      title: "Ory Kratos Nginx configurations",
-      language: "ory",
-      author: "ory",
-      tested: false,
-      repo: "https://github.com/ory/examples/tree/master/kratos-nginx",
-      docs: "https://github.com/ory/examples/blob/master/kratos-nginx/README.md",
-    },
-    {
-      title: "Basic Admin UI for Ory Kratos",
-      language: "react",
-      author: "dfoxg",
-      tested: false,
-      repo: "https://github.com/dfoxg/kratos-admin-ui",
-      docs: "https://github.com/dfoxg/kratos-admin-ui/blob/main/README.md",
-    },
-    {
-      title: "SSO and ACL Ory Stack",
-      language: "kubernetes",
-      author: "pngouin",
-      tested: false,
-      repo: "https://github.com/pngouin/k8s-ory-example",
-      docs: "https://github.com/pngouin/k8s-ory-example/blob/main/README.md",
-    },
-    {
-      title: " Reference Ory Stack Docker Compose",
-      language: "docker",
-      author: "radekg",
-      tested: false,
-      repo: "https://github.com/radekg/ory-reference-compose",
-      docs: "https://github.com/radekg/ory-reference-compose/blob/master/README.md",
-    },
-    {
-      title: "Ory Kratos with Supabase backend",
-      language: "go",
-      author: "ory",
-      tested: false,
-      repo: "https://github.com/ory/examples/tree/master/kratos-keto-oathkeeper-supabase",
-      docs: "https://www.ory.sh/tutorial-url-shortener-supabase-ory-integration-backend/",
-    },
-    {
-      title: "Ory Hydra / Kratos integration in Go",
-      language: "ory",
-      // framework: 'Ory',
-      author: "atreya2011",
-      tested: false,
-      repo: "https://github.com/atreya2011/go-kratos-test/tree/hydra-consent",
-      docs: "https://github.com/atreya2011/go-kratos-test/blob/hydra-consent/README.md",
     },
   ],
 }
