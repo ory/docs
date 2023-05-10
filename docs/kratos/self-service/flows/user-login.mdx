@@ -462,8 +462,8 @@ validation errors include a missing identifier or password, or invalid credentia
 
 <CodeTabs items={getFlowMethodPasswordWithErrors} />
 
-When validation errors happen, browser clients receive a HTTP 303 See Other redirect to the Login Flow UI, containing the Login
-Flow ID which includes the error payloads.
+When validation errors happen, browser clients receive a HTTP 303 See Other redirect to the Login UI, containing the Login Flow ID
+which includes the error payloads.
 
 For API Clients, the server typically responds with HTTP 400 Bad Request and the Login Flow in the response payload as JSON.
 

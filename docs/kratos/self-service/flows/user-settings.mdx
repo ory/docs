@@ -618,8 +618,8 @@ The form payloads are then submitted to Ory Identities which follows up with:
 - An HTTP 303 See Other redirect pointing to the Registration UI for Browser Clients;
 - An `application/json` response for API Clients and Client-Side Browser applications (for example Single Page Apps).
 
-When validation errors happen, browser clients receive a HTTP 303 See Other redirect to the Settings Flow UI, containing the
-Settings Flow ID which includes the error payloads. For API Clients, the server typically responds with HTTP 400 Bad Request
+When validation errors happen, browser clients receive a HTTP 303 See Other redirect to the Settings UI, containing the Settings
+Flow ID which includes the error payloads. For API Clients, the server typically responds with HTTP 400 Bad Request
 `application/json` and the Settings Flow in the response payload as JSON.
 
 ### Update profile
