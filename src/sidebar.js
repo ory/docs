@@ -199,6 +199,7 @@ module.exports = {
             "hydra/guides/using-oauth2",
           ],
         },
+        "oauth2-oidc/identity-provider-basic-settings",
         "oauth2-oidc/client-credentials",
         "oauth2-oidc/authorization-code-flow",
         "oauth2-oidc/refresh-token-grant",

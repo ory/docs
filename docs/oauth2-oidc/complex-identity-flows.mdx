@@ -1,0 +1,33 @@
+---
+id: identity-provider-basic-settings
+title: Identity Provider Basic Settings
+sidebar_label: Identity Provider Basic Settings
+---
+
+
+## Overview
+
+Ory OAuth2 and OpenID Connect is by default configured to work with the Ory Identity Provider. And for most use cases no additional configuration is required.
+This document will explain how to configure your Ory project to allow for more advanced use cases such as persisting OAuth2 logins through the Ory Identity Provider flows.
+
+It is sometimes necessary to persist an OAuth2 login through a complex Ory Identity flow such as account recovery.
+The benefit of persisting the OAuth2 login is so that the user does not get stuck on the Ory Identity provider settings page,
+but instead is redirected back to the original application that initiated the login flow.
+
+### Ory Console Configuration
+
+In Ory Network we can achieve this by enabling the `Always Return to OAuth2 provider` setting in the Ory Console
+under the **OAuth2** tab -> **Basic Settings** section.
+
+:::info
+
+Enabling this setting overrides the `return_to` query parameter and always redirects back to the OAuth2 provider within an OAuth2 login flow.
+
+:::
+
+### CLI Configuration
+
+```shell
+ory patch ory patch project <your-project-id> \
+  --replace '/services/identity/oauth2/override_return_to=true'
+```
