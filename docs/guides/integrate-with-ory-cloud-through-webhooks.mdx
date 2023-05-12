@@ -621,3 +621,10 @@ Flow-interrupting webhooks work best if you give users meaningful information ab
 trigger these hooks is `after` flows.
 
 :::
+
+### Webhook retries
+
+Sometimes webhook delivery can fail due to issues such as network problems or server errors. To mitigate this, Ory Network
+implements a retry policy that attempts to deliver the payload up to three times, with a 30-second timeout between each attempt.
+This means that if delivery fails on the first attempt, Ory Network will automatically retry the delivery two more times, with a
+30-second delay between each retry.
