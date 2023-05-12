@@ -705,10 +705,27 @@
       "createProjectInvite": {
         "description": "Create Project Invite Request Body",
         "properties": {
-          "invitee_email": {
-            "type": "string"
+          "invitee_emails": {
+            "description": "A list of emails to invite",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           }
         },
+        "type": "object"
+      },
+      "createProjectInvitesResponse": {
+        "description": "Response to the create project invite request",
+        "properties": {
+          "all_invites": {
+            "$ref": "#/components/schemas/projectInvites"
+          },
+          "created_invites": {
+            "$ref": "#/components/schemas/projectInvites"
+          }
+        },
+        "required": ["created_invites", "all_invites"],
         "type": "object"
       },
       "createRecoveryCodeForIdentityBody": {
