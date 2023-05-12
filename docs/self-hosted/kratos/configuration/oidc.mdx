@@ -3,7 +3,7 @@ id: oidc
 title: Social sign-in
 ---
 
-Follow these steps to add a generic provider as a social sign-in provider when self-hosting Ory Kratos.
+Follow these steps to add a social sign-in provider when self-hosting Ory Kratos.
 
 1. Define the redirect URL:
 
@@ -11,14 +11,37 @@ Follow these steps to add a generic provider as a social sign-in provider when s
    http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/<social-signin-provider-id>
    ```
 
-1. Create a client at your generic provider to get a Client ID and Client Secret.
+1. Create a client at your provider to get the Client ID and Client Secret.
 1. Set the redirect URI to URL that follows this pattern.
    `http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/<social-signin-provider-id>`.
-1. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
+1. Create a [Jsonnet code snippet](../../../kratos/social-signin/90_data-mapping.mdx) to map the desired claims to the Ory
+   Identity schema.
 1. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to your Ory Kratos
    instance.
-1. Add the [social sign-in provider configuration](#configuration-with-ory-cli) to the Ory Kratos configuration. Add the Jsonnet
-   snippet with mappings as a Base64 string or provide a path or an URL of the file.
+1. Add the configuration for your [social sign-in provider](../../../kratos/social-signin/01_overview.mdx) to the Ory Kratos
+   configuration. Add the Jsonnet snippet with mappings as a Base64 string or provide a path or an URL of the file.
+
+## Example configuration
+
+```
+selfservice:
+  methods:
+    oidc:
+      config:
+        providers:
+          - id: generic # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+            provider: generic
+            client_id: .... # Replace this with the Client ID
+            client_secret: .... # Replace this with the Client secret
+            issuer_url: https://accounts.google.com # Replace this with the providers issuer URL
+            mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
+            # Alternatively, use an URL:
+            # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17
+            scope:
+              - email
+            # supported scopes can be found in your providers dev docs
+      enabled: true
+```
 
 ## Environment variables
 
