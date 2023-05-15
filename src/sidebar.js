@@ -629,7 +629,7 @@ module.exports = {
         {
           type: "category",
           label: "Ory Permissions",
-          items: ["keto/sdk/go"],
+          items: ["keto/sdk/go", "keto/sdk/python"],
         },
         {
           type: "category",
