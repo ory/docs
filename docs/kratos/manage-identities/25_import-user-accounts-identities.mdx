@@ -178,6 +178,8 @@ To import a hashed password, provide the hashed password in the JSON payload.
 }
 ```
 
+The value of the hashed password is different depending on the algorithm used. The following algorithms are supported:
+
 ````mdx-code-block
 <Tabs>
 <TabItem value="bcrypt" label="BCrypt">
@@ -368,7 +370,7 @@ $firescrypt$ln=<mem_cost>,r=<rounds>,p=<parallelization>$<salt>$<hash>$<salt_sep
 
 - `mem_cost`(`number`): CPU/memory cost as given by
 - `rounds`(`number`): rounds firebase hash config parameter (must satisfy r \* p < 2³⁰)
-- `parallelization`(`number`): parallelization parameter (must satisfy r \* p < 2³⁰)
+- `parallelization`(`number`): parallelization parameter, default is `1` unless Google says otherwise (must satisfy r \* p < 2³⁰)
 - `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded to Base64.
 - `hash`(`string`): The computed derived key by the SCrypt algorithm encoded to Base64.
 - `salt_separator`(`string`): Firebase hash config parameter encoded to Base64.
@@ -379,6 +381,8 @@ $firescrypt$ln=<mem_cost>,r=<rounds>,p=<parallelization>$<salt>$<hash>$<salt_sep
 ```
 $firescrypt$ln=14,r=8,p=1$sPtDhWcd1MfdAw==$xbSou7FOl6mChCyzpCPIQ7tku7nsQMTFtyOZSXXd7tjBa4NtimOx7v42Gv2SfzPQu1oxM2/k4SsbOu73wlKe1A==$Bw==$YE0dO4bwD4JnJafh6lZZfkp1MtKzuKAXQcDCJNJNyeCHairWHKENOkbh3dzwaCdizzOspwr/FITUVlnOAwPKyw==
 ```
+
+Documentation for extracting your users can be found [here](https://firebase.google.com/docs/cli/auth).
 
 </TabItem>
 </Tabs>
