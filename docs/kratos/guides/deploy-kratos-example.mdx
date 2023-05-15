@@ -209,11 +209,12 @@ Kratos.
 
 You should see something like this once the service has been started:
 
-```bash
-INFO[2022-05-10T20:51:56Z] TLS has not been configured for public, skipping  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
-INFO[2022-05-10T20:51:56Z] Starting the public httpd on: 0.0.0.0:4433    audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
-INFO[2022-05-10T20:51:56Z] TLS has not been configured for admin, skipping  audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
-INFO[2022-05-10T20:51:56Z] Starting the admin httpd on: 0.0.0.0:4434     audience=application service_name=Ory Kratos service_version=v0.9.0-alpha.3
+```mdx-code-block
+   <CodeBlock className="language-shell">{`INFO[2022-05-10T20:51:56Z] TLS has not been configured for public, skipping  audience=application service_name=Ory Kratos service_version=${useLatestRelease("kratos")}
+INFO[2022-05-10T20:51:56Z] Starting the public httpd on: 0.0.0.0:4433    audience=application service_name=Ory Kratos service_version=${useLatestRelease("kratos")}
+INFO[2022-05-10T20:51:56Z] TLS has not been configured for admin, skipping  audience=application service_name=Ory Kratos service_version=${useLatestRelease("kratos")}
+INFO[2022-05-10T20:51:56Z] Starting the admin httpd on: 0.0.0.0:4434     audience=application service_name=Ory Kratos service_version=${useLatestRelease("kratos")}
+`}</CodeBlock>
 ```
 
 ## Run Ory Kratos using systemd
