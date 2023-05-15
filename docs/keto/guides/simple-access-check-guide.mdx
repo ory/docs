@@ -5,67 +5,56 @@ sidebar_label: Integrate permission checks
 
 import Mermaid from "@site/src/theme/Mermaid"
 
-# Integrate permission checks into your application
-
-Access control and permissions management are critical components of modern applications, ensuring that users have the right level
-of access to resources and data. Ory Permissions is a powerful service that provides these capabilities backed by Ory Keto, a
-popular open-source access control server.
-
-Ory Permissions leverages the design and concepts of Google Zanzibar, which is a highly scalable and secure solution for managing
-access to resources across distributed systems. This allows Ory Permissions to provide a flexible and powerful system for managing
-roles and permissions in your application.
-
-In this guide we will explore how Ory Permissions fits into your architecture and how to integrate it into your application.
+In this guide you will learn how Ory Permissions fits into your architecture and how to integrate it into your application.
 Whether you're building a new application from scratch or adding access control to an existing one, Ory Permissions can help you
-manage your permissions in a secure and efficient way.
+manage your permissions.
 
-## Understanding Ory Permissions
+## Understand Ory Permissions
 
 In Ory Permissions, relationships and permissions are two key concepts that allow you to manage access control and permissions in
 your application.
 
-Relationships are facts about entities that are stored in Ory Permissions. A relationship consists of three elements: an object
-entity, a relation string, and a subject entity. Relationships represent real relationships between different entities in your
-application. For example, you might define a relationship between a user and a file to indicate that the user owns the file.
+Relationships are facts about entities stored in Ory Permissions. A relationship consists of three elements: an object entity, a
+relation string, and a subject entity. Relationships represent real relationships between different entities in your application.
+For example, you might define a relationship between a user and a file to show that the user owns the file.
 
-Permissions, on the other hand, are defined in the Ory Permission Language, which is a subset of TypeScript. Permissions are
-essentially TypeScript functions that return a boolean value based on the relationships that are defined in Ory Permissions. These
-functions allow you to define the access control policies for your application. Permissions can be used to create very
-fine-grained permissions that can be tailored to the specific needs of your application.
+Permissions are defined in the Ory Permission Language, which is a subset of TypeScript. Permissions are essentially TypeScript
+functions that return a boolean value based on the relationships in Ory Permissions. These functions allow you to define the
+access control policies for your application. Permissions can be used to create very fine-grained permissions that can be tailored
+to the specific needs of your application.
 
 By combining relationships and permissions, you can define complex access control policies that allow you to manage access to
 resources and data in your application. Ory Permissions allows you to build flexible permission models that can be customized to
 fit any application need. This means you can create access control policies that are as simple or as complex as you need them to
 be, while still ensuring that your application remains secure and protected.
 
-Ory Permissions provides a number of features that make it easy to manage relationships and permissions in your application. For
-example, you can define namespaces to organize your entities, and use the Ory Permissions API to create and manage relationships
-and permissions programmatically.
+Ory Permissions provides features to help manage relationships and permissions in your application. For example, you can define
+namespaces to organize your entities, and use the Ory Permissions API to create and manage relationships and permissions
+programmatically.
 
 In the next section, we'll provide an example of how to use relationships and permissions in Ory Permissions to manage access
 control in your application.
 
 ## Synchronous authorization flow
 
-It is crucial that all permission checks are performed using Ory Permissions. This means that before any action is taken, the
-required permission should be checked to ensure that the action can be performed. For instance, when returning the content of a
-file, the request subject's read permission on the file should be checked first.
+It's crucial that all permission checks are performed using Ory Permissions. This means that before any action is taken, the
+required permission should be checked to ensure that the action is allowed. For instance, when returning the content of a file,
+the request subject's read permission on the file should be checked first.
 
 :::info
 
-Authentication is not part of the permission check API, but it is a prerequisite for any permission check to be meaningful. One
-way to implement authentication is to use [Ory Identities](https://www.ory.sh/docs/welcome#identities-and-sessions), which provide
-a secure and robust authentication system for your application.
+Authentication isn't part of the permission check API, but it's a prerequisite for any permission check to be meaningful. One way
+to implement authentication is to use [Ory Identities](https://www.ory.sh/docs/welcome#identities-and-sessions), which provide a
+secure and robust authentication system for your application.
 
 :::
 
-Once the subject is authenticated, you can perform permission checks by calling the check method of the OryPermissions client. The
-check method takes the subject, permission, and object as parameters and returns a boolean value indicating whether the permission
-is granted or not.
+Once you authenticated the subject, you can perform permission checks by calling the check method of the OryPermissions client.
+The check method takes the subject, permission, and object as parameters and returns a boolean value indicating whether the
+permission is granted or not.
 
 <Mermaid
-  chart={`
-sequenceDiagram
+  chart={`sequenceDiagram
     participant Subject
     participant App
     participant Ory Identities
@@ -76,24 +65,23 @@ sequenceDiagram
     Ory Identities->>-App: Subject Authenticated
     App->>+Ory Permissions: Check "subject" has "read" permission on "resource x"
     Ory Permissions->>-App: Permissions Granted
-    App->>-Subject: Return Resource
-`}
+    App->>-Subject: Return Resource`}
 />
 
-It's up to your permission model what permissions are available and need to be checked. In this example we assume that there is a
-`read` permission on the resource's namespace, and some kind of relationships are established to indicate whether a user has that
-`read` permission. Please head over to the [Permission Model Guide](../modeling/create-permission-model) for more information.
+It's up to your permission model what permissions are available and need to be checked. This example assumes that there is a
+`read` permission on the resource's namespace and you created relationships to show whether a user has that `read` permission.
+Please head over to the [Permission Model Guide](../modeling/create-permission-model) to learn how to create relationships.
 
 ## Best practices
 
-By following these best practices, you can ensure that your application is secure and that users have access only to the resources
-they need.
+By following these best practices, you can ensure that your application is secure and that users have access to the resources they
+need.
 
-### Do not cache permission checks
+### Don't cache permission checks
 
-Ory provides a low-latency, globally distributed system with appropriate caching, cache invalidation, and other optimizations. You
-don't need to worry about correctly caching the permission checks in your application. Incorrect caching can lead to security
-vulnerabilities, so it's best to avoid it altogether.
+Ory Network provides a low-latency, globally distributed system with appropriate caching, cache invalidation, and other
+optimizations. You don't need to worry about caching the permission checks in your application. Incorrect caching can lead to
+security vulnerabilities, so it's best to avoid it altogether.
 
 ### Perform permission checks in every critical path of the application
 
@@ -102,17 +90,10 @@ creating, reading, updating, and deleting resources.
 
 ### Use fine-grained permissions
 
-Ory Permissions allows you to define very fine-grained permissions, which can help you enforce the principle of least privilege.
-This means that you can give users only the permissions they need, and nothing more.
+Ory Permissions allows you to define fine-grained permissions, which can help you enforce the principle of least privilege. This
+means that you can give users the permissions they need, and nothing more.
 
-### Regularly audit permissions
+### Audit permissions
 
-It's important to regularly review and audit permissions to ensure that users only have the access they need. Use Ory Permissions'
-powerful query capabilities to find and fix any permissions that are no longer necessary.
-
-## Conclusion
-
-In conclusion, access control and permissions management are critical components of modern applications, ensuring that users have
-the right level of access to resources and data. With Ory Permissions backed by Ory Keto, developers can implement a scalable and
-secure solution for managing roles and permissions in their applications. This guide explained how Ory Permissions fits into your
-architecture and how to integrate it into your application.
+It's important to review and audit permissions to ensure that users just have the access they need. Use Ory Permissions' powerful
+query capabilities to find and fix any permissions that are no longer necessary.
