@@ -185,18 +185,11 @@ Congratulations, you have installed and configured the PostgreSQL database. Next
 
 You should see something like this once the service has been started:
 
-```bash
-WARN[2022-04-15T15:24:29Z] JSON Web Key Set "hydra.openid.id-token" does not exist yet, generating new key pair...  audience=application service_name=Ory Hydra service_version=v1.11.7
-WARN[2022-04-15T15:24:34Z] JSON Web Key Set "hydra.jwt.access-token" does not exist yet, generating new key pair...  audience=application service_name=Ory Hydra service_version=v1.11.7
-Thank you for using Ory Hydra v1.11.7!
-
-Take security seriously and subscribe to the Ory Security Newsletter. Stay on top of new patches and security insights.
-
->> Subscribe now: http://eepurl.com/di390P <<
-INFO[2022-04-15T15:24:37Z] Software quality assurance features are enabled. Learn more at: https://www.ory.sh/docs/ecosystem/sqa  audience=application service_name=Ory Hydra service_version=v1.11.7
-WARN[2022-04-15T15:24:37Z] JSON Web Key Set "hydra.https-tls" does not exist yet, generating new key pair...  audience=application service_name=Ory Hydra service_version=v1.11.7
-INFO[2022-04-15T15:24:41Z] Setting up http server on :4444               audience=application service_name=Ory Hydra service_version=v1.11.7
-INFO[2022-04-15T15:24:41Z] Setting up http server on :4445               audience=application service_name=Ory Hydra service_version=v1.11.7
+```mdx-code-block
+   <CodeBlock className="language-shell">{`WARN[2022-04-15T15:24:29Z] JSON Web Key Set "hydra.openid.id-token" does not exist yet, generating new key pair...  audience=application service_name=Ory Hydra service_version=${useLatestRelease("hydra")}
+WARN[2022-04-15T15:24:34Z] JSON Web Key Set "hydra.jwt.access-token" does not exist yet, generating new key pair...  audience=application service_name=Ory Hydra service_version=${useLatestRelease("hydra")}
+Thank you for using Ory Hydra ${useLatestRelease("hydra")}!
+`}</CodeBlock>
 ```
 
 ## Run Ory Hydra using systemd
@@ -206,6 +199,8 @@ INFO[2022-04-15T15:24:41Z] Setting up http server on :4445               audienc
    ```bash
    chown -R hydra /opt/hydra/
    ```
+
+````
 
 2. Create a `/etc/systemd/system/hydra.service` file
 
@@ -486,3 +481,4 @@ server {
 - Fork the [Ory Hydra Node.js UI Reference](https://github.com/ory/hydra-login-consent-node) or
   [build a custom UI in the language of your choice](../sdk/01_overview.md).
 - [Add Identity and Account Management](../../kratos/ory-kratos-intro)
+````
