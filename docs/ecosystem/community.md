@@ -113,6 +113,7 @@ modifies the core technology. This isn't an exhaustive list. Want your own conte
 
 ### Ory Hydra
 
+- [Ory Hydra OAuth2 Token Exchange RFC 8693](https://github.com/Exact-Realty/ts-hydra-rfc8693)
 - [Ory Hydra SDK for Laravel (unofficial)](https://github.com/ALTELMA/laravel-hydra)
 - [Ory Hydra Terraform Provider](https://github.com/svrakitin/terraform-provider-hydra)
 - [Ory Hydra Identity Provider for over LDAP](https://github.com/i-core/werther)
