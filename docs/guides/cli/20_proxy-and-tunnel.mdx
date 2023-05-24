@@ -303,8 +303,8 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 The main role of the Ory Tunnel is exposing the Ory APIs under the same top-level domain as your application to ensure that there
 are no CORS issues.
 
-The Tunnel shares most of its code with the Ory Proxy, and from the user's point of view, it works in a similar way. There are,
-however, several important differences between these tools:
+The Tunnel shares most of its code with the Ory Proxy, and from the user's point of view, it works similarly. There are, however,
+several important differences between these tools:
 
 ❌ Ory Tunnel doesn't handle your application's traffic routing and instead only routes traffic to Ory APIs <br /> ❌ Ory Tunnel
 doesn't mirror Ory URLs and as such doesn't add the `.ory` prefix to any of the Ory URLs <br /> ❌ Ory Tunnel doesn't alter
@@ -314,7 +314,7 @@ natively
 To run the Tunnel, use the `ory tunnel` command and point to the URL with your application, for example:
 
 ```shell
-ory tunnel http://localhost:3000
+ory tunnel --project {project.slug}.projects.oryapis.com http://localhost:3000
 ```
 
 :::tip
