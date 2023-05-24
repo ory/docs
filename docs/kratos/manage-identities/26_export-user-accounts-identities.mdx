@@ -1,0 +1,26 @@
+---
+id: export-user-accounts-identities
+title: Learn how to export Ory identities
+sidebar_label: Export identities
+toc_max_heading_level: 3
+---
+
+# Export identities
+
+Ory allows you to export identities including their credentials using the `include_credentials` attribute:
+
+```go
+package pkg
+
+import (
+	ory "github.com/ory/client-go"
+)
+
+func main() {
+  conf := ory.NewConfiguration()
+  conf.Servers = ory.ServerConfigurations{{URL: "https://{your-slug}.projects.oryapis.com"}}
+
+  identity, res, err := client.IdentityApi.GetIdentity(ctx, created.Id).IncludeCredential([]string{"password"}).Execute()
+  // ...
+}
+```
