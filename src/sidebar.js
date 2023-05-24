@@ -304,7 +304,7 @@ module.exports = {
     {
       type: "category",
       label: "From dev to prod",
-      items: ["guides/custom-domains"],
+      items: ["guides/custom-domains", "guides/gitops"],
     },
     {
       type: "category",
