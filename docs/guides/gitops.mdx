@@ -67,7 +67,7 @@ project:
 ory get oauth2-config $project_id --format json-pretty > oauth2-config-$project_id.json
 ```
 
-Switch out the command in the above GitHub Action:
+Switch out the command in the GitHub Action:
 
 ```diff
 -  update identity-config $project_id --file identity-config-$project_id.json
@@ -83,13 +83,13 @@ Ory Network project:
 ory get permission-config $project_id --format json-pretty > permission-config-$project_id.json
 ```
 
-Switch out the command in the above GitHub Action:
+Add the update command for Ory Permissions configuration to the GitHub Action:
 
 ```bash
 update permission-config $project_id --file permission-config-$project_id.json
 ```
 
-or the Ory Permission Language configuration:
+or for the Ory Permission Language configuration:
 
 ```bash
 update opl $project_id --file opl-$project_id.json
@@ -135,3 +135,12 @@ For example:
 
 You can now save the default identity schema in git and optionally the custom identity schemas. When you make changes, convert the
 new identity schema to base64 and add it to the config file.
+
+## Email Templates
+
+You can also version and track email templates in the same way. One option is to create a folder in your repository for email
+templates and add the .html templates there. As with the other configurations you have to convert it into base64 and add it to the
+config file, whenever you make changes to the template.
+
+Read the [Custom email templates with Ory](https://www.ory.sh/custom-email-templates/) blog post to learn more about email
+template configuration via the Ory CLI.
