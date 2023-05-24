@@ -4,7 +4,7 @@ title: Manage Ory Network configuration in git
 ---
 
 This guide will walk you through the process of managing your Ory Network configuration in Git using GitHub Actions. By following
-these steps, you'll be able to track changes, review and approve them through pull requests, and automatically update the
+these steps, you'll be able to track changes, review, and approve them through pull requests, and automatically update the
 configuration upon merge.
 
 This guide uses the [Ory CLI GitHub Action](https://github.com/lomsa-dev/ory-cli-action) to update the configuration and manage
@@ -12,8 +12,8 @@ changes through pull requests. You can adapt this to other git providers and CI/
 
 ## Ory Network configuration
 
-First, pull the current configuration from your Ory Network project. This can also be automated with a GitHub Action, but in this
-case we only need it once. You can find the `$project_id` in the Ory Network dashboard or by using `ory list projects`.
+First, pull the current configuration from your Ory Network project. You can also automate this with a GitHub Action, but in this
+case, you just need it once. You can find the `$project_id` in the Ory Network dashboard or by using `ory list projects`.
 
 ```bash
 ory get identity-config $project_id --format json-pretty > ory-config-$project_id.json
@@ -21,7 +21,7 @@ ory get identity-config $project_id --format json-pretty > ory-config-$project_i
 
 Commit the configuration to git and push it to your repository.
 
-Now let's create a GitHub Action that will update the configuration when a pull request is merged.
+Now create a GitHub Action that will update the configuration when a pull request is merged.
 
 Create a new file `.github/workflows/ory-cli.yml`. Add the following content to it:
 
@@ -47,7 +47,7 @@ jobs:
             update identity-config $project_id --file config-$project_id.json
 ```
 
-In order for the GitHub Action to authenticate with Ory Network, you need to add the ORY_USERNAME and ORY_PASSWORD secrets to your
+For the GitHub Action to authenticate with Ory Network, you need to add the ORY_USERNAME and ORY_PASSWORD secrets to your
 repository. You can configure these secrets in the repository's settings.  
 Optionally, you can add the `$project_id` as a secret or hardcode it in the workflow file.
 
@@ -55,10 +55,10 @@ Now you can make changes to the configuration in git and create pull requests to
 request is merged, the configuration will be updated automatically. You can also use this to roll back changes via the git
 history.
 
-## OIDC Claims and Ory Actions payload
+## OpenID Connect Claims and Ory Actions payload
 
 Ory uses Jsonnet snippets for mapping OIDC provider claims to Ory Network identities and for configuring the payload of Ory
-Actions webhooks. You can save and version these snippets in git. There are many options for managing Jsonnet snippets in git.
+Actions webhooks. You can save and version these snippets in git. You have several options for managing Jsonnet snippets in git.
 Here's an example of how you can organize them:
 
 ```bash
@@ -75,14 +75,14 @@ When you make changes, convert the new OIDC mapping or Ory Actions payload to ba
 
 ## Identity Schema
 
-It can also be useful to version the identity schema. This is the schema that is used to validate the identity data when new
-identities are created. Most of the time this will not change, but if you use custom identity schemas it can help to keep track of
+It can also be useful to version the identity schema. This is the schema that's used to validate the identity data when new
+identities are created. Most of the time this won't change, but if you use custom identity schemas it can help to keep track of
 changes. You can copy the identity schema directly from the Ory Network console or get it from the config file you pulled earlier.
 
 For example:
 
 ```yaml
-    # This is the default schema that is used for new identities
+    # This is the default schema that's used for new identities
     "default_schema_id": "preset://email",
     # These are custom schemas that are available on your Ory Network project
     "schemas": [
