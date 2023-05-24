@@ -1,0 +1,92 @@
+---
+id: GitOps
+title: Manage Ory Network configuration in git
+---
+
+In this guide you will learn how to manage your Ory Network configuration in git using GitHub Actions. You can adapt this to other
+git providers and CI/CD systems.
+
+To do this you use the [Ory CLI GitHub Action](https://github.com/lomsa-dev/ory-cli-action) to update the configuration and manage
+changes through pull requests.
+
+## Ory Network configuration
+
+First pull the current configuration from your Ory Network project. This can also be automated with a GitHub Action, but in this
+case we only need it once. You can find the $project_id in the Ory Network dashboard or by using `ory list projects`.
+
+```bash
+ory get identity-config $project_id --format json-pretty > ory-config-$project_id.json
+```
+
+Commit the configuration to git and push it to your repository.
+
+Next create a GitHub Action that will update the configuration when a pull request is merged. Create a file called
+`.github/workflows/ory-cli.yml` with the following content:
+
+```yaml
+name: Update Ory Network Config
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  run-ory-cli:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: ory-cli
+        uses: lomsa-dev/ory-cli-action@v1.0.8
+        with:
+          username: ${{ secrets.ORY_USERNAME }}
+          password: ${{ secrets.ORY_PASSWORD }}
+          commands: |
+            update identity-config $project_id --file config-$project_id.json
+```
+
+You need to add the ORY_USERNAME and ORY_PASSWORD secrets to your repository. You can also add the $project_id as a secret or
+hardcode it in the workflow file.
+
+Now you can make changes to the configuration in git and create pull requests to review and approve the changes. When the pull
+request is merged, the configuration will be updated automatically. You can also use this to roll back changes via the git
+history.
+
+## OIDC Claims and Ory Actions payload
+
+Ory uses Jsonnet snippets for mapping OIDC provider claims to Ory Network identities and for configuring the payload of Ory
+Actions webhooks. You can also save and version these snippets in git. There are many options for managing Jsonnet snippets in
+git, one would be to create some directories and add the following files:
+
+```bash
+mkdir oidc-mapping
+touch oidc-mapping/google.jsonnet
+# add the OIDC providers you use
+mkdir actions-payload
+touch actions-payload/registration.jsonnet
+# add the Ory Actions you use
+...
+```
+
+## Identity Schema
+
+It can also be useful to version the identity schema. This is the schema that is used to validate the identity data when new
+identities are created. Most of the time this will not change, but if you use custom identity schemas it can help to keep track of
+changes. You can copy the identity schema directly from the Ory Network console or get it from the config file you pulled earlier.
+
+For example:
+
+```yaml
+    # This is the default schema that is used for new identities
+    "default_schema_id": "preset://email",
+    # These are custom schemas that are available on your Ory Network project
+    "schemas": [
+      {
+        "id": "7d1cf71e-57ae-40be-bddf-1f4c323e2349",
+        "url": "https://storage.googleapis.com/bac-gcs-production/something.schema.json"
+      },
+    ],
+```
+
+You can now save the default identity schema in git and optionally the custom identity schemas. When you make changes, convert the
+new identity schema to base64 and add it to the config file.
