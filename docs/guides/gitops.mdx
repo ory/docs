@@ -111,7 +111,12 @@ touch actions-payload/registration.jsonnet
 ...
 ```
 
-When you make changes, convert the new OIDC mapping or Ory Actions payload to base64 and add it to the config file.
+When you make changes, convert the new OIDC mapping or Ory Actions payload to base64 and add it to the config file. You can use
+the following command to convert a file to base64:
+
+```bash
+base64 < oidc-mapping/google.jsonnet
+```
 
 ## Identity Schema
 
@@ -134,7 +139,11 @@ For example:
 ```
 
 You can now save the default identity schema in git and optionally the custom identity schemas. When you make changes, convert the
-new identity schema to base64 and add it to the config file.
+new identity schema to base64 and add it to the config file. You can use the following command to convert a file to base64:
+
+```bash
+base64 < identity-schema.json
+```
 
 ## Email Templates
 
