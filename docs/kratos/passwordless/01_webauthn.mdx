@@ -73,11 +73,35 @@ import TabItem from '@theme/TabItem';
 </Tabs>
 ```
 
-:::caution
+### Updating configuration
 
-Once `passwordless` is set to either `true` or `false`, avoid changing it. Doing so may lock some users out of their accounts.
+The provider ID or domain is an essential component of WebAuthn. It is used to identify the relying party (the website or service)
+that the user is authenticating with. The provider ID or domain is provided by Ory during the registration process and is stored
+along with the user's credential on the user's device.
 
-:::
+If the provider ID or domain associated with a WebAuthn implementation is changed, it can break existing users' logins due to the
+following reasons:
+
+1. **Credential Association**: The provider ID or domain is part of the credential's metadata. When a user registers a credential
+   with a specific provider ID or domain, the web browser associates that credential with that particular website. When the user
+   tries to log in subsequently, the browser looks for credentials associated with the same provider ID or domain. If the provider
+   ID or domain is changed, the browser won't find a match, and the user's login attempt will fail.
+
+2. **Trust Relationship**: WebAuthn relies on a trust relationship between the browser, the user, and the website. Changing the
+   provider ID or domain can disrupt this trust relationship. When a user registers a device and associates it with a specific
+   provider ID or domain, they are implicitly trusting that website to handle their authentication securely. Changing the provider
+   ID or domain could lead to confusion and erode trust in the authentication process, potentially making users hesitant to log
+   in.
+
+3. **Security Considerations**: WebAuthn employs cryptographic techniques to ensure the integrity and security of user
+   authentication. The provider ID or domain is used as a key component in these cryptographic operations. Changing the provider
+   ID or domain without proper coordination and cryptographic updates can compromise the security of the authentication system,
+   potentially allowing unauthorized access or rendering existing credentials invalid.
+
+To mitigate the impact on existing users, any changes to the provider ID or domain in a WebAuthn implementation should be
+carefully planned and communicated to users in advance. Proper migration strategies, such as allowing users to re-register their
+credentials or ensuring backward compatibility, should be implemented to minimize disruption and maintain a seamless
+authentication experience.
 
 ### (Custom) identity schema
 
@@ -128,7 +152,7 @@ This is used for WebAuthn both in passwordless flows and multi-factor authentica
 - WebAuthn is a browser standard. It does not work in native mobile apps.
 - WebAuthn is limited to one domain and does not work in a local environment when using CNAME / Ory Proxy. WebAuthn uses the
   `https://origin` URL as part of the client<->server challenge/response mechanism. This mechanism allows for only one URL as the
-  origin. Read more in the [WebAuthN guide](https://webauthn.guide/) and on [GitHub](https://github.com/w3c/webauthn/issues/1372).
+  origin. Read more in the [WebAuthn guide](https://webauthn.guide/) and on [GitHub](https://github.com/w3c/webauthn/issues/1372).
 - Implementing WebAuthn in your own UI can be challenging, depending on which framework to use. Check our reference
   implementations: [React Native](https://github.com/ory/kratos-selfservice-ui-react-native),
   [Node.js](https://github.com/ory/kratos-selfservice-ui-node), [React/SPA](https://github.com/ory/react-nextjs-example)
