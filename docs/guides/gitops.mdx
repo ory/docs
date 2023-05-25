@@ -1,6 +1,7 @@
 ---
 id: gitops
 title: Manage Ory Network configuration in git
+sidebar_label: Gitops
 ---
 
 This guide will walk you through the process of managing your Ory Network configuration in Git using GitHub Actions. By following
@@ -112,17 +113,47 @@ touch actions-payload/registration.jsonnet
 ```
 
 When you make changes, convert the new OIDC mapping or Ory Actions payload to base64 and add it to the config file. You can use
-the following command to convert a file to base64:
+the following command to convert a file to base64 and copy it to the clipboard:
 
 ```bash
-base64 < oidc-mapping/google.jsonnet
+base64 < oidc-mapping/google.jsonnet | pbcopy
 ```
+
+Now add the base64 encoded string to your configuration, this is how it looks with Ory Actions webhooks:
+
+```json
+ "hooks": [
+            {
+              "config": {
+                "body": "base64://PASTE_BASE64_STRING_HERE",
+                ...
+              }
+            }
+          ]
+...
+```
+
+This is how it looks with OIDC mappings:
+
+```json
+      "oidc": {
+        ...
+            {
+            ...
+              "mapper_url": "base64://PASTE_BASE64_STRING_HERE",
+            ...
+            }
+              },
+```
+
+When you update the configuration, Ory Network will automatically decode the base64 string and save the Jsonnet snippet in the Ory
+Network backend.
 
 ## Identity Schema
 
-It can also be useful to version the identity schema. This is the schema that's used to validate the identity data when new
-identities are created. Most of the time this won't change, but if you use custom identity schemas it can help to keep track of
-changes. You can copy the identity schema directly from the Ory Network console or get it from the config file you pulled earlier.
+It can also be useful to version the Identity Schema. This is the schema that's used to validate the identity data when new
+identities are created. Most of the time this won't change, but if you use custom Identity Schemas it can help to keep track of
+changes. You can copy the Identity Schema directly from the Ory Network console or get it from the config file you pulled earlier.
 
 For example:
 
@@ -138,12 +169,7 @@ For example:
     ],
 ```
 
-You can now save the default identity schema in git and optionally the custom identity schemas. When you make changes, convert the
-new identity schema to base64 and add it to the config file. You can use the following command to convert a file to base64:
-
-```bash
-base64 < identity-schema.json
-```
+You can now save the default Identity Schema and custom Identity Schemas in git.
 
 ## Email Templates
 
