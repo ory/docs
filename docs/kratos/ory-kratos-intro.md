@@ -32,8 +32,8 @@ Read [this document](./manage-identities/overview) to learn more about identitie
 Identity is a hard problem that Ory Identities (Ory Kratos) solves in a unique way. We value security, flexibility, and
 integration with cloud technology (such as Kubernetes) the most:
 
-- Ory Kratos doesn't ship an HTML Rendering Engine. You use the Ory Account Experience available in The Ory Network or build your
-  own UI in the language and framework you feel most comfortable with.
+- Ory Kratos doesn't ship an HTML Rendering Engine. You use the Ory Account Experience available in Ory Network or build your own
+  UI in the language and framework you feel most comfortable with.
 - The workflow engine allows you to fully customize your users' experience. Whether you want users to activate their accounts
   after registration, or have a multi-step (progressive) registration process - it's all possible!
 - One [identity schema](./manage-identities/identity-schema) doesn't fit all - you may have customers that need a billing address,
