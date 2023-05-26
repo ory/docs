@@ -31,7 +31,7 @@ Ory exposes HTTP(s) ports and configuration of these ports. It doesn't need a we
 ### The platform is responsible for horizontal scaling
 
 The Ory stack scales without the need for any additional external service dependencies (such as etcd, Memcached) except for a
-RDBMS (such as PostgreSQL, MySQL). Scaling horizontally is as easy as starting another process.
+RDBMS (such as PostgreSQL, MySQL). To scale horizontally start another process.
 
 The Ory Ecosystem assumes that the platform it's running on (such as Kubernetes, Google Cloud, Amazon Web Services, Azure, ...) is
 capable of Load Balancing and doesn't concern itself with things like Leader Election protocols or other communicating between

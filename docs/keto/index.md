@@ -35,7 +35,7 @@ With Ory Permissions, you can:
 ## Ory Permission Language
 
 The Ory Permission Language (OPL) is a developer-friendly configuration language defined as a subset of
-[TypeScript](https://www.typescriptlang.org/). It's designed to be easy to learn and has a familiar source in contrary to other,
+[TypeScript](https://www.typescriptlang.org/). It's designed to be quick to learn and has a familiar source in contrary to other,
 proprietary languages used to represent permissions, such as Rego or Casbin.
 
 :::tip

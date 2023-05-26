@@ -40,7 +40,7 @@ knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be publish
 - [Using Ory with Cloudflare Workers](https://www.ory.sh/use-ory-with-cloudflare-workers/)
 - [How I built LoginWithHN using Ory Hydra](https://www.ory.sh/how-to-build-login-with-hacker-news/)
 - [Add Authentication to your Flutter Web Applications with Ory Kratos](https://www.ory.sh/login-flutter-authentication-example-api-open-source/)
-- E-Commerce with The Ory Network [Part 1: Backend](https://www.ory.sh/cloud-ecommerce-backend/),
+- E-Commerce with Ory Network [Part 1: Backend](https://www.ory.sh/cloud-ecommerce-backend/),
   [Part 2: Frontend](https://www.ory.sh/cloud-ecommerce-frontend/)
 - [Looking at Zanzibar through Ory Keto](https://www.ory.sh/looking-at-keto/)
 

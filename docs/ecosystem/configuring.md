@@ -56,7 +56,7 @@ and JSON files
 ```
 
 You can combine several configuration files by defining the `-c` or `--config` flag multiple times when calling the CLI command or
-when importing configuration files to The Ory Network:
+when importing configuration files to Ory Network:
 
 ```
 someCommand --config file/a.yml --config file/b.yml

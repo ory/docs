@@ -89,7 +89,7 @@ curl -X POST 'SDK_CONFIGURATION_URL/admin/clients' \
 
 :::tip
 
-Learn more about creating OAuth2 clients in The Ory Network by reading the
+Learn more about creating OAuth2 clients in Ory Network by reading the
 [API specification](../reference/api#operation/adminCreateOAuth2Client).
 
 :::
@@ -143,11 +143,11 @@ document, open new terminal windows.
 
 ## Configure Ory Network
 
-By default, The Ory Network uses internal redirect URLs for operations such as user login and consent. You can adjust these URLs
+By default, the Ory Network uses internal redirect URLs for operations such as user login and consent. You can adjust these URLs
 to point to pages that handle these operations in your setup. In this example, the sample application runs at
 `http://localhost:3000`.
 
-Follow these steps to configure The Ory Network to call the sample application for login and consent screens:
+Follow these steps to configure Ory Network to call the sample application for login and consent screens:
 
 1. Download the OAuth2 Federation Service configuration of your project and save it to a `yaml` file:
 
@@ -185,7 +185,7 @@ Use the Ory CLI to start a web server that acts as the OAuth2 client. To run the
 client secret must be registered in the Ory Network.
 
 Run this command to create the client. Using flags, provide the client ID and secret of the
-[client created in The Ory Network](#create-oauth2-client-in-ory-network):
+[client created in Ory Network](#create-oauth2-client-in-ory-network):
 
 ```bash
 ory perform authorization-code \
