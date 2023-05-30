@@ -213,6 +213,7 @@ module.exports = {
         "hydra/guides/jwt",
         "oauth2-oidc/revoke-consent",
         "oauth2-oidc/oidc-logout",
+        "oauth2-oidc/issuer-url",
         {
           "Bring your own users and UI": [
             "hydra/guides/custom-ui-oauth2",
