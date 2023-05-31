@@ -1,6 +1,6 @@
 ---
 id: production
-title: Going to production
+title: Go to production
 ---
 
 Read this document to prepare for production when self-hosting Ory Kratos.  

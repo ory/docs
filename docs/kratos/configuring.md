@@ -1,6 +1,6 @@
 ---
 id: configuring
-title: Configuring
+title: Configure Ory Kratos
 ---
 
 This document describes _how_ the service can be configured. For a documentation on all configuration values head over to the
