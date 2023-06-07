@@ -395,15 +395,15 @@ Ory Identities doesn't hash passwords by crypt(3) but can compare stored crypt(3
 The format supported are outlined in `crypt(5)` and includes support for md5crypt, sha256crypt, sha512crypt.
 
 ```
-$1$<salt>$<hash>
+$md5-crypt$<salt>$<hash>
 ```
 
 ```
-$5$rounds=<rounds><salt>$<hash>
+$sha256-crypt$rounds=<rounds><salt>$<hash>
 ```
 
 ```
-$6$rounds=<rounds><salt>$<hash>
+$sha512-crypt$rounds=<rounds><salt>$<hash>
 ```
 
 #### Parameters
