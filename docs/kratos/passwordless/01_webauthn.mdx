@@ -46,6 +46,9 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
+  <TabItem value="console" label="Ory Console UI">
+      You can enable passwordless with WebAuthn in the Ory Network Console UI in the <b>Authentication/Passwordless Login</b> menu.
+  </TabItem>
   <TabItem value="cloud" label="Ory CLI">
     <CodeBlock language="shell">{`ory patch identity-config <your-project-id> \\
   --add '/selfservice/methods/webauthn/enabled=true' \\
