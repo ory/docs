@@ -385,6 +385,45 @@ $firescrypt$ln=14,r=8,p=1$sPtDhWcd1MfdAw==$xbSou7FOl6mChCyzpCPIQ7tku7nsQMTFtyOZS
 Documentation for extracting your users can be found [here](https://firebase.google.com/docs/cli/auth).
 
 </TabItem>
+<TabItem value="crypt" label="crypt(3)">
+
+Ory Identities doesn't hash passwords by crypt(3) but can compare stored crypt(3) hashes and migrate to configured hasher
+(`hashers.algorithm`).
+
+#### Format
+
+The format supported are outlined in `crypt(5)` and includes support for md5crypt, sha256crypt, sha512crypt.
+
+```
+$md5-crypt$<salt>$<hash>
+```
+
+```
+$sha256-crypt$rounds=<rounds><salt>$<hash>
+```
+
+```
+$sha512-crypt$rounds=<rounds><salt>$<hash>
+```
+
+#### Parameters
+
+- `salt`(`string`): A sequence of bits, known as a cryptographic salt, encoded in radix-64.
+- `hash`(`string`): The computed derived key by the crypt(3) algorithm encoded in radix-64.
+- `rounds`(`number`): The number of rounds to use for the crypt(3) algorithm.
+    Only used in sha256crypt and sha512crypt, in some implementations, the number of rounds is optional, this is not supported by Ory Identities.
+
+radix-64 is a modified Base64 encoding with the following characters: `./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`
+
+#### Example
+
+```
+$md5-crypt$b44ZDsnw$9D9z/TCVXPWsTkz9qnSBS/
+$sha256-crypt$rounds=535000$1AhJGf0tkCty1jNS$Pu6o3i5PsT6F4AG2F99AsK/rXyYymXII3OtO.paxQp9
+$sha512-crypt$rounds=656000$L6GsrFY85uzwktkh$gD2vwQpyaBn.FIBgjp2TCQHCQ3bMft49oIzr.nssNKo7ogR5zWnyVkTg4yv1gvzTNZ0oEISHEOOMxNIi3nS.h1
+```
+
+</TabItem>
 </Tabs>
 ````
 
