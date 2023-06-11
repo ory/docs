@@ -128,7 +128,7 @@ Follow these steps to add Discord as a social sign-in provider to your project u
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
 
    ```shell
-   cat your-data-mapping.jsonnet | base64
+   cat your-data-mapping.jsonnet | base64 -w 0
    ```
 
 5. Download the Ory Identities config from your project and save it to a file:
