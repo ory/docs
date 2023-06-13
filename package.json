@@ -76,7 +76,7 @@
     "@types/jest": "^27.4.0",
     "@types/node-fetch": "^2.6.3",
     "axios-retry": "^3.2.4",
-    "fast-xml-parser": "^4.0.2",
+    "fast-xml-parser": "^4.2.4",
     "jasmine-fail-fast": "^2.0.1",
     "jest": "^27.5.1",
     "license-checker": "^25.0.1",
