@@ -680,7 +680,7 @@ We need to set up secure keys and run Ory Kratos in production mode:
 1. Generate secure keys using the following [`openssl`](https://www.openssl.org/docs/manmaster/man1/openssl.html) command:
 
    ```bash
-   openssl rand -base64 32
+   openssl rand -base64 22
    ```
 
 2. Edit `/opt/kratos/config/kratos.yml` file and replace the following values with unique and generated strings: :
@@ -689,10 +689,10 @@ We need to set up secure keys and run Ory Kratos in production mode:
    secrets:
      cookie:
    -    - PLEASE-CHANGE-ME-I-AM-VERY-INSECURE
-   +    - xgrxYZLM0jGgJqijvvf73x30URJkRENoCm2ExQw9+CE=
+   +    - xgrxYZLM0jGgJqijvvf73x30URJkRENo
      cipher:
    -    - 32-LONG-SECRET-NOT-SECURE-AT-ALL
-   +    - rtxrVjiWwe85nxB9XeWoDP8U17+sT6kHo0E1t3Tr5uY=
+   +    - rtxrVjiWwe85nxB9XeWoDP8U17+sT6kH
    ```
 
 3. Change `log.leak_sensitive_values` to false, as to not leak any sensitive values like secrets in the logs:
