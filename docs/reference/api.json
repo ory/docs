@@ -2466,6 +2466,10 @@
           "kratos_oauth2_provider_headers": {
             "$ref": "#/components/schemas/nullJsonRawMessage"
           },
+          "kratos_oauth2_provider_override_return_to": {
+            "description": "Kratos OAuth2 Provider Override Return To\n\nEnabling this allows Kratos to set the return_to parameter automatically to the OAuth2 request URL on the login flow, allowing complex flows such as recovery to continue to the initial OAuth2 flow.",
+            "type": "boolean"
+          },
           "kratos_oauth2_provider_url": {
             "description": "The Revisions' OAuth2 Provider Integration URL\n\nThis governs the \"oauth2_provider.url\" setting.",
             "type": "string"
@@ -3958,6 +3962,12 @@
       },
       "projectApiKey": {
         "properties": {
+          "created_at": {
+            "description": "The token's creation date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
           "id": {
             "description": "The token's ID.",
             "format": "uuid",
@@ -3977,6 +3987,12 @@
           "project_id": {
             "description": "The Token's Project ID",
             "format": "uuid",
+            "readOnly": true,
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "The token's last update date",
+            "format": "date-time",
             "readOnly": true,
             "type": "string"
           },
