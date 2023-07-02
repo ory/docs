@@ -32,7 +32,7 @@ Install the Ory Kratos Go SDK
 import CodeBlock from '@theme/CodeBlock'
 import { useLatestRelease } from '@site/src/hooks'
 
-<CodeBlock className="language-shell">{`go get  github.com/ory/kratos-go@${useLatestRelease('kratos')}`}</CodeBlock>
+<CodeBlock className="language-shell">{`go get  github.com/ory/kratos-client-go@${useLatestRelease('kratos')}`}</CodeBlock>
 ```
 
 ## Configuration
@@ -45,7 +45,7 @@ package main
 import (
 	"context"
 
-	client "github.com/ory/kratos-go"
+	client "github.com/ory/kratos-client-go"
 )
 
 func main() {
@@ -89,7 +89,7 @@ import (
 	"fmt"
 	"os"
 
-	client "github.com/ory/client-go"
+	client "github.com/ory/kratos-client-go"
 )
 
 func main() {
