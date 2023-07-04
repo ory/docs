@@ -32,7 +32,7 @@ Install the Ory Kratos Go SDK
 import CodeBlock from '@theme/CodeBlock'
 import { useLatestRelease } from '@site/src/hooks'
 
-<CodeBlock className="language-shell">{`go get  github.com/ory/kratos-go@${useLatestRelease('kratos')}`}</CodeBlock>
+<CodeBlock className="language-shell">{`go get  github.com/ory/kratos-client-go@${useLatestRelease('kratos')}`}</CodeBlock>
 ```
 
 ## Configuration
@@ -45,7 +45,7 @@ package main
 import (
 	"context"
 
-	client "github.com/ory/kratos-go"
+	client "github.com/ory/kratos-client-go"
 )
 
 func main() {
@@ -89,7 +89,7 @@ import (
 	"fmt"
 	"os"
 
-	client "github.com/ory/client-go"
+	client "github.com/ory/kratos-client-go"
 )
 
 func main() {
@@ -126,7 +126,7 @@ import (
 	"fmt"
 	"os"
 
-	ory "github.com/ory/kratos-go"
+	ory "github.com/ory/kratos-client-go"
 )
 
 func main() {
@@ -136,7 +136,7 @@ func main() {
 			URL: "http://127.0.0.1:4434", // Kratos Admin API
 		},
 	}
-	apiory := ory.NewAPIClient(configuration)
+	apiClient := ory.NewAPIClient(configuration)
 	CreateIdentityBody := *ory.NewCreateIdentityBody(
 		"default",
 		map[string]interface{}{
@@ -148,21 +148,21 @@ func main() {
 		},
 	) // CreateIdentityBody |  (optional)
 
-	createdIdentity, r, err := apiClient.FrontendApi.CreateIdentity(context.Background()).CreateIdentityBody(CreateIdentityBody).Execute()
+	createdIdentity, r, err := apiClient.IdentityApi.CreateIdentity(context.Background()).CreateIdentityBody(CreateIdentityBody).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.CreateIdentity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `CreateIdentity`: Identity
 	fmt.Fprintf(os.Stdout, "Created identity with ID: %v\n", createdIdentity.Id)
-	getIdentity, r, err := apiClient.FrontendApi.GetIdentity(context.Background(), createdIdentity.Id).Execute()
+	getIdentity, r, err := apiClient.IdentityApi.GetIdentity(context.Background(), createdIdentity.Id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.GetIdentity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	fmt.Fprintf(os.Stdout, "Email for identity with id %v. Traits %v\n", createdIdentity.Id, getIdentity.Traits)
 
-	r, err = apiClient.FrontendApi.DeleteIdentity(context.Background(), getIdentity.Id).Execute()
+	r, err = apiClient.IdentityApi.DeleteIdentity(context.Background(), getIdentity.Id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FrontendApi.DeleteIdentity``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -197,7 +197,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	ory "github.com/ory/kratos-go"
+	ory "github.com/ory/kratos-client-go"
 )
 
 type kratosMiddleware struct {
@@ -284,7 +284,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	ory "github.com/ory/kratos-go"
+	ory "github.com/ory/kratos-client-go"
 )
 
 type kratosMiddleware struct {
