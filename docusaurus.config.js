@@ -1,6 +1,8 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+const enableUserCentrics = false
+
 const config = {
   customFields: {
     CLOUD_URL: process.env.CLOUD_URL || "https://api.console.ory:8080",
@@ -169,10 +171,11 @@ const config = {
     ],
     "@docusaurus/plugin-content-pages",
     require.resolve("./src/plugins/docusaurus-plugin-matamo"),
-    process.env.NODE_ENV !== "development" && [
-      "./src/plugins/plugin-usercentrics-gtm",
-      { usercentricsID: "dwogEWVkK", gtmID: "GTM-NTT7RMX" },
-    ],
+    enableUserCentrics &&
+      process.env.NODE_ENV !== "development" && [
+        "./src/plugins/plugin-usercentrics-gtm",
+        { usercentricsID: "dwogEWVkK", gtmID: "GTM-NTT7RMX" },
+      ],
     require.resolve("./src/plugins/docusaurus-polyfill"),
     "@docusaurus/plugin-sitemap",
     [
