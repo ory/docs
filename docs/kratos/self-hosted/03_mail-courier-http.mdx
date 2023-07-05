@@ -1,0 +1,115 @@
+---
+id: email-http
+title: Mail API courier in self-hosted Ory Kratos
+sidebar_label: Sending mail by HTTP
+---
+
+For sending Email by using an external mail provider instead of a local SMTP server, Ory Kratos can use a HTTP API (such as
+Mailchimp, your local mail sender, or your own microservice). Request method, headers, body, and content-type are fully
+configurable using options below.
+
+## Configuration
+
+Default configuration doesn't use API calls to send mail. To enable it you need to set the "email.strategy" flag to "http", sender
+URL, authorization (if needed) and request body format. (if needed) and request body format.
+
+### Request configuration
+
+```yaml title="config.yml"
+courier:
+  email:
+    strategy: http
+  http:
+    request_config:
+      url: https://api.crm.com/email
+      method: POST
+      body: file://.mail.api.request.jsonnet
+      header:
+        "Content-Type": "application/json"
+      auth:
+        type: basic_auth
+        config:
+          user: YourUsername
+          password: YourPass
+```
+
+The configuration consists of:
+
+- `url` - the URL, which should be called (mandatory). It needs to be absolute, start with http:// or https:// scheme, and include
+  path part - for example "https://api.sender.com/v1/message".
+- `method` - the HTTP method (GET, POST, ...) (mandatory)
+- `body` - URI of a JsonNet template, used to render the payload to send (optional). Use a `file://path/to/body.jsonnet` URL for
+  referring to local files. This property is ignored for HTTP `method`s, which don't support sending of HTTP body payloads
+  (TRACE).
+- `auth` - configuration of authentication and authorization mechanisms to be used by request
+
+Courier binds the `Recipient`, `TemplateType`, and `TemplateData` variables into the JsonNet template. These variables are
+available through a `ctx` object. `Recipient` will always be the email address of the user. `TemplateType` and the fields in
+`TemplateData` are linked in the following way with each template type containing the fields listed below:
+
+- recovery_invalid
+  - To
+- recovery_valid
+  - To
+  - RecoveryURL
+  - Identity
+- recovery_code_invalid
+  - To
+- recovery_code_valid
+  - To
+  - RecoveryCode
+  - Identity
+- verification_invalid
+  - To
+- verification_valid
+  - To
+  - VerificationURL
+  - Identity
+- verification_code_invalid
+  - To
+- verification_code_valid
+  - To
+  - VerificationCode
+  - Identity
+
+A universal jsonnet template to be sent to the mail provider endpoint would look like this:
+
+```jsonnet
+function(ctx) {
+  recipient: ctx.Recipient,
+  template_type: ctx.TemplateType,
+  name: if "TemplateData" in ctx && "Identity" in ctx.TemplateData && "Name" in ctx.TemplateData.Identity then ctx.TemplateData.Identity.Name else null,
+  to: if "TemplateData" in ctx && "To" in ctx.TemplateData then ctx.TemplateData.To else null,
+  recovery_code: if "TemplateData" in ctx && "RecoveryCode" in ctx.TemplateData then ctx.TemplateData.RecoveryCode else null,
+  recovery_url: if "TemplateData" in ctx && "RecoveryURL" in ctx.TemplateData then ctx.TemplateData.RecoveryURL else null,
+  verification_url: if "TemplateData" in ctx && "VerificationURL" in ctx.TemplateData then ctx.TemplateData.VerificationURL else null,
+  verification_code: if "TemplateData" in ctx && "VerificationCode" in ctx.TemplateData then ctx.TemplateData.VerificationCode else null,
+}
+
+```
+
+### Authentication and authorization
+
+For `auth` following mechanisms are supported:
+
+- Authentication via an Api Key. Type must be set to `api_key`.
+- Authentication via Basic Authentication. Type must be set to `basic_auth`.
+
+For `api_key` the config looks as follows:
+
+```yaml
+name: Some-Name
+value: The-Value-of-My-Key
+in: header # alternatively cookie
+```
+
+All properties are mandatory.
+
+For `basic_auth` the config looks as follows:
+
+```yaml
+user: My-User
+password: My-Pass-Value
+```
+
+All properties are mandatory.
