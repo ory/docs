@@ -129,6 +129,10 @@ const config = {
       copyright: `Copyright © ${new Date().getFullYear()} Ory Corp`,
       links: [
         {
+          label: "Need Support?",
+          href: "https://www.ory.sh/support/",
+        },
+        {
           label: "Status",
           href: "https://status.ory.sh/",
         },
@@ -143,6 +147,10 @@ const config = {
         {
           label: "Terms of Service",
           href: "https://www.ory.sh/tos",
+        },
+        {
+          label: "Schedule a discovery call",
+          href: "https://www.ory.sh/contact/",
         },
       ],
       logo: {
