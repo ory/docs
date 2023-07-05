@@ -120,7 +120,7 @@ const config = {
               label: "Ory Community Slack",
             },
             {
-              to: "https://www.ory.sh/support",
+              to: "https://github.com/orgs/ory/discussions",
               label: "GitHub Discussions",
             },
             {
