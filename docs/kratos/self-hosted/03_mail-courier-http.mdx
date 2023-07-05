@@ -11,8 +11,7 @@ configurable using options below.
 ## Configuration
 
 Default configuration doesn't use API calls to send mail. To enable it you need to set the "email.strategy" flag to "http", sender
-URL, authorization (if needed) and request body format.
-(if needed) and request body format.
+URL, authorization (if needed) and request body format. (if needed) and request body format.
 
 ### Request configuration
 
@@ -26,7 +25,7 @@ courier:
       method: POST
       body: file://.mail.api.request.jsonnet
       header:
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       auth:
         type: basic_auth
         config:
@@ -47,6 +46,7 @@ The configuration consists of:
 Courier binds the `Recipient`, `TemplateType`, and `TemplateData` variables into the JsonNet template. These variables are
 available through a `ctx` object. `Recipient` will always be the email address of the user. `TemplateType` and the fields in
 `TemplateData` are linked in the following way with each template type containing the fields listed below:
+
 - recovery_invalid
   - To
 - recovery_valid
