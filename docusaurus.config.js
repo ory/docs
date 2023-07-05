@@ -108,15 +108,32 @@ const config = {
           label: "Self-hosting",
         },
         {
-          href: `https://github.com/ory/cloud/discussions`,
-          label: "Discussions",
+          label: "Need Support?",
           position: "right",
+          items: [
+            {
+              to: "https://www.ory.sh/support",
+              label: "Enterprise Support",
+            },
+            {
+              to: "https://www.ory.sh/chat",
+              label: "Ory Community Slack",
+            },
+            {
+              to: "https://www.ory.sh/support",
+              label: "GitHub Discussions",
+            },
+            {
+              to: "https://stackoverflow.com/questions/tagged/ory",
+              label: "Stack Overflow",
+            },
+            {
+              to: "https://www.ory.sh/contact",
+              label: "Schedule a discovery call",
+            },
+          ],
         },
-        {
-          href: "https://www.ory.sh/chat",
-          label: "Slack",
-          position: "right",
-        },
+
         {
           href: `https://github.com/ory`,
           label: "GitHub",
