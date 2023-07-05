@@ -119,7 +119,7 @@ $env:SOME_NESTED_KEY_AND_ARRAY_1_ID = bar
 ```
 
 As you can see, subkeys are separated with an underscore `_`. If a subkey is an array, you can reference the array item by using
-the array index (`0`, `1`). It is also possible to define a new array by using an array index that'sn't yet set:
+the array index (`0`, `1`). It is also possible to define a new array by using an array index that isn't yet set:
 
 ```shell
 export SOME_NESTED_KEY_AND_ARRAY_2_BAR=baz
