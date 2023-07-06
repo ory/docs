@@ -47,6 +47,7 @@ hydra perform authorization-code [flags]
       --prompt strings         Set the OpenID Connect prompt parameter
       --redirect string        Force a redirect url
       --scope strings          Request OAuth2 scope (default [offline,openid])
+      --state string           Force a state value (insecure)
       --token-url endpoint     Usually it is enough to specify the endpoint flag, but if you want to force the token url, use this flag
 ```
 
