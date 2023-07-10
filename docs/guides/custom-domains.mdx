@@ -45,17 +45,16 @@ this to be the root domain of whatever you supplied in the first step. See the
 ## CORS
 
 Cross-Origin Resource Sharing (CORS) is also enabled by default on the custom domain you add, in this example we have
-`auth.foobar.ory` set as our custom domain which will point to your project. It is important that you add CORS origins to your
-custom domain to **ensure Single Page Applications (SPAs) support**. We allow up to **50 origins**. If you plan on using
-server-side rendering or native applications, you can safely disable CORS. You can read more about
+`auth.foobar.ory` set as our custom domain which will point to your project. It's important that you add CORS origins to your
+custom domain to **ensure Single Page Applications (SPAs) support**. Ory Network allows up to **50 origins**. If you plan on using
+server-side rendering or native applications, you can disable CORS. You can read more about
 [CORS at MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 
 :::note
 
-We do not allow setting the CORS origins to be `*`, `null` or `localhost/127.0.0.1`. You can, however, use a wildcard subdomain
-such as `https://*.foobar.ory`. To be on the safe side, we recommend setting the CORS origins to be an exact match instead of a
-wildcard subdomain. To use `localhost/127.0.0.1` for development we recommend using the
-[Ory Cli Proxy](./cli/20_proxy-and-tunnel.mdx).
+Ory Network doesn't allow setting the CORS origins to be `*`, `null` or `localhost/127.0.0.1`. You can, however, use a wildcard
+subdomain such as `https://*.foobar.ory`. To be on the safe side, Ory recommends setting the CORS origins to be an exact match
+instead of a wildcard subdomain. For local development with `localhost/127.0.0.1` use [Ory Tunnel](./cli/20_proxy-and-tunnel.mdx).
 
 :::
 
@@ -113,8 +112,8 @@ requires you to specify 3 values:
 The Ory Network sends emails for certain actions a user can take, for example
 [account recovery](./../kratos/self-service/flows/account-recovery-password-reset.mdx) or
 [address verification](./../kratos/self-service/flows/verify-email-account-activation.mdx). Since most email providers take
-measures against spam and phishing attacks, for example "fake" link campaigns, it is advised to only link to domains that match
-the sender of the email.
+measures against spam and phishing attacks, for example "fake" link campaigns, it's advised to only link to domains that match the
+sender of the email.
 
 However, when using a custom domain in the Ory Network without a custom SMTP server, links inside the automated Ory Identities
 emails won't match the domain these emails were sent from. For example the address verification link will point to
