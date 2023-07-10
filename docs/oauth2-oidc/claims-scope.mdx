@@ -1,0 +1,40 @@
+---
+id: claims-scope
+slug: openid-connect-claims-scope-custom
+title: Customize OpenID Connect scope and claims
+sidebar_label: Scope and claims customization
+---
+
+Let's talk about how OpenID Connect scope and claims work with Ory OAuth2 and OpenID Connect. We'll also cover the default setup
+of Ory, which uses Ory Identities for logging in and the Ory Account Experience for getting user consent. This setup supports the
+`email` and `profile` OpenID Connect scopes.
+
+## The default setup of Ory OAuth2 and OpenID Connect
+
+By default, Ory OAuth2 and OpenID Connect use Ory Identities to handle login. It also uses the Ory Account Experience to ask for
+user consent. This setup supports the `email` and `profile` scopes as defined by OpenID Connect.
+
+### How the `email` scope works
+
+For the `email` scope, the system uses the verifiable addresses of a user. The first verifiable email is used to include the email
+in the ID token claims. This means that both `email_verified` and `email` claims get set.
+
+### How the `profile` scope works
+
+For the `profile` scope, the system uses traits associated with a user. Here's how they map:
+
+- `identity.traits.username` is used for the `username` claim.
+- `identity.traits.website` is used for the `website` claim.
+- `identity.updated_at` is used for the `updated_at` claim.
+
+Also, the name field can be a string or an object:
+
+- If `identity.traits.name` is a string, it is used for the `name` claim.
+- If `identity.traits.name` is an object, `traits.name.first` and `traits.name.last` are used for the `given_name` and
+  `family_name` traits.
+
+## Making Custom Scopes and Claims
+
+Ory allows you to customize scopes and claims. To do this, you can set up a custom consent UI. This way, you can adjust your
+identity management process to fit your needs. For more information, check out our
+[Ory Consent UI Documentation](./custom-login-consent/flow.mdx).

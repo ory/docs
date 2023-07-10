@@ -208,6 +208,7 @@ module.exports = {
         "hydra/guides/oauth2-token-introspection",
         "hydra/guides/client-token-expiration",
         "oauth2-oidc/userinfo-oidc",
+        "oauth2-oidc/claims-scope",
         "hydra/jwks",
         "hydra/guides/openid",
         "hydra/guides/audiences",
