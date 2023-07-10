@@ -1,6 +1,7 @@
 ---
 id: custom-domains
-title: Setup custom domains and CORS
+title: Set up custom domains
+sidebar_label: Custom Domains
 ---
 
 To use the Ory Network on one or more domains that you own, you can set a CNAME record.
@@ -45,7 +46,7 @@ this to be the root domain of whatever you supplied in the first step. See the
 
 Cross-Origin Resource Sharing (CORS) is also enabled by default on the custom domain you add, in this example we have
 `auth.foobar.ory` set as our custom domain which will point to your project. It is important that you add CORS origins to your
-custom domain to **ensure Single Page Applications (SPAs) support**. We allow up to **50 origins**. If you plan on us ing
+custom domain to **ensure Single Page Applications (SPAs) support**. We allow up to **50 origins**. If you plan on using
 server-side rendering or native applications, you can safely disable CORS. You can read more about
 [CORS at MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 

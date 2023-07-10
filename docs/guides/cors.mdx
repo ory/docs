@@ -1,0 +1,43 @@
+---
+id: cors
+title: Set up CORS for Ory Network
+sidebar_label: CORS
+---
+
+Cross-Origin Resource Sharing (CORS) is a mechanism to allow cross-origin requests. CORS is a relaxation of the same-origin policy
+implemented in modern browsers. It allows a server to explicitly allow some cross-origin requests while rejecting others. It is
+important that you add CORS origins to your Ory Project to **ensure Single Page Applications (SPAs) support**. We allow up to **50
+origins**. If you plan on using server-side rendering or native applications, you can safely disable CORS. You can read more about
+[CORS at MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+
+:::note
+
+We do not allow setting the CORS origins to be `*`, `null` or `localhost/127.0.0.1`. You can, however, use a wildcard subdomain
+such as `https://*.foobar.ory`. To be on the safe side, we recommend setting the CORS origins to be an exact match instead of a
+wildcard subdomain. To use `localhost/127.0.0.1` for development we recommend using the
+[Ory Cli Proxy](./cli/20_proxy-and-tunnel.mdx).
+
+:::
+
+## Supported Endpoints
+
+Currently, only the OAuth2 endpoints support CORS. Others are supported through custom domains, but will follow soon. For OAuth2,
+per-client CORS settings are supported. This means that you can set different CORS settings for different OAuth2 clients. You can
+find the CORS settings in the OAuth2 client settings. CORS has to be enabled for the whole project though.
+
+## Enable CORS
+
+CORS can be enabled using the Ory CLI:
+
+```shell
+ory patch project <your-project-id> \
+  --replace '/cors_public/enabled=true' \
+  --replace '/cors_public/allowed_origins=["https://*.foobar.ory"]'
+```
+
+You can find more information about the `ory patch` command in the [Ory CLI documentation](./cli/10_ory_cli.mdx).
+
+## CORS on custom domains
+
+Custom domains can be configured to use specific CORS settings. Head over to the [Custom Domains](./custom-domains.mdx#cors)
+documentation for all information.
