@@ -306,6 +306,16 @@
     "type": "info"
   },
   {
+    "id": 1070010,
+    "text": "Recovery code",
+    "type": "info"
+  },
+  {
+    "id": 1070011,
+    "text": "Verification code",
+    "type": "info"
+  },
+  {
     "id": 1080001,
     "text": "An email containing a verification link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
     "type": "info",
