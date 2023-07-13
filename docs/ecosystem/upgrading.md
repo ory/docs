@@ -62,6 +62,6 @@ There are three main stages of development for services:
 The following is a list of maturity level per project:
 
 - [Ory Hydra](https://github.com/ory/hydra) is a **graduated** project.
-- [Ory Kratos](https://github.com/ory/kratos) is an **incubating** project.
+- [Ory Kratos](https://github.com/ory/kratos) is a **graduated** project.
 - [Ory Oathkeeper](https://github.com/ory/oathkeeper) is an **incubating** project.
 - [Ory Keto](https://github.com/ory/keto) is a **sandbox** project.
