@@ -52,6 +52,16 @@ against any unwarranted access attempts.
 
 :::
 
+## Creating Actions on the Ory Network
+The Ory Network dashboard offers a simple and intuitive tool to manage your Actions.
+
+Follow the steps below:
+
+1. Navigate to [Ory Network > Developers > Actions](https://console.ory.sh/projects/current/developers/actions). There, click on **+ Create new Action**.
+2. Choose the flow type that best suits your need and determine the execution time. Here, you should also provide other necessary data, such as the URL and request method.
+3. Click on **Next**. The ensuing screen allows you to establish authentication parameters and input additional request body details. To learn more about tailoring your request body, see the relevant section below.
+4. Once all settings have been adjusted, click on **Save action**. Your new action should now be created and ready to operate.
+
 ## Configuration overview
 
 Ory Action webhooks have several configuration options:
@@ -68,66 +78,6 @@ config:
   auth:
     type: # Can be one of 'basic_auth' or 'api_key'
     config: # Additional auth config for the hook. Read next section for details.
-```
-
-```mdx-code-block
-<details>
-<summary>Expand to learn how to configure webhooks in your Ory Network project.</summary>
-<div>
-```
-
-Follow these steps to start using webhooks in your project.
-
-1. Get your project configuration using Ory CLI:
-
-```shell
-ory get identity-config {project-id} \
-  --format yaml > project-configuration.yaml
-```
-
-2. Add the webhook to your project configuration file:
-
-```yaml title="project-configuration.yaml"
-session:
-  lifespan: # ...
-# ...
-# highlight-start
-selfservice:
-  flows:
-    registration: # or login, recovery, verification, settings
-      after:
-        hooks: [] # These acions are executed only if no more specific hooks in the `password` or `oidc` sections are defined
-        password:
-          # Actions in this section will be executed after registration (or login, settings) with a password
-          hooks:
-            - hook: web_hook
-              config:
-                url: https://webhook.target/example
-                method: POST
-                body: base64://ey...
-                response:
-                  ignore: false
-                  parse: false
-                auth:
-                  # ...
-            - hook: session # see https://www.ory.sh/docs/actions/session
-        oidc:
-          hooks:
-            # Actions in this section will be executed after registration (or login, settings) with a social sign-in provider / OpenID Connect
-            # ...
-# highlight-end
-```
-
-3. Update your project's configuration using the file you worked with:
-
-```shell
-ory update identity-config {project-id} \
-  --file project-configuration.yaml
-```
-
-```mdx-code-block
-</div>
-</details>
 ```
 
 ## Define HTTP request
