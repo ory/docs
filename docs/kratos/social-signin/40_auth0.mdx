@@ -26,11 +26,13 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
    to the corresponding fields in the form in the Ory Console:
     - **Client ID**
     - **Client Secret**
-6. In the **Scopes** field of the form in the Ory Console, add the following scopes:
+6. Go to the **Advanced Settings** then **Endpoints** and copy the Auth0 top-level domain (typically `https://myAuth0Tenant.auth0.com`) to the
+   **Tenant URL** field of the form in the Ory Console.
+7. In the **Scopes** field of the form in the Ory Console, add the following scopes:
     - `openid`
     - `profile`
     - `email`
-7. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet,
+8. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet,
    which maps the desired claims to the Ory Identity schema:
 
    ```jsonnet
@@ -66,7 +68,7 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
    ```
 
-8. Click **Save Configuration**.
+9. Click **Save Configuration**.
 
 
 </TabItem>
@@ -173,3 +175,7 @@ import SocialSigninTroubleshooting from '../_common/social-sign-in-troubleshooti
 
 <SocialSigninTroubleshooting />
 ```
+
+### `Requested url does not match any rules`
+
+If you see this error after clicking on "Sign in with Auth0", make sure that the "Tenant URL"/`issuer_url` is set correctly.
