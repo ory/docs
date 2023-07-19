@@ -302,8 +302,8 @@ Therefore, we're specifying a mapping telling gitlab it should take the sub-fiel
 ```
 
 Whether the attribute "email" is there or not is quite critical here. The Login-ID has the form of an email. So in order to
-satisfy Gitlab's requirement, we're mapping here the email-attribute to the Login-ID, which is represented by "sub". This shouldn't
-be necessary in a real-world-implementation.
+satisfy Gitlab's requirement, we're mapping here the email-attribute to the Login-ID, which is represented by "sub". This
+shouldn't be necessary in a real-world-implementation.
 
 But assuming that it's not doing that mapping, then GitLab would need to ask Ory Hydra on that endpoint the email-address. But is
 GitLab even allowed to read it? We need consent from the user for that, and we configured the client above to be able to ask for
