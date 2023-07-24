@@ -6,9 +6,15 @@ sidebar_label: Ory
 
 # Ory
 
-This **Ory** option allows you to add [Ory OAuth2](../../oauth2-oidc/index.md) as OIDC provider. In Ory Network, you can create
-this provider using the Ory Console or the Ory CLI. When self-hosting Ory, deploy the Ory Hydra Federation server and use the
-`hydra` CLI to create the client.
+This document explains how to add [Ory OAuth2](../../oauth2-oidc/index.md) as an OIDC provider to your Ory Network project. The
+setup we will describe here is as follows:
+
+- An Ory Network project that serves as the SSO provider - in this project we create the OAuth2 client with Ory OAuth2.
+- Another Ory Network project that uses the SSO provider for social sign-in - in this project we manage users and serve
+  self-service flows with Ory Identities.
+
+In Ory Network, you can create the OAuth2 client using the Ory Console or the Ory CLI. When self-hosting Ory, deploy the Ory Hydra
+Federation server as SSO provider, and Ory Kratos Identity server as user management and use the `hydra` CLI to create the client.
 
 The following snippet shows how to create it using the CLI:
 
