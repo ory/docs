@@ -68,8 +68,10 @@ import TabItem from '@theme/TabItem';
           id: example.org
           # This MUST be the exact URL of the page which will prompt for WebAuthn!
           # Only the scheme (https / http), host (auth.example.org), and port (4455) are relevant. The
-          # path is irrelevant
-          origin: http://auth.example.org:4455
+          # path is irrelevant.
+          origins:
+            - http://auth.example.org:4455
+            - https://auth2.example.org
           # A display name which will be shown to the user on her/his device.
           display_name: Ory`}</CodeBlock>
   </TabItem>
