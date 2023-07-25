@@ -29,7 +29,7 @@ The flow itself works as follows:
 4. The user's user agent follows the redirect and lands back at Ory OAuth2 & OpenID Connect. Next, Ory OAuth2 & OpenID Connect
    redirects the user's user agent to the Consent Provider, hosted at - for example -
    `http://consent-service/consent?consent_challenge=4567...`
-5. The Consent Provider shows a user interface which asks the user if he/she would like to grant the OAuth 2.0 Client the
+5. The Consent Provider shows a user interface which asks the user if they would like to grant the OAuth 2.0 Client the
    requested permissions ("OAuth 2.0 Scope"). You've probably seen this screen around, which is usually something similar to:
    _"Would you like to grant Facebook Image Backup access to all your private and public images?"_.
 6. The Consent Provider makes another REST request to Ory OAuth2 & OpenID Connect to let it know which permissions the user
