@@ -10,14 +10,14 @@ This document explains how to add [Ory OAuth2](../../oauth2-oidc/index.md) as an
 
 The setup we will describe here is as follows:
 
-1. An Ory Network project that serves as the SSO provider, manages user identities and provides OAuth2/OIDC endpoints for
+1. An Ory Network project that serves as the SSO provider, manages user identities, and provides OAuth2/OIDC endpoints for
    authentication and authorization. It represents a "Sign in with <Your Brand>" service.
-2. Another Ory Network project that _uses_ this SSO provider for "social" sign-in. This represents a third party app, service or
+2. Another Ory Network project that _uses_ this SSO provider for "social" sign-in. This represents a third-party app, service or
    website, or an independently operating subsidy or brand, that authenticates users via the SSO provider.
 
 ## Setting up the SSO provider
 
-You can create projects and OAuth2 client using either Ory Console or the Ory CLI.
+You can create projects and OAuth2 clients using either Ory Console or the Ory CLI.
 
 The following snippet shows how to create it using the CLI:
 
@@ -34,29 +34,29 @@ ory create oauth2-client --project $project_id \
  --redirect-uri https://your-project-slug.projects.oryapis.com/self-service/methods/oidc/callback/H1o_k--i # replace with your redirect URI
 ```
 
-The SSO provider projects defines the identity schema and authentication methods for all projects that use it for sign-in.
+The SSO provider projects define the identity schema and authentication methods for all projects that use it for sign-in.
 
 With the SSO provider set up, you can now connect apps and other projects to it. OAuth2-enabled apps can sign in users via the SSO
 provider using the OAuth2 authorization code flow straight away.
 
 ## Connecting a project to the SSO provider
 
-Third party applications will typically
+Third-party applications will typically
 
-- Offer a "Sign in with <Your Brand>" button, and optionally, more ways to register and log in like passkeys, passwords or other
+- offer a "Sign in with <Your Brand>" button, and optionally, more ways to register and log in like passkeys, passwords, or other
   social sign-in providers.
-- Store identities for the application's user base, which is a subset of the identities managed by the SSO provider, plus any
+- store identities for the application's user base, which is a subset of the identities managed by the SSO provider, plus any
   identities who sign in through other means.
-- Store additional user data, which is not managed by the SSO provider, alongside a subset of the identity traits managed by the
+- store additional user data, which is not managed by the SSO provider, alongside a subset of the identity traits managed by the
   SSO provider.
 
-Depending on your requirements, your "client" project will have a separate identity schema, authentication configuraton and
+Depending on your requirements, your "client" project will have a separate identity schema, authentication configuration and
 Account Experience theme.
 
 ### Setting up authentication through the upstream SSO provider
 
 Adding Ory OAuth2 as a "social" sign-in provider is straightforward since Ory follows the OAuth2/OIDC specification. Because of
-this, you can add Ory OAuth2 as a generic OIDC provider without any extra set up.  
+this, you can add Ory OAuth2 as a generic OIDC provider without any extra setup.  
 To add your Ory OAuth2 server as a social sign-in provider, you need the following configuration details:
 
 - Client ID - you get this when creating the client
@@ -99,10 +99,10 @@ the provider and by setting up custom data mappings.
 ### Scopes
 
 The Scopes section allows you to define the OAuth scopes Ory requests from the sign-in provider. Defining scopes allows you to
-interact with the provider's APIs on behalf of the user, or to access additional user data, which is exposed as claims for data
+interact with the provider's APIs on behalf of the user, or access additional user data, which is exposed as claims for data
 mapping.
 
-For an out of the box setup, use the default scopes `openid`, `offline_access` and `email`.
+For an out-of-the-box setup, use the default scopes `openid`, `offline_access`, and `email`.
 
 ### Data mapping
 
@@ -135,7 +135,7 @@ local claims = {
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
 
-Follow these steps to add a Ory as a social sign-in provider to your project using the Ory CLI:
+Follow these steps to add Ory as a social sign-in provider to your project using the Ory CLI:
 
 1. Create a client with Ory OAuth2 as described above to get a Client ID and Client Secret.
 2. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema, such as:
