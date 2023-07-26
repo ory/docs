@@ -10,21 +10,20 @@ configurable using options below.
 
 ## Configuration
 
-Default configuration doesn't use API calls to send mail. To enable it you need to set the "email.strategy" flag to "http", sender
-URL, authorization (if needed) and request body format. (if needed) and request body format.
+Default configuration doesn't use API calls to send mail. To enable it you need to set the "delivery_strategy" flag to "http",
+sender URL, authorization (if needed) and request body format. (if needed) and request body format.
 
 ### Request configuration
 
 ```yaml title="config.yml"
 courier:
-  email:
-    strategy: http
+  delivery_strategy: http
   http:
     request_config:
       url: https://api.crm.com/email
       method: POST
       body: file://.mail.api.request.jsonnet
-      header:
+      headers:
         "Content-Type": "application/json"
       auth:
         type: basic_auth
