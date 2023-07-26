@@ -1,0 +1,12 @@
+@media (min-width: 997px) {
+  .ory-network-mobile-cta {
+    display: none;
+  }
+}
+
+.ory-network-mobile-cta {
+  border: 1px solid orange;
+  padding: 1em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}

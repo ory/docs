@@ -1,0 +1,43 @@
+:root {
+  --ory-network-cta-height: 15rem;
+}
+
+.ory-toc-wrapper {
+  max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
+  overflow: auto;
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 1rem);
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+Selector for TOC wrapper only if the announcement banner
+is active.
+First part pins down the announcement banner, as its class
+seems too fragile. Then select its siblings and therein the
+TOC wrapper.
+ */
+#__docusaurus > div > [role="banner"] ~ * .ory-toc-wrapper {
+  max-height: calc(
+    100vh -
+      (
+        var(--ifm-navbar-height) + 2rem +
+          var(--docusaurus-announcement-bar-height)
+      )
+  );
+}
+
+.ory-toc-wrapper > :first-child {
+  max-height: calc(100% - 5rem);
+  position: unset;
+  top: unset;
+  flex-shrink: 1;
+}
+
+.ory-network-cta {
+  margin-top: 1em;
+  flex-shrink: 0;
+  height: var(--ory-network-cta-height);
+  border: 1px solid red;
+}
