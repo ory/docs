@@ -1,0 +1,212 @@
+---
+id: ory
+title: Add Ory OAuth2 or Ory Hydra as a social sign-in provider
+sidebar_label: Ory
+---
+
+# Ory
+
+This document explains how to add [Ory OAuth2](../../oauth2-oidc/index.md) as an OIDC provider to your Ory Network project.
+
+The setup we will describe here is as follows:
+
+1. An Ory Network project that serves as the SSO provider, manages user identities, and provides OAuth2/OIDC endpoints for
+   authentication and authorization. It represents a **Sign in with $YourBrand** service.
+2. Another Ory Network project that _uses_ this SSO provider for "social" sign-in. This represents a third-party app, service or
+   website, or an independently operating subsidy or brand, that authenticates users via the SSO provider.
+
+## Setting up the SSO provider
+
+You can create projects and OAuth2 clients using either Ory Console or the Ory CLI.
+
+The following snippet shows how to create it using the CLI:
+
+```bash
+ory create project --name "OAuth2 Server - Example Corp"
+# Note down the project ID
+export project_id=your-project-id # replace with your project ID
+
+ory create oauth2-client --project $project_id \
+ --name "Example Corp" \
+ --grant-type authorization_code,refresh_token \
+ --response-type code \
+ --scope openid,offline_access,email \
+ --redirect-uri https://your-project-slug.projects.oryapis.com/self-service/methods/oidc/callback/H1o_k--i # replace with your redirect URI
+```
+
+The SSO provider projects define the identity schema and authentication methods for all projects that use it for sign-in.
+
+With the SSO provider set up, you can now connect apps and other projects to it. OAuth2-enabled apps can sign in users via the SSO
+provider using the OAuth2 authorization code flow straight away.
+
+## Connecting a project to the SSO provider
+
+Third-party applications will typically
+
+- offer a **Sign in with $YourBrand\_** button, and optionally, more ways to register and log in like passkeys, passwords, or
+  other social sign-in providers.
+- store identities for the application's user base, which is a subset of the identities managed by the SSO provider, plus any
+  identities who sign in through other means.
+- store additional user data, which is not managed by the SSO provider, alongside a subset of the identity traits managed by the
+  SSO provider.
+
+Depending on your requirements, your "client" project will have a separate identity schema, authentication configuration and
+Account Experience theme.
+
+### Setting up authentication through the upstream SSO provider
+
+Adding Ory OAuth2 as a "social" sign-in provider is straightforward since Ory follows the OAuth2/OIDC specification. Because of
+this, you can add Ory OAuth2 as a generic OIDC provider without any extra setup.  
+To add your Ory OAuth2 server as a social sign-in provider, you need the following configuration details:
+
+- Client ID - you get this when creating the client
+- Client Secret - you get this when creating the client
+- Issuer URL - this is the URL of the Ory Network project or Ory Hydra Federation server instance.
+
+````mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+Follow these steps to add an Ory OAuth2 provider to your project using the Ory Console:
+
+1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+2. Click the **Add new OpenID Connect provider** button.
+3. Define the **Label**. This name is used for identification purposes only.
+4. Paste the configuration details obtained from your social sign-in provider into the corresponding fields in the Console:
+   - Client ID
+   - Client Secret
+   - Issuer URL
+5. Copy the Redirect URI from the Console and add it to the OAuth2 client you created earlier. You can do this in the Ory
+   Console or using the Ory CLI.
+6. Click **Save Configuration** to finish.
+
+:::note
+
+These steps cover the basic configuration of a social sign-in provider integration. At this point, the user experience is
+incomplete. To complete the configuration and ensure a smooth and secure user experience, configure the [scopes](#scopes) and
+[data mapping](#data-mapping) as described in the next section.
+
+:::
+
+### Additional configuration
+
+When adding a generic social sign-in provider, you can customize the integration by defining the OAuth scopes Ory requests from
+the provider and by setting up custom data mappings.
+
+### Scopes
+
+The Scopes section allows you to define the OAuth scopes Ory requests from the sign-in provider. Defining scopes allows you to
+interact with the provider's APIs on behalf of the user, or access additional user data, which is exposed as claims for data
+mapping.
+
+For an out-of-the-box setup, use the default scopes `openid`, `offline_access`, and `email`.
+
+### Data mapping
+
+In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet,
+which maps the desired claims to the Ory Identity schema:
+
+```jsonnet
+local claims = {
+  email_verified: false,
+} + std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      // Allowing unverified email addresses enables account
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
+      //
+      // Therefore we only return the email if it (a) exists and (b) is marked verified.
+      [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+    },
+  },
+}
+```
+
+```mdx-code-block
+<JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+```
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+
+Follow these steps to add Ory as a social sign-in provider to your project using the Ory CLI:
+
+1. Create a client with Ory OAuth2 as described above to get a Client ID and Client Secret.
+2. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema, such as:
+```jsonnet
+local claims = {
+  email_verified: false,
+} + std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      // Allowing unverified email addresses enables account
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
+      //
+      // Therefore we only return the email if it (a) exists and (b) is marked verified.
+      [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+    },
+  },
+}
+```
+3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
+4. Download the Ory Identities config from your project and save it to a file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ```
+
+5. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
+   string or provide an URL to the file.
+
+   ```yaml
+   selfservice:
+     methods:
+       oidc:
+         config:
+           providers:
+             - id: yourid # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+               provider: generic
+               client_id: .... # Replace this with the Client ID
+               client_secret: .... # Replace this with the Client secret
+               issuer_url: https://your-project-slug.projects.oryapis.com # Replace this with the providers issuer URL
+               mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
+               # Alternatively, use an URL:
+               # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
+               scope:
+                 - email
+                 - offline_access
+                 - openid
+               # supported scopes can be found in your providers dev docs
+         enabled: true
+   ```
+
+6. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config {project-id} --file identity-config.yaml
+   ```
+
+</TabItem>
+</Tabs>
+````
+
+## Troubleshooting
+
+```mdx-code-block
+import SocialSigninTroubleshooting from '../_common/social-sign-in-troubleshooting.mdx'
+
+<SocialSigninTroubleshooting />
+```

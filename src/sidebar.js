@@ -65,6 +65,7 @@ module.exports = {
                 {
                   "Integrating providers": [
                     "kratos/social-signin/generic",
+                    "kratos/social-signin/ory",
                     "kratos/social-signin/google",
                     "kratos/social-signin/facebook",
                     "kratos/social-signin/microsoft",
