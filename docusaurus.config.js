@@ -177,6 +177,7 @@ const config = {
         src: "/docs/img/logo-ory-white.svg",
         href: "https://www.ory.sh/",
         height: 80,
+        width: 130.7,
       },
     },
   },
