@@ -78,8 +78,8 @@ const config = {
       hideOnScroll: false,
       logo: {
         alt: "Ory",
-        src: `/docs/img/logo-docs.svg`,
-        srcDark: `/docs/img/logo-docs-dark.svg`,
+        src: `/docs/img/logos/logo-docs-2023-02-15.svg`,
+        srcDark: `/docs/img/logos/logo-docs-dark-2023-02-15.svg`,
         href: `https://www.ory.sh`,
         width: 63,
         height: 32,
@@ -174,9 +174,10 @@ const config = {
       ],
       logo: {
         alt: "Ory logo in white",
-        src: "/docs/img/logo-ory-white.svg",
+        src: "/docs/img/logos/logo-ory-white-2022-11-04.svg",
         href: "https://www.ory.sh/",
         height: 80,
+        width: 130.7,
       },
     },
   },

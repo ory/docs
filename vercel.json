@@ -4,6 +4,17 @@
   },
   "cleanUrls": true,
   "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=22118400"
+        }
+      ]
+    }
+  ],
   "redirects": [
     {
       "source": "/",
