@@ -254,7 +254,6 @@ const config = {
         "By utilizing this chatbot, you consent to the collection and transmission of data to kapa.ai, which may include your IP address. Please be advised that your privacy and data protection are of utmost importance to us. We assure you that any data collected will be handled in compliance with applicable laws and regulations. For further details on how your data is processed and used, we encourage you to review our Privacy Policy. If you do not agree with these terms, we kindly request that you refrain from using this chatbot.",
       "data-project-logo":
         "https://assets.website-files.com/627ba6588811eca90ffd6f2a/6282a6b11450b482db646ed2_hydra.png",
-      async: true,
       defer: true,
     },
   ],
