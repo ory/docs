@@ -173,25 +173,80 @@ The variables available for use in email templates change depending on the flow 
 
 ```mdx-code-block
 <Tabs groupId="email-templates">
-<TabItem value="recovery" label="Recovery" default>
+<TabItem value="recovery_code" label="Recovery (via code)" default>
 
-| Template | Variables |
+For the `recovery_code.valid` template, the following variables are available:
+
+| Variable | Description |
 | --- | --- |
-| `recovery_code.valid` | `To` the email address the email will be sent to <br/>`RecoveryCode` the recovery code<br/>`Identity` the identity to be recovered |
-| `recovery_code.invalid` | `To` the email address the email will be sent to |
-| `recovery.valid` | `To` the email address the email will be sent to <br/>`RecoveryURL` the recovery link<br/>`Identity` the identity to be recovered |
-| `recovery.invalid` | `To` the email address the email will be sent to |
+| `To` | The email address the email will be sent to |
+| `RecoveryCode` | The recovery code |
+| `Identity` | The identity to be recovered |
+
+:::note
+
+The `recovery_code.invalid` template does not allow to send a direct link to the user, as the recovery flow enforces anti-CSRF measures, which would lead to the flow failing, in case the user opens the link in a different browser.
+
+:::
+
+For the `recovery_code.invalid` template, the following variables are available:
+
+| Variable | Description |
+| --- | --- |
+| `To` | the email address the email will be sent to |
 
 </TabItem>
-<TabItem value="verification" label="Verification">
+<TabItem value="verification_code" label="Verification (via code)">
 
+For the `verification_code.valid` template, the following variables are available:
 
-| Template | Variables |
+| Variable | Description |
 | --- | --- |
-| `verification_code.valid` | `To` the email address the email will be sent to <br/>`VerificationCode` the verification code<br/>`VerificationURL` the verification link<br/>`Identity` the identity of the email address |
-| `verification_code.invalid` | `To` the email address the email will be sent to |
-| `verification.valid` | `To` the email address the email will be sent to <br/>`VerificationURL` the verification link<br/>`Identity` the identity to be recovered |
-| `verification.invalid` | `To` the email address the email will be sent to |
+| `To` |  the email address the email will be sent to |
+| `VerificationCode` | the verification code |
+| `VerificationURL` | the verification link |
+| `Identity` | the identity of the email address |
+
+
+For the `verification_code.invalid` template, the following variables are available:
+
+| Variable | Description |
+| --- | --- |
+| `To` | the email address the email will be sent to |
+
+</TabItem>
+<TabItem value="recovery" label="Recovery (via magic link)">
+
+For the `recovery.valid` template, the following variables are available:
+
+| Variable | Description |
+| --- | --- |
+| `To` | The email address the email will be sent to |
+| `RecoveryURL` | The recovery link |
+| `Identity` | The identity to be recovered |
+
+For the `recovery.invalid` template, the following variables are available:
+
+| Variable | Description |
+| --- | --- |
+| `To` | the email address the email will be sent to |
+
+</TabItem>
+<TabItem value="verification" label="Verification (via magic link)">
+
+For the `verification.valid` template, the following variables are available:
+
+| Variable | Description |
+| --- | --- |
+| `To` |  the email address the email will be sent to |
+| `VerificationURL` | the verification link |
+| `Identity` | the identity of the email address |
+
+For the `verification.invalid` template, the following variables are available:
+
+| Variable | Description |
+| --- | --- |
+| `To` | the email address the email will be sent to |
 
 </TabItem>
 </Tabs>
