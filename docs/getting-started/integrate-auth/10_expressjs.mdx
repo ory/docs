@@ -76,7 +76,7 @@ This requires the express app (`npm run start`) to run on port 3000. The browser
 Next we add a session check to the default home page of the example application. The highlighted code is what we added to check
 whether the user is signed in, and redirect them to the login page if not:
 
-```mdx-code-block
+```mdx-code-block title="routes/index.js"
 import homePage from '!!raw-loader!../../../code-examples/protect-page-login/expressjs/routes/index.js'
 import CodeBlock from '@theme/CodeBlock'
 
