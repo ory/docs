@@ -9,7 +9,7 @@ var sdk = require("@ory/client")
 var ory = new sdk.FrontendApi(
   new sdk.Configuration({
     basePath:
-      process.env.ORY_SDK_URL || "https://playground.projects.oryapis.com",
+      "http://localhost:4000/.ory",
   }),
 )
 // highlight-end
