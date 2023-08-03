@@ -4,6 +4,8 @@ title: Verify email addresses associated with users accounts
 sidebar_label: Email address verification
 ---
 
+import Mermaid from "@theme/Mermaid"
+
 # Email address verification
 
 ```mdx-code-block
@@ -18,7 +20,26 @@ Ory allows users to verify email addresses associated with their accounts. This 
 the address they used to create their account. If verification is enabled, Ory Identities starts the verification process
 automatically when users sign up. Users can also verify their addresses manually.
 
-The verification flow is supported in both browsers and API clients.
+The verification flow is supported in both browsers and API clients and can be summarized as the following state machine:
+
+<Mermaid
+  chart={`
+stateDiagram
+  s1: Flow is initialized
+  s2: User Interface renders Verification Flow Forms
+  s3: Update Verification Flow with Error Context(s)
+  s4: Verification challenge initiated (link via email)
+  s5: Verification completed
+  [*] --> s1 : User clicks "Verify Email/SMS/..."
+  s1 --> s2
+  s2 --> s4 : User provides valid verification data
+  s2 --> s3 : User provides invalid verification data
+  s3 --> s2
+  s4 --> s5 : Challenge response valid
+  s4 --> s3 : Challenge response invalid
+  s5 --> [*]
+`}
+/>
 
 :::caution
 
