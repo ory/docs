@@ -95,6 +95,6 @@ You can create custom Kratos Docker images that embed your configuration files b
 base image and adding your configuration file(s) as shown in the example:
 
 ```dockerfile
-FROM oryd/kratos:latest
+FROM oryd/kratos:{version}
 COPY contrib/quickstart/kratos/email-password/kratos.yml /home/ory
 ```
