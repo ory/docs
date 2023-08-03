@@ -77,7 +77,7 @@ APIs (2) with the following parameters:
 
 <CodeFromRemote
   lang="ts"
-  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/2ef61d58aac508ad8890c01dac4b5fd4740265ff/src/components/Routes/Login.tsx"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/components/Routes/Login.tsx"
   startAt="  const initializeFlow = () =>"
   endAt="      .then(({ data: f }) => setFlow(f))"
 />
@@ -92,7 +92,7 @@ contains the URL of the identity provider in the `redirect_browser_to` field.
 
 <CodeFromRemote
   lang="ts"
-  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/2ef61d58aac508ad8890c01dac4b5fd4740265ff/src/helpers/form.tsx"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/helpers/form.tsx"
   startAt="        case 422:"
   endAt="          )"
 />
@@ -102,7 +102,7 @@ opens a browser tab for authentication for the specified `url` (7+8). Implementa
 
 <CodeFromRemote
   lang="ts"
-  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/2ef61d58aac508ad8890c01dac4b5fd4740265ff/src/helpers/form.tsx"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/helpers/form.tsx"
   startAt="  const result = await WebBrowser.openAuthSessionAsync("
   endAt="  )"
 />
@@ -121,7 +121,7 @@ is used to close the browser tab and return the control flow to the code that aw
 
 <CodeFromRemote
   lang="tsx"
-  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/2ef61d58aac508ad8890c01dac4b5fd4740265ff/src/components/Routes/Callback.tsx"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/components/Routes/Callback.tsx"
   startAt="const Callback = (props: Props) => {"
   endAt="  )"
 />
@@ -131,7 +131,7 @@ returned from the flow initialization, and the second part of the code returned 
 
 <CodeFromRemote
   lang="ts"
-  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/2ef61d58aac508ad8890c01dac4b5fd4740265ff/src/helpers/form.tsx"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/helpers/form.tsx"
   startAt="  const fetchToken = (params: FrontendApiExchangeSessionTokenRequest) =>"
   endAt='    newOrySdk("").exchangeSessionToken(params)'
 />
@@ -140,7 +140,7 @@ Finally, the native application stores the session token in the secure storage (
 
 <CodeFromRemote
   lang="ts"
-  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/2ef61d58aac508ad8890c01dac4b5fd4740265ff/src/helpers/form.tsx"
+  src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/helpers/form.tsx"
   startAt="  const setToken = (res: Awaited<ReturnType<typeof fetchToken>>) =>"
   endAt="    })"
 />
