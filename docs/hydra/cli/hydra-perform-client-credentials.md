@@ -25,7 +25,7 @@ hydra perform client-credentials [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} --client-id ... --client-secret
+hydra perform client-credentials --client-id ... --client-secret
 ```
 
 ### Options

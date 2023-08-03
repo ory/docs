@@ -27,8 +27,8 @@ hydra import jwk set-id file-1 [file-2] [file-n] [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} my-set ./path/to/jwk.json ./path/to/jwk-2.json --format json
-{{ .CommandPath }} my-set ./path/to/rsa.key ./path/to/rsa.pub --use enc
+hydra import jwk my-set ./path/to/jwk.json ./path/to/jwk-2.json --format json
+hydra import jwk my-set ./path/to/rsa.key ./path/to/rsa.pub --use enc
 ```
 
 ### Options

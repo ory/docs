@@ -28,7 +28,7 @@ hydra perform authorization-code [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} --client-id ... --client-secret ...
+hydra perform authorization-code --client-id ... --client-secret ...
 ```
 
 ### Options

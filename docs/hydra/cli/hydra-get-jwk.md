@@ -26,7 +26,7 @@ hydra get jwk set-1 [set-2] ... [flags]
 ```
 To get the JSON Web Key Set's secret, run:
 
-	{{ .CommandPath }} <set-id> | jq -r '.[].use'
+	hydra get jwk <set-id> | jq -r '.[].use'
 ```
 
 ### Options

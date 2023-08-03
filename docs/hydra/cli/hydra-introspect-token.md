@@ -20,7 +20,7 @@ hydra introspect token the-token [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} AYjcyMzY3ZDhiNmJkNTY --project 32197be3-8e57-4009-becd-9d38dbde129c
+hydra introspect token AYjcyMzY3ZDhiNmJkNTY --project 32197be3-8e57-4009-becd-9d38dbde129c
 ```
 
 ### Options

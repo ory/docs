@@ -24,7 +24,7 @@ hydra delete jwk <id-1> [<id-2> ...] [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} <set-1> <set-2> <set-3>
+hydra delete jwk <set-1> <set-2> <set-3>
 ```
 
 ### Options

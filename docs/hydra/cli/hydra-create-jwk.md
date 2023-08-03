@@ -20,7 +20,7 @@ hydra create jwk <set-id> [<key-id>] [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} <my-jwk-set> --alg RS256 --use sig
+hydra create jwk <my-jwk-set> --alg RS256 --use sig
 ```
 
 ### Options

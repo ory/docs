@@ -24,11 +24,11 @@ hydra update oauth2-client [id] [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} <client-id-here> -c http://localhost/cb -g authorization_code -r code -a core,foobar
+hydra update oauth2-client <client-id-here> -c http://localhost/cb -g authorization_code -r code -a core,foobar
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  {{ .CommandPath }} e6e96aa5-9cd2-4a70-bf56-ad6434c8aaa2 -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  hydra update oauth2-client e6e96aa5-9cd2-4a70-bf56-ad6434c8aaa2 -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
 
 ```
 

@@ -26,7 +26,7 @@ hydra get oauth2-client <id-1> [<id-2> ...] [flags]
 ```
 To get the OAuth 2.0 Client's secret, run:
 
-	{{ .CommandPath }} <your-client-id> --format json | jq -r '.client_secret'
+	hydra get oauth2-client <your-client-id> --format json | jq -r '.client_secret'
 ```
 
 ### Options

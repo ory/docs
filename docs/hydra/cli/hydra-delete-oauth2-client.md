@@ -24,11 +24,11 @@ hydra delete oauth2-client <id-1> [<id-2> ...] [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} <client-1> <client-2> <client-3>
+hydra delete oauth2-client <client-1> <client-2> <client-3>
 
 To delete OAuth 2.0 Clients with the owner of "foo@bar.com", run:
 
-	{{ .CommandPath }} $({{ .Root.Name }} list oauth2-clients --format json | jq -r 'map(select(.contacts[] == "foo@bar.com")) | .[].client_id')
+	hydra delete oauth2-client $(hydra list oauth2-clients --format json | jq -r 'map(select(.contacts[] == "foo@bar.com")) | .[].client_id')
 ```
 
 ### Options

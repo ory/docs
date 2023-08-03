@@ -21,7 +21,9 @@ hydra migrate status [flags]
 
 ```
       --block           Block until all migrations have been applied
+      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help            help for status
+  -q, --quiet           Be quiet with output printing.
   -e, --read-from-env   If set, reads the database connection string from the environment variable DSN or config file key dsn.
 ```
 

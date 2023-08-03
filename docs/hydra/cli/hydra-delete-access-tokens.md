@@ -20,7 +20,7 @@ hydra delete access-tokens <client-id> [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} <client-id>
+hydra delete access-tokens <client-id>
 ```
 
 ### Options

@@ -49,15 +49,15 @@ Import an example OAuth2 Client:
     ]
 	EOF
 
-	{{ .CommandPath }} file.json
+	hydra import oauth2-client file.json
 
 Alternatively:
 
-	cat file.json | {{ .CommandPath }}
+	cat file.json | hydra import oauth2-client
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  {{ .CommandPath }} -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  hydra import oauth2-client -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
 
 ```
 
