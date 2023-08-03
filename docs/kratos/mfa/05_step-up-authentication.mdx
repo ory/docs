@@ -1,7 +1,7 @@
 ---
 id: step-up-authentication
-title: Use step-up authentication to protect high-risk operations
-sidebar_label: Step-up authentication
+title: Use dynamic multi-factor (step-up) authentication to protect high-risk operations
+sidebar_label: Dynamic Multi-Factor Authentication
 ---
 
 # Step-up authentication
@@ -17,13 +17,13 @@ You can set up multi-factor authentication to work in one of two models:
 - **Strict**, where secured operations always require the highest Authenticator Assurance Level (AAL).
 - **Lax**, where the secured operations require only the `aal1` Authenticator Assurance Level (AAL).
 
+In Ory Network, the default multi-factor authentication enforcement model is **Strict**. This means that high-risk operations via
+self-service endpoints, such as updating user settings, require step-up authentication by default.
+
 You can set the required authentication model for these operations/endpoints:
 
 - User sign-in (getting an Ory Session) / `/sessions/whoami` endpoint
 - Self-service user settings
-
-In the Ory Network, the default multi-factor authentication enforcement model is **Strict**. This means that high-risk operations
-such as updating user settings require step-up authentication by default.
 
 ## Configuration
 
@@ -95,10 +95,11 @@ Follow these steps to adjust the settings in the Ory Network using the Ory CLI:
 </Tabs>
 ```
 
-## Trigger step-up authentication
+## Trigger Dynamic Multi-Factor authentication
 
-You can make users complete a second authentication factor in their current session by initiating a new login flow using one of
-these endpoints with the `aal` parameter set to `aal2`:
+To protect your application's sensitive functions - like accessing payment details, an order history, or private content - you can
+make users complete a second authentication factor in their current session by initiating a new login flow using one of these
+endpoints with the `aal` parameter set to `aal2`:
 
 - [`/self-service/login/browser`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowForBrowsers)
 - [`/self-service/login/api`](../../reference/api.mdx#operation/initializeSelfServiceLoginFlowWithoutBrowser)
