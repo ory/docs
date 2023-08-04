@@ -2,8 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import 'dart:html';
-import 'package:dio/adapter_browser.dart';
-import 'package:dio/browser_imp.dart';
+import 'package:dio/browser.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -18,8 +17,8 @@ Future main() async {
   // create the dio client for http requests
   final options = BaseOptions(
     baseUrl: baseUrl,
-    connectTimeout: 10000,
-    receiveTimeout: 5000,
+    connectTimeout: const Duration(seconds: 10000),
+    receiveTimeout: const Duration(seconds: 5000),
     headers: {
       "Accept": "application/json",
     },
@@ -53,7 +52,8 @@ class MyApp extends StatelessWidget {
   final Dio dio;
   final AuthService auth;
 
-  const MyApp({Key? key, required this.dio, required this.auth}) : super(key: key);
+  const MyApp({Key? key, required this.dio, required this.auth})
+      : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -69,7 +69,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title, required this.auth}) : super(key: key);
+  const MyHomePage({Key? key, required this.title, required this.auth})
+      : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -89,7 +90,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     // The Flutter framework has been optimized to make rerunning build methods
@@ -122,7 +122,8 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Session Information:${widget.auth.identity.toString()}'),
-            TextButton(onPressed: widget.auth.logout, child: const Text('Logout')),
+            TextButton(
+                onPressed: widget.auth.logout, child: const Text('Logout')),
           ],
         ),
       ),
