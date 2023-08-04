@@ -1,5 +1,5 @@
 :root {
-  --ory-network-cta-height: 15rem;
+  --ory-network-cta-height: 430px;
 }
 
 .ory-toc-wrapper {
@@ -33,11 +33,4 @@ TOC wrapper.
   position: unset;
   top: unset;
   flex-shrink: 1;
-}
-
-.ory-network-cta {
-  margin-top: 1em;
-  flex-shrink: 0;
-  height: var(--ory-network-cta-height);
-  border: 1px solid red;
 }
