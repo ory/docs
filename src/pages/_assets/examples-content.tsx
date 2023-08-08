@@ -9,6 +9,7 @@ export const basic: PropTypes = {
     {
       title: "Protect a page with login: Next.js/React",
       language: "nextjs",
+      languageLogoAlt: "Next.js logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs",
@@ -17,6 +18,7 @@ export const basic: PropTypes = {
     {
       title: "Protect a page with login: React",
       language: "react",
+      languageLogoAlt: "React logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/react",
@@ -25,6 +27,7 @@ export const basic: PropTypes = {
     {
       title: "Protect a Page with Login: React Native",
       language: "react",
+      languageLogoAlt: "React logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/kratos-selfservice-ui-react-native",
@@ -33,6 +36,7 @@ export const basic: PropTypes = {
     {
       title: "Protect a page with login: Express.js",
       language: "typescript",
+      languageLogoAlt: "TypeScript logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/expressjs",
@@ -41,6 +45,7 @@ export const basic: PropTypes = {
     {
       title: "Protect a page with login: Go",
       language: "go",
+      languageLogoAlt: "Go logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/go",
@@ -49,6 +54,7 @@ export const basic: PropTypes = {
     {
       title: "Protect a page with login: PHP",
       language: "php",
+      languageLogoAlt: "PHP logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/php",
@@ -57,6 +63,7 @@ export const basic: PropTypes = {
     {
       title: "Protect a page with login: Vue.js",
       language: "vue",
+      languageLogoAlt: "Vue logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/vue",
@@ -65,6 +72,7 @@ export const basic: PropTypes = {
     {
       title: "Protect a page with login: Flutter",
       language: "flutter",
+      languageLogoAlt: "Flutter logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/flutter_web_redirect",
@@ -73,6 +81,7 @@ export const basic: PropTypes = {
     {
       title: "Protect a page with login: Django",
       language: "django",
+      languageLogoAlt: "Django logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/examples/tree/master/django-ory-cloud",
@@ -81,6 +90,7 @@ export const basic: PropTypes = {
     {
       title: "Protect a page with login: Flask",
       language: "python",
+      languageLogoAlt: "Python logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/examples/tree/master/kratos-keto-flask",
@@ -89,6 +99,7 @@ export const basic: PropTypes = {
     {
       title: "Protect a page with login: .NET Core",
       language: "dotnet",
+      languageLogoAlt: ".NET Core logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/dotnet",
@@ -97,6 +108,7 @@ export const basic: PropTypes = {
     {
       title: "Protect a page with login: ASP.NET Core",
       language: "dotnet",
+      languageLogoAlt: ".NET Core logo",
       author: "ory",
       tested: false,
       repo: "https://github.com/ory/examples/tree/master/dotnet-ory-network",
@@ -115,6 +127,7 @@ export const customui: PropTypes = {
     {
       title: "Customize self-service UI: Node.js",
       language: "nodejs",
+      languageLogoAlt: "Node.js logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/kratos-selfservice-ui-node",
@@ -123,6 +136,7 @@ export const customui: PropTypes = {
     {
       title: "Customize self-service UI: Next.js/React",
       language: "nextjs",
+      languageLogoAlt: "Next.js logo",
       author: "ory",
       tested: true,
       repo: "https://github.com/ory/kratos-nextjs-react-example",
@@ -131,6 +145,7 @@ export const customui: PropTypes = {
     {
       title: "Customize self-service UI: React Native",
       language: "react",
+      languageLogoAlt: "React logo",
       author: "ory",
       tested: false,
       repo: "https://github.com/ory/kratos-selfservice-ui-react-native",
@@ -148,6 +163,7 @@ export const community: PropTypes = {
     {
       title: "Customize self-service UI: Flutter",
       language: "flutter",
+      languageLogoAlt: "Flutter logo",
       author: "amorevino",
       tested: false,
       repo: "https://github.com/amorevino/ory-showcase-apps",
@@ -156,6 +172,7 @@ export const community: PropTypes = {
     {
       title: "Customize self-service UI: Flutter Web",
       language: "flutter",
+      languageLogoAlt: "Flutter logo",
       author: "IGLU-Agency",
       tested: false,
       repo: "https://github.com/IGLU-Agency/iglu-ory-kratos-example",
@@ -164,6 +181,7 @@ export const community: PropTypes = {
     {
       title: "Protect a page with login: Quarkus",
       language: "quarkus",
+      languageLogoAlt: "Quarkus logo",
       author: "hbrammer",
       tested: false,
       repo: "https://github.com/hbrammer/quarkus_kratos_example",
@@ -172,6 +190,7 @@ export const community: PropTypes = {
     {
       title: "Customize self-service UI: Vue.js",
       language: "vue",
+      languageLogoAlt: "Vue logo",
       author: "timalanfarrow",
       tested: false,
       repo: "https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript",
@@ -180,6 +199,7 @@ export const community: PropTypes = {
     {
       title: "Customize self-service UI: Next.js",
       language: "nextjs",
+      languageLogoAlt: "Next.js logo",
       author: "spa5k",
       tested: false,
       repo: "https://github.com/spa5k/kratos-next",
@@ -188,6 +208,7 @@ export const community: PropTypes = {
     {
       title: "Customize self-service UI: Erlang",
       language: "erlang",
+      languageLogoAlt: "Erlang logo",
       author: "hrefhref",
       tested: false,
       repo: "https://github.com/hrefhref/styx",
@@ -196,6 +217,7 @@ export const community: PropTypes = {
     {
       title: "Customize self-service UI: Rescript",
       language: "rescript",
+      languageLogoAlt: "Rescript logo",
       author: "allancalix",
       tested: false,
       repo: "https://github.com/allancalix/kratos-ui",
@@ -204,6 +226,7 @@ export const community: PropTypes = {
     {
       title: "Customize self-service UI: Svelte",
       language: "svelte",
+      languageLogoAlt: "Svelte logo",
       author: "micleyman",
       tested: true,
       repo: "https://github.com/micleyman/sveltekit-ory-starter",
@@ -212,6 +235,7 @@ export const community: PropTypes = {
     {
       title: "Customize self-service UI: Svelte",
       language: "svelte",
+      languageLogoAlt: "Svelte logo",
       author: "drejohnson",
       tested: false,
       repo: "https://github.com/drejohnson/sveltekit-kratos",
@@ -220,6 +244,7 @@ export const community: PropTypes = {
     {
       title: "Customize self-service UI: Svelte",
       language: "svelte",
+      languageLogoAlt: "Svelte logo",
       author: "emrahcom",
       tested: false,
       repo: "https://github.com/emrahcom/kratos-selfservice-svelte-node",
@@ -228,6 +253,7 @@ export const community: PropTypes = {
     {
       title: "Ory Hydra Reference Implementation - Java - Spring",
       language: "java",
+      languageLogoAlt: "Java logo",
       author: "ardetrick",
       tested: false,
       repo: "https://github.com/ardetrick/ory-hydra-refrence-java",
