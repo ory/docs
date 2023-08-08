@@ -444,6 +444,8 @@ module.exports = {
             "kratos/guides/production",
             "kratos/guides/multi-tenancy-multitenant",
             "self-hosted/operations/scalability",
+            "kratos/self-hosted/email-http",
+            "kratos/self-hosted/mail-courier-templates",
             "kratos/guides/tracing",
             "kratos/guides/zero-trust-iap-proxy-identity-access-proxy",
             "kratos/guides/https-tls",
