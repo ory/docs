@@ -117,6 +117,7 @@ module.exports = {
             "identities/model/identity-state",
             "kratos/manage-identities/invite-users",
             "kratos/manage-identities/account-recovery",
+            "kratos/manage-identities/export-user-accounts-identities",
           ],
         },
         "kratos/self-service/flows/user-logout",
