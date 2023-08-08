@@ -23,6 +23,7 @@
 
 .cardtitle {
   margin-bottom: 0.25rem;
+  font-size: var(--ifm-h4-font-size);
 }
 
 .cardbuttongroup {

@@ -37,7 +37,7 @@ const ExampleCard = ({
     </div>
     <section className={styles.cardcontent}>
       <div>
-        <h4 className={styles.cardtitle}>{title}</h4>
+        <h3 className={styles.cardtitle}>{title}</h3>
         <p>
           by <a href={"https://github.com/" + author}>@{author}</a>
         </p>
