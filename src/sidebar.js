@@ -322,7 +322,10 @@ module.exports = {
         {
           type: "category",
           label: "Guidelines",
-          items: ["open-source/guidelines/rest-api-guidelines"],
+          items: [
+            "open-source/guidelines/rest-api-guidelines",
+            "kratos/guides/e2e-integration-tests",
+          ],
         },
       ],
     },
@@ -383,7 +386,10 @@ module.exports = {
         {
           type: "category",
           label: "Guidelines",
-          items: ["open-source/guidelines/rest-api-guidelines"],
+          items: [
+            "open-source/guidelines/rest-api-guidelines",
+            "kratos/guides/e2e-integration-tests",
+          ],
         },
       ],
     },
