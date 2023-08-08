@@ -372,6 +372,11 @@ module.exports = {
         },
       ],
     },
+    {
+      type: "link",
+      label: "Search",
+      href: "https://www.ory.sh/docs/search",
+    },
   ],
   selfhosting: [
     "ecosystem/projects",
@@ -625,6 +630,11 @@ module.exports = {
         },
       ],
     },
+    {
+      type: "link",
+      label: "Search",
+      href: "https://www.ory.sh/docs/search",
+    },
   ],
   api: [
     "api/index",
@@ -632,7 +642,13 @@ module.exports = {
     "ecosystem/api-design",
     "concepts/cache",
     "reference/api",
+    {
+      type: "link",
+      label: "Search",
+      href: "https://www.ory.sh/docs/search",
+    },
   ],
+
   sdk: [
     "sdk",
     {
@@ -685,6 +701,11 @@ module.exports = {
           ],
         },
       ],
+    },
+    {
+      type: "link",
+      label: "Search",
+      href: "https://www.ory.sh/docs/search",
     },
   ],
 }
