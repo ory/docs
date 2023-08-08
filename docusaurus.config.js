@@ -118,6 +118,10 @@ const config = {
               label: "Enterprise Support",
             },
             {
+              to: "https://www.ory.sh/docs/search",
+              label: "Search the docs",
+            },
+            {
               to: "https://www.ory.sh/chat",
               label: "Ory Community Slack",
             },
@@ -150,6 +154,10 @@ const config = {
         {
           label: "Need Support?",
           href: "https://www.ory.sh/support/",
+        },
+        {
+          label: "Search",
+          href: "https://www.ory.sh/docs/search/",
         },
         {
           label: "Status",
