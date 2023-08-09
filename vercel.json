@@ -1098,6 +1098,11 @@
       "source": "/docs/cli",
       "destination": "/docs/guides/cli/installation",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/self-hosted/tracing",
+      "destination": "/docs/self-hosted/operations/tracing",
+      "permanent": false
     }
   ]
 }

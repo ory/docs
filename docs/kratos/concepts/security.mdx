@@ -9,38 +9,53 @@ analyzing threats and implementing security measures for Ory Identities.
 Working with and managing software that stores personal information carries risk. It's important to identify threats and
 understand the system's attack surface, the likelihood, and the impact of an attack.
 
-In the case of Ory Identities, threats could include hackers or malicious insiders who may try to steal or manipulate personal
-information. To protect against these threats, it's important to properly configure Ory and implement appropriate security
-measures, such as strong authentication and access controls. Regular monitoring and timely response to security incidents are also
-crucial.
+Regarding Ory Identities, threats could include hackers or malicious insiders who may try to steal or manipulate personal
+information. To protect against these threats, it's important to implement appropriate security measures, such as strong
+authentication and access controls. Regular monitoring and quick response to security incidents are also crucial. When using Ory
+Network, defenses are provided as part of the platform's security infrastructure. For self-hosted instances of Ory Kratos Identity
+Server, reach out to [Ory Support](https://www.ory.sh/support/).
 
 ## Digital identity guidelines
 
-There is no universally accepted standard for digital identity.  
+No universally accepted standard for digital identity exists.  
 Ory follows [Digital Identity Guidelines](https://pages.nist.gov/800-63-3/) established by the
 [National Institute of Standards and Technology (NIST)](https://www.nist.gov/).  
-These guidelines are accompanied by a [FAQ](https://pages.nist.gov/800-63-3/) that provides additional information and answers to
-common questions.
+These guidelines are accompanied by a [FAQ](https://pages.nist.gov/800-63-3/) that provides answers to common questions.
+
+## Defenses against bots and automated attacks
+
+Ory Network takes a proactive approach to combat bot and other automated attacks with bot detection and suspicious IP throttling.
+To detect bots and throttle suspicious IPs, Ory Network leverages the
+[Cloudflare Web Application Firewall (WAF)](https://www.cloudflare.com/en-gb/application-services/products/waf/) and
+[Cloudflare Bot Management](https://www.cloudflare.com/en-gb/application-services/products/bot-management/) services. These
+features are built into Ory Network and allow Ory to defend against automated threats without burdening users with unfriendly
+CAPTCHAs, IP throttling, rate limiting, and IP blocking.
+
+When using Ory Network, these automated attack defenses are provided as part of the platform's security infrastructure. For
+self-hosted instances of Ory Kratos Identity Server, it's the responsibility of the administrator to implement and manage
+appropriate measures to maintain a secure environment. Reach out to [Ory Support](https://www.ory.sh/support/) for help with this
+task.
 
 ## Defenses against brute-force attacks
 
 Ory Network provides Ory Identities with protection against brute-force attacks by rate limiting requests to API public endpoints,
 for example login and registration endpoints.
 
-When self-hosting the Ory Kratos Identity Server, it's the responsibility of the administrator to implement and manage rate
-limiting or other measures to ensure the security of the network.
+When using Ory Network, these defenses are provided as part of the platform's security infrastructure. When self-hosting the Ory
+Kratos Identity Server, it's the responsibility of the administrator to implement and manage rate limiting or other measures to
+ensure the security of the network. Reach out to [Ory Support](https://www.ory.sh/support/) for help with this task.
 
 ## Defenses against cross-site request forgery
 
-Cross-site request forgery (CSRF or XSRF) is a type of attack where a malicious site tricks a user's browser into sending a
-request to another site without user consent. This can occur even without a user session in a
+Cross-site request forgery (CSRF or XSRF) is an attack where a malicious site tricks a user's browser into sending a request to
+another site without user consent. This can occur even without a user session in a
 [login CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#login-csrf)
-attack. In the context of Ory Identities, it is an attack vector that can be exploited to gain unauthorized access to a user
+attack. In the context of Ory Identities, it's an attack vector that can be exploited to gain unauthorized access to a user
 account or perform actions on their behalf.
 
-To protect against these attacks, Ory Identities uses multiple countermeasures, including the
-[`sameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite) attribute as well as a dedicated
-anti-CSRF cookie using the
+To protect against these attacks, Ory Identities uses various countermeasures, including the
+[`sameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite) attribute and a dedicated anti-CSRF
+cookie using the
 [synchronizer token pattern](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#synchronizer-token-pattern).
 The protected APIs are mainly the endpoints that accept the `POST`, `DELETE`, or `PUT` methods. For example, when an app renders a
 form, a `<input type="hidden" name="csrf_token" value="...">` HTML input element is added. Ory Identities compares that value to
@@ -48,5 +63,6 @@ the value set in the anti-CSRF cookie. If the values match, the request is allow
 
 ## Password policy
 
-To learn more about setting up a secure password policy, refer to the [password policy page](../../concepts/password-policy.mdx)
-for instructions and best practices.
+By default Ory uses a password policy that follows the [Digital Identity Guidelines](https://pages.nist.gov/800-63-3/) established
+by the [National Institute of Standards and Technology (NIST)](https://www.nist.gov/). To learn more about configuring up a
+password policy, refer to the [password policy page](../../concepts/password-policy.mdx) for instructions and best practices.

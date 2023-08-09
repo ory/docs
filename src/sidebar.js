@@ -424,6 +424,7 @@ module.exports = {
             "kratos/self-hosted/mfa",
             "kratos/guides/setting-up-cors",
             "kratos/self-hosted/account-activation-email-verification",
+            "self-hosted/kratos/configuration/oidc",
             "kratos/guides/setting-up-password-hashing-parameters",
             "kratos/guides/select-cipher-algorithm",
             "kratos/reference/configuration-editor",
