@@ -68,7 +68,7 @@ import auth from '!!raw-loader!../../../code-examples/protect-page-login/flutter
 ## Add environment variables
 
 Create a `.env` file in the root of the project to hold the `ORY_BASE_URL` variable. The value of the variable is the Ory proxy
-URL, for example `http://localhost:3005/.ory`.
+URL, for example `http://localhost:3005`.
 
 ```shell-session
 touch .env
@@ -117,13 +117,13 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-3. Run the Ory proxy to mirror the Ory API endpoints on your application's domain (`localhost`):
+3. Run the Ory tunnel to expose Ory API under the same top-level domain as your application (`localhost`):
 
 ```shell-session
-ory proxy --port 3005 http://localhost:4005
+ory tunnel --port 3005 http://localhost:4005
 ```
 
-4. Open [http://localhost:3005](http://localhost:3005) to access the application. As the initial call is made by an
+4. Open [http://localhost:4005](http://localhost:4005) to access the application. As the initial call is made by an
    unauthenticated user, the session check doesn't detect a valid session and redirects to the login page of the defined Ory
    project. <br/> <br/> From there, you can create a new account or sign in using an existing identity. When you sign in, the
    session becomes valid and the application shows the `Home` page with the session data.
