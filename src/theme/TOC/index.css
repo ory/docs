@@ -1,5 +1,5 @@
 :root {
-  --ory-network-cta-height: 430px;
+  --ory-network-cta-height: 400px;
 }
 
 .ory-toc-wrapper {
@@ -33,4 +33,16 @@ TOC wrapper.
   position: unset;
   top: unset;
   flex-shrink: 1;
+}
+
+.kapa-widget-placeholder {
+  /* Kapa widget height */
+  min-height: 80px;
+  /*
+    Our margin from bottom is 16px, kapa's margin is 20 px.
+    Compensate for the missing 4px
+  */
+  margin-bottom: 4px;
+  /* Add usual margin around kapa */
+  margin-top: 20px;
 }

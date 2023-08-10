@@ -1,26 +1,45 @@
 import React from "react"
 import "./ory-network-cta.css"
 
-export const OryNetworkCta = () => (
-  <a href="https://console.ory.sh/" target="_blank" className="ory-network-cta">
-    <div className="ory-network-cta__background">
-      <div className="ory-network-cta__grid"></div>
-      <div className="ory-network-cta__gradient"></div>
-    </div>
-    <div className="ory-network-cta__content">
-      <div className="ory-network-cta__title-and-paragraph">
-        <em className="ory-network-cta__title">Are you a deve&shy;loper?</em>
-        <p className="ory-network-cta__paragraph">
-          Try out the Ory Network and get your proof of concept up and running
-          in no time. You can run your test and integration systems.
-          <span className="ory-network-cta__inline-get-started">
-            Click to get started -‍&gt;
-          </span>
-        </p>
+const ctaVariants = [
+  {
+    title: "Ory Network",
+    content: (
+      <>
+        The most flexible and scalable way to manage identi&shy;ties,
+        authen&shy;tication, autho&shy;rization and access control.
+      </>
+    ),
+    cta: "Get started for free",
+    href: "https://console.ory.sh/",
+  },
+]
+
+export const OryNetworkCta = () => {
+  const { cta, content, title, href } = ctaVariants[0]
+
+  return (
+    <a href={href} target="_blank" className="ory-network-cta">
+      <div className="ory-network-cta__background">
+        <div className="ory-network-cta__grid"></div>
+        <div className="ory-network-cta__gradient"></div>
       </div>
-      <div>
-        <div className="ory-network-cta__button">Get started -‍&gt;</div>
+      <div className="ory-network-cta__content">
+        <div className="ory-network-cta__title-and-paragraph">
+          <em className="ory-network-cta__title">{title}</em>
+          <p className="ory-network-cta__paragraph">
+            {content}
+            <span className="ory-network-cta__inline-get-started">
+              {cta} <span aria-hidden>-‍&gt;</span>
+            </span>
+          </p>
+        </div>
+        <div>
+          <div className="ory-network-cta__button">
+            {cta} <span aria-hidden>-‍&gt;</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </a>
-)
+    </a>
+  )
+}

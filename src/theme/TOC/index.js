@@ -8,6 +8,7 @@ export default function TOCWrapper(props) {
     <div className="ory-toc-wrapper">
       <TOC {...props} />
       <OryNetworkCta />
+      <div className="kapa-widget-placeholder" />
     </div>
   )
 }
