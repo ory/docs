@@ -1,6 +1,6 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
-import 'dart:html';
+import 'package:universal_html/html.dart';
 
 import 'package:dio/dio.dart';
 import 'package:ory_client/ory_client.dart';
@@ -9,18 +9,16 @@ class AuthService {
   final FrontendApi _ory;
   Session? _identity;
 
-  AuthService(Dio dio) :
-    _ory = OryClient(dio: dio).getFrontendApi();
+  AuthService(Dio dio) : _ory = OryClient(dio: dio).getFrontendApi();
 
   Future<bool> isAuthenticated() async {
-    return _ory.toSession().then((resp)  {
+    return _ory.toSession().then((resp) {
       if (resp.statusCode == 200) {
         _identity = resp.data;
         return true;
       }
       return false;
-    })
-    .catchError((error) {
+    }).catchError((error) {
       return false;
     });
   }
