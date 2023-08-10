@@ -11,6 +11,7 @@ export interface PropTypes {
 interface ExampleCard {
   title: string
   language: string
+  languageLogoAlt: string
   author: string
   tested: boolean
   repo: string
@@ -18,17 +19,25 @@ interface ExampleCard {
   description?: string
 }
 
-const ExampleCard = ({ title, language, author, repo, docs }: ExampleCard) => (
+const ExampleCard = ({
+  title,
+  language,
+  languageLogoAlt,
+  author,
+  repo,
+  docs,
+}: ExampleCard) => (
   <article className={styles.card}>
     <div>
       <img
         className={styles.cardimage}
         src={"/docs/img/examples/" + language + ".svg"}
+        alt={languageLogoAlt}
       />
     </div>
     <section className={styles.cardcontent}>
       <div>
-        <h4 className={styles.cardtitle}>{title}</h4>
+        <h3 className={styles.cardtitle}>{title}</h3>
         <p>
           by <a href={"https://github.com/" + author}>@{author}</a>
         </p>

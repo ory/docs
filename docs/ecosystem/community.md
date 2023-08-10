@@ -32,7 +32,7 @@ Contributions always welcome!
 
 ## Community articles and tutorials
 
-#### Ory Blog guest articles
+### Ory Blog guest articles
 
 Are you building something with Ory? Are you interested in Auth and security topics in general? Do you want to share your
 knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be published in our blog!
@@ -44,17 +44,17 @@ knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be publish
   [Part 2: Frontend](https://www.ory.sh/cloud-ecommerce-frontend/)
 - [Looking at Zanzibar through Ory Keto](https://www.ory.sh/looking-at-keto/)
 
-#### Ory
+### Ory
 
 - [Open Source Authentication with Hydra and Kratos](https://blog.px.dev/open-source-auth/)
 
-#### Ory Kratos
+### Ory Kratos
 
 - [Building a Quarkus application with Ory Kratos](https://hauke.me/writing/2021-03-building-a-quarkus-application-with-ory-kratos/)
 - [How to write an application that integrates Kratos in Go](https://stories.abletech.nz/integrating-third-party-provider-kratos-f5514b53af66)
 - [Ory Kratos reverse proxy (Nginx) example](https://github.com/ory/kratos/discussions/1049)
 
-#### Ory Hydra
+### Ory Hydra
 
 - [Ory Hydra with Apache APISIX integration](https://apisix.apache.org/blog/2022/07/04/apisix-integrates-with-hydra/)
 - [Practical Example of Implementing OAuth 2.0 Using ory/hydra](https://yusufs.medium.com/practical-example-of-implementing-oauth-2-0-using-ory-hydra-fbaa2765d94f)
@@ -66,17 +66,17 @@ knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be publish
 - [Creating an OAuth 2.0 custom lambda authorizer for use with Amazons (AWS) API Gateway using Hydra](https://blogs.edwardwilde.com/2017/01/12/creating-an-oauth2-custom-lamda-authorizer-for-use-with-amazons-aws-api-gateway-using-hydra/)
 - [Discussion on Access & Refresh Tokens](https://github.com/ory/hydra/issues/1529)
 
-#### Ory Keto
+### Ory Keto
 
 - [Looking at Zanzibar through Ory Keto](https://gruchalski.com/posts/2021-04-11-looking-at-zanzibar-through-ory-keto/)
 
-#### Ory Oathkeepeer
+### Ory Oathkeepeer
 
 - [User Management using Ory Oathkeeper](https://blog.commit.dev/articles/open-source-sundays-building-a-user-management-solution-using-ory-oathkeeper-and-auth0)
 - [API Access Control with Ambassador and Ory Oathkeeper](https://blog.getambassador.io/part-2-api-access-control-and-authentication-with-kubernetes-ambassador-and-ory-oathkeeper-q-a-127fa57f6332?utm_content=76739953&utm_medium=social&utm_source=twitter)
 - [Ory Oathkeeper Istio best practices/reference configuration](https://github.com/ory/oathkeeper/issues/624)
 
-#### Ory Dockertest
+### Ory Dockertest
 
 - [Writing Tests for MongoDB using Dockertest in Go](https://mainawycliffe.dev/blog/using-dockertest-to-write-integration-tests-against-mongodb/)
 - [Integration tests in Golang with dockertest](https://sergiocarracedo.es/integration-tests-in-golang-with-dockertest/)

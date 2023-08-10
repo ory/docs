@@ -139,7 +139,7 @@ OpenDNSSEC project.
 
 [Follow these instructions to build SoftHSM from source.](https://wiki.opendnssec.org/display/SoftHSMDOCS/SoftHSM+Documentation+v2)
 
-#### Install SoftHSM/OpenSC on Mac OSX
+### Install SoftHSM/OpenSC on Mac OSX
 
 ```sh
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 2> /dev/null
@@ -157,7 +157,7 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 brew install opensc
 ```
 
-#### Install SoftHSM/OpenSC on Ubuntu
+### Install SoftHSM/OpenSC on Ubuntu
 
 ```sh
 sudo apt update
@@ -167,12 +167,12 @@ sudo apt update
 sudo apt install softhsm opensc
 ```
 
-#### Install SoftHSM/OpenSC on Windows
+### Install SoftHSM/OpenSC on Windows
 
 Follow these instructions to install [SoftHSM](https://github.com/disig/SoftHSM2-for-Windows) and
 [OpenSC](https://github.com/OpenSC/OpenSC/wiki) on windows.
 
-#### Run Ory Hydra with HSM using Docker
+### Run Ory Hydra with HSM using Docker
 
 Alternatively you can use quickstart docker container that setups SoftHSM/OpenSC, builds and runs Ory Hydra with HSM configuration
 enabled. You need to have the latest [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose)
@@ -190,7 +190,7 @@ time="2021-07-07T12:51:23Z" level=info msg="Hardware Security Module is configur
 time="2021-07-07T12:51:23Z" level=info msg="JSON Web Key Set 'hydra.openid.id-token' doesn't exist yet, generating new key pair..."
 ```
 
-#### Run Tests with HSM enabled using Docker
+### Run Tests with HSM enabled using Docker
 
 ```sh
 make quicktest-hsm
