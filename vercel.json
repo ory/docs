@@ -1103,6 +1103,31 @@
       "source": "/docs/hydra/self-hosted/tracing",
       "destination": "/docs/self-hosted/operations/tracing",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/hydra-index",
+      "destination": "/docs/hydra",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/sdk/hydra-sdk-api",
+      "destination": "/docs/hydra/reference/api",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/react-native-login-registration",
+      "destination": "/docs/getting-started/integrate-auth/react-native",
+      "permanent": false
+    },
+    {
+      "source": "/docs/keto/engines/rbac",
+      "destination": "/docs/keto/guides/rbac",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/concepts",
+      "destination": "/docs/kratos",
+      "permanent": false
     }
   ]
 }
