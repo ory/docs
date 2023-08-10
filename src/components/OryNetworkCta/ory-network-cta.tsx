@@ -10,8 +10,8 @@ const ctaVariants = [
         authen&shy;tication, autho&shy;rization and access control.
       </>
     ),
-    cta: "Get started for free",
-    href: "https://console.ory.sh/",
+    cta: "Explore Ory Network",
+    href: "https://www.ory.sh/network/?mtm_campaign=Docs-SideCta&mtm_kwd=variant-0",
   },
 ]
 

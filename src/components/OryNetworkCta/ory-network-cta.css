@@ -124,7 +124,7 @@
 
 @container ory-network-cta (width > 255px) {
   .ory-network-cta__content {
-    gap: 64px;
+    gap: 32px;
   }
 
   .ory-network-cta__title {
