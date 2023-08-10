@@ -5,13 +5,10 @@
   --ory-cyan-900: #164e63;
   --ory-gray-900: #0f172a;
 
-  container-type: inline-size;
-  container-name: ory-network-cta;
-
   position: relative;
   margin-top: 1em;
   flex-shrink: 0;
-  height: var(--ory-network-cta-height);
+  max-height: var(--ory-network-cta-height);
   background-color: var(--ory-cyan-500);
 }
 
@@ -92,7 +89,7 @@
   display: block;
 }
 
-@container ory-network-cta (width > 160px) {
+@media (min-width: 1070px) {
   .ory-network-cta__button {
     display: block;
   }
@@ -102,7 +99,7 @@
   }
 }
 
-@container ory-network-cta (width > 200px) {
+@media (min-width: 1230px) {
   .ory-network-cta__content {
     padding: 24px;
     gap: 48px;
@@ -113,16 +110,16 @@
     line-height: 100%;
     font-weight: 600;
   }
+}
 
-  @container ory-network-cta (width > 235px) {
-    .ory-network-cta__paragraph {
-      font-size: 18px;
-      line-height: 150%;
-    }
+@media (min-width: 1370px) {
+  .ory-network-cta__paragraph {
+    font-size: 18px;
+    line-height: 150%;
   }
 }
 
-@container ory-network-cta (width > 255px) {
+@media (min-width: 1450px) {
   .ory-network-cta__content {
     gap: 32px;
   }
