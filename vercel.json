@@ -1128,6 +1128,11 @@
       "source": "/docs/kratos/concepts",
       "destination": "/docs/kratos",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/security-questions-best-practice",
+      "destination": "/docs/kratos/concepts/security",
+      "permanent": false
     }
   ]
 }

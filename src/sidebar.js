@@ -117,6 +117,7 @@ module.exports = {
             "identities/model/identity-state",
             "kratos/manage-identities/invite-users",
             "kratos/manage-identities/account-recovery",
+            "kratos/manage-identities/export-user-accounts-identities",
           ],
         },
         "kratos/self-service/flows/user-logout",
@@ -322,7 +323,10 @@ module.exports = {
         {
           type: "category",
           label: "Guidelines",
-          items: ["open-source/guidelines/rest-api-guidelines"],
+          items: [
+            "open-source/guidelines/rest-api-guidelines",
+            "kratos/guides/e2e-integration-tests",
+          ],
         },
       ],
     },
@@ -368,6 +372,11 @@ module.exports = {
         },
       ],
     },
+    {
+      type: "link",
+      label: "Search",
+      href: "https://www.ory.sh/docs/search",
+    },
   ],
   selfhosting: [
     "ecosystem/projects",
@@ -383,7 +392,10 @@ module.exports = {
         {
           type: "category",
           label: "Guidelines",
-          items: ["open-source/guidelines/rest-api-guidelines"],
+          items: [
+            "open-source/guidelines/rest-api-guidelines",
+            "kratos/guides/e2e-integration-tests",
+          ],
         },
       ],
     },
@@ -437,6 +449,8 @@ module.exports = {
             "kratos/guides/production",
             "kratos/guides/multi-tenancy-multitenant",
             "self-hosted/operations/scalability",
+            "kratos/self-hosted/email-http",
+            "kratos/self-hosted/mail-courier-templates",
             "kratos/guides/tracing",
             "kratos/guides/zero-trust-iap-proxy-identity-access-proxy",
             "kratos/guides/https-tls",
@@ -616,6 +630,11 @@ module.exports = {
         },
       ],
     },
+    {
+      type: "link",
+      label: "Search",
+      href: "https://www.ory.sh/docs/search",
+    },
   ],
   api: [
     "api/index",
@@ -623,7 +642,13 @@ module.exports = {
     "ecosystem/api-design",
     "concepts/cache",
     "reference/api",
+    {
+      type: "link",
+      label: "Search",
+      href: "https://www.ory.sh/docs/search",
+    },
   ],
+
   sdk: [
     "sdk",
     {
@@ -676,6 +701,11 @@ module.exports = {
           ],
         },
       ],
+    },
+    {
+      type: "link",
+      label: "Search",
+      href: "https://www.ory.sh/docs/search",
     },
   ],
 }
