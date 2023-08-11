@@ -141,6 +141,50 @@
         "required": ["enabled", "origins"],
         "type": "object"
       },
+      "CreateInviteResponse": {
+        "properties": {
+          "all_invites": {
+            "description": "A list of all invites for this resource",
+            "items": {
+              "$ref": "#/components/schemas/memberInvite"
+            },
+            "type": "array"
+          },
+          "created_invite": {
+            "$ref": "#/components/schemas/memberInvite"
+          }
+        },
+        "required": ["created_invite", "all_invites"],
+        "type": "object"
+      },
+      "CreateProjectMemberInviteBody": {
+        "description": "Create Project MemberInvite Request Body",
+        "properties": {
+          "invitee_email": {
+            "description": "A email to invite",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CreateVerifiableCredentialRequestBody": {
+        "properties": {
+          "format": {
+            "type": "string"
+          },
+          "proof": {
+            "$ref": "#/components/schemas/VerifiableCredentialProof"
+          },
+          "types": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "title": "CreateVerifiableCredentialRequestBody contains the request body to request a verifiable credential.",
+        "type": "object"
+      },
       "CustomHostnameStatus": {
         "title": "CustomHostnameStatus is the enumeration of valid state values in the CustomHostnameSSL.",
         "type": "string"
@@ -304,6 +348,28 @@
         },
         "type": "array"
       },
+      "RFC6749ErrorJson": {
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "error_debug": {
+            "type": "string"
+          },
+          "error_description": {
+            "type": "string"
+          },
+          "error_hint": {
+            "type": "string"
+          },
+          "status_code": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "title": "RFC6749ErrorJson is a helper struct for JSON encoding/decoding of RFC6749Error.",
+        "type": "object"
+      },
       "RecoveryAddressType": {
         "title": "RecoveryAddressType must not exceed 16 characters as that is the limitation in the SQL Schema.",
         "type": "string"
@@ -350,6 +416,18 @@
             "$ref": "#/components/schemas/GenericUsage"
           }
         },
+        "type": "object"
+      },
+      "VerifiableCredentialProof": {
+        "properties": {
+          "jwt": {
+            "type": "string"
+          },
+          "proof_type": {
+            "type": "string"
+          }
+        },
+        "title": "VerifiableCredentialProof contains the proof of a verifiable credential.",
         "type": "object"
       },
       "Warning": {
@@ -712,31 +790,8 @@
         },
         "type": "object"
       },
-      "createProjectInvite": {
-        "description": "Create Project Invite Request Body",
-        "properties": {
-          "invitee_emails": {
-            "description": "A list of emails to invite",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          }
-        },
-        "type": "object"
-      },
-      "createProjectInvitesResponse": {
-        "description": "Response to the create project invite request",
-        "properties": {
-          "all_invites": {
-            "$ref": "#/components/schemas/projectInvites"
-          },
-          "created_invites": {
-            "$ref": "#/components/schemas/projectInvites"
-          }
-        },
-        "required": ["created_invites", "all_invites"],
-        "type": "object"
+      "createProjectMemberInviteResponse": {
+        "$ref": "#/components/schemas/CreateInviteResponse"
       },
       "createRecoveryCodeForIdentityBody": {
         "description": "Create Recovery Code for Identity Request Body",
@@ -826,6 +881,38 @@
         "required": ["plan", "interval", "provision_first_project"],
         "type": "object"
       },
+      "credentialSupportedDraft00": {
+        "description": "Includes information about the supported verifiable credentials.",
+        "properties": {
+          "cryptographic_binding_methods_supported": {
+            "description": "OpenID Connect Verifiable Credentials Cryptographic Binding Methods Supported\n\nContains a list of cryptographic binding methods supported for signing the proof.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cryptographic_suites_supported": {
+            "description": "OpenID Connect Verifiable Credentials Cryptographic Suites Supported\n\nContains a list of cryptographic suites methods supported for signing the proof.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "format": {
+            "description": "OpenID Connect Verifiable Credentials Format\n\nContains the format that is supported by this authorization server.",
+            "type": "string"
+          },
+          "types": {
+            "description": "OpenID Connect Verifiable Credentials Types\n\nContains the types of verifiable credentials supported.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "title": "Verifiable Credentials Metadata (Draft 00)",
+        "type": "object"
+      },
       "customDomain": {
         "description": "Custom Hostname",
         "properties": {
@@ -905,6 +992,31 @@
             "type": "integer"
           }
         },
+        "type": "object"
+      },
+      "emailTemplateData": {
+        "description": "Contains the data of the email template, including the subject and body in HTML and plaintext variants",
+        "properties": {
+          "body": {
+            "$ref": "#/components/schemas/emailTemplateDataBody"
+          },
+          "subject": {
+            "type": "string"
+          }
+        },
+        "required": ["body", "subject"],
+        "type": "object"
+      },
+      "emailTemplateDataBody": {
+        "properties": {
+          "html": {
+            "type": "string"
+          },
+          "plaintext": {
+            "type": "string"
+          }
+        },
+        "required": ["html", "plaintext"],
         "type": "object"
       },
       "errorAuthenticatorAssuranceLevelNotSatisfied": {
@@ -1958,6 +2070,79 @@
         },
         "type": "array"
       },
+      "memberInvite": {
+        "properties": {
+          "created_at": {
+            "description": "The Project's Revision Creation Date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "id": {
+            "description": "The invite's ID.",
+            "format": "uuid",
+            "readOnly": true,
+            "type": "string"
+          },
+          "invitee_email": {
+            "description": "The invitee's email",
+            "type": "string"
+          },
+          "invitee_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
+          "owner_email": {
+            "description": "The invite owner's email\nUsually the project's owner email",
+            "type": "string"
+          },
+          "owner_id": {
+            "description": "The invite owner's ID\nUsually the project's owner",
+            "format": "uuid",
+            "type": "string"
+          },
+          "project_id": {
+            "description": "The Project's ID this invite is associated with",
+            "format": "uuid",
+            "type": "string"
+          },
+          "status": {
+            "description": "The invite's status\nKeeps track of the invites status such as pending, accepted, declined, expired\npending PENDING\naccepted ACCEPTED\ndeclined DECLINED\nexpired EXPIRED\ncancelled CANCELLED\nremoved REMOVED",
+            "enum": [
+              "pending",
+              "accepted",
+              "declined",
+              "expired",
+              "cancelled",
+              "removed"
+            ],
+            "type": "string",
+            "x-go-enum-desc": "pending PENDING\naccepted ACCEPTED\ndeclined DECLINED\nexpired EXPIRED\ncancelled CANCELLED\nremoved REMOVED"
+          },
+          "updated_at": {
+            "description": "Last Time Project's Revision was Updated",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "project_id",
+          "owner_id",
+          "owner_email",
+          "invitee_email",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "type": "object"
+      },
+      "memberInvites": {
+        "items": {
+          "$ref": "#/components/schemas/memberInvite"
+        },
+        "type": "array"
+      },
       "message": {
         "properties": {
           "body": {
@@ -2212,6 +2397,10 @@
           },
           "hydra_oauth2_refresh_token_hook": {
             "description": "Sets the Refresh Token Hook Endpoint. If set this endpoint will be called during the OAuth2 Token Refresh grant update the OAuth2 Access Token claims.\n\nThis governs the \"oauth2.refresh_token_hook\" setting.",
+            "type": "string"
+          },
+          "hydra_oauth2_token_hook": {
+            "description": "Sets the token hook endpoint for all grant types. If set it will be called while providing token to customize claims.\n\nThis governs the \"oauth2.token_hook\" setting.",
             "type": "string"
           },
           "hydra_oidc_dynamic_client_registration_default_scope": {
@@ -2734,16 +2923,15 @@
             "type": "string"
           },
           "kratos_selfservice_methods_webauthn_config_rp_icon": {
-            "description": "Configures the Ory Kratos Webauthn RP Icon\n\nThis governs the \"selfservice.methods.webauthn.config.rp.icon\" setting.",
+            "description": "Configures the Ory Kratos Webauthn RP Icon\n\nThis governs the \"selfservice.methods.webauthn.config.rp.icon\" setting.\nDeprecated: This value will be ignored due to security considerations.",
             "type": "string"
           },
           "kratos_selfservice_methods_webauthn_config_rp_id": {
             "description": "Configures the Ory Kratos Webauthn RP ID\n\nThis governs the \"selfservice.methods.webauthn.config.rp.id\" setting.",
             "type": "string"
           },
-          "kratos_selfservice_methods_webauthn_config_rp_origin": {
-            "description": "Configures the Ory Kratos Webauthn RP Origin\n\nThis governs the \"selfservice.methods.webauthn.config.rp.origin\" setting.",
-            "type": "string"
+          "kratos_selfservice_methods_webauthn_config_rp_origins": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
           "kratos_selfservice_methods_webauthn_enabled": {
             "description": "Configures whether Ory Kratos Webauthn is enabled\n\nThis governs the \"selfservice.methods.webauthn.enabled\" setting.",
@@ -3598,6 +3786,17 @@
             },
             "type": "array"
           },
+          "credentials_endpoint_draft_00": {
+            "description": "OpenID Connect Verifiable Credentials Endpoint\n\nContains the URL of the Verifiable Credentials Endpoint.",
+            "type": "string"
+          },
+          "credentials_supported_draft_00": {
+            "description": "OpenID Connect Verifiable Credentials Supported\n\nJSON array containing a list of the Verifiable Credentials supported by this authorization server.",
+            "items": {
+              "$ref": "#/components/schemas/credentialSupportedDraft00"
+            },
+            "type": "array"
+          },
           "end_session_endpoint": {
             "description": "OpenID Connect End-Session Endpoint\n\nURL at the OP to which an RP can perform a redirect to request that the End-User be logged out at the OP.",
             "type": "string"
@@ -4415,79 +4614,6 @@
         },
         "required": ["id", "host", "project_id"],
         "type": "object"
-      },
-      "projectInvite": {
-        "properties": {
-          "created_at": {
-            "description": "The Project's Revision Creation Date",
-            "format": "date-time",
-            "readOnly": true,
-            "type": "string"
-          },
-          "id": {
-            "description": "The invite's ID.",
-            "format": "uuid",
-            "readOnly": true,
-            "type": "string"
-          },
-          "invitee_email": {
-            "description": "The invitee's email",
-            "type": "string"
-          },
-          "invitee_id": {
-            "$ref": "#/components/schemas/NullUUID"
-          },
-          "owner_email": {
-            "description": "The invite owner's email\nUsually the project's owner email",
-            "type": "string"
-          },
-          "owner_id": {
-            "description": "The invite owner's ID\nUsually the project's owner",
-            "format": "uuid",
-            "type": "string"
-          },
-          "project_id": {
-            "description": "The Project's ID this invite is associated with",
-            "format": "uuid",
-            "type": "string"
-          },
-          "status": {
-            "description": "The invite's status\nKeeps track of the invites status such as pending, accepted, declined, expired\npending PENDING\naccepted ACCEPTED\ndeclined DECLINED\nexpired EXPIRED\ncancelled CANCELLED\nremoved REMOVED",
-            "enum": [
-              "pending",
-              "accepted",
-              "declined",
-              "expired",
-              "cancelled",
-              "removed"
-            ],
-            "type": "string",
-            "x-go-enum-desc": "pending PENDING\naccepted ACCEPTED\ndeclined DECLINED\nexpired EXPIRED\ncancelled CANCELLED\nremoved REMOVED"
-          },
-          "updated_at": {
-            "description": "Last Time Project's Revision was Updated",
-            "format": "date-time",
-            "readOnly": true,
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "project_id",
-          "owner_id",
-          "owner_email",
-          "invitee_email",
-          "status",
-          "created_at",
-          "updated_at"
-        ],
-        "type": "object"
-      },
-      "projectInvites": {
-        "items": {
-          "$ref": "#/components/schemas/projectInvite"
-        },
-        "type": "array"
       },
       "projectMember": {
         "$ref": "#/components/schemas/cloudAccount"
@@ -6577,6 +6703,50 @@
         "required": ["email", "method"],
         "type": "object"
       },
+      "verifiableCredentialPrimingResponse": {
+        "properties": {
+          "c_nonce": {
+            "type": "string"
+          },
+          "c_nonce_expires_in": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "error": {
+            "type": "string"
+          },
+          "error_debug": {
+            "type": "string"
+          },
+          "error_description": {
+            "type": "string"
+          },
+          "error_hint": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string"
+          },
+          "status_code": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "title": "VerifiableCredentialPrimingResponse contains the nonce to include in the proof-of-possession JWT.",
+        "type": "object"
+      },
+      "verifiableCredentialResponse": {
+        "properties": {
+          "credential_draft_00": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string"
+          }
+        },
+        "title": "VerifiableCredentialResponse contains the verifiable credential.",
+        "type": "object"
+      },
       "verifiableIdentityAddress": {
         "description": "VerifiableAddress is an identity's verifiable address",
         "properties": {
@@ -8330,7 +8500,7 @@
     },
     "/admin/oauth2/auth/requests/consent": {
       "get": {
-        "description": "When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, Ory asks the login provider\nto authenticate the subject and then tell Ory now about it. If the subject authenticated, they must now be asked if\nthe OAuth 2.0 Client which initiated the flow should be allowed to access the resources on the subject's behalf.\n\nThe consent challenge is appended to the consent provider's URL to which the subject's user-agent (browser) is redirected to. The consent\nprovider uses that challenge to fetch information on the OAuth2 request and then tells Ory if the subject accepted\nor rejected the request.\n\nThe default consent provider is available via the Ory Managed Account Experience. To customize the consent provider, please\nhead over to the OAuth 2.0 documentation.",
+        "description": "When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, Ory asks the login provider\nto authenticate the subject and then tell Ory now about it. If the subject authenticated, he/she must now be asked if\nthe OAuth 2.0 Client which initiated the flow should be allowed to access the resources on the subject's behalf.\n\nThe consent challenge is appended to the consent provider's URL to which the subject's user-agent (browser) is redirected to. The consent\nprovider uses that challenge to fetch information on the OAuth2 request and then tells Ory if the subject accepted\nor rejected the request.\n\nThe default consent provider is available via the Ory Managed Account Experience. To customize the consent provider, please\nhead over to the OAuth 2.0 documentation.",
         "operationId": "getOAuth2ConsentRequest",
         "parameters": [
           {
@@ -8386,7 +8556,7 @@
     },
     "/admin/oauth2/auth/requests/consent/accept": {
       "put": {
-        "description": "When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, Ory asks the login provider\nto authenticate the subject and then tell Ory now about it. If the subject authenticated, they must now be asked if\nthe OAuth 2.0 Client which initiated the flow should be allowed to access the resources on the subject's behalf.\n\nThe consent challenge is appended to the consent provider's URL to which the subject's user-agent (browser) is redirected to. The consent\nprovider uses that challenge to fetch information on the OAuth2 request and then tells Ory if the subject accepted\nor rejected the request.\n\nThis endpoint tells Ory that the subject has authorized the OAuth 2.0 client to access resources on his/her behalf.\nThe consent provider includes additional information, such as session data for access and ID tokens, and if the\nconsent request should be used as basis for future requests.\n\nThe response contains a redirect URL which the consent provider should redirect the user-agent to.\n\nThe default consent provider is available via the Ory Managed Account Experience. To customize the consent provider, please\nhead over to the OAuth 2.0 documentation.",
+        "description": "When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, Ory asks the login provider\nto authenticate the subject and then tell Ory now about it. If the subject authenticated, he/she must now be asked if\nthe OAuth 2.0 Client which initiated the flow should be allowed to access the resources on the subject's behalf.\n\nThe consent challenge is appended to the consent provider's URL to which the subject's user-agent (browser) is redirected to. The consent\nprovider uses that challenge to fetch information on the OAuth2 request and then tells Ory if the subject accepted\nor rejected the request.\n\nThis endpoint tells Ory that the subject has authorized the OAuth 2.0 client to access resources on his/her behalf.\nThe consent provider includes additional information, such as session data for access and ID tokens, and if the\nconsent request should be used as basis for future requests.\n\nThe response contains a redirect URL which the consent provider should redirect the user-agent to.\n\nThe default consent provider is available via the Ory Managed Account Experience. To customize the consent provider, please\nhead over to the OAuth 2.0 documentation.",
         "operationId": "acceptOAuth2ConsentRequest",
         "parameters": [
           {
@@ -8442,7 +8612,7 @@
     },
     "/admin/oauth2/auth/requests/consent/reject": {
       "put": {
-        "description": "When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, Ory asks the login provider\nto authenticate the subject and then tell Ory now about it. If the subject authenticated, they must now be asked if\nthe OAuth 2.0 Client which initiated the flow should be allowed to access the resources on the subject's behalf.\n\nThe consent challenge is appended to the consent provider's URL to which the subject's user-agent (browser) is redirected to. The consent\nprovider uses that challenge to fetch information on the OAuth2 request and then tells Ory if the subject accepted\nor rejected the request.\n\nThis endpoint tells Ory that the subject has not authorized the OAuth 2.0 client to access resources on his/her behalf.\nThe consent provider must include a reason why the consent was not granted.\n\nThe response contains a redirect URL which the consent provider should redirect the user-agent to.\n\nThe default consent provider is available via the Ory Managed Account Experience. To customize the consent provider, please\nhead over to the OAuth 2.0 documentation.",
+        "description": "When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, Ory asks the login provider\nto authenticate the subject and then tell Ory now about it. If the subject authenticated, he/she must now be asked if\nthe OAuth 2.0 Client which initiated the flow should be allowed to access the resources on the subject's behalf.\n\nThe consent challenge is appended to the consent provider's URL to which the subject's user-agent (browser) is redirected to. The consent\nprovider uses that challenge to fetch information on the OAuth2 request and then tells Ory if the subject accepted\nor rejected the request.\n\nThis endpoint tells Ory that the subject has not authorized the OAuth 2.0 client to access resources on his/her behalf.\nThe consent provider must include a reason why the consent was not granted.\n\nThe response contains a redirect URL which the consent provider should redirect the user-agent to.\n\nThe default consent provider is available via the Ory Managed Account Experience. To customize the consent provider, please\nhead over to the OAuth 2.0 documentation.",
         "operationId": "rejectOAuth2ConsentRequest",
         "parameters": [
           {
@@ -9962,6 +10132,56 @@
         "tags": ["project"]
       }
     },
+    "/credentials": {
+      "post": {
+        "description": "This endpoint creates a verifiable credential that attests that the user\nauthenticated with the provided access token owns a certain public/private key\npair.\n\nMore information can be found at\nhttps://openid.net/specs/openid-connect-userinfo-vc-1_0.html.",
+        "operationId": "createVerifiableCredential",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVerifiableCredentialRequestBody"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/verifiableCredentialResponse"
+                }
+              }
+            },
+            "description": "verifiableCredentialResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/verifiableCredentialPrimingResponse"
+                }
+              }
+            },
+            "description": "verifiableCredentialPrimingResponse"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorOAuth2"
+                }
+              }
+            },
+            "description": "errorOAuth2"
+          }
+        },
+        "summary": "Issues a Verifiable Credential",
+        "tags": ["oidc"]
+      }
+    },
     "/health/alive": {
       "get": {
         "description": "This endpoint returns a HTTP 200 status code when Ory Kratos is accepting incoming\nHTTP requests. This status does currently not include checks whether the database connection is working.\n\nIf the service supports TLS Edge Termination, this endpoint does not require the\n`X-Forwarded-Proto` header to be set.\n\nBe aware that if you are running multiple nodes of this service, the health status will never\nrefer to the cluster state, only to a single instance.",
@@ -10968,140 +11188,6 @@
         "tags": ["project"]
       }
     },
-    "/projects/{project_id}/members": {
-      "get": {
-        "description": "This endpoint requires the user to be a member of the project with the role `OWNER` or `DEVELOPER`.",
-        "operationId": "getProjectMembers",
-        "parameters": [
-          {
-            "description": "Project ID\n\nThe project's ID.",
-            "in": "path",
-            "name": "project_id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/projectMembers"
-                }
-              }
-            },
-            "description": "projectMembers"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          },
-          "406": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          }
-        },
-        "security": [
-          {
-            "oryAccessToken": []
-          }
-        ],
-        "summary": "Get all members associated with this project",
-        "tags": ["project"]
-      }
-    },
-    "/projects/{project_id}/members/{member_id}": {
-      "delete": {
-        "description": "This also sets their invite status to `REMOVED`.\nThis endpoint requires the user to be a member of the project with the role `OWNER`.",
-        "operationId": "removeProjectMember",
-        "parameters": [
-          {
-            "description": "Project ID\n\nThe project's ID.",
-            "in": "path",
-            "name": "project_id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Member ID",
-            "in": "path",
-            "name": "member_id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "$ref": "#/components/responses/emptyResponse"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          },
-          "406": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          }
-        },
-        "security": [
-          {
-            "oryAccessToken": []
-          }
-        ],
-        "summary": "Remove a member associated with this project",
-        "tags": ["project"]
-      }
-    },
     "/projects/{project_id}/metrics": {
       "get": {
         "description": "Retrieves project metrics for the specified event type and time range",
@@ -11203,6 +11289,137 @@
             "oryAccessToken": []
           }
         ],
+        "tags": ["project"]
+      }
+    },
+    "/projects/{project}/members": {
+      "get": {
+        "description": "This endpoint requires the user to be a member of the project with the role `OWNER` or `DEVELOPER`.",
+        "operationId": "getProjectMembers",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/projectMembers"
+                }
+              }
+            },
+            "description": "projectMembers"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "406": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Get all members associated with this project",
+        "tags": ["project"]
+      }
+    },
+    "/projects/{project}/members/{member}": {
+      "delete": {
+        "description": "This also sets their invite status to `REMOVED`.\nThis endpoint requires the user to be a member of the project with the role `OWNER`.",
+        "operationId": "removeProjectMember",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "member",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "406": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Remove a member associated with this project",
         "tags": ["project"]
       }
     },
@@ -12102,7 +12319,7 @@
     },
     "/self-service/login": {
       "post": {
-        "description": ":::info\n\nThis endpoint is EXPERIMENTAL and subject to potential breaking changes in the future.\n\n:::\n\nUse this endpoint to complete a login flow. This endpoint\nbehaves differently for API and browser flows.\n\nAPI flows expect `application/json` to be sent in the body and responds with\nHTTP 200 and a application/json body with the session token on success;\nHTTP 410 if the original flow expired with the appropriate error messages set and optionally a `use_flow_id` parameter in the body;\nHTTP 400 on form validation errors.\n\nBrowser flows expect a Content-Type of `application/x-www-form-urlencoded` or `application/json` to be sent in the body and respond with\na HTTP 303 redirect to the post/after login URL or the `return_to` value if it was set and if the login succeeded;\na HTTP 303 redirect to the login UI URL with the flow ID containing the validation errors otherwise.\n\nBrowser flows with an accept header of `application/json` will not redirect but instead respond with\nHTTP 200 and a application/json body with the signed in identity and a `Set-Cookie` header on success;\nHTTP 303 redirect to a fresh login flow if the original flow expired with the appropriate error messages set;\nHTTP 400 on form validation errors.\n\nIf this endpoint is called with `Accept: application/json` in the header, the response contains the flow without a redirect. In the\ncase of an error, the `error.id` of the JSON response body can be one of:\n\n`session_already_available`: The user is already signed in.\n`security_csrf_violation`: Unable to fetch the flow because a CSRF violation occurred.\n`security_identity_mismatch`: The requested `?return_to` address is not allowed to be used. Adjust this in the configuration!\n`browser_location_change_required`: Usually sent when an AJAX request indicates that the browser needs to open a specific URL.\nMost likely used in Social Sign In flows.\n\nMore information can be found at [Ory Kratos User Login](https://www.ory.sh/docs/kratos/self-service/flows/user-login) and [User Registration Documentation](https://www.ory.sh/docs/kratos/self-service/flows/user-registration).",
+        "description": "Use this endpoint to complete a login flow. This endpoint\nbehaves differently for API and browser flows.\n\nAPI flows expect `application/json` to be sent in the body and responds with\nHTTP 200 and a application/json body with the session token on success;\nHTTP 410 if the original flow expired with the appropriate error messages set and optionally a `use_flow_id` parameter in the body;\nHTTP 400 on form validation errors.\n\nBrowser flows expect a Content-Type of `application/x-www-form-urlencoded` or `application/json` to be sent in the body and respond with\na HTTP 303 redirect to the post/after login URL or the `return_to` value if it was set and if the login succeeded;\na HTTP 303 redirect to the login UI URL with the flow ID containing the validation errors otherwise.\n\nBrowser flows with an accept header of `application/json` will not redirect but instead respond with\nHTTP 200 and a application/json body with the signed in identity and a `Set-Cookie` header on success;\nHTTP 303 redirect to a fresh login flow if the original flow expired with the appropriate error messages set;\nHTTP 400 on form validation errors.\n\nIf this endpoint is called with `Accept: application/json` in the header, the response contains the flow without a redirect. In the\ncase of an error, the `error.id` of the JSON response body can be one of:\n\n`session_already_available`: The user is already signed in.\n`security_csrf_violation`: Unable to fetch the flow because a CSRF violation occurred.\n`security_identity_mismatch`: The requested `?return_to` address is not allowed to be used. Adjust this in the configuration!\n`browser_location_change_required`: Usually sent when an AJAX request indicates that the browser needs to open a specific URL.\nMost likely used in Social Sign In flows.\n\nMore information can be found at [Ory Kratos User Login](https://www.ory.sh/docs/kratos/self-service/flows/user-login) and [User Registration Documentation](https://www.ory.sh/docs/kratos/self-service/flows/user-registration).",
         "operationId": "updateLoginFlow",
         "parameters": [
           {
@@ -13042,7 +13259,7 @@
     },
     "/self-service/registration/browser": {
       "get": {
-        "description": "This endpoint initializes a browser-based user registration flow. This endpoint will set the appropriate\ncookies and anti-CSRF measures required for browser-based flows.\n\n:::info\n\nThis endpoint is EXPERIMENTAL and subject to potential breaking changes in the future.\n\n:::\n\nIf this endpoint is opened as a link in the browser, it will be redirected to\n`selfservice.flows.registration.ui_url` with the flow ID set as the query parameter `?flow=`. If a valid user session\nexists already, the browser will be redirected to `urls.default_redirect_url`.\n\nIf this endpoint is called via an AJAX request, the response contains the flow without a redirect. In the\ncase of an error, the `error.id` of the JSON response body can be one of:\n\n`session_already_available`: The user is already signed in.\n`security_csrf_violation`: Unable to fetch the flow because a CSRF violation occurred.\n`security_identity_mismatch`: The requested `?return_to` address is not allowed to be used. Adjust this in the configuration!\n\nIf this endpoint is called via an AJAX request, the response contains the registration flow without a redirect.\n\nThis endpoint is NOT INTENDED for clients that do not have a browser (Chrome, Firefox, ...) as cookies are needed.\n\nMore information can be found at [Ory Kratos User Login](https://www.ory.sh/docs/kratos/self-service/flows/user-login) and [User Registration Documentation](https://www.ory.sh/docs/kratos/self-service/flows/user-registration).",
+        "description": "This endpoint initializes a browser-based user registration flow. This endpoint will set the appropriate\ncookies and anti-CSRF measures required for browser-based flows.\n\nIf this endpoint is opened as a link in the browser, it will be redirected to\n`selfservice.flows.registration.ui_url` with the flow ID set as the query parameter `?flow=`. If a valid user session\nexists already, the browser will be redirected to `urls.default_redirect_url`.\n\nIf this endpoint is called via an AJAX request, the response contains the flow without a redirect. In the\ncase of an error, the `error.id` of the JSON response body can be one of:\n\n`session_already_available`: The user is already signed in.\n`security_csrf_violation`: Unable to fetch the flow because a CSRF violation occurred.\n`security_identity_mismatch`: The requested `?return_to` address is not allowed to be used. Adjust this in the configuration!\n\nIf this endpoint is called via an AJAX request, the response contains the registration flow without a redirect.\n\nThis endpoint is NOT INTENDED for clients that do not have a browser (Chrome, Firefox, ...) as cookies are needed.\n\nMore information can be found at [Ory Kratos User Login](https://www.ory.sh/docs/kratos/self-service/flows/user-login) and [User Registration Documentation](https://www.ory.sh/docs/kratos/self-service/flows/user-registration).",
         "operationId": "createBrowserRegistrationFlow",
         "parameters": [
           {
