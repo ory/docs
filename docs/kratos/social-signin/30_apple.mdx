@@ -27,9 +27,32 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
 1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the switch next to the Apple logo to start the configuration.
 3. Copy the Redirect URI and save it for later use.
-4. Using an Apple Developer Account, create an app, a service, and a private key.
-5. Copy the **Services ID** from the Apple registered app to the **Client ID** field in the form in the Ory Console.
-6. Add the saved Redirect URI from Ory to the **Return URLs** of the Apple registered application.
+4. Using an Apple Developer Account, create an app, a service, and a private key:
+   1. To set up an application, navigate to the Apple Developer Dashboard and go to [Certs, Identifiers, and Profiles then Identifiers](https://developer.apple.com/account/resources/identifiers/list).
+   2. Create a new [**App IDs** identifier](https://developer.apple.com/account/resources/identifiers/add/bundleId). When prompted for a type select **App**.
+   3. Enter a description and bundle ID of your liking.
+   4. Scroll down and select **Sign in with Apple**.
+   5. Click **Continue**, then **Register**.
+   6. Go back to the [Identifiers overview](https://developer.apple.com/account/resources/identifiers/list/serviceId).
+   7. Next to the search icon open the dropdown and select "Services IDs".
+   8. Create a new [Services ID](https://developer.apple.com/account/resources/identifiers/add/serviceId).
+   9. Choose a description of your liking. The identifier **must match** the App ID value.
+   10. Click **Continue**, then **Register**.
+   11. Click on the newly created service identifier and click the "Sign in with Apple" checkbox.
+   12. Click the **Configure** button and set the domains and subomain to match your Ory Network domain (or custom hostname).
+   13. Add the Redirect URI you received earlier and set it here as the return URL and click **Next**.
+   14. Click **Continue**, then **Save**.
+   15. Next, go to [**Keys**](https://developer.apple.com/account/resources/authkeys/list) and [register a new key](https://developer.apple.com/account/resources/authkeys/add).
+   16. Set a key name and enable **Sign in with Apple**. Next to Sign in with Apple, click **Configure**.
+   17. Use the App ID you created earlier as the primary AppID.
+   18. Click **Continue**, then **Register**.
+   19. **Download** the key and click **Done**.
+5. Copy the correct identifiers to the Ory Console Apple configuration:
+   * Client ID: Add the identifier of the Services ID (**not** the Bundle ID) you created in Apple. Not the ID of the App ID. Not the Team ID.
+   * Client Secret Signing Key: Paste the contents of your keyfile downloaded from Apple. Paste the entire key, including the BEGIN/END PRIVATE KEY lines.
+   * Apple Team ID: Add your Apple Team ID. In the Apple Developer Console top right menu, navigate to View Membership > Membership > Team ID.
+   * Key ID: Paste the key ID of your Apple key. To find this, navigate to your [Apple Keys](https://developer.apple.com/account/resources/authkeys/list) in the Apple Developer Console and open your key. Copy the **Key ID**.
+   * Private Key: Paste the contents of the downloaded files into the field in the Ory Console.
 7. In the **Scopes** field of the form in the Ory Console, add the following scope:
     - `email`
 8. Copy the following details from your registered application in Apple to the corresponding fields in the Ory Console form:
@@ -70,7 +93,7 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
 
 Follow these steps to add Apple as a social sign-in provider to your project using the Ory CLI:
 
-1. Using an Apple Developer Account, create an app, a service, and a private key.
+1. Using an Apple Developer Account, create an app, a service, and a private key. Check the Ory Console guide for the concrete steps.
 2. In the created app, set the redirect URI to:
 
    ```shell
