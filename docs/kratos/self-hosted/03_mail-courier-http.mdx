@@ -1,17 +1,17 @@
 ---
 id: email-http
-title: Mail API courier in self-hosted Ory Kratos
-sidebar_label: Sending emails
+title: HTTP based email delivery
+sidebar_label: Sending emails via HTTP API
 ---
 
-For sending Email by using an external mail provider instead of a local SMTP server, Ory Kratos can use a HTTP API (such as
+For sending emails by using an external mail provider instead of a local SMTP server, Ory Kratos can use an HTTP API (such as
 Mailchimp, your local mail sender, or your own microservice). Request method, headers, body, and content-type are fully
-configurable using options below.
+configurable using the options below.
 
 ## Configuration
 
-Default configuration doesn't use API calls to send mail. To enable it you need to set the "delivery_strategy" flag to "http",
-sender URL, authorization (if needed) and request body format. (if needed) and request body format.
+By default, Ory Kratos doesn't use API calls to send mail. To enable it please set the `delivery_strategy` configuration key to
+`http`, URL, authorization (if needed) and request body format.
 
 ### Request configuration
 
@@ -37,12 +37,12 @@ The configuration consists of:
 - `url` - the URL, which should be called (mandatory). It needs to be absolute, start with http:// or https:// scheme, and include
   path part - for example "https://api.sender.com/v1/message".
 - `method` - the HTTP method (GET, POST, ...) (mandatory)
-- `body` - URI of a JsonNet template, used to render the payload to send (optional). Use a `file://path/to/body.jsonnet` URL for
+- `body` - URI of a Jsonnet template, used to render the payload to send (optional). Use a `file://path/to/body.jsonnet` URL for
   referring to local files. This property is ignored for HTTP `method`s, which don't support sending of HTTP body payloads
   (TRACE).
 - `auth` - configuration of authentication and authorization mechanisms to be used by request
 
-Courier binds the `Recipient`, `TemplateType`, and `TemplateData` variables into the JsonNet template. These variables are
+The courier passes the `Recipient`, `TemplateType`, and `TemplateData` variables into the Jsonnet template. These variables are
 available through a `ctx` object. `Recipient` will always be the email address of the user. `TemplateType` and the fields in
 `TemplateData` are linked in the following way with each template type containing the fields listed below:
 
@@ -71,7 +71,7 @@ available through a `ctx` object. `Recipient` will always be the email address o
   - VerificationCode
   - Identity
 
-A universal jsonnet template to be sent to the mail provider endpoint would look like this:
+A universal Jsonnet template that works with all flows, would look like this:
 
 ```jsonnet
 function(ctx) {
@@ -87,19 +87,29 @@ function(ctx) {
 
 ```
 
+This is also the default, if no `body` is specified.
+
 ### Authentication and authorization
 
 For `auth` following mechanisms are supported:
 
-- Authentication via an Api Key. Type must be set to `api_key`.
-- Authentication via Basic Authentication. Type must be set to `basic_auth`.
+- Authentication via an API Key. `type` must be set to `api_key`.
+- Authentication via Basic Authentication. `type` must be set to `basic_auth`.
 
 For `api_key` the config looks as follows:
 
 ```yaml
-name: Some-Name
-value: The-Value-of-My-Key
-in: header # alternatively cookie
+courier:
+  delivery_strategy: http
+  http:
+    request_config:
+      # ... other config
+      auth:
+        type: api_key
+        config:
+          name: key-name
+          value: key-value
+          in: header # or cookie
 ```
 
 All properties are mandatory.
@@ -107,8 +117,16 @@ All properties are mandatory.
 For `basic_auth` the config looks as follows:
 
 ```yaml
-user: My-User
-password: My-Pass-Value
+courier:
+  delivery_strategy: http
+  http:
+    request_config:
+      # ... other config
+      auth:
+        type: basic_auth
+        config:
+          user: My-User
+          password: My-Pass-Value
 ```
 
 All properties are mandatory.
