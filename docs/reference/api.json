@@ -2568,6 +2568,10 @@
           "kratos_courier_smtp_headers": {
             "$ref": "#/components/schemas/nullJsonRawMessage"
           },
+          "kratos_courier_smtp_local_name": {
+            "description": "Configures the local_name to use in SMTP connections\n\nThis governs the \"courier.smtp.local_name\" setting.",
+            "type": "string"
+          },
           "kratos_courier_templates_recovery_code_invalid_email_body_html": {
             "description": "Configures the Ory Kratos Invalid Recovery via Code Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.recovery_code.invalid.email.body.html\" setting.",
             "type": "string"
