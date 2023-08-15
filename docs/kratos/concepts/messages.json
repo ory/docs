@@ -496,6 +496,16 @@
     "context": {}
   },
   {
+    "id": 4000028,
+    "text": "{reason}",
+    "type": "error",
+    "context": {
+      "available_credential_types": null,
+      "available_oidc_providers": null,
+      "credential_identifier_hint": ""
+    }
+  },
+  {
     "id": 4010001,
     "text": "The login flow expired 1.02 minutes ago, please try again.",
     "type": "error",
