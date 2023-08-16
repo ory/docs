@@ -29,6 +29,14 @@ application via an [iOS Universal Link](https://developer.apple.com/ios/universa
 [Android App Link](https://developer.android.com/training/app-links). The native application then exchanges the session token
 exchange code for a session token.
 
+:::info
+
+As part of this flow, Ory will redirect the browser to a callback. In this demo, we use the redirect URL
+`http://localhost:4457/Callback`. Please ensure that this
+[redirect URL is allowed](https://console.ory.sh/projects/current/browser-redirects)!
+
+:::
+
 The flow looks like this:
 
 ```mdx-code-block
