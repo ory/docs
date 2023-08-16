@@ -34,9 +34,7 @@ export const OryNetworkCta = () => {
             </span>
           </p>
         </div>
-        <div className="ory-network-cta__button">
-          {cta} <span aria-hidden>-‍&gt;</span>
-        </div>
+        <div className="ory-network-cta__button">{cta}</div>
       </div>
     </a>
   )
