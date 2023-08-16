@@ -2787,6 +2787,10 @@
             "description": "Configures the Ory Kratos Registration Lifespan\n\nThis governs the \"selfservice.flows.registration.lifespan\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_registration_login_hints": {
+            "description": "Configures the Ory Kratos Registration Login Hints\n\nShows helpful information when a user tries to sign up with a duplicate account.\n\nThis governs the \"selfservice.flows.registration.login_hints\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_flows_registration_ui_url": {
             "description": "Configures the Ory Kratos Registration UI URL\n\nThis governs the \"selfservice.flows.registration.ui_url\" setting.",
             "type": "string"
