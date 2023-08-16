@@ -28,7 +28,7 @@ kratos delete identity id-0 [id-1] [id-2] [id-n] [flags]
 ```
 To delete the identity with the recovery email address "foo@bar.com", run:
 
-	{{ .CommandPath }} $({{ .Root.Name }} list identities --format json | jq -r 'map(select(.recovery_addresses[].value == "foo@bar.com")) | .[].id')
+	kratos delete identity $(kratos list identities --format json | jq -r 'map(select(.recovery_addresses[].value == "foo@bar.com")) | .[].id')
 ```
 
 ### Options
