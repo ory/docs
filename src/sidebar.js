@@ -304,6 +304,7 @@ module.exports = {
       items: [
         "hydra/self-hosted/migrating-from-mitreid",
         "migrate-to-ory/auth0",
+        "migrate-to-ory/import-identities",
       ],
     },
     {
