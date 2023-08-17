@@ -411,6 +411,19 @@ import VideoEmbed from '@site/src/components/VideoEmbed'
 ```
 ````
 
+## Ory Console
+
+### Navigating to Ory Console Pages
+
+When referring to specific pages within Ory Console in the documentation, you
+can use the `/current/` route to navigate users to their currently active Ory
+Network project. For example, to access the Custom UI settings for the currently
+active Ory Network project in the Console, you can link to:
+https://console.ory.sh/projects/current/ui
+
+Using the `/current/` route you can dynamically direct users to the relevant
+sections based on their project context.
+
 ## Testing
 
 To test the documentation locally:
@@ -445,8 +458,9 @@ For a better workflow, install the Prettier plugin for your editor:
 
 ## Adding content to "Examples" page
 
-[The "Examples" page](https://www.ory.sh/docs/examples) provides an overview of
-Ory examples. To add a new example or modify existing entries:
+[The Quickstart overview](https://www.ory.sh/docs/getting-started/overview)
+provides an overview of Ory quickstarts. To add a new example or modify existing
+entries:
 
 1.  Open `examples-content.tsx` in `src/pages/_assets/`.
 2.  Copy the following snippet and append it to the correct array (either
