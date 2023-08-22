@@ -23,7 +23,7 @@ ory list projects
 
 ## Remove the configuration entry
 ory patch identity-config <project-id> \
-  --add '/selfservice/methods/oidc/config/base_redirect_uri="https://ory.ory.example.org"'
+  --add '/selfservice/methods/oidc/config/base_redirect_uri="https://ory.example.org"'
 ```
 
 After changing the base redirect URI you need to update the redirect URL of social sign-in providers you want to use. This is done
