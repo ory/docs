@@ -92,6 +92,7 @@
 @media (min-width: 1070px) {
   .ory-network-cta__button {
     display: block;
+    text-align: center;
   }
 
   .ory-network-cta__inline-get-started {
