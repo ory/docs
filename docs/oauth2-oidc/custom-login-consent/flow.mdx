@@ -220,6 +220,34 @@ The response contains information about the consent request. The body contains a
 interface must be shown. If skip is `true`, you shouldn't show the user interface but instead just accept or reject the consent
 request.
 
+## Flow steps
+
+1. The OAuth 2.0 Client initiates an Authorize Code, Hybrid, or Implicit flow. The user's user agent is redirect to
+   `https://{project-slug}.projects.oryapis.com/oauth2/auth?client_id=...&...`.
+2. Ory OAuth2, if unable to authenticate the user (= no session cookie exists), redirects the user's user agent to the Login
+   Provider URL. The application "sitting" at that URL is implemented by you and typically shows a login user interface ("Please
+   enter your username and password"). The URL the user is redirect to looks like
+   `https://example.org/oauth2-screens/login?login_challenge=1234...`.
+3. The Login Provider, once the user has logged in, tells Ory OAuth2 some information about who the user is (for example the
+   user's ID) and also that the login attempt was successful. This is done using a REST request which includes another redirect
+   URL like `https://{project-slug}.projects.oryapis.com/oauth2/auth?client_id=...&...&login_verifier=4321`.
+4. The user's user agent follows the redirect and lands back at Ory OAuth2. Next, Ory OAuth2 redirects the user's user agent to
+   the Consent Provider, hosted at - for example - `https://example.org/oauth2-screens/consent?consent_challenge=4567...`
+5. The Consent Provider shows a user interface which asks the user if they would like to grant the OAuth 2.0 Client the requested
+   permissions ("OAuth 2.0 Scope"). You've probably seen this screen around, which is something like: _"Would you like to grant
+   Facebook Image Backup access to all your private and public images?"_.
+6. The Consent Provider makes another REST request to Ory OAuth2 to let it know which permissions the user authorized, and if the
+   user authorized the request at all. The user can choose to not grant an application any access to his/her personal data. In the
+   response of that REST request, a redirect URL is included like
+   `https://{project-slug}.projects.oryapis.com/oauth2/auth?client_id=...&...&consent_verifier=7654...`.
+7. The user's user agent follows that redirect.
+8. Now, the user has authenticated and authorized the application. Next, Ory OAuth2 will run checks and if everything works out,
+   issue access, refresh, and ID tokens.
+
+This flow allows you to take full control of the behavior of your login system, authentication methods, and consent screen. A
+well-documented reference implementation for both the Login and Consent Provider is available
+[on GitHub](https://github.com/ory/hydra-login-consent-node).
+
 ## Sequence diagram
 
 ```mdx-code-block

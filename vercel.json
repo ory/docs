@@ -1045,6 +1045,11 @@
       "permanent": false
     },
     {
+      "source": "/docs/hydra/login-consent-flow",
+      "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
+      "permanent": false
+    },
+    {
       "source": "/docs/hydra/concepts/logout",
       "destination": "/docs/oauth2-oidc/oidc-logout",
       "permanent": false
