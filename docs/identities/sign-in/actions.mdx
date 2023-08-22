@@ -131,33 +131,6 @@ created account to get access to your services, but instead can access all the f
 1. Go to Ory Console → [**Base Settings**](https://console.ory.sh/projects/current/auth).
 2. Toggle **Sign In After Registration**.
 
-## Provide login hints to users
-
-When users attempt to sign up with an identifier (username, email address etc.) which has previously been registered, they will be
-presented an error explaining that an account is already on file and advising them to login to that account.
-
-If you have a number of different sign-in methods configured (say username and password plus one or more social sign-in
-providers), your users might not remember with which provider they initially signed up.
-
-You can configure your Ory Network project to provide login hints to your users in this scenario. If a user attempts to sign up
-but an account already exists, the error message will tell them exactly which sign-in provider to use instead.
-
-To enable these login hints, use the Ory CLI:
-
-```shell
-ory patch project ${project_id} \
-  --replace '/services/identity/config/selfservice/flows/registration/login_hints=true'
-```
-
-:::info
-
-This behavior improves the sign-in experience for your users, but comes at the cost of exposing information about which sign-in
-mehods a particular account identifier has associated with it.
-
-Do not enable this feature if account enumeration attacks are a risk factor in your threat model.
-
-:::
-
 ## Show verification after successful registration
 
 If you want to show the verification screen after registration, follow these steps:
