@@ -87,6 +87,7 @@ module.exports = {
                   ],
                 },
                 "kratos/social-signin/get-tokens",
+                "identities/sign-in/social-sign-in/redirect-url",
                 "kratos/social-signin/data-mapping",
                 "kratos/social-signin/account-linking",
                 "kratos/social-signin/native-apps",
