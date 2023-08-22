@@ -1,0 +1,48 @@
+:root {
+  --ory-network-cta-height: 400px;
+}
+
+.ory-toc-wrapper {
+  max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
+  overflow: auto;
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 1rem);
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+Selector for TOC wrapper only if the announcement banner
+is active.
+First part pins down the announcement banner, as its class
+seems too fragile. Then select its siblings and therein the
+TOC wrapper.
+ */
+#__docusaurus > div > [role="banner"] ~ * .ory-toc-wrapper {
+  max-height: calc(
+    100vh -
+      (
+        var(--ifm-navbar-height) + 2rem +
+          var(--docusaurus-announcement-bar-height)
+      )
+  );
+}
+
+.ory-toc-wrapper > :first-child {
+  max-height: calc(100% - 5rem);
+  position: unset;
+  top: unset;
+  flex-shrink: 1;
+}
+
+.kapa-widget-placeholder {
+  /* Kapa widget height */
+  min-height: 80px;
+  /*
+    Our margin from bottom is 16px, kapa's margin is 20 px.
+    Compensate for the missing 4px
+  */
+  margin-bottom: 4px;
+  /* Add usual margin around kapa */
+  margin-top: 20px;
+}

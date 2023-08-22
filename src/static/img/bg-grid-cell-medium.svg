@@ -1,0 +1,14 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip0_1428_577571)">
+    <path opacity="0.1" d="M48 64H56H64V56V48M48 64V56V48M48 64H40H32M32 64V56V48M32 64H24H16M16 64V56V48M16 64H8H0V56V48M64 48H56H48M64 48V40V32M48 48H40H32M48 48V40V32M32 48H24H16M32 48V40V32M16 48H8H0M16 48V40V32M0 48V40V32M64 32H56H48M64 32V24V16M48 32H40H32M48 32V24V16M32 32H24H16M32 32V24V16M16 32H8H0M16 32V24V16M0 32V24V16M64 16H56H48M64 16V8V0H56H48M48 16H40H32M48 16V8V0M32 16H24H16M32 16V8V0M16 16H8H0M16 16V8V0M0 16V8V0H8H16M48 0H40H32M32 0H24H16" stroke="#000"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.00138 0L0.00137973 1.74845e-07L0.00137991 4H0.5V0.5H4.00138V0Z" fill="#000"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.4969e-07 60L0 64H4V63.5H0.5V60H3.4969e-07Z" fill="#000"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M64.0006 4V4.72083e-06H60.0006L60 0.5H63.5V4L64.0006 4Z" fill="#000"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M60 64H64V60H63.5V63.5H60V64Z" fill="#000"/>
+  </g>
+  <defs>
+    <clipPath id="clip0_1428_577571">
+      <rect width="64" height="64" fill="white"/>
+    </clipPath>
+  </defs>
+</svg>
