@@ -1,0 +1,16 @@
+---
+id: iframes
+title: Troubleshoot iframe related issues
+sidebar_label: Troubleshooting iframes
+---
+
+Iframes can pose a significant security risk for authentication services due to many attack vectors such as clickjacking, iframe
+injection, iframe phishing, and many others.
+
+Safari has additionally implemented a feature called
+[Intelligent Tracking Prevention](https://webkit.org/blog/7675/intelligent-tracking-prevention/) that blocks third-party cookies
+by default in iframe contexts, which breaks authentication, CSRF-prevention, and sessions. Chrome is planning on rolling out the
+same changes in 2024.
+
+We therefore discourage use of iframes when using Ory and have implemented HTTP headers (`X-Frame-Options: DENY`) indicating to
+browsers that iframes can not be used with the Ory Account Experience.
