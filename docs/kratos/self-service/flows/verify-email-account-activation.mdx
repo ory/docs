@@ -271,6 +271,64 @@ For more information see the [hooks configuration](../../hooks/01_configure-hook
 </Tabs>
 ```
 
+### Carry over verified status from Social Sign-In
+
+Some Social Sign-In providers like Google return the verified status of the email address. To carry over the verified status from
+the Social Sign-In provider, return `verified_addresses` in your Social Sign-In JsonNet snippet:
+
+```jsonnet
+local claims = {
+  email_verified: false,
+} + std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+      given_name: claims.given_name,
+      family_name: claims.family_name,
+    },
+    verified_addresses: std.prune([
+      // Carry over verified status from Social Sign-In provider.
+      if 'email' in claims && claims.email_verified then { via: 'email', value: claims.email },
+    ]),
+  },
+}
+```
+
+Please note that this only works if the verified address is also present in the identity's traits and marked as a verifiable
+email.
+
+```json5 title="Example identity schema"
+{
+  $id: "https://example.com/person.schema.json",
+  $schema: "http://json-schema.org/draft-07/schema#",
+  title: "Person",
+  type: "object",
+  properties: {
+    traits: {
+      type: "object",
+      properties: {
+        email: {
+          format: "email",
+          type: "string",
+          "ory.sh/kratos": {
+            // highlight-start
+            verification: {
+              via: "email",
+            },
+            // highlight-end
+          },
+        },
+      },
+      required: ["subject"],
+    },
+  },
+}
+```
+
+If the verified address is not present in the identity's traits, the verified status is not carried over.
+
 ## Choosing the right strategy
 
 Ory supports two strategies for verifying your user's addresses.
