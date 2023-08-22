@@ -95,6 +95,7 @@ module.exports = {
             },
             "identities/sign-in/check-session",
             "identities/sign-in/actions",
+            "identities/sign-in/login-hint",
           ],
         },
         {
