@@ -142,7 +142,7 @@ smtp://{YOUR_POSTMARK_SEVER_API_TOKEN}:{YOUR_POSTMARK_SEVER_API_TOKEN}@smtp.post
 ## Send emails using an HTTP server
 
 Ory Identities supports sending emails using an HTTP server. This is useful if you want to customize the email content or use a
-service that does not provide an SMTP server.
+service that doesn't provide an SMTP server.
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli-http-email">
@@ -171,7 +171,7 @@ service that does not provide an SMTP server.
          body: base64://... # See below for the default payload and available variables
          headers:
            Content-Type: application/json
-         auth: # leave out, if your server does not require authentication, but note that we do not recommend that
+         auth: # leave out, if your server doesn't require authentication, but note that we don't recommend that
            type: basic_auth # or api_key
            config:
              username: my-username
@@ -190,7 +190,7 @@ service that does not provide an SMTP server.
 
 ### Payload
 
-The payload of the HTTP request is a JSON object that is generated using a Jsonnet template. By default, the following payload is
+The payload of the HTTP request is a JSON object that's generated using a Jsonnet template. By default, the following payload is
 sent:
 
 ```jsonnet
@@ -211,14 +211,14 @@ The courier passes the `Recipient`, `TemplateType`, and `TemplateData` variables
 available through the `ctx` object. `Recipient` will always be the email address of the user. `TemplateType` and the fields in
 `TemplateData` are linked in the following way with each template type containing the fields listed below:
 
-This will produce a JSON object, that contains all data, that is available in the email. You can customize the payload
+This will produce a JSON object, that contains all data available in the email. You can customize the payload
 
 ```mdx-code-block
 </TabItem>
 <TabItem value="console" label="Ory Console (coming soon)" disabled>
 ```
 
-The Ory Console does not support configuring this yet. Please use the Ory CLI instead.
+The Ory Console doesn't support configuring this yet. Please use the Ory CLI instead.
 
 ```mdx-code-block
 </TabItem>
