@@ -83,11 +83,11 @@ Recommendations from NIST, ANSSI, IAD-NSA, BSI, Lenstra, and others vary between
 cryptography based on discrete logarithms (RSA). 4096 exceeds all recommendations for 2017 from all authorities, see
 [https://www.keylength.com/en/compare/](https://www.keylength.com/en/compare/).
 
-All RS* (RS256, RS512, ...) families are supported.
+All RS\* (RS256, RS512, ...) families are supported.
 
 ### ECDSA
 
-Is used to sign JWTs. All ES* families are supported.
+Is used to sign JWTs. All ES\* families are supported.
 
 ### HMAC-SHA256
 
