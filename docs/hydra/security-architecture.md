@@ -71,7 +71,7 @@ used to encrypt data at rest, this might only impose a problem if
 2. an attacker gains access to the datastore where &gt; 2^32 documents are stored
 3. the attacker can exploit repeats, for example by authenticating malicious documents
 
-### RS256
+### RSA
 
 RSASSA-PKCS1-v1_5 using SHA-256 (RS256) is used to sign JWTs. Its use is recommended by the JWA specification, see
 [https://www.rfc-editor.org/rfc/rfc7518.txt](https://www.rfc-editor.org/rfc/rfc7518.txt)
@@ -82,6 +82,12 @@ The RSA Key size is 4096 bits long, exceeding the minimum requirement of 2048 bi
 Recommendations from NIST, ANSSI, IAD-NSA, BSI, Lenstra, and others vary between 1300 and 2048-bit key lengths for asymmetric
 cryptography based on discrete logarithms (RSA). 4096 exceeds all recommendations for 2017 from all authorities, see
 [https://www.keylength.com/en/compare/](https://www.keylength.com/en/compare/).
+
+All RS* (RS256, RS512, ...) families are supported.
+
+### ECDSA
+
+Is used to sign JWTs. All ES* families are supported.
 
 ### HMAC-SHA256
 
