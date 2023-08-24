@@ -1,7 +1,7 @@
 ---
 id: sending-emails-smtp
-title: Use a custom SMTP server to send recovery and verification messages to users
-sidebar_label: SMTP server configuration
+title: Use a custom server to send recovery and verification messages to users
+sidebar_label: Email delivery configuration
 ---
 
 ```mdx-code-block
@@ -137,6 +137,92 @@ smtp://{YOUR_POSTMARK_SEVER_API_TOKEN}:{YOUR_POSTMARK_SEVER_API_TOKEN}@smtp.post
 
 # For example:
 # smtp://thetoken:thetoken@smtp.postmarkapp.com:587/
+```
+
+## Send emails using an HTTP server
+
+Ory Identities supports sending emails using an HTTP server. This is useful if you want to customize the email content or use a
+service that doesn't provide an SMTP server.
+
+```mdx-code-block
+<Tabs groupId="console-or-cli-http-email">
+<TabItem value="cli" label="Ory CLI" default>
+```
+
+1. Download the Ory Identities config from your project and save it to a file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ```
+
+2. Add the configuration for your custom HTTP server
+
+   ```yaml title="config.yml"
+   courier:
+     delivery_method: http
+     http:
+       request_config:
+         url: https://mail-sender.example.com
+         method: POST
+         body: base64://... # See below for the default payload and available variables
+         headers:
+           Content-Type: application/json
+         auth: # leave out, if your server doesn't require authentication, but note that we don't recommend that
+           type: basic_auth # or api_key
+           config:
+             username: my-username
+             password: my-password
+             # if you want to use an API key (type: api_key), use the following config instead:
+             # name: my-api-name
+             # value: my-api-key-value
+             # in: header # or cookie
+   ```
+
+3. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config {project-id} --file updated_config.yaml
+   ```
+
+### Payload
+
+The payload of the HTTP request is a JSON object that's generated using a Jsonnet template. By default, the following payload is
+sent:
+
+```jsonnet
+function(ctx) {
+  recipient: ctx.Recipient,
+  template_type: ctx.TemplateType,
+  to: if "TemplateData" in ctx && "To" in ctx.TemplateData then ctx.TemplateData.To else null,
+  recovery_code: if "TemplateData" in ctx && "RecoveryCode" in ctx.TemplateData then ctx.TemplateData.RecoveryCode else null,
+  recovery_url: if "TemplateData" in ctx && "RecoveryURL" in ctx.TemplateData then ctx.TemplateData.RecoveryURL else null,
+  verification_url: if "TemplateData" in ctx && "VerificationURL" in ctx.TemplateData then ctx.TemplateData.VerificationURL else null,
+  verification_code: if "TemplateData" in ctx && "VerificationCode" in ctx.TemplateData then ctx.TemplateData.VerificationCode else null,
+  subject: ctx.Subject,
+  body: ctx.Body
+}
+```
+
+The courier passes the `Recipient`, `TemplateType`, and `TemplateData` variables into the Jsonnet template. These variables are
+available through the `ctx` object. `Recipient` will always be the email address of the user. `TemplateType` and the fields in
+`TemplateData` are linked in the following way with each template type containing the fields listed below:
+
+This will produce a JSON object, that contains all data available in the email. You can customize the payload
+
+```mdx-code-block
+</TabItem>
+<TabItem value="console" label="Ory Console (coming soon)" disabled>
+```
+
+The Ory Console doesn't support configuring this yet. Please use the Ory CLI instead.
+
+```mdx-code-block
+</TabItem>
+</Tabs>
 ```
 
 ## Troubleshooting
