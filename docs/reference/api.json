@@ -265,6 +265,9 @@
         "nullable": true,
         "type": "string"
       },
+      "OAuth2LoginChallengeParams": {
+        "type": "object"
+      },
       "ParseError": {
         "properties": {
           "end": {
@@ -7527,13 +7530,11 @@
             }
           },
           {
-            "description": "Pagination Page\n\nThis value is currently an integer, but it is not sequential. The value is not the page number, but a\nreference. The next page can be any number and some numbers might return an empty list.\n\nFor example, page 2 might not follow after page 1. And even if page 3 and 5 exist, but page 4 might not exist.",
+            "description": "Pagination Page\n\nThis value is currently an integer, but it is not sequential. The value is not the page number, but a\nreference. The next page can be any number and some numbers might return an empty list.\n\nFor example, page 2 might not follow after page 1. And even if page 3 and 5 exist, but page 4 might not exist.\nThe first page can be retrieved by omitting this parameter. Following page pointers will be returned in the\n`Link` header.",
             "in": "query",
             "name": "page",
             "schema": {
-              "default": 1,
               "format": "int64",
-              "minimum": 1,
               "type": "integer"
             }
           },
@@ -8129,13 +8130,11 @@
             }
           },
           {
-            "description": "Pagination Page\n\nThis value is currently an integer, but it is not sequential. The value is not the page number, but a\nreference. The next page can be any number and some numbers might return an empty list.\n\nFor example, page 2 might not follow after page 1. And even if page 3 and 5 exist, but page 4 might not exist.",
+            "description": "Pagination Page\n\nThis value is currently an integer, but it is not sequential. The value is not the page number, but a\nreference. The next page can be any number and some numbers might return an empty list.\n\nFor example, page 2 might not follow after page 1. And even if page 3 and 5 exist, but page 4 might not exist.\nThe first page can be retrieved by omitting this parameter. Following page pointers will be returned in the\n`Link` header.",
             "in": "query",
             "name": "page",
             "schema": {
-              "default": 1,
               "format": "int64",
-              "minimum": 1,
               "type": "integer"
             }
           },
@@ -12234,13 +12233,11 @@
             }
           },
           {
-            "description": "Pagination Page\n\nThis value is currently an integer, but it is not sequential. The value is not the page number, but a\nreference. The next page can be any number and some numbers might return an empty list.\n\nFor example, page 2 might not follow after page 1. And even if page 3 and 5 exist, but page 4 might not exist.",
+            "description": "Pagination Page\n\nThis value is currently an integer, but it is not sequential. The value is not the page number, but a\nreference. The next page can be any number and some numbers might return an empty list.\n\nFor example, page 2 might not follow after page 1. And even if page 3 and 5 exist, but page 4 might not exist.\nThe first page can be retrieved by omitting this parameter. Following page pointers will be returned in the\n`Link` header.",
             "in": "query",
             "name": "page",
             "schema": {
-              "default": 1,
               "format": "int64",
-              "minimum": 1,
               "type": "integer"
             }
           }
