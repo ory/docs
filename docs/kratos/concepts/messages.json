@@ -198,16 +198,16 @@
   },
   {
     "id": 1050015,
-    "text": "{code-1}, {code-2}",
+    "text": "{secrets_list}",
     "type": "info",
     "context": {
       "secrets": [
         {
           "id": 1050009,
-          "text": "{code}",
+          "text": "{secret}",
           "type": "info",
           "context": {
-            "secret": "{code}"
+            "secret": "{secret}"
           }
         },
         {
@@ -242,7 +242,7 @@
   },
   {
     "id": 1060001,
-    "text": "You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 0.02 minutes.",
+    "text": "You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 1.00 minutes.",
     "type": "success",
     "context": {
       "privilegedSessionExpiresAt": "2020-01-01T01:01:00Z"
@@ -335,7 +335,8 @@
   {
     "id": 4000001,
     "text": "{reason}",
-    "type": "error"
+    "type": "error",
+    "context": {}
   },
   {
     "id": 4000002,
@@ -349,13 +350,18 @@
     "id": 4000003,
     "text": "length must be \u003e= 5, but got 3",
     "type": "error",
-    "context": {}
+    "context": {
+      "actual_length": 3,
+      "min_length": 5
+    }
   },
   {
     "id": 4000004,
-    "text": "does not match pattern \"^[a-z]*$\"",
+    "text": "does not match pattern \"{pattern}\"",
     "type": "error",
-    "context": {}
+    "context": {
+      "pattern": "{pattern}"
+    }
   },
   {
     "id": 4000005,
@@ -386,12 +392,14 @@
   {
     "id": 4000009,
     "text": "Could not find any login identifiers. Did you forget to set them? This could also be caused by a server misconfiguration.",
-    "type": "error"
+    "type": "error",
+    "context": {}
   },
   {
     "id": 4000010,
     "text": "Account not active yet. Did you forget to verify your email address?",
-    "type": "error"
+    "type": "error",
+    "context": {}
   },
   {
     "id": 4000011,
@@ -433,61 +441,91 @@
     "id": 4000017,
     "text": "length must be \u003c= 5, but got 6",
     "type": "error",
-    "context": {}
+    "context": {
+      "actual_length": 6,
+      "max_length": 5
+    }
   },
   {
     "id": 4000018,
     "text": "must be \u003e= 5 but found 3",
     "type": "error",
-    "context": {}
+    "context": {
+      "actual": 3,
+      "minimum": 5
+    }
   },
   {
     "id": 4000019,
     "text": "must be \u003e 5 but found 5",
     "type": "error",
-    "context": {}
+    "context": {
+      "actual": 5,
+      "minimum": 5
+    }
   },
   {
     "id": 4000020,
     "text": "must be \u003c= 5 but found 6",
     "type": "error",
-    "context": {}
+    "context": {
+      "actual": 6,
+      "maximum": 5
+    }
   },
   {
     "id": 4000021,
     "text": "must be \u003c 5 but found 5",
     "type": "error",
-    "context": {}
+    "context": {
+      "actual": 5,
+      "maximum": 5
+    }
   },
   {
     "id": 4000022,
-    "text": "7 not multipleOf 3",
+    "text": "3 not multipleOf 7",
     "type": "error",
-    "context": {}
+    "context": {
+      "actual": 3,
+      "base": 7
+    }
   },
   {
     "id": 4000023,
     "text": "maximum 3 items allowed, but found 4 items",
     "type": "error",
-    "context": {}
+    "context": {
+      "actual_items": 4,
+      "max_items": 3
+    }
   },
   {
     "id": 4000024,
     "text": "minimum 3 items allowed, but found 2 items",
     "type": "error",
-    "context": {}
+    "context": {
+      "actual_items": 2,
+      "min_items": 3
+    }
   },
   {
     "id": 4000025,
     "text": "items at index 0 and 2 are equal",
     "type": "error",
-    "context": {}
+    "context": {
+      "index_a": 0,
+      "index_b": 2
+    }
   },
   {
     "id": 4000026,
-    "text": "expected number, but got string",
+    "text": "expected {allowed_types_list}, but got {actual_type}",
     "type": "error",
-    "context": {}
+    "context": {
+      "actual_type": "{actual_type}",
+      "allowed_types": ["{allowed_types_list}"]
+    }
   },
   {
     "id": 4000027,
@@ -506,8 +544,54 @@
     }
   },
   {
+    "id": 4000029,
+    "text": "must be equal to constant {expected}",
+    "type": "error",
+    "context": {
+      "expected": "{expected}"
+    }
+  },
+  {
+    "id": 4000030,
+    "text": "const failed",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000031,
+    "text": "The password can not be used because it is too similar to the identifier.",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000032,
+    "text": "The password must be at least 6 characters long, but got 5.",
+    "type": "error",
+    "context": {
+      "actual_length": 5,
+      "min_length": 6
+    }
+  },
+  {
+    "id": 4000033,
+    "text": "The password must be at most 72 characters long, but got 80.",
+    "type": "error",
+    "context": {
+      "actual_length": 80,
+      "max_length": 72
+    }
+  },
+  {
+    "id": 4000034,
+    "text": "The password has been found in data breaches and must no longer be used.",
+    "type": "error",
+    "context": {
+      "breaches": 101
+    }
+  },
+  {
     "id": 4010001,
-    "text": "The login flow expired 1.02 minutes ago, please try again.",
+    "text": "The login flow expired 1.00 minutes ago, please try again.",
     "type": "error",
     "context": {
       "expired_at": "2020-01-01T00:59:59Z"
@@ -540,7 +624,7 @@
   },
   {
     "id": 4040001,
-    "text": "The registration flow expired -0.02 minutes ago, please try again.",
+    "text": "The registration flow expired 1.00 minutes ago, please try again.",
     "type": "error",
     "context": {
       "expired_at": "2020-01-01T00:59:59Z"
@@ -548,7 +632,7 @@
   },
   {
     "id": 4050001,
-    "text": "The settings flow expired -0.02 minutes ago, please try again.",
+    "text": "The settings flow expired 1.00 minutes ago, please try again.",
     "type": "error",
     "context": {
       "expired_at": "2020-01-01T00:59:59Z"
@@ -574,7 +658,7 @@
   },
   {
     "id": 4060005,
-    "text": "The recovery flow expired -0.02 minutes ago, please try again.",
+    "text": "The recovery flow expired 1.00 minutes ago, please try again.",
     "type": "error",
     "context": {
       "expired_at": "2020-01-01T00:59:59Z"
@@ -606,7 +690,7 @@
   },
   {
     "id": 4070005,
-    "text": "The verification flow expired -0.02 minutes ago, please try again.",
+    "text": "The verification flow expired 1.00 minutes ago, please try again.",
     "type": "error",
     "context": {
       "expired_at": "2020-01-01T00:59:59Z"
