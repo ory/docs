@@ -27,6 +27,7 @@ keto relation-tuple create <relationships.json> [<relationships-dir>] [flags]
 
 ```
       --authority string                      Set the authority header for the remote gRPC server.
+      --block                                 Block until all migrations have been applied
       --format string                         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help                                  help for create
       --insecure-disable-transport-security   Disables transport security. Do not use this in production.

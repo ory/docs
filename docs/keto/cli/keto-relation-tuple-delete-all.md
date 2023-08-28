@@ -26,6 +26,7 @@ keto relation-tuple delete-all [flags]
 
 ```
       --authority string                      Set the authority header for the remote gRPC server.
+      --block                                 Block until all migrations have been applied
       --force                                 Force the deletion of relationships
       --format string                         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help                                  help for delete-all

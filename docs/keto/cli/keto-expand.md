@@ -25,6 +25,7 @@ keto expand <relation> <namespace> <object> [flags]
 
 ```
       --authority string                      Set the authority header for the remote gRPC server.
+      --block                                 Block until all migrations have been applied
       --format string                         Set the output format. One of default, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help                                  help for expand
       --insecure-disable-transport-security   Disables transport security. Do not use this in production.
