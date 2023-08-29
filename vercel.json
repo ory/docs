@@ -1138,6 +1138,16 @@
       "source": "/docs/kratos/guides/security-questions-best-practice",
       "destination": "/docs/kratos/concepts/security",
       "permanent": false
+    },
+    {
+      "source": "/docs/1-hydra/2-overview/1-oauth2",
+      "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/latest/9-telemetry",
+      "destination": "/docs/kratos/guides/tracing",
+      "permanent": false
     }
   ]
 }
