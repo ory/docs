@@ -83,6 +83,17 @@
     "type": "info"
   },
   {
+    "id": 1010014,
+    "text": "An email containing a code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and retry the login.",
+    "type": "info",
+    "context": {}
+  },
+  {
+    "id": 1010015,
+    "text": "Sign in with code",
+    "type": "info"
+  },
+  {
     "id": 1040001,
     "text": "Sign up",
     "type": "info",
@@ -104,6 +115,17 @@
   {
     "id": 1040004,
     "text": "Sign up with security key",
+    "type": "info"
+  },
+  {
+    "id": 1040005,
+    "text": "An email containing a code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and retry the registration.",
+    "type": "info",
+    "context": {}
+  },
+  {
+    "id": 1040006,
+    "text": "Sign up with code",
     "type": "info"
   },
   {
@@ -313,6 +335,16 @@
   {
     "id": 1070011,
     "text": "Verification code",
+    "type": "info"
+  },
+  {
+    "id": 1070012,
+    "text": "Registration code",
+    "type": "info"
+  },
+  {
+    "id": 1070013,
+    "text": "Login code",
     "type": "info"
   },
   {
@@ -590,6 +622,18 @@
     }
   },
   {
+    "id": 4000035,
+    "text": "This account does not exist or has not setup sign in with code.",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4000036,
+    "text": "The provided traits do not match the traits previously associated with this flow.",
+    "type": "error",
+    "context": {}
+  },
+  {
     "id": 4010001,
     "text": "The login flow expired 1.00 minutes ago, please try again.",
     "type": "error",
@@ -623,12 +667,36 @@
     "type": "error"
   },
   {
+    "id": 4010007,
+    "text": "The request was already completed successfully and can not be retried.",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4010008,
+    "text": "The login code is invalid or has already been used. Please try again.",
+    "type": "error",
+    "context": {}
+  },
+  {
     "id": 4040001,
     "text": "The registration flow expired 1.00 minutes ago, please try again.",
     "type": "error",
     "context": {
       "expired_at": "2020-01-01T00:59:59Z"
     }
+  },
+  {
+    "id": 4040002,
+    "text": "The request was already completed successfully and can not be retried.",
+    "type": "error",
+    "context": {}
+  },
+  {
+    "id": 4040003,
+    "text": "The registration code is invalid or has already been used. Please try again.",
+    "type": "error",
+    "context": {}
   },
   {
     "id": 4050001,
