@@ -1024,8 +1024,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1010001,
   "text": "Sign in",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1035,8 +1034,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1010001,
   "text": "Sign in with security key",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1059,8 +1057,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1010003,
   "text": "Please confirm this action by verifying that it is you.",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1070,8 +1067,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1010004,
   "text": "Please complete the second authentication challenge.",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1081,8 +1077,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1010005,
   "text": "Verify",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1092,8 +1087,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1010006,
   "text": "Authentication code",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1103,8 +1097,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1010007,
   "text": "Backup recovery code",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1124,8 +1117,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1010009,
   "text": "Use Authenticator",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1135,8 +1127,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1010010,
   "text": "Use backup recovery code",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1156,8 +1147,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1010012,
   "text": "Prepare your WebAuthn device (e.g. security key, biometrics scanner, ...) and press continue.",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1177,8 +1167,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1010014,
   "text": "An email containing a code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and retry the login.",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1198,8 +1187,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1040001,
   "text": "Sign up",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1242,8 +1230,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1040005,
   "text": "An email containing a code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and retry the registration.",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1417,7 +1404,8 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "text": "Secret was used at 2020-01-01 00:59:59 +0000 UTC",
   "type": "info",
   "context": {
-    "used_at": "2020-01-01T00:59:59Z"
+    "used_at": "2020-01-01T00:59:59Z",
+    "used_at_unix": 1577840399
   }
 }
 ```
@@ -1444,7 +1432,8 @@ The section below is auto-generated. Changing it has no effect as any changes wi
         "text": "Secret was used at 2020-01-01 00:59:59 +0000 UTC",
         "type": "info",
         "context": {
-          "used_at": "2020-01-01T00:59:59Z"
+          "used_at": "2020-01-01T00:59:59Z",
+          "used_at_unix": 1577840399
         }
       }
     ]
@@ -1472,16 +1461,17 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### Remove security key "{name}" (1050018)
+###### Remove security key "{display_name}" (1050018)
 
 ```json
 {
   "id": 1050018,
-  "text": "Remove security key \"{name}\"",
+  "text": "Remove security key \"{display_name}\"",
   "type": "info",
   "context": {
     "added_at": "2020-01-01T00:59:59Z",
-    "display_name": "{name}"
+    "added_at_unix": 1577840399,
+    "display_name": "{display_name}"
   }
 }
 ```
@@ -1494,7 +1484,9 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "text": "You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 1.00 minutes.",
   "type": "success",
   "context": {
-    "privilegedSessionExpiresAt": "2020-01-01T01:01:00Z"
+    "privilegedSessionExpiresAt": "2020-01-01T01:01:00Z",
+    "privileged_session_expires_at": "2020-01-01T01:01:00Z",
+    "privileged_session_expires_at_unix": 1577840460
   }
 }
 ```
@@ -1505,8 +1497,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1060002,
   "text": "An email containing a recovery link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1516,8 +1507,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1060003,
   "text": "An email containing a recovery code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1537,7 +1527,10 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1070002,
   "text": "{title}",
-  "type": "info"
+  "type": "info",
+  "context": {
+    "title": "{title}"
+  }
 }
 ```
 
@@ -1657,8 +1650,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1080001,
   "text": "An email containing a verification link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1678,8 +1670,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1080003,
   "text": "An email containing a verification code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
-  "type": "info",
-  "context": {}
+  "type": "info"
 }
 ```
 
@@ -1690,19 +1681,21 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "id": 4000001,
   "text": "{reason}",
   "type": "error",
-  "context": {}
+  "context": {
+    "reason": "{reason}"
+  }
 }
 ```
 
-###### Property {field} is missing. (4000002)
+###### Property {property} is missing. (4000002)
 
 ```json
 {
   "id": 4000002,
-  "text": "Property {field} is missing.",
+  "text": "Property {property} is missing.",
   "type": "error",
   "context": {
-    "property": "{field}"
+    "property": "{property}"
   }
 }
 ```
@@ -1753,8 +1746,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000006,
   "text": "The provided credentials are invalid, check for spelling mistakes in your password or username, email address, or phone number.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -1764,8 +1756,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000007,
   "text": "An account with the same identifier (email, phone, username, ...) exists already.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -1775,8 +1766,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000008,
   "text": "The provided authentication code is invalid, please try again.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -1786,8 +1776,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000009,
   "text": "Could not find any login identifiers. Did you forget to set them? This could also be caused by a server misconfiguration.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -1797,8 +1786,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000010,
   "text": "Account not active yet. Did you forget to verify your email address?",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -1808,8 +1796,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000011,
   "text": "You have no TOTP device set up.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -1819,8 +1806,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000012,
   "text": "This backup recovery code has already been used.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -1830,8 +1816,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000013,
   "text": "You have no WebAuthn device set up.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -1841,8 +1826,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000014,
   "text": "You have no backup recovery codes set up.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -1852,8 +1836,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000015,
   "text": "This account does not exist or has no security key set up.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -1863,8 +1846,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000016,
   "text": "The backup recovery code is not valid.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2014,22 +1996,21 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000027,
   "text": "An account with the same identifier (email, phone, username, ...) exists already. Please sign in to your existing account and link your social profile in the settings page.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
-###### {reason} (4000028)
+###### You tried signing in with {credential_identifier_hint} which is already in use by another account. You can sign in using {available_credential_types_list}. You can sign in using one of the following social sign in providers: {Available_oidc_providers_list}. (4000028)
 
 ```json
 {
   "id": 4000028,
-  "text": "{reason}",
+  "text": "You tried signing in with {credential_identifier_hint} which is already in use by another account. You can sign in using {available_credential_types_list}. You can sign in using one of the following social sign in providers: {Available_oidc_providers_list}.",
   "type": "error",
   "context": {
-    "available_credential_types": null,
-    "available_oidc_providers": null,
-    "credential_identifier_hint": ""
+    "available_credential_types": ["{available_credential_types_list}"],
+    "available_oidc_providers": ["{available_oidc_providers_list}"],
+    "credential_identifier_hint": "{credential_identifier_hint}"
   }
 }
 ```
@@ -2053,8 +2034,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000030,
   "text": "const failed",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2064,8 +2044,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000031,
   "text": "The password can not be used because it is too similar to the identifier.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2116,8 +2095,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000035,
   "text": "This account does not exist or has not setup sign in with code.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2127,8 +2105,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4000036,
   "text": "The provided traits do not match the traits previously associated with this flow.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2140,7 +2117,8 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "text": "The login flow expired 1.00 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T00:59:59Z"
+    "expired_at": "2020-01-01T00:59:59Z",
+    "expired_at_unix": 1577840399
   }
 }
 ```
@@ -2201,8 +2179,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4010007,
   "text": "The request was already completed successfully and can not be retried.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2212,8 +2189,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4010008,
   "text": "The login code is invalid or has already been used. Please try again.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2225,7 +2201,8 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "text": "The registration flow expired 1.00 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T00:59:59Z"
+    "expired_at": "2020-01-01T00:59:59Z",
+    "expired_at_unix": 1577840399
   }
 }
 ```
@@ -2236,8 +2213,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4040002,
   "text": "The request was already completed successfully and can not be retried.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2247,8 +2223,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4040003,
   "text": "The registration code is invalid or has already been used. Please try again.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2260,7 +2235,8 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "text": "The settings flow expired 1.00 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T00:59:59Z"
+    "expired_at": "2020-01-01T00:59:59Z",
+    "expired_at_unix": 1577840399
   }
 }
 ```
@@ -2271,8 +2247,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4060001,
   "text": "The request was already completed successfully and can not be retried.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2282,8 +2257,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4060002,
   "text": "The recovery flow reached a failure state and must be retried.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2293,8 +2267,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4060004,
   "text": "The recovery token is invalid or has already been used. Please retry the flow.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2306,7 +2279,8 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "text": "The recovery flow expired 1.00 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T00:59:59Z"
+    "expired_at": "2020-01-01T00:59:59Z",
+    "expired_at_unix": 1577840399
   }
 }
 ```
@@ -2317,8 +2291,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4060006,
   "text": "The recovery code is invalid or has already been used. Please try again.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2328,8 +2301,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4070001,
   "text": "The verification token is invalid or has already been used. Please retry the flow.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2339,8 +2311,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4070002,
   "text": "The request was already completed successfully and can not be retried.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2350,8 +2321,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4070003,
   "text": "The verification flow reached a failure state and must be retried.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2363,7 +2333,8 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "text": "The verification flow expired 1.00 minutes ago, please try again.",
   "type": "error",
   "context": {
-    "expired_at": "2020-01-01T00:59:59Z"
+    "expired_at": "2020-01-01T00:59:59Z",
+    "expired_at_unix": 1577840399
   }
 }
 ```
@@ -2374,8 +2345,7 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4070006,
   "text": "The verification code is invalid or has already been used. Please try again.",
-  "type": "error",
-  "context": {}
+  "type": "error"
 }
 ```
 
@@ -2386,7 +2356,9 @@ The section below is auto-generated. Changing it has no effect as any changes wi
   "id": 5000001,
   "text": "{reason}",
   "type": "error",
-  "context": {}
+  "context": {
+    "reason": "{reason}"
+  }
 }
 ```
 
