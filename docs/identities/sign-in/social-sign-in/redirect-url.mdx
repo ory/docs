@@ -21,7 +21,7 @@ To change the redirect URL to your custom domain, you need to update the `base_r
 ## List all available projects
 ory list projects
 
-## Remove the configuration entry
+## Add OIDC base redirect URI
 ory patch identity-config <project-id> \
   --add '/selfservice/methods/oidc/config/base_redirect_uri="https://ory.example.org"'
 ```
