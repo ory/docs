@@ -5,11 +5,6 @@
     "type": "info"
   },
   {
-    "id": 1010001,
-    "text": "Sign in with security key",
-    "type": "info"
-  },
-  {
     "id": 1010002,
     "text": "Sign in with {provider}",
     "type": "info",
@@ -180,11 +175,6 @@
   {
     "id": 1050011,
     "text": "Confirm backup recovery codes",
-    "type": "info"
-  },
-  {
-    "id": 1050012,
-    "text": "Add security key",
     "type": "info"
   },
   {
