@@ -53,7 +53,7 @@ For example, to update an identity schema named "Customer Type 1", follow these 
 1. Enter a new name in the **Identity Model Schema** text box, for example "Customer Type 2".
 1. Click the **Update** button to save.
 
-It's recommeneded to manage identity schemas in version control. Learn more about
+It's recommended to manage identity schemas in version control. Learn more about
 [managing Ory Network configuration in git](http://ory.sh/docs/guides/gitops).
 
 ## Update identities to use a new schema
@@ -105,7 +105,7 @@ the steps 4 to 7 or check out the example code for bulk updating identities belo
 
    Save the file.
 
-1. In order update the identity, you need to use the
+1. In order to update the identity, you need to use the
    [Admin API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity). The API requires the Ory Network
    [Project slug](https://console.ory.sh/projects/current/developers/guides) and
    [API Key](https://console.ory.sh/projects/current/developers). Set them as environment variables:
@@ -123,8 +123,8 @@ the steps 4 to 7 or check out the example code for bulk updating identities belo
    -H'Content-Type: application/json'
    ```
 
-This should return the modified identity as response. Now, you have migrated a single identity to a new identity schema. If you
-have more identities to be patched to the new schema, repeat the above process for each of them.
+This should return the modified identity as the response. Now, you have migrated a single identity to a new identity schema. If
+you have more identities to be patched to the new schema, repeat the above process for each of them.
 
 ### Bulk update identities to use a new schema
 
