@@ -1,0 +1,75 @@
+---
+id: one-time-code
+title: Passwordless authentication with One-Time Code
+sidebar_label: One-Time Code
+---
+
+# One-Time Code
+
+Ory Network allows users to authenticate through a one-time code sent via email. This is useful for use-cases where users need to
+be onboarded through a minimal authentication process.
+
+## Configuration
+
+By default the One-Time Code strategy is disabled. To start using the One-Time code strategy, apply this configuration:
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="console" label="Ory Console UI">
+      You can enable passwordless with One-Time code in the Ory Network Console UI in the <b>Authentication/Passwordless Login</b> menu.
+  </TabItem>
+  <TabItem value="cloud" label="Ory CLI">
+    <CodeBlock language="shell">{`ory patch identity-config <your-project-id> \\
+  --add '/selfservice/methods/code/passwordless_enabled=true'`}</CodeBlock>
+  </TabItem>
+  <TabItem value="macos" label="Full Config" default>
+    <CodeBlock language="yaml" title="config.yml">{`selfservice:
+  methods:
+    code:
+      passwordless_enabled: true`}</CodeBlock>
+  </TabItem>
+</Tabs>
+```
+
+## (Custom) Identity Schema
+
+All Ory identity schema presets are One-Time Code ready.
+
+If you want to use a custom identity schema, you must define which field of the identity schema is the primary identifier for the
+One-Time Code strategy.
+
+```json5 title="identity.schema.json" {16-19}
+{
+  $schema: "http://json-schema.org/draft-07/schema#",
+  type: "object",
+  properties: {
+    traits: {
+      type: "object",
+      properties: {
+        email: {
+          type: "string",
+          format: "email",
+          title: "Your E-Mail",
+          minLength: 3,
+          "ory.sh/kratos": {
+            credentials: {
+              // ...
+              code: {
+                identifier: true,
+                via: "email",
+              },
+            },
+            // ...
+          },
+        },
+        // ...
+      },
+      // ...
+    },
+  },
+}
+```
