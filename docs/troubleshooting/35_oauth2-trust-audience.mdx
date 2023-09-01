@@ -4,6 +4,10 @@ title: Troubleshooting OAuth2 JWT Profile
 sidebar_label: OAuth2 JWT Profile
 ---
 
-When using a custom domain and the [OAuth2 JWT profile](../hydra/guides/jwt.mdx), the audience required will be the project's
-`oryapis.com` domain. To allow the audience being the custom domain, set the
-[OAuth2 Issuer URL of your project to your custom domain](../oauth2-oidc/issuer-url.mdx).
+If you're experiencing issues on Ory Network related to the required audience for the
+[OAuth2 JWT profile](../hydra/guides/jwt.mdx) while using a custom domain, follow these troubleshooting steps:
+
+- When using the [OAuth2 JWT profile](../hydra/guides/jwt.mdx), the default required audience will be the
+  `https://{project.slug}.projects.oryapis.com` domain associated with your Ory Network project.
+- To use your custom domain as the audience instead, update the OAuth2 Issuer URL of your project to match your custom domain.
+  Refer to [Change the OAuth2 issuer URL](../oauth2-oidc/issuer-url.mdx) for instructions on how to change the OAuth2 Issuer URL.
