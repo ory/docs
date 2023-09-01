@@ -1,0 +1,9 @@
+---
+id: oauth2-trust-audience
+title: Troubleshooting OAuth2 JWT Profile
+sidebar_label: OAuth2 JWT Profile
+---
+
+When using a custom domain and the [OAuth2 JWT profile](../hydra/guides/jwt.mdx), the audience required will be the project's
+`oryapis.com` domain. To allow the audience being the custom domain, set the
+[OAuth2 Issuer URL of your project to your custom domain](../oauth2-oidc/issuer-url.mdx).
