@@ -4,13 +4,12 @@ title: Passwordless authentication with one-time password
 sidebar_label: One-time code
 ---
 
-
 Ory Network allows users to authenticate through a one-time code sent via email. This is useful for use-cases where users need to
 be onboarded through a minimal authentication process.
 
 ## Configuration
 
-By default the One-Time Code strategy is disabled. To start using the One-Time code strategy, apply this configuration:
+By default the one-time code strategy is disabled. To start using the one-time code strategy, apply this configuration:
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
@@ -19,7 +18,7 @@ import TabItem from '@theme/TabItem';
 
 <Tabs>
   <TabItem value="console" label="Ory Console UI">
-      You can enable passwordless with One-Time code in the Ory Network Console UI in the <b>Authentication/Passwordless Login</b> menu.
+      You can enable passwordless with one-time code in the Ory Network Console UI in the <b>Authentication/Passwordless Login</b> menu.
   </TabItem>
   <TabItem value="cloud" label="Ory CLI">
     <CodeBlock language="shell">{`ory patch identity-config <your-project-id> \\
@@ -36,10 +35,10 @@ import TabItem from '@theme/TabItem';
 
 ## Custom identity schema
 
-All Ory identity schema presets are One-Time Code ready.
+All Ory identity schema presets are one-time code ready.
 
 If you want to use a custom identity schema, you must define which field of the identity schema is the primary identifier for the
-One-Time Code strategy.
+one-time code strategy.
 
 ```json5 title="identity.schema.json" {16-19}
 {
