@@ -282,6 +282,7 @@ module.exports = {
         },
       ],
     },
+    "account-experience/index",
     {
       type: "category",
       label: "Ory CLI",
