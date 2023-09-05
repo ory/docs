@@ -50,7 +50,7 @@ For example, to update an identity schema named "Customer Type 1", follow these 
 1. Sign in to Ory Console and select [**Identity Schema**](https://console.ory.sh/projects/current/identity-schema).
 1. Using the dropdown menu, select the "Customer Type 1" schema.
 1. Check the **Customize Identity Schema** box to enable editing and make the necessary changes.
-1. Enter a new name in the **Identity Model Schema** text box, for example "Customer Type 2".
+1. Enter a new name in the **Identity Model Schema** text box, for example, "Customer Type 2".
 1. Click the **Update** button to save.
 
 It's recommended to manage identity schemas in version control. Learn more about
@@ -107,7 +107,8 @@ the steps 4 to 7 or check out the example code for bulk updating identities belo
 
 Using the [patchIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/operation/patchIdentity), you can change the
 identity schema and traits directly.
-This is the recommended way to update identities.
+
+Using patchIdentity is the recommended way to update identities.
 
 ```bash
 curl --location --request PATCH "https://$ORY_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID" \
@@ -138,8 +139,8 @@ curl --location --request PATCH "https://$ORY_SLUG.projects.oryapis.com/admin/id
 
 :::note
 
-This example is using the [Ory Go SDK](https://github.com/ory/client-go). If you wish to use a different programming language for identity schema migration, you can apply the same logic using the [Ory SDK for your programming language](https://www.ory.sh/docs/sdk). Ory can also provide
-sample code in your preferred language. Please contact `support@ory.sh`.
+This example uses the [Ory Go SDK](https://github.com/ory/client-go). If you wish to use a different programming language for identity schema migration, you can apply the same logic using the [Ory SDK for your programming language](https://www.ory.sh/docs/sdk). Ory can also provide
+example code in your preferred language. Please contact `support@ory.sh`.
 
 :::
 
