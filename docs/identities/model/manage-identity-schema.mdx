@@ -132,6 +132,8 @@ curl --location --request PATCH "https://$ORY_SLUG.projects.oryapis.com/admin/id
 ]'
 ```
 
+This should return the modified identity as the response.
+
 </TabItem>
 
 <TabItem value="updateidentitygo" label="Ory SDK">
@@ -242,29 +244,29 @@ Update the identity using the [updateIdentity API](https://www.ory.sh/docs/refer
 
 1. Save the existing identity
 
-```bash
-export IDENTITY_ID={IDENTITY_ID}
-ory get identity $IDENTITY_ID --project $PROJECT_ID --format json-pretty > identity-$IDENTITY_ID.json
-```
+    ```bash
+    export IDENTITY_ID={IDENTITY_ID}
+    ory get identity $IDENTITY_ID --project $PROJECT_ID --format json-pretty > identity-$IDENTITY_ID.json
+    ```
 
 1. Update the saved JSON to match the new identity schema
 
-```diff
--"schema_id" : "{old-schema-id}",
-+"schema_id" : "{new-schema-id}",
-"traits": {
--"foo": "foobar"
-+"bar": barfoo
-}
-```
+    ```diff
+    -"schema_id" : "{old-schema-id}",
+    +"schema_id" : "{new-schema-id}",
+    "traits": {
+    -"foo": "foobar"
+    +"bar": barfoo
+    }
+    ```
 
 1. Update the identity using PUT
 
-```bash
-curl -d "@identity-$IDENTITY_ID.json" -X PUT https://$ORY_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID \
--H "Authorization: Bearer $ORY_API_KEY" \
--H'Content-Type: application/json'
-```
+    ```bash
+    curl -d "@identity-$IDENTITY_ID.json" -X PUT https://$ORY_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID \
+    -H "Authorization: Bearer $ORY_API_KEY" \
+    -H'Content-Type: application/json'
+    ```
 
 :::info
 
@@ -272,11 +274,11 @@ The [updateIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/oper
 
 :::
 
+This should return the modified identity as the response.
+
 </TabItem>
 </Tabs>
 ````
-
-This should return the modified identity as the response.
 
 Now, you have migrated a single identity to a new identity schema. If you have more identities to be patched to the new schema,
 repeat the above process for each of them.
