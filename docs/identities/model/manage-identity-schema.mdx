@@ -74,7 +74,7 @@ the steps 4 to 7 or check out the example code for bulk updating identities belo
     ```
 
 1.  Create a new identity with the updated schema - through the registration interface or [Ory Console](https://console.ory.sh/)
-    and note down the `schema_id` and `schema_url` of the identity you just created.
+    and copy the `schema_id` of the identity you just created.
 
     ![Identity schema ID and URL](../_assets/session-information.png)
 
@@ -98,13 +98,12 @@ the steps 4 to 7 or check out the example code for bulk updating identities belo
     ```
 
     Assess the required updates in traits. You need to add, remove, or update existing traits to match the new identity schema.
-    You also need to change the `schema_id` and `schema_url` to the new schema. For instance, adding a new trait and removing an
-    old trait:
+    You also need to change the `schema_id` to the new schema. For instance, adding a new trait and removing an old trait:
 
 ````mdx-code-block
 
 <Tabs>
-<TabItem value="updateidentitypatch" label="patchIdentity" default>
+<TabItem value="updateidentitypatch" label="cURL and patchIdentity" default>
 
 Using the [patchIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/operation/patchIdentity), you can change the
 identity schema and traits directly.
@@ -121,11 +120,6 @@ curl --location --request PATCH "https://$ORY_SLUG.projects.oryapis.com/admin/id
     "value": "{new-schema-id}"
 },
 {
-    "op": "replace",
-    "path": "/schema_url",
-    "value": "{new-schema-url}"
-},
-{
     "op": "remove",
     "path": "/traits/foo"
 },
@@ -138,7 +132,105 @@ curl --location --request PATCH "https://$ORY_SLUG.projects.oryapis.com/admin/id
 ```
 
 </TabItem>
-<TabItem value="updateidentityput" label="updateIdentity">
+
+<TabItem value="updateidentitygo" label="Ory SDK">
+
+
+:::note
+
+This example is using the [Ory Go SDK](https://github.com/ory/client-go). If you wish to use a different programming language for identity schema migration, you can apply the same logic using the [Ory SDK for your programming language](https://www.ory.sh/docs/sdk). Ory can also provide
+sample code in your preferred language. Please contact `support@ory.sh`.
+
+:::
+
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+
+	client "github.com/ory/client-go"
+)
+
+const (
+	YOUR_ORY_API_KEY        = "{api-key}" // Add your API key here
+	YOUR_ORY_PROJECT_SLUG   = "{project-slug}" // Add your project slug here
+	UPDATE_TO_NEW_SCHEMA_ID = "{new-schema-id}" // Add the new schema ID here
+	IDENTITY_ID_TO_UPDATE   = "{identity-id}" // Add the identity ID to update here
+)
+
+func main() {
+	if err := migrateSchema(UPDATE_TO_NEW_SCHEMA_ID, IDENTITY_ID_TO_UPDATE); err != nil {
+		panic(err)
+	}
+}
+
+func migrateSchema(toSchema, identityID string) error {
+	// Initialize the client configuration
+	cfg := client.NewConfiguration()
+	cfg.Servers = client.ServerConfigurations{
+		{
+			URL: fmt.Sprintf("https://%s.projects.oryapis.com", YOUR_ORY_PROJECT_SLUG),
+		},
+	}
+
+	// Create an instance of the API client
+	ory := client.NewAPIClient(cfg)
+
+	// Set the access token
+	ctx := context.Background()
+	ctx = context.WithValue(ctx, client.ContextAccessToken, YOUR_ORY_API_KEY)
+
+	// Check if the new schema exists
+	_, _, err := ory.IdentityApi.GetIdentitySchema(ctx, toSchema).Execute()
+	if err != nil {
+		return err
+	}
+
+	// Check if the identity exists
+	identity, _, err := ory.IdentityApi.GetIdentity(ctx, identityID).Execute()
+	if err != nil {
+		return err
+	}
+	if identity.SchemaId == toSchema {
+		fmt.Println("already migrated, no update required")
+		return nil
+	}
+
+	// Prepare the JSON patch for the update
+	jsonPatch := []client.JsonPatch{
+		{Op: "replace", Path: "/schema_id", Value: toSchema},
+	}
+
+	// Apply the JSON patch to update the identity
+	_, _, err = ory.IdentityApi.PatchIdentity(ctx, identityID).JsonPatch(jsonPatch).Execute()
+	if err != nil {
+		return err
+	}
+
+	// Verify that the schema was updated
+	updatedIdentity, _, err := ory.IdentityApi.GetIdentity(ctx, identityID).Execute()
+	if err != nil {
+		return err
+	}
+
+	if updatedIdentity.SchemaId != toSchema {
+		return fmt.Errorf("schema wasn't updated")
+	}
+
+	fmt.Println("Identity schema updated 🎉")
+
+	return nil
+}
+
+```
+
+</TabItem>
+
+
+<TabItem value="updateidentitycurlput" label="cURL and updateIdentity">
 
 Update the identity using the [updateIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity):
 
@@ -153,9 +245,7 @@ ory get identity $IDENTITY_ID --project $PROJECT_ID --format json-pretty > ident
 
 ```diff
 -"schema_id" : "{old-schema-id}",
--"schema_url" : "{old-schema-url}",
 +"schema_id" : "{new-schema-id}",
-+"schema_url" : "{new-schema-url}",
 "traits": {
 -"foo": "foobar"
 +"bar": barfoo
@@ -177,7 +267,6 @@ The [updateIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/oper
 :::
 
 </TabItem>
-
 </Tabs>
 ````
 
@@ -185,82 +274,3 @@ This should return the modified identity as the response.
 
 Now, you have migrated a single identity to a new identity schema. If you have more identities to be patched to the new schema,
 repeat the above process for each of them.
-
-### Bulk update identities to use a new schema
-
-This example code updates all existing user identities after the identity schema has been changed. Please run a test before using
-this code in production.
-
-<Tabs>
-<TabItem value="updateschemago" label="Go" default>
-
-```go
-import (
-    "context"
-    "fmt"
-    "github.com/sirupsen/logrus"
-    "github.com/ory/client-go"
-)
-
-const ( YOUR_ORY_PAT = "...." YOUR_ORY_SDK_URL = "https://YOUR_PROJECT.projects.oryapis.com" UPDATE_TO_NEW_SCHEMA_ID =
-"f086edf7eb1d4e78731d4409303cdd173fab4b1e6ca79c09871290103d7c22072c252773792b29621f9ac272ced5ffa9ee63420a81f6dff6850c07a7cb26c2e4"
-IDENTITY_ID_TO_UPDATE = "3974b38c-6622-417a-a1c2-532b06f67264" )
-
-func main() {
-    if err := migrateSchema(UPDATE_TO_NEW_SCHEMA_ID, IDENTITY_ID_TO_UPDATE); err != nil {
-        panic(err)
-    }
-}
-
-func migrateSchema(toSchema, identityID string) error {
-    conf := client.NewConfiguration()
-    conf.Servers = client.ServerConfigurations{
-        {
-            URL: YOUR_ORY_SDK_URL,
-        },
-    }
-    oc := client.NewAPIClient(conf)
-
-    ctx := context.Background()
-    ctx = context.WithValue(ctx, client.ContextAccessToken, YOUR_ORY_PAT)
-
-    // Check if the new schema exists
-    _, _, err := oc.V0alpha2Api.GetIdentitySchema(ctx, toSchema).Execute()
-    if err != nil {
-        logrus.Debug("error getting schema")
-        return err
-    }
-
-    // Check if the identity exists
-    identity, _, err := oc.V0alpha2Api.AdminGetIdentity(ctx, identityID).Execute()
-    if err != nil {
-        logrus.Debug("error getting identity")
-        return err
-    }
-    if identity.SchemaId == toSchema {
-        fmt.Println("already migrated, no update required")
-        return nil
-    }
-
-    // Update identity traits with new schema
-    traits := identity.GetTraits().(map[string]interface{})
-    body := client.NewAdminUpdateIdentityBody(toSchema, *identity.State, traits)
-
-    updatedId, _, err := oc.V0alpha2Api.AdminUpdateIdentity(ctx, identityID).AdminUpdateIdentityBody(*body).Execute()
-    if err != nil {
-        logrus.Debug("error running update")
-        return err
-    }
-
-    if updatedId.SchemaId != toSchema {
-        return fmt.Errorf("schema wasn't updated")
-    }
-
-    fmt.Println("done")
-
-    return nil
-}
-```
-
-</TabItem>
-</Tabs>
