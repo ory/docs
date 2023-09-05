@@ -1,6 +1,6 @@
 ---
 id: sending-emails-smtp
-title: Use a custom server to send recovery and verification messages to users
+title: Use a custom server to send Ory Identity messages to users
 sidebar_label: Email delivery configuration
 ---
 
@@ -202,6 +202,8 @@ function(ctx) {
   recovery_url: if "TemplateData" in ctx && "RecoveryURL" in ctx.TemplateData then ctx.TemplateData.RecoveryURL else null,
   verification_url: if "TemplateData" in ctx && "VerificationURL" in ctx.TemplateData then ctx.TemplateData.VerificationURL else null,
   verification_code: if "TemplateData" in ctx && "VerificationCode" in ctx.TemplateData then ctx.TemplateData.VerificationCode else null,
+  login_code: if "TemplateData" in ctx && "LoginCode" in ctx.TemplateData then ctx.TemplateData.LoginCode else null,
+  registration_code: if "TemplateData" in ctx && "RegistrationCode" in ctx.TemplateData then ctx.TemplateData.RegistrationCode else null,
   subject: ctx.Subject,
   body: ctx.Body
 }

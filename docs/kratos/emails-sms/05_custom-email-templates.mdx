@@ -1,6 +1,6 @@
 ---
 id: custom-email-templates
-title: Customize message templates for recovery and verification emails
+title: Customize message templates for Ory Identity emails
 sidebar_label: Email templates
 ---
 
@@ -46,7 +46,7 @@ To read more about the recovery flow, read
 ```
 
 When you set the account verification method to `code`, the system uses the `verification_code.valid` template to send the
-verification code and a URL to the form to the user.
+verification code and a URL to the user.
 
 If you enabled notifications to unknown recipients, the `verification_code.invalid` template is used.
 
@@ -59,6 +59,36 @@ If you set the account verification method to `link`, the system uses these temp
 
 To read more about the verification flow, read
 [Email and phone verification](../self-service/flows/verify-email-account-activation.mdx).
+
+:::
+
+```mdx-code-block
+</TabItem>
+
+<TabItem value="login" label="Login code">
+```
+
+When you enable the one-time code method the login flow will need to send out an email to users signing in through the one-time
+code method. The system will then use the `login_code.valid` template to send the login code to the user.
+
+:::info
+
+To read more about login via a one-time code, read the [one-time code](../passwordless/06_code.mdx) documentation.
+
+:::
+
+```mdx-code-block
+</TabItem>
+
+<TabItem value="registration" label="Registration code">
+```
+
+When you enable the one-time code method the registration flow will need to send out an email to users signing up using the
+one-time code method. The system will then use the `registration_code.valid` template to send the registration code to the user.
+
+:::info
+
+To read more about registration via a one-time code, read the [one-time code](../passwordless/06_code.mdx) documentation.
 
 :::
 
@@ -102,28 +132,38 @@ from the **Email Templates** section at the bottom of the page.
    courier:
      smtp:
        from_name: MyProject via Ory
-     templates:
-       recovery:
-         invalid:
-           email:
-             body: { "html": "base64://ENCODED_HTML_TEMPLATE", "plaintext": "base64://ENCODED_PLAINTEXT_TEMPLATE" }
-         valid:
-           email:
-             body: {}
-       verification:
-         invalid:
-           email:
-             body: {}
-         valid:
-           email:
-             body: {}
+       templates:
+         recovery:
+           invalid:
+             email:
+               body: { "html": "base64://ENCODED_HTML_TEMPLATE", "plaintext": "base64://ENCODED_PLAINTEXT_TEMPLATE" }
+           valid:
+             email:
+               body: {}
+         verification:
+           invalid:
+             email:
+               body: {}
+           valid:
+             email:
+               body: {}
+         login:
+           valid:
+             email:
+               body: {}
+         registration:
+           valid:
+             email:
+               body: {}
    ```
+
+````
 
 3. Upload the edited config:
 
    ```shell
    ory update identity-config <project-id> --file updated_config.yaml
-   ```
+````
 
 :::warning
 
@@ -247,6 +287,29 @@ For the `verification.invalid` template, the following variables are available:
 | Variable | Description |
 | --- | --- |
 | `To` | the email address the email will be sent to |
+
+</TabItem>
+<TabItem value="login_code" label="Login (via code)">
+
+For the `login_code.valid` template, the following variables are available:
+
+| Variable | Description |
+| --- | --- |
+| `To` |  the email address to whom the email is sent |
+| `LoginCode` | the login code |
+| `Identity` | the identity of the email address |
+
+</TabItem>
+
+<TabItem value="registration_code" label="Registration (via code)">
+
+For the `registration_code.valid` template, the following variables are available:
+
+| Variable | Description |
+| --- | --- |
+| `To` | the email address to whom the email is sent |
+| `RegistrationCode` | the registration code |
+| `Traits` | the provided traits as specified by the Identity Schema |
 
 </TabItem>
 </Tabs>
