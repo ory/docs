@@ -65,66 +65,126 @@ the same steps by using the API or Ory Kratos CLI.
 The following steps are for updating one identity. If you have more identities that should be patched to the new schema, repeat
 the steps 4 to 7 or check out the example code for bulk updating identities below.
 
-1. Retrieve the Project ID.
+1.  Retrieve the Project ID.
 
-   ```bash
-   ory list projects
+    ```bash
+    ory list projects
 
-   export PROJECT_ID={project-id}
-   ```
+    export PROJECT_ID={project-id}
+    ```
 
-1. Create a new identity with the updated schema - through the registration interface or [Ory Console](https://console.ory.sh/)
-   and note down the `schema_id` and `schema_url` of the identity you just created.
+1.  Create a new identity with the updated schema - through the registration interface or [Ory Console](https://console.ory.sh/)
+    and note down the `schema_id` and `schema_url` of the identity you just created.
 
-   ![Identity schema ID and URL](../_assets/session-information.png)
+    ![Identity schema ID and URL](../_assets/session-information.png)
 
-1. Get all identities of the project using the following command:
+1.  Get all identities of the project using the following command:
 
-   ```bash
-   ory list identities --project $PROJECT_ID --format json-pretty
-   ```
+    ```bash
+    ory list identities --project $PROJECT_ID --format json-pretty
+    ```
 
-1. Find the identity to be updated and note down their `id`. Save the full identity to a file using the following command:
+1.  Find the identity to be updated and note down their `id`.
 
-   ```bash
-   export IDENTITY_ID={IDENTITY_ID}
-   ory get identity $IDENTITY_ID --project $PROJECT_ID --format json-pretty > identity-$IDENTITY_ID.json
-   ```
+1.  To update the identity, you need to use the
+    [Admin API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity). The API requires the Ory Network
+    [Project slug](https://console.ory.sh/projects/current/developers/guides),
+    [API Key](https://console.ory.sh/projects/current/developers), and identity ID. Set them as environment variables:
 
-1. Assess the required updates in traits. Remove the credential object, since you don't want to change credentials. You then need
-   to add, remove, or update the traits to match the new identity schema. You also need to change the `schema_id` and `schema_url`
-   to the new ones. For instance, adding two new traits and removing an old one:
+    ```bash
+    export ORY_API_KEY={api-key}
+    export ORY_SLUG={project-slug}
+    export IDENTITY_ID={identity-id}
+    ```
 
-   ```diff
-   "traits": {
-   +"name": "Bob",
-   +"newsletter": true
-   -"nickname": "Bobby"
-   }
-   ```
+    Assess the required updates in traits. You need to add, remove, or update existing traits to match the new identity schema.
+    You also need to change the `schema_id` and `schema_url` to the new schema. For instance, adding a new trait and removing an
+    old trait:
 
-   Save the file.
+````mdx-code-block
 
-1. In order to update the identity, you need to use the
-   [Admin API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity). The API requires the Ory Network
-   [Project slug](https://console.ory.sh/projects/current/developers/guides) and
-   [API Key](https://console.ory.sh/projects/current/developers). Set them as environment variables:
+<Tabs>
+<TabItem value="updateidentitypatch" label="patchIdentity" default>
 
-   ```bash
-   export ORY_API_KEY={api-key}
-   export ORY_SLUG={project-slug}
-   ```
+Using the [patchIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/operation/patchIdentity), you can change the
+identity schema and traits directly.
+This is the recommended way to update identities.
 
-1. Update the identity using the following command:
+```bash
+curl --location --request PATCH "https://$ORY_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID" \
+--header "Authorization: Bearer $ORY_API_KEY" \
+--header "Content-Type: application/json" \
+--data-raw '[
+{
+    "op": "replace",
+    "path": "/schema_id",
+    "value": "{new-schema-id}"
+},
+{
+    "op": "replace",
+    "path": "/schema_url",
+    "value": "{new-schema-url}"
+},
+{
+    "op": "remove",
+    "path": "/traits/foo"
+},
+{
+    "op": "add",
+    "path": "/traits/bar",
+    "value": "barfoo"
+}
+]'
+```
 
-   ```bash
-   curl -d "@identity-$IDENTITY_ID.json" -X PUT https://$ORY_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID \
-   -H "Authorization: Bearer $ORY_API_KEY" \
-   -H'Content-Type: application/json'
-   ```
+</TabItem>
+<TabItem value="updateidentityput" label="updateIdentity">
 
-This should return the modified identity as the response. Now, you have migrated a single identity to a new identity schema. If
-you have more identities to be patched to the new schema, repeat the above process for each of them.
+Update the identity using the [updateIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity):
+
+1. Save the existing identity
+
+```bash
+export IDENTITY_ID={IDENTITY_ID}
+ory get identity $IDENTITY_ID --project $PROJECT_ID --format json-pretty > identity-$IDENTITY_ID.json
+```
+
+1. Update the saved JSON to match the new identity schema
+
+```diff
+-"schema_id" : "{old-schema-id}",
+-"schema_url" : "{old-schema-url}",
++"schema_id" : "{new-schema-id}",
++"schema_url" : "{new-schema-url}",
+"traits": {
+-"foo": "foobar"
++"bar": barfoo
+}
+```
+
+1. Update the identity using PUT
+
+```bash
+curl -d "@identity-$IDENTITY_ID.json" -X PUT https://$ORY_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID \
+-H "Authorization: Bearer $ORY_API_KEY" \
+-H'Content-Type: application/json'
+```
+
+:::info
+
+The [updateIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity) overwrites the existing identity with the one provided in the request body. Omit any fields that should not be changed, including the `credentials` field.
+
+:::
+
+</TabItem>
+
+</Tabs>
+````
+
+This should return the modified identity as the response.
+
+Now, you have migrated a single identity to a new identity schema. If you have more identities to be patched to the new schema,
+repeat the above process for each of them.
 
 ### Bulk update identities to use a new schema
 
