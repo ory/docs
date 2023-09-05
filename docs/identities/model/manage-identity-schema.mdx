@@ -155,10 +155,11 @@ import (
 )
 
 const (
-	YOUR_ORY_API_KEY        = "{api-key}" // Add your API key here
-	YOUR_ORY_PROJECT_SLUG   = "{project-slug}" // Add your project slug here
-	UPDATE_TO_NEW_SCHEMA_ID = "{new-schema-id}" // Add the new schema ID here
-	IDENTITY_ID_TO_UPDATE   = "{identity-id}" // Add the identity ID to update here
+	YOUR_ORY_API_KEY        = "{your-api-key}"
+	YOUR_ORY_PROJECT_SLUG   = "{your-project-slug}"
+	OLD_SCHEMA_ID           = "{old-schema-id}"
+	UPDATE_TO_NEW_SCHEMA_ID = "{new-schema-id}"
+	IDENTITY_ID_TO_UPDATE   = "{identity-id}"
 )
 
 func main() {
@@ -199,6 +200,11 @@ func migrateSchema(toSchema, identityID string) error {
 		return nil
 	}
 
+	// Check if the identity's schema ID matches the old schema ID
+	if identity.SchemaId != OLD_SCHEMA_ID {
+		return fmt.Errorf("identity's schema ID does not match the old schema ID")
+	}
+
 	// Prepare the JSON patch for the update
 	jsonPatch := []client.JsonPatch{
 		{Op: "replace", Path: "/schema_id", Value: toSchema},
@@ -224,7 +230,6 @@ func migrateSchema(toSchema, identityID string) error {
 
 	return nil
 }
-
 ```
 
 </TabItem>
