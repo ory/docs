@@ -14,6 +14,15 @@ import TabItem from '@theme/TabItem'
 This document explains how to customize your identity model with a custom identity schema. A custom identity schema allows you to
 add custom fields to your identities such as birthday or job title.
 
+It is important to note that throughout this document we use specific `draft-07` features of JSON Schema as shown by the `$schema`
+property at the start of every document.
+
+```json5
+{
+  $schema: "http://json-schema.org/draft-07/schema#",
+}
+```
+
 :::info
 
 Use the [JSON Schema Validator](https://www.jsonschemavalidator.net) to check your identity schemas. If you're not familiar with
@@ -234,6 +243,10 @@ available identity schema extensions:
               },
               "totp": {
                 "account_name": true
+              },
+              "code": {
+                "identifier": true,
+                "via": "email"
               }
             },
             "recovery": {
@@ -293,6 +306,10 @@ sign in:
               },
               "totp": {
                 "account_name": true
+              },
+              "code": {
+                "identifier": true,
+                "via": "email"
               }
             },
             "recovery": {
@@ -555,6 +572,24 @@ login:
 }
 ```
 
+### Passwordless one-time code login identifier
+
+Using the following identity schema extension we specify that the field is used as the "ID" when using passwordless one-time code
+login:
+
+```json5
+{
+  "ory.sh/kratos": {
+    credentials: {
+      code: {
+        identifier: true,
+        via: "email",
+      },
+    },
+  },
+}
+```
+
 ### TOTP display username
 
 The following identity schema extension specifies that this field should be displayed in the Authenticator App as the account
@@ -692,6 +727,131 @@ For nested objects such as `name`, add the `required` property inside of the obj
 </TabItem>
 </Tabs>
 ````
+
+### More advanced validation
+
+Json schemas are a powerful tool to even do conditional validation.
+
+For example, when a user opts in to receiving security updates it is required to have their phone number as well.
+
+You can read more about using the `definitions` and `dependencies` keywords in the JSON schema
+[structuring a complex schema](https://json-schema.org/understanding-json-schema/structuring.html?highlight=definitions) and
+[conditional subschemas](https://json-schema.org/understanding-json-schema/reference/conditionals.html#applying-subschemas-conditionally).
+
+Below is an example of how to do this:
+
+```json5
+{
+  "$id": "https://schemas.ory.sh/presets/kratos/identity.email.schema.json",
+  "title": "Person",
+  "type": "object",
+  # highlight-start
+  "definitions": {
+    "phone": {
+      "type": "string",
+      "format": "tel",
+      "title": "Phone Number"
+    },
+    "optIn": {
+      "type": "boolean",
+      "title": "Get security related notifications"
+    }
+  },
+  # highlight-end
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "title": "Username",
+          "minLength": 6,
+          "maxLength": 32,
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              },
+              "webauthn": {
+                "identifier": true
+              },
+              "totp": {
+                "account_name": true
+              },
+            }
+          }
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "E-Mail",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              },
+              "webauthn": {
+                "identifier": true
+              },
+              "totp": {
+                "account_name": true
+              },
+              "code": {
+                "identifier": true,
+                "via": "email"
+              }
+            },
+            "recovery": {
+              "via": "email"
+            },
+            "verification": {
+              "via": "email"
+            }
+          },
+          "maxLength": 320
+        },
+        # highlight-start
+        "phone": {
+          "$ref": "#/definitions/phone"
+        },
+        "optIn": {
+          "$ref": "#/definitions/optIn"
+        }
+        # highlight-end
+      },
+      "required": [
+        "email",
+        "username",
+      ],
+      "additionalProperties": false,
+      # highlight-start
+      "dependencies": {
+        "optIn": {
+          "properties": {
+            "phone": {
+              "$ref": "#/definitions/phone"
+            }
+          },
+          "required": [
+            "phone"
+          ]
+        },
+        "phone": {
+          "properties": {
+            "optIn": {
+              "$ref": "#/definitions/optIn"
+            }
+          },
+          "required": [
+            "optIn"
+          ]
+        }
+      }
+      # highlight-end
+    }
+  }
+}
+```
 
 ## Choosing between username, email, and phone number
 
