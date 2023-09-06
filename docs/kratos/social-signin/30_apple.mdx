@@ -178,6 +178,42 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
 </Tabs>
 ````
 
+## Using the Apple SDK on native apps
+
+Apple provides a more integrated UX for native apps using the
+[Apple SDK](https://developer.apple.com/documentation/sign_in_with_apple/implementing_user_authentication_with_sign_in_with_apple).
+Since this flow does not involve a browser and redirect URL, but instead issues an `id_token`, it requires a bit more work to
+integrate with Ory.
+
+The following steps are required to integrate the Apple SDK with Ory:
+
+1. Configure an Apple social sign-in provider in Ory using the same `client_id` as in your native app.
+1. Generate a random value that you can use as a `nonce`.
+1. Obtain an `id_token` from Apple using the Apple SDK. Make sure to also submit the SHA256 encrypted `nonce`.
+1. Submit the `id_token` and `nonce` (as the `raw_id_token_nonce`) as part of the `updateRegistrationFlow` or `updateLoginFlow`
+   request to Ory.
+1. Ory will validate the `id_token` and create an identity and optionally a session (if configured).
+
+The `id_token` is verified using Apple's publicly available signing keys, available under https://appleid.apple.com/auth/keys.
+
+The `id_token` issued by Apple only contains the user's email address. You can submit additional claims to Ory as part of the
+`updateRegistrationFlow` request, as `traits`.
+
+:::warning
+
+As Ory does not communicate directly with Apple during this flow, it does not have access to the Access & Refresh Tokens. This
+means that Ory cannot return these in the admin APIs or SDK. If you need these tokens, you can exchange the `authorization_code`
+returned by Apple on the device manually.
+
+:::
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import revokeOtherSessionsReact from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/registration/apple-social-sign-in-native.ts"
+
+<CodeBlock language="ts" title="apple-social-sign-in-react-native.tsx">{revokeOtherSessionsReact}</CodeBlock>
+```
+
 ## Troubleshooting
 
 ```mdx-code-block
