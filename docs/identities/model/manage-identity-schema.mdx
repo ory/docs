@@ -1,9 +1,11 @@
 ---
 id: manage-identity-schema
-title: Create and update identity schemas
+title: Create, update, and manage identity schemas
 ---
 
-# Creating identity schemas
+This document explains how to create, update, and manage identity schemas in Ory Network.
+
+## Create identity schemas
 
 Follow these steps to create a custom identity schema in Ory Network:
 
@@ -38,7 +40,7 @@ ory patch identity-config {your-project-id} \
 </Tabs>
 ````
 
-## Updating identity schemas
+## Update identity schemas
 
 To update an identity schema, you must create a new revision of that schema. You can't update existing identity schemas by editing
 them.
@@ -46,7 +48,237 @@ them.
 For example, to update an identity schema named "Customer Type 1", follow these steps:
 
 1. Sign in to Ory Console and select [**Identity Schema**](https://console.ory.sh/projects/current/identity-schema).
-2. Using the dropdown menu, select the "Customer Type 1" schema.
-3. Check the **Customize Identity Schema** box to enable editing and make the necessary changes.
-4. Enter a new name in the **Identity Model Schema** text box, for example "Customer Type 2".
-5. Click the **Update** button to save.
+1. Using the dropdown menu, select the "Customer Type 1" schema.
+1. Check the **Customize Identity Schema** box to enable editing and make the necessary changes.
+1. Enter a new name in the **Identity Model Schema** text box, for example, "Customer Type 2".
+1. Click the **Update** button to save.
+
+It's recommended to manage identity schemas in version control. Learn more about
+[managing Ory Network configuration in git](http://ory.sh/docs/guides/gitops).
+
+## Update identities to use a new schema
+
+Updating the identity schema of a project can result in inconsistencies between the new schema and the identities created with the
+old schema. Follow these steps to patch identities after updating the identity schema. If you are self-hosting Ory, you can follow
+the same steps by using the API or Ory Kratos CLI.
+
+The following steps are for updating one identity. If you have more identities that should be patched to the new schema, repeat
+the steps 4 to 7 or check out the example code for bulk updating identities below.
+
+1.  Retrieve the Project ID.
+
+    ```bash
+    ory list projects
+
+    export PROJECT_ID={project-id}
+    ```
+
+1.  Create a new identity with the updated schema - through the registration interface or [Ory Console](https://console.ory.sh/)
+    and copy the `schema_id` of the identity you just created.
+
+    ![Identity schema ID and URL](../_assets/session-information.png)
+
+1.  Get all identities of the project using the following command:
+
+    ```bash
+    ory list identities --project $PROJECT_ID --format json-pretty
+    ```
+
+1.  Find the identity to be updated and note down their `id`.
+
+1.  To update the identity, you need to use the
+    [Admin API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity). The API requires the Ory Network
+    [Project slug](https://console.ory.sh/projects/current/developers/guides),
+    [API Key](https://console.ory.sh/projects/current/developers), and identity ID. Set them as environment variables:
+
+    ```bash
+    export ORY_API_KEY={api-key}
+    export ORY_SLUG={project-slug}
+    export IDENTITY_ID={identity-id}
+    ```
+
+    Assess the required updates in traits. You need to add, remove, or update existing traits to match the new identity schema.
+    You also need to change the `schema_id` to the new schema. For instance, adding a new trait and removing an old trait:
+
+````mdx-code-block
+
+<Tabs>
+<TabItem value="updateidentitypatch" label="cURL and patchIdentity" default>
+
+Using the [patchIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/operation/patchIdentity), you can change the
+identity schema and traits directly.
+
+Using patchIdentity is the recommended way to update identities.
+
+```bash
+curl --location --request PATCH "https://$ORY_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID" \
+--header "Authorization: Bearer $ORY_API_KEY" \
+--header "Content-Type: application/json" \
+--data-raw '[
+{
+    "op": "replace",
+    "path": "/schema_id",
+    "value": "{new-schema-id}"
+},
+{
+    "op": "remove",
+    "path": "/traits/foo"
+},
+{
+    "op": "add",
+    "path": "/traits/bar",
+    "value": "barfoo"
+}
+]'
+```
+
+This should return the modified identity as the response.
+
+</TabItem>
+
+<TabItem value="updateidentitygo" label="Ory SDK">
+
+
+:::note
+
+This example uses the [Ory Go SDK](https://github.com/ory/client-go). If you wish to use a different programming language for identity schema migration, you can apply the same logic using the [Ory SDK for your programming language](https://www.ory.sh/docs/sdk). Ory can also provide
+example code in your preferred language. Please contact `support@ory.sh`.
+
+:::
+
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+
+	client "github.com/ory/client-go"
+)
+
+const (
+	YOUR_ORY_API_KEY        = "{your-api-key}"
+	YOUR_ORY_PROJECT_SLUG   = "{your-project-slug}"
+	OLD_SCHEMA_ID           = "{old-schema-id}" // The schema ID of the identity to be updated, it is recommended to set this explicitly to avoid updating an identity with a different schema.
+	UPDATE_TO_NEW_SCHEMA_ID = "{new-schema-id}"
+	IDENTITY_ID_TO_UPDATE   = "{identity-id}"
+)
+
+func main() {
+	if err := migrateSchema(UPDATE_TO_NEW_SCHEMA_ID, IDENTITY_ID_TO_UPDATE); err != nil {
+		panic(err)
+	}
+}
+
+func migrateSchema(toSchema, identityID string) error {
+	// Initialize the client configuration
+	cfg := client.NewConfiguration()
+	cfg.Servers = client.ServerConfigurations{
+		{
+			URL: fmt.Sprintf("https://%s.projects.oryapis.com", YOUR_ORY_PROJECT_SLUG),
+		},
+	}
+
+	// Create an instance of the API client
+	ory := client.NewAPIClient(cfg)
+
+	// Set the access token
+	ctx := context.Background()
+	ctx = context.WithValue(ctx, client.ContextAccessToken, YOUR_ORY_API_KEY)
+
+	// Check if the new schema exists
+	_, _, err := ory.IdentityApi.GetIdentitySchema(ctx, toSchema).Execute()
+	if err != nil {
+		return err
+	}
+
+	// Check if the identity exists
+	identity, _, err := ory.IdentityApi.GetIdentity(ctx, identityID).Execute()
+	if err != nil {
+		return err
+	}
+	if identity.SchemaId == toSchema {
+		fmt.Println("already migrated, no update required")
+		return nil
+	}
+
+	// Check if the identity's schema ID matches the old schema ID
+	if identity.SchemaId != OLD_SCHEMA_ID {
+		return fmt.Errorf("identity's schema ID does not match the old schema ID")
+	}
+
+	// Prepare the JSON patch for the update
+	jsonPatch := []client.JsonPatch{
+		{Op: "replace", Path: "/schema_id", Value: toSchema},
+	}
+
+	// Apply the JSON patch to update the identity
+	_, _, err = ory.IdentityApi.PatchIdentity(ctx, identityID).JsonPatch(jsonPatch).Execute()
+	if err != nil {
+		return err
+	}
+
+	// Verify that the schema was updated
+	updatedIdentity, _, err := ory.IdentityApi.GetIdentity(ctx, identityID).Execute()
+	if err != nil {
+		return err
+	}
+
+	if updatedIdentity.SchemaId != toSchema {
+		return fmt.Errorf("schema wasn't updated")
+	}
+
+	fmt.Println("Identity schema updated 🎉")
+
+	return nil
+}
+```
+
+</TabItem>
+
+
+<TabItem value="updateidentitycurlput" label="cURL and updateIdentity">
+
+Update the identity using the [updateIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity):
+
+1. Save the existing identity
+
+    ```bash
+    export IDENTITY_ID={IDENTITY_ID}
+    ory get identity $IDENTITY_ID --project $PROJECT_ID --format json-pretty > identity-$IDENTITY_ID.json
+    ```
+
+1. Update the saved JSON to match the new identity schema
+
+    ```diff
+    -"schema_id" : "{old-schema-id}",
+    +"schema_id" : "{new-schema-id}",
+    "traits": {
+    -"foo": "foobar"
+    +"bar": barfoo
+    }
+    ```
+
+1. Update the identity using PUT
+
+    ```bash
+    curl -d "@identity-$IDENTITY_ID.json" -X PUT https://$ORY_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID \
+    -H "Authorization: Bearer $ORY_API_KEY" \
+    -H'Content-Type: application/json'
+    ```
+
+:::info
+
+The [updateIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity) overwrites the existing identity with the one provided in the request body. Omit any fields that should not be changed, including the `credentials` field.
+
+:::
+
+This should return the modified identity as the response.
+
+</TabItem>
+</Tabs>
+````
+
+Now, you have migrated a single identity to a new identity schema. If you have more identities to be patched to the new schema,
+repeat the above process for each of them.
