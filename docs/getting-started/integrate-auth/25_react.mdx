@@ -67,7 +67,7 @@ To get your application that runs locally and Ory APIs on the same domain, use O
 CLI. It's like a microservice - an authentication API server on your domain!
 
 ```shell-session
-npx @ory/cli tunnel --dev http://localhost:3000
+npx @ory/cli tunnel --dev http://localhost:3000 --project {YOUR-ORY-NETWORK-PROJECT-ID}
 ```
 
 Ory APIs are now mirrored on `http://localhost:4000`. Use that URL as the `baseUrl` for the `@ory/client` SDK (see code above).
