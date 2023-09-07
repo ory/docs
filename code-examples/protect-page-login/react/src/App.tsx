@@ -22,8 +22,8 @@ function App() {
   const [logoutUrl, setLogoutUrl] = useState<string | undefined>()
 
   // Returns either the email or the username depending on the user's Identity Schema
-  const getUserName = (identity: Identity) =>
-    identity.traits.email || identity.traits.username
+  const getUserName = (identity?: Identity) =>
+    identity?.traits.email || identity?.traits.username
 
   // highlight-end
 
