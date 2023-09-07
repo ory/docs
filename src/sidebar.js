@@ -123,6 +123,7 @@ module.exports = {
           ],
         },
         "kratos/self-service/flows/user-logout",
+        "identities/session-to-jwt-cors",
         "kratos/self-service/flows/verify-email-account-activation",
         "kratos/self-service/flows/account-recovery-password-reset",
         {

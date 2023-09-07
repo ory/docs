@@ -1,0 +1,213 @@
+---
+id: session-to-jwt-cors
+title: Issue JWTs for Ory Sessions
+sidebar_label: Session to JWT
+---
+
+# Convert Ory Sessions to JSON Web Tokens
+
+Ory offers a powerful session management system that is based on cookies. In some contexts however, relying on Cookies is not
+possible:
+
+- You need to make a cross-origin (CORS) request where including the Ory Session Cookie is not trivial or possible.
+- You need a JWT which represents a signed-in user.
+- You need to integrate with a third party such as
+  [Zendesk SSO JWTs](https://support.zendesk.com/hc/en-us/articles/4408845838874).
+- You want to reduce the amount of calls to Ory's APIs.
+
+In this guide, we will show you how to convert Ory Sessions to JSON Web Tokens (JWTs).
+
+## End-to-end example
+
+Let's look at an end-to-end example. This guide assumes that you already have an Ory Network project running. If not, create a
+[new project now](../guides/cli/05_cli-basics.mdx). First we need to create a JSON Web Key set and store it locally:
+
+```shell
+ory create jwk some-example-set \
+  --alg ES256 --project {project.id} --format json-pretty \
+  > es256.jwks.json
+```
+
+Next, we need to create a JsonNet template that will be used to modify the claims of the JWT:
+
+```jsonnet title="claims.jsonnet"
+local claims = std.extVar('claims');
+local session = std.extVar('session');
+
+{
+  claims: {
+    iss: claims.iss + "/additional-component",
+    schema_id: session.identity.schema_id,
+    session: session,
+  }
+}
+```
+
+The easiest way to supplies these files to Ory Network is to base64-encode them:
+
+```shell
+JWKS_B64_ENCODED=$(cat es256.jwks.json | base64)
+JSONNET_B64_ENCODED=$(cat claims.jsonnet | base64)
+```
+
+Next, we configure our Ory Network project's tokenizer templates. The key we choose here is `jwt_example_template1`. We supply
+that template with the base64-encoded files from above:
+
+```shell
+ory patch identity-config {project.id} \
+  --add '/session/whoami/tokenizer/templates/jwt_example_template1={"jwks_url":"base64://'$JWKS_B64_ENCODED'","claims_mapper_url":"base64://'$JSONNET_B64_ENCODED'","ttl":"10m"}' \
+  --format yaml
+```
+
+Great! Everything is set up! To
+
+````mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="sdk" label="Ory JS SDK">
+
+```mdx-code-block
+import toSessionJwt from '!!raw-loader!../../code-examples/sdk/typescript/src/session/whoami-jwt.ts'
+
+<CodeBlock language="tsx">{toSessionJwt}</CodeBlock>
+```
+
+</TabItem>
+<TabItem value="rest" label="REST API">
+
+```
+curl -X GET \
+  -H "Cookie: ory_session...=..." \
+  "https://{project.slug}.projects.oryapis.com/sessions/whoami?tokenize_as=jwt_example_template1"
+
+{
+  // ...
+  "tokenized": "{the-jwt}"
+}
+```
+
+For more details see the [API documentation](../reference/api#tag/frontend/operation/toSession).
+
+</TabItem>
+</Tabs>
+````
+
+## JSON Web Token templates
+
+Now that you have seen how this feature works in practice, let's look at how to configure it in detail. Before issuing a JWT for a
+Ory Session, you need to define one or more Ory Session tokenizer templates. A template has a unique key, a claims template, a
+TTL, and a URL where the cryptographic keys (JSON Web Key Sets) are fetched from:
+
+```yaml
+session:
+  whoami:
+    tokenizer:
+      templates:
+      jwt_template_1:
+        jwks_url: base64://... # A JSON Web Key Set (required)
+        claims_mapper_url: base64://... # A JsonNet template for modifying the claims
+        ttl: 1m # 1 minute (defaults to 10 minutes)
+      another_jwt_template:
+        jwks_url: base64://... # A JSON Web Key Set
+```
+
+### JSON Web Token claim mapper
+
+You can customize the JSON Web Token claims by providing a JsonNet template to `claims_mapper_url`.
+
+:::info
+
+The `sub` claim can not be customized and is always set to the Ory Session's `IdentityID`.
+
+:::
+
+The template has access to these variables:
+
+- `claims`: The default claims the token has per default. You can modify these claims but not remove them:
+  - `jti`: A unique UUID v4 value.
+  - `iss`: The project's slug url (`https://{project.slug}.projects.oryapis.com`).
+  - `exp`: The token's expiry which uses the template's `ttl` value.
+  - `sub`: The Ory Session's `IdentityID`.
+  - `sid`: The Ory Session's `ID`.
+  - `nbf`: The time when the token becomes valid ("now").
+  - `iat`: The time when the token was issued at ("now").
+- `session`: Contains the Ory Session's data. See [the Ory Session documentation](../kratos/session-management/01_overview.mdx)
+  for more information.
+
+The template must return a JSON object. For example:
+
+```jsonnet
+local claims = std.extVar('claims');
+local session = std.extVar('session');
+
+{
+  claims: {
+    foo: "baz",
+    sub: "this can not be overwritten and will always be session.identity.id",
+    schema_id: session.identity.schema_id,
+    aal: session.authenticator_assurance_level,
+    second_claim: claims.exp,
+    // ...
+  }
+}
+```
+
+### JSON Web Token signing key(s)
+
+The `jwks_url` must contain a JSON Web Key Set. All common cryptographic algorithms for JSON Web Tokens are supported such as
+ES256, RS256, RS512, and others.
+
+:::info
+
+We recommend using ES256 or ES512 for signing JSON Web Tokens. Avoid using symmetric algorithms such as the HS family (HS256,
+HS512, etc).
+
+:::
+
+To generate test-keys you can use a service such as [mkjwk.org](https://mkjwk.org). To generate keys for production, use the Ory
+CLI:
+
+```shell
+ory create jwk some-example-set \
+  --alg ES256 --project {project.id} --format json-pretty
+
+{
+  "set": "example-key-set",
+  "keys": [
+    {
+      "alg": "ES256",
+      "crv": "P-256",
+      "d": "XdO-4OkdDxsOhU_XwYFAzEg1Z3DfQ8LhwivJeFq-ppo",
+      "kid": "3045631b-95a8-433c-ab54-93fa52a55ea8",
+      "kty": "EC",
+      "use": "sig",
+      "x": "AAYxrjPNt6M-XBY1H57Mc_6moiETkg_Cf2egHXPOEGo",
+      "y": "mNX9UCBa82GNrvIIHFFNxsw-LPKksbwCMoaIybyWMEY"
+    }
+  ]
+}
+```
+
+If the key set contains more than one key, the first key in the list will be used for signing:
+
+```json5
+{
+  set: "example-key-set",
+  keys: [
+    // highlight-start
+    // This key will be used for signing:
+    {
+      alg: "ES256",
+      // ...
+    },
+    // highlight-end
+    {
+      alg: "ES256",
+      // ...
+    },
+  ],
+}
+```
