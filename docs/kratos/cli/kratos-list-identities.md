@@ -15,22 +15,24 @@ List identities
 
 ### Synopsis
 
-List identities (paginated)
+Return a list of identities.
 
 ```
-kratos list identities [<page> <per-page>] [flags]
+kratos list identities [flags]
 ```
 
 ### Examples
 
 ```
-kratos list identities 100 1
+kratos list identities --page-size 100
 ```
 
 ### Options
 
 ```
-  -h, --help   help for identities
+  -h, --help                help for identities
+      --page-size int       maximum number of items to return (default 100)
+      --page-token string   page token acquired from a previous response
 ```
 
 ### Options inherited from parent commands
