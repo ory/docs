@@ -115,12 +115,13 @@ submit form body to pass the parameters. For example:
   <input type="hidden" name="upstream_parameters.login_hint" value="foo@bar.com" />
   <input type="hidden" name="upstream_parameters.hd" value="bar.com" />
   <input type="hidden" name="upstream_parameters.prompt" value="select_account" />
+  <input type="hidden" name="upstream_parameters.auth_type" value="reauthenticate" />
 </form>
 ```
 
 :::note
 
-Only the `login_hint`, `hd` and `prompt` parameters are currently supported.
+Only the `login_hint`, `hd`, `prompt` and `auth_type` parameters are currently supported.
 
 :::
 
