@@ -182,17 +182,17 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
 
 Apple provides a more integrated UX for native apps using the
 [Apple SDK](https://developer.apple.com/documentation/sign_in_with_apple/implementing_user_authentication_with_sign_in_with_apple).
-Since this flow does not involve a browser and redirect URL, but instead issues an `id_token`, it requires a bit more work to
-integrate with Ory.
+This flow uses the native Apple SDK and does not require a browser. This results in a signed `id_token` on the client side which
+is exchanged at Ory for a session token.
 
 The following steps are required to integrate the Apple SDK with Ory:
 
 1. Configure an Apple social sign-in provider in Ory using the same `client_id` as in your native app.
-1. Generate a random value that you can use as a `nonce`.
-1. Obtain an `id_token` from Apple using the Apple SDK. Make sure to also submit the SHA256 encrypted `nonce`.
-1. Submit the `id_token` and `nonce` (as the `raw_id_token_nonce`) as part of the `updateRegistrationFlow` or `updateLoginFlow`
+2. Generate a random value that you can use as a `nonce`.
+3. Obtain an `id_token` from Apple using the Apple SDK. Make sure to also submit the `nonce`.
+4. Submit the `id_token` and `nonce` (as the `id_token_nonce`) as part of the `updateRegistrationFlow` or `updateLoginFlow`
    request to Ory.
-1. Ory will validate the `id_token` and create an identity and optionally a session (if configured).
+5. Ory will validate the `id_token` and create an identity and optionally a session (if configured).
 
 The `id_token` is verified using Apple's publicly available signing keys, available under https://appleid.apple.com/auth/keys.
 
