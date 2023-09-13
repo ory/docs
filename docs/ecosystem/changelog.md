@@ -3,27 +3,32 @@ id: changelog
 title: Changelog and roadmap
 ---
 
-## Changelog
+## Ory Changelog
+
+:::info
+
+Read the changelog for the Ory ecosystem at [changelog.ory.sh](https://changelog.ory.sh/) !
+
+:::
 
 > Running security-critical open source technology in a self-service format requires vigilance. We make your life easier by
 > announcing important software updates via the [Ory Security Newsletter](http://eepurl.com/di390P). Never miss an update and
 > **[sign up now to important release updates!](http://eepurl.com/di390P)**
 
-:::warning
+:::tip
 
-Changelogs contain important information about the changes and breaking changes introduced in the code. Please read the relevant
-project's changelog before you [upgrade](./upgrading.md) to a new version.
+Looking for support? Please contact us at support@ory.sh!  
+Ory offers support agreements for self-hosted Ory software.
 
 :::
 
-- Ory Kratos: [releases](https://github.com/ory/kratos/releases),
-  [full changelog](https://github.com/ory/kratos/blob/master/CHANGELOG.md)
-- Ory Hydra: [releases](https://github.com/ory/hydra/releases),
-  [full changelog](https://github.com/ory/hydra/blob/master/CHANGELOG.md)
-- Ory Keto: [releases](https://github.com/ory/keto/releases),
-  [full changelog](https://github.com/ory/keto/blob/master/CHANGELOG.md)
-- Ory Oathkeeper: [releases](https://github.com/ory/oathkeeper/releases),
-  [full changelog](https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md)
+## Changelogs
+
+- [Ory Ecosystem Changelog](https://changelog.ory.sh/)
+- [Ory Hydra Changelog](https://github.com/ory/hydra/blob/master/CHANGELOG.md)
+- [Ory Kratos Changelog](https://github.com/ory/kratos/blob/master/CHANGELOG.md)
+- [Ory Keto Changelog](https://github.com/ory/keto/blob/master/CHANGELOG.md)
+- [Ory Oathkeeper Changelog](https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md)
 
 ## Roadmap
 
@@ -46,7 +51,7 @@ the popularity of features in the community when planning development.
 
 ### Bugs
 
-Every release from Ory includes new features as well as bug fixes. You can find a full changelog in the main directory of every
+Every release from Ory includes new features as well as bug fixes. You can find a changelog in the main directory of every
 project. If you happen to find a bug, please open an isse in the relevant repository. We appreciate it when you include steps for
 replication, version information, logs, and as much information as you think is helpful. This makes squashing that pesky bug much
 easier for us.
