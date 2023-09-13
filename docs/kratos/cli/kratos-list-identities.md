@@ -15,31 +15,29 @@ List identities
 
 ### Synopsis
 
-Return a list of identities.
+List identities (paginated)
 
 ```
-kratos list identities [flags]
+kratos list identities [<page> <per-page>] [flags]
 ```
 
 ### Examples
 
 ```
-kratos list identities --page-size 100
+{{ .CommandPath }} 100 1
 ```
 
 ### Options
 
 ```
-  -h, --help                help for identities
-      --page-size int       maximum number of items to return (default 100)
-      --page-token string   page token acquired from a previous response
+  -h, --help   help for identities
 ```
 
 ### Options inherited from parent commands
 
 ```
   -e, --endpoint string   The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -q, --quiet             Be quiet with output printing.
 ```
 

@@ -17,7 +17,7 @@ Delete resources
 
 ```
   -e, --endpoint string   The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -h, --help              help for delete
   -q, --quiet             Be quiet with output printing.
 ```

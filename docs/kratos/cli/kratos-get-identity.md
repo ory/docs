@@ -28,7 +28,7 @@ kratos get identity [id-1] [id-2] [id-n] [flags]
 ```
 To get the identities with the recovery email address at the domain "ory.sh", run:
 
-	kratos get identity $(kratos ls identities --format json | jq -r 'map(select(.recovery_addresses[].value | endswith("@ory.sh"))) | .[].id')
+	{{ .CommandPath }} $({{ .Root.Name }} ls identities --format json | jq -r 'map(select(.recovery_addresses[].value | endswith("@ory.sh"))) | .[].id')
 ```
 
 ### Options
@@ -42,7 +42,7 @@ To get the identities with the recovery email address at the domain "ory.sh", ru
 
 ```
   -e, --endpoint string   The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string     Set the output format. One of table, json, yaml, and json-pretty. (default "default")
   -q, --quiet             Be quiet with output printing.
 ```
 
