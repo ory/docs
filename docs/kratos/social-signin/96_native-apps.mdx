@@ -21,6 +21,13 @@ this:
 - The user authenticates with the identity provider and grants the application access to profile information.
 - The user is redirected back to the application and is logged in.
 
+:::note
+
+Apple supports a more tightly integrated login experience for native apps. See the documentation on
+[Apple social sign-in](./apple#using-the-apple-sdk-on-native-apps) for more information.
+
+:::
+
 ## The native app authentication flow
 
 From a high level, the native app initializes a login or registration flow and receives the first part of the session token
@@ -32,7 +39,7 @@ exchange code for a session token.
 :::info
 
 As part of this flow, Ory will redirect the browser to a callback. In this demo, we use the redirect URL
-`http://localhost:4457/Callback`. Please ensure that this
+`http://localhost:19006/Callback`. Please ensure that this
 [redirect URL is allowed](https://console.ory.sh/projects/current/browser-redirects)!
 
 :::
