@@ -24,7 +24,7 @@ Ory offers support agreements for self-hosted Ory software.
 
 ## Changelogs
 
-- [Ory Ecosystem Changelog](https://changelog.ory.sh/)
+- [Ory Network Changelog](https://changelog.ory.sh/)
 - [Ory Hydra Changelog](https://github.com/ory/hydra/blob/master/CHANGELOG.md)
 - [Ory Kratos Changelog](https://github.com/ory/kratos/blob/master/CHANGELOG.md)
 - [Ory Keto Changelog](https://github.com/ory/keto/blob/master/CHANGELOG.md)
