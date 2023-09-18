@@ -5,7 +5,7 @@ sidebar_label: Revoke sessions with hooks
 ---
 
 In certain use cases, it is important to increase security by terminating active user sessions when they change their password. To
-do this, you can add the `revoke_active_sessions' action to the hook configuration.
+do this, you can add the `revoke_active_sessions` Ory Action to the `hooks` configuration.
 
 ## Configuration overview
 
