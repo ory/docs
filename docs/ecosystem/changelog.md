@@ -7,7 +7,7 @@ title: Changelog and roadmap
 
 :::info
 
-Read the changelog for the Ory ecosystem at [changelog.ory.sh](https://changelog.ory.sh/) !
+Read the changelog for Ory Network at [changelog.ory.sh](https://changelog.ory.sh/) !
 
 :::
 
