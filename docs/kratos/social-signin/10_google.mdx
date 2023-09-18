@@ -219,6 +219,42 @@ Follow these steps to add Google as a social sign-in provider to your project us
 </Tabs>
 ````
 
+## Using the Google SDK on native apps
+
+Google provides a more integrated UX for native apps using the
+[Google SDK](https://developers.google.com/identity/sign-in/web/backend-auth). This flow uses the native Google SDK and does not
+require a browser. This results in a signed `id_token` on the client side (typically your app) which is exchanged at Ory for a
+session token.
+
+The following steps are required to integrate the Google SDK with Ory:
+
+1. Configure a Google social sign-in provider in Ory using the same `client_id` as used in your native app.
+2. If your SDK supports nonce validation, make sure to use a generated value and submit that during this step.
+3. Obtain an `id_token` from Google using the Google SDK. Make sure to also submit the `nonce` if you generated one in the step
+   before.
+4. Submit the `id_token` and `nonce` (as the `id_token_nonce`) as part of the `updateRegistrationFlow` or `updateLoginFlow`
+   request to Ory.
+5. Ory will validate the `id_token` and create an identity and optionally a session (if configured).
+
+The `id_token` is verified using Google's publicly available signing keys, available under
+https://www.googleapis.com/oauth2/v3/certs.
+
+Make sure to request the scopes you require in your Jsonnet mapping, as otherwise they will be empty after the registration.
+
+:::warning
+
+While not explicitly required, as not all of Google SDKs support it, we recommend that you use a `nonce` to prevent replay attacks
+wherever possible.
+
+:::
+
+:::info
+
+As Ory does not communicate directly with Google during this flow, it does not have access to the Access & Refresh Tokens. This
+means that Ory cannot return these in the admin APIs or SDK.
+
+:::
+
 ### Additional Parameters
 
 The following parameters are available for the Google provider:
