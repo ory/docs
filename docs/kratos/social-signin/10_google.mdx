@@ -219,6 +219,21 @@ Follow these steps to add Google as a social sign-in provider to your project us
 </Tabs>
 ````
 
+### Additional Parameters
+
+The following parameters are available for the Google provider:
+
+- `login_hint`
+- `hd`
+
+The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the
+proper session. The `hd` parameter limits the login/registration process to a Google Organization, for example `mycollege.edu`.
+
+The parameters can be passed along to Ory on `login`, `registration` and `settings` flows on form submit.
+
+See the [Advanced Integration](../bring-your-own-ui/custom-ui-advanced-integration#upstream-provider-parameters) document for more
+information on passing parameters from your UI to Ory.
+
 ## Using the Google SDK on native apps
 
 Google provides a more integrated UX for native apps using the
@@ -255,20 +270,17 @@ means that Ory cannot return these in the admin APIs or SDK.
 
 :::
 
-### Additional Parameters
+### Flutter code example
 
-The following parameters are available for the Google provider:
+The following showcases an example implementation of a Sign in with Google button using the Ory SDK and
+[google_sign_in](https://pub.dev/packages/google_sign_in) Flutter package.
 
-- `login_hint`
-- `hd`
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import signInWithGoogleSnippet from "!!raw-loader!@site/code-examples/sdk/dart/social-sign-in/sign-in-with-google.dart"
 
-The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the
-proper session. The `hd` parameter limits the login/registration process to a Google Organization, for example `mycollege.edu`.
-
-The parameters can be passed along to Ory on `login`, `registration` and `settings` flows on form submit.
-
-See the [Advanced Integration](../bring-your-own-ui/custom-ui-advanced-integration#upstream-provider-parameters) document for more
-information on passing parameters from your UI to Ory.
+<CodeBlock language="dart" title="sign-in-with-google.dart">{signInWithGoogleSnippet}</CodeBlock>
+```
 
 ## Troubleshooting
 
