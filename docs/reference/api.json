@@ -3081,6 +3081,9 @@
             "description": "Configures the Ory Kratos Session Whoami AAL requirement\n\nThis governs the \"session.whoami.required_aal\" setting.",
             "type": "string"
           },
+          "kratos_session_whoami_tokenizer_templates": {
+            "$ref": "#/components/schemas/normalizedProjectRevisionTokenizerTemplates"
+          },
           "name": {
             "description": "The project's name.",
             "type": "string"
@@ -3316,7 +3319,7 @@
             "type": "string"
           },
           "mapper_url": {
-            "description": "Mapper specifies the JSONNet code snippet which uses the OpenID Connect Provider's data (e.g. GitHub or Google\nprofile information) to hydrate the identity's data.\n\nIt can be either a URL (file://, http(s)://, base64://) or an inline JSONNet code snippet.",
+            "description": "Mapper specifies the JSONNet code snippet which uses the OpenID Connect Provider's data (e.g. GitHub or Google\nprofile information) to hydrate the identity's data.",
             "type": "string"
           },
           "project_revision_id": {
@@ -3361,6 +3364,59 @@
           }
         },
         "type": "object"
+      },
+      "normalizedProjectRevisionTokenizerTemplate": {
+        "properties": {
+          "claims_mapper_url": {
+            "description": "Claims mapper URL",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "The Project's Revision Creation Date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "id": {
+            "description": "The revision ID.",
+            "format": "uuid",
+            "readOnly": true,
+            "type": "string"
+          },
+          "jwks_url": {
+            "description": "JSON Web Key URL",
+            "type": "string"
+          },
+          "key": {
+            "description": "The unique key of the template",
+            "type": "string"
+          },
+          "project_revision_id": {
+            "description": "The Revision's ID this schema belongs to",
+            "format": "uuid",
+            "type": "string"
+          },
+          "ttl": {
+            "default": "1m",
+            "description": "Token time to live",
+            "example": "1h",
+            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Last Time Project's Revision was Updated",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "normalizedProjectRevisionTokenizerTemplates": {
+        "items": {
+          "$ref": "#/components/schemas/normalizedProjectRevisionTokenizerTemplate"
+        },
+        "type": "array"
       },
       "normalizedProjects": {
         "items": {
@@ -5321,6 +5377,10 @@
           "issued_at": {
             "description": "The Session Issuance Timestamp\n\nWhen this session was issued at. Usually equal or close to `authenticated_at`.",
             "format": "date-time",
+            "type": "string"
+          },
+          "tokenized": {
+            "description": "Tokenized is the tokenized (e.g. JWT) version of the session.\n\nIt is only set when the `tokenize` query parameter was set to a valid tokenize template during calls to `/session/whoami`.",
             "type": "string"
           }
         },
@@ -14532,7 +14592,7 @@
     },
     "/sessions/whoami": {
       "get": {
-        "description": "Uses the HTTP Headers in the GET request to determine (e.g. by using checking the cookies) who is authenticated.\nReturns a session object in the body or 401 if the credentials are invalid or no credentials were sent.\nWhen the request it successful it adds the user ID to the 'X-Kratos-Authenticated-Identity-Id' header\nin the response.\n\nIf you call this endpoint from a server-side application, you must forward the HTTP Cookie Header to this endpoint:\n\n```js\npseudo-code example\nrouter.get('/protected-endpoint', async function (req, res) {\nconst session = await client.toSession(undefined, req.header('cookie'))\n\nconsole.log(session)\n})\n```\n\nWhen calling this endpoint from a non-browser application (e.g. mobile app) you must include the session token:\n\n```js\npseudo-code example\n...\nconst session = await client.toSession(\"the-session-token\")\n\nconsole.log(session)\n```\n\nDepending on your configuration this endpoint might return a 403 status code if the session has a lower Authenticator\nAssurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn\ncredentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user\nto sign in with the second factor or change the configuration.\n\nThis endpoint is useful for:\n\nAJAX calls. Remember to send credentials and set up CORS correctly!\nReverse proxies and API Gateways\nServer-side calls - use the `X-Session-Token` header!\n\nThis endpoint authenticates users by checking:\n\nif the `Cookie` HTTP header was set containing an Ory Kratos Session Cookie;\nif the `Authorization: bearer \u003cory-session-token\u003e` HTTP header was set with a valid Ory Kratos Session Token;\nif the `X-Session-Token` HTTP header was set with a valid Ory Kratos Session Token.\n\nIf none of these headers are set or the cookie or token are invalid, the endpoint returns a HTTP 401 status code.\n\nAs explained above, this request may fail due to several reasons. The `error.id` can be one of:\n\n`session_inactive`: No active session was found in the request (e.g. no Ory Session Cookie / Ory Session Token).\n`session_aal2_required`: An active session was found but it does not fulfil the Authenticator Assurance Level, implying that the session must (e.g.) authenticate the second factor.",
+        "description": "Uses the HTTP Headers in the GET request to determine (e.g. by using checking the cookies) who is authenticated.\nReturns a session object in the body or 401 if the credentials are invalid or no credentials were sent.\nWhen the request it successful it adds the user ID to the 'X-Kratos-Authenticated-Identity-Id' header\nin the response.\n\nIf you call this endpoint from a server-side application, you must forward the HTTP Cookie Header to this endpoint:\n\n```js\npseudo-code example\nrouter.get('/protected-endpoint', async function (req, res) {\nconst session = await client.toSession(undefined, req.header('cookie'))\n\nconsole.log(session)\n})\n```\n\nWhen calling this endpoint from a non-browser application (e.g. mobile app) you must include the session token:\n\n```js\npseudo-code example\n...\nconst session = await client.toSession(\"the-session-token\")\n\nconsole.log(session)\n```\n\nWhen using a token template, the token is included in the `tokenized` field of the session.\n\n```js\npseudo-code example\n...\nconst session = await client.toSession(\"the-session-token\", { tokenize_as: \"example-jwt-template\" })\n\nconsole.log(session.tokenized) // The JWT\n```\n\nDepending on your configuration this endpoint might return a 403 status code if the session has a lower Authenticator\nAssurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn\ncredentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user\nto sign in with the second factor or change the configuration.\n\nThis endpoint is useful for:\n\nAJAX calls. Remember to send credentials and set up CORS correctly!\nReverse proxies and API Gateways\nServer-side calls - use the `X-Session-Token` header!\n\nThis endpoint authenticates users by checking:\n\nif the `Cookie` HTTP header was set containing an Ory Kratos Session Cookie;\nif the `Authorization: bearer \u003cory-session-token\u003e` HTTP header was set with a valid Ory Kratos Session Token;\nif the `X-Session-Token` HTTP header was set with a valid Ory Kratos Session Token.\n\nIf none of these headers are set or the cookie or token are invalid, the endpoint returns a HTTP 401 status code.\n\nAs explained above, this request may fail due to several reasons. The `error.id` can be one of:\n\n`session_inactive`: No active session was found in the request (e.g. no Ory Session Cookie / Ory Session Token).\n`session_aal2_required`: An active session was found but it does not fulfil the Authenticator Assurance Level, implying that the session must (e.g.) authenticate the second factor.",
         "operationId": "toSession",
         "parameters": [
           {
@@ -14549,6 +14609,14 @@
             "example": "ory_session=a19iOVAbdzdgl70Rq1QZmrKmcjDtdsviCTZx7m9a9yHIUS8Wa9T7hvqyGTsLHi6Qifn2WUfpAKx9DWp0SJGleIn9vh2YF4A16id93kXFTgIgmwIOvbVAScyrx7yVl6bPZnCx27ec4WQDtaTewC1CpgudeDV2jQQnSaCP6ny3xa8qLH-QUgYqdQuoA_LF1phxgRCUfIrCLQOkolX5nv3ze_f==",
             "in": "header",
             "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Returns the session additionally as a token (such as a JWT)\n\nThe value of this parameter has to be a valid, configured Ory Session token template. For more information head over to [the documentation](http://ory.sh/docs/identities/session-to-jwt-cors).",
+            "in": "query",
+            "name": "tokenize_as",
             "schema": {
               "type": "string"
             }
