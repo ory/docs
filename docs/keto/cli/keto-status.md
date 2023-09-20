@@ -25,7 +25,7 @@ keto status [flags]
 
 ```
       --authority string                      Set the authority header for the remote gRPC server.
-      --block                                 Block until all migrations have been applied
+      --block                                 Block until the connection is up.
       --endpoint string                       which endpoint to use; one of {read, write} (default "read")
   -h, --help                                  help for status
       --insecure-disable-transport-security   Disables transport security. Do not use this in production.

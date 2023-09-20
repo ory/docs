@@ -25,7 +25,7 @@ keto check <subject> <relation> <namespace> <object> [flags]
 
 ```
       --authority string                      Set the authority header for the remote gRPC server.
-      --block                                 Block until all migrations have been applied
+      --block                                 Block until the connection is up.
       --format string                         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help                                  help for check
       --insecure-disable-transport-security   Disables transport security. Do not use this in production.
