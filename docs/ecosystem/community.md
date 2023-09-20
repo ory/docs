@@ -127,6 +127,7 @@ modifies the core technology. This isn't an exhaustive list. Want your own conte
 
 ### Ory Keto
 
+- [Ory Keto Terraform Provider](https://github.com/76creates/terraform-provider-oryketo/)
 - [KetoToDot Ory Keto relation tuples to dot notation converter](https://github.com/psauvage0/ketodot)
 
 ### Ory Fosite
