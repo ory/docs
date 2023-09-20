@@ -31,6 +31,19 @@ Ory Identities uses HTTP cookies to store sessions when accessed via a browser.
 
 :::
 
+## Public Suffix Domains
+
+If you're encountering a 403 `security_csrf_violation` error, it can be that you are using a domain that's on the
+[public suffix list (PSL)](https://publicsuffix.org/). It's not possible to set cookies on a domain that's on the PSL. To fix
+this, you need to use a sub-domain that's not on the PSL.
+
+For example, you may encounter this error when using the `myftp.org` domain for your application. To resolve it, host your
+application and API on separate sub-subdomains of `myftp.org` such as `app.myftp.org` and `ory.app.myftp.org`. Ensure that your
+application's settings specify the cookie domain as `app.myftp.org` to restrict cookies to the appropriate sub-subdomain. This
+configuration will help you bypass the limitations imposed by `myftp.org` being on the public suffix list, resolving the error and
+allowing proper cookie functionality. After making these adjustments, test your application to ensure that the
+`security_csrf_violation` error no longer occurs.
+
 ## Ory Identities
 
 ### Accessing cookies from client-side JavaScript
