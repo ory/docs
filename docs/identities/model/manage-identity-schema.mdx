@@ -111,7 +111,7 @@ identity schema and traits directly.
 Using patchIdentity is the recommended way to update identities.
 
 ```bash
-curl --location --request PATCH "https://$ORY_SLUG.projects.oryapis.com/admin/identities/"$IDENTITY_ID"" \
+curl --location --request PATCH "https://$ORY_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID" \
 --header "Authorization: Bearer $ORY_API_KEY" \
 --header "Content-Type: application/json" \
 --data-raw '[
@@ -263,7 +263,7 @@ Update the identity using the [updateIdentity API](https://www.ory.sh/docs/refer
 1. Update the identity using PUT
 
     ```bash
-    curl -d "@identity-"$IDENTITY_ID".json" -X PUT https://$ORY_SLUG.projects.oryapis.com/admin/identities/"$IDENTITY_ID" \
+    curl -d "@identity-$IDENTITY_ID.json" -X PUT https://$ORY_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID \
     -H "Authorization: Bearer $ORY_API_KEY" \
     -H'Content-Type: application/json'
     ```
