@@ -189,6 +189,7 @@ module.exports = {
             "kratos/self-service/flows/user-facing-errors",
           ],
         },
+        "kratos/organizations/organizations",
       ],
     },
     {
