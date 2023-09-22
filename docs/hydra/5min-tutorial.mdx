@@ -116,8 +116,8 @@ Let's perform the client credentials grant:
 docker-compose -f quickstart.yml exec hydra \
   hydra perform client-credentials \
   --endpoint http://127.0.0.1:4444/ \
-  --client-id $client_id \
-  --client-secret $client_secret
+  --client-id "$client_id" \
+  --client-secret "$client_secret"
 
 ACCESS TOKEN    ory_at_ZDTkKci59rH_8KlZlRjIek0812n9oPsvJX_nTdptGt0.bbpFutv5CsfjHzs8QrsnmPZ-0VxgwPvg9jgw1DQaYNg
 REFRESH TOKEN   <empty>
