@@ -7,8 +7,6 @@ title: Organizations and B2B Single Sign-On
 import Mermaid from "@site/src/theme/Mermaid"
 ```
 
-## Introduction
-
 Organizations are a way to group users together within one project. An organization always belongs to one Ory project. Within a
 project, an identity can belong to an organization or remain without an organization. Organizations contain multiple OIDC SSO
 connections. All members of an organizations must use one of the organization's OIDC SSO connections to log in.
@@ -33,7 +31,7 @@ graph LR
 />
 ```
 
-## Managing organizations
+## Manage organizations
 
 Organizations can be created, updated, and deleted via the HTTP REST API. The following examples shows how to manage
 organizations. Before you can manage organizations, you need to copy the `ory_session_ory` cookie from your browser.
@@ -104,14 +102,14 @@ curl -X DELETE --location "https://api.console.ory.sh/projects/${project_id}/org
 # Returns an empty response on success
 ```
 
-## Creating SSO connections for an organization
+## Create SSO connections for an organization
 
 After creating an organization, continue by adding one or more SSO OIDC connections. In the Ory Console, navigate to
 [Authentication > Social Sign-In & SSO (OIDC)](https://console.ory.sh/projects/current/social-signin). From there, add a new
-OpenID Connect provider. Under "show advanced settings", configure the organization to use for this connection.
+OpenID Connect provider. Under **Show advanced settings**, configure the organization to use for this connection.
 
 ![Configure the SSO connection in the Ory Console](configure-sso-connection.png)
 
-Next, go to your registration page. Entering an email that ends with the organization's domain (`@my.example.com` in the example
-above) shows a "Sign in with SSO" button instead of the passowrd field. Clicking it will take you to sign in with the SSO
-connection. Also note that the SSO connection is not visible for email addresses that are not managed by the organization.
+Next, go to your registration page. Entering an email that ends with the organization's domain, such as `@my.example.com` from the
+example above, shows a **Sign in with SSO** button instead of the password field. Clicking it will take you to sign in with the
+SSO connection. The SSO connection is not visible for email addresses that are not managed by the organization.
