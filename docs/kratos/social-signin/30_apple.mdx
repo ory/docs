@@ -182,8 +182,8 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
 
 Apple provides a more integrated UX for native apps using the
 [Apple SDK](https://developer.apple.com/documentation/sign_in_with_apple/implementing_user_authentication_with_sign_in_with_apple).
-This flow uses the native Apple SDK and does not require a browser. This results in a signed `id_token` on the client side which
-is exchanged at Ory for a session token.
+This flow uses the native Apple SDK and does not require a browser. This results in a signed `id_token` on the client side
+(typically your app) which is exchanged at Ory for a session token.
 
 The following steps are required to integrate the Apple SDK with Ory:
 
@@ -199,7 +199,7 @@ The `id_token` is verified using Apple's publicly available signing keys, availa
 The `id_token` issued by Apple only contains the user's email address. You can submit additional claims to Ory as part of the
 `updateRegistrationFlow` request, as `traits`.
 
-:::warning
+:::info
 
 As Ory does not communicate directly with Apple during this flow, it does not have access to the Access & Refresh Tokens. This
 means that Ory cannot return these in the admin APIs or SDK. If you need these tokens, you can exchange the `authorization_code`
@@ -209,9 +209,9 @@ returned by Apple on the device manually.
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
-import revokeOtherSessionsReact from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/registration/apple-social-sign-in-native.ts"
+import signInWithAppleSnippet from "!!raw-loader!@site/code-examples/sdk/typescript/src/selfservice/registration/apple-social-sign-in-native.ts"
 
-<CodeBlock language="ts" title="apple-social-sign-in-react-native.tsx">{revokeOtherSessionsReact}</CodeBlock>
+<CodeBlock language="ts" title="apple-social-sign-in-react-native.tsx">{signInWithAppleSnippet}</CodeBlock>
 ```
 
 ## Troubleshooting
