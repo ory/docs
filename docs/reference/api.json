@@ -271,6 +271,23 @@
       "OAuth2LoginChallengeParams": {
         "type": "object"
       },
+      "OrganizationBody": {
+        "description": "Create B2B SSO Organization Request Body",
+        "properties": {
+          "domains": {
+            "description": "Domains contains the list of organization's domains.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "label": {
+            "description": "Label contains the organization's label.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "ParseError": {
         "properties": {
           "end": {
@@ -1321,6 +1338,9 @@
           "metadata_public": {
             "$ref": "#/components/schemas/nullJsonRawMessage"
           },
+          "organization_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
           "recovery_addresses": {
             "description": "RecoveryAddresses contains all the addresses that can be used to recover an identity.",
             "items": {
@@ -1431,6 +1451,9 @@
             "type": "string"
           },
           "initial_refresh_token": {
+            "type": "string"
+          },
+          "organization": {
             "type": "string"
           },
           "provider": {
@@ -1947,6 +1970,19 @@
         },
         "type": "array"
       },
+      "listOrganizationsResponse": {
+        "description": "B2B SSO Organization List",
+        "properties": {
+          "organizations": {
+            "items": {
+              "$ref": "#/components/schemas/organization"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["organizations"],
+        "type": "object"
+      },
       "loginFlow": {
         "description": "This object represents a login flow. A login flow is initiated at the \"Initiate Login API / Browser Flow\"\nendpoint by a client.\n\nOnce a login flow is completed successfully, a session cookie or session token will be issued.",
         "properties": {
@@ -1979,6 +2015,9 @@
           },
           "oauth2_login_request": {
             "$ref": "#/components/schemas/oAuth2LoginRequest"
+          },
+          "organization_id": {
+            "$ref": "#/components/schemas/NullUUID"
           },
           "refresh": {
             "description": "Refresh stores whether this login flow should enforce re-authentication.",
@@ -3354,6 +3393,9 @@
             "description": "Mapper specifies the JSONNet code snippet which uses the OpenID Connect Provider's data (e.g. GitHub or Google\nprofile information) to hydrate the identity's data.",
             "type": "string"
           },
+          "organization_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
           "project_revision_id": {
             "description": "The Revision's ID this schema belongs to",
             "format": "uuid",
@@ -4238,6 +4280,30 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "organization": {
+        "description": "B2B SSO Organization",
+        "properties": {
+          "domains": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "id": {
+            "description": "The organization's ID.",
+            "format": "uuid",
+            "type": "string"
+          },
+          "label": {
+            "description": "The organization's human-readable label.",
+            "type": "string"
+          },
+          "project_id": {
+            "description": "The project's ID.",
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "required": ["id", "project_id", "label", "domains"],
         "type": "object"
       },
       "pagination": {
@@ -5165,6 +5231,9 @@
           "oauth2_login_request": {
             "$ref": "#/components/schemas/oAuth2LoginRequest"
           },
+          "organization_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
           "request_url": {
             "description": "RequestURL is the initial URL that was requested from Ory Kratos. It can be used\nto forward information contained in the URL's path or query for example.",
             "type": "string"
@@ -5442,6 +5511,10 @@
               "v0.6_legacy_session"
             ],
             "title": "The method used",
+            "type": "string"
+          },
+          "organization": {
+            "description": "The Organization id used for authentication",
             "type": "string"
           },
           "provider": {
@@ -11643,6 +11716,342 @@
         "tags": ["project"]
       }
     },
+    "/projects/{project_id}/organizations": {
+      "get": {
+        "operationId": "listOrganizations",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listOrganizationsResponse"
+                }
+              }
+            },
+            "description": "listOrganizationsResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "tags": ["project"]
+      },
+      "post": {
+        "description": "Create a B2B SSO Organization",
+        "operationId": "createOrganization",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationBody"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/organization"
+                }
+              }
+            },
+            "description": "organization"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "tags": ["project"]
+      }
+    },
+    "/projects/{project_id}/organizations/{organization_id}": {
+      "delete": {
+        "operationId": "deleteOrganization",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Organization ID\n\nThe Organization's ID.",
+            "in": "path",
+            "name": "organization_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Delete a B2B SSO Organization for a project.",
+        "tags": ["project"]
+      },
+      "put": {
+        "operationId": "updateOrganization",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Organization ID\n\nThe Organization's ID.",
+            "in": "path",
+            "name": "organization_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationBody"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/organization"
+                }
+              }
+            },
+            "description": "organization"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Update a B2B SSO Organization for a project.",
+        "tags": ["project"]
+      }
+    },
     "/projects/{project}/members": {
       "get": {
         "description": "This endpoint requires the user to be a member of the project with the role `OWNER` or `DEVELOPER`.",
@@ -12920,6 +13329,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "An optional organization ID that should be used for logging this user in.\nThis parameter is only effective in the Ory Network.",
+            "in": "query",
+            "name": "organization",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -13653,6 +14070,13 @@
             "description": "The URL to return the browser to after the verification flow was completed.\n\nAfter the registration flow is completed, the user will be sent a verification email.\nUpon completing the verification flow, this URL will be used to override the default\n`selfservice.flows.verification.after.default_redirect_to` value.",
             "in": "query",
             "name": "after_verification_return_to",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "organization",
             "schema": {
               "type": "string"
             }
