@@ -163,7 +163,7 @@ service that doesn't provide an SMTP server.
 
    ```yaml title="config.yml"
    courier:
-     delivery_method: http
+     delivery_strategy: http
      http:
        request_config:
          url: https://mail-sender.example.com
