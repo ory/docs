@@ -202,7 +202,7 @@ Use the Ory CLI with following keys to enable this feature:
 
 ```shell title="Enable the refresh token hook"
 ory patch oauth2-config {project.id} \
-  --add '/oauth2/refresh_token_hook="https://my-example.app/token-refresh-hook"' \
+  --add '/oauth2/refresh_token_hook/url="https://my-example.app/token-refresh-hook"' \
   --format yaml
 ```
 
