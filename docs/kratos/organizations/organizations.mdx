@@ -33,84 +33,14 @@ graph LR
 
 ## Manage organizations
 
-Organizations can be created, updated, and deleted via the HTTP REST API. The following examples show how to manage organizations.
-Before you can manage organizations, you need to copy the `ory_session_ory` cookie from your browser. For detailed instructions on
-using the projects API refer to the
-[Manage Ory Network projects using the API ](https://www.ory.sh/projects-api-management-guide/) blogpost.
+Organizations can be managed using the Ory Console.
 
-### Create an organization
-
-```shell
-# project_id = your project ID
-# ory_session_cookie = the value of the ory_session_ory cookie
-
-curl -X POST --location "https://api.console.ory.sh/projects/${project_id}/organizations" \
-    -H "Content-Type: application/json" \
-    -H "Cookie: ory_session_ory=${ory_session_cookie}" \
-    -d "{
-          \"domains\": [
-            \"my.example.com\"
-          ],
-          \"label\": \"My Organization\"
-        }"
-
-# Returns:
-#   {
-#     "id": "87a01675-55f4-4b4f-b702-788546536cd0",
-#     "project_id": "45a22e6f-5eca-4925-bc44-4736c775e892",
-#     "label": "My Organization",
-#     "domains": [
-#       "my.example.com"
-#     ]
-#   }
-```
-
-### List the project's organizations
-
-```shell
-# project_id = your project ID
-# ory_session_cookie = the value of the ory_session_ory cookie
-
-curl -X GET --location "https://api.console.ory.sh/projects/${project_id}/organizations" \
-    -H "Content-Type: application/json" \
-    -H "Cookie: ory_session_ory=${ory_session_cookie}"
-
-# Returns:
-#   {
-#     "organizations": [
-#       {
-#         "id": "696778f4-8975-45ad-8809-5433dc0f576e",
-#         "project_id": "45a22e6f-5eca-4925-bc44-4736c775e892",
-#         "label": "My Organization",
-#         "domains": [
-#           "my.example.com"
-#         ]
-#       }
-#     ]
-#   }
-```
-
-### Delete an organization
-
-```shell
-# organization_id = your organization ID (from a previous GET request)
-# project_id = your project ID
-# ory_session_cookie = the value of the ory_session_ory cookie
-
-curl -X DELETE --location "https://api.console.ory.sh/projects/${project_id}/organizations/${organization_id}" \
-    -H "Content-Type: application/json" \
-    -H "Cookie: ory_session_ory=${ory_session_cookie}"
-
-# Returns an empty response on success
-```
+To create, update, or delete organizations via the Ory Console, navigate to
+[Authentication > Organizations](https://console.ory.sh/projects/current/authentication/organizations).
 
 ## Create SSO connections for an organization
 
-After creating an organization, continue by adding one or more SSO OIDC connections. In the Ory Console, navigate to
-[Authentication > Social Sign-In & SSO (OIDC)](https://console.ory.sh/projects/current/social-signin). From there, add a new
-OpenID Connect provider. Under **Show advanced settings**, configure the organization to use for this connection.
-
-![Configure the SSO connection in the Ory Console](configure-sso-connection.png)
+After creating an organization, continue by adding one or more SSO OIDC connections.
 
 Next, go to your registration page. Entering an email that ends with the organization's domain, such as `@my.example.com` from the
 example above, shows a **Sign in with SSO** button instead of the password field. Clicking it will take you to sign in with the
