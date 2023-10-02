@@ -87,10 +87,10 @@ The token hook endpoint must accept the following payload format:
 
 :::
 
-### Authentication
+### Webhook authentication
 
-The webhook currently supports API key authentication. You can configure whether the API key is sent as a cookie or in a header,
-and the cookie/header name:
+The webhook supports API key authentication. You can configure whether the API key is sent as a cookie or in a header, and the
+cookie/header name:
 
 ```shell title="Add an API key to the token hook"
 ory patch oauth2-config {project.id} \
