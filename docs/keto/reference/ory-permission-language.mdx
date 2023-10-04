@@ -223,9 +223,6 @@ The `ctx` object is a fixed parameter that contains the `subject` for which the 
 ctx = { subject: "some_user_id" }
 ```
 
-The context will contain more fields in the future, for example, the IP range or geolocation, the time of day, or the security
-level of the device making the request.
-
 ```ebnf
 PermissionBody  = ( "(" PermissionBody ")" ) | ( PermissionCheck | { Operator PermissionBody } ) .
 Operator        = "||" | "&&" .
