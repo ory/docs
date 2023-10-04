@@ -222,8 +222,8 @@ client_secret=$(echo $client | jq -r '.client_secret')
 docker-compose -f quickstart.yml exec hydra \
   hydra perform client-credentials \
   --endpoint http://127.0.0.1:4444/ \
-  --client-id $client_id \
-  --client-secret $client_secret
+  --client-id "$client_id" \
+  --client-secret "$client_secret"
 ```
 
 to
@@ -237,8 +237,8 @@ client=$(docker-compose -f quickstart.yml exec hydra \
 
 hydra perform client-credentials \
     --endpoint http://public.hydra.localhost/ \
-  --client-id $client_id \
-  --client-secret $client_secret
+  --client-id "$client_id" \
+  --client-secret "$client_secret"
 ```
 
 ### Hydra Maester

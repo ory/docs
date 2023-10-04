@@ -76,8 +76,8 @@ Or you can use the binary within the docker-container:
 docker-compose -f quickstart.yml exec hydra \
     hydra create client \
     --endpoint http://127.0.0.1:4445 \
-    --id $client_id \
-    --secret $client_secret \
+    --id "$client_id" \
+    --secret "$client_secret" \
     --grant-type authorization_code,refresh_token \
     --response-type code,id_token,email \
     --scope openid,offline_access,profile,email \
@@ -229,8 +229,8 @@ Some remarks for creating the client. We've created the client like this. The se
 ```sh
 hydra create client \
     --endpoint http://127.0.0.1:4445 \
-    --id $client_id \
-    --secret $client_secret \
+    --id "$client_id" \
+    --secret "$client_secret" \
     --grant-type authorization_code,refresh_token \
     --response-type code,id_token, email \
     --scope openid,offline_access,profile,email \
