@@ -13,9 +13,10 @@ Add the `revoke_active_sessions' action to the settings hook configuration in th
 
 ```yaml title="config.yml"
 selfservice:
-  settings:
-    after:
-      password:
-        hooks:
-          - hook: revoke_active_sessions
+  flows:
+    settings:
+      after:
+        password:
+          hooks:
+            - hook: revoke_active_sessions
 ```
