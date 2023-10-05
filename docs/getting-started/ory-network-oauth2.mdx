@@ -127,8 +127,8 @@ To try the Authorization Code Grant, follow these steps.
    ```shell
    ory perform authorization-code \
      --project "$project_id" \
-     --client-id "$client_id" \
-     --client-secret "$client_secret"
+     --client-id "$code_client_id" \
+     --client-secret "$code_client_secret"
    ```
 
    In the browser, use the UI to register a new user and allow the client to get the requested scopes to get an `access_token`, a
