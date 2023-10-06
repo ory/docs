@@ -33,7 +33,7 @@ Use the Ory CLI with following keys to enable this feature:
 
 ```shell title="Enable the generic token hook"
 ory patch oauth2-config {project.id} \
-  --add "/oauth2/token_hook=\"https://my-example.app/token-hook\"" \
+  --add '/oauth2/token_hook/url="https://my-example.app/token-hook"' \
   --format yaml
 ```
 
@@ -86,6 +86,20 @@ The token hook endpoint must accept the following payload format:
 `request` is the token request context.
 
 :::
+
+### Webhook authentication
+
+The webhook supports API key authentication. You can configure whether the API key is sent as a cookie or in a header, and the
+cookie/header name:
+
+```shell title="Add an API key to the token hook"
+ory patch oauth2-config {project.id} \
+  --add '/oauth2/token_hook/auth/type="api_key"' \
+  --add '/oauth2/token_hook/auth/config/in="header"' `# or cookie` \
+  --add '/oauth2/token_hook/auth/config/name="X-API-Key"' \
+  --add '/oauth2/token_hook/auth/config/value="MY API KEY"' \
+  --format yaml
+```
 
 ### Requester payload
 
@@ -188,7 +202,7 @@ Use the Ory CLI with following keys to enable this feature:
 
 ```shell title="Enable the refresh token hook"
 ory patch oauth2-config {project.id} \
-  --add "/oauth2/refresh_token_hook=\"https://my-example.app/token-refresh-hook\"" \
+  --add '/oauth2/refresh_token_hook/url="https://my-example.app/token-refresh-hook"' \
   --format yaml
 ```
 
