@@ -20,8 +20,8 @@ export ORY_SDK_URL=https://playground.projects.oryapis.com
 :::info
 
 The main use case for Ory Tunnel and Ory Proxy is local development, but it can also be used in production, on different server
-types, and in Docker. You can use Ory Tunnel in the same way you use Ory Proxy.  
-Read about the [differences](#differences-between-ory-tunnel-and-ory-proxy) between the two at the end of this document.
+types, and in Docker. You can use Ory Tunnel in the same way you use Ory Proxy. Read about the
+[differences](#differences-between-ory-tunnel-and-ory-proxy) between the two at the end of this document.
 
 :::
 
@@ -32,7 +32,7 @@ Ory Tunnel is exposing the Ory APIs under the same top-level domain as your appl
 To run Ory Tunnel, use the `ory tunnel` command and point to the URL with your application, for example:
 
 ```shell
-ory tunnel --project {project.slug}.projects.oryapis.com http://localhost:3000
+ory tunnel --project {project.slug} http://localhost:3000
 ```
 
 To get a full list of arguments and options available for use with Ory Tunnel, run: `ory tunnel --help`
@@ -230,8 +230,8 @@ This is an example of a JWT with session and identity data:
 
 ### Use Ory Proxy when self-hosting
 
-You can use Ory Proxy in a production setup when self-hosting Ory components.  
-Set the entry point URL to the domain where you want to expose the app through the Ory Proxy:
+You can use Ory Proxy in a production setup when self-hosting Ory components. Set the entry point URL to the domain where you want
+to expose the app through the Ory Proxy:
 
 ```shell
 ory proxy http://localhost:3000 https://my-domain.com
@@ -307,8 +307,8 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 
 ## Differences between Ory Tunnel and Ory Proxy
 
-Ory Tunnel shares most of its code with the Ory Proxy, and from the user's point of view, it works similarly.  
-Several important differences between Ory Proxy and Ory Tunnel:
+Ory Tunnel shares most of its code with the Ory Proxy, and from the user's point of view, it works similarly. Several important
+differences between Ory Proxy and Ory Tunnel:
 
 - Ory Tunnel routes traffic to Ory Network APIs, while Ory Proxy is a reverse proxy deployed in front of your application,
   mirroring Ory Network endpoints on the same domain as your app.
