@@ -212,10 +212,11 @@ the globe so that latency is not an issue for users. [Read more about session ca
 If you don't want to make repeated calls to `toSession` / `/sessions/whoami`, or you need to use JWTs in your setup, you have
 several options:
 
-- You can use the [Session to JWT API](../../identities/session-to-jwt-cors.mdx). This is the recommended method. Read more in the
+- **Recommended**: Use [Session to JWT](../../identities/session-to-jwt-cors.mdx). Read more in the
   [Session to JWT](../../identities/session-to-jwt-cors.mdx) documentation.
-- You can convert sessions to JWTs on your entry point. There, you could add caching to further reduce the number of API calls
-  made. More information on this approach is available in the section below.
+- Alternative: Convert sessions to JWTs on your entry point. You then have the option to add caching to further reduce the number
+  of API calls made. More information on this approach is available in the
+  [section below](#use-ory-oathkeeper-to-convert-sessions-to-jwts).
 
 ### Use Ory Oathkeeper to convert sessions to JWTs
 
