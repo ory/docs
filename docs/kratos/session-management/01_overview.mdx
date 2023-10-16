@@ -23,6 +23,8 @@ Sessions can be issued in two formats:
 - **Ory Session Token** - when the system detects that the interaction is performed by a client other than a web browser, for
   example a native mobile app, a session token is issued to the client.
 
+You can also convert an Ory Session to a JWT, read more about this approach [here](#json-web-token-jwt-support).
+
 :::note
 
 For security reasons, you can't break the isolation between cookies and session tokens.
@@ -197,13 +199,7 @@ import nativeWhoAmI from "!!raw-loader!@site/code-examples/sdk/typescript/src/se
 
 ## JSON Web Token (JWT) support
 
-:::warning
-
-Ory doesn't issue sessions as JSON Web Tokens (JWTs).
-
-:::
-
-Sessions are not issued as JWTs for two main reasons:
+Sessions are by default not issued as JWTs for two main reasons:
 
 1. Sessions can end at any point in time, indicating that the user is no longer signed in. With JWTs, it's difficult to determine
    if a session is still valid before the token expires.
@@ -213,10 +209,18 @@ Sessions are not issued as JWTs for two main reasons:
 Ory Network employs a session caching mechanism to reduce the latency for `toSession` / `/sessions/whoami` endpoint calls across
 the globe so that latency is not an issue for users. [Read more about session caching.](../../concepts/cache.mdx)
 
-If you don't want to make repeated calls to `toSession` / `/sessions/whoami`, or you need to use JWTs in your setup, you can
-convert sessions to JWTs on your entry point. There, you could add caching to further reduce the number of API calls made.
+If you don't want to make repeated calls to `toSession` / `/sessions/whoami`, or you need to use JWTs in your setup, you have
+several options:
 
-:::tip
+- **Recommended**: Use [Session to JWT](../../identities/session-to-jwt-cors.mdx). Read more in the
+  [Session to JWT](../../identities/session-to-jwt-cors.mdx) documentation.
+- Alternative: Convert sessions to JWTs on your entry point. You then have the option to add caching to further reduce the number
+  of API calls made. More information on this approach is available in the
+  [section below](#use-ory-oathkeeper-to-convert-sessions-to-jwts).
+
+### Use Ory Oathkeeper to convert sessions to JWTs
+
+:::info
 
 [Ory Oathkeeper](https://www.ory.sh/oathkeeper) is an API Gateway capable of converting sessions to JWTs.
 
