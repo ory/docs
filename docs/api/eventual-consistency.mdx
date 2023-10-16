@@ -1,0 +1,48 @@
+---
+id: eventual-consistency
+title: Eventual consistency
+sidebar_label: Eventual consistency
+---
+
+Ory Network is a global, planet-spanning system with data distributed across numerous continents. To enhance query performance,
+Ory's APIs offer robust consistency controls. This article will delve into the consistency levels provided by Ory's APIs and how
+they can be utilized to balance data freshness and latency.
+
+## Consistency Levels
+
+Ory Network offers two distinct consistency levels: `full` and `eventual`.
+
+### Full Consistency
+
+**Definition**: The `full` consistency level ensures that you receive the freshest data available.
+
+**Characteristics**:
+
+- **Data Freshness**: Full consistency guarantees that you receive the latest updates to the data.
+- **Latency**: However, this level introduces higher latency to your queries, as the system takes the necessary steps to
+  synchronize and deliver the most recent information.
+- **Use Cases**: Use `full` consistency when access to the most up-to-date data is critical, even if it means longer response
+  times.
+
+### Eventual Consistency
+
+**Definition**: The `eventual` consistency level delivers data as fast as possible.
+
+**Characteristics**:
+
+- **Data Freshness**: While `eventual` consistency offers faster query response times, the data can be stale, meaning it does not
+  reflect the latest updates.
+- **Latency**: This level minimizes latency, enabling rapid access to data.
+- **Use Cases**: Choose `eventual` consistency when immediate data access is crucial, and you can tolerate data that is not
+  current.
+
+## Replication Lag
+
+It's important to note that Ory Network operates with a replication lag of approximately 4.8 seconds. This means that even under
+`full` consistency, there is still a delay in accessing the latest data due to the replication process. In some cases, replication
+lag can be higher.
+
+## Identity List API Support
+
+The [Identity List API(../reference/api#tag/identity/operation/listIdentities) in Ory Network supports consistency controls. This
+means you can choose the consistency level when using the Identity List API.
