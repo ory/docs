@@ -645,7 +645,7 @@ module.exports = {
     "api/index",
     "concepts/personal-access-token",
     "ecosystem/api-design",
-    "api/consistency",
+    "api/eventual-consistency",
     "concepts/cache",
     "reference/api",
     {
