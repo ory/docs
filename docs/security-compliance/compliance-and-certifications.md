@@ -22,7 +22,7 @@ standards of data protection.
 Ory is SOC 2 Type II certified. SOC 2 Type 2 is a framework for assessing the security, availability, processing integrity,
 confidentiality, and privacy of data in service organizations. It is not a standard but a certification that demonstrates that an
 organization's internal controls and processes meet specific criteria. The Type II designation indicates that an independent
-auditor has evaluated and tested these controls over a period of time (typically six months to a year) to ensure they are
+auditor has evaluated and tested these controls over a period of time (typically three months to a year) to ensure they are
 effectively implemented. Current and prospective customers interested in obtaining a copy of Ory’s latest SOC 2 report may contact
 our security team at security@ory.sh.
 
