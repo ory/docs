@@ -17,9 +17,9 @@ ISO 27001 certification verifies that Ory has an information security management
 confidentiality and integrity of your data. Our internal security team is dedicated to ensuring that Ory maintains the highest
 standards of data protection.
 
-## SOC 2 Typpe II
+## SOC 2 Type 2
 
-Ory is SOC 2 Type II certified. SOC 2 Type 2 is a framework for assessing the security, availability, processing integrity,
+Ory is SOC 2 Type 2 certified. SOC 2 is a framework for assessing the security, availability, processing integrity,
 confidentiality, and privacy of data in service organizations. It is not a standard but a certification that demonstrates that an
 organization's internal controls and processes meet specific criteria. The Type II designation indicates that an independent
 auditor has evaluated and tested these controls over a period of time (typically three months to a year) to ensure they are
