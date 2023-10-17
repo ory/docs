@@ -424,6 +424,32 @@ $sha512-crypt$rounds=656000$L6GsrFY85uzwktkh$gD2vwQpyaBn.FIBgjp2TCQHCQ3bMft49oIz
 ```
 
 </TabItem>
+<TabItem value="hmac" label="HMAC">
+
+Ory Identities doesn't hash passwords by HMAC but can compare stored HMAC hashes and migrate to configured hasher
+(`hashers.algorithm`).
+
+#### Format
+
+```
+$hmac-<hash_function>$<hash>$<key>
+```
+
+#### Parameters
+
+- `hash_function`(`string`): The hash function used to generate the hashed password. Supports `md4`, `md5`, `sha1`, `sha224`, `sha256`, `sha384` and `sha512` functions.
+- `hash`(`string`): The computed hash, encoded in Base64.
+- `key`(`string`): The key used to compute the hash, encoded in Base64
+
+#### Example
+
+```
+$hmac-md5$ZmU4Njk3Zjc0MmQwODA0MDVkMTI3MGU2MTYzMzE2Zjk=$MTIzNDU=
+$hmac-sha256$ZTAzMWJhMWMyOTM4YjFkMjgzZjkxOWExZGY5YWM2NmMxOTJhN2RkNzQ0MzJkNWZkNGFkYTI5OTk0MWJhMTA5Zg==$MTIzNDU=
+$hmac-sha512$OTFmODY0ZTI1NmU0ZjVhYjhiMDViZGFmNGVmNGZmMGVlNTY4ODYwNWJhYTk4MTk2OTgyMzc3NzI1YTc4MzcxMTMzNzZmY2YxYTk5MGMxM2RiZDk2MGFmMmQ1YzRmODdlMGMwYTNkYjcyNjY0NjM4NGE4YzQ2MjNhZDZkN2UxZTE=$MTIzNDU=
+```
+
+</TabItem>
 </Tabs>
 ````
 
