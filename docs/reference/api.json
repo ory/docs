@@ -5150,7 +5150,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\norganizations Organizations\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList",
+            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList",
             "enum": [
               "region_eu",
               "region_us",
@@ -5166,12 +5166,13 @@
               "zendesk_support",
               "project_metrics",
               "organizations",
+              "rop_grant",
               "rate_limit_tier",
               "session_rate_limit_tier",
               "identities_list_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\norganizations Organizations\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList"
+            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList"
           },
           "feature_available": {
             "type": "boolean"
