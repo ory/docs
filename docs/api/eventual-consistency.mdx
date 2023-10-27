@@ -10,21 +10,21 @@ they can be utilized to balance data freshness and latency.
 
 ## Consistency Levels
 
-Ory Network offers two distinct consistency levels: `full` and `eventual`.
+Ory Network offers two distinct consistency levels: `strong` and `eventual`.
 
-### Full Consistency (default)
+### Strong Consistency (slow)
 
-**Definition**: The `full` consistency level ensures that you receive the freshest data available.
+**Definition**: The `strong` consistency level ensures that you receive the freshest data available.
 
 **Characteristics**:
 
 - **Data Freshness**: Full consistency guarantees that you receive the latest updates to the data.
 - **Latency**: However, this level introduces higher latency to your queries, as the system takes the necessary steps to
   synchronize and deliver the most recent information.
-- **Use Cases**: Use `full` consistency when access to the most up-to-date data is critical, even if it means longer response
+- **Use Cases**: Use `strong` consistency when access to the most up-to-date data is critical, even if it means longer response
   times.
 
-### Eventual Consistency
+### Eventual Consistency (fast)
 
 **Definition**: The `eventual` consistency level delivers data as fast as possible, typically within 4.8 seconds.
 
@@ -35,6 +35,16 @@ Ory Network offers two distinct consistency levels: `full` and `eventual`.
 - **Latency**: This level minimizes latency, enabling rapid access to data.
 - **Use Cases**: Choose `eventual` consistency when immediate data access is crucial, and you can tolerate data that is not
   current.
+
+## Default Consistency
+
+The default consistency guarantee can be changed in the Ory Network Console or using the Ory CLI with:
+
+```
+ory patch project --replace '/previews/default_read_consistency_level="eventual"'
+```
+
+The default is `strong`.
 
 ## Identity List API Support
 
