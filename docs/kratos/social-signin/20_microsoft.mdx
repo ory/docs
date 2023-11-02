@@ -9,7 +9,7 @@ sidebar_label: Microsoft
 :::note
 
 To add Microsoft as a social sign-in provider, you need an Azure account with an active subscription. Follow
-[this link](https://azure.microsoft.com/free/?WT.mc_id=A261C142F) to create a free account.
+[this link](https://azure.microsoft.com/free/) to create a free account.
 
 :::
 
@@ -33,7 +33,9 @@ Follow these steps to add Microsoft as a social sign-in provider for your projec
    - Define the app display name
    - Select the supported account types
    - Select the appropriate application type using the dropdown menu
-   - Provide the Redirect URI copied from the Ory Console
+   - Provide the Redirect URI copied from the Ory Console and add it on Azure console.
+
+   ![Screenshot of Azure App Authentication Configuration (Oct 2023)](./_static/azure_oidc_authentication_configuration.png)
 
 8. Copy the **Application (client) ID** from Azure and paste it into the corresponding field in the Ory Console.
 9. In Azure, click the **Client credentials** link and create a new client secret.
