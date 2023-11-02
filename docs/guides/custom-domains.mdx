@@ -133,9 +133,9 @@ If your Custom Hostname remains in `pending` or `error` state, you can check you
 ;auth.foobar.com.             IN      A
 
 ;; ANSWER SECTION:
-auth.foobar.com.      300     IN      CNAME   <YOUR-PROJECT-SLUG>.projects.oryapis.com.
-<YOUR-PROJECT-SLUG>.projects.oryapis.com. 300 IN A 104.18.12.126
-<YOUR-PROJECT-SLUG>.projects.oryapis.com. 300 IN A 104.18.13.126
+auth.foobar.com.      300     IN      CNAME   <your-project-slug>.projects.oryapis.com.
+<your-project-slug>.projects.oryapis.com. 300 IN A 104.18.12.126
+<your-project-slug>.projects.oryapis.com. 300 IN A 104.18.13.126
 
 ;; Query time: 28 msec
 ;; SERVER: 8.8.8.8#53(8.8.8.8)
@@ -143,7 +143,7 @@ auth.foobar.com.      300     IN      CNAME   <YOUR-PROJECT-SLUG>.projects.oryap
 ;; MSG SIZE  rcvd: 135
 ```
 
-If the ANSWER SECTION shows an IP address instead of the generic Ory network URL (<YOUR-PROJECT-SLUG>.projects.oryapis.com), it
+If the ANSWER SECTION lists an IP address instead of the generic Ory network URL (`&lt;your-project-slug&gt;.projects.oryapis.com`), it
 indicates you did not deactivate proxying. Check the configuration of your CNAME record in your DNS Provider/registrar and disable
 proxying.
 
