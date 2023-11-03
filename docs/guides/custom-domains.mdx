@@ -90,14 +90,6 @@ settings.
 
 ## Setting up a CNAME record
 
-If you're with any of these registrars, you can use their respective guide on how to add a CNAME record:
-
-- [GoDaddy](https://www.godaddy.com/help/add-a-cname-record-19236)
-- [Namecheap](https://www.namecheap.com/support/knowledgebase/article.aspx/9646/2237/how-to-create-a-cname-record-for-your-domain/)
-- [Domain.com](https://www.domain.com/help/article/dns-management-how-to-update-cname-aliases)
-- [Cloudflare](https://support.cloudflare.com/hc/en-us/articles/360019093151-Managing-DNS-records-in-Cloudflare)
-- [Bluehost](https://my.bluehost.com/hosting/help/resource/714)
-
 :::note
 
 If your DNS provider/registrar automatically activates a proxy on the CNAME record, it can keep the custom domain in a pending
@@ -105,6 +97,14 @@ state. Please make sure to deactivate proxying on the CNAME record. We use a tai
 ensure requests to the custom hostname are fully protected.
 
 :::
+
+If you're with any of these registrars, you can use their respective guide on how to add a CNAME record:
+
+- [GoDaddy](https://www.godaddy.com/help/add-a-cname-record-19236)
+- [Namecheap](https://www.namecheap.com/support/knowledgebase/article.aspx/9646/2237/how-to-create-a-cname-record-for-your-domain/)
+- [Domain.com](https://www.domain.com/help/article/dns-management-how-to-update-cname-aliases)
+- [Cloudflare](https://support.cloudflare.com/hc/en-us/articles/360019093151-Managing-DNS-records-in-Cloudflare)
+- [Bluehost](https://my.bluehost.com/hosting/help/resource/714)
 
 If not, don't worry - your registrar likely has a similar guide, or a similar process. Setting up a CNAME record typically
 requires you to specify 3 values:
@@ -143,9 +143,9 @@ auth.foobar.com.      300     IN      CNAME   <your-project-slug>.projects.oryap
 ;; MSG SIZE  rcvd: 135
 ```
 
-If the ANSWER SECTION lists an IP address instead of the generic Ory network URL
-(`&lt;your-project-slug&gt;.projects.oryapis.com`), it indicates you did not deactivate proxying. Check the configuration of your
-CNAME record in your DNS Provider/registrar and disable proxying.
+If the ANSWER SECTION lists an IP address instead of the generic Ory network URL `<your-project-slug>.projects.oryapis.com`, it
+indicates you did not deactivate proxying. Check the configuration of your CNAME record in your DNS Provider/registrar and disable
+proxying.
 
 ## Automated emails
 
