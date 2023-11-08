@@ -1171,6 +1171,44 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
+###### Signing in will link your account to "{duplicteIdentifier}" at provider "{provider}". If you do not wish to link that account, please start a new login flow. (1010016)
+
+```json
+{
+  "id": 1010016,
+  "text": "Signing in will link your account to \"{duplicteIdentifier}\" at provider \"{provider}\". If you do not wish to link that account, please start a new login flow.",
+  "type": "info",
+  "context": {
+    "duplicateIdentifier": "{duplicteIdentifier}",
+    "newLoginUrl": "{newLoginUrl}",
+    "provider": "{provider}"
+  }
+}
+```
+
+###### Sign in and link (1010017)
+
+```json
+{
+  "id": 1010017,
+  "text": "Sign in and link",
+  "type": "info"
+}
+```
+
+###### Sign in with {provider} and link credential (1010018)
+
+```json
+{
+  "id": 1010018,
+  "text": "Sign in with {provider} and link credential",
+  "type": "info",
+  "context": {
+    "provider": "{provider}"
+  }
+}
+```
+
 ###### Sign up (1040001)
 
 ```json
@@ -1624,6 +1662,16 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
+###### Login and link credential (1070014)
+
+```json
+{
+  "id": 1070014,
+  "text": "Login and link credential",
+  "type": "info"
+}
+```
+
 ###### An email containing a verification link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with. (1080001)
 
 ```json
@@ -1970,12 +2018,12 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
-###### An account with the same identifier (email, phone, username, ...) exists already. Please sign in to your existing account and link your social profile in the settings page. (4000027)
+###### An account with the same identifier (email, phone, username, ...) exists already. Please sign in to your existing account to link your social profile. (4000027)
 
 ```json
 {
   "id": 4000027,
-  "text": "An account with the same identifier (email, phone, username, ...) exists already. Please sign in to your existing account and link your social profile in the settings page.",
+  "text": "An account with the same identifier (email, phone, username, ...) exists already. Please sign in to your existing account to link your social profile.",
   "type": "error"
 }
 ```
@@ -2169,6 +2217,16 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4010008,
   "text": "The login code is invalid or has already been used. Please try again.",
+  "type": "error"
+}
+```
+
+###### Linked credentials do not match. (4010009)
+
+```json
+{
+  "id": 4010009,
+  "text": "Linked credentials do not match.",
   "type": "error"
 }
 ```
