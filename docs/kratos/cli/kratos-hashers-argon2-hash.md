@@ -29,7 +29,7 @@ kratos hashers argon2 hash <password1> [<password2> ...] [flags]
       --memory byte_size              Memory to use. (default 128.00MB)
       --min-duration duration         Minimal duration a hashing operation (~login request) takes. (default 500ms)
       --parallel                      Run all hashing operations in parallel.
-      --parallelism uint8             Number of threads to use. (default 8)
+      --parallelism uint8             Number of threads to use. (default 4)
       --salt-length uint32            Length of the salt in bytes. (default 16)
 ```
 
