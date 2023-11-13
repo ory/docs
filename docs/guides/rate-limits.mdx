@@ -1,0 +1,27 @@
+---
+id: rate-limits
+title: Project Rate Limits
+sidebar_label: Rate Limits
+---
+
+Ory Network enforces the following rate limit policies based on the subscription tier of your project.
+
+# Project APIs
+
+Rate-Limits defined on a project basis dependent on your subscription tier. This includes the following service APIs and paths:
+
+- Login & Identity APIs
+- OAuth2 & OIDC APIs
+- Permission APIs
+- Account Experience UI
+
+## Project-Based API Limits
+
+This table lists all limits which are enforced on the APIs of a project (e.g. `<project-slug>.projects.oryapis.com/*` or
+`<custom-hostname>/*` (e.g. `auth.mydomain.com/*`)). Ratelimits are dependent on the Subscription Plan of the project.
+
+| Subscription Plan | Path Bucket                                 | Rate Limits (burst/sustained)                                    |
+| ----------------- | ------------------------------------------- | ---------------------------------------------------------------- |
+| Develop           | /sessions/whoami <br/>/identities: <br/>\*: | 15 rps / 450 rpm <br/>1 rps / 10 rpm <br/>15 rps / 450 rpm       |
+| Essentials        | /sessions/whoami:<br/>/identities:<br/>\*:  | 80 rps / 1800 rpm<br/>10 rps / 300 rpm<br/>40 rps / 900 rpm<br/> |
+| Scale             | /sessions/whoami:<br/>/identities:<br/>\*:  | 800 rps / 18000 rpm<br/>20 rps / 600 rpm<br/>400 rps / 9000 rpm  |
