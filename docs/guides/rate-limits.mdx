@@ -6,18 +6,15 @@ sidebar_label: Rate Limits
 
 Ory Network currently enforces three rate limit policies based on the path of your request.
 
-1. `/sessions/whoami`: A dedicated rate limit policy for all calls to the `/sessions/whoami` endpoint to keep these separate from
-   all other calls.
-2. `/identities`: A dedicated rate limit policiy for all calls to the `/identities` endpoint to throttle the number of requests to
-   this endpoint.
-3. `*`: All other calls a managed by this rate limit policy.
+1. `/sessions/whoami`: a dedicated rate limit policy for session checks.
+2. `/identities`: a dedicated rate limit policiy for identity inserts and updates. 
+3. `*`: rate limit policy for all remaining calls. 
 
-Each policy defines two rate limits:
+Each of these policies incorporates two types of rate limits:
+1. The `burst` limit, which regulates the maximum number of requests per second, allowing brief spikes in request volume.
+2. The `sustained` limit, controlling the number of requests over a one-minute period.
 
-1. `burst`: a per second rate limit of requests to allow for some requests spikes for a short period of time
-2. `sustained`: a rate limit of requests for a 1 minute time window
-
-The following table shows the limits of the three rate-limit policies for each subscription plan tier:
+The table below outlines the rate limit thresholds for each subscription plan tier, as per these three policies:
 
 | Subscription Plan | Path / Bucket                              | Rate Limits (burst/sustained)                                    |
 | ----------------- | ------------------------------------------ | ---------------------------------------------------------------- |
