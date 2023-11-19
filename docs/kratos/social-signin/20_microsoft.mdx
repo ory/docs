@@ -253,6 +253,22 @@ To do that, add the `subject_source` field set to `me` to the social sign-in pro
    ory update identity-config {project-id} --file identity-config.yaml
    ```
 
+Additionally, Graph API exposes [additional fields](https://learn.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0#properties). If `subject_source` is set to `me`, you can also set `graph_select` to select those fields.
+
+```yaml title=identity-config.yaml
+  providers:
+  - id: microsoft
+    (...)
+    // highlight-start
+    subject_source: me
+    graph_select: id,birthday,department
+    # if set, it has to include "id"
+    // highlight-end
+    (...)
+```
+
+Retrieved data is available under `claims.raw_claims` field in jsonnet config file.
+
 ## Troubleshooting
 
 ```mdx-code-block
