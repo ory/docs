@@ -360,6 +360,10 @@ response code, the access is denied.
   [`text/template`](https://golang.org/pkg/text/template/) package and applied to an
   [`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L40) object. See
   [Session](../pipeline.md#session) for more details.
+- `headers` (map of strings, optional) - The HTTP headers sent to the remote authorizer. The values will be parsed by the Go
+  [`text/template`](https://golang.org/pkg/text/template/) package and applied to an
+  [`AuthenticationSession`](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L40) object. See
+  [Session](../pipeline.md#session) for more details.
 - `forward_response_headers_to_upstream` (slice of strings, optional) - The HTTP headers that will be allowed from remote
   authorizer responses. If returned, headers on this list will be forward to upstream services.
 - `retry` (object, optional) - Configures timeout and delay settings for the request against the token endpoint
@@ -379,6 +383,8 @@ authorizers:
 
     config:
       remote: http://my-remote-authorizer/authorize
+      headers:
+        Y-Api-Key: '{{ .MatchContext.Header.Get "X-Api-Key" }}'
       payload: |
         {
           "subject": "{{ print .Subject }}",
@@ -395,6 +401,8 @@ authorizers:
   - handler: remote_json
     config:
       remote: http://my-remote-authorizer/authorize
+      headers:
+        Y-Api-Key: '{{ .MatchContext.Header.Get "X-Api-Key" }}'
       payload: |
         {
           "subject": "{{ print .Subject }}",
@@ -422,6 +430,9 @@ authorizers:
   "authorizer": {
     "handler": "remote_json",
     "config": {
+      "headers": {
+         "Y-Api-Key": "{{ .MatchContext.Header.Get \"X-Api-Key\" }}"
+      },
       "remote": "http://my-remote-authorizer/authorize",
       "payload": "{\"subject\": \"{{ print .Subject }}\", \"resource\": \"{{ printIndex .MatchContext.RegexpCaptureGroups 0 }}\"}"
     },
