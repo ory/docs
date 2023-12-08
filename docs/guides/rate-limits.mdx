@@ -1,0 +1,24 @@
+---
+id: rate-limits
+title: Project Rate Limits
+sidebar_label: Rate Limits
+---
+
+Ory Network currently enforces three rate limit policies based on the path of your request.
+
+1. `/sessions/whoami`: a dedicated rate limit policy for session checks.
+2. `/identities`: a dedicated rate limit policy for identity inserts and updates.
+3. `*`: rate limit policy for all remaining calls.
+
+Each of these policies incorporates two types of rate limits:
+
+1. The `burst` limit, which regulates the maximum number of requests per second, allowing brief spikes in request volume.
+2. The `sustained` limit, controlling the number of requests over a one-minute period.
+
+The table below outlines the rate limit thresholds for each subscription plan tier, as per these three policies:
+
+| Subscription Plan | Path / Bucket                              | Rate Limits (burst/sustained)                                    |
+| ----------------- | ------------------------------------------ | ---------------------------------------------------------------- |
+| Develop           | /sessions/whoami:<br/>/identities:<br/>\*: | 15 rps / 450 rpm <br/>1 rps / 10 rpm <br/>15 rps / 450 rpm       |
+| Essentials        | /sessions/whoami:<br/>/identities:<br/>\*: | 80 rps / 1800 rpm<br/>10 rps / 300 rpm<br/>40 rps / 900 rpm<br/> |
+| Scale             | /sessions/whoami:<br/>/identities:<br/>\*: | 800 rps / 18000 rpm<br/>20 rps / 600 rpm<br/>400 rps / 9000 rpm  |
