@@ -259,5 +259,14 @@ export const community: PropTypes = {
       repo: "https://github.com/ardetrick/ory-hydra-refrence-java",
       docs: "https://github.com/ardetrick/ory-hydra-refrence-java/blob/main/README.md",
     },
+    {
+      title: "ORY-Hydra-OAuth2.0-Example",
+      language: "java",
+      languageLogoAlt: "Java logo",
+      author: "Chistousov",
+      tested: true,
+      repo: "https://github.com/Chistousov/ORY-Hydra-OAuth2.0-Example",
+      docs: "https://github.com/Chistousov/ORY-Hydra-OAuth2.0-Example/blob/main/README.md",
+    },
   ],
 }
