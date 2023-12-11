@@ -315,7 +315,12 @@ module.exports = {
     {
       type: "category",
       label: "From dev to prod",
-      items: ["guides/custom-domains", "guides/cors", "guides/gitops"],
+      items: [
+        "guides/custom-domains",
+        "guides/cors",
+        "guides/gitops",
+        "guides/rate-limits",
+      ],
     },
     {
       type: "category",
