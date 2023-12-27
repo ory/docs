@@ -95,6 +95,15 @@ For more details see the [API documentation](../reference/api#tag/frontend/opera
 </Tabs>
 ````
 
+To verify the resulting JSON Web Token, export the public key from the JSON Web Key Set and use it to verify the token:
+
+```shell
+ory get jwk some-example-set \
+  --public \
+  --project {project.id} --format json-pretty \
+  > es256-public.jwks.json
+```
+
 ## JSON Web Token templates
 
 Now that you have seen how this feature works in practice, let's look at how to configure it in detail. Before issuing a JWT for a
