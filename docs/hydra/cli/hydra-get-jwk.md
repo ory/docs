@@ -24,15 +24,21 @@ hydra get jwk set-1 [set-2] ... [flags]
 ### Examples
 
 ```
-To get the JSON Web Key Set's secret, run:
+To get the JSON Web Key Set's use, run:
 
 	hydra get jwk <set-id> | jq -r '.[].use'
+
+To get the JSON Web Key Set as only public keys:
+
+	hydra get jwk --public <set-id>'
+
 ```
 
 ### Options
 
 ```
-  -h, --help   help for jwk
+  -h, --help     help for jwk
+      --public   Only return public keys
 ```
 
 ### Options inherited from parent commands

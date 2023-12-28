@@ -28,6 +28,7 @@ hydra create jwk <my-jwk-set> --alg RS256 --use sig
 ```
       --alg string   The algorithm to be used to generated they key. Supports: RS256, RS512, ES256, ES512, EdDSA (default "RS256")
   -h, --help         help for jwk
+      --public       Only return public keys
       --use string   The intended use of this key. Supports: sig, enc (default "sig")
 ```
 
