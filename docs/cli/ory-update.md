@@ -29,6 +29,7 @@ Update resources
 * [ory update oauth2-client](ory-update-oauth2-client)	 - Update an OAuth 2.0 Client
 * [ory update oauth2-config](ory-update-oauth2-config)	 - Update the Ory OAuth2 & OpenID Connect configuration of the specified Ory Network project.
 * [ory update opl](ory-update-opl)	 - Update the Ory Permission Language file in Ory Network
+* [ory update organization](ory-update-organization)	 - Update the organization with the given ID
 * [ory update permission-config](ory-update-permission-config)	 - Update Ory Permissions configuration of the specified Ory Network project.
 * [ory update project](ory-update-project)	 - Update Ory Network project service configuration
 

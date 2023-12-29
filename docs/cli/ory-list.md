@@ -28,6 +28,7 @@ List resources
 * [ory](ory)	 - The ORY CLI
 * [ory list identities](ory-list-identities)	 - List identities
 * [ory list oauth2-clients](ory-list-oauth2-clients)	 - List OAuth 2.0 Clients
+* [ory list organizations](ory-list-organizations)	 - List your Ory Network organizations
 * [ory list projects](ory-list-projects)	 - List your Ory Network projects.
 * [ory list relationships](ory-list-relationships)	 - List relation tuples
 
