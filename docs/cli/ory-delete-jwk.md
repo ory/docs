@@ -24,16 +24,17 @@ ory delete jwk <id-1> [<id-2> ...] [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} <set-1> <set-2> <set-3>
+ory delete jwk <set-1> <set-2> <set-3>
 ```
 
 ### Options
 
 ```
-      --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
-  -h, --help             help for jwk
-      --project string   The project to use, either project ID or a (partial) slug.
-  -q, --quiet            Be quiet with output printing.
+  -e, --endpoint string   The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+  -h, --help              help for jwk
+      --project string    The project to use, either project ID or a (partial) slug.
+  -q, --quiet             Be quiet with output printing.
 ```
 
 ### Options inherited from parent commands

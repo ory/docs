@@ -21,7 +21,7 @@ ory update organization id [--project=PROJECT_ID] [--domains=a.example.com,b.exa
 
 ```
   -d, --domains strings   A list of domains that will be used for this organization.
-      --format string     Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help              help for organization
   -l, --label string      The label of the organization.
       --project string    The project to use, either project ID or a (partial) slug.

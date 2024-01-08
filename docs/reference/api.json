@@ -124,6 +124,42 @@
       }
     },
     "schemas": {
+      "Attribute": {
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "AttributeFilter": {
+        "properties": {
+          "attribute": {
+            "type": "string"
+          },
+          "condition": {
+            "enum": [
+              "equals",
+              "not_equals",
+              "contains",
+              "not_contains",
+              "regex",
+              "not_regex",
+              "set",
+              "not_set"
+            ],
+            "type": "string",
+            "x-go-enum-desc": "equals ConditionEquals\nnot_equals ConditionNotEquals\ncontains ConditionContains\nnot_contains ConditionNotContains\nregex ConditionRegex\nnot_regex ConditionNotRegex\nset ConditionSet\nnot_set ConditionNotSet"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "AttributesCountDatapoint": {
         "properties": {
           "count": {
@@ -184,6 +220,16 @@
           }
         },
         "title": "CreateVerifiableCredentialRequestBody contains the request body to request a verifiable credential.",
+        "type": "object"
+      },
+      "CreateWorkspaceMemberInviteBody": {
+        "description": "Create Workspace Invite Request Body",
+        "properties": {
+          "invitee_email": {
+            "description": "A email to invite",
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "CustomHostnameStatus": {
@@ -387,6 +433,28 @@
         },
         "type": "array"
       },
+      "ProjectEventsDatapoint": {
+        "properties": {
+          "attributes": {
+            "description": "Event attributes with details",
+            "items": {
+              "$ref": "#/components/schemas/Attribute"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the event",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "Time of occurence",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["name", "timestamp", "attributes"],
+        "type": "object"
+      },
       "RFC6749ErrorJson": {
         "properties": {
           "error": {
@@ -457,7 +525,7 @@
         "type": "array"
       },
       "SubscriptionStatus": {
-        "description": "For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this state can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` state. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal state, the open invoice will be voided and no further invoices will be generated.\n\nA subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.\n\nIf subscription `collection_method=charge_automatically` it becomes `past_due` when payment to renew it fails and `canceled` or `unpaid` (depending on your subscriptions settings) when Stripe has exhausted all payment retry attempts.\n\nIf subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.",
+        "description": "For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this state can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` state. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal state, the open invoice will be voided and no further invoices will be generated.\n\nA subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.\n\nIf subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).\n\nIf subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.",
         "title": "Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `canceled`, or `unpaid`.",
         "type": "string"
       },
@@ -902,6 +970,9 @@
         "required": ["alg", "use", "kid"],
         "type": "object"
       },
+      "createMemberInviteResponse": {
+        "$ref": "#/components/schemas/CreateInviteResponse"
+      },
       "createProjectBody": {
         "description": "Create Project Request Body",
         "properties": {
@@ -939,9 +1010,6 @@
           }
         },
         "type": "object"
-      },
-      "createProjectMemberInviteResponse": {
-        "$ref": "#/components/schemas/CreateInviteResponse"
       },
       "createProjectNormalizedPayload": {
         "description": "Create project (normalized) request payload",
@@ -2181,6 +2249,36 @@
         },
         "type": "object"
       },
+      "getMetricsEventAttributesResponse": {
+        "description": "Response of the getMetricsEventAttributes endpoint",
+        "properties": {
+          "events": {
+            "description": "The list of data points.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "required": ["events"],
+        "type": "object"
+      },
+      "getMetricsEventTypesResponse": {
+        "description": "Response of the getMetricsEventTypes endpoint",
+        "properties": {
+          "events": {
+            "description": "The list of data points.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "required": ["events"],
+        "type": "object"
+      },
       "getOrganizationResponse": {
         "properties": {
           "organization": {
@@ -2189,6 +2287,65 @@
         },
         "required": ["organization"],
         "title": "getOrganizationResponse represents a B2B SSO Organization.",
+        "type": "object"
+      },
+      "getProjectEventsBody": {
+        "description": "Body of the getProjectEvents endpoint",
+        "properties": {
+          "event_name": {
+            "description": "The event name to query for",
+            "type": "string"
+          },
+          "filters": {
+            "default": [],
+            "description": "Event attribute filters",
+            "items": {
+              "$ref": "#/components/schemas/AttributeFilter"
+            },
+            "type": "array"
+          },
+          "from": {
+            "description": "The start RFC3339 date of the time window",
+            "format": "date-time",
+            "type": "string"
+          },
+          "page_size": {
+            "default": 25,
+            "description": "Maximum number of events to return",
+            "format": "int64",
+            "type": "integer"
+          },
+          "page_token": {
+            "description": "Pagination token to fetch next page, empty if first page",
+            "type": "string"
+          },
+          "to": {
+            "description": "The end RFC3339 date of the time window",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["from", "to"],
+        "type": "object"
+      },
+      "getProjectEventsResponse": {
+        "description": "Response of the getProjectEvents endpoint",
+        "properties": {
+          "events": {
+            "description": "The list of data points.",
+            "items": {
+              "$ref": "#/components/schemas/ProjectEventsDatapoint"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "page_token": {
+            "description": "Pagination token to be included in next page request",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": ["events"],
         "type": "object"
       },
       "getProjectMetricsResponse": {
@@ -3114,9 +3271,7 @@
             "type": "string"
           },
           "project_id": {
-            "description": "The Project's ID this invite is associated with",
-            "format": "uuid",
-            "type": "string"
+            "$ref": "#/components/schemas/NullUUID"
           },
           "status": {
             "description": "The invite's status\nKeeps track of the invites status such as pending, accepted, declined, expired\npending PENDING\naccepted ACCEPTED\ndeclined DECLINED\nexpired EXPIRED\ncancelled CANCELLED\nremoved REMOVED",
@@ -3136,11 +3291,13 @@
             "format": "date-time",
             "readOnly": true,
             "type": "string"
+          },
+          "workspace_id": {
+            "$ref": "#/components/schemas/NullUUID"
           }
         },
         "required": [
           "id",
-          "project_id",
           "owner_id",
           "owner_email",
           "invitee_email",
@@ -6024,7 +6181,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList",
+            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList",
             "enum": [
               "region_eu",
               "region_us",
@@ -6040,6 +6197,7 @@
               "zendesk_support",
               "project_metrics",
               "project_metrics_time_window",
+              "project_metrics_events_history",
               "organizations",
               "rop_grant",
               "rate_limit_tier",
@@ -6047,7 +6205,7 @@
               "identities_list_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList"
+            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList"
           },
           "feature_available": {
             "type": "boolean"

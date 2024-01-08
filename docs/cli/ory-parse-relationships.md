@@ -1,7 +1,7 @@
 ---
 id: ory-parse-relationships
 title: ory parse relationships
-description: ory parse relationships Parse human readable relation tuples
+description: ory parse relationships Parse human readable relationships
 ---
 
 <!--
@@ -11,13 +11,13 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory parse relationships
 
-Parse human readable relation tuples
+Parse human readable relationships
 
 ### Synopsis
 
-Parse human readable relation tuples as used in the documentation.
+Parse human readable relationships as used in the documentation.
 Supports various output formats. Especially useful for piping into other commands by using `--format json`.
-Ignores comments (starting with `//`) and blank lines.
+Ignores comments (lines starting with `//`) and blank lines.
 
 ```
 ory parse relationships [flags]
@@ -26,7 +26,7 @@ ory parse relationships [flags]
 ### Options
 
 ```
-      --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --format string    Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help             help for relationships
       --project string   The project to use, either project ID or a (partial) slug.
   -q, --quiet            Be quiet with output printing.
