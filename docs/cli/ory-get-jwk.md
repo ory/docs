@@ -24,18 +24,25 @@ ory get jwk set-1 [set-2] ... [flags]
 ### Examples
 
 ```
-To get the JSON Web Key Set's secret, run:
+To get the JSON Web Key Set's use, run:
 
-	{{ .CommandPath }} <set-id> | jq -r '.[].use'
+	ory get jwk <set-id> | jq -r '.[].use'
+
+To get the JSON Web Key Set as only public keys:
+
+	ory get jwk --public <set-id>'
+
 ```
 
 ### Options
 
 ```
-      --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
-  -h, --help             help for jwk
-      --project string   The project to use, either project ID or a (partial) slug.
-  -q, --quiet            Be quiet with output printing.
+  -e, --endpoint string   The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+  -h, --help              help for jwk
+      --project string    The project to use, either project ID or a (partial) slug.
+      --public            Only return public keys
+  -q, --quiet             Be quiet with output printing.
 ```
 
 ### Options inherited from parent commands

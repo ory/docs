@@ -20,7 +20,7 @@ ory create project [flags]
 ### Options
 
 ```
-      --format string   Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help            help for project
   -n, --name string     The name of the project, required when quiet mode is used
   -q, --quiet           Be quiet with output printing.

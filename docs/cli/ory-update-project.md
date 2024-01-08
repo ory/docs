@@ -88,7 +88,7 @@ $ ory update project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 
 ```
   -f, --file strings    Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the project
-      --format string   Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help            help for project
   -n, --name string     The new name of the project.
   -q, --quiet           Be quiet with output printing.

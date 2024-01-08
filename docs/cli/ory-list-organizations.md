@@ -20,7 +20,7 @@ ory list organizations [flags]
 ### Options
 
 ```
-      --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --format string    Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help             help for organizations
       --project string   The project to use, either project ID or a (partial) slug.
   -q, --quiet            Be quiet with output printing.

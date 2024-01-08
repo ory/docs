@@ -49,22 +49,23 @@ Import an example OAuth2 Client:
     ]
 	EOF
 
-	{{ .CommandPath }} file.json
+	ory import oauth2-client file.json
 
 Alternatively:
 
-	cat file.json | {{ .CommandPath }}
+	cat file.json | ory import oauth2-client
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  {{ .CommandPath }} -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  ory import oauth2-client -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
 
 ```
 
 ### Options
 
 ```
-      --format string        Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+  -e, --endpoint string      The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+      --format string        Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help                 help for oauth2-client
       --keybase string       Keybase username for encrypting client secret.
       --pgp-key string       Base64 encoded PGP encryption key for encrypting client secret.

@@ -24,11 +24,11 @@ ory update oauth2-client [id] [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} <client-id-here> -c http://localhost/cb -g authorization_code -r code -a core,foobar
+ory update oauth2-client <client-id-here> -c http://localhost/cb -g authorization_code -r code -a core,foobar
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  {{ .CommandPath }} e6e96aa5-9cd2-4a70-bf56-ad6434c8aaa2 -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  ory update oauth2-client e6e96aa5-9cd2-4a70-bf56-ad6434c8aaa2 -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
 
 ```
 
@@ -41,7 +41,8 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
       --backchannel-logout-session-required             Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the backchannel-logout-callback is used. If omitted, the default value is false.
       --client-uri string                               A URL string of a web page providing information about the client
       --contact strings                                 A list representing ways to contact people responsible for this client, typically email addresses.
-      --format string                                   Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+  -e, --endpoint string                                 The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+      --format string                                   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
       --frontchannel-logout-callback string             Client URL that will cause the client to log itself out when rendered in an iframe by Hydra.
       --frontchannel-logout-session-required            Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the frontchannel-logout-callback is used. If omitted, the default value is false.
       --grant-type strings                              A list of allowed grant types. (default [authorization_code])
@@ -65,6 +66,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
       --scope strings                                   The scope the client is allowed to request.
       --secret string                                   Provide the client's secret.
       --sector-identifier-uri string                    URL using the https scheme to be used in calculating Pseudonymous Identifiers by the OP. The URL references a file with a single JSON array of redirect_uri values.
+      --skip-consent                                    Boolean flag specifying whether to skip the consent screen for this client. If omitted, the default value is false.
       --subject-type public                             A identifier algorithm. Valid values are public and `pairwise`. (default "public")
       --token-endpoint-auth-method client_secret_post   Define which authentication method the client may use at the Token Endpoint. Valid values are client_secret_post, `client_secret_basic`, `private_key_jwt`, and `none`. (default "client_secret_basic")
       --tos-uri string                                  A URL string that points to a human-readable terms of service document for the client that describes a contractual relationship between the end-user and the client that the end-user accepts when authorizing the client.

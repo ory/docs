@@ -25,7 +25,9 @@ ory list relationships [flags]
 ### Options
 
 ```
-      --format string        Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --authority string     Set the authority header for the remote gRPC server.
+      --block                Block until the connection is up.
+      --format string        Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help                 help for relationships
       --namespace string     Set the requested namespace
       --object string        Set the requested object
