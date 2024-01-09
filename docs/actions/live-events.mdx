@@ -1,0 +1,97 @@
+---
+id: live-events
+title: Live event streams
+sidebar_label: Event streams
+---
+
+# Live event streams
+
+You can stream events (sign-ups, logins, machine-to-machine tokens issued, and many more) in real-time, live as they happen in
+your Ory Network project, to your own infrastructure. Pipe those events into your own data warehouse, data lake, or flavor of
+choice, and use them to power your own analytics, dashboards, data science, and more.
+
+Live event streams are available for Ory Network enterprise contracts. Talk to your account manager or reach out
+[directly](https://www.ory.sh/contact/) to find out more.
+
+:::info
+
+You workload is not running on AWS or you don't want to use SNS? [Reach out](https://www.ory.sh/contact/) to discuss your
+requirements!
+
+:::
+
+## Stream to AWS SNS
+
+Configuring AWS SNS as an event stream destination is easy and requires no exchange of confidential information.
+
+1. Create an AWS SNS topic, and record its ARN (Amazon Resource Name), for example:
+
+```
+arn:aws:sns:us-east-1:123456789012:my-topic
+```
+
+2. Create an AWS IAM role with publish permission to that topic. Sample IAM policy:
+
+```json title="IAM role policy (replace the ARN with your own topic ARN)"
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "OryNetworkEventStreamPublish",
+      "Effect": "Allow",
+      "Action": ["sns:Publish"],
+      "Resource": ["arn:aws:sns:us-east-1:123456789012:my-topic"]
+    }
+  ]
+}
+```
+
+Record the ARN of the IAM role you created, for example:
+
+```
+arn:aws:iam::123456789012:role/ory-network-event-streamer
+```
+
+3. Attach the following trust policy to the IAM role you created in step 2:
+
+```json title="Trust policy (this is the same for all Ory Network customers)"
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::601538168777:user/event-streamer"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
+
+This allows Ory Network to assume the role in your AWS account, and publish to your SNS topic.
+
+4. Use the Ory CLI to configure the event stream, replacing the ARNs with those recorded in steps 1 and 2:
+
+```shell
+ory create event-stream
+  --project "$project_id" \
+  --type sns \
+  --aws-sns-topic-arn "arn:aws:sns:us-east-1:123456789012:my-topic" \
+  --aws-iam-role-arn "arn:aws:iam::123456789012:role/ory-network-event-streamer"
+```
+
+5. You are now ready to receive events in your AWS SNS topic!
+
+:::tip
+
+For development purposes, you can subscribe an email address to your topic, and receive events via email. For production use,
+subscribe AWS SQS, AWS Kinesis Data Firehose, or any other AWS service that can consume events from an SNS topic. Check the
+[AWS documentation](https://docs.aws.amazon.com/sns/latest/dg/sns-event-destinations.html) for ideas.
+
+:::
+
+## Retry policy
+
+If your event stream destination is unavailable or misconfigured, Ory Network will retry sending the event multiple times with an
+exponential backoff between attempts.
