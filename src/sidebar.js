@@ -265,6 +265,7 @@ module.exports = {
       label: "Actions",
       items: [
         "kratos/hooks/configure-hooks",
+        "actions/live-events",
         "guides/integrate-with-ory-cloud-through-webhooks",
         "actions/session",
         "actions/revoke-active-sessions",
