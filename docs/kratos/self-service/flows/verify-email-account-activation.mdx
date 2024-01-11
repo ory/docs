@@ -14,9 +14,9 @@ import TabItem from "@theme/TabItem"
 import RenderFlow from "@theme/Code/RenderFlow"
 ```
 
-Ory allows users to verify email addresses associated with their accounts. This is important to prove that the user has access to
-the address they used to create their account. If verification is enabled, Ory Identities starts the verification process
-automatically when users sign up. Users can also verify their addresses manually.
+Ory allows users to verify email addresses or phone numbers associated with their accounts. This is important to prove that the
+user has access to the address they used to create their account. If verification is enabled, Ory Identities starts the
+verification process automatically when users sign up. Users can also verify their addresses manually.
 
 The verification flow is supported in both browsers and API clients and can be summarized as the following state machine:
 
@@ -49,7 +49,8 @@ stateDiagram
 :::caution
 
 Completing account verification doesn't guarantee that the account is used by the person who performed the verification. We
-recommend implementing additional security mechanisms to ensure that verified accounts aren't taken over by malicious actors.
+recommend implementing additional security mechanisms to ensure that verified accounts aren't taken over by malicious actors, such
+as [TOTP](../../mfa/15_totp.mdx) or [FIDO2/WebAuthn](../../mfa/20_webauthn-fido-yubikey.mdx).
 
 :::
 
@@ -62,6 +63,13 @@ recommend implementing additional security mechanisms to ensure that verified ac
 
 To configure account verification, go to **Authentication** → **Email Verification** in the
 [Ory Console](https://console.ory.sh/projects/current/verification).
+
+:::caution
+
+For SMS verification to work, you'll also need to configure a `courier_channel` with the ID set to `sms` via the CLI. See the
+**Ory CLI** tab for more information.
+
+:::
 
 ```mdx-code-block
 </TabItem>
@@ -139,7 +147,7 @@ provides when registering their account. Other fields inside the `traits` sectio
                }
              },
 +            "verification": {
-+              "via": "email"
++              "via": "email" # or sms if this is a phone number
 +            }
            }
          }
