@@ -46,14 +46,26 @@ To try out account un-linking, use the Ory Account Experience. Follow these step
 
 ## Automatic account linking
 
-While it is convenient for users, automatic account linking creates an attack vector that can allow malicious actors to steal user
-accounts.
+:::info
 
-:::warning
-
-Since it constitutes a security threat, automatic account linking is not available in Ory.
+Automatic account linking was previously not available in Ory. It has been recently added and is now enabled on the Ory Network as
+well as on the open-source master branch.
 
 :::
+
+Users can link social sign-in accounts on login automatically using a secure flow. This is how it works:
+
+1. The user creates an account with the identifier `alice@example.com` using a password.
+2. Upon the next visit, the user clicks to sign in with a social sign-in provider. That social sign-in account (through the OIDC
+   userinfo endpoint or the identity token) contains the same identifier `alice@example.com`.
+3. Since the identifier is registered already, the user cannot be logged in directly. Instead, the user will be prompted for the
+   password chosen in step 1.
+4. Upon supplying the correct password, the social sign-in credential will be added to the user's identity. In the future, the
+   user can sign in with either the password or the social sign-in provider.
+
+### Security considerations
+
+Account linking constitutes a potential security threat if implemented incorrectly.
 
 To better understand the danger, consider the following scenario:
 
@@ -66,3 +78,6 @@ To better understand the danger, consider the following scenario:
   link the accounts.
 - Malicious actors link the accounts.
 - Malicious actors get access to the account that John created manually using his `john@doe.com` email.
+
+Therefore, the user needs to prove knowledge of another credential before the accounts can be linked. In the scenario above, the
+malicious actor would be prompted to enter the password associated with the `jon@doe.com` identifier.
