@@ -49,12 +49,12 @@ To try out account un-linking, use the Ory Account Experience. Follow these step
 Users can link social sign-in accounts on login automatically using a secure flow. This is how it works:
 
 1. The user creates an account with the identifier `alice@example.com` and a password.
-2. When signing in later the user clicks to sign in with a social sign-in provider. That social sign-in account (through the OIDC
+1. When signing in later the user clicks to sign in with a social sign-in provider. That social sign-in account (through the OIDC
    userinfo endpoint or the identity token) contains the same identifier `alice@example.com`.
-3. Since the identifier is registered already, the user cannot be logged in directly. Instead the user will be prompted to enter the
-   password chosen in step 1.
-4. After entering the correct password, the social sign-in is linked to the user's account. Now they can 
-   sign in with either password or social sign-in provider.
+1. Since the identifier is registered already, the user cannot be logged in directly. Instead the user will be prompted to enter
+   the password chosen in step 1.
+1. After entering the correct password, the social sign-in is linked to the user's account. Now they can sign in with either
+   password or social sign-in provider.
 
 ### Security considerations
 
