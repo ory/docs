@@ -16,7 +16,7 @@ Users can link their accounts only to social providers you configured in your Or
 
 :::
 
-Users can use account linking and un-linking:
+Users can link and unlink accounts:
 
 - to start signing in with a profile created in a social sign-in provider when they originally signed up with email and password
 - to link another social sign-in provider to their profile so that they can sign in with their GitHub profile and their Facebook
@@ -24,7 +24,7 @@ Users can use account linking and un-linking:
 - to remove a social sign-in provider link from the profile (possible only when multiple sign-in methods are available to prevent
   locking users out from accounts)
 
-## Linking accounts
+## Link accounts
 
 Users can link accounts manually through their account's settings page. To try out account linking, use the Ory Account
 Experience. Follow these steps:
@@ -34,43 +34,38 @@ Experience. Follow these steps:
 3. After you sign up, go to **Account Settings** and navigate to the **Social Sign In** section.
 4. Select one of the buttons to link an available social sign-in provider.
 
-## Un-linking account
+## Unlink accounts
 
-Users with multiple sign-in methods can un-link social sign-in providers from their account through their account's settings page.
+Users with multiple sign-in methods can unlink social sign-in providers from their account through their account's settings page.
 To try out account un-linking, use the Ory Account Experience. Follow these steps:
 
 1. Go to your project's Ory Account Experience at `https://{project.slug}.projects.oryapis.com/ui` and sign in with a user account
    with multiple sign-in methods available.
 2. Go to **Account Settings** and navigate to the **Social Sign In** section.
-3. Use the buttons to un-link a social sign-in provider.
+3. Use the buttons to unlink a social sign-in provider.
 
 ## Automatic account linking
 
 Users can link social sign-in accounts on login automatically using a secure flow. This is how it works:
 
-1. The user creates an account with the identifier `alice@example.com` using a password.
-2. Upon the next visit, the user clicks to sign in with a social sign-in provider. That social sign-in account (through the OIDC
+1. The user creates an account with the identifier `alice@example.com` and a password.
+2. When signing in later the user clicks to sign in with a social sign-in provider. That social sign-in account (through the OIDC
    userinfo endpoint or the identity token) contains the same identifier `alice@example.com`.
-3. Since the identifier is registered already, the user cannot be logged in directly. Instead, the user will be prompted for the
+3. Since the identifier is registered already, the user cannot be logged in directly. Instead the user will be prompted to enter the
    password chosen in step 1.
-4. Upon supplying the correct password, the social sign-in credential will be added to the user's identity. In the future, the
-   user can sign in with either the password or the social sign-in provider.
+4. After entering the correct password, the social sign-in is linked to the user's account. Now they can 
+   sign in with either password or social sign-in provider.
 
 ### Security considerations
 
-Account linking constitutes a potential security threat if implemented incorrectly.
+Automatic account linking can be a security risk. Consider this scenario:
 
-To better understand the danger, consider the following scenario:
+1. Your application allows users to create new accounts or sign in with ACME.
+1. John creates an account with his email `john@doe.com`.
+1. Malicious actors create an ACME account for `john@doe.com`.
+1. They sign up in your app using this ACME account.
+1. Your system, detecting duplicate accounts, prompts for account linking.
+1. Malicious actors link the accounts, gaining access to John's account.
 
-- Your application allows users to create new accounts or sign in with ACME - a well-known social sign-in provider.
-- John creates a new account in your application using his `john@doe.com` email.
-- Malicious actors know that John uses `john@doe.com` to sign in to his account in your app.
-- Malicious actors create an ACME account for `john@doe.com`.
-- Malicious actors sign up in your application using the ACME account created for the `john@doe.com` account.
-- Your system uses the default behavior and when it detects two accounts with the same identifier, malicious actors are asked to
-  link the accounts.
-- Malicious actors link the accounts.
-- Malicious actors get access to the account that John created manually using his `john@doe.com` email.
-
-Therefore, the user needs to prove knowledge of another credential before the accounts can be linked. In the scenario above, the
-malicious actor would be prompted to enter the password associated with the `jon@doe.com` identifier.
+To prevent this users need to verify an additional credential before the accounts can be linked. In the scenario above, the
+malicious actors would be prompted to enter the password associated with the `jon@doe.com` identifier.
