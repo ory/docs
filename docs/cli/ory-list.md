@@ -26,6 +26,7 @@ List resources
 ### SEE ALSO
 
 * [ory](ory)	 - The ORY CLI
+* [ory list event-streams](ory-list-event-streams)	 - List your event streams
 * [ory list identities](ory-list-identities)	 - List identities
 * [ory list oauth2-clients](ory-list-oauth2-clients)	 - List OAuth 2.0 Clients
 * [ory list organizations](ory-list-organizations)	 - List your Ory Network organizations
