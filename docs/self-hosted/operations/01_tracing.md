@@ -83,6 +83,13 @@ To see spans around database interactions, you must be using a SQL backend, such
 
 :::
 
+There is a more complex example to show you the interactions between Kratos, Oathkeeper and Kratos to check if the user is allowed
+the access the requested resource :
+
+![Kratos Oathkeeper and Kratos exemplary trace in Jaeger UI](../_static/complex_trace.png)
+
+As previously said, you can see the interactions between the different services and SQL database interactions.
+
 ### Tracing configurations
 
 You can configure tracing inside the configuration file (follow the same schema for all services) or via environment variables.
