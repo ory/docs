@@ -11,6 +11,7 @@ understanding your deployment of Ory better.
 
 You have the option to use a tracing backend or follow existing traces. Ory supports the following tracing backends:
 
+- [OpenTelemetry](https://github.com/open-telemetry)
 - [Jaeger](https://github.com/jaegertracing/jaeger)
 - [Elastic APM](https://github.com/elastic/apm)
 - [Datadog](https://github.com/DataDog)
