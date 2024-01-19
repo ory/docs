@@ -50,9 +50,9 @@ missing/wrong, please [create an issue](https://github.com/ory/docs/issues).
 
 ### Local setup
 
-The [provided docker-compose file](https://github.com/ory/hydra/blob/master/quickstart-tracing.yml) in the project repository has
-tracing configuration which you can use to play around with - just uncomment the desired tracing provider. We will use Jaeger as
-an example.
+The [provided docker-compose file](https://github.com/ory/hydra/blob/master/quickstart-tracing.yml) in the Hydra repository (other
+ory services have the same docker-compose file) has tracing configuration which you can use to play around with - just uncomment
+the desired tracing provider. We will use Jaeger as an example.
 
 Simply run
 
@@ -85,7 +85,28 @@ To see spans around database interactions, you must be using a SQL backend, such
 
 ### Tracing configurations
 
-The CLI will provide you with the list of tracing configurations and their supported values. Simply run:
+You can configure tracing inside the configuration file (follow the same schema for all services) or via environment variables.
+
+There is an example of a configuration file with tracing enabled:
+
+```yaml
+tracing:
+  provider: jaeger # use any of the supported tracing providers
+  service_name: ory:kratos # if not set, the service name will be the service's name
+  providers:
+    jaeger: # per provider configuration
+      local_agent_address: jaeger:6831
+      sampling:
+        server_url: http://jaeger:5778/sampling
+```
+
+:::note
+
+Please refer to the configuration reference for the full list of options.
+
+:::
+
+The CLI will also provide you with the list of tracing configurations and their supported values. Simply run:
 
 ```
 docker exec -it hydra_hydra_1 hydra serve --help
