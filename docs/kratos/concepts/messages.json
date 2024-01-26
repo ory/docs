@@ -101,6 +101,19 @@
     }
   },
   {
+    "id": 1010019,
+    "text": "Continue with code",
+    "type": "info"
+  },
+  {
+    "id": 1010020,
+    "text": "We will send a code to {maskedIdentifier}. To verify that this is your address please enter it here.",
+    "type": "info",
+    "context": {
+      "masked_to": "{maskedIdentifier}"
+    }
+  },
+  {
     "id": 1040001,
     "text": "Sign up",
     "type": "info"
@@ -675,6 +688,11 @@
   {
     "id": 4010009,
     "text": "Linked credentials do not match.",
+    "type": "error"
+  },
+  {
+    "id": 4010010,
+    "text": "The address you entered does not match any known addresses in the current account.",
     "type": "error"
   },
   {
