@@ -175,9 +175,6 @@
         "required": ["name", "count"],
         "type": "object"
       },
-      "CodeAddressType": {
-        "type": "string"
-      },
       "CreateInviteResponse": {
         "properties": {
           "all_invites": {
@@ -295,7 +292,7 @@
           },
           "workspaces": {
             "items": {
-              "$ref": "#/components/schemas/workspace"
+              "$ref": "#/components/schemas/workspaceMeta"
             },
             "type": "array"
           }
@@ -1385,6 +1382,10 @@
             "description": "Configures the Ory Kratos Valid Login via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.login_code.valid.email.subject\" setting.",
             "type": "string"
           },
+          "kratos_courier_templates_login_code_valid_sms_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Login via Code SMS plain text body\n\nThis governs the \"courier.smtp.templates.login_code.valid.sms.plaintext\" setting.",
+            "type": "string"
+          },
           "kratos_courier_templates_recovery_code_invalid_email_body_html": {
             "description": "Configures the Ory Kratos Invalid Recovery via Code Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.recovery_code.invalid.email.body.html\" setting.",
             "type": "string"
@@ -1723,6 +1724,10 @@
             "description": "Configures whether Ory Kratos Code Method is enabled\n\nThis governs the \"selfservice.methods.code.enabled\" setting.",
             "type": "boolean"
           },
+          "kratos_selfservice_methods_code_mfa_enabled": {
+            "description": "Configues whether the code method can be used to fulfil MFA flows\n\nThis governs the \"selfservice.methods.code.mfa_enabled\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_code_passwordless_enabled": {
             "description": "Configues whether Ory Kratos Passwordless should use the Code Method\n\nThis governs the \"selfservice.methods.code.passwordless_enabled\" setting.",
             "type": "boolean"
@@ -1965,6 +1970,16 @@
           }
         },
         "required": ["plan", "interval"],
+        "type": "object"
+      },
+      "createWorkspacePayload": {
+        "properties": {
+          "name": {
+            "description": "The name of the workspace",
+            "type": "string"
+          }
+        },
+        "required": ["name"],
         "type": "object"
       },
       "credentialSupportedDraft00": {
@@ -2631,7 +2646,8 @@
         "description": "CredentialsCode represents a one time login/registration code",
         "properties": {
           "address_type": {
-            "$ref": "#/components/schemas/CodeAddressType"
+            "description": "The type of the address for this code",
+            "type": "string"
           },
           "used_at": {
             "$ref": "#/components/schemas/NullTime"
@@ -3200,6 +3216,23 @@
         "required": ["organizations"],
         "type": "object"
       },
+      "listWorkspaceProjectsResponse": {
+        "properties": {
+          "has_next_page": {
+            "type": "boolean"
+          },
+          "next_page": {
+            "type": "string"
+          },
+          "projects": {
+            "items": {
+              "$ref": "#/components/schemas/projectMetadata"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
       "loginFlow": {
         "description": "This object represents a login flow. A login flow is initiated at the \"Initiate Login API / Browser Flow\"\nendpoint by a client.\n\nOnce a login flow is completed successfully, a session cookie or session token will be issued.",
         "properties": {
@@ -3572,6 +3605,25 @@
           }
         },
         "required": ["time", "count"],
+        "type": "object"
+      },
+      "migrationOptions": {
+        "properties": {
+          "environment": {
+            "description": "The environment of the project in the workspace. Can be one of \"prod\" or\n\"dev\". Note that the number of projects in the \"prod\" environment is limited\ndepending on the subscription.\nprod Production\ndev Development",
+            "enum": ["prod", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\ndev Development"
+          },
+          "project_subscription": {
+            "description": "The action to take with the project subscription. Can be one of \"migrate\", and\n\"ignore\". \"migrate\" will migrate the project subscription to the workspace.\n\"ignore\" will ignore the project subscription.\nmigrate ProjectSubscriptionActionMigrate  ProjectSubscriptionActionMigrate will migrate the project subscription to the  workspace.\nignore ProjectSubscriptionActionIgnore  ProjectSubscriptionActionIgnore will ignore the project subscription.",
+            "enum": ["migrate", "ignore"],
+            "type": "string",
+            "x-go-enum-desc": "migrate ProjectSubscriptionActionMigrate  ProjectSubscriptionActionMigrate will migrate the project subscription to the  workspace.\nignore ProjectSubscriptionActionIgnore  ProjectSubscriptionActionIgnore will ignore the project subscription."
+          }
+        },
+        "required": ["project_subscription", "environment"],
+        "title": "MigrationOptions contain the options for migrating a project to a workspace.",
         "type": "object"
       },
       "namespace": {
@@ -3949,6 +4001,10 @@
             "description": "Configures the Ory Kratos Valid Login via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.login_code.valid.email.subject\" setting.",
             "type": "string"
           },
+          "kratos_courier_templates_login_code_valid_sms_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Login via Code SMS plain text body\n\nThis governs the \"courier.smtp.templates.login_code.valid.sms.plaintext\" setting.",
+            "type": "string"
+          },
           "kratos_courier_templates_recovery_code_invalid_email_body_html": {
             "description": "Configures the Ory Kratos Invalid Recovery via Code Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.recovery_code.invalid.email.body.html\" setting.",
             "type": "string"
@@ -4285,6 +4341,10 @@
           },
           "kratos_selfservice_methods_code_enabled": {
             "description": "Configures whether Ory Kratos Code Method is enabled\n\nThis governs the \"selfservice.methods.code.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_code_mfa_enabled": {
+            "description": "Configues whether the code method can be used to fulfil MFA flows\n\nThis governs the \"selfservice.methods.code.mfa_enabled\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_code_passwordless_enabled": {
@@ -6175,6 +6235,12 @@
             "format": "date-time",
             "type": "string"
           },
+          "environment": {
+            "description": "The environment of the project.\nprod Production\ndev Development",
+            "enum": ["prod", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\ndev Development"
+          },
           "hosts": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
@@ -6220,7 +6286,8 @@
           "state",
           "created_at",
           "updated_at",
-          "name"
+          "name",
+          "environment"
         ],
         "type": "object"
       },
@@ -8573,6 +8640,33 @@
         "required": ["id", "name", "created_at", "updated_at"],
         "type": "object"
       },
+      "workspaceMeta": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "subscription_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
+          "subscription_plan": {
+            "$ref": "#/components/schemas/String"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["id", "name", "created_at", "updated_at"],
+        "type": "object"
+      },
       "workspaces": {
         "items": {
           "$ref": "#/components/schemas/workspace"
@@ -9237,9 +9331,9 @@
             "x-go-enum-desc": " ConsistencyLevelUnset  ConsistencyLevelUnset is the unset / default consistency level.\nstrong ConsistencyLevelStrong  ConsistencyLevelStrong is the strong consistency level.\neventual ConsistencyLevelEventual  ConsistencyLevelEventual is the eventual consistency level using follower read timestamps."
           },
           {
-            "description": "IdsFilter is list of ids used to filter identities.\nIf this list is empty, then no filter will be applied.",
+            "description": "List of ids used to filter identities.\nIf this list is empty, then no filter will be applied.",
             "in": "query",
-            "name": "ids_filter",
+            "name": "ids",
             "schema": {
               "items": {
                 "type": "string"
@@ -11112,6 +11206,15 @@
       "post": {
         "description": "This endpoint creates a recovery link which should be given to the user in order for them to recover\n(or activate) their account.",
         "operationId": "createRecoveryLinkForIdentity",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "return_to",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -14346,7 +14449,6 @@
         "operationId": "postCheckPermissionOrError",
         "parameters": [
           {
-            "description": "nolint:deadcode,unused",
             "in": "query",
             "name": "max-depth",
             "schema": {
@@ -15009,6 +15111,14 @@
             "description": "The URL to return the browser to after the flow was completed.",
             "in": "query",
             "name": "return_to",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Via should contain the identity's credential the code should be sent to. Only relevant in aal2 flows.",
+            "in": "query",
+            "name": "via",
             "schema": {
               "type": "string"
             }
