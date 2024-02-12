@@ -1,0 +1,26 @@
+---
+id: skip-consent
+title: Skip consent and logout consent
+sidebar_label: Skip consent
+---
+
+In first-party scenarios, you may want to skip the consent screen and automatically grant consent to the client. This can be done
+by setting the `require_consent` property to `false` on the client configuration.
+
+```shell
+ory create oauth2-client \
+  --skip-consent \
+  # ...
+```
+
+## Skip logout consent
+
+The logout consent screen requires the user to confirm that they indeed wish to log out. This is useful for preventing third-party
+applications from logging out the user without their consent. However, in some cases, you may want to skip this screen. This can
+be done by setting the `require_logout_consent` property to `false` on the client configuration:
+
+```shell
+ory create oauth2-client \
+  --skip-logout-consent \
+  # ...
+```

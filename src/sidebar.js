@@ -221,6 +221,7 @@ module.exports = {
         "hydra/guides/audiences",
         "hydra/guides/jwt",
         "oauth2-oidc/revoke-consent",
+        "oauth2-oidc/skip-consent",
         "oauth2-oidc/oidc-logout",
         "oauth2-oidc/issuer-url",
         {
