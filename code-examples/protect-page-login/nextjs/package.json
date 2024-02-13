@@ -9,7 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@ory/client": "^1.1.23",
+    "@ory/client": "^1.6.1",
     "@ory/integrations": "^1.1.0",
     "@types/node": "18.15.5",
     "@types/react": "18.0.28",
