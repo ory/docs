@@ -4,20 +4,26 @@ title: Change the OAuth2 issuer URL
 sidebar_label: Change Issuer URL
 ---
 
-In some cases, the issuer URL of the OAuth2 and OpenID Connect server needs to be changed. This can be the case if you are
-updating your primary custom domain or when you have a project created before February 13th 2024.
+When your OAuth2 or OpenID Connect client complains that the issuer URL is incorrect, this can have the following reasons:
 
-To see what your current issuer URL is use the [Ory CLI](../guides/cli/01_installation.mdx):
+1. You have misconfigured your OpenID Connect Client. Make sure you are using the correct issuer URL.
+2. You connected a custom domain to your Ory Network project before February 20th 2024. In this case, the issuer URL might be
+   incorrect.
+3. You have manually overwritten the issuer URL in your Ory Network Project.
+4. You are using more than one custom domain connected to a single Ory Network project.
+
+You can view the issuer URL of your Ory Network project using the [Ory CLI](../guides/cli/01_installation.mdx):
 
 ```shell
 ory get oauth2-config {project-id} --format json | jq '.urls.self.issuer'
 ```
 
-To change the OAuth2 and OpenID Connect Issuer URL, run the following [Ory CLI](../guides/cli/01_installation.mdx) command:
+Use this value to understand if the server is incorrectly configured or if the client is using the wrong issuer URL. To change the
+issuer URL, you can use the [Ory CLI](../guides/cli/01_installation.mdx):
 
 ```shell
 ory patch oauth2-config {project-id} \
   --replace '/urls/self/issuer="https://auth.myexample.org"'
 ```
 
-Ideally, this URL is the CNAME domain you have set up for the Ory Network.
+Ideally, this URL is the primary custom domain you have set up for the Ory Network.
