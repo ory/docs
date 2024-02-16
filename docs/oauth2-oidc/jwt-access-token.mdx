@@ -169,3 +169,27 @@ Which results in an access token with the following structure:
   // ...
 }
 ```
+
+### Disable mirroring the claims under `ext`
+
+By default, all custom claims will be mirrored in the `ext` claim (as is the case with the claim `some_custom_claim` in the
+example above).
+
+Set `oauth2.mirror_top_level_claims` to `false` to disable mirroring the claims in the nested `ext` claim:
+
+```shell
+ory patch oauth2-config {project.id} \
+  --replace "/oauth2/mirror_top_level_claims=false"
+```
+
+This results in an access token with the following structure:
+
+```json
+{
+  "sub": "...",
+  // ...
+  "some_custom_claim": "some_custom_value"
+  // no "ext" claim
+  // ...
+}
+```
