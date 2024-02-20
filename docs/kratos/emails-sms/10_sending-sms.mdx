@@ -42,7 +42,7 @@ The configuration can be done via the CLI only. Follow these steps:
          request_config:
            url: https://api.twilio.com/2010-04-01/Accounts/AXXXXXXXXXXXXXX/Messages.json # Adjust your account ID
            method: POST
-           body: base64://ZnVuY3Rpb24oY3R4KSB7ClRvOiBjdHguUmVjaXBpZW50LApCb2R5OiBjdHguQm9keSwKfQ== # see below
+           body: base64://ZnVuY3Rpb24oY3R4KSB7CiAgVG86IGN0eC5yZWNpcGllbnQsCiAgQm9keTogY3R4LmJvZHksCn0= # see below
            headers:
              Content-Type: application/x-www-form-urlencoded # defaults to application/json
            auth:
@@ -64,18 +64,18 @@ The body of the above snippet decodes to the following Jsonnet template:
 
 ```jsonnet
 function(ctx) {
-  To: ctx.Recipient,
-  Body: ctx.Body,
+  To: ctx.recipient,
+  Body: ctx.body,
 }
 ```
 
 All available fields on the `ctx` object are:
 
-- `Recipient`: The recipient's phone number
-- `Body`: The message body
-- `TemplateType`: The template type, e.g. `verification_code`
-- `TemplateData`: The template data, e.g. `{ "VerificationCode": "1234", Idenity: { ... } }`
-- `MessageType`: The message type, e.g. `sms`
+- `recipient`: The recipient's phone number
+- `body`: The message body
+- `template_type`: The template type, e.g. `verification_code`
+- `template_data`: The template data, e.g. `{ "VerificationCode": "1234", Idenity: { ... } }`
+- `message_type`: The message type, e.g. `sms`
 
 Read the [Jsonnet documentation](../../kratos/reference/jsonnet.mdx) to learn more about the Jsonnet templating language.
 
@@ -86,7 +86,7 @@ Read the [Jsonnet documentation](../../kratos/reference/jsonnet.mdx) to learn mo
 
 ## Templates
 
-Currently, only the `verification_code` template supports an SMS variant. To configure it, use the CLI:
+Currently, only the `verification_code` and `login_code` templates support an SMS variant. To configure it, use the CLI:
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
@@ -112,7 +112,12 @@ Currently, only the `verification_code` template supports an SMS variant. To con
          valid:
            sms:
              body:
-               plaintext: "Your verification code is: {{ .VerificationCode }}"
+               plaintext: "base64://WW91ciB2ZXJpZmljYXRpb24gY29kZSBpczoge3sgLlZlcmlmaWNhdGlvbkNvZGUgfX0="
+        login_code:
+          valid:
+            sms:
+              body:
+                plaintext: "base64://WW91ciBsb2dpbiBjb2RlIGlzOiB7eyAuTG9naW5Db2RlIH19"
    ```
 
 3. Update the Ory Identities configuration using the file you worked with:
