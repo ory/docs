@@ -10,19 +10,19 @@ import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
 ```
 
-The Ory Network comes with an HTTP based SMS delivery option, that can be configured to point to any service that supports sending
-SMS via HTTP API, such as Twilio, Plivo, AWS SNS, or your own microservice.
+Ory Network comes with an HTTP based SMS delivery option that can be configured to point to any service that supports sending SMS
+via HTTP API, such as Twilio, Plivo, AWS SNS, or your own microservice.
 
 ## Configuration
 
-The configuration can be done via the CLI only. Follow these steps:
+SMS delivery can only be configured through the [Ory CLI](../../guides/cli/01_installation.mdx). Follow these steps:
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
 <TabItem value="cli" label="Ory CLI">
 ```
 
-1. Download the Ory Identities config from your project and save it to a file:
+1. Download the [Ory Identities config](../../guides/cli/15_config-identity-service.mdx) from your project and save it to a file:
 
    ```shell
    ## List all available projects
@@ -69,7 +69,7 @@ function(ctx) {
 }
 ```
 
-All available fields on the `ctx` object are:
+Fields available on the `ctx` object are:
 
 - `recipient`: The recipient's phone number
 - `body`: The message body
@@ -86,7 +86,7 @@ Read the [Jsonnet documentation](../../kratos/reference/jsonnet.mdx) to learn mo
 
 ## Templates
 
-Currently, only the `verification_code` and `login_code` templates support an SMS variant. To configure it, use the CLI:
+Only the `verification_code` and `login_code` templates support an SMS variant. Use the CLI to configure it:
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
