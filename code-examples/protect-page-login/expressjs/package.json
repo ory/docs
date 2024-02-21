@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@ory/cli": "^0.1.22",
-    "@ory/client": "~1.0.2",
+    "@ory/client": "~1.6.2",
     "@ory/integrations": "^0.2.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
