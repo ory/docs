@@ -6,13 +6,14 @@ sidebar_label: Docker images
 
 # Docker images
 
-## Supported tags and respective `Dockerfile` links
+Images are published on Docker Hub as [`oryd/kratos`](https://hub.docker.com/r/oryd/kratos) with these tags:
 
-- [`latest`, `v0.8.0-alpha.1`, `v0.8.0`, `v0.8`, `v0`](https://github.com/ory/kratos/blob/master/.docker/Dockerfile-alpine)
+- [`latest`, `v1.1.0`, `v1.1`, `v1`](https://github.com/ory/kratos/blob/master/.docker/Dockerfile-alpine) (Alpine-based, with
+  SQLite support)
+- [`v1.1.0-distroless`](https://github.com/ory/kratos/blob/master/.docker/Dockerfile-distroless-static) (distroless, no SQLite
+  support)
 
-## Image makeup
-
-The `Kratos` Docker images use Alpine Linux as their base image and come with SQLite support built in.
+Supported architectures are `amd64`, `arm64`, `arm/v7`, `arm/v6`.
 
 ## Using the images
 
