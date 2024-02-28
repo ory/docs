@@ -52,18 +52,24 @@ Record the ARN of the IAM role you created, for example:
 arn:aws:iam::123456789012:role/ory-network-event-streamer
 ```
 
-3. Attach the following trust policy to the IAM role you created in step 2:
+3. Attach the following trust policy to the IAM role you created in step 2, replacing `b21b757b-7d8e-4864-bb7b-800f5fad7aa6` with
+   your project ID:
 
-```json title="Trust policy (this is the same for all Ory Network customers)"
+```json title="Trust policy (replace b21b757b-7d8e-4864-bb7b-800f5fad7aa6 with your project ID)"
 {
   "Version": "2012-10-17",
   "Statement": [
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::601538168777:user/event-streamer"
+        "AWS": "601538168777"
       },
-      "Action": "sts:AssumeRole"
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": {
+          "sts:ExternalId": "b21b757b-7d8e-4864-bb7b-800f5fad7aa6"
+        }
+      }
     }
   ]
 }
