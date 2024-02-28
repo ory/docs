@@ -32,7 +32,7 @@ arn:aws:sns:us-east-1:123456789012:my-topic
 
 2. Create an AWS IAM role with publish permission to that topic. Sample IAM policy:
 
-```json title="IAM role policy (replace the ARN with your own topic ARN)"
+```json title="IAM role policy (replace <YOUR TOPIC ARN> with your topic ARN created above)"
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -40,7 +40,7 @@ arn:aws:sns:us-east-1:123456789012:my-topic
       "Sid": "OryNetworkEventStreamPublish",
       "Effect": "Allow",
       "Action": ["sns:Publish"],
-      "Resource": ["arn:aws:sns:us-east-1:123456789012:my-topic"]
+      "Resource": ["<YOUR TOPIC ARN>"]
     }
   ]
 }
@@ -52,10 +52,9 @@ Record the ARN of the IAM role you created, for example:
 arn:aws:iam::123456789012:role/ory-network-event-streamer
 ```
 
-3. Attach the following trust policy to the IAM role you created in step 2, replacing `b21b757b-7d8e-4864-bb7b-800f5fad7aa6` with
-   your project ID:
+3. Attach the following trust policy to the IAM role you created in step 2, replacing `<YOUR PROJECT UUID>` with your project ID:
 
-```json title="Trust policy (replace b21b757b-7d8e-4864-bb7b-800f5fad7aa6 with your project ID)"
+```json title="Trust policy (replace <YOUR PROJECT UUID>)"
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -67,7 +66,7 @@ arn:aws:iam::123456789012:role/ory-network-event-streamer
       "Action": "sts:AssumeRole",
       "Condition": {
         "StringEquals": {
-          "sts:ExternalId": "b21b757b-7d8e-4864-bb7b-800f5fad7aa6"
+          "sts:ExternalId": "<YOUR PROJECT UUID>"
         }
       }
     }
@@ -81,10 +80,10 @@ This allows Ory Network to assume the role in your AWS account, and publish to y
 
 ```shell
 ory create event-stream
-  --project "$project_id" \
+  --project "$YOUR_PROJECT_ID" \
   --type sns \
-  --aws-sns-topic-arn "arn:aws:sns:us-east-1:123456789012:my-topic" \
-  --aws-iam-role-arn "arn:aws:iam::123456789012:role/ory-network-event-streamer"
+  --aws-sns-topic-arn "$YOUR_TOPIC_ARN" \
+  --aws-iam-role-arn "$YOUR_IAM_ROLE_ARN"
 ```
 
 5. You are now ready to receive events in your AWS SNS topic!
