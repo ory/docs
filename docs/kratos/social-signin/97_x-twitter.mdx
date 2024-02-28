@@ -1,7 +1,7 @@
 ---
-id: twitter
-title: Add Twitter as a social sign-in provider in Ory
-sidebar_label: Twitter
+id: x-twitter
+title: Add X / Twitter as a social sign-in provider in Ory
+sidebar_label: X / Twitter
 ---
 
 # Twitter
@@ -68,7 +68,7 @@ Twitter is now set up! Continue with the following steps in Ory Console or Ory C
          //   When set to true email will be returned in the user objects as a string. If the user does not have an email address on their account, or if the email address is not verified, null will be returned.
          //
          // There we can use the value provided by twitter without problem:
-         email: claims.email,
+         [if 'email' in claims then 'email' else null]: claims.email,
        },
      },
    }
@@ -94,7 +94,7 @@ Twitter is now set up! Continue with the following steps in Ory Console or Ory C
          //   When set to true email will be returned in the user objects as a string. If the user does not have an email address on their account, or if the email address is not verified, null will be returned.
          //
          // There we can use the value provided by twitter without problem:
-         email: claims.email,
+         [if 'email' in claims then 'email' else null]: claims.email,
        },
      },
    }
