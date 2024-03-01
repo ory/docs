@@ -28,13 +28,13 @@ ory delete identity id-0 [id-1] [id-2] [id-n] [flags]
 ```
 To delete the identity with the recovery email address "foo@bar.com", run:
 
-	{{ .CommandPath }} $({{ .Root.Name }} list identities --format json | jq -r 'map(select(.recovery_addresses[].value == "foo@bar.com")) | .[].id')
+	ory delete identity $(ory list identities --format json | jq -r 'map(select(.recovery_addresses[].value == "foo@bar.com")) | .[].id')
 ```
 
 ### Options
 
 ```
-      --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --format string    Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help             help for identity
       --project string   The project to use, either project ID or a (partial) slug.
   -q, --quiet            Be quiet with output printing.

@@ -90,6 +90,22 @@ settings.
 
 ## Setting up a CNAME record
 
+:::note
+
+If your DNS provider/registrar automatically activates a proxy on the CNAME record, it can keep the custom domain in a pending
+state. Please make sure to deactivate proxying on the CNAME record. We use a tailored Cloudflare configuration on our side, to
+ensure requests to the custom hostname are fully protected.
+
+:::
+
+:::note
+
+In case you are using Cloudflare as your DNS provider, make sure
+["Zone Hold" is released](https://developers.cloudflare.com/fundamentals/setup/account/account-security/zone-holds/#release-zone-holds).
+It needs to be released temporarily so that we can preconfigure the subdomain in our account.
+
+:::
+
 If you're with any of these registrars, you can use their respective guide on how to add a CNAME record:
 
 - [GoDaddy](https://www.godaddy.com/help/add-a-cname-record-19236)
@@ -106,6 +122,38 @@ requires you to specify 3 values:
    want to use the root domain.
 3. The value, which is provided by us. Check the value provided in the form (detailed in the first step of this article) to know
    what this should be for your project.
+
+If your Custom Hostname remains in `pending` or `error` state, you can check your configuration using a command line tool like
+`dig`, which outputs how the DNS query is resolved:
+
+```
+❯ dig auth.foobar.com
+
+; <<>> DiG 9.10.6 <<>> auth.foobar.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 7283
+;; flags: qr rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;auth.foobar.com.             IN      A
+
+;; ANSWER SECTION:
+auth.foobar.com.      300     IN      CNAME   <your-project-slug>.projects.oryapis.com.
+<your-project-slug>.projects.oryapis.com. 300 IN A 104.18.12.126
+<your-project-slug>.projects.oryapis.com. 300 IN A 104.18.13.126
+
+;; Query time: 28 msec
+;; SERVER: 8.8.8.8#53(8.8.8.8)
+;; WHEN: Tue Oct 31 11:47:22 CET 2023
+;; MSG SIZE  rcvd: 135
+```
+
+If the ANSWER SECTION lists an IP address instead of the generic Ory network URL `<your-project-slug>.projects.oryapis.com`, it
+indicates you did not deactivate proxying. Check the configuration of your CNAME record in your DNS Provider/registrar and disable
+proxying.
 
 ## Automated emails
 

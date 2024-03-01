@@ -1,7 +1,7 @@
 ---
 id: ory-delete-relationships
 title: ory delete relationships
-description: ory delete relationships Delete ALL relation tuples matching the relation query.
+description: ory delete relationships Delete ALL relationships matching the relation query.
 ---
 
 <!--
@@ -11,11 +11,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory delete relationships
 
-Delete ALL relation tuples matching the relation query.
+Delete ALL relationships matching the relation query.
 
 ### Synopsis
 
-Delete all relation tuples matching the relation query.
+Delete all relationships matching the relation query.
 It is recommended to first run the command without the `--force` flag to verify that the operation is safe.
 
 ```
@@ -26,8 +26,10 @@ ory delete relationships [flags]
 
 ```
       --all                  Delete all relation tuples
-      --force                Force the deletion of relation tuples
-      --format string        Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --authority string     Set the authority header for the remote gRPC server.
+      --block                Block until the connection is up.
+      --force                Force the deletion of relationships
+      --format string        Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help                 help for relationships
       --namespace string     Set the requested namespace
       --object string        Set the requested object

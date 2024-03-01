@@ -1,0 +1,79 @@
+---
+id: mfa-via-sms
+title: Code via SMS
+sidebar_label: SMS
+---
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+```
+
+SMS can be used to deliver one time codes to users. Ory will deliver a 6-digit code to an SMS gateway of your choice, such as
+Twilio, Amazon SNS or your own application. These codes are valid for a short amount of time, usually 15 minutes or less. Once the
+user completes the challenge, by entering the code, the AAL of the session is upgraded to AAL2.
+
+:::note
+
+Ory currently only supports either MFA via SMS or passwordless login via code, not both.
+
+:::
+
+```mdx-code-block
+<BrowserWindow url="https://playground.projects.oryapis.com/ui/login?aal=aal2&via=phone">
+
+![Recovery Codes generation in Ory Account Experience](../_static/mfa/11.png)
+
+</BrowserWindow>
+```
+
+## Configuration
+
+To enable MFA via SMS, you need to configure an SMS channel in the Ory configuration:
+
+```mdx-code-block
+<Tabs groupId="console-or-cli">
+<TabItem value="cli" label="Ory CLI" default>
+```
+
+1. Get the Ory Identities configuration from your project and save it to a file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ```
+
+2. Find `code` in `selfservice.methods` and set `mfa_enabled` to `true`:
+
+   ```yaml title="identity-config.yaml"
+   code:
+     mfa_enabled: true
+   ```
+
+3. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config {project-id} --file identity-config.yaml
+   ```
+
+```mdx-code-block
+  </TabItem>
+</Tabs>
+```
+
+## Integration
+
+To be able to send codes via SMS, you need to provide a custom SMS sender. Ory simply sends the code, the phone number and other
+metadata to a webhook of your choice. Please read the [SMS documentation](../emails-sms/10_sending-sms.mdx).
+
+To start a new MFA flow, for an already existing session, create a new login flow with the `aal` parameter set to `aal2`. You'll
+also need to specify which trait to use for delivering the code to the user. Make sure, this trait exists in the identity schema
+and set the `via` parameter to its identifier. For example, if you have a trait called `phone_number`, you'd set `via` to
+`phone_number`.
+
+Ory will return an error in the UI, if the trait does not exist in the identity's schema or the trait is empty in the current
+identity. So make sure this trait is required in your identity schema.

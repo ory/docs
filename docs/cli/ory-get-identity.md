@@ -28,13 +28,13 @@ ory get identity [id-1] [id-2] [id-n] [flags]
 ```
 To get the identities with the recovery email address at the domain "ory.sh", run:
 
-	{{ .CommandPath }} $({{ .Root.Name }} ls identities --format json | jq -r 'map(select(.recovery_addresses[].value | endswith("@ory.sh"))) | .[].id')
+	ory get identity $(ory ls identities --format json | jq -r 'map(select(.recovery_addresses[].value | endswith("@ory.sh"))) | .[].id')
 ```
 
 ### Options
 
 ```
-      --format string                     Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --format string                     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help                              help for identity
   -i, --include-credentials stringArray   Include third party tokens (only "oidc" supported) 
       --project string                    The project to use, either project ID or a (partial) slug.

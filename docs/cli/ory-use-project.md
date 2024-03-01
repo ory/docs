@@ -34,7 +34,7 @@ $ ory use project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 ### Options
 
 ```
-      --format string   Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help            help for project
   -q, --quiet           Be quiet with output printing.
 ```

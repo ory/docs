@@ -124,6 +124,42 @@
       }
     },
     "schemas": {
+      "Attribute": {
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "AttributeFilter": {
+        "properties": {
+          "attribute": {
+            "type": "string"
+          },
+          "condition": {
+            "enum": [
+              "equals",
+              "not_equals",
+              "contains",
+              "not_contains",
+              "regex",
+              "not_regex",
+              "set",
+              "not_set"
+            ],
+            "type": "string",
+            "x-go-enum-desc": "equals ConditionEquals\nnot_equals ConditionNotEquals\ncontains ConditionContains\nnot_contains ConditionNotContains\nregex ConditionRegex\nnot_regex ConditionNotRegex\nset ConditionSet\nnot_set ConditionNotSet"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "AttributesCountDatapoint": {
         "properties": {
           "count": {
@@ -138,9 +174,6 @@
         },
         "required": ["name", "count"],
         "type": "object"
-      },
-      "CodeAddressType": {
-        "type": "string"
       },
       "CreateInviteResponse": {
         "properties": {
@@ -168,6 +201,826 @@
         },
         "type": "object"
       },
+      "CreateProjectNormalizedPayload": {
+        "description": "Create project (normalized) request payload",
+        "properties": {
+          "created_at": {
+            "description": "The Project's Revision Creation Date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "disable_account_experience_welcome_screen": {
+            "description": "Whether to disable the account experience welcome screen, which is hosted under `/ui/welcome`.",
+            "type": "boolean"
+          },
+          "environment": {
+            "description": "\nprod Production\ndev Development",
+            "enum": ["prod", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\ndev Development"
+          },
+          "hydra_oauth2_allowed_top_level_claims": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "hydra_oauth2_client_credentials_default_grant_allowed_scope": {
+            "description": "Automatically grant authorized OAuth2 Scope in OAuth2 Client Credentials Flow.\n\nEach OAuth2 Client is allowed to request a predefined OAuth2 Scope (for example `read write`). If this option is enabled, the full\nscope is automatically granted when performing the OAuth2 Client Credentials flow.\n\nIf disabled, the OAuth2 Client has to request the scope in the OAuth2 request by providing the `scope` query parameter.\n\nSetting this option to true is common if you need compatibility with MITREid.\n\nThis governs the \"oauth2.client_credentials.default_grant_allowed_scope\" setting.",
+            "type": "boolean"
+          },
+          "hydra_oauth2_exclude_not_before_claim": {
+            "description": "Set to true if you want to exclude claim `nbf (not before)` part of access token.\n\nThis governs the \"oauth2.exclude_not_before_claim\" setting.",
+            "type": "boolean"
+          },
+          "hydra_oauth2_grant_jwt_iat_optional": {
+            "description": "Configures if the issued at (`iat`) claim is required in the JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants (RFC7523).\n\nIf set to `false`, the `iat` claim is required. Set this value to `true` only after careful consideration.\n\nThis governs the \"oauth2.grant.jwt.iat_optional\" setting.",
+            "type": "boolean"
+          },
+          "hydra_oauth2_grant_jwt_jti_optional": {
+            "description": "Configures if the JSON Web Token ID (`jti`) claim is required in the JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants (RFC7523).\n\nIf set to `false`, the `jti` claim is required. Set this value to `true` only after careful consideration.\n\nThis governs the \"oauth2.grant.jwt.jti_optional\" setting.",
+            "type": "boolean"
+          },
+          "hydra_oauth2_grant_jwt_max_ttl": {
+            "default": "720h",
+            "description": "Configures what the maximum age of a JWT assertion used in the JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants (RFC7523) can be.\n\nThis feature uses the `exp` claim and `iat` claim to calculate assertion age. Assertions exceeding the max age will be denied.\n\nUseful as a safety measure and recommended to keep below 720h.\n\nThis governs the \"oauth2.grant.jwt.max_ttl\" setting.",
+            "example": "30m",
+            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "type": "string"
+          },
+          "hydra_oauth2_mirror_top_level_claims": {
+            "description": "Set to false if you don't want to mirror custom claims under 'ext'.\n\nThis governs the \"oauth2.mirror_top_level_claims\" setting.",
+            "type": "boolean"
+          },
+          "hydra_oauth2_pkce_enforced": {
+            "description": "Configures whether PKCE should be enforced for all OAuth2 Clients.\n\nThis governs the \"oauth2.pkce.enforced\" setting.",
+            "type": "boolean"
+          },
+          "hydra_oauth2_pkce_enforced_for_public_clients": {
+            "description": "Configures whether PKCE should be enforced for OAuth2 Clients without a client secret (public clients).\n\nThis governs the \"oauth2.pkce.enforced_for_public_clients\" setting.",
+            "type": "boolean"
+          },
+          "hydra_oauth2_refresh_token_hook": {
+            "description": "Sets the Refresh Token Hook Endpoint. If set this endpoint will be called during the OAuth2 Token Refresh grant update the OAuth2 Access Token claims.\n\nThis governs the \"oauth2.refresh_token_hook\" setting.",
+            "type": "string"
+          },
+          "hydra_oauth2_token_hook": {
+            "description": "Sets the token hook endpoint for all grant types. If set it will be called while providing token to customize claims.\n\nThis governs the \"oauth2.token_hook.url\" setting.",
+            "type": "string"
+          },
+          "hydra_oidc_dynamic_client_registration_default_scope": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "hydra_oidc_dynamic_client_registration_enabled": {
+            "description": "Configures OpenID Connect Dynamic Client Registration.\n\nThis governs the \"oidc.dynamic_client_registration.enabled\" setting.",
+            "type": "boolean"
+          },
+          "hydra_oidc_subject_identifiers_pairwise_salt": {
+            "description": "Configures OpenID Connect Discovery and overwrites the pairwise algorithm\n\nThis governs the \"oidc.subject_identifiers.pairwise_salt\" setting.",
+            "type": "string"
+          },
+          "hydra_oidc_subject_identifiers_supported_types": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "hydra_secrets_cookie": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "hydra_secrets_system": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "hydra_serve_cookies_same_site_legacy_workaround": {
+            "description": "Configures the Ory Hydra Cookie Same Site Legacy Workaround\n\nThis governs the \"serve.cookies.same_site_legacy_workaround\" setting.",
+            "type": "boolean"
+          },
+          "hydra_serve_cookies_same_site_mode": {
+            "description": "Configures the Ory Hydra Cookie Same Site Mode\n\nThis governs the \"serve.cookies.same_site_mode\" setting.",
+            "type": "string"
+          },
+          "hydra_strategies_access_token": {
+            "default": "opaque",
+            "description": "Defines access token type. jwt is a bad idea, see https://www.ory.sh/docs/hydra/advanced#json-web-tokens\n\nThis governs the \"strategies.access_token\" setting.\nopaque Oauth2AccessTokenStrategyOpaque\njwt Oauth2AccessTokenStrategyJwt",
+            "enum": ["opaque", "jwt"],
+            "type": "string",
+            "x-go-enum-desc": "opaque Oauth2AccessTokenStrategyOpaque\njwt Oauth2AccessTokenStrategyJwt"
+          },
+          "hydra_strategies_scope": {
+            "default": "wildcard",
+            "description": "Defines how scopes are matched. For more details have a look at https://github.com/ory/fosite#scopes\n\nThis governs the \"strategies.scope\" setting.\nexact Oauth2ScopeStrategyExact\nwildcard Oauth2ScopeStrategyWildcard",
+            "enum": ["exact", "wildcard"],
+            "type": "string",
+            "x-go-enum-desc": "exact Oauth2ScopeStrategyExact\nwildcard Oauth2ScopeStrategyWildcard"
+          },
+          "hydra_ttl_access_token": {
+            "default": "30m",
+            "description": "This governs the \"ttl.access_token\" setting.",
+            "example": "1h",
+            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "type": "string"
+          },
+          "hydra_ttl_auth_code": {
+            "default": "720h",
+            "description": "Configures how long refresh tokens are valid.\n\nSet to -1 for refresh tokens to never expire. This is not recommended!\n\nThis governs the \"ttl.auth_code\" setting.",
+            "example": "30m",
+            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "type": "string"
+          },
+          "hydra_ttl_id_token": {
+            "default": "30m",
+            "description": "This governs the \"ttl.id_token\" setting.",
+            "example": "1h",
+            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "type": "string"
+          },
+          "hydra_ttl_login_consent_request": {
+            "default": "30m",
+            "description": "Configures how long a user login and consent flow may take.\n\nThis governs the \"ttl.login_consent_request\" setting.",
+            "example": "1h",
+            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "type": "string"
+          },
+          "hydra_ttl_refresh_token": {
+            "default": "720h",
+            "description": "Configures how long refresh tokens are valid.\n\nSet to -1 for refresh tokens to never expire. This is not recommended!\n\nThis governs the \"ttl.refresh_token\" setting.",
+            "example": "30m",
+            "pattern": "^([0-9]+(ns|us|ms|s|m|h)|-1)$",
+            "type": "string"
+          },
+          "hydra_urls_consent": {
+            "description": "Sets the OAuth2 Consent Endpoint URL of the OAuth2 User Login \u0026 Consent flow.\n\nDefaults to the Ory Account Experience if left empty.\n\nThis governs the \"urls.consent\" setting.",
+            "type": "string"
+          },
+          "hydra_urls_error": {
+            "description": "Sets the OAuth2 Error URL of the OAuth2 User Login \u0026 Consent flow.\n\nDefaults to the Ory Account Experience if left empty.\n\nThis governs the \"urls.error\" setting.",
+            "type": "string"
+          },
+          "hydra_urls_login": {
+            "description": "Sets the OAuth2 Login Endpoint URL of the OAuth2 User Login \u0026 Consent flow.\n\nDefaults to the Ory Account Experience if left empty.\n\nThis governs the \"urls.login\" setting.",
+            "type": "string"
+          },
+          "hydra_urls_logout": {
+            "description": "Sets the logout endpoint.\n\nDefaults to the Ory Account Experience if left empty.\n\nThis governs the \"urls.logout\" setting.",
+            "type": "string"
+          },
+          "hydra_urls_post_logout_redirect": {
+            "description": "When an OAuth2-related user agent requests to log out, they will be redirected to this url afterwards per default.\n\nDefaults to the Ory Account Experience in development and your application in production mode when a custom domain is connected.\n\nThis governs the \"urls.post_logout_redirect\" setting.",
+            "type": "string"
+          },
+          "hydra_urls_registration": {
+            "description": "Sets the OAuth2 Registration Endpoint URL of the OAuth2 User Login \u0026 Consent flow.\n\nDefaults to the Ory Account Experience if left empty.\n\nThis governs the \"urls.registration\" setting.",
+            "type": "string"
+          },
+          "hydra_urls_self_issuer": {
+            "description": "This value will be used as the issuer in access and ID tokens. It must be specified and using HTTPS protocol, unless the development mode is enabled.\n\nOn the Ory Network it will be very rare that you want to modify this value. If left empty, it will default to the correct value for the Ory Network.\n\nThis governs the \"urls.self.issuer\" setting.",
+            "type": "string"
+          },
+          "hydra_webfinger_jwks_broadcast_keys": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "hydra_webfinger_oidc_discovery_auth_url": {
+            "description": "Configures OpenID Connect Discovery and overwrites the OAuth2 Authorization URL.\n\nThis governs the \"webfinger.oidc.discovery.auth_url\" setting.",
+            "type": "string"
+          },
+          "hydra_webfinger_oidc_discovery_client_registration_url": {
+            "description": "Configures OpenID Connect Discovery and overwrites the OpenID Connect Dynamic Client Registration Endpoint.\n\nThis governs the \"webfinger.oidc.discovery.client_registration_url\" setting.",
+            "type": "string"
+          },
+          "hydra_webfinger_oidc_discovery_jwks_url": {
+            "description": "Configures OpenID Connect Discovery and overwrites the JWKS URL.\n\nThis governs the \"webfinger.oidc.discovery.jwks_url\" setting.",
+            "type": "string"
+          },
+          "hydra_webfinger_oidc_discovery_supported_claims": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "hydra_webfinger_oidc_discovery_supported_scope": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "hydra_webfinger_oidc_discovery_token_url": {
+            "description": "Configures OpenID Connect Discovery and overwrites the OAuth2 Token URL.\n\nThis governs the \"webfinger.oidc.discovery.token_url\" setting.",
+            "type": "string"
+          },
+          "hydra_webfinger_oidc_discovery_userinfo_url": {
+            "description": "Configures OpenID Connect Discovery and overwrites userinfo endpoint to be advertised at the OpenID Connect Discovery endpoint /.well-known/openid-configuration. Defaults to Ory Hydra's userinfo endpoint at /userinfo. Set this value if you want to handle this endpoint yourself.\n\nThis governs the \"webfinger.oidc.discovery.userinfo_url\" setting.",
+            "type": "string"
+          },
+          "id": {
+            "description": "The revision ID.",
+            "format": "uuid",
+            "readOnly": true,
+            "type": "string"
+          },
+          "keto_namespace_configuration": {
+            "description": "The Revisions' Keto Namespace Configuration\n\nThe string is a URL pointing to an OPL file with the configuration.",
+            "type": "string"
+          },
+          "keto_namespaces": {
+            "$ref": "#/components/schemas/KetoNamespaces"
+          },
+          "kratos_cookies_same_site": {
+            "description": "Configures the Ory Kratos Cookie SameSite Attribute\n\nThis governs the \"cookies.same_site\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_channels": {
+            "$ref": "#/components/schemas/revisionCourierChannels"
+          },
+          "kratos_courier_delivery_strategy": {
+            "default": "smtp",
+            "description": "The delivery strategy to use when sending emails\n\n`smtp`: Use SMTP server\n`http`: Use the built in HTTP client to send the email to some remote service",
+            "type": "string"
+          },
+          "kratos_courier_http_request_config_auth_api_key_in": {
+            "description": "The location of the API key to use in the HTTP email sending service's authentication\n\n`header`: Send the key value pair as a header\n`cookie`: Send the key value pair as a cookie\nThis governs the \"courier.http.auth.config.in\" setting",
+            "type": "string"
+          },
+          "kratos_courier_http_request_config_auth_api_key_name": {
+            "description": "The name of the API key to use in the HTTP email sending service's authentication\n\nThis governs the \"courier.http.auth.config.name\" setting",
+            "type": "string"
+          },
+          "kratos_courier_http_request_config_auth_api_key_value": {
+            "description": "The value of the API key to use in the HTTP email sending service's authentication\n\nThis governs the \"courier.http.auth.config.value\" setting",
+            "type": "string"
+          },
+          "kratos_courier_http_request_config_auth_basic_auth_password": {
+            "description": "The password to use for basic auth in the HTTP email sending service's authentication\n\nThis governs the \"courier.http.auth.config.password\" setting",
+            "type": "string"
+          },
+          "kratos_courier_http_request_config_auth_basic_auth_user": {
+            "description": "The user to use for basic auth in the HTTP email sending service's authentication\n\nThis governs the \"courier.http.auth.config.user\" setting",
+            "type": "string"
+          },
+          "kratos_courier_http_request_config_auth_type": {
+            "default": "empty (no authentication)",
+            "description": "The authentication type to use while contacting the remote HTTP email sending service\n\n`basic_auth`: Use Basic Authentication\n`api_key`: Use API Key Authentication in a header or cookie",
+            "type": "string"
+          },
+          "kratos_courier_http_request_config_body": {
+            "description": "The Jsonnet template to generate the body to send to the remote HTTP email sending service\n\nShould be valid Jsonnet and base64 encoded\n\nThis governs the \"courier.http.body\" setting",
+            "type": "string"
+          },
+          "kratos_courier_http_request_config_headers": {
+            "$ref": "#/components/schemas/nullJsonRawMessage"
+          },
+          "kratos_courier_http_request_config_method": {
+            "default": "POST",
+            "description": "The http METHOD to use when calling the remote HTTP email sending service",
+            "type": "string"
+          },
+          "kratos_courier_http_request_config_url": {
+            "description": "The URL of the remote HTTP email sending service\n\nThis governs the \"courier.http.url\" setting",
+            "type": "string"
+          },
+          "kratos_courier_smtp_connection_uri": {
+            "description": "Configures the Ory Kratos SMTP Connection URI\n\nThis governs the \"courier.smtp.connection_uri\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_smtp_from_address": {
+            "description": "Configures the Ory Kratos SMTP From Address\n\nThis governs the \"courier.smtp.from_address\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_smtp_from_name": {
+            "description": "Configures the Ory Kratos SMTP From Name\n\nThis governs the \"courier.smtp.from_name\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_smtp_headers": {
+            "$ref": "#/components/schemas/nullJsonRawMessage"
+          },
+          "kratos_courier_smtp_local_name": {
+            "description": "Configures the local_name to use in SMTP connections\n\nThis governs the \"courier.smtp.local_name\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_login_code_valid_email_body_html": {
+            "description": "Configures the Ory Kratos Valid Login via Code Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.login_code.valid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_login_code_valid_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Login via Code Email Body Plaintext Template\n\nThis governs the \"courier.smtp.templates.login_code.valid.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_login_code_valid_email_subject": {
+            "description": "Configures the Ory Kratos Valid Login via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.login_code.valid.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_login_code_valid_sms_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Login via Code SMS plain text body\n\nThis governs the \"courier.smtp.templates.login_code.valid.sms.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_code_invalid_email_body_html": {
+            "description": "Configures the Ory Kratos Invalid Recovery via Code Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.recovery_code.invalid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_code_invalid_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Invalid Recovery via Code Email Body Plaintext Template\n\nThis governs the \"courier.smtp.templates.recovery_code.invalid.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_code_invalid_email_subject": {
+            "description": "Configures the Ory Kratos Invalid Recovery via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.recovery_code.invalid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_code_valid_email_body_html": {
+            "description": "Configures the Ory Kratos Valid Recovery via Code Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.recovery_code.valid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_code_valid_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Recovery via Code Email Body Plaintext Template\n\nThis governs the \"courier.smtp.templates.recovery_code.valid.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_code_valid_email_subject": {
+            "description": "Configures the Ory Kratos Valid Recovery via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.recovery_code.valid.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_invalid_email_body_html": {
+            "description": "Configures the Ory Kratos Invalid Recovery Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.recovery.invalid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_invalid_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Invalid Recovery Email Body Plaintext Template\n\nThis governs the \"courier.smtp.templates.recovery.invalid.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_invalid_email_subject": {
+            "description": "Configures the Ory Kratos Invalid Recovery Email Subject Template\n\nThis governs the \"courier.smtp.templates.recovery.invalid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_valid_email_body_html": {
+            "description": "Configures the Ory Kratos Valid Recovery Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.recovery.valid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_valid_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Recovery Email Body Plaintext Template\n\nThis governs the \"courier.smtp.templates.recovery.valid.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_recovery_valid_email_subject": {
+            "description": "Configures the Ory Kratos Valid Recovery Email Subject Template\n\nThis governs the \"courier.smtp.templates.recovery.valid.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_registration_code_valid_email_body_html": {
+            "description": "Configures the Ory Kratos Valid Registration via Code Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.registration_code.valid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_registration_code_valid_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Registration via Code Email Body Plaintext Template\n\nThis governs the \"courier.smtp.templates.registration_code.valid.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_registration_code_valid_email_subject": {
+            "description": "Configures the Ory Kratos Valid Registration via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.registration_code.valid.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_code_invalid_email_body_html": {
+            "description": "Configures the Ory Kratos Invalid Verification via Code Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.verification_code.invalid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_code_invalid_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Invalid Verification via Code Email Body Plaintext Template\n\nThis governs the \"courier.smtp.templates.verification_code.invalid.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_code_invalid_email_subject": {
+            "description": "Configures the Ory Kratos Invalid Verification via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.verification_code.invalid.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_code_valid_email_body_html": {
+            "description": "Configures the Ory Kratos Valid Verification via Code Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.verification_code.valid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_code_valid_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Verification via Code Email Body Plaintext Template\n\nThis governs the \"courier.smtp.templates.verification_code.valid.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_code_valid_email_subject": {
+            "description": "Configures the Ory Kratos Valid Verification via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.verification_code.valid.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_code_valid_sms_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Verification via Code SMS Body Plaintext\n\nThis governs the \"courier.smtp.templates.verification_code.valid.sms.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_invalid_email_body_html": {
+            "description": "Configures the Ory Kratos Invalid Verification Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.verification.invalid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_invalid_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Invalid Verification Email Body Plaintext Template\n\nThis governs the \"courier.smtp.templates.verification.invalid.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_invalid_email_subject": {
+            "description": "Configures the Ory Kratos Invalid Verification Email Subject Template\n\nThis governs the \"courier.smtp.templates.verification.invalid.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_valid_email_body_html": {
+            "description": "Configures the Ory Kratos Valid Verification Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.verification.valid.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_valid_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Verification Email Body Plaintext Template\n\nThis governs the \"courier.smtp.templates.verification.valid.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verification_valid_email_subject": {
+            "description": "Configures the Ory Kratos Valid Verification Email Subject Template\n\nThis governs the \"courier.smtp.templates.verification.valid.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_feature_flags_cacheable_sessions": {
+            "description": "Configures the Ory Kratos Session caching feature flag\n\nThis governs the \"feature_flags.cacheable_sessions\" setting.",
+            "type": "boolean"
+          },
+          "kratos_feature_flags_use_continue_with_transitions": {
+            "description": "Configures the Ory Kratos Session use_continue_with_transitions flag\n\nThis governs the \"feature_flags.use_continue_with_transitions\" setting.",
+            "type": "boolean"
+          },
+          "kratos_identity_schemas": {
+            "$ref": "#/components/schemas/projectRevisionIdentitySchemas"
+          },
+          "kratos_oauth2_provider_headers": {
+            "$ref": "#/components/schemas/nullJsonRawMessage"
+          },
+          "kratos_oauth2_provider_override_return_to": {
+            "description": "Kratos OAuth2 Provider Override Return To\n\nEnabling this allows Kratos to set the return_to parameter automatically to the OAuth2 request URL on the login flow, allowing complex flows such as recovery to continue to the initial OAuth2 flow.",
+            "type": "boolean"
+          },
+          "kratos_oauth2_provider_url": {
+            "description": "The Revisions' OAuth2 Provider Integration URL\n\nThis governs the \"oauth2_provider.url\" setting.",
+            "type": "string"
+          },
+          "kratos_preview_default_read_consistency_level": {
+            "description": "Configures the default read consistency level for identity APIs\n\nThis governs the `preview.default_read_consistency_level` setting.\n\nThe read consistency level determines the consistency guarantee for reads:\n\nstrong (slow): The read is guaranteed to return the most recent data committed at the start of the read.\neventual (very fast): The result will return data that is about 4.8 seconds old.\n\nSetting the default consistency level to `eventual` may cause regressions in the future as we add consistency\ncontrols to more APIs. Currently, the following APIs will be affected by this setting:\n\n`GET /admin/identities`\n\nDefaults to \"strong\" for new and existing projects. This feature is in preview. Use with caution.",
+            "type": "string"
+          },
+          "kratos_secrets_cipher": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_secrets_cookie": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_secrets_default": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_selfservice_allowed_return_urls": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_selfservice_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Default Return URL\n\nThis governs the \"selfservice.allowed_return_urls\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_error_ui_url": {
+            "description": "Configures the Ory Kratos Error UI URL\n\nThis governs the \"selfservice.flows.error.ui_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_after_code_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login After Password Default Return URL\n\nThis governs the \"selfservice.flows.code.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_after_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login Default Return URL\n\nThis governs the \"selfservice.flows.login.after.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_after_lookup_secret_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login After Password Default Return URL\n\nThis governs the \"selfservice.flows.lookup_secret.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_after_oidc_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login After OIDC Default Return URL\n\nThis governs the \"selfservice.flows.login.after.oidc.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_after_password_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login After Password Default Return URL\n\nThis governs the \"selfservice.flows.login.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_after_totp_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login After Password Default Return URL\n\nThis governs the \"selfservice.flows.totp.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_after_webauthn_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login After WebAuthn Default Return URL\n\nThis governs the \"selfservice.flows.login.after.webauthn.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_lifespan": {
+            "description": "Configures the Ory Kratos Login Lifespan\n\nThis governs the \"selfservice.flows.login.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_login_ui_url": {
+            "description": "Configures the Ory Kratos Login UI URL\n\nThis governs the \"selfservice.flows.login.ui_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_logout_after_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Logout Default Return URL\n\nThis governs the \"selfservice.flows.logout.after.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_recovery_after_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Recovery Default Return URL\n\nThis governs the \"selfservice.flows.recovery.after.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_recovery_enabled": {
+            "description": "Configures the Ory Kratos Recovery Enabled Setting\n\nThis governs the \"selfservice.flows.recovery.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_flows_recovery_lifespan": {
+            "description": "Configures the Ory Kratos Recovery Lifespan\n\nThis governs the \"selfservice.flows.recovery.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_recovery_notify_unknown_recipients": {
+            "description": "Configures whether to notify unknown recipients of a Ory Kratos recovery flow\n\nThis governs the \"selfservice.flows.recovery.notify_unknown_recipients\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_flows_recovery_ui_url": {
+            "description": "Configures the Ory Kratos Recovery UI URL\n\nThis governs the \"selfservice.flows.recovery.ui_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_recovery_use": {
+            "description": "Configures the Ory Kratos Recovery strategy to use (\"link\" or \"code\")\n\nThis governs the \"selfservice.flows.recovery.use\" setting.\nlink SelfServiceMessageVerificationStrategyLink\ncode SelfServiceMessageVerificationStrategyCode",
+            "enum": ["link", "code"],
+            "type": "string",
+            "x-go-enum-desc": "link SelfServiceMessageVerificationStrategyLink\ncode SelfServiceMessageVerificationStrategyCode"
+          },
+          "kratos_selfservice_flows_registration_after_code_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Registration After Code Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.code.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_registration_after_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Registration Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_registration_after_oidc_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Registration After OIDC Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.oidc.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_registration_after_password_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Registration After Password Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_registration_after_webauthn_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Registration After Password Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_registration_enabled": {
+            "description": "Configures the Whether Ory Kratos Registration is Enabled\n\nThis governs the \"selfservice.flows.registration.enabled\" setting.0",
+            "type": "boolean"
+          },
+          "kratos_selfservice_flows_registration_lifespan": {
+            "description": "Configures the Ory Kratos Registration Lifespan\n\nThis governs the \"selfservice.flows.registration.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_registration_login_hints": {
+            "description": "Configures the Ory Kratos Registration Login Hints\n\nShows helpful information when a user tries to sign up with a duplicate account.\n\nThis governs the \"selfservice.flows.registration.login_hints\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_flows_registration_ui_url": {
+            "description": "Configures the Ory Kratos Registration UI URL\n\nThis governs the \"selfservice.flows.registration.ui_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_after_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL\n\nThis governs the \"selfservice.flows.settings.after.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_after_lookup_secret_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating Lookup Secrets\n\nThis governs the \"selfservice.flows.settings.after.lookup_secret.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_after_oidc_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating Social Sign In\n\nThis governs the \"selfservice.flows.settings.after.oidc.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_after_password_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating Passwords\n\nThis governs the \"selfservice.flows.settings.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_after_profile_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating Profiles\n\nThis governs the \"selfservice.flows.settings.after.profile.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_after_totp_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating TOTP\n\nThis governs the \"selfservice.flows.settings.after.totp.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_after_webauthn_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating WebAuthn\n\nThis governs the \"selfservice.flows.settings.webauthn.profile.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_lifespan": {
+            "description": "Configures the Ory Kratos Settings Lifespan\n\nThis governs the \"selfservice.flows.settings.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_privileged_session_max_age": {
+            "description": "Configures the Ory Kratos Settings Privileged Session Max Age\n\nThis governs the \"selfservice.flows.settings.privileged_session_max_age\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_required_aal": {
+            "description": "Configures the Ory Kratos Settings Required AAL\n\nThis governs the \"selfservice.flows.settings.required_aal\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_settings_ui_url": {
+            "description": "Configures the Ory Kratos Settings UI URL\n\nThis governs the \"selfservice.flows.settings.ui_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_verification_after_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Verification Default Return URL\n\nThis governs the \"selfservice.flows.verification.after.default_browser_return_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_verification_enabled": {
+            "description": "Configures the Ory Kratos Verification Enabled Setting\n\nThis governs the \"selfservice.flows.verification.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_flows_verification_lifespan": {
+            "description": "Configures the Ory Kratos Verification Lifespan\n\nThis governs the \"selfservice.flows.verification.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_verification_notify_unknown_recipients": {
+            "description": "Configures whether to notify unknown recipients of a Ory Kratos verification flow\n\nThis governs the \"selfservice.flows.verification.notify_unknown_recipients\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_flows_verification_ui_url": {
+            "description": "Configures the Ory Kratos Verification UI URL\n\nThis governs the \"selfservice.flows.verification.ui_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_flows_verification_use": {
+            "description": "Configures the Ory Kratos Strategy to use for Verification\n\nThis governs the \"selfservice.flows.verification.use\" setting.\nlink SelfServiceMessageVerificationStrategyLink\ncode SelfServiceMessageVerificationStrategyCode",
+            "enum": ["link", "code"],
+            "type": "string",
+            "x-go-enum-desc": "link SelfServiceMessageVerificationStrategyLink\ncode SelfServiceMessageVerificationStrategyCode"
+          },
+          "kratos_selfservice_methods_code_config_lifespan": {
+            "description": "Configures the Ory Kratos Code Method's lifespan\n\nThis governs the \"selfservice.methods.code.config.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_code_enabled": {
+            "description": "Configures whether Ory Kratos Code Method is enabled\n\nThis governs the \"selfservice.methods.code.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_code_mfa_enabled": {
+            "description": "Configues whether the code method can be used to fulfil MFA flows\n\nThis governs the \"selfservice.methods.code.mfa_enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_code_passwordless_enabled": {
+            "description": "Configues whether Ory Kratos Passwordless should use the Code Method\n\nThis governs the \"selfservice.methods.code.passwordless_enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_link_config_base_url": {
+            "description": "Configures the Base URL which Recovery, Verification, and Login Links Point to\n\nIt is recommended to leave this value empty. It will be appropriately configured to the best matching domain\n(e.g. when using custom domains) automatically.\n\nThis governs the \"selfservice.methods.link.config.base_url\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_link_config_lifespan": {
+            "description": "Configures the Ory Kratos Link Method's lifespan\n\nThis governs the \"selfservice.methods.link.config.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_link_enabled": {
+            "description": "Configures whether Ory Kratos Link Method is enabled\n\nThis governs the \"selfservice.methods.link.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_lookup_secret_enabled": {
+            "description": "Configures whether Ory Kratos TOTP Lookup Secret is enabled\n\nThis governs the \"selfservice.methods.lookup_secret.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_oidc_config_base_redirect_uri": {
+            "description": "Configures the Ory Kratos Third Party / OpenID Connect base redirect URI\n\nThis governs the \"selfservice.methods.oidc.config.base_redirect_uri\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_oidc_config_providers": {
+            "$ref": "#/components/schemas/projectRevisionThirdPartyLoginProviders"
+          },
+          "kratos_selfservice_methods_oidc_enabled": {
+            "description": "Configures whether Ory Kratos Third Party / OpenID Connect Login is enabled\n\nThis governs the \"selfservice.methods.oidc.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_password_config_haveibeenpwned_enabled": {
+            "description": "Configures whether Ory Kratos Password HIBP Checks is enabled\n\nThis governs the \"selfservice.methods.password.config.haveibeenpwned_enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_password_config_identifier_similarity_check_enabled": {
+            "description": "Configures whether Ory Kratos Password should disable the similarity policy.\n\nThis governs the \"selfservice.methods.password.config.identifier_similarity_check_enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_password_config_ignore_network_errors": {
+            "description": "Configures whether Ory Kratos Password Should ignore HIBPWND Network Errors\n\nThis governs the \"selfservice.methods.password.config.ignore_network_errors\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_password_config_max_breaches": {
+            "description": "Configures Ory Kratos Password Max Breaches Detection\n\nThis governs the \"selfservice.methods.password.config.max_breaches\" setting.",
+            "format": "int64",
+            "type": "integer"
+          },
+          "kratos_selfservice_methods_password_config_min_password_length": {
+            "description": "Configures the minimum length of passwords.\n\nThis governs the \"selfservice.methods.password.config.min_password_length\" setting.",
+            "format": "int64",
+            "type": "integer"
+          },
+          "kratos_selfservice_methods_password_enabled": {
+            "description": "Configures whether Ory Kratos Password Method is enabled\n\nThis governs the \"selfservice.methods.password.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_profile_enabled": {
+            "description": "Configures whether Ory Kratos Profile Method is enabled\n\nThis governs the \"selfservice.methods.profile.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_totp_config_issuer": {
+            "description": "Configures Ory Kratos TOTP Issuer\n\nThis governs the \"selfservice.methods.totp.config.issuer\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_totp_enabled": {
+            "description": "Configures whether Ory Kratos TOTP Method is enabled\n\nThis governs the \"selfservice.methods.totp.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_webauthn_config_passwordless": {
+            "description": "Configures whether Ory Kratos Webauthn is used for passwordless flows\n\nThis governs the \"selfservice.methods.webauthn.config.passwordless\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_webauthn_config_rp_display_name": {
+            "description": "Configures the Ory Kratos Webauthn RP Display Name\n\nThis governs the \"selfservice.methods.webauthn.config.rp.display_name\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_webauthn_config_rp_icon": {
+            "description": "Configures the Ory Kratos Webauthn RP Icon\n\nThis governs the \"selfservice.methods.webauthn.config.rp.icon\" setting.\nDeprecated: This value will be ignored due to security considerations.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_webauthn_config_rp_id": {
+            "description": "Configures the Ory Kratos Webauthn RP ID\n\nThis governs the \"selfservice.methods.webauthn.config.rp.id\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_webauthn_config_rp_origins": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_selfservice_methods_webauthn_enabled": {
+            "description": "Configures whether Ory Kratos Webauthn is enabled\n\nThis governs the \"selfservice.methods.webauthn.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_session_cookie_persistent": {
+            "description": "Configures the Ory Kratos Session Cookie Persistent Attribute\n\nThis governs the \"session.cookie.persistent\" setting.",
+            "type": "boolean"
+          },
+          "kratos_session_cookie_same_site": {
+            "description": "Configures the Ory Kratos Session Cookie SameSite Attribute\n\nThis governs the \"session.cookie.same_site\" setting.",
+            "type": "string"
+          },
+          "kratos_session_lifespan": {
+            "description": "Configures the Ory Kratos Session Lifespan\n\nThis governs the \"session.lifespan\" setting.",
+            "type": "string"
+          },
+          "kratos_session_whoami_required_aal": {
+            "description": "Configures the Ory Kratos Session Whoami AAL requirement\n\nThis governs the \"session.whoami.required_aal\" setting.",
+            "type": "string"
+          },
+          "kratos_session_whoami_tokenizer_templates": {
+            "$ref": "#/components/schemas/normalizedProjectRevisionTokenizerTemplates"
+          },
+          "name": {
+            "description": "The project's name.",
+            "type": "string"
+          },
+          "project_id": {
+            "description": "The Revision's Project ID",
+            "format": "uuid",
+            "type": "string"
+          },
+          "project_revision_hooks": {
+            "$ref": "#/components/schemas/projectRevisionHooks"
+          },
+          "serve_admin_cors_allowed_origins": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "serve_admin_cors_enabled": {
+            "description": "Enable CORS headers on all admin APIs\n\nThis governs the \"serve.admin.cors.enabled\" setting.",
+            "type": "boolean"
+          },
+          "serve_public_cors_allowed_origins": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "serve_public_cors_enabled": {
+            "description": "Enable CORS headers on all public APIs\n\nThis governs the \"serve.public.cors.enabled\" setting.",
+            "type": "boolean"
+          },
+          "strict_security": {
+            "description": "Whether the project should employ strict security measures. Setting this to true is recommended for going into production.",
+            "type": "boolean"
+          },
+          "updated_at": {
+            "description": "Last Time Project's Revision was Updated",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "workspace_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          }
+        },
+        "required": ["name", "environment"],
+        "type": "object"
+      },
+      "CreateSubscriptionCommon": {
+        "properties": {
+          "currency": {
+            "description": "\nusd USD\neur Euro",
+            "enum": ["usd", "eur"],
+            "type": "string",
+            "x-go-enum-desc": "usd USD\neur Euro"
+          },
+          "interval": {
+            "description": "\nmonthly Monthly\nyearly Yearly",
+            "enum": ["monthly", "yearly"],
+            "type": "string",
+            "x-go-enum-desc": "monthly Monthly\nyearly Yearly"
+          },
+          "plan": {
+            "type": "string"
+          },
+          "return_to": {
+            "type": "string"
+          }
+        },
+        "required": ["plan", "interval"],
+        "type": "object"
+      },
       "CreateVerifiableCredentialRequestBody": {
         "properties": {
           "format": {
@@ -184,6 +1037,16 @@
           }
         },
         "title": "CreateVerifiableCredentialRequestBody contains the request body to request a verifiable credential.",
+        "type": "object"
+      },
+      "CreateWorkspaceMemberInviteBody": {
+        "description": "Create Workspace Invite Request Body",
+        "properties": {
+          "invitee_email": {
+            "description": "A email to invite",
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "CustomHostnameStatus": {
@@ -238,6 +1101,92 @@
           "$ref": "#/components/schemas/KetoNamespace"
         },
         "type": "array"
+      },
+      "ListMyWorkspacesResponse": {
+        "properties": {
+          "has_next_page": {
+            "type": "boolean"
+          },
+          "next_page_token": {
+            "type": "string"
+          },
+          "workspaces": {
+            "items": {
+              "$ref": "#/components/schemas/workspaceMeta"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["workspaces", "next_page_token", "has_next_page"],
+        "type": "object"
+      },
+      "NormalizedProjectRevisionCourierChannel": {
+        "properties": {
+          "channel_id": {
+            "description": "The Channel's public ID",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "The creation date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "request_config_auth_config_api_key_in": {
+            "description": "API key location\n\nCan either be \"header\" or \"query\"",
+            "example": "header",
+            "type": "string"
+          },
+          "request_config_auth_config_api_key_name": {
+            "description": "API key name\n\nOnly used if the auth type is api_key",
+            "type": "string"
+          },
+          "request_config_auth_config_api_key_value": {
+            "description": "API key value\n\nOnly used if the auth type is api_key",
+            "type": "string"
+          },
+          "request_config_auth_config_basic_auth_password": {
+            "description": "Basic Auth Password\n\nOnly used if the auth type is basic_auth",
+            "type": "string"
+          },
+          "request_config_auth_config_basic_auth_user": {
+            "description": "Basic Auth Username\n\nOnly used if the auth type is basic_auth",
+            "type": "string"
+          },
+          "request_config_auth_type": {
+            "description": "HTTP Auth Method to use for the HTTP call\n\nCan either be basic_auth or api_key\nbasic_auth CourierChannelAuthTypeBasicAuth\napi_key CourierChannelAuthTypeApiKey",
+            "enum": ["basic_auth", "api_key"],
+            "type": "string",
+            "x-go-enum-desc": "basic_auth CourierChannelAuthTypeBasicAuth\napi_key CourierChannelAuthTypeApiKey"
+          },
+          "request_config_body": {
+            "description": "URI pointing to the JsonNet template used for HTTP body payload generation.",
+            "type": "string"
+          },
+          "request_config_headers": {
+            "$ref": "#/components/schemas/nullJsonRawMessage"
+          },
+          "request_config_method": {
+            "description": "The HTTP method to use (GET, POST, etc) for the HTTP call",
+            "example": "POST",
+            "type": "string"
+          },
+          "request_config_url": {
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Last upate time",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "channel_id",
+          "request_config_method",
+          "request_config_body"
+        ],
+        "type": "object"
       },
       "NullBool": {
         "nullable": true,
@@ -369,6 +1318,28 @@
         },
         "type": "array"
       },
+      "ProjectEventsDatapoint": {
+        "properties": {
+          "attributes": {
+            "description": "Event attributes with details",
+            "items": {
+              "$ref": "#/components/schemas/Attribute"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the event",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "Time of occurence",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["name", "timestamp", "attributes"],
+        "type": "object"
+      },
       "RFC6749ErrorJson": {
         "properties": {
           "error": {
@@ -439,7 +1410,7 @@
         "type": "array"
       },
       "SubscriptionStatus": {
-        "description": "For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this state can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` state. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal state, the open invoice will be voided and no further invoices will be generated.\n\nA subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.\n\nIf subscription `collection_method=charge_automatically` it becomes `past_due` when payment to renew it fails and `canceled` or `unpaid` (depending on your subscriptions settings) when Stripe has exhausted all payment retry attempts.\n\nIf subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.",
+        "description": "For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this state can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` state. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal state, the open invoice will be voided and no further invoices will be generated.\n\nA subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.\n\nIf subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).\n\nIf subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.",
         "title": "Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `canceled`, or `unpaid`.",
         "type": "string"
       },
@@ -485,6 +1456,9 @@
       },
       "acceptOAuth2ConsentRequest": {
         "properties": {
+          "context": {
+            "$ref": "#/components/schemas/JSONRawMessage"
+          },
           "grant_access_token_audience": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
@@ -653,6 +1627,8 @@
         "discriminator": {
           "mapping": {
             "set_ory_session_token": "#/components/schemas/continueWithSetOrySessionToken",
+            "show_recovery_ui": "#/components/schemas/continueWithRecoveryUi",
+            "show_settings_ui": "#/components/schemas/continueWithSettingsUi",
             "show_verification_ui": "#/components/schemas/continueWithVerificationUi"
           },
           "propertyName": "action"
@@ -663,8 +1639,45 @@
           },
           {
             "$ref": "#/components/schemas/continueWithSetOrySessionToken"
+          },
+          {
+            "$ref": "#/components/schemas/continueWithSettingsUi"
+          },
+          {
+            "$ref": "#/components/schemas/continueWithRecoveryUi"
           }
         ]
+      },
+      "continueWithRecoveryUi": {
+        "description": "Indicates, that the UI flow could be continued by showing a recovery ui",
+        "properties": {
+          "action": {
+            "description": "Action will always be `show_recovery_ui`\nshow_recovery_ui ContinueWithActionShowRecoveryUIString",
+            "enum": ["show_recovery_ui"],
+            "type": "string",
+            "x-go-enum-desc": "show_recovery_ui ContinueWithActionShowRecoveryUIString"
+          },
+          "flow": {
+            "$ref": "#/components/schemas/continueWithRecoveryUiFlow"
+          }
+        },
+        "required": ["action", "flow"],
+        "type": "object"
+      },
+      "continueWithRecoveryUiFlow": {
+        "properties": {
+          "id": {
+            "description": "The ID of the recovery flow",
+            "format": "uuid",
+            "type": "string"
+          },
+          "url": {
+            "description": "The URL of the recovery flow",
+            "type": "string"
+          }
+        },
+        "required": ["id"],
+        "type": "object"
       },
       "continueWithSetOrySessionToken": {
         "description": "Indicates that a session was issued, and the application should use this token for authenticated requests",
@@ -681,6 +1694,33 @@
           }
         },
         "required": ["action", "ory_session_token"],
+        "type": "object"
+      },
+      "continueWithSettingsUi": {
+        "description": "Indicates, that the UI flow could be continued by showing a settings ui",
+        "properties": {
+          "action": {
+            "description": "Action will always be `show_settings_ui`\nshow_settings_ui ContinueWithActionShowSettingsUIString",
+            "enum": ["show_settings_ui"],
+            "type": "string",
+            "x-go-enum-desc": "show_settings_ui ContinueWithActionShowSettingsUIString"
+          },
+          "flow": {
+            "$ref": "#/components/schemas/continueWithSettingsUiFlow"
+          }
+        },
+        "required": ["action", "flow"],
+        "type": "object"
+      },
+      "continueWithSettingsUiFlow": {
+        "properties": {
+          "id": {
+            "description": "The ID of the settings flow",
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "required": ["id"],
         "type": "object"
       },
       "continueWithVerificationUi": {
@@ -758,6 +1798,26 @@
         },
         "type": "object"
       },
+      "createEventStreamBody": {
+        "description": "Create Event Stream Request Body",
+        "properties": {
+          "role_arn": {
+            "description": "The AWS IAM role ARN to assume when publishing to the SNS topic.",
+            "type": "string"
+          },
+          "topic_arn": {
+            "description": "The AWS SNS topic ARN.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of the event stream (AWS SNS, GCP Pub/Sub, etc).",
+            "enum": ["sns"],
+            "type": "string"
+          }
+        },
+        "required": ["type", "topic_arn", "role_arn"],
+        "type": "object"
+      },
       "createIdentityBody": {
         "description": "Create Identity Body",
         "properties": {
@@ -782,7 +1842,10 @@
             "type": "string"
           },
           "state": {
-            "$ref": "#/components/schemas/identityState"
+            "description": "State is the identity's state.\nactive StateActive\ninactive StateInactive",
+            "enum": ["active", "inactive"],
+            "type": "string",
+            "x-go-enum-desc": "active StateActive\ninactive StateInactive"
           },
           "traits": {
             "description": "Traits represent an identity's traits. The identity is able to create, modify, and delete traits\nin a self-service manner. The input will always be validated against the JSON Schema defined\nin `schema_url`.",
@@ -818,15 +1881,27 @@
         "required": ["alg", "use", "kid"],
         "type": "object"
       },
+      "createMemberInviteResponse": {
+        "$ref": "#/components/schemas/CreateInviteResponse"
+      },
       "createProjectBody": {
         "description": "Create Project Request Body",
         "properties": {
+          "environment": {
+            "description": "The environment of the project.\nprod Production\ndev Development",
+            "enum": ["prod", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\ndev Development"
+          },
           "name": {
             "description": "The name of the project to be created",
             "type": "string"
+          },
+          "workspace_id": {
+            "$ref": "#/components/schemas/NullUUID"
           }
         },
-        "required": ["name"],
+        "required": ["name", "environment"],
         "type": "object"
       },
       "createProjectBranding": {
@@ -852,9 +1927,6 @@
           }
         },
         "type": "object"
-      },
-      "createProjectMemberInviteResponse": {
-        "$ref": "#/components/schemas/CreateInviteResponse"
       },
       "createRecoveryCodeForIdentityBody": {
         "description": "Create Recovery Code for Identity Request Body",
@@ -916,7 +1988,6 @@
         "type": "object"
       },
       "createSubscriptionBody": {
-        "description": "Create Subscription Request Body",
         "properties": {
           "currency": {
             "description": "\nusd USD\neur Euro",
@@ -942,6 +2013,40 @@
           }
         },
         "required": ["plan", "interval", "provision_first_project"],
+        "type": "object"
+      },
+      "createWorkspacePayload": {
+        "properties": {
+          "name": {
+            "description": "The name of the workspace",
+            "type": "string"
+          }
+        },
+        "required": ["name"],
+        "type": "object"
+      },
+      "createWorkspaceSubscriptionBody": {
+        "properties": {
+          "currency": {
+            "description": "\nusd USD\neur Euro",
+            "enum": ["usd", "eur"],
+            "type": "string",
+            "x-go-enum-desc": "usd USD\neur Euro"
+          },
+          "interval": {
+            "description": "\nmonthly Monthly\nyearly Yearly",
+            "enum": ["monthly", "yearly"],
+            "type": "string",
+            "x-go-enum-desc": "monthly Monthly\nyearly Yearly"
+          },
+          "plan": {
+            "type": "string"
+          },
+          "return_to": {
+            "type": "string"
+          }
+        },
+        "required": ["plan", "interval"],
         "type": "object"
       },
       "credentialSupportedDraft00": {
@@ -1162,6 +2267,33 @@
         },
         "type": "object"
       },
+      "eventStream": {
+        "description": "Event Stream",
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "role_arn": {
+            "type": "string"
+          },
+          "topic_arn": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "expandedPermissionTree": {
         "properties": {
           "children": {
@@ -1192,6 +2324,11 @@
         },
         "required": ["type"],
         "type": "object"
+      },
+      "falsyNullBool": {
+        "description": "It JSON decodes to false if null.",
+        "title": "FalsyNullBool represents a bool that may be null.",
+        "type": "boolean"
       },
       "flowError": {
         "properties": {
@@ -1321,6 +2458,36 @@
         },
         "type": "object"
       },
+      "getMetricsEventAttributesResponse": {
+        "description": "Response of the getMetricsEventAttributes endpoint",
+        "properties": {
+          "events": {
+            "description": "The list of data points.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "required": ["events"],
+        "type": "object"
+      },
+      "getMetricsEventTypesResponse": {
+        "description": "Response of the getMetricsEventTypes endpoint",
+        "properties": {
+          "events": {
+            "description": "The list of data points.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "required": ["events"],
+        "type": "object"
+      },
       "getOrganizationResponse": {
         "properties": {
           "organization": {
@@ -1329,6 +2496,65 @@
         },
         "required": ["organization"],
         "title": "getOrganizationResponse represents a B2B SSO Organization.",
+        "type": "object"
+      },
+      "getProjectEventsBody": {
+        "description": "Body of the getProjectEvents endpoint",
+        "properties": {
+          "event_name": {
+            "description": "The event name to query for",
+            "type": "string"
+          },
+          "filters": {
+            "default": [],
+            "description": "Event attribute filters",
+            "items": {
+              "$ref": "#/components/schemas/AttributeFilter"
+            },
+            "type": "array"
+          },
+          "from": {
+            "description": "The start RFC3339 date of the time window",
+            "format": "date-time",
+            "type": "string"
+          },
+          "page_size": {
+            "default": 25,
+            "description": "Maximum number of events to return",
+            "format": "int64",
+            "type": "integer"
+          },
+          "page_token": {
+            "description": "Pagination token to fetch next page, empty if first page",
+            "type": "string"
+          },
+          "to": {
+            "description": "The end RFC3339 date of the time window",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["from", "to"],
+        "type": "object"
+      },
+      "getProjectEventsResponse": {
+        "description": "Response of the getProjectEvents endpoint",
+        "properties": {
+          "events": {
+            "description": "The list of data points.",
+            "items": {
+              "$ref": "#/components/schemas/ProjectEventsDatapoint"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "page_token": {
+            "description": "Pagination token to be included in next page request",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": ["events"],
         "type": "object"
       },
       "getProjectMetricsResponse": {
@@ -1428,7 +2654,10 @@
             "type": "string"
           },
           "state": {
-            "$ref": "#/components/schemas/identityState"
+            "description": "State is the identity's state.\n\nThis value has currently no effect.\nactive StateActive\ninactive StateInactive",
+            "enum": ["active", "inactive"],
+            "type": "string",
+            "x-go-enum-desc": "active StateActive\ninactive StateInactive"
           },
           "state_changed_at": {
             "$ref": "#/components/schemas/nullTime"
@@ -1473,7 +2702,19 @@
             "type": "array"
           },
           "type": {
-            "$ref": "#/components/schemas/identityCredentialsType"
+            "description": "Type discriminates between different types of credentials.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "enum": [
+              "password",
+              "oidc",
+              "totp",
+              "lookup_secret",
+              "webauthn",
+              "code",
+              "link_recovery",
+              "code_recovery"
+            ],
+            "type": "string",
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "updated_at": {
             "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
@@ -1492,7 +2733,8 @@
         "description": "CredentialsCode represents a one time login/registration code",
         "properties": {
           "address_type": {
-            "$ref": "#/components/schemas/CodeAddressType"
+            "description": "The type of the address for this code",
+            "type": "string"
           },
           "used_at": {
             "$ref": "#/components/schemas/NullTime"
@@ -1545,19 +2787,6 @@
         },
         "title": "CredentialsPassword is contains the configuration for credentials of the type password.",
         "type": "object"
-      },
-      "identityCredentialsType": {
-        "description": "and so on.",
-        "enum": [
-          "password",
-          "totp",
-          "oidc",
-          "webauthn",
-          "lookup_secret",
-          "code"
-        ],
-        "title": "CredentialsType  represents several different credential types, like password credentials, passwordless credentials,",
-        "type": "string"
       },
       "identityMetaSchema": {
         "description": "Identity Meta Schema",
@@ -1644,21 +2873,11 @@
         },
         "type": "array"
       },
-      "identityState": {
-        "description": "The state can either be `active` or `inactive`.",
-        "enum": ["active", "inactive"],
-        "title": "An Identity's State",
-        "type": "string"
-      },
       "identityTraits": {
         "description": "Traits represent an identity's traits. The identity is able to create, modify, and delete traits\nin a self-service manner. The input will always be validated against the JSON Schema defined\nin `schema_url`."
       },
       "identityVerifiableAddressStatus": {
         "description": "VerifiableAddressStatus must not exceed 16 characters as that is the limitation in the SQL Schema",
-        "type": "string"
-      },
-      "identityVerifiableAddressType": {
-        "description": "VerifiableAddressType must not exceed 16 characters as that is the limitation in the SQL Schema",
         "type": "string"
       },
       "identityWithCredentials": {
@@ -1791,34 +3010,6 @@
           }
         },
         "required": ["project_id"],
-        "type": "object"
-      },
-      "internalProvisionMockSubscription": {
-        "description": "Internal Provision Mock Subscription Request Body",
-        "properties": {
-          "currency": {
-            "description": "Currency\nusd USD\neur Euro",
-            "enum": ["usd", "eur"],
-            "type": "string",
-            "x-go-enum-desc": "usd USD\neur Euro"
-          },
-          "identity_id": {
-            "description": "Identity ID",
-            "format": "uuid",
-            "type": "string"
-          },
-          "interval": {
-            "description": "Billing Interval\nmonthly Monthly\nyearly Yearly",
-            "enum": ["monthly", "yearly"],
-            "type": "string",
-            "x-go-enum-desc": "monthly Monthly\nyearly Yearly"
-          },
-          "plan": {
-            "description": "Plan ID",
-            "type": "string"
-          }
-        },
-        "required": ["plan", "interval", "identity_id", "currency"],
         "type": "object"
       },
       "introspectedOAuth2Token": {
@@ -2040,6 +3231,18 @@
         },
         "type": "array"
       },
+      "listEventStreams": {
+        "description": "Event Stream List",
+        "properties": {
+          "event_streams": {
+            "items": {
+              "$ref": "#/components/schemas/eventStream"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
       "listOrganizationsResponse": {
         "description": "B2B SSO Organization List",
         "properties": {
@@ -2053,11 +3256,41 @@
         "required": ["organizations"],
         "type": "object"
       },
+      "listWorkspaceProjectsResponse": {
+        "properties": {
+          "has_next_page": {
+            "type": "boolean"
+          },
+          "next_page": {
+            "type": "string"
+          },
+          "projects": {
+            "items": {
+              "$ref": "#/components/schemas/projectMetadata"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["projects", "next_page", "has_next_page"],
+        "type": "object"
+      },
       "loginFlow": {
         "description": "This object represents a login flow. A login flow is initiated at the \"Initiate Login API / Browser Flow\"\nendpoint by a client.\n\nOnce a login flow is completed successfully, a session cookie or session token will be issued.",
         "properties": {
           "active": {
-            "$ref": "#/components/schemas/identityCredentialsType"
+            "description": "The active login method\n\nIf set contains the login method used. If the flow is new, it is unset.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "enum": [
+              "password",
+              "oidc",
+              "totp",
+              "lookup_secret",
+              "webauthn",
+              "code",
+              "link_recovery",
+              "code_recovery"
+            ],
+            "type": "string",
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "created_at": {
             "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
@@ -2110,6 +3343,10 @@
           },
           "state": {
             "description": "State represents the state of this request:\n\nchoose_method: ask the user to choose a method to sign in with\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the login challenge was passed."
+          },
+          "transient_payload": {
+            "description": "TransientPayload is used to pass data from the login to hooks and email templates",
+            "type": "object"
           },
           "type": {
             "$ref": "#/components/schemas/selfServiceFlowType"
@@ -2254,9 +3491,7 @@
             "type": "string"
           },
           "project_id": {
-            "description": "The Project's ID this invite is associated with",
-            "format": "uuid",
-            "type": "string"
+            "$ref": "#/components/schemas/NullUUID"
           },
           "status": {
             "description": "The invite's status\nKeeps track of the invites status such as pending, accepted, declined, expired\npending PENDING\naccepted ACCEPTED\ndeclined DECLINED\nexpired EXPIRED\ncancelled CANCELLED\nremoved REMOVED",
@@ -2276,11 +3511,13 @@
             "format": "date-time",
             "readOnly": true,
             "type": "string"
+          },
+          "workspace_id": {
+            "$ref": "#/components/schemas/NullUUID"
           }
         },
         "required": [
           "id",
-          "project_id",
           "owner_id",
           "owner_email",
           "invitee_email",
@@ -2299,6 +3536,9 @@
       "message": {
         "properties": {
           "body": {
+            "type": "string"
+          },
+          "channel": {
             "type": "string"
           },
           "created_at": {
@@ -2331,7 +3571,7 @@
             "type": "string"
           },
           "template_type": {
-            "description": "\nrecovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\notp TypeOTP\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid",
+            "description": "\nrecovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid",
             "enum": [
               "recovery_invalid",
               "recovery_valid",
@@ -2341,13 +3581,12 @@
               "verification_valid",
               "verification_code_invalid",
               "verification_code_valid",
-              "otp",
               "stub",
               "login_code_valid",
               "registration_code_valid"
             ],
             "type": "string",
-            "x-go-enum-desc": "recovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\notp TypeOTP\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid"
+            "x-go-enum-desc": "recovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid"
           },
           "type": {
             "$ref": "#/components/schemas/courierMessageType"
@@ -2425,6 +3664,25 @@
         "required": ["time", "count"],
         "type": "object"
       },
+      "migrationOptions": {
+        "properties": {
+          "environment": {
+            "description": "The environment of the project in the workspace. Can be one of \"prod\" or\n\"dev\". Note that the number of projects in the \"prod\" environment is limited\ndepending on the subscription.\nprod Production\ndev Development",
+            "enum": ["prod", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\ndev Development"
+          },
+          "project_subscription": {
+            "description": "The action to take with the project subscription. Can be one of \"migrate\", and\n\"ignore\". \"migrate\" will migrate the project subscription to the workspace.\n\"ignore\" will ignore the project subscription.\nmigrate ProjectSubscriptionActionMigrate  ProjectSubscriptionActionMigrate will migrate the project subscription to the  workspace.\nignore ProjectSubscriptionActionIgnore  ProjectSubscriptionActionIgnore will ignore the project subscription.",
+            "enum": ["migrate", "ignore"],
+            "type": "string",
+            "x-go-enum-desc": "migrate ProjectSubscriptionActionMigrate  ProjectSubscriptionActionMigrate will migrate the project subscription to the  workspace.\nignore ProjectSubscriptionActionIgnore  ProjectSubscriptionActionIgnore will ignore the project subscription."
+          }
+        },
+        "required": ["project_subscription", "environment"],
+        "title": "MigrationOptions contain the options for migrating a project to a workspace.",
+        "type": "object"
+      },
       "namespace": {
         "properties": {
           "name": {
@@ -2459,6 +3717,12 @@
           "current_revision": {
             "$ref": "#/components/schemas/normalizedProjectRevision"
           },
+          "environment": {
+            "description": "The environment of the project.\nprod Production\ndev Development",
+            "enum": ["prod", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\ndev Development"
+          },
           "hosts": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
@@ -2491,6 +3755,9 @@
             "format": "date-time",
             "readOnly": true,
             "type": "string"
+          },
+          "workspace_id": {
+            "$ref": "#/components/schemas/NullUUID"
           }
         },
         "required": [
@@ -2499,6 +3766,8 @@
           "slug",
           "current_revision",
           "state",
+          "environment",
+          "workspace_id",
           "created_at",
           "updated_at"
         ],
@@ -2541,6 +3810,10 @@
             "example": "30m",
             "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
             "type": "string"
+          },
+          "hydra_oauth2_mirror_top_level_claims": {
+            "description": "Set to false if you don't want to mirror custom claims under 'ext'.\n\nThis governs the \"oauth2.mirror_top_level_claims\" setting.",
+            "type": "boolean"
           },
           "hydra_oauth2_pkce_enforced": {
             "description": "Configures whether PKCE should be enforced for all OAuth2 Clients.\n\nThis governs the \"oauth2.pkce.enforced\" setting.",
@@ -2709,6 +3982,9 @@
             "description": "Configures the Ory Kratos Cookie SameSite Attribute\n\nThis governs the \"cookies.same_site\" setting.",
             "type": "string"
           },
+          "kratos_courier_channels": {
+            "$ref": "#/components/schemas/revisionCourierChannels"
+          },
           "kratos_courier_delivery_strategy": {
             "default": "smtp",
             "description": "The delivery strategy to use when sending emails\n\n`smtp`: Use SMTP server\n`http`: Use the built in HTTP client to send the email to some remote service",
@@ -2784,6 +4060,10 @@
           },
           "kratos_courier_templates_login_code_valid_email_subject": {
             "description": "Configures the Ory Kratos Valid Login via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.login_code.valid.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_login_code_valid_sms_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Login via Code SMS plain text body\n\nThis governs the \"courier.smtp.templates.login_code.valid.sms.plaintext\" setting.",
             "type": "string"
           },
           "kratos_courier_templates_recovery_code_invalid_email_body_html": {
@@ -2870,6 +4150,10 @@
             "description": "Configures the Ory Kratos Valid Verification via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.verification_code.valid.email.subject\" setting.",
             "type": "string"
           },
+          "kratos_courier_templates_verification_code_valid_sms_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Verification via Code SMS Body Plaintext\n\nThis governs the \"courier.smtp.templates.verification_code.valid.sms.body.plaintext\" setting.",
+            "type": "string"
+          },
           "kratos_courier_templates_verification_invalid_email_body_html": {
             "description": "Configures the Ory Kratos Invalid Verification Email Body HTML Template\n\nThis governs the \"courier.smtp.templates.verification.invalid.email.body.html\" setting.",
             "type": "string"
@@ -2896,6 +4180,10 @@
           },
           "kratos_feature_flags_cacheable_sessions": {
             "description": "Configures the Ory Kratos Session caching feature flag\n\nThis governs the \"feature_flags.cacheable_sessions\" setting.",
+            "type": "boolean"
+          },
+          "kratos_feature_flags_use_continue_with_transitions": {
+            "description": "Configures the Ory Kratos Session use_continue_with_transitions flag\n\nThis governs the \"feature_flags.use_continue_with_transitions\" setting.",
             "type": "boolean"
           },
           "kratos_identity_schemas": {
@@ -3116,6 +4404,10 @@
             "description": "Configures whether Ory Kratos Code Method is enabled\n\nThis governs the \"selfservice.methods.code.enabled\" setting.",
             "type": "boolean"
           },
+          "kratos_selfservice_methods_code_mfa_enabled": {
+            "description": "Configues whether the code method can be used to fulfil MFA flows\n\nThis governs the \"selfservice.methods.code.mfa_enabled\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_code_passwordless_enabled": {
             "description": "Configues whether Ory Kratos Passwordless should use the Code Method\n\nThis governs the \"selfservice.methods.code.passwordless_enabled\" setting.",
             "type": "boolean"
@@ -3231,10 +4523,6 @@
             "description": "The project's name.",
             "type": "string"
           },
-          "production": {
-            "description": "Whether this project is in production mode or not.\n\nIn development mode, a low-security profile is used making it easier to develop against your, for example, local environment.",
-            "type": "boolean"
-          },
           "project_id": {
             "description": "The Revision's Project ID",
             "format": "uuid",
@@ -3255,6 +4543,10 @@
           },
           "serve_public_cors_enabled": {
             "description": "Enable CORS headers on all public APIs\n\nThis governs the \"serve.public.cors.enabled\" setting.",
+            "type": "boolean"
+          },
+          "strict_security": {
+            "description": "Whether the project should employ strict security measures. Setting this to true is recommended for going into production.",
             "type": "boolean"
           },
           "updated_at": {
@@ -3415,6 +4707,9 @@
       },
       "normalizedProjectRevisionThirdPartyProvider": {
         "properties": {
+          "additional_id_token_audiences": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
           "apple_private_key": {
             "$ref": "#/components/schemas/String"
           },
@@ -3437,6 +4732,9 @@
             "description": "Tenant is the Azure AD Tenant to use for authentication, and must be set when `provider` is set to `microsoft`.\n\nCan be either `common`, `organizations`, `consumers` for a multitenant application or a specific tenant like\n`8eaef023-2b34-4da1-9baa-8bc8c9d6a490` or `contoso.onmicrosoft.com`.",
             "example": "contoso.onmicrosoft.com",
             "type": "string"
+          },
+          "claims_source": {
+            "$ref": "#/components/schemas/String"
           },
           "client_id": {
             "description": "ClientID is the application's Client ID.",
@@ -3749,6 +5047,10 @@
             "description": "SkipConsent skips the consent screen for this client. This field can only\nbe set from the admin API.",
             "type": "boolean"
           },
+          "skip_logout_consent": {
+            "description": "SkipLogoutConsent skips the logout consent screen for this client. This field can only\nbe set from the admin API.",
+            "type": "boolean"
+          },
           "subject_type": {
             "description": "OpenID Connect Subject Type\n\nThe `subject_types_supported` Discovery parameter contains a\nlist of the supported subject_type values for this server. Valid types include `pairwise` and `public`.",
             "type": "string"
@@ -3908,6 +5210,9 @@
           "consent_request": {
             "$ref": "#/components/schemas/oAuth2ConsentRequest"
           },
+          "context": {
+            "$ref": "#/components/schemas/JSONRawMessage"
+          },
           "expires_at": {
             "properties": {
               "access_token": {
@@ -4000,15 +5305,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "challenge",
-          "requested_scope",
-          "requested_access_token_audience",
-          "skip",
-          "subject",
-          "client",
-          "request_url"
-        ],
+        "required": ["challenge", "skip", "subject", "client", "request_url"],
         "title": "Contains information on an ongoing login request.",
         "type": "object"
       },
@@ -4462,6 +5759,18 @@
         "description": "Get Permissions on Project Request Parameters",
         "type": "object"
       },
+      "permissionsOnWorkpaceResponse": {
+        "description": "Get Permissions on Project Request Parameters",
+        "properties": {
+          "permissions": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
       "plans": {
         "$ref": "#/components/schemas/Pricing"
       },
@@ -4553,18 +5862,12 @@
             "readOnly": true,
             "type": "string",
             "x-go-enum-desc": "running Running\nhalted Halted\ndeleted Deleted"
+          },
+          "workspace_id": {
+            "$ref": "#/components/schemas/NullUUID"
           }
         },
-        "required": [
-          "id",
-          "revision_id",
-          "slug",
-          "services",
-          "state",
-          "name",
-          "cors_public",
-          "cors_admin"
-        ],
+        "required": ["id", "revision_id", "slug", "services", "state", "name"],
         "type": "object"
       },
       "projectApiKey": {
@@ -4976,7 +6279,6 @@
             "type": "array"
           }
         },
-        "required": ["enabled", "origins"],
         "type": "object"
       },
       "projectHost": {
@@ -5016,6 +6318,12 @@
             "format": "date-time",
             "type": "string"
           },
+          "environment": {
+            "description": "The environment of the project.\nprod Production\ndev Development",
+            "enum": ["prod", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\ndev Development"
+          },
           "hosts": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
@@ -5050,6 +6358,9 @@
             "description": "Last Time Project was Updated",
             "format": "date-time",
             "type": "string"
+          },
+          "workspace_id": {
+            "$ref": "#/components/schemas/NullUUID"
           }
         },
         "required": [
@@ -5058,7 +6369,8 @@
           "state",
           "created_at",
           "updated_at",
-          "name"
+          "name",
+          "environment"
         ],
         "type": "object"
       },
@@ -5150,7 +6462,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList",
+            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
             "enum": [
               "region_eu",
               "region_us",
@@ -5159,6 +6471,7 @@
               "production_projects",
               "daily_active_users",
               "custom_domains",
+              "event_streams",
               "sla",
               "collaborator_seats",
               "edge_cache",
@@ -5166,14 +6479,17 @@
               "zendesk_support",
               "project_metrics",
               "project_metrics_time_window",
+              "project_metrics_events_history",
               "organizations",
               "rop_grant",
               "rate_limit_tier",
               "session_rate_limit_tier",
-              "identities_list_rate_limit_tier"
+              "identities_list_rate_limit_tier",
+              "permission_checks_rate_limit_tier",
+              "oauth2_introspect_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList"
+            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
           },
           "feature_available": {
             "type": "boolean"
@@ -5201,7 +6517,7 @@
         "description": "Used when an administrator creates a recovery code for an identity.",
         "properties": {
           "expires_at": {
-            "description": "Expires At is the timestamp of when the recovery flow expires\n\nThe timestamp when the recovery link expires.",
+            "description": "Expires At is the timestamp of when the recovery flow expires\n\nThe timestamp when the recovery code expires.",
             "format": "date-time",
             "type": "string"
           },
@@ -5224,6 +6540,13 @@
           "active": {
             "description": "Active, if set, contains the recovery method that is being used. It is initially\nnot set.",
             "type": "string"
+          },
+          "continue_with": {
+            "description": "Contains possible actions that could follow this flow",
+            "items": {
+              "$ref": "#/components/schemas/continueWith"
+            },
+            "type": "array"
           },
           "expires_at": {
             "description": "ExpiresAt is the time (UTC) when the request expires. If the user still wishes to update the setting,\na new request has to be initiated.",
@@ -5250,6 +6573,10 @@
           },
           "state": {
             "description": "State represents the state of this request:\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed."
+          },
+          "transient_payload": {
+            "description": "TransientPayload is used to pass data from the recovery flow to hooks and email templates",
+            "type": "object"
           },
           "type": {
             "$ref": "#/components/schemas/selfServiceFlowType"
@@ -5321,7 +6648,19 @@
       "registrationFlow": {
         "properties": {
           "active": {
-            "$ref": "#/components/schemas/identityCredentialsType"
+            "description": "Active, if set, contains the registration method that is being used. It is initially\nnot set.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "enum": [
+              "password",
+              "oidc",
+              "totp",
+              "lookup_secret",
+              "webauthn",
+              "code",
+              "link_recovery",
+              "code_recovery"
+            ],
+            "type": "string",
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "expires_at": {
             "description": "ExpiresAt is the time (UTC) when the flow expires. If the user still wishes to log in,\na new flow has to be initiated.",
@@ -5509,6 +6848,12 @@
           }
         },
         "type": "object"
+      },
+      "revisionCourierChannels": {
+        "items": {
+          "$ref": "#/components/schemas/NormalizedProjectRevisionCourierChannel"
+        },
+        "type": "array"
       },
       "schemaPatch": {
         "properties": {
@@ -5712,6 +7057,26 @@
         },
         "type": "object"
       },
+      "setEventStreamBody": {
+        "description": "Update Event Stream Body",
+        "properties": {
+          "role_arn": {
+            "description": "The AWS IAM role ARN to assume when publishing to the SNS topic.",
+            "type": "string"
+          },
+          "topic_arn": {
+            "description": "The AWS SNS topic ARN.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of the event stream (AWS SNS, GCP Pub/Sub, etc).",
+            "enum": ["sns"],
+            "type": "string"
+          }
+        },
+        "required": ["type", "topic_arn", "role_arn"],
+        "type": "object"
+      },
       "setProject": {
         "properties": {
           "cors_admin": {
@@ -5803,6 +7168,10 @@
           "state": {
             "description": "State represents the state of this flow. It knows two states:\n\nshow_form: No user data has been collected, or it is invalid, and thus the form should be shown.\nsuccess: Indicates that the settings flow has been updated successfully with the provided data.\nDone will stay true when repeatedly checking. If set to true, done will revert back to false only\nwhen a flow with invalid (e.g. \"please use a valid phone number\") data was sent."
           },
+          "transient_payload": {
+            "description": "TransientPayload is used to pass data from the settings flow to hooks and email templates",
+            "type": "object"
+          },
           "type": {
             "$ref": "#/components/schemas/selfServiceFlowType"
           },
@@ -5827,14 +7196,6 @@
         "description": "show_form: No user data has been collected, or it is invalid, and thus the form should be shown.\nsuccess: Indicates that the settings flow has been updated successfully with the provided data.\nDone will stay true when repeatedly checking. If set to true, done will revert back to false only\nwhen a flow with invalid (e.g. \"please use a valid phone number\") data was sent.",
         "enum": ["show_form", "success"],
         "title": "State represents the state of this flow. It knows two states:"
-      },
-      "stripeCustomer": {
-        "properties": {
-          "id": {
-            "type": "string"
-          }
-        },
-        "type": "object"
       },
       "subjectSet": {
         "properties": {
@@ -6522,7 +7883,10 @@
             "type": "string"
           },
           "state": {
-            "$ref": "#/components/schemas/identityState"
+            "description": "State is the identity's state.\nactive StateActive\ninactive StateInactive",
+            "enum": ["active", "inactive"],
+            "type": "string",
+            "x-go-enum-desc": "active StateActive\ninactive StateInactive"
           },
           "traits": {
             "description": "Traits represent an identity's traits. The identity is able to create, modify, and delete traits\nin a self-service manner. The input will always be validated against the JSON Schema defined\nin `schema_id`.",
@@ -6587,6 +7951,10 @@
           "resend": {
             "description": "Resend is set when the user wants to resend the code",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method", "csrf_token"],
@@ -6638,6 +8006,10 @@
             "description": "The identity traits. This is a placeholder for the registration flow.",
             "type": "object"
           },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
+          },
           "upstream_parameters": {
             "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.",
             "type": "object"
@@ -6668,6 +8040,10 @@
           "password_identifier": {
             "description": "Identifier is the email or username of the user trying to log in.\nThis field is deprecated!",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method", "password", "identifier"],
@@ -6687,6 +8063,10 @@
           "totp_code": {
             "description": "The TOTP code.",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method", "totp_code"],
@@ -6706,6 +8086,10 @@
           "method": {
             "description": "Method should be set to \"webAuthn\" when logging in using the WebAuthn strategy.",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           },
           "webauthn_login": {
             "description": "Login a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
@@ -6753,6 +8137,10 @@
             "enum": ["link", "code"],
             "type": "string",
             "x-go-enum-desc": "link RecoveryStrategyLink\ncode RecoveryStrategyCode"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method"],
@@ -6774,6 +8162,10 @@
             "enum": ["link", "code"],
             "type": "string",
             "x-go-enum-desc": "link RecoveryStrategyLink\ncode RecoveryStrategyCode"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["email", "method"],
@@ -6996,6 +8388,10 @@
           "method": {
             "description": "Method\n\nShould be set to \"lookup\" when trying to add, update, or remove a lookup pairing.",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method"],
@@ -7018,6 +8414,10 @@
           },
           "traits": {
             "description": "The identity's traits\n\nin: body",
+            "type": "object"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
             "type": "object"
           },
           "unlink": {
@@ -7046,6 +8446,10 @@
           "password": {
             "description": "Password is the updated password",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["password", "method"],
@@ -7064,6 +8468,10 @@
           },
           "traits": {
             "description": "Traits\n\nThe identity's traits.",
+            "type": "object"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
             "type": "object"
           }
         },
@@ -7088,6 +8496,10 @@
           "totp_unlink": {
             "description": "UnlinkTOTP if true will remove the TOTP pairing,\neffectively removing the credential. This can be used\nto set up a new TOTP device.",
             "type": "boolean"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method"],
@@ -7103,6 +8515,10 @@
           "method": {
             "description": "Method\n\nShould be set to \"webauthn\" when trying to add, update, or remove a webAuthn pairing.",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           },
           "webauthn_register": {
             "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
@@ -7121,7 +8537,6 @@
         "type": "object"
       },
       "updateSubscriptionBody": {
-        "description": "Update Subscription Request Body",
         "properties": {
           "interval": {
             "description": "\nmonthly Monthly\nyearly Yearly",
@@ -7176,6 +8591,10 @@
             "enum": ["link", "code"],
             "type": "string",
             "x-go-enum-desc": "link VerificationStrategyLink\ncode VerificationStrategyCode"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method"],
@@ -7197,9 +8616,23 @@
             "enum": ["link", "code"],
             "type": "string",
             "x-go-enum-desc": "link VerificationStrategyLink\ncode VerificationStrategyCode"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["email", "method"],
+        "type": "object"
+      },
+      "updateWorkspacePayload": {
+        "properties": {
+          "name": {
+            "description": "The name of the workspace.",
+            "type": "string"
+          }
+        },
+        "required": ["name"],
         "type": "object"
       },
       "verifiableCredentialPrimingResponse": {
@@ -7282,7 +8715,10 @@
             "$ref": "#/components/schemas/nullTime"
           },
           "via": {
-            "$ref": "#/components/schemas/identityVerifiableAddressType"
+            "description": "The delivery method",
+            "enum": ["email", "sms"],
+            "example": "email",
+            "type": "string"
           }
         },
         "required": ["value", "verified", "via", "status"],
@@ -7321,6 +8757,10 @@
           "state": {
             "description": "State represents the state of this request:\n\nchoose_method: ask the user to choose a method (e.g. verify your email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the verification challenge was passed."
           },
+          "transient_payload": {
+            "description": "TransientPayload is used to pass data from the verification flow to hooks and email templates",
+            "type": "object"
+          },
           "type": {
             "$ref": "#/components/schemas/selfServiceFlowType"
           },
@@ -7348,6 +8788,63 @@
       },
       "webAuthnJavaScript": {
         "type": "string"
+      },
+      "workspace": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "subscription_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["id", "name", "created_at", "updated_at"],
+        "type": "object"
+      },
+      "workspaceMeta": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "subscription_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
+          "subscription_plan": {
+            "$ref": "#/components/schemas/String"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["id", "name", "created_at", "updated_at"],
+        "type": "object"
+      },
+      "workspaces": {
+        "items": {
+          "$ref": "#/components/schemas/workspace"
+        },
+        "type": "array"
       }
     },
     "securitySchemes": {
@@ -8007,6 +9504,17 @@
             "x-go-enum-desc": " ConsistencyLevelUnset  ConsistencyLevelUnset is the unset / default consistency level.\nstrong ConsistencyLevelStrong  ConsistencyLevelStrong is the strong consistency level.\neventual ConsistencyLevelEventual  ConsistencyLevelEventual is the eventual consistency level using follower read timestamps."
           },
           {
+            "description": "List of ids used to filter identities.\nIf this list is empty, then no filter will be applied.",
+            "in": "query",
+            "name": "ids",
+            "schema": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          {
             "description": "CredentialsIdentifier is the identifier (username, email) of the credentials to look up using exact match.\nOnly one of CredentialsIdentifier and CredentialsIdentifierSimilar can be used.",
             "in": "query",
             "name": "credentials_identifier",
@@ -8020,6 +9528,17 @@
             "name": "preview_credentials_identifier_similar",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Include Credentials in Response\n\nInclude any credential, for example `password` or `oidc`, in the response. When set to `oidc`, This will return\nthe initial OAuth 2.0 Access Token, OAuth 2.0 Refresh Token and the OpenID Connect ID Token if available.",
+            "in": "query",
+            "name": "include_credential",
+            "schema": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
             }
           }
         ],
@@ -8242,11 +9761,13 @@
               "items": {
                 "enum": [
                   "password",
-                  "totp",
                   "oidc",
-                  "webauthn",
+                  "totp",
                   "lookup_secret",
-                  "code"
+                  "webauthn",
+                  "code",
+                  "link_recovery",
+                  "code_recovery"
                 ],
                 "type": "string"
               },
@@ -8478,14 +9999,24 @@
             }
           },
           {
-            "description": "Type is the credential's Type.\nOne of totp, webauthn, lookup",
+            "description": "Type is the type of credentials to be deleted.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "in": "path",
             "name": "type",
             "required": true,
             "schema": {
-              "enum": ["totp", "webauthn", "lookup"],
+              "enum": [
+                "password",
+                "oidc",
+                "totp",
+                "lookup_secret",
+                "webauthn",
+                "code",
+                "link_recovery",
+                "code_recovery"
+              ],
               "type": "string"
-            }
+            },
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           }
         ],
         "responses": {
@@ -9661,7 +11192,7 @@
     },
     "/admin/oauth2/auth/sessions/login": {
       "delete": {
-        "description": "This endpoint invalidates authentication sessions. After revoking the authentication session(s), the subject\nhas to re-authenticate at the Ory OAuth2 Provider. This endpoint does not invalidate any tokens.\n\nIf you send the subject in a query param, all authentication sessions that belong to that subject are revoked.\nNo OpennID Connect Front- or Back-channel logout is performed in this case.\n\nAlternatively, you can send a SessionID via `sid` query param, in which case, only the session that is connected\nto that SessionID is revoked. OpenID Connect Back-channel logout is performed in this case.",
+        "description": "This endpoint invalidates authentication sessions. After revoking the authentication session(s), the subject\nhas to re-authenticate at the Ory OAuth2 Provider. This endpoint does not invalidate any tokens.\n\nIf you send the subject in a query param, all authentication sessions that belong to that subject are revoked.\nNo OpenID Connect Front- or Back-channel logout is performed in this case.\n\nAlternatively, you can send a SessionID via `sid` query param, in which case, only the session that is connected\nto that SessionID is revoked. OpenID Connect Back-channel logout is performed in this case.",
         "operationId": "revokeOAuth2LoginSessions",
         "parameters": [
           {
@@ -9871,6 +11402,15 @@
       "post": {
         "description": "This endpoint creates a recovery link which should be given to the user in order for them to recover\n(or activate) their account.",
         "operationId": "createRecoveryLinkForIdentity",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "return_to",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -11745,6 +13285,325 @@
         "tags": ["project"]
       }
     },
+    "/projects/{project_id}/eventstreams": {
+      "get": {
+        "operationId": "listEventStreams",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listEventStreams"
+                }
+              }
+            },
+            "description": "listEventStreams"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "List all event streams for the project. This endpoint is not paginated.",
+        "tags": ["events"]
+      },
+      "post": {
+        "operationId": "createEventStream",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createEventStreamBody"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/eventStream"
+                }
+              }
+            },
+            "description": "eventStream"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Create an event stream for your project.",
+        "tags": ["events"]
+      }
+    },
+    "/projects/{project_id}/eventstreams/{event_stream_id}": {
+      "delete": {
+        "description": "Remove an event stream from a project.",
+        "operationId": "deleteEventStream",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Event Stream ID\n\nThe ID of the event stream to be deleted, as returned when created.",
+            "in": "path",
+            "name": "event_stream_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Remove an event stream from a project",
+        "tags": ["events"]
+      },
+      "put": {
+        "operationId": "setEventStream",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Event Stream ID\n\nThe event stream's ID.",
+            "in": "path",
+            "name": "event_stream_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/setEventStreamBody"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/eventStream"
+                }
+              }
+            },
+            "description": "eventStream"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Update an event stream for a project.",
+        "tags": ["events"]
+      }
+    },
     "/projects/{project_id}/metrics": {
       "get": {
         "description": "Retrieves project metrics for the specified event type and time range",
@@ -12786,7 +14645,6 @@
         "operationId": "postCheckPermissionOrError",
         "parameters": [
           {
-            "description": "nolint:deadcode,unused",
             "in": "query",
             "name": "max-depth",
             "schema": {
@@ -13452,6 +15310,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Via should contain the identity's credential the code should be sent to. Only relevant in aal2 flows.",
+            "in": "query",
+            "name": "via",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -13539,6 +15405,14 @@
             "description": "An optional organization ID that should be used for logging this user in.\nThis parameter is only effective in the Ory Network.",
             "in": "query",
             "name": "organization",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Via should contain the identity's credential the code should be sent to. Only relevant in aal2 flows.",
+            "in": "query",
+            "name": "via",
             "schema": {
               "type": "string"
             }
@@ -13828,7 +15702,7 @@
     },
     "/self-service/recovery": {
       "post": {
-        "description": "Use this endpoint to complete a recovery flow. This endpoint\nbehaves differently for API and browser flows and has several states:\n\n`choose_method` expects `flow` (in the URL query) and `email` (in the body) to be sent\nand works with API- and Browser-initiated flows.\nFor API clients and Browser clients with HTTP Header `Accept: application/json` it either returns a HTTP 200 OK when the form is valid and HTTP 400 OK when the form is invalid.\nand a HTTP 303 See Other redirect with a fresh recovery flow if the flow was otherwise invalid (e.g. expired).\nFor Browser clients without HTTP Header `Accept` or with `Accept: text/*` it returns a HTTP 303 See Other redirect to the Recovery UI URL with the Recovery Flow ID appended.\n`sent_email` is the success state after `choose_method` for the `link` method and allows the user to request another recovery email. It\nworks for both API and Browser-initiated flows and returns the same responses as the flow in `choose_method` state.\n`passed_challenge` expects a `token` to be sent in the URL query and given the nature of the flow (\"sending a recovery link\")\ndoes not have any API capabilities. The server responds with a HTTP 303 See Other redirect either to the Settings UI URL\n(if the link was valid) and instructs the user to update their password, or a redirect to the Recover UI URL with\na new Recovery Flow ID which contains an error message that the recovery link was invalid.\n\nMore information can be found at [Ory Kratos Account Recovery Documentation](../self-service/flows/account-recovery).",
+        "description": "Use this endpoint to update a recovery flow. This endpoint\nbehaves differently for API and browser flows and has several states:\n\n`choose_method` expects `flow` (in the URL query) and `email` (in the body) to be sent\nand works with API- and Browser-initiated flows.\nFor API clients and Browser clients with HTTP Header `Accept: application/json` it either returns a HTTP 200 OK when the form is valid and HTTP 400 OK when the form is invalid.\nand a HTTP 303 See Other redirect with a fresh recovery flow if the flow was otherwise invalid (e.g. expired).\nFor Browser clients without HTTP Header `Accept` or with `Accept: text/*` it returns a HTTP 303 See Other redirect to the Recovery UI URL with the Recovery Flow ID appended.\n`sent_email` is the success state after `choose_method` for the `link` method and allows the user to request another recovery email. It\nworks for both API and Browser-initiated flows and returns the same responses as the flow in `choose_method` state.\n`passed_challenge` expects a `token` to be sent in the URL query and given the nature of the flow (\"sending a recovery link\")\ndoes not have any API capabilities. The server responds with a HTTP 303 See Other redirect either to the Settings UI URL\n(if the link was valid) and instructs the user to update their password, or a redirect to the Recover UI URL with\na new Recovery Flow ID which contains an error message that the recovery link was invalid.\n\nMore information can be found at [Ory Kratos Account Recovery Documentation](../self-service/flows/account-recovery).",
         "operationId": "updateRecoveryFlow",
         "parameters": [
           {
@@ -13928,13 +15802,13 @@
             "description": "errorGeneric"
           }
         },
-        "summary": "Complete Recovery Flow",
+        "summary": "Update Recovery Flow",
         "tags": ["frontend"]
       }
     },
     "/self-service/recovery/api": {
       "get": {
-        "description": "This endpoint initiates a recovery flow for API clients such as mobile devices, smart TVs, and so on.\n\nIf a valid provided session cookie or session token is provided, a 400 Bad Request error.\n\nTo fetch an existing recovery flow call `/self-service/recovery/flows?flow=\u003cflow_id\u003e`.\n\nYou MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server\nPages, NodeJS, PHP, Golang, ...) browser applications. Using this endpoint in these applications will make\nyou vulnerable to a variety of CSRF attacks.\n\nThis endpoint MUST ONLY be used in scenarios such as native mobile apps (React Native, Objective C, Swift, Java, ...).\n\nMore information can be found at [Ory Kratos Account Recovery Documentation](../self-service/flows/account-recovery).",
+        "description": "This endpoint initiates a recovery flow for API clients such as mobile devices, smart TVs, and so on.\n\nIf a valid provided session cookie or session token is provided, a 400 Bad Request error.\n\nOn an existing recovery flow, use the `getRecoveryFlow` API endpoint.\n\nYou MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server\nPages, NodeJS, PHP, Golang, ...) browser applications. Using this endpoint in these applications will make\nyou vulnerable to a variety of CSRF attacks.\n\nThis endpoint MUST ONLY be used in scenarios such as native mobile apps (React Native, Objective C, Swift, Java, ...).\n\nMore information can be found at [Ory Kratos Account Recovery Documentation](../self-service/flows/account-recovery).",
         "operationId": "createNativeRecoveryFlow",
         "responses": {
           "200": {

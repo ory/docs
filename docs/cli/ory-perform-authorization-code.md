@@ -28,7 +28,7 @@ ory perform authorization-code [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} --client-id ... --client-secret ...
+ory perform authorization-code --client-id ... --client-secret ...
 ```
 
 ### Options
@@ -38,7 +38,8 @@ ory perform authorization-code [flags]
       --auth-url endpoint      Usually it is enough to specify the endpoint flag, but if you want to force the authorization url, use this flag
       --client-id string       Use the provided OAuth 2.0 Client ID, defaults to environment variable OAUTH2_CLIENT_ID
       --client-secret string   Use the provided OAuth 2.0 Client Secret, defaults to environment variable OAUTH2_CLIENT_SECRET
-      --format string          Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+  -e, --endpoint string        The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+      --format string          Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help                   help for authorization-code
       --https                  Sets up HTTPS for the endpoint using a self-signed certificate which is re-generated every time you start this command
       --max-age int            Set the OpenID Connect max_age parameter
@@ -50,6 +51,7 @@ ory perform authorization-code [flags]
   -q, --quiet                  Be quiet with output printing.
       --redirect string        Force a redirect url
       --scope strings          Request OAuth2 scope (default [offline,openid])
+      --state string           Force a state value (insecure)
       --token-url endpoint     Usually it is enough to specify the endpoint flag, but if you want to force the token url, use this flag
 ```
 

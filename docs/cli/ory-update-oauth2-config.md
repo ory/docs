@@ -76,7 +76,7 @@ oauth2:
 
 ```
   -f, --file strings    Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the oAuth2 config
-      --format string   Set the output format. One of default, json, yaml, json-pretty and jsonpath. (default "default")
+      --format string   Set the output format. One of default, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help            help for oauth2-config
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.

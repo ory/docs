@@ -24,7 +24,7 @@ ory patch opl <project-id> [flags]
 ### Examples
 
 ```
-$ {{ .CommandPath }} ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+$ ory patch opl ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 	--file /path/to/namespace_config.ts
 
 class Example implements Namespace {}
@@ -35,7 +35,7 @@ class Example implements Namespace {}
 
 ```
   -f, --file string      Configuration file (file://namespace_config.ts, https://example.org/namespace_config.ts, ...) to update the Ory Permission Language config
-      --format string    Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --format string    Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help             help for opl
       --project string   The project to use, either project ID or a (partial) slug.
   -q, --quiet            Be quiet with output printing.

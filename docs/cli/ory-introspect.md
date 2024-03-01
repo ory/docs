@@ -18,7 +18,7 @@ Introspect resources
 ```
   -c, --config string     Path to the Ory Network configuration file.
   -e, --endpoint string   The API URL this command should target. Alternatively set using the ORY_SDK_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help              help for introspect
   -H, --http-header :     A list of additional HTTP headers to set. HTTP headers is separated by a : , for example: `-H 'Authorization: bearer some-token'`.
   -q, --quiet             Be quiet with output printing.

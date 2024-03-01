@@ -24,13 +24,14 @@ ory list oauth2-clients [flags]
 ### Examples
 
 ```
-{{ .CommandPath }} --page-token eyJwYWdlIjoxfQ --page-size 10
+ory list oauth2-clients --page-token eyJwYWdlIjoxfQ --page-size 10
 ```
 
 ### Options
 
 ```
-      --format string       Set the output format. One of table, json, yaml, json-pretty, and jsonpath. (default "default")
+  -e, --endpoint string     The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+      --format string       Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help                help for oauth2-clients
       --page-size int       maximum number of items to return (default 100)
       --page-token string   page token acquired from a previous response

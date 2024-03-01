@@ -76,7 +76,7 @@ mapping.
 
 ```jsonnet
 local claims = {
-  email_verified: true,
+  email_verified: false,
 } + std.extVar('claims');
 
 {
@@ -131,7 +131,7 @@ Follow these steps to add Google as a social sign-in provider to your project us
 
     ```jsonnet
     local claims = {
-      email_verified: true,
+      email_verified: false,
     } + std.extVar('claims');
 
     {
@@ -244,12 +244,14 @@ session token.
 The following steps are required to integrate the Google SDK with Ory:
 
 1. Configure a Google social sign-in provider in Ory using the same `client_id` as used in your native app.
-2. If your SDK supports nonce validation, make sure to use a generated value and submit that during the next step.
-3. Obtain an `id_token` from Google using the Google SDK. Make sure to also submit the `nonce` if you generated one in the step
+2. Optional: Android apps generate different token audiences per distribution (debug, release, etc.). You can add the ID of your
+   current distribution to the `additional_id_token_audiences` field. Example: `sh.ory.network-example-ios.debug`.
+3. If your SDK supports nonce validation, make sure to use a generated value and submit that during the next step.
+4. Obtain an `id_token` from Google using the Google SDK. Make sure to also submit the `nonce` if you generated one in the step
    before.
-4. Submit the `id_token` and `nonce` (as the `id_token_nonce`) as part of the `updateRegistrationFlow` or `updateLoginFlow`
+5. Submit the `id_token` and `nonce` (as the `id_token_nonce`) as part of the `updateRegistrationFlow` or `updateLoginFlow`
    request to Ory.
-5. Ory will validate the `id_token` and create an identity and optionally a session (if configured).
+6. Ory will validate the `id_token` and create an identity and optionally a session (if configured).
 
 The `id_token` is verified using Google's publicly available signing keys, available under
 https://www.googleapis.com/oauth2/v3/certs.
@@ -289,3 +291,8 @@ import SocialSigninTroubleshooting from '../_common/social-sign-in-troubleshooti
 
 <SocialSigninTroubleshooting />
 ```
+
+### Error: token audience didn't match allowed audiences
+
+Make sure to either add your apps current identifier to the `additional_id_token_audiences` field or set it as the Client ID of
+the provider in the Ory Console.
