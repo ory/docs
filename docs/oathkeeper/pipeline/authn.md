@@ -932,7 +932,7 @@ The `remote_json` authenticator will forward the HTTP request (method, path, hea
 ```yaml
 # Global configuration file oathkeeper.yml
 authenticators:
-  cookie_session:
+  remote_json:
     # Set enabled to true if authenticator should be neabled and false to disable the authenticator. Defaults to false.
     enabled: true
 
