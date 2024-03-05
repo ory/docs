@@ -35,6 +35,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
 ### Options
 
 ```
+      --access-token-strategy opaque                    The strategy used to generate access tokens. Valid options are opaque and `jwt`.
       --allowed-cors-origin strings                     The list of URLs allowed to make CORS requests. Requires CORS_ENABLED.
       --audience strings                                The audience this client is allowed to request.
       --backchannel-logout-callback string              Client URL that will cause the client to log itself out when sent a Logout Token by Hydra.
