@@ -32,3 +32,5 @@ playwright-report/
 
 .vercel
 .bin/
+
+screenshots
