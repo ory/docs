@@ -214,6 +214,10 @@
             "description": "Whether to disable the account experience welcome screen, which is hosted under `/ui/welcome`.",
             "type": "boolean"
           },
+          "enable_ax_v2": {
+            "description": "Whether the new account experience is enabled and reachable.",
+            "type": "boolean"
+          },
           "environment": {
             "description": "\nprod Production\ndev Development",
             "enum": ["prod", "dev"],
@@ -1285,11 +1289,7 @@
             "type": "string"
           },
           "features": {
-            "additionalProperties": {
-              "$ref": "#/components/schemas/GenericUsage"
-            },
-            "description": "Features are the feature definitions included in the plan.",
-            "type": "object"
+            "$ref": "#/components/schemas/PlanFeatures"
           },
           "name": {
             "description": "Name is the name of the plan.",
@@ -1310,6 +1310,13 @@
           "base_fee_yearly",
           "features"
         ],
+        "type": "object"
+      },
+      "PlanFeatures": {
+        "additionalProperties": {
+          "$ref": "#/components/schemas/GenericUsage"
+        },
+        "title": "Features are the feature definitions included in the plan.",
         "type": "object"
       },
       "Pricing": {
@@ -1609,6 +1616,7 @@
             "type": "string"
           }
         },
+        "required": ["id", "email", "name"],
         "type": "object"
       },
       "consistencyRequestParameters": {
@@ -3783,6 +3791,10 @@
           },
           "disable_account_experience_welcome_screen": {
             "description": "Whether to disable the account experience welcome screen, which is hosted under `/ui/welcome`.",
+            "type": "boolean"
+          },
+          "enable_ax_v2": {
+            "description": "Whether the new account experience is enabled and reachable.",
             "type": "boolean"
           },
           "hydra_oauth2_allowed_top_level_claims": {
@@ -6303,7 +6315,23 @@
         "type": "object"
       },
       "projectMember": {
-        "$ref": "#/components/schemas/cloudAccount"
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "email", "name", "role"],
+        "type": "object"
       },
       "projectMembers": {
         "items": {
@@ -6462,7 +6490,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
+            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
             "enum": [
               "region_eu",
               "region_us",
@@ -6482,6 +6510,7 @@
               "project_metrics_events_history",
               "organizations",
               "rop_grant",
+              "concierge_onboarding",
               "rate_limit_tier",
               "session_rate_limit_tier",
               "identities_list_rate_limit_tier",
@@ -6489,7 +6518,7 @@
               "oauth2_introspect_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
+            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
           },
           "feature_available": {
             "type": "boolean"
@@ -7241,6 +7270,9 @@
             "readOnly": true,
             "type": "string"
           },
+          "current_plan_details": {
+            "$ref": "#/components/schemas/PlanDetails"
+          },
           "customer_id": {
             "description": "The ID of the stripe customer",
             "readOnly": true,
@@ -7272,6 +7304,9 @@
           },
           "status": {
             "$ref": "#/components/schemas/SubscriptionStatus"
+          },
+          "stripe_checkout_expires_at": {
+            "$ref": "#/components/schemas/Time"
           },
           "updated_at": {
             "format": "date-time",
@@ -13628,12 +13663,12 @@
             }
           },
           {
-            "description": "The resolution of the buckets\n\nThe minimum resolution is 1 hour.",
+            "description": "The resolution of the buckets\n\nThe minimum resolution is 1 minute.",
             "in": "query",
             "name": "resolution",
             "required": true,
             "schema": {
-              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "pattern": "^[0-9]+(m|h|d|M|y)$",
               "type": "string"
             }
           },
