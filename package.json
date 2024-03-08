@@ -42,7 +42,7 @@
     "@ory/client": "0.2.0-alpha.39",
     "@rjsf/core": "^3.2.1",
     "@rjsf/material-ui": "^3.2.1",
-    "axios": "^0.25.0",
+    "axios": "^0.28.0",
     "classnames": "2.3.1",
     "clsx": "^1.1.1",
     "debug": "^4.3.3",
