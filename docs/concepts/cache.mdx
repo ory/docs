@@ -39,19 +39,30 @@ depending on the geographical proximity to the closest node.
 
 ## Impact on business logic
 
-There are some cases where edge session caching can affect your business logic:
+The Check Session API is eventually consistent when Edge Caching is enabled, which means that the changes you make are always
+reflected in the API, even if in some cases this might not be instantaneous. There are some cases where edge session caching will
+affect your business logic.
+
+:::info
+
+Per default, the session's cache time is set to 2 minutes and 30 seconds.
+
+:::
+
+You can modify this value in the [Ory Console](https://console.ory.sh/projects/current/authentication/sessions) or using the Ory
+CLI (see the [Configuration](#configuration) section).
+
+The longer the cache time, the more likely it is that the session data is outdated at the benefit of faster API responses. The
+shorter the cache time, the more likely it is that the session data is fresh at the expense of slower API responses.
 
 - Changes made to sessions or their corresponding identities through the admin API will not be immediately reflected in the
   `/session/whoami` endpoint.
-
-  :::info
-
-  The Check Session APIs are eventually consistent, which means that the changes you make are always reflected in the API, even if
-  in some cases this might not be instantaneous.
-
-  :::
-
-- In some scenarios, revoked sessions will not immediately be marked as inactive by the `/session/whoami` endpoint.
+- When revoking a session using the Ory Console or the admin API, the session will be marked as inactive immediately. However, the
+  `/session/whoami` endpoint might still return the session as active for a short period of time.
+- The hook to disable all sessions after a password change will mark all sessions as inactive immediately. However, the
+  `/session/whoami` endpoint might still return the session as active for a short period of time.
+- Sessions modified by the user (e.g. performing second factor authentication, logging out, refreshing the session) will be
+  reflected in the `/session/whoami` endpoint immediately without delay.
 
 ## Force refresh
 
@@ -119,6 +130,7 @@ To turn on Edge Sessions, go to **Authentication** → **Sessions** in the
     ```yaml title="config.yml"
     feature_flags:
       cacheable_sessions: true
+      cacheable_sessions_max_age: "1m"
     ```
 
 3. Update the Ory Identities configuration using the file you worked with:
