@@ -25,22 +25,23 @@ Follow these steps to add Microsoft as a social sign-in provider for your projec
 1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
 2. Click the switch next to the Microsoft logo to start the configuration.
 3. Copy the Redirect URI from Ory and save it for later use.
-4. Go to the [Azure portal](https://portal.azure.com/) → **Azure Active Directory**.
+4. Go to the [Azure portal](https://portal.azure.com/) → **Microsoft Entra ID**.
 5. From **Overview**, select **Manage tenants** from the top navigation. Choose the desired tenant or create a new one.
 6. Return to **Overview**, open the **App registration** dropdown menu and click **App registration**.
 7. Register a new application:
 
    - Define the app display name
-   - Select the supported account types
-   - Select the appropriate application type using the dropdown menu
+   - For Social Sign In with Microsoft, choose **"Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)"**
+   - For other use cases choose one of the other account types use **"Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant)"**.
+   - Select the **web** application type using the dropdown menu
    - Provide the Redirect URI copied from the Ory Console and add it on Azure console.
 
    ![Screenshot of Azure App Authentication Configuration (Oct 2023)](./_static/azure_oidc_authentication_configuration.png)
 
 8. Copy the **Application (client) ID** from Azure and paste it into the corresponding field in the Ory Console.
+11. Copy the **Directory (tenant) ID** from Azure and paste it into the corresponding field in the Ory Console.
 9. In Azure, click the **Client credentials** link and create a new client secret.
 10. Copy the **Value** of the client secret and paste it into the corresponding field in the Ory Console.
-11. Copy the **Directory (tenant) ID** from Azure and paste it into the corresponding field in the Ory Console.
 12. Click **Save Configuration** to enable Microsoft as a social sign-in provider.
 
 :::note
@@ -161,6 +162,7 @@ Follow these steps to add Microsoft as a social sign-in provider to your project
                # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
                scope:
                  - profile
+                 - openid
                  - email
          enabled: true
    ```
