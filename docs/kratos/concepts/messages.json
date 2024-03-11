@@ -114,6 +114,11 @@
     }
   },
   {
+    "id": 1010021,
+    "text": "Sign in with passkey",
+    "type": "info"
+  },
+  {
     "id": 1040001,
     "text": "Sign up",
     "type": "info"
@@ -144,6 +149,21 @@
   {
     "id": 1040006,
     "text": "Sign up with code",
+    "type": "info"
+  },
+  {
+    "id": 1040007,
+    "text": "Sign up with passkey",
+    "type": "info"
+  },
+  {
+    "id": 1040008,
+    "text": "Back",
+    "type": "info"
+  },
+  {
+    "id": 1040009,
+    "text": "Please choose a credential to authenticate yourself with.",
     "type": "info"
   },
   {
@@ -271,6 +291,21 @@
   {
     "id": 1050018,
     "text": "Remove security key \"{display_name}\"",
+    "type": "info",
+    "context": {
+      "added_at": "2020-01-01T00:59:59Z",
+      "added_at_unix": 1577840399,
+      "display_name": "{display_name}"
+    }
+  },
+  {
+    "id": 1050019,
+    "text": "Add passkey",
+    "type": "info"
+  },
+  {
+    "id": 1050020,
+    "text": "Remove passkey \"{display_name}\"",
     "type": "info",
     "context": {
       "added_at": "2020-01-01T00:59:59Z",
