@@ -31,7 +31,93 @@ To learn more about passkeys and see sample flows for different platforms, watch
 
 :::
 
-## Configuration
+## Choose passkey strategy
+
+Ory Network implements a dedicated passkey strategy that improves the ergonomics over using the webauthn strategy for first-factor
+login. Here is a comparison of the two approaches:
+
+|                                                                                                                            | Webauthn passwordless login | Passkey strategy |
+| -------------------------------------------------------------------------------------------------------------------------- | --------------------------- | ---------------- |
+| **Discoverable credentials:** The browser automatically discovers which credentials the user has stored for the site.      | ❌                          | ✔︎               |
+| **Conditional UI:** The browser attaches an autofill dropdown to the email field that allows the user to select a passkey. | ❌                          | ✔︎               |
+| **Backwards compatibility:** Works for users that have a passkey configured with the WebAuthN strategy.                    | ✔︎                          | ❌               |
+
+## Passkeys with the dedicated passkey strategy
+
+### Configuration
+
+:::info
+
+This feature is in preview. Please report any issues to support@ory.sh or contact us in the
+[Ory Community](https://slack.ory.sh/).
+
+:::
+
+By default, the passkey strategy is disabled. To start using the passkey strategy, apply this configuration:
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="cli" label="Ory CLI">
+    <CodeBlock language="shell">{`ory patch identity-config <your-project-id> \\
+  --add '/selfservice/methods/passkey/enabled=true' \\
+  --add '/selfservice/methods/passkey/config/rp/display_name="My Display Name"'
+`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="full" label="Full Config" default>
+    <CodeBlock language="yaml" title="config.yml">{`selfservice:
+  methods:
+    passkey:
+      enabled: true
+      config:
+        display_name: "My Display Name"`}</CodeBlock>
+  </TabItem>
+</Tabs>
+```
+
+### Identity schema
+
+If you want to use a custom identity schema, you must define which field of the identity schema is the primary identifier for the
+passkey.
+
+```json5 title="identity.schema.json" {16-18}
+{
+  $schema: "http://json-schema.org/draft-07/schema#",
+  type: "object",
+  properties: {
+    traits: {
+      type: "object",
+      properties: {
+        email: {
+          type: "string",
+          format: "email",
+          title: "Your E-Mail",
+          minLength: 3,
+          "ory.sh/kratos": {
+            credentials: {
+              // ...
+              passkey: {
+                identifier: true,
+              },
+            },
+            // ...
+          },
+        },
+        // ...
+      },
+      // ...
+    },
+  },
+}
+```
+
+## Passkeys with the WebAuthN strategy
+
+### Configuration
 
 To allow using passkeys, enable passwordless login. To do that in the Ory Network, go to
 [**Ory Console**](https://console.ory.sh/) → **Passwordless Login** and toggle the switch to enable the feature.
@@ -46,7 +132,7 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 </BrowserWindow>
 ```
 
-## Example
+### Example
 
 This is a macOS Safari prompt the browser shows when users try to sign in using the passwordless method. The first option allows
 to use a passkey associated with this account that's stored in the iCloud Keychain of the user that's signed in to iCloud on this
