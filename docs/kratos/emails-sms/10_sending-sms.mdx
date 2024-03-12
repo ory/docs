@@ -1,0 +1,132 @@
+---
+id: sending-sms
+title: Send SMS to your users
+sidebar_label: SMS delivery configuration
+---
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeBlock from "@theme/CodeBlock"
+```
+
+Ory Network comes with an HTTP based SMS delivery option that can be configured to point to any service that supports sending SMS
+via HTTP API, such as Twilio, Plivo, AWS SNS, or your own microservice.
+
+## Configuration
+
+SMS delivery can only be configured through the [Ory CLI](../../guides/cli/01_installation.mdx). Follow these steps:
+
+```mdx-code-block
+<Tabs groupId="console-or-cli">
+<TabItem value="cli" label="Ory CLI">
+```
+
+1. Download the [Ory Identities config](../../guides/cli/15_config-identity-service.mdx) from your project and save it to a file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ```
+
+2. Add the configuration for your custom SMTP server
+
+   ```yaml title="config.yml"
+   courier:
+     channels:
+       - id: sms
+         type: http
+         request_config:
+           url: https://api.twilio.com/2010-04-01/Accounts/AXXXXXXXXXXXXXX/Messages.json # Adjust your account ID
+           method: POST
+           body: base64://ZnVuY3Rpb24oY3R4KSB7CiAgVG86IGN0eC5yZWNpcGllbnQsCiAgQm9keTogY3R4LmJvZHksCn0= # see below
+           headers:
+             Content-Type: application/x-www-form-urlencoded # defaults to application/json
+           auth:
+             type: basic_auth # or api_key
+             config:
+               user: AXXXXXXX # adjust your credentials
+               password: XXXX # adjust your credentials
+   ```
+
+3. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config {project-id} --file updated_config.yaml
+   ```
+
+### Body configuration
+
+The body of the above snippet decodes to the following Jsonnet template:
+
+```jsonnet
+function(ctx) {
+  To: ctx.recipient,
+  Body: ctx.body,
+}
+```
+
+Fields available on the `ctx` object are:
+
+- `recipient`: The recipient's phone number
+- `body`: The message body
+- `template_type`: The template type, e.g. `verification_code`
+- `template_data`: The template data, e.g. `{ "VerificationCode": "1234", Idenity: { ... } }`
+- `message_type`: The message type, e.g. `sms`
+
+Read the [Jsonnet documentation](../../kratos/reference/jsonnet.mdx) to learn more about the Jsonnet templating language.
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+## Templates
+
+Only the `verification_code` and `login_code` templates support an SMS variant. Use the CLI to configure it:
+
+```mdx-code-block
+<Tabs groupId="console-or-cli">
+<TabItem value="cli" label="Ory CLI">
+```
+
+1. Download the Ory Identities config from your project and save it to a file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ```
+
+2. Add the configuration for your custom SMTP server
+
+   ```yaml title="config.yml"
+   courier:
+     templates:
+       verification_code:
+         valid:
+           sms:
+             body:
+               plaintext: "base64://WW91ciB2ZXJpZmljYXRpb24gY29kZSBpczoge3sgLlZlcmlmaWNhdGlvbkNvZGUgfX0="
+        login_code:
+          valid:
+            sms:
+              body:
+                plaintext: "base64://WW91ciBsb2dpbiBjb2RlIGlzOiB7eyAuTG9naW5Db2RlIH19"
+   ```
+
+3. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config {project-id} --file updated_config.yaml
+   ```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```

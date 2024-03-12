@@ -496,8 +496,8 @@ hidden field, if set.
 
 <CodeFromRemote
   lang="pug"
-  title="https://github.com/ory/kratos-selfservice-ui-node/blob/master/views/partials/ui_node_input_checkbox.hbs"
-  src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/master/views/partials/ui_node_input_checkbox.hbs"
+  title="https://github.com/ory/kratos-selfservice-ui-node/blob/v1.0.0/views/partials/ui_node_input_checkbox.hbs"
+  src="https://raw.githubusercontent.com/ory/kratos-selfservice-ui-node/v1.0.0/views/partials/ui_node_input_checkbox.hbs"
 />
 
 In single page apps, such as React.js, this trickery is not needed as you have full control over the form's state:
@@ -1209,6 +1209,39 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 }
 ```
 
+###### Continue with code (1010019)
+
+```json
+{
+  "id": 1010019,
+  "text": "Continue with code",
+  "type": "info"
+}
+```
+
+###### We will send a code to {maskedIdentifier}. To verify that this is your address please enter it here. (1010020)
+
+```json
+{
+  "id": 1010020,
+  "text": "We will send a code to {maskedIdentifier}. To verify that this is your address please enter it here.",
+  "type": "info",
+  "context": {
+    "masked_to": "{maskedIdentifier}"
+  }
+}
+```
+
+###### Sign in with passkey (1010021)
+
+```json
+{
+  "id": 1010021,
+  "text": "Sign in with passkey",
+  "type": "info"
+}
+```
+
 ###### Sign up (1040001)
 
 ```json
@@ -1268,6 +1301,36 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1040006,
   "text": "Sign up with code",
+  "type": "info"
+}
+```
+
+###### Sign up with passkey (1040007)
+
+```json
+{
+  "id": 1040007,
+  "text": "Sign up with passkey",
+  "type": "info"
+}
+```
+
+###### Back (1040008)
+
+```json
+{
+  "id": 1040008,
+  "text": "Back",
+  "type": "info"
+}
+```
+
+###### Please choose a credential to authenticate yourself with. (1040009)
+
+```json
+{
+  "id": 1040009,
+  "text": "Please choose a credential to authenticate yourself with.",
   "type": "info"
 }
 ```
@@ -1485,6 +1548,31 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 1050018,
   "text": "Remove security key \"{display_name}\"",
+  "type": "info",
+  "context": {
+    "added_at": "2020-01-01T00:59:59Z",
+    "added_at_unix": 1577840399,
+    "display_name": "{display_name}"
+  }
+}
+```
+
+###### Add passkey (1050019)
+
+```json
+{
+  "id": 1050019,
+  "text": "Add passkey",
+  "type": "info"
+}
+```
+
+###### Remove passkey "{display_name}" (1050020)
+
+```json
+{
+  "id": 1050020,
+  "text": "Remove passkey \"{display_name}\"",
   "type": "info",
   "context": {
     "added_at": "2020-01-01T00:59:59Z",
@@ -2227,6 +2315,16 @@ The section below is auto-generated. Changing it has no effect as any changes wi
 {
   "id": 4010009,
   "text": "Linked credentials do not match.",
+  "type": "error"
+}
+```
+
+###### The address you entered does not match any known addresses in the current account. (4010010)
+
+```json
+{
+  "id": 4010010,
+  "text": "The address you entered does not match any known addresses in the current account.",
   "type": "error"
 }
 ```

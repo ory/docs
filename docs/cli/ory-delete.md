@@ -27,6 +27,7 @@ Delete resources
 
 * [ory](ory)	 - The ORY CLI
 * [ory delete access-tokens](ory-delete-access-tokens)	 - Delete all OAuth2 Access Tokens of an OAuth2 Client
+* [ory delete event-stream](ory-delete-event-stream)	 - Delete the event stream with the given ID
 * [ory delete identity](ory-delete-identity)	 - Delete one or more identities by their ID(s)
 * [ory delete jwk](ory-delete-jwk)	 - Delete one or more JSON Web Key Sets by their set ID
 * [ory delete oauth2-client](ory-delete-oauth2-client)	 - Delete one or more OAuth 2.0 Clients by their ID(s)

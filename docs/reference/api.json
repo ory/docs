@@ -175,9 +175,6 @@
         "required": ["name", "count"],
         "type": "object"
       },
-      "CodeAddressType": {
-        "type": "string"
-      },
       "CreateInviteResponse": {
         "properties": {
           "all_invites": {
@@ -204,902 +201,7 @@
         },
         "type": "object"
       },
-      "CreateVerifiableCredentialRequestBody": {
-        "properties": {
-          "format": {
-            "type": "string"
-          },
-          "proof": {
-            "$ref": "#/components/schemas/VerifiableCredentialProof"
-          },
-          "types": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          }
-        },
-        "title": "CreateVerifiableCredentialRequestBody contains the request body to request a verifiable credential.",
-        "type": "object"
-      },
-      "CreateWorkspaceMemberInviteBody": {
-        "description": "Create Workspace Invite Request Body",
-        "properties": {
-          "invitee_email": {
-            "description": "A email to invite",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "CustomHostnameStatus": {
-        "title": "CustomHostnameStatus is the enumeration of valid state values in the CustomHostnameSSL.",
-        "type": "string"
-      },
-      "DefaultError": {},
-      "Duration": {
-        "description": "A Duration represents the elapsed time between two instants\nas an int64 nanosecond count. The representation limits the\nlargest representable duration to approximately 290 years.",
-        "format": "int64",
-        "type": "integer"
-      },
-      "GenericUsage": {
-        "properties": {
-          "additional_price": {
-            "description": "AdditionalPrice is the price per-unit in cent exceeding IncludedUsage. A price of 0 means that no other items can be consumed.",
-            "format": "int64",
-            "type": "integer"
-          },
-          "included_usage": {
-            "description": "IncludedUsage is the number of included items.",
-            "format": "int64",
-            "type": "integer"
-          }
-        },
-        "required": ["included_usage", "additional_price"],
-        "title": "GenericUsage is the generic usage type that can be used for any feature.",
-        "type": "object"
-      },
-      "ID": {
-        "format": "int64",
-        "type": "integer"
-      },
-      "JSONRawMessage": {
-        "title": "JSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger.",
-        "type": "object"
-      },
-      "KetoNamespace": {
-        "properties": {
-          "id": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "KetoNamespaces": {
-        "items": {
-          "$ref": "#/components/schemas/KetoNamespace"
-        },
-        "type": "array"
-      },
-      "ListMyWorkspacesResponse": {
-        "properties": {
-          "has_next_page": {
-            "type": "boolean"
-          },
-          "next_page_token": {
-            "type": "string"
-          },
-          "workspaces": {
-            "items": {
-              "$ref": "#/components/schemas/workspace"
-            },
-            "type": "array"
-          }
-        },
-        "required": ["workspaces", "next_page_token", "has_next_page"],
-        "type": "object"
-      },
-      "NormalizedProjectRevisionCourierChannel": {
-        "properties": {
-          "channel_id": {
-            "description": "The Channel's public ID",
-            "type": "string"
-          },
-          "created_at": {
-            "description": "The creation date",
-            "format": "date-time",
-            "readOnly": true,
-            "type": "string"
-          },
-          "request_config_auth_config_api_key_in": {
-            "description": "API key location\n\nCan either be \"header\" or \"query\"",
-            "example": "header",
-            "type": "string"
-          },
-          "request_config_auth_config_api_key_name": {
-            "description": "API key name\n\nOnly used if the auth type is api_key",
-            "type": "string"
-          },
-          "request_config_auth_config_api_key_value": {
-            "description": "API key value\n\nOnly used if the auth type is api_key",
-            "type": "string"
-          },
-          "request_config_auth_config_basic_auth_password": {
-            "description": "Basic Auth Password\n\nOnly used if the auth type is basic_auth",
-            "type": "string"
-          },
-          "request_config_auth_config_basic_auth_user": {
-            "description": "Basic Auth Username\n\nOnly used if the auth type is basic_auth",
-            "type": "string"
-          },
-          "request_config_auth_type": {
-            "description": "HTTP Auth Method to use for the HTTP call\n\nCan either be basic_auth or api_key\nbasic_auth CourierChannelAuthTypeBasicAuth\napi_key CourierChannelAuthTypeApiKey",
-            "enum": ["basic_auth", "api_key"],
-            "type": "string",
-            "x-go-enum-desc": "basic_auth CourierChannelAuthTypeBasicAuth\napi_key CourierChannelAuthTypeApiKey"
-          },
-          "request_config_body": {
-            "description": "URI pointing to the JsonNet template used for HTTP body payload generation.",
-            "type": "string"
-          },
-          "request_config_headers": {
-            "$ref": "#/components/schemas/nullJsonRawMessage"
-          },
-          "request_config_method": {
-            "description": "The HTTP method to use (GET, POST, etc) for the HTTP call",
-            "example": "POST",
-            "type": "string"
-          },
-          "request_config_url": {
-            "type": "string"
-          },
-          "updated_at": {
-            "description": "Last upate time",
-            "format": "date-time",
-            "readOnly": true,
-            "type": "string"
-          }
-        },
-        "required": [
-          "channel_id",
-          "request_config_method",
-          "request_config_body"
-        ],
-        "type": "object"
-      },
-      "NullBool": {
-        "nullable": true,
-        "type": "boolean"
-      },
-      "NullDuration": {
-        "nullable": true,
-        "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
-        "type": "string"
-      },
-      "NullInt": {
-        "nullable": true,
-        "type": "integer"
-      },
-      "NullString": {
-        "nullable": true,
-        "type": "string"
-      },
-      "NullTime": {
-        "format": "date-time",
-        "nullable": true,
-        "type": "string"
-      },
-      "NullUUID": {
-        "format": "uuid4",
-        "nullable": true,
-        "type": "string"
-      },
-      "OAuth2LoginChallengeParams": {
-        "type": "object"
-      },
-      "OrganizationBody": {
-        "description": "Create B2B SSO Organization Request Body",
-        "properties": {
-          "domains": {
-            "description": "Domains contains the list of organization's domains.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "label": {
-            "description": "Label contains the organization's label.",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "ParseError": {
-        "properties": {
-          "end": {
-            "$ref": "#/components/schemas/SourcePosition"
-          },
-          "message": {
-            "type": "string"
-          },
-          "start": {
-            "$ref": "#/components/schemas/SourcePosition"
-          }
-        },
-        "type": "object"
-      },
-      "Plan": {
-        "properties": {
-          "name": {
-            "description": "Name is the name of the plan.",
-            "type": "string"
-          },
-          "version": {
-            "description": "Version is the version of the plan. The combination of `name@version` must be unique.",
-            "format": "int64",
-            "type": "integer"
-          }
-        },
-        "required": ["name", "version"],
-        "type": "object"
-      },
-      "PlanDetails": {
-        "properties": {
-          "base_fee_monthly": {
-            "description": "BaseFeeMonthly is the monthly base fee for the plan.",
-            "format": "int64",
-            "type": "integer"
-          },
-          "base_fee_yearly": {
-            "description": "BaseFeeYearly is the yearly base fee for the plan.",
-            "format": "int64",
-            "type": "integer"
-          },
-          "custom": {
-            "description": "Custom is true if the plan is custom. This means it will be hidden from the pricing page.",
-            "type": "boolean"
-          },
-          "description": {
-            "description": "Description is the description of the plan.",
-            "type": "string"
-          },
-          "features": {
-            "additionalProperties": {
-              "$ref": "#/components/schemas/GenericUsage"
-            },
-            "description": "Features are the feature definitions included in the plan.",
-            "type": "object"
-          },
-          "name": {
-            "description": "Name is the name of the plan.",
-            "type": "string"
-          },
-          "version": {
-            "description": "Version is the version of the plan. The combination of `name@version` must be unique.",
-            "format": "int64",
-            "type": "integer"
-          }
-        },
-        "required": [
-          "name",
-          "version",
-          "description",
-          "custom",
-          "base_fee_monthly",
-          "base_fee_yearly",
-          "features"
-        ],
-        "type": "object"
-      },
-      "Pricing": {
-        "items": {
-          "$ref": "#/components/schemas/PlanDetails"
-        },
-        "type": "array"
-      },
-      "ProjectEventsDatapoint": {
-        "properties": {
-          "attributes": {
-            "description": "Event attributes with details",
-            "items": {
-              "$ref": "#/components/schemas/Attribute"
-            },
-            "type": "array"
-          },
-          "name": {
-            "description": "Name of the event",
-            "type": "string"
-          },
-          "timestamp": {
-            "description": "Time of occurence",
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": ["name", "timestamp", "attributes"],
-        "type": "object"
-      },
-      "RFC6749ErrorJson": {
-        "properties": {
-          "error": {
-            "type": "string"
-          },
-          "error_debug": {
-            "type": "string"
-          },
-          "error_description": {
-            "type": "string"
-          },
-          "error_hint": {
-            "type": "string"
-          },
-          "status_code": {
-            "format": "int64",
-            "type": "integer"
-          }
-        },
-        "title": "RFC6749ErrorJson is a helper struct for JSON encoding/decoding of RFC6749Error.",
-        "type": "object"
-      },
-      "RecoveryAddressType": {
-        "title": "RecoveryAddressType must not exceed 16 characters as that is the limitation in the SQL Schema.",
-        "type": "string"
-      },
-      "SessionActivityDatapoint": {
-        "properties": {
-          "country": {
-            "description": "Country of the events",
-            "type": "string"
-          },
-          "failed": {
-            "description": "Number of events that failed in the given timeframe",
-            "format": "int64",
-            "type": "integer"
-          },
-          "succeeded": {
-            "description": "Number of events that succeeded in the given timeframe",
-            "format": "int64",
-            "type": "integer"
-          }
-        },
-        "required": ["succeeded", "failed", "country"],
-        "type": "object"
-      },
-      "SourcePosition": {
-        "properties": {
-          "Line": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "column": {
-            "format": "int64",
-            "type": "integer"
-          }
-        },
-        "type": "object"
-      },
-      "String": {
-        "$ref": "#/components/schemas/NullString"
-      },
-      "StringSliceJSONFormat": {
-        "items": {
-          "type": "string"
-        },
-        "title": "StringSliceJSONFormat represents []string{} which is encoded to/from JSON for SQL storage.",
-        "type": "array"
-      },
-      "SubscriptionStatus": {
-        "description": "For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this state can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` state. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal state, the open invoice will be voided and no further invoices will be generated.\n\nA subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.\n\nIf subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).\n\nIf subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.",
-        "title": "Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `canceled`, or `unpaid`.",
-        "type": "string"
-      },
-      "Time": {
-        "format": "date-time",
-        "type": "string"
-      },
-      "UUID": {
-        "format": "uuid4",
-        "type": "string"
-      },
-      "Usage": {
-        "properties": {
-          "GenericUsage": {
-            "$ref": "#/components/schemas/GenericUsage"
-          }
-        },
-        "type": "object"
-      },
-      "VerifiableCredentialProof": {
-        "properties": {
-          "jwt": {
-            "type": "string"
-          },
-          "proof_type": {
-            "type": "string"
-          }
-        },
-        "title": "VerifiableCredentialProof contains the proof of a verifiable credential.",
-        "type": "object"
-      },
-      "Warning": {
-        "properties": {
-          "code": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "message": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "acceptOAuth2ConsentRequest": {
-        "properties": {
-          "grant_access_token_audience": {
-            "$ref": "#/components/schemas/StringSliceJSONFormat"
-          },
-          "grant_scope": {
-            "$ref": "#/components/schemas/StringSliceJSONFormat"
-          },
-          "handled_at": {
-            "$ref": "#/components/schemas/nullTime"
-          },
-          "remember": {
-            "description": "Remember, if set to true, tells ORY Hydra to remember this consent authorization and reuse it if the same\nclient asks the same user for the same, or a subset of, scope.",
-            "type": "boolean"
-          },
-          "remember_for": {
-            "description": "RememberFor sets how long the consent authorization should be remembered for in seconds. If set to `0`, the\nauthorization will be remembered indefinitely.",
-            "format": "int64",
-            "type": "integer"
-          },
-          "session": {
-            "$ref": "#/components/schemas/acceptOAuth2ConsentRequestSession"
-          }
-        },
-        "title": "The request payload used to accept a consent request.",
-        "type": "object"
-      },
-      "acceptOAuth2ConsentRequestSession": {
-        "properties": {
-          "access_token": {
-            "description": "AccessToken sets session data for the access and refresh token, as well as any future tokens issued by the\nrefresh grant. Keep in mind that this data will be available to anyone performing OAuth 2.0 Challenge Introspection.\nIf only your services can perform OAuth 2.0 Challenge Introspection, this is usually fine. But if third parties\ncan access that endpoint as well, sensitive data from the session might be exposed to them. Use with care!"
-          },
-          "id_token": {
-            "description": "IDToken sets session data for the OpenID Connect ID token. Keep in mind that the session'id payloads are readable\nby anyone that has access to the ID Challenge. Use with care!"
-          }
-        },
-        "title": "Pass session data to a consent request.",
-        "type": "object"
-      },
-      "acceptOAuth2LoginRequest": {
-        "properties": {
-          "acr": {
-            "description": "ACR sets the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it\nto express that, for example, a user authenticated using two factor authentication.",
-            "type": "string"
-          },
-          "amr": {
-            "$ref": "#/components/schemas/StringSliceJSONFormat"
-          },
-          "context": {
-            "$ref": "#/components/schemas/JSONRawMessage"
-          },
-          "extend_session_lifespan": {
-            "description": "Extend OAuth2 authentication session lifespan\n\nIf set to `true`, the OAuth2 authentication cookie lifespan is extended. This is for example useful if you want the user to be able to use `prompt=none` continuously.\n\nThis value can only be set to `true` if the user has an authentication, which is the case if the `skip` value is `true`.",
-            "type": "boolean"
-          },
-          "force_subject_identifier": {
-            "description": "ForceSubjectIdentifier forces the \"pairwise\" user ID of the end-user that authenticated. The \"pairwise\" user ID refers to the\n(Pairwise Identifier Algorithm)[http://openid.net/specs/openid-connect-core-1_0.html#PairwiseAlg] of the OpenID\nConnect specification. It allows you to set an obfuscated subject (\"user\") identifier that is unique to the client.\n\nPlease note that this changes the user ID on endpoint /userinfo and sub claim of the ID Token. It does not change the\nsub claim in the OAuth 2.0 Introspection.\n\nPer default, ORY Hydra handles this value with its own algorithm. In case you want to set this yourself\nyou can use this field. Please note that setting this field has no effect if `pairwise` is not configured in\nORY Hydra or the OAuth 2.0 Client does not expect a pairwise identifier (set via `subject_type` key in the client's\nconfiguration).\n\nPlease also be aware that ORY Hydra is unable to properly compute this value during authentication. This implies\nthat you have to compute this value on every authentication process (probably depending on the client ID or some\nother unique value).\n\nIf you fail to compute the proper value, then authentication processes which have id_token_hint set might fail.",
-            "type": "string"
-          },
-          "identity_provider_session_id": {
-            "description": "IdentityProviderSessionID is the session ID of the end-user that authenticated.\nIf specified, we will use this value to propagate the logout.",
-            "type": "string"
-          },
-          "remember": {
-            "description": "Remember, if set to true, tells ORY Hydra to remember this user by telling the user agent (browser) to store\na cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, he/she\nwill not be asked to log in again.",
-            "type": "boolean"
-          },
-          "remember_for": {
-            "description": "RememberFor sets how long the authentication should be remembered for in seconds. If set to `0`, the\nauthorization will be remembered for the duration of the browser session (using a session cookie).",
-            "format": "int64",
-            "type": "integer"
-          },
-          "subject": {
-            "description": "Subject is the user ID of the end-user that authenticated.",
-            "type": "string"
-          }
-        },
-        "required": ["subject"],
-        "title": "HandledLoginRequest is the request payload used to accept a login request.",
-        "type": "object"
-      },
-      "activeProjectInConsole": {
-        "description": "The Active Project ID",
-        "properties": {
-          "project_id": {
-            "description": "The Active Project ID\n\nformat: uuid",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "authenticatorAssuranceLevel": {
-        "description": "The authenticator assurance level can be one of \"aal1\", \"aal2\", or \"aal3\". A higher number means that it is harder\nfor an attacker to compromise the account.\n\nGenerally, \"aal1\" implies that one authentication factor was used while AAL2 implies that two factors (e.g.\npassword + TOTP) have been used.\n\nTo learn more about these levels please head over to: https://www.ory.sh/kratos/docs/concepts/credentials",
-        "enum": ["aal0", "aal1", "aal2", "aal3"],
-        "title": "Authenticator Assurance Level (AAL)",
-        "type": "string"
-      },
-      "batchPatchIdentitiesResponse": {
-        "description": "Patch identities response",
-        "properties": {
-          "identities": {
-            "description": "The patch responses for the individual identities.",
-            "items": {
-              "$ref": "#/components/schemas/identityPatchResponse"
-            },
-            "type": "array"
-          }
-        },
-        "type": "object"
-      },
-      "checkOplSyntaxBody": {
-        "description": "Ory Permission Language Document",
-        "type": "string"
-      },
-      "checkOplSyntaxResult": {
-        "properties": {
-          "errors": {
-            "description": "The list of syntax errors",
-            "items": {
-              "$ref": "#/components/schemas/ParseError"
-            },
-            "type": "array"
-          }
-        },
-        "title": "CheckOPLSyntaxResponse represents the response for an OPL syntax check request.",
-        "type": "object"
-      },
-      "checkPermissionResult": {
-        "description": "The content of the allowed field is mirrored in the HTTP status code.",
-        "properties": {
-          "allowed": {
-            "description": "whether the relation tuple is allowed",
-            "type": "boolean"
-          }
-        },
-        "required": ["allowed"],
-        "title": "Check Permission Result",
-        "type": "object"
-      },
-      "cloudAccount": {
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "id": {
-            "format": "uuid",
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "consistencyRequestParameters": {
-        "description": "Control API consistency guarantees",
-        "properties": {
-          "consistency": {
-            "description": "Read Consistency Level (preview)\n\nThe read consistency level determines the consistency guarantee for reads:\n\nstrong (slow): The read is guaranteed to return the most recent data committed at the start of the read.\neventual (very fast): The result will return data that is about 4.8 seconds old.\n\nThe default consistency guarantee can be changed in the Ory Network Console or using the Ory CLI with\n`ory patch project --replace '/previews/default_read_consistency_level=\"strong\"'`.\n\nSetting the default consistency level to `eventual` may cause regressions in the future as we add consistency\ncontrols to more APIs. Currently, the following APIs will be affected by this setting:\n\n`GET /admin/identities`\n\nThis feature is in preview and only available in Ory Network.\n ConsistencyLevelUnset  ConsistencyLevelUnset is the unset / default consistency level.\nstrong ConsistencyLevelStrong  ConsistencyLevelStrong is the strong consistency level.\neventual ConsistencyLevelEventual  ConsistencyLevelEventual is the eventual consistency level using follower read timestamps.",
-            "enum": ["", "strong", "eventual"],
-            "type": "string",
-            "x-go-enum-desc": " ConsistencyLevelUnset  ConsistencyLevelUnset is the unset / default consistency level.\nstrong ConsistencyLevelStrong  ConsistencyLevelStrong is the strong consistency level.\neventual ConsistencyLevelEventual  ConsistencyLevelEventual is the eventual consistency level using follower read timestamps."
-          }
-        },
-        "type": "object"
-      },
-      "continueWith": {
-        "discriminator": {
-          "mapping": {
-            "set_ory_session_token": "#/components/schemas/continueWithSetOrySessionToken",
-            "show_recovery_ui": "#/components/schemas/continueWithRecoveryUi",
-            "show_settings_ui": "#/components/schemas/continueWithSettingsUi",
-            "show_verification_ui": "#/components/schemas/continueWithVerificationUi"
-          },
-          "propertyName": "action"
-        },
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/continueWithVerificationUi"
-          },
-          {
-            "$ref": "#/components/schemas/continueWithSetOrySessionToken"
-          },
-          {
-            "$ref": "#/components/schemas/continueWithSettingsUi"
-          },
-          {
-            "$ref": "#/components/schemas/continueWithRecoveryUi"
-          }
-        ]
-      },
-      "continueWithRecoveryUi": {
-        "description": "Indicates, that the UI flow could be continued by showing a recovery ui",
-        "properties": {
-          "action": {
-            "description": "Action will always be `show_recovery_ui`\nshow_recovery_ui ContinueWithActionShowRecoveryUIString",
-            "enum": ["show_recovery_ui"],
-            "type": "string",
-            "x-go-enum-desc": "show_recovery_ui ContinueWithActionShowRecoveryUIString"
-          },
-          "flow": {
-            "$ref": "#/components/schemas/continueWithRecoveryUiFlow"
-          }
-        },
-        "required": ["action", "flow"],
-        "type": "object"
-      },
-      "continueWithRecoveryUiFlow": {
-        "properties": {
-          "id": {
-            "description": "The ID of the recovery flow",
-            "format": "uuid",
-            "type": "string"
-          },
-          "url": {
-            "description": "The URL of the recovery flow",
-            "type": "string"
-          }
-        },
-        "required": ["id"],
-        "type": "object"
-      },
-      "continueWithSetOrySessionToken": {
-        "description": "Indicates that a session was issued, and the application should use this token for authenticated requests",
-        "properties": {
-          "action": {
-            "description": "Action will always be `set_ory_session_token`\nset_ory_session_token ContinueWithActionSetOrySessionTokenString",
-            "enum": ["set_ory_session_token"],
-            "type": "string",
-            "x-go-enum-desc": "set_ory_session_token ContinueWithActionSetOrySessionTokenString"
-          },
-          "ory_session_token": {
-            "description": "Token is the token of the session",
-            "type": "string"
-          }
-        },
-        "required": ["action", "ory_session_token"],
-        "type": "object"
-      },
-      "continueWithSettingsUi": {
-        "description": "Indicates, that the UI flow could be continued by showing a settings ui",
-        "properties": {
-          "action": {
-            "description": "Action will always be `show_settings_ui`\nshow_settings_ui ContinueWithActionShowSettingsUIString",
-            "enum": ["show_settings_ui"],
-            "type": "string",
-            "x-go-enum-desc": "show_settings_ui ContinueWithActionShowSettingsUIString"
-          },
-          "flow": {
-            "$ref": "#/components/schemas/continueWithSettingsUiFlow"
-          }
-        },
-        "required": ["action", "flow"],
-        "type": "object"
-      },
-      "continueWithSettingsUiFlow": {
-        "properties": {
-          "id": {
-            "description": "The ID of the settings flow",
-            "format": "uuid",
-            "type": "string"
-          }
-        },
-        "required": ["id"],
-        "type": "object"
-      },
-      "continueWithVerificationUi": {
-        "description": "Indicates, that the UI flow could be continued by showing a verification ui",
-        "properties": {
-          "action": {
-            "description": "Action will always be `show_verification_ui`\nshow_verification_ui ContinueWithActionShowVerificationUIString",
-            "enum": ["show_verification_ui"],
-            "type": "string",
-            "x-go-enum-desc": "show_verification_ui ContinueWithActionShowVerificationUIString"
-          },
-          "flow": {
-            "$ref": "#/components/schemas/continueWithVerificationUiFlow"
-          }
-        },
-        "required": ["action", "flow"],
-        "type": "object"
-      },
-      "continueWithVerificationUiFlow": {
-        "properties": {
-          "id": {
-            "description": "The ID of the verification flow",
-            "format": "uuid",
-            "type": "string"
-          },
-          "url": {
-            "description": "The URL of the verification flow",
-            "type": "string"
-          },
-          "verifiable_address": {
-            "description": "The address that should be verified in this flow",
-            "type": "string"
-          }
-        },
-        "required": ["id", "verifiable_address"],
-        "type": "object"
-      },
-      "courierMessageStatus": {
-        "description": "A Message's Status",
-        "enum": ["queued", "sent", "processing", "abandoned"],
-        "type": "string"
-      },
-      "courierMessageType": {
-        "description": "It can either be `email` or `phone`",
-        "enum": ["email", "phone"],
-        "title": "A Message's Type",
-        "type": "string"
-      },
-      "createCustomDomainBody": {
-        "description": "Create Custom Hostname Request Body",
-        "properties": {
-          "cookie_domain": {
-            "description": "The domain where cookies will be set. Has to be a parent domain of the custom hostname to work.",
-            "type": "string"
-          },
-          "cors_allowed_origins": {
-            "description": "CORS Allowed origins for the custom hostname.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "cors_enabled": {
-            "description": "CORS Enabled for the custom hostname.",
-            "type": "boolean"
-          },
-          "custom_ui_base_url": {
-            "description": "The base URL where the custom user interface will be exposed.",
-            "type": "string"
-          },
-          "hostname": {
-            "description": "The custom hostname where the API will be exposed.",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
-      "createEventStreamBody": {
-        "description": "Create Event Stream Request Body",
-        "properties": {
-          "role_arn": {
-            "description": "The AWS IAM role ARN to assume when publishing to the SNS topic.",
-            "type": "string"
-          },
-          "topic_arn": {
-            "description": "The AWS SNS topic ARN.",
-            "type": "string"
-          },
-          "type": {
-            "description": "The type of the event stream (AWS SNS, GCP Pub/Sub, etc).",
-            "enum": ["sns"],
-            "type": "string"
-          }
-        },
-        "required": ["type", "topic_arn", "role_arn"],
-        "type": "object"
-      },
-      "createIdentityBody": {
-        "description": "Create Identity Body",
-        "properties": {
-          "credentials": {
-            "$ref": "#/components/schemas/identityWithCredentials"
-          },
-          "metadata_admin": {
-            "description": "Store metadata about the user which is only accessible through admin APIs such as `GET /admin/identities/\u003cid\u003e`."
-          },
-          "metadata_public": {
-            "description": "Store metadata about the identity which the identity itself can see when calling for example the\nsession endpoint. Do not store sensitive information (e.g. credit score) about the identity in this field."
-          },
-          "recovery_addresses": {
-            "description": "RecoveryAddresses contains all the addresses that can be used to recover an identity.\n\nUse this structure to import recovery addresses for an identity. Please keep in mind\nthat the address needs to be represented in the Identity Schema or this field will be overwritten\non the next identity update.",
-            "items": {
-              "$ref": "#/components/schemas/recoveryIdentityAddress"
-            },
-            "type": "array"
-          },
-          "schema_id": {
-            "description": "SchemaID is the ID of the JSON Schema to be used for validating the identity's traits.",
-            "type": "string"
-          },
-          "state": {
-            "$ref": "#/components/schemas/identityState"
-          },
-          "traits": {
-            "description": "Traits represent an identity's traits. The identity is able to create, modify, and delete traits\nin a self-service manner. The input will always be validated against the JSON Schema defined\nin `schema_url`.",
-            "type": "object"
-          },
-          "verifiable_addresses": {
-            "description": "VerifiableAddresses contains all the addresses that can be verified by the user.\n\nUse this structure to import verified addresses for an identity. Please keep in mind\nthat the address needs to be represented in the Identity Schema or this field will be overwritten\non the next identity update.",
-            "items": {
-              "$ref": "#/components/schemas/verifiableIdentityAddress"
-            },
-            "type": "array"
-          }
-        },
-        "required": ["schema_id", "traits"],
-        "type": "object"
-      },
-      "createJsonWebKeySet": {
-        "description": "Create JSON Web Key Set Request Body",
-        "properties": {
-          "alg": {
-            "description": "JSON Web Key Algorithm\n\nThe algorithm to be used for creating the key. Supports `RS256`, `ES256`, `ES512`, `HS512`, and `HS256`.",
-            "type": "string"
-          },
-          "kid": {
-            "description": "JSON Web Key ID\n\nThe Key ID of the key to be created.",
-            "type": "string"
-          },
-          "use": {
-            "description": "JSON Web Key Use\n\nThe \"use\" (public key use) parameter identifies the intended use of\nthe public key. The \"use\" parameter is employed to indicate whether\na public key is used for encrypting data or verifying the signature\non data. Valid values are \"enc\" and \"sig\".",
-            "type": "string"
-          }
-        },
-        "required": ["alg", "use", "kid"],
-        "type": "object"
-      },
-      "createMemberInviteResponse": {
-        "$ref": "#/components/schemas/CreateInviteResponse"
-      },
-      "createProjectBody": {
-        "description": "Create Project Request Body",
-        "properties": {
-          "name": {
-            "description": "The name of the project to be created",
-            "type": "string"
-          },
-          "workspace_id": {
-            "$ref": "#/components/schemas/NullUUID"
-          }
-        },
-        "required": ["name"],
-        "type": "object"
-      },
-      "createProjectBranding": {
-        "description": "Create a Project Branding",
-        "properties": {
-          "favicon_type": {
-            "type": "string"
-          },
-          "favicon_url": {
-            "type": "string"
-          },
-          "logo_type": {
-            "type": "string"
-          },
-          "logo_url": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "theme": {
-            "$ref": "#/components/schemas/projectBrandingColors"
-          }
-        },
-        "type": "object"
-      },
-      "createProjectNormalizedPayload": {
+      "CreateProjectNormalizedPayload": {
         "description": "Create project (normalized) request payload",
         "properties": {
           "created_at": {
@@ -1111,6 +213,16 @@
           "disable_account_experience_welcome_screen": {
             "description": "Whether to disable the account experience welcome screen, which is hosted under `/ui/welcome`.",
             "type": "boolean"
+          },
+          "enable_ax_v2": {
+            "description": "Whether the new account experience is enabled and reachable.",
+            "type": "boolean"
+          },
+          "environment": {
+            "description": "\nprod Production\ndev Development",
+            "enum": ["prod", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\ndev Development"
           },
           "hydra_oauth2_allowed_top_level_claims": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -1137,6 +249,10 @@
             "example": "30m",
             "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
             "type": "string"
+          },
+          "hydra_oauth2_mirror_top_level_claims": {
+            "description": "Set to false if you don't want to mirror custom claims under 'ext'.\n\nThis governs the \"oauth2.mirror_top_level_claims\" setting.",
+            "type": "boolean"
           },
           "hydra_oauth2_pkce_enforced": {
             "description": "Configures whether PKCE should be enforced for all OAuth2 Clients.\n\nThis governs the \"oauth2.pkce.enforced\" setting.",
@@ -1383,6 +499,10 @@
           },
           "kratos_courier_templates_login_code_valid_email_subject": {
             "description": "Configures the Ory Kratos Valid Login via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.login_code.valid.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_login_code_valid_sms_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Login via Code SMS plain text body\n\nThis governs the \"courier.smtp.templates.login_code.valid.sms.plaintext\" setting.",
             "type": "string"
           },
           "kratos_courier_templates_recovery_code_invalid_email_body_html": {
@@ -1723,6 +843,10 @@
             "description": "Configures whether Ory Kratos Code Method is enabled\n\nThis governs the \"selfservice.methods.code.enabled\" setting.",
             "type": "boolean"
           },
+          "kratos_selfservice_methods_code_mfa_enabled": {
+            "description": "Configues whether the code method can be used to fulfil MFA flows\n\nThis governs the \"selfservice.methods.code.mfa_enabled\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_code_passwordless_enabled": {
             "description": "Configues whether Ory Kratos Passwordless should use the Code Method\n\nThis governs the \"selfservice.methods.code.passwordless_enabled\" setting.",
             "type": "boolean"
@@ -1874,7 +998,942 @@
             "$ref": "#/components/schemas/NullUUID"
           }
         },
-        "required": ["name"],
+        "required": ["name", "environment"],
+        "type": "object"
+      },
+      "CreateSubscriptionCommon": {
+        "properties": {
+          "currency": {
+            "description": "\nusd USD\neur Euro",
+            "enum": ["usd", "eur"],
+            "type": "string",
+            "x-go-enum-desc": "usd USD\neur Euro"
+          },
+          "interval": {
+            "description": "\nmonthly Monthly\nyearly Yearly",
+            "enum": ["monthly", "yearly"],
+            "type": "string",
+            "x-go-enum-desc": "monthly Monthly\nyearly Yearly"
+          },
+          "plan": {
+            "type": "string"
+          },
+          "return_to": {
+            "type": "string"
+          }
+        },
+        "required": ["plan", "interval"],
+        "type": "object"
+      },
+      "CreateVerifiableCredentialRequestBody": {
+        "properties": {
+          "format": {
+            "type": "string"
+          },
+          "proof": {
+            "$ref": "#/components/schemas/VerifiableCredentialProof"
+          },
+          "types": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "title": "CreateVerifiableCredentialRequestBody contains the request body to request a verifiable credential.",
+        "type": "object"
+      },
+      "CreateWorkspaceMemberInviteBody": {
+        "description": "Create Workspace Invite Request Body",
+        "properties": {
+          "invitee_email": {
+            "description": "A email to invite",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CustomHostnameStatus": {
+        "title": "CustomHostnameStatus is the enumeration of valid state values in the CustomHostnameSSL.",
+        "type": "string"
+      },
+      "DefaultError": {},
+      "Duration": {
+        "description": "A Duration represents the elapsed time between two instants\nas an int64 nanosecond count. The representation limits the\nlargest representable duration to approximately 290 years.",
+        "format": "int64",
+        "type": "integer"
+      },
+      "GenericUsage": {
+        "properties": {
+          "additional_price": {
+            "description": "AdditionalPrice is the price per-unit in cent exceeding IncludedUsage. A price of 0 means that no other items can be consumed.",
+            "format": "int64",
+            "type": "integer"
+          },
+          "included_usage": {
+            "description": "IncludedUsage is the number of included items.",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": ["included_usage", "additional_price"],
+        "title": "GenericUsage is the generic usage type that can be used for any feature.",
+        "type": "object"
+      },
+      "ID": {
+        "format": "int64",
+        "type": "integer"
+      },
+      "JSONRawMessage": {
+        "title": "JSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger.",
+        "type": "object"
+      },
+      "KetoNamespace": {
+        "properties": {
+          "id": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "KetoNamespaces": {
+        "items": {
+          "$ref": "#/components/schemas/KetoNamespace"
+        },
+        "type": "array"
+      },
+      "ListMyWorkspacesResponse": {
+        "properties": {
+          "has_next_page": {
+            "type": "boolean"
+          },
+          "next_page_token": {
+            "type": "string"
+          },
+          "workspaces": {
+            "items": {
+              "$ref": "#/components/schemas/workspaceMeta"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["workspaces", "next_page_token", "has_next_page"],
+        "type": "object"
+      },
+      "NormalizedProjectRevisionCourierChannel": {
+        "properties": {
+          "channel_id": {
+            "description": "The Channel's public ID",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "The creation date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "request_config_auth_config_api_key_in": {
+            "description": "API key location\n\nCan either be \"header\" or \"query\"",
+            "example": "header",
+            "type": "string"
+          },
+          "request_config_auth_config_api_key_name": {
+            "description": "API key name\n\nOnly used if the auth type is api_key",
+            "type": "string"
+          },
+          "request_config_auth_config_api_key_value": {
+            "description": "API key value\n\nOnly used if the auth type is api_key",
+            "type": "string"
+          },
+          "request_config_auth_config_basic_auth_password": {
+            "description": "Basic Auth Password\n\nOnly used if the auth type is basic_auth",
+            "type": "string"
+          },
+          "request_config_auth_config_basic_auth_user": {
+            "description": "Basic Auth Username\n\nOnly used if the auth type is basic_auth",
+            "type": "string"
+          },
+          "request_config_auth_type": {
+            "description": "HTTP Auth Method to use for the HTTP call\n\nCan either be basic_auth or api_key\nbasic_auth CourierChannelAuthTypeBasicAuth\napi_key CourierChannelAuthTypeApiKey",
+            "enum": ["basic_auth", "api_key"],
+            "type": "string",
+            "x-go-enum-desc": "basic_auth CourierChannelAuthTypeBasicAuth\napi_key CourierChannelAuthTypeApiKey"
+          },
+          "request_config_body": {
+            "description": "URI pointing to the JsonNet template used for HTTP body payload generation.",
+            "type": "string"
+          },
+          "request_config_headers": {
+            "$ref": "#/components/schemas/nullJsonRawMessage"
+          },
+          "request_config_method": {
+            "description": "The HTTP method to use (GET, POST, etc) for the HTTP call",
+            "example": "POST",
+            "type": "string"
+          },
+          "request_config_url": {
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "Last upate time",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "channel_id",
+          "request_config_method",
+          "request_config_body"
+        ],
+        "type": "object"
+      },
+      "NullBool": {
+        "nullable": true,
+        "type": "boolean"
+      },
+      "NullDuration": {
+        "nullable": true,
+        "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+        "type": "string"
+      },
+      "NullInt": {
+        "nullable": true,
+        "type": "integer"
+      },
+      "NullString": {
+        "nullable": true,
+        "type": "string"
+      },
+      "NullTime": {
+        "format": "date-time",
+        "nullable": true,
+        "type": "string"
+      },
+      "NullUUID": {
+        "format": "uuid4",
+        "nullable": true,
+        "type": "string"
+      },
+      "OAuth2LoginChallengeParams": {
+        "type": "object"
+      },
+      "OrganizationBody": {
+        "description": "Create B2B SSO Organization Request Body",
+        "properties": {
+          "domains": {
+            "description": "Domains contains the list of organization's domains.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "label": {
+            "description": "Label contains the organization's label.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ParseError": {
+        "properties": {
+          "end": {
+            "$ref": "#/components/schemas/SourcePosition"
+          },
+          "message": {
+            "type": "string"
+          },
+          "start": {
+            "$ref": "#/components/schemas/SourcePosition"
+          }
+        },
+        "type": "object"
+      },
+      "Plan": {
+        "properties": {
+          "name": {
+            "description": "Name is the name of the plan.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Version is the version of the plan. The combination of `name@version` must be unique.",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": ["name", "version"],
+        "type": "object"
+      },
+      "PlanDetails": {
+        "properties": {
+          "base_fee_monthly": {
+            "description": "BaseFeeMonthly is the monthly base fee for the plan.",
+            "format": "int64",
+            "type": "integer"
+          },
+          "base_fee_yearly": {
+            "description": "BaseFeeYearly is the yearly base fee for the plan.",
+            "format": "int64",
+            "type": "integer"
+          },
+          "custom": {
+            "description": "Custom is true if the plan is custom. This means it will be hidden from the pricing page.",
+            "type": "boolean"
+          },
+          "description": {
+            "description": "Description is the description of the plan.",
+            "type": "string"
+          },
+          "features": {
+            "$ref": "#/components/schemas/PlanFeatures"
+          },
+          "name": {
+            "description": "Name is the name of the plan.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Version is the version of the plan. The combination of `name@version` must be unique.",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "version",
+          "description",
+          "custom",
+          "base_fee_monthly",
+          "base_fee_yearly",
+          "features"
+        ],
+        "type": "object"
+      },
+      "PlanFeatures": {
+        "additionalProperties": {
+          "$ref": "#/components/schemas/GenericUsage"
+        },
+        "title": "Features are the feature definitions included in the plan.",
+        "type": "object"
+      },
+      "Pricing": {
+        "items": {
+          "$ref": "#/components/schemas/PlanDetails"
+        },
+        "type": "array"
+      },
+      "ProjectEventsDatapoint": {
+        "properties": {
+          "attributes": {
+            "description": "Event attributes with details",
+            "items": {
+              "$ref": "#/components/schemas/Attribute"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the event",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "Time of occurence",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["name", "timestamp", "attributes"],
+        "type": "object"
+      },
+      "RFC6749ErrorJson": {
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "error_debug": {
+            "type": "string"
+          },
+          "error_description": {
+            "type": "string"
+          },
+          "error_hint": {
+            "type": "string"
+          },
+          "status_code": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "title": "RFC6749ErrorJson is a helper struct for JSON encoding/decoding of RFC6749Error.",
+        "type": "object"
+      },
+      "RecoveryAddressType": {
+        "title": "RecoveryAddressType must not exceed 16 characters as that is the limitation in the SQL Schema.",
+        "type": "string"
+      },
+      "SessionActivityDatapoint": {
+        "properties": {
+          "country": {
+            "description": "Country of the events",
+            "type": "string"
+          },
+          "failed": {
+            "description": "Number of events that failed in the given timeframe",
+            "format": "int64",
+            "type": "integer"
+          },
+          "succeeded": {
+            "description": "Number of events that succeeded in the given timeframe",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": ["succeeded", "failed", "country"],
+        "type": "object"
+      },
+      "SourcePosition": {
+        "properties": {
+          "Line": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "column": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "String": {
+        "$ref": "#/components/schemas/NullString"
+      },
+      "StringSliceJSONFormat": {
+        "items": {
+          "type": "string"
+        },
+        "title": "StringSliceJSONFormat represents []string{} which is encoded to/from JSON for SQL storage.",
+        "type": "array"
+      },
+      "SubscriptionStatus": {
+        "description": "For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this state can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` state. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal state, the open invoice will be voided and no further invoices will be generated.\n\nA subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.\n\nIf subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).\n\nIf subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.",
+        "title": "Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `canceled`, or `unpaid`.",
+        "type": "string"
+      },
+      "Time": {
+        "format": "date-time",
+        "type": "string"
+      },
+      "UUID": {
+        "format": "uuid4",
+        "type": "string"
+      },
+      "Usage": {
+        "properties": {
+          "GenericUsage": {
+            "$ref": "#/components/schemas/GenericUsage"
+          }
+        },
+        "type": "object"
+      },
+      "VerifiableCredentialProof": {
+        "properties": {
+          "jwt": {
+            "type": "string"
+          },
+          "proof_type": {
+            "type": "string"
+          }
+        },
+        "title": "VerifiableCredentialProof contains the proof of a verifiable credential.",
+        "type": "object"
+      },
+      "Warning": {
+        "properties": {
+          "code": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "acceptOAuth2ConsentRequest": {
+        "properties": {
+          "context": {
+            "$ref": "#/components/schemas/JSONRawMessage"
+          },
+          "grant_access_token_audience": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "grant_scope": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "handled_at": {
+            "$ref": "#/components/schemas/nullTime"
+          },
+          "remember": {
+            "description": "Remember, if set to true, tells ORY Hydra to remember this consent authorization and reuse it if the same\nclient asks the same user for the same, or a subset of, scope.",
+            "type": "boolean"
+          },
+          "remember_for": {
+            "description": "RememberFor sets how long the consent authorization should be remembered for in seconds. If set to `0`, the\nauthorization will be remembered indefinitely.",
+            "format": "int64",
+            "type": "integer"
+          },
+          "session": {
+            "$ref": "#/components/schemas/acceptOAuth2ConsentRequestSession"
+          }
+        },
+        "title": "The request payload used to accept a consent request.",
+        "type": "object"
+      },
+      "acceptOAuth2ConsentRequestSession": {
+        "properties": {
+          "access_token": {
+            "description": "AccessToken sets session data for the access and refresh token, as well as any future tokens issued by the\nrefresh grant. Keep in mind that this data will be available to anyone performing OAuth 2.0 Challenge Introspection.\nIf only your services can perform OAuth 2.0 Challenge Introspection, this is usually fine. But if third parties\ncan access that endpoint as well, sensitive data from the session might be exposed to them. Use with care!"
+          },
+          "id_token": {
+            "description": "IDToken sets session data for the OpenID Connect ID token. Keep in mind that the session'id payloads are readable\nby anyone that has access to the ID Challenge. Use with care!"
+          }
+        },
+        "title": "Pass session data to a consent request.",
+        "type": "object"
+      },
+      "acceptOAuth2LoginRequest": {
+        "properties": {
+          "acr": {
+            "description": "ACR sets the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it\nto express that, for example, a user authenticated using two factor authentication.",
+            "type": "string"
+          },
+          "amr": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "context": {
+            "$ref": "#/components/schemas/JSONRawMessage"
+          },
+          "extend_session_lifespan": {
+            "description": "Extend OAuth2 authentication session lifespan\n\nIf set to `true`, the OAuth2 authentication cookie lifespan is extended. This is for example useful if you want the user to be able to use `prompt=none` continuously.\n\nThis value can only be set to `true` if the user has an authentication, which is the case if the `skip` value is `true`.",
+            "type": "boolean"
+          },
+          "force_subject_identifier": {
+            "description": "ForceSubjectIdentifier forces the \"pairwise\" user ID of the end-user that authenticated. The \"pairwise\" user ID refers to the\n(Pairwise Identifier Algorithm)[http://openid.net/specs/openid-connect-core-1_0.html#PairwiseAlg] of the OpenID\nConnect specification. It allows you to set an obfuscated subject (\"user\") identifier that is unique to the client.\n\nPlease note that this changes the user ID on endpoint /userinfo and sub claim of the ID Token. It does not change the\nsub claim in the OAuth 2.0 Introspection.\n\nPer default, ORY Hydra handles this value with its own algorithm. In case you want to set this yourself\nyou can use this field. Please note that setting this field has no effect if `pairwise` is not configured in\nORY Hydra or the OAuth 2.0 Client does not expect a pairwise identifier (set via `subject_type` key in the client's\nconfiguration).\n\nPlease also be aware that ORY Hydra is unable to properly compute this value during authentication. This implies\nthat you have to compute this value on every authentication process (probably depending on the client ID or some\nother unique value).\n\nIf you fail to compute the proper value, then authentication processes which have id_token_hint set might fail.",
+            "type": "string"
+          },
+          "identity_provider_session_id": {
+            "description": "IdentityProviderSessionID is the session ID of the end-user that authenticated.\nIf specified, we will use this value to propagate the logout.",
+            "type": "string"
+          },
+          "remember": {
+            "description": "Remember, if set to true, tells ORY Hydra to remember this user by telling the user agent (browser) to store\na cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, he/she\nwill not be asked to log in again.",
+            "type": "boolean"
+          },
+          "remember_for": {
+            "description": "RememberFor sets how long the authentication should be remembered for in seconds. If set to `0`, the\nauthorization will be remembered for the duration of the browser session (using a session cookie).",
+            "format": "int64",
+            "type": "integer"
+          },
+          "subject": {
+            "description": "Subject is the user ID of the end-user that authenticated.",
+            "type": "string"
+          }
+        },
+        "required": ["subject"],
+        "title": "HandledLoginRequest is the request payload used to accept a login request.",
+        "type": "object"
+      },
+      "activeProjectInConsole": {
+        "description": "The Active Project ID",
+        "properties": {
+          "project_id": {
+            "description": "The Active Project ID\n\nformat: uuid",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "authenticatorAssuranceLevel": {
+        "description": "The authenticator assurance level can be one of \"aal1\", \"aal2\", or \"aal3\". A higher number means that it is harder\nfor an attacker to compromise the account.\n\nGenerally, \"aal1\" implies that one authentication factor was used while AAL2 implies that two factors (e.g.\npassword + TOTP) have been used.\n\nTo learn more about these levels please head over to: https://www.ory.sh/kratos/docs/concepts/credentials",
+        "enum": ["aal0", "aal1", "aal2", "aal3"],
+        "title": "Authenticator Assurance Level (AAL)",
+        "type": "string"
+      },
+      "batchPatchIdentitiesResponse": {
+        "description": "Patch identities response",
+        "properties": {
+          "identities": {
+            "description": "The patch responses for the individual identities.",
+            "items": {
+              "$ref": "#/components/schemas/identityPatchResponse"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "checkOplSyntaxBody": {
+        "description": "Ory Permission Language Document",
+        "type": "string"
+      },
+      "checkOplSyntaxResult": {
+        "properties": {
+          "errors": {
+            "description": "The list of syntax errors",
+            "items": {
+              "$ref": "#/components/schemas/ParseError"
+            },
+            "type": "array"
+          }
+        },
+        "title": "CheckOPLSyntaxResponse represents the response for an OPL syntax check request.",
+        "type": "object"
+      },
+      "checkPermissionResult": {
+        "description": "The content of the allowed field is mirrored in the HTTP status code.",
+        "properties": {
+          "allowed": {
+            "description": "whether the relation tuple is allowed",
+            "type": "boolean"
+          }
+        },
+        "required": ["allowed"],
+        "title": "Check Permission Result",
+        "type": "object"
+      },
+      "cloudAccount": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "email", "name"],
+        "type": "object"
+      },
+      "consistencyRequestParameters": {
+        "description": "Control API consistency guarantees",
+        "properties": {
+          "consistency": {
+            "description": "Read Consistency Level (preview)\n\nThe read consistency level determines the consistency guarantee for reads:\n\nstrong (slow): The read is guaranteed to return the most recent data committed at the start of the read.\neventual (very fast): The result will return data that is about 4.8 seconds old.\n\nThe default consistency guarantee can be changed in the Ory Network Console or using the Ory CLI with\n`ory patch project --replace '/previews/default_read_consistency_level=\"strong\"'`.\n\nSetting the default consistency level to `eventual` may cause regressions in the future as we add consistency\ncontrols to more APIs. Currently, the following APIs will be affected by this setting:\n\n`GET /admin/identities`\n\nThis feature is in preview and only available in Ory Network.\n ConsistencyLevelUnset  ConsistencyLevelUnset is the unset / default consistency level.\nstrong ConsistencyLevelStrong  ConsistencyLevelStrong is the strong consistency level.\neventual ConsistencyLevelEventual  ConsistencyLevelEventual is the eventual consistency level using follower read timestamps.",
+            "enum": ["", "strong", "eventual"],
+            "type": "string",
+            "x-go-enum-desc": " ConsistencyLevelUnset  ConsistencyLevelUnset is the unset / default consistency level.\nstrong ConsistencyLevelStrong  ConsistencyLevelStrong is the strong consistency level.\neventual ConsistencyLevelEventual  ConsistencyLevelEventual is the eventual consistency level using follower read timestamps."
+          }
+        },
+        "type": "object"
+      },
+      "continueWith": {
+        "discriminator": {
+          "mapping": {
+            "set_ory_session_token": "#/components/schemas/continueWithSetOrySessionToken",
+            "show_recovery_ui": "#/components/schemas/continueWithRecoveryUi",
+            "show_settings_ui": "#/components/schemas/continueWithSettingsUi",
+            "show_verification_ui": "#/components/schemas/continueWithVerificationUi"
+          },
+          "propertyName": "action"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/continueWithVerificationUi"
+          },
+          {
+            "$ref": "#/components/schemas/continueWithSetOrySessionToken"
+          },
+          {
+            "$ref": "#/components/schemas/continueWithSettingsUi"
+          },
+          {
+            "$ref": "#/components/schemas/continueWithRecoveryUi"
+          }
+        ]
+      },
+      "continueWithRecoveryUi": {
+        "description": "Indicates, that the UI flow could be continued by showing a recovery ui",
+        "properties": {
+          "action": {
+            "description": "Action will always be `show_recovery_ui`\nshow_recovery_ui ContinueWithActionShowRecoveryUIString",
+            "enum": ["show_recovery_ui"],
+            "type": "string",
+            "x-go-enum-desc": "show_recovery_ui ContinueWithActionShowRecoveryUIString"
+          },
+          "flow": {
+            "$ref": "#/components/schemas/continueWithRecoveryUiFlow"
+          }
+        },
+        "required": ["action", "flow"],
+        "type": "object"
+      },
+      "continueWithRecoveryUiFlow": {
+        "properties": {
+          "id": {
+            "description": "The ID of the recovery flow",
+            "format": "uuid",
+            "type": "string"
+          },
+          "url": {
+            "description": "The URL of the recovery flow",
+            "type": "string"
+          }
+        },
+        "required": ["id"],
+        "type": "object"
+      },
+      "continueWithSetOrySessionToken": {
+        "description": "Indicates that a session was issued, and the application should use this token for authenticated requests",
+        "properties": {
+          "action": {
+            "description": "Action will always be `set_ory_session_token`\nset_ory_session_token ContinueWithActionSetOrySessionTokenString",
+            "enum": ["set_ory_session_token"],
+            "type": "string",
+            "x-go-enum-desc": "set_ory_session_token ContinueWithActionSetOrySessionTokenString"
+          },
+          "ory_session_token": {
+            "description": "Token is the token of the session",
+            "type": "string"
+          }
+        },
+        "required": ["action", "ory_session_token"],
+        "type": "object"
+      },
+      "continueWithSettingsUi": {
+        "description": "Indicates, that the UI flow could be continued by showing a settings ui",
+        "properties": {
+          "action": {
+            "description": "Action will always be `show_settings_ui`\nshow_settings_ui ContinueWithActionShowSettingsUIString",
+            "enum": ["show_settings_ui"],
+            "type": "string",
+            "x-go-enum-desc": "show_settings_ui ContinueWithActionShowSettingsUIString"
+          },
+          "flow": {
+            "$ref": "#/components/schemas/continueWithSettingsUiFlow"
+          }
+        },
+        "required": ["action", "flow"],
+        "type": "object"
+      },
+      "continueWithSettingsUiFlow": {
+        "properties": {
+          "id": {
+            "description": "The ID of the settings flow",
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "required": ["id"],
+        "type": "object"
+      },
+      "continueWithVerificationUi": {
+        "description": "Indicates, that the UI flow could be continued by showing a verification ui",
+        "properties": {
+          "action": {
+            "description": "Action will always be `show_verification_ui`\nshow_verification_ui ContinueWithActionShowVerificationUIString",
+            "enum": ["show_verification_ui"],
+            "type": "string",
+            "x-go-enum-desc": "show_verification_ui ContinueWithActionShowVerificationUIString"
+          },
+          "flow": {
+            "$ref": "#/components/schemas/continueWithVerificationUiFlow"
+          }
+        },
+        "required": ["action", "flow"],
+        "type": "object"
+      },
+      "continueWithVerificationUiFlow": {
+        "properties": {
+          "id": {
+            "description": "The ID of the verification flow",
+            "format": "uuid",
+            "type": "string"
+          },
+          "url": {
+            "description": "The URL of the verification flow",
+            "type": "string"
+          },
+          "verifiable_address": {
+            "description": "The address that should be verified in this flow",
+            "type": "string"
+          }
+        },
+        "required": ["id", "verifiable_address"],
+        "type": "object"
+      },
+      "courierMessageStatus": {
+        "description": "A Message's Status",
+        "enum": ["queued", "sent", "processing", "abandoned"],
+        "type": "string"
+      },
+      "courierMessageType": {
+        "description": "It can either be `email` or `phone`",
+        "enum": ["email", "phone"],
+        "title": "A Message's Type",
+        "type": "string"
+      },
+      "createCustomDomainBody": {
+        "description": "Create Custom Hostname Request Body",
+        "properties": {
+          "cookie_domain": {
+            "description": "The domain where cookies will be set. Has to be a parent domain of the custom hostname to work.",
+            "type": "string"
+          },
+          "cors_allowed_origins": {
+            "description": "CORS Allowed origins for the custom hostname.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cors_enabled": {
+            "description": "CORS Enabled for the custom hostname.",
+            "type": "boolean"
+          },
+          "custom_ui_base_url": {
+            "description": "The base URL where the custom user interface will be exposed.",
+            "type": "string"
+          },
+          "hostname": {
+            "description": "The custom hostname where the API will be exposed.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "createEventStreamBody": {
+        "description": "Create Event Stream Request Body",
+        "properties": {
+          "role_arn": {
+            "description": "The AWS IAM role ARN to assume when publishing to the SNS topic.",
+            "type": "string"
+          },
+          "topic_arn": {
+            "description": "The AWS SNS topic ARN.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of the event stream (AWS SNS, GCP Pub/Sub, etc).",
+            "enum": ["sns"],
+            "type": "string"
+          }
+        },
+        "required": ["type", "topic_arn", "role_arn"],
+        "type": "object"
+      },
+      "createIdentityBody": {
+        "description": "Create Identity Body",
+        "properties": {
+          "credentials": {
+            "$ref": "#/components/schemas/identityWithCredentials"
+          },
+          "metadata_admin": {
+            "description": "Store metadata about the user which is only accessible through admin APIs such as `GET /admin/identities/\u003cid\u003e`."
+          },
+          "metadata_public": {
+            "description": "Store metadata about the identity which the identity itself can see when calling for example the\nsession endpoint. Do not store sensitive information (e.g. credit score) about the identity in this field."
+          },
+          "recovery_addresses": {
+            "description": "RecoveryAddresses contains all the addresses that can be used to recover an identity.\n\nUse this structure to import recovery addresses for an identity. Please keep in mind\nthat the address needs to be represented in the Identity Schema or this field will be overwritten\non the next identity update.",
+            "items": {
+              "$ref": "#/components/schemas/recoveryIdentityAddress"
+            },
+            "type": "array"
+          },
+          "schema_id": {
+            "description": "SchemaID is the ID of the JSON Schema to be used for validating the identity's traits.",
+            "type": "string"
+          },
+          "state": {
+            "description": "State is the identity's state.\nactive StateActive\ninactive StateInactive",
+            "enum": ["active", "inactive"],
+            "type": "string",
+            "x-go-enum-desc": "active StateActive\ninactive StateInactive"
+          },
+          "traits": {
+            "description": "Traits represent an identity's traits. The identity is able to create, modify, and delete traits\nin a self-service manner. The input will always be validated against the JSON Schema defined\nin `schema_url`.",
+            "type": "object"
+          },
+          "verifiable_addresses": {
+            "description": "VerifiableAddresses contains all the addresses that can be verified by the user.\n\nUse this structure to import verified addresses for an identity. Please keep in mind\nthat the address needs to be represented in the Identity Schema or this field will be overwritten\non the next identity update.",
+            "items": {
+              "$ref": "#/components/schemas/verifiableIdentityAddress"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["schema_id", "traits"],
+        "type": "object"
+      },
+      "createJsonWebKeySet": {
+        "description": "Create JSON Web Key Set Request Body",
+        "properties": {
+          "alg": {
+            "description": "JSON Web Key Algorithm\n\nThe algorithm to be used for creating the key. Supports `RS256`, `ES256`, `ES512`, `HS512`, and `HS256`.",
+            "type": "string"
+          },
+          "kid": {
+            "description": "JSON Web Key ID\n\nThe Key ID of the key to be created.",
+            "type": "string"
+          },
+          "use": {
+            "description": "JSON Web Key Use\n\nThe \"use\" (public key use) parameter identifies the intended use of\nthe public key. The \"use\" parameter is employed to indicate whether\na public key is used for encrypting data or verifying the signature\non data. Valid values are \"enc\" and \"sig\".",
+            "type": "string"
+          }
+        },
+        "required": ["alg", "use", "kid"],
+        "type": "object"
+      },
+      "createMemberInviteResponse": {
+        "$ref": "#/components/schemas/CreateInviteResponse"
+      },
+      "createProjectBody": {
+        "description": "Create Project Request Body",
+        "properties": {
+          "environment": {
+            "description": "The environment of the project.\nprod Production\ndev Development",
+            "enum": ["prod", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\ndev Development"
+          },
+          "name": {
+            "description": "The name of the project to be created",
+            "type": "string"
+          },
+          "workspace_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          }
+        },
+        "required": ["name", "environment"],
+        "type": "object"
+      },
+      "createProjectBranding": {
+        "description": "Create a Project Branding",
+        "properties": {
+          "favicon_type": {
+            "type": "string"
+          },
+          "favicon_url": {
+            "type": "string"
+          },
+          "logo_type": {
+            "type": "string"
+          },
+          "logo_url": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "theme": {
+            "$ref": "#/components/schemas/projectBrandingColors"
+          }
+        },
         "type": "object"
       },
       "createRecoveryCodeForIdentityBody": {
@@ -1937,7 +1996,6 @@
         "type": "object"
       },
       "createSubscriptionBody": {
-        "description": "Create Subscription Request Body",
         "properties": {
           "currency": {
             "description": "\nusd USD\neur Euro",
@@ -1955,13 +2013,45 @@
             "type": "string"
           },
           "provision_first_project": {
-            "$ref": "#/components/schemas/NullUUID"
+            "format": "uuid",
+            "type": "string"
           },
           "return_to": {
             "type": "string"
+          }
+        },
+        "required": ["plan", "interval", "provision_first_project"],
+        "type": "object"
+      },
+      "createWorkspacePayload": {
+        "properties": {
+          "name": {
+            "description": "The name of the workspace",
+            "type": "string"
+          }
+        },
+        "required": ["name"],
+        "type": "object"
+      },
+      "createWorkspaceSubscriptionBody": {
+        "properties": {
+          "currency": {
+            "description": "\nusd USD\neur Euro",
+            "enum": ["usd", "eur"],
+            "type": "string",
+            "x-go-enum-desc": "usd USD\neur Euro"
           },
-          "workspace": {
-            "$ref": "#/components/schemas/NullUUID"
+          "interval": {
+            "description": "\nmonthly Monthly\nyearly Yearly",
+            "enum": ["monthly", "yearly"],
+            "type": "string",
+            "x-go-enum-desc": "monthly Monthly\nyearly Yearly"
+          },
+          "plan": {
+            "type": "string"
+          },
+          "return_to": {
+            "type": "string"
           }
         },
         "required": ["plan", "interval"],
@@ -2242,6 +2332,11 @@
         },
         "required": ["type"],
         "type": "object"
+      },
+      "falsyNullBool": {
+        "description": "It JSON decodes to false if null.",
+        "title": "FalsyNullBool represents a bool that may be null.",
+        "type": "boolean"
       },
       "flowError": {
         "properties": {
@@ -2567,7 +2662,10 @@
             "type": "string"
           },
           "state": {
-            "$ref": "#/components/schemas/identityState"
+            "description": "State is the identity's state.\n\nThis value has currently no effect.\nactive StateActive\ninactive StateInactive",
+            "enum": ["active", "inactive"],
+            "type": "string",
+            "x-go-enum-desc": "active StateActive\ninactive StateInactive"
           },
           "state_changed_at": {
             "$ref": "#/components/schemas/nullTime"
@@ -2612,7 +2710,19 @@
             "type": "array"
           },
           "type": {
-            "$ref": "#/components/schemas/identityCredentialsType"
+            "description": "Type discriminates between different types of credentials.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "enum": [
+              "password",
+              "oidc",
+              "totp",
+              "lookup_secret",
+              "webauthn",
+              "code",
+              "link_recovery",
+              "code_recovery"
+            ],
+            "type": "string",
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "updated_at": {
             "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
@@ -2631,7 +2741,8 @@
         "description": "CredentialsCode represents a one time login/registration code",
         "properties": {
           "address_type": {
-            "$ref": "#/components/schemas/CodeAddressType"
+            "description": "The type of the address for this code",
+            "type": "string"
           },
           "used_at": {
             "$ref": "#/components/schemas/NullTime"
@@ -2684,19 +2795,6 @@
         },
         "title": "CredentialsPassword is contains the configuration for credentials of the type password.",
         "type": "object"
-      },
-      "identityCredentialsType": {
-        "description": "and so on.",
-        "enum": [
-          "password",
-          "totp",
-          "oidc",
-          "webauthn",
-          "lookup_secret",
-          "code"
-        ],
-        "title": "CredentialsType  represents several different credential types, like password credentials, passwordless credentials,",
-        "type": "string"
       },
       "identityMetaSchema": {
         "description": "Identity Meta Schema",
@@ -2782,12 +2880,6 @@
           "$ref": "#/components/schemas/identitySchemaContainer"
         },
         "type": "array"
-      },
-      "identityState": {
-        "description": "The state can either be `active` or `inactive`.",
-        "enum": ["active", "inactive"],
-        "title": "An Identity's State",
-        "type": "string"
       },
       "identityTraits": {
         "description": "Traits represent an identity's traits. The identity is able to create, modify, and delete traits\nin a self-service manner. The input will always be validated against the JSON Schema defined\nin `schema_url`."
@@ -2926,34 +3018,6 @@
           }
         },
         "required": ["project_id"],
-        "type": "object"
-      },
-      "internalProvisionMockSubscription": {
-        "description": "Internal Provision Mock Subscription Request Body",
-        "properties": {
-          "currency": {
-            "description": "Currency\nusd USD\neur Euro",
-            "enum": ["usd", "eur"],
-            "type": "string",
-            "x-go-enum-desc": "usd USD\neur Euro"
-          },
-          "identity_id": {
-            "description": "Identity ID",
-            "format": "uuid",
-            "type": "string"
-          },
-          "interval": {
-            "description": "Billing Interval\nmonthly Monthly\nyearly Yearly",
-            "enum": ["monthly", "yearly"],
-            "type": "string",
-            "x-go-enum-desc": "monthly Monthly\nyearly Yearly"
-          },
-          "plan": {
-            "description": "Plan ID",
-            "type": "string"
-          }
-        },
-        "required": ["plan", "interval", "identity_id", "currency"],
         "type": "object"
       },
       "introspectedOAuth2Token": {
@@ -3200,11 +3264,41 @@
         "required": ["organizations"],
         "type": "object"
       },
+      "listWorkspaceProjectsResponse": {
+        "properties": {
+          "has_next_page": {
+            "type": "boolean"
+          },
+          "next_page": {
+            "type": "string"
+          },
+          "projects": {
+            "items": {
+              "$ref": "#/components/schemas/projectMetadata"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["projects", "next_page", "has_next_page"],
+        "type": "object"
+      },
       "loginFlow": {
         "description": "This object represents a login flow. A login flow is initiated at the \"Initiate Login API / Browser Flow\"\nendpoint by a client.\n\nOnce a login flow is completed successfully, a session cookie or session token will be issued.",
         "properties": {
           "active": {
-            "$ref": "#/components/schemas/identityCredentialsType"
+            "description": "The active login method\n\nIf set contains the login method used. If the flow is new, it is unset.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "enum": [
+              "password",
+              "oidc",
+              "totp",
+              "lookup_secret",
+              "webauthn",
+              "code",
+              "link_recovery",
+              "code_recovery"
+            ],
+            "type": "string",
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "created_at": {
             "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
@@ -3257,6 +3351,10 @@
           },
           "state": {
             "description": "State represents the state of this request:\n\nchoose_method: ask the user to choose a method to sign in with\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the login challenge was passed."
+          },
+          "transient_payload": {
+            "description": "TransientPayload is used to pass data from the login to hooks and email templates",
+            "type": "object"
           },
           "type": {
             "$ref": "#/components/schemas/selfServiceFlowType"
@@ -3574,6 +3672,25 @@
         "required": ["time", "count"],
         "type": "object"
       },
+      "migrationOptions": {
+        "properties": {
+          "environment": {
+            "description": "The environment of the project in the workspace. Can be one of \"prod\" or\n\"dev\". Note that the number of projects in the \"prod\" environment is limited\ndepending on the subscription.\nprod Production\ndev Development",
+            "enum": ["prod", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\ndev Development"
+          },
+          "project_subscription": {
+            "description": "The action to take with the project subscription. Can be one of \"migrate\", and\n\"ignore\". \"migrate\" will migrate the project subscription to the workspace.\n\"ignore\" will ignore the project subscription.\nmigrate ProjectSubscriptionActionMigrate  ProjectSubscriptionActionMigrate will migrate the project subscription to the  workspace.\nignore ProjectSubscriptionActionIgnore  ProjectSubscriptionActionIgnore will ignore the project subscription.",
+            "enum": ["migrate", "ignore"],
+            "type": "string",
+            "x-go-enum-desc": "migrate ProjectSubscriptionActionMigrate  ProjectSubscriptionActionMigrate will migrate the project subscription to the  workspace.\nignore ProjectSubscriptionActionIgnore  ProjectSubscriptionActionIgnore will ignore the project subscription."
+          }
+        },
+        "required": ["project_subscription", "environment"],
+        "title": "MigrationOptions contain the options for migrating a project to a workspace.",
+        "type": "object"
+      },
       "namespace": {
         "properties": {
           "name": {
@@ -3676,6 +3793,10 @@
             "description": "Whether to disable the account experience welcome screen, which is hosted under `/ui/welcome`.",
             "type": "boolean"
           },
+          "enable_ax_v2": {
+            "description": "Whether the new account experience is enabled and reachable.",
+            "type": "boolean"
+          },
           "hydra_oauth2_allowed_top_level_claims": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
@@ -3701,6 +3822,10 @@
             "example": "30m",
             "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
             "type": "string"
+          },
+          "hydra_oauth2_mirror_top_level_claims": {
+            "description": "Set to false if you don't want to mirror custom claims under 'ext'.\n\nThis governs the \"oauth2.mirror_top_level_claims\" setting.",
+            "type": "boolean"
           },
           "hydra_oauth2_pkce_enforced": {
             "description": "Configures whether PKCE should be enforced for all OAuth2 Clients.\n\nThis governs the \"oauth2.pkce.enforced\" setting.",
@@ -3947,6 +4072,10 @@
           },
           "kratos_courier_templates_login_code_valid_email_subject": {
             "description": "Configures the Ory Kratos Valid Login via Code Email Subject Template\n\nThis governs the \"courier.smtp.templates.login_code.valid.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_login_code_valid_sms_body_plaintext": {
+            "description": "Configures the Ory Kratos Valid Login via Code SMS plain text body\n\nThis governs the \"courier.smtp.templates.login_code.valid.sms.plaintext\" setting.",
             "type": "string"
           },
           "kratos_courier_templates_recovery_code_invalid_email_body_html": {
@@ -4285,6 +4414,10 @@
           },
           "kratos_selfservice_methods_code_enabled": {
             "description": "Configures whether Ory Kratos Code Method is enabled\n\nThis governs the \"selfservice.methods.code.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_code_mfa_enabled": {
+            "description": "Configues whether the code method can be used to fulfil MFA flows\n\nThis governs the \"selfservice.methods.code.mfa_enabled\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_code_passwordless_enabled": {
@@ -4612,6 +4745,9 @@
             "example": "contoso.onmicrosoft.com",
             "type": "string"
           },
+          "claims_source": {
+            "$ref": "#/components/schemas/String"
+          },
           "client_id": {
             "description": "ClientID is the application's Client ID.",
             "type": "string"
@@ -4923,6 +5059,10 @@
             "description": "SkipConsent skips the consent screen for this client. This field can only\nbe set from the admin API.",
             "type": "boolean"
           },
+          "skip_logout_consent": {
+            "description": "SkipLogoutConsent skips the logout consent screen for this client. This field can only\nbe set from the admin API.",
+            "type": "boolean"
+          },
           "subject_type": {
             "description": "OpenID Connect Subject Type\n\nThe `subject_types_supported` Discovery parameter contains a\nlist of the supported subject_type values for this server. Valid types include `pairwise` and `public`.",
             "type": "string"
@@ -5081,6 +5221,9 @@
         "properties": {
           "consent_request": {
             "$ref": "#/components/schemas/oAuth2ConsentRequest"
+          },
+          "context": {
+            "$ref": "#/components/schemas/JSONRawMessage"
           },
           "expires_at": {
             "properties": {
@@ -5628,6 +5771,18 @@
         "description": "Get Permissions on Project Request Parameters",
         "type": "object"
       },
+      "permissionsOnWorkpaceResponse": {
+        "description": "Get Permissions on Project Request Parameters",
+        "properties": {
+          "permissions": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
       "plans": {
         "$ref": "#/components/schemas/Pricing"
       },
@@ -6160,7 +6315,23 @@
         "type": "object"
       },
       "projectMember": {
-        "$ref": "#/components/schemas/cloudAccount"
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        },
+        "required": ["id", "email", "name", "role"],
+        "type": "object"
       },
       "projectMembers": {
         "items": {
@@ -6174,6 +6345,12 @@
             "description": "The Project's Creation Date",
             "format": "date-time",
             "type": "string"
+          },
+          "environment": {
+            "description": "The environment of the project.\nprod Production\ndev Development",
+            "enum": ["prod", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\ndev Development"
           },
           "hosts": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -6220,7 +6397,8 @@
           "state",
           "created_at",
           "updated_at",
-          "name"
+          "name",
+          "environment"
         ],
         "type": "object"
       },
@@ -6312,7 +6490,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList",
+            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
             "enum": [
               "region_eu",
               "region_us",
@@ -6332,12 +6510,15 @@
               "project_metrics_events_history",
               "organizations",
               "rop_grant",
+              "concierge_onboarding",
               "rate_limit_tier",
               "session_rate_limit_tier",
-              "identities_list_rate_limit_tier"
+              "identities_list_rate_limit_tier",
+              "permission_checks_rate_limit_tier",
+              "oauth2_introspect_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList"
+            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
           },
           "feature_available": {
             "type": "boolean"
@@ -6422,6 +6603,10 @@
           "state": {
             "description": "State represents the state of this request:\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed."
           },
+          "transient_payload": {
+            "description": "TransientPayload is used to pass data from the recovery flow to hooks and email templates",
+            "type": "object"
+          },
           "type": {
             "$ref": "#/components/schemas/selfServiceFlowType"
           },
@@ -6492,7 +6677,19 @@
       "registrationFlow": {
         "properties": {
           "active": {
-            "$ref": "#/components/schemas/identityCredentialsType"
+            "description": "Active, if set, contains the registration method that is being used. It is initially\nnot set.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "enum": [
+              "password",
+              "oidc",
+              "totp",
+              "lookup_secret",
+              "webauthn",
+              "code",
+              "link_recovery",
+              "code_recovery"
+            ],
+            "type": "string",
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "expires_at": {
             "description": "ExpiresAt is the time (UTC) when the flow expires. If the user still wishes to log in,\na new flow has to be initiated.",
@@ -7000,6 +7197,10 @@
           "state": {
             "description": "State represents the state of this flow. It knows two states:\n\nshow_form: No user data has been collected, or it is invalid, and thus the form should be shown.\nsuccess: Indicates that the settings flow has been updated successfully with the provided data.\nDone will stay true when repeatedly checking. If set to true, done will revert back to false only\nwhen a flow with invalid (e.g. \"please use a valid phone number\") data was sent."
           },
+          "transient_payload": {
+            "description": "TransientPayload is used to pass data from the settings flow to hooks and email templates",
+            "type": "object"
+          },
           "type": {
             "$ref": "#/components/schemas/selfServiceFlowType"
           },
@@ -7024,14 +7225,6 @@
         "description": "show_form: No user data has been collected, or it is invalid, and thus the form should be shown.\nsuccess: Indicates that the settings flow has been updated successfully with the provided data.\nDone will stay true when repeatedly checking. If set to true, done will revert back to false only\nwhen a flow with invalid (e.g. \"please use a valid phone number\") data was sent.",
         "enum": ["show_form", "success"],
         "title": "State represents the state of this flow. It knows two states:"
-      },
-      "stripeCustomer": {
-        "properties": {
-          "id": {
-            "type": "string"
-          }
-        },
-        "type": "object"
       },
       "subjectSet": {
         "properties": {
@@ -7077,6 +7270,9 @@
             "readOnly": true,
             "type": "string"
           },
+          "current_plan_details": {
+            "$ref": "#/components/schemas/PlanDetails"
+          },
           "customer_id": {
             "description": "The ID of the stripe customer",
             "readOnly": true,
@@ -7108,6 +7304,9 @@
           },
           "status": {
             "$ref": "#/components/schemas/SubscriptionStatus"
+          },
+          "stripe_checkout_expires_at": {
+            "$ref": "#/components/schemas/Time"
           },
           "updated_at": {
             "format": "date-time",
@@ -7719,7 +7918,10 @@
             "type": "string"
           },
           "state": {
-            "$ref": "#/components/schemas/identityState"
+            "description": "State is the identity's state.\nactive StateActive\ninactive StateInactive",
+            "enum": ["active", "inactive"],
+            "type": "string",
+            "x-go-enum-desc": "active StateActive\ninactive StateInactive"
           },
           "traits": {
             "description": "Traits represent an identity's traits. The identity is able to create, modify, and delete traits\nin a self-service manner. The input will always be validated against the JSON Schema defined\nin `schema_id`.",
@@ -7784,6 +7986,10 @@
           "resend": {
             "description": "Resend is set when the user wants to resend the code",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method", "csrf_token"],
@@ -7835,6 +8041,10 @@
             "description": "The identity traits. This is a placeholder for the registration flow.",
             "type": "object"
           },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
+          },
           "upstream_parameters": {
             "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.",
             "type": "object"
@@ -7865,6 +8075,10 @@
           "password_identifier": {
             "description": "Identifier is the email or username of the user trying to log in.\nThis field is deprecated!",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method", "password", "identifier"],
@@ -7884,6 +8098,10 @@
           "totp_code": {
             "description": "The TOTP code.",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method", "totp_code"],
@@ -7903,6 +8121,10 @@
           "method": {
             "description": "Method should be set to \"webAuthn\" when logging in using the WebAuthn strategy.",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           },
           "webauthn_login": {
             "description": "Login a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
@@ -7950,6 +8172,10 @@
             "enum": ["link", "code"],
             "type": "string",
             "x-go-enum-desc": "link RecoveryStrategyLink\ncode RecoveryStrategyCode"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method"],
@@ -7971,6 +8197,10 @@
             "enum": ["link", "code"],
             "type": "string",
             "x-go-enum-desc": "link RecoveryStrategyLink\ncode RecoveryStrategyCode"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["email", "method"],
@@ -8193,6 +8423,10 @@
           "method": {
             "description": "Method\n\nShould be set to \"lookup\" when trying to add, update, or remove a lookup pairing.",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method"],
@@ -8215,6 +8449,10 @@
           },
           "traits": {
             "description": "The identity's traits\n\nin: body",
+            "type": "object"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
             "type": "object"
           },
           "unlink": {
@@ -8243,6 +8481,10 @@
           "password": {
             "description": "Password is the updated password",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["password", "method"],
@@ -8261,6 +8503,10 @@
           },
           "traits": {
             "description": "Traits\n\nThe identity's traits.",
+            "type": "object"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
             "type": "object"
           }
         },
@@ -8285,6 +8531,10 @@
           "totp_unlink": {
             "description": "UnlinkTOTP if true will remove the TOTP pairing,\neffectively removing the credential. This can be used\nto set up a new TOTP device.",
             "type": "boolean"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method"],
@@ -8300,6 +8550,10 @@
           "method": {
             "description": "Method\n\nShould be set to \"webauthn\" when trying to add, update, or remove a webAuthn pairing.",
             "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           },
           "webauthn_register": {
             "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
@@ -8318,7 +8572,6 @@
         "type": "object"
       },
       "updateSubscriptionBody": {
-        "description": "Update Subscription Request Body",
         "properties": {
           "interval": {
             "description": "\nmonthly Monthly\nyearly Yearly",
@@ -8373,6 +8626,10 @@
             "enum": ["link", "code"],
             "type": "string",
             "x-go-enum-desc": "link VerificationStrategyLink\ncode VerificationStrategyCode"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["method"],
@@ -8394,9 +8651,23 @@
             "enum": ["link", "code"],
             "type": "string",
             "x-go-enum-desc": "link VerificationStrategyLink\ncode VerificationStrategyCode"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
           }
         },
         "required": ["email", "method"],
+        "type": "object"
+      },
+      "updateWorkspacePayload": {
+        "properties": {
+          "name": {
+            "description": "The name of the workspace.",
+            "type": "string"
+          }
+        },
+        "required": ["name"],
         "type": "object"
       },
       "verifiableCredentialPrimingResponse": {
@@ -8521,6 +8792,10 @@
           "state": {
             "description": "State represents the state of this request:\n\nchoose_method: ask the user to choose a method (e.g. verify your email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the verification challenge was passed."
           },
+          "transient_payload": {
+            "description": "TransientPayload is used to pass data from the verification flow to hooks and email templates",
+            "type": "object"
+          },
           "type": {
             "$ref": "#/components/schemas/selfServiceFlowType"
           },
@@ -8564,6 +8839,33 @@
           },
           "subscription_id": {
             "$ref": "#/components/schemas/NullUUID"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["id", "name", "created_at", "updated_at"],
+        "type": "object"
+      },
+      "workspaceMeta": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "subscription_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
+          "subscription_plan": {
+            "$ref": "#/components/schemas/String"
           },
           "updated_at": {
             "format": "date-time",
@@ -9237,9 +9539,9 @@
             "x-go-enum-desc": " ConsistencyLevelUnset  ConsistencyLevelUnset is the unset / default consistency level.\nstrong ConsistencyLevelStrong  ConsistencyLevelStrong is the strong consistency level.\neventual ConsistencyLevelEventual  ConsistencyLevelEventual is the eventual consistency level using follower read timestamps."
           },
           {
-            "description": "IdsFilter is list of ids used to filter identities.\nIf this list is empty, then no filter will be applied.",
+            "description": "List of ids used to filter identities.\nIf this list is empty, then no filter will be applied.",
             "in": "query",
-            "name": "ids_filter",
+            "name": "ids",
             "schema": {
               "items": {
                 "type": "string"
@@ -9261,6 +9563,17 @@
             "name": "preview_credentials_identifier_similar",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "description": "Include Credentials in Response\n\nInclude any credential, for example `password` or `oidc`, in the response. When set to `oidc`, This will return\nthe initial OAuth 2.0 Access Token, OAuth 2.0 Refresh Token and the OpenID Connect ID Token if available.",
+            "in": "query",
+            "name": "include_credential",
+            "schema": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
             }
           }
         ],
@@ -9483,11 +9796,13 @@
               "items": {
                 "enum": [
                   "password",
-                  "totp",
                   "oidc",
-                  "webauthn",
+                  "totp",
                   "lookup_secret",
-                  "code"
+                  "webauthn",
+                  "code",
+                  "link_recovery",
+                  "code_recovery"
                 ],
                 "type": "string"
               },
@@ -9719,14 +10034,24 @@
             }
           },
           {
-            "description": "Type is the credential's Type.\nOne of totp, webauthn, lookup",
+            "description": "Type is the type of credentials to be deleted.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "in": "path",
             "name": "type",
             "required": true,
             "schema": {
-              "enum": ["totp", "webauthn", "lookup"],
+              "enum": [
+                "password",
+                "oidc",
+                "totp",
+                "lookup_secret",
+                "webauthn",
+                "code",
+                "link_recovery",
+                "code_recovery"
+              ],
               "type": "string"
-            }
+            },
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           }
         ],
         "responses": {
@@ -11112,6 +11437,15 @@
       "post": {
         "description": "This endpoint creates a recovery link which should be given to the user in order for them to recover\n(or activate) their account.",
         "operationId": "createRecoveryLinkForIdentity",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "return_to",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -13329,12 +13663,12 @@
             }
           },
           {
-            "description": "The resolution of the buckets\n\nThe minimum resolution is 1 hour.",
+            "description": "The resolution of the buckets\n\nThe minimum resolution is 1 minute.",
             "in": "query",
             "name": "resolution",
             "required": true,
             "schema": {
-              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "pattern": "^[0-9]+(m|h|d|M|y)$",
               "type": "string"
             }
           },
@@ -14346,7 +14680,6 @@
         "operationId": "postCheckPermissionOrError",
         "parameters": [
           {
-            "description": "nolint:deadcode,unused",
             "in": "query",
             "name": "max-depth",
             "schema": {
@@ -15012,6 +15345,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Via should contain the identity's credential the code should be sent to. Only relevant in aal2 flows.",
+            "in": "query",
+            "name": "via",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -15099,6 +15440,14 @@
             "description": "An optional organization ID that should be used for logging this user in.\nThis parameter is only effective in the Ory Network.",
             "in": "query",
             "name": "organization",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Via should contain the identity's credential the code should be sent to. Only relevant in aal2 flows.",
+            "in": "query",
+            "name": "via",
             "schema": {
               "type": "string"
             }

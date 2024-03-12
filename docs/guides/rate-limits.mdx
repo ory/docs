@@ -4,21 +4,40 @@ title: Project Rate Limits
 sidebar_label: Rate Limits
 ---
 
-Ory Network currently enforces three rate limit policies based on the path of your request.
+Ory Network enforces different rate limit policies based on the path of your request.
 
-1. `/sessions/whoami`: a dedicated rate limit policy for session checks.
-2. `/identities`: a dedicated rate limit policy for identity inserts and updates.
-3. `*`: rate limit policy for all remaining calls.
+1. `/sessions/whoami`: session checks
+2. `/admin/oauth2/introspect`: OAuth2 token introspection
+3. `/relation-tuples/check`: permission check
+4. `GET /admin/identities`: list identities
+5. `*`: everything else
 
 Each of these policies incorporates two types of rate limits:
 
 1. The `burst` limit, which regulates the maximum number of requests per second, allowing brief spikes in request volume.
 2. The `sustained` limit, controlling the number of requests over a one-minute period.
 
-The table below outlines the rate limit thresholds for each subscription plan tier, as per these three policies:
+| Subscription Plan | Path / Bucket              | burst (rps) | sustained (rpm) |
+| :---------------- | :------------------------- | ----------: | --------------: |
+| **Develop**       | `/sessions/whoami`         |          15 |             450 |
+|                   | `/admin/oauth2/introspect` |          15 |             450 |
+|                   | `/relation-tuples/check`   |          15 |             450 |
+|                   | `GET /admin/identities`    |           1 |              10 |
+|                   | `*`                        |          15 |             450 |
+| **Essentials**    | `/sessions/whoami`         |          80 |            1800 |
+|                   | `/admin/oauth2/introspect` |          80 |            1800 |
+|                   | `/relation-tuples/check`   |          80 |            1800 |
+|                   | `GET /admin/identities`    |          10 |             300 |
+|                   | `*`                        |          40 |             900 |
+| **Scale**         | `/sessions/whoami`         |         800 |           18000 |
+|                   | `/admin/oauth2/introspect` |         800 |           18000 |
+|                   | `/relation-tuples/check`   |         800 |           18000 |
+|                   | `GET /admin/identities`    |          20 |             600 |
+|                   | `*`                        |         400 |            9000 |
 
-| Subscription Plan | Path / Bucket                              | Rate Limits (burst/sustained)                                    |
-| ----------------- | ------------------------------------------ | ---------------------------------------------------------------- |
-| Develop           | /sessions/whoami:<br/>/identities:<br/>\*: | 15 rps / 450 rpm <br/>1 rps / 10 rpm <br/>15 rps / 450 rpm       |
-| Essentials        | /sessions/whoami:<br/>/identities:<br/>\*: | 80 rps / 1800 rpm<br/>10 rps / 300 rpm<br/>40 rps / 900 rpm<br/> |
-| Scale             | /sessions/whoami:<br/>/identities:<br/>\*: | 800 rps / 18000 rpm<br/>20 rps / 600 rpm<br/>400 rps / 9000 rpm  |
+:::note
+
+Looking for **enterprise-grade** rate limits? Everything's possible. [Get in touch](https://www.ory.sh/contact/) with us to
+discuss your requirements.
+
+:::

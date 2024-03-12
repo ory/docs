@@ -67,6 +67,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
       --secret string                                   Provide the client's secret.
       --sector-identifier-uri string                    URL using the https scheme to be used in calculating Pseudonymous Identifiers by the OP. The URL references a file with a single JSON array of redirect_uri values.
       --skip-consent                                    Boolean flag specifying whether to skip the consent screen for this client. If omitted, the default value is false.
+      --skip-logout-consent                             Boolean flag specifying whether to skip the logout consent screen for this client. If omitted, the default value is false.
       --subject-type public                             A identifier algorithm. Valid values are public and `pairwise`. (default "public")
       --token-endpoint-auth-method client_secret_post   Define which authentication method the client may use at the Token Endpoint. Valid values are client_secret_post, `client_secret_basic`, `private_key_jwt`, and `none`. (default "client_secret_basic")
       --tos-uri string                                  A URL string that points to a human-readable terms of service document for the client that describes a contractual relationship between the end-user and the client that the end-user accepts when authorizing the client.

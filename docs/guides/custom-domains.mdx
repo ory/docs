@@ -98,6 +98,14 @@ ensure requests to the custom hostname are fully protected.
 
 :::
 
+:::note
+
+In case you are using Cloudflare as your DNS provider, make sure
+["Zone Hold" is released](https://developers.cloudflare.com/fundamentals/setup/account/account-security/zone-holds/#release-zone-holds).
+It needs to be released temporarily so that we can preconfigure the subdomain in our account.
+
+:::
+
 If you're with any of these registrars, you can use their respective guide on how to add a CNAME record:
 
 - [GoDaddy](https://www.godaddy.com/help/add-a-cname-record-19236)
