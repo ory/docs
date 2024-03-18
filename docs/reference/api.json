@@ -621,6 +621,10 @@
             "description": "Configures the Ory Kratos Session caching feature flag\n\nThis governs the \"feature_flags.cacheable_sessions\" setting.",
             "type": "boolean"
           },
+          "kratos_feature_flags_cacheable_sessions_max_age": {
+            "description": "Configures the Ory Kratos Session caching max-age feature flag\n\nThis governs the \"feature_flags.cacheable_sessions_max_age\" setting.",
+            "type": "string"
+          },
           "kratos_feature_flags_use_continue_with_transitions": {
             "description": "Configures the Ory Kratos Session use_continue_with_transitions flag\n\nThis governs the \"feature_flags.use_continue_with_transitions\" setting.",
             "type": "boolean"
@@ -1290,6 +1294,10 @@
           },
           "features": {
             "$ref": "#/components/schemas/PlanFeatures"
+          },
+          "latest": {
+            "description": "Latest is true if the plan is the latest version of a plan and should be available for self-service usage.",
+            "type": "boolean"
           },
           "name": {
             "description": "Name is the name of the plan.",
@@ -4194,6 +4202,10 @@
             "description": "Configures the Ory Kratos Session caching feature flag\n\nThis governs the \"feature_flags.cacheable_sessions\" setting.",
             "type": "boolean"
           },
+          "kratos_feature_flags_cacheable_sessions_max_age": {
+            "description": "Configures the Ory Kratos Session caching max-age feature flag\n\nThis governs the \"feature_flags.cacheable_sessions_max_age\" setting.",
+            "type": "string"
+          },
           "kratos_feature_flags_use_continue_with_transitions": {
             "description": "Configures the Ory Kratos Session use_continue_with_transitions flag\n\nThis governs the \"feature_flags.use_continue_with_transitions\" setting.",
             "type": "boolean"
@@ -6490,13 +6502,14 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
+            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
             "enum": [
               "region_eu",
               "region_us",
               "region_apac",
               "region_global",
               "production_projects",
+              "development_projects",
               "daily_active_users",
               "custom_domains",
               "event_streams",
@@ -6511,6 +6524,7 @@
               "organizations",
               "rop_grant",
               "concierge_onboarding",
+              "credit",
               "rate_limit_tier",
               "session_rate_limit_tier",
               "identities_list_rate_limit_tier",
@@ -6518,7 +6532,7 @@
               "oauth2_introspect_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
+            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
           },
           "feature_available": {
             "type": "boolean"
