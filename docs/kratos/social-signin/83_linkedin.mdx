@@ -22,14 +22,16 @@ Follow these steps to add LinkedIn as a social sign-in provider to your project 
 4. [Create a LinkedIn application](https://developer.linkedin.com/), verify it and [activate **Sign In with LinkedInV2**](https://www.linkedin.com/pulse/how-get-signin-linkedin-work-taric-andrade/).
 5. Add the saved Redirect URI from Ory to the **Authorized redirect URLs** in the LinkedIn Auth configuration.
 6. The following **Scopes** are available once **Sign In with LinkedInV2** has been activated:
-    - `r_emailaddress`
-    - `r_liteprofile`
+    - `openid`
+    - `profile`
+    - `email`
 7. Copy the following data from the LinkedIn **Auth** page to the corresponding fields in the form in the Ory Console:
   - Client ID
   - Client secret
 8. In the **Scopes** field of the form in the Ory Console, add the following scopes:
-    - `r_emailaddress`
-    - `r_liteprofile`
+    - `openid`
+    - `profile`
+    - `email`
 9. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet,
     which maps the desired claims to the Ory Identity schema:
 
@@ -120,15 +122,16 @@ Follow these steps to add LinkedIn as a social sign-in provider to your project 
          config:
            providers:
              - id: linkedin # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
-               provider: linkedin
+               provider: linkedin_v2
                client_id: .... # Replace this with the Client ID provided by LinkedIn
                client_secret: .... # Replace this with the Client Secret provided by LinkedIn
                mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
                # Alternatively, use an URL:
                # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
                scope:
-                 - r_emailaddress
-                 - r_liteprofile
+                 - openid
+                 - profile
+                 - email
          enabled: true
    ```
 
@@ -149,3 +152,8 @@ import SocialSigninTroubleshooting from '../_common/social-sign-in-troubleshooti
 
 <SocialSigninTroubleshooting />
 ```
+
+## Legacy LinkedIn provider
+
+The steps above describe the `linkedin_v2` provider. If your application currently uses the old `linkedin`, it will continue to
+work from our side. But if you need to change the settings or add a new provider, we suggest using the `linkedin_v2` provider.
