@@ -24,16 +24,18 @@ Each of these policies incorporates two types of rate limits:
 |                   | `/relation-tuples/check`   |          15 |             450 |
 |                   | `GET /admin/identities`    |           1 |              10 |
 |                   | `*`                        |          15 |             450 |
-| **Essentials**    | `/sessions/whoami`         |          80 |            1800 |
+| **Production**    | `/sessions/whoami`         |          80 |            1800 |
 |                   | `/admin/oauth2/introspect` |          80 |            1800 |
 |                   | `/relation-tuples/check`   |          80 |            1800 |
 |                   | `GET /admin/identities`    |          10 |             300 |
 |                   | `*`                        |          40 |             900 |
-| **Scale**         | `/sessions/whoami`         |         800 |           18000 |
+| **Growth**        | `/sessions/whoami`         |         800 |           18000 |
 |                   | `/admin/oauth2/introspect` |         800 |           18000 |
 |                   | `/relation-tuples/check`   |         800 |           18000 |
 |                   | `GET /admin/identities`    |          20 |             600 |
 |                   | `*`                        |         400 |            9000 |
+
+The legacy Essential and Scale plans have the same rate limits as Production and Growth respectively.
 
 :::note
 
