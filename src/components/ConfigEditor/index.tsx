@@ -1,11 +1,11 @@
 import RefParser from "@apidevtools/json-schema-ref-parser"
 import { Theme as ChakraUITheme } from "@rjsf/chakra-ui"
 import { withTheme } from "@rjsf/core"
-import validator from "@rjsf/validator-ajv8"
+import validator from '@rjsf/validator-ajv8'
 import axios from "axios"
 import { useEffect, useState } from "react"
 
-const Form = withTheme(ChakraUITheme)
+const Form = withTheme(ChakraUITheme);
 
 export default function ConfigEditor(props: { url: any }) {
   const [schema, setSchema] = useState<any>()
