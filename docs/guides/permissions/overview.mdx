@@ -9,7 +9,6 @@ sidebar_label: Permissions
 ```mdx-code-block
 import CodeFromRemote from "@theme/CodeFromRemote"
 import BrowserWindow from "@site/src/theme/BrowserWindow"
-const file = (path) => `https://github.com/ory/keto/blob/master/contrib/rewrites-example/${path}`
 ```
 
 [Ory Permissions](https://www.ory.sh/permissions/) (based on [Ory Keto](https://github.com/ory/keto)) implements
@@ -101,7 +100,7 @@ In the Ory Console, select **Namespaces & Rules** from the navigation bar and sw
 Paste the following content into the editor:
 
 ```mdx-code-block
-<CodeFromRemote src={file("namespaces.keto.ts")} title="namespaces.keto.ts" />
+<CodeFromRemote src="https://github.com/ory/keto/blob/master/contrib/rewrites-example/namespaces.keto.ts" title="namespaces.keto.ts" />
 ```
 
 :::info
@@ -146,7 +145,7 @@ the hierarchy.
 You can create additional fine-grained permission rules for certain objects, similar to the `private` file.
 
 ```mdx-code-block
-<CodeFromRemote src={file("relation-tuples/tuples.json")} title="relationships.json" />
+<CodeFromRemote src="https://github.com/ory/keto/blob/master/contrib/rewrites-example/relation-tuples/tuples.json" title="relationships.json" />
 ```
 
 Save the file as `relationships.json` in your current working directory. To create these relationships in Ory Permissions, run

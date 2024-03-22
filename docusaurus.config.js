@@ -17,6 +17,9 @@ const config = {
   onDuplicateRoutes: "throw",
   organizationName: "ory",
   projectName: "docs",
+  markdown: {
+    format: "detect"
+  },
   staticDirectories: ["src/static"],
   themeConfig: {
     respectPrefersColorScheme: true,
@@ -202,7 +205,7 @@ const config = {
         showLastUpdateTime: true,
         disableVersioning: false,
         include: ["**/*.md", "**/*.mdx", "**/*.jsx", "**/*.tsx"],
-        docLayoutComponent: "@theme/RoutedDocPage",
+        docRootComponent: "@theme/DocRoot",
       },
     ],
     "@docusaurus/plugin-content-pages",
