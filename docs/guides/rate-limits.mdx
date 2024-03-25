@@ -4,7 +4,7 @@ title: Project Rate Limits
 sidebar_label: Rate Limits
 ---
 
-Ory Network enforces different rate limit policies based on the path of your request.
+Ory Network enforces different rate limit policies based on the environment of your project and the path of your request.
 
 1. `/sessions/whoami`: session checks
 2. `/admin/oauth2/introspect`: OAuth2 token introspection
@@ -17,23 +17,45 @@ Each of these policies incorporates two types of rate limits:
 1. The `burst` limit, which regulates the maximum number of requests per second, allowing brief spikes in request volume.
 2. The `sustained` limit, controlling the number of requests over a one-minute period.
 
-| Subscription Plan | Path / Bucket              | burst (rps) | sustained (rpm) |
-| :---------------- | :------------------------- | ----------: | --------------: |
-| **Develop**       | `/sessions/whoami`         |          15 |             450 |
-|                   | `/admin/oauth2/introspect` |          15 |             450 |
-|                   | `/relation-tuples/check`   |          15 |             450 |
-|                   | `GET /admin/identities`    |           1 |              10 |
-|                   | `*`                        |          15 |             450 |
-| **Essentials**    | `/sessions/whoami`         |          80 |            1800 |
-|                   | `/admin/oauth2/introspect` |          80 |            1800 |
-|                   | `/relation-tuples/check`   |          80 |            1800 |
-|                   | `GET /admin/identities`    |          10 |             300 |
-|                   | `*`                        |          40 |             900 |
-| **Scale**         | `/sessions/whoami`         |         800 |           18000 |
-|                   | `/admin/oauth2/introspect` |         800 |           18000 |
-|                   | `/relation-tuples/check`   |         800 |           18000 |
-|                   | `GET /admin/identities`    |          20 |             600 |
-|                   | `*`                        |         400 |            9000 |
+## Developer Plan Rate Limits
+
+| Environment   | Path / Bucket              | burst (rps) | sustained (rpm) |
+| :------------ | :------------------------- | ----------: | --------------: |
+| **Developer** | `/sessions/whoami`         |          10 |             300 |
+|               | `/admin/oauth2/introspect` |          10 |             300 |
+|               | `/relation-tuples/check`   |          10 |             300 |
+|               | `GET /admin/identities`    |           1 |              10 |
+|               | `*`                        |           5 |             150 |
+
+## Production Plan Rate Limits
+
+| Environment    | Path / Bucket              | burst (rps) | sustained (rpm) |
+| :------------- | :------------------------- | ----------: | --------------: |
+| **Production** | `/sessions/whoami`         |          80 |            1800 |
+|                | `/admin/oauth2/introspect` |          80 |            1800 |
+|                | `/relation-tuples/check`   |          80 |            1800 |
+|                | `GET /admin/identities`    |          10 |             300 |
+|                | `*`                        |          40 |             900 |
+| **Staging **   | `/sessions/whoami`         |          10 |              30 |
+|                | `/admin/oauth2/introspect` |          10 |             300 |
+|                | `/relation-tuples/check`   |          10 |             300 |
+|                | `GET /admin/identities`    |           1 |              10 |
+|                | `*`                        |           5 |             150 |
+
+## Growth Plan Rate Limits
+
+| Environment    | Path / Bucket              | burst (rps) | sustained (rpm) |
+| :------------- | :------------------------- | ----------: | --------------: |
+| **Production** | `/sessions/whoami`         |         800 |           18000 |
+|                | `/admin/oauth2/introspect` |         800 |           18000 |
+|                | `/relation-tuples/check`   |         800 |           18000 |
+|                | `GET /admin/identities`    |          20 |             600 |
+|                | `*`                        |         400 |            9000 |
+| **Staging **   | `/sessions/whoami`         |          10 |              30 |
+|                | `/admin/oauth2/introspect` |          10 |             300 |
+|                | `/relation-tuples/check`   |          10 |             300 |
+|                | `GET /admin/identities`    |           1 |              10 |
+|                | `*`                        |           5 |             150 |
 
 :::note
 
@@ -41,3 +63,12 @@ Looking for **enterprise-grade** rate limits? Everything's possible. [Get in tou
 discuss your requirements.
 
 :::
+
+## Workspace Rate Limit
+
+For all projects in a workspace, the rate limit is the same as for the production environment. For example, on the Production
+plan, the rate limit would be 80 rps on the `/sessions/whoami` path for all projects combined on the workspace.
+
+## Legacy plans
+
+The legacy Essential and Scale plans have the same rate limits as Production and Growth respectively.
