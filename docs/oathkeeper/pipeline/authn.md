@@ -338,7 +338,8 @@ The request isn't authorized because the provided credentials are invalid.
 
 The `bearer_token` authenticator will forward the request method, path and headers to a session store. If the session store
 returns `200 OK` and body `{ "subject": "...", "extra": {} }` then the authenticator will set the subject appropriately. Please
-note that Gzipped responses from `check_session_url` are not supported, and will fail silently.
+note that Gzipped responses from `check_session_url` are not supported, and will fail silently. You can return `HTTP 406`
+to skip to the next authentication method.
 
 ### `bearer_token` configuration
 
@@ -356,6 +357,8 @@ note that Gzipped responses from `check_session_url` are not supported, and will
   pointing to the `sub` field. This defaults to `sub`. Example: `identity.id` for `{ "identity": { "id": "1234" } }`.
 - `token_from` (object, optional) - The location of the bearer token. If not configured, the token will be received from a default
   location - 'Authorization' header. One and only one location (header, query, or cookie) must be specified.
+  - `auth_scheme` (string, optional, one of) - The auth scheme (case insensitive) that must prefix the token for request
+    authentication when the header is set to `Authorization`. This defaults to `Bearer` for. It can only be set along with `header``.
   - `header` (string, required, one of) - The header (case insensitive) that must contain a Bearer token for request
     authentication. It can't be set along with `query_parameter` or `cookie`.
   - `query_parameter` (string, required, one of) - The query parameter (case sensitive) that must contain a Bearer token for
