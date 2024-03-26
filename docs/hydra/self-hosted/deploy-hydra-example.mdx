@@ -309,6 +309,7 @@ server {
 server {
     listen [::]:443 ssl ipv6only=on;
     listen 443 ssl;
+    server_name oauth2.example.com;
     ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
@@ -348,6 +349,7 @@ instances of Ory Hydra running on the various virtual machines. We need two upst
    server {
      listen [::]:443 ssl ipv6only=on;
      listen 443 ssl;
+     server_name oauth2.example.com;
      ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem;
      ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem;
      include /etc/letsencrypt/options-ssl-nginx.conf;
@@ -416,6 +418,7 @@ server {
 server {
     listen [::]:443 ssl ipv6only=on;
     listen 443 ssl;
+    server_name oauth2.example.com;
     ssl_certificate /etc/letsencrypt/live/oauth2.example.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/oauth2.example.com/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
