@@ -46,14 +46,19 @@ login. Here is a comparison of the two approaches:
 
 ### Configuration
 
-:::info
+By default, the passkey strategy is disabled. You can enable it in the Ory Console by going to
+[https://console.ory.sh/projects/current/passwordless](https://console.ory.sh/projects/current/passwordless) and toggling the
+switch for "Enable Passkey authentication".
 
-This feature is in preview. Please report any issues to support@ory.sh or contact us in the
-[Ory Community](https://slack.ory.sh/).
+```mdx-code-block
+<BrowserWindow url="https://console.ory.sh/projects/current/passwordless">
 
-:::
+![Passkey in Console](../_static/passkeys/console.png)
 
-By default, the passkey strategy is disabled. To start using the passkey strategy, apply this configuration:
+</BrowserWindow>
+```
+
+Alternatively, use the Ory CLI to enable the passkey strategy:
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
