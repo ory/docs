@@ -219,10 +219,10 @@
             "type": "boolean"
           },
           "environment": {
-            "description": "\nprod Production\ndev Development",
-            "enum": ["prod", "dev"],
+            "description": "\nprod Production\nstage Staging\ndev Development",
+            "enum": ["prod", "stage", "dev"],
             "type": "string",
-            "x-go-enum-desc": "prod Production\ndev Development"
+            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
           "hydra_oauth2_allowed_top_level_claims": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -683,6 +683,10 @@
             "description": "Configures the Ory Kratos Login After OIDC Default Return URL\n\nThis governs the \"selfservice.flows.login.after.oidc.default_browser_return_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_login_after_passkey_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login After Passkey Default Return URL\n\nThis governs the \"selfservice.flows.login.after.passkey.default_browser_return_url\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_login_after_password_default_browser_return_url": {
             "description": "Configures the Ory Kratos Login After Password Default Return URL\n\nThis governs the \"selfservice.flows.login.after.password.default_browser_return_url\" setting.",
             "type": "string"
@@ -745,12 +749,16 @@
             "description": "Configures the Ory Kratos Registration After OIDC Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.oidc.default_browser_return_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_registration_after_passkey_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Registration After Passkey Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_registration_after_password_default_browser_return_url": {
             "description": "Configures the Ory Kratos Registration After Password Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
             "type": "string"
           },
           "kratos_selfservice_flows_registration_after_webauthn_default_browser_return_url": {
-            "description": "Configures the Ory Kratos Registration After Password Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
+            "description": "Configures the Ory Kratos Registration After Webauthn Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.webauthn.default_browser_return_url\" setting.",
             "type": "string"
           },
           "kratos_selfservice_flows_registration_enable_legacy_one_step": {
@@ -785,6 +793,10 @@
             "description": "Configures the Ory Kratos Settings Default Return URL After Updating Social Sign In\n\nThis governs the \"selfservice.flows.settings.after.oidc.default_browser_return_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_settings_after_passkey_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating Passkey\n\nThis governs the \"selfservice.flows.settings.after.passkey.default_browser_return_url\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_settings_after_password_default_browser_return_url": {
             "description": "Configures the Ory Kratos Settings Default Return URL After Updating Passwords\n\nThis governs the \"selfservice.flows.settings.after.password.default_browser_return_url\" setting.",
             "type": "string"
@@ -798,7 +810,7 @@
             "type": "string"
           },
           "kratos_selfservice_flows_settings_after_webauthn_default_browser_return_url": {
-            "description": "Configures the Ory Kratos Settings Default Return URL After Updating WebAuthn\n\nThis governs the \"selfservice.flows.settings.webauthn.profile.default_browser_return_url\" setting.",
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating WebAuthn\n\nThis governs the \"selfservice.flows.settings.after.webauthn.default_browser_return_url\" setting.",
             "type": "string"
           },
           "kratos_selfservice_flows_settings_lifespan": {
@@ -884,6 +896,21 @@
           },
           "kratos_selfservice_methods_oidc_enabled": {
             "description": "Configures whether Ory Kratos Third Party / OpenID Connect Login is enabled\n\nThis governs the \"selfservice.methods.oidc.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_passkey_config_rp_display_name": {
+            "description": "Configures the Ory Kratos Passkey RP Display Name\n\nThis governs the \"selfservice.methods.passkey.config.rp.display_name\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_passkey_config_rp_id": {
+            "description": "Configures the Ory Kratos Passkey RP ID\n\nThis governs the \"selfservice.methods.passkey.config.rp.id\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_passkey_config_rp_origins": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_selfservice_methods_passkey_enabled": {
+            "description": "Configures whether Ory Kratos Passkey authentication is enabled\n\nThis governs the \"selfservice.methods.passkey.enabled\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_password_config_haveibeenpwned_enabled": {
@@ -1908,10 +1935,10 @@
         "description": "Create Project Request Body",
         "properties": {
           "environment": {
-            "description": "The environment of the project.\nprod Production\ndev Development",
-            "enum": ["prod", "dev"],
+            "description": "The environment of the project.\nprod Production\nstage Staging\ndev Development",
+            "enum": ["prod", "stage", "dev"],
             "type": "string",
-            "x-go-enum-desc": "prod Production\ndev Development"
+            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
           "name": {
             "description": "The name of the project to be created",
@@ -2617,6 +2644,7 @@
             "type": "object"
           }
         },
+        "title": "The not ready status of the service.",
         "type": "object"
       },
       "healthStatus": {
@@ -2626,6 +2654,7 @@
             "type": "string"
           }
         },
+        "title": "The health status of the service.",
         "type": "object"
       },
       "identity": {
@@ -3691,10 +3720,10 @@
       "migrationOptions": {
         "properties": {
           "environment": {
-            "description": "The environment of the project in the workspace. Can be one of \"prod\" or\n\"dev\". Note that the number of projects in the \"prod\" environment is limited\ndepending on the subscription.\nprod Production\ndev Development",
-            "enum": ["prod", "dev"],
+            "description": "The environment of the project in the workspace. Can be one of \"prod\" or\n\"dev\". Note that the number of projects in the \"prod\" environment is limited\ndepending on the subscription.\nprod Production\nstage Staging\ndev Development",
+            "enum": ["prod", "stage", "dev"],
             "type": "string",
-            "x-go-enum-desc": "prod Production\ndev Development"
+            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
           "project_subscription": {
             "description": "The action to take with the project subscription. Can be one of \"migrate\", and\n\"ignore\". \"migrate\" will migrate the project subscription to the workspace.\n\"ignore\" will ignore the project subscription.\nmigrate ProjectSubscriptionActionMigrate  ProjectSubscriptionActionMigrate will migrate the project subscription to the  workspace.\nignore ProjectSubscriptionActionIgnore  ProjectSubscriptionActionIgnore will ignore the project subscription.",
@@ -3742,10 +3771,10 @@
             "$ref": "#/components/schemas/normalizedProjectRevision"
           },
           "environment": {
-            "description": "The environment of the project.\nprod Production\ndev Development",
-            "enum": ["prod", "dev"],
+            "description": "The environment of the project.\nprod Production\nstage Staging\ndev Development",
+            "enum": ["prod", "stage", "dev"],
             "type": "string",
-            "x-go-enum-desc": "prod Production\ndev Development"
+            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
           "hosts": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -4275,6 +4304,10 @@
             "description": "Configures the Ory Kratos Login After OIDC Default Return URL\n\nThis governs the \"selfservice.flows.login.after.oidc.default_browser_return_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_login_after_passkey_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login After Passkey Default Return URL\n\nThis governs the \"selfservice.flows.login.after.passkey.default_browser_return_url\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_login_after_password_default_browser_return_url": {
             "description": "Configures the Ory Kratos Login After Password Default Return URL\n\nThis governs the \"selfservice.flows.login.after.password.default_browser_return_url\" setting.",
             "type": "string"
@@ -4337,12 +4370,16 @@
             "description": "Configures the Ory Kratos Registration After OIDC Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.oidc.default_browser_return_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_registration_after_passkey_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Registration After Passkey Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_registration_after_password_default_browser_return_url": {
             "description": "Configures the Ory Kratos Registration After Password Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
             "type": "string"
           },
           "kratos_selfservice_flows_registration_after_webauthn_default_browser_return_url": {
-            "description": "Configures the Ory Kratos Registration After Password Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
+            "description": "Configures the Ory Kratos Registration After Webauthn Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.webauthn.default_browser_return_url\" setting.",
             "type": "string"
           },
           "kratos_selfservice_flows_registration_enable_legacy_one_step": {
@@ -4377,6 +4414,10 @@
             "description": "Configures the Ory Kratos Settings Default Return URL After Updating Social Sign In\n\nThis governs the \"selfservice.flows.settings.after.oidc.default_browser_return_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_settings_after_passkey_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating Passkey\n\nThis governs the \"selfservice.flows.settings.after.passkey.default_browser_return_url\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_settings_after_password_default_browser_return_url": {
             "description": "Configures the Ory Kratos Settings Default Return URL After Updating Passwords\n\nThis governs the \"selfservice.flows.settings.after.password.default_browser_return_url\" setting.",
             "type": "string"
@@ -4390,7 +4431,7 @@
             "type": "string"
           },
           "kratos_selfservice_flows_settings_after_webauthn_default_browser_return_url": {
-            "description": "Configures the Ory Kratos Settings Default Return URL After Updating WebAuthn\n\nThis governs the \"selfservice.flows.settings.webauthn.profile.default_browser_return_url\" setting.",
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating WebAuthn\n\nThis governs the \"selfservice.flows.settings.after.webauthn.default_browser_return_url\" setting.",
             "type": "string"
           },
           "kratos_selfservice_flows_settings_lifespan": {
@@ -4476,6 +4517,21 @@
           },
           "kratos_selfservice_methods_oidc_enabled": {
             "description": "Configures whether Ory Kratos Third Party / OpenID Connect Login is enabled\n\nThis governs the \"selfservice.methods.oidc.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_passkey_config_rp_display_name": {
+            "description": "Configures the Ory Kratos Passkey RP Display Name\n\nThis governs the \"selfservice.methods.passkey.config.rp.display_name\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_passkey_config_rp_id": {
+            "description": "Configures the Ory Kratos Passkey RP ID\n\nThis governs the \"selfservice.methods.passkey.config.rp.id\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_passkey_config_rp_origins": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_selfservice_methods_passkey_enabled": {
+            "description": "Configures whether Ory Kratos Passkey authentication is enabled\n\nThis governs the \"selfservice.methods.passkey.enabled\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_password_config_haveibeenpwned_enabled": {
@@ -6374,10 +6430,10 @@
             "type": "string"
           },
           "environment": {
-            "description": "The environment of the project.\nprod Production\ndev Development",
-            "enum": ["prod", "dev"],
+            "description": "The environment of the project.\nprod Production\nstage Staging\ndev Development",
+            "enum": ["prod", "stage", "dev"],
             "type": "string",
-            "x-go-enum-desc": "prod Production\ndev Development"
+            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
           "hosts": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -6520,13 +6576,14 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
+            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
             "enum": [
               "region_eu",
               "region_us",
               "region_apac",
               "region_global",
               "production_projects",
+              "staging_projects",
               "development_projects",
               "daily_active_users",
               "custom_domains",
@@ -6550,7 +6607,7 @@
               "oauth2_introspect_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
+            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
           },
           "feature_available": {
             "type": "boolean"
@@ -12477,121 +12534,6 @@
         },
         "summary": "Issues a Verifiable Credential",
         "tags": ["oidc"]
-      }
-    },
-    "/health/alive": {
-      "get": {
-        "description": "This endpoint returns a HTTP 200 status code when Ory Kratos is accepting incoming\nHTTP requests. This status does currently not include checks whether the database connection is working.\n\nIf the service supports TLS Edge Termination, this endpoint does not require the\n`X-Forwarded-Proto` header to be set.\n\nBe aware that if you are running multiple nodes of this service, the health status will never\nrefer to the cluster state, only to a single instance.",
-        "operationId": "isAlive",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/healthStatus",
-                  "properties": {
-                    "status": {
-                      "description": "Always \"ok\".",
-                      "type": "string"
-                    }
-                  },
-                  "required": ["status"],
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Ory Kratos is ready to accept connections."
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          },
-          "default": {
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "description": "Unexpected error"
-          }
-        },
-        "security": [
-          {
-            "oryAccessToken": []
-          }
-        ],
-        "summary": "Check HTTP Server Status",
-        "tags": ["metadata"]
-      }
-    },
-    "/health/ready": {
-      "get": {
-        "description": "This endpoint returns a HTTP 200 status code when Ory Kratos is up running and the environment dependencies (e.g.\nthe database) are responsive as well.\n\nIf the service supports TLS Edge Termination, this endpoint does not require the\n`X-Forwarded-Proto` header to be set.\n\nBe aware that if you are running multiple nodes of Ory Kratos, the health status will never\nrefer to the cluster state, only to a single instance.",
-        "operationId": "isReady",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "status": {
-                      "description": "Always \"ok\".",
-                      "type": "string"
-                    }
-                  },
-                  "required": ["status"],
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Ory Kratos is ready to accept requests."
-          },
-          "503": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "errors": {
-                      "additionalProperties": {
-                        "type": "string"
-                      },
-                      "description": "Errors contains a list of errors that caused the not ready status.",
-                      "type": "object"
-                    }
-                  },
-                  "required": ["errors"],
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Ory Kratos is not yet ready to accept requests."
-          },
-          "default": {
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "description": "Unexpected error"
-          }
-        },
-        "security": [
-          {
-            "oryAccessToken": []
-          }
-        ],
-        "summary": "Check HTTP Server and Database Status",
-        "tags": ["metadata"]
       }
     },
     "/namespaces": {
