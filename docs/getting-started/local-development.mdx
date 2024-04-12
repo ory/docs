@@ -51,11 +51,17 @@ Review rate limits in the [Project Rate Limits](https://www.ory.sh/docs/guides/r
 between projects use the [Ory CLI](https://www.ory.sh/docs/guides/cli/config-with-cli) For more information what environments are
 included on the Ory Network plans, head over to the [Pricing](https://ory.sh/pricing) page.
 
+:::warn
+
+Staging and development projects are for test data only! Ory Network doesn't guarantee GDPR-compliant PII handling in staging and
+development projects.
+
+:::
+
 ### Development projects
 
 Development projects provide a free test environment for your projects, with limited rate limits and no custom domain. They are
-ideal for early-stage development and testing and should not be used to store PII. To create a new development project, use the
-following command:
+ideal for early-stage development and testing. To create a new development project, use the following command:
 
 ```shell
 ory create project --name "My Development Project"
@@ -64,8 +70,7 @@ ory create project --name "My Development Project"
 ### Staging projects
 
 Staging projects offer all features of production environment including a custom domain (e.g.,
-`https://auth-staging.example.com`). Staging projects have lower rate limits than production projects and should not be used to
-store PII.
+`https://auth-staging.example.com`). Staging projects have lower rate limits than production projects.
 
 To create a new staging project, open the [Ory Console](https://console.ory.sh/projects/create), hit "Create new project", and
 select the Staging environment in the next screen.
