@@ -324,6 +324,7 @@ module.exports = {
         "guides/cors",
         "guides/gitops",
         "guides/rate-limits",
+        "guides/allowlist",
       ],
     },
     {
