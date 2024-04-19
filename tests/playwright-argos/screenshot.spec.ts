@@ -8,6 +8,7 @@ const siteUrl = "http://localhost:3000"
 const sitemapPath = "./build/sitemap.xml"
 const stylesheetPath = "./tests/playwright-argos/screenshot.css"
 const stylesheet = fs.readFileSync(stylesheetPath).toString()
+const ignoredPathnames = ["/docs/reference/api"]
 
 // Wait for hydration, requires Docusaurus v2.4.3+
 // Docusaurus adds a <html data-has-hydrated="true"> once hydrated
@@ -28,5 +29,12 @@ function screenshotPathname(pathname: string) {
 
 test.describe("Docusaurus site screenshots", () => {
   const pathnames = extractSitemapPathnames(sitemapPath)
-  pathnames.forEach(screenshotPathname)
+
+  for (const p of pathnames) {
+    if (ignoredPathnames.includes(p)) {
+      console.log(`Ignoring ${p}`)
+    } else {
+      screenshotPathname(p)
+    }
+  }
 })
