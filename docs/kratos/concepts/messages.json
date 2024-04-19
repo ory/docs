@@ -101,6 +101,24 @@
     }
   },
   {
+    "id": 1010019,
+    "text": "Continue with code",
+    "type": "info"
+  },
+  {
+    "id": 1010020,
+    "text": "We will send a code to {maskedIdentifier}. To verify that this is your address please enter it here.",
+    "type": "info",
+    "context": {
+      "masked_to": "{maskedIdentifier}"
+    }
+  },
+  {
+    "id": 1010021,
+    "text": "Sign in with passkey",
+    "type": "info"
+  },
+  {
     "id": 1040001,
     "text": "Sign up",
     "type": "info"
@@ -131,6 +149,21 @@
   {
     "id": 1040006,
     "text": "Sign up with code",
+    "type": "info"
+  },
+  {
+    "id": 1040007,
+    "text": "Sign up with passkey",
+    "type": "info"
+  },
+  {
+    "id": 1040008,
+    "text": "Back",
+    "type": "info"
+  },
+  {
+    "id": 1040009,
+    "text": "Please choose a credential to authenticate yourself with.",
     "type": "info"
   },
   {
@@ -258,6 +291,21 @@
   {
     "id": 1050018,
     "text": "Remove security key \"{display_name}\"",
+    "type": "info",
+    "context": {
+      "added_at": "2020-01-01T00:59:59Z",
+      "added_at_unix": 1577840399,
+      "display_name": "{display_name}"
+    }
+  },
+  {
+    "id": 1050019,
+    "text": "Add passkey",
+    "type": "info"
+  },
+  {
+    "id": 1050020,
+    "text": "Remove passkey \"{display_name}\"",
     "type": "info",
     "context": {
       "added_at": "2020-01-01T00:59:59Z",
@@ -675,6 +723,11 @@
   {
     "id": 4010009,
     "text": "Linked credentials do not match.",
+    "type": "error"
+  },
+  {
+    "id": 4010010,
+    "text": "The address you entered does not match any known addresses in the current account.",
     "type": "error"
   },
   {

@@ -119,6 +119,21 @@ http://{project.slug}.projects.oryapis.com/.well-known/jwks.json
 
 All necessary keys are available there.
 
+#### Default JSON Web Key Sets
+
+In Ory, JSON Web Key (JWK) endpoints require a `set-id`. This `set-id` corresponds to the specific set of keys you want to
+interact with. If you're looking to interact with the default keys used by Ory, you can use the following `set-id` values:
+
+- `hydra.openid.id-token`: This set contains the keys used for signing OpenID Connect ID Tokens.
+- `hydra.jwt.access-token`: This set contains the keys used for signing JWT Access Tokens.
+
+You can use these `set-id` values with the JWK endpoints to retrieve, rotate, or otherwise manage these default key sets. For
+example, to retrieve the OpenID Connect ID Token key set, you would use the GET /admin/keys/{set} endpoint with
+`hydra.openid.id-token` as the `{set}` parameter. This information is particularly useful when rotating keys, as described in the
+[documentation on key rotation](https://www.ory.sh/docs/hydra/self-hosted/secrets-key-rotation). Remember, these are the default
+key sets used by Ory. If you've configured Ory to use different key sets, you'll need to use the `set-id` values corresponding to
+your custom key sets.
+
 ## Custom consent UI and custom claims for (JWT) access token
 
 Using the following code during, you can add custom claims to every access token during consent acceptance
@@ -166,6 +181,30 @@ Which results in an access token with the following structure:
   "ext": {
     "some_custom_claim": "some_custom_value"
   }
+  // ...
+}
+```
+
+### Disable mirroring the claims under `ext`
+
+By default, all custom claims will be mirrored in the `ext` claim (as is the case with the claim `some_custom_claim` in the
+example above).
+
+Set `oauth2.mirror_top_level_claims` to `false` to disable mirroring the claims in the nested `ext` claim:
+
+```shell
+ory patch oauth2-config {project.id} \
+  --replace "/oauth2/mirror_top_level_claims=false"
+```
+
+This results in an access token with the following structure:
+
+```json
+{
+  "sub": "...",
+  // ...
+  "some_custom_claim": "some_custom_value"
+  // no "ext" claim
   // ...
 }
 ```

@@ -1,10 +1,10 @@
 ---
 id: verify-email-account-activation
-title: Verify email addresses associated with users accounts
-sidebar_label: Email address verification
+title: Verify addresses associated with users accounts
+sidebar_label: Address verification
 ---
 
-# Email address verification
+# Address verification
 
 ```mdx-code-block
 import CodeTabs from "@theme/Code/CodeTabs"
@@ -14,9 +14,9 @@ import TabItem from "@theme/TabItem"
 import RenderFlow from "@theme/Code/RenderFlow"
 ```
 
-Ory allows users to verify email addresses associated with their accounts. This is important to prove that the user has access to
-the address they used to create their account. If verification is enabled, Ory Identities starts the verification process
-automatically when users sign up. Users can also verify their addresses manually.
+Ory allows users to verify email addresses or phone numbers associated with their accounts. This is important to prove that the
+user has access to the address they used to create their account. If verification is enabled, Ory Identities starts the
+verification process automatically when users sign up. Users can also verify their addresses manually.
 
 The verification flow is supported in both browsers and API clients and can be summarized as the following state machine:
 
@@ -49,7 +49,8 @@ stateDiagram
 :::caution
 
 Completing account verification doesn't guarantee that the account is used by the person who performed the verification. We
-recommend implementing additional security mechanisms to ensure that verified accounts aren't taken over by malicious actors.
+recommend implementing additional security mechanisms to ensure that verified accounts aren't taken over by malicious actors, such
+as [TOTP](../../mfa/15_totp.mdx) or [FIDO2/WebAuthn](../../mfa/20_webauthn-fido-yubikey.mdx).
 
 :::
 
@@ -62,6 +63,13 @@ recommend implementing additional security mechanisms to ensure that verified ac
 
 To configure account verification, go to **Authentication** → **Email Verification** in the
 [Ory Console](https://console.ory.sh/projects/current/verification).
+
+:::caution
+
+For SMS verification to work, you'll also need to configure a courier channel with the ID set to `sms` via the CLI. See the
+[courier documentation](../../emails-sms/10_sending-sms.mdx) for more information.
+
+:::
 
 ```mdx-code-block
 </TabItem>
@@ -143,7 +151,7 @@ provides when registering their account. Other fields inside the `traits` sectio
 +            }
            }
          }
-       }
+       },
        "additionalProperties": false
      }
    }
@@ -274,7 +282,7 @@ For more information see the [hooks configuration](../../hooks/01_configure-hook
 ### Carry over verified status from Social Sign-In
 
 Some Social Sign-In providers like Google return the verified status of the email address. To carry over the verified status from
-the Social Sign-In provider, return `verified_addresses` in your Social Sign-In JsonNet snippet:
+the Social Sign-In provider, return `verified_addresses` in your Social Sign-In Jsonnet snippet:
 
 ```jsonnet
 local claims = {
@@ -329,6 +337,57 @@ email.
 
 If the verified address is not present in the identity's traits, the verified status is not carried over.
 
+## Phone number verification
+
+To send SMS messages, you need to have a trait in your identity schema that holds the phone number. The trait must be marked as a
+verifiable address via the `verification` extension. Here's an example of how to define such a trait in the identity schema:
+
+```json
+{
+  "$id": "https://schemas.ory.sh/presets/kratos/quickstart/phone-password/identity.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Person",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "title": "E-Mail",
+          "format": "email",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            },
+            "verification": {
+              "via": "email"
+            }
+          }
+        },
+        "phone": {
+          "type": "string",
+          "title": "Phone number",
+          "format": "tel",
+          "ory.sh/kratos": {
+            // highlight-start
+            "verification": {
+              "via": "sms"
+            }
+            // highlight-end
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
+```
+
+Make sure to configure an SMS channel in the Ory configuration. See the [SMS documentation](../../emails-sms/10_sending-sms.mdx).
+
 ## Choosing the right strategy
 
 Ory supports two strategies for verifying your user's addresses.
@@ -368,12 +427,15 @@ import CodeLinkComparison from "./_common/code-link-comparison.mdx"
 <CodeLinkComparison />
 ```
 
-## Showing the verification flow after settings or registration
+## Showing the verification flow after settings, registration or login
 
 To show the verification flow directly after the user has registered, see the
 [registration documentation](../../../identities/sign-in/actions.mdx#show-verification-after-successful-registration).
 
 For settings, see the [settings documentation](./user-settings.mdx#show-verification-after-updating-a-verifiable-address).
+
+And for login, see the
+[login customization documentation](../../../identities/sign-in/actions.mdx#show-verification-after-login-if-address-is-not-verified-yet).
 
 ## Code examples
 

@@ -13,6 +13,7 @@
 // `}/>
 
 import React, { useEffect, useState } from "react"
+import { useColorMode } from "@docusaurus/theme-common"
 import mermaid from "mermaid"
 import styles from "./mermaid.module.css"
 import cn from "classnames"
@@ -43,11 +44,19 @@ const Mermaid = ({ chart }) => {
   const [svg, setSvg] = useState(undefined)
   const [id] = useState(`mermaid-${Math.random().toString(36).substr(2, -1)}`)
   const toggle = () => setZoomed(!zoomed)
+  const { colorMode } = useColorMode()
 
   useEffect(() => {
-    mermaid.render(id, chart, (svg) => {
-      setSvg(svg)
-    })
+    // https://mermaid.js.org/config/theming.html#diagram-specific-themes
+    mermaid.render(
+      id,
+      `%%{init: {'theme':'${
+        colorMode === "light" ? "neutral" : "dark"
+      }'}}%%\n${chart}`,
+      (svg) => {
+        setSvg(svg)
+      },
+    )
   }, [])
 
   return (

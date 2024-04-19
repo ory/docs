@@ -40,30 +40,6 @@ incomplete. To complete the configuration and ensure a smooth and secure user ex
 
 :::
 
-## Additional configuration
-
-When adding a generic social sign-in provider, you can customize the integration by defining the OAuth scopes Ory requests from
-the provider and by setting up custom data mappings.
-
-### Scopes
-
-The Scopes section allows you to define the OAuth scopes Ory requests from the sign-in provider. Defining scopes allows you to
-interact with the provider's APIs on behalf of the user, or to access additional user data, which is exposed as claims for data
-mapping.
-
-### Data mapping
-
-The **Data mapping** section allows you to map the data returned by the sign-in provider to traits as defined in the identity
-schema.
-
-To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
-mapping.
-
-```mdx-code-block
-import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
-
-<JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
-```
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
@@ -103,6 +79,7 @@ Follow these steps to add a generic provider as a social sign-in provider to you
                scope:
                  - email
                # supported scopes can be found in your providers dev docs
+               claims_source: id_token  # set to "userinfo" to read the claims from the UserInfo endpoint
          enabled: true
    ```
 
@@ -115,6 +92,60 @@ Follow these steps to add a generic provider as a social sign-in provider to you
 </TabItem>
 </Tabs>
 ````
+
+## Additional configuration
+
+When adding a generic social sign-in provider, you can customize the integration by defining the OAuth scopes Ory requests from
+the provider and by setting up custom data mappings.
+
+### Scopes
+
+The Scopes section allows you to define the OAuth scopes Ory requests from the sign-in provider. Defining scopes allows you to
+interact with the provider's APIs on behalf of the user, or to access additional user data, which is exposed as claims for data
+mapping.
+
+### Data mapping
+
+The **Data mapping** section allows you to map the claims returned by the sign-in provider to traits as defined in the identity
+schema.
+
+:::note
+
+For generic providers with `claims_source=userinfo`, the issuer claim will be ignored if the userinfo response is not signed. This
+behavior aligns with the OpenID Connect specification.
+
+:::
+
+To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
+mapping.
+
+```mdx-code-block
+import JsonnetWarning from '../../_common/jsonnetwarning.mdx'
+
+<JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+```
+
+### Claims source
+
+The claims that the sign-in provider supplies can either be read from the
+[identity token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) or from the
+[UserInfo](https://openid.net/specs/openid-connect-core-1_0.html#UserInfo) endpoint. The default behaviour is to use the identity
+token that was supplied through the provider's token endpoint.
+
+To call the UserInfo endpoint (as discovered through the provider's `.well-known/openid-configuration` URL), set the
+`claims_source` key to `userinfo`.
+
+```yaml
+selfservice:
+  methods:
+    oidc:
+      config:
+        providers:
+          - id: generic # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+            provider: generic
+            claims_source: userinfo # default: "id_token"
+            # ...
+```
 
 ## Troubleshooting
 
