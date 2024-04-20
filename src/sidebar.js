@@ -97,6 +97,7 @@ module.exports = {
             "identities/sign-in/check-session",
             "identities/sign-in/actions",
             "identities/sign-in/login-hint",
+            "identities/sign-in/two-step-registration",
           ],
         },
         {
@@ -323,6 +324,7 @@ module.exports = {
         "guides/cors",
         "guides/gitops",
         "guides/rate-limits",
+        "guides/allowlist",
       ],
     },
     {

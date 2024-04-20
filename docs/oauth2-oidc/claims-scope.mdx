@@ -33,8 +33,10 @@ Also, the name field can be a string or an object:
 - If `identity.traits.name` is an object, `traits.name.first` and `traits.name.last` are used for the `given_name` and
   `family_name` traits.
 
-## Making Custom Scopes and Claims
+## Customize Scopes and Claims
 
-Ory allows you to customize scopes and claims. To do this, you can set up a custom consent UI. This way, you can adjust your
-identity management process to fit your needs. For more information, check out the
-[Ory Consent UI Documentation](./custom-login-consent/flow.mdx).
+Refer to the documentation about [OAuth2 webhooks](../hydra/guides/oauth2-webhooks.mdx) to learn about adding custom claims to
+your tokens for different OAuth flows.
+
+For full control over the resource owner's user experience during the consent phase in the Authorizatio Code / OpenID Connect
+flow, check out the [Ory Consent UI](./custom-login-consent/flow.mdx) documentation.

@@ -43,6 +43,42 @@ Follow these steps:
 4. Enter the API Key name and click **Create API Key**.
 5. Copy the created API Key from the prompt that shows at the bottom right of the screen.
 
+## Environments
+
+Ory Network offers different environments for production, staging, and development. These are called Ory Network projects.
+
+Review rate limits in the [Project Rate Limits](https://www.ory.sh/docs/guides/rate-limits) documentation. To match configuration
+between projects use the [Ory CLI](https://www.ory.sh/docs/guides/cli/config-with-cli) For more information what environments are
+included on the Ory Network plans, head over to the [Pricing](https://ory.sh/pricing) page.
+
+:::warning
+
+Staging and development projects are for test data only! Ory Network doesn't guarantee GDPR-compliant PII handling in staging and
+development projects.
+
+:::
+
+### Development projects
+
+Development projects provide a free test environment for your projects, with limited rate limits and no custom domain. They are
+ideal for early-stage development and testing. To create a new development project, use the following command:
+
+```shell
+ory create project --name "My Development Project"
+```
+
+### Staging projects
+
+Staging projects offer all features of production environment including a custom domain (e.g.,
+`https://auth-staging.example.com`). Staging projects have lower rate limits than production projects.
+
+To create a new staging project, open the [Ory Console](https://console.ory.sh/projects/create), hit "Create new project", and
+select the Staging environment in the next screen.
+
+Staging projects are suitable for testing your application and its integrations with Ory Network before deploying to production.
+They provide a more accurate representation of how your application will behave in a production project compared to development
+projects, without the risk of affecting real users or data.
+
 ## Local development
 
 To make login easy and secure, Ory uses cookies to manage session in browser applications. Ory additionally deploys CSRF cookies

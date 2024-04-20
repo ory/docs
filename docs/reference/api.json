@@ -219,10 +219,10 @@
             "type": "boolean"
           },
           "environment": {
-            "description": "\nprod Production\ndev Development",
-            "enum": ["prod", "dev"],
+            "description": "\nprod Production\nstage Staging\ndev Development",
+            "enum": ["prod", "stage", "dev"],
             "type": "string",
-            "x-go-enum-desc": "prod Production\ndev Development"
+            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
           "hydra_oauth2_allowed_top_level_claims": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -683,6 +683,10 @@
             "description": "Configures the Ory Kratos Login After OIDC Default Return URL\n\nThis governs the \"selfservice.flows.login.after.oidc.default_browser_return_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_login_after_passkey_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login After Passkey Default Return URL\n\nThis governs the \"selfservice.flows.login.after.passkey.default_browser_return_url\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_login_after_password_default_browser_return_url": {
             "description": "Configures the Ory Kratos Login After Password Default Return URL\n\nThis governs the \"selfservice.flows.login.after.password.default_browser_return_url\" setting.",
             "type": "string"
@@ -745,13 +749,21 @@
             "description": "Configures the Ory Kratos Registration After OIDC Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.oidc.default_browser_return_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_registration_after_passkey_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Registration After Passkey Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_registration_after_password_default_browser_return_url": {
             "description": "Configures the Ory Kratos Registration After Password Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
             "type": "string"
           },
           "kratos_selfservice_flows_registration_after_webauthn_default_browser_return_url": {
-            "description": "Configures the Ory Kratos Registration After Password Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
+            "description": "Configures the Ory Kratos Registration After Webauthn Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.webauthn.default_browser_return_url\" setting.",
             "type": "string"
+          },
+          "kratos_selfservice_flows_registration_enable_legacy_one_step": {
+            "description": "Disable two-step registration\n\nTwo-step registration is a significantly improved sign up flow and recommended\nwhen using more than one sign up methods. To revert to one-step registration,\nset this to `true`.\n\nThis governs the \"selfservice.flows.registration.enable_legacy_one_step\" setting.",
+            "type": "boolean"
           },
           "kratos_selfservice_flows_registration_enabled": {
             "description": "Configures the Whether Ory Kratos Registration is Enabled\n\nThis governs the \"selfservice.flows.registration.enabled\" setting.0",
@@ -781,6 +793,10 @@
             "description": "Configures the Ory Kratos Settings Default Return URL After Updating Social Sign In\n\nThis governs the \"selfservice.flows.settings.after.oidc.default_browser_return_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_settings_after_passkey_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating Passkey\n\nThis governs the \"selfservice.flows.settings.after.passkey.default_browser_return_url\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_settings_after_password_default_browser_return_url": {
             "description": "Configures the Ory Kratos Settings Default Return URL After Updating Passwords\n\nThis governs the \"selfservice.flows.settings.after.password.default_browser_return_url\" setting.",
             "type": "string"
@@ -794,7 +810,7 @@
             "type": "string"
           },
           "kratos_selfservice_flows_settings_after_webauthn_default_browser_return_url": {
-            "description": "Configures the Ory Kratos Settings Default Return URL After Updating WebAuthn\n\nThis governs the \"selfservice.flows.settings.webauthn.profile.default_browser_return_url\" setting.",
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating WebAuthn\n\nThis governs the \"selfservice.flows.settings.after.webauthn.default_browser_return_url\" setting.",
             "type": "string"
           },
           "kratos_selfservice_flows_settings_lifespan": {
@@ -848,11 +864,15 @@
             "type": "boolean"
           },
           "kratos_selfservice_methods_code_mfa_enabled": {
-            "description": "Configues whether the code method can be used to fulfil MFA flows\n\nThis governs the \"selfservice.methods.code.mfa_enabled\" setting.",
+            "description": "Configures whether the code method can be used to fulfil MFA flows\n\nThis governs the \"selfservice.methods.code.mfa_enabled\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_code_passwordless_enabled": {
-            "description": "Configues whether Ory Kratos Passwordless should use the Code Method\n\nThis governs the \"selfservice.methods.code.passwordless_enabled\" setting.",
+            "description": "Configures whether Ory Kratos Passwordless should use the Code Method\n\nThis governs the \"selfservice.methods.code.passwordless_enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_code_passwordless_login_fallback_enabled": {
+            "description": "This setting allows the code method to always login a user with code if they have registered with another authentication method such as password or social sign in.\n\nThis governs the \"selfservice.methods.code.passwordless_login_fallback_enabled\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_link_config_base_url": {
@@ -880,6 +900,21 @@
           },
           "kratos_selfservice_methods_oidc_enabled": {
             "description": "Configures whether Ory Kratos Third Party / OpenID Connect Login is enabled\n\nThis governs the \"selfservice.methods.oidc.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_passkey_config_rp_display_name": {
+            "description": "Configures the Ory Kratos Passkey RP Display Name\n\nThis governs the \"selfservice.methods.passkey.config.rp.display_name\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_passkey_config_rp_id": {
+            "description": "Configures the Ory Kratos Passkey RP ID\n\nThis governs the \"selfservice.methods.passkey.config.rp.id\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_passkey_config_rp_origins": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_selfservice_methods_passkey_enabled": {
+            "description": "Configures whether Ory Kratos Passkey authentication is enabled\n\nThis governs the \"selfservice.methods.passkey.enabled\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_password_config_haveibeenpwned_enabled": {
@@ -1425,8 +1460,8 @@
         "type": "array"
       },
       "SubscriptionStatus": {
-        "description": "For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this state can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` state. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal state, the open invoice will be voided and no further invoices will be generated.\n\nA subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.\n\nIf subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).\n\nIf subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.",
-        "title": "Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `canceled`, or `unpaid`.",
+        "description": "For `collection_method=charge_automatically` a subscription moves into `incomplete` if the initial payment attempt fails. A subscription in this status can only have metadata and default_source updated. Once the first invoice is paid, the subscription moves into an `active` status. If the first invoice is not paid within 23 hours, the subscription transitions to `incomplete_expired`. This is a terminal status, the open invoice will be voided and no further invoices will be generated.\n\nA subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.\n\nA subscription can only enter a `paused` status [when a trial ends without a payment method](https://stripe.com/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://stripe.com/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.\n\nIf subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).\n\nIf subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.",
+        "title": "Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `canceled`, `unpaid`, or `paused`.",
         "type": "string"
       },
       "Time": {
@@ -1904,10 +1939,10 @@
         "description": "Create Project Request Body",
         "properties": {
           "environment": {
-            "description": "The environment of the project.\nprod Production\ndev Development",
-            "enum": ["prod", "dev"],
+            "description": "The environment of the project.\nprod Production\nstage Staging\ndev Development",
+            "enum": ["prod", "stage", "dev"],
             "type": "string",
-            "x-go-enum-desc": "prod Production\ndev Development"
+            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
           "name": {
             "description": "The name of the project to be created",
@@ -2613,6 +2648,7 @@
             "type": "object"
           }
         },
+        "title": "The not ready status of the service.",
         "type": "object"
       },
       "healthStatus": {
@@ -2622,6 +2658,7 @@
             "type": "string"
           }
         },
+        "title": "The health status of the service.",
         "type": "object"
       },
       "identity": {
@@ -2718,7 +2755,7 @@
             "type": "array"
           },
           "type": {
-            "description": "Type discriminates between different types of credentials.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "Type discriminates between different types of credentials.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "enum": [
               "password",
               "oidc",
@@ -2726,11 +2763,13 @@
               "lookup_secret",
               "webauthn",
               "code",
+              "passkey",
+              "profile",
               "link_recovery",
               "code_recovery"
             ],
             "type": "string",
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "updated_at": {
             "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
@@ -3294,7 +3333,7 @@
         "description": "This object represents a login flow. A login flow is initiated at the \"Initiate Login API / Browser Flow\"\nendpoint by a client.\n\nOnce a login flow is completed successfully, a session cookie or session token will be issued.",
         "properties": {
           "active": {
-            "description": "The active login method\n\nIf set contains the login method used. If the flow is new, it is unset.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "The active login method\n\nIf set contains the login method used. If the flow is new, it is unset.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "enum": [
               "password",
               "oidc",
@@ -3302,11 +3341,13 @@
               "lookup_secret",
               "webauthn",
               "code",
+              "passkey",
+              "profile",
               "link_recovery",
               "code_recovery"
             ],
             "type": "string",
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "created_at": {
             "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
@@ -3683,10 +3724,10 @@
       "migrationOptions": {
         "properties": {
           "environment": {
-            "description": "The environment of the project in the workspace. Can be one of \"prod\" or\n\"dev\". Note that the number of projects in the \"prod\" environment is limited\ndepending on the subscription.\nprod Production\ndev Development",
-            "enum": ["prod", "dev"],
+            "description": "The environment of the project in the workspace. Can be one of \"prod\" or\n\"dev\". Note that the number of projects in the \"prod\" environment is limited\ndepending on the subscription.\nprod Production\nstage Staging\ndev Development",
+            "enum": ["prod", "stage", "dev"],
             "type": "string",
-            "x-go-enum-desc": "prod Production\ndev Development"
+            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
           "project_subscription": {
             "description": "The action to take with the project subscription. Can be one of \"migrate\", and\n\"ignore\". \"migrate\" will migrate the project subscription to the workspace.\n\"ignore\" will ignore the project subscription.\nmigrate ProjectSubscriptionActionMigrate  ProjectSubscriptionActionMigrate will migrate the project subscription to the  workspace.\nignore ProjectSubscriptionActionIgnore  ProjectSubscriptionActionIgnore will ignore the project subscription.",
@@ -3734,10 +3775,10 @@
             "$ref": "#/components/schemas/normalizedProjectRevision"
           },
           "environment": {
-            "description": "The environment of the project.\nprod Production\ndev Development",
-            "enum": ["prod", "dev"],
+            "description": "The environment of the project.\nprod Production\nstage Staging\ndev Development",
+            "enum": ["prod", "stage", "dev"],
             "type": "string",
-            "x-go-enum-desc": "prod Production\ndev Development"
+            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
           "hosts": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -3771,6 +3812,9 @@
             "format": "date-time",
             "readOnly": true,
             "type": "string"
+          },
+          "workspace": {
+            "$ref": "#/components/schemas/workspace"
           },
           "workspace_id": {
             "$ref": "#/components/schemas/NullUUID"
@@ -4264,6 +4308,10 @@
             "description": "Configures the Ory Kratos Login After OIDC Default Return URL\n\nThis governs the \"selfservice.flows.login.after.oidc.default_browser_return_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_login_after_passkey_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Login After Passkey Default Return URL\n\nThis governs the \"selfservice.flows.login.after.passkey.default_browser_return_url\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_login_after_password_default_browser_return_url": {
             "description": "Configures the Ory Kratos Login After Password Default Return URL\n\nThis governs the \"selfservice.flows.login.after.password.default_browser_return_url\" setting.",
             "type": "string"
@@ -4326,13 +4374,21 @@
             "description": "Configures the Ory Kratos Registration After OIDC Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.oidc.default_browser_return_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_registration_after_passkey_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Registration After Passkey Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_registration_after_password_default_browser_return_url": {
             "description": "Configures the Ory Kratos Registration After Password Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
             "type": "string"
           },
           "kratos_selfservice_flows_registration_after_webauthn_default_browser_return_url": {
-            "description": "Configures the Ory Kratos Registration After Password Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.password.default_browser_return_url\" setting.",
+            "description": "Configures the Ory Kratos Registration After Webauthn Default Return URL\n\nThis governs the \"selfservice.flows.registration.after.webauthn.default_browser_return_url\" setting.",
             "type": "string"
+          },
+          "kratos_selfservice_flows_registration_enable_legacy_one_step": {
+            "description": "Disable two-step registration\n\nTwo-step registration is a significantly improved sign up flow and recommended\nwhen using more than one sign up methods. To revert to one-step registration,\nset this to `true`.\n\nThis governs the \"selfservice.flows.registration.enable_legacy_one_step\" setting.",
+            "type": "boolean"
           },
           "kratos_selfservice_flows_registration_enabled": {
             "description": "Configures the Whether Ory Kratos Registration is Enabled\n\nThis governs the \"selfservice.flows.registration.enabled\" setting.0",
@@ -4362,6 +4418,10 @@
             "description": "Configures the Ory Kratos Settings Default Return URL After Updating Social Sign In\n\nThis governs the \"selfservice.flows.settings.after.oidc.default_browser_return_url\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_settings_after_passkey_default_browser_return_url": {
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating Passkey\n\nThis governs the \"selfservice.flows.settings.after.passkey.default_browser_return_url\" setting.",
+            "type": "string"
+          },
           "kratos_selfservice_flows_settings_after_password_default_browser_return_url": {
             "description": "Configures the Ory Kratos Settings Default Return URL After Updating Passwords\n\nThis governs the \"selfservice.flows.settings.after.password.default_browser_return_url\" setting.",
             "type": "string"
@@ -4375,7 +4435,7 @@
             "type": "string"
           },
           "kratos_selfservice_flows_settings_after_webauthn_default_browser_return_url": {
-            "description": "Configures the Ory Kratos Settings Default Return URL After Updating WebAuthn\n\nThis governs the \"selfservice.flows.settings.webauthn.profile.default_browser_return_url\" setting.",
+            "description": "Configures the Ory Kratos Settings Default Return URL After Updating WebAuthn\n\nThis governs the \"selfservice.flows.settings.after.webauthn.default_browser_return_url\" setting.",
             "type": "string"
           },
           "kratos_selfservice_flows_settings_lifespan": {
@@ -4429,11 +4489,15 @@
             "type": "boolean"
           },
           "kratos_selfservice_methods_code_mfa_enabled": {
-            "description": "Configues whether the code method can be used to fulfil MFA flows\n\nThis governs the \"selfservice.methods.code.mfa_enabled\" setting.",
+            "description": "Configures whether the code method can be used to fulfil MFA flows\n\nThis governs the \"selfservice.methods.code.mfa_enabled\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_code_passwordless_enabled": {
-            "description": "Configues whether Ory Kratos Passwordless should use the Code Method\n\nThis governs the \"selfservice.methods.code.passwordless_enabled\" setting.",
+            "description": "Configures whether Ory Kratos Passwordless should use the Code Method\n\nThis governs the \"selfservice.methods.code.passwordless_enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_code_passwordless_login_fallback_enabled": {
+            "description": "This setting allows the code method to always login a user with code if they have registered with another authentication method such as password or social sign in.\n\nThis governs the \"selfservice.methods.code.passwordless_login_fallback_enabled\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_link_config_base_url": {
@@ -4461,6 +4525,21 @@
           },
           "kratos_selfservice_methods_oidc_enabled": {
             "description": "Configures whether Ory Kratos Third Party / OpenID Connect Login is enabled\n\nThis governs the \"selfservice.methods.oidc.enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_passkey_config_rp_display_name": {
+            "description": "Configures the Ory Kratos Passkey RP Display Name\n\nThis governs the \"selfservice.methods.passkey.config.rp.display_name\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_passkey_config_rp_id": {
+            "description": "Configures the Ory Kratos Passkey RP ID\n\nThis governs the \"selfservice.methods.passkey.config.rp.id\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_passkey_config_rp_origins": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_selfservice_methods_passkey_enabled": {
+            "description": "Configures whether Ory Kratos Passkey authentication is enabled\n\nThis governs the \"selfservice.methods.passkey.enabled\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_password_config_haveibeenpwned_enabled": {
@@ -6359,10 +6438,10 @@
             "type": "string"
           },
           "environment": {
-            "description": "The environment of the project.\nprod Production\ndev Development",
-            "enum": ["prod", "dev"],
+            "description": "The environment of the project.\nprod Production\nstage Staging\ndev Development",
+            "enum": ["prod", "stage", "dev"],
             "type": "string",
-            "x-go-enum-desc": "prod Production\ndev Development"
+            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
           "hosts": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -6398,6 +6477,9 @@
             "description": "Last Time Project was Updated",
             "format": "date-time",
             "type": "string"
+          },
+          "workspace": {
+            "$ref": "#/components/schemas/workspace"
           },
           "workspace_id": {
             "$ref": "#/components/schemas/NullUUID"
@@ -6502,13 +6584,14 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
+            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
             "enum": [
               "region_eu",
               "region_us",
               "region_apac",
               "region_global",
               "production_projects",
+              "staging_projects",
               "development_projects",
               "daily_active_users",
               "custom_domains",
@@ -6532,7 +6615,7 @@
               "oauth2_introspect_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
+            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
           },
           "feature_available": {
             "type": "boolean"
@@ -6691,7 +6774,7 @@
       "registrationFlow": {
         "properties": {
           "active": {
-            "description": "Active, if set, contains the registration method that is being used. It is initially\nnot set.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "Active, if set, contains the registration method that is being used. It is initially\nnot set.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "enum": [
               "password",
               "oidc",
@@ -6699,11 +6782,13 @@
               "lookup_secret",
               "webauthn",
               "code",
+              "passkey",
+              "profile",
               "link_recovery",
               "code_recovery"
             ],
             "type": "string",
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "expires_at": {
             "description": "ExpiresAt is the time (UTC) when the flow expires. If the user still wishes to log in,\na new flow has to be initiated.",
@@ -7360,6 +7445,13 @@
       "successfulNativeLogin": {
         "description": "The Response for Login Flows via API",
         "properties": {
+          "continue_with": {
+            "description": "Contains a list of actions, that could follow this flow\n\nIt can, for example, this will contain a reference to the verification flow, created as part of the user's\nregistration or the token of the session.",
+            "items": {
+              "$ref": "#/components/schemas/continueWith"
+            },
+            "type": "array"
+          },
           "session": {
             "$ref": "#/components/schemas/session"
           },
@@ -7613,7 +7705,7 @@
             "$ref": "#/components/schemas/uiNodeAttributes"
           },
           "group": {
-            "description": "Group specifies which group (e.g. password authenticator) this node belongs to.\ndefault DefaultGroup\npassword PasswordGroup\noidc OpenIDConnectGroup\nprofile ProfileGroup\nlink LinkGroup\ncode CodeGroup\ntotp TOTPGroup\nlookup_secret LookupGroup\nwebauthn WebAuthnGroup",
+            "description": "Group specifies which group (e.g. password authenticator) this node belongs to.\ndefault DefaultGroup\npassword PasswordGroup\noidc OpenIDConnectGroup\nprofile ProfileGroup\nlink LinkGroup\ncode CodeGroup\ntotp TOTPGroup\nlookup_secret LookupGroup\nwebauthn WebAuthnGroup\npasskey PasskeyGroup",
             "enum": [
               "default",
               "password",
@@ -7623,10 +7715,11 @@
               "code",
               "totp",
               "lookup_secret",
-              "webauthn"
+              "webauthn",
+              "passkey"
             ],
             "type": "string",
-            "x-go-enum-desc": "default DefaultGroup\npassword PasswordGroup\noidc OpenIDConnectGroup\nprofile ProfileGroup\nlink LinkGroup\ncode CodeGroup\ntotp TOTPGroup\nlookup_secret LookupGroup\nwebauthn WebAuthnGroup"
+            "x-go-enum-desc": "default DefaultGroup\npassword PasswordGroup\noidc OpenIDConnectGroup\nprofile ProfileGroup\nlink LinkGroup\ncode CodeGroup\ntotp TOTPGroup\nlookup_secret LookupGroup\nwebauthn WebAuthnGroup\npasskey PasskeyGroup"
           },
           "messages": {
             "$ref": "#/components/schemas/uiTexts"
@@ -7656,8 +7749,10 @@
             "type": "string"
           },
           "node_type": {
-            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.  In this struct it technically always is \"a\".",
-            "type": "string"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.  In this struct it technically always is \"a\".\ntext Text\ninput Input\nimg Image\na Anchor\nscript Script",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string",
+            "x-go-enum-desc": "text Text\ninput Input\nimg Image\na Anchor\nscript Script"
           },
           "title": {
             "$ref": "#/components/schemas/uiText"
@@ -7709,8 +7804,10 @@
             "type": "string"
           },
           "node_type": {
-            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.  In this struct it technically always is \"img\".",
-            "type": "string"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.  In this struct it technically always is \"img\".\ntext Text\ninput Input\nimg Image\na Anchor\nscript Script",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string",
+            "x-go-enum-desc": "text Text\ninput Input\nimg Image\na Anchor\nscript Script"
           },
           "src": {
             "description": "The image's source URL.\n\nformat: uri",
@@ -7754,11 +7851,17 @@
             "type": "string"
           },
           "node_type": {
-            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.  In this struct it technically always is \"input\".",
-            "type": "string"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.  In this struct it technically always is \"input\".\ntext Text\ninput Input\nimg Image\na Anchor\nscript Script",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string",
+            "x-go-enum-desc": "text Text\ninput Input\nimg Image\na Anchor\nscript Script"
           },
           "onclick": {
             "description": "OnClick may contain javascript which should be executed on click. This is primarily\nused for WebAuthn.",
+            "type": "string"
+          },
+          "onload": {
+            "description": "OnLoad may contain javascript which should be executed on load. This is primarily\nused for WebAuthn.",
             "type": "string"
           },
           "pattern": {
@@ -7825,8 +7928,10 @@
             "type": "string"
           },
           "node_type": {
-            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0. In this struct it technically always is \"script\".",
-            "type": "string"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0. In this struct it technically always is \"script\".\ntext Text\ninput Input\nimg Image\na Anchor\nscript Script",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string",
+            "x-go-enum-desc": "text Text\ninput Input\nimg Image\na Anchor\nscript Script"
           },
           "nonce": {
             "description": "Nonce for CSP\n\nA nonce you may want to use to improve your Content Security Policy.\nYou do not have to use this value but if you want to improve your CSP\npolicies you may use it. You can also choose to use your own nonce value!",
@@ -7866,8 +7971,10 @@
             "type": "string"
           },
           "node_type": {
-            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.  In this struct it technically always is \"text\".",
-            "type": "string"
+            "description": "NodeType represents this node's types. It is a mirror of `node.type` and\nis primarily used to allow compatibility with OpenAPI 3.0.  In this struct it technically always is \"text\".\ntext Text\ninput Input\nimg Image\na Anchor\nscript Script",
+            "enum": ["text", "input", "img", "a", "script"],
+            "type": "string",
+            "x-go-enum-desc": "text Text\ninput Input\nimg Image\na Anchor\nscript Script"
           },
           "text": {
             "$ref": "#/components/schemas/uiText"
@@ -7951,6 +8058,7 @@
             "code": "#/components/schemas/updateLoginFlowWithCodeMethod",
             "lookup_secret": "#/components/schemas/updateLoginFlowWithLookupSecretMethod",
             "oidc": "#/components/schemas/updateLoginFlowWithOidcMethod",
+            "passkey": "#/components/schemas/updateLoginFlowWithPasskeyMethod",
             "password": "#/components/schemas/updateLoginFlowWithPasswordMethod",
             "totp": "#/components/schemas/updateLoginFlowWithTotpMethod",
             "webauthn": "#/components/schemas/updateLoginFlowWithWebAuthnMethod"
@@ -7975,6 +8083,9 @@
           },
           {
             "$ref": "#/components/schemas/updateLoginFlowWithCodeMethod"
+          },
+          {
+            "$ref": "#/components/schemas/updateLoginFlowWithPasskeyMethod"
           }
         ]
       },
@@ -8065,6 +8176,25 @@
           }
         },
         "required": ["provider", "method"],
+        "type": "object"
+      },
+      "updateLoginFlowWithPasskeyMethod": {
+        "description": "Update Login Flow with Passkey Method",
+        "properties": {
+          "csrf_token": {
+            "description": "Sending the anti-csrf token is only required for browser login flows.",
+            "type": "string"
+          },
+          "method": {
+            "description": "Method should be set to \"passkey\" when logging in using the Passkey strategy.",
+            "type": "string"
+          },
+          "passkey_login": {
+            "description": "Login a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
+            "type": "string"
+          }
+        },
+        "required": ["method"],
         "type": "object"
       },
       "updateLoginFlowWithPasswordMethod": {
@@ -8226,6 +8356,7 @@
           "mapping": {
             "code": "#/components/schemas/updateRegistrationFlowWithCodeMethod",
             "oidc": "#/components/schemas/updateRegistrationFlowWithOidcMethod",
+            "passKey": "#/components/schemas/updateRegistrationFlowWithPasskeyMethod",
             "password": "#/components/schemas/updateRegistrationFlowWithPasswordMethod",
             "webauthn": "#/components/schemas/updateRegistrationFlowWithWebAuthnMethod"
           },
@@ -8243,6 +8374,9 @@
           },
           {
             "$ref": "#/components/schemas/updateRegistrationFlowWithCodeMethod"
+          },
+          {
+            "$ref": "#/components/schemas/updateRegistrationFlowWithPasskeyMethod"
           }
         ]
       },
@@ -8316,6 +8450,33 @@
         "required": ["provider", "method"],
         "type": "object"
       },
+      "updateRegistrationFlowWithPasskeyMethod": {
+        "description": "Update Registration Flow with Passkey Method",
+        "properties": {
+          "csrf_token": {
+            "description": "CSRFToken is the anti-CSRF token",
+            "type": "string"
+          },
+          "method": {
+            "description": "Method\n\nShould be set to \"passkey\" when trying to add, update, or remove a Passkey.",
+            "type": "string"
+          },
+          "passkey_register": {
+            "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
+            "type": "string"
+          },
+          "traits": {
+            "description": "The identity's traits",
+            "type": "object"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
+          }
+        },
+        "required": ["traits", "method"],
+        "type": "object"
+      },
       "updateRegistrationFlowWithPasswordMethod": {
         "description": "Update Registration Flow with Password Method",
         "properties": {
@@ -8341,6 +8502,33 @@
           }
         },
         "required": ["password", "traits", "method"],
+        "type": "object"
+      },
+      "updateRegistrationFlowWithProfileMethod": {
+        "description": "Update Registration Flow with Profile Method",
+        "properties": {
+          "csrf_token": {
+            "description": "The Anti-CSRF Token\n\nThis token is only required when performing browser flows.",
+            "type": "string"
+          },
+          "method": {
+            "description": "Method\n\nShould be set to profile when trying to update a profile.",
+            "type": "string"
+          },
+          "screen": {
+            "description": "Screen requests navigation to a previous screen.\n\nThis must be set to credential-selection to go back to the credential\nselection screen.",
+            "type": "string"
+          },
+          "traits": {
+            "description": "Traits\n\nThe identity's traits.",
+            "type": "object"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
+          }
+        },
+        "required": ["traits", "method"],
         "type": "object"
       },
       "updateRegistrationFlowWithWebAuthnMethod": {
@@ -8380,6 +8568,7 @@
           "mapping": {
             "lookup_secret": "#/components/schemas/updateSettingsFlowWithLookupMethod",
             "oidc": "#/components/schemas/updateSettingsFlowWithOidcMethod",
+            "passkey": "#/components/schemas/updateSettingsFlowWithPasskeyMethod",
             "password": "#/components/schemas/updateSettingsFlowWithPasswordMethod",
             "profile": "#/components/schemas/updateSettingsFlowWithProfileMethod",
             "totp": "#/components/schemas/updateSettingsFlowWithTotpMethod",
@@ -8398,9 +8587,6 @@
             "$ref": "#/components/schemas/updateSettingsFlowWithOidcMethod"
           },
           {
-            "$ref": "#/components/schemas/updateSettingsFlowWithOidcMethod"
-          },
-          {
             "$ref": "#/components/schemas/updateSettingsFlowWithTotpMethod"
           },
           {
@@ -8408,6 +8594,9 @@
           },
           {
             "$ref": "#/components/schemas/updateSettingsFlowWithLookupMethod"
+          },
+          {
+            "$ref": "#/components/schemas/updateSettingsFlowWithPasskeyMethod"
           }
         ]
       },
@@ -8476,6 +8665,29 @@
           "upstream_parameters": {
             "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.",
             "type": "object"
+          }
+        },
+        "required": ["method"],
+        "type": "object"
+      },
+      "updateSettingsFlowWithPasskeyMethod": {
+        "description": "Update Settings Flow with Passkey Method",
+        "properties": {
+          "csrf_token": {
+            "description": "CSRFToken is the anti-CSRF token",
+            "type": "string"
+          },
+          "method": {
+            "description": "Method\n\nShould be set to \"passkey\" when trying to add, update, or remove a webAuthn pairing.",
+            "type": "string"
+          },
+          "passkey_remove": {
+            "description": "Remove a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
+            "type": "string"
+          },
+          "passkey_settings_register": {
+            "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
+            "type": "string"
           }
         },
         "required": ["method"],
@@ -9815,6 +10027,8 @@
                   "lookup_secret",
                   "webauthn",
                   "code",
+                  "passkey",
+                  "profile",
                   "link_recovery",
                   "code_recovery"
                 ],
@@ -10048,7 +10262,7 @@
             }
           },
           {
-            "description": "Type is the type of credentials to be deleted.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "Type is the type of credentials to be deleted.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "in": "path",
             "name": "type",
             "required": true,
@@ -10060,12 +10274,14 @@
                 "lookup_secret",
                 "webauthn",
                 "code",
+                "passkey",
+                "profile",
                 "link_recovery",
                 "code_recovery"
               ],
               "type": "string"
             },
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           }
         ],
         "responses": {
@@ -12326,121 +12542,6 @@
         },
         "summary": "Issues a Verifiable Credential",
         "tags": ["oidc"]
-      }
-    },
-    "/health/alive": {
-      "get": {
-        "description": "This endpoint returns a HTTP 200 status code when Ory Kratos is accepting incoming\nHTTP requests. This status does currently not include checks whether the database connection is working.\n\nIf the service supports TLS Edge Termination, this endpoint does not require the\n`X-Forwarded-Proto` header to be set.\n\nBe aware that if you are running multiple nodes of this service, the health status will never\nrefer to the cluster state, only to a single instance.",
-        "operationId": "isAlive",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/healthStatus",
-                  "properties": {
-                    "status": {
-                      "description": "Always \"ok\".",
-                      "type": "string"
-                    }
-                  },
-                  "required": ["status"],
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Ory Kratos is ready to accept connections."
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          },
-          "default": {
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "description": "Unexpected error"
-          }
-        },
-        "security": [
-          {
-            "oryAccessToken": []
-          }
-        ],
-        "summary": "Check HTTP Server Status",
-        "tags": ["metadata"]
-      }
-    },
-    "/health/ready": {
-      "get": {
-        "description": "This endpoint returns a HTTP 200 status code when Ory Kratos is up running and the environment dependencies (e.g.\nthe database) are responsive as well.\n\nIf the service supports TLS Edge Termination, this endpoint does not require the\n`X-Forwarded-Proto` header to be set.\n\nBe aware that if you are running multiple nodes of Ory Kratos, the health status will never\nrefer to the cluster state, only to a single instance.",
-        "operationId": "isReady",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "status": {
-                      "description": "Always \"ok\".",
-                      "type": "string"
-                    }
-                  },
-                  "required": ["status"],
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Ory Kratos is ready to accept requests."
-          },
-          "503": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "errors": {
-                      "additionalProperties": {
-                        "type": "string"
-                      },
-                      "description": "Errors contains a list of errors that caused the not ready status.",
-                      "type": "object"
-                    }
-                  },
-                  "required": ["errors"],
-                  "type": "object"
-                }
-              }
-            },
-            "description": "Ory Kratos is not yet ready to accept requests."
-          },
-          "default": {
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "description": "Unexpected error"
-          }
-        },
-        "security": [
-          {
-            "oryAccessToken": []
-          }
-        ],
-        "summary": "Check HTTP Server and Database Status",
-        "tags": ["metadata"]
       }
     },
     "/namespaces": {

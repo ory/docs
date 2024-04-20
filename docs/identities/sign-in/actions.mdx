@@ -133,7 +133,7 @@ created account to get access to your services, but instead can access all the f
 
 ## Show verification after successful registration
 
-If you want to show the verification screen after registration, follow these steps:
+If you want to show the verification screen after registration or login, follow these steps:
 
 ```mdx-code-block
 <Tabs>
@@ -153,6 +153,83 @@ ory patch identity-config {project_id} \
   --add '/selfservice/flows/registration/after/password/hooks=[{"hook": "show_verification_ui"}]' \
   --add '/selfservice/flows/registration/after/oidc/hooks=[{"hook": "show_verification_ui"}]' \
   --add '/selfservice/flows/registration/after/webauthn/hooks=[{"hook": "show_verification_ui"}]'
+```
+
+:::note
+
+If your identity schema defines multiple verifiable addresses, Ory Identities redirects to the verification flow of only one of
+the addresses.
+
+:::
+
+```mdx-code-block
+  </TabItem>
+  <TabItem value="SPA & Native clients">
+```
+
+For SPA and native clients, the response from the registration endpoint contains a `continue_with` field. This field lists
+possible actions, the user might need to or can take next. For example, an object containing the ID of the verification flow
+created as part of the registration flow:
+
+```json
+{
+  "continue_with": [
+    {
+      "action": "show_verification_ui",
+      "flow": {
+        "id": "d859f6af-1dfe-453e-9320-d572e10edeea",
+        "verifiable_address": "example@ory.sh"
+      }
+    }
+    // Other items
+  ]
+}
+```
+
+You can use this ID to fetch the verification flow information, using the
+[`getVerificationFlow`](../../reference/api#tag/frontend/operation/getVerificationFlow) API method.
+
+:::note
+
+The response from the registration endpoint always contains the `continue_with` field with the `verification_ui` action, if
+verification is enabled and the identity schema defines at least one verifiable address. Because of this, the
+`show_verification_ui` hook has no effect for API and SPA clients.
+
+:::
+
+```mdx-code-block
+  </TabItem>
+</Tabs>
+```
+
+## Show verification after login if address is not verified yet
+
+If you want to show the verification screen after login, if any of the user's addresses are not verified yet, add the
+`verification` hook to the login after hooks.
+
+Using the [Ory CLI](../../guides/cli/01_installation.mdx):
+
+```shell
+ory patch identity-config {project_id} \
+  --add '/selfservice/flows/login/after/password/hooks=[{"hook": "verification"}]' \
+  --add '/selfservice/flows/login/after/oidc/hooks=[{"hook": "verification"}]' \
+  --add '/selfservice/flows/login/after/webauthn/hooks=[{"hook": "verification"}]'
+```
+
+To automatically show the verification screen in server rendered browser flows, add the `show_verification_ui` hook as well:
+
+```mdx-code-block
+<Tabs>
+  <TabItem value="Server rendered browser client">
+```
+
+Using the [Ory CLI](../../guides/cli/01_installation.mdx):
+
+```shell
+ory patch identity-config {project_id} \
+  --add '/selfservice/flows/login/after/password/hooks=[{"hook": "show_verification_ui"}]' \
+  --add '/selfservice/flows/login/after/oidc/hooks=[{"hook": "show_verification_ui"}]' \
+  --add '/selfservice/flows/login/after/webauthn/hooks=[{"hook": "show_verification_ui"}]'
 ```
 
 :::note

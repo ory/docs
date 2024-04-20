@@ -31,7 +31,7 @@ application when a user updates their profile information in another system.
 When building your own UI you can pass additional data when completing the registration flow that gets forwarded to any configured
 webhooks. This can be used to solve more complex use cases that would be out of scope for identity traits.
 
-:::tip
+:::warning
 
 Always put security first! When using webhooks, ensure that the data you send is secure and that the external system you are
 integrating with is trustworthy. Additionally, make sure to consider the data privacy laws and regulations that may apply to your
@@ -41,19 +41,8 @@ use case.
 
 :::tip
 
-To enhance your security measures while using the Ory Network, we've narrowed down the source IP addresses for our webhooks to
-these specific IPs:
-
-- 34.22.170.75
-- 35.242.228.133
-
-These addresses will be used in the US region:
-
-- 35.245.69.134
-- 34.94.111.83
-
-By setting your firewall rules to allow traffic only from these IP addresses, you'll be adding an extra layer of protection
-against any unwarranted access attempts.
+If you would like to configure IP allow list in your firewall setup for webhooks please read about our
+[Ory Network IP Addresses](./ip-allowlist.mdx)
 
 :::
 

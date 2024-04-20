@@ -29,6 +29,8 @@
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^11.5.4",
+    "@argos-ci/cli": "^2.0.1",
+    "@argos-ci/playwright": "^3.0.1",
     "@docusaurus/core": "3.1.1",
     "@docusaurus/plugin-client-redirects": "3.1.1",
     "@docusaurus/plugin-content-docs": "3.1.1",
