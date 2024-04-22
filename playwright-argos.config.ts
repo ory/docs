@@ -1,5 +1,5 @@
-import { defineConfig, devices } from "@playwright/test"
 import type { PlaywrightTestConfig } from "@playwright/test"
+import { devices } from "@playwright/test"
 
 const config: PlaywrightTestConfig = {
   testDir: "./tests/playwright-argos",
@@ -10,7 +10,7 @@ const config: PlaywrightTestConfig = {
 
   workers: 3,
   fullyParallel: true,
-  
+
   projects: [
     {
       name: "chromium",
