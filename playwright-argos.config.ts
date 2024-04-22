@@ -10,7 +10,7 @@ const config: PlaywrightTestConfig = {
 
   // Tests shouldn't fail. If they do something is wrong with the test or the site.
   maxFailures: 0,
-  workers: 3,
+  workers: 2,
   fullyParallel: true,
 
   projects: [
