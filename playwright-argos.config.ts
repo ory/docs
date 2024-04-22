@@ -7,6 +7,8 @@ const config: PlaywrightTestConfig = {
     port: 3000,
     command: "npm run serve",
   },
+
+  workers: process.env.CI ? 3 : undefined,
   projects: [
     {
       name: "chromium",

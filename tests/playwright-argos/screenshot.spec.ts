@@ -8,7 +8,15 @@ const siteUrl = "http://localhost:3000"
 const sitemapPath = "./build/sitemap.xml"
 const stylesheetPath = "./tests/playwright-argos/screenshot.css"
 const stylesheet = fs.readFileSync(stylesheetPath).toString()
-const ignoredPathnames = ["/docs/reference/api"]
+const ignoredPathnames = [
+  // This file is too large to screenshot
+  "/docs/reference/api",
+  // the editors are lazily loaded and the screenshot is sometimes taken before they are loaded
+  "/docs/kratos/reference/configuration-editor",
+  "/docs/hydra/reference/configuration-editor",
+  "/docs/keto/reference/configuration-editor",
+  "/docs/oathkeeper/reference/configuration-editor",
+]
 
 // Wait for hydration, requires Docusaurus v2.4.3+
 // Docusaurus adds a <html data-has-hydrated="true"> once hydrated
