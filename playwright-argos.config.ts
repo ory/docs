@@ -8,7 +8,6 @@ const config: PlaywrightTestConfig = {
     command: "npm run serve",
   },
 
-
   workers: 3,
   projects: [
     {
