@@ -161,15 +161,6 @@ export const community: PropTypes = {
     "Guides, tutorials, and configurations for using Ory services contributed by the Ory community.",
   examples: [
     {
-      title: "Customize self-service UI: Flutter",
-      language: "flutter",
-      languageLogoAlt: "Flutter logo",
-      author: "amorevino",
-      tested: false,
-      repo: "https://github.com/amorevino/ory-showcase-apps",
-      docs: "https://www.ory.sh/cloud-ecommerce-frontend/",
-    },
-    {
       title: "Customize self-service UI: Flutter Web",
       language: "flutter",
       languageLogoAlt: "Flutter logo",
@@ -222,15 +213,6 @@ export const community: PropTypes = {
       tested: false,
       repo: "https://github.com/allancalix/kratos-ui",
       docs: "https://github.com/allancalix/kratos-ui/blob/main/README.md",
-    },
-    {
-      title: "Customize self-service UI: Svelte",
-      language: "svelte",
-      languageLogoAlt: "Svelte logo",
-      author: "micleyman",
-      tested: true,
-      repo: "https://github.com/micleyman/sveltekit-ory-starter",
-      docs: "https://github.com/micleyman/sveltekit-ory-starter/blob/main/README.md",
     },
     {
       title: "Customize self-service UI: Svelte",
