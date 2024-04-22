@@ -8,7 +8,8 @@ const config: PlaywrightTestConfig = {
     command: "npm run serve",
   },
 
-  workers: process.env.CI ? 3 : undefined,
+
+  workers: 3,
   projects: [
     {
       name: "chromium",

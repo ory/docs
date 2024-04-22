@@ -9,8 +9,12 @@ const sitemapPath = "./build/sitemap.xml"
 const stylesheetPath = "./tests/playwright-argos/screenshot.css"
 const stylesheet = fs.readFileSync(stylesheetPath).toString()
 const ignoredPathnames = [
-  // This file is too large to screenshot
+  // Thes files are too large to screenshot
   "/docs/reference/api",
+  "/docs/hydra/reference/api",
+  "/docs/kratos/reference/api",
+  "/docs/keto/reference/api",
+  "/docs/oathkeeper/reference/api",
   // the editors are lazily loaded and the screenshot is sometimes taken before they are loaded
   "/docs/kratos/reference/configuration-editor",
   "/docs/hydra/reference/configuration-editor",
