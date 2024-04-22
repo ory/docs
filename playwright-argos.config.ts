@@ -8,6 +8,8 @@ const config: PlaywrightTestConfig = {
     command: "npm run serve",
   },
 
+  // Tests shouldn't fail. If they do something is wrong with the test or the site.
+  maxFailures: 0,
   workers: 3,
   fullyParallel: true,
 

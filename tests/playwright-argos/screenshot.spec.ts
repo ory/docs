@@ -45,8 +45,6 @@ function screenshotPathname(pathname: string) {
 
 test.describe("Docusaurus site screenshots", () => {
   const pathnames = extractSitemapPathnames(sitemapPath)
-  console.log(`Ignoring paths: ${ignoredPathnames.join(", ")}`)
-
   pathnames
     .filter((p) => !ignoredPathnames.includes(p))
     .forEach(screenshotPathname)
