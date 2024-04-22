@@ -1,4 +1,4 @@
-import { devices } from "@playwright/test"
+import { defineConfig, devices } from "@playwright/test"
 import type { PlaywrightTestConfig } from "@playwright/test"
 
 const config: PlaywrightTestConfig = {
@@ -9,6 +9,8 @@ const config: PlaywrightTestConfig = {
   },
 
   workers: 3,
+  fullyParallel: true,
+  
   projects: [
     {
       name: "chromium",

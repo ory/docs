@@ -15,11 +15,15 @@ const ignoredPathnames = [
   "/docs/kratos/reference/api",
   "/docs/keto/reference/api",
   "/docs/oathkeeper/reference/api",
-  // the editors are lazily loaded and the screenshot is sometimes taken before they are loaded
+  // the configuration pages are lazily loaded and the screenshot is sometimes taken before they are loaded
   "/docs/kratos/reference/configuration-editor",
   "/docs/hydra/reference/configuration-editor",
   "/docs/keto/reference/configuration-editor",
   "/docs/oathkeeper/reference/configuration-editor",
+  "/docs/kratos/reference/configuration",
+  "/docs/hydra/reference/configuration",
+  "/docs/keto/reference/configuration",
+  "/docs/oathkeeper/reference/configuration",
 ]
 
 // Wait for hydration, requires Docusaurus v2.4.3+
@@ -41,12 +45,7 @@ function screenshotPathname(pathname: string) {
 
 test.describe("Docusaurus site screenshots", () => {
   const pathnames = extractSitemapPathnames(sitemapPath)
+  console.log(`Ignoring paths: ${ignoredPathnames.join(", ")}`)
 
-  for (const p of pathnames) {
-    if (ignoredPathnames.includes(p)) {
-      console.log(`Ignoring ${p}`)
-    } else {
-      screenshotPathname(p)
-    }
-  }
+  pathnames.filter((p) => !ignoredPathnames.includes(p)).forEach(screenshotPathname)
 })
