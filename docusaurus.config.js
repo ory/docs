@@ -18,7 +18,7 @@ const config = {
   organizationName: "ory",
   projectName: "docs",
   markdown: {
-    format: "detect"
+    format: "detect",
   },
   staticDirectories: ["src/static"],
   themeConfig: {
@@ -30,11 +30,13 @@ const config = {
     prism: {
       additionalLanguages: [
         "powershell",
+        "json",
         "json5",
         "pug",
         "shell-session",
         "bash",
         "tsx",
+        "markup-templating",
         "php",
         "yaml",
         "dart",

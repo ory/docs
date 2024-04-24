@@ -41,76 +41,29 @@ Before you start, make sure to:
 
 Follow these steps to get the sample application code and run it on your machine:
 
-1. Clone the example and prepare the code to run it:
+<Tabs groupId="react-or-preact">
+  <TabItem value="react" label="React" default>
 
-   <Tabs groupId="react-or-preact">
-     <TabItem value="react" label="React" default>
+1.  Clone the example and prepare the code to run it:
 
-     ```shell
-     git clone --depth 1 git@github.com:ory/elements.git
-     cd elements
-     npm run initialize
-     npm run build:clean
-     cd examples/react-spa
-     ```
+    ```shell
+    git clone --depth 1 git@github.com:ory/elements.git
+    cd elements
+    npm run initialize
+    npm run build:clean
+    cd examples/react-spa
+    ```
 
-     Running the application outside the `ory/elements` repository:
+    Running the application outside the `ory/elements` repository:
 
-     ```shell
-     git clone --depth 1 git@github.com:ory/elements.git
-     cp -r elements/examples/react-spa .
-     cd react-spa
-     npm i @ory/elements @ory/client @ory/elements-test
-     ```
+    ```shell
+    git clone --depth 1 git@github.com:ory/elements.git
+    cp -r elements/examples/react-spa .
+    cd react-spa
+    npm i @ory/elements @ory/client @ory/elements-test
+    ```
 
-     </TabItem>
-     <TabItem value="preact" label="Preact">
-
-     ```shell
-     git clone --depth 1 git@github.com:ory/elements.git
-     cd elements
-     npm run initialize
-     npm run build:clean
-     cd examples/preact-spa
-     ```
-
-     Running the application outside the `ory/elements` repository:
-
-     ```shell
-     git clone --depth 1 git@github.com:ory/elements.git
-     cp -r elements/examples/preact-spa .
-     cd preact-spa
-     npm i @ory/elements-preact @ory/client @ory/elements-test
-     ```
-
-     </TabItem>
-     <TabItem value="nextjs" label="Next.js">
-
-     ```shell
-     git clone --depth 1 git@github.com:ory/elements.git
-     cd elements
-     npm run initialize
-     npm run build:clean
-     cd examples/nextjs-spa
-     ```
-
-     Running the application outside the `ory/elements` repository:
-
-     ```shell
-     git clone --depth 1 git@github.com:ory/elements.git
-     cp -r elements/examples/nextjs-spa .
-     cd nextjs-spa
-     npm i @ory/elements @ory/client @ory/elements-test
-     ```
-
-     </TabItem>
-   </Tabs>
-
-2. Export environment variable:
-
-
-   <Tabs groupId="react-or-preact">
-   <TabItem value="react" label="React" default>
+2.  Export environment variable:
 
     ```bash
     # Unix
@@ -122,8 +75,49 @@ Follow these steps to get the sample application code and run it on your machine
     $Env:VITE_ORY_SDK_URL = "http://localhost:4000"
     ```
 
-    </TabItem>
-      <TabItem value="preact" label="Preact">
+3.  Start the application locally:
+
+    ```shell
+    # Start the app on port 3000
+    npm run dev -- --port 3000
+    ```
+
+4.  In a new terminal window, run Ory Tunnel (part of the Ory CLI) to connect the application to your Ory Network project:
+
+    ```shell
+    # Run Ory Tunnel to connect to Ory APIs.
+    # To get your project slug, go to 'Access & APIs' in Ory Console
+    # at https://console.ory.sh/
+
+    ory tunnel http://localhost:3000 --project {project-slug} --dev
+    ```
+
+5.  In your browser, go to [http://localhost:3000](http://localhost:3000) to access the application. From there, you can try
+    registering and signing-in using the Ory Elements-powered pages.
+
+  </TabItem>
+  <TabItem value="preact" label="Preact">
+
+1.  Clone the example and prepare the code to run it:
+
+    ```shell
+    git clone --depth 1 git@github.com:ory/elements.git
+    cd elements
+    npm run initialize
+    npm run build:clean
+    cd examples/preact-spa
+    ```
+
+    Running the application outside the `ory/elements` repository:
+
+    ```shell
+    git clone --depth 1 git@github.com:ory/elements.git
+    cp -r elements/examples/preact-spa .
+    cd preact-spa
+    npm i @ory/elements-preact @ory/client @ory/elements-test
+    ```
+
+2.  Export environment variable:
 
     ```bash
     # Unix
@@ -135,8 +129,49 @@ Follow these steps to get the sample application code and run it on your machine
     $Env:VITE_ORY_SDK_URL = "http://localhost:4000"
     ```
 
-    </TabItem>
-      <TabItem value="nextjs" label="Next.js">
+3.  Start the application locally:
+
+    ```shell
+    # Start the app on port 3000
+    npm run dev -- --port 3000
+    ```
+
+4.  In a new terminal window, run Ory Tunnel (part of the Ory CLI) to connect the application to your Ory Network project:
+
+    ```shell
+    # Run Ory Tunnel to connect to Ory APIs.
+    # To get your project slug, go to 'Access & APIs' in Ory Console
+    # at https://console.ory.sh/
+
+    ory tunnel http://localhost:3000 --project {project-slug} --dev
+    ```
+
+5.  In your browser, go to [http://localhost:3000](http://localhost:3000) to access the application. From there, you can try
+    registering and signing-in using the Ory Elements-powered pages.
+
+  </TabItem>
+  <TabItem value="nextjs" label="Next.js">
+
+1.  Clone the example and prepare the code to run it:
+
+    ```shell
+    git clone --depth 1 git@github.com:ory/elements.git
+    cd elements
+    npm run initialize
+    npm run build:clean
+    cd examples/nextjs-spa
+    ```
+
+    Running the application outside the `ory/elements` repository:
+
+    ```shell
+    git clone --depth 1 git@github.com:ory/elements.git
+    cp -r elements/examples/nextjs-spa .
+    cd nextjs-spa
+    npm i @ory/elements @ory/client @ory/elements-test
+    ```
+
+2.  Export environment variable:
 
     ```bash
     # Unix
@@ -150,29 +185,28 @@ Follow these steps to get the sample application code and run it on your machine
 
     [Learn more about environment variables with Next.js](https://nextjs.org/docs/basic-features/environment-variables)
 
-      </TabItem>
-    </Tabs>
+3.  Start the application locally:
 
+    ```shell
+    # Start the app on port 3000
+    npm run dev -- --port 3000
+    ```
 
-3. Start the application locally:
+4.  In a new terminal window, run Ory Tunnel (part of the Ory CLI) to connect the application to your Ory Network project:
 
-   ```shell
-   # Start the app on port 3000
-   npm run dev -- --port 3000
-   ```
+    ```shell
+    # Run Ory Tunnel to connect to Ory APIs.
+    # To get your project slug, go to 'Access & APIs' in Ory Console
+    # at https://console.ory.sh/
 
-4. In a new terminal window, run Ory Tunnel (part of the Ory CLI) to connect the application to your Ory Network project:
+    ory tunnel http://localhost:3000 --project {project-slug} --dev
+    ```
 
-   ```shell
-   # Run Ory Tunnel to connect to Ory APIs.
-   # To get your project slug, go to 'Access & APIs' in Ory Console
-   # at https://console.ory.sh/
+5.  In your browser, go to [http://localhost:3000](http://localhost:3000) to access the application. From there, you can try
+    registering and signing-in using the Ory Elements-powered pages.
 
-   ory tunnel http://localhost:3000 --project {project-slug} --dev
-   ```
-
-5. In your browser, go to [http://localhost:3000](http://localhost:3000) to access the application. From there, you can try
-   registering and signing-in using the Ory Elements-powered pages.
+  </TabItem>
+</Tabs>
 
 ## Closer look at the code
 

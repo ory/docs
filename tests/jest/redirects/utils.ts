@@ -30,7 +30,10 @@ export type Sitemap = {
 }
 
 interface GetLoc {
-  (url: string, replace?: [string, string]): Promise<{
+  (
+    url: string,
+    replace?: [string, string],
+  ): Promise<{
     status: number
     headers: { [k: string]: any }
     original: string

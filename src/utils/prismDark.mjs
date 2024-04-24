@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {themes} from "prism-react-renderer"
+import { themes } from "prism-react-renderer"
 
 export default {
   plain: {

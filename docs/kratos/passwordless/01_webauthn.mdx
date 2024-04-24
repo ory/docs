@@ -156,8 +156,9 @@ This is used for WebAuthn both in passwordless flows and multi-factor authentica
 
 - WebAuthn is a browser standard. It does not work in native mobile apps.
 - WebAuthn is limited to one domain and does not work in a local environment when using CNAME / Ory Proxy. WebAuthn uses the
-  `https://origin` URL as part of the client{'<->'} server challenge/response mechanism. This mechanism allows for only one URL as the
-  origin. Read more in the [WebAuthn guide](https://webauthn.guide/) and on [GitHub](https://github.com/w3c/webauthn/issues/1372).
+  `https://origin` URL as part of the client{'<->'} server challenge/response mechanism. This mechanism allows for only one URL as
+  the origin. Read more in the [WebAuthn guide](https://webauthn.guide/) and on
+  [GitHub](https://github.com/w3c/webauthn/issues/1372).
 - Implementing WebAuthn in your own UI can be challenging, depending on which framework to use. Check our reference
   implementations: [React Native](https://github.com/ory/kratos-selfservice-ui-react-native),
   [Node.js](https://github.com/ory/kratos-selfservice-ui-node), [React/SPA](https://github.com/ory/react-nextjs-example)

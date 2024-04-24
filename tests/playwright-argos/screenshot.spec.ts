@@ -11,6 +11,7 @@ const stylesheet = fs.readFileSync(stylesheetPath).toString()
 const ignoredPathnames = [
   // Thes files are too large to screenshot
   "/docs/reference/api",
+  "/docs/http-api",
   "/docs/hydra/reference/api",
   "/docs/kratos/reference/api",
   "/docs/keto/reference/api",
