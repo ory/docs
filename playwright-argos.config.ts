@@ -1,5 +1,5 @@
-import { devices } from "@playwright/test"
 import type { PlaywrightTestConfig } from "@playwright/test"
+import { devices } from "@playwright/test"
 
 const config: PlaywrightTestConfig = {
   testDir: "./tests/playwright-argos",
@@ -7,6 +7,11 @@ const config: PlaywrightTestConfig = {
     port: 3000,
     command: "npm run serve",
   },
+
+  // Tests shouldn't fail. If they do something is wrong with the test or the site.
+  maxFailures: 0,
+  workers: 1,
+
   projects: [
     {
       name: "chromium",
