@@ -8,7 +8,23 @@ const siteUrl = "http://localhost:3000"
 const sitemapPath = "./build/sitemap.xml"
 const stylesheetPath = "./tests/playwright-argos/screenshot.css"
 const stylesheet = fs.readFileSync(stylesheetPath).toString()
-const ignoredPathnames = ["/docs/reference/api"]
+const ignoredPathnames = [
+  // Thes files are too large to screenshot
+  "/docs/reference/api",
+  "/docs/hydra/reference/api",
+  "/docs/kratos/reference/api",
+  "/docs/keto/reference/api",
+  "/docs/oathkeeper/reference/api",
+  // the configuration pages are lazily loaded and the screenshot is sometimes taken before they are loaded
+  "/docs/kratos/reference/configuration-editor",
+  "/docs/hydra/reference/configuration-editor",
+  "/docs/keto/reference/configuration-editor",
+  "/docs/oathkeeper/reference/configuration-editor",
+  "/docs/kratos/reference/configuration",
+  "/docs/hydra/reference/configuration",
+  "/docs/keto/reference/configuration",
+  "/docs/oathkeeper/reference/configuration",
+]
 
 // Wait for hydration, requires Docusaurus v2.4.3+
 // Docusaurus adds a <html data-has-hydrated="true"> once hydrated
@@ -29,12 +45,7 @@ function screenshotPathname(pathname: string) {
 
 test.describe("Docusaurus site screenshots", () => {
   const pathnames = extractSitemapPathnames(sitemapPath)
-
-  for (const p of pathnames) {
-    if (ignoredPathnames.includes(p)) {
-      console.log(`Ignoring ${p}`)
-    } else {
-      screenshotPathname(p)
-    }
-  }
+  pathnames
+    .filter((p) => !ignoredPathnames.includes(p))
+    .forEach(screenshotPathname)
 })
