@@ -17,10 +17,10 @@ export default function prismIncludeLanguages(PrismObject) {
   // avoid polluting global namespace.
   // You can mutate PrismObject: registering plugins, deleting languages... As
   // long as you don't re-assign it
-  // globalThis.Prism = PrismObject
-  // additionalLanguages.forEach((lang) => {
-  //   require(`prismjs/components/prism-${lang}`)
-  // })
+  globalThis.Prism = PrismObject
+  additionalLanguages.forEach((lang) => {
+    require(`prismjs/components/prism-${lang}`)
+  })
 
   ketoRelationTuplesPrism(PrismObject)
   ketoRelationsPermissionsPrism(PrismObject)

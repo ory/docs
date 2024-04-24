@@ -12,14 +12,10 @@ module.exports = function (context, options) {
         new webpack.DefinePlugin({
           "process.env.DEBUG": "({}).DEBUG",
         }),
-        // new webpack.NormalModuleReplacementPlugin(/node:/, (resource) => {
-        //   resource.request = resource.request.replace(/^node:/, "");
-        // }),
       ]
 
       return {
         plugins,
-        // externalsPresets: { node: true },
       }
     },
   }
