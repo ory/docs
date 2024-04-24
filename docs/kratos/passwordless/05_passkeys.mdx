@@ -86,8 +86,9 @@ import TabItem from '@theme/TabItem';
 
 ### Identity schema
 
-If you want to use a custom identity schema, you must define which field of the identity schema is the primary identifier for the
-passkey.
+If you want to use a custom identity schema, you must define which field of the identity schema is the display name for the
+passkey. If you do not define the `passkey.display_name` field, the `webauthn.identifier` will be used as a fallback. If neither
+is defined, the passkey strategy will not work.
 
 ```json5 title="identity.schema.json" {16-18}
 {
@@ -106,7 +107,7 @@ passkey.
             credentials: {
               // ...
               passkey: {
-                identifier: true,
+                display_name: true,
               },
             },
             // ...
