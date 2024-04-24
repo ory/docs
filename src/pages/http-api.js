@@ -3,7 +3,6 @@
 
 import React from "react"
 import ApiDoc from "@theme/ApiDoc"
-import useBaseUrl from "@docusaurus/useBaseUrl"
 import useSpecData from "@theme/useSpecData"
 
 function CustomPage() {
