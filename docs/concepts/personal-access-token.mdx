@@ -4,15 +4,30 @@ title: Authorization with API Keys
 sidebar_label: Authorization
 ---
 
-# Authorization with API Keys
+# Ory Network API Authorization
 
-API Keys are used to authorize privileged operations. For example, you must use an API Key to call the Admin API, which allows you
-to delete users.
+**Ory Network Project APIs** are separated into:
+
+- **Ory Network Frontend APIs** are used to interact with Ory Network projects, such as register users or checking login state.
+- **Ory Network Admin APIs** are used to perform privileged operations on Ory Network projects, such as deleting users or creating
+  permissions.
+
+**Ory Network Management APIs** are used to manage Ory Network projects, such as creating a new project or changing settings.
+
+## Authorizing Ory Network Project Frontend APIs
+
+Frontend APIs are used to interact with Ory Network projects from your frontend application and do not require any special
+authorization.
+
+## Authorizing Ory Network Project Admin APIs
+
+API Keys are used to authorize privileged operations to Ory Network Project Admin APIs. For example, you must use an API Key to
+call the Admin API, which allows you to delete users.
 
 API Keys work only in the context of the Project for which they were created. You create API Keys in the
 [Ory Console](https://console.ory.sh/).
 
-## Creating API Keys
+### Creating API Keys
 
 Follow these steps to create API Keys for your Project:
 
@@ -33,7 +48,7 @@ secure and rotate them if necessary.
 
 :::
 
-## Usage
+### Usage
 
 Use the API Key in API calls, SDK calls, or command-line interactions. Ory API Keys have a `ory_apikey_` or `ory_pat_`, which
 makes it easy to identify them when analyzing code.
@@ -47,3 +62,9 @@ Accept: application/json
 # highlight-next-line
 Authorization: Bearer {API-Key}
 ```
+
+## Authorizing Ory Network Management APIs
+
+Ory Network Management APIs are used to manage Ory Network projects, such as creating a new project or changing settings. At this
+time the only way to authorize Management APIs is by using a session cookie issued to you by the Ory Network Console. Please reach
+out to your [support representative](https://console.ory.sh/support) if you need help with this process.
