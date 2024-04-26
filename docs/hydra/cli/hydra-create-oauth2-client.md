@@ -58,6 +58,7 @@ client_secret=$(echo $client | jq -r '.client_secret')
       --frontchannel-logout-session-required            Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the frontchannel-logout-callback is used. If omitted, the default value is false.
       --grant-type strings                              A list of allowed grant types. (default [authorization_code])
   -h, --help                                            help for oauth2-client
+      --id string                                       Provide the client's id.
       --jwks-uri private_key_jwt                        Define the URL where the JSON Web Key Set should be fetched from when performing the private_key_jwt client authentication method.
       --keybase string                                  Keybase username for encrypting client secret.
       --logo-uri string                                 A URL string that references a logo for the client
