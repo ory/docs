@@ -41,7 +41,7 @@ curl --request POST -sL \
   --data '{
   "expires_in": "12h",
   "identity_id": "e01b5f2f-6afc-4194-8578-4cebcf69a4d5"
-}' https://{your-project-slug}.projects.oryapis.com/admin/recovery/code
+}' https://$PROJECT_SLUG.projects.oryapis.com/admin/recovery/code
 ```
 
 :::tip
@@ -69,7 +69,7 @@ import (
 func main() {
 	client := ory.NewAPIClient(&ory.Configuration{
 		Servers: ory.ServerConfigurations{{
-			URL: "https://{your-project-slug}.projects.oryapis.com",
+			URL: "https://$PROJECT_SLUG.projects.oryapis.com",
 		}},
 		DefaultHeader: map[string]string{
 			"Authorization": "Bearer ORY_API_KEY", // API Key for your Ory Network project
@@ -136,7 +136,7 @@ curl --request POST -sL \
    --data '{
    "expires_in": "12h",
    "identity_id": "$ACCOUNT_ID"
-   }' https://{project-slug}.projects.oryapis.com/admin/recovery/link
+   }' https://$project_slug.projects.oryapis.com/admin/recovery/link
 ```
 
 :::tip
@@ -164,7 +164,7 @@ import (
 func main() {
 	client := ory.NewAPIClient(&ory.Configuration{
 		Servers: ory.ServerConfigurations{{
-			URL: "https://{your-project-slug}.projects.oryapis.com",
+			URL: "https://$PROJECT_SLUG.projects.oryapis.com",
 		}},
 		DefaultHeader: map[string]string{
 			"Authorization": "Bearer ORY_API_KEY", // API Key for your Ory Network project

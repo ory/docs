@@ -70,7 +70,7 @@ the steps 4 to 7 or check out the example code for bulk updating identities belo
     ```bash
     ory list projects
 
-    export PROJECT_ID={project-id}
+    export PROJECT_ID=$PROJECT_ID
     ```
 
 1.  Create a new identity with the updated schema - through the registration interface or [Ory Console](https://console.ory.sh/)
@@ -92,9 +92,9 @@ the steps 4 to 7 or check out the example code for bulk updating identities belo
     [API Key](https://console.ory.sh/projects/current/developers), and identity ID. Set them as environment variables:
 
     ```bash
-    export ORY_API_KEY={api-key}
-    export ORY_SLUG={project-slug}
-    export IDENTITY_ID={identity-id}
+    export ORY_API_KEY=$ORY_API_KEY
+    export ORY_SLUG=$ORY_SLUG
+    export IDENTITY_ID=$IDENTITY_ID
     ```
 
     Assess the required updates in traits. You need to add, remove, or update existing traits to match the new identity schema.
@@ -158,11 +158,11 @@ import (
 )
 
 const (
-	YOUR_ORY_API_KEY        = "{your-api-key}"
-	YOUR_ORY_PROJECT_SLUG   = "{your-project-slug}"
-	OLD_SCHEMA_ID           = "{old-schema-id}" // The schema ID of the identity to be updated, it is recommended to set this explicitly to avoid updating an identity with a different schema.
-	UPDATE_TO_NEW_SCHEMA_ID = "{new-schema-id}"
-	IDENTITY_ID_TO_UPDATE   = "{identity-id}"
+	YOUR_ORY_API_KEY        = "$YOUR_ORY_API_KEY"
+	YOUR_ORY_PROJECT_SLUG   = "$PROJECT_SLUG"
+	OLD_SCHEMA_ID           = "$OLD_SCHEMA_ID" // The schema ID of the identity to be updated, it is recommended to set this explicitly to avoid updating an identity with a different schema.
+	UPDATE_TO_NEW_SCHEMA_ID = "$NEW_SCHEMA_ID"
+	IDENTITY_ID_TO_UPDATE   = "$IDENTITY_ID"
 )
 
 func main() {
@@ -245,15 +245,15 @@ Update the identity using the [updateIdentity API](https://www.ory.sh/docs/refer
 1. Save the existing identity
 
     ```bash
-    export IDENTITY_ID={IDENTITY_ID}
+    export IDENTITY_ID=$IDENTITY_ID
     ory get identity "$IDENTITY_ID" --project "$PROJECT_ID" --format json-pretty > identity-"$IDENTITY_ID".json
     ```
 
 1. Update the saved JSON to match the new identity schema
 
     ```diff
-    -"schema_id" : "{old-schema-id}",
-    +"schema_id" : "{new-schema-id}",
+    -"schema_id" : "$OLD_SCHEMA_ID",
+    +"schema_id" : "$NEW_SCHEMA_ID",
     "traits": {
     -"foo": "foobar"
     +"bar": barfoo
