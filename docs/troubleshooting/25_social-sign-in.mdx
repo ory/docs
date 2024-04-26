@@ -13,7 +13,7 @@ provider.
 
 ```
 https://{provider}/o/oauth2/v2/auth?client_id=(...)&
-redirect_uri=https://{project.slug}.projects.oryapis.com/self-service/methods/oidc/callback/{provider}&
+redirect_uri=https://$project_slug.projects.oryapis.com/self-service/methods/oidc/callback/{provider}&
 response_type=code&scope=email+profile+openid
 ```
 
@@ -27,7 +27,7 @@ If you get a `redirect_uri` mismatch error in a project created before September
 ## 'oryapis.com' doesn't work as authorized redirect URI
 
 Integration with social sign-in providers may require proving the ownership of the authorized redirect URI domain. If that is the
-case, you must use a custom domain and the `https://{project.slug}.projects.oryapis.com` URL can't be used as the redirect URI.
+case, you must use a custom domain and the `https://$project_slug.projects.oryapis.com` URL can't be used as the redirect URI.
 
 To add your domain to the `redirect_uri` query parameter when redirecting to the social sign-in provider, adjust your project's
 `base_redirect_uri` configuration. To do that, use the Ory CLI:

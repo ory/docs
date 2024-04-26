@@ -34,7 +34,7 @@ You can also add the `scope` parameter to indicate the requested scope:
 
 ```curl
 POST /oauth2/token HTTP/1.1
-Host: {project.slug}.projects.oryapis.com
+Host: $project_slug.projects.oryapis.com
 Content-Type: application/x-www-form-urlencoded
 
 scope=foo+bar
@@ -97,7 +97,7 @@ The `scope` parameter is optional.
 
 ```curl
 POST /oauth2/token HTTP/1.1
-Host: {project.slug}.projects.oryapis.com
+Host: $project_slug.projects.oryapis.com
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer
@@ -123,7 +123,7 @@ The JWT has the following scopes:
 {
   iss: "https://my-issuer.com",
   sub: "7146dd0b-f243-43ba-815c-7a00216b4823",
-  aud: "https://{project.slug}.projects.oryapis.com/oauth2/token",
+  aud: "https://$project_slug.projects.oryapis.com/oauth2/token",
   nbf: 1300815780,
   exp: 1300819380,
 }
@@ -141,7 +141,7 @@ valid, the OAuth2 token endpoint will issue an access token that can be used to 
 
 ```json5 title="Example claims of JSON Web Token"
 {
-  iss: "https://{project.slug}.projects.oryapis.com/",
+  iss: "https://$project_slug.projects.oryapis.com/",
   sub: "7146dd0b-f243-43ba-815c-7a00216b4823",
   scp: ["read"],
   // ...
@@ -225,7 +225,7 @@ in the request body:
 
 ```
 POST /oauth2/token HTTP/1.1
-Host: {project.slug}.projects.oryapis.com
+Host: $project_slug.projects.oryapis.com
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=authorization_code&

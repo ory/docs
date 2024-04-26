@@ -48,7 +48,7 @@ export function getSdkUrl() {
     hint,
     url: projectSlug
       ? "https://" + projectSlug + ".projects.oryapis.com"
-      : "https://{project.slug}.projects.oryapis.com",
+      : "https://$project_slug.projects.oryapis.com",
   }
 }
 

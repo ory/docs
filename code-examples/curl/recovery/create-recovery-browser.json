@@ -3,10 +3,10 @@
   "type": "browser",
   "expires_at": "2023-02-08T16:05:30.05865234Z",
   "issued_at": "2023-02-08T15:35:30.05865234Z",
-  "request_url": "https://{project.slug}.projects.oryapis.com/self-service/recovery/browser",
+  "request_url": "https://$project_slug.projects.oryapis.com/self-service/recovery/browser",
   "active": "code",
   "ui": {
-    "action": "https://{project.slug}.projects.oryapis.com/self-service/recovery?flow=051a673d-da0d-46c3-90a8-925135bd7570",
+    "action": "https://$project_slug.projects.oryapis.com/self-service/recovery?flow=051a673d-da0d-46c3-90a8-925135bd7570",
     "method": "POST",
     "nodes": [
       {

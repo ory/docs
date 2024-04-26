@@ -45,14 +45,14 @@ To check for an active session with an Ory Session Token, run:
 
 ```shell
 curl -H "Authorization: Bearer {your-session-token}" \
-  "https://{project.slug}.projects.oryapis.com/sessions/whoami"
+  "https://$project_slug.projects.oryapis.com/sessions/whoami"
 ```
 
 To check for an active session with an Ory Session Cookie, run:
 
 ```shell
 curl -H "Cookie: ory_session_...=..." \
-  "https://{project.slug}.projects.oryapis.com/sessions/whoami"
+  "https://$project_slug.projects.oryapis.com/sessions/whoami"
 ```
 
 </TabItem>

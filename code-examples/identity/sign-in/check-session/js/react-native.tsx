@@ -4,7 +4,7 @@ import * as SecureStore from "expo-secure-store"
 
 const ory = new FrontendApi(
   new Configuration({
-    basePath: `https://{project.slug}.projects.oryapis.com`,
+    basePath: `https://$project_slug.projects.oryapis.com`,
   }),
 )
 

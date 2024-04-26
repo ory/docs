@@ -16,7 +16,7 @@
     "identity": {
       "id": "a1a84ea5-6fe7-49ae-a537-bbfc296c8c2e",
       "schema_id": "dc9e56067fce00e628f70621eed24c5a2c9253bfebb14db405a05fe082a00bc638e6f171a05f829db95e4830f79d5e98004d8b229dad410a90122044dbd2fba0",
-      "schema_url": "https://{project.slug}.projects.oryapis.com/schemas/ZGM5ZTU2MDY3ZmNlMDBlNjI4ZjcwNjIxZWVkMjRjNWEyYzkyNTNiZmViYjE0ZGI0MDVhMDVmZTA4MmEwMGJjNjM4ZTZmMTcxYTA1ZjgyOWRiOTVlNDgzMGY3OWQ1ZTk4MDA0ZDhiMjI5ZGFkNDEwYTkwMTIyMDQ0ZGJkMmZiYTA",
+      "schema_url": "https://$project_slug.projects.oryapis.com/schemas/ZGM5ZTU2MDY3ZmNlMDBlNjI4ZjcwNjIxZWVkMjRjNWEyYzkyNTNiZmViYjE0ZGI0MDVhMDVmZTA4MmEwMGJjNjM4ZTZmMTcxYTA1ZjgyOWRiOTVlNDgzMGY3OWQ1ZTk4MDA0ZDhiMjI5ZGFkNDEwYTkwMTIyMDQ0ZGJkMmZiYTA",
       "state": "active",
       "state_changed_at": "2023-01-25T15:57:56.742862067Z",
       "traits": {
@@ -59,7 +59,7 @@
   "identity": {
     "id": "a1a84ea5-6fe7-49ae-a537-bbfc296c8c2e",
     "schema_id": "dc9e56067fce00e628f70621eed24c5a2c9253bfebb14db405a05fe082a00bc638e6f171a05f829db95e4830f79d5e98004d8b229dad410a90122044dbd2fba0",
-    "schema_url": "https://{project.slug}.projects.oryapis.com/schemas/ZGM5ZTU2MDY3ZmNlMDBlNjI4ZjcwNjIxZWVkMjRjNWEyYzkyNTNiZmViYjE0ZGI0MDVhMDVmZTA4MmEwMGJjNjM4ZTZmMTcxYTA1ZjgyOWRiOTVlNDgzMGY3OWQ1ZTk4MDA0ZDhiMjI5ZGFkNDEwYTkwMTIyMDQ0ZGJkMmZiYTA",
+    "schema_url": "https://$project_slug.projects.oryapis.com/schemas/ZGM5ZTU2MDY3ZmNlMDBlNjI4ZjcwNjIxZWVkMjRjNWEyYzkyNTNiZmViYjE0ZGI0MDVhMDVmZTA4MmEwMGJjNjM4ZTZmMTcxYTA1ZjgyOWRiOTVlNDgzMGY3OWQ1ZTk4MDA0ZDhiMjI5ZGFkNDEwYTkwMTIyMDQ0ZGJkMmZiYTA",
     "state": "active",
     "state_changed_at": "2023-01-25T15:57:56.742862067Z",
     "traits": {

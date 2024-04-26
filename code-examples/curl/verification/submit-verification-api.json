@@ -3,10 +3,10 @@
   "type": "api",
   "expires_at": "2023-02-08T17:43:01.992964Z",
   "issued_at": "2023-02-08T17:13:01.992964Z",
-  "request_url": "https://{project.slug}.projects.oryapis.com/self-service/verification/api",
+  "request_url": "https://$project_slug.projects.oryapis.com/self-service/verification/api",
   "active": "code",
   "ui": {
-    "action": "https://{project.slug}.projects.oryapis.com/self-service/verification?flow=5af3ab02-e6e7-42e6-8be0-d500e1bd07f2",
+    "action": "https://$project_slug.projects.oryapis.com/self-service/verification?flow=5af3ab02-e6e7-42e6-8be0-d500e1bd07f2",
     "method": "POST",
     "nodes": [
       {

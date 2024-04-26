@@ -4,9 +4,9 @@
   "type": "api",
   "expires_at": "2023-01-25T13:36:37.647917454Z",
   "issued_at": "2023-01-25T13:06:37.647917454Z",
-  "request_url": "https://{project.slug}.projects.oryapis.com/self-service/login/api",
+  "request_url": "https://$project_slug.projects.oryapis.com/self-service/login/api",
   "ui": {
-    "action": "https://{project.slug}.projects.oryapis.com/self-service/login?flow=db748b69-a059-464f-870c-2d4f4a3a2f26",
+    "action": "https://$project_slug.projects.oryapis.com/self-service/login?flow=db748b69-a059-464f-870c-2d4f4a3a2f26",
     "method": "POST",
     "nodes": [
       {

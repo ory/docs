@@ -152,7 +152,7 @@ which in turn will redirect the browser back to the configured [application URL]
 example `https://myapp.com/login?flow=<uuid>`.
 
 ```html
-<form method="GET" action="https://{project.slug}.projects.oryapis.com/self-service/login/browser">
+<form method="GET" action="https://$project_slug.projects.oryapis.com/self-service/login/browser">
   <button type="submit">Login</button>
 </form>
 ```
@@ -241,7 +241,7 @@ under the `flow.ui.action` key.
 ```json5
 {
   ui: {
-    action: "http://{project.slug}.projects.oryapis.com/self-service/login?flow=<uuid>",
+    action: "http://$project_slug.projects.oryapis.com/self-service/login?flow=<uuid>",
     method: "POST",
   },
 }
@@ -287,19 +287,19 @@ import submitExampleLoginCurlNative from '!!raw-loader!../../../code-examples/cu
 
 In server-side rendered browser applications, the submission is handled by a native form POST to the Ory project URL.
 
-For example, login is a POST request to `https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
+For example, login is a POST request to `https://$project_slug.projects.oryapis.com/self-service/login/browser?flow=<id>`.
 
 ### Single-page application (SPA)
 
 In client-side rendered browser applications such as SPAs, the submission is handled in the background through AJAX or fetch using
 a POST request to the Ory project URL.
 
-For example, login is a POST request to `https://{project.slug}.projects.oryapis.com/self-service/login/browser?flow=<id>`.
+For example, login is a POST request to `https://$project_slug.projects.oryapis.com/self-service/login/browser?flow=<id>`.
 
 ### Native application
 
 In native applications send a POST request to the Ory project URL. For example, login is a POST request to
-`https://{project.slug}.projects.oryapis.com/self-service/login/api?flow=<id>`.
+`https://$project_slug.projects.oryapis.com/self-service/login/api?flow=<id>`.
 
 ## Login flow
 

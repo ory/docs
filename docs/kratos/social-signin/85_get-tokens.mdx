@@ -39,7 +39,7 @@ ory get identity "$identity_id" --project "$project_id" \
 curl --request GET -sL \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer {ORY_API_KEY}" \
-  'https://{project.slug}.projects.oryapis.com/admin/identities/<identity_id>?include_credential=oidc'
+  'https://$project_slug.projects.oryapis.com/admin/identities/<identity_id>?include_credential=oidc'
 ```
 
 </TabItem>

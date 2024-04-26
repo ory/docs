@@ -4,9 +4,9 @@
   "type": "browser",
   "expires_at": "2023-01-25T16:23:32.59678Z",
   "issued_at": "2023-01-25T15:53:32.59678Z",
-  "request_url": "https://{project.slug}.projects.oryapis.com/self-service/registration/browser",
+  "request_url": "https://$project_slug.projects.oryapis.com/self-service/registration/browser",
   "ui": {
-    "action": "https://{project.slug}.projects.oryapis.com/self-service/registration?flow=3ddc7a62-9762-4e00-affd-ef9bac63125c",
+    "action": "https://$project_slug.projects.oryapis.com/self-service/registration?flow=3ddc7a62-9762-4e00-affd-ef9bac63125c",
     "method": "POST",
     "nodes": [
       {

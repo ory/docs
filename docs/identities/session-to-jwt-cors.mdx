@@ -81,7 +81,7 @@ import toSessionJwt from '!!raw-loader!../../code-examples/sdk/typescript/src/se
 ```
 curl -X GET \
   -H "Cookie: ory_session...=..." \
-  "https://{project.slug}.projects.oryapis.com/sessions/whoami?tokenize_as=jwt_example_template1"
+  "https://$project_slug.projects.oryapis.com/sessions/whoami?tokenize_as=jwt_example_template1"
 
 {
   // ...
@@ -137,7 +137,7 @@ The template has access to these variables:
 
 - `claims`: The default claims the token has per default. You can modify these claims but not remove them:
   - `jti`: A unique UUID v4 value.
-  - `iss`: The project's slug url (`https://{project.slug}.projects.oryapis.com`).
+  - `iss`: The project's slug url (`https://$project_slug.projects.oryapis.com`).
   - `exp`: The token's expiry which uses the template's `ttl` value.
   - `sub`: The Ory Session's `IdentityID`.
   - `sid`: The Ory Session's `ID`.

@@ -3,4 +3,4 @@ curl -X POST \
     -H 'Accept: application/json' \
     -b cookies.txt \
     -d '{"method":"code","email":"email@example.com","csrf_token":"your-csrf-token"}' \
-    "https://{project.slug}.projects.oryapis.com/self-service/verification?flow=<your-flow-id>"
+    "https://$project_slug.projects.oryapis.com/self-service/verification?flow=<your-flow-id>"

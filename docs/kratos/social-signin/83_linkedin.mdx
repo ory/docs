@@ -69,7 +69,7 @@ Follow these steps to add LinkedIn as a social sign-in provider to your project 
 2. In the created app, add this Redirect URI to the **Authorized redirect URLs** in the LinkedIn Auth configuration:
 
    ```shell
-   https://{project.slug}.projects.oryapis.com/self-service/methods/oidc/callback/linkedin
+   https://$project_slug.projects.oryapis.com/self-service/methods/oidc/callback/linkedin
    ```
 
 3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.

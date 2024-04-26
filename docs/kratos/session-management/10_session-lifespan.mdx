@@ -44,7 +44,7 @@ For example, to set the session lifespan to 30 days, enter `720h`.
    ```yaml title="config.yml"
    session:
    cookie:
-      domain: {project.slug}.projects.oryapis.com
+      domain: $project_slug.projects.oryapis.com
       name: ory_session_{name}
       path: /
       persistent: false
@@ -88,7 +88,7 @@ different cookie `max-age`, set the `session/cookie/persistent` value to `false`
    ```yaml title="config.yml"
    session:
    cookie:
-      domain: {project.slug}.projects.oryapis.com
+      domain: $project_slug.projects.oryapis.com
       name: ory_session_{name}
       path: /
       // highlight-start

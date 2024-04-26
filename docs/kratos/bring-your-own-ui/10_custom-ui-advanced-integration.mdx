@@ -110,7 +110,7 @@ example `select_account`. To pass these parameters on `login`, `registration` an
 submit form body to pass the parameters. For example:
 
 ```html
-<form action="https://{project.slug}.projects.oryapis.com/self-service/login?flow=<flow-id>" method="POST">
+<form action="https://$project_slug.projects.oryapis.com/self-service/login?flow=<flow-id>" method="POST">
   <input type="submit" name="provider" value="google" />
   <input type="hidden" name="upstream_parameters.login_hint" value="foo@bar.com" />
   <input type="hidden" name="upstream_parameters.hd" value="bar.com" />

@@ -4,4 +4,4 @@ curl -X POST \
     -d '{"method":"password","csrf_token":"your-csrf-token","identifier":"email@example.com","password":"verystrongpassword"}' \
     -b cookies.txt \
     -c cookies.txt \
-    "https://{project.slug}.projects.oryapis.com/self-service/login?flow=<your-flow-id>"
+    "https://$project_slug.projects.oryapis.com/self-service/login?flow=<your-flow-id>"
