@@ -238,11 +238,12 @@ prevents leaking of sensitive data such as tokens or API keys.
 
 Follow these rules when using placeholders and dummy data:
 
-- Introduce placeholders and dummy data in curly brackets (`{}`).
+- Introduce placeholders and dummy data in curly brackets with a preceding $ so
+  they can be used in bash commands.
 - Use colons (`-`) or underscores (`_`) to separate multiple words, for example
   `{ORY_SESSION_COOKIE}` or `{project-slug}`.
 - When referring to a project API URL or SDK URL, always use
-  `https://{project.slug}.projects.oryapis.com`.
+  `https://$project_slug.projects.oryapis.com`.
 - When referring to scenarios in which the user runs a custom domain, use
   `https://ory.your-custom-domain.com`.
 - Always use short, but descriptive, verbal placeholders. Don't mix digits and
