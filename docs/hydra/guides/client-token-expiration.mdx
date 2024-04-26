@@ -16,7 +16,7 @@ Use the Ory CLI to configure the access token's lifespan. The following command 
 globally:
 
 ```shell
-ory patch oauth2-config {project.id} \
+ory patch oauth2-config $project_id \
   --replace "/ttl/access_token=\"2h\"" \
   --format yaml
 ```
@@ -36,7 +36,7 @@ Use the Ory CLI to configure the refresh token's lifespan. The following command
 globally:
 
 ```shell
-ory patch oauth2-config {project.id} \
+ory patch oauth2-config $project_id \
   --replace "/ttl/refresh_token=\"24h\"" \
   --format yaml
 ```
@@ -47,7 +47,7 @@ Auth codes are temporary codes that are exchanged for access tokens. By default,
 example, if you want the auth code to last for five minutes, set the config as follows:
 
 ```shell
-ory patch oauth2-config {project.id} \
+ory patch oauth2-config $project_id \
   --replace "/ttl/authorization_code=\"5m\"" \
   --format yaml
 ```
@@ -58,7 +58,7 @@ ID tokens are JSON Web Tokens (JWTs) that contain user identity information. By 
 However, you can modify this value using:
 
 ```shell
-ory patch oauth2-config {project.id} \
+ory patch oauth2-config $project_id \
   --replace "/ttl/id_token=\"5m\"" \
   --format yaml
 ```
@@ -69,7 +69,7 @@ The user login and consent flow in Ory defines how long the user has to submit l
 session lasts for 1 hour. However, you can modify this value using the Ory CLI:
 
 ```shell
-ory patch oauth2-config {project.id} \
+ory patch oauth2-config $project_id \
   --replace "/ttl/login_consent_request=\"2h\"" \
   --format yaml
 ```

@@ -24,7 +24,7 @@ Let's look at an end-to-end example. This guide assumes that you already have an
 
 ```shell
 ory create jwk some-example-set \
-  --alg ES256 --project {project.id} --format json-pretty \
+  --alg ES256 --project $project_id --format json-pretty \
   > es256.jwks.json
 ```
 
@@ -54,7 +54,7 @@ Next, we configure our Ory Network project's tokenizer templates. The key we cho
 that template with the base64-encoded files from above:
 
 ```shell
-ory patch identity-config {project.id} \
+ory patch identity-config $project_id \
   --add '/session/whoami/tokenizer/templates/jwt_example_template1={"jwks_url":"base64://'$JWKS_B64_ENCODED'","claims_mapper_url":"base64://'$JSONNET_B64_ENCODED'","ttl":"10m"}' \
   --format yaml
 ```
@@ -100,7 +100,7 @@ To verify the resulting JSON Web Token, export the public key from the JSON Web 
 ```shell
 ory get jwk some-example-set \
   --public \
-  --project {project.id} --format json-pretty \
+  --project $project_id --format json-pretty \
   > es256-public.jwks.json
 ```
 
@@ -181,7 +181,7 @@ CLI:
 
 ```shell
 ory create jwk some-example-set \
-  --alg ES256 --project {project.id} --format json-pretty
+  --alg ES256 --project $project_id --format json-pretty
 
 {
   "set": "example-key-set",
