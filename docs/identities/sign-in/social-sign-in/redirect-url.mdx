@@ -34,13 +34,14 @@ To use a custom domain as the redirect URL, go to the [OpenID Connect (OIDC)](ht
 To change the redirect URL to your custom domain, you need to update the `base_redirect_uri`:
 
 ```shell
-## List all available projects
+# List all available projects
 ory list projects
 
-## Add OIDC base redirect URI
+# Add OIDC base redirect URI
 ory patch identity-config <project-id> \
   --add '/selfservice/methods/oidc/config/base_redirect_uri="https://ory.example.org"'
 ```
+
 </TabItem>
 </Tabs>
 ````
