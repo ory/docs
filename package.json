@@ -16,11 +16,7 @@
     "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -88,6 +84,7 @@
     "prettier": "3.2.5",
     "prettier-plugin-packagejson": "2.4.12",
     "raw-loader": "4.0.2",
+    "sharp": "0.33.3",
     "text-runner": "6.0.0",
     "wait-on": "7.2.0",
     "yaml": "2.4.1"
