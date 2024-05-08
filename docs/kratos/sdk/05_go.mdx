@@ -255,7 +255,7 @@ To use the Identity Management API [`identity`](https://www.ory.sh/docs/referenc
 authorized.
 
 - Create a free Developer project with the [Ory CLI](https://www.ory.sh/docs/guides/cli/installation) or
-  [Ory Console](https://console.ory.sh/guides):  
+  [Ory Console](https://console.ory.sh/guides):
    `ory create project --name "Ory IdentityAPI Example"`
 - Create a new [API key](https://www.ory.sh/docs/concepts/personal-access-token) and export it `export ORY_API_KEY=<your-api-key>`
 - Run the example with `go run main.go`
@@ -355,7 +355,7 @@ The following code example shows how to use the Ory Identities Go SDK with the
 1. Open the [Ory Identities Playground](https://playground.projects.oryapis.com/ui/) in your browser
 1. Open **Sign Up** to create an account and log in
 1. Copy the `ory_session_playground` cookie from the **Application** tab in your browser developer tools
-1. Add the cooie to the cUrl request below:
+1. Add the cookie to the cUrl request below:
 
 ```curl
 curl 'http://localhost:8080/ping' -b 'ory_session_playground=<your-session-cookie-here>'
@@ -377,7 +377,7 @@ The following code example shows how to use Ory Identities Go SDK with the [Echo
 1. Open the [Ory Identities Playground](https://playground.projects.oryapis.com/ui/) in your browser
 1. Open **Sign Up** to create an account and log in
 1. Copy the `ory_session_playground` cookie from the **Application** tab in your browser developer tools
-1. Add the cooie to the cUrl request below:
+1. Add the cookie to the cUrl request below:
 
 ```curl
 curl 'http://localhost:3000/hello' -b 'ory_session_playground=<your-session-cookie-here>'
