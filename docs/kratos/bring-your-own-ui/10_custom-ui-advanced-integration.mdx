@@ -1,10 +1,8 @@
 ---
 id: custom-ui-advanced-integration
-title: Advanced information you need to integrate your UI with Ory
+title: Advanced integration
 sidebar_label: Advanced integration
 ---
-
-# Advanced integration
 
 ```mdx-code-block
 import Tabs from "@theme/Tabs"
@@ -12,8 +10,8 @@ import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
 ```
 
-This document goes into detail on advanced topics in specific use cases after you have already successfully integrated a basic
-user interface. The topics range from advanced redirects to passwordless and two-factor authentication. Read the
+This document goes into detail on advanced topics in specific use cases after you have already integrated a basic user interface.
+The topics range from advanced redirects to passwordless and two-factor authentication. Read the
 [Basic integration](./05_custom-ui-basic-integration.mdx) document first to learn about flows and methods.
 
 ## Advanced redirects
@@ -25,8 +23,8 @@ their session expired.
 To achieve this, the application can pass a `?return_to=<url>` query parameter to the endpoint that initializes a flow:
 [`/self-service/{flow_type}/browser?return_to=https://myapp.com/protected`](../../reference/api#tag/frontend).
 
-The `return_to` URL is the redirect URL after the flow is completed. For example, in the case of a login flow the redirect happens
-after a successful login.
+The `return_to` URL is the redirect URL after the flow is completed. For example with a login flow the redirect happens after a
+successful login.
 
 This is a breakdown of how the redirect works:
 
@@ -43,13 +41,16 @@ for the registration flow. In such a case, your application can re-use the same 
 ```ts
 sdk.getLoginFlow({ id: flow }).then(({ data: flow }) => {
   const returnTo = flow.return_to
-  return sdk.createBrowserRegistrationFlow({ id: flow.id, return_to: returnTo })
+  return sdk.createBrowserRegistrationFlow({
+    id: flow.id,
+    return_to: returnTo,
+  })
 })
 ```
 
 The `return_to` URL persists across flows only when a recovery flow transitions into a the settings flow.
 
-Let's take a look at an example of how this works:
+Take a look at an example of how this works:
 
 1. Create a recovery flow with `return_to`.
 2. Email is sent with a `link` or `code` method.
@@ -100,8 +101,8 @@ the flow data across two forms.
 
 #### Upstream provider parameters
 
-In some cases, it is possible to pass additional parameters to the upstream provider. For example, when using the Google provider,
-it is possible to pass the `login_hint`, `hd` and `prompt` parameters.
+Sometimes it's possible to pass more parameters to the upstream provider. For example, when using the Google provider, it's
+possible to pass the `login_hint`, `hd` and `prompt` parameters.
 
 The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the
 proper session. The `hd` parameter limits the login/registration process to a Google Organization, for example `mycollege.edu`.
@@ -144,7 +145,7 @@ Read [this document](../concepts/ui-user-interface.mdx) to learn more about UI e
 sdk
   .toSession()
   .then(({ data: session }) => {
-    // we set the session data which contains the user Identifier and other traits.
+    // set the session data which contains the user Identifier and other traits.
   })
   .catch((err: AxiosError) => {
     switch (error.response?.status) {
@@ -172,7 +173,7 @@ The flow works as follows:
 1. Create login flow.
 2. Render the UI with the `webauthn` group.
 3. User enters their identifier and clicks the `Sign in with security key` button.
-4. The form is submitted which starts a new flow with the `webauthn` group only.
+4. The form is submitted which starts a new flow with the `webauthn` group.
 5. Render the new UI which prompts the user to insert their security key.
 6. The user inserts their security key and clicks the `Continue` button.
 
@@ -230,7 +231,7 @@ the user enters their identifier.
 }
 ```
 
-After the user is redirected with a new flow, the response contains the `webauthn` group only. In this response, the button
+After the user is redirected with a new flow, the response contains just the `webauthn` group. In this response, the button
 `onclick` attribute calls the script added in the header/body of the page. The button then triggers the WebAuthn prompt for the
 security key.
 

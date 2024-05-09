@@ -21,11 +21,11 @@ screen. The relative links that point to the Ory Account Experience follow the `
 ## Custom domain setup
 
 All paid Ory Network plans allow to add a custom domain to your project. After adding a custom domain, you can also set up a base
-URL for all custom UI views. This is a great way to make Ory work with your existing deployment without adjustments, as you can
-use the combination of the base URL and relative URLs to point Ory to UI screens for operations such as login or registration you
-are already hosting.
+URL of all custom UI views. This is a great way to make Ory work with your existing deployment without adjustments, as you can use
+the combination of the base URL and relative URLs to point Ory to UI screens for operations such as login or registration you are
+already hosting.
 
-To set the base URL for custom UI and define the paths for UI views, go to
+To set the base URL of custom UI and define the paths for UI views, go to
 [**Ory Console**](https://console.ory.sh/projects/current/ui) → **Account Experience** → **UI URLs**
 
 :::caution
@@ -41,7 +41,7 @@ for end-users.
 ## Multiple custom domains setup
 
 Ory Network projects starting with the Scale plan can have multiple custom domains registered. You can add a different custom UI
-base URL for each of the custom domains registered in the project. This allows for a high degree of flexibility, where each of the
+base URL of each of the custom domains registered in the project. This allows for a high degree of flexibility, where each of the
 domains serves its own set of UI views that have a common path makeup but different base URL.
 
 In the real world, this means that you can serve different UI views to customers that interact with different parts of your
@@ -53,9 +53,9 @@ For example, the ACME Car Parts company has three online storefronts for three d
 - carseats.com
 - wipers.com
 
-Since all of the storefronts are managed and developed by one company, they all serve their UI at the same path, which is
-`/acme/ui/{flow_name}`. However, as the apps were developed at different points in time, the team's approach to hosting changed
-and influenced the base paths used for serving UI:
+Since all the storefronts are managed and developed by one company, they all serve their UI at the same path, which is
+`/acme/ui/{flow_name}`. But as the apps were developed at different points in time, the team's approach to hosting changed and
+influenced the base paths used for serving UI:
 
 - mufflers.com uses `mufflers.com/auth`
 - carseats.com uses `carseats.com`
@@ -85,14 +85,13 @@ Ory Network and configure the system to accept `http://localhost:1234/` as part 
 
 :::note
 
-Use Ory Tunnel for development purposes only. When you go to production, always add a custom domain to your project.
+Use Ory Tunnel just for development purposes. When you go to production, always add a custom domain to your project.
 
 :::
 
 ## Reference implementations and examples
 
-There are several reference implementations and guides available for building your own user interface and forms on top of Ory's
-APIs:
+Several reference implementations and guides are available for building your own user interface and forms on top of Ory's APIs:
 
 - [Add Custom Login, Registration, User Settings to Your Next.js & React Single Page Application (SPA)](https://www.ory.sh/nextjs-authentication-spa-custom-flows-open-source/)
 - [Node.js / Express.js UI Reference Implementation](https://github.com/ory/kratos-selfservice-ui-node)
