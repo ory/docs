@@ -1,13 +1,22 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap");
+@import url("./fonts.css");
 
 :root {
-  --ifm-font-family-base: "Inter";
+  --ifm-font-family-base: "Inter", sans-serif;
+  --ifm-font-family-monospace: "JetBrains Mono", monospace;
   --ifm-color-primary: #312e81; /* Indigo 900 */
   --ifm-heading-color: #312e81; /* Indigo 900 - Color used for headings in text */
   --ifm-heading-font-family: "Inter";
   --ifm-navbar-link-hover-color: #06b6d4; /* Cyan 500 */
   --ifm-menu-color-active: #06b6d4; /* Cyan 500 - Active text in sidebar */
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  font-feature-settings: "liga" 1, "calt" 1; /* fix for Chrome */
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    --ifm-font-family-base: InterVariable;
+    --ifm-heading-font-family: InterVariable;
+  }
 }
 
 /* If you have a different syntax highlighting theme for dark mode. */
