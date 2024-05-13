@@ -9135,8 +9135,15 @@
         "type": "oauth2"
       },
       "oryAccessToken": {
+        "description": "To use this endpoint you need an [Ory Network API key](https://www.ory.sh/docs/concepts/personal-access-token).",
         "scheme": "bearer",
         "type": "http"
+      },
+      "oryNetworkCookie": {
+        "description": "This endpoint does not currently support Ory Network API keys. Please head over to [the documentation to learn more](https://www.ory.sh/docs/concepts/personal-access-token).",
+        "in": "cookie",
+        "name": "ory_session_ory",
+        "type": "apiKey"
       }
     }
   },
@@ -12406,97 +12413,6 @@
         "tags": ["oAuth2"]
       }
     },
-    "/console/active/project": {
-      "get": {
-        "description": "Use this API to get your active project in the Ory Network Console UI.",
-        "operationId": "getActiveProjectInConsole",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/activeProjectInConsole"
-                }
-              }
-            },
-            "description": "activeProjectInConsole"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          }
-        },
-        "security": [
-          {
-            "oryAccessToken": []
-          }
-        ],
-        "summary": "Returns the Ory Network Project selected in the Ory Network Console",
-        "tags": ["project"]
-      },
-      "put": {
-        "description": "Use this API to set your active project in the Ory Network Console UI.",
-        "operationId": "setActiveProjectInConsole",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/setActiveProjectInConsoleBody"
-              }
-            }
-          },
-          "x-originalParamName": "Body"
-        },
-        "responses": {
-          "204": {
-            "$ref": "#/components/responses/emptyResponse"
-          },
-          "401": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          }
-        },
-        "security": [
-          {
-            "oryAccessToken": []
-          }
-        ],
-        "summary": "Sets the Ory Network Project active in the Ory Network Console",
-        "tags": ["project"]
-      }
-    },
     "/credentials": {
       "post": {
         "description": "This endpoint creates a verifiable credential that attests that the user\nauthenticated with the provided access token owns a certain public/private key\npair.\n\nMore information can be found at\nhttps://openid.net/specs/openid-connect-userinfo-vc-1_0.html.",
@@ -13024,7 +12940,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "List All Projects",
@@ -13097,7 +13019,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "Create a Project",
@@ -13166,7 +13094,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "Irrecoverably purge a project",
@@ -13240,7 +13174,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "Get a Project",
@@ -13337,7 +13277,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "Patch an Ory Network Project Configuration",
@@ -13431,7 +13377,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "Update an Ory Network Project Configuration",
@@ -13496,7 +13448,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "List all event streams for the project. This endpoint is not paginated.",
@@ -13580,7 +13538,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "Create an event stream for your project.",
@@ -13658,7 +13622,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "Remove an event stream from a project",
@@ -13750,119 +13720,22 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "Update an event stream for a project.",
         "tags": ["events"]
       }
     },
-    "/projects/{project_id}/metrics": {
-      "get": {
-        "description": "Retrieves project metrics for the specified event type and time range",
-        "operationId": "getProjectMetrics",
-        "parameters": [
-          {
-            "description": "Project ID",
-            "in": "path",
-            "name": "project_id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "The event type to query for",
-            "in": "query",
-            "name": "event_type",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "The resolution of the buckets\n\nThe minimum resolution is 1 minute.",
-            "in": "query",
-            "name": "resolution",
-            "required": true,
-            "schema": {
-              "pattern": "^[0-9]+(m|h|d|M|y)$",
-              "type": "string"
-            }
-          },
-          {
-            "description": "The start RFC3339 date of the time window",
-            "in": "query",
-            "name": "from",
-            "required": true,
-            "schema": {
-              "format": "date-time",
-              "type": "string"
-            }
-          },
-          {
-            "description": "The end RFC3339 date of the time window",
-            "in": "query",
-            "name": "to",
-            "required": true,
-            "schema": {
-              "format": "date-time",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/getProjectMetricsResponse"
-                }
-              }
-            },
-            "description": "getProjectMetricsResponse"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          },
-          "403": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/genericError"
-                }
-              }
-            },
-            "description": "genericError"
-          }
-        },
-        "security": [
-          {
-            "oryAccessToken": []
-          }
-        ],
-        "tags": ["project"]
-      }
-    },
     "/projects/{project_id}/organizations": {
       "get": {
+        "description": "List all B2B SSO Organizations for a project",
         "operationId": "listOrganizations",
         "parameters": [
           {
@@ -13919,7 +13792,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "tags": ["project"]
@@ -14002,7 +13881,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "tags": ["project"]
@@ -14010,6 +13895,7 @@
     },
     "/projects/{project_id}/organizations/{organization_id}": {
       "delete": {
+        "description": "Delete a B2B SSO Organization for a project",
         "operationId": "deleteOrganization",
         "parameters": [
           {
@@ -14088,10 +13974,15 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
           }
         ],
-        "summary": "Delete a B2B SSO Organization for a project.",
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
+          }
+        ],
         "tags": ["project"]
       },
       "get": {
@@ -14160,13 +14051,20 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
           }
         ],
-        "summary": "Returns a B2B SSO Organization for a project by it's ID.",
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
+          }
+        ],
+        "summary": "Returns a B2B SSO Organization for a project by its ID",
         "tags": ["project"]
       },
       "put": {
+        "description": "Update a B2B SSO Organization for a project",
         "operationId": "updateOrganization",
         "parameters": [
           {
@@ -14262,10 +14160,15 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
           }
         ],
-        "summary": "Update a B2B SSO Organization for a project.",
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
+          }
+        ],
         "tags": ["project"]
       }
     },
@@ -14327,7 +14230,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "Get all members associated with this project",
@@ -14393,7 +14302,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "Remove a member associated with this project",
@@ -14439,7 +14354,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "List a project's API Tokens",
@@ -14500,7 +14421,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "Create project API token",
@@ -14548,7 +14475,13 @@
         },
         "security": [
           {
-            "oryAccessToken": []
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
           }
         ],
         "summary": "Delete project API token",
@@ -17496,11 +17429,11 @@
   },
   "servers": [
     {
-      "url": "https://{project}.projects.oryapis.com/",
+      "url": "https://{project-slug}.projects.oryapis.com/",
       "variables": {
         "project": {
           "default": "playground",
-          "description": "Project slug as provided by the Ory Console."
+          "description": "Your Ory Network Project slug. You can find it in the [Ory Network Console](https://console.ory.sh/projects/current/developers/guides)."
         }
       }
     }
