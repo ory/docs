@@ -7,8 +7,8 @@ sidebar_label: Identity schema
 # Identity schema
 
 The identity schema implements the [JSON Schema Standard](https://json-schema.org) and allows you to adjust Ory specifically to
-your requirements. Identity schema specifies the types of data the system can store for users, such as their names, email
-addresses, phone numbers, and birthdays. Through schemas, you can also define additional fields that can be added to user
+your requirements. The identity schema specifies the types of data the system can store for users, such as their names, email
+addresses, phone numbers, or birthdays. Through schemas, you can also define additional fields that can be added to user
 profiles, such as a job titles, company names, or locales.
 
 The identity schema not only defines the data model of your identities, but also controls business logic and allows you to:
@@ -73,7 +73,7 @@ With this preset, every identity has a single trait - the `username`. The `usern
 
 ### Example with name and newsletter opt-in
 
-This preset has an email field, a first name, last name, and a "newsletter" checkbox.
+This preset has an `email` field, a `first name`, `last name`, and a `newsletter` checkbox.
 
 ```json5
 // Identity example
