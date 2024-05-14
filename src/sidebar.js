@@ -351,6 +351,7 @@ module.exports = {
       label: "Security and compliance",
       items: [
         "security-compliance/compliance-and-certifications",
+        "security-compliance/personal-data-location",
         "ecosystem/security",
         "kratos/concepts/security",
         "security-compliance/token-formats",
