@@ -32,7 +32,8 @@ To set up the integration, you'll need to get your Ory Network session token:
 
 - [Install the Ory CLI](../../guides/cli/installation) on your system.
 - Run `ory auth` to sign into your Ory Network account.
-- Locate the session token in the `.ory-cloud.json` file in your home folder. This token starts with the prefix `ory_st`.
+- Locate the session token in the `.ory-cloud.json` file in your home folder. This token starts with the prefix `ory_st`. You can
+  use `cat ~/.ory-cloud.json | grep 'ory_st'` to find it.
 
 You'll also need your Ory Project ID. You can find this in your
 [Ory Network settings](https://console.ory.sh/projects/current/settings).
