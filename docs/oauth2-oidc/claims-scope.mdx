@@ -55,7 +55,7 @@ supported:
     // ...
   }
   ```
-- `string`: The scope claim is a space delimited list of strings named
+- `string`: The scope claim is a space delimited list of strings named `scp`:
   ```json5
   {
     // "sub": "...",
@@ -78,6 +78,6 @@ supported:
 To change this setting use the Ory CLI:
 
 ```shell
-	ory patch oauth2-config {project.id} \
-		--replace '/strategies/jwt/scope_claim="list"'
+ory patch oauth2-config {project.id} \
+  --replace '/strategies/jwt/scope_claim="string"'
 ```
