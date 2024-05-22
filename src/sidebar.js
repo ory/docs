@@ -94,6 +94,7 @@ module.exports = {
                 "kratos/social-signin/native-apps",
               ],
             },
+            "identities/sign-in/saml",
             "identities/sign-in/check-session",
             "identities/sign-in/actions",
             "identities/sign-in/login-hint",
