@@ -1,10 +1,8 @@
 ---
 id: custom-ui-ory-elements
-title: Learn how to create custom TypeScript SPA with Ory Elements
+title: Custom user interface with Ory Elements
 sidebar_label: Build UI with Ory Elements
 ---
-
-# Custom UI with Ory Elements
 
 ```mdx-code-block
 import Tabs from "@theme/Tabs"
@@ -17,8 +15,8 @@ Elements is modular and customizable, which means that you can use only the view
 implementation's design.
 
 The UI created with Ory Elements changes dynamically to adapt to your Ory Network configuration. For example, the sign-up form
-changes to after you edit the Identity Schema without the need for any additional action. The same is true for other options
-available in Ory Network, such as social sign-in connections or passwordless login.
+changes to after you edit the Identity Schema without the need for any other action. The same is true for other options available
+in Ory Network, such as social sign-in connections or passwordless login.
 
 The three available examples provide a closer look at integrating Ory Elements with [React](https://reactjs.org/),
 [Preact](https://preactjs.com/), and [Next.js](https://nextjs.org/) TypeScript single-page applications (SPA). By following the
@@ -179,12 +177,11 @@ Follow these steps to get the sample application code and run it on your machine
 
 ## Closer look at the code
 
-With the application running, let's have a closer look at the code and the way the application integrates with Ory Elements and
-Ory SDK.
+With the application running have a closer look at the code and the way the application integrates with Ory Elements and Ory SDK.
 
 ### Ory SDK instance
 
-The `sdk.ts` file is responsible for creating a new instance of the Ory SDK. This instance is used to interact with Ory APIs.
+The `sdk.ts` file creates a new instance of the Ory SDK. This instance is used to interact with Ory APIs.
 
 ```mdx-code-block
 <Tabs groupId="react-or-preact">
@@ -257,8 +254,7 @@ to the `themeOverrides` property on the `<ThemeProvider />` component.
 
 This file defines the landing page of the application. If you want to protect access to an app, set up authentication to secure
 this page. In this implementation, the `Dashboard` component checks if the user has a session. If the user doesn't have a session,
-they are redirected to the login page. Additionally, the logout URL is initialized, which allows for a functional **Log out**
-button.
+they're redirected to the login page. The logout URL is also initialized, which allows for a functional **Log out** button.
 
 ```mdx-code-block
 <Tabs groupId="react-or-preact">
@@ -395,7 +391,7 @@ The `settings.tsx` file defines the page of the application where users can chan
 dynamically based on the configuration of the Ory Network project.
 
 For example, if you enable passwordless flows, users see the option to register a new hardware key. If passwordless flows are
-disabled, the option to add hardware keys is not visible in the UI.
+disabled, the option to add hardware keys isn't visible in the UI.
 
 ```mdx-code-block
 <Tabs groupId="react-or-preact">
