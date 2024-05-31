@@ -23,7 +23,7 @@ mermaid.initialize({
   logLevel: "fatal",
   securityLevel: "strict",
   arrowMarkerAbsolute: false,
-  theme: "base",
+  theme: "neutral",
   flowchart: {
     useMaxWidth: true,
     htmlLabels: true,
@@ -48,16 +48,15 @@ const Mermaid = ({ chart }) => {
 
   useEffect(() => {
     // https://mermaid.js.org/config/theming.html#diagram-specific-themes
-    async function render() {
-      const { svg } = await mermaid.render(
-        id,
-        `%%{init: {'theme':'${
-          colorMode === "light" ? "neutral" : "dark"
-        }'}}%%\n${chart}`,
-      )
-      setSvg(svg)
-    }
-    render()
+    mermaid.render(
+      id,
+      `%%{init: {'theme':'${
+        colorMode === "light" ? "neutral" : "dark"
+      }'}}%%\n${chart}`,
+      (svg) => {
+        setSvg(svg)
+      },
+    )
   }, [])
 
   return (
