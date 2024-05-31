@@ -119,7 +119,7 @@ Most Settings Flow Methods allow the user to update fields which are considered 
 - The `oidc` method allows linking and unlinking from Google, Facebook, Github, ... which is considered a privileged action (check
   out the [set up guide](../../social-signin/overview)).
 
-```yaml title="path/to/kratos/config.yml"
+```yaml title="path/to/kratos/config.yml""
 selfservice:
   flows:
     settings:
@@ -143,7 +143,7 @@ If any of these fields are changed, the Ory Session must not be older than the c
 
 If any of these fields are changed, the Ory Session must not be older than the configured `privileged_session_max_age` value:
 
-```yaml title="path/to/kratos/config.yml"
+```yaml title="path/to/kratos/config.yml""
 selfservice:
   flows:
     settings:
@@ -603,7 +603,7 @@ curl -s -X GET \
 }
 ```
 
-:::warning
+:::danger
 
 Social Sign In is not possible for API Clients. It will be possible in a future version, which is partially tracked as
 [kratos#273](https://github.com/ory/kratos/issues/273)

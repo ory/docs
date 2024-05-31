@@ -36,6 +36,7 @@
     "@docusaurus/plugin-content-docs": "3.2.1",
     "@docusaurus/plugin-content-pages": "3.2.1",
     "@docusaurus/plugin-sitemap": "3.2.1",
+    "@docusaurus/preset-classic": "3.3.2",
     "@docusaurus/theme-classic": "3.2.1",
     "@docusaurus/theme-search-algolia": "3.2.1",
     "@octokit/rest": "20.0.2",

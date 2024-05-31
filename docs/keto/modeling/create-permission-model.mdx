@@ -90,33 +90,33 @@ Read through the initial assumptions point by point to determine the list of rel
 
 - The goal is to model `user` access to `documents` such that `users` can be the `owner`, `editor`, or `viewer` of a `document`.
 
-  ```mdx-code-block
-  <Mermaid
-    chart={`
-  graph LR
-      Document -->|owner| User
-      Document -->|editor| User
-      Document -->|viewer| User
-  `}
-  />
-  ```
+```mdx-code-block
+<Mermaid
+  chart={`
+graph LR
+    Document -->|owner| User
+    Document -->|editor| User
+    Document -->|viewer| User
+`}
+/>
+```
 
 - Every owner is also an editor of a `document` and every editor is also a viewer of a `document`. Furthermore, `documents` can be
   put into a hierarchy of `folders`. If a user can view the parent `folder`, they can also view all `folders` and `documents` the
   parent `folder` contains.
 
-  ```mdx-code-block
-  <Mermaid
-    chart={`
-  graph LR
-      Document -->|parent| Folder
-      Folder -->|parent| Folder
-      Folder -->|owner| User
-      Folder -->|editor| User
-      Folder -->|viewer| User
-  `}
-  />
-  ```
+```mdx-code-block
+<Mermaid
+  chart={`
+graph LR
+    Document -->|parent| Folder
+    Folder -->|parent| Folder
+    Folder -->|owner| User
+    Folder -->|editor| User
+    Folder -->|viewer| User
+`}
+/>
+```
 
 This is the complete matrix of relationships presented on a single diagram:
 

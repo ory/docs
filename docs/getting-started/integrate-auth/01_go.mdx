@@ -55,11 +55,11 @@ validate if the user is allowed to access the application.
 
 Add the code to the `main.go` file:
 
-```mdx-code-block title="main.go"
+```mdx-code-block
 import mainGo from '!!raw-loader!../../../code-examples/protect-page-login/go/main.go'
 import CodeBlock from '@theme/CodeBlock'
 
-<CodeBlock language="go">{mainGo}</CodeBlock>
+<CodeBlock language="go" title="main.go">{mainGo}</CodeBlock>
 ```
 
 ## Validate and login
@@ -74,10 +74,10 @@ is not authenticated or the session expired, the request is redirected for login
 
 To create the middleware, add the code to the `middleware.go` file:
 
-```mdx-code-block title="middleware.go"
+```mdx-code-block
 import middlewareGo from '!!raw-loader!../../../code-examples/protect-page-login/go/middleware.go'
 
-<CodeBlock language="go">{middlewareGo}</CodeBlock>
+<CodeBlock language="go" title="middleware.go">{middlewareGo}</CodeBlock>
 ```
 
 ## The protected page
@@ -86,18 +86,18 @@ As the final step, create a `Dashboard` page that's presented to signed-in users
 
 1. Create the `dashboardHandler` that renders the page with the session data. Add this code to the `handler.go` file:
 
-```mdx-code-block title="handler.go"
+```mdx-code-block
 import handlerGo from '!!raw-loader!../../../code-examples/protect-page-login/go/handler.go'
 
-<CodeBlock language="go">{handlerGo}</CodeBlock>
+<CodeBlock language="go" title="handler.go">{handlerGo}</CodeBlock>
 ```
 
 2. To present the data to the user, create the `Dashboard` HTML page. Add this code to the `index.html` file:
 
-```mdx-code-block title="index.html"
+```mdx-code-block
 import index from '!!raw-loader!../../../code-examples/protect-page-login/go/index.html'
 
-<CodeBlock language="html">{index}</CodeBlock>
+<CodeBlock language="html" title="index.html">{index}</CodeBlock>
 ```
 
 ## Test your application

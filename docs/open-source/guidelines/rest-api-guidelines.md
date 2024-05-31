@@ -458,7 +458,7 @@ func listIdentities(w http.ResponseWriter, r *http.Request) {}
 Models should have simplified names (`identity`, `oauth2Consent`, `accessToken`, `sessionCookie`, `relationship`) and not
 `packageModuleConceptErrorStrategy`.
 
-:::warning
+:::danger
 
 Model names are not scoped, so it is important to ensure the name is precise enough to be unique across all Ory projects.
 

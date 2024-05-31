@@ -1,9 +1,15 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
+import type { Config } from "@docusaurus/types"
+import type * as Preset from "@docusaurus/preset-classic"
+
+import lightTheme from "./src/utils/prismLight.mjs"
+import darkTheme from "./src/utils/prismDark.mjs"
+
 const enableUserCentrics = false
 
-const config = {
+const config: Config = {
   customFields: {
     CLOUD_URL: process.env.CLOUD_URL || "https://api.console.ory:8080",
   },
@@ -28,6 +34,8 @@ const config = {
       maxHeadingLevel: 4,
     },
     prism: {
+      darkTheme: darkTheme,
+      theme: lightTheme,
       additionalLanguages: [
         "powershell",
         "json",
@@ -72,7 +80,7 @@ const config = {
           line: "SPDX-License-Identifier: Apache-2.0",
         },
       ],
-    },
+    } satisfies Preset.ThemeConfig["prism"],
     algolia: {
       appId: "V2EFIWEJ25",
       apiKey: "dc6b220f7d2bcd12da60b9cce431d8c5",
@@ -193,7 +201,7 @@ const config = {
         width: 130.7,
       },
     },
-  },
+  } satisfies Preset.ThemeConfig,
   plugins: [
     [
       "@docusaurus/plugin-content-docs",
@@ -274,12 +282,4 @@ const config = {
   ],
 }
 
-async function createConfig() {
-  const lightTheme = (await import("./src/utils/prismLight.mjs")).default
-  const darkTheme = (await import("./src/utils/prismDark.mjs")).default
-  config.themeConfig.prism.theme = lightTheme
-  config.themeConfig.prism.darkTheme = darkTheme
-  return config
-}
-
-module.exports = createConfig
+module.exports = config

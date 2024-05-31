@@ -31,11 +31,11 @@ Add [dio](https://github.com/flutterchina/dio) and [flutter dotenv](https://gith
 We use [dio](https://github.com/flutterchina/dio) for HTTP request and
 [flutter dotenv](https://github.com/java-james/flutter_dotenv) for environment variable management.
 
-```mdx-code-block title="pubspec.yaml"
+```mdx-code-block
 import pubspec from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/pubspec.yaml'
 import CodeBlock from '@theme/CodeBlock'
 
-<CodeBlock language="yaml">{pubspec}</CodeBlock>
+<CodeBlock language="yaml" title="pubspec.yaml">{pubspec}</CodeBlock>
 ```
 
 ## Install Ory CLI
@@ -59,10 +59,10 @@ session information.
 mkdir lib/services && touch lib/services/auth.dart
 ```
 
-```mdx-code-block title="lib/services/auth.dart"
+```mdx-code-block
 import auth from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/lib/services/auth.dart'
 
-<CodeBlock language="dart">{auth}</CodeBlock>
+<CodeBlock language="dart" title="lib/services/auth.dart">{auth}</CodeBlock>
 ```
 
 ## Add environment variables
@@ -74,10 +74,10 @@ URL, for example `http://localhost:3005`.
 touch .env
 ```
 
-```mdx-code-block title=".env"
+```mdx-code-block
 import env from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/env'
 
-<CodeBlock language="text">{env}</CodeBlock>
+<CodeBlock language="text" title=".env">{env}</CodeBlock>
 ```
 
 ## Update lib/main.dart
@@ -85,10 +85,10 @@ import env from '!!raw-loader!../../../code-examples/protect-page-login/flutter_
 Finally, update the `lib/main.dart` file to check for a session cookie on the initial load of the application. If the cookie is
 found, the user can access the application. If the cookie isn't found, the user is redirected to the login page.
 
-```mdx-code-block title="lib/main.dart"
+```mdx-code-block
 import main from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/lib/main.dart'
 
-<CodeBlock language="dart">{main}</CodeBlock>
+<CodeBlock language="dart" title="lib/main.dart">{main}</CodeBlock>
 ```
 
 ## Test you application
