@@ -480,7 +480,7 @@ Bitte geben Sie den folgenden Code ein, um Ihr Konto wiederherzustellen:
 {{ .RecoveryURL }}
 {{end}}
 
-{{- else if eq .Identity.metadata_public.lang "fr" -}}
+{{- if eq .Identity.metadata_public.lang "fr" -}}
 {{ template "fr" . }}
 {{- else if eq .Identity.metadata_public.lang "de" -}}
 {{ template "de" . }}

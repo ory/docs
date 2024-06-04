@@ -34,9 +34,12 @@ Contributions always welcome!
 
 ### Ory Blog guest articles
 
-Are you building something with Ory? Are you interested in Auth and security topics in general? Do you want to share your
-knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be published in our blog!
+Are you building something with Ory?  
+Are you interested in Auth and security topics in general?  
+Do you want to share your knowledge and experience?  
+[Reach out](mailto:office@ory.sh) to get published in our blog!
 
+- [Deploying Ory Oathkeeper as an AWS Lambda Authorizer](https://www.ory.sh/deploying-ory-oathkeeper-aws-lambda/)
 - [Using Ory with Cloudflare Workers](https://www.ory.sh/use-ory-with-cloudflare-workers/)
 - [How I built LoginWithHN using Ory Hydra](https://www.ory.sh/how-to-build-login-with-hacker-news/)
 - [Add Authentication to your Flutter Web Applications with Ory Kratos](https://www.ory.sh/login-flutter-authentication-example-api-open-source/)
@@ -84,6 +87,11 @@ knowledge and experiences? [Reach out to us](mailto:office@ory.sh) to be publish
 - [Using Dockertest with Golang](https://bignerdranch.com/blog/using-dockertest-with-golang/)
 - [How to write a Go API Part 3: Testing With Dockertest](https://jonnylangefeld.com/blog/how-to-write-a-go-api-part-3-testing-with-dockertest)
 
+### Videos
+
+- [Ory selfhosted introduction course](https://youtu.be/Cptnv7ZaFY8)
+- [Ory Kratos & Ory Hydra integration guide](https://youtu.be/F6ZKrxf8LuQ)
+
 ## Community projects
 
 Members of the Ory community have built technology, written blog posts, and published open source software that extends or
@@ -95,84 +103,86 @@ modifies the core technology. This isn't an exhaustive list. Want your own conte
 
 ### Ory
 
+- [Microservices app example using Ory, NestJS, Kubernetes](https://github.com/getlarge/ticketing)
+- [Selfhosted admin frontend written in ASP.net](https://github.com/josxha/OryUI)
+- [Next.js based starter for Ory Kratos and Ory Hydra](https://github.com/markusthielker/next-ory)
+- [APISIX as gateway with Ory, linkerd, and kustomize](https://github.com/iverly/kube-apisix-linkerd-ory-kustomize)
+- [Ory Kratos/Oathkeeper with Kong, docker-compose](https://github.com/Pterygoidien/Kong-Ory-Microservices)
 - [Ory Plugin for HashiCorp Vault](https://github.com/comnoco/vault-plugin-auth-ory)
+- [Libraries to integrate NestJS with Ory](https://github.com/getlarge/nestjs-ory-integration)
 
 ### Ory Kratos
 
-- [Ory Kratos Loopback4 integration](https://github.com/giuseppegrieco/loopback4-kratos)
-- [Ory Kratos configuration to deploy on fly.io](https://github.com/tinco/kratos-service)
-- [Ory Kratos Vue 3/Vite with Typescript example](https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript)
-- [Ory Kratos Quarkus, Kotlin, and Qute example](https://github.com/hbrammer/quarkus_kratos_example)
+- [Ory Kratos Sveltekit with MeltUI and TailwindCSS](https://github.com/karlis-vagalis/kratos-selfservice)
+- [Ory Kratos Authentication for Plug applications](https://github.com/ScoreVision/kratos_plug)
+- [Ory Kratos Symfony Authenticator](https://github.com/stethome/ory-auth-bundle)
 - [Ory Kratos Admin Interface in React](https://github.com/dfoxg/kratos-admin-ui)
 - [Ory Kratos Svelte Node self service](https://github.com/emrahcom/kratos-selfservice-svelte-node)
-- [Ory Kratos Sveltekit example](https://github.com/drejohnson/sveltekit-kratos)
-- [Ory Kratos Next.js self service UI](https://github.com/spa5k/kratos-next)
-- [Ory Kratos Rescript React UI SPA](https://github.com/allancalix/kratos-ui) +
-  [Bindings](https://github.com/allancalix/kratos-ui/blob/main/src/Bindings/Kratos.res)
-- [Styx: Ory Kratos/Hydra Erlang frontend UI](https://github.com/hrefhref/styx)
+- [Ory Kratos SvelteKit Demo](https://github.com/bessey/ory-kratos-sveltekit-demo)
+- [Ory Kratos Loopback4 integration](https://github.com/giuseppegrieco/loopback4-kratos)
 
 ### Ory Hydra
 
-- [Web3 Authentication including Metamask, Coinbase, Walletconnect with Ory Hydra](https://github.com/MetaWarrior-Army/login-metawarrior-army)
+- [Ory Hydra Web3 Authentication including Metamask, Coinbase, Walletconnect ](https://github.com/MetaWarrior-Army/mwa-auth)
+- [Ory Hydra Golang HTTP middleware](https://github.com/ngyewch/hydra-login-consent)
+- [Ory Hydra Testcontainer](https://github.com/ardetrick/testcontainers-ory-hydra)
 - [Ory Hydra OAuth2 Token Exchange RFC 8693](https://github.com/Exact-Realty/ts-hydra-rfc8693)
-- [Ory Hydra SDK for Laravel (unofficial)](https://github.com/ALTELMA/laravel-hydra)
 - [Ory Hydra Terraform Provider](https://github.com/svrakitin/terraform-provider-hydra)
-- [Ory Hydra Identity Provider for over LDAP](https://github.com/i-core/werther)
-- [Ory Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
-- [Ory Hydra Two-factor authentication login provider](https://github.com/epandurski/hydra_login2f)
-- [Ory Hydra Identity Provider](https://github.com/janekolszak/idp)
-- [Ory Hydra PoC for OAuth 2.0/OIDC provider](https://git.dittberner.info/jan/hydra_oidc_poc)
-- [Ory Hydra Python login/consent provider example](https://github.com/westphahl/hydra-login-consent-python)
 - [Ory Hydra Java login/consent provider example](https://github.com/ardetrick/ory-hydra-refrence-java)
-- [Ory Hydra Golang login/consent/logout Identity Provider example](https://github.com/M3ikShizuka/service-account)
+- [Ory Hydra Golang login/consent/logout identity provider example](https://github.com/M3ikShizuka/service-account)
+- [Ory Hydra client integrations with OAuth2.0 & OIDC identity](https://github.com/shauryadhadwal/oauth2-oidc-client-integrations)
 
 ### Ory Keto
 
-- [Ory Keto Terraform Provider](https://github.com/76creates/terraform-provider-oryketo/)
-- [KetoToDot Ory Keto relation tuples to dot notation converter](https://github.com/psauvage0/ketodot)
+- [Ory Keto Terraform provider](https://github.com/76creates/terraform-provider-oryketo/)
+
+### Ory Oathkeeper
+
+- [Ory Oathkeeper rules from OpenAPI](https://github.com/cerberauth/openapi-oathkeeper)
 
 ### Ory Fosite
 
-- [Testing OAuth 2.0 JWT token implementation with Ory Fosite](https://github.com/breathbath/oauth-test)
 - [MongoDB storage for Ory Fosite](https://github.com/matthewhartstonge/storage)
 - [Argon2 Hasher for Ory Fosite](https://github.com/matthewhartstonge/hasher)
 
-**Work In Progress & Archived/Outdated**
+### Archived, Outdated, and WIP projects
 
 - [Starter for Svelte Kit and Ory](https://github.com/MicLeey/sveltekit-ory-starter)
 - [Reference Ory Docker Compose Setup ](https://github.com/radekg/ory-reference-compose) +
   [Article](https://gruchalski.com/posts/2021-04-10-ory-reference-docker-compose-and-thoughts-on-the-platform/)
 - [Predefined dockertest libraries for Hydra, Kratos & Keto integration tests](https://github.com/radekg/app-kit-orytest)
+- [Ory Kratos Sveltekit example](https://github.com/drejohnson/sveltekit-kratos)
+- [Ory Kratos/Hydra Erlang frontend UI](https://github.com/hrefhref/styx)
+- [Ory Kratos Rescript React UI SPA](https://github.com/allancalix/kratos-ui) +
+  [Bindings](https://github.com/allancalix/kratos-ui/blob/main/src/Bindings/Kratos.res)
+- [Ory Kratos Next.js self service UI](https://github.com/spa5k/kratos-next)
+- [Ory Kratos Quarkus, Kotlin, and Qute example](https://github.com/hbrammer/quarkus_kratos_example)
+- [Ory Kratos single node example](https://github.com/tinco/kratos-service)
+- [Ory Kratos Vue 3/Vite with Typescript example](https://github.com/timalanfarrow/kratos-selfservice-ui-vue3-typescript)
+- [Ory Hydra SDK for Laravel (unofficial)](https://github.com/ALTELMA/laravel-hydra)
+- [Ory Hydra Identity Provider for over LDAP](https://github.com/i-core/werther)
+- [Ory Hydra Middleware for Gin (Go)](https://github.com/janekolszak/gin-hydra)
+- [Ory Hydra Two-factor authentication login provider](https://github.com/epandurski/hydra_login2f)
+- [Ory Hydra Identity Provider](https://github.com/janekolszak/idp)
+- [Ory Hydra Python login/consent provider example](https://github.com/westphahl/hydra-login-consent-python)
+- [KetoToDot Ory Keto relation tuples to dot notation converter](https://github.com/psauvage0/ketodot)
+- [Testing OAuth 2.0 JWT token implementation with Ory Fosite](https://github.com/breathbath/oauth-test)
 
 ## Postman collections
 
-> Note that while we try to keep the collections up to date, they might be outdated. Please open an
+> Note that while the collections should be up to date, they might be outdated. Please open an
 > [issue](https://github.com/ory/docs/) if that's the case.
 
-First, you have to install the Postman App for Windows, Mac, or Chrome. You can find it on the
-[Postman Apps](https://www.getpostman.com/apps) page.
+- First, you have to install the Postman App for Windows, Mac, or Chrome. You can find it on the
+  [Postman Apps](https://www.getpostman.com/apps) page.
 
-Visit the [Ory Postman Public Workspace](https://www.postman.com/ory-docs) and select the Collection you want to use and import it
-or select the Ory project you want to run below:
+- Visit the [Ory Postman Public Workspace](https://www.postman.com/ory-docs) and select the API for the Ory service you want to
+  use.
 
-[![Run Ory Hydra in Postman](./_static/community/postmanHydra.svg)](https://god.gw.postman.com/run-collection/12423954-77f31af1-20a1-4e98-a678-dcb18c64bbe1?action=collection%2Ffork&collection-url=entityId%3D12423954-77f31af1-20a1-4e98-a678-dcb18c64bbe1%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
-
-[![Run Ory Kratos in Postman](./_static/community/postmanKratos.svg)](https://www.postman.com/ory-docs/workspace/ory/api/bfd3b52e-8125-447c-b0ea-75d34f653377)
-
-[![Run Ory Keto in Postman](./_static/community/postmanKeto.svg)](https://god.gw.postman.com/run-collection/12423954-50913dea-51f8-43f3-919f-9dc16ae1353b?action=collection%2Ffork&collection-url=entityId%3D12423954-50913dea-51f8-43f3-919f-9dc16ae1353b%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
-
-[![Run Ory Oathkeeper in Postman](./_static/community/postmanOathkeeper.svg)](https://god.gw.postman.com/run-collection/12423954-79a6cee9-0d7c-4c4a-97b3-8b86074136db?action=collection%2Ffork&collection-url=entityId%3D12423954-79a6cee9-0d7c-4c4a-97b3-8b86074136db%26entityType%3Dcollection%26workspaceId%3Dba1e6798-1497-4918-a896-cac2f90d481b)
-
-Our API Collections are built directly from the swagger specification (you can find it at the path `/spec/api.json`) and are
-organized into folders that categorize the various API calls.
-
-For example, in the Ory Kratos collection, you will find all calls related to `identity` in the folder with the same name.
-
-To be able to work with the collection you need to set the `baseURl` variable. For example, when running Ory Kratos as configured,
-the `baseURl` needs to be set to the public endpoint(in the [Quickstart](https://www.ory.sh/kratos/docs/quickstart) it
-is`http://127.0.0.1:4433/`).
-
-You may also have to configure query parameters or the JSON method body, depending on the API call.
+The API Collections are built directly from the swagger specification (you can find it at the path `/spec/api.json` in GitHub) and
+are organized into folders that categorize the various API calls. To be able to work with the collection you need to set the
+`baseURl` variable. For example, when running Ory Kratos the `baseURl` needs to be set to the public endpoint. You may also have
+to configure query parameters or the JSON method body, depending on the API call.
 
 :::info
 
