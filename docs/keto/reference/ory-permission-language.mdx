@@ -1,11 +1,14 @@
-# The "Ory Permission Language" Specification
+---
+id: ory-permission-language
+title: Ory Permission Language specification
+sidebar_label: Ory Permission Language
+---
 
 Enforcing fine-grained permissions is a critical building block of mature technology solutions that protect privacy and identity
-in the information age. Several proprietary languages to represent permission already exist, namely the
-[Authzed Schema Language](https://docs.authzed.com/reference/schema-lang) and [Auth0 FGA](https://docs.fga.dev/). Most permissions
-are defined by normal developers who typically are most familiar with Web technologies like JavaScript or Typescript. We see the
-need for a developer-friendly configuration language for permissions that has such a small learning curve that most developers can
-understand and use it with close to no effort. We therefore chose to define our permissions configuration language as a subset of
+in the information age. Several proprietary languages used to represent permission already exist, such as Rego or Casbin. Most
+permissions are defined by developers who are likely familiar with Web technologies like JavaScript or Typescript. There is a need
+for a developer-friendly configuration language for permissions that has a learning curve small enough so that most developers can
+understand and use it with minimal effort. To fulfill this need, we defined the permissions configuration language as a subset of
 the most common general-purpose programming language: JavaScript/TypeScript.
 
 The Ory Permission Language is a syntactical subset of TypeScript. Along with type definitions for the syntax elements of the
@@ -34,13 +37,13 @@ Productions are expressions constructed from terms and the following operators, 
 {}  repetition (0 to n times)
 ```
 
-Lower-case production names are used to identify lexical tokens. Non-terminals are in CamelCase. Lexical tokens are enclosed in
+Lowercase production names are used to identify lexical tokens. Non-terminals are in CamelCase. Lexical tokens are enclosed in
 double quotes `""` or single quotes `''`.
 
 The form `a … b` represents the set of characters from a through b as alternatives. The horizontal ellipsis `…` is also used
 elsewhere in the spec to informally denote various enumerations or code snippets that are not further specified.
 
-## Configuraton text representation
+## Configuration text representation
 
 The configuration is encoded in UTF-8.
 
@@ -158,7 +161,7 @@ ClassDecl       = "class" identifier "implements" "Namespace" "{" ClassSpec "}" 
 ClassSpec       = [ RelationDecls ] | [ PermissionDefns] .
 ```
 
-The following example declares the type _User_.
+The following example declares the type `User`.
 
 ```ts
 class User implements Namespace {}
@@ -186,8 +189,8 @@ TypeName        = identifier .
 
 Note that all relations are defined as array types `T[]` because there are naturally only many-to-many relations in Keto.
 
-The following declares a type _Document_ with three relations: _owners_ and _viewers_, both of which have _users_ as subjects.
-Additionally, the relation _parent_ has type _Document_.
+The following declares a type `Document` with three relations: `owners` and `viewers`, both of which have `users` as subjects.
+Additionally, the relation `parent` has type `Document`.
 
 ```ts
 class User {}
@@ -221,9 +224,6 @@ The `ctx` object is a fixed parameter that contains the `subject` for which the 
 ctx = { subject: "some_user_id" }
 ```
 
-The context will contain more fields in the future, e.g., the IP range or geolocation, the time of day, or the security level of
-the device making the request.
-
 ```ebnf
 PermissionBody  = ( "(" PermissionBody ")" ) | ( "!" PermissionBody ) | ( PermissionCheck | { Operator PermissionBody } ) .
 Operator        = "||" | "&&" .
@@ -234,17 +234,17 @@ The body of a permission check is either one of:
 
 - a `IncludesCheck`, a check that something is in a set, e.g., `this.related.viewers.includes(ctx.subject)`:
 
-```ebnf
-IncludesCheck = Var "." "related" "." RelationName "." "includes" "(" "ctx" "." "subject" ")" .
-Var           = identifier .
-```
+  ```ebnf
+  IncludesCheck = Var "." "related" "." RelationName "." "includes" "(" "ctx" "." "subject" ")" .
+  Var           = identifier .
+  ```
 
 - a `TranstitiveCheck`, a call to a permission on a relation, e.g., `this.related.parents.transitive(p => p.permits.view(ctx))`:
 
-```ebnf
-TransitiveCheck = "this" "." "related" "." RelationName "." "transitive" "(" Var "=>" ( PermissionCall | IncludesCheck ) ")" .
-PermissionCall  = Var "." "permits" "." PermissionName "(" "ctx" ")" .
-```
+  ```ebnf
+  TransitiveCheck = "this" "." "related" "." RelationName "." "transitive" "(" Var "=>" ( PermissionCall | IncludesCheck ) ")" .
+  PermissionCall  = Var "." "permits" "." PermissionName "(" "ctx" ")" .
+  ```
 
 ## Implementation notes
 
@@ -262,13 +262,13 @@ The following type checks are performed once the config is fully parsed:
 - Given a `TypeName` as `X` (e.g., in `RelationDecls`), we check that there exists a class declaration for `X`.
 - Given a `SubjectSetType` as `SubjectSet<T, R>`, we check that `R` is a relation defined for `T`.
 - Given an `IncludesCheck` as `this.related.R.includes(ctx.subject)`, we check that
-- `R` is a relation defined for the current namespace.
+  - `R` is a relation defined for the current namespace.
 - Given a `TransitiveCheck` as `this.related.R.transitive(x = x.permits.P(ctx.subject))`, we check that
-- `R` is a relation defined for the current namespace and that
-- `P` is a permission defined for all types referenced by `R`.
+  - `R` is a relation defined for the current namespace and that
+  - `P` is a permission defined for all types referenced by `R`.
 - Given a `TransitiveCheck` as `this.related.R.transitive(x = x.related.S.includes(ctx.subject))`, we check that
-- `R` is a relation defined for the current namespace and that
-- `S` is a relation defined for all types referenced by `R`.
+  - `R` is a relation defined for the current namespace and that
+  - `S` is a relation defined for all types referenced by `R`.
 
 ## Examples
 
