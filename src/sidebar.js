@@ -390,6 +390,11 @@ module.exports = {
       ],
     },
     {
+      type: "category",
+      label: "Ory Console",
+      items: ["console/usage-billing"],
+    },
+    {
       type: "link",
       label: "Search",
       href: "https://www.ory.sh/docs/search",
