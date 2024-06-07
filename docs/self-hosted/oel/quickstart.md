@@ -24,15 +24,14 @@ The Ory Hydra Enterprise build includes additional features and support for ente
 - Regular releases addressing CVEs and security vulnerabilities.
 - Zero-downtime migrations
 
-
 ### Docker Registry
 
 Docker registry url: `europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel`
+
 Current image tag: `897e224960bb8677edf3344bd51c9edd779e9da7`
 
-Enterprise Docker images are kept in a private registry that requires authorization.
-An authorization key is provided for each customer separately.
-The next steps assume that the key is stored in `keyfile.json`.
+Enterprise Docker images are kept in a private registry that requires authorization. An authorization key is provided for each
+customer separately. The next steps assume that the key is stored in `keyfile.json`.
 
 ### Docker
 
@@ -43,8 +42,8 @@ gcloud auth activate-service-account --key-file=keyfile.json
 gcloud auth configure-docker europe-docker.pkg.dev
 ```
 
-To run the Ory Hydra Enterprise build, you need to set the `DSN` environment variable to the [database connection string](../deployment.md) and provide
-a [configuration file](../../hydra/reference/configuration.mdx).
+To run the Ory Hydra Enterprise build, you need to set the `DSN` environment variable to the
+[database connection string](../deployment.md) and provide a [configuration file](../../hydra/reference/configuration.mdx).
 
 Before deploying the service, you need to apply SQL migrations:
 
@@ -67,27 +66,13 @@ helm repo add ory https://k8s.ory.sh/helm/charts
 helm repo update
 ```
 
-Create a `values.yaml` file to customize the configuration:
-
-```yaml
-image:
-  repository: europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel
-  tag: <replace-with-current-image-tag>
-imagePullSecrets:
-  - name: ory-oel-gcr-secret
-serviceMonitor:
-  enabled: true
-config:
-  # --hydra config--
-  # https://www.ory.sh/docs/hydra/reference/configuration
-```
-
 Create `ory` namespace:
+
 ```bash
 kubectl create namespace ory
 ```
 
-Use the following command to create a kubernetes secret:
+Use the following command to create a kubernetes secret containing image registry credentials:
 
 ```bash
 kubectl create secret docker-registry ory-oel-gcr-secret \
@@ -96,6 +81,42 @@ kubectl create secret docker-registry ory-oel-gcr-secret \
   --docker-password="$(cat keyfile.json)" \
   --namespace ory
 
+```
+
+Create kubernetes secret containing DSN and hydra secret values:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ory-oel-hydra-secret
+  namespace: ory
+data:
+  dsn: cockroach://
+  # https://www.ory.sh/docs/hydra/reference/configuration
+  secretsCookie:
+  secretsSystem:
+```
+
+Create a `values.yaml` file to customize the configuration:
+
+```yaml
+image:
+  repository: europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel
+  tag: <replace-with-current-image-tag>
+imagePullSecrets:
+  - name: ory-oel-gcr-secret
+hydra:
+  automigration:
+    enabled: true
+serviceMonitor:
+  enabled: true
+secret:
+  enabled: false
+  nameOverride: "ory-oel-hydra-secret"
+config:
+  # --hydra config--
+  # https://www.ory.sh/docs/hydra/reference/configuration
 ```
 
 Install Ory Hydra
