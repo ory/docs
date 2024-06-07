@@ -1,27 +1,53 @@
 ---
 id: manage-identity-schema
-title: Create, update, and manage identity schemas
+title: Manage identity schemas
 ---
+
+```mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+```
 
 This document explains how to create, update, and manage identity schemas in Ory Network.
 
-## Create identity schemas
+## Use an existing preset
 
-Follow these steps to create a custom identity schema in Ory Network:
+Ory Network provides four basic preset schemas that are ready to use out of the box. If you are just getting started with Ory
+Network, use one of the presets to make your life easier.
 
-````mdx-code-block
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+1. Go to [**Identities > Identity Schema**](https://console.ory.sh/projects/current/identity-schema) in the Ory Console.
+2. From the **Active schema** drop down, select the schema you want to use.
+3. Click the **Change active schema** button to apply the schema to your project.
+
+![Active schema dropdown](./_assets/activate-preset-schema.png)
+
+:::caution
+
+Be aware that changing the active schema will affect all new identities created in the project. Existing identities might not be
+able to sign in, for example if you change from an email based schema, to a username based schema.
+
+:::
+
+## Create custom schema
+
+If the presets do not fit your needs, you can create a custom schema. Follow these steps to create a custom schema:
 
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 
-1. Sign in to Ory Console and select [**Identity Schema**](https://console.ory.sh/projects/current/identity-schema).
-2. Using the dropdown menu, select one of the preset schemas or the empty template as the starting point for your custom schema.
-3. Check the **Customize Identity Schema** box to enable editing of the schema.
-4. Adjust the schema to your needs. Add, remove, or adjust traits.
-5. Define the name of the custom schema in the **Identity Model Schema** text box.
-6. Click the **Update** button to save.
+1. Go to [**Identities > Identity Schema**](https://console.ory.sh/projects/current/identity-schema) in the Ory Console.
+2. From the **Select template** drop down, select the schema you want to use as a template.
+3. Click the **Duplicate to make changes** button.
+4. Give your schema a name.
+5. Customize the schema to your needs. Read more about the
+   [customization options](/kratos/manage-identities/15_customize-identity-schema.mdx).
+6. Click the **Save** button to save.
+7. Confirm the changes by clicking the **Confirm** button in the confirmation dialog.
+
+![Create a new schema](./_assets/custom-schema-editor.png)
+
+To make this schema the active schema for your project, select the newly created schema from the **Active schema** dropdown and
+click the **Change active schema** button.
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
@@ -38,20 +64,12 @@ ory patch identity-config {your-project-id} \
 
 </TabItem>
 </Tabs>
-````
 
 ## Update identity schemas
 
-To update an identity schema, you must create a new revision of that schema. You can't update existing identity schemas by editing
-them.
-
-For example, to update an identity schema named "Customer Type 1", follow these steps:
-
-1. Sign in to Ory Console and select [**Identity Schema**](https://console.ory.sh/projects/current/identity-schema).
-1. Using the dropdown menu, select the "Customer Type 1" schema.
-1. Check the **Customize Identity Schema** box to enable editing and make the necessary changes.
-1. Enter a new name in the **Identity Model Schema** text box, for example, "Customer Type 2".
-1. Click the **Update** button to save.
+Identity schemas are immutable to prevent inconsistencies in the data. This means, that you cannot update an existing schema.
+However, you can use the existing schema as a template to create a new schema. Simply follow the steps in
+[Creating custom schemas](#creating-custom-schemas) and select the current schema as a template.
 
 It's recommended to manage identity schemas in version control. Learn more about
 [managing Ory Network configuration in git](http://ory.sh/docs/guides/gitops).
