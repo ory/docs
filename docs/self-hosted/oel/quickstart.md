@@ -35,7 +35,11 @@ When using CockroachDB Enterprise:
 
 Docker registry url: `europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel`
 
-Current image tag: `897e224960bb8677edf3344bd51c9edd779e9da7`
+Image tags:
+
+| Image Tag                                | Release Date |
+| ---------------------------------------- | ------------ |
+| 897e224960bb8677edf3344bd51c9edd779e9da7 | 2024-06-05   |
 
 Enterprise Docker images are kept in a private registry that requires authorization. An authorization key is provided for each
 customer separately. The next steps assume that the key is stored in `keyfile.json`.
