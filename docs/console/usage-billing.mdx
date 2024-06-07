@@ -18,12 +18,12 @@ Please report any issues to support@ory.sh or contact us in the [Ory Community](
 
 ## Overview
 
-Usage-based invoices is a new feature in the Ory Console that you to understand your usage of Ory Cloud services, the usage that
-is included in your plan, and the overuse. Usage-based invoices are generated on a monthly basis.
+Usage-based invoices are a new feature in the Ory Console that allows you to understand your usage of Ory Network services, the usage that
+is included in your plan, and the overuse. Usage-based invoices are generated every month.
 
 ## Enabling Usage-based Invoices
 
-Displaying the usage-based invoices is guarded by a feature toggle and is disabled by default. To enable it, navigate to the
+Displaying the usage-based invoices is controlled by a feature toggle and is disabled by default. To enable it, navigate to the
 [preview features page](https://console.ory.sh/projects/current/features) and enable the `Show invoices` feature. The Ory Console
 should reload itself and you should now see the usage-based invoices sidebar entry in the workspace settings page.
 
@@ -52,9 +52,9 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 
 ### Invoices for the current billing period
 
-The total usage for the current billing period can still change. While M2M token issuance and permission checks are billed per
-usage, the ADAU usage is calculated as the average of the last 30 days. This means that the ADAU usage for the current billing
-period can still change until the end of the billing period.
+The invoice for the current billing period is a preview of the costs. While M2M token issuance and permission checks are billed per
+usage (accumulative), the ADAU usage is calculated as the average of the last 30 days. This means that the ADAU usage for the current billing
+period can increase or decrease until the end of the billing period.
 
 ### Proration, upgrades and downgrades
 
