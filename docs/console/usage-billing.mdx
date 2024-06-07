@@ -18,8 +18,11 @@ Please report any issues to support@ory.sh or contact us in the [Ory Community](
 
 ## Overview
 
-Usage-based invoices are a new feature in the Ory Console that allows you to understand your usage of Ory Network services, the usage that
-is included in your plan, and the overuse. Usage-based invoices are generated every month.
+Usage-based invoices are a new feature in the Ory Console that allows you to understand your usage of Ory Network services, the
+usage that is included in your plan, and the overuse. Usage-based invoices are generated every month.
+
+Usage-based invoices only apply to workspaces and projects contained therein, but not to legacy plans that have individual
+subscriptions.
 
 ## Enabling Usage-based Invoices
 
@@ -36,7 +39,7 @@ Usage invoices are only available for workspaces with a subscription. The usage 
 is paid annually. For the current billing period, the usage is generated as a preview and refreshed at most every six hours. The
 final invoice is generated at the end of the billing period.
 
-Depending on the plan, the service usage is comprised of at least three components: the average daily active users (ADAU), the
+Depending on the plan, the service usage is comprised of at least three components: the average daily active users (aDAU), the
 number of machine-to-machine (M2M) tokens issued, and the number of permission checks. Usage credits will be applied to the total
 service usage, but unused credits will not be carried over to the next billing period.
 
@@ -52,9 +55,9 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 
 ### Invoices for the current billing period
 
-The invoice for the current billing period is a preview of the costs. While M2M token issuance and permission checks are billed per
-usage (accumulative), the ADAU usage is calculated as the average of the last 30 days. This means that the ADAU usage for the current billing
-period can increase or decrease until the end of the billing period.
+The invoice for the current billing period is a preview of the costs. While M2M token issuance and permission checks are billed
+per usage (accumulative), the aDAU usage is calculated as the average of the last 30 days. This means that the aDAU usage for the
+current billing period can increase or decrease until the end of the billing period.
 
 ### Proration, upgrades and downgrades
 

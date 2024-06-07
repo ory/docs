@@ -293,6 +293,11 @@ module.exports = {
     "account-experience/index",
     {
       type: "category",
+      label: "Ory Console",
+      items: ["console/usage-billing"],
+    },
+    {
+      type: "category",
       label: "Ory CLI",
       items: [
         {
@@ -388,11 +393,6 @@ module.exports = {
           dirName: "guides/upgrade",
         },
       ],
-    },
-    {
-      type: "category",
-      label: "Ory Console",
-      items: ["console/usage-billing"],
     },
     {
       type: "link",
