@@ -35,13 +35,17 @@ should reload itself and you should now see the usage-based invoices sidebar ent
 After enabling the feature toggle, navigate to the workspace usage and billing page either through the workspace menu on the top
 left, or by navigating to the workspace settings page and then selecting `Usage and billing` from the sidebar.
 
-Usage invoices are only available for workspaces with a subscription. The usage will always be invoiced monthly, even if the plan
-is paid annually. For the current billing period, the usage is generated as a preview and refreshed at most every six hours. The
-final invoice is generated at the end of the billing period.
+Usage invoices are only available for workspaces on a paid subscription plan. The usage will always be invoiced monthly, even if
+the plan is paid annually. For the current billing period, the usage is generated as a preview and refreshed at most every six
+hours. The final invoice is generated at the end of the billing period.
 
-Depending on the plan, the service usage is comprised of at least three components: the average daily active users (aDAU), the
-number of machine-to-machine (M2M) tokens issued, and the number of permission checks. Usage credits will be applied to the total
-service usage, but unused credits will not be carried over to the next billing period.
+Depending on the plan, the service usage is comprised of at least three components:
+
+- the average daily active users (aDAU),
+- the number of machine-to-machine (M2M) tokens issued, and
+- the number of permission checks.
+
+Usage credits will be applied to the total service usage, but unused credits will not be carried over to the next billing period.
 
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
