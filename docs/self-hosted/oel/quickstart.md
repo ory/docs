@@ -9,30 +9,35 @@ This guide explains how to run Ory software if you have purchased an Ory Enterpr
 
 To be able to run an enterprise build, you need:
 
-- An Ory Enterprise License
-- Access to the Ory Enterprise Docker Registry
-- CockroachDB Enterprise, PostgreSQL, or MySQL
+- A valid Ory Enterprise License.
+- Access to the Ory Enterprise Docker Registry.
+- CockroachDB Enterprise (community version is not supported).
+- Support for MySQL and PostgreSQL is available as well, but some features will be unavailable.
+
+Ory Enterprise builds are not available for public download and require a license agreement with Ory to run.
 
 ## Ory Hydra Enterprise Build
 
 The Ory Hydra Enterprise build includes additional features and support for enterprise customers:
 
-- Support for multi-region deployments.
-- Database sharding for high scalability and availability.
 - Resource Owner Password Credentials grant.
 - Ability to customize access, refresh token, and authorization code prefixes.
 - Regular releases addressing CVEs and security vulnerabilities.
-- Zero-downtime migrations
 
+When using CockroachDB Enterprise:
+
+- Support for multi-region failover with regulatory compliance around private data (for example GDPR).
+- Database sharding for high scalability and availability.
+- Zero-downtime migrations.
+- Automatic clean up of stale records - no Hydra Janitor needed.
 
 ### Docker Registry
 
-Docker registry url: `europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel`
-Current image tag: `897e224960bb8677edf3344bd51c9edd779e9da7`
+Docker registry url: `europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel` Current image tag:
+`897e224960bb8677edf3344bd51c9edd779e9da7`
 
-Enterprise Docker images are kept in a private registry that requires authorization.
-An authorization key is provided for each customer separately.
-The next steps assume that the key is stored in `keyfile.json`.
+Enterprise Docker images are kept in a private registry that requires authorization. An authorization key is provided for each
+customer separately. The next steps assume that the key is stored in `keyfile.json`.
 
 ### Docker
 
@@ -43,19 +48,19 @@ gcloud auth activate-service-account --key-file=keyfile.json
 gcloud auth configure-docker europe-docker.pkg.dev
 ```
 
-To run the Ory Hydra Enterprise build, you need to set the `DSN` environment variable to the [database connection string](../deployment.md) and provide
-a [configuration file](../../hydra/reference/configuration.mdx).
+To run the Ory Hydra Enterprise build, you need to set the `DSN` environment variable to the
+[database connection string](../deployment.md) and provide a [configuration file](../../hydra/reference/configuration.mdx).
 
 Before deploying the service, you need to apply SQL migrations:
 
 ```bash
-docker run -e DSN=cockroach:// {IMAGE} -- migrate sql -e  -f /path/to/config.yaml
+docker run -e DSN=cockroach://... europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel -- migrate sql -e  -f /path/to/config.yaml
 ```
 
 Now you will be able to start the service:
 
 ```bash
-docker run -e DSN=cockroach:// {IMAGE} -- serve all -f /path/to/config.yaml
+docker run -e DSN=cockroach://... europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel -- serve all -f /path/to/config.yaml
 ```
 
 ### Kubernetes
@@ -83,6 +88,7 @@ config:
 ```
 
 Create `ory` namespace:
+
 ```bash
 kubectl create namespace ory
 ```
