@@ -39,6 +39,7 @@ Image tags:
 
 | Image Tag                                | Release Date |
 | ---------------------------------------- | ------------ |
+| 897e224960bb8677edf3344bd51c9edd779e9da1 | 2024-06-09 |
 | 897e224960bb8677edf3344bd51c9edd779e9da7 | 2024-06-05   |
 
 Enterprise Docker images are kept in a private registry that requires authorization. An authorization key is provided for each
