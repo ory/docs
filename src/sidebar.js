@@ -417,6 +417,7 @@ module.exports = {
       ],
     },
     "self-hosted/deployment",
+    "self-hosted/oel/quickstart",
     "ecosystem/configuring",
     {
       type: "category",
