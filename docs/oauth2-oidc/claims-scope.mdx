@@ -40,3 +40,44 @@ your tokens for different OAuth flows.
 
 For full control over the resource owner's user experience during the consent phase in the Authorizatio Code / OpenID Connect
 flow, check out the [Ory Consent UI](./custom-login-consent/flow.mdx) documentation.
+
+## Customize scope claim key
+
+You can customize the claim key for the scope in access tokens by setting `/strategies/jwt/scope_claim`. The following values are
+supported:
+
+- `list` (default): The scope claim is an array of strings named `scope`:
+  ```json5
+  {
+    // "sub": "...",
+    // ...
+    scope: ["read", "write"],
+    // ...
+  }
+  ```
+- `string`: The scope claim is a space delimited list of strings named `scp`:
+  ```json5
+  {
+    // "sub": "...",
+    // ...
+    scp: "read write",
+    // ...
+  }
+  ```
+- `both`: The scope claim is both a space delimited list and an array of strings named `scope` and `scp`:
+  ```json5
+  {
+    // "sub": "...",
+    // ...
+    scope: ["read", "write"],
+    scp: "read write",
+    // ...
+  }
+  ```
+
+To change this setting use the Ory CLI:
+
+```shell
+ory patch oauth2-config {project.id} \
+  --replace '/strategies/jwt/scope_claim="string"'
+```
