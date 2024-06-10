@@ -396,7 +396,6 @@ module.exports = {
     },
   ],
   selfhosting: [
-    "self-hosted/oel/quickstart",
     "ecosystem/projects",
     {
       type: "category",
@@ -415,6 +414,13 @@ module.exports = {
             "kratos/guides/e2e-integration-tests",
           ],
         },
+      ],
+    },
+    {
+      type: "category",
+      label: "Ory Enterprise License",
+      items: [
+        "self-hosted/oel/quickstart",
       ],
     },
     "self-hosted/deployment",
