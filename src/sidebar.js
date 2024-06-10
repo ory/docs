@@ -396,6 +396,7 @@ module.exports = {
     },
   ],
   selfhosting: [
+    "self-hosted/oel/quickstart",
     "ecosystem/projects",
     {
       type: "category",
@@ -417,7 +418,6 @@ module.exports = {
       ],
     },
     "self-hosted/deployment",
-    "self-hosted/oel/quickstart",
     "ecosystem/configuring",
     {
       type: "category",
