@@ -130,23 +130,6 @@ config:
   # https://www.ory.sh/docs/hydra/reference/configuration
 ```
 
-Create `ory` namespace:
-
-```bash
-kubectl create namespace ory
-```
-
-Use the following command to create a kubernetes secret:
-
-```bash
-kubectl create secret docker-registry ory-oel-gcr-secret \
-  --docker-server=europe-docker.pkg.dev \
-  --docker-username=_json_key \
-  --docker-password="$(cat keyfile.json)" \
-  --namespace ory
-
-```
-
 Install Ory Hydra
 
 ```
