@@ -1,0 +1,139 @@
+---
+id: quickstart
+title: Quickstart
+---
+
+This guide explains how to run Ory software if you have purchased an Ory Enterprise License.
+
+## Prerequisites
+
+To be able to run an enterprise build, you need:
+
+- A valid Ory Enterprise License.
+- Access to the Ory Enterprise Docker Registry.
+- CockroachDB Enterprise (community version is not supported).
+- Support for MySQL and PostgreSQL is available as well, but some features will be unavailable.
+
+Ory Enterprise builds are not available for public download and require a license agreement with Ory to run.
+
+## Ory Hydra Enterprise Build
+
+The Ory Hydra Enterprise build includes additional features and support for enterprise customers:
+
+- Resource Owner Password Credentials grant.
+- Ability to customize access, refresh token, and authorization code prefixes.
+- Regular releases addressing CVEs and security vulnerabilities.
+
+When using CockroachDB Enterprise:
+
+- Support for multi-region failover with regulatory compliance around private data (for example GDPR).
+- Database sharding for high scalability and availability.
+- Zero-downtime migrations.
+- Automatic clean up of stale records - no Hydra Janitor needed.
+
+### Docker Registry
+
+Docker registry url: `europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel`
+
+Image tags:
+
+import ImageTags from "./eol-image-tags.md"
+
+<ImageTags />
+
+Enterprise Docker images are kept in a private registry that requires authorization. An authorization key is provided for each
+customer separately. The next steps assume that the key is stored in `keyfile.json`.
+
+### Docker
+
+To authenticate to docker registry execute:
+
+```
+gcloud auth activate-service-account --key-file=keyfile.json
+gcloud auth configure-docker europe-docker.pkg.dev
+```
+
+To run the Ory Hydra Enterprise build, you need to set the `DSN` environment variable to the
+[database connection string](../deployment.md) and provide a [configuration file](../../hydra/reference/configuration.mdx).
+
+Before deploying the service, you need to apply SQL migrations:
+
+```bash
+docker run -e DSN=cockroach://... europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel -- migrate sql -e  -f /path/to/config.yaml
+```
+
+Now you will be able to start the service:
+
+```bash
+docker run -e DSN=cockroach://... europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel -- serve all -f /path/to/config.yaml
+```
+
+### Kubernetes
+
+Setup Ory helm repository:
+
+```
+helm repo add ory https://k8s.ory.sh/helm/charts
+helm repo update
+```
+
+Create `ory` namespace:
+
+```bash
+kubectl create namespace ory
+```
+
+Use the following command to create a kubernetes secret containing image registry credentials:
+
+```bash
+kubectl create secret docker-registry ory-oel-gcr-secret \
+  --docker-server=europe-docker.pkg.dev \
+  --docker-username=_json_key \
+  --docker-password="$(cat keyfile.json)" \
+  --namespace ory
+
+```
+
+Create kubernetes secret containing DSN and hydra secret values:
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ory-oel-hydra-secret
+  namespace: ory
+data:
+  dsn: cockroach://
+  # https://www.ory.sh/docs/hydra/reference/configuration
+  secretsCookie:
+  secretsSystem:
+```
+
+Create a `values.yaml` file to customize the configuration:
+
+```yaml
+image:
+  repository: europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel
+  tag: <replace-with-current-image-tag>
+imagePullSecrets:
+  - name: ory-oel-gcr-secret
+maester:
+  enabled: false
+hydra:
+  automigration:
+    enabled: true
+serviceMonitor:
+  enabled: true
+secret:
+  enabled: false
+  nameOverride: "ory-oel-hydra-secret"
+config:
+  # --hydra config--
+  # https://www.ory.sh/docs/hydra/reference/configuration
+```
+
+Install Ory Hydra
+
+```
+helm install ory-oel-hydra ory/hydra --namespace ory --create-namespace -f values.yaml
+```
