@@ -1,0 +1,78 @@
+---
+id: usage-billing
+title: Usage-based billing
+sidebar_label: Usage-based billing
+slug: usage-billing
+---
+
+:::info
+
+This feature is in preview. While we are rolling out usage-based billing, we will not collect payment for overusage. Payment
+collection will be rolled out gradually in Q3 2024.
+
+Please report any issues to support@ory.sh or contact us in the [Ory Community](https://slack.ory.sh/).
+
+:::
+
+## Overview
+
+Usage-based invoices are a feature in the Ory Console that allows you to understand your usage of Ory Network services, the usage
+that is included in your plan, and the overuse. Usage-based invoices are generated every month. For the current billing period, a
+draft invoice is generated every six hours.
+
+Usage-based invoices only apply to workspaces and projects contained therein, but not to legacy plans that have individual
+subscriptions.
+
+## Enable Usage-based Invoices
+
+Displaying the usage-based invoices is controlled by a feature toggle and is disabled by default. To enable it, navigate to the
+[advanced settings page](https://console.ory.sh/settings/advanced) and enable the **Workspace invoice overview** feature. You
+should now see the usage-based invoices sidebar entry in the workspace settings page.
+
+### Ory Console UI
+
+After enabling the feature toggle, navigate to the workspace usage and billing page either through the workspace menu on the top
+left, or by navigating to the workspace settings page and then selecting **Usage and billing** from the sidebar.
+
+Usage invoices are only available for workspaces on a paid subscription plan. The usage will always be invoiced monthly, even if
+the plan is paid annually. For the current billing period, the usage is generated as a preview and refreshed at most every six
+hours. The final invoice is generated at the end of the billing period.
+
+Depending on the plan, the service usage is comprised of at least three components:
+
+- the average daily active users (aDAU),
+- the number of machine-to-machine (M2M) tokens issued, and
+- the number of permission checks.
+
+Additionally, your invoice might include extra charges for additional multi-tenant production environments, etc. For more
+information of what's included in your plan visit [our pricing page](https://www.ory.sh/pricing).
+
+Usage credits will be applied to the total service usage, but unused credits will not be carried over to the next billing period.
+
+```mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+
+<BrowserWindow url="https://console.ory.sh/workspaces/current/settings/billing">
+
+![Usage-based Invoices](./_static/usage-billing-screenshot.png)
+
+</BrowserWindow>
+```
+
+### Invoices for the current billing period
+
+The invoice for the current billing period is a preview of the costs. While M2M token issuance and permission checks are billed
+per usage (accumulative), the aDAU usage is calculated as the average of the last 30 days. This means that the aDAU usage for the
+current billing period can increase or decrease until the end of the billing period.
+
+### Proration, upgrades and downgrades
+
+Upgrades and downgrades of the base plan affect the usage-based billing in both the usage credits as well as the per-unit price.
+
+Downgrades always become effective at the end of the billing period, and will therefore not be reflected on the current usage
+invoice.
+
+Upgrades are effective immediately and will be prorated. Specifically for usage credits, this means that the usage credits will be
+factored by the relation of time on that plan to the total time span of the billing period. As an example, if you upgrade from
+plan A to plan B after ⅔ of the billing period, you will receive ⅔ of the usage credits of plan A and ⅓ of the usage credits of
+plan B.
