@@ -416,6 +416,11 @@ module.exports = {
         },
       ],
     },
+    {
+      type: "category",
+      label: "Ory Enterprise License",
+      items: ["self-hosted/oel/quickstart"],
+    },
     "self-hosted/deployment",
     "ecosystem/configuring",
     {
