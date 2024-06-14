@@ -47,6 +47,37 @@ secure and rotate them if necessary.
 
 :::
 
+## Authorizing Ory Network Workspace Admin APIs
+
+Workspace API keys are used to authorize privileged operations to Ory Network Workspace admin APIs as well as the project admin
+APIs of all projects that belong to this workspace. For example, you must use a Workspace API key to create a new project in a
+workspace, or add a new B2B SSO organization to a project within that workspace.
+
+API Keys work in the context of the workspace for which they were created, as well as for all projects of that workspace. You
+create API Keys in the [Ory Console](https://console.ory.sh/).
+
+### Creating API keys
+
+Follow these steps to create API keys for your workspace:
+
+1. Go to the [Ory Console](https://console.ory.sh/).
+2. Go to **Workspace settings** through the workspace menu in the top left corner.
+3. Select **API keys** in the sidebar.
+4. Click the **+** icon in the **API Keys** section.
+5. Enter the API Key name and click **Create new API key**.
+6. Copy the created API Key from the prompt that shows at the bottom right of the screen.
+
+:::caution
+
+The API Key you created is displayed only once. When you close the prompt, you can't access the key again. Make sure to save the
+API Key before you close the prompt or reload the page.
+
+API Keys are bound to an Ory Network project, and not to a specific user. This means that any user with access to the API Key can
+perform the operations that the API Key allows, even if they are no longer part of the project. Make sure to keep your API Keys
+secure and rotate them if necessary.
+
+:::
+
 ### Usage
 
 Use the API Key in API calls, SDK calls, or command-line interactions. Ory API Keys have a `ory_apikey_` or `ory_pat_`, which
