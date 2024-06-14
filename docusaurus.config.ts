@@ -104,24 +104,24 @@ const config: Config = {
           sidebarId: "docs",
           label: "Documentation",
         },
-        {
-          type: "docSidebar",
-          position: "left",
-          sidebarId: "sdk",
-          label: "SDK",
-        },
-        {
-          type: "docSidebar",
-          position: "left",
-          sidebarId: "api",
-          label: "API",
-        },
-        {
-          type: "docSidebar",
-          position: "left",
-          sidebarId: "selfhosting",
-          label: "Self-hosting",
-        },
+        // {
+        //   type: "docSidebar",
+        //   position: "left",
+        //   sidebarId: "sdk",
+        //   label: "SDK",
+        // },
+        // {
+        //   type: "docSidebar",
+        //   position: "left",
+        //   sidebarId: "api",
+        //   label: "API",
+        // },
+        // {
+        //   type: "docSidebar",
+        //   position: "left",
+        //   sidebarId: "selfhosting",
+        //   label: "Self-hosting",
+        // },
         {
           label: "Need Support?",
           position: "right",
@@ -207,7 +207,7 @@ const config: Config = {
       "@docusaurus/plugin-content-docs",
       {
         path: "docs",
-        sidebarPath: require.resolve("./src/sidebar.js"),
+        sidebarPath: require.resolve("./src/sidebar.ts"),
         editUrl: `https://github.com/ory/docs/edit/master`,
         // editCurrentVersion: false,
         routeBasePath: "/",
