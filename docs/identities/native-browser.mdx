@@ -9,7 +9,7 @@ APIs which use additional security measures such as anti-CSRF cookies.
 
 ## Browser apps
 
-Browser apps use the `https://$project_slug.projects.oryapis.com/self-service/{flow-type}/browser` endpoint to initialize flows
+Browser apps use the `https://$PROJECT_SLUG.projects.oryapis.com/self-service/{flow-type}/browser` endpoint to initialize flows
 such as sign in, registration, profile changes, and so on. When using this endpoint, Ory will set anti CSRF cookies.
 
 When a user signs in successfully, Ory will issue an Ory Session Cookie. Calling `ory.toSession()` will return the same session
@@ -17,7 +17,7 @@ but does not require any additional calls when used in client-side browser apps 
 
 ## Native apps
 
-Native apps use the `https://$project_slug.projects.oryapis.com/self-service/{flow-type}/api` endpoint to initialize flows such as
+Native apps use the `https://$PROJECT_SLUG.projects.oryapis.com/self-service/{flow-type}/api` endpoint to initialize flows such as
 sign in, registration, profile changes, and so on. When using this endpoint, no CSRF cookies will be issued by Ory.
 
 Additionally, Ory issues an Ory Session Token instead of an Ory Session Cookie. This token is equivalent to the session cookie and

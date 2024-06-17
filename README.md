@@ -243,7 +243,7 @@ Follow these rules when using placeholders and dummy data:
 - Use colons (`-`) or underscores (`_`) to separate multiple words, for example
   `{ORY_SESSION_COOKIE}` or `{project-slug}`.
 - When referring to a project API URL or SDK URL, always use
-  `https://$project_slug.projects.oryapis.com`.
+  `https://$PROJECT_SLUG.projects.oryapis.com`.
 - When referring to scenarios in which the user runs a custom domain, use
   `https://ory.your-custom-domain.com`.
 - Always use short, but descriptive, verbal placeholders. Don't mix digits and

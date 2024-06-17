@@ -98,5 +98,5 @@ The `/.well-known/jwks.json` file is a standard endpoint that contains the publi
 tokens. Ory OAuth2 and OpenID Connect exposes this endpoint by default for each Ory Network project at:
 
 ```
-https://$project_slug.projects.oryapis.com/.well-known/jwks.json
+https://$PROJECT_SLUG.projects.oryapis.com/.well-known/jwks.json
 ```

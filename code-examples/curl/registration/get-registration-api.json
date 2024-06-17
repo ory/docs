@@ -4,9 +4,9 @@
   "type": "api",
   "expires_at": "2023-02-08T14:41:26.280202Z",
   "issued_at": "2023-02-08T14:11:26.280202Z",
-  "request_url": "https://$project_slug.projects.oryapis.com/self-service/registration/api",
+  "request_url": "https://$PROJECT_SLUG.projects.oryapis.com/self-service/registration/api",
   "ui": {
-    "action": "https://$project_slug.projects.oryapis.com/self-service/registration?flow=2b5bab03-fa89-4e2d-a575-c614e2ab8f56",
+    "action": "https://$PROJECT_SLUG.projects.oryapis.com/self-service/registration?flow=2b5bab03-fa89-4e2d-a575-c614e2ab8f56",
     "method": "POST",
     "nodes": [
       {

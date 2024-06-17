@@ -1,4 +1,4 @@
 curl -X DELETE \
     -H "Content-Type: application/json" \
     -d '{"session_token":"<session_token>"}' \
-    https://$project_slug.projects.oryapis.com/self-service/logout/api
+    https://$PROJECT_SLUG.projects.oryapis.com/self-service/logout/api

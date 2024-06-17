@@ -83,7 +83,7 @@ The result shows you the whole client (excluding its secret). Check that the val
 ### Redirect URL isn't whitelisted
 
 A likely cause of your request failing is that you are using the wrong redirect URL. Assuming your OAuth 2.0 URL looks like
-`https://$project_slug.projects.oryapis.com/oauth2/auth?client_id=my-client&...&redirect_uri=http://my-url/callback`
+`https://$PROJECT_SLUG.projects.oryapis.com/oauth2/auth?client_id=my-client&...&redirect_uri=http://my-url/callback`
 
 The redirect URL `http://my-url/callback` must be whitelisted in your client configuration. The URLs **must** match. URL
 `http://my-url/callback` and `http://my-url/callback?foo=bar` are different URLs!

@@ -137,7 +137,7 @@ The maximum age of refresh tokens is 6 months. This means that refresh tokens mu
 :::
 
 ```bash
-ory patch oauth2-config $project_id \
+ory patch oauth2-config $PROJECT_ID \
   --replace "/ttl/refresh_token=\"900h\"" \
   --format yaml
 ```

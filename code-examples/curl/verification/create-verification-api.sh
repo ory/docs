@@ -1,3 +1,3 @@
 curl -H 'Content-Type: application/json' \
     -H 'Accept: application/json' \
-    https://$project_slug.projects.oryapis.com/self-service/verification/api
+    https://$PROJECT_SLUG.projects.oryapis.com/self-service/verification/api

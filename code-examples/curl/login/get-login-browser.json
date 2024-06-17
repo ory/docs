@@ -4,9 +4,9 @@
   "type": "browser",
   "expires_at": "2023-01-25T14:34:55.335611Z",
   "issued_at": "2023-01-25T14:04:55.335611Z",
-  "request_url": "https://$project_slug.projects.oryapis.com/self-service/login/browser",
+  "request_url": "https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser",
   "ui": {
-    "action": "https://$project_slug.projects.oryapis.com/self-service/login?flow=a42a9cb9-e436-483b-9845-b8aa8516e2e9",
+    "action": "https://$PROJECT_SLUG.projects.oryapis.com/self-service/login?flow=a42a9cb9-e436-483b-9845-b8aa8516e2e9",
     "method": "POST",
     "nodes": [
       {
