@@ -3,9 +3,8 @@ import React from "react"
 import MDXComponents from "@theme-original/MDXComponents"
 import ConsoleLink from "../components/ConsoleLink/console-link"
 
-
 export default {
-    // Re-use the default mapping
-    ...MDXComponents,
-    ConsoleLink,
+  // Re-use the default mapping
+  ...MDXComponents,
+  ConsoleLink,
 }
