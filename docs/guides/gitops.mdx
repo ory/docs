@@ -19,7 +19,7 @@ First, pull the current configuration from your Ory Network project. You can als
 case, you just need it once. You can find the `project_id` in the Ory Network dashboard or by using `ory list projects`.
 
 ```bash
-ory get identity-config "$project_id" --format json-pretty > identity-config-"$project_id".json
+ory get identity-config "$PROJECT_ID" --format json-pretty > identity-config-"$PROJECT_ID".json
 ```
 
 Commit the configuration to git and push it to your repository.
@@ -47,7 +47,7 @@ jobs:
           username: ${{ secrets.ORY_USERNAME }}
           password: ${{ secrets.ORY_PASSWORD }}
           commands: |
-            update identity-config "$project_id" --file identity-config-"$project_id".json
+            update identity-config "$PROJECT_ID" --file identity-config-"$PROJECT_ID".json
 ```
 
 For the GitHub Action to authenticate with Ory Network, you need to add the ORY_USERNAME and ORY_PASSWORD secrets to your
@@ -65,14 +65,14 @@ to manage the Ory OAuth2 & OpenID Connect configuration in git. First, pull the 
 project:
 
 ```bash
-ory get oauth2-config "$project_id" --format json-pretty > oauth2-config-"$project_id".json
+ory get oauth2-config "$PROJECT_ID" --format json-pretty > oauth2-config-"$PROJECT_ID".json
 ```
 
 Switch out the command in the GitHub Action:
 
 ```diff
--  update identity-config "$project_id" --file identity-config-"$project_id".json
-+  update oauth2-config "$project_id" --file oauth2-config-"$project_id".json
+-  update identity-config "$PROJECT_ID" --file identity-config-"$PROJECT_ID".json
++  update oauth2-config "$PROJECT_ID" --file oauth2-config-"$PROJECT_ID".json
 ```
 
 ### Ory Permissions configuration and Ory Permission Language
@@ -81,19 +81,19 @@ You can use the same approach to manage the Ory Permissions configuration in git
 Ory Network project:
 
 ```bash
-ory get permission-config "$project_id" --format json-pretty > permission-config-"$project_id".json
+ory get permission-config "$PROJECT_ID" --format json-pretty > permission-config-"$PROJECT_ID".json
 ```
 
 Add the update command for Ory Permissions configuration to the GitHub Action:
 
 ```bash
-update permission-config "$project_id" --file permission-config-"$project_id".json
+update permission-config "$PROJECT_ID" --file permission-config-"$PROJECT_ID".json
 ```
 
 or for the Ory Permission Language configuration:
 
 ```bash
-update opl --project "$project_id" --file opl-"$project_id".ts
+update opl --project "$PROJECT_ID" --file opl-"$PROJECT_ID".ts
 ```
 
 ## OpenID Connect Claims and Ory Actions payload
