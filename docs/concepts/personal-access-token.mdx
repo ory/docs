@@ -56,6 +56,9 @@ workspace, or add a new B2B SSO organization to a project within that workspace.
 API Keys work in the context of the workspace for which they were created, as well as for all projects of that workspace. You
 create API Keys in the [Ory Console](https://console.ory.sh/).
 
+However, workspace API keys do not work for managing the data of the projects itself, such as interacting with identities,
+sessions, or OAuth2 clients. For these operations, you need to use the project API keys.
+
 ### Creating API keys
 
 Follow these steps to create API keys for your workspace:
