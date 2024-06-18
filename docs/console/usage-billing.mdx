@@ -80,6 +80,21 @@ You can additionally filter the data by:
 </BrowserWindow>
 ```
 
+You can also view the usage breakdown for the current billing period. This breakdown shows the usage of all billable components
+per project and the total cost for the selected data range. You can see how much of each component you have used per project and
+the total cost for each component. The cost can vary between the final invoice and this data as the final invoice is generated at
+the end of the billing period including sum of all usage units. The usage breakdown is updated every six hours. The data displayed
+on this charts is affected by previous filter selections.
+
+```mdx-code-block
+
+<BrowserWindow url="https://console.ory.sh/workspaces/current/settings/billing">
+
+![Usage-based Invoices](./_static/usage-billing-breakdown.png)
+
+</BrowserWindow>
+```
+
 ### Invoices for the current billing period
 
 The invoice for the current billing period is a preview of the costs. While M2M token issuance and permission checks are billed
