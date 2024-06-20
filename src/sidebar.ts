@@ -8,20 +8,9 @@ import {
 
 const homeLink: SidebarItem = {
   type: "link",
-  href: "/home",
+  href: "/welcome",
   className: "all-docs-link",
   label: "Go to Main Page",
-}
-
-const introSidebars = {
-  intro: [
-    homeLink,
-    "intro",
-    "api/index",
-    "identities/index",
-    "oauth2-oidc/index",
-    "keto/index",
-  ],
 }
 
 const referenceSidebars = {
@@ -32,10 +21,6 @@ const referenceSidebars = {
       label: "Reference",
       collapsed: false,
       collapsible: false,
-      link: {
-        type: "generated-index",
-        slug: "category/reference/",
-      },
       items: [
         "reference/index",
         "reference/api",
@@ -47,7 +32,6 @@ const referenceSidebars = {
 }
 
 const guidesSidebars = {
-  fromDevToProd: [homeLink, "guides/custom-domains"],
   "quickstarts-and-tutorials": [
     homeLink,
     "getting-started/local-development",
@@ -56,8 +40,11 @@ const guidesSidebars = {
       label: "Quickstart",
       collapsed: false,
       collapsible: false,
+      link: {
+        type: "doc",
+        id: "getting-started/overview",
+      },
       items: [
-        "getting-started/overview",
         "getting-started/integrate-auth/go",
         "getting-started/integrate-auth/php",
         "getting-started/integrate-auth/expressjs",
@@ -79,7 +66,6 @@ const guidesSidebars = {
   ],
   troubleshooting: [
     homeLink,
-
     {
       type: "category",
       label: "Troubleshooting",
@@ -108,12 +94,15 @@ const guidesSidebars = {
 const identitiesSidebar = {
   identities: [
     homeLink,
-    "identities/index",
     {
       type: "category",
       label: "Concepts",
       collapsed: false,
       collapsible: false,
+      link: {
+        type: "doc",
+        id: "identities/index",
+      },
       items: [
         "security-model",
         "identities/native-browser",
@@ -125,8 +114,11 @@ const identitiesSidebar = {
       label: "Authentication",
       collapsed: false,
       collapsible: false,
+      link: {
+        type: "doc",
+        id: "kratos/concepts/credentials",
+      },
       items: [
-        "kratos/concepts/credentials",
         {
           type: "category",
           label: "Authentication methods",
@@ -245,9 +237,11 @@ const identitiesSidebar = {
       label: "Self-service user flows",
       collapsed: false,
       collapsible: false,
+      link: {
+        type: "doc",
+        id: "kratos/self-service",
+      },
       items: [
-        "kratos/self-service",
-
         {
           type: "category",
           label: "Flows",
@@ -269,8 +263,11 @@ const identitiesSidebar = {
       label: "Identity schema",
       collapsed: false,
       collapsible: false,
+      link: {
+        type: "doc",
+        id: "kratos/manage-identities/overview",
+      },
       items: [
-        "kratos/manage-identities/overview",
         {
           type: "category",
           label: "Configure identity schema",
@@ -305,11 +302,10 @@ const identitiesSidebar = {
       type: "category",
       label: "Session management",
       link: {
-        type: "generated-index",
-        slug: "category/session-management/",
+        type: "doc",
+        id: "kratos/session-management/overview",
       },
       items: [
-        "kratos/session-management/overview",
         "identities/sign-in/check-session",
         "kratos/session-management/session-lifespan",
         "kratos/session-management/refresh-extend-sessions",
@@ -320,18 +316,17 @@ const identitiesSidebar = {
       type: "category",
       label: "User interface",
       link: {
-        type: "generated-index",
-        slug: "category/user-interface/",
+        type: "doc",
+        id: "kratos/bring-your-own-ui/index",
       },
       items: [
         "account-experience/index",
-        "kratos/bring-your-own-ui/index",
-        "kratos/concepts/ui-user-interface",
         {
           type: "category",
           label: "Custom user interface",
           items: [
             "getting-started/custom-ui",
+            "kratos/concepts/ui-user-interface",
             "kratos/bring-your-own-ui/custom-ui-basic-integration",
             "kratos/bring-your-own-ui/custom-ui-advanced-integration",
             "kratos/bring-your-own-ui/custom-ui-ory-elements",
@@ -342,20 +337,34 @@ const identitiesSidebar = {
     {
       type: "category",
       label: "Send Emails & SMS",
+      link: {
+        type: "doc",
+        id: "kratos/emails-sms/custom-email-templates",
+      },
       items: ["kratos/emails-sms/custom-email-templates"],
     },
   ],
 }
 
+const oauth2Sidebar = {
+  oauth2: [homeLink, "oauth2-oidc/index"],
+}
+
+const permissionsSidebar = {
+  permissions: [homeLink, "keto/index"],
+}
+
 module.exports = {
   docs: [
-    "home",
-    "intro",
     {
       type: "category",
       label: "Services",
       collapsed: false,
       collapsible: false,
+      link: {
+        type: "doc",
+        id: "intro",
+      },
       items: [
         "identities/index",
         "oauth2-oidc/index",
@@ -368,6 +377,10 @@ module.exports = {
       label: "Guides",
       collapsed: false,
       collapsible: false,
+      link: {
+        type: "generated-index",
+        slug: "category/guides/",
+      },
       items: [
         {
           type: "doc",
@@ -386,7 +399,12 @@ module.exports = {
     {
       type: "category",
       label: "Operations",
+      link: {
+        type: "generated-index",
+        slug: "category/operations/",
+      },
       items: [
+        "api/index",
         "guides/custom-domains",
         "concepts/personal-access-token",
         "guides/upgrade/sdk-v1",
@@ -412,6 +430,10 @@ module.exports = {
     {
       type: "category",
       label: "Reference",
+      link: {
+        type: "generated-index",
+        slug: "category/reference/",
+      },
       items: [
         "reference/api",
         "sdk",
@@ -431,8 +453,11 @@ module.exports = {
       label: "Ory Open Source",
       collapsed: false,
       collapsible: false,
+      link: {
+        type: "doc",
+        id: "open-source",
+      },
       items: [
-        "open-source",
         "ecosystem/community",
         "open-source/licenses",
         {
@@ -444,11 +469,14 @@ module.exports = {
     },
     {
       type: "category",
-      label: "Compliance & Security",
+      label: "Compliance and security",
       collapsed: false,
       collapsible: false,
+      link: {
+        type: "doc",
+        id: "security-compliance/compliance-and-certifications",
+      },
       items: [
-        "security-compliance/compliance-and-certifications",
         "kratos/concepts/security",
         "ecosystem/security",
         "security-compliance/gdpr",
@@ -461,7 +489,6 @@ module.exports = {
       label: "Search",
     },
   ],
-  ...introSidebars,
   ...referenceSidebars,
   ...guidesSidebars,
   ...identitiesSidebar,
