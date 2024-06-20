@@ -238,11 +238,12 @@ prevents leaking of sensitive data such as tokens or API keys.
 
 Follow these rules when using placeholders and dummy data:
 
-- Introduce placeholders and dummy data in curly brackets (`{}`).
+- Introduce placeholders and dummy data in curly brackets with a preceding $ so
+  they can be used in bash commands.
 - Use colons (`-`) or underscores (`_`) to separate multiple words, for example
   `{ORY_SESSION_COOKIE}` or `{project-slug}`.
 - When referring to a project API URL or SDK URL, always use
-  `https://{project.slug}.projects.oryapis.com`.
+  `https://$PROJECT_SLUG.projects.oryapis.com`.
 - When referring to scenarios in which the user runs a custom domain, use
   `https://ory.your-custom-domain.com`.
 - Always use short, but descriptive, verbal placeholders. Don't mix digits and
@@ -421,8 +422,40 @@ Network project. For example, to access the Custom UI settings for the currently
 active Ory Network project in the Console, you can link to:
 https://console.ory.sh/projects/current/ui
 
-Using the `/current/` route you can dynamically direct users to the relevant
-sections based on their project context.
+When referencing a specific page of the Ory Console, use the
+`<ConsoleLink route="project..." />` component in MDX files.
+
+The component automatically resolves the navigation section and page title for
+the given route, and renders a standard markup for both, as well as the link
+with the `/current/` shortcut mentioned above:
+
+```tsx
+<ConsoleLink route="project.activity.events" />
+
+// becomes:
+// Activity → Logs & Events in the [Ory Console](https://console.ory.sh/current/projects/activity/events)
+```
+
+A list of all supported routes can be found here:
+[src/components/ConsoleLink/console-routes.ts](src/components/ConsoleLink/console-routes.ts).
+
+Please note that the syntax is like accessing a path in a JS object, but as a
+string. If the route you want to reference is found in the `console-routes.ts`
+file in the following way:
+
+```ts
+{
+  project: {
+    activity: {
+      events: {
+        route: "/projects/[project]/activity/events",
+      }
+    }
+  }
+}
+```
+
+Use `<ConsoleLink route="project.activity.events" />` to reference it.
 
 ## Testing
 

@@ -126,7 +126,7 @@ To validate the ID token, you need to decode the JWT and verify the signature us
 which is available at
 
 ```text
-https://{project.slug}.projects.oryapis.com/.well-known/jwks.json
+https://$PROJECT_SLUG.projects.oryapis.com/.well-known/jwks.json
 ```
 
 The ID token contains a signature that is used to verify that the token has not been tampered with.
@@ -159,11 +159,11 @@ const redirectUri = "..."
 const clientId = "..."
 
 // Send the code challenge along with the authorization request
-const authorizationUrl = `https://{project.slug}.projects.oryapis.com/oauth2/auth?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&code_challenge=${codeChallenge}&code_challenge_method=S256`
+const authorizationUrl = `https://$PROJECT_SLUG.projects.oryapis.com/oauth2/auth?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&code_challenge=${codeChallenge}&code_challenge_method=S256`
 
 // Exchange the authorization code for a token using the code verifier
 const code = new URLSearchParams(window.location.search).get("code")
-const tokenUrl = "https://{project.slug}.projects.oryapis.com/oauth2/token"
+const tokenUrl = "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/token"
 const tokenRequestBody = new URLSearchParams({
   grant_type: "authorization_code",
   client_id: clientId,
@@ -229,7 +229,7 @@ In this code, we construct the authorization URL with the required parameters, i
 
 ```js
 const code = "authorization_code_received_from_auth_server"
-const tokenUrl = "https://{project.slug}.projects.oryapis.com/oauth2/token"
+const tokenUrl = "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/token"
 const requestBody = `grant_type=authorization_code&client_id=${clientId}&code_verifier=${codeVerifier}&code=${code}`
 
 fetch(tokenUrl, {
@@ -264,7 +264,7 @@ ory create oauth2-client --token-endpoint-auth-method none
 
 ```js
 const clientId = "your_client_id"
-const authorizationUrl = `https://{project.slug}.projects.oryapis.com/oauth2/auth?response_type=code&client_id=${clientId}&redirect_uri=https://myapp.com/callback&scope=openid&state=12345&code_challenge_method=S256&code_challenge=${codeChallenge}`
+const authorizationUrl = `https://$PROJECT_SLUG.projects.oryapis.com/oauth2/auth?response_type=code&client_id=${clientId}&redirect_uri=https://myapp.com/callback&scope=openid&state=12345&code_challenge_method=S256&code_challenge=${codeChallenge}`
 
 // Redirect the user to the Authorization Server to start the authorization flow
 window.location = authorizationUrl
@@ -277,7 +277,7 @@ In this code, we construct the authorization URL with the required parameters, i
 
 ```js
 const code = "authorization_code_received_from_auth_server"
-const tokenUrl = "https://{project.slug}.projects.oryapis.com/oauth2/token"
+const tokenUrl = "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/token"
 const requestBody = `grant_type=authorization_code&client_id=${clientId}&code_verifier=${codeVerifier}&code=${code}`
 
 fetch(tokenUrl, {
@@ -311,7 +311,7 @@ ory create oauth2-client --token-endpoint-auth-method client_secret_post
 
 ```js
 const clientId = "your_client_id"
-const authorizationUrl = `https://{project.slug}.projects.oryapis.com/oauth2/auth?response_type=code&client_id=${clientId}&redirect_uri=https://myapp.com/callback&scope=openid%20offline_access&state=12345`
+const authorizationUrl = `https://$PROJECT_SLUG.projects.oryapis.com/oauth2/auth?response_type=code&client_id=${clientId}&redirect_uri=https://myapp.com/callback&scope=openid%20offline_access&state=12345`
 
 // Redirect the user to the Authorization Server to start the authorization flow
 window.location = authorizationUrl
@@ -322,7 +322,7 @@ window.location = authorizationUrl
 ```js
 const clientSecret = "your_client_secret"
 const code = "authorization_code_received_from_auth_server"
-const tokenUrl = "https://{project.slug}.projects.oryapis.com/oauth2/token"
+const tokenUrl = "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/token"
 const requestBody = `grant_type=authorization_code&client_id=${clientId}&client_secret=${clientSecret}&code=${code}&redirect_uri=https://myapp.com/callback`
 
 fetch(tokenUrl, {

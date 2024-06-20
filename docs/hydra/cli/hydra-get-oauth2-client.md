@@ -24,9 +24,9 @@ hydra get oauth2-client <id-1> [<id-2> ...] [flags]
 ### Examples
 
 ```
-To get the OAuth 2.0 Client's secret, run:
+To get the OAuth 2.0 Client's name, run:
 
-	hydra get oauth2-client <your-client-id> --format json | jq -r '.client_secret'
+	hydra get oauth2-client <your-client-id> --format json | jq -r '.client_name'
 ```
 
 ### Options
