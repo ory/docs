@@ -247,6 +247,7 @@ export const allProjectsPaths: RootPath[] = [
 const workspaceSettings: Path[] = [
   { title: "Workspace overview", href: routes.workspace.settings.route },
   { title: "Members", href: routes.workspace.settings.members.route },
+  { title: "API keys", href: routes.workspace.settings.apiKeys.route },
   {
     title: "Plans & billing",
     href: routes.workspace.settings.billing.route,
