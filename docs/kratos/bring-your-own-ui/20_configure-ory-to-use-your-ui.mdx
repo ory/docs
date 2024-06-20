@@ -3,14 +3,13 @@ id: configure-ory-to-use-your-ui
 title: Configure Ory to use your UI
 ---
 
-To define the paths where Ory calls your custom UI, go to [**Ory Console**](https://console.ory.sh/) → **User Interface**. This
-view allows you to define the URLs of UI views for every self-service flow. To point to the desired UI, you can use relative or
-absolute paths.
+To define the paths where Ory calls your custom UI, go to <ConsoleLink route="project.ui" />. This view allows you to define the
+URLs of UI views for every self-service flow. To point to the desired UI, you can use relative or absolute paths.
 
 :::info
 
-Unless you set a custom UI base URL, relative links always use your SDK Configuration URL as the base. To check your SDK
-Configuration URL, go to [**Ory Console**](https://console.ory.sh/) → **Access & APIs**.
+Unless you set a custom UI base URL, relative links always use your SDK Configuration URL as the base. To get your project's SDK
+Configuration URL, go to <ConsoleLink route="project.settings" />, and copy the URL from the **API Endpoints** field.
 
 :::
 
@@ -25,8 +24,7 @@ URL of all custom UI views. This is a great way to make Ory work with your exist
 the combination of the base URL and relative URLs to point Ory to UI screens for operations such as login or registration you are
 already hosting.
 
-To set the base URL of custom UI and define the paths for UI views, go to
-[**Ory Console**](https://console.ory.sh/projects/current/ui) → **Account Experience** → **UI URLs**
+To set the base URL of custom UI and define the paths for UI views, go to <ConsoleLink route="project.ui" />.
 
 :::caution
 

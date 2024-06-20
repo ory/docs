@@ -240,8 +240,8 @@ note that Gzipped responses from `check_session_url` are not supported, and will
   `subject`. Example: `identity.id` for `{ "identity": { "id": "1234" } }`.
 - `additional_headers` (map[string]string, optional - defaults empty) - If set, you can either add additional headers or override
   existing ones.
-- `forward_http_headers` ([]string, optional - defaults ["Authorization", "Cookie"]) - If set, you can specify which headers will
-  be forwarded.
+- `forward_http_headers` ([]string, optional - defaults ["Authorization", "Cookie"]) - If set, you can specify which headers will be
+  forwarded.
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -362,8 +362,8 @@ note that Gzipped responses from `check_session_url` are not supported, and will
     request authentication. It can't be set along with `header` or `cookie`.
   - `cookie` (string, required, one of) - The cookie (case sensitive) that must contain a Bearer token for request authentication.
     It can't be set along with `header` or `query_parameter`
-- `forward_http_headers` ([]string, optional - defaults ["Authorization", "Cookie"]) - If set, you can specify which headers will
-  be forwarded.
+- `forward_http_headers` ([]string, optional - defaults ["Authorization", "Cookie"]) - If set, you can specify which headers will be
+  forwarded.
 
 ```yaml
 # Global configuration file oathkeeper.yml

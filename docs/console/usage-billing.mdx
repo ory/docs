@@ -7,8 +7,8 @@ slug: usage-billing
 
 :::info
 
-This feature is in preview. While we are rolling out usage-based billing, we will not collect payment for overusage. Payment
-collection will be rolled out gradually in Q3 2024.
+While we are rolling out usage-based billing, we will not collect payment for overusage. Payment collection will be rolled out
+gradually in Q3 2024.
 
 Please report any issues to support@ory.sh or contact us in the [Ory Community](https://slack.ory.sh/).
 
@@ -52,9 +52,42 @@ Usage credits will be applied to the total service usage, but unused credits wil
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 
-<BrowserWindow url="https://console.ory.sh/workspaces/current/settings/billing">
+<BrowserWindow url="https://console.ory.sh/workspaces/<id>/settings/billing">
 
 ![Usage-based Invoices](./_static/usage-billing-screenshot.png)
+
+</BrowserWindow>
+```
+
+##### Total costs and usage breakdown in time
+
+The Total usage cost dashboard provides a comprehensive view of your project's expenditure over time. From here you can track the
+total cost of all projects, filter costs by specific projects, and visualize cost trends over time. You can see the pre-credited
+cost of each project and also the total cost of all projects (with and without credits included).
+
+You can additionally filter the data by:
+
+- **Date Range** You can select a specific date range to view the cost data for that period.
+
+- **Project Filter** Dropdown in the top right corner allows you to filter the data by specific projects.
+
+```mdx-code-block
+
+<BrowserWindow url="https://console.ory.sh/workspaces/<id>/settings/billing">
+
+![Usage-based Invoices](./_static/usage-billing-chart.png)
+
+</BrowserWindow>
+```
+
+You can also view the usage breakdown for the selected data range. This breakdown shows the billed cost of all components per
+project. The data displayed on this charts is affected by previous filter selections.
+
+```mdx-code-block
+
+<BrowserWindow url="https://console.ory.sh/workspaces/<id>/settings/billing">
+
+![Usage-based Invoices](./_static/usage-billing-breakdown.png)
 
 </BrowserWindow>
 ```
