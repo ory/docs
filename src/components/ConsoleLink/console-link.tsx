@@ -1,12 +1,12 @@
 import React, { PropsWithChildren } from "react"
 import { routes } from "./console-routes"
-import { projectPaths } from "./console-nav-data"
+import { projectPaths, workspacesPaths } from "./console-nav-data"
 
 type ConsoleLinkProps = {
   route: string
 }
 
-const flatProjectPaths = projectPaths.flatMap((p) => {
+const flatConsolePaths = [...projectPaths, ...workspacesPaths].flatMap((p) => {
   return p.paths.map((sectionPath) => ({
     href: sectionPath.href,
     title: sectionPath.title,
@@ -52,7 +52,7 @@ export default function ConsoleLink({ route }: ConsoleLinkProps) {
         JSON.stringify(routeObj),
     )
   }
-  const navDataObj = flatProjectPaths.find((p) => p.href === resolvedRoute)
+  const navDataObj = flatConsolePaths.find((p) => p.href === resolvedRoute)
   if (!navDataObj) {
     throw new Error(
       "Route object does not have a corresponding nav entry: " + route,
