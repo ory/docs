@@ -14,34 +14,72 @@ const homeLink: SidebarItem = {
 }
 
 const introSidebars = {
-  intro: [homeLink, "intro", "api/index","identities/index", "oauth2-oidc/index", "keto/index"]
+  intro: [
+    homeLink,
+    "intro",
+    "api/index",
+    "identities/index",
+    "oauth2-oidc/index",
+    "keto/index",
+  ],
 }
 
 const referenceSidebars = {
-  reference : [
+  reference: [
     homeLink,
     {
       type: "category",
       label: "Reference",
       collapsed: false,
-      collapsible: false,link: {
+      collapsible: false,
+      link: {
         type: "generated-index",
-        slug: 'category/reference/',
+        slug: "category/reference/",
       },
       items: [
-          "reference/index",
-          "reference/api",
-          "sdk",
-          "keto/reference/ory-permission-language"
-        ]
-  } 
-  ]
+        "reference/index",
+        "reference/api",
+        "sdk",
+        "keto/reference/ory-permission-language",
+      ],
+    },
+  ],
 }
 
 const guidesSidebars = {
   fromDevToProd: [homeLink, "guides/custom-domains"],
+  "quickstarts-and-tutorials": [
+    homeLink,
+    "getting-started/local-development",
+    {
+      type: "category",
+      label: "Quickstart",
+      collapsed: false,
+      collapsible: false,
+      items: [
+        "getting-started/overview",
+        "getting-started/integrate-auth/go",
+        "getting-started/integrate-auth/php",
+        "getting-started/integrate-auth/expressjs",
+        "getting-started/integrate-auth/react",
+        "getting-started/integrate-auth/react-native",
+        "getting-started/integrate-auth/vue",
+        "getting-started/integrate-auth/nextjs",
+        "getting-started/integrate-auth/flutter-web-redirect",
+        "getting-started/integrate-auth/dotnet",
+      ],
+    },
+    {
+      type: "category",
+      label: "SDK Guides",
+      collapsed: false,
+      collapsible: false,
+      items: ["kratos/sdk/go"],
+    },
+  ],
   troubleshooting: [
     homeLink,
+
     {
       type: "category",
       label: "Troubleshooting",
@@ -49,7 +87,7 @@ const guidesSidebars = {
       collapsed: false,
       link: {
         type: "generated-index",
-        slug: 'category/troubleshooting/',
+        slug: "category/troubleshooting/",
       },
       items: [
         {
@@ -67,87 +105,56 @@ const guidesSidebars = {
   ],
 }
 
-const identitiesGuidesSidebar = {
-  "identities-guides": [    
+const identitiesSidebar = {
+  identities: [
     homeLink,
-    {
-      type: "link",
-      href: "../identities/",
-      className: "all-docs-link",
-      label: "Go to Ory Identities concepts",
-    },
-    "getting-started/overview",
-    "getting-started/local-development",
-    "concepts/redirects",
+    "identities/index",
     {
       type: "category",
-      label: "Quickstarts",
-      items : [
-        "getting-started/integrate-auth/go",
-        "getting-started/integrate-auth/php",
-        "getting-started/integrate-auth/expressjs",
-        "getting-started/integrate-auth/react",
-        "getting-started/integrate-auth/react-native",
-        "getting-started/integrate-auth/vue",
-        "getting-started/integrate-auth/nextjs",
-        "getting-started/integrate-auth/flutter-web-redirect",
-        "getting-started/integrate-auth/dotnet"
-      ]
-    },
-    {
-      type: "category",
-      label: "SDK Guides",
-      items : [
-        "kratos/sdk/go",
-      ]
-    },    
-    {
-      type: "category",
-      label: "Manage identities",
-      items : [
-        "kratos/manage-identities/create-users-identities",
-        "kratos/manage-identities/import-user-accounts-identities",
-        "identities/model/identity-state",
-        "kratos/manage-identities/invite-users",
-        "kratos/manage-identities/account-recovery",
-        "kratos/manage-identities/export-user-accounts-identities",
-      ]
-    }, 
-    {
-      type: "category",
-      label: "Manage sessions",
-      items : [
-        "kratos/session-management/overview",
-        "identities/sign-in/check-session",
-        "kratos/session-management/session-lifespan",
-        "kratos/session-management/refresh-extend-sessions",
-        "kratos/session-management/revoke-sessions-hook",
-      ]
-    },
-    {
-      type: "category",
-      label: "Configure identity schema",
+      label: "Concepts",
       collapsed: false,
       collapsible: false,
-      items : [
-        "identities/model/manage-identity-schema",
-        "kratos/manage-identities/customize-identity-schema",
-      ]
-    },    
+      items: [
+        "security-model",
+        "identities/native-browser",
+        "concepts/redirects",
+      ],
+    },
     {
       type: "category",
-      label: "Configure authentication methods",
+      label: "Authentication",
       collapsed: false,
       collapsible: false,
-      items : [
+      items: [
+        "kratos/concepts/credentials",
+        {
+          type: "category",
+          label: "Authentication methods",
+          link: {
+            type: "generated-index",
+            slug: "category/authentication-methods/",
+          },
+          items: [
+            "kratos/concepts/credentials/username-email-password",
+            "concepts/password-policy",
+            "kratos/social-signin/overview",
+            "kratos/passwordless/overview",
+            "kratos/mfa/overview",
+            "kratos/organizations/organizations",
+          ],
+        },
+        {
+          type: "category",
+          label: "Configure authentication",
+          link: {
+            type: "generated-index",
+            slug: "category/configure-authentication/",
+          },
+          items: [
             {
               type: "category",
               label: "Social Sign-in",
-              items : [
-                "kratos/social-signin/data-mapping",
-                "kratos/social-signin/get-tokens",
-                "identities/sign-in/social-sign-in/redirect-url",
-                "kratos/social-signin/native-apps",  
+              items: [
                 {
                   type: "category",
                   label: "Social Sign-in Providers",
@@ -176,97 +183,63 @@ const identitiesGuidesSidebar = {
                     "kratos/social-signin/data-mapping",
                     "kratos/social-signin/account-linking",
                     "kratos/social-signin/native-apps",
-                    "kratos/social-signin/x-twitter"
+                    "kratos/social-signin/x-twitter",
                   ],
                 },
-              ]
+                "kratos/social-signin/data-mapping",
+                "kratos/social-signin/get-tokens",
+                "identities/sign-in/social-sign-in/redirect-url",
+                "kratos/social-signin/native-apps",
+              ],
             },
             {
               type: "category",
               label: "Passwordless",
-              items : [
+              items: [
                 "kratos/passwordless/passkeys",
                 "kratos/passwordless/webauthn",
                 "kratos/passwordless/code",
-              ]
-            },   
-            "identities/sign-in/saml",
+              ],
+            },
             {
               type: "category",
               label: "Multi-factor Authentication",
-              items : [
+              items: [
                 "kratos/mfa/lookup-secrets",
                 "kratos/mfa/totp",
                 "kratos/mfa/webauthn-fido-yubikey",
                 "kratos/mfa/sms",
-                "kratos/mfa/step-up-authentication"
-              ]
-            },  
+                "kratos/mfa/step-up-authentication",
+              ],
+            },
             {
               type: "category",
               label: "Emails & SMS",
-              items : [
+              items: [
                 "kratos/emails-sms/sending-emails-smtp",
-                "kratos/emails-sms/sending-sms"
-              ]
-            },  
-            {
-              type: "category",
-              label: "User interface",
-              items : [
-                "getting-started/custom-ui",
-                "kratos/bring-your-own-ui/custom-ui-basic-integration",
-                "kratos/bring-your-own-ui/custom-ui-advanced-integration",
-                "kratos/bring-your-own-ui/custom-ui-ory-elements"
-              ]
-            },  
+                "kratos/emails-sms/sending-sms",
+              ],
+            },
             {
               type: "category",
               label: "Ory Actions",
-              items : [
+              items: [
                 "guides/integrate-with-ory-cloud-through-webhooks",
                 "identities/sign-in/actions",
                 "actions/revoke-active-sessions",
                 "actions/session",
                 "actions/require-verified-address",
-              ]
-            },  
+              ],
+            },
+            "identities/sign-in/saml",
             "identities/session-to-jwt-cors",
+            "identities/sign-in/two-step-registration",
+            "identities/sign-in/login-hint",
             "guides/cli/config-identity-service",
-            "reference/api",
-      ]
-    },
-  ],
-}
-
-const identitiesSidebar = {
-  identities: [
-    homeLink,
-    "getting-started/overview",
-    "identities/index",
-    {
-      type: "category",
-      label: "Concepts",
-      collapsed: false,
-      collapsible: false,
-      items : [
-        "security-model",
-        "identities/native-browser",
-        "kratos/concepts/credentials"
-      ]
-    },
-    {
-      type: "category",
-      label: "Identity model",
-      collapsed: false,
-      collapsible: false,
-      items: [
-        "kratos/manage-identities/overview",
-        "kratos/manage-identities/identity-schema",
-        "kratos/manage-identities/managing-users-identities-metadata",
-        "kratos/manage-identities/best-practices",
+          ],
+        },
       ],
-    },    
+    },
     {
       type: "category",
       label: "Self-service user flows",
@@ -274,53 +247,103 @@ const identitiesSidebar = {
       collapsible: false,
       items: [
         "kratos/self-service",
-        "kratos/concepts/browser-redirect-flow-completion",
-        "kratos/self-service/flows/user-registration",
-        "kratos/self-service/flows/user-login",
-        "kratos/self-service/flows/user-logout",
-        "kratos/self-service/flows/user-settings",
-        "kratos/self-service/flows/verify-email-account-activation",
-        "kratos/self-service/flows/account-recovery-password-reset",
-        "kratos/self-service/flows/user-facing-errors",
+
+        {
+          type: "category",
+          label: "Flows",
+          items: [
+            "kratos/concepts/browser-redirect-flow-completion",
+            "kratos/self-service/flows/user-registration",
+            "kratos/self-service/flows/user-login",
+            "kratos/self-service/flows/user-logout",
+            "kratos/self-service/flows/user-settings",
+            "kratos/self-service/flows/verify-email-account-activation",
+            "kratos/self-service/flows/account-recovery-password-reset",
+            "kratos/self-service/flows/user-facing-errors",
+          ],
+        },
       ],
-    },    
+    },
     {
       type: "category",
-      label: "Authentication",
+      label: "Identity schema",
       collapsed: false,
       collapsible: false,
       items: [
-        "kratos/concepts/credentials/username-email-password",
-        "kratos/social-signin/overview",
-        "kratos/passwordless/overview",
-        "kratos/mfa/overview",
-        "identities/sign-in/two-step-registration",
-        "identities/sign-in/login-hint"
+        "kratos/manage-identities/overview",
+        {
+          type: "category",
+          label: "Configure identity schema",
+          items: [
+            "kratos/manage-identities/identity-schema",
+            "kratos/manage-identities/managing-users-identities-metadata",
+            "identities/model/manage-identity-schema",
+            "kratos/manage-identities/customize-identity-schema",
+            "kratos/manage-identities/best-practices",
+          ],
+        },
       ],
-    },       
-    "kratos/session-management/overview",
+    },
     {
       type: "category",
-      label: "Send Emails & SMS",
-      collapsed: false,
-      collapsible: false,
+      label: "Identity management",
+      link: {
+        type: "generated-index",
+        slug: "category/identity-management/",
+      },
       items: [
-         "kratos/emails-sms/custom-email-templates",
+        "kratos/manage-identities/create-users-identities",
+        "kratos/manage-identities/import-user-accounts-identities",
+        "identities/model/identity-state",
+        "kratos/manage-identities/invite-users",
+        "kratos/manage-identities/account-recovery",
+        "kratos/manage-identities/export-user-accounts-identities",
+      ],
+    },
+
+    {
+      type: "category",
+      label: "Session management",
+      link: {
+        type: "generated-index",
+        slug: "category/session-management/",
+      },
+      items: [
+        "kratos/session-management/overview",
+        "identities/sign-in/check-session",
+        "kratos/session-management/session-lifespan",
+        "kratos/session-management/refresh-extend-sessions",
+        "kratos/session-management/revoke-sessions-hook",
       ],
     },
     {
       type: "category",
       label: "User interface",
-      collapsed: false,
-      collapsible: false,
+      link: {
+        type: "generated-index",
+        slug: "category/user-interface/",
+      },
       items: [
         "account-experience/index",
         "kratos/bring-your-own-ui/index",
         "kratos/concepts/ui-user-interface",
+        {
+          type: "category",
+          label: "Custom user interface",
+          items: [
+            "getting-started/custom-ui",
+            "kratos/bring-your-own-ui/custom-ui-basic-integration",
+            "kratos/bring-your-own-ui/custom-ui-advanced-integration",
+            "kratos/bring-your-own-ui/custom-ui-ory-elements",
+          ],
+        },
       ],
     },
-    "kratos/organizations/organizations",
-    "concepts/password-policy",
+    {
+      type: "category",
+      label: "Send Emails & SMS",
+      items: ["kratos/emails-sms/custom-email-templates"],
+    },
   ],
 }
 
@@ -383,20 +406,25 @@ module.exports = {
             "guides/cli/proxy-and-tunnel",
             "guides/cli/config-with-cli",
           ],
-        }
+        },
       ],
     } satisfies SidebarItemCategoryConfig,
     {
       type: "category",
-      label : "Reference",
-      items:  ["reference/api","sdk", "keto/reference/ory-permission-language" , {
-        Reference: [
-          {
-            type: "autogenerated",
-            dirName: "cli",
-          },
-        ],
-      },]
+      label: "Reference",
+      items: [
+        "reference/api",
+        "sdk",
+        "keto/reference/ory-permission-language",
+        {
+          Reference: [
+            {
+              type: "autogenerated",
+              dirName: "cli",
+            },
+          ],
+        },
+      ],
     },
     {
       type: "category",
@@ -413,7 +441,8 @@ module.exports = {
           label: "GitHub",
         },
       ],
-    },{
+    },
+    {
       type: "category",
       label: "Compliance & Security",
       collapsed: false,
@@ -436,7 +465,6 @@ module.exports = {
   ...referenceSidebars,
   ...guidesSidebars,
   ...identitiesSidebar,
-  ...identitiesGuidesSidebar,
 
   sdk: [],
   api: [],
