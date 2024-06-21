@@ -242,6 +242,12 @@
             "type": "string",
             "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
+          "home_region": {
+            "description": "\neu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global",
+            "enum": ["eu-central", "us-east", "us-west", "global"],
+            "type": "string",
+            "x-go-enum-desc": "eu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global"
+          },
           "hydra_oauth2_allowed_top_level_claims": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
@@ -2413,6 +2419,12 @@
             "type": "string",
             "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
+          "home_region": {
+            "description": "Home Region\n\nThe home region of the project. This is the region where the project will be created.\neu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global",
+            "enum": ["eu-central", "us-east", "us-west", "global"],
+            "type": "string",
+            "x-go-enum-desc": "eu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global"
+          },
           "name": {
             "description": "The name of the project to be created",
             "type": "string"
@@ -3822,14 +3834,21 @@
       "listOrganizationsResponse": {
         "description": "B2B SSO Organization List",
         "properties": {
+          "has_next_page": {
+            "type": "boolean"
+          },
+          "next_page_token": {
+            "type": "string"
+          },
           "organizations": {
+            "description": "The list of organizations",
             "items": {
               "$ref": "#/components/schemas/organization"
             },
             "type": "array"
           }
         },
-        "required": ["organizations"],
+        "required": ["organizations", "next_page_token", "has_next_page"],
         "type": "object"
       },
       "listWorkspaceProjects": {
@@ -4300,6 +4319,13 @@
             "type": "string",
             "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
+          "home_region": {
+            "description": "The project's data home region.\neu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global",
+            "enum": ["eu-central", "us-east", "us-west", "global"],
+            "readOnly": true,
+            "type": "string",
+            "x-go-enum-desc": "eu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global"
+          },
           "hosts": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
@@ -4348,6 +4374,7 @@
           "state",
           "environment",
           "workspace_id",
+          "home_region",
           "created_at",
           "updated_at"
         ],
@@ -6468,6 +6495,12 @@
             "type": "string",
             "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
+          "home_region": {
+            "description": "The project home region.\n\nThis is used to set where the project data is stored and where the project's endpoints are located.\neu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global",
+            "enum": ["eu-central", "us-east", "us-west", "global"],
+            "type": "string",
+            "x-go-enum-desc": "eu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global"
+          },
           "id": {
             "description": "The project's ID.",
             "format": "uuid",
@@ -6510,7 +6543,8 @@
           "services",
           "state",
           "name",
-          "environment"
+          "environment",
+          "home_region"
         ],
         "type": "object"
       },
@@ -6995,6 +7029,12 @@
             "type": "string",
             "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
+          "home_region": {
+            "description": "The project's data home region\neu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global",
+            "enum": ["eu-central", "us-east", "us-west", "global"],
+            "type": "string",
+            "x-go-enum-desc": "eu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global"
+          },
           "hosts": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
@@ -7045,7 +7085,8 @@
           "created_at",
           "updated_at",
           "name",
-          "environment"
+          "environment",
+          "home_region"
         ],
         "type": "object"
       },
@@ -7130,12 +7171,8 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
+            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
             "enum": [
-              "region_eu",
-              "region_us",
-              "region_apac",
-              "region_global",
               "production_projects",
               "staging_projects",
               "development_projects",
@@ -7155,8 +7192,10 @@
               "rop_grant",
               "concierge_onboarding",
               "credit",
+              "data_location_global",
               "m2m_token_issuance",
               "permission_checks",
+              "data_location_regional",
               "rate_limit_tier",
               "session_rate_limit_tier",
               "identities_list_rate_limit_tier",
@@ -7164,7 +7203,7 @@
               "oauth2_introspect_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
+            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
           },
           "feature_available": {
             "type": "boolean"
@@ -14264,10 +14303,38 @@
         "operationId": "listOrganizations",
         "parameters": [
           {
+            "description": "Items per Page\n\nThis is the number of items per page to return.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 250,
+              "format": "int64",
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
+            "in": "query",
+            "name": "page_token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Project ID\n\nThe project's ID.",
             "in": "path",
             "name": "project_id",
             "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Domain\n\nIf set, only organizations with that domain will be returned.",
+            "in": "query",
+            "name": "domain",
             "schema": {
               "type": "string"
             }
