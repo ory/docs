@@ -43,7 +43,7 @@ services:
     volumes:
       - ./oathkeeper:/etc/config/oathkeeper
   postgres-kratos:
-    image: postgres:9.6
+    image: postgres:12
     environment:
       - POSTGRES_USER=kratos
       - POSTGRES_PASSWORD=secret
@@ -84,6 +84,9 @@ services:
     environment:
       - KRATOS_PUBLIC_URL=http://kratos:4433/
       - KRATOS_BROWSER_URL=http://127.0.0.1:4433/
+      - CSRF_COOKIE_NAME=ax-csrf-cookie
+      - COOKIE_SECRET=I_AM_VERY_SECRET
+      - CSRF_COOKIE_SECRET=I_AM_VERY_SECRET_TOO
     networks:
       - intranet
     ports:
