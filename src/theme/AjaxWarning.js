@@ -20,7 +20,8 @@ const AjaxWarning = ({ severity = "info" }) => (
             ></path>
           </svg>
         </span>
-        severity
+        &nbsp;
+        {severity}
       </h5>
     </div>
     <div className="admonition-content">

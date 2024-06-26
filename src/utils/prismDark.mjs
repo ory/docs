@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import darkTheme from "prism-react-renderer/themes/vsDark/index.cjs.js"
+import { themes } from "prism-react-renderer"
 
 export default {
   plain: {
@@ -13,7 +13,7 @@ export default {
     backgroundColor: "#212121",
   },
   styles: [
-    ...darkTheme.styles,
+    ...themes.vsDark.styles,
     {
       types: ["title"],
       style: {

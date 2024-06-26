@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
 import RefParser from "@apidevtools/json-schema-ref-parser"
-import Form from "@rjsf/material-ui"
+import { Theme as ChakraUITheme } from "@rjsf/chakra-ui"
+import { withTheme } from "@rjsf/core"
+import validator from "@rjsf/validator-ajv8"
+import axios from "axios"
+import { useEffect, useState } from "react"
+
+const Form = withTheme(ChakraUITheme)
 
 export default function ConfigEditor(props: { url: any }) {
   const [schema, setSchema] = useState<any>()
@@ -24,7 +28,7 @@ export default function ConfigEditor(props: { url: any }) {
 
   return (
     <div className="bootstrap">
-      <Form schema={schema} liveValidate={true} />
+      <Form schema={schema} liveValidate={true} validator={validator} />
     </div>
   )
 }

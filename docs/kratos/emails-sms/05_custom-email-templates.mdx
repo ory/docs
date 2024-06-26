@@ -172,7 +172,7 @@ built-in one.
    ory update identity-config <project-id> --file updated_config.yaml
    ```
 
-:::warning
+:::danger
 
 In the Ory Network, you can use only Base64-encoded templates. `http://` or `file://` URIs are not supported. If you provide
 custom templates using unsupported methods, the system uses the default templates.
@@ -203,7 +203,7 @@ Templates can use the [Sprig](https://github.com/Masterminds/sprig) library, whi
 
 :::
 
-:::warning
+:::danger
 
 For security reasons, these Sprig functions are disabled in the Ory Network:
 
@@ -488,7 +488,7 @@ Bitte geben Sie den folgenden Code ein, um Ihr Konto wiederherzustellen:
 {{- end -}}
 ```
 
-:::warning
+:::danger
 
 Since metadata is not validated by Ory Identities, missing entries or unexpected values can cause errors in the template rendering
 process. If the system encounters errors in the rendering process, Ory Identities uses the default templates.

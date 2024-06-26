@@ -15,7 +15,7 @@ when you import identities, you must provide the `credentials` field.
 
 Use the `verifiable_addresses` field to import a verified address like an email address.
 
-:::warning
+:::danger
 
 You must ensure that address verification is enabled and that the `verifiable_address` is present in the identity's traits. If the
 identity traits do not have the address set as the "verified address" type, the imported values will be deleted on the next
@@ -132,7 +132,7 @@ Ory supports importing credentials for identities including passwords and social
 
 To import a clear text password, provide the password in the JSON payload.
 
-:::warning
+:::danger
 
 Password imports don't use any password validation. Users have to update their password according to the policy themselves using
 self-service flows.

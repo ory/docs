@@ -5,6 +5,7 @@ import siteConfig from "@generated/docusaurus.config"
 
 import ketoRelationTuplesPrism from "./ketoRelationTuplesPrism"
 import ketoRelationsPermissionsPrism from "./ketoRelationsPermissionsPrism"
+
 export default function prismIncludeLanguages(PrismObject) {
   const {
     themeConfig: { prism },

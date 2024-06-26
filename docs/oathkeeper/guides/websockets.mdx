@@ -3,8 +3,10 @@ id: proxy-websockets
 title: Define WebSockets rules
 ---
 
+```mdx-code-block
 import { useLatestRelease } from "@site/src/hooks"
 import CodeBlock from "@theme/CodeBlock"
+```
 
 This guide shows how to use Ory Oathkeeper with [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API).
 
@@ -116,6 +118,7 @@ Other ports and services are available only in the internal network.
 
 1. Create a `kratos` folder and fetch configuration files:
 
+```mdx-code-block
 <CodeBlock className="language-shell">{`mkdir kratos
 wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
   "kratos",
@@ -123,10 +126,11 @@ wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
 wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
   "kratos",
 )}/contrib/quickstart/kratos/email-password/kratos.yml -O kratos/kratos.yml`}</CodeBlock>
+```
 
 2. Create a `oathkeeper` folder and `oathkeeper/oathkeeper.yml` with the following content:
 
-```mdx-code-block title="oathkeeper/oathkeeper.yml"
+```mdx-code-block
 import oathkeeper from '!!raw-loader!../../../code-examples/oathkeeper/oathkeeper/oathkeeper.yml'
 
 <CodeBlock language="yaml">{oathkeeper}</CodeBlock>
@@ -134,7 +138,7 @@ import oathkeeper from '!!raw-loader!../../../code-examples/oathkeeper/oathkeepe
 
 3. Create `oathkeeper/access-rules.yml` with the following content:
 
-```mdx-code-block title="oathkeeper/access-rules.yml"
+```mdx-code-block
 import rules from '!!raw-loader!../../../code-examples/oathkeeper/oathkeeper/access-rules.yml'
 
 <CodeBlock language="yaml">{rules}</CodeBlock>
@@ -150,7 +154,7 @@ deploying your application within Docker, this would just be your localhost IP.
 1. Let's create a folder `ws` and create our WebSocket service using Go and Gin framework. Create `ws/main.go` file with the
    following content:
 
-```mdx-code-block title="ws/main.go"
+```mdx-code-block
 import app from '!!raw-loader!../../../code-examples/oathkeeper/ws/main.go'
 
 <CodeBlock language="go">{app}</CodeBlock>
@@ -166,7 +170,7 @@ go mod tidy
 
 3. Create `ws/index.html` file with the following content:
 
-```mdx-code-block title="ws/index.html"
+```mdx-code-block
 import index from '!!raw-loader!../../../code-examples/oathkeeper/ws/index.html'
 
 <CodeBlock language="html">{index}</CodeBlock>
@@ -174,7 +178,7 @@ import index from '!!raw-loader!../../../code-examples/oathkeeper/ws/index.html'
 
 4. Create `ws/Dockerfile` with the following content:
 
-```mdx-code-block title="ws/Dockerfile"
+```mdx-code-block
 import dockerfile from '!!raw-loader!../../../code-examples/oathkeeper/ws/Dockerfile'
 
 <CodeBlock language="html">{dockerfile}</CodeBlock>

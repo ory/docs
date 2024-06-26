@@ -78,7 +78,7 @@ For example, if you set `earliest_possible_extend` to `24h`, sessions can't be r
 If you need high flexibility when extending sessions, you can set `earliest_possible_extend` to `lifespan`, which allows sessions
 to be refreshed during their entire lifespan, even right after they are created.
 
-:::warning
+:::danger
 
 If you set `earliest_possible_extend` to `lifespan`, all sessions will constantly be refreshed!
 

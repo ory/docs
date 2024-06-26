@@ -7,7 +7,7 @@ In addition to exposing Ory Oathkeeper as a HTTP proxy, you can directly embed i
 The gRPC traffic will then be handled by the middleware as if it were a standalone Ory Oathkeeper instance, just without the added
 network hop.
 
-:::warning
+:::danger
 
 This feature is experimental and may change. We can give no compatibility guarantees regarding the API.
 

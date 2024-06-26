@@ -34,16 +34,17 @@ Redirect URI**.
 To change the redirect URL to your custom domain, you need to update the `base_redirect_uri`:
 
 ```shell
-## List all available projects
+# List all available projects
 ory list projects
 
-## Add OIDC base redirect URI
+# Add OIDC base redirect URI
 ory patch identity-config <project-id> \
   --add '/selfservice/methods/oidc/config/base_redirect_uri="https://ory.example.org"'
 ```
 
 </TabItem>
 </Tabs>
+````
 
 After changing the base redirect URI you need to update the redirect URL of social sign-in providers you want to use. This is done
 in the configuration of the social sign-in provider. To update an existing social sign in provider, follow these steps:
