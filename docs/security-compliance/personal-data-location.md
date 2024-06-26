@@ -29,5 +29,5 @@ automatically, reaching out behind the scenes to the region where that personal 
 
 When you [create a new Ory Network project](https://console.ory.sh/projects/create) in the Ory Console, you are given a choice of
 personal data storage location for your new project. Any personal data of your users and identities will be stored just in that
-region , replicated within that region for availability and durability. Note that this choice is permanent for that project:
-moving personal data between regions is an administrative action, with which Ory Support is happy to assist enterprise customers.
+region, replicated within that region for availability and durability. Note that this choice is permanent for that project: moving
+personal data between regions is an administrative action, with which Ory Support is happy to assist enterprise customers.
