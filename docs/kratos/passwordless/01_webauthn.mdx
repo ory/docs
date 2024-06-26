@@ -40,14 +40,13 @@ configure whether WebAuthn is used for passwordless, or for multi-factor authent
 
 By default, passwordless with WebAuthn is disabled. To start using WebAuthn, apply this configuration:
 
-```mdx-code-block
-import CodeBlock from '@theme/CodeBlock'
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import CodeBlock from "@theme/CodeBlock"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 <Tabs>
   <TabItem value="console" label="Ory Console UI">
-      You can enable passwordless with WebAuthn in the Ory Network Console UI in the <b>Authentication/Passwordless Login</b> menu.
+    Go to <ConsoleLink route="project.passwordless" /> to configure WebAuthn for passwordless authentication.
   </TabItem>
   <TabItem value="cloud" label="Ory CLI">
     <CodeBlock language="shell">{`ory patch identity-config <your-project-id> \\
@@ -76,7 +75,6 @@ import TabItem from '@theme/TabItem';
           display_name: Ory`}</CodeBlock>
   </TabItem>
 </Tabs>
-```
 
 ### Updating configuration
 

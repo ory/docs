@@ -44,7 +44,7 @@ For example, to set the session lifespan to 30 days, enter `720h`.
    ```yaml title="config.yml"
    session:
    cookie:
-      domain: {project.slug}.projects.oryapis.com
+      domain: $PROJECT_SLUG.projects.oryapis.com
       name: ory_session_{name}
       path: /
       persistent: false
@@ -88,7 +88,7 @@ different cookie `max-age`, set the `session/cookie/persistent` value to `false`
    ```yaml title="config.yml"
    session:
    cookie:
-      domain: {project.slug}.projects.oryapis.com
+      domain: $PROJECT_SLUG.projects.oryapis.com
       name: ory_session_{name}
       path: /
       // highlight-start
@@ -138,7 +138,7 @@ the configuration.
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 
-To change the privileged session duration, go to [**Ory Console**](https://console.ory.sh/) → **Session Settings**, enter the desired value in the **Privileged Session Age** field and click the **Save** button.
+To change the privileged session duration, go to <ConsoleLink route="project.authentication.sessionSettings" />, enter the desired value in the **Privileged Session Age** field and click the **Save** button.
 
 For example, to set the privileged session duration to 15 minutes, enter `15m`.
 

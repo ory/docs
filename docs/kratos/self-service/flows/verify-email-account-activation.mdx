@@ -61,8 +61,7 @@ as [TOTP](../../mfa/15_totp.mdx) or [FIDO2/WebAuthn](../../mfa/20_webauthn-fido-
 <TabItem value="console" label="Ory Console" default>
 ```
 
-To configure account verification, go to **Authentication** → **Email Verification** in the
-[Ory Console](https://console.ory.sh/projects/current/verification).
+To configure account verification, go to <ConsoleLink route="project.verification" />
 
 :::caution
 
@@ -178,7 +177,7 @@ Follow these steps to enable sending attempted verification notifications:
 <TabItem value="console" label="Ory Console" default>
 ```
 
-Go to [**Ory Console**](https://console.ory.sh/) → **Email Verification** to enable and toggle **Notify unknown recipients** on.
+Go to <ConsoleLink route="project.verification" /> and toggle **Notify unknown recipients** on.
 
 ```mdx-code-block
 </TabItem>
@@ -233,8 +232,7 @@ To allow only the users with a verified email to sign in, follow these steps:
 <TabItem value="console" label="Ory Console" default>
 ```
 
-Go to **Authentication** → **Email Verification** in the [Ory Console](https://console.ory.sh/projects/current/verification) and
-enable **Require Verified Address for Login**.
+Go to <ConsoleLink route="project.verification" /> and enable **Require Verified Address for Login**.
 
 ```mdx-code-block
 </TabItem>

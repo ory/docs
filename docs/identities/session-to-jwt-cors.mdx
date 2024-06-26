@@ -24,7 +24,7 @@ Let's look at an end-to-end example. This guide assumes that you already have an
 
 ```shell
 ory create jwk some-example-set \
-  --alg ES256 --project {project.id} --format json-pretty \
+  --alg ES256 --project $PROJECT_ID --format json-pretty \
   > es256.jwks.json
 ```
 
@@ -54,7 +54,7 @@ Next, we configure our Ory Network project's tokenizer templates. The key we cho
 that template with the base64-encoded files from above:
 
 ```shell
-ory patch identity-config {project.id} \
+ory patch identity-config $PROJECT_ID \
   --add '/session/whoami/tokenizer/templates/jwt_example_template1={"jwks_url":"base64://'$JWKS_B64_ENCODED'","claims_mapper_url":"base64://'$JSONNET_B64_ENCODED'","ttl":"10m"}' \
   --format yaml
 ```
@@ -81,7 +81,7 @@ import toSessionJwt from '!!raw-loader!../../code-examples/sdk/typescript/src/se
 ```
 curl -X GET \
   -H "Cookie: ory_session...=..." \
-  "https://{project.slug}.projects.oryapis.com/sessions/whoami?tokenize_as=jwt_example_template1"
+  "https://$PROJECT_SLUG.projects.oryapis.com/sessions/whoami?tokenize_as=jwt_example_template1"
 
 {
   // ...
@@ -100,7 +100,7 @@ To verify the resulting JSON Web Token, export the public key from the JSON Web 
 ```shell
 ory get jwk some-example-set \
   --public \
-  --project {project.id} --format json-pretty \
+  --project $PROJECT_ID --format json-pretty \
   > es256-public.jwks.json
 ```
 
@@ -137,7 +137,7 @@ The template has access to these variables:
 
 - `claims`: The default claims the token has per default. You can modify these claims but not remove them:
   - `jti`: A unique UUID v4 value.
-  - `iss`: The project's slug url (`https://{project.slug}.projects.oryapis.com`).
+  - `iss`: The project's slug url (`https://$PROJECT_SLUG.projects.oryapis.com`).
   - `exp`: The token's expiry which uses the template's `ttl` value.
   - `sub`: The Ory Session's `IdentityID`.
   - `sid`: The Ory Session's `ID`.
@@ -181,7 +181,7 @@ CLI:
 
 ```shell
 ory create jwk some-example-set \
-  --alg ES256 --project {project.id} --format json-pretty
+  --alg ES256 --project $PROJECT_ID --format json-pretty
 
 {
   "set": "example-key-set",

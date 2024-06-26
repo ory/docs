@@ -31,7 +31,7 @@ Example:
 
 ```
 > GET /admin/clients?page_size=5 HTTP/1.1
-> Host: {project.slug}.projects.oryapis.com
+> Host: $PROJECT_SLUG.projects.oryapis.com
 > Accept: */*
 >
 < HTTP/1.1 200 OK
@@ -47,7 +47,7 @@ To get the next page, follow the `next` path from the `Link` header:
 
 ```
 > GET /admin/clients?page_size=5&page_token=h9LfEKUiFoLH2R0A HTTP/1.1
-> Host: {project.slug}.projects.oryapis.com
+> Host: $PROJECT_SLUG.projects.oryapis.com
 > Accept: */*
 >
 < HTTP/1.1 200 OK
@@ -63,7 +63,7 @@ Finally, if there are no further pages, the `next` link will be omitted indicati
 
 ```
 > GET /admin/clients?page_size=5&page_token=QLux4Tu5gb8JfW70 HTTP/1.1
-> Host: {project.slug}.projects.oryapis.com
+> Host: $PROJECT_SLUG.projects.oryapis.com
 > Accept: */*
 >
 < HTTP/1.1 200 OK

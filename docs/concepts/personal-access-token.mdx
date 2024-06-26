@@ -31,11 +31,10 @@ API Keys work only in the context of the Project for which they were created. Yo
 
 Follow these steps to create API Keys for your Project:
 
-1. Go to the [Ory Console](https://console.ory.sh/).
-2. Go to **Access & APIs**.
-3. Click the **+** icon in the **API Keys** section.
-4. Enter the API Key name and click **Create API Key**.
-5. Copy the created API Key from the prompt that shows at the bottom right of the screen.
+1. Go to <ConsoleLink route="project.developers" />.
+2. Click **Create new API key**
+3. Enter the API Key name and click **Create**
+4. Copy the created API Key
 
 :::caution
 
@@ -57,10 +56,10 @@ For example, when calling the Admin API at `/admin/identities`, include the API 
 
 ```shell
 GET /admin/identities HTTP/1.1
-Host: {project.slug}.projects.oryapis.com
+Host: $PROJECT_SLUG.projects.oryapis.com
 Accept: application/json
 # highlight-next-line
-Authorization: Bearer {API-Key}
+Authorization: Bearer $API_KEY
 ```
 
 ## Authorizing Ory Network Management APIs

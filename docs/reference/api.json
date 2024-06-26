@@ -124,6 +124,10 @@
       }
     },
     "schemas": {
+      "AmountInCent": {
+        "format": "int64",
+        "type": "integer"
+      },
       "Attribute": {
         "properties": {
           "key": {
@@ -175,6 +179,20 @@
         "required": ["name", "count"],
         "type": "object"
       },
+      "BillingPeriodBucket": {
+        "properties": {
+          "base_invoices": {
+            "$ref": "#/components/schemas/Invoices"
+          },
+          "billing_period": {
+            "$ref": "#/components/schemas/TimeInterval"
+          },
+          "usage_invoice": {
+            "$ref": "#/components/schemas/invoice"
+          }
+        },
+        "type": "object"
+      },
       "CreateInviteResponse": {
         "properties": {
           "all_invites": {
@@ -223,6 +241,12 @@
             "enum": ["prod", "stage", "dev"],
             "type": "string",
             "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
+          },
+          "home_region": {
+            "description": "\neu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global",
+            "enum": ["eu-central", "us-east", "us-west", "global"],
+            "type": "string",
+            "x-go-enum-desc": "eu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global"
           },
           "hydra_oauth2_allowed_top_level_claims": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -300,10 +324,17 @@
           },
           "hydra_strategies_access_token": {
             "default": "opaque",
-            "description": "Defines access token type. jwt is a bad idea, see https://www.ory.sh/docs/hydra/advanced#json-web-tokens\n\nThis governs the \"strategies.access_token\" setting.\nopaque Oauth2AccessTokenStrategyOpaque\njwt Oauth2AccessTokenStrategyJwt",
+            "description": "Defines access token type\n\nThis governs the \"strategies.access_token\" setting.\nopaque Oauth2AccessTokenStrategyOpaque\njwt Oauth2AccessTokenStrategyJwt",
             "enum": ["opaque", "jwt"],
             "type": "string",
             "x-go-enum-desc": "opaque Oauth2AccessTokenStrategyOpaque\njwt Oauth2AccessTokenStrategyJwt"
+          },
+          "hydra_strategies_jwt_scope_claim": {
+            "default": "list",
+            "description": "Define the claim to use as the scope in the access token.\n\nThis governs the \"strategies.jwt.scope_claim\" setting:\n\nlist: The scope claim is an array of strings named `scope`: `{ \"scope\": [\"read\", \"write\"] }`\nstring: The scope claim is a space delimited list of strings named `scp`: `{ \"scp\": \"read write\" }`\nboth: The scope claim is both a space delimited list and an array of strings named `scope` and `scp`: `{ \"scope\": [\"read\", \"write\"], \"scp\": \"read write\" }`\nlist OAuth2JWTScopeClaimList\nstring OAuth2JWTScopeClaimString\nboth OAuth2JWTScopeClaimBoth",
+            "enum": ["list", "string", "both"],
+            "type": "string",
+            "x-go-enum-desc": "list OAuth2JWTScopeClaimList\nstring OAuth2JWTScopeClaimString\nboth OAuth2JWTScopeClaimBoth"
           },
           "hydra_strategies_scope": {
             "default": "wildcard",
@@ -1106,9 +1137,7 @@
       "GenericUsage": {
         "properties": {
           "additional_price": {
-            "description": "AdditionalPrice is the price per-unit in cent exceeding IncludedUsage. A price of 0 means that no other items can be consumed.",
-            "format": "int64",
-            "type": "integer"
+            "$ref": "#/components/schemas/Money"
           },
           "included_usage": {
             "description": "IncludedUsage is the number of included items.",
@@ -1123,6 +1152,76 @@
       "ID": {
         "format": "int64",
         "type": "integer"
+      },
+      "InvoiceDataV1": {
+        "properties": {
+          "billing_period": {
+            "$ref": "#/components/schemas/TimeInterval"
+          },
+          "currency": {
+            "description": "The currency of the invoice.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "items": {
+            "description": "The items that are part of this invoice.",
+            "items": {
+              "$ref": "#/components/schemas/LineItemV1"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "plan": {
+            "description": "The plan that this invoice is based on.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "stripe_invoice_item": {
+            "type": "string"
+          },
+          "stripe_invoice_status": {
+            "$ref": "#/components/schemas/InvoiceStatus"
+          },
+          "stripe_link": {
+            "description": "An optional link to the invoice on Stripe.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "subtitle": {
+            "description": "The subtitle of the invoice.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "tax": {
+            "$ref": "#/components/schemas/TaxLineItem"
+          },
+          "title": {
+            "description": "The title of the invoice.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "total_in_cent": {
+            "$ref": "#/components/schemas/AmountInCent"
+          }
+        },
+        "required": [
+          "title",
+          "currency",
+          "total_in_cent",
+          "billing_period",
+          "items"
+        ],
+        "type": "object"
+      },
+      "InvoiceStatus": {
+        "description": "The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)",
+        "type": "string"
+      },
+      "Invoices": {
+        "items": {
+          "$ref": "#/components/schemas/invoice"
+        },
+        "type": "array"
       },
       "JSONRawMessage": {
         "title": "JSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger.",
@@ -1146,22 +1245,47 @@
         },
         "type": "array"
       },
-      "ListMyWorkspacesResponse": {
+      "LineItemV1": {
         "properties": {
-          "has_next_page": {
-            "type": "boolean"
+          "amount_in_cent": {
+            "$ref": "#/components/schemas/AmountInCent"
           },
-          "next_page_token": {
+          "description": {
             "type": "string"
           },
-          "workspaces": {
+          "items": {
+            "description": "Each line item can have sub-items to create a hierarchy.",
             "items": {
-              "$ref": "#/components/schemas/workspaceMeta"
+              "$ref": "#/components/schemas/LineItemV1"
             },
             "type": "array"
+          },
+          "quantity": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "unit_price": {
+            "type": "string"
           }
         },
-        "required": ["workspaces", "next_page_token", "has_next_page"],
+        "type": "object"
+      },
+      "Money": {
+        "properties": {
+          "Cents": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "String": {
+            "type": "string"
+          },
+          "Unit": {
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "NormalizedProjectRevisionCourierChannel": {
@@ -1465,9 +1589,36 @@
         "title": "Possible values are `incomplete`, `incomplete_expired`, `trialing`, `active`, `past_due`, `canceled`, `unpaid`, or `paused`.",
         "type": "string"
       },
+      "TaxLineItem": {
+        "properties": {
+          "amount_in_cent": {
+            "$ref": "#/components/schemas/AmountInCent"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "Time": {
         "format": "date-time",
         "type": "string"
+      },
+      "TimeInterval": {
+        "properties": {
+          "end": {
+            "description": "The end of the time period.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "start": {
+            "description": "The start of the time period.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["start", "end"],
+        "type": "object"
       },
       "UUID": {
         "format": "uuid4",
@@ -1589,6 +1740,310 @@
         "title": "HandledLoginRequest is the request payload used to accept a login request.",
         "type": "object"
       },
+      "accountExperienceConfiguration": {
+        "properties": {
+          "account_experience_theme_stylesheet": {
+            "type": "string"
+          },
+          "kratos_selfservice_flows_recovery_enabled": {
+            "type": "boolean"
+          },
+          "kratos_selfservice_flows_registration_enabled": {
+            "type": "boolean"
+          },
+          "kratos_selfservice_flows_verification_enabled": {
+            "type": "boolean"
+          },
+          "organization_map": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "accountExperienceThemeVariables": {
+        "properties": {
+          "accent": {
+            "type": "string"
+          },
+          "bg-default": {
+            "type": "string"
+          },
+          "border-radius-branding": {
+            "type": "string"
+          },
+          "border-radius-buttons": {
+            "type": "string"
+          },
+          "border-radius-cards": {
+            "type": "string"
+          },
+          "border-radius-forms": {
+            "type": "string"
+          },
+          "border-radius-general": {
+            "type": "string"
+          },
+          "button-primary-bg-default": {
+            "type": "string"
+          },
+          "button-primary-bg-disabled": {
+            "type": "string"
+          },
+          "button-primary-bg-hover": {
+            "type": "string"
+          },
+          "button-primary-border-default": {
+            "type": "string"
+          },
+          "button-primary-border-disabled": {
+            "type": "string"
+          },
+          "button-primary-border-hover": {
+            "type": "string"
+          },
+          "button-primary-fg-default": {
+            "type": "string"
+          },
+          "button-primary-fg-disabled": {
+            "type": "string"
+          },
+          "button-primary-fg-hover": {
+            "type": "string"
+          },
+          "button-secondary-bg-default": {
+            "type": "string"
+          },
+          "button-secondary-bg-disabled": {
+            "type": "string"
+          },
+          "button-secondary-bg-hover": {
+            "type": "string"
+          },
+          "button-secondary-border-default": {
+            "type": "string"
+          },
+          "button-secondary-border-disabled": {
+            "type": "string"
+          },
+          "button-secondary-border-hover": {
+            "type": "string"
+          },
+          "button-secondary-fg-default": {
+            "type": "string"
+          },
+          "button-secondary-fg-disabled": {
+            "type": "string"
+          },
+          "button-secondary-fg-hover": {
+            "type": "string"
+          },
+          "button-social-bg-default": {
+            "type": "string"
+          },
+          "button-social-bg-disabled": {
+            "type": "string"
+          },
+          "button-social-bg-hover": {
+            "type": "string"
+          },
+          "button-social-bg-provider": {
+            "type": "string"
+          },
+          "button-social-border-default": {
+            "type": "string"
+          },
+          "button-social-border-disabled": {
+            "type": "string"
+          },
+          "button-social-border-hover": {
+            "type": "string"
+          },
+          "button-social-border-provider": {
+            "type": "string"
+          },
+          "button-social-fg-default": {
+            "type": "string"
+          },
+          "button-social-fg-disabled": {
+            "type": "string"
+          },
+          "button-social-fg-hover": {
+            "type": "string"
+          },
+          "button-social-fg-provider": {
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "dialog-bg-default": {
+            "type": "string"
+          },
+          "dialog-bg-subtle": {
+            "type": "string"
+          },
+          "dialog-border-default": {
+            "type": "string"
+          },
+          "dialog-fg-default": {
+            "type": "string"
+          },
+          "dialog-fg-mute": {
+            "type": "string"
+          },
+          "dialog-fg-subtle": {
+            "type": "string"
+          },
+          "forms-bg-default": {
+            "type": "string"
+          },
+          "forms-bg-disabled": {
+            "type": "string"
+          },
+          "forms-bg-hover": {
+            "type": "string"
+          },
+          "forms-border-default": {
+            "type": "string"
+          },
+          "forms-border-disabled": {
+            "type": "string"
+          },
+          "forms-border-error": {
+            "type": "string"
+          },
+          "forms-border-focus": {
+            "type": "string"
+          },
+          "forms-border-hover": {
+            "type": "string"
+          },
+          "forms-border-success": {
+            "type": "string"
+          },
+          "forms-border-warn": {
+            "type": "string"
+          },
+          "forms-checkbox-bg-checked": {
+            "type": "string"
+          },
+          "forms-checkbox-bg-default": {
+            "type": "string"
+          },
+          "forms-checkbox-border-checked": {
+            "type": "string"
+          },
+          "forms-checkbox-border-default": {
+            "type": "string"
+          },
+          "forms-checkbox-fg-checked": {
+            "type": "string"
+          },
+          "forms-checkbox-fg-default": {
+            "type": "string"
+          },
+          "forms-fg-default": {
+            "type": "string"
+          },
+          "forms-fg-error": {
+            "type": "string"
+          },
+          "forms-fg-mute": {
+            "type": "string"
+          },
+          "forms-fg-subtle": {
+            "type": "string"
+          },
+          "forms-fg-success": {
+            "type": "string"
+          },
+          "forms-fg-warn": {
+            "type": "string"
+          },
+          "forms-radio-bg-checked": {
+            "type": "string"
+          },
+          "forms-radio-bg-default": {
+            "type": "string"
+          },
+          "forms-radio-border-checked": {
+            "type": "string"
+          },
+          "forms-radio-border-default": {
+            "type": "string"
+          },
+          "forms-radio-fg-checked": {
+            "type": "string"
+          },
+          "forms-radio-fg-default": {
+            "type": "string"
+          },
+          "forms-toggle-bg-checked": {
+            "type": "string"
+          },
+          "forms-toggle-bg-default": {
+            "type": "string"
+          },
+          "forms-toggle-border-checked": {
+            "type": "string"
+          },
+          "forms-toggle-border-default": {
+            "type": "string"
+          },
+          "forms-toggle-fg-checked": {
+            "type": "string"
+          },
+          "forms-toggle-fg-default": {
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "links-link-default": {
+            "type": "string"
+          },
+          "links-link-disabled": {
+            "type": "string"
+          },
+          "links-link-hover": {
+            "type": "string"
+          },
+          "links-link-inverted-default": {
+            "type": "string"
+          },
+          "links-link-inverted-hover": {
+            "type": "string"
+          },
+          "links-link-mute-default": {
+            "type": "string"
+          },
+          "links-link-mute-hover": {
+            "type": "string"
+          },
+          "syntax-syntax": {
+            "type": "string"
+          },
+          "syntax-syntax-key": {
+            "type": "string"
+          },
+          "syntax-syntax-num": {
+            "type": "string"
+          },
+          "syntax-syntax-value": {
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "activeProjectInConsole": {
         "description": "The Active Project ID",
         "properties": {
@@ -1597,6 +2052,25 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "addProjectToWorkspaceBody": {
+        "properties": {
+          "environment": {
+            "description": "The environment of the project in the workspace. Can be one of \"prod\" or\n\"dev\". Note that the number of projects in the \"prod\" environment is limited\ndepending on the subscription.\nprod Production\nstage Staging\ndev Development",
+            "enum": ["prod", "stage", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
+          },
+          "project_subscription": {
+            "description": "The action to take with the project subscription. Can be one of \"migrate\", and\n\"ignore\". \"migrate\" will migrate the project subscription to the workspace.\n\"ignore\" will ignore the project subscription.\nmigrate ProjectSubscriptionActionMigrate  ProjectSubscriptionActionMigrate will migrate the project subscription to the  workspace.\nignore ProjectSubscriptionActionIgnore  ProjectSubscriptionActionIgnore will ignore the project subscription.",
+            "enum": ["migrate", "ignore"],
+            "type": "string",
+            "x-go-enum-desc": "migrate ProjectSubscriptionActionMigrate  ProjectSubscriptionActionMigrate will migrate the project subscription to the  workspace.\nignore ProjectSubscriptionActionIgnore  ProjectSubscriptionActionIgnore will ignore the project subscription."
+          }
+        },
+        "required": ["project_subscription", "environment"],
+        "title": "AddProjectToWorkspaceBody contains the options for migrating a project to a workspace.",
         "type": "object"
       },
       "authenticatorAssuranceLevel": {
@@ -1945,6 +2419,12 @@
             "type": "string",
             "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
+          "home_region": {
+            "description": "Home Region\n\nThe home region of the project. This is the region where the project will be created.\neu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global",
+            "enum": ["eu-central", "us-east", "us-west", "global"],
+            "type": "string",
+            "x-go-enum-desc": "eu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global"
+          },
           "name": {
             "description": "The name of the project to be created",
             "type": "string"
@@ -1989,6 +2469,9 @@
             "description": "Code Expires In\n\nThe recovery code will expire after that amount of time has passed. Defaults to the configuration value of\n`selfservice.methods.code.config.lifespan`.",
             "pattern": "^([0-9]+(ns|us|ms|s|m|h))*$",
             "type": "string"
+          },
+          "flow_type": {
+            "$ref": "#/components/schemas/selfServiceFlowType"
           },
           "identity_id": {
             "description": "Identity to Recover\n\nThe identity's ID you wish to recover.",
@@ -2069,7 +2552,7 @@
         "required": ["plan", "interval", "provision_first_project"],
         "type": "object"
       },
-      "createWorkspacePayload": {
+      "createWorkspaceBody": {
         "properties": {
           "name": {
             "description": "The name of the workspace",
@@ -3140,6 +3623,35 @@
         "required": ["active"],
         "type": "object"
       },
+      "invoice": {
+        "properties": {
+          "id": {
+            "description": "The ID of the subscription",
+            "format": "uuid",
+            "readOnly": true,
+            "type": "string"
+          },
+          "invoiced_at": {
+            "$ref": "#/components/schemas/Time"
+          },
+          "type": {
+            "description": "Type is the type of the invoice.\nusage InvoiceTypeUsage\nbase InvoiceTypeBase",
+            "enum": ["usage", "base"],
+            "readOnly": true,
+            "type": "string",
+            "x-go-enum-desc": "usage InvoiceTypeUsage\nbase InvoiceTypeBase"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "v1": {
+            "$ref": "#/components/schemas/InvoiceDataV1"
+          }
+        },
+        "required": ["id", "invoiced_at", "type"],
+        "type": "object"
+      },
       "isOwnerForProjectBySlug": {
         "properties": {
           "ProjectSlug": {
@@ -3301,20 +3813,45 @@
         },
         "type": "object"
       },
+      "listInvoicesResponse": {
+        "properties": {
+          "buckets": {
+            "items": {
+              "$ref": "#/components/schemas/BillingPeriodBucket"
+            },
+            "type": "array"
+          },
+          "has_next_page": {
+            "type": "boolean"
+          },
+          "next_page_token": {
+            "type": "string"
+          }
+        },
+        "required": ["buckets", "next_page_token", "has_next_page"],
+        "type": "object"
+      },
       "listOrganizationsResponse": {
         "description": "B2B SSO Organization List",
         "properties": {
+          "has_next_page": {
+            "type": "boolean"
+          },
+          "next_page_token": {
+            "type": "string"
+          },
           "organizations": {
+            "description": "The list of organizations",
             "items": {
               "$ref": "#/components/schemas/organization"
             },
             "type": "array"
           }
         },
-        "required": ["organizations"],
+        "required": ["organizations", "next_page_token", "has_next_page"],
         "type": "object"
       },
-      "listWorkspaceProjectsResponse": {
+      "listWorkspaceProjects": {
         "properties": {
           "has_next_page": {
             "type": "boolean"
@@ -3330,6 +3867,24 @@
           }
         },
         "required": ["projects", "next_page", "has_next_page"],
+        "type": "object"
+      },
+      "listWorkspaces": {
+        "properties": {
+          "has_next_page": {
+            "type": "boolean"
+          },
+          "next_page_token": {
+            "type": "string"
+          },
+          "workspaces": {
+            "items": {
+              "$ref": "#/components/schemas/workspace"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["workspaces", "next_page_token", "has_next_page"],
         "type": "object"
       },
       "loginFlow": {
@@ -3724,25 +4279,6 @@
         "required": ["time", "count"],
         "type": "object"
       },
-      "migrationOptions": {
-        "properties": {
-          "environment": {
-            "description": "The environment of the project in the workspace. Can be one of \"prod\" or\n\"dev\". Note that the number of projects in the \"prod\" environment is limited\ndepending on the subscription.\nprod Production\nstage Staging\ndev Development",
-            "enum": ["prod", "stage", "dev"],
-            "type": "string",
-            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
-          },
-          "project_subscription": {
-            "description": "The action to take with the project subscription. Can be one of \"migrate\", and\n\"ignore\". \"migrate\" will migrate the project subscription to the workspace.\n\"ignore\" will ignore the project subscription.\nmigrate ProjectSubscriptionActionMigrate  ProjectSubscriptionActionMigrate will migrate the project subscription to the  workspace.\nignore ProjectSubscriptionActionIgnore  ProjectSubscriptionActionIgnore will ignore the project subscription.",
-            "enum": ["migrate", "ignore"],
-            "type": "string",
-            "x-go-enum-desc": "migrate ProjectSubscriptionActionMigrate  ProjectSubscriptionActionMigrate will migrate the project subscription to the  workspace.\nignore ProjectSubscriptionActionIgnore  ProjectSubscriptionActionIgnore will ignore the project subscription."
-          }
-        },
-        "required": ["project_subscription", "environment"],
-        "title": "MigrationOptions contain the options for migrating a project to a workspace.",
-        "type": "object"
-      },
       "namespace": {
         "properties": {
           "name": {
@@ -3782,6 +4318,13 @@
             "enum": ["prod", "stage", "dev"],
             "type": "string",
             "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
+          },
+          "home_region": {
+            "description": "The project's data home region.\neu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global",
+            "enum": ["eu-central", "us-east", "us-west", "global"],
+            "readOnly": true,
+            "type": "string",
+            "x-go-enum-desc": "eu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global"
           },
           "hosts": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -3831,6 +4374,7 @@
           "state",
           "environment",
           "workspace_id",
+          "home_region",
           "created_at",
           "updated_at"
         ],
@@ -3928,10 +4472,17 @@
           },
           "hydra_strategies_access_token": {
             "default": "opaque",
-            "description": "Defines access token type. jwt is a bad idea, see https://www.ory.sh/docs/hydra/advanced#json-web-tokens\n\nThis governs the \"strategies.access_token\" setting.\nopaque Oauth2AccessTokenStrategyOpaque\njwt Oauth2AccessTokenStrategyJwt",
+            "description": "Defines access token type\n\nThis governs the \"strategies.access_token\" setting.\nopaque Oauth2AccessTokenStrategyOpaque\njwt Oauth2AccessTokenStrategyJwt",
             "enum": ["opaque", "jwt"],
             "type": "string",
             "x-go-enum-desc": "opaque Oauth2AccessTokenStrategyOpaque\njwt Oauth2AccessTokenStrategyJwt"
+          },
+          "hydra_strategies_jwt_scope_claim": {
+            "default": "list",
+            "description": "Define the claim to use as the scope in the access token.\n\nThis governs the \"strategies.jwt.scope_claim\" setting:\n\nlist: The scope claim is an array of strings named `scope`: `{ \"scope\": [\"read\", \"write\"] }`\nstring: The scope claim is a space delimited list of strings named `scp`: `{ \"scp\": \"read write\" }`\nboth: The scope claim is both a space delimited list and an array of strings named `scope` and `scp`: `{ \"scope\": [\"read\", \"write\"], \"scp\": \"read write\" }`\nlist OAuth2JWTScopeClaimList\nstring OAuth2JWTScopeClaimString\nboth OAuth2JWTScopeClaimBoth",
+            "enum": ["list", "string", "both"],
+            "type": "string",
+            "x-go-enum-desc": "list OAuth2JWTScopeClaimList\nstring OAuth2JWTScopeClaimString\nboth OAuth2JWTScopeClaimBoth"
           },
           "hydra_strategies_scope": {
             "default": "wildcard",
@@ -5865,7 +6416,7 @@
         "description": "Get Permissions on Project Request Parameters",
         "type": "object"
       },
-      "permissionsOnWorkpaceResponse": {
+      "permissionsOnWorkspace": {
         "description": "Get Permissions on Project Request Parameters",
         "properties": {
           "permissions": {
@@ -5938,6 +6489,18 @@
           "cors_public": {
             "$ref": "#/components/schemas/projectCors"
           },
+          "environment": {
+            "description": "The environment of the project.\nprod Production\nstage Staging\ndev Development",
+            "enum": ["prod", "stage", "dev"],
+            "type": "string",
+            "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
+          },
+          "home_region": {
+            "description": "The project home region.\n\nThis is used to set where the project data is stored and where the project's endpoints are located.\neu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global",
+            "enum": ["eu-central", "us-east", "us-west", "global"],
+            "type": "string",
+            "x-go-enum-desc": "eu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global"
+          },
           "id": {
             "description": "The project's ID.",
             "format": "uuid",
@@ -5973,7 +6536,16 @@
             "$ref": "#/components/schemas/NullUUID"
           }
         },
-        "required": ["id", "revision_id", "slug", "services", "state", "name"],
+        "required": [
+          "id",
+          "revision_id",
+          "slug",
+          "services",
+          "state",
+          "name",
+          "environment",
+          "home_region"
+        ],
         "type": "object"
       },
       "projectApiKey": {
@@ -6214,6 +6786,17 @@
             "description": "AccentSubtleColor is a hex color code used by the Ory Account Experience theme.",
             "type": "string"
           },
+          "account_experience_variables": {
+            "description": "The Account Experience Theme Variables.",
+            "items": {
+              "$ref": "#/components/schemas/accountExperienceThemeVariables"
+            },
+            "type": "array"
+          },
+          "account_experience_variables_stylesheet": {
+            "description": "AccountExperienceVariableStylesheet holds a reference to the current stylesheet that can be used in the AX",
+            "type": "string"
+          },
           "background_canvas_color": {
             "description": "BackgroundCanvasColor is a hex color code used by the Ory Account Experience theme.",
             "type": "string"
@@ -6446,6 +7029,12 @@
             "type": "string",
             "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
           },
+          "home_region": {
+            "description": "The project's data home region\neu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global",
+            "enum": ["eu-central", "us-east", "us-west", "global"],
+            "type": "string",
+            "x-go-enum-desc": "eu-central EUCentral\nus-east USEast\nus-west USWest\nglobal Global"
+          },
           "hosts": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
@@ -6491,11 +7080,13 @@
         "required": [
           "id",
           "hosts",
+          "slug",
           "state",
           "created_at",
           "updated_at",
           "name",
-          "environment"
+          "environment",
+          "home_region"
         ],
         "type": "object"
       },
@@ -6570,35 +7161,25 @@
         },
         "type": "object"
       },
-      "projects": {
-        "items": {
-          "$ref": "#/components/schemas/project"
-        },
-        "type": "array"
-      },
       "quotaUsage": {
         "properties": {
           "additional_price": {
             "description": "The additional price per unit in cents.",
-            "format": "int64",
-            "type": "integer"
+            "type": "string"
           },
           "can_use_more": {
             "type": "boolean"
           },
           "feature": {
-            "description": "\nregion_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
+            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
             "enum": [
-              "region_eu",
-              "region_us",
-              "region_apac",
-              "region_global",
               "production_projects",
               "staging_projects",
               "development_projects",
               "daily_active_users",
               "custom_domains",
               "event_streams",
+              "event_stream_events",
               "sla",
               "collaborator_seats",
               "edge_cache",
@@ -6611,6 +7192,10 @@
               "rop_grant",
               "concierge_onboarding",
               "credit",
+              "data_location_global",
+              "m2m_token_issuance",
+              "permission_checks",
+              "data_location_regional",
               "rate_limit_tier",
               "session_rate_limit_tier",
               "identities_list_rate_limit_tier",
@@ -6618,7 +7203,7 @@
               "oauth2_introspect_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "region_eu RegionEU\nregion_us RegionUS\nregion_apac RegionAPAC\nregion_global RegionGlobal\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
+            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
           },
           "feature_available": {
             "type": "boolean"
@@ -8889,7 +9474,7 @@
         "required": ["email", "method"],
         "type": "object"
       },
-      "updateWorkspacePayload": {
+      "updateWorkspaceBody": {
         "properties": {
           "name": {
             "description": "The name of the workspace.",
@@ -9054,30 +9639,6 @@
         "type": "string"
       },
       "workspace": {
-        "properties": {
-          "created_at": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "id": {
-            "format": "uuid",
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "subscription_id": {
-            "$ref": "#/components/schemas/NullUUID"
-          },
-          "updated_at": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": ["id", "name", "created_at", "updated_at"],
-        "type": "object"
-      },
-      "workspaceMeta": {
         "properties": {
           "created_at": {
             "format": "date-time",
@@ -12162,7 +12723,7 @@
     },
     "/admin/sessions/{id}/extend": {
       "patch": {
-        "description": "Calling this endpoint extends the given session ID. If `session.earliest_possible_extend` is set it\nwill only extend the session after the specified time has passed.\n\nRetrieve the session ID from the `/sessions/whoami` endpoint / `toSession` SDK method.",
+        "description": "Calling this endpoint extends the given session ID. If `session.earliest_possible_extend` is set it\nwill only extend the session after the specified time has passed.\n\nThis endpoint returns per default a 204 No Content response on success. Older Ory Network projects may\nreturn a 200 OK response with the session in the body. Returning the session as part of the response\nwill be deprecated in the future and should not be relied upon.\n\nRetrieve the session ID from the `/sessions/whoami` endpoint / `toSession` SDK method.",
         "operationId": "extendSession",
         "parameters": [
           {
@@ -12185,6 +12746,9 @@
               }
             },
             "description": "session"
+          },
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
           },
           "400": {
             "content": {
@@ -13739,10 +14303,38 @@
         "operationId": "listOrganizations",
         "parameters": [
           {
+            "description": "Items per Page\n\nThis is the number of items per page to return.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 250,
+              "format": "int64",
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
+            "in": "query",
+            "name": "page_token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Project ID\n\nThe project's ID.",
             "in": "path",
             "name": "project_id",
             "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Domain\n\nIf set, only organizations with that domain will be returned.",
+            "in": "query",
+            "name": "domain",
             "schema": {
               "type": "string"
             }
@@ -17424,6 +18016,477 @@
         ],
         "summary": "Return Running Software Version.",
         "tags": ["metadata"]
+      }
+    },
+    "/workspaces": {
+      "get": {
+        "operationId": "listWorkspaces",
+        "parameters": [
+          {
+            "description": "Items per Page\n\nThis is the number of items per page to return.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 250,
+              "format": "int64",
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
+            "in": "query",
+            "name": "page_token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listWorkspaces"
+                }
+              }
+            },
+            "description": "listWorkspaces"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
+          }
+        ],
+        "summary": "List workspaces the user is a member of",
+        "tags": ["workspace"]
+      },
+      "post": {
+        "operationId": "createWorkspace",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createWorkspaceBody"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/workspace"
+                }
+              }
+            },
+            "description": "workspace"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
+          }
+        ],
+        "summary": "Create a new workspace",
+        "tags": ["workspace"]
+      }
+    },
+    "/workspaces/{workspace}": {
+      "get": {
+        "description": "Any workspace member can access this endpoint.",
+        "operationId": "getWorkspace",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/workspace"
+                }
+              }
+            },
+            "description": "workspace"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
+          }
+        ],
+        "summary": "Get a workspace",
+        "tags": ["workspace"]
+      },
+      "put": {
+        "description": "Workspace members with the role `OWNER` can access this endpoint.",
+        "operationId": "updateWorkspace",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateWorkspaceBody"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/workspace"
+                }
+              }
+            },
+            "description": "workspace"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
+          }
+        ],
+        "summary": "Update an workspace",
+        "tags": ["workspace"]
+      }
+    },
+    "/workspaces/{workspace}/projects": {
+      "get": {
+        "description": "Any workspace member can access this endpoint.",
+        "operationId": "listWorkspaceProjects",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/listWorkspaceProjects"
+                }
+              }
+            },
+            "description": "listWorkspaceProjects"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryNetworkCookie": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
+          }
+        ],
+        "summary": "List all projects of a workspace",
+        "tags": ["workspace"]
       }
     }
   },

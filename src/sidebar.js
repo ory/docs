@@ -293,6 +293,11 @@ module.exports = {
     "account-experience/index",
     {
       type: "category",
+      label: "Ory Console",
+      items: ["console/usage-billing"],
+    },
+    {
+      type: "category",
       label: "Ory CLI",
       items: [
         {
@@ -352,6 +357,7 @@ module.exports = {
       label: "Security and compliance",
       items: [
         "security-compliance/compliance-and-certifications",
+        "security-compliance/personal-data-location",
         "ecosystem/security",
         "kratos/concepts/security",
         "security-compliance/token-formats",
@@ -415,6 +421,11 @@ module.exports = {
           ],
         },
       ],
+    },
+    {
+      type: "category",
+      label: "Ory Enterprise License",
+      items: ["self-hosted/oel/quickstart"],
     },
     "self-hosted/deployment",
     "ecosystem/configuring",

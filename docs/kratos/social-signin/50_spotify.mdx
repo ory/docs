@@ -16,7 +16,7 @@ import TabItem from '@theme/TabItem';
 
 Follow these steps to add Spotify as a social sign-in provider to your project using the Ory Console:
 
-1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+1. Go to <ConsoleLink route="project.socialSignIn" />.
 2. Click the switch next to the Spotify logo to start the configuration.
 3. Copy the Redirect URI and save it for later use.
 4. [Create a Spotify Application](https://developer.spotify.com/dashboard/applications).
@@ -60,7 +60,7 @@ Follow these steps to add Spotify as a social sign-in provider to your project u
 2. In the created app, set the redirect URI to:
 
    ```shell
-   https://{project.slug}.projects.oryapis.com/self-service/methods/oidc/callback/spotify
+   https://$PROJECT_SLUG.projects.oryapis.com/self-service/methods/oidc/callback/spotify
    ```
 
 3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.

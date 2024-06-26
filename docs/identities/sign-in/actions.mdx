@@ -108,7 +108,7 @@ Follow these steps to disable session revocation on login:
 
 To allow only the users with a verified email to sign in, follow these steps:
 
-1. Go to Ory Console → [**Email Verification**](https://console.ory.sh/projects/current/verification).
+1. Go to <ConsoleLink route="project.verification" />.
 2. Toggle **Require Verified Address for Login** to switch on the feature.
 
 :::info
@@ -128,7 +128,7 @@ before they can sign in using other devices or browsers and get more active sess
 When you enable this behavior, users get a session after they sign up. This means that they don't have to sign in with their newly
 created account to get access to your services, but instead can access all the features immediately.
 
-1. Go to Ory Console → [**Base Settings**](https://console.ory.sh/projects/current/auth).
+1. Go to <ConsoleLink route="project.authentication" />.
 2. Toggle **Sign In After Registration**.
 
 ## Show verification after successful registration
@@ -143,7 +143,7 @@ If you want to show the verification screen after registration or login, follow 
 For server rendered applications, such as an Express.js app, or when using the Ory Account Experience, Ory Identities can be
 configured to redirect to the verification screen automatically after registration.
 
-1. Go to Ory Console → [**Email Verification**](https://console.ory.sh/projects/current/verification).
+1. Go to <ConsoleLink route="project.verification" />.
 2. Toggle **Show verification screen** for the respective methods.
 
 Or using the [Ory CLI](../../guides/cli/01_installation.mdx):
