@@ -40,6 +40,7 @@ ory perform client-credentials --client-id ... --client-secret
       --project string         The project to use, either project ID or a (partial) slug.
   -q, --quiet                  Be quiet with output printing.
       --scope strings          OAuth2 scope to request.
+      --workspace string       The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

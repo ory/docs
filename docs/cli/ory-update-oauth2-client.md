@@ -71,6 +71,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
       --subject-type public                             A identifier algorithm. Valid values are public and `pairwise`. (default "public")
       --token-endpoint-auth-method client_secret_post   Define which authentication method the client may use at the Token Endpoint. Valid values are client_secret_post, `client_secret_basic`, `private_key_jwt`, and `none`. (default "client_secret_basic")
       --tos-uri string                                  A URL string that points to a human-readable terms of service document for the client that describes a contractual relationship between the end-user and the client that the end-user accepts when authorizing the client.
+      --workspace string                                The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

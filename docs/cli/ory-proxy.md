@@ -16,100 +16,78 @@ Run your app and Ory on the same domain using a reverse proxy
 ### Synopsis
 
 Allows running your app and Ory on the same domain by starting a reverse proxy that runs in front of your application.
-This proxy works both in development and in production, for example when deploying a
-React, NodeJS, Java, PHP, ... app to a server / the cloud or when developing it locally
-on your machine.
 
-The first argument `application-url` points to the location of your application. The Ory Proxy
+The first argument `<application-url>` points to the location of your application. The Ory Proxy
 will pass all traffic through to this URL.
 
-    $ ory proxy --project <your-project-slug> https://www.example.org
-    $ ORY_PROJECT_SLUG=<your-project-slug> ory proxy http://localhost:3000
+    $ ory proxy --project <project-id-or-slug> https://www.example.org
+    $ ORY_PROJECT=<project-id-or-slug> ory proxy proxy http://localhost:3000
 
 ### Connecting to Ory
 
-Before you start, you need to have a running Ory Network project. You can create one with the following command:
+Before you start, you need to have an Ory Network project. You can create one with the following command:
 
-	$ ory create project --name "Command Line Project"
-
-Pass the project's slug as a flag to the proxy command:
-
-	$ ory proxy --project <your-project-slug> ...
-	$ ORY_PROJECT_SLUG=<your-project-slug> ory proxy ...
-
-When using the `ORY_SDK_URL` or `ORY_KRATOS_URL` to point to a custom domain on the project instead of the `ORY_PROJECT_SLUG` environment variable,
-take care that the project has not set the custom UI base URL on this domain. This will cause the browser to always redirect to the custom UI base URL instead
-of the configured `application-url`.
+	$ ory create project --name "Command Line Project" --use
+	$ ory proxy ...
 
 ### Developing Locally
 
 When developing locally we recommend to use the `--dev` flag, which uses a lax security setting:
 
 	$ ory proxy --dev \
-		--project <your-project-slug> \
+		--project <project-id-or-slug> \
 		http://localhost:3000
 
-The first argument `application-url` points to the location of your application. If you are
+The first argument `<application-url>` points to the location of your application. If you are
 running the proxy and your app on the same host, this could be localhost. All traffic arriving at the
 Ory Proxy will be passed through to this URL.
 
-The second argument `[publish-url]` is optional and only needed when going to production.
+The second argument `<publish-url>` is optional and only needed when going to production.
 It refers to the public URL of your application (e.g. https://www.example.org).
 
-If `[publish-url]` is not set, it will default to the default
-host and port this proxy listens on:
+If `<publish-url>` is not set, it will default to the
+host and port the proxy listens on.
 
-	http://localhost:4000
+### Running behind a Gateway
 
-### Running on a Server
+To go to production set up a custom domain (CNAME) for Ory.
 
-To go to production set up a custom domain (CNAME) for Ory. If you can not set up a custom
-domain - for example because you are developing a staging environment - using the Ory Proxy is an alternative.
-
-You must set the `[publish-url]` if you are not using the Ory Proxy in locally or in
-development:
+You must set the `<publish-url>` if you are using the Ory Proxy behind a gateway:
 
 	$ ory proxy \
-		--project <your-project-slug> \
+		--project <project-id-or-slug> \
 		http://localhost:3000 \
-		https://example.org
+		https://gateway.local:5000
 
-Please note that you can not set a path in the `[publish-url]`!
+Please note that you can not set a path in the `<publish-url>`!
 
 ### Ports
 
 Per default, the proxy listens on port 4000. If you want to listen on another port, use the
 port flag:
 
-	$ ory proxy --port 8080  --project <your-project-slug> \
-		http://localhost:3000 \
-		https://example.org
-
-If your public URL is available on a non-standard HTTP/HTTPS port, you can set that port in the `[publish-url]`:
-
-	$ ory proxy --project <your-project-slug> \
-		http://localhost:3000 \
-		https://example.org:1234
+	$ ory proxy --port 8080 --project <project-id-or-slug> \
+		http://localhost:3000
 
 ### Multiple Domains
 
-If this proxy runs on a subdomain, and you want Ory's cookies (e.g. the session cookie) to
-be available on all of your domain, you can use the following CLI flag to customize the cookie
+If the proxy runs on a subdomain, and you want Ory's cookies (e.g. the session cookie) to
+be available on all of your domain, you can use the `--cookie-domain` flag to customize the cookie
 domain. You will also need to allow your subdomains in the CORS headers:
 
-	$ ory proxy --project <your-project-slug> \
-		--cookie-domain example.org \
-		--allowed-cors-origins https://www.example.org \
-		--allowed-cors-origins https://api.example.org \
+	$ ory proxy --project <project-id-or-slug> \
+		--cookie-domain gateway.local \
+		--allowed-cors-origins https://www.gateway.local \
+		--allowed-cors-origins https://api.gateway.local \
 		http://127.0.0.1:3000 \
-		https://ory.example.org
+		https://ory.gateway.local
 
 ### Redirects
 
-Per default all default redirects will go to to `[publish-url]`. You can change this behavior using
+Per default all default redirects will go to to `[<publish-url>]`. You can change this behavior using
 the `--default-redirect-url` flag:
 
-    $ ory --project <your-project-slug> \
+    $ ory proxy --project <project-id-or-slug> \
 		--default-redirect-url /welcome \
 		http://127.0.0.1:3000 \
 		https://ory.example.org
@@ -160,14 +138,14 @@ An example payload of the JSON Web Token is:
 
 
 ```
-ory proxy application-url [publish-url] [flags]
+ory proxy <application-url> [<publish-url>] [flags]
 ```
 
 ### Examples
 
 ```
 ory proxy http://localhost:3000 --dev
-ory proxy http://localhost:3000 https://app.example.com \
+ory proxy proxy http://localhost:3000 https://app.example.com \
 	--allowed-cors-origins https://www.example.org \
 	--allowed-cors-origins https://api.example.org \
 	--allowed-cors-origins https://www.another-app.com
@@ -181,19 +159,20 @@ ory proxy http://localhost:3000 https://app.example.com \
   -c, --config string                  Path to the Ory Network configuration file.
       --cookie-domain string           Set a dedicated cookie domain.
       --debug                          Use this flag to debug, for example, CORS requests.
-      --default-redirect-url string    Set the URL to redirect to per default after e.g. login or account creation.
+      --default-redirect-url url       Set the URL to redirect to per default after e.g. login or account creation.
       --dev                            Use this flag when developing locally.
   -h, --help                           help for proxy
       --no-jwt                         Do not create a JWT from the Ory Session. Useful if you need fast start up times of the Ory Proxy.
       --open                           Open the browser when the proxy starts.
       --port int                       The port the proxy should listen on. (default 4000)
-      --project string                 The slug of your Ory Network project.
+      --project string                 The project to use, either project ID or a (partial) slug.
   -q, --quiet                          Be quiet with output printing.
       --rewrite-host                   Use this flag to rewrite the host header to the upstream host.
+      --workspace string               The workspace to use, either workspace ID or a (partial) name.
   -y, --yes                            Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 

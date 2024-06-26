@@ -25,6 +25,6 @@ Assert the state of Ory Network resources
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory is allowed](ory-is-allowed)	 - Check whether a subject has a relation on an object
 

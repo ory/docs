@@ -25,5 +25,5 @@ ory version [flags]
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 

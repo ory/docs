@@ -25,11 +25,12 @@ Create Ory Network resources
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory create event-stream](ory-create-event-stream)	 - Create a new event stream
 * [ory create jwk](ory-create-jwk)	 - Create a JSON Web Key Set with a JSON Web Key
 * [ory create oauth2-client](ory-create-oauth2-client)	 - Create an OAuth 2.0 Client
 * [ory create organization](ory-create-organization)	 - Create a new Ory Network organization
 * [ory create project](ory-create-project)	 - Create a new Ory Network project
 * [ory create relationships](ory-create-relationships)	 - Create relationships from JSON files
+* [ory create workspace](ory-create-workspace)	 - Create a new Ory Network workspace
 

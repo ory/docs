@@ -25,6 +25,6 @@ Use a resource
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory use project](ory-use-project)	 - Set the project as the default. When no id is provided, prints the currently used default project.
 

@@ -15,18 +15,18 @@ Get Ory OAuth2 & OpenID Connect configuration.
 
 ### Synopsis
 
-Get the Ory OAuth2 & OpenID Connect configuration for the specified Ory Network project.
+Get the Ory OAuth2 & OpenID Connect configuration for an Ory Network project.
 
 ```
-ory get oauth2-config [project-id] [flags]
+ory get oauth2-config [flags]
 ```
 
 ### Examples
 
 ```
-$ ory get oauth2-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format yaml > oauth2-config.yaml
+$ ory get oauth2-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format yaml > oauth2-config.yaml
 
-$ ory get oauth2-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
+$ ory get oauth2-config --format json   # uses currently selected project
 
 {
   "oauth2": {
@@ -49,8 +49,10 @@ $ ory get oauth2-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 ### Options
 
 ```
-      --format string   Set the output format. One of default, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
-  -h, --help            help for oauth2-config
+      --format string      Set the output format. One of default, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+  -h, --help               help for oauth2-config
+      --project string     The project to use, either project ID or a (partial) slug.
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

@@ -15,18 +15,18 @@ Get Ory Permissions configuration.
 
 ### Synopsis
 
-Get the Ory Permissions configuration for the specified Ory Network project.
+Get the Ory Permissions configuration for an Ory Network project.
 
 ```
-ory get permission-config [project-id] [flags]
+ory get permission-config [flags]
 ```
 
 ### Examples
 
 ```
-$ ory get permission-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format yaml > permission-config.yaml
+$ ory get permission-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format yaml > permission-config.yaml
 
-$ ory get permission-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
+$ ory get permission-config --format json   # uses currently selected project
 
 {
   "namespaces": [
@@ -42,8 +42,10 @@ $ ory get permission-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 ### Options
 
 ```
-      --format string   Set the output format. One of default, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
-  -h, --help            help for permission-config
+      --format string      Set the output format. One of default, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+  -h, --help               help for permission-config
+      --project string     The project to use, either project ID or a (partial) slug.
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands
