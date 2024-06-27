@@ -489,7 +489,7 @@ module.exports = {
       collapsible: false,
       link: {
         type: "doc",
-        id: "intro",
+        id: "welcome",
       },
       items: [
         "identities/index",
