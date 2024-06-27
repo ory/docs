@@ -9665,6 +9665,57 @@
         "required": ["id", "name", "created_at", "updated_at"],
         "type": "object"
       },
+      "workspaceApiKey": {
+        "properties": {
+          "created_at": {
+            "description": "The API key's creation date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "id": {
+            "description": "The key's ID.",
+            "format": "uuid",
+            "readOnly": true,
+            "type": "string"
+          },
+          "name": {
+            "description": "The API key's Name\n\nSet this to help you remember, for example, where you use the API key.",
+            "type": "string"
+          },
+          "owner_id": {
+            "description": "The key's owner",
+            "format": "uuid",
+            "readOnly": true,
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "The API key's last update date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "value": {
+            "description": "The key's value",
+            "readOnly": true,
+            "type": "string"
+          },
+          "workspace_id": {
+            "description": "The API token's workspace ID",
+            "format": "uuid",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": ["id", "name", "owner_id"],
+        "type": "object"
+      },
+      "workspaceApiKeys": {
+        "items": {
+          "$ref": "#/components/schemas/workspaceApiKey"
+        },
+        "type": "array"
+      },
       "workspaces": {
         "items": {
           "$ref": "#/components/schemas/workspace"
@@ -9700,11 +9751,10 @@
         "scheme": "bearer",
         "type": "http"
       },
-      "oryNetworkCookie": {
-        "description": "This endpoint does not currently support Ory Network API keys. Please head over to [the documentation to learn more](https://www.ory.sh/docs/concepts/personal-access-token).",
-        "in": "cookie",
-        "name": "ory_session_ory",
-        "type": "apiKey"
+      "oryWorkspaceApiKey": {
+        "description": "To use this endpoint you need a workspace-level [Ory Network API key](https://www.ory.sh/docs/concepts/personal-access-token).",
+        "scheme": "bearer",
+        "type": "http"
       }
     }
   },
@@ -10820,7 +10870,7 @@
     },
     "/admin/identities/{id}/credentials/{type}": {
       "delete": {
-        "description": "Delete an [identity](https://www.ory.sh/docs/kratos/concepts/identity-user-model) credential by its type\nYou can only delete second factor (aal2) credentials.",
+        "description": "Delete an [identity](https://www.ory.sh/docs/kratos/concepts/identity-user-model) credential by its type.\nYou cannot delete password or code auth credentials through this API.",
         "operationId": "deleteIdentityCredentials",
         "parameters": [
           {
@@ -10833,7 +10883,7 @@
             }
           },
           {
-            "description": "Type is the type of credentials to be deleted.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "Type is the type of credentials to delete.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "in": "path",
             "name": "type",
             "required": true,
@@ -10853,6 +10903,14 @@
               "type": "string"
             },
             "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+          },
+          {
+            "description": "Identifier is the identifier of the OIDC credential to delete.\nFind the identifier by calling the `GET /admin/identities/{id}?include_credential=oidc` endpoint.",
+            "in": "query",
+            "name": "identifier",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -12723,7 +12781,7 @@
     },
     "/admin/sessions/{id}/extend": {
       "patch": {
-        "description": "Calling this endpoint extends the given session ID. If `session.earliest_possible_extend` is set it\nwill only extend the session after the specified time has passed.\n\nThis endpoint returns per default a 204 No Content response on success. Older Ory Network projects may\nreturn a 200 OK response with the session in the body. Returning the session as part of the response\nwill be deprecated in the future and should not be relied upon.\n\nRetrieve the session ID from the `/sessions/whoami` endpoint / `toSession` SDK method.",
+        "description": "Calling this endpoint extends the given session ID. If `session.earliest_possible_extend` is set it\nwill only extend the session after the specified time has passed.\n\nThis endpoint returns per default a 204 No Content response on success. Older Ory Network projects may\nreturn a 200 OK response with the session in the body. Returning the session as part of the response\nwill be deprecated in the future and should not be relied upon.\n\nThis endpoint ignores consecutive requests to extend the same session and returns a 404 error in those\nscenarios. This endpoint also returns 404 errors if the session does not exist.\n\nRetrieve the session ID from the `/sessions/whoami` endpoint / `toSession` SDK method.",
         "operationId": "extendSession",
         "parameters": [
           {
@@ -13504,7 +13562,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -13583,7 +13641,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -13658,7 +13716,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -13738,7 +13796,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -13841,7 +13899,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -13941,7 +13999,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -14012,7 +14070,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -14102,7 +14160,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -14186,7 +14244,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -14284,7 +14342,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -14384,7 +14442,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -14473,7 +14531,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -14566,7 +14624,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -14643,7 +14701,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -14752,7 +14810,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -14822,7 +14880,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -14894,7 +14952,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -14946,7 +15004,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -15013,7 +15071,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -15067,7 +15125,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -18107,7 +18165,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -18195,7 +18253,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -18286,7 +18344,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -18385,7 +18443,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
@@ -18476,7 +18534,7 @@
         },
         "security": [
           {
-            "oryNetworkCookie": []
+            "oryWorkspaceApiKey": []
           }
         ],
         "servers": [
