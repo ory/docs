@@ -14,14 +14,15 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 Delete the event stream with the given ID
 
 ```
-ory delete event-stream id [--project=PROJECT_ID] [flags]
+ory delete event-stream <id> [--project=PROJECT_ID] [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help             help for event-stream
-      --project string   The project to use, either project ID or a (partial) slug.
+  -h, --help               help for event-stream
+      --project string     The project to use, either project ID or a (partial) slug.
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

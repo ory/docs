@@ -28,6 +28,6 @@ Introspect resources
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory introspect token](ory-introspect-token)	 - Introspect an OAuth 2.0 Access or Refresh Token
 

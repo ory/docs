@@ -26,12 +26,13 @@ ory introspect token AYjcyMzY3ZDhiNmJkNTY --project 32197be3-8e57-4009-becd-9d38
 ### Options
 
 ```
-  -e, --endpoint string   The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
-  -h, --help              help for token
-      --project string    The project to use, either project ID or a (partial) slug.
-  -q, --quiet             Be quiet with output printing.
-      --scope strings     Additionally check if the scope was granted.
+  -e, --endpoint string    The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+  -h, --help               help for token
+      --project string     The project to use, either project ID or a (partial) slug.
+  -q, --quiet              Be quiet with output printing.
+      --scope strings      Additionally check if the scope was granted.
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

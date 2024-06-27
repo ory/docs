@@ -14,7 +14,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 Update the organization with the given ID
 
 ```
-ory update organization id [--project=PROJECT_ID] [--domains=a.example.com,b.example.com] [--label=LABEL] [flags]
+ory update organization <id> [--project=PROJECT_ID] [--domains=a.example.com,b.example.com] [--label=LABEL] [flags]
 ```
 
 ### Options

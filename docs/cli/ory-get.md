@@ -24,7 +24,7 @@ Get a resource
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory get identity](ory-get-identity)	 - Get one or more identities by their ID(s)
 * [ory get identity-config](ory-get-identity-config)	 - Get Ory Identities configuration.
 * [ory get jwk](ory-get-jwk)	 - Get one or more JSON Web Key Set by its ID(s)

@@ -1,7 +1,7 @@
 ---
 id: ory
 title: ory
-description: ory The ORY CLI
+description: ory The Ory CLI
 ---
 
 <!--
@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory
 
-The ORY CLI
+The Ory CLI
 
 ### Options
 

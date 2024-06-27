@@ -14,14 +14,15 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 Delete the organization with the given ID
 
 ```
-ory delete organization id [--project=PROJECT_ID] [flags]
+ory delete organization <id> [--project=PROJECT_ID] [flags]
 ```
 
 ### Options
 
 ```
-  -h, --help             help for organization
-      --project string   The project to use, either project ID or a (partial) slug.
+  -h, --help               help for organization
+      --project string     The project to use, either project ID or a (partial) slug.
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

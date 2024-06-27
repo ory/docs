@@ -15,18 +15,18 @@ Get Ory Identities configuration.
 
 ### Synopsis
 
-Get the Ory Identities configuration for the specified Ory Network project.
+Get the Ory Identities configuration for an Ory Network project.
 
 ```
-ory get identity-config [project-id] [flags]
+ory get identity-config [flags]
 ```
 
 ### Examples
 
 ```
-$ ory get identity-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format yaml > identity-config.yaml
+$ ory get identity-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format yaml > identity-config.yaml
 
-$ ory get identity-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
+$ ory get identity-config --format json   # uses currently selected project
 
 {
   "selfservice": {
@@ -41,8 +41,10 @@ $ ory get identity-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 ### Options
 
 ```
-      --format string   Set the output format. One of default, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
-  -h, --help            help for identity-config
+      --format string      Set the output format. One of default, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+  -h, --help               help for identity-config
+      --project string     The project to use, either project ID or a (partial) slug.
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

@@ -21,6 +21,6 @@ Helpers for formatting code
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory format jsonnet](ory-format-jsonnet)	 - 
 

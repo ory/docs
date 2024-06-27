@@ -32,6 +32,7 @@ ory create relationships [flags]
   -h, --help               help for relationships
       --project string     The project to use, either project ID or a (partial) slug.
   -q, --quiet              Be quiet with output printing.
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

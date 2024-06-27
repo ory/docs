@@ -38,6 +38,7 @@ ory list relationships [flags]
       --relation string      Set the requested relation
       --subject-id string    Set the requested subject ID
       --subject-set string   Set the requested subject set; format: "namespace:object#relation"
+      --workspace string     The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands
