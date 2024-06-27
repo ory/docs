@@ -151,6 +151,16 @@ If the ANSWER SECTION lists an IP address instead of the generic Ory network URL
 indicates you did not deactivate proxying. Check the configuration of your CNAME record in your DNS Provider/registrar and disable
 proxying.
 
+### Troubleshooting
+
+**Cloudflare** In case you are using Cloudflare to manage your DNS and get an `Error 1014 - CNAME Cross-User Banned`, please make
+sure that:
+
+- **Proxing** is disabled for your CNAME record in Cloudflare. See
+  https://developers.cloudflare.com/dns/manage-dns-records/reference/proxied-dns-records/ for more details.
+- **Zone Lock** is temporarily disabled in your Cloudflare account for set up process to complete successfully. See
+  https://developers.cloudflare.com/fundamentals/setup/account/account-security/zone-holds/#release-zone-holds for more details.
+
 ## Automated emails
 
 The Ory Network sends emails for certain actions a user can take, for example
