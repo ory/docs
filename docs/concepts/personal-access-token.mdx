@@ -1,10 +1,10 @@
 ---
 id: personal-access-token
 title: Authorization with API Keys
-sidebar_label: Authorization
+sidebar_label: API Keys
 ---
 
-# Ory Network API Authorization
+# Ory Network API Keys
 
 **Ory Network Project APIs** are separated into:
 
@@ -47,6 +47,21 @@ secure and rotate them if necessary.
 
 :::
 
+### Usage
+
+Use the API Key in API calls, SDK calls, or command-line interactions. Ory API Keys have a `ory_apikey_` or `ory_pat_` prefix,
+which makes it easy to identify them when analyzing code.
+
+For example, when calling the Admin API at `/admin/identities`, include the API Key in the `Authorization` header:
+
+```shell
+GET /admin/identities HTTP/1.1
+Host: $PROJECT_SLUG.projects.oryapis.com
+Accept: application/json
+# highlight-next-line
+Authorization: Bearer $API_KEY
+```
+
 ## Authorizing Ory Network Workspace Admin APIs
 
 Workspace API keys are used to authorize privileged operations to Ory Network Workspace admin APIs as well as the project admin
@@ -85,18 +100,37 @@ secure and rotate them if necessary.
 
 ### Usage
 
-Use the API Key in API calls, SDK calls, or command-line interactions. Ory API Keys have a `ory_apikey_` or `ory_pat_`, which
+Use the API Key in API calls, SDK calls, or command-line interactions. Ory Workspace API Keys have a `ory_wak_` prefix, which
 makes it easy to identify them when analyzing code.
 
-For example, when calling the Admin API at `/admin/identities`, include the API Key in the `Authorization` header:
+For example, when calling the API to get a project at `/projects/:project_id`, include the API Key in the `Authorization` header:
 
 ```shell
-GET /admin/identities HTTP/1.1
-Host: $PROJECT_SLUG.projects.oryapis.com
+GET /projects/$PROJECT_ID HTTP/1.1
+Host: api.console.ory.sh
 Accept: application/json
 # highlight-next-line
 Authorization: Bearer $API_KEY
 ```
+
+## Workspace API Keys vs Project API Keys
+
+Workspace API keys are used to authenticated privileged operations on the workspace level, such as creating a new project in a
+workspace or adding a new B2B SSO organization to a project within that workspace. Project API keys are used to authenticate
+privileged operations on the project level, such as listing identities or creating OAuth2 clients.
+
+See the following table for which operations can be performed with Workspace API keys and Project API keys. CRUD stands for
+create, read, update, delete.
+
+|                            | Workspace API Keys   | Project API Keys                     |
+| -------------------------- | -------------------- | ------------------------------------ |
+| Base URL                   | `api.console.ory.sh` | `$PROJECT_SLUG.projects.oryapis.com` |
+| CRU Projects               | Yes                  | No                                   |
+| Delete Projects            | No                   | No                                   |
+| CRUD B2B SSO organizations | Yes                  | No                                   |
+| CRUD Identities            | No                   | Yes                                  |
+| CRUD OAuth2 Clients        | No                   | Yes                                  |
+| CRUD Relation Tuples       | No                   | Yes                                  |
 
 ## Authorizing Ory Network Management APIs
 
