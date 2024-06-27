@@ -153,16 +153,18 @@ proxying.
 
 ### Troubleshooting
 
-**Cloudflare**
+#### Cloudflare Error 1014
 
 ![Cloudflare - Error 1014 - CNAME Cross-User Banned](./_static/custom-domains/cname-cf-error-1014.png)
 
-In case you are using Cloudflare to manage your DNS and get an `Error 1014 - CNAME Cross-User Banned`, please make sure that:
+If you're using Cloudflare to manage your DNS and you get an `Error 1014 - CNAME Cross-User Banned` when adding a custom domain to
+your Ory Network project, please check that:
 
-- **Proxing** is disabled for your CNAME record in Cloudflare. See
-  https://developers.cloudflare.com/dns/manage-dns-records/reference/proxied-dns-records/ for more details.
-- **Zone Lock** is temporarily disabled in your Cloudflare account for set up process to complete successfully. See
-  https://developers.cloudflare.com/fundamentals/setup/account/account-security/zone-holds/#release-zone-holds for more details.
+- **Proxying** is disabled for your CNAME record in Cloudflare. See
+  https://developers.cloudflare.com/dns/manage-dns-records/reference/proxied-dns-records/ for more information.
+- **Zone Lock** is temporarily disabled in your Cloudflare account until the set up process completes. See
+  https://developers.cloudflare.com/fundamentals/setup/account/account-security/zone-holds/#release-zone-holds for more
+  information.
 
 ## Automated emails
 
