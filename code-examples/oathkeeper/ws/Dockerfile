@@ -5,7 +5,7 @@ RUN mkdir /build
 ADD . /build
 
 WORKDIR /build
-RUN GOOS=linux GOARCH=amd64 go build -o ws main.go
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ws main.go
 
 FROM alpine
 EXPOSE 8090
