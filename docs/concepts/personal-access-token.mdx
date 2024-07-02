@@ -4,6 +4,10 @@ title: Authorization with API Keys
 sidebar_label: API Keys
 ---
 
+```mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+```
+
 # Ory Network API Keys
 
 **Ory Network Project APIs** are separated into:
@@ -35,6 +39,14 @@ Follow these steps to create API Keys for your Project:
 2. Click **Create new API key**
 3. Enter the API Key name and click **Create**
 4. Copy the created API Key
+
+```mdx-code-block
+<BrowserWindow url="https://console.ory.sh/projects/current/developers">
+
+![Configure project API keys in the Ory Console](./_static/api_keys/pak.png)
+
+</BrowserWindow>
+```
 
 :::caution
 
@@ -88,6 +100,14 @@ Follow these steps to create API keys for your workspace:
 5. Enter the API Key name and click **Create new API key**.
 6. Copy the created API Key from the prompt that shows at the bottom right of the screen.
 
+```mdx-code-block
+<BrowserWindow url="https://console.ory.sh/workspaces/current/settings/api-keys">
+
+![Configure workspace API keys in the Ory Console](./_static/api_keys/wak.png)
+
+</BrowserWindow>
+```
+
 :::caution
 
 The API Key you created is displayed only once. When you close the prompt, you can't access the key again. Make sure to save the
@@ -131,9 +151,3 @@ create, read, update, delete.
 | CRUD identities                                                                                     | No                   | Yes                                  |
 | CRUD OAuth2 clients                                                                                 | No                   | Yes                                  |
 | CRUD relation tuples                                                                                | No                   | Yes                                  |
-
-## Authorizing Ory Network Management APIs
-
-Ory Network Management APIs are used to manage Ory Network projects, such as creating a new project or changing settings. At this
-time the only way to authorize Management APIs is by using a session cookie issued to you by the Ory Network Console. Please reach
-out to your [support representative](https://console.ory.sh/support) if you need help with this process.
