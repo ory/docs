@@ -257,6 +257,11 @@ export const routes = {
         href: (workspace: string) =>
           `/workspaces/${workspace}/settings/members`,
       },
+      apiKeys: {
+        route: "/workspaces/[workspace]/settings/api-keys",
+        href: (workspace: string) =>
+          `/workspaces/${workspace}/settings/api-keys`,
+      },
       subscription: {
         route: "/workspaces/[workspace]/settings/subscription",
         href: (workspace: string) =>
