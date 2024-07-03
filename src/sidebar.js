@@ -294,7 +294,7 @@ module.exports = {
     {
       type: "category",
       label: "Ory Console",
-      items: ["console/usage-billing"],
+      items: ["console/usage-billing", "concepts/personal-access-token"],
     },
     {
       type: "category",
