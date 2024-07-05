@@ -463,75 +463,76 @@ successfully, the user will be logged in and the hashed password will be stored.
 
 The following steps are necessary to set up password migration using a web hook:
 
-#### Step 1: Import an identity with an empty password hash and `use_migration_hook` set to `true`
+1.  Import an identity with an empty password hash and `use_migration_hook` set to `true`
 
-[Bulk-import](#bulk-import-identities-from-other-providers) all your users with an empty password hash and `use_migration_hook`
-set:
+    [Bulk-import](#bulk-import-identities-from-other-providers) all your users with an empty password hash and
+    `use_migration_hook` set:
 
-```json {9-10}
-{
-  "schema_id": "preset://email",
-  "traits": {
-    "email": "pw-migration@example.org"
-  },
-  "credentials": {
-    "password": {
-      "config": {
-        "hashed_password": "",
-        "use_migration_hook": true
+    ```json {9-10}
+    {
+      "schema_id": "preset://email",
+      "traits": {
+        "email": "pw-migration@example.org"
+      },
+      "credentials": {
+        "password": {
+          "config": {
+            "hashed_password": "",
+            "use_migration_hook": true
+          }
+        }
       }
     }
-  }
-}
-```
+    ```
 
-#### Step 2: Configure a password migration web hook
+2.  Configure a password migration web hook
 
-Add the web hook URL to the configuration. See the
-[web hook configuration](https://www.ory.sh/docs/guides/integrate-with-ory-cloud-through-webhooks#request-authentication) for
-authentication options.
+    Add the web hook URL to the configuration. See the
+    [web hook configuration](https://www.ory.sh/docs/guides/integrate-with-ory-cloud-through-webhooks#request-authentication) for
+    authentication options.
 
-```yaml
-selfservice:
-  flows:
-    login:
-      password_migration:
-        enabled: true
-        config:
-          url: https://example.org/migrate-password
-          auth:
-            type: api_key
-            config:
-              name: Authorization
-              value: { API Key value }
-              in: header # alternatively "cookie"
-```
+    ```yaml
+    selfservice:
+      methods:
+        password:
+          config:
+            migrate_hook:
+              enabled: true
+              config:
+                url: https://example.org/migrate-password
+                auth:
+                  type: api_key
+                  config:
+                    name: Authorization
+                    value: { API Key value }
+                    in: header # alternatively "cookie"
+    ```
 
-#### Step 3: Implement the password migration web hook
+3.  Implement the password migration web hook
 
-If a user logs in and the identifier points to an identity that has `use_migration_hook` set to `true`, Ory Identities will call
-the configured web hook URL with the following payload:
+    If a user logs in and the identifier points to an identity that has `use_migration_hook` set to `true`, Ory Identities will
+    call the configured web hook URL with the following payload:
 
-```json
-{
-  "identifier": "pw-migration@example.org",
-  "password": "the-password"
-}
-```
+    ```json
+    {
+      "identifier": "pw-migration@example.org",
+      "password": "the-password"
+    }
+    ```
 
-The web hook can then check the identifier and password against the legacy system. If the password matches, the web hook must
-respond with a `200 OK` status code and the following payload:
+    The web hook can then check the identifier and password against the legacy system. If the password matches, the web hook must
+    respond with a `200 OK` status code and the following payload:
 
-```json
-{
-  "status": "password_match"
-}
-```
+    ```json
+    {
+      "status": "password_match"
+    }
+    ```
 
-After a successful response, the identity will be updated with the hashed password and the user will be logged in. The password
-migration hook will not be called again for this identity.
+    After a successful response, the identity will be updated with the hashed password and the user will be logged in. The
+    password migration hook will not be called again for this identity.
 
-Any other response will be treated as an invalid password, and the user will be notified that the password is incorrect.
+    Any other response will be treated as an invalid password, and the user will be notified that the password is incorrect.
 
 ### Social sign-in connections
 
