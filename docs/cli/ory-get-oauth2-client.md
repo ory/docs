@@ -32,11 +32,12 @@ To get the OAuth 2.0 Client's secret, run:
 ### Options
 
 ```
-  -e, --endpoint string   The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
-  -h, --help              help for oauth2-client
-      --project string    The project to use, either project ID or a (partial) slug.
-  -q, --quiet             Be quiet with output printing.
+  -e, --endpoint string    The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+  -h, --help               help for oauth2-client
+      --project string     The project to use, either project ID or a (partial) slug.
+  -q, --quiet              Be quiet with output printing.
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

@@ -55,8 +55,12 @@ user `hydra` with password `secret`.
 We highly recommend using Docker to run Hydra, as installing, configuring and running Hydra is easiest with Docker. Ory Hydra is
 available on [Docker Hub](https://hub.docker.com/r/oryd/hydra/).
 
-:::note This example remaps standard hydra ports `4444` to `5444` and `4445` to `5445` to prevent conflicts with a locally running
-hydra server. :::
+:::note
+
+This example remaps standard hydra ports `4444` to `5444` and `4445` to `5445` to prevent conflicts with a locally running hydra
+server.
+
+:::
 
 ```bash
 # The system secret can only be set against a fresh database. Key rotation is not supported. This

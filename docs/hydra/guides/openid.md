@@ -13,7 +13,7 @@ The public algorithm is the default algorithm in Ory OAuth2 and OpenID Connect. 
 clients. You can set this algorithm using the Ory CLI:
 
 ```shell
-ory patch oauth2-config {project.id} \
+ory patch oauth2-config $PROJECT_ID \
   --replace "/oidc/subject_identifiers/supported_types=[\"public\"]"
 ```
 
@@ -26,12 +26,12 @@ used to obfuscate the `sub` value.
 To enable the `pairwise` algorithm, run this command:
 
 ```shell
-ory patch oauth2-config {project.id} \
+ory patch oauth2-config $PROJECT_ID \
   --replace "/oidc/subject_identifiers/supported_types=[\"pairwise\"]" \
   --replace "/oidc/subject_identifiers/pairwise/salt=\"{16-character-long-salt}\""
 ```
 
-:::warning
+:::danger
 
 Don't change the salt value once it's set in production. When you change the salt, all client applications receive new user IDs
 from Ory. This can cause serious complications with authentication in your system.

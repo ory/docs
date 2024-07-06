@@ -20,10 +20,11 @@ ory list event-streams [flags]
 ### Options
 
 ```
-      --format string    Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
-  -h, --help             help for event-streams
-      --project string   The project to use, either project ID or a (partial) slug.
-  -q, --quiet            Be quiet with output printing.
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+  -h, --help               help for event-streams
+      --project string     The project to use, either project ID or a (partial) slug.
+  -q, --quiet              Be quiet with output printing.
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

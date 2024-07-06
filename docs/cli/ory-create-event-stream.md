@@ -27,6 +27,7 @@ ory create event-stream [--project=PROJECT_ID] --type=sns --aws-iam-role-arn=arn
       --project string             The project to use, either project ID or a (partial) slug.
   -q, --quiet                      Be quiet with output printing.
       --type string                The type of the event stream destination. Only "sns" is supported at the moment.
+      --workspace string           The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

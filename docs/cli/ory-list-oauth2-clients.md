@@ -37,6 +37,7 @@ ory list oauth2-clients --page-token eyJwYWdlIjoxfQ --page-size 10
       --page-token string   page token acquired from a previous response
       --project string      The project to use, either project ID or a (partial) slug.
   -q, --quiet               Be quiet with output printing.
+      --workspace string    The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

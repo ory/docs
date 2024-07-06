@@ -31,7 +31,7 @@ application when a user updates their profile information in another system.
 When building your own UI you can pass additional data when completing the registration flow that gets forwarded to any configured
 webhooks. This can be used to solve more complex use cases that would be out of scope for identity traits.
 
-:::warning
+:::danger
 
 Always put security first! When using webhooks, ensure that the data you send is secure and that the external system you are
 integrating with is trustworthy. Additionally, make sure to consider the data privacy laws and regulations that may apply to your
@@ -52,8 +52,7 @@ The Ory Network Console offers a simple and intuitive tool to manage your Action
 
 Follow the steps below:
 
-1. Navigate to [Ory Network > Developers > Actions](https://console.ory.sh/projects/current/developers/actions). There, click on
-   **+ Create new Action**.
+1. Navigate to <ConsoleLink route="project.developers.actions" />. There, click on **+ Create new Action**.
 2. Choose the flow type that best suits your need and determine the execution time. Here, you should also provide other necessary
    data, such as the URL and request method.
 3. Click on **Next**. The ensuing screen allows you to establish authentication parameters and input request body details. To

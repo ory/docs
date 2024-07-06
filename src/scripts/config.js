@@ -229,7 +229,7 @@ flag: \`${config.projectSlug} --config path/to/config.yaml\`.
 Config files can be formatted as JSON, YAML and TOML. Some configuration values support reloading without server restart.
 All configuration values can be set using environment variables, as documented below.
 
-:::warning Disclaimer
+:::danger Disclaimer
 
 This reference configuration documents all keys, also deprecated ones!
 It is a reference for all possible configuration values.

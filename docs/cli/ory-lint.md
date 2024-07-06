@@ -21,6 +21,6 @@ Helpers for linting code
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory lint lint](ory-lint-lint)	 - 
 

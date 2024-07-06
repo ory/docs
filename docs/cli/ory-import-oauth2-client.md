@@ -72,6 +72,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
       --pgp-key-url string   PGP encryption key URL for encrypting client secret.
       --project string       The project to use, either project ID or a (partial) slug.
   -q, --quiet                Be quiet with output printing.
+      --workspace string     The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

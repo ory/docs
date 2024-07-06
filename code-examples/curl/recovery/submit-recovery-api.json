@@ -3,10 +3,10 @@
   "type": "api",
   "expires_at": "2023-02-08T17:20:00.994168Z",
   "issued_at": "2023-02-08T16:50:00.994168Z",
-  "request_url": "https://{project.slug}.projects.oryapis.com/self-service/recovery/api",
+  "request_url": "https://$PROJECT_SLUG.projects.oryapis.com/self-service/recovery/api",
   "active": "code",
   "ui": {
-    "action": "https://{project.slug}.projects.oryapis.com/self-service/recovery?flow=733910c2-a366-424b-9c8b-c688d13f4d18",
+    "action": "https://$PROJECT_SLUG.projects.oryapis.com/self-service/recovery?flow=733910c2-a366-424b-9c8b-c688d13f4d18",
     "method": "POST",
     "nodes": [
       {

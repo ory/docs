@@ -25,11 +25,12 @@ List resources
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory list event-streams](ory-list-event-streams)	 - List your event streams
 * [ory list identities](ory-list-identities)	 - List identities
 * [ory list oauth2-clients](ory-list-oauth2-clients)	 - List OAuth 2.0 Clients
 * [ory list organizations](ory-list-organizations)	 - List your Ory Network organizations
 * [ory list projects](ory-list-projects)	 - List your Ory Network projects.
 * [ory list relationships](ory-list-relationships)	 - List relation tuples
+* [ory list workspaces](ory-list-workspaces)	 - List Ory Network workspaces
 

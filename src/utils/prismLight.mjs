@@ -5,12 +5,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import lightTheme from "prism-react-renderer/themes/github/index.cjs.js"
+import { themes } from "prism-react-renderer"
 
 export default {
-  ...lightTheme,
+  ...themes.github,
   styles: [
-    ...lightTheme.styles,
+    ...themes.github.styles,
     {
       types: ["title"],
       style: {

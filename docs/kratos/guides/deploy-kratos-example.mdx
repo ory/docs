@@ -149,9 +149,8 @@ Kratos.
 
 3. Install Ory Kratos:
 
-   ```mdx-code-block
-   <CodeBlock className="language-shell">{`
-   cd /opt/kratos/bin
+```mdx-code-block
+   <CodeBlock className="language-shell">{`cd /opt/kratos/bin
    # Download a new version of Ory Kratos
    wget https://github.com/ory/kratos/releases/download/${useLatestRelease("kratos")}/kratos_${useLatestReleaseFilename(
    "kratos",
@@ -161,11 +160,12 @@ Kratos.
    # Remove redundant files
    rm *md
    rm LICENSE`}</CodeBlock>
-   ```
+```
 
 4. Download the [Quickstart](../quickstart.mdx) configuration files:
 
-   ```mdx-code-block
+```mdx-code-block
+
    <CodeBlock className="language-shell">{`cd ../config
    wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
    "kratos",
@@ -173,7 +173,8 @@ Kratos.
    wget https://raw.githubusercontent.com/ory/kratos/${useLatestRelease(
    "kratos",
    )}/contrib/quickstart/kratos/email-password/kratos.yml`}</CodeBlock>
-   ```
+
+```
 
 5. Add configuration for Ory Kratos in `kratos.yml` to use the Postgres database. Open `kratos.yml` and change the dsn
    configuration. By default `dsn: memory` is configured, so Ory Kratos is storing data in the temporary memory. Change the DSN
@@ -496,7 +497,7 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 1. The installation of the Ory Kratos Node.js UI is straightforward:
 
-   ```mdx-code-block
+```mdx-code-block
    <CodeBlock className="language-shell">{`useradd -s /bin/false -m -d /opt/uinode uinode
    cd /opt/uinode
    wget https://github.com/ory/kratos-selfservice-ui-node/archive/refs/tags/${useLatestRelease("kratos")}.zip
@@ -507,7 +508,7 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
    npm i
    chown -R uinode /opt/uinode
    `}</CodeBlock>
-   ```
+```
 
 2. The UI needs a configuration file for systemd. Create a file named `uinode.service` at `/etc/systemd/system/` with the
    following content (change `https://accounts.example.com` to your domain):

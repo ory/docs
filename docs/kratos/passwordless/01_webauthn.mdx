@@ -40,14 +40,13 @@ configure whether WebAuthn is used for passwordless, or for multi-factor authent
 
 By default, passwordless with WebAuthn is disabled. To start using WebAuthn, apply this configuration:
 
-```mdx-code-block
-import CodeBlock from '@theme/CodeBlock'
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import CodeBlock from "@theme/CodeBlock"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 <Tabs>
   <TabItem value="console" label="Ory Console UI">
-      You can enable passwordless with WebAuthn in the Ory Network Console UI in the <b>Authentication/Passwordless Login</b> menu.
+    Go to <ConsoleLink route="project.passwordless" /> to configure WebAuthn for passwordless authentication.
   </TabItem>
   <TabItem value="cloud" label="Ory CLI">
     <CodeBlock language="shell">{`ory patch identity-config <your-project-id> \\
@@ -76,7 +75,6 @@ import TabItem from '@theme/TabItem';
           display_name: Ory`}</CodeBlock>
   </TabItem>
 </Tabs>
-```
 
 ### Updating configuration
 
@@ -156,8 +154,9 @@ This is used for WebAuthn both in passwordless flows and multi-factor authentica
 
 - WebAuthn is a browser standard. It does not work in native mobile apps.
 - WebAuthn is limited to one domain and does not work in a local environment when using CNAME / Ory Proxy. WebAuthn uses the
-  `https://origin` URL as part of the client<->server challenge/response mechanism. This mechanism allows for only one URL as the
-  origin. Read more in the [WebAuthn guide](https://webauthn.guide/) and on [GitHub](https://github.com/w3c/webauthn/issues/1372).
+  `https://origin` URL as part of the client{'<->'} server challenge/response mechanism. This mechanism allows for only one URL as
+  the origin. Read more in the [WebAuthn guide](https://webauthn.guide/) and on
+  [GitHub](https://github.com/w3c/webauthn/issues/1372).
 - Implementing WebAuthn in your own UI can be challenging, depending on which framework to use. Check our reference
   implementations: [React Native](https://github.com/ory/kratos-selfservice-ui-react-native),
   [Node.js](https://github.com/ory/kratos-selfservice-ui-node), [React/SPA](https://github.com/ory/react-nextjs-example)

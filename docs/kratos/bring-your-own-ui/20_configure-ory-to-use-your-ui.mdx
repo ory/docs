@@ -3,14 +3,13 @@ id: configure-ory-to-use-your-ui
 title: Configure Ory to use your UI
 ---
 
-To define the paths where Ory calls your custom UI, go to [**Ory Console**](https://console.ory.sh/) → **User Interface**. This
-view allows you to define the URLs of UI views for every self-service flow. To point to the desired UI, you can use relative or
-absolute paths.
+To define the paths where Ory calls your custom UI, go to <ConsoleLink route="project.ui" />. This view allows you to define the
+URLs of UI views for every self-service flow. To point to the desired UI, you can use relative or absolute paths.
 
 :::info
 
-Unless you set a custom UI base URL, relative links always use your SDK Configuration URL as the base. To check your SDK
-Configuration URL, go to [**Ory Console**](https://console.ory.sh/) → **Access & APIs**.
+Unless you set a custom UI base URL, relative links always use your SDK Configuration URL as the base. To get your project's SDK
+Configuration URL, go to <ConsoleLink route="project.settings" />, and copy the URL from the **API Endpoints** field.
 
 :::
 
@@ -25,8 +24,7 @@ URL of all custom UI views. This is a great way to make Ory work with your exist
 the combination of the base URL and relative URLs to point Ory to UI screens for operations such as login or registration you are
 already hosting.
 
-To set the base URL of custom UI and define the paths for UI views, go to
-[**Ory Console**](https://console.ory.sh/projects/current/ui) → **Account Experience** → **UI URLs**
+To set the base URL of custom UI and define the paths for UI views, go to <ConsoleLink route="project.ui" />.
 
 :::caution
 
@@ -38,13 +36,19 @@ SDK Configuration URL.
 You can toggle the "Enable the Account Experience welcome page" setting to hide the default "welcome" screen that isn't intended
 for end-users.
 
-## Multiple custom domains setup
+## Multiple custom domains
 
-Ory Network projects starting with the Scale plan can have multiple custom domains registered. You can add a different custom UI
-base URL of each of the custom domains registered in the project. This allows for a high degree of flexibility, where each of the
-domains serves its own set of UI views that have a common path makeup but different base URL.
+With the _Multibrand_ feature enabled for your workspace, you can add multiple custom domains to each Ory Network project. You can
+add a different custom UI base URL of each of the custom domains registered in the project. This allows for a high degree of
+flexibility, where each of the domains serves its own set of UI views that have a common path makeup but different base URL.
 
-In the real world, this means that you can serve different UI views to customers that interact with different parts of your
+:::info
+
+Interested in the Multibrand feature for your Ory Network project? [We're here to help! ](https://www.ory.sh/contact)
+
+:::
+
+In practical terms, this means that you can serve different UI views to customers that interact with different parts of your
 business, while still allowing them to conveniently use one account that's managed by your Ory Network project.
 
 For example, the ACME Car Parts company has three online storefronts for three different types of automotive products:
@@ -61,19 +65,23 @@ influenced the base paths used for serving UI:
 - carseats.com uses `carseats.com`
 - wipers.com uses `wipers.com/self-service/`
 
-Using their [Scale plan](https://www.ory.sh/pricing/) Ory Network project, ACME creates this setup using the **User Interface**
-view in the Ory Console:
+ACME creates this setup using the **User Interface** view in the Ory Console:
 
-| Site         | Domain                        | Base URL                   |
-| ------------ | ----------------------------- | -------------------------- |
-| mufflers.com | acme-auto-mufflers.store.prod | `mufflers.com/auth`        |
-| carseats.com | acme-carseats.store.prod      | `carseats.com`             |
-| wipers.com   | acme-wipers.store.prod        | `wipers.com/self-service/` |
+| Website      | Custom Domain    | Cookie Domain | [https://console.staging.ory.dev/projects/current/ui](Custom UI Base URL) |
+| ------------ | ---------------- | ------------- | ------------------------------------------------------------------------- |
+| mufflers.com | ory.mufflers.com | mufflers.com  | mufflers.com/auth                                                         |
+| carseats.com | ory.carseats.com | carseats.com  | carseats.com                                                              |
+| wipers.com   | ory.wipers.com   | wipers.com    | wipers.com/self-service/                                                  |
 
 This way, ACME users who create an account in one of these stores can use it to shop in the other stores as well. The UI ACME
 serves changes depending on the store the user visits which allows for consistency with the established visual identity of each of
 ACME's brands. Since these stores are hosted on different domains, the users must sign in and get an Ory Session issued for the
 store's domain when they switch between the storefronts.
+
+It's important to note that while a user can use the same account across multiple domains, they will need to authenticate
+separately on each domain. This is because cookies, including the session cookie issued by Ory, are isolated in the browser per
+domain to prevent cross-site attacks. Therefore, there will be one session per domain. As an alternative for managing multiple
+domains, you can use OpenID Connect. However, even with OpenID Connect, there will still be one session per domain.
 
 ## Development
 

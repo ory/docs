@@ -25,6 +25,6 @@ Validate resources
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory validate identity](ory-validate-identity)	 - Validate local identity files
 

@@ -22,11 +22,11 @@ will initiate the OIDC flow with the new redirect URL.
 
 :::
 
-````mdx-code-block
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 
-To use a custom domain as the redirect URL, go to the [OpenID Connect (OIDC)](https://console.ory.sh/projects/current/social-signin) page and click **Show advanced settings** and add the domain to the **Base Redirect URI**.
+To use a custom domain as the redirect URL, go to <ConsoleLink route="project.socialSignIn" /> and add the domain to the **Base
+Redirect URI**.
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
@@ -34,16 +34,17 @@ To use a custom domain as the redirect URL, go to the [OpenID Connect (OIDC)](ht
 To change the redirect URL to your custom domain, you need to update the `base_redirect_uri`:
 
 ```shell
-## List all available projects
+# List all available projects
 ory list projects
 
-## Add OIDC base redirect URI
+# Add OIDC base redirect URI
 ory patch identity-config <project-id> \
   --add '/selfservice/methods/oidc/config/base_redirect_uri="https://ory.example.org"'
-````
+```
 
 </TabItem>
 </Tabs>
+````
 
 After changing the base redirect URI you need to update the redirect URL of social sign-in providers you want to use. This is done
 in the configuration of the social sign-in provider. To update an existing social sign in provider, follow these steps:

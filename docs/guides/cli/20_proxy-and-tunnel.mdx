@@ -32,7 +32,7 @@ Ory Tunnel is exposing the Ory APIs under the same top-level domain as your appl
 To run Ory Tunnel, use the `ory tunnel` command and point to the URL with your application, for example:
 
 ```shell
-ory tunnel --project {project.slug} http://localhost:3000
+ory tunnel --project $PROJECT_SLUG http://localhost:3000
 ```
 
 To get a full list of arguments and options available for use with Ory Tunnel, run: `ory tunnel --help`
@@ -63,7 +63,18 @@ production, it's recommended to use a CNAME.
 When an application runs on `http://localhost:3000`, Ory must be available on the same domain, for example at
 `http://localhost:4000`. Thanks to such setup, the system can manage Anti-CSRF Cookies and Ory Session Cookies.
 
-![Ory Proxy diagram](../_static/cli/proxy.svg)
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+
+<Mermaid
+  chart={`
+flowchart TD
+    A[Developer] -->|GET http://localhost:1234| B(Ory Proxy)
+    B -->|GET /.ory/*| D[Ory Network]
+    B -->E[Your application]
+`}
+/>
+```
 
 ### URL structure
 

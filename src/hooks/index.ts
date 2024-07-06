@@ -3,14 +3,14 @@
 
 import { useQuery } from "react-query"
 import { useEffect, useState } from "react"
-import { Configuration, V0alpha2Api } from "@ory/client"
+import { Configuration, ProjectApi } from "@ory/client"
 import { Octokit } from "@octokit/rest"
 import useDocusaurusContext from "@docusaurus/core/lib/client/exports/useDocusaurusContext"
 
 export function getSdkUrl() {
   const { siteConfig } = useDocusaurusContext()
 
-  const sdk = new V0alpha2Api(
+  const sdk = new ProjectApi(
     new Configuration({
       basePath: String(siteConfig.customFields.CLOUD_URL),
       baseOptions: {
@@ -48,7 +48,7 @@ export function getSdkUrl() {
     hint,
     url: projectSlug
       ? "https://" + projectSlug + ".projects.oryapis.com"
-      : "https://{project.slug}.projects.oryapis.com",
+      : "https://$PROJECT_SLUG.projects.oryapis.com",
   }
 }
 

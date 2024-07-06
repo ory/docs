@@ -25,6 +25,6 @@ Parse Ory Network resources
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory parse relationships](ory-parse-relationships)	 - Parse human readable relationships
 

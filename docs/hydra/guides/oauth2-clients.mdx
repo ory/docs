@@ -22,8 +22,8 @@ import TabItem from '@theme/TabItem'
 
 The Ory Console is a web-based user interface that allows you to manage OAuth2 clients. To create a new client:
 
-1. Sign in to Ory Console and select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth).
-2. Click **Add New Client** and complete the form or update an existing client.
+1. Go to <ConsoleLink route="project.oauthConfiguration" />
+2. Click **Create OAuth2 Client** and complete the form or update an existing client.
 3. When creating a confidential client, copy the client secret when printed. It is only shown once.
 
 </TabItem>
@@ -65,7 +65,7 @@ To update an existing OAuth2 client, use the following methods:
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 
-1. Sign in to Ory Console and select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth).
+1. Go to <ConsoleLink route="project.oauthConfiguration" />.
 2. Locate the client you want to update.
 3. Click on the **pen symbol** to update the client's configuration.
 3. When you are finished, scroll to the top and click **Save**.
@@ -108,7 +108,7 @@ To partially update an existing OAuth2 client, use the following methods:
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 
-1. Sign in to Ory Console and select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth).
+1. Go to <ConsoleLink route="project.oauthConfiguration" />.
 2. Locate the client you want to update.
 3. Click on the **pen symbol** to update the client's configuration.
 3. When you are finished, scroll to the top and click **Save**.
@@ -139,7 +139,7 @@ To delete an existing OAuth2 client, use the following methods:
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 
-1. Sign in to Ory Console and select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth).
+1. Go to <ConsoleLink route="project.oauthConfiguration" />.
 2. Locate the client you want to update.
 3. Click on **pen symbol** to update the client's configuration.
 3. Scroll to the bottom and click **Delete Client**.
@@ -176,7 +176,7 @@ clients can be created, retrieved, updated, patched, and deleted dynamically wit
 Dynamic Client Registration, use the Ory CLI:
 
 ```shell
-ory patch oauth2-config {project.id}
+ory patch oauth2-config $PROJECT_ID
   --replace "/oidc/dynamic_client_registration/enabled=true"
 ```
 

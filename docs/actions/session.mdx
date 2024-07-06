@@ -26,7 +26,7 @@ Ory automatically activates the `session` action when a user signs up using a so
 
 ## Toggle action
 
-:::warning
+:::danger
 
 This action modifies the HTTP response. As a result, no other hooks can be executed after the `session` action. If you want to
 trigger multiple actions that modify the HTTP response in your setup, make sure that `session` is triggered last.
@@ -39,8 +39,8 @@ Follow these steps to toggle this action on or off:
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 
-1. Sign in to the Ory Console and select [**Authentication Settings**](https://console.ory.sh/projects/current/auth).
-2. Toggle **Sign In After Registration**.
+1. Go to <ConsoleLink route="project.authentication" />.
+2. Toggle **Enable sign in after registration**.
 3. Click **Save**.
 
 </TabItem>
@@ -61,7 +61,7 @@ ory patch identity-config {project-id} \
 
 The hook sends a `Set-Cookie` HTTP header which contains the session cookie. The user is signed in immediately.
 
-:::warning
+:::danger
 
 Using this job as part of your post-registration workflow makes your system vulnerable to Account Enumeration Attacks because a
 threat agent can distinguish between existing and non-existing accounts by checking if Set-Cookie was sent as part of the

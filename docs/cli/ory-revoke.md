@@ -26,6 +26,6 @@ Revoke resources
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory revoke token](ory-revoke-token)	 - Revoke an access or refresh token
 

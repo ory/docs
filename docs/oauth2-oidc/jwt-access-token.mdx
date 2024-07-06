@@ -53,7 +53,7 @@ To configure Ory OAuth2 to issue JWT access tokens for all clients, you must upd
 tokens:
 
 ```shell
-ory patch oauth2-config {project.id} \
+ory patch oauth2-config $PROJECT_ID \
   --replace "/strategies/access_token=\"jwt\""
 ```
 
@@ -114,7 +114,7 @@ You can validate JSON Web Tokens issued by Ory by pointing your `jwt` library (f
 [node-jwks-rsa](https://github.com/auth0/node-jwks-rsa)) to:
 
 ```
-http://{project.slug}.projects.oryapis.com/.well-known/jwks.json
+http://$PROJECT_SLUG.projects.oryapis.com/.well-known/jwks.json
 ```
 
 All necessary keys are available there.
@@ -128,7 +128,7 @@ interact with. If you're looking to interact with the default keys used by Ory, 
 - `hydra.jwt.access-token`: This set contains the keys used for signing JWT Access Tokens.
 
 You can use these `set-id` values with the JWK endpoints to retrieve, rotate, or otherwise manage these default key sets. For
-example, to retrieve the OpenID Connect ID Token key set, you would use the GET /admin/keys/{set} endpoint with
+example, to retrieve the OpenID Connect ID Token key set, you would use the `GET /admin/keys/{set}` endpoint with
 `hydra.openid.id-token` as the `{set}` parameter. This information is particularly useful when rotating keys, as described in the
 [documentation on key rotation](https://www.ory.sh/docs/hydra/self-hosted/secrets-key-rotation). Remember, these are the default
 key sets used by Ory. If you've configured Ory to use different key sets, you'll need to use the `set-id` values corresponding to
@@ -167,7 +167,7 @@ Required JWT claims can't be overwritten by custom claims.
 :::
 
 ```shell
-ory patch oauth2-config {project.id} \
+ory patch oauth2-config $PROJECT_ID \
   --replace "/oauth2/allowed_top_level_claims=[\"some_custom_claim\"]"
 ```
 
@@ -193,7 +193,7 @@ example above).
 Set `oauth2.mirror_top_level_claims` to `false` to disable mirroring the claims in the nested `ext` claim:
 
 ```shell
-ory patch oauth2-config {project.id} \
+ory patch oauth2-config $PROJECT_ID \
   --replace "/oauth2/mirror_top_level_claims=false"
 ```
 

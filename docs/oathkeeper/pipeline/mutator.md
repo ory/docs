@@ -146,7 +146,7 @@ The ID Token Claims are as follows:
 - `ttl` (string, optional) - Sets the time-to-live of the ID token. Defaults to one minute. Valid time units are: s (second), m
   (minute), h (hour).
 - `claims` (string, optional) - Allows you to customize the ID Token claims and support Go Templates. For more information, check
-  section [Claims](#claims)
+  section [Claims](#id_token-claims)
 
 ```yaml
 # Global configuration file oathkeeper.yml

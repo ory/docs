@@ -6,34 +6,36 @@ sidebar_label: Auth0
 
 # Auth0
 
-````mdx-code-block
+```mdx-code-block
 import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
+```
 
 Follow these steps to add Auth0 as a social sign-in provider to your project using the Ory Console:
 
-1. Sign in to Ory Console and select [**Social Sign-in**](https://console.ory.sh/projects/current/social-signin).
+1. Go to <ConsoleLink route="project.socialSignIn" />.
 2. Click the switch next to the Auth0 logo to start the configuration.
 3. Copy the Redirect URI and save it for later use.
 4. [Create an Auth0 Application for your Auth0 Tenant](https://auth0.com/docs/applications), noting the following points:
-    - Choose the application type to be **Regular Web Applications**.
-    - Paste the saved Redirect URI from Ory into the **Allowed Callback URLs** field in the **Settings** tab of the registered application.
-5. Go to the **Settings** tab of the registered application on the Auth0 dashboard and copy the following data
-   to the corresponding fields in the form in the Ory Console:
-    - **Client ID**
-    - **Client Secret**
-6. Go to the **Advanced Settings** then **Endpoints** and copy the Auth0 top-level domain (typically `https://myAuth0Tenant.auth0.com`) to the
-   **Tenant URL** field of the form in the Ory Console.
+   - Choose the application type to be **Regular Web Applications**.
+   - Paste the saved Redirect URI from Ory into the **Allowed Callback URLs** field in the **Settings** tab of the registered
+     application.
+5. Go to the **Settings** tab of the registered application on the Auth0 dashboard and copy the following data to the
+   corresponding fields in the form in the Ory Console:
+   - **Client ID**
+   - **Client Secret**
+6. Go to the **Advanced Settings** then **Endpoints** and copy the Auth0 top-level domain (typically
+   `https://myAuth0Tenant.auth0.com`) to the **Tenant URL** field of the form in the Ory Console.
 7. In the **Scopes** field of the form in the Ory Console, add the following scopes:
-    - `openid`
-    - `profile`
-    - `email`
-8. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet,
-   which maps the desired claims to the Ory Identity schema:
+   - `openid`
+   - `profile`
+   - `email`
+8. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet, which maps the desired
+   claims to the Ory Identity schema:
 
    ```jsonnet
    local claims = {
@@ -64,15 +66,16 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
 
    :::
 
-   ```mdx-code-block
+```mdx-code-block
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
-   ```
+```
 
 9. Click **Save Configuration**.
 
-
+```mdx-code-block
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
+```
 
 Follow these steps to add Auth0 as a social sign-in provider to your project using the Ory CLI:
 
@@ -80,7 +83,7 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
 2. In the created app, set the redirect URI to:
 
    ```shell
-   https://{project.slug}.projects.oryapis.com/self-service/methods/oidc/callback/auth0
+   https://$PROJECT_SLUG.projects.oryapis.com/self-service/methods/oidc/callback/auth0
    ```
 
 3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
@@ -114,9 +117,9 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
 
    :::
 
-   ```mdx-code-block
+```mdx-code-block
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
-   ```
+```
 
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
 
@@ -164,9 +167,10 @@ Follow these steps to add Auth0 as a social sign-in provider to your project usi
    ory update identity-config {project-id} --file identity-config.yaml
    ```
 
+```mdx-code-block
 </TabItem>
 </Tabs>
-````
+```
 
 ## Troubleshooting
 

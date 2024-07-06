@@ -44,7 +44,7 @@ more.
      --data '{
      "schema_id": "preset://email",
      "traits": {
-        "email": "{USER_EMAIL_ADDRESS}"
+        "email": "$USER_EMAIL_ADDRESS"
        }
      }' https://{project-slug}.projects.oryapis.com/admin/identities
    ```
@@ -62,12 +62,12 @@ more.
    ```json
    {
    // highlight-next-line
-      "id":"{ACCOUNT_ID}",
+      "id":"$ACCOUNT_ID",
       "credentials":{
          "password":{
             "type":"password",
             "identifiers":[
-               "{USER_EMAIL_ADDRESS}"
+               "$USER_EMAIL_ADDRESS"
             ],
             "version":0,
             "created_at":"2023-02-17T14:16:06.8591Z",
@@ -91,7 +91,7 @@ more.
       --header "Content-Type: application/json" \
       --data '{
       "expires_in": "12h",
-      "identity_id": "{ACCOUNT_ID}"
+      "identity_id": "$ACCOUNT_ID"
       }' https://{project-slug}.projects.oryapis.com/admin/recovery/link
    ```
 

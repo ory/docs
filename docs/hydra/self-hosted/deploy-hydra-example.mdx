@@ -140,7 +140,7 @@ Congratulations, you have installed and configured the PostgreSQL database. Next
 
 3. Install Ory Hydra:
 
-   ```mdx-code-block
+```mdx-code-block
    <CodeBlock className="language-shell">{`cd /opt/hydra/bin
    # Download a new version of Ory Hydra
    wget https://github.com/ory/hydra/releases/download/${useLatestRelease("hydra")}/hydra_${useLatestReleaseFilename(
@@ -151,14 +151,14 @@ Congratulations, you have installed and configured the PostgreSQL database. Next
    # Remove redundant files
    rm *md
    rm LICENSE`}</CodeBlock>
-   ```
+```
 
 4. Download the [Quickstart](../5min-tutorial) configuration files
 
-   ```mdx-code-block
-      <CodeBlock className="language-shell">{`cd ../config
+```mdx-code-block
+   <CodeBlock className="language-shell">{`cd ../config
    wget https://raw.githubusercontent.com/ory/hydra/${useLatestRelease("hydra")}/contrib/quickstart/5-min/hydra.yml`}</CodeBlock>
-   ```
+```
 
 5. Add configuration for Ory Hydra in `hydra.yml` to use the Postgres database. Open `hydra.yml` and change the DSN configuration.
    Ory Hydra is storing data in an SQLite database in the default quickstart configuration. Change the DSN key to use the Postgres

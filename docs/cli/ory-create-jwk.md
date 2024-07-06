@@ -26,14 +26,15 @@ ory create jwk <my-jwk-set> --alg RS256 --use sig
 ### Options
 
 ```
-      --alg string        The algorithm to be used to generated they key. Supports: RS256, RS512, ES256, ES512, EdDSA (default "RS256")
-  -e, --endpoint string   The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
-  -h, --help              help for jwk
-      --project string    The project to use, either project ID or a (partial) slug.
-      --public            Only return public keys
-  -q, --quiet             Be quiet with output printing.
-      --use string        The intended use of this key. Supports: sig, enc (default "sig")
+      --alg string         The algorithm to be used to generated they key. Supports: RS256, RS512, ES256, ES512, EdDSA (default "RS256")
+  -e, --endpoint string    The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+  -h, --help               help for jwk
+      --project string     The project to use, either project ID or a (partial) slug.
+      --public             Only return public keys
+  -q, --quiet              Be quiet with output printing.
+      --use string         The intended use of this key. Supports: sig, enc (default "sig")
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

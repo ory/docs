@@ -14,17 +14,18 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 Create a new Ory Network organization
 
 ```
-ory create organization label [--project=PROJECT_ID] [--domains=a.example.com,b.example.com] [flags]
+ory create organization <label> [--project=PROJECT_ID] [--domains=a.example.com,b.example.com] [flags]
 ```
 
 ### Options
 
 ```
-  -d, --domains strings   A list of domains that will be used for this organization.
-      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
-  -h, --help              help for organization
-      --project string    The project to use, either project ID or a (partial) slug.
-  -q, --quiet             Be quiet with output printing.
+  -d, --domains strings    A list of domains that will be used for this organization.
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+  -h, --help               help for organization
+      --project string     The project to use, either project ID or a (partial) slug.
+  -q, --quiet              Be quiet with output printing.
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

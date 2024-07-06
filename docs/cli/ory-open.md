@@ -25,6 +25,6 @@ Open Ory Account Experience Pages
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory open account-experience](ory-open-account-experience)	 - Open Ory Account Experience Pages
 

@@ -1,4 +1,4 @@
 curl -H 'Content-Type: application/json' \
     -H 'Accept: application/json' \
     -c cookies.txt \
-    https://{project.slug}.projects.oryapis.com/self-service/verification/browser
+    https://$PROJECT_SLUG.projects.oryapis.com/self-service/verification/browser

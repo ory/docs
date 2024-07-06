@@ -33,6 +33,7 @@ ory revoke token --client-id a0184d6c-b313-4e70-a0b9-905b581e9218 --client-secre
   -h, --help                   help for token
       --project string         The project to use, either project ID or a (partial) slug.
   -q, --quiet                  Be quiet with output printing.
+      --workspace string       The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

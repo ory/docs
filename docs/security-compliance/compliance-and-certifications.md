@@ -30,7 +30,7 @@ our security team at security@ory.sh.
 
 Ory Network was built with GDPR in mind, making it easy for our customers to respect the rights of data subjects. Ory supports the
 option of hosting personal data exclusively on EU based servers, which is a key requirement of GDPR compliance. For more details,
-see [GDPR compliance](./gdpr.md).
+see [GDPR compliance](./gdpr.mdx).
 
 ## OpenID Connect
 

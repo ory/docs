@@ -29,6 +29,6 @@ ory auth [flags]
 
 ### SEE ALSO
 
-* [ory](ory)	 - The ORY CLI
+* [ory](ory)	 - The Ory CLI
 * [ory auth logout](ory-auth-logout)	 - Signs you out of your account on this computer.
 

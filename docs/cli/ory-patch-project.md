@@ -24,7 +24,7 @@ The format of the patch is a JSON-Patch document. For more details please check:
 	https://jsonpatch.com
 
 ```
-ory patch project [id] [flags]
+ory patch project [flags]
 ```
 
 ### Examples
@@ -49,9 +49,11 @@ ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
   -f, --file strings          Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the project
       --format string         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help                  help for project
+      --project string        The project to use, either project ID or a (partial) slug.
   -q, --quiet                 Be quiet with output printing.
       --remove stringArray    Remove a specific key from the configuration
       --replace stringArray   Replace a specific key in the configuration
+      --workspace string      The workspace to use, either workspace ID or a (partial) name.
   -y, --yes                   Confirm all dialogs with yes.
 ```
 

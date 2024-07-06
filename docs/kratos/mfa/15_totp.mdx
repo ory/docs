@@ -33,7 +33,7 @@ The example screenshot is captured using the Ory Account Experience.
 ```mdx-code-block
 <BrowserWindow url="https://playground.projects.oryapis.com/ui">
 
-![TOTP linking in Ory Account Experience](../_static/mfa/1.png)
+  ![TOTP linking in Ory Account Experience](../_static/mfa/1.png)
 
 </BrowserWindow>
 ```
@@ -63,19 +63,19 @@ In this example, the user identifier (email - `alice@example.com`) is used. To l
 <TabItem value="oc" label="Ory Console" default>
 ```
 
-1. Sign in to the **Ory Console** and go to **Two-Factor Authentication**.
+1. Go to <ConsoleLink route="project.mfa" />.
 2. In the **TOTP Authenticator App** section, use the switch to enable TOTP.
 3. Define the name of the requesting party in the **Display Name**. The users see this name in the TOTP application when getting a
    one-time password.
 4. Click **Save**.
 
-   ```mdx-code-block
+```mdx-code-block
    <BrowserWindow url="https://console.ory.sh/">
 
    ![TOTP setup in Ory Console](../_static/mfa/3.png)
 
    </BrowserWindow>
-   ```
+```
 
 5. After TOTP has been enabled for the Ory Network project, each user is responsible for enabling TOTP in their own account by
    pairing their account with a TOTP app.

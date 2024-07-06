@@ -16,7 +16,7 @@ Follow these steps to add Patreon as a social sign-in provider to your project u
 2. In the client configuration, set the redirect URI to:
 
    ```shell
-   https://{project.slug}.projects.oryapis.com/self-service/methods/oidc/callback/patreon
+   https://$PROJECT_SLUG.projects.oryapis.com/self-service/methods/oidc/callback/patreon
    ```
 
 3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
@@ -39,9 +39,9 @@ Follow these steps to add Patreon as a social sign-in provider to your project u
 
    :::
 
-   ```mdx-code-block
+```mdx-code-block
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
-   ```
+```
 
 4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
 

@@ -53,6 +53,7 @@ ory perform authorization-code --client-id ... --client-secret ...
       --scope strings          Request OAuth2 scope (default [offline,openid])
       --state string           Force a state value (insecure)
       --token-url endpoint     Usually it is enough to specify the endpoint flag, but if you want to force the token url, use this flag
+      --workspace string       The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands
