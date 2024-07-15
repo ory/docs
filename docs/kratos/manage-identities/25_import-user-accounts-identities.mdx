@@ -463,10 +463,10 @@ successfully, the user will be logged in and the hashed password will be stored.
 
 The following steps are necessary to set up password migration using a web hook:
 
-1.  Import an identity with an empty password hash and `use_migration_hook` set to `true`
+1.  Import an identity with an empty password hash and `use_password_migration_hook` set to `true`
 
     [Bulk-import](#bulk-import-identities-from-other-providers) all your users with an empty password hash and
-    `use_migration_hook` set:
+    `use_password_migration_hook` set:
 
     ```json {9-10}
     {
@@ -478,7 +478,7 @@ The following steps are necessary to set up password migration using a web hook:
         "password": {
           "config": {
             "hashed_password": "",
-            "use_migration_hook": true
+            "use_password_migration_hook": true
           }
         }
       }
@@ -510,8 +510,8 @@ The following steps are necessary to set up password migration using a web hook:
 
 3.  Implement the password migration web hook
 
-    If a user logs in and the identifier points to an identity that has `use_migration_hook` set to `true`, Ory Identities will
-    call the configured web hook URL with the following payload:
+    If a user logs in and the identifier points to an identity that has `use_password_migration_hook` set to `true`, Ory
+    Identities will call the configured web hook URL with the following payload:
 
     ```json
     {
