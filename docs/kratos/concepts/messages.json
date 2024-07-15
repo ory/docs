@@ -39,7 +39,7 @@
   },
   {
     "id": 1010008,
-    "text": "Use security key",
+    "text": "Sign in with hardware key",
     "type": "info"
   },
   {
@@ -54,7 +54,7 @@
   },
   {
     "id": 1010011,
-    "text": "Continue with security key",
+    "text": "Sign in with hardware key",
     "type": "info"
   },
   {
@@ -74,7 +74,7 @@
   },
   {
     "id": 1010015,
-    "text": "Sign in with code",
+    "text": "Send sign in code",
     "type": "info"
   },
   {
@@ -116,6 +116,11 @@
   {
     "id": 1010021,
     "text": "Sign in with passkey",
+    "type": "info"
+  },
+  {
+    "id": 1010022,
+    "text": "Sign in with password",
     "type": "info"
   },
   {
@@ -674,6 +679,11 @@
   {
     "id": 4000036,
     "text": "The provided traits do not match the traits previously associated with this flow.",
+    "type": "error"
+  },
+  {
+    "id": 4000037,
+    "text": "This account does not exist or has no login method configured.",
     "type": "error"
   },
   {

@@ -47,8 +47,9 @@ Alternatively:
 ### Options
 
 ```
-  -h, --help             help for identities
-      --project string   The project to use, either project ID or a (partial) slug.
+  -h, --help               help for identities
+      --project string     The project to use, either project ID or a (partial) slug.
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands
