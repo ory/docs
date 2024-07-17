@@ -4,11 +4,13 @@ title: Custom OAuth2 Token Prefix
 sidebar_label: Custom Token Prefix
 ---
 
+# Configurable Token Prefix for OAuth2 Tokens
 
 This documentation explains how to configure the token prefix for OAuth2 access tokens, refresh tokens, and authorization codes.
 By default, all tokens use the `ory_%s_` template, where `%s` is replaced with the token type.
 
-Customizing the token prefix is available to Ory Enterprise License users.
+Customizing the token prefix is available exclusively to customers on an Ory Enterprise plan (Ory Enterprise License / Ory Network
+Enterprise). If you are interested in this feature, please [contact us](https://www.ory.sh/contact).
 
 ## Default Token Prefix
 
@@ -51,24 +53,9 @@ the template.
 - Access Token: `acme_token_at_...`
 - Authorization Code: `acme_token_ac_...`
 
-## Important Notes
-
-- **Enterprise Feature**: This feature is available only for Ory Enterprise License customers.
-- **Template Requirement**: The `%s` placeholder must be included in the custom template to indicate the token type.
-
 ## JSON Web Tokens (JWTs) Exception
 
 JSON Web Tokens (JWTs) will never be prefixed because it would violate the JWT format. This applies to:
 
 - **ID Tokens**: These are always JWTs and will never be prefixed.
 - **JWT Access Tokens**: If you are using JWTs as access tokens, they will also not be prefixed.
-
-## Getting Support
-
-For more information or to enable this feature, please [contact Ory Support](https://www.ory.sh/contact). The team is here to assist you
-with any questions or support you may need.
-
-## Conclusion
-
-Customizing the token prefix allows for better integration and token management. By following the steps outlined in this
-documentation, you can configure the token prefix to match your organization's needs.
