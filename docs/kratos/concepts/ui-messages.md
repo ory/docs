@@ -153,15 +153,15 @@
 }
 ```
 
-###### Signing in will link your account to "{duplicteIdentifier}" at provider "{provider}". If you do not wish to link that account, please start a new login flow. (1010016)
+###### Signing in will link your account to "{duplicateIdentifier}" at provider "{provider}". If you do not wish to link that account, please start a new login flow. (1010016)
 
 ```json
 {
   "id": 1010016,
-  "text": "Signing in will link your account to \"{duplicteIdentifier}\" at provider \"{provider}\". If you do not wish to link that account, please start a new login flow.",
+  "text": "Signing in will link your account to \"{duplicateIdentifier}\" at provider \"{provider}\". If you do not wish to link that account, please start a new login flow.",
   "type": "info",
   "context": {
-    "duplicateIdentifier": "{duplicteIdentifier}",
+    "duplicateIdentifier": "{duplicateIdentifier}",
     "newLoginUrl": "{newLoginUrl}",
     "provider": "{provider}"
   }
