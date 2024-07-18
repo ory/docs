@@ -20,41 +20,42 @@ Follow these steps to add Salesforce as a social sign-in provider to your projec
 1. Go to <ConsoleLink route="project.socialSignIn" />.
 2. Click the switch next to the Salesforce logo to start the configuration.
 3. Copy the Redirect URI and save it for later use.
-4. [Create an Salesforce Connected App](https://help.salesforce.com/s/articleView?id=sf.service_provider_define_oid.htm&type=5), noting the following points:
+4. [Create an Salesforce Connected App](https://help.salesforce.com/s/articleView?id=sf.service_provider_define_oid.htm&type=5),
+   noting the following points:
    - Enable OAuth Settings
    - Paste the saved Redirect URI from Ory into the **Callback URL** field in the **OAuth Settings** of the connected app.
 5. In the **Selected OAuth Scopes** field, make sure `openid`, `profile`, and `email` are selected.
 6. Ensure the `Require Secret for Web Server Flow` checkbox is enabled.
 7. Create the app.
-8. Go to the **OAuth Settings** of your newly created connected app, click on **Manage Consumer Details** and copy the following data to the
-   corresponding fields in the form in the Ory Console:
+8. Go to the **OAuth Settings** of your newly created connected app, click on **Manage Consumer Details** and copy the following
+   data to the corresponding fields in the form in the Ory Console:
    - **Consumer Key** (called **Client ID** in Ory)
    - **Consumer Secret** (called **Client Secret** in Ory)
-9. Copy the Salesforce top-level domain from the URL bar (typically
-   `https://mySalesforceTenant.my.salesforce.com`) to the **Tenant URL** field of the form in the Ory Console.
+9. Copy the Salesforce top-level domain from the URL bar (typically `https://mySalesforceTenant.my.salesforce.com`) to the
+   **Tenant URL** field of the form in the Ory Console.
 10. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet, which maps the desired
-   claims to the Ory Identity schema:
+    claims to the Ory Identity schema:
 
-   ```jsonnet
-   local claims = {
-     email_verified: false,
-   } + std.extVar('claims');
+```jsonnet
+local claims = {
+  email_verified: false,
+} + std.extVar('claims');
 
-   {
-     identity: {
-       traits: {
-         // Allowing unverified email addresses enables account
-         // enumeration attacks,  if the value is used for
-         // verification or as a password login identifier.
-         //
-         // Therefore we only return the email if it (a) exists and (b) is marked verified
-         // by Salesforce.
-         [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
-         username: claims.nickname,
-       },
-     },
-   }
-   ```
+{
+  identity: {
+    traits: {
+      // Allowing unverified email addresses enables account
+      // enumeration attacks,  if the value is used for
+      // verification or as a password login identifier.
+      //
+      // Therefore we only return the email if it (a) exists and (b) is marked verified
+      // by Salesforce.
+      [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+      username: claims.nickname,
+    },
+  },
+}
+```
 
 ```mdx-code-block
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
