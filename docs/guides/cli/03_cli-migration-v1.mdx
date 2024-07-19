@@ -5,57 +5,26 @@ id: cli-migration-v1
 
 The Ory CLI v1 got a big lift in terms of usability and features. This guide helps you migrate from Ory CLI v0 to Ory CLI v1.
 
-## Authentication
+## Upgrade to v1
 
-Ory CLI v1 comes with multiple new authentication mechanisms.
+To upgrade the Ory CLI to v1 please follow the [installation guide](01_installation.mdx) for your OS.
 
-### Interactive Browser Login
+## New authentication methods
 
-You can authenticate using the `ory auth` command. The command opens a browser window where you can log in to your Ory account.
-After logging in, you can use the CLI to manage workspaces, projects, and project data.
+The Ory CLI v1 comes with multiple new authentication mechanisms, please visit the [CLI Basics document](05_cli-basics.mdx) for an
+overview of the different authentication methods.
 
-:::info
-
-In case you are interested, the Ory CLI uses the authorization code flow with Ory Hydra to authenticate you. Take a look at how we
-implemented that in the
-[source code](https://github.com/ory/cli/blob/ed90e254aa7113533c1255f639fa1bf1b142de9f/cmd/cloudx/client/auth.go#L143).
-
-:::
-
-### API Keys
-
-In automated environments like CI/CD pipelines, you can authenticate using API keys. The Ory CLI supports both workspace and
-project API keys. Generally speaking, workspace API keys have permissions to manage project configs, while project API keys have
-permissions to manage project data. Depending on the use-case you might need to use one or both.
-
-Set the API keys using the `ORY_WORKSPACE_API_KEY` and `ORY_PROJECT_API_KEY` environment variables:
-
-```shell
-export ORY_WORKSPACE_API_KEY=ory_wak_8dwW9s....
-export ORY_PROJECT_API_KEY=ory_pt_Wse93s....
-```
-
-## Setting the Working Context
-
-All commands support the `--workspace` and `--project` flags to specify the working context. Legacy projects without a workspace
-can be used by omitting the `--workspace` flag. Alternatively, the project and workspace can be specified using the `ORY_PROJECT`
-and `ORY_WORKSPACE` environment variables.
-
-It is also possible to set the default workspace and project using the `ory use` command:
-
-```shell
-ory use workspace <workspace-id-or-name>
-ory use project <project-id-or-slug>
-```
-
-## Migrating existing Scripts and Automation
+## Migrate existing scripts and automation
 
 All commands work mostly the same way as before. Use `ory help` to get more information about the available commands, arguments
-and flags. To use the new API key authentication, create the necessary keys and set the `ORY_WORKSPACE_API_KEY` and
-`ORY_PROJECT_API_KEY` environment variables. If your script uses multiple workspaces and/or projects, you might need to create
-multiple keys and use the corresponding environment variables.
+and flags.
 
-These are the changes to specific commands:
+To use the new API key authentication, create the necessary keys and set the `ORY_WORKSPACE_API_KEY` and `ORY_PROJECT_API_KEY`
+environment variables, see [here](05_cli-basics.mdx) for a detailed description of the new authentication mechanisms.  
+If your script uses multiple workspaces or projects, you need to create multiple keys and use the corresponding environment
+variables.
+
+Here are the changes to commands:
 
 ```diff
 - ory open ui <project>
@@ -72,5 +41,35 @@ These are the changes to specific commands:
 - ORY_KRATOS_URL=https://<project-slug>.projects.oryapis.com ory proxy|tunnel
 + ory proxy|tunnel --project <project>
 + ory proxy|tunnel --workspace <workspace_id> --project <project>
-+ ORY_WORKSPACE=<workpsace> ORY_PROJECT=<project-id> ory proxy|tunnel
++ ORY_WORKSPACE=<workspace> ORY_PROJECT=<project-id> ory proxy|tunnel
+
+- ory create event-stream|jwk|oauth2-client|organization|project|relationships|workspace <project>
++ ory create event-stream|jwk|oauth2-client|organization|project|relationships|workspace --project <project>
++ ory create event-stream|jwk|oauth2-client|organization|project|relationships|workspace --workspace <workspace> --project <project>
++ ORY_WORKSPACE=<workspace> ORY_PROJECT=<project> ory create event-stream|jwk|oauth2-client|organization|project|relationships|workspace
+
+- ory delete access-tokens|event-stream|identity|jwk|oauth2-client|organization|relationships <project>
++ ory delete access-tokens|event-stream|identity|jwk|oauth2-client|organization|relationships --project <project>
++ ory delete access-tokens|event-stream|identity|jwk|oauth2-client|organization|relationships --workspace <workspace> --project <project>
++ ORY_WORKSPACE=<workspace> ORY_PROJECT=<project> ory delete access-tokens|event-stream|identity|jwk|oauth2-client|organization|relationships
+
+- ory list event-streams|identities|oauth2-clients|organizations|projects|relationships|workspaces <project>
++ ory list event-streams|identities|oauth2-clients|organizations|projects|relationships|workspaces --project <project>
++ ory list event-streams|identities|oauth2-clients|organizations|projects|relationships|workspaces --workspace <workspace> --project <project>
++ ORY_WORKSPACE=<workspace> ORY_PROJECT=<project> ory list event-streams|identities|oauth2-clients|organizations|projects|relationships|workspaces
+
+- ory import identities|jwk|oauth2-client <project>
++ ory import identities|jwk|oauth2-client --project <project>
++ ory import identities|jwk|oauth2-client --workspace <workspace> --project <project>
++ ORY_WORKSPACE=<workspace> ORY_PROJECT=<project> ory import identities|jwk|oauth2-client
+
+- ory patch identity-config|oauth2-config|opl|permission-config|project <project>
++ ory patch identity-config|oauth2-config|opl|permission-config|project --project <project>
++ ory patch identity-config|oauth2-config|opl|permission-config|project --workspace <workspace> --project <project>
++ ORY_WORKSPACE=<workspace> ORY_PROJECT=<project> ory patch identity-config|oauth2-config|opl|permission-config|project
+
+- ory update event-stream|identity-config|oauth2-client|oauth2-config|opl|organization|permission-config|project <project>
++ ory update event-stream|identity-config|oauth2-client|oauth2-config|opl|organization|permission-config|project --project <project>
++ ory update event-stream|identity-config|oauth2-client|oauth2-config|opl|organization|permission-config|project --workspace <workspace> --project <project>
++ ORY_WORKSPACE=<workspace> ORY_PROJECT=<project> ory update event-stream|identity-config|oauth2-client|oauth2-config|opl|organization|permission-config|project
 ```
