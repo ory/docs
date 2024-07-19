@@ -210,23 +210,9 @@ function(ctx) {
 }
 ```
 
-The courier passes the `Recipient`, `TemplateType`, and `TemplateData` variables into the Jsonnet template. These variables are
-available through the `ctx` object. `Recipient` will always be the email address of the user. `TemplateType` and the fields in
-`TemplateData` are linked in the following way with each template type containing the fields listed below:
-
-This will produce a JSON object, that contains all data available in the email. You can customize the payload
-
-```mdx-code-block
-</TabItem>
-<TabItem value="console" label="Ory Console (coming soon)" disabled>
-```
-
-The Ory Console doesn't support configuring this yet. Please use the Ory CLI instead.
-
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
+The courier passes the `Recipient`, `TemplateType`, and `TemplateData` variables into the Jsonnet template via the `ctx`
+parameter. `Recipient` will always be the email address of the user. `TemplateData` contains the same variables, described in the
+[custom email templates page](./05_custom-email-templates.mdx#available-variables).
 
 ## Troubleshooting
 
