@@ -25,15 +25,16 @@ Follow these steps to add Salesforce as a social sign-in provider to your projec
    - Enable OAuth Settings
    - Paste the saved Redirect URI from Ory into the **Callback URL** field in the **OAuth Settings** of the connected app.
 5. In the **Selected OAuth Scopes** field, make sure `openid`, `profile`, and `email` are selected.
-6. Ensure the `Require Secret for Web Server Flow` checkbox is enabled.
-7. Create the app.
-8. Go to the **OAuth Settings** of your newly created connected app, click on **Manage Consumer Details** and copy the following
+6. Ensure the `Require Proof Key for Code Exchange (PKCE)` checkbox is disabled, as Ory Kratos does not support PKCE.
+7. Ensure the `Require Secret for Web Server Flow` checkbox is enabled.
+8. Create the app.
+9. Go to the **OAuth Settings** of your newly created connected app, click on **Manage Consumer Details** and copy the following
    data to the corresponding fields in the form in the Ory Console:
    - **Consumer Key** (called **Client ID** in Ory)
    - **Consumer Secret** (called **Client Secret** in Ory)
-9. Copy the Salesforce top-level domain from the URL bar (typically `https://mySalesforceTenant.my.salesforce.com`) to the
+10. Copy the Salesforce top-level domain from the URL bar (typically `https://mySalesforceTenant.my.salesforce.com`) to the
    **Tenant URL** field of the form in the Ory Console.
-10. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet, which maps the desired
+11. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet, which maps the desired
     claims to the Ory Identity schema:
 
 ```jsonnet
@@ -61,7 +62,7 @@ local claims = {
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
-11. Click **Save Configuration**.
+12. Click **Save Configuration**.
 
 ```mdx-code-block
 </TabItem>
