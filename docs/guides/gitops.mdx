@@ -8,15 +8,16 @@ This guide will walk you through the process of managing your Ory Network config
 these steps, you'll be able to track changes, review, and approve them through pull requests, and automatically update the
 configuration upon merge.
 
-This guide uses the GitHub Actions to update the configuration and manage
-changes through pull requests. You can adapt this to GitLab CI, TravisCI, CircleCI, and other CI/CD systems.
+This guide uses the GitHub Actions to update the configuration and manage changes through pull requests. You can adapt this to
+GitLab CI, TravisCI, CircleCI, and other CI/CD systems.
 
 ## Ory Network configuration
 
 ### Ory Identities configuration
 
 First, pull the current configuration from your Ory Network project. You can also automate this with a GitHub Action, but in this
-case, you just need it once. You can find the `workspace-id` and `project-id` in the Ory Network dashboard or by using `ory list workspaces` and `ory list projects --workspace <workspace_id>`.
+case, you just need it once. You can find the `workspace-id` and `project-id` in the Ory Network dashboard or by using
+`ory list workspaces` and `ory list projects --workspace <workspace_id>`.
 
 ```bash
 ory get identity-config --workspace "<workspace-id>" --project "<project-id>" --format json-pretty > identity-config.json
@@ -51,8 +52,9 @@ jobs:
         run: ory update identity-config --file identity-config.json
 ```
 
-For the GitHub Action to authenticate with Ory Network, you need to add the ORY_WORKSPACE_API_KEY secret to your
-repository. You can configure secrets in the [repository's settings](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
+For the GitHub Action to authenticate with Ory Network, you need to add the ORY_WORKSPACE_API_KEY secret to your repository. You
+can configure secrets in the
+[repository's settings](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 
 Now you can make changes to the configuration in git and create pull requests to review and approve the changes. When the pull
 request is merged, the configuration will be updated automatically. You can also use this to roll back changes via the git
