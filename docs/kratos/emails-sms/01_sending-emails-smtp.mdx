@@ -147,7 +147,17 @@ service that doesn't provide an SMTP server.
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli-http-email">
-<TabItem value="cli" label="Ory CLI" default>
+<TabItem value="console" label="Ory Console">
+```
+
+1. Go to <ConsoleLink route="project.emailConfiguration" />.
+2. Select **HTTP Server**.
+3. Configure your HTTP server.
+4. Click **Save**.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
 ```
 
 1. Download the Ory Identities config from your project and save it to a file:
@@ -189,30 +199,41 @@ service that doesn't provide an SMTP server.
    ory update identity-config {project-id} --file updated_config.yaml
    ```
 
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
 ### Payload
 
-The payload of the HTTP request is a JSON object that's generated using a Jsonnet template. By default, the following payload is
-sent:
+The payload of the HTTP request is a JSON object that's generated using a Jsonnet template. By default, the following Jsonnet
+template is used:
 
 ```jsonnet
 function(ctx) {
-  recipient: ctx.Recipient,
-  template_type: ctx.TemplateType,
-  to: if "TemplateData" in ctx && "To" in ctx.TemplateData then ctx.TemplateData.To else null,
-  recovery_code: if "TemplateData" in ctx && "RecoveryCode" in ctx.TemplateData then ctx.TemplateData.RecoveryCode else null,
-  recovery_url: if "TemplateData" in ctx && "RecoveryURL" in ctx.TemplateData then ctx.TemplateData.RecoveryURL else null,
-  verification_url: if "TemplateData" in ctx && "VerificationURL" in ctx.TemplateData then ctx.TemplateData.VerificationURL else null,
-  verification_code: if "TemplateData" in ctx && "VerificationCode" in ctx.TemplateData then ctx.TemplateData.VerificationCode else null,
-  login_code: if "TemplateData" in ctx && "LoginCode" in ctx.TemplateData then ctx.TemplateData.LoginCode else null,
-  registration_code: if "TemplateData" in ctx && "RegistrationCode" in ctx.TemplateData then ctx.TemplateData.RegistrationCode else null,
-  subject: ctx.Subject,
-  body: ctx.Body
+  recipient: ctx.recipient,
+  template_type: ctx.template_type,
+  to: if "template_data" in ctx && "to" in ctx.template_data then ctx.template_data.to else null,
+  recovery_code: if "template_data" in ctx && "recovery_code" in ctx.template_data then ctx.template_data.recovery_code else null,
+  recovery_url: if "template_data" in ctx && "recovery_url" in ctx.template_data then ctx.template_data.recovery_url else null,
+  verification_url: if "template_data" in ctx && "verification_url" in ctx.template_data then ctx.template_data.verification_url else null,
+  verification_code: if "template_data" in ctx && "verification_code" in ctx.template_data then ctx.template_data.verification_code else null,
+  login_code: if "template_data" in ctx && "login_code" in ctx.template_data then ctx.template_data.login_code else null,
+  registration_code: if "template_data" in ctx && "registration_code" in ctx.template_data then ctx.template_data.registration_code else null,
+  subject: if "template_data" in ctx && "subject" in ctx.template_data then ctx.template_data.subject else null,
+  body: if "template_data" in ctx && "body" in ctx.template_data then ctx.template_data.body else null
 }
 ```
 
-The courier passes the `Recipient`, `TemplateType`, and `TemplateData` variables into the Jsonnet template via the `ctx`
-parameter. `Recipient` will always be the email address of the user. `TemplateData` contains the same variables, described in the
-[custom email templates page](./05_custom-email-templates.mdx#available-variables).
+The courier passes the following object as the `ctx` parameter into the Jsonnet template:
+
+| Variable        | Type   | Description                                                                                                                                                        |
+| --------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `recipient`     | String | The email address of the recipient.                                                                                                                                |
+| `template_type` | String | The type of the template. See the [list of available templates for a full list](./05_custom-email-templates.mdx#built-in-templates)                                |
+| `template_data` | Object | The data that should be included in the email. See the [list of variables for each template for a full list](./05_custom-email-templates.mdx#available-variables). |
+
+In most cases, the default payload should be sufficient.
 
 ## Troubleshooting
 
