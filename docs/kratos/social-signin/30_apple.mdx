@@ -16,6 +16,13 @@ one.
 
 ## Webbrowser
 
+:::note
+
+It is important that the provider-id for the webbrowser flow is "apple", this is because the resulting callback url
+will be exempt from CSRF middleware due to the fact that apple uses a POST form request, which does not include the CSRF cookie.
+
+:::
+
 ```mdx-code-block
 import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
 import Tabs from '@theme/Tabs';
