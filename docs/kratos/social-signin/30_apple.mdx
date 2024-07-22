@@ -16,13 +16,6 @@ one.
 
 ## Webbrowser
 
-:::note
-
-It is important that the provider-id for the webbrowser flow is "apple", this is because the resulting callback url
-will be exempt from CSRF middleware due to the fact that apple uses a POST form request, which does not include the CSRF cookie.
-
-:::
-
 ```mdx-code-block
 import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
 import Tabs from '@theme/Tabs';
@@ -99,6 +92,13 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
      },
    }
    ```
+
+:::note
+
+The provider ID for the web browser flow must be `apple`. This makes sure that the resulting callback URL will be exempt from CSRF
+middleware, as Apple uses a POST form request that does not include the CSRF cookie.
+
+:::
 
 ```mdx-code-block
    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
