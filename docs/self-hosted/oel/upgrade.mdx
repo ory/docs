@@ -1,0 +1,121 @@
+---
+id: upgrade
+title: Upgrading Ory Hydra OEL
+---
+
+This document provides a comprehensive guide on how to upgrade your Ory Hydra Enterprise License (OEL) version. Upgrading to the
+latest version ensures you have the newest features, security updates, and performance improvements.
+
+## Prerequisites
+
+Before proceeding with the upgrade, ensure you have:
+
+- A valid Ory Enterprise License.
+- Access to the Ory Enterprise Docker Registry.
+- Backup of your current data and configuration.
+
+## Pick the right version
+
+To upgrade Ory Hydra OEL, you need to know the version you are currently running. Check your Docker or Kubernetes environment to
+find the tag. You should find your tag in this list:
+
+```mdx-code-block
+import ImageTags from "./eol-image-tags.md"
+
+<ImageTags />
+```
+
+:::note
+
+Zero-downtime migrations are only possible if you do not skip any version when upgrading.
+
+:::
+
+The tags are ordered by date. To upgrade, you need to pick the next version in the list.
+
+## Upgrade Using Helm Charts in Kubernetes
+
+Upgrading Ory Hydra OEL in Kubernetes is straightforward when using Ory's Helm Charts. Follow these steps to upgrade Ory Hydra
+OEL:
+
+### 1. Enable auto SQL migration
+
+Set `hydra.automigration.enabled` to `true` in the `values.yaml` file:
+
+```
+image:
+  # ....
+# ...
+hydra:
+  automigration:
+    enabled: true
+# ...
+```
+
+### 2. Update the image tag
+
+```
+image:
+  repository: europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel
+  tag: <replace-with-current-image-tag>
+# ...
+```
+
+### 3. Apply / install the helm chart
+
+You can now apply the upgrade:
+
+```bash
+helm upgrade ory-oel-hydra ory/hydra --namespace ory -f values.yaml
+```
+
+#### 4. Wait for the upgrade to propagate
+
+Once the init container is done and the main container is running, the upgrade is complete.
+
+## Upgrade steps without Helm Charts
+
+### 1. Check Release Notes
+
+Before upgrading, review the [release notes](https://changelog.ory.sh) for the new version to understand the changes, new
+features, and any deprecations.
+
+### 2. Backup Your Data
+
+Ensure you have a complete backup of your database and configuration files. This step is crucial for restoring your system in case
+of an upgrade failure.
+
+### 3. Pull the Latest Docker Image
+
+Pull the latest Ory Hydra OEL Docker image from the Ory Enterprise Docker Registry:
+
+```bash
+docker pull europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag>
+```
+
+### 5. Apply SQL Migrations
+
+Before deploying the service, you need to apply SQL migrations:
+
+```bash
+docker run -e DSN=cockroach://... europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag> -- migrate sql -e -f /path/to/config.yaml
+```
+
+### 5. Stop the Service
+
+Once done, you can stop the processes running the old service.
+
+### 6. Start the Service
+
+Now you will be able to start the service:
+
+```bash
+docker run -e DSN=cockroach://... europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag> -- serve all -f /path/to/config.yaml
+```
+
+## Conclusion
+
+Upgrading Ory Hydra OEL is essential to keep your system secure and up-to-date. By following the steps outlined in this guide, you
+can ensure a smooth upgrade process with minimal downtime.
+
+If you encounter any issues during the upgrade process, please reach out to the Ory support team for assistance.
