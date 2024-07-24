@@ -20,7 +20,7 @@ To upgrade Ory Hydra OEL, you need to know the version you are currently running
 find the tag. You should find your tag in this list:
 
 ```mdx-code-block
-import ImageTags from "./eol-image-tags.md"
+import ImageTags from "../eol-image-tags.md"
 
 <ImageTags />
 ```
@@ -69,7 +69,7 @@ You can now apply the upgrade:
 helm upgrade ory-oel-hydra ory/hydra --namespace ory -f values.yaml
 ```
 
-#### 4. Wait for the upgrade to propagate
+### 4. Wait for the upgrade to propagate
 
 Once the init container is done and the main container is running, the upgrade is complete.
 
@@ -77,8 +77,8 @@ Once the init container is done and the main container is running, the upgrade i
 
 ### 1. Check Release Notes
 
-Before upgrading, review the [release notes](https://changelog.ory.sh) for the new version to understand the changes, new
-features, and any deprecations.
+Before upgrading, review the [changelog](changelog.mdx) for the new version to understand the changes, new features, and any
+deprecations.
 
 ### 2. Backup Your Data
 
