@@ -104,24 +104,30 @@ const config: Config = {
           sidebarId: "docs",
           label: "Documentation",
         },
-        // {
-        //   type: "docSidebar",
-        //   position: "left",
-        //   sidebarId: "sdk",
-        //   label: "SDK",
-        // },
-        // {
-        //   type: "docSidebar",
-        //   position: "left",
-        //   sidebarId: "api",
-        //   label: "API",
-        // },
-        // {
-        //   type: "docSidebar",
-        //   position: "left",
-        //   sidebarId: "selfhosting",
-        //   label: "Self-hosting",
-        // },
+        {
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "quickstarts-and-tutorials",
+          label: "Guides",
+        },
+        {
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "reference",
+          label: "API Reference",
+        },
+        {
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "cli",
+          label: "CLI",
+        },
+        {
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "selfhosting",
+          label: "Self-hosting",
+        },
         {
           label: "Need Support?",
           position: "right",

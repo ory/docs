@@ -1,0 +1,61 @@
+---
+id: token-prefix
+title: Custom OAuth2 token prefix
+sidebar_label: Custom token prefix
+---
+
+# Configurable token prefix for OAuth2 tokens
+
+This documentation explains how to configure the token prefix for OAuth2 access tokens, refresh tokens, and authorization codes.
+By default, all tokens use the `ory_%s_` template, where `%s` is replaced with the token type.
+
+Customizing the token prefix is available only to customers on an Ory Enterprise plan (Ory Enterprise License / Ory Network
+Enterprise). If you are interested in this feature, please [contact us](https://www.ory.sh/contact).
+
+## Default token prefix
+
+By default, OAuth2 tokens use the following template: `ory_%s_`. The `%s` is a placeholder that will be replaced by the specific
+token type:
+
+- `rt` for refresh tokens
+- `at` for access tokens
+- `ac` for authorization codes
+
+### Examples
+
+- Refresh Token: `ory_rt_...`
+- Access Token: `ory_at_...`
+- Authorization Code: `ory_ac_...`
+
+## Customize the token prefix
+
+With the `oauth2.token_prefix` configuration key, you can customize the prefix for your OAuth2 tokens. This key is only available
+to Ory Enterprise License customers.
+
+### How to configure
+
+1. **Locate the Configuration File**: Open your Ory configuration file.
+2. **Set the `oauth2.token_prefix` Key**: Add or modify the `oauth2.token_prefix` key in your configuration file.
+
+### Example configuration
+
+```yaml
+oauth2:
+  token_prefix: "acme_token_%s_"
+```
+
+In this example, tokens will use the `acme_token_%s_` template. The `%s` placeholder for the token type must always be included in
+the template.
+
+### Resulting tokens
+
+- Refresh Token: `acme_token_rt_...`
+- Access Token: `acme_token_at_...`
+- Authorization Code: `acme_token_ac_...`
+
+## JSON Web Tokens exception
+
+JSON Web Tokens (JWTs) will never be prefixed because it would violate the JWT format. This applies to:
+
+- **ID Tokens**: These are always JWTs and will never be prefixed.
+- **JWT Access Tokens**: If you are using JWTs as access tokens, they will also not be prefixed.
