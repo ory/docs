@@ -24,7 +24,6 @@ const referenceSidebars = {
       items: [
         "sdk",
         "reference/api",
-        "guides/cli/installation",
         {
           type: "category",
           label: "Ory CLI",
@@ -45,7 +44,6 @@ const referenceSidebars = {
             },
           ],
         },
-
         "keto/reference/ory-permission-language",
       ],
     },
@@ -842,6 +840,22 @@ module.exports = {
         "ecosystem/security",
         "security-compliance/gdpr",
         "security-compliance/token-formats",
+      ],
+    },
+    {
+      type: "category",
+      label: "Reference",
+      collapsed: false,
+      collapsible: false,
+      link: {
+        type: "doc",
+        id: "reference/api",
+      },
+      items: [
+        "sdk",
+        "reference/api",
+        "guides/cli/installation",
+        "keto/reference/ory-permission-language",
       ],
     },
     {
