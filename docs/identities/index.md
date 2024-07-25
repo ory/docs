@@ -5,10 +5,52 @@ sidebar_label: Ory Identities
 displayed_sidebar: identities
 ---
 
-Ory Identities is designed to handle core authentication use cases in modern software applications, such as self-service login and
-registration, multi-factor authentication, account verification, and recovery. It is is an API-first identity and user management
-system built on top of the widely deployed open-source [Ory Kratos Identity Server](https://github.com/ory/kratos). Ory Identities
-also offers admin APIs for user management and supports flexible user experiences through its customizable workflow engine.
+Ory Identities is an API-first identity and user management system built on top of the widely deployed open-source
+[Ory Kratos Identity Server](https://github.com/ory/kratos) following
+[cloud architecture best practices](https://www.ory.sh/docs/ecosystem/software-architecture-philosophy/). It implements mechanisms
+that allow handling core use cases that the majority of modern software applications have to deal with:
+
+- **Self-service login and registration**: Allow end-users to create and sign in to accounts using username/email and password
+  combinations, social sign-in ("Sign in with Google, GitHub"), passwordless flows, and others.
+- **Multi-factor authentication (MFA/2FA)**: Support protocols such as TOTP ([RFC 6238](https://tools.ietf.org/html/rfc6238) and
+  [IETF RFC 4226](https://tools.ietf.org/html/rfc4226) - better known as
+  [Google Authenticator](https://en.wikipedia.org/wiki/Google_Authenticator))
+- **Account verification**: Verify that an email address, phone number, or physical address actually belongs to the user.
+- **Account recovery**: Allow users to recover access to their account using "Forgot Password" flows or security codes.
+- **Profile and account management**: Use secure flows to update passwords, personal details, email addresses, and linked social
+  profiles.
+- **Admin APIs**: Import, update, and delete user accounts.
+
+:::tip
+
+Ory Identities calls user accounts "identities". The terms "user accounts", "users", and "identities" are used interchangeably in
+the Ory documentation. Read [more here](./manage-identities/overview) to learn more about identities in Ory.
+
+:::
+
+Identity is a hard problem that Ory Identities solves in a unique way. Ory values security, flexibility, and integration with
+cloud technology such as Kubernetes the most:
+
+- Ory Identities doesn't ship an HTML Rendering Engine. You use the Ory Account Experience available in Ory Network or build your
+  own UI in the language and framework you feel most comfortable with.
+- The workflow engine allows you to fully customize your users' experience. Whether you want users to activate their accounts
+  after registration, or have a multi-step (progressive) registration process - it's all possible!
+- One [identity schema](./manage-identities/identity-schema) doesn't fit all - you may have customers that need a billing address,
+  have multiple email addresses, or internal support staff that's assigned to a cost center. You can accommodate the different
+  data models using [JSON Schema](https://json-schema.org/) and make the system work for you - not the other way around.
+
+Ory Identities isn't just about features - it's about security, reliability, and speed. As a cornerstone of Ory Network, Ory
+Identities runs in a managed cloud environment and gives you a production-ready solution to securely manage users and
+authentication flows.
+
+When hosted on premise, Ory Identities stands out from other solutions because it runs on any operating system such as Linux,
+macOS, or Windows, and on most processors such as i386, amd64, or ARM. The compiled binary has no system or library or file
+dependencies and can be run as a single, static binary on top of, for example, a raw Linux kernel. Ory Identities self-hosted
+scales horizontally without effort. The only external dependency is an RDBMS - we support SQLite, PostgreSQL, MySQL, CockroachDB.
+You will not need memcached, etcd, or a similar system to scale.
+
+Ory believes in a strong separation of concerns, which is a guiding principle in the design of each Ory project. As such, Ory
+software is built to solve a specific problem well and offload adjacent issues such as a user interfaces to other applications.
 
 ## Features
 
@@ -19,53 +61,42 @@ session states securely. [Read more about it here](../security-model.mdx)
 
 ### Native and browser APIs
 
-Integrate seamlessly with mobile or native apps and web browsers using robust APIs.
-
-Read more about it [here](native-browser.mdx).
+Integrate seamlessly with mobile or native apps and web browsers using robust APIs. Read more about it [here](native-browser.mdx).
 
 ### Self-service flows
 
-Registration, login, logout, multi-factor authentication, settings, verification, and recovery.
-
-Read more about it [here](../kratos/self-service.mdx).
+Registration, login, logout, multi-factor authentication, settings, verification, and recovery. Read more about it
+[here](../kratos/self-service.mdx).
 
 ### Authentication methods
 
-Passwords, passwordless code, Passkeys, social sign-in, multi-factor authentication.
-
-Read more about it [here](../kratos/concepts/credentials.mdx).
+Passwords, passwordless code, Passkeys, social sign-in, multi-factor authentication. Read more about it
+[here](../kratos/concepts/credentials.mdx).
 
 ### Identity schema
 
-Customize and extend user data models to fit application-specific needs.
-
-Read more about it [here](../kratos/manage-identities/01_overview.mdx).
+Customize and extend user data models to fit application-specific needs. Read more about it
+[here](../kratos/manage-identities/01_overview.mdx).
 
 ### Identity management
 
-Manage user identities with CRUD (Create, Read, Update, Delete) operations.
-
-Read more about it [here](../category/identity-management/).
+Manage user identities with CRUD (Create, Read, Update, Delete) operations. Read more about it
+[here](../category/identity-management/).
 
 ### Session management
 
-Control user sessions, including lifespan, refresh, and revocation.
-
-Read more about it [here](../kratos/session-management/01_overview.mdx).
+Control user sessions, including lifespan, refresh, and revocation. Read more about it
+[here](../kratos/session-management/01_overview.mdx).
 
 ### User interface
 
 Build custom user interfaces for authentication and profile management using Ory SDKs and REST APIs to match your applications
-design.
-
-Read more about it [here](../account-experience/index.mdx).
+design. Read more about it [here](../account-experience/index.mdx).
 
 ### Send emails & SMS
 
 Email and SMS notifications for verification, recovery, and multi-factor authentication. Customize SMPT/HTTP and SMS server and
-templates.
-
-Read more about it [here](../kratos/emails-sms/05_custom-email-templates.mdx).
+templates. Read more about it [here](../kratos/emails-sms/05_custom-email-templates.mdx).
 
 ## Benefits
 
