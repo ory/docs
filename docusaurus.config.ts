@@ -114,13 +114,7 @@ const config: Config = {
           type: "docSidebar",
           position: "left",
           sidebarId: "reference",
-          label: "API Reference",
-        },
-        {
-          type: "docSidebar",
-          position: "left",
-          sidebarId: "cli",
-          label: "CLI",
+          label: "Reference",
         },
         {
           type: "docSidebar",
