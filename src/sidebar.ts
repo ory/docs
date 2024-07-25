@@ -22,8 +22,8 @@ const referenceSidebars = {
       collapsed: false,
       collapsible: false,
       items: [
-        "sdk",
         "reference/api",
+        "sdk",
         {
           type: "category",
           label: "Ory CLI",
@@ -852,9 +852,17 @@ module.exports = {
         id: "reference/api",
       },
       items: [
+        {
+          type: "doc",
+          id: "reference/api",
+          label: "Rest API",
+        },
         "sdk",
-        "reference/api",
-        "guides/cli/installation",
+        {
+          type: "doc",
+          id: "cli/ory-auth",
+          label: "Ory CLI",
+        },
         "keto/reference/ory-permission-language",
       ],
     },
