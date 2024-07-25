@@ -577,7 +577,6 @@ module.exports = {
       },
       items: [
         "ecosystem/community",
-        "open-source/licenses",
         {
           type: "link",
           href: "https://github.com/ory",
