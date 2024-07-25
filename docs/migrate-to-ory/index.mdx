@@ -1,8 +1,62 @@
 ---
 id: index
-title: Migrate to Ory
+title: Migrate to Ory tutorial
 sidebar_label: Migrate to Ory
 sidebar_position: 1
 ---
 
-TODO
+This tutorial will guide you through the process of migrating your existing authentication system to Ory Identities, creating Ory
+Network projects, setting up identity schemas, and customizing the user interface to match your current interface.
+
+:::note
+
+This guide serves as an initial reference and may not cover all aspects of your specific use case. If you have any questions or
+need further assistance, please contact Ory Support for help.
+
+:::
+
+## Get user data
+
+Export your user data from your from your existing authentication solution or database and find out the hashing algorithm used by
+your existing authentication system. If your passwords are not hashed, you can bypass this step, as Ory will handle password
+hashing automatically during the import process. Ory supports a range of hashing algorithms; if your current algorithm is
+supported, you can use the import API to migrate your users. If the hashing algorithm is not supported or if you can't get the
+hashed passwords from your current authentication system, you can use the password migration hook to migrate your existing users.
+You can find more details about this process [here](../kratos/manage-identities/25_import-user-accounts-identities.mdx).
+
+## Create Ory Network Projects
+
+You can create a new Ory Network project using the Ory CLI. The command ory create project allows you to specify the environment
+of the project, the output format, the name of the project, and the workspace to use. More details about creating a project can be
+found [here](../cli/ory-create-project).
+
+## Map user traits
+
+To match identities from your current system with the new Ory system, you can customize the identity schema in Ory to meet your
+specific requirements. This schema defines the types of data that the system can store for users, including names, email
+addresses, phone numbers, and other authentication-related information. Additionally, you can specify extra metadata fields to be
+included in user profiles. Ory offers default presets to assist you in creating and managing identity schemas. More details about
+identity schemas can be found [here](../kratos/manage-identities/identity-schema).
+
+## Migrate User Interface
+
+If you're migrating from an existing authentication system, you can start with the built-in
+[Account Experience](../account-experience/index.mdx), which offers a standard interface with basic branding to get you up and
+running quickly. Alternatively, if you prefer a custom user interface that matches your current design, Ory allows you to create
+and style a custom UI that integrates seamlessly with your existing setup. Ory Elements is a component library designed to make
+building login, registration, and account pages for Ory straightforward. It is modular and customizable, which means that you can
+use only the views you need and style them to match your implementation's design. The UI created with Ory Elements changes
+dynamically to adapt to your Ory Network configuration. More details about customizing the user interface can be found
+[here](../kratos/bring-your-own-ui/custom-ui-ory-elements).
+
+## Bulk import users
+
+To bulk import identities into Ory, you can use the Identity Import API. A maximum of 2000 identities can be created in a single
+request. If you need to import more identities, you need to split the import into multiple requests. The endpoint accepts a JSON
+array of identities, each of which must have a create property that holds the identity that should be created. Read more about
+this process [here](../kratos/manage-identities/import-user-accounts-identities#bulk-import-identities-from-other-providers).
+
+## Additional Support
+
+To get support in your migration beyond this guide join the [Ory Community Slack](https://slack.ory.sh/) and get support from the
+community or purchase a [support plan](https://ory.sh/pricing) and get expert help from the Ory Team.
