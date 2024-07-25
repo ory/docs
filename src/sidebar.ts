@@ -64,10 +64,6 @@ const referenceSidebars = {
   ],
 }
 
-const cliSidebars = {
-  cli: [homeLink],
-}
-
 const guidesSidebars = {
   "quickstarts-and-tutorials": [
     homeLink,
@@ -881,8 +877,8 @@ module.exports = {
   ...identitiesSidebar,
   ...oauth2Sidebar,
   ...permissionsSidebar,
-  ...cliSidebars,
   ...selfhostingSidebar,
+
   sdk: [],
   api: [],
 }
