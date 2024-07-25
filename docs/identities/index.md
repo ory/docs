@@ -24,7 +24,7 @@ that allow handling core use cases that the majority of modern software applicat
 :::tip
 
 Ory Identities calls user accounts "identities". The terms "user accounts", "users", and "identities" are used interchangeably in
-the Ory documentation. Read [more here](./manage-identities/overview) to learn more about identities in Ory.
+the Ory documentation. Read [more here](../kratos/manage-identities/01_overview.mdx) to learn more about identities in Ory.
 
 :::
 
@@ -35,9 +35,9 @@ cloud technology such as Kubernetes the most:
   own UI in the language and framework you feel most comfortable with.
 - The workflow engine allows you to fully customize your users' experience. Whether you want users to activate their accounts
   after registration, or have a multi-step (progressive) registration process - it's all possible!
-- One [identity schema](./manage-identities/identity-schema) doesn't fit all - you may have customers that need a billing address,
-  have multiple email addresses, or internal support staff that's assigned to a cost center. You can accommodate the different
-  data models using [JSON Schema](https://json-schema.org/) and make the system work for you - not the other way around.
+- One [identity schema](../kratos/manage-identities/01_overview.mdx) doesn't fit all - you may have customers that need a billing
+  address, have multiple email addresses, or internal support staff that's assigned to a cost center. You can accommodate the
+  different data models using [JSON Schema](https://json-schema.org/) and make the system work for you - not the other way around.
 
 Ory Identities isn't just about features - it's about security, reliability, and speed. As a cornerstone of Ory Network, Ory
 Identities runs in a managed cloud environment and gives you a production-ready solution to securely manage users and
