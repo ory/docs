@@ -85,9 +85,36 @@ Webhooks trigger HTTP requests to the webhook URL. You can configure the request
 ### Customizing request body with Jsonnet
 
 Webhooks bind the `flow`, as well as request headers (`request_headers`), request method (`request_method`), and the request URL
-(`request_url`) of the flow into the Jsonnet template for all methods and execution paths (before and after). For the `after`
-execution path of all flows, it binds the `identity` and the `transient_payload` object into the Jsonnet template as well. These
-objects are available through a `ctx` object.
+(`request_url`) of the flow into the [Jsonnet](https://jsonnet.org) template for all methods and execution paths (before and
+after). For the `after` execution path of all flows, it binds the `identity` and the `transient_payload` object into the Jsonnet
+template as well. These objects are available through a `ctx` object.
+
+:::info
+
+After August 1st, 2024, we will remove all headers from `ctx.request_headers` of the webhook request context that do not match the
+following allow-list:
+
+```
+Accept
+Accept-Encoding
+Accept-Language
+Content-Length
+Content-Type
+Origin
+Priority
+Referer
+Sec-Ch-Ua
+Sec-Ch-Ua-Mobile
+Sec-Ch-Ua-Platform
+Sec-Fetch-Dest
+Sec-Fetch-Mode
+Sec-Fetch-Site
+Sec-Fetch-User
+True-Client-Ip
+User-Agent
+```
+
+:::
 
 To send `{ user_id: {some-id} }` in the request body, create the following the [Jsonnet](https://jsonnet.org) template:
 
