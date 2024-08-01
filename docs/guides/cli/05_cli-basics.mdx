@@ -14,8 +14,7 @@ to get more information about the command, available command-specific flags and 
 
 ```shell
 ory auth --help
-
-Create an or sign into your Ory Network account
+Create a new Ory Network account or sign in to an existing account.
 
 Usage:
   ory auth [flags]
@@ -26,7 +25,7 @@ Available Commands:
 
 Flags:
   -c, --config string   Path to the Ory Network configuration file.
-      --format string   Set the output format. One of table, json, and json-pretty. (default "default")
+      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help            help for auth
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
@@ -41,113 +40,86 @@ documentation is generated automatically from the CLI source code.
 
 :::
 
-## Create Ory Network account and project
+## Authentication
 
-With Ory CLI, you can create a new Ory Network account and project from your terminal.
+The Ory CLI comes with multiple authentication mechanisms.
 
-Follow these steps:
+### Browser login
 
-1. Run this command to start the wizard:
+You can authenticate using the `ory auth` command. The command opens a browser window where you can log in to your Ory account.
+After logging in, you can use the CLI to manage workspaces, projects, and project data.
 
-   ```shell
-   ory auth
-   ```
+:::info
 
-2. If you haven't signed in with the CLI before, you're asked if you have an Ory Network account.
-
-   ```shell
-   Do you already have an Ory Console account you wish to use? [y/n]: n
-   ```
-
-   Answer "no" to create a new account. In the process, you must provide the basic account information: email address, password,
-   user name, and choose if you want to be informed about platform security updates.
-
-3. As a final step, accept the [Terms of Service](https://www.ory.sh/ptos).
-
-   ```shell
-   I accept the Terms of Service https://www.ory.sh/ptos:  [y/n]: y
-   ```
-
-4. When the process is completed, the CLI displays the details of the created account and the ID of the currently selected
-   project:
-
-   ```text
-   You are now signed in as: tom@email.com
-   ID			              cae666dg-2ffa-491b-9912-6b090ec10e1c
-   EMAIL			          tom@email.com
-   SELECTED_PROJECT	      00000000-0000-0000-0000-000000000000
-   ```
-
-:::note
-
-By default, no projects are associated with new accounts created through the Ory CLI. To create a new project, use the
-[CLI](#create-ory-cloud-project) or the [Ory Console](https://console.ory.sh/).
+In case you are interested, the Ory CLI uses the authorization code flow with Ory Hydra to authenticate you. Take a look at how
+it's implemented in the
+[source code](https://github.com/ory/cli/blob/ed90e254aa7113533c1255f639fa1bf1b142de9f/cmd/cloudx/client/auth.go#L143).
 
 :::
 
-## Create a project
+### API key
 
-Run this command to create a new project:
+In automated environments like CI/CD pipelines, you can authenticate using API keys. The Ory CLI supports both workspace and
+project API keys. Workspace API keys have permissions to manage project configs, while project API keys have permissions to manage
+project data. Depending on the use-case you might need to use one or both.
+
+Set the API keys using the `ORY_WORKSPACE_API_KEY` and `ORY_PROJECT_API_KEY` environment variables:
 
 ```shell
-ory create project
+export ORY_WORKSPACE_API_KEY=ory_wak_8dwW9s....
+export ORY_PROJECT_API_KEY=ory_pt_Wse93s....
 ```
 
-When the operation is successful, the system returns the details of the newly created project:
+## Set the working context
 
-```text
+All commands support the `--workspace` and `--project` flags to specify the working context. Legacy projects without a workspace
+can be used by omitting the `--workspace` flag.  
+Alternatively, the project and workspace can be specified using the `ORY_PROJECT` and `ORY_WORKSPACE` environment variables.
+
+It is also possible to set the default workspace and project using the `ory use` command:
+
+```shell
+ory use workspace $ORY_WORKSPACE
+ory use project $ORY_PROJECT
+```
+
+## Create a new workspace and project
+
+Run this command to create a new workspace.
+
+```shell
+ory create workspace --name "My New Workspace"
+```
+
+```bash
+# Example response
+
+Workspace created successfully!
+ID                 885a2468-c23d-40df-a783-c941387a8701
+NAME               My New Workspace
+SUBSCRIPTION PLAN  <none>
+```
+
+Now export the workspace ID
+
+```
+export ORY_WORKSPACE=885a2468-c23d-40df-a783-c941387a8701
+```
+
+and run this command to create a new project.
+
+```shell
+ory create project --name "My New Project" --workspace $ORY_WORKSPACE
+```
+
+```bash
+# Example response
+
 Project created successfully!
-ID	     5e2281bd-e094-87b5-9d76-812ce4a9cfb3
-SLUG	 twisty-galois-kz61jdc42q
-STATE	 running
-NAME	 My Amazing Project
+ID		b7d8a15d-a783-40e6-40df-7acd60cb2b64
+NAME		My New Project
+ENVIRONMENT	dev
+WORKSPACE	885a2468-c23d-40df-a783-c941387a8701
+SLUG		peaceful-something-4iuafwx2vk
+STATE		running
 ```
-
-## Use CLI with existing account
-
-Sign in to use the CLI with your existing Ory Network account and project.
-
-1. Run this command to start the wizard:
-
-   ```shell
-   ory auth
-   ```
-
-2. If you haven't signed in with the CLI before, you're asked if you have an Ory Network account.
-
-   ```shell
-   Do you already have an Ory Console account you wish to use? [y/n]: n
-   ```
-
-3. Follow the on-screen instructions to sign in to your account.
-
-   :::info
-
-   If you created your Ory Network account with a social sign-in provider, you must adjust the account configuration to use the
-   CLI. [Read this section for more information](#accounts-with-social-sign-in).
-
-   :::
-
-4. Upon successful sign in, the CLI shows the details of the signed-in user and the selected project:
-
-   ```text
-   You are now signed in as: john.wick@company.com
-   ID			              7759555-e23a-44b7-b148-7fed7f908024
-   EMAIL			          john.wick@company.com
-   SELECTED_PROJECT	      00000000-0000-0000-0000-000000000000
-   ```
-
-### Accounts with social sign-in
-
-If you created your account through a social sign-in provider such as GitHub or Google, you must adjust your account configuration
-to use the Ory CLI.
-
-Accounts created with social sign-in providers don't use passwords. To use your account with Ory CLI, your account must have a
-password.
-
-Follow these steps to create a password for an account created with a social sign-in provider:
-
-1. Open the [Ory Console](https://console.ory.sh/) and sign in.
-2. Go to your [account settings](https://console.ory.sh/settings).
-3. Enter a new password in the **Update Password** field.
-4. Click **Save** to finish.
