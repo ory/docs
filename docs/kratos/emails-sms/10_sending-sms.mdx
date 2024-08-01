@@ -29,7 +29,7 @@ SMS delivery can only be configured through the [Ory CLI](../../guides/cli/01_in
    ory list projects
 
    ## Get config
-   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
    ```
 
 2. Add the configuration for your custom SMTP server
@@ -55,7 +55,7 @@ SMS delivery can only be configured through the [Ory CLI](../../guides/cli/01_in
 3. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
-   ory update identity-config {project-id} --file updated_config.yaml
+   ory update identity-config --project <project-id> --workspace <workspace-id> --file updated_config.yaml
    ```
 
 ### Body configuration
@@ -100,7 +100,7 @@ Only the `verification_code` and `login_code` templates support an SMS variant. 
    ory list projects
 
    ## Get config
-   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
    ```
 
 2. Add the configuration for your custom SMTP server
@@ -123,7 +123,7 @@ Only the `verification_code` and `login_code` templates support an SMS variant. 
 3. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
-   ory update identity-config {project-id} --file updated_config.yaml
+   ory update identity-config --project <project-id> --workspace <workspace-id> --file updated_config.yaml
    ```
 
 ```mdx-code-block

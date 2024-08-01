@@ -67,14 +67,14 @@ to manage the Ory OAuth2 & OpenID Connect configuration in git. First, pull the 
 project:
 
 ```bash
-ory get oauth2-config "$PROJECT_ID" --format json-pretty > oauth2-config-"$PROJECT_ID".json
+ory get oauth2-config --workspace "<workspace-id>" --project "<project-id>" --format json-pretty > oauth2-config.json
 ```
 
 Switch out the command in the GitHub Action:
 
 ```diff
--  update identity-config "$PROJECT_ID" --file identity-config-"$PROJECT_ID".json
-+  update oauth2-config "$PROJECT_ID" --file oauth2-config-"$PROJECT_ID".json
+-  ory update identity-config --file identity-config.json
++  ory update oauth2-config --file oauth2-config.json
 ```
 
 ### Ory Permissions configuration and Ory Permission Language
@@ -83,19 +83,19 @@ You can use the same approach to manage the Ory Permissions configuration in git
 Ory Network project:
 
 ```bash
-ory get permission-config "$PROJECT_ID" --format json-pretty > permission-config-"$PROJECT_ID".json
+ory get permission-config --workspace "<workspace-id>" --project "<project-id>" --format json-pretty > permission-config.json
 ```
 
 Add the update command for Ory Permissions configuration to the GitHub Action:
 
 ```bash
-update permission-config "$PROJECT_ID" --file permission-config-"$PROJECT_ID".json
+ory update permission-config --file permission-config.json
 ```
 
 or for the Ory Permission Language configuration:
 
 ```bash
-update opl --project "$PROJECT_ID" --file opl-"$PROJECT_ID".ts
+ory update opl --file permissions.ts
 ```
 
 ## OpenID Connect Claims and Ory Actions payload
@@ -163,9 +163,9 @@ For example:
 
 ```json
 //...
-    # This is the default schema that's used for new identities
+    // This is the default schema that's used for new identities
     "default_schema_id": "preset://email",
-    # These are custom schemas that are available on your Ory Network project
+    // These are custom schemas that are available on your Ory Network project
     "schemas": [
       {
         "id": "7d1cf71e-57ae-40be-bddf-1f4c323e2349",

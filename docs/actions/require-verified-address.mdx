@@ -38,7 +38,7 @@ Follow these steps to toggle this action on or off:
 Run this command:
 
 ```shell
-ory patch identity-config {project-id} \
+ory patch identity-config --project <project-id> --workspace <workspace-id> \
   --add '/selfservice/flows/login/after/password/hooks/0/hook="require_verified_address"'
 ```
 

@@ -116,7 +116,7 @@ Twitter is now set up! Continue with the following steps in Ory Console or Ory C
    ## List all available projects
    ory list projects
    ## Get config
-   ory get identity-config {project-id} --format yaml > identity-config-$project-id.yaml
+   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config-$project-id.yaml
    ```
 
 6. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
@@ -144,7 +144,7 @@ Twitter is now set up! Continue with the following steps in Ory Console or Ory C
 7. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
-   ory update identity-config {project-id} --file identity-config.yaml
+   ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
    ```
 
 </TabItem>

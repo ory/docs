@@ -56,8 +56,8 @@ Account Experience theme.
 ### Setting up authentication through the upstream SSO provider
 
 Adding Ory OAuth2 as a "social" sign-in provider is straightforward since Ory follows the OAuth2/OIDC specification. Because of
-this, you can add Ory OAuth2 as a generic OIDC provider without any extra setup.  
-To add your Ory OAuth2 server as a social sign-in provider, you need the following configuration details:
+this, you can add Ory OAuth2 as a generic OIDC provider without any extra setup. To add your Ory OAuth2 server as a social sign-in
+provider, you need the following configuration details:
 
 - Client ID - you get this when creating the client
 - Client Secret - you get this when creating the client
@@ -167,7 +167,7 @@ local claims = {
    ory list projects
 
    ## Get config
-   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
    ```
 
 5. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
@@ -198,7 +198,7 @@ local claims = {
 6. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
-   ory update identity-config {project-id} --file identity-config.yaml
+   ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
    ```
 
 </TabItem>

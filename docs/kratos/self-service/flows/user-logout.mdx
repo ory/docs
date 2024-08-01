@@ -54,7 +54,7 @@ Go to <ConsoleLink route="project.settings.endpoints" /> and set the URL in the 
 Run this command in the [Ory CLI](../../../guides/cli/01_installation.mdx):
 
 ```shell
-ory patch identity-config {project-id} \
+ory patch identity-config --project <project-id> --workspace <workspace-id> \
    --replace '/selfservice/flows/logout/after/default_browser_return_url="{return-url}"'
 ```
 
