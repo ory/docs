@@ -26,8 +26,9 @@ To disable the legacy one-step registration, Go to <ConsoleLink route="project.a
 one-step registration** or use the Ory CLI:
 
 ```bash
-ory list projects # to get the project id
+ory list workspaces # to get the workspace id
+ory list projects --workspace <workspace-id> # to get the project id
 
-ory patch project ${project_id} \
+ory patch project --project <project-id> --workspace <workspace-id> \
   --replace '/services/identity/config/selfservice/flows/registration/enable_legacy_one_step=false'
 ```

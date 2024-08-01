@@ -118,8 +118,11 @@ built-in one.
 1. List all your projects and get the Ory Identities config file:
 
    ```shell
+   ## List all available workspaces
+   ory list workspaces
+
    ## List all available projects
-   ory list projects
+   ory list projects --workspace <workspace-id>
 
    ## Get config
    ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml

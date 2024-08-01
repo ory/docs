@@ -23,8 +23,11 @@ more information.
 To fix the problem, remove the `/selfservice/methods/oidc/config/base_redirect_uri` configuration entry. Run this Ory CLI command:
 
 ```shell
+## List all available workspaces
+ory list workspaces
+
 ## List all available projects
-ory list projects
+ory list projects --workspace <workspace-id>
 
 ## Remove the configuration entry
 ory patch identity-config <project-id> \

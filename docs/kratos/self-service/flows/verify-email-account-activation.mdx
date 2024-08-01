@@ -78,8 +78,11 @@ For SMS verification to work, you'll also need to configure a courier channel wi
 1. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
+   ## List all available workspaces
+   ory list workspaces
+
    ## List all available projects
-   ory list projects
+   ory list projects --workspace <workspace-id>
 
    ## Get config
    ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
@@ -187,8 +190,11 @@ Go to <ConsoleLink route="project.verification" /> and toggle **Notify unknown r
 1. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
+   ## List all available workspaces
+   ory list workspaces
+
    ## List all available projects
-   ory list projects
+   ory list projects --workspace <workspace-id>
 
    ## Get config
    ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
@@ -242,8 +248,11 @@ Go to <ConsoleLink route="project.verification" /> and enable **Require Verified
 1. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
+   ## List all available workspaces
+   ory list workspaces
+
    ## List all available projects
-   ory list projects
+   ory list projects --workspace <workspace-id>
 
    ## Get config
    ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml

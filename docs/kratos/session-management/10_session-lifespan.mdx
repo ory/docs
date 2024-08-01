@@ -32,8 +32,11 @@ For example, to set the session lifespan to 30 days, enter `720h`.
 1. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
+   ## List all available workspaces
+   ory list workspaces
+
    ## List all available projects
-   ory list projects
+   ory list projects --workspace <workspace-id>
 
    ## Get config
    ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
@@ -76,8 +79,11 @@ different cookie `max-age`, set the `session/cookie/persistent` value to `false`
 1. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
+   ## List all available workspaces
+   ory list workspaces
+
    ## List all available projects
-   ory list projects
+   ory list projects --workspace <workspace-id>
 
    ## Get config
    ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
@@ -148,8 +154,11 @@ For example, to set the privileged session duration to 15 minutes, enter `15m`.
 1. Download the Ory Identities config from your project and save it to a file.
 
    ```shell
+   ## List all available workspaces
+   ory list workspaces
+
    ## List all available projects
-   ory list projects
+   ory list projects --workspace <workspace-id>
 
    ## Get config
    ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
