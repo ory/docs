@@ -131,8 +131,11 @@ authorizer.
 - `subject` (string, optional) - See section below.
 - `flavor` (string, optional) - See section below.
 
-#### Resource, action (relation), subject
-> Read https://www.ory.sh/docs/keto/guides/migrating-legacy-policies#rewriting-it-to-relationships
+#### Resource, relation (action), subject
+
+> Actions were renamed to relations. Read the
+> [Ory Keto policy migration guide](https://www.ory.sh/docs/keto/guides/migrating-legacy-policies#rewriting-it-to-relationships)
+> for more details.
 
 This authorizer has four configuration options, `required_action`, `required_resource`, `subject`, and `flavor`:
 
