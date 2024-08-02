@@ -8,18 +8,19 @@ This guide will walk you through the process of managing your Ory Network config
 these steps, you'll be able to track changes, review, and approve them through pull requests, and automatically update the
 configuration upon merge.
 
-This guide uses the [Ory CLI GitHub Action](https://github.com/lomsa-dev/ory-cli-action) to update the configuration and manage
-changes through pull requests. You can adapt this to other git providers and CI/CD systems.
+This guide uses the GitHub Actions to update the configuration and manage changes through pull requests. You can adapt this to
+GitLab CI, TravisCI, CircleCI, and other CI/CD systems.
 
 ## Ory Network configuration
 
 ### Ory Identities configuration
 
 First, pull the current configuration from your Ory Network project. You can also automate this with a GitHub Action, but in this
-case, you just need it once. You can find the `project_id` in the Ory Network dashboard or by using `ory list projects`.
+case, you just need it once. You can find the `workspace-id` and `project-id` in the Ory Network dashboard or by using
+`ory list workspaces` and `ory list projects --workspace <workspace_id>`.
 
 ```bash
-ory get identity-config "$PROJECT_ID" --format json-pretty > identity-config-"$PROJECT_ID".json
+ory get identity-config --workspace "<workspace-id>" --project "<project-id>" --format json-pretty > identity-config.json
 ```
 
 Commit the configuration to git and push it to your repository.
@@ -31,6 +32,11 @@ Create a new file `.github/workflows/ory-cli.yml`. Add the following content to 
 ```yaml
 name: Update Ory Network Config
 
+env:
+  ORY_PROJECT_ID: "<project-id>"
+  ORY_WORKSPACE_ID: "<workspace-id>"
+  ORY_WORKSPACE_API_KEY: ${{ secrets.ORY_WORKSPACE_API_KEY }}
+
 on:
   push:
     branches:
@@ -38,21 +44,17 @@ on:
 jobs:
   run-ory-cli:
     runs-on: ubuntu-latest
+    container: oryd/ory:v1
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: ory-cli
-        uses: lomsa-dev/ory-cli-action@v1.0.8 # use the latest version
-        with:
-          username: ${{ secrets.ORY_USERNAME }}
-          password: ${{ secrets.ORY_PASSWORD }}
-          commands: |
-            update identity-config "$PROJECT_ID" --file identity-config-"$PROJECT_ID".json
+      - name: Push changes to Ory Network
+        run: ory update identity-config --file identity-config.json
 ```
 
-For the GitHub Action to authenticate with Ory Network, you need to add the ORY_USERNAME and ORY_PASSWORD secrets to your
-repository. You can configure these secrets in the repository's settings.  
-Optionally, you can add the `project_id` as a secret or hardcode it in the workflow file.
+For the GitHub Action to authenticate with Ory Network, you need to add the ORY_WORKSPACE_API_KEY secret to your repository. You
+can configure secrets in the
+[repository's settings](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 
 Now you can make changes to the configuration in git and create pull requests to review and approve the changes. When the pull
 request is merged, the configuration will be updated automatically. You can also use this to roll back changes via the git
@@ -65,14 +67,14 @@ to manage the Ory OAuth2 & OpenID Connect configuration in git. First, pull the 
 project:
 
 ```bash
-ory get oauth2-config "$PROJECT_ID" --format json-pretty > oauth2-config-"$PROJECT_ID".json
+ory get oauth2-config --workspace "<workspace-id>" --project "<project-id>" --format json-pretty > oauth2-config.json
 ```
 
 Switch out the command in the GitHub Action:
 
 ```diff
--  update identity-config "$PROJECT_ID" --file identity-config-"$PROJECT_ID".json
-+  update oauth2-config "$PROJECT_ID" --file oauth2-config-"$PROJECT_ID".json
+-  ory update identity-config --file identity-config.json
++  ory update oauth2-config --file oauth2-config.json
 ```
 
 ### Ory Permissions configuration and Ory Permission Language
@@ -81,25 +83,25 @@ You can use the same approach to manage the Ory Permissions configuration in git
 Ory Network project:
 
 ```bash
-ory get permission-config "$PROJECT_ID" --format json-pretty > permission-config-"$PROJECT_ID".json
+ory get permission-config --workspace "<workspace-id>" --project "<project-id>" --format json-pretty > permission-config.json
 ```
 
 Add the update command for Ory Permissions configuration to the GitHub Action:
 
 ```bash
-update permission-config "$PROJECT_ID" --file permission-config-"$PROJECT_ID".json
+ory update permission-config --file permission-config.json
 ```
 
 or for the Ory Permission Language configuration:
 
 ```bash
-update opl --project "$PROJECT_ID" --file opl-"$PROJECT_ID".ts
+ory update opl --file permissions.ts
 ```
 
 ## OpenID Connect Claims and Ory Actions payload
 
-Ory uses Jsonnet snippets for mapping OIDC provider claims to Ory Network identities and for configuring the payload of Ory
-Actions webhooks. You can save and version these snippets in git. You have several options for managing Jsonnet snippets in git.
+Ory uses JSONNet snippets for mapping OIDC provider claims to Ory Network identities and for configuring the payload of Ory
+Actions webhooks. You can save and version these snippets in git. You have several options for managing JSONNet snippets in git.
 Here's an example of how you can organize them:
 
 ```bash
@@ -108,7 +110,7 @@ touch oidc-mapping/google.jsonnet
 # add the mappings for OIDC providers you use
 mkdir actions-payload
 touch actions-payload/registration.jsonnet
-# add the Jsonnet payloads for Ory Actions you use
+# add the JSONNet payloads for Ory Actions you use
 ```
 
 When you make changes, convert the new OIDC mapping or Ory Actions payload to base64 and add it to the config file. You can use
@@ -148,7 +150,7 @@ This is how it looks with OIDC mappings:
 //...
 ```
 
-When you update the configuration, Ory Network will automatically decode the base64 string and save the Jsonnet snippet in the Ory
+When you update the configuration, Ory Network will automatically decode the base64 string and save the JSONNet snippet in the Ory
 Network backend.
 
 ## Identity Schema
@@ -161,9 +163,9 @@ For example:
 
 ```json
 //...
-    # This is the default schema that's used for new identities
+    // This is the default schema that's used for new identities
     "default_schema_id": "preset://email",
-    # These are custom schemas that are available on your Ory Network project
+    // These are custom schemas that are available on your Ory Network project
     "schemas": [
       {
         "id": "7d1cf71e-57ae-40be-bddf-1f4c323e2349",

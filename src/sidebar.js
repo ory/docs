@@ -73,6 +73,7 @@ module.exports = {
                     "kratos/social-signin/apple",
                     "kratos/social-signin/gitlab",
                     "kratos/social-signin/auth0",
+                    "kratos/social-signin/salesforce",
                     "kratos/social-signin/slack",
                     "kratos/social-signin/spotify",
                     "kratos/social-signin/discord",
@@ -425,7 +426,14 @@ module.exports = {
     {
       type: "category",
       label: "Ory Enterprise License",
-      items: ["self-hosted/oel/quickstart"],
+      items: [
+        "self-hosted/oel/quickstart",
+        {
+          type: "category",
+          label: "Ory Hydra (OAuth2 Server)",
+          items: ["self-hosted/oel/oauth2/token-prefix"],
+        },
+      ],
     },
     "self-hosted/deployment",
     "ecosystem/configuring",

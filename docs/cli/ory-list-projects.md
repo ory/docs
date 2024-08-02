@@ -20,7 +20,8 @@ ory list projects [flags]
 ### Options
 
 ```
-  -h, --help   help for projects
+  -h, --help               help for projects
+      --workspace string   The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

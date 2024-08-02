@@ -38,6 +38,7 @@ ory list identities --page-size 100 --consistency eventual
       --page-size int        maximum number of items to return (default 100)
       --page-token string    page token acquired from a previous response
       --project string       The project to use, either project ID or a (partial) slug.
+      --workspace string     The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

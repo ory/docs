@@ -152,11 +152,14 @@ Follow these steps to configure Ory Network to call the sample application for l
 1. Download the OAuth2 Federation Service configuration of your project and save it to a `yaml` file:
 
    ```shell
+   ## List all available workspaces
+   ory list workspaces
+
    ## List all available projects
-   ory list projects
+   ory list projects --workspace <workspace-id>
 
    ## Get config
-   ory get oauth2-config <project-id> --format yaml > config.yaml
+   ory get oauth2-config --project <project-id> --workspace <workspace-id> --format yaml > config.yaml
    ```
 
 2. Adjust the configuration in `oauth2/urls/consent` and `oauth2/urls/login`:
@@ -176,7 +179,7 @@ Follow these steps to configure Ory Network to call the sample application for l
 3. Update the project configuration using the file you worked with:
 
    ```shell
-   ory update oauth2-config <project-id> --file config.yaml
+   ory update oauth2-config --project <project-id> --workspace <workspace-id> --file config.yaml
    ```
 
 ## Start a local web server acting as OAuth2 client
@@ -191,7 +194,8 @@ Run this command to create the client. Using flags, provide the client ID and se
 ory perform authorization-code \
   --client-id ORY_CLIENT_ID \
   --client-secret ORY_CLIENT_SECRET \
-  --project ORY_PROJECT_ID \
+  --project <project-id> \
+  --workspace <workspace-id> \
   --port 5555 \
   --scope openid,offline
 ```

@@ -7,17 +7,11 @@ All Ory components use the same configuration format and APIs whether they are s
 
 This allows you to use the Ory CLI to configure your components, no matter how you use Ory!
 
-:::note
-
-This feature is currently in development. More configuration options are added with new CLI releases
-
-:::
-
 ## Configure projects
 
 There are two ways to adjust the configuration of projects. You can:
 
-- overwite / import configuration from a file using the `ory update` command
+- overwrite / import configuration from a file using the `ory update` command
 - patch the existing configuration using the `ory patch` command
 
 ### Overwrite / import configuration
@@ -50,7 +44,7 @@ configuration file that looks like this:
 
 ```json title="config.json"
 {
-  "name": "My Project Name"
+  "name": "My Project Name",
   "services": {
     "identity": {
       "config": {
@@ -68,7 +62,7 @@ configuration file that looks like this:
 Next, use the Ory CLI to apply the config:
 
 ```shell
-ory update project <your-project-id> --file config.json
+ory update project --project <project-id> --workspace <workspace-id> --file config.json
 ```
 
 ### Patch configuration
@@ -81,7 +75,7 @@ To perform an update similar to the one described in the previous paragraph and 
 and verification emails, run this command:
 
 ```
-ory patch project <your-project-id> \
+ory patch project --project <project-id> --workspace <workspace-id> \
   --replace '/services/identity/config/courier/smtp/from_name="My Custom E-Mail Name"'
 ```
 

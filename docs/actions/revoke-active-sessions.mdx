@@ -23,6 +23,6 @@ to access the application from one device at a time and improve the overall secu
 Run this command:
 
 ```shell
-ory patch identity-config {project-id} \
+ory patch identity-config --project <project-id> --workspace <workspace-id> \
   --add '/selfservice/flows/login/after/hooks/0/hook="revoke_active_sessions"'
 ```

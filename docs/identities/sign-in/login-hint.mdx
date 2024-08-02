@@ -24,9 +24,10 @@ the users identifier when they choose a method for which an identity already exi
 To enable login hints edit your Ory Identities configuration directly or use the following CLI command:
 
 ```bash
-ory list projects # to get the project id
+ory list workspaces # to get the workspace id
+ory list projects --workspace <workspace-id> # to get the project id
 
-ory patch project ${project_id} \
+ory patch project --project <project-id> --workspace <workspace-id> \
   --replace '/services/identity/config/selfservice/flows/registration/login_hints=true'
 ```
 

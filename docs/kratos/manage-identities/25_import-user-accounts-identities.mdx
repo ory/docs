@@ -289,17 +289,24 @@ Ory Identities doesn't hash passwords by salted SHA but can compare stored salte
 
 #### Examples
 
+The format consists of 20 bytes of hash followed by the salt. The result is then encoded with base64 following RFC 4648.
+
 ```
 {SSHA}JFZFs0oHzxbMwkSJmYVeI8MnTDy/276a
 ```
+
 
 ```
 {SSHA256}czO44OTV17PcF1cRxWrLZLy9xHd7CWyVYplr1rOhuMlx/7IK
 ```
 
+For SSHA256 the format consists of 32 bytes of hash followed by the salt. The result is then encoded with base64 following RFC 4648.
+
 ```
 {SSHA512}xPUl/px+1cG55rUH4rzcwxdOIPSB2TingLpiJJumN2xyDWN4Ix1WQG3ihnvHaWUE8MYNkvMi5rf0C9NYixHsE6Yh59M=
 ```
+
+For SSHA512 the format consists of 64 bytes of hash followed by the salt. The result is then encoded with base64 following RFC 4648.
 
 </TabItem>
 <TabItem value="pbkdf2" label="PBKDF2">
@@ -452,6 +459,87 @@ $hmac-sha512$OTFmODY0ZTI1NmU0ZjVhYjhiMDViZGFmNGVmNGZmMGVlNTY4ODYwNWJhYTk4MTk2OTg
 </TabItem>
 </Tabs>
 ````
+
+### Password migration using a web hook
+
+If you want to import users, but do not have access to the hashed password, or the hashed password is in a format that Ory
+Identities does not support, you can use a web hook to migrate the password.
+
+The web hook will be called when the user logs in, and will receive the user's identifier and password. If the web hook returns
+successfully, the user will be logged in and the hashed password will be stored.
+
+The following steps are necessary to set up password migration using a web hook:
+
+1.  Import an identity with an empty password hash and `use_password_migration_hook` set to `true`
+
+    [Bulk-import](#bulk-import-identities-from-other-providers) all your users with an empty password hash and
+    `use_password_migration_hook` set:
+
+    ```json {9-10}
+    {
+      "schema_id": "preset://email",
+      "traits": {
+        "email": "pw-migration@example.org"
+      },
+      "credentials": {
+        "password": {
+          "config": {
+            "hashed_password": "",
+            "use_password_migration_hook": true
+          }
+        }
+      }
+    }
+    ```
+
+2.  Configure a password migration web hook
+
+    Add the web hook URL to the configuration. See the
+    [web hook configuration](https://www.ory.sh/docs/guides/integrate-with-ory-cloud-through-webhooks#request-authentication) for
+    authentication options.
+
+    ```yaml
+    selfservice:
+      methods:
+        password:
+          config:
+            migrate_hook:
+              enabled: true
+              config:
+                url: https://example.org/migrate-password
+                auth:
+                  type: api_key
+                  config:
+                    name: Authorization
+                    value: { API Key value }
+                    in: header # alternatively "cookie"
+    ```
+
+3.  Implement the password migration web hook
+
+    If a user logs in and the identifier points to an identity that has `use_password_migration_hook` set to `true`, Ory
+    Identities will call the configured web hook URL with the following payload:
+
+    ```json
+    {
+      "identifier": "pw-migration@example.org",
+      "password": "the-password"
+    }
+    ```
+
+    The web hook can then check the identifier and password against the legacy system. If the password matches, the web hook must
+    respond with a `200 OK` status code and the following payload:
+
+    ```json
+    {
+      "status": "password_match"
+    }
+    ```
+
+    After a successful response, the identity will be updated with the hashed password and the user will be logged in. The
+    password migration hook will not be called again for this identity.
+
+    Any other response will be treated as an invalid password, and the user will be notified that the password is incorrect.
 
 ### Social sign-in connections
 

@@ -73,12 +73,12 @@
 }
 ```
 
-###### Use security key (1010008)
+###### Sign in with hardware key (1010008)
 
 ```json
 {
   "id": 1010008,
-  "text": "Use security key",
+  "text": "Sign in with hardware key",
   "type": "info"
 }
 ```
@@ -103,12 +103,12 @@
 }
 ```
 
-###### Continue with security key (1010011)
+###### Sign in with hardware key (1010011)
 
 ```json
 {
   "id": 1010011,
-  "text": "Continue with security key",
+  "text": "Sign in with hardware key",
   "type": "info"
 }
 ```
@@ -143,25 +143,25 @@
 }
 ```
 
-###### Sign in with code (1010015)
+###### Send sign in code (1010015)
 
 ```json
 {
   "id": 1010015,
-  "text": "Sign in with code",
+  "text": "Send sign in code",
   "type": "info"
 }
 ```
 
-###### Signing in will link your account to "{duplicteIdentifier}" at provider "{provider}". If you do not wish to link that account, please start a new login flow. (1010016)
+###### Signing in will link your account to "{duplicateIdentifier}" at provider "{provider}". If you do not wish to link that account, please start a new login flow. (1010016)
 
 ```json
 {
   "id": 1010016,
-  "text": "Signing in will link your account to \"{duplicteIdentifier}\" at provider \"{provider}\". If you do not wish to link that account, please start a new login flow.",
+  "text": "Signing in will link your account to \"{duplicateIdentifier}\" at provider \"{provider}\". If you do not wish to link that account, please start a new login flow.",
   "type": "info",
   "context": {
-    "duplicateIdentifier": "{duplicteIdentifier}",
+    "duplicateIdentifier": "{duplicateIdentifier}",
     "newLoginUrl": "{newLoginUrl}",
     "provider": "{provider}"
   }
@@ -220,6 +220,16 @@
 {
   "id": 1010021,
   "text": "Sign in with passkey",
+  "type": "info"
+}
+```
+
+###### Sign in with password (1010022)
+
+```json
+{
+  "id": 1010022,
+  "text": "Sign in with password",
   "type": "info"
 }
 ```
@@ -1203,6 +1213,16 @@
 {
   "id": 4000036,
   "text": "The provided traits do not match the traits previously associated with this flow.",
+  "type": "error"
+}
+```
+
+###### This account does not exist or has no login method configured. (4000037)
+
+```json
+{
+  "id": 4000037,
+  "text": "This account does not exist or has no login method configured.",
   "type": "error"
 }
 ```

@@ -74,7 +74,7 @@ To update an existing OAuth2 client, use the following methods:
 <TabItem value="cli" label="Ory CLI">
 
 ```
-ory update oauth2-client {client.id} \
+ory update oauth2-client --project <project-id> --workspace <workspace-id> {client.id} \
   --grant-type authorization_code --grant-type refresh_token  --grant-type client_credentials \
   --response-type code \
   --scope openid --scope offline_access \
