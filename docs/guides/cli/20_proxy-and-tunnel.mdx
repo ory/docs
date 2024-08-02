@@ -8,15 +8,6 @@ The CLI contains two tools that help with local development:
 - Ory Proxy
 - Ory Tunnel
 
-Before you start using these tools, export the SDK of your project. Run this command:
-
-```shell
-export ORY_SDK_URL=https://{your-project-slug-here}.projects.oryapis.com
-
-# For a quick way to test, use the playground project:
-export ORY_SDK_URL=https://playground.projects.oryapis.com
-```
-
 :::info
 
 The main use case for Ory Tunnel and Ory Proxy is local development, and should not be used in production. You can use Ory Tunnel
@@ -32,10 +23,10 @@ Ory Tunnel is exposing the Ory APIs under the same top-level domain as your appl
 To run Ory Tunnel, use the `ory tunnel` command and point to the URL with your application, for example:
 
 ```shell
-ory tunnel --project $PROJECT_SLUG http://localhost:3000
+ory tunnel --project <project-id> --workspace <workspace-id> http://localhost:3000
 ```
 
-To get a full list of arguments and options available for use with Ory Tunnel, run: `ory tunnel --help`
+To get a full list of arguments and options available for use with Ory Tunnel, run: `ory help tunnel`
 
 For more details, refer to the [Ory Proxy documentation](#ory-proxy) and the
 [differences between Ory Tunnel and Ory Proxy](#differences-between-ory-tunnel-and-ory-proxy).
@@ -55,13 +46,13 @@ Ory Proxy converts sessions into JSON Web Tokens (JWTs) and ensures that cookies
 
 :::info
 
-Using Ory Proxy is an alternative to [custom domains (CNAME)](../custom-domains), and a useful tool when developing locally. In
-production, it's recommended to use a CNAME.
+Using Ory Proxy is an alternative to [custom domains (CNAME)](../custom-domains), and a useful tool when developing locally. Read
+more about [adding a Custom Domain to your Ory Network project](../custom-domains.mdx) for production setups.
 
 :::
 
 When an application runs on `http://localhost:3000`, Ory must be available on the same domain, for example at
-`http://localhost:4000`. Thanks to such setup, the system can manage Anti-CSRF Cookies and Ory Session Cookies.
+`http://localhost:4000`. With this setup, the system can manage Anti-CSRF Cookies and Ory Session Cookies.
 
 ```mdx-code-block
 import Mermaid from "@site/src/theme/Mermaid"
@@ -124,7 +115,7 @@ When using Ory Proxy for local development, point to the URL where your applicat
 For example, if your application is available at `http://localhost:3000`, run this command:
 
 ```shell
-ory proxy http://localhost:3000
+ory proxy --project <project-id> --workspace <workspace-id> http://localhost:3000
 ```
 
 By default, Ory Proxy creates an entry point at `http://localhost:4000`. To get access to Ory endpoints, you must access the app
@@ -133,7 +124,7 @@ through the proxy using This URL instead of the actual address on which your app
 If you want to adjust the entry point URL, pass the desired address along with the application URL, for example:
 
 ```shell
-ory proxy http://localhost:3000 http://localhost:3001
+ory proxy --project <project-id> --workspace <workspace-id> http://localhost:3000 http://localhost:3001
 ```
 
 ### Use Ory Proxy with JSON Web Tokens
@@ -245,7 +236,7 @@ You can use Ory Proxy in a production setup when self-hosting Ory components. Se
 to expose the app through the Ory Proxy:
 
 ```shell
-ory proxy http://localhost:3000 https://my-domain.com
+ory proxy --project <project-id> --workspace <workspace-id> http://localhost:3000 https://my-domain.com
 ```
 
 ### Use Ory Proxy with virtual and dedicated servers
@@ -255,7 +246,7 @@ To use Ory Proxy with an application deployed on a VM or a Dedicated Server, run
 For example, if you are running a Node.js server on port `3000` and you expose web traffic on port `8080`:
 
 ```shell
-ory proxy --port 8080 http://127.0.0.1:3000 https://your-domain.com &
+ory proxy --project <project-id> --workspace <workspace-id> --port 8080 http://127.0.0.1:3000 https://your-domain.com &
 
 # This should be your server command
 node your-entrypoint.js
@@ -294,7 +285,7 @@ set -e
 
 # This assumes that your server is running on port 3000. If it's running on a different port,
 # remember to adjust the command to point to the port where your server is running at!
-ory proxy --port 8080 http://127.0.0.1:3000 https://your-domain.com &
+ory proxy --project <project-id> --workspace <workspace-id> --port 8080 http://127.0.0.1:3000 https://your-domain.com &
 
 # This should be your server command
 node your-entrypoint.js

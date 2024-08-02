@@ -101,7 +101,7 @@ import JsonnetInfo from './_common/jsonnetinfo.mdx'
 - Use this command to trigger this action after all successful registrations:
 
   ```shell
-  ory patch identity-config {project-id} \
+  ory patch identity-config --project <project-id> --workspace <workspace-id> \
     --add "/selfservice/flows/registration/after/hooks/0=$(cat webhook-action.json)" \
     --format yaml
   ```
@@ -109,7 +109,7 @@ import JsonnetInfo from './_common/jsonnetinfo.mdx'
 - Alternatively, use this command to trigger the action only for registrations with social sign-in profiles:
 
   ```shell
-  ory patch identity-config {project-id} \
+  ory patch identity-config --project <project-id> --workspace <workspace-id> \
     --add "/selfservice/flows/registration/after/oidc/hooks/0=$(cat webhook-action.json)" \
     --format yaml
   ```

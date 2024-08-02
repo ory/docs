@@ -122,16 +122,17 @@ Follow these steps:
    ory auth
    ```
 
-2. List your projects:
+2. List your workspaces and projects:
 
    ```shell
-   ory list projects
+   ory list workspaces
+   ory list projects --workspace <workspace-id>
    ```
 
 3. Use the project ID of the project in which you want to create permission rules:
 
    ```shell
-   ory use project {ID_OF_YOUR_PROJECT}
+   ory use project <project-id>
    ```
 
 ### Creating relationships

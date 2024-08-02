@@ -15,14 +15,14 @@ When your OAuth2 or OpenID Connect client complains that the issuer URL is incor
 You can view the issuer URL of your Ory Network project using the [Ory CLI](../guides/cli/01_installation.mdx):
 
 ```shell
-ory get oauth2-config {project-id} --format json | jq '.urls.self.issuer'
+ory get oauth2-config --project <project-id> --workspace <workspace-id> --format json | jq '.urls.self.issuer'
 ```
 
 Use this value to understand if the server is incorrectly configured or if the client is using the wrong issuer URL. To change the
 issuer URL, you can use the [Ory CLI](../guides/cli/01_installation.mdx):
 
 ```shell
-ory patch oauth2-config {project-id} \
+ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
   --replace '/urls/self/issuer="https://auth.myexample.org"'
 ```
 

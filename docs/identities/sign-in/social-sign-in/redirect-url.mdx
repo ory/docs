@@ -38,8 +38,11 @@ Redirect URI**.
 To change the redirect URL to your custom domain, you need to update the `base_redirect_uri`:
 
 ```shell
+# List all available workspaces
+ory list workspaces
+
 # List all available projects
-ory list projects
+ory list projects --workspace <workspace-id>
 
 # Add OIDC base redirect URI
 ory patch identity-config <project-id> \
