@@ -11,5 +11,5 @@ export default {
   AjaxWarning,
   ConsoleLink,
   Tabs,
-  TabItem
+  TabItem,
 }
