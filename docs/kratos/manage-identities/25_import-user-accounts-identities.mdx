@@ -289,17 +289,24 @@ Ory Identities doesn't hash passwords by salted SHA but can compare stored salte
 
 #### Examples
 
+The format consists of 20 bytes of hash followed by the salt. The result is then encoded with base64 following RFC 4648.
+
 ```
 {SSHA}JFZFs0oHzxbMwkSJmYVeI8MnTDy/276a
 ```
+
 
 ```
 {SSHA256}czO44OTV17PcF1cRxWrLZLy9xHd7CWyVYplr1rOhuMlx/7IK
 ```
 
+For SSHA256 the format consists of 32 bytes of hash followed by the salt. The result is then encoded with base64 following RFC 4648.
+
 ```
 {SSHA512}xPUl/px+1cG55rUH4rzcwxdOIPSB2TingLpiJJumN2xyDWN4Ix1WQG3ihnvHaWUE8MYNkvMi5rf0C9NYixHsE6Yh59M=
 ```
+
+For SSHA512 the format consists of 64 bytes of hash followed by the salt. The result is then encoded with base64 following RFC 4648.
 
 </TabItem>
 <TabItem value="pbkdf2" label="PBKDF2">
