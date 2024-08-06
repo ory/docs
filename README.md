@@ -2,7 +2,7 @@
 
 <h4 align="center">
     <a href="https://www.ory.sh/chat">Chat</a> |
-    <a href="http://eepurl.com/di390P">Newsletter</a><br/><br/>
+    <a href="https://www.ory.sh/l/sign-up-newsletter">Newsletter</a><br/><br/>
     <a href="https://www.ory.sh/docs/">Documentation</a> |
     <a href="https://opencollective.com/ory">Support this project!</a><br/><br/>
     <a href="https://www.ory.sh/jobs/">Work in Open Source, Ory is hiring!</a>
