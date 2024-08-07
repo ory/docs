@@ -108,14 +108,14 @@ const config: Config = {
         {
           type: "docSidebar",
           position: "left",
-          sidebarId: "sdk",
-          label: "SDK",
+          sidebarId: "quickstarts-and-tutorials",
+          label: "Guides",
         },
         {
           type: "docSidebar",
           position: "left",
-          sidebarId: "api",
-          label: "API",
+          sidebarId: "reference",
+          label: "Reference",
         },
         {
           type: "docSidebar",
@@ -208,7 +208,7 @@ const config: Config = {
       "@docusaurus/plugin-content-docs",
       {
         path: "docs",
-        sidebarPath: require.resolve("./src/sidebar.js"),
+        sidebarPath: require.resolve("./src/sidebar.ts"),
         editUrl: `https://github.com/ory/docs/edit/master`,
         // editCurrentVersion: false,
         routeBasePath: "/",

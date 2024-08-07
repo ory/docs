@@ -1,7 +1,7 @@
 ---
 id: revoke-sessions-hook
 title: Revoke other active user sessions after changing the password
-sidebar_label: Revoke sessions with hooks
+sidebar_label: Revoke sessions
 ---
 
 In certain use cases, it is important to increase security by terminating active user sessions when they change their password. To
