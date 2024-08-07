@@ -292,6 +292,24 @@ courier:
 ...
 ```
 
+Here is one example of a Jsonnet body:
+
+```
+function(ctx) {
+"personalizations": [
+    {
+      "to": [
+        {
+          "email": if "TemplateData" in ctx && "To" in ctx.TemplateData then ctx.TemplateData.To else null)
+        }
+      ],
+     "verificationCode": if "TemplateData" in ctx && "VerificationCode" in ctx.TemplateData then ctx.TemplateData.VerificationCode else null
+    }
+  ],
+  // Other values and personalizations .......
+}
+```
+
 ## Troubleshooting
 
 In general, if you have problems setting up email delivery, you can view outgoing messages on the **Monitoring** → **Email
