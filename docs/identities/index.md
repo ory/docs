@@ -80,7 +80,7 @@ Customize and extend user data models to fit application-specific needs. Read mo
 ### Identity management
 
 Manage user identities with CRUD (Create, Read, Update, Delete) operations. Read more about it
-[here](../category/identity-management/).
+[here](../kratos/manage-identities/01_overview.mdx).
 
 ### Session management
 
