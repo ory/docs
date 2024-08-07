@@ -1148,6 +1148,11 @@
       "source": "/docs/guides/latest/9-telemetry",
       "destination": "/docs/kratos/guides/tracing",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/ory-kratos-intro",
+      "destination": "/docs/identities/",
+      "permanent": false
     }
   ]
 }
