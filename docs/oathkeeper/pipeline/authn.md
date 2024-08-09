@@ -478,7 +478,7 @@ This authenticator will use the username from the HTTP Basic Authorization heade
     false.
   - `ttl` (string) - Can override the default behavior of using the token exp time, and specify a set time to live for the token
     in the cache. If the token exp time is lower than the set value the token exp time will be used instead.
-  - `max_tokens` (int) - Max number of tokens to cache.
+  - `max_tokens` (int) - Max number of tokens to cache. Defaults to 1000.
 - `required_scope` ([]string, optional) - Sets what scope is required by the URL and when making performing OAuth 2.0 Client
   Credentials request, the scope will be included in the request:
 
@@ -606,6 +606,7 @@ Token Introspection to check if the token is valid and if the token was granted 
     false.
   - `ttl` (string) - Can override the default behavior of using the token exp time, and specify a set time to live for the token
     in the cache.
+  - `max_cost` (int) - Max cost to cache. Defaults to 100000000.
 
 Please note that caching won't be used if the scope strategy is `none` and `required_scope` isn't empty. In that case, the
 configured introspection URL will always be called and is expected to check if the scope is valid or not.
