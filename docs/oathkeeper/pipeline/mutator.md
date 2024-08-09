@@ -147,6 +147,10 @@ The ID Token Claims are as follows:
   (minute), h (hour).
 - `claims` (string, optional) - Allows you to customize the ID Token claims and support Go Templates. For more information, check
   section [Claims](#id_token-claims)
+- `cache` (object, optional) - Enables caching of computed tokens
+  - `enabled` (bool, optional) - Enable the cache, will use exp time of ID token to determine when to evict from cache. Defaults
+    to true.
+  - `max_cost` (int) - Max cost to cache. Defaults to 33554432.
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -161,6 +165,8 @@ mutators:
       # jwks_url: file://../from/this/relative/location.json
       ttl: 60s
       claims: '{"aud": ["https://my-backend-service/some/endpoint"],"def": "{{ print .Extra.some.arbitrary.data }}"}'
+      cache:
+        max_cost: 10000
 ```
 
 ```yaml
