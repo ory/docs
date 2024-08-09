@@ -6,7 +6,7 @@ module.exports = {
     "./src/**/*.jsx",
     "./src/**/*.ts",
     "./src/**/*.tsx",
-    "./docs/**/*.mdx"
+    "./docs/**/*.mdx",
   ],
   theme: {
     extend: {},
@@ -15,8 +15,5 @@ module.exports = {
   corePlugins: {
     preflight: false,
   },
-  blocklist: [
-    'container',
-  ],
+  blocklist: ["container"],
 }
-
