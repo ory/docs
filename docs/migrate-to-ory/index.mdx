@@ -15,6 +15,13 @@ need further assistance, please contact Ory Support for help.
 
 :::
 
+define identity schema integrate into FE services (incl. UI) integrate into BE services export identities with credentials
+transform identities (CSV -> JSON, rewrite keys, ...) import identities go live
+
+## Initial considerations
+
+asd
+
 ## Get user data
 
 Export your user data from your from your existing authentication solution or database and find out the hashing algorithm used by
@@ -29,6 +36,12 @@ You can find more details about this process [here](../kratos/manage-identities/
 You can create a new Ory Network project using the Ory CLI. The command ory create project allows you to specify the environment
 of the project, the output format, the name of the project, and the workspace to use. More details about creating a project can be
 found [here](../cli/ory-create-project).
+
+- send them to the project creation screen in the console?
+
+- they should first migrate your dev or staging project before doing it in production.
+
+We recommend you try the migration using dev / stage project
 
 ## Map user traits
 
@@ -45,7 +58,7 @@ If you're migrating from an existing authentication system, you can start with t
 running quickly. Alternatively, if you prefer a custom user interface that matches your current design, Ory allows you to create
 and style a custom UI that integrates seamlessly with your existing setup. Ory Elements is a component library designed to make
 building login, registration, and account pages for Ory straightforward. It is modular and customizable, which means that you can
-use only the views you need and style them to match your implementation's design. The UI created with Ory Elements changes
+use only the components you need and style them to match your implementation's design. The UI created with Ory Elements changes
 dynamically to adapt to your Ory Network configuration. More details about customizing the user interface can be found
 [here](../kratos/bring-your-own-ui/custom-ui-ory-elements).
 
