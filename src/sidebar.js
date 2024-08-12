@@ -332,6 +332,7 @@ module.exports = {
         "guides/gitops",
         "guides/rate-limits",
         "guides/allowlist",
+        "guides/delete-project",
       ],
     },
     {
