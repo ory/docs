@@ -108,6 +108,12 @@ const config: Config = {
           type: "docSidebar",
           position: "left",
           sidebarId: "quickstarts-and-tutorials",
+          label: "Quickstart",
+        },
+        {
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "guides",
           label: "Guides",
         },
         {
