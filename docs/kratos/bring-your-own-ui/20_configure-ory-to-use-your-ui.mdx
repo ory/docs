@@ -65,13 +65,13 @@ influenced the base paths used for serving UI:
 - carseats.com uses `carseats.com`
 - wipers.com uses `wipers.com/self-service/`
 
-ACME creates this setup using the **User Interface** view in the Ory Console:
+ACME creates this setup at <ConsoleLink route="project.accountExperience.theming" />.
 
-| Website      | Custom Domain    | Cookie Domain | [https://console.staging.ory.dev/projects/current/ui](Custom UI Base URL) |
-| ------------ | ---------------- | ------------- | ------------------------------------------------------------------------- |
-| mufflers.com | ory.mufflers.com | mufflers.com  | mufflers.com/auth                                                         |
-| carseats.com | ory.carseats.com | carseats.com  | carseats.com                                                              |
-| wipers.com   | ory.wipers.com   | wipers.com    | wipers.com/self-service/                                                  |
+| Website      | Custom Domain    | Cookie Domain | Custom UI Base URL       |
+| ------------ | ---------------- | ------------- | ------------------------ |
+| mufflers.com | ory.mufflers.com | mufflers.com  | mufflers.com/auth        |
+| carseats.com | ory.carseats.com | carseats.com  | carseats.com             |
+| wipers.com   | ory.wipers.com   | wipers.com    | wipers.com/self-service/ |
 
 This way, ACME users who create an account in one of these stores can use it to shop in the other stores as well. The UI ACME
 serves changes depending on the store the user visits which allows for consistency with the established visual identity of each of
