@@ -70,7 +70,7 @@ const guidesSidebars = {
     "getting-started/local-development",
     {
       type: "category",
-      label: "Quickstart",
+      label: "Authentication",
       collapsed: false,
       collapsible: false,
       link: {
@@ -91,20 +91,52 @@ const guidesSidebars = {
     },
     {
       type: "category",
-      label: "SDK Quickstarts",
+      label: "OAuth2 and OpenID Connect",
       collapsed: false,
       collapsible: false,
-      items: ["kratos/sdk/go"],
+      link: {
+        type: "doc",
+        id: "getting-started/ory-network-oauth2",
+      },
+      items: [
+        "getting-started/ory-network-oauth2",
+        "getting-started/oauth2-openid/expressjs",
+      ],
     },
     {
       type: "category",
-      label: "Tutorials",
+      label: "Permissions",
       collapsed: false,
       collapsible: false,
       items: [
+        "guides/permissions/overview",
         "keto/examples/olymp-file-sharing",
         "keto/guides/rbac",
         "guides/gitops",
+      ],
+    },
+    {
+      type: "category",
+      label: "SDK Quickstarts",
+      collapsed: false,
+      collapsible: false,
+      items: [
+        "kratos/sdk/go",
+        "hydra/sdk/js",
+        "hydra/sdk/go",
+        "keto/sdk/go",
+        "keto/sdk/python",
+      ],
+    },
+    {
+      type: "category",
+      label: "Ory Actions",
+      collapsed: false,
+      collapsible: false,
+      items: [
+        "actions/integrations/hubspot",
+        "actions/integrations/mailchimp",
+        "actions/integrations/segment",
       ],
     },
   ],
@@ -126,6 +158,9 @@ const guidesSidebars = {
         },
         "oauth2-oidc/identity-provider-integration-settings",
         "guides/upgrade/sdk-v1",
+        "hydra/debug",
+        "hydra/debug/logout",
+        "hydra/debug/token-endpoint-auth-method",
       ],
     },
   ],
@@ -187,7 +222,15 @@ const identitiesSidebar = {
       items: [
         {
           type: "category",
-          label: "Social Sign-in (OIDC)",
+          label: "Password",
+          items: [
+            "kratos/concepts/credentials/username-email-password",
+            "concepts/password-policy",
+          ],
+        },
+        {
+          type: "category",
+          label: "OpenID Connect / Social Sign-in",
           items: [
             "kratos/social-signin/overview",
             {
@@ -219,17 +262,10 @@ const identitiesSidebar = {
             },
             "kratos/organizations/organizations",
             "kratos/social-signin/data-mapping",
+            "kratos/social-signin/account-linking",
             "kratos/social-signin/get-tokens",
             "identities/sign-in/social-sign-in/redirect-url",
             "kratos/social-signin/native-apps",
-          ],
-        },
-        {
-          type: "category",
-          label: "Password",
-          items: [
-            "kratos/concepts/credentials/username-email-password",
-            "concepts/password-policy",
           ],
         },
         {
@@ -344,6 +380,7 @@ const identitiesSidebar = {
       },
       items: [
         "account-experience/index",
+        "kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
         "getting-started/custom-ui",
         "kratos/concepts/ui-user-interface",
         "kratos/bring-your-own-ui/custom-ui-basic-integration",
@@ -433,6 +470,7 @@ const oauth2Sidebar = {
             "hydra/guides/audiences",
             "hydra/guides/jwt",
             "hydra/guides/client-token-expiration",
+            "hydra/guides/claims-at-refresh",
             "oauth2-oidc/claims-scope",
           ],
         },
@@ -818,12 +856,12 @@ module.exports = {
       items: [
         "guides/custom-domains",
         "actions/live-events",
-
         {
           type: "doc",
           id: "guides/cli/installation",
           label: "Ory CLI",
         },
+        "console/usage-billing",
       ],
     } satisfies SidebarItemCategoryConfig,
     {
@@ -838,6 +876,8 @@ module.exports = {
       items: [
         "kratos/concepts/security",
         "ecosystem/security",
+        "hydra/security-architecture",
+        "security-compliance/personal-data-location",
         "security-compliance/gdpr",
         "security-compliance/token-formats",
       ],
