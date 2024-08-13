@@ -63,7 +63,7 @@ Create a new Ory Network project through the API. You get the full configuration
 the createProject API. Here you can optionally specify the region and workspace the project should be created in.
 
 ```bash
-curl --location -v --request POST 'https://api.console.ory.sh/projects' \
+curl --location --request POST 'https://api.console.ory.sh/projects' \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer ${WORKSPACE_API_KEY}" \
   --data '{
@@ -94,7 +94,7 @@ You can delete an Ory Network project by following these steps:
 ```bash
 export ORY_PROJECT_ID=
 
-curl --location -v --request DELETE "https://api.console.ory.sh/projects/${ORY_PROJECT_ID}" \
+curl --location --request DELETE "https://api.console.ory.sh/projects/${ORY_PROJECT_ID}" \
   --header "Accept: application/json" \
   --header "Authorization: Bearer ${WORKSPACE_API_KEY}"
 ```
