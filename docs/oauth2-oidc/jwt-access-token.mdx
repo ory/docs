@@ -53,7 +53,7 @@ To configure Ory OAuth2 to issue JWT access tokens for all clients, you must upd
 tokens:
 
 ```shell
-ory patch oauth2-config $PROJECT_ID \
+ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
   --replace "/strategies/access_token=\"jwt\""
 ```
 
@@ -167,7 +167,7 @@ Required JWT claims can't be overwritten by custom claims.
 :::
 
 ```shell
-ory patch oauth2-config $PROJECT_ID \
+ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
   --replace "/oauth2/allowed_top_level_claims=[\"some_custom_claim\"]"
 ```
 
@@ -193,7 +193,7 @@ example above).
 Set `oauth2.mirror_top_level_claims` to `false` to disable mirroring the claims in the nested `ext` claim:
 
 ```shell
-ory patch oauth2-config $PROJECT_ID \
+ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
   --replace "/oauth2/mirror_top_level_claims=false"
 ```
 
