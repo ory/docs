@@ -72,13 +72,27 @@ import TabItem from '@theme/TabItem';
 `}
     </CodeBlock>
   </TabItem>
-  <TabItem value="full" label="Full Config" default>
+  <TabItem value="full-network" label="Full Config (Ory Network)" default>
     <CodeBlock language="yaml" title="config.yml">{`selfservice:
   methods:
     passkey:
       enabled: true
       config:
         display_name: "My Display Name"`}</CodeBlock>
+  </TabItem>
+  <TabItem value="full-self-hosted" label="Full Config (self-hosted)" default>
+    <CodeBlock language="yaml" title="config.yml">{`selfservice:
+  methods:
+    passkey:
+      enabled: true
+      config:
+        rp:
+          display_name: Your Application name
+          # Set 'id' to the top-level domain.
+          id: localhost
+          # Set 'origin' to the exact URL of the page that prompts the user to use WebAuthn. You must include the scheme, host, and port.
+          origins:
+            - http://localhost:4455`}</CodeBlock>
   </TabItem>
 </Tabs>
 ```
