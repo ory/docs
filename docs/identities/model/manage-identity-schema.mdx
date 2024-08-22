@@ -83,40 +83,41 @@ the same steps by using the API or Ory Kratos CLI.
 The following steps are for updating one identity. If you have more identities that should be patched to the new schema, repeat
 the steps 4 to 7 or check out the example code for bulk updating identities below.
 
-1.  Retrieve the Project ID.
+1. Retrieve the Project ID.
 
-    ```bash
-    ory list projects
+   ```bash
+   ory list workspaces
+   ory list projects --workspace <workspace-id>
 
-    export PROJECT_ID=$PROJECT_ID
-    ```
+   export ORY_PROJECT_ID=$PROJECT_ID
+   ```
 
-1.  Create a new identity with the updated schema - through the registration interface or [Ory Console](https://console.ory.sh/)
-    and copy the `schema_id` of the identity you just created.
+2. Create a new identity with the updated schema - through the registration interface or [Ory Console](https://console.ory.sh/)
+   and copy the `schema_id` of the identity you just created.
 
-    ![Identity schema ID and URL](../_assets/session-information.png)
+   ![Identity schema ID and URL](../_assets/session-information.png)
 
-1.  Get all identities of the project using the following command:
+3. Get all identities of the project using the following command:
 
-    ```bash
-    ory list identities --project "$PROJECT_ID" --format json-pretty
-    ```
+   ```bash
+   ory list identities --format json-pretty
+   ```
 
-1.  Find the identity to be updated and note down their `id`.
+4. Find the identity to be updated and note down their `id`.
 
-1.  To update the identity, you need to use the
-    [Admin API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity). The API requires the Ory Network
-    [Project slug](https://console.ory.sh/projects/current/settings),
-    [API Key](https://console.ory.sh/projects/current/developers), and identity ID. Set them as environment variables:
+5. To update the identity, you need to use the
+   [Admin API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity). The API requires the Ory Network
+   [Project slug](https://console.ory.sh/projects/current/settings),
+   [API Key](https://console.ory.sh/projects/current/developers), and identity ID. Set them as environment variables:
 
-    ```bash
-    export ORY_API_KEY=$ORY_API_KEY
-    export ORY_SLUG=$ORY_SLUG
-    export IDENTITY_ID=$IDENTITY_ID
-    ```
+   ```bash
+   export ORY_API_KEY=$ORY_API_KEY
+   export ORY_SLUG=$ORY_SLUG
+   export IDENTITY_ID=$IDENTITY_ID
+   ```
 
-    Assess the required updates in traits. You need to add, remove, or update existing traits to match the new identity schema.
-    You also need to change the `schema_id` to the new schema. For instance, adding a new trait and removing an old trait:
+   Assess the required updates in traits. You need to add, remove, or update existing traits to match the new identity schema. You
+   also need to change the `schema_id` to the new schema. For instance, adding a new trait and removing an old trait:
 
 ````mdx-code-block
 

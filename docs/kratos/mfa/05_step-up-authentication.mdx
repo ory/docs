@@ -54,11 +54,14 @@ Follow these steps to adjust the settings in the Ory Network using the Ory CLI:
 1. Get the Ory Identities configuration from your project and save it to a file:
 
    ```shell
+   ## List all available workspaces
+   ory list workspaces
+
    ## List all available projects
-   ory list projects
+   ory list projects --workspace <workspace-id>
 
    ## Get config
-   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
    ```
 
 2. Adjust the values of the indicated keys to the desired values:
@@ -86,7 +89,7 @@ Follow these steps to adjust the settings in the Ory Network using the Ory CLI:
 3. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
-   ory update identity-config {project-id} --file identity-config.yaml
+   ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
    ```
 
 ```mdx-code-block

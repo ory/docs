@@ -100,3 +100,20 @@ tokens. Ory OAuth2 and OpenID Connect exposes this endpoint by default for each 
 ```
 https://$PROJECT_SLUG.projects.oryapis.com/.well-known/jwks.json
 ```
+
+### Add custom keys
+
+To broadcast a created keyset on `/.well-known/jwks.json` it needs to be added to the OAuth2 configuration.
+
+To add a custom keyset to the OAuth2 configuration, use the following command:
+
+```bash
+ory patch oauth2-config $YOUR_PROJECT_ID \
+  --add '/webfinger/jwks/broadcast_keys/-="custom_keyset"'
+```
+
+:::info
+
+For more information on how to create a custom keyset, see the [ory create jwk](../cli/ory-create-jwk.md) command.
+
+:::

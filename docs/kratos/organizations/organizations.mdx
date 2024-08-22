@@ -3,6 +3,14 @@ id: organizations
 title: B2B Single Sign-On
 ---
 
+:::info
+
+Organizations are only available in Ory Network and are not supported in self-hosted Ory Kratos. If you have any questions, or if
+you would like more information about transitioning to Ory Network, please don't hesitate to
+[reach out](https://www.ory.sh/contact/).
+
+:::
+
 ```mdx-code-block
 import webm from './_static/organizations-ory-network.webm'
 import VideoEmbed from '@site/src/components/VideoEmbed'
@@ -40,6 +48,8 @@ graph LR
 
 ## Manage organizations
 
+### Manage organizations through the Ory Console
+
 Organizations can be managed using the Ory Console.
 
 <p>
@@ -47,18 +57,146 @@ Organizations can be managed using the Ory Console.
   <ConsoleLink route="project.authentication.organizations" />.
 </p>
 
+### Manage organizations through the API
+
+Organizations can also be managed using the Ory API. To authenticate your requests, create a
+[workspace API key](/concepts/personal-access-token#authorizing-ory-network-workspace-admin-apis).
+
+All examples below use [curl](https://curl.se/) to make HTTP requests. You can use any HTTP client to make these requests.
+
+#### List organizations
+
+```shell
+curl -X GET --location "https://api.console.ory.sh/projects/{{project_id}}/organizations" \
+     -H "Authorization: Bearer ory_wak_..."
+```
+
+#### Create an organization
+
+```shell
+curl -X POST --location "https://api.console.ory.sh/projects/{{project_id}}/organizations" \
+     -H "Authorization: Bearer ory_wak_..." \
+     -H "Content-Type: application/json" \
+     -d '{
+           "label":  "Hello demo",
+           "domains": ["test.example.com"]
+         }'
+```
+
+#### Get an organization
+
+```shell
+curl -X GET --location "https://api.console.ory.sh/projects/{{project_id}}/organizations/{{organization_id}}" \
+     -H "Authorization: Bearer ory_wak_..."
+```
+
+#### Delete an organization
+
+```shell
+curl -X DELETE --location "https://api.console.ory.sh/projects/{{project_id}}/organizations/{{organization_id}}" \
+     -H "Authorization: Bearer ory_wak_..."
+```
+
 ## Create SSO connections for an organization
 
 After creating an organization, continue by adding one or more SSO OIDC connections.
 
-Next, go to your registration page. Entering an email that ends with the organization's domain, such as `@my.example.com` from the
-example above, shows a **Sign in with SSO** button instead of the password field. Clicking it will take you to sign in with the
-SSO connection. The SSO connection is not visible for email addresses that are not managed by the organization.
+### Manage SSO connections through the Ory Console
 
-:::info
+Go to <ConsoleLink route="project.authentication.organizations" /> and continue by configuring the selected organization.
 
-Organizations are only available in Ory Network and are not supported in self-hosted Ory Kratos. If you have any questions, or if
-you would like more information about transitioning to Ory Network, please don't hesitate to
-[reach out](https://www.ory.sh/contact/).
+### Manage SSO connections through the API
 
-:::
+The SSO connections are part of the project configuration. To authenticate, use the same workspace API key as for managing
+organizations. The examples use [curl](https://curl.se/) to make HTTP requests and [jq](https://jqlang.github.io/jq/) to parse
+JSON response.
+
+#### Create an SSO connections
+
+```shell
+curl -X PATCH --location "https://api.console.ory.sh/projects/{{project_id}}" \
+     -H "Authorization: Bearer ory_wak_..." \
+     -H "Content-Type: application/json" \
+     -d '[
+           {
+             "op": "add",
+             "path": "/services/identity/config/selfservice/methods/oidc/config/providers/-",
+             "value": {
+               "client_id": "...",
+               "client_secret": "...",
+               "id": "ory-GPx1yPH4",
+               "issuer_url": "https://example.org",
+               "label": "My OIDC provider",
+               "mapper_url": "base64://ZnVuY3Rpb24oY3R4KSBjdHg=",
+               "organization_id": "6bb1c7d1-3b3e-4995-9e09-35649dc45a2b",
+               "provider": "generic",
+               "scope": ["openid", "offline_access", "email"]
+             }
+           }
+         ]' \
+   | jq ".project.services.identity.config.selfservice.methods.oidc.config.providers"
+```
+
+Some notes on the fields of the JSON payload:
+
+- `client_id` and `client_secret` are the credentials of the OIDC provider.
+- `id` is a unique identifier for the connection, and part of the redirect URL.
+- `organization_id` is the ID of the organization to which the connection belongs, and part of the redirect URL.
+- `mapper_url` is the URL to a JSONnet file that maps the OIDC provider's claims to Ory's identity schema. You can use the
+  `base64` scheme to embed the JSONnet file directly in the JSON payload.
+
+The redirect URL to be set in the OIDC provider configuration is
+`https://{{project slug}}.projects.oryapis.com/self-service/methods/oidc/organization/{{organization ID}}/callback/{{provider ID}}`.
+
+#### List SSO connections
+
+```shell
+curl -X GET --location "https://api.console.ory.sh/projects/{{project_id}}" \
+     -H "Authorization: Bearer ory_wak_..." \
+   | jq ".services.identity.config.selfservice.methods.oidc.config.providers"
+```
+
+Result:
+
+```json
+[
+  {
+    "client_id": "...",
+    "client_secret": "...",
+    "id": "ory-GPx1yPH4",
+    "issuer_url": "https://example.org",
+    "label": "My OIDC provider",
+    "mapper_url": "https://storage.googleapis.com/bac-gcs-production/94292215dbabe405bebff988b5356663fcf5cba35b10fc6ca2cfea7bc7049e906e01d271a3daeb844203efdfbf2cff356274daa63d5afc2a379bbe93b8b40e63.jsonnet",
+    "organization_id": "6bb1c7d1-3b3e-4995-9e09-35649dc45a2b",
+    "provider": "generic",
+    "scope": ["openid", "offline_access", "email"]
+  }
+]
+```
+
+#### Delete an SSO connection
+
+To delete an organization, you need to specify the index of the connection in the `path` field. The index is the position of the
+SSO connection in the list of connections.
+
+```shell
+curl -X PATCH --location "https://api.console.ory.sh/projects/{{project_id}}" \
+     -H "Authorization: Bearer ory_wak_..." \
+     -H "Content-Type: application/json" \
+     -d '[
+           {
+             "op": "remove",
+             "path": "/services/identity/config/selfservice/methods/oidc/config/providers/0"
+           }
+         ]' \
+   | jq ".project.services.identity.config.selfservice.methods.oidc.config.providers"
+```
+
+Note that the `organization_id` field contains the organization ID to which the connection belongs.
+
+## See it live
+
+After having set up everything, go to your registration page. Entering an email that ends with the organization's domain, such as
+`@my.example.com` from the example above, shows a **Sign in with SSO** button instead of the password field. Clicking it will take
+you to sign in with the SSO connection. The SSO connection is not visible for email addresses that are not managed by the
+organization.

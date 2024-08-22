@@ -30,11 +30,14 @@ You must be signed in to an Ory Network account to perform this action. Read
 :::
 
 ```bash
+## List all available workspaces
+ory list workspaces
+
 ## List all available projects
-ory list projects
+ory list projects --workspace <workspace-id>
 
 ## Get config
-ory get permission-config {project-id} --format yaml
+ory get permission-config --project <project-id> --workspace <workspace-id> --format yaml
 ```
 
 The `--format` flag defines the format of the output file. You can choose one of `yaml` ,`json`, or `json-pretty`.
@@ -49,7 +52,7 @@ file.
 Run this command:
 
 ```bash
-ory get permission-config {project-id} --format yaml > permission-config.yaml
+ory get permission-config --project <project-id> --workspace <workspace-id> --format yaml > permission-config.yaml
 ```
 
 ## Import configuration to Ory Network
@@ -58,7 +61,7 @@ To start using the configuration from a self-hosted Ory Keto instance in the Ory
 the CLI:
 
 ```shell
-ory update permission-config {project-id} --file permission-config.yaml
+ory update permission-config --project <project-id> --workspace <workspace-id> --file permission-config.yaml
 ```
 
 ## Adjust specific keys
@@ -68,7 +71,7 @@ You can adjust specific keys in the configuration using the `ory patch` CLI comm
 Running this sample command sets the `/limit/max_read_depth` key value to `3`:
 
 ```shell
-ory patch permission-config {project-id} \
+ory patch permission-config --project <project-id> --workspace <workspace-id> \
   --replace '/limit/max_read_depth=3'
 ```
 
@@ -86,29 +89,14 @@ ID of the project in which you want to manage the tuples using the `--project` f
 For convenience, you can export the ID of your project as an environment variable and use the variable with the `--project` flag
 instead of passing the project ID directly in the command:
 
-:::info
-
-Examples in this section use the environment variable. To try them out without making adjustments, export your project ID as an
-environment variable.
-
-:::
-
-```bash
-## List all available projects
-ory list projects
-
-## Export project ID as env. variable
-export PROJECT=<ory-project-id>
-```
-
 ### Create
 
 Read the [Ory CLI reference](../../cli/ory-create-relation-tuples) to learn more about this command.
 
 ```bash
 echo "groups:devs#member@tom" \
-  | ory parse relation-tuples --project=$PROJECT --format=json \
-  | ory create relation-tuples --project=$PROJECT
+  | ory parse relation-tuples --project <project-id> --workspace <workspace-id> --format=json \
+  | ory create relation-tuples --project <project-id> --workspace <workspace-id>
 # NAMESPACE	OBJECT	RELATION NAME	SUBJECT
 # groups		devs	member		tom
 ```
@@ -118,7 +106,7 @@ echo "groups:devs#member@tom" \
 Read the [Ory CLI reference](../../cli/ory-list-relation-tuples) to learn more about this command.
 
 ```bash
-ory list relation-tuples --project=$PROJECT
+ory list relation-tuples --project <project-id> --workspace <workspace-id>
 # NAMESPACE	OBJECT	RELATION NAME	SUBJECT
 # groups		devs	member		tom
 #
@@ -131,7 +119,7 @@ ory list relation-tuples --project=$PROJECT
 Read the [Ory CLI reference](../../cli/ory-delete-relation-tuples) to learn more about this command.
 
 ```bash
-ory delete relation-tuples --project=$PROJECT --all
+ory delete relation-tuples --project <project-id> --workspace <workspace-id> --all
 # WARNING: This operation is not reversible. Please use the `--force` flag to proceed.
 # These tuples would be deleted:
 #
@@ -142,5 +130,5 @@ ory delete relation-tuples --project=$PROJECT --all
 # IS LAST PAGE	true
 
 ## Delete the tuple(s) after making sure this is what you want to do.
-ory delete relation-tuples --project=$PROJECT --all --force
+ory delete relation-tuples --project <project-id> --workspace <workspace-id> --all --force
 ```

@@ -33,7 +33,7 @@ To add your domain to the `redirect_uri` query parameter when redirecting to the
 `base_redirect_uri` configuration. To do that, use the Ory CLI:
 
 ```shell
-ory patch identity-config {project-id} --add '/selfservice/methods/oidc/config/base_redirect_uri="https://ory.your-custom-domain.com"'
+ory patch identity-config --project <project-id> --workspace <workspace-id> --add '/selfservice/methods/oidc/config/base_redirect_uri="https://ory.your-custom-domain.com"'
 ```
 
 :::tip

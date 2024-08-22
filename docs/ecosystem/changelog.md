@@ -12,8 +12,8 @@ Read the changelog for Ory Network at [changelog.ory.sh](https://changelog.ory.s
 :::
 
 > Running security-critical open source technology in a self-service format requires vigilance. We make your life easier by
-> announcing important software updates via the [Ory Security Newsletter](http://eepurl.com/di390P). Never miss an update and
-> **[sign up now to important release updates!](http://eepurl.com/di390P)**
+> announcing important software updates via the [Ory Security Newsletter](https://www.ory.sh/l/sign-up-newsletter). Never miss an
+> update and **[sign up now to important release updates!](https://www.ory.sh/l/sign-up-newsletter)**
 
 :::tip
 

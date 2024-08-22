@@ -32,7 +32,7 @@ hydra create oauth2-client [flags]
 ```
 hydra create oauth2-client -n "my app" -c http://localhost/cb -g authorization_code -r code -a core,foobar
 
-Use the tool jq (or any other JSON tool) to get the OAuth2 Client ID and and Secret:
+Use the tool jq (or any other JSON tool) to get the OAuth2 Client ID and Secret:
 
 client=$(hydra create oauth2-client \
     --format json \

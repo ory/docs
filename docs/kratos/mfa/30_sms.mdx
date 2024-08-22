@@ -40,11 +40,14 @@ To enable MFA via SMS, you need to configure an SMS channel in the Ory configura
 1. Get the Ory Identities configuration from your project and save it to a file:
 
    ```shell
+   ## List all available workspaces
+   ory list workspaces
+
    ## List all available projects
-   ory list projects
+   ory list projects --workspace <workspace-id>
 
    ## Get config
-   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
    ```
 
 2. Find `code` in `selfservice.methods` and set `mfa_enabled` to `true`:
@@ -57,7 +60,7 @@ To enable MFA via SMS, you need to configure an SMS channel in the Ory configura
 3. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
-   ory update identity-config {project-id} --file identity-config.yaml
+   ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
    ```
 
 ```mdx-code-block
