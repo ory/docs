@@ -54,7 +54,7 @@ Next, we configure our Ory Network project's tokenizer templates. The key we cho
 that template with the base64-encoded files from above:
 
 ```shell
-ory patch identity-config $PROJECT_ID \
+ory patch identity-config --project <project-id> --workspace <workspace-id> \
   --add '/session/whoami/tokenizer/templates/jwt_example_template1={"jwks_url":"base64://'$JWKS_B64_ENCODED'","claims_mapper_url":"base64://'$JSONNET_B64_ENCODED'","ttl":"10m"}' \
   --format yaml
 ```

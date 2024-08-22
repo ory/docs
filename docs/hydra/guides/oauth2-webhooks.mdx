@@ -48,7 +48,7 @@ Use the Ory CLI to register your webhook endpoint:
 <Tabs>
   <TabItem value="header-auth" label="with authentication in header" default >
     <CodeBlock language="shell">{
-`ory patch oauth2-config $PROJECT_ID \\
+`ory patch oauth2-config --project <project-id> --workspace <workspace-id> \\
   --add '/oauth2/token_hook/url="https://my-example.app/token-hook"' \\
   --add '/oauth2/token_hook/auth/type="api_key"' \\
   --add '/oauth2/token_hook/auth/config/in="header"' \\
@@ -59,7 +59,7 @@ Use the Ory CLI to register your webhook endpoint:
   </TabItem>
   <TabItem value="cookie-auth" label="with authentication in cookie">
     <CodeBlock language="shell">{
-`ory patch oauth2-config $PROJECT_ID \\
+`ory patch oauth2-config --project <project-id> --workspace <workspace-id> \\
   --add '/oauth2/token_hook/url="https://my-example.app/token-hook"' \\
   --add '/oauth2/token_hook/auth/type="api_key"' \\
   --add '/oauth2/token_hook/auth/config/in="cookie"' \\
@@ -70,7 +70,7 @@ Use the Ory CLI to register your webhook endpoint:
   </TabItem>
   <TabItem value="no-auth" label="no authentication">
     <CodeBlock language="shell">{
-`ory patch oauth2-config $PROJECT_ID \\
+`ory patch oauth2-config --project <project-id> --workspace <workspace-id> \\
 --add '/oauth2/token_hook="https://my-example.app/token-hook"' \\
 --format yaml`}
     </CodeBlock>

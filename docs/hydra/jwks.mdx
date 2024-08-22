@@ -108,7 +108,7 @@ To broadcast a created keyset on `/.well-known/jwks.json` it needs to be added t
 To add a custom keyset to the OAuth2 configuration, use the following command:
 
 ```bash
-ory patch oauth2-config $YOUR_PROJECT_ID \
+ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
   --add '/webfinger/jwks/broadcast_keys/-="custom_keyset"'
 ```
 
