@@ -36,6 +36,7 @@ module.exports = {
       type: "category",
       label: "Identities and sessions",
       items: [
+        "identities/index",
         "identities/native-browser",
         "security-model",
         {
@@ -455,7 +456,6 @@ module.exports = {
       type: "category",
       label: "Ory Kratos",
       items: [
-        "kratos/ory-kratos-intro",
         "kratos/install",
         "kratos/quickstart",
         "kratos/guides/docker",
