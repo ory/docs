@@ -110,7 +110,7 @@ Once done, you can stop the processes running the old service.
 Now you will be able to start the service:
 
 ```bash
-docker run -e DSN=cockroach://... europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag> -- serve all -f /path/to/config.yaml
+docker run -p 4444:4444 -p 4445:4445 -e DSN=cockroach://... europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag> -- serve all -f /path/to/config.yaml
 ```
 
 ## Conclusion
