@@ -44,19 +44,22 @@ Replace `your_database_connection_string` with your actual database connection s
 
 After successfully migrating the database:
 
-1. **Stop the Open Source Version**: Shut down your current open source Ory Hydra service.
-2. **Start the Ory Hydra Enterprise License Version**: Launch the Ory Hydra OEL using the same database connection string and
-   configuration, but with the OEL Docker image.
+After successfully migrating the database:
+
+1. **Start the Ory Hydra Enterprise License Version**: Launch the Ory Hydra OEL using the same database connection string and configuration, but with the OEL Docker image.
 
 ```bash
 docker run -d \
+  --name=hydra-oel \
   -e DSN=your_database_connection_string \
   -p 4444:4444 -p 4445:4445 \
   europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<version> \
   serve all -c config.yml
 ```
-
 Ensure to replace `your_database_connection_string` with your database connection string used in the migration step.
+
+2. Switch traffic to point to the new Ory Enterprise License Hydra. Perform this step on your infrastructure.
+3. **Stop the Open Source Version**: Shut down your current open source Ory Hydra service.
 
 ## Conclusion
 
