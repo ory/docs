@@ -63,6 +63,8 @@ You can send emails from your own SMTP server. Follow these steps to configure O
        from_name: My Company
    ```
 
+Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
+
 3. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
@@ -113,6 +115,8 @@ Sample connection URIs to send emails via SMTP using different providers.
 Use the following connection URI to
 [send emails using Mailgun](https://documentation.mailgun.com/en/latest/quickstart-sending.html) via SMTP.
 
+Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
+
 ```
 smtp://{smtp-user}:{smtp-password}@smtp.mailgun.org:587
 
@@ -125,6 +129,8 @@ smtp://{smtp-user}:{smtp-password}@smtp.mailgun.org:587
 Use the following connection URI to
 [send emails using AWS SES SMTP](https://docs.aws.amazon.com/ses/latest/dg/send-email-smtp.html) via SMTP.
 
+Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
+
 ```
 smtp://{smtp-user}:{smtp-password}@email-smtp.{region}.amazonaws.com:587/
 
@@ -135,6 +141,8 @@ smtp://{smtp-user}:{smtp-password}@email-smtp.{region}.amazonaws.com:587/
 #### Postmark
 
 Use the following connection URI to [send emails using Postmark](https://postmarkapp.com/smtp-service) via SMTP.
+
+Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
 
 ```
 smtp://{YOUR_POSTMARK_SEVER_API_TOKEN}:{YOUR_POSTMARK_SEVER_API_TOKEN}@smtp.postmarkapp.com:587/
