@@ -63,6 +63,8 @@ You can send emails from your own SMTP server. Follow these steps to configure O
        from_name: My Company
    ```
 
+Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
+
 3. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
@@ -104,14 +106,16 @@ SMTP has six different security mechanisms. Most SMTP services today use Explici
    smtps://username:password@subdomain.my-mailserver.com:1234/?server_name=my-mailserver.com
    ```
 
-### Integrations
+### SMTP Integrations
 
-Reference the sample connection URIs to send emails using different providers.
+Sample connection URIs to send emails via SMTP using different providers.
 
 #### Mailgun
 
 Use the following connection URI to
-[send emails using Mailgun](https://documentation.mailgun.com/en/latest/quickstart-sending.html):
+[send emails using Mailgun](https://documentation.mailgun.com/en/latest/quickstart-sending.html) via SMTP.
+
+Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
 
 ```
 smtp://{smtp-user}:{smtp-password}@smtp.mailgun.org:587
@@ -123,7 +127,9 @@ smtp://{smtp-user}:{smtp-password}@smtp.mailgun.org:587
 #### AWS SES SMTP
 
 Use the following connection URI to
-[send emails using AWS SES SMTP](https://docs.aws.amazon.com/ses/latest/dg/send-email-smtp.html):
+[send emails using AWS SES SMTP](https://docs.aws.amazon.com/ses/latest/dg/send-email-smtp.html) via SMTP.
+
+Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
 
 ```
 smtp://{smtp-user}:{smtp-password}@email-smtp.{region}.amazonaws.com:587/
@@ -134,13 +140,37 @@ smtp://{smtp-user}:{smtp-password}@email-smtp.{region}.amazonaws.com:587/
 
 #### Postmark
 
-Use the following connection URI to [send emails using Postmark](https://postmarkapp.com/smtp-service):
+Use the following connection URI to [send emails using Postmark](https://postmarkapp.com/smtp-service) via SMTP.
+
+Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
 
 ```
 smtp://{YOUR_POSTMARK_SEVER_API_TOKEN}:{YOUR_POSTMARK_SEVER_API_TOKEN}@smtp.postmarkapp.com:587/
 
 # For example:
 # smtp://thetoken:thetoken@smtp.postmarkapp.com:587/
+```
+
+#### Sendgrid
+
+Use the following connection URI and settings to
+[send emails using Sendgrid](https://www.twilio.com/docs/sendgrid/for-developers/sending-email/integrating-with-the-smtp-api) via
+SMTP.
+
+- Sender address: an email address for a domain that has been verified in SendGrid via Domain Authentication
+- Hostname: smtp.sendgrid.net
+- Port: 587
+- Security Mode: STARTTLS
+- Username: apikey
+- Password: the API key created in SendGrid, with the full “Mail Send” permission (no other permissions needed)
+- SMTP Headers: none If you are unsure which port to use, a TLS connection on port 587 is typically recommended.
+
+```
+smtp://apikey:<YOUR_SENDGRID_API_KEY>@smtp.sendgrid.net:587/
+
+# For example:
+smtp://apikey:somekey@smtp.sendgrid.net:587/
+
 ```
 
 ## Send emails using an HTTP server
@@ -240,6 +270,53 @@ The courier passes the following object as the `ctx` parameter into the Jsonnet 
 | `template_data` | Object | The data that should be included in the email. See the [list of variables for each template for a full list](./05_custom-email-templates.mdx#available-variables). |
 
 In most cases, the default payload should be sufficient.
+
+### HTTP Integrations
+
+Sample configurations to send emails via HTTP using different providers.
+
+#### Sendgrid
+
+Use the following connection URI and settings to
+[send emails using Sendgrid](https://www.twilio.com/docs/sendgrid/api-reference/mail-send/mail-send) via HTTP.
+
+```
+...
+courier:
+  delivery_strategy: http
+  http:
+    request_config:
+      url: https://api.sendgrid.com/v3/mail/send
+      method: POST
+      body: file:///etc/config/kratos/mail.template.jsonnet
+      headers:
+        "Content-Type": "application/json"
+      auth:
+        type: api_key
+        config:
+          name: Authorization
+          value: Bearer <API_KEY>
+          in: header
+...
+```
+
+Here is one example of a Jsonnet body:
+
+```
+function(ctx) {
+"personalizations": [
+    {
+      "to": [
+        {
+          "email": if "TemplateData" in ctx && "To" in ctx.TemplateData then ctx.TemplateData.To else null)
+        }
+      ],
+     "verificationCode": if "TemplateData" in ctx && "VerificationCode" in ctx.TemplateData then ctx.TemplateData.VerificationCode else null
+    }
+  ],
+  // Other values and personalizations .......
+}
+```
 
 ## Troubleshooting
 

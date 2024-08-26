@@ -54,36 +54,6 @@ instead of a wildcard subdomain. For local development with `localhost/127.0.0.1
 
 :::
 
-## Waiting for propagation
-
-When you've added the domain in Ory Console, we will continuously recheck its status to see if it was configured with your
-registrar. Note that it can take up to 24 hours for your changes to propagate.
-
-You may also manually recheck on the custom domains page, or check the value to set with your DNS provider by clicking the
-magnifying icon in the custom domains section:
-
-![Check custom domain details](./_static/custom-domains/cname-cors-check.png)
-
-When the domain is reachable, it will have the "Active status".
-
-The CORS status will show "Inactive" while the domain is pending verification. After the domain is verified, the CORS status will
-show "Enabled/Disabled".
-
-![Custom Domain Cors enabled](./_static/custom-domains/cname-cors-enabled.png)
-
-Once active, the Ory Account Experience is reachable at `https://<your-custom-domain>/ui/welcome`. Learn how to configure a custom
-UI: [Bring Your Own UI](../kratos/bring-your-own-ui/configure-ory-to-use-your-ui).
-
-You may also remove your custom domain from the Console, but please note that **any requests to it will no longer resolve** once
-you do.
-
-When editing your custom domain entry, you can update the CORS settings independent of the custom domain or cookie domain
-settings.
-
-![Custom Domain Cors edit](./_static/custom-domains/cname-cors-edit.png)
-
-![Custom Domain Cors disabled](./_static/custom-domains/cname-cors-disabled.png)
-
 ## Setting up a CNAME record
 
 :::note
@@ -99,6 +69,13 @@ ensure requests to the custom hostname are fully protected.
 In case you are using Cloudflare as your DNS provider, make sure
 ["Zone Hold" is released](https://developers.cloudflare.com/fundamentals/setup/account/account-security/zone-holds/#release-zone-holds).
 It needs to be released temporarily so that we can preconfigure the subdomain in our account.
+
+:::
+
+:::note
+
+Please check if you have configured CAA records for your domain. If you have, you may need to add `pki.goog` to the CAA record of
+your (sub)domain. Read more about **CAA records** in this section: [CAA records](#caa-records).
 
 :::
 
@@ -165,6 +142,122 @@ your Ory Network project, please check that:
 - **Zone Lock** is temporarily disabled in your Cloudflare account until the set up process completes. See
   https://developers.cloudflare.com/fundamentals/setup/account/account-security/zone-holds/#release-zone-holds for more
   information.
+
+## CAA records
+
+If your domain is protected by CAA record, issuing a certificate for a custom hostname will only work, if `pki.goog` is already
+whitelisted to issue certificates for your domain. If not, you will need to add `pki.goog` to the CAA record of your domain.
+
+### What is a CAA record?
+
+A Certification Authority Authorization (CAA) record is used to specify which
+[certificate authorities (CAs)](https://support.dnsimple.com/articles/what-is-certificate-authority/) are allowed to issue
+certificates for a domain. CAA records allow domain owners to declare which certificate authorities are allowed to issue a
+certificate for a domain. They also provide a means of indicating notification rules if someone requests a certificate from an
+unauthorized certificate authority.
+
+If no CAA record is present, any CA is allowed to issue a certificate for the domain. If a CAA record is present, only the CAs
+listed in the record(s) are allowed to issue certificates for that hostname. CAA records can set policy for the entire domain, or
+specific hostnames, and are inherited by subdomains. For example, a CAA record set on `example.com` also applies to
+`subdomain.example.com`.
+
+[https://support.dnsimple.com/articles/caa-record/](https://support.dnsimple.com/articles/caa-record/)
+
+### How do I tell if my domain is configured to use a CAA record?
+
+You can use any DNS lookup tool to search for the CAA record of your domain (if one exists). Below is an example using the Command
+Line tool dig:
+
+```
+$ dig +noall +answer example.com caa
+example.com.        1800    IN  CAA 0 issue "digicert.com"
+```
+
+If the response is empty, stop here! You're good to go.
+
+If the domain lookup results include **issue** along with the name of a **certificate authority**, then your domain is configured
+with CAA protection. If the issuer is a certificate authority other than `pki.goog`, you must take additional action to use a
+custom hostname with Ory Network.
+
+### What must I do if my domain is configured with a CAA record?
+
+Certificate Authority Authorization (CAA) records can be defined at various levels of your domain hierarchy. It's important to
+understand that the most specific (or "closest") CAA record to a given subdomain is the one that applies. This means:
+
+1. A **CAA record on a subdomain** takes precedence over a CAA record on its parent domain.
+2. If **no CAA record exists for a specific subdomain**, the system will look for a CAA record on its parent domain, and so on up
+   to the root domain.
+
+Given this behavior, you need to consider where your CAA record is defined when adding `pki.goog` as an authorized certificate
+authority. Here are the two main scenarios:
+
+1. **Root domain CAA records:** <br/>If you're configuring a custom hostname like auth.example.com and you have a CAA record
+   defined on the root domain (example.com), you need to add `pki.goog` to this root domain CAA record. This is because the system
+   will check auth.example.com for a CAA record, find none, and then check example.com.
+
+2. **Subdomain CAA records:** <br/>If you're configuring a custom hostname like auth.brand1.example.com and you have a CAA record
+   defined on the subdomain level (brand1.example.com), you need to add `pki.goog` to this subdomain CAA record. In this case, the
+   CAA record on brand1.example.com will be used because it's the closest match to auth.brand1.example.com.
+
+To add `pki.goog` to your CAA record, you'll typically need to add a new CAA record entry to the right level of your domain
+hierarchy like this:
+
+1. **For the root domain:** <br/>
+
+```
+example.com. IN CAA 0 issue "pki.goog"
+```
+
+2. **For a subdomain:** <br/>
+
+```
+brand1.example.com. IN CAA 0 issue "pki.goog"
+```
+
+(Replace example.com with the appropriate domain or subdomain where your CAA record should be defined.)
+
+Here are some guides on how to add a CAA record with some popular DNS providers:
+
+- **GoDaddy:** [Change a CAA record](https://www.godaddy.com/help/change-a-caa-record-27289)
+- **Namecheap:**
+  [CAA Record and why it is needed (SSL related)](https://www.namecheap.com/support/knowledgebase/article.aspx/9991/38/caa-record-and-why-it-is-needed-ssl-related/)
+- **Cloudflare:** [Add CAA records](https://developers.cloudflare.com/ssl/edge-certificates/caa-records/)
+- **Google Domains:**
+  [Create or edit a resource record with Google Domains](https://support.google.com/domains/answer/3290350?hl=en)
+
+### Additional reading
+
+[https://letsencrypt.org/docs/caa/](https://letsencrypt.org/docs/caa/)
+
+## Waiting for propagation
+
+When you've added the domain in Ory Console, we will continuously recheck its status to see if it was configured with your
+registrar. Note that it can take up to 24 hours for your changes to propagate.
+
+You may also manually recheck on the custom domains page, or check the value to set with your DNS provider by clicking the
+magnifying icon in the custom domains section:
+
+![Check custom domain details](./_static/custom-domains/cname-cors-check.png)
+
+When the domain is reachable, it will have the "Active status".
+
+The CORS status will show "Inactive" while the domain is pending verification. After the domain is verified, the CORS status will
+show "Enabled/Disabled".
+
+![Custom Domain Cors enabled](./_static/custom-domains/cname-cors-enabled.png)
+
+Once active, the Ory Account Experience is reachable at `https://<your-custom-domain>/ui/welcome`. Learn how to configure a custom
+UI: [Bring Your Own UI](../kratos/bring-your-own-ui/configure-ory-to-use-your-ui).
+
+You may also remove your custom domain from the Console, but please note that **any requests to it will no longer resolve** once
+you do.
+
+When editing your custom domain entry, you can update the CORS settings independent of the custom domain or cookie domain
+settings.
+
+![Custom Domain Cors edit](./_static/custom-domains/cname-cors-edit.png)
+
+![Custom Domain Cors disabled](./_static/custom-domains/cname-cors-disabled.png)
 
 ## Automated emails
 
