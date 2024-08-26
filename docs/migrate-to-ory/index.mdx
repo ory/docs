@@ -6,7 +6,211 @@ sidebar_position: 1
 ---
 
 This tutorial will guide you through the process of migrating your existing authentication system to Ory Identities, creating Ory
-Network projects, setting up identity schemas, and customizing the user interface to match your current interface.
+Network projects, setting up iwdentity schemas, and customizing the user interface to match your current interface.
+
+:::note
+
+This guide serves as an initial reference and may not cover all aspects of your specific use case. If you have any questions or
+need more help, please contact Ory Support for help.
+
+:::
+
+## Premigration considerations
+
+Before starting the actual migration and choosing a migration strategy, please consider the following.
+
+### Map requirements
+
+You can map requirements in several ways. Ory recommendation is to use a decision matrix to identify your essential requirements
+(must-haves) and additional preferences (nice-to-haves). For example list your requirements in rows and the different potential
+solutions - such as providers like Ory, self-rolled solutions, or different deployment options - in columns. Collaborate with your
+team to refine these criteria through research and discussion. The goal at this stage is to evaluate many solutions, not to make a
+final decision. You may find that your current solution is sufficient, that migration is necessary without immediate need, or that
+you need to migrate to a new solution as fast as possible.
+
+### Proof of concept
+
+If Ory appears to meet your requirements, conduct a proof of concept (PoC) with no more than two other selected solutions from
+your decision matrix. This PoC should be a small-scale integration to verify that its features work as expected, such as adding
+authentication with Ory to a staging environment. While not all edge cases and details will be solved at this stage, the PoC will
+help identify potential blockers or challenges before migrating your production service.
+
+You can start a PoC using Ory’s free Developer plan at [console.ory.sh](http://console.ory.sh/) without needing to talk to sales,
+but Ory also offers free support for a PoC - for this please [contact the Ory team](https://www.ory.sh/contact/)!
+
+Focus on testing the most complex use cases to assess the solutions capabilities, documentation, and service quality. Don’t move
+forward with the migration without a proof of concept, this is an important step before a decision that will be hard to reverse.
+
+### Migration strategies
+
+When migrating user data from an old system to a new one, the process involves two main steps: transferring existing data and
+"go-live" when users start authenticating with the new system. The choice of migration strategy depends on your specific use case,
+the shape of existing data, and the number of "go-lives" you need to manage.
+
+- **Big bang** - Migrate everyone at once.
+- **Stepped** - Migrate your applications or user segments individually. _This is the most common choice_.
+- **Graceful** - Migrate when a user authenticates, running both solutions in parallel.
+
+Each migration strategy has its strengths and challenges. The ideal choice depends on factors such as the complexity of your
+system, the number of users, and your organization's tolerance for risk and downtime.
+
+#### Big bang migration
+
+In a big bang migration, also known as "offline migration", all user data is transferred at once, and a single "go-live" event is
+scheduled, where all users start using the new system simultaneously.
+
+##### Advantages of big bang migration
+
+- Simplicity: Since there is only one "go-live", the migration process is easier to manage and plan.
+- Time efficiency: The migration process happens in one go, reducing the time needed for the transition.
+- Less complexity: There is no need to run two systems in parallel and you can retire the previous solution immediately.
+
+##### Drawbacks of big bang migration
+
+- High risk: If any issues occur during the cutover, the impact can be significant, affecting all users at once.
+- Downtime: This approach may require planned system downtime to ensure data consistency, which can disrupt users.
+- Increased preparation: Requires extensive planning and testing to mitigate risks, making it more resource-intensive during that
+  phase.
+
+A big bang migration is often not the best choice due to the risk and downtime, but it is recommended when
+
+- the number of users is low / app is simple
+- downtime isn't a problem
+- you need to retire the current solution yesterday
+
+#### Stepwise migration
+
+Stepwise migration, also called "application-based migration", involves transferring user data in phases, focusing on specific
+applications, services, or user segments at a time. This approach results in multiple "go-lives", each affecting a defined group
+of users.
+
+##### Advantages of stepwise migration
+
+- Reduced risk: By migrating in phases, issues are isolated to specific apps or user segments.
+- Flexibility: Allows for adjustments and optimizations between phases based on lessons learned.
+- Minimized/no downtime: Since the migration occurs in stages, downtime can be limited to smaller user groups or avoided
+  completely.
+
+##### Drawbacks of stepwise migration
+
+- Complex management: Multiple "go-lives" require more coordination and detailed planning, increasing operational complexity.
+- Extended timeline: The migration process takes longer as it is broken down into phases.
+- Resource demands: Running both systems in parallel during the transition can strain resources.
+
+A stepwise migration is the best choice in most cases, especially when
+
+- you manage multiple apps/segments of users with different underlying auth systems
+- downtime should be mostly avoided
+- you have some time to migrate
+
+#### Graceful migration
+
+Graceful migration - also called "slow migration", "rolling migration", or "online migration" - involves running both the old and
+new systems in parallel, gradually migrating users as they authenticate. This approach features two "go-lives": the initial
+application "go-live" and subsequent user-specific cutovers during login.
+
+##### Advantages of graceful migration
+
+- Low risk: The gradual transition reduces the risk of widespread issues, as only a few users are affected at any given time.
+- No hashed credentials needed: Users are migrated during their "normal" authentication process, so you don't need to import
+  credentials. Great if you don't have access to the hashed credentials.
+- No downtime: Both systems operate simultaneously until the migration is completed.
+
+##### Drawbacks of graceful migration
+
+- Extended migration period: The process takes longer as users are migrated individually over time.
+- Increased complexity: Maintaining synchronization between two systems adds complexity to the migration process.
+- Potential for data inconsistencies: If not carefully managed, there may be discrepancies between the two systems during the
+  transition period.
+
+A graceful migration is a good choice when
+
+- you don't have access to hashed credentials or they are hashed with a proprietary algorithm
+- absolutely no downtime is acceptable
+- running the current solution until the end of migration isn't a problem
+
+## Create Ory Network Projects
+
+Now that you have chosen your ideal migration strategy, you can begin the actual migration process by setting up your Ory Network
+projects. This involves creating a new project environment where the migration will take place.
+
+You can create a new Ory Network project using the Ory CLI. The command ory create project allows you to specify the environment
+of the project, the output format, the name of the project, and the workspace to use. More details about creating a project can be
+found [here](../cli/ory-create-project).
+
+:::info
+
+Before migrating to your production environment, it is highly recommended that you first perform the migration in a development or
+staging environment. This allows you to test and refine the process without affecting your live data or users.
+
+:::
+
+## Define identity schema
+
+To match identities from your current system with the new Ory system, you can customize the identity schema in Ory to meet your
+specific requirements. This schema defines the types of data that the system can store for users, including names, email
+addresses, phone numbers, and other authentication-related information. Additionally, you can specify extra metadata fields to be
+included in user profiles. Ory offers default presets to assist you in creating and managing identity schemas. More details about
+identity schemas can be found [here](../kratos/manage-identities/identity-schema).
+
+## Integrate frontend
+
+To begin integrating Ory into your frontend, it's helpful to start with the
+["protect a page with login" guides](https://www.ory.sh/docs/getting-started/overview) that cover the basics of developing with
+Ory, including SDK usage and essential setup steps. These resources will provide you with a solid foundation for working with Ory
+in various frontend programming languages and frameworks.
+
+You have two choices of user interface in Ory Network.  
+It is recommended to start with the built-in [Account Experience](../account-experience/index.mdx), which offers a standard
+interface, covering all self-service flows with the option to style branding to get you up and running.  
+If you prefer a custom user interface that matches your current design 1:1, Ory allows you to create and style a custom UI that
+integrates seamlessly with your existing setup. You can do this using the API directly, the SDK for your language, or - provided
+you are working in the React ecosystem - Ory Elements.  
+Ory Elements is a component library designed to make building login, registration, and account pages for Ory easy. It is modular
+and customizable, allowing you to use only the components you need while tailoring them to fit your implementation's design. The
+UI created with Ory Elements changes dynamically to adapt to your Ory Network configuration. More details about customizing the
+user interface can be found [here](../kratos/bring-your-own-ui/custom-ui-ory-elements).
+
+## Integrate backend
+
+TODO
+
+## Get user data and credentials
+
+Export your user data from your from your existing authentication solution or database and find out the hashing algorithm used by
+your existing authentication system. If your passwords are not hashed, you can bypass this step, as Ory will handle password
+hashing automatically during the import process. Ory supports a range of hashing algorithms; if your current algorithm is
+supported, you can use the import API to migrate your users.  
+If the hashing algorithm isn't supported or if you can't get the hashed passwords from your current authentication system, you
+likely want to do a "graceful migration" and use the password migration hook to migrate your existing users. You can find more
+details about this process [here](../kratos/manage-identities/25_import-user-accounts-identities.mdx).
+
+## Import users
+
+You can use the Identity Import API to bulk import identities into Ory. A maximum of 2000 identities can be created in a single
+request. If you need to import more identities, you need to split the import into multiple requests. The endpoint accepts a JSON
+array of identities, each of which must have a create property that holds the identity that should be created. Read more about
+this process [here](../kratos/manage-identities/import-user-accounts-identities#bulk-import-identities-from-other-providers).
+
+## Go live
+
+TODO
+
+:::info
+
+Ory is here to help!  
+To get support in your migration beyond this guide join the [Ory Community Slack](https://slack.ory.sh/) and get support from the
+community.  
+Or contact us for a [free consultation](https://ory.sh/contact) and get expert help from the Ory Team.
+
+## :::
+
+id: index title: Migrate to Ory tutorial sidebar_label: Migrate to Ory sidebar_position: 1
+
+---
+
+This tutorial will guide you through the process of migrating your existing authentication system to Ory Identities, creating Ory
+Network projects, setting up iwdentity schemas, and customizing the user interface to match your current interface.
 
 :::note
 
@@ -15,35 +219,137 @@ need further assistance, please contact Ory Support for help.
 
 :::
 
-define identity schema integrate into FE services (incl. UI) integrate into BE services export identities with credentials
-transform identities (CSV -> JSON, rewrite keys, ...) import identities go live
+## Premigration considerations
 
-## Initial considerations
+Before starting the actual migration and choosing a migration strategy, please consider the following.
 
-asd
+### Map requirements
 
-## Get user data
+There are many ways to map requirements. One recommendation is to use a decision matrix to identify your essential requirements
+(must-haves) and additional preferences (nice-to-haves). For example list your requirements in rows and the different potential
+solutions - such as providers like Ory, self-rolled solutions, or different deployment options - in columns. Collaborate with your
+team to refine these criteria through research and discussion. The goal at this stage is to evaluate many solutions, not to make a
+final decision. You may find that your current solution is sufficient, that migration is necessary without immediate need, or that
+you need to migrate to a new solution as fast as possible.
 
-Export your user data from your from your existing authentication solution or database and find out the hashing algorithm used by
-your existing authentication system. If your passwords are not hashed, you can bypass this step, as Ory will handle password
-hashing automatically during the import process. Ory supports a range of hashing algorithms; if your current algorithm is
-supported, you can use the import API to migrate your users. If the hashing algorithm is not supported or if you can't get the
-hashed passwords from your current authentication system, you can use the password migration hook to migrate your existing users.
-You can find more details about this process [here](../kratos/manage-identities/25_import-user-accounts-identities.mdx).
+### Proof of concept
+
+If Ory appears to meet your requirements, conduct a proof of concept (PoC) with no more than two other selected solutions from
+your decision matrix. This PoC should be a small-scale integration to verify that its features work as expected, such as adding
+authentication with Ory to a staging environment. While not all edge cases and details will be solved at this stage, the PoC will
+help identify potential blockers or challenges before migrating your production service.
+
+You can start a PoC using Ory’s free Developer plan at [console.ory.sh](http://console.ory.sh/) without needing to talk to sales,
+but Ory also offers free support for a PoC - for this please [contact the Ory team](https://www.ory.sh/contact/)!
+
+Focus on testing the most complex use cases to assess the solutions capabilities, documentation, and service quality. Don’t move
+forward with the migration without a proof of concept, this is an important step before a decision that will be hard to reverse.
+
+### Migration strategies
+
+When migrating user data from an old system to a new one, the process involves two main steps: transferring existing data and
+"go-live" when users start authenticating with the new system. The choice of migration strategy depends on your specific use case,
+the shape of existing data, and the number of "go-lives" you need to manage.
+
+- **Big bang** - Migrate everyone at once.
+- **Stepped** - Migrate your applications or user segments individually. _This is the most common choice_.
+- **Graceful** - Migrate when a user authenticates, running both solutions in parallel.
+
+Each migration strategy has its strengths and challenges. The ideal choice depends on factors such as the complexity of your
+system, the number of users, and your organization's tolerance for risk and downtime.
+
+#### Big bang migration
+
+In a big bang migration, also known as "offline migration", all user data is transferred at once, and a single "go-live" event is
+scheduled, where all users start using the new system simultaneously.
+
+##### Advantages of big bang migration
+
+- Simplicity: Since there is just one "go-live", the migration process is easier to manage and plan.
+- Time efficiency: The migration process happens in one go, reducing the time needed for the transition.
+- Less complexity: There is no need to run two systems in parallel and you can retire the previous solution immediately.
+
+##### Drawbacks of big bang migration
+
+- High risk: If any issues occur during the cutover, the impact can be significant, affecting all users at once.
+- Downtime: This approach may require planned system downtime to ensure data consistency, which can disrupt users.
+- Increased preparation: Requires extensive planning and testing to mitigate risks, making it more resource-intensive during that
+  phase.
+
+A big bang migration is often not the best choice due to the risk and downtime, but it is recommended when
+
+- the number of users is low / app is simple
+- downtime isn't a problem
+- you need to retire the current solution yesterday
+
+#### Stepwise migration
+
+Stepwise migration, also called "application-based migration", involves transferring user data in phases, focusing on specific
+applications, services, or user segments at a time. This approach results in multiple "go-lives", each affecting a defined group
+of users.
+
+##### Advantages of stepwise migration
+
+- Reduced risk: By migrating in phases, issues are isolated to specific apps or user segments.
+- Flexibility: Allows for adjustments and optimizations between phases based on lessons learned.
+- Minimized/no downtime: Since the migration occurs in stages, downtime can be limited to smaller user groups or avoided
+  completely.
+
+##### Drawbacks of stepwise migration
+
+- Complex management: Multiple "go-lives" require more coordination and detailed planning, increasing operational complexity.
+- Extended timeline: The migration process takes longer as it is broken down into phases.
+- Resource demands: Running both systems in parallel during the transition can strain resources.
+
+A stepwise migration is the best choice in most cases, especially when
+
+- you manage multiple apps/segments of users with different underlying auth systems
+- downtime should be mostly avoided
+- you have some time to migrate
+
+#### Graceful migration
+
+Graceful migration - also called "slow migration", "rolling migration", or "online migration" - involves running both the old and
+new systems in parallel, gradually migrating users as they authenticate. This approach features two "go-lives": the initial
+application "go-live" and subsequent user-specific cutovers during login.
+
+##### Advantages of graceful migration
+
+- Low risk: The gradual transition reduces the risk of widespread issues, as only a few users are affected at any given time.
+- No hashed credentials needed: Users are migrated during their "normal" authentication process, so you don't need to import
+  credentials. Great if you don't have access to the hashed credentials.
+- No downtime: Both systems operate simultaneously until the migration is completed.
+
+##### Drawbacks of graceful migration
+
+- Extended migration period: The process takes longer as users are migrated individually over time.
+- Increased complexity: Maintaining synchronization between two systems adds complexity to the migration process.
+- Potential for data inconsistencies: If not carefully managed, there may be discrepancies between the two systems during the
+  transition period.
+
+A graceful migration is a good choice when
+
+- you don't have access to hashed credentials or they're hashed with a proprietary algorithm
+- absolutely no downtime is acceptable
+- running the current solution until the end of migration isn't a problem
 
 ## Create Ory Network Projects
+
+Now that you have chosen your ideal migration strategy, you can begin the actual migration process by setting up your Ory Network
+projects. This involves creating a new project environment where the migration will take place.
 
 You can create a new Ory Network project using the Ory CLI. The command ory create project allows you to specify the environment
 of the project, the output format, the name of the project, and the workspace to use. More details about creating a project can be
 found [here](../cli/ory-create-project).
 
-- send them to the project creation screen in the console?
+:::info
 
-- they should first migrate your dev or staging project before doing it in production.
+Before migrating to your production environment, it is highly recommended that you first perform the migration in a development or
+staging environment. This allows you to test and refine the process without affecting your live data or users.
 
-We recommend you try the migration using dev / stage project
+:::
 
-## Map user traits
+## Define identity schema
 
 To match identities from your current system with the new Ory system, you can customize the identity schema in Ory to meet your
 specific requirements. This schema defines the types of data that the system can store for users, including names, email
@@ -51,25 +357,54 @@ addresses, phone numbers, and other authentication-related information. Addition
 included in user profiles. Ory offers default presets to assist you in creating and managing identity schemas. More details about
 identity schemas can be found [here](../kratos/manage-identities/identity-schema).
 
-## Migrate User Interface
+## Integrate frontend
 
-If you're migrating from an existing authentication system, you can start with the built-in
-[Account Experience](../account-experience/index.mdx), which offers a standard interface with basic branding to get you up and
-running quickly. Alternatively, if you prefer a custom user interface that matches your current design, Ory allows you to create
-and style a custom UI that integrates seamlessly with your existing setup. Ory Elements is a component library designed to make
-building login, registration, and account pages for Ory straightforward. It is modular and customizable, which means that you can
-use only the components you need and style them to match your implementation's design. The UI created with Ory Elements changes
-dynamically to adapt to your Ory Network configuration. More details about customizing the user interface can be found
-[here](../kratos/bring-your-own-ui/custom-ui-ory-elements).
+To begin integrating Ory into your frontend, it's helpful to start with the
+["protect a page with login" guides](https://www.ory.sh/docs/getting-started/overview) that cover the basics of developing with
+Ory, including SDK usage and essential setup steps. These resources will provide you with a solid foundation for working with Ory
+in various frontend programming languages and frameworks.
 
-## Bulk import users
+You have two choices of user interface in Ory Network.  
+It is recommended to start with the built-in [Account Experience](../account-experience/index.mdx), which offers a standard
+interface, covering all self-service flows with the option to style branding to get you up and running quickly.  
+If you prefer a custom user interface that matches your current design 1:1, Ory allows you to create and style a custom UI that
+integrates seamlessly with your existing setup. You can do this using the API directly, the SDK for your language, or - provided
+you are working in the React ecosystem - Ory Elements.  
+Ory Elements is a component library designed to make building login, registration, and account pages for Ory easy. It is modular
+and customizable, allowing you to use only the components you need while tailoring them to fit your implementation's design. The
+UI created with Ory Elements changes dynamically to adapt to your Ory Network configuration. More details about customizing the
+user interface can be found [here](../kratos/bring-your-own-ui/custom-ui-ory-elements).
 
-To bulk import identities into Ory, you can use the Identity Import API. A maximum of 2000 identities can be created in a single
+## Integrate backend
+
+TODO
+
+## Get user data and credentials
+
+Export your user data from your from your existing authentication solution or database and find out the hashing algorithm used by
+your existing authentication system. If your passwords aren't hashed, you can bypass this step, as Ory will handle password
+hashing automatically during the import process. Ory supports a range of hashing algorithms; if your current algorithm is
+supported, you can use the import API to migrate your users.  
+If the hashing algorithm isn't supported or if you can't get the hashed passwords from your current authentication system, you
+likely want to do a "graceful migration" and use the password migration hook to migrate your existing users. You can find more
+details about this process [here](../kratos/manage-identities/25_import-user-accounts-identities.mdx).
+
+## Import users
+
+You can use the Identity Import API to bulk import identities into Ory. A maximum of 2000 identities can be created in a single
 request. If you need to import more identities, you need to split the import into multiple requests. The endpoint accepts a JSON
 array of identities, each of which must have a create property that holds the identity that should be created. Read more about
 this process [here](../kratos/manage-identities/import-user-accounts-identities#bulk-import-identities-from-other-providers).
 
-## Additional Support
+## Go live
 
+TODO
+
+:::info
+
+Ory is here to help!  
 To get support in your migration beyond this guide join the [Ory Community Slack](https://slack.ory.sh/) and get support from the
-community or purchase a [support plan](https://ory.sh/pricing) and get expert help from the Ory Team.
+community.  
+Or contact us for a [free consultation](https://ory.sh/contact) and get expert help from the Ory Team.
+
+:::
