@@ -320,6 +320,7 @@ module.exports = {
       type: "category",
       label: "Migrating to Ory",
       items: [
+        "migrate-to-ory/index",
         "hydra/self-hosted/migrating-from-mitreid",
         "migrate-to-ory/auth0",
       ],
