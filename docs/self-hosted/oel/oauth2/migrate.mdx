@@ -46,7 +46,8 @@ After successfully migrating the database:
 
 After successfully migrating the database:
 
-1. **Start the Ory Hydra Enterprise License Version**: Launch the Ory Hydra OEL using the same database connection string and configuration, but with the OEL Docker image.
+1. **Start the Ory Hydra Enterprise License Version**: Launch the Ory Hydra OEL using the same database connection string and
+   configuration, but with the OEL Docker image.
 
 ```bash
 docker run -d \
@@ -56,6 +57,7 @@ docker run -d \
   europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<version> \
   serve all -c config.yml
 ```
+
 Ensure to replace `your_database_connection_string` with your database connection string used in the migration step.
 
 2. Switch traffic to point to the new Ory Enterprise License Hydra. Perform this step on your infrastructure.
