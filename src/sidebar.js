@@ -427,13 +427,24 @@ module.exports = {
     },
     {
       type: "category",
-      label: "Ory Enterprise License",
+      label: "Ory Enterprise License (OEL)",
       items: [
         "self-hosted/oel/quickstart",
         {
           type: "category",
-          label: "Ory Hydra (OAuth2 Server)",
-          items: ["self-hosted/oel/oauth2/token-prefix"],
+          label: "OAuth2 Server Ory Hydra",
+          items: [
+            {
+              type: "category",
+              label: "Upgrade",
+              items: [
+                "self-hosted/oel/oauth2/upgrade",
+                "self-hosted/oel/oauth2/changelog",
+              ],
+            },
+            "self-hosted/oel/oauth2/token-prefix",
+            "self-hosted/oel/oauth2/migrate",
+          ],
         },
       ],
     },
