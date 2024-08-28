@@ -1,0 +1,201 @@
+---
+id: manage-project-via-api
+title: Manage Ory Network projects through the API
+sidebar_label: Project management via API
+---
+
+You can configure Ory Network projects using the [Ory Console](https://console.ory.sh/), as well as the
+[Ory CLI](./cli/cli-basics) and in most cases those are the recommended tools. There are cases where you might want to use the API
+directly, for example when managing a large number of projects or when exposing certain capabilities to your users in a B2B/B2B2C
+scenario.  
+In this guide you will learn how to configure Ory Network projects using the API.
+
+To run this guide you need:
+
+- [curl](https://curl.se/)
+- your **Ory Network project ID** and **Workspace ID**
+- a **Workspace API Key**
+
+:::info
+
+To create a new Workspace API Key go to <ConsoleLink route="workspace.settings.apiKeys" />.
+
+:::
+
+### Usage
+
+Use the API Key in API calls, SDK calls, or command-line interactions. Ory Workspace API Keys have a `ory_wak_` prefix, which
+helps to identify them in code.
+
+For example, when calling the API to get a project at /projects/:project_id, include the API Key in the Authorization header:
+
+```bash
+GET /projects/$PROJECT_ID HTTP/1.1
+Host: api.console.ory.sh
+Accept: application/json
+# highlight-next-line
+Authorization: Bearer ${WORKSPACE_API_KEY}
+```
+
+## Ory Network projects API snippets
+
+Open your favourite terminal and export the workspace API key and workspace ID. You can find the workspace ID in the
+[overview](https://console.ory.sh/workspaces) or when you click into a workspace as part of the URL.
+
+```bash
+export WORKSPACE_API_KEY=
+export WORKSPACE_ID=
+```
+
+### List all projects
+
+List all your Ory Network projects, including stats like creation time, last update time and more using the listProjects API.
+
+```bash
+curl --location --request GET 'https://api.console.ory.sh/projects' \
+  --header "Accept: application/json" \
+  --header "Authorization: Bearer ${WORKSPACE_API_KEY}" | jq
+```
+
+### Create a project
+
+Create a new Ory Network project through the API. You get the full configuration of the newly created project as response using
+the createProject API. Here you can optionally specify the region and workspace the project should be created in.
+
+```bash
+curl --location --request POST 'https://api.console.ory.sh/projects' \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer ${WORKSPACE_API_KEY}" \
+  --data '{
+    "name": "example",
+    "environment": "dev",
+    "home_region": "us-west",
+    "workspace_id": "'"${WORKSPACE_ID}"'"
+  }' | jq
+```
+
+Here the project will be created with the following settings:
+
+- `name`: example (can be freely chosen by you)
+- `environment`: dev (can be "prod", "stage", or "dev")
+- `home_region`: us-west
+- `workspace_id`: your workspace id
+
+### Delete a project
+
+:::danger
+
+Use with extreme caution. This action can not be undone and will delete ALL your data.
+
+:::
+
+You can delete an Ory Network project by following these steps:
+
+```bash
+export ORY_PROJECT_ID=
+
+curl --location --request DELETE "https://api.console.ory.sh/projects/${ORY_PROJECT_ID}" \
+  --header "Accept: application/json" \
+  --header "Authorization: Bearer ${WORKSPACE_API_KEY}"
+```
+
+### Get a project
+
+To get the full configuration of your Ory Network project use the getProject API.
+
+```bash
+export ORY_PROJECT_ID=
+
+curl --location --request GET "https://api.console.ory.sh/projects/${ORY_PROJECT_ID}" \
+  --header "Accept: application/json" \
+  --header "Authorization: Bearer ${WORKSPACE_API_KEY}" | jq
+```
+
+### Update an Ory Network project Configuration
+
+You can use Workspace API keys to change a projects configuration through the API.
+
+In this example we add an Ory Action to the project.
+
+First, create a Jsonnet file that transforms the identity data from Ory to a format Segment understands:
+
+```json
+function(ctx) {
+  userId: ctx.identity.id,
+  traits: {
+    email: ctx.identity.traits.email,
+    name: ctx.identity.traits.name,
+    newsletterConsent: ctx.identity.traits.consent.newsletter,
+  },
+}
+```
+
+Encode this Jsonnet snippet to Base64 and save it to the clipboard:
+
+`cat test.jsonnet | base64 | pbcopy`
+
+Define the Ory Action as a JSON Object. Remember to replace the example with your data:
+
+```bash
+export ORY_PROJECT_ID=
+
+curl --location --request PATCH "https://api.console.ory.sh/projects/${ORY_PROJECT_ID}" \
+-H "Authorization: Bearer ${WORKSPACE_API_KEY}" \
+-H "Content-Type: application/json" \
+-d '[
+  {
+    "op": "add",
+    "path": "/services/identity/config/selfservice/flows/login/after/hooks/-",
+    "value": {
+      "hook": "web_hook",
+      "config": {
+        "url": "https://webhook.site/42a3f21-375b-4604-b4c7-15cc885ffa13",
+        "method": "POST",
+        "body": "base64://ZnVuY3Rpb24oY3R4KSB7CiAgdXNlcklkOiBjdHguaWRlbnRpdHkuaWQsCiAgdHJhaXRzOiB7CiAgICBlbWFpbDogY3R4LmlkZW50aXR5LnRyYWl0cy5lbWFpbCwKICAgIG5hbWU6IGN0eC5pZGVudGl0eS50cmFpdHMubmFtZSwKICAgIG5ld3NsZXR0ZXJDb25zZW50OiBjdHguaWRlbnRpdHkudHJhaXRzLmNvbnNlbnQubmV3c2xldHRlciwKICB9LAp9"
+      }
+    }
+  }
+]' \
+| jq ".project.services.identity.config.selfservice.flows.login.after.hooks"
+```
+
+### List a project's API Tokens
+
+List all API Keys active using the listProjectApiKeys API, including creation dates, name and ID. Please note that you can not get
+the value this way, it is only shown once upon creation of the API Key.
+
+```bash
+curl --location --request GET  "https://api.console.ory.sh/projects/${ORY_PROJECT_ID}/tokens" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ${WORKSPACE_API_KEY}" | jq
+```
+
+### Create project API token
+
+Use the createProjectApiKey API to create a new API Key. The output is similar to above, with the difference that you can see the
+value now (this is the only time you see it!).
+
+```bash
+curl --location --request POST "https://api.console.ory.sh/projects/${ORY_PROJECT_ID}/tokens" \
+-d '{"name":"example"}' \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer ${WORKSPACE_API_KEY}" | jq
+```
+
+### Delete project API token
+
+In the same way you can also delete an API Key that is no longer used. You need the API Key ID to delete it with the
+deleteProjectApiKey API.
+
+```bash
+export ORY_PROJECT_API_KEY_ID=
+
+curl --location --request DELETE "https://api.console.ory.sh/projects/${ORY_PROJECT_ID}/tokens/${ORY_PROJECT_API_KEY_ID}" \
+-H "Accept: application/json" \
+-H "Authorization: Bearer ${WORKSPACE_API_KEY}"
+```
+
+### Create, update, delete organizations
+
+To learn more about how to use the Organizations or B2B SSO API, including examples, please refer to the guide in the
+[Organizations and B2B Single Sign-On](kratos/organizations/organizations.mdx) documentation.

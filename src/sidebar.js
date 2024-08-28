@@ -330,6 +330,7 @@ module.exports = {
       items: [
         "guides/custom-domains",
         "guides/cors",
+        "guides/manage-project-via-api",
         "guides/gitops",
         "guides/rate-limits",
         "guides/allowlist",
