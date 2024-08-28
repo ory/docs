@@ -52,7 +52,7 @@ export WORKSPACE_ID=
 List all your Ory Network projects, including stats like creation time, last update time and more using the listProjects API.
 
 ```bash
-curl --location --request GET 'https://api.console.ory.sh/projects' \
+curl --location --request GET "https://api.console.ory.sh/workspaces/${WORKSPACE_ID}/projects" \
   --header "Accept: application/json" \
   --header "Authorization: Bearer ${WORKSPACE_API_KEY}" | jq
 ```
