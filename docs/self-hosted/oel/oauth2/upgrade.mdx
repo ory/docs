@@ -98,7 +98,9 @@ docker pull europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-ve
 Before deploying the service, you need to apply SQL migrations:
 
 ```bash
-docker run -e DSN=cockroach://... europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag> -- migrate sql -e -f /path/to/config.yaml
+docker run -e DSN=your_database_connection_string europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag> -- migrate sql -e -f /path/to/config.yaml
+
+Replace `your_database_connection_string` with your actual database connection string.
 ```
 
 ### 5. Stop the Service
