@@ -98,10 +98,13 @@ docker pull europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-ve
 Before deploying the service, you need to apply SQL migrations:
 
 ```bash
-docker run -e DSN=your_database_connection_string europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag> -- migrate sql -e -f /path/to/config.yaml
+docker run \
+  -e DSN=your_database_connection_string \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag> \
+  -- migrate sql -e -f /path/to/config.yaml
+```
 
 Replace `your_database_connection_string` with your actual database connection string.
-```
 
 ### 5. Stop the Service
 
@@ -112,10 +115,14 @@ Once done, you can stop the processes running the old service.
 Now you will be able to start the service:
 
 ```bash
-docker run -p 4444:4444 -p 4445:4445 -e DSN=your_database_connection_string europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag> -- serve all -f /path/to/config.yaml
+docker run \
+  -p 4444:4444 -p 4445:4445 \
+  -e DSN=your_database_connection_string \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag> \
+  -- serve all -f /path/to/config.yaml
+```
 
 Replace `your_database_connection_string` with your actual database connection string.
-```
 
 ## Conclusion
 
