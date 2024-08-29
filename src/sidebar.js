@@ -195,6 +195,7 @@ module.exports = {
           ],
         },
         "kratos/organizations/organizations",
+        "kratos/captcha"
       ],
     },
     {
