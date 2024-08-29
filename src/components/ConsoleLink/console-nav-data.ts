@@ -13,6 +13,7 @@ export type Path = {
 export type RootPath = Path & {
   paths?: Path[]
 }
+
 export type Paths = RootPath[]
 
 export const getStartedPaths: Path[] = [
@@ -68,11 +69,10 @@ export const brandingPaths: Path[] = [
     title: "Email configuration",
     href: routes.project.emailConfiguration.route,
   },
-  // TODO(jonas): re-add once email configuration is fully done https://github.com/ory-corp/cloud/issues/4867
-  // {
-  //   title: "Email templates",
-  //   href: routes.project.emailTemplates.route,
-  // },
+  {
+    title: "Email templates",
+    href: routes.project.emailTemplates.route,
+  },
 ]
 
 export const authenticationPaths: Path[] = [
@@ -154,12 +154,16 @@ export const projectSettingsPaths: Path[] = [
     href: routes.project.developers.route,
   },
   {
-    title: "Collaborators",
+    title: "Members",
     href: routes.project.settings.collaborators.route,
   },
   {
     title: "Advanced",
     href: routes.project.settings.advanced.route,
+  },
+  {
+    title: "Plans & Billing",
+    href: routes.project.settings.billing.route,
   },
 ]
 
@@ -249,7 +253,11 @@ const workspaceSettings: Path[] = [
   { title: "Members", href: routes.workspace.settings.members.route },
   { title: "API keys", href: routes.workspace.settings.apiKeys.route },
   {
-    title: "Plans & billing",
+    title: "Plans and subscription",
+    href: routes.workspace.settings.subscription.route,
+  },
+  {
+    title: "Usage and billing",
     href: routes.workspace.settings.billing.route,
   },
 ]
