@@ -205,6 +205,13 @@ const config: Config = {
   } satisfies Preset.ThemeConfig,
   plugins: [
     [
+      "docusaurus-pushfeedback",
+      {
+        project: "7bhe9sxlqg",
+        buttonPosition: "center-right",
+      },
+    ],
+    [
       "@docusaurus/plugin-content-docs",
       {
         path: "docs",
