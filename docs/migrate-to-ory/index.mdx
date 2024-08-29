@@ -11,11 +11,11 @@ Network projects, setting up identity schemas, and customizing the user interfac
 :::note
 
 This guide is an initial reference and may not cover all aspects of your use case. If you have any questions or need more help,
-don't hesitate to get in touch with Ory Support for help.
+don't hesitate to get in [touch with Ory Support for help](https://www.ory.sh/contact).
 
 :::
 
-## Premigration considerations
+## Pre-migration considerations
 
 Before starting the actual migration and choosing a migration strategy, please consider the following.
 
@@ -176,16 +176,15 @@ To begin integrating Ory into your frontend, it's helpful to start with the
 ["protect a page with login" guides](https://www.ory.sh/docs/getting-started/overview) that cover the basics of developing with
 Ory for various programming languages and frameworks, including SDK usage and essential setup steps.
 
-Ory Network has two types of user interfaces.  
-We recommend to start with the built-in [Account Experience](../account-experience/index.mdx), which offers a standard user
-interface, covering all self-service flows with the option to style branding to get you up and running.  
-If you prefer a custom user interface that matches your current design 1:1, Ory allows you to create and style a custom UI that
-integrates seamlessly with your existing setup. You can do this using the API directly, the SDK for your language, or - if you are
-working in the React ecosystem - Ory Elements.  
-Ory Elements is a component library designed to make building login, registration, and account pages for Ory easy. It is modular
-and customizable, allowing you to use only the components you need while tailoring them to fit your implementation's design. The
-UI created with Ory Elements changes dynamically to adapt to your Ory Network configuration. More details about customizing the
-user interface with Ory Elements can be found [here](../kratos/bring-your-own-ui/custom-ui-ory-elements).
+Ory Network has two types of user interfaces. We recommend to start with the built-in
+[Account Experience](../account-experience/index.mdx), which offers a standard user interface, covering all self-service flows
+with the option to style branding to get you up and running. If you prefer a custom user interface that matches your current
+design 1:1, Ory allows you to create and style a custom UI that integrates seamlessly with your existing setup. You can do this
+using the API directly, the SDK for your language, or - if you are working in the React ecosystem - Ory Elements. Ory Elements is
+a component library designed to make building login, registration, and account pages for Ory easy. It is modular and customizable,
+allowing you to use only the components you need while tailoring them to fit your implementation's design. The UI created with Ory
+Elements changes dynamically to adapt to your Ory Network configuration. More details about customizing the user interface with
+Ory Elements can be found [here](../kratos/bring-your-own-ui/custom-ui-ory-elements).
 
 ## Integrate backend
 
@@ -220,20 +219,18 @@ no straightforward way to export the identities and you might need to go through
 Export user data from your existing authentication solution or database and find out the hashing algorithm used to hash their
 credentials. If your passwords are not hashed, you can bypass this step, as Ory will handle password hashing automatically during
 the import process. Ory supports a range of hashing algorithms; if yours is supported, use the
-[create identity API](../reference/api#tag/identity/operation/createIdentity) to import your users.  
-If the hashing algorithm isn't supported or if you can't get the hashed passwords from your current authentication system, you may
-want to do a "graceful" migration and use the password migration hook to migrate your existing users.  
-You can find more details in the [Import identities ](../kratos/manage-identities/25_import-user-accounts-identities.mdx)
-documentation.
+[create identity API](../reference/api#tag/identity/operation/createIdentity) to import your users. If the hashing algorithm isn't
+supported or if you can't get the hashed passwords from your current authentication system, you may want to do a "graceful"
+migration and use the password migration hook to migrate your existing users. You can find more details in the
+[Import identities ](../kratos/manage-identities/25_import-user-accounts-identities.mdx) documentation.
 
 ## Import identities
 
 You can use the [create identity API](../reference/api#tag/identity/operation/batchPatchIdentities) to bulk import identities into
 Ory. A maximum of 2000 identities can be created in a single request. If you need to import more identities, you need to split the
 import into multiple requests. The endpoint accepts a JSON array of identities, each of which must have a create property that
-holds the identity that should be created.  
-You can find more details in the [Import identities ](../kratos/manage-identities/25_import-user-accounts-identities.mdx)
-documentation.
+holds the identity that should be created. You can find more details in the
+[Import identities ](../kratos/manage-identities/25_import-user-accounts-identities.mdx) documentation.
 
 ### Phased migration for active sessions
 
@@ -270,9 +267,8 @@ Once your Ory integration is stable and users are successfully authenticating wi
 
 :::info
 
-Ory is here to help!  
-To get support in your migration beyond this guide join the [Ory Community Slack](https://slack.ory.sh/) and get support from the
-community.  
-Or contact us for a [free consultation](https://ory.sh/contact) and get expert help from the Ory Team.
+Ory is here to help! To get support in your migration beyond this guide join the [Ory Community Slack](https://slack.ory.sh/) and
+get support from the community. Or contact us for a [free consultation](https://ory.sh/contact) and get expert help from the Ory
+Team.
 
 :::
