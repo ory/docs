@@ -74,7 +74,6 @@ export function useLatestRelease(
         per_page: 100,
       })
       .then(({ data }) => {
-        console.log(data)
         const published = data.filter(
           ({ draft, tag_name }) => !draft && !tag_name.match(/pre.[0-9]+$/),
         )
@@ -103,7 +102,6 @@ export function useLatestTag(repo: string, fallback = "<version-you-want>") {
         per_page: 100,
       })
       .then(({ data }) => {
-        console.log(data)
         const published = data.filter((a) => !a.name.match(/pre.[0-9]+$/))
         if (published.length > 0) {
           setRelease(published[0].name)
