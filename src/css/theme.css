@@ -75,3 +75,13 @@ svg[class*="iconExternalLink"] {
     margin-top: 1em;
   }
 }
+
+.config-editor .unsupported-field pre {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+
+.config-editor p {
+  margin: unset;
+}

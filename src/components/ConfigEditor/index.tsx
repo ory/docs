@@ -1,4 +1,5 @@
 import RefParser from "@apidevtools/json-schema-ref-parser"
+import { ChakraProvider } from "@chakra-ui/react"
 import { Theme as ChakraUITheme } from "@rjsf/chakra-ui"
 import { withTheme } from "@rjsf/core"
 import validator from "@rjsf/validator-ajv8"
@@ -27,8 +28,10 @@ export default function ConfigEditor(props: { url: any }) {
   }
 
   return (
-    <div className="bootstrap">
-      <Form schema={schema} liveValidate={true} validator={validator} />
+    <div className="config-editor">
+      <ChakraProvider>
+        <Form schema={schema} liveValidate={true} validator={validator} />
+      </ChakraProvider>
     </div>
   )
 }
