@@ -8,6 +8,8 @@ sidebar_label: Go
 import Teaser from '../_common/teaser.mdx'
 import mp4 from '../_static/go/screencast.mp4'
 import webm from '../_static/go/screencast.webm'
+import CodeBlock from "@theme/CodeBlock"
+import { useLatestTag } from '@site/src/hooks'
 
 <Teaser
   framework={<a href="https://go.dev/">Go</a>}
@@ -32,8 +34,8 @@ go mod init github.com/<your-name>/your-project
 
 Run this command to install the Ory SDK which allows you to interact with Ory APIs:
 
-```shell-session
-go get -u github.com/ory/client-go
+```mdx-code-block
+<CodeBlock className="language-shell">{`go get github.com/ory/client-go@${useLatestTag('client-go', 'master')}`}</CodeBlock>
 ```
 
 ## Install Ory CLI

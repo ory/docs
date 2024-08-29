@@ -30,8 +30,11 @@ Don't consume the `/oauth2/auth` and `/oauth2/token` endpoints using this SDK. U
 
 To install the Go SDK, run:
 
-```go
-go get github.com/ory/client-go
+```mdx-code-block
+import CodeBlock from "@theme/CodeBlock"
+import { useLatestTag } from '@site/src/hooks'
+
+<CodeBlock className="language-shell">{`go get github.com/ory/client-go@${useLatestTag('client-go', 'master')}`}</CodeBlock>
 ```
 
 ## Making requests
