@@ -99,16 +99,27 @@ To read more about registration via a one-time code, read the [one-time code](..
 
 ## Using custom message templates
 
-You can use custom templates in place of built-in ones. If you don't specify a custom template, the system automatically uses the
-built-in one.
+Templates can be customized to fit your own branding and requirements. If you don't customize a specific template, the system
+automatically uses the built-in template.
 
 ```mdx-code-block
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 ```
 
-1. Go to <ConsoleLink route="project.emailConfiguration" />
-2. Select the email template you want to customize from the **Email Templates** section at the bottom of the page.
+1. Go to <ConsoleLink route="project.emailTemplates" />
+2. Select the email template you want to customize.
+
+:::info
+
+The recovery & verification templates only show the versions for the method (**One time code** or **link**) you have selected in
+the flow configuration.
+
+- <ConsoleLink route="project.recovery" />
+
+- <ConsoleLink route="project.verification" />
+
+:::
 
 ```mdx-code-block
 </TabItem>
