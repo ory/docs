@@ -96,14 +96,14 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
 #### Get an organization
 
 ```shell
-curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/{{organization_id}}" \
+curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
 #### Delete an organization
 
 ```shell
-curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/{{organization_id}}" \
+curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
