@@ -5,11 +5,10 @@ sidebar_label: Go
 ---
 
 ```mdx-code-block
+import hooks from '@site/src/hooks'
 import Teaser from '../_common/teaser.mdx'
 import mp4 from '../_static/go/screencast.mp4'
 import webm from '../_static/go/screencast.webm'
-import CodeBlock from "@theme/CodeBlock"
-import { useLatestTag } from '@site/src/hooks'
 
 <Teaser
   framework={<a href="https://go.dev/">Go</a>}
@@ -59,7 +58,6 @@ Add the code to the `main.go` file:
 
 ```mdx-code-block
 import mainGo from '!!raw-loader!../../../code-examples/protect-page-login/go/main.go'
-import CodeBlock from '@theme/CodeBlock'
 
 <CodeBlock language="go" title="main.go">{mainGo}</CodeBlock>
 ```

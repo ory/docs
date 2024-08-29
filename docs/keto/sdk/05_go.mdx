@@ -3,6 +3,11 @@ id: go
 title: Go
 ---
 
+```mdx-code-block
+import CodeBlock from "@theme/CodeBlock"
+import { useLatestTag } from '@site/src/hooks'
+```
+
 In this document you can find code examples for the Ory Permissions Go SDK.
 
 :::info
@@ -28,9 +33,6 @@ Ory Permissions exposes two APIs for integration
 ### Installation REST API
 
 ```mdx-code-block
-import CodeBlock from "@theme/CodeBlock"
-import { useLatestTag } from '@site/src/hooks'
-
 <CodeBlock className="language-shell">{`go get github.com/ory/client-go@${useLatestTag('client-go', 'master')}`}</CodeBlock>
 ```
 
