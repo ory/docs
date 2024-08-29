@@ -208,6 +208,7 @@ const config: Config = {
       "docusaurus-pushfeedback",
       {
         project: "7bhe9sxlqg",
+        buttonPosition: "center-right",
       },
     ],
     [
