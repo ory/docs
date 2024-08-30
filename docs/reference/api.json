@@ -1184,6 +1184,11 @@
             "readOnly": true,
             "type": "string"
           },
+          "deleted": {
+            "description": "Deleted is true if the invoice has been soft-deleted.",
+            "readOnly": true,
+            "type": "boolean"
+          },
           "items": {
             "description": "The items that are part of this invoice.",
             "items": {
@@ -1193,7 +1198,7 @@
             "type": "array"
           },
           "plan": {
-            "description": "The plan that this invoice is based on.",
+            "description": "The plan that this invoice is based on, in the format \"Name@version\".",
             "readOnly": true,
             "type": "string"
           },
@@ -2112,6 +2117,32 @@
         "title": "Authenticator Assurance Level (AAL)",
         "type": "string"
       },
+      "batchCheckPermissionBody": {
+        "description": "Batch Check Permission Body",
+        "properties": {
+          "tuples": {
+            "items": {
+              "$ref": "#/components/schemas/relationship"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "batchCheckPermissionResult": {
+        "description": "Batch Check Permission Result",
+        "properties": {
+          "results": {
+            "description": "An array of check results. The order aligns with the input order.",
+            "items": {
+              "$ref": "#/components/schemas/checkPermissionResultWithError"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["results"],
+        "type": "object"
+      },
       "batchPatchIdentitiesResponse": {
         "description": "Patch identities response",
         "properties": {
@@ -2152,6 +2183,21 @@
         },
         "required": ["allowed"],
         "title": "Check Permission Result",
+        "type": "object"
+      },
+      "checkPermissionResultWithError": {
+        "description": "Check Permission Result With Error",
+        "properties": {
+          "allowed": {
+            "description": "whether the relation tuple is allowed",
+            "type": "boolean"
+          },
+          "error": {
+            "description": "any error generated while checking the relation tuple",
+            "type": "string"
+          }
+        },
+        "required": ["allowed"],
         "type": "object"
       },
       "cloudAccount": {
@@ -4059,7 +4105,8 @@
       "loginFlowState": {
         "description": "The state represents the state of the login flow.\n\nchoose_method: ask the user to choose a method (e.g. login account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the login challenge was passed.",
         "enum": ["choose_method", "sent_email", "passed_challenge"],
-        "title": "Login Flow State"
+        "title": "Login Flow State",
+        "type": "string"
       },
       "logoutFlow": {
         "description": "Logout Flow",
@@ -7394,7 +7441,8 @@
       "recoveryFlowState": {
         "description": "The state represents the state of the recovery flow.\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed.",
         "enum": ["choose_method", "sent_email", "passed_challenge"],
-        "title": "Recovery Flow State"
+        "title": "Recovery Flow State",
+        "type": "string"
       },
       "recoveryIdentityAddress": {
         "properties": {
@@ -7523,7 +7571,8 @@
       "registrationFlowState": {
         "description": "choose_method: ask the user to choose a method (e.g. registration with email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the registration challenge was passed.",
         "enum": ["choose_method", "sent_email", "passed_challenge"],
-        "title": "State represents the state of this request:"
+        "title": "State represents the state of this request:",
+        "type": "string"
       },
       "rejectOAuth2Request": {
         "properties": {
@@ -7991,7 +8040,8 @@
       "settingsFlowState": {
         "description": "show_form: No user data has been collected, or it is invalid, and thus the form should be shown.\nsuccess: Indicates that the settings flow has been updated successfully with the provided data.\nDone will stay true when repeatedly checking. If set to true, done will revert back to false only\nwhen a flow with invalid (e.g. \"please use a valid phone number\") data was sent.",
         "enum": ["show_form", "success"],
-        "title": "State represents the state of this flow. It knows two states:"
+        "title": "State represents the state of this flow. It knows two states:",
+        "type": "string"
       },
       "subjectSet": {
         "properties": {
@@ -9767,7 +9817,8 @@
       "verificationFlowState": {
         "description": "The state represents the state of the verification flow.\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed.",
         "enum": ["choose_method", "sent_email", "passed_challenge"],
-        "title": "Verification Flow State"
+        "title": "Verification Flow State",
+        "type": "string"
       },
       "version": {
         "properties": {
@@ -13799,7 +13850,7 @@
     },
     "/projects/{project_id}": {
       "delete": {
-        "description": "!! Use with extreme caution !!\n\nUsing this API endpoint you can purge (completely delete) a project and its data.\nThis action can not be undone and will delete ALL your data.\n\n!! Use with extreme caution !!",
+        "description": "!! Use with extreme caution !!\n\nUsing this API endpoint you can purge (completely delete) a project and its data.\nThis action can not be undone and will delete ALL your data.\n\nCalling this endpoint will additionally delete custom domains and other related data.\n\nIf the project is linked to a subscription, the subscription needs to be unlinked first.",
         "operationId": "purgeProject",
         "parameters": [
           {
@@ -15402,6 +15453,71 @@
         ],
         "summary": "Query relationships",
         "tags": ["relationship"]
+      }
+    },
+    "/relation-tuples/batch/check": {
+      "post": {
+        "description": "To learn how relationship tuples and the check works, head over to [the documentation](https://www.ory.sh/docs/keto/concepts/api-overview).",
+        "operationId": "batchCheckPermission",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "max-depth",
+            "schema": {
+              "format": "int64",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/batchCheckPermissionBody"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/batchCheckPermissionResult"
+                }
+              }
+            },
+            "description": "batchCheckPermissionResult"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Batch check permissions",
+        "tags": ["permission"]
       }
     },
     "/relation-tuples/check": {

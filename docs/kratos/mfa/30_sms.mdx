@@ -1,7 +1,7 @@
 ---
 id: sms
-title: Code via SMS
-sidebar_label: SMS
+title: SMS and Email 2FA
+sidebar_label: SMS and Email
 ---
 
 ```mdx-code-block
@@ -10,15 +10,11 @@ import TabItem from '@theme/TabItem';
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 ```
 
-SMS can be used to deliver one time codes to users. Ory will deliver a 6-digit code to an SMS gateway of your choice, such as
-Twilio, Amazon SNS or your own application. These codes are valid for a short amount of time, usually 15 minutes or less. Once the
-user completes the challenge, by entering the code, the AAL of the session is upgraded to AAL2.
+SMS and email can be used to deliver one time codes to users. Ory will deliver a 6-digit code to an SMS / email gateway of your
+choice, such as Twilio, Amazon SNS, SMTP, or your own application. These codes are valid for a short amount of time, usually 15
+minutes or less. Once the user completes the challenge, by entering the code, the AAL of the session is upgraded to AAL2.
 
-:::note
-
-Ory currently only supports either MFA via SMS or passwordless login via code, not both.
-
-:::
+If MFA via code to sms / email is enabled, this method can not be used for passwordless login.
 
 ```mdx-code-block
 <BrowserWindow url="https://playground.projects.oryapis.com/ui/login?aal=aal2&via=phone">
@@ -68,15 +64,79 @@ To enable MFA via SMS, you need to configure an SMS channel in the Ory configura
 </Tabs>
 ```
 
+4. Ensure your Identity Schema correctly marks one of the traits as the identifier for `code` method.
+
+   ```json title="identity.schema.json" {25-28,45-48}
+   {
+     "$id": "https://schemas.ory.sh/presets/kratos/identity.email.schema.json",
+     "$schema": "http://json-schema.org/draft-07/schema#",
+     "title": "Person",
+     "type": "object",
+     "properties": {
+       "traits": {
+         "type": "object",
+         "properties": {
+           "email": {
+             "type": "string",
+             "format": "email",
+             "title": "E-Mail",
+             "ory.sh/kratos": {
+               "credentials": {
+                 "password": {
+                   "identifier": true
+                 },
+                 "webauthn": {
+                   "identifier": true
+                 },
+                 "totp": {
+                   "account_name": true
+                 },
+                 "code": {
+                   "identifier": true,
+                   "via": "email"
+                 }
+               },
+               "recovery": {
+                 "via": "email"
+               },
+               "verification": {
+                 "via": "email"
+               }
+             },
+             "maxLength": 320
+           },
+           "phone": {
+             "type": "string",
+             "format": "tel",
+             "title": "Phone Number",
+             "ory.sh/kratos": {
+               "credentials": {
+                 "code": {
+                   "identifier": true,
+                   "via": "sms"
+                 }
+               }
+             },
+             "maxLength": 320
+           }
+         },
+         "required": ["email"],
+         "additionalProperties": false
+       }
+     }
+   }
+   ```
+
+5. To configure the SMS or email gateway, please head over to [Sending emails](../emails-sms/01_sending-emails-smtp.mdx) &
+   [SMS](../emails-sms/10_sending-sms.mdx)
+
 ## Integration
 
 To be able to send codes via SMS, you need to provide a custom SMS sender. Ory simply sends the code, the phone number and other
 metadata to a webhook of your choice. Please read the [SMS documentation](../emails-sms/10_sending-sms.mdx).
 
-To start a new MFA flow, for an already existing session, create a new login flow with the `aal` parameter set to `aal2`. You'll
-also need to specify which trait to use for delivering the code to the user. Make sure, this trait exists in the identity schema
-and set the `via` parameter to its identifier. For example, if you have a trait called `phone_number`, you'd set `via` to
-`phone_number`.
+To start a new MFA flow, for an already existing session, create a new login flow with the `aal` parameter set to `aal2`:
 
-Ory will return an error in the UI, if the trait does not exist in the identity's schema or the trait is empty in the current
-identity. So make sure this trait is required in your identity schema.
+```
+https://<your-custom-domain-or-project-slug>/self-service/login/browser?aal=aal2
+```
