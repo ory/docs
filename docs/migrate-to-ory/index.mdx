@@ -23,14 +23,14 @@ Before starting the actual migration you should choose a migration strategy.
 
 - **Scenario 1** - Migrating from a self-rolled solution
 
-  If you're coming from a custom-built authentication solution, consider using Ory Identities on its own. This approach simplifies
-  the migration by focusing solely on identity management without introducing the complexities of OAuth2. If you plan to move
-  towards OAuth2 eventually, you can plan for that transition once the initial migration is complete. To get started, refer to the
+  If you're coming from a custom-built authentication solution, consider using Ory Identities. This approach simplifies the
+  migration by focusing solely on identity management without introducing the complexities of OAuth2. If you plan to move towards
+  OAuth2 eventually, you can plan for that transition once the initial migration is complete. To get started, refer to the
   "Integrate Frontend & Backend" sections later in this guide.
 
 :::info
 
-If you are not sure wether or not you need OAuth2 for your use case, please read the
+If you are not sure whether or not you need OAuth2 for your use case, please read the
 [When to use OAuth2](https://www.ory.sh/docs/hydra/concepts/before-oauth2) documentation.
 
 :::
@@ -76,7 +76,7 @@ scheduled, where all users start using the new system simultaneously.
 
 ##### Drawbacks of big bang migration
 
-- High risk: If any issues occur during the cutover, the impact can be significant, affecting all users at once.
+- High risk: If any issues occur during the cutover, the impact can be significant, affecting all users.
 - Downtime: This approach may require planned system downtime to ensure data consistency, which can disrupt users.
 - Increased preparation: Requires extensive planning and testing to mitigate risks, making it more resource-intensive during that
   phase.
@@ -185,7 +185,7 @@ To begin integrating Ory into your frontend, it's helpful to start with the
 ["protect a page with login" guides](https://www.ory.sh/docs/getting-started/overview) that cover the basics of developing with
 Ory for various programming languages and frameworks, including SDK usage and essential setup steps.
 
-Ory Network has two types of user interfaces. We recommend to start with the built-in
+Ory Network has two types of user interfaces. We recommend starting with the built-in
 [Account Experience](../account-experience/index.mdx), which offers a standard user interface, covering all self-service flows
 with the option to style branding to get you up and running. If you prefer a custom user interface that matches your current
 design 1:1, Ory allows you to create and style a custom UI that integrates seamlessly with your existing setup. You can do this
@@ -221,7 +221,7 @@ authentication-relevant data in Ory. Here’s a general approach:
 
 ## Get user data and credentials
 
-With authentication now set up on your frontend and backend, the next step is to prepare your existing user identities for
+With authentication now set up on your front end and back end, the next step is to prepare your existing user identities for
 migration. If you're using a managed identity solution, it’s a good idea to start the export process early, especially if there's
 no straightforward way to export the identities and you might need to go through a support process.
 
