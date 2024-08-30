@@ -123,6 +123,7 @@ svg[class*="iconExternalLink"] {
 
 .theme-doc-sidebar-item-link .menu__link {
   padding: 0.5rem 0.75rem;
+}
 
 .config-editor .unsupported-field pre {
   max-width: 100%;
