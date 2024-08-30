@@ -17,29 +17,31 @@ don't hesitate to get in [touch with Ory Support for help](https://www.ory.sh/co
 
 ## Pre-migration considerations
 
-Before starting the actual migration and choosing a migration strategy, please consider the following.
+Before starting the actual migration you should choose a migration strategy.
 
-### Map your requirements
+### Migration Scenarios
 
-You can map requirements in several ways. Ory recommendation is to use a decision matrix to identify your essential requirements
-(must-haves) and additional preferences (nice-to-haves). For example list your requirements in rows and the different potential
-solutions - such as providers like Ory, self-rolled solutions, or different deployment options - in columns. Collaborate with your
-team to refine these criteria through research and discussion. The goal at this stage is to evaluate many solutions, not to make a
-final decision. You may find that your current solution is sufficient, that migration is necessary without immediate need, or that
-you need to migrate to a new solution as fast as possible.
+- Scenario 1: Migrating from a self-rolled solution
 
-### Do a proof of concept
+  If you're coming from a custom-built authentication solution, consider using Ory Identities on its own. This approach simplifies
+  the migration by focusing solely on identity management without introducing the complexities of OAuth2. If you plan to move
+  towards OAuth2 eventually, you can plan for that transition once the initial migration is complete. To get started, refer to the
+  "Integrate Frontend & Backend" sections later in this guide.
 
-If Ory appears to meet your requirements, conduct a proof of concept (PoC) with no more than two other selected solutions from
-your decision matrix. This PoC should be a small-scale integration to verify that its features work as expected, such as adding
-authentication with Ory to a staging environment. While not all edge cases and details will be solved at this stage, the PoC will
-help identify potential blockers or challenges before migrating your production service.
+:::info
 
-You can start a PoC using Ory’s free Developer plan at [console.ory.sh](http://console.ory.sh/) without needing to talk to sales,
-but Ory also offers free support for a PoC - for this please [contact the Ory team](https://www.ory.sh/contact/)!
+If you are not sure wether or not you need OAuth2 for your use case, please read the
+[When to use OAuth2](https://www.ory.sh/docs/hydra/concepts/before-oauth2) documentation.
 
-Focus on testing the most complex use cases to assess the solutions capabilities, documentation, and service quality. Don’t move
-forward with the migration without a proof of concept, this is an important step before a decision that will be hard to reverse.
+:::
+
+- Scenario 2: Migrating from Auth0 or another OAuth2-based solution
+
+  If you're migrating from Auth0 or any other OAuth2-based login solution, you'll want to use Ory OAuth2 together with Ory
+  Identities. This setup allows you to keep your existing OAuth2-based flow while integrating it with Ory's identity management.
+  This approach is ideal if you want to keep your current implementation without making significant changes. To get started, refer
+  to the [Ory OAuth2 quickstart guide](../docs/getting-started/oauth2-openid/add-oauth2-openid-connect-nodejs-expressjs) which
+  provides instructions on setting up an OAuth2/OIDC flow with Ory.
 
 ### Choose a migration strategy
 
