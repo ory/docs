@@ -19,9 +19,9 @@ don't hesitate to get in [touch with Ory Support for help](https://www.ory.sh/co
 
 Before starting the actual migration you should choose a migration strategy.
 
-### Migration Scenarios
+### Migration scenario
 
-- Scenario 1: Migrating from a self-rolled solution
+- **Scenario 1** - Migrating from a self-rolled solution
 
   If you're coming from a custom-built authentication solution, consider using Ory Identities on its own. This approach simplifies
   the migration by focusing solely on identity management without introducing the complexities of OAuth2. If you plan to move
@@ -35,7 +35,7 @@ If you are not sure wether or not you need OAuth2 for your use case, please read
 
 :::
 
-- Scenario 2: Migrating from Auth0 or another OAuth2-based solution
+- **Scenario 2** - Migrating from Auth0 or another OAuth2-based solution
 
   If you're migrating from Auth0 or any other OAuth2-based login solution, you'll want to use Ory OAuth2 together with Ory
   Identities. This setup allows you to keep your existing OAuth2-based flow while integrating it with Ory's identity management.
@@ -43,7 +43,14 @@ If you are not sure wether or not you need OAuth2 for your use case, please read
   to the [Ory OAuth2 quickstart guide](../docs/getting-started/oauth2-openid/add-oauth2-openid-connect-nodejs-expressjs) which
   provides instructions on setting up an OAuth2/OIDC flow with Ory.
 
-### Choose a migration strategy
+- **Scenario 3** - Other
+
+  If your authentication system doesn't fall into the categories described above - such as hybrid systems, legacy protocols, or
+  any other unique solution - you may need a different approach to migration. For such unique or complex migrations, we recommend
+  [consulting with Ory](https://www.ory.sh/contact/) to get a recommendation. The Ory team can help you design a custom migration
+  plan that aligns with your specific requirements.
+
+### Migration strategy
 
 When migrating user data from an old system to a new one, the process involves two main steps: transferring existing data and
 "go-live" when users start authenticating with the new system. The choice of migration strategy depends on your specific use case,
