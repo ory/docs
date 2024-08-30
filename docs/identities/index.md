@@ -1,7 +1,7 @@
 ---
 id: index
 title: Introduction to Ory Identities
-sidebar_label: Introduction
+sidebar_label: Ory Identities
 ---
 
 Ory Identities is an API-first identity and user management system built on top of the widely deployed open-source

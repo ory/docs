@@ -335,6 +335,43 @@ const guidesSidebar = {
         "kratos/concepts/ui-user-interface",
       ],
     },
+    {
+      type: "category",
+      label: "OAuth2 token management",
+      collapsed: false,
+      collapsible: false,
+      link: {
+        type: "doc",
+        id: "hydra/guides/oauth2-token-introspection",
+      },
+      items: [
+        "oauth2-oidc/revoke-consent",
+        "oauth2-oidc/skip-consent",
+        {
+          type: "category",
+          label: "Configure tokens",
+          items: [
+            "oauth2-oidc/jwt-access-token",
+            "hydra/guides/audiences",
+            "hydra/guides/jwt",
+            "hydra/guides/client-token-expiration",
+            "hydra/guides/claims-at-refresh",
+            "oauth2-oidc/claims-scope",
+          ],
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "OAuth2 client management",
+      collapsed: true,
+      collapsible: true,
+      link: {
+        type: "doc",
+        id: "hydra/guides/oauth2-clients",
+      },
+      items: ["hydra/jwks", "hydra/guides/openid", "oauth2-oidc/issuer-url"],
+    },
   ],
 
   troubleshooting: [
@@ -486,43 +523,6 @@ const oauth2Sidebar = {
         "oauth2-oidc/refresh-token-grant",
         "oauth2-oidc/userinfo-oidc",
         "oauth2-oidc/oidc-logout",
-      ],
-    },
-    {
-      type: "category",
-      label: "Client management",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "hydra/guides/oauth2-clients",
-      },
-      items: ["hydra/jwks", "hydra/guides/openid", "oauth2-oidc/issuer-url"],
-    },
-    {
-      type: "category",
-      label: "Token management",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "hydra/guides/oauth2-token-introspection",
-      },
-      items: [
-        "oauth2-oidc/revoke-consent",
-        "oauth2-oidc/skip-consent",
-        {
-          type: "category",
-          label: "Configure tokens",
-          items: [
-            "oauth2-oidc/jwt-access-token",
-            "hydra/guides/audiences",
-            "hydra/guides/jwt",
-            "hydra/guides/client-token-expiration",
-            "hydra/guides/claims-at-refresh",
-            "oauth2-oidc/claims-scope",
-          ],
-        },
       ],
     },
     {
