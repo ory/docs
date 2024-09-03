@@ -606,10 +606,15 @@ const selfhostingSidebar = {
       label: "Ory Enterprise License",
       items: [
         "self-hosted/oel/quickstart",
+        "self-hosted/oel/oauth2/migrate",
         {
           type: "category",
           label: "Ory Hydra (OAuth2 Server)",
-          items: ["self-hosted/oel/oauth2/token-prefix"],
+          items: [
+            "self-hosted/oel/oauth2/token-prefix",
+            "self-hosted/oel/oauth2/upgrade",
+            "self-hosted/oel/oauth2/changelog",
+          ],
         },
       ],
     },
