@@ -505,6 +505,7 @@ const oauth2Sidebar = {
         "oauth2-oidc/overview/oidc-concepts",
         "hydra/concepts/before-oauth2",
         "hydra/guides/using-oauth2",
+        "hydra/security-architecture",
       ],
     },
     {
@@ -606,10 +607,15 @@ const selfhostingSidebar = {
       label: "Ory Enterprise License",
       items: [
         "self-hosted/oel/quickstart",
+        "self-hosted/oel/oauth2/migrate",
         {
           type: "category",
           label: "Ory Hydra (OAuth2 Server)",
-          items: ["self-hosted/oel/oauth2/token-prefix"],
+          items: [
+            "self-hosted/oel/oauth2/token-prefix",
+            "self-hosted/oel/oauth2/upgrade",
+            "self-hosted/oel/oauth2/changelog",
+          ],
         },
       ],
     },
@@ -947,8 +953,18 @@ module.exports = {
           type: "doc",
           id: "troubleshooting/index",
         },
-        "console/usage-billing",
+      ],
+    },
+    {
+      type: "category",
+      label: "Operations",
+      collapsed: false,
+      collapsible: false,
+      items: [
+        "guides/manage-project-via-api",
         "guides/custom-domains",
+        "console/usage-billing",
+        "guides/gitops",
       ],
     },
     {
@@ -963,7 +979,6 @@ module.exports = {
       items: [
         "kratos/concepts/security",
         "ecosystem/security",
-        "hydra/security-architecture",
         "security-compliance/personal-data-location",
         "security-compliance/gdpr",
         "security-compliance/token-formats",
