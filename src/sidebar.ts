@@ -947,8 +947,18 @@ module.exports = {
           type: "doc",
           id: "troubleshooting/index",
         },
-        "console/usage-billing",
+      ],
+    },
+    {
+      type: "category",
+      label: "Operations",
+      collapsed: false,
+      collapsible: false,
+      items: [
+        "guides/manage-project-via-api",
         "guides/custom-domains",
+        "console/usage-billing",
+        "guides/gitops",
       ],
     },
     {
