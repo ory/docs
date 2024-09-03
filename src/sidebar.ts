@@ -505,6 +505,7 @@ const oauth2Sidebar = {
         "oauth2-oidc/overview/oidc-concepts",
         "hydra/concepts/before-oauth2",
         "hydra/guides/using-oauth2",
+        "hydra/security-architecture",
       ],
     },
     {
@@ -978,7 +979,6 @@ module.exports = {
       items: [
         "kratos/concepts/security",
         "ecosystem/security",
-        "hydra/security-architecture",
         "security-compliance/personal-data-location",
         "security-compliance/gdpr",
         "security-compliance/token-formats",
