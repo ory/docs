@@ -45,7 +45,7 @@ const referenceSidebar = {
           items: [
             "guides/cli/installation",
             "guides/cli/cli-basics",
-            "guides/cli/config-identity-service",
+            "guides/cli/identity-cli",
             "guides/cli/proxy-and-tunnel",
             "guides/cli/config-with-cli",
             {
@@ -175,7 +175,7 @@ const guidesSidebar = {
         "kratos/concepts/credentials/username-email-password",
         "kratos/passwordless/passkeys",
         "kratos/passwordless/webauthn",
-        "kratos/passwordless/code",
+        "kratos/passwordless/one-time-code",
         "kratos/organizations/organizations",
         {
           type: "category",
@@ -223,7 +223,7 @@ const guidesSidebar = {
             "kratos/mfa/lookup-secrets",
             "kratos/mfa/totp",
             "kratos/mfa/webauthn-fido-yubikey",
-            "kratos/mfa/sms",
+            "kratos/mfa/mfa-via-sms",
             "kratos/mfa/step-up-authentication",
           ],
         },
@@ -456,7 +456,7 @@ const identitiesSidebar = {
       },
       items: [
         "concepts/password-policy",
-        "kratos/passwordless/overview",
+        "kratos/passwordless/passwordless",
         "kratos/mfa/overview",
       ],
     },
@@ -467,7 +467,7 @@ const identitiesSidebar = {
       collapsible: false,
       link: {
         type: "doc",
-        id: "kratos/bring-your-own-ui/index",
+        id: "kratos/bring-your-own-ui/custom-ui-overview",
       },
       items: [
         "account-experience/index",
