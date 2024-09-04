@@ -71,3 +71,19 @@ password policy, refer to the [password policy page](../../concepts/password-pol
 
 Ory OAuth2 and OpenID Connect is a certified OAuth2 and OpenID Connect provider. You can read more in the
 [OAuth 2.0 security overview](https://www.ory.sh/docs/hydra/security-architecture) documentation.
+
+## CAPTCHAs
+
+:::info
+
+Captcha protection is being tested and is not yet available for general use. If you are interested, please
+[contact us](https://ory.sh/contact).
+
+:::
+
+Ory Identities supports protecting the registration and login endpoints with captcha challenges. This is useful to prevent
+credential stuffing, brute force and other automated attacks.
+
+Supported captcha providers are:
+
+- [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile)

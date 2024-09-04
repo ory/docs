@@ -177,7 +177,6 @@ const guidesSidebar = {
         "kratos/passwordless/webauthn",
         "kratos/passwordless/one-time-code",
         "kratos/organizations/organizations",
-        "kratos/captcha",
         {
           type: "category",
           label: "OpenID Connect SSO",
