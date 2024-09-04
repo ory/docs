@@ -1,7 +1,7 @@
 ---
 id: integrate-with-ory-cloud-through-webhooks
 title: Trigger custom logic and integrate with external systems with webhooks
-sidebar_label: Webhooks
+sidebar_label: Ory Actions
 ---
 
 Ory Actions supports webhooks, which are HTTP callbacks that can be triggered by specific events in your Ory-powered application.
@@ -89,10 +89,9 @@ Webhooks bind the `flow`, as well as request headers (`request_headers`), reques
 after). For the `after` execution path of all flows, it binds the `identity` and the `transient_payload` object into the Jsonnet
 template as well. These objects are available through a `ctx` object.
 
-:::info
+#### Accessing request headers
 
-After August 1st, 2024, we will remove all headers from `ctx.request_headers` of the webhook request context that do not match the
-following allow-list:
+The following request headers are available via `ctx.request_headers`:
 
 ```
 Accept
@@ -114,7 +113,7 @@ True-Client-Ip
 User-Agent
 ```
 
-:::
+#### Jsonnet templating
 
 To send `{ user_id: {some-id} }` in the request body, create the following the [Jsonnet](https://jsonnet.org) template:
 

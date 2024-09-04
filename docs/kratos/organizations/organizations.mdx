@@ -1,6 +1,6 @@
 ---
 id: organizations
-title: Organizations and B2B Single Sign-On
+title: B2B Single Sign-On
 ---
 
 :::info
@@ -48,34 +48,44 @@ graph LR
 
 ## Manage organizations
 
-### Manage organizations through the Ory Console
-
-Organizations can be managed using the Ory Console.
+```mdx-code-block
+<Tabs groupId="console-or-api">
+<TabItem value="console" label="Ory Console">
+```
 
 <p>
-  To create, update, or delete organizations via the Ory Console, go to{" "}
-  <ConsoleLink route="project.authentication.organizations" />.
+To create, update, or delete organizations via the Ory Console, go to{" "}<ConsoleLink route="project.authentication.organizations" />.
 </p>
+```mdx-code-block
+</TabItem>
 
-### Manage organizations through the API
+<TabItem value="api" label="API">
+```
 
 Organizations can also be managed using the Ory API. To authenticate your requests, create a
 [workspace API key](/concepts/personal-access-token#authorizing-ory-network-workspace-admin-apis).
 
 All examples below use [curl](https://curl.se/) to make HTTP requests. You can use any HTTP client to make these requests.
 
+Before copy & pasting the following examples, export your `PROJECT_ID` and `WORKSPACE_API_KEY`:
+
+```shell
+export PROJECT_ID="..."
+export WORKSPACE_API_KEY="ory_wak_..."
+```
+
 #### List organizations
 
 ```shell
-curl -X GET --location "https://api.console.ory.sh/projects/{{project_id}}/organizations" \
-     -H "Authorization: Bearer ory_wak_..."
+curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
 #### Create an organization
 
 ```shell
-curl -X POST --location "https://api.console.ory.sh/projects/{{project_id}}/organizations" \
-     -H "Authorization: Bearer ory_wak_..." \
+curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{
            "label":  "Hello demo",
@@ -86,36 +96,48 @@ curl -X POST --location "https://api.console.ory.sh/projects/{{project_id}}/orga
 #### Get an organization
 
 ```shell
-curl -X GET --location "https://api.console.ory.sh/projects/{{project_id}}/organizations/{{organization_id}}" \
-     -H "Authorization: Bearer ory_wak_..."
+curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
 #### Delete an organization
 
 ```shell
-curl -X DELETE --location "https://api.console.ory.sh/projects/{{project_id}}/organizations/{{organization_id}}" \
-     -H "Authorization: Bearer ory_wak_..."
+curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY"
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
 ```
 
 ## Create SSO connections for an organization
 
 After creating an organization, continue by adding one or more SSO OIDC connections.
 
-### Manage SSO connections through the Ory Console
+```mdx-code-block
+<Tabs groupId="console-or-api">
+<TabItem value="console" label="Ory Console">
+```
 
 Go to <ConsoleLink route="project.authentication.organizations" /> and continue by configuring the selected organization.
 
-### Manage SSO connections through the API
+```mdx-code-block
+</TabItem>
+
+<TabItem value="api" label="API">
+```
 
 The SSO connections are part of the project configuration. To authenticate, use the same workspace API key as for managing
 organizations. The examples use [curl](https://curl.se/) to make HTTP requests and [jq](https://jqlang.github.io/jq/) to parse
 JSON response.
 
-#### Create an SSO connections
+#### Create an SSO connection
 
 ```shell
-curl -X PATCH --location "https://api.console.ory.sh/projects/{{project_id}}" \
-     -H "Authorization: Bearer ory_wak_..." \
+curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '[
            {
@@ -140,19 +162,21 @@ curl -X PATCH --location "https://api.console.ory.sh/projects/{{project_id}}" \
 Some notes on the fields of the JSON payload:
 
 - `client_id` and `client_secret` are the credentials of the OIDC provider.
-- `id` is a unique identifier for the connection, and part of the redirect URL.
-- `organization_id` is the ID of the organization to which the connection belongs, and part of the redirect URL.
+- `id` is a unique identifier for the connection, and part of the redirect URL, and can be a random string. This is `$PROJECT_ID`
+  below.
+- `organization_id` is the ID of the organization to which the connection belongs, and part of the redirect URL. This is
+  `$ORGANIZATION_ID` below.
 - `mapper_url` is the URL to a JSONnet file that maps the OIDC provider's claims to Ory's identity schema. You can use the
   `base64` scheme to embed the JSONnet file directly in the JSON payload.
 
-The redirect URL to be set in the OIDC provider configuration is
-`https://{{project slug}}.projects.oryapis.com/self-service/methods/oidc/organization/{{organization ID}}/callback/{{provider ID}}`.
+The redirect URL to be set in the external OIDC provider's configuration is
+`https://$PROJECT_SLUG.projects.oryapis.com/self-service/methods/oidc/organization/$ORGANIZATION_ID/callback/$PROVIDER_ID`.
 
 #### List SSO connections
 
 ```shell
-curl -X GET --location "https://api.console.ory.sh/projects/{{project_id}}" \
-     -H "Authorization: Bearer ory_wak_..." \
+curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
    | jq ".services.identity.config.selfservice.methods.oidc.config.providers"
 ```
 
@@ -180,8 +204,8 @@ To delete an organization, you need to specify the index of the connection in th
 SSO connection in the list of connections.
 
 ```shell
-curl -X PATCH --location "https://api.console.ory.sh/projects/{{project_id}}" \
-     -H "Authorization: Bearer ory_wak_..." \
+curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '[
            {
@@ -200,3 +224,8 @@ After having set up everything, go to your registration page. Entering an email 
 `@my.example.com` from the example above, shows a **Sign in with SSO** button instead of the password field. Clicking it will take
 you to sign in with the SSO connection. The SSO connection is not visible for email addresses that are not managed by the
 organization.
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```

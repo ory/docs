@@ -36,6 +36,7 @@ module.exports = {
       type: "category",
       label: "Identities and sessions",
       items: [
+        "identities/index",
         "identities/native-browser",
         "security-model",
         {
@@ -319,6 +320,7 @@ module.exports = {
       type: "category",
       label: "Migrating to Ory",
       items: [
+        "migrate-to-ory/index",
         "hydra/self-hosted/migrating-from-mitreid",
         "migrate-to-ory/auth0",
       ],
@@ -329,6 +331,7 @@ module.exports = {
       items: [
         "guides/custom-domains",
         "guides/cors",
+        "guides/manage-project-via-api",
         "guides/gitops",
         "guides/rate-limits",
         "guides/allowlist",
@@ -425,13 +428,24 @@ module.exports = {
     },
     {
       type: "category",
-      label: "Ory Enterprise License",
+      label: "Ory Enterprise License (OEL)",
       items: [
         "self-hosted/oel/quickstart",
         {
           type: "category",
-          label: "Ory Hydra (OAuth2 Server)",
-          items: ["self-hosted/oel/oauth2/token-prefix"],
+          label: "OAuth2 Server Ory Hydra",
+          items: [
+            {
+              type: "category",
+              label: "Upgrade",
+              items: [
+                "self-hosted/oel/oauth2/upgrade",
+                "self-hosted/oel/oauth2/changelog",
+              ],
+            },
+            "self-hosted/oel/oauth2/token-prefix",
+            "self-hosted/oel/oauth2/migrate",
+          ],
         },
       ],
     },
@@ -455,7 +469,6 @@ module.exports = {
       type: "category",
       label: "Ory Kratos",
       items: [
-        "kratos/ory-kratos-intro",
         "kratos/install",
         "kratos/quickstart",
         "kratos/guides/docker",

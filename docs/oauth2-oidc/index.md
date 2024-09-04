@@ -1,7 +1,7 @@
 ---
 id: index
 title: Introduction to Ory OAuth2 and OpenID Connect
-sidebar_label: Introduction
+sidebar_label: Ory OAuth2
 ---
 
 # Introduction

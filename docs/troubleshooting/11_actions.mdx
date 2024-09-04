@@ -12,7 +12,7 @@ If an Ory Action webhook fails to trigger, verify whether the **sign in after re
 the `session` hook modifies the HTTP response, no other hooks are executed after it. If you want to execute other hooks besides
 the `session` hook, you need to make sure that it is executed last.
 
-To debug this issue, [export the Ory Identities configuration](../guides/cli/identity-cli) and check the order of the actions. The
-`session` hook should be the last one to run.
+To debug this issue, [export the Ory Identities configuration](../guides/cli/15_config-identity-service.mdx) and check the order
+of the actions. The `session` hook should be the last one to run.
 
-For more information on the `session` hook, see [Sign in after registration](../actions/session) documentation.
+For more information on the `session` hook, see [Sign in after registration](../actions/session.mdx) documentation.

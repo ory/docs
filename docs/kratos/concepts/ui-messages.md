@@ -18,7 +18,8 @@
   "text": "Sign in with {provider}",
   "type": "info",
   "context": {
-    "provider": "{provider}"
+    "provider": "{provider}",
+    "provider_id": "{providerID}"
   }
 }
 ```
@@ -153,12 +154,12 @@
 }
 ```
 
-###### Signing in will link your account to "{duplicateIdentifier}" at provider "{provider}". If you do not wish to link that account, please start a new login flow. (1010016)
+###### You tried to sign in with "{duplicateIdentifier}", but that email is already used by another account. Sign in to your account with one of the options below to add your account "{duplicateIdentifier}" at "{provider}" as another way to sign in. (1010016)
 
 ```json
 {
   "id": 1010016,
-  "text": "Signing in will link your account to \"{duplicateIdentifier}\" at provider \"{provider}\". If you do not wish to link that account, please start a new login flow.",
+  "text": "You tried to sign in with \"{duplicateIdentifier}\", but that email is already used by another account. Sign in to your account with one of the options below to add your account \"{duplicateIdentifier}\" at \"{provider}\" as another way to sign in.",
   "type": "info",
   "context": {
     "duplicateIdentifier": "{duplicateIdentifier}",
@@ -178,12 +179,12 @@
 }
 ```
 
-###### Sign in with {provider} and link credential (1010018)
+###### Confirm with {provider} (1010018)
 
 ```json
 {
   "id": 1010018,
-  "text": "Sign in with {provider} and link credential",
+  "text": "Confirm with {provider}",
   "type": "info",
   "context": {
     "provider": "{provider}"
@@ -191,26 +192,13 @@
 }
 ```
 
-###### Continue with code (1010019)
+###### Request code to continue (1010019)
 
 ```json
 {
   "id": 1010019,
-  "text": "Continue with code",
+  "text": "Request code to continue",
   "type": "info"
-}
-```
-
-###### We will send a code to {maskedIdentifier}. To verify that this is your address please enter it here. (1010020)
-
-```json
-{
-  "id": 1010020,
-  "text": "We will send a code to {maskedIdentifier}. To verify that this is your address please enter it here.",
-  "type": "info",
-  "context": {
-    "masked_to": "{maskedIdentifier}"
-  }
 }
 ```
 
@@ -234,6 +222,20 @@
 }
 ```
 
+###### Send code to {address} (1010023)
+
+```json
+{
+  "id": 1010023,
+  "text": "Send code to {address}",
+  "type": "info",
+  "context": {
+    "address": "{address}",
+    "channel": "{channel}"
+  }
+}
+```
+
 ###### Sign up (1040001)
 
 ```json
@@ -252,7 +254,8 @@
   "text": "Sign up with {provider}",
   "type": "info",
   "context": {
-    "provider": "{provider}"
+    "provider": "{provider}",
+    "provider_id": "{providerID}"
   }
 }
 ```
@@ -287,12 +290,12 @@
 }
 ```
 
-###### Sign up with code (1040006)
+###### Send sign up code (1040006)
 
 ```json
 {
   "id": 1040006,
-  "text": "Sign up with code",
+  "text": "Send sign up code",
   "type": "info"
 }
 ```
@@ -748,6 +751,16 @@
 {
   "id": 1070014,
   "text": "Login and link credential",
+  "type": "info"
+}
+```
+
+###### Please complete the captcha challenge to continue. (1070015)
+
+```json
+{
+  "id": 1070015,
+  "text": "Please complete the captcha challenge to continue.",
   "type": "info"
 }
 ```
@@ -1223,6 +1236,16 @@
 {
   "id": 4000037,
   "text": "This account does not exist or has no login method configured.",
+  "type": "error"
+}
+```
+
+###### Captcha verification failed, please try again. (4000038)
+
+```json
+{
+  "id": 4000038,
+  "text": "Captcha verification failed, please try again.",
   "type": "error"
 }
 ```

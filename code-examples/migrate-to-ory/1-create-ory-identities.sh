@@ -35,7 +35,7 @@ create_identity() {
         echo "please supply a valid payload"
         exit 1
     else
-        echo $payload | ory import identities --project $ORY_PROJECT_ID
+        echo $payload | ory import identities --project $ORY_PROJECT_ID --workspace $ORY_WORKSPACE_ID
     fi
 }
 

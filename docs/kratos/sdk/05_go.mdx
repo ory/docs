@@ -1,12 +1,13 @@
 ---
 id: go
-title: Go
+title: Ory Identities Go
 ---
 
 ```mdx-code-block
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
+import { useLatestTag } from '@site/src/hooks'
 ```
 
 In this document you can find code examples for the Ory Identities Go SDK.
@@ -34,8 +35,8 @@ go mod init myproject
 
 Install the Ory Go SDK
 
-```go
-go get github.com/ory/client-go
+```mdx-code-block
+<CodeBlock className="language-shell">{`go get github.com/ory/client-go@${useLatestTag('client-go', 'master')}`}</CodeBlock>
 ```
 
 ## Frontend API

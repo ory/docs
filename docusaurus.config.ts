@@ -108,14 +108,20 @@ const config: Config = {
         {
           type: "docSidebar",
           position: "left",
-          sidebarId: "sdk",
-          label: "SDK",
+          sidebarId: "quickstarts-and-tutorials",
+          label: "Quickstart",
         },
         {
           type: "docSidebar",
           position: "left",
-          sidebarId: "api",
-          label: "API",
+          sidebarId: "guides",
+          label: "Guides",
+        },
+        {
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "reference",
+          label: "Reference",
         },
         {
           type: "docSidebar",
@@ -205,10 +211,17 @@ const config: Config = {
   } satisfies Preset.ThemeConfig,
   plugins: [
     [
+      "docusaurus-pushfeedback",
+      {
+        project: "7bhe9sxlqg",
+        buttonPosition: "center-right",
+      },
+    ],
+    [
       "@docusaurus/plugin-content-docs",
       {
         path: "docs",
-        sidebarPath: require.resolve("./src/sidebar.js"),
+        sidebarPath: require.resolve("./src/sidebar.ts"),
         editUrl: `https://github.com/ory/docs/edit/master`,
         // editCurrentVersion: false,
         routeBasePath: "/",

@@ -1,18 +1,15 @@
 ---
 id: js
-title: JavaScript
+title: Ory OAuth2 JavaScript
 ---
 
-In this document you can find code examples for a self-hosted Ory Hydra JavaScript SDK.
+In this document you can find code examples for the Ory OAuth2 JavaScript SDK.
 
 :::info
 
 Missing an example? Please create a
 [feature request](https://github.com/ory/docs/issues/new?assignees=&labels=feat&template=FEATURE-REQUEST.yml) and it will be added
 here.
-
-You can find more examples of SDK usage in the auto-generated documentation
-[`kratos-client`](https://github.com/ory/kratos-client-go/tree/master/docs).
 
 :::
 
@@ -39,15 +36,15 @@ npm install --save @ory/client
 ```js
 import { Configuration, PublicApi, AdminApi } from "@ory/client"
 
-const hydraPublic = new PublicApi(
+const oryPublic = new PublicApi(
   new Configuration({
-    basePath: "https://public.hydra:4444/",
+    basePath: "https://$PROJECT_SLUG.projects.oryapis.com/",
   }),
 )
 
-const hydraAdmin = new AdminApi(
+const oryAdmin = new AdminApi(
   new Configuration({
-    basePath: "https://public.hydra:4445/",
+    basePath: "https://$PROJECT_SLUG.projects.oryapis.com/",
   }),
 )
 ```

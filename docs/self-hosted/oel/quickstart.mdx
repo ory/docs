@@ -94,7 +94,6 @@ kubectl create secret docker-registry ory-oel-gcr-secret \
   --docker-username=_json_key \
   --docker-password="$(cat keyfile.json)" \
   --namespace ory
-
 ```
 
 Create kubernetes secret containing DSN and hydra secret values:
