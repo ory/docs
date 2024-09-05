@@ -12,9 +12,9 @@ tokens, and authorization codes, and their prefixes, which make them easily iden
 Ory prefixes its access tokens, refresh tokens, and authorization codes with identifiable strings, making it easy for security
 scanners to identify leaked tokens. These prefixes are:
 
-- `ory_at`: OAuth 2.0 Access Token
-- `ory_rt`: OAuth 2.0 Refresh Token
-- `ory_ac`: OAuth 2.0 Authorization Code
+- `ory_at_`: OAuth 2.0 Access Token
+- `ory_rt_`: OAuth 2.0 Refresh Token
+- `ory_ac_`: OAuth 2.0 Authorization Code
 
 It is important to note that when using JSON Web Tokens (JWTs), the prefix is not applied.
 
@@ -25,13 +25,19 @@ security breaches and unauthorized access.
 
 Ory also issues session cookies to maintain user sessions across requests. Session cookies are usually used to store user
 authentication information, such as the user ID, and can be used to provide a seamless user experience. Ory session cookies are
-prefixed with the ory*session* prefix, making them easily identifiable in logs and tracking tools.
+prefixed with the `ory_session_` prefix, making them easily identifiable in logs and tracking tools.
 
 Session cookies are essential for maintaining user sessions, and Ory ensures that session cookies are secure and tamper-proof.
 Developers can configure the expiration time and cookie options for Ory session cookies to fit their application's specific needs.
 
-In summary, Ory session cookies are prefixed with ory*session* and are essential for maintaining user sessions. They can be
-customized to fit specific application needs and are secure and tamper-proof.
+## Other Ory cookies
+
+Ory Network will also issue other cookies to protect against CSRF attacks, provide load balancing, and other security features.
+These cookies will be prefixed as follows:
+
+- `ory_`: Ory-internal cookie (CSRF protection etc)
+- `__cf`, `_cf`, `cf`:
+  [Cookies issued by Cloudflare](https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/)
 
 ## Ory session tokens
 
@@ -45,3 +51,11 @@ distinguishes them from other types of tokens.
 Ory logout tokens are used to log out users from their sessions. When a user logs out, their session is terminated, and they are
 no longer able to access protected resources. Ory issues logout tokens with the `ory_lo_` prefix, which makes them easily
 identifiable and distinguishes them from other types of tokens.
+
+## Ory Network API keys
+
+These API keys allow you to interact with admin APIs in your project and change it's configuration. See
+[here](../concepts/personal-access-token.mdx) for details.
+
+- `ory_pat_` or `ory_apikey_`: Ory Network Admin API Key (Project API key)
+- `ory_wak_`: Ory Network Management API key (Workspace API key)
