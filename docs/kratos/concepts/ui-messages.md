@@ -162,8 +162,12 @@
   "text": "You tried to sign in with \"{duplicateIdentifier}\", but that email is already used by another account. Sign in to your account with one of the options below to add your account \"{duplicateIdentifier}\" at \"{provider}\" as another way to sign in.",
   "type": "info",
   "context": {
+    "available_credential_types": ["{available_credential_types_list}"],
+    "available_providers": ["{available_oidc_providers_list}"],
     "duplicateIdentifier": "{duplicateIdentifier}",
+    "duplicate_identifier": "{duplicateIdentifier}",
     "newLoginUrl": "{newLoginUrl}",
+    "new_login_url": "{newLoginUrl}",
     "provider": "{provider}"
   }
 }
