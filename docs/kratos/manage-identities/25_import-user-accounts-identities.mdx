@@ -645,3 +645,48 @@ The service will respond with the two identity IDs created:
   ]
 }
 ```
+
+### Errors during bulk import
+
+Failure to import an identity will not fail the whole bulk import. In the response, `"action": "error"` indicates thath the
+identity with the corresponding `patch_id` could not be imported. The `error` object contains more details about why the import
+failed.
+
+This is an example response where two identities were created and two imports failed:
+
+```json
+{
+  "identities": [
+    {
+      "action": "create",
+      "identity": "0d0ed560-43ce-42a9-bd40-aafe921c3af1",
+      "patch_id": "6086b0a8-d851-5431-91b4-b6e5e39dc88b"
+    },
+    {
+      "action": "error",
+      "patch_id": "d554dc00-49ce-5381-9bdc-79637dec85a2",
+      "error": {
+        "code": 400,
+        "status": "Bad Request",
+        "reason": "The request was malformed or contained invalid parameters",
+        "message": "The request was malformed or contained invalid parameters"
+      }
+    },
+    {
+      "action": "error",
+      "patch_id": "1634f1e9-8419-5a54-8191-2260c8aaea31",
+      "error": {
+        "code": 409,
+        "status": "Conflict",
+        "reason": "This identity conflicts with another identity that already exists.",
+        "message": "The resource could not be created due to a conflict"
+      }
+    },
+    {
+      "action": "create",
+      "identity": "b8651770-be8d-460b-b86f-679c4ba50264",
+      "patch_id": "eade6651-9311-5624-8afd-e4a3e05e0c4a"
+    }
+  ]
+}
+```
