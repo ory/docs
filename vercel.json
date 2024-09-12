@@ -1153,6 +1153,11 @@
       "source": "/docs/kratos/ory-kratos-intro",
       "destination": "/docs/identities/",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/social-signin/twitter",
+      "destination": "/docs/kratos/social-signin/x-twitter",
+      "permanent": false
     }
   ]
 }

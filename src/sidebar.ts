@@ -195,6 +195,7 @@ const guidesSidebar = {
                 "kratos/social-signin/apple",
                 "kratos/social-signin/gitlab",
                 "kratos/social-signin/auth0",
+                "kratos/social-signin/salesforce",
                 "kratos/social-signin/slack",
                 "kratos/social-signin/spotify",
                 "kratos/social-signin/discord",
