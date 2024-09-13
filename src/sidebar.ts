@@ -743,7 +743,7 @@ const selfhostingSidebar = {
         },
         {
           type: "category",
-          label: "Gudies",
+          label: "Guides",
           items: [
             "hydra/reference/api",
             {
