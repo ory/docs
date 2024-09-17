@@ -220,7 +220,7 @@ Because the system doesn't know which fields have system-relevant meaning, you h
 The vocabulary extension can be used within a property. Let's take a look at the email identity schema preset. It uses all
 available identity schema extensions:
 
-```json {8-34}
+```json
 {
   "$id": "https://schemas.ory.sh/presets/kratos/identity.email.schema.json",
   "title": "Person",
@@ -233,6 +233,7 @@ available identity schema extensions:
           "type": "string",
           "format": "email",
           "title": "E-Mail",
+# highlight-start
           "ory.sh/kratos": {
             "credentials": {
               "password": {
@@ -247,6 +248,9 @@ available identity schema extensions:
               "code": {
                 "identifier": true,
                 "via": "email"
+              },
+              "passkey": {
+                "display_name": true
               }
             },
             "recovery": {
@@ -254,6 +258,30 @@ available identity schema extensions:
             },
             "verification": {
               "via": "email"
+            }
+          },
+# highlight-end
+          "maxLength": 320
+        },
+        "phone": {
+          "type": "string",
+          "format": "tel",
+          "title": "Phone number",
+          "ory.sh/kratos": {
+            "credentials": {
+              "password": {
+                "identifier": true
+              },
+              "code": {
+                "identifier": true,
+                "via": "sms"
+              }
+            },
+            "recovery": {
+              "via": "sms"
+            },
+            "verification": {
+              "via": "sms"
             }
           },
           "maxLength": 320
@@ -310,6 +338,9 @@ sign in:
               "code": {
                 "identifier": true,
                 "via": "email"
+              },
+              "passkey": {
+                "display_name": true
               }
             },
             "recovery": {
@@ -357,6 +388,13 @@ You can also specify an array of elements:
                   },
                   "totp": {
                     "account_name": true
+                  },
+                  "passkey": {
+                    "display_name": true
+                  },
+                  "code": {
+                    "identifier": true,
+                    "via": "email"
                   }
                 },
                 "recovery": {
@@ -555,7 +593,88 @@ Using the following identity schema extension we specify that the field is used 
 }
 ```
 
+### Passkey display name
+
+Using the following identity schema extension we specify that the field is used as the display name for PassKeys:
+
+```json
+{
+  "ory.sh/kratos": {
+    "credentials": {
+      "passkey": {
+        "display_name": true
+      }
+    }
+  }
+}
+```
+
+### Passwordless one-time code login identifier
+
+Using the following identity schema extension we specify that the field is used as the "ID" when using passwordless one-time code
+login:
+
+````mdx-code-block
+<Tabs>
+<TabItem value="email" label="Email">
+
+```json
+{
+  "ory.sh/kratos": {
+    "credentials": {
+      "code": {
+        "identifier": true,
+        "via": "email",
+      }
+    }
+  }
+}
+```
+
+</TabItem>
+<TabItem value="sms" label="SMS">
+
+```json
+{
+  "ory.sh/kratos": {
+    "credentials": {
+      "code": {
+        "identifier": true,
+        "via": "sms",
+      }
+    }
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+````
+
+### Google Authenticator (TOTP) display name
+
+The following identity schema extension specifies that this field should be displayed in the Authenticator App as the account
+name:
+
+```json
+{
+  "ory.sh/kratos": {
+    "credentials": {
+      "totp": {
+        "account_name": true
+      }
+    }
+  }
+}
+```
+
 ### Passwordless WebAuthn login identifier
+
+:::note
+
+Please use the PassKey method instead. This is documented for legacy reasons.
+
+:::
 
 Using the following identity schema extension we specify that the field is used as the "ID" when using passwordless WebAuthn
 login:
@@ -572,58 +691,13 @@ login:
 }
 ```
 
-### Passwordless one-time code login identifier
-
-Using the following identity schema extension we specify that the field is used as the "ID" when using passwordless one-time code
-login:
-
-```json5
-{
-  "ory.sh/kratos": {
-    credentials: {
-      code: {
-        identifier: true,
-        via: "email",
-      },
-    },
-  },
-}
-```
-
-### TOTP display username
-
-The following identity schema extension specifies that this field should be displayed in the Authenticator App as the account
-name.
-
-```json
-{
-  "ory.sh/kratos": {
-    "credentials": {
-      "totp": {
-        "account_name": true
-      }
-    }
-  }
-}
-```
-
 ### Verification address
 
 Specifies that the field is verifiable by sending an email with a verification code or link.
 
-```json
-{
-  "ory.sh/kratos": {
-    "verification": {
-      "via": "email"
-    }
-  }
-}
-```
-
-### Recovery address
-
-Specifies that the field can be used to send an account recovery code or link.
+````mdx-code-block
+<Tabs>
+<TabItem value="email" label="Email">
 
 ```json
 {
@@ -634,6 +708,58 @@ Specifies that the field can be used to send an account recovery code or link.
   }
 }
 ```
+
+</TabItem>
+<TabItem value="sms" label="SMS">
+
+```json
+{
+  "ory.sh/kratos": {
+    "recovery": {
+      "via": "sms"
+    }
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+````
+
+### Recovery address
+
+Specifies that the field can be used to send an account recovery code or link.
+
+````mdx-code-block
+<Tabs>
+<TabItem value="email" label="Email">
+
+```json
+{
+  "ory.sh/kratos": {
+    "recovery": {
+      "via": "email"
+    }
+  }
+}
+```
+
+</TabItem>
+<TabItem value="sms" label="SMS">
+
+```json
+{
+  "ory.sh/kratos": {
+    "recovery": {
+      "via": "sms"
+    }
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+````
 
 ## Mandatory fields for registration
 
@@ -676,6 +802,13 @@ For nested objects such as `name`, add the `required` property inside of the obj
               },
               "totp": {
                 "account_name": true
+              },
+              "code": {
+                "identifier": true,
+                "via": "email"
+              },
+              "passkey": {
+                "display_name": true
               }
             },
             "recovery": {
@@ -778,6 +911,9 @@ Below is an example of how to do this:
               "totp": {
                 "account_name": true
               },
+              "passkey": {
+                "display_name": true
+              }
             }
           }
         },
@@ -799,6 +935,9 @@ Below is an example of how to do this:
               "code": {
                 "identifier": true,
                 "via": "email"
+              },
+              "passkey": {
+                "display_name": true
               }
             },
             "recovery": {
@@ -900,7 +1039,7 @@ You need to decide which route you want to take.
 
 Let's take a look at some examples!
 
-### Email and password
+### Email as the primary identifier
 
 To use the email address as the login identifier, define the following identity schema:
 
@@ -917,13 +1056,34 @@ To use the email address as the login identifier, define the following identity 
         "email": {
           "type": "string",
           "format": "email",
+          "title": "E-Mail",
           "ory.sh/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
+              },
+              "webauthn": {
+                "identifier": true
+              },
+              "totp": {
+                "account_name": true
+              },
+              "code": {
+                "identifier": true,
+                "via": "email"
+              },
+              "passkey": {
+                "display_name": true
               }
+            },
+            "recovery": {
+              "via": "email"
+            },
+            "verification": {
+              "via": "email"
             }
-          }
+          },
+          "maxLength": 320
         }
       }
     }
@@ -954,7 +1114,26 @@ You can allow users to sign up with multiple email addresses and use any of them
               "credentials": {
                 "password": {
                   "identifier": true
+                },
+                "webauthn": {
+                  "identifier": true
+                },
+                "totp": {
+                  "account_name": true
+                },
+                "code": {
+                  "identifier": true,
+                  "via": "email"
+                },
+                "passkey": {
+                  "display_name": true
                 }
+              },
+              "recovery": {
+                "via": "email"
+              },
+              "verification": {
+                "via": "email"
               }
             }
           }
@@ -982,9 +1161,19 @@ To use a username as the login identifier, define the following identity schema:
         "username": {
           "type": "string",
           "ory.sh/kratos": {
-            "credentials": {
-              "password": {
-                "identifier": true
+             "credentials": {
+               "password": {
+                 "identifier": true
+               },
+               "webauthn": {
+                 "identifier": true
+               },
+               "totp": {
+                 "account_name": true
+               },
+                "passkey": {
+                  "display_name": true
+                }
               }
             }
           }
@@ -1016,7 +1205,26 @@ You may also mix usernames and passwords:
             "credentials": {
               "password": {
                 "identifier": true
+              },
+              "webauthn": {
+                "identifier": true
+              },
+              "totp": {
+                "account_name": true
+              },
+              "code": {
+                "identifier": true,
+                "via": "email"
+              },
+              "passkey": {
+                "display_name": true
               }
+            },
+            "recovery": {
+              "via": "email"
+            },
+            "verification": {
+              "via": "email"
             }
           }
         },
@@ -1026,6 +1234,19 @@ You may also mix usernames and passwords:
             "credentials": {
               "password": {
                 "identifier": true
+              },
+              "webauthn": {
+                "identifier": true
+              },
+              "totp": {
+                "account_name": true
+              },
+              "code": {
+                "identifier": true,
+                "via": "email"
+              },
+              "passkey": {
+                "display_name": true
               }
             }
           }
@@ -1055,7 +1276,27 @@ You may also mix usernames and passwords:
             "credentials": {
               "password": {
                 "identifier": true
-              }
+              },
+              "webauthn": {
+                "identifier": true
+              },
+              "totp": {
+                "account_name": true
+              },
+               "code": {
+                 "identifier": true,
+                 "via": "sms"
+               },
+               "passkey": {
+                 "display_name": true
+               }
+             },
+             "recovery": {
+              "via": "sms"
+            },
+            "verification": {
+              "via": "sms"
+            }
             }
           }
         }
@@ -1097,6 +1338,19 @@ This identity schema is just an example. It contains too many fields to be used 
             "credentials": {
               "password": {
                 "identifier": true
+              },
+              "webauthn": {
+                "identifier": true
+              },
+              "totp": {
+                "account_name": true
+              },
+              "code": {
+                "identifier": true,
+                "via": "email"
+              },
+              "passkey": {
+                "display_name": true
               }
             },
             "recovery": {
