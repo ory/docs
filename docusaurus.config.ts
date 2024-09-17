@@ -210,6 +210,7 @@ const config: Config = {
     },
   } satisfies Preset.ThemeConfig,
   plugins: [
+    require.resolve("./src/plugins/analytics"),
     [
       "docusaurus-pushfeedback",
       {
