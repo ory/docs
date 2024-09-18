@@ -228,7 +228,6 @@ const guidesSidebar = {
             "kratos/mfa/step-up-authentication",
           ],
         },
-        "identities/sign-in/saml",
         "identities/sign-in/two-step-registration",
         "identities/sign-in/login-hint",
       ],
