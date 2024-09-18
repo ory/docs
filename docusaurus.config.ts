@@ -199,7 +199,10 @@ const config: Config = {
           label: "Schedule a discovery call",
           href: "https://www.ory.sh/contact/",
         },
-      ],
+        {
+          html: `<a class="termly-display-preferences footer__link-item" href="#">Consent Preferences</a>`,
+        },
+      ] satisfies Preset.ThemeConfig["footer"]["links"],
       logo: {
         alt: "Ory logo in white",
         src: "/docs/img/logos/logo-ory-white-2022-11-04.svg",
