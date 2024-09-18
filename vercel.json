@@ -1158,6 +1158,11 @@
       "source": "/docs/kratos/social-signin/twitter",
       "destination": "/docs/kratos/social-signin/x-twitter",
       "permanent": false
+    },
+    {
+      "source": "/docs/kratos/passwordless/webauthn",
+      "destination": "/docs/kratos/passwordless/passkeys",
+      "permanent": false
     }
   ]
 }

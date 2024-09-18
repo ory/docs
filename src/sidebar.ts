@@ -173,9 +173,8 @@ const guidesSidebar = {
       collapsible: false,
       items: [
         "kratos/concepts/credentials/username-email-password",
-        "kratos/passwordless/passkeys",
-        "kratos/passwordless/webauthn",
         "kratos/passwordless/one-time-code",
+        "kratos/passwordless/passkeys",
         "kratos/organizations/organizations",
         {
           type: "category",
