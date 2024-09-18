@@ -1,0 +1,119 @@
+---
+id: oidc-pkce
+title: PKCE for Social Sign-in and B2B SSO
+sidebar_label: PKCE
+---
+
+Ory Identities supports the [PKCE (Proof Key for Code Exchange)](https://tools.ietf.org/html/rfc7636) extension to the OpenID
+Connect / OAuth 2.0 protocol during social sign-in flows.
+
+In most cases, you don't have to do anything to enable PKCE. If the social sign-in provider advertises support for PKCE, Ory
+Identities will automatically configure itself to use it.
+
+In the case of the [generic OIDC provider](./05_generic.mdx), simply specify an Issuer URL in the configuration as usual to
+perform automatic configuration.
+
+Retrieve the current configuration:
+
+```shell
+ory get identity-config --project $PROJECT_ID --format yaml > identity-config.yaml
+```
+
+Find the OIDC seciont in the `identity-config.yaml` file and add the `pkce` option:
+
+```yaml
+# ...
+selfservice:
+  methods:
+    oidc:
+      enabled: true
+      config:
+        providers:
+          - id: generic
+            provider: generic # or another provider
+            issuer_url: https://accounts.google.com # must be set to enable automatic configuration
+            pkce: auto # default: perform PKCE if the provider advertises support for it
+            # ... other configuration options
+# ...
+```
+
+Save the file, and apply the configuration:
+
+```shell
+ory update identity-config --project $PROJECT_ID --file identity-config.yaml
+```
+
+## Forcing PKCE
+
+There may be OIDC providers which support PKCE but don't advertise it. If you want to force Ory Identities to use PKCE anyway,
+configure the provider with the `pkce` option set to `force`:
+
+Retrieve the current configuration:
+
+```shell
+ory get identity-config --project $PROJECT_ID --format yaml > identity-config.yaml
+```
+
+Find the OIDC section in the `identity-config.yaml` file and add the `pkce` option:
+
+```yaml
+# ...
+selfservice:
+  methods:
+    oidc:
+      enabled: true
+      config:
+        providers:
+          - id: generic
+            provider: generic # or another provider
+            pkce: force # forces PKCE support, skips automatic configuration
+            # ... other configuration options
+```
+
+Save the file, and apply the configuration:
+
+```shell
+ory update identity-config --project $PROJECT_ID --file identity-config.yaml
+```
+
+:::warning
+
+If you set `pkce: force`, you must whitelist a different redirect URL with the OIDC provider: Instead of
+`https://<slug>.projects.oryapis.com/self-service/methods/oidc/callback/<provider-id>`, use
+`https://<slug>.projects.oryapis.com/self-service/methods/oidc/callback`. Note the missing provider ID and no trailing slash. Use
+this second URL also if you force a [B2B SSO provider](../organizations/organizations.mdx) to use PKCE.
+
+:::
+
+## Disabling PKCE
+
+If for any reason you want to disable PKCE completely, set `pkce` to `never`.
+
+Retrieve the current configuration:
+
+```shell
+ory get identity-config --project $PROJECT_ID --format yaml > identity-config.yaml
+```
+
+Find the OIDC secion in the `identity-config.yaml` file and add the `pkce` option:
+
+```yaml
+# ...
+selfservice:
+  methods:
+    oidc:
+      enabled: true
+      config:
+        providers:
+          - id: generic
+            provider: generic # or another provider
+            pkce: never # do not perform PKCE even if the provider advertises support for it.
+            # ... other configuration options
+# ...
+```
+
+Save the file, and apply the configuration:
+
+```shell
+ory update identity-config --project $PROJECT_ID --file identity-config.yaml
+```

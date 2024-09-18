@@ -215,6 +215,7 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
                 "kratos/social-signin/get-tokens",
                 "identities/sign-in/social-sign-in/redirect-url",
                 "kratos/social-signin/native-apps",
+                "kratos/social-signin/oidc-pkce",
               ],
             },
             {
