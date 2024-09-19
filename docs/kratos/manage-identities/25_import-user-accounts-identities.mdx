@@ -594,6 +594,7 @@ curl --location --request PATCH 'https://${YOUR_PROJECT_SLUG}.projects.oryapis.c
 --data-raw '{
     "identities": [
         {
+            "patch_id": "6086b0a8-d851-5431-91b4-b6e5e39dc88b",
             "create": {
                 "credentials": {
                     "password": {
@@ -609,7 +610,8 @@ curl --location --request PATCH 'https://${YOUR_PROJECT_SLUG}.projects.oryapis.c
                 "schema_id": "preset://email"
             }
         },
-                {
+        {
+            "patch_id": "d554dc00-49ce-5381-9bdc-79637dec85a2",
             "create": {
                 "credentials": {
                     "password": {
@@ -629,17 +631,20 @@ curl --location --request PATCH 'https://${YOUR_PROJECT_SLUG}.projects.oryapis.c
 }'
 ```
 
-The service will respond with the two identity IDs created:
+The service will respond with the two identity IDs created. Note that the `patch_id` is returned in the response to correlate the
+response with the request.
 
 ```json
 {
   "identities": [
     {
       "action": "create",
+      "patch_id": "6086b0a8-d851-5431-91b4-b6e5e39dc88b",
       "identity": "55f93ea4-09ff-4273-8b88-082cc70d6d44"
     },
     {
       "action": "create",
+      "patch_id": "d554dc00-49ce-5381-9bdc-79637dec85a2",
       "identity": "f70c9b29-4790-4330-90dc-920db16a4b85"
     }
   ]
@@ -648,9 +653,9 @@ The service will respond with the two identity IDs created:
 
 ### Errors during bulk import
 
-Failure to import an identity will not fail the whole bulk import. In the response, `"action": "error"` indicates thath the
-identity with the corresponding `patch_id` could not be imported. The `error` object contains more details about why the import
-failed.
+Failure to import an identity will not fail the whole bulk import. In the response, `"action": "error"` indicates that the
+identity with the corresponding `patch_id` (which can be set on each identity passed to `PATCH /admin/identities`) could not be
+imported. The `error` object contains more details about why the import failed.
 
 This is an example response where two identities were created and two imports failed:
 
