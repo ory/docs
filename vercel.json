@@ -1163,6 +1163,11 @@
       "source": "/docs/kratos/passwordless/webauthn",
       "destination": "/docs/kratos/passwordless/passkeys",
       "permanent": false
+    },
+    {
+      "source": "/docs/identities/sign-in/saml",
+      "destination": "/docs/kratos/organizations/",
+      "permanent": false
     }
   ]
 }

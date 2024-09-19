@@ -1,7 +1,9 @@
 ---
 id: organizations
-title: B2B Single Sign-On
+title: B2B SSO & SAML
 ---
+
+# B2B Single Sign-On & SAML
 
 :::info
 
@@ -218,7 +220,7 @@ curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
 
 Note that the `organization_id` field contains the organization ID to which the connection belongs.
 
-## See it live
+### See it live
 
 After having set up everything, go to your registration page. Entering an email that ends with the organization's domain, such as
 `@my.example.com` from the example above, shows a **Sign in with SSO** button instead of the password field. Clicking it will take
@@ -229,3 +231,54 @@ organization.
 </TabItem>
 </Tabs>
 ```
+
+## SAML
+
+SAML (Security Assertion Markup Language) is an XML-based open standard used for exchanging authentication and authorization data
+between parties.  
+The SAML integration in Ory Network uses the B2B Organization feature.
+
+This guide will walk you through the steps required to set up SAML Single Sign-On (SSO) with Ory Network using BoxyHQ as your SAML
+provider.
+
+### Prerequisites
+
+Before proceeding, ensure you have the following:
+
+- Access to [Ory Network](https://console.ory.sh/)
+- An active account with [BoxyHQ](https://app.eu.boxyhq.com/auth/join)
+- [Ory CLI](../../guides/cli/installation)
+
+:::note
+
+If you need help with the integration or have any questions, please open a [support ticket](https://console.ory.sh/support) or
+reach out to support@ory.sh.
+
+:::
+
+### Configuration
+
+To set up the integration, you'll need to get your Ory Network session token:
+
+- [Install the Ory CLI](../../guides/cli/installation) on your system.
+- Run `ory auth` to sign into your Ory Network account.
+- Locate the session token in the `.ory-cloud.json` file in your home folder. This token starts with the prefix `ory_st`. You can
+  use `cat ~/.ory-cloud.json | grep 'ory_st'` to find it.
+
+You'll also need your Ory Project ID. You can find this in your
+[Ory Network settings](https://console.ory.sh/projects/current/settings).
+
+Next, you'll configure the session token and Project ID in BoxyHQ.
+
+Follow these steps:
+
+- Log into your [BoxyHQ account](https://app.boxyhq.com/).
+- Create a new Product if you haven't already.
+- Navigate to Settings > Ory Integration.
+- Paste your session token and Project ID into the respective input fields and save the configuration.
+
+Once configured, the integration between BoxyHQ and Ory Network will automatically set up a new Organization and a generic OIDC
+connection whenever you create a new SSO connection on BoxyHQ. All user management will then flow through Ory Network.
+
+To verify the integration, navigate to your Ory Account Experience UI and enter an email associated with the domain you
+configured. If successful, the "Sign in with SSO" button should appear.
