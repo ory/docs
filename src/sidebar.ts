@@ -166,11 +166,10 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
       label: "Authentication and login",
       collapsed: false,
       collapsible: false,
-      link:
-         {
-            type: "doc",
-            id: "guides/authentication",
-          },
+      link: {
+        type: "doc",
+        id: "guides/authentication",
+      },
       items: flat
         ? []
         : [
@@ -238,12 +237,10 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
       label: "Emails & SMS",
       collapsed: false,
       collapsible: false,
-      link: flat
-        ? {
-            type: "doc",
-            id: "guides/email-sms",
-          }
-        : undefined,
+      link: {
+        type: "doc",
+        id: "guides/email-sms",
+      },
       items: flat
         ? []
         : [
