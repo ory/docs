@@ -166,12 +166,11 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
       label: "Authentication and login",
       collapsed: false,
       collapsible: false,
-      link: flat
-        ? {
+      link:
+         {
             type: "doc",
             id: "guides/authentication",
-          }
-        : undefined,
+          },
       items: flat
         ? []
         : [
