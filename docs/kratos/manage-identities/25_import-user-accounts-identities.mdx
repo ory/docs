@@ -581,8 +581,8 @@ A maximum of 2000 identities can be created in a single request. If you need to 
 multiple requests.
 
 The endpoint accepts a JSON array of identities, each of which must have a `create` property that holds the identity that should
-be created. Optionally, you can specify a `patch_id` property which will be returned in the response. This can be used to
-correlate the response with the patch.
+be created. Optionally, you can specify a `patch_id` property (which must be a UUID) which will be returned in the response. This
+can be used to correlate the response with the patch.
 
 The following example shows how to import two identities. It will create two identities with the email addresses `foo@example.com`
 and `bar@example.com` and the passwords `foopassword` and `barpassword` respectively.
@@ -594,6 +594,8 @@ curl --location --request PATCH 'https://${YOUR_PROJECT_SLUG}.projects.oryapis.c
 --data-raw '{
     "identities": [
         {
+# highlight-next-line
+            "patch_id": "6086b0a8-d851-5431-91b4-b6e5e39dc88b",
             "create": {
                 "credentials": {
                     "password": {
@@ -609,7 +611,9 @@ curl --location --request PATCH 'https://${YOUR_PROJECT_SLUG}.projects.oryapis.c
                 "schema_id": "preset://email"
             }
         },
-                {
+        {
+# highlight-next-line
+            "patch_id": "d554dc00-49ce-5381-9bdc-79637dec85a2",
             "create": {
                 "credentials": {
                     "password": {
@@ -629,18 +633,72 @@ curl --location --request PATCH 'https://${YOUR_PROJECT_SLUG}.projects.oryapis.c
 }'
 ```
 
-The service will respond with the two identity IDs created:
+The service will respond with the two identity IDs created. Note that the `patch_id` is returned in the response to correlate the
+response with the request.
 
 ```json
 {
   "identities": [
     {
       "action": "create",
+      // highlight-next-line
+      "patch_id": "6086b0a8-d851-5431-91b4-b6e5e39dc88b",
       "identity": "55f93ea4-09ff-4273-8b88-082cc70d6d44"
     },
     {
       "action": "create",
+      // highlight-next-line
+      "patch_id": "d554dc00-49ce-5381-9bdc-79637dec85a2",
       "identity": "f70c9b29-4790-4330-90dc-920db16a4b85"
+    }
+  ]
+}
+```
+
+### Errors during bulk import
+
+Failure to import an identity will not fail the whole bulk import. In the response, `"action": "error"` indicates that the
+identity with the corresponding `patch_id` (which can be set on each identity passed to `PATCH /admin/identities`) could not be
+imported. The `error` object contains more details about why the import failed.
+
+This is an example response where two identities were created and two imports failed:
+
+```json
+{
+  "identities": [
+    {
+      "action": "create",
+      "identity": "0d0ed560-43ce-42a9-bd40-aafe921c3af1",
+      "patch_id": "6086b0a8-d851-5431-91b4-b6e5e39dc88b"
+    },
+    {
+      // highlight-start
+      "action": "error",
+      "patch_id": "d554dc00-49ce-5381-9bdc-79637dec85a2",
+      "error": {
+        "code": 400,
+        "status": "Bad Request",
+        "reason": "The request was malformed or contained invalid parameters",
+        "message": "The request was malformed or contained invalid parameters"
+      }
+      // highlight-end
+    },
+    {
+      // highlight-start
+      "action": "error",
+      "patch_id": "1634f1e9-8419-5a54-8191-2260c8aaea31",
+      "error": {
+        "code": 409,
+        "status": "Conflict",
+        "reason": "This identity conflicts with another identity that already exists.",
+        "message": "The resource could not be created due to a conflict"
+      }
+      // highlight-end
+    },
+    {
+      "action": "create",
+      "identity": "b8651770-be8d-460b-b86f-679c4ba50264",
+      "patch_id": "eade6651-9311-5624-8afd-e4a3e05e0c4a"
     }
   ]
 }
