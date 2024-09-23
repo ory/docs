@@ -2,32 +2,33 @@
 id: identifier-first-authentication
 title: Identifier First Authentication
 sidebar_label: Identifier First Authentication
-
 ---
 
-With a one-step login, when you enable multiple authentication strategies (for example password, code via email, and passkey), the
-identity traits will be repeated for each authentication strategy.
+Identifier First Authentication streamlines the login process by first requesting the user's identifier (such as email or
+username) before prompting for a password or other authentication methods. This approach enhances user experience and security by
+tailoring authentication steps based on the user's context.
 
-Compare this to a two-step login: Now, the user is prompted for the identity traits in the first step, and asked to choose a
-credential method for authentication next. This results in a more stream-lined user experience.
+This guide explains how to enable and use Identifier First Authentication in Ory Network (Ory Identities) and self-hosted Ory
+Kratos.
 
-:::info
+## Ory Network
 
-Identity traits are data associated with an identity that can be modified by the user. The traits are configured through the
-identity schema.
+To enable it:
 
-[Learn more about identity traits](../../kratos/manage-identities/managing-users-identities-metadata#traits)
+1. Log in to the [https://console.ory.sh](Ory Console).
+2. Select your project.
+3. Navigate to [Project Settings > Advanced](https://console.ory.sh/projects/current/settings/advanced).
+4. Enable "New Account Experience".
+5. Click "Save Changes".
+6. Test the flow in your application by navigating to the login page.
 
-:::
+## Self-hosted Ory Kratos
 
-![Login with two-step login vs one-step login](./_static/login-hint.png)
+For Ory Enterprise License and Ory Apache 2.0 License users, set the following configuration in your `kratos.yaml` config file:
 
-To disable the legacy one-step login, go to https://console.ory.sh/projects/current/authentication and switch off "Enable legacy
-one-step login" or use the Ory CLI:
-
-```bash
-ory list projects # to get the project id
-
-ory patch project ${project_id} \
-  --replace '/services/identity/config/selfservice/flows/login/enable_legacy_one_step=false'
+```yaml title="kratos-config.yaml"
+selfservice:
+  flows:
+    login:
+      style: identifier_first
 ```
