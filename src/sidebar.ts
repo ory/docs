@@ -971,6 +971,7 @@ module.exports = {
         "guides/manage-project-via-api",
         "guides/custom-domains",
         "console/usage-billing",
+        "console/change-owner",
         "guides/gitops",
       ],
     },
