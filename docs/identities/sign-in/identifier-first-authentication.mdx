@@ -22,6 +22,8 @@ To enable it:
 5. Click "Save Changes".
 6. Test the flow in your application by navigating to the login page.
 
+To disable this feature,follow the same steps and disable "New Account Experience".
+
 ## Self-hosted Ory Kratos
 
 For Ory Enterprise License and Ory Apache 2.0 License users, set the following configuration in your `kratos.yaml` config file:
@@ -32,3 +34,5 @@ selfservice:
     login:
       style: identifier_first
 ```
+
+To disable this feature, set `style` to `unified`.

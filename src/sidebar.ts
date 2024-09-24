@@ -229,6 +229,7 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
               ],
             },
             "identities/sign-in/two-step-registration",
+            "identities/sign-in/identifier-first-authentication",
             "identities/sign-in/login-hint",
           ],
     },
