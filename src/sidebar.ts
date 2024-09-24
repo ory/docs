@@ -1007,7 +1007,6 @@ module.exports = {
   reference: referenceSidebar,
   "quickstarts-and-tutorials": quickstartSidebar(false),
   guides: guidesSidebar(false),
-  migrateToOry: migrateToOrySidebar,
   troubleshooting: troubleshootingSidebar,
   identities: identitiesSidebar,
   oauth2: oauth2Sidebar,
