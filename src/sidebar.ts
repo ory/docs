@@ -393,6 +393,19 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
         : ["hydra/jwks", "hydra/guides/openid", "oauth2-oidc/issuer-url"],
     },
     "actions/live-events",
+    {
+      type: "category",
+      label: "Migrate to Ory",
+      collapsed: false,
+      collapsible: false,
+      link: {
+        type: "doc",
+        id: "migrate-to-ory/index",
+      },
+      items: flat
+        ? []
+        : ["migrate-to-ory/auth0", "hydra/self-hosted/migrating-from-mitreid"],
+    },
   ]
 }
 
@@ -419,13 +432,6 @@ const troubleshootingSidebar = [
       "hydra/debug/token-endpoint-auth-method",
     ],
   },
-]
-
-const migrateToOrySidebar = [
-  homeLink,
-  "migrate-to-ory/index",
-  "migrate-to-ory/auth0",
-  "hydra/self-hosted/migrating-from-mitreid",
 ]
 
 const identitiesSidebar = [
@@ -1001,7 +1007,6 @@ module.exports = {
   reference: referenceSidebar,
   "quickstarts-and-tutorials": quickstartSidebar(false),
   guides: guidesSidebar(false),
-  migrateToOry: migrateToOrySidebar,
   troubleshooting: troubleshootingSidebar,
   identities: identitiesSidebar,
   oauth2: oauth2Sidebar,
