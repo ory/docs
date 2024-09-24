@@ -163,7 +163,7 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
     ...items,
     {
       type: "category",
-      label: "Authentication and login",
+      label: "Login and registration",
       collapsed: false,
       collapsible: false,
       link: {
@@ -219,7 +219,7 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
             },
             {
               type: "category",
-              label: "Multi-factor Authentication",
+              label: "Multi-factor authentication",
               items: [
                 "kratos/mfa/lookup-secrets",
                 "kratos/mfa/totp",
@@ -228,13 +228,22 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
                 "kratos/mfa/step-up-authentication",
               ],
             },
-            "identities/sign-in/two-step-registration",
-            "identities/sign-in/login-hint",
+            {
+              type: "category",
+              label: "Customize user experience",
+              items: [
+                "identities/sign-in/two-step-registration",
+                "identities/sign-in/identifier-first-authentication",
+                "identities/sign-in/login-hint",
+                "getting-started/custom-ui",
+                "identities/sign-in/actions",
+              ],
+            },
           ],
     },
     {
       type: "category",
-      label: "Emails & SMS",
+      label: "Emails and SMS",
       collapsed: false,
       collapsible: false,
       link: {
@@ -260,19 +269,26 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
       items: flat
         ? []
         : [
-            "identities/sign-in/actions",
-            "actions/revoke-active-sessions",
-            "actions/session",
-            "actions/require-verified-address",
             {
               type: "category",
-              label: "Integrations",
+              label: "Identity management",
               items: [
-                "actions/integrations/hubspot",
-                "actions/integrations/mailchimp",
-                "actions/integrations/segment",
+                "identities/sign-in/actions",
+                "actions/revoke-active-sessions",
+                "actions/session",
+                "actions/require-verified-address",
+                {
+                  type: "category",
+                  label: "Integrations",
+                  items: [
+                    "actions/integrations/hubspot",
+                    "actions/integrations/mailchimp",
+                    "actions/integrations/segment",
+                  ],
+                },
               ],
             },
+            "hydra/guides/claims-at-refresh",
           ],
     },
     {
@@ -373,7 +389,6 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
                 "hydra/guides/audiences",
                 "hydra/guides/jwt",
                 "hydra/guides/client-token-expiration",
-                "hydra/guides/claims-at-refresh",
                 "oauth2-oidc/claims-scope",
               ],
             },
