@@ -1,0 +1,38 @@
+---
+id: rate-limits
+title: Understanding Ory Network Rate Limiting
+sidebar_label: Overview Rate Limits
+---
+
+This page provides a high-level overview of the rate limiting mechanisms employed by Ory to ensure system security and
+availability. Rate limiting is crucial for protecting your applications against abuse and attacks, preventing service disruptions,
+and ensuring fair usage for all our customers.
+
+## Types of Rate Limits
+
+Ory implements two main types of rate limits:
+
+1. **Project-Based Rate Limits** ([link](/guides/project-based-rate-limits)): These limits are determined by your Ory subscription
+   plan**1**. They define the maximum number of requests your projects can make to Ory's APIs within a given timeframe. This
+   ensures fair resource allocation across all Ory projects.
+   1. These limits are applied at the project level, meaning all requests originating from a specific project contribute to the
+      rate limit counter for that project.
+   2. Project-Based Rate Limits are defined in terms of: <br/>**Burst Limit:** This governs the maximum number of requests allowed
+      per second, accommodating temporary spikes in traffic. <br/>**Sustained Limit:** This sets the maximum request count over a
+      one-minute period, ensuring consistent and fair usage.
+2. **Endpoint-Based Rate Limits** ([link](/guides/endpoint-based-rate-limits)): These limits focus on safeguarding specific
+   endpoints of your Ory projects against common attack vectors like brute-force and credential stuffing attempts. They typically
+   consider factors like source IP address and request frequency to identify and mitigate malicious activity.
+   1. Endpoint-based rate limits act as a first line of defense for your project endpoints.These limits often leverage the source
+      IP address as a key criterion, allowing Ory to identify and block requests originating from suspicious or malicious sources.
+   2. By analyzing request patterns and incorporating factors like source IP, Ory can effectively differentiate between legitimate
+      user traffic and potentially harmful bot activity.
+
+## Benefits of Rate Limiting
+
+- **Enhanced Security:** Rate limits help prevent attacks like brute-force and credential stuffing by restricting the number of
+  attempts from a single source within a specific timeframe.
+- **Improved Stability:** By limiting excessive requests, rate limiting protects your application from overload and potential
+  downtime.
+- **Fair Usage:** Project-based rate limits ensure fair resource allocation and prevent any single project from monopolizing
+  shared resources.

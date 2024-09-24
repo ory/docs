@@ -1,0 +1,100 @@
+---
+id: project-based-rate-limits
+title: Project-Based Rate Limits
+sidebar_label: Project-Based Rate Limits
+---
+
+## Introduction
+
+This page provides a comprehensive explanation of Ory's Project-Based Rate Limiting. These limits are designed to ensure fair
+resource allocation and maintain the stability and performance of the Ory Network across different project plans and environments.
+
+## What are Project-Based Rate Limits?
+
+Project-Based Rate Limits are controls applied to your entire Ory project, governing the overall request volumes across various
+API endpoints. These limits vary based on your project's plan (Developer, Production, Growth, or Enterprise) and the specific
+environment (Production, Staging, or Workspace).
+
+## How Project-Based Rate Limits Work
+
+Project-Based Rate Limits analyze incoming requests across your entire project and consider factors such as:
+
+- **Project Plan:** Different plans (Developer, Production, Growth, Enterprise) have different rate limit thresholds.
+- **Environment:** Limits may vary between Production, Staging, and Workspace environments.
+- **Request Path:** Specific API endpoints have different rate limits based on their typical usage patterns and importance.
+- **Time Window:** Limits are applied using both per-second (burst) and per-minute (sustained) windows.
+
+## Types of Rate Limits
+
+Ory Network implements two types of rate limits for each policy:
+
+1. **Burst Limit:** Limits the number of requests per second, allowing brief spikes in request volume.
+2. **Sustained Limit:** Limits the number of requests over a one-minute period, ensuring consistent performance over time.
+
+## Rate Limit Policies
+
+Ory applies different rate limit policies based on the path of your request:
+
+1. `/sessions/whoami`: Session checks
+2. `/admin/oauth2/introspect`: OAuth2 token introspection
+3. `/relation-tuples/check`: Permission checks
+4. `GET /admin/identities`: List identities
+5. `*`: All other paths
+
+## Rate Limit Tables by Plan
+
+### Developer Plan Rate Limits
+
+| Environment   | Path / Bucket              | Burst (rps) | Sustained (rpm) |
+| :------------ | :------------------------- | ----------: | --------------: |
+| **Developer** | `/sessions/whoami`         |          10 |             300 |
+|               | `/admin/oauth2/introspect` |          10 |             300 |
+|               | `/relation-tuples/check`   |          10 |             300 |
+|               | `GET /admin/identities`    |           1 |              10 |
+|               | `*`                        |           5 |             150 |
+
+### Production Plan Rate Limits
+
+| Environment    | Path / Bucket              | Burst (rps) | Sustained (rpm) |
+| :------------- | :------------------------- | ----------: | --------------: |
+| **Production** | `/sessions/whoami`         |          80 |            1800 |
+|                | `/admin/oauth2/introspect` |          80 |            1800 |
+|                | `/relation-tuples/check`   |          80 |            1800 |
+|                | `GET /admin/identities`    |          10 |             300 |
+|                | `*`                        |          40 |             900 |
+| **Staging**    | `/sessions/whoami`         |          10 |              30 |
+|                | `/admin/oauth2/introspect` |          10 |             300 |
+|                | `/relation-tuples/check`   |          10 |             300 |
+|                | `GET /admin/identities`    |           1 |              10 |
+|                | `*`                        |           5 |             150 |
+
+### Growth Plan Rate Limits
+
+| Environment    | Path / Bucket              | Burst (rps) | Sustained (rpm) |
+| :------------- | :------------------------- | ----------: | --------------: |
+| **Production** | `/sessions/whoami`         |         800 |           18000 |
+|                | `/admin/oauth2/introspect` |         800 |           18000 |
+|                | `/relation-tuples/check`   |         800 |           18000 |
+|                | `GET /admin/identities`    |          20 |             600 |
+|                | `*`                        |         400 |            9000 |
+| **Staging**    | `/sessions/whoami`         |          10 |              30 |
+|                | `/admin/oauth2/introspect` |          10 |             300 |
+|                | `/relation-tuples/check`   |          10 |             300 |
+|                | `GET /admin/identities`    |           1 |              10 |
+|                | `*`                        |           5 |             150 |
+
+## Important Notes on Project-Based Rate Limits
+
+### Workspace Rate Limit
+
+For all projects in a workspace, the rate limit is the same as for the production environment of your plan. For example, on the
+Production plan, the rate limit would be 80 rps on the `/sessions/whoami` path for all projects combined in the workspace.
+
+### Enterprise-Grade Rate Limits
+
+For customers requiring higher rate limits or custom configurations, Ory offers enterprise-grade solutions. Please
+[contact Ory](https://www.ory.sh/contact/) to discuss your specific requirements.
+
+### Legacy Plans
+
+The legacy Essential and Scale plans have the same rate limits as Production and Growth plans respectively.
