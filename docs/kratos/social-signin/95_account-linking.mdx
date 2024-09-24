@@ -46,7 +46,8 @@ To try out account un-linking, use the Ory Account Experience. Follow these step
 
 ## Automatic account linking
 
-Users can link social sign-in accounts on login automatically using a secure flow. This is how it works:
+With automatic account linking users can link social sign-in accounts on login without interaction using a secure flow. This is
+how it works:
 
 ```mdx-code-block
 import Mermaid from "@theme/Mermaid"
@@ -77,7 +78,7 @@ import Mermaid from "@theme/Mermaid"
 1. The user creates an account with the identifier `alice@example.com` and a password.
 1. When signing in later, the user signs in with a social sign-in provider. That social sign-in account (through the OIDC userinfo
    endpoint or the identity token) contains the same identifier `alice@example.com`.
-1. Since the identifier already exists, the user cannot be logged in directly. Instead, the user will be prompted to enter the
+1. Since the identifier already exists, the user can't be logged in directly. Instead, the user will be prompted to enter the
    password chosen in step 1.
 1. After entering the correct password, the social sign-in is linked to the user's account. Now they can sign in with either
    password or social sign-in provider.
@@ -98,8 +99,9 @@ malicious actors would be prompted to enter the password associated with the `jo
 
 ### Hide irrelevant authentication methods
 
-Due to security considerations, it might be required to show all configured authentication methods to the user. However, this can
-be confusing for users who have multiple accounts with different authentication methods.
+Depending on the use case it might be required to show all configured authentication methods to the user. This can be confusing
+for users who have accounts with different authentication methods.
 
-To hide irrelevant authentication methods, you can use the [login hints](../../identities/sign-in/login-hint.mdx) feature. By
-enabling login hints, users are informed about the authentication methods available for the existing account.
+To prevent confusion and hide authentication methods that aren't configured for the user, enable
+[login hints](../../identities/sign-in/login-hint.mdx). Login hints inform users about the authentication methods available for
+the existing account.
