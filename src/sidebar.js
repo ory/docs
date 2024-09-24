@@ -335,7 +335,7 @@ module.exports = {
         "guides/gitops",
         "guides/rate-limits",
         "guides/project-based-rate-limits",
-        "guides/endpoint-based-rate-limits",        
+        "guides/endpoint-based-rate-limits",
         "guides/allowlist",
       ],
     },
