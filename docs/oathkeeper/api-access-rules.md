@@ -170,7 +170,7 @@ errors:
 ## Handler configuration
 
 Handlers (Authenticators, Mutators, Authorizers, Errors) sometimes require configuration. The configuration can be defined
-globally as well as per Access Rule. The configuration from the Access Rule is overrides values from the global configuration.
+globally as well as per Access Rule. The configuration from the Access Rules overrides values from the global configuration.
 
 **oathkeeper.yml**
 
