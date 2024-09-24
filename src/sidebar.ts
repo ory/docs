@@ -36,6 +36,8 @@ const referenceSidebar: ExtendSidebar = [
           "concepts/personal-access-token",
           "guides/cors",
           "guides/rate-limits",
+          "guides/project-based-rate-limits",
+          "guides/endpoint-based-rate-limits",
           "guides/ip-allowlist",
           "api/eventual-consistency",
         ],
