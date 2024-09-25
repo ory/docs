@@ -75,7 +75,6 @@ const quickstartSidebar = (flat: boolean): ExtendSidebar => {
 
   return [
     ...items,
-    "getting-started/local-development",
     {
       type: "category",
       label: "User authentication",
@@ -101,7 +100,20 @@ const quickstartSidebar = (flat: boolean): ExtendSidebar => {
     },
     {
       type: "category",
-      label: "OAuth2 and OpenID Connect",
+      label: "Permissions and relationships",
+      collapsed: false,
+      collapsible: false,
+      link: {
+        type: "doc",
+        id: "guides/permissions/overview",
+      },
+      items: flat
+        ? []
+        : ["keto/examples/olymp-file-sharing", "keto/guides/rbac"],
+    },
+    {
+      type: "category",
+      label: "OAuth2 and OpenID",
       collapsed: false,
       collapsible: false,
       link: {
@@ -117,24 +129,7 @@ const quickstartSidebar = (flat: boolean): ExtendSidebar => {
     },
     {
       type: "category",
-      label: "Permissions",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "guides/permissions/overview",
-      },
-      items: flat
-        ? []
-        : [
-            "keto/examples/olymp-file-sharing",
-            "keto/guides/rbac",
-            "guides/gitops",
-          ],
-    },
-    {
-      type: "category",
-      label: "SDK quickstarts",
+      label: "Software Development Kits",
       collapsed: false,
       collapsible: false,
       link: {
@@ -144,11 +139,21 @@ const quickstartSidebar = (flat: boolean): ExtendSidebar => {
       items: flat
         ? []
         : [
-            "kratos/sdk/go",
-            "hydra/sdk/js",
-            "hydra/sdk/go",
-            "keto/sdk/go",
-            "keto/sdk/python",
+            {
+              type: "category",
+              label: "Identity Management",
+              items: ["kratos/sdk/go"],
+            },
+            {
+              type: "category",
+              label: "OAuth2 & OpenID Connect",
+              items: ["hydra/sdk/js", "hydra/sdk/go"],
+            },
+            {
+              type: "category",
+              label: "Permissions",
+              items: ["keto/sdk/go", "keto/sdk/python"],
+            },
           ],
     },
   ]
@@ -163,7 +168,7 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
     ...items,
     {
       type: "category",
-      label: "Login and registration",
+      label: "User authentication",
       collapsed: false,
       collapsible: false,
       link: {
@@ -173,6 +178,7 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
       items: flat
         ? []
         : [
+            "getting-started/local-development",
             "kratos/concepts/credentials/username-email-password",
             "kratos/passwordless/one-time-code",
             "kratos/passwordless/passkeys",
@@ -230,31 +236,14 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
             },
             {
               type: "category",
-              label: "Customize user experience",
+              label: "Customized auth flows",
               items: [
                 "identities/sign-in/two-step-registration",
                 "identities/sign-in/identifier-first-authentication",
                 "identities/sign-in/login-hint",
-                "getting-started/custom-ui",
                 "identities/sign-in/actions",
               ],
             },
-          ],
-    },
-    {
-      type: "category",
-      label: "Emails and SMS",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "guides/email-sms",
-      },
-      items: flat
-        ? []
-        : [
-            "kratos/emails-sms/sending-emails-smtp",
-            "kratos/emails-sms/sending-sms",
           ],
     },
     {
@@ -331,6 +320,22 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
     },
     {
       type: "category",
+      label: "Emails and SMS",
+      collapsed: false,
+      collapsible: false,
+      link: {
+        type: "doc",
+        id: "guides/email-sms",
+      },
+      items: flat
+        ? []
+        : [
+            "kratos/emails-sms/sending-emails-smtp",
+            "kratos/emails-sms/sending-sms",
+          ],
+    },
+    {
+      type: "category",
       label: "Session management",
       collapsed: false,
       collapsible: false,
@@ -351,7 +356,7 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
     },
     {
       type: "category",
-      label: "Customized UI",
+      label: "Build your own UI",
       collapsed: false,
       collapsible: false,
       link: {
