@@ -27,6 +27,7 @@ const referenceSidebar: ExtendSidebar = [
     items: [
       "reference/api",
       "sdk",
+      "ecosystem/api-design",
       {
         type: "category",
         label: "Operations",

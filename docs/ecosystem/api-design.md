@@ -1,6 +1,6 @@
 ---
 id: api-design
-title: Design
+title: API Design
 ---
 
 This document provides a summary of Ory's REST design with topics like pagination and date formats. If you're interested in Ory's
