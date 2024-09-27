@@ -10,7 +10,7 @@ module.exports = function (context) {
             innerHTML: `
               window.TERMLY_CUSTOM_BLOCKING_MAP = {
                 "sqa-web.ory.sh": "essential",
-                "static.reo.dev": "advertising",
+                "static.reo.dev": "analytics",
               }
             `
           },
