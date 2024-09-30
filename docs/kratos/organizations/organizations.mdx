@@ -172,7 +172,7 @@ Some notes on the fields of the JSON payload:
 - `mapper_url` is the URL to a JSONnet file that maps the OIDC provider's claims to Ory's identity schema. You can use the
   `base64` scheme to embed the JSONnet file directly in the JSON payload.
 - `pkce` determines whether Ory Identities will use PKCE during the OIDC flow. See the note below and the
-  [PKCE documentation](../social-signin/oidc-pkce.mdx) for details.
+  [Configure social sign-in documentation](../social-signin/01_overview.mdx) for details.
 
 :::tip
 
@@ -182,7 +182,7 @@ The redirect URL to be set in the external OIDC provider's configuration is
 If you set `pkce: force`, you must whitelist a different redirect URL with the OIDC provider:
 `https://$PROJECT_SLUG.projects.oryapis.com/self-service/methods/oidc/callback`.
 
-See the [PKCE documentation](../social-signin/oidc-pkce.mdx) for details.
+See the [Configure social sign-in documentation](../social-signin/01_overview.mdx) for details.
 
 :::
 

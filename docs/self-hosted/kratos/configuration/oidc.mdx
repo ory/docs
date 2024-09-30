@@ -14,8 +14,8 @@ Follow these steps to add a social sign-in provider when self-hosting Ory Kratos
 1. Create a client at your provider to get the Client ID and Client Secret.
 1. Set the redirect URI to URL that follows this pattern.
    `http(s)://<domain-of-ory-kratos>:<public-port>/self-service/methods/oidc/callback/<social-signin-provider-id>`.
-1. Create a [Jsonnet code snippet](../../../kratos/social-signin/90_data-mapping.mdx) to map the desired claims to the Ory
-   Identity schema.
+1. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema. Read the
+   [Configure social sign-in documentation](../../../kratos/social-signin/01_overview.mdx) for more information.
 1. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or store it in a location available to your Ory Kratos
    instance.
 1. Add the configuration for your [social sign-in provider](../../../kratos/social-signin/01_overview.mdx) to the Ory Kratos
