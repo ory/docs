@@ -1,7 +1,7 @@
 ---
 id: overview
 title: Set up social sign-in and connect with OAuth2 and OpenID Connect providers
-sidebar_label: Social sign-in
+sidebar_label: Configure social sign-in
 ---
 
 # Get started with social sign-in
@@ -32,3 +32,725 @@ application.
 The Ory Network provides GUI-based flows for adding and configuring social sign-in providers through the
 [Ory Console](https://console.ory.sh/login). Each flow is custom-tailored to accommodate configuration requirements of the
 specific identity provider. Alternatively, you can use the [Ory CLI](../../guides/cli/01_installation.mdx).
+
+## Data mapping
+
+In this section you will learn how to map data from social sign-in providers to Ory identity traits.
+
+Every social sign-in provider returns different data in their payloads. Some providers use usernames, others emails, and so on.
+While you might expect to get some basic information consistently, the payload isn't standardized. As a result, when integrating
+with social sign-in providers, you must specify how to map the data you get from the specific provider to the Identity traits.
+
+You define this mapping by creating a [Jsonnet code snippet](../../kratos/reference/jsonnet.mdx). This snippet becomes a part of
+the Ory Identities configuration for the given social sign-in provider.
+
+:::tip
+
+You can find the mapping required for a basic configuration of social sign-in providers in our documentation. For example,
+[learn how to create a data mapping for GitHub.](25_github.mdx#data-mapping)
+
+:::
+
+### Write a Jsonnet data mapper
+
+[Jsonnet](https://jsonnet.org/) is data templating language specialized for working with JSON. The simplest document is a plain
+JSON object:
+
+```json
+{
+  "foo": "bar"
+}
+```
+
+JsonNet also supports variables, functions, and other features:
+
+```jsonnet
+local email = 'hello@example.org';
+
+{
+  identity: { traits: { email: email } }
+}
+```
+
+results in JSON:
+
+```json
+{
+  "identity": {
+    "traits": {
+      "email": "hello@example.org"
+    }
+  }
+}
+```
+
+##### Expected result
+
+The data mapper returns an object with the following structure:
+
+```json5
+{
+  identity: {
+    traits: {
+      /* ... depends on your identity schema ... */
+    },
+  },
+}
+```
+
+##### Use social sign-in data
+
+Ory Identities adds an external variable called `claims` to the data mapper. It contains all values the social sign-in provider
+returned. For example, this Jsonnet code snippet:
+
+```jsonnet title="github.data-mapper.jsonnet"
+// claims contains all the data sent by the upstream.
+local claims = std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      [if "website" in claims then "website" else null]: claims.website,
+    },
+  },
+}
+```
+
+returns this object:
+
+```json
+{
+  "identity": {
+    "traits": {
+      "email": "foo@ory.sh",
+      "website": "https://www.ory.sh"
+    }
+  }
+}
+```
+
+##### Fill in the data gaps
+
+:::note
+
+Social sign-in providers may not return all data you expect. The user may not give you permission to access their email address,
+for example. Ory will ask the user to fill in the missing data in such a case.
+
+:::
+
+Sometimes the social sign-in provider does not return the data we expect:
+
+- User needs to agree to **your** terms of service.
+- User did not agree to share their email address when performing the consent step.
+
+If the data returned by the JsonNet data mapper does not validate against the Identity Schema of your project, the user will be
+redirected to the registration page where they need to update the missing fields. When submitting the form again, the data
+provided by the user and the data coming from the OpenID Connect / OAuth2 provider will be merged. This process repeats itself
+until the Identity's traits are valid against the defined JSON Schema.
+
+##### External variable `claims`
+
+The `std.ExtVar('claims')` object has the following structure and keys available:
+
+```json5
+{
+  iss: "https://accounts.google.com",
+  sub: "1234",
+  name: "John Doe",
+  given_name: "John",
+  family_name: "Doe",
+  last_name: "Doe",
+  middle_name: "Peter",
+  nickname: "john_doe",
+  preferred_username: "johnny",
+  profile: "https://plus.google.com/1234",
+  picture: "https://plus.google.com/1234/profile.png",
+  website: "https://example.org",
+  email: "john@doe.com",
+  email_verified: true,
+  gender: "m",
+  birthdate: "1980/11/12",
+  zoneinfo: "de",
+  locale: "de",
+  phone_number: "+1123123123",
+  phone_number_verified: true,
+  updated_at: "2022-11-30T11:07:24.405345Z",
+  hd: "4321",
+  team: "some-microsoft-team",
+  raw_claims: {
+    /* ... */
+  },
+}
+```
+
+##### Raw Claims `raw_claims`
+
+All claims that are not part of the standard userinfo claims, are mapped into `raw_claims`. An example of mapping a raw claim
+called "groups":
+
+```jsonnet title="data-mapper.jsonnet"
+local claims = std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      [if "groups" in claims.raw_claims then "groups" else null]: claims.raw_claims.groups,
+    },
+  },
+}
+```
+
+#### Set identity metadata
+
+You can set [public and admin metadata fields](../manage-identities/10_managing-users-identities-metadata.mdx), these fields will
+then be populated whenever data is mapped. This is useful if you want to store data from the social sign-in provider without the
+user being able to modify it.
+
+```jsonnet
+local claims = std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      email: claims.email
+    },
+    metadata_public: {
+      discord_username: claims.discord_username,
+    },
+    metadata_admin: {
+      // ...
+    },
+  }
+}
+```
+
+#### Emails and phone numbers
+
+:::danger
+
+Never trust unverified email addresses and phone numbers.
+
+:::
+
+When using the email or phone number from a social sign-in provider in your identity, you must make sure that the email or phone
+number is verified. Not doing so may open several attack vectors related to social sign in.
+
+```jsonnet title="github.data-mapper.jsonnet"
+local claims = {
+  email_verified: false,
+} + std.extVar('claims');
+
+{
+  identity: {
+    traits: {
+      // Allowing unverified email addresses enables account
+      // enumeration attacks, especially if the value is used for
+      // e.g. verification or as a password login identifier.
+      //
+      // Therefore we only return the email if it (a) exists and (b) is marked verified
+      // by GitHub.
+      [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+    },
+  },
+}
+```
+
+#### Configure data mapper
+
+Configure the data mapper in the Ory Console:
+
+```mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs>
+  <TabItem value="Ory Console" default>
+
+
+1. Go to <ConsoleLink route="project.socialSignIn" />.
+2. Pick a provider of your choice.
+3. Add your JsonNet code snippet to the **data mapper** input form.
+
+
+  </TabItem>
+</Tabs>
+```
+
+#### End-to-end GitHub example
+
+Let's set up a complete example with GitHub:
+
+1. Create a new project or use an existing one in the [Ory Console](https://console.ory.sh).
+2. Go to <ConsoleLink route="project.socialSignIn" />.
+3. Use the **Add GitHub** provider, follow the set-up steps from the [GitHub social sign-in documentation](25_github.mdx).
+4. Copy and paste the following JsonNet data mapper:
+
+   ```jsonnet title="github.data-mapper.jsonnet"
+   local claims = {
+     email_verified: false,
+   } + std.extVar('claims');
+
+   {
+     identity: {
+       traits: {
+         // Allowing unverified email addresses enables account
+         // enumeration attacks, especially if the value is used for
+         // e.g. verification or as a password login identifier.
+         //
+         // Therefore we only return the email if it (a) exists and (b) is marked verified
+         // by GitHub.
+         [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+       },
+       metadata_public: {
+         github_username: claims.username,
+       }
+     },
+   }
+   ```
+
+Let's assume that GitHub returns the following for `std.extVar('claims')`:
+
+```json
+{
+  "sub": "some-identity-id-4hA8gk",
+  "email": "foo@ory.sh",
+  "email_verified": true,
+  "username": "foo-user"
+}
+```
+
+The JsonNet data mapper will return the following data from GitHub:
+
+```json
+{
+  "identity": {
+    "traits": {
+      "email": "foo@ory.sh"
+    },
+    "metadata_public": {
+      "github_username": "foo-user"
+    }
+  }
+}
+```
+
+The `sub` field, which is returned by OpenID Connect and OAuth2 servers alike is used as the primary credential identifier for the
+provider. This allows to link the identity to the "social sign-in profile" for future login flows.
+
+In Ory, the data will be stored in the following format:
+
+```yaml
+# This is the YAML representation of an identity
+id: "9f425a8d-7efc-4768-8f23-7647a74fdf13"
+
+credentials:
+  oidc:
+    id: oidc
+    identifiers:
+      - example:some-identity-id-4hA8gk
+    config:
+      - provider: example
+        identifier: some-identity-id-4hA8gk
+
+schema_id: some-example
+
+traits:
+  email: foo@ory.sh
+
+metadata_public:
+  github_username: foo-user
+```
+
+## Get social sign-in provider tokens
+
+In this section you learn how to get OIDC/OAuth 2.0 access, refresh, and ID tokens issued for the identity by social sign-in
+providers.
+
+These tokens are issued only when the Identity:
+
+- Signs up with a social sign-in provider.
+- Links a new social sign-in provider to their account.
+
+Run this command to get the Identity details that include the social sign-in provider tokens:
+
+````mdx-code-block
+import CodeFromRemote from '@theme/CodeFromRemote'
+import CodeBlock from '@theme/CodeBlock'
+
+import goExample from '!!raw-loader!../../../code-examples/sdk/go/social/get_token.go'
+import tsExample from '!!raw-loader!../../../code-examples/sdk/typescript/src/social/get-token.ts'
+
+<Tabs>
+<TabItem value="Ory CLI">
+
+```bash
+ory get identity "$identity_id" --project "$PROJECT_ID" \
+  -i oidc --format yaml
+```
+
+</TabItem>
+<TabItem value="cURL">
+
+```bash
+curl --request GET -sL \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Bearer {ORY_API_KEY}" \
+  'https://$PROJECT_SLUG.projects.oryapis.com/admin/identities/<identity_id>?include_credential=oidc'
+```
+
+</TabItem>
+<TabItem value="JavaScript">
+  <CodeBlock language="ts">{tsExample}</CodeBlock>
+</TabItem>
+<TabItem value="Go">
+  <CodeBlock language="ts">{goExample}</CodeBlock>
+</TabItem>
+</Tabs>
+````
+
+When the call is successful, the system returns the Identity details with the available social sign-in provider tokens:
+
+```json5
+{
+  "id": "IDENTITY_ID",
+  "credentials": {
+    "oidc": {
+      "type": "oidc",
+      "identifiers": [
+        "google:some-user"
+        "github:another-user"
+      ],
+      "config": {
+        "providers": [
+          {
+            "subject": "some-user",
+            "provider": "google",
+            // highlight-start
+            "initial_access_token": "********************",
+            "initial_refresh_token": "********************",
+            "initial_id_token": "********************",
+            // highlight-end
+          },
+          {
+            "subject": "another-user",
+            "provider": "github",
+            // highlight-start
+            "initial_access_token": "********************",
+            "initial_refresh_token": "********************",
+            "initial_id_token": "********************",
+            // highlight-end
+          }
+        ]
+      },
+      "created_at": "2022-10-08T12:17:18.834351+02:00",
+      "updated_at": "2022-10-08T12:17:18.834351+02:00"
+    }
+  },
+  "schema_id": "default",
+  "schema_url": "SCHEMA_URL",
+  "state": "active",
+  "state_changed_at": "2022-10-08T12:17:18.83324+02:00",
+  "traits": {
+    "subject": "foo.oidc@bar.com"
+  },
+  "verifiable_addresses": [
+    {
+      "id": "88da96df-0457-4d69-832d-5e70ef25055c",
+      "value": "foo.oidc@bar.com",
+      "verified": false,
+      "via": "",
+      "status": "",
+      "verified_at": null,
+      "created_at": "2022-10-08T12:17:18.83324+02:00",
+      "updated_at": "2022-10-08T12:17:18.834202+02:00"
+    }
+  ],
+  "created_at": "2022-10-08T12:17:18.834043+02:00",
+  "updated_at": "2022-10-08T12:17:18.834043+02:00"
+}
+```
+
+:::info
+
+The Ory Network encrypts these tokens per default at rest using
+[XChaCha20 Poly1305](https://en.wikipedia.org/wiki/ChaCha20-Poly1305#XChaCha20-Poly1305_–_extended_nonce_variant).
+
+:::
+
+## Set custom domain as redirect URL
+
+Some Social Sign-in Providers such as Google or GitHub show the Redirect URL as part of the sign-in process. By default, Ory
+Network uses a redirect URL that points to the Ory Network domain.
+
+:::caution
+
+This setting applies to all social sign-in providers (new and existing) and cannot be changed on a per-provider basis. So,
+changing the `base_redirect_uri` will break previously existing and functional social sign-in connections, because Ory Identities
+will initiate the OIDC flow with the new redirect URL.
+
+:::
+
+```mdx-code-block
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+```
+
+To use a custom domain as the redirect URL, go to <ConsoleLink route="project.socialSignIn" /> and add the domain to the **Base
+Redirect URI**.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+```
+
+To change the redirect URL to your custom domain using the Ory CLI, you need to update the `base_redirect_uri`:
+
+```shell
+# List all available workspaces
+ory list workspaces
+
+# List all available projects
+ory list projects --workspace <workspace-id>
+
+# Add OIDC base redirect URI
+ory patch identity-config <project-id> \
+  --add '/selfservice/methods/oidc/config/base_redirect_uri="https://ory.example.org"'
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+After changing the base redirect URI you need to update the redirect URL of social sign-in providers you want to use. This is done
+in the configuration of the social sign-in provider. To update an existing social sign in provider, follow these steps:
+
+1. Open the Ory Console and navigate to the social sign-in configuration screen.
+2. Choose the provider you want to fix and click on the configuration button.
+3. Copy the **Redirect URI** from the form.
+4. Replace the Ory Network URL `{project-slug}.projects.oryapis.com` with your custom hostname, such as `ory.example.org`.
+5. Update the Redirect URI - also called Authorization callback URL - in the social sign-in provider configuration.
+
+:::info
+
+Make sure the Redirect URI matches the hostname you configured in the Ory Network configuration. For example when your custom
+hostname is `https://ory.example.org`, the Redirect URI needs to be `https://ory.example.org`, not `https://www.ory.example.org`
+or `https://ory.example.org/`.
+
+:::
+
+## User account linking
+
+Ory allows users to link their accounts to social sign-in providers after they signed up, as well as un-link social sign-in
+providers they previously added.
+
+:::info
+
+Users can link their accounts only to social providers you configured in your Ory project.
+
+:::
+
+Users can link and unlink accounts:
+
+- to start signing in with a profile created in a social sign-in provider when they originally signed up with email and password
+- to link another social sign-in provider to their profile so that they can sign in with their GitHub profile and their Facebook
+  profile
+- to remove a social sign-in provider link from the profile (possible only when multiple sign-in methods are available to prevent
+  locking users out from accounts)
+
+##### Link accounts
+
+Users can link accounts manually through their account's settings page. To try out account linking, use the Ory Account
+Experience. Follow these steps:
+
+1. Configure at least two sign-up methods in your Ory project. One of these methods must be through a social sign-in provider.
+2. Go to your project's Ory Account Experience at `https://$PROJECT_SLUG.projects.oryapis.com/ui` and sign up.
+3. After you sign up, go to **Account Settings** and navigate to the **Social Sign In** section.
+4. Select one of the buttons to link an available social sign-in provider.
+
+##### Unlink accounts
+
+Users with multiple sign-in methods can unlink social sign-in providers from their account through their account's settings page.
+To try out account un-linking, use the Ory Account Experience. Follow these steps:
+
+1. Go to your project's Ory Account Experience at `https://$PROJECT_SLUG.projects.oryapis.com/ui` and sign in with a user account
+   with multiple sign-in methods available.
+2. Go to **Account Settings** and navigate to the **Social Sign In** section.
+3. Use the buttons to unlink a social sign-in provider.
+
+#### Automatic account linking
+
+Users can link social sign-in accounts on login without interaction using a secure flow. This is how it works:
+
+```mdx-code-block
+import Mermaid from "@theme/Mermaid"
+
+<Mermaid
+  chart={`flowchart LR
+    A["Create account with alice@example.com"]
+    B["Sign in with social provider"]
+    C["Retrieve alice@example.com from OIDC"]
+    D{"Does alice@example.com exist?"}
+    E["Prompt for password"]
+    F{"Is password correct?"}
+    G["Link social to account"]
+    H["Sign-in successful. Use password or social"]
+    I["Authentication failed"]
+    J["Sign-in successful with social"]
+
+    A --> B --> C --> D
+    D -->|Yes| E --> F
+    D -->|No| J
+    F -->|Yes| G --> H
+    F -->|No| I
+
+`}
+/>
+```
+
+1. The user creates an account with the identifier `alice@example.com` and a password.
+1. When signing in later, the user signs in with a social sign-in provider. That social sign-in account (through the OIDC userinfo
+   endpoint or the identity token) contains the same identifier `alice@example.com`.
+1. Since the identifier already exists, the user can't be logged in directly. Instead, the user will be prompted to enter the
+   password chosen in step 1.
+1. After entering the correct password, the social sign-in is linked to the user's account. Now they can sign in with either
+   password or social sign-in provider.
+
+##### Security considerations
+
+Automatic account linking can be a security risk. Consider this scenario:
+
+1. Your application allows users to create new accounts or sign in with ACME.
+1. John creates an account with his email `john@doe.com`.
+1. Malicious actors create an ACME account for `john@doe.com`.
+1. They sign up in your app using this ACME account.
+1. Your system, detecting duplicate accounts, prompts for account linking.
+1. Malicious actors link the accounts, gaining access to John's account.
+
+To prevent this, users need to verify an additional credential before the accounts can be linked. In the scenario above, the
+malicious actors would be prompted to enter the password associated with the `jon@doe.com` identifier.
+
+##### Hide irrelevant authentication methods
+
+Depending on the use case it might be required to show all configured authentication methods to the user. This can be confusing
+for users who have accounts with different authentication methods.
+
+To prevent confusion and hide authentication methods that aren't configured for the user, enable
+[login hints](../../identities/sign-in/login-hint.mdx). Login hints inform users about the authentication methods available for
+the existing account.
+
+## PKCE (Proof Key for Code Exchange)
+
+Ory Identities supports the [PKCE (Proof Key for Code Exchange)](https://tools.ietf.org/html/rfc7636) extension to the OpenID
+Connect / OAuth 2.0 protocol during social sign-in flows.
+
+In most cases, you don't have to do anything to enable PKCE. If the social sign-in provider advertises support for PKCE, Ory
+Identities will automatically configure itself to use it.
+
+In the case of the [generic OIDC provider](./05_generic.mdx), simply specify an Issuer URL in the configuration as usual to
+perform automatic configuration.
+
+Retrieve the current configuration:
+
+```shell
+ory get identity-config --project $PROJECT_ID --format yaml > identity-config.yaml
+```
+
+Find the OIDC section in the `identity-config.yaml` file and add the `pkce` option:
+
+```yaml
+# ...
+selfservice:
+  methods:
+    oidc:
+      enabled: true
+      config:
+        providers:
+          - id: generic
+            provider: generic # or another provider
+            issuer_url: https://accounts.google.com # must be set to enable automatic configuration
+            pkce: auto # default: perform PKCE if the provider advertises support for it
+            # ... other configuration options
+# ...
+```
+
+Save the file, and apply the configuration:
+
+```shell
+ory update identity-config --project $PROJECT_ID --file identity-config.yaml
+```
+
+#### Forcing PKCE
+
+There may be OIDC providers which support PKCE but don't advertise it. If you want to force Ory Identities to use PKCE anyway,
+configure the provider with the `pkce` option set to `force`:
+
+Retrieve the current configuration:
+
+```shell
+ory get identity-config --project $PROJECT_ID --format yaml > identity-config.yaml
+```
+
+Find the OIDC section in the `identity-config.yaml` file and add the `pkce` option:
+
+```yaml
+# ...
+selfservice:
+  methods:
+    oidc:
+      enabled: true
+      config:
+        providers:
+          - id: generic
+            provider: generic # or another provider
+            pkce: force # forces PKCE support, skips automatic configuration
+            # ... other configuration options
+```
+
+Save the file, and apply the configuration:
+
+```shell
+ory update identity-config --project $PROJECT_ID --file identity-config.yaml
+```
+
+:::warning
+
+If you set `pkce: force`, you must whitelist a different redirect URL with the OIDC provider: Instead of
+`https://<slug>.projects.oryapis.com/self-service/methods/oidc/callback/<provider-id>`, use
+`https://<slug>.projects.oryapis.com/self-service/methods/oidc/callback`. Note the missing provider ID and no trailing slash. Use
+this second URL also if you force a [B2B SSO provider](../organizations/organizations.mdx) to use PKCE.
+
+:::
+
+#### Disabling PKCE
+
+If for any reason you want to disable PKCE completely, set `pkce` to `never`.
+
+Retrieve the current configuration:
+
+```shell
+ory get identity-config --project $PROJECT_ID --format yaml > identity-config.yaml
+```
+
+Find the OIDC section in the `identity-config.yaml` file and add the `pkce` option:
+
+```yaml
+# ...
+selfservice:
+  methods:
+    oidc:
+      enabled: true
+      config:
+        providers:
+          - id: generic
+            provider: generic # or another provider
+            pkce: never # do not perform PKCE even if the provider advertises support for it.
+            # ... other configuration options
+# ...
+```
+
+Save the file, and apply the configuration:
+
+```shell
+ory update identity-config --project $PROJECT_ID --file identity-config.yaml
+```

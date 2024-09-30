@@ -186,6 +186,8 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
             {
               type: "category",
               label: "OpenID Connect SSO",
+              collapsed: false,
+              collapsible: false,
               items: [
                 "kratos/social-signin/overview",
                 {
@@ -216,12 +218,7 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
                     "kratos/social-signin/x-twitter",
                   ],
                 },
-                "kratos/social-signin/data-mapping",
-                "kratos/social-signin/account-linking",
-                "kratos/social-signin/get-tokens",
-                "identities/sign-in/social-sign-in/redirect-url",
                 "kratos/social-signin/native-apps",
-                "kratos/social-signin/oidc-pkce",
               ],
             },
             {
