@@ -38,7 +38,7 @@ Follow these steps to create API Keys for your Project:
 1. Go to <ConsoleLink route="project.developers" />.
 2. Click **Create new API key**
 3. Enter the API Key name
-4. Select an **expiration** date. Note that it is not recommeded to create API keys without an expiry date.
+4. Select an **expiration** date.
 5. Click **Create**
 6. Copy the created API Key
 
@@ -100,9 +100,13 @@ Follow these steps to create API keys for your workspace:
 3. Select **API keys** in the sidebar.
 4. Click the **+** icon in the **API Keys** section.
 5. Enter the API Key name
-6. Select an **expiration** date. Note that it is not recommeded to create API keys without an expiry date.
+6. Select an **expiration** date.
 7. Click **Create**
 8. Copy the created API Key from the prompt that shows at the bottom right of the screen.
+
+Finding the best expiration date for an API token is always a tradeoff between security and usability. For maximum security use a
+short-lived API token, but consider that expiring API keys could lead to outages or other issues. For maximum usability use a
+long-lived API token, but consider that it can be a security risk if the token leaks.
 
 ```mdx-code-block
 <BrowserWindow url="https://console.ory.sh/workspaces/current/settings/api-keys">
