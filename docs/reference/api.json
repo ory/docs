@@ -2230,7 +2230,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "email", "email_verified", "name"],
+        "required": ["id", "email", "name", "email_verified"],
         "type": "object"
       },
       "consistencyRequestParameters": {
@@ -7192,7 +7192,7 @@
             "type": "string"
           }
         },
-        "required": ["id", "email", "email_verified", "name", "role"],
+        "required": ["id", "email", "name", "email_verified", "role"],
         "type": "object"
       },
       "projectMembers": {
@@ -9368,8 +9368,10 @@
             "type": "string"
           },
           "screen": {
-            "description": "Screen requests navigation to a previous screen.\n\nThis must be set to credential-selection to go back to the credential\nselection screen.",
-            "type": "string"
+            "description": "Screen requests navigation to a previous screen.\n\nThis must be set to credential-selection to go back to the credential\nselection screen.\ncredential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious",
+            "enum": ["credential-selection", "previous"],
+            "type": "string",
+            "x-go-enum-desc": "credential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious"
           },
           "traits": {
             "description": "Traits\n\nThe identity's traits.",
