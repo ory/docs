@@ -86,20 +86,12 @@ import middlewareGo from '!!raw-loader!../../../code-examples/protect-page-login
 
 As the final step, create a `Dashboard` page that's presented to signed-in users. This page diplays the user's session data.
 
-1. Create the `dashboardHandler` that renders the page with the session data. Add this code to the `handler.go` file:
+To create the `dashboardHandler` that renders the page with the session data, add this code to the `handler.go` file:
 
 ```mdx-code-block
 import handlerGo from '!!raw-loader!../../../code-examples/protect-page-login/go/handler.go'
 
 <CodeBlock language="go" title="handler.go">{handlerGo}</CodeBlock>
-```
-
-2. To present the data to the user, create the `Dashboard` HTML page. Add this code to the `index.html` file:
-
-```mdx-code-block
-import index from '!!raw-loader!../../../code-examples/protect-page-login/go/index.html'
-
-<CodeBlock language="html" title="index.html">{index}</CodeBlock>
 ```
 
 ## Test your application
