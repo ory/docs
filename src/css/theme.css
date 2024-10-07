@@ -98,6 +98,10 @@ svg[class*="iconExternalLink"] {
   font-size: 14px;
 }
 
+.theme-doc-sidebar-item-link-level-1 > a {
+  font-size: 16px;
+}
+
 .theme-doc-sidebar-item-link-level-2,
 .theme-doc-sidebar-item-category-level-2 {
   border-left: 1px solid #eaecef;

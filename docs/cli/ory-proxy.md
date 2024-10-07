@@ -155,21 +155,22 @@ ory proxy proxy http://localhost:3000 https://app.example.com \
 ### Options
 
 ```
-      --allowed-cors-origins strings   A list of allowed CORS origins. Wildcards are allowed.
-  -c, --config string                  Path to the Ory Network configuration file.
-      --cookie-domain string           Set a dedicated cookie domain.
-      --debug                          Use this flag to debug, for example, CORS requests.
-      --default-redirect-url url       Set the URL to redirect to per default after e.g. login or account creation.
-      --dev                            Use this flag when developing locally.
-  -h, --help                           help for proxy
-      --no-jwt                         Do not create a JWT from the Ory Session. Useful if you need fast start up times of the Ory Proxy.
-      --open                           Open the browser when the proxy starts.
-      --port int                       The port the proxy should listen on. (default 4000)
-      --project string                 The project to use, either project ID or a (partial) slug.
-  -q, --quiet                          Be quiet with output printing.
-      --rewrite-host                   Use this flag to rewrite the host header to the upstream host.
-      --workspace string               The workspace to use, either workspace ID or a (partial) name.
-  -y, --yes                            Confirm all dialogs with yes.
+      --additional-cors-headers strings   A list of additional CORS headers to allow. Wildcards are allowed.
+      --allowed-cors-origins strings      A list of allowed CORS origins. Wildcards are allowed.
+  -c, --config string                     Path to the Ory Network configuration file.
+      --cookie-domain string              Set a dedicated cookie domain.
+      --debug                             Use this flag to debug, for example, CORS requests.
+      --default-redirect-url url          Set the URL to redirect to per default after e.g. login or account creation.
+      --dev                               Use this flag when developing locally.
+  -h, --help                              help for proxy
+      --no-jwt                            Do not create a JWT from the Ory Session. Useful if you need fast start up times of the Ory Proxy.
+      --open                              Open the browser when the proxy starts.
+      --port int                          The port the proxy should listen on. (default 4000)
+      --project string                    The project to use, either project ID or a (partial) slug.
+  -q, --quiet                             Be quiet with output printing.
+      --rewrite-host                      Use this flag to rewrite the host header to the upstream host.
+      --workspace string                  The workspace to use, either workspace ID or a (partial) name.
+  -y, --yes                               Confirm all dialogs with yes.
 ```
 
 ### SEE ALSO
