@@ -4,23 +4,31 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"html/template"
 	"net/http"
 )
 
 func (app *App) dashboardHandler(writer http.ResponseWriter, request *http.Request) {
+	// Get the session from the context. It was added to the context by the sessionMiddleware.
 	session, err := getSession(request.Context())
 	if err != nil {
 		http.Error(writer, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	rawSession, err := json.Marshal(session)
-	if err != nil {
+
+	// Encode the session data as pretty JSON.
+	buffer := &bytes.Buffer{}
+	encoder := json.NewEncoder(buffer)
+	encoder.SetIndent("", "  ")
+	if err := encoder.Encode(session); err != nil {
 		http.Error(writer, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	err = dashboardTemplate.ExecuteTemplate(writer, "index.html", rawSession)
+
+	// Render the dashboard template with the session data.
+	err = dashboardTemplate.ExecuteTemplate(writer, "index.html", buffer.String())
 	if err != nil {
 		http.Error(writer, err.Error(), http.StatusInternalServerError)
 		return
