@@ -1,0 +1,226 @@
+---
+id: rate-limits
+title: Understanding Ory Network Rate Limiting
+sidebar_label: Rate Limits
+---
+
+This page provides a high-level overview of the rate limiting mechanisms employed by Ory to ensure system security and
+availability. Rate limiting is crucial for protecting your applications against abuse and attacks, preventing service disruptions,
+and ensuring fair usage for all our customers.
+
+## Types of Rate Limits
+
+Ory implements two main types of rate limits:
+
+1. [**Project-Based Rate Limits**](#project-based-rate-limits): These limits are determined by your Ory subscription plan**1**.
+   They define the maximum number of requests your projects can make to Ory's APIs within a given timeframe. This ensures fair
+   resource allocation across all Ory projects.
+   1. These limits are applied at the project level, meaning all requests originating from a specific project contribute to the
+      rate limit counter for that project.
+   2. Project-Based Rate Limits are defined in terms of: <br/>**Burst Limit:** This governs the maximum number of requests allowed
+      per second, accommodating temporary spikes in traffic. <br/>**Sustained Limit:** This sets the maximum request count over a
+      one-minute period, ensuring consistent and fair usage.
+2. [**Endpoint-Based Rate Limits**](#endpoint-based-rate-limits): These limits focus on safeguarding specific endpoints of your
+   Ory projects against common attack vectors like brute-force and credential stuffing attempts. They typically consider factors
+   like source IP address and request frequency to identify and mitigate malicious activity.
+   1. Endpoint-based rate limits act as a first line of defense for your project endpoints.These limits often leverage the source
+      IP address as a key criterion, allowing Ory to identify and block requests originating from suspicious or malicious sources.
+   2. By analyzing request patterns and incorporating factors like source IP, Ory can effectively differentiate between legitimate
+      user traffic and potentially harmful bot activity.
+
+## Benefits of Rate Limiting
+
+- **Enhanced Security:** Rate limits help prevent attacks like brute-force and credential stuffing by restricting the number of
+  attempts from a single source within a specific timeframe.
+- **Improved Stability:** By limiting excessive requests, rate limiting protects your application from overload and potential
+  downtime.
+- **Fair Usage:** Project-based rate limits ensure fair resource allocation and prevent any single project from monopolizing
+  shared resources.
+
+###################
+
+---
+
+id: project-based-rate-limits title: Project-Based Rate Limits sidebar_label: Project-Based Rate Limits
+
+---
+
+## Project-Based Rate Limits
+
+This section provides a comprehensive explanation of Ory's Project-Based Rate Limiting. These limits are designed to ensure fair
+resource allocation and maintain the stability and performance of the Ory Network across different project plans and environments.
+
+### What are Project-Based Rate Limits?
+
+Project-Based Rate Limits are controls applied to your entire Ory project, governing the overall request volumes across various
+API endpoints. These limits vary based on your project's plan (Developer, Production, Growth, or Enterprise) and the specific
+environment (Production, Staging, or Workspace).
+
+### How Project-Based Rate Limits Work
+
+Project-Based Rate Limits analyze incoming requests across your entire project and consider factors such as:
+
+- **Project Plan:** Different plans (Developer, Production, Growth, Enterprise) have different rate limit thresholds.
+- **Environment:** Limits may vary between Production, Staging, and Workspace environments.
+- **Request Path:** Specific API endpoints have different rate limits based on their typical usage patterns and importance.
+- **Time Window:** Limits are applied using both per-second (burst) and per-minute (sustained) windows.
+
+### Types of Rate Limits
+
+Ory Network implements two types of rate limits for each policy:
+
+1. **Burst Limit:** Limits the number of requests per second, allowing brief spikes in request volume.
+2. **Sustained Limit:** Limits the number of requests over a one-minute period, ensuring consistent performance over time.
+
+### Rate Limit Policies
+
+Ory applies different rate limit policies based on the path of your request:
+
+1. `/sessions/whoami`: Session checks
+2. `/admin/oauth2/introspect`: OAuth2 token introspection
+3. `/relation-tuples/check`: Permission checks
+4. `GET /admin/identities`: List identities
+5. `*`: All other paths
+
+### Rate Limit Tables by Plan
+
+#### Developer Plan Rate Limits
+
+| Environment   | Path / Bucket              | Burst (rps) | Sustained (rpm) |
+| :------------ | :------------------------- | ----------: | --------------: |
+| **Developer** | `/sessions/whoami`         |          10 |             300 |
+|               | `/admin/oauth2/introspect` |          10 |             300 |
+|               | `/relation-tuples/check`   |          10 |             300 |
+|               | `GET /admin/identities`    |           1 |              10 |
+|               | `*`                        |           5 |             150 |
+
+#### Production Plan Rate Limits
+
+| Environment    | Path / Bucket              | Burst (rps) | Sustained (rpm) |
+| :------------- | :------------------------- | ----------: | --------------: |
+| **Production** | `/sessions/whoami`         |          80 |            1800 |
+|                | `/admin/oauth2/introspect` |          80 |            1800 |
+|                | `/relation-tuples/check`   |          80 |            1800 |
+|                | `GET /admin/identities`    |          10 |             300 |
+|                | `*`                        |          40 |             900 |
+| **Staging**    | `/sessions/whoami`         |          10 |              30 |
+|                | `/admin/oauth2/introspect` |          10 |             300 |
+|                | `/relation-tuples/check`   |          10 |             300 |
+|                | `GET /admin/identities`    |           1 |              10 |
+|                | `*`                        |           5 |             150 |
+
+#### Growth Plan Rate Limits
+
+| Environment    | Path / Bucket              | Burst (rps) | Sustained (rpm) |
+| :------------- | :------------------------- | ----------: | --------------: |
+| **Production** | `/sessions/whoami`         |         800 |           18000 |
+|                | `/admin/oauth2/introspect` |         800 |           18000 |
+|                | `/relation-tuples/check`   |         800 |           18000 |
+|                | `GET /admin/identities`    |          20 |             600 |
+|                | `*`                        |         400 |            9000 |
+| **Staging**    | `/sessions/whoami`         |          10 |              30 |
+|                | `/admin/oauth2/introspect` |          10 |             300 |
+|                | `/relation-tuples/check`   |          10 |             300 |
+|                | `GET /admin/identities`    |           1 |              10 |
+|                | `*`                        |           5 |             150 |
+
+### Important Notes on Project-Based Rate Limits
+
+#### Workspace Rate Limit
+
+For all projects in a workspace, the rate limit is the same as for the production environment of your plan. For example, on the
+Production plan, the rate limit would be 80 rps on the `/sessions/whoami` path for all projects combined in the workspace.
+
+#### Enterprise-Grade Rate Limits
+
+For customers requiring higher rate limits or custom configurations, Ory offers enterprise-grade solutions. Please
+[contact Ory](https://www.ory.sh/contact/) to discuss your specific requirements.
+
+#### Legacy Plans
+
+The legacy Essential and Scale plans have the same rate limits as Production and Growth plans respectively.
+
+## Endpoint-Based Rate Limits
+
+This page provides a comprehensive explanation of Ory's Endpoint-Based Rate Limiting. These limits are designed to fortify the
+security of your Ory project endpoints by mitigating common attack vectors such as brute-force and credential stuffing attempts,
+while allowing for flexibility for high-volume legitimate traffic from trusted sources.
+
+### What are Endpoint-Based Rate Limits?
+
+Endpoint-Based Rate Limits are precise controls applied to individual API endpoints within your Ory projects. Unlike Project-Based
+Rate Limits, which govern overall project request volumes, Endpoint-Based Rate Limits focus on safeguarding specific
+functionalities against abuse.
+
+### How Endpoint-Based Rate Limits Work
+
+These limits act as a first line of defense for your project endpoints. They analyze incoming request patterns and consider
+factors such as:
+
+- **Source IP Address:** Identifies and potentially blocks requests originating from suspicious sources or those exhibiting
+  behavior indicative of malicious activity.
+- **Request Frequency:** Monitors how often requests are made to a specific endpoint to detect and thwart attempts to overwhelm
+  the system or exploit vulnerabilities.
+- **User Authentication:** (If applicable) Considers whether requests are authenticated and may apply different limits for
+  authenticated vs. unauthenticated requests.
+- **Request Method:** May apply different limits based on the HTTP method used (GET, POST, etc.).
+- **IP Whitelist Status:** Applies higher limits to whitelisted IPs for Enterprise and Growth customers.
+
+### Benefits of Endpoint-Based Rate Limiting
+
+#### Purpose
+
+Ory implements Endpoint-Based Rate Limits to proactively secure individual endpoints and protect against common attack vectors
+like brute-force and credential stuffing, while allowing for higher volumes of legitimate traffic from trusted sources. These
+types of attacks typically involve numerous attempts to guess credentials or exploit vulnerabilities, often originating from a
+limited set of IP addresses.
+
+#### Key Benefits
+
+1. **Enhanced Security:**
+
+   - Restricts the number of requests from specific sources within a given timeframe.
+   - Makes it significantly harder for attackers to succeed with brute-force or credential stuffing attacks.
+   - Strengthens the security of your Ory projects and protects sensitive user data.
+
+2. **Protection Against Malicious Bots:**
+
+   - Differentiates between genuine user traffic and potentially harmful bot activity.
+   - Analyzes request patterns to identify and block automated malicious activities.
+
+3. **Safeguarding Specific Endpoints:**
+
+   - Offers granular control over how each endpoint handles traffic and responds to potential threats.
+   - Allows fine-tuning of security measures for individual endpoints.
+   - Optimizes protection without compromising the user experience.
+
+4. **Fair Usage:**
+
+   - Complements Project-Based Rate Limits in ensuring fair resource allocation.
+   - Contributes to a fairer and more stable platform for all users by mitigating abusive traffic.
+
+5. **Flexibility for High-Volume Legitimate Traffic:**
+   - Provides options for Enterprise and Growth customers to whitelist internal IPs for higher rate limits.
+   - Balances security needs with the requirements of high-volume legitimate traffic.
+
+### Important Notes on Rate Limit Rules
+
+#### Rule Management
+
+The Endpoint-Based Rate Limit rules are set and managed by Ory. These rules are not directly configurable by Enterprise and Growth
+customers yet.
+
+#### IP Whitelisting for Enterprise and Growth Customers
+
+Enterprise and Growth Customers have the option to whitelist internal IPs. This feature is designed for cases where these IPs
+generate high volumes of legitimate calls that might otherwise trigger rate-limit rules.
+
+- Whitelisted IPs are subject to the same rule structure but with higher limits.
+- To whitelist IPs, please create a support ticket with Ory.
+- This feature ensures that necessary high-volume traffic from trusted sources is not interrupted while maintaining strong
+  security measures.
+
+### List of Rate Limit Rules
+
+This section will be populated later with detailed documentation of the rules set by Ory, including information on standard limits
+and higher limits for whitelisted IPs.

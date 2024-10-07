@@ -40,8 +40,6 @@ const referenceSidebar: ExtendSidebar = [
           "guides/cors",
           "guides/custom-domains",
           "guides/rate-limits",
-          "guides/project-based-rate-limits",
-          "guides/endpoint-based-rate-limits",
           "guides/ip-allowlist",
           "api/eventual-consistency",
           "guides/custom-domains",
