@@ -4,6 +4,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"os"
@@ -32,7 +33,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	// dashboard
-	mux.Handle("/", app.sessionMiddleware(app.dashboardHandler()))
+	mux.Handle("/", app.sessionMiddleware(app.dashboardHandler))
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -41,5 +42,10 @@ func main() {
 
 	fmt.Printf("Application launched and running on http://127.0.0.1:%s\n", port)
 	// start the server
-	http.ListenAndServe(":"+port, mux)
+	err := http.ListenAndServe(":"+port, mux)
+	if errors.Is(err, http.ErrServerClosed) {
+		fmt.Println("Server closed")
+		return
+	}
+	fmt.Printf("Could not start server: %s\n", err)
 }
