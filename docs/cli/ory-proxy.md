@@ -145,7 +145,7 @@ ory proxy <application-url> [<publish-url>] [flags]
 
 ```
 ory proxy http://localhost:3000 --dev
-ory proxy proxy http://localhost:3000 https://app.example.com \
+ory proxy http://localhost:3000 https://app.example.com \
 	--allowed-cors-origins https://www.example.org \
 	--allowed-cors-origins https://api.example.org \
 	--allowed-cors-origins https://www.another-app.com
