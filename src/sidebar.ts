@@ -1016,6 +1016,11 @@ module.exports = {
           type: "doc",
           id: "troubleshooting/index",
         },
+        {
+          type: "link",
+          label: "Operations reference",
+          href: "/category/operations-reference",
+        },
       ],
     },
     {
