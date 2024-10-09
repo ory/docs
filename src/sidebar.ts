@@ -964,17 +964,6 @@ module.exports = {
     },
     {
       type: "category",
-      label: "Guides",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "generated-index",
-        slug: "category/guides/",
-      },
-      items: guidesSidebar(true),
-    },
-    {
-      type: "category",
       label: "Concepts",
       collapsed: false,
       collapsible: false,
@@ -989,6 +978,17 @@ module.exports = {
         "keto/index",
         "kratos/hooks/configure-hooks",
       ],
+    },
+    {
+      type: "category",
+      label: "Guides",
+      collapsed: false,
+      collapsible: false,
+      link: {
+        type: "generated-index",
+        slug: "category/guides/",
+      },
+      items: guidesSidebar(true),
     },
     {
       type: "category",
