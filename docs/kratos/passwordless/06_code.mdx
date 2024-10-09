@@ -9,8 +9,8 @@ sidebar_label: Passwordless email & SMS
 Ory Network allows users to authenticate through a one-time code sent via email and SMS. This is useful for use-cases where users
 need to be onboarded through a minimal authentication process.
 
-The one-time code method consists of a two-step process. The first step the user is required to enter their email address. In the
-second step they are prompted to enter the one-time code sent to their email address.
+The one-time code method consists of a two-step process. The first step the user is required to enter their email address or phone
+number. In the second step they are prompted to enter the one-time code sent to their email address or phone number.
 
 Below are examples of the one-time code authentication method in action:
 
@@ -26,9 +26,6 @@ import TabItem from '@theme/TabItem';
 
 </BrowserWindow>
 ```
-
-In the registration flow below we are only presented an input field for the email address, as we have not defined any other traits
-in the [Identity Schema](../manage-identities/05_identity-schema.mdx).
 
 ## Enable email one-time-code (OTP)
 
@@ -59,6 +56,21 @@ in the [Identity Schema](../manage-identities/05_identity-schema.mdx).
    [SMTP provider](../emails-sms/01_sending-emails-smtp.mdx) to ensure that you have full control over the email delivery process.
 
 ## Enable SMS one-time-code (OTP)
+
+:::note
+
+Before enabling SMS one-time-code, please be aware that SMS OTP (One-Time Password) is considered insecure due to several
+vulnerabilities:
+
+1. **SIM Swapping**: Attackers can hijack your phone number by convincing your mobile carrier to transfer your number to a new SIM
+   card.
+2. **SMS Interception**: SMS messages can be intercepted by attackers using various techniques, such as exploiting weaknesses in
+   the SS7 protocol.
+3. **Phishing**: Users can be tricked into revealing their OTPs through phishing attacks.
+
+Due to these risks, it is recommended to use more secure methods like Passkeys.
+
+:::
 
 1. To enable sms one-time-code, enable the one-time code strategy for passwordless:
 
