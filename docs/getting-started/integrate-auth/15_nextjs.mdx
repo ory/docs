@@ -4,11 +4,11 @@ title: Integrate authentication into Next.js
 sidebar_label: Next.js
 ---
 
+```mdx-code-block
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeTabs from "@site/src/theme/Code/CodeTabs"
 
-```mdx-code-block
 import Teaser from '../_common/teaser.mdx'
 import mp4 from '../_static/nextjs/screencast.mp4'
 import webm from '../_static/nextjs/screencast.webm'
@@ -22,6 +22,7 @@ import webm from '../_static/nextjs/screencast.webm'
 
 ## Create Next.js app
 
+```mdx-code-block
 <Tabs
   defaultValue="13"
   values={[
@@ -29,10 +30,11 @@ import webm from '../_static/nextjs/screencast.webm'
     {label: 'Next.js 12', value: '12'}
   ]}>
 <TabItem value="13">
+```
 
 First we create a new Next.js 13 project:
 
-```shell-session
+```shell
 npx create-next-app@latest --typescript
 cd <your-project-directory>
 ```
@@ -46,22 +48,27 @@ cd <your-project-directory>
 ✔ What import alias would you like configured? … @
 ```
 
+```mdx-code-block
 </TabItem>
 
 <TabItem value="12">
+```
 
 First we create a new Next.js project:
 
-```shell-session
+```shell
 npx create-next-app@12.1 --typescript
 cd <your-project-directory>
 ```
 
+```mdx-code-block
 </TabItem>
 </Tabs>
+```
 
 ### Install Ory
 
+```mdx-code-block
 <Tabs
   defaultValue="13"
   values={[
@@ -69,11 +76,12 @@ cd <your-project-directory>
     {label: 'Next.js 12', value: '12'}
   ]}>
 <TabItem value="13">
+```
 
 Ory provides integration tools that quickly combine Ory with Next.js. Let's install Ory's SDK, used to make API calls to Ory, and
 Ory's Integration Tools for JavaScript frameworks:
 
-```shell-session
+```shell
 npm i --save @ory/integrations @ory/client
 ```
 
@@ -97,14 +105,16 @@ going to production with a custom domain. More details in the "Go to production"
 
 :::
 
+```mdx-code-block
 </TabItem>
 
 <TabItem value="12">
+```
 
 Ory provides integration tools that quickly combine Ory with Next.js. Let's install Ory's SDK, used to make API calls to Ory, and
 Ory's Integration Tools for JavaScript frameworks:
 
-```shell-session
+```shell
 npm i --save @ory/integrations @ory/client
 ```
 
@@ -127,11 +137,14 @@ going to production with a custom domain. More details in the "Go to production"
 
 :::
 
+```mdx-code-block
 </TabItem>
 </Tabs>
+```
 
 ### Require login to access the home page
 
+```mdx-code-block
 <Tabs
   defaultValue="13"
   values={[
@@ -139,6 +152,7 @@ going to production with a custom domain. More details in the "Go to production"
     {label: 'Next.js 12', value: '12'}
   ]}>
 <TabItem value="13">
+```
 
 Next we add a session check to the default home page of the Next.js example application.The highlighted code is what we added to
 check whether the user is signed in, and redirect them to the login page if not:
@@ -149,8 +163,10 @@ import homePage from '!!raw-loader!../../../code-examples/protect-page-login/nex
 <CodeBlock language="tsx">{homePage}</CodeBlock>
 ```
 
+```mdx-code-block
 </TabItem>
 <TabItem value="12">
+```
 
 Next we add a session check to the default home page of the Next.js example application.The highlighted code is what we added to
 check whether the user is signed in, and redirect them to the login page if not:
@@ -159,13 +175,14 @@ check whether the user is signed in, and redirect them to the login page if not:
 import homePage12 from '!!raw-loader!../../../code-examples/protect-page-login/nextjs-12/pages/index.tsx'
 
 <CodeBlock language="tsx">{homePage12}</CodeBlock>
-```
 
 </TabItem>
 </Tabs>
+```
 
 ### Run your Next.js app
 
+```mdx-code-block
 <Tabs
   defaultValue="13"
   values={[
@@ -173,24 +190,27 @@ import homePage12 from '!!raw-loader!../../../code-examples/protect-page-login/n
     {label: 'Next.js 12', value: '12'}
   ]}>
 <TabItem value="13">
+```
 
 Great, that's it. Let's run your application. Set up your environment variables to connect with Ory's APIs
 
-```shell-session
+```shell
 export NEXT_PUBLIC_ORY_SDK_URL=https://$PROJECT_SLUG.projects.oryapis.com
 ```
 
 and start the Next.js development server:
 
-```shell-session
+```shell
 npm run dev
 ```
 
-Then open [http://localhost:3000](http://localhost:3000) in your browser. are presented with Ory's Sign In page. Let's click on
-sign up and create your first user.
+Then open [http://localhost:3000](http://localhost:3000) in your browser. You are presented with Ory's Sign In page. Let's click
+on sign up and create your first user.
 
+```mdx-code-block
 </TabItem>
 <TabItem value="12">
+```
 
 Great, that's it. Let's run your application. Set up your environment variables to connect with Ory's APIs
 
@@ -202,15 +222,17 @@ import SdkEnvVar12 from '@site/src/components/SdkEnvVar'
 
 and start the Next.js development server:
 
-```shell-session
+```shell
 npm run dev
 ```
 
-Then open [http://localhost:3000](http://localhost:3000) in your browser. are presented with Ory's Sign In page. Let's click on
-sign up and create your first user.
+Then open [http://localhost:3000](http://localhost:3000) in your browser. You are presented with Ory's Sign In page. Let's click
+on sign up and create your first user.
 
+```mdx-code-block
 </TabItem>
 </Tabs>
+```
 
 ## Go to production
 

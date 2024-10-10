@@ -20,17 +20,25 @@ import webm from '../_static/vue/screencast.webm'
 
 First, create a new Vue.js project. Run:
 
-```shell-session
+```shell
 npx @vue/cli create ory-spa --preset "Default (Vue 3)"
 cd ory-spa
 ```
 
-## Install Ory SDK
+## Install Ory SDK and CLI
 
-Use `npm` to install the Ory SDK:
+To interact with Ory's APIs we install the Ory SDK and CLI:
 
-```shell-session
-npm i --save @ory/client
+```shell
+npm i --save @ory/client @ory/cli
+```
+
+### Why do I Need the Ory CLI?
+
+```mdx-code-block
+import OryCLI from '../_common/ory-cli.mdx'
+
+<OryCLI isTunnel={true} />
 ```
 
 ## Check for session in component
@@ -52,31 +60,15 @@ import CodeBlock from '@theme/CodeBlock'
 
 ## Run Ory APIs on `localhost`
 
-The Ory security model uses HTTP cookies to manage sessions, tokens, and cookies. To do that, Ory APIs must be exposed on the same
-domain as your application.
+In a new terminal window, run the Ory Tunnel:
 
-In the case of this example, the domain of your application, which runs on your local machine, is `localhost`.
-
-:::info
-
-When developing locally, use either `localhost` or `127.0.0.1`, but not both. Although technically these mean the same thing,
-they're different hostnames.
-
-Using both interchangeably in your code can cause problems with the origin of HTTP cookies sent by the application. When that
-happens Ory APIs might not be able to read the cookies sent by your app.
-
-:::
-
-To get your application that runs locally and Ory APIs on the same domain, use Ory Tunnel - a development tool bundled with Ory
-CLI. It's like a microservice - an authentication API server on your domain!
-
-```shell-session
+```shell
 npx @ory/cli tunnel --dev http://localhost:8080
 ```
 
 Ory APIs are now mirrored on `http://localhost:4000`. Use that URL as the `baseUrl` for the `@ory/client` SDK (see
-`HelloWorld.vue` code above). The `--dev` flag disables security checks for easier integration and should not be used when
-deploying the Tunnel to a staging environment.
+`HelloWorld.vue` code above). The `--dev` flag disables security checks for easier integration and should not be used when running
+the Tunnel in an insecure environment like public networks.
 
 ## Run your Vue.js app
 
@@ -92,7 +84,7 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 
 Next, start the Next.js development server:
 
-```shell-session
+```shell
 npm run serve
 ```
 
@@ -130,7 +122,7 @@ import handlerApi from '!!raw-loader!../../../code-examples/auth-api/expressjs/i
 
 Finally, start the server:
 
-```shell-session
+```shell
 node index.js
 ```
 

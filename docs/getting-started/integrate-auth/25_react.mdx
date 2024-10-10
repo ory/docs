@@ -20,17 +20,25 @@ import webm from '../_static/react/screencast.webm'
 
 First we create a new React project:
 
-```shell-session
+```shell
 npx create-react-app my_project --template typescript
 cd my_project
 ```
 
-## Install Ory SDK
+## Install Ory SDK and CLI
 
-Use `npm` to install the Ory SDK:
+To interact with Ory's APIs we install the Ory SDK and CLI:
 
-```shell-session
-npm i --save @ory/client
+```shell
+npm i --save @ory/client @ory/cli
+```
+
+### Why do I Need the Ory CLI?
+
+```mdx-code-block
+import OryCLI from '../_common/ory-cli.mdx'
+
+<OryCLI isTunnel={true} />
 ```
 
 ## Require login to access the app page
@@ -68,13 +76,14 @@ CLI. It's like a microservice - an authentication API server on your domain!
 
 To get your project's SDK URL, go to <ConsoleLink route="project.settings" />, and copy the URL from the **API Endpoints** field.
 
-```shell-session
+```shell
 export ORY_SDK_URL=https://$PROJECT_SLUG.projects.oryapis.com
 ```
 
-and then start the Ory Tunnel:
+In a new terminal window, start the Ory Tunnel. Upon first start, the Ory Tunnel will ask you to log into your Ory Console
+account.
 
-```
+```shell
 npx @ory/cli tunnel --dev http://localhost:3000
 ```
 
@@ -94,8 +103,8 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 
 and start the React development server:
 
-```shell-session
-npm run start
+```shell
+npm start
 ```
 
 Then open [http://localhost:3000](http://localhost:3000) in your browser. After loading, you now are presented with Ory's Sign In
