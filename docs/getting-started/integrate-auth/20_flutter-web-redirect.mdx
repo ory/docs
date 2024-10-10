@@ -47,7 +47,7 @@ Follow [this guide](../../guides/cli/01_installation.mdx) to install the Ory CLI
 ```mdx-code-block
 import OryCLI from '../_common/ory-cli.mdx'
 
-<OryCLI />
+<OryCLI isTunnel={true} />
 ```
 
 ## Create the authentication service
@@ -67,7 +67,7 @@ import auth from '!!raw-loader!../../../code-examples/protect-page-login/flutter
 
 ## Add environment variables
 
-Create a `.env` file in the root of the project to hold the `ORY_BASE_URL` variable. The value of the variable is the Ory proxy
+Create a `.env` file in the root of the project to hold the `ORY_BASE_URL` variable. The value of the variable is the Ory Tunnel
 URL, for example `http://localhost:3005`.
 
 ```shell-session
@@ -98,7 +98,7 @@ Run the following steps to get your application running:
 1. Start your flutter web server
 
 ```shell-session
-flutter run -d web-server --web-port 4005
+flutter run -d web-server --web-port 3000
 ```
 
 2. Export the SDK configuration URL for the desired Ory project. You can use the provided playground project for testing, or
@@ -116,13 +116,14 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-3. Run the Ory tunnel to expose Ory API under the same top-level domain as your application (`localhost`):
+3. Run the Ory tunnel to expose Ory API under the same top-level domain as your application (`localhost`). Upon first start, the
+   Ory Tunnel will ask you to log into your Ory Console account.
 
 ```shell-session
-ory tunnel --port 3005 http://localhost:4005
+ory tunnel --port 4000 http://localhost:3000
 ```
 
-4. Open [http://localhost:4005](http://localhost:4005) to access the application. As the initial call is made by an
+4. Open [http://localhost:3000](http://localhost:4005) to access the application. As the initial call is made by an
    unauthenticated user, the session check doesn't detect a valid session and redirects to the login page of the defined Ory
    project. <br/> <br/> From there, you can create a new account or sign in using an existing identity. When you sign in, the
    session becomes valid and the application shows the `Home` page with the session data.
