@@ -192,8 +192,8 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
         : [
             "getting-started/local-development",
             "kratos/concepts/credentials/username-email-password",
-            "kratos/passwordless/one-time-code",
             "kratos/passwordless/passkeys",
+            "kratos/passwordless/one-time-code",
             "kratos/organizations/organizations",
             {
               type: "category",
