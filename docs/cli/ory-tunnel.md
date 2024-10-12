@@ -1,7 +1,7 @@
 ---
 id: ory-tunnel
 title: ory tunnel
-description: ory tunnel Tunnel Ory on a subdomain of your app or a separate port your app's domain
+description: ory tunnel Mirror Ory APIs on your local machine for local development and testing
 ---
 
 <!--
@@ -11,84 +11,88 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory tunnel
 
-Tunnel Ory on a subdomain of your app or a separate port your app's domain
+Mirror Ory APIs on your local machine for local development and testing
 
 ### Synopsis
 
-Tunnels Ory APIs on a subdomain or separate port of your app. This command runs an HTTP Server which is connected to Ory's APIs, in order for your application and Ory's
-APIs to run on the same top level domain (for example yourapp.com, localhost). Having Ory on your domain
-is required for cookies to work.
+The Ory Tunnel mirrors Ory APIs on your local machine, allowing seamless development and testing. This setup is required for features such as CORS and cookie support, making it possible for Ory and your application to share the same top-level domain during development. To use the tunnel, authentication via `ORY_PROJECT_API_KEY` or browser-based sign-in is required.
 
-The first argument `application-url` points to the location of your application. This location
-will be used as the default redirect URL for the tunnel, for example after a successful login.
+The Ory Tunnel command connects your application and Ory's APIs through a local HTTP server. This enables both to run on the same domain or subdomain (for example, yourapp.com, localhost), which is required for cookies to function correctly.
 
-$ ory tunnel --project <project-id-or-slug> https://www.example.org
-$ ORY_PROJECT=<project-id-or-slug> ory tunnel http://localhost:3000
+The first argument, `application-url`, points to the location of your application and will be used as the default redirect URL after successful operations like login.
+
+Example usage:
+
+		$ ory tunnel --project <project-id-or-slug> https://www.example.org
+		$ ORY_PROJECT=<project-id-or-slug> ory tunnel http://localhost:3000
 
 ### Connecting to Ory
 
-Before you start, you need to have a running Ory Network project. You can create one with the following command:
+Before using the Ory Tunnel, ensure that you have a running Ory Network project. You can create a new project with the following command:
 
-	$ ory create project --name "Command Line Project"
+		$ ory create project --name "Command Line Project"
 
-Pass the project's slug as a flag to the tunnel command:
+Once your project is ready, pass the project's slug to the tunnel command:
 
-	$ ory tunnel --project <project-id-or-slug> ...
-	$ ORY_PROJECT=<project-id-or-slug> ory tunnel tunnel ...
+		$ ory tunnel --project <project-id-or-slug> ...
+		$ ORY_PROJECT=<project-id-or-slug> ory tunnel tunnel ...
 
-### Developing Locally
+### Connecting in automated environments
 
-When developing locally we recommend to use the `--dev` flag, which uses a lax security setting:
+To connect the Ory Tunnel in automated environments, create a Project API Key for your project and set it as an environment variable:
 
-	$ ory tunnel --dev --project <project-id-or-slug> \
-		http://localhost:3000
+		$ ORY_PROJECT_API_KEY=<project-api-key> ory tunnel tunnel ...
 
-### Running behind a Gateway
+This will prevent the browser window from opening.
 
-To go to production set up a custom domain (CNAME) for Ory.
+### Local development
 
-If you need to run the tunnel behind a gateway, you have to set the optional second argument `tunnel-url`. It tells the Ory Tunnel
-on which domain it will run (for example https://ory.example.org).
+When developing locally, use the --dev flag to enable a more relaxed security configuration:
 
-	$ ory tunnel --project <project-id-or-slug> \
-		https://www.example.org \
-		https://auth.example.org \
-		--cookie-domain example.org \
-		--allowed-cors-origins https://www.example.org \
-		--allowed-cors-origins https://api.example.org
+		$ ory tunnel --dev --project <project-id-or-slug> http://localhost:3000
 
-Please note that you can not set a path in the `[tunnel-url]`!
+Running behind a gateway (development only)
+Important: The Ory Tunnel is designed for development purposes only and should not be used in production environments.
+
+If you need to run the tunnel behind a gateway during development, you can specify the optional second argument, tunnel-url, to define the domain where the Ory Tunnel will run (for example, https://ory.example.org).
+
+Example:
+
+		$ ory tunnel --project <project-id-or-slug> \
+		  https://www.example.org \
+		  https://auth.example.org \
+		  --cookie-domain example.org \
+		  --allowed-cors-origins https://www.example.org \
+		  --allowed-cors-origins https://api.example.org
+
+Note: You cannot set a path in the `tunnel-url`.
 
 ### Ports
 
-Per default, the tunnel listens on port 4000. If you want to listen on another port, use the
-port flag:
+By default, the tunnel listens on port 4000. To change the port, use the --port flag:
 
-	$ ory tunnel --port 8080 --project <project-id-or-slug> \
-		https://www.example.org
+		$ ory tunnel --port 8080 --project <project-id-or-slug> https://www.example.org
 
-If your application URL is available on a non-standard HTTP/HTTPS port, you can set that port in the `application-url`:
+If your application runs on a non-standard HTTP or HTTPS port, include the port in the `application-url`:
 
-	$ ory tunnel --project <project-id-or-slug> \
-		https://example.org:1234
+		$ ory tunnel --project <project-id-or-slug> https://example.org:1234
 
 ### Cookies
 
-We recommend setting the `--cookie-domain` value to your top level domain:
+For cookie support, set the `--cookie-domain` flag to your top-level domain:
 
-	$ ory tunnel --project <project-id-or-slug> \
-		--cookie-domain example.org \
-		https://www.example.org \
-		https://auth.example.org
+		$ ory tunnel --project <project-id-or-slug> \
+		  --cookie-domain example.org \
+		  https://www.example.org \
+		  https://auth.example.org
 
 ### Redirects
 
-To use a different default redirect URL, use the `--default-redirect-url` flag:
+To specify a custom redirect URL, use the `--default-redirect-url` flag:
 
-	$ ory tunnel tunnel --project <project-id-or-slug> \
-		--default-redirect-url /welcome \
-		https://www.example.org
-
+$ ory tunnel tunnel --project <project-id-or-slug> \
+  --default-redirect-url /welcome \
+  https://www.example.org
 
 ```
 ory tunnel <application-url> [<tunnel-url>] [flags]
