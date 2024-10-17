@@ -36,15 +36,26 @@ Once your project is ready, pass the project’s slug to the proxy command:
 
 ### Local development
 
-For local development, use the `--dev` flag to apply a relaxed security setting:
+For local development, use:
 
-		$ ory proxy --dev --project <project-id-or-slug> http://localhost:3000
+		$ ory proxy --project <project-id-or-slug> http://localhost:3000
 
 The first argument, `application-url`, points to your application's location. If running both the proxy and your app on the same host, this could be `localhost`. All traffic sent to the Ory Proxy will be forwarded to this URL.
 
-The second argument, `publish-url`, is optional and only necessary for production scenarios. It specifies the public URL of your application (e.g., `https://www.example.org`). If `publish-url` is not set, it defaults to the host and port the proxy listens on.
+The second argument, `publish-url`, is optional and only necessary when the local app is not running on localhost. It specifies the public URL of your application (e.g., `https://www.example.org`). If `publish-url` is not set, it defaults to the host and port the proxy listens on.
 
 **Important**: The Ory Proxy is intended for development use only and should not be used in production environments.
+
+### CORS
+
+You can restrict the CORS domains using the `--allowed-cors-origins` flag:
+
+		$ ory proxy http://localhost:3000 https://app.example.com \
+			--allowed-cors-origins https://www.example.org \
+			--allowed-cors-origins https://api.example.org \
+			--allowed-cors-origins https://www.another-app.com
+
+Per default, CORS is enabled for all origins.
 
 ### Connecting in automated environments
 
@@ -76,8 +87,6 @@ If the proxy runs on a subdomain and you want Ory’s cookies (e.g., session coo
 
 		$ ory proxy --project <project-id-or-slug> \
 		  --cookie-domain gateway.local \
-		  --allowed-cors-origins https://www.gateway.local \
-		  --allowed-cors-origins https://api.gateway.local \
 		  http://127.0.0.1:3000 \
 		  https://ory.gateway.local
 
@@ -140,11 +149,7 @@ ory proxy <application-url> [<publish-url>] [flags]
 ### Examples
 
 ```
-ory proxy http://localhost:3000 --dev
-ory proxy http://localhost:3000 https://app.example.com \
-	--allowed-cors-origins https://www.example.org \
-	--allowed-cors-origins https://api.example.org \
-	--allowed-cors-origins https://www.another-app.com
+ory proxy http://localhost:3000
 
 ```
 
@@ -157,7 +162,7 @@ ory proxy http://localhost:3000 https://app.example.com \
       --cookie-domain string              Set a dedicated cookie domain.
       --debug                             Use this flag to debug, for example, CORS requests.
       --default-redirect-url url          Set the URL to redirect to per default after e.g. login or account creation.
-      --dev                               Use this flag when developing locally.
+      --dev                               This flag is deprecated as the command is only supposed to be used during development. (default true)
   -h, --help                              help for proxy
       --no-jwt                            Do not create a JWT from the Ory Session. Useful if you need fast start up times of the Ory Proxy.
       --open                              Open the browser when the proxy starts.

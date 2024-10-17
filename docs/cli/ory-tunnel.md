@@ -47,11 +47,23 @@ This will prevent the browser window from opening.
 
 ### Local development
 
-When developing locally, use the --dev flag to enable a more relaxed security configuration:
+For local development, use:
 
-		$ ory tunnel --dev --project <project-id-or-slug> http://localhost:3000
+		$ ory tunnel --project <project-id-or-slug> http://localhost:3000
 
-Running behind a gateway (development only)
+### CORS
+
+You can restrict the CORS domains using the `--allowed-cors-origins` flag:
+
+		$ ory tunnel http://localhost:3000 https://app.example.com \
+			--allowed-cors-origins https://www.example.org \
+			--allowed-cors-origins https://api.example.org \
+			--allowed-cors-origins https://www.another-app.com
+
+Per default, CORS is enabled for all origins.
+
+### Running behind a gateway (development only)
+
 Important: The Ory Tunnel is designed for development purposes only and should not be used in production environments.
 
 If you need to run the tunnel behind a gateway during development, you can specify the optional second argument, tunnel-url, to define the domain where the Ory Tunnel will run (for example, https://ory.example.org).
@@ -61,9 +73,7 @@ Example:
 		$ ory tunnel --project <project-id-or-slug> \
 		  https://www.example.org \
 		  https://auth.example.org \
-		  --cookie-domain example.org \
-		  --allowed-cors-origins https://www.example.org \
-		  --allowed-cors-origins https://api.example.org
+		  --cookie-domain example.org
 
 Note: You cannot set a path in the `tunnel-url`.
 
@@ -101,11 +111,7 @@ ory tunnel <application-url> [<tunnel-url>] [flags]
 ### Examples
 
 ```
-ory tunnel http://localhost:3000 --dev
-ory tunnel https://app.example.com \
-	--allowed-cors-origins https://www.example.org \
-	--allowed-cors-origins https://api.example.org \
-	--allowed-cors-origins https://www.another-app.com
+ory tunnel http://localhost:3000
 
 ```
 
@@ -118,7 +124,7 @@ ory tunnel https://app.example.com \
       --cookie-domain string              Set a dedicated cookie domain.
       --debug                             Use this flag to debug, for example, CORS requests.
       --default-redirect-url url          Set the URL to redirect to per default after e.g. login or account creation.
-      --dev                               Use this flag when developing locally.
+      --dev                               This flag is deprecated as the command is only supposed to be used during development. (default true)
   -h, --help                              help for tunnel
       --port int                          The port the proxy should listen on. (default 4000)
       --project string                    The project to use, either project ID or a (partial) slug.
