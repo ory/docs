@@ -35,13 +35,13 @@ Before using the Ory Tunnel, ensure that you have a running Ory Network project.
 Once your project is ready, pass the project's slug to the tunnel command:
 
 		$ ory tunnel --project <project-id-or-slug> ...
-		$ ORY_PROJECT=<project-id-or-slug> ory tunnel tunnel ...
+		$ ORY_PROJECT=<project-id-or-slug> ory tunnel ...
 
 ### Connecting in automated environments
 
-To connect the Ory Tunnel in automated environments, create a Project API Key for your project and set it as an environment variable:
+To connect the Ory Tunnel in automated environments, create a Project API Key for your project, set it as an environment variable, and use the `--quiet` flag:
 
-		$ ORY_PROJECT_API_KEY=<project-api-key> ory tunnel tunnel ...
+		$ ORY_PROJECT_API_KEY=<project-api-key> ory tunnel -q ...
 
 This will prevent the browser window from opening.
 
@@ -71,9 +71,9 @@ If you need to run the tunnel behind a gateway during development, you can speci
 Example:
 
 		$ ory tunnel --project <project-id-or-slug> \
-		  https://www.example.org \
-		  https://auth.example.org \
-		  --cookie-domain example.org
+			https://www.example.org \
+			https://auth.example.org \
+			--cookie-domain example.org
 
 Note: You cannot set a path in the `tunnel-url`.
 
@@ -92,17 +92,17 @@ If your application runs on a non-standard HTTP or HTTPS port, include the port 
 For cookie support, set the `--cookie-domain` flag to your top-level domain:
 
 		$ ory tunnel --project <project-id-or-slug> \
-		  --cookie-domain example.org \
-		  https://www.example.org \
-		  https://auth.example.org
+			--cookie-domain example.org \
+			https://www.example.org \
+			https://auth.example.org
 
 ### Redirects
 
 To specify a custom redirect URL, use the `--default-redirect-url` flag:
 
-$ ory tunnel tunnel --project <project-id-or-slug> \
-  --default-redirect-url /welcome \
-  https://www.example.org
+$ ory tunnel --project <project-id-or-slug> \
+	--default-redirect-url /welcome \
+	https://www.example.org
 
 ```
 ory tunnel <application-url> [<tunnel-url>] [flags]
