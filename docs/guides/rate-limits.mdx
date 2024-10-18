@@ -12,18 +12,18 @@ and ensuring fair usage for all our customers.
 
 Ory implements two main types of rate limits:
 
-1. [**Project-Based Rate Limits**](#project-based-rate-limits): These limits are determined by your Ory subscription plan**1**.
+1. [**Project Rate Limits in Workspaces**](#project-rate-limits-in-workspaces): These limits are determined by your Ory subscription plan and project environment.
    They define the maximum number of requests your projects can make to Ory's APIs within a given timeframe. This ensures fair
    resource allocation across all Ory projects.
    1. These limits are applied at the project level, meaning all requests originating from a specific project contribute to the
       rate limit counter for that project.
-   2. Project-Based Rate Limits are defined in terms of: <br/>**Burst Limit:** This governs the maximum number of requests allowed
+   2. Project Rate Limits are defined in terms of: <br/>**Burst Limit:** This governs the maximum number of requests allowed
       per second, accommodating temporary spikes in traffic. <br/>**Sustained Limit:** This sets the maximum request count over a
       one-minute period, ensuring consistent and fair usage.
 2. [**Endpoint-Based Rate Limits**](#endpoint-based-rate-limits): These limits focus on safeguarding specific endpoints of your
    Ory projects against common attack vectors like brute-force and credential stuffing attempts. They typically consider factors
    like source IP address and request frequency to identify and mitigate malicious activity.
-   1. Endpoint-based rate limits act as a first line of defense for your project endpoints.These limits often leverage the source
+   1. Endpoint-based rate limits act as a first line of defense for your project endpoints. These limits often leverage the source
       IP address as a key criterion, allowing Ory to identify and block requests originating from suspicious or malicious sources.
    2. By analyzing request patterns and incorporating factors like source IP, Ory can effectively differentiate between legitimate
       user traffic and potentially harmful bot activity.
@@ -37,52 +37,35 @@ Ory implements two main types of rate limits:
 - **Fair Usage:** Project-based rate limits ensure fair resource allocation and prevent any single project from monopolizing
   shared resources.
 
-###################
+## Project Rate Limits in Workspaces
 
----
+With the introduction of Workspaces in Ory Network, rate limits are now applied to projects based on their assigned environment and the Workspace's subscription plan. This approach ensures fair resource allocation and maintains the stability of the Ory Network across different usage scenarios.
 
-id: project-based-rate-limits title: Project-Based Rate Limits sidebar_label: Project-Based Rate Limits
+### How Project Rate Limits Work in Workspaces
 
----
+Rate limits for each project are determined by two main factors:
 
-## Project-Based Rate Limits
+1. **Workspace Subscription**: Your subscription plan (Developer, Production, Growth, or Enterprise) sets the baseline for your rate limits.
+2. **Project Environment**: Within each Workspace, projects can be assigned to Production, Staging, or Development environments, each with specific rate limit configurations.
 
-This section provides a comprehensive explanation of Ory's Project-Based Rate Limiting. These limits are designed to ensure fair
-resource allocation and maintain the stability and performance of the Ory Network across different project plans and environments.
+For a detailed explanation of Workspaces and Environments, please refer to our [Workspaces and Environments guide](link-to-workspaces.mdx).
 
-### What are Project-Based Rate Limits?
+### Rate Limit Structure
 
-Project-Based Rate Limits are controls applied to your entire Ory project, governing the overall request volumes across various
-API endpoints. These limits vary based on your project's plan (Developer, Production, Growth, or Enterprise) and the specific
-environment (Production, Staging, or Workspace).
+Each rate limit policy includes two types of limits:
 
-### How Project-Based Rate Limits Work
+1. **Burst Limit**: Maximum requests per second (rps), allowing for short traffic spikes.
+2. **Sustained Limit**: Maximum requests per minute (rpm), ensuring consistent performance over time.
 
-Project-Based Rate Limits analyze incoming requests across your entire project and consider factors such as:
+### Determining Your Project's Rate Limits
 
-- **Project Plan:** Different plans (Developer, Production, Growth, Enterprise) have different rate limit thresholds.
-- **Environment:** Limits may vary between Production, Staging, and Workspace environments.
-- **Request Path:** Specific API endpoints have different rate limits based on their typical usage patterns and importance.
-- **Time Window:** Limits are applied using both per-second (burst) and per-minute (sustained) windows.
+To identify the rate limits that apply to your project:
 
-### Types of Rate Limits
+1. Check your Workspace subscription plan (Developer, Production, Growth, or Enterprise).
+2. Identify the environment (Production, Staging, or Development) assigned to your project.
+3. Refer to the appropriate table below based on your subscription plan and project environment.
 
-Ory Network implements two types of rate limits for each policy:
-
-1. **Burst Limit:** Limits the number of requests per second, allowing brief spikes in request volume.
-2. **Sustained Limit:** Limits the number of requests over a one-minute period, ensuring consistent performance over time.
-
-### Rate Limit Policies
-
-Ory applies different rate limit policies based on the path of your request:
-
-1. `/sessions/whoami`: Session checks
-2. `/admin/oauth2/introspect`: OAuth2 token introspection
-3. `/relation-tuples/check`: Permission checks
-4. `GET /admin/identities`: List identities
-5. `*`: All other paths
-
-### Rate Limit Tables by Plan
+### Rate Limit Tables by Subscription Plan
 
 #### Developer Plan Rate Limits
 
@@ -93,6 +76,8 @@ Ory applies different rate limit policies based on the path of your request:
 |               | `/relation-tuples/check`   |          10 |             300 |
 |               | `GET /admin/identities`    |           1 |              10 |
 |               | `*`                        |           5 |             150 |
+
+Note: For Developer plans, all environments (Production, Staging, Development) use the same rate limits.
 
 #### Production Plan Rate Limits
 
@@ -109,6 +94,8 @@ Ory applies different rate limit policies based on the path of your request:
 |                | `GET /admin/identities`    |           1 |              10 |
 |                | `*`                        |           5 |             150 |
 
+Note: Development environment in Production plans uses the same rate limits as the Staging environment.
+
 #### Growth Plan Rate Limits
 
 | Environment    | Path / Bucket              | Burst (rps) | Sustained (rpm) |
@@ -124,21 +111,15 @@ Ory applies different rate limit policies based on the path of your request:
 |                | `GET /admin/identities`    |           1 |              10 |
 |                | `*`                        |           5 |             150 |
 
-### Important Notes on Project-Based Rate Limits
+Note: Development environment in Growth plans uses the same rate limits as the Staging environment.
 
-#### Workspace Rate Limit
+### Important Notes
 
-For all projects in a workspace, the rate limit is the same as for the production environment of your plan. For example, on the
-Production plan, the rate limit would be 80 rps on the `/sessions/whoami` path for all projects combined in the workspace.
-
-#### Enterprise-Grade Rate Limits
-
-For customers requiring higher rate limits or custom configurations, Ory offers enterprise-grade solutions. Please
-[contact Ory](https://www.ory.sh/contact/) to discuss your specific requirements.
-
-#### Legacy Plans
-
-The legacy Essential and Scale plans have the same rate limits as Production and Growth plans respectively.
+- **Individual Project Limits**: Rate limits are applied individually to each project based on its assigned environment (Production, Staging, or Development) and your Workspace subscription plan. Projects do not share a combined limit.
+- **Environment-Specific Limits**: Each environment (Production, Staging, Development) within a project has its own set of rate limits as defined in the tables above.
+- **Subscription Plan Impact**: Your Workspace subscription plan determines the available rate limits for each environment type across all projects in the Workspace.
+- **Enterprise Solutions**: For higher rate limits or custom configurations, please [contact Ory](https://www.ory.sh/contact/) to discuss enterprise-grade solutions.
+- **Legacy Plans**: The legacy Essential and Scale plans have the same rate limits as Production and Growth plans, respectively.
 
 ## Endpoint-Based Rate Limits
 
@@ -148,9 +129,8 @@ while allowing for flexibility for high-volume legitimate traffic from trusted s
 
 ### What are Endpoint-Based Rate Limits?
 
-Endpoint-Based Rate Limits are precise controls applied to individual API endpoints within your Ory projects. Unlike Project-Based
-Rate Limits, which govern overall project request volumes, Endpoint-Based Rate Limits focus on safeguarding specific
-functionalities against abuse.
+Endpoint-Based Rate Limits are precise controls applied to individual API endpoints within your Ory projects. Unlike Project Rate Limits,
+which govern overall project request volumes, Endpoint-Based Rate Limits focus on safeguarding specific functionalities against abuse.
 
 ### How Endpoint-Based Rate Limits Work
 
@@ -196,7 +176,7 @@ limited set of IP addresses.
 
 4. **Fair Usage:**
 
-   - Complements Project-Based Rate Limits in ensuring fair resource allocation.
+   - Complements Project Rate Limits in ensuring fair resource allocation.
    - Contributes to a fairer and more stable platform for all users by mitigating abusive traffic.
 
 5. **Flexibility for High-Volume Legitimate Traffic:**
