@@ -94,6 +94,7 @@ module.exports = {
                 "kratos/social-signin/data-mapping",
                 "kratos/social-signin/account-linking",
                 "kratos/social-signin/native-apps",
+                "kratos/social-signin/oidc-pkce",
               ],
             },
             "identities/sign-in/saml",

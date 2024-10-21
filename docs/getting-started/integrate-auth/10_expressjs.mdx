@@ -20,7 +20,7 @@ import webm from '../_static/expressjs/screencast.webm'
 
 First we create a new Express.js project:
 
-```shell-session
+```shell
 mkdir your-project
 cd your-project
 
@@ -28,23 +28,15 @@ npx express-generator
 npm i
 ```
 
-## Install Ory SDK
+## Install Ory SDK and CLI
 
-To interact with Ory's APIs we install the Ory SDK:
-
-```shell-session
-npm i --save @ory/client
-```
-
-## Install Ory CLI
-
-The last step is setting up the Ory CLI.
+To interact with Ory's APIs we install the Ory SDK and CLI:
 
 ```shell
-npm i --save @ory/cli
+npm i --save @ory/client @ory/cli
 ```
 
-### Why do I Need the Ory CLI?
+### Why do I need the Ory CLI
 
 ```mdx-code-block
 import OryCLI from '../_common/ory-cli.mdx'
@@ -68,8 +60,8 @@ Now that the Ory CLI is installed, let's add it as a `npm run` script to our pro
   "dependencies": {
 ```
 
-This requires the express app (`npm run start`) to run on port 3000. The browser / user uses however the port 4000
-([http://localhost:4000](http://localhost:4000)) to access the app.
+This requires the express app (`npm run start`) to run on port 3000. However, the app has to be accessed through the port 4000
+([http://localhost:4000](http://localhost:4000)).
 
 ## Require login to access the home page
 
@@ -87,7 +79,7 @@ import CodeBlock from '@theme/CodeBlock'
 
 Great, that's it. Let's run your application. Start the Express.js server
 
-```shell-session
+```shell
 npm run start
 ```
 
@@ -99,9 +91,10 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-Next open a new terminal window and start the Ory Proxy:
+Next open a new terminal window and start the Ory Proxy. Upon first start, the Ory Proxy will ask you to log into your Ory Console
+account.
 
-```shell-session
+```shell
 npm run proxy
 ```
 
@@ -116,7 +109,7 @@ import ToProd from '../_common/going-to-prod.mdx'
 <ToProd />
 ```
 
-```js {2,4-7}
+```js
 var sdk = require("@ory/client")
 
 var ory = new sdk.FrontendApi(

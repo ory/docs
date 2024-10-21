@@ -24,9 +24,6 @@ We document changelogs and upgrade guides for Ory services:
 
 Before upgrading to a newer version, please make sure to check with these documents first.
 
-**If you haven't already subscribed to our release announcements, [subscribe now](http://eepurl.com/di390P)!** We announce
-important security releases in this newsletter.
-
 ## Versioning
 
 The Ory ecosystem consists of multiple services versioned using [semantic versioning](https://semver.org). This section explains
