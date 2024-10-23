@@ -100,3 +100,64 @@ subscribe AWS SQS, AWS Kinesis Data Firehose, or any other AWS service that can 
 
 If your event stream destination is unavailable or misconfigured, Ory Network will retry sending the event multiple times with an
 exponential backoff between attempts.
+
+## Event descriptions
+
+Ory emits events for many different actions. The following is a list of all events that are currently supported. This list is not
+exhaustive, and there might by additional events being emitted.
+
+### Ory Identities
+
+| **Event**                   | **Description**                                                                                  |
+| --------------------------- | ------------------------------------------------------------------------------------------------ |
+| **SessionIssued**           | A new session has been initiated for a user.                                                     |
+| **SessionChanged**          | The session details have been modified or updated.                                               |
+| **SessionLifespanExtended** | The duration of the session has been extended, allowing the user to remain authenticated longer. |
+| **SessionRevoked**          | The session has been explicitly terminated or invalidated.                                       |
+| **SessionChecked**          | A check has been performed to verify the session's validity or status.                           |
+| **SessionTokenizedAsJWT**   | The session has been converted into a JWT (JSON Web Token) for authentication purposes.          |
+| **RegistrationFailed**      | A user's attempt to register has failed due to errors or invalid data.                           |
+| **RegistrationSucceeded**   | A user has successfully registered and created an account.                                       |
+| **LoginFailed**             | A user's login attempt has failed, possibly due to incorrect credentials.                        |
+| **LoginSucceeded**          | A user has successfully logged into their account.                                               |
+| **SettingsFailed**          | An attempt to change account or session settings has failed.                                     |
+| **SettingsSucceeded**       | Changes to account or session settings have been successfully applied.                           |
+| **RecoveryFailed**          | A password or account recovery attempt has failed.                                               |
+| **RecoverySucceeded**       | A password or account recovery attempt has succeeded.                                            |
+| **VerificationFailed**      | A user's identity verification attempt has failed.                                               |
+| **VerificationSucceeded**   | A user's identity verification has been successfully completed.                                  |
+| **IdentityCreated**         | A new identity (user or account) has been successfully created.                                  |
+| **IdentityUpdated**         | An existing identity's details have been modified or updated.                                    |
+| **IdentityDeleted**         | An identity has been deleted from the system.                                                    |
+| **WebhookDelivered**        | A webhook has been sent to the configured endpoint for processing.                               |
+| **WebhookSucceeded**        | A webhook has been successfully processed and acknowledged by the receiving endpoint.            |
+| **WebhookFailed**           | A webhook delivery or processing has failed at the receiving endpoint.                           |
+
+### Ory OAuth2
+
+| **Event**                      | **Description**                                                                                     |
+| ------------------------------ | --------------------------------------------------------------------------------------------------- |
+| **OAuth2LoginAccepted**        | A user's OAuth2 login has been accepted and the authentication process is successful.               |
+| **OAuth2LoginRejected**        | A user's OAuth2 login attempt has been rejected due to invalid credentials or authorization issues. |
+| **OAuth2ConsentAccepted**      | The user has accepted the consent screen, granting requested permissions to the OAuth2 client.      |
+| **OAuth2ConsentRejected**      | The user has rejected the consent screen, refusing to grant the requested permissions.              |
+| **OAuth2ConsentRevoked**       | The user has revoked previously granted consent for an OAuth2 client, removing its permissions.     |
+| **OAuth2ClientCreated**        | A new OAuth2 client (application) has been created and registered in the system.                    |
+| **OAuth2ClientDeleted**        | An OAuth2 client has been deleted from the system.                                                  |
+| **OAuth2ClientUpdated**        | An existing OAuth2 client's details have been updated or modified.                                  |
+| **OAuth2AccessTokenIssued**    | An OAuth2 access token has been successfully issued to a client or user.                            |
+| **OAuth2TokenExchangeError**   | An error occurred during the OAuth2 token exchange process, possibly due to invalid requests.       |
+| **OAuth2AccessTokenInspected** | An OAuth2 access token has been inspected to verify its validity or check its claims.               |
+| **OAuth2AccessTokenRevoked**   | An OAuth2 access token has been revoked, invalidating it for future use.                            |
+| **OAuth2RefreshTokenIssued**   | A refresh token has been successfully issued, allowing the client to obtain a new access token.     |
+| **OIDCIdentityTokenIssued**    | An OpenID Connect (OIDC) identity token has been issued to authenticate the user's identity.        |
+
+### Ory Permissions
+
+| **Event**                 | **Description**                                                                                       |
+| ------------------------- | ----------------------------------------------------------------------------------------------------- |
+| **RelationtuplesCreated** | A new relation tuple has been created, representing a relationship between entities.                  |
+| **RelationtuplesDeleted** | An existing relation tuple has been deleted, removing the relationship between entities.              |
+| **RelationtuplesChanged** | A relation tuple has been modified, indicating a change in the relationship between entities.         |
+| **PermissionsExpanded**   | Permissions have been expanded, likely increasing access or privileges for certain users or entities. |
+| **PermissionsChecked**    | A permission check has been performed to verify if access is allowed for a given action or resource.  |
