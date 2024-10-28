@@ -134,12 +134,12 @@
 }
 ```
 
-###### A code has been sent to the address you provided. If you have not received an message, check the spelling of the address and retry the login. (1010014)
+###### An email containing a code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and retry the login. (1010014)
 
 ```json
 {
   "id": 1010014,
-  "text": "A code has been sent to the address you provided. If you have not received an message, check the spelling of the address and retry the login.",
+  "text": "An email containing a code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and retry the login.",
   "type": "info"
 }
 ```
@@ -284,12 +284,12 @@
 }
 ```
 
-###### A code has been sent to the address(es) you provided. If you have not received a message, check the spelling of the address and retry the registration. (1040005)
+###### An email containing a code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and retry the registration. (1040005)
 
 ```json
 {
   "id": 1040005,
-  "text": "A code has been sent to the address(es) you provided. If you have not received a message, check the spelling of the address and retry the registration.",
+  "text": "An email containing a code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and retry the registration.",
   "type": "info"
 }
 ```
