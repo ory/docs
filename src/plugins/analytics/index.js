@@ -11,6 +11,7 @@ module.exports = function (context) {
               window.TERMLY_CUSTOM_BLOCKING_MAP = {
                 "sqa-web.ory.sh": "essential",
                 "static.reo.dev": "analytics",
+                "cdn.redoc.ly": "essential",
               }
             `
           },
