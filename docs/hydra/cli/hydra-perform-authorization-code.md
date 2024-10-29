@@ -46,6 +46,7 @@ hydra perform authorization-code --client-id ... --client-secret ...
   -p, --port int               The port on which the server should run (default 4446)
       --prompt strings         Set the OpenID Connect prompt parameter
       --redirect string        Force a redirect url
+      --response-mode string   Set the response mode. Can be query (default) or form_post.
       --scope strings          Request OAuth2 scope (default [offline,openid])
       --skip                   Skip login and/or consent steps if possible. Only effective if you have configured the Login and Consent UI URLs to point to this server.
       --state string           Force a state value (insecure)
