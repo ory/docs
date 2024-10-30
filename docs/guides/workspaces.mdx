@@ -4,6 +4,8 @@ title: Understanding Workspaces and Environments
 sidebar_label: Workspaces & Environments
 ---
 
+import Mermaid from "@site/src/theme/Mermaid"
+
 # Ory Network: Understanding Workspaces and Environments
 
 ## Introduction
@@ -61,7 +63,100 @@ Example for a Growth Subscription:
 | Staging     | Pre-release testing | Growth plan            | Development      |
 | Development | Development         | Development plan       | Development Plan |
 
-> Note: The number of projects allowed in each environment depends on your specific subscription or enterprise contract.
+> Note: The number of projects allowed in each environment depends on your specific subscription or enterprise contract. Please
+> check the [Pricing page](https://www.ory.sh/pricing/) for details.
+
+This diagram illustrates the relationship between Workspaces, Projects, and Environments:
+
+```mdx-code-block
+<Mermaid
+  chart={`
+graph TD
+    subgraph "Workspace"
+        Plan["Subscription Plan<br/>(Developer/Production/Growth/Enterprise)<br/><br/>Determines:<br/>• Feature Set<br/>• Number of Production/Staging/Dev Env Projects"]
+
+        subgraph "Projects"
+            Project1["Project A"]
+            Project2["Project B"]
+            Project3["Project C"]
+        end
+
+        subgraph "Environments"
+            Prod["Production Environment<br/>🚀 Workspace Subscription Rate Limits<br/>✨ Full Feature Set"]
+            Stage["Staging Environment<br/>🔄 Development Subscription Rate Limits<br/>✨ Full Feature Set"]
+            Dev["Development Environment<br/>🔄 Development Subscription Rate Limits<br/>⚙️ Testing Features"]
+        end
+
+        Plan --> Project1
+        Plan --> Project2
+        Plan --> Project3
+
+        Project1 --> Prod
+        Project2 --> Stage
+        Project3 --> Dev
+
+        style Plan fill:#e6e6e6,stroke:#333,stroke-width:2px,color:#000
+        style Prod fill:#d4edda,stroke:#333,stroke-width:2px,color:#000
+        style Stage fill:#cce5ff,stroke:#333,stroke-width:2px,color:#000
+        style Dev fill:#fff3cd,stroke:#333,stroke-width:2px,color:#000
+
+        style Project1 fill:#ffffff,stroke:#333,stroke-width:2px,color:#000
+        style Project2 fill:#ffffff,stroke:#333,stroke-width:2px,color:#000
+        style Project3 fill:#ffffff,stroke:#333,stroke-width:2px,color:#000
+    end
+`}
+/>
+```
+
+And here is a concrete example of a Workspace with a Production subscription:
+
+```mdx-code-block
+<Mermaid
+  chart={`
+graph TD
+    subgraph "ACME Company Workspace"
+        Plan["Production Subscription<br/><br/>Determines:<br/> • Production Plan Feature Set <br/> • 1 Production, 3 Staging, 5 Development Env Projects"]
+
+        subgraph "Projects"
+            Project1["ACME SaaS Production"]
+            Project2["ACME SaaS Staging"]
+            Project3["ACME SaaS UTA"]
+            Project4["ACME PoC Passkey"]
+            Project5["ACME PoC SSO Google"]
+        end
+
+        subgraph "Environments"
+            Prod["Production Environment<br/>🚀 Production Rate Limits<br/>(80 rps /sessions/whoami)<br/>✨ Full Feature Set"]
+            Stage["Staging Environment<br/>🔄 Developer Rate Limits<br/>(10 rps /sessions/whoami)<br/>✨ Full Feature Set"]
+            Dev["Development Environment<br/>🔄 Developer Rate Limits<br/>(10 rps /sessions/whoami)<br/>⚙️ Testing Features"]
+        end
+
+        Project1 --> Prod
+        Project2 --> Stage
+        Project3 --> Stage
+        Project4 --> Dev
+        Project5 --> Dev
+
+        Plan --> Project1
+        Plan --> Project2
+        Plan --> Project3
+        Plan --> Project4
+        Plan --> Project5
+
+        style Plan fill:#e6e6e6,stroke:#333,stroke-width:2px,color:#000
+        style Prod fill:#d4edda,stroke:#333,stroke-width:2px,color:#000
+        style Stage fill:#cce5ff,stroke:#333,stroke-width:2px,color:#000
+        style Dev fill:#fff3cd,stroke:#333,stroke-width:2px,color:#000
+
+        style Project1 fill:#ffffff,stroke:#333,stroke-width:2px,color:#000
+        style Project2 fill:#ffffff,stroke:#333,stroke-width:2px,color:#000
+        style Project3 fill:#ffffff,stroke:#333,stroke-width:2px,color:#000
+        style Project4 fill:#ffffff,stroke:#333,stroke-width:2px,color:#000
+        style Project5 fill:#ffffff,stroke:#333,stroke-width:2px,color:#000
+    end
+`}
+/>
+```
 
 ## Comparison with Previous Model
 
