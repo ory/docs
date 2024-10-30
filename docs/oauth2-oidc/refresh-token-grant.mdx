@@ -47,16 +47,13 @@ checks if the refresh token is valid and if it is, issues a new access token or 
 
 ## Requirements for obtaining a refresh token
 
-To obtain a refresh token, the client needs to request the `offline_access` scope during the initial token issuance. The
-`offline_access` scope indicates that the client needs a refresh token.
+Only Authorization Code (`response_type=code`) and hybrid flows yield refresh tokens. They are always issued alongside an access
+token during code exchange.
 
-Not all OAuth2 and OIDC flows support refresh tokens. Here's a table that shows which flows support refresh tokens:
+The client configuration must have the `offline_access` scope in its list of allowed scopes, and the `refresh_token` and
+`authorization_code` grant types enabled.
 
-| Flow                    | Supports Refresh Token | Required scope   | Required response type |
-| ----------------------- | ---------------------- | ---------------- | ---------------------- |
-| Authorization code flow | Yes                    | `offline_access` | `code`                 |
-| Implicit flow           | No                     |                  |                        |
-| Client credentials flow | No                     |                  |                        |
+To obtain a refresh token, the client must request the `offline_access` scope during the authorization request.
 
 ## Refreshing an access token
 

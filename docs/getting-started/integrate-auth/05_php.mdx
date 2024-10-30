@@ -20,7 +20,7 @@ import webm from '../_static/php/screencast.webm'
 
 First we create a new PHP project:
 
-```shell-session
+```shell
 mkdir your-project
 cd your-project
 touch index.php
@@ -30,19 +30,19 @@ touch index.php
 
 To interact with Ory's APIs we install the [Ory SDK](https://packagist.org/packages/ory/client):
 
-```shell-session
+```shell
 composer require ory/client
 ```
 
 To simplify URLs handling we install the [bramus/router](https://packagist.org/packages/bramus/router)
 
-```shell-session
+```shell
 composer require bramus/router
 ```
 
 To install Ory CLI follow [this guide](https://www.ory.sh/docs/guides/ory-cli-install-use)
 
-### Why do I Need the Ory CLI?
+### Why do I need the Ory CLI
 
 ```mdx-code-block
 import OryCLI from '../_common/ory-cli.mdx'
@@ -86,7 +86,7 @@ import appPHP from '!!raw-loader!../../../code-examples/protect-page-login/php/a
 
 Start your HTTP server and access the proxy URL
 
-```shell-session
+```shell
 php -S 127.0.0.1:3000
 ```
 
@@ -96,7 +96,10 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-```shell-session
+Next open a new terminal window and start the Ory Proxy. Upon first start, the Ory Proxy will ask you to log into your Ory Console
+account.
+
+```shell
 ory proxy http://localhost:3000
 ```
 

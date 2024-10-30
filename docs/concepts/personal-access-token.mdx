@@ -37,8 +37,14 @@ Follow these steps to create API Keys for your Project:
 
 1. Go to <ConsoleLink route="project.developers" />.
 2. Click **Create new API key**
-3. Enter the API Key name and click **Create**
-4. Copy the created API Key
+3. Enter the API Key name
+4. Select an **expiration** date.
+5. Click **Create**
+6. Copy the created API Key
+
+Finding the best expiration date for an API key is always a tradeoff between security and usability. Rotating keys is generally a
+good practice, however it comes at the cost of increased maintenance -- automatic or manual. If your API keys expire before you
+renew them, your service might degrade or become unavailable.
 
 ```mdx-code-block
 <BrowserWindow url="https://console.ory.sh/projects/current/developers">
@@ -97,8 +103,13 @@ Follow these steps to create API keys for your workspace:
 2. Go to **Workspace settings** through the workspace menu in the top left corner.
 3. Select **API keys** in the sidebar.
 4. Click the **+** icon in the **API Keys** section.
-5. Enter the API Key name and click **Create new API key**.
-6. Copy the created API Key from the prompt that shows at the bottom right of the screen.
+5. Enter the API Key name
+6. Select an **expiration** date.
+7. Click **Create** . Copy the created API Key from the prompt that shows at the bottom right of the screen.
+
+Finding the best expiration date for an API key is always a tradeoff between security and usability. Rotating keys is generally a
+good practice, however it comes at the cost of increased maintenance -- automatic or manual. If your API keys expire before you
+renew them, your service might degrade or become unavailable.
 
 ```mdx-code-block
 <BrowserWindow url="https://console.ory.sh/workspaces/current/settings/api-keys">

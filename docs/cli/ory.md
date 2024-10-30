@@ -37,7 +37,7 @@ The Ory CLI
 * [ory perform](ory-perform)	 - Perform a flow
 * [ory proxy](ory-proxy)	 - Run your app and Ory on the same domain using a reverse proxy
 * [ory revoke](ory-revoke)	 - Revoke resources
-* [ory tunnel](ory-tunnel)	 - Tunnel Ory on a subdomain of your app or a separate port your app's domain
+* [ory tunnel](ory-tunnel)	 - Mirror Ory APIs on your local machine for local development and testing
 * [ory update](ory-update)	 - Update resources
 * [ory use](ory-use)	 - Use a resource
 * [ory validate](ory-validate)	 - Validate resources

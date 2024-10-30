@@ -27,6 +27,6 @@ Perform OAuth 2.0 Flows
 ### SEE ALSO
 
 * [hydra](hydra)	 - Run and manage Ory Hydra
-* [hydra perform authorization-code](hydra-perform-authorization-code)	 - An exemplary OAuth 2.0 Client performing the OAuth 2.0 Authorize Code Flow
+* [hydra perform authorization-code](hydra-perform-authorization-code)	 - Example OAuth 2.0 Client performing the OAuth 2.0 Authorize Code Flow
 * [hydra perform client-credentials](hydra-perform-client-credentials)	 - Perform the OAuth2 Client Credentials Flow
 

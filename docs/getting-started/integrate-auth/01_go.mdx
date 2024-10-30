@@ -23,7 +23,7 @@ import { useLatestTag } from '@site/src/hooks'
 
 First, create a Go app. Run these commands:
 
-```shell-session
+```shell
 mkdir your-project
 cd your-project
 
@@ -43,7 +43,7 @@ Run this command to install the Ory SDK which allows you to interact with Ory AP
 
 Follow [this guide](../../guides/cli/01_installation.mdx) to install the Ory CLI on your machine.
 
-### Why do I Need the Ory CLI?
+### Why do I need the Ory CLI
 
 ```mdx-code-block
 import OryCLI from '../_common/ory-cli.mdx'
@@ -86,20 +86,12 @@ import middlewareGo from '!!raw-loader!../../../code-examples/protect-page-login
 
 As the final step, create a `Dashboard` page that's presented to signed-in users. This page diplays the user's session data.
 
-1. Create the `dashboardHandler` that renders the page with the session data. Add this code to the `handler.go` file:
+To create the `dashboardHandler` that renders the page with the session data, add this code to the `handler.go` file:
 
 ```mdx-code-block
 import handlerGo from '!!raw-loader!../../../code-examples/protect-page-login/go/handler.go'
 
 <CodeBlock language="go" title="handler.go">{handlerGo}</CodeBlock>
-```
-
-2. To present the data to the user, create the `Dashboard` HTML page. Add this code to the `index.html` file:
-
-```mdx-code-block
-import index from '!!raw-loader!../../../code-examples/protect-page-login/go/index.html'
-
-<CodeBlock language="html" title="index.html">{index}</CodeBlock>
 ```
 
 ## Test your application
@@ -108,8 +100,8 @@ With all of the pieces in place, it's time to test your application. Follow thes
 
 1. Start your Go app:
 
-```shell-session
- go run .
+```shell
+go run .
 ```
 
 2. Export the SDK configuration URL for the desired Ory project. You can use the provided playground project for testing, or
@@ -127,9 +119,10 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-3. Run the Ory proxy to mirror the Ory API endpoints on your application's domain (`localhost`):
+3. Run the Ory proxy to mirror the Ory API endpoints on your application's domain (`localhost`). Upon first start, the Ory Proxy
+   will ask you to log into your Ory Console account.
 
-```shell-session
+```shell
 ory proxy http://localhost:3000
 ```
 

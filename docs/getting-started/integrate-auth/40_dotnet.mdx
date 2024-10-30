@@ -28,13 +28,13 @@ You can find the code of the sample application
 
 Follow [this guide](../../guides/cli/01_installation.mdx) to install the Ory CLI on your machine.
 
-### Why do I Need the Ory CLI?
+### Why do I need the Ory CLI
 
-Ory CLI provides a convenient way to configure and manage projects. Additionally, the CLI contains Ory Tunnel, which exposes Ory
-APIs under the same top-level domain as your application to ensure that there are no CORS issues. This allows the application that
-runs on your machine to connect to Ory APIs.
+```mdx-code-block
+import OryCLI from '../_common/ory-cli.mdx'
 
-[![Ory Tunnel](https://mermaid.ink/img/pako:eNq9U7FOxDAM_RUrCwNUvQGWDEitQOgG4CS6IHUJqXuNaJPiOCCE-HeS9uA47iSY6BDV9vOL_Ry_Ce0aFFJ4fApoNV4YtSY11BbipwI7G4YHpNkeFbHRZlSWoQTloST34g9FixS9d4GgGEdQvI-oEuKWXqEK1mJ_gGK13ECOfDJ8bWdQmZ2fHxcSri4r6JhHmee906rvnGd5tlgsZliRYJUE3aF-BI_eG7dhqCaG1fJgMPpjOIuZrTI9NtuUrNj1pRuyUgJhYwg1A7v9gk5jQbnHvs2iUM9GY4ytjc0fvktXbmo92NKfGLYtJY5f4TeOEcisOwbXwpQ3IrWOhtjN2ngmxVERULbJHcHEMJ36p0g-aB3la0M_o77J9Zs021n920g31e7OdMf5OdQkHoJ2ltHG5ytOxIA0KNPEZXlL0FpwhwPWQsbfRtFjLWr7HnFpa-5erRaSKeCJCGOj-HOxhGxV77-8l41hR19OnMzreSWnzXz_ADSbKoU?type=png)](https://mermaid-js.github.io/mermaid-live-editor/edit#pako:eNq9U7FOxDAM_RUrCwNUvQGWDEitQOgG4CS6IHUJqXuNaJPiOCCE-HeS9uA47iSY6BDV9vOL_Ry_Ce0aFFJ4fApoNV4YtSY11BbipwI7G4YHpNkeFbHRZlSWoQTloST34g9FixS9d4GgGEdQvI-oEuKWXqEK1mJ_gGK13ECOfDJ8bWdQmZ2fHxcSri4r6JhHmee906rvnGd5tlgsZliRYJUE3aF-BI_eG7dhqCaG1fJgMPpjOIuZrTI9NtuUrNj1pRuyUgJhYwg1A7v9gk5jQbnHvs2iUM9GY4ytjc0fvktXbmo92NKfGLYtJY5f4TeOEcisOwbXwpQ3IrWOhtjN2ngmxVERULbJHcHEMJ36p0g-aB3la0M_o77J9Zs021n920g31e7OdMf5OdQkHoJ2ltHG5ytOxIA0KNPEZXlL0FpwhwPWQsbfRtFjLWr7HnFpa-5erRaSKeCJCGOj-HOxhGxV77-8l41hR19OnMzreSWnzXz_ADSbKoU)
+<OryCLI isTunnel={true} />
+```
 
 ## Create ASP.NET app
 
@@ -70,7 +70,7 @@ var builder = WebApplication.CreateBuilder(args);
 // add-lines-start
 // configure http port explicitly to override generated settings from launchSettings.json
 builder.WebHost.ConfigureKestrel(opt => {
-	var port = builder.Configuration.GetValue<int>("APP_PORT", 5001);
+	var port = builder.Configuration.GetValue<int>("APP_PORT", 3000);
 	opt.ListenAnyIP(port);
 });
 // add-lines-end
@@ -109,7 +109,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // configure http port explicitly to override generated settings from launchSettings.json
 builder.WebHost.ConfigureKestrel(opt => {
-	var port = builder.Configuration.GetValue<int>("APP_PORT", 5001);
+	var port = builder.Configuration.GetValue<int>("APP_PORT", 3000);
 	opt.ListenAnyIP(port);
 });
 
@@ -208,7 +208,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // configure http port explicitly to override generated settings from launchSettings.json
 builder.WebHost.ConfigureKestrel(opt => {
-	var port = builder.Configuration.GetValue<int>("APP_PORT", 5001);
+	var port = builder.Configuration.GetValue<int>("APP_PORT", 3000);
 	opt.ListenAnyIP(port);
 });
 
@@ -281,10 +281,10 @@ With all of the pieces in place, it's time to test your application. Follow thes
 2. Run Ory Tunnel to mirror the Ory API endpoints on your application's domain (`localhost`):
 
    ```shell-session
-   ory tunnel --project playground --dev http://localhost:5001
+   ory tunnel --project playground --dev http://localhost:3000
    ```
 
-3. Open [localhost:5001](http://localhost:5001) to access the application. As the initial call is made by an unauthenticated user,
+3. Open [localhost:3000](http://localhost:3000) to access the application. As the initial call is made by an unauthenticated user,
    the middleware doesn't detect a valid session and redirects to the login page of the defined Ory project.
 4. From there, you can create a new account or sign in using an existing identity. When you sign in, the session becomes valid and
    the application shows the `Index` page with the session data.
