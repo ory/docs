@@ -1,0 +1,34 @@
+---
+id: mandatory-redirect-uri
+title: Mandatory `redirect_uri` for OpenID Connect Flows (OTA-072024-01)
+sidebar_label: OIDC requires `redirect_uri`
+---
+
+# Mandatory `redirect_uri` for OpenID Connect Flows
+
+Starting no sooner than August 1st, 2024, Ory Network will enforce the inclusion of `redirect_uri` in OpenID Connect flow
+requests. This update aligns with OpenID Connect specifications.
+
+### Previous Behavior
+
+You could omit the `redirect_uri` parameter:
+
+```
+/oauth2/auth?scope=openid&client=1234
+```
+
+### New Requirement
+
+You must include the `redirect_uri` parameter:
+
+```
+/oauth2/auth?scope=openid&client=1234&redirect_uri=https://...
+```
+
+### Action Required
+
+- Update your OpenID Connect flow requests to include `redirect_uri`.
+- If you depend on data pending removal, contact us via [Zendesk](https://console.ory.sh/support),
+  [Slack](https://slack.ory.sh/invitation), or email to support@ory.sh.
+
+For any questions or further assistance, please reach out to our support channels.
