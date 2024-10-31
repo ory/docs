@@ -1138,6 +1138,9 @@
       },
       "CreateWorkspaceApiKeyBody": {
         "properties": {
+          "expires_at": {
+            "$ref": "#/components/schemas/Time"
+          },
           "name": {
             "description": "The API Key Name\n\nA descriptive name for the API key.",
             "type": "string"
@@ -3685,7 +3688,7 @@
             "type": "string"
           },
           "project_scope": {
-            "description": "ProjectScope is the project_id resolved from the\nAPI Token.",
+            "description": "ProjectScope is the project_id resolved from the\nAPI key.",
             "type": "string"
           },
           "project_slug": {
@@ -3816,7 +3819,7 @@
             "type": "string"
           },
           "Subject": {
-            "description": "Subject is the subject from the API Token.",
+            "description": "Subject is the subject from the API key.",
             "type": "string"
           }
         },
@@ -6749,6 +6752,9 @@
             "readOnly": true,
             "type": "string"
           },
+          "expires_at": {
+            "$ref": "#/components/schemas/Time"
+          },
           "id": {
             "description": "The token's ID.",
             "format": "uuid",
@@ -7417,6 +7423,9 @@
             "format": "int64",
             "type": "integer"
           },
+          "is_unlimited": {
+            "type": "boolean"
+          },
           "used": {
             "format": "int64",
             "type": "integer"
@@ -7426,6 +7435,7 @@
           "feature",
           "included",
           "used",
+          "is_unlimited",
           "additional_price",
           "can_use_more",
           "feature_available"
@@ -9951,6 +9961,9 @@
             "readOnly": true,
             "type": "string"
           },
+          "expires_at": {
+            "$ref": "#/components/schemas/Time"
+          },
           "id": {
             "description": "The key's ID.",
             "format": "uuid",
@@ -9979,7 +9992,7 @@
             "type": "string"
           },
           "workspace_id": {
-            "description": "The API token's workspace ID",
+            "description": "The API key's workspace ID",
             "format": "uuid",
             "readOnly": true,
             "type": "string"
@@ -10041,7 +10054,7 @@
       "email": "support@ory.sh",
       "name": "API Support"
     },
-    "description": "Documentation for all public and administrative Ory APIs. Administrative APIs can only be accessed\nwith a valid Personal Access Token. Public APIs are mostly used in browsers.\n",
+    "description": "# Introduction\nDocumentation for all public and administrative Ory APIs. Administrative APIs can only be accessed\nwith a valid Personal Access Token. Public APIs are mostly used in browsers.\n\n## SDKs\nThis document describes the APIs available in the Ory Network. The APIs are available as SDKs for the following languages:\n\n| Language       | Download SDK                                                     | Documentation                                                                        |\n| -------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------ |\n| Dart           | [pub.dev](https://pub.dev/packages/ory_client)                   | [README](https://github.com/ory/sdk/blob/master/clients/client/dart/README.md)       |\n| .NET           | [nuget.org](https://www.nuget.org/packages/Ory.Client/)          | [README](https://github.com/ory/sdk/blob/master/clients/client/dotnet/README.md)     |\n| Elixir         | [hex.pm](https://hex.pm/packages/ory_client)                     | [README](https://github.com/ory/sdk/blob/master/clients/client/elixir/README.md)     |\n| Go             | [github.com](https://github.com/ory/client-go)                   | [README](https://github.com/ory/sdk/blob/master/clients/client/go/README.md)         |\n| Java           | [maven.org](https://search.maven.org/artifact/sh.ory/ory-client) | [README](https://github.com/ory/sdk/blob/master/clients/client/java/README.md)       |\n| JavaScript     | [npmjs.com](https://www.npmjs.com/package/@ory/client)           | [README](https://github.com/ory/sdk/blob/master/clients/client/typescript/README.md) |\n| JavaScript (With fetch) | [npmjs.com](https://www.npmjs.com/package/@ory/client-fetch)           | [README](https://github.com/ory/sdk/blob/master/clients/client/typescript-fetch/README.md) | \n| PHP            | [packagist.org](https://packagist.org/packages/ory/client)       | [README](https://github.com/ory/sdk/blob/master/clients/client/php/README.md)        |\n| Python         | [pypi.org](https://pypi.org/project/ory-client/)                 | [README](https://github.com/ory/sdk/blob/master/clients/client/python/README.md)     |\n| Ruby           | [rubygems.org](https://rubygems.org/gems/ory-client)             | [README](https://github.com/ory/sdk/blob/master/clients/client/ruby/README.md)       |\n| Rust           | [crates.io](https://crates.io/crates/ory-client)                 | [README](https://github.com/ory/sdk/blob/master/clients/client/rust/README.md)       |\n",
     "license": {
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
@@ -10699,6 +10712,14 @@
                 "type": "string"
               },
               "type": "array"
+            }
+          },
+          {
+            "description": "OrganizationID is the organization id to filter identities by.\n\nIf `ids` is set, this parameter is ignored.",
+            "in": "query",
+            "name": "organization_id",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -15364,7 +15385,7 @@
     },
     "/projects/{project}/tokens": {
       "get": {
-        "description": "A list of all the project's API tokens.",
+        "description": "A list of all the project's API keys.",
         "operationId": "listProjectApiKeys",
         "parameters": [
           {
@@ -15410,11 +15431,11 @@
             "url": "https://api.console.ory.sh"
           }
         ],
-        "summary": "List a project's API Tokens",
+        "summary": "List a project's API keys",
         "tags": ["project"]
       },
       "post": {
-        "description": "Create an API token for a project.",
+        "description": "Create an API key for a project.",
         "operationId": "createProjectApiKey",
         "parameters": [
           {
@@ -15432,6 +15453,9 @@
             "application/json": {
               "schema": {
                 "properties": {
+                  "expires_at": {
+                    "$ref": "#/components/schemas/Time"
+                  },
                   "name": {
                     "description": "The Token Name\n\nA descriptive name for the token.\n\nin: body",
                     "type": "string"
@@ -15477,13 +15501,13 @@
             "url": "https://api.console.ory.sh"
           }
         ],
-        "summary": "Create project API token",
+        "summary": "Create project API key",
         "tags": ["project"]
       }
     },
     "/projects/{project}/tokens/{token_id}": {
       "delete": {
-        "description": "Deletes an API token and immediately removes it.",
+        "description": "Deletes an API key and immediately removes it.",
         "operationId": "deleteProjectApiKey",
         "parameters": [
           {
@@ -15531,7 +15555,7 @@
             "url": "https://api.console.ory.sh"
           }
         ],
-        "summary": "Delete project API token",
+        "summary": "Delete project API key",
         "tags": ["project"]
       }
     },
@@ -19021,7 +19045,7 @@
     },
     "/workspaces/{workspace}/tokens": {
       "get": {
-        "description": "A list of all the workspace's API tokens.",
+        "description": "A list of all the workspace's API keys.",
         "operationId": "listWorkspaceApiKeys",
         "parameters": [
           {
@@ -19067,7 +19091,7 @@
             "url": "https://api.console.ory.sh"
           }
         ],
-        "summary": "List a workspace's API Tokens",
+        "summary": "List a workspace's API keys",
         "tags": ["workspace"]
       },
       "post": {
@@ -19133,7 +19157,7 @@
     },
     "/workspaces/{workspace}/tokens/{token_id}": {
       "delete": {
-        "description": "Deletes an API token and immediately removes it.",
+        "description": "Deletes an API key and immediately removes it.",
         "operationId": "deleteWorkspaceApiKey",
         "parameters": [
           {
@@ -19181,7 +19205,7 @@
             "url": "https://api.console.ory.sh"
           }
         ],
-        "summary": "Delete workspace API token",
+        "summary": "Delete workspace API key",
         "tags": ["workspace"]
       }
     }
@@ -19190,7 +19214,7 @@
     {
       "url": "https://{project-slug}.projects.oryapis.com/",
       "variables": {
-        "project": {
+        "project-slug": {
           "default": "playground",
           "description": "Your Ory Network Project slug. You can find it in the [Ory Network Console](https://console.ory.sh/projects/current/developers/guides)."
         }
@@ -19216,5 +19240,23 @@
     }
   ],
   "x-forwarded-proto": "string",
-  "x-request-id": "string"
+  "x-request-id": "string",
+  "x-tagGroups": [
+    {
+      "name": "Ory Identities",
+      "tags": ["frontend", "identity", "courier"]
+    },
+    {
+      "name": "Ory OAuth2",
+      "tags": ["wellknown", "oauth2", "oidc", "jwk"]
+    },
+    {
+      "name": "Ory Permissions",
+      "tags": ["permission", "relationship"]
+    },
+    {
+      "name": "Ory Network",
+      "tags": ["project", "workspace", "events", "metadata"]
+    }
+  ]
 }
