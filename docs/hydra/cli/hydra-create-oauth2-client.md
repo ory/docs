@@ -54,6 +54,7 @@ client_secret=$(echo $client | jq -r '.client_secret')
       --backchannel-logout-session-required             Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the backchannel-logout-callback is used. If omitted, the default value is false.
       --client-uri string                               A URL string of a web page providing information about the client
       --contact strings                                 A list representing ways to contact people responsible for this client, typically email addresses.
+      --file string                                     Read a JSON file representing a client from this location. If set, the other client flags are ignored.
       --frontchannel-logout-callback string             Client URL that will cause the client to log itself out when rendered in an iframe by Hydra.
       --frontchannel-logout-session-required            Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the frontchannel-logout-callback is used. If omitted, the default value is false.
       --grant-type strings                              A list of allowed grant types. (default [authorization_code])
