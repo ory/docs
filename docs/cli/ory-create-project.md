@@ -20,12 +20,13 @@ ory create project [flags]
 ### Options
 
 ```
+      --create-workspace string   Create a new workspace with the given name and use it for the project
   -e, --environment environment   The environment of the project. Valid values are: prod, stage, dev (default dev)
       --format string             Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
   -h, --help                      help for project
   -n, --name string               The name of the project, required when quiet mode is used
   -q, --quiet                     Be quiet with output printing.
-      --use-project               Set the created project as the default.
+      --use-project               Set the created project as the default
       --workspace string          The workspace to use, either workspace ID or a (partial) name.
 ```
 

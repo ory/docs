@@ -32,4 +32,5 @@ Get a resource
 * [ory get oauth2-config](ory-get-oauth2-config)	 - Get Ory OAuth2 & OpenID Connect configuration.
 * [ory get permission-config](ory-get-permission-config)	 - Get Ory Permissions configuration.
 * [ory get project](ory-get-project)	 - Get the complete configuration of an Ory Network project.
+* [ory get workspace](ory-get-workspace)	 - Get an Ory Network workspaces
 
