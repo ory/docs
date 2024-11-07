@@ -1,0 +1,72 @@
+---
+id: graceful-token-refresh
+title: Graceful token refresh
+---
+
+# Graceful refresh token rotation in Ory OAuth2 / Ory Hydra
+
+Graceful refresh token rotation is a feature in Ory OAuth2 / Ory Hydra that allows for a smoother transition during refresh token
+usage. With this feature enabled, a refresh token remains valid within a defined grace period, allowing multiple usages without
+immediate invalidation. This can be beneficial in scenarios where network issues or delayed token exchanges may otherwise disrupt
+session continuity.
+
+When enabled, using a refresh token marks it as "used" in the database and extends its expiration time by the duration of the
+configured grace period. As long as the grace period is active, subsequent token refreshes will return new access and refresh
+tokens. All tokens issued in this grace period remain linked in a single token chain, so revoking one refresh token or consent
+will invalidate all associated tokens.
+
+## Enabling graceful refresh token rotation
+
+To enable graceful refresh token rotation with a specific grace period (for example, 60 seconds), run the following command:
+
+```shell
+ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
+  --replace "/oauth2/grant/refresh_token/rotation_grace_period=60s"
+```
+
+In this command:
+
+- `<project-id>` and `<workspace-id>` should be replaced with your specific project and workspace identifiers.
+- The `rotation_grace_period` specifies the grace period duration. Here, `60s` sets a 60-second grace period.
+
+## Disabling graceful refresh token rotation
+
+To disable the graceful refresh token rotation, remove the `rotation_grace_period` parameter using the command below:
+
+```shell
+ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
+  --remove "/oauth2/grant/refresh_token/rotation_grace_period"
+```
+
+## Configuration in self-hosted deployments (Ory Enterprise License / DIY)
+
+For self-hosted deployments, you can configure graceful refresh token rotation in your configuration file:
+
+```yaml
+oauth2:
+  grant:
+    refresh_token:
+      rotation_grace_period: 60s # Set grace period. Omit this line to disable.
+```
+
+If `rotation_grace_period` is set to a positive duration, the refresh token remains valid within this period, providing clients
+with new tokens for each request without immediate invalidation of the original token.
+
+## Example behavior with grace period
+
+- **Using the refresh token within the grace period**: If a refresh token is used twice within the configured grace period (for
+  example, 60 seconds), each usage results in a new set of access and refresh tokens.
+- **Revocation implications**: Any refresh token issued within the grace period is part of the same token chain. Revoking one
+  token or consent associated with the chain will revoke all tokens in the chain, including those issued through graceful refresh.
+
+## Use cases for graceful refresh token rotation
+
+Graceful refresh token rotation can be particularly useful in:
+
+- High-availability applications where token exchange delays could interrupt user experience.
+- Distributed systems with multiple servers handling refresh tokens, minimizing the risk of accidental token invalidation.
+- Single-page applications, where network connectivity or token exchange delays may cause token rotation issues.
+- Mobile applications, where intermittent network connectivity can delay refresh token exchange, risking session continuity.
+
+Enabling this feature helps ensure smoother token lifecycle management while maintaining secure and efficient token rotation
+behavior.
