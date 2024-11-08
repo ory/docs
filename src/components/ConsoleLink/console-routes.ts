@@ -113,6 +113,10 @@ export const routes = {
       route: "/projects/[project]/email-templates",
       href: (project: string) => `/projects/${project}/email-templates`,
     },
+    smsConfiguration: {
+      route: "/projects/[project]/sms-configuration",
+      href: (project: string) => `/projects/${project}/sms-configuration`,
+    },
     sessionSettings: {
       route: "/projects/[project]/session-settings",
       href: (project: string) => `/projects/${project}/session-settings`,
