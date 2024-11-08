@@ -15,7 +15,7 @@ configured grace period. As long as the grace period is active, subsequent token
 tokens. All tokens issued in this grace period remain linked in a single token chain, so revoking one refresh token or consent
 will invalidate all associated tokens.
 
-## Enabling graceful refresh token rotation
+## Enable graceful refresh token rotation
 
 To enable graceful refresh token rotation with a specific grace period (for example, 60 seconds), run the following command:
 
@@ -29,7 +29,7 @@ In this command:
 - `<project-id>` and `<workspace-id>` should be replaced with your specific project and workspace identifiers.
 - The `rotation_grace_period` specifies the grace period duration. Here, `60s` sets a 60-second grace period.
 
-## Disabling graceful refresh token rotation
+## Disable graceful refresh token rotation
 
 To disable the graceful refresh token rotation, remove the `rotation_grace_period` parameter using the command below:
 
@@ -38,9 +38,9 @@ ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
   --remove "/oauth2/grant/refresh_token/rotation_grace_period"
 ```
 
-## Configuration in self-hosted deployments (Ory Enterprise License / DIY)
+## Configuration in self-hosted deployments 
 
-For self-hosted deployments, you can configure graceful refresh token rotation in your configuration file:
+For self-hosted deployments with Ory Enterprise License or Ory OSS, you can configure graceful refresh token rotation in your configuration file:
 
 ```yaml
 oauth2:
