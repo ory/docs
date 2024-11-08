@@ -19230,9 +19230,9 @@
   },
   "servers": [
     {
-      "url": "https://{project-slug}.projects.oryapis.com/",
+      "url": "https://{project_slug}.projects.oryapis.com/",
       "variables": {
-        "project-slug": {
+        "project_slug": {
           "default": "playground",
           "description": "Your Ory Network Project slug. You can find it in the [Ory Network Console](https://console.ory.sh/projects/current/developers/guides)."
         }
