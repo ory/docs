@@ -400,17 +400,12 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
         : [
             "oauth2-oidc/revoke-consent",
             "oauth2-oidc/skip-consent",
-            {
-              type: "category",
-              label: "Configure tokens",
-              items: [
-                "oauth2-oidc/jwt-access-token",
-                "hydra/guides/audiences",
-                "hydra/guides/jwt",
-                "hydra/guides/client-token-expiration",
-                "oauth2-oidc/claims-scope",
-              ],
-            },
+            "oauth2-oidc/jwt-access-token",
+            "hydra/guides/audiences",
+            "hydra/guides/jwt",
+            "hydra/guides/client-token-expiration",
+            "hydra/guides/graceful-token-refresh",
+            "oauth2-oidc/claims-scope",
           ],
     },
     {
