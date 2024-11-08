@@ -32,7 +32,7 @@ ory create oauth2-client [flags]
 ```
 ory create oauth2-client -n "my app" -c http://localhost/cb -g authorization_code -r code -a core,foobar
 
-Use the tool jq (or any other JSON tool) to get the OAuth2 Client ID and and Secret:
+Use the tool jq (or any other JSON tool) to get the OAuth2 Client ID and Secret:
 
 client=$(ory create oauth2-client \
     --format json \
@@ -55,6 +55,7 @@ client_secret=$(echo $client | jq -r '.client_secret')
       --client-uri string                               A URL string of a web page providing information about the client
       --contact strings                                 A list representing ways to contact people responsible for this client, typically email addresses.
   -e, --endpoint string                                 The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+      --file string                                     Read a JSON file representing a client from this location. If set, the other client flags are ignored.
       --format string                                   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
       --frontchannel-logout-callback string             Client URL that will cause the client to log itself out when rendered in an iframe by Hydra.
       --frontchannel-logout-session-required            Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the frontchannel-logout-callback is used. If omitted, the default value is false.

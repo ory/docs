@@ -25,6 +25,6 @@ Perform a flow
 ### SEE ALSO
 
 * [ory](ory)	 - The Ory CLI
-* [ory perform authorization-code](ory-perform-authorization-code)	 - An exemplary OAuth 2.0 Client performing the OAuth 2.0 Authorize Code Flow
+* [ory perform authorization-code](ory-perform-authorization-code)	 - Example OAuth 2.0 Client performing the OAuth 2.0 Authorize Code Flow
 * [ory perform client-credentials](ory-perform-client-credentials)	 - Perform the OAuth2 Client Credentials Flow
 
