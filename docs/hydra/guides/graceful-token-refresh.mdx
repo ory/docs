@@ -3,12 +3,12 @@ id: graceful-token-refresh
 title: Graceful token refresh
 ---
 
-# Graceful refresh token rotation in Ory OAuth2 / Ory Hydra
+# Graceful refresh token rotation
 
-Graceful refresh token rotation is a feature in Ory OAuth2 / Ory Hydra that allows for a smoother transition during refresh token
-usage. With this feature enabled, a refresh token remains valid within a defined grace period, allowing multiple usages without
-immediate invalidation. This can be beneficial in scenarios where network issues or delayed token exchanges may otherwise disrupt
-session continuity.
+Graceful refresh token rotation is a feature in Ory OAuth2 and Ory Hydra that allows for a smoother transition during refresh
+token usage. With this feature enabled, a refresh token remains valid within a defined grace period, allowing multiple usages
+without immediate invalidation. This can be beneficial in scenarios where network issues or delayed token exchanges may otherwise
+disrupt session continuity.
 
 When enabled, using a refresh token marks it as "used" in the database and extends its expiration time by the duration of the
 configured grace period. As long as the grace period is active, subsequent token refreshes will return new access and refresh
@@ -17,7 +17,7 @@ will invalidate all associated tokens.
 
 ## Enable graceful refresh token rotation
 
-To enable graceful refresh token rotation with a specific grace period (for example, 60 seconds), run the following command:
+To enable graceful refresh token rotation with a specific grace period, for example 60 seconds, run the following command:
 
 ```shell
 ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
@@ -38,9 +38,10 @@ ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
   --remove "/oauth2/grant/refresh_token/rotation_grace_period"
 ```
 
-## Configuration in self-hosted deployments 
+## Configuration in self-hosted deployments
 
-For self-hosted deployments with Ory Enterprise License or Ory OSS, you can configure graceful refresh token rotation in your configuration file:
+For self-hosted deployments with Ory Enterprise License or Ory OSS, you can configure graceful refresh token rotation in your
+configuration file:
 
 ```yaml
 oauth2:
