@@ -51,7 +51,7 @@
     "docusaurus-pushfeedback": "1.0.1",
     "file-loader": "6.2.0",
     "json-loader": "0.5.7",
-    "json-schema-faker": "0.5.6",
+    "json-schema-faker": "0.5.8",
     "mermaid": "9.3.0",
     "net": "1.0.2",
     "node-fetch": "2.6.7",
