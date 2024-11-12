@@ -282,6 +282,61 @@ salt123--ory123
 ```
 
 </TabItem>
+
+<TabItem value="sha" label="SHA">
+
+Ory Identities doesn't hash passwords by SHA but can compare stored SHA hashes and migrate to configured hasher
+(`hashers.algorithm`). You can configure SHA hashes to use a plain format (for hashes without salt) or a salted format (for hashes
+with salt).
+
+#### Salted format (hashes with salt)
+
+This format allows administrators to import passwords that use salting to calculate the SHA hash. Ory doesn't prepend or append
+the salt to the user's password. To determine the way the system performs salting, use the `salting-format` parameter.
+
+```
+$sha1$pf=<salting-format>$<salt>$<hash>
+$sha256$pf=<salting-format>$<salt>$<hash>
+$sha512$pf=<salting-format>$<salt>$<hash>
+```
+
+Read [this section](#salting-format-parameter) to learn more about configuring the `salting-format` parameter.
+
+#### Parameters
+
+- `salting-format`(`string`): Format string specifies how salting should be done. Must be encoded to Base64.
+- `salt`(`string`): A sequence of bits, known as a cryptographic salt encoded to Base64.
+- `hash`(`string`): The computed hash by the SHA algorithm encoded to Base64.
+
+#### Example
+
+```
+$sha1$pf=e1NBTFR9e1BBU1NXT1JEfQ==$MTIz$q+RdKCgc+ipCAcm5ChQwlQ==
+```
+
+##### Salting format parameter
+
+Below are formatting specifiers that can be used in the `salting-format`.
+
+- `{SALT}`: Salt value from the previous section.
+- `{PASSWORD}`: User's password in clear text.
+
+##### Example
+
+Assuming that User's password is `ory123` and salt is `c2FsdDEyMw==`(_in clear text: salt123_) and the clear text form of
+`salting-format` parameter as follows:
+
+```
+{SALT}--{PASSWORD}
+```
+
+In that case result of the `salting` process would be:
+
+```
+salt123--ory123
+```
+
+</TabItem>
 <TabItem value="ssha" label="SSHA, SSHA256, SSHA512">
 
 Ory Identities doesn't hash passwords by salted SHA but can compare stored salted SHA hashes and migrate to configured hasher
