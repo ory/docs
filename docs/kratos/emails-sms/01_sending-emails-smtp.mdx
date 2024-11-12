@@ -57,6 +57,7 @@ You can send emails from your own SMTP server. Follow these steps to configure O
 
    ```yaml title="config.yml"
    courier:
+     delivery_strategy: smtp
      smtp:
        connection_uri: smtp://username:password@server:port/
        from_address: hello@example.org
