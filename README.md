@@ -414,20 +414,19 @@ import VideoEmbed from '@site/src/components/VideoEmbed'
 
 ## Ory Console
 
-### Navigating to Ory Console Pages
+### Navigate to Ory Console Pages
 
-When referring to specific pages within Ory Console in the documentation, you
-can use the `/current/` route to navigate users to their currently active Ory
-Network project. For example, to access the Custom UI settings for the currently
-active Ory Network project in the Console, you can link to:
+You can use the `/current/` route to navigate users to their active Ory Network
+project. For example, to access the Custom UI settings for the active Ory
+Network project in the Console, you can link to:
 https://console.ory.sh/projects/current/ui
 
-When referencing a specific page of the Ory Console, use the
+When referencing a page of the Ory Console, use the
 `<ConsoleLink route="project..." />` component in MDX files.
 
-The component automatically resolves the navigation section and page title for
-the given route, and renders a standard markup for both, as well as the link
-with the `/current/` shortcut mentioned above:
+The component resolves the navigation section and page title for the given
+route, and renders a standard markup for both, as well as the link with the
+`/current/` shortcut mentioned above:
 
 ```tsx
 <ConsoleLink route="project.activity.events" />
@@ -456,6 +455,11 @@ file in the following way:
 ```
 
 Use `<ConsoleLink route="project.activity.events" />` to reference it.
+
+To add a new route, you need to add an entry in
+[`console-routes.ts`](https://github.com/ory/docs/blob/master/src/components/ConsoleLink/console-routes.ts)
+as well as
+[`console-nav-data.ts`](https://github.com/ory/docs/blob/master/src/components/ConsoleLink/console-nav-data.ts).
 
 ## Testing
 

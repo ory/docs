@@ -65,14 +65,6 @@ export const brandingPaths: Path[] = [
     title: "UI URLs",
     href: routes.project.ui.route,
   },
-  {
-    title: "Email configuration",
-    href: routes.project.emailConfiguration.route,
-  },
-  {
-    title: "Email templates",
-    href: routes.project.emailTemplates.route,
-  },
 ]
 
 export const authenticationPaths: Path[] = [
@@ -107,6 +99,18 @@ export const authenticationPaths: Path[] = [
   {
     title: "Email verification",
     href: routes.project.verification.route,
+  },
+  {
+    title: "Email configuration",
+    href: routes.project.emailConfiguration.route,
+  },
+  {
+    title: "Email templates",
+    href: routes.project.emailTemplates.route,
+  },
+  {
+    title: "SMS configuration",
+    href: routes.project.smsConfiguration.route,
   },
   {
     title: "Sessions",
