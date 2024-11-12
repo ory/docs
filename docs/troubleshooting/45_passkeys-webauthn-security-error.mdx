@@ -1,0 +1,20 @@
+---
+id: passkeys-webauthn-security-error
+title: SecurityError when using WebAuthn or PassKeys
+sidebar_label: WebAuthn / PassKeys SecurityError
+---
+
+## Relying party ID mismatch
+
+> The relying party ID is not a registrable domain suffix of, nor equal to the current domain. Subsequently, an attempt to fetch
+> the .well-known/webauthn resource of the claimed RP ID failed.
+
+### Solve relying party ID mismatch
+
+The error message indicates that the relying party ID (RP ID) is not a registrable domain suffix of, nor equal to the current
+domain. This error occurs when the RP ID is not a valid domain or subdomain.
+
+To resolve this issue, ensure that the RP ID is a valid domain or subdomain. If you are using a subdomain, ensure that the RP ID
+is a registrable domain suffix of the current domain.
+
+TODO: Add more information on how to fix this issue.
