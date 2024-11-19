@@ -261,6 +261,20 @@ To do that, add the `subject_source` field set to `me` to the social sign-in pro
    ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
    ```
 
+## Object identifier source
+
+The subject ID of a user is different in each app registration. The object ID of the user can therefore be used to identify a user independently of the app registration in which the user has registered.
+
+```yaml title="identity-config.yaml"
+  providers:
+  - id: microsoft
+    (...)
+    // highlight-start
+    subject_source: oid
+    // highlight-end
+    (...)
+```
+
 ## Troubleshooting
 
 ```mdx-code-block
