@@ -478,18 +478,22 @@ and we are using a JSON Schema that uses the `email` field as the identifier for
           "type": "object",
           "properties": {
             "first": {
+              "title": "First Name",
               "type": "string"
             },
             "last": {
+              "title": "Last Name",
               "type": "string"
             }
           }
         },
         "favorite_animal": {
+          "title": "Favourite Animal",
           "type": "string"
         },
         "accepted_tos": {
-          "type": "string"
+          "title": "Terms of Service",
+          "type": "boolean"
         }
       },
       "required": ["email"],
@@ -555,18 +559,22 @@ Let's extend the identity schema from the previous chapter with a phone number:
           "type": "object",
           "properties": {
             "first": {
+              "title": "First Name",
               "type": "string"
             },
             "last": {
+              "title": "Last Name",
               "type": "string"
             }
           }
         },
         "favorite_animal": {
+          "title": "Favourite Animal",
           "type": "string"
         },
         "accepted_tos": {
-          "type": "string"
+          "title": "Terms of Service",
+          "type": "boolean"
         }
       },
       "required": ["email"],
