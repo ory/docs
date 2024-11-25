@@ -60,6 +60,8 @@ const referenceSidebar: ExtendSidebar = [
           "guides/cli/installation",
           "guides/cli/cli-basics",
           "guides/cli/identity-cli",
+          "guides/cli/oauth2-cli",
+          "guides/cli/configure-permission-service",
           "guides/cli/proxy-and-tunnel",
           "guides/cli/config-with-cli",
           {
