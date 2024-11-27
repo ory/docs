@@ -61,13 +61,13 @@ Janitor can be used in several ways.
 
 
 ```
-hydra janitor [<database-url>] [flags]
+hydra janitor [[database_url]] [flags]
 ```
 
 ### Examples
 
 ```
-hydra janitor --keep-if-younger 23h --access-lifespan 1h --refresh-lifespan 40h --consent-request-lifespan 10m <database-url>
+hydra janitor --keep-if-younger 23h --access-lifespan 1h --refresh-lifespan 40h --consent-request-lifespan 10m [database_url]
 ```
 
 ### Options
