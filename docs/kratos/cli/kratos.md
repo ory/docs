@@ -30,7 +30,6 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 * [kratos import](kratos-import)	 - Import resources
 * [kratos lint](kratos-lint)	 - Helpers for linting code
 * [kratos list](kratos-list)	 - List resources
-* [kratos migrate](kratos-migrate)	 - Various migration helpers
 * [kratos remote](kratos-remote)	 - Helpers and management for remote Ory Kratos instances
 * [kratos serve](kratos-serve)	 - Run the Ory Kratos server
 * [kratos validate](kratos-validate)	 - Validate resources
