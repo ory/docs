@@ -11,8 +11,8 @@ import CodeBlock from "@theme/CodeBlock"
 const parser = new RefParser()
 
 const refs = {
-  "ory://tracing-config": `https://raw.githubusercontent.com/ory/x/v0.0.543/otelx/config.schema.json`,
-  "ory://logging-config": `https://raw.githubusercontent.com/ory/x/v0.0.543/logrusx/config.schema.json`,
+  "ory://tracing-config": `https://raw.githubusercontent.com/ory/x/master/otelx/config.schema.json`,
+  "ory://logging-config": `https://raw.githubusercontent.com/ory/x/master/logrusx/config.schema.json`,
 }
 
 const enhance =

@@ -7,7 +7,7 @@
     "docusaurus": "docusaurus",
     "gen:api": "mkdir -p .static && cp ../spec/api.json src/static/api.json",
     "gen:config": "node src/scripts/config.js config.js",
-    "start": "docusaurus start",
+    "start": "docusaurus start --no-minify",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "serve": "docusaurus serve",
