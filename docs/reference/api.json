@@ -4152,9 +4152,9 @@
         "type": "object"
       },
       "loginFlowState": {
-        "description": "The state represents the state of the login flow.\n\nchoose_method: ask the user to choose a method (e.g. login account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the login challenge was passed.",
+        "description": "The experimental state represents the state of a login flow. This field is EXPERIMENTAL and subject to change!",
         "enum": ["choose_method", "sent_email", "passed_challenge"],
-        "title": "Login Flow State",
+        "title": "Login flow state (experimental)",
         "type": "string"
       },
       "logoutFlow": {
@@ -7388,7 +7388,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect",
+            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery",
             "enum": [
               "production_projects",
               "staging_projects",
@@ -7420,10 +7420,11 @@
               "session_rate_limit_tier",
               "identities_list_rate_limit_tier",
               "permission_checks_rate_limit_tier",
-              "oauth2_introspect_rate_limit_tier"
+              "oauth2_introspect_rate_limit_tier",
+              "create_recovery_admin_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect"
+            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery"
           },
           "feature_available": {
             "type": "boolean"
@@ -7536,10 +7537,9 @@
         "type": "object"
       },
       "recoveryFlowState": {
-        "description": "The state represents the state of the recovery flow.\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed.",
+        "description": "The experimental state represents the state of a recovery flow. This field is EXPERIMENTAL and subject to change!",
         "enum": ["choose_method", "sent_email", "passed_challenge"],
-        "title": "Recovery Flow State",
-        "type": "string"
+        "title": "Recovery flow state (experimental)"
       },
       "recoveryIdentityAddress": {
         "properties": {
@@ -7666,9 +7666,9 @@
         "type": "object"
       },
       "registrationFlowState": {
-        "description": "choose_method: ask the user to choose a method (e.g. registration with email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the registration challenge was passed.",
+        "description": "The experimental state represents the state of a registration flow. This field is EXPERIMENTAL and subject to change!",
         "enum": ["choose_method", "sent_email", "passed_challenge"],
-        "title": "State represents the state of this request:",
+        "title": "Registration flow state (experimental)",
         "type": "string"
       },
       "rejectOAuth2Request": {
@@ -8135,9 +8135,9 @@
         "type": "object"
       },
       "settingsFlowState": {
-        "description": "show_form: No user data has been collected, or it is invalid, and thus the form should be shown.\nsuccess: Indicates that the settings flow has been updated successfully with the provided data.\nDone will stay true when repeatedly checking. If set to true, done will revert back to false only\nwhen a flow with invalid (e.g. \"please use a valid phone number\") data was sent.",
+        "description": "The experimental state represents the state of a settings flow. This field is EXPERIMENTAL and subject to change!",
         "enum": ["show_form", "success"],
-        "title": "State represents the state of this flow. It knows two states:",
+        "title": "Settings flow state (experimental)",
         "type": "string"
       },
       "subjectSet": {
@@ -9918,10 +9918,9 @@
         "type": "object"
       },
       "verificationFlowState": {
-        "description": "The state represents the state of the verification flow.\n\nchoose_method: ask the user to choose a method (e.g. recover account via email)\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the recovery challenge was passed.",
+        "description": "The experimental state represents the state of a verification flow. This field is EXPERIMENTAL and subject to change!",
         "enum": ["choose_method", "sent_email", "passed_challenge"],
-        "title": "Verification Flow State",
-        "type": "string"
+        "title": "Verification flow state (experimental)"
       },
       "version": {
         "properties": {
