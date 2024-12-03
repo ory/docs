@@ -68,6 +68,8 @@ These tokens and all subsequent tokens issued within the grace period are part o
 - **Token rotation**: When a refresh token is used, the access token it was issued with will be revoked. Other access tokens will
   not be revoked unless one of the above conditions is met. This prevents cases where two competing clients are invalidating one
   other's tokens.
+  
+The grace period cannot exceed 5 minutes.
 
 ## Use cases for graceful refresh token rotation
 
