@@ -55,10 +55,21 @@ with new tokens for each request without immediate invalidation of the original 
 
 ## Example behavior with grace period
 
-- **Using the refresh token within the grace period**: If a refresh token is used twice within the configured grace period (for
+When the user calls `/oauth2/auth` and performs login and consent, the OAuth2 server issues an access token and a refresh token.
+These tokens and all subsequent tokens issued within the grace period are part of the same consent request.
+
+- Using the refresh token within the grace period: If a refresh token is used twice within the configured grace period (for
   example, 60 seconds), each usage results in a new set of access and refresh tokens.
-- **Revocation implications**: Any refresh token issued within the grace period is part of the same token chain. Revoking one
-  token or consent associated with the chain will revoke all tokens in the chain, including those issued through graceful refresh.
+- Revocation implications: Any refresh token issued within the grace period is part of the same consent request. Revoking one
+  token, or when the user revokes their consent, all tokens belonging to the original consent request, including those issued
+  through a graceful refresh, are invalidated.
+- Re-use detection: If a refresh token is used, and then used again after the grace period ends, re-use detection will revoke all
+  tokens linked to the consent request.
+- Token rotation: When a refresh token is used, the access token it was issued with will be revoked. Other access tokens will not
+  be revoked unless one of the above conditions is met. This prevents cases where two competing clients are invalidating one
+  other's tokens.
+
+The grace period cannot exceed 5 minutes.
 
 ## Use cases for graceful refresh token rotation
 
