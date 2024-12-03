@@ -448,54 +448,58 @@ traits:
   accepted_tos: true
 ```
 
-and we using a JSON Schema that uses the `email` field as the identifier for the password flow:
+and we are using a JSON Schema that uses the `email` field as the identifier for the password flow:
 
-```json5
+```json
 {
-  $id: "http://mydomain.com/schemas/v2/customer.schema.json",
-  $schema: "http://json-schema.org/draft-07/schema#",
-  title: "A customer (v2)",
-  type: "object",
-  properties: {
-    traits: {
-      type: "object",
-      properties: {
-        email: {
-          title: "E-Mail",
-          type: "string",
-          format: "email",
+  "$id": "http://mydomain.com/schemas/v2/customer.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A customer (v2)",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "title": "E-Mail",
+          "type": "string",
+          "format": "email",
 
           // This tells Ory Identities that the field should be used as the "username" for the username and password flow.
           "ory.sh/kratos": {
-            credentials: {
-              password: {
-                identifier: true,
-              },
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "first": {
+              "title": "First Name",
+              "type": "string"
             },
-          },
+            "last": {
+              "title": "Last Name",
+              "type": "string"
+            }
+          }
         },
-        name: {
-          type: "object",
-          properties: {
-            first: {
-              type: "string",
-            },
-            last: {
-              type: "string",
-            },
-          },
+        "favorite_animal": {
+          "title": "Favourite Animal",
+          "type": "string"
         },
-        favorite_animal: {
-          type: "string",
-        },
-        accepted_tos: {
-          type: "string",
-        },
+        "accepted_tos": {
+          "title": "Terms of Service",
+          "type": "boolean"
+        }
       },
-      required: ["email"],
-      additionalProperties: false,
-    },
-  },
+      "required": ["email"],
+      "additionalProperties": false
+    }
+  }
 }
 ```
 
@@ -513,66 +517,70 @@ set.
 
 Let's extend the identity schema from the previous chapter with a phone number:
 
-```json5
+```json
 {
-  $id: "http://mydomain.com/schemas/v2/customer.schema.json",
-  $schema: "http://json-schema.org/draft-07/schema#",
-  title: "A customer (v2)",
-  type: "object",
-  properties: {
-    traits: {
-      type: "object",
-      properties: {
-        email: {
-          title: "E-Mail",
-          type: "string",
-          format: "email",
+  "$id": "http://mydomain.com/schemas/v2/customer.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A customer (v2)",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "title": "E-Mail",
+          "type": "string",
+          "format": "email",
 
           // This tells Ory Identities that the field should be used as the "username" for the Username and Password Flow.
           "ory.sh/kratos": {
-            credentials: {
-              password: {
-                identifier: true,
-              },
-            },
-          },
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
         },
-        phone: {
-          title: "Phone",
-          type: "string",
-          format: "tel",
+        "phone": {
+          "title": "Phone",
+          "type": "string",
+          "format": "tel",
 
           // The phone number is marked as an identifier. This allows the user to log in with both email and phone number.
           "ory.sh/kratos": {
-            credentials: {
-              password: {
-                identifier: true,
-              },
+            "credentials": {
+              "password": {
+                "identifier": true
+              }
+            }
+          }
+        },
+        "name": {
+          "type": "object",
+          "properties": {
+            "first": {
+              "title": "First Name",
+              "type": "string"
             },
-          },
+            "last": {
+              "title": "Last Name",
+              "type": "string"
+            }
+          }
         },
-        name: {
-          type: "object",
-          properties: {
-            first: {
-              type: "string",
-            },
-            last: {
-              type: "string",
-            },
-          },
+        "favorite_animal": {
+          "title": "Favourite Animal",
+          "type": "string"
         },
-        favorite_animal: {
-          type: "string",
-        },
-        accepted_tos: {
-          type: "string",
-        },
+        "accepted_tos": {
+          "title": "Terms of Service",
+          "type": "boolean"
+        }
       },
-      required: ["email"],
-      additionalProperties: false,
-    },
-  },
+      "required": ["email"],
+      "additionalProperties": false
+    }
+  }
 }
 ```
 
