@@ -136,5 +136,5 @@ prevents unauthorized access and malicious attacks, providing robust protection 
 ## Next steps
 
 Read more about the Ory Identities [security model](../security-model.mdx) and try out one of the
-[Ory Network Identities quickstart guides](../getting-started/overview) for your framework or programming language to learn how to
-add login and registration to your app in minutes.
+[Ory Network Identities quickstart guides](../getting-started/overview.mdx) for your framework or programming language to learn
+how to add login and registration to your app in minutes.
