@@ -1,0 +1,37 @@
+---
+id: passkeys-webauthn-security-error
+title: SecurityError when using WebAuthn or Passkeys
+sidebar_label: WebAuthn / PassKeys SecurityError
+---
+
+## Relying party ID mismatch
+
+> The relying party ID is not a registrable domain suffix of, nor equal to the current domain. Subsequently, an attempt to fetch
+> the .well-known/webauthn resource of the claimed RP ID failed.
+
+### Solve relying party ID mismatch
+
+When configuring WebAuthn or PassKeys, you define an ID and a number of origins that are allowed to use the WebAuthn or Passkeys
+credential. If you use the Ory Tunnel, Ory Proxy, the Ory Next.js integration, or other tooling which proxies requests to a
+different domain, you may encounter this issue.
+
+Per default, Ory sets the RP ID and the origins for your project automatically. You can however override them to get
+Passkeys/Webauthn working locally, in your development or staging environment, by updating the RP ID and origins in the Ory
+Network configuration:
+
+```
+# For Passkeys
+ory patch identity-config --project <project-id> --workspace <workspace-id> \
+  --replace "/selfservice/methods/passkey/config/rp/id=\"localhost\"" \
+  --replace "/selfservice/methods/passkey/config/rp/origins=[\"http://localhost:3000\"]" \
+  --format yaml
+
+# For Webauthn
+ory patch identity-config --project <project-id> --workspace <workspace-id> \
+  --replace "/selfservice/methods/webauthn/config/rp/id=\"localhost\"" \
+  --replace "/selfservice/methods/webauthn/config/rp/origins=[\"http://localhost:3000\"]" \
+  --format yaml
+```
+
+Please be aware that this may break Passkeys and WebAuthn for users if they have already signed up using a different RP ID. **Do
+not change the RP ID in production environments.**
