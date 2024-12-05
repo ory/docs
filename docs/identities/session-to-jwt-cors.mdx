@@ -46,8 +46,8 @@ local session = std.extVar('session');
 The easiest way to supplies these files to Ory Network is to base64-encode them:
 
 ```shell
-JWKS_B64_ENCODED=$(cat es256.jwks.json | base64)
-JSONNET_B64_ENCODED=$(cat claims.jsonnet | base64)
+JWKS_B64_ENCODED=$(cat es256.jwks.json | base64 -w 0)
+JSONNET_B64_ENCODED=$(cat claims.jsonnet | base64 -w 0)
 ```
 
 Next, we configure our Ory Network project's tokenizer templates. The key we choose here is `jwt_example_template1`. We supply
