@@ -6,8 +6,8 @@ sidebar_label: Session to JWT
 
 # Convert Ory Sessions to JSON Web Tokens
 
-Ory offers a powerful session management system that is based on Ory Session Cookies for browser clients and Ory Session Tokens
-for API clients. In some contexts it is a better option to use a JSON Web Token:
+Ory offers a powerful session management system that is based on cookies for browser clients and API tokens
+for API clients. Additionally, Ory supports converting a session to a JSON Web Token (JWT). A JWT might be the better option in situations, such as:
 
 - You need to make a cross-origin (CORS) request where including the Ory Session Cookie or Ory Session Token is not trivial or
   possible.
