@@ -200,7 +200,7 @@ const config: Config = {
           href: "https://www.ory.sh/contact/",
         },
         {
-          html: `<a class="termly-display-preferences footer__link-item" href="#">Consent Preferences</a>`,
+          html: `<a class="ory-consent-manager footer__link-item" href="#">Consent Preferences</a>`,
         },
       ] satisfies Preset.ThemeConfig["footer"]["links"],
       logo: {
@@ -277,7 +277,7 @@ const config: Config = {
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
     "/docs/scripts/redirect.js",
-    "https://consent.ory.sh",
+    "https://consent.ory.sh/index.js",
     {
       src: "https://widget.kapa.ai/kapa-widget.bundle.js",
       "data-website-id": "e89e7663-df2c-4c7f-974a-1bf8accdd615",
