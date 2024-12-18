@@ -213,7 +213,6 @@ const config: Config = {
     },
   } satisfies Preset.ThemeConfig,
   plugins: [
-    require.resolve("./src/plugins/analytics"),
     [
       "docusaurus-pushfeedback",
       {
@@ -237,12 +236,6 @@ const config: Config = {
       },
     ],
     "@docusaurus/plugin-content-pages",
-    require.resolve("./src/plugins/docusaurus-plugin-matamo"),
-    enableUserCentrics &&
-      process.env.NODE_ENV !== "development" && [
-        "./src/plugins/plugin-usercentrics-gtm",
-        { usercentricsID: "dwogEWVkK", gtmID: "GTM-NTT7RMX" },
-      ],
     require.resolve("./src/plugins/docusaurus-polyfill"),
     "@docusaurus/plugin-sitemap",
     [
@@ -284,6 +277,7 @@ const config: Config = {
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
     "/docs/scripts/redirect.js",
+    "https://consent.ory.sh",
     {
       src: "https://widget.kapa.ai/kapa-widget.bundle.js",
       "data-website-id": "e89e7663-df2c-4c7f-974a-1bf8accdd615",
