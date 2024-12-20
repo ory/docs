@@ -213,13 +213,15 @@ const config: Config = {
     },
   } satisfies Preset.ThemeConfig,
   plugins: [
-    [
-      "docusaurus-pushfeedback",
-      {
-        project: "7bhe9sxlqg",
-        buttonPosition: "center-right",
-      },
-    ],
+    // Not very useful and ruins page speed.
+    //
+    // [
+    //   "docusaurus-pushfeedback",
+    //   {
+    //     project: "7bhe9sxlqg",
+    //     buttonPosition: "center-right",
+    //   },
+    // ],
     [
       "@docusaurus/plugin-content-docs",
       {
