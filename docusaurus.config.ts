@@ -277,8 +277,14 @@ const config: Config = {
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
     "/docs/scripts/redirect.js",
-    "https://ory.sh/cmp/init.js",
-    "https://consent.ory.sh/index.js",
+    {
+      src: "https://ory.sh/cmp/init.js",
+      // Can not yet be deferred as it is required for the ui to work
+    },
+    {
+      src: "https://consent.ory.sh/index.js",
+      defer: true,
+    },
     {
       src: "https://widget.kapa.ai/kapa-widget.bundle.js",
       "data-website-id": "e89e7663-df2c-4c7f-974a-1bf8accdd615",
