@@ -1,7 +1,7 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Config } from "@docusaurus/types"
+import type {Config} from "@docusaurus/types"
 import type * as Preset from "@docusaurus/preset-classic"
 
 import lightTheme from "./src/utils/prismLight.mjs"
@@ -56,17 +56,17 @@ const config: Config = {
         {
           className: "theme-code-block-highlighted-line",
           line: "highlight-next-line",
-          block: { start: "highlight-start", end: "highlight-end" },
+          block: {start: "highlight-start", end: "highlight-end"},
         },
         {
           className: "code-block-delete-line",
           line: "delete-next-line",
-          block: { start: "delete-lines-start", end: "delete-lines-end" },
+          block: {start: "delete-lines-start", end: "delete-lines-end"},
         },
         {
           className: "code-block-add-line",
           line: "add-next-line",
-          block: { start: "add-lines-start", end: "add-lines-end" },
+          block: {start: "add-lines-start", end: "add-lines-end"},
         },
         {
           className: "copyright-2022-ory-corp",
@@ -277,8 +277,14 @@ const config: Config = {
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
     "/docs/scripts/redirect.js",
-    "https://ory.sh/cmp/init.js",
-    "https://consent.ory.sh/index.js",
+    {
+      src: "https://ory.sh/cmp/init.js",
+      // Can not yet be deferred as it is required for the ui to work
+    },
+    {
+      src: "https://consent.ory.sh/index.js",
+      defer: true,
+    },
     {
       src: "https://widget.kapa.ai/kapa-widget.bundle.js",
       "data-website-id": "e89e7663-df2c-4c7f-974a-1bf8accdd615",
