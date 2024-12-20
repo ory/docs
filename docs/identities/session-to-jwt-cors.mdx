@@ -6,16 +6,15 @@ sidebar_label: Session to JWT
 
 # Convert Ory Sessions to JSON Web Tokens
 
-Ory offers a powerful session management system that is based on cookies. In some contexts however, relying on Cookies is not
-possible:
+Ory provides a robust session management system that uses cookies for browser clients and API tokens for API clients. It also
+supports converting a session into a JSON Web Token (JWT). A JWT can be a better option in scenarios such as:
 
-- You need to make a cross-origin (CORS) request where including the Ory Session Cookie is not trivial or possible.
-- You need a JWT which represents a signed-in user.
-- You need to integrate with a third party such as
-  [Zendesk SSO JWTs](https://support.zendesk.com/hc/en-us/articles/4408845838874).
-- You want to reduce the amount of calls to Ory's APIs.
+- Making cross-origin (CORS) requests where including the Ory session cookie or session token is difficult or not possible.
+- Representing a signed-in user with a JWT.
+- Integrating with third-party services, such as [Zendesk SSO JWTs](https://support.zendesk.com/hc/en-us/articles/4408845838874).
+- Reducing the number of calls to Ory's APIs.
 
-In this guide, we will show you how to convert Ory Sessions to JSON Web Tokens (JWTs).
+This guide explains how to convert Ory sessions into JSON Web Tokens (JWTs).
 
 ## End-to-end example
 
