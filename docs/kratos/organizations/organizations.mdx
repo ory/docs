@@ -55,9 +55,10 @@ graph LR
 <TabItem value="console" label="Ory Console">
 ```
 
-<p>
-To create, update, or delete organizations via the Ory Console, go to{" "}<ConsoleLink route="project.authentication.organizations" />.
-</p>
+To create, update, or delete organizations via the Ory Console, go to
+
+<ConsoleLink route="project.authentication.organizations" />.
+
 ```mdx-code-block
 </TabItem>
 
@@ -247,13 +248,109 @@ organization.
 ## SAML
 
 SAML (Security Assertion Markup Language) is an XML-based open standard used for exchanging authentication and authorization data
-between parties.  
-The SAML integration in Ory Network uses the B2B Organization feature.
+between parties. The SAML integration in Ory Network uses the B2B Organization feature.
 
-This guide will walk you through the steps required to set up SAML Single Sign-On (SSO) with Ory Network using BoxyHQ as your SAML
-provider.
+### SAML via Ory Network
 
-### Prerequisites
+This guide will walk you through the steps required to set up SAML Single Sign-On (SSO) with Ory Network.
+
+#### Prerequisites
+
+Before proceeding, ensure you are on a plan that supports SAML SSO. SAML is available exclusively on select Enterprise plans.
+[Contact us](https://www.ory.sh/contact/) if you need SAML support.
+
+```mdx-code-block
+<Tabs groupId="console-or-api">
+<TabItem value="console" label="Ory Console">
+```
+
+1. Go to <ConsoleLink route="project.authentication.organizations" /> to create an organization.
+2. Select "Add a new Enterprise SAML SSO connection" and follow the instructions to configure the SAML connection. Fill out the
+   following form fields:
+
+- **Label**: A descriptive name for the SAML connection. This will be displayed to users.
+- **Data mapping**: A mapping from the SAML attributes to Ory's identity schema.
+- **Raw IDP metadata XML**: The XML metadata file from your SAML Identity Provider (IdP).
+
+3. Navigate to your login screen to test the SAML connection.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="api" label="API">
+```
+
+#### Create an organization
+
+```shell
+curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "label":  "SAML organzation",
+           "domains": ["example.com"]
+         }'
+```
+
+#### Enable SAML authentication
+
+```shell
+curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '[
+           {
+             "op": "replace",
+             "path": "/services/identity/config/selfservice/methods/saml/enabled",
+             "value": true
+           }
+         ]' \
+   | jq ".project.services.identity.config.selfservice.methods.saml"
+```
+
+#### Create a SAML connection
+
+```shell
+curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '[
+           {
+             "op": "add",
+             "path": "/services/identity/config/selfservice/methods/saml/config/providers/-",
+             "value": {
+               "id": "some-provider-id",
+               "label": "My SAML provider",
+               "mapper_url": "base64://...",
+               "raw_idp_metadata_xml": "base64://...",
+               "organization_id": "$ORGANIZATION_ID"
+             }
+           }
+         ]' \
+   | jq ".project.services.identity.config.selfservice.methods.saml"
+```
+
+- **label**: A descriptive name for the SAML connection. This will be displayed to users.
+- **mapper_url**: A mapping from the SAML attributes to Ory's identity schema.
+- **raw_idp_metadata_xml**: The XML metadata file from your SAML Identity Provider (IdP).
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+The SAML application callback URL to set at our SAML Identity Provider is: `https://api.console.ory.sh/saml/api/oauth/saml`
+
+### SAML via BoxyHQ
+
+:::note
+
+Previously a third party integration provided SAML SSO in Ory Network. The third party BoxyHQ integration is still supported for
+backwards compatibility, but the native SAML support in Ory Network is recommended for new projects. Please contact us
+[Ory Support](mailto:support@ory.sh) for any questions.
+
+:::
+
+#### Prerequisites
 
 Before proceeding, ensure you have the following:
 
@@ -261,14 +358,7 @@ Before proceeding, ensure you have the following:
 - An active account with [BoxyHQ](https://app.eu.boxyhq.com/auth/join)
 - [Ory CLI](../../guides/cli/installation)
 
-:::note
-
-If you need help with the integration or have any questions, please open a [support ticket](https://console.ory.sh/support) or
-reach out to support@ory.sh.
-
-:::
-
-### Configuration
+#### Configuration
 
 To set up the integration, you'll need to get your Ory Network session token:
 
