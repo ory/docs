@@ -281,7 +281,7 @@ const config: Config = {
     "/docs/scripts/redirect.js",
     {
       src: "https://ory.sh/cmp/init.js",
-      // Can not yet be deferred as it is required for the ui to work
+      defer: true,
     },
     {
       src: "https://consent.ory.sh/index.js",
