@@ -1,7 +1,7 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Config } from "@docusaurus/types"
+import type {Config} from "@docusaurus/types"
 import type * as Preset from "@docusaurus/preset-classic"
 
 import lightTheme from "./src/utils/prismLight.mjs"
@@ -56,17 +56,17 @@ const config: Config = {
         {
           className: "theme-code-block-highlighted-line",
           line: "highlight-next-line",
-          block: { start: "highlight-start", end: "highlight-end" },
+          block: {start: "highlight-start", end: "highlight-end"},
         },
         {
           className: "code-block-delete-line",
           line: "delete-next-line",
-          block: { start: "delete-lines-start", end: "delete-lines-end" },
+          block: {start: "delete-lines-start", end: "delete-lines-end"},
         },
         {
           className: "code-block-add-line",
           line: "add-next-line",
-          block: { start: "add-lines-start", end: "add-lines-end" },
+          block: {start: "add-lines-start", end: "add-lines-end"},
         },
         {
           className: "copyright-2022-ory-corp",
@@ -276,6 +276,45 @@ const config: Config = {
     "@docusaurus/theme-search-algolia",
     "docusaurus-theme-redoc",
   ],
+  headTags: [
+    "InterVariable.woff2?v=4.0",
+    "Inter-Regular.woff2?v=4.0",
+    "Inter-Italic.woff2?v=4.0",
+    "Inter-Medium.woff2?v=4.0",
+    "Inter-MediumItalic.woff2?v=4.0",
+    "Inter-SemiBold.woff2?v=4.0",
+    "Inter-SemiBoldItalic.woff2?v=4.0",
+    "Inter-Bold.woff2?v=4.0",
+    "Inter-BoldItalic.woff2?v=4.0",
+    "Inter-ExtraBold.woff2?v=4.0",
+    "Inter-ExtraBoldItalic.woff2?v=4.0",
+    "Inter-Black.woff2?v=4.0",
+    "Inter-BlackItalic.woff2?v=4.0",
+    "JetBrainsMono-Bold.woff2",
+    "JetBrainsMono-BoldItalic.woff2",
+    "JetBrainsMono-ExtraBold.woff2",
+    "JetBrainsMono-ExtraBoldItalic.woff2",
+    "JetBrainsMono-ExtraLight.woff2",
+    "JetBrainsMono-ExtraLightItalic.woff2",
+    "JetBrainsMono-Italic.woff2",
+    "JetBrainsMono-Light.woff2",
+    "JetBrainsMono-LightItalic.woff2",
+    "JetBrainsMono-Medium.woff2",
+    "JetBrainsMono-MediumItalic.woff2",
+    "JetBrainsMono-Regular.woff2",
+    "JetBrainsMono-SemiBold.woff2",
+    "JetBrainsMono-SemiBoldItalic.woff2",
+    "JetBrainsMono-Thin.woff2",
+    "JetBrainsMono-ThinItalic.woff2"].map((font: string) => ({
+    tagName: "link",
+    attributes: {
+      rel: "preload",
+      type: "font/woff2",
+      as: "font",
+      crossOrigin: "anonymous",
+      href: `/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
+    },
+  })),
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
     "/docs/scripts/redirect.js",
