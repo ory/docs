@@ -5,6 +5,7 @@
   font-display: swap;
   src: url("/fonts/Inter/InterVariable.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: InterVariable;
   font-style: italic;
@@ -12,6 +13,7 @@
   font-display: swap;
   src: url("/fonts/Inter/InterVariable-Italic.woff2?v=4.0") format("woff2");
 }
+
 /* legacy name "Inter var" (Oct 2023) */
 @font-face {
   font-family: "Inter var";
@@ -20,6 +22,7 @@
   font-display: swap;
   src: url("/fonts/Inter/InterVariable.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: "Inter var";
   font-style: italic;
@@ -27,6 +30,7 @@
   font-display: swap;
   src: url("/fonts/Inter/InterVariable-Italic.woff2?v=4.0") format("woff2");
 }
+
 /* static fonts */
 @font-face {
   font-family: Inter;
@@ -35,6 +39,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-Thin.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: italic;
@@ -42,6 +47,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-ThinItalic.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: normal;
@@ -49,6 +55,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-ExtraLight.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: italic;
@@ -56,6 +63,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-ExtraLightItalic.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: normal;
@@ -63,6 +71,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-Light.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: italic;
@@ -70,6 +79,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-LightItalic.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: normal;
@@ -77,6 +87,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-Regular.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: italic;
@@ -84,6 +95,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-Italic.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: normal;
@@ -91,6 +103,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-Medium.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: italic;
@@ -98,6 +111,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-MediumItalic.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: normal;
@@ -105,6 +119,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-SemiBold.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: italic;
@@ -112,6 +127,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-SemiBoldItalic.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: normal;
@@ -119,6 +135,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-Bold.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: italic;
@@ -126,6 +143,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-BoldItalic.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: normal;
@@ -133,6 +151,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-ExtraBold.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: italic;
@@ -140,6 +159,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-ExtraBoldItalic.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: normal;
@@ -147,6 +167,7 @@
   font-display: swap;
   src: url("/fonts/Inter/Inter-Black.woff2?v=4.0") format("woff2");
 }
+
 @font-face {
   font-family: Inter;
   font-style: italic;
@@ -157,6 +178,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
@@ -164,6 +186,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-BoldItalic.woff2")
     format("woff2");
   font-weight: bold;
@@ -172,6 +195,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-ExtraBold.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
@@ -179,6 +203,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-ExtraBoldItalic.woff2")
     format("woff2");
   font-weight: 800;
@@ -187,6 +212,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-ExtraLight.woff2")
     format("woff2");
   font-weight: 200;
@@ -195,6 +221,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-ExtraLightItalic.woff2")
     format("woff2");
   font-weight: 200;
@@ -203,6 +230,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-Italic.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
@@ -210,6 +238,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
@@ -217,6 +246,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-LightItalic.woff2")
     format("woff2");
   font-weight: 300;
@@ -225,6 +255,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
@@ -232,6 +263,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-MediumItalic.woff2")
     format("woff2");
   font-weight: 500;
@@ -240,6 +272,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
@@ -247,6 +280,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
@@ -254,6 +288,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-SemiBoldItalic.woff2")
     format("woff2");
   font-weight: 600;
@@ -262,6 +297,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-Thin.woff2") format("woff2");
   font-weight: 100;
   font-style: normal;
@@ -269,6 +305,7 @@
 
 @font-face {
   font-family: "JetBrains Mono";
+  font-display: swap;
   src: url("/fonts/JetBrainsMono/JetBrainsMono-ThinItalic.woff2")
     format("woff2");
   font-weight: 100;

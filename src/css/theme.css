@@ -1,11 +1,14 @@
 @import url("./fonts.css");
 
 :root {
-  --ifm-font-family-base: "Inter", sans-serif;
-  --ifm-font-family-monospace: "JetBrains Mono", monospace;
+  --ifm-font-family-base-fallback: sans-serif;
+  --ifm-font-family-monospace-fallback: monospace;
+  --ifm-font-family-base: "InterVariable", var(--ifm-font-family-base-fallback);
+  --ifm-font-family-monospace: "JetBrains Mono",
+    var(--ifm-font-family-monospace-fallback);
   --ifm-color-primary: #312e81; /* Indigo 900 */
   --ifm-heading-color: #312e81; /* Indigo 900 - Color used for headings in text */
-  --ifm-heading-font-family: "Inter";
+  --ifm-heading-font-family: "InterVariable";
   --ifm-navbar-link-hover-color: #06b6d4; /* Cyan 500 */
   --ifm-menu-color-active: #06b6d4; /* Cyan 500 - Active text in sidebar */
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
@@ -16,8 +19,9 @@
 
 @supports (font-variation-settings: normal) {
   :root {
-    --ifm-font-family-base: InterVariable;
-    --ifm-heading-font-family: InterVariable;
+    --ifm-font-family-base: InterVariable, var(--ifm-font-family-base-fallback);
+    --ifm-heading-font-family: InterVariable,
+      var(--ifm-font-family-base-fallback);
   }
 }
 
