@@ -1,3 +1,5 @@
+@import url("./fonts.css");
+
 :root {
   --ifm-font-family-base-fallback: sans-serif;
   --ifm-font-family-monospace-fallback: monospace;
