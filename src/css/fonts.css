@@ -1,3 +1,8 @@
+/**
+ * fonts in this file are being loaded from the main website to improve
+ * caching.
+ */
+
 @font-face {
   font-family: InterVariable;
   font-style: normal;
@@ -31,7 +36,7 @@
   src: url("/fonts/Inter/InterVariable-Italic.woff2?v=4.0") format("woff2");
 }
 
-/* static fonts */
+/* static, legacy fonts */
 @font-face {
   font-family: Inter;
   font-style: normal;
