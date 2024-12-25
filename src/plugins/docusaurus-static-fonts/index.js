@@ -1,6 +1,3 @@
-const webpack = require("webpack")
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
-
 // eslint-disable-next-line
 module.exports = function (context, options) {
   return {
@@ -14,7 +11,7 @@ module.exports = function (context, options) {
               test: /\.(woff|woff2|eot|ttf|otf)$/,
               type: 'asset/resource',
               generator: {
-                filename: 'fonts/[name].[ext]',
+                filename: '[name].[ext]',
               },
             },
           ],
