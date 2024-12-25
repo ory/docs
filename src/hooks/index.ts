@@ -13,7 +13,7 @@ export function getSdkUrl() {
   const sdk = new ProjectApi(
     new Configuration({
       basePath: String(siteConfig.customFields.CLOUD_URL),
-     credentials: "include",
+      credentials: "include",
     }),
   )
   const { data: projectSlug } = useQuery("getSdkUrl", () =>
