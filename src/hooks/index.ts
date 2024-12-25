@@ -3,7 +3,7 @@
 
 import { useQuery } from "react-query"
 import { useEffect, useState } from "react"
-import { Configuration, ProjectApi } from "@ory/client"
+import { Configuration, ProjectApi } from "@ory/client-fetch"
 import { Octokit } from "@octokit/rest"
 import useDocusaurusContext from "@docusaurus/core/lib/client/exports/useDocusaurusContext"
 
@@ -13,15 +13,13 @@ export function getSdkUrl() {
   const sdk = new ProjectApi(
     new Configuration({
       basePath: String(siteConfig.customFields.CLOUD_URL),
-      baseOptions: {
-        withCredentials: true,
-      },
+     credentials: "include",
     }),
   )
   const { data: projectSlug } = useQuery("getSdkUrl", () =>
     sdk
       .listProjects()
-      .then(({ data: projects }) => {
+      .then((projects) => {
         if (projects.length === 0) {
           return
         }

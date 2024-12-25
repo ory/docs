@@ -40,7 +40,7 @@
     "@docusaurus/theme-classic": "3.6.3",
     "@docusaurus/theme-search-algolia": "3.6.3",
     "@octokit/rest": "20.0.2",
-    "@ory/client": "1.9.0",
+    "@ory/client-fetch": "1.15.16",
     "@rjsf/chakra-ui": "5.17.1",
     "@rjsf/core": "5.17.1",
     "@rjsf/validator-ajv8": "5.17.1",
