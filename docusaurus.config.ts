@@ -7,8 +7,6 @@ import type * as Preset from "@docusaurus/preset-classic"
 import lightTheme from "./src/utils/prismLight.mjs"
 import darkTheme from "./src/utils/prismDark.mjs"
 
-const enableUserCentrics = false
-
 const config: Config = {
   customFields: {
     CLOUD_URL: process.env.CLOUD_URL || "https://api.console.ory:8080",
@@ -239,6 +237,7 @@ const config: Config = {
     ],
     "@docusaurus/plugin-content-pages",
     require.resolve("./src/plugins/docusaurus-polyfill"),
+    require.resolve("./src/plugins/docusaurus-static-fonts"),
     "@docusaurus/plugin-sitemap",
     [
       "@docusaurus/plugin-client-redirects",
@@ -276,56 +275,28 @@ const config: Config = {
     "@docusaurus/theme-search-algolia",
     "docusaurus-theme-redoc",
   ],
-  headTags: [
-    "InterVariable.woff2?v=4.0",
-    "JetBrainsMono-Regular.woff2",
-    // "Inter-Regular.woff2?v=4.0",
-    // "Inter-Italic.woff2?v=4.0",
-    // "Inter-Medium.woff2?v=4.0",
-    // "Inter-MediumItalic.woff2?v=4.0",
-    // "Inter-SemiBold.woff2?v=4.0",
-    // "Inter-SemiBoldItalic.woff2?v=4.0",
-    // "Inter-Bold.woff2?v=4.0",
-    // "Inter-BoldItalic.woff2?v=4.0",
-    // "Inter-ExtraBold.woff2?v=4.0",
-    // "Inter-ExtraBoldItalic.woff2?v=4.0",
-    // "Inter-Black.woff2?v=4.0",
-    // "Inter-BlackItalic.woff2?v=4.0",
-    // "JetBrainsMono-Bold.woff2",
-    // "JetBrainsMono-BoldItalic.woff2",
-    // "JetBrainsMono-ExtraBold.woff2",
-    // "JetBrainsMono-ExtraBoldItalic.woff2",
-    // "JetBrainsMono-ExtraLight.woff2",
-    // "JetBrainsMono-ExtraLightItalic.woff2",
-    // "JetBrainsMono-Italic.woff2",
-    // "JetBrainsMono-Light.woff2",
-    // "JetBrainsMono-LightItalic.woff2",
-    // "JetBrainsMono-Medium.woff2",
-    // "JetBrainsMono-MediumItalic.woff2",
-    // "JetBrainsMono-SemiBold.woff2",
-    // "JetBrainsMono-SemiBoldItalic.woff2",
-    // "JetBrainsMono-Thin.woff2",
-    // "JetBrainsMono-ThinItalic.woff2"
-  ].map((font: string) => ({
-    tagName: "link",
-    attributes: {
-      rel: "preload",
-      type: "font/woff2",
-      as: "font",
-      crossOrigin: "anonymous",
-      href: `/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
-    },
-  })),
+  headTags: ["InterVariable.woff2?v=4.0", "JetBrainsMono-Regular.woff2"].map(
+    (font: string) => ({
+      tagName: "link",
+      attributes: {
+        rel: "preload",
+        type: "font/woff2",
+        as: "font",
+        crossOrigin: "anonymous",
+        href: `/docs/assets/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
+      },
+    }),
+  ),
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
     "/docs/scripts/redirect.js",
     {
       src: "https://ory.sh/cmp/init.js",
-      defer: true,
+      async: true,
     },
     {
       src: "https://consent.ory.sh/index.js",
-      defer: true,
+      async: true,
     },
     {
       src: "https://widget.kapa.ai/kapa-widget.bundle.js",
@@ -334,13 +305,13 @@ const config: Config = {
       "data-project-color": "#1A237E",
       "data-modal-disclaimer":
         "By utilizing this chatbot, you consent to the collection and transmission of data to kapa.ai, which may include your IP address. Please be advised that your privacy and data protection are of utmost importance to us. We assure you that any data collected will be handled in compliance with applicable laws and regulations. For further details on how your data is processed and used, we encourage you to review our Privacy Policy. If you do not agree with these terms, we kindly request that you refrain from using this chatbot.",
-      "data-modal-title": "Ory Copilot",
-      "data-button-text": "Help?",
-      "data-project-logo":
-        "https://assets.website-files.com/627ba6588811eca90ffd6f2a/6282a6b11450b482db646ed2_hydra.png",
+      "data-modal-title": "Ory AI Copilot",
+      "data-button-text": "Ask AI",
+      "data-project-logo": "/docs/img/kapa-logo.png",
       defer: true,
     },
   ],
+  stylesheets: ["src/css/fonts.css"],
 }
 
 module.exports = config
