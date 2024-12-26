@@ -1,7 +1,7 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Config } from "@docusaurus/types"
+import type {Config} from "@docusaurus/types"
 import type * as Preset from "@docusaurus/preset-classic"
 
 import lightTheme from "./src/utils/prismLight.mjs"
@@ -54,17 +54,17 @@ const config: Config = {
         {
           className: "theme-code-block-highlighted-line",
           line: "highlight-next-line",
-          block: { start: "highlight-start", end: "highlight-end" },
+          block: {start: "highlight-start", end: "highlight-end"},
         },
         {
           className: "code-block-delete-line",
           line: "delete-next-line",
-          block: { start: "delete-lines-start", end: "delete-lines-end" },
+          block: {start: "delete-lines-start", end: "delete-lines-end"},
         },
         {
           className: "code-block-add-line",
           line: "add-next-line",
-          block: { start: "add-lines-start", end: "add-lines-end" },
+          block: {start: "add-lines-start", end: "add-lines-end"},
         },
         {
           className: "copyright-2022-ory-corp",
@@ -236,7 +236,7 @@ const config: Config = {
       },
     ],
     "@docusaurus/plugin-content-pages",
-    require.resolve("./src/plugins/docusaurus-polyfill"),
+     require.resolve("./src/plugins/docusaurus-polyfill"),
     // require.resolve("./src/plugins/docusaurus-static-fonts"),
     "@docusaurus/plugin-sitemap",
     [
@@ -275,18 +275,36 @@ const config: Config = {
     "@docusaurus/theme-search-algolia",
     "docusaurus-theme-redoc",
   ],
-  headTags: ["InterVariable.woff2?v=4.0", "JetBrainsMono-Regular.woff2"].map(
-    (font: string) => ({
+  headTags: [
+    // add css to the head
+    {
       tagName: "link",
       attributes: {
-        rel: "preload",
-        type: "font/woff2",
-        as: "font",
-        crossOrigin: "anonymous",
-        href: `/docs/assets/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
+        rel: "stylesheet",
+        type: "text/css",
+        href: "/docs/fonts/fonts.css",
       },
-    }),
-  ),
+    },
+    {
+      tagName: "script",
+      attributes: {
+        type: "text/javascript",
+        src: "/docs/scripts/kapa.js",
+        defer: "true"
+      },
+    },
+    ...["InterVariable.woff2?v=4.0", "JetBrainsMono-Regular.woff2"].map(
+      (font: string) => ({
+        tagName: "link",
+        attributes: {
+          rel: "preload",
+          type: "font/woff2",
+          as: "font",
+          crossOrigin: "anonymous",
+          href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
+        },
+      }))
+  ],
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
     "/docs/scripts/redirect.js",
@@ -298,18 +316,18 @@ const config: Config = {
       src: "https://consent.ory.sh/index.js",
       async: true,
     },
-    {
-      src: "https://widget.kapa.ai/kapa-widget.bundle.js",
-      "data-website-id": "e89e7663-df2c-4c7f-974a-1bf8accdd615",
-      "data-project-name": "Ory",
-      "data-project-color": "#1A237E",
-      "data-modal-disclaimer":
-        "By utilizing this chatbot, you consent to the collection and transmission of data to kapa.ai, which may include your IP address. Please be advised that your privacy and data protection are of utmost importance to us. We assure you that any data collected will be handled in compliance with applicable laws and regulations. For further details on how your data is processed and used, we encourage you to review our Privacy Policy. If you do not agree with these terms, we kindly request that you refrain from using this chatbot.",
-      "data-modal-title": "Ory AI Copilot",
-      "data-button-text": "Ask AI",
-      "data-project-logo": "/docs/img/kapa-logo.png",
-      defer: true,
-    },
+    // {
+    //   src: "https://widget.kapa.ai/kapa-widget.bundle.js",
+    //   "data-website-id": "e89e7663-df2c-4c7f-974a-1bf8accdd615",
+    //   "data-project-name": "Ory",
+    //   "data-project-color": "#1A237E",
+    //   "data-modal-disclaimer":
+    //     "By utilizing this chatbot, you consent to the collection and transmission of data to kapa.ai, which may include your IP address. Please be advised that your privacy and data protection are of utmost importance to us. We assure you that any data collected will be handled in compliance with applicable laws and regulations. For further details on how your data is processed and used, we encourage you to review our Privacy Policy. If you do not agree with these terms, we kindly request that you refrain from using this chatbot.",
+    //   "data-modal-title": "Ory AI Copilot",
+    //   "data-button-text": "Ask AI",
+    //   "data-project-logo": "/docs/img/kapa-logo.png",
+    //   defer: true,
+    // },
   ],
   stylesheets: ["src/css/fonts.css"],
 }
