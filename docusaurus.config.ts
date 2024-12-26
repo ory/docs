@@ -330,7 +330,6 @@ const config: Config = {
     //   defer: true,
     // },
   ],
-  stylesheets: ["src/css/fonts.css"],
 }
 
 module.exports = config

@@ -11,4 +11,7 @@ script.setAttribute("data-modal-title", "Ory AI Copilot")
 script.setAttribute("data-button-text", "Ask AI")
 script.setAttribute("data-project-logo", "/docs/img/kapa-logo.png")
 script.defer = true
-setTimeout(() => document.head.appendChild(script), 1000)
+
+addEventListener("DOMContentLoaded", (event) => {
+  setTimeout(() => document.head.appendChild(script), 500)
+})
