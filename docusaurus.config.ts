@@ -1,7 +1,7 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import type {Config} from "@docusaurus/types"
+import type { Config } from "@docusaurus/types"
 import type * as Preset from "@docusaurus/preset-classic"
 
 import lightTheme from "./src/utils/prismLight.mjs"
@@ -54,17 +54,17 @@ const config: Config = {
         {
           className: "theme-code-block-highlighted-line",
           line: "highlight-next-line",
-          block: {start: "highlight-start", end: "highlight-end"},
+          block: { start: "highlight-start", end: "highlight-end" },
         },
         {
           className: "code-block-delete-line",
           line: "delete-next-line",
-          block: {start: "delete-lines-start", end: "delete-lines-end"},
+          block: { start: "delete-lines-start", end: "delete-lines-end" },
         },
         {
           className: "code-block-add-line",
           line: "add-next-line",
-          block: {start: "add-lines-start", end: "add-lines-end"},
+          block: { start: "add-lines-start", end: "add-lines-end" },
         },
         {
           className: "copyright-2022-ory-corp",
@@ -236,7 +236,7 @@ const config: Config = {
       },
     ],
     "@docusaurus/plugin-content-pages",
-     require.resolve("./src/plugins/docusaurus-polyfill"),
+    require.resolve("./src/plugins/docusaurus-polyfill"),
     // require.resolve("./src/plugins/docusaurus-static-fonts"),
     "@docusaurus/plugin-sitemap",
     [
@@ -290,7 +290,7 @@ const config: Config = {
       attributes: {
         type: "text/javascript",
         src: "/docs/scripts/kapa.js",
-        defer: "true"
+        defer: "true",
       },
     },
     ...["InterVariable.woff2?v=4.0", "JetBrainsMono-Regular.woff2"].map(
@@ -303,7 +303,8 @@ const config: Config = {
           crossOrigin: "anonymous",
           href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
         },
-      }))
+      }),
+    ),
   ],
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
