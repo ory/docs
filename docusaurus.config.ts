@@ -237,7 +237,7 @@ const config: Config = {
     ],
     "@docusaurus/plugin-content-pages",
     require.resolve("./src/plugins/docusaurus-polyfill"),
-    require.resolve("./src/plugins/docusaurus-static-fonts"),
+    // require.resolve("./src/plugins/docusaurus-static-fonts"),
     "@docusaurus/plugin-sitemap",
     [
       "@docusaurus/plugin-client-redirects",
@@ -275,18 +275,29 @@ const config: Config = {
     "@docusaurus/theme-search-algolia",
     "docusaurus-theme-redoc",
   ],
-  headTags: ["InterVariable.woff2?v=4.0", "JetBrainsMono-Regular.woff2"].map(
-    (font: string) => ({
+  headTags: [
+    // add css to the head
+    {
       tagName: "link",
       attributes: {
-        rel: "preload",
-        type: "font/woff2",
-        as: "font",
-        crossOrigin: "anonymous",
-        href: `/docs/assets/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
+        rel: "stylesheet",
+        type: "text/css",
+        href: "/docs/fonts/fonts.css",
       },
-    }),
-  ),
+    },
+    ...["InterVariable.woff2?v=4.0", "JetBrainsMono-Regular.woff2"].map(
+      (font: string) => ({
+        tagName: "link",
+        attributes: {
+          rel: "preload",
+          type: "font/woff2",
+          as: "font",
+          crossOrigin: "anonymous",
+          href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
+        },
+      }),
+    ),
+  ],
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
     "/docs/scripts/redirect.js",
@@ -308,10 +319,9 @@ const config: Config = {
       "data-modal-title": "Ory AI Copilot",
       "data-button-text": "Ask AI",
       "data-project-logo": "/docs/img/kapa-logo.png",
-      defer: true,
+      async: true,
     },
   ],
-  stylesheets: ["src/css/fonts.css"],
 }
 
 module.exports = config
