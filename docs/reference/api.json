@@ -1004,6 +1004,17 @@
             "description": "Configures whether Ory Kratos Profile Method is enabled\n\nThis governs the \"selfservice.methods.profile.enabled\" setting.",
             "type": "boolean"
           },
+          "kratos_selfservice_methods_saml_config_base_redirect_uri": {
+            "description": "Configures the Ory Kratos SAML base redirect URI\n\nThis governs the \"selfservice.methods.saml.config.base_redirect_uri\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_saml_config_providers": {
+            "$ref": "#/components/schemas/projectRevisionSamlProviders"
+          },
+          "kratos_selfservice_methods_saml_enabled": {
+            "description": "Configures whether Ory Kratos SAML Login is enabled\n\nThis governs the \"selfservice.methods.saml.enabled\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_totp_config_issuer": {
             "description": "Configures Ory Kratos TOTP Issuer\n\nThis governs the \"selfservice.methods.totp.config.issuer\" setting.",
             "type": "string"
@@ -3383,7 +3394,7 @@
             "type": "array"
           },
           "type": {
-            "description": "Type discriminates between different types of credentials.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "Type discriminates between different types of credentials.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "enum": [
               "password",
               "oidc",
@@ -3393,11 +3404,12 @@
               "code",
               "passkey",
               "profile",
+              "saml",
               "link_recovery",
               "code_recovery"
             ],
             "type": "string",
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "updated_at": {
             "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
@@ -4055,7 +4067,7 @@
         "description": "This object represents a login flow. A login flow is initiated at the \"Initiate Login API / Browser Flow\"\nendpoint by a client.\n\nOnce a login flow is completed successfully, a session cookie or session token will be issued.",
         "properties": {
           "active": {
-            "description": "The active login method\n\nIf set contains the login method used. If the flow is new, it is unset.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "The active login method\n\nIf set contains the login method used. If the flow is new, it is unset.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "enum": [
               "password",
               "oidc",
@@ -4065,11 +4077,12 @@
               "code",
               "passkey",
               "profile",
+              "saml",
               "link_recovery",
               "code_recovery"
             ],
             "type": "string",
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "created_at": {
             "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
@@ -5317,6 +5330,17 @@
             "description": "Configures whether Ory Kratos Profile Method is enabled\n\nThis governs the \"selfservice.methods.profile.enabled\" setting.",
             "type": "boolean"
           },
+          "kratos_selfservice_methods_saml_config_base_redirect_uri": {
+            "description": "Configures the Ory Kratos SAML base redirect URI\n\nThis governs the \"selfservice.methods.saml.config.base_redirect_uri\" setting.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_saml_config_providers": {
+            "$ref": "#/components/schemas/projectRevisionSamlProviders"
+          },
+          "kratos_selfservice_methods_saml_enabled": {
+            "description": "Configures whether Ory Kratos SAML Login is enabled\n\nThis governs the \"selfservice.methods.saml.enabled\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_totp_config_issuer": {
             "description": "Configures Ory Kratos TOTP Issuer\n\nThis governs the \"selfservice.methods.totp.config.issuer\" setting.",
             "type": "string"
@@ -5552,6 +5576,64 @@
           "$ref": "#/components/schemas/normalizedProjectRevisionIdentitySchema"
         },
         "type": "array"
+      },
+      "normalizedProjectRevisionSAMLProvider": {
+        "properties": {
+          "client_id": {
+            "description": "ClientID is the application's Client ID.",
+            "type": "string"
+          },
+          "client_secret": {
+            "$ref": "#/components/schemas/String"
+          },
+          "created_at": {
+            "description": "The Project's Revision Creation Date",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "label": {
+            "description": "Label represents an optional label which can be used in the UI generation.",
+            "type": "string"
+          },
+          "mapper_url": {
+            "description": "Mapper specifies the JSONNet code snippet which uses the OpenID Connect Provider's data (e.g. GitHub or Google\nprofile information) to hydrate the identity's data.",
+            "type": "string"
+          },
+          "organization_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
+          "project_revision_id": {
+            "description": "The Revision's ID this schema belongs to",
+            "format": "uuid",
+            "type": "string"
+          },
+          "provider_id": {
+            "description": "ID is the provider's ID",
+            "type": "string"
+          },
+          "raw_idp_metadata_xml": {
+            "description": "RawIDPMetadataXML is the raw XML metadata of the IDP.",
+            "type": "string"
+          },
+          "state": {
+            "description": "State indicates the state of the provider\n\nOnly providers with state `enabled` will be used for authentication\nenabled ThirdPartyProviderStateEnabled\ndisabled ThirdPartyProviderStateDisabled",
+            "enum": ["enabled", "disabled"],
+            "type": "string",
+            "x-go-enum-desc": "enabled ThirdPartyProviderStateEnabled\ndisabled ThirdPartyProviderStateDisabled"
+          },
+          "updated_at": {
+            "description": "Last Time Project's Revision was Updated",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "normalizedProjectRevisionThirdPartyProvider": {
         "properties": {
@@ -7325,6 +7407,12 @@
         },
         "type": "array"
       },
+      "projectRevisionSamlProviders": {
+        "items": {
+          "$ref": "#/components/schemas/normalizedProjectRevisionSAMLProvider"
+        },
+        "type": "array"
+      },
       "projectRevisionThirdPartyLoginProviders": {
         "items": {
           "$ref": "#/components/schemas/normalizedProjectRevisionThirdPartyProvider"
@@ -7388,7 +7476,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery",
+            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery",
             "enum": [
               "production_projects",
               "staging_projects",
@@ -7415,6 +7503,8 @@
               "m2m_token_issuance",
               "permission_checks",
               "captcha",
+              "saml_sp",
+              "saml_idp",
               "data_location_regional",
               "rate_limit_tier",
               "session_rate_limit_tier",
@@ -7424,7 +7514,7 @@
               "create_recovery_admin_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery"
+            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery"
           },
           "feature_available": {
             "type": "boolean"
@@ -7587,7 +7677,7 @@
       "registrationFlow": {
         "properties": {
           "active": {
-            "description": "Active, if set, contains the registration method that is being used. It is initially\nnot set.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "Active, if set, contains the registration method that is being used. It is initially\nnot set.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "enum": [
               "password",
               "oidc",
@@ -7597,11 +7687,12 @@
               "code",
               "passkey",
               "profile",
+              "saml",
               "link_recovery",
               "code_recovery"
             ],
             "type": "string",
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "expires_at": {
             "description": "ExpiresAt is the time (UTC) when the flow expires. If the user still wishes to log in,\na new flow has to be initiated.",
@@ -10685,7 +10776,7 @@
             "x-go-enum-desc": " ConsistencyLevelUnset  ConsistencyLevelUnset is the unset / default consistency level.\nstrong ConsistencyLevelStrong  ConsistencyLevelStrong is the strong consistency level.\neventual ConsistencyLevelEventual  ConsistencyLevelEventual is the eventual consistency level using follower read timestamps."
           },
           {
-            "description": "List of ids used to filter identities.\nIf this list is empty, then no filter will be applied.",
+            "description": "Retrieve multiple identities by their IDs.\n\nThis parameter has the following limitations:\n\nDuplicate or non-existent IDs are ignored.\nThe order of returned IDs may be different from the request.\nThis filter does not support pagination. You must implement your own pagination as the maximum number of items returned by this endpoint may not exceed a certain threshold (currently 500).",
             "in": "query",
             "name": "ids",
             "schema": {
@@ -10723,7 +10814,7 @@
             }
           },
           {
-            "description": "OrganizationID is the organization id to filter identities by.\n\nIf `ids` is set, this parameter is ignored.",
+            "description": "List identities that belong to a specific organization.",
             "in": "query",
             "name": "organization_id",
             "schema": {
@@ -10957,6 +11048,7 @@
                   "code",
                   "passkey",
                   "profile",
+                  "saml",
                   "link_recovery",
                   "code_recovery"
                 ],
@@ -11190,7 +11282,7 @@
             }
           },
           {
-            "description": "Type is the type of credentials to delete.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "Type is the type of credentials to delete.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "in": "path",
             "name": "type",
             "required": true,
@@ -11204,12 +11296,13 @@
                 "code",
                 "passkey",
                 "profile",
+                "saml",
                 "link_recovery",
                 "code_recovery"
               ],
               "type": "string"
             },
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           {
             "description": "Identifier is the identifier of the OIDC credential to delete.\nFind the identifier by calling the `GET /admin/identities/{id}?include_credential=oidc` endpoint.",
