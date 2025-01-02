@@ -508,3 +508,50 @@ Since metadata is not validated by Ory Identities, missing entries or unexpected
 process. If the system encounters errors in the rendering process, Ory Identities uses the default templates.
 
 :::
+
+### Transient payload in templates
+
+The transient payload allows you to pass additional data along with certain self-service flows. Transient payloads can be used for
+passing temporary information to your email template without storing it permanently.
+
+The following `example_key` transient payload
+
+```
+...
+    traits: {
+      email: "user@example.com",
+    },
+    transient_payload: {
+      example_key: "This is an example value"
+    },
+...
+```
+
+can be accessed in the email template using `{{index .TransientPayload "example_key"}}`
+
+```gotmpl
+
+<h1>Recovery Details</h1>
+<p>To: {{.To}}</p>
+<p>Recovery URL: {{.RecoveryURL}}</p>
+<p>Transient Payload: {{index .TransientPayload "example_key"}}</p>
+<p>
+  {{- if eq (index .TransientPayload "lang") "foo" -}}
+  FOO
+  {{- else -}}
+  BAR
+  {{- end -}}
+</p>
+```
+
+This results into the following email to be sent to the user.
+
+```gotmpl
+<h1>Recovery Details</h1>
+<p>To: user@example.com</p>
+<p>Recovery URL: https://example.com/recover</p>
+<p>Transient Payload: This is an example value</p>
+<p>
+  BAR
+</p>
+```
