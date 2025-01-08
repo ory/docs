@@ -1,0 +1,117 @@
+[
+    {
+        "fontFamily": "InterVariable, sans-serif",
+        "fontWeight": "400",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "InterVariable, sans-serif",
+        "fontWeight": "500",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "Arial",
+        "fontWeight": "500",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "\"JetBrains Mono\", monospace",
+        "fontWeight": "400",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "InterVariable, sans-serif",
+        "fontWeight": "700",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "Verdana, sans-serif",
+        "fontWeight": "700",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "Arial",
+        "fontWeight": "400",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "Arial",
+        "fontWeight": "700",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "InterVariable, sans-serif",
+        "fontWeight": "400",
+        "fontStyle": "italic"
+    },
+    {
+        "fontFamily": "InterVariable, sans-serif",
+        "fontWeight": "700",
+        "fontStyle": "italic"
+    },
+    {
+        "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+        "fontWeight": "600",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "InterVariable, sans-serif",
+        "fontWeight": "400",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "InterVariable, sans-serif",
+        "fontWeight": "500",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "Arial",
+        "fontWeight": "500",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "\"JetBrains Mono\", monospace",
+        "fontWeight": "400",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "InterVariable, sans-serif",
+        "fontWeight": "700",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "Times",
+        "fontWeight": "400",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "\"trebuchet ms\", verdana, arial, sans-serif",
+        "fontWeight": "400",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "\"JetBrains Mono\", monospace",
+        "fontWeight": "400",
+        "fontStyle": "italic"
+    },
+    {
+        "fontFamily": "InterVariable, sans-serif",
+        "fontWeight": "400",
+        "fontStyle": "italic"
+    },
+    {
+        "fontFamily": "InterVariable, sans-serif",
+        "fontWeight": "700",
+        "fontStyle": "italic"
+    },
+    {
+        "fontFamily": "InterVariable, sans-serif",
+        "fontWeight": "600",
+        "fontStyle": "normal"
+    },
+    {
+        "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+        "fontWeight": "600",
+        "fontStyle": "normal"
+    }
+]

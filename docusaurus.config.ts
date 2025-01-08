@@ -1,7 +1,7 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Config } from "@docusaurus/types"
+import type {Config} from "@docusaurus/types"
 import type * as Preset from "@docusaurus/preset-classic"
 
 import lightTheme from "./src/utils/prismLight.mjs"
@@ -54,17 +54,17 @@ const config: Config = {
         {
           className: "theme-code-block-highlighted-line",
           line: "highlight-next-line",
-          block: { start: "highlight-start", end: "highlight-end" },
+          block: {start: "highlight-start", end: "highlight-end"},
         },
         {
           className: "code-block-delete-line",
           line: "delete-next-line",
-          block: { start: "delete-lines-start", end: "delete-lines-end" },
+          block: {start: "delete-lines-start", end: "delete-lines-end"},
         },
         {
           className: "code-block-add-line",
           line: "add-next-line",
-          block: { start: "add-lines-start", end: "add-lines-end" },
+          block: {start: "add-lines-start", end: "add-lines-end"},
         },
         {
           className: "copyright-2022-ory-corp",
@@ -285,7 +285,15 @@ const config: Config = {
         href: "/docs/fonts/fonts.css",
       },
     },
-    ...["InterVariable.woff2?v=4.0", "JetBrainsMono-Regular.woff2"].map(
+    ...[
+      "Inter-Regular.woff2?v=4.0",
+      "Inter-Medium.woff2?v=4.0",
+      "JetBrainsMono-Regular.woff2",
+      "Inter-Bold.woff2?v=4.0",
+      "Inter-BoldItalic.woff2?v=4.0",
+      "JetBrainsMono-Italic.woff2",
+      "Inter-SemiBold.woff2?v=4.0",
+    ].map(
       (font: string) => ({
         tagName: "link",
         attributes: {
