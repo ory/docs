@@ -319,6 +319,7 @@ const config: Config = {
       "data-modal-title": "Ory AI Copilot",
       "data-button-text": "Ask AI",
       "data-project-logo": "/docs/img/kapa-logo.png",
+      "data-consent-required": "true",
       async: true,
     },
   ],
