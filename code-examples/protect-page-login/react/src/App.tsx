@@ -13,6 +13,11 @@ const ory = new FrontendApi(
     basePath,
     baseOptions: {
       withCredentials: true,
+      headers: {
+        // Only needed to pass the documentation CI. You do not need this line in your code:
+        [process.env.ORY_CI_RATE_LIMIT_HEADER || ""]:
+          process.env.ORY_CI_RATE_LIMIT_HEADER_VALUE,
+      },
     },
   }),
 )

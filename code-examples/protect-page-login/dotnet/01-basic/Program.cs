@@ -17,11 +17,21 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
+// The following code is only needed to pass the Ory docs CI. You don't need it.
+var handler = new HttpClientHandler();
+var httpClient = new HttpClient(handler);
+httpClient.DefaultRequestHeaders.Add(
+	builder.Configuration.GetValue<string>("ORY_CI_RATE_LIMIT_HEADER") ?? "",
+	builder.Configuration.GetValue<string>("ORY_CI_RATE_LIMIT_HEADER_VALUE") ?? ""
+);
+// End of Ory docs CI code.
+
 // create a new Ory Client with the BasePath set to the Ory Tunnel enpoint
 var oryBasePath = builder.Configuration.GetValue<string>("ORY_BASEPATH") ?? "http://localhost:4000";
 var ory = new FrontendApi(new Configuration
 {
-	BasePath = oryBasePath
+	BasePath = oryBasePath,
+	HttpClient = httpClient // You don't need this line in your code. It is only needed to pass the Ory docs CI.
 });
 
 // add session middleware
