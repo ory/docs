@@ -18,8 +18,7 @@
 @supports (font-variation-settings: normal) {
   :root {
     --ifm-font-family-base: Inter, var(--ifm-font-family-base-fallback);
-    --ifm-heading-font-family: Inter,
-      var(--ifm-font-family-base-fallback);
+    --ifm-heading-font-family: Inter, var(--ifm-font-family-base-fallback);
   }
 }
 

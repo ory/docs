@@ -1,7 +1,7 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import type {Config} from "@docusaurus/types"
+import type { Config } from "@docusaurus/types"
 import type * as Preset from "@docusaurus/preset-classic"
 
 import lightTheme from "./src/utils/prismLight.mjs"
@@ -54,17 +54,17 @@ const config: Config = {
         {
           className: "theme-code-block-highlighted-line",
           line: "highlight-next-line",
-          block: {start: "highlight-start", end: "highlight-end"},
+          block: { start: "highlight-start", end: "highlight-end" },
         },
         {
           className: "code-block-delete-line",
           line: "delete-next-line",
-          block: {start: "delete-lines-start", end: "delete-lines-end"},
+          block: { start: "delete-lines-start", end: "delete-lines-end" },
         },
         {
           className: "code-block-add-line",
           line: "add-next-line",
-          block: {start: "add-lines-start", end: "add-lines-end"},
+          block: { start: "add-lines-start", end: "add-lines-end" },
         },
         {
           className: "copyright-2022-ory-corp",
@@ -293,18 +293,16 @@ const config: Config = {
       "Inter-BoldItalic.woff2?v=4.0",
       "JetBrainsMono-Italic.woff2",
       "Inter-SemiBold.woff2?v=4.0",
-    ].map(
-      (font: string) => ({
-        tagName: "link",
-        attributes: {
-          rel: "preload",
-          type: "font/woff2",
-          as: "font",
-          crossOrigin: "anonymous",
-          href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
-        },
-      }),
-    ),
+    ].map((font: string) => ({
+      tagName: "link",
+      attributes: {
+        rel: "preload",
+        type: "font/woff2",
+        as: "font",
+        crossOrigin: "anonymous",
+        href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
+      },
+    })),
   ],
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
