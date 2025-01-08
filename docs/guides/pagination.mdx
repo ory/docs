@@ -30,10 +30,9 @@ better performance and consistency compared to traditional offset-based paginati
 
 ![Token pagination illustration](./_static/pagination/token-pagination.png)
 
-### Default behavior and parameters
+### Pagination parameters
 
-By default, Ory paginates list data with a page size of 250 items per page. However, you can customize this behavior using two key
-parameters:
+Ory uses two parameters to paginate through data:
 
 1. `page_size`: Determines the number of items returned per page.
 2. `page_token`: Acts as a pointer to a specific page in the dataset.
@@ -81,6 +80,8 @@ Imagine you have 300 customers in your Ory project, and you want to list them 10
 - Always use the tokens provided in the `link` header for navigation. Do not attempt to generate or modify these tokens yourself.
 - If you need to start from the beginning, use the `first` link or omit the `page_token` parameter.
 - Keep track of the previous/current `next` token to allow for backward pagination through your results.
+- Be prepared for the maximum `page_size` to change. Your implementation should handle such changes gracefully.
+- Do not attempt to reverse engineer or make assumptions about the `page_token` format, as it may change without notice. Always treat it as an opaque string.
 
 By leveraging token-based pagination, you can efficiently navigate through large datasets in Ory, ensuring consistent and
 performant data retrieval.
