@@ -172,7 +172,7 @@ Key points:
 For more information, refer to the
 [IdentityApi list documentation](https://github.com/ory/sdk/blob/master/clients/client/ruby/docs/IdentityApi.md#list_identities).
 
-## Offset Pagination (Deprecated)
+## Offset pagination (Deprecated)
 
 :::caution
 
@@ -183,14 +183,14 @@ Offset pagination is deprecated. It is strongly recommended to use Token paginat
 While not recommended for new implementations, Ory still supports offset-based pagination for backwards compatibility. This method
 allows you to paginate through data using an offset and a page size.
 
-### How It Works
+### How it works
 
 Offset pagination uses two query parameters:
 
 1. `per_page`: The number of items you want for each page.
 2. `page`: The page number you want to retrieve (starts at 0).
 
-### Example Usage
+### Example usage
 
 Let's consider a scenario where you have 300 customers and you want to retrieve customers 101 to 200:
 
@@ -204,12 +204,12 @@ In this example:
 - `per_page` is set to 100, indicating you want 100 items per page.
 - `page` is set to 2, which will return items 201-300.
 
-### Migrating to Token Pagination
+### Migrating to token pagination
 
 If you're currently using offset pagination, it's highly recommended to transition to token-based pagination. Refer to the
 [Token Pagination section](#token-pagination) for implementation details and best practices.
 
-## Handling Pagination Errors
+## Handling pagination errors
 
 Ory typically returns a 400 Bad Request error for pagination-related issues. Here's an example of an error response when supplying
 an invalid token:
