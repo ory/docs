@@ -11,8 +11,8 @@ import { edgeConfig } from "@ory/integrations/next"
 const ory = new FrontendApi(new Configuration(edgeConfig))
 
 // Returns either the email or the username depending on the user's Identity Schema
-const getUserName = (identity: Identity) =>
-  identity.traits.email || identity.traits.username
+const getUserName = (identity: Identity | undefined) =>
+  identity?.traits.email || identity?.traits.username || 'user'
 // highlight-end
 
 const Home = () => {
@@ -60,7 +60,7 @@ const Home = () => {
             Next.js,{" "}
             {
               // highlight-next-line
-              getUserName(session?.identity)
+              getUserName(session.identity)
             }
             !
           </a>
