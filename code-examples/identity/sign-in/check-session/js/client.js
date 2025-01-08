@@ -1,7 +1,7 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-const { FrontendApi, Configuration } = require("@ory/client")
+const { FrontendApi, Configuration } = require("@ory/client-fetch")
 
 const ory = new FrontendApi(
   new Configuration({
