@@ -3,7 +3,7 @@
 set -euxo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 
-export ORY_SDK_URL=https://playground.projects.oryapis.com
+export ORY_SDK_URL=https://funny-kepler-o0v6t1yox6.projects.staging.oryapis.dev
 
 # ensure ports are free
 npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,3009,4002,4003,4004,4005,4006,4007,4008,4009
