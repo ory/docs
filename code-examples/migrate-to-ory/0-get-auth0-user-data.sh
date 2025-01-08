@@ -36,7 +36,7 @@ poll_job_status() {
     state=$(echo $jobstatus | jq -r ".status")
     echo "jobstate: ${state}"
 
-    if [[ $state == "pending" ]]; then
+    if [[ $state == "pending" ]] || [[ $state == "processing" ]]; then
         echo "${jobstatus}" | jq ".time_left_seconds" | read timeleft
         if [ -z $timeleft]; then
             sleep 1
