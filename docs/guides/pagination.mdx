@@ -81,7 +81,8 @@ Imagine you have 300 customers in your Ory project, and you want to list them 10
 - If you need to start from the beginning, use the `first` link or omit the `page_token` parameter.
 - Keep track of the previous/current `next` token to allow for backward pagination through your results.
 - Be prepared for the maximum `page_size` to change. Your implementation should handle such changes gracefully.
-- Do not attempt to reverse engineer or make assumptions about the `page_token` format, as it may change without notice. Always treat it as an opaque string.
+- Do not attempt to reverse engineer or make assumptions about the `page_token` format, as it may change without notice. Always
+  treat it as an opaque string.
 
 By leveraging token-based pagination, you can efficiently navigate through large datasets in Ory, ensuring consistent and
 performant data retrieval.
