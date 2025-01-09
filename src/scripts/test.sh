@@ -32,28 +32,28 @@ cd code-examples/protect-page-login/nextjs && \
 ## app runs on 4002
 cd code-examples/protect-page-login/expressjs && \
   PORT=4002 npm run start &
-ory proxy --no-jwt --port 3002 http://localhost:4002/ -q -y > /dev/null 2>&1 &
+ory proxy --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3002 http://localhost:4002/ -q -y > /dev/null 2>&1 &
 
 ## Go server example ##
 ## proxy runs on 3003
 ## app runs on 4003
 cd code-examples/protect-page-login/go && \
   PORT=4003 PROXY_PORT=3003 ./server &
-ory proxy --no-jwt --port 3003 http://localhost:4003/ -q -y > /dev/null 2>&1 &
+ory proxy --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3003 http://localhost:4003/ -q -y > /dev/null 2>&1 &
 
 ## PHP example ##
 ## proxy runs on 3004
 ## app runs on 4004
 cd code-examples/protect-page-login/php && \
   PROXY_PORT=3004 php -S 127.0.0.1:4004 &
-ory proxy --no-jwt --port 3004 http://localhost:4004/ -q -y > /dev/null 2>&1 &
+ory proxy --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3004 http://localhost:4004/ -q -y > /dev/null 2>&1 &
 
 ## Flutter Web example ##
 ## tunnel runs on 3005
 ## app runs on 4005
 cd code-examples/protect-page-login/flutter_web_redirect && \
   python3 -m http.server 4005 --directory build/web &
-ory tunnel --port 3005 http://localhost:4005/ -q -y > /dev/null 2>&1 &
+ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3005 http://localhost:4005/ -q -y > /dev/null 2>&1 &
 
 ## VueJS SPA with ExpressJS backend example ##
 ## tunnel runs on 3006
@@ -63,14 +63,14 @@ cd code-examples/auth-api/expressjs && \
   ORY_URL=http://localhost:3006 UI_URL=http://localhost:4006 PORT=4007 npm run start &
 cd code-examples/protect-page-login/vue && \
   npm run start -- -l 4006 &
-ory tunnel --dev --port 3006 http://localhost:4006/ -q -y > /dev/null 2>&1 &
+ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --dev --port 3006 http://localhost:4006/ -q -y > /dev/null 2>&1 &
 
 ## ReactJS SPA example ##
 ## tunnel runs on 3007
 ## app runs on 4008
 cd code-examples/protect-page-login/react && \
   PORT=4008 REACT_APP_ORY_URL=http://localhost:3007 BROWSER=none CI=true npm run start &
-ory tunnel --dev --port 3007 http://localhost:4008/ -q -y > /dev/null 2>&1 &
+ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --dev --port 3007 http://localhost:4008/ -q -y > /dev/null 2>&1 &
 
 ## Dotnet server example ##
 ## proxy runs on 3009
