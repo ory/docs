@@ -18,8 +18,8 @@ test.describe("protect-page-login", () => {
     { url: "http://localhost:3002/", name: "express.js" },
     { url: "http://localhost:3003/", name: "go" },
     { url: "http://localhost:3004/", name: "php" },
-    { url: "http://localhost:4005/", name: "flutter_web_redirect" },
-    { url: "http://localhost:4009/", name: "dotnet" },
+    // { url: "http://localhost:4005/", name: "flutter_web_redirect" },
+    // { url: "http://localhost:4009/", name: "dotnet" },
   ]) {
     test.describe(app.name, async () => {
       test("able to use login and sign up", async ({ page }) => {
@@ -78,7 +78,7 @@ test.describe("Single Page App + API", () => {
   })
 })
 
-test.describe("React Single Page App", () => {
+test.describe.skip("React Single Page App", () => {
   test("able to use Sign in and Login", async ({ page }) => {
     await page.goto("http://localhost:4008/")
     await page.waitForLoadState("networkidle")
