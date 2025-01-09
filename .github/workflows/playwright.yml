@@ -40,6 +40,9 @@ jobs:
       - run: npm ci
       - name: Install Playwright
         run: npx playwright install --with-deps
+      - name: Create json
+        run: |
+          echo "{}" > /home/runner/.ory-cloud.json
       - name: Run Playwright tests
         run: make test
         env:
