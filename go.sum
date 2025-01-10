@@ -610,6 +610,8 @@ github.com/ory/analytics-go/v5 v5.0.1 h1:LX8T5B9FN8KZXOtxgN+R3I4THRRVB6+28IKgKBp
 github.com/ory/analytics-go/v5 v5.0.1/go.mod h1:lWCiCjAaJkKfgR/BN5DCLMol8BjKS1x+4jxBxff/FF0=
 github.com/ory/cli v1.1.1-0.20250109123015-145d75cf9a06 h1:4qms3deG+sD9rgjxa530SWxCIax8zC+/URGGLyzBipA=
 github.com/ory/cli v1.1.1-0.20250109123015-145d75cf9a06/go.mod h1:xpzc7Kvg5FyKEzyjYlMziMYR2MEmaeupg10R8cjcr30=
+github.com/ory/cli v1.1.1-0.20250110125913-6b5ba24223b5 h1:TDYP/61kIY4Q2AeaiS+yn5D4GFYSIqAIXV9qeXoJJUs=
+github.com/ory/cli v1.1.1-0.20250110125913-6b5ba24223b5/go.mod h1:xpzc7Kvg5FyKEzyjYlMziMYR2MEmaeupg10R8cjcr30=
 github.com/ory/client-go v1.15.10 h1:d009nseCcvWJt4KcyJUNYTzsWyU7JJ+0fTzE8YWfEd8=
 github.com/ory/client-go v1.15.10/go.mod h1:WSa8NSYIoobY1lcSW0pd3k8erI49z15wlQ/GkUhSV+Y=
 github.com/ory/dockertest/v3 v3.11.0 h1:OiHcxKAvSDUwsEVh2BjxQQc/5EHz9n0va9awCtNGuyA=

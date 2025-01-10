@@ -2,7 +2,7 @@ module github.com/ory/docs
 
 go 1.23.3
 
-require github.com/ory/cli v1.1.1-0.20250109123015-145d75cf9a06
+require github.com/ory/cli v1.1.1-0.20250110125913-6b5ba24223b5
 
 replace (
 	github.com/gorilla/sessions => github.com/ory/sessions v1.2.2-0.20220110165800-b09c17334dc2
