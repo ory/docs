@@ -8,7 +8,7 @@ export ORY_CONSOLE_URL=https://console.staging.ory.dev
 export ORY_ORYAPIS_URL=https://staging.oryapis.dev
 export ORY_PROJECT=funny-kepler-o0v6t1yox6
 
-: "${ORY_API_KEY:?Environment variable ORY_API_KEY is not set}"
+: "${ORY_PROJECT_API_KEY=:?Environment variable ORY_PROJECT_API_KEY= is not set}"
 : "${ORY_CI_RATE_LIMIT_HEADER:?Environment variable ORY_CI_RATE_LIMIT_HEADER is not set}"
 : "${ORY_CI_RATE_LIMIT_HEADER_VALUE:?Environment variable ORY_CI_RATE_LIMIT_HEADER_VALUE is not set}"
 
