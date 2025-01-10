@@ -1168,6 +1168,11 @@
       "source": "/docs/identities/sign-in/saml",
       "destination": "/docs/kratos/organizations/",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/5min-tutorial",
+      "destination": "/docs/hydra/self-hosted/quickstart",
+      "permanent": false
     }
   ]
 }
