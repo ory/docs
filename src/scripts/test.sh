@@ -8,6 +8,10 @@ export ORY_CONSOLE_URL=https://console.staging.ory.dev
 export ORY_ORYAPIS_URL=https://staging.oryapis.dev
 export ORY_PROJECT=funny-kepler-o0v6t1yox6
 
+: "${ORY_API_KEY:?Environment variable ORY_API_KEY is not set}"
+: "${ORY_CI_RATE_LIMIT_HEADER:?Environment variable ORY_CI_RATE_LIMIT_HEADER is not set}"
+: "${ORY_CI_RATE_LIMIT_HEADER_VALUE:?Environment variable ORY_CI_RATE_LIMIT_HEADER_VALUE is not set}"
+
 # ensure ports are free
 npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,3009,4002,4003,4004,4005,4006,4007,4008,4009
 
@@ -33,6 +37,7 @@ cd code-examples/protect-page-login/nextjs && \
 cd code-examples/protect-page-login/expressjs && \
   PORT=4002 npm run start &
 ory proxy --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3002 http://localhost:4002/ -q -y &
+wait 1 # We need to wait for the proxy to write the credentials file.
 
 ## Go server example ##
 ## proxy runs on 3003
