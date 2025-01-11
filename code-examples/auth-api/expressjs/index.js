@@ -3,7 +3,7 @@
 
 const express = require("express")
 const cors = require("cors")
-const { FrontendApi, Configuration } = require("@ory/client")
+const { FrontendApi, Configuration } = require("@ory/client-fetch")
 
 const app = express()
 

@@ -3,6 +3,7 @@
 
 using Ory.Client.Api;
 using Ory.Client.Client;
+using System.Collections.Concurrent;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,14 @@ var app = builder.Build();
 var oryBasePath = builder.Configuration.GetValue<string>("ORY_BASEPATH") ?? "http://localhost:4000";
 var ory = new FrontendApi(new Configuration
 {
-	BasePath = oryBasePath
+	BasePath = oryBasePath,
+
+	// The following code is only needed to pass the Ory docs CI. You don't need it.
+	DefaultHeaders = new ConcurrentDictionary<string, string>
+	{
+		[builder.Configuration.GetValue<string>("ORY_CI_RATE_LIMIT_HEADER") ?? ""] = builder.Configuration.GetValue<string>("ORY_CI_RATE_LIMIT_HEADER_VALUE") ?? ""
+	}
+	// End of Ory docs CI code.
 });
 
 // add session middleware

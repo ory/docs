@@ -18,30 +18,35 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: "16"
+          node-version: "23"
           cache: "npm"
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v5
         with:
-          go-version: "^1.17.6"
+          go-version: "^1.23"
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1"
+          php-version: "8.4"
           tools: composer
       - uses: subosito/flutter-action@v2.10.0
         with:
           flutter-version: "3.10.6"
           channel: "stable"
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
-      - run: npm install
+          python-version: "3.13"
+      - run: npm ci
       - name: Install Playwright
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: make test
+        env:
+          ORY_CI_RATE_LIMIT_HEADER: ${{ secrets.ORY_CI_RATE_LIMIT_HEADER }}
+          ORY_CI_RATE_LIMIT_HEADER_VALUE:
+            ${{ secrets.ORY_CI_RATE_LIMIT_HEADER_VALUE }}
+          ORY_PROJECT_API_KEY: ${{ secrets.ORY_PROJECT_API_KEY }}
       - uses: actions/upload-artifact@v4
         if: always()
         timeout-minutes: 15

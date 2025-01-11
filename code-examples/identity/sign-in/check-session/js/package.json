@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@ory/client": "^1.0.2",
+    "@ory/client-fetch": "^1.15.17",
     "expo-secure-store": "^12.0.0",
     "express": "^4.18.2"
   }

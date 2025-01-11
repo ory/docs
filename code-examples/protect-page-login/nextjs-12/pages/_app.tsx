@@ -1,8 +1,6 @@
 import "../styles/globals.css"
-import type { AppProps } from "next/app"
 
-function MyApp({ Component, pageProps }: AppProps) {
+// Use any because of React 18 breaking change: https://github.com/vercel/next.js/issues/36019
+export default function MyApp({ Component, pageProps }: any) {
   return <Component {...pageProps} />
 }
-
-export default MyApp

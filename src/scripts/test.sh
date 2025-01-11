@@ -3,10 +3,17 @@
 set -euxo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 
-export ORY_SDK_URL=https://playground.projects.oryapis.com
+: "${ORY_PROJECT_API_KEY:?Environment variable ORY_PROJECT_API_KEY is not set}"
+: "${ORY_CI_RATE_LIMIT_HEADER:?Environment variable ORY_CI_RATE_LIMIT_HEADER is not set}"
+: "${ORY_CI_RATE_LIMIT_HEADER_VALUE:?Environment variable ORY_CI_RATE_LIMIT_HEADER_VALUE is not set}"
+
+export ORY_SDK_URL=https://funny-kepler-o0v6t1yox6.projects.staging.oryapis.dev
+export ORY_CONSOLE_URL=https://console.staging.ory.dev
+export ORY_ORYAPIS_URL=https://staging.oryapis.dev
+# export ORY_PROJECT_ID=a931be69-adcc-4a23-875c-23286fc9c8ac
 
 # ensure ports are free
-npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,3009,4002,4003,4004,4005,4006,4007,4008,4009
+npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,3008,3009,4002,4003,4004,4005,4006,4007,4008,4009
 
 #
 # Please add any build steps to the Makefile and not here!
@@ -29,28 +36,31 @@ cd code-examples/protect-page-login/nextjs && \
 ## app runs on 4002
 cd code-examples/protect-page-login/expressjs && \
   PORT=4002 npm run start &
-ory proxy --no-jwt --port 3002 http://localhost:4002/ -q -y > /dev/null 2>&1 &
+ory proxy --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3002 http://localhost:4002/ -q -y &
+
+# We need to wait for the proxy to write the credentials file.
+sleep 2
 
 ## Go server example ##
 ## proxy runs on 3003
 ## app runs on 4003
 cd code-examples/protect-page-login/go && \
   PORT=4003 PROXY_PORT=3003 ./server &
-ory proxy --no-jwt --port 3003 http://localhost:4003/ -q -y > /dev/null 2>&1 &
+ory proxy --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3003 http://localhost:4003/ -q -y &
 
 ## PHP example ##
 ## proxy runs on 3004
 ## app runs on 4004
 cd code-examples/protect-page-login/php && \
   PROXY_PORT=3004 php -S 127.0.0.1:4004 &
-ory proxy --no-jwt --port 3004 http://localhost:4004/ -q -y > /dev/null 2>&1 &
+ory proxy --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3004 http://localhost:4004/ -q -y &
 
 ## Flutter Web example ##
 ## tunnel runs on 3005
 ## app runs on 4005
 cd code-examples/protect-page-login/flutter_web_redirect && \
   python3 -m http.server 4005 --directory build/web &
-ory tunnel --port 3005 http://localhost:4005/ -q -y > /dev/null 2>&1 &
+ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3005 http://localhost:4005/ -q -y &
 
 ## VueJS SPA with ExpressJS backend example ##
 ## tunnel runs on 3006
@@ -60,16 +70,16 @@ cd code-examples/auth-api/expressjs && \
   ORY_URL=http://localhost:3006 UI_URL=http://localhost:4006 PORT=4007 npm run start &
 cd code-examples/protect-page-login/vue && \
   npm run start -- -l 4006 &
-ory tunnel --dev --port 3006 http://localhost:4006/ -q -y > /dev/null 2>&1 &
+ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --dev --port 3006 http://localhost:4006/ -q -y &
 
 ## ReactJS SPA example ##
 ## tunnel runs on 3007
 ## app runs on 4008
 cd code-examples/protect-page-login/react && \
   PORT=4008 REACT_APP_ORY_URL=http://localhost:3007 BROWSER=none CI=true npm run start &
-ory tunnel --dev --port 3007 http://localhost:4008/ -q -y > /dev/null 2>&1 &
+ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --dev --port 3007 http://localhost:4008/ -q -y &
 
-## Dotnet server example ##
+## Dotnet sexxrver example ##
 ## proxy runs on 3009
 ## app runs on 4009
 docker run --rm -d --name dotnet-01-basic --env APP_PORT=4009 -p 4009:4009 --env ORY_TUNNEL_PORT=3009 -p 3009:3009 dotnet-01-basic
