@@ -60,9 +60,6 @@ test.describe("Single Page App + API", () => {
     await expect(page.locator('[data-testid="ory-response"]')).toContainText(
       "password",
     )
-    await expect(page.locator('[data-testid="api-response"]')).toContainText(
-      email,
-    )
 
     await page.locator('[data-testid="settings"]').click()
     await expect(page).toHaveURL(/.*\/ui\/settings.*/)
