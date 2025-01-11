@@ -3,12 +3,14 @@
 
 import React from "react"
 import { QueryClient, QueryClientProvider, useQuery } from "react-query"
+import KapaWidget from "./KapaWidget"
 const queryClient = new QueryClient()
 
 function Root({ children }) {
   return (
     <>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <KapaWidget />
     </>
   )
 }

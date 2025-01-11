@@ -306,14 +306,14 @@ const config: Config = {
       src: "/docs/scripts/redirect.js",
       async: true,
     },
-    {
-      src: "https://ory.sh/cmp/init.js",
-      async: true,
-    },
-    {
-      src: "https://consent.ory.sh/index.js",
-      async: true,
-    },
+    // {
+    //   src: "https://ory.sh/cmp/init.js",
+    //   async: true,
+    // },
+    // {
+    //   src: "https://consent.ory.sh/index.js",
+    //   async: true,
+    // },
   ],
 }
 
