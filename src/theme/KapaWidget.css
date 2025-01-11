@@ -1,3 +1,8 @@
+. mantine-UnstyledButton-root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
 .mantine-1wpc1xj {
   display: flex;
   -webkit-box-align: center;
@@ -7,6 +12,7 @@
   height: 100%;
   overflow: visible;
 }
+
 .mantine-124rx6h {
   padding: 0px 1.625rem;
   appearance: none;
@@ -14,8 +20,6 @@
   text-decoration: none;
   box-sizing: border-box;
   height: 3.125rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   -webkit-tap-highlight-color: transparent;
   display: inline-block;
   width: auto;
@@ -30,6 +34,7 @@
   background-color: rgb(17, 28, 111);
   color: rgb(255, 255, 255);
 }
+
 .mantine-1wpc1xj {
   display: flex;
   -webkit-box-align: center;
@@ -39,6 +44,7 @@
   height: 100%;
   overflow: visible;
 }
+
 .mantine-1ryt1ht {
   white-space: nowrap;
   height: 100%;
@@ -47,6 +53,7 @@
   -webkit-box-align: center;
   align-items: center;
 }
+
 .mantine-1b4vo4u {
   display: flex;
   flex-direction: column;
@@ -56,24 +63,24 @@
   justify-content: center;
   gap: 4px;
 }
+
 .mantine-qenwvq {
   margin: 0px;
 }
+
 .mantine-1iugybl {
   position: relative;
 }
+
 .mantine-1sc70ew {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   display: block;
   width: 100%;
   height: 100%;
   border: 0px;
   border-radius: 0.25rem;
 }
+
 .mantine-1y9jqg9 {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   -webkit-tap-highlight-color: transparent;
   color: inherit;
   font-size: 1.125rem;
