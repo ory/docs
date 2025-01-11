@@ -3,14 +3,14 @@
 set -euxo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/../.."
 
+: "${ORY_PROJECT_API_KEY:?Environment variable ORY_PROJECT_API_KEY is not set}"
+: "${ORY_CI_RATE_LIMIT_HEADER:?Environment variable ORY_CI_RATE_LIMIT_HEADER is not set}"
+: "${ORY_CI_RATE_LIMIT_HEADER_VALUE:?Environment variable ORY_CI_RATE_LIMIT_HEADER_VALUE is not set}"
+
 export ORY_SDK_URL=https://funny-kepler-o0v6t1yox6.projects.staging.oryapis.dev
 export ORY_CONSOLE_URL=https://console.staging.ory.dev
 export ORY_ORYAPIS_URL=https://staging.oryapis.dev
-export ORY_PROJECT=funny-kepler-o0v6t1yox6
-
-: "${ORY_PROJECT_API_KEY=:?Environment variable ORY_PROJECT_API_KEY= is not set}"
-: "${ORY_CI_RATE_LIMIT_HEADER:?Environment variable ORY_CI_RATE_LIMIT_HEADER is not set}"
-: "${ORY_CI_RATE_LIMIT_HEADER_VALUE:?Environment variable ORY_CI_RATE_LIMIT_HEADER_VALUE is not set}"
+export ORY_PROJECT_ID=a931be69-adcc-4a23-875c-23286fc9c8ac
 
 # ensure ports are free
 npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,3008,3009,4002,4003,4004,4005,4006,4007,4008,4009
@@ -36,7 +36,7 @@ cd code-examples/protect-page-login/nextjs && \
 ## app runs on 4002
 cd code-examples/protect-page-login/expressjs && \
   PORT=4002 npm run start &
-ory proxy --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3002 http://localhost:4002/ -q -y &
+ory proxy --project funny-kepler-o0v6t1yox6 --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3002 http://localhost:4002/ -q -y &
 
 # We need to wait for the proxy to write the credentials file.
 sleep 2
@@ -46,14 +46,14 @@ sleep 2
 ## app runs on 4003
 cd code-examples/protect-page-login/go && \
   PORT=4003 PROXY_PORT=3003 ./server &
-ory proxy --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3003 http://localhost:4003/ -q -y &
+ory proxy --project funny-kepler-o0v6t1yox6 --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3003 http://localhost:4003/ -q -y &
 
 ## PHP example ##
 ## proxy runs on 3004
 ## app runs on 4004
 cd code-examples/protect-page-login/php && \
   PROXY_PORT=3004 php -S 127.0.0.1:4004 &
-ory proxy --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3004 http://localhost:4004/ -q -y &
+ory proxy --project funny-kepler-o0v6t1yox6 --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3004 http://localhost:4004/ -q -y &
 
 ## Flutter Web example ##
 ## tunnel runs on 3005
