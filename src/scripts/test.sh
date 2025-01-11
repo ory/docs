@@ -37,7 +37,9 @@ cd code-examples/protect-page-login/nextjs && \
 cd code-examples/protect-page-login/expressjs && \
   PORT=4002 npm run start &
 ory proxy --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3002 http://localhost:4002/ -q -y &
-wait 1 # We need to wait for the proxy to write the credentials file.
+
+# We need to wait for the proxy to write the credentials file.
+wait 2
 
 ## Go server example ##
 ## proxy runs on 3003
