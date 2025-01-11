@@ -236,7 +236,7 @@ challenge will always instruct you to show the login UI.
 Hydra scales according to 12 factor principles. Just add another instance with the same config. Please check the
 [documentation section for 12 factor principles](https://www.ory.sh/docs/ecosystem/cloud-native).There is also some information on
 collecting statistics in the section on [prometheus](https://github.com/prometheus) in the
-[five minute tutorial](./5min-tutorial.mdx).
+[five minute tutorial](self-hosted/quickstart.mdx).
 
 ## Is it possible to disable/enable certain flows in Hydra?
 

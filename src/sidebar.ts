@@ -786,7 +786,7 @@ const selfhostingSidebar = [
     label: "Ory Hydra",
     items: [
       "hydra/self-hosted/install",
-      "hydra/5min-tutorial",
+      "hydra/self-hosted/quickstart",
       "hydra/self-hosted/deploy-hydra-example",
       "hydra/self-hosted/upgrade",
       {

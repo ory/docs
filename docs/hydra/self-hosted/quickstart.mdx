@@ -1,70 +1,113 @@
 ---
-id: 5min-tutorial
-title: 5 minute tutorial
+id: quickstart
+title: Ory Hydra OAuth2 Server Quickstart
 sidebar_label: Quickstart
 ---
 
-import CodeFromRemote from "@theme/CodeFromRemote"
-
-This tutorial walks you through a quick setup of Ory Hydra Federation Server and an exemplary User Login & Consent App based on
+In this quickstart, you will set up Ory Hydra OAuth2 & OpenID Connect Server and an exemplary User Login & Consent App using
 Docker Compose. You need to have the latest [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose)
-version installed, as well as [`jq`](https://stedolan.github.io/jq/download/).
+version and Git installed, as well as [`jq`](https://stedolan.github.io/jq/download/).
+
+You do not want to self-host? Try
+[out common OAuth2 grants on the fully managed version of Ory Hydra](../../getting-started/ory-network-oauth2.mdx).
+
+```mdx-code-block
+import CodeFromRemote from "@theme/CodeFromRemote"
+```
 
 ![OAuth2 Flow with Open Source OAuth2 Server Ory Hydra](_static/oauth2-flow.gif)
 
+```mdx-code-block
 <p align="center">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/tlO9p2E501A" frameborder="0" allowfullscreen />
 </p>
+```
 
-We will use the Docker Compose configuration in the Ory Hydra code base. Getting the Hydra source code is easy:
+To get started, clone the Ory Hydra locally:
 
-- if you have Go 1.15+ installed: `go get -d github.com/ory/hydra`
-- if you have Git installed: `git clone https://github.com/ory/hydra.git`
-- otherwise: download the [Hydra source code](https://github.com/ory-am/hydra/archive/master.zip). and extract it somewhere
+```
+git clone https://github.com/ory/hydra.git
+cd hydra
+```
 
-Change into the directory with the Hydra source code and run the following command to start the needed containers:
+Run the following command(s) to start the OAuth2 server:
+
+````mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import MacOS from '@site/src/components/Install/MacOS'
+import Linux from '@site/src/components/Install/Linux'
+import Windows from '@site/src/components/Install/Windows'
+
+<Tabs>
+  <TabItem value="postgres-prod" label="PostgreSQL (prod)" default>
+
+Run the latest Ory Hydra production build:
 
 ```sh
-docker-compose -f quickstart.yml \
+docker compose -f quickstart.yml \
     -f quickstart-postgres.yml \
-    up --build
+    up
 
 Starting hydra_postgresd_1
 Starting hydra_hydra_1
 [...]
 ```
 
-This command adds support for PostgreSQL. If you wish to use another database backend, you can run this command to use MySQL:
+  </TabItem>
+  <TabItem value="postgres-dev" label="PostgreSQL (dev)">
+
+
+Run the current commit of Ory Hydra.
 
 ```sh
-docker-compose -f quickstart.yml \
+docker compose -f quickstart.yml \
+    -f quickstart-postgres.yml \
+    up \
+    --build
+
+Starting hydra_postgresd_1
+Starting hydra_hydra_1
+[...]
+```
+
+Building the image will override the Ory Hydra production image on your local registry. To download the latest
+production image again, run:
+
+```sh
+docker compose -f quickstart.yml pull hydra --policy always
+```
+
+
+  </TabItem>
+  <TabItem value="mysql-prod" label="MySQL">
+
+
+```shell
+docker compose -f quickstart.yml \
     -f quickstart-mysql.yml \
-    up --build
+    up
 ```
 
-This one to use CockroachDB:
 
-```sh
-docker-compose -f quickstart.yml \
-    -f quickstart-cockroach.yml \
-    up --build
+  </TabItem>
+  <TabItem value="sqlite" label="SQLite" default>
+
+
+```shell
+docker compose -f quickstart.yml up
 ```
 
-Or simply omit the second file to default to SQLite:
 
-```sh
-docker-compose -f quickstart.yml \
-    up --build
-```
+  </TabItem>
+  <TabItem value="observability" label="Observability">
 
-This command makes Docker Compose start up a database server and a basic base Ory Hydra server that uses this database. If you
-need more details on this, please examine the `scripts/5-min-tutorial.sh` and `docker-compose*.yml` files.
 
 You may also extend the command above to enable distributed tracing. The tracing UI is exposed at
 [http://127.0.0.1:16686/search](http://127.0.0.1:16686/search):
 
 ```sh
-docker-compose -f quickstart.yml \
+docker compose -f quickstart.yml \
     -f quickstart-postgres.yml \
     -f quickstart-tracing.yml \
     up --build
@@ -74,32 +117,39 @@ Hydra provides an endpoint for Prometheus to scrape as a target. You can run the
 and status of Hydra is exposed at targets page in Prometheus [http://localhost:9090/targets](http://localhost:9090/targets):
 
 ```sh
-docker-compose -f quickstart.yml \
+docker compose -f quickstart.yml \
   -f quickstart-prometheus.yml \
   up --build
 ```
 
+
+  </TabItem>
+  <TabItem value="hsm" label="HSM">
+
+
 If you want to test Hardware Security Module add `-f quickstart-hsm.yml`. For more information head over to
-[HSM support](./self-hosted/hsm-support.md).
+[HSM support](hsm-support.md).
 
 ```sh
-docker-compose -f quickstart.yml \
+docker compose -f quickstart.yml \
     -f quickstart-hsm.yml \
     up --build
 ```
 
+
+  </TabItem>
+</Tabs>
+````
+
 Let's confirm that everything is working by creating an OAuth 2.0 Client.
 
-Note: The following commands run Hydra inside Docker. If you have the Ory Hydra CLI installed locally, you can omit
-`docker-compose -f quickstart.yml exec /hydra` in front of each command.
-
 The OAuth 2.0 client uses port `4444` and `4445`. The former is Ory Hydra's public endpoint, the latter its administrative
-endpoint. For more information head over to [Exposing Administrative and Public API Endpoints](./self-hosted/production).
+endpoint. For more information head over to [Exposing Administrative and Public API Endpoints](production.md).
 
 Let's create the OAuth 2.0 Client:
 
 ```sh
-client=$(docker-compose -f quickstart.yml exec hydra \
+client=$(docker compose -f quickstart.yml exec hydra \
     hydra create client \
     --endpoint http://127.0.0.1:4445/ \
     --format json \
@@ -113,7 +163,7 @@ client_secret=$(echo $client | jq -r '.client_secret')
 Let's perform the client credentials grant:
 
 ```sh
-docker-compose -f quickstart.yml exec hydra \
+docker compose -f quickstart.yml exec hydra \
   hydra perform client-credentials \
   --endpoint http://127.0.0.1:4444/ \
   --client-id "$client_id" \
@@ -128,7 +178,7 @@ EXPIRY          2022-06-27 11:50:28.244046504 +0000 UTC m=+3599.059213960
 Let's perform token introspection on that token. Make sure to copy the token you just got and not the dummy value.
 
 ```sh
-docker-compose -f quickstart.yml exec hydra \
+docker compose -f quickstart.yml exec hydra \
   hydra introspect token \
   --format json-pretty \
   --endpoint http://127.0.0.1:4445/ \
@@ -151,7 +201,7 @@ Next, we will perform the OAuth 2.0 Authorization Code Grant. For that, we must 
 that grant:
 
 ```sh
-code_client=$(docker-compose -f quickstart.yml exec hydra \
+code_client=$(docker compose -f quickstart.yml exec hydra \
     hydra create client \
     --endpoint http://127.0.0.1:4445 \
     --grant-type authorization_code,refresh_token \
@@ -171,7 +221,7 @@ The following command starts a server that serves an example web application. Th
 Authorization Code Flow using Ory Hydra. The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).
 
 ```sh
-docker-compose -f quickstart.yml exec hydra \
+docker compose -f quickstart.yml exec hydra \
     hydra perform authorization-code \
     --client-id $code_client_id \
     --client-secret $code_client_secret \
@@ -195,22 +245,24 @@ Great! You installed Ory Hydra, connected the CLI, created a client and complete
 clean up this set up in order to avoid conflicts with other tutorials from this guide:
 
 ```sh
-docker-compose -f quickstart.yml kill
-docker-compose -f quickstart.yml rm -f -v
+docker compose -f quickstart.yml kill
+docker compose -f quickstart.yml rm -f -v
 ```
 
 ## Quickstart configuration
 
 In this tutorial we use a simplified configuration. You can find it in
 [`contrib/quickstart/5-min/hydra.yml`](https://github.com/ory/hydra/blob/master/contrib/quickstart/5-min/hydra.yml). The
-configuration gets loaded in docker-compose as specified in the
+configuration gets loaded in docker compose as specified in the
 [`quickstart.yml`](https://github.com/ory/hydra/blob/master/quickstart.yml).
 
+```mdx-code-block
 <CodeFromRemote
   lang="js"
   link="https://github.com/ory/hydra/blob/master/contrib/quickstart/5-min/hydra.yml"
   src="https://raw.githubusercontent.com/ory/hydra/master/contrib/quickstart/5-min/hydra.yml"
 />
+```
 
-Have a look at the [reference configuration](./reference/configuration.mdx) for further information on all possible configuration
+Have a look at the [reference configuration](../reference/configuration.mdx) for further information on all possible configuration
 options.
