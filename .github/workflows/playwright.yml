@@ -46,7 +46,7 @@ jobs:
           ORY_CI_RATE_LIMIT_HEADER: ${{ secrets.ORY_CI_RATE_LIMIT_HEADER }}
           ORY_CI_RATE_LIMIT_HEADER_VALUE:
             ${{ secrets.ORY_CI_RATE_LIMIT_HEADER_VALUE }}
-          ORY_PROJECT_API_KEY=: ${{ secrets.ORY_PROJECT_API_KEY }}
+          ORY_PROJECT_API_KEY: ${{ secrets.ORY_PROJECT_API_KEY }}
       - uses: actions/upload-artifact@v4
         if: always()
         timeout-minutes: 15
