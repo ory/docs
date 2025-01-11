@@ -13,7 +13,7 @@ export ORY_PROJECT=funny-kepler-o0v6t1yox6
 : "${ORY_CI_RATE_LIMIT_HEADER_VALUE:?Environment variable ORY_CI_RATE_LIMIT_HEADER_VALUE is not set}"
 
 # ensure ports are free
-npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,3009,4002,4003,4004,4005,4006,4007,4008,4009
+npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,3008,3009,4002,4003,4004,4005,4006,4007,4008,4009
 
 #
 # Please add any build steps to the Makefile and not here!
@@ -39,7 +39,7 @@ cd code-examples/protect-page-login/expressjs && \
 ory proxy --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --no-jwt --port 3002 http://localhost:4002/ -q -y &
 
 # We need to wait for the proxy to write the credentials file.
-wait 2
+sleep 2
 
 ## Go server example ##
 ## proxy runs on 3003
