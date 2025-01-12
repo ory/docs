@@ -9,6 +9,7 @@
     "gen:config": "node src/scripts/config.js config.js",
     "start": "docusaurus start --no-minify",
     "build": "docusaurus build",
+    "build:analyze": "docusaurus build --bundle-analyzer",
     "swizzle": "docusaurus swizzle",
     "serve": "docusaurus serve",
     "test": "playwright test",
