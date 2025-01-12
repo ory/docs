@@ -59,11 +59,11 @@ export default function KapaWidget() {
         <span className="mantine-1ryt1ht mantine-Button-label">
           <div
             className="mantine-Stack-root mantine-1b4vo4u"
-            style={{marginTop: "4px"}}
+            style={{ marginTop: "4px" }}
           >
             <div
               className="mantine-Image-root mantine-yxmaw9"
-              style={{width: "2rem"}}
+              style={{ width: "2rem" }}
             >
               <figure className="mantine-qenwvq mantine-Image-figure">
                 <div className="mantine-1iugybl mantine-Image-imageWrapper">
@@ -82,14 +82,13 @@ export default function KapaWidget() {
             </div>
             <div
               className="mantine-Text-root mantine-1y9jqg9"
-              style={{textShadow: "rgba(0, 0, 0, 0.2) 1px 1px 2px"}}
+              style={{ textShadow: "rgba(0, 0, 0, 0.2) 1px 1px 2px" }}
             >
               Ask AI
             </div>
           </div>
         </span>
       </div>
-
     </button>
   )
 }
