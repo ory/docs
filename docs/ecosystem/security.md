@@ -62,7 +62,7 @@ Prohibited activities:
 
 - social engineering like phishing, vishing, or smishing
 - security scanning with more than 5 QPS against Ory domains
-- any activity that leads to disruption of our service longer than 5 minutes
+- any activity that leads to disruption of Ory services
 
 ### What can you report
 
