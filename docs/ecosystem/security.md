@@ -60,9 +60,11 @@ holder.
 
 Prohibited activities:
 
-- social engineering like phishing, vishing, or smishing
-- security scanning with more than 5 QPS against Ory domains
-- any activity that leads to disruption of our service longer than 5 minutes
+- creating failing/incomplete subscriptions to paid plans in Ory Network for example with incomplete or fake credit card
+  information.
+- social engineering like phishing, vishing, or smishing.
+- security scanning with more than 5 QPS against Ory domains.
+- any activity that leads to disruption of the Ory Network service for customers.
 
 ### What can you report
 
