@@ -101,7 +101,7 @@ Before deploying the service, you need to apply SQL migrations:
 docker run \
   -e DSN=your_database_connection_string \
   europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag> \
-  -- migrate sql -e -f /path/to/config.yaml
+  -- migrate sql up -e -f /path/to/config.yaml
 ```
 
 Replace `your_database_connection_string` with your actual database connection string.
