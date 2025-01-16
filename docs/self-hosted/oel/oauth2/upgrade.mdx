@@ -101,18 +101,14 @@ Before deploying the service, you need to apply SQL migrations:
 docker run \
   -e DSN=your_database_connection_string \
   europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel:<new-version-tag> \
-  -- migrate sql -e -f /path/to/config.yaml
+  -- migrate sql up -e -f /path/to/config.yaml
 ```
 
 Replace `your_database_connection_string` with your actual database connection string.
 
-### 5. Stop the Service
+### 5. Start the Service
 
-Once done, you can stop the processes running the old service.
-
-### 6. Start the Service
-
-Now you will be able to start the service:
+Now you will be able to start the service. In most environments, the release will gracefully rotate pods.
 
 ```bash
 docker run \
