@@ -3,13 +3,10 @@ import "./KapaWidget.css"
 
 export default function KapaWidget() {
   const [isScriptLoaded, setIsScriptLoaded] = useState(false)
-  const [child, setChild] = useState<HTMLScriptElement | undefined>()
 
   const loadKapaWidget = () => {
-    console.log("Kapai", window.Kapa)
-
     if (isScriptLoaded) {
-      document.body.removeChild(child)
+      return
     }
 
     const script = document.createElement("script")
@@ -30,15 +27,15 @@ export default function KapaWidget() {
     script.setAttribute("data-project-logo", "/docs/img/kapa-logo.png")
     script.setAttribute("data-consent-required", "true")
     script.setAttribute("data-button-hide", "true")
-    script.setAttribute("data-modal-override-open-id", "custom-button-id")
+    script.setAttribute("data-modal-override-open-id", "kapa-ai-button")
     script.setAttribute("data-modal-open-by-default", "true")
     script.onload = () => setIsScriptLoaded(true)
-    setChild(document.body.appendChild(script))
+    document.body.appendChild(script)
   }
 
   return (
     <button
-      id="custom-button-id"
+      id="kapa-ai-button"
       className="mantine-UnstyledButton-root mantine-Button-root mantine-124rx6h"
       type="button"
       data-button="true"
