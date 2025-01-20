@@ -250,6 +250,13 @@ const config: Config = {
         ],
       },
     ],
+    [
+      '@docusaurus/plugin-svgr',
+      {
+        svgrConfig: {
+        },
+      },
+    ],
   ],
   presets: [
     [
