@@ -4,9 +4,9 @@ import axios from "axios"
 import RefParser from "@apidevtools/json-schema-ref-parser"
 import jsf from "json-schema-faker"
 import YAML from "yaml"
-import { pathOr } from "ramda"
 import Admonition from "@theme/Admonition"
 import CodeBlock from "@theme/CodeBlock"
+import { pathOr } from "../../utils/pathOr"
 
 const parser = new RefParser()
 
@@ -128,83 +128,86 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
   })
 
   useEffect(() => {
-    axios.get(props.src).then(({ data: schema }) => {
-      new Promise((resolve, reject) => {
-        parser.dereference(
-          schema,
-          {
-            resolve: {
-              ory: oryResolver,
+    fetch(props.src)
+      .then((r) => r.json())
+      .then((schema) => {
+        new Promise((resolve, reject) => {
+          parser.dereference(
+            schema,
+            {
+              resolve: {
+                ory: oryResolver,
+              },
             },
-          },
-          (err, result) => (err ? reject(err) : resolve(result)),
-        )
-      })
-        .then((schema: any) => {
-          const removeAdditionalProperties = (o) => {
-            delete o["additionalProperties"]
-            if (o.properties) {
-              Object.keys(o.properties).forEach((key) =>
-                removeAdditionalProperties(o.properties[key]),
-              )
+            (err, result) => (err ? reject(err) : resolve(result)),
+          )
+        })
+          .then((schema: any) => {
+            const removeAdditionalProperties = (o) => {
+              delete o["additionalProperties"]
+              if (o.properties) {
+                Object.keys(o.properties).forEach((key) =>
+                  removeAdditionalProperties(o.properties[key]),
+                )
+              }
             }
-          }
 
-          const enableAll = (o) => {
-            if (o.properties) {
-              Object.keys(o.properties).forEach((key) => {
-                if (key === "enable") {
-                  o.properties[key] = true
-                }
-                enableAll(o.properties[key])
+            const enableAll = (o) => {
+              if (o.properties) {
+                Object.keys(o.properties).forEach((key) => {
+                  if (key === "enable") {
+                    o.properties[key] = true
+                  }
+                  enableAll(o.properties[key])
+                })
+              }
+            }
+
+            removeAdditionalProperties(schema)
+            enableAll(schema)
+            if (schema.definitions) {
+              Object.keys(schema.definitions).forEach((key) => {
+                removeAdditionalProperties(schema.definitions[key])
+                enableAll(schema.definitions[key])
               })
             }
-          }
 
-          removeAdditionalProperties(schema)
-          enableAll(schema)
-          if (schema.definitions) {
-            Object.keys(schema.definitions).forEach((key) => {
-              removeAdditionalProperties(schema.definitions[key])
-              enableAll(schema.definitions[key])
+            jsf.option({
+              useExamplesValue: true,
+              useDefaultValue: false, // do not change this!!
+              fixedProbabilities: true,
+              alwaysFakeOptionals: true,
             })
-          }
 
-          jsf.option({
-            useExamplesValue: true,
-            useDefaultValue: false, // do not change this!!
-            fixedProbabilities: true,
-            alwaysFakeOptionals: true,
+            const values = jsf.generate(schema)
+            const doc = YAML.parseDocument(YAML.stringify(values))
+
+            const comments = [
+              `# ${pathOr(props.binary, ["title"], schema)}`,
+              "",
+            ]
+
+            const description = pathOr("", ["description"], schema)
+            if (description) {
+              comments.push(" " + description)
+            }
+
+            doc.commentBefore = comments.join("\n")
+            doc.spaceAfter = false
+            doc.spaceBefore = false
+
+            doc.contents.items.forEach(enhance(schema, []))
+
+            return Promise.resolve({
+              // schema,
+              // values,
+              yaml: doc.toString(),
+            })
           })
-
-          const values = jsf.generate(schema)
-          const doc = YAML.parseDocument(YAML.stringify(values))
-
-          const comments = [`# ${pathOr(props.binary, ["title"], schema)}`, ""]
-
-          const description = pathOr("", ["description"], schema)
-          if (description) {
-            comments.push(" " + description)
-          }
-
-          console.log({ doc })
-
-          doc.commentBefore = comments.join("\n")
-          doc.spaceAfter = false
-          doc.spaceBefore = false
-
-          doc.contents.items.forEach(enhance(schema, []))
-
-          return Promise.resolve({
-            // schema,
-            // values,
-            yaml: doc.toString(),
+          .then((out) => {
+            setContent(out.yaml)
           })
-        })
-        .then((out) => {
-          setContent(out.yaml)
-        })
-    })
+      })
   }, [props.src])
 
   return (

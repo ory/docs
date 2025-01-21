@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import Redoc from "@theme/Redoc"
 import "./API.module.css"
-import axios from "axios"
 import { useLatestRelease } from "../hooks"
 
 const canUseDOM: boolean = !!(
@@ -27,9 +26,11 @@ function API({
       return
     }
 
-    axios.get(url.replace(/master/, version)).then((res) => {
-      setSpec(res.data)
-    })
+    fetch(url.replace(/master/, version))
+      .then((r) => r.json())
+      .then((res) => {
+        setSpec(res)
+      })
   }, [url, repo, version])
 
   // For some reason this does not render server-side...

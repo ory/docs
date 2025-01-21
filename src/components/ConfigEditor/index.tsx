@@ -2,7 +2,6 @@ import RefParser from "@apidevtools/json-schema-ref-parser"
 import { withTheme } from "@rjsf/core"
 import { Theme as Bootstrap4Theme } from "@rjsf/bootstrap-4"
 import validator from "@rjsf/validator-ajv8"
-import axios from "axios"
 import { useEffect, useState } from "react"
 
 const Form = withTheme(Bootstrap4Theme)
@@ -11,15 +10,17 @@ export default function ConfigEditor(props: { url: any }) {
   const [schema, setSchema] = useState<any>()
 
   useEffect(() => {
-    axios.get(props.url).then((res) => {
-      RefParser.dereference(res.data, (err, api) => {
-        if (err) {
-          console.log(err)
-        } else {
-          setSchema(api)
-        }
+    fetch(props.url)
+      .then((r) => r.json())
+      .then((res) => {
+        RefParser.dereference(res, (err, api) => {
+          if (err) {
+            console.log(err)
+          } else {
+            setSchema(api)
+          }
+        })
       })
-    })
   }, [props.url])
 
   if (!schema) {
