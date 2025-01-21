@@ -1,7 +1,7 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import { useEffect, useState } from "react"
 import { Configuration, ProjectApi } from "@ory/client-fetch"
 import { Octokit } from "@octokit/rest"
@@ -16,21 +16,23 @@ export function getSdkUrl() {
       credentials: "include",
     }),
   )
-  const { data: projectSlug } = useQuery("getSdkUrl", () =>
-    sdk
-      .listProjects()
-      .then((projects) => {
-        if (projects.length === 0) {
-          return
-        }
+  const { data: projectSlug } = useQuery({
+    queryKey: ["getSdkUrl"],
+    queryFn: () =>
+      sdk
+        .listProjects()
+        .then((projects) => {
+          if (projects.length === 0) {
+            return
+          }
 
-        // Fall back to the first project found
-        return projects[0].slug
-      })
-      .catch(() => {
-        return ""
-      }),
-  )
+          // Fall back to the first project found
+          return projects[0].slug
+        })
+        .catch(() => {
+          return ""
+        }),
+  })
 
   const hint = projectSlug
     ? ""

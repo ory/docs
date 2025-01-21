@@ -3,7 +3,12 @@ import Redoc from "@theme/Redoc"
 import "./API.module.css"
 import axios from "axios"
 import { useLatestRelease } from "../hooks"
-import useSSR from "use-ssr"
+
+const canUseDOM: boolean = !!(
+  typeof window !== "undefined" &&
+  window.document &&
+  window.document.createElement
+)
 
 function API({
   url,
@@ -16,10 +21,9 @@ function API({
 }) {
   const version = useLatestRelease(repo, "master")
   const [spec, setSpec] = useState<any>(override)
-  const { isServer } = useSSR()
 
   useEffect(() => {
-    if (override || isServer) {
+    if (override || !canUseDOM) {
       return
     }
 
@@ -29,7 +33,7 @@ function API({
   }, [url, repo, version])
 
   // For some reason this does not render server-side...
-  if (!spec || isServer) {
+  if (!spec || !canUseDOM) {
     return <></>
   }
 
