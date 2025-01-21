@@ -251,10 +251,9 @@ const config: Config = {
       },
     ],
     [
-      '@docusaurus/plugin-svgr',
+      "@docusaurus/plugin-svgr",
       {
-        svgrConfig: {
-        },
+        svgrConfig: {},
       },
     ],
   ],
