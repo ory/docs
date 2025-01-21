@@ -6,6 +6,8 @@ import siteConfig from "@generated/docusaurus.config"
 import ketoRelationTuplesPrism from "./ketoRelationTuplesPrism"
 import ketoRelationsPermissionsPrism from "./ketoRelationsPermissionsPrism"
 
+// Automatically overrides the docusaurus prism coonfig.
+
 export default function prismIncludeLanguages(PrismObject) {
   const {
     themeConfig: { prism },

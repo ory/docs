@@ -3,9 +3,8 @@
 
 const RefParser = require("json-schema-ref-parser")
 const parser = new RefParser()
-const jsf = require("json-schema-faker").default
+const jsf = require("json-schema-faker")
 const YAML = require("yaml")
-const { pathOr } = require("ramda")
 const path = require("path")
 const fs = require("fs")
 const prettier = require("prettier")
@@ -47,6 +46,7 @@ if (process.argv.length !== 3 || process.argv[1] === "help") {
 }
 
 const config = require(path.resolve(process.argv[2]))
+const { pathOr } = require("../utils/pathOr")
 
 const enhance =
   (schema, parents = []) =>
