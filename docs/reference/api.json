@@ -1378,10 +1378,6 @@
             "description": "Configures whether Ory Kratos Profile Method is enabled\n\nThis governs the \"selfservice.methods.profile.enabled\" setting.",
             "type": "boolean"
           },
-          "kratos_selfservice_methods_saml_config_base_redirect_uri": {
-            "description": "Configures the Ory Kratos SAML base redirect URI\n\nThis governs the \"selfservice.methods.saml.config.base_redirect_uri\" setting.",
-            "type": "string"
-          },
           "kratos_selfservice_methods_saml_config_providers": {
             "$ref": "#/components/schemas/projectRevisionSamlProviders"
           },
@@ -5739,10 +5735,6 @@
           "kratos_selfservice_methods_profile_enabled": {
             "description": "Configures whether Ory Kratos Profile Method is enabled\n\nThis governs the \"selfservice.methods.profile.enabled\" setting.",
             "type": "boolean"
-          },
-          "kratos_selfservice_methods_saml_config_base_redirect_uri": {
-            "description": "Configures the Ory Kratos SAML base redirect URI\n\nThis governs the \"selfservice.methods.saml.config.base_redirect_uri\" setting.",
-            "type": "string"
           },
           "kratos_selfservice_methods_saml_config_providers": {
             "$ref": "#/components/schemas/projectRevisionSamlProviders"
