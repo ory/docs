@@ -99,6 +99,11 @@ const config: Config = {
       items: [
         // Main feature sections
         {
+          to: "/getting-started/overview",
+          label: "Start",
+          position: "left",
+        },
+        {
           to: "/docs/identity",
           label: "Identity",
           position: "left",
