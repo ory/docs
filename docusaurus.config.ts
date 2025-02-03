@@ -97,35 +97,31 @@ const config: Config = {
         height: 32,
       },
       items: [
+        // Main feature sections
         {
-          type: "docSidebar",
+          to: "/docs/identity",
+          label: "Identity",
           position: "left",
-          sidebarId: "docs",
-          label: "Documentation",
         },
         {
-          type: "docSidebar",
+          to: "/docs/permissions",
+          label: "Permissions",
           position: "left",
-          sidebarId: "quickstarts-and-tutorials",
-          label: "Quickstart",
         },
         {
-          type: "docSidebar",
+          to: "/docs/federation",
+          label: "Federation",
           position: "left",
-          sidebarId: "guides",
-          label: "Guides",
         },
         {
-          type: "docSidebar",
+          to: "/docs/open-source",
+          label: "Open Source",
           position: "left",
-          sidebarId: "reference",
+        },
+        {
+          to: "/docs/reference",
           label: "Reference",
-        },
-        {
-          type: "docSidebar",
           position: "left",
-          sidebarId: "selfhosting",
-          label: "Self-hosting",
         },
         {
           label: "Need Support?",
