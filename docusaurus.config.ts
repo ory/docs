@@ -104,18 +104,20 @@ const config: Config = {
           position: "left",
         },
         {
-          to: "/docs/identity",
+          to: "/docs/identities",
           label: "Identity",
           position: "left",
         },
         {
-          to: "/docs/permissions",
-          label: "Permissions",
+          to: "/docs/oauth2-oidc",
+          //   to: "/docs/federation", // TODO: Use this route
+          label: "Federation",
           position: "left",
         },
         {
-          to: "/docs/federation",
-          label: "Federation",
+          to: "/docs/keto",
+          //   to: "/docs/permissions", // TODO: Use this route
+          label: "Permissions",
           position: "left",
         },
         {
@@ -124,7 +126,8 @@ const config: Config = {
           position: "left",
         },
         {
-          to: "/docs/reference",
+          to: "/docs/reference/api",
+          //   to: "/docs/reference", // TODO: Use this route
           label: "Reference",
           position: "left",
         },
