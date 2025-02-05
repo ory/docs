@@ -25,9 +25,22 @@ website:
 </BrowserWindow>
 ```
 
+## Why FedCM?
+
+FedCM is a great way to improve the login experience for your users. It allows them to sign in to your website using their
+existing IdP, from any content site you embed the FedCM script on. Making it easier for users to sign in can increase user trust
+and conversion rates.
+
+:::note
+
+Because the FedCM script needs to communicate with the Ory APIs, you need to create a custom domain and enable CORS requests to it
+from your content sites.
+
+:::
+
 ## How It Works
 
-1. **Fetching Parameters:** Your website requests the FedCM paramters from the Ory APIs.
+1. **Fetching Parameters:** Your website requests the FedCM parameters from the Ory APIs.
 1. **User Initiates Sign-In:** The user clicks a "Sign in with [IdP]" button on your website.
 1. **FedCM API Call:** The user's browser uses the FedCM API to request an identity assertion from the IdP.
 1. **User Consent:** The browser prompts the user to consent to sharing their identity with the relying party.
