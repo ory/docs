@@ -97,35 +97,39 @@ const config: Config = {
         height: 32,
       },
       items: [
+        // Main feature sections
         {
-          type: "docSidebar",
+          to: "/getting-started/overview",
+          label: "Start",
           position: "left",
-          sidebarId: "docs",
-          label: "Documentation",
         },
         {
-          type: "docSidebar",
+          to: "/docs/identities",
+          label: "Identity",
           position: "left",
-          sidebarId: "quickstarts-and-tutorials",
-          label: "Quickstart",
         },
         {
-          type: "docSidebar",
+          to: "/docs/oauth2-oidc",
+          //   to: "/docs/federation", // TODO: Use this route
+          label: "Federation",
           position: "left",
-          sidebarId: "guides",
-          label: "Guides",
         },
         {
-          type: "docSidebar",
+          to: "/docs/keto",
+          //   to: "/docs/permissions", // TODO: Use this route
+          label: "Permissions",
           position: "left",
-          sidebarId: "reference",
+        },
+        {
+          to: "/docs/open-source",
+          label: "Open Source",
+          position: "left",
+        },
+        {
+          to: "/docs/reference/api",
+          //   to: "/docs/reference", // TODO: Use this route
           label: "Reference",
-        },
-        {
-          type: "docSidebar",
           position: "left",
-          sidebarId: "selfhosting",
-          label: "Self-hosting",
         },
         {
           label: "Need Support?",
