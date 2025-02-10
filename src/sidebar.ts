@@ -85,16 +85,10 @@ const referenceSidebar: ExtendSidebar = [
 ]
 
 const quickstartSidebar = (flat: boolean): ExtendSidebar => {
-  const items = []
-  if (!flat) {
-    items.push(homeLink)
-  }
-
   return [
-    ...items,
     {
       type: "category",
-      label: "User authentication",
+      label: "Start",
       collapsed: false,
       collapsible: false,
       link: {
@@ -113,64 +107,6 @@ const quickstartSidebar = (flat: boolean): ExtendSidebar => {
             "getting-started/integrate-auth/nextjs",
             "getting-started/integrate-auth/flutter-web-redirect",
             "getting-started/integrate-auth/dotnet",
-          ],
-    },
-    {
-      type: "category",
-      label: "Permissions and relationships",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "guides/permissions/overview",
-      },
-      items: flat
-        ? []
-        : ["keto/examples/olymp-file-sharing", "keto/guides/rbac"],
-    },
-    {
-      type: "category",
-      label: "OAuth2 and OpenID",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "guides/oauth2-openid-connect",
-      },
-      items: flat
-        ? []
-        : [
-            "getting-started/ory-network-oauth2",
-            "getting-started/oauth2-openid/expressjs",
-          ],
-    },
-    {
-      type: "category",
-      label: "Software Development Kits",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "quickstart/sdks",
-      },
-      items: flat
-        ? []
-        : [
-            {
-              type: "category",
-              label: "Identity Management",
-              items: ["kratos/sdk/go"],
-            },
-            {
-              type: "category",
-              label: "OAuth2 & OpenID Connect",
-              items: ["hydra/sdk/js", "hydra/sdk/go"],
-            },
-            {
-              type: "category",
-              label: "Permissions",
-              items: ["keto/sdk/go", "keto/sdk/python"],
-            },
           ],
     },
   ]
@@ -203,6 +139,10 @@ const guidesSidebar = (flat: boolean): ExtendSidebar => {
             {
               type: "category",
               label: "OpenID Connect SSO",
+              link: {
+                type: "doc",
+                id: "guides/oauth2-openid-connect",
+              },
               items: [
                 "kratos/social-signin/overview",
                 {

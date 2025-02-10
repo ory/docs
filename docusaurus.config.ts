@@ -247,10 +247,10 @@ const config: Config = {
       "@docusaurus/plugin-client-redirects",
       {
         redirects: [
-          // {
-          // from: ['/','/docs','/docs/'],
-          // to: '/docs/welcome'
-          // }
+          {
+            from: "/quickstart/sdks",
+            to: "/sdk",
+          },
         ],
       },
     ],
