@@ -13,7 +13,8 @@ This feature is available in Ory Hydra Enterprise License (OEL) and it requires 
 extension installed.
 
 By default, Postgresql TTL jobs are disabled. They can be installed by enabling an additional migration job, similar to the
-default migration job that introduces schema changes.
+default migration job that introduces schema changes. This additional job populates the database with the necessary cron job
+definitions containing delete statements.
 
 ## Prerequisites
 
