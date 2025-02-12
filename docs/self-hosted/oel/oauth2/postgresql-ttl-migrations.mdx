@@ -77,26 +77,4 @@ If the `pg_cron` extension is not installed in the PostgreSQL database, the migr
 ERROR: schema "cron" does not exist (SQLSTATE 3F000)
 ```
 
-To resolve this issue, install the `pg_cron` extension and enable it in the postgres database using the initialization SQL script:
-
-```yaml
-postgresql-init.sql: |
-  \c postgres
-  CREATE EXTENSION IF NOT EXISTS pg_cron;
-  CREATE DATABASE ory_hydra;
-```
-
-If you are using Docker with the official PostgreSQL image, you can install the extension by adding the following commands to your
-Dockerfile:
-
-```bash
-FROM postgres:17.2
-
-RUN set -eux \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-        postgresql-$PG_MAJOR-cron
-
-RUN echo "shared_preload_libraries='pg_cron'" >> /usr/share/postgresql/postgresql.conf.sample
-RUN echo "cron.database_name='postgres'" >> /usr/share/postgresql/postgresql.conf.sample
-```
+To resolve this issue, install the `pg_cron` extension and enable it in the postgres database.
