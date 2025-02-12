@@ -20,7 +20,8 @@ definitions containing delete statements for expired data. The cron jobs are exe
 
 Before starting the upgrade process, ensure that you meet the following requirements:
 
-1. **Ory Hydra Version**: Your current Ory Hydra OEL installation must be version ..TODO...
+1. **Ory Hydra Version**: Your current Ory Hydra OEL installation must be version e17b2ea61cc69e70f252e384d5ccbac83e504ced or
+   newer.
 2. **PostgreSQL Database**: The PostgreSQL database must be installed and configured with the `pg_cron` extension.
 3. **Backup and Testing**: Create a backup of your current Ory Hydra database and test the migration on a test environment to
    ensure compatibility and minimize risks.
@@ -54,5 +55,48 @@ hydra:
     jobs:
       oel-postgresql-ttl:
         enabled: true
-        customArgs: ["migrate", "postgresql-addons", "up", "--hydra-db-name", "hydra", "--pgcron-db-name", "postgres_cron"]
+        customArgs:
+          [
+            "migrate",
+            "postgresql-addons",
+            "up",
+            "--hydra-db-name",
+            "<your hydra database>",
+            "--pgcron-db-name",
+            "<database where pg_cron is installed>",
+          ]
+```
+
+## Possible issues
+
+### pg_cron extension not installed
+
+If the `pg_cron` extension is not installed in the PostgreSQL database, the migration job will fail with the following error:
+
+```
+ERROR: schema "cron" does not exist (SQLSTATE 3F000)
+```
+
+To resolve this issue, install the `pg_cron` extension and enable it in the postgres database using the initialization SQL script:
+
+```yaml
+postgresql-init.sql: |
+  \c postgres
+  CREATE EXTENSION IF NOT EXISTS pg_cron;
+  CREATE DATABASE ory_hydra;
+```
+
+If you are using Docker with the official PostgreSQL image, you can install the extension by adding the following commands to your
+Dockerfile:
+
+```bash
+FROM postgres:17.2
+
+RUN set -eux \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        postgresql-$PG_MAJOR-cron
+
+RUN echo "shared_preload_libraries='pg_cron'" >> /usr/share/postgresql/postgresql.conf.sample
+RUN echo "cron.database_name='postgres'" >> /usr/share/postgresql/postgresql.conf.sample
 ```
