@@ -486,7 +486,7 @@ const troubleshootingSidebar = [
 ]
 
 const identitiesSidebar = [
-  homeLink,
+  //   homeLink,
   {
     type: "category",
     label: "Concepts",
@@ -500,67 +500,92 @@ const identitiesSidebar = [
       "security-model",
       "identities/native-browser",
       "concepts/redirects",
+      {
+        type: "category",
+        label: "User flows",
+        link: {
+          type: "doc",
+          id: "kratos/self-service",
+        },
+        items: [
+          "kratos/concepts/browser-redirect-flow-completion",
+          "kratos/self-service/flows/user-registration",
+          "kratos/self-service/flows/user-login",
+          "kratos/self-service/flows/user-logout",
+          "kratos/self-service/flows/user-settings",
+          "kratos/self-service/flows/verify-email-account-activation",
+          "kratos/self-service/flows/account-recovery-password-reset",
+          "kratos/self-service/flows/user-facing-errors",
+        ],
+      },
     ],
   },
   {
     type: "category",
-    label: "Self-service user flows",
+    label: "Guides",
     collapsed: false,
     collapsible: false,
-    link: {
-      type: "doc",
-      id: "kratos/self-service",
-    },
     items: [
-      "kratos/concepts/browser-redirect-flow-completion",
-      "kratos/self-service/flows/user-registration",
-      "kratos/self-service/flows/user-login",
-      "kratos/self-service/flows/user-logout",
-      "kratos/self-service/flows/user-settings",
-      "kratos/self-service/flows/verify-email-account-activation",
-      "kratos/self-service/flows/account-recovery-password-reset",
-      "kratos/self-service/flows/user-facing-errors",
+      "getting-started/local-development",
+      {
+        type: "category",
+        label: "Authenctication",
+        items: [
+          "getting-started/local-development",
+          "kratos/concepts/credentials/username-email-password",
+          "kratos/passwordless/passkeys",
+          "kratos/passwordless/one-time-code",
+          "kratos/organizations/organizations",
+          "kratos/emails-sms/custom-email-templates",
+        ],
+      },
+      {
+        type: "category",
+        label: "Multi-factor authentication",
+        link: {
+          type: "doc",
+          id: "kratos/mfa/overview",
+        },
+        items: [
+          "kratos/mfa/lookup-secrets",
+          "kratos/mfa/totp",
+          "kratos/mfa/webauthn-fido-yubikey",
+          "kratos/mfa/mfa-via-sms",
+          "kratos/mfa/step-up-authentication",
+        ],
+      },
+      {
+        type: "category",
+        label: "Credentials",
+        link: {
+          type: "doc",
+          id: "kratos/concepts/credentials",
+        },
+        items: ["concepts/password-policy", "kratos/passwordless/passwordless"],
+      },
+      {
+        type: "category",
+        label: "User interface",
+        link: {
+          type: "doc",
+          id: "kratos/bring-your-own-ui/custom-ui-overview",
+        },
+        items: [
+          "account-experience/index",
+          "kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
+        ],
+      },
     ],
   },
   {
     type: "category",
-    label: "Authentication",
-    collapsed: false,
-    collapsible: false,
-    link: {
-      type: "doc",
-      id: "kratos/concepts/credentials",
-    },
+    label: "Configuration",
     items: [
-      "concepts/password-policy",
-      "kratos/passwordless/passwordless",
-      "kratos/mfa/overview",
+      "identities/sign-in/two-step-registration",
+      "identities/sign-in/identifier-first-authentication",
+      "identities/sign-in/login-hint",
+      "identities/sign-in/actions",
     ],
-  },
-  {
-    type: "category",
-    label: "User interface",
-    collapsed: false,
-    collapsible: false,
-    link: {
-      type: "doc",
-      id: "kratos/bring-your-own-ui/custom-ui-overview",
-    },
-    items: [
-      "account-experience/index",
-      "kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
-    ],
-  },
-  {
-    type: "category",
-    label: "Send Emails & SMS",
-    collapsed: false,
-    collapsible: false,
-    link: {
-      type: "doc",
-      id: "kratos/emails-sms/custom-email-templates",
-    },
-    items: ["kratos/emails-sms/custom-email-templates"],
   },
 ]
 
