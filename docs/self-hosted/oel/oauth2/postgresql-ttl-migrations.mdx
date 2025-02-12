@@ -14,7 +14,7 @@ extension installed.
 
 By default, Postgresql TTL jobs are disabled. They can be installed by enabling an additional migration job, similar to the
 default migration job that introduces schema changes. This additional job populates the database with the necessary cron job
-definitions containing delete statements.
+definitions containing delete statements for expired data. The cron jobs are executed by the `pg_cron` extension at 00:00 UTC.
 
 ## Prerequisites
 
