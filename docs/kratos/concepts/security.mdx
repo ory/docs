@@ -108,23 +108,5 @@ ory patch identity-config --project <project-id> --workspace <workspace-id> \
 
 ```mdx-code-block
 </TabItem>
-<TabItem value="api" label="API">
-```
-
-```shell
-curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
-     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
-     -H "Content-Type: application/json" \
-     -d '[
-           {
-             "op": "replace",
-             "path": "/services/identity/config/selfservice/methods/captcha/enabled",
-             "value": true
-           }
-         ]'
-```
-
-```mdx-code-block
-</TabItem>
 </Tabs>
 ```
