@@ -594,7 +594,10 @@ The following steps are necessary to set up password migration using a web hook:
     After a successful response, the identity will be updated with the hashed password and the user will be logged in. The
     password migration hook will not be called again for this identity.
 
-    Any other response will be treated as an invalid password, and the user will be notified that the password is incorrect.
+    If the password does not match, the webhook should return `403 Forbidden`, to indicate to the user that the password did not
+    match.
+
+    Any other response will be treated as an unexpected error, and the user will not be logged in.
 
 ### Social sign-in connections
 
