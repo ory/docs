@@ -121,8 +121,7 @@ curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
              "path": "/services/identity/config/selfservice/methods/captcha/enabled",
              "value": true
            }
-         ]' \
-   | jq ".project.services.identity.config.selfservice.methods.captcha"
+         ]'
 ```
 
 ```mdx-code-block
