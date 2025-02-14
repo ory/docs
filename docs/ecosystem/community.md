@@ -10,7 +10,7 @@ Take part in the Ory Community!
 
 - Chat on the [Ory Community Slack](https://slack.ory.sh/)
 
-::info
+:::info
 
 Looking for more examples?  
 Check out [awesome-ory](https://github.com/ory/awesome-ory). Contributions always welcome!
