@@ -1,0 +1,80 @@
+---
+id: migrate-postgresql-ttl
+title: PostgreSQL TTL jobs for Hydra OEL
+---
+
+# PostgreSQL TTL jobs for Ory Hydra
+
+This guide outlines the steps to enable and configure the PostgreSQL TTL jobs for Ory Hydra. The TTL jobs are executed
+periodically to remove expired data from the PostgreSQL database. They are essential for maintaining database performance and
+preventing uncontrolled growth.
+
+This feature is available in Ory Hydra Enterprise License (OEL) and it requires the PostgreSQL database with the `pg_cron`
+extension installed.
+
+By default, Postgresql TTL jobs are disabled. They can be installed by enabling an additional migration job, similar to the
+default migration job that introduces schema changes. This additional job populates the database with the necessary cron job
+definitions containing delete statements for expired data. The cron jobs are executed by the `pg_cron` extension at 00:00 UTC.
+
+## Prerequisites
+
+Before starting the upgrade process, ensure that you meet the following requirements:
+
+1. **Ory Hydra Version**: Your current Ory Hydra OEL installation must be version `e17b2ea61cc69e70f252e384d5ccbac83e504ced` or
+   newer.
+2. **PostgreSQL Database**: The PostgreSQL database must be installed and configured with the `pg_cron` extension.
+3. **Backup and Testing**: Create a backup of your current Ory Hydra database and test the migration on a test environment to
+   ensure compatibility and minimize risks.
+
+## Installation process
+
+If you are using the official [Hydra helm chart](https://github.com/ory/k8s/tree/master/helm/charts/hydra) modify your values.yaml
+file to include the following configuration:
+
+```yaml
+hydra:
+  customMigrations:
+    jobs:
+      oel-postgresql-ttl:
+        enabled: true
+```
+
+This change enables the additional migration job that introduces the TTL jobs to the PostgreSQL database. By default, it executes
+the `hydra` binary with following arguments:
+
+```
+migrate postgresql-addons up --hydra-db-name ory_hydra --pgcron-db-name postgres
+```
+
+If you use a different database name, you can override it by setting the `--hydra-db-name` and `--pgcron-db-name` flags in the
+`values.yaml` file:
+
+```yaml
+hydra:
+  customMigrations:
+    jobs:
+      oel-postgresql-ttl:
+        enabled: true
+        customArgs:
+          [
+            "migrate",
+            "postgresql-addons",
+            "up",
+            "--hydra-db-name",
+            "<your hydra database>",
+            "--pgcron-db-name",
+            "<database where pg_cron is installed>",
+          ]
+```
+
+## Possible issues
+
+### pg_cron extension not installed
+
+If the `pg_cron` extension is not installed in the PostgreSQL database, the migration job will fail with the following error:
+
+```
+ERROR: schema "cron" does not exist (SQLSTATE 3F000)
+```
+
+To resolve this issue, install the `pg_cron` extension and enable it in the postgres database.
