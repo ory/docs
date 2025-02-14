@@ -48,13 +48,16 @@ const Mermaid = ({ chart }) => {
 
   useEffect(() => {
     // https://mermaid.js.org/config/theming.html#diagram-specific-themes
-    mermaid.render(
-      id,
-      `%%{init: {'theme':'${colorMode === "light" ? "neutral" : "dark"
-      }'}}%%\n${chart}`,
-    ).then(({ svg }) => {
-      setSvg(svg)
-    },)
+    mermaid
+      .render(
+        id,
+        `%%{init: {'theme':'${
+          colorMode === "light" ? "neutral" : "dark"
+        }'}}%%\n${chart}`,
+      )
+      .then(({ svg }) => {
+        setSvg(svg)
+      })
   }, [])
 
   return (
