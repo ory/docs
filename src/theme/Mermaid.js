@@ -50,13 +50,11 @@ const Mermaid = ({ chart }) => {
     // https://mermaid.js.org/config/theming.html#diagram-specific-themes
     mermaid.render(
       id,
-      `%%{init: {'theme':'${
-        colorMode === "light" ? "neutral" : "dark"
+      `%%{init: {'theme':'${colorMode === "light" ? "neutral" : "dark"
       }'}}%%\n${chart}`,
-      (svg) => {
-        setSvg(svg)
-      },
-    )
+    ).then(({ svg }) => {
+      setSvg(svg)
+    },)
   }, [])
 
   return (
