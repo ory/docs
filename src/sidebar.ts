@@ -1209,10 +1209,10 @@ module.exports = {
   "quickstarts-and-tutorials": quickstartSidebar(false),
   guides: guidesSidebar(false),
   troubleshooting: troubleshootingSidebar,
+  selfhosting: selfhostingSidebar,
   identities: identitiesSidebar,
   oauth2: oauth2Sidebar,
   permissions: permissionsSidebar,
-  selfhosting: selfhostingSidebar,
 
   sdk: [],
   api: [],
