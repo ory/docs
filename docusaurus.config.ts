@@ -109,13 +109,13 @@ const config: Config = {
           position: "left",
         },
         {
-          to: "/docs/oauth2-oidc",
+          to: "/docs/getting-started/ory-network-oauth2",
           //   to: "/docs/federation", // TODO: Use this route
           label: "Federation",
           position: "left",
         },
         {
-          to: "/docs/keto",
+          to: "/docs/guides/permissions/overview",
           //   to: "/docs/permissions", // TODO: Use this route
           label: "Permissions",
           position: "left",
