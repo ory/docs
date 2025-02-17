@@ -624,7 +624,20 @@ const identitiesSidebar = [
 ]
 
 const oauth2Sidebar = [
-  homeLink,
+  {
+    type: "category",
+    label: "Start",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "getting-started/ory-network-oauth2",
+    },
+    items: [
+      "getting-started/oauth2-openid/expressjs",
+      "hydra/guides/using-oauth2",
+    ],
+  },
   {
     type: "category",
     label: "Concepts",
@@ -642,34 +655,115 @@ const oauth2Sidebar = [
       "hydra/security-architecture",
     ],
   },
+
   {
     type: "category",
-    label: "Flows",
+    label: "Guides",
     collapsed: false,
     collapsible: false,
     link: {
       type: "doc",
-      id: "oauth2-oidc/authorization-code-flow",
+      id: "hydra/guides/oauth2-token-introspection",
     },
     items: [
-      "oauth2-oidc/authorization-code-flow",
-      "oauth2-oidc/client-credentials",
-      "oauth2-oidc/resource-owner-password-grant",
-      "oauth2-oidc/refresh-token-grant",
-      "oauth2-oidc/userinfo-oidc",
-      "oauth2-oidc/oidc-logout",
+      {
+        type: "category",
+        label: "OpenID Connect SSO",
+        link: {
+          type: "doc",
+          id: "guides/oauth2-openid-connect",
+        },
+        items: [
+          "kratos/social-signin/overview",
+          {
+            type: "category",
+            label: "Social Sign-in Providers",
+            items: [
+              "kratos/social-signin/generic",
+              "kratos/social-signin/ory",
+              "kratos/social-signin/google",
+              "kratos/social-signin/facebook",
+              "kratos/social-signin/microsoft",
+              "kratos/social-signin/github",
+              "kratos/social-signin/apple",
+              "kratos/social-signin/gitlab",
+              "kratos/social-signin/auth0",
+              "kratos/social-signin/salesforce",
+              "kratos/social-signin/slack",
+              "kratos/social-signin/spotify",
+              "kratos/social-signin/discord",
+              "kratos/social-signin/twitch",
+              "kratos/social-signin/netid",
+              "kratos/social-signin/yandex",
+              "kratos/social-signin/vk",
+              "kratos/social-signin/dingtalk",
+              "kratos/social-signin/lark",
+              "kratos/social-signin/patreon",
+              "kratos/social-signin/linkedin",
+              "kratos/social-signin/x-twitter",
+            ],
+          },
+          "kratos/social-signin/data-mapping",
+          "kratos/social-signin/account-linking",
+          "kratos/social-signin/get-tokens",
+          "identities/sign-in/social-sign-in/redirect-url",
+          "kratos/social-signin/native-apps",
+          "kratos/social-signin/oidc-pkce",
+          "kratos/social-signin/fedcm",
+        ],
+      },
+      {
+        type: "category",
+        label: "Flows",
+        link: {
+          type: "doc",
+          id: "oauth2-oidc/authorization-code-flow",
+        },
+        items: [
+          "oauth2-oidc/authorization-code-flow",
+          "oauth2-oidc/client-credentials",
+          "oauth2-oidc/resource-owner-password-grant",
+          "oauth2-oidc/refresh-token-grant",
+          "oauth2-oidc/userinfo-oidc",
+          "oauth2-oidc/oidc-logout",
+        ],
+      },
+      {
+        type: "category",
+        label: "Token management",
+        items: [
+          "hydra/guides/oauth2-token-introspection",
+          "oauth2-oidc/revoke-consent",
+          "oauth2-oidc/skip-consent",
+          "oauth2-oidc/jwt-access-token",
+          "hydra/guides/audiences",
+          "hydra/guides/jwt",
+          "hydra/guides/client-token-expiration",
+          "hydra/guides/graceful-token-refresh",
+          "oauth2-oidc/claims-scope",
+          "hydra/guides/claims-at-refresh",
+        ],
+      },
+      {
+        type: "category",
+        label: "Client management",
+        items: [
+          "hydra/guides/oauth2-clients",
+          "hydra/jwks",
+          "hydra/guides/openid",
+          "oauth2-oidc/issuer-url",
+        ],
+      },
+      {
+        type: "category",
+        label: "User Interface",
+        link: {
+          type: "doc",
+          id: "hydra/guides/custom-ui-oauth2",
+        },
+        items: ["oauth2-oidc/custom-login-consent/flow", "hydra/guides/logout"],
+      },
     ],
-  },
-  {
-    type: "category",
-    label: "User Interface",
-    collapsed: false,
-    collapsible: false,
-    link: {
-      type: "doc",
-      id: "hydra/guides/custom-ui-oauth2",
-    },
-    items: ["oauth2-oidc/custom-login-consent/flow", "hydra/guides/logout"],
   },
 ]
 
