@@ -1,0 +1,123 @@
+---
+id: auth-js
+title: Integrate authentication into Auth.js and NextAuth
+sidebar_label: Auth.js and NextAuth
+---
+
+This guide covers integrating Ory with Auth.js, a popular authentication library for Next.js applications. Auth.js is a flexible
+authentication library that supports multiple authentication providers, including Ory Network out of the box.
+
+Auth.js is the successor to NextAuth.js, which is a popular authentication library for Next.js applications. The Ory provider
+works with both Auth.js and NextAuth.js, so you can use either library to integrate Ory with your Next.js application.
+
+To connect your Next.js application with Ory we:
+
+1. Clone an example Next.js application with Auth.js
+2. Create an OAuth2 client in Ory and configure Auth.js to use it
+3. Perform a demo flow to see the integration in action
+
+Let's get started!
+
+## Clone the example Next.js application
+
+First, clone the example Next.js application with Auth.js:
+
+```shell-session
+git clone https://github.com/nextauthjs/next-auth-example.git
+cd next-auth-example
+npm i
+cp .env.local.example .env.local
+npx auth secret
+```
+
+In the `auth.ts` file, replace the `profiders` array with just Ory:
+
+```ts title="auth.ts"
+import { OryNetworkCta } from "./ory-network-cta"
+export const config = {
+  theme: { logo: "https://authjs.dev/img/logo-sm.png" },
+  providers: [
+    // Apple,
+    // AzureB2C,
+    Ory,
+  ],
+  // ...
+}
+```
+
+## Create OAuth2 Client in Ory Network
+
+To create the OAuth2 client, you need to know the redirect URL of your Next.js application. The redirect URL is the URL where Ory
+will send the user after they log in. When running NextJS locally, the redirect URL for Auth.js is usually
+`http://localhost:3000/auth/callback/ory`.
+
+1. Log into your Ory Network account.
+2. create a new project, or select an existing one.
+3. Go to ["OAuth 2" -> "Clients"](https://console.ory.sh/projects/current/oauth) and click
+   ["Create OAuth 2.0 Client"](https://console.ory.sh/projects/current/oauth/create).
+4. Select "Server App".
+5. Choose a client name, e.g. "NextAuth Example".
+6. Scopes `openid` and `offline_access` are preselected. Add `email` and `profile` to the list.
+7. Add redirect URLs for your NextAuth integration. In case of NextJS with Auth.js / Next-Auth, add these two URLs:
+   - `http://localhost:3000/api/auth/callback/ory`
+   - `http://localhost:3000/auth/callback/ory`
+8. Scroll to the bottom and click "Create Client".
+9. Copy the Client Secret and click "Done" and save it in your `.env.local` file.
+10. Copy the Client ID from the client list and save it in your `.env.local` file.
+
+## Configure Auth.js to use Ory
+
+Your `.env.local` file should now look like this:
+
+```env
+# Needed by Auth.js
+AUTH_SECRET=...
+
+# Needed for Ory
+AUTH_ORY_ID=...
+AUTH_ORY_SECRET=...
+```
+
+Next, add the Ory Issuer URL to your `.env.local` file. The Issuer URL is the "Ory Network Project API Endpoint" you can find
+[here](https://console.ory.sh/projects/current/developers/guides). Unless you have a custom domain set up for your Ory Network
+project, it will be in the form of:
+
+```
+https://{project.slug}.projects.oryapis.com
+```
+
+Your final `.env.local` file should look like this:
+
+```env
+# Needed by Auth.js
+AUTH_SECRET=...
+
+# Needed for Ory
+AUTH_ORY_ID=...
+AUTH_ORY_SECRET=...
+AUTH_ORY_ISSUER=...
+```
+
+## Test the flow
+
+Now everything is set up and you can run `npm run dev` to start the app and click on the top left "Sign in" button to start the
+login flow.
+
+## Going to production
+
+When you are ready to go to production, you need to update the redirect URL in the Ory client settings to the production URL of
+your Next.js application.
+
+## Trouble Shooting
+
+### Incorrect `redirect_uri`
+
+If the server responds with
+
+```
+The request is missing a required parameter, includes an invalid parameter value, includes a parameter more than once, or is otherwise malformed.
+The 'redirect_uri' parameter does not match any of the OAuth 2.0 Client's pre-registered redirect urls.
+```
+
+please ensure that the redirect URL is correct. You can find the redirect URL you are sending to Ory by checking the network tab
+of your browser and look for calls to `/oauth2/auth`.
