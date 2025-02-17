@@ -491,25 +491,20 @@ const identitiesSidebar = [
           "kratos/self-service/flows/user-facing-errors",
         ],
       },
-    ],
-  },
-  {
-    type: "category",
-    label: "Guides",
-    collapsed: false,
-    collapsible: false,
-    items: [
-      "getting-started/local-development",
       {
         type: "category",
-        label: "Authenctication",
+        label: "Session management",
+        link: {
+          type: "doc",
+          id: "kratos/session-management/overview",
+        },
         items: [
-          "getting-started/local-development",
-          "kratos/concepts/credentials/username-email-password",
-          "kratos/passwordless/passkeys",
-          "kratos/passwordless/one-time-code",
-          "kratos/organizations/organizations",
-          "kratos/emails-sms/custom-email-templates",
+          "identities/sign-in/check-session",
+          "kratos/session-management/session-lifespan",
+          "kratos/session-management/refresh-extend-sessions",
+          "kratos/session-management/revoke-sessions-hook",
+          "identities/session-to-jwt-cors",
+          "concepts/cache",
         ],
       },
       {
@@ -529,13 +524,65 @@ const identitiesSidebar = [
       },
       {
         type: "category",
-        label: "Credentials",
+        label: "Ory Actions",
         link: {
           type: "doc",
-          id: "kratos/concepts/credentials",
+          id: "guides/integrate-with-ory-cloud-through-webhooks",
         },
-        items: ["concepts/password-policy", "kratos/passwordless/passwordless"],
+        items: [
+          {
+            type: "category",
+            label: "Identity management",
+            items: [
+              "identities/sign-in/actions",
+              "actions/revoke-active-sessions",
+              "actions/session",
+              "actions/require-verified-address",
+              {
+                type: "category",
+                label: "Integrations",
+                items: [
+                  "actions/integrations/hubspot",
+                  "actions/integrations/mailchimp",
+                  "actions/integrations/segment",
+                ],
+              },
+            ],
+          },
+          "hydra/guides/claims-at-refresh",
+        ],
       },
+      {
+        type: "category",
+        label: "Identity management",
+        link: {
+          type: "doc",
+          id: "kratos/manage-identities/overview",
+        },
+        items: [
+          "kratos/manage-identities/create-users-identities",
+          "kratos/manage-identities/import-user-accounts-identities",
+          "identities/model/identity-state",
+          "kratos/manage-identities/invite-users",
+          "kratos/manage-identities/account-recovery",
+          "kratos/manage-identities/export-user-accounts-identities",
+        ],
+      },
+      {
+        type: "category",
+        label: "Identity schema",
+        link: {
+          type: "doc",
+          id: "kratos/manage-identities/identity-schema",
+        },
+        items: [
+          "kratos/manage-identities/managing-users-identities-metadata",
+          "identities/model/manage-identity-schema",
+          "kratos/manage-identities/customize-identity-schema",
+          "kratos/manage-identities/best-practices",
+        ],
+      },
+
       {
         type: "category",
         label: "User interface",
@@ -546,6 +593,20 @@ const identitiesSidebar = [
         items: [
           "account-experience/index",
           "kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
+          {
+            type: "category",
+            label: "Build your own UI",
+            link: {
+              type: "doc",
+              id: "getting-started/custom-ui",
+            },
+            items: [
+              "kratos/bring-your-own-ui/custom-ui-basic-integration",
+              "kratos/bring-your-own-ui/custom-ui-advanced-integration",
+              "kratos/bring-your-own-ui/custom-ui-ory-elements",
+              "kratos/concepts/ui-user-interface",
+            ],
+          },
         ],
       },
     ],
