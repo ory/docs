@@ -245,6 +245,14 @@ organization.
 </Tabs>
 ```
 
+## Pre-provisioning identities in an organization
+
+After creating an organization, you can pre-provision identities in it. This is useful when you need to create related data in
+your system but need the identity to be created in Ory Network first, before the user logs in for the first time.
+
+To achieve this, set the `organization_id` property to the ID of the created organization in the identity, either when creating
+the identity, or by updating the identity's data using the Ory APIs.
+
 ## SAML
 
 SAML (Security Assertion Markup Language) is an XML-based open standard used for exchanging authentication and authorization data
