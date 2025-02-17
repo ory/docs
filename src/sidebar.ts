@@ -440,9 +440,42 @@ const identitiesSidebar = [
       "security-model",
       "identities/native-browser",
       "concepts/redirects",
+      "kratos/hooks/configure-hooks",
+    ],
+  },
+  {
+    type: "category",
+    label: "Guides",
+    collapsed: false,
+    collapsible: false,
+    items: [
+      "getting-started/local-development",
       {
         type: "category",
-        label: "User flows",
+        label: "Authentication",
+        items: [
+          "kratos/passwordless/passwordless",
+          "kratos/passwordless/one-time-code",
+          "kratos/passwordless/passkeys",
+          "kratos/organizations/organizations",
+          {
+            type: "category",
+            label: "Credentials",
+            link: {
+              type: "doc",
+              id: "kratos/concepts/credentials",
+            },
+            items: [
+              "kratos/concepts/credentials/username-email-password",
+              "concepts/password-policy",
+            ],
+          },
+          "kratos/emails-sms/custom-email-templates",
+        ],
+      },
+      {
+        type: "category",
+        label: "Flows",
         link: {
           type: "doc",
           id: "kratos/self-service",
