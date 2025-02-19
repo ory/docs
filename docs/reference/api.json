@@ -2231,40 +2231,68 @@
       },
       "accountExperienceConfiguration": {
         "properties": {
-          "account_experience_theme_stylesheet": {
+          "default_redirect_url": {
             "type": "string"
           },
-          "favicon_type": {
+          "error_ui_url": {
             "type": "string"
           },
-          "favicon_url": {
+          "favicon_dark_url": {
             "type": "string"
           },
-          "kratos_selfservice_default_browser_return_url": {
+          "favicon_light_url": {
             "type": "string"
           },
-          "kratos_selfservice_flows_recovery_enabled": {
-            "type": "boolean"
+          "login_ui_url": {
+            "type": "string"
           },
-          "kratos_selfservice_flows_registration_enabled": {
-            "type": "boolean"
+          "logo_dark_url": {
+            "type": "string"
           },
-          "kratos_selfservice_flows_verification_enabled": {
-            "type": "boolean"
-          },
-          "logo_url": {
+          "logo_light_url": {
             "type": "string"
           },
           "name": {
             "type": "string"
           },
-          "organization_map": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "type": "object"
+          "recovery_enabled": {
+            "type": "boolean"
+          },
+          "recovery_ui_url": {
+            "type": "string"
+          },
+          "registration_enabled": {
+            "type": "boolean"
+          },
+          "registration_ui_url": {
+            "type": "string"
+          },
+          "settings_ui_url": {
+            "type": "string"
+          },
+          "stylesheet": {
+            "type": "string"
+          },
+          "verification_enabled": {
+            "type": "boolean"
+          },
+          "verification_ui_url": {
+            "type": "string"
           }
         },
+        "required": [
+          "name",
+          "registration_enabled",
+          "verification_enabled",
+          "recovery_enabled",
+          "recovery_ui_url",
+          "registration_ui_url",
+          "verification_ui_url",
+          "login_ui_url",
+          "settings_ui_url",
+          "error_ui_url",
+          "default_redirect_url"
+        ],
         "type": "object"
       },
       "accountExperienceThemeVariables": {
@@ -2945,6 +2973,9 @@
           },
           "metadata_public": {
             "description": "Store metadata about the identity which the identity itself can see when calling for example the\nsession endpoint. Do not store sensitive information (e.g. credit score) about the identity in this field."
+          },
+          "organization_id": {
+            "$ref": "#/components/schemas/NullUUID"
           },
           "recovery_addresses": {
             "description": "RecoveryAddresses contains all the addresses that can be used to recover an identity.\n\nUse this structure to import recovery addresses for an identity. Please keep in mind\nthat the address needs to be represented in the Identity Schema or this field will be overwritten\non the next identity update.",
@@ -6155,6 +6186,9 @@
             "readOnly": true,
             "type": "string"
           },
+          "fedcm_config_url": {
+            "$ref": "#/components/schemas/String"
+          },
           "id": {
             "format": "uuid",
             "type": "string"
@@ -6171,6 +6205,9 @@
           "mapper_url": {
             "description": "Mapper specifies the JSONNet code snippet which uses the OpenID Connect Provider's data (e.g. GitHub or Google\nprofile information) to hydrate the identity's data.",
             "type": "string"
+          },
+          "net_id_token_origin_header": {
+            "$ref": "#/components/schemas/String"
           },
           "organization_id": {
             "$ref": "#/components/schemas/NullUUID"

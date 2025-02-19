@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 ```
 
-SMS and email can be used to deliver one time codes to users. Ory will deliver a 6-digit code to an SMS / email gateway of your
+SMS and email can be used to deliver one-time codes to users. Ory will deliver a 6-digit code to an SMS / email gateway of your
 choice, such as Twilio, Amazon SNS, SMTP, or your own application. These codes are valid for a short amount of time, usually 15
 minutes or less. Once the user completes the challenge, by entering the code, the AAL of the session is upgraded to AAL2.
 
@@ -30,6 +30,15 @@ To enable MFA via SMS, you need to configure an SMS channel in the Ory configura
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
+<TabItem value="console" label="Ory Console" default>
+```
+
+1. Go to <ConsoleLink route="project.mfa" />.
+2. Toggle **Enable one-time code multi factor authentication**.
+3. Click **Save**.
+
+```mdx-code-block
+  </TabItem>
 <TabItem value="cli" label="Ory CLI" default>
 ```
 
