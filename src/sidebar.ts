@@ -17,6 +17,53 @@ const homeLink: SidebarItem = {
   label: "Go to Main Page",
 }
 
+const openIdSSO: SidebarItemConfig = {
+  type: "category",
+  label: "OpenID Connect SSO",
+  link: {
+    type: "doc",
+    id: "guides/oauth2-openid-connect",
+  },
+  items: [
+    "kratos/social-signin/overview",
+    {
+      type: "category",
+      label: "Social Sign-in Providers",
+      items: [
+        "kratos/social-signin/generic",
+        "kratos/social-signin/ory",
+        "kratos/social-signin/google",
+        "kratos/social-signin/facebook",
+        "kratos/social-signin/microsoft",
+        "kratos/social-signin/github",
+        "kratos/social-signin/apple",
+        "kratos/social-signin/gitlab",
+        "kratos/social-signin/auth0",
+        "kratos/social-signin/salesforce",
+        "kratos/social-signin/slack",
+        "kratos/social-signin/spotify",
+        "kratos/social-signin/discord",
+        "kratos/social-signin/twitch",
+        "kratos/social-signin/netid",
+        "kratos/social-signin/yandex",
+        "kratos/social-signin/vk",
+        "kratos/social-signin/dingtalk",
+        "kratos/social-signin/lark",
+        "kratos/social-signin/patreon",
+        "kratos/social-signin/linkedin",
+        "kratos/social-signin/x-twitter",
+      ],
+    },
+    "kratos/social-signin/data-mapping",
+    "kratos/social-signin/account-linking",
+    "kratos/social-signin/get-tokens",
+    "identities/sign-in/social-sign-in/redirect-url",
+    "kratos/social-signin/native-apps",
+    "kratos/social-signin/oidc-pkce",
+    "kratos/social-signin/fedcm",
+  ],
+}
+
 const referenceSidebar: ExtendSidebar = [
   homeLink,
   {
@@ -86,6 +133,7 @@ const referenceSidebar: ExtendSidebar = [
 
 const quickstartSidebar = (flat: boolean): ExtendSidebar => {
   return [
+    homeLink,
     {
       type: "category",
       label: "Start",
@@ -107,10 +155,12 @@ const quickstartSidebar = (flat: boolean): ExtendSidebar => {
             "getting-started/integrate-auth/nextjs",
             "getting-started/integrate-auth/flutter-web-redirect",
             "getting-started/integrate-auth/dotnet",
+            "getting-started/local-development",
           ],
     },
   ]
 }
+
 const guidesSidebar = (flat: boolean): ExtendSidebar => {
   const items = []
   if (!flat) {
@@ -426,7 +476,7 @@ const troubleshootingSidebar = [
 ]
 
 const identitiesSidebar = [
-  //   homeLink,
+  homeLink,
   {
     type: "category",
     label: "Concepts",
@@ -449,7 +499,6 @@ const identitiesSidebar = [
     collapsed: false,
     collapsible: false,
     items: [
-      "getting-started/local-development",
       {
         type: "category",
         label: "Authentication",
@@ -473,6 +522,7 @@ const identitiesSidebar = [
           "kratos/emails-sms/custom-email-templates",
         ],
       },
+      openIdSSO,
       {
         type: "category",
         label: "Flows",
@@ -549,7 +599,6 @@ const identitiesSidebar = [
               },
             ],
           },
-          "hydra/guides/claims-at-refresh",
         ],
       },
       {
@@ -624,6 +673,7 @@ const identitiesSidebar = [
 ]
 
 const oauth2Sidebar = [
+  homeLink,
   {
     type: "category",
     label: "Start",
@@ -651,7 +701,6 @@ const oauth2Sidebar = [
       "oauth2-oidc/overview/oauth2-concepts",
       "oauth2-oidc/overview/oidc-concepts",
       "hydra/concepts/before-oauth2",
-      "hydra/guides/using-oauth2",
       "hydra/security-architecture",
     ],
   },
@@ -666,52 +715,7 @@ const oauth2Sidebar = [
       id: "hydra/guides/oauth2-token-introspection",
     },
     items: [
-      {
-        type: "category",
-        label: "OpenID Connect SSO",
-        link: {
-          type: "doc",
-          id: "guides/oauth2-openid-connect",
-        },
-        items: [
-          "kratos/social-signin/overview",
-          {
-            type: "category",
-            label: "Social Sign-in Providers",
-            items: [
-              "kratos/social-signin/generic",
-              "kratos/social-signin/ory",
-              "kratos/social-signin/google",
-              "kratos/social-signin/facebook",
-              "kratos/social-signin/microsoft",
-              "kratos/social-signin/github",
-              "kratos/social-signin/apple",
-              "kratos/social-signin/gitlab",
-              "kratos/social-signin/auth0",
-              "kratos/social-signin/salesforce",
-              "kratos/social-signin/slack",
-              "kratos/social-signin/spotify",
-              "kratos/social-signin/discord",
-              "kratos/social-signin/twitch",
-              "kratos/social-signin/netid",
-              "kratos/social-signin/yandex",
-              "kratos/social-signin/vk",
-              "kratos/social-signin/dingtalk",
-              "kratos/social-signin/lark",
-              "kratos/social-signin/patreon",
-              "kratos/social-signin/linkedin",
-              "kratos/social-signin/x-twitter",
-            ],
-          },
-          "kratos/social-signin/data-mapping",
-          "kratos/social-signin/account-linking",
-          "kratos/social-signin/get-tokens",
-          "identities/sign-in/social-sign-in/redirect-url",
-          "kratos/social-signin/native-apps",
-          "kratos/social-signin/oidc-pkce",
-          "kratos/social-signin/fedcm",
-        ],
-      },
+      openIdSSO,
       {
         type: "category",
         label: "Flows",
@@ -744,6 +748,7 @@ const oauth2Sidebar = [
           "hydra/guides/claims-at-refresh",
         ],
       },
+
       {
         type: "category",
         label: "Client management",
@@ -768,6 +773,7 @@ const oauth2Sidebar = [
 ]
 
 const permissionsSidebar = [
+  homeLink,
   {
     type: "category",
     label: "Start",
@@ -1206,8 +1212,8 @@ module.exports = {
     },
   ],
   reference: referenceSidebar,
-  "quickstarts-and-tutorials": quickstartSidebar(false),
   guides: guidesSidebar(false),
+  "quickstarts-and-tutorials": quickstartSidebar(false),
   troubleshooting: troubleshootingSidebar,
   selfhosting: selfhostingSidebar,
   identities: identitiesSidebar,
