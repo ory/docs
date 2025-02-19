@@ -745,10 +745,13 @@ const oauth2Sidebar = [
           "hydra/guides/client-token-expiration",
           "hydra/guides/graceful-token-refresh",
           "oauth2-oidc/claims-scope",
-          "hydra/guides/claims-at-refresh",
         ],
       },
-
+      {
+        type: "category",
+        label: "Ory Actions",
+        items: ["hydra/guides/claims-at-refresh"],
+      },
       {
         type: "category",
         label: "Client management",
