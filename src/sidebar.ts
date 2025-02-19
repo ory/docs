@@ -1117,15 +1117,9 @@ module.exports = {
   docs: [
     "welcome",
     {
-      type: "category",
+      type: "doc",
+      id: "getting-started/overview",
       label: "Quickstarts & tutorials",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "getting-started/overview",
-      },
-      items: quickstartSidebar(true),
     },
     {
       type: "category",
