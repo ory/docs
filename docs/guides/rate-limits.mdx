@@ -126,8 +126,22 @@ Growth plan rate limits also apply to the Legacy `Scale` plan.
 
 #### Enterprise plan rate limits
 
-Looking for enterprise-grade rate limits? Everything's possible.
-[Get in touch with us to discuss your requirements](https://ory.sh/contact).
+The Enterprise plan has the same default rate limits as the Growth plan. If you use case requires higher limits, please
+[get in touch with us to discuss your requirements](https://ory.sh/contact).
+
+| Environment           | Path / Bucket              | Burst (rps) | Sustained (rpm) |
+| :-------------------- | :------------------------- | ----------: | --------------: |
+| Production            | `/sessions/whoami`         |        1200 |           36000 |
+|                       | `/admin/oauth2/introspect` |        1200 |           36000 |
+|                       | `/relation-tuples/check`   |        1200 |           36000 |
+|                       | `GET /admin/identities`    |          60 |            1200 |
+|                       | `POST /admin/recovery/*`   |          20 |             600 |
+|                       | `*`                        |         800 |           18000 |
+| Staging & Development | `/sessions/whoami`         |          10 |              30 |
+|                       | `/admin/oauth2/introspect` |          10 |             300 |
+|                       | `/relation-tuples/check`   |          10 |             300 |
+|                       | `GET /admin/identities`    |           1 |              10 |
+|                       | `*`                        |           5 |             150 |
 
 ## Endpoint based rate limits
 
