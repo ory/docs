@@ -92,7 +92,6 @@ const referenceSidebar: ExtendSidebar = [
           "guides/rate-limits",
           "guides/ip-allowlist",
           "api/eventual-consistency",
-          "guides/custom-domains",
           "console/usage-billing",
         ],
       },

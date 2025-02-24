@@ -21,7 +21,7 @@ To enable graceful refresh token rotation with a specific grace period, for exam
 
 ```shell
 ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
-  --replace "/oauth2/grant/refresh_token/rotation_grace_period=60s"
+  --replace '/oauth2/grant/refresh_token/rotation_grace_period="60s"'
 ```
 
 In this command:
