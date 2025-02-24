@@ -6,7 +6,7 @@ import type * as Preset from "@docusaurus/preset-classic"
 
 import lightTheme from "./src/utils/prismLight.mjs"
 import darkTheme from "./src/utils/prismDark.mjs"
-
+import { navbar } from "./src/navbar"
 const config: Config = {
   customFields: {
     CLOUD_URL: process.env.CLOUD_URL || "https://api.console.ory:8080",
@@ -86,89 +86,7 @@ const config: Config = {
       indexName: "ory",
       contextualSearch: true,
     },
-    navbar: {
-      hideOnScroll: false,
-      logo: {
-        alt: "Ory",
-        src: `/docs/img/logos/logo-docs-2023-02-15.svg`,
-        srcDark: `/docs/img/logos/logo-docs-dark-2023-02-15.svg`,
-        href: `https://www.ory.sh`,
-        width: 63,
-        height: 32,
-      },
-      items: [
-        // Main feature sections
-        {
-          to: "/getting-started/overview",
-          label: "Start",
-          position: "left",
-        },
-        {
-          to: "/docs/identities",
-          label: "Identity",
-          position: "left",
-        },
-        {
-          to: "/docs/getting-started/ory-network-oauth2",
-          //   to: "/docs/federation", // TODO: Use this route
-          label: "Federation",
-          position: "left",
-        },
-        {
-          to: "/docs/guides/permissions/overview",
-          //   to: "/docs/permissions", // TODO: Use this route
-          label: "Permissions",
-          position: "left",
-        },
-        {
-          to: "/docs/open-source",
-          label: "Open Source",
-          position: "left",
-        },
-        {
-          to: "/docs/reference/api",
-          //   to: "/docs/reference", // TODO: Use this route
-          label: "Reference",
-          position: "left",
-        },
-        {
-          label: "Need Support?",
-          position: "right",
-          items: [
-            {
-              to: "https://www.ory.sh/support",
-              label: "Enterprise Support",
-            },
-            {
-              to: "https://www.ory.sh/docs/search",
-              label: "Search the docs",
-            },
-            {
-              to: "https://www.ory.sh/chat",
-              label: "Ory Community Slack",
-            },
-            {
-              to: "https://github.com/orgs/ory/discussions",
-              label: "GitHub Discussions",
-            },
-            {
-              to: "https://stackoverflow.com/questions/tagged/ory",
-              label: "Stack Overflow",
-            },
-            {
-              to: "https://www.ory.sh/contact",
-              label: "Schedule a discovery call",
-            },
-          ],
-        },
-
-        {
-          href: `https://github.com/ory`,
-          label: "GitHub",
-          position: "right",
-        },
-      ],
-    },
+    navbar,
     footer: {
       style: "dark",
       copyright: `Copyright © ${new Date().getFullYear()} Ory Corp`,
