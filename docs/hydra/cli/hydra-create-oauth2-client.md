@@ -20,7 +20,7 @@ the Authorize Code, Implicit, Refresh flow. This command allows settings all fie
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  hydra create oauth2-client -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  hydra create oauth2-client --name "my app" --grant-type client_credentials --response-type token --scope core,foobar --keybase keybase_username
 
 
 ```
@@ -30,7 +30,7 @@ hydra create oauth2-client [flags]
 ### Examples
 
 ```
-hydra create oauth2-client -n "my app" -c http://localhost/cb -g authorization_code -r code -a core,foobar
+hydra create oauth2-client --name "my app" --redirect-uri http://localhost/cb --grant-type authorization_code --response-type code --scope core,foobar
 
 Use the tool jq (or any other JSON tool) to get the OAuth2 Client ID and Secret:
 
