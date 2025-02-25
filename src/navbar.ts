@@ -22,17 +22,17 @@ export const navbar: Navbar = {
       items: [
         {
           to: "/docs/identities",
-          label: "Identity",
+          label: "Identities",
         },
         {
           to: "/docs/getting-started/ory-network-oauth2",
           //   to: "/docs/federation", // TODO: Use this route
-          label: "Federation",
+          label: "OAuth2/OIDC",
         },
         {
           to: "/docs/guides/permissions/overview",
           //   to: "/docs/permissions", // TODO: Use this route
-          label: "Permission",
+          label: "Permissions",
         },
       ],
     },
