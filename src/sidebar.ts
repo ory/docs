@@ -12,7 +12,7 @@ const homeLink: SidebarItem = {
   type: "link",
   href: "/welcome",
   className: "all-docs-link",
-  label: "Go to Main Page",
+  label: "Go to Start Page",
 }
 
 const openIdSSO: SidebarItemConfig = {
@@ -160,7 +160,6 @@ const cli: SidebarItemsConfig = [
 ]
 
 const quickstart: SidebarItemsConfig = [
-  homeLink,
   "welcome",
   {
     type: "category",
