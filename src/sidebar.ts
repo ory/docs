@@ -81,13 +81,10 @@ const api: ExtendSidebar = [
     items: [
       "concepts/personal-access-token",
       "guides/cors",
-      "guides/custom-domains",
       "guides/api-rest-pagination",
-      "guides/workspaces",
       "guides/rate-limits",
       "guides/ip-allowlist",
       "api/eventual-consistency",
-      "console/usage-billing",
     ],
   },
 ]
@@ -515,6 +512,9 @@ const operations = [
     collapsed: false,
     collapsible: false,
     items: [
+      "guides/workspaces",
+      "guides/custom-domains",
+      "console/usage-billing",
       "guides/manage-project-via-api",
       "console/change-owner",
       "guides/gitops",
