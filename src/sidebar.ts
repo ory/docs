@@ -259,6 +259,10 @@ const identities: SidebarItemsConfig = [
       {
         type: "category",
         label: "Authentication",
+        link: {
+          type: "generated-index",
+          slug: "guides/authentication",
+        },
         items: [
           "kratos/passwordless/passwordless",
           "kratos/passwordless/one-time-code",
@@ -327,6 +331,20 @@ const identities: SidebarItemsConfig = [
           "kratos/mfa/webauthn-fido-yubikey",
           "kratos/mfa/mfa-via-sms",
           "kratos/mfa/step-up-authentication",
+        ],
+      },
+      {
+        type: "category",
+        label: "Emails and SMS",
+        collapsed: true,
+        collapsible: true,
+        link: {
+          type: "doc",
+          id: "guides/email-sms",
+        },
+        items: [
+          "kratos/emails-sms/sending-emails-smtp",
+          "kratos/emails-sms/sending-sms",
         ],
       },
       {
