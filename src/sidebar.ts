@@ -2,19 +2,17 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {
-  SidebarCategoriesShorthand,
   SidebarItem,
-  SidebarItemCategoryConfig,
   SidebarItemConfig,
 } from "@docusaurus/plugin-content-docs/src/sidebars/types"
 
-type ExtendSidebar = SidebarItemConfig[]
+type SidebarItemsConfig = SidebarItemConfig[]
 
 const homeLink: SidebarItem = {
   type: "link",
   href: "/welcome",
   className: "all-docs-link",
-  label: "Go to Main Page",
+  label: "Go to Start Page",
 }
 
 const openIdSSO: SidebarItemConfig = {
@@ -64,7 +62,7 @@ const openIdSSO: SidebarItemConfig = {
   ],
 }
 
-const api: ExtendSidebar = [
+const api: SidebarItemsConfig = [
   homeLink,
   "reference/api",
 
@@ -89,7 +87,7 @@ const api: ExtendSidebar = [
   },
 ]
 
-const sdk: ExtendSidebar = [
+const sdk: SidebarItemsConfig = [
   homeLink,
   "sdk",
   {
@@ -126,7 +124,7 @@ const sdk: ExtendSidebar = [
     items: ["keto/self-hosted/go", "keto/sdk/python"],
   },
 ]
-const cli: ExtendSidebar = [
+const cli: SidebarItemsConfig = [
   homeLink,
   {
     type: "category",
@@ -161,11 +159,11 @@ const cli: ExtendSidebar = [
   },
 ]
 
-const quickstart = [
-  homeLink,
+const quickstart: SidebarItemsConfig = [
+  "welcome",
   {
     type: "category",
-    label: "Start",
+    label: "Quickstart",
     collapsed: false,
     collapsible: false,
     link: {
@@ -186,296 +184,7 @@ const quickstart = [
   },
 ]
 
-const guides = (flat: boolean): ExtendSidebar => {
-  const items = []
-  if (!flat) {
-    items.push(homeLink)
-  }
-
-  return [
-    ...items,
-    {
-      type: "category",
-      label: "User authentication",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "guides/authentication",
-      },
-      items: flat
-        ? []
-        : [
-            "getting-started/local-development",
-            "kratos/concepts/credentials/username-email-password",
-            "kratos/passwordless/passkeys",
-            "kratos/passwordless/one-time-code",
-            "kratos/organizations/organizations",
-            {
-              type: "category",
-              label: "OpenID Connect SSO",
-              link: {
-                type: "doc",
-                id: "guides/oauth2-openid-connect",
-              },
-              items: [
-                "kratos/social-signin/overview",
-                {
-                  type: "category",
-                  label: "Social Sign-in Providers",
-                  items: [
-                    "kratos/social-signin/generic",
-                    "kratos/social-signin/ory",
-                    "kratos/social-signin/google",
-                    "kratos/social-signin/facebook",
-                    "kratos/social-signin/microsoft",
-                    "kratos/social-signin/github",
-                    "kratos/social-signin/apple",
-                    "kratos/social-signin/gitlab",
-                    "kratos/social-signin/auth0",
-                    "kratos/social-signin/salesforce",
-                    "kratos/social-signin/slack",
-                    "kratos/social-signin/spotify",
-                    "kratos/social-signin/discord",
-                    "kratos/social-signin/twitch",
-                    "kratos/social-signin/netid",
-                    "kratos/social-signin/yandex",
-                    "kratos/social-signin/vk",
-                    "kratos/social-signin/dingtalk",
-                    "kratos/social-signin/lark",
-                    "kratos/social-signin/patreon",
-                    "kratos/social-signin/linkedin",
-                    "kratos/social-signin/x-twitter",
-                  ],
-                },
-                "kratos/social-signin/data-mapping",
-                "kratos/social-signin/account-linking",
-                "kratos/social-signin/get-tokens",
-                "identities/sign-in/social-sign-in/redirect-url",
-                "kratos/social-signin/native-apps",
-                "kratos/social-signin/oidc-pkce",
-                "kratos/social-signin/fedcm",
-              ],
-            },
-            {
-              type: "category",
-              label: "Multi-factor authentication",
-              items: [
-                "kratos/mfa/lookup-secrets",
-                "kratos/mfa/totp",
-                "kratos/mfa/webauthn-fido-yubikey",
-                "kratos/mfa/mfa-via-sms",
-                "kratos/mfa/step-up-authentication",
-              ],
-            },
-            {
-              type: "category",
-              label: "Customized auth flows",
-              items: [
-                "identities/sign-in/two-step-registration",
-                "identities/sign-in/identifier-first-authentication",
-                "identities/sign-in/login-hint",
-                "identities/sign-in/actions",
-              ],
-            },
-          ],
-    },
-    {
-      type: "category",
-      label: "Ory Actions",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "guides/integrate-with-ory-cloud-through-webhooks",
-      },
-      items: flat
-        ? []
-        : [
-            {
-              type: "category",
-              label: "Identity management",
-              items: [
-                "identities/sign-in/actions",
-                "actions/revoke-active-sessions",
-                "actions/session",
-                "actions/require-verified-address",
-                {
-                  type: "category",
-                  label: "Integrations",
-                  items: [
-                    "actions/integrations/hubspot",
-                    "actions/integrations/mailchimp",
-                    "actions/integrations/segment",
-                  ],
-                },
-              ],
-            },
-            "hydra/guides/claims-at-refresh",
-          ],
-    },
-    {
-      type: "category",
-      label: "Identity management",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "kratos/manage-identities/overview",
-      },
-      items: flat
-        ? []
-        : [
-            "kratos/manage-identities/create-users-identities",
-            "kratos/manage-identities/import-user-accounts-identities",
-            "identities/model/identity-state",
-            "kratos/manage-identities/invite-users",
-            "kratos/manage-identities/account-recovery",
-            "kratos/manage-identities/export-user-accounts-identities",
-          ],
-    },
-    {
-      type: "category",
-      label: "Identity schema",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "kratos/manage-identities/identity-schema",
-      },
-      items: flat
-        ? []
-        : [
-            "kratos/manage-identities/managing-users-identities-metadata",
-            "identities/model/manage-identity-schema",
-            "kratos/manage-identities/customize-identity-schema",
-            "kratos/manage-identities/best-practices",
-          ],
-    },
-    {
-      type: "category",
-      label: "Emails and SMS",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "guides/email-sms",
-      },
-      items: flat
-        ? []
-        : [
-            "kratos/emails-sms/sending-emails-smtp",
-            "kratos/emails-sms/sending-sms",
-          ],
-    },
-    {
-      type: "category",
-      label: "Session management",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "kratos/session-management/overview",
-      },
-      items: flat
-        ? []
-        : [
-            "identities/sign-in/check-session",
-            "kratos/session-management/session-lifespan",
-            "kratos/session-management/refresh-extend-sessions",
-            "kratos/session-management/revoke-sessions-hook",
-            "identities/session-to-jwt-cors",
-            "concepts/cache",
-          ],
-    },
-    {
-      type: "category",
-      label: "Build your own UI",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "getting-started/custom-ui",
-      },
-      items: flat
-        ? []
-        : [
-            "kratos/bring-your-own-ui/custom-ui-basic-integration",
-            "kratos/bring-your-own-ui/custom-ui-advanced-integration",
-            "kratos/bring-your-own-ui/custom-ui-ory-elements",
-            "kratos/concepts/ui-user-interface",
-          ],
-    },
-    {
-      type: "category",
-      label: "OAuth2 token management",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "hydra/guides/oauth2-token-introspection",
-      },
-      items: flat
-        ? []
-        : [
-            "oauth2-oidc/revoke-consent",
-            "oauth2-oidc/skip-consent",
-            "oauth2-oidc/jwt-access-token",
-            "hydra/guides/audiences",
-            "hydra/guides/jwt",
-            "hydra/guides/client-token-expiration",
-            "hydra/guides/graceful-token-refresh",
-            "oauth2-oidc/claims-scope",
-          ],
-    },
-    {
-      type: "category",
-      label: "OAuth2 client management",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "hydra/guides/oauth2-clients",
-      },
-      items: flat
-        ? []
-        : ["hydra/jwks", "hydra/guides/openid", "oauth2-oidc/issuer-url"],
-    },
-    {
-      type: "category",
-      label: "Operations",
-      link: {
-        type: "doc",
-        id: "guides/operations",
-      },
-      collapsed: false,
-      collapsible: false,
-      items: flat
-        ? []
-        : [
-            "guides/manage-project-via-api",
-            "console/change-owner",
-            "guides/gitops",
-            "actions/live-events",
-          ],
-    },
-    {
-      type: "category",
-      label: "Migrate to Ory",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "migrate-to-ory/index",
-      },
-      items: flat
-        ? []
-        : ["migrate-to-ory/auth0", "hydra/self-hosted/migrating-from-mitreid"],
-    },
-  ]
-}
-
-const troubleshooting = [
+const troubleshooting: SidebarItemsConfig = [
   homeLink,
   {
     type: "category",
@@ -500,7 +209,7 @@ const troubleshooting = [
   },
 ]
 
-const operations = [
+const operations: SidebarItemsConfig = [
   homeLink,
   {
     type: "category",
@@ -523,7 +232,7 @@ const operations = [
   },
 ]
 
-const identities = [
+const identities: SidebarItemsConfig = [
   homeLink,
   {
     type: "category",
@@ -550,6 +259,10 @@ const identities = [
       {
         type: "category",
         label: "Authentication",
+        link: {
+          type: "generated-index",
+          slug: "guides/authentication",
+        },
         items: [
           "kratos/passwordless/passwordless",
           "kratos/passwordless/one-time-code",
@@ -618,6 +331,20 @@ const identities = [
           "kratos/mfa/webauthn-fido-yubikey",
           "kratos/mfa/mfa-via-sms",
           "kratos/mfa/step-up-authentication",
+        ],
+      },
+      {
+        type: "category",
+        label: "Emails and SMS",
+        collapsed: true,
+        collapsible: true,
+        link: {
+          type: "doc",
+          id: "guides/email-sms",
+        },
+        items: [
+          "kratos/emails-sms/sending-emails-smtp",
+          "kratos/emails-sms/sending-sms",
         ],
       },
       {
@@ -720,7 +447,7 @@ const identities = [
   },
 ]
 
-const oauth2 = [
+const oauth2: SidebarItemsConfig = [
   homeLink,
   {
     type: "category",
@@ -823,7 +550,7 @@ const oauth2 = [
   },
 ]
 
-const permissions = [
+const permissions: SidebarItemsConfig = [
   homeLink,
   {
     type: "category",
@@ -866,7 +593,7 @@ const permissions = [
   },
 ]
 
-const selfhosting = [
+const selfhosting: SidebarItemsConfig = [
   homeLink,
   "ecosystem/projects",
   {
@@ -1165,101 +892,12 @@ const selfhosting = [
   },
 ]
 
-const localDevelopment = [homeLink, "getting-started/local-development"]
+const localDevelopment: SidebarItemsConfig = [
+  homeLink,
+  "getting-started/local-development",
+]
 
 module.exports = {
-  docs: [
-    "welcome",
-    {
-      type: "doc",
-      id: "getting-started/overview",
-      label: "Quickstarts & tutorials",
-    },
-    {
-      type: "category",
-      label: "Guides",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "generated-index",
-        slug: "category/guides/",
-      },
-      items: guides(true),
-    },
-    {
-      type: "category",
-      label: "Concepts",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "generated-index",
-        slug: "category/concepts/",
-      },
-      items: [
-        "api/index",
-        "identities/index",
-        "oauth2-oidc/index",
-        "keto/index",
-        "kratos/hooks/configure-hooks",
-      ],
-    },
-    {
-      type: "category",
-      label: "Reference",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "generated-index",
-        slug: "category/reference/",
-      },
-      items: [
-        {
-          type: "doc",
-          id: "reference/api",
-          label: "Rest API",
-        },
-        "sdk",
-        {
-          type: "doc",
-          id: "cli/ory-auth",
-          label: "Ory CLI",
-        },
-        "keto/reference/ory-permission-language",
-        {
-          type: "doc",
-          id: "troubleshooting/index",
-        },
-        {
-          type: "link",
-          label: "Operations reference",
-          href: "/category/operations-reference",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Compliance and security",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "security-compliance/compliance-and-certifications",
-      },
-      items: [
-        "kratos/concepts/security",
-        "ecosystem/security",
-        "security-compliance/personal-data-location",
-        "security-compliance/gdpr",
-        "security-compliance/token-formats",
-      ],
-    },
-    {
-      type: "link",
-      href: "https://www.ory.sh/docs/search",
-      label: "Search",
-    },
-  ],
-  guides: guides(false),
   quickstart,
   troubleshooting,
   operations,
