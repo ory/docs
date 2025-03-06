@@ -1,6 +1,7 @@
 # Express.js Authentication Example
 
-This example demonstrates how to implement authentication in an Express.js application using Ory.
+This example demonstrates how to implement authentication in an Express.js
+application using Ory.
 
 ## Prerequisites
 
@@ -28,7 +29,8 @@ npm run dev
 
 ### 3. Run the Ory Proxy
 
-To ensure cookies are on the same domain, run the Ory Proxy with your project ID:
+To ensure cookies are on the same domain, run the Ory Proxy with your project
+ID:
 
 ```bash
 ORY_PROJECT_ID=<Project_ID> npm run proxy
