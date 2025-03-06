@@ -5,7 +5,7 @@ const sdk = require("@ory/client-fetch")
 // highlight-start
 const ory = new sdk.FrontendApi(
   new sdk.Configuration({
-    basePath: process.env.ORY_ENDPOINT || "http://localhost:4000/.ory",
+    basePath: process.env.ORY_SDK_URL || "http://localhost:4000/.ory",
   }),
 )
  // highlight-end
