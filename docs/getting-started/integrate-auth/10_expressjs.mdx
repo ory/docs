@@ -18,22 +18,32 @@ import webm from '../_static/expressjs/screencast.webm'
 
 ## Create Express.js app
 
-First we create a new Express.js project:
+Create a new Express.js project:
 
 ```shell
 mkdir your-project
 cd your-project
 
-npx express-generator
-npm i
+npm init -y
+
+npm install express
+npm install -D nodemon
+```
+
+### Create a new Ory project
+
+```mdx-code-block
+import CreateProject from '../_common/create-project.mdx'
+
+<CreateProject />
 ```
 
 ## Install Ory SDK and CLI
 
-To interact with Ory's APIs we install the Ory SDK and CLI:
+To interact with Ory's APIs, install the Ory SDK and CLI:
 
 ```shell
-npm i --save @ory/client @ory/cli
+npm i --save @ory/client-fetch @ory/cli
 ```
 
 ### Why do I need the Ory CLI
@@ -44,9 +54,9 @@ import OryCLI from '../_common/ory-cli.mdx'
 <OryCLI />
 ```
 
-## Add NPM run script
+## Update the npm scripts
 
-Now that the Ory CLI is installed, let's add it as a `npm run` script to our project:
+Now that the Ory CLI is installed, create a new npm script to run the proxy server:
 
 ```json title="package.json"  {7}
 {
@@ -54,8 +64,8 @@ Now that the Ory CLI is installed, let's add it as a `npm run` script to our pro
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "proxy": "ory proxy --no-jwt --port 4000 http://localhost:3000/"
+    "dev": "nodemon index.js",
+    "proxy": "ory proxy --project $ORY_PROJECT_ID --port 4000 http://localhost:3000/"
   },
   "dependencies": {
 ```
@@ -69,7 +79,7 @@ Next we add a session check to the default home page of the example application.
 whether the user is signed in, and redirect them to the login page if not:
 
 ```mdx-code-block
-import homePage from '!!raw-loader!../../../code-examples/protect-page-login/expressjs/routes/index.js'
+import homePage from '!!raw-loader!../../../code-examples/protect-page-login/expressjs/index.js'
 import CodeBlock from '@theme/CodeBlock'
 
 <CodeBlock language="js" title="routes/index.js">{homePage}</CodeBlock>
@@ -80,23 +90,17 @@ import CodeBlock from '@theme/CodeBlock'
 Great, that's it. Let's run your application. Start the Express.js server
 
 ```shell
-npm run start
-```
-
-and set up your environment variables to connect with Ory's APIs
-
-```mdx-code-block
-import SdkEnvVar from '@site/src/components/SdkEnvVar'
-
-<SdkEnvVar />
+npm run dev
 ```
 
 Next open a new terminal window and start the Ory Proxy. Upon first start, the Ory Proxy will ask you to log into your Ory Console
 account.
 
 ```shell
-npm run proxy
+ORY_PROJECT_ID=<YOUR_PROJECT_ID> npm run proxy
 ```
+
+Replace `<YOUR_PROJECT_ID>` with your actual Ory Project ID from the Ory Console.
 
 To access the Express.js app through the ORY proxy open [http://localhost:4000](http://localhost:4000) in your browser. You are
 presented with Ory's Sign In page. Let's click on sign up and create your first user.
