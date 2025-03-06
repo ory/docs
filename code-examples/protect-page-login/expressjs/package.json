@@ -1,21 +1,21 @@
 {
-  "name": "ory-express-demo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "proxy": "ory proxy --project $ORY_PROJECT_ID --port 4000 http://localhost:3000/",
-    "start": "node index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@ory/cli": "^1.1.0",
-    "@ory/client": "^1.17.2",
-    "@ory/client-fetch": "^1.17.2",
-    "cookie-parser": "^1.4.7",
-    "express": "^4.21.2",
-    "express-session": "^1.18.1"
+    "name": "ory-express-demo",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+      "dev": "nodemon index.js",
+      "proxy": "ory proxy --project $ORY_PROJECT_ID --port 4000 http://localhost:3000/"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+      "@ory/cli": "^1.1.0",
+      "@ory/client-fetch": "^1.17.2",
+      "express": "^4.21.2"
+    },
+    "devDependencies": {
+      "nodemon": "^3.1.9"
+    }
   }
-}
