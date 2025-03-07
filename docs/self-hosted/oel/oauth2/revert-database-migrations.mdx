@@ -36,8 +36,8 @@ hydra:
         customArgs: ["migrate", "sql", "down", "-e", "-y", "--steps", "1"]
 ```
 
-In case you want to revert all the database changes introduced by the last migration, check logs of the migration job looking for
-a similar line:
+If you need to revert all database changes introduced by the last migration, you must determine the number of applied statements
+from the migration job. Check the migration job logs for a line similar to the following:
 
 ```
 time=2025-03-05T11:47:18Z level=info msg=Successfully applied 2 migrations. audience=application service_name=Ory Hydra service_version=master
