@@ -1,0 +1,87 @@
+---
+id: revert-database-migrations
+title: Reverting database migrations
+---
+
+# Reverting Database Migration for Ory Hydra
+
+This guide outlines the steps to revert a database migration in Ory Hydra using the custom jobs functionality provided in the Ory
+Hydra Helm chart. Reverting a migration can be essential when a schema change needs to be undone due to errors or unexpected
+issues. This method leverages your existing production configuration, with only the migration arguments being customized.
+
+**Note:** All other parameters—such as pod labels, service accounts, and resource configurations—are inherited from your
+production Hydra deployment. This minimizes potential configuration discrepancies and reduces the risk of errors.
+
+## Prerequisites
+
+Before you begin, ensure you have the following:
+
+1. **Active Ory Hydra Deployment:** A production deployment is required because the migration job uses its configuration.
+2. **Kubernetes Permissions:** Ensure you have sufficient privileges to create and apply Kubernetes jobs.
+3. **Database Backup:** Always backup your database before attempting to revert any migrations.
+
+## Deployment Process
+
+### 1. Create a Job Values File
+
+Create a file named `migrate-down-values.yaml` to define the job with the custom arguments for reverting the migration. Adjust the
+parameters as needed:
+
+```yaml
+hydra:
+  customMigrations:
+    jobs:
+      sql-migration-down:
+        enabled: true
+        customArgs: ["migrate", "sql", "down", "-e", "-y", "--steps", "1"]
+```
+
+In case you want to revert all the database changes introduced by the last migration, check logs of the migration job looking for
+a similar line:
+
+```
+time=2025-03-05T11:47:18Z level=info msg=Successfully applied 2 migrations. audience=application service_name=Ory Hydra service_version=master
+```
+
+### 2. Prepare Helm resources
+
+Pull the newest version of the Ory Helm chart and update the repository:
+
+```
+helm repo add ory https://k8s.ory.sh/helm/charts
+helm repo update
+```
+
+Locate the current production values file used by your Ory Hydra deployment. This file is needed to ensure that we revert the
+correct migrations. Using your production values file ensures that the job is created with the same container image and
+configuration as your production deployment.
+
+### 3. Generate and Apply the Job Definition
+
+This command produces a Kubernetes job definition that reverts the database migration using your production configuration with the
+custom job arguments.
+
+```
+helm template hydra ory/hydra --namespace oasis --show-only templates/job-migrations-custom.yaml \
+ -f hydra-values-used-by-your-production-env.yaml \
+ -f hydra/oel/values-migration-down.yaml > migrate-down-job.yaml
+```
+
+Verify the generated job definition in `migrate-down-job.yaml` to ensure that the custom arguments are correctly set. If
+everything looks good, apply the job to your Kubernetes cluster:
+
+```
+kubectl apply -f migrate-down-job.yaml
+```
+
+## Possible issues
+
+### Incorrect Migration Arguments
+
+If the job fails, check that the custom arguments in migrate-down-values.yaml accurately reflect the intended migration reversal.
+The default configuration reverts the last migration step, but you may need to adjust the --steps parameter if reverting more than
+one migration is required.
+
+```
+
+```
