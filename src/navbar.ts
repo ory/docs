@@ -45,6 +45,10 @@ export const navbar: Navbar = {
           label: "Local Development",
         },
         {
+          to: "/docs/self-hosted/oel/quickstart",
+          label: "Ory Enterprise",
+        },
+        {
           to: "/docs/ecosystem/projects",
           label: "Self-Hosting",
         },
