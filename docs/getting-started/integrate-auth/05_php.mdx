@@ -40,7 +40,6 @@ To simplify URLs handling we install the [bramus/router](https://packagist.org/p
 composer require bramus/router
 ```
 
-
 ## Create a new Ory project
 
 ```mdx-code-block
@@ -50,6 +49,7 @@ import CreateProject from '../_common/create-project.mdx'
 ```
 
 ## Install Ory CLI
+
 To install Ory CLI follow [this guide](https://www.ory.sh/docs/guides/ory-cli-install-use)
 
 ### Why do I need the Ory CLI
@@ -71,9 +71,9 @@ import CodeBlock from '@theme/CodeBlock'
 <CodeBlock language="php" title="./index.php">{indexPHP}</CodeBlock>
 ```
 
-This entry script creates an Ory client, registers new route for our Dashboard and makes
-use of [Before Route Middlewares](https://github.com/bramus/router#before-router-middlewares) to validate if the user is allowed
-to view the Dashboard.
+This entry script creates an Ory client, registers new route for our Dashboard and makes use of
+[Before Route Middlewares](https://github.com/bramus/router#before-router-middlewares) to validate if the user is allowed to view
+the Dashboard.
 
 We are yet to create an App class, let's do that now.
 
@@ -87,9 +87,12 @@ import appPHP from '!!raw-loader!../../../code-examples/protect-page-login/php/a
 <CodeBlock language="php" title="app.php">{appPHP}</CodeBlock>
 ```
 
-Create a handler that checks with your Ory project to determine if the user has a valid session. We take the current `request` cookies and pass them to the Ory client.
+Create a handler that checks with your Ory project to determine if the user has a valid session. We take the current `request`
+cookies and pass them to the Ory client.
 
-This file validates the session and redirects to the login page if the session is invalid. If the session is not valid, the request is redirected to the Ory project for login. At this stage, we have not set up any custom UI management, so the Ory Account Experience login page will be displayed.
+This file validates the session and redirects to the login page if the session is invalid. If the session is not valid, the
+request is redirected to the Ory project for login. At this stage, we have not set up any custom UI management, so the Ory Account
+Experience login page will be displayed.
 
 Finally, we added the Dashboard handler (the page we want to protect), which will render HTML with the session data.
 
