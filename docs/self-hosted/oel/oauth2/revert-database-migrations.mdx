@@ -68,7 +68,7 @@ custom job arguments.
 ```
 helm template hydra ory/hydra --namespace oasis --show-only templates/job-migrations-custom.yaml \
  -f hydra-values-used-by-your-production-env.yaml \
- -f hydra/oel/values-migration-down.yaml > migrate-down-job.yaml
+ -f hydra/oel/migrate-down-values.yaml > migrate-down-job.yaml
 ```
 
 Verify the generated job definition in `migrate-down-job.yaml` to ensure that the custom arguments are correctly set. If
@@ -85,7 +85,3 @@ kubectl apply -f migrate-down-job.yaml
 If the job fails, check that the custom arguments in migrate-down-values.yaml accurately reflect the intended migration reversal.
 The default configuration reverts the last migration step, but you may need to adjust the --steps parameter if reverting more than
 one migration is required.
-
-```
-
-```
