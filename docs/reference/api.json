@@ -1366,8 +1366,12 @@
             "type": "string",
             "x-go-enum-desc": "link SelfServiceMessageVerificationStrategyLink\ncode SelfServiceMessageVerificationStrategyCode"
           },
+          "kratos_selfservice_methods_captcha_config_cf_turnstile_secret": {
+            "description": "Configures the Cloudflare Turnstile site secret for CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
+            "type": "string"
+          },
           "kratos_selfservice_methods_captcha_config_cf_turnstile_sitekey": {
-            "description": "Configures the Turnstile site key for CAPTCHA protection\n\nThe site key is public and will be shared with the client.\n\nReach out to your account manager to enable this feature.",
+            "description": "Configures the Cloudflare Turnstile site key for CAPTCHA protection\n\nThe site key is public and will be shared with the client.\n\nReach out to your account manager to enable this feature.",
             "type": "string"
           },
           "kratos_selfservice_methods_captcha_enabled": {
@@ -5854,8 +5858,12 @@
             "type": "string",
             "x-go-enum-desc": "link SelfServiceMessageVerificationStrategyLink\ncode SelfServiceMessageVerificationStrategyCode"
           },
+          "kratos_selfservice_methods_captcha_config_cf_turnstile_secret": {
+            "description": "Configures the Cloudflare Turnstile site secret for CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
+            "type": "string"
+          },
           "kratos_selfservice_methods_captcha_config_cf_turnstile_sitekey": {
-            "description": "Configures the Turnstile site key for CAPTCHA protection\n\nThe site key is public and will be shared with the client.\n\nReach out to your account manager to enable this feature.",
+            "description": "Configures the Cloudflare Turnstile site key for CAPTCHA protection\n\nThe site key is public and will be shared with the client.\n\nReach out to your account manager to enable this feature.",
             "type": "string"
           },
           "kratos_selfservice_methods_captcha_enabled": {
