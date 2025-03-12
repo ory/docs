@@ -69,7 +69,7 @@ ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RAT
 cd code-examples/auth-api/expressjs && \
   ORY_URL=http://localhost:3006 UI_URL=http://localhost:4006 PORT=4007 npm run start &
 cd code-examples/protect-page-login/vue && \
-  npm run start -- -l 4006 &
+  npm run dev -- --port 4006 &
 ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --dev --port 3006 http://localhost:4006/ -q -y &
 
 ## ReactJS SPA example ##
