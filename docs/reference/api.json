@@ -126,6 +126,39 @@
     "schemas": {
       "AccountExperienceColors": {
         "properties": {
+          "brand-100": {
+            "type": "string"
+          },
+          "brand-200": {
+            "type": "string"
+          },
+          "brand-300": {
+            "type": "string"
+          },
+          "brand-400": {
+            "type": "string"
+          },
+          "brand-50": {
+            "type": "string"
+          },
+          "brand-500": {
+            "type": "string"
+          },
+          "brand-600": {
+            "type": "string"
+          },
+          "brand-700": {
+            "type": "string"
+          },
+          "brand-800": {
+            "type": "string"
+          },
+          "brand-900": {
+            "type": "string"
+          },
+          "brand-950": {
+            "type": "string"
+          },
           "button-identifier-background-default": {
             "type": "string"
           },
@@ -469,6 +502,57 @@
             "type": "string"
           },
           "toggle-foreground-default": {
+            "type": "string"
+          },
+          "ui-100": {
+            "type": "string"
+          },
+          "ui-200": {
+            "type": "string"
+          },
+          "ui-300": {
+            "type": "string"
+          },
+          "ui-400": {
+            "type": "string"
+          },
+          "ui-50": {
+            "type": "string"
+          },
+          "ui-500": {
+            "type": "string"
+          },
+          "ui-600": {
+            "type": "string"
+          },
+          "ui-700": {
+            "type": "string"
+          },
+          "ui-800": {
+            "type": "string"
+          },
+          "ui-900": {
+            "type": "string"
+          },
+          "ui-950": {
+            "type": "string"
+          },
+          "ui-black": {
+            "type": "string"
+          },
+          "ui-danger": {
+            "type": "string"
+          },
+          "ui-success": {
+            "type": "string"
+          },
+          "ui-transparent": {
+            "type": "string"
+          },
+          "ui-warning": {
+            "type": "string"
+          },
+          "ui-white": {
             "type": "string"
           }
         },
@@ -9183,7 +9267,8 @@
               "passkey",
               "identifier_first",
               "captcha",
-              "saml"
+              "saml",
+              "oauth2_consent"
             ],
             "type": "string",
             "x-go-enum-desc": "default DefaultGroup\npassword PasswordGroup\noidc OpenIDConnectGroup\nprofile ProfileGroup\nlink LinkGroup\ncode CodeGroup\ntotp TOTPGroup\nlookup_secret LookupGroup\nwebauthn WebAuthnGroup\npasskey PasskeyGroup\nidentifier_first IdentifierFirstGroup\ncaptcha CaptchaGroup\nsaml SAMLGroup"
