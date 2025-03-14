@@ -2,80 +2,156 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {
-  SidebarCategoriesShorthand,
   SidebarItem,
-  SidebarItemCategoryConfig,
   SidebarItemConfig,
 } from "@docusaurus/plugin-content-docs/src/sidebars/types"
 
-type ExtendSidebar = SidebarItemConfig[]
+type SidebarItemsConfig = SidebarItemConfig[]
 
 const homeLink: SidebarItem = {
   type: "link",
   href: "/welcome",
   className: "all-docs-link",
-  label: "Go to Main Page",
+  label: "Go to Start Page",
 }
 
-const referenceSidebar: ExtendSidebar = [
+const openIdSSO: SidebarItemConfig = {
+  type: "category",
+  label: "OpenID Connect SSO",
+  link: {
+    type: "doc",
+    id: "guides/oauth2-openid-connect",
+  },
+  items: [
+    "kratos/social-signin/overview",
+    {
+      type: "category",
+      label: "Social Sign-in Providers",
+      items: [
+        "kratos/social-signin/generic",
+        "kratos/social-signin/ory",
+        "kratos/social-signin/google",
+        "kratos/social-signin/facebook",
+        "kratos/social-signin/microsoft",
+        "kratos/social-signin/github",
+        "kratos/social-signin/apple",
+        "kratos/social-signin/gitlab",
+        "kratos/social-signin/auth0",
+        "kratos/social-signin/salesforce",
+        "kratos/social-signin/slack",
+        "kratos/social-signin/spotify",
+        "kratos/social-signin/discord",
+        "kratos/social-signin/twitch",
+        "kratos/social-signin/netid",
+        "kratos/social-signin/yandex",
+        "kratos/social-signin/vk",
+        "kratos/social-signin/dingtalk",
+        "kratos/social-signin/lark",
+        "kratos/social-signin/patreon",
+        "kratos/social-signin/linkedin",
+        "kratos/social-signin/x-twitter",
+      ],
+    },
+    "kratos/social-signin/data-mapping",
+    "kratos/social-signin/account-linking",
+    "kratos/social-signin/get-tokens",
+    "identities/sign-in/social-sign-in/redirect-url",
+    "kratos/social-signin/native-apps",
+    "kratos/social-signin/oidc-pkce",
+    "kratos/social-signin/fedcm",
+  ],
+}
+
+const api: SidebarItemsConfig = [
+  homeLink,
+  "reference/api",
+
+  "ecosystem/api-design",
+  {
+    type: "category",
+    label: "Operations",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "generated-index",
+      slug: "/category/operations-reference",
+    },
+    items: [
+      "concepts/personal-access-token",
+      "guides/cors",
+      "guides/api-rest-pagination",
+      "guides/rate-limits",
+      "guides/ip-allowlist",
+      "api/eventual-consistency",
+    ],
+  },
+]
+
+const sdk: SidebarItemsConfig = [
+  homeLink,
+  "sdk",
+  {
+    type: "category",
+    label: "Identity SDKs",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "kratos/sdk/overview",
+    },
+    items: ["kratos/self-hosted/go"],
+  },
+  {
+    type: "category",
+    label: "OAuth2 SDKs",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "hydra/sdk/overview",
+    },
+    items: ["hydra/self-hosted/go", "hydra/self-hosted/js"],
+  },
+  {
+    type: "category",
+    label: "Permission SDKs",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "keto/sdk/overview",
+    },
+    items: ["keto/self-hosted/go", "keto/sdk/python"],
+  },
+]
+const cli: SidebarItemsConfig = [
   homeLink,
   {
     type: "category",
-    label: "Reference",
+    label: "Ory CLI reference",
     collapsed: false,
     collapsible: false,
+    link: {
+      type: "generated-index",
+    },
     items: [
-      "reference/api",
-      "sdk",
-      "ecosystem/api-design",
+      "guides/cli/installation",
+      "guides/cli/cli-basics",
+      "guides/cli/identity-cli",
+      "guides/cli/oauth2-cli",
+      "guides/cli/configure-permission-service",
+      "guides/cli/proxy-and-tunnel",
+      "guides/cli/config-with-cli",
       {
         type: "category",
-        label: "Operations reference",
-        collapsed: false,
-        collapsible: false,
+        label: "CLI commands reference",
         link: {
           type: "generated-index",
         },
         items: [
-          "concepts/personal-access-token",
-          "guides/cors",
-          "guides/custom-domains",
-          "guides/api-rest-pagination",
-          "guides/workspaces",
-          "guides/rate-limits",
-          "guides/ip-allowlist",
-          "api/eventual-consistency",
-          "console/usage-billing",
-        ],
-      },
-      {
-        type: "category",
-        label: "Ory CLI reference",
-        collapsed: false,
-        collapsible: false,
-        link: {
-          type: "generated-index",
-        },
-        items: [
-          "guides/cli/installation",
-          "guides/cli/cli-basics",
-          "guides/cli/identity-cli",
-          "guides/cli/oauth2-cli",
-          "guides/cli/configure-permission-service",
-          "guides/cli/proxy-and-tunnel",
-          "guides/cli/config-with-cli",
           {
-            type: "category",
-            label: "CLI commands reference",
-            link: {
-              type: "generated-index",
-            },
-            items: [
-              {
-                type: "autogenerated",
-                dirName: "cli",
-              },
-            ],
+            type: "autogenerated",
+            dirName: "cli",
           },
         ],
       },
@@ -83,383 +159,32 @@ const referenceSidebar: ExtendSidebar = [
   },
 ]
 
-const quickstartSidebar = (flat: boolean): ExtendSidebar => {
-  const items = []
-  if (!flat) {
-    items.push(homeLink)
-  }
+const quickstart: SidebarItemsConfig = [
+  "welcome",
+  {
+    type: "category",
+    label: "Quickstart",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "getting-started/overview",
+    },
+    items: [
+      "getting-started/integrate-auth/go",
+      "getting-started/integrate-auth/php",
+      "getting-started/integrate-auth/expressjs",
+      "getting-started/integrate-auth/react",
+      "getting-started/integrate-auth/react-native",
+      "getting-started/integrate-auth/vue",
+      "getting-started/integrate-auth/nextjs",
+      "getting-started/integrate-auth/flutter-web-redirect",
+      "getting-started/integrate-auth/dotnet",
+    ],
+  },
+]
 
-  return [
-    ...items,
-    {
-      type: "category",
-      label: "User authentication",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "getting-started/overview",
-      },
-      items: flat
-        ? []
-        : [
-            "getting-started/integrate-auth/go",
-            "getting-started/integrate-auth/php",
-            "getting-started/integrate-auth/expressjs",
-            "getting-started/integrate-auth/react",
-            "getting-started/integrate-auth/react-native",
-            "getting-started/integrate-auth/vue",
-            "getting-started/integrate-auth/nextjs",
-            "getting-started/integrate-auth/flutter-web-redirect",
-            "getting-started/integrate-auth/dotnet",
-          ],
-    },
-    {
-      type: "category",
-      label: "Permissions and relationships",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "guides/permissions/overview",
-      },
-      items: flat
-        ? []
-        : ["keto/examples/olymp-file-sharing", "keto/guides/rbac"],
-    },
-    {
-      type: "category",
-      label: "OAuth2 and OpenID",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "guides/oauth2-openid-connect",
-      },
-      items: flat
-        ? []
-        : [
-            "getting-started/ory-network-oauth2",
-            "getting-started/oauth2-openid/expressjs",
-          ],
-    },
-    {
-      type: "category",
-      label: "Software Development Kits",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "quickstart/sdks",
-      },
-      items: flat
-        ? []
-        : [
-            {
-              type: "category",
-              label: "Identity Management",
-              items: ["kratos/sdk/go"],
-            },
-            {
-              type: "category",
-              label: "OAuth2 & OpenID Connect",
-              items: ["hydra/sdk/js", "hydra/sdk/go"],
-            },
-            {
-              type: "category",
-              label: "Permissions",
-              items: ["keto/sdk/go", "keto/sdk/python"],
-            },
-          ],
-    },
-  ]
-}
-const guidesSidebar = (flat: boolean): ExtendSidebar => {
-  const items = []
-  if (!flat) {
-    items.push(homeLink)
-  }
-
-  return [
-    ...items,
-    {
-      type: "category",
-      label: "User authentication",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "guides/authentication",
-      },
-      items: flat
-        ? []
-        : [
-            "getting-started/local-development",
-            "kratos/concepts/credentials/username-email-password",
-            "kratos/passwordless/passkeys",
-            "kratos/passwordless/one-time-code",
-            "kratos/organizations/organizations",
-            {
-              type: "category",
-              label: "OpenID Connect SSO",
-              items: [
-                "kratos/social-signin/overview",
-                {
-                  type: "category",
-                  label: "Social Sign-in Providers",
-                  items: [
-                    "kratos/social-signin/generic",
-                    "kratos/social-signin/ory",
-                    "kratos/social-signin/google",
-                    "kratos/social-signin/facebook",
-                    "kratos/social-signin/microsoft",
-                    "kratos/social-signin/github",
-                    "kratos/social-signin/apple",
-                    "kratos/social-signin/gitlab",
-                    "kratos/social-signin/auth0",
-                    "kratos/social-signin/salesforce",
-                    "kratos/social-signin/slack",
-                    "kratos/social-signin/spotify",
-                    "kratos/social-signin/discord",
-                    "kratos/social-signin/twitch",
-                    "kratos/social-signin/netid",
-                    "kratos/social-signin/yandex",
-                    "kratos/social-signin/vk",
-                    "kratos/social-signin/dingtalk",
-                    "kratos/social-signin/lark",
-                    "kratos/social-signin/patreon",
-                    "kratos/social-signin/linkedin",
-                    "kratos/social-signin/x-twitter",
-                  ],
-                },
-                "kratos/social-signin/data-mapping",
-                "kratos/social-signin/account-linking",
-                "kratos/social-signin/get-tokens",
-                "identities/sign-in/social-sign-in/redirect-url",
-                "kratos/social-signin/native-apps",
-                "kratos/social-signin/oidc-pkce",
-                "kratos/social-signin/fedcm",
-              ],
-            },
-            {
-              type: "category",
-              label: "Multi-factor authentication",
-              items: [
-                "kratos/mfa/lookup-secrets",
-                "kratos/mfa/totp",
-                "kratos/mfa/webauthn-fido-yubikey",
-                "kratos/mfa/mfa-via-sms",
-                "kratos/mfa/step-up-authentication",
-              ],
-            },
-            {
-              type: "category",
-              label: "Customized auth flows",
-              items: [
-                "identities/sign-in/two-step-registration",
-                "identities/sign-in/identifier-first-authentication",
-                "identities/sign-in/login-hint",
-                "identities/sign-in/actions",
-              ],
-            },
-          ],
-    },
-    {
-      type: "category",
-      label: "Ory Actions",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "guides/integrate-with-ory-cloud-through-webhooks",
-      },
-      items: flat
-        ? []
-        : [
-            {
-              type: "category",
-              label: "Identity management",
-              items: [
-                "identities/sign-in/actions",
-                "actions/revoke-active-sessions",
-                "actions/session",
-                "actions/require-verified-address",
-                {
-                  type: "category",
-                  label: "Integrations",
-                  items: [
-                    "actions/integrations/hubspot",
-                    "actions/integrations/mailchimp",
-                    "actions/integrations/segment",
-                  ],
-                },
-              ],
-            },
-            "hydra/guides/claims-at-refresh",
-          ],
-    },
-    {
-      type: "category",
-      label: "Identity management",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "kratos/manage-identities/overview",
-      },
-      items: flat
-        ? []
-        : [
-            "kratos/manage-identities/create-users-identities",
-            "kratos/manage-identities/import-user-accounts-identities",
-            "identities/model/identity-state",
-            "kratos/manage-identities/invite-users",
-            "kratos/manage-identities/account-recovery",
-            "kratos/manage-identities/export-user-accounts-identities",
-          ],
-    },
-    {
-      type: "category",
-      label: "Identity schema",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "kratos/manage-identities/identity-schema",
-      },
-      items: flat
-        ? []
-        : [
-            "kratos/manage-identities/managing-users-identities-metadata",
-            "identities/model/manage-identity-schema",
-            "kratos/manage-identities/customize-identity-schema",
-            "kratos/manage-identities/best-practices",
-          ],
-    },
-    {
-      type: "category",
-      label: "Emails and SMS",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "guides/email-sms",
-      },
-      items: flat
-        ? []
-        : [
-            "kratos/emails-sms/sending-emails-smtp",
-            "kratos/emails-sms/sending-sms",
-          ],
-    },
-    {
-      type: "category",
-      label: "Session management",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "kratos/session-management/overview",
-      },
-      items: flat
-        ? []
-        : [
-            "identities/sign-in/check-session",
-            "kratos/session-management/session-lifespan",
-            "kratos/session-management/refresh-extend-sessions",
-            "kratos/session-management/revoke-sessions-hook",
-            "identities/session-to-jwt-cors",
-            "concepts/cache",
-          ],
-    },
-    {
-      type: "category",
-      label: "Build your own UI",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "getting-started/custom-ui",
-      },
-      items: flat
-        ? []
-        : [
-            "kratos/bring-your-own-ui/custom-ui-basic-integration",
-            "kratos/bring-your-own-ui/custom-ui-advanced-integration",
-            "kratos/bring-your-own-ui/custom-ui-ory-elements",
-            "kratos/concepts/ui-user-interface",
-          ],
-    },
-    {
-      type: "category",
-      label: "OAuth2 token management",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "hydra/guides/oauth2-token-introspection",
-      },
-      items: flat
-        ? []
-        : [
-            "oauth2-oidc/revoke-consent",
-            "oauth2-oidc/skip-consent",
-            "oauth2-oidc/jwt-access-token",
-            "hydra/guides/audiences",
-            "hydra/guides/jwt",
-            "hydra/guides/client-token-expiration",
-            "hydra/guides/graceful-token-refresh",
-            "oauth2-oidc/claims-scope",
-          ],
-    },
-    {
-      type: "category",
-      label: "OAuth2 client management",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "hydra/guides/oauth2-clients",
-      },
-      items: flat
-        ? []
-        : ["hydra/jwks", "hydra/guides/openid", "oauth2-oidc/issuer-url"],
-    },
-    {
-      type: "category",
-      label: "Operations",
-      link: {
-        type: "doc",
-        id: "guides/operations",
-      },
-      collapsed: false,
-      collapsible: false,
-      items: flat
-        ? []
-        : [
-            "guides/manage-project-via-api",
-            "console/change-owner",
-            "guides/gitops",
-            "actions/live-events",
-          ],
-    },
-    {
-      type: "category",
-      label: "Migrate to Ory",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "migrate-to-ory/index",
-      },
-      items: flat
-        ? []
-        : ["migrate-to-ory/auth0", "hydra/self-hosted/migrating-from-mitreid"],
-    },
-  ]
-}
-
-const troubleshootingSidebar = [
+const troubleshooting: SidebarItemsConfig = [
   homeLink,
   {
     type: "category",
@@ -484,7 +209,30 @@ const troubleshootingSidebar = [
   },
 ]
 
-const identitiesSidebar = [
+const operations: SidebarItemsConfig = [
+  homeLink,
+  {
+    type: "category",
+    label: "Operations",
+    link: {
+      type: "doc",
+      id: "guides/operations",
+    },
+    collapsed: false,
+    collapsible: false,
+    items: [
+      "guides/workspaces",
+      "guides/custom-domains",
+      "console/usage-billing",
+      "guides/manage-project-via-api",
+      "console/change-owner",
+      "guides/gitops",
+      "actions/live-events",
+    ],
+  },
+]
+
+const identities: SidebarItemsConfig = [
   homeLink,
   {
     type: "category",
@@ -499,72 +247,222 @@ const identitiesSidebar = [
       "security-model",
       "identities/native-browser",
       "concepts/redirects",
+      "kratos/hooks/configure-hooks",
     ],
   },
   {
     type: "category",
-    label: "Self-service user flows",
+    label: "Guides",
     collapsed: false,
     collapsible: false,
-    link: {
-      type: "doc",
-      id: "kratos/self-service",
-    },
     items: [
-      "kratos/concepts/browser-redirect-flow-completion",
-      "kratos/self-service/flows/user-registration",
-      "kratos/self-service/flows/user-login",
-      "kratos/self-service/flows/user-logout",
-      "kratos/self-service/flows/user-settings",
-      "kratos/self-service/flows/verify-email-account-activation",
-      "kratos/self-service/flows/account-recovery-password-reset",
-      "kratos/self-service/flows/user-facing-errors",
+      {
+        type: "category",
+        label: "Authentication",
+        link: {
+          type: "generated-index",
+          slug: "guides/authentication",
+        },
+        items: [
+          "kratos/passwordless/passwordless",
+          "kratos/passwordless/one-time-code",
+          "kratos/passwordless/passkeys",
+          "kratos/organizations/organizations",
+          {
+            type: "category",
+            label: "Credentials",
+            link: {
+              type: "doc",
+              id: "kratos/concepts/credentials",
+            },
+            items: [
+              "kratos/concepts/credentials/username-email-password",
+              "concepts/password-policy",
+            ],
+          },
+          "kratos/emails-sms/custom-email-templates",
+        ],
+      },
+      openIdSSO,
+      {
+        type: "category",
+        label: "Flows",
+        link: {
+          type: "doc",
+          id: "kratos/self-service",
+        },
+        items: [
+          "kratos/concepts/browser-redirect-flow-completion",
+          "kratos/self-service/flows/user-registration",
+          "kratos/self-service/flows/user-login",
+          "kratos/self-service/flows/user-logout",
+          "kratos/self-service/flows/user-settings",
+          "kratos/self-service/flows/verify-email-account-activation",
+          "kratos/self-service/flows/account-recovery-password-reset",
+          "kratos/self-service/flows/user-facing-errors",
+        ],
+      },
+      {
+        type: "category",
+        label: "Session management",
+        link: {
+          type: "doc",
+          id: "kratos/session-management/overview",
+        },
+        items: [
+          "identities/sign-in/check-session",
+          "kratos/session-management/session-lifespan",
+          "kratos/session-management/refresh-extend-sessions",
+          "kratos/session-management/revoke-sessions-hook",
+          "identities/session-to-jwt-cors",
+          "concepts/cache",
+        ],
+      },
+      {
+        type: "category",
+        label: "Multi-factor authentication",
+        link: {
+          type: "doc",
+          id: "kratos/mfa/overview",
+        },
+        items: [
+          "kratos/mfa/lookup-secrets",
+          "kratos/mfa/totp",
+          "kratos/mfa/webauthn-fido-yubikey",
+          "kratos/mfa/mfa-via-sms",
+          "kratos/mfa/step-up-authentication",
+        ],
+      },
+      {
+        type: "category",
+        label: "Emails and SMS",
+        collapsed: true,
+        collapsible: true,
+        link: {
+          type: "doc",
+          id: "guides/email-sms",
+        },
+        items: [
+          "kratos/emails-sms/sending-emails-smtp",
+          "kratos/emails-sms/sending-sms",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Actions",
+        link: {
+          type: "doc",
+          id: "guides/integrate-with-ory-cloud-through-webhooks",
+        },
+        items: [
+          {
+            type: "category",
+            label: "Identity management",
+            items: [
+              "identities/sign-in/actions",
+              "actions/revoke-active-sessions",
+              "actions/session",
+              "actions/require-verified-address",
+              {
+                type: "category",
+                label: "Integrations",
+                items: [
+                  "actions/integrations/hubspot",
+                  "actions/integrations/mailchimp",
+                  "actions/integrations/segment",
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: "category",
+        label: "Identity management",
+        link: {
+          type: "doc",
+          id: "kratos/manage-identities/overview",
+        },
+        items: [
+          "kratos/manage-identities/create-users-identities",
+          "kratos/manage-identities/import-user-accounts-identities",
+          "identities/model/identity-state",
+          "kratos/manage-identities/invite-users",
+          "kratos/manage-identities/account-recovery",
+          "kratos/manage-identities/export-user-accounts-identities",
+        ],
+      },
+      {
+        type: "category",
+        label: "Identity schema",
+        link: {
+          type: "doc",
+          id: "kratos/manage-identities/identity-schema",
+        },
+        items: [
+          "kratos/manage-identities/managing-users-identities-metadata",
+          "identities/model/manage-identity-schema",
+          "kratos/manage-identities/customize-identity-schema",
+          "kratos/manage-identities/best-practices",
+        ],
+      },
+
+      {
+        type: "category",
+        label: "User interface",
+        link: {
+          type: "doc",
+          id: "kratos/bring-your-own-ui/custom-ui-overview",
+        },
+        items: [
+          "account-experience/index",
+          "kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
+          {
+            type: "category",
+            label: "Build your own UI",
+            link: {
+              type: "doc",
+              id: "getting-started/custom-ui",
+            },
+            items: [
+              "kratos/bring-your-own-ui/custom-ui-basic-integration",
+              "kratos/bring-your-own-ui/custom-ui-advanced-integration",
+              "kratos/bring-your-own-ui/custom-ui-ory-elements",
+              "kratos/concepts/ui-user-interface",
+            ],
+          },
+        ],
+      },
     ],
   },
   {
     type: "category",
-    label: "Authentication",
-    collapsed: false,
-    collapsible: false,
-    link: {
-      type: "doc",
-      id: "kratos/concepts/credentials",
-    },
+    label: "Configuration",
     items: [
-      "concepts/password-policy",
-      "kratos/passwordless/passwordless",
-      "kratos/mfa/overview",
+      "identities/sign-in/two-step-registration",
+      "identities/sign-in/identifier-first-authentication",
+      "identities/sign-in/login-hint",
+      "identities/sign-in/actions",
     ],
-  },
-  {
-    type: "category",
-    label: "User interface",
-    collapsed: false,
-    collapsible: false,
-    link: {
-      type: "doc",
-      id: "kratos/bring-your-own-ui/custom-ui-overview",
-    },
-    items: [
-      "account-experience/index",
-      "kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
-    ],
-  },
-  {
-    type: "category",
-    label: "Send Emails & SMS",
-    collapsed: false,
-    collapsible: false,
-    link: {
-      type: "doc",
-      id: "kratos/emails-sms/custom-email-templates",
-    },
-    items: ["kratos/emails-sms/custom-email-templates"],
   },
 ]
 
-const oauth2Sidebar = [
+const oauth2: SidebarItemsConfig = [
   homeLink,
+  {
+    type: "category",
+    label: "Start",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "getting-started/ory-network-oauth2",
+    },
+    items: [
+      "getting-started/oauth2-openid/expressjs",
+      "hydra/guides/using-oauth2",
+    ],
+  },
   {
     type: "category",
     label: "Concepts",
@@ -578,43 +476,93 @@ const oauth2Sidebar = [
       "oauth2-oidc/overview/oauth2-concepts",
       "oauth2-oidc/overview/oidc-concepts",
       "hydra/concepts/before-oauth2",
-      "hydra/guides/using-oauth2",
       "hydra/security-architecture",
     ],
   },
+
   {
     type: "category",
-    label: "Flows",
+    label: "Guides",
     collapsed: false,
     collapsible: false,
     link: {
       type: "doc",
-      id: "oauth2-oidc/authorization-code-flow",
+      id: "hydra/guides/oauth2-token-introspection",
     },
     items: [
-      "oauth2-oidc/authorization-code-flow",
-      "oauth2-oidc/client-credentials",
-      "oauth2-oidc/resource-owner-password-grant",
-      "oauth2-oidc/refresh-token-grant",
-      "oauth2-oidc/userinfo-oidc",
-      "oauth2-oidc/oidc-logout",
+      openIdSSO,
+      {
+        type: "category",
+        label: "Flows",
+        link: {
+          type: "doc",
+          id: "oauth2-oidc/authorization-code-flow",
+        },
+        items: [
+          "oauth2-oidc/authorization-code-flow",
+          "oauth2-oidc/client-credentials",
+          "oauth2-oidc/resource-owner-password-grant",
+          "oauth2-oidc/refresh-token-grant",
+          "oauth2-oidc/userinfo-oidc",
+          "oauth2-oidc/oidc-logout",
+        ],
+      },
+      {
+        type: "category",
+        label: "Token management",
+        items: [
+          "hydra/guides/oauth2-token-introspection",
+          "oauth2-oidc/revoke-consent",
+          "oauth2-oidc/skip-consent",
+          "oauth2-oidc/jwt-access-token",
+          "hydra/guides/audiences",
+          "hydra/guides/jwt",
+          "hydra/guides/client-token-expiration",
+          "hydra/guides/graceful-token-refresh",
+          "oauth2-oidc/claims-scope",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Actions",
+        items: ["hydra/guides/claims-at-refresh"],
+      },
+      {
+        type: "category",
+        label: "Client management",
+        items: [
+          "hydra/guides/oauth2-clients",
+          "hydra/jwks",
+          "hydra/guides/openid",
+          "oauth2-oidc/issuer-url",
+        ],
+      },
+      {
+        type: "category",
+        label: "User Interface",
+        link: {
+          type: "doc",
+          id: "hydra/guides/custom-ui-oauth2",
+        },
+        items: ["oauth2-oidc/custom-login-consent/flow", "hydra/guides/logout"],
+      },
     ],
-  },
-  {
-    type: "category",
-    label: "User Interface",
-    collapsed: false,
-    collapsible: false,
-    link: {
-      type: "doc",
-      id: "hydra/guides/custom-ui-oauth2",
-    },
-    items: ["oauth2-oidc/custom-login-consent/flow", "hydra/guides/logout"],
   },
 ]
 
-const permissionsSidebar = [
+const permissions: SidebarItemsConfig = [
   homeLink,
+  {
+    type: "category",
+    label: "Start",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "guides/permissions/overview",
+    },
+    items: ["keto/quickstart", "keto/examples/olymp-file-sharing"],
+  },
   {
     type: "category",
     label: "Concepts",
@@ -625,6 +573,7 @@ const permissionsSidebar = [
       id: "keto/index",
     },
     items: [
+      "keto/guides/rbac",
       {
         type: "autogenerated",
         dirName: "keto/concepts",
@@ -634,13 +583,7 @@ const permissionsSidebar = [
   },
   {
     type: "category",
-    label: "Permissions",
-    collapsed: false,
-    collapsible: false,
-    link: {
-      type: "doc",
-      id: "keto/index",
-    },
+    label: "Guides",
     items: [
       "keto/guides/simple-access-check-guide",
       "keto/modeling/create-permission-model",
@@ -650,7 +593,7 @@ const permissionsSidebar = [
   },
 ]
 
-const selfhostingSidebar = [
+const selfhosting: SidebarItemsConfig = [
   homeLink,
   "ecosystem/projects",
   {
@@ -949,113 +892,21 @@ const selfhostingSidebar = [
   },
 ]
 
-module.exports = {
-  docs: [
-    "welcome",
-    {
-      type: "category",
-      label: "Quickstarts & tutorials",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "getting-started/overview",
-      },
-      items: quickstartSidebar(true),
-    },
-    {
-      type: "category",
-      label: "Guides",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "generated-index",
-        slug: "category/guides/",
-      },
-      items: guidesSidebar(true),
-    },
-    {
-      type: "category",
-      label: "Concepts",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "generated-index",
-        slug: "category/concepts/",
-      },
-      items: [
-        "api/index",
-        "identities/index",
-        "oauth2-oidc/index",
-        "keto/index",
-        "kratos/hooks/configure-hooks",
-      ],
-    },
-    {
-      type: "category",
-      label: "Reference",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "generated-index",
-        slug: "category/reference/",
-      },
-      items: [
-        {
-          type: "doc",
-          id: "reference/api",
-          label: "Rest API",
-        },
-        "sdk",
-        {
-          type: "doc",
-          id: "cli/ory-auth",
-          label: "Ory CLI",
-        },
-        "keto/reference/ory-permission-language",
-        {
-          type: "doc",
-          id: "troubleshooting/index",
-        },
-        {
-          type: "link",
-          label: "Operations reference",
-          href: "/category/operations-reference",
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Compliance and security",
-      collapsed: false,
-      collapsible: false,
-      link: {
-        type: "doc",
-        id: "security-compliance/compliance-and-certifications",
-      },
-      items: [
-        "kratos/concepts/security",
-        "ecosystem/security",
-        "security-compliance/personal-data-location",
-        "security-compliance/gdpr",
-        "security-compliance/token-formats",
-      ],
-    },
-    {
-      type: "link",
-      href: "https://www.ory.sh/docs/search",
-      label: "Search",
-    },
-  ],
-  reference: referenceSidebar,
-  "quickstarts-and-tutorials": quickstartSidebar(false),
-  guides: guidesSidebar(false),
-  troubleshooting: troubleshootingSidebar,
-  identities: identitiesSidebar,
-  oauth2: oauth2Sidebar,
-  permissions: permissionsSidebar,
-  selfhosting: selfhostingSidebar,
+const localDevelopment: SidebarItemsConfig = [
+  homeLink,
+  "getting-started/local-development",
+]
 
-  sdk: [],
-  api: [],
+module.exports = {
+  quickstart,
+  troubleshooting,
+  operations,
+  localDevelopment,
+  selfhosting,
+  identities,
+  oauth2,
+  permissions,
+  api,
+  sdk,
+  cli,
 }

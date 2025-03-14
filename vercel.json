@@ -1173,6 +1173,11 @@
       "source": "/docs/hydra/5min-tutorial",
       "destination": "/docs/hydra/self-hosted/quickstart",
       "permanent": false
+    },
+    {
+      "source": "/docs/quickstart/sdks",
+      "destination": "/docs/sdk",
+      "permanent": false
     }
   ]
 }
