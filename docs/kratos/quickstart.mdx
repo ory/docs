@@ -112,10 +112,10 @@ import CodeBlock from '@theme/CodeBlock'
 <CodeBlock className="language-shell">{`git clone https://github.com/ory/kratos.git
 cd kratos
 \
-git checkout master
-docker-compose -f quickstart.yml -f quickstart-standalone.yml up --build --force-recreate
+git checkout ${useLatestRelease('kratos')}
+docker-compose -f quickstart.yml -f quickstart-standalone.yml up --force-recreate
 # If you have SELinux, run:
-docker-compose -f quickstart.yml -f quickstart-selinux.yml -f quickstart-standalone.yml up --build --force-recreate`}</CodeBlock>
+docker-compose -f quickstart.yml -f quickstart-selinux.yml -f quickstart-standalone.yml up --force-recreate`}</CodeBlock>
 ```
 
 This might take a minute or two. Once the output slows down and logs indicate a healthy system you're ready to roll! A healthy
