@@ -62,6 +62,10 @@ export const navbar: Navbar = {
           to: "/docs/category/troubleshooting",
           label: "Troubleshooting",
         },
+        {
+          to: "/docs/security-compliance/compliance-and-certifications",
+          label: "Security and compliance",
+        },
       ],
     },
     {
