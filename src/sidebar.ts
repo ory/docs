@@ -897,6 +897,18 @@ const localDevelopment: SidebarItemsConfig = [
   "getting-started/local-development",
 ]
 
+const security: SidebarItemsConfig = [
+  homeLink,
+  "security-compliance/compliance-and-certifications",
+  "security-compliance/personal-data-location",
+  "ecosystem/security",
+  "kratos/concepts/security",
+  "security-compliance/token-formats",
+  "concepts/password-policy",
+  "hydra/security-architecture",
+  "security-compliance/gdpr",
+]
+
 module.exports = {
   quickstart,
   troubleshooting,
@@ -909,4 +921,5 @@ module.exports = {
   api,
   sdk,
   cli,
+  security,
 }
