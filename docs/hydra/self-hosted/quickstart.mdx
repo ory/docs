@@ -13,6 +13,7 @@ You do not want to self-host? Try
 
 ```mdx-code-block
 import CodeFromRemote from "@theme/CodeFromRemote"
+import { useLatestRelease } from '@site/src/hooks'
 ```
 
 ![OAuth2 Flow with Open Source OAuth2 Server Ory Hydra](_static/oauth2-flow.gif)
@@ -25,9 +26,11 @@ import CodeFromRemote from "@theme/CodeFromRemote"
 
 To get started, clone the Ory Hydra locally:
 
-```
+```mdx-code-block
+<CodeBlock className="language-shell">{`
 git clone https://github.com/ory/hydra.git
 cd hydra
+git checkout ${useLatestRelease('hydra')}`}</CodeBlock>
 ```
 
 Run the following command(s) to start the OAuth2 server:
