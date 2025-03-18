@@ -1,5 +1,129 @@
 import { WelcomeCardProps } from "../../components/WelcomeCard/welcome-card"
 
+// Backend frameworks content
+export const backendFrameworks: WelcomeCardProps = {
+  id: "backend-frameworks",
+  title: "Backend Frameworks",
+  cards: [
+    {
+      title: "Node/Express",
+      description:
+        "The Ory Node.js SDK allows you to integrate authentication into your Express.js application.",
+      language: "typescript",
+      languageLogoAlt: "TypeScript logo",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/expressjs",
+      docs: "/docs/getting-started/integrate-auth/expressjs",
+    },
+    {
+      title: "Go",
+      description:
+        "The Ory Go SDK allows you to easily integrate authentication into your Go application.",
+      language: "go",
+      languageLogoAlt: "Go logo",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/go",
+      docs: "/docs/getting-started/integrate-auth/go",
+    },
+    {
+      title: "PHP",
+      description:
+        "The Ory PHP SDK allows you to integrate authentication into your PHP application.",
+      language: "php",
+      languageLogoAlt: "PHP logo",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/php",
+      docs: "/docs/getting-started/integrate-auth/php",
+    },
+    {
+      title: "Python",
+      description: "Python SDK for Ory Kratos and Ory Keto with Flask.",
+      language: "python",
+      languageLogoAlt: "Python logo",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/examples/tree/master/kratos-keto-flask",
+      docs: "https://www.ory.sh/blog/securing-flask-application-using-kratos-and-keto",
+    },
+    {
+      title: ".NET Core",
+      description:
+        "The Ory .NET Core SDK allows you to integrate authentication into your .NET Core application.",
+      language: "dotnet",
+      languageLogoAlt: ".NET Core logo",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/dotnet",
+      docs: "/docs/getting-started/integrate-auth/dotnet",
+    },
+  ],
+}
+
+// Frontend frameworks content
+export const frontendFrameworks: WelcomeCardProps = {
+  id: "frontend-frameworks",
+  title: "Frontend Frameworks",
+  cards: [
+    {
+      title: "React",
+      description:
+        "Integrate authentication into your React + Vite application with Ory.",
+      language: "react",
+      languageLogoAlt: "React logo",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/react",
+      docs: "/docs/getting-started/integrate-auth/react",
+    },
+    {
+      title: "Next.js",
+      description:
+        "Integrate authentication into your Next.js application with Ory.",
+      language: "nextjs",
+      languageLogoAlt: "Next.js logo",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/nextjs",
+      docs: "/docs/getting-started/integrate-auth/nextjs",
+    },
+    {
+      title: "Vue.js",
+      description:
+        "Get started with Ory and Vue.js to protect a page with login.",
+      language: "vue",
+      languageLogoAlt: "Vue.js logo",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/vuejs",
+      docs: "/docs/getting-started/integrate-auth/vue",
+    },
+    {
+      title: "React Native",
+      description:
+        "The Ory React Native SDK allows you to integrate authentication into your React Native application.",
+      language: "react",
+      languageLogoAlt: "React logo",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/kratos-selfservice-ui-react-native",
+      docs: "/docs/getting-started/integrate-auth/react-native",
+    },
+    {
+      title: "Flutter",
+      description:
+        "Easily add authentication to your Flutter web application with Ory.",
+      language: "flutter",
+      languageLogoAlt: "Flutter logo",
+      author: "ory",
+      tested: true,
+      repo: "https://github.com/ory/docs/tree/master/code-examples/protect-page-login/flutter_web_redirect",
+      docs: "/docs/getting-started/integrate-auth/flutter-web-redirect",
+    },
+  ],
+}
 // Authentication section cards
 export const authenticationCards: WelcomeCardProps = {
   id: "authentication-section",
