@@ -1,44 +1,81 @@
-/* Section Styles */
-.section {
-  max-width: var(--ifm-container-width-xl);
-  margin: 0 auto;
-  padding: 3rem 0;
+/* Container for all welcome sections */
+.welcomeContainer {
   width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
+/* Section Styles */
+
 .sectionHeading {
-  margin-bottom: 2.5rem;
+  width: 250px;
+  margin-right: 1.5rem;
+  margin-bottom: 1.5rem;
+  margin-top: 3rem;
 }
 
 .sectionTitle {
-  font-size: var(--ifm-h2-font-size);
-  margin-bottom: 0.75rem;
+  font-size: var(--ifm-h3-font-size);
+  margin-bottom: 0.5rem;
 }
 
 .sectionDescription {
   font-size: var(--ifm-font-size-lg);
   margin-bottom: 0;
   color: var(--ifm-color-emphasis-700);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Card Grid */
+/* Card Grid - Grid layout */
 .cardGrid {
   display: grid;
-  gap: 2rem;
-  grid-template-columns: 1fr;
-  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  flex: 1;
 }
 
-@media screen and (min-width: 600px) {
-  .cardGrid {
+/* Apply specific grid layouts for each section */
+#authentication-section .cardGrid {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+#oauth-section .cardGrid {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+#permission-section .cardGrid {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+#use-ory-section .cardGrid {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+/* Responsive adjustments for specific sections */
+@media screen and (min-width: 992px) {
+  #authentication-section .cardGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  #oauth-section .cardGrid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  #permission-section .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #use-ory-section .cardGrid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media screen and (min-width: 996px) {
-  .cardGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 3rem;
+@media screen and (min-width: 1200px) {
+  #authentication-section .cardGrid {
+    grid-template-columns: repeat(6, 1fr);
   }
 }
 
@@ -51,62 +88,24 @@
   height: 100%;
 }
 
-.cardLink:hover .cardLarge {
-  transform: translateY(-4px);
-}
-
-.cardLink:hover .card:not(.cardLarge) {
-  transform: translateX(4px);
-}
-
 /* Base Card Styles */
 .card {
-  height: 100%;
+  height: 200px; /* Fixed height for all cards */
   position: relative;
   transition: all 0.2s ease;
-}
-
-/* Large Card (feature card) - Column layout */
-.cardLarge {
   background-color: var(--ifm-pre-background);
   border-radius: 8px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--ifm-color-emphasis-200);
+  width: 100%;
+  overflow: hidden;
 }
 
-.cardLarge:hover {
-  border-color: var(--ifm-color-emphasis-300);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
-}
-
-/* Framework Card (non-large) - Row layout */
-.card:not(.cardLarge) {
-  background-color: transparent;
-  border: none;
-  padding: 1rem 0;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-/* Grid span for large cards */
-.cardLarge {
-  grid-column: span 1;
-}
-
-@media screen and (min-width: 600px) {
-  .cardLarge {
-    grid-column: span 2;
-  }
-}
-
-@media screen and (min-width: 996px) {
-  .cardLarge {
-    grid-column: span 3;
-  }
+.card:hover {
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-4px);
 }
 
 /* Icon Container */
@@ -114,32 +113,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* Icon Container for Large cards */
-.cardLarge .iconContainer {
   background-color: var(--ifm-color-emphasis-100);
   border-radius: 8px;
-  padding: 0.75rem;
-  width: 60px;
-  height: 60px;
-  margin-bottom: 1.25rem;
-}
-
-/* Icon Container for Framework cards */
-.card:not(.cardLarge) .iconContainer {
-  background-color: var(--ifm-color-emphasis-200);
-  border-radius: 8px;
-  padding: 0.75rem;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 0;
-  transition: all 0.2s ease;
-}
-
-/* Icon container hover effect */
-.cardLink:hover .card:not(.cardLarge) .iconContainer {
-  background-color: var(--ifm-color-emphasis-300);
+  padding: 0.5rem;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 1rem;
 }
 
 /* Icon */
@@ -158,55 +137,62 @@
 
 /* Card Title */
 .cardTitle {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   font-weight: 600;
-}
-
-/* Large Card Title */
-.cardLarge .cardTitle {
-  font-size: var(--ifm-h3-font-size);
-}
-
-/* Framework Card Title */
-.card:not(.cardLarge) .cardTitle {
-  color: var(--ifm-color-primary);
-  font-size: var(--ifm-h5-font-size);
-  transition: color 0.2s ease;
-}
-
-.cardLink:hover .card:not(.cardLarge) .cardTitle {
-  color: var(--ifm-color-primary-darker);
+  font-size: 1rem;
 }
 
 /* Card Description */
 .cardDescription {
   margin-bottom: 0;
   color: var(--ifm-color-emphasis-700);
-  line-height: 1.5;
-}
-
-/* Large Card Description */
-.cardLarge .cardDescription {
-  font-size: var(--ifm-font-size-base);
-}
-
-/* Framework Card Description */
-.card:not(.cardLarge) .cardDescription {
+  line-height: 1.4;
   font-size: 0.875rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-/* Card Arrow (only for large cards) */
-.cardArrow {
-  position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  font-size: 1.25rem;
-  opacity: 0;
-  transform: translateX(-8px);
-  transition: all 0.2s ease;
+/* Dark mode styling for cards */
+:global([data-theme="dark"]) .card {
+  background-color: #1a1a2e;
+  border-color: #2a2a4a;
 }
 
-.cardLink:hover .cardArrow {
-  opacity: 1;
-  transform: translateX(0);
+:global([data-theme="dark"]) .iconContainer {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Better visibility for SVG icons in dark mode */
+:global([data-theme="dark"]) .iconContainer svg {
+  stroke-width: 2.5;
+  filter: brightness(1.3);
+}
+
+/* Mobile view adjustments */
+@media screen and (max-width: 768px) {
+  .section {
+    flex-direction: column;
+  }
+
+  .sectionHeading {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .cardGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .card {
+    height: 180px;
+    padding: 1.25rem;
+  }
+
+  .cardDescription {
+    -webkit-line-clamp: 4;
+  }
 }
