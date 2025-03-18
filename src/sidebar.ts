@@ -2,924 +2,924 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import {
-    SidebarItem,
-    SidebarItemConfig,
+  SidebarItem,
+  SidebarItemConfig,
 } from "@docusaurus/plugin-content-docs/src/sidebars/types"
 
 type SidebarItemsConfig = SidebarItemConfig[]
 
 const homeLink: SidebarItem = {
-    type: "link",
-    href: "/welcome",
-    className: "all-docs-link",
-    label: "Go to Start Page",
+  type: "link",
+  href: "/welcome",
+  className: "all-docs-link",
+  label: "Go to Start Page",
 }
 
 const openIdSSO: SidebarItemConfig = {
-    type: "category",
-    label: "OpenID Connect SSO",
-    link: {
-        type: "doc",
-        id: "guides/oauth2-openid-connect",
+  type: "category",
+  label: "OpenID Connect SSO",
+  link: {
+    type: "doc",
+    id: "guides/oauth2-openid-connect",
+  },
+  items: [
+    "kratos/social-signin/overview",
+    {
+      type: "category",
+      label: "Social Sign-in Providers",
+      items: [
+        "kratos/social-signin/generic",
+        "kratos/social-signin/ory",
+        "kratos/social-signin/google",
+        "kratos/social-signin/facebook",
+        "kratos/social-signin/microsoft",
+        "kratos/social-signin/github",
+        "kratos/social-signin/apple",
+        "kratos/social-signin/gitlab",
+        "kratos/social-signin/auth0",
+        "kratos/social-signin/salesforce",
+        "kratos/social-signin/slack",
+        "kratos/social-signin/spotify",
+        "kratos/social-signin/discord",
+        "kratos/social-signin/twitch",
+        "kratos/social-signin/netid",
+        "kratos/social-signin/yandex",
+        "kratos/social-signin/vk",
+        "kratos/social-signin/dingtalk",
+        "kratos/social-signin/lark",
+        "kratos/social-signin/patreon",
+        "kratos/social-signin/linkedin",
+        "kratos/social-signin/x-twitter",
+      ],
     },
-    items: [
-        "kratos/social-signin/overview",
-        {
-            type: "category",
-            label: "Social Sign-in Providers",
-            items: [
-                "kratos/social-signin/generic",
-                "kratos/social-signin/ory",
-                "kratos/social-signin/google",
-                "kratos/social-signin/facebook",
-                "kratos/social-signin/microsoft",
-                "kratos/social-signin/github",
-                "kratos/social-signin/apple",
-                "kratos/social-signin/gitlab",
-                "kratos/social-signin/auth0",
-                "kratos/social-signin/salesforce",
-                "kratos/social-signin/slack",
-                "kratos/social-signin/spotify",
-                "kratos/social-signin/discord",
-                "kratos/social-signin/twitch",
-                "kratos/social-signin/netid",
-                "kratos/social-signin/yandex",
-                "kratos/social-signin/vk",
-                "kratos/social-signin/dingtalk",
-                "kratos/social-signin/lark",
-                "kratos/social-signin/patreon",
-                "kratos/social-signin/linkedin",
-                "kratos/social-signin/x-twitter",
-            ],
-        },
-        "kratos/social-signin/data-mapping",
-        "kratos/social-signin/account-linking",
-        "kratos/social-signin/get-tokens",
-        "identities/sign-in/social-sign-in/redirect-url",
-        "kratos/social-signin/native-apps",
-        "kratos/social-signin/oidc-pkce",
-        "kratos/social-signin/fedcm",
-    ],
+    "kratos/social-signin/data-mapping",
+    "kratos/social-signin/account-linking",
+    "kratos/social-signin/get-tokens",
+    "identities/sign-in/social-sign-in/redirect-url",
+    "kratos/social-signin/native-apps",
+    "kratos/social-signin/oidc-pkce",
+    "kratos/social-signin/fedcm",
+  ],
 }
 
 const api: SidebarItemsConfig = [
-    homeLink,
-    "reference/api",
+  homeLink,
+  "reference/api",
 
-    "ecosystem/api-design",
-    {
-        type: "category",
-        label: "Operations",
-        collapsed: false,
-        collapsible: false,
-        link: {
-            type: "generated-index",
-            slug: "/category/operations-reference",
-        },
-        items: [
-            "concepts/personal-access-token",
-            "guides/cors",
-            "guides/api-rest-pagination",
-            "guides/rate-limits",
-            "guides/ip-allowlist",
-            "api/eventual-consistency",
-        ],
+  "ecosystem/api-design",
+  {
+    type: "category",
+    label: "Operations",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "generated-index",
+      slug: "/category/operations-reference",
     },
+    items: [
+      "concepts/personal-access-token",
+      "guides/cors",
+      "guides/api-rest-pagination",
+      "guides/rate-limits",
+      "guides/ip-allowlist",
+      "api/eventual-consistency",
+    ],
+  },
 ]
 
 const sdk: SidebarItemsConfig = [
-    homeLink,
-    "sdk",
-    {
-        type: "category",
-        label: "Identity SDKs",
-        collapsed: false,
-        collapsible: false,
-        link: {
-            type: "doc",
-            id: "kratos/sdk/overview",
-        },
-        items: ["kratos/self-hosted/go"],
+  homeLink,
+  "sdk",
+  {
+    type: "category",
+    label: "Identity SDKs",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "kratos/sdk/overview",
     },
-    {
-        type: "category",
-        label: "OAuth2 SDKs",
-        collapsed: false,
-        collapsible: false,
-        link: {
-            type: "doc",
-            id: "hydra/sdk/overview",
-        },
-        items: ["hydra/self-hosted/go", "hydra/self-hosted/js"],
+    items: ["kratos/self-hosted/go"],
+  },
+  {
+    type: "category",
+    label: "OAuth2 SDKs",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "hydra/sdk/overview",
     },
-    {
-        type: "category",
-        label: "Permission SDKs",
-        collapsed: false,
-        collapsible: false,
-        link: {
-            type: "doc",
-            id: "keto/sdk/overview",
-        },
-        items: ["keto/self-hosted/go", "keto/sdk/python"],
+    items: ["hydra/self-hosted/go", "hydra/self-hosted/js"],
+  },
+  {
+    type: "category",
+    label: "Permission SDKs",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "keto/sdk/overview",
     },
+    items: ["keto/self-hosted/go", "keto/sdk/python"],
+  },
 ]
 const cli: SidebarItemsConfig = [
-    homeLink,
-    {
+  homeLink,
+  {
+    type: "category",
+    label: "Ory CLI reference",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "generated-index",
+    },
+    items: [
+      "guides/cli/installation",
+      "guides/cli/cli-basics",
+      "guides/cli/identity-cli",
+      "guides/cli/oauth2-cli",
+      "guides/cli/configure-permission-service",
+      "guides/cli/proxy-and-tunnel",
+      "guides/cli/config-with-cli",
+      {
         type: "category",
-        label: "Ory CLI reference",
-        collapsed: false,
-        collapsible: false,
+        label: "CLI commands reference",
         link: {
-            type: "generated-index",
+          type: "generated-index",
         },
         items: [
-            "guides/cli/installation",
-            "guides/cli/cli-basics",
-            "guides/cli/identity-cli",
-            "guides/cli/oauth2-cli",
-            "guides/cli/configure-permission-service",
-            "guides/cli/proxy-and-tunnel",
-            "guides/cli/config-with-cli",
-            {
-                type: "category",
-                label: "CLI commands reference",
-                link: {
-                    type: "generated-index",
-                },
-                items: [
-                    {
-                        type: "autogenerated",
-                        dirName: "cli",
-                    },
-                ],
-            },
+          {
+            type: "autogenerated",
+            dirName: "cli",
+          },
         ],
-    },
+      },
+    ],
+  },
 ]
 
 const quickstart: SidebarItemsConfig = [
-    "welcome",
-    {
-        type: "category",
-        label: "Quickstart",
-        collapsed: false,
-        collapsible: false,
-        link: {
-            type: "doc",
-            id: "getting-started/overview",
-        },
-        items: [
-            "getting-started/integrate-auth/go",
-            "getting-started/integrate-auth/php",
-            "getting-started/integrate-auth/expressjs",
-            "getting-started/integrate-auth/react",
-            "getting-started/integrate-auth/react-native",
-            "getting-started/integrate-auth/vue",
-            "getting-started/integrate-auth/nextjs",
-            "getting-started/integrate-auth/flutter-web-redirect",
-            "getting-started/integrate-auth/dotnet",
-        ],
+  "welcome",
+  {
+    type: "category",
+    label: "Quickstart",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "getting-started/overview",
     },
+    items: [
+      "getting-started/integrate-auth/go",
+      "getting-started/integrate-auth/php",
+      "getting-started/integrate-auth/expressjs",
+      "getting-started/integrate-auth/react",
+      "getting-started/integrate-auth/react-native",
+      "getting-started/integrate-auth/vue",
+      "getting-started/integrate-auth/nextjs",
+      "getting-started/integrate-auth/flutter-web-redirect",
+      "getting-started/integrate-auth/dotnet",
+    ],
+  },
 ]
 
 const troubleshooting: SidebarItemsConfig = [
-    homeLink,
-    {
-        type: "category",
-        label: "Troubleshooting",
-        collapsible: false,
-        collapsed: false,
-        link: {
-            type: "generated-index",
-            slug: "category/troubleshooting/",
-        },
-        items: [
-            {
-                type: "autogenerated",
-                dirName: "troubleshooting",
-            },
-            "oauth2-oidc/identity-provider-integration-settings",
-            "guides/upgrade/sdk-v1",
-            "hydra/debug",
-            "hydra/debug/logout",
-            "hydra/debug/token-endpoint-auth-method",
-        ],
+  homeLink,
+  {
+    type: "category",
+    label: "Troubleshooting",
+    collapsible: false,
+    collapsed: false,
+    link: {
+      type: "generated-index",
+      slug: "category/troubleshooting/",
     },
+    items: [
+      {
+        type: "autogenerated",
+        dirName: "troubleshooting",
+      },
+      "oauth2-oidc/identity-provider-integration-settings",
+      "guides/upgrade/sdk-v1",
+      "hydra/debug",
+      "hydra/debug/logout",
+      "hydra/debug/token-endpoint-auth-method",
+    ],
+  },
 ]
 
 const operations: SidebarItemsConfig = [
-    homeLink,
-    {
-        type: "category",
-        label: "Operations",
-        link: {
-            type: "doc",
-            id: "guides/operations",
-        },
-        collapsed: false,
-        collapsible: false,
-        items: [
-            "guides/workspaces",
-            "guides/custom-domains",
-            "console/usage-billing",
-            "guides/manage-project-via-api",
-            "console/change-owner",
-            "guides/gitops",
-            "actions/live-events",
-        ],
+  homeLink,
+  {
+    type: "category",
+    label: "Operations",
+    link: {
+      type: "doc",
+      id: "guides/operations",
     },
+    collapsed: false,
+    collapsible: false,
+    items: [
+      "guides/workspaces",
+      "guides/custom-domains",
+      "console/usage-billing",
+      "guides/manage-project-via-api",
+      "console/change-owner",
+      "guides/gitops",
+      "actions/live-events",
+    ],
+  },
 ]
 
 const identities: SidebarItemsConfig = [
-    homeLink,
-    {
+  homeLink,
+  {
+    type: "category",
+    label: "Concepts",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "identities/index",
+    },
+    items: [
+      "security-model",
+      "identities/native-browser",
+      "concepts/redirects",
+      "kratos/hooks/configure-hooks",
+    ],
+  },
+  {
+    type: "category",
+    label: "Guides",
+    collapsed: false,
+    collapsible: false,
+    items: [
+      {
         type: "category",
-        label: "Concepts",
-        collapsed: false,
-        collapsible: false,
+        label: "Authentication",
         link: {
-            type: "doc",
-            id: "identities/index",
+          type: "generated-index",
+          slug: "guides/authentication",
         },
         items: [
-            "security-model",
-            "identities/native-browser",
-            "concepts/redirects",
-            "kratos/hooks/configure-hooks",
+          "kratos/passwordless/passwordless",
+          "kratos/passwordless/one-time-code",
+          "kratos/passwordless/passkeys",
+          "kratos/organizations/organizations",
+          {
+            type: "category",
+            label: "Credentials",
+            link: {
+              type: "doc",
+              id: "kratos/concepts/credentials",
+            },
+            items: [
+              "kratos/concepts/credentials/username-email-password",
+              "concepts/password-policy",
+            ],
+          },
+          "kratos/emails-sms/custom-email-templates",
         ],
-    },
-    {
+      },
+      openIdSSO,
+      {
         type: "category",
-        label: "Guides",
-        collapsed: false,
-        collapsible: false,
+        label: "Flows",
+        link: {
+          type: "doc",
+          id: "kratos/self-service",
+        },
         items: [
-            {
+          "kratos/concepts/browser-redirect-flow-completion",
+          "kratos/self-service/flows/user-registration",
+          "kratos/self-service/flows/user-login",
+          "kratos/self-service/flows/user-logout",
+          "kratos/self-service/flows/user-settings",
+          "kratos/self-service/flows/verify-email-account-activation",
+          "kratos/self-service/flows/account-recovery-password-reset",
+          "kratos/self-service/flows/user-facing-errors",
+        ],
+      },
+      {
+        type: "category",
+        label: "Session management",
+        link: {
+          type: "doc",
+          id: "kratos/session-management/overview",
+        },
+        items: [
+          "identities/sign-in/check-session",
+          "kratos/session-management/session-lifespan",
+          "kratos/session-management/refresh-extend-sessions",
+          "kratos/session-management/revoke-sessions-hook",
+          "identities/session-to-jwt-cors",
+          "concepts/cache",
+        ],
+      },
+      {
+        type: "category",
+        label: "Multi-factor authentication",
+        link: {
+          type: "doc",
+          id: "kratos/mfa/overview",
+        },
+        items: [
+          "kratos/mfa/lookup-secrets",
+          "kratos/mfa/totp",
+          "kratos/mfa/webauthn-fido-yubikey",
+          "kratos/mfa/mfa-via-sms",
+          "kratos/mfa/step-up-authentication",
+        ],
+      },
+      {
+        type: "category",
+        label: "Emails and SMS",
+        collapsed: true,
+        collapsible: true,
+        link: {
+          type: "doc",
+          id: "guides/email-sms",
+        },
+        items: [
+          "kratos/emails-sms/sending-emails-smtp",
+          "kratos/emails-sms/sending-sms",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Actions",
+        link: {
+          type: "doc",
+          id: "guides/integrate-with-ory-cloud-through-webhooks",
+        },
+        items: [
+          {
+            type: "category",
+            label: "Identity management",
+            items: [
+              "identities/sign-in/actions",
+              "actions/revoke-active-sessions",
+              "actions/session",
+              "actions/require-verified-address",
+              {
                 type: "category",
-                label: "Authentication",
-                link: {
-                    type: "generated-index",
-                    slug: "guides/authentication",
-                },
+                label: "Integrations",
                 items: [
-                    "kratos/passwordless/passwordless",
-                    "kratos/passwordless/one-time-code",
-                    "kratos/passwordless/passkeys",
-                    "kratos/organizations/organizations",
-                    {
-                        type: "category",
-                        label: "Credentials",
-                        link: {
-                            type: "doc",
-                            id: "kratos/concepts/credentials",
-                        },
-                        items: [
-                            "kratos/concepts/credentials/username-email-password",
-                            "concepts/password-policy",
-                        ],
-                    },
-                    "kratos/emails-sms/custom-email-templates",
+                  "actions/integrations/hubspot",
+                  "actions/integrations/mailchimp",
+                  "actions/integrations/segment",
                 ],
-            },
-            openIdSSO,
-            {
-                type: "category",
-                label: "Flows",
-                link: {
-                    type: "doc",
-                    id: "kratos/self-service",
-                },
-                items: [
-                    "kratos/concepts/browser-redirect-flow-completion",
-                    "kratos/self-service/flows/user-registration",
-                    "kratos/self-service/flows/user-login",
-                    "kratos/self-service/flows/user-logout",
-                    "kratos/self-service/flows/user-settings",
-                    "kratos/self-service/flows/verify-email-account-activation",
-                    "kratos/self-service/flows/account-recovery-password-reset",
-                    "kratos/self-service/flows/user-facing-errors",
-                ],
-            },
-            {
-                type: "category",
-                label: "Session management",
-                link: {
-                    type: "doc",
-                    id: "kratos/session-management/overview",
-                },
-                items: [
-                    "identities/sign-in/check-session",
-                    "kratos/session-management/session-lifespan",
-                    "kratos/session-management/refresh-extend-sessions",
-                    "kratos/session-management/revoke-sessions-hook",
-                    "identities/session-to-jwt-cors",
-                    "concepts/cache",
-                ],
-            },
-            {
-                type: "category",
-                label: "Multi-factor authentication",
-                link: {
-                    type: "doc",
-                    id: "kratos/mfa/overview",
-                },
-                items: [
-                    "kratos/mfa/lookup-secrets",
-                    "kratos/mfa/totp",
-                    "kratos/mfa/webauthn-fido-yubikey",
-                    "kratos/mfa/mfa-via-sms",
-                    "kratos/mfa/step-up-authentication",
-                ],
-            },
-            {
-                type: "category",
-                label: "Emails and SMS",
-                collapsed: true,
-                collapsible: true,
-                link: {
-                    type: "doc",
-                    id: "guides/email-sms",
-                },
-                items: [
-                    "kratos/emails-sms/sending-emails-smtp",
-                    "kratos/emails-sms/sending-sms",
-                ],
-            },
-            {
-                type: "category",
-                label: "Ory Actions",
-                link: {
-                    type: "doc",
-                    id: "guides/integrate-with-ory-cloud-through-webhooks",
-                },
-                items: [
-                    {
-                        type: "category",
-                        label: "Identity management",
-                        items: [
-                            "identities/sign-in/actions",
-                            "actions/revoke-active-sessions",
-                            "actions/session",
-                            "actions/require-verified-address",
-                            {
-                                type: "category",
-                                label: "Integrations",
-                                items: [
-                                    "actions/integrations/hubspot",
-                                    "actions/integrations/mailchimp",
-                                    "actions/integrations/segment",
-                                ],
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                type: "category",
-                label: "Identity management",
-                link: {
-                    type: "doc",
-                    id: "kratos/manage-identities/overview",
-                },
-                items: [
-                    "kratos/manage-identities/create-users-identities",
-                    "kratos/manage-identities/import-user-accounts-identities",
-                    "identities/model/identity-state",
-                    "kratos/manage-identities/invite-users",
-                    "kratos/manage-identities/account-recovery",
-                    "kratos/manage-identities/export-user-accounts-identities",
-                ],
-            },
-            {
-                type: "category",
-                label: "Identity schema",
-                link: {
-                    type: "doc",
-                    id: "kratos/manage-identities/identity-schema",
-                },
-                items: [
-                    "kratos/manage-identities/managing-users-identities-metadata",
-                    "identities/model/manage-identity-schema",
-                    "kratos/manage-identities/customize-identity-schema",
-                    "kratos/manage-identities/best-practices",
-                ],
-            },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: "category",
+        label: "Identity management",
+        link: {
+          type: "doc",
+          id: "kratos/manage-identities/overview",
+        },
+        items: [
+          "kratos/manage-identities/create-users-identities",
+          "kratos/manage-identities/import-user-accounts-identities",
+          "identities/model/identity-state",
+          "kratos/manage-identities/invite-users",
+          "kratos/manage-identities/account-recovery",
+          "kratos/manage-identities/export-user-accounts-identities",
+        ],
+      },
+      {
+        type: "category",
+        label: "Identity schema",
+        link: {
+          type: "doc",
+          id: "kratos/manage-identities/identity-schema",
+        },
+        items: [
+          "kratos/manage-identities/managing-users-identities-metadata",
+          "identities/model/manage-identity-schema",
+          "kratos/manage-identities/customize-identity-schema",
+          "kratos/manage-identities/best-practices",
+        ],
+      },
 
-            {
-                type: "category",
-                label: "User interface",
-                link: {
-                    type: "doc",
-                    id: "kratos/bring-your-own-ui/custom-ui-overview",
-                },
-                items: [
-                    "account-experience/index",
-                    "kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
-                    {
-                        type: "category",
-                        label: "Build your own UI",
-                        link: {
-                            type: "doc",
-                            id: "getting-started/custom-ui",
-                        },
-                        items: [
-                            "kratos/bring-your-own-ui/custom-ui-basic-integration",
-                            "kratos/bring-your-own-ui/custom-ui-advanced-integration",
-                            "kratos/bring-your-own-ui/custom-ui-ory-elements",
-                            "kratos/concepts/ui-user-interface",
-                        ],
-                    },
-                ],
-            },
-        ],
-    },
-    {
+      {
         type: "category",
-        label: "Configuration",
+        label: "User interface",
+        link: {
+          type: "doc",
+          id: "kratos/bring-your-own-ui/custom-ui-overview",
+        },
         items: [
-            "identities/sign-in/two-step-registration",
-            "identities/sign-in/identifier-first-authentication",
-            "identities/sign-in/login-hint",
-            "identities/sign-in/actions",
+          "account-experience/index",
+          "kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
+          {
+            type: "category",
+            label: "Build your own UI",
+            link: {
+              type: "doc",
+              id: "getting-started/custom-ui",
+            },
+            items: [
+              "kratos/bring-your-own-ui/custom-ui-basic-integration",
+              "kratos/bring-your-own-ui/custom-ui-advanced-integration",
+              "kratos/bring-your-own-ui/custom-ui-ory-elements",
+              "kratos/concepts/ui-user-interface",
+            ],
+          },
         ],
-    },
+      },
+    ],
+  },
+  {
+    type: "category",
+    label: "Configuration",
+    items: [
+      "identities/sign-in/two-step-registration",
+      "identities/sign-in/identifier-first-authentication",
+      "identities/sign-in/login-hint",
+      "identities/sign-in/actions",
+    ],
+  },
 ]
 
 const oauth2: SidebarItemsConfig = [
-    homeLink,
-    {
-        type: "category",
-        label: "Start",
-        collapsed: false,
-        collapsible: false,
-        link: {
-            type: "doc",
-            id: "getting-started/ory-network-oauth2",
-        },
-        items: [
-            "getting-started/oauth2-openid/expressjs",
-            "hydra/guides/using-oauth2",
-        ],
+  homeLink,
+  {
+    type: "category",
+    label: "Start",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "getting-started/ory-network-oauth2",
     },
-    {
-        type: "category",
-        label: "Concepts",
-        collapsed: false,
-        collapsible: false,
-        link: {
-            type: "doc",
-            id: "oauth2-oidc/index",
-        },
-        items: [
-            "oauth2-oidc/overview/oauth2-concepts",
-            "oauth2-oidc/overview/oidc-concepts",
-            "hydra/concepts/before-oauth2",
-            "hydra/security-architecture",
-        ],
+    items: [
+      "getting-started/oauth2-openid/expressjs",
+      "hydra/guides/using-oauth2",
+    ],
+  },
+  {
+    type: "category",
+    label: "Concepts",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "oauth2-oidc/index",
     },
+    items: [
+      "oauth2-oidc/overview/oauth2-concepts",
+      "oauth2-oidc/overview/oidc-concepts",
+      "hydra/concepts/before-oauth2",
+      "hydra/security-architecture",
+    ],
+  },
 
-    {
+  {
+    type: "category",
+    label: "Guides",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "hydra/guides/oauth2-token-introspection",
+    },
+    items: [
+      openIdSSO,
+      {
         type: "category",
-        label: "Guides",
-        collapsed: false,
-        collapsible: false,
+        label: "Flows",
         link: {
-            type: "doc",
-            id: "hydra/guides/oauth2-token-introspection",
+          type: "doc",
+          id: "oauth2-oidc/authorization-code-flow",
         },
         items: [
-            openIdSSO,
-            {
-                type: "category",
-                label: "Flows",
-                link: {
-                    type: "doc",
-                    id: "oauth2-oidc/authorization-code-flow",
-                },
-                items: [
-                    "oauth2-oidc/authorization-code-flow",
-                    "oauth2-oidc/client-credentials",
-                    "oauth2-oidc/resource-owner-password-grant",
-                    "oauth2-oidc/refresh-token-grant",
-                    "oauth2-oidc/userinfo-oidc",
-                    "oauth2-oidc/oidc-logout",
-                ],
-            },
-            {
-                type: "category",
-                label: "Token management",
-                items: [
-                    "hydra/guides/oauth2-token-introspection",
-                    "oauth2-oidc/revoke-consent",
-                    "oauth2-oidc/skip-consent",
-                    "oauth2-oidc/jwt-access-token",
-                    "hydra/guides/audiences",
-                    "hydra/guides/jwt",
-                    "hydra/guides/client-token-expiration",
-                    "hydra/guides/graceful-token-refresh",
-                    "oauth2-oidc/claims-scope",
-                ],
-            },
-            {
-                type: "category",
-                label: "Ory Actions",
-                items: ["hydra/guides/claims-at-refresh"],
-            },
-            {
-                type: "category",
-                label: "Client management",
-                items: [
-                    "hydra/guides/oauth2-clients",
-                    "hydra/jwks",
-                    "hydra/guides/openid",
-                    "oauth2-oidc/issuer-url",
-                ],
-            },
-            {
-                type: "category",
-                label: "User Interface",
-                link: {
-                    type: "doc",
-                    id: "hydra/guides/custom-ui-oauth2",
-                },
-                items: ["oauth2-oidc/custom-login-consent/flow", "hydra/guides/logout"],
-            },
+          "oauth2-oidc/authorization-code-flow",
+          "oauth2-oidc/client-credentials",
+          "oauth2-oidc/resource-owner-password-grant",
+          "oauth2-oidc/refresh-token-grant",
+          "oauth2-oidc/userinfo-oidc",
+          "oauth2-oidc/oidc-logout",
         ],
-    },
+      },
+      {
+        type: "category",
+        label: "Token management",
+        items: [
+          "hydra/guides/oauth2-token-introspection",
+          "oauth2-oidc/revoke-consent",
+          "oauth2-oidc/skip-consent",
+          "oauth2-oidc/jwt-access-token",
+          "hydra/guides/audiences",
+          "hydra/guides/jwt",
+          "hydra/guides/client-token-expiration",
+          "hydra/guides/graceful-token-refresh",
+          "oauth2-oidc/claims-scope",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Actions",
+        items: ["hydra/guides/claims-at-refresh"],
+      },
+      {
+        type: "category",
+        label: "Client management",
+        items: [
+          "hydra/guides/oauth2-clients",
+          "hydra/jwks",
+          "hydra/guides/openid",
+          "oauth2-oidc/issuer-url",
+        ],
+      },
+      {
+        type: "category",
+        label: "User Interface",
+        link: {
+          type: "doc",
+          id: "hydra/guides/custom-ui-oauth2",
+        },
+        items: ["oauth2-oidc/custom-login-consent/flow", "hydra/guides/logout"],
+      },
+    ],
+  },
 ]
 
 const permissions: SidebarItemsConfig = [
-    homeLink,
-    {
-        type: "category",
-        label: "Start",
-        collapsed: false,
-        collapsible: false,
-        link: {
-            type: "doc",
-            id: "guides/permissions/overview",
-        },
-        items: ["keto/quickstart", "keto/examples/olymp-file-sharing"],
+  homeLink,
+  {
+    type: "category",
+    label: "Start",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "guides/permissions/overview",
     },
-    {
-        type: "category",
-        label: "Concepts",
-        collapsed: false,
-        collapsible: false,
-        link: {
-            type: "doc",
-            id: "keto/index",
-        },
-        items: [
-            "keto/guides/rbac",
-            {
-                type: "autogenerated",
-                dirName: "keto/concepts",
-            },
-            "keto/reference/ory-permission-language",
-        ],
+    items: ["keto/quickstart", "keto/examples/olymp-file-sharing"],
+  },
+  {
+    type: "category",
+    label: "Concepts",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "keto/index",
     },
-    {
-        type: "category",
-        label: "Guides",
-        items: [
-            "keto/guides/simple-access-check-guide",
-            "keto/modeling/create-permission-model",
-            "keto/guides/list-api-display-objects",
-            "keto/guides/expand-api-display-who-has-access",
-        ],
-    },
+    items: [
+      "keto/guides/rbac",
+      {
+        type: "autogenerated",
+        dirName: "keto/concepts",
+      },
+      "keto/reference/ory-permission-language",
+    ],
+  },
+  {
+    type: "category",
+    label: "Guides",
+    items: [
+      "keto/guides/simple-access-check-guide",
+      "keto/modeling/create-permission-model",
+      "keto/guides/list-api-display-objects",
+      "keto/guides/expand-api-display-who-has-access",
+    ],
+  },
 ]
 
 const selfhosting: SidebarItemsConfig = [
-    homeLink,
-    "ecosystem/projects",
-    {
+  homeLink,
+  "ecosystem/projects",
+  {
+    type: "category",
+    label: "Open source",
+    items: [
+      "open-source",
+      "ecosystem/community",
+      "ecosystem/contributing",
+      "open-source/commitment",
+      "ecosystem/software-architecture-philosophy",
+      {
         type: "category",
-        label: "Open source",
+        label: "Guidelines",
         items: [
-            "open-source",
-            "ecosystem/community",
-            "ecosystem/contributing",
-            "open-source/commitment",
-            "ecosystem/software-architecture-philosophy",
-            {
-                type: "category",
-                label: "Guidelines",
-                items: [
-                    "open-source/guidelines/rest-api-guidelines",
-                    "kratos/guides/e2e-integration-tests",
-                ],
-            },
+          "open-source/guidelines/rest-api-guidelines",
+          "kratos/guides/e2e-integration-tests",
         ],
-    },
-    {
+      },
+    ],
+  },
+  {
+    type: "category",
+    label: "Ory Enterprise License",
+    items: [
+      "self-hosted/oel/quickstart",
+      "self-hosted/oel/oauth2/migrate",
+      {
         type: "category",
-        label: "Ory Enterprise License",
+        label: "Ory Hydra (OAuth2 Server)",
         items: [
-            "self-hosted/oel/quickstart",
-            "self-hosted/oel/oauth2/migrate",
-            {
-                type: "category",
-                label: "Ory Hydra (OAuth2 Server)",
-                items: [
-                    "self-hosted/oel/oauth2/token-prefix",
-                    "self-hosted/oel/oauth2/upgrade",
-                    "self-hosted/oel/oauth2/migrate-postgresql-ttl",
-                    "self-hosted/oel/oauth2/changelog",
-                ],
-            },
+          "self-hosted/oel/oauth2/token-prefix",
+          "self-hosted/oel/oauth2/upgrade",
+          "self-hosted/oel/oauth2/migrate-postgresql-ttl",
+          "self-hosted/oel/oauth2/changelog",
         ],
-    },
-    "self-hosted/deployment",
-    "ecosystem/configuring",
-    {
+      },
+    ],
+  },
+  "self-hosted/deployment",
+  "ecosystem/configuring",
+  {
+    type: "category",
+    label: "Operations and SRE",
+    items: [
+      {
+        type: "autogenerated",
+        dirName: "self-hosted/operations",
+      },
+    ],
+  },
+  "ecosystem/upgrading",
+  "ecosystem/sqa",
+  "ecosystem/changelog",
+  "ecosystem/benchmark",
+  {
+    type: "category",
+    label: "Ory Kratos",
+    items: [
+      "kratos/install",
+      "kratos/quickstart",
+      "kratos/guides/docker",
+      "kratos/guides/deploy-kratos-example",
+      "kratos/guides/upgrade",
+      {
         type: "category",
-        label: "Operations and SRE",
+        label: "Configuration",
         items: [
-            {
+          "kratos/configuring",
+          "kratos/guides/configuring-cookies",
+          "kratos/guides/multi-domain-cookies",
+          "self-hosted/kratos/configuration/password",
+          "kratos/self-hosted/mfa",
+          "kratos/guides/setting-up-cors",
+          "kratos/self-hosted/account-activation-email-verification",
+          "self-hosted/kratos/configuration/oidc",
+          "kratos/guides/setting-up-password-hashing-parameters",
+          "kratos/guides/select-cipher-algorithm",
+          "kratos/self-hosted/email-http",
+          "kratos/reference/configuration-editor",
+        ],
+      },
+      {
+        type: "category",
+        label: "Guides",
+        items: [
+          "kratos/guides/production",
+          "kratos/guides/multi-tenancy-multitenant",
+          "self-hosted/operations/scalability",
+          "kratos/self-hosted/mail-courier-templates",
+          "kratos/guides/tracing",
+          "kratos/guides/zero-trust-iap-proxy-identity-access-proxy",
+          "kratos/guides/https-tls",
+          "kratos/guides/hosting-own-have-i-been-pwned-api",
+          "kratos/guides/secret-key-rotation",
+        ],
+      },
+      {
+        type: "category",
+        label: "Troubleshooting",
+        items: [
+          {
+            type: "autogenerated",
+            dirName: "kratos/debug",
+          },
+        ],
+      },
+      {
+        type: "category",
+        label: "Reference",
+        items: [
+          "kratos/reference/api",
+          {
+            "Command Line Interface (CLI)": [
+              {
                 type: "autogenerated",
-                dirName: "self-hosted/operations",
-            },
+                dirName: "kratos/cli",
+              },
+            ],
+          },
+          {
+            SDK: ["kratos/sdk/overview", "kratos/self-hosted/go"],
+          },
+          "kratos/reference/configuration",
+          "kratos/reference/json-schema-json-paths",
+          "kratos/reference/html-forms",
+          "kratos/reference/jsonnet",
         ],
-    },
-    "ecosystem/upgrading",
-    "ecosystem/sqa",
-    "ecosystem/changelog",
-    "ecosystem/benchmark",
-    {
+      },
+    ],
+  },
+  {
+    type: "category",
+    label: "Ory Hydra",
+    items: [
+      "hydra/self-hosted/install",
+      "hydra/self-hosted/quickstart",
+      "hydra/self-hosted/deploy-hydra-example",
+      "hydra/self-hosted/upgrade",
+      {
         type: "category",
-        label: "Ory Kratos",
+        label: "Configuration",
         items: [
-            "kratos/install",
-            "kratos/quickstart",
-            "kratos/guides/docker",
-            "kratos/guides/deploy-kratos-example",
-            "kratos/guides/upgrade",
-            {
-                type: "category",
-                label: "Configuration",
-                items: [
-                    "kratos/configuring",
-                    "kratos/guides/configuring-cookies",
-                    "kratos/guides/multi-domain-cookies",
-                    "self-hosted/kratos/configuration/password",
-                    "kratos/self-hosted/mfa",
-                    "kratos/guides/setting-up-cors",
-                    "kratos/self-hosted/account-activation-email-verification",
-                    "self-hosted/kratos/configuration/oidc",
-                    "kratos/guides/setting-up-password-hashing-parameters",
-                    "kratos/guides/select-cipher-algorithm",
-                    "kratos/self-hosted/email-http",
-                    "kratos/reference/configuration-editor",
-                ],
-            },
-            {
-                type: "category",
-                label: "Guides",
-                items: [
-                    "kratos/guides/production",
-                    "kratos/guides/multi-tenancy-multitenant",
-                    "self-hosted/operations/scalability",
-                    "kratos/self-hosted/mail-courier-templates",
-                    "kratos/guides/tracing",
-                    "kratos/guides/zero-trust-iap-proxy-identity-access-proxy",
-                    "kratos/guides/https-tls",
-                    "kratos/guides/hosting-own-have-i-been-pwned-api",
-                    "kratos/guides/secret-key-rotation",
-                ],
-            },
-            {
-                type: "category",
-                label: "Troubleshooting",
-                items: [
-                    {
-                        type: "autogenerated",
-                        dirName: "kratos/debug",
-                    },
-                ],
-            },
-            {
-                type: "category",
-                label: "Reference",
-                items: [
-                    "kratos/reference/api",
-                    {
-                        "Command Line Interface (CLI)": [
-                            {
-                                type: "autogenerated",
-                                dirName: "kratos/cli",
-                            },
-                        ],
-                    },
-                    {
-                        SDK: ["kratos/sdk/overview", "kratos/self-hosted/go"],
-                    },
-                    "kratos/reference/configuration",
-                    "kratos/reference/json-schema-json-paths",
-                    "kratos/reference/html-forms",
-                    "kratos/reference/jsonnet",
-                ],
-            },
+          "hydra/reference/configuration",
+          "hydra/reference/configuration-editor",
+          "hydra/self-hosted/configure-deploy",
+          "hydra/self-hosted/dependencies-environment",
+          "hydra/self-hosted/production",
+          "hydra/self-hosted/hsm-support",
+          "self-hosted/operations/scalability",
+          "hydra/self-hosted/merge-multiple-db-secrets",
+          "hydra/self-hosted/gitlab",
+          "hydra/self-hosted/secrets-key-rotation",
+          "hydra/self-hosted/kubernetes-helm-chart",
+          "hydra/self-hosted/ssl-https-tls",
+          "self-hosted/operations/tracing",
+          "hydra/guides/cookies",
+          "hydra/guides/cors",
+          "self-hosted/hydra/debug/csrf",
         ],
-    },
-    {
+      },
+      {
         type: "category",
-        label: "Ory Hydra",
+        label: "Guides",
         items: [
-            "hydra/self-hosted/install",
-            "hydra/self-hosted/quickstart",
-            "hydra/self-hosted/deploy-hydra-example",
-            "hydra/self-hosted/upgrade",
-            {
-                type: "category",
-                label: "Configuration",
-                items: [
-                    "hydra/reference/configuration",
-                    "hydra/reference/configuration-editor",
-                    "hydra/self-hosted/configure-deploy",
-                    "hydra/self-hosted/dependencies-environment",
-                    "hydra/self-hosted/production",
-                    "hydra/self-hosted/hsm-support",
-                    "self-hosted/operations/scalability",
-                    "hydra/self-hosted/merge-multiple-db-secrets",
-                    "hydra/self-hosted/gitlab",
-                    "hydra/self-hosted/secrets-key-rotation",
-                    "hydra/self-hosted/kubernetes-helm-chart",
-                    "hydra/self-hosted/ssl-https-tls",
-                    "self-hosted/operations/tracing",
-                    "hydra/guides/cookies",
-                    "hydra/guides/cors",
-                    "self-hosted/hydra/debug/csrf",
-                ],
-            },
-            {
-                type: "category",
-                label: "Guides",
-                items: [
-                    "hydra/reference/api",
-                    {
-                        "Command Line Interface (CLI)": [
-                            {
-                                type: "autogenerated",
-                                dirName: "hydra/cli",
-                            },
-                        ],
-                    },
-                    {
-                        SDK: [
-                            "hydra/sdk/overview",
-                            "hydra/self-hosted/go",
-                            "hydra/self-hosted/js",
-                        ],
-                    },
-                ],
-            },
-            {
-                type: "category",
-                label: "Reference",
-                items: [
-                    "hydra/reference/api",
-                    {
-                        "Command Line Interface (CLI)": [
-                            {
-                                type: "autogenerated",
-                                dirName: "hydra/cli",
-                            },
-                        ],
-                    },
-                    {
-                        SDK: [
-                            "hydra/sdk/overview",
-                            "hydra/self-hosted/go",
-                            "hydra/self-hosted/js",
-                        ],
-                    },
-                ],
-            },
-            "ecosystem/benchmark",
-            "hydra/case-study",
-            "hydra/faq",
+          "hydra/reference/api",
+          {
+            "Command Line Interface (CLI)": [
+              {
+                type: "autogenerated",
+                dirName: "hydra/cli",
+              },
+            ],
+          },
+          {
+            SDK: [
+              "hydra/sdk/overview",
+              "hydra/self-hosted/go",
+              "hydra/self-hosted/js",
+            ],
+          },
         ],
-    },
-    {
+      },
+      {
         type: "category",
-        label: "Ory Keto",
+        label: "Reference",
         items: [
-            "keto/install",
-            "keto/quickstart",
-            "keto/guides/production",
-            "keto/guides/v0.7-migration",
-            "keto/guides/migrating-legacy-policies",
-            "keto/guides/upgrade",
-            {
-                Reference: [
-                    "keto/reference/rest-api",
-                    "keto/reference/proto-api",
-                    {
-                        "Command Line Interface (CLI)": [
-                            {
-                                type: "autogenerated",
-                                dirName: "keto/cli",
-                            },
-                        ],
-                    },
-                    {
-                        SDK: ["keto/sdk/overview", "keto/self-hosted/go"],
-                    },
-                    "keto/reference/configuration",
-                    "keto/reference/configuration-editor",
-                ],
-            },
+          "hydra/reference/api",
+          {
+            "Command Line Interface (CLI)": [
+              {
+                type: "autogenerated",
+                dirName: "hydra/cli",
+              },
+            ],
+          },
+          {
+            SDK: [
+              "hydra/sdk/overview",
+              "hydra/self-hosted/go",
+              "hydra/self-hosted/js",
+            ],
+          },
         ],
-    },
-    {
-        type: "category",
-        label: "Ory Oathkeeper",
-        items: [
-            {
-                Introduction: ["oathkeeper/index", "oathkeeper/install"],
-            },
-            {
-                "Core Concepts": [
-                    "oathkeeper/api-access-rules",
-                    {
-                        type: "category",
-                        label: "Handlers",
-                        items: [
-                            "oathkeeper/pipeline",
-                            "oathkeeper/pipeline/authn",
-                            "oathkeeper/pipeline/authz",
-                            "oathkeeper/pipeline/mutator",
-                            "oathkeeper/pipeline/error",
-                        ],
-                    },
-                    "oathkeeper/grpc-middleware",
-                ],
-            },
-            {
-                Guides: [
-                    "oathkeeper/configure-deploy",
-                    "oathkeeper/guides/proxy-websockets",
-                    "oathkeeper/guides/traefik-proxy-integration",
-                    "oathkeeper/guides/upgrade",
-                ],
-            },
-            "oathkeeper/reference/api",
-            {
-                Reference: [
-                    "oathkeeper/reference/configuration",
-                    "oathkeeper/reference/configuration-editor",
-                    {
-                        "Command Line Interface (CLI)": [
-                            {
-                                type: "autogenerated",
-                                dirName: "oathkeeper/cli",
-                            },
-                        ],
-                    },
-                    "oathkeeper/sdk",
-                ],
-            },
+      },
+      "ecosystem/benchmark",
+      "hydra/case-study",
+      "hydra/faq",
+    ],
+  },
+  {
+    type: "category",
+    label: "Ory Keto",
+    items: [
+      "keto/install",
+      "keto/quickstart",
+      "keto/guides/production",
+      "keto/guides/v0.7-migration",
+      "keto/guides/migrating-legacy-policies",
+      "keto/guides/upgrade",
+      {
+        Reference: [
+          "keto/reference/rest-api",
+          "keto/reference/proto-api",
+          {
+            "Command Line Interface (CLI)": [
+              {
+                type: "autogenerated",
+                dirName: "keto/cli",
+              },
+            ],
+          },
+          {
+            SDK: ["keto/sdk/overview", "keto/self-hosted/go"],
+          },
+          "keto/reference/configuration",
+          "keto/reference/configuration-editor",
         ],
-    },
-    {
-        type: "link",
-        label: "Search",
-        href: "https://www.ory.sh/docs/search",
-    },
+      },
+    ],
+  },
+  {
+    type: "category",
+    label: "Ory Oathkeeper",
+    items: [
+      {
+        Introduction: ["oathkeeper/index", "oathkeeper/install"],
+      },
+      {
+        "Core Concepts": [
+          "oathkeeper/api-access-rules",
+          {
+            type: "category",
+            label: "Handlers",
+            items: [
+              "oathkeeper/pipeline",
+              "oathkeeper/pipeline/authn",
+              "oathkeeper/pipeline/authz",
+              "oathkeeper/pipeline/mutator",
+              "oathkeeper/pipeline/error",
+            ],
+          },
+          "oathkeeper/grpc-middleware",
+        ],
+      },
+      {
+        Guides: [
+          "oathkeeper/configure-deploy",
+          "oathkeeper/guides/proxy-websockets",
+          "oathkeeper/guides/traefik-proxy-integration",
+          "oathkeeper/guides/upgrade",
+        ],
+      },
+      "oathkeeper/reference/api",
+      {
+        Reference: [
+          "oathkeeper/reference/configuration",
+          "oathkeeper/reference/configuration-editor",
+          {
+            "Command Line Interface (CLI)": [
+              {
+                type: "autogenerated",
+                dirName: "oathkeeper/cli",
+              },
+            ],
+          },
+          "oathkeeper/sdk",
+        ],
+      },
+    ],
+  },
+  {
+    type: "link",
+    label: "Search",
+    href: "https://www.ory.sh/docs/search",
+  },
 ]
 
 const localDevelopment: SidebarItemsConfig = [
-    homeLink,
-    "getting-started/local-development",
+  homeLink,
+  "getting-started/local-development",
 ]
 
 const security: SidebarItemsConfig = [
-    homeLink,
-    "security-compliance/compliance-and-certifications",
-    "security-compliance/personal-data-location",
-    "ecosystem/security",
-    "kratos/concepts/security",
-    "security-compliance/token-formats",
-    "concepts/password-policy",
-    "hydra/security-architecture",
-    "security-compliance/gdpr",
+  homeLink,
+  "security-compliance/compliance-and-certifications",
+  "security-compliance/personal-data-location",
+  "ecosystem/security",
+  "kratos/concepts/security",
+  "security-compliance/token-formats",
+  "concepts/password-policy",
+  "hydra/security-architecture",
+  "security-compliance/gdpr",
 ]
 
 module.exports = {
-    quickstart,
-    troubleshooting,
-    operations,
-    localDevelopment,
-    selfhosting,
-    identities,
-    oauth2,
-    permissions,
-    api,
-    sdk,
-    cli,
-    security,
+  quickstart,
+  troubleshooting,
+  operations,
+  localDevelopment,
+  selfhosting,
+  identities,
+  oauth2,
+  permissions,
+  api,
+  sdk,
+  cli,
+  security,
 }
