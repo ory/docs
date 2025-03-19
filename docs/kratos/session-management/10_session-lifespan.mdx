@@ -46,15 +46,15 @@ For example, to set the session lifespan to 30 days, enter `720h`.
 
    ```yaml title="config.yml"
    session:
-   cookie:
-      domain: $PROJECT_SLUG.projects.oryapis.com
-      name: ory_session_{name}
-      path: /
-      persistent: false
-      same_site: Lax
-   // highlight-start
-   lifespan: 720h
-   // highlight-end
+      cookie:
+         domain: $PROJECT_SLUG.projects.oryapis.com
+         name: ory_session_{name}
+         path: /
+         persistent: false
+         same_site: Lax
+      // highlight-start
+      lifespan: 720h
+      // highlight-end
    ```
 
 3. Update the Ory Identities configuration using the file you worked with:
