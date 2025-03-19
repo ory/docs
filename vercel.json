@@ -1178,6 +1178,20 @@
       "source": "/docs/quickstart/sdks",
       "destination": "/docs/sdk",
       "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-clients-create",
+      "destination": "/docs/hydra/cli/hydra-create-client",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/bring-your-own-ui/01_overview.mdx",
+      "destination": "/docs/kratos/bring-your-own-ui/custom-ui-basic-integration",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/master/oathkeeper/1-overview/1-rules",
+      "destination": "/docs/oathkeeper/api-access-rules"
     }
   ]
 }
