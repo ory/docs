@@ -616,24 +616,6 @@ const selfhosting: SidebarItemsConfig = [
       },
     ],
   },
-  {
-    type: "category",
-    label: "Ory Enterprise License",
-    items: [
-      "self-hosted/oel/quickstart",
-      "self-hosted/oel/oauth2/migrate",
-      {
-        type: "category",
-        label: "Ory Hydra (OAuth2 Server)",
-        items: [
-          "self-hosted/oel/oauth2/token-prefix",
-          "self-hosted/oel/oauth2/upgrade",
-          "self-hosted/oel/oauth2/migrate-postgresql-ttl",
-          "self-hosted/oel/oauth2/changelog",
-        ],
-      },
-    ],
-  },
   "self-hosted/deployment",
   "ecosystem/configuring",
   {
@@ -893,9 +875,37 @@ const selfhosting: SidebarItemsConfig = [
   },
 ]
 
+const oel: SidebarItemsConfig = [
+  homeLink,
+  "self-hosted/oel/quickstart",
+  "self-hosted/oel/oauth2/migrate",
+  {
+    type: "category",
+    label: "OAuth2 Server",
+    items: [
+      "self-hosted/oel/oauth2/token-prefix",
+      "self-hosted/oel/oauth2/upgrade",
+      "self-hosted/oel/oauth2/migrate-postgresql-ttl",
+      "self-hosted/oel/oauth2/changelog",
+    ],
+  },
+]
+
 const localDevelopment: SidebarItemsConfig = [
   homeLink,
   "getting-started/local-development",
+]
+
+const security: SidebarItemsConfig = [
+  homeLink,
+  "security-compliance/compliance-and-certifications",
+  "security-compliance/personal-data-location",
+  "ecosystem/security",
+  "kratos/concepts/security",
+  "security-compliance/token-formats",
+  "concepts/password-policy",
+  "hydra/security-architecture",
+  "security-compliance/gdpr",
 ]
 
 module.exports = {
@@ -904,10 +914,12 @@ module.exports = {
   operations,
   localDevelopment,
   selfhosting,
+  oel,
   identities,
   oauth2,
   permissions,
   api,
   sdk,
   cli,
+  security,
 }
