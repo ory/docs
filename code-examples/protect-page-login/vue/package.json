@@ -1,46 +1,22 @@
 {
-  "name": "ory-vue-example",
-  "version": "0.1.0",
+  "name": "ory-vue-demo",
+  "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "serve": "vue-cli-service serve",
-    "start": "serve -s dist"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead",
-    "not ie 11"
-  ],
-  "eslintConfig": {
-    "env": {
-      "node": true
-    },
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "root": true
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@ory/client": "~1.6.1",
-    "core-js": "^3.8.3",
-    "serve": "^14.1.2",
-    "vue": "^3.2.13"
+    "@ory/client": "^1.17.2",
+    "@ory/client-fetch": "^1.17.2",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "@ory/cli": "^1.1.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.2.1",
+    "vite-plugin-vue-devtools": "^7.7.2"
   }
 }
