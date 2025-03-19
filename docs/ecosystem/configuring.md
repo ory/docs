@@ -66,7 +66,7 @@ The files are then merged in order. Here, `a.yml`'s values are overwritten by `b
 
 :::info
 
-When merging configuration values, the configuration system will try its best to merge the keys. Please note that array values can
+When merging configuration values, the configuration system will try its best to merge the keys. Please note that array values
 will be overwritten!
 
 ```yml

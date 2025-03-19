@@ -1,0 +1,31 @@
+---
+id: account-linking-response-code
+title: Account linking response code change (OTA-032025-01)
+sidebar_label: Account linking response code
+---
+
+# Account linking response code change
+
+Starting **no sooner than April 13, 2025**, Ory Network will return a `400 Bad Request` instead of a `200 OK` when a user signs up
+with Social Sign-In for an account that already exists. The associated error message has ID `1010016` and states:
+
+> You tried to sign in with %q, but that email is already used by another account. Sign in to your account with one of the options
+> below to add your account %[1]q at %q as another way to sign in.
+
+### Previous behavior
+
+When signing up using the OIDC strategy and sending `Accept: application/json` in the request, Ory Network returned a `200 OK`
+response even if an account with the same email address already existed.
+
+### New behavior
+
+Ory Network will now return a `400 Bad Request` response in the same scenario.
+
+### Action required
+
+- Ensure that your application can handle a `400 Bad Request` response when signing up with Social Sign-In for an existing
+  account.
+- If you have questions or concerns, contact us via [Zendesk](https://console.ory.sh/support), [Slack](https://slack.ory.sh/), or
+  email at support@ory.sh.
+
+For further assistance, reach out through our support channels.
