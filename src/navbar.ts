@@ -34,6 +34,10 @@ export const navbar: Navbar = {
           //   to: "/docs/permissions", // TODO: Use this route
           label: "Permissions",
         },
+        {
+          to: "/docs/self-hosted/oel/quickstart",
+          label: "Self Hosting",
+        },
       ],
     },
     {
@@ -44,9 +48,10 @@ export const navbar: Navbar = {
           to: "/docs/getting-started/local-development",
           label: "Local Development",
         },
+
         {
           to: "/docs/ecosystem/projects",
-          label: "Self-Hosting",
+          label: "OSS Ecosystem",
         },
       ],
     },

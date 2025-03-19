@@ -615,24 +615,6 @@ const selfhosting: SidebarItemsConfig = [
       },
     ],
   },
-  {
-    type: "category",
-    label: "Ory Enterprise License",
-    items: [
-      "self-hosted/oel/quickstart",
-      "self-hosted/oel/oauth2/migrate",
-      {
-        type: "category",
-        label: "Ory Hydra (OAuth2 Server)",
-        items: [
-          "self-hosted/oel/oauth2/token-prefix",
-          "self-hosted/oel/oauth2/upgrade",
-          "self-hosted/oel/oauth2/migrate-postgresql-ttl",
-          "self-hosted/oel/oauth2/changelog",
-        ],
-      },
-    ],
-  },
   "self-hosted/deployment",
   "ecosystem/configuring",
   {
@@ -892,6 +874,22 @@ const selfhosting: SidebarItemsConfig = [
   },
 ]
 
+const oel: SidebarItemsConfig = [
+  homeLink,
+  "self-hosted/oel/quickstart",
+  "self-hosted/oel/oauth2/migrate",
+  {
+    type: "category",
+    label: "OAuth2 Server",
+    items: [
+      "self-hosted/oel/oauth2/token-prefix",
+      "self-hosted/oel/oauth2/upgrade",
+      "self-hosted/oel/oauth2/migrate-postgresql-ttl",
+      "self-hosted/oel/oauth2/changelog",
+    ],
+  },
+]
+
 const localDevelopment: SidebarItemsConfig = [
   homeLink,
   "getting-started/local-development",
@@ -915,6 +913,7 @@ module.exports = {
   operations,
   localDevelopment,
   selfhosting,
+  oel,
   identities,
   oauth2,
   permissions,
