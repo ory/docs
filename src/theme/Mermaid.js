@@ -47,27 +47,26 @@ const Mermaid = ({ chart }) => {
   const theme = colorMode === "light" ? "neutral" : "dark"
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current) return
 
     // Clear previous content
-    containerRef.current.innerHTML = '';
+    containerRef.current.innerHTML = ""
 
     // Add the mermaid diagram definition with theme
     containerRef.current.innerHTML = `<div class="mermaid">
       %%{init: {'theme':'${theme}'}}%%
       ${chart}
-    </div>`;
+    </div>`
 
     // Use mermaid.run to process the diagram
     try {
       mermaid.run({
-        nodes: [containerRef.current.querySelector('.mermaid')]
-      });
+        nodes: [containerRef.current.querySelector(".mermaid")],
+      })
     } catch (error) {
-      console.error("Mermaid error:", error);
+      console.error("Mermaid error:", error)
     }
-
-  }, [chart, theme]);
+  }, [chart, theme])
 
   return (
     <>
@@ -85,7 +84,9 @@ const Mermaid = ({ chart }) => {
         <div
           onClick={(e) => e.stopPropagation()}
           className={cn(styles.backdrop, styles.graph)}
-          dangerouslySetInnerHTML={{ __html: containerRef.current?.innerHTML || '' }}
+          dangerouslySetInnerHTML={{
+            __html: containerRef.current?.innerHTML || "",
+          }}
         />
       </div>
     </>

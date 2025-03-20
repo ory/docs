@@ -6,7 +6,7 @@ import Mermaid from "./Mermaid"
 
 const chart = ({
   flows = ["login", "registration", "settings", "..."],
-  interactions = ['Log in', 'Sign Up', 'Update Email', "..."],
+  interactions = ["Log in", "Sign Up", "Update Email", "..."],
   success = "Perform flow-specific action (e.g. create user, set session cookie, ...)",
 }) => {
   const components =
