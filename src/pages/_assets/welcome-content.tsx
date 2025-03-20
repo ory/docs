@@ -74,7 +74,7 @@ export const authorizationSecurity: {
         "Protect your backend services with token-based authentication",
       language: "api",
       languageLogoAlt: "API icon",
-      docs: "/docs/oauth2-oidc/index",
+      docs: "/docs/getting-started/overview",
     },
     {
       title: "Enable Single Sign-On",
@@ -227,7 +227,7 @@ export const backendFrameworks: {
         "Integrate Ory authentication and permissions with your Python application",
       language: "python",
       languageLogoAlt: "Python logo",
-      docs: "/docs/sdk/python",
+      docs: "https://www.ory.sh/blog/securing-flask-application-using-kratos-and-keto",
     },
   ],
 }
