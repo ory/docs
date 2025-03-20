@@ -1,75 +1,75 @@
-import React from "react";
-import Link from "@docusaurus/Link";
-import clsx from "clsx";
-import styles from "./welcome-card.module.css";
+import React from "react"
+import Link from "@docusaurus/Link"
+import clsx from "clsx"
+import styles from "./welcome-card.module.css"
 
 // Using the existing card structure to maintain system design
 export interface CardItem {
-    title: string;
-    description?: string;
-    language?: string;
-    languageLogoAlt?: string;
-    author?: string;
-    tested?: boolean;
-    repo?: string;
-    docs?: string;
-    isLarge?: boolean;
+  title: string
+  description?: string
+  language?: string
+  languageLogoAlt?: string
+  author?: string
+  tested?: boolean
+  repo?: string
+  docs?: string
+  isLarge?: boolean
 }
 
 // Card Component that works with the existing structure
 export const Card: React.FC<CardItem> = ({
-    title,
-    description,
-    language,
-    languageLogoAlt,
-    author,
-    tested,
-    repo,
-    docs,
-    isLarge,
+  title,
+  description,
+  language,
+  languageLogoAlt,
+  author,
+  tested,
+  repo,
+  docs,
+  isLarge,
 }) => {
-    // Determine which link to use based on the order of priority
-    const link = docs || repo || "";
+  // Determine which link to use based on the order of priority
+  const link = docs || repo || ""
 
-    // Generate language logo path based on language prop
-    const logoPath = language ? `/docs/img/examples/${language}.svg` : null
+  // Generate language logo path based on language prop
+  const logoPath = language ? `/docs/img/examples/${language}.svg` : null
 
-    const cardContent = (
-        <div className={clsx(styles.card, isLarge && styles.cardLarge)}>
-            <div className={styles.iconContainer}>
-                {logoPath && (
-                    <img
-                        className={styles.icon}
-                        src={logoPath}
-                        alt={languageLogoAlt || `${language} icon`}
-                    />
-                )}
-            </div>
-            <div className={styles.cardContent}>
-                <h3 className={styles.cardTitle}>{title}</h3>
-                {description && (
-                    <p className={styles.cardDescription}>{description}</p>
-                )}
-            </div>
-        </div>
-    );
+  const cardContent = (
+    <div className={clsx(styles.card, isLarge && styles.cardLarge)}>
+      <div className={styles.iconContainer}>
+        {logoPath && (
+          <img
+            className={styles.icon}
+            src={logoPath}
+            alt={languageLogoAlt || `${language} icon`}
+          />
+        )}
+      </div>
+      <div className={styles.cardContent}>
+        <h3 className={styles.cardTitle}>{title}</h3>
+        {description && <p className={styles.cardDescription}>{description}</p>}
+      </div>
+    </div>
+  )
 
-    // Every card should be a link
-    if (link) {
-        return (
-            <Link to={link} className={styles.cardLink}>
-                {cardContent}
-            </Link>
-        );
-    }
+  // Every card should be a link
+  if (link) {
+    return (
+      <Link to={link} className={styles.cardLink}>
+        {cardContent}
+      </Link>
+    )
+  }
 
-    // Fallback for cases where no link is provided (should be rare)
-    return cardContent;
-};
+  // Fallback for cases where no link is provided (should be rare)
+  return cardContent
+}
 
 // Card Grid Component
-export const CardGrid: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    return <div className={styles.cardGrid}>{children}</div>;
-};
+export const CardGrid: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  return <div className={styles.cardGrid}>{children}</div>
+}
 
-export default { Card, CardGrid };
+export default { Card, CardGrid }
