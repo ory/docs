@@ -1,0 +1,41 @@
+/* Section styles */
+section {
+    display: block;
+    margin-bottom: 3rem;
+  }
+
+  /* Section Heading */
+  .sectionHeading {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .sectionTitle {
+    font-size: var(--ifm-h3-font-size);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--ifm-color-primary);
+  }
+
+  .sectionDescription {
+    font-size: var(--ifm-font-size-base);
+    margin-bottom: 1rem;
+    color: var(--ifm-color-emphasis-700);
+    max-width: 100%;
+  }
+
+  /* Welcome intro text */
+  .welcomeIntro {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: var(--ifm-color-emphasis-800);
+  }
+
+  /* Help section */
+  .helpSection {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--ifm-color-emphasis-200);
+  }
