@@ -8,6 +8,15 @@
   grid-template-rows: 1fr;
   gap: 1rem;
   grid-template-areas: "logo-img content";
+  border-radius: 8px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--ifm-color-emphasis-300);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
 }
 
 .cardcontent {
@@ -36,14 +45,18 @@
   display: flex;
   align-items: center;
   background-color: transparent;
-  border: 1px solid rgba(128, 128, 128, 0.32);
+  border: 1px solid var(--ifm-color-emphasis-300);
   color: inherit;
   padding: 8px 12px;
   cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
 }
 
 .cardbutton:hover {
-  background-color: rgba(128, 128, 128, 0.32);
+  background-color: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-400);
+  transform: translateY(-1px);
 }
 
 .cardbutton:first-child {
