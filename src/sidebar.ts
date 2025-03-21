@@ -161,6 +161,7 @@ const cli: SidebarItemsConfig = [
 
 const quickstart: SidebarItemsConfig = [
   "welcome",
+  "intro",
   {
     type: "category",
     label: "Quickstart",
