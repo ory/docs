@@ -240,18 +240,9 @@ export const deploymentOptions: {
   cards: CardItem[]
 } = {
   id: "deployment-options-section",
-  title: "Use Ory",
+  title: "Deploy Ory",
   description: "Choose your deployment option",
   cards: [
-    {
-      title: "Ory Network",
-      description:
-        "The Ory Network is the most convenient way to run Ory. Sign up and create a free developer project.",
-      language: "ory",
-      languageLogoAlt: "Cloud icon",
-      docs: "https://console.ory.sh/registration",
-      isLarge: true,
-    },
     {
       title: "Ory Enterprise",
       description:
