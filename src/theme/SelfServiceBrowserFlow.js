@@ -10,7 +10,7 @@ const chart = ({
   success = "Perform flow-specific action (e.g. create user, set session cookie, ...)",
 }) => {
   const components =
-    flows.length > 1 ? `<${flows.join("|")}>` : `${flows.join("|")}`
+    flows.length > 1 ? `[${flows.join("|")}]` : `${flows.join("|")}`
   return `
 sequenceDiagram
   participant B as Browser App
@@ -18,15 +18,15 @@ sequenceDiagram
   participant K as Ory
   B->>K: Follow link to /self-service/${components}/browser
   K-->>K: Create and store new ${flows.join(", ")} flow
-  K->>A: HTTP 302 Found <selfservice.flows.${components}.ui_url>?flow=<flow-id>
-  A-->>K: Fetches data to render forms using /selfservice/${components}/flows?id=<flow-id>
+  K->>A: HTTP 302 Found [selfservice.flows.${components}.ui_url]?flow=[flow-id]
+  A-->>K: Fetches data to render forms using /selfservice/${components}/flows?id=[flow-id]
   A->>K: Submits User data
   K-->>K: Validates and processes form payloads
   alt Form payload is valid
     K->>B: ${success}
   else Form payload invalid
     K-->>K: Update and store flow (e.g. add form validation errors)
-    K-->>A: HTTP 302 Found <selfservice.flows.${components}.ui_url>?flow=<flow-id>
+    K-->>A: HTTP 302 Found [selfservice.flows.${components}.ui_url]?flow=[flow-id]
     A-->>K: Fetches data to render form fields and errors
     A->>K: Repeat flow with input data, submit, validate, ...
   end
