@@ -348,7 +348,7 @@ curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
 
 The SAML application callback URL to set at our SAML Identity Provider is: `https://api.console.ory.sh/saml/api/oauth/saml`
 
-#### Data Mapping
+#### Data mapping
 
 You can configure the mapping of SAML attributes to Ory's identity schema using Jsonnet. All custom SAML attributes defined at the
 Identity Provider (IdP) will be available in the `raw_claims` object within `claims`. These attributes can then be mapped to the
