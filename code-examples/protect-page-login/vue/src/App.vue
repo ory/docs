@@ -58,7 +58,8 @@ const session = ref(null)
 const logoutUrl = ref(null)
 
 // highlight-start
-const basePath = import.meta.env.VITE_ORY_URL || "http://localhost:4000"
+const basePath = import.meta.env.VITE_ORY_URL || "http://localhost:3006"
+console.log("basePath", basePath)
 // highlight-end
 
 // Initialize Ory client
