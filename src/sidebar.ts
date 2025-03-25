@@ -511,6 +511,10 @@ const oauth2: SidebarItemsConfig = [
       {
         type: "category",
         label: "Token management",
+        link: {
+          type: "generated-index",
+          slug: "guides/token-management",
+        },
         items: [
           "hydra/guides/oauth2-token-introspection",
           "oauth2-oidc/revoke-consent",
