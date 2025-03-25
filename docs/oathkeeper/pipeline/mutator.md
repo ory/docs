@@ -411,8 +411,8 @@ For more details please check [Session variables](../pipeline.md#session)
 This mutator allows for fetching additional data from external APIs, which can be then used by other mutators. It works by making
 an upstream HTTP call to an API specified in the **Per-Rule Configuration** section below. The request is a POST request and it
 contains JSON representation of
-[AuthenticationSession](https://github.com/ory/oathkeeper/blob/5a385d45bb84bace3fe9f8143ddf55b90c4cc1d5/pipeline/authn/authenticator.go#L45)
-struct in body, which is:
+[AuthenticationSession](https://github.com/ory/oathkeeper/blob/master/pipeline/authn/authenticator.go#L45) struct in body, which
+is:
 
 ```json
 {
