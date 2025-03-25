@@ -4,14 +4,12 @@
 
     <div v-if="!session">
       <p>Click on "login" or "Sign Up" below to sign in.</p>
-      <!-- highlight-start -->
       <li><a :href="basePath + '/ui/login'" data-testid="sign-in">Login</a></li>
       <li>
         <a :href="basePath + '/ui/registration'" data-testid="sign-up"
           >Sign Up</a
         >
       </li>
-      <!-- highlight-end -->
     </div>
 
     <h3 v-if="session">Calling <code>toSession()</code></h3>
@@ -20,33 +18,23 @@
         Use the SDK's <code>toSession()</code> call to receive the session
         information, for example the authentication methods used:
       </p>
-      <!-- highlight-start -->
       <pre><code data-testid='ory-response'>{{ session.authentication_methods }}</code></pre>
-      <!-- highlight-end -->
     </div>
 
-    <h3 v-if="session">Common Actions</h3>
-    <ul v-if="session">
-      <!-- highlight-start -->
-      <li><a :href="logoutUrl" data-testid="logout">Logout</a></li>
-      <li>
-        <a :href="basePath + '/ui/settings'" data-testid="settings">Settings</a>
-      </li>
-      <!-- highlight-end -->
-    </ul>
-
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://www.ory.sh">Ory Website</a></li>
-      <li><a href="https://github.com/ory">Ory GitHub</a></li>
-      <li><a href="https://www.ory.sh/docs">Documentation</a></li>
-    </ul>
+    <!-- highlight-start -->
+    <h3 v-if="apiResponse">API Response</h3>
+    <div v-if="apiResponse" class="long">
+      <p>
+        Make authenticated AJAX calls to your API using <code>fetch()</code>:
+      </p>
+      <pre><code data-testid='api-response'>{{ apiResponse }}</code></pre>
+    </div>
+    <!-- highlight-end -->
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue"
-// highlight-next-line
 import { FrontendApi, Configuration } from "@ory/client-fetch"
 
 const props = defineProps({
@@ -56,45 +44,54 @@ const props = defineProps({
 // State variables
 const session = ref(null)
 const logoutUrl = ref(null)
+const apiResponse = ref(null)
 
-// highlight-start
 const basePath = import.meta.env.VITE_ORY_URL || "http://localhost:4000"
-console.log("basePath", basePath)
-// highlight-end
+// highlight-next-line
+const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8081"
 
-// Initialize Ory client
-// highlight-start
 const ory = new FrontendApi(
   new Configuration({
     basePath,
     credentials: "include",
   }),
 )
-// highlight-end
 
 const fetchSession = async () => {
   try {
-    // highlight-start
-    // Fetch the session directly from Ory
     const data = await ory.toSession()
     session.value = data
-    // highlight-end
-
-    // highlight-start
-    // Create logout URL if session exists
     const logoutData = await ory.createBrowserLogoutFlow()
-    logoutUrl.value = logoutData.logout_url
-    // highlight-end
+    logoutUrl.value = logoutData.data.logout_url
   } catch (error) {
     console.error("Error fetching session:", error)
   }
 }
 
+// highlight-start
+const fetchApiHello = async () => {
+  try {
+    const res = await fetch(`${apiUrl}/api/hello`, {
+      // Do not forget to set this - it is required to send the session cookie!
+      credentials: "include",
+    })
+
+    if (res.ok) {
+      const data = await res.json()
+      apiResponse.value = data
+    }
+  } catch (error) {
+    console.error("Error fetching API response:", error)
+  }
+}
+// highlight-end
+
 // Lifecycle hooks
 onMounted(async () => {
-  // highlight-start
-  // Fetch the session and API response
   await fetchSession()
+  // highlight-start
+  // Make an authenticated API call
+  await fetchApiHello()
   // highlight-end
 })
 </script>

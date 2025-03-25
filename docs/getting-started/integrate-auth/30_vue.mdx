@@ -21,8 +21,17 @@ import webm from '../_static/vue/screencast.webm'
 First, create a new Vue.js project. Run:
 
 ```shell
-npx @vue/cli create ory-spa --preset "Default (Vue 3)"
-cd ory-spa
+npm create vue@latest -- --default
+cd app-name
+npm install
+```
+
+## Create a new Ory project
+
+```mdx-code-block
+import CreateProject from '../_common/create-project.mdx'
+
+<CreateProject />
 ```
 
 ## Install Ory SDK and CLI
@@ -30,7 +39,7 @@ cd ory-spa
 To interact with Ory's APIs we install the Ory SDK and CLI:
 
 ```shell
-npm i --save @ory/client @ory/cli
+npm i --save @ory/client-fetch @ory/cli
 ```
 
 ### Why do I need the Ory CLI
@@ -41,54 +50,41 @@ import OryCLI from '../_common/ory-cli.mdx'
 <OryCLI isTunnel={true} />
 ```
 
-## Check for session in component
-
-With a Vue.js project created, add the Ory logic to the application. The application should recognize whether the user is signed
-in and if they have a valid Session.
-
-Depending on whether the user has a valid Session, the application should show registration and login links or account settings
-and logout links.
-
-To implement that behavior, modify the existing `HelloWorld.vue` component to include the appropriate logic:
-
-```mdx-code-block
-import handlerVue from '!!raw-loader!../../../code-examples/protect-page-login/vue/src/components/HelloWorld.vue'
-import CodeBlock from '@theme/CodeBlock'
-
-<CodeBlock language="html" title="src/components/HelloWorld.vue">{handlerVue}</CodeBlock>
-```
-
 ## Run Ory APIs on `localhost`
 
 In a new terminal window, run the Ory Tunnel:
 
 ```shell
-npx @ory/cli tunnel --dev http://localhost:8080
+npx @ory/cli tunnel --dev http://localhost:5173
 ```
 
-Ory APIs are now mirrored on `http://localhost:4000`. Use that URL as the `baseUrl` for the `@ory/client` SDK (see
-`HelloWorld.vue` code above). The `--dev` flag disables security checks for easier integration and should not be used when running
-the Tunnel in an insecure environment like public networks.
+This command mirrors Ory APIs on `http://localhost:4000`. Use that URL as the `baseUrl` for the `@ory/client-fetch` SDK (see
+`App.vue` code below). The `--dev` flag disables security checks for easier integration and should not be used when running the
+Tunnel in an insecure environment like public networks.
+
+## Authenticate user
+
+To implment authentication, modify the existing `App.vue` component to include the following:
+
+```mdx-code-block
+import handlerVue from '!!raw-loader!../../../code-examples/protect-page-login/vue/src/App.vue'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock language="html" title="./src/App.vue">{handlerVue}</CodeBlock>
+```
+
+The component checks whether a user is signed in and if so, shows a logout link and the user's session information. Otherwise, it
+shows a login and registration link.
 
 ## Run your Vue.js app
 
-Now that your app is ready, it's time to run it!
-
-First, set up your Ory Network SDK URL to connect with the Ory APIs in your project:
-
-```mdx-code-block
-import SdkEnvVar from '@site/src/components/SdkEnvVar'
-
-<SdkEnvVar />
-```
-
-Next, start the Next.js development server:
+Now that your app is ready, it's time to run it! Start the Vue development server:
 
 ```shell
-npm run serve
+npm run dev
 ```
 
-Go to [localhost:8080](http://localhost:8080/) to access your application.
+Go to [localhost:5173](http://localhost:5173/) to access your application.
 
 ## Make authenticated calls to your API
 
@@ -96,9 +92,11 @@ To make authenticated requests to your API there are two main components:
 
 - When making AJAX requests you must set `{"credentials": "include"}` in the options. For the `fetch` method it looks like this:
 
-  ```js
-  fetch(url, { credentials: "include" })
-  ```
+```mdx-code-block
+import handlerVuewAPI from '!!raw-loader!../../../code-examples/protect-page-login/vue/src/AppWithAPI.vue'
+
+<CodeBlock language="html" title="./src/App.vue">{handlerVuewAPI}</CodeBlock>
+```
 
 - Your API must have a CORS middleware with `credentials: true` and `Access-Control-Allow-Origin` of your frontend app (here
   `http://localhost:8080`).
@@ -106,10 +104,10 @@ To make authenticated requests to your API there are two main components:
 Let's put this into action. Create a simple HTTP API with express. Run:
 
 ```shell-script
-mkdir my-api
-cd my-api
+mkdir api
+cd api
 npm init
-npm i --save @ory/client express cors
+npm i --save @ory/client-fetch express cors
 ```
 
 Next, create a simple API in `index.js`:
@@ -117,7 +115,7 @@ Next, create a simple API in `index.js`:
 ```mdx-code-block
 import handlerApi from '!!raw-loader!../../../code-examples/auth-api/expressjs/index.js'
 
-<CodeBlock language="js" title="index.js">{handlerApi}</CodeBlock>
+<CodeBlock language="js" title="./server/index.js">{handlerApi}</CodeBlock>
 ```
 
 Finally, start the server:
@@ -128,7 +126,7 @@ node index.js
 
 ### See it in action
 
-Access your single-page app at [localhost:8080](http://localhost:8080/), sign in, and see if you can make authenticated requests
+Access your single-page app at [localhost:8081](http://localhost:8081/), sign in, and see if you can make authenticated requests
 to your API!
 
 ## Go to production
