@@ -82,7 +82,7 @@ const fetchSession = async () => {
     // highlight-start
     // Create logout URL if session exists
     const logoutData = await ory.createBrowserLogoutFlow()
-    logoutUrl.value = logoutData.data.logout_url
+    logoutUrl.value = logoutData.logout_url
     // highlight-end
   } catch (error) {
     console.error("Error fetching session:", error)
