@@ -6,11 +6,11 @@ import Mermaid from "./Mermaid"
 
 const chart = ({
   flows = ["login", "registration", "settings", "..."],
-  interactions = ['"Log in"', '"Sign Up"', '"Update Email"', "..."],
+  interactions = ["Log in", "Sign Up", "Update Email", "..."],
   success = "Perform flow-specific action (e.g. create user, set session cookie, ...)",
 }) => {
   const components =
-    flows.length > 1 ? `<${flows.join("|")}>` : `${flows.join("|")}`
+    flows.length > 1 ? `[${flows.join("|")}]` : `${flows.join("|")}`
   return `
 sequenceDiagram
   participant B as AJAX Client
@@ -20,8 +20,8 @@ sequenceDiagram
   K-->>K: Create and store new ${flows.join(", ")} flow
   K->>B: HTTP 200 OK with flow as application/json payload
   B-->>B: Render form using HTML input elements
-  B-->>B: User fills out forms, clicks e.g. ${interactions}
-  B->>K: REST POST to e.g. /self-service/${components}?flow=...>
+  B-->>B: User fills out forms, clicks e.g. ${interactions.join(", ")}
+  B->>K: REST POST to e.g. /self-service/${components}?flow=[flow-id]
   K-->>K: Validates and processes payload
   alt Form payload is valid
     K->>B: ${success}

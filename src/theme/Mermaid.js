@@ -1,10 +1,10 @@
-// Copyright © 2022 Ory Corp
+// Copyright 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
 // according to https://github.com/facebook/docusaurus/issues/1258#issuecomment-594393744
 
 // use in *.mdx like:
-
+//
 // import Mermaid from '@theme/Mermaid'
 //
 // <Mermaid chart={`
@@ -12,14 +12,14 @@
 //     cr([Create Request]) --> backoffice[Backoffice Server REST]
 // `}/>
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { useColorMode } from "@docusaurus/theme-common"
 import mermaid from "mermaid"
 import styles from "./mermaid.module.css"
 import cn from "classnames"
 
 mermaid.initialize({
-  startOnLoad: true,
+  startOnLoad: false,
   logLevel: "fatal",
   securityLevel: "strict",
   arrowMarkerAbsolute: false,
@@ -41,31 +41,39 @@ mermaid.initialize({
 
 const Mermaid = ({ chart }) => {
   const [zoomed, setZoomed] = useState(false)
-  const [svg, setSvg] = useState(undefined)
-  const [id] = useState(`mermaid-${Math.random().toString(36).substr(2, -1)}`)
+  const containerRef = useRef(null)
   const toggle = () => setZoomed(!zoomed)
   const { colorMode } = useColorMode()
+  const theme = colorMode === "light" ? "neutral" : "dark"
 
   useEffect(() => {
-    // https://mermaid.js.org/config/theming.html#diagram-specific-themes
-    mermaid
-      .render(
-        id,
-        `%%{init: {'theme':'${
-          colorMode === "light" ? "neutral" : "dark"
-        }'}}%%\n${chart}`,
-      )
-      .then(({ svg }) => {
-        setSvg(svg)
+    if (!containerRef.current) return
+
+    // Clear previous content
+    containerRef.current.innerHTML = ""
+
+    // Add the mermaid diagram definition with theme
+    containerRef.current.innerHTML = `<div class="mermaid">
+      %%{init: {'theme':'${theme}'}}%%
+      ${chart}
+    </div>`
+
+    // Use mermaid.run to process the diagram
+    try {
+      mermaid.run({
+        nodes: [containerRef.current.querySelector(".mermaid")],
       })
-  }, [])
+    } catch (error) {
+      console.error("Mermaid error:", error)
+    }
+  }, [chart, theme])
 
   return (
     <>
       <div
         onClick={toggle}
+        ref={containerRef}
         className={cn(styles.graph, styles.pointer)}
-        dangerouslySetInnerHTML={{ __html: svg }}
       />
       <div
         onClick={toggle}
@@ -76,7 +84,9 @@ const Mermaid = ({ chart }) => {
         <div
           onClick={(e) => e.stopPropagation()}
           className={cn(styles.backdrop, styles.graph)}
-          dangerouslySetInnerHTML={{ __html: svg }}
+          dangerouslySetInnerHTML={{
+            __html: containerRef.current?.innerHTML || "",
+          }}
         />
       </div>
     </>
