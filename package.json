@@ -73,6 +73,7 @@
     "@swc/jest": "0.2.36",
     "@types/jest": "29.5.12",
     "@types/node-fetch": "2.6.11",
+    "autoprefixer": "10.4.20",
     "axios-retry": "4.1.0",
     "fast-xml-parser": "^4.5.1",
     "jasmine-fail-fast": "2.0.1",
@@ -85,6 +86,9 @@
     "prettier": "3.2.5",
     "prettier-plugin-packagejson": "2.4.12",
     "raw-loader": "4.0.2",
+    "postcss": "8.4.41",
+    "sharp": "0.33.3",
+    "tailwindcss": "3.4.9",
     "text-runner": "6.0.0",
     "wait-on": "7.2.0",
     "yaml": "2.4.1"
