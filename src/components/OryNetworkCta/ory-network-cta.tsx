@@ -6,13 +6,12 @@ const ctaVariants = [
     title: "Ory Network",
     content: (
       <>
-        Enable your instant-on global identity system with speed, security,
-        compliance and support for fastest time to value and lowest total cost
-        of ownership.
+        The best way to manage identities, authentication, authorization, and
+        access control—designed for speed, security, and compliance.
       </>
     ),
-    cta: "Learn more",
-    href: "https://www.ory.sh/network/?mtm_campaign=Docs-SideCta&mtm_kwd=variant-0",
+    cta: "Sign up for a free account",
+    href: "https://console.ory.sh/?mtm_campaign=Docs-SideCta&mtm_kwd=variant-0",
   },
 ]
 
