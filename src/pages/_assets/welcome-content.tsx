@@ -28,7 +28,7 @@ export const identityManagement: {
       docs: "/docs/kratos/passwordless/passkeys",
     },
     {
-      title: "Enable OTP via email/SMS",
+      title: "Enable OTP via email or SMS",
       description:
         "Implement a simple two-step verification process with one-time codes sent to users' email or phone",
       language: "otp",
@@ -64,6 +64,14 @@ export const identityManagement: {
       languageLogoAlt: "MFA icon",
       docs: "/docs/kratos/mfa/overview",
     },
+    {
+      title: "Enable enterprise SSO login",
+      description:
+        "Group users by organization and support B2B enterprise SSO with OIDC or SAML",
+      language: "organization",
+      languageLogoAlt: "Organization icon",
+      docs: "/docs/kratos/organizations",
+    },
   ],
 }
 
@@ -85,17 +93,10 @@ export const authorizationSecurity: {
       languageLogoAlt: "OAuth icon",
       docs: "/docs/oauth2-oidc/authorization-code-flow",
     },
-    {
-      title: "Enable organization login",
-      description:
-        "Group users by organization and support corporate SSO with SAML and OIDC providers",
-      language: "organization",
-      languageLogoAlt: "Organization icon",
-      docs: "/docs/kratos/organizations",
-    },
+
     {
       title: "Manage access tokens",
-      description: "Issue, validate and revoke access credentials",
+      description: "Issue, validate, and revoke access credentials",
       language: "token",
       languageLogoAlt: "Token icon",
       docs: "/docs/guides/token-management",
@@ -136,13 +137,14 @@ export const permissionManagement: {
       languageLogoAlt: "Permission icon",
       docs: "/docs/keto/guides/simple-access-check-guide",
     },
-    {
-      title: "Implement role-based access",
-      description: "Control access based on user roles and groups",
-      language: "rbac",
-      languageLogoAlt: "RBAC icon",
-      docs: "/docs/keto/guides/rbac",
-    },
+    // TODO: Add role-based access control after RBAC docs are updated
+    // {
+    //   title: "Implement role-based access",
+    //   description: "Control access based on user roles and groups",
+    //   language: "rbac",
+    //   languageLogoAlt: "RBAC icon",
+    //   docs: "/docs/keto/guides/rbac",
+    // },
     {
       title: "Build relationship-based permissions",
       description: "Advanced access control for complex scenarios",
@@ -248,17 +250,16 @@ export const deploymentOptions: {
   description: "Choose your deployment option",
   cards: [
     {
-      title: "Ory Enterprise",
+      title: "Ory Enterprise License",
       description:
-        "Enterprise-grade support and features for your self-hosted Ory deployment.",
+        "Enterprise-grade support and features for self-hosted on-premise Ory deployments.",
       language: "ory",
       languageLogoAlt: "Enterprise icon",
       docs: "/docs/self-hosted/oel/quickstart",
     },
     {
       title: "Open source",
-      description:
-        "Ory is open source first. Run Ory on your own infrastructure.",
+      description: "Ory is open source. Run Ory on your own infrastructure.",
       language: "github",
       languageLogoAlt: "GitHub icon",
       docs: "/docs/open-source",
