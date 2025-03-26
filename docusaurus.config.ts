@@ -6,9 +6,7 @@ import type * as Preset from "@docusaurus/preset-classic"
 
 import lightTheme from "./src/utils/prismLight.mjs"
 import darkTheme from "./src/utils/prismDark.mjs"
-
-const enableUserCentrics = false
-
+import { navbar } from "./src/navbar"
 const config: Config = {
   customFields: {
     CLOUD_URL: process.env.CLOUD_URL || "https://api.console.ory:8080",
@@ -88,79 +86,7 @@ const config: Config = {
       indexName: "ory",
       contextualSearch: true,
     },
-    navbar: {
-      hideOnScroll: false,
-      logo: {
-        alt: "Ory",
-        src: `/docs/img/logos/logo-docs-2023-02-15.svg`,
-        srcDark: `/docs/img/logos/logo-docs-dark-2023-02-15.svg`,
-        href: `https://www.ory.sh`,
-        width: 63,
-        height: 32,
-      },
-      items: [
-        {
-          type: "docSidebar",
-          position: "left",
-          sidebarId: "docs",
-          label: "Documentation",
-        },
-        {
-          type: "docSidebar",
-          position: "left",
-          sidebarId: "sdk",
-          label: "SDK",
-        },
-        {
-          type: "docSidebar",
-          position: "left",
-          sidebarId: "api",
-          label: "API",
-        },
-        {
-          type: "docSidebar",
-          position: "left",
-          sidebarId: "selfhosting",
-          label: "Self-hosting",
-        },
-        {
-          label: "Need Support?",
-          position: "right",
-          items: [
-            {
-              to: "https://www.ory.sh/support",
-              label: "Enterprise Support",
-            },
-            {
-              to: "https://www.ory.sh/docs/search",
-              label: "Search the docs",
-            },
-            {
-              to: "https://www.ory.sh/chat",
-              label: "Ory Community Slack",
-            },
-            {
-              to: "https://github.com/orgs/ory/discussions",
-              label: "GitHub Discussions",
-            },
-            {
-              to: "https://stackoverflow.com/questions/tagged/ory",
-              label: "Stack Overflow",
-            },
-            {
-              to: "https://www.ory.sh/contact",
-              label: "Schedule a discovery call",
-            },
-          ],
-        },
-
-        {
-          href: `https://github.com/ory`,
-          label: "GitHub",
-          position: "right",
-        },
-      ],
-    },
+    navbar,
     footer: {
       style: "dark",
       copyright: `Copyright © ${new Date().getFullYear()} Ory Corp`,
@@ -193,7 +119,10 @@ const config: Config = {
           label: "Schedule a discovery call",
           href: "https://www.ory.sh/contact/",
         },
-      ],
+        {
+          html: `<a class="ory-consent-manager footer__link-item" href="#">Consent Preferences</a>`,
+        },
+      ] satisfies Preset.ThemeConfig["footer"]["links"],
       logo: {
         alt: "Ory logo in white",
         src: "/docs/img/logos/logo-ory-white-2022-11-04.svg",
@@ -204,11 +133,20 @@ const config: Config = {
     },
   } satisfies Preset.ThemeConfig,
   plugins: [
+    // Not very useful and ruins page speed.
+    //
+    // [
+    //   "docusaurus-pushfeedback",
+    //   {
+    //     project: "7bhe9sxlqg",
+    //     buttonPosition: "center-right",
+    //   },
+    // ],
     [
       "@docusaurus/plugin-content-docs",
       {
         path: "docs",
-        sidebarPath: require.resolve("./src/sidebar.js"),
+        sidebarPath: require.resolve("./src/sidebar.ts"),
         editUrl: `https://github.com/ory/docs/edit/master`,
         // editCurrentVersion: false,
         routeBasePath: "/",
@@ -220,26 +158,20 @@ const config: Config = {
       },
     ],
     "@docusaurus/plugin-content-pages",
-    require.resolve("./src/plugins/docusaurus-plugin-matamo"),
-    enableUserCentrics &&
-      process.env.NODE_ENV !== "development" && [
-        "./src/plugins/plugin-usercentrics-gtm",
-        { usercentricsID: "dwogEWVkK", gtmID: "GTM-NTT7RMX" },
-      ],
     require.resolve("./src/plugins/docusaurus-polyfill"),
+    // require.resolve("./src/plugins/docusaurus-static-fonts"),
     "@docusaurus/plugin-sitemap",
     [
       "@docusaurus/plugin-client-redirects",
       {
         redirects: [
-          // {
-          // from: ['/','/docs','/docs/'],
-          // to: '/docs/welcome'
-          // }
+          {
+            from: "/quickstart/sdks",
+            to: "/sdk",
+          },
         ],
       },
     ],
-
     async function tailwindcss(context, options) {
       return {
         name: "docusaurus-tailwindcss",
@@ -251,6 +183,12 @@ const config: Config = {
         },
       }
     },
+    [
+      "@docusaurus/plugin-svgr",
+      {
+        svgrConfig: {},
+      },
+    ],
   ],
   presets: [
     [
@@ -276,22 +214,44 @@ const config: Config = {
     "@docusaurus/theme-search-algolia",
     "docusaurus-theme-redoc",
   ],
+  headTags: [
+    // add css to the head
+    {
+      tagName: "link",
+      attributes: {
+        rel: "stylesheet",
+        type: "text/css",
+        href: "/docs/fonts/fonts.css",
+      },
+    },
+    ...[
+      "InterVariable.woff2?v=4.0",
+      "JetBrainsMono-Regular.woff2",
+      "JetBrainsMono-Italic.woff2",
+    ].map((font: string) => ({
+      tagName: "link",
+      attributes: {
+        rel: "preload",
+        type: "font/woff2",
+        as: "font",
+        crossOrigin: "anonymous",
+        href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
+      },
+    })),
+  ],
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
-    "/docs/scripts/redirect.js",
     {
-      src: "https://widget.kapa.ai/kapa-widget.bundle.js",
-      "data-website-id": "e89e7663-df2c-4c7f-974a-1bf8accdd615",
-      "data-project-name": "Ory",
-      "data-project-color": "#083344",
-      "data-modal-disclaimer":
-        "By utilizing this chatbot, you consent to the collection and transmission of data to kapa.ai, which may include your IP address. Please be advised that your privacy and data protection are of utmost importance to us. We assure you that any data collected will be handled in compliance with applicable laws and regulations. For further details on how your data is processed and used, we encourage you to review our Privacy Policy. If you do not agree with these terms, we kindly request that you refrain from using this chatbot.",
-      "data-modal-title": "Ory Copilot",
-      "data-button-text": "Help?",
-      "data-button-bg-color": "#083344",
-      "data-project-logo":
-        "https://assets.website-files.com/627ba6588811eca90ffd6f2a/6282a6b11450b482db646ed2_hydra.png",
-      defer: true,
+      src: "/docs/scripts/redirect.js",
+      async: true,
+    },
+    {
+      src: "https://ory.sh/cmp/init.js",
+      async: true,
+    },
+    {
+      src: "https://consent.ory.sh/index.js",
+      async: true,
     },
   ],
 }
