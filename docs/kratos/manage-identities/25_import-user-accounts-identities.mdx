@@ -158,9 +158,9 @@ self-service flows.
 The password `the-password` will then be hashed according to the configured password hashing algorithm and stored in the database.
 The identity will be able to sign in using `docs-cleartext@example.org` and `the-password` as credentials.
 
-When importing clear text passwords, the process may be slower than expected because each password must be securely hashed during
-the import process. If you are batch importing more than 20 clear text passwords, please hash the passwords before importing them
-to avoid timeouts.
+When importing clear text passwords, the process may be slower than expected because each password must be hashed during the
+import process. If you are batch importing more than 20 clear text passwords, please hash the passwords before importing them to
+avoid timeouts.
 
 ### Hashed passwords
 
