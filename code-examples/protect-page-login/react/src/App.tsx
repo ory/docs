@@ -1,89 +1,103 @@
-import React, { useEffect, useState } from "react"
-import logo from "./logo.svg"
-import "./App.css"
+import { useState, useEffect } from 'react'
+import './App.css'
+// highlight-next-line
+import { FrontendApi, Configuration, Session } from "@ory/client-fetch"
+
+
+interface LogoutData {
+  logout_url: string;
+}
+
+interface LogoutResponse {
+  data: LogoutData;
+}
+
+// Props interface (matching Vue props)
+interface AppProps {
+  msg?: string;
+}
 
 // highlight-start
-import { FrontendApi, Configuration, Session, Identity } from "@ory/client"
+const basePath = import.meta.env.VITE_ORY_URL || "http://localhost:4000"
+console.log("basePath", basePath)
+// highlight-end
 
-// Get your Ory url from .env
-// Or localhost for local development
-const basePath = process.env.REACT_APP_ORY_URL || "http://localhost:4000"
+// Initialize Ory client
+// highlight-start
 const ory = new FrontendApi(
   new Configuration({
     basePath,
-    baseOptions: {
-      withCredentials: true,
-      headers: {
-        // Only needed to pass the documentation CI. You do not need this line in your code:
-        [process.env.ORY_CI_RATE_LIMIT_HEADER || ""]:
-          process.env.ORY_CI_RATE_LIMIT_HEADER_VALUE,
-      },
-    },
+    credentials: "include",
   }),
 )
+// highlight-end
 
-function App() {
-  const [session, setSession] = useState<Session | undefined>()
-  const [logoutUrl, setLogoutUrl] = useState<string | undefined>()
+function App({ msg }: AppProps) {
+  // State variables
+  const [session, setSession] = useState<Session | null>(null)
+  const [logoutUrl, setLogoutUrl] = useState<string | null>(null)
 
-  // Returns either the email or the username depending on the user's Identity Schema
-  const getUserName = (identity?: Identity) =>
-    identity?.traits.email || identity?.traits.username
+  const fetchSession = async () => {
+    try {
+      // highlight-start
+      // Fetch the session directly from Ory
+      const data = await ory.toSession()
+      setSession(data)
+      // highlight-end
 
-  // highlight-end
+      // highlight-start
+      // Create logout URL if session exists
+      const logoutData = await ory.createBrowserLogoutFlow()
+      setLogoutUrl(logoutData.logout_url)
+      // highlight-end
+    } catch (error) {
+      console.error("Error fetching session:", error)
+    }
+  }
 
-  // highlight-start
-  // Second, gather session data, if the user is not logged in, redirect to login
+  // Lifecycle hooks
   useEffect(() => {
-    ory
-      .toSession()
-      .then(({ data }) => {
-        // User has a session!
-        setSession(data)
-        ory.createBrowserLogoutFlow().then(({ data }) => {
-          // Get also the logout url
-          setLogoutUrl(data.logout_url)
-        })
-      })
-      .catch((err) => {
-        console.error(err)
-        // Redirect to login page
-        window.location.replace(`${basePath}/ui/login`)
-      })
+    // highlight-start
+    // Fetch the session and API response
+    fetchSession()
+    // highlight-end
   }, [])
 
-  if (!session) {
-    // Still loading
-    return <h1>Loading...</h1>
-  }
-  // highlight-end
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className="main">
+      <h1>{msg}</h1>
+
+      <div className={!session ? '' : 'hidden'}>
+        <p>Click on "login" or "Sign Up" below to sign in.</p>
+        {/* highlight-start */}
+        <li><a href={`${basePath}/ui/login`} data-testid="sign-in">Login</a></li>
+        <li>
+          <a href={`${basePath}/ui/registration`} data-testid="sign-up">Sign Up</a>
+        </li>
+        {/* highlight-end */}
+      </div>
+      <div className={session ? 'long' : 'hidden'}>
         <p>
-          Welcome to Ory,{" "}
-          {
-            // highlight-next-line
-            getUserName(session?.identity)
-          }
-          .
+          Use the SDK's <code>toSession()</code> call to receive the session
+          information, for example the authentication methods used:
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        {
-          // highlight-next-line
-          // Our logout link
-          <a href={logoutUrl}>Logout</a>
-        }
-      </header>
+        {/* highlight-start */}
+        <pre><code data-testid='ory-response'>{session ? JSON.stringify(session.authentication_methods, null, 2) : ''}</code></pre>
+        {/* highlight-end */}
+      </div>
+      <ul className={session ? '' : 'hidden'}>
+        {/* highlight-start */}
+        <li><a href={logoutUrl || '#'} data-testid="logout">Logout</a></li>
+        {/* highlight-end */}
+      </ul>
+
+      <br />
+      <h3>Essential Links</h3>
+      <ul>
+        <a href="https://www.ory.sh">Ory Website</a>
+        <a href="https://github.com/ory">Ory GitHub</a>
+        <a href="https://www.ory.sh/docs">Documentation</a>
+      </ul>
     </div>
   )
 }
