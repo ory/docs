@@ -178,14 +178,12 @@ const config: Config = {
         svgrConfig: {},
       },
     ],
-
     async function tailwindcss(context, options) {
       return {
         name: "docusaurus-tailwindcss",
         configurePostCss(postcssOptions) {
-          // Appends TailwindCSS and AutoPrefixer.
-          postcssOptions.plugins.push(require("tailwindcss"))
-          postcssOptions.plugins.push(require("autoprefixer"))
+          // Use the new PostCSS plugin for Tailwind CSS
+          postcssOptions.plugins.push(require("@tailwindcss/postcss"))
           return postcssOptions
         },
       }
