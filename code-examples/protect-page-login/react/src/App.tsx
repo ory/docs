@@ -3,14 +3,6 @@ import "./App.css"
 // highlight-next-line
 import { FrontendApi, Configuration, Session } from "@ory/client-fetch"
 
-interface LogoutData {
-  logout_url: string
-}
-
-interface LogoutResponse {
-  data: LogoutData
-}
-
 // Props interface (matching Vue props)
 interface AppProps {
   msg?: string
