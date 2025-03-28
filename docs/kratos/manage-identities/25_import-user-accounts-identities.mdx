@@ -630,6 +630,87 @@ Connect ID Token provider such as Google.
 }
 ```
 
+### SAML connections
+
+:::note
+
+Importing SAML is only available on [some plans](https://www.ory.sh/pricing).
+
+:::
+
+When importingSAML connections, the `provider` field is the SAML provider ID you set in your SAML configuration. The `subject` ID
+must be the ID of the user on the given platform. The subject should not be an email, but a fixed user ID that never changes.
+
+```json {7-20}
+{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-oidc@example.org"
+  },
+  "credentials": {
+    "saml": {
+      "config": {
+        "providers": [
+          {
+            "provider": "okta",
+            "subject": "12345"
+          },
+          {
+            "provider": "one-login",
+            "subject": "12345"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+## Organization-specific SAML and OIDC connections
+
+When importing SAML / OIDC connections that are only available for certain [organizations](../organizations/organizations.mdx)
+(for example `email@companyname.com`), you can use the `organization` field to specify the organization that the user belongs to.
+
+```json
+{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-oidc@example.org"
+  },
+  // highlight-start
+  "organization": "9ed50339-d6b9-47ef-9610-194773f3bfbf",
+  // highlight-end
+  "credentials": {
+    "saml": {
+      "config": {
+        "providers": [
+          {
+            "provider": "okta",
+            "subject": "12345",
+            // highlight-start
+            "organization": "9ed50339-d6b9-47ef-9610-194773f3bfbf"
+            // highlight-end
+          }
+        ]
+      }
+    },
+    "oidc": {
+      "config": {
+        "providers": [
+          {
+            "provider": "github",
+            "subject": "12345",
+            // highlight-start
+            "organization": "9ed50339-d6b9-47ef-9610-194773f3bfbf",
+            // highlight-end
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
 ## Bulk import identities from other providers
 
 To import multiple identities into Ory Identities, use the
