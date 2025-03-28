@@ -1,0 +1,19 @@
+name: Test ory bot
+
+on: pull_request
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+#    if: ${{ github.actor == 'dependabot[bot]' }}
+    steps:
+      - name: Approve a PR
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: gh pr review --approve "$PR_URL"
+#      - name: Enable auto-merge for Dependabot PRs
+#        env:
+#          PR_URL: ${{github.event.pull_request.html_url}}
+#          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#        run: gh pr merge --auto --rebase "$PR_URL"
