@@ -1,20 +1,19 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import { useState, useEffect } from "react"
+import "./App.css"
 // highlight-next-line
 import { FrontendApi, Configuration, Session } from "@ory/client-fetch"
 
-
 interface LogoutData {
-  logout_url: string;
+  logout_url: string
 }
 
 interface LogoutResponse {
-  data: LogoutData;
+  data: LogoutData
 }
 
 // Props interface (matching Vue props)
 interface AppProps {
-  msg?: string;
+  msg?: string
 }
 
 // highlight-start
@@ -67,27 +66,43 @@ function App({ msg }: AppProps) {
     <div className="main">
       <h1>{msg}</h1>
 
-      <div className={!session ? '' : 'hidden'}>
+      <div className={!session ? "" : "hidden"}>
         <p>Click on "login" or "Sign Up" below to sign in.</p>
         {/* highlight-start */}
-        <li><a href={`${basePath}/ui/login`} data-testid="sign-in">Login</a></li>
         <li>
-          <a href={`${basePath}/ui/registration`} data-testid="sign-up">Sign Up</a>
+          <a href={`${basePath}/ui/login`} data-testid="sign-in">
+            Login
+          </a>
+        </li>
+        <li>
+          <a href={`${basePath}/ui/registration`} data-testid="sign-up">
+            Sign Up
+          </a>
         </li>
         {/* highlight-end */}
       </div>
-      <div className={session ? 'long' : 'hidden'}>
+      <div className={session ? "long" : "hidden"}>
         <p>
           Use the SDK's <code>toSession()</code> call to receive the session
           information, for example the authentication methods used:
         </p>
         {/* highlight-start */}
-        <pre><code data-testid='ory-response'>{session ? JSON.stringify(session.authentication_methods, null, 2) : ''}</code></pre>
+        <pre>
+          <code data-testid="ory-response">
+            {session
+              ? JSON.stringify(session.authentication_methods, null, 2)
+              : ""}
+          </code>
+        </pre>
         {/* highlight-end */}
       </div>
-      <ul className={session ? '' : 'hidden'}>
+      <ul className={session ? "" : "hidden"}>
         {/* highlight-start */}
-        <li><a href={logoutUrl || '#'} data-testid="logout">Logout</a></li>
+        <li>
+          <a href={logoutUrl || "#"} data-testid="logout">
+            Logout
+          </a>
+        </li>
         {/* highlight-end */}
       </ul>
 
