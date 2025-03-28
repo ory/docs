@@ -1,6 +1,6 @@
 ---
 id: react
-title: Integrate authentication into React
+title: Integrate authentication into React + API
 sidebar_label: React
 ---
 
@@ -18,19 +18,28 @@ import webm from '../_static/react/screencast.webm'
 
 ## Create React app
 
-First we create a new React project:
+First, create a new React project:
 
 ```shell
-npx create-react-app my_project --template typescript
-cd my_project
+npm create vite@latest -- --template react-ts
+cd app-name
+npm install
+```
+
+## Create a new Ory project
+
+```mdx-code-block
+import CreateProject from '../_common/create-project.mdx'
+
+<CreateProject />
 ```
 
 ## Install Ory SDK and CLI
 
-To interact with Ory's APIs we install the Ory SDK and CLI:
+To interact with Ory's APIs, install the Ory SDK and CLI:
 
 ```shell
-npm i --save @ory/client @ory/cli
+npm i --save @ory/client-fetch @ory/cli
 ```
 
 ### Why do I need the Ory CLI
@@ -41,74 +50,84 @@ import OryCLI from '../_common/ory-cli.mdx'
 <OryCLI isTunnel={true} />
 ```
 
-## Require login to access the app page
-
-Next we add a session check to the default home page of the React example application.The highlighted code is what we added to
-check whether the user is signed in, get the logout url flow and redirect them to the login page if not. There is also a welcome
-message with the registered user email and a logout link:
-
-```mdx-code-block
-import CodeBlock from '@theme/CodeBlock'
-import App from '!!raw-loader!../../../code-examples/protect-page-login/react/src/App.tsx'
-
-<CodeBlock language="tsx">{App}</CodeBlock>
-```
-
 ## Run Ory APIs on `localhost`
 
-The Ory security model uses HTTP cookies to manage sessions, tokens, and cookies. To do that, Ory APIs must be exposed on the same
-domain as your application.
-
-In the case of this example, the domain of your application, which runs on your local machine, is `localhost`.
-
-:::info
-
-When developing locally, use either `localhost` or `127.0.0.1`, but not both. Although technically these mean the same thing,
-they're different hostnames.
-
-Using both interchangeably in your code can cause problems with the origin of HTTP cookies sent by the application. When that
-happens Ory APIs might not be able to read the cookies sent by your app.
-
-:::
-
-To get your application that runs locally and Ory APIs on the same domain, use Ory Tunnel - a development tool bundled with Ory
-CLI. It's like a microservice - an authentication API server on your domain!
-
-To get your project's SDK URL, go to <ConsoleLink route="project.settings" />, and copy the URL from the **API Endpoints** field.
+In a new terminal window, start the Ory Tunnel:
 
 ```shell
-export ORY_SDK_URL=https://$PROJECT_SLUG.projects.oryapis.com
+npx @ory/cli tunnel --dev http://localhost:5173
 ```
 
-In a new terminal window, start the Ory Tunnel. Upon first start, the Ory Tunnel will ask you to log into your Ory Console
-account.
+This command mirrors Ory APIs on `http://localhost:4000`. Use that URL as the `baseUrl` for the `@ory/client-fetch` SDK (see
+`App.tsx` code below). The `--dev` flag disables security checks for easier integration and should not be used when running the
+Tunnel in an insecure environment like public networks.
 
-```shell
-npx @ory/cli tunnel --dev http://localhost:3000
+## Authenticate user
+
+To implement authentication, modify the existing `App.tsx` component to include the following:
+
+```mdx-code-block
+import handlerReact from '!!raw-loader!../../../code-examples/protect-page-login/react/src/App.tsx'
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock language="tsx" title="./src/App.tsx">{handlerReact}</CodeBlock>
 ```
 
-Ory APIs are now mirrored on `http://localhost:4000`. Use that URL as the `baseUrl` for the `@ory/client` SDK (see code above).
-The `--dev` flag disables security checks for easier integration and should not be used when deploying the Tunnel to a staging
-environment.
+The component checks whether a user is signed in and if so, shows a logout link and the user's session information. Otherwise, it
+shows a login and registration link.
 
 ## Run your React app
 
-Great, that's it. Let's run your application. Set up your environment variables to connect with Ory's APIs
-
-```mdx-code-block
-import SdkEnvVar from '@site/src/components/SdkEnvVar'
-
-<SdkEnvVar />
-```
-
-and start the React development server:
+Now that your app is ready, it's time to run it! Start the React development server:
 
 ```shell
-npm start
+npm run dev
 ```
 
-Then open [http://localhost:3000](http://localhost:3000) in your browser. After loading, you now are presented with Ory's Sign In
-page! Let's click on sign up and create your first user.
+Go to [localhost:5173](http://localhost:5173/) to access your application.
+
+## Make authenticated calls to your API
+
+To make authenticated requests to your API there are two main components:
+
+- When making AJAX requests you must set `{"credentials": "include"}` in the options. For the `fetch` method it looks like this:
+
+```mdx-code-block
+import AppWithAPI from '!!raw-loader!../../../code-examples/protect-page-login/react/src/AppWithApi.tsx'
+
+<CodeBlock language="tsx" title="./src/AppWithAPI.tsx">{AppWithAPI}</CodeBlock>
+```
+
+- Your API must have a CORS middleware with `credentials: true` and `Access-Control-Allow-Origin` of your frontend app (here
+  `http://localhost:5173`).
+
+Let's put this into action. Create a simple HTTP API with express. Run:
+
+```shell-script
+mkdir api
+cd api
+npm init
+npm i --save @ory/client-fetch express cors
+```
+
+Next, create a simple API in `index.js`:
+
+```mdx-code-block
+import handlerApi from '!!raw-loader!../../../code-examples/auth-api/expressjs/index.js'
+
+<CodeBlock language="js" title="./server/index.js">{handlerApi}</CodeBlock>
+```
+
+Finally, start the server:
+
+```shell
+node index.js
+```
+
+### See it in action
+
+Access your react app at [localhost:5173](http://localhost:8081/), sign in, and see if you can make authenticated requests
+to your API!
 
 ## Go to production
 
@@ -122,5 +141,6 @@ These three components must be hosted on the same top-level domain as they were 
 
 | Component       | Production      | Local          |
 | --------------- | --------------- | -------------- |
-| Single Page App | www.example.org | localhost:3000 |
+| React App       | www.example.org | localhost:5173 |
+| API             | api.example.org | localhost:8081 |
 | Ory             | ory.example.org | localhost:4000 |
