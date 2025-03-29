@@ -361,7 +361,9 @@ available in `claims.email`, everything else is nested under `claims.raw_claims`
 
 :::
 
-Example: Mapping `firstName` and `lastName` from the SAML Identity Provider to the Ory identity schema (traits)
+#### Example SAML data mapping
+
+Mapping `firstName` and `lastName` from the SAML Identity Provider to the Ory identity schema (traits).
 
 ```jsonnet
 local claims = std.extVar('claims');
