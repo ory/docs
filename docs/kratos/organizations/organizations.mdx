@@ -354,9 +354,9 @@ You can configure the mapping of SAML attributes to Ory's identity schema using 
 Identity Provider (IdP) will be available in the `raw_claims` object within `claims`. These attributes can then be mapped to the
 Ory identity schema.
 
-:::note
+:::warning
 
-Important: Ensure that the appropriate identity schema is created before mapping attributes. The email attribute is natively
+Ensure that the appropriate identity schema is created before mapping attributes. The email attribute is natively
 available in `claims.email`, everything else is nested under `claims.raw_claims`.
 
 :::
