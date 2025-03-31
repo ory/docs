@@ -305,12 +305,13 @@ const identities: SidebarItemsConfig = [
       },
       {
         type: "category",
-        label: "Session management",
+        label: "Session",
         link: {
           type: "doc",
           id: "kratos/session-management/overview",
         },
         items: [
+          "kratos/session-management/session-management",
           "identities/sign-in/check-session",
           "kratos/session-management/session-lifespan",
           "kratos/session-management/refresh-extend-sessions",
