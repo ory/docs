@@ -243,7 +243,7 @@ For the `recovery_code.valid` template, the following variables are available:
 | `To` | The email address the email will be sent to |
 | `RecoveryCode` | The recovery code |
 | `Identity` | The identity to be recovered |
-| `ExpiresInMinutes` | The lifespan of the code, in minutes. |
+| `ExpiresInMinutes` | the expiration time of the code in minutes |
 
 :::note
 
@@ -268,7 +268,7 @@ For the `verification_code.valid` template, the following variables are availabl
 | `VerificationCode` | the verification code |
 | `VerificationURL` | the verification link |
 | `Identity` | the identity of the email address |
-
+| `ExpiresInMinutes` | the expiration time of the code in minutes |
 
 For the `verification_code.invalid` template, the following variables are available:
 
@@ -286,6 +286,7 @@ For the `recovery.valid` template, the following variables are available:
 | `To` | The email address the email will be sent to |
 | `RecoveryURL` | The recovery link |
 | `Identity` | The identity to be recovered |
+| `ExpiresInMinutes` | the expiration time of the link in minutes |
 
 For the `recovery.invalid` template, the following variables are available:
 
@@ -303,6 +304,7 @@ For the `verification.valid` template, the following variables are available:
 | `To` |  the email address the email will be sent to |
 | `VerificationURL` | the verification link |
 | `Identity` | the identity of the email address |
+| `ExpiresInMinutes` | the expiration time of the link in minutes |
 
 For the `verification.invalid` template, the following variables are available:
 
@@ -320,6 +322,7 @@ For the `login_code.valid` template, the following variables are available:
 | `To` |  the email address to whom the email is sent |
 | `LoginCode` | the login code |
 | `Identity` | the identity of the email address |
+| `ExpiresInMinutes` | the expiration time of the code in minutes |
 
 </TabItem>
 
@@ -332,6 +335,7 @@ For the `registration_code.valid` template, the following variables are availabl
 | `To` | the email address to whom the email is sent |
 | `RegistrationCode` | the registration code |
 | `Traits` | the provided traits as specified by the Identity Schema |
+| `ExpiresInMinutes` | the expiration time of the code in minutes |
 
 </TabItem>
 </Tabs>
