@@ -10,7 +10,6 @@ interface AppProps {
 
 // highlight-start
 const basePath = import.meta.env.VITE_ORY_URL || "http://localhost:4000"
-console.log("basePath", basePath)
 // highlight-end
 
 // Initialize Ory client
