@@ -5,16 +5,12 @@ sidebar_label: Next.js
 ---
 
 ```mdx-code-block
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
-import CodeTabs from "@site/src/theme/Code/CodeTabs"
-
 import Teaser from '../_common/teaser.mdx'
 import mp4 from '../_static/nextjs/screencast.mp4'
 import webm from '../_static/nextjs/screencast.webm'
 
 <Teaser
-  framework={<a href="https://nextjs.org/">Next.js</a>}
+  framework={<a href="https://nextjs.org">Next.js</a>}
   mp4={mp4}
   webm={webm}
 />
@@ -22,251 +18,118 @@ import webm from '../_static/nextjs/screencast.webm'
 
 ## Create Next.js app
 
-```mdx-code-block
-<Tabs
-  defaultValue="13"
-  values={[
-    {label: 'Next.js 13', value: '13'},
-    {label: 'Next.js 12', value: '12'}
-  ]}>
-<TabItem value="13">
-```
-
-First we create a new Next.js 13 project:
+First, create a new Next.js project. Run:
 
 ```shell
-npx create-next-app@latest --typescript
-cd <your-project-directory>
+npx create-next-app@latest
+cd app-name
 ```
 
-`create-next-app` Settings used in this tutorial:
+When prompted, select the following options:
+- Use TypeScript: Yes
+- Use ESLint: Yes
+- Use Tailwind CSS: Yes
+- Use `src/` directory: No
+- Use App Router: Yes
+- Customize the default import alias: No
 
-```
-✔ Would you like to use ESLint with this project? … Yes
-✔ Would you like to use `src/` directory with this project? … Yes
-✔ Would you like to use experimental `app/` directory with this project? … No
-✔ What import alias would you like configured? … @
-```
+## Create a new Ory project
 
 ```mdx-code-block
-</TabItem>
+import CreateProject from '../_common/create-project.mdx'
 
-<TabItem value="12">
+<CreateProject />
 ```
 
-First we create a new Next.js project:
+## Add Ory URL to environment variables
+
+Add the following environment variables to your `.env` file:
+
+```
+NEXT_PUBLIC_ORY_SDK_URL=https://playground.projects.oryapis.com
+```
+
+## Install Ory SDK
+
+To interact with Ory's APIs we install the Ory SDK:
 
 ```shell
-npx create-next-app@12.1 --typescript
-cd <your-project-directory>
+npm i --save @ory/elements-react @ory/nextjs
 ```
+
+
+## Authenticate user
+
+To implement authentication, create the following files:
 
 ```mdx-code-block
-</TabItem>
-</Tabs>
-```
-
-### Install Ory
-
-```mdx-code-block
-<Tabs
-  defaultValue="13"
-  values={[
-    {label: 'Next.js 13', value: '13'},
-    {label: 'Next.js 12', value: '12'}
-  ]}>
-<TabItem value="13">
-```
-
-Ory provides integration tools that quickly combine Ory with Next.js. Let's install Ory's SDK, used to make API calls to Ory, and
-Ory's Integration Tools for JavaScript frameworks:
-
-```shell
-npm i --save @ory/integrations @ory/client
-```
-
-and create a special route in `[...paths].js` at `pages/api/.ory/`.
-
-```mdx-code-block
+import oryConfig from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/ory.config.ts'
 import CodeBlock from '@theme/CodeBlock'
-import apiRoute from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/src/pages/api/.ory/\[...paths\].ts'
 
-<CodeBlock language="tsx">{apiRoute}</CodeBlock>
+<CodeBlock language="tsx" title="ory.config.ts">{oryConfig}</CodeBlock>
 ```
 
-This route connects your Next.js app with Ory's APIs and ensures that all cookies and credentials are set up. Without it, your
-Next.js application won't be able to talk to Ory's APIs.
-
-:::tip
-
-This route from ory/integrations works in a similar way as ory tunnel, read more about it
-[here](https://www.ory.sh/docs/guides/cli/proxy-and-tunnel). It is only required when developing locally. It can be removed when
-going to production with a custom domain. More details in the "Go to production" section below.
-
-:::
+This configuration file defines the paths for login, registration, and other authentication pages in your Next.js application.
 
 ```mdx-code-block
-</TabItem>
+import middleware from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/middleware.ts'
 
-<TabItem value="12">
+<CodeBlock language="tsx" title="middleware.ts">{middleware}</CodeBlock>
 ```
 
-Ory provides integration tools that quickly combine Ory with Next.js. Let's install Ory's SDK, used to make API calls to Ory, and
-Ory's Integration Tools for JavaScript frameworks:
-
-```shell
-npm i --save @ory/integrations @ory/client
-```
-
-and create a special route in `[...paths].js` at `pages/api/.ory/`.
+The middleware protects your routes by checking for valid sessions and redirecting unauthenticated users to the login page.
 
 ```mdx-code-block
-import apiRoute12 from '!!raw-loader!../../../code-examples/protect-page-login/nextjs-12/pages/api/.ory/\[...paths\].ts'
+import loginPage from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/app/auth/login/page.tsx'
 
-<CodeBlock language="tsx">{apiRoute12}</CodeBlock>
+<CodeBlock language="tsx" title="app/auth/login/page.tsx">{loginPage}</CodeBlock>
 ```
 
-This route connects your Next.js app with Ory's APIs and ensures that all cookies and credentials are set up. Without it, your
-Next.js application won't be able to talk to Ory's APIs.
+The login page uses Ory's pre-built Login component to render a complete authentication form with error handling.
 
-:::tip
+## Run your Next.js app
 
-This route from ory/integrations works in a similar way as ory tunnel, read more about it
-[here](https://www.ory.sh/docs/guides/cli/proxy-and-tunnel). It is only required when developing locally. It can be removed when
-going to production with a custom domain. More details in the "Go to production" section above.
-
-:::
-
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
-
-### Require login to access the home page
-
-```mdx-code-block
-<Tabs
-  defaultValue="13"
-  values={[
-    {label: 'Next.js 13', value: '13'},
-    {label: 'Next.js 12', value: '12'}
-  ]}>
-<TabItem value="13">
-```
-
-Next we add a session check to the default home page of the Next.js example application.The highlighted code is what we added to
-check whether the user is signed in, and redirect them to the login page if not:
-
-```mdx-code-block
-import homePage from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/src/pages/index.tsx'
-
-<CodeBlock language="tsx">{homePage}</CodeBlock>
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="12">
-```
-
-Next we add a session check to the default home page of the Next.js example application.The highlighted code is what we added to
-check whether the user is signed in, and redirect them to the login page if not:
-
-```mdx-code-block
-import homePage12 from '!!raw-loader!../../../code-examples/protect-page-login/nextjs-12/pages/index.tsx'
-
-<CodeBlock language="tsx">{homePage12}</CodeBlock>
-
-</TabItem>
-</Tabs>
-```
-
-### Run your Next.js app
-
-```mdx-code-block
-<Tabs
-  defaultValue="13"
-  values={[
-    {label: 'Next.js 13', value: '13'},
-    {label: 'Next.js 12', value: '12'}
-  ]}>
-<TabItem value="13">
-```
-
-Great, that's it. Let's run your application. Set up your environment variables to connect with Ory's APIs
-
-```shell
-export NEXT_PUBLIC_ORY_SDK_URL=https://$PROJECT_SLUG.projects.oryapis.com
-```
-
-and start the Next.js development server:
+Now that your app is ready, it's time to run it! Start the Next.js development server:
 
 ```shell
 npm run dev
 ```
 
-Then open [http://localhost:3000](http://localhost:3000) in your browser. You are presented with Ory's Sign In page. Let's click
-on sign up and create your first user.
+Go to [localhost:3000](http://localhost:3000/) to access your application.
+
+## Make authenticated calls to your API
+
+To make authenticated API calls in your Next.js app, you can create a Route Handler that verifies the session:
 
 ```mdx-code-block
-</TabItem>
-<TabItem value="12">
+import route from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/app/api/hello/route.ts'
+
+<CodeBlock language="tsx" title="middleware.ts">{route}</CodeBlock>
 ```
 
-Great, that's it. Let's run your application. Set up your environment variables to connect with Ory's APIs
+When making API calls from client components, make sure to include credentials to send session cookies:
 
-```mdx-code-block
-import SdkEnvVar12 from '@site/src/components/SdkEnvVar'
-
-<SdkEnvVar12 />
+```tsx
+// Client component example
+const response = await fetch('/api/hello', {
+  credentials: 'include', // Important for sending cookies
+})
 ```
 
-and start the Next.js development server:
+### See it in action
 
-```shell
-npm run dev
-```
-
-Then open [http://localhost:3000](http://localhost:3000) in your browser. You are presented with Ory's Sign In page. Let's click
-on sign up and create your first user.
-
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
+Access your Next.js app at [localhost:3000](http://localhost:3000/), sign in, and see if you can make authenticated requests to your API!
 
 ## Go to production
 
-When upgrading to production, you need to set up a custom domain and configure your Next.js app to use it. Once you have
-configured a custom domain and deployed your application the integrations package is no longer needed:
+To promote this app to production:
 
-```diff
-- import { edgeConfig } from "@ory/integrations/next"
-- const ory = new FrontendApi(new Configuration(edgeConfig))
-+ const basePath = process.env.NEXT_PUBLIC_ORY_SDK_URL;
+1. Build the Next.js app and deploy it (for example on Vercel or Netlify)
+2. Connect your project with a [custom domain](../../guides/custom-domains.mdx)
 
-+ const ory = new FrontendApi(
-+   new Configuration({
-+     basePath: basePath,
-+     baseOptions: {
-+       withCredentials: true,
-+     },
-+   })
-+ );
+These components must be hosted on the same top-level domain as they were on your local machine:
 
-...
-
-- return router.push(edgeConfig.basePath + "/ui/login")
-+ return router.push(basePath + "/ui/login");
-
-...
-```
-
-You can now also remove the `pages/api/.ory/` route.
-
-Release your app bundled with Ory to production using:
-
-```mdx-code-block
-import VercelDeploy from '@site/src/components/VercelDeploy'
-
-<VercelDeploy />
-```
+| Component       | Production      | Local          |
+| --------------- | --------------- | -------------- |
+| Next.js App     | www.example.org | localhost:3000 |
+| Ory             | ory.example.org | localhost:4000 |
