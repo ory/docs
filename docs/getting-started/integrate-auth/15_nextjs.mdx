@@ -26,6 +26,7 @@ cd app-name
 ```
 
 When prompted, select the following options:
+
 - Use TypeScript: Yes
 - Use ESLint: Yes
 - Use Tailwind CSS: Yes
@@ -56,7 +57,6 @@ To interact with Ory's APIs we install the Ory SDK:
 ```shell
 npm i --save @ory/elements-react @ory/nextjs
 ```
-
 
 ## Authenticate user
 
@@ -111,14 +111,15 @@ When making API calls from client components, make sure to include credentials t
 
 ```tsx
 // Client component example
-const response = await fetch('/api/hello', {
-  credentials: 'include', // Important for sending cookies
+const response = await fetch("/api/hello", {
+  credentials: "include", // Important for sending cookies
 })
 ```
 
 ### See it in action
 
-Access your Next.js app at [localhost:3000](http://localhost:3000/), sign in, and see if you can make authenticated requests to your API!
+Access your Next.js app at [localhost:3000](http://localhost:3000/), sign in, and see if you can make authenticated requests to
+your API!
 
 ## Go to production
 
@@ -129,7 +130,7 @@ To promote this app to production:
 
 These components must be hosted on the same top-level domain as they were on your local machine:
 
-| Component       | Production      | Local          |
-| --------------- | --------------- | -------------- |
-| Next.js App     | www.example.org | localhost:3000 |
-| Ory             | ory.example.org | localhost:4000 |
+| Component   | Production      | Local          |
+| ----------- | --------------- | -------------- |
+| Next.js App | www.example.org | localhost:3000 |
+| Ory         | ory.example.org | localhost:4000 |
