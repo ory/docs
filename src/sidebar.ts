@@ -17,7 +17,7 @@ const homeLink: SidebarItem = {
 
 const openIdSSO: SidebarItemConfig = {
   type: "category",
-  label: "OpenID Connect SSO",
+  label: "OAuth2 client",
   link: {
     type: "doc",
     id: "guides/oauth2-openid-connect",
@@ -249,6 +249,7 @@ const identities: SidebarItemsConfig = [
       "identities/native-browser",
       "concepts/redirects",
       "kratos/hooks/configure-hooks",
+      "oauth2-oidc/overview/oidc-concepts",
     ],
   },
   {
@@ -475,7 +476,6 @@ const oauth2: SidebarItemsConfig = [
     },
     items: [
       "oauth2-oidc/overview/oauth2-concepts",
-      "oauth2-oidc/overview/oidc-concepts",
       "hydra/concepts/before-oauth2",
       "hydra/security-architecture",
     ],
@@ -491,10 +491,9 @@ const oauth2: SidebarItemsConfig = [
       id: "hydra/guides/oauth2-token-introspection",
     },
     items: [
-      openIdSSO,
       {
         type: "category",
-        label: "Flows",
+        label: "Flow",
         link: {
           type: "doc",
           id: "oauth2-oidc/authorization-code-flow",
