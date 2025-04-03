@@ -36,7 +36,7 @@ cd code-examples/protect-page-login/nextjs && \
 ## app runs on 4002
 cd code-examples/protect-page-login/expressjs && \
   PORT=4002 npm run start &
-ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3002 http://localhost:4002/ -q -y &
+ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3002 --dev http://localhost:4002/ -q -y &
 
 # We need to wait for the proxy to write the credentials file.
 sleep 2
@@ -46,21 +46,21 @@ sleep 2
 ## app runs on 4003
 cd code-examples/protect-page-login/go && \
   PORT=4003 PROXY_PORT=3003 ./server &
-ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3003 http://localhost:4003/ -q -y &
+ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3003 --dev http://localhost:4003/ -q -y &
 
 ## PHP example ##
 ## proxy runs on 3004
 ## app runs on 4004
 cd code-examples/protect-page-login/php && \
   PROXY_PORT=3004 php -S 127.0.0.1:4004 &
-ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3004 http://localhost:4004/ -q -y &
+ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3004 --dev http://localhost:4004/ -q -y &
 
 ## Flutter Web example ##
 ## tunnel runs on 3005
 ## app runs on 4005
 cd code-examples/protect-page-login/flutter_web_redirect && \
   python3 -m http.server 4005 --directory build/web &
-ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3005 http://localhost:4005/ -q -y &
+ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3005 --dev http://localhost:4005/ -q -y &
 
 ## VueJS SPA with ExpressJS backend example ##
 ## tunnel runs on 3006

@@ -14,7 +14,7 @@ const login = async (page: Page) => {
 
 test.describe("protect-page-login", () => {
   for (const app of [
-    { url: "http://localhost:3001/", name: "next.js" },
+    { url: "http://localhost:4001/", name: "next.js" },
     { url: "http://localhost:4002/", name: "express.js" },
     { url: "http://localhost:4003/", name: "go" },
     { url: "http://localhost:4004/", name: "php" },

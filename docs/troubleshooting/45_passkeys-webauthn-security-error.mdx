@@ -12,8 +12,8 @@ sidebar_label: WebAuthn / PassKeys SecurityError
 ### Solve relying party ID mismatch
 
 When configuring WebAuthn or PassKeys, you define an ID and a number of origins that are allowed to use the WebAuthn or Passkeys
-credential. If you use the Ory Tunnel,the Ory Next.js integration, or other tooling which proxies requests to a
-different domain, you may encounter this issue.
+credential. If you use the Ory Tunnel,the Ory Next.js integration, or other tooling which proxies requests to a different domain,
+you may encounter this issue.
 
 Per default, Ory sets the RP ID and the origins for your project automatically. You can however override them to get
 Passkeys/Webauthn working locally, in your development or staging environment, by updating the RP ID and origins in the Ory
