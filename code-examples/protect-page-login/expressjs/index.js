@@ -5,7 +5,7 @@ const sdk = require("@ory/client-fetch")
 // highlight-start
 const ory = new sdk.FrontendApi(
   new sdk.Configuration({
-    basePath: process.env.ORY_SDK_URL || "http://localhost:4000/.ory",
+    basePath: process.env.ORY_SDK_URL || "http://localhost:4000",
   }),
 )
 // highlight-end
@@ -17,7 +17,7 @@ const requireAuth = async (req, res, next) => {
     req.session = session
     next()
   } catch (error) {
-    res.redirect("/.ory/ui/login")
+    res.redirect("/ui/login")
   }
 }
 // highlight-end

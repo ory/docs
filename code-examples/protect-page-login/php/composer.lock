@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0ba524af7f5690f9d9f697bf1e49f719",
+    "content-hash": "f9a8701c311e516fbb6778556186629c",
     "packages": [
         {
             "name": "bramus/router",
@@ -390,16 +390,16 @@
         },
         {
             "name": "ory/client",
-            "version": "v1.0.2",
+            "version": "v1.20.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ory/client-php.git",
-                "reference": "6cdf6779ba78aa25dd1b6be293792ed0426be211"
+                "reference": "1111cb0cdd64eb310b361458a87513b8c73eccff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ory/client-php/zipball/6cdf6779ba78aa25dd1b6be293792ed0426be211",
-                "reference": "6cdf6779ba78aa25dd1b6be293792ed0426be211",
+                "url": "https://api.github.com/repos/ory/client-php/zipball/1111cb0cdd64eb310b361458a87513b8c73eccff",
+                "reference": "1111cb0cdd64eb310b361458a87513b8c73eccff",
                 "shasum": ""
             },
             "require": {
@@ -408,10 +408,10 @@
                 "ext-mbstring": "*",
                 "guzzlehttp/guzzle": "^7.3",
                 "guzzlehttp/psr7": "^1.7 || ^2.0",
-                "php": "^7.3 || ^8.0"
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.12",
+                "friendsofphp/php-cs-fixer": "^3.5",
                 "phpunit/phpunit": "^8.0 || ^9.0"
             },
             "type": "library",
@@ -426,11 +426,11 @@
             ],
             "authors": [
                 {
-                    "name": "Ory GmbH",
+                    "name": "Ory Corp",
                     "homepage": "https://www.ory.sh"
                 }
             ],
-            "description": "Documentation for all public and administrative Ory APIs. Administrative APIs can only be accessed with a valid Personal Access Token. Public APIs are mostly used in browsers.",
+            "description": "# Introduction Documentation for all public and administrative Ory APIs. Administrative APIs can only be accessed with a valid Personal Access Token. Public APIs are mostly used in browsers.  ## SDKs This document describes the APIs available in the Ory Network. The APIs are available as SDKs for the following languages:  | Language       | Download SDK                                                     | Documentation                                                                        | | -------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------ | | Dart           | [pub.dev](https://pub.dev/packages/ory_client)                   | [README](https://github.com/ory/sdk/blob/master/clients/client/dart/README.md)       | | .NET           | [nuget.org](https://www.nuget.org/packages/Ory.Client/)          | [README](https://github.com/ory/sdk/blob/master/clients/client/dotnet/README.md)     | | Elixir         | [hex.pm](https://hex.pm/packages/ory_client)                     | [README](https://github.com/ory/sdk/blob/master/clients/client/elixir/README.md)     | | Go             | [github.com](https://github.com/ory/client-go)                   | [README](https://github.com/ory/sdk/blob/master/clients/client/go/README.md)         | | Java           | [maven.org](https://search.maven.org/artifact/sh.ory/ory-client) | [README](https://github.com/ory/sdk/blob/master/clients/client/java/README.md)       | | JavaScript     | [npmjs.com](https://www.npmjs.com/package/@ory/client)           | [README](https://github.com/ory/sdk/blob/master/clients/client/typescript/README.md) | | JavaScript (With fetch) | [npmjs.com](https://www.npmjs.com/package/@ory/client-fetch)           | [README](https://github.com/ory/sdk/blob/master/clients/client/typescript-fetch/README.md) |  | PHP            | [packagist.org](https://packagist.org/packages/ory/client)       | [README](https://github.com/ory/sdk/blob/master/clients/client/php/README.md)        | | Python         | [pypi.org](https://pypi.org/project/ory-client/)                 | [README](https://github.com/ory/sdk/blob/master/clients/client/python/README.md)     | | Ruby           | [rubygems.org](https://rubygems.org/gems/ory-client)             | [README](https://github.com/ory/sdk/blob/master/clients/client/ruby/README.md)       | | Rust           | [crates.io](https://crates.io/crates/ory-client)                 | [README](https://github.com/ory/sdk/blob/master/clients/client/rust/README.md)       |",
             "homepage": "https://github.com/ory/client-php",
             "keywords": [
                 "api",
@@ -443,9 +443,19 @@
             ],
             "support": {
                 "issues": "https://github.com/ory/client-php/issues",
-                "source": "https://github.com/ory/client-php/tree/v1.0.2"
+                "source": "https://github.com/ory/client-php/tree/v1.20.2"
             },
-            "time": "2022-12-02T10:28:21+00:00"
+            "funding": [
+                {
+                    "url": "https://opencollective.com/ory",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://www.patreon.com/_ory",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2025-04-01T16:00:30+00:00"
         },
         {
             "name": "psr/http-client",
@@ -727,5 +737,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
