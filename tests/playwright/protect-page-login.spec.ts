@@ -14,10 +14,10 @@ const login = async (page: Page) => {
 
 test.describe("protect-page-login", () => {
   for (const app of [
-    { url: "http://localhost:4001/", name: "next.js" },
-    { url: "http://localhost:4002/", name: "express.js" },
-    { url: "http://localhost:4003/", name: "go" },
-    { url: "http://localhost:4004/", name: "php" },
+    { url: "http://localhost:3001/", name: "next.js" },
+    { url: "http://localhost:3002/", name: "express.js" },
+    { url: "http://localhost:3003/", name: "go" },
+    { url: "http://localhost:3004/", name: "php" },
     // { url: "http://localhost:4005/", name: "flutter_web_redirect" },
     // { url: "http://localhost:4009/", name: "dotnet" },
   ]) {
