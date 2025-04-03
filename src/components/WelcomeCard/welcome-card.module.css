@@ -1,0 +1,132 @@
+/* Card Grid - Grid layout */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  flex: 1;
+}
+
+/* Card Link (wrapper) */
+.cardLink {
+  text-decoration: none !important;
+  color: inherit;
+  transition: transform 0.2s ease;
+  display: block;
+  height: 100%;
+}
+
+.cardLink:hover {
+  transform: translateY(-4px);
+}
+
+/* Base Card Styles */
+.card {
+  height: 200px; /* Fixed height for all cards */
+  position: relative;
+  transition: all 0.2s ease;
+  background-color: var(--ifm-pre-background);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  width: 100%;
+  overflow: hidden;
+}
+
+.card:hover {
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-4px);
+}
+
+/* Icon Container */
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(
+    6,
+    182,
+    212,
+    0.1
+  ); /* Light cyan background for light mode */
+  border-radius: 8px;
+  padding: 0.5rem;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 1rem;
+}
+
+/* Icon */
+.icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  color: #06b6d4; /* Cyan color for icons in light mode */
+}
+
+/* Card Content */
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Card Title */
+.cardTitle {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Card Description */
+.cardDescription {
+  margin-bottom: 0;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.4;
+  font-size: 0.875rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Dark mode styling for cards */
+:global([data-theme="dark"]) .card {
+  background-color: #1a1a2e;
+  border-color: #2a2a4a;
+}
+
+:global([data-theme="dark"]) .iconContainer {
+  background-color: rgba(
+    49,
+    46,
+    129,
+    0.5
+  ); /* Indigo background for dark mode */
+}
+
+/* Better visibility for SVG icons in dark mode */
+:global([data-theme="dark"]) .iconContainer svg {
+  stroke-width: 2.5;
+  filter: brightness(1.3);
+  color: #7986cb;
+}
+
+/* Mobile view adjustments for cards */
+@media screen and (max-width: 768px) {
+  .cardGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .card {
+    height: 180px;
+    padding: 1.25rem;
+  }
+
+  .cardDescription {
+    -webkit-line-clamp: 4;
+  }
+}

@@ -161,6 +161,7 @@ const cli: SidebarItemsConfig = [
 
 const quickstart: SidebarItemsConfig = [
   "welcome",
+  "intro",
   {
     type: "category",
     label: "Quickstart",
@@ -181,6 +182,13 @@ const quickstart: SidebarItemsConfig = [
       "getting-started/integrate-auth/flutter-web-redirect",
       "getting-started/integrate-auth/dotnet",
     ],
+  },
+  {
+    type: "category",
+    label: "Migrate to Ory",
+    collapsed: false,
+    collapsible: false,
+    items: ["migrate-to-ory/index", "migrate-to-ory/auth0"],
   },
 ]
 
@@ -304,12 +312,13 @@ const identities: SidebarItemsConfig = [
       },
       {
         type: "category",
-        label: "Session management",
+        label: "Session",
         link: {
           type: "doc",
           id: "kratos/session-management/overview",
         },
         items: [
+          "kratos/session-management/session-management",
           "identities/sign-in/check-session",
           "kratos/session-management/session-lifespan",
           "kratos/session-management/refresh-extend-sessions",
@@ -510,6 +519,10 @@ const oauth2: SidebarItemsConfig = [
       {
         type: "category",
         label: "Token management",
+        link: {
+          type: "generated-index",
+          slug: "guides/token-management",
+        },
         items: [
           "hydra/guides/oauth2-token-introspection",
           "oauth2-oidc/revoke-consent",
