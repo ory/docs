@@ -1,0 +1,99 @@
+---
+id: scim
+title: SCIM
+sidebar_label: SCIM
+---
+
+# SCIM (System for Cross-domain Identity Management)
+
+:::info
+
+SCIM provisioning is only available in Ory Network and are not supported in self-hosted Ory Kratos. If you have any questions, or
+if you would like more information about transitioning to Ory Network, please don't hesitate to
+[reach out](https://www.ory.sh/contact/).
+
+:::
+
+SCIM (System for Cross-domain Identity Management) is a standard for automating the exchange of user identity information between
+identity domains or IT systems. It is designed to make it easier to manage user identities in cloud-based applications and
+services. SCIM provides a common schema for representing user identities and a RESTful API for managing them. This allows
+organizations to automate the provisioning and de-provisioning of user accounts across multiple systems, reducing the
+administrative burden and improving security.
+
+In the Ory Network, SCIM is available at the organization level. This means that within one project, you can have multiple
+organizations with different SCIM configurations. Each organization can have its own SCIM settings, including the ability to
+enable or disable SCIM, set the base URL for SCIM endpoints, and configure authentication methods. This allows organizations to
+tailor their SCIM implementation to meet their specific needs and requirements.
+
+Identities that are provisioned through the SCIM API are automatically created in the Ory Network and added to that SCIM server's
+organization. The provisioned identities can the log in through any of the organization's configured SSO methods.
+
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+
+<Mermaid
+  chart={`
+flowchart TD
+    P(Project) --> O1(Organization 1)
+    P(Project) --> O(Organization 2)
+    P(Project) --> O3(Organization 3)
+
+    O --> S(SCIM Server)
+    O <-->|belongs to| I(Identity)
+    S -->|provisions| I
+`}
+/>
+```
+
+## Set up identity provisioning with SCIM
+
+To set up identity provisioning with SCIM, follow these steps:
+
+### Create an organization
+
+If you haven't already, create an [organization](../organizations) in the Ory Network. This organization will be used to manage
+your SCIM settings and provision identities.
+
+### Create a SCIM server
+
+In the organization view, under **SCIM servers**, click **Add SCIM server**. This will open a form where you can configure your
+SCIM server settings.
+
+- **Name**: Enter a name for your SCIM server. This name will be used to identify the SCIM server in the Ory Network.
+- **Description**: Enter a description for your SCIM server. This description will be used to provide additional information about
+  the SCIM server.
+- **Client authentication**: Enter a secret in the client authenticaiton's **secret** field. This secret will be used to
+  authenticate requests to the SCIM server. Clients need to specify this in the `Authorization` header of their requests.
+- **Data mapping**: When the client creates or updates a user, the supplied data will be applied to the identity based on this
+  data mapping.
+
+### Use the SCIM server
+
+Once you have created a SCIM server, you can use it to provision identities. The SCIM server will provide a set of endpoints that
+allow the creation and management of user identities and groups.
+
+The following endpoints are available:
+
+- **User endpoints**
+  - `GET /Users`: Retrieve a list of users.
+  - `POST /Users`: Create a new user.
+  - `GET /Users/{id}`: Retrieve a specific user by ID.
+  - `PUT /Users/{id}`: Update a specific user by ID.
+  - `PATCH /Users/{id}`: Partially update a specific user by ID.
+  - `DELETE /Users/{id}`: Delete a specific user by ID.
+- **Group endpoints**
+  - `GET /Groups`: Retrieve a list of groups.
+  - `POST /Groups`: Create a new group.
+  - `GET /Groups/{id}`: Retrieve a specific group by ID.
+  - `PUT /Groups/{id}`: Update a specific group by ID.
+  - `PATCH /Groups/{id}`: Partially update a specific group by ID.
+  - `DELETE /Groups/{id}`: Delete a specific group by ID.
+
+### Known limitations
+
+- SCIM provisioning is only available in Ory Network and are not supported in self-hosted Ory Kratos.
+- For querying users with `GET /Users`, the SCIM server only supports the `eq` operator for filtering, and only with the
+  `userName` attribute. Other operators like `ne`, `co`, `sw`, and `ew` are not supported.
+- For querying groups with `GET /Groups`, the SCIM server only supports the `eq` operator for filtering, and only with the
+  `displayName` attribute. Other operators like `ne`, `co`, `sw`, and `ew` are not supported.
+- For both user and group query endpoints, `startIndex` must be lower than 5000, and `count` must be lower than 1000.
