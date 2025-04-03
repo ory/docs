@@ -1,64 +1,34 @@
 The Ory security model uses HTTP cookies to manage sessions, tokens, and cookies. Because of browser security measures like
 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), Ory APIs must be exposed on the same domain as your application.
-
 In the case of this example the application runs on your local machine. The cookie domain is `localhost`.
 
-:::info
-
-When developing locally, use either `localhost` or `127.0.0.1`, but not both. Although technically these mean the same thing,
-they're different cookie domains.
-
-Using both interchangeably in your code causes problems, as Ory APIs will not receive the cookies when they are set on a different
-domain.
-
+:::info 
+Use either `localhost` or `127.0.0.1` consistently. Although technically they refer to the same machine, browsers treat them as different cookie domains.
 :::
 
-<p>
-  Ory CLI provides a convenient way to configure and manage projects. Additionally, the CLI provides Ory{" "}
-  {props.isTunnel ? "Tunnel" : "Proxy"} - a reverse proxy that rewrites cookies to match the domain your application is currently
-  on.
-</p>
+Ory CLI provides a convenient way to configure and manage projects. Additionally, the CLI provides Ory Tunnel - a tool that
+ensures cookies match the domain your application is currently on.
 
-<p>
-  To make Ory APIs and your application available on the same domain, Ory {props.isTunnel ? "Tunnel" : "Proxy"} mirrors Ory
-  endpoints and rewrites cookies to match the domain correct domain.
-</p>
-
-As a result, the domain of the cookies is set correctly to the domain you run the app on instead of
+To make Ory APIs and your application available on the same domain, Ory Tunnel mirrors Ory endpoints and rewrites cookies to
+match the correct domain. As a result, the domain of the cookies is set correctly to the domain you run the app on instead of
 `<your-project-slug>.projects.oryapis.com`.
 
-<p>
-  By using the {props.isTunnel ? "Tunnel" : "Proxy"}, you can easily connect the application you're developing locally to Ory
-  Network and consume the APIs without additional configuration or the self-hosting any Ory services.
-</p>
+By using the Tunnel, you can easily connect the application you're developing locally to Ory Network and consume the APIs
+without additional configuration or self-hosting any Ory services.
 
 ```mdx-code-block
 import Mermaid from "@site/src/theme/Mermaid"
 
 <Mermaid
-  chart={props.isTunnel ?
-`graph LR
+  chart={`graph LR
     B(Browser) -->|GET http://localhost:4000| T(Ory Tunnel)
     T -->|Response| B
-    T <-->|mirrors| API(Ory's APIs)
+    T <-->|mirrors| API("Ory's APIs")
     B -->|GET http://localhost:3000| A(Your App)
-    A-->|Response|B
-` :
-`graph LR
-    B(Browser) -->|GET http://localhost:4000| P(Ory Proxy)
-    P <-->|mirrors at /.ory/| API(Ory's APIs)
-    P -->|GET http://localhost:3000| A(Your App)
-    A-->|Response|P
-    P-->|Response|B
-`}
+    A -->|Response| B`}
 />
 ```
 
 :::tip
-
-<p>
-  To learn more about the Ory {props.isTunnel ? "Tunnel" : "Proxy"}, read the [dedicated section of the Ory CLI
-  documentation](../../guides/cli/proxy-and-tunnel).
-</p>
-
+To learn more about the Ory Tunnel, read the [dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel).
 :::

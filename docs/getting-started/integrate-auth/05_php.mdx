@@ -98,20 +98,20 @@ Finally, we added the Dashboard handler (the page we want to protect), which wil
 
 ## Run your app
 
-Start your HTTP server and access the proxy URL
+Start your HTTP server and access the tunnel URL
 
 ```shell
 php -S 127.0.0.1:3000
 ```
 
-Next open a new terminal window and start the Ory Proxy. Upon first start, the Ory Proxy will ask you to log into your Ory Console
-account.
+Next open a new terminal window and start the Ory Tunnel. Upon first start, the Ory Tunnel will ask you to log into your Ory
+Console account.
 
 ```shell
-ory proxy --project <PROJECT_ID> http://localhost:3000
+ory tunnel --project <PROJECT_ID> http://localhost:3000
 ```
 
-To access the PHP app through the ORY proxy open [http://localhost:4000](http://localhost:4000) in your browser. You are presented
+To access the PHP app through the Ory Tunnel, open [http://localhost:4000](http://localhost:4000) in your browser. You are presented
 with Ory's Sign In page. Let's click on sign up and create your first user.
 
 ## Go to production
