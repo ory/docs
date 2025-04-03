@@ -183,6 +183,13 @@ const quickstart: SidebarItemsConfig = [
       "getting-started/integrate-auth/dotnet",
     ],
   },
+  {
+    type: "category",
+    label: "Migrate to Ory",
+    collapsed: false,
+    collapsible: false,
+    items: ["migrate-to-ory/index", "migrate-to-ory/auth0"],
+  },
 ]
 
 const troubleshooting: SidebarItemsConfig = [
