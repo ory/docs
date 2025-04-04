@@ -9,12 +9,14 @@ import (
 )
 
 func whoami() {
-	proxyPort := os.Getenv("PROXY_PORT")
-	if proxyPort == "" {
-		proxyPort = "4000"
+	tunnelPort := os.Getenv("TUNNEL_PORT")
+	if tunnelPort == "" {
+		tunnelPort = "4000"
 	}
+
 	cfg := ory.NewConfiguration()
-	cfg.Servers = ory.ServerConfigurations{{URL: fmt.Sprintf("http://localhost:%s/.ory", proxyPort)}}
+	cfg.Servers = ory.ServerConfigurations{{URL: fmt.Sprintf("http://localhost:%s", tunnelPort)}}
+
 	apiClient := ory.NewAPIClient(cfg)
 	cookie := "ory_session_playground=<your-session-cookie-here>"
 	resp, r, err := apiClient.FrontendApi.ToSession(context.Background()).Cookie(cookie).Execute()

@@ -27,13 +27,13 @@ You can start the application with:
 npm run dev
 ```
 
-### 3. Run the Ory Proxy
+### 3. Run the Ory Tunnel
 
-To ensure cookies are on the same domain, run the Ory Proxy with your project
+To ensure cookies are on the same domain, run the Ory Tunnel with your project
 ID:
 
 ```bash
-ORY_PROJECT_ID=<Project_ID> npm run proxy
+ORY_PROJECT_ID=<Project_ID> npm run tunnel
 ```
 
 Replace `<Project_ID>` with your actual Ory Project ID from the Ory Console.

@@ -331,7 +331,7 @@ This is used for WebAuthn both in passwordless flows and multi-factor authentica
 ### Constraints
 
 - WebAuthn is a browser standard. It does not work in native mobile apps.
-- WebAuthn is limited to one domain and does not work in a local environment when using CNAME / Ory Proxy. WebAuthn uses the
+- WebAuthn is limited to one domain and does not work in a local environment when using CNAME / Ory Tunnel. WebAuthn uses the
   `https://origin` URL as part of the client{'<->'} server challenge/response mechanism. This mechanism allows for only one URL as
   the origin. Read more in the [WebAuthn guide](https://webauthn.guide/) and on
   [GitHub](https://github.com/w3c/webauthn/issues/1372).

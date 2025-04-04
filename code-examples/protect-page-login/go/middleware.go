@@ -28,9 +28,11 @@ func (app *App) sessionMiddleware(next http.HandlerFunc) http.HandlerFunc {
 		session, _, err := app.ory.FrontendAPI.ToSession(request.Context()).Cookie(cookies).Execute()
 		// Check if a session exists and if it is active.
 		// You could add your own logic here to check if the session is valid for the specific endpoint, e.g. using the `session.AuthenticatedAt` field.
+		// Redirect to login if session doesn't exist or is inactive
 		if err != nil || (err == nil && !*session.Active) {
-			// redirect the user to the login UI, in this case we use the default browser flow
-			http.Redirect(writer, request, "/.ory/self-service/login/browser", http.StatusSeeOther)
+			log.Printf("No active session, redirecting to login\n")
+			// Redirect to the tunnel URL, not the local app
+			http.Redirect(writer, request, app.tunnelUrl+"/ui/login", http.StatusSeeOther)
 			return
 		}
 
@@ -39,7 +41,6 @@ func (app *App) sessionMiddleware(next http.HandlerFunc) http.HandlerFunc {
 
 		// Continue to the next handler (the dashboard in the simple example).
 		next.ServeHTTP(writer, request.WithContext(ctx))
-		return
 	}
 }
 

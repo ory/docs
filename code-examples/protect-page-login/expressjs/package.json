@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "proxy": "ory proxy --project $ORY_PROJECT_ID --port 4000 http://localhost:3000/",
+    "tunnel": "npx @ory/cli tunnel --dev http://localhost:3000",
     "start": "node index.js"
   },
   "keywords": [],
