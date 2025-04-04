@@ -4,13 +4,11 @@ title: SCIM
 sidebar_label: SCIM
 ---
 
-# SCIM (System for Cross-domain Identity Management)
+# System for Cross-domain Identity Management 
 
 :::info
 
-SCIM provisioning is only available in Ory Network and are not supported in self-hosted Ory Kratos. If you have any questions, or
-if you would like more information about transitioning to Ory Network, please don't hesitate to
-[reach out](https://www.ory.sh/contact/).
+SCIM provisioning is only available in Ory Network and via the Ory Enterprise License (OEL). If you have any questions, please [reach out](https://www.ory.sh/contact/).
 
 :::
 
@@ -51,7 +49,7 @@ To set up identity provisioning with SCIM, follow these steps:
 
 ### Create an organization
 
-If you haven't already, create an [organization](../organizations) in the Ory Network. This organization will be used to manage
+If you haven't already, create an [organization](../organizations). This organization will be used to manage
 your SCIM settings and provision identities.
 
 ### Create a SCIM server
@@ -91,7 +89,6 @@ The following endpoints are available:
 
 ### Known limitations
 
-- SCIM provisioning is only available in Ory Network and are not supported in self-hosted Ory Kratos.
 - For querying users with `GET /Users`, the SCIM server only supports the `eq` operator for filtering, and only with the
   `userName` attribute. Other operators like `ne`, `co`, `sw`, and `ew` are not supported.
 - For querying groups with `GET /Groups`, the SCIM server only supports the `eq` operator for filtering, and only with the
