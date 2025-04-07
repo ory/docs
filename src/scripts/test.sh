@@ -35,7 +35,7 @@ cd code-examples/protect-page-login/nextjs && \
 ## proxy runs on 3002
 ## app runs on 4002
 cd code-examples/protect-page-login/expressjs && \
-  PORT=4002 npm run start &
+  PORT=4002 ORY_SDK_URL=http://localhost:3002 npm run start &
 ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3002 --dev http://localhost:4002/ -q -y &
 
 # We need to wait for the proxy to write the credentials file.
