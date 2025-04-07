@@ -118,14 +118,14 @@ import ToProd from '../_common/going-to-prod.mdx'
 import { FrontendApi } from "@ory/client-fetch"
 
 // 2. Configure Ory
-const basePath = process.env.ORY_URL;
+const basePath = process.env.ORY_URL
 
 const ory = new FrontendApi(
   new Configuration({
     basePath,
     credentials: "include",
-  })
-);
+  }),
+)
 
 // 3. Sign in or grab session.
 const data = await ory.toSession()
