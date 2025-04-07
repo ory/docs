@@ -258,6 +258,16 @@ the identity, or by updating the identity's data using the Ory APIs.
 SAML (Security Assertion Markup Language) is an XML-based open standard used for exchanging authentication and authorization data
 between parties. The SAML integration in Ory Network uses the B2B Organization feature.
 
+:::note
+
+Some SAML identity providers do not validate email domain ownership. This can lead to situations where Enterprise SSO with Organizations
+is configured for a specified domain (eg @ory.sh), but due to this lack of this email domain ownership validation by the identity provider, 
+a users with other email domains (eg @gmail.com) can still authenticate successfully via the identity provider. 
+
+This will end up with the user being part of the configured organizaiton in your Ory project, even if the domain does not match the one(s) configured. 
+
+:::
+
 ### SAML via Ory Network
 
 This guide will walk you through the steps required to set up SAML Single Sign-On (SSO) with Ory Network.
