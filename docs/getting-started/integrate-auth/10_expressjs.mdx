@@ -65,7 +65,7 @@ Now that the Ory CLI is installed, create a new npm script to run the tunnel ser
   "private": true,
   "scripts": {
     "dev": "nodemon index.js",
-    "tunnel": "npx @ory/cli tunnel --dev http://localhost:3000",
+    "tunnel": "ory tunnel --dev http://localhost:3000",
   },
   "dependencies": {
 ```
@@ -114,15 +114,19 @@ import ToProd from '../_common/going-to-prod.mdx'
 ```
 
 ```js
-var sdk = require("@ory/client")
+// 1. Import SDK
+import { FrontendApi } from "@ory/client-fetch"
 
-var ory = new sdk.FrontendApi(
-  new sdk.Configuration({
-    basePath: "https://ory.example.org",
-    baseOptions: {
-      // Ensures that cookies are included in CORS requests:
-      withCredentials: true,
-    },
-  }),
-)
+// 2. Configure Ory
+const basePath = process.env.ORY_URL;
+
+const ory = new FrontendApi(
+  new Configuration({
+    basePath,
+    credentials: "include",
+  })
+);
+
+// 3. Sign in or grab session.
+const data = await ory.toSession()
 ```

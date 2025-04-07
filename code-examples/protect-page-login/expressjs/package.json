@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "tunnel": "npx @ory/cli tunnel --dev http://localhost:3000",
+    "tunnel": "ory tunnel --dev http://localhost:3000",
     "start": "node index.js"
   },
   "keywords": [],
