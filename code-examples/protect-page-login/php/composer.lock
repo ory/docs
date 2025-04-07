@@ -390,16 +390,16 @@
         },
         {
             "name": "ory/client",
-            "version": "v1.20.2",
+            "version": "v1.20.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ory/client-php.git",
-                "reference": "1111cb0cdd64eb310b361458a87513b8c73eccff"
+                "reference": "b32921accf0a9034498e18d246e60a3cf31f7072"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ory/client-php/zipball/1111cb0cdd64eb310b361458a87513b8c73eccff",
-                "reference": "1111cb0cdd64eb310b361458a87513b8c73eccff",
+                "url": "https://api.github.com/repos/ory/client-php/zipball/b32921accf0a9034498e18d246e60a3cf31f7072",
+                "reference": "b32921accf0a9034498e18d246e60a3cf31f7072",
                 "shasum": ""
             },
             "require": {
@@ -443,7 +443,7 @@
             ],
             "support": {
                 "issues": "https://github.com/ory/client-php/issues",
-                "source": "https://github.com/ory/client-php/tree/v1.20.2"
+                "source": "https://github.com/ory/client-php/tree/v1.20.3"
             },
             "funding": [
                 {
@@ -455,7 +455,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2025-04-01T16:00:30+00:00"
+            "time": "2025-04-04T09:20:07+00:00"
         },
         {
             "name": "psr/http-client",
@@ -732,10 +732,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
+    "platform": {},
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
