@@ -91,7 +91,7 @@ template as well. These objects are available through a `ctx` object.
 
 #### Accessing request headers
 
-Request headers are available via `ctx.request_headers`. By default, only the following headers will be exposed:
+Request headers are available via `ctx.request_headers`. By default, only the following headers are exposed:
 
 ```
 Accept
@@ -113,7 +113,7 @@ True-Client-Ip
 User-Agent
 ```
 
-To customize allowed headers, use the `actions.web_hook.header_allowlist` configuration option. 
+To customize allowed headers, use the `actions.web_hook.header_allowlist` configuration option.
 
 #### Jsonnet templating
 
