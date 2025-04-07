@@ -45,14 +45,14 @@ sleep 2
 ## proxy runs on 3003
 ## app runs on 4003
 cd code-examples/protect-page-login/go && \
-  PORT=4003 PROXY_PORT=3003 ./server &
+  PORT=4003 TUNNEL_PORT=3003 ./server &
 ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3003 --dev http://localhost:4003/ -q -y &
 
 ## PHP example ##
 ## proxy runs on 3004
 ## app runs on 4004
 cd code-examples/protect-page-login/php && \
-  PROXY_PORT=3004 php -S 127.0.0.1:4004 &
+  TUNNEL_PORT=3004 php -S 127.0.0.1:4004 &
 ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3004 --dev http://localhost:4004/ -q -y &
 
 ## Flutter Web example ##
