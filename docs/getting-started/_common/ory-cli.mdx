@@ -38,10 +38,10 @@ import Mermaid from "@site/src/theme/Mermaid"
 <Mermaid
   chart={props.isTunnel ?
 `graph LR
-    B(Browser) -->|GET http://localhost:4000| T(Ory Tunnel)
+    B(Browser) -->|GET localhost:4000| T(Ory Tunnel)
     T -->|Response| B
     T <-->|mirrors| API(Ory's APIs)
-    B -->|GET http://localhost:3000| A(Your App)
+    B -->|GET localhost:3000| A(Your App)
     A-->|Response|B
 ` :
 `graph LR
