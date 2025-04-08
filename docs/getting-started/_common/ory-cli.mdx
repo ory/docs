@@ -2,8 +2,12 @@ The Ory security model uses HTTP cookies to manage sessions, tokens, and cookies
 [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS), Ory APIs must be exposed on the same domain as your application.
 In the case of this example the application runs on your local machine. The cookie domain is `localhost`.
 
-:::info Use either `localhost` or `127.0.0.1` consistently. Although technically they refer to the same machine, browsers treat
-them as different cookie domains. :::
+:::info
+<p>
+Use either `localhost` or `127.0.0.1` consistently. Although technically they refer to the same machine, browsers treat
+them as different cookie domains.
+</p>
+:::
 
 Ory CLI provides a convenient way to configure and manage projects. Additionally, the CLI provides Ory Tunnel - a tool that
 ensures cookies match the domain your application is currently on.
@@ -28,5 +32,9 @@ import Mermaid from "@site/src/theme/Mermaid"
 />
 ```
 
-:::tip To learn more about the Ory Tunnel, read the
-[dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel). :::
+:::tip
+<p>
+To learn more about the Ory Tunnel, read the
+[dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel).
+</p>
+:::
