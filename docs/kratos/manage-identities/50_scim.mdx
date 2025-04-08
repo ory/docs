@@ -37,7 +37,7 @@ flowchart TD
     P(Project) --> O(Organization 2)
     P(Project) --> O3(Organization 3)
 
-    O --> S(SCIM Server)
+    O --> S(SCIM Client)
     O <-->|belongs to| I(Identity)
     S -->|provisions| I
 `}
@@ -53,23 +53,23 @@ To set up identity provisioning with SCIM, follow these steps:
 If you haven't already, create an [organization](../organizations). This organization will be used to manage your SCIM settings
 and provision identities.
 
-### Create a SCIM server
+### Configure a SCIM client
 
-In the organization view, under **SCIM servers**, click **Add SCIM server**. This will open a form where you can configure your
-SCIM server settings.
+In the organization view, under **SCIM clients**, click **Add SCIM client**. This will open a form where you can configure your
+SCIM client's settings.
 
-- **Name**: Enter a name for your SCIM server. This name will be used to identify the SCIM server in the Ory Network.
-- **Description**: Enter a description for your SCIM server. This description will be used to provide additional information about
-  the SCIM server.
-- **Client authentication**: Enter a secret in the client authenticaiton's **secret** field. This secret will be used to
+- **Client ID**: Enter an identifier for your SCIM client. This identifier will be part of the URL the client uses to access the
+  Ory Network SCIM server. It should be unique within your project.
+- **Label**: Enter a human-readable label for your SCIM client. the SCIM server.
+- **Authorization header secret**: Enter a secret in the client authenticaiton's **secret** field. This secret will be used to
   authenticate requests to the SCIM server. Clients need to specify this in the `Authorization` header of their requests.
 - **Data mapping**: When the client creates or updates a user, the supplied data will be applied to the identity based on this
   data mapping.
 
-### Use the SCIM server
+### Use the SCIM client
 
-Once you have created a SCIM server, you can use it to provision identities. The SCIM server will provide a set of endpoints that
-allow the creation and management of user identities and groups.
+Once you have configured a SCIM client, you can use it to provision identities. The Ory Network SCIM server provides a set of
+endpoints that allow the creation and management of user identities and groups.
 
 The following endpoints are available:
 
