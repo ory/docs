@@ -95,3 +95,6 @@ The following endpoints are available:
 - For querying groups with `GET /Groups`, the SCIM server only supports the `eq` operator for filtering, and only with the
   `displayName` attribute. Other operators like `ne`, `co`, `sw`, and `ew` are not supported.
 - For both user and group query endpoints, `startIndex` must be lower than 5000, and `count` must be lower than 1000.
+- If the user already exists within the project or organization the provisioning may fail with a 409 conflict error. This is
+  because the SCIM server cannot modify existing users that have not been provisioned via SCIM. In this case, you need to manually
+  delete the user first.
