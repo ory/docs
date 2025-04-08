@@ -1,0 +1,397 @@
+---
+id: setup
+title: Setting up Ory Identity
+sidebar_label: Setup
+---
+
+# Setting up Ory Identity
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeBlock from '@theme/CodeBlock'
+import { FrameworkCodeTabs } from '@site/src/components/GuidesComponents'
+```
+
+This guide shows how to set up the necessary dependencies and configurations to integrate Ory's identity management features into
+your application.
+
+## Prerequisites
+
+Before starting, ensure you have:
+
+1. An [Ory Network account](https://console.ory.sh) (or [self-hosted](http://localhost:3001/docs/self-hosted/oel/quickstart) Ory installation)
+2. Your Ory project slug or API URL
+3. Your development environment set up with your framework of choice
+
+## 1. Install SDK for your framework
+
+First, install the Ory SDK for your framework:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```shell
+npm install @ory/client --save
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+```shell
+npm install @ory/client --save
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+```shell
+npm install @ory/client @ory/integrations --save
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```shell
+go get github.com/ory/client-go
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+For cURL, you don't need to install any SDK, as you'll make direct HTTP requests to the Ory APIs.
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## 2. Configure the SDK
+
+Next, configure the SDK with your Ory project URL:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```javascript
+const { Configuration, FrontendApi } = require("@ory/client")
+
+// Initialize the SDK
+const ory = new FrontendApi(
+  new Configuration({
+    basePath: "https://$PROJECT_SLUG.projects.oryapis.com",
+    baseOptions: {
+      withCredentials: true,
+    },
+  }),
+)
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+```javascript
+import { Configuration, FrontendApi } from "@ory/client"
+
+// Initialize the SDK
+const ory = new FrontendApi(
+  new Configuration({
+    basePath: "https://$PROJECT_SLUG.projects.oryapis.com",
+    baseOptions: {
+      withCredentials: true,
+    },
+  }),
+)
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+```javascript
+// In a file like lib/ory.js
+import { Configuration, FrontendApi } from "@ory/client"
+import { edgeConfig } from "@ory/integrations/next"
+
+// Initialize the SDK
+export const ory = new FrontendApi(
+  new Configuration({
+    ...edgeConfig,
+    baseOptions: {
+      withCredentials: true,
+    },
+  }),
+)
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```go
+import (
+    "context"
+    ory "github.com/ory/client-go"
+)
+
+func main() {
+    configuration := ory.NewConfiguration()
+    configuration.Servers = []ory.ServerConfiguration{
+        {
+            URL: "https://$PROJECT_SLUG.projects.oryapis.com",
+        },
+    }
+    client := ory.NewAPIClient(configuration)
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+For cURL, you'll include the project URL directly in your requests:
+
+```shell
+# Example format - specific endpoints will be shown in the authentication section
+curl --request GET \
+  --url 'https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser' \
+  --header 'Accept: application/json'
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## 3. Set up local development with Ory Tunnel
+
+For local development, you'll need to use Ory Tunnel to connect your local application with Ory's APIs:
+
+```shell
+# Install Ory CLI
+npm install -g @ory/cli
+
+# Start the tunnel (replace with your project slug)
+ory tunnel --dev https://$PROJECT_SLUG.projects.oryapis.com --port 4000
+```
+
+:::tip
+  To learn more about the Ory Tunnel, read the [dedicated section of the Ory CLI
+  documentation](../../guides/cli/proxy-and-tunnel).
+:::
+
+When using the tunnel, configure your SDK to use the local tunnel URL:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```javascript
+// For local development with tunnel
+const ory = new FrontendApi(
+  new Configuration({
+    basePath: "http://localhost:4000",
+    baseOptions: {
+      withCredentials: true,
+    },
+  }),
+)
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+```javascript
+// For local development with tunnel
+const ory = new FrontendApi(
+  new Configuration({
+    basePath: "http://localhost:4000",
+    baseOptions: {
+      withCredentials: true,
+    },
+  }),
+)
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+```javascript
+// For Next.js, create an API route at pages/api/.ory/[...paths].ts
+import { createApiHandler } from "@ory/integrations/next"
+
+export default createApiHandler({
+  dontUseTldForCookieDomain: true,
+})
+
+// Then update your configuration to use relative URLs:
+export const ory = new FrontendApi(
+  new Configuration({
+    basePath: "/api/.ory",
+    baseOptions: {
+      withCredentials: true,
+    },
+  }),
+)
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```go
+// For local development with tunnel
+configuration := ory.NewConfiguration()
+configuration.Servers = []ory.ServerConfiguration{
+    {
+        URL: "http://localhost:4000",
+    },
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+```shell
+# When using Ory Tunnel, direct your requests to the tunnel endpoint
+curl --request GET \
+  --url 'http://localhost:4000/self-service/login/browser' \
+  --header 'Accept: application/json'
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## 4. Verify the setup
+
+Let's test the connection to make sure everything is working:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```javascript
+// Test connection
+ory
+  .toSession()
+  .then(({ data }) => {
+    console.log("Connected to Ory successfully:", data)
+  })
+  .catch((err) => {
+    console.log("Not authenticated, which is expected:", err.response?.status)
+  })
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+```javascript
+// Test connection
+ory
+  .toSession()
+  .then(({ data }) => {
+    console.log("Connected to Ory successfully:", data)
+  })
+  .catch((err) => {
+    console.log("Not authenticated, which is expected:", err.response?.status)
+  })
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+```javascript
+// In a page component
+import { useEffect, useState } from "react"
+import { ory } from "../lib/ory"
+
+export default function TestPage() {
+  const [status, setStatus] = useState("Checking connection...")
+
+  useEffect(() => {
+    ory
+      .toSession()
+      .then(({ data }) => {
+        setStatus("Connected to Ory successfully!")
+      })
+      .catch((err) => {
+        setStatus("Not authenticated, which is expected")
+      })
+  }, [])
+
+  return <div>{status}</div>
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```go
+// Test connection
+resp, r, err := client.FrontendApi.ToSession(context.Background()).Execute()
+if err != nil {
+    fmt.Fprintf(os.Stderr, "Not authenticated, which is expected: %v\n", r.StatusCode)
+} else {
+    fmt.Fprintf(os.Stdout, "Connected to Ory successfully: %v\n", resp.Id)
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+```shell
+# Check for an existing session
+curl --request GET \
+  --url 'https://$PROJECT_SLUG.projects.oryapis.com/sessions/whoami' \
+  --header 'Accept: application/json'
+
+# If not authenticated, you'll receive a 401 status code, which is expected
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Next Steps
+
+Now that you have set up the Ory SDK and verified the connection, you're ready to implement authentication flows in your
+application.
+
+In the next section, we'll cover how to implement registration and login flows using browser-based authentication.

@@ -1,0 +1,502 @@
+---
+id: oauth-client-implementation
+title: OAuth Client Implementation
+sidebar_label: OAuth Client Implementation
+---
+
+# OAuth Client Implementation
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeBlock from "@theme/CodeBlock"
+import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/GuidesComponents'
+```
+
+This guide shows how to implement OAuth 2.0 client functionality with Ory. You'll learn how to integrate OpenID Connect (OIDC) to
+authenticate users through social sign-in providers.
+
+## Setting Up OAuth Clients
+
+Before using OAuth/OIDC, you need to create an OAuth client in your Ory project:
+
+<ImplementationSteps
+  steps={[
+    {
+      title: "Create an OAuth client in Ory Console",
+      description: "Configure redirect URLs and scopes for your application",
+    },
+    {
+      title: "Configure OAuth provider",
+      description: "Set up your chosen identity provider (Google, GitHub, etc.)",
+    },
+    {
+      title: "Implement OAuth flow in your application",
+      description: "Add login buttons and handle OAuth redirects",
+    },
+  ]}
+/>
+
+### Create OAuth Client in Ory Console
+
+1. Go to the [Ory Console](https://console.ory.sh/)
+2. Navigate to your project
+3. Go to **Social Sign-In** under **Authentication**
+4. Click on **Add Provider**
+5. Select your desired provider (Google, GitHub, etc.)
+6. Enter the required credentials and configure the provider
+
+## Implementing Social Sign-In
+
+Add social sign-in buttons to your authentication flows:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```javascript
+// Add this to your login page
+app.get("/login", async (req, res) => {
+  try {
+    // Initialize login flow
+    const { data: flow } = await ory.createBrowserLoginFlow({
+      returnTo: req.query.return_to || "/",
+    })
+
+    // Check for available social providers
+    const socialProviders = flow.ui.nodes
+      .filter((node) => node.group === "oidc")
+      .map((node) => {
+        // Extract provider details from node attributes
+        const providerName = node.attributes.value
+        const providerLabel = node.meta.label?.text || providerName
+
+        return {
+          name: providerName,
+          label: providerLabel,
+          url: `${flow.ui.action}?flow=${flow.id}&method=oidc&provider=${providerName}`,
+        }
+      })
+
+    res.render("login", {
+      flow,
+      socialProviders,
+      csrfToken: flow.ui.nodes.find((n) => n.attributes.name === "csrf_token")?.attributes.value,
+    })
+  } catch (err) {
+    res.status(500).send("Something went wrong")
+  }
+})
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+```tsx
+import { useState, useEffect } from "react"
+import { ory } from "../lib/ory"
+import { useRouter } from "next/router"
+
+export const Login = () => {
+  const router = useRouter()
+  const [flow, setFlow] = useState(null)
+  const [socialProviders, setSocialProviders] = useState([])
+
+  useEffect(() => {
+    // Initialize login flow
+    ory
+      .createBrowserLoginFlow({
+        returnTo: router.query.return_to?.toString(),
+      })
+      .then(({ data }) => {
+        setFlow(data)
+
+        // Extract social providers
+        const providers = data.ui.nodes
+          .filter((node) => node.group === "oidc")
+          .map((node) => ({
+            name: node.attributes.value,
+            label: node.meta.label?.text || node.attributes.value,
+            url: `${data.ui.action}?flow=${data.id}&method=oidc&provider=${node.attributes.value}`,
+          }))
+
+        setSocialProviders(providers)
+      })
+      .catch(console.error)
+  }, [router.query.return_to])
+
+  if (!flow) return <div>Loading...</div>
+
+  return (
+    <div>
+      <h2>Login</h2>
+
+      {/* Regular login form */}
+      <form action={flow.ui.action} method="POST">
+        {/* ... other login form fields ... */}
+
+        <input
+          type="hidden"
+          name="csrf_token"
+          value={flow.ui.nodes.find((n) => n.attributes.name === "csrf_token")?.attributes.value}
+        />
+      </form>
+
+      {/* Social login buttons */}
+      <div className="social-providers">
+        <h3>Or sign in with:</h3>
+        {socialProviders.map((provider) => (
+          <a key={provider.name} href={provider.url} className="social-button">
+            {provider.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  )
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```go
+package main
+
+import (
+	"context"
+	"html/template"
+	"net/http"
+
+	ory "github.com/ory/client-go"
+)
+
+type SocialProvider struct {
+	Name  string
+	Label string
+	URL   string
+}
+
+func loginHandler(w http.ResponseWriter, r *http.Request) {
+	// Initialize the Ory client
+	configuration := ory.NewConfiguration()
+	configuration.Servers = []ory.ServerConfiguration{
+		{
+			URL: "https://$PROJECT_SLUG.projects.oryapis.com",
+		},
+	}
+	client := ory.NewAPIClient(configuration)
+
+	// Create login flow
+	returnTo := r.URL.Query().Get("return_to")
+	flow, _, err := client.FrontendApi.CreateBrowserLoginFlow(context.Background()).
+		ReturnTo(returnTo).
+		Execute()
+
+	if err != nil {
+		http.Error(w, "Failed to initialize login flow", http.StatusInternalServerError)
+		return
+	}
+
+	// Extract social providers
+	var socialProviders []SocialProvider
+	for _, node := range flow.Ui.Nodes {
+		if node.Group == "oidc" {
+			var label string
+			if node.Meta != nil && node.Meta.Label != nil {
+				label = node.Meta.Label.Text
+			} else {
+				label = node.Attributes.Value.(string)
+			}
+
+			socialProviders = append(socialProviders, SocialProvider{
+				Name:  node.Attributes.Value.(string),
+				Label: label,
+				URL:   flow.Ui.Action + "?flow=" + flow.Id + "&method=oidc&provider=" + node.Attributes.Value.(string),
+			})
+		}
+	}
+
+	// Find CSRF token
+	var csrfToken string
+	for _, node := range flow.Ui.Nodes {
+		if node.Attributes != nil && node.Attributes.Name == "csrf_token" {
+			csrfToken = node.Attributes.Value.(string)
+			break
+		}
+	}
+
+	// Render template
+	tmpl, _ := template.ParseFiles("templates/login.html")
+	tmpl.Execute(w, map[string]interface{}{
+		"Flow":            flow,
+		"SocialProviders": socialProviders,
+		"CSRFToken":       csrfToken,
+	})
+}
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Handling OAuth Callback
+
+When a user clicks a social sign-in button, they'll be redirected to the provider's login page and then back to your application.
+Ory handles the callback automatically, but you need to configure your application to receive the authenticated user:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```javascript
+// No special callback handling is needed - Ory will redirect back to the return_to URL
+// Just make sure to check for a valid session
+
+app.get("/oauth-callback", async (req, res) => {
+  try {
+    // Verify session after OAuth login
+    const { data: session } = await ory.toSession({
+      cookie: req.header("cookie"),
+    })
+
+    // User is authenticated via OAuth
+    console.log("Successfully authenticated via OAuth. User ID:", session.identity.id)
+
+    // Redirect to the original destination or default
+    const returnTo = req.query.return_to || "/dashboard"
+    res.redirect(returnTo)
+  } catch (err) {
+    // Authentication failed
+    res.redirect("/login?error=oauth_failed")
+  }
+})
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+```tsx
+import { useEffect } from "react"
+import { ory } from "../lib/ory"
+import { useRouter } from "next/router"
+
+export const OAuthCallback = () => {
+  const router = useRouter()
+
+  useEffect(() => {
+    // Verify session after OAuth login
+    ory
+      .toSession()
+      .then(({ data }) => {
+        // User is authenticated via OAuth
+        console.log("Successfully authenticated via OAuth. User ID:", data.identity.id)
+
+        // Redirect to the return_to URL or default destination
+        const returnTo = router.query.return_to?.toString() || "/dashboard"
+        router.push(returnTo)
+      })
+      .catch((err) => {
+        // Authentication failed
+        router.push("/login?error=oauth_failed")
+      })
+  }, [router])
+
+  return <div>Completing authentication...</div>
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```go
+func oauthCallbackHandler(w http.ResponseWriter, r *http.Request) {
+	// Initialize the Ory client
+	configuration := ory.NewConfiguration()
+	configuration.Servers = []ory.ServerConfiguration{
+		{
+			URL: "https://$PROJECT_SLUG.projects.oryapis.com",
+		},
+	}
+	client := ory.NewAPIClient(configuration)
+
+	// Verify session after OAuth login
+	cookie := r.Header.Get("Cookie")
+	session, _, err := client.FrontendApi.ToSession(context.Background()).Cookie(cookie).Execute()
+
+	if err != nil {
+		// Authentication failed
+		http.Redirect(w, r, "/login?error=oauth_failed", http.StatusFound)
+		return
+	}
+
+	// User is authenticated via OAuth
+	fmt.Printf("Successfully authenticated via OAuth. User ID: %s\n", session.Identity.Id)
+
+	// Redirect to the original destination or default
+	returnTo := r.URL.Query().Get("return_to")
+	if returnTo == "" {
+		returnTo = "/dashboard"
+	}
+
+	http.Redirect(w, r, returnTo, http.StatusFound)
+}
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Accessing User Information from OAuth Providers
+
+After authentication, you can access user information provided by the OAuth provider. This information is available in the user's
+identity traits:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```javascript
+app.get("/profile", requireAuth, (req, res) => {
+  // req.session was set in the requireAuth middleware
+  const user = req.session.identity
+
+  // Access standard traits
+  const email = user.traits.email
+
+  // Access provider-specific data
+  // The structure depends on how you've mapped provider data in Ory Console
+  const providerData = user.metadata_public?.providers || {}
+
+  res.render("profile", {
+    user,
+    email,
+    providerData,
+  })
+})
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+```tsx
+import { useEffect, useState } from "react"
+import { ory } from "../lib/ory"
+
+export const Profile = () => {
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    ory
+      .toSession()
+      .then(({ data }) => {
+        setUser(data.identity)
+        setLoading(false)
+      })
+      .catch(() => {
+        window.location.href = "/login?return_to=/profile"
+      })
+  }, [])
+
+  if (loading) return <div>Loading...</div>
+
+  // Access standard traits
+  const email = user.traits.email
+
+  // Access provider-specific data
+  const providerData = user.metadata_public?.providers || {}
+
+  return (
+    <div>
+      <h2>User Profile</h2>
+      <p>Email: {email}</p>
+
+      {Object.entries(providerData).map(([provider, data]) => (
+        <div key={provider}>
+          <h3>Data from {provider}</h3>
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        </div>
+      ))}
+    </div>
+  )
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```go
+func profileHandler(w http.ResponseWriter, r *http.Request) {
+	// Get session from context (set by authMiddleware)
+	session := r.Context().Value("session").(*ory.Session)
+	user := session.Identity
+
+	// Access standard traits
+	email := user.Traits["email"]
+
+	// Access provider-specific data
+	var providerData map[string]interface{}
+	if user.MetadataPublic != nil {
+		if providers, ok := user.MetadataPublic["providers"].(map[string]interface{}); ok {
+			providerData = providers
+		}
+	}
+
+	// Render profile template
+	tmpl, _ := template.ParseFiles("templates/profile.html")
+	tmpl.Execute(w, map[string]interface{}{
+		"User":         user,
+		"Email":        email,
+		"ProviderData": providerData,
+	})
+}
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Account Linking
+
+You can enable users to link multiple social accounts to their main account by configuring account linking in Ory Console:
+
+1. Go to the Ory Console
+2. Navigate to your project settings
+3. Under **Social Sign-In**, enable **Account Linking**
+4. Configure the account matching strategy (by email or by provider identifiers)
+
+## Best Practices for OAuth Implementation
+
+1. **Always Use HTTPS**: OAuth flows require secure connections
+2. **State Parameter**: Ensure your OAuth flow uses state parameters to prevent CSRF attacks (Ory handles this automatically)
+3. **Scopes**: Request only the scopes you need for your application
+4. **Error Handling**: Implement comprehensive error handling for OAuth failures
+5. **Account Linking**: Consider enabling account linking to allow users to connect multiple providers
+6. **Testing**: Test the OAuth flow thoroughly, including edge cases and error scenarios
+
+## Next Steps
+
+Now that you've implemented OAuth client functionality, you can:
+
+1. [Add more social sign-in providers](/docs/kratos/social-signin/01_overview.mdx)
+2. [Customize identity traits schema](/docs/kratos/manage-identities/15_customize-identity-schema.mdx)
+3. [Implement MFA with social sign-in](/docs/kratos/mfa/01_overview.mdx)
+4. [Configure sign-in with Ory](/docs/kratos/social-signin/09_ory.mdx)

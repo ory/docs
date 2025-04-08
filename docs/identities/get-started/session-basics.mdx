@@ -1,0 +1,369 @@
+---
+id: session-basics
+title: Session Management Basics
+sidebar_label: Session Basics
+---
+
+# Session Management Basics
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeBlock from "@theme/CodeBlock"
+import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/GuidesComponents'
+import jsCheckSession from '!!raw-loader!./_common/code-examples/js/session/check-session.js'
+import reactCheckSession from '!!raw-loader!./_common/code-examples/react/session/check-session.tsx'
+import goCheckSession from '!!raw-loader!./_common/code-examples/go/session/check-session.go'
+```
+
+After a user has logged in, Ory creates a session cookie that your application can use to verify the user's authentication status.
+This guide shows how to work with sessions in your application.
+
+## Checking Session Status
+
+You'll need to verify if a user is authenticated before allowing access to protected resources. Here's how to implement session
+verification:
+
+<ImplementationSteps
+  steps={[
+    {
+      title: "Verify the session",
+      description: "Check if the user has a valid session cookie",
+    },
+    {
+      title: "Access identity information",
+      description: "Retrieve user details from the session",
+    },
+    {
+      title: "Handle unauthenticated users",
+      description: "Redirect to login if no valid session exists",
+    },
+  ]}
+/>
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+### Session Verification with Express.js
+
+<CodeBlock className="language-js">{jsCheckSession}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+### Session Verification in React
+
+<CodeBlock className="language-tsx">{reactCheckSession}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+### Session Verification in Go
+
+<CodeBlock className="language-go">{goCheckSession}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+### Session Verification with cURL
+
+```shell
+# Check if the user is authenticated
+curl -X GET \
+  'https://$PROJECT_SLUG.projects.oryapis.com/sessions/whoami' \
+  -H 'Accept: application/json' \
+  -H 'Cookie: ory_session_YOUR_PROJECT=YOUR_SESSION_COOKIE' \
+  --verbose
+
+# If the user is authenticated, the response will include session details:
+# {
+#   "id": "session_id",
+#   "active": true,
+#   "expires_at": "2023-01-01T00:00:00Z",
+#   "authenticated_at": "2022-01-01T00:00:00Z",
+#   "issued_at": "2022-01-01T00:00:00Z",
+#   "identity": {
+#     "id": "identity_id",
+#     "traits": {
+#       "email": "user@example.com"
+#     }
+#   }
+# }
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Protecting Routes
+
+Common patterns for protecting routes in your application:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```javascript
+// Create an authentication middleware
+const requireAuth = async (req, res, next) => {
+  try {
+    const { data: session } = await ory.toSession({
+      cookie: req.header("cookie"),
+    })
+
+    req.session = session
+    next()
+  } catch (err) {
+    res.redirect("/login?return_to=" + encodeURIComponent(req.originalUrl))
+  }
+}
+
+// Apply the middleware to routes that need protection
+app.get("/dashboard", requireAuth, dashboardHandler)
+app.get("/settings", requireAuth, settingsHandler)
+app.get("/profile", requireAuth, profileHandler)
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+```tsx
+import { useEffect, useState } from "react"
+import { ory } from "../lib/ory"
+import { Navigate } from "react-router-dom"
+
+// Create a protected route wrapper component
+const ProtectedRoute = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    ory
+      .toSession()
+      .then(() => {
+        setIsAuthenticated(true)
+        setLoading(false)
+      })
+      .catch(() => {
+        setIsAuthenticated(false)
+        setLoading(false)
+      })
+  }, [])
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  return isAuthenticated ? children : <Navigate to="/login" replace />
+}
+
+// Use the protected route component
+;<Route
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  }
+/>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+```tsx
+// middleware.ts file at the project root
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
+
+export async function middleware(request: NextRequest) {
+  const url = new URL(request.url)
+  // List of protected paths
+  const protectedPaths = ["/dashboard", "/settings", "/profile"]
+  const isProtectedPath = protectedPaths.some((path) => url.pathname === path || url.pathname.startsWith(`${path}/`))
+
+  if (isProtectedPath) {
+    // Check for the session cookie
+    const cookie = request.cookies.get("ory_session_YOUR_PROJECT")
+
+    if (!cookie) {
+      // Redirect to login if no session cookie exists
+      return NextResponse.redirect(new URL(`/login?return_to=${encodeURIComponent(url.pathname)}`, request.url))
+    }
+  }
+
+  return NextResponse.next()
+}
+
+// Configure which paths the middleware runs on
+export const config = {
+  matcher: ["/dashboard/:path*", "/settings/:path*", "/profile/:path*"],
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```go
+func main() {
+  // Create a router
+  mux := http.NewServeMux()
+
+  // Public routes
+  mux.HandleFunc("/", homeHandler)
+  mux.HandleFunc("/login", loginHandler)
+
+  // Protected routes with auth middleware
+  mux.Handle("/dashboard", authMiddleware(http.HandlerFunc(dashboardHandler)))
+  mux.Handle("/settings", authMiddleware(http.HandlerFunc(settingsHandler)))
+  mux.Handle("/profile", authMiddleware(http.HandlerFunc(profileHandler)))
+
+  http.ListenAndServe(":8080", mux)
+}
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Session Lifespans
+
+Ory sessions have several important time properties:
+
+| Property           | Description                         |
+| ------------------ | ----------------------------------- |
+| `issued_at`        | When the session was created        |
+| `authenticated_at` | When the user was authenticated     |
+| `expires_at`       | When the session will expire        |
+| `active`           | Whether the session is still active |
+
+By default, sessions expire after 24 hours. This can be configured in your Ory project settings.
+
+## Refreshing Sessions
+
+To extend a session's lifespan, you can use the session refresh flow:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```javascript
+app.get("/refresh-session", async (req, res) => {
+  try {
+    const { data: refreshedSession } = await ory.extendSession({
+      cookie: req.header("cookie"),
+    })
+
+    console.log("Session extended until:", refreshedSession.expires_at)
+    res.redirect("/dashboard")
+  } catch (err) {
+    console.error("Failed to refresh session:", err)
+    res.redirect("/login")
+  }
+})
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+```tsx
+const refreshSession = async () => {
+  try {
+    const { data: refreshedSession } = await ory.extendSession()
+    console.log("Session extended until:", refreshedSession.expires_at)
+    return true
+  } catch (err) {
+    console.error("Failed to refresh session:", err)
+    window.location.href = "/login"
+    return false
+  }
+}
+
+// Call this function periodically or when the user performs actions
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```go
+func refreshSessionHandler(w http.ResponseWriter, r *http.Request) {
+  // Initialize the Ory client
+  configuration := ory.NewConfiguration()
+  configuration.Servers = []ory.ServerConfiguration{
+    {
+      URL: "https://$PROJECT_SLUG.projects.oryapis.com",
+    },
+  }
+  client := ory.NewAPIClient(configuration)
+
+  // Refresh the session
+  cookie := r.Header.Get("Cookie")
+  refreshedSession, _, err := client.FrontendApi.ExtendSession(context.Background()).Cookie(cookie).Execute()
+
+  if err != nil {
+    http.Redirect(w, r, "/login", http.StatusFound)
+    return
+  }
+
+  http.Redirect(w, r, "/dashboard", http.StatusFound)
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+```shell
+# Refresh a session
+curl -X POST \
+  'https://$PROJECT_SLUG.projects.oryapis.com/sessions/extend' \
+  -H 'Accept: application/json' \
+  -H 'Cookie: ory_session_YOUR_PROJECT=YOUR_SESSION_COOKIE' \
+  --verbose
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Best Practices for Session Management
+
+1. **Always Verify Sessions**: Never assume a user is authenticated without verifying their session first
+2. **Use Short Expiry Times**: Set shorter session lifespans for sensitive applications
+3. **Implement Session Refresh**: Allow users to extend their sessions when they're active
+4. **Secure Cookie Handling**: Always pass cookies with credentials in API requests
+5. **Provide Graceful Redirects**: When a session expires, save the user's intended destination and redirect there after
+   re-authentication
+
+## Next Steps
+
+Now that you've learned how to manage user sessions, you can:
+
+1. [Implement Multi-factor Authentication](/docs/kratos/mfa/01_overview.mdx)
+2. [Add Password Reset Flows](/docs/kratos/manage-identities/30_account-recovery.mdx)
+3. [Set Up Email Verification](/docs/kratos/self-hosted/05_account-activation-email-verification.mdx)
+4. [Explore OpenID Connect Integration](/docs/guides/oauth2-openid-connect.mdx)

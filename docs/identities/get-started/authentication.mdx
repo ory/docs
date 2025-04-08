@@ -1,0 +1,341 @@
+---
+id: authentication
+title: Implementing Authentication Flows
+sidebar_label: Authentication Flows
+---
+
+# Implementing Authentication Flows
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import { getSdkUrl } from "@site/src/hooks"
+import CodeBlock from "@theme/CodeBlock"
+import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/GuidesComponents'
+import jsRegistration from '!!raw-loader!./_common/code-examples/js/registration.js'
+import reactRegistration from '!!raw-loader!./_common/code-examples/react/registration.tsx'
+import goRegistration from '!!raw-loader!./_common/code-examples/go/registration.go'
+import nextjsRegistration from '!!raw-loader!./_common/code-examples/nextjs/registration.tsx'
+import jsLogin from '!!raw-loader!./_common/code-examples/js/login.js'
+import reactLogin from '!!raw-loader!./_common/code-examples/react/login.tsx'
+import goLogin from '!!raw-loader!./_common/code-examples/go/login.go'
+import nextjsLogin from '!!raw-loader!./_common/code-examples/nextjs/login.tsx'
+import jsSession from '!!raw-loader!./_common/code-examples/js/session/check-session.js'
+import reactSession from '!!raw-loader!./_common/code-examples/react/session/check-session.tsx'
+import goSession from '!!raw-loader!./_common/code-examples/go/session/check-session.go'
+import jsLogout from '!!raw-loader!./_common/code-examples/js/logout.js'
+import reactLogout from '!!raw-loader!./_common/code-examples/react/logout.tsx'
+import goLogout from '!!raw-loader!./_common/code-examples/go/logout.go'
+import jsErrorHandling from '!!raw-loader!./_common/code-examples/js/error-handling.js'
+import reactErrorHandling from '!!raw-loader!./_common/code-examples/react/error-handling.tsx'
+```
+
+This guide shows how to implement user registration and login flows in your application using Ory's browser-based authentication.
+
+## Registration Flow
+
+The registration flow lets new users create accounts in your application. Here's how to implement it:
+
+<ImplementationSteps
+  steps={[
+    {
+      title: "Initialize a registration flow",
+      description: "Redirect the user to the registration page or create a registration flow programmatically",
+    },
+    {
+      title: "Render the registration form",
+      description: "Fetch and display the registration UI with all necessary fields",
+    },
+    {
+      title: "Submit the form",
+      description: "Handle form submission and process the response",
+    },
+  ]}
+/>
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+### Create Registration Flow
+
+<CodeBlock className="language-js">{jsRegistration}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+### Create Registration Component
+
+<CodeBlock className="language-tsx">{reactRegistration}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+### Registration in Next.js
+
+<CodeBlock className="language-tsx">{nextjsRegistration}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+### Create Registration Flow in Go
+
+<CodeBlock className="language-go">{goRegistration}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+### Create and Submit Registration with cURL
+
+```shell
+# Create a registration flow
+curl -X GET \
+  'https://$PROJECT_SLUG.projects.oryapis.com/self-service/registration/browser' \
+  -H 'Accept: application/json' \
+  --verbose
+
+# The response contains a flow ID that you'll need for the next request
+
+# Submit registration data
+curl -X POST \
+  'https://$PROJECT_SLUG.projects.oryapis.com/self-service/registration?flow=FLOW_ID' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "method": "password",
+    "password": "secure-password",
+    "traits": {
+      "email": "user@example.com",
+      "name": "Test User"
+    },
+    "csrf_token": "THE_CSRF_TOKEN_FROM_FLOW"
+  }'
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Login Flow
+
+The login flow authenticates existing users. Here's how to implement it:
+
+<ImplementationSteps
+  steps={[
+    {
+      title: "Initialize a login flow",
+      description: "Redirect the user to the login page or create a login flow programmatically",
+    },
+    {
+      title: "Render the login form",
+      description: "Fetch and display the login UI with fields for credentials",
+    },
+    {
+      title: "Submit the form",
+      description: "Handle form submission and process the response",
+    },
+  ]}
+/>
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+### Create Login Flow
+
+<CodeBlock className="language-js">{jsLogin}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+### Create Login Component
+
+<CodeBlock className="language-tsx">{reactLogin}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+### Login Page in Next.js
+
+<CodeBlock className="language-tsx">{nextjsLogin}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+### Create Login Flow in Go
+
+<CodeBlock className="language-go">{goLogin}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+### Create and Submit Login with cURL
+
+```shell
+# Create a login flow
+curl -X GET \
+  'https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser' \
+  -H 'Accept: application/json' \
+  --verbose
+
+# The response contains a flow ID that you'll need for the next request
+
+# Submit login data
+curl -X POST \
+  'https://$PROJECT_SLUG.projects.oryapis.com/self-service/login?flow=FLOW_ID' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "method": "password",
+    "identifier": "user@example.com",
+    "password": "secure-password",
+    "csrf_token": "THE_CSRF_TOKEN_FROM_FLOW"
+  }'
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Session Management
+
+After a successful login, Ory sets a session cookie. You can check if a user is authenticated and access their information:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+<CodeBlock className="language-js">{jsSession}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+<CodeBlock className="language-tsx">{reactSession}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+<CodeBlock className="language-go">{goSession}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+```shell
+# Check if a user is authenticated
+curl -X GET \
+  'https://$PROJECT_SLUG.projects.oryapis.com/sessions/whoami' \
+  -H 'Accept: application/json' \
+  -H 'Cookie: ory_session_YOUR_PROJECT=YOUR_SESSION_COOKIE' \
+  --verbose
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Logout Flow
+
+To log users out, use the logout flow:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+<CodeBlock className="language-js">{jsLogout}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+<CodeBlock className="language-tsx">{reactLogout}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+<CodeBlock className="language-go">{goLogout}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+```shell
+# Create a logout flow
+curl -X GET \
+  'https://$PROJECT_SLUG.projects.oryapis.com/self-service/logout/browser' \
+  -H 'Accept: application/json' \
+  -H 'Cookie: ory_session_YOUR_PROJECT=YOUR_SESSION_COOKIE' \
+  --verbose
+
+# The response contains a logout_url that you'll need to redirect the user to
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Error Handling
+
+Handle authentication errors gracefully by checking for specific error types and displaying appropriate messages:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+<CodeBlock className="language-js">{jsErrorHandling}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+<CodeBlock className="language-tsx">{reactErrorHandling}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Next Steps
+
+Now that you have implemented basic authentication flows in your application, you can:
+
+1. [Customize the user interface](/docs/kratos/bring-your-own-ui/01_overview.mdx)
+2. [Add multi-factor authentication](/docs/kratos/mfa/01_overview.mdx)
+3. [Configure session lifespans](/docs/kratos/session-management/10_session-lifespan.mdx)
+4. [Implement account recovery](/docs/kratos/manage-identities/30_account-recovery.mdx)
+
+In the next section, we'll cover session management in more detail, including checking session status, refreshing sessions, and
+handling logouts.

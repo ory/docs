@@ -243,14 +243,30 @@ const operations: SidebarItemsConfig = [
 
 const identities: SidebarItemsConfig = [
   homeLink,
+  "identities/index",
+  {
+    type: "category",
+    label: "Get Started",
+    collapsed: false,
+    link: {
+      type: "doc",
+      id: "identities/get-started/index",
+    },
+    items: [
+      "identities/get-started/setup",
+      "identities/get-started/authentication",
+      "identities/get-started/session-basics",
+      "identities/get-started/oauth-client-implementation",
+      "identities/get-started/complete-example",
+    ],
+  },
   {
     type: "category",
     label: "Concepts",
     collapsed: false,
     collapsible: false,
     link: {
-      type: "doc",
-      id: "identities/index",
+      type: "generated-index",
     },
     items: [
       "security-model",
@@ -264,6 +280,9 @@ const identities: SidebarItemsConfig = [
     label: "Guides",
     collapsed: false,
     collapsible: false,
+    link: {
+      type: "generated-index",
+    },
     items: [
       {
         type: "category",
