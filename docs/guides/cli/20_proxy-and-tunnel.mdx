@@ -95,11 +95,10 @@ If your application code relies on Proxy-specific behavior, you'll need to updat
 
 :::warning
 
-<div>
-  DEPRECATED Ory Proxy has been deprecated and is no longer recommended for new implementations. Please use Ory Tunnel instead,
-  which provides similar functionality with an improved architecture. This documentation is kept for reference purposes for users
-  who still have Ory Proxy in their existing implementations.
-</div>
+DEPRECATED Ory Proxy has been deprecated and is no longer recommended for new implementations. Please use Ory Tunnel instead,
+which provides similar functionality with an improved architecture. This documentation is kept for reference purposes for users
+who still have Ory Proxy in their existing implementations.
+
 :::
 
 Ory Proxy is a reverse proxy deployed in front of your application. This allows the Ory endpoints to be mirrored on the same
@@ -115,17 +114,17 @@ Ory Proxy converts sessions into JSON Web Tokens (JWTs) and ensures that cookies
 
 :::info
 
-<div>
-  Using Ory Proxy is an alternative to [custom domains (CNAME)](../custom-domains), and a useful tool when developing locally.
-  Read more about [adding a Custom Domain to your Ory Network project](../custom-domains.mdx) for production setups.
-</div>
+Using Ory Proxy is an alternative to [custom domains (CNAME)](../custom-domains), and a useful tool when developing locally.
+Read more about [adding a Custom Domain to your Ory Network project](../custom-domains.mdx) for production setups.
+
 :::
 
 ### URL structure
 
 :::tip
 
-<div>Ory Proxy adds `/.ory` prefix when mirroring APIs and UIs of Ory Network.</div>
+Ory Proxy adds `/.ory` prefix when mirroring APIs and UIs of Ory Network.
+
 :::
 
 For example, when using the Ory Proxy, calling `https://<proxy-host>/.ory/ui/login` is the same as calling
@@ -156,10 +155,9 @@ the self-service flow.
 
 :::info
 
-<div>
-  The domain used in `return_to` must be an allow-listed URL set in the project configuration. The URL must include the protocol
-  and domain. Relative URLs aren't supported.
-</div>
+The domain used in `return_to` must be an allow-listed URL set in the project configuration. The URL must include the protocol
+and domain. Relative URLs aren't supported.
+
 :::
 
 ### Use Ory Proxy with JSON Web Tokens
@@ -280,10 +278,9 @@ node your-entrypoint.js
 
 :::tip
 
-<div>
-  Ory Proxy should never be the main entry point to your application. Always run an ingress proxy such as Nginx or Traefik in
-  front.
-</div>
+Ory Proxy should never be the main entry point to your application. Always run an ingress proxy such as Nginx or Traefik in
+front.
+
 :::
 
 ### Use Ory Proxy in Docker
@@ -292,9 +289,8 @@ To use Ory Proxy in Docker, add your application and Ory Proxy to a single Docke
 
 :::info
 
-<div>
-  This isn't a perfect solution as Docker watches the processes running in the foreground. With the application and Ory Proxy in
-  one container, you must decide which becomes the foreground process.
+This isn't a perfect solution as Docker watches the processes running in the foreground. With the application and Ory Proxy in one
+container, you must decide which becomes the foreground process.
 
 When a process crashes, Docker notifies just of the failures of the foreground process and gives no information about the
 background process.
@@ -303,8 +299,6 @@ In this example, Ory Proxy is the background process.
 
 Read the [Docker documentation](https://docs.docker.com/config/containers/multi-service_container/) to learn more about running
 multiple processes in a single container.
-
-</div>
 
 :::
 
