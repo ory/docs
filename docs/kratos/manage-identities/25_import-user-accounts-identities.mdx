@@ -636,13 +636,8 @@ Connect ID Token provider such as Google.
 
 ### SAML connections
 
-:::note
 
-Importing SAML is only available on [some plans](https://www.ory.sh/pricing).
-
-:::
-
-When importingSAML connections, the `provider` field is the SAML provider ID you set in your SAML configuration. The `subject` ID
+When importing SAML connections, the `provider` field is the SAML provider ID you set in your SAML configuration. The `subject` ID
 must be the ID of the user on the given platform. The subject should not be an email, but a fixed user ID that never changes.
 
 ```json {7-20}
@@ -672,7 +667,7 @@ must be the ID of the user on the given platform. The subject should not be an e
 
 ## Organization-specific SAML and OIDC connections
 
-When importing SAML / OIDC connections that are only available for certain [organizations](../organizations/organizations.mdx)
+When importing SAML or OIDC connections that are only available for certain [organizations](../organizations/organizations.mdx)
 (for example `email@companyname.com`), you can use the `organization` field to specify the organization that the user belongs to.
 
 ```json
