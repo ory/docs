@@ -95,7 +95,7 @@ To make authenticated requests to your API there are two main components:
 ```mdx-code-block
 import AppWithAPI from '!!raw-loader!../../../code-examples/protect-page-login/react/src/AppWithApi.tsx'
 
-<CodeBlock language="tsx" title="./src/AppWithAPI.tsx">{AppWithAPI}</CodeBlock>
+<CodeBlock language="tsx" title="./src/App.tsx">{AppWithAPI}</CodeBlock>
 ```
 
 - Your API must have a CORS middleware with `credentials: true` and `Access-Control-Allow-Origin` of your frontend app (here
@@ -121,12 +121,13 @@ import handlerApi from '!!raw-loader!../../../code-examples/auth-api/expressjs/i
 Finally, start the server:
 
 ```shell
+cd server
 node index.js
 ```
 
 ### See it in action
 
-Access your react app at [localhost:5173](http://localhost:8081/), sign in, and see if you can make authenticated requests to your
+Access your react app at [localhost:5173](http://localhost:5173/), sign in, and see if you can make authenticated requests to your
 API!
 
 ## Go to production
