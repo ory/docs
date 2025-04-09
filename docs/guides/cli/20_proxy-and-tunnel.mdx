@@ -94,6 +94,7 @@ If your application code relies on Proxy-specific behavior, you'll need to updat
 ## Ory Proxy (deprecated)
 
 :::warning
+
 <div>
   DEPRECATED Ory Proxy has been deprecated and is no longer recommended for new implementations. Please use Ory Tunnel instead,
   which provides similar functionality with an improved architecture. This documentation is kept for reference purposes for users
@@ -295,13 +296,14 @@ To use Ory Proxy in Docker, add your application and Ory Proxy to a single Docke
   This isn't a perfect solution as Docker watches the processes running in the foreground. With the application and Ory Proxy in
   one container, you must decide which becomes the foreground process.
 
-When a process crashes, Docker notifies just of the failures of the foreground process and gives no information about the background
-process.
+When a process crashes, Docker notifies just of the failures of the foreground process and gives no information about the
+background process.
 
 In this example, Ory Proxy is the background process.
 
 Read the [Docker documentation](https://docs.docker.com/config/containers/multi-service_container/) to learn more about running
 multiple processes in a single container.
+
 </div>
 
 :::
