@@ -26,7 +26,7 @@ the Ory Tunnel - a development tool bundled with Ory CLI:
 export ORY_SDK_URL=https://{your-project-slug-here}.projects.oryapis.com
 
 # Run the tunnel connecting to your React app
-npx @ory/cli tunnel --dev http://localhost:5173
+ory tunnel --project $PROJECT_URL --dev http://localhost:5173
 ```
 
 This will make Ory APIs available at `http://localhost:4000`, which is the URL
