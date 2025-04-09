@@ -66,7 +66,7 @@ ory tunnel --project <project-id> --workspace <workspace-id> http://localhost:30
 
 Ory Proxy has been deprecated in favor of Ory Tunnel. This section guides you through migrating from Proxy to Tunnel.
 
-### Command Changes
+### Command changes
 
 Replace your existing Proxy commands with their Tunnel equivalents:
 
@@ -75,27 +75,31 @@ Replace your existing Proxy commands with their Tunnel equivalents:
 | `ory proxy --project <id> http://localhost:3000`             | `ory tunnel --project <id> http://localhost:3000`             |
 | `ory proxy --project <id> --port 8080 http://localhost:3000` | `ory tunnel --project <id> --port 8080 http://localhost:3000` |
 
-### Key Differences to Be Aware Of
+### Key differences to be aware of
 
-1. **URL Structure**: Ory Tunnel doesn't use the `/.ory` prefix that Proxy used. Requests are sent directly to the corresponding
+1. **URL structure**: Ory Tunnel doesn't use the `/.ory` prefix that Proxy used. Requests are sent directly to the corresponding
    path.
 
-2. **HTTP Headers**: Tunnel doesn't modify HTTP headers like Proxy did.
+2. **HTTP headers**: Tunnel doesn't modify HTTP headers like Proxy did.
 
-3. **Environment Variables**: Use `ORY_PROJECT_ID=<id> npm run tunnel` instead of `ORY_PROJECT_ID=<id> npm run proxy` in your
+3. **Environment variables**: Use `ORY_PROJECT_ID=<id> npm run tunnel` instead of `ORY_PROJECT_ID=<id> npm run proxy` in your
    scripts.
 
-### Application Code Updates
+### Application code updates
 
 If your application code relies on Proxy-specific behavior, you'll need to update:
 
 - References to `/.ory/` paths in your frontend code
 
-## Ory Proxy (Deprecated)
+## Ory Proxy (deprecated)
 
-:::warning DEPRECATED Ory Proxy has been deprecated and is no longer recommended for new implementations. Please use Ory Tunnel
+:::warning
+<div>
+DEPRECATED Ory Proxy has been deprecated and is no longer recommended for new implementations. Please use Ory Tunnel
 instead, which provides similar functionality with an improved architecture. This documentation is kept for reference purposes for
-users who still have Ory Proxy in their existing implementations. :::
+users who still have Ory Proxy in their existing implementations.
+</div>
+:::
 
 Ory Proxy is a reverse proxy deployed in front of your application. This allows the Ory endpoints to be mirrored on the same
 domain as the app you're running.
@@ -109,18 +113,18 @@ This behavior is necessary to avoid issues with the browsers
 Ory Proxy converts sessions into JSON Web Tokens (JWTs) and ensures that cookies and URLs are properly configured.
 
 :::info
-
+<div>
 Using Ory Proxy is an alternative to [custom domains (CNAME)](../custom-domains), and a useful tool when developing locally. Read
 more about [adding a Custom Domain to your Ory Network project](../custom-domains.mdx) for production setups.
-
+</div>
 :::
 
 ### URL structure
 
 :::tip
-
+<div>
 Ory Proxy adds `/.ory` prefix when mirroring APIs and UIs of Ory Network.
-
+</div>
 :::
 
 For example, when using the Ory Proxy, calling `https://<proxy-host>/.ory/ui/login` is the same as calling
@@ -150,10 +154,10 @@ the self-service flow.
 ```
 
 :::info
-
+<div>
 The domain used in `return_to` must be an allow-listed URL set in the project configuration. The URL must include the protocol and
 domain. Relative URLs aren't supported.
-
+</div>
 :::
 
 ### Use Ory Proxy with JSON Web Tokens
@@ -273,9 +277,9 @@ node your-entrypoint.js
 ```
 
 :::tip
-
+<div>
 Ory Proxy should never be the main entry point to your application. Always run an ingress proxy such as Nginx or Traefik in front.
-
+</div>
 :::
 
 ### Use Ory Proxy in Docker
@@ -283,10 +287,11 @@ Ory Proxy should never be the main entry point to your application. Always run a
 To use Ory Proxy in Docker, add your application and Ory Proxy to a single Docker container.
 
 :::info
-
+<div>
 This isn't a perfect solution as Docker watches the processes running in the foreground. With the application and Ory Proxy in one
 container, you must decide which becomes the foreground process.
-
+</div>
+:::
 When a process crashes, Docker notifies just of the failures of the foreground process and gives no information about the
 background process.
 

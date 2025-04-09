@@ -65,7 +65,7 @@ Now that the Ory CLI is installed, create a new npm script to run the tunnel ser
   "private": true,
   "scripts": {
     "dev": "nodemon index.js",
-    "tunnel": "ory tunnel --dev http://localhost:3000",
+    "tunnel": "ory tunnel --project $ORY_PROJECT_ID --port 4000 --dev http://localhost:3000",
   },
   "dependencies": {
 ```

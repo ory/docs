@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "tunnel": "ory tunnel --dev http://localhost:3000",
+    "tunnel": "ory tunnel --project $ORY_PROJECT_ID --port 4000 --dev http://localhost:3000",
     "start": "node index.js"
   },
   "keywords": [],
