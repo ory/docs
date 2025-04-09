@@ -5,14 +5,13 @@ title: Ory Proxy and Ory Tunnel
 
 The CLI contains two tools that help with local development:
 
-- Ory Proxy
 - Ory Tunnel
+- Ory Proxy (Deprecated)
 
 :::info
 
-The main use case for Ory Tunnel and Ory Proxy is local development, and should not be used in production. You can use Ory Tunnel
-in the same way you use Ory Proxy. Read about the [differences](#differences-between-ory-tunnel-and-ory-proxy) between the two at
-the end of this document.
+The main use case for Ory Tunnel is local development, and should not be used in production. Read about the
+[differences](#differences-between-ory-tunnel-and-ory-proxy) between Ory Tunnel and Ory Proxy at the end of this document.
 
 :::
 
@@ -28,10 +27,79 @@ ory tunnel --project <project-id> --workspace <workspace-id> http://localhost:30
 
 To get a full list of arguments and options available for use with Ory Tunnel, run: `ory help tunnel`
 
-For more details, refer to the [Ory Proxy documentation](#ory-proxy) and the
-[differences between Ory Tunnel and Ory Proxy](#differences-between-ory-tunnel-and-ory-proxy).
+When an application runs on `http://localhost:3000`, Ory must be available on the same domain, for example at
+`http://localhost:4000`. With this setup, the system can manage Anti-CSRF Cookies and Ory Session Cookies.
 
-## Ory Proxy
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+
+<Mermaid
+  chart={`
+flowchart TD
+    A[Developer] -->| GET localhost:1234 | B(Ory Tunnel)
+    B -->|GET /*| D[Ory Network]
+    B -->E[Your application]
+`}
+/>
+```
+
+### Using Ory Tunnel for local development
+
+When using Ory Tunnel for local development, point to the URL where your application runs.
+
+For example, if your application is available at `http://localhost:3000`, run this command:
+
+```shell
+ory tunnel --project <project-id> --workspace <workspace-id> http://localhost:3000
+```
+
+By default, Ory Tunnel creates an entry point at `http://localhost:4000`. To get access to Ory endpoints, you must access the app
+through the tunnel using this URL instead of the actual address on which your application is running.
+
+If you want to adjust the entry point URL, pass the desired address along with the application URL, for example:
+
+```shell
+ory tunnel --project <project-id> --workspace <workspace-id> http://localhost:3000 http://localhost:3001
+```
+
+## Migration from Proxy to Tunnel
+
+Ory Proxy has been deprecated in favor of Ory Tunnel. This section guides you through migrating from Proxy to Tunnel.
+
+### Command changes
+
+Replace your existing Proxy commands with their Tunnel equivalents:
+
+| Proxy Command                                                | Tunnel Command                                                |
+| ------------------------------------------------------------ | ------------------------------------------------------------- |
+| `ory proxy --project <id> http://localhost:3000`             | `ory tunnel --project <id> http://localhost:3000`             |
+| `ory proxy --project <id> --port 8080 http://localhost:3000` | `ory tunnel --project <id> --port 8080 http://localhost:3000` |
+
+### Key differences to be aware of
+
+1. **URL structure**: Ory Tunnel doesn't use the `/.ory` prefix that Proxy used. Requests are sent directly to the corresponding
+   path.
+
+2. **HTTP headers**: Tunnel doesn't modify HTTP headers like Proxy did.
+
+3. **Environment variables**: Use `ORY_PROJECT_ID=<id> npm run tunnel` instead of `ORY_PROJECT_ID=<id> npm run proxy` in your
+   scripts.
+
+### Application code updates
+
+If your application code relies on Proxy-specific behavior, you'll need to update:
+
+- References to `/.ory/` paths in your frontend code
+
+## Ory Proxy (deprecated)
+
+:::warning
+
+DEPRECATED Ory Proxy has been deprecated and is no longer recommended for new implementations. Please use Ory Tunnel instead,
+which provides similar functionality with an improved architecture. This documentation is kept for reference purposes for users
+who still have Ory Proxy in their existing implementations.
+
+:::
 
 Ory Proxy is a reverse proxy deployed in front of your application. This allows the Ory endpoints to be mirrored on the same
 domain as the app you're running.
@@ -50,22 +118,6 @@ Using Ory Proxy is an alternative to [custom domains (CNAME)](../custom-domains)
 more about [adding a Custom Domain to your Ory Network project](../custom-domains.mdx) for production setups.
 
 :::
-
-When an application runs on `http://localhost:3000`, Ory must be available on the same domain, for example at
-`http://localhost:4000`. With this setup, the system can manage Anti-CSRF Cookies and Ory Session Cookies.
-
-```mdx-code-block
-import Mermaid from "@site/src/theme/Mermaid"
-
-<Mermaid
-  chart={`
-flowchart TD
-    A[Developer] -->|GET http://localhost:1234| B(Ory Proxy)
-    B -->|GET /.ory/*| D[Ory Network]
-    B -->E[Your application]
-`}
-/>
-```
 
 ### URL structure
 
@@ -107,25 +159,6 @@ The domain used in `return_to` must be an allow-listed URL set in the project co
 domain. Relative URLs aren't supported.
 
 :::
-
-### Use Ory Proxy for local development
-
-When using Ory Proxy for local development, point to the URL where your application runs.
-
-For example, if your application is available at `http://localhost:3000`, run this command:
-
-```shell
-ory proxy --project <project-id> --workspace <workspace-id> http://localhost:3000
-```
-
-By default, Ory Proxy creates an entry point at `http://localhost:4000`. To get access to Ory endpoints, you must access the app
-through the proxy using This URL instead of the actual address on which your application is running.
-
-If you want to adjust the entry point URL, pass the desired address along with the application URL, for example:
-
-```shell
-ory proxy --project <project-id> --workspace <workspace-id> http://localhost:3000 http://localhost:3001
-```
 
 ### Use Ory Proxy with JSON Web Tokens
 
