@@ -183,6 +183,13 @@ const quickstart: SidebarItemsConfig = [
       "getting-started/integrate-auth/dotnet",
     ],
   },
+  {
+    type: "category",
+    label: "Migrate to Ory",
+    collapsed: false,
+    collapsible: false,
+    items: ["migrate-to-ory/index", "migrate-to-ory/auth0"],
+  },
 ]
 
 const troubleshooting: SidebarItemsConfig = [
@@ -392,6 +399,7 @@ const identities: SidebarItemsConfig = [
           "kratos/manage-identities/invite-users",
           "kratos/manage-identities/account-recovery",
           "kratos/manage-identities/export-user-accounts-identities",
+          "kratos/manage-identities/scim",
         ],
       },
       {

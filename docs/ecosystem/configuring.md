@@ -122,7 +122,7 @@ As you can see, subkeys are separated with an underscore `_`. If a subkey is an 
 the array index (`0`, `1`). It is also possible to define a new array by using an array index that isn't yet set:
 
 ```shell
-export SOME_NESTED_KEY_AND_ARRAY_2_BAR=baz
+export SOME_NESTED_KEY_AND_ARRAY_2_ID=baz
 ```
 
 The above would result in:
@@ -133,7 +133,8 @@ some:
     with_a_value: foo
     and_array:
       - id: foo
-      - bar: bar
+      - id: bar
+      - id: baz
 ```
 
 It's also possible to use JSON strings to denote complex configuration keys:
