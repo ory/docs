@@ -27,10 +27,13 @@ import { useLatestRelease } from '@site/src/hooks'
 To get started, clone the Ory Hydra locally:
 
 ```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+
 <CodeBlock className="language-shell">{`
 git clone https://github.com/ory/hydra.git
 cd hydra
-git checkout ${useLatestRelease('hydra')}`}</CodeBlock>
+git checkout ${useLatestRelease('hydra')}`}
+</CodeBlock>
 ```
 
 Run the following command(s) to start the OAuth2 server:
