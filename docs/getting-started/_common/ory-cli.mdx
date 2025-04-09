@@ -45,9 +45,9 @@ import Mermaid from "@site/src/theme/Mermaid"
     A-->|Response|B
 ` :
 `graph LR
-    B(Browser) -->|GET http://localhost:4000| P(Ory Proxy)
+    B(Browser) -->|GET localhost:4000| P(Ory Proxy)
     P <-->|mirrors at /.ory/| API(Ory's APIs)
-    P -->|GET http://localhost:3000| A(Your App)
+    P -->|GET localhost:3000| A(Your App)
     A-->|Response|P
     P-->|Response|B
 `}
