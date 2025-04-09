@@ -85,6 +85,14 @@ Supported CAPTCHA providers are:
 
 - [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile)
 
+:::warning
+
+Cloudflare Turnstile widgets support a maximum of 10 allowed domains. When CAPTCHA is enabled, this list will be automatically
+populated with your currently configured [Custom Domains](https://www.ory.sh/docs/guides/custom-domains). If your domain list
+exceeds this limit, you won't be able to enable CAPTCHA protection.
+
+:::
+
 ```mdx-code-block
 <Tabs groupId="console-or-api">
 <TabItem value="console" label="Ory Console">
