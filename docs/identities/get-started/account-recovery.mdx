@@ -13,7 +13,8 @@ import CodeBlock from "@theme/CodeBlock"
 import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/GuidesComponents'
 ```
 
-Account recovery allows users to regain access to their accounts when they forget their passwords. This guide shows how to configure account recovery in your Ory project.
+Account recovery allows users to regain access to their accounts when they forget their passwords. This guide shows how to
+configure account recovery in your Ory project.
 
 ## Set up account recovery
 
@@ -51,7 +52,8 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 
 ### Configure multi-factor for recovery
 
-By default, account recovery gives users a privileged session without requiring a second authentication factor. You can change this behavior:
+By default, account recovery gives users a privileged session without requiring a second authentication factor. You can change
+this behavior:
 
 1. In the Account recovery section
 2. Toggle **"Require multi-factor for account recovery"** to on
@@ -64,7 +66,9 @@ By default, account recovery gives users a privileged session without requiring 
 
 </BrowserWindow>
 ```
-> **Note**: This affects all users, not just those that recover their accounts. If you enable this setting, all users must provide their second authentication factor to adjust profile settings.
+
+> **Note**: This affects all users, not just those that recover their accounts. If you enable this setting, all users must provide
+> their second authentication factor to adjust profile settings.
 
 ```mdx-code-block
 </TabItem>
@@ -129,6 +133,7 @@ When a user initiates account recovery:
 ```
 
 ### Flow
+
 1. They enter their email address on the recovery page
 2. They receive either:
    - A recovery link via email (if using the link method)
