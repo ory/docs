@@ -39,7 +39,15 @@ Account recovery allows users to regain access to their accounts when they forge
 6. Set the lifespan for recovery links/codes (default: 1h)
 7. Click **Save**
 
-![Account Recovery Settings](../_assets/account-recovery-settings.png)
+```mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+
+<BrowserWindow url="https://console.ory.sh/projects/<id>/settings">
+
+    ![Account Recovery Settings](../_assets/account-recovery-settings.png)
+
+</BrowserWindow>
+```
 
 ### Configure multi-factor for recovery
 
@@ -50,8 +58,6 @@ By default, account recovery gives users a privileged session without requiring 
 3. Click **Save**
 
 ```mdx-code-block
-import BrowserWindow from "@site/src/theme/BrowserWindow"
-
 <BrowserWindow url="https://console.ory.sh/projects/<id>/settings">
 
     ![Multi-factor for Recovery](../_assets/mfa-recovery.png)
