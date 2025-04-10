@@ -254,10 +254,12 @@ const identities: SidebarItemsConfig = [
     },
     items: [
       "identities/get-started/setup",
-      "identities/get-started/authentication",
-      "identities/get-started/session-basics",
-      "identities/get-started/oauth-client-implementation",
-      "identities/get-started/complete-example",
+      "identities/get-started/sign-in",
+      "identities/get-started/sign-out",
+      "identities/get-started/session-management",
+      "identities/get-started/mfa",
+      "identities/get-started/social-sign-in",
+      "identities/get-started/passwordless",
     ],
   },
   {

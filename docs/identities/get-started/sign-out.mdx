@@ -1,0 +1,115 @@
+---
+id: sign-out
+title: Implementing User Logout
+sidebar_label: Sign out
+---
+
+# Implementing user logout
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import { getSdkUrl } from "@site/src/hooks"
+import CodeBlock from "@theme/CodeBlock"
+import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/GuidesComponents'
+import jsLogout from '!!raw-loader!./_common/code-examples/js/logout.js'
+import reactLogout from '!!raw-loader!./_common/code-examples/react/logout.tsx'
+import goLogout from '!!raw-loader!./_common/code-examples/go/logout.go'
+```
+
+The logout flow allows users to securely terminate their sessions. This guide shows how to implement proper logout functionality
+in your application.
+
+## Logout flow
+
+<ImplementationSteps
+  steps={[
+    {
+      title: "Create a logout flow",
+      description: "Initialize a browser-based logout flow or call the API endpoint",
+    },
+    {
+      title: "Submit the logout request",
+      description: "Complete the logout process to terminate the session",
+    },
+    {
+      title: "Redirect after logout",
+      description: "Send users to a suitable page after successful logout",
+    },
+  ]}
+/>
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+### Implement logout in express.js
+
+<CodeBlock className="language-js">{jsLogout}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+### Implement logout in react
+
+<CodeBlock className="language-tsx">{reactLogout}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+### Implement logout in Go
+
+<CodeBlock className="language-go">{goLogout}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+### Implement logout with cURL
+
+```shell
+# Create a logout flow
+curl -X GET \
+  'https://$PROJECT_SLUG.projects.oryapis.com/self-service/logout/browser' \
+  -H 'Accept: application/json' \
+  -H 'Cookie: ory_session_YOUR_PROJECT=YOUR_SESSION_COOKIE' \
+  --verbose
+
+# The response contains a logout_url that you'll need to redirect the user to
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## After successful logout
+
+After a successful logout, Ory:
+
+1. Invalidates the user's session
+2. Removes the session cookie from the browser
+3. Redirects the user to the specified return URL
+
+## Security considerations for logout
+
+1. **CSRF Protection**: Use proper CSRF protection when implementing logout functionality
+2. **Complete Session Termination**: Ensure sessions are fully invalidated on the server side
+3. **Redirect After Logout**: Always redirect users to a public page after logout
+4. **Session Cookie Clearing**: Verify that the session cookie is removed after logout
+5. **Multiple Device Logout**: Consider implementing functionality to log out all active sessions
+
+## Next steps
+
+After implementing logout functionality, you should:
+
+1. [Test the full authentication flow](/docs/identities/get-started/complete-example)
+2. [Implement session refresh functionality](/docs/kratos/session-management/20_refresh-extend-session.mdx)
+3. [Add multi-factor authentication](/docs/kratos/mfa/01_overview.mdx)
+4. [Configure account recovery](/docs/kratos/manage-identities/30_account-recovery.mdx)
