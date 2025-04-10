@@ -97,19 +97,10 @@ After a successful logout, Ory:
 2. Removes the session cookie from the browser
 3. Redirects the user to the specified return URL
 
-## Security considerations for logout
-
-1. **CSRF Protection**: Use proper CSRF protection when implementing logout functionality
-2. **Complete Session Termination**: Ensure sessions are fully invalidated on the server side
-3. **Redirect After Logout**: Always redirect users to a public page after logout
-4. **Session Cookie Clearing**: Verify that the session cookie is removed after logout
-5. **Multiple Device Logout**: Consider implementing functionality to log out all active sessions
-
 ## Next steps
 
 After implementing logout functionality, you should:
 
-1. [Test the full authentication flow](/docs/identities/get-started/complete-example)
-2. [Implement session refresh functionality](/docs/kratos/session-management/20_refresh-extend-session.mdx)
-3. [Add multi-factor authentication](/docs/kratos/mfa/01_overview.mdx)
-4. [Configure account recovery](/docs/kratos/manage-identities/30_account-recovery.mdx)
+1. [Implement session refresh functionality](/docs/kratos/session-management/20_refresh-extend-session.mdx)
+2. [Add multi-factor authentication](/docs/kratos/mfa/01_overview.mdx)
+3. [Configure account recovery](/docs/kratos/manage-identities/30_account-recovery.mdx)
