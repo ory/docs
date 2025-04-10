@@ -128,10 +128,8 @@ After installing the CLI, start the tunnel to connect your local application wit
 ory tunnel --dev https://$PROJECT_SLUG.projects.oryapis.com --port 4000
 ```
 
-:::tip
-To learn more about the Ory Tunnel, read the [dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel).
-:::
-
+:::tip To learn more about the Ory Tunnel, read the
+[dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel). :::
 
 ## 3. Configure the SDK
 
@@ -149,7 +147,7 @@ When using the tunnel, configure your SDK to use the local tunnel URL:
 const ory = new FrontendApi(
   new Configuration({
     basePath: "http://localhost:4000",
-    credentials: 'include'
+    credentials: "include",
   }),
 )
 ```
@@ -243,7 +241,7 @@ const { Configuration, FrontendApi } = require("@ory/client-fetch")
 const ory = new FrontendApi(
   new Configuration({
     basePath: "https://$PROJECT_SLUG.projects.oryapis.com",
-    credentials: 'include'
+    credentials: "include",
   }),
 )
 ```
@@ -260,7 +258,7 @@ import { Configuration, FrontendApi } from "@ory/client-fetch"
 const ory = new FrontendApi(
   new Configuration({
     basePath: "https://$PROJECT_SLUG.projects.oryapis.com",
-    credentials: 'include'
+    credentials: "include",
   }),
 )
 ```
@@ -279,7 +277,7 @@ import { edgeConfig } from "@ory/integrations/next"
 export const ory = new FrontendApi(
   new Configuration({
     ...edgeConfig,
-    credentials: 'include'
+    credentials: "include",
   }),
 )
 ```

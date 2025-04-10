@@ -374,6 +374,7 @@ func (app *App) dashboardHandler(w http.ResponseWriter, r *http.Request) {
 </TabItem>
 </FrameworkCodeTabs>
 ```
+
 ## Refresh sessions
 
 You can refresh user sessions to extend their expiration time:
@@ -397,7 +398,7 @@ async function refreshSession(req, res, next) {
     const { data: session } = await ory.refreshSession({
       cookie: req.header("cookie"),
     })
-    
+
     // Session is now refreshed
     req.session = session
     next()
@@ -423,11 +424,7 @@ function refreshUserSession() {
 
 // Button component example
 function RefreshSessionButton() {
-  return (
-    <button onClick={refreshUserSession}>
-      Refresh Session
-    </button>
-  )
+  return <button onClick={refreshUserSession}>Refresh Session</button>
 }
 ```
 
@@ -466,23 +463,23 @@ export default async function handler(req, res) {
 // Force session refresh by prompting re-authentication
 func refreshSessionHandler(w http.ResponseWriter, r *http.Request) {
     // Redirect to login with refresh=true parameter
-    http.Redirect(w, r, app.tunnelUrl+"/ui/login?refresh=true&return_to=/dashboard", 
+    http.Redirect(w, r, app.tunnelUrl+"/ui/login?refresh=true&return_to=/dashboard",
         http.StatusSeeOther)
 }
 
 // Refresh a session programmatically
 func (app *App) refreshSession(w http.ResponseWriter, r *http.Request) {
     cookie := r.Header.Get("Cookie")
-    
+
     // Refresh the session
     session, _, err := app.ory.FrontendApi.RefreshSession(r.Context()).
         Cookie(cookie).Execute()
-    
+
     if err != nil {
         http.Redirect(w, r, app.tunnelUrl+"/ui/login", http.StatusSeeOther)
         return
     }
-    
+
     // Session is now refreshed
     ctx := withSession(r.Context(), session)
     // Continue with the refreshed session
@@ -628,7 +625,7 @@ async function revokeSession(sessionId) {
 
 // API route to revoke sessions (pages/api/revoke-sessions.js)
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     try {
       await ory.revokeOtherSessions({
         cookie: req.headers.cookie,
@@ -638,7 +635,7 @@ export default async function handler(req, res) {
       res.status(500).json({ success: false })
     }
   } else {
-    res.status(405).json({ error: 'Method not allowed' })
+    res.status(405).json({ error: "Method not allowed" })
   }
 }
 ```
@@ -652,32 +649,32 @@ export default async function handler(req, res) {
 // Revoke all sessions except the current one
 func (app *App) revokeOtherSessionsHandler(w http.ResponseWriter, r *http.Request) {
     cookie := r.Header.Get("Cookie")
-    
+
     // Revoke all other sessions
     _, _, err := app.ory.FrontendApi.RevokeOtherSessions(r.Context()).
         Cookie(cookie).Execute()
-    
+
     if err != nil {
         http.Error(w, "Failed to revoke sessions", http.StatusInternalServerError)
         return
     }
-    
+
     http.Redirect(w, r, "/settings", http.StatusSeeOther)
 }
 
 // Revoke a specific session
 func (app *App) revokeSessionHandler(w http.ResponseWriter, r *http.Request) {
     sessionID := r.URL.Query().Get("id")
-    
+
     // Revoke the specific session
     _, err := app.ory.FrontendApi.RevokeSession(r.Context()).
         Id(sessionID).Execute()
-    
+
     if err != nil {
         http.Error(w, "Failed to revoke session", http.StatusInternalServerError)
         return
     }
-    
+
     http.Redirect(w, r, "/settings", http.StatusSeeOther)
 }
 ```
@@ -762,8 +759,10 @@ ory update identity-config --project <project-id> --workspace <workspace-id> --f
 ## Configuring session settings in Ory Console
 
 You can configure various session-related settings through the Ory Console. Learn how to:
+
 - Configure [Session lifespan](/docs/kratos/session-management/10_session-lifespan.mdx)
-- Allow users to [change sensitive settings](/docs/kratos/session-management/session-lifespan#privileged-sessions) (like passwords, adding a second factor, or changing email) in their profile.
+- Allow users to [change sensitive settings](/docs/kratos/session-management/session-lifespan#privileged-sessions) (like
+  passwords, adding a second factor, or changing email) in their profile.
 
 ## Next steps
 
