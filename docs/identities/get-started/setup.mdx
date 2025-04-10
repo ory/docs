@@ -1,10 +1,10 @@
 ---
 id: setup
-title: Setting up Ory Identity
-sidebar_label: Setup
+title: Configure Ory
+sidebar_label: Configure Ory
 ---
 
-# Setting up Ory Identity
+# Configure Ory
 
 ```mdx-code-block
 import Tabs from "@theme/Tabs"
@@ -20,7 +20,7 @@ your application.
 
 Before starting, ensure you have:
 
-1. An [Ory Network account](https://console.ory.sh) (or [self-hosted](http://localhost:3001/docs/self-hosted/oel/quickstart) Ory
+1. An [Ory network account](https://console.ory.sh) (or [self-hosted](http://localhost:3001/docs/self-hosted/oel/quickstart) Ory
    installation)
 2. Your Ory project slug or API URL
 3. Your development environment set up with your framework of choice
@@ -185,6 +185,14 @@ curl --request GET \
 
 For local development, you'll need to use Ory Tunnel to connect your local application with Ory's APIs:
 
+:::tip
+
+<p>
+  {" "}
+  To learn more about the Ory Tunnel, read the [dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel).
+</p>
+:::
+
 ```shell
 # Install Ory CLI
 npm install -g @ory/cli
@@ -192,9 +200,6 @@ npm install -g @ory/cli
 # Start the tunnel (replace with your project slug)
 ory tunnel --dev https://$PROJECT_SLUG.projects.oryapis.com --port 4000
 ```
-
-:::tip To learn more about the Ory Tunnel, read the
-[dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel). :::
 
 When using the tunnel, configure your SDK to use the local tunnel URL:
 
@@ -388,7 +393,7 @@ curl --request GET \
 </FrameworkCodeTabs>
 ```
 
-## Next Steps
+## Next steps
 
 Now that you have set up the Ory SDK and verified the connection, you're ready to implement authentication flows in your
 application.
