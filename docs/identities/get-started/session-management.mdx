@@ -374,60 +374,396 @@ func (app *App) dashboardHandler(w http.ResponseWriter, r *http.Request) {
 </TabItem>
 </FrameworkCodeTabs>
 ```
+## Refresh sessions
+
+You can refresh user sessions to extend their expiration time:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```javascript
+// Force session refresh by prompting re-authentication
+app.get("/refresh-session", async (req, res) => {
+  const basePath = process.env.ORY_SDK_URL || "http://localhost:4000"
+  // Redirect to login with refresh=true parameter
+  res.redirect(`${basePath}/ui/login?refresh=true&return_to=/dashboard`)
+})
+
+// Refresh a session programmatically
+async function refreshSession(req, res, next) {
+  try {
+    const { data: session } = await ory.refreshSession({
+      cookie: req.header("cookie"),
+    })
+    
+    // Session is now refreshed
+    req.session = session
+    next()
+  } catch (error) {
+    // Error handling
+    res.redirect(`${basePath}/ui/login`)
+  }
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+```tsx
+// Force session refresh by prompting re-authentication
+function refreshUserSession() {
+  const basePath = process.env.REACT_APP_ORY_SDK_URL || "http://localhost:4000"
+  // Redirect to login with refresh=true parameter
+  window.location.href = `${basePath}/ui/login?refresh=true&return_to=${window.location.pathname}`
+}
+
+// Button component example
+function RefreshSessionButton() {
+  return (
+    <button onClick={refreshUserSession}>
+      Refresh Session
+    </button>
+  )
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+```tsx
+// Force session refresh by prompting re-authentication
+function refreshUserSession() {
+  const basePath = process.env.NEXT_PUBLIC_ORY_SDK_URL || "http://localhost:4000"
+  // Redirect to login with refresh=true parameter
+  window.location.href = `${basePath}/ui/login?refresh=true&return_to=${window.location.pathname}`
+}
+
+// API route to refresh session programmatically (pages/api/refresh-session.js)
+export default async function handler(req, res) {
+  try {
+    const { data: session } = await ory.refreshSession({
+      cookie: req.headers.cookie,
+    })
+    res.status(200).json({ success: true, session })
+  } catch (error) {
+    res.status(401).json({ success: false, error: "Unauthorized" })
+  }
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```go
+// Force session refresh by prompting re-authentication
+func refreshSessionHandler(w http.ResponseWriter, r *http.Request) {
+    // Redirect to login with refresh=true parameter
+    http.Redirect(w, r, app.tunnelUrl+"/ui/login?refresh=true&return_to=/dashboard", 
+        http.StatusSeeOther)
+}
+
+// Refresh a session programmatically
+func (app *App) refreshSession(w http.ResponseWriter, r *http.Request) {
+    cookie := r.Header.Get("Cookie")
+    
+    // Refresh the session
+    session, _, err := app.ory.FrontendApi.RefreshSession(r.Context()).
+        Cookie(cookie).Execute()
+    
+    if err != nil {
+        http.Redirect(w, r, app.tunnelUrl+"/ui/login", http.StatusSeeOther)
+        return
+    }
+    
+    // Session is now refreshed
+    ctx := withSession(r.Context(), session)
+    // Continue with the refreshed session
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+```shell
+# Force session refresh by prompting re-authentication
+# Redirect the user to this URL:
+https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser?refresh=true
+
+# Refresh a session programmatically
+curl -X GET \
+  'https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/refresh?refresh=aAaAfAEAAdAFECQAAJMAbCcDdFEBaGcG' \
+  -H 'Accept: application/json' \
+  -H 'Cookie: ory_session_YOUR_PROJECT=YOUR_SESSION_COOKIE' \
+  --verbose
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Revoke sessions
+
+There are times when you need to terminate user sessions, such as after a password change or for security reasons:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```javascript
+// Revoke all sessions except the current one
+app.post("/revoke-other-sessions", requireAuth, async (req, res) => {
+  try {
+    await ory.revokeOtherSessions({
+      cookie: req.header("cookie"),
+    })
+    res.redirect("/settings")
+  } catch (error) {
+    res.status(500).send("Failed to revoke sessions")
+  }
+})
+
+// Revoke a specific session
+app.post("/revoke-session/:id", requireAuth, async (req, res) => {
+  try {
+    await ory.revokeSession({
+      id: req.params.id,
+    })
+    res.redirect("/settings")
+  } catch (error) {
+    res.status(500).send("Failed to revoke session")
+  }
+})
+
+// Revoke current session (logout)
+app.post("/logout", async (req, res) => {
+  try {
+    const { data } = await ory.createBrowserLogoutFlow({
+      cookie: req.header("cookie"),
+    })
+    res.redirect(data.logout_url)
+  } catch (error) {
+    res.redirect("/")
+  }
+})
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+```tsx
+// Revoke all sessions except the current one
+async function revokeOtherSessions() {
+  try {
+    await ory.revokeOtherSessions()
+    alert("All other sessions revoked")
+  } catch (error) {
+    console.error("Failed to revoke sessions:", error)
+  }
+}
+
+// Revoke a specific session
+async function revokeSession(sessionId) {
+  try {
+    await ory.revokeSession({
+      id: sessionId,
+    })
+    alert("Session revoked")
+  } catch (error) {
+    console.error("Failed to revoke session:", error)
+  }
+}
+
+// Logout (revoke current session)
+async function logout() {
+  try {
+    const { data } = await ory.createBrowserLogoutFlow()
+    window.location.href = data.logout_url
+  } catch (error) {
+    console.error("Logout failed:", error)
+  }
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+```tsx
+// Revoke all sessions except the current one
+async function revokeOtherSessions() {
+  try {
+    await ory.revokeOtherSessions()
+    alert("All other sessions revoked")
+  } catch (error) {
+    console.error("Failed to revoke sessions:", error)
+  }
+}
+
+// Revoke a specific session
+async function revokeSession(sessionId) {
+  try {
+    await ory.revokeSession({
+      id: sessionId,
+    })
+    alert("Session revoked")
+  } catch (error) {
+    console.error("Failed to revoke session:", error)
+  }
+}
+
+// API route to revoke sessions (pages/api/revoke-sessions.js)
+export default async function handler(req, res) {
+  if (req.method === 'POST') {
+    try {
+      await ory.revokeOtherSessions({
+        cookie: req.headers.cookie,
+      })
+      res.status(200).json({ success: true })
+    } catch (error) {
+      res.status(500).json({ success: false })
+    }
+  } else {
+    res.status(405).json({ error: 'Method not allowed' })
+  }
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```go
+// Revoke all sessions except the current one
+func (app *App) revokeOtherSessionsHandler(w http.ResponseWriter, r *http.Request) {
+    cookie := r.Header.Get("Cookie")
+    
+    // Revoke all other sessions
+    _, _, err := app.ory.FrontendApi.RevokeOtherSessions(r.Context()).
+        Cookie(cookie).Execute()
+    
+    if err != nil {
+        http.Error(w, "Failed to revoke sessions", http.StatusInternalServerError)
+        return
+    }
+    
+    http.Redirect(w, r, "/settings", http.StatusSeeOther)
+}
+
+// Revoke a specific session
+func (app *App) revokeSessionHandler(w http.ResponseWriter, r *http.Request) {
+    sessionID := r.URL.Query().Get("id")
+    
+    // Revoke the specific session
+    _, err := app.ory.FrontendApi.RevokeSession(r.Context()).
+        Id(sessionID).Execute()
+    
+    if err != nil {
+        http.Error(w, "Failed to revoke session", http.StatusInternalServerError)
+        return
+    }
+    
+    http.Redirect(w, r, "/settings", http.StatusSeeOther)
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+```shell
+# Revoke all sessions except the current one
+curl -X DELETE \
+  'https://$PROJECT_SLUG.projects.oryapis.com/sessions' \
+  -H 'Accept: application/json' \
+  -H 'Cookie: ory_session_YOUR_PROJECT=YOUR_SESSION_COOKIE' \
+  --verbose
+
+# Revoke a specific session
+curl -X DELETE \
+  'https://$PROJECT_SLUG.projects.oryapis.com/sessions/SESSION_ID' \
+  -H 'Accept: application/json' \
+  --verbose
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+### Configure automatic session revocation
+
+You can configure Ory to automatically revoke all active sessions when a user changes their password:
+
+```mdx-code-block
+<Tabs
+  defaultValue="console"
+  values={[
+    {label: 'Ory Console', value: 'console'},
+    {label: 'Ory CLI', value: 'cli'},
+  ]}>
+<TabItem value="console">
+```
+
+1. Go to **Authentication** → **Sessions**
+2. Configure **Revoke sessions after password change**
+3. Click **Save**
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli">
+```
+
+1. Download your current identity configuration:
+
+```shell
+ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
+```
+
+2. Edit the configuration file to add the `revoke_active_sessions` hook:
+
+```yaml
+selfservice:
+  flows:
+    settings:
+      after:
+        password:
+          hooks:
+            - hook: revoke_active_sessions
+```
+
+3. Update your configuration:
+
+```shell
+ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
 
 ## Configuring session settings in Ory Console
 
-You can configure various session-related settings through the Ory Console. To access these settings:
-
-1. Log in to your [Ory Console](https://console.ory.sh/)
-2. Select your workspace and project
-3. Navigate to the **Authentication** tab
-4. Click on **Sessions** in the sidebar
-
-### Session lifespan
-
-**Session lifespan** defines how long a user will remain authenticated after they sign in.
-
-![Session lifespan settings](../_assets/session-lifespan.png)
-
-By default, sessions expire after 24 hours (72h0m0s). You can adjust this value based on your security requirements:
-
-- Shorter lifespans (e.g., 1-4 hours) provide higher security but require users to log in more frequently
-- Longer lifespans (e.g., 30 days) improve user experience but may increase security risks
-
-### Privileged sessions
-
-**Privileged sessions** allow users to change sensitive settings (like passwords, adding a second factor, or changing email) in
-their profile. This setting controls how long a session is considered privileged after a user signs in or completes a secondary
-authentication challenge.
-
-![Privileged sessions settings](../_assets/privileged-sessions.png)
-
-Privileged sessions typically have a shorter lifespan than regular sessions. By default, a session is considered privileged for 15
-minutes after login. When a user attempts to perform a sensitive action after this period, they'll be prompted to re-authenticate.
-
-### Session cookie settings
-
-These settings control how session cookies are handled in the browser.
-
-![Session cookie settings](../_assets/session-cookie.png)
-
-- **Persist sessions**: If enabled, the session cookie will be persisted across browser restarts
-- **Same Site**: Controls the same-site attribute of session cookies, which affects how cookies are sent in cross-site requests
-
-## Session properties
-
-Ory sessions have several important time properties:
-
-| Property           | Description                         |
-| ------------------ | ----------------------------------- |
-| `issued_at`        | When the session was created        |
-| `authenticated_at` | When the user was authenticated     |
-| `expires_at`       | When the session will expire        |
-| `active`           | Whether the session is still active |
-
-When checking sessions in your application code, you can use these properties to implement additional security measures, such as
-forcing re-authentication for sensitive operations if the session is old.
+You can configure various session-related settings through the Ory Console. Learn how to:
+- Configure [Session lifespan](/docs/kratos/session-management/10_session-lifespan.mdx)
+- Allow users to [change sensitive settings](/docs/kratos/session-management/session-lifespan#privileged-sessions) (like passwords, adding a second factor, or changing email) in their profile.
 
 ## Next steps
 

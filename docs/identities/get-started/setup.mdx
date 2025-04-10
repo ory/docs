@@ -4,7 +4,7 @@ title: Configure Ory
 sidebar_label: Configure Ory
 ---
 
-# Configure Ory
+# Setting up ory identity
 
 ```mdx-code-block
 import Tabs from "@theme/Tabs"
@@ -35,7 +35,7 @@ First, install the Ory SDK for your framework:
 ```
 
 ```shell
-npm install @ory/client --save
+npm install @ory/client-fetch --save
 ```
 
 ```mdx-code-block
@@ -44,7 +44,7 @@ npm install @ory/client --save
 ```
 
 ```shell
-npm install @ory/client --save
+npm install @ory/client-fetch --save
 ```
 
 ```mdx-code-block
@@ -53,7 +53,7 @@ npm install @ory/client --save
 ```
 
 ```shell
-npm install @ory/client @ory/integrations --save
+npm install @ory/client-fetch @ory/integrations --save
 ```
 
 ```mdx-code-block
@@ -77,129 +77,65 @@ For cURL, you don't need to install any SDK, as you'll make direct HTTP requests
 </FrameworkCodeTabs>
 ```
 
-## 2. Configure the SDK
-
-Next, configure the SDK with your Ory project URL:
-
-```mdx-code-block
-<FrameworkCodeTabs>
-<TabItem value="javascript">
-```
-
-```javascript
-const { Configuration, FrontendApi } = require("@ory/client")
-
-// Initialize the SDK
-const ory = new FrontendApi(
-  new Configuration({
-    basePath: "https://$PROJECT_SLUG.projects.oryapis.com",
-    baseOptions: {
-      withCredentials: true,
-    },
-  }),
-)
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="react">
-```
-
-```javascript
-import { Configuration, FrontendApi } from "@ory/client"
-
-// Initialize the SDK
-const ory = new FrontendApi(
-  new Configuration({
-    basePath: "https://$PROJECT_SLUG.projects.oryapis.com",
-    baseOptions: {
-      withCredentials: true,
-    },
-  }),
-)
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="nextjs">
-```
-
-```javascript
-// In a file like lib/ory.js
-import { Configuration, FrontendApi } from "@ory/client"
-import { edgeConfig } from "@ory/integrations/next"
-
-// Initialize the SDK
-export const ory = new FrontendApi(
-  new Configuration({
-    ...edgeConfig,
-    baseOptions: {
-      withCredentials: true,
-    },
-  }),
-)
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="go">
-```
-
-```go
-import (
-    "context"
-    ory "github.com/ory/client-go"
-)
-
-func main() {
-    configuration := ory.NewConfiguration()
-    configuration.Servers = []ory.ServerConfiguration{
-        {
-            URL: "https://$PROJECT_SLUG.projects.oryapis.com",
-        },
-    }
-    client := ory.NewAPIClient(configuration)
-}
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="curl">
-```
-
-For cURL, you'll include the project URL directly in your requests:
-
-```shell
-# Example format - specific endpoints will be shown in the authentication section
-curl --request GET \
-  --url 'https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser' \
-  --header 'Accept: application/json'
-```
-
-```mdx-code-block
-</TabItem>
-</FrameworkCodeTabs>
-```
-
-## 3. Set up local development with Ory Tunnel
+## 2. Set up local development with Ory Tunnel
 
 For local development, you'll need to use Ory Tunnel to connect your local application with Ory's APIs:
 
-:::tip
+### Install Ory CLI
 
-<p>
-  {" "}
-  To learn more about the Ory Tunnel, read the [dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel).
-</p>
-:::
+```mdx-code-block
+<Tabs
+  defaultValue="macos"
+  values={[
+    {label: 'macOS', value: 'macos'},
+    {label: 'Linux', value: 'linux'},
+  ]}>
+<TabItem value="macos">
+```
+
+```shell
+# Install Ory CLI using Homebrew
+brew install ory/tap/cli
+
+# Verify installation
+ory help
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="linux">
+```
 
 ```shell
 # Install Ory CLI
-npm install -g @ory/cli
+curl https://raw.githubusercontent.com/ory/meta/master/install.sh | sh -s ory
 
+# Verify installation
+ory help
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+### Start Ory Tunnel
+
+After installing the CLI, start the tunnel to connect your local application with Ory's APIs:
+
+```shell
 # Start the tunnel (replace with your project slug)
 ory tunnel --dev https://$PROJECT_SLUG.projects.oryapis.com --port 4000
 ```
+
+:::tip
+To learn more about the Ory Tunnel, read the [dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel).
+:::
+
+
+## 3. Configure the SDK
+
+### With Ory Tunnel (Local Development)
 
 When using the tunnel, configure your SDK to use the local tunnel URL:
 
@@ -213,9 +149,7 @@ When using the tunnel, configure your SDK to use the local tunnel URL:
 const ory = new FrontendApi(
   new Configuration({
     basePath: "http://localhost:4000",
-    baseOptions: {
-      withCredentials: true,
-    },
+    credentials: 'include'
   }),
 )
 ```
@@ -293,9 +227,9 @@ curl --request GET \
 </FrameworkCodeTabs>
 ```
 
-## 4. Verify the setup
+### With Ory Network (Production)
 
-Let's test the connection to make sure everything is working:
+Next, configure the SDK with your Ory project URL:
 
 ```mdx-code-block
 <FrameworkCodeTabs>
@@ -303,15 +237,15 @@ Let's test the connection to make sure everything is working:
 ```
 
 ```javascript
-// Test connection
-ory
-  .toSession()
-  .then(({ data }) => {
-    console.log("Connected to Ory successfully:", data)
-  })
-  .catch((err) => {
-    console.log("Not authenticated, which is expected:", err.response?.status)
-  })
+const { Configuration, FrontendApi } = require("@ory/client-fetch")
+
+// Initialize the SDK
+const ory = new FrontendApi(
+  new Configuration({
+    basePath: "https://$PROJECT_SLUG.projects.oryapis.com",
+    credentials: 'include'
+  }),
+)
 ```
 
 ```mdx-code-block
@@ -320,15 +254,15 @@ ory
 ```
 
 ```javascript
-// Test connection
-ory
-  .toSession()
-  .then(({ data }) => {
-    console.log("Connected to Ory successfully:", data)
-  })
-  .catch((err) => {
-    console.log("Not authenticated, which is expected:", err.response?.status)
-  })
+import { Configuration, FrontendApi } from "@ory/client-fetch"
+
+// Initialize the SDK
+const ory = new FrontendApi(
+  new Configuration({
+    basePath: "https://$PROJECT_SLUG.projects.oryapis.com",
+    credentials: 'include'
+  }),
+)
 ```
 
 ```mdx-code-block
@@ -337,26 +271,17 @@ ory
 ```
 
 ```javascript
-// In a page component
-import { useEffect, useState } from "react"
-import { ory } from "../lib/ory"
+// In a file like lib/ory.js
+import { Configuration, FrontendApi } from "@ory/client-fetch"
+import { edgeConfig } from "@ory/integrations/next"
 
-export default function TestPage() {
-  const [status, setStatus] = useState("Checking connection...")
-
-  useEffect(() => {
-    ory
-      .toSession()
-      .then(({ data }) => {
-        setStatus("Connected to Ory successfully!")
-      })
-      .catch((err) => {
-        setStatus("Not authenticated, which is expected")
-      })
-  }, [])
-
-  return <div>{status}</div>
-}
+// Initialize the SDK
+export const ory = new FrontendApi(
+  new Configuration({
+    ...edgeConfig,
+    credentials: 'include'
+  }),
+)
 ```
 
 ```mdx-code-block
@@ -365,12 +290,19 @@ export default function TestPage() {
 ```
 
 ```go
-// Test connection
-resp, r, err := client.FrontendApi.ToSession(context.Background()).Execute()
-if err != nil {
-    fmt.Fprintf(os.Stderr, "Not authenticated, which is expected: %v\n", r.StatusCode)
-} else {
-    fmt.Fprintf(os.Stdout, "Connected to Ory successfully: %v\n", resp.Id)
+import (
+    "context"
+    ory "github.com/ory/client-go"
+)
+
+func main() {
+    configuration := ory.NewConfiguration()
+    configuration.Servers = []ory.ServerConfiguration{
+        {
+            URL: "https://$PROJECT_SLUG.projects.oryapis.com",
+        },
+    }
+    client := ory.NewAPIClient(configuration)
 }
 ```
 
@@ -379,13 +311,13 @@ if err != nil {
 <TabItem value="curl">
 ```
 
-```shell
-# Check for an existing session
-curl --request GET \
-  --url 'https://$PROJECT_SLUG.projects.oryapis.com/sessions/whoami' \
-  --header 'Accept: application/json'
+For cURL, you'll include the project URL directly in your requests:
 
-# If not authenticated, you'll receive a 401 status code, which is expected
+```shell
+# Example format - specific endpoints will be shown in the authentication section
+curl --request GET \
+  --url 'https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser' \
+  --header 'Accept: application/json'
 ```
 
 ```mdx-code-block

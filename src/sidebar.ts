@@ -257,6 +257,7 @@ const identities: SidebarItemsConfig = [
       "identities/get-started/sign-in",
       "identities/get-started/sign-out",
       "identities/get-started/session-management",
+      "identities/get-started/account-recovery",
       "identities/get-started/mfa",
       "identities/get-started/social-sign-in",
       "identities/get-started/passwordless",

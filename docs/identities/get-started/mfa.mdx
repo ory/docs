@@ -32,7 +32,13 @@ To enable MFA for your application, follow these steps:
 
 In the Two-factor auth settings, you can enable and configure One-Time Codes for multi-factor authentication:
 
+```mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+
+<BrowserWindow url="https://console.ory.sh/projects/<id>/settings">
 ![One-Time Codes Settings](../_assets/one-time-codes.png)
+</BrowserWindow>
+```
 
 Enable the "Enable one-time code multi factor authentication" toggle to allow users to receive one-time codes for MFA.
 
@@ -40,7 +46,12 @@ Enable the "Enable one-time code multi factor authentication" toggle to allow us
 
 You can also configure when users need to complete a second factor challenge:
 
+```mdx-code-block
+
+<BrowserWindow url="https://console.ory.sh/projects/<id>/settings">
 ![General MFA Settings](../_assets/general-settings.png)
+</BrowserWindow>
+```
 
 There are two main settings:
 
@@ -53,7 +64,14 @@ not have a second-factor set up, this configuration does not affect them.
 
 ### What users will see
 
-When MFA is enabled, users will see a second authentication screen after logging in: ![MFA Outcome](../_assets/mfa-outcome.png)
+When MFA is enabled, users will see a second authentication screen after logging in:
+
+```mdx-code-block
+
+<BrowserWindow url="https://console.ory.sh/projects/<id>/settings">
+![MFA Outcome](../_assets/mfa-outcome.png)
+</BrowserWindow>
+```
 
 1. The user enters their username/password or uses another primary authentication method
 2. They see the MFA challenge screen
