@@ -26,7 +26,13 @@ To enable social sign-in:
 4. Click on **Social Sign-In (OIDC)** in the sidebar
 5. Enable the "Enable OpenID Connect" toggle
 
+```mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+
+<BrowserWindow url="https://console.ory.sh/projects/<id>/settings">
 ![Enable OpenID Connect](../_assets/oidc-toggle.png)
+</BrowserWindow>
+```
 
 ## Adding a Social Provider
 
@@ -35,20 +41,14 @@ After enabling OpenID Connect, add a provider:
 1. Click the "Add new OpenID Connect provider" button
 2. Select a provider from the list:
 
-![Provider Selection](../_assets/provider-list.png)
+```mdx-code-block
 
-Ory offers pre-configured options for popular providers:
+<BrowserWindow url="https://console.ory.sh/projects/<id>/settings">
+    ![Provider Selection](../_assets/provider-list.png)
+</BrowserWindow>
+```
 
-- Google
-- Microsoft AD
-- GitHub
-- Ory OAuth2
-- Salesforce
-- Auth0
-- Facebook
-- Apple
-- GitLab
-
+Ory offers pre-configured options for popular providers. Check our provider list [here](/docs/kratos/social-signin/overview).
 ## Configuring Your Provider
 
 For pre-configured providers, you'll typically need to enter:
@@ -58,7 +58,11 @@ For pre-configured providers, you'll typically need to enter:
 
 For generic providers, you'll need to fill in more details:
 
-![Generic Provider Configuration](../_assets/generic-config.png)
+```mdx-code-block
+<BrowserWindow url="https://console.ory.sh/projects/<id>/settings">
+![Generic Provider Configuration](../_assets/configure-generic.png)
+</BrowserWindow>
+```
 
 The configuration includes:
 
@@ -80,7 +84,13 @@ Configure the Base Redirect URI where users will be redirected after successful 
 
 ## What users will see
 
-After configuring social sign-in, your users will experience: ![Login with Social](../_assets/login-with-social.png)
+After configuring social sign-in, your users will experience:
+
+```mdx-code-block
+<BrowserWindow url="https://console.ory.sh/projects/<id>/settings">
+![Login with Social](../_assets/login-with-social.png)
+</BrowserWindow>
+```
 
 1. A login page that displays buttons for each configured social provider
 2. When they click a provider button, they'll be redirected to that provider's authentication page

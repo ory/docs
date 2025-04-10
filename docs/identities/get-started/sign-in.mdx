@@ -11,7 +11,7 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import { getSdkUrl } from "@site/src/hooks"
 import CodeBlock from "@theme/CodeBlock"
-import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/GuidesComponents'
+import { FrameworkCodeTabs } from '@site/src/components/GuidesComponents'
 import jsLogin from '!!raw-loader!./_common/code-examples/js/login.js'
 import reactLogin from '!!raw-loader!./_common/code-examples/react/login.tsx'
 import goLogin from '!!raw-loader!./_common/code-examples/go/login.go'
@@ -21,47 +21,12 @@ import nextjsLogin from '!!raw-loader!./_common/code-examples/nextjs/login.tsx'
 The login flow authenticates existing users in your application. This guide shows how to implement a secure login process that
 authenticates users and creates sessions.
 
-## Login flow
-
-<ImplementationSteps
-  steps={[
-    {
-      title: "Initialize a login flow",
-      description: "Set up the SDK to communicate with your Ory instance",
-    },
-    {
-      title: "Redirect to login UI",
-      description: "Check for session and redirect to Ory login when needed",
-    },
-  ]}
-/>
-
-## Initialize the login flow
-
-First, set up the SDK and create a new login flow. This step contacts the Ory API to create a flow that guides users through
-login.
+## Login Flow
 
 ```mdx-code-block
 <FrameworkCodeTabs>
 <TabItem value="javascript">
 ```
-
-### Initialize SDK
-
-```javascript
-const { Configuration, FrontendApi } = require("@ory/client")
-
-// Initialize the SDK
-const basePath = process.env.ORY_SDK_URL || "http://localhost:4000"
-const ory = new FrontendApi(
-  new Configuration({
-    basePath,
-    credentials: "include",
-  }),
-)
-```
-
-### Login / Register
 
 ```javascript
 const requireAuth = async (req, res, next) => {
@@ -81,22 +46,7 @@ const requireAuth = async (req, res, next) => {
 <TabItem value="react">
 ```
 
-### Initialize SDK
 
-```javascript
-const { Configuration, FrontendApi } = require("@ory/client")
-
-// Initialize the SDK
-const basePath = process.env.ORY_SDK_URL || "http://localhost:4000"
-const ory = new FrontendApi(
-  new Configuration({
-    basePath,
-    credentials: "include",
-  }),
-)
-```
-
-### Login / Register
 
 This checks if the user has an active session and redirects to the login UI if needed.
 
@@ -130,23 +80,6 @@ export default function Login() {
 <TabItem value="nextjs">
 ```
 
-### Initialize SDK
-
-```javascript
-const { Configuration, FrontendApi } = require("@ory/client")
-
-// Initialize the SDK
-const basePath = process.env.ORY_SDK_URL || "http://localhost:4000"
-const ory = new FrontendApi(
-  new Configuration({
-    basePath,
-    credentials: "include",
-  }),
-)
-```
-
-### Login / Register
-
 This checks if the user has an active session and redirects to the Ory login page if needed.
 
 ```tsx
@@ -172,45 +105,6 @@ useEffect(() => {
 ```mdx-code-block
 </TabItem>
 <TabItem value="go">
-```
-
-### Initialize SDK
-
-This initializes the Ory SDK and sets up the API client.
-
-```go
-package main
-
-import (
-	"fmt"
-	"os"
-
-	ory "github.com/ory/client-go"
-)
-
-type App struct {
-	ory       *ory.APIClient
-	tunnelUrl string
-}
-
-func init() {
-	tunnelPort := os.Getenv("TUNNEL_PORT")
-	if tunnelPort == "" {
-		tunnelPort = "4000"
-	}
-
-	// Configure Ory client to use tunnel
-	c := ory.NewConfiguration()
-	c.Servers = ory.ServerConfigurations{{URL: fmt.Sprintf("http://localhost:%s", tunnelPort)}}
-
-	// Store the tunnel URL for redirects
-	tunnelUrl := fmt.Sprintf("http://localhost:%s", tunnelPort)
-
-	app := &App{
-		ory:       ory.NewAPIClient(c),
-		tunnelUrl: tunnelUrl,
-	}
-}
 ```
 
 ### Session Middleware
