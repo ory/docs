@@ -112,11 +112,11 @@ With all of the pieces in place, it's time to test your application. Follow thes
 go run .
 ```
 
-2. Run the Ory proxy to mirror the Ory API endpoints on your application's domain (`localhost`). Upon first start, the Ory Proxy
+2. Run the Ory Tunnel to mirror the Ory API endpoints on your application's domain (`localhost`). Upon first start, the Ory Tunnel
    will ask you to log into your Ory Console account.
 
 ```shell
-ory proxy http://localhost:3000
+npx @ory/cli tunnel --dev http://localhost:3000
 ```
 
 3. Open [http://localhost:4000](http://localhost:4000) to access the application. Since the initial call is made by an
@@ -133,7 +133,7 @@ import ToProd from '../_common/going-to-prod.mdx'
 ```
 
 ```go
-// register a new Ory client with the URL set to the Ory CLI Proxy
+// register a new Ory client with the URL set to the custom domain
 // we can also read the URL from the env or a config file
 c := ory.NewConfiguration()
 c.Servers = ory.ServerConfigurations{{URL: "https://ory.example.org"}}

@@ -1,6 +1,3 @@
-// Copyright © 2022 Ory Corp
-// SPDX-License-Identifier: Apache-2.0
-
 package main
 
 import (
@@ -13,22 +10,26 @@ import (
 )
 
 type App struct {
-	ory *ory.APIClient
+	ory       *ory.APIClient
+	tunnelUrl string
 }
 
 func main() {
-	proxyPort := os.Getenv("PROXY_PORT")
-	if proxyPort == "" {
-		proxyPort = "4000"
+	tunnelPort := os.Getenv("TUNNEL_PORT")
+	if tunnelPort == "" {
+		tunnelPort = "4000"
 	}
 
-	// register a new Ory client with the URL set to the Ory CLI Proxy
-	// we can also read the URL from the env or a config file
+	// Configure Ory client to use tunnel
 	c := ory.NewConfiguration()
-	c.Servers = ory.ServerConfigurations{{URL: fmt.Sprintf("http://localhost:%s/.ory", proxyPort)}}
+	c.Servers = ory.ServerConfigurations{{URL: fmt.Sprintf("http://localhost:%s", tunnelPort)}}
+
+	// Store the tunnel URL for redirects
+	tunnelUrl := fmt.Sprintf("http://localhost:%s", tunnelPort)
 
 	app := &App{
-		ory: ory.NewAPIClient(c),
+		ory:       ory.NewAPIClient(c),
+		tunnelUrl: tunnelUrl,
 	}
 	mux := http.NewServeMux()
 
@@ -41,6 +42,9 @@ func main() {
 	}
 
 	fmt.Printf("Application launched and running on http://127.0.0.1:%s\n", port)
+	fmt.Printf("Make sure to run Ory Tunnel in another terminal:\n")
+	fmt.Printf("npx @ory/cli tunnel --dev http://localhost:%s\n", port)
+
 	// start the server
 	err := http.ListenAndServe(":"+port, mux)
 	if errors.Is(err, http.ErrServerClosed) {

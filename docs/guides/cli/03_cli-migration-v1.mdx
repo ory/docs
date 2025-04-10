@@ -37,11 +37,11 @@ Here are the changes to commands:
 + ory get identity-config|oauth2-config|permissions-config --workspace <workspace> --project <project>
 + ORY_WORKSPACE=<workpsace> ORY_PROJECT=<project> ory get identity-config|oauth2-config|permissions-config
 
-- ORY_SDK_URL=https://<project-slug>.projects.oryapis.com ory proxy|tunnel
-- ORY_KRATOS_URL=https://<project-slug>.projects.oryapis.com ory proxy|tunnel
-+ ory proxy|tunnel --project <project>
-+ ory proxy|tunnel --workspace <workspace_id> --project <project>
-+ ORY_WORKSPACE=<workspace> ORY_PROJECT=<project-id> ory proxy|tunnel
+- ORY_SDK_URL=https://<project-slug>.projects.oryapis.com ory tunnel
+- ORY_KRATOS_URL=https://<project-slug>.projects.oryapis.com ory tunnel
++ ory tunnel --project <project>
++ ory tunnel --workspace <workspace_id> --project <project>
++ ORY_WORKSPACE=<workspace> ORY_PROJECT=<project-id> ory tunnel
 
 - ory create event-stream|jwk|oauth2-client|organization|project|relationships|workspace <project>
 + ory create event-stream|jwk|oauth2-client|organization|project|relationships|workspace --project <project>
