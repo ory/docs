@@ -16,7 +16,6 @@ import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/Gui
 Social sign-in allows users to log in to your application using their existing accounts from providers like Google, GitHub, or
 Microsoft. This guide shows how to enable and configure social sign-in for your Ory project.
 
-
 ```mdx-code-block
 <Tabs
   defaultValue="console"
@@ -74,14 +73,15 @@ For pre-configured providers, you'll typically need to enter:
 ```
 
 The configuration includes:
+
 - Client ID
 - Client Secret
-
 
 ```mdx-code-block
 </TabItem>
 <TabItem value="cli">
 ```
+
 To enable and configure social sign-in using the CLI:
 
 1. First, download your Ory Identities configuration:
@@ -101,17 +101,17 @@ ory get identity-config --project <project-id> --workspace <workspace-id> --form
 
 ```yaml
 methods:
-    oidc:
-      config:
-        base_redirect_uri: http://localhost:4000
-        providers:
+  oidc:
+    config:
+      base_redirect_uri: http://localhost:4000
+      providers:
         - client_id: "YOUR_CLIENT_ID"
           client_secret: "YOUR_CLIENT_SECRET"
           label: Google
           provider: google
           scope:
-          - user:email
-      enabled: true
+            - user:email
+    enabled: true
 ```
 
 3. Add the provider configuration to the providers array. Here are examples for common providers:
@@ -126,6 +126,7 @@ methods:
     </TabItem>
     </Tabs>
 ```
+
 ## What users will see
 
 After configuring social sign-in, your users will experience:
@@ -135,6 +136,7 @@ After configuring social sign-in, your users will experience:
 ![Login with Social](../_assets/login-with-social.png)
 </BrowserWindow>
 ```
+
 ### User flow
 
 1. A login page that displays buttons for each configured social provider

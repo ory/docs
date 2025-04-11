@@ -28,11 +28,11 @@ authenticates users and creates sessions.
 
 ```javascript
 app.get("/", (req, res) => {
-    ory
-        .toSession({ cookie: req.header("cookie") })
-        .then((data) => res.json(data))
-        .catch(() => res.redirect(`${baseUrl}/ui/login`));
-});
+  ory
+    .toSession({ cookie: req.header("cookie") })
+    .then((data) => res.json(data))
+    .catch(() => res.redirect(`${baseUrl}/ui/login`))
+})
 ```
 
 ```mdx-code-block
@@ -143,7 +143,9 @@ curl -X GET \
 ```
 
 ## After successful login
+
 Ory:
+
 1. Creates a session for the user
 2. Sets a secure session cookie in the browser
 3. Redirects the user to the specified return URL or default location

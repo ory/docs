@@ -24,7 +24,6 @@ Before starting, ensure you have:
 2. Your Ory project id
 3. Your development environment set up with your framework of choice
 
-
 First, install the Ory SDK for your framework:
 
 ```mdx-code-block
@@ -79,7 +78,6 @@ For cURL, you don't need to install any SDK, as you'll make direct HTTP requests
 
 For local development, you'll need to use Ory Tunnel to connect your local application with Ory's APIs:
 
-
 ```mdx-code-block
 <Tabs
   defaultValue="macos"
@@ -116,7 +114,6 @@ ory help
 </Tabs>
 ```
 
-
 After installing the CLI, start the tunnel to connect your local application with Ory's APIs:
 
 ```shell
@@ -126,8 +123,7 @@ ory tunnel --project <project-id> http://localhost:3000
 
 :::tip
 
-To learn more about the Ory Tunnel, read the
-[dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel).
+To learn more about the Ory Tunnel, read the [dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel).
 
 :::
 
@@ -146,12 +142,12 @@ When using the tunnel, configure your SDK to use the local tunnel URL:
 // For local development with tunnel
 import { Configuration, FrontendApi } from "@ory/client-fetch"
 
-const baseUrl = process.env.ORY_SDK_URL || "http://localhost:4000";
+const baseUrl = process.env.ORY_SDK_URL || "http://localhost:4000"
 const ory = new sdk.FrontendApi(
   new sdk.Configuration({
     basePath: baseUrl,
-  })
-);
+  }),
+)
 ```
 
 ```mdx-code-block
@@ -161,12 +157,12 @@ const ory = new sdk.FrontendApi(
 
 ```javascript
 // For local development with tunnel
-const baseUrl = process.env.ORY_SDK_URL || "http://localhost:4000";
+const baseUrl = process.env.ORY_SDK_URL || "http://localhost:4000"
 const ory = new sdk.FrontendApi(
   new sdk.Configuration({
     basePath: baseUrl,
-  })
-);
+  }),
+)
 ```
 
 ```mdx-code-block
@@ -238,12 +234,12 @@ For production environments, configure the SDK to use the Ory Network URL:
 const { Configuration, FrontendApi } = require("@ory/client-fetch")
 
 // Initialize the SDK
-const baseUrl = process.env.ORY_SDK_URL || "http://localhost:4000";
+const baseUrl = process.env.ORY_SDK_URL || "http://localhost:4000"
 const ory = new sdk.FrontendApi(
   new sdk.Configuration({
     basePath: baseUrl,
-  })
-);
+  }),
+)
 ```
 
 ```mdx-code-block
