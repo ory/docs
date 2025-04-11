@@ -20,12 +20,10 @@ your application.
 
 Before starting, ensure you have:
 
-1. An [Ory network account](https://console.ory.sh) (or [self-hosted](http://localhost:3001/docs/self-hosted/oel/quickstart) Ory
-   installation)
-2. Your Ory project slug or API URL
+1. An [Ory network account](https://console.ory.sh)
+2. Your Ory project id
 3. Your development environment set up with your framework of choice
 
-## 1. Install SDK for your framework
 
 First, install the Ory SDK for your framework:
 
@@ -81,7 +79,6 @@ For cURL, you don't need to install any SDK, as you'll make direct HTTP requests
 
 For local development, you'll need to use Ory Tunnel to connect your local application with Ory's APIs:
 
-### Install Ory CLI
 
 ```mdx-code-block
 <Tabs
@@ -119,17 +116,20 @@ ory help
 </Tabs>
 ```
 
-### Start Ory Tunnel
 
 After installing the CLI, start the tunnel to connect your local application with Ory's APIs:
 
 ```shell
-# Start the tunnel (replace with your project slug)
-ory tunnel --dev https://$PROJECT_SLUG.projects.oryapis.com --port 4000
+# Start the tunnel (replace with your project id)
+ory tunnel --project <project-id> http://localhost:3000
 ```
 
-:::tip To learn more about the Ory Tunnel, read the
-[dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel). :::
+:::tip
+
+To learn more about the Ory Tunnel, read the
+[dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel).
+
+:::
 
 ## 3. Configure the SDK
 
@@ -144,12 +144,14 @@ When using the tunnel, configure your SDK to use the local tunnel URL:
 
 ```javascript
 // For local development with tunnel
-const ory = new FrontendApi(
-  new Configuration({
-    basePath: "http://localhost:4000",
-    credentials: "include",
-  }),
-)
+import { Configuration, FrontendApi } from "@ory/client-fetch"
+
+const baseUrl = process.env.ORY_SDK_URL || "http://localhost:4000";
+const ory = new sdk.FrontendApi(
+  new sdk.Configuration({
+    basePath: baseUrl,
+  })
+);
 ```
 
 ```mdx-code-block
@@ -159,14 +161,12 @@ const ory = new FrontendApi(
 
 ```javascript
 // For local development with tunnel
-const ory = new FrontendApi(
-  new Configuration({
-    basePath: "http://localhost:4000",
-    baseOptions: {
-      withCredentials: true,
-    },
-  }),
-)
+const baseUrl = process.env.ORY_SDK_URL || "http://localhost:4000";
+const ory = new sdk.FrontendApi(
+  new sdk.Configuration({
+    basePath: baseUrl,
+  })
+);
 ```
 
 ```mdx-code-block
@@ -227,7 +227,7 @@ curl --request GET \
 
 ### With Ory Network (Production)
 
-Next, configure the SDK with your Ory project URL:
+For production environments, configure the SDK to use the Ory Network URL:
 
 ```mdx-code-block
 <FrameworkCodeTabs>
@@ -238,12 +238,12 @@ Next, configure the SDK with your Ory project URL:
 const { Configuration, FrontendApi } = require("@ory/client-fetch")
 
 // Initialize the SDK
-const ory = new FrontendApi(
-  new Configuration({
-    basePath: "https://$PROJECT_SLUG.projects.oryapis.com",
-    credentials: "include",
-  }),
-)
+const baseUrl = process.env.ORY_SDK_URL || "http://localhost:4000";
+const ory = new sdk.FrontendApi(
+  new sdk.Configuration({
+    basePath: baseUrl,
+  })
+);
 ```
 
 ```mdx-code-block
@@ -257,7 +257,7 @@ import { Configuration, FrontendApi } from "@ory/client-fetch"
 // Initialize the SDK
 const ory = new FrontendApi(
   new Configuration({
-    basePath: "https://$PROJECT_SLUG.projects.oryapis.com",
+    basePath: process.env.ORY_SDK_URL || "https://$PROJECT_SLUG.projects.oryapis.com",
     credentials: "include",
   }),
 )
@@ -269,14 +269,12 @@ const ory = new FrontendApi(
 ```
 
 ```javascript
-// In a file like lib/ory.js
 import { Configuration, FrontendApi } from "@ory/client-fetch"
-import { edgeConfig } from "@ory/integrations/next"
 
 // Initialize the SDK
 export const ory = new FrontendApi(
   new Configuration({
-    ...edgeConfig,
+    basePath: process.env.ORY_SDK_URL || "https://$PROJECT_SLUG.projects.oryapis.com",
     credentials: "include",
   }),
 )
@@ -322,10 +320,3 @@ curl --request GET \
 </TabItem>
 </FrameworkCodeTabs>
 ```
-
-## Next steps
-
-Now that you have set up the Ory SDK and verified the connection, you're ready to implement authentication flows in your
-application.
-
-In the next section, we'll cover how to implement registration and login flows using browser-based authentication.

@@ -4,24 +4,19 @@ title: Multi-factor authentication
 sidebar_label: Multi-factor authentication
 ---
 
-# Multi-factor authentication
+This guide shows you how to enable multi-factor authentication (MFA) for your Ory project.
 
 ```mdx-code-block
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
-import CodeBlock from "@theme/CodeBlock"
-import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/GuidesComponents'
+<Tabs
+  defaultValue="console"
+  values={[
+    {label: 'Ory Console', value: 'console'},
+    {label: 'Ory CLI', value: 'cli'},
+  ]}>
+<TabItem value="console">
 ```
 
-<p>
-  Multi-factor authentication (MFA) adds an additional layer of security to your application by requiring users to verify their
-  identity using multiple methods. Ory supports One-Time Codes (OTC) for multi-factor authentication, which can be enabled and
-  configured through the Ory Console.
-</p>
-
-## Enabling Multi-Factor Authentication
-
-To enable MFA for your application, follow these steps:
+To enable MFA using the Console:
 
 1. Log in to your [Ory Console](https://console.ory.sh/)
 2. Select your workspace and project
@@ -35,30 +30,69 @@ In the Two-factor auth settings, you can enable and configure One-Time Codes for
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 
-<BrowserWindow url="https://console.ory.sh/projects/<id>/settings">
+<BrowserWindow url="https://console.ory.sh/projects/<id>/mfa">
 ![One-Time Codes Settings](../_assets/one-time-codes.png)
 </BrowserWindow>
 ```
 
-Enable the "Enable one-time code multi factor authentication" toggle to allow users to receive one-time codes for MFA.
+Toggle the "Enable one-time code multi factor authentication" toggle to allow users to receive one-time codes for MFA.
 
-1. **Require second factor for login**: If enabled, users will be forced to complete a second factor challenge before logging in.
-2. **Require second factor for self-service settings**: If enabled, users will need to complete a second factor challenge before
-   they can access their settings (e.g., traits, password, and other credentials).
 
-These settings control whether users need to complete a second factor challenge to sign in or modify their settings. If users do
-not have a second-factor set up, this configuration does not affect them.
+```mdx-code-block
+</TabItem>
+<TabItem value="cli">
+```
 
-### What users will see
+To enable MFA using the CLI:
+
+1. First, get your current identity configuration:
+
+```shell
+# List all available workspaces
+ory list workspaces
+
+# List all available projects
+ory list projects --workspace <workspace-id>
+
+# Get the configuration
+ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
+```
+
+2. Edit the configuration file to enable One-Time Codes and set MFA requirements:
+
+```yaml
+# Enable One-Time Codes for MFA
+selfservice:
+  methods:
+    code:
+      enabled: true  # Enable the one-time code method
+      mfa_enabled: true
+```
+
+3. Update your configuration:
+
+```shell
+ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
+```
+
+This configuration forces users to provide the highest authentication factor available to access their account settings. For example, users without a second factor configured can access settings after they sign in with their password, but users that have a second factor set up (such as a TOTP app) will need to complete the second factor challenge.
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+## What users will see
 
 When MFA is enabled, users will see a second authentication screen after logging in:
 
 ```mdx-code-block
-
-<BrowserWindow url="https://console.ory.sh/projects/<id>/settings">
-![MFA Outcome](../_assets/mfa-outcome.png)
+  <BrowserWindow url="https://console.ory.sh/projects/<id>/mfa">
+  ![MFA Outcome](../_assets/mfa-outcome.png)
 </BrowserWindow>
 ```
+
+### User flow
 
 1. The user enters their username/password or uses another primary authentication method
 2. They see the MFA challenge screen

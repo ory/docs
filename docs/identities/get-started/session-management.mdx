@@ -1,10 +1,10 @@
 ---
 id: session-management
-title: Session management
-sidebar_label: Session management
+title: Session
+sidebar_label: Session
 ---
 
-# Session management
+# Session
 
 ```mdx-code-block
 import Tabs from "@theme/Tabs"
@@ -19,248 +19,29 @@ import goCheckSession from '!!raw-loader!./_common/code-examples/go/session/chec
 After a user has logged in, Ory creates a session cookie that your application can use to verify the user's authentication status.
 This guide shows how to work with sessions in your application.
 
-## Checking session status
 
-You'll need to verify if a user is authenticated before allowing access to protected resources. Here's how to implement session
-verification:
+## Protecting routes
 
-<ImplementationSteps
-  steps={[
-    {
-      title: "Verify the session",
-      description: "Check if the user has a valid session cookie",
-    },
-    {
-      title: "Access identity information",
-      description: "Retrieve user details from the session",
-    },
-    {
-      title: "Handle unauthenticated users",
-      description: "Redirect to login if no valid session exists",
-    },
-  ]}
-/>
-
+You can protect routes by checking for the presence of a session cookie.
 ```mdx-code-block
 <FrameworkCodeTabs>
 <TabItem value="javascript">
 ```
 
-### Session verification with express.js
-
 ```javascript
-// Using the Ory SDK instance from the sign-in guide
-
-// Middleware to verify sessions
 const requireAuth = async (req, res, next) => {
-  try {
-    const { data: session } = await ory.toSession({
-      cookie: req.header("cookie"),
-    })
-
-    // Store session in request for use in route handlers
-    req.session = session
-    next()
-  } catch (error) {
-    // No valid session, redirect to Ory login UI
-    res.redirect(`${basePath}/ui/login`)
-  }
-}
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="react">
-```
-
-### Session verification in React
-
-```tsx
-// Using the Ory SDK instance from the sign-in guide
-
-// Component to verify session
-function ProtectedComponent() {
-  const [session, setSession] = useState<Session | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    // Check if the user is authenticated
-    const checkSession = async () => {
-      try {
-        const session = await ory.toSession()
-        setSession(session)
-        setLoading(false)
-      } catch (error) {
-        // No valid session, redirect to Ory login UI
-        window.location.href = `${basePath}/ui/login`
-      }
+    try {
+      const session = await ory.toSession({ cookie: req.header("cookie") })
+      req.session = session
+      next()
+    } catch (error) {
+      res.redirect(`${baseUrl}/ui/login`)
     }
-
-    checkSession()
-  }, [])
-
-  if (loading) {
-    return <div>Loading...</div>
   }
 
-  return (
-    <div>
-      <h1>Welcome, {session?.identity.traits.email}</h1>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-    </div>
-  )
-}
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="nextjs">
-```
-
-### Session verification in Next.js
-
-```tsx
-// Using the Ory SDK instance from the sign-in guide
-
-function Dashboard() {
-  const [session, setSession] = useState<Session | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    // Check if the user is authenticated
-    const checkSession = async () => {
-      try {
-        const session = await ory.toSession()
-        setSession(session)
-        setLoading(false)
-      } catch (error) {
-        // No valid session, redirect to Ory login UI
-        window.location.href = `${basePath}/ui/login`
-      }
-    }
-
-    checkSession()
-  }, [])
-
-  if (loading) {
-    return <div>Loading...</div>
-  }
-
-  return (
-    <main>
-      <h1>Dashboard</h1>
-      <p>Welcome, {session?.identity.traits.email}</p>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-    </main>
-  )
-}
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="go">
-```
-
-### Session verification in Go
-
-```go
-// Using the App struct from the sign-in guide
-
-// Session middleware to check authentication status
-func (app *App) sessionMiddleware(next http.HandlerFunc) http.HandlerFunc {
-	return func(writer http.ResponseWriter, request *http.Request) {
-		// Pass cookies to Ory's ToSession endpoint
-		cookies := request.Header.Get("Cookie")
-
-		// Verify session with Ory
-		session, _, err := app.ory.FrontendApi.ToSession(request.Context()).
-			Cookie(cookies).Execute()
-
-		if err != nil || (err == nil && !*session.Active) {
-			// No active session, redirect to Ory login UI
-			http.Redirect(writer, request, app.tunnelUrl+"/ui/login",
-					http.StatusSeeOther)
-			return
-		}
-
-		// Add session to context for the handler
-		ctx := withSession(request.Context(), session)
-		next.ServeHTTP(writer, request.WithContext(ctx))
-	}
-}
-
-// Helper functions to store/retrieve session from context
-func withSession(ctx context.Context, v *ory.Session) context.Context {
-	return context.WithValue(ctx, "req.session", v)
-}
-
-func getSession(ctx context.Context) (*ory.Session, error) {
-	session, ok := ctx.Value("req.session").(*ory.Session)
-	if !ok || session == nil {
-		return nil, errors.New("session not found in context")
-	}
-	return session, nil
-}
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="curl">
-```
-
-### Session verification with cURL
-
-```shell
-# Check if the user is authenticated
-curl -X GET \
-  'https://$PROJECT_SLUG.projects.oryapis.com/sessions/whoami' \
-  -H 'Accept: application/json' \
-  -H 'Cookie: ory_session_YOUR_PROJECT=YOUR_SESSION_COOKIE' \
-  --verbose
-
-# If the user is authenticated, the response will include session details:
-# {
-#   "id": "session_id",
-#   "active": true,
-#   "expires_at": "2023-01-01T00:00:00Z",
-#   "authenticated_at": "2022-01-01T00:00:00Z",
-#   "issued_at": "2022-01-01T00:00:00Z",
-#   "identity": {
-#     "id": "identity_id",
-#     "traits": {
-#       "email": "user@example.com"
-#     }
-#   }
-# }
-```
-
-```mdx-code-block
-</TabItem>
-</FrameworkCodeTabs>
-```
-
-### Protecting routes
-
-Common patterns for protecting routes in your application:
-
-```mdx-code-block
-<FrameworkCodeTabs>
-<TabItem value="javascript">
-```
-
-```javascript
-// Using the requireAuth middleware defined above
-
-// Apply the middleware to routes that need protection
-app.get("/dashboard", requireAuth, (req, res) => {
-  // Access user data from the session
-  const user = req.session.identity
-  res.render("dashboard", { user })
-})
-
-app.get("/settings", requireAuth, (req, res) => {
-  res.render("settings", { user: req.session.identity })
-})
+app.get("/", requireAuth, (req, res) => {
+    res.json(req.session.identity.traits); // { email: 'newtestuser@gmail.com' }
+});
 ```
 
 ```mdx-code-block
@@ -385,28 +166,10 @@ You can refresh user sessions to extend their expiration time:
 ```
 
 ```javascript
-// Force session refresh by prompting re-authentication
 app.get("/refresh-session", async (req, res) => {
-  const basePath = process.env.ORY_SDK_URL || "http://localhost:4000"
-  // Redirect to login with refresh=true parameter
-  res.redirect(`${basePath}/ui/login?refresh=true&return_to=/dashboard`)
-})
-
-// Refresh a session programmatically
-async function refreshSession(req, res, next) {
-  try {
-    const { data: session } = await ory.refreshSession({
-      cookie: req.header("cookie"),
-    })
-
-    // Session is now refreshed
-    req.session = session
-    next()
-  } catch (error) {
-    // Error handling
-    res.redirect(`${basePath}/ui/login`)
-  }
-}
+    // Redirect to login with refresh=true parameter
+    res.redirect(`${baseUrl}/ui/login?refresh=true`);
+});
 ```
 
 ```mdx-code-block
@@ -509,253 +272,6 @@ curl -X GET \
 </FrameworkCodeTabs>
 ```
 
-## Revoke sessions
-
-There are times when you need to terminate user sessions, such as after a password change or for security reasons:
-
-```mdx-code-block
-<FrameworkCodeTabs>
-<TabItem value="javascript">
-```
-
-```javascript
-// Revoke all sessions except the current one
-app.post("/revoke-other-sessions", requireAuth, async (req, res) => {
-  try {
-    await ory.revokeOtherSessions({
-      cookie: req.header("cookie"),
-    })
-    res.redirect("/settings")
-  } catch (error) {
-    res.status(500).send("Failed to revoke sessions")
-  }
-})
-
-// Revoke a specific session
-app.post("/revoke-session/:id", requireAuth, async (req, res) => {
-  try {
-    await ory.revokeSession({
-      id: req.params.id,
-    })
-    res.redirect("/settings")
-  } catch (error) {
-    res.status(500).send("Failed to revoke session")
-  }
-})
-
-// Revoke current session (logout)
-app.post("/logout", async (req, res) => {
-  try {
-    const { data } = await ory.createBrowserLogoutFlow({
-      cookie: req.header("cookie"),
-    })
-    res.redirect(data.logout_url)
-  } catch (error) {
-    res.redirect("/")
-  }
-})
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="react">
-```
-
-```tsx
-// Revoke all sessions except the current one
-async function revokeOtherSessions() {
-  try {
-    await ory.revokeOtherSessions()
-    alert("All other sessions revoked")
-  } catch (error) {
-    console.error("Failed to revoke sessions:", error)
-  }
-}
-
-// Revoke a specific session
-async function revokeSession(sessionId) {
-  try {
-    await ory.revokeSession({
-      id: sessionId,
-    })
-    alert("Session revoked")
-  } catch (error) {
-    console.error("Failed to revoke session:", error)
-  }
-}
-
-// Logout (revoke current session)
-async function logout() {
-  try {
-    const { data } = await ory.createBrowserLogoutFlow()
-    window.location.href = data.logout_url
-  } catch (error) {
-    console.error("Logout failed:", error)
-  }
-}
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="nextjs">
-```
-
-```tsx
-// Revoke all sessions except the current one
-async function revokeOtherSessions() {
-  try {
-    await ory.revokeOtherSessions()
-    alert("All other sessions revoked")
-  } catch (error) {
-    console.error("Failed to revoke sessions:", error)
-  }
-}
-
-// Revoke a specific session
-async function revokeSession(sessionId) {
-  try {
-    await ory.revokeSession({
-      id: sessionId,
-    })
-    alert("Session revoked")
-  } catch (error) {
-    console.error("Failed to revoke session:", error)
-  }
-}
-
-// API route to revoke sessions (pages/api/revoke-sessions.js)
-export default async function handler(req, res) {
-  if (req.method === "POST") {
-    try {
-      await ory.revokeOtherSessions({
-        cookie: req.headers.cookie,
-      })
-      res.status(200).json({ success: true })
-    } catch (error) {
-      res.status(500).json({ success: false })
-    }
-  } else {
-    res.status(405).json({ error: "Method not allowed" })
-  }
-}
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="go">
-```
-
-```go
-// Revoke all sessions except the current one
-func (app *App) revokeOtherSessionsHandler(w http.ResponseWriter, r *http.Request) {
-    cookie := r.Header.Get("Cookie")
-
-    // Revoke all other sessions
-    _, _, err := app.ory.FrontendApi.RevokeOtherSessions(r.Context()).
-        Cookie(cookie).Execute()
-
-    if err != nil {
-        http.Error(w, "Failed to revoke sessions", http.StatusInternalServerError)
-        return
-    }
-
-    http.Redirect(w, r, "/settings", http.StatusSeeOther)
-}
-
-// Revoke a specific session
-func (app *App) revokeSessionHandler(w http.ResponseWriter, r *http.Request) {
-    sessionID := r.URL.Query().Get("id")
-
-    // Revoke the specific session
-    _, err := app.ory.FrontendApi.RevokeSession(r.Context()).
-        Id(sessionID).Execute()
-
-    if err != nil {
-        http.Error(w, "Failed to revoke session", http.StatusInternalServerError)
-        return
-    }
-
-    http.Redirect(w, r, "/settings", http.StatusSeeOther)
-}
-```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="curl">
-```
-
-```shell
-# Revoke all sessions except the current one
-curl -X DELETE \
-  'https://$PROJECT_SLUG.projects.oryapis.com/sessions' \
-  -H 'Accept: application/json' \
-  -H 'Cookie: ory_session_YOUR_PROJECT=YOUR_SESSION_COOKIE' \
-  --verbose
-
-# Revoke a specific session
-curl -X DELETE \
-  'https://$PROJECT_SLUG.projects.oryapis.com/sessions/SESSION_ID' \
-  -H 'Accept: application/json' \
-  --verbose
-```
-
-```mdx-code-block
-</TabItem>
-</FrameworkCodeTabs>
-```
-
-### Configure automatic session revocation
-
-You can configure Ory to automatically revoke all active sessions when a user changes their password:
-
-```mdx-code-block
-<Tabs
-  defaultValue="console"
-  values={[
-    {label: 'Ory Console', value: 'console'},
-    {label: 'Ory CLI', value: 'cli'},
-  ]}>
-<TabItem value="console">
-```
-
-1. Go to **Authentication** → **Sessions**
-2. Configure **Revoke sessions after password change**
-3. Click **Save**
-
-```mdx-code-block
-</TabItem>
-<TabItem value="cli">
-```
-
-1. Download your current identity configuration:
-
-```shell
-ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
-```
-
-2. Edit the configuration file to add the `revoke_active_sessions` hook:
-
-```yaml
-selfservice:
-  flows:
-    settings:
-      after:
-        password:
-          hooks:
-            - hook: revoke_active_sessions
-```
-
-3. Update your configuration:
-
-```shell
-ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
-```
-
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
-
 ## Configuring session settings in Ory Console
 
 You can configure various session-related settings through the Ory Console. Learn how to:
@@ -763,12 +279,3 @@ You can configure various session-related settings through the Ory Console. Lear
 - Configure [Session lifespan](/docs/kratos/session-management/10_session-lifespan.mdx)
 - Allow users to [change sensitive settings](/docs/kratos/session-management/session-lifespan#privileged-sessions) (like
   passwords, adding a second factor, or changing email) in their profile.
-
-## Next steps
-
-Now that you've learned how to manage user sessions, you can:
-
-1. [Implement Multi-factor Authentication](/docs/kratos/mfa/01_overview.mdx)
-2. [Add Password Reset Flows](/docs/kratos/manage-identities/30_account-recovery.mdx)
-3. [Set Up Email Verification](/docs/kratos/self-hosted/05_account-activation-email-verification.mdx)
-4. [Explore OpenID Connect Integration](/docs/guides/oauth2-openid-connect.mdx)
