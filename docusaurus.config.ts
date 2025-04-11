@@ -120,7 +120,7 @@ const config: Config = {
           href: "https://www.ory.sh/contact/",
         },
         {
-          html: `<a class="ory-consent-manager footer__link-item" href="#">Consent Preferences</a>`,
+          html: `<button class="footer__link-item" onClick="window.__showOryConsentDialog()">Consent Preferences</button>`,
         },
       ] satisfies Preset.ThemeConfig["footer"]["links"],
       logo: {
