@@ -1,0 +1,101 @@
+---
+id: mfa
+title: Multi-factor authentication
+sidebar_label: Multi-factor authentication
+---
+
+This guide shows you how to enable multi-factor authentication (MFA) for your Ory project.
+
+```mdx-code-block
+<Tabs
+  defaultValue="console"
+  values={[
+    {label: 'Ory Console', value: 'console'},
+    {label: 'Ory CLI', value: 'cli'},
+  ]}>
+<TabItem value="console">
+```
+
+To enable MFA using the Console:
+
+1. Log in to your [Ory Console](https://console.ory.sh/)
+2. Select your workspace and project
+3. Navigate to the **Authentication** tab
+4. Click on **Two-factor auth** in the sidebar
+
+### Configure One-Time Codes
+
+In the Two-factor auth settings, you can enable and configure One-Time Codes for multi-factor authentication:
+
+```mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+
+<BrowserWindow url="https://console.ory.sh/projects/<id>/mfa">
+![One-Time Codes Settings](../_assets/one-time-codes.png)
+</BrowserWindow>
+```
+
+Toggle the "Enable one-time code multi factor authentication" toggle to allow users to receive one-time codes for MFA.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli">
+```
+
+To enable MFA using the CLI:
+
+1. First, get your current identity configuration:
+
+```shell
+# List all available workspaces
+ory list workspaces
+
+# List all available projects
+ory list projects --workspace <workspace-id>
+
+# Get the configuration
+ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
+```
+
+2. Edit the configuration file to enable One-Time Codes and set MFA requirements:
+
+```yaml
+# Enable One-Time Codes for MFA
+selfservice:
+  methods:
+    code:
+      enabled: true # Enable the one-time code method
+      mfa_enabled: true
+```
+
+3. Update your configuration:
+
+```shell
+ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
+```
+
+This configuration forces users to provide the highest authentication factor available to access their account settings. For
+example, users without a second factor configured can access settings after they sign in with their password, but users that have
+a second factor set up (such as a TOTP app) will need to complete the second factor challenge.
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+## What users will see
+
+When MFA is enabled, users will see a second authentication screen after logging in:
+
+```mdx-code-block
+  <BrowserWindow url="https://console.ory.sh/projects/<id>/mfa">
+  ![MFA Outcome](../_assets/mfa-outcome.png)
+</BrowserWindow>
+```
+
+### User flow
+
+1. The user enters their username/password or uses another primary authentication method
+2. They see the MFA challenge screen
+3. A one-time code is sent to their email
+4. After entering the valid code, they gain access to the application or protected settings

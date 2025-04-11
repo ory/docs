@@ -242,14 +242,33 @@ const operations: SidebarItemsConfig = [
 
 const identities: SidebarItemsConfig = [
   homeLink,
+  "identities/index",
+  {
+    type: "category",
+    label: "Get Started",
+    collapsed: false,
+    link: {
+      type: "doc",
+      id: "identities/get-started/index",
+    },
+    items: [
+      "identities/get-started/setup",
+      "identities/get-started/sign-in",
+      "identities/get-started/sign-out",
+      "identities/get-started/session-management",
+      "identities/get-started/account-recovery",
+      "identities/get-started/mfa",
+      "identities/get-started/social-sign-in",
+      "identities/get-started/passwordless",
+    ],
+  },
   {
     type: "category",
     label: "Concepts",
     collapsed: false,
     collapsible: false,
     link: {
-      type: "doc",
-      id: "identities/index",
+      type: "generated-index",
     },
     items: [
       "security-model",
@@ -263,6 +282,9 @@ const identities: SidebarItemsConfig = [
     label: "Guides",
     collapsed: false,
     collapsible: false,
+    link: {
+      type: "generated-index",
+    },
     items: [
       {
         type: "category",

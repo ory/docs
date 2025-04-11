@@ -1,0 +1,153 @@
+---
+id: sign-in
+title: Implementing user login
+sidebar_label: Sign in
+---
+
+# Implementing user login
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import { getSdkUrl } from "@site/src/hooks"
+import CodeBlock from "@theme/CodeBlock"
+import { FrameworkCodeTabs } from '@site/src/components/GuidesComponents'
+import jsLogin from '!!raw-loader!./_common/code-examples/js/login.js'
+import reactLogin from '!!raw-loader!./_common/code-examples/react/login.tsx'
+import goLogin from '!!raw-loader!./_common/code-examples/go/login.go'
+import nextjsLogin from '!!raw-loader!./_common/code-examples/nextjs/login.tsx'
+```
+
+The login flow authenticates existing users in your application. This guide shows how to implement a secure login process that
+authenticates users and creates sessions.
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```javascript
+app.get("/", (req, res) => {
+  ory
+    .toSession({ cookie: req.header("cookie") })
+    .then((data) => res.json(data))
+    .catch(() => res.redirect(`${baseUrl}/ui/login`))
+})
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react">
+```
+
+This checks if the user has an active session and redirects to the login UI if needed.
+
+```tsx
+export default function Login() {
+  const [session, setSession] = useState<Session | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  const basePath = process.env.REACT_APP_ORY_SDK_URL || "http://localhost:4000"
+
+  useEffect(() => {
+    // Check if the user is authenticated
+    const checkSession = async () => {
+      try {
+        const session = await ory.toSession()
+        setSession(session)
+        setLoading(false)
+      } catch (error) {
+        // No valid session, redirect to Ory login
+        window.location.href = `${basePath}/ui/login`
+      }
+    }
+
+    checkSession()
+  }, [])
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+This checks if the user has an active session and redirects to the Ory login page if needed.
+
+```tsx
+const [session, setSession] = useState<Session | null>(null)
+const basePath = process.env.NEXT_PUBLIC_ORY_SDK_URL || "http://localhost:4000"
+
+useEffect(() => {
+  // Check if the user is authenticated
+  const checkSession = async () => {
+    try {
+      const session = await ory.toSession()
+      setSession(session)
+    } catch (error) {
+      // No valid session, redirect to Ory login
+      window.location.href = `${basePath}/ui/login`
+    }
+  }
+
+  checkSession()
+}, [])
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+This checks for an active session and redirects to login if needed.
+
+```go
+func (app *App) sessionMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return func(writer http.ResponseWriter, request *http.Request) {
+		// Pass cookies to Ory's ToSession endpoint
+		cookies := request.Header.Get("Cookie")
+
+		// Verify session with Ory
+		session, _, err := app.ory.FrontendAPI.ToSession(request.Context()).
+                      Cookie(cookies).Execute()
+
+		// Redirect to login if no active session
+		if err != nil || (err == nil && !*session.Active) {
+			http.Redirect(writer, request, app.tunnelUrl+"/ui/login",
+                                  http.StatusSeeOther)
+			return
+		}
+
+		// Add session to context for the handler
+		ctx := withSession(request.Context(), session)
+		next.ServeHTTP(writer, request.WithContext(ctx))
+	}
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="curl">
+```
+
+```shell
+curl -X GET \
+  'https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser' \
+  -H 'Accept: application/json' \
+  --verbose
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## After successful login
+
+Ory:
+
+1. Creates a session for the user
+2. Sets a secure session cookie in the browser
+3. Redirects the user to the specified return URL or default location
+
+Your application should then check for the presence of this session cookie to determine if a user is authenticated.
