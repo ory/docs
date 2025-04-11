@@ -19,10 +19,10 @@ import goCheckSession from '!!raw-loader!./_common/code-examples/go/session/chec
 After a user has logged in, Ory creates a session cookie that your application can use to verify the user's authentication status.
 This guide shows how to work with sessions in your application.
 
-
 ## Protecting routes
 
 You can protect routes by checking for the presence of a session cookie.
+
 ```mdx-code-block
 <FrameworkCodeTabs>
 <TabItem value="javascript">
@@ -30,18 +30,18 @@ You can protect routes by checking for the presence of a session cookie.
 
 ```javascript
 const requireAuth = async (req, res, next) => {
-    try {
-      const session = await ory.toSession({ cookie: req.header("cookie") })
-      req.session = session
-      next()
-    } catch (error) {
-      res.redirect(`${baseUrl}/ui/login`)
-    }
+  try {
+    const session = await ory.toSession({ cookie: req.header("cookie") })
+    req.session = session
+    next()
+  } catch (error) {
+    res.redirect(`${baseUrl}/ui/login`)
   }
+}
 
 app.get("/", requireAuth, (req, res) => {
-    res.json(req.session.identity.traits); // { email: 'newtestuser@gmail.com' }
-});
+  res.json(req.session.identity.traits) // { email: 'newtestuser@gmail.com' }
+})
 ```
 
 ```mdx-code-block
@@ -167,9 +167,9 @@ You can refresh user sessions to extend their expiration time:
 
 ```javascript
 app.get("/refresh-session", async (req, res) => {
-    // Redirect to login with refresh=true parameter
-    res.redirect(`${baseUrl}/ui/login?refresh=true`);
-});
+  // Redirect to login with refresh=true parameter
+  res.redirect(`${baseUrl}/ui/login?refresh=true`)
+})
 ```
 
 ```mdx-code-block

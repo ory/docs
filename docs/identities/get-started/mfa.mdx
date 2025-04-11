@@ -37,7 +37,6 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 
 Toggle the "Enable one-time code multi factor authentication" toggle to allow users to receive one-time codes for MFA.
 
-
 ```mdx-code-block
 </TabItem>
 <TabItem value="cli">
@@ -65,7 +64,7 @@ ory get identity-config --project <project-id> --workspace <workspace-id> --form
 selfservice:
   methods:
     code:
-      enabled: true  # Enable the one-time code method
+      enabled: true # Enable the one-time code method
       mfa_enabled: true
 ```
 
@@ -75,7 +74,9 @@ selfservice:
 ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
 ```
 
-This configuration forces users to provide the highest authentication factor available to access their account settings. For example, users without a second factor configured can access settings after they sign in with their password, but users that have a second factor set up (such as a TOTP app) will need to complete the second factor challenge.
+This configuration forces users to provide the highest authentication factor available to access their account settings. For
+example, users without a second factor configured can access settings after they sign in with their password, but users that have
+a second factor set up (such as a TOTP app) will need to complete the second factor challenge.
 
 ```mdx-code-block
 </TabItem>
