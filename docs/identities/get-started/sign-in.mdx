@@ -21,24 +21,18 @@ import nextjsLogin from '!!raw-loader!./_common/code-examples/nextjs/login.tsx'
 The login flow authenticates existing users in your application. This guide shows how to implement a secure login process that
 authenticates users and creates sessions.
 
-## Login Flow
-
 ```mdx-code-block
 <FrameworkCodeTabs>
 <TabItem value="javascript">
 ```
 
 ```javascript
-const requireAuth = async (req, res, next) => {
-  try {
-    const { data: session } = await ory.toSession({ cookie: req.header("cookie") })
-    req.session = session
-    next()
-  } catch (error) {
-    // No valid session, redirect to login
-    res.redirect(`${basePath}/ui/login`)
-  }
-}
+app.get("/", (req, res) => {
+    ory
+        .toSession({ cookie: req.header("cookie") })
+        .then((data) => res.json(data))
+        .catch(() => res.redirect(`${baseUrl}/ui/login`));
+});
 ```
 
 ```mdx-code-block
@@ -105,8 +99,6 @@ useEffect(() => {
 <TabItem value="go">
 ```
 
-### Session Middleware
-
 This checks for an active session and redirects to login if needed.
 
 ```go
@@ -138,8 +130,6 @@ func (app *App) sessionMiddleware(next http.HandlerFunc) http.HandlerFunc {
 <TabItem value="curl">
 ```
 
-### Create login flow
-
 ```shell
 curl -X GET \
   'https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser' \
@@ -153,20 +143,9 @@ curl -X GET \
 ```
 
 ## After successful login
-
-After a successful login, Ory:
-
+Ory:
 1. Creates a session for the user
 2. Sets a secure session cookie in the browser
 3. Redirects the user to the specified return URL or default location
 
 Your application should then check for the presence of this session cookie to determine if a user is authenticated.
-
-## Next steps
-
-Now that you have implemented login functionality, you should:
-
-1. [Add session management](/docs/identities/get-started/session-management.mdx)
-2. [Implement logout functionality](/docs/identities/get-started/sign-out.mdx)
-3. [Add password reset capabilities](/docs/kratos/manage-identities/30_account-recovery.mdx)
-4. [Explore social login options](/docs/identities/get-started/social-sign-in.mdx)
