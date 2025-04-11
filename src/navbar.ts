@@ -27,7 +27,7 @@ export const navbar: Navbar = {
         {
           to: "/docs/getting-started/ory-network-oauth2",
           //   to: "/docs/federation", // TODO: Use this route
-          label: "OAuth2/OIDC",
+          label: "OAuth2",
         },
         {
           to: "/docs/guides/permissions/overview",
