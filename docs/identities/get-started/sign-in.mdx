@@ -13,8 +13,7 @@ import { getSdkUrl } from "@site/src/hooks"
 import CodeBlock from "@theme/CodeBlock"
 import { FrameworkCodeTabs } from '@site/src/components/GuidesComponents'
 import jsLogin from '!!raw-loader!./_common/code-examples/js/login.js'
-import reactLogin from '!!raw-loader!./_common/code-examples/react/login.tsx'
-import goLogin from '!!raw-loader!./_common/code-examples/go/login.go'
+import goLogin from '!!raw-loader!./_common/code-examples/go/login_handler.go'
 import nextjsLogin from '!!raw-loader!./_common/code-examples/nextjs/login.tsx'
 ```
 
@@ -26,45 +25,8 @@ authenticates users and creates sessions.
 <TabItem value="javascript">
 ```
 
-```javascript
-app.get("/", (req, res) => {
-  ory
-    .toSession({ cookie: req.header("cookie") })
-    .then((data) => res.json(data))
-    .catch(() => res.redirect(`${baseUrl}/ui/login`))
-})
-```
-
 ```mdx-code-block
-</TabItem>
-<TabItem value="react">
-```
-
-This checks if the user has an active session and redirects to the login UI if needed.
-
-```tsx
-export default function Login() {
-  const [session, setSession] = useState<Session | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  const basePath = process.env.REACT_APP_ORY_SDK_URL || "http://localhost:4000"
-
-  useEffect(() => {
-    // Check if the user is authenticated
-    const checkSession = async () => {
-      try {
-        const session = await ory.toSession()
-        setSession(session)
-        setLoading(false)
-      } catch (error) {
-        // No valid session, redirect to Ory login
-        window.location.href = `${basePath}/ui/login`
-      }
-    }
-
-    checkSession()
-  }, [])
-}
+<CodeBlock language="js"> {jsLogin} </CodeBlock>
 ```
 
 ```mdx-code-block
@@ -75,23 +37,30 @@ export default function Login() {
 This checks if the user has an active session and redirects to the Ory login page if needed.
 
 ```tsx
-const [session, setSession] = useState<Session | null>(null)
-const basePath = process.env.NEXT_PUBLIC_ORY_SDK_URL || "http://localhost:4000"
+export default function Page() {
+  const [session, setSession] = useState<Session | null>(null)
 
-useEffect(() => {
-  // Check if the user is authenticated
-  const checkSession = async () => {
-    try {
-      const session = await ory.toSession()
-      setSession(session)
-    } catch (error) {
-      // No valid session, redirect to Ory login
-      window.location.href = `${basePath}/ui/login`
+  useEffect(() => {
+    // Check if the user is authenticated
+    const checkSession = async () => {
+      try {
+        const session = await ory.toSession()
+        setSession(session)
+      } catch (error) {
+        // No valid session found, redirect to Ory login
+        window.location.href = `${basePath}/ui/login`
+      }
     }
-  }
 
-  checkSession()
-}, [])
+    checkSession()
+  }, [])
+
+  return (
+    <>
+      <pre>{JSON.stringify(session, null, 2)}</pre>
+    </>
+  )
+}
 ```
 
 ```mdx-code-block
@@ -101,40 +70,9 @@ useEffect(() => {
 
 This checks for an active session and redirects to login if needed.
 
-```go
-func (app *App) sessionMiddleware(next http.HandlerFunc) http.HandlerFunc {
-	return func(writer http.ResponseWriter, request *http.Request) {
-		// Pass cookies to Ory's ToSession endpoint
-		cookies := request.Header.Get("Cookie")
-
-		// Verify session with Ory
-		session, _, err := app.ory.FrontendAPI.ToSession(request.Context()).
-                      Cookie(cookies).Execute()
-
-		// Redirect to login if no active session
-		if err != nil || (err == nil && !*session.Active) {
-			http.Redirect(writer, request, app.tunnelUrl+"/ui/login",
-                                  http.StatusSeeOther)
-			return
-		}
-
-		// Add session to context for the handler
-		ctx := withSession(request.Context(), session)
-		next.ServeHTTP(writer, request.WithContext(ctx))
-	}
-}
-```
-
 ```mdx-code-block
-</TabItem>
-<TabItem value="curl">
-```
+<CodeBlock className="language-go" title={"login_handler.go"}>{goLogin}</CodeBlock>
 
-```shell
-curl -X GET \
-  'https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser' \
-  -H 'Accept: application/json' \
-  --verbose
 ```
 
 ```mdx-code-block

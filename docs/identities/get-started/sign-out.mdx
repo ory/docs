@@ -13,8 +13,8 @@ import { getSdkUrl } from "@site/src/hooks"
 import CodeBlock from "@theme/CodeBlock"
 import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/GuidesComponents'
 import jsLogout from '!!raw-loader!./_common/code-examples/js/logout.js'
-import reactLogout from '!!raw-loader!./_common/code-examples/react/logout.tsx'
-import goLogout from '!!raw-loader!./_common/code-examples/go/logout.go'
+import nextLogout from '!!raw-loader!./_common/code-examples/nextjs/logout.tsx'
+import goLogout from '!!raw-loader!./_common/code-examples/go/logout_handler.go'
 ```
 
 The logout flow allows users to securely terminate their sessions. This guide shows how to implement proper logout functionality
@@ -29,10 +29,12 @@ in your application.
 
 ```mdx-code-block
 </TabItem>
-<TabItem value="react">
+<TabItem value="nextjs">
 ```
 
-<CodeBlock className="language-tsx">{reactLogout}</CodeBlock>
+<CodeBlock className="language-tsx" title={"api/logout/route.ts"}>
+  {nextLogout}
+</CodeBlock>
 
 ```mdx-code-block
 </TabItem>
@@ -40,22 +42,6 @@ in your application.
 ```
 
 <CodeBlock className="language-go">{goLogout}</CodeBlock>
-
-```mdx-code-block
-</TabItem>
-<TabItem value="curl">
-```
-
-```shell
-# Create a logout flow
-curl -X GET \
-  'https://$PROJECT_SLUG.projects.oryapis.com/self-service/logout/browser' \
-  -H 'Accept: application/json' \
-  -H 'Cookie: ory_session_YOUR_PROJECT=YOUR_SESSION_COOKIE' \
-  --verbose
-
-# The response contains a logout_url that you'll need to redirect the user to
-```
 
 ```mdx-code-block
 </TabItem>

@@ -11,6 +11,12 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeBlock from '@theme/CodeBlock'
 import { FrameworkCodeTabs } from '@site/src/components/GuidesComponents'
+import nextProdSetup from '!!raw-loader!./_common/code-examples/nextjs/lib/ory.prod.ts'
+import nextDevSetup from '!!raw-loader!./_common/code-examples/nextjs/lib/ory.local.ts'
+import goSetup from '!!raw-loader!./_common/code-examples/go/ory_client.go'
+import goProdSetup from '!!raw-loader!./_common/code-examples/go/ory_client_prod.go'
+import jsDevSetup from '!!raw-loader!./_common/code-examples/js/setupDev.js'
+import prodSetup from '!!raw-loader!./_common/code-examples/js/setup/setup.js'
 ```
 
 This guide shows how to set up the necessary dependencies and configurations to integrate Ory's identity management features into
@@ -37,20 +43,11 @@ npm install @ory/client-fetch --save
 
 ```mdx-code-block
 </TabItem>
-<TabItem value="react">
-```
-
-```shell
-npm install @ory/client-fetch --save
-```
-
-```mdx-code-block
-</TabItem>
 <TabItem value="nextjs">
 ```
 
 ```shell
-npm install @ory/client-fetch @ory/integrations --save
+npm install @ory/client-fetch --save
 ```
 
 ```mdx-code-block
@@ -61,13 +58,6 @@ npm install @ory/client-fetch @ory/integrations --save
 ```shell
 go get github.com/ory/client-go
 ```
-
-```mdx-code-block
-</TabItem>
-<TabItem value="curl">
-```
-
-For cURL, you don't need to install any SDK, as you'll make direct HTTP requests to the Ory APIs.
 
 ```mdx-code-block
 </TabItem>
@@ -101,14 +91,6 @@ ory help
 <TabItem value="linux">
 ```
 
-```shell
-# Install Ory CLI
-curl https://raw.githubusercontent.com/ory/meta/master/install.sh | sh -s ory
-
-# Verify installation
-ory help
-```
-
 ```mdx-code-block
 </TabItem>
 </Tabs>
@@ -129,8 +111,6 @@ To learn more about the Ory Tunnel, read the [dedicated section of the Ory CLI d
 
 ## 3. Configure the SDK
 
-### With Ory Tunnel (Local Development)
-
 When using the tunnel, configure your SDK to use the local tunnel URL:
 
 ```mdx-code-block
@@ -138,31 +118,8 @@ When using the tunnel, configure your SDK to use the local tunnel URL:
 <TabItem value="javascript">
 ```
 
-```javascript
-// For local development with tunnel
-import { Configuration, FrontendApi } from "@ory/client-fetch"
-
-const baseUrl = process.env.ORY_SDK_URL || "http://localhost:4000"
-const ory = new sdk.FrontendApi(
-  new sdk.Configuration({
-    basePath: baseUrl,
-  }),
-)
-```
-
 ```mdx-code-block
-</TabItem>
-<TabItem value="react">
-```
-
-```javascript
-// For local development with tunnel
-const baseUrl = process.env.ORY_SDK_URL || "http://localhost:4000"
-const ory = new sdk.FrontendApi(
-  new sdk.Configuration({
-    basePath: baseUrl,
-  }),
-)
+<CodeBlock language="js"> {jsDevSetup} </CodeBlock>
 ```
 
 ```mdx-code-block
@@ -170,23 +127,10 @@ const ory = new sdk.FrontendApi(
 <TabItem value="nextjs">
 ```
 
-```javascript
-// For Next.js, create an API route at pages/api/.ory/[...paths].ts
-import { createApiHandler } from "@ory/integrations/next"
-
-export default createApiHandler({
-  dontUseTldForCookieDomain: true,
-})
-
-// Then update your configuration to use relative URLs:
-export const ory = new FrontendApi(
-  new Configuration({
-    basePath: "/api/.ory",
-    baseOptions: {
-      withCredentials: true,
-    },
-  }),
-)
+```mdx-code-block
+ <CodeBlock
+  language="ts"
+  title="lib/ory.ts"> {nextDevSetup} </CodeBlock>
 ```
 
 ```mdx-code-block
@@ -194,34 +138,14 @@ export const ory = new FrontendApi(
 <TabItem value="go">
 ```
 
-```go
-// For local development with tunnel
-configuration := ory.NewConfiguration()
-configuration.Servers = []ory.ServerConfiguration{
-    {
-        URL: "http://localhost:4000",
-    },
-}
-```
-
 ```mdx-code-block
-</TabItem>
-<TabItem value="curl">
-```
-
-```shell
-# When using Ory Tunnel, direct your requests to the tunnel endpoint
-curl --request GET \
-  --url 'http://localhost:4000/self-service/login/browser' \
-  --header 'Accept: application/json'
+ <CodeBlock language="go" title="ory_client.go"> {goSetup} </CodeBlock>
 ```
 
 ```mdx-code-block
 </TabItem>
 </FrameworkCodeTabs>
 ```
-
-### With Ory Network (Production)
 
 For production environments, configure the SDK to use the Ory Network URL:
 
@@ -230,33 +154,8 @@ For production environments, configure the SDK to use the Ory Network URL:
 <TabItem value="javascript">
 ```
 
-```javascript
-const { Configuration, FrontendApi } = require("@ory/client-fetch")
-
-// Initialize the SDK
-const baseUrl = process.env.ORY_SDK_URL || "http://localhost:4000"
-const ory = new sdk.FrontendApi(
-  new sdk.Configuration({
-    basePath: baseUrl,
-  }),
-)
-```
-
 ```mdx-code-block
-</TabItem>
-<TabItem value="react">
-```
-
-```javascript
-import { Configuration, FrontendApi } from "@ory/client-fetch"
-
-// Initialize the SDK
-const ory = new FrontendApi(
-  new Configuration({
-    basePath: process.env.ORY_SDK_URL || "https://$PROJECT_SLUG.projects.oryapis.com",
-    credentials: "include",
-  }),
-)
+<CodeBlock language="js"> {prodSetup} </CodeBlock>
 ```
 
 ```mdx-code-block
@@ -264,16 +163,16 @@ const ory = new FrontendApi(
 <TabItem value="nextjs">
 ```
 
-```javascript
-import { Configuration, FrontendApi } from "@ory/client-fetch"
+```ts
+import { FrontendApi, Configuration } from "@ory/client-fetch"
 
-// Initialize the SDK
-export const ory = new FrontendApi(
+const ory = new FrontendApi(
   new Configuration({
     basePath: process.env.ORY_SDK_URL || "https://$PROJECT_SLUG.projects.oryapis.com",
-    credentials: "include",
   }),
 )
+
+export default ory
 ```
 
 ```mdx-code-block
@@ -281,35 +180,8 @@ export const ory = new FrontendApi(
 <TabItem value="go">
 ```
 
-```go
-import (
-    "context"
-    ory "github.com/ory/client-go"
-)
-
-func main() {
-    configuration := ory.NewConfiguration()
-    configuration.Servers = []ory.ServerConfiguration{
-        {
-            URL: "https://$PROJECT_SLUG.projects.oryapis.com",
-        },
-    }
-    client := ory.NewAPIClient(configuration)
-}
-```
-
 ```mdx-code-block
-</TabItem>
-<TabItem value="curl">
-```
-
-For cURL, you'll include the project URL directly in your requests:
-
-```shell
-# Example format - specific endpoints will be shown in the authentication section
-curl --request GET \
-  --url 'https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser' \
-  --header 'Accept: application/json'
+<CodeBlock language="go" title="ory_client_prod.go"> {goProdSetup} </CodeBlock>
 ```
 
 ```mdx-code-block
