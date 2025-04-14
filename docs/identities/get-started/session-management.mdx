@@ -12,8 +12,11 @@ import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
 import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/GuidesComponents'
 import jsCheckSession from '!!raw-loader!./_common/code-examples/js/session/check-session.js'
-import reactCheckSession from '!!raw-loader!./_common/code-examples/react/session/check-session.tsx'
-import goCheckSession from '!!raw-loader!./_common/code-examples/go/session/check-session.go'
+import jsRefreshSession from '!!raw-loader!./_common/code-examples/js/session/refresh-session.js'
+import nextRefreshSession from '!!raw-loader!./_common/code-examples/nextjs/session/refresh-session.ts'
+import nextCheckSession from '!!raw-loader!./_common/code-examples/nextjs/session/middleware.ts'
+import goCheckSession from '!!raw-loader!./_common/code-examples/go/middleware.go'
+import goRefreshHandler from '!!raw-loader!./_common/code-examples/go/refresh_handler.go'
 ```
 
 After a user has logged in, Ory creates a session cookie that your application can use to verify the user's authentication status.
@@ -28,54 +31,8 @@ You can protect routes by checking for the presence of a session cookie.
 <TabItem value="javascript">
 ```
 
-```javascript
-const requireAuth = async (req, res, next) => {
-  try {
-    const session = await ory.toSession({ cookie: req.header("cookie") })
-    req.session = session
-    next()
-  } catch (error) {
-    res.redirect(`${baseUrl}/ui/login`)
-  }
-}
-
-app.get("/", requireAuth, (req, res) => {
-  res.json(req.session.identity.traits) // { email: 'newtestuser@gmail.com' }
-})
-```
-
 ```mdx-code-block
-</TabItem>
-<TabItem value="react">
-```
-
-```tsx
-// Create a protected route wrapper component
-function ProtectedRoute({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    ory
-      .toSession()
-      .then(() => {
-        setIsAuthenticated(true)
-        setLoading(false)
-      })
-      .catch(() => {
-        setIsAuthenticated(false)
-        setLoading(false)
-        // Redirect to Ory login UI
-        window.location.href = `${basePath}/ui/login`
-      })
-  }, [])
-
-  if (loading) {
-    return <div>Loading...</div>
-  }
-
-  return isAuthenticated ? children : null
-}
+<CodeBlock language="js"> {jsCheckSession} </CodeBlock>
 ```
 
 ```mdx-code-block
@@ -83,36 +40,8 @@ function ProtectedRoute({ children }) {
 <TabItem value="nextjs">
 ```
 
-```tsx
-// middleware.ts file at the project root
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
-
-export async function middleware(request: NextRequest) {
-  const url = new URL(request.url)
-  const basePath = process.env.NEXT_PUBLIC_ORY_SDK_URL || "http://localhost:4000"
-
-  // List of protected paths
-  const protectedPaths = ["/dashboard", "/settings", "/profile"]
-  const isProtectedPath = protectedPaths.some((path) => url.pathname === path || url.pathname.startsWith(`${path}/`))
-
-  if (isProtectedPath) {
-    // Check for the session cookie
-    const cookie = request.cookies.get("ory_session_YOUR_PROJECT")
-
-    if (!cookie) {
-      // Redirect to Ory login UI with return URL
-      return NextResponse.redirect(`${basePath}/ui/login?return_to=${encodeURIComponent(url.pathname)}`)
-    }
-  }
-
-  return NextResponse.next()
-}
-
-// Configure which paths the middleware runs on
-export const config = {
-  matcher: ["/dashboard/:path*", "/settings/:path*", "/profile/:path*"],
-}
+```mdx-code-block
+<CodeBlock language="ts" title="middleware.ts">{nextCheckSession}</CodeBlock>
 ```
 
 ```mdx-code-block
@@ -120,35 +49,8 @@ export const config = {
 <TabItem value="go">
 ```
 
-```go
-// Using the App struct and middleware from above
-
-func main() {
-  // Assuming app is already initialized as in the sign-in guide
-
-  // Create router
-  mux := http.NewServeMux()
-
-  // Routes that use the session middleware
-  mux.Handle("/dashboard", app.sessionMiddleware(app.dashboardHandler))
-  mux.Handle("/profile", app.sessionMiddleware(app.profileHandler))
-
-  // Start server
-  http.ListenAndServe(":3000", mux)
-}
-
-// Example protected route handler
-func (app *App) dashboardHandler(w http.ResponseWriter, r *http.Request) {
-  // Get session from context (set by middleware)
-  session, err := getSession(r.Context())
-  if err != nil {
-    http.Error(w, err.Error(), http.StatusInternalServerError)
-    return
-  }
-
-  // Use session data
-  fmt.Fprintf(w, "Welcome, %s!", session.Identity.Traits["email"])
-}
+```mdx-code-block
+<CodeBlock language="go" title="middleware.go">{goCheckSession}</CodeBlock>
 ```
 
 ```mdx-code-block
@@ -165,30 +67,8 @@ You can refresh user sessions to extend their expiration time:
 <TabItem value="javascript">
 ```
 
-```javascript
-app.get("/refresh-session", async (req, res) => {
-  // Redirect to login with refresh=true parameter
-  res.redirect(`${baseUrl}/ui/login?refresh=true`)
-})
-```
-
 ```mdx-code-block
-</TabItem>
-<TabItem value="react">
-```
-
-```tsx
-// Force session refresh by prompting re-authentication
-function refreshUserSession() {
-  const basePath = process.env.REACT_APP_ORY_SDK_URL || "http://localhost:4000"
-  // Redirect to login with refresh=true parameter
-  window.location.href = `${basePath}/ui/login?refresh=true&return_to=${window.location.pathname}`
-}
-
-// Button component example
-function RefreshSessionButton() {
-  return <button onClick={refreshUserSession}>Refresh Session</button>
-}
+<CodeBlock language="js"> {jsRefreshSession} </CodeBlock>
 ```
 
 ```mdx-code-block
@@ -196,25 +76,8 @@ function RefreshSessionButton() {
 <TabItem value="nextjs">
 ```
 
-```tsx
-// Force session refresh by prompting re-authentication
-function refreshUserSession() {
-  const basePath = process.env.NEXT_PUBLIC_ORY_SDK_URL || "http://localhost:4000"
-  // Redirect to login with refresh=true parameter
-  window.location.href = `${basePath}/ui/login?refresh=true&return_to=${window.location.pathname}`
-}
-
-// API route to refresh session programmatically (pages/api/refresh-session.js)
-export default async function handler(req, res) {
-  try {
-    const { data: session } = await ory.refreshSession({
-      cookie: req.headers.cookie,
-    })
-    res.status(200).json({ success: true, session })
-  } catch (error) {
-    res.status(401).json({ success: false, error: "Unauthorized" })
-  }
-}
+```mdx-code-block
+<CodeBlock className="language-tsx" title="api/refresh-session/route.ts">{nextRefreshSession}</CodeBlock>
 ```
 
 ```mdx-code-block
@@ -222,49 +85,8 @@ export default async function handler(req, res) {
 <TabItem value="go">
 ```
 
-```go
-// Force session refresh by prompting re-authentication
-func refreshSessionHandler(w http.ResponseWriter, r *http.Request) {
-    // Redirect to login with refresh=true parameter
-    http.Redirect(w, r, app.tunnelUrl+"/ui/login?refresh=true&return_to=/dashboard",
-        http.StatusSeeOther)
-}
-
-// Refresh a session programmatically
-func (app *App) refreshSession(w http.ResponseWriter, r *http.Request) {
-    cookie := r.Header.Get("Cookie")
-
-    // Refresh the session
-    session, _, err := app.ory.FrontendApi.RefreshSession(r.Context()).
-        Cookie(cookie).Execute()
-
-    if err != nil {
-        http.Redirect(w, r, app.tunnelUrl+"/ui/login", http.StatusSeeOther)
-        return
-    }
-
-    // Session is now refreshed
-    ctx := withSession(r.Context(), session)
-    // Continue with the refreshed session
-}
-```
-
 ```mdx-code-block
-</TabItem>
-<TabItem value="curl">
-```
-
-```shell
-# Force session refresh by prompting re-authentication
-# Redirect the user to this URL:
-https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser?refresh=true
-
-# Refresh a session programmatically
-curl -X GET \
-  'https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/refresh?refresh=aAaAfAEAAdAFECQAAJMAbCcDdFEBaGcG' \
-  -H 'Accept: application/json' \
-  -H 'Cookie: ory_session_YOUR_PROJECT=YOUR_SESSION_COOKIE' \
-  --verbose
+<CodeBlock className="language-go" title="refresh_handler.go">{goRefreshHandler}</CodeBlock>
 ```
 
 ```mdx-code-block
