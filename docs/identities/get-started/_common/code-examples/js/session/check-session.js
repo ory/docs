@@ -4,7 +4,7 @@ const requireAuth = async (req, res, next) => {
     req.session = session
     next()
   } catch (error) {
-    res.redirect(`${baseUrl}/ui/login`)
+    res.redirect(`${process.env.ORY_SDK_URL}/self-service/login/browser`)
   }
 }
 

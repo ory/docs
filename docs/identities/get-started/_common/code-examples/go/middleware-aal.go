@@ -27,6 +27,12 @@ func (app *App) sessionMiddleware(next http.HandlerFunc) http.HandlerFunc {
 			http.Redirect(writer, request, "/self-service/login/browser", http.StatusSeeOther)
 			return
 		}
+		// highlight-start
+		if *session.AuthenticatorAssuranceLevel != "aal2" {
+			http.Redirect(writer, request, "/self-service/login/browser?aal=aal2", http.StatusSeeOther)
+			return
+		}
+		// highlight-end
 
 		// Add session to context for the handler
 		ctx := withSession(request.Context(), session)

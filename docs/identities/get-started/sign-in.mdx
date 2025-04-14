@@ -17,8 +17,8 @@ import goLogin from '!!raw-loader!./_common/code-examples/go/login_handler.go'
 import nextjsLogin from '!!raw-loader!./_common/code-examples/nextjs/login.tsx'
 ```
 
-The login flow authenticates existing users in your application. This guide shows how to implement a secure login process that
-authenticates users and creates sessions.
+The sign in flow follows the same pattern as the [sign up flow](/docs/identities/get-started/sign-up) but instead of redirecting to the registration page, it redirects to the login page.
+
 
 ```mdx-code-block
 <FrameworkCodeTabs>
@@ -34,7 +34,6 @@ authenticates users and creates sessions.
 <TabItem value="nextjs">
 ```
 
-This checks if the user has an active session and redirects to the Ory login page if needed.
 
 ```tsx
 export default function Page() {
@@ -48,7 +47,7 @@ export default function Page() {
         setSession(session)
       } catch (error) {
         // No valid session found, redirect to Ory login
-        window.location.href = `${basePath}/ui/login`
+        window.location.href = `${process.env.ORY_SDK_URL}/self-service/login/browser`
       }
     }
 
@@ -68,7 +67,6 @@ export default function Page() {
 <TabItem value="go">
 ```
 
-This checks for an active session and redirects to login if needed.
 
 ```mdx-code-block
 <CodeBlock className="language-go" title={"login_handler.go"}>{goLogin}</CodeBlock>
@@ -80,12 +78,8 @@ This checks for an active session and redirects to login if needed.
 </FrameworkCodeTabs>
 ```
 
-## After successful login
+You can alternatively set `return_to` to a custom URL. This URL will be used as the return URL for the login flow:
 
-Ory:
-
-1. Creates a session for the user
-2. Sets a secure session cookie in the browser
-3. Redirects the user to the specified return URL or default location
-
-Your application should then check for the presence of this session cookie to determine if a user is authenticated.
+```
+https://$ORY_SDK_URL/self-service/login/browser?return_to=https://example.com/dashboard
+```
