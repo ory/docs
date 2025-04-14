@@ -4,6 +4,16 @@ title: Multi-factor authentication
 sidebar_label: Multi-factor authentication
 ---
 
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeBlock from "@theme/CodeBlock"
+import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/GuidesComponents'
+import jsCheckAAL from '!!raw-loader!./_common/code-examples/js/session/check-aal.js'
+import nextCheckAAL from '!!raw-loader!./_common/code-examples/nextjs/session/middleware-aal.ts'
+import goCheckAAL from '!!raw-loader!./_common/code-examples/go/middleware-aal.go'
+```
+
 This guide shows you how to enable multi-factor authentication (MFA) for your Ory project.
 
 ```mdx-code-block
@@ -93,6 +103,42 @@ When MFA is enabled, users will see a second authentication screen after logging
 </BrowserWindow>
 ```
 
+## Check AAL
+
+Authentication Authorization Level (AAL) is a concept that describes the strength of the authentication factor used to access a resource.
+
+- aal1: Password/OIDC
+- aal2: Password/OIDC and one-time code
+
+To check the AAL of the current session, use the `authenticator_assurance_level` on the `toSession` method.
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+<CodeBlock className="language-js">{jsCheckAAL}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+<CodeBlock className="language-tsx" title={"api/logout/route.ts"}>
+  {nextCheckAAL}
+</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+<CodeBlock className="language-go">{goCheckAAL}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
 ### User flow
 
 1. The user enters their username/password or uses another primary authentication method

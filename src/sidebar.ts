@@ -254,6 +254,7 @@ const identities: SidebarItemsConfig = [
     },
     items: [
       "identities/get-started/setup",
+      "identities/get-started/sign-up",
       "identities/get-started/sign-in",
       "identities/get-started/sign-out",
       "identities/get-started/session-management",

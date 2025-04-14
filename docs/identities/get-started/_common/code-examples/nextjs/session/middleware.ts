@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
   } catch (error) {
     const basePath =
       process.env.NEXT_PUBLIC_ORY_SDK_URL || "http://localhost:4000"
-    return NextResponse.redirect(`${basePath}/ui/login`)
+    return NextResponse.redirect(`${basePath}/self-service/login/browser`)
   }
 }
 // Configure which routes to protect

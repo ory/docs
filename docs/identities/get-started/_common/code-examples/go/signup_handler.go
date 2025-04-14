@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-// LoginHandler handles the /login route
-func (app *App) loginHandler(writer http.ResponseWriter, request *http.Request) {
+// SignUpHandler handles the /signup route
+func (app *App) signUpHandler(writer http.ResponseWriter, request *http.Request) {
 	// Get cookies from the request
 	cookies := request.Header.Get("Cookie")
 
@@ -15,7 +15,7 @@ func (app *App) loginHandler(writer http.ResponseWriter, request *http.Request) 
 
 	// If there's an error or session is not active, redirect to login UI
 	if err != nil || (err == nil && !*session.Active) {
-		http.Redirect(writer, request, app.tunnelUrl+"/self-service/login/browser", http.StatusSeeOther)
+		http.Redirect(writer, request, app.tunnelUrl+"/self-service/registration/browser", http.StatusSeeOther)
 		return
 	}
 
