@@ -10,3 +10,4 @@ const requireAuth = async (req, res, next) => {
 
 app.get("/", requireAuth, (req, res) => {
   res.json(req.session.identity.traits) // { email: 'newtestuser@gmail.com' }
+})
