@@ -16,8 +16,7 @@ import jsSignUp from '!!raw-loader!./_common/code-examples/js/sign-up.js'
 import goSignUp from '!!raw-loader!./_common/code-examples/go/signup_handler.go'
 ```
 
-This guide shows how to implement a secure sign up flow that
-authenticates users and creates sessions.
+This guide shows how to implement a secure sign up flow that authenticates users and creates sessions.
 
 You'll learn how to:
 
@@ -25,7 +24,8 @@ You'll learn how to:
 - Redirect the user back to your application after sign up
 - Check if the user is authenticated
 
-To authenticate a user, check if the user has an active session. If the user does not have an active session, redirect the user to the Ory registration page.
+To authenticate a user, check if the user has an active session. If the user does not have an active session, redirect the user to
+the Ory registration page.
 
 ```mdx-code-block
 <FrameworkCodeTabs>
@@ -40,7 +40,6 @@ To authenticate a user, check if the user has an active session. If the user doe
 </TabItem>
 <TabItem value="nextjs">
 ```
-
 
 ```tsx
 export default function Page() {
@@ -73,7 +72,6 @@ export default function Page() {
 </TabItem>
 <TabItem value="go">
 ```
-
 
 ```mdx-code-block
 <CodeBlock className="language-go" title={"signup_handler.go"}>{goSignUp}</CodeBlock>
