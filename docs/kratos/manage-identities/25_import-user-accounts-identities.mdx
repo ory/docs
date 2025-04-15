@@ -714,7 +714,7 @@ When importing SAML or OIDC connections that are only available for certain [org
 To import multiple identities into Ory Identities, use the
 [Identity Import API](https://www.ory.sh/docs/reference/api#tag/identity/operation/batchPatchIdentities).
 
-A maximum of 2000 identities can be created in a single request. If you need to import more identities, split the import into
+A maximum of 1000 identities can be created in a single request. If you need to import more identities, split the import into
 multiple requests.
 
 The endpoint accepts a JSON array of identities, each of which must have a `create` property that holds the identity that should
