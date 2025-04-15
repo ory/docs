@@ -97,7 +97,7 @@ export const authenticationPaths: Path[] = [
     href: routes.project.recovery.route,
   },
   {
-    title: "Email verification",
+    title: "Account verification",
     href: routes.project.verification.route,
   },
   {
