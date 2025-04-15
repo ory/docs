@@ -42,79 +42,52 @@ import CreateProject from '../_common/create-project.mdx'
 <CreateProject />
 ```
 
-## Add Ory URL to environment variables
+## Install Ory CLI
 
-Add the following environment variables to your `.env` file:
+Follow [this guide](../../guides/cli/01_installation.mdx) to install the Ory CLI on your machine.
 
+### Why do I need the Ory CLI
+
+```mdx-code-block
+import OryCLI from '../_common/ory-cli.mdx'
+
+<OryCLI isTunnel={true} />
 ```
-NEXT_PUBLIC_ORY_SDK_URL=https://$PROJECT_SLUG.projects.oryapis.com
-```
 
-## Install Ory SDK
+## Run Ory APIs on `localhost`
 
-To interact with Ory's APIs we install the Ory SDK:
+In a new terminal window, run the Ory Tunnel:
 
 ```shell
-npm i --save @ory/elements-react @ory/nextjs
+ory tunnel --project <project-id> http://localhost:3000
 ```
+
+This command mirrors Ory APIs on `http://localhost:4000`. Use that URL as the `basePath` for the `@ory/client-fetch` SDK.
 
 ## Authenticate user
 
-To implement authentication, create the following files:
+To implement authentication, modify the existing `app/page.tsx` component to include the following:
 
 ```mdx-code-block
-import oryConfig from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/ory.config.ts'
 import CodeBlock from '@theme/CodeBlock'
+import HomePage from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/app/page.tsx'
 
-<CodeBlock language="tsx" title="ory.config.ts">{oryConfig}</CodeBlock>
+<CodeBlock language="tsx">{HomePage}</CodeBlock>
+
 ```
 
-This configuration file defines the paths for login, registration, and other authentication pages in your Next.js application.
+The component checks whether a user is signed in and if so, shows a logout link and the user's session information. Otherwise, it
+shows a login and registration link.
 
-```mdx-code-block
-import middleware from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/middleware.ts'
+## Run your Nextjs app
 
-<CodeBlock language="tsx" title="middleware.ts">{middleware}</CodeBlock>
-```
-
-The middleware protects your routes by checking for valid sessions and redirecting unauthenticated users to the login page.
-
-```mdx-code-block
-import loginPage from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/app/auth/login/page.tsx'
-
-<CodeBlock language="tsx" title="app/auth/login/page.tsx">{loginPage}</CodeBlock>
-```
-
-The login page uses Ory's pre-built Login component to render a complete authentication form with error handling.
-
-## Run your Next.js app
-
-Now that your app is ready, it's time to run it! Start the Next.js development server:
+Now that your app is ready, it's time to run it! Start the Next development server:
 
 ```shell
 npm run dev
 ```
 
 Go to [localhost:3000](http://localhost:3000/) to access your application.
-
-## Make authenticated calls to your API
-
-To make authenticated API calls in your Next.js app, you can create a Route Handler that verifies the session:
-
-```mdx-code-block
-import route from '!!raw-loader!../../../code-examples/protect-page-login/nextjs/app/api/hello/route.ts'
-
-<CodeBlock language="tsx" title="middleware.ts">{route}</CodeBlock>
-```
-
-When making API calls from client components, make sure to include credentials to send session cookies:
-
-```tsx
-// Client component example
-const response = await fetch("/api/hello", {
-  credentials: "include", // Important for sending cookies
-})
-```
 
 ### See it in action
 
