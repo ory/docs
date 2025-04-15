@@ -32,8 +32,8 @@ const DomainWarning = ({ severity = "info" }) => (
     </div>
     <div className="admonition-content">
       <p>
-        Ory and your UI must be hosted on the same top level domain. You
-        can't host Ory and your UI on separate top level domains:
+        Ory and your UI must be hosted on the same top level domain. You can't
+        host Ory and your UI on separate top level domains:
       </p>
       <ul>
         <li>
