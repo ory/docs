@@ -1,4 +1,4 @@
-This is a simple example application using @ory/elements-react & Next.js app
+This is a simple example application using Ory & Next.js app
 router.
 
 To learn how to use this example, see
