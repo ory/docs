@@ -78,7 +78,11 @@ function App({ msg }: AppProps) {
             <p>Click on "login" or "Sign Up" below to sign in.</p>
             <ul className="auth-links">
               <li>
-                <a href={`${basePath}/ui/login`} data-testid="sign-in" className="auth-button">
+                <a
+                  href={`${basePath}/ui/login`}
+                  data-testid="sign-in"
+                  className="auth-button"
+                >
                   Login
                 </a>
               </li>
@@ -89,7 +93,11 @@ function App({ msg }: AppProps) {
           <div className="protected-content">
             <div className="header">
               <h1 className="title">{msg}</h1>
-              <a href={logoutUrl || "#"} data-testid="logout" className="logout-button">
+              <a
+                href={logoutUrl || "#"}
+                data-testid="logout"
+                className="logout-button"
+              >
                 Logout
               </a>
             </div>
@@ -110,9 +118,15 @@ function App({ msg }: AppProps) {
         <div className="essential-links">
           <h3>Essential Links</h3>
           <ul>
-            <li><a href="https://www.ory.sh">Ory Website</a></li>
-            <li><a href="https://github.com/ory">Ory GitHub</a></li>
-            <li><a href="https://www.ory.sh/docs">Documentation</a></li>
+            <li>
+              <a href="https://www.ory.sh">Ory Website</a>
+            </li>
+            <li>
+              <a href="https://github.com/ory">Ory GitHub</a>
+            </li>
+            <li>
+              <a href="https://www.ory.sh/docs">Documentation</a>
+            </li>
           </ul>
         </div>
       </main>
@@ -120,4 +134,4 @@ function App({ msg }: AppProps) {
   )
 }
 
-export default App;
+export default App
