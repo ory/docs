@@ -34,12 +34,14 @@ import CreateProject from '../_common/create-project.mdx'
 <CreateProject />
 ```
 
-## Install Ory SDK and CLI
+## Install Ory CLI and SDK
 
-To interact with Ory's APIs, install the Ory SDK and CLI:
+Follow [this guide](../../guides/cli/01_installation.mdx) to install the Ory CLI on your machine.
+
+Run this to install the ory client sdk for your project:
 
 ```shell
-npm i --save @ory/client-fetch @ory/cli
+npm i @ory/client-fetch
 ```
 
 ### Why do I need the Ory CLI
@@ -55,12 +57,10 @@ import OryCLI from '../_common/ory-cli.mdx'
 In a new terminal window, start the Ory Tunnel:
 
 ```shell
-npx @ory/cli tunnel --dev http://localhost:5173
+ory tunnel --project <project-id> http://localhost:5173
 ```
 
-This command mirrors Ory APIs on `http://localhost:4000`. Use that URL as the `baseUrl` for the `@ory/client-fetch` SDK (see
-`App.tsx` code below). The `--dev` flag disables security checks for easier integration and should not be used when running the
-Tunnel in an insecure environment like public networks.
+This command mirrors Ory APIs on `http://localhost:4000`. Use that URL as the `basePath` for the `@ory/client-fetch` SDK. Obtain your project ID from the Ory Console.
 
 ## Authenticate user
 
@@ -73,8 +73,9 @@ import CodeBlock from '@theme/CodeBlock'
 <CodeBlock language="tsx" title="./src/App.tsx">{handlerReact}</CodeBlock>
 ```
 
-The component checks whether a user is signed in and if so, shows a logout link and the user's session information. Otherwise, it
-shows a login and registration link.
+This implementation checks for an authenticated session using Ory's `toSession()` API, which verifies the user's session cookie.
+Upon successful authentication, it displays the user's session information with identity traits and provides logout functionality.
+If authentication fails, the system automatically redirects to Ory's login UI.
 
 ## Run your React app
 
@@ -106,22 +107,21 @@ Let's put this into action. Create a simple HTTP API with express. Run:
 ```shell-script
 mkdir api
 cd api
-npm init
+npm init --y
 npm i --save @ory/client-fetch express cors
 ```
 
 Next, create a simple API in `index.js`:
 
 ```mdx-code-block
-import handlerApi from '!!raw-loader!../../../code-examples/auth-api/expressjs/index.js'
+import handlerApi from '!!raw-loader!../../../code-examples/protect-page-login/react/src/api/index.js'
 
-<CodeBlock language="js" title="./server/index.js">{handlerApi}</CodeBlock>
+<CodeBlock language="js" title="api/index.js">{handlerApi}</CodeBlock>
 ```
 
 Finally, start the server:
 
 ```shell
-cd server
 node index.js
 ```
 

@@ -78,7 +78,7 @@ test.describe("Single Page App + API", () => {
 test.describe("React Single Page App", () => {
   test("able to use Sign in and Login", async ({ page }) => {
     await page.goto("http://localhost:4008/")
-    await page.click("#sign-up")
+    await page.click('[data-testid="signup-link"]')
     await expect(page).toHaveURL(/.*\/ui\/registration.*/)
 
     const email = await login(page)

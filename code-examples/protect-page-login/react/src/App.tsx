@@ -1,26 +1,20 @@
 import { useState, useEffect } from "react"
 import "./App.css"
-// highlight-next-line
 import { FrontendApi, Configuration, Session } from "@ory/client-fetch"
 
-// Props interface (matching Vue props)
 interface AppProps {
   msg?: string
 }
 
-// highlight-start
 const basePath = import.meta.env.VITE_ORY_URL || "http://localhost:4000"
-// highlight-end
 
 // Initialize Ory client
-// highlight-start
 const ory = new FrontendApi(
   new Configuration({
     basePath,
     credentials: "include",
   }),
 )
-// highlight-end
 
 function App({ msg }: AppProps) {
   // State variables
@@ -29,83 +23,72 @@ function App({ msg }: AppProps) {
 
   const fetchSession = async () => {
     try {
-      // highlight-start
-      // Fetch the session directly from Ory
+      // Browser automatically includes cookies in the request
       const data = await ory.toSession()
       setSession(data)
-      // highlight-end
 
-      // highlight-start
       // Create logout URL if session exists
       const logoutData = await ory.createBrowserLogoutFlow()
       setLogoutUrl(logoutData.logout_url)
-      // highlight-end
     } catch (error) {
       console.error("Error fetching session:", error)
+      // Redirect to login page on error
+      window.location.href = basePath + "/ui/login"
     }
   }
 
   // Lifecycle hooks
   useEffect(() => {
-    // highlight-start
-    // Fetch the session and API response
+    // Fetch the session
     fetchSession()
-    // highlight-end
   }, [])
-
   return (
     <div className="main">
-      <h1>{msg}</h1>
+      <main className="container">
+        {!session ? (
+          // Login section
+          <div className="login-section">
+            <h1 className="title">{msg}</h1>
+            <p>Click on "login" or "Sign Up" below to sign in.</p>
+            <ul className="auth-links">
+              <li>
+                <a href={`${basePath}/ui/login`} data-testid="sign-in" className="auth-button">
+                  Login
+                </a>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          // Protected content section
+          <div className="protected-content">
+            <div className="header">
+              <h1 className="title">{msg}</h1>
+              <a href={logoutUrl || "#"} data-testid="logout" className="logout-button">
+                Logout
+              </a>
+            </div>
+            <div className="session-info">
+              <h2 className="subtitle">Session Information:</h2>
+              <pre>
+                <code data-testid="ory-response">
+                  {JSON.stringify(session.authentication_methods, null, 2)}
+                </code>
+              </pre>
+            </div>
+          </div>
+        )}
 
-      <div className={!session ? "" : "hidden"}>
-        <p>Click on "login" or "Sign Up" below to sign in.</p>
-        {/* highlight-start */}
-        <li>
-          <a href={`${basePath}/ui/login`} data-testid="sign-in">
-            Login
-          </a>
-        </li>
-        <li>
-          <a href={`${basePath}/ui/registration`} data-testid="sign-up">
-            Sign Up
-          </a>
-        </li>
-        {/* highlight-end */}
-      </div>
-      <div className={session ? "long" : "hidden"}>
-        <p>
-          Use the SDK's <code>toSession()</code> call to receive the session
-          information, for example the authentication methods used:
-        </p>
-        {/* highlight-start */}
-        <pre>
-          <code data-testid="ory-response">
-            {session
-              ? JSON.stringify(session.authentication_methods, null, 2)
-              : ""}
-          </code>
-        </pre>
-        {/* highlight-end */}
-      </div>
-      <ul className={session ? "" : "hidden"}>
-        {/* highlight-start */}
-        <li>
-          <a href={logoutUrl || "#"} data-testid="logout">
-            Logout
-          </a>
-        </li>
-        {/* highlight-end */}
-      </ul>
-
-      <br />
-      <h3>Essential Links</h3>
-      <ul>
-        <a href="https://www.ory.sh">Ory Website</a>
-        <a href="https://github.com/ory">Ory GitHub</a>
-        <a href="https://www.ory.sh/docs">Documentation</a>
-      </ul>
+        <div className="essential-links">
+          <h3>Essential Links</h3>
+          <ul>
+            <li><a href="https://www.ory.sh">Ory Website</a></li>
+            <li><a href="https://github.com/ory">Ory GitHub</a></li>
+            <li><a href="https://www.ory.sh/docs">Documentation</a></li>
+          </ul>
+        </div>
+      </main>
     </div>
   )
 }
 
-export default App
+export default App;
