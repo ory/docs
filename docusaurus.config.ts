@@ -120,7 +120,7 @@ const config: Config = {
           href: "https://www.ory.sh/contact/",
         },
         {
-          html: `<a class="ory-consent-manager footer__link-item" href="#">Consent Preferences</a>`,
+          html: `<button class="footer__link-item" onClick="window.__showOryConsentDialog()">Consent Preferences</button>`,
         },
       ] satisfies Preset.ThemeConfig["footer"]["links"],
       logo: {
@@ -178,6 +178,16 @@ const config: Config = {
         svgrConfig: {},
       },
     ],
+    async function tailwindcss(context, options) {
+      return {
+        name: "docusaurus-tailwindcss",
+        configurePostCss(postcssOptions) {
+          // Use the new PostCSS plugin for Tailwind CSS
+          postcssOptions.plugins.push(require("@tailwindcss/postcss"))
+          return postcssOptions
+        },
+      }
+    },
   ],
   presets: [
     [

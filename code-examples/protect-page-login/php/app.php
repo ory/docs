@@ -1,6 +1,3 @@
-// Copyright © 2022 Ory Corp
-// SPDX-License-Identifier: Apache-2.0
-
 <?php
 
 class App
@@ -24,7 +21,7 @@ class App
         } catch (Exception $e) {
             error_log('Exception when calling toSession: ' . $e->getMessage());
             // this will initialize a new login flow and Kratos will redirect the user to the login UI
-            header("Location: /.ory/self-service/login/browser", true, 303);
+            header("Location: " . $this->tunnelUrl . "/ui/login", true, 303);
             die();
         }
         $this->session = $session;

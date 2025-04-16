@@ -61,14 +61,14 @@ sequenceDiagram
   O->>A: flow.session_token_exchange_code: ...
   U->>A: choose SSO provider
   A->>O: submit form with provider=...
-  O->>A: Status 422 with err.response.data.redirect_browser_to=<IdP auth URL>
-  A->>+B: go to <IdP auth URL>
-  B->>+I: open <IdP auth URL>
+  O->>A: Status 422 with err.response.data.redirect_browser_to=[IdP auth URL]
+  A->>+B: go to [IdP auth URL]
+  B->>+I: open [IdP auth URL]
   U->>I: login, consent
-  I->>-B: redirect to <IdP callback URL>
-  B->>O: open <IdP callback URL>
+  I->>-B: redirect to [IdP callback URL]
+  B->>O: open [IdP callback URL]
   O->>B: 302 Found
-  B->>A: redirect with App link to <return to>/?code=...
+  B->>A: redirect with App link to [return to]/?code=...
   deactivate B
   A->>O: exchange code for session token
   O->>-A: session token

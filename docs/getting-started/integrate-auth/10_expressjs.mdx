@@ -56,7 +56,7 @@ import OryCLI from '../_common/ory-cli.mdx'
 
 ## Update the npm scripts
 
-Now that the Ory CLI is installed, create a new npm script to run the proxy server:
+Now that the Ory CLI is installed, create a new npm script to run the tunnel server:
 
 ```json title="package.json"  {7}
 {
@@ -65,7 +65,7 @@ Now that the Ory CLI is installed, create a new npm script to run the proxy serv
   "private": true,
   "scripts": {
     "dev": "nodemon index.js",
-    "proxy": "ory proxy --project $ORY_PROJECT_ID --port 4000 http://localhost:3000/"
+    "tunnel": "ory tunnel --project $ORY_PROJECT_ID --port 4000 --dev http://localhost:3000"
   },
   "dependencies": {
 ```
@@ -93,16 +93,16 @@ Great, that's it. Let's run your application. Start the Express.js server
 npm run dev
 ```
 
-Next open a new terminal window and start the Ory Proxy. Upon first start, the Ory Proxy will ask you to log into your Ory Console
-account.
+Next open a new terminal window and start the Ory Tunnel. Upon first start, the Ory Tunnel will ask you to log into your Ory
+Console account.
 
 ```shell
-ORY_PROJECT_ID=<YOUR_PROJECT_ID> npm run proxy
+ORY_PROJECT_ID=<YOUR_PROJECT_ID> npm run tunnel
 ```
 
 Replace `<YOUR_PROJECT_ID>` with your actual Ory Project ID from the Ory Console.
 
-To access the Express.js app through the ORY proxy open [http://localhost:4000](http://localhost:4000) in your browser. You are
+To access the Express.js app through the Ory Tunnel open [http://localhost:4000](http://localhost:4000) in your browser. You are
 presented with Ory's Sign In page. Let's click on sign up and create your first user.
 
 ## Go to production
@@ -114,15 +114,19 @@ import ToProd from '../_common/going-to-prod.mdx'
 ```
 
 ```js
-var sdk = require("@ory/client")
+// 1. Import SDK
+import { FrontendApi } from "@ory/client-fetch"
 
-var ory = new sdk.FrontendApi(
-  new sdk.Configuration({
-    basePath: "https://ory.example.org",
-    baseOptions: {
-      // Ensures that cookies are included in CORS requests:
-      withCredentials: true,
-    },
+// 2. Configure Ory
+const basePath = process.env.ORY_URL
+
+const ory = new FrontendApi(
+  new Configuration({
+    basePath,
+    credentials: "include",
   }),
 )
+
+// 3. Sign in or grab session.
+const data = await ory.toSession()
 ```
