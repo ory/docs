@@ -79,7 +79,7 @@ function App({ msg }: AppProps) {
               <h2 className="subtitle">Session Information:</h2>
               <pre>
                 <code data-testid="ory-response">
-                  {JSON.stringify(session.authentication_methods, null, 2)}
+                  {JSON.stringify(session.identity?.traits, null, 2)}
                 </code>
               </pre>
             </div>
