@@ -18,6 +18,15 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+  ul,
+  ol {
+    list-style: revert;
+    margin: revert;
+    padding: revert;
+  }
+
+  @layer base {
+  }
 }
 
 :root {
