@@ -79,7 +79,7 @@ cd code-examples/protect-page-login/react && \
   VITE_ORY_URL=http://localhost:3007 npm run dev -- --port 4008 &
 ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --dev --port 3007 http://localhost:4008/ -q -y &
 
-## Dotnet sexxrver example ##
+## Dotnet server example ##
 ## proxy runs on 3009
 ## app runs on 4009
 docker run --rm -d --name dotnet-01-basic --env APP_PORT=4009 -p 4009:4009 --env ORY_TUNNEL_PORT=3009 -p 3009:3009 dotnet-01-basic

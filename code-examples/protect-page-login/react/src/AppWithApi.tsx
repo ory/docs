@@ -2,16 +2,16 @@ import { useState, useEffect } from "react"
 import "./App.css"
 import { FrontendApi, Configuration, Session } from "@ory/client-fetch"
 
-// Props interface
 interface AppProps {
   msg?: string
 }
 
-// State variables
 const basePath = import.meta.env.VITE_ORY_URL || "http://localhost:4000"
-// highlight-next-line
-const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8081"
+// highlight-start
+const apiUrl = import.meta.env.API_URL || "http://localhost:8081"
+// highlight-end
 
+// Initialize Ory client
 const ory = new FrontendApi(
   new Configuration({
     basePath,
@@ -19,20 +19,25 @@ const ory = new FrontendApi(
   }),
 )
 
-function AppWithAPI({ msg }: AppProps) {
-  // Use proper Session type from the SDK
+function App({ msg }: AppProps) {
   const [session, setSession] = useState<Session | null>(null)
   const [logoutUrl, setLogoutUrl] = useState<string | null>(null)
+  // highlight-start
+  // State variable to hold API response
   const [apiResponse, setApiResponse] = useState<any | null>(null)
+  // highlight-end
 
   const fetchSession = async () => {
     try {
+      // Browser automatically includes cookies in the request
       const data = await ory.toSession()
       setSession(data)
       const logoutData = await ory.createBrowserLogoutFlow()
       setLogoutUrl(logoutData.logout_url)
     } catch (error) {
       console.error("Error fetching session:", error)
+      // Redirect to login page on error, similar to Express middleware
+      window.location.href = basePath + "/ui/login"
     }
   }
 
@@ -65,93 +70,54 @@ function AppWithAPI({ msg }: AppProps) {
 
   return (
     <div className="main">
-      <h1>{msg}</h1>
-
-      {!session ? (
-        <div>
-          <p>Click on "login" or "Sign Up" below to sign in.</p>
-          <li>
-            <a href={`${basePath}/ui/login`} data-testid="sign-in">
-              Login
-            </a>
-          </li>
-          <li>
-            <a
-              href={`${basePath}/ui/registration`}
-              data-testid="sign-up"
-              id="sign-up"
-            >
-              Sign Up
-            </a>
-          </li>
-        </div>
-      ) : (
-        <>
-          <h3>
-            Calling <code>toSession()</code>
-          </h3>
-          <div className="long">
-            <p>
-              Use the SDK's <code>toSession()</code> call to receive the session
-              information, for example the authentication methods used:
-            </p>
-            <pre>
-              <code data-testid="ory-response">
-                {JSON.stringify(session.identity?.traits, null, 2)}
-              </code>
-            </pre>
+      <main className="container">
+        {!session ? (
+          // Login section
+          <div className="login-section">
+            <h1 className="title">{msg}</h1>
+            <p>Click on "login" or "Sign Up" below to sign in.</p>
+            <ul className="auth-links">
+              <li>
+                <a href={`${basePath}/ui/login`} data-testid="sign-in" className="auth-button">
+                  Login
+                </a>
+              </li>
+            </ul>
           </div>
-
-          {/* highlight-start */}
-          {apiResponse && (
-            <>
-              <h3>API Response</h3>
-              <div className="long">
-                <p>
-                  Make authenticated AJAX calls to your API using{" "}
-                  <code>fetch()</code>:
-                </p>
-                <pre>
-                  <code data-testid="api-response">
-                    {JSON.stringify(apiResponse, null, 2)}
-                  </code>
-                </pre>
-              </div>
-            </>
-          )}
-          {/* highlight-end */}
-
-          {/* Add Common Actions section with logout link */}
-          <h3>Common Actions</h3>
-          <ul>
-            <li>
-              <a href={logoutUrl || "#"} data-testid="logout">
+        ) : (
+          // Protected content section
+          <div className="protected-content">
+            <div className="header">
+              <h1 className="title">{msg}</h1>
+              <a href={logoutUrl || "#"} data-testid="logout" className="logout-button">
                 Logout
               </a>
-            </li>
-            <li>
-              <a href={`${basePath}/ui/settings`} data-testid="settings">
-                Settings
-              </a>
-            </li>
-          </ul>
-        </>
-      )}
+            </div>
 
-      <h3>Essential Links</h3>
-      <ul>
-        <li>
-          <a href="https://www.ory.sh">Ory Website</a>
-        </li>
-        <li>
-          <a href="https://github.com/ory">Ory GitHub</a>
-        </li>
-        <li>
-          <a href="https://www.ory.sh/docs">Documentation</a>
-        </li>
-      </ul>
+            {/* highlight-start */}
+            <div className="api-info">
+              <h2 className="subtitle">API Response:</h2>
+              <pre>
+                <code data-testid="api-response">
+                  {JSON.stringify(apiResponse, null, 2)}
+                </code>
+              </pre>
+            </div>
+            {/* highlight-end */}
+          </div>
+        )}
+
+        <div className="essential-links">
+          <h3>Essential Links</h3>
+          <ul>
+            <li><a href="https://www.ory.sh">Ory Website</a></li>
+            <li><a href="https://github.com/ory">Ory GitHub</a></li>
+            <li><a href="https://www.ory.sh/docs">Documentation</a></li>
+          </ul>
+        </div>
+      </main>
     </div>
   )
 }
 
-export default AppWithAPI
+export default App;
