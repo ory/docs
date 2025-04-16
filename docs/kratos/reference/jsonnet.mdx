@@ -8,6 +8,46 @@ allowing you to write code that modifies your identity's data and load it into O
 
 We highly recommend checking out the official [learning Jsonnet tutorial](https://jsonnet.org/learning/tutorial.html).
 
+## Input and Output
+
+Jsonnet is a data-templating language that allows you to define the identity traits and metadata based on the input data from
+external sources.
+
+### Input
+
+The input for Jsonnet is typically provided as an external variable using `std.extVar`. For example:
+
+- For OpenID Connect (OIDC), the input is in `std.extVar('claims')`.
+- For SCIM, the input is in `std.extVar('scim')`.
+
+The specific structure of the input object depends on the data provided by the OIDC claims or SCIM payload.
+
+In your Jsonnet script, assign the input to a local variable:
+
+```jsonnet
+local claims = std.extVar('claims'); // For OIDC
+// or
+local scim = std.extVar('scim'); // For SCIM
+```
+
+### Output
+
+The output of the Jsonnet code must conform to the following structure:
+
+```jsonnet
+{
+  identity: {
+    traits: {},             // Custom traits for the identity
+    metadata_public: {},    // Public metadata visible to the user
+    metadata_admin: {},     // Admin metadata visible only to administrators
+    verified_addresses: [{  // Addresses listed here will be marked as verified
+      value: string,        // Verified address value (e.g., the email address)
+      via: "email"          // Verification method (e.g., "email")
+    }]
+  }
+}
+```
+
 ## Formatting Jsonnet Code
 
 Format Jsonnet code snippets using:
