@@ -31,6 +31,14 @@ members of an organization must use one of the organization's OIDC SSO connectio
 An organization can have multiple domains. Registrations for email addresses with a domain that belongs to an organization must go
 through one of the organization's OIDC SSO connections.
 
+Some identity providers do not validate email domain ownership. This can lead to situations where Enterprise SSO with
+Organizations is configured for a specified domain such as `@example.com`, but due to this lack of this email domain ownership
+validation by the identity provider, a users with other email domains such as `@gmail.com` can still authenticate successfully via
+the identity provider.
+
+This will end up with the user being part of the configured organization in your Ory project, even if the domain does not match
+any of the configured domains.
+
 ```mdx-code-block
 <Mermaid
   chart={`
