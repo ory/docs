@@ -7,6 +7,9 @@ interface AppProps {
 }
 
 const basePath = import.meta.env.VITE_ORY_URL || "http://localhost:4000"
+// highlight-start
+const apiUrl = import.meta.env.API_URL || "http://localhost:8081"
+// highlight-end
 
 // Initialize Ory client
 const ory = new FrontendApi(
@@ -17,31 +20,54 @@ const ory = new FrontendApi(
 )
 
 function App({ msg }: AppProps) {
-  // State variables
   const [session, setSession] = useState<Session | null>(null)
   const [logoutUrl, setLogoutUrl] = useState<string | null>(null)
+  // highlight-start
+  // State variable to hold API response
+  const [apiResponse, setApiResponse] = useState<any | null>(null)
+  // highlight-end
 
   const fetchSession = async () => {
     try {
       // Browser automatically includes cookies in the request
       const data = await ory.toSession()
       setSession(data)
-
-      // Create logout URL if session exists
       const logoutData = await ory.createBrowserLogoutFlow()
       setLogoutUrl(logoutData.logout_url)
     } catch (error) {
       console.error("Error fetching session:", error)
-      // Redirect to login page on error
+      // Redirect to login page on error, similar to Express middleware
       window.location.href = basePath + "/ui/login"
     }
   }
 
+  // highlight-start
+  const fetchApiHello = async () => {
+    try {
+      const res = await fetch(`${apiUrl}/api/hello`, {
+        // Do not forget to set this - it is required to send the session cookie!
+        credentials: "include",
+      })
+
+      if (res.ok) {
+        const data = await res.json()
+        setApiResponse(data)
+      }
+    } catch (error) {
+      console.error("Error fetching API response:", error)
+    }
+  }
+  // highlight-end
+
   // Lifecycle hooks
   useEffect(() => {
-    // Fetch the session
     fetchSession()
+    // highlight-start
+    // Make an authenticated API call
+    fetchApiHello()
+    // highlight-end
   }, [])
+
   return (
     <div className="main">
       <main className="container">
@@ -75,14 +101,17 @@ function App({ msg }: AppProps) {
                 Logout
               </a>
             </div>
-            <div className="session-info">
-              <h2 className="subtitle">Session Information:</h2>
+
+            {/* highlight-start */}
+            <div className="api-info">
+              <h2 className="subtitle">API Response:</h2>
               <pre>
-                <code data-testid="ory-response">
-                  {JSON.stringify(session.identity?.traits, null, 2)}
+                <code data-testid="api-response">
+                  {JSON.stringify(apiResponse, null, 2)}
                 </code>
               </pre>
             </div>
+            {/* highlight-end */}
           </div>
         )}
 
