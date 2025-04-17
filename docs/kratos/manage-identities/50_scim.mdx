@@ -153,6 +153,32 @@ The Ory Network fully supports the standard SCIM group resource schema as define
 The SCIM server supports group memberships. To update group memberships, use the `members` property on the `Groups` resource.
 Groups also support nested sub-groups. However, in the user resource, only the direct group memberships are included.
 
+## Events
+
+The Ory Network emits events for all SCIM operations that modify data. These events allow you to track and respond to changes in
+your identity ecosystem.
+
+| SCIM Action           | Events Emitted                 | Description                                                              |
+| --------------------- | ------------------------------ | ------------------------------------------------------------------------ |
+| `POST /Users`         | IdentityCreated                | Emitted when a new identity is provisioned                               |
+| `PUT /Users/{id}`     | IdentityUpdated                | Emitted when an identity is updated                                      |
+| `PATCH /Users/{id}`   | IdentityUpdated                | Emitted when an identity is partially updated                            |
+| `DELETE /Users/{id}`  | IdentityDeleted                | Emitted when an identity is deleted                                      |
+| `POST /Groups`        | GroupCreated                   | Emitted when a new group is created                                      |
+| `PUT /Groups/{id}`    | GroupUpdated + IdentityUpdated | Emitted when a group is updated, for the group and all members           |
+| `PATCH /Groups/{id}`  | GroupUpdated + IdentityUpdated | Emitted when a group is partially updated, for the group and all members |
+| `DELETE /Groups/{id}` | GroupDeleted + IdentityUpdated | Emitted when a group is deleted, for the group and all members           |
+
+### Event Attributes
+
+| Event Type                       | Attribute        | Description                                                      |
+| -------------------------------- | ---------------- | ---------------------------------------------------------------- |
+| All events                       | `ScimClient`     | Contains the ID of the SCIM client that made the request         |
+| IdentityCreated, IdentityUpdated | `IdentityActive` | Boolean indicating if the identity is active (`true` or `false`) |
+
+These events provide visibility into all SCIM-related changes and can be used for auditing, automation, or integration with other
+systems in your organization.
+
 ## Known limitations
 
 - When querying users with `GET /Users`, the SCIM server only supports the `eq` operator for filtering, and only with the
