@@ -8,7 +8,7 @@ sidebar_label: SCIM
 
 :::info
 
-SCIM provisioning is only available in the Ory Network and via the Ory Enterprise License (OEL). If you have any questions, please
+SCIM provisioning is only available in Ory Network and via the Ory Enterprise License (OEL). If you have any questions, please
 [reach out](https://www.ory.sh/contact/).
 
 :::
@@ -19,13 +19,13 @@ services. SCIM provides a common schema for representing user identities and a R
 organizations to automate the provisioning and de-provisioning of user accounts across multiple systems, reducing administrative
 burden and improving security.
 
-In the Ory Network, SCIM is available at the organization level. This means that within one project, you can have multiple
+In Ory Network, SCIM is available at the organization level. This means that within one project, you can have multiple
 organizations with different SCIM configurations. Each organization can have its own SCIM settings, including the ability to
 enable or disable SCIM, set the base URL for SCIM endpoints, and configure authentication methods. This allows organizations to
 tailor their SCIM implementation to meet their specific needs and requirements.
 
-Identities provisioned through the SCIM API are automatically created in the Ory Network and added to that SCIM server's
-organization. The provisioned identities can then log in through any of the organization's configured SSO methods.
+Identities provisioned through the SCIM API are automatically created in Ory Network and added to that SCIM server's organization.
+The provisioned identities can then log in through any of the organization's configured SSO methods.
 
 ```mdx-code-block
 import Mermaid from "@site/src/theme/Mermaid"
@@ -107,7 +107,7 @@ available schemas.
 
 ### SCIM user resource schema
 
-The Ory Network fully supports the standard SCIM user resource schema as defined in the
+Ory Network fully supports the standard SCIM user resource schema as defined in the
 [SCIM RFC](https://datatracker.ietf.org/doc/html/rfc7643#section-4.1). In detail, the following attributes are supported:
 
 | Name              | Type   | Remarks                                                                                                                                                                                               |
@@ -138,7 +138,7 @@ The Ory Network fully supports the standard SCIM user resource schema as defined
 
 ### SCIM group resource schema
 
-The Ory Network fully supports the standard SCIM group resource schema as defined in the
+Ory Network fully supports the standard SCIM group resource schema as defined in the
 [SCIM RFC](https://datatracker.ietf.org/doc/html/rfc7643#section-4.2). In detail, the following attributes are supported:
 
 | Name        | Type   | Remarks                                                                                                                                                                                                         |
@@ -155,8 +155,8 @@ Groups also support nested sub-groups. However, in the user resource, only the d
 
 ## Events
 
-The Ory Network emits events for all SCIM operations that modify data. These events allow you to track and respond to changes in
-your identity ecosystem.
+Ory Network emits events for all SCIM operations that modify data. These events allow you to track and respond to changes in your
+identity ecosystem.
 
 | SCIM Action           | Events Emitted                 | Description                                                              |
 | --------------------- | ------------------------------ | ------------------------------------------------------------------------ |
