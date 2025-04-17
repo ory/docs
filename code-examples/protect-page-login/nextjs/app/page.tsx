@@ -59,7 +59,7 @@ export default function Page() {
           {/* highlight-end */}
         </div>
 
-        <div className="bg-gray-100 p-4 rounded-lg overflow-auto">
+        <div className="p-4 rounded-lg overflow-auto">
           <h2 className="text-lg font-semibold mb-2">Session Information:</h2>
           <pre className="text-sm">{JSON.stringify(session, null, 2)}</pre>
         </div>
