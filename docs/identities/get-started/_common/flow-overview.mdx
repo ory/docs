@@ -1,0 +1,6 @@
+Browser-based authentication flows in Ory use HTTP cookies to maintain user sessions securely. The flows follow these steps:
+
+1. Your application redirects users to the appropriate Ory endpoint
+2. Ory handles the authentication process and creates a session
+3. Ory sets HTTP-only cookies to maintain the user's session
+4. Your application verifies these cookies on subsequent requests
