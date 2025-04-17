@@ -147,5 +147,11 @@ metadata to a webhook of your choice. Please read the [SMS documentation](../ema
 To start a new MFA flow, for an already existing session, create a new login flow with the `aal` parameter set to `aal2`:
 
 ```
-https://<your-custom-domain-or-project-slug>/self-service/login/browser?aal=aal2
+https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser?aal=aal2
+```
+
+or
+
+```
+https://ory.your-custom-domain.com/self-service/login/browser?aal=aal2
 ```
