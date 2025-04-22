@@ -65,14 +65,19 @@ To identify the rate limits that apply to your project:
 
 #### Developer plan rate limits
 
-| Environment | Path / Bucket              | Burst (rps) | Sustained (rpm) |
-| :---------- | :------------------------- | ----------: | --------------: |
-| Developer   | `/sessions/whoami`         |          10 |             300 |
-|             | `/admin/oauth2/introspect` |          10 |             300 |
-|             | `/relation-tuples/check`   |          10 |             300 |
-|             | `GET /admin/identities`    |           1 |              10 |
-|             | `POST /admin/recovery/*`   |           1 |              10 |
-|             | `*`                        |           5 |             150 |
+| Environment | Path / Bucket                     | Burst (rps) | Sustained (rpm) |
+| :---------- | :-------------------------------- | ----------: | --------------: |
+| Developer   | `/sessions/whoami`                |          10 |             300 |
+|             | `/admin/oauth2/introspect`        |          10 |             300 |
+|             | `/relation-tuples/check`          |          10 |             300 |
+|             | `GET /admin/identities`           |           1 |              10 |
+|             | `POST /admin/identities`          |           1 |              10 |
+|             | `POST /admin/recovery/*`          |           1 |              10 |
+|             | `POST /self-service/registration` |           1 |              10 |
+|             | `POST /self-service/recovery`     |           1 |              10 |
+|             | `POST /self-service/settings`     |           1 |              10 |
+|             | `POST /self-service/verification` |           1 |              10 |
+|             | `*`                               |           5 |             150 |
 
 :::note
 
