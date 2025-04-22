@@ -7,6 +7,12 @@ sidebar_label: Identifier first authentication
 Identifier first authentication first requests the user's identifier such as an email or username before prompting for a password
 or other authentication methods.
 
+:::note
+
+Identifier first authentication is required when using B2B Organization login.
+
+:::
+
 This guide explains how to enable and use identifier first authentication in Ory Network and self-hosted Ory Kratos.
 
 ## Ory Network
@@ -35,3 +41,23 @@ selfservice:
 ```
 
 To disable this feature, set `style` to `unified`.
+
+## Account enumeration mitigation
+
+Account enumeration mitigation prevents malicious actors from being able to identify if a user exists or not.
+
+Per default, account enumeration mitigation is disabled when using identifier first authentication. This improves user experience
+as the user quickly sees if they are signed up or not with the chosen identifier (email / username). To enable account
+enumeration, use the Ory CLI patch command
+
+```shell
+ory patch identity-config --project <project-id> --add '/security/account_enumeration/mitigate=true'
+```
+
+or if you use a config file, add the following to your `kratos.yaml` config file:
+
+```yaml title="kratos-config.yaml"
+security:
+  account_enumeration:
+    mitigate: true
+```
