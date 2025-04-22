@@ -105,11 +105,13 @@ import AppWithAPI from '!!raw-loader!../../../code-examples/protect-page-login/r
 
 Let's put this into action. Create a simple HTTP API with express. Run:
 
-```shell-script
+```shell
+cd src
 mkdir api
 cd api
 npm init --y
 npm i --save @ory/client-fetch express cors
+touch index.js
 ```
 
 Next, create a simple API in `index.js`:

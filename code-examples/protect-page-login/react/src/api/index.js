@@ -15,6 +15,7 @@ const ory = new FrontendApi(
 app.use(
   cors({
     origin: process.env.UI_URL || "http://localhost:5173",
+    credentials: true,
   }),
 )
 
@@ -36,8 +37,7 @@ app.get("/api/hello", (req, res) => {
   console.log("Session:", req.session)
   res.json({
     message: "Hello from our API!",
-    session_id: req.session.id,
-    identity_traits: req.session.identity.traits,
+    identity_traits: req.session.identity,
   })
 })
 
