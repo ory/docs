@@ -117,6 +117,10 @@ An exemplary configuration would look like this: `DSN=cockroach://user:password@
 
 Additionally, the following DSN parameters are supported:
 
+- `max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores times 2.
+- `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
+- `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
+- `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
 - `sslmode` (string): Whether or not to use SSL (default is require)
   - `disable` - No SSL
   - `require` - Always SSL (skip verification)
@@ -124,6 +128,7 @@ Additionally, the following DSN parameters are supported:
   - `verify-full` - Always SSL (verify that the certification presented by the server was signed by a trusted CA and the server
     host name matches the one in the certificate)
 - `application_name` (string): An initial value for the application_name session variable.
+- `connect_timeout` (number): Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
 - `sslcert` (string): Cert file location. The file must contain PEM encoded data.
 - `sslkey` (string): Key file location. The file must contain PEM encoded data.
 - `sslrootcert` (string): The location of the root certificate file. The file must contain PEM encoded data.
