@@ -6,7 +6,7 @@ title: General troubleshooting
 :::info
 
 Please add your troubleshooting tricks and other tips to this document, You can either open a
-[discussion](https://github.com/ory/kratos/discussions) and ping `@ory/documenters` or
+[discussion](https://github.com/ory/kratos/discussions) or
 [edit the page directly](https://github.com/ory/docs/edit/master/docs/kratos/debug/troubleshooting.md).
 
 :::
@@ -37,3 +37,14 @@ instances are cheap to deploy and the databases are isolated from each other. Fo
 
 An alternative to callback and custom code is fronting the legacy system with Ory OAuth2 & OpenID Connect (Ory Hydra) and then
 using that as an upstream in Ory Identities (Ory Kratos).
+
+### Cookies ignore lifespan setting
+
+In Safari, cookies issued by Ory Identities sometimes expire after 7 days, ignoring the configured lifespan. This is due to
+Safari's intelligent tracking protection (ITP), which limits cookies set on domains from origins that seem like they are
+third-party. This can include Ory's APIs, if the IP address of your application is too different from Ory's IPs.
+
+This might affect you, if your service is not running through Cloudflare and you're making direct API calls to the Ory
+self-service APIs from your application to your project's CNAME, such as in an SPA based application.
+
+Read more about CNAME cloaking here: https://www.cookiestatus.com/safari/#cname-cloaking
