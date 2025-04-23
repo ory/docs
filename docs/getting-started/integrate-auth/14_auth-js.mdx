@@ -30,17 +30,49 @@ cp .env.local.example .env.local
 npx auth secret
 ```
 
-In the `auth.ts` file, replace the `profiders` array with just Ory:
+In the `auth.ts` file, replace the `providers` array with just Ory:
 
 ```ts title="auth.ts"
-import { OryNetworkCta } from "./ory-network-cta"
+import { Profile } from "next-auth"
+import { OIDCConfig } from "next-auth/providers"
+
 export const config = {
   theme: { logo: "https://authjs.dev/img/logo-sm.png" },
   providers: [
-    // Apple,
-    // AzureB2C,
-    Ory,
+    {
+      id: "ory",
+      name: "Ory",
+      type: "oidc",
+      issuer: process.env.ORY_SDK_URL,
+      clientId: process.env.ORY_CLIENT_ID,
+      clientSecret: process.env.ORY_CLIENT_SECRET,
+      checks: ["pkce" as never, "state" as never],
+      token: {
+        idToken: true,
+      },
+    } satisfies OIDCConfig<Profile>,
   ],
+  callbacks: {
+    authorized({ request, auth }) {
+      const { pathname } = request.nextUrl
+      if (pathname === "/middleware-example") return !!auth
+      return true
+    },
+    session({ session, token }) {
+      session.sid = token.sid as string
+      session.idToken = token.idToken as string
+      return session
+    },
+    jwt({ token, user, account, profile, isNewUser }) {
+      if (profile) {
+        token.sid = profile.sid
+      }
+      if (account) {
+        token.idToken = account.id_token
+      }
+      return token
+    },
+  },
   // ...
 }
 ```
@@ -103,7 +135,7 @@ AUTH_ORY_ISSUER=...
 Now everything is set up and you can run `npm run dev` to start the app and click on the top left "Sign in" button to start the
 login flow.
 
-## Going to production
+## Go to production
 
 When you are ready to go to production, you need to update the redirect URL in the Ory client settings to the production URL of
 your Next.js application.
