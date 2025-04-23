@@ -1,0 +1,66 @@
+---
+id: setup
+title: Setting up oauth2 client configuration
+sidebar_label: Configure Client
+---
+
+```mdx-code-block
+import jsSetup from '!!raw-loader!./../_common/code-examples/js/setup.js'
+import goSetup from '!!raw-loader!./../_common/code-examples/go/setup.go'
+import CodeBlock from "@theme/CodeBlock"
+```
+
+This guide shows how to initialize your application to work with Ory's OAuth2 server. You'll configure the basic setup required
+before implementing authentication flows.
+
+```mdx-code-block
+<Tabs
+  defaultValue="express"
+  values={[
+    {label: 'Express.js', value: 'express'},
+    {label: 'Go', value: 'go'},
+  ]}>
+<TabItem value="express">
+```
+
+**1. Install dependencies**
+
+```shell
+npm install express-session openid-client
+```
+
+**2. Initialize the OpenID Connect client**
+
+This code sets up the OpenID client by discovering the Ory OAuth2 server endpoints and configuring your client credentials.
+
+```mdx-code-block
+<CodeBlock language="js" title={'index.js'}>
+{jsSetup}
+</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+**1. Install the Go oauth2 package**
+
+```shell
+go get golang.org/x/oauth2
+```
+
+**2. Initialize the OpenID Connect client**
+
+This code sets up the client by discovering the Ory OAuth2 server endpoints and configuring your client credentials.
+
+```mdx-code-block
+<CodeBlock language="go" title={'main.go'}>
+{goSetup}
+</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```

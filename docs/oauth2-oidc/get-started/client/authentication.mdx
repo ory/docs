@@ -1,0 +1,155 @@
+---
+id: authentication
+title: Implementing the authentication and middleware routes
+sidebar_label: Authentication
+---
+
+```mdx-code-block
+import jsLogin from "!!raw-loader!./../_common/code-examples/js/routes/login.js"
+import jsLogout from "!!raw-loader!./../_common/code-examples/js/routes/logout.js"
+import jsMiddleware from '!!raw-loader!./../_common/code-examples/js/middleware/middleware.js'
+import jsRefreshToken from '!!raw-loader!./../_common/code-examples/js/middleware/refresh-token.js'
+import jsProtected from "!!raw-loader!./../_common/code-examples/js/routes/protected.js"
+import jsUnprotected from "!!raw-loader!./../_common/code-examples/js/routes/unprotected.js"
+import goLogin from "!!raw-loader!./../_common/code-examples/go/handlers/login.go"
+import goLogout from "!!raw-loader!./../_common/code-examples/go/handlers/logout.go"
+import goMiddleware from "!!raw-loader!./../_common/code-examples/go/middleware/middleware.go"
+import goRefreshToken from "!!raw-loader!./../_common/code-examples/go/middleware/refresh-token.go"
+import goProtected from "!!raw-loader!./../_common/code-examples/go/handlers/protected.go"
+import goUnprotected from "!!raw-loader!./../_common/code-examples/go/handlers/unprotected.go"
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeBlock from "@theme/CodeBlock"
+```
+
+```mdx-code-block
+<Tabs
+  defaultValue="express"
+  values={[
+    {label: 'Expressjs', value: 'express'},
+    {label: 'Go', value: 'go'},
+    {label: 'Next.js', value: 'nextjs'},
+  ]}>
+<TabItem value="express">
+```
+
+**Add login route**
+
+This route generates PKCE code verifiers and state tokens for secure authentication, then redirects the user to Ory's
+authorization server.
+
+```mdx-code-block
+  <CodeBlock language="js" title={'index.js'}> {jsLogin} </CodeBlock>
+```
+
+**Add logout route**
+
+This route destroys the user's session and redirects them back to the home page. It cleans up all authentication tokens stored in
+the session.
+
+```mdx-code-block
+  <CodeBlock language="js" title={'index.js'}> {jsLogout} </CodeBlock>
+```
+
+**Create middleware to check if the user is authenticated**
+
+This middleware checks if the user has a valid access token and redirects to login if not. It also handles token expiration by
+attempting to refresh expired tokens before redirecting.
+
+```mdx-code-block
+ <CodeBlock language="js" title={'index.js'}>
+   {jsMiddleware}
+ </CodeBlock>
+```
+
+**Add refresh token middleware**
+
+This middleware automatically renews expired access credentials by using the long-lived refresh token to obtain a new set of
+tokens. If successful, it updates your session with the fresh credentials; if it fails (e.g., refresh token expired), it logs you
+out and redirects to the login page.
+
+```mdx-code-block
+  <CodeBlock language="js" title={'index.js'}> {jsRefreshToken} </CodeBlock>
+```
+
+**Protect routes with middleware**
+
+This code shows how to create a protected route that requires authentication using the middleware. It fetches and displays user
+profile information from the userinfo endpoint using the access token.
+
+```mdx-code-block
+  <CodeBlock language="js" title={'index.js'}> {jsProtected} </CodeBlock>
+```
+
+**How to check for session in an unprotected route**
+
+This code demonstrates how to handle a public route that adapts its behavior based on whether the user is authenticated.
+
+```mdx-code-block
+  <CodeBlock language="js" title={'index.js'}> {jsUnprotected} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+**Add login route**
+
+This route generates PKCE code verifiers and state tokens for secure authentication, then redirects the user to Ory's
+authorization server.
+
+```mdx-code-block
+  <CodeBlock language="go" title={'main.go'}> {goLogin} </CodeBlock>
+```
+
+**Add logout route**
+
+This route destroys the user's session and redirects them back to the home page. It cleans up all authentication tokens stored in
+the session.
+
+```mdx-code-block
+  <CodeBlock language="go" title={'main.go'}> {goLogout} </CodeBlock>
+```
+
+**Create middleware to check if the user is authenticated**
+
+This middleware checks if the user has a valid access token and redirects to login if not. It also handles token expiration by
+attempting to refresh expired tokens before redirecting.
+
+```mdx-code-block
+  <CodeBlock language="go" title={'main.go'}> {goMiddleware} </CodeBlock>
+```
+
+**Add refresh token middleware**
+
+This middleware automatically renews expired access credentials by using the long-lived refresh token to obtain a new set of
+tokens. If successful, it updates your session with the fresh credentials; if it fails (e.g., refresh token expired), it logs you
+out and redirects to the login page.
+
+```mdx-code-block
+  <CodeBlock language="go" title={'main.go'}> {goRefreshToken} </CodeBlock>
+```
+
+**Protect routes with middleware**
+
+This code shows how to create a protected route that requires authentication using the middleware. It fetches and displays user
+profile information from the userinfo endpoint using the access token.
+
+```mdx-code-block
+  <CodeBlock language="go" title={'main.go'}> {goProtected} </CodeBlock>
+```
+
+**How to check for session in an unprotected route**
+
+This code demonstrates how to handle a public route that adapts its behavior based on whether the user is authenticated.
+
+```mdx-code-block
+  <CodeBlock language="go" title={'main.go'}> {goUnprotected} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```

@@ -1,0 +1,46 @@
+---
+id: callback
+title: Implementing the callback routes
+sidebar_label: Handle Callback
+---
+
+```mdx-code-block
+import jsCallback from "!!raw-loader!./../_common/code-examples/js/routes/callback.js"
+import goCallback from "!!raw-loader!./../_common/code-examples/go/handlers/callback.go"
+
+import CodeBlock from "@theme/CodeBlock"
+```
+
+```mdx-code-block
+<Tabs
+  defaultValue="express"
+  values={[
+    {label: 'Expressjs', value: 'express'},
+    {label: 'Go', value: 'go'},
+  ]}>
+<TabItem value="express">
+```
+
+This code exchanges a temporary authorization code for permanent access tokens while verifying security measures (PKCE challenge
+and state parameter) to prevent fraud.
+
+```mdx-code-block
+  <CodeBlock language="js" title={'index.js'}> {jsCallback} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+This code exchanges a temporary authorization code for permanent access tokens while verifying security measures (PKCE challenge
+and state parameter) to prevent fraud.
+
+```mdx-code-block
+  <CodeBlock language="go" title={'main.go'}> {goCallback} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```

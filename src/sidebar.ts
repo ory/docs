@@ -461,6 +461,23 @@ const oauth2: SidebarItemsConfig = [
   homeLink,
   {
     type: "category",
+    label: "Get Started",
+    collapsed: false,
+    link: {
+      type: "doc",
+      id: "oauth2-oidc/get-started/index",
+    },
+    items: [
+      "oauth2-oidc/get-started/server-setup",
+      "oauth2-oidc/get-started/client-setup",
+      "oauth2-oidc/get-started/client/setup",
+      "oauth2-oidc/get-started/client/callback",
+      "oauth2-oidc/get-started/client/authentication",
+      "oauth2-oidc/get-started/social-sign-in",
+    ],
+  },
+  {
+    type: "category",
     label: "Start",
     collapsed: false,
     collapsible: false,
