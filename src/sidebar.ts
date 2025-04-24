@@ -399,7 +399,19 @@ const identities: SidebarItemsConfig = [
           "kratos/manage-identities/invite-users",
           "kratos/manage-identities/account-recovery",
           "kratos/manage-identities/export-user-accounts-identities",
-          "kratos/manage-identities/scim",
+
+          {
+            type: "category",
+            label: "SCIM",
+            link: {
+              type: "doc",
+              id: "kratos/manage-identities/scim",
+            },
+            items: [
+              "kratos/manage-identities/scim/ms-entra",
+              "kratos/manage-identities/scim/okta",
+            ],
+          },
         ],
       },
       {
