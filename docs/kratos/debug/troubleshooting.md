@@ -6,7 +6,7 @@ title: General troubleshooting
 :::info
 
 Please add your troubleshooting tricks and other tips to this document, You can either open a
-[discussion](https://github.com/ory/kratos/discussions) and ping `@ory/documenters` or
+[discussion](https://github.com/ory/kratos/discussions) or
 [edit the page directly](https://github.com/ory/docs/edit/master/docs/kratos/debug/troubleshooting.md).
 
 :::
@@ -14,9 +14,9 @@ Please add your troubleshooting tricks and other tips to this document, You can 
 ### `400: Bad Request` on self-service flows
 
 Make sure you are starting and finishing the request in one browser. Self-service browser flows need to be executed in the same
-browser from start to finish!  
-Starting the flow in Safari and completing it in Chrome won't work. API Clients like Electron, Postman or Insomnia are browsers
-themselves, which can cause requests to fail. For testing purposes [cURL](https://curl.se/) is a good choice.
+browser from start to finish! Starting the flow in Safari and completing it in Chrome won't work. API Clients like Electron,
+Postman or Insomnia are browsers themselves, which can cause requests to fail. For testing purposes [cURL](https://curl.se/) is a
+good choice.
 
 ### How can I separate customers/employee data, but have them use the same login dialog
 
@@ -37,3 +37,23 @@ instances are cheap to deploy and the databases are isolated from each other. Fo
 
 An alternative to callback and custom code is fronting the legacy system with Ory OAuth2 & OpenID Connect (Ory Hydra) and then
 using that as an upstream in Ory Identities (Ory Kratos).
+
+### Safari ITP limits cookies to 7 days
+
+Safari's Intelligent Tracking Prevention (ITP) limits cookies to 7 days. If you set a cookie with a longer lifespan, Safari
+ignores the configured duration and expires the cookie after 7 days. This behavior can affect Ory Identities, because the cookies
+used for authentication and session management may expire sooner than expected.
+
+This happens when an AJAX request is made from a URL that does not match the custom domain you configured for Ory.
+
+For example, if your login UI runs on `ui.example.com`, Ory is available at `ory.example.com` via a CNAME, and you use AJAX to
+submit the login form, Safari ITP will limit the cookie lifespan to 7 days.
+
+To resolve this issue, you can either:
+
+1. Use Cloudflare for the domain that makes the AJAX request to Ory. This makes Ory and your domain appear as the same party to
+   Safari.
+2. Change the form submission from AJAX to a normal form submission. Safari does not apply ITP restrictions to top-level
+   navigations.
+
+Read more about CNAME cloaking: https://www.cookiestatus.com/safari/#cname-cloaking
