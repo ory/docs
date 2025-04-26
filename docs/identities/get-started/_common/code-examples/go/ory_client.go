@@ -1,4 +1,3 @@
-// ory_client.go
 package main
 
 import (

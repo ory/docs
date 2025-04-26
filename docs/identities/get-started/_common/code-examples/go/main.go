@@ -1,4 +1,3 @@
-// main.go
 package main
 
 import (
@@ -16,21 +15,7 @@ type App struct {
 }
 
 func main() {
-	// Get tunnel port from environment or use default
-	tunnelPort := os.Getenv("ORY_SDK_URL")
-	if tunnelPort == "" {
-		tunnelPort = "4000"
-	}
-
-	// Configure baseUrl for local development
-	baseUrl := fmt.Sprintf("http://localhost:%s", tunnelPort)
-
-	// Configure Ory SDK
-	configuration := ory.NewConfiguration()
-	configuration.Servers = ory.ServerConfigurations{{URL: baseUrl}}
-
-	// Create Ory client
-	oryClient := ory.NewAPIClient(configuration)
+	oryClient, baseUrl := ConfigureOryClient()
 
 	// Initialize application
 	app := &App{

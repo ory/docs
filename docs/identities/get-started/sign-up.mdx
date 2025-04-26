@@ -14,6 +14,7 @@ import CodeBlock from "@theme/CodeBlock"
 import { FrameworkCodeTabs } from '@site/src/components/GuidesComponents'
 import jsSignUp from '!!raw-loader!./_common/code-examples/js/sign-up.js'
 import goSignUp from '!!raw-loader!./_common/code-examples/go/signup_handler.go'
+import nextSignUp from '!!raw-loader!./_common/code-examples/nextjs/sign-up.tsx'
 ```
 
 This guide shows how to implement a secure sign up flow that authenticates users and creates sessions.
@@ -41,31 +42,8 @@ the Ory registration page.
 <TabItem value="nextjs">
 ```
 
-```tsx
-export default function Page() {
-  const [session, setSession] = useState<Session | null>(null)
-
-  useEffect(() => {
-    // Check if the user is authenticated
-    const checkSession = async () => {
-      try {
-        const session = await ory.toSession()
-        setSession(session)
-      } catch (error) {
-        // No valid session found, redirect to Ory login
-        window.location.href = `${process.env.ORY_SDK_URL}/self-service/registration/browser`
-      }
-    }
-
-    checkSession()
-  }, [])
-
-  return (
-    <>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-    </>
-  )
-}
+```mdx-code-block
+<CodeBlock className="language-js">{nextSignUp}</CodeBlock>
 ```
 
 ```mdx-code-block
@@ -85,6 +63,6 @@ export default function Page() {
 
 You can alternatively set `return_to` to a custom URL. This URL will be used as the return URL for the sign up flow:
 
-```
+```bash
 https://$ORY_SDK_URL/self-service/registration/browser?return_to=https://example.com/dashboard
 ```

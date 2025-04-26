@@ -98,7 +98,7 @@ a second factor set up (such as a TOTP app) will need to complete the second fac
 When MFA is enabled, users will see a second authentication screen after logging in:
 
 ```mdx-code-block
-  <BrowserWindow url="https://console.ory.sh/projects/<id>/mfa">
+  <BrowserWindow url="https://<base-url>/ui/login?flow">
   ![MFA Outcome](../_assets/mfa-outcome.png)
 </BrowserWindow>
 ```
@@ -125,7 +125,7 @@ To check the AAL of the current session, use the `authenticator_assurance_level`
 <TabItem value="nextjs">
 ```
 
-<CodeBlock className="language-tsx" title={"api/logout/route.ts"}>
+<CodeBlock className="language-tsx" title={"middleware.ts"}>
   {nextCheckAAL}
 </CodeBlock>
 

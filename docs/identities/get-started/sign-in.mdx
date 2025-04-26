@@ -34,31 +34,8 @@ to the registration page, it redirects to the login page.
 <TabItem value="nextjs">
 ```
 
-```tsx
-export default function Page() {
-  const [session, setSession] = useState<Session | null>(null)
-
-  useEffect(() => {
-    // Check if the user is authenticated
-    const checkSession = async () => {
-      try {
-        const session = await ory.toSession()
-        setSession(session)
-      } catch (error) {
-        // No valid session found, redirect to Ory login
-        window.location.href = `${process.env.ORY_SDK_URL}/self-service/login/browser`
-      }
-    }
-
-    checkSession()
-  }, [])
-
-  return (
-    <>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-    </>
-  )
-}
+```mdx-code-block
+<CodeBlock className="language-js">{nextjsLogin}</CodeBlock>
 ```
 
 ```mdx-code-block
@@ -78,6 +55,6 @@ export default function Page() {
 
 You can alternatively set `return_to` to a custom URL. This URL will be used as the return URL for the login flow:
 
-```
+```bash
 https://$ORY_SDK_URL/self-service/login/browser?return_to=https://example.com/dashboard
 ```

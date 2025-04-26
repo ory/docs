@@ -1,4 +1,3 @@
-// middleware.go
 package main
 
 import (
@@ -24,12 +23,12 @@ func (app *App) sessionMiddleware(next http.HandlerFunc) http.HandlerFunc {
 		if err != nil || (err == nil && !*session.Active) {
 			log.Printf("No active session, redirecting to login\n")
 			// Redirect to the login page
-			http.Redirect(writer, request, "/self-service/login/browser", http.StatusSeeOther)
+			http.Redirect(writer, request, app.tunnelUrl+"/self-service/login/browser", http.StatusSeeOther)
 			return
 		}
 		// highlight-start
 		if *session.AuthenticatorAssuranceLevel != "aal2" {
-			http.Redirect(writer, request, "/self-service/login/browser?aal=aal2", http.StatusSeeOther)
+			http.Redirect(writer, request, app.tunnelUrl+"/self-service/login/browser?aal=aal2", http.StatusSeeOther)
 			return
 		}
 		// highlight-end

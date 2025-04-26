@@ -9,10 +9,10 @@ export default async function Page() {
       cookie: (await headers()).get("cookie") || "",
     });
   } catch (error) {
-    redirect(`${process.env.ORY_SDK_URL}/self-service/login/browser`);
+    redirect(`${process.env.ORY_SDK_URL}/self-service/registration/browser`);
   }
 
   return (
-    <pre>{JSON.stringify(session, null, 2)}</pre>
+      <pre>{JSON.stringify(session, null, 2)}</pre>
   );
 }
