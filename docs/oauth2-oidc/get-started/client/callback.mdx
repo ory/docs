@@ -4,6 +4,10 @@ title: Implementing the callback routes
 sidebar_label: Handle Callback
 ---
 
+After the OAuth2 server has verified the authorization code, it will redirect the user to the callback URL. This callback URL is
+configured in the OAuth2 client settings. The callback endpoint exchanges the temporary authorization code for permanent access
+tokens while verifying security measures (PKCE challenge and state parameter) to prevent attacks.
+
 ```mdx-code-block
 import jsCallback from "!!raw-loader!./../_common/code-examples/js/routes/callback.js"
 import goCallback from "!!raw-loader!./../_common/code-examples/go/handlers/callback.go"
@@ -21,9 +25,6 @@ import CodeBlock from "@theme/CodeBlock"
 <TabItem value="express">
 ```
 
-This code exchanges a temporary authorization code for permanent access tokens while verifying security measures (PKCE challenge
-and state parameter) to prevent fraud.
-
 ```mdx-code-block
   <CodeBlock language="js" title={'index.js'}> {jsCallback} </CodeBlock>
 ```
@@ -32,9 +33,6 @@ and state parameter) to prevent fraud.
 </TabItem>
 <TabItem value="go">
 ```
-
-This code exchanges a temporary authorization code for permanent access tokens while verifying security measures (PKCE challenge
-and state parameter) to prevent fraud.
 
 ```mdx-code-block
   <CodeBlock language="go" title={'main.go'}> {goCallback} </CodeBlock>

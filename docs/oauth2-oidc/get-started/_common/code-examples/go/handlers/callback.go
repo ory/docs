@@ -1,4 +1,12 @@
-// Callback handler
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"net/http"
+
+	"golang.org/x/oauth2"
+)
+
 func handleCallback(w http.ResponseWriter, r *http.Request) {
 	// Get session cookie
 	cookie, err := r.Cookie("session_id")

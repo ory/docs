@@ -1,4 +1,13 @@
-// Login handler
+
+import (
+	"crypto/rand"
+	"encoding/base64"
+	"net/http"
+	"time"
+
+	"golang.org/x/oauth2"
+)
+
 func handleLogin(w http.ResponseWriter, r *http.Request) {
 	// Generate random state parameter
 	state, err := generateRandomString(32)
@@ -43,7 +52,6 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, authURL, http.StatusSeeOther)
 }
 
-// Generate a random string for state parameter
 func generateRandomString(length int) (string, error) {
 	b := make([]byte, length)
 	if _, err := rand.Read(b); err != nil {

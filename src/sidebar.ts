@@ -110,7 +110,7 @@ const sdk: SidebarItemsConfig = [
       type: "doc",
       id: "hydra/sdk/overview",
     },
-    items: ["hydra/self-hosted/go", "hydra/self-hosted/js"],
+    items: ["hydra/self-hosted/go", "hydra/self-hosted/js", "hydra/guides/using-oauth2"],
   },
   {
     type: "category",
@@ -459,6 +459,7 @@ const identities: SidebarItemsConfig = [
 
 const oauth2: SidebarItemsConfig = [
   homeLink,
+  "getting-started/ory-network-oauth2",
   {
     type: "category",
     label: "Get Started",
@@ -471,23 +472,9 @@ const oauth2: SidebarItemsConfig = [
       "oauth2-oidc/get-started/server-setup",
       "oauth2-oidc/get-started/client-setup",
       "oauth2-oidc/get-started/client/setup",
-      "oauth2-oidc/get-started/client/callback",
       "oauth2-oidc/get-started/client/authentication",
+      "oauth2-oidc/get-started/client/callback",
       "oauth2-oidc/get-started/social-sign-in",
-    ],
-  },
-  {
-    type: "category",
-    label: "Start",
-    collapsed: false,
-    collapsible: false,
-    link: {
-      type: "doc",
-      id: "getting-started/ory-network-oauth2",
-    },
-    items: [
-      "getting-started/oauth2-openid/expressjs",
-      "hydra/guides/using-oauth2",
     ],
   },
   {

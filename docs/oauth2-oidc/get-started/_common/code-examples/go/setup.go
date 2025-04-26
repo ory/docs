@@ -10,11 +10,11 @@ import (
 // Configuration
 var (
 	// Replace these with your own values
-	clientID     = os.Getenv("ORY_CLIENT_ID")
-	clientSecret = os.Getenv("ORY_CLIENT_SECRET")
+	clientID     = os.Getenv("OAUTH_CLIENT_ID")
+	clientSecret = os.Getenv("OAUTH_CLIENT_SECRET")
 	projectSlug  = os.Getenv("ORY_PROJECT_SLUG")
-	redirectURL  = "http://localhost:8080/callback"
-	port         = "8080"
+	redirectURL  = os.Getenv("OAUTH_REDIRECT_URI")
+	port         = "3000"
 
 	// Ory OAuth2 endpoints
 	oryEndpoint = oauth2.Endpoint{

@@ -1,24 +1,14 @@
-const session = require("express-session")
-const client = require("openid-client")
+import * as client from "openid-client"
+import express from "express"
 const app = express()
 
-// Session setup to store PKCE and state values
-app.use(
-  session({
-    secret: "your-session-secret",
-    resave: false,
-    saveUninitialized: true,
-  }),
-)
-
 // Configure environment variables
-const ORY_PROJECT_SLUG = "your-project-slug"
-const OAUTH_CLIENT_ID = "your-client-id"
-const OAUTH_CLIENT_SECRET = "your-client-secret"
+const ORY_PROJECT_SLUG = process.env.ORY_PROJECT_SLUG
+const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID
+const OAUTH_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET
 
-// Initialize OpenID client configuration
 let config
-;(async () => {
+(async () => {
   try {
     // Create server URL (Ory's issuer URL)
     const server = new URL(`https://${ORY_PROJECT_SLUG}.projects.oryapis.com`)

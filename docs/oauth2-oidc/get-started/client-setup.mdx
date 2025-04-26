@@ -1,7 +1,7 @@
 ---
 id: client-setup
-title: Create an oauth2 client in ory
-sidebar_label: Create oauth2 client
+title: Create an OAuth2 client in Ory
+sidebar_label: Create OAuth2 client
 ---
 
 This guide shows you how to register an OAuth2 client in your Ory project.
@@ -103,4 +103,14 @@ application configuration.
 ```mdx-code-block
 </TabItem>
 </Tabs>
+```
+
+Finally, add your Ory credentials to your environment variables:
+
+```shell
+export ORY_PROJECT_SLUG=<your-project-slug>
+export OAUTH_CLIENT_ID=<your-client-id>
+export OAUTH_CLIENT_SECRET=<your-client-secret>
+export OAUTH_REDIRECT_URI=<your-redirect-uri> # e.g. http://localhost:3000/callback
+export SESSION_SECRET=<your-session-secret>
 ```
