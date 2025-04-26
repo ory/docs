@@ -9,7 +9,9 @@ export async function middleware(request: NextRequest) {
     // If toSession() doesn't throw, the session is valid
     return NextResponse.next()
   } catch (error) {
-    return NextResponse.redirect(`${ process.env.ORY_SDK_URL}/self-service/login/browser`)
+    return NextResponse.redirect(
+      `${process.env.ORY_SDK_URL}/self-service/login/browser`,
+    )
   }
 }
 // Configure which routes to protect
