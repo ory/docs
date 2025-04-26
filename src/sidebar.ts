@@ -110,7 +110,11 @@ const sdk: SidebarItemsConfig = [
       type: "doc",
       id: "hydra/sdk/overview",
     },
-    items: ["hydra/self-hosted/go", "hydra/self-hosted/js", "hydra/guides/using-oauth2"],
+    items: [
+      "hydra/self-hosted/go",
+      "hydra/self-hosted/js",
+      "hydra/guides/using-oauth2",
+    ],
   },
   {
     type: "category",

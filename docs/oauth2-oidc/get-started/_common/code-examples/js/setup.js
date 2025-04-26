@@ -8,7 +8,7 @@ const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID
 const OAUTH_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET
 
 let config
-(async () => {
+;(async () => {
   try {
     // Create server URL (Ory's issuer URL)
     const server = new URL(`https://${ORY_PROJECT_SLUG}.projects.oryapis.com`)
