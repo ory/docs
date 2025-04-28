@@ -6,7 +6,7 @@ interface AppProps {
   msg?: string
 }
 
-const basePath = import.meta.env.ORY_SDK_URL || "http://localhost:4000"
+const basePath = import.meta.env.VITE_ORY_SDK_URL || "http://localhost:4000"
 // highlight-start
 const apiUrl = import.meta.env.API_URL || "http://localhost:8081"
 // highlight-end
