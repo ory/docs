@@ -35,7 +35,6 @@ app.use((req, res, next) => {
       cookie: req.headers.cookie,
     })
     .then(({ data }) => {
-      console.log("data", data)
       req.session = data
       next()
     })
