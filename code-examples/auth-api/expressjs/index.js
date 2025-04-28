@@ -6,7 +6,6 @@ const cors = require("cors")
 const { FrontendApi, Configuration } = require("@ory/client-fetch")
 
 const app = express()
-console.log("process.env.UI_URL", process.env.UI_URL)
 // highlight-start
 const ory = new FrontendApi(
   new Configuration({
