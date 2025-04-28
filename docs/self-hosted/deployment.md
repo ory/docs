@@ -10,47 +10,31 @@ to our [Kubernetes Helm Chart Repository](https://k8s.ory.sh/helm) for Charts an
 
 ## Data storage and persistence
 
-All Ory projects support storing data in memory and in relational databases such as PostgreSQL, MySQL, SQLite and CockroachDB.
+All Ory projects support storing data in memory and in relational databases:
 
-### In-memory (ephemeral)
+- PostgreSQL is recommended as the default database.
+- MySQL is supported, some flavors like MariaDB and AWS Aurora may require additional work.
+- CockroachDB is supported.
+- SQLite is supported (in-memory and persistent) but must not be used for a production service.
 
-Storing data in-memory helps you get started quickly without worrying about setting up a database first. Keep in mind that all
-data is ephemeral and will be removed when the service is killed.
-
-Using in-memory storage is usually achieved by setting configuration key `dsn` to `memory`.
-
-### SQL (persistent)
-
-All Ory projects support PostgreSQL, MySQL, SQLite and CockroachDB as first-class citizens.
-
-##### SQLite
-
-If configuration key `dsn` (Data Source Name) is prefixed with `sqlite://`, then SQLite will be used as storage backend.
-
-An exemplary configuration would look like this: `DSN=sqlite:///tmp/some-db.sqlite?_fk=true`
-
-The following DSN parameters are required:
-
-- `_fk` (bool): Must be set to `true` (`?_fk=true`) for foreign keys to work.
-
-For a list of all supported query parameters, head over to
-[github.com/mattn/go-sqlite3](https://github.com/mattn/go-sqlite3#connection-string).
-
-##### PostgreSQL
+### PostgreSQL
 
 If configuration key `dsn` (Data Source Name) is prefixed with `postgres://`, then PostgreSQL will be used as storage backend. An
-exemplary configuration would look like this: `DSN=postgres://user:password@host:123/database`
+exemplary configuration would look like this:
 
-All parameters [supported by `libpq`](https://www.postgresql.org/docs/9.6/libpq-connect.html) are supported by Ory Kratos as well.
-In particular:
+```
+DSN=postgres://user:password@host:123/database
+```
 
-- `max_conns` or `pool_max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of
-  CPU cores times 2.
-- `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
-- `max_conn_lifetime` or `pool_max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection
-  may be reused.
-- `max_conn_idle_time` or `pool_max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection
-  can be kept alive.
+Parameters are configured by appending them to the DSN query. For example, to set the `sslmode` parameter, you would append it to
+the DSN query like this:
+
+```
+postgres://user:password@host:123/database?sslmode=verify-full
+```
+
+#### Supported parameters
+
 - `sslmode` (string): Whether or not to use SSL (default is require)
   - `disable` - No SSL
   - `require` - Always SSL (skip verification)
@@ -64,14 +48,56 @@ In particular:
 - `sslkey` (string): Key file location. The file must contain PEM encoded data.
 - `sslrootcert` (string): The location of the root certificate file. The file must contain PEM encoded data.
 
-To set such a parameter, append it to the DSN query, for example: `postgres://user:password@host:123/database?sslmode=verify-full`
+##### Standard pooling
 
-##### MySQL
+- `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
+- `max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores times 2.
+- `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
+- `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
+- `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
+- `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
+- `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
+- `pool_max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores
+  times 2.
+
+##### High-performance pooling
+
+High-performance pooling is built using [pgxpool](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool) and provides additional
+configuration options to the ones listed under "Standard pooling".
+
+- `pool_max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores
+  times 2. Overrides `max_conns`.
+- `pool_max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused. Overrides
+  `max_conn_lifetime`.
+- `pool_max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
+  Overrides `max_conn_idle_time`.
+- `pool_min_conns` (number): The minimum size of the pool. After connection closes, the pool might dip below MinConns. A low
+  number of MinConns might mean the pool is empty after MaxConnLifetime until the health check has a chance to create new
+  connections. Defaults to 0.
+- `pool_health_check_period` (duration): Sets the period for health checks to potentially kill stale connections.` Defaults to 0.`
+- `pool_max_conn_lifetime_jitter` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
+  This is a random value that is added to the `pool_max_conn_lifetime` value. This is useful to avoid thundering herd problems
+  when many connections are closed at the same time.
+
+### CockroachDB
+
+If configuration key `dsn` (Data Source Name) is prefixed with `cockroach://`, then CockroachDB will be used as storage backend.
+CockroachDB supports the same parameters as PostgreSQL.
+
+An exemplary configuration would look like this:
+
+```
+DSN=cockroach://user:password@host:123/database?sslmode=verify-full&...
+```
+
+### MySQL
 
 If configuration key `dsn` (Data Source Name) is prefixed with `mysql://`, then MySQL will be used as storage backend. An
 exemplary configuration would look like this: `DSN=mysql://user:password@tcp(host:123)/database?parseTime=true`
 
-Additionally, the following DSN parameters are supported:
+#### Supported parameters
+
+The following DSN parameters are supported:
 
 - `max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores times 2.
 - `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
@@ -96,9 +122,12 @@ Additionally, the following DSN parameters are supported:
   as "30s", "0.5m" or "1m30s".
 
 To set such a parameter, append it to the DSN query, for example:
-`mysql://user:password@tcp(host:123)/database?parseTime=true&writeTimeout=123s`
 
-###### AWS Aurora / MySQL 8.0+ not completing migrations
+```
+DSN=mysql://user:password@tcp(host:123)/database?parseTime=true&writeTimeout=123s
+```
+
+#### AWS Aurora / MySQL 8.0+ not completing migrations
 
 If you encounter errors such as
 
@@ -113,31 +142,23 @@ See also:
 - https://github.com/ory/hydra/issues/3363
 - https://github.com/ory/kratos/issues/2167
 
-##### CockroachDB
+### SQLite
 
-If configuration key `dsn` (Data Source Name) is prefixed with `cockroach://`, then CockroachDB will be used as storage backend.
-An exemplary configuration would look like this: `DSN=cockroach://user:password@host:123/database`
+If configuration key `dsn` (Data Source Name) is prefixed with `sqlite://`, then SQLite will be used as storage backend. SQLite is
+a great choice for development but has many drawbacks and should not be used in production.
 
-Additionally, the following DSN parameters are supported:
+An exemplary configuration would look like this: `DSN=sqlite:///tmp/some-db.sqlite?_fk=true`
 
-- `max_conns` or `pool_max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of
-  CPU cores times 2.
-- `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
-- `max_conn_lifetime` or `pool_max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection
-  may be reused.
-- `max_conn_idle_time` or `pool_max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection
-  can be kept alive.
-- `sslmode` (string): Whether or not to use SSL (default is require)
-  - `disable` - No SSL
-  - `require` - Always SSL (skip verification)
-  - `verify-ca` - Always SSL (verify that the certificate presented by the `server` was signed by a trusted CA)
-  - `verify-full` - Always SSL (verify that the certification presented by the server was signed by a trusted CA and the server
-    host name matches the one in the certificate)
-- `application_name` (string): An initial value for the application_name session variable.
-- `connect_timeout` (number): Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
-- `sslcert` (string): Cert file location. The file must contain PEM encoded data.
-- `sslkey` (string): Key file location. The file must contain PEM encoded data.
-- `sslrootcert` (string): The location of the root certificate file. The file must contain PEM encoded data.
+The following DSN parameters are required:
 
-To set such a parameter, append it to the DSN query, for example:
-`cockroach://user:password@host:123/database?sslmode=verify-full`
+- `_fk` (bool): Must be set to `true` (`?_fk=true`) for foreign keys to work.
+
+For a list of all supported query parameters, head over to
+[github.com/mattn/go-sqlite3](https://github.com/mattn/go-sqlite3#connection-string).
+
+#### SQLite in-memory (ephemeral)
+
+Storing data in-memory helps you get started quickly without worrying about setting up a database first. Keep in mind that all
+data is ephemeral and will be removed when the service is killed.
+
+Using in-memory storage is usually achieved by setting configuration key `DSN=memory`.
