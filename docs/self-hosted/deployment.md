@@ -41,6 +41,7 @@ postgres://user:password@host:123/database?sslmode=verify-full
   - `verify-ca` - Always SSL (verify that the certificate presented by the `server` was signed by a trusted CA)
   - `verify-full` - Always SSL (verify that the certification presented by the server was signed by a trusted CA and the server
     host name matches the one in the certificate)
+- `application_name` (string): An initial value for the application_name session variable.
 - `fallback_application_name` (string): An application_name to fall back to if one isn't provided.
 - `connect_timeout` (number): Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
 - `search_path` (string): specifies the [search path](https://www.postgresql.org/docs/12/ddl-schemas.html), such as the schema.
