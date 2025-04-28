@@ -44,10 +44,13 @@ exemplary configuration would look like this: `DSN=postgres://user:password@host
 All parameters [supported by `libpq`](https://www.postgresql.org/docs/9.6/libpq-connect.html) are supported by Ory Kratos as well.
 In particular:
 
-- `max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores times 2.
+- `max_conns` or `pool_max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of
+  CPU cores times 2.
 - `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
-- `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
-- `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
+- `max_conn_lifetime` or `pool_max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection
+  may be reused.
+- `max_conn_idle_time` or `pool_max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection
+  can be kept alive.
 - `sslmode` (string): Whether or not to use SSL (default is require)
   - `disable` - No SSL
   - `require` - Always SSL (skip verification)
@@ -117,10 +120,13 @@ An exemplary configuration would look like this: `DSN=cockroach://user:password@
 
 Additionally, the following DSN parameters are supported:
 
-- `max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores times 2.
+- `max_conns` or `pool_max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of
+  CPU cores times 2.
 - `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
-- `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
-- `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
+- `max_conn_lifetime` or `pool_max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection
+  may be reused.
+- `max_conn_idle_time` or `pool_max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection
+  can be kept alive.
 - `sslmode` (string): Whether or not to use SSL (default is require)
   - `disable` - No SSL
   - `require` - Always SSL (skip verification)
