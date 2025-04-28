@@ -63,7 +63,10 @@ postgres://user:password@host:123/database?sslmode=verify-full
 ##### High-performance pooling
 
 High-performance pooling is built using [pgxpool](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool) and provides additional
-configuration options to the ones listed under "Standard pooling".
+configuration options to the ones listed under "Standard pooling."
+
+Using pool configuration overrides standard pool options. It is recommended to set both `pool_` and not `pool_` prefixed values to
+ensure that the standard pool options are set as well (`postgres://...?max_conns=4&pool_max_conns=4`).
 
 - `pool_max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores
   times 2. Overrides `max_conns`.
