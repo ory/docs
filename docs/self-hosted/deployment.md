@@ -35,7 +35,7 @@ postgres://user:password@host:123/database?sslmode=verify-full
 
 #### Supported parameters
 
-- `sslmode` (string): Whether or not to use SSL (default is require)
+- `sslmode` (string): Whether or not to use SSL (default is `require`)
   - `disable` - No SSL
   - `require` - Always SSL (skip verification)
   - `verify-ca` - Always SSL (verify that the certificate presented by the `server` was signed by a trusted CA)
@@ -55,15 +55,11 @@ postgres://user:password@host:123/database?sslmode=verify-full
 - `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
 - `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
 - `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
-- `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
-- `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
-- `pool_max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores
-  times 2.
 
 ##### High-performance pooling
 
 High-performance pooling is built using [pgxpool](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool) and provides additional
-configuration options to the ones listed under "Standard pooling."
+configuration options to the ones listed under "Standard pooling".
 
 Using pool configuration overrides standard pool options. It is recommended to set both `pool_` and not `pool_` prefixed values to
 ensure that the standard pool options are set as well (`postgres://...?max_conns=4&pool_max_conns=4`).
@@ -77,7 +73,8 @@ ensure that the standard pool options are set as well (`postgres://...?max_conns
 - `pool_min_conns` (number): The minimum size of the pool. After connection closes, the pool might dip below MinConns. A low
   number of MinConns might mean the pool is empty after MaxConnLifetime until the health check has a chance to create new
   connections. Defaults to 0.
-- `pool_health_check_period` (duration): Sets the period for health checks to potentially kill stale connections.` Defaults to 0.`
+- `pool_health_check_period` (duration): Sets the period for health checks to potentially kill stale
+  connections.` Defaults to 1 minute.`
 - `pool_max_conn_lifetime_jitter` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
   This is a random value that is added to the `pool_max_conn_lifetime` value. This is useful to avoid thundering herd problems
   when many connections are closed at the same time.
