@@ -7,7 +7,7 @@ const app = express()
 const ory = new FrontendApi(
   new Configuration({
     // Points to the local Ory API server (Ory TunneL).
-    basePath: process.env.ORY_URL || "http://localhost:4000",
+    basePath: process.env.ORY_SDK_URL || "http://localhost:4000",
     credentials: "include",
   }),
 )
@@ -34,10 +34,9 @@ app.use((req, res, next) => {
 })
 
 app.get("/api/hello", (req, res) => {
-  console.log("Session:", req.session)
   res.json({
     message: "Hello from our API!",
-    identity_traits: req.session.identity,
+    identity_traits: req.session.identity.traits,
   })
 })
 

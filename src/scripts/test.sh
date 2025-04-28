@@ -76,7 +76,7 @@ ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RAT
 ## tunnel runs on 3007
 ## app runs on 4008
 cd code-examples/protect-page-login/react && \
-  VITE_ORY_URL=http://localhost:3007 npm run dev -- --port 4008 &
+  VITE_ORY_SDK_URL=http://localhost:3007 npm run dev -- --port 4008 &
 ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --dev --port 3007 http://localhost:4008/ -q -y &
 
 ## Dotnet server example ##

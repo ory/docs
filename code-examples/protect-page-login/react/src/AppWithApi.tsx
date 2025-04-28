@@ -6,7 +6,7 @@ interface AppProps {
   msg?: string
 }
 
-const basePath = import.meta.env.VITE_ORY_URL || "http://localhost:4000"
+const basePath = import.meta.env.ORY_SDK_URL || "http://localhost:4000"
 // highlight-start
 const apiUrl = import.meta.env.API_URL || "http://localhost:8081"
 // highlight-end
@@ -21,6 +21,7 @@ const ory = new FrontendApi(
 
 function App({ msg }: AppProps) {
   const [session, setSession] = useState<Session | null>(null)
+  const [loading, setLoading] = useState(true)
   const [logoutUrl, setLogoutUrl] = useState<string | null>(null)
   // highlight-start
   // State variable to hold API response
@@ -30,14 +31,16 @@ function App({ msg }: AppProps) {
   const fetchSession = async () => {
     try {
       // Browser automatically includes cookies in the request
-      const data = await ory.toSession()
-      setSession(data)
+      const session = await ory.toSession()
+      setSession(session)
       const logoutData = await ory.createBrowserLogoutFlow()
       setLogoutUrl(logoutData.logout_url)
     } catch (error) {
       console.error("Error fetching session:", error)
       // Redirect to login page on error, similar to Express middleware
       window.location.href = basePath + "/ui/login"
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -59,7 +62,6 @@ function App({ msg }: AppProps) {
   }
   // highlight-end
 
-  // Lifecycle hooks
   useEffect(() => {
     fetchSession()
     // highlight-start
@@ -71,23 +73,8 @@ function App({ msg }: AppProps) {
   return (
     <div className="main">
       <main className="container">
-        {!session ? (
-          // Login section
-          <div className="login-section">
-            <h1 className="title">{msg}</h1>
-            <p>Click on "login" or "Sign Up" below to sign in.</p>
-            <ul className="auth-links">
-              <li>
-                <a
-                  href={`${basePath}/ui/login`}
-                  data-testid="sign-in"
-                  className="auth-button"
-                >
-                  Login
-                </a>
-              </li>
-            </ul>
-          </div>
+        {loading ? (
+          <div className="title"> Loading...</div>
         ) : (
           // Protected content section
           <div className="protected-content">
@@ -101,7 +88,6 @@ function App({ msg }: AppProps) {
                 Logout
               </a>
             </div>
-
             {/* highlight-start */}
             <div className="api-info">
               <h2 className="subtitle">API Response:</h2>
@@ -112,23 +98,23 @@ function App({ msg }: AppProps) {
               </pre>
             </div>
             {/* highlight-end */}
+
+            <div className="essential-links">
+              <h3>Essential Links</h3>
+              <ul>
+                <li>
+                  <a href="https://www.ory.sh">Ory Website</a>
+                </li>
+                <li>
+                  <a href="https://github.com/ory">Ory GitHub</a>
+                </li>
+                <li>
+                  <a href="https://www.ory.sh/docs">Documentation</a>
+                </li>
+              </ul>
+            </div>
           </div>
         )}
-
-        <div className="essential-links">
-          <h3>Essential Links</h3>
-          <ul>
-            <li>
-              <a href="https://www.ory.sh">Ory Website</a>
-            </li>
-            <li>
-              <a href="https://github.com/ory">Ory GitHub</a>
-            </li>
-            <li>
-              <a href="https://www.ory.sh/docs">Documentation</a>
-            </li>
-          </ul>
-        </div>
       </main>
     </div>
   )
