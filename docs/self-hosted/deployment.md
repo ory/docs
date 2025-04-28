@@ -43,7 +43,6 @@ postgres://user:password@host:123/database?sslmode=verify-full
     host name matches the one in the certificate)
 - `application_name` (string): An initial value for the application_name session variable.
 - `fallback_application_name` (string): An application_name to fall back to if one isn't provided.
-- `connect_timeout` (number): Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
 - `search_path` (string): specifies the [search path](https://www.postgresql.org/docs/12/ddl-schemas.html), such as the schema.
 - `sslcert` (string): Cert file location. The file must contain PEM encoded data.
 - `sslkey` (string): Key file location. The file must contain PEM encoded data.
@@ -56,6 +55,7 @@ postgres://user:password@host:123/database?sslmode=verify-full
 - `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
 - `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
 - `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
+- `connect_timeout` (number): Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
 
 ##### High-performance pooling
 
