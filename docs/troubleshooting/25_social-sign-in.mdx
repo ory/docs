@@ -6,23 +6,63 @@ sidebar_label: Social sign-in troubleshooting
 
 # Social sign-in troubleshooting
 
-## 'redirect_uri' mismatch
+## Redirect loops after registration
 
-Ensure that the `redirect_uri` query parameter in the URL matches the authorized redirect URI added to the social sign-in
-provider.
+Ory redirects users back to the registration page after a successful OIDC flow when some identity traits, for example a phone
+number, couldn't be mapped using the data received from the social sign-in provider and require manual input from the user.
 
+However, when the Jsonnet configuration for the social sign-in provider is incorrect and Ory can't map the data correctly, the
+user sees no input fields and the registration page gets stuck in a redirect loop.
+
+To understand how to fix the problem, let's look at how Ory handles the OIDC registration flow. There are 5 steps that the system
+performs when users register with a social sign-in provider:
+
+1. Redirect to the social sign-in provider.
+2. Redirect back to Ory with a `code` query parameter.
+3. Ory exchanges the `code` for an access token and retrieves the user information.
+4. Ory maps the user information to the [Identity Schema traits](../kratos/manage-identities/identity-schema).
+5. (optional) Ory redirects back to the registration page, requiring the user to provide the values for the missing traits.
+
+When step 4 fails, Ory becomes stuck in a redirect loop. To fix the redirect loop, adjust the Jsonnet configuration for the social
+sign-in provider so that the data from the provider gets mapped correctly to the Identity Schema. Read
+[Map and merge profile data](../kratos/social-signin/data-mapping) to learn more.
+
+### Debug Jsonnet claims mapping
+
+When the registration flow gets stuck in a redirect loop, it's often because the Jsonnet snippet fails to map the incoming claims
+from the social sign-in provider to your Identity Schema traits. To debug this, it can help to see the actual claims data Ory
+receives from the provider and how it's structured.
+
+1. To ensure the registration process can complete simplify the `identity.traits` section in your Jsonnet, perhaps only mapping
+   one non-essential field or even leaving it empty `{}`.
+2. To capture the full claims object add a field to `identity.metadata_public`. Or `identity.metadata_admin` if the claims contain
+   sensitive data you don't want exposed to the user.
+
+Here's an example of a minimal Jsonnet configuration for debugging purposes:
+
+```jsonnet
+local claims = std.extVar('claims');
+{
+  identity: {
+    traits: {
+      // Minimal traits mapping - adjust as needed
+      [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+      // You might even use traits: {} temporarily if no traits are strictly required
+    },
+    metadata_public: {
+      // Store all received claims
+      debug_claims: claims
+    }
+  },
+}
 ```
-https://{provider}/o/oauth2/v2/auth?client_id=(...)&
-redirect_uri=https://$PROJECT_SLUG.projects.oryapis.com/self-service/methods/oidc/callback/{provider}&
-response_type=code&scope=email+profile+openid
-```
 
-:::info
-
-If you get a `redirect_uri` mismatch error in a project created before September 2022 that uses a custom domain,
-[refer to this document](./oidc-redirect-url-cname-OTA-092022-01) for troubleshooting information.
-
-:::
+1. Apply temporary Jsonnet configuration to your social sign-in provider settings.
+2. Attempt the registration flow again with the social provider. The registration should now succeed.
+3. Inspect the identity created in Ory. You can use the Ory Console, Ory CLI, or the API.
+4. Analyze the `debug_claims`. This shows what data your Jsonnet has access to via the claims variable.
+5. Fix your original Jsonnet traits mapping logic so it references only available claims.
+6. Once your primary Jsonnet mapping is fixed, remove the temporary `debug_claims` field from the metadata.
 
 ## 'oryapis.com' doesn't work as authorized redirect URI
 
@@ -42,28 +82,42 @@ Ensure that the custom domain is added to the social sign-in provider as an auth
 
 :::
 
-## Redirect loops after successful registration
+## 'redirect_uri' mismatch
 
-Ory redirects users back to the registration page after a successful OIDC flow when some identity traits, for example a phone
-number, couldn't be mapped using the data received from the social sign-in provider and require manual input from the user.
+Ensure that the `redirect_uri` query parameter in the URL matches the authorized redirect URI added to the social sign-in
+provider.
 
-However, when the Jsonnet configuration for the social sign-in provider is incorrect and Ory can't map the data correctly, the
-user sees no input fields and the registration page gets stuck in a redirect loop.
+```
+https://{provider}/o/oauth2/v2/auth?client_id=(...)&
+redirect_uri=https://$PROJECT_SLUG.projects.oryapis.com/self-service/methods/oidc/callback/{provider}&
+response_type=code&scope=email+profile+openid
+```
 
-To understand how to fix the problem, let's look at how Ory handles the OIDC registration flow. There are 5 steps that the system
-performs when users register with a social sign-in provider:
+### Social sign-in `redirect_uri_mismatch` error (OTA-092022-01)
 
-1. Redirect to the social sign-in provider.
-2. Redirect back to Ory with a `code` query parameter.
-3. Ory exchanges the `code` for an access token and retrieves the user information.
-4. Ory maps the user information to the [Identity Schema traits](../kratos/manage-identities/identity-schema).
-5. (optional) Ory redirects back to the registration page, requiring the user to provide the values for the missing traits.
+This affects only projects created before September 2022 that use a custom domain. For newly added social sign-in providers,
+social sign-in flows can fail with the following message:
 
-When step 4 fails, Ory becomes stuck in a redirect loop. To fix the redirect loop, adjust the Jsonnet configuration for the social
-sign-in provider so that the data from the provider gets mapped correctly to the Identity Schema.
+```text
+Unable to complete OpenID Connect flow because the OpenID Provider returned error "redirect_uri_mismatch": The redirect_uri MUST match the registered callback URL for this application.
+```
 
-:::tip
+#### Mitigation OTA-092022-01
 
-Read [Map and merge profile data](../kratos/social-signin/data-mapping) to learn more.
+To fix the problem, remove the `/selfservice/methods/oidc/config/base_redirect_uri` configuration entry. Run this Ory CLI command:
 
-:::
+```shell
+## List all available workspaces
+ory list workspaces
+
+## List all available projects
+ory list projects --workspace <workspace-id>
+
+## Remove the configuration entry
+ory patch identity-config <project-id> \
+  --remove '/selfservice/methods/oidc/config/base_redirect_uri'
+```
+
+Removing the `base_redirect_uri` can break previously existing and functional social sign-in connections. To fix a broken
+connection, choose the provider you want to fix from the <ConsoleLink route="project.socialSignIn" /> section and copy the
+redirect URI. Use the value you copied to update the callback URL configuration of the social sign-in provider.
