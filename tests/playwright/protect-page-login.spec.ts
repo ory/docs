@@ -75,7 +75,7 @@ test.describe("Single Page App + API", () => {
   })
 })
 
-test.describe.only("React Single Page App", () => {
+test.describe("React Single Page App", () => {
   test("able to use Sign in and Login", async ({ page }) => {
     await page.goto("http://localhost:4008/")
     await page.click('[data-testid="signup-link"]')
