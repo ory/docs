@@ -36,7 +36,7 @@ function App({ msg }: AppProps) {
       const logoutData = await ory.createBrowserLogoutFlow()
       setLogoutUrl(logoutData.logout_url)
     } catch (error) {
-      console.error("Error fetching session:", error)
+      console.error("Error fetching session:", error, session)
       // Redirect to login page on error, similar to Express middleware
       window.location.href = basePath + "/ui/login"
     } finally {
