@@ -77,6 +77,7 @@ To identify the rate limits that apply to your project:
 |             | `POST /self-service/recovery`     |           1 |              10 |
 |             | `POST /self-service/settings`     |           1 |              10 |
 |             | `POST /self-service/verification` |           1 |              10 |
+|             | `/scim/**`                        |           1 |              10 |
 |             | `*`                               |           5 |             150 |
 
 :::note
@@ -94,11 +95,13 @@ For Developer plans, all environments (Production, Staging, Development) use the
 |                       | `/relation-tuples/check`   |          80 |            1800 |
 |                       | `GET /admin/identities`    |          10 |             300 |
 |                       | `POST /admin/recovery/*`   |          10 |              30 |
+|                       | `/scim/**`                 |          10 |             300 |
 |                       | `*`                        |          40 |             900 |
 | Staging & Development | `/sessions/whoami`         |          10 |              30 |
 |                       | `/admin/oauth2/introspect` |          10 |             300 |
 |                       | `/relation-tuples/check`   |          10 |             300 |
 |                       | `GET /admin/identities`    |           1 |              10 |
+|                       | `/scim/**`                 |           1 |              10 |
 |                       | `*`                        |           5 |             150 |
 
 :::note
@@ -116,11 +119,13 @@ Production plan rate limits also apply to the Legacy `Essential` plan.
 |                       | `/relation-tuples/check`   |         800 |           18000 |
 |                       | `GET /admin/identities`    |          20 |             600 |
 |                       | `POST /admin/recovery/*`   |          10 |             300 |
+|                       | `/scim/**`                 |          10 |             300 |
 |                       | `*`                        |         400 |            9000 |
 | Staging & Development | `/sessions/whoami`         |          10 |              30 |
 |                       | `/admin/oauth2/introspect` |          10 |             300 |
 |                       | `/relation-tuples/check`   |          10 |             300 |
 |                       | `GET /admin/identities`    |           1 |              10 |
+|                       | `/scim/**`                 |           1 |              10 |
 |                       | `*`                        |           5 |             150 |
 
 :::note
@@ -141,11 +146,13 @@ The Enterprise plan has the same default rate limits as the Growth plan. If you 
 |                       | `/relation-tuples/check`   |        1200 |           36000 |
 |                       | `GET /admin/identities`    |          60 |            1200 |
 |                       | `POST /admin/recovery/*`   |          20 |             600 |
+|                       | `/scim/**`                 |          20 |             600 |
 |                       | `*`                        |         800 |           18000 |
 | Staging & Development | `/sessions/whoami`         |          10 |              30 |
 |                       | `/admin/oauth2/introspect` |          10 |             300 |
 |                       | `/relation-tuples/check`   |          10 |             300 |
 |                       | `GET /admin/identities`    |           1 |              10 |
+|                       | `/scim/**`                 |           1 |              10 |
 |                       | `*`                        |           5 |             150 |
 
 ## Endpoint based rate limits
