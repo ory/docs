@@ -4,7 +4,6 @@ title: Session
 sidebar_label: Session
 ---
 
-# Session
 
 ```mdx-code-block
 import Tabs from "@theme/Tabs"
@@ -22,9 +21,9 @@ import goRefreshHandler from '!!raw-loader!./_common/code-examples/go/refresh_ha
 After a user has logged in, Ory creates a session cookie that your application can use to verify the user's authentication status.
 This guide shows how to work with sessions in your application.
 
-## Protecting routes
+## Protect routes
 
-You can protect routes by checking for the presence of a session cookie.
+You can protect routes by checking for a session cookie.
 
 ```mdx-code-block
 <FrameworkCodeTabs>
@@ -94,7 +93,7 @@ You can refresh user sessions to extend their expiration time:
 </FrameworkCodeTabs>
 ```
 
-## Configuring session settings in Ory Console
+## Configure session settings in Ory Console
 
 You can configure various session-related settings through the Ory Console. Learn how to:
 

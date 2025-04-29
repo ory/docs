@@ -35,7 +35,7 @@ To enable MFA using the Console:
 
 ### Configure One-Time Codes
 
-In the Two-factor auth settings, you can enable and configure One-Time Codes for multi-factor authentication:
+In the two-factor auth settings, you can enable and configure One-Time Codes for multi-factor authentication:
 
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
@@ -86,7 +86,7 @@ ory update identity-config --project <project-id> --workspace <workspace-id> --f
 
 This configuration forces users to provide the highest authentication factor available to access their account settings. For
 example, users without a second factor configured can access settings after they sign in with their password, but users that have
-a second factor set up (such as a TOTP app) will need to complete the second factor challenge.
+a second factor set up will need to complete the second factor challenge.
 
 ```mdx-code-block
 </TabItem>
@@ -108,8 +108,8 @@ When MFA is enabled, users will see a second authentication screen after logging
 Authentication Authorization Level (AAL) is a concept that describes the strength of the authentication factor used to access a
 resource.
 
-- aal1: Password/OIDC
-- aal2: Password/OIDC and one-time code
+- aal1: Password or OIDC - used one factor
+- aal2: Password or OIDC and one-time code - used two factors
 
 To check the AAL of the current session, use the `authenticator_assurance_level` on the `toSession` method.
 
