@@ -20,6 +20,8 @@ Let's get started!
 
 ```mdx-code-block
 import CodeFromRemote from "@theme/CodeFromRemote"
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 ```
 
 ## Clone the example Next.js application
@@ -46,61 +48,69 @@ To create the OAuth2 client, you need to know the redirect URL of your Next.js a
 will send the user after they log in. When running NextJS locally, the redirect URL for Auth.js is usually
 `http://localhost:3000/auth/callback/ory`.
 
+
+````mdx-code-block
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
 1. Log into your Ory Network account.
-2. create a new project, or select an existing one.
-3. Go to ["OAuth 2" -> "Clients"](https://console.ory.sh/projects/current/oauth) and click
-   ["Create OAuth 2.0 Client"](https://console.ory.sh/projects/current/oauth/create).
-4. Select "Server App".
-5. Choose a client name, e.g. "NextAuth Example".
-6. Scopes `openid` and `offline_access` are preselected. Add `email` and `profile` to the list.
-7. Add redirect URLs for your NextAuth integration. In case of NextJS with Auth.js / Next-Auth, add these two URLs:
-   - `http://localhost:3000/api/auth/callback/ory`
-   - `http://localhost:3000/auth/callback/ory`
-8. Scroll to the bottom and click "Create Client".
-9. Copy the Client Secret and click "Done" and save it in your `.env.local` file.
-10. Copy the Client ID from the client list and save it in your `.env.local` file.
+2. Create a new project or select an existing one.
+3. Go to **OAuth 2**, select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth), and click
+   [**Create OAuth 2.0 Client**](https://console.ory.sh/projects/current/oauth/create).
+4. Select **Server App**.
+5. Choose a client name, e.g. "NextAuth / Auth.js Example".
+6. Scopes `openid` and `offline_access` are preselected. Add to the list:
+   - `email`
+   - `profile`
+7. Add to **Redirect URIs** value `http://localhost:3000/api/auth/callback/ory`.
+8. Add to **Post Logout Redirect URIs** value `http://localhost:3000/`.
+8. Scroll to the bottom and click **Create Client**.
+9. Copy the Client Secret save it as `ORY_CLIENT_SECRET` your `.env.local` file. Click **Done**.
+10. Copy the Client ID from the client list and save it as `ORY_CLIENT_ID` your `.env.local` file.
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+
+Run this command:
+
+```shell
+ory create oauth2-client --project <project-id> \
+  --redirect-uri http://localhost:3000/api/auth/callback/ory \
+  --name "NextAuth / Auth.js Example" \
+  --scopes openid offline_access email profile \
+  --skip-consent \
+  --post-logout-callback
+```
+
+</TabItem>
+</Tabs>
+````
 
 ## Configure Auth.js to use Ory
 
 Your `.env.local` file should now look like this:
 
-```env
-# Needed by Auth.js
-AUTH_SECRET=...
-
-# Needed for Ory
-AUTH_ORY_ID=...
-AUTH_ORY_SECRET=...
+```mdx-code-block
+<CodeFromRemote lang="env" src="https://github.com/ory/next-auth-example/blob/main/env.local.example" />
 ```
 
-Next, add the Ory Issuer URL to your `.env.local` file. The Issuer URL is the "Ory Network Project API Endpoint" you can find
-[here](https://console.ory.sh/projects/current/developers/guides). Unless you have a custom domain set up for your Ory Network
-project, it will be in the form of:
-
-```
-https://{project.slug}.projects.oryapis.com
-```
-
-Your final `.env.local` file should look like this:
-
-```env
-# Needed by Auth.js
-AUTH_SECRET=...
-
-# Needed for Ory
-AUTH_ORY_ID=...
-AUTH_ORY_SECRET=...
-AUTH_ORY_ISSUER=...
-```
+Next, add the Ory SDK URL to your `.env.local` file. The Ory SDK URL can be taken from the
+[**Get started**](https://console.ory:8080/projects/current/get-started) section in the Ory Console.
 
 ## Test the flow
 
-Now everything is set up and you can run `npm run dev` to start the app and click on the top left "Sign in" button to start the
+Now everything is set up, and you can run
+
+```
+npm run dev
+```
+
+to start the app and click on the top left "Sign in" button to start the
 login flow.
 
 ## Logout
 
-Log out is performed using OpenID Connect Logout:
+Logout is performed using OpenID Connect Logout:
 
 ```mdx-code-block
 <CodeFromRemote lang="js" showLink src="https://github.com/ory/next-auth-example/blob/main/components/auth-components.tsx" showLink={true} startAt="export async function SignOut" />
@@ -108,7 +118,7 @@ Log out is performed using OpenID Connect Logout:
 
 ## Go to production
 
-When you are ready to go to production, you need to update the redirect URL in the Ory client settings to the production URL of
+When you are ready to go to production, you need to update the redirect and post-logout redirect URL in the OAuth2 client settings to the production URL of
 your Next.js application.
 
 ## Trouble Shooting
