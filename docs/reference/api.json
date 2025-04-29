@@ -659,12 +659,20 @@
       "CreateProjectNormalizedPayload": {
         "description": "Create project (normalized) request payload",
         "properties": {
+          "account_experience_default_locale": {
+            "description": "Holds the default locale for the account experience.",
+            "type": "string"
+          },
           "account_experience_favicon_dark": {
             "description": "Holds the URL to the account experience's dark theme favicon (currently unused).",
             "type": "string"
           },
           "account_experience_favicon_light": {
             "description": "Holds the URL to the account experience's favicon.",
+            "type": "string"
+          },
+          "account_experience_locale_behavior": {
+            "description": "Holds the URL to the account experience's language behavior.\n\nCan be one of:\n`respect_accept_language`: Respect the `Accept-Language` header.\n`force_default`: Force the default language.",
             "type": "string"
           },
           "account_experience_logo_dark": {
@@ -2338,6 +2346,9 @@
       },
       "accountExperienceConfiguration": {
         "properties": {
+          "default_locale": {
+            "type": "string"
+          },
           "default_redirect_url": {
             "type": "string"
           },
@@ -2349,6 +2360,12 @@
           },
           "favicon_light_url": {
             "type": "string"
+          },
+          "locale_behavior": {
+            "description": "\nforce_default AccountExperienceLocaleBehaviorForceDefault\nrespect_accept_language AccountExperienceLocaleBehaviorRespectAcceptLanguage",
+            "enum": ["force_default", "respect_accept_language"],
+            "type": "string",
+            "x-go-enum-desc": "force_default AccountExperienceLocaleBehaviorForceDefault\nrespect_accept_language AccountExperienceLocaleBehaviorRespectAcceptLanguage"
           },
           "login_ui_url": {
             "type": "string"
@@ -2389,6 +2406,8 @@
         },
         "required": [
           "name",
+          "locale_behavior",
+          "default_locale",
           "registration_enabled",
           "verification_enabled",
           "recovery_enabled",
@@ -5220,12 +5239,20 @@
       },
       "normalizedProjectRevision": {
         "properties": {
+          "account_experience_default_locale": {
+            "description": "Holds the default locale for the account experience.",
+            "type": "string"
+          },
           "account_experience_favicon_dark": {
             "description": "Holds the URL to the account experience's dark theme favicon (currently unused).",
             "type": "string"
           },
           "account_experience_favicon_light": {
             "description": "Holds the URL to the account experience's favicon.",
+            "type": "string"
+          },
+          "account_experience_locale_behavior": {
+            "description": "Holds the URL to the account experience's language behavior.\n\nCan be one of:\n`respect_accept_language`: Respect the `Accept-Language` header.\n`force_default`: Force the default language.",
             "type": "string"
           },
           "account_experience_logo_dark": {
