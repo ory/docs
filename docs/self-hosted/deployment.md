@@ -52,7 +52,6 @@ postgres://user:password@host:123/database?sslmode=verify-full
 
 - `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
 - `max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores times 2.
-- `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
 - `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
 - `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
 - `connect_timeout` (number): Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
