@@ -32,20 +32,20 @@ To set up the example application:
 1. Open a terminal window.
 2. Run the following commands:
 
-    ```shell-session
-    git clone https://github.com/ory/next-auth-example.git
-    cd next-auth-example
-    npm install
-    cp .env.local.example .env.local
-    npx auth secret
-    ```
+   ```shell-session
+   git clone https://github.com/ory/next-auth-example.git
+   cd next-auth-example
+   npm install
+   cp .env.local.example .env.local
+   npx auth secret
+   ```
 
 3. Open the `auth.ts` file.
 4. Check the `providers` array which uses Ory:
 
-    ```mdx-code-block
-    <CodeFromRemote lang="ts" src="https://github.com/ory/next-auth-example/blob/main/auth.ts" />
-    ```
+   ```mdx-code-block
+   <CodeFromRemote lang="ts" src="https://github.com/ory/next-auth-example/blob/main/auth.ts" />
+   ```
 
 ## Create and configure an OAuth2 client in Ory Network
 
