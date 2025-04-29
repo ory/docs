@@ -4,19 +4,20 @@ title: Integrate authentication into Auth.js and NextAuth
 sidebar_label: Auth.js / NextAuth
 ---
 
-This guide covers integrating Ory with Auth.js, a popular authentication library for Next.js applications. Auth.js is a flexible
-authentication library that supports multiple authentication providers, including Ory Network out of the box.
+# Integrate authentication into Auth.js and NextAuth
 
-Auth.js is the successor to NextAuth.js, which is a popular authentication library for Next.js applications. The Ory provider
-works with both Auth.js and NextAuth.js, so you can use either library to integrate Ory with your Next.js application.
+This guide explains how to integrate Ory with [Auth.js](https://authjs.dev/), a flexible authentication library for Next.js
+applications. Auth.js supports multiple providers, including Ory Network.
 
-To connect your Next.js application with Ory we:
+Auth.js is the successor to NextAuth.js. The Ory provider works with both libraries.
 
-1. Clone an example Next.js application with Auth.js
-2. Create an OAuth2 client in Ory and configure Auth.js to use it
-3. Perform a demo flow to see the integration in action
+Follow these steps to integrate Ory:
 
-Let's get started!
+- Clone an example Next.js application
+- Create and configure an OAuth2 client in Ory
+- Configure Auth.js to use Ory
+- Test the authentication flow
+- Move the integration to production
 
 ```mdx-code-block
 import CodeFromRemote from "@theme/CodeFromRemote"
@@ -24,113 +25,137 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 ```
 
-## Clone the example Next.js application
+## Clone and set up the example Next.js application
 
-First, clone the example Next.js application with Auth.js:
+To set up the example application:
 
-```shell-session
-git clone https://github.com/nextauthjs/next-auth-example.git
-cd next-auth-example
-npm i
-cp .env.local.example .env.local
-npx auth secret
+1. Open a terminal window.
+2. Run the following commands:
+
+    ```shell-session
+    git clone https://github.com/ory/next-auth-example.git
+    cd next-auth-example
+    npm install
+    cp .env.local.example .env.local
+    npx auth secret
+    ```
+
+3. Open the `auth.ts` file.
+4. Check the `providers` array which uses Ory:
+
+    ```mdx-code-block
+    <CodeFromRemote lang="ts" src="https://github.com/ory/next-auth-example/blob/main/auth.ts" />
+    ```
+
+## Create and configure an OAuth2 client in Ory Network
+
+You must know your application's redirect URL. When running locally, the redirect URL is:
+
 ```
-
-In the `auth.ts` file, replace the `providers` array with just Ory:
-
-```mdx-code-block
-<CodeFromRemote lang="ts" src="https://github.com/ory/next-auth-example/blob/main/auth.ts" />
+http://localhost:3000/api/auth/callback/ory
 ```
-
-## Create OAuth2 Client in Ory Network
-
-To create the OAuth2 client, you need to know the redirect URL of your Next.js application. The redirect URL is the URL where Ory
-will send the user after they log in. When running NextJS locally, the redirect URL for Auth.js is usually
-`http://localhost:3000/auth/callback/ory`.
-
 
 ````mdx-code-block
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 
-1. Log into your Ory Network account.
-2. Create a new project or select an existing one.
-3. Go to **OAuth 2**, select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth), and click
-   [**Create OAuth 2.0 Client**](https://console.ory.sh/projects/current/oauth/create).
+To create the client using the Ory Console:
+
+1. Sign in to your Ory Network account.
+2. Create or select a project.
+3. Go to **OAuth 2**, select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth), and select [**Create OAuth 2.0 Client**](https://console.ory.sh/projects/current/oauth/create).
 4. Select **Server App**.
-5. Choose a client name, e.g. "NextAuth / Auth.js Example".
-6. Scopes `openid` and `offline_access` are preselected. Add to the list:
+5. Enter a client name, for example, "NextAuth / Auth.js Example."
+6. Ensure the following scopes are selected:
+   - `openid`
+   - `offline_access`
    - `email`
    - `profile`
-7. Add to **Redirect URIs** value `http://localhost:3000/api/auth/callback/ory`.
-8. Add to **Post Logout Redirect URIs** value `http://localhost:3000/`.
-8. Scroll to the bottom and click **Create Client**.
-9. Copy the Client Secret save it as `ORY_CLIENT_SECRET` your `.env.local` file. Click **Done**.
-10. Copy the Client ID from the client list and save it as `ORY_CLIENT_ID` your `.env.local` file.
+7. Add the following to **Redirect URIs**:
+
+   ```
+   http://localhost:3000/api/auth/callback/ory
+   ```
+
+8. Add the following to **Post Logout Redirect URIs**:
+
+   ```
+   http://localhost:3000/
+   ```
+
+9. Select **Create Client**.
+10. Save the Client Secret as `ORY_CLIENT_SECRET` in your `.env.local` file.
+11. Save the Client ID as `ORY_CLIENT_ID` in your `.env.local` file.
 
 </TabItem>
+
 <TabItem value="cli" label="Ory CLI">
 
-Run this command:
+To create the client using the Ory CLI, run the following command:
 
 ```shell
-ory create oauth2-client --project <project-id> \
+export ORY_PROJECT_ID= # Take this value from https://console.ory.sh/projects/current/get-started
+ory create oauth2-client --project $ORY_PROJECT_ID \
   --redirect-uri http://localhost:3000/api/auth/callback/ory \
   --name "NextAuth / Auth.js Example" \
   --scopes openid offline_access email profile \
   --skip-consent \
-  --post-logout-callback
+  --post-logout-callback http://localhost:3000/
 ```
 
 </TabItem>
 </Tabs>
 ````
 
-## Configure Auth.js to use Ory
+## Configure Auth.js to use Ory in the Next.js application
 
-Your `.env.local` file should now look like this:
+Update your `.env.local` file to match the example:
 
 ```mdx-code-block
 <CodeFromRemote lang="env" src="https://github.com/ory/next-auth-example/blob/main/env.local.example" />
 ```
 
-Next, add the Ory SDK URL to your `.env.local` file. The Ory SDK URL can be taken from the
-[**Get started**](https://console.ory:8080/projects/current/get-started) section in the Ory Console.
+Also add your Ory SDK URL. You can find it in the [**Get started**](https://console.ory.sh/projects/current/get-started) section
+of the Ory Console.
 
-## Test the flow
+## Test the authentication flow in your application
 
-Now everything is set up, and you can run
+To run the application:
 
-```
+1. Open a terminal window.
+2. Run the following command:
+
+```shell-session
 npm run dev
 ```
 
-to start the app and click on the top left "Sign in" button to start the
-login flow.
+3. Open your browser and go to `http://localhost:3000`.
+4. Select **Sign in** to start the authentication flow.
 
-## Logout
+## Configure user sign-out with Ory
 
-Logout is performed using OpenID Connect Logout:
+To sign out users, use the OpenID Connect logout flow:
 
 ```mdx-code-block
-<CodeFromRemote lang="js" showLink src="https://github.com/ory/next-auth-example/blob/main/components/auth-components.tsx" showLink={true} startAt="export async function SignOut" />
+<CodeFromRemote lang="js" src="https://github.com/ory/next-auth-example/blob/main/components/auth-components.tsx" showLink={true} startAt="export async function SignOut" />
 ```
 
-## Go to production
+## Move the integration to production
 
-When you are ready to go to production, you need to update the redirect and post-logout redirect URL in the OAuth2 client settings to the production URL of
-your Next.js application.
+Before deploying to production:
 
-## Trouble Shooting
+- Update the **Redirect URIs** and **Post Logout Redirect URIs** in your OAuth2 client settings to match your production domain.
 
-### Incorrect `redirect_uri`
+## Troubleshoot common integration errors
 
-If the server responds with
+### Resolve redirect URL mismatch errors
+
+If you receive the following error:
 
 ```
 The request is missing a required parameter, includes an invalid parameter value, includes a parameter more than once, or is otherwise malformed.
-The 'redirect_uri' parameter does not match any of the OAuth 2.0 Client's pre-registered redirect urls.
+The 'redirect_uri' parameter does not match any of the OAuth 2.0 Client's pre-registered redirect URLs.
 ```
 
-please ensure that the redirect URL is correct. You can find the redirect URL you are sending to Ory by checking the network tab
-of your browser and look for calls to `/oauth2/auth`.
+Make sure that the redirect URL exactly matches the one registered in Ory. Use the browser’s network tab to inspect requests made
+to `/oauth2/auth`.
