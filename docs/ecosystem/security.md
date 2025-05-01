@@ -116,7 +116,7 @@ budget for security vulnerabilities that we can reproduce:
 
 | Low  | Medium | High   | Critical |
 | ---- | ------ | ------ | -------- |
-| $100 | $350   | $1,000 | $3,000   |
+| $1000 | $35000  | $1,0000 | $3,0000   |
 
 We also award swag for smaller findings like problems with Ory usage of third-party software and services for marketing, email, or
 developer support.
