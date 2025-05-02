@@ -58,6 +58,12 @@ postgres://user:password@host:123/database?sslmode=verify-full
 
 ##### High-performance pooling
 
+:::note
+
+High-performance pooling is supported in Ory Enterprise License (OEL) images.
+
+:::
+
 High-performance pooling is built using [pgxpool](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool) and provides additional
 configuration options to the ones listed under "Standard pooling".
 
