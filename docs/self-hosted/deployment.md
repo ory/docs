@@ -60,7 +60,7 @@ postgres://user:password@host:123/database?sslmode=verify-full
 
 :::note
 
-These options are only supported in our Ory Enterprise License (OEL) images.
+High-performance pooling is supported in Ory Enterprise License (OEL) images.
 
 :::
 
