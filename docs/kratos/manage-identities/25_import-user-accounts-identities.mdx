@@ -554,8 +554,8 @@ The following steps are necessary to set up password migration using a web hook:
 2.  Configure a password migration web hook
 
     Add the web hook URL to the configuration. See the
-    [web hook configuration](https://www.ory.sh/docs/guides/integrate-with-ory-cloud-through-webhooks#request-authentication) for
-    authentication options.
+    [web hook configuration](../../guides/integrate-with-ory-cloud-through-webhooks.mdx#request-authentication) for authentication
+    options.
 
     ```yaml
     selfservice:
@@ -566,6 +566,7 @@ The following steps are necessary to set up password migration using a web hook:
               enabled: true
               config:
                 url: https://example.org/migrate-password
+                body: base64://ENCODED_JSONNET # see the general webhook documentation for more information
                 auth:
                   type: api_key
                   config:
@@ -574,10 +575,24 @@ The following steps are necessary to set up password migration using a web hook:
                     in: header # alternatively "cookie"
     ```
 
+    The `body` configuration field is a JSONNet snippet that will be used to map the request body to the web hook. The available
+    context is the
+    [same as for other webhooks](../../guides/integrate-with-ory-cloud-through-webhooks.mdx#customizing-request-body-with-jsonnet),
+    plus these fields:
+
+    ```json5
+    {
+      identifier: "user@example.com",
+      password: "123456",
+      // also available: "identity", "flow", "request_url", "request_headers", "request_cookies", "request_method"
+    }
+    ```
+
 3.  Implement the password migration web hook
 
     If a user logs in and the identifier points to an identity that has `use_password_migration_hook` set to `true`, Ory
-    Identities will call the configured web hook URL with the following payload:
+    Identities will call the configured web hook URL. The body of the request will be mapped using the provided JSONNet snippet,
+    or default to this payload when no `body` snippet is configured:
 
     ```json
     {
