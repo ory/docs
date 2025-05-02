@@ -23,26 +23,25 @@ function App({ msg }: AppProps) {
   const [loading, setLoading] = useState(true)
 
   // Lifecycle hooks
-  useEffect(() => {
-    const fetchSession = async () => {
+  const fetchSession = async () => {
+    try {
+      // Browser automatically includes cookies in the request
+      const session = await ory.toSession()
+      setSession(session)
       try {
-        // Browser automatically includes cookies in the request
-        const session = await ory.toSession()
-        setSession(session)
-
-        try {
-          const { logout_url } = await ory.createBrowserLogoutFlow()
-          setLogoutUrl(logout_url)
-        } catch (logoutError) {
-          console.error("Error creating logout flow:", logoutError)
-        }
-      } catch (err) {
-        console.error("Error fetching session:", err)
-        window.location.href = basePath + "/self-service/login/browser"
-      } finally {
-        setLoading(false)
+        const { logout_url } = await ory.createBrowserLogoutFlow()
+        setLogoutUrl(logout_url)
+      } catch (logoutError) {
+        console.error("Error creating logout flow:", logoutError)
       }
+    } catch (err) {
+      console.error("Error fetching session:", err)
+      window.location.href = basePath + "/self-service/login/browser"
+    } finally {
+      setLoading(false)
     }
+  }
+  useEffect(() => {
     fetchSession()
   }, [])
   return (
@@ -51,24 +50,21 @@ function App({ msg }: AppProps) {
         {loading ? (
           <div className="title"> Loading...</div>
         ) : session?.identity ? (
-          <div>
-            <div className="protected-content">
-              <div className="header">
-                <h1 className="title">{msg}</h1>
-                <a
-                  href={logoutUrl || "#"}
-                  data-testid="logout"
-                  className="logout-button"
-                >
-                  Logout
-                </a>
-              </div>
-              <div className="session-info">
-                <h2 className="subtitle">Session Information:</h2>
-                <pre>{JSON.stringify(session.identity.traits || {})}</pre>
-              </div>
+          <div className="protected-content">
+            <div className="header">
+              <h1 className="title">{msg}</h1>
+              <a
+                href={logoutUrl || "#"}
+                data-testid="logout"
+                className="logout-button"
+              >
+                Logout
+              </a>
             </div>
-
+            <div className="session-info">
+              <h2 className="subtitle">Session Information</h2>
+              <pre>{JSON.stringify(session.identity.traits || {})}</pre>
+            </div>
             <div className="essential-links">
               <h3>Essential Links</h3>
               <ul>

@@ -20,30 +20,33 @@ const ory = new FrontendApi(
 )
 
 function App({ msg }: AppProps) {
+  // State variables
   const [session, setSession] = useState<Session | null>(null)
-  const [loading, setLoading] = useState(true)
   const [logoutUrl, setLogoutUrl] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
   // highlight-start
-  // State variable to hold API response
   const [apiResponse, setApiResponse] = useState<any | null>(null)
   // highlight-end
 
+  // Lifecycle hooks
   const fetchSession = async () => {
     try {
       // Browser automatically includes cookies in the request
       const session = await ory.toSession()
       setSession(session)
-      const logoutData = await ory.createBrowserLogoutFlow()
-      setLogoutUrl(logoutData.logout_url)
-    } catch (error) {
-      console.error("Error fetching session:", error, session)
-      // Redirect to login page on error, similar to Express middleware
-      window.location.href = basePath + "/ui/login"
+      try {
+        const { logout_url } = await ory.createBrowserLogoutFlow()
+        setLogoutUrl(logout_url)
+      } catch (logoutError) {
+        console.error("Error creating logout flow:", logoutError)
+      }
+    } catch (err) {
+      console.error("Error fetching session:", err)
+      window.location.href = basePath + "/self-service/login/browser"
     } finally {
       setLoading(false)
     }
   }
-
   // highlight-start
   const fetchApiHello = async () => {
     try {
@@ -61,7 +64,6 @@ function App({ msg }: AppProps) {
     }
   }
   // highlight-end
-
   useEffect(() => {
     fetchSession()
     // highlight-start
@@ -69,14 +71,12 @@ function App({ msg }: AppProps) {
     fetchApiHello()
     // highlight-end
   }, [])
-
   return (
     <div className="main">
       <main className="container">
         {loading ? (
           <div className="title"> Loading...</div>
-        ) : (
-          // Protected content section
+        ) : session?.identity ? (
           <div className="protected-content">
             <div className="header">
               <h1 className="title">{msg}</h1>
@@ -88,9 +88,13 @@ function App({ msg }: AppProps) {
                 Logout
               </a>
             </div>
+            <div className="session-info">
+              <h2 className="subtitle">Session Information</h2>
+              <pre>{JSON.stringify(session.identity.traits || {})}</pre>
+            </div>
             {/* highlight-start */}
             <div className="api-info">
-              <h2 className="subtitle">API Response:</h2>
+              <h2 className="subtitle">API Response</h2>
               <pre>
                 <code data-testid="api-response">
                   {JSON.stringify(apiResponse, null, 2)}
@@ -98,7 +102,6 @@ function App({ msg }: AppProps) {
               </pre>
             </div>
             {/* highlight-end */}
-
             <div className="essential-links">
               <h3>Essential Links</h3>
               <ul>
@@ -114,7 +117,7 @@ function App({ msg }: AppProps) {
               </ul>
             </div>
           </div>
-        )}
+        ) : null}
       </main>
     </div>
   )
