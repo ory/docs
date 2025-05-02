@@ -1,0 +1,101 @@
+---
+id: session-management
+title: Session
+sidebar_label: Session
+---
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeBlock from "@theme/CodeBlock"
+import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/GuidesComponents'
+import jsCheckSession from '!!raw-loader!./_common/code-examples/js/session/check-session.js'
+import jsRefreshSession from '!!raw-loader!./_common/code-examples/js/session/refresh-session.js'
+import nextRefreshSession from '!!raw-loader!./_common/code-examples/nextjs/session/refresh-session.ts'
+import nextCheckSession from '!!raw-loader!./_common/code-examples/nextjs/session/middleware.ts'
+import goCheckSession from '!!raw-loader!./_common/code-examples/go/middleware.go'
+import goRefreshHandler from '!!raw-loader!./_common/code-examples/go/refresh_handler.go'
+```
+
+After a user has logged in, Ory creates a session cookie that your application can use to verify the user's authentication status.
+This guide shows how to work with sessions in your application.
+
+## Protect routes
+
+You can protect routes by checking for a session cookie.
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```mdx-code-block
+<CodeBlock language="js"> {jsCheckSession} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+```mdx-code-block
+<CodeBlock language="ts" title="./middleware.ts">{nextCheckSession}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```mdx-code-block
+<CodeBlock language="go" title="middleware.go">{goCheckSession}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Refresh sessions
+
+You can refresh user sessions to extend their expiration time:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```mdx-code-block
+<CodeBlock language="js"> {jsRefreshSession} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+```mdx-code-block
+<CodeBlock className="language-tsx" title="api/refresh-session/route.ts">{nextRefreshSession}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```mdx-code-block
+<CodeBlock className="language-go" title="refresh_handler.go">{goRefreshHandler}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Configure session settings in Ory Console
+
+You can configure various session-related settings through the Ory Console. Learn how to:
+
+- Configure [Session lifespan](/docs/kratos/session-management/10_session-lifespan.mdx)
+- Allow users to [access sensitive settings](/docs/kratos/session-management/session-lifespan#privileged-sessions) in their
+  profile like changing credentials.

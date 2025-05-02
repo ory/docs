@@ -1,0 +1,69 @@
+---
+id: sign-up
+title: Implement user sign up
+sidebar_label: Sign up
+---
+
+# Sign up
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import { getSdkUrl } from "@site/src/hooks"
+import CodeBlock from "@theme/CodeBlock"
+import { FrameworkCodeTabs } from '@site/src/components/GuidesComponents'
+import jsSignUp from '!!raw-loader!./_common/code-examples/js/sign-up.js'
+import goSignUp from '!!raw-loader!./_common/code-examples/go/signup_handler.go'
+import nextSignUp from '!!raw-loader!./_common/code-examples/nextjs/sign-up.tsx'
+```
+
+This guide shows how to implement a secure sign up flow that authenticates users and creates sessions.
+
+You'll learn how to:
+
+- Redirect the user to the Ory registration page to start the sign up flow
+- Redirect the user back to your application after sign up
+- Check if the user is authenticated
+
+To authenticate a user, check if the user has an active session. If the user does not have an active session, redirect the user to
+the Ory registration page.
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```mdx-code-block
+<CodeBlock language="js"> {jsSignUp} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+```mdx-code-block
+<CodeBlock className="language-js">{nextSignUp}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```mdx-code-block
+<CodeBlock className="language-go" title={"signup_handler.go"}>{goSignUp}</CodeBlock>
+
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+You can alternatively set `return_to` to a custom URL. This custom URL must be allow-listed in your project's configuration;
+otherwise, the request will fail. If allow-listed, this URL will be used as the return URL for the sign up flow:
+
+```bash
+https://$ORY_SDK_URL/self-service/registration/browser?return_to=https://example.com/dashboard
+```
