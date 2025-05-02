@@ -53,7 +53,8 @@ to the registration page, it redirects to the login page.
 </FrameworkCodeTabs>
 ```
 
-You can alternatively set `return_to` to a custom URL. This URL will be used as the return URL for the login flow:
+You can alternatively set `return_to` to a custom URL. This custom URL must be allow-listed in your project's configuration;
+otherwise, the request will fail. If allow-listed, this URL will be used as the return URL for the sign in flow:
 
 ```bash
 https://$ORY_SDK_URL/self-service/login/browser?return_to=https://example.com/dashboard
