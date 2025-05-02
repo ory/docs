@@ -554,8 +554,8 @@ The following steps are necessary to set up password migration using a web hook:
 2.  Configure a password migration web hook
 
     Add the web hook URL to the configuration. See the
-    [web hook configuration](https://www.ory.sh/docs/guides/integrate-with-ory-cloud-through-webhooks#request-authentication) for
-    authentication options.
+    [web hook configuration](../../guides/integrate-with-ory-cloud-through-webhooks.mdx#request-authentication) for authentication
+    options.
 
     ```yaml
     selfservice:
@@ -577,13 +577,14 @@ The following steps are necessary to set up password migration using a web hook:
 
     The `body` configuration field is a JSONNet snippet that will be used to map the request body to the web hook. The available
     context is the
-    [same as for other webhooks](https://www.ory.sh/docs/guides/integrate-with-ory-cloud-through-webhooks#customizing-request-body-with-jsonnet),
+    [same as for other webhooks](../../guides/integrate-with-ory-cloud-through-webhooks.mdx#customizing-request-body-with-jsonnet),
     plus these fields:
 
-    ```json
+    ```json5
     {
-      "identifier": "user@example.com",
-      "password": "123456"
+      identifier: "user@example.com",
+      password: "123456",
+      // also available: "identity", "flow", "request_url", "request_headers", "request_cookies", "request_method"
     }
     ```
 
