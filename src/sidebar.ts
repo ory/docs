@@ -943,11 +943,7 @@ const oel: SidebarItemsConfig = [
     type: "category",
     label: "Oathkeeper",
     items: [
-      "self-hosted/oel/oauth2/token-prefix",
       "self-hosted/oel/oauth2/upgrade",
-      "self-hosted/oel/oauth2/migrate-postgresql-ttl",
-      "self-hosted/oel/oauth2/revert-database-migrations",
-      "self-hosted/oel/oauth2/changelog",
     ],
   },
 ]
