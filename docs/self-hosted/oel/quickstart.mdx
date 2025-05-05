@@ -31,7 +31,13 @@ When using CockroachDB Enterprise:
 - Zero-downtime migrations.
 - Automatic clean up of stale records - no Hydra Janitor needed.
 
-### Docker Registry
+## Ory Oathkeeper Enterprise License
+
+The Ory Oathkeeper Enterprise license includes additional features and support for enterprise customers:
+
+- Regular releases addressing CVEs and security vulnerabilities.
+
+### Ory Hydra Docker Registry
 
 There are two Docker registries available in different regions:
 
@@ -44,10 +50,21 @@ import ImageTags from "./eol-image-tags.md"
 
 <ImageTags />
 
-Enterprise Docker images are kept in a private registry that requires authorization. An authorization key is provided for each
-customer separately. The next steps assume that the key is stored in `keyfile.json`.
+### Ory Oathkeeper Docker Registry
+
+- Ory Oathkeeper Enterprise import ImageTags from "./eol-oathkeeper-image-tags.md"
+
+This is Docker registries available in the EU regions:
+`europe-docker.pkg.dev/ory-artifacts/ory-enterprise-oathkeeper/oathkeeper-oel`
+
+import ImageTags from "./eol-oathkeeper-image-tags.md"
+
+<ImageTags />
 
 ### Docker
+
+Enterprise Docker images are kept in a private registry that requires authorization. An authorization key is provided for each
+customer separately. The next steps assume that the key is stored in `keyfile.json`.
 
 To authenticate to docker registry execute:
 
