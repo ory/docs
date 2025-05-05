@@ -7,6 +7,9 @@ interface AppProps {
 }
 
 const basePath = import.meta.env.VITE_ORY_SDK_URL || "http://localhost:4000"
+// highlight-start
+const apiUrl = import.meta.env.API_URL || "http://localhost:8081"
+// highlight-end
 
 // Initialize Ory client
 const ory = new FrontendApi(
@@ -21,6 +24,9 @@ function App({ msg }: AppProps) {
   const [session, setSession] = useState<Session | null>(null)
   const [logoutUrl, setLogoutUrl] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  // highlight-start
+  const [apiResponse, setApiResponse] = useState<any | null>(null)
+  // highlight-end
 
   // Lifecycle hooks
   const fetchSession = async () => {
@@ -41,8 +47,29 @@ function App({ msg }: AppProps) {
       setLoading(false)
     }
   }
+  // highlight-start
+  const fetchApiHello = async () => {
+    try {
+      const res = await fetch(`${apiUrl}/api/hello`, {
+        // Do not forget to set this - it is required to send the session cookie!
+        credentials: "include",
+      })
+
+      if (res.ok) {
+        const data = await res.json()
+        setApiResponse(data)
+      }
+    } catch (error) {
+      console.error("Error fetching API response:", error)
+    }
+  }
+  // highlight-end
   useEffect(() => {
     fetchSession()
+    // highlight-start
+    // Make an authenticated API call
+    fetchApiHello()
+    // highlight-end
   }, [])
   return (
     <div className="main">
@@ -65,6 +92,16 @@ function App({ msg }: AppProps) {
               <h2 className="subtitle">Session Information</h2>
               <pre>{JSON.stringify(session.identity.traits || {})}</pre>
             </div>
+            {/* highlight-start */}
+            <div className="api-info">
+              <h2 className="subtitle">API Response</h2>
+              <pre>
+                <code data-testid="api-response">
+                  {JSON.stringify(apiResponse, null, 2)}
+                </code>
+              </pre>
+            </div>
+            {/* highlight-end */}
             <div className="essential-links">
               <h3>Essential Links</h3>
               <ul>
