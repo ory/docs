@@ -942,7 +942,7 @@ const oel: SidebarItemsConfig = [
   {
     type: "category",
     label: "Oathkeeper",
-    items: ["self-hosted/oel/oathkeeper/upgrade"],
+    items: ["self-hosted/oel/oathkeeper/upgrade-oathkeeper"],
   },
 ]
 
