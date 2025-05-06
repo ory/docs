@@ -296,22 +296,12 @@ const identities: SidebarItemsConfig = [
           slug: "guides/authentication",
         },
         items: [
+          "kratos/concepts/credentials",
+          "kratos/concepts/credentials/username-email-password",
           "kratos/passwordless/passwordless",
           "kratos/passwordless/one-time-code",
           "kratos/passwordless/passkeys",
           "kratos/organizations/organizations",
-          {
-            type: "category",
-            label: "Credentials",
-            link: {
-              type: "doc",
-              id: "kratos/concepts/credentials",
-            },
-            items: [
-              "kratos/concepts/credentials/username-email-password",
-              "concepts/password-policy",
-            ],
-          },
           "kratos/emails-sms/custom-email-templates",
         ],
       },
