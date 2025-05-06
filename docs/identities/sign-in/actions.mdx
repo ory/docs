@@ -193,9 +193,12 @@ You can use this ID to fetch the verification flow information, using the
 
 :::note
 
-The response from the registration endpoint always contains the `continue_with` field with the `verification_ui` action, if
-verification is enabled and the identity schema defines at least one verifiable address. Because of this, the
-`show_verification_ui` hook has no effect for API and SPA clients.
+In projects created before May 6th 2025, the response from the registration endpoint always contains the `continue_with` field
+with the `show_verification_ui` action for SPA and API clients, if verification is enabled and the identity schema defines at
+least one verifiable address.
+
+In projects created after May 6th 2025, the `show_verification_ui` action is only included if the `show_verification_ui` hook is
+enabled in the registration flow.
 
 :::
 
