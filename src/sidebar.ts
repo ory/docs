@@ -927,11 +927,11 @@ const selfhosting: SidebarItemsConfig = [
 const oel: SidebarItemsConfig = [
   homeLink,
   "self-hosted/oel/quickstart",
-  "self-hosted/oel/oauth2/migrate",
   {
     type: "category",
     label: "OAuth2 Server",
     items: [
+      "self-hosted/oel/oauth2/migrate",
       "self-hosted/oel/oauth2/token-prefix",
       "self-hosted/oel/oauth2/upgrade",
       "self-hosted/oel/oauth2/migrate-postgresql-ttl",
@@ -941,7 +941,7 @@ const oel: SidebarItemsConfig = [
   },
   {
     type: "category",
-    label: "Oathkeeper",
+    label: "Zero Trust Proxy",
     items: ["self-hosted/oel/oathkeeper/upgrade-oathkeeper"],
   },
 ]

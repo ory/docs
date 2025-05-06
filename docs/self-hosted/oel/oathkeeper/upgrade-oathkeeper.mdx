@@ -1,23 +1,28 @@
 ---
 id: upgrade-oathkeeper
-title: Upgrading Ory Oathkeeper OEL
+title: Upgrade Ory Oathkeeper OEL
 ---
 
-This document provides a comprehensive guide on how to upgrade your Ory Oathkeeper Enterprise License (OEL) version. Upgrading to
-the latest version ensures you have the newest features, security updates, and performance improvements.
+Follow this guide when you upgrade Ory Oathkeeper Enterprise License (OEL) to a newer version. Upgrade to the latest version for
+the newest features, security updates, and performance improvements.
+
+If you encounter any issues during the upgrade process, please reach out to [Ory support](https://console.ory.sh/support) for
+assistance.
 
 ## Prerequisites
 
-Before proceeding with the upgrade, ensure you have:
+Before you upgrade, make sure you have
 
-- A valid Ory Enterprise License.
-- Access to the Ory Enterprise Docker Registry.
-- Backup of your current configuration.
+- a valid Ory Enterprise License.
+- access to the Ory Enterprise Docker Registry.
+- a backup of your current configuration.
+
+Ory Oathkeeper does not require any database migrations as it does not use a database.
 
 ## Pick the right version
 
-To check if there are newer versions of Ory Oathkeeper OEL, check your Docker or Kubernetes environment to find the tag you are
-currently running and compare against this list:
+To check if there is a newer versions of Ory Oathkeeper OEL, check your Docker or Kubernetes environment to find the tag you are
+running and compare against this list:
 
 ```mdx-code-block
 import ImageTags from "../eol-image-tags.md"
@@ -25,14 +30,13 @@ import ImageTags from "../eol-image-tags.md"
 <ImageTags />
 ```
 
-The tags are ordered by date. To upgrade, you need to pick the newest version in the list.
+The tags are ordered by date. Pick the newest version in the list to upgrade.
 
-## Upgrade Using Helm Charts in Kubernetes
+## Upgrade using helm charts in Kubernetes
 
-Upgrading Ory Oathkeeper OEL in Kubernetes is straightforward when using Ory's Helm Charts. Follow these steps to upgrade Ory
-Oathkeeper OEL:
+Follow these steps to upgrade Ory Oathkeeper OEL when using Ory's Helm Charts:
 
-### 1. Update the image tag
+### Update the image tag
 
 ```
 image:
@@ -41,19 +45,10 @@ image:
 # ...
 ```
 
-### 2. Apply / install the helm chart
+### Apply and install the helm chart
 
 You can now apply the upgrade:
 
 ```bash
 helm upgrade ory-oel-oathkeeper ory/oathkeeper --namespace ory -f values.yaml
 ```
-
-## Conclusion
-
-Upgrading Ory Oathkeeper OEL is essential to keep your system secure and up-to-date. By following the steps outlined in this
-guide, you can ensure a smooth upgrade process with minimal downtime.
-
-Ory Oathkeeper does not require any database migrations as it does not use a database.
-
-If you encounter any issues during the upgrade process, please reach out to the Ory support team for assistance.
