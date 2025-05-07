@@ -20,33 +20,34 @@ exhaustive, and there might by additional events being emitted.
 
 ### Ory Identities
 
-| **Event**                   | **Description**                                                                                  |
-| --------------------------- | ------------------------------------------------------------------------------------------------ |
-| **SessionIssued**           | A new session has been initiated for a user.                                                     |
-| **SessionChanged**          | The session details have been modified or updated.                                               |
-| **SessionLifespanExtended** | The duration of the session has been extended, allowing the user to remain authenticated longer. |
-| **SessionRevoked**          | The session has been explicitly terminated or invalidated.                                       |
-| **SessionChecked**          | A check has been performed to verify the session's validity or status.                           |
-| **SessionTokenizedAsJWT**   | The session has been converted into a JWT (JSON Web Token) for authentication purposes.          |
-| **RegistrationInitiated**   | A new registration flow has been created and basic validation passed.                            |
-| **RegistrationFailed**      | A user's attempt to register has failed due to errors or invalid data.                           |
-| **RegistrationSucceeded**   | A user has successfully registered and created an account.                                       |
-| **LoginInitiated**          | A new login flow has been created and basic validation passed.                                   |
-| **LoginFailed**             | A user's login attempt has failed, possibly due to incorrect credentials.                        |
-| **LoginSucceeded**          | A user has successfully logged into their account.                                               |
-| **SettingsFailed**          | An attempt to change account or session settings has failed.                                     |
-| **SettingsSucceeded**       | Changes to account or session settings have been successfully applied.                           |
-| **RecoveryFailed**          | A password or account recovery attempt has failed.                                               |
-| **RecoverySucceeded**       | A password or account recovery attempt has succeeded.                                            |
-| **VerificationFailed**      | A user's identity verification attempt has failed.                                               |
-| **VerificationSucceeded**   | A user's identity verification has been successfully completed.                                  |
-| **IdentityCreated**         | A new identity (user or account) has been successfully created.                                  |
-| **IdentityUpdated**         | An existing identity's details have been modified or updated.                                    |
-| **IdentityDeleted**         | An identity has been deleted from the system.                                                    |
-| **WebhookDelivered**        | A webhook has been sent to the configured endpoint for processing.                               |
-| **WebhookSucceeded**        | A webhook has been successfully processed and acknowledged by the receiving endpoint.            |
-| **WebhookFailed**           | A webhook delivery or processing has failed at the receiving endpoint.                           |
-| **JsonnetMappingFailed**    | Mapping claims or attributes from an OIDC or SAML IdP failed.                                    |
+| **Event**                    | **Description**                                                                                  |
+| ---------------------------- | ------------------------------------------------------------------------------------------------ |
+| **IdentityCreated**          | A new identity (user or account) has been successfully created.                                  |
+| **IdentityDeleted**          | An identity has been deleted from the system.                                                    |
+| **IdentityUpdated**          | An existing identity's details have been modified or updated.                                    |
+| **JsonnetMappingFailed**     | Mapping claims or attributes from an OIDC or SAML IdP failed.                                    |
+| **LoginFailed**              | A user's login attempt has failed, possibly due to incorrect credentials.                        |
+| **LoginInitiated**           | A new login flow has been created and basic validation passed.                                   |
+| **LoginSucceeded**           | A user has successfully logged into their account.                                               |
+| **RecoveryFailed**           | A password or account recovery attempt has failed.                                               |
+| **RecoveryInitiatedByAdmin** | An admin has initiated an account recovery on behalf of a user                                   |
+| **RecoverySucceeded**        | A password or account recovery attempt has succeeded.                                            |
+| **RegistrationFailed**       | A user's attempt to register has failed due to errors or invalid data.                           |
+| **RegistrationInitiated**    | A new registration flow has been created and basic validation passed.                            |
+| **RegistrationSucceeded**    | A user has successfully registered and created an account.                                       |
+| **SessionChanged**           | The session details have been modified or updated.                                               |
+| **SessionChecked**           | A check has been performed to verify the session's validity or status.                           |
+| **SessionIssued**            | A new session has been initiated for a user.                                                     |
+| **SessionLifespanExtended**  | The duration of the session has been extended, allowing the user to remain authenticated longer. |
+| **SessionRevoked**           | The session has been explicitly terminated or invalidated.                                       |
+| **SessionTokenizedAsJWT**    | The session has been converted into a JWT (JSON Web Token) for authentication purposes.          |
+| **SettingsFailed**           | An attempt to change account or session settings has failed.                                     |
+| **SettingsSucceeded**        | Changes to account or session settings have been successfully applied.                           |
+| **VerificationFailed**       | A user's identity verification attempt has failed.                                               |
+| **VerificationSucceeded**    | A user's identity verification has been successfully completed.                                  |
+| **WebhookDelivered**         | A webhook has been sent to the configured endpoint for processing.                               |
+| **WebhookFailed**            | A webhook delivery or processing has failed at the receiving endpoint.                           |
+| **WebhookSucceeded**         | A webhook has been successfully processed and acknowledged by the receiving endpoint.            |
 
 ### Ory OAuth2
 
