@@ -22,13 +22,16 @@ exhaustive, and there might by additional events being emitted.
 
 | **Event**                    | **Description**                                                                                  |
 | ---------------------------- | ------------------------------------------------------------------------------------------------ |
-| **IdentityCreated**          | A new identity (user or account) has been successfully created.                                  |
+| **GroupCreated**             | A new SCIM group has been created. Includes `ScimClient` attribute                               |
+| **GroupDeleted**             | A SCIM group has been deleted. This event will also trigger IdentityUpdated events for all affected users.                                  |
+| **GroupUpdated**             | A SCIM group has been updated. Modifying members of a group will also emit IdentityUpdated events for all affected users.                                 |
+| **IdentityCreated**          | A new identity (user or account) has been created.                                               |
 | **IdentityDeleted**          | An identity has been deleted from the system.                                                    |
-| **IdentityUpdated**          | An existing identity's details have been modified or updated.                                    |
+| **IdentityUpdated**          | An existing identity's details have been modified or updated. The IdentityActive attribute in the event indicates the state of the active flag, as many SCIM providers deactivate users by setting active=false.                                   |
 | **JsonnetMappingFailed**     | Mapping claims or attributes from an OIDC or SAML IdP failed.                                    |
 | **LoginFailed**              | A user's login attempt has failed, possibly due to incorrect credentials.                        |
 | **LoginInitiated**           | A new login flow has been created and basic validation passed.                                   |
-| **LoginSucceeded**           | A user has successfully logged into their account.                                               |
+| **LoginSucceeded**           | A user has logged into their account.                                                            |
 | **RecoveryFailed**           | A password or account recovery attempt has failed.                                               |
 | **RecoveryInitiatedByAdmin** | An admin has initiated an account recovery on behalf of a user                                   |
 | **RecoverySucceeded**        | A password or account recovery attempt has succeeded.                                            |
