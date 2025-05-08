@@ -245,7 +245,7 @@ const config: Config = {
       async: true,
     },
     {
-      src: "https://ory.sh/cmp/init.js",
+      src: "https://consent.ory.sh/cmp/init.js",
       async: true,
     },
     {
