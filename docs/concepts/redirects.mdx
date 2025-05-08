@@ -10,7 +10,7 @@ This document covers browser redirects for Server Side Applications (Node.js, PH
 Set dynamic redirects using the `?return_to=` query parameter on self-service flows. For example: a user opens a sharable link to
 go to `https://myapp.com/posts`. This URL requires the user to have an active session and redirects the user back to the login
 page. To return the user back to the original URL, append `?return_to=https://myapp.com/posts` when starting the
-[self-service login flow](https://www.ory.sh/docs/reference/api#operation/initializeSelfServiceLoginFlowForBrowsers):
+[self-service login flow](../reference/api#operation/initializeSelfServiceLoginFlowForBrowsers):
 
 ```js
 curl -X GET 'http://<your-project>.projects.oryapis.com/self-service/login/browser?return_to=...'
