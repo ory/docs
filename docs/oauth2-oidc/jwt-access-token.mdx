@@ -130,9 +130,8 @@ interact with. If you're looking to interact with the default keys used by Ory, 
 You can use these `set-id` values with the JWK endpoints to retrieve, rotate, or otherwise manage these default key sets. For
 example, to retrieve the OpenID Connect ID Token key set, you would use the `GET /admin/keys/{set}` endpoint with
 `hydra.openid.id-token` as the `{set}` parameter. This information is particularly useful when rotating keys, as described in the
-[documentation on key rotation](https://www.ory.sh/docs/hydra/self-hosted/secrets-key-rotation). Remember, these are the default
-key sets used by Ory. If you've configured Ory to use different key sets, you'll need to use the `set-id` values corresponding to
-your custom key sets.
+[documentation on key rotation](../hydra/self-hosted/secrets-key-rotation). Remember, these are the default key sets used by Ory.
+If you've configured Ory to use different key sets, you'll need to use the `set-id` values corresponding to your custom key sets.
 
 ## Custom consent UI and custom claims for (JWT) access token
 

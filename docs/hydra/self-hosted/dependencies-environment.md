@@ -34,5 +34,5 @@ Running SQL migrations in Docker is very easy, check out the
 
 ### Configuration
 
-For more information on configuring the DSN (Data-Source-Name), head over to
-[Deployment Fundamentals and Requirements](https://www.ory.sh/docs/ecosystem/deployment).
+For more information on configuring the DSN (Data-Source-Name), head over to the
+[Deployment Fundamentals and Requirements](../../self-hosted/deployment) document.

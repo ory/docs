@@ -31,7 +31,7 @@ Before starting the actual migration you should choose a migration strategy.
 :::info
 
 If you are not sure whether or not you need OAuth2 for your use case, please read the
-[When to use OAuth2](https://www.ory.sh/docs/hydra/concepts/before-oauth2) documentation.
+[When to use OAuth2](../hydra/concepts/before-oauth2) documentation.
 
 :::
 
@@ -182,8 +182,8 @@ subdomains.
 This setup allows both your front end and back end to access the authentication session cookies managed by Ory.
 
 To begin integrating Ory into your frontend, it's helpful to start with the
-["protect a page with login" guides](https://www.ory.sh/docs/getting-started/overview) that cover the basics of developing with
-Ory for various programming languages and frameworks, including SDK usage and essential setup steps.
+["protect a page with login" guides](../getting-started/overview) that cover the basics of developing with Ory for various
+programming languages and frameworks, including SDK usage and essential setup steps.
 
 Ory Network has two types of user interfaces. We recommend starting with the built-in
 [Account Experience](../account-experience/index.mdx), which offers a standard user interface, covering all self-service flows
@@ -199,10 +199,10 @@ Ory Elements can be found [here](../kratos/bring-your-own-ui/custom-ui-ory-eleme
 
 When the frontend makes an API call to your backend, it will include the necessary cookies. Your backend must then forward these
 cookies when calling the Ory API to validate the session. For example in a Go backend, you could use a
-[middleware](https://www.ory.sh/docs/getting-started/integrate-auth/go#validate-and-login) to intercept API requests and validate
-the session by calling Ory’s toSession() method. Ensure that the cookies received from the front end are forwarded in this call.
-Since backend calls to Ory’s API won’t automatically include cookies, you must manually attach the relevant cookies to these
-requests. This is important for the backend to be able to check the session.
+[middleware](../getting-started/integrate-auth/go#validate-and-login) to intercept API requests and validate the session by
+calling Ory’s toSession() method. Ensure that the cookies received from the front end are forwarded in this call. Since backend
+calls to Ory’s API won’t automatically include cookies, you must manually attach the relevant cookies to these requests. This is
+important for the backend to be able to check the session.
 
 When using Ory to manage identities, it is best practice to store business logic in your application database and keep only
 authentication-relevant data in Ory. Here’s a general approach:

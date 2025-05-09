@@ -727,11 +727,11 @@ When importing SAML or OIDC connections that are only available for certain [org
 ## Bulk import identities from other providers
 
 To import multiple identities into Ory Identities, use the
-[Identity Import API](https://www.ory.sh/docs/reference/api#tag/identity/operation/batchPatchIdentities).
+[Identity Import API](../reference/api#tag/identity/operation/batchPatchIdentities).
 
 The Identity Import API enforces limits which are documented in the
-[API reference](https://www.ory.sh/docs/reference/api#tag/identity/operation/batchPatchIdentities). If you need to import more
-identities, split the import into multiple requests.
+[API reference](../reference/api#tag/identity/operation/batchPatchIdentities). If you need to import more identities, split the
+import into multiple requests.
 
 The endpoint accepts a JSON array of identities, each of which must have a `create` property that holds the identity that should
 be created. Optionally, you can specify a `patch_id` property (which must be a UUID) which will be returned in the response. This

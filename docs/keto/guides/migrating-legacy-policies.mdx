@@ -3,10 +3,8 @@ id: migrating-legacy-policies
 title: Migrating policies from 0.5 to 0.6
 ---
 
-0.6 release makes Ory Access Control Policy DSL modeled after AWS IAM Policies obsolete. This guide will help you to rewrite your
-policies in to [relation-tuples](https://www.ory.sh/docs/keto/concepts/relation-tuples). You can read
-[The Evolution of Ory Keto: A Global Scale Authorization System](https://www.ory.sh/keto-zanzibar-evolution/) blogpost to
-understand a benefits of 0.6 release
+The 0.6 release of Ory Keto makes Ory Access Control Policy DSL modeled after AWS IAM Policies obsolete. This guide will help you
+to rewrite your policies in to [relation-tuples](../concepts/relation-tuples).
 
 ## Legacy rules example
 
@@ -24,8 +22,8 @@ The policy below allows `Alice` and `Bob` to create/read/modify/delete `blog_pos
 
 ## Rewriting it to relationships
 
-According to the example above we need to create required [namespace](https://www.ory.sh/docs/keto/concepts/namespaces) and
-[relationship](https://www.ory.sh/docs/keto/concepts/relation-tuples)
+According to the example above we need to create required [namespace](../concepts/namespaces) and
+[relationship](../concepts/relation-tuples).
 
 General mapping from old to new policies
 
@@ -35,7 +33,7 @@ General mapping from old to new policies
 - Effect -> Became obsolete or can be considered as Relations
 
 We need to have `blog_posts` namespace for our example. Let's add the following content to `keto.yml` configuration file. You can
-find a good template [here](https://www.ory.sh/docs/keto/reference/configuration).
+find a template in the configuration overview [here](../reference/configuration).
 
 ```yaml
 namespaces:
@@ -99,8 +97,6 @@ keto relation-tuple parse alice_policies --format json | \
   || echo "Encountered error"
 ```
 
-Bob
-
 ```bash
 keto relation-tuple parse bob_policies --format json | \
   keto relation-tuple create - >/dev/null \
@@ -108,8 +104,8 @@ keto relation-tuple parse bob_policies --format json | \
   || echo "Encountered error"
 ```
 
-Now, we can use the [check-API](https://www.ory.sh/docs/keto/guides/simple-access-check-guide) to verify that `alice` is allowed
-to `read` the `my-first-blog-post`:
+Now we can use the [check-API](../guides/simple-access-check-guide) to verify that `alice` is allowed to `read` the
+`my-first-blog-post`:
 
 ```sh
 keto check alice read blog_posts my-first-blog-post
@@ -132,5 +128,5 @@ Denied
 
 ## Next steps
 
-- [Check whether a User has Access to Something](https://www.ory.sh/docs/keto/guides/simple-access-check-guide)
-- [List API: Display all Objects a User has Access to](https://www.ory.sh/docs/keto/guides/list-api-display-objects)
+- [Check whether a user has access to something](../guides/simple-access-check-guide)
+- [List API: Display all objects a user has access to](../guides/list-api-display-objects)
