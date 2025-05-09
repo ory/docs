@@ -11,18 +11,18 @@ Kratos.
 
 Systems that have more than one component often use reverse proxies such as Nginx, Envoy, or Kong to route and authorize traffic
 to applications. Ory Kratos works very well in such environments. The purpose of this guide is to clarify how to use an IAP
-(Identity and Access Proxy) to authorize incoming requests. In this tutorial we will be using
-[Ory Oathkeeper](https://github.com/ory/oathkeeper) to achieve this.
+(Identity and Access Proxy) to authorize incoming requests. In this tutorial we will be using [Ory Oathkeeper](../../oathkeeper)
+to achieve this.
 
 This guide expects that you have familiarized yourself with Ory Kratos' concepts introduced in the
 [Quickstart](../quickstart.mdx).
 
-To ensure that no one can access the dashboard without prior authentication, we are making use of our reverse proxy
-([Ory Oathkeeper](https://github.com/ory/oathkeeper)) denying all unauthenticated traffic to `http://secure-app/dashboard` and
-redirecting the user to the login page at `http://secure-app/auth/login`. Further, we will configure access to
-`http://secure-app/auth/login` in such a way that access only works if one isn't yet authenticated.
+To ensure that no one can access the dashboard without prior authentication, we are making use of our Ory Oathkeeper as reverse
+proxy denying all unauthenticated traffic to `http://secure-app/dashboard` and redirecting the user to the login page at
+`http://secure-app/auth/login`. Further, we will configure access to `http://secure-app/auth/login` in such a way that access only
+works if one isn't yet authenticated.
 
-## Running Ory Kratos and the Ory Oathkeeper identity and access proxy
+## Run Ory Kratos and the Ory Oathkeeper identity and access proxy
 
 Clone the Ory Kratos repository and fetch the latest images:
 
@@ -192,7 +192,7 @@ We define several configuration options for Ory Oathkeeper such as the port for 
 
 #### Cookie Session Authenticator
 
-The [Cookie Session Authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#cookie_session) is enabled and points to
+The [Cookie Session Authenticator](../../oathkeeper/pipeline/authn#cookie_session) is enabled and points to
 [Ory Kratos' `/sessions/whoami` API](../reference/api). It uses the `ory_kratos_session` cookie to identify if a request contains
 a session or not:
 
@@ -215,8 +215,8 @@ It's doing what the `needsLogin` function did in the [Quickstart](../quickstart.
 
 #### Anonymous Authenticator
 
-The [Anonymous Authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#anonymous) is useful for endpoints that don't need
-login, such as the registration screen:
+The [Anonymous Authenticator](../../oathkeeper/pipeline/authn#anonymous) is useful for endpoints that don't need login, such as
+the registration screen:
 
 ```yaml title="contrib/quickstart/oathkeeper/oathkeeper.yml"
 # ...
@@ -230,9 +230,8 @@ authenticators:
 
 #### Allowed Authorizer
 
-The [Allowed Authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authz#allowed) simply allows all users to access the URL.
-Since we don't have Role-based access control (RBAC) or an Access Control list (ACL) in place for this example, this will be
-enough.
+The [Allowed Authenticator](../../oathkeeper/pipeline/authz#allowed) simply allows all users to access the URL. Since we don't
+have Role-based access control (RBAC) or an Access Control list (ACL) in place for this example, this will be enough.
 
 ```yaml title="contrib/quickstart/oathkeeper/oathkeeper.yml"
 # ...
@@ -244,8 +243,8 @@ authorizers:
 
 ### ID Token Mutator
 
-The [ID Token Mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#id_token) takes all the available session information
-and puts it into a JSON Web Token (JWT). The protected `SecureApp` will now receive
+The [ID Token Mutator](../../oathkeeper/pipeline/mutator#id_token) takes all the available session information and puts it into a
+JSON Web Token (JWT). The protected `SecureApp` will now receive
 
 `Authorization: bearer <jwt...>`
 
@@ -259,8 +258,8 @@ The JWT is signed using a RS256 key. To verify the JWT we can use the public key
 
 You can generate the RS256 key yourself by running `oathkeeper credentials generate --alg RS256 > id_token.jwks.json`.
 
-We also enabled the [NoOp Mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#) for the various other endpoints such as
-login and registration:
+We also enabled the [NoOp Mutator](../../oathkeeper/pipeline/mutator#) for the various other endpoints such as login and
+registration:
 
 ```yaml title="contrib/quickstart/oathkeeper/oathkeeper.yml"
 mutators:
@@ -278,9 +277,8 @@ mutators:
         }
 ```
 
-You could obviously also use other mutators such as the
-[Header Mutator](https://www.ory.sh/docs/oathkeeper/pipeline/mutator#header) and use headers such as `X-User-ID` instead of the
-JWT.
+You could obviously also use other mutators such as the [Header Mutator](../../oathkeeper/pipeline/mutator#header) and use headers
+such as `X-User-ID` instead of the JWT.
 
 ### Error Handling
 

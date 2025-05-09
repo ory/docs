@@ -144,10 +144,9 @@ import rules from '!!raw-loader!../../../code-examples/oathkeeper/oathkeeper/acc
 <CodeBlock language="yaml">{rules}</CodeBlock>
 ```
 
-This configuration of Ory Oathkeeper uses the
-[cookie authenticator](https://www.ory.sh/docs/oathkeeper/pipeline/authn#cookie_session) against Ory Kratos and proxies only
-authenticated requests to `http://ws:8080` upstream. The `ws` hostname is resolved through the Docker network. If you aren't
-deploying your application within Docker, this would just be your localhost IP.
+This configuration of Ory Oathkeeper uses the [cookie authenticator](../pipeline/authn#cookie_session) against Ory Kratos and
+proxies only authenticated requests to `http://ws:8080` upstream. The `ws` hostname is resolved through the Docker network. If you
+aren't deploying your application within Docker, this would just be your localhost IP.
 
 ## WebSocket service
 
