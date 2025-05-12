@@ -1,47 +1,203 @@
 ---
 id: require-verified-address
-title: Require verified address
+title: Address verification
 ---
 
 ```mdx-code-block
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 ```
 
-The `require_verified_address` action is used on login triggers. As the name suggests, this action requires users to have a
-verified email address before they are able to sign in to the application.
+Address verification ensures that a user’s email or phone number is valid and belongs to them. It helps prevent spam, ensures
+delivery of important notifications, and maintains system integrity.
 
-For example, if you want to ensure that only users with a verified email address are able to access your application, you can use
-the `require_verified_address` action on the login trigger. This action will check whether the user's email address has been
-verified before allowing them to sign in. If the email address has not been verified, the user will not be able to sign in and
-will receive an error message.
+Ory supports these verification policies:
 
-By using the `require_verified_address` action, you can improve the security of your application and ensure that only users with a
-verified email address are able to access the application. This can help prevent unauthorized access and improve the overall
-security of your application.
+- Require verified addresses during sign up and/or login.
+- Allow optional verification. Users can choose to verify their email or phone number, but it’s not required or enforced by the
+  UI.
 
-## Toggle action
+## Require verification on login
 
-Follow these steps to toggle this action on or off:
+To require address verification at login, use the `require_verified_address` action. It requires at least one verified address for
+the identity. You can enable it using either the Ory Console or CLI.
 
-````mdx-code-block
+```mdx-code-block
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
+```
 
 1. Go to <ConsoleLink route="project.verification" />.
-2. Toggle **Require Verified Address for Login**.
+2. Enable **Require Verified Address for Login**.
 3. Click **Save**.
 
+```mdx-code-block
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
+```
 
-Run this command:
+Run:
 
 ```shell
 ory patch identity-config --project <project-id> --workspace <workspace-id> \
   --add '/selfservice/flows/login/after/password/hooks/0/hook="require_verified_address"'
 ```
 
+```mdx-code-block
 </TabItem>
 </Tabs>
-````
+```
+
+:::note
+
+If the identity schema defines multiple verifiable addresses, Ory sends a verification code to the first one and redirects the
+user to the verification flow.
+
+:::
+
+If the identity has no verified addresses, a code will be sent to the first email or phone number in the list.
+
+```mdx-code-block
+<Tabs>
+  <TabItem value="Server rendered browser client">
+```
+
+For HTML form submissions, the `POST /self-service/login` endpoint responds with an HTTP 302 redirect to the verification flow.
+
+```mdx-code-block
+  </TabItem>
+  <TabItem value="SPA & Native clients">
+```
+
+For AJAX (`Accept: application/json`) or native clients using `/self-service/login/api`, the endpoint responds with a 400 error:
+
+```json
+{
+  "id": "session_verified_address_required",
+  "code": 400,
+  "status": "Bad Request",
+  "reason": "Your account's email or phone address are not verified yet. Please check your email or phone inbox or re-request verification.",
+  "details": {
+    "continue_with": [
+      {
+        "action": "show_verification_ui",
+        "flow": {
+          "id": "7f4dfb3b-c3cc-4e35-9f09-286b09e77beb",
+          "verifiable_address": "user@example.com",
+          "url": "https://<your-slug>.projects.oryapis.com/verification?flow=7f4dfb3b-c3cc-4e35-9f09-286b09e77beb"
+        }
+      }
+    ]
+  },
+  "message": "your email or phone address is not yet verified"
+}
+```
+
+```mdx-code-block
+  </TabItem>
+</Tabs>
+```
+
+### Legacy compatibility
+
+Before May 2025, `require_verified_address` returned a 400 error without sending a verification code. This behavior is deprecated.
+To re-enable it:
+
+```shell
+ory patch identity-config --project <project-id> --workspace <workspace-id> \
+  --add '/feature_flags/legacy_require_verified_login_error=true'
+```
+
+The `verification` and `show_verification_ui` actions in login flows (but not sign up!) are also deprecated. Use
+`require_verified_address` instead.
+
+## Verification on sign up
+
+Ory supports two options after sign up:
+
+### Optional verification
+
+Users sign up without address verification, but a code is sent. They can verify later. By default, Ory follows this behavior.
+
+### Required verification
+
+Users must verify their address before getting a session. After registration, they’re redirected to the verification flow.
+
+:::note
+
+If the identity schema includes multiple verifiable addresses, the code is sent to the first one.
+
+:::
+
+To enable this:
+
+1. Go to <ConsoleLink route="project.verification" />.
+2. Enable **Show verification screen after password registration**.
+
+Or with the CLI:
+
+```shell
+ory patch identity-config {project_id} \
+  --add '/selfservice/flows/registration/after/password/hooks=[{"hook": "show_verification_ui"}]' \
+  --add '/selfservice/flows/registration/after/oidc/hooks=[{"hook": "show_verification_ui"}]' \
+  --add '/selfservice/flows/registration/after/webauthn/hooks=[{"hook": "show_verification_ui"}]'
+```
+
+```mdx-code-block
+<Tabs>
+  <TabItem value="Server rendered browser client">
+```
+
+For browser clients using native forms, Ory redirects to the verification flow with HTTP 302.
+
+```mdx-code-block
+  </TabItem>
+  <TabItem value="SPA & Native clients">
+```
+
+The registration endpoint returns a 400 error with a `continue_with` field that contains the verification flow:
+
+```json
+{
+  "id": "...",
+  "ui": {
+    "action": "...",
+    "method": "...",
+    "nodes": [
+      /* ... */
+    ]
+  },
+  "continue_with": [
+    {
+      "action": "show_verification_ui",
+      "flow": {
+        "id": "d859f6af-1dfe-453e-9320-d572e10edeea",
+        "verifiable_address": "example@ory.sh",
+        "url": "https://ory.example.org/verification?flow=d859f6af-1dfe-453e-9320-d572e10edeea"
+      }
+    }
+  ]
+}
+```
+
+```mdx-code-block
+  </TabItem>
+</Tabs>
+```
+
+### Legacy compatibility
+
+In projects created before May 2025, the registration response includes `continue_with` even if **Show verification screen after
+password registration** is off.
+
+To re-enable this legacy behavior:
+
+```shell
+ory patch identity-config --project <project-id> --workspace <workspace-id> \
+  --add '/feature_flags/legacy_continue_with_verification_ui=true'
+```
+
+## Require verification after address change in settings flow
+
+When a user updates their email or phone number, Ory sends a verification code to the new address. You can configure the system to
+block sign-in until the address is verified.
