@@ -1195,11 +1195,13 @@
     },
     {
       "source": "/docs/troubleshooting/oidc-redirect-url-cname-OTA-092022-01",
-      "destination": "/docs/troubleshooting/troubleshooting-social-sign-in"
+      "destination": "/docs/troubleshooting/troubleshooting-social-sign-in",
+      "permanent": false
     },
     {
       "source": "/docs/kratos/self-hosted/account-activation-email-verification",
-      "destination": "/docs/kratos/self-service/flows/verify-email-account-activation"
+      "destination": "/docs/kratos/self-service/flows/verify-email-account-activation",
+      "permanent": false
     }
   ]
 }
