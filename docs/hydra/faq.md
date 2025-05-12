@@ -234,7 +234,7 @@ challenge will always instruct you to show the login UI.
 ## Where can I get documentation on running multiple instances of Hydra?
 
 Hydra scales according to 12 factor principles. Just add another instance with the same config. Please check the
-[documentation section for 12 factor principles](https://www.ory.sh/docs/ecosystem/cloud-native).There is also some information on
+[documentation section for 12 factor principles](../ecosystem/software-architecture-philosophy). There is also some information on
 collecting statistics in the section on [prometheus](https://github.com/prometheus) in the
 [five minute tutorial](self-hosted/quickstart.mdx).
 

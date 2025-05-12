@@ -4,7 +4,7 @@ title: Configure Ory Kratos
 ---
 
 This document describes _how_ the service can be configured. For a documentation on all configuration values head over to the
-[configuration reference](reference/configuration.mdx).
+[configuration reference](./reference/configuration.mdx).
 
 ## Configuration file
 
@@ -20,4 +20,4 @@ described in the following section.
 Environmental variables take precedence over config file values. Nested paths get mapped to config values by putting an underscore
 `_` between every level, so `selfservice.flows.settings.ui_url` becomes `SELFSERVICE_FLOWS_SETTINGS_UI_URL=<value>`.
 
-Please note that there are some caveats when using env vars [documented here](https://www.ory.sh/docs/ecosystem/configuring).
+Please note that there are some caveats when using env vars [documented here](../ecosystem/configuring).
