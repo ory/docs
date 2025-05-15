@@ -36,6 +36,8 @@ Example:
 }
 ```
 
+The exact keys in the `event_attributes` fields are currently not documented and not considered stable (i.e. no backwards compability guarantees are made at the moment for them).
+
 ### Ory Identities
 
 | **Event**                    | **Description**                                                                                                                                                                                                      |
@@ -99,6 +101,13 @@ Example:
 | **RelationtuplesChanged** | A relation tuple has been modified, indicating a change in the relationship between entities.         |
 | **PermissionsExpanded**   | Permissions have been expanded, likely increasing access or privileges for certain users or entities. |
 | **PermissionsChecked**    | A permission check has been performed to verify if access is allowed for a given action or resource.  |
+
+
+## Guarantees
+
+- There might be duplicates in the event stream. While rare, consumers should be prepared to deal with them, for example by storing the events in a database for deduplication.
+- Some events might not emitted at all and be lost. This is deemed to be rare and can only happen in the face of special adverse conditions. In other words, delivery is currently 'best-effort'.
+  If 'at-least-once' delivery is required for your use case, please [reach out](https://www.ory.sh/contact/).
 
 ## Configure event streams
 
@@ -184,4 +193,4 @@ subscribe AWS SQS, AWS Kinesis Data Firehose, or any other AWS service that can 
 ## Retry policy
 
 If your event stream destination is unavailable or misconfigured, Ory Network will retry sending the event multiple times with an
-exponential backoff between attempts.
+exponential backoff between attempts. This may lead to duplicates in the event stream, so consumers should be prepared to deal with them.
