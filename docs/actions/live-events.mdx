@@ -15,8 +15,26 @@ Live event streams are available for Ory Network enterprise contracts. Talk to y
 
 ## Event descriptions
 
-Ory emits events for many different actions. The following is a list of all events that are currently supported. This list is not
-exhaustive, and there might by additional events being emitted.
+Ory emits events for many different actions. The following is a list of all events that are currently supported. All events abide by this schema and are delivered in the corresponding JSON format:
+
+```protobuf
+message Event {
+  string name = 7;
+  int64 version = 4;
+  string timestamp = 3;
+  string project_id = 2;
+  map<string, string> event_attributes = 6;
+
+  reserved 1;
+}
+```
+
+Example:
+
+```json
+{
+}
+```
 
 ### Ory Identities
 
