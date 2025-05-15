@@ -199,13 +199,17 @@ ory patch identity-config --project <project-id> --workspace <workspace-id> \
 
 ## Verification on address change
 
-When a user updates their email or phone number, Ory sends a verification code to the new address. Per default, the settings flow
-will show a success error when the profile is updated.
+When a user updates their email address or phone number in the settings flow, Ory sends a verification code to the new address. By
+default, the settings flow will display a success message when the profile is updated, but the address remains unverified until
+the user completes the verification process.
 
 ### Show verification screen after address change
 
-To show the verification screen when the user changes one of their verified addresses instead of a success message, use the Ory
-CLI:
+If you want users to be immediately redirected to verify their new address after changing it, you can configure the
+`show_verification_ui` hook for the settings flow. This will redirect the user to the verification screen instead of showing a
+success message.
+
+To enable this behavior, use the Ory CLI:
 
 ```shell
 ory patch identity-config {project_id} \
