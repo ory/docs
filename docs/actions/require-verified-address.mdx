@@ -55,7 +55,7 @@ user to the verification flow.
 
 :::
 
-If the identity has no verified addresses, a code will be sent to the first email or phone number in the list.
+If none of the identity's verifiable addresses are verified, a code will be sent to the first email or phone number in the list.
 
 ```mdx-code-block
 <Tabs>
@@ -137,7 +137,7 @@ To enable this:
 Or with the CLI:
 
 ```shell
-ory patch identity-config {project_id} \
+ory patch identity-config "$PROJECT_ID" \
   --add '/selfservice/flows/registration/after/password/hooks/0/hook="show_verification_ui"' \
   --add '/selfservice/flows/registration/after/oidc/hooks/0/hook="show_verification_ui"' \
   --add '/selfservice/flows/registration/after/webauthn/hooks/0/hook="show_verification_ui"'
