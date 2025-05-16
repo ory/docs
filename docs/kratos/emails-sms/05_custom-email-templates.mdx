@@ -102,6 +102,13 @@ To read more about registration via a one-time code, read the [one-time code](..
 Templates can be customized to fit your own branding and requirements. If you don't customize a specific template, the system
 automatically uses the built-in template.
 
+:::info
+
+You need to set up a custom email sending server to use custom templates. Read more about
+[custom SMTP and HTTP servers](./01_sending-emails-smtp.mdx).
+
+:::
+
 ```mdx-code-block
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
@@ -128,63 +135,63 @@ the flow configuration.
 
 1. List all your projects and get the Ory Identities config file:
 
-   ```shell
-   ## List all available workspaces
-   ory list workspaces
+```shell
+## List all available workspaces
+ory list workspaces
 
-   ## List all available projects
-   ory list projects --workspace <workspace-id>
+## List all available projects
+ory list projects --workspace <workspace-id>
 
-   ## Get config
-   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
-   ```
+## Get config
+ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
+```
 
 2. Encode your custom template to base64 using the following command:
 
-   ```shell
-   echo "Your custom template" | base64
-   ```
+```shell
+echo "Your custom template" | base64
+```
 
-   or https://www.base64encode.org/.
+or https://www.base64encode.org/.
 
 3. Add your Base64-encoded custom message templates to the config (don't forget to add base64:// before the encoded template):
 
-   ```yaml title="identity-config.yaml"
-   courier:
-     smtp:
-       from_name: MyProject via Ory
-       templates:
-         recovery:
-           invalid:
-             email:
-               body:
-                 html: "base64://ENCODED_HTML_TEMPLATE"
-                 plaintext: "base64://ENCODED_PLAINTEXT_TEMPLATE"
-           valid:
-             email:
-               body: {}
-         verification:
-           invalid:
-             email:
-               body: {}
-           valid:
-             email:
-               body: {}
-         login:
-           valid:
-             email:
-               body: {}
-         registration:
-           valid:
-             email:
-               body: {}
-   ```
+```yaml title="identity-config.yaml"
+courier:
+  smtp:
+    from_name: MyProject via Ory
+    templates:
+      recovery:
+        invalid:
+          email:
+            body:
+              html: "base64://ENCODED_HTML_TEMPLATE"
+              plaintext: "base64://ENCODED_PLAINTEXT_TEMPLATE"
+        valid:
+          email:
+            body: {}
+      verification:
+        invalid:
+          email:
+            body: {}
+        valid:
+          email:
+            body: {}
+      login:
+        valid:
+          email:
+            body: {}
+      registration:
+        valid:
+          email:
+            body: {}
+```
 
 4. Upload the edited config:
 
-   ```shell
-   ory update identity-config --project <project-id> --workspace <workspace-id> --file updated_config.yaml
-   ```
+```shell
+ory update identity-config --project <project-id> --workspace <workspace-id> --file updated_config.yaml
+```
 
 :::danger
 
@@ -411,7 +418,7 @@ For example:
       "required": [
         "email"
       ],
-      "additionalProperties": false,
+      "additionalProperties": false
     }
   }
 }
