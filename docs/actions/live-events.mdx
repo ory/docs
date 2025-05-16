@@ -21,7 +21,7 @@ Ory emits events for many different actions. All events abide by the same schema
 {
   "name": string,       // The unique name of the event (e.g., "IdentityCreated").
   "version": int64,     // The schema version of the event.
-  "timestamp": string,  // ISO 8601 formatted timestamp when the event occurred (e.g., "2025-05-16T11:18:56Z").
+  "timestamp": string,  // ISO 8601 formatted timestamp when the event occurred.
   "projectId": string,  // The ID of the Ory project the event belongs to.
   "eventAttributes": map<string, string> // Additional event-specific attributes.
 }
@@ -137,9 +137,7 @@ New event names may be added in the future, in which case this list will be upda
 4. **No delivery latency SLA:** We do not currently offer SLAs for the event delivery duration (how much time elapses between when
    the event happens, and when it is visible in your consumer or in the console UI). However we typical observe shorter than 5
    seconds delivery times.
-5. **No ordering guarantees:** We guarantee neither the ordering of events for different requests, nor events within one request.
-   That means that if first request is made, resulting in events `a` and `b`, and then a second request is made, resulting in
-   events `c` and `d`, any of the `4! = 24` permutations of `abcd` are to be expected.
+5. **No ordering guarantees:** Events may arrive in any order, both within a request and across different requests.
 
 If stronger guarantees are required for your use case, please [reach out](https://www.ory.sh/contact/).
 
