@@ -6,6 +6,8 @@ sidebar_label: Verification
 
 # Address verification
 
+TODO
+
 ```mdx-code-block
 import CodeTabs from "@theme/Code/CodeTabs"
 
@@ -414,6 +416,12 @@ field. The only thing the user must do to verify their address is to submit the 
 </TabItem>
 <TabItem value="link" label="Magic Links">
 ```
+
+:::warning
+
+This strategy is only available for backwards compatibility and should not be used.
+
+:::
 
 When using the "magic link" method, Ory Identities sends the user an email with a verification link. If the user has access to the
 email associated with the account and clicks the link, Ory Identities marks that address as verified.
