@@ -20,7 +20,7 @@ Ory emits events for many different actions. All events abide by the same schema
 ```json
 {
   "name": string,       // The unique name of the event (e.g., "IdentityCreated").
-  "version": int64String,     // The schema version of the event.
+  "version": string,     // The numerical schema version of the event as a string.
   "timestamp": string,  // ISO 8601 formatted timestamp when the event occurred.
   "projectId": string,  // The ID of the Ory project the event belongs to.
   "eventAttributes": map<string, string> // Additional event-specific attributes.
