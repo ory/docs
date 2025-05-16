@@ -35,35 +35,17 @@ Example:
 ```json
 {
   "name": "WebhookSucceeded",
-  "timestamp": "2025-05-16T08:58:45Z",
-  "attributes": [
-    {
-      "key": "ProjectEnvironment",
-      "value": "dev"
-    },
-    {
-      "key": "GeoLocationCity",
-      "value": "Munich"
-    },
-    {
-      "key": "GeoLocationCountry",
-      "value": "DE"
-    },
-    {
-      "key": "GeoLocationRegion",
-      "value": "BY"
-    },
-    {
-      "key": "WebhookID",
-      "value": ""
-    },
-    {
-      "key": "WebhookTriggerID",
-      "value": "67f5486a-ded4-4c3f-bae1-585192dfa0e7"
-    }
-  ]
+  "version": "1",
+  "timestamp": "2025-05-16 11:18:56",
+  "eventAttributes": {
+    "GeoLocationCity": "Munich",
+    "WebhookID": "",
+    "WebhookTriggerID": "18093e08-0f72-445f-aacb-151fc777a232"
+  }
 }
 ```
+
+Per the JSON specifiction, ordering of keys in objects is not guaranteed and should not be relied upon.
 
 The exact keys in the `event_attributes` fields are currently not documented and not considered stable (i.e. no backwards
 compability guarantees are made at the moment for them).
