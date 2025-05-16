@@ -17,13 +17,13 @@ Live event streams are available for Ory Network enterprise contracts. Talk to y
 
 Ory emits events for many different actions. All events abide by the same schema:
 
-```
-message Event {
-  string name;
-  int64 version;
-  string timestamp;
-  string projectId;
-  map<string, string> eventAttributes;
+```json
+{
+  "name": string,       // The unique name of the event (e.g., "IdentityCreated").
+  "version": int64,     // The schema version of the event.
+  "timestamp": string,  // ISO 8601 formatted timestamp when the event occurred (e.g., "2025-05-16T11:18:56Z").
+  "projectId": string,  // The ID of the Ory project the event belongs to.
+  "eventAttributes": map<string, string> // Additional event-specific attributes.
 }
 ```
 
@@ -44,12 +44,16 @@ Example:
 }
 ```
 
-Per the JSON specification, ordering of keys in objects is not guaranteed and should not be relied upon.
 
-New keys can appear at any time and consuming code should be ready for it.
+**Important:**
 
-The exact keys in the `eventAttributes` field are currently not documented and not considered stable. That means that no backwards
-compability guarantees are made at the moment for them. If you intend to write a consumer that needs a detailed schema and
+- Per the JSON specification, ordering of keys in objects is not guaranteed and should not be relied upon.
+- New keys can appear at any time, consumers should be designed to handle this
+- The exact content in the `eventAttributes` field is currently not documented and not considered stable. That means that no backwards
+compability guarantees are made at the moment for them.
+
+
+If you intend to write a consumer that needs a detailed schema and
 stability guarantees about the `eventAttributes` field, please [reach out](https://www.ory.sh/contact/).
 
 ## Event names
@@ -121,18 +125,18 @@ New event names may be added in the future, in which case this list will be upda
 | **PermissionsExpanded**   | Permissions have been expanded, likely increasing access or privileges for certain users or entities. |
 | **PermissionsChecked**    | A permission check has been performed to verify if access is allowed for a given action or resource.  |
 
-## Guarantees
+## Delivery guarantees
 
-1. If a request being served is suddenly interrupted, for example because of a crash, events up to that point for this request
+1. **Partial delivery:** If a request being served is suddenly interrupted, for example because of a crash, events up to that point for this request
    will still be emitted. That means that a request might have missing events (for instance, `LoginInitiated` _not_ followed by
    any subsequent event).
-2. There might be duplicates in the event stream. While rare (typically caused by retries because of network issues), consumers
+2. **Possible duplicates:** There might be duplicates in the event stream. While rare (typically caused by retries because of network issues), consumers
    should be prepared to deal with them, for example by storing the events in a database for deduplication.
-3. Some events might not emitted at all and be lost (see point 1.). This is deemed to be rare and can only happen in the face of
+3. **Best-effort delivery:** Some events might not emitted at all and be lost (see point 1.). This is deemed to be rare and can only happen in the face of
    special adverse conditions. In other words, delivery is currently 'best-effort' and not 'at-least-once'.
-4. We do not currently offer SLAs for the event delivery duration (how much time elapses between when the event happens, and when
-   it is visible in your consumer or in the console UI). However we typical observe < 5 seconds delivery times.
-5. Ordering: We guarantee neither the ordering of events for different requests, nor events within one request. That means that if
+4. **No delivery latency SLA:** We do not currently offer SLAs for the event delivery duration (how much time elapses between when the event happens, and when
+   it is visible in your consumer or in the console UI). However we typical observe shorter than 5 seconds delivery times.
+5. **No ordering guarantees:** We guarantee neither the ordering of events for different requests, nor events within one request. That means that if
    first request is made, resulting in events `a` and `b`, and then a second request is made, resulting in events `c` and `d`, any
    of the `4! = 24` permutations of `abcd` are to be expected.
 
