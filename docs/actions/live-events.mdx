@@ -44,17 +44,15 @@ Example:
 }
 ```
 
-
 **Important:**
 
 - Per the JSON specification, ordering of keys in objects is not guaranteed and should not be relied upon.
 - New keys can appear at any time, consumers should be designed to handle this
-- The exact content in the `eventAttributes` field is currently not documented and not considered stable. That means that no backwards
-compability guarantees are made at the moment for them.
+- The exact content in the `eventAttributes` field is currently not documented and not considered stable. That means that no
+  backwards compability guarantees are made at the moment for them.
 
-
-If you intend to write a consumer that needs a detailed schema and
-stability guarantees about the `eventAttributes` field, please [reach out](https://www.ory.sh/contact/).
+If you intend to write a consumer that needs a detailed schema and stability guarantees about the `eventAttributes` field, please
+[reach out](https://www.ory.sh/contact/).
 
 ## Event names
 
@@ -127,18 +125,21 @@ New event names may be added in the future, in which case this list will be upda
 
 ## Delivery guarantees
 
-1. **Partial delivery:** If a request being served is suddenly interrupted, for example because of a crash, events up to that point for this request
-   will still be emitted. That means that a request might have missing events (for instance, `LoginInitiated` _not_ followed by
-   any subsequent event).
-2. **Possible duplicates:** There might be duplicates in the event stream. While rare (typically caused by retries because of network issues), consumers
-   should be prepared to deal with them, for example by storing the events in a database for deduplication.
-3. **Best-effort delivery:** Some events might not emitted at all and be lost (see point 1.). This is deemed to be rare and can only happen in the face of
-   special adverse conditions. In other words, delivery is currently 'best-effort' and not 'at-least-once'.
-4. **No delivery latency SLA:** We do not currently offer SLAs for the event delivery duration (how much time elapses between when the event happens, and when
-   it is visible in your consumer or in the console UI). However we typical observe shorter than 5 seconds delivery times.
-5. **No ordering guarantees:** We guarantee neither the ordering of events for different requests, nor events within one request. That means that if
-   first request is made, resulting in events `a` and `b`, and then a second request is made, resulting in events `c` and `d`, any
-   of the `4! = 24` permutations of `abcd` are to be expected.
+1. **Partial delivery:** If a request being served is suddenly interrupted, for example because of a crash, events up to that
+   point for this request will still be emitted. That means that a request might have missing events (for instance,
+   `LoginInitiated` _not_ followed by any subsequent event).
+2. **Possible duplicates:** There might be duplicates in the event stream. While rare (typically caused by retries because of
+   network issues), consumers should be prepared to deal with them, for example by storing the events in a database for
+   deduplication.
+3. **Best-effort delivery:** Some events might not emitted at all and be lost (see point 1.). This is deemed to be rare and can
+   only happen in the face of special adverse conditions. In other words, delivery is currently 'best-effort' and not
+   'at-least-once'.
+4. **No delivery latency SLA:** We do not currently offer SLAs for the event delivery duration (how much time elapses between when
+   the event happens, and when it is visible in your consumer or in the console UI). However we typical observe shorter than 5
+   seconds delivery times.
+5. **No ordering guarantees:** We guarantee neither the ordering of events for different requests, nor events within one request.
+   That means that if first request is made, resulting in events `a` and `b`, and then a second request is made, resulting in
+   events `c` and `d`, any of the `4! = 24` permutations of `abcd` are to be expected.
 
 If stronger guarantees are required for your use case, please [reach out](https://www.ory.sh/contact/).
 
