@@ -125,19 +125,14 @@ New event names may be added in the future, in which case this list will be upda
 
 ## Delivery guarantees
 
-1. **Partial delivery:** If a request being served is suddenly interrupted, for example because of a crash, events up to that
-   point for this request will still be emitted. That means that a request might have missing events (for instance,
-   `LoginInitiated` _not_ followed by any subsequent event).
-2. **Possible duplicates:** There might be duplicates in the event stream. While rare (typically caused by retries because of
-   network issues), consumers should be prepared to deal with them, for example by storing the events in a database for
-   deduplication.
-3. **Best-effort delivery:** Some events might not emitted at all and be lost (see point 1.). This is deemed to be rare and can
-   only happen in the face of special adverse conditions. In other words, delivery is currently 'best-effort' and not
-   'at-least-once'.
-4. **No delivery latency SLA:** We do not currently offer SLAs for the event delivery duration (how much time elapses between when
-   the event happens, and when it is visible in your consumer or in the console UI). However we typical observe shorter than 5
-   seconds delivery times.
-5. **No ordering guarantees:** Events may arrive in any order, both within a request and across different requests.
+1. **Possible duplicates:** There might be duplicates in the event stream. While rare (typically caused by retries because of
+   network issues), consumers should be prepared to deal with them, for example by implementing deduplication logic.
+1. **Best-effort delivery:** Event delivery is best-effort. While most events are delivered reliably, events may be lost under
+   adverse conditions (for example, system crashes during request processing). Delivery is not guaranteed to be "at-least-once".
+1. **No delivery latency SLA:** We do not offer a Service Level Agreement (SLA) for event delivery duration (the time between an
+   event occurring and it appearing in your consumer or the Ory Console UI). However, typical delivery times are observed to be
+   less than 5 seconds.
+1. **No ordering guarantees:** Events may arrive in any order, both within a request and across different requests.
 
 If stronger guarantees are required for your use case, please [reach out](https://www.ory.sh/contact/).
 
