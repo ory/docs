@@ -17,7 +17,7 @@ Live event streams are available for Ory Network enterprise contracts. Talk to y
 
 Ory emits events for many different actions. All events abide by the same schema:
 
-```idl
+```
 message Event {
   string name;
   int64 version;
@@ -44,12 +44,12 @@ Example:
 }
 ```
 
-Per the JSON specifiction, ordering of keys in objects is not guaranteed and should not be relied upon.
+Per the JSON specification, ordering of keys in objects is not guaranteed and should not be relied upon.
 
 New keys can appear at any time and consuming code should be ready for it.
 
-The exact keys in the `eventAttributes` fields are currently not documented and not considered stable (i.e. no backwards
-compability guarantees are made at the moment for them). If you intend to write a consumer that needs a detailed schema and
+The exact keys in the `eventAttributes` field are currently not documented and not considered stable. That means that no backwards
+compability guarantees are made at the moment for them. If you intend to write a consumer that needs a detailed schema and
 stability guarantees about the `eventAttributes` field, please [reach out](https://www.ory.sh/contact/).
 
 ## Event names
@@ -123,9 +123,9 @@ New event names may be added in the future, in which case this list will be upda
 
 ## Guarantees
 
-1. If a request being served is suddenly interrupted (e.g. because of a crash), events up to that point for this request will
-   still be emitted. That means that a request might have missing events (e.g. `LoginInitiated` _not_ followed by any subsequent
-   event).
+1. If a request being served is suddenly interrupted, for example because of a crash, events up to that point for this request
+   will still be emitted. That means that a request might have missing events (for instance, `LoginInitiated` _not_ followed by
+   any subsequent event).
 2. There might be duplicates in the event stream. While rare (typically caused by retries because of network issues), consumers
    should be prepared to deal with them, for example by storing the events in a database for deduplication.
 3. Some events might not emitted at all and be lost (see point 1.). This is deemed to be rare and can only happen in the face of
