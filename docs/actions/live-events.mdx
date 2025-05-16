@@ -13,12 +13,14 @@ choice, and use them to power your own analytics, dashboards, data science, and 
 Live event streams are available for Ory Network enterprise contracts. Talk to your account manager or
 [reach out directly](https://www.ory.sh/contact/).
 
-## Event descriptions
+## Event shape
 
-Ory emits events for many different actions. The following is a list of all events that are currently supported. All events abide
+Ory emits events for many different actions. All events abide
 by this schema and are delivered in the corresponding JSON format:
 
 ```protobuf
+syntax = "proto3";
+
 message Event {
   string name = 7;
   int64 version = 4;
@@ -48,10 +50,14 @@ Example:
 Per the JSON specifiction, ordering of keys in objects is not guaranteed and should not be relied upon.
 
 The exact keys in the `event_attributes` fields are currently not documented and not considered stable (i.e. no backwards
-compability guarantees are made at the moment for them).
+compability guarantees are made at the moment for them). New keys can appear at any time and consuming code should be ready for it.
 
 If you intend to write a consumer that needs a detailed schema and stability guarantees about these fields, please
 [reach out](https://www.ory.sh/contact/).
+
+## Event names
+
+The following is a list of all events that are currently supported. The first column corresponds to the `name` field in an event. Names are case-sensitive.
 
 ### Ory Identities
 
