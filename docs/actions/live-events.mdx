@@ -10,13 +10,52 @@ You can stream events (sign-ups, logins, machine-to-machine tokens issued, and m
 your Ory Network project, to your own infrastructure. Pipe those events into your own data warehouse, data lake, or flavor of
 choice, and use them to power your own analytics, dashboards, data science, and more.
 
-Live event streams are available for Ory Network enterprise contracts. Talk to your account manager or reach out
-[directly](https://www.ory.sh/contact/) to find out more.
+Live event streams are available for Ory Network enterprise contracts. Talk to your account manager or
+[reach out directly](https://www.ory.sh/contact/).
 
-## Event descriptions
+## Event shape
 
-Ory emits events for many different actions. The following is a list of all events that are currently supported. This list is not
-exhaustive, and there might by additional events being emitted.
+Ory emits events for many different actions. All events abide by the same schema:
+
+```json
+{
+  "name": string,       // The unique name of the event (e.g., "IdentityCreated").
+  "version": string,     // The numerical schema version of the event as a string.
+  "timestamp": string,  // ISO 8601 formatted timestamp when the event occurred.
+  "projectId": string,  // The ID of the Ory project the event belongs to.
+  "eventAttributes": map<string, string> // Additional event-specific attributes.
+}
+```
+
+Example:
+
+```json
+{
+  "name": "WebhookSucceeded",
+  "version": "1",
+  "timestamp": "2025-05-16 11:18:56",
+  "eventAttributes": {
+    "GeoLocationCity": "Munich",
+    "WebhookID": "",
+    "WebhookTriggerID": "18093e08-0f72-445f-aacb-151fc777a232"
+  }
+}
+```
+
+**Important:**
+
+- Per the JSON specification, ordering of keys in objects is not guaranteed and should not be relied upon.
+- New keys can appear at any time, consumers should be designed to handle this.
+- The exact content in the `eventAttributes` field is currently not documented and not considered stable. That means that no
+  backwards compability guarantees are made at the moment for them.
+
+If you intend to write a consumer that needs a detailed schema and stability guarantees about the `eventAttributes` field, please
+[reach out](https://www.ory.sh/contact/).
+
+## Event names
+
+The following is a list of all events that are currently supported. The first column corresponds to the `name` field in an event.
+New event names may be added in the future, in which case this list will be updated accordingly.
 
 ### Ory Identities
 
@@ -81,6 +120,19 @@ exhaustive, and there might by additional events being emitted.
 | **RelationtuplesChanged** | A relation tuple has been modified, indicating a change in the relationship between entities.         |
 | **PermissionsExpanded**   | Permissions have been expanded, likely increasing access or privileges for certain users or entities. |
 | **PermissionsChecked**    | A permission check has been performed to verify if access is allowed for a given action or resource.  |
+
+## Delivery guarantees
+
+1. **Possible duplicates:** There might be duplicates in the event stream. While rare (typically caused by retries because of
+   network issues), consumers should be prepared to deal with them, for example by implementing deduplication logic.
+1. **Best-effort delivery:** Event delivery is best-effort. While most events are delivered reliably, events may be lost under
+   adverse conditions (for example, system crashes during request processing). Delivery is not guaranteed to be "at-least-once".
+1. **No delivery latency SLA:** We do not offer a Service Level Agreement (SLA) for event delivery duration (the time between an
+   event occurring and it appearing in your consumer or the Ory Console UI). However, typical delivery times are observed to be
+   less than 5 seconds.
+1. **No ordering guarantees:** Events may arrive in any order, both within a request and across different requests.
+
+If stronger guarantees are required for your use case, please [reach out](https://www.ory.sh/contact/).
 
 ## Configure event streams
 
