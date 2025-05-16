@@ -15,8 +15,7 @@ Live event streams are available for Ory Network enterprise contracts. Talk to y
 
 ## Event shape
 
-Ory emits events for many different actions. All events abide
-by the same schema:
+Ory emits events for many different actions. All events abide by the same schema:
 
 ```idl
 message Event {
@@ -50,13 +49,13 @@ Per the JSON specifiction, ordering of keys in objects is not guaranteed and sho
 New keys can appear at any time and consuming code should be ready for it.
 
 The exact keys in the `eventAttributes` fields are currently not documented and not considered stable (i.e. no backwards
-compability guarantees are made at the moment for them).
-If you intend to write a consumer that needs a detailed schema and stability guarantees about the `eventAttributes` field, please
-[reach out](https://www.ory.sh/contact/).
+compability guarantees are made at the moment for them). If you intend to write a consumer that needs a detailed schema and
+stability guarantees about the `eventAttributes` field, please [reach out](https://www.ory.sh/contact/).
 
 ## Event names
 
-The following is a list of all events that are currently supported. The first column corresponds to the `name` field in an event. New event names may be added in the future, in which case this list will be updated accordingly.
+The following is a list of all events that are currently supported. The first column corresponds to the `name` field in an event.
+New event names may be added in the future, in which case this list will be updated accordingly.
 
 ### Ory Identities
 
@@ -124,15 +123,18 @@ The following is a list of all events that are currently supported. The first co
 
 ## Guarantees
 
-1. If a request being served is suddenly interrupted (e.g. because of a crash), events up to that point for this request will still be emitted.
-  That means that a request might have missing events (e.g. `LoginInitiated` *not* followed by any subsequent event).
-2. There might be duplicates in the event stream. While rare (typically caused by retries because of network issues), consumers should be prepared to deal with them, for example by
-  storing the events in a database for deduplication.
-3. Some events might not emitted at all and be lost (see point 1.). This is deemed to be rare and can only happen in the face of special adverse
-  conditions. In other words, delivery is currently 'best-effort' and not 'at-least-once'.
-4. We do not currently offer SLAs for the event delivery duration (how much time elapses between when the event happens, and
-  when it is visible in your consumer or in the console UI). However we typical observe < 5 seconds delivery times.
-5. Ordering: TODO
+1. If a request being served is suddenly interrupted (e.g. because of a crash), events up to that point for this request will
+   still be emitted. That means that a request might have missing events (e.g. `LoginInitiated` _not_ followed by any subsequent
+   event).
+2. There might be duplicates in the event stream. While rare (typically caused by retries because of network issues), consumers
+   should be prepared to deal with them, for example by storing the events in a database for deduplication.
+3. Some events might not emitted at all and be lost (see point 1.). This is deemed to be rare and can only happen in the face of
+   special adverse conditions. In other words, delivery is currently 'best-effort' and not 'at-least-once'.
+4. We do not currently offer SLAs for the event delivery duration (how much time elapses between when the event happens, and when
+   it is visible in your consumer or in the console UI). However we typical observe < 5 seconds delivery times.
+5. Ordering: We guarantee neither the ordering of events for different requests, nor events for one requests. That means that if
+   first request is made, resulting in events `a` and `b`, and then a second request is made, resulting in events `c` and `d`, any
+   of the 16 permutations of `abcd` are to be expected.
 
 If stronger guarantees are required for your use case, please [reach out](https://www.ory.sh/contact/).
 
