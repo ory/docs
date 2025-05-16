@@ -134,7 +134,7 @@ New event names may be added in the future, in which case this list will be upda
    it is visible in your consumer or in the console UI). However we typical observe < 5 seconds delivery times.
 5. Ordering: We guarantee neither the ordering of events for different requests, nor events for one requests. That means that if
    first request is made, resulting in events `a` and `b`, and then a second request is made, resulting in events `c` and `d`, any
-   of the 16 permutations of `abcd` are to be expected.
+   of the `4! = 24` permutations of `abcd` are to be expected.
 
 If stronger guarantees are required for your use case, please [reach out](https://www.ory.sh/contact/).
 
