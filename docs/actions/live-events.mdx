@@ -10,11 +10,13 @@ You can stream events (sign-ups, logins, machine-to-machine tokens issued, and m
 your Ory Network project, to your own infrastructure. Pipe those events into your own data warehouse, data lake, or flavor of
 choice, and use them to power your own analytics, dashboards, data science, and more.
 
-Live event streams are available for Ory Network enterprise contracts. Talk to your account manager or [reach out directly](https://www.ory.sh/contact/).
+Live event streams are available for Ory Network enterprise contracts. Talk to your account manager or
+[reach out directly](https://www.ory.sh/contact/).
 
 ## Event descriptions
 
-Ory emits events for many different actions. The following is a list of all events that are currently supported. All events abide by this schema and are delivered in the corresponding JSON format:
+Ory emits events for many different actions. The following is a list of all events that are currently supported. All events abide
+by this schema and are delivered in the corresponding JSON format:
 
 ```protobuf
 message Event {
@@ -27,7 +29,6 @@ message Event {
   reserved 1;
 }
 ```
-
 
 Example:
 
@@ -64,9 +65,11 @@ Example:
 }
 ```
 
-The exact keys in the `event_attributes` fields are currently not documented and not considered stable (i.e. no backwards compability guarantees are made at the moment for them).
+The exact keys in the `event_attributes` fields are currently not documented and not considered stable (i.e. no backwards
+compability guarantees are made at the moment for them).
 
-If you intend to write a consumer that needs a detailed schema and stability guarantees about these fields, please [reach out](https://www.ory.sh/contact/).
+If you intend to write a consumer that needs a detailed schema and stability guarantees about these fields, please
+[reach out](https://www.ory.sh/contact/).
 
 ### Ory Identities
 
@@ -132,14 +135,14 @@ If you intend to write a consumer that needs a detailed schema and stability gua
 | **PermissionsExpanded**   | Permissions have been expanded, likely increasing access or privileges for certain users or entities. |
 | **PermissionsChecked**    | A permission check has been performed to verify if access is allowed for a given action or resource.  |
 
-
 ## Guarantees
 
-- There might be duplicates in the event stream. While rare, consumers should be prepared to deal with them, for example by storing the events in a database for deduplication.
-- Some events might not emitted at all and be lost. This is deemed to be rare and can only happen in the face of special adverse conditions. In other words, delivery is currently 'best-effort' and not 'at-least-once'.
-- We do not currently SLAs in place for the event delivery duration (how much time elapses between when the event happens, and when it is visible in your consumer or in the console UI).
-  However we typical observe < 5 seconds delivery times.
-
+- There might be duplicates in the event stream. While rare, consumers should be prepared to deal with them, for example by
+  storing the events in a database for deduplication.
+- Some events might not emitted at all and be lost. This is deemed to be rare and can only happen in the face of special adverse
+  conditions. In other words, delivery is currently 'best-effort' and not 'at-least-once'.
+- We do not currently SLAs in place for the event delivery duration (how much time elapses between when the event happens, and
+  when it is visible in your consumer or in the console UI). However we typical observe < 5 seconds delivery times.
 
 If stronger guarantees are required for your use case, please [reach out](https://www.ory.sh/contact/).
 
@@ -227,4 +230,5 @@ subscribe AWS SQS, AWS Kinesis Data Firehose, or any other AWS service that can 
 ## Retry policy
 
 If your event stream destination is unavailable or misconfigured, Ory Network will retry sending the event multiple times with an
-exponential backoff between attempts. This may lead to duplicates in the event stream, so consumers should be prepared to deal with them.
+exponential backoff between attempts. This may lead to duplicates in the event stream, so consumers should be prepared to deal
+with them.
