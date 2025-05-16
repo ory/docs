@@ -28,10 +28,39 @@ message Event {
 }
 ```
 
+
 Example:
 
 ```json
 {
+  "name": "WebhookSucceeded",
+  "timestamp": "2025-05-16T08:58:45Z",
+  "attributes": [
+    {
+      "key": "ProjectEnvironment",
+      "value": "dev"
+    },
+    {
+      "key": "GeoLocationCity",
+      "value": "Munich"
+    },
+    {
+      "key": "GeoLocationCountry",
+      "value": "DE"
+    },
+    {
+      "key": "GeoLocationRegion",
+      "value": "BY"
+    },
+    {
+      "key": "WebhookID",
+      "value": ""
+    },
+    {
+      "key": "WebhookTriggerID",
+      "value": "67f5486a-ded4-4c3f-bae1-585192dfa0e7"
+    }
+  ]
 }
 ```
 
@@ -107,8 +136,12 @@ If you intend to write a consumer that needs a detailed schema and stability gua
 ## Guarantees
 
 - There might be duplicates in the event stream. While rare, consumers should be prepared to deal with them, for example by storing the events in a database for deduplication.
-- Some events might not emitted at all and be lost. This is deemed to be rare and can only happen in the face of special adverse conditions. In other words, delivery is currently 'best-effort'.
-  If 'at-least-once' delivery is required for your use case, please [reach out](https://www.ory.sh/contact/).
+- Some events might not emitted at all and be lost. This is deemed to be rare and can only happen in the face of special adverse conditions. In other words, delivery is currently 'best-effort' and not 'at-least-once'.
+- We do not currently SLAs in place for the event delivery duration (how much time elapses between when the event happens, and when it is visible in your consumer or in the console UI).
+  However we typical observe < 5 seconds delivery times.
+
+
+If stronger guarantees are required for your use case, please [reach out](https://www.ory.sh/contact/).
 
 ## Configure event streams
 
