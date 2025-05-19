@@ -123,14 +123,14 @@ New event names may be added in the future, in which case this list will be upda
 
 ## Delivery guarantees
 
-1. **Possible duplicates:** There might be duplicates in the event stream. While rare (typically caused by retries because of
+1. Possible duplicates: There might be duplicates in the event stream. While rare (typically caused by retries because of
    network issues), consumers should be prepared to deal with them, for example by implementing deduplication logic.
-1. **Best-effort delivery:** Event delivery is best-effort. While most events are delivered reliably, events may be lost under
+1. Best-effort delivery: Event delivery is best-effort. While most events are delivered reliably, events may be lost under
    adverse conditions (for example, system crashes during request processing). Delivery is not guaranteed to be "at-least-once".
-1. **No delivery latency SLA:** We do not offer a Service Level Agreement (SLA) for event delivery duration (the time between an
+1. No delivery latency SLA: Ory does not offer a Service Level Agreement (SLA) for event delivery duration (the time between an
    event occurring and it appearing in your consumer or the Ory Console UI). However, typical delivery times are observed to be
    less than 5 seconds.
-1. **No ordering guarantees:** Events may arrive in any order, both within a request and across different requests.
+1. No ordering guarantees: Events may arrive in any order, both within a request and across different requests.
 
 If stronger guarantees are required for your use case, please [reach out](https://www.ory.sh/contact/).
 
