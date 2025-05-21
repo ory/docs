@@ -1,0 +1,45 @@
+---
+id: authentication
+title: Request authorization code
+sidebar_label: Request authorization code
+---
+
+Before requesting an access token, you need to request an authorization code. This route generates PKCE code verifiers and state
+tokens for secure authentication, then redirects the user to Ory's authorization server.
+
+```mdx-code-block
+import jsLogin from "!!raw-loader!./../_common/code-examples/js/routes/login.js"
+import goLogin from "!!raw-loader!./../_common/code-examples/go/handlers/login.go"
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeBlock from "@theme/CodeBlock"
+```
+
+```mdx-code-block
+<Tabs
+  defaultValue="express"
+  values={[
+    {label: 'Expressjs', value: 'express'},
+    {label: 'Go', value: 'go'},
+  ]}>
+<TabItem value="express">
+```
+
+```mdx-code-block
+  <CodeBlock language="js" title={'index.js'}> {jsLogin} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```mdx-code-block
+  <CodeBlock language="go" title={'main.go'}> {goLogin} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
