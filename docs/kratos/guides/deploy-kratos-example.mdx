@@ -444,8 +444,6 @@ instances of Ory Kratos running on the various virtual machines. We need two ups
                            return 403;
                    }
 
-                   rewrite /admin/(.*) /$1  break;
-
                    proxy_pass http://admin_api;
                    proxy_redirect          off;
                    proxy_set_header        Host            $host;
