@@ -22,9 +22,10 @@ By default, a refresh token can be reused unlimited times within the grace perio
 can be reused during the grace period, you can set the `rotation_grace_reuse_count` option. This is especially recommended when
 you want a longer grace period, as this minimizes the security concerns associated with the graceful token refresh.
 
-- If `rotation_grace_reuse_count` is set to a positive integer (e.g., 3), a refresh token can only be reused up to that many times
-  within the grace period. After the limit is reached, further attempts to use the token will be rejected.
-- If `rotation_grace_reuse_count` is set to `0` (the default), there is no limit on the number of refreshes within the grace
+- If `rotation_grace_reuse_count` is set to a positive integer - for example `3` - a refresh token can only be reused up to that
+  many times - in this example `3` times - within the grace period. After the limit is reached further attempts to use the token
+  will be rejected.
+- By default the `rotation_grace_reuse_count` is set to `0` and there is no limit on the number of refreshes within the grace
   period.
 
 ## Enable graceful refresh token rotation
@@ -64,8 +65,7 @@ ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
 
 ## Configuration in self-hosted deployments
 
-For self-hosted deployments with Ory Enterprise License or Ory OSS, you can configure graceful refresh token rotation in your
-configuration file:
+For self-hosted Ory deployments, you can configure graceful refresh token rotation in your configuration file:
 
 ```yaml
 oauth2:
@@ -85,8 +85,8 @@ is unlimited within the grace period.
 When the user calls `/oauth2/auth` and performs login and consent, the OAuth2 server issues an access token and a refresh token.
 These tokens and all subsequent tokens issued within the grace period are part of the same consent request.
 
-- Using the refresh token within the grace period: If a refresh token is used multiple times within the configured grace period
-  (for example, 60 seconds), each usage results in a new set of access and refresh tokens.
+- Using the refresh token within the grace period: If a refresh token is used multiple times within the configured grace period -
+  for example 60 seconds- each usage results in a new set of access and refresh tokens.
 - Revocation implications: Any refresh token issued within the grace period is part of the same consent request. Revoking one
   token, or when the user revokes their consent, all tokens belonging to the original consent request, including those issued
   through a graceful refresh, are invalidated.
@@ -98,12 +98,9 @@ These tokens and all subsequent tokens issued within the grace period are part o
 
 ## Use cases for graceful refresh token rotation
 
-Graceful refresh token rotation can be particularly useful in:
+Graceful refresh token rotation can be useful for
 
-- High-availability applications where token exchange delays could interrupt user experience.
-- Distributed systems with multiple servers handling refresh tokens, minimizing the risk of accidental token invalidation.
-- Single-page applications, where network connectivity or token exchange delays may cause token rotation issues.
-- Mobile applications, where intermittent network connectivity can delay refresh token exchange, risking session continuity.
-
-Enabling this feature helps ensure smoother token lifecycle management while maintaining secure and efficient token rotation
-behavior.
+- high-availability applications where token exchange delays could interrupt user experience.
+- distributed systems with multiple servers handling refresh tokens, minimizing the risk of accidental token invalidation.
+- single-page applications, where network connectivity or token exchange delays may cause token rotation issues.
+- mobile applications, where network connectivity can delay refresh token exchange, risking session continuity.
