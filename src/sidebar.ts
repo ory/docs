@@ -934,6 +934,14 @@ const oel: SidebarItemsConfig = [
     label: "Zero Trust Proxy",
     items: ["self-hosted/oel/oathkeeper/upgrade-oathkeeper"],
   },
+  {
+    type: "category",
+    label: "Ory Identity Server",
+    items: [
+      "self-hosted/oel/kratos/upgrade-kratos",
+      "self-hosted/oel/kratos/changelog",
+    ],
+  },
 ]
 
 const localDevelopment: SidebarItemsConfig = [
