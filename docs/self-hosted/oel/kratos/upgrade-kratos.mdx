@@ -1,0 +1,128 @@
+---
+id: upgrade-kratos
+title: Upgrade Ory Kratos OEL
+---
+
+Follow this guide when you upgrade Ory Kratos Enterprise License (OEL) to a newer version. Upgrade to the latest version for the
+newest features, security updates, and performance improvements.
+
+If you encounter any issues during the upgrade process, please reach out to [Ory support](https://console.ory.sh/support) for
+assistance.
+
+## Prerequisites
+
+Before you upgrade, make sure you have
+
+- A valid Ory Enterprise License.
+- Access to the Ory Enterprise Docker Registry.
+- Backup of your current data and configuration.
+
+### Backup Your Data
+
+Ensure you have a complete backup of your database and configuration files. This step is crucial for restoring your system in case
+of an upgrade failure.
+
+## Pick the right version
+
+To check if there is a newer versions of Ory Kratos OEL, check your Docker or Kubernetes environment to find the tag you are
+running and compare against this list:
+
+```mdx-code-block
+import ImageTags from "../oel-kratos-image-tags.md"
+
+<ImageTags />
+```
+
+:::note
+
+Zero-downtime migrations are only possible if you do not skip any version when upgrading.
+
+:::
+
+The tags are ordered by date. Pick the newest version from the top of the list to upgrade.
+
+### Check Release Notes
+
+Before upgrading, review the [changelog](changelog.mdx) for the picked version to understand the changes, new features, and any
+deprecations.
+
+## Upgrade using helm charts in Kubernetes
+
+Upgrading Ory Kratos OEL in Kubernetes is straightforward when using Ory's Helm Charts. Follow these steps to upgrade Ory Kratos
+OEL:
+
+### Update the image tag
+
+```
+image:
+  repository: europe-docker.pkg.dev/ory-artifacts/ory-enterprise-kratos/kratos-oel
+  tag: <replace-with-current-image-tag>
+# ...
+```
+
+### Enable auto SQL migration
+
+Set `kratos.automigration.enabled` to `true` in the `values.yaml` file:
+
+```
+kratos:
+  automigration:
+    enabled: true
+# ...
+```
+
+### Upgrade Kratos OEL using helm
+
+You can now apply the upgrade:
+
+```bash
+helm upgrade ory-oel-kratos ory/kratos --namespace ory -f values.yaml
+```
+
+### Wait for the upgrade to propagate
+
+Once the init container is done and the main container is running, the upgrade is complete.
+
+## Upgrade steps without Helm Charts
+
+### Pull the Latest Docker Image
+
+Pull the latest Ory Kratos OEL Docker image from the Ory Enterprise Docker Registry:
+
+```bash
+docker pull europe-docker.pkg.dev/ory-artifacts/ory-enterprise-kratos/kratos-oel:<new-version-tag>
+```
+
+### Apply SQL Migrations
+
+Before deploying the service, you need to apply SQL migrations:
+
+```bash
+docker run \
+  -e DSN=your_database_connection_string \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-kratos/kratos-oel:<new-version-tag> \
+  -- migrate sql up -e -f /path/to/config.yaml
+```
+
+Replace `your_database_connection_string` with your actual database connection string.
+
+### 5. Start the Service
+
+Now you will be able to start the service. In most environments, the release will gracefully rotate pods.
+
+```bash
+docker run \
+  -p 4434:4434 -p 4433:4433 \
+  -e DSN=your_database_connection_string \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-kratos/kratos-oel:<new-version-tag> \
+  -- serve all --config /path/to/config.yaml
+```
+
+Replace `your_database_connection_string` with your actual database connection string.
+
+## Conclusion
+
+Upgrading Ory Kratos OEL is essential to keep your system secure and up-to-date. By following the steps outlined in this guide,
+you can ensure a smooth upgrade process with minimal downtime.
+
+If you encounter any issues during the upgrade process, please reach out to the Ory support team for assistance.
