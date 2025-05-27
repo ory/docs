@@ -936,7 +936,7 @@ const oel: SidebarItemsConfig = [
   },
   {
     type: "category",
-    label: "Ory Identity Server",
+    label: "Identity Server",
     items: [
       "self-hosted/oel/kratos/upgrade-kratos",
       "self-hosted/oel/kratos/changelog",
