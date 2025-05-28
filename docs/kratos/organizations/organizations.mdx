@@ -435,4 +435,45 @@ connection whenever you create a new SSO connection on BoxyHQ. All user manageme
 To verify the integration, navigate to your Ory Account Experience UI and enter an email associated with the domain you
 configured. If successful, the "Sign in with SSO" button should appear.
 
-### Self-service SAML set up via Onboarding portal
+### Onboarding portal (preview)
+
+To enable organization admins to set up SAML SSO connections for their organization, you can create a self-service link for them.
+
+:::note
+
+Onboarding portal is currently in preview and may be subject to changes. Please contact us if you have any questions or feedback.
+It also requires Account Experience 2.0 to be enabled for the project.
+
+:::
+
+This guide explains how to create an onboarding portal link for an organization.
+
+```mdx-code-block
+<Tabs groupId="console-or-api">
+<TabItem value="console" label="Ory Console">
+```
+
+Go to <ConsoleLink route="project.authentication.organizations" /> and continue by configuring the selected organization.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="api" label="API">
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+#### Create an onboarding portal link
+
+In the edit organization page, in the "Onboarding Portal" section, you can click on "Generate link" to create a link which can be
+then shared with the organization admins.
+
+```mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+
+<BrowserWindow url="https://console.ory.sh/projects/<id>/authentication/organizations/<id>/edit">
+    ![Onboarding portal link](./_static/onboarding-portal-link.png)
+</BrowserWindow>
+```
