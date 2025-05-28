@@ -942,6 +942,7 @@ const oel: SidebarItemsConfig = [
       "self-hosted/oel/kratos/changelog",
     ],
   },
+  "self-hosted/oel/monitoring/monitoring",
 ]
 
 const localDevelopment: SidebarItemsConfig = [
