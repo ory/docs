@@ -22,36 +22,27 @@ export const navbar: Navbar = {
       items: [
         {
           to: "/docs/identities",
-          label: "Identities",
+          label: "Ory Kratos Identities",
         },
         {
-          to: "/docs/getting-started/ory-network-oauth2",
-          //   to: "/docs/federation", // TODO: Use this route
-          label: "OAuth2/OIDC",
+          to: "/docs/oauth2-oidc",
+          label: "Ory Hydra OAuth2",
         },
         {
-          to: "/docs/guides/permissions/overview",
-          //   to: "/docs/permissions", // TODO: Use this route
-          label: "Permissions",
+          to: "/docs/keto",
+          label: "Ory Keto Permissions",
+        },
+        {
+          to: "/docs/polis",
+          label: "Ory Polis SAML",
+        },
+        {
+          to: "/docs/oathkeeper",
+          label: "Ory Oathkeeper Zero Trust",
         },
         {
           to: "/docs/self-hosted/oel/quickstart",
-          label: "Self Hosting",
-        },
-      ],
-    },
-    {
-      label: "Develop",
-      position: "left",
-      items: [
-        {
-          to: "/docs/getting-started/local-development",
-          label: "Local Development",
-        },
-
-        {
-          to: "/docs/ecosystem/projects",
-          label: "OSS Ecosystem",
+          label: "Ory Enterprise License",
         },
       ],
     },
@@ -92,6 +83,11 @@ export const navbar: Navbar = {
           label: "Ory SDKs",
         },
       ],
+    },
+    {
+      to: "/docs/ecosystem/projects",
+      label: "Open Source",
+      position: "left",
     },
     {
       label: "Need Support?",

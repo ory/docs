@@ -1,10 +1,8 @@
 ---
 id: index
-title: Introduction to Ory OAuth2 and OpenID Connect
-sidebar_label: Ory OAuth2
+title: Introduction to Ory Hydra OAuth2
+sidebar_label: Introduction
 ---
-
-# Introduction
 
 OAuth2 is the industry-standard protocol that enables secure machine-to-machine communication and grants limited access to data
 and services on behalf of users. OpenID Connect, built on top of OAuth2, is required to become a social sign-in provider.
