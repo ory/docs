@@ -1174,7 +1174,7 @@ const oel: SidebarItemsConfig = [
   "self-hosted/oel/quickstart",
   {
     type: "category",
-    label: "OAuth2 Server",
+    label: "Ory Hydra OAuth2",
     items: [
       "self-hosted/oel/oauth2/migrate",
       "self-hosted/oel/oauth2/token-prefix",
@@ -1186,12 +1186,12 @@ const oel: SidebarItemsConfig = [
   },
   {
     type: "category",
-    label: "Zero Trust Proxy",
+    label: "Ory Oathkeeper Zero Trust",
     items: ["self-hosted/oel/oathkeeper/upgrade-oathkeeper"],
   },
   {
     type: "category",
-    label: "Identity Server",
+    label: "Ory Kratos Identities",
     items: [
       "self-hosted/oel/kratos/upgrade-kratos",
       "self-hosted/oel/kratos/changelog",
