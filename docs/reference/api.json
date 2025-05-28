@@ -1422,6 +1422,10 @@
             "description": "Configures whether Ory Kratos Passwordless should use the Code Method\n\nThis governs the \"selfservice.methods.code.passwordless_enabled\" setting.",
             "type": "boolean"
           },
+          "kratos_selfservice_methods_code_submit_max": {
+            "description": "Configures how many times a code can be submitted before failing the flow\n\nThis governs the \"selfservice.methods.code.submit_max\" setting.",
+            "type": "integer"
+          },
           "kratos_selfservice_methods_code_passwordless_login_fallback_enabled": {
             "description": "This setting allows the code method to always login a user with code if they have registered with another authentication method such as password or social sign in.\n\nThis governs the \"selfservice.methods.code.passwordless_login_fallback_enabled\" setting.",
             "type": "boolean"
@@ -6094,6 +6098,10 @@
           "kratos_selfservice_methods_code_passwordless_enabled": {
             "description": "Configures whether Ory Kratos Passwordless should use the Code Method\n\nThis governs the \"selfservice.methods.code.passwordless_enabled\" setting.",
             "type": "boolean"
+          },
+          "kratos_selfservice_methods_code_submit_max": {
+            "description": "Configures how many times a code can be submitted before failing the flow\n\nThis governs the \"selfservice.methods.code.submit_max\" setting.",
+            "type": "integer"
           },
           "kratos_selfservice_methods_code_passwordless_login_fallback_enabled": {
             "description": "This setting allows the code method to always login a user with code if they have registered with another authentication method such as password or social sign in.\n\nThis governs the \"selfservice.methods.code.passwordless_login_fallback_enabled\" setting.",
