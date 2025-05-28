@@ -95,10 +95,7 @@ const api: SidebarItemsConfig = [
   },
 ]
 
-const polisApi: SidebarItemsConfig = [
-  polisLink,
-  "polis/reference/api",
-]
+const polisApi: SidebarItemsConfig = [polisLink, "polis/reference/api"]
 
 const sdk: SidebarItemsConfig = [
   homeLink,
@@ -916,6 +913,7 @@ const polis: SidebarItemsConfig = [
               "polis/guides/npm-library",
               "polis/upgrade",
               "polis/guides/examples",
+              "polis/sbom",
               "polis/container-signing",
               "polis/events",
               "polis/observability",

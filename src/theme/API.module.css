@@ -17,6 +17,9 @@
   .container
   .col.col--3,
 :global #route-identifier[data-route*="reference/api"] .container .col.col--3,
-:global #route-identifier[data-route*="polis/reference/api"] .container .col.col--3 {
+:global
+  #route-identifier[data-route*="polis/reference/api"]
+  .container
+  .col.col--3 {
   display: none;
 }

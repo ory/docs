@@ -201,7 +201,7 @@ const config: Config = {
           {
             id: "polis-api",
             spec: "docs/polis/reference/api.json",
-          }
+          },
         ],
         theme: {},
       },

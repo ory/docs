@@ -32,9 +32,7 @@
   "paths": {
     "/api/v1/sso": {
       "post": {
-        "tags": [
-          "Single Sign-On"
-        ],
+        "tags": ["Single Sign-On"],
         "summary": "Create SSO connection",
         "operationId": "create-sso-connection",
         "requestBody": {
@@ -150,21 +148,14 @@
         }
       },
       "patch": {
-        "tags": [
-          "Single Sign-On"
-        ],
+        "tags": ["Single Sign-On"],
         "summary": "Update SSO Connection",
         "operationId": "update-sso-connection",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "required": [
-                  "clientID",
-                  "clientSecret",
-                  "product",
-                  "tenant"
-                ],
+                "required": ["clientID", "clientSecret", "product", "tenant"],
                 "type": "object",
                 "properties": {
                   "clientID": {
@@ -279,9 +270,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Single Sign-On"
-        ],
+        "tags": ["Single Sign-On"],
         "summary": "Get SSO Connections",
         "operationId": "get-connections",
         "parameters": [
@@ -341,9 +330,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Single Sign-On"
-        ],
+        "tags": ["Single Sign-On"],
         "summary": "Delete SSO Connections",
         "operationId": "delete-sso-connection",
         "parameters": [
@@ -403,9 +390,7 @@
     },
     "/api/v1/sso/product": {
       "get": {
-        "tags": [
-          "Single Sign-On"
-        ],
+        "tags": ["Single Sign-On"],
         "summary": "Get SSO Connections by product",
         "operationId": "get-connections-by-product",
         "parameters": [
@@ -437,9 +422,7 @@
     },
     "/oauth/token": {
       "post": {
-        "tags": [
-          "OAuth"
-        ],
+        "tags": ["OAuth"],
         "summary": "Code exchange",
         "operationId": "oauth-code-exchange",
         "requestBody": {
@@ -518,9 +501,7 @@
     },
     "/oauth/userinfo": {
       "get": {
-        "tags": [
-          "OAuth"
-        ],
+        "tags": ["OAuth"],
         "summary": "Get profile",
         "operationId": "oauth-get-profile",
         "responses": {
@@ -581,9 +562,7 @@
     },
     "/api/v1/sso/setuplinks": {
       "post": {
-        "tags": [
-          "Setup Links | Single Sign On"
-        ],
+        "tags": ["Setup Links | Single Sign On"],
         "summary": "Create a Setup Link",
         "operationId": "create-sso-setup-link",
         "requestBody": {
@@ -648,9 +627,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Setup Links | Single Sign On"
-        ],
+        "tags": ["Setup Links | Single Sign On"],
         "summary": "Delete the Setup Link",
         "operationId": "delete-sso-setup-link",
         "parameters": [
@@ -698,9 +675,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Setup Links | Single Sign On"
-        ],
+        "tags": ["Setup Links | Single Sign On"],
         "summary": "Get the Setup Link",
         "operationId": "get-sso-setup-link",
         "parameters": [
@@ -747,9 +722,7 @@
     },
     "/api/v1/dsync/setuplinks": {
       "post": {
-        "tags": [
-          "Setup Links | Directory Sync"
-        ],
+        "tags": ["Setup Links | Directory Sync"],
         "summary": "Create a Setup Link",
         "operationId": "create-dsync-setup-link",
         "requestBody": {
@@ -814,9 +787,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Setup Links | Directory Sync"
-        ],
+        "tags": ["Setup Links | Directory Sync"],
         "summary": "Delete the Setup Link",
         "operationId": "delete-dsync-setup-link",
         "parameters": [
@@ -864,9 +835,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Setup Links | Directory Sync"
-        ],
+        "tags": ["Setup Links | Directory Sync"],
         "summary": "Get the Setup Link",
         "operationId": "get-dsync-setup-link",
         "parameters": [
@@ -913,9 +882,7 @@
     },
     "/api/v1/sso/setuplinks/product": {
       "get": {
-        "tags": [
-          "Setup Links | Single Sign On"
-        ],
+        "tags": ["Setup Links | Single Sign On"],
         "summary": "Get the Setup Links by product",
         "operationId": "get-sso-setup-link-by-product",
         "parameters": [
@@ -951,9 +918,7 @@
     },
     "/api/v1/dsync/setuplinks/product": {
       "get": {
-        "tags": [
-          "Setup Links | Directory Sync"
-        ],
+        "tags": ["Setup Links | Directory Sync"],
         "summary": "Get the Setup Links by product",
         "operationId": "get-dsync-setup-link-by-product",
         "parameters": [
@@ -989,9 +954,7 @@
     },
     "/api/v1/sso-traces": {
       "get": {
-        "tags": [
-          "SSO Traces"
-        ],
+        "tags": ["SSO Traces"],
         "summary": "Get trace by ID",
         "parameters": [
           {
@@ -1020,9 +983,7 @@
     },
     "/api/v1/sso-traces/product": {
       "get": {
-        "tags": [
-          "SSO Traces"
-        ],
+        "tags": ["SSO Traces"],
         "summary": "Get all traces for a product",
         "parameters": [
           {
@@ -1066,18 +1027,13 @@
     },
     "/api/v1/dsync": {
       "post": {
-        "tags": [
-          "Directory Sync"
-        ],
+        "tags": ["Directory Sync"],
         "summary": "Create a directory connection",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "required": [
-                  "product",
-                  "tenant"
-                ],
+                "required": ["product", "tenant"],
                 "type": "object",
                 "properties": {
                   "tenant": {
@@ -1124,9 +1080,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Directory Sync"
-        ],
+        "tags": ["Directory Sync"],
         "summary": "Get a directory connection by tenant and product",
         "parameters": [
           {
@@ -1165,9 +1119,7 @@
     },
     "/api/v1/dsync/{directoryId}": {
       "get": {
-        "tags": [
-          "Directory Sync"
-        ],
+        "tags": ["Directory Sync"],
         "summary": "Get a directory connection by id",
         "parameters": [
           {
@@ -1194,9 +1146,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "Directory Sync"
-        ],
+        "tags": ["Directory Sync"],
         "summary": "Update a directory connection",
         "parameters": [
           {
@@ -1263,9 +1213,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Directory Sync"
-        ],
+        "tags": ["Directory Sync"],
         "summary": "Delete a directory connection by id",
         "parameters": [
           {
@@ -1288,9 +1236,7 @@
     },
     "/api/v1/dsync/product": {
       "get": {
-        "tags": [
-          "Directory Sync"
-        ],
+        "tags": ["Directory Sync"],
         "summary": "Get directory connections by product",
         "parameters": [
           {
@@ -1334,9 +1280,7 @@
     },
     "/api/v1/dsync/groups/{groupId}": {
       "get": {
-        "tags": [
-          "Directory Sync"
-        ],
+        "tags": ["Directory Sync"],
         "summary": "Get group by id from a directory",
         "parameters": [
           {
@@ -1389,9 +1333,7 @@
     },
     "/api/v1/dsync/groups": {
       "get": {
-        "tags": [
-          "Directory Sync"
-        ],
+        "tags": ["Directory Sync"],
         "summary": "Get groups from a directory",
         "parameters": [
           {
@@ -1441,9 +1383,7 @@
     },
     "/api/v1/dsync/groups/{groupId}/members": {
       "get": {
-        "tags": [
-          "Directory Sync"
-        ],
+        "tags": ["Directory Sync"],
         "summary": "Get list of members in a group",
         "parameters": [
           {
@@ -1492,9 +1432,7 @@
     },
     "/api/v1/dsync/users/{userId}": {
       "get": {
-        "tags": [
-          "Directory Sync"
-        ],
+        "tags": ["Directory Sync"],
         "summary": "Get user by id from a directory",
         "parameters": [
           {
@@ -1547,9 +1485,7 @@
     },
     "/api/v1/dsync/users": {
       "get": {
-        "tags": [
-          "Directory Sync"
-        ],
+        "tags": ["Directory Sync"],
         "summary": "Get users from a directory",
         "parameters": [
           {
@@ -1599,9 +1535,7 @@
     },
     "/api/v1/dsync/events": {
       "get": {
-        "tags": [
-          "Directory Sync"
-        ],
+        "tags": ["Directory Sync"],
         "summary": "Get event logs for a directory",
         "parameters": [
           {
@@ -1651,20 +1585,14 @@
     },
     "/api/v1/identity-federation": {
       "post": {
-        "tags": [
-          "Identity Federation"
-        ],
+        "tags": ["Identity Federation"],
         "summary": "Create an Identity Federation app",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/IdentityFederationAppCreate",
-                "required": [
-                  "name",
-                  "product",
-                  "tenant"
-                ]
+                "required": ["name", "product", "tenant"]
               }
             }
           },
@@ -1684,9 +1612,7 @@
         }
       },
       "get": {
-        "tags": [
-          "Identity Federation"
-        ],
+        "tags": ["Identity Federation"],
         "summary": "Get an Identity Federation app",
         "parameters": [
           {
@@ -1729,18 +1655,14 @@
         }
       },
       "patch": {
-        "tags": [
-          "Identity Federation"
-        ],
+        "tags": ["Identity Federation"],
         "summary": "Update an Identity Federation app",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/IdentityFederationApp",
-                "required": [
-                  "id"
-                ]
+                "required": ["id"]
               }
             }
           },
@@ -1760,9 +1682,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Identity Federation"
-        ],
+        "tags": ["Identity Federation"],
         "summary": "Delete an Identity Federation app",
         "parameters": [
           {
@@ -1812,9 +1732,7 @@
     },
     "/api/v1/identity-federation/product": {
       "get": {
-        "tags": [
-          "Identity Federation"
-        ],
+        "tags": ["Identity Federation"],
         "summary": "Get Identity Federation apps by product",
         "parameters": [
           {
@@ -1949,9 +1867,7 @@
             "provider": "okta.com"
           },
           "defaultRedirectUrl": "https://hoppscotch.io/",
-          "redirectUrl": [
-            "https://hoppscotch.io/"
-          ],
+          "redirectUrl": ["https://hoppscotch.io/"],
           "tenant": "hoppscotch.io",
           "product": "API Engine",
           "name": "Hoppscotch-SP",
@@ -2200,9 +2116,7 @@
               "email": "deepak@boxyhq.com",
               "active": true,
               "raw": {
-                "schemas": [
-                  "urn:ietf:params:scim:schemas:core:2.0:User"
-                ],
+                "schemas": ["urn:ietf:params:scim:schemas:core:2.0:User"],
                 "userName": "deepak@boxyhq.com",
                 "name": {
                   "givenName": "Deepak",
@@ -2298,9 +2212,7 @@
           },
           {
             "type": "object",
-            "required": [
-              "id"
-            ],
+            "required": ["id"],
             "properties": {
               "id": {
                 "type": "string",
