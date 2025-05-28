@@ -441,12 +441,12 @@ To enable organization admins to set up SAML SSO connections for their organizat
 
 :::note
 
-Onboarding portal is currently in preview;its features are subject to change. Please contact us if you have any questions or
-feedback. The portal also requires that you enable Account Experience 2.0.
+The portal requires that you enable Account Experience 2.0. Onboarding portal is currently in preview. Its features are subject to
+change. Please contact us [Ory Support](mailto:support@ory.sh) if you have any questions or feedback.
 
 :::
 
-#### Create an onboarding portal link
+#### Manage onboarding portal links
 
 This guide explains how to create an onboarding portal link for an organization.
 
@@ -488,7 +488,7 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
          }'
 ```
 
-### Revoke an onboarding portal link
+#### Revoke an onboarding portal link
 
 ```shell
 curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
