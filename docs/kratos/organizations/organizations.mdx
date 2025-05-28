@@ -476,7 +476,24 @@ generate a new one.
 <TabItem value="api" label="API">
 ```
 
-Api section
+#### Create an onboarding portal link
+
+```shell
+curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "expires_at": "2025-06-01T00:00:00Z",
+           "enable_sso": true
+         }'
+```
+
+### Revoke an onboarding portal link
+
+```shell
+curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY"
+```
 
 ```mdx-code-block
 </TabItem>
