@@ -15,6 +15,13 @@ const homeLink: SidebarItem = {
   label: "Go to Start Page",
 }
 
+const polisLink: SidebarItem = {
+  type: "link",
+  href: "/polis",
+  className: "all-docs-link",
+  label: "Go to Polis Page",
+}
+
 const oidcSSO: SidebarItemConfig = {
   type: "category",
   label: "OpenID Connect SSO",
@@ -86,6 +93,11 @@ const api: SidebarItemsConfig = [
       "api/eventual-consistency",
     ],
   },
+]
+
+const polisApi: SidebarItemsConfig = [
+  polisLink,
+  "polis/reference/api",
 ]
 
 const sdk: SidebarItemsConfig = [
@@ -858,6 +870,7 @@ const polis: SidebarItemsConfig = [
     items: [
       "polis/install",
       "polis/quickstart",
+      "polis/reference/api",
       {
         type: "category",
         label: "Enterprise SSO",
@@ -1213,6 +1226,7 @@ module.exports = {
   polis,
   oathkeeper,
   api,
+  polisApi,
   sdk,
   cli,
   security,

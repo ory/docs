@@ -1,11 +1,13 @@
 :global #route-identifier[data-route*="reference/rest-api"] .container,
-:global #route-identifier[data-route*="reference/api"] .container {
+:global #route-identifier[data-route*="reference/api"] .container,
+:global #route-identifier[data-route*="polis/reference/api"] .container {
   width: 100% !important;
   max-width: 100% !important;
 }
 
 :global #route-identifier[data-route*="reference/rest-api"] .container .col,
-:global #route-identifier[data-route*="reference/api"] .container .col {
+:global #route-identifier[data-route*="reference/api"] .container .col,
+:global #route-identifier[data-route*="polis/reference/api"] .container .col {
   width: 100% !important;
   max-width: 100% !important;
 }
@@ -14,6 +16,7 @@
   #route-identifier[data-route*="reference/rest-api"]
   .container
   .col.col--3,
-:global #route-identifier[data-route*="reference/api"] .container .col.col--3 {
+:global #route-identifier[data-route*="reference/api"] .container .col.col--3,
+:global #route-identifier[data-route*="polis/reference/api"] .container .col.col--3 {
   display: none;
 }
