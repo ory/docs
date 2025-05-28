@@ -1193,6 +1193,7 @@
       "source": "/docs/guides/master/oathkeeper/1-overview/1-rules",
       "destination": "/docs/oathkeeper/api-access-rules",
       "permanent": false
+    },
     {
       "source": "/docs/troubleshooting/oidc-redirect-url-cname-OTA-092022-01",
       "destination": "/docs/troubleshooting/troubleshooting-social-sign-in",
