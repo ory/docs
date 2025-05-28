@@ -488,6 +488,10 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
          }'
 ```
 
+The response contains a `value` token that you can use to construct the onboarding portal link as follows:
+
+`https://your-slug.projects.oryapis.com/onboarding/<value>`
+
 #### Revoke an onboarding portal link
 
 ```shell
