@@ -1191,11 +1191,27 @@
     },
     {
       "source": "/docs/guides/master/oathkeeper/1-overview/1-rules",
-      "destination": "/docs/oathkeeper/api-access-rules"
+      "destination": "/docs/oathkeeper/api-access-rules",
+      "permanent": false
     },
     {
       "source": "/docs/troubleshooting/oidc-redirect-url-cname-OTA-092022-01",
       "destination": "/docs/troubleshooting/troubleshooting-social-sign-in",
+      "permanent": false
+    },
+    {
+      "source": "/docs/ecosystem/benchmark",
+      "destination": "/docs/docs/oauth2-oidc",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/case-study",
+      "destination": "/docs/docs/oauth2-oidc",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/faq",
+      "destination": "/docs/docs/oauth2-oidc",
       "permanent": false
     },
     {

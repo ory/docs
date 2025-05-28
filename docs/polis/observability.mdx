@@ -1,0 +1,49 @@
+---
+id: observability
+title: Observability for Enterprise SSO
+sidebar_label: Observability
+---
+
+Ory Polis provides first-class observability on the back of OpenTelemetry. Currently we support the following metrics. Traces and
+logs are coming soon.
+
+Please check the [Environment Variables](./deploy/env-variables.mdx#opentelemetry-configuration) to configure to enable this
+feature.
+
+## Metrics
+
+| Name                      | Description                              | Type  | Tags |
+| ------------------------- | ---------------------------------------- | ----- | ---- |
+| `polis.connection.create` | Number of SSO Connection create requests | Count | ---- |
+| `polis.connection.get`    | Number of SSO Connection get requests    | Count | ---- |
+| `polis.connection.delete` | Number of SSO Connection delete requests | Count | ---- |
+| `polis.oauth.authorize`   | Number of oauth authorize requests       | Count | ---- |
+| `polis.oauth.token`       | Number of oauth token requests           | Count | ---- |
+| `polis.oauth.userinfo`    | Number of oauth user info requests       | Count | ---- |
+
+From `v1.35.1` the following additional metrics are available:
+
+| Name                          | Description                      | Type  | Tags                                                                                                           |
+| ----------------------------- | -------------------------------- | ----- | -------------------------------------------------------------------------------------------------------------- |
+| `polis.oauth.authorize.error` | Number of oauth authorize errors | Count | **protocol**: `saml`,`oidc`,`saml-federated`,`oidc-federated` ; **login_type**: `sp-initiated`,`idp-initiated` |
+| `polis.oauth.token.error`     | Number of oauth token errors     | Count | **protocol**: `saml`,`oidc`,`saml-federated`,`oidc-federated` ; **login_type**: `sp-initiated`,`idp-initiated` |
+| `polis.oauth.userinfo.error`  | Number of oauth user info errors | Count | **protocol**: `saml`,`oidc`,`saml-federated`,`oidc-federated` ; **login_type**: `sp-initiated`,`idp-initiated` |
+| `polis.oauth.response.error`  | Number of oauth response errors  | Count | **protocol**: `saml`,`oidc`,`saml-federated`,`oidc-federated` ; **login_type**: `sp-initiated`,`idp-initiated` |
+
+From `v1.39.0` the following additional metrics are available:
+
+| Name                          | Description                                                | Type  | Tags                                                                                                           |
+| ----------------------------- | ---------------------------------------------------------- | ----- | -------------------------------------------------------------------------------------------------------------- |
+| `polis.idfed.authorize`       | Number of identity federation authorize requests           | Count | **protocol**: `saml`,`oidc`,`saml-federated`,`oidc-federated` ; **login_type**: `sp-initiated`,`idp-initiated` |
+| `polis.idfed.authorize.error` | Number of errors in identity federation authorize requests | Count | **protocol**: `saml`,`oidc`,`saml-federated`,`oidc-federated` ; **login_type**: `sp-initiated`,`idp-initiated` |
+| `polis.idfed.response`        | Number of identity federation response requests            | Count | **protocol**: `saml`,`oidc`,`saml-federated`,`oidc-federated` ; **login_type**: `sp-initiated`,`idp-initiated` |
+| `polis.idfed.response.error`  | Number of errors in identity federation response requests  | Count | **protocol**: `saml`,`oidc`,`saml-federated`,`oidc-federated` ; **login_type**: `sp-initiated`,`idp-initiated` |
+
+From `v1.41.2` the following additional metrics are available:
+
+| Name                           | Description                      | Type  | Tags                 |
+| ------------------------------ | -------------------------------- | ----- | -------------------- |
+| `polis.db.connections.max`     | Maximum number of db connections | Gauge | **db_name**: `polis` |
+| `polis.db.connections.total`   | Total number of db connections   | Gauge | **db_name**: `polis` |
+| `polis.db.connections.idle`    | Number of idle db connections    | Gauge | **db_name**: `polis` |
+| `polis.db.connections.waiting` | Number of waiting db connections | Gauge | **db_name**: `polis` |

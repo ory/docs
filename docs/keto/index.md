@@ -1,7 +1,7 @@
 ---
 id: index
-title: Introduction to Ory Permissions
-sidebar_label: Ory Permissions
+title: Introduction to Ory Keto Permissions
+sidebar_label: Introduction
 ---
 
 # Introduction
