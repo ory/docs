@@ -621,7 +621,6 @@ const hydra: SidebarItemsConfig = [
       id: "hydra/guides/oauth2-token-introspection",
     },
     items: [
-      oidcSSO,
       {
         type: "category",
         label: "Flows",
