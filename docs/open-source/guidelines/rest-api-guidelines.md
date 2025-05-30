@@ -10,7 +10,7 @@ Generator. This document standardizes Ory's V1 API contract.
 
 Ory has an established API and SDK generation system consisting of four parts:
 
-1. Extraction of code comments from Go Code using [Go Swagger](https://goswagger.io/generate/spec.html)
+1. Extraction of code comments from Go Code using [Go Swagger](https://goswagger.io/go-swagger/generate-spec/)
    ([example](https://github.com/ory/kratos/blob/bd4af9ab9f872b5dacf6e7abaf2cad5ffc83ddd6/Makefile#L89-L93));
 2. Conversion of Swagger 2.0 to OpenAPI Spec 3.0 and applying JsonPatch documents to improve the OpenAPI 3.0 file
    ([example](https://github.com/ory/kratos/blob/bd4af9ab9f872b5dacf6e7abaf2cad5ffc83ddd6/Makefile#L96-L109));
@@ -53,7 +53,7 @@ This section discusses how Ory uses OpenAPI 3.0.
 ### Routes
 
 Routes are the functions of an RPC infrastructure and are annotated using
-[`swagger:route`](https://goswagger.io/use/spec/route.html):
+[`swagger:route`](https://goswagger.io/go-swagger/reference/annotations/route/):
 
 ```go
 // swagger:route [method] [path pattern] [?tag1 tag2 tag3] [operation id]
