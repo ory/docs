@@ -1170,6 +1170,7 @@ const opensource: SidebarItemsConfig = [
 
 const oel: SidebarItemsConfig = [
   homeLink,
+  "self-hosted/oel/introduction",
   "self-hosted/oel/quickstart",
   {
     type: "category",
