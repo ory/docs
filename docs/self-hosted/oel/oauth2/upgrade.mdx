@@ -1,6 +1,6 @@
 ---
 id: upgrade
-title: Upgrading Ory Hydra OEL
+title: Upgrade Ory Hydra OEL to the newer version
 ---
 
 This document provides a comprehensive guide on how to upgrade your Ory Hydra Enterprise License (OEL) version. Upgrading to the
@@ -10,28 +10,28 @@ latest version ensures you have the newest features, security updates, and perfo
 
 Before proceeding with the upgrade, ensure you have:
 
-- A valid Ory Enterprise License.
-- Access to the Ory Enterprise Docker Registry.
-- Backup of your current data and configuration.
+```mdx-code-block
+import Prerequisites from "../oel-common-prerequisites.md"
+
+<Prerequisites />
+```
 
 ## Pick the right version
 
 To upgrade Ory Hydra OEL, you need to know the version you are currently running. Check your Docker or Kubernetes environment to
-find the tag. You should find your tag in this list:
+find the tag. You should find your tag in this list down below. :::note
+
+Zero-downtime migrations are only possible if you do not skip any version when upgrading.
+
+:::
+
+The list is ordered by date. Pick the newest version from the top of the list to upgrade.
 
 ```mdx-code-block
 import ImageTags from "../oel-hydra-image-tags.md"
 
 <ImageTags />
 ```
-
-:::note
-
-Zero-downtime migrations are only possible if you do not skip any version when upgrading.
-
-:::
-
-The tags are ordered by date. Pick the newest version from the top of the list to upgrade.
 
 ## Upgrade Using Helm Charts in Kubernetes
 
