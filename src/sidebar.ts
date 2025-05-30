@@ -1177,23 +1177,26 @@ const oel: SidebarItemsConfig = [
     label: "Ory Hydra OAuth2",
     items: [
       "self-hosted/oel/oauth2/migrate",
-      "self-hosted/oel/oauth2/token-prefix",
       "self-hosted/oel/oauth2/upgrade",
+      "self-hosted/oel/oauth2/changelog",
+      "self-hosted/oel/oauth2/token-prefix",
       "self-hosted/oel/oauth2/migrate-postgresql-ttl",
       "self-hosted/oel/oauth2/revert-database-migrations",
-      "self-hosted/oel/oauth2/changelog",
     ],
   },
   {
     type: "category",
     label: "Ory Oathkeeper Zero Trust",
-    items: ["self-hosted/oel/oathkeeper/upgrade-oathkeeper"],
+    items: [
+      "self-hosted/oel/oathkeeper/upgrade-oathkeeper",
+      "self-hosted/oel/oathkeeper/changelog",
+    ],
   },
   {
     type: "category",
     label: "Ory Kratos Identities",
     items: [
-      "self-hosted/oel/kratos/upgrade-kratos",
+      "self-hosted/oel/kratos/upgrade",
       "self-hosted/oel/kratos/changelog",
     ],
   },
