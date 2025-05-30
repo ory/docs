@@ -9,20 +9,21 @@ newest features, security updates, and performance improvements.
 If you encounter any issues during the upgrade process, please reach out to [Ory support](https://console.ory.sh/support) for
 assistance.
 
-## Prerequisites
+```mdx-code-block
+import Prerequisites from "../oel-common-prerequisites.md"
 
-Before you upgrade, make sure you have
-
-- A valid Ory Enterprise License.
-- Access to the Ory Enterprise Docker Registry.
-- Backup of your current data and configuration.
-
-### Backup Your Data
-
-Ensure you have a complete backup of your database and configuration files. This step is crucial for restoring your system in case
-of an upgrade failure.
+<Prerequisites />
+```
 
 ## Pick the right version
+
+:::note
+
+Zero-downtime migrations are only possible if you do not skip any version when upgrading.
+
+:::
+
+The tags are ordered by date. Pick the newest version from the top of the list to upgrade.
 
 To check if there is a newer versions of Ory Kratos OEL, check your Docker or Kubernetes environment to find the tag you are
 running and compare against this list:
@@ -32,14 +33,6 @@ import ImageTags from "../oel-kratos-image-tags.md"
 
 <ImageTags />
 ```
-
-:::note
-
-Zero-downtime migrations are only possible if you do not skip any version when upgrading.
-
-:::
-
-The tags are ordered by date. Pick the newest version from the top of the list to upgrade.
 
 ### Check Release Notes
 
