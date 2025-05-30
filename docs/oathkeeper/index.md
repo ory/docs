@@ -1,6 +1,6 @@
 ---
 id: index
-title: Introduction
+title: Introduction to Ory Oathkeeper Zero Trust Proxy
 ---
 
 Ory Oathkeeper authorizes incoming HTTP requests. It can be the Policy Enforcement Point in your cloud architecture, i.e. a
