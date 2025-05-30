@@ -8,7 +8,7 @@ sidebar_label: Yandex
 
 Follow these steps to add Yandex as a social sign-in provider to your project using the Ory CLI:
 
-1. [Create a Yandex OAuth2 Application](https://yandex.com/dev/oauth/doc/dg/tasks/register-client.html).
+1. [Create a Yandex OAuth2 Application](https://yandex.com/dev/id/doc/en/register-client).
 2. In the created app, set the redirect URI to:
 
    ```shell
@@ -33,9 +33,8 @@ Follow these steps to add Yandex as a social sign-in provider to your project us
 
    :::info
 
-   [Yandex](https://yandex.com/dev/oauth/doc/dg/concepts/about.html) returns an `access_token` but doesn't return an `id_token`.
-   Ory sends requests to [Yandex's API](https://yandex.com/dev/passport/doc/dg/reference/request.html) and adds the user info to
-   `std.extVar('claims')`.
+   [Yandex](https://yandex.com/dev/id/doc/en/) returns an `access_token` but doesn't return an `id_token`. Ory sends requests to
+   Yandex's API and adds the user info to `std.extVar('claims')`.
 
    :::
 
