@@ -1,0 +1,20 @@
+---
+id: observability
+title: Observability for Directory Sync
+sidebar_label: Observability
+---
+
+Ory Polis provides first-class observability on the back of OpenTelemetry. Currently we support the following metrics. Traces and
+logs are coming soon.
+
+Please check the [Environment Variables](../deploy/env-variables.mdx#opentelemetry-configuration) to configure to enable this
+feature.
+
+## Metrics
+
+| Name                              | Description                                            | Type  |
+| --------------------------------- | ------------------------------------------------------ | ----- |
+| `polis.dsync.connection.create`   | Number of directory sync connection create requests    | Count |
+| `polis.dsync.connection.get`      | Number of directory sync connection get requests       | Count |
+| `polis.dsync.connection.delete`   | Number of directory sync connection delete requests    | Count |
+| `polis.dsync.events_batch.failed` | Indicates that a batch of directory sync events failed | Count |

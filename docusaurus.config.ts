@@ -198,6 +198,10 @@ const config: Config = {
             id: "ory-network-api",
             spec: "docs/reference/api.json",
           },
+          {
+            id: "polis-api",
+            spec: "docs/polis/reference/api.json",
+          },
         ],
         theme: {},
       },

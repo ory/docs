@@ -1,0 +1,82 @@
+---
+id: upgrade
+title: Upgrade
+sidebar_label: Apply upgrades
+---
+
+# Upgrade guide
+
+## Upgrading to v1.44.0
+
+Please check the note on ESM libraries and dynamic imports issue [here](guides/npm-library.mdx)
+
+## Upgrading to v1.25.0
+
+The `namespace` column length has been increased to 256 characters to support larger values.
+
+This change affects all the instances with `sql` as the db engine. If you are not running manual migration then the namespace
+column will be dropped and populated again. It is highly advisable to back up your data before upgrading.
+
+## Upgrading to v1.21.0
+
+Google DSync Connections will be supported on the back of following changes related to Authorization. These will ease the process
+of surfacing up the OAuth endpoints for Google SCIM.
+
+1. Removed `DSYNC_GOOGLE_REDIRECT_URI`, `GOOGLE_REDIRECT_URI` env vars for Ory Polis service.
+2. Removed `dsync.providers.google.callbackUrl` from npm.
+3. Ory Polis npm will take in new options - `dsync.providers.google.authorizePath` and `dsync.providers.google.callbackPath`.
+   These will be used alongside `externalUrl` to construct the full path
+
+## Upgrading to v1.14.0
+
+We have changed the schema bit to introduce a new column called `namespace` to speed up scans. You will have to run the migration
+scripts if you are manually managing migrations. For example PlanetScale where auto migrations are not supported due to a
+difference between MySQL and PlanetScale.
+
+## Upgrading to v1.11.0
+
+We have patched the SSO connection (`/api/v1/connections`) DELETE handler to accept payload (client/Secret or
+tenant/product/strategy) as part of query parameters. Earlier, the payload was expected to be part of the body which is
+non-standard and is no longer supported in Next.js.
+
+## Upgrading to v1.9.7
+
+We discovered and fixed a database connection leak introduced in v1.9.1, if you are using versions 1.9.1 to 1.9.6 then please
+upgrade to v1.9.7
+
+## Upgrading to v1.8.0
+
+1. We support bringing your own database (BYOD), this is a very tricky feature to support and we are still iterating on the schema
+   which works as seamlessly as possible across the range of databases we support. Unfortunately, not everything goes smoothly
+   here and we have encountered some length issues on newer versions of MySQL and MariaDB. The best way forward was to change the
+   schema of the keys we use from length 1500 to 250 which is compatible with the newer versions. As a result, this will break
+   your updates if you are using MySQL, MariaDB, or MS SQL Server. If you encounter this please reach out and we'll guide you
+   through the update process. If you haven't gone into production yet then please update to v1.8.0 before you deploy it to
+   production.
+
+## Upgrading to v1.3.10
+
+1. For users of the Ory Polis npm library, `directorySync` has been renamed to `directorySyncController`.
+
+## Upgrading to v1.3.6
+
+1. `samlSPConfig.get()` is now async since we introduced a global certificate instead of per tenant certificate to ease the SAML
+   setup process.
+
+## Upgrading to v1.3.0
+
+1. Landed support for OpenID Identity Providers.
+2. Landed new API (`/api/v1/connections`) to support setting up both SAML/OIDC SSO Connections.
+
+> **Note:** The previous API for SAML configuration `/api/v1/saml/config` has been deprecated, and would be completely removed in
+> a future release.
+
+3. Renamed env variable `PRE_LOADED_CONFIG` to [`PRE_LOADED_CONNECTION`](deploy/env-variables.mdx#pre_loaded_connection) for Ory
+   Polis service. In the case of npm `preLoadedConfig` becomes`preLoadedConnection`.
+4. Make sure to set the value for [`oidcPath`](deploy/env-variables.mdx#oidcpath) in case you are using the npm.
+
+## Backups
+
+Please remember to take backups before upgrading Ory Polis. We cannot stress how important this step is, although we take
+precautions to avoid bugs they sometimes do slip by us. Having backups will not only help you recover from these rare events but
+should be part of your disaster recovery process. If you need any help with this please do not hesitate to reach out to us.
