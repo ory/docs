@@ -1,0 +1,458 @@
+---
+id: react
+title: Add SAML SSO to React App with BoxyHQ
+sidebar_label: React
+---
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
+# Add SAML SSO to React App
+
+This guide assumes that you have a React app and want to enable SAML Single Sign-On authentication for your enterprise customers.
+By the end of this guide, you'll have an app that allows you to authenticate the users using SAML Single Sign-On.
+
+If you wish to dive straight into the source, Checkout: https://github.com/ory/polis-examples/tree/main/apps/react-example
+
+:::info
+
+We use an express backend with the React Single Page App. The code for this can be found at
+https://github.com/boxyhq/jackson-examples/tree/main/apps/express-api
+
+:::
+
+Integrating SAML SSO into an app involves the following steps.
+
+- Configure SAML Single Sign-On
+- Authenticate with SAML Single Sign-On
+
+## Configure Enterprise SSO on React
+
+This step allows your tenants to configure SAML connections for their users. Read the following guides to understand more about
+this.
+
+- [UI Best Practices for Configuring SAML Single Sign-On](../configuring-saml-sso.mdx)
+- [SSO Connection API](../../sso-flow/index.mdx)
+
+## Authenticate with SAML Single Sign-On
+
+Once you add a SAML connection, the app can use this SAML connection to initiate the SSO authentication flow using Ory Polis. The
+following sections focus more on the SSO authentication side. Ory Polis
+
+### Deploy Ory Polis
+
+Ory Polis The Ory Poliss to deploy the Ory Polis service. Follow the [deployment docs](../../guides/service.mdx) to install and
+configure the Ory Polis.
+
+### Setup Ory Polis Integration
+
+We'll use the client library `@bity/oauth2-auth-code-pkce` to implement the authentication process. It is a zero-dependency OAuth
+2.0 client implementing the authorization code grant with PKCE for client-side protection.
+
+```bash
+npm i --save @bity/oauth2-auth-code-pkce
+```
+
+Let's configure the `OAuth2AuthCodePKCE` client to use the Ory Polis service for authentication. Here we use a custom hook so that
+the `oauthClient` can be used elsewhere in the app.
+
+```ts title="src/hooks/useOAuthClient.ts"
+import { OAuth2AuthCodePKCE } from "@bity/oauth2-auth-code-pkce"
+import { useEffect, useState } from "react"
+
+const JACKSON_URL = process.env.REACT_APP_JACKSON_URL
+
+interface OauthClientOptions {
+  redirectUrl: string
+}
+export default function useOAuthClient({ redirectUrl }: OauthClientOptions): OAuth2AuthCodePKCE | null {
+  const [oauthClient, setOauthClient] = useState<OAuth2AuthCodePKCE | null>(null)
+
+  useEffect(() => {
+    setOauthClient(
+      new OAuth2AuthCodePKCE({
+        authorizationUrl: `${JACKSON_URL}/api/oauth/authorize`,
+        tokenUrl: `${JACKSON_URL}/api/oauth/token`,
+        // Setting the clientId dummy here. We pass additional query params for
+        // tenant and product in the authorize request.
+        clientId: "dummy",
+        redirectUrl,
+        scopes: [],
+        onAccessTokenExpiry(refreshAccessToken) {
+          console.log("Expired! Access token needs to be renewed.")
+          alert("We will try to get a new access token via grant code or refresh token.")
+          return refreshAccessToken()
+        },
+        onInvalidGrant(refreshAuthCodeOrRefreshToken) {
+          console.log("Expired! Auth code or refresh token needs to be renewed.")
+          alert("Redirecting to auth server to obtain a new auth grant code.")
+          //return refreshAuthCodeOrRefreshToken();
+        },
+      }),
+    )
+  }, [redirectUrl])
+
+  return oauthClient
+}
+```
+
+### Setup global Authentication primitives
+
+#### AuthContext
+
+We need a way to make the logged-in `user` as well as the `signIn`, `signOut` methods accessible globally. These, along with the
+`setTenant` (method used to select the tenant for the SSO flow) and `authStatus` (boolean which helps us to conditionally render
+content based on whether the authenticated status is fully known or being loaded) are made available throughout the application by
+using `AuthContext`.
+
+```tsx title="src/lib/AuthProvider.tsx"
+import React, { useState, useEffect, ReactNode, createContext } from "react"
+import { useLocation } from "react-router-dom"
+import useOAuthClient from "../hooks/useOAuthClient"
+import { authenticate, getProfileByJWT } from "./backend"
+
+interface ProviderProps {
+  children: ReactNode
+}
+
+interface AuthContextInterface {
+  setTenant?: React.Dispatch<React.SetStateAction<string>>
+  authStatus: "UNKNOWN" | "FETCHING" | "LOADED"
+  user: any
+  signIn: () => void
+  signOut: (callback: VoidFunction) => void
+}
+
+// localstorage key to store from url
+const APP_FROM_URL = "appFromUrl"
+
+export const AuthContext = createContext<AuthContextInterface>(null!)
+```
+
+We also create a custom hook that returns a handle to the `AuthContext`.
+
+```ts title="src/hooks/useAuth.ts"
+import { useContext } from "react"
+import { AuthContext } from "../lib/AuthProvider"
+
+const useAuth = () => {
+  return useContext(AuthContext)
+}
+
+export default useAuth
+```
+
+#### AuthProvider
+
+We will wire up the flow inside the AuthProvider.
+
+1.  Once the app shell is rendered, we run an effect that uses the `authClient` from `useOAuthClient` to conduct the flow. Two
+    scenarios need to be handled here. The first one is the case where we have secured an access_token from the SSO provider (Ory
+    Polis) in which case we can retrieve the logged-in user profile by passing in the cookie. The second one is the case where the
+    browser gets redirected back to the app, after signing in at IdP. The authorization code in the redirect is exchanged for an
+    access token which is then passed to the app backend to complete the login.
+
+    ```tsx title="src/lib/AuthProvider.tsx"
+      const AuthProvider = ({ children }: ProviderProps) => {
+        const [user, setUser] = useState<any>(null);
+        const [authStatus, setAuthStatus] = useState<AuthContextInterface['authStatus']>('UNKNOWN');
+
+        ...
+
+        const redirectUrl = process.env.REACT_APP_APP_URL + from;
+
+        const authClient = useOAuthClient({ redirectUrl });
+
+        useEffect(() => {
+          let didCancel = false;
+
+          const loadUser = async () => {
+            if (!authClient) {
+              return;
+            }
+            setAuthStatus('FETCHING');
+            if (authClient.isAuthorized()) {
+              const { data, error } = await getProfileByJWT();
+              if (!didCancel && !error) {
+                setUser(data);
+                setAuthStatus('LOADED');
+              }
+            } else {
+              try {
+                const hasAuthCode = await authClient?.isReturningFromAuthServer();
+                if (!hasAuthCode) {
+                  devLogger('no auth code detected...');
+                } else {
+                  const token = !didCancel
+                    ? await authClient?.getAccessToken()
+                    : null;
+                  token && localStorage.removeItem(APP_FROM_URL);
+                  // authentication happens at the backend where the above token is used
+                  // to retrieve user profile
+                  const profile = await authenticate(token?.token?.value);
+                  if (!didCancel && profile) {
+                    setUser(profile);
+                  }
+                }
+              } catch (err) {
+                console.error(err);
+              } finally {
+                setAuthStatus('LOADED');
+              }
+            }
+          };
+
+          loadUser();
+          return () => {
+            didCancel = true;
+          };
+        }, [authClient]);
+
+        ...
+
+         const value = {
+          authStatus,
+          user,
+        };
+
+        return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+      };
+
+      export { AuthContext, AuthProvider };
+    ```
+
+2.  When someone tries to access protected/private routes they will be redirected to the login page. Before we do this we save the
+    current location they were trying to access in the history state. This logic is encapsulated in the `RequireAuth` wrapper
+    component. Use it to protect routes that require authentication.
+
+    ```tsx title="src/components/RequireAuth.tsx"
+    const RequireAuth = ({ children }: { children: JSX.Element }) => {
+      let { user, authStatus } = useAuth()
+      let location = useLocation()
+
+      if (authStatus !== "LOADED") {
+        return null
+      }
+
+      if (!user) {
+        // Redirect them to the /login page, but save the current location they were
+        // trying to go to when they were redirected. This allows us to send them
+        // along to that page after they login, which is a nicer user experience
+        // than dropping them off on the home page.
+        return <Navigate to="/login" state={{ from: location }} replace />
+      }
+
+      return children
+    }
+
+    export default RequireAuth
+    ```
+
+    We then use the `from` state in the `redirectUrl` to construct the `oAuthClient` inside `AuthProvider`.
+
+    ```ts title="src/lib/AuthProvider.tsx"
+    let location = useLocation()
+    let from = location.state?.from?.pathname || localStorage.getItem(APP_FROM_URL) || "/profile"
+
+    const redirectUrl = process.env.REACT_APP_APP_URL + from
+
+    const authClient = useOAuthClient({ redirectUrl })
+    ```
+
+3.  `signIn` and `signOut` methods can be implemented as follows:
+
+    ```tsx title="src/lib/AuthProvider.tsx"
+    const signIn = async () => {
+      // store the 'from' url before redirecting ... we need this to correctly initialize
+      // the oauthClient after getting redirected back from SSO Provider.
+      localStorage.setItem(APP_FROM_URL, from)
+      // Initiate the login flow
+      await authClient?.fetchAuthorizationCode({
+        tenant,
+        product: "saml-demo.boxyhq.com",
+      })
+    }
+
+    const signOut = async (callback: VoidFunction) => {
+      authClient?.reset()
+      setUser(null)
+      callback()
+    }
+
+    const value = {
+      signIn,
+      signOut,
+    }
+
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+    ```
+
+### Make authentication request
+
+Let's add a page to begin the authenticate flow. This page initiates (by calling `signIn` from the `AuthContext`) the SAML SSO
+flow by redirecting the users to their configured Identity Provider (via Ory Polis).
+
+The user will be redirected to the IdP when clicking the "Continue with SAML SSO" button.
+
+```js title="src/pages/Login.tsx"
+import React from "react"
+import { Navigate, useLocation } from "react-router-dom"
+import useAuth from "../hooks/useAuth"
+
+const Login = () => {
+  let location = useLocation()
+
+  let from = location.state?.from?.pathname || "/profile"
+
+  const { signIn, setTenant, authStatus, user } = useAuth()
+
+  if (authStatus !== "LOADED") {
+    return null
+  }
+
+  if (authStatus === "LOADED" && user) {
+    return <Navigate to={from} replace />
+  }
+
+  return (
+    <div className="mx-auto h-screen max-w-7xl">
+      <div className="flex h-full flex-col justify-center space-y-5">
+        <h2 className="text-center text-3xl">Log in to App</h2>
+        <div className="mx-auto w-full max-w-md px-3 md:px-0">
+          <div className="rounded border border-gray-200 bg-white py-5 px-5">
+            <form className="space-y-3" method="POST" onSubmit={signIn}>
+              <label htmlFor="tenant" className="block text-sm">
+                Tenant ID
+              </label>
+              <input
+                type="text"
+                name="tenant"
+                placeholder="boxyhq"
+                defaultValue="boxyhq.com"
+                className="block w-full appearance-none rounded border border-gray-300 text-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500"
+                required
+                onChange={(e) => typeof setTenant === "function" && setTenant(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="w-full rounded border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white focus:outline-none"
+              >
+                Continue with SAML SSO
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Login
+```
+
+### Fetch user profile
+
+Once the `accessToken` has been fetched, the React app can use it to retrieve the user profile from the Identity Provider.
+
+Typically you would use your backend service (Eg: Express.js) to call the Ory Polis API to fetch the user profile using the
+`accessToken`.
+
+Here are the express.js routes that return the user profile either on login or by parsing the JWT from the client-side cookie.
+
+```js
+app.get("/api/authenticate", async function (req, res, next) {
+  const accessToken = req.query.access_token
+
+  if (!accessToken) {
+    throw new Error("Access token not found.")
+  }
+
+  const response = await fetch(`${jacksonUrl}/api/oauth/userinfo?access_token=${accessToken}`, {
+    method: "GET",
+  })
+
+  const profile = await response.json()
+
+  // Once the user has been retrieved from the Identity Provider,
+  // you may determine if the user exists in your application and authenticate the user.
+  // If the user does not exist in your application, you will typically create a new record in your database to represent the user.
+
+  const token = jsonwebtoken.sign(
+    {
+      id: profile.id,
+      email: profile.email,
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+    },
+    jwtSecret,
+  )
+
+  res.cookie("sso-token", token, { httpOnly: true })
+  res.json(profile)
+})
+
+app.get("/api/profile", async function (req, res, next) {
+  const token = req.cookies["sso-token"]
+
+  if (!token) {
+    return res.status(401).json({ data: null, error: { message: "Missing JWT" } })
+  }
+
+  // You may fetch the user profile from your database using the user id.
+
+  const payload = jsonwebtoken.verify(token, jwtSecret)
+
+  return res.json({ data: payload, error: null })
+})
+```
+
+The profile will look something like this:
+
+```json
+{
+  "id":"<id from the Identity Provider>",
+  "email": "jackson@coolstartup.com",
+  "firstName": "SAML",
+  "lastName": "Ory Polis",
+  "requested": {
+    "tenant": "<tenant>",
+    "product": "<product>",
+    "client_id": "<client_id>",
+    "state": "<state>"
+  },
+  "raw": {
+    ...
+  }
+}
+```
+
+In the React app, we call the `getProfileByJWT` if an access_token is already in possession or we call the `authenticate` when
+returning back from SSO provider with the authorization code.
+
+```ts title="src/lib/backend.ts"
+const apiUrl = process.env.REACT_APP_API_URL
+
+export const authenticate = async (token: string | undefined) => {
+  if (!token) {
+    throw new Error("Access token not found.")
+  }
+
+  const response = await fetch(`${apiUrl}/api/authenticate?access_token=${token}`, {
+    method: "GET",
+    credentials: "include",
+  })
+  if (response.ok) {
+    return await response.json()
+  }
+  return null
+}
+
+export const getProfileByJWT = async () => {
+  const response = await fetch(`${apiUrl}/api/profile`, {
+    method: "GET",
+    credentials: "include",
+  })
+
+  return await response.json()
+}
+```

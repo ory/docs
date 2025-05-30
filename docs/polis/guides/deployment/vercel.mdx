@@ -1,0 +1,39 @@
+---
+id: vercel
+title: Deploy Enterprise SSO on Vercel
+sidebar_label: Vercel
+---
+
+# Vercel
+
+This guide will walk you through the configuration and deployment of Ory Polis on Vercel. We'll be using the Vercel **Deploy
+Button** that enables users to deploy apps to Vercel without leaving the web browser and with little or no configuration.
+
+If you don’t have a Vercel account, create one [here](https://vercel.com/signup).
+
+## Deploy Ory Polis
+
+- Fork the the Ory Polis [GitHub repository](https://github.com/ory/polis/fork).
+- Go to the forked repo and click the **Deploy** button from the README section.
+- Select your username under **GIT SCOPE**.
+- Enter a **name** for your project, choose whether you want your repo `private` or `public`, and click **Create**.
+- Fill the **Environment Variables** as per the [documentation](../../deploy/env-variables.mdx).
+- After you've filled everything click the **Deploy** button.
+
+### Verify deployment
+
+You can visit the path `/api/hello` on your app to see if Ory Polis was started. If the installation was successful, you'll see
+the following output on the screen.
+
+```javascript
+{
+  name: "Jules Winnfield"
+}
+```
+
+## Next steps
+
+At this stage you have a functional Ory Polis instance running on your server.
+
+- [Sign into Admin Portal](../../admin-portal/index.mdx#authentication-methods)
+- [Add SAML Configurations](../../admin-portal/enterprise-sso.mdx)

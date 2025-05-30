@@ -1,0 +1,85 @@
+---
+id: index
+title: Get started with Admin Portal
+---
+
+Ory Polis comes with an Admin Portal that allows you to manage **Enterprise SSO**, **Directory Sync** and **Setup Links** products
+via an easy to use web interface.
+
+To enable the Admin Portal, make sure you deploy [Ory Polis as a service](../quickstart.mdx).
+
+## Authentication methods
+
+Ory Polis supports multiple authentication methods. You can choose to use any of the following methods to authenticate users to
+the Admin Portal.
+
+We use [NextAuth](https://next-auth.js.org) to handle authentication. Set the following environment variables to configure the
+authentication.
+
+- `NEXTAUTH_URL`: The URL of your app.
+- `NEXTAUTH_SECRET`: A secret used to encrypt the session cookie. You can generate one using `openssl rand -base64 32`
+
+### Magic links
+
+With Magic Links, you can sign in to the Admin Portal without having to enter a password. The app will send you an email with a
+link to sign in. You'll need SMTP server credentials to send emails.
+
+Configure the following environment variables to enable Magic Links.
+
+- `SMTP_HOST`: SMTP server host
+- `SMTP_PORT`: SMTP server port
+- `SMTP_USER`: SMTP server username
+- `SMTP_PASSWORD`: SMTP server password
+- `SMTP_FROM`: From email address to use when sending Magic Link emails
+- `NEXTAUTH_ACL`: An array of emails or glob patterns. Only these users will be allowed access to the Admin Portal. For example:
+  `NEXTAUTH_ACL=tonystark@gmail.com,*@marvel.com`
+
+Follow the below steps to login into the Admin Portal.
+
+- Visit the path `/api/auth/signin` on your app.
+- Enter the email address that matches the `NEXTAUTH_ACL` and click the button **Send Magic Link**.
+- Open the inbox and you'll see an email from Ory Polis.
+- Open that email and click the button **Sign in**.
+
+### Email and password
+
+With Email and üassword, you can sign in to the Admin Portal using an email address and password. You can use it as an alternative
+to Magic Links or SAML Single Sign-On. This is the easiest way to get started with the Admin Portal.
+
+Configure the environment variable to enable Email and üassword authentication.
+
+- `NEXTAUTH_ADMIN_CREDENTIALS`: A comma separated list of email and password pairs. For example:
+  `david@acme.com:secretpassword,john@acme.com:anotherpassword`
+
+At the moment, set the password as plain text. We'll add support for encrypted passwords soon.
+
+Follow the below steps to login into the Admin Portal.
+
+- Visit the path `/api/auth/signin` on your app.
+- Enter the email address and password that matches the `NEXTAUTH_ADMIN_CREDENTIALS` and click the button **Sign In**.
+
+### SAML or OIDC Single Sign-On
+
+With SAML or OIDC Single Sign-On, you can sign in to the Admin Portal using your Identity Provider. The app will redirect you to
+your Identity Provider to sign in. Once you've signed in, you'll be redirected back to the Admin Portal.
+
+Configure the following environment variables to enable SAML or OIDC Single Sign-On.
+
+- `ADMIN_PORTAL_SSO_TENANT`: This will be used as the tenant for the SSO connections. Set this to a value that is less likely to
+  conflict with the main Enterprise SSO connections.
+- `ADMIN_PORTAL_SSO_PRODUCT`: This will be used as the product for the SSO connections. Set this to a value that is less likely to
+  conflict with the main Enterprise SSO connections.
+
+If not set, the default values will be used which are `_polis_boxyhq` and `_polis_admin_portal`.
+
+To enable SAML/OIDC Single Sign-On, you'll need to access the Admin Portal using either magic links or email and password. Once
+you've logged in, you can configure SAML/OIDC Single Sign-On from the Admin Portal.
+
+Go to **Settings** > **SSO for Admin Portal** and add a new SSO connection. Ory Polis supports both SAML and OIDC protocols.
+
+Follow the below steps to login into the Admin Portal.
+
+- Visit the path `/api/auth/signin` on your app.
+- Click the button **Login with SSO**.
+- You'll be redirected to your SAML Identity Provider to sign in for the authentication and then redirected back to the Admin
+  Portal.

@@ -1,0 +1,250 @@
+---
+id: express
+title: Add SAML SSO to Express.js App with BoxyHQ
+sidebar_label: Express.js
+---
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
+# Add SAML SSO to Express.js App
+
+This guide assumes that you have a Express.js app and want to enable SAML Single Sign-On authentication for your enterprise
+customers. By the end of this guide, you'll have an app that allows you to authenticate the users using SAML Single Sign-On.
+
+Visit the [GitHub repository](https://github.com/ory/polis-examples/tree/main/apps/express) to see the source code for the
+Express.js SAML SSO integration.
+
+Integrating SAML SSO into an app involves the following steps.
+
+- Configure SAML Single Sign-On
+- Authenticate with SAML Single Sign-On
+
+## Configure SAML Single Sign-On
+
+This step allows your tenants to configure SAML connections for their users. Read the following guides to understand more about
+this.
+
+- [UI Best Practices for Configuring SAML Single Sign-On](../configuring-saml-sso.mdx)
+- [SSO Connection API](../../sso-flow/index.mdx)
+
+## Authenticate with SAML Single Sign-On
+
+Once you add a SAML connection, the app can use this SAML connection to initiate the SSO authentication flow using Ory Polis. The
+following sections focuses more on the SSO authentication side.
+
+### Install Ory Polis
+
+To get started with Ory Polis, use the Node Package Manager to add the package to your project's dependencies.
+
+```bash
+npm i --save @boxyhq/saml-jackson
+```
+
+### Setup Ory Polis
+
+Setup the Ory Polis to work with Express.js app.
+
+```js title="jackson.js"
+const baseUrl = "https://your-app.com"
+const samlAudience = "https://saml.boxyhq.com"
+const product = "saml-demo.boxyhq.com"
+const samlPath = "/sso/acs"
+const redirectUrl = `${baseUrl}/sso/callback`
+
+// Ory Polis options
+const options = {
+  externalUrl: baseUrl,
+  samlAudience,
+  samlPath,
+  db: {
+    engine: "sql",
+    type: "postgres",
+    url: "postgres://postgres:postgres@localhost:5432/postgres",
+  },
+}
+
+module.exports = {
+  baseUrl,
+  product,
+  samlPath,
+  redirectUrl,
+  samlAudience,
+  options,
+}
+```
+
+`samlPath` is where the identity provider POST the SAML response after authenticating the user and `redirectUrl` is where Ory
+Polis redirects the user after authentication.
+
+Initialize the Ory Polis as below.
+
+Please note that the initialization of `@boxyhq/saml-jackson` is async. Therefore, you cannot run it at the top level. Instead,
+run this in a function where you initialize the express server.
+
+```js title="routes/index.js"
+const { options, product, redirectUrl } = require("../jackson")
+
+let apiController
+let oauthController
+;(async function init() {
+  const jackson = await require("@boxyhq/saml-jackson").controllers(options)
+
+  apiController = jackson.connectionAPIController
+  oauthController = jackson.oauthController
+})()
+```
+
+### Make authentication request
+
+Let's add a route to begin the authenticate flow; this route initiates the SAML SSO flow by redirecting the users to their
+configured Identity Provider.
+
+<Tabs>
+<TabItem value="01" label="With Tenant and Product" default>
+
+```js title="/routes/index.js"
+router.post("/sso", async (req, res, next) => {
+  const tenant = "boxyhq.com" // The user's tenant
+
+  const { redirect_url } = await oauthController.authorize({
+    tenant,
+    product,
+    state: "a-random-state-value",
+    redirect_uri: redirectUrl,
+  })
+
+  res.redirect(redirect_url)
+})
+```
+
+</TabItem>
+
+<TabItem value="02" label="With Client ID">
+
+```js title="/routes/index.js"
+router.post("/sso", async (req, res, next) => {
+  const clientId = "123456789" // The tenant's client ID
+
+  const { redirect_url } = await oauthController.authorize({
+    client_id: clientId,
+    state: "a-random-state-value", // You can use the `state` parameter to restore application state between redirects.
+    redirect_uri: redirectUrl,
+  })
+
+  res.redirect(redirect_url)
+})
+```
+
+</TabItem>
+</Tabs>
+
+### Receives SAML response
+
+After successful authentication, Identity Provider POST the SAML response to the Assertion Consumer Service (ACS) URL.
+
+Let's add a route to handle the SAML response. Ensure the route matches the value of the `samlPath` you configured while
+initializing the Ory Polis library and should be able to receives POST request.
+
+```js title="/routes/index.js"
+router.post("/sso/acs", async (req, res, next) => {
+  const { RelayState, SAMLResponse } = req.body
+
+  const { redirect_url } = await oauthController.samlResponse({
+    RelayState,
+    SAMLResponse,
+  })
+
+  res.redirect(redirect_url)
+})
+```
+
+### Request access token
+
+Let's add another route for receiving the callback after the authentication. Ensure the route matches the value of the
+`redirectUrl` you configured previously.
+
+The application requests an `access_token` by passing the authorization `code` along with authentication details, including the
+`client_id`, `client_secret`, and `redirect_uri`.
+
+<Tabs>
+<TabItem value="01" label="With Tenant and Product" default>
+
+```js title="/routes/index.js"
+router.get("/sso/callback", async (req, res, next) => {
+  const { code, state } = req.query
+
+  const tenant = "boxyhq.com" // The user's tenant
+  const product = "saml-demo.boxyhq.com" // Your app or product name
+
+  const clientId = `tenant=${tenant}&product=${product}`
+  const clientSecret = "dummy"
+
+  // Exchange the `code` for `access_token`
+  const { access_token } = await oauthController.token({
+    code,
+    client_id: clientId,
+    client_secret: clientSecret,
+    redirect_uri: redirectUrl,
+  })
+})
+```
+
+</TabItem>
+
+<TabItem value="02" label="With Client ID">
+
+```js title="/routes/index.js"
+router.get("/sso/callback", async (req, res, next) => {
+  const { code, state } = req.query
+
+  const clientId = "123456789" // The tenant's client ID
+  const clientSecret = "dUdSOmGoxr" // The tenant's client Secret
+
+  // Exchange the `code` for `access_token`
+  const { access_token } = await oauthController.token({
+    code,
+    client_id: clientId,
+    client_secret: clientSecret,
+    redirect_uri: redirectUrl,
+  })
+})
+```
+
+</TabItem>
+</Tabs>
+
+### Fetch user profile
+
+Once the `access_token` has been fetched, you can use it to retrieve the user profile from the Identity Provider. The `userInfo`
+method returns a response containing the user profile if the authorization is valid.
+
+```js
+const user = await oauthController.userInfo(access_token)
+```
+
+The entire response will look something like this:
+
+```json
+{
+  "id":"<id from the Identity Provider>",
+  "email": "jackson@coolstartup.com",
+  "firstName": "SAML",
+  "lastName": "Jackson",
+  "requested": {
+    "tenant": "<tenant>",
+    "product": "<product>",
+    "client_id": "<client_id>",
+    "state": "<state>"
+  },
+  "raw": {
+    ...
+  }
+}
+```
+
+### Authenticate user
+
+Once the user has been retrieved from the Identity Provider, you may determine if the user exists in your application and
+authenticate the user. If the user does not exist in your application, you will typically create a new record in your database to
+represent the user.
