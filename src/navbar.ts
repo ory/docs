@@ -41,7 +41,7 @@ export const navbar: Navbar = {
           label: "Ory Oathkeeper Zero Trust",
         },
         {
-          to: "/docs/self-hosted/oel/quickstart",
+          to: "/docs/self-hosted/oel",
           label: "Ory Enterprise License",
         },
       ],
