@@ -133,44 +133,8 @@ Public Key Object; RSA 4096 bits
 
 ## Testing with SoftHSM
 
-[SoftHSM](https://www.opendnssec.org/softhsm/) is an implementation of a cryptographic store accessible through a PKCS #11
-interface. You can use it to explore PKCS#11 without having a Hardware Security Module. It's being developed as a part of the
-OpenDNSSEC project.
-
-[Follow these instructions to build SoftHSM from source.](https://wiki.opendnssec.org/display/SoftHSMDOCS/SoftHSM+Documentation+v2)
-
-### Install SoftHSM/OpenSC on Mac OSX
-
-```sh
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 2> /dev/null
-```
-
-```sh
-brew install softhsm
-```
-
-```sh
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 2> /dev/null
-```
-
-```sh
-brew install opensc
-```
-
-### Install SoftHSM/OpenSC on Ubuntu
-
-```sh
-sudo apt update
-```
-
-```sh
-sudo apt install softhsm opensc
-```
-
-### Install SoftHSM/OpenSC on Windows
-
-Follow these instructions to install [SoftHSM](https://github.com/disig/SoftHSM2-for-Windows) and
-[OpenSC](https://github.com/OpenSC/OpenSC/wiki) on windows.
+[SoftHSM](https://www.softhsm.org/) is an implementation of a cryptographic store accessible through a PKCS #11 interface. You can
+use it to explore PKCS#11 without having a Hardware Security Module. It's being developed as a part of the OpenDNSSEC project.
 
 ### Run Ory Hydra with HSM using Docker
 
