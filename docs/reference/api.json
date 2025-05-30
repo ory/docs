@@ -1422,8 +1422,8 @@
             "description": "Configures whether Ory Kratos Passwordless should use the Code Method\n\nThis governs the \"selfservice.methods.code.passwordless_enabled\" setting.",
             "type": "boolean"
           },
-          "kratos_selfservice_methods_code_submit_max": {
-            "description": "Configures how many times a code can be submitted before failing the flow\n\nThis governs the \"selfservice.methods.code.submit_max\" setting.",
+          "kratos_selfservice_methods_code_max_submissions": {
+            "description": "Configures how many times a code can be submitted before failing the flow\n\nThis governs the \"selfservice.methods.code.max_submissions\" setting.",
             "type": "integer"
           },
           "kratos_selfservice_methods_code_passwordless_login_fallback_enabled": {
@@ -6099,8 +6099,8 @@
             "description": "Configures whether Ory Kratos Passwordless should use the Code Method\n\nThis governs the \"selfservice.methods.code.passwordless_enabled\" setting.",
             "type": "boolean"
           },
-          "kratos_selfservice_methods_code_submit_max": {
-            "description": "Configures how many times a code can be submitted before failing the flow\n\nThis governs the \"selfservice.methods.code.submit_max\" setting.",
+          "kratos_selfservice_methods_code_max_submissions": {
+            "description": "Configures how many times a code can be submitted before failing the flow\n\nThis governs the \"selfservice.methods.code.max_submissions\" setting.",
             "type": "integer"
           },
           "kratos_selfservice_methods_code_passwordless_login_fallback_enabled": {
