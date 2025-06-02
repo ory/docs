@@ -468,7 +468,7 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 </BrowserWindow>
 ```
 
-The generated link has an expiry date. Once the link expires, it will no longer work. Additionally, you can revoke the link and
+The generated link has an expiry date. Once the link expires, it will no longer work. Additionally, you can delete the link and
 generate a new one.
 
 ```mdx-code-block
@@ -488,15 +488,54 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
          }'
 ```
 
+Result:
+
+```json
+{
+  "id": "d36ad207-e1a8-4eac-bc1b-c25e223cc15b",
+  "value": "Fhca7DvuRLjQpDslMpYHMfsqSoy7vbI92PAxNlziZDidGBiW",
+  "project_id": "836b03f7-fdce-466a-9407-8595a0f615ce",
+  "organization_id": "517cc5e7-1ab6-4dcf-ba02-00fad003af92",
+  "enable_sso": true,
+  "created_at": "2025-06-02T05:23:45.299988Z",
+  "expires_at": "2025-06-03T05:23:45Z"
+}
+```
+
 The response contains a `value` token that you can use to construct the onboarding portal link as follows:
 
 `https://your-slug.projects.oryapis.com/onboarding/<value>`
 
-#### Revoke an onboarding portal link
+#### Delete an onboarding portal link
 
 ```shell
 curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
+```
+
+#### List onboarding portal links
+
+```shell
+curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY"
+```
+
+Result:
+
+```json
+{
+  "links": [
+    {
+      "id": "d6458578-dbeb-45ee-95e7-3b98168ff313",
+      "value": "eHSoZlTTffFP76ns0DOqBI8CT2daCXqRqO3MSVFi7eEbaRIu",
+      "project_id": "836b03f7-fdce-466a-9407-8595a0f615ce",
+      "organization_id": "517cc5e7-1ab6-4dcf-ba02-00fad003af92",
+      "enable_sso": true,
+      "created_at": "2025-06-02T05:44:24.883665Z",
+      "expires_at": "2025-06-03T05:44:24Z"
+    }
+  ]
+}
 ```
 
 ```mdx-code-block
