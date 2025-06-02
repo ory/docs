@@ -1,20 +1,18 @@
 ---
 id: migrate
-title: Upgrade Ory Hydra OEL
+title: Migrate to Ory Hydra OEL from Self-Hosted Ory Hydra
 ---
 
 This guide outlines the steps to upgrade from self-hosted Ory Hydra to Ory Hydra Enterprise License (OEL). Upgrading to OEL
 provides additional features and support for enterprise customers.
 
-## Prerequisites
+```mdx-code-block
+import Prerequisites from "../oel-common-prerequisites.md"
 
-Before starting the upgrade process, ensure you meet the following requirements:
+<Prerequisites />
+```
 
-1. **Valid Ory Enterprise License**: You must have purchased an Ory Enterprise License.
-2. **Access to the Ory Enterprise Docker Registry**: You need access to download the OEL Docker images.
-3. **Ory Hydra Version**: Your current Ory Hydra installation must be version 2.0 or higher.
-4. **Backup and Testing**: Create a backup of your current Ory Hydra database and test the migration on a test environment to
-   ensure compatibility and minimize risks.
+- **Ory Hydra Version**: Your current Ory Hydra installation must be version 2.0 or higher.
 
 ## Upgrade process
 
