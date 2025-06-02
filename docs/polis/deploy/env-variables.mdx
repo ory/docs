@@ -453,6 +453,23 @@ this to a value that is less likely to conflict with the main Enterprise SSO con
 
 Default: `_polis_admin_portal`
 
+### **RETRACED_HOST_URL**
+
+If you'd like to use the Admin Portal to manage Ory Polis Audit Logs service ([Retraced](https://github.com/retracedhq/retraced))
+then set this env var to the URL of the service.
+
+### **RETRACED_EXTERNAL_URL**
+
+If you'd like to use the Admin Portal to manage Ory Polis Audit Logs service ([Retraced](https://github.com/retracedhq/retraced))
+then set this env var to the Public URL of the service. If this is the same as `RETRACED_HOST_URL` above then you can skip this
+and it will default to the value of `RETRACED_HOST_URL`.
+
+Default: It is set to `RETRACED_HOST_URL` if `RETRACED_EXTERNAL_URL` is not defined.
+
+### **RETRACED_ADMIN_ROOT_TOKEN**
+
+Set the admin root token for Retraced so that we can connect to Retraced and fetch projects and audit logs.
+
 ## Anonymous Analytics
 
 ### **BOXYHQ_NO_TELEMETRY** or **DO_NOT_TRACK**
