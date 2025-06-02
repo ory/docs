@@ -110,7 +110,7 @@ const enhance =
     item.spaceBefore = true
   }
 
-const oryResolver = {
+export const oryResolver = {
   order: 1,
   canRead: /^ory:/i,
   read: ({ url }) => axios.get(refs[url]).then(({ data }) => data),
