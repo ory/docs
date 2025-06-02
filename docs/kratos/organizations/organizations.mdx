@@ -434,3 +434,111 @@ connection whenever you create a new SSO connection on BoxyHQ. All user manageme
 
 To verify the integration, navigate to your Ory Account Experience UI and enter an email associated with the domain you
 configured. If successful, the "Sign in with SSO" button should appear.
+
+### Onboarding portal (preview)
+
+To enable organization admins to set up SAML SSO connections for their organization, you can create a self-service link for them.
+
+:::note
+
+The portal requires that you enable Account Experience 2.0. Onboarding portal is currently in preview. Its features are subject to
+change. Please contact us [Ory Support](mailto:support@ory.sh) if you have any questions or feedback.
+
+:::
+
+#### Manage onboarding portal links
+
+This guide explains how to create an onboarding portal link for an organization.
+
+```mdx-code-block
+<Tabs groupId="console-or-api">
+<TabItem value="console" label="Ory Console">
+```
+
+Go to <ConsoleLink route="project.authentication.organizations" /> and continue by configuring the selected organization.
+
+In the **Edit Organization** page, under the **Onboarding Portal** section, click **Generate link** to create a link. You can then
+share this link with the organization admins.
+
+```mdx-code-block
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+
+<BrowserWindow url="https://console.ory.sh/projects/<id>/authentication/organizations/<id>/edit">
+    ![Onboarding portal link](./_static/onboarding-portal-link.png)
+</BrowserWindow>
+```
+
+The generated link has an expiry date. Once the link expires, it will no longer work. Additionally, you can delete the link and
+generate a new one.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="api" label="API">
+```
+
+#### Create an onboarding portal link
+
+```shell
+curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "expires_at": "2025-06-01T00:00:00Z",
+           "enable_sso": true
+         }'
+```
+
+Result:
+
+```json
+{
+  "id": "d36ad207-e1a8-4eac-bc1b-c25e223cc15b",
+  "value": "Fhca7DvuRLjQpDslMpYHMfsqSoy7vbI92PAxNlziZDidGBiW",
+  "project_id": "836b03f7-fdce-466a-9407-8595a0f615ce",
+  "organization_id": "517cc5e7-1ab6-4dcf-ba02-00fad003af92",
+  "enable_sso": true,
+  "created_at": "2025-06-02T05:23:45.299988Z",
+  "expires_at": "2025-06-03T05:23:45Z"
+}
+```
+
+The response contains a `value` token that you can use to construct the onboarding portal link as follows:
+
+`https://your-slug.projects.oryapis.com/onboarding/<value>`
+
+#### Delete an onboarding portal link
+
+```shell
+curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY"
+```
+
+#### List onboarding portal links
+
+```shell
+curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY"
+```
+
+Result:
+
+```json
+{
+  "links": [
+    {
+      "id": "d6458578-dbeb-45ee-95e7-3b98168ff313",
+      "value": "eHSoZlTTffFP76ns0DOqBI8CT2daCXqRqO3MSVFi7eEbaRIu",
+      "project_id": "836b03f7-fdce-466a-9407-8595a0f615ce",
+      "organization_id": "517cc5e7-1ab6-4dcf-ba02-00fad003af92",
+      "enable_sso": true,
+      "created_at": "2025-06-02T05:44:24.883665Z",
+      "expires_at": "2025-06-03T05:44:24Z"
+    }
+  ]
+}
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
