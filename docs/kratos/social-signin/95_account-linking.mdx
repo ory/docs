@@ -1,52 +1,66 @@
 ---
 id: account-linking
-title: Manage social sign-in providers linked to user accounts
+title: Manage social login providers linked to user accounts
 sidebar_label: Account linking
 slug: link-multiple-provider-account
 ---
 
-# User account linking
+# Account linking
 
-Ory allows users to link their accounts to social sign-in providers after they signed up, as well as un-link social sign-in
-providers they previously added.
+Ory supports three types of account linking:
 
-:::info
+- Manual account linking through account settings.
+- Account linking during login with a social login or single sign on provider.
+- Automatic account linking for imported users without additional user interaction.
 
-Users can link their accounts only to social providers you configured in your Ory project.
+Ory does not support automatic account linking for users who sign up with a social login provider. This is to prevent account
+takeover attacks.
 
-:::
+## Manual account linking
+
+Ory allows users to link their accounts to social login providers after they signed up, as well as un-link social login providers
+they previously added.
 
 Users can link and unlink accounts:
 
-- to start signing in with a profile created in a social sign-in provider when they originally signed up with email and password
-- to link another social sign-in provider to their profile so that they can sign in with their GitHub profile and their Facebook
+- to start signing in with a profile created in a social login provider when they originally signed up with email and password
+- to link another social login provider to their profile so that they can sign in with their GitHub profile and their Facebook
   profile
-- to remove a social sign-in provider link from the profile (possible only when multiple sign-in methods are available to prevent
+- to remove a social login provider link from the profile (possible only when multiple login methods are available to prevent
   locking users out from accounts)
 
-## Link accounts
+### Link accounts
 
 Users can link accounts manually through their account's settings page. To try out account linking, use the Ory Account
 Experience. Follow these steps:
 
-1. Configure at least two sign-up methods in your Ory project. One of these methods must be through a social sign-in provider.
-2. Go to your project's Ory Account Experience at `https://$PROJECT_SLUG.projects.oryapis.com/ui` and sign up.
+1. Configure at least two sign-up methods in your Ory project. One of these methods must be through a social login provider.
+2. Go to your project's Ory Account Experience at `https://$PROJECT_SLUG.projects.oryapis.com/ui/registration` and sign up.
 3. After you sign up, go to **Account Settings** and navigate to the **Social Sign In** section.
-4. Select one of the buttons to link an available social sign-in provider.
+4. Select one of the buttons to link an available social login provider.
 
-## Unlink accounts
+### Unlink accounts
 
-Users with multiple sign-in methods can unlink social sign-in providers from their account through their account's settings page.
-To try out account un-linking, use the Ory Account Experience. Follow these steps:
+Users with multiple login methods can unlink social login providers from their account through their account's settings page. To
+try out account un-linking, use the Ory Account Experience. Follow these steps:
 
 1. Go to your project's Ory Account Experience at `https://$PROJECT_SLUG.projects.oryapis.com/ui` and sign in with a user account
-   with multiple sign-in methods available.
+   with multiple login methods available.
 2. Go to **Account Settings** and navigate to the **Social Sign In** section.
-3. Use the buttons to unlink a social sign-in provider.
+3. Use the buttons to unlink a social login provider.
 
-## Automatic account linking
+## Account linking on login and registration
 
-Users can link social sign-in accounts on login without interaction using a secure flow. This is how it works:
+Users can link their accounts to social login providers during login or registration. This is useful when users sign up with a
+social login provider and later want to link their account to another social login provider or to an email and password account:
+
+1. The user creates an account with the identifier `alice@example.com`, which is also a verifiable address, and a login method
+   such as a password or passkey.
+1. When signing in later, the user signs in with a SSO login provider. That SSO account (through the OIDC userinfo endpoint or the
+   ID token) returns a **verified email** of `alice@example.com`.
+1. Since the verified address already exists, the user will be prompted to enter the password chosen in step 1.
+1. After entering the correct password, the SSO provider is linked to the user's account. Now they can sign in with either
+   password or SSO provider.
 
 ```mdx-code-block
 import Mermaid from "@theme/Mermaid"
@@ -60,9 +74,9 @@ import Mermaid from "@theme/Mermaid"
     E["Prompt for password"]
     F{"Is password correct?"}
     G["Link social to account"]
-    H["Sign-in successful. Use password or social"]
+    H["login successful. Use password or social"]
     I["Authentication failed"]
-    J["Sign-in successful with social"]
+    J["login successful with social"]
 
     A --> B --> C --> D
     D -->|Yes| E --> F
@@ -74,29 +88,127 @@ import Mermaid from "@theme/Mermaid"
 />
 ```
 
-1. The user creates an account with the identifier `alice@example.com` and a password.
-1. When signing in later, the user signs in with a social sign-in provider. That social sign-in account (through the OIDC userinfo
-   endpoint or the identity token) contains the same identifier `alice@example.com`.
-1. Since the identifier already exists, the user can't be logged in directly. Instead, the user will be prompted to enter the
-   password chosen in step 1.
-1. After entering the correct password, the social sign-in is linked to the user's account. Now they can sign in with either
-   password or social sign-in provider.
+### Automatic account linking
 
-### Security considerations
+In some migration scenarios, the legacy system may only store the email address of the SSO user, but not the subject identifier
+typically used for performing SSO flows. To solve this migration case, automatic account linking can be used. This allows users to
+sign in with a social login provider without having to enter their password, as long as the email address is verified and the
+email address is already associated as a verifiable address with an account in Ory.
 
-Automatic account linking can be a security risk. Consider this scenario:
+To enable automatic account linking for a specific user, import the user into Ory with the `oidc` credentials using the
+[`createIdentity`](../../reference/api#tag/identity/operation/createIdentity) or
+[`batchPatchIdentities`](../../reference/api#tag/identity/operation/batchPatchIdentities) API endpoints. The payload of an
+individual identity would look like this:
 
-1. Your application allows users to create new accounts or sign in with ACME.
-1. John creates an account with his email `john@doe.com`.
-1. Malicious actors create an ACME account for `john@doe.com`.
-1. They sign up in your app using this ACME account.
-1. Your system, detecting duplicate accounts, prompts for account linking.
-1. Malicious actors link the accounts, gaining access to John's account.
+```json {13-14}
+{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-oidc@example.org"
+    // Depending on your identity schema, you may include additional traits here
+  },
+  "credentials": {
+    "oidc": {
+      "config": {
+        "providers": [
+          {
+            "provider": "github",
+            "subject": "the-email@example.org",
+            "use_auto_link": true
+          }
+        ]
+      }
+    }
+  }
+}
+```
 
-To prevent this, users need to verify an additional credential before the accounts can be linked. In the scenario above, the
-malicious actors would be prompted to enter the password associated with the `jon@doe.com` identifier.
+Additionally, your Ory project must have the `use_auto_link` feature flag enabled. To enable it, please reach out to Ory support
+or your account executive. This feature is only available for Ory Network or self-hosted enterprise customers.
 
-### Hide irrelevant authentication methods
+## Account linking security considerations
+
+Ory does **not** support fully automatic account linking when users sign up with a social login provider. This restriction is in
+place to mitigate several classes of account takeover attacks. Even though automatic linking can improve UX, it opens up critical
+security risks. Below are key threat models that justify this decision.
+
+### Risks from verified email addresses
+
+Automatic account linking typically relies on verified email addresses returned by social login providers. This is not sufficient
+to prove identity in many real-world cases:
+
+#### Email domain control is not proof of identity
+
+An attacker can register a domain like `acme.org` (e.g. because it expired) and configure an email `john.doe@acme.org`. If your
+app uses automatic linking and trusts the email `john.doe@acme.org` as proof of identity, this attacker could take over an
+existing user's account if they used the same email.
+
+Even worse, many companies expose **dangling CNAMEs** or unused subdomains. If an attacker can hijack a subdomain (e.g.,
+`email.acme.org`), they may also be able to receive email for `*@email.acme.org`, enabling targeted takeovers.
+
+#### Email address re-use
+
+Many identity systems—especially corporate IAMs or consumer-grade email providers—allow **re-creating previously used email
+addresses**. For example:
+
+- A former employee leaves and the company reassigns `jane.doe@company.com` to a new hire.
+- A consumer email service recycles unused email addresses.
+
+In both cases, a new person ends up with a previously owned address. If automatic linking were enabled based on the email alone,
+the new person could gain access to the old user's account.
+
+#### Inconsistent or unverified OIDC claims
+
+Social login providers vary in how they handle and expose the `email_verified` claim. Some always set it to `true` even if they
+haven't verified the email properly. Others provide partial or incomplete OIDC claims. Relying on these can create false trust in
+identities.
+
+Additionally, users can sometimes **change their email address** with the provider (e.g., Google, GitHub) without re-verification,
+which invalidates the previous link’s integrity.
+
+#### Summary of security risks
+
+| Threat              | Description                                            | Risk                   |
+| ------------------- | ------------------------------------------------------ | ---------------------- |
+| Domain spoofing     | Attacker controls domain or subdomain to receive email | Full account takeover  |
+| Email re-use        | Providers or companies recycle email addresses         | Unauthorized access    |
+| Weak identity proof | OIDC claims may be unverified or modifiable            | False identity linking |
+| Dangling DNS        | Subdomains with CNAME takeovers enable abuse           | Malicious registration |
+
+#### Ory’s security model
+
+To avoid these risks:
+
+- Ory **requires an additional verification step**, like password or passkey input, before linking a new login method.
+- Automatic account linking is only allowed for **pre-provisioned identities** where you explicitly configure the trusted linkage
+  using the `use_auto_link` flag via the API.
+- The `use_auto_link` feature is **not enabled by default** and only available for Ory Network and Enterprise customers after
+  security evaluation.
+
+##### Conditions for safe automatic linking
+
+Some identity providers enforce stricter identity guarantees and may be considered for automatic account linking in the future
+under a feature flag. These providers must meet several criteria:
+
+- **Strong verification of email ownership**: The `email_verified` claim must be reliably set only after a secure email
+  verification process.
+- **No email address reuse**: Once an email address has been used, it must never be reassigned to another user.
+- **Trusted domains**: The provider must control and protect its domains (e.g., `gmail.com`, `icloud.com`) and prevent misuse via
+  dangling subdomains or unowned DNS entries.
+- **Immutable identifiers**: Changes to the user's email address must not silently affect the linked identity without
+  re-verification or user intent.
+
+Examples of providers that are likely to meet these standards include:
+
+- **Google** (Gmail): Strong domain control, verified email, and no email recycling.
+- **Apple** (iCloud): Verified identities and strict lifecycle policies.
+
+Ory is evaluating support for automatic account linking under a **feature flag** for selected, well-defined providers that meet
+these security conditions.
+
+### Troubleshooting
+
+#### Hide irrelevant authentication methods
 
 Depending on the use case it might be required to show all configured authentication methods to the user. This can be confusing
 for users who have accounts with different authentication methods.
