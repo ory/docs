@@ -57,8 +57,9 @@ social login provider and later want to link their account to another social log
 1. The user creates an account with the identifier `alice@example.com`, which is also a verifiable address, and a login method
    such as a password or passkey.
 1. When signing in later, the user signs in with a SSO login provider. That SSO account (through the OIDC userinfo endpoint or the
-   ID token) returns a **verified email** of `alice@example.com`.
-1. Since the verified address already exists, the user will be prompted to enter the password chosen in step 1.
+   ID token) returns a verified or unverified email of `alice@example.com`. Email verification is not required for this flow due
+   to the verification step that follows (e.g. entering the password of the account to be merged).
+1. Since the email address already exists, the user will be prompted to enter the password chosen in step 1.
 1. After entering the correct password, the SSO provider is linked to the user's account. Now they can sign in with either
    password or SSO provider.
 
