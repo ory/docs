@@ -651,11 +651,12 @@ Connect ID Token provider such as Google.
 
 #### Importing social sign-in connections with email
 
-If your system doesn't have a `subject` ID, you can use the email address as the subject. This isn't recommended, as the email
-address may change over time, and the user may not be able to log in if the email address changes.
+If the previous system did not record the immutable user/subject ID but only the connection's email address, Ory provides a way to
+automatically link the email address with the social sign-in provider. However, the email address must be available for this
+process.
 
-To solve this use case, read the
-[automatic account linking on import documentation](../social-signin/95_account-linking.mdx#automatic-account-linking).
+For more details, refer to the
+[automatic account linking documentation](../social-signin/95_account-linking.mdx#automatic-account-linking).
 
 ### SAML connections
 
