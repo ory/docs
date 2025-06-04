@@ -8,11 +8,12 @@ slug: two-step-registration
 [Identity traits](../../kratos/manage-identities/managing-users-identities-metadata#traits) are data associated with an identity
 that can be modified by the user. The traits are configured through the identity schema.
 
-With a one-step registration - also called _unified registration_ - the identity traits will be repeated for each authentication
-strategy. For example the identity traits will be repeated for the password, the code via email, and the passkey method. For this
-reason unified registration is recommended for use cases where you have only one or two authentication methods enabled.
+With unified registration - formerly called one-step legacy registration - the identity traits will be repeated for each
+authentication strategy. For example the identity traits will be repeated for the password, the code via email, and the passkey
+method. For this reason unified registration is recommended for use cases where you have only one or two authentication methods
+enabled.
 
-With a two-step registration - also called _profile-first registration_ - the user is prompted for the identity traits in the
+With a profile-first registration - formerly called two-step registration - the user is prompted for the identity traits in the
 first step, and asked to choose a credential method for authentication next. This results in a more stream-lined user experience
 when you have more than two authentication methods enabled.
 
