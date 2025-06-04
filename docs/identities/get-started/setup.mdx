@@ -1,0 +1,155 @@
+---
+id: setup
+title: Configure Ory
+sidebar_label: Configure Ory
+---
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeBlock from '@theme/CodeBlock'
+import { FrameworkCodeTabs } from '@site/src/components/GuidesComponents'
+import nextDevSetup from '!!raw-loader!./_common/code-examples/nextjs/ory.ts'
+import goSetup from '!!raw-loader!./_common/code-examples/go/ory_client.go'
+import jsDevSetup from '!!raw-loader!./_common/code-examples/js/setupDev.js'
+```
+
+This guide shows how to set up the necessary dependencies and configurations to integrate Ory's identity management features into
+your application.
+
+## Prerequisites
+
+Before starting, ensure you have:
+
+1. An [Ory network account](https://console.ory.sh)
+2. Your Ory project id
+3. Your development environment set up with your framework of choice
+
+First, install the Ory SDK for your framework:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```shell
+npm install @ory/client-fetch --save
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+```shell
+npm install @ory/client-fetch --save
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```shell
+go get github.com/ory/client-go
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+## Set up local development with Ory Tunnel
+
+For local development, you'll need to use Ory Tunnel to connect your local application with Ory's APIs:
+
+```mdx-code-block
+<Tabs
+  defaultValue="macos"
+  values={[
+    {label: 'macOS', value: 'macos'},
+    {label: 'Linux', value: 'linux'},
+  ]}>
+<TabItem value="macos">
+```
+
+```shell
+# Install Ory CLI using Homebrew
+brew install ory/tap/cli
+
+# Verify installation
+ory help
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="linux">
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+After installing the CLI, start the tunnel to connect your local application with Ory's APIs:
+
+```shell
+# Start the tunnel (replace with your project id)
+ory tunnel --project $PROJECT_ID http://localhost:3000
+```
+
+:::tip
+
+To learn more about the Ory Tunnel, read the [dedicated section of the Ory CLI documentation](../../guides/cli/proxy-and-tunnel).
+
+:::
+
+## Configure the SDK
+
+Configure your SDK to use the URL:
+
+```mdx-code-block
+<FrameworkCodeTabs>
+<TabItem value="javascript">
+```
+
+```mdx-code-block
+<CodeBlock language="js"> {jsDevSetup} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="nextjs">
+```
+
+```mdx-code-block
+ <CodeBlock
+  language="ts"
+  title="lib/ory.ts"> {nextDevSetup} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="go">
+```
+
+```mdx-code-block
+ <CodeBlock language="go" title="ory_client.go"> {goSetup} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+</FrameworkCodeTabs>
+```
+
+For local development, set the `ORY_SDK_URL` environment variable to the **local tunnel** URL:
+
+```shell
+export ORY_SDK_URL=http://localhost:4000
+```
+
+For production environments, set the `ORY_SDK_URL` environment variable to the production URL:
+
+```shell
+export ORY_SDK_URL=https://$PROJECT_SLUG.projects.ory.sh
+```

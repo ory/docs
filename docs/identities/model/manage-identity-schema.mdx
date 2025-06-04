@@ -12,14 +12,12 @@ This document explains how to create, update, and manage identity schemas in Ory
 
 ## Use an existing preset
 
-Ory Network provides four basic preset schemas that are ready to use out of the box. If you are just getting started with Ory
-Network, use one of the presets to make your life easier.
+Ory Network provides basic preset schemas that are ready to use out of the box. If you are just getting started with Ory Network,
+use one of the presets to make your life easier.
 
 1. Go to <ConsoleLink route="project.identitySchema" />.
 2. From the **Active schema** drop down, select the schema you want to use.
 3. Click the **Change active schema** button to apply the schema to your project.
-
-![Active schema dropdown](./_assets/activate-preset-schema.png)
 
 :::caution
 
@@ -43,8 +41,6 @@ If the presets do not fit your needs, you can create a custom schema. Follow the
    [customization options](/kratos/manage-identities/15_customize-identity-schema.mdx).
 6. Click the **Save** button to save.
 7. Confirm the changes by clicking the **Confirm** button in the confirmation dialog.
-
-![Create a new schema](./_assets/custom-schema-editor.png)
 
 To make this schema the active schema for your project, select the newly created schema from the **Active schema** dropdown and
 click the **Change active schema** button.
@@ -72,7 +68,7 @@ However, you can use the existing schema as a template to create a new schema. S
 [Creating custom schemas](#creating-custom-schemas) and select the current schema as a template.
 
 It's recommended to manage identity schemas in version control. Learn more about
-[managing Ory Network configuration in git](http://ory.sh/docs/guides/gitops).
+[managing Ory Network configuration in git](../../guides/gitops).
 
 ## Update identities to use a new schema
 
@@ -105,9 +101,8 @@ the steps 4 to 7 or check out the example code for bulk updating identities belo
 
 4. Find the identity to be updated and note down their `id`.
 
-5. To update the identity, you need to use the
-   [Admin API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity). The API requires the Ory Network
-   [Project slug](https://console.ory.sh/projects/current/settings),
+5. To update the identity, you need to use the [Admin API](../../reference/api#tag/identity/operation/updateIdentity). The API
+   requires the Ory Network [Project slug](https://console.ory.sh/projects/current/settings),
    [API Key](https://console.ory.sh/projects/current/developers), and identity ID. Set them as environment variables:
 
    ```bash
@@ -124,7 +119,7 @@ the steps 4 to 7 or check out the example code for bulk updating identities belo
 <Tabs>
 <TabItem value="updateidentitypatch" label="cURL and patchIdentity" default>
 
-Using the [patchIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/operation/patchIdentity), you can change the
+Using the [patchIdentity API](../../reference/api#tag/identity/operation/patchIdentity), you can change the
 identity schema and traits directly.
 
 Using patchIdentity is the recommended way to update identities.
@@ -160,7 +155,7 @@ This should return the modified identity as the response.
 
 :::note
 
-This example uses the [Ory Go SDK](https://github.com/ory/client-go). If you wish to use a different programming language for identity schema migration, you can apply the same logic using the [Ory SDK for your programming language](https://www.ory.sh/docs/sdk). Ory can also provide
+This example uses the [Ory Go SDK](https://github.com/ory/client-go). If you wish to use a different programming language for identity schema migration, you can apply the same logic using the [Ory SDK for your programming language](../../sdk). Ory can also provide
 example code in your preferred language. Please contact `support@ory.sh`.
 
 :::
@@ -259,7 +254,7 @@ func migrateSchema(toSchema, identityID string) error {
 
 <TabItem value="updateidentitycurlput" label="cURL and updateIdentity">
 
-Update the identity using the [updateIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity):
+Update the identity using the [updateIdentity API](../../reference/api#tag/identity/operation/updateIdentity):
 
 1. Save the existing identity
 
@@ -289,7 +284,7 @@ Update the identity using the [updateIdentity API](https://www.ory.sh/docs/refer
 
 :::info
 
-The [updateIdentity API](https://www.ory.sh/docs/reference/api#tag/identity/operation/updateIdentity) overwrites the existing identity with the one provided in the request body. Omit any fields that should not be changed, including the `credentials` field.
+The [updateIdentity API](../../reference/api#tag/identity/operation/updateIdentity) overwrites the existing identity with the one provided in the request body. Omit any fields that should not be changed, including the `credentials` field.
 
 :::
 

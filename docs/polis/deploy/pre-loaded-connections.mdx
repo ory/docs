@@ -1,0 +1,50 @@
+# Pre-loaded SSO Connections
+
+#### SAML
+
+If PRE_LOADED_CONNECTION is set then it should point to a directory with the following structure (example below):-
+
+```bash
+example.js
+example.xml
+anothertenant.js
+anothertenant.xml
+```
+
+The JS file has the following structure:-
+
+```javascript
+module.exports = {
+  defaultRedirectUrl: "http://localhost:3366/login/saml",
+  redirectUrl: '["http://localhost:3366/*"]',
+  tenant: "example.com",
+  product: "demo",
+  name: "testConnection",
+  description: "Just a test connection",
+}
+```
+
+The XML file (which should have the same name as the .js file) is the raw XML metadata file you receive from your Identity
+Provider. Please ensure it is saved in the `utf-8` encoding.
+
+The config and XML above correspond to the [Add connection API - SAML tab](../sso-flow/index.mdx).
+
+#### OIDC
+
+For a connection backed by OpenID IdP create the \*.js file at PRE_LOADED_CONNECTION as shown below:-
+
+See [Add connection API - OIDC tab](../sso-flow/index.mdx)
+
+```javascript
+module.exports = {
+  defaultRedirectUrl: "http://localhost:3366/sso/oauth/oidc",
+  redirectUrl: '["http://localhost:3366"]',
+  tenant: "oidc.example.com",
+  product: "crm",
+  name: "OIDC connection for oidc.example.com",
+  description: "OIDC connection for oidc.example.com",
+  oidcDiscoveryUrl: "https://accounts.google.com/.well-known/openid-configuration",
+  oidcClientId: "<ClientId from the OpenID IdP>",
+  oidcClientSecret: "<ClientSecret from the OpenID IdP>",
+}
+```

@@ -1,0 +1,31 @@
+---
+id: quickstart
+title: Quickstart
+---
+
+There are two ways to integrate the Directory Sync within your application:
+
+- As a separate service
+  - This is available for all frameworks and languages.
+  - The advantage of running a separate service is that you get all of the UI tooling such as the Admin Portal to handle the SSO
+    and Directory Sync connections with the service.
+  - The disadvantage is that you have to manage the operations of a separate service.
+
+Read more about [how to run the Ory Polis service](../quickstart.mdx)
+
+As a service Ory Polis uses webhooks to notify your application any time changes are made to directory users and groups. You can
+use webhooks to trigger actions in your application, such as creating a new user in your application, or updating a user in your
+application based on the changes made in the directory.
+
+- As an NPM library
+  - This is available only if you are developing your application using Node.js.
+  - The advantage of embedding Ory Polis as an npm library is that you do not have to manage the operations of a separate service.
+  - The disadvantage is that you do not get the UI tooling such as the Admin Portal with this method.
+
+For the NPM quickstart head over to the [NPM quickstart](../guides/npm-library.mdx) documentation.
+
+```bash
+npm i --save @boxyhq/saml-jackson
+```
+
+See the [API Reference](api-reference.mdx) to understand more about the available methods.

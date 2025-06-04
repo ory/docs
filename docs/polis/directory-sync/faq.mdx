@@ -1,0 +1,49 @@
+---
+id: faq
+title: Faq
+sidebar_label: FAQ
+hide_table_of_contents: true
+---
+
+# Frequently asked questions
+
+Frequently asked questions about the common issues and limitations of the directory sync providers.
+
+### Why don't I see any event when a group is removed in OneLogin?
+
+It is a known issue with OneLogin SCIM. OneLogin does not dispatch a specific deprovisioning event for groups that are deleted, so
+you won't see any event such as `group.deleted` or `group.user_removed` when a group is removed. It is recommended to remove the
+users from the group before deleting the group itself from the SCIM application.
+
+### Why don't I see a DELETE event for a user that was removed in Okta?
+
+Instead of executing a DELETE operation, Okta sends a request to the SCIM application to set the `active` attribute to `false`.
+Consequently, you will observe a `user.updated` event with the `active` attribute changed to `false` for users removed from the
+Okta application. [Read More](https://developer.okta.com/docs/reference/scim/scim-20/#delete-users)
+
+### Why is there no event for a user that was deactivated in Okta?
+
+Okta does not dispatch a specific deprovisioning event for users that are suspended. This omission of a deactivation event is a
+known issue with Okta.
+
+### Does Google Workspace sync in real time?
+
+No, Google Workspace sync is not real-time. Ory Polis syncs the Google Workspace directory on a schedule (e.g. every 2 hours). In
+a self-hosted deployment, you can configure a cron job to sync the directory on a schedule of your choice.
+
+### Can I sync specific groups from Google Workspace?
+
+Not possible at the moment. Ory Polis syncs all the groups from Google Workspace. You have to filter the groups from your
+application's side.
+
+### How frequently does Microsoft Entra ID SCIM perform sync by default?
+
+Microsoft Entra ID automatically provisions and updates user accounts in an app based on things like user and group assignment.
+The sync happens at a regularly scheduled time interval, typically every 20-40 minutes.
+[Read More](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/application-provisioning-when-will-provisioning-finish-specific-user#how-long-will-it-take-to-provision-users)
+
+### Why does the PATCH request fail in Microsoft Entra ID SCIM?
+
+This is a known issue with Entra ID SCIM implementation. You have to add the query param `?aadOptscim062020` to the SCIM endpoint
+URL to make PATCH requests work. This query param update PATCH behavior and ensure SCIM compliance.
+[Read More](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/application-provisioning-config-problem-scim-compatibility#flags-to-alter-the-scim-behavior)

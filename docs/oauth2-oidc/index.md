@@ -1,10 +1,8 @@
 ---
 id: index
-title: Introduction to Ory OAuth2 and OpenID Connect
-sidebar_label: Ory OAuth2
+title: Introduction to Ory Hydra OAuth2
+sidebar_label: Introduction
 ---
-
-# Introduction
 
 OAuth2 is the industry-standard protocol that enables secure machine-to-machine communication and grants limited access to data
 and services on behalf of users. OpenID Connect, built on top of OAuth2, is required to become a social sign-in provider.
@@ -87,6 +85,6 @@ Ory OAuth2 and OpenID Connect can be used for a wide range of use cases, includi
 
 ## Next steps
 
-See [Ory Network OAuth2 quickstart guide](https://www.ory.sh/docs/getting-started/ory-network-oauth2) to learn how to set up your
-own OAuth2 and OpenID Connect provider in just a few minutes. The guide walks you through the process of setting up Ory OAuth2 and
-OpenID Connect and configuring a sample application to use the service.
+See [Ory Network OAuth2 quickstart guide](../getting-started/ory-network-oauth2) to learn how to set up your own OAuth2 and OpenID
+Connect provider in just a few minutes. The guide walks you through the process of setting up Ory OAuth2 and OpenID Connect and
+configuring a sample application to use the service.

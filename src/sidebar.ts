@@ -15,7 +15,14 @@ const homeLink: SidebarItem = {
   label: "Go to Start Page",
 }
 
-const openIdSSO: SidebarItemConfig = {
+const polisLink: SidebarItem = {
+  type: "link",
+  href: "/polis",
+  className: "all-docs-link",
+  label: "Go to Polis Page",
+}
+
+const oidcSSO: SidebarItemConfig = {
   type: "category",
   label: "OpenID Connect SSO",
   link: {
@@ -50,6 +57,7 @@ const openIdSSO: SidebarItemConfig = {
         "kratos/social-signin/patreon",
         "kratos/social-signin/linkedin",
         "kratos/social-signin/x-twitter",
+        "kratos/social-signin/line",
       ],
     },
     "kratos/social-signin/data-mapping",
@@ -86,6 +94,8 @@ const api: SidebarItemsConfig = [
     ],
   },
 ]
+
+const polisApi: SidebarItemsConfig = [polisLink, "polis/reference/api"]
 
 const sdk: SidebarItemsConfig = [
   homeLink,
@@ -162,6 +172,7 @@ const cli: SidebarItemsConfig = [
 const quickstart: SidebarItemsConfig = [
   "welcome",
   "intro",
+  "getting-started/local-development",
   {
     type: "category",
     label: "Quickstart",
@@ -174,11 +185,12 @@ const quickstart: SidebarItemsConfig = [
     items: [
       "getting-started/integrate-auth/go",
       "getting-started/integrate-auth/php",
-      "getting-started/integrate-auth/expressjs",
+      "getting-started/integrate-auth/auth-js",
+      "getting-started/integrate-auth/nextjs",
       "getting-started/integrate-auth/react",
       "getting-started/integrate-auth/react-native",
+      "getting-started/integrate-auth/expressjs",
       "getting-started/integrate-auth/vue",
-      "getting-started/integrate-auth/nextjs",
       "getting-started/integrate-auth/flutter-web-redirect",
       "getting-started/integrate-auth/dotnet",
     ],
@@ -240,16 +252,36 @@ const operations: SidebarItemsConfig = [
   },
 ]
 
-const identities: SidebarItemsConfig = [
+const kratos: SidebarItemsConfig = [
   homeLink,
+  "identities/index",
+  {
+    type: "category",
+    label: "Get Started",
+    collapsed: true,
+    link: {
+      type: "doc",
+      id: "identities/get-started/index",
+    },
+    items: [
+      "identities/get-started/setup",
+      "identities/get-started/sign-up",
+      "identities/get-started/sign-in",
+      "identities/get-started/sign-out",
+      "identities/get-started/session-management",
+      "identities/get-started/account-recovery",
+      "identities/get-started/mfa",
+      "identities/get-started/social-sign-in",
+      "identities/get-started/passwordless",
+    ],
+  },
   {
     type: "category",
     label: "Concepts",
     collapsed: false,
     collapsible: false,
     link: {
-      type: "doc",
-      id: "identities/index",
+      type: "generated-index",
     },
     items: [
       "security-model",
@@ -263,6 +295,9 @@ const identities: SidebarItemsConfig = [
     label: "Guides",
     collapsed: false,
     collapsible: false,
+    link: {
+      type: "generated-index",
+    },
     items: [
       {
         type: "category",
@@ -272,26 +307,16 @@ const identities: SidebarItemsConfig = [
           slug: "guides/authentication",
         },
         items: [
+          "kratos/concepts/credentials",
+          "kratos/concepts/credentials/username-email-password",
           "kratos/passwordless/passwordless",
           "kratos/passwordless/one-time-code",
           "kratos/passwordless/passkeys",
           "kratos/organizations/organizations",
-          {
-            type: "category",
-            label: "Credentials",
-            link: {
-              type: "doc",
-              id: "kratos/concepts/credentials",
-            },
-            items: [
-              "kratos/concepts/credentials/username-email-password",
-              "concepts/password-policy",
-            ],
-          },
           "kratos/emails-sms/custom-email-templates",
         ],
       },
-      openIdSSO,
+      oidcSSO,
       {
         type: "category",
         label: "Flows",
@@ -399,7 +424,19 @@ const identities: SidebarItemsConfig = [
           "kratos/manage-identities/invite-users",
           "kratos/manage-identities/account-recovery",
           "kratos/manage-identities/export-user-accounts-identities",
-          "kratos/manage-identities/scim",
+
+          {
+            type: "category",
+            label: "SCIM",
+            link: {
+              type: "doc",
+              id: "kratos/manage-identities/scim",
+            },
+            items: [
+              "kratos/manage-identities/scim/ms-entra",
+              "kratos/manage-identities/scim/okta",
+            ],
+          },
         ],
       },
       {
@@ -448,6 +485,8 @@ const identities: SidebarItemsConfig = [
   {
     type: "category",
     label: "Configuration",
+    collapsed: false,
+    collapsible: false,
     items: [
       "identities/sign-in/two-step-registration",
       "identities/sign-in/identifier-first-authentication",
@@ -455,10 +494,92 @@ const identities: SidebarItemsConfig = [
       "identities/sign-in/actions",
     ],
   },
+  {
+    type: "category",
+    label: "Self-Hosted",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "kratos/quickstart",
+    },
+    items: [
+      "kratos/install",
+      "kratos/quickstart",
+      {
+        type: "category",
+        label: "Configuration",
+        items: [
+          "kratos/configuring",
+          "kratos/guides/configuring-cookies",
+          "kratos/guides/multi-domain-cookies",
+          "self-hosted/kratos/configuration/password",
+          "kratos/self-hosted/mfa",
+          "kratos/guides/setting-up-cors",
+          "self-hosted/kratos/configuration/oidc",
+          "kratos/guides/setting-up-password-hashing-parameters",
+          "kratos/guides/select-cipher-algorithm",
+          "kratos/self-hosted/email-http",
+          "kratos/reference/configuration-editor",
+        ],
+      },
+      {
+        type: "category",
+        label: "Guides",
+        items: [
+          "kratos/guides/docker",
+          "kratos/guides/deploy-kratos-example",
+          "kratos/guides/upgrade",
+          "kratos/guides/production",
+          "kratos/guides/multi-tenancy-multitenant",
+          "self-hosted/operations/scalability",
+          "kratos/self-hosted/mail-courier-templates",
+          "kratos/guides/tracing",
+          "kratos/guides/zero-trust-iap-proxy-identity-access-proxy",
+          "kratos/guides/https-tls",
+          "kratos/guides/hosting-own-have-i-been-pwned-api",
+          "kratos/guides/secret-key-rotation",
+          {
+            type: "category",
+            label: "Troubleshooting",
+            items: [
+              {
+                type: "autogenerated",
+                dirName: "kratos/debug",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: "category",
+        label: "Reference",
+        items: [
+          "kratos/reference/api",
+          {
+            "Command Line Interface (CLI)": [
+              {
+                type: "autogenerated",
+                dirName: "kratos/cli",
+              },
+            ],
+          },
+          {
+            SDK: ["kratos/sdk/overview", "kratos/self-hosted/go"],
+          },
+          "kratos/reference/configuration",
+          "kratos/reference/json-schema-json-paths",
+          "kratos/reference/html-forms",
+          "kratos/reference/jsonnet",
+        ],
+      },
+    ],
+  },
 ]
 
-const oauth2: SidebarItemsConfig = [
+const hydra: SidebarItemsConfig = [
   homeLink,
+  "oauth2-oidc/index",
   {
     type: "category",
     label: "Start",
@@ -500,7 +621,6 @@ const oauth2: SidebarItemsConfig = [
       id: "hydra/guides/oauth2-token-introspection",
     },
     items: [
-      openIdSSO,
       {
         type: "category",
         label: "Flows",
@@ -562,10 +682,91 @@ const oauth2: SidebarItemsConfig = [
       },
     ],
   },
+
+  {
+    type: "category",
+    label: "Self-Hosted",
+    collapsed: false,
+    collapsible: false,
+    items: [
+      "hydra/self-hosted/install",
+      "hydra/self-hosted/quickstart",
+
+      {
+        type: "category",
+        label: "Configuration",
+        items: [
+          "hydra/reference/configuration",
+          "hydra/reference/configuration-editor",
+          "hydra/self-hosted/configure-deploy",
+          "hydra/self-hosted/dependencies-environment",
+          "hydra/self-hosted/production",
+          "hydra/self-hosted/hsm-support",
+          "self-hosted/operations/scalability",
+          "hydra/self-hosted/merge-multiple-db-secrets",
+          "hydra/self-hosted/gitlab",
+          "hydra/self-hosted/secrets-key-rotation",
+          "hydra/self-hosted/kubernetes-helm-chart",
+          "hydra/self-hosted/ssl-https-tls",
+          "self-hosted/operations/tracing",
+          "hydra/guides/cookies",
+          "hydra/guides/cors",
+          "self-hosted/hydra/debug/csrf",
+        ],
+      },
+      {
+        type: "category",
+        label: "Guides",
+        items: [
+          "hydra/self-hosted/deploy-hydra-example",
+          "hydra/self-hosted/upgrade",
+          "hydra/reference/api",
+          {
+            "Command Line Interface (CLI)": [
+              {
+                type: "autogenerated",
+                dirName: "hydra/cli",
+              },
+            ],
+          },
+          {
+            SDK: [
+              "hydra/sdk/overview",
+              "hydra/self-hosted/go",
+              "hydra/self-hosted/js",
+            ],
+          },
+        ],
+      },
+      {
+        type: "category",
+        label: "Reference",
+        items: [
+          "hydra/reference/api",
+          {
+            "Command Line Interface (CLI)": [
+              {
+                type: "autogenerated",
+                dirName: "hydra/cli",
+              },
+            ],
+          },
+          {
+            SDK: [
+              "hydra/sdk/overview",
+              "hydra/self-hosted/go",
+              "hydra/self-hosted/js",
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ]
 
-const permissions: SidebarItemsConfig = [
+const keto: SidebarItemsConfig = [
   homeLink,
+  "keto/index",
   {
     type: "category",
     label: "Start",
@@ -598,6 +799,8 @@ const permissions: SidebarItemsConfig = [
   {
     type: "category",
     label: "Guides",
+    collapsed: false,
+    collapsible: false,
     items: [
       "keto/guides/simple-access-check-guide",
       "keto/modeling/create-permission-model",
@@ -605,9 +808,298 @@ const permissions: SidebarItemsConfig = [
       "keto/guides/expand-api-display-who-has-access",
     ],
   },
+  {
+    type: "category",
+    label: "Self-Hosted",
+    collapsed: false,
+    collapsible: false,
+    items: [
+      "keto/install",
+      "keto/quickstart",
+      {
+        type: "category",
+        label: "Configuration",
+        items: [
+          "keto/reference/configuration",
+          "keto/reference/configuration-editor",
+        ],
+      },
+      {
+        type: "category",
+        label: "Guides",
+        items: [
+          "keto/guides/production",
+          "keto/guides/v0.7-migration",
+          "keto/guides/migrating-legacy-policies",
+          "keto/guides/upgrade",
+        ],
+      },
+      {
+        Reference: [
+          "keto/reference/rest-api",
+          "keto/reference/proto-api",
+          {
+            "Command Line Interface (CLI)": [
+              {
+                type: "autogenerated",
+                dirName: "keto/cli",
+              },
+            ],
+          },
+          {
+            SDK: ["keto/sdk/overview", "keto/self-hosted/go"],
+          },
+        ],
+      },
+    ],
+  },
 ]
 
-const selfhosting: SidebarItemsConfig = [
+const polis: SidebarItemsConfig = [
+  homeLink,
+  "polis/index",
+  {
+    type: "category",
+    label: "Self-Hosted",
+    collapsed: false,
+    collapsible: false,
+    items: [
+      "polis/install",
+      "polis/quickstart",
+      "polis/reference/api",
+      {
+        type: "category",
+        label: "Enterprise SSO",
+        collapsed: false,
+        collapsible: false,
+        link: {
+          type: "doc",
+          id: "polis/saml-federation/index",
+        },
+        items: [
+          {
+            type: "category",
+            label: "Concepts",
+            link: {
+              type: "doc",
+              id: "polis/sso-flow/index",
+            },
+            items: [
+              "polis/sso-flow/index",
+              "polis/sso-flow/example-flow",
+              "polis/security",
+            ],
+          },
+          {
+            type: "category",
+            label: "Configuration",
+            items: [
+              "polis/deploy/env-variables",
+              "polis/guides/configuring-saml-sso",
+              "polis/guides/login-with-saml-sso",
+              "polis/deploy/pre-loaded-connections",
+            ],
+          },
+          {
+            type: "category",
+            label: "Guides",
+            link: {
+              type: "doc",
+              id: "polis/guides/service",
+            },
+            items: [
+              "polis/guides/service",
+              "polis/guides/npm-library",
+              "polis/upgrade",
+              "polis/guides/examples",
+              "polis/sbom",
+              "polis/container-signing",
+              "polis/events",
+              "polis/observability",
+              {
+                type: "category",
+                label: "Frameworks",
+                items: [
+                  {
+                    type: "autogenerated",
+                    dirName: "polis/guides/frameworks",
+                  },
+                ],
+              },
+              {
+                type: "category",
+                label: "Deployment",
+                items: [
+                  {
+                    type: "autogenerated",
+                    dirName: "polis/guides/deployment",
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "category",
+            label: "SAML SSO Providers",
+            link: {
+              type: "doc",
+              id: "polis/sso-providers/index",
+            },
+            items: [
+              {
+                type: "autogenerated",
+                dirName: "polis/sso-providers",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: "category",
+        label: "Directory Sync",
+        collapsed: false,
+        collapsible: false,
+        link: {
+          type: "doc",
+          id: "polis/directory-sync/index",
+        },
+        items: [
+          "polis/directory-sync/quickstart",
+          "polis/directory-sync/api-reference",
+          {
+            type: "category",
+            label: "Guides",
+            collapsed: true,
+            link: {
+              type: "generated-index",
+              slug: "polis/directory-sync/guides",
+            },
+            items: [
+              "polis/directory-sync/webhooks",
+              "polis/directory-sync/events",
+              "polis/directory-sync/observability",
+              "polis/directory-sync/examples",
+              "polis/directory-sync/faq",
+              {
+                type: "category",
+                label: "Directory providers",
+                link: {
+                  type: "generated-index",
+                  slug: "polis/directory-sync/providers",
+                },
+                items: [
+                  {
+                    type: "autogenerated",
+                    dirName: "polis/directory-sync/providers",
+                  },
+                ],
+              },
+              {
+                type: "category",
+                label: "Frameworks",
+                items: [
+                  {
+                    type: "autogenerated",
+                    dirName: "polis/directory-sync/guides",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: "category",
+        label: "Admin Portal",
+        collapsed: false,
+        collapsible: false,
+        link: {
+          type: "doc",
+          id: "polis/admin-portal/index",
+        },
+        items: [
+          {
+            type: "category",
+            label: "Guides",
+            collapsed: true,
+            link: {
+              type: "generated-index",
+              slug: "polis/admin-portal/guides",
+            },
+            items: [
+              "polis/admin-portal/enterprise-sso",
+              "polis/admin-portal/setup-links-enterprise-sso",
+              "polis/admin-portal/directory-sync",
+              "polis/admin-portal/setup-links-directory-sync",
+            ],
+          },
+        ],
+      },
+    ],
+  },
+]
+
+const oathkeeper: SidebarItemsConfig = [
+  homeLink,
+  "oathkeeper/index",
+  "oathkeeper/install",
+  "oathkeeper/reference/api",
+  {
+    type: "category",
+    label: "Concepts",
+    collapsed: false,
+    collapsible: false,
+    items: [
+      "oathkeeper/api-access-rules",
+      {
+        type: "category",
+
+        label: "Handlers",
+        items: [
+          "oathkeeper/pipeline",
+          "oathkeeper/pipeline/authn",
+          "oathkeeper/pipeline/authz",
+          "oathkeeper/pipeline/mutator",
+          "oathkeeper/pipeline/error",
+        ],
+      },
+      "oathkeeper/grpc-middleware",
+    ],
+  },
+  {
+    type: "category",
+    label: "Guides",
+    collapsed: false,
+    collapsible: false,
+    items: [
+      "oathkeeper/configure-deploy",
+      "oathkeeper/guides/proxy-websockets",
+      "oathkeeper/guides/traefik-proxy-integration",
+      "oathkeeper/guides/upgrade",
+    ],
+  },
+  {
+    type: "category",
+    label: "Reference",
+    collapsed: false,
+    collapsible: false,
+    items: [
+      "oathkeeper/reference/configuration",
+      "oathkeeper/reference/configuration-editor",
+      {
+        "Command Line Interface (CLI)": [
+          {
+            type: "autogenerated",
+            dirName: "oathkeeper/cli",
+          },
+        ],
+      },
+      "oathkeeper/sdk",
+    ],
+  },
+]
+
+const opensource: SidebarItemsConfig = [
   homeLink,
   "ecosystem/projects",
   {
@@ -629,6 +1121,31 @@ const selfhosting: SidebarItemsConfig = [
       },
     ],
   },
+  {
+    type: "doc",
+    label: "Ory Kratos",
+    id: "kratos/quickstart",
+  },
+  {
+    type: "doc",
+    label: "Ory Hydra",
+    id: "hydra/self-hosted/quickstart",
+  },
+  {
+    type: "doc",
+    label: "Ory Keto",
+    id: "keto/quickstart",
+  },
+  {
+    type: "doc",
+    label: "Ory Polis",
+    id: "polis/quickstart",
+  },
+  {
+    type: "doc",
+    label: "Ory Oathkeeper",
+    id: "oathkeeper/index",
+  },
   "self-hosted/deployment",
   "ecosystem/configuring",
   {
@@ -644,243 +1161,6 @@ const selfhosting: SidebarItemsConfig = [
   "ecosystem/upgrading",
   "ecosystem/sqa",
   "ecosystem/changelog",
-  "ecosystem/benchmark",
-  {
-    type: "category",
-    label: "Ory Kratos",
-    items: [
-      "kratos/install",
-      "kratos/quickstart",
-      "kratos/guides/docker",
-      "kratos/guides/deploy-kratos-example",
-      "kratos/guides/upgrade",
-      {
-        type: "category",
-        label: "Configuration",
-        items: [
-          "kratos/configuring",
-          "kratos/guides/configuring-cookies",
-          "kratos/guides/multi-domain-cookies",
-          "self-hosted/kratos/configuration/password",
-          "kratos/self-hosted/mfa",
-          "kratos/guides/setting-up-cors",
-          "kratos/self-hosted/account-activation-email-verification",
-          "self-hosted/kratos/configuration/oidc",
-          "kratos/guides/setting-up-password-hashing-parameters",
-          "kratos/guides/select-cipher-algorithm",
-          "kratos/self-hosted/email-http",
-          "kratos/reference/configuration-editor",
-        ],
-      },
-      {
-        type: "category",
-        label: "Guides",
-        items: [
-          "kratos/guides/production",
-          "kratos/guides/multi-tenancy-multitenant",
-          "self-hosted/operations/scalability",
-          "kratos/self-hosted/mail-courier-templates",
-          "kratos/guides/tracing",
-          "kratos/guides/zero-trust-iap-proxy-identity-access-proxy",
-          "kratos/guides/https-tls",
-          "kratos/guides/hosting-own-have-i-been-pwned-api",
-          "kratos/guides/secret-key-rotation",
-        ],
-      },
-      {
-        type: "category",
-        label: "Troubleshooting",
-        items: [
-          {
-            type: "autogenerated",
-            dirName: "kratos/debug",
-          },
-        ],
-      },
-      {
-        type: "category",
-        label: "Reference",
-        items: [
-          "kratos/reference/api",
-          {
-            "Command Line Interface (CLI)": [
-              {
-                type: "autogenerated",
-                dirName: "kratos/cli",
-              },
-            ],
-          },
-          {
-            SDK: ["kratos/sdk/overview", "kratos/self-hosted/go"],
-          },
-          "kratos/reference/configuration",
-          "kratos/reference/json-schema-json-paths",
-          "kratos/reference/html-forms",
-          "kratos/reference/jsonnet",
-        ],
-      },
-    ],
-  },
-  {
-    type: "category",
-    label: "Ory Hydra",
-    items: [
-      "hydra/self-hosted/install",
-      "hydra/self-hosted/quickstart",
-      "hydra/self-hosted/deploy-hydra-example",
-      "hydra/self-hosted/upgrade",
-      {
-        type: "category",
-        label: "Configuration",
-        items: [
-          "hydra/reference/configuration",
-          "hydra/reference/configuration-editor",
-          "hydra/self-hosted/configure-deploy",
-          "hydra/self-hosted/dependencies-environment",
-          "hydra/self-hosted/production",
-          "hydra/self-hosted/hsm-support",
-          "self-hosted/operations/scalability",
-          "hydra/self-hosted/merge-multiple-db-secrets",
-          "hydra/self-hosted/gitlab",
-          "hydra/self-hosted/secrets-key-rotation",
-          "hydra/self-hosted/kubernetes-helm-chart",
-          "hydra/self-hosted/ssl-https-tls",
-          "self-hosted/operations/tracing",
-          "hydra/guides/cookies",
-          "hydra/guides/cors",
-          "self-hosted/hydra/debug/csrf",
-        ],
-      },
-      {
-        type: "category",
-        label: "Guides",
-        items: [
-          "hydra/reference/api",
-          {
-            "Command Line Interface (CLI)": [
-              {
-                type: "autogenerated",
-                dirName: "hydra/cli",
-              },
-            ],
-          },
-          {
-            SDK: [
-              "hydra/sdk/overview",
-              "hydra/self-hosted/go",
-              "hydra/self-hosted/js",
-            ],
-          },
-        ],
-      },
-      {
-        type: "category",
-        label: "Reference",
-        items: [
-          "hydra/reference/api",
-          {
-            "Command Line Interface (CLI)": [
-              {
-                type: "autogenerated",
-                dirName: "hydra/cli",
-              },
-            ],
-          },
-          {
-            SDK: [
-              "hydra/sdk/overview",
-              "hydra/self-hosted/go",
-              "hydra/self-hosted/js",
-            ],
-          },
-        ],
-      },
-      "ecosystem/benchmark",
-      "hydra/case-study",
-      "hydra/faq",
-    ],
-  },
-  {
-    type: "category",
-    label: "Ory Keto",
-    items: [
-      "keto/install",
-      "keto/quickstart",
-      "keto/guides/production",
-      "keto/guides/v0.7-migration",
-      "keto/guides/migrating-legacy-policies",
-      "keto/guides/upgrade",
-      {
-        Reference: [
-          "keto/reference/rest-api",
-          "keto/reference/proto-api",
-          {
-            "Command Line Interface (CLI)": [
-              {
-                type: "autogenerated",
-                dirName: "keto/cli",
-              },
-            ],
-          },
-          {
-            SDK: ["keto/sdk/overview", "keto/self-hosted/go"],
-          },
-          "keto/reference/configuration",
-          "keto/reference/configuration-editor",
-        ],
-      },
-    ],
-  },
-  {
-    type: "category",
-    label: "Ory Oathkeeper",
-    items: [
-      {
-        Introduction: ["oathkeeper/index", "oathkeeper/install"],
-      },
-      {
-        "Core Concepts": [
-          "oathkeeper/api-access-rules",
-          {
-            type: "category",
-            label: "Handlers",
-            items: [
-              "oathkeeper/pipeline",
-              "oathkeeper/pipeline/authn",
-              "oathkeeper/pipeline/authz",
-              "oathkeeper/pipeline/mutator",
-              "oathkeeper/pipeline/error",
-            ],
-          },
-          "oathkeeper/grpc-middleware",
-        ],
-      },
-      {
-        Guides: [
-          "oathkeeper/configure-deploy",
-          "oathkeeper/guides/proxy-websockets",
-          "oathkeeper/guides/traefik-proxy-integration",
-          "oathkeeper/guides/upgrade",
-        ],
-      },
-      "oathkeeper/reference/api",
-      {
-        Reference: [
-          "oathkeeper/reference/configuration",
-          "oathkeeper/reference/configuration-editor",
-          {
-            "Command Line Interface (CLI)": [
-              {
-                type: "autogenerated",
-                dirName: "oathkeeper/cli",
-              },
-            ],
-          },
-          "oathkeeper/sdk",
-        ],
-      },
-    ],
-  },
   {
     type: "link",
     label: "Search",
@@ -890,24 +1170,37 @@ const selfhosting: SidebarItemsConfig = [
 
 const oel: SidebarItemsConfig = [
   homeLink,
+  "self-hosted/oel/index",
   "self-hosted/oel/quickstart",
-  "self-hosted/oel/oauth2/migrate",
   {
     type: "category",
-    label: "OAuth2 Server",
+    label: "Ory Hydra OAuth2",
     items: [
-      "self-hosted/oel/oauth2/token-prefix",
+      "self-hosted/oel/oauth2/migrate",
       "self-hosted/oel/oauth2/upgrade",
+      "self-hosted/oel/oauth2/changelog",
+      "self-hosted/oel/oauth2/token-prefix",
       "self-hosted/oel/oauth2/migrate-postgresql-ttl",
       "self-hosted/oel/oauth2/revert-database-migrations",
-      "self-hosted/oel/oauth2/changelog",
     ],
   },
-]
-
-const localDevelopment: SidebarItemsConfig = [
-  homeLink,
-  "getting-started/local-development",
+  {
+    type: "category",
+    label: "Ory Oathkeeper Zero Trust",
+    items: [
+      "self-hosted/oel/oathkeeper/upgrade-oathkeeper",
+      "self-hosted/oel/oathkeeper/changelog",
+    ],
+  },
+  {
+    type: "category",
+    label: "Ory Kratos Identities",
+    items: [
+      "self-hosted/oel/kratos/upgrade",
+      "self-hosted/oel/kratos/changelog",
+    ],
+  },
+  "self-hosted/oel/monitoring/monitoring",
 ]
 
 const security: SidebarItemsConfig = [
@@ -926,13 +1219,15 @@ module.exports = {
   quickstart,
   troubleshooting,
   operations,
-  localDevelopment,
-  selfhosting,
+  opensource,
   oel,
-  identities,
-  oauth2,
-  permissions,
+  kratos,
+  hydra,
+  keto,
+  polis,
+  oathkeeper,
   api,
+  polisApi,
   sdk,
   cli,
   security,

@@ -12,7 +12,13 @@ To be able to run an enterprise build, you need:
 - A valid Ory Enterprise License.
 - Access to the Ory Enterprise Docker Registry.
 - CockroachDB Enterprise (community version is not supported).
-- Support for MySQL and PostgreSQL is available as well, but some features will be unavailable.
+
+:::note
+
+Support for MySQL and PostgreSQL is available as well, but some features will be unavailable. Please
+[contact the team](https://www.ory.sh/contact) to talk about your use case.
+
+:::
 
 Ory Enterprise builds are not available for public download and require a license agreement with Ory to run.
 
@@ -31,23 +37,52 @@ When using CockroachDB Enterprise:
 - Zero-downtime migrations.
 - Automatic clean up of stale records - no Hydra Janitor needed.
 
-### Docker Registry
+## Ory Oathkeeper Enterprise License
+
+The Ory Oathkeeper Enterprise license includes additional features and support for enterprise customers:
+
+- Regular releases addressing CVEs and security vulnerabilities.
+
+## Ory Kratos Enterprise License
+
+The Ory Kratos Enterprise license includes additional features and support for enterprise customers:
+
+- Regular releases addressing CVEs and security vulnerabilities.
+
+### Ory Hydra Docker Registry
 
 There are two Docker registries available in different regions:
 
-- us: `us-docker.pkg.dev/ory-artifacts/ory-enterprise-us/hydra-oel`
+- us: `us-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel`
 - eu: `europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel`
 
 Image tags:
 
-import ImageTags from "./eol-image-tags.md"
+import ImageTagsHydra from "./oel-hydra-image-tags.md"
 
-<ImageTags />
+<ImageTagsHydra />
+
+### Ory Oathkeeper Docker Registry
+
+This is Docker registries available in the EU region:
+`europe-docker.pkg.dev/ory-artifacts/ory-enterprise-oathkeeper/oathkeeper-oel`
+
+import ImageTagsOathkeeper from "./oel-oathkeeper-image-tags.md"
+
+Image tags:
+
+<ImageTagsOathkeeper />
+
+import ImageTagsKratos from "./oel-kratos-image-tags.md"
+
+Image tags:
+
+<ImageTagsKratos />
+
+### Docker
 
 Enterprise Docker images are kept in a private registry that requires authorization. An authorization key is provided for each
 customer separately. The next steps assume that the key is stored in `keyfile.json`.
-
-### Docker
 
 To authenticate to docker registry execute:
 

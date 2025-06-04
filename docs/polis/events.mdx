@@ -1,0 +1,119 @@
+---
+id: events
+title: Enterprise SSO Webhook Events
+sidebar_label: Events
+---
+
+# Webhook Events
+
+Ory Polis uses webhooks to notify your application any time changes are made to the connections. We'll notify you of the following
+4 events for each connection.
+
+## Events
+
+<details>
+<summary>
+  sso.created - New connection has been created.
+</summary>
+<p>
+
+```json
+{
+  "event": "sso.created",
+  "tenant": "ory",
+  "product": "demo",
+  "data": {
+    "name": "SSO Connection",
+    "description": "SSO Connection for Ory Corp",
+    "clientID": "326991705d478f0178fc2b49e35cd166dc771061",
+    "clientSecret": "15b2db91b2ba4c848b68148f108035e7138d69104d99de89",
+    "provider": "saml.example.com",
+    "friendlyProviderName": null
+  }
+}
+```
+
+</p>
+</details>
+
+<details>
+<summary>
+  sso.deactivated - A connection has been deactivated.
+</summary>
+<p>
+
+```json
+{
+  "event": "sso.deactivated",
+  "tenant": "ory",
+  "product": "demo",
+  "data": {
+    "name": "SSO Connection",
+    "description": "SSO Connection for Ory",
+    "clientID": "326991705d478f0178fc2b49e35cd166dc771061",
+    "clientSecret": "15b2db91b2ba4c848b68148f108035e7138d69104d99de89",
+    "provider": "saml.example.com",
+    "friendlyProviderName": null
+  }
+}
+```
+
+</p>
+</details>
+
+<details>
+<summary>
+  sso.activated - A connection has been activated.
+</summary>
+<p>
+
+```json
+{
+  "event": "sso.activated",
+  "tenant": "ory",
+  "product": "demo",
+  "data": {
+    "name": "SSO Connection",
+    "description": "SSO Connection for Ory",
+    "clientID": "326991705d478f0178fc2b49e35cd166dc771061",
+    "clientSecret": "15b2db91b2ba4c848b68148f108035e7138d69104d99de89",
+    "provider": "saml.example.com",
+    "friendlyProviderName": null
+  }
+}
+```
+
+</p>
+</details>
+
+<details>
+<summary>
+  sso.deleted - A connection has been deleted.
+</summary>
+<p>
+
+```json
+{
+  "event": "sso.deleted",
+  "tenant": "ory",
+  "product": "demo",
+  "data": {
+    "name": "SSO Connection",
+    "description": "SSO Connection for Ory",
+    "clientID": "326991705d478f0178fc2b49e35cd166dc771061",
+    "clientSecret": "15b2db91b2ba4c848b68148f108035e7138d69104d99de89",
+    "provider": "saml.example.com",
+    "friendlyProviderName": null
+  }
+}
+```
+
+</p>
+</details>
+
+## Configure Webhook
+
+To configure the webhook, you have to set the following environment variables.
+
+- `WEBHOOK_URL` - The URL to which the webhook events will be sent.
+- `WEBHOOK_SECRET` - The secret key used to sign the webhook events.

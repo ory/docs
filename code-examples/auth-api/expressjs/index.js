@@ -6,13 +6,12 @@ const cors = require("cors")
 const { FrontendApi, Configuration } = require("@ory/client-fetch")
 
 const app = express()
-
 // highlight-start
 const ory = new FrontendApi(
   new Configuration({
     // Points to the local Ory API server (Ory TunneL).
     basePath: process.env.ORY_URL || "http://localhost:4000",
-    baseOptions: { withCredentials: true },
+    credentials: "include",
   }),
 )
 // highlight-end

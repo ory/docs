@@ -1,0 +1,343 @@
+---
+id: adonis
+title: Add SAML SSO to AdonisJS App with BoxyHQ
+sidebar_label: AdonisJS
+---
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
+# Add SAML SSO to AdonisJS App
+
+This guide assumes that you have a AdonisJS app and want to enable SAML Single Sign-On authentication for your enterprise
+customers. By the end of this guide, you'll have an app that allows you to authenticate the users using SAML Single Sign-On.
+
+Visit the [GitHub repository](https://github.com/ory/polis-examples/tree/main/apps/adonisjs) to see the source code for the
+AdonisJS SAML SSO integration.
+
+Integrating SAML SSO into an app involves the following steps.
+
+- Configure SAML Single Sign-On
+- Authenticate with SAML Single Sign-On
+
+## Configure SAML Single Sign-On
+
+This step allows your tenants to configure SAML connections for their users. Read the following guides to understand more about
+this.
+
+- [UI Best Practices for Configuring SAML Single Sign-On](../configuring-saml-sso.mdx)
+- [SSO Connection API](../../sso-flow/index.mdx)
+
+## Authenticate with SAML Single Sign-On
+
+Once you add a SAML connection, the app can use this SAML connection to initiate the SSO authentication flow using Ory Polis. The
+following sections focus more on the SSO authentication side.
+
+### Install Ory Polis
+
+To get started with Ory Polis, use the Node Package Manager to add the package to your project's dependencies.
+
+```bash
+npm i --save @boxyhq/saml-jackson
+```
+
+### Setup Ory Polis
+
+Setup the Ory Polis to work with AdonisJS app.
+
+```js title="lib/jackson.ts"
+import { type JacksonOption } from '@boxyhq/saml-jackson';
+
+export const appUrl = 'https://your-app.com';
+export const samlAudience = 'https://saml.boxyhq.com';
+export const redirectUrl = `${appUrl}/sso/callback`;
+
+export const options: JacksonOption = {
+  externalUrl: appUrl,
+  samlAudience,
+  samlPath: '/sso/acs',
+  db: {
+    engine: 'sql',
+    type: 'postgres',
+    url: 'postgres://postgres:postgres@localhost:5432/postgres',
+  },
+};
+```
+
+`samlPath` is where the identity provider POST the SAML response after authenticating the user and `redirectUrl` is where Ory
+Polis redirects the user after authentication.
+
+Create a new custom Provider `JacksonProvider` that relies on the `@boxyhq/saml-jackson`. The `boot` method initializes Ory Polis
+and returns a singleton.
+
+```js title="providers/JacksonProvider.ts"
+import type { ApplicationContract } from '@ioc:Adonis/Core/Application';
+
+import { options } from '../lib/jackson';
+
+export default class JacksonProvider {
+  constructor(protected app: ApplicationContract) {}
+
+  public async boot() {
+    const jackson = await require('@boxyhq/saml-jackson').default(options);
+
+    this.app.container.singleton('BoxyHQ/Jackson', () => {
+      const { connectionAPIController, oauthController } = jackson;
+
+      return {
+        connectionAPIController,
+        oauthController,
+      };
+    });
+  }
+
+  public register() {
+    // Register your own bindings
+  }
+
+  public async ready() {
+    // App is ready
+  }
+
+  public async shutdown() {
+    // Cleanup, since app is going down
+  }
+}
+```
+
+Create a declaration file if you are working with TypeScript.
+
+```js title="contracts/jackson.ts"
+declare module '@ioc:BoxyHQ/Jackson' {
+  import { type IOAuthController, type IConnectionAPIController } from '@boxyhq/saml-jackson';
+
+  export const connectionAPIController: IConnectionAPIController;
+  export const oauthController: IOAuthController;
+}
+```
+
+### Make authentication request
+
+Let's add a route to begin the authenticate flow; this route initiates the SAML SSO flow by redirecting the users to their
+configured Identity Provider.
+
+```js title="start/routes.ts"
+import LoginController from "App/Controllers/Http/LoginController"
+
+Route.post("/login", async (ctx) => {
+  return new LoginController().store(ctx)
+})
+```
+
+The `store` method of `LoginController` takes care of redirecting the user to the Identity Provider.
+
+<Tabs>
+<TabItem value="01" label="With Tenant and Product" default>
+
+```js title="app/Controllers/Http/LoginController.ts"
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+
+import { oauthController } from '@ioc:BoxyHQ/Jackson';
+import { type OAuthReq } from '@boxyhq/saml-jackson';
+import { redirectUrl } from '../../../lib/jackson';
+
+export default class LoginController {
+  public async store({ request, response }: HttpContextContract) {
+    const tenant = 'boxyhq.com'; // The user's tenant
+    const product = 'saml-demo.boxyhq.com'; // Your app or product name
+    const state = 'a-random-state-value'; // You can use the `state` parameter to restore application state between redirects.
+
+    const { redirect_url } = await oauthController.authorize({
+      tenant,
+      product,
+      state,
+      redirect_uri: redirectUrl,
+    } as OAuthReq);
+
+    return response.redirect(redirect_url as string);
+  }
+}
+```
+
+</TabItem>
+
+<TabItem value="02" label="With Client ID">
+
+```js title="app/Controllers/Http/LoginController.ts"
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+
+import { oauthController } from '@ioc:BoxyHQ/Jackson';
+import { type OAuthReq } from '@boxyhq/saml-jackson';
+import { redirectUrl } from '../../../lib/jackson';
+
+export default class LoginController {
+  public async store({ request, response }: HttpContextContract) {
+    const clientId = '123456789'; // The tenant's client ID
+
+    const { redirect_url } = await oauthController.authorize({
+      client_id: clientId,
+      state: 'a-random-state-value', // You can use the `state` parameter to restore application state between redirects.
+      redirect_uri: redirectUrl,
+    } as OAuthReq);
+
+    return response.redirect(redirect_url as string);
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Receives SAML response
+
+After successful authentication, Identity Provider POST the SAML response to the Assertion Consumer Service (ACS) URL.
+
+Let's add a route to handle the SAML response. Ensure the route matches the value of the `samlPath` you configured while
+initializing the Ory Polis library and should be able to receives POST request.
+
+```js title="start/routes.ts"
+import SSOController from "App/Controllers/Http/SSOController"
+
+Route.post("/sso/acs", async (ctx) => {
+  return new SSOController().acs(ctx)
+})
+```
+
+The `acs` method of `SSOController` takes care of handling the SAML response from the Identity Provider and redirecting the users
+to the `redirectUrl`.
+
+```js title="app/Controllers/Http/SSOController.ts"
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+
+import { oauthController } from '@ioc:BoxyHQ/Jackson';
+
+export default class SSOController {
+  public async acs({ request, response }: HttpContextContract) {
+    const relayState = request.input('RelayState');
+    const samlResponse = request.input('SAMLResponse');
+
+    const { redirect_url } = await oauthController.samlResponse({
+      RelayState: relayState,
+      SAMLResponse: samlResponse,
+    });
+
+    return response.redirect(redirect_url as string);
+  }
+}
+```
+
+### Request access token
+
+Let's add another route for receiving the callback after the authentication. Ensure the route matches the value of the
+`redirectUrl` you configured previously.
+
+```js title="apps/adonisjs/start/routes.ts"
+import SSOController from "App/Controllers/Http/SSOController"
+
+Route.get("/sso/callback", async (ctx) => {
+  return new SSOController().callback(ctx)
+})
+```
+
+The application requests an `access_token` by passing the authorization `code` along with authentication details, including the
+`client_id`, `client_secret`, and `redirect_uri`.
+
+The `callback` method of `SSOController` take care of this.
+
+<Tabs>
+<TabItem value="01" label="With Tenant and Product" default>
+
+```js title="app/Controllers/Http/SSOController.ts"
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+
+import { oauthController } from '@ioc:BoxyHQ/Jackson';
+import { type OAuthTokenReqWithCredentials } from '@boxyhq/saml-jackson';
+import { redirectUrl } from '../../../lib/jackson';
+
+export default class SSOController {
+  public async callback({ request, response, auth }: HttpContextContract) {
+    const { code, state } = request.qs();
+
+    const tenant = 'boxyhq.com'; // The user's tenant
+    const product = 'saml-demo.boxyhq.com'; // Your app or product name
+
+    const clientId = `tenant=${tenant}&product=${product}`;
+    const clientSecret = 'dummy';
+
+    // Exchange the `code` for `access_token`
+    const { access_token } = await oauthController.token({
+      code,
+      client_id: clientId,
+      client_secret: clientSecret,
+      redirect_uri: redirectUrl,
+    } as OAuthTokenReqWithCredentials);
+  }
+}
+```
+
+</TabItem>
+
+<TabItem value="02" label="With Client ID">
+
+```js title="app/Controllers/Http/SSOController.ts"
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+
+import { oauthController } from '@ioc:BoxyHQ/Jackson';
+import { type OAuthTokenReqWithCredentials } from '@boxyhq/saml-jackson';
+import { redirectUrl } from '../../../lib/jackson';
+
+export default class SSOController {
+  public async callback({ request, response, auth }: HttpContextContract) {
+    const { code, state } = request.qs();
+
+    const clientId = '123456789'; // The tenant's client ID
+    const clientSecret = 'dUdSOmGoxr'; // The tenant's client Secret
+
+    // Exchange the `code` for `access_token`
+    const { access_token } = await oauthController.token({
+      code,
+      client_id: clientId,
+      client_secret: clientSecret,
+      redirect_uri: redirectUrl,
+    } as OAuthTokenReqWithCredentials);
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Fetch user profile
+
+Once the `access_token` has been fetched, you can use it to retrieve the user profile from the Identity Provider. The `userInfo`
+method returns a response containing the user profile if the authorization is valid.
+
+```js
+const user = await oauthController.userInfo(access_token)
+```
+
+The entire response will look something like this:
+
+```json
+{
+  "id":"<id from the Identity Provider>",
+  "email": "jackson@coolstartup.com",
+  "firstName": "SAML",
+  "lastName": "Jackson",
+  "requested": {
+    "tenant": "<tenant>",
+    "product": "<product>",
+    "client_id": "<client_id>",
+    "state": "<state>"
+  },
+  "raw": {
+    ...
+  }
+}
+```
+
+### Authenticate user
+
+Once the user has been retrieved from the Identity Provider, you may determine if the user exists in your application and
+authenticate the user. If the user does not exist in your application, you will typically create a new record in your database to
+represent the user.

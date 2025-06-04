@@ -39,10 +39,9 @@ Follow these steps to add Twitch as a social sign-in provider to your project us
 
    :::info
 
-   [Twitch provides an OIDC discovery URL](https://accounts.Twitch.com/.well-known/openid-configuration), but it doesn't support
-   the `openid` claim and returns an `access_token` only. Ory sends requests to
-   [Twitch's /me API](https://developer.Twitch.com/documentation/web-api/reference/#/operations/get-current-users-profile) and
-   adds the user info to `std.extVar('claims')`.
+   [Twitch provides an OIDC discovery URL](https://id.twitch.tv/oauth2/.well-known/openid-configuration), but it doesn't support
+   the `openid` claim and returns an `access_token` only. Ory sends requests to Twitch's /me API and adds the user info to
+   `std.extVar('claims')`.
 
    :::
 

@@ -123,7 +123,7 @@ const CodeFromRemote = (props: {
       />
       <div className={styles.link}>
         <a href={src + `#L${startLineNum}-L${endLineNum}`}>
-          see full code on GitHub
+          See full code on GitHub
         </a>
       </div>
     </div>

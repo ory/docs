@@ -10,46 +10,93 @@ You can stream events (sign-ups, logins, machine-to-machine tokens issued, and m
 your Ory Network project, to your own infrastructure. Pipe those events into your own data warehouse, data lake, or flavor of
 choice, and use them to power your own analytics, dashboards, data science, and more.
 
-Live event streams are available for Ory Network enterprise contracts. Talk to your account manager or reach out
-[directly](https://www.ory.sh/contact/) to find out more.
+Live event streams are available for Ory Network enterprise contracts. Talk to your account manager or
+[reach out directly](https://www.ory.sh/contact/).
 
-## Event descriptions
+## Event shape
 
-Ory emits events for many different actions. The following is a list of all events that are currently supported. This list is not
-exhaustive, and there might by additional events being emitted.
+Ory emits events for many different actions. All events abide by the same schema:
+
+```json
+{
+  "name": string,       // The unique name of the event (e.g., "IdentityCreated").
+  "version": string,     // The numerical schema version of the event as a string.
+  "timestamp": string,  // ISO 8601 formatted timestamp when the event occurred.
+  "projectId": string,  // The ID of the Ory project the event belongs to.
+  "eventAttributes": map<string, string> // Additional event-specific attributes.
+}
+```
+
+Example:
+
+```json
+{
+  "name": "WebhookSucceeded",
+  "version": "1",
+  "timestamp": "2025-05-16 11:18:56",
+  "eventAttributes": {
+    "GeoLocationCity": "Munich",
+    "WebhookID": "",
+    "WebhookTriggerID": "18093e08-0f72-445f-aacb-151fc777a232"
+  }
+}
+```
+
+Important:
+
+- Per the JSON specification, ordering of keys in objects is not guaranteed and should not be relied upon.
+- New keys can appear at any time, consumers should be designed to handle this.
+- The exact content in the `eventAttributes` field is not documented and not considered stable. That means that no backwards
+  compatibility guarantees are made for them.
+
+If you intend to write a consumer that needs a detailed schema and stability guarantees about the `eventAttributes` field, please
+[open a support ticket](https://console.ory.sh/support/).
+
+## Event names
+
+The following is a list of all events that are currently supported. The first column corresponds to the `name` field in an event.
+New event names may be added in the future, in which case this list will be updated accordingly.
 
 ### Ory Identities
 
-| **Event**                   | **Description**                                                                                  |
-| --------------------------- | ------------------------------------------------------------------------------------------------ |
-| **SessionIssued**           | A new session has been initiated for a user.                                                     |
-| **SessionChanged**          | The session details have been modified or updated.                                               |
-| **SessionLifespanExtended** | The duration of the session has been extended, allowing the user to remain authenticated longer. |
-| **SessionRevoked**          | The session has been explicitly terminated or invalidated.                                       |
-| **SessionChecked**          | A check has been performed to verify the session's validity or status.                           |
-| **SessionTokenizedAsJWT**   | The session has been converted into a JWT (JSON Web Token) for authentication purposes.          |
-| **RegistrationFailed**      | A user's attempt to register has failed due to errors or invalid data.                           |
-| **RegistrationSucceeded**   | A user has successfully registered and created an account.                                       |
-| **LoginFailed**             | A user's login attempt has failed, possibly due to incorrect credentials.                        |
-| **LoginSucceeded**          | A user has successfully logged into their account.                                               |
-| **SettingsFailed**          | An attempt to change account or session settings has failed.                                     |
-| **SettingsSucceeded**       | Changes to account or session settings have been successfully applied.                           |
-| **RecoveryFailed**          | A password or account recovery attempt has failed.                                               |
-| **RecoverySucceeded**       | A password or account recovery attempt has succeeded.                                            |
-| **VerificationFailed**      | A user's identity verification attempt has failed.                                               |
-| **VerificationSucceeded**   | A user's identity verification has been successfully completed.                                  |
-| **IdentityCreated**         | A new identity (user or account) has been successfully created.                                  |
-| **IdentityUpdated**         | An existing identity's details have been modified or updated.                                    |
-| **IdentityDeleted**         | An identity has been deleted from the system.                                                    |
-| **WebhookDelivered**        | A webhook has been sent to the configured endpoint for processing.                               |
-| **WebhookSucceeded**        | A webhook has been successfully processed and acknowledged by the receiving endpoint.            |
-| **WebhookFailed**           | A webhook delivery or processing has failed at the receiving endpoint.                           |
+| **Event**                    | **Description**                                                                                                                                                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **IdentityCreated**          | A new identity (user or account) has been created.                                                                                                                                                                   |
+| **IdentityDeleted**          | An identity has been deleted from the system.                                                                                                                                                                        |
+| **IdentityUpdated**          | An existing identity's details have been modified or updated. The `IdentityActive attribute` in the event indicates the state of the active flag, as many SCIM providers deactivate users by setting `active=false`. |
+| **JsonnetMappingFailed**     | Mapping claims or attributes from an OIDC or SAML IdP failed.                                                                                                                                                        |
+| **LoginFailed**              | A user's login attempt has failed, possibly due to incorrect credentials.                                                                                                                                            |
+| **LoginInitiated**           | A new login flow has been created and basic validation passed.                                                                                                                                                       |
+| **LoginSucceeded**           | A user has logged into their account.                                                                                                                                                                                |
+| **RecoveryFailed**           | A password or account recovery attempt has failed.                                                                                                                                                                   |
+| **RecoveryInitiatedByAdmin** | An admin has initiated account recovery on behalf of a user.                                                                                                                                                         |
+| **RecoverySucceeded**        | A password or account recovery attempt has succeeded.                                                                                                                                                                |
+| **RegistrationFailed**       | A user's attempt to register has failed due to errors or invalid data.                                                                                                                                               |
+| **RegistrationInitiated**    | A new registration flow has been created and basic validation passed.                                                                                                                                                |
+| **RegistrationSucceeded**    | A user has registered and created an account.                                                                                                                                                                        |
+| **SCIMGroupCreated**         | A new SCIM group has been created. Includes `ScimClient` attribute.                                                                                                                                                  |
+| **SCIMGroupDeleted**         | A SCIM group has been deleted. This event will also trigger IdentityUpdated events for all affected users. Includes `ScimClient` attribute.                                                                          |
+| **SCIMGroupUpdated**         | A SCIM group has been updated. Modifying members of a group will also emit IdentityUpdated events for all affected users. Includes `ScimClient` attribute.                                                           |
+| **SCIMProvisioningError**    | An error occurred during the SCIM provisioning process, check the `SCIMError Detail` attribute for more information.                                                                                                 |
+| **SessionChanged**           | A sessions details have been modified or updated.                                                                                                                                                                    |
+| **SessionChecked**           | A check has been performed to verify the session's validity or status.                                                                                                                                               |
+| **SessionIssued**            | A new session has been initiated for a user.                                                                                                                                                                         |
+| **SessionLifespanExtended**  | The duration of a session has been extended, allowing the user to remain authenticated longer.                                                                                                                       |
+| **SessionRevoked**           | A session has been explicitly terminated or invalidated.                                                                                                                                                             |
+| **SessionTokenizedAsJWT**    | A session has been converted into a JSON Web Token (JWT).                                                                                                                                                            |
+| **SettingsFailed**           | An attempt to change account or session settings has failed.                                                                                                                                                         |
+| **SettingsSucceeded**        | An attempt to change account or session settings has succeeded.                                                                                                                                                      |
+| **VerificationFailed**       | A user's identity verification attempt has failed.                                                                                                                                                                   |
+| **VerificationSucceeded**    | A user's identity verification has succeeded.                                                                                                                                                                        |
+| **WebhookDelivered**         | A webhook has been sent to the configured endpoint for processing.                                                                                                                                                   |
+| **WebhookFailed**            | A webhook delivery or processing has failed at the receiving endpoint.                                                                                                                                               |
+| **WebhookSucceeded**         | A webhook has been processed and acknowledged by the receiving endpoint.                                                                                                                                             |
 
 ### Ory OAuth2
 
 | **Event**                      | **Description**                                                                                     |
 | ------------------------------ | --------------------------------------------------------------------------------------------------- |
-| **OAuth2LoginAccepted**        | A user's OAuth2 login has been accepted and the authentication process is successful.               |
+| **OAuth2LoginAccepted**        | A user's OAuth2 login has been accepted and the authentication process has succeeded.               |
 | **OAuth2LoginRejected**        | A user's OAuth2 login attempt has been rejected due to invalid credentials or authorization issues. |
 | **OAuth2ConsentAccepted**      | The user has accepted the consent screen, granting requested permissions to the OAuth2 client.      |
 | **OAuth2ConsentRejected**      | The user has rejected the consent screen, refusing to grant the requested permissions.              |
@@ -57,11 +104,11 @@ exhaustive, and there might by additional events being emitted.
 | **OAuth2ClientCreated**        | A new OAuth2 client (application) has been created and registered in the system.                    |
 | **OAuth2ClientDeleted**        | An OAuth2 client has been deleted from the system.                                                  |
 | **OAuth2ClientUpdated**        | An existing OAuth2 client's details have been updated or modified.                                  |
-| **OAuth2AccessTokenIssued**    | An OAuth2 access token has been successfully issued to a client or user.                            |
+| **OAuth2AccessTokenIssued**    | An OAuth2 access token has been issued to a client or user.                                         |
 | **OAuth2TokenExchangeError**   | An error occurred during the OAuth2 token exchange process, possibly due to invalid requests.       |
 | **OAuth2AccessTokenInspected** | An OAuth2 access token has been inspected to verify its validity or check its claims.               |
 | **OAuth2AccessTokenRevoked**   | An OAuth2 access token has been revoked, invalidating it for future use.                            |
-| **OAuth2RefreshTokenIssued**   | A refresh token has been successfully issued, allowing the client to obtain a new access token.     |
+| **OAuth2RefreshTokenIssued**   | A refresh token has been issued, allowing the client to obtain a new access token.                  |
 | **OIDCIdentityTokenIssued**    | An OpenID Connect (OIDC) identity token has been issued to authenticate the user's identity.        |
 
 ### Ory Permissions
@@ -73,6 +120,20 @@ exhaustive, and there might by additional events being emitted.
 | **RelationtuplesChanged** | A relation tuple has been modified, indicating a change in the relationship between entities.         |
 | **PermissionsExpanded**   | Permissions have been expanded, likely increasing access or privileges for certain users or entities. |
 | **PermissionsChecked**    | A permission check has been performed to verify if access is allowed for a given action or resource.  |
+
+## Delivery guarantees
+
+1. Possible duplicates: There might be duplicates in the event stream. While rare (typically caused by retries because of network
+   issues), consumers should be prepared to deal with them, for example by implementing deduplication logic.
+1. Best-effort delivery: Event delivery is best-effort. While most events are delivered reliably, events may be lost under adverse
+   conditions (for example, system crashes during request processing). Delivery is not guaranteed to be "at-least-once".
+1. No delivery latency SLA: Ory does not offer a Service Level Agreement (SLA) for event delivery duration (the time between an
+   event occurring and it appearing in your consumer or the Ory Console UI). However, typical delivery times are observed to be
+   less than 5 seconds.
+1. No ordering guarantees: Events may arrive in any order, both within a request and across different requests.
+
+Stronger guarantees can be implemented for your use case if needed, in this case please
+[open a support ticket](https://console.ory.sh/support/).
 
 ## Configure event streams
 

@@ -1,89 +1,87 @@
-import React, { useEffect, useState } from "react"
-import logo from "./logo.svg"
+import { useState, useEffect } from "react"
 import "./App.css"
+import { FrontendApi, Configuration, Session } from "@ory/client-fetch"
 
-// highlight-start
-import { FrontendApi, Configuration, Session, Identity } from "@ory/client"
+interface AppProps {
+  msg?: string
+}
 
-// Get your Ory url from .env
-// Or localhost for local development
-const basePath = process.env.REACT_APP_ORY_URL || "http://localhost:4000"
+const basePath = import.meta.env.VITE_ORY_SDK_URL || "http://localhost:4000"
+
+// Initialize Ory client
 const ory = new FrontendApi(
   new Configuration({
     basePath,
-    baseOptions: {
-      withCredentials: true,
-      headers: {
-        // Only needed to pass the documentation CI. You do not need this line in your code:
-        [process.env.ORY_CI_RATE_LIMIT_HEADER || ""]:
-          process.env.ORY_CI_RATE_LIMIT_HEADER_VALUE,
-      },
-    },
+    credentials: "include",
   }),
 )
 
-function App() {
-  const [session, setSession] = useState<Session | undefined>()
-  const [logoutUrl, setLogoutUrl] = useState<string | undefined>()
+function App({ msg }: AppProps) {
+  // State variables
+  const [session, setSession] = useState<Session | null>(null)
+  const [logoutUrl, setLogoutUrl] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
 
-  // Returns either the email or the username depending on the user's Identity Schema
-  const getUserName = (identity?: Identity) =>
-    identity?.traits.email || identity?.traits.username
-
-  // highlight-end
-
-  // highlight-start
-  // Second, gather session data, if the user is not logged in, redirect to login
-  useEffect(() => {
-    ory
-      .toSession()
-      .then(({ data }) => {
-        // User has a session!
-        setSession(data)
-        ory.createBrowserLogoutFlow().then(({ data }) => {
-          // Get also the logout url
-          setLogoutUrl(data.logout_url)
-        })
-      })
-      .catch((err) => {
-        console.error(err)
-        // Redirect to login page
-        window.location.replace(`${basePath}/ui/login`)
-      })
-  }, [])
-
-  if (!session) {
-    // Still loading
-    return <h1>Loading...</h1>
+  // Lifecycle hooks
+  const fetchSession = async () => {
+    try {
+      // Browser automatically includes cookies in the request
+      const session = await ory.toSession()
+      setSession(session)
+      try {
+        const { logout_url } = await ory.createBrowserLogoutFlow()
+        setLogoutUrl(logout_url)
+      } catch (logoutError) {
+        console.error("Error creating logout flow:", logoutError)
+      }
+    } catch (err) {
+      console.error("Error fetching session:", err)
+      window.location.href = basePath + "/self-service/login/browser"
+    } finally {
+      setLoading(false)
+    }
   }
-  // highlight-end
-
+  useEffect(() => {
+    fetchSession()
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Welcome to Ory,{" "}
-          {
-            // highlight-next-line
-            getUserName(session?.identity)
-          }
-          .
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        {
-          // highlight-next-line
-          // Our logout link
-          <a href={logoutUrl}>Logout</a>
-        }
-      </header>
+    <div className="main">
+      <main className="container">
+        {loading ? (
+          <div className="title"> Loading...</div>
+        ) : session?.identity ? (
+          <div className="protected-content">
+            <div className="header">
+              <h1 className="title">{msg}</h1>
+              <a
+                href={logoutUrl || "#"}
+                data-testid="logout"
+                className="logout-button"
+              >
+                Logout
+              </a>
+            </div>
+            <div className="session-info">
+              <h2 className="subtitle">Session Information</h2>
+              <pre>{JSON.stringify(session.identity.traits || {})}</pre>
+            </div>
+            <div className="essential-links">
+              <h3>Essential Links</h3>
+              <ul>
+                <li>
+                  <a href="https://www.ory.sh">Ory Website</a>
+                </li>
+                <li>
+                  <a href="https://github.com/ory">Ory GitHub</a>
+                </li>
+                <li>
+                  <a href="https://www.ory.sh/docs">Documentation</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        ) : null}
+      </main>
     </div>
   )
 }

@@ -8,9 +8,8 @@ import CodeBlock from "@theme/CodeBlock"
 
 This guide explains how to set up and run Ory Hydra in an exemplary production environment. It uses Postgres as database, Nginx as
 reverse proxy, and Digital Ocean as cloud provider. You can use another
-[relational database](https://www.ory.sh/docs/ecosystem/deployment#data-storage-and-persistence), a different reverse proxy,
-deploy on any other cloud host, and
-[spin up a custom user interface in your favorite language](https://www.ory.sh/docs/hydra/sdk/) - this is just an example!
+[relational database](../../self-hosted/deployment#data-storage-and-persistence), a different reverse proxy, deploy on any other
+cloud host, and [spin up a custom user interface in your favorite language](../sdk/overview) - this is just an example!
 
 ## Create a Droplet
 
@@ -147,7 +146,7 @@ Congratulations, you have installed and configured the PostgreSQL database. Next
    "hydra",
    )}-linux_64bit.tar.gz
    # Extract contents
-   tar xfvz hydra_${useLatestRelease("hydra")}-linux_64bit.tar.gz
+   tar xfvz hydra_${useLatestReleaseFilename("hydra")}-linux_64bit.tar.gz
    # Remove redundant files
    rm *md
    rm LICENSE`}</CodeBlock>
@@ -228,7 +227,7 @@ Thank you for using Ory Hydra ${useLatestRelease("hydra")}!
    WantedBy=multi-user.target
    ```
 
-[Read more about the administrative and public APIs](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints).
+[Read more about the administrative and public APIs](../self-hosted/production/#exposing-administrative-and-public-api-endpoints).
 
 4. To run Ory Hydra using systemd add the systemd service to startup:
 
@@ -323,7 +322,7 @@ instances of Ory Hydra running on the various virtual machines. We need two upst
 - public_api to proxy traffic to the Public API of Ory Hydra
 - admin_api to proxy traffic to the Admin API of Ory Hydra
 
-[Read more about exposing admin and public API endpoints](https://www.ory.sh/docs/hydra/production#exposing-administrative-and-public-api-endpoints).
+[Read more about exposing admin and public API endpoints](../self-hosted/production#exposing-administrative-and-public-api-endpoints).
 
 5. Add the following configuration before the `server` section to the `/etc/nginx/sites-enabled/oauth2.example.com` file:
 

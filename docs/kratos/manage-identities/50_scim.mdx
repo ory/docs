@@ -1,7 +1,6 @@
 ---
 id: scim
 title: SCIM
-sidebar_label: SCIM
 ---
 
 # System for Cross-domain Identity Management
@@ -14,18 +13,18 @@ SCIM provisioning is only available in Ory Network and via the Ory Enterprise Li
 :::
 
 SCIM (System for Cross-domain Identity Management) is a standard for automating the exchange of user identity information between
-identity domains or IT systems. It is designed to make it easier to manage user identities in cloud-based applications and
+identity domains or IT systems. It is designed to simplify the management of user identities in cloud-based applications and
 services. SCIM provides a common schema for representing user identities and a RESTful API for managing them. This allows
-organizations to automate the provisioning and de-provisioning of user accounts across multiple systems, reducing the
-administrative burden and improving security.
+organizations to automate the provisioning and de-provisioning of user accounts across multiple systems, reducing administrative
+burden and improving security.
 
-In the Ory Network, SCIM is available at the organization level. This means that within one project, you can have multiple
+In Ory Network, SCIM is available at the organization level. This means that within one project, you can have multiple
 organizations with different SCIM configurations. Each organization can have its own SCIM settings, including the ability to
 enable or disable SCIM, set the base URL for SCIM endpoints, and configure authentication methods. This allows organizations to
 tailor their SCIM implementation to meet their specific needs and requirements.
 
-Identities that are provisioned through the SCIM API are automatically created in the Ory Network and added to that SCIM server's
-organization. The provisioned identities can then log in through any of the organization's configured SSO methods.
+Identities provisioned through the SCIM API are automatically created in Ory Network and added to that SCIM server's organization.
+The provisioned identities can then log in through any of the organization's configured SSO methods.
 
 ```mdx-code-block
 import Mermaid from "@site/src/theme/Mermaid"
@@ -60,18 +59,38 @@ SCIM client's settings.
 
 - **Client ID**: Enter an identifier for your SCIM client. This identifier will be part of the URL the client uses to access the
   Ory Network SCIM server. It should be unique within your project.
-- **Label**: Enter a human-readable label for your SCIM client. the SCIM server.
-- **Authorization header secret**: Enter a secret in the client authenticaiton's **secret** field. This secret will be used to
+- **Label**: Enter a human-readable label for your SCIM client.
+- **Authorization header secret**: Enter a secret in the client authentication's **secret** field. This secret will be used to
   authenticate requests to the SCIM server. Clients need to specify this in the `Authorization` header of their requests.
 - **Data mapping**: When the client creates or updates a user, the supplied data will be applied to the identity based on this
-  data mapping.
+  data mapping. See below for more details.
+
+### Data mapping
+
+The data mapping is a Jsonnet script that defines how the data the SCIM client sends should be mapped to the identity in the Ory
+Network. This mapping will be applied any time the SCIM client creates or updates a user (`POST`, `PATCH`, or `PUT`), and the
+identity will be updated accordingly. However, the mapping is unidirectional. For example, if the user updates an identity trait
+that was previously set by the SCIM client, the SCIM client will not be able to retrieve the updated value.
+
+In the context of the Jsonnet script, the SCIM user data is available as `std.extVar('scim')`. For the available attributes, refer
+to the [SCIM user resource schema](https://datatracker.ietf.org/doc/html/rfc7643#section-4.1) or the documentation below.
+
+The script should return a JSON object as defined in the [Jsonnet reference](../reference/jsonnet#output).
 
 ### Use the SCIM client
 
 Once you have configured a SCIM client, you can use it to provision identities. The Ory Network SCIM server provides a set of
 endpoints that allow the creation and management of user identities and groups.
 
-The following endpoints are available:
+Please refer to these guides for setting up SCIM with specific identity providers:
+
+```mdx-code-block
+import DocCardList from '@theme/DocCardList';
+
+<DocCardList />
+```
+
+For generic SCIM clients, the following endpoints are available:
 
 - **User endpoints**
   - `GET /Users`: Retrieve a list of users.
@@ -88,13 +107,92 @@ The following endpoints are available:
   - `PATCH /Groups/{id}`: Partially update a specific group by ID.
   - `DELETE /Groups/{id}`: Delete a specific group by ID.
 
-### Known limitations
+### SCIM resource schemas
 
-- For querying users with `GET /Users`, the SCIM server only supports the `eq` operator for filtering, and only with the
+For programmatic discovery of the SCIM resource schemas, you can use the `GET /Schemas` endpoint. This will return a list of all
+available schemas.
+
+### SCIM user resource schema
+
+Ory Network fully supports the standard SCIM user resource schema as defined in the
+[SCIM RFC](https://datatracker.ietf.org/doc/html/rfc7643#section-4.1). In detail, the following attributes are supported:
+
+| Name                | Type   | Remarks                                                                                                                                                                                               |
+| ------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                | UUID   | Read-only, this is the identity ID.                                                                                                                                                                   |
+| `externalId`        | string | Optional, an ID set by the SCIM client.                                                                                                                                                               |
+| `userName`          | string | Required, unique identifier for the user. Typically used as the login identifier.                                                                                                                     |
+| `name`              | object | Contains sub-attributes `formatted`, `familyName`, `givenName`, `middleName`, `honorificPrefix`, and `honorificSuffix`.                                                                               |
+| `displayName`       | string |                                                                                                                                                                                                       |
+| `nickName`          | string |                                                                                                                                                                                                       |
+| `profileUrl`        | string |                                                                                                                                                                                                       |
+| `title`             | string |                                                                                                                                                                                                       |
+| `userType`          | string |                                                                                                                                                                                                       |
+| `preferredLanguage` | string |                                                                                                                                                                                                       |
+| `locale`            | string |                                                                                                                                                                                                       |
+| `timeZone`          | string | If set, must be a valid time zone.                                                                                                                                                                    |
+| `active`            | bool   | If unset or false, the user will not be able to log in.                                                                                                                                               |
+| `password`          | string | If set, the user will be able to log in with this password. The password is never returned in any SCIM response.                                                                                      |
+| `emails`            | array  | List of email addresses. Each email can have a `value` (string), `display` (string), `primary` (boolean), and `type` (string). At most one `primary=true` email can be set.                           |
+| `phoneNumbers`      | array  | List of phone numbers. Each number can have a `value` (string), `display` (string), `primary` (boolean), and `type` (string). At most one `primary=true` number can be set.                           |
+| `ims`               | array  | List of instant messaging accounts. Each account can have a `value` (string), `display` (string), `primary` (boolean), and `type` (string). At most one `primary=true` account can be set.            |
+| `photos`            | array  | List of photos. Each photo can have a `value` (string), `display` (string), `primary` (boolean), and `type` (string). At most one `primary=true` photo can be set.                                    |
+| `addresses`         | array  | List of addresses. Each address can have a `formatted` (string), `streetAddress` (string), `locality` (string), `region` (string), `postalCode` (string), `country` (string), and `type` (string).    |
+| `groups`            | array  | Read-only, a list of groups the user is a member of. Each group can have a `value` (string), `display` (string), and `type` (string). To modify, set the `members` property on the `groups` resource. |
+| `entitlements`      | array  | List of entitlements. Each entitlement can have a `value` (string), `display` (string), `primary` (boolean), and `type` (string). At most one `primary=true` entitlement can be set.                  |
+| `roles`             | array  | List of roles. Each role can have a `value` (string), `display` (string), `primary` (boolean), and `type` (string). At most one `primary=true` role can be set.                                       |
+| `x509Certificates`  | array  | List of X.509 certificates. Each certificate can have a `value` (string), `display` (string), `primary` (boolean), and `type` (string). At most one `primary=true` certificate can be set.            |
+
+### SCIM group resource schema
+
+Ory Network fully supports the standard SCIM group resource schema as defined in the
+[SCIM RFC](https://datatracker.ietf.org/doc/html/rfc7643#section-4.2). In detail, the following attributes are supported:
+
+| Name          | Type   | Remarks                                                                                                                                                                                                         |
+| ------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`          | UUID   | Read-only, this is the group ID.                                                                                                                                                                                |
+| `externalId`  | string | Optional, an ID set by the SCIM client. If set, this ID must be unique in the context of the organization.                                                                                                      |
+| `displayName` | string | Required, the name of the group.                                                                                                                                                                                |
+| `members`     | array  | List of members. Each member can have a `value` (string), `display` (string), and `type` (string). `value` is either an identity ID (when `type` equals `"User"`) or a group ID (when `type` equals `"Group"`). |
+
+### Group memberships
+
+The SCIM server supports group memberships. To update group memberships, use the `members` property on the `Groups` resource.
+Groups also support nested sub-groups. However, in the user resource, only the direct group memberships are included.
+
+## Events
+
+Ory Network emits events for all SCIM operations that modify data. These events allow you to track and respond to changes in your
+identity ecosystem.
+
+| SCIM Action           | Events Emitted                 | Description                                                              |
+| --------------------- | ------------------------------ | ------------------------------------------------------------------------ |
+| `POST /Users`         | IdentityCreated                | Emitted when a new identity is provisioned                               |
+| `PUT /Users/{id}`     | IdentityUpdated                | Emitted when an identity is updated                                      |
+| `PATCH /Users/{id}`   | IdentityUpdated                | Emitted when an identity is partially updated                            |
+| `DELETE /Users/{id}`  | IdentityDeleted                | Emitted when an identity is deleted                                      |
+| `POST /Groups`        | GroupCreated                   | Emitted when a new group is created                                      |
+| `PUT /Groups/{id}`    | GroupUpdated + IdentityUpdated | Emitted when a group is updated, for the group and all members           |
+| `PATCH /Groups/{id}`  | GroupUpdated + IdentityUpdated | Emitted when a group is partially updated, for the group and all members |
+| `DELETE /Groups/{id}` | GroupDeleted + IdentityUpdated | Emitted when a group is deleted, for the group and all members           |
+
+### Event attributes
+
+| Event Type                       | Attribute        | Description                                                      |
+| -------------------------------- | ---------------- | ---------------------------------------------------------------- |
+| All events                       | `ScimClient`     | Contains the ID of the SCIM client that made the request         |
+| IdentityCreated, IdentityUpdated | `IdentityActive` | Boolean indicating if the identity is active (`true` or `false`) |
+
+These events provide visibility into all SCIM-related changes and can be used for auditing, automation, or integration with other
+systems in your organization.
+
+## Known limitations
+
+- When querying users with `GET /Users`, the SCIM server only supports the `eq` operator for filtering, and only with the
   `userName` attribute. Other operators like `ne`, `co`, `sw`, and `ew` are not supported.
-- For querying groups with `GET /Groups`, the SCIM server only supports the `eq` operator for filtering, and only with the
+- When querying groups with `GET /Groups`, the SCIM server only supports the `eq` operator for filtering, and only with the
   `displayName` attribute. Other operators like `ne`, `co`, `sw`, and `ew` are not supported.
 - For both user and group query endpoints, `startIndex` must be lower than 5000, and `count` must be lower than 1000.
-- If the user already exists within the project or organization the provisioning may fail with a 409 conflict error. This is
+- If the user already exists within the project or organization, the provisioning may fail with a 409 conflict error. This is
   because the SCIM server cannot modify existing users that have not been provisioned via SCIM. In this case, you need to manually
   delete the user first.

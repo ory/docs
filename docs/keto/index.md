@@ -1,10 +1,8 @@
 ---
 id: index
-title: Introduction to Ory Permissions
-sidebar_label: Ory Permissions
+title: Introduction to Ory Keto Permissions
+sidebar_label: Introduction
 ---
-
-# Introduction
 
 Ory Permissions is a modern permission system you can use to create a complete authorization system for your application or
 website, no matter the size or the complexity of the ACLs (access-control lists) your use case requires. Ory Permissions, based on

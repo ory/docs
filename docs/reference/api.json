@@ -659,12 +659,20 @@
       "CreateProjectNormalizedPayload": {
         "description": "Create project (normalized) request payload",
         "properties": {
+          "account_experience_default_locale": {
+            "description": "Holds the default locale for the account experience.",
+            "type": "string"
+          },
           "account_experience_favicon_dark": {
             "description": "Holds the URL to the account experience's dark theme favicon (currently unused).",
             "type": "string"
           },
           "account_experience_favicon_light": {
             "description": "Holds the URL to the account experience's favicon.",
+            "type": "string"
+          },
+          "account_experience_locale_behavior": {
+            "description": "Holds the URL to the account experience's language behavior.\n\nCan be one of:\n`respect_accept_language`: Respect the `Accept-Language` header.\n`force_default`: Force the default language.",
             "type": "string"
           },
           "account_experience_logo_dark": {
@@ -1136,6 +1144,18 @@
             "description": "Configures the Ory Kratos Faster Session Extend setting\n\nIf enabled allows faster session extension by skipping the session lookup and returning 201 instead of 200.\nDisabling this feature will be deprecated in the future.\n\nThis governs the \"feature_flags.faster_session_extend\" setting.",
             "type": "boolean"
           },
+          "kratos_feature_flags_legacy_continue_with_verification_ui": {
+            "description": "Always include show_verification_ui in continue_with\n\nIf true, restores the legacy behavior of always including `show_verification_ui` in the registration flow's `continue_with` when verification is enabled. If set to false, `show_verification_ui` is only set in `continue_with` if the `show_verification_ui` hook is used. This flag will be removed in the future.\n\nThis governs the \"feature_flags.legacy_continue_with_verification_ui\" setting.",
+            "type": "boolean"
+          },
+          "kratos_feature_flags_legacy_oidc_registration_node_group": {
+            "description": "Controls whether the UI nodes in an OIDC registration flow have group \"oidc\" in case required fields are not returned by the OIDC provider.\n\nIf set to true, the UI nodes will have group \"oidc\" and the flow will be considered successful if the user completes the flow. This is the legacy behavior.\n\nThis governs the \"feature_flags.legacy_oidc_registration_node_group\" setting.",
+            "type": "boolean"
+          },
+          "kratos_feature_flags_legacy_require_verified_login_error": {
+            "description": "Return a form error if the login identifier is not verified\n\nIf true, the login flow will return a form error if the login identifier is not verified, which restores legacy behavior. If this value is false, the `continue_with` array will contain a `show_verification_ui` hook instead.\n\nThis flag is deprecated and will be removed in the future.\n\nThis governs the \"feature_flags.legacy_require_verified_login_error\" setting.",
+            "type": "boolean"
+          },
           "kratos_feature_flags_use_continue_with_transitions": {
             "description": "Configures the Ory Kratos Session use_continue_with_transitions flag\n\nThis governs the \"feature_flags.use_continue_with_transitions\" setting.",
             "type": "boolean"
@@ -1166,6 +1186,10 @@
           },
           "kratos_secrets_default": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_security_account_enumeration_mitigate": {
+            "description": "Configures if account enumeration should be mitigated when using identifier first login.",
+            "type": "boolean"
           },
           "kratos_selfservice_allowed_return_urls": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -1539,6 +1563,9 @@
             "description": "The project's name.",
             "type": "string"
           },
+          "organizations": {
+            "$ref": "#/components/schemas/organizations"
+          },
           "project_id": {
             "description": "The Revision's Project ID",
             "format": "uuid",
@@ -1546,6 +1573,9 @@
           },
           "project_revision_hooks": {
             "$ref": "#/components/schemas/projectRevisionHooks"
+          },
+          "scim_clients": {
+            "$ref": "#/components/schemas/projectRevisionScimClients"
           },
           "serve_admin_cors_allowed_origins": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -1656,6 +1686,33 @@
         "type": "string"
       },
       "DefaultError": {},
+      "DeviceUserAuthRequest": {
+        "properties": {
+          "challenge": {
+            "description": "ID is the identifier (\"device challenge\") of the device grant request. It is used to\nidentify the session.",
+            "type": "string"
+          },
+          "client": {
+            "$ref": "#/components/schemas/oAuth2Client"
+          },
+          "handled_at": {
+            "$ref": "#/components/schemas/nullTime"
+          },
+          "request_url": {
+            "description": "RequestURL is the original Device Authorization URL requested.",
+            "type": "string"
+          },
+          "requested_access_token_audience": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "requested_scope": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          }
+        },
+        "required": ["challenge"],
+        "title": "Contains information on an ongoing device grant request.",
+        "type": "object"
+      },
       "Duration": {
         "description": "A Duration represents the elapsed time between two instants\nas an int64 nanosecond count. The representation limits the\nlargest representable duration to approximately 290 years.",
         "format": "int64",
@@ -2249,6 +2306,15 @@
         },
         "type": "object"
       },
+      "acceptDeviceUserCodeRequest": {
+        "description": "Contains information on an device verification",
+        "properties": {
+          "user_code": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "acceptOAuth2ConsentRequest": {
         "properties": {
           "context": {
@@ -2335,6 +2401,9 @@
       },
       "accountExperienceConfiguration": {
         "properties": {
+          "default_locale": {
+            "type": "string"
+          },
           "default_redirect_url": {
             "type": "string"
           },
@@ -2346,6 +2415,12 @@
           },
           "favicon_light_url": {
             "type": "string"
+          },
+          "locale_behavior": {
+            "description": "\nforce_default AccountExperienceLocaleBehaviorForceDefault\nrespect_accept_language AccountExperienceLocaleBehaviorRespectAcceptLanguage",
+            "enum": ["force_default", "respect_accept_language"],
+            "type": "string",
+            "x-go-enum-desc": "force_default AccountExperienceLocaleBehaviorForceDefault\nrespect_accept_language AccountExperienceLocaleBehaviorRespectAcceptLanguage"
           },
           "login_ui_url": {
             "type": "string"
@@ -2386,6 +2461,8 @@
         },
         "required": [
           "name",
+          "locale_behavior",
+          "default_locale",
           "registration_enabled",
           "verification_enabled",
           "recovery_enabled",
@@ -2714,6 +2791,24 @@
         "enum": ["aal0", "aal1", "aal2", "aal3"],
         "title": "Authenticator Assurance Level (AAL)",
         "type": "string"
+      },
+      "basicOrganization": {
+        "properties": {
+          "domains": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "id": {
+            "description": "The organization's ID.",
+            "format": "uuid",
+            "type": "string"
+          },
+          "label": {
+            "description": "The organization's human-readable label.",
+            "type": "string"
+          }
+        },
+        "required": ["id", "label", "domains"],
+        "type": "object"
       },
       "batchCheckPermissionBody": {
         "description": "Batch Check Permission Body",
@@ -3429,6 +3524,45 @@
             "type": "integer"
           }
         },
+        "type": "object"
+      },
+      "deviceAuthorization": {
+        "description": "# Ory's OAuth 2.0 Device Authorization API",
+        "properties": {
+          "device_code": {
+            "description": "The device verification code.",
+            "example": "ory_dc_smldfksmdfkl.mslkmlkmlk",
+            "type": "string"
+          },
+          "expires_in": {
+            "description": "The lifetime in seconds of the \"device_code\" and \"user_code\".",
+            "example": 16830,
+            "format": "int64",
+            "type": "integer"
+          },
+          "interval": {
+            "description": "The minimum amount of time in seconds that the client\nSHOULD wait between polling requests to the token endpoint.  If no\nvalue is provided, clients MUST use 5 as the default.",
+            "example": 5,
+            "format": "int64",
+            "type": "integer"
+          },
+          "user_code": {
+            "description": "The end-user verification code.",
+            "example": "AAAAAA",
+            "type": "string"
+          },
+          "verification_uri": {
+            "description": "The end-user verification URI on the authorization\nserver.  The URI should be short and easy to remember as end users\nwill be asked to manually type it into their user agent.",
+            "example": "https://auth.ory.sh/tv",
+            "type": "string"
+          },
+          "verification_uri_complete": {
+            "description": "A verification URI that includes the \"user_code\" (or\nother information with the same function as the \"user_code\"),\nwhich is designed for non-textual transmission.",
+            "example": "https://auth.ory.sh/tv?user_code=AAAAAA",
+            "type": "string"
+          }
+        },
+        "title": "OAuth2 Device Flow",
         "type": "object"
       },
       "emailTemplateData": {
@@ -5217,12 +5351,20 @@
       },
       "normalizedProjectRevision": {
         "properties": {
+          "account_experience_default_locale": {
+            "description": "Holds the default locale for the account experience.",
+            "type": "string"
+          },
           "account_experience_favicon_dark": {
             "description": "Holds the URL to the account experience's dark theme favicon (currently unused).",
             "type": "string"
           },
           "account_experience_favicon_light": {
             "description": "Holds the URL to the account experience's favicon.",
+            "type": "string"
+          },
+          "account_experience_locale_behavior": {
+            "description": "Holds the URL to the account experience's language behavior.\n\nCan be one of:\n`respect_accept_language`: Respect the `Accept-Language` header.\n`force_default`: Force the default language.",
             "type": "string"
           },
           "account_experience_logo_dark": {
@@ -5675,6 +5817,18 @@
             "description": "Configures the Ory Kratos Faster Session Extend setting\n\nIf enabled allows faster session extension by skipping the session lookup and returning 201 instead of 200.\nDisabling this feature will be deprecated in the future.\n\nThis governs the \"feature_flags.faster_session_extend\" setting.",
             "type": "boolean"
           },
+          "kratos_feature_flags_legacy_continue_with_verification_ui": {
+            "description": "Always include show_verification_ui in continue_with\n\nIf true, restores the legacy behavior of always including `show_verification_ui` in the registration flow's `continue_with` when verification is enabled. If set to false, `show_verification_ui` is only set in `continue_with` if the `show_verification_ui` hook is used. This flag will be removed in the future.\n\nThis governs the \"feature_flags.legacy_continue_with_verification_ui\" setting.",
+            "type": "boolean"
+          },
+          "kratos_feature_flags_legacy_oidc_registration_node_group": {
+            "description": "Controls whether the UI nodes in an OIDC registration flow have group \"oidc\" in case required fields are not returned by the OIDC provider.\n\nIf set to true, the UI nodes will have group \"oidc\" and the flow will be considered successful if the user completes the flow. This is the legacy behavior.\n\nThis governs the \"feature_flags.legacy_oidc_registration_node_group\" setting.",
+            "type": "boolean"
+          },
+          "kratos_feature_flags_legacy_require_verified_login_error": {
+            "description": "Return a form error if the login identifier is not verified\n\nIf true, the login flow will return a form error if the login identifier is not verified, which restores legacy behavior. If this value is false, the `continue_with` array will contain a `show_verification_ui` hook instead.\n\nThis flag is deprecated and will be removed in the future.\n\nThis governs the \"feature_flags.legacy_require_verified_login_error\" setting.",
+            "type": "boolean"
+          },
           "kratos_feature_flags_use_continue_with_transitions": {
             "description": "Configures the Ory Kratos Session use_continue_with_transitions flag\n\nThis governs the \"feature_flags.use_continue_with_transitions\" setting.",
             "type": "boolean"
@@ -5705,6 +5859,10 @@
           },
           "kratos_secrets_default": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "kratos_security_account_enumeration_mitigate": {
+            "description": "Configures if account enumeration should be mitigated when using identifier first login.",
+            "type": "boolean"
           },
           "kratos_selfservice_allowed_return_urls": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -6078,6 +6236,9 @@
             "description": "The project's name.",
             "type": "string"
           },
+          "organizations": {
+            "$ref": "#/components/schemas/organizations"
+          },
           "project_id": {
             "description": "The Revision's Project ID",
             "format": "uuid",
@@ -6085,6 +6246,9 @@
           },
           "project_revision_hooks": {
             "$ref": "#/components/schemas/projectRevisionHooks"
+          },
+          "scim_clients": {
+            "$ref": "#/components/schemas/projectRevisionScimClients"
           },
           "serve_admin_cors_allowed_origins": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -6311,6 +6475,58 @@
         },
         "type": "object"
       },
+      "normalizedProjectRevisionScimClient": {
+        "description": "SCIMClient represents a SCIM client configuration to be used by an external\nidentity provider.",
+        "properties": {
+          "authorization_header_secret": {
+            "description": "The secret that the client uses in the authorization header to authenticate itself.",
+            "type": "string"
+          },
+          "client_id": {
+            "description": "The unique ID of the SCIM server.",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "The SCIM client's creation time",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "label": {
+            "description": "The SCIM server's label",
+            "type": "string"
+          },
+          "mapper_url": {
+            "description": "Mapper specifies the JSONNet code snippet which uses the SCIM provider's data\nto hydrate the identity's data.",
+            "type": "string"
+          },
+          "organization_id": {
+            "description": "OrganizationID is the organization ID for this SCIM server.",
+            "format": "uuid",
+            "type": "string"
+          },
+          "state": {
+            "description": "State indicates the state of the SCIM server\n\nOnly servers with state `enabled` will be available for SCIM provisioning.\nenabled ThirdPartyProviderStateEnabled\ndisabled ThirdPartyProviderStateDisabled",
+            "enum": ["enabled", "disabled"],
+            "type": "string",
+            "x-go-enum-desc": "enabled ThirdPartyProviderStateEnabled\ndisabled ThirdPartyProviderStateDisabled"
+          },
+          "updated_at": {
+            "description": "Last time the SCIM client was updated",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "organization_id",
+          "client_id",
+          "label",
+          "mapper_url",
+          "authorization_header_secret"
+        ],
+        "type": "object"
+      },
       "normalizedProjectRevisionThirdPartyProvider": {
         "properties": {
           "additional_id_token_audiences": {
@@ -6519,7 +6735,7 @@
         "description": "OAuth 2.0 Clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are\ngenerated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.",
         "properties": {
           "access_token_strategy": {
-            "description": "OAuth 2.0 Access Token Strategy\n\nAccessTokenStrategy is the strategy used to generate access tokens.\nValid options are `jwt` and `opaque`. `jwt` is a bad idea, see https://www.ory.sh/docs/oauth2-oidc/jwt-access-token\nSetting the stragegy here overrides the global setting in `strategies.access_token`.",
+            "description": "OAuth 2.0 Access Token Strategy\n\nAccessTokenStrategy is the strategy used to generate access tokens.\nValid options are `jwt` and `opaque`. `jwt` is a bad idea, see https://www.ory.sh/docs/oauth2-oidc/jwt-access-token\nSetting the strategy here overrides the global setting in `strategies.access_token`.",
             "type": "string"
           },
           "allowed_cors_origins": {
@@ -6577,6 +6793,15 @@
             "format": "date-time",
             "type": "string"
           },
+          "device_authorization_grant_access_token_lifespan": {
+            "$ref": "#/components/schemas/NullDuration"
+          },
+          "device_authorization_grant_id_token_lifespan": {
+            "$ref": "#/components/schemas/NullDuration"
+          },
+          "device_authorization_grant_refresh_token_lifespan": {
+            "$ref": "#/components/schemas/NullDuration"
+          },
           "frontchannel_logout_session_required": {
             "description": "OpenID Connect Front-Channel Logout Session Required\n\nBoolean value specifying whether the RP requires that iss (issuer) and sid (session ID) query parameters be\nincluded to identify the RP session with the OP when the frontchannel_logout_uri is used.\nIf omitted, the default value is false.",
             "type": "boolean"
@@ -6595,7 +6820,7 @@
             "$ref": "#/components/schemas/NullDuration"
           },
           "jwks": {
-            "description": "OAuth 2.0 Client JSON Web Key Set\n\nClient's JSON Web Key Set [JWK] document, passed by value. The semantics of the jwks parameter are the same as\nthe jwks_uri parameter, other than that the JWK Set is passed by value, rather than by reference. This parameter\nis intended only to be used by Clients that, for some reason, are unable to use the jwks_uri parameter, for\ninstance, by native applications that might not have a location to host the contents of the JWK Set. If a Client\ncan use jwks_uri, it MUST NOT use jwks. One significant downside of jwks is that it does not enable key rotation\n(which jwks_uri does, as described in Section 10 of OpenID Connect Core 1.0 [OpenID.Core]). The jwks_uri and jwks\nparameters MUST NOT be used together."
+            "$ref": "#/components/schemas/jsonWebKeySet"
           },
           "jwks_uri": {
             "description": "OAuth 2.0 Client JSON Web Key Set URL\n\nURL for the Client's JSON Web Key Set [JWK] document. If the Client signs requests to the Server, it contains\nthe signing key(s) the Server uses to validate signatures from the Client. The JWK Set MAY also contain the\nClient's encryption keys(s), which are used by the Server to encrypt responses to the Client. When both signing\nand encryption keys are made available, a use (Key Use) parameter value is REQUIRED for all keys in the referenced\nJWK Set to indicate each key's intended usage. Although some algorithms allow the same key to be used for both\nsignatures and encryption, doing so is NOT RECOMMENDED, as it is less secure. The JWK x5c parameter MAY be used\nto provide X.509 representations of keys provided. When used, the bare key values MUST still be present and MUST\nmatch those in the certificate.",
@@ -6714,6 +6939,15 @@
           "client_credentials_grant_access_token_lifespan": {
             "$ref": "#/components/schemas/NullDuration"
           },
+          "device_authorization_grant_access_token_lifespan": {
+            "$ref": "#/components/schemas/NullDuration"
+          },
+          "device_authorization_grant_id_token_lifespan": {
+            "$ref": "#/components/schemas/NullDuration"
+          },
+          "device_authorization_grant_refresh_token_lifespan": {
+            "$ref": "#/components/schemas/NullDuration"
+          },
           "implicit_grant_access_token_lifespan": {
             "$ref": "#/components/schemas/NullDuration"
           },
@@ -6758,6 +6992,10 @@
           },
           "context": {
             "$ref": "#/components/schemas/JSONRawMessage"
+          },
+          "device_challenge_id": {
+            "description": "DeviceChallenge is the device challenge this consent challenge belongs to, if this flow was initiated by a device.",
+            "type": "string"
           },
           "login_challenge": {
             "description": "LoginChallenge is the login challenge this consent challenge belongs to. It can be used to associate\na login and consent request in the login \u0026 consent app.",
@@ -7058,6 +7296,11 @@
             },
             "type": "array"
           },
+          "device_authorization_endpoint": {
+            "description": "OAuth 2.0 Device Authorization Endpoint URL",
+            "example": "https://playground.ory.sh/ory-hydra/public/oauth2/device/oauth",
+            "type": "string"
+          },
           "end_session_endpoint": {
             "description": "OpenID Connect End-Session Endpoint\n\nURL at the OP to which an RP can perform a redirect to request that the End-User be logged out at the OP.",
             "type": "string"
@@ -7191,6 +7434,7 @@
         "required": [
           "issuer",
           "authorization_endpoint",
+          "device_authorization_endpoint",
           "token_endpoint",
           "jwks_uri",
           "subject_types_supported",
@@ -7289,9 +7533,7 @@
         "description": "B2B SSO Organization",
         "properties": {
           "created_at": {
-            "description": "The organization's creation date.",
             "format": "date-time",
-            "readOnly": true,
             "type": "string"
           },
           "domains": {
@@ -7305,28 +7547,16 @@
           "label": {
             "description": "The organization's human-readable label.",
             "type": "string"
-          },
-          "project_id": {
-            "description": "The project's ID.",
-            "format": "uuid",
-            "type": "string"
-          },
-          "updated_at": {
-            "description": "The last time the organization was updated.",
-            "format": "date-time",
-            "readOnly": true,
-            "type": "string"
           }
         },
-        "required": [
-          "id",
-          "project_id",
-          "label",
-          "domains",
-          "created_at",
-          "updated_at"
-        ],
+        "required": ["id", "label", "domains", "created_at"],
         "type": "object"
+      },
+      "organizations": {
+        "items": {
+          "$ref": "#/components/schemas/organization"
+        },
+        "type": "array"
       },
       "pagination": {
         "properties": {
@@ -7493,6 +7723,13 @@
             "description": "The name of the project.",
             "type": "string"
           },
+          "organizations": {
+            "description": "The organizations of the project.\n\nOrganizations are used to group users and enforce certain restrictions like usage of SSO.",
+            "items": {
+              "$ref": "#/components/schemas/basicOrganization"
+            },
+            "type": "array"
+          },
           "revision_id": {
             "description": "The configuration revision ID.",
             "format": "uuid",
@@ -7526,7 +7763,8 @@
           "state",
           "name",
           "environment",
-          "home_region"
+          "home_region",
+          "organizations"
         ],
         "type": "object"
       },
@@ -8109,6 +8347,12 @@
         },
         "type": "array"
       },
+      "projectRevisionScimClients": {
+        "items": {
+          "$ref": "#/components/schemas/normalizedProjectRevisionScimClient"
+        },
+        "type": "array"
+      },
       "projectRevisionThirdPartyLoginProviders": {
         "items": {
           "$ref": "#/components/schemas/normalizedProjectRevisionThirdPartyProvider"
@@ -8172,7 +8416,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery",
+            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM",
             "enum": [
               "production_projects",
               "staging_projects",
@@ -8202,16 +8446,25 @@
               "saml_sp",
               "saml_idp",
               "auto_link_policy",
+              "scim_clients",
+              "default_smtp_email_customization",
+              "update_self_service_registration_rate_limit_tier",
+              "update_self_service_recovery_rate_limit_tier",
+              "update_self_service_settings_rate_limit_tier",
+              "update_self_service_verification_rate_limit_tier",
+              "identities_create_rate_limit_tier",
+              "identities_import_rate_limit_tier",
               "data_location_regional",
               "rate_limit_tier",
               "session_rate_limit_tier",
               "identities_list_rate_limit_tier",
               "permission_checks_rate_limit_tier",
               "oauth2_introspect_rate_limit_tier",
-              "create_recovery_admin_rate_limit_tier"
+              "create_recovery_admin_rate_limit_tier",
+              "scim_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery"
+            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM"
           },
           "feature_available": {
             "type": "boolean"
@@ -8819,11 +9072,24 @@
             "description": "The name of the project.",
             "type": "string"
           },
+          "organizations": {
+            "description": "The organizations that are part of this project.",
+            "items": {
+              "$ref": "#/components/schemas/basicOrganization"
+            },
+            "type": "array"
+          },
           "services": {
             "$ref": "#/components/schemas/projectServices"
           }
         },
-        "required": ["services", "name", "cors_public", "cors_admin"],
+        "required": [
+          "services",
+          "name",
+          "cors_public",
+          "cors_admin",
+          "organizations"
+        ],
         "type": "object"
       },
       "setProjectBrandingThemeBody": {
@@ -9467,17 +9733,18 @@
         "description": "InputAttributes represents the attributes of an input node",
         "properties": {
           "autocomplete": {
-            "description": "The autocomplete attribute for the input.\nemail InputAttributeAutocompleteEmail\ntel InputAttributeAutocompleteTel\nurl InputAttributeAutocompleteUrl\ncurrent-password InputAttributeAutocompleteCurrentPassword\nnew-password InputAttributeAutocompleteNewPassword\none-time-code InputAttributeAutocompleteOneTimeCode",
+            "description": "The autocomplete attribute for the input.\nemail InputAttributeAutocompleteEmail\ntel InputAttributeAutocompleteTel\nurl InputAttributeAutocompleteUrl\ncurrent-password InputAttributeAutocompleteCurrentPassword\nnew-password InputAttributeAutocompleteNewPassword\none-time-code InputAttributeAutocompleteOneTimeCode\nusername webauthn InputAttributeAutocompleteUsernameWebauthn",
             "enum": [
               "email",
               "tel",
               "url",
               "current-password",
               "new-password",
-              "one-time-code"
+              "one-time-code",
+              "username webauthn"
             ],
             "type": "string",
-            "x-go-enum-desc": "email InputAttributeAutocompleteEmail\ntel InputAttributeAutocompleteTel\nurl InputAttributeAutocompleteUrl\ncurrent-password InputAttributeAutocompleteCurrentPassword\nnew-password InputAttributeAutocompleteNewPassword\none-time-code InputAttributeAutocompleteOneTimeCode"
+            "x-go-enum-desc": "email InputAttributeAutocompleteEmail\ntel InputAttributeAutocompleteTel\nurl InputAttributeAutocompleteUrl\ncurrent-password InputAttributeAutocompleteCurrentPassword\nnew-password InputAttributeAutocompleteNewPassword\none-time-code InputAttributeAutocompleteOneTimeCode\nusername webauthn InputAttributeAutocompleteUsernameWebauthn"
           },
           "disabled": {
             "description": "Sets the input's disabled field to true or false.",
@@ -10843,6 +11110,35 @@
         "enum": ["choose_method", "sent_email", "passed_challenge"],
         "title": "Verification flow state (experimental)"
       },
+      "verifyUserCodeRequest": {
+        "properties": {
+          "challenge": {
+            "description": "ID is the identifier (\"device challenge\") of the device request. It is used to\nidentify the session.",
+            "type": "string"
+          },
+          "client": {
+            "$ref": "#/components/schemas/oAuth2Client"
+          },
+          "device_code_request_id": {
+            "type": "string"
+          },
+          "handled_at": {
+            "$ref": "#/components/schemas/nullTime"
+          },
+          "request_url": {
+            "description": "RequestURL is the original Device Authorization URL requested.",
+            "type": "string"
+          },
+          "requested_access_token_audience": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
+          "requested_scope": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          }
+        },
+        "title": "HandledDeviceUserAuthRequest is the request payload used to accept a device user_code.",
+        "type": "object"
+      },
       "version": {
         "properties": {
           "version": {
@@ -11676,7 +11972,7 @@
         "tags": ["identity"]
       },
       "patch": {
-        "description": "Creates multiple\n[identities](https://www.ory.sh/docs/kratos/concepts/identity-user-model).\nThis endpoint can also be used to [import\ncredentials](https://www.ory.sh/docs/kratos/manage-identities/import-user-accounts-identities)\nfor instance passwords, social sign in configurations or multifactor methods.",
+        "description": "Creates multiple\n[identities](https://www.ory.sh/docs/kratos/concepts/identity-user-model).\nThis endpoint can also be used to [import\ncredentials](https://www.ory.sh/docs/kratos/manage-identities/import-user-accounts-identities)\nfor instance passwords, social sign in configurations or multi-factor authentications methods.\n\nYou can import up to 1000 identities per request or up to 200 identities with a plaintext password per request.",
         "operationId": "batchPatchIdentities",
         "requestBody": {
           "content": {
@@ -12875,6 +13171,61 @@
           }
         ],
         "summary": "Reject OAuth 2.0 Consent Request",
+        "tags": ["oAuth2"]
+      }
+    },
+    "/admin/oauth2/auth/requests/device/accept": {
+      "put": {
+        "description": "Accepts a device grant user_code request",
+        "operationId": "acceptUserCodeRequest",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "device_challenge",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/acceptDeviceUserCodeRequest"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/oAuth2RedirectTo"
+                }
+              }
+            },
+            "description": "oAuth2RedirectTo"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorOAuth2"
+                }
+              }
+            },
+            "description": "errorOAuth2"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Accepts a device grant user_code request",
         "tags": ["oAuth2"]
       }
     },
@@ -14377,6 +14728,59 @@
           }
         },
         "summary": "OAuth 2.0 Authorize Endpoint",
+        "tags": ["oAuth2"]
+      }
+    },
+    "/oauth2/device/auth": {
+      "post": {
+        "description": "This endpoint is not documented here because you should never use your own implementation to perform OAuth2 flows.\nOAuth2 is a very popular protocol and a library for your programming language will exists.\n\nTo learn more about this flow please refer to the specification: https://tools.ietf.org/html/rfc8628",
+        "operationId": "oAuth2DeviceFlow",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/deviceAuthorization"
+                }
+              }
+            },
+            "description": "deviceAuthorization"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorOAuth2"
+                }
+              }
+            },
+            "description": "errorOAuth2"
+          }
+        },
+        "summary": "The OAuth 2.0 Device Authorize Endpoint",
+        "tags": ["oAuth2"]
+      }
+    },
+    "/oauth2/device/verify": {
+      "get": {
+        "description": "This is the device user verification endpoint. The user is redirected here when trying to login using the device flow.",
+        "operationId": "performOAuth2DeviceVerificationFlow",
+        "responses": {
+          "302": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorOAuth2"
+                }
+              }
+            },
+            "description": "errorOAuth2"
+          }
+        },
+        "summary": "OAuth 2.0 Device Verification Endpoint",
         "tags": ["oAuth2"]
       }
     },
