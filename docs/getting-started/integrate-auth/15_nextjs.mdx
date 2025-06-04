@@ -104,14 +104,8 @@ the login screen. Then click the link to **Sign up** and create a new account.
 
 ## Go to production
 
-To promote this app to production:
+```mdx-code-block
+import ToProd from '../_common/going-to-prod.mdx'
 
-1. Build the Next.js app and deploy it (for example on Vercel or Netlify)
-2. Connect your project with a [custom domain](../../guides/custom-domains.mdx)
-
-These components must be hosted on the same top-level domain as they were on your local machine:
-
-| Component   | Production      | Local          |
-| ----------- | --------------- | -------------- |
-| Next.js App | www.example.org | localhost:3000 |
-| Ory         | ory.example.org | localhost:4000 |
+<ToProd />
+```

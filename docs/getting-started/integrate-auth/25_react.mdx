@@ -136,16 +136,8 @@ Access your React app at [localhost:5173](http://localhost:5173/), sign in, and 
 
 ## Go to production
 
-To promote this app to production:
+```mdx-code-block
+import ToProd from '../_common/going-to-prod.mdx'
 
-1. Build the React app and run it somewhere (for example on Vercel or Netlify)
-2. Deploy the API (for example, on Heroku)
-3. Connect your project with a [custom domain](../../guides/custom-domains.mdx)
-
-These three components must be hosted on the same top-level domain as they were on your local machine.
-
-| Component | Production      | Local          |
-| --------- | --------------- | -------------- |
-| React App | www.example.org | localhost:5173 |
-| API       | api.example.org | localhost:8081 |
-| Ory       | ory.example.org | localhost:4000 |
+<ToProd />
+```

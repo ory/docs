@@ -25,7 +25,7 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 ```
 
-## Clone and set up the example Next.js application
+## Clone Next.js app
 
 To set up the example application:
 
@@ -47,7 +47,7 @@ To set up the example application:
    <CodeFromRemote lang="ts" src="https://github.com/ory/next-auth-example/blob/main/auth.ts" />
    ```
 
-## Create and configure an OAuth2 client in Ory Network
+## Create and configure an OAuth2 client
 
 You must know your application's redirect URL. When running locally, the redirect URL is:
 
@@ -107,7 +107,7 @@ ory create oauth2-client --project $ORY_PROJECT_ID \
 </Tabs>
 ````
 
-## Configure Auth.js to use Ory in the Next.js application
+## Configure Auth.js to use Ory
 
 Update your `.env.local` file to match the example:
 
@@ -118,7 +118,7 @@ Update your `.env.local` file to match the example:
 Also add your Ory SDK URL. You can find it in the [**Get started**](https://console.ory.sh/projects/current/get-started) section
 of the Ory Console.
 
-## Test the authentication flow in your application
+## Test your application
 
 To run the application:
 
@@ -140,11 +140,13 @@ To sign out users, use the OpenID Connect logout flow:
 <CodeFromRemote lang="js" src="https://github.com/ory/next-auth-example/blob/main/components/auth-components.tsx" showLink={true} startAt="export async function SignOut" />
 ```
 
-## Move the integration to production
+## Go to production
 
-Before deploying to production:
+```mdx-code-block
+import ToProd from '../_common/going-to-prod.mdx'
 
-- Update the **Redirect URIs** and **Post Logout Redirect URIs** in your OAuth2 client settings to match your production domain.
+<ToProd />
+```
 
 ## Troubleshoot common integration errors
 
