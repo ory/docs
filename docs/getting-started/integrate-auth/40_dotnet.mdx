@@ -24,18 +24,6 @@ You can find the code of the sample application
 
 :::
 
-## Install Ory CLI
-
-Follow [this guide](../../guides/cli/01_installation.mdx) to install the Ory CLI on your machine.
-
-### Why do I need the Ory CLI
-
-```mdx-code-block
-import OryCLI from '../_common/ory-cli.mdx'
-
-<OryCLI isTunnel={true} />
-```
-
 ## Create ASP.NET app
 
 Create an empty web template as a starting point for this example. Run these commands:
@@ -53,6 +41,26 @@ Run this command to install the Ory SDK:
 
 ```shell-session
 dotnet add package Ory.Client
+```
+
+## Create a new Ory project
+
+```mdx-code-block
+import CreateProject from '../_common/create-project.mdx'
+
+<CreateProject />
+```
+
+## Install Ory CLI
+
+Follow [this guide](../../guides/cli/01_installation.mdx) to install the Ory CLI on your machine.
+
+### Why do I need the Ory CLI
+
+```mdx-code-block
+import OryCLI from '../_common/ory-cli.mdx'
+
+<OryCLI isTunnel={true} />
 ```
 
 ### Configure the SDK
