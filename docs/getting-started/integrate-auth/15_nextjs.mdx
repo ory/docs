@@ -34,20 +34,20 @@ When prompted, select the following options:
 - Use App Router: Yes
 - Customize the default import alias: No
 
-## Create a new Ory project
-
-```mdx-code-block
-import CreateProject from '../_common/create-project.mdx'
-
-<CreateProject />
-```
-
 ## Install Ory SDK
 
 To interact with Ory's APIs, install the Ory SDK:
 
 ```
 npm i @ory/client-fetch
+```
+
+## Create a new Ory project
+
+```mdx-code-block
+import CreateProject from '../_common/create-project.mdx'
+
+<CreateProject />
 ```
 
 ## Install Ory CLI
@@ -72,7 +72,7 @@ ory tunnel --project <project-id> http://localhost:3000
 
 This command mirrors Ory APIs on `http://localhost:4000`. Use that URL as the `basePath` for the `@ory/client-fetch` SDK.
 
-## Authenticate user
+## Validate and login
 
 To implement authentication, modify the existing `app/page.tsx` component to include the following:
 
@@ -97,9 +97,10 @@ npm run dev
 
 Go to [localhost:3000](http://localhost:3000/) to access your application.
 
-### See it in action
+### Test your application
 
-Access your Next.js app at [localhost:3000](http://localhost:3000/), register a new acocunt, and sign in.
+Access your Next.js app at [localhost:3000](http://localhost:3000/). Since there is no active session you will be redirected to
+the login screen. Then click the link to **Sign up** and create a new account.
 
 ## Go to production
 

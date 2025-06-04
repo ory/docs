@@ -34,13 +34,17 @@ import CreateProject from '../_common/create-project.mdx'
 <CreateProject />
 ```
 
-## Install Ory SDK and CLI
+## Install Ory SDK
 
-To interact with Ory's APIs we install the Ory SDK and CLI:
+To interact with Ory's APIs we install the Ory SDK:
 
 ```shell
 npm i --save @ory/client-fetch @ory/cli
 ```
+
+## Install Ory CLI
+
+Follow [this guide](../../guides/cli/01_installation.mdx) to install the Ory CLI on your machine.
 
 ### Why do I need the Ory CLI
 
@@ -62,9 +66,9 @@ This command mirrors Ory APIs on `http://localhost:4000`. Use that URL as the `b
 `App.vue` code below). The `--dev` flag disables security checks for easier integration and should not be used when running the
 Tunnel in an insecure environment like public networks.
 
-## Authenticate user
+## Validate and login
 
-To implment authentication, modify the existing `App.vue` component to include the following:
+To implement authentication, modify the existing `App.vue` component to include the following:
 
 ```mdx-code-block
 import handlerVue from '!!raw-loader!../../../code-examples/protect-page-login/vue/src/App.vue'
@@ -76,7 +80,7 @@ import CodeBlock from '@theme/CodeBlock'
 The component checks whether a user is signed in and if so, shows a logout link and the user's session information. Otherwise, it
 shows a login and registration link.
 
-## Run your Vue.js app
+## Test your application
 
 Now that your app is ready, it's time to run it! Start the Vue development server:
 
