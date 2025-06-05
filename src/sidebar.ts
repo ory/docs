@@ -1216,17 +1216,16 @@ const security: SidebarItemsConfig = [
 ]
 
 const elements: SidebarItemsConfig = [
-  {},
   {
     type: "category",
     label: "Quickstarts",
     collapsible: false,
     link: {
       type: "generated-index",
-      title: "Docusaurus Guides",
-      description: "Learn about the most important Docusaurus concepts!",
+      title: "Quickstarts",
+      description: "Learn how to use Ory Elements in your application!",
       slug: "/elements/quickstarts",
-      keywords: ["guides"],
+      keywords: ["quickstart", "quickstarts", "getting started"],
       image: "/img/docusaurus.png",
     },
     items: [
@@ -1239,11 +1238,15 @@ const elements: SidebarItemsConfig = [
   {
     type: "category",
     label: "Reference",
+    collapsible: false,
     link: {
-      type: "doc",
-      id: "api/index",
+      type: "generated-index",
+      title: "Ory Elements Reference",
+      description: "Learn about the most important Ory Elements concepts!",
+      slug: "/elements/reference",
+      keywords: ["guides"],
     },
-    ...require("../docs/elements/reference/elements-react/typedoc-sidebar.ts"),
+    ...require("../docs/elements/reference/typedoc-sidebar.ts"),
   },
 ]
 
