@@ -24,12 +24,12 @@ export const OryNetworkCta = () => {
         <Logo className="max-w-20 lg:max-w-32" />
       </div>
       <div className="flex flex-col gap-2d">
-        <h3 className="!text-white text-xl font-semibold">{title}</h3>
+        <h3 className="text-white! text-xl font-semibold">{title}</h3>
         <p className="text-gray-100 text-sm lg:text-base">{content}</p>
         <a
           href={href}
           target="_blank"
-          className="font-bold !text-white hover:!text-gray-50"
+          className="font-bold text-white! hover:text-gray-50!"
         >
           {cta}
         </a>
