@@ -1,8 +1,9 @@
 import RefParser from "@apidevtools/json-schema-ref-parser"
-import { withTheme } from "@rjsf/core"
 import { Theme as Bootstrap4Theme } from "@rjsf/bootstrap-4"
+import { withTheme } from "@rjsf/core"
 import validator from "@rjsf/validator-ajv8"
 import { useEffect, useState } from "react"
+import { oryResolver } from "../ConfigMarkdown"
 
 const Form = withTheme(Bootstrap4Theme)
 
@@ -13,13 +14,21 @@ export default function ConfigEditor(props: { url: any }) {
     fetch(props.url)
       .then((r) => r.json())
       .then((res) => {
-        RefParser.dereference(res, (err, api) => {
-          if (err) {
-            console.log(err)
-          } else {
-            setSchema(api)
-          }
-        })
+        RefParser.dereference(
+          res,
+          {
+            resolve: {
+              ory: oryResolver,
+            },
+          },
+          (err, api) => {
+            if (err) {
+              console.log(err)
+            } else {
+              setSchema(api)
+            }
+          },
+        )
       })
   }, [props.url])
 

@@ -1,33 +1,6 @@
-@import "tailwindcss";
-
-@config '../../tailwind.config.js';
-
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
-  ul,
-  ol {
-    list-style: revert;
-    margin: revert;
-    padding: revert;
-  }
-
-  @layer base {
-  }
-}
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
 
 :root {
   --ifm-font-family-base-fallback: sans-serif;
@@ -35,11 +8,15 @@
   --ifm-font-family-base: "InterVariable", var(--ifm-font-family-base-fallback);
   --ifm-font-family-monospace: "JetBrains Mono",
     var(--ifm-font-family-monospace-fallback);
-  --ifm-color-primary: #312e81; /* Indigo 900 */
-  --ifm-heading-color: #312e81; /* Indigo 900 - Color used for headings in text */
+  --ifm-color-primary: var(--color-indigo-900); /* Indigo 900 */
+  --ifm-heading-color: var(
+    --color-indigo-900
+  ); /* Indigo 900 - Color used for headings in text */
   --ifm-heading-font-family: "InterVariable";
-  --ifm-navbar-link-hover-color: #06b6d4; /* Cyan 500 */
-  --ifm-menu-color-active: #06b6d4; /* Cyan 500 - Active text in sidebar */
+  --ifm-navbar-link-hover-color: var(--color-indigo-500); /* Cyan 500 */
+  --ifm-menu-color-active: var(
+    --color-indigo-500
+  ); /* Cyan 500 - Active text in sidebar */
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   font-feature-settings:
     "liga" 1,
@@ -67,8 +44,8 @@
   margin: 32px;
 }
 
-a {
-  color: #06b6d4; /* Cyan 500 */
+.markdown a {
+  @apply text-indigo-500;
 }
 
 .menu__link[href*="https://"] svg,
@@ -150,7 +127,6 @@ svg[class*="iconExternalLink"] {
 
 .theme-doc-sidebar-item-link .menu__link--active {
   background-color: unset !important;
-  color: var(--ifm-color-primary);
 }
 
 .theme-doc-sidebar-item-link:not(:first-child),
