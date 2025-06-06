@@ -45,7 +45,7 @@ export const navbar: Navbar = {
           label: "Ory Enterprise License",
         },
         {
-          to: "/docs/elements/quickstarts",
+          to: "/docs/elements",
           label: "Ory Elements",
         },
       ],
