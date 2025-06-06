@@ -111,7 +111,7 @@ We collect the following request metrics:
 
 ### Source code
 
-The full code-base is [open source](https://github.com/ory/metrics-middleware).
+The full code-base is [open source](https://github.com/ory/x/blob/master/metricsx).
 
 ### Data example
 
