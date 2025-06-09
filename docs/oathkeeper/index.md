@@ -1,6 +1,6 @@
 ---
 id: index
-title: Introduction
+title: Introduction to Ory Oathkeeper Zero Trust Proxy
 ---
 
 Ory Oathkeeper authorizes incoming HTTP requests. It can be the Policy Enforcement Point in your cloud architecture, i.e. a
@@ -15,8 +15,8 @@ While Ory Oathkeeper works well with Ory OAuth2 & OpenID Connect (Ory Hydra) and
 and alongside other stacks with adjacent problem domains (Keycloak, Gluu, Vault). Ory Oathkeeper's Access Control Decision API
 works with
 
-- [Ambassador](https://github.com/datawire/ambassador) via
-  [auth service](https://www.getambassador.io/reference/services/auth-service)
+- [Emissary-ingress](https://github.com/emissary-ingress/emissary) via
+  [auth service](https://www.getambassador.io/docs/edge-stack/latest/topics/running/services/auth-service)
 - [Envoy](https://www.envoyproxy.io) via the
   [External Authorization HTTP Filter](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/security/ext_authz_filter.html)
 - AWS API Gateway via

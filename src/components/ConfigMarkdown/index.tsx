@@ -110,7 +110,7 @@ const enhance =
     item.spaceBefore = true
   }
 
-const oryResolver = {
+export const oryResolver = {
   order: 1,
   canRead: /^ory:/i,
   read: ({ url }) => axios.get(refs[url]).then(({ data }) => data),
@@ -236,7 +236,7 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
       </Admonition>
       <p>
         To find out more about edge cases like setting string array values
-        through environmental variables head to the
+        through environmental variables head to the{" "}
         <a href={"/docs/ecosystem/configuring"}>Configuration</a> section.
       </p>
 

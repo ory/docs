@@ -26,20 +26,20 @@ cd app-name
 npm install
 ```
 
-## Create a new Ory project
-
-```mdx-code-block
-import CreateProject from '../_common/create-project.mdx'
-
-<CreateProject />
-```
-
 ## Install Ory SDK
 
 To interact with Ory's APIs, install the Ory SDK:
 
 ```
 npm i @ory/client-fetch
+```
+
+## Create a new Ory project
+
+```mdx-code-block
+import CreateProject from '../_common/create-project.mdx'
+
+<CreateProject />
 ```
 
 ## Install Ory CLI
@@ -65,7 +65,7 @@ ory tunnel --project <project-id> http://localhost:5173
 This command mirrors Ory APIs on `http://localhost:4000`. Use that URL as the `basePath` for the `@ory/client-fetch` SDK. Obtain
 your project ID from the Ory Console.
 
-## Authenticate user
+## Validate and login
 
 To implement authentication, modify the existing `App.tsx` component to include the following:
 
@@ -130,22 +130,14 @@ Start the server:
 node index.js
 ```
 
-### See it in action
+### Test your application
 
 Access your React app at [localhost:5173](http://localhost:5173/), sign in, and see if you can see the message from your API.
 
 ## Go to production
 
-To promote this app to production:
+```mdx-code-block
+import ToProd from '../_common/going-to-prod.mdx'
 
-1. Build the React app and run it somewhere (for example on Vercel or Netlify)
-2. Deploy the API (for example, on Heroku)
-3. Connect your project with a [custom domain](../../guides/custom-domains.mdx)
-
-These three components must be hosted on the same top-level domain as they were on your local machine.
-
-| Component | Production      | Local          |
-| --------- | --------------- | -------------- |
-| React App | www.example.org | localhost:5173 |
-| API       | api.example.org | localhost:8081 |
-| Ory       | ory.example.org | localhost:4000 |
+<ToProd />
+```

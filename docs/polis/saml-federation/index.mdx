@@ -1,0 +1,30 @@
+---
+title: SAML Federation
+sidebar_label: SAML Federation
+---
+
+# SAML Federation
+
+SAML Federation is an enterprise feature and you need to have an enterprise license to use this feature.
+
+This feature allows you to federate multiple Identity Providers (IdPs) without needing any additional plugins or code changes.
+Extremely useful in cases where the SAML support is restricted to a single provider and you need to support multiple IdPs. Contact
+us to find out more.
+
+## SAML Federation Flow
+
+Here is how the SAML Federation flow works if you are using Ory Polis as a SAML IdP and want to federate with another identity
+provider (IdP) (Eg: Okta):
+
+- The user accesses the Service Provider's (SP) login page
+- The user clicks on the "Login with SAML" button
+- The SP sends SAML Request to Ory Polis's SSO endpoint
+- Ory Polis displays the list of IdP available for the user to choose from (if there is more than one IdP) based on the requested
+  tenant and product combination
+- Ory Polis redirects the user to the chosen IdP for authentication
+- After successful authentication, IdP sends (POST) SAML Response to Ory Polis's ACS endpoint
+- Ory Polis process SAML Response from the IdP and create a new SAML Response to send (POST) back to the SP's ACS endpoint
+- SP process SAML Response from Ory Polis and create a new session for the user (Depending on the SP's implementation)
+
+Visit [Create SAML Federation App](../admin-portal/enterprise-sso.mdx#saml-federation) to learn how to create and configure a SAML
+Federation App.

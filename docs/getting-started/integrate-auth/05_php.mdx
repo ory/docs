@@ -26,7 +26,7 @@ cd your-project
 touch index.php
 ```
 
-## Install dependencies
+## Install Ory SDK
 
 To interact with Ory's APIs we install the [Ory SDK](https://packagist.org/packages/ory/client):
 
@@ -34,7 +34,7 @@ To interact with Ory's APIs we install the [Ory SDK](https://packagist.org/packa
 composer require ory/client
 ```
 
-To simplify URLs handling we install the [bramus/router](https://packagist.org/packages/bramus/router)
+To simplify URLs handling we also install the [bramus/router](https://packagist.org/packages/bramus/router)
 
 ```shell
 composer require bramus/router
@@ -96,7 +96,7 @@ Experience login page will be displayed.
 
 Finally, we added the Dashboard handler (the page we want to protect), which will render HTML with the session data.
 
-## Run your app
+## Test your application
 
 Start your HTTP server and access the tunnel URL
 

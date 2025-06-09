@@ -19,12 +19,11 @@ This guide is perfect for you if:
 
 :::info
 
-You can find the code of the sample application [here](https://github.com/ory/kratos-selfservice-ui-react-native). The application
-is also available to download from the [Apple App Store](https://apps.apple.com/pl/app/ory-profile-app/id1536546333).
+You can find the code of the sample application [here](https://github.com/ory/kratos-selfservice-ui-react-native).
 
 :::
 
-## Clone the sample app repository
+## Clone React Native app
 
 Start with cloning the repository with the sample application. Run:
 
@@ -54,7 +53,7 @@ To run the sample application, you must set up a React Native development enviro
 - Install the [Android Studio Emulator](https://docs.expo.dev/workflow/android-studio-emulator/) to run the application in an
   emulated Android environment.
 
-## Run the application locally
+## Test your application
 
 Follow these steps to run the app locally in an emulated iOS environment:
 
@@ -112,7 +111,7 @@ Follow these steps:
 
    <CodeFromRemote lang="js" src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/app.config.js" />
 
-## Understanding the Implementation
+## Understand the implementation
 
 With the application live, running, and connected to your project, let's have a closer look at the code to understand the
 implementation.
@@ -193,3 +192,11 @@ The User Settings component performs a [User Settings API Flow](../../kratos/sel
   startAt="const Settings ="
   src="https://github.com/ory/kratos-selfservice-ui-react-native/blob/master/src/components/Routes/Settings.tsx"
 />
+
+## Go to production
+
+```mdx-code-block
+import ToProd from '../_common/going-to-prod.mdx'
+
+<ToProd />
+```

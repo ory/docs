@@ -142,6 +142,16 @@ const config: Config = {
     //     buttonPosition: "center-right",
     //   },
     // ],
+    async function tailwindcss(context, options) {
+      return {
+        name: "docusaurus-tailwindcss",
+        configurePostCss(postcssOptions) {
+          // Use the new PostCSS plugin for Tailwind CSS
+          postcssOptions.plugins.push(require("@tailwindcss/postcss"))
+          return postcssOptions
+        },
+      }
+    },
     [
       "@docusaurus/plugin-content-docs",
       {
@@ -178,16 +188,6 @@ const config: Config = {
         svgrConfig: {},
       },
     ],
-    async function tailwindcss(context, options) {
-      return {
-        name: "docusaurus-tailwindcss",
-        configurePostCss(postcssOptions) {
-          // Use the new PostCSS plugin for Tailwind CSS
-          postcssOptions.plugins.push(require("@tailwindcss/postcss"))
-          return postcssOptions
-        },
-      }
-    },
   ],
   presets: [
     [
@@ -197,6 +197,10 @@ const config: Config = {
           {
             id: "ory-network-api",
             spec: "docs/reference/api.json",
+          },
+          {
+            id: "polis-api",
+            spec: "docs/polis/reference/api.json",
           },
         ],
         theme: {},

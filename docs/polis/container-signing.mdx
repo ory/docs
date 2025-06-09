@@ -1,0 +1,27 @@
+---
+id: container-signing
+title: Container Signing and Verification
+sidebar_label: Container Signing
+---
+
+Ory Polis container images are signed and can be verified using [cosign](https://github.com/sigstore/cosign).
+
+## Fetching public key
+
+You can use [oras](https://oras.land) (or a similar OCI artifacts tool) to fetch the public key or download it from the website
+[here](https://boxyhq.com/.well-known/cosign.pub).
+
+```bash
+oras pull ghcr.io/boxyhq/cosign.pub:latest
+```
+
+## Container verification
+
+> **Note:** This is supported for all versions >=1.6.0
+
+Ory container images are hosted on [Docker Hub](https://hub.docker.com/r/boxyhq/jackson/tags). You can verify it by using the
+following command.
+
+```bash
+cosign verify --key cosign.pub ory/polis:<version>
+```

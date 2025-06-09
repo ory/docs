@@ -1,0 +1,566 @@
+---
+id: rails
+title: Add SAML SSO to Ruby on Rails App with BoxyHQ
+sidebar_label: Ruby on Rails
+---
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
+# Add SAML SSO to Ruby on Rails App
+
+This guide assumes that you have a Ruby on Rails app and want to enable SAML Single Sign-On authentication for your enterprise
+customers. By the end of this guide, you'll have an app that allows you to authenticate the users using SAML Single Sign-On.
+
+Visit the [GitHub repository](https://github.com/boxyhq/ruby-examples/tree/main/rails-enterprise-sso) to see the source code for
+the Ruby on Rails SAML SSO integration.
+
+Integrating SAML SSO into an app involves the following steps.
+
+- Configure SAML Single Sign-On
+- Authenticate with SAML Single Sign-On
+
+## Configure Enterprise SSO on Rails
+
+This step allows your tenants to configure SAML connections for their users. Read the following guides to understand more about
+this.
+
+- [UI Best Practices for Configuring SAML Single Sign-On](../configuring-saml-sso.mdx)
+- [SSO Connection API](../../sso-flow/index.mdx)
+
+## Authenticate with SAML Single Sign-On
+
+Once you add a SAML connection, the app can use this SAML connection to initiate the SSO authentication flow using Ory Polis. The
+following sections focus more on the SSO authentication side. Ory Polis
+
+### Deploy Ory Polis
+
+Ory Polis The Ory Poliss to deploy the Ory Polis service. Follow the [deployment docs](../../guides/service.mdx) to install and
+configure the Ory Polis. Ory Polis
+
+### Setup Ory Polis Integration
+
+We will dive into Ory Polis integration with two popular authentication libraries:
+
+- [Sorcery](#with-sorcery)
+- [OmniAuth](#with-omniauth)
+
+#### With Sorcery
+
+First, we need to install and configure [sorcery](https://github.com/Sorcery/sorcery).
+
+##### Install dependencies
+
+Install the `sorcery` gem using
+
+```shell
+bundle add sorcery
+```
+
+##### Configure the database
+
+```shell title="Generate migration scripts for sorcery"
+    bin/rails g sorcery:install external --only-submodules
+```
+
+```shell title="Run migration scripts"
+    bin/rake db:migrate
+```
+
+```shell title="Generate the Authentication model"
+    bin/rails generate model Authentication --migration=false
+```
+
+```shell title="Modify the user schema"
+    # remove the unused columns from the user table, we won't need the password field as the login is external
+    bin/rails generate migration RemoveColumnsFromUsers crypted_password:string salt:string
+    # add the new columns
+    bin/rails generate migration AddColumnsToUsers firstName:string lastName:string uid:string
+    # run the migrations
+    bin/rake db:migrate
+```
+
+##### Add a custom provider for Ory Polis
+
+Add a custom sorcery provider for Ory Polis. We will name it `Boxyhqsso`.
+
+We rely on the `Protocols::Oauth2` mixin from the sorcery package. In a nutshell, here we are wiring up the OAuth 2.0 flow with
+Ory Polis. Ory Polis will redirect to the configured IdP connection based on the tenant/product.
+
+:::info
+
+By including the file in the `app/lib` folder, rails will autoload the provider class.
+
+:::
+
+```ruby title="app/lib/sorcery/providers/boxyhqsso.rb"
+    module Sorcery
+      module Providers
+       # This class adds support for OAuth2.0 SSO flow with Ory Polis service.
+       #
+       #   config.boxyhqsso.site = <http://localhost:5225>
+       #   config.boxyhqsso.key = <key>
+       #   config.boxyhqsso.secret = <secret>
+       #   ...
+       #
+       class Boxyhqsso < Base
+         include Protocols::Oauth2
+
+         attr_reader :parse
+         attr_accessor :auth_url, :token_url, :user_info_path
+
+         def initialize
+           super
+
+           @site          = ENV['JACKSON_URL']
+           @auth_url      = '/api/oauth/authorize'
+           @token_url     = '/api/oauth/token'
+           @user_info_path = '/api/oauth/userinfo'
+           @parse = :json
+           # @state = SecureRandom.hex(16)
+         end
+
+         def get_user_hash(access_token)
+           response = access_token.get(user_info_path)
+           body = JSON.parse(response.body)
+           auth_hash(access_token).tap do |h|
+             h[:user_info] = body
+             h[:uid] = body['id']
+           end
+         end
+
+         # calculates and returns the url to which the user should be redirected,
+         # to get authenticated at the external provider's site.
+         def login_url(params, _session)
+           add_param(authorize_url(authorize_url: auth_url),
+                     [
+                       { name: 'tenant', value: params[:tenant] },
+                       { name: 'product', value: params[:product] }
+                     ])
+         end
+
+         # tries to login the user from access token
+         def process_callback(params, _session)
+           args = {}.tap do |a|
+             a[:code] = params[:code] if params[:code]
+           end
+           get_access_token(args, token_url: token_url, token_method: :post, auth_scheme: :request_body)
+         end
+
+         def add_param(url, query_params)
+           uri = URI(url)
+           qp = URI.decode_www_form(uri.query || [])
+           query_params.each do |param|
+             qp << [param[:name], param[:value]]
+           end
+           uri.query = URI.encode_www_form(qp)
+           uri.to_s
+         end
+       end
+    end
+    end
+
+```
+
+##### Configure the custom sorcery provider
+
+Add an initializer file to configure the sorcery module. Here we tell sorcery to load the `:external` submodule and also add
+`boxyhqsso` custom provider from the previous step to the `external_providers` list. Also, see the inline comments for `boxyhqsso`
+provider settings.
+
+```ruby title="config/initializers/sorcery.rb"
+    Rails.application.config.sorcery.submodules = [:external]
+
+    # Here you can configure each submodule's features.
+    Rails.application.config.sorcery.configure do |config|
+
+      config.external_providers = [:boxyhqsso]
+
+      # URL of Ory Polis service
+      config.boxyhqsso.site = ENV['JACKSON_URL']
+      # This translates to client_id in OAuth 2.0. Setting it to dummy will allow us to use `tenant` and product` params instead
+      config.boxyhqsso.key = 'dummy'
+      # The url of the rails app to which Ory Polis sends back the authorization code
+      config.boxyhqsso.callback_url = 'http://localhost:3366/oauth/callback'
+      # This will be passed to Ory Polis token endpoint as part of credentials
+      config.boxyhqsso.secret = ENV['CLIENT_SECRET_VERIFIER']
+      # Takes care of converting the user info from the provider (Ory Polis) into the attributes of the User.
+      config.boxyhqsso.user_info_mapping = { email: 'email', uid: 'id', firstName: 'firstName', lastName: 'lastName'}
+
+      # --- user config ---
+      config.user_config do |user|
+
+       # -- external --
+       user.authentications_class = Authentication
+
+      end
+      # This line must come after the 'user config' block.
+      # Define which model authenticates with sorcery.
+      config.user_class = User
+
+    end
+```
+
+##### Routes and controllers
+
+Finally, we need to add the routes and controller files that initiate the login flow and handle the callback from the Ory Polis
+service.
+
+:::info
+
+The login flow is initiated by posting to `/sso`
+
+:::
+
+  <Tabs>
+     <TabItem value="routes" label="Routes" default>
+
+```ruby title="config/routes.rb"
+    Rails.application.routes.draw do
+      ...
+      # Renders the login page
+      get 'sso', to: 'logins#index', as: :login
+      # Initiates the OAuth 2.0 redirect to Ory Polis SSO service
+      post 'sso', to: 'sorcery#oauth'
+      # logout the user
+      delete 'logout' => 'logins#destroy', as: :logout
+      # handles the redirect back from Ory Polis SSO service, exchanges code with access_token and then fetches userprofile. Sorcery creates the user if not present in database, else return the one in the db.
+      resource :oauth do
+        get :callback, to: 'sorcery#callback', on: :collection
+      end
+      # Show profile data
+      get 'profile', to: 'profiles#index', as: :profile
+
+      ...
+    end
+
+```
+
+  </TabItem>
+  <TabItem value="controllers" label="Controllers">
+     <Tabs>
+     <TabItem value="SorceryController" label="SorceryController" default>
+
+The `oauth` action initiates the OAuth 2.0 flow to Ory Polis SSO service. In the `callback` action, sorcery exchanges the code for
+access_token and user profile. If a user exists in the database, then the value of `@current_user` is loaded from the database.
+Else a new user is created in the database and returned.
+
+```ruby title="app/controllers/sorcery_controller.rb"
+     class SorceryController < ApplicationController
+         skip_before_action :require_login, raise: false
+
+         def oauth
+           login_at('boxyhqsso', state: SecureRandom.hex(16))
+         end
+
+         # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+         def callback
+           provider = 'boxyhqsso'
+           if @user = login_from(provider)
+             redirect_to profile_path, notice: "Logged in from #{provider.titleize}!"
+           else
+             begin
+               @user = create_from(provider)
+
+               reset_session # protect from session fixation attack
+               auto_login(@user)
+               redirect_to profile_path, notice: "Logged in from #{provider.titleize}!"
+             rescue
+               redirect_to root_path, alert: "Failed to login from #{provider.titleize}!"
+             end
+         end
+         rescue ::OAuth2::Error => e
+           Rails.logger.error e
+           Rails.logger.error e.code
+           Rails.logger.error e.description
+           Rails.logger.error e.message
+           Rails.logger.error e.backtrace
+         end
+
+    end
+
+```
+
+  </TabItem>
+
+  <TabItem value="LoginsController" label="LoginsController">
+
+```ruby title="app/controllers/logins_controller.rb"
+    class LoginsController < ApplicationController
+          skip_before_action :require_login
+
+          def index; # render login view
+          end
+
+          def destroy
+              logout
+              redirect_to(root_path, notice: 'Logged out!')
+          end
+
+    end
+
+```
+
+  </TabItem>
+
+  <TabItem value="ProfilesController" label="ProfilesController">
+
+```ruby title="app/controllers/profiles_controller.rb"
+    class ProfilesController < ApplicationController
+       def index; end # display profile information
+    end
+
+```
+
+  </TabItem>
+  </Tabs>
+  </TabItem>
+</Tabs>
+
+#### With OmniAuth
+
+:::info
+
+Unlike sorcery, omniauth does not automatically associate with a User model nor persist the user in the database.
+
+:::
+
+First, we need to install and configure [omniauth](https://github.com/omniauth/omniauth).
+
+##### Install Dependencies
+
+```shell
+    bin/bundle add omniauth
+    bin/bundle add omniauth-rails_csrf_protection # Used to protect against CSRF vulnerability
+    bin/bundle add omniauth-oauth2 # generic OAuth2 strategy for OmniAuth that we will inherit from
+```
+
+##### Add a custom strategy for Ory Polis
+
+Add a custom omniauth strategy for Ory Polis. We will name it `Boxyhqsso`. By inheriting from `OmniAuth::Strategies::OAuth2`, we
+can wire up the OAuth 2.0 flow with Ory Polis. Ory Polis will redirect to the configured IdP connection based on the
+tenant/product.
+
+```ruby title="app/lib/omniauth/strategies/boxyhqsso.rb"
+      module OmniAuth
+      module Strategies
+          class Boxyhqsso < OmniAuth::Strategies::OAuth2
+              # strategy name
+              option :name, "boxyhqsso"
+
+              args %i[
+                client_id
+                client_secret
+                domain
+              ]
+
+              # Setup client URLs used during authentication
+              def client
+                options.client_options.site = domain_url
+                options.client_options.authorize_url = '/api/oauth/authorize'
+                options.client_options.token_url = '/api/oauth/token'
+                options.client_options.userinfo_url = '/api/oauth/userinfo'
+                options.client_options.auth_scheme = :request_body
+                options.token_params = { :redirect_uri => full_host + '/auth/boxyhqsso/callback' }
+                super
+              end
+
+              # These are called after authentication has succeeded. If
+              # possible, you should try to set the UID without making
+              # additional calls (if the user id is returned with the token
+              # or as a URI parameter). This may not be possible with all
+              # providers.
+              uid{ raw_info['id'] }
+
+              # Define the parameters used for the /authorize endpoint
+              def authorize_params
+                params = super
+                %w[connection connection_scope prompt screen_hint login_hint organization invitation ui_locales tenant product].each do |key|
+                  params[key] = request.params[key] if request.params.key?(key)
+                end
+
+                # Generate nonce
+                params[:nonce] = SecureRandom.hex
+
+                # Store authorize params in the session for token verification
+                session['authorize_params'] = params.to_hash
+
+                params
+              end
+
+              extra do
+                {
+                  'raw_info' => raw_info
+                }
+              end
+
+              # Declarative override for the request phase of authentication
+              def request_phase
+                if no_client_id?
+                  # Do we have a client_id for this Application?
+                  fail!(:missing_client_id)
+                elsif no_client_secret?
+                  # Do we have a client_secret for this Application?
+                  fail!(:missing_client_secret)
+                elsif no_domain?
+                  # Do we have a domain for this Application?
+                  fail!(:missing_domain)
+                else
+                  # All checks pass, run the Oauth2 request_phase method.
+                  super
+                end
+              end
+
+              def raw_info
+                userinfo_url = options.client_options.userinfo_url
+                @raw_info ||= access_token.get(userinfo_url).parsed
+              end
+
+              # Check if the options include a client_id
+              def no_client_id?
+                ['', nil].include?(options.client_id)
+              end
+
+              # Check if the options include a client_secret
+              def no_client_secret?
+                ['', nil].include?(options.client_secret)
+              end
+
+              # Check if the options include a domain
+              def no_domain?
+                ['', nil].include?(options.domain)
+              end
+
+              # Normalize a domain to a URL.
+              def domain_url
+                domain_url = URI(options.domain)
+                domain_url = URI("https://#{domain_url}") if domain_url.scheme.nil?
+                domain_url.to_s
+              end
+          end
+        end
+    end
+
+```
+
+##### Configure the custom omniauth provider
+
+Add an initializer file to insert omniauth into the rack middleware pipeline. `OmniAuth::Builder` allows us to load multiple
+strategies.
+
+```ruby title="config/initializers/omniauth.rb"
+    Rails.application.config.middleware.use OmniAuth::Builder do
+          provider(
+                :boxyhqsso,
+                'dummy',
+                ENV['CLIENT_SECRET_VERIFIER'],
+                ENV['JACKSON_URL'],
+                callback_path: '/auth/boxyhqsso/callback',
+                authorize_params: {
+                    scope: 'openid'
+                }
+            )
+
+    end
+```
+
+##### Routes and Controllers
+
+Finally, we need to add the routes and controller files that initiate the login flow and handle the callback from the Ory Polis
+service. We also use a controller `concern` to control access to protected routes such as the profile page.
+
+:::info
+
+The login flow is initiated by posting to `/auth/boxyhqsso` which is handled by omniauth in the rack middleware pipeline.
+
+:::
+
+  <Tabs>
+
+  <TabItem value="routes" label="Routes" default>
+
+```ruby title="config/routes.rb"
+    Rails.application.routes.draw do
+      # Renders the login page
+       get 'sso', to: 'logins#index', as: :login
+       # handles the redirect back from Ory Polis SSO service, exchanges code with access_token and then fetches userprofile.
+       get 'auth/boxyhqsso/callback', to: 'omniauth#callback'
+       # Show profile data
+       get 'omniauth/profile', to: 'omniauth_profiles#show', as: :omniauth_profile
+       # logout the user
+       delete 'omniauth/logout' => 'omniauth#logout', as: :omniauth_logout
+    end
+```
+
+  </TabItem>
+
+  <TabItem value="controllers" label="Controllers">
+
+  <Tabs>
+
+  <TabItem value="omniauth" label="OmniauthController" default>
+
+After omniauth handles the callback from Ory Polis SSO service, it sets an authentication hash (`omniauth.auth`) on the rack
+environment of a request to `/auth/boxyhqsso/callback`. This contains the information about the logged-in user. We then set this
+value in the session which can then be displayed on the profile page.
+
+```ruby title="app/controllers/omniauth_controller.rb"
+    class OmniauthController < ApplicationController
+      skip_before_action :require_login, raise: false
+
+      def callback
+        user_info = request.env['omniauth.auth']
+        session[:userinfo] = user_info['extra']['raw_info']
+        redirect_to omniauth_profile_path,  notice: "Logged in using omniauth!"
+      end
+
+      def logout
+        reset_session
+        redirect_to root_path,  notice: "Logged out from Omniauth!"
+      end
+    end
+```
+
+  </TabItem>
+
+  <TabItem value="omniauth_profiles" label="OmniauthProfilesController">
+
+Here we set the instance variable `@user` from the session. This can then be referenced in the profile view. Also by using the
+concern `OmniauthSecured`, we ensure that the profile view is rendered only if a user is logged in, else we redirect to the login
+page.
+
+```ruby title="app/controllers/omniauth_profiles_controller.rb"
+    class OmniauthProfilesController < ApplicationController
+        skip_before_action :require_login, raise: false
+        include OmniauthSecured
+
+        def show
+          @user = session[:userinfo]
+        end
+    end
+```
+
+  </TabItem>
+
+  </Tabs>
+
+  </TabItem>
+  <TabItem value="concern" label="Controller concern">
+
+```ruby title="app/controllers/concerns/omniauth_secured.rb"
+    module OmniauthSecured
+        extend ActiveSupport::Concern
+
+        included do
+          before_action :logged_in_using_omniauth?
+        end
+
+        def logged_in_using_omniauth?
+          redirect_to login_path, notice: "⚠️ Please login using omniauth" unless session[:userinfo].present?
+        end
+    end
+```
+
+  </TabItem>
+
+  </Tabs>

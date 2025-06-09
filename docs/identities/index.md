@@ -1,11 +1,11 @@
 ---
 id: index
-title: Introduction to Ory Identities
-sidebar_label: Ory Identities
+title: Introduction to Ory Kratos Identities
+sidebar_label: Introduction
 ---
 
-Ory Identities is an API-first identity and user management system built on top of the widely deployed open-source
-[Ory Kratos Identity Server](https://github.com/ory/kratos) following
+Ory Kratos Identities is an API-first identity and user management system built on top of the widely deployed open-source
+[Ory Kratos](https://github.com/ory/kratos) following
 [cloud architecture best practices](ecosystem/software-architecture-philosophy.md). It implements mechanisms that allow handling
 core use cases that the majority of modern software applications have to deal with:
 
