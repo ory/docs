@@ -61,4 +61,5 @@ Run `nx test @ory/nextjs` to execute the unit tests via
 
 - [app](app/index.md)
 - [index](index/index.md)
+- [middleware](middleware/index.md)
 - [pages](pages/index.md)

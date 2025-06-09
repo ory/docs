@@ -628,6 +628,27 @@ const typedocSidebar: SidebarsConfig = {
         },
         {
           type: "category",
+          label: "middleware",
+          items: [
+            {
+              type: "category",
+              label: "Functions",
+              items: [
+                {
+                  type: "doc",
+                  id: "elements/reference/@ory/nextjs/middleware/functions/createOryMiddleware",
+                  label: "createOryMiddleware"
+                }
+              ]
+            }
+          ],
+          link: {
+            type: "doc",
+            id: "elements/reference/@ory/nextjs/middleware/index"
+          }
+        },
+        {
+          type: "category",
           label: "pages",
           items: [
             {

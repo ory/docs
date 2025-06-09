@@ -3,3 +3,41 @@ id: theming
 title: Use a custom theme
 sidebar_label: Theming
 ---
+
+Ory Elements allows you to customize the look and feel of the default UI components by using a custom theme. This guide will show
+you how to create and apply a custom theme to your Ory Elements components.
+
+## Creating a Custom Theme
+
+Theming in Ory Elements is done using CSS variables. You can define your own CSS variables in a separate CSS file or inline in
+your application. Here is an example of how to create a custom theme:
+
+```css title="theme.css"
+:root {
+}
+```
+
+## Layering
+
+The variables are set up in a layered manner, meaning that you can override a few core variable and affect the entire look and
+feel of the UI. For example, you can set the primary color and the font family like this:
+
+```css title="theme.css"
+:root {
+}
+```
+
+## Applying the Custom Theme
+
+To apply the custom theme to your Ory Elements components, you need to import the CSS file in your application. You can do this in
+your main application file or in a specific component where you want to use the custom theme. Here is an example of how to import
+the CSS file in a Next.js application:
+
+```javascript title="pages/_app.js"
+import "../styles/theme.css" // Import the custom theme CSS file
+
+function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />
+}
+export default MyApp
+```
