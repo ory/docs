@@ -440,15 +440,15 @@ change. Please contact us [Ory Support](mailto:support@ory.sh) if you have any q
 
 #### Prerequisites
 
-Before proceeding, ensure you are on a plan that supports onboarding portal. It is available exclusively on select Enterprise
+Before proceeding, ensure you are on a plan that supports onboarding portal. It is available exclusively on select enterprise
 plans. [Contact us](https://www.ory.sh/contact/) if you need onboarding portal support.
-
-This guide explains how to create an onboarding portal link for an organization.
 
 ```mdx-code-block
 <Tabs groupId="console-or-api">
 <TabItem value="console" label="Ory Console">
 ```
+
+#### Create a link
 
 Go to <ConsoleLink route="project.authentication.organizations" /> and continue by configuring the selected organization.
 
@@ -462,9 +462,6 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
     ![Onboarding portal link](./_static/onboarding-portal-link.png)
 </BrowserWindow>
 ```
-
-The link generated from the console expires in **7 days**. Once the link expires, it will no longer work. Additionally, you can
-**delete** the link and generate a new one.
 
 ```mdx-code-block
 </TabItem>
@@ -537,3 +534,8 @@ Result:
 </TabItem>
 </Tabs>
 ```
+
+#### Expiry
+
+The link generated from the Ory Network Console expires in **7 days**. The API allows you to set an expiration value. Once the
+link expires, it no longer works. You can also delete the link and generate a new one.
