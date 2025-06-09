@@ -12,13 +12,40 @@ import TabItem from "@theme/TabItem"
 Ory Elements supports internationalization (i18n) to help you create applications that can be used by users from different
 locales. This guide will show you how to use custom translations in your Ory Elements components.
 
-Ory Element uses the react-intl library to handle translations. You can provide your own translations for the Ory Elements
+Ory Elements uses the react-intl library to handle translations. You can provide your own translations for the Ory Elements
 components by wrapping your application in the `IntlProvider` component from `react-intl` and passing your translations as
 messages.
 
+## Set the default locale
+
+By default, a set of translations is provided for the following locales:
+
+- English (`en`)
+- German (`de`)
+- Spanish (`es`)
+- French (`fr`)
+- Italian (`it`)
+- Swedish (`sv`)
+
+:::note
+
+A full list is available in the
+[GitHub repository of Ory Elements](https://github.com/ory/elements/tree/main/packages/elements-react/src/locales). Contributions
+of new translations are welcome!
+
+:::
+
+To set the default locale for your application, see [the locale configuration section](./04_configuration.mdx#locale-i18n).
+
+## Detecting a User's Locale
+
+If your application supports multiple languages, you can detect the user's locale and set it dynamically. This can be done using
+the `Accept-Language` header from the request in a server-side application or by using the browser's `navigator.language` property
+in a client-side application.
+
 ## Using Custom Translations
 
-To use custom translations in your Ory Elements components, you need to follow these steps:
+To use custom translations in your Ory Elements components, follow these steps:
 
 1. Install the `react-intl` library if you haven't already:
 
