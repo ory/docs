@@ -390,9 +390,44 @@ local claims = std.extVar('claims');
 }
 ```
 
-### Onboarding portal (preview)
+## Onboarding portal
 
-To enable organization admins to set up SAML SSO connections for their organization, you can create a self-service link for them.
+Onboarding portal is a powerful tool designed to simplify complex identity and access management tasks for businesses and their
+partners.
+
+### Streamline enterprise onboarding
+
+The onboarding portal address the often-burdensome process of setting up and managing identity connections with external
+organizations. Traditionally, integrating with a customer's or partner's identity provider (IdP) for single sign-on (SSO) or
+synchronizing user directories involves manual, error-prone configurations. This often requires deep technical expertise in
+protocols such as SAML or SCIM.
+
+Onboarding portal aims to:
+
+- **Simplify Complex Integrations**: By providing a self-service or guided onboarding experience, they abstract away the
+  underlying technical complexities of SAML, OIDC, and SCIM. This means IT administrators on the client side don't need to be SAML
+  experts to connect their organization's identity system.
+- **Reduce Onboarding Time**: Instead of lengthy back-and-forth communication and manual configuration, an onboarding portal link
+  allows an external administrator to configure the connection directly through a user-friendly interface. This drastically
+  reduces the time and effort required to establish new B2B integrations.
+- **Enhance Security and Control**: Onboarding portal links are designed to be shareable without exposing sensitive information.
+  The administrator receiving the link can configure their side of the connection securely, maintaining control over their IdP
+  settings while establishing a trusted connection with your application.
+- **Enable Self-Service for Organizations**: For SaaS providers, this means empowering your customers to self-onboard and manage
+  their own SSO connections, freeing up your engineering and support teams. Support Scalability for B2B Models: As your
+  application grows and serves more enterprise clients, manually managing each integration becomes unsustainable. These features
+  provide a scalable solution for onboarding and managing a large number of organizational customers.
+
+These features are relevant for:
+
+- **SaaS (Software-as-a-Service) providers**: SaaS companies offer services to other businesses (B2B) or to businesses that then
+  serve their own customers (B2B2C). This is crucial for enabling enterprise clients to use their existing corporate identity
+  systems (for example, Microsoft Entra ID, Okta, Google Workspace) for seamless access to the SaaS application.
+- **Enterprise IT administrators**: These individuals in your customer organizations are responsible for managing their internal
+  identity providers and user directories. They use the onboarding portal to configure the connection to your application.
+- **Developers and architects building multi-tenant applications**: These individuals implement robust and scalable identity
+  management for applications that serve multiple organizations. Each organization has its own authentication and user
+  provisioning requirements.
 
 :::note
 
@@ -401,7 +436,12 @@ change. Please contact us [Ory Support](mailto:support@ory.sh) if you have any q
 
 :::
 
-#### Manage onboarding portal links
+### Manage onboarding portal links
+
+#### Prerequisites
+
+Before proceeding, ensure you are on a plan that supports onboarding portal. It is available exclusively on select Enterprise
+plans. [Contact us](https://www.ory.sh/contact/) if you need onboarding portal support.
 
 This guide explains how to create an onboarding portal link for an organization.
 
@@ -464,7 +504,7 @@ The response contains a `value` token that you can use to construct the onboardi
 #### Delete an onboarding portal link
 
 ```shell
-curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
+curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
