@@ -1,7 +1,7 @@
 # useSettingsFlow()
 
 ```ts
-function useSettingsFlow(): null | void | SettingsFlow;
+function useSettingsFlow(): null | void | SettingsFlow
 ```
 
 A client side hook to create a settings flow.

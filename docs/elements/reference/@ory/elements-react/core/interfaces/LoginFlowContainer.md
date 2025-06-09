@@ -7,13 +7,13 @@ A flow container for the LoginFlow
 ### flow
 
 ```ts
-flow: LoginFlow;
+flow: LoginFlow
 ```
 
-***
+---
 
 ### flowType
 
 ```ts
-flowType: Login;
+flowType: Login
 ```

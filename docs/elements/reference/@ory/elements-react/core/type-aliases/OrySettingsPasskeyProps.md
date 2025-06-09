@@ -2,13 +2,14 @@
 
 ```ts
 type OrySettingsPasskeyProps = {
-  removeButtons: UiNode & {
-     onClick: () => void;
-  }[];
+  removeButtons: UiNode &
+    {
+      onClick: () => void
+    }[]
   triggerButton: UiNode & {
-     onClick: () => void;
-  };
-};
+    onClick: () => void
+  }
+}
 ```
 
 ## Properties
@@ -21,7 +22,7 @@ removeButtons: UiNode & {
 }[];
 ```
 
-***
+---
 
 ### triggerButton
 
@@ -33,6 +34,6 @@ triggerButton: UiNode & {
 
 #### Type declaration
 
-| Name | Type |
-| ------ | ------ |
+| Name        | Type         |
+| ----------- | ------------ |
 | `onClick()` | () => `void` |

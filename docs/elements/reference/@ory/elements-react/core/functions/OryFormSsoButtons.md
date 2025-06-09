@@ -1,7 +1,7 @@
 # `<OryFormSsoButtons />`
 
 ```ts
-function OryFormSsoButtons(): null | Element;
+function OryFormSsoButtons(): null | Element
 ```
 
 Renders the flow's OIDC buttons.

@@ -2,14 +2,14 @@
 
 ```ts
 type OryFormRootProps = ComponentPropsWithoutRef<"form"> & {
-  onSubmit: FormEventHandler<HTMLFormElement>;
-};
+  onSubmit: FormEventHandler<HTMLFormElement>
+}
 ```
 
 Props for the Form.Root component.
 
 ## Type declaration
 
-| Name | Type |
-| ------ | ------ |
+| Name       | Type                                    |
+| ---------- | --------------------------------------- |
 | `onSubmit` | `FormEventHandler`\<`HTMLFormElement`\> |

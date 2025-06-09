@@ -1,16 +1,16 @@
 # `<DefaultMessage />`
 
 ```ts
-function DefaultMessage(props: OryMessageContentProps): Element;
+function DefaultMessage(props: OryMessageContentProps): Element
 ```
 
 The default message component for Ory Elements.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `props` | [`OryMessageContentProps`](../../core/interfaces/OryMessageContentProps.md) | The properties for the DefaultMessage component. |
+| Parameter | Type                                                                        | Description                                      |
+| --------- | --------------------------------------------------------------------------- | ------------------------------------------------ |
+| `props`   | [`OryMessageContentProps`](../../core/interfaces/OryMessageContentProps.md) | The properties for the DefaultMessage component. |
 
 ## Returns
 

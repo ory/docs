@@ -1,7 +1,7 @@
 # `<OryCardHeader />`
 
 ```ts
-function OryCardHeader(): Element;
+function OryCardHeader(): Element
 ```
 
 Returns the header of the Ory Card.

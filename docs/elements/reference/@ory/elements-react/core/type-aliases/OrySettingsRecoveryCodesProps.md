@@ -2,12 +2,12 @@
 
 ```ts
 type OrySettingsRecoveryCodesProps = {
-  codes: string[];
-  onRegenerate: () => void;
-  onReveal: () => void;
-  regnerateButton: UiNode | undefined;
-  revealButton: UiNode | undefined;
-};
+  codes: string[]
+  onRegenerate: () => void
+  onReveal: () => void
+  regnerateButton: UiNode | undefined
+  revealButton: UiNode | undefined
+}
 ```
 
 ## Properties
@@ -18,7 +18,7 @@ type OrySettingsRecoveryCodesProps = {
 codes: string[];
 ```
 
-***
+---
 
 ### onRegenerate()
 
@@ -30,7 +30,7 @@ onRegenerate: () => void;
 
 `void`
 
-***
+---
 
 ### onReveal()
 
@@ -42,18 +42,18 @@ onReveal: () => void;
 
 `void`
 
-***
+---
 
 ### regnerateButton
 
 ```ts
-regnerateButton: UiNode | undefined;
+regnerateButton: UiNode | undefined
 ```
 
-***
+---
 
 ### revealButton
 
 ```ts
-revealButton: UiNode | undefined;
+revealButton: UiNode | undefined
 ```

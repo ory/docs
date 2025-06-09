@@ -7,13 +7,13 @@ A flow container for the SettingsFlow
 ### flow
 
 ```ts
-flow: SettingsFlow;
+flow: SettingsFlow
 ```
 
-***
+---
 
 ### flowType
 
 ```ts
-flowType: Settings;
+flowType: Settings
 ```

@@ -1,7 +1,7 @@
 # `<OryFormSsoForm />`
 
 ```ts
-function OryFormSsoForm(): null | Element;
+function OryFormSsoForm(): null | Element
 ```
 
 The `OryFormSsoForm` component renders the Ory Form for SSO methods (OIDC and SAML).

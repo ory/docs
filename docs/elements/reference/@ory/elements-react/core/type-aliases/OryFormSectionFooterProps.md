@@ -2,6 +2,6 @@
 
 ```ts
 type OryFormSectionFooterProps = PropsWithChildren<{
-  text?: string;
-}>;
+  text?: string
+}>
 ```

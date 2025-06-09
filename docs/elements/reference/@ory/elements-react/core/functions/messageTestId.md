@@ -12,10 +12,10 @@ Helper function to generate a test id for a UiText message.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `message` | \{ `id`: `string` \| `number`; \} | the UiText message to generate a test id for |
-| `message.id` | `string` \| `number` | - |
+| Parameter    | Type                              | Description                                  |
+| ------------ | --------------------------------- | -------------------------------------------- |
+| `message`    | \{ `id`: `string` \| `number`; \} | the UiText message to generate a test id for |
+| `message.id` | `string` \| `number`              | -                                            |
 
 ## Returns
 
@@ -27,6 +27,6 @@ Helper function to generate a test id for a UiText message.
 
 a unique, stable test id for the message
 
-| Name | Type |
-| ------ | ------ |
+| Name          | Type     |
+| ------------- | -------- |
 | `data-testid` | `string` |

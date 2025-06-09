@@ -7,13 +7,13 @@ A flow container for the RegistrationFlow
 ### flow
 
 ```ts
-flow: RegistrationFlow;
+flow: RegistrationFlow
 ```
 
-***
+---
 
 ### flowType
 
 ```ts
-flowType: Registration;
+flowType: Registration
 ```

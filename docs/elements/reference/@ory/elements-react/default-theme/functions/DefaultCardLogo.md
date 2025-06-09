@@ -1,7 +1,7 @@
 # `<DefaultCardLogo />`
 
 ```ts
-function DefaultCardLogo(): Element;
+function DefaultCardLogo(): Element
 ```
 
 The DefaultCardLogo component renders the logo from the @ory/elements-react!OryProvider or falls back to the project name.
@@ -14,5 +14,5 @@ the default logo for the Ory Card component.
 
 ## See
 
- - @ory/elements-react!OryProvider
- - @ory/elements-react!OryElementsConfiguration
+- @ory/elements-react!OryProvider
+- @ory/elements-react!OryElementsConfiguration

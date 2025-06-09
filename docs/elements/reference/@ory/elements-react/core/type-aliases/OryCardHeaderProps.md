@@ -1,5 +1,5 @@
 # OryCardHeaderProps
 
 ```ts
-type OryCardHeaderProps = Record<string, never>;
+type OryCardHeaderProps = Record<string, never>
 ```

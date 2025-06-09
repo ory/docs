@@ -1,7 +1,7 @@
 # useVerificationFlow()
 
 ```ts
-function useVerificationFlow(): null | void | VerificationFlow;
+function useVerificationFlow(): null | void | VerificationFlow
 ```
 
 A client side hook to create a verification flow.

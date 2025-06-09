@@ -1,7 +1,7 @@
 # `<DefaultCurrentIdentifierButton />`
 
 ```ts
-function DefaultCurrentIdentifierButton(): null | Element;
+function DefaultCurrentIdentifierButton(): null | Element
 ```
 
 The `DefaultCurrentIdentifierButton` component renders a button that displays the current identifier

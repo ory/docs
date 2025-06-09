@@ -2,10 +2,10 @@
 
 ```ts
 type OryNodeInputProps = {
-  attributes: UiNodeInputAttributes;
-  node: UiNode;
-  onClick?: MouseEventHandler;
-};
+  attributes: UiNodeInputAttributes
+  node: UiNode
+  onClick?: MouseEventHandler
+}
 ```
 
 ## Properties
@@ -13,18 +13,18 @@ type OryNodeInputProps = {
 ### attributes
 
 ```ts
-attributes: UiNodeInputAttributes;
+attributes: UiNodeInputAttributes
 ```
 
-***
+---
 
 ### node
 
 ```ts
-node: UiNode;
+node: UiNode
 ```
 
-***
+---
 
 ### onClick?
 

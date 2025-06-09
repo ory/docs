@@ -1,7 +1,7 @@
 # `<DefaultCardHeader />`
 
 ```ts
-function DefaultCardHeader(): Element;
+function DefaultCardHeader(): Element
 ```
 
 Renders the default card header component.

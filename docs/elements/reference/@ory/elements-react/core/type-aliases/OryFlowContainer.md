@@ -1,13 +1,13 @@
 # OryFlowContainer
 
 ```ts
-type OryFlowContainer = 
+type OryFlowContainer =
   | LoginFlowContainer
   | RegistrationFlowContainer
   | RecoveryFlowContainer
   | VerificationFlowContainer
   | SettingsFlowContainer
-  | ConsentFlowContainer;
+  | ConsentFlowContainer
 ```
 
 A union type of all flow containers

@@ -2,14 +2,15 @@
 
 ```ts
 type OrySettingsWebauthnProps = {
-  nameInput: UiNode;
-  removeButtons: UiNode & {
-     onClick: () => void;
-  }[];
+  nameInput: UiNode
+  removeButtons: UiNode &
+    {
+      onClick: () => void
+    }[]
   triggerButton: UiNode & {
-     onClick: () => void;
-  };
-};
+    onClick: () => void
+  }
+}
 ```
 
 ## Properties
@@ -17,10 +18,10 @@ type OrySettingsWebauthnProps = {
 ### nameInput
 
 ```ts
-nameInput: UiNode;
+nameInput: UiNode
 ```
 
-***
+---
 
 ### removeButtons
 
@@ -30,7 +31,7 @@ removeButtons: UiNode & {
 }[];
 ```
 
-***
+---
 
 ### triggerButton
 
@@ -42,6 +43,6 @@ triggerButton: UiNode & {
 
 #### Type declaration
 
-| Name | Type |
-| ------ | ------ |
+| Name        | Type         |
+| ----------- | ------------ |
 | `onClick()` | () => `void` |

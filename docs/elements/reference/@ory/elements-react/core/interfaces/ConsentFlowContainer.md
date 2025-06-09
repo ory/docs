@@ -7,13 +7,13 @@ A flow container for the OAuth2 [ConsentFlow](ConsentFlow.md)
 ### flow
 
 ```ts
-flow: ConsentFlow;
+flow: ConsentFlow
 ```
 
-***
+---
 
 ### flowType
 
 ```ts
-flowType: OAuth2Consent;
+flowType: OAuth2Consent
 ```

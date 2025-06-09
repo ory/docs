@@ -1,23 +1,27 @@
 # getRecoveryFlow()
 
 ```ts
-function getRecoveryFlow(config: {
-  project: {
-     recovery_ui_url: string;
-  };
-}, params: QueryParams | Promise<QueryParams>): Promise<null | void | RecoveryFlow>;
+function getRecoveryFlow(
+  config: {
+    project: {
+      recovery_ui_url: string
+    }
+  },
+  params: QueryParams | Promise<QueryParams>,
+): Promise<null | void | RecoveryFlow>
 ```
 
-Use this method in an app router page to fetch an existing recovery flow or to create a new one. This method works with server-side rendering.
+Use this method in an app router page to fetch an existing recovery flow or to create a new one. This method works with
+server-side rendering.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `config` | \{ `project`: \{ `recovery_ui_url`: `string`; \}; \} | The Ory configuration object. |
-| `config.project` | \{ `recovery_ui_url`: `string`; \} | - |
-| `config.project.recovery_ui_url` | `string` | - |
-| `params` | `QueryParams` \| `Promise`\<`QueryParams`\> | The query parameters of the request. |
+| Parameter                        | Type                                                 | Description                          |
+| -------------------------------- | ---------------------------------------------------- | ------------------------------------ |
+| `config`                         | \{ `project`: \{ `recovery_ui_url`: `string`; \}; \} | The Ory configuration object.        |
+| `config.project`                 | \{ `recovery_ui_url`: `string`; \}                   | -                                    |
+| `config.project.recovery_ui_url` | `string`                                             | -                                    |
+| `params`                         | `QueryParams` \| `Promise`\<`QueryParams`\>          | The query parameters of the request. |
 
 ## Returns
 

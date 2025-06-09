@@ -18,6 +18,6 @@ export default async function LoginPage(props: OryPageParams) {
 
 ```ts
 searchParams: Promise<{
-[key: string]: undefined | string | string[];
-}>;
+  [key: string]: undefined | string | string[]
+}>
 ```

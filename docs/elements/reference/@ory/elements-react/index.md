@@ -18,10 +18,8 @@
 </a>
 </p>
 
-Ory Elements is a set of components and functions tailored for easy integration
-of Ory into your React application. It simplifies the process of adding
-authentication and other identity features to your application using the Ory
-Network.
+Ory Elements is a set of components and functions tailored for easy integration of Ory into your React application. It simplifies
+the process of adding authentication and other identity features to your application using the Ory Network.
 
 ## Documentation
 
@@ -43,8 +41,7 @@ npm install @ory/elements-react
 
 ## Usage
 
-Ory Elements provides components that can aggregate flow objects and display
-user authentication flows based on the data.
+Ory Elements provides components that can aggregate flow objects and display user authentication flows based on the data.
 
 To feed Ory Elements with flow data you need to use Ory client.
 
@@ -64,48 +61,33 @@ export function serverClientFrontend() {
 
 ### Ory Network project setup
 
-The Ory Identities APIs come with the ability to specify custom UI URLs. To make
-sure, Ory knows about your custom UI, specify the URLs of your application on
-https://console.ory.sh/projects/current/ui.
+The Ory Identities APIs come with the ability to specify custom UI URLs. To make sure, Ory knows about your custom UI, specify the
+URLs of your application on https://console.ory.sh/projects/current/ui.
 
 ### Initializing a new flow
 
-Initializing a new flow is done by navigating the user's page to the initialize
-flow URL. After creating a new flow object, Ory will return a redirect to the
-flow UI URL and, in some cases, return anti-CSRF cookies.
+Initializing a new flow is done by navigating the user's page to the initialize flow URL. After creating a new flow object, Ory
+will return a redirect to the flow UI URL and, in some cases, return anti-CSRF cookies.
 
 ```ts
 export function init(params: QueryParams, flowType: FlowType) {
   // Take advantage of the fact, that Ory handles the flow creation for us and redirects the user to the default return to automatically if they're logged in already.
   return redirect(
-    "http://localhost:4000" +
-      "/self-service/" +
-      flowType.toString() +
-      "/browser?" +
-      new URLSearchParams(params).toString(),
+    "http://localhost:4000" + "/self-service/" + flowType.toString() + "/browser?" + new URLSearchParams(params).toString(),
     RedirectType.replace,
   )
 }
 ```
 
-**FlowType** can be: `login`, `registration`, `recovery`, `verification`,
-`settings` or `error`
+**FlowType** can be: `login`, `registration`, `recovery`, `verification`, `settings` or `error`
 
-To access & render the flow, on your flow page, you can use the `flow` query
-parameter, that is included in the redirect. Use it to call the
-[`getRegistrationFlowRaw()`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/getRegistrationFlow)
-API.
+To access & render the flow, on your flow page, you can use the `flow` query parameter, that is included in the redirect. Use it
+to call the [`getRegistrationFlowRaw()`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/getRegistrationFlow) API.
 
 **Full Example**:
 
 ```ts
-import {
-  Configuration,
-  FlowType,
-  FrontendApi,
-  handleFlowError,
-  RegistrationFlow,
-} from "@ory/client-fetch"
+import { Configuration, FlowType, FrontendApi, handleFlowError, RegistrationFlow } from "@ory/client-fetch"
 import { redirect, RedirectType } from "next/navigation"
 
 type QueryParams = {
@@ -126,18 +108,12 @@ export function serverClientFrontend() {
 export function init(params: QueryParams, flowType: FlowType) {
   // Take advantage of the fact, that Ory handles the flow creation for us and redirects the user to the default return to automatically if they're logged in already.
   return redirect(
-    "http://localhost:4000" +
-      "/self-service/" +
-      flowType.toString() +
-      "/browser?" +
-      new URLSearchParams(params).toString(),
+    "http://localhost:4000" + "/self-service/" + flowType.toString() + "/browser?" + new URLSearchParams(params).toString(),
     RedirectType.replace,
   )
 }
 
-export async function getOrCreateRegistrationFlow(params: {
-  flow?: string
-}): Promise<RegistrationFlow> {
+export async function getOrCreateRegistrationFlow(params: { flow?: string }): Promise<RegistrationFlow> {
   const onRestartFlow = () => init(params, FlowType.Registration)
 
   // If flow ID doesn't exist in params simply trigger the init function.
@@ -174,8 +150,7 @@ function onRedirect(url: string, external: boolean) {
 }
 ```
 
-As soon as we have our flow data we can render the `<Registration/>` component
-from `@ory/elements-react` package.
+As soon as we have our flow data we can render the `<Registration/>` component from `@ory/elements-react` package.
 
 ```tsx
 import { Registration } from "@ory/elements-react/theme"
@@ -193,8 +168,7 @@ export default async function RegistrationPage({ searchParams }: PageProps) {
 
 ### Styling
 
-To include the default styles, add the following import to your app. Make sure
-it's included on all pages, that use Ory Elements.
+To include the default styles, add the following import to your app. Make sure it's included on all pages, that use Ory Elements.
 
 ```ts
 import "@ory/elements-react/theme/styles.css"
@@ -202,9 +176,8 @@ import "@ory/elements-react/theme/styles.css"
 
 ### Theming
 
-The styling for specific elements or groups of elements in the UI can be
-overwritten by providing your own custom CSS variables. For more complex
-customizations see the [Component System](#component-system).
+The styling for specific elements or groups of elements in the UI can be overwritten by providing your own custom CSS variables.
+For more complex customizations see the [Component System](#component-system).
 
 ```css
 :root {
@@ -286,115 +259,53 @@ customizations see the [Component System](#component-system).
   /* interface end */
 
   /* Specific elements */
-  --button-identifier-background-default: var(
-    --interface-background-brand-secondary
-  );
-  --button-identifier-background-hover: var(
-    --interface-background-brand-secondary-hover
-  );
-  --button-identifier-border-border-default: var(
-    --interface-border-brand-brand
-  );
+  --button-identifier-background-default: var(--interface-background-brand-secondary);
+  --button-identifier-background-hover: var(--interface-background-brand-secondary-hover);
+  --button-identifier-border-border-default: var(--interface-border-brand-brand);
   --button-identifier-border-border-hover: var(--interface-border-brand-brand);
-  --button-identifier-foreground-default: var(
-    --interface-foreground-brand-on-secondary
-  );
-  --button-identifier-foreground-hover: var(
-    --interface-foreground-brand-on-secondary
-  );
+  --button-identifier-foreground-default: var(--interface-foreground-brand-on-secondary);
+  --button-identifier-foreground-hover: var(--interface-foreground-brand-on-secondary);
   --button-link-brand-brand: var(--interface-foreground-brand-primary);
   --button-link-brand-brand-hover: var(--interface-foreground-default-primary);
   --button-link-default-primary: var(--interface-foreground-default-primary);
-  --button-link-default-primary-hover: var(
-    --interface-foreground-brand-primary
-  );
-  --button-link-default-secondary: var(
-    --interface-foreground-default-secondary
-  );
-  --button-link-default-secondary-hover: var(
-    --interface-foreground-default-tertiary
-  );
-  --button-link-disabled-disabled: var(
-    --interface-foreground-disabled-disabled
-  );
-  --button-primary-background-default: var(
-    --interface-background-brand-primary
-  );
-  --button-primary-background-disabled: var(
-    --interface-background-disabled-disabled
-  );
-  --button-primary-background-hover: var(
-    --interface-background-brand-primary-hover
-  );
+  --button-link-default-primary-hover: var(--interface-foreground-brand-primary);
+  --button-link-default-secondary: var(--interface-foreground-default-secondary);
+  --button-link-default-secondary-hover: var(--interface-foreground-default-tertiary);
+  --button-link-disabled-disabled: var(--interface-foreground-disabled-disabled);
+  --button-primary-background-default: var(--interface-background-brand-primary);
+  --button-primary-background-disabled: var(--interface-background-disabled-disabled);
+  --button-primary-background-hover: var(--interface-background-brand-primary-hover);
   --button-primary-border-default: var(--interface-border-default-none);
   --button-primary-border-disabled: var(--interface-border-disabled-disabled);
   --button-primary-border-hover: var(--interface-border-default-none);
-  --button-primary-foreground-default: var(
-    --interface-foreground-brand-on-primary
-  );
-  --button-primary-foreground-disabled: var(
-    --interface-foreground-disabled-on-disabled
-  );
-  --button-primary-foreground-hover: var(
-    --interface-foreground-brand-on-primary
-  );
-  --button-secondary-background-default: var(
-    --interface-background-default-primary
-  );
-  --button-secondary-background-disabled: var(
-    --interface-background-disabled-disabled
-  );
-  --button-secondary-background-hover: var(
-    --interface-background-default-primary-hover
-  );
+  --button-primary-foreground-default: var(--interface-foreground-brand-on-primary);
+  --button-primary-foreground-disabled: var(--interface-foreground-disabled-on-disabled);
+  --button-primary-foreground-hover: var(--interface-foreground-brand-on-primary);
+  --button-secondary-background-default: var(--interface-background-default-primary);
+  --button-secondary-background-disabled: var(--interface-background-disabled-disabled);
+  --button-secondary-background-hover: var(--interface-background-default-primary-hover);
   --button-secondary-border-default: var(--interface-border-default-primary);
   --button-secondary-border-disabled: var(--interface-border-disabled-disabled);
   --button-secondary-border-hover: var(--interface-border-default-primary);
-  --button-secondary-foreground-default: var(
-    --interface-foreground-default-primary
-  );
-  --button-secondary-foreground-disabled: var(
-    --interface-foreground-disabled-on-disabled
-  );
-  --button-secondary-foreground-hover: var(
-    --interface-foreground-default-secondary
-  );
-  --button-social-background-default: var(
-    --interface-background-default-primary
-  );
-  --button-social-background-disabled: var(
-    --interface-background-disabled-disabled
-  );
-  --button-social-background-generic-provider: var(
-    --interface-background-default-inverted
-  );
-  --button-social-background-hover: var(
-    --interface-background-default-primary-hover
-  );
+  --button-secondary-foreground-default: var(--interface-foreground-default-primary);
+  --button-secondary-foreground-disabled: var(--interface-foreground-disabled-on-disabled);
+  --button-secondary-foreground-hover: var(--interface-foreground-default-secondary);
+  --button-social-background-default: var(--interface-background-default-primary);
+  --button-social-background-disabled: var(--interface-background-disabled-disabled);
+  --button-social-background-generic-provider: var(--interface-background-default-inverted);
+  --button-social-background-hover: var(--interface-background-default-primary-hover);
   --button-social-border-default: var(--interface-border-default-primary);
   --button-social-border-disabled: var(--interface-border-disabled-disabled);
   --button-social-border-generic-provider: var(--interface-border-default-none);
   --button-social-border-hover: var(--interface-border-default-primary);
-  --button-social-foreground-default: var(
-    --interface-foreground-default-primary
-  );
-  --button-social-foreground-disabled: var(
-    --interface-foreground-disabled-on-disabled
-  );
-  --button-social-foreground-generic-provider: var(
-    --interface-foreground-default-inverted
-  );
-  --button-social-foreground-hover: var(
-    --interface-foreground-default-secondary
-  );
+  --button-social-foreground-default: var(--interface-foreground-default-primary);
+  --button-social-foreground-disabled: var(--interface-foreground-disabled-on-disabled);
+  --button-social-foreground-generic-provider: var(--interface-foreground-default-inverted);
+  --button-social-foreground-hover: var(--interface-foreground-default-secondary);
   --checkbox-background-checked: var(--interface-background-brand-primary);
   --checkbox-background-default: var(--interface-background-default-secondary);
-  --checkbox-border-checkbox-border-checked: var(
-    --interface-border-brand-brand
-  );
-  --checkbox-border-checkbox-border-default: var(
-    --interface-border-default-primary
-  );
+  --checkbox-border-checkbox-border-checked: var(--interface-border-brand-brand);
+  --checkbox-border-checkbox-border-default: var(--interface-border-default-primary);
   --checkbox-foreground-checked: var(--interface-foreground-brand-on-primary);
   --checkbox-foreground-default: var(--interface-foreground-default-primary);
   --form-background-default: var(--interface-background-default-primary);
@@ -440,9 +351,8 @@ customizations see the [Component System](#component-system).
 
 ### Component system
 
-Many components in Ory Elements can be overriden with your own implementation.
-Ory Elements also provides useful hooks that be used inside of your custom
-components to get access to the library configuration, or the current flow.
+Many components in Ory Elements can be overriden with your own implementation. Ory Elements also provides useful hooks that be
+used inside of your custom components to get access to the library configuration, or the current flow.
 
 **Example:**
 
@@ -478,9 +388,8 @@ export default async function RegistrationPage({ searchParams }: PageProps) {
 
 ### internationalization (i18n)
 
-`@ory/elements-react` comes with default translations for many languages.
-Additionally, it provides a way to override the default messages, through the
-`locale` property of the `OryClientConfiguration`.
+`@ory/elements-react` comes with default translations for many languages. Additionally, it provides a way to override the default
+messages, through the `locale` property of the `OryClientConfiguration`.
 
 ```ts
 const config = {
@@ -495,8 +404,7 @@ const config = {
 }
 ```
 
-For a full list of messages, see
-[en.json](https://github.com/ory/elements/blob/main/packages/elements-react/src/locales/en.json).
+For a full list of messages, see [en.json](https://github.com/ory/elements/blob/main/packages/elements-react/src/locales/en.json).
 
 ## Development
 

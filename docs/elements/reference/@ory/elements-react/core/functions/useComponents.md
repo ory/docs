@@ -1,7 +1,7 @@
 # useComponents()
 
 ```ts
-function useComponents(): OryFlowComponents;
+function useComponents(): OryFlowComponents
 ```
 
 The `useComponents` hook provides access to the Ory Flow components provided in the `OryComponentProvider`.

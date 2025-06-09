@@ -2,10 +2,10 @@
 
 ```ts
 type OryNodeSsoButtonProps = {
-  attributes: UiNodeInputAttributes;
-  node: UiNode;
-  onClick?: () => void;
-};
+  attributes: UiNodeInputAttributes
+  node: UiNode
+  onClick?: () => void
+}
 ```
 
 Props for the OryNodeSsoButton component.
@@ -15,18 +15,18 @@ Props for the OryNodeSsoButton component.
 ### attributes
 
 ```ts
-attributes: UiNodeInputAttributes;
+attributes: UiNodeInputAttributes
 ```
 
-***
+---
 
 ### node
 
 ```ts
-node: UiNode;
+node: UiNode
 ```
 
-***
+---
 
 ### onClick()?
 
