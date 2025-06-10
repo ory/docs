@@ -9,3 +9,5 @@ It is important to find a balance between allowing a user to submit the code mul
 
 To that end, a numeric limit can be configured with the setting `kratos_selfservice_methods_code_config_max_submissions`. The default is `5`. To prevent misconfiguration, this number is required to be between `1` and `255`. We recommend a rather small number for security reasons, probably under 10. Organisations with strict security policies will tend to set this number to `2` or `3`.
 
+
+When the code is submitted too many times (the configured limit is reached), the recovery flow fails.

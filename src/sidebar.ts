@@ -521,6 +521,7 @@ const kratos: SidebarItemsConfig = [
           "kratos/guides/select-cipher-algorithm",
           "kratos/self-hosted/email-http",
           "kratos/reference/configuration-editor",
+          "kratos/guides/recovery-code-limits",
         ],
       },
       {
