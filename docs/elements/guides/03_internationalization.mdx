@@ -47,6 +47,58 @@ in a client-side application.
 
 To use custom translations in your Ory Elements components, follow these steps:
 
+```mdx-code-block
+<Tabs>
+<TabItem value="standalone" label="Standalone" default>
+```
+
+1. Define your translations in typescript files. Here is an example of how to create a translations file:
+
+   ```typescript title="translations.ts"
+   export const messages: Record<string, Record<string, string>> = {
+     de: {
+       "login.title": "Anmeldung",
+       "login.description": "Bitte melden Sie sich an, um fortzufahren.",
+       // other messages...
+     },
+     en: {
+       "login.title": "Login",
+       "login.description": "Please log in to continue.",
+       // other messages...
+     },
+   }
+   ```
+
+   :::note
+
+   The keys in the `messages` object should match the keys used in the Ory Elements components. You can find the full original
+   files in the
+   [GitHub repository of Ory Elements](https://github.com/ory/elements/tree/main/packages/elements-react/src/locales).
+
+   :::
+
+2. Pass it to the OryProvider's `customTranslations` prop. Here is an example of how to do this in a Next.js application:
+
+   ```tsx title="app.tsx"
+   import { OryProvider } from "@ory/elements-react"
+   import { messages } from "./translations"
+
+   export default function MyApp({ Component, ...props }: { Component: NextPage }) {
+     return (
+       <OryProvider customTranslations={messages}>
+         <Component {...props} />
+       </OryProvider>
+     )
+   }
+   ```
+
+   :::note
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react-intl" label="With react-intl">
+```
+
 1. Install the `react-intl` library if you haven't already:
 
    ```bash
@@ -56,7 +108,7 @@ To use custom translations in your Ory Elements components, follow these steps:
 2. Create a translations file (e.g., `translations.ts`) that contains your translations for different locales. Here is an example:
 
    ```typescript title="translations.ts"
-   export const messages: Record<string> = {
+   export const messages: Record<string, string> = {
      en: {
        "login.title": "Login",
        // other messages...
@@ -120,3 +172,8 @@ To use custom translations in your Ory Elements components, follow these steps:
    </TabItem>
    </Tabs>
    ```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
