@@ -1,19 +1,18 @@
 ---
 id: code-submission-limit
-title:  Code submissions limit
+title: Code submissions limit
 ---
 
-A code is sent to a user controlled address (for example an email address) in some flows such as verification recovery, registration, etc.
+A code is sent to a user controlled address (for example an email address) in some flows such as verification, recovery,
+registration, etc. When the correct code is then submitted by the user, the flow advances. It the wrong code is submitted too many
+times, the flow fails.
 
 It is important to find a balance between allowing a user to submit a wrong code multiple times, due for example to typos, and not
 too many times, to prevent an attacker from brute-forcing the code.
 
-To that end, a numeric limit can be configured. The
-default is `5`. To prevent misconfiguration, this number is required to be between `1` and `255`. We recommend a rather small
-number for security reasons, probably under 10. Organisations with strict security policies might set this number to `2` or `3`.
-
-When the code is submitted too many times (that is to say, the configured limit is reached), the recovery flow fails.
-
+To that end, the numeric limit can be configured. The default is `5`. To prevent misconfiguration, this number is required to be
+between `1` and `255`. We recommend a rather small number for security reasons, probably under 10. Organisations with strict
+security policies might set this number to `2` or `3`.
 
 ```mdx-code-block
 import CodeBlock from '@theme/CodeBlock'
