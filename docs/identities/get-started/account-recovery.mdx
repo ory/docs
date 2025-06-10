@@ -141,3 +141,69 @@ When a user initiates account recovery:
    - A one-time code via email if using the `code` method
 3. After clicking the link or entering the code, they're prompted to set a new password
 4. Once completed, they regain access to their account with a new password
+
+
+### Configure a custom limit on how many times a recovery code can be submitted unsuccessfully
+
+It is important to find a balance between allowing a user to submit a wrong code multiple times, due for example to typos, and not
+too many times, to prevent an attacker from brute-forcing the code.
+
+To that end, a numeric limit can be configured. The
+default is `5`. To prevent misconfiguration, this number is required to be between `1` and `255`. We recommend a rather small
+number for security reasons, probably under 10. Organisations with strict security policies might set this number to `2` or `3`.
+
+When the code is submitted too many times (that is to say, the configured limit is reached), the recovery flow fails.
+
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem'
+```
+
+````mdx-code-block
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+To change the limit, go to [**Ory Console**](https://console.ory.sh/) → **Authentication** -> **FIXME***, enter the desired number, and click the **Save** button.
+
+</TabItem>
+<TabItem value="cloud" label="Ory CLI">
+
+1. Download the Ory Identities config from your project and save it to a file:
+
+   ```shell
+   ## List all available workspaces
+   ory list workspaces
+
+   ## List all available projects
+   ory list projects --workspace <workspace-id>
+
+   ## Get config
+   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
+   ```
+
+2. Update the configuration value to the desired value:
+
+   ```yaml title="config.yml"
+   session:
+      cookie:
+         domain: $PROJECT_SLUG.projects.oryapis.com
+         name: ory_session_{name}
+         path: /
+         persistent: false
+         same_site: Lax
+      // highlight-start
+      lifespan: 720h
+      // highlight-end
+   ```
+
+3. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
+   ```
+
+</TabItem>
+</Tabs>
+````
