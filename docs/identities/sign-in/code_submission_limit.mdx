@@ -4,7 +4,7 @@ title: Code submissions limit
 ---
 
 A code is sent to a user controlled address (for example an email address) in some flows such as verification, recovery,
-registration, etc. When the correct code is then submitted by the user, the flow advances. It the wrong code is submitted too many
+registration, etc. When the correct code is then submitted by the user, the flow advances. If the wrong code is submitted too many
 times, the flow fails.
 
 It is important to find a balance between allowing a user to submit a wrong code multiple times, due for example to typos, and not
@@ -24,7 +24,7 @@ import TabItem from '@theme/TabItem'
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 
-To change the limit, go to [**Ory Console**](https://console.ory.sh/) → **Authentication** -> **FIXME***, enter the desired number, and click the **Save** button.
+To change the limit, go to [**Ory Console**](https://console.ory.sh/) → **Authentication** -> **General** -> **Maximum number of code submissions**, enter the desired number, and click the **Save** button.
 
 </TabItem>
 <TabItem value="cloud" label="Ory CLI">
