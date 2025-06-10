@@ -403,28 +403,31 @@ have any questions or feedback.
 Onboarding portal is a powerful tool designed to simplify complex identity and access management tasks for businesses and their
 partners.
 
-### Streamline enterprise onboarding
+### Streamline organization onboarding
 
 The onboarding portal address the often-burdensome process of setting up and managing identity connections with external
 organizations. Traditionally, integrating with a customer's or partner's identity provider (IdP) for single sign-on (SSO) or
 synchronizing user directories involves manual, error-prone configurations. This often requires deep technical expertise in
-protocols such as SAML or SCIM.
+protocols such as SAML.
 
 Onboarding portal aims to:
 
-- **Simplify Complex Integrations**: By providing a self-service or guided onboarding experience, they abstract away the
-  underlying technical complexities of SAML, OIDC, and SCIM. This means IT administrators on the client side don't need to be SAML
-  experts to connect their organization's identity system.
-- **Reduce Onboarding Time**: Instead of lengthy back-and-forth communication and manual configuration, an onboarding portal link
+- **Simplify complex integrations**: By providing a self-service or guided onboarding experience, they abstract away the
+  underlying technical complexities of SAML. This means IT administrators on the client side don't need to be SAML experts to
+  connect their organization's identity system.
+- **Reduce onboarding time**: Instead of lengthy back-and-forth communication and manual configuration, an onboarding portal link
   allows an external administrator to configure the connection directly through a user-friendly interface. This drastically
   reduces the time and effort required to establish new B2B integrations.
-- **Enhance Security and Control**: Onboarding portal links are designed to be shareable without exposing sensitive information.
+- **Enhance security and control**: Onboarding portal links are designed to be shareable without exposing sensitive information.
   The administrator receiving the link can configure their side of the connection securely, maintaining control over their IdP
   settings while establishing a trusted connection with your application.
 - **Enable Self-Service for Organizations**: For SaaS providers, this means empowering your customers to self-onboard and manage
   their own SSO connections, freeing up your engineering and support teams. Support Scalability for B2B Models: As your
   application grows and serves more enterprise clients, manually managing each integration becomes unsustainable. These features
   provide a scalable solution for onboarding and managing a large number of organizational customers.
+- **Validate SSO Connections instantly**: The onboarding portal includes the ability to immediately test the configured SSO
+  connection. This allows IT administrators to verify that the integration works as expected before deploying it to their users,
+  reducing troubleshooting time and ensuring a smooth rollout.
 
 These features are relevant for:
 
@@ -436,6 +439,11 @@ These features are relevant for:
 - **Developers and architects building multi-tenant applications**: These individuals implement robust and scalable identity
   management for applications that serve multiple organizations. Each organization has its own authentication and user
   provisioning requirements.
+
+Current limitations:
+
+- The initial version includes a guided walkthrough for a limited set of providers. OIDC support and additional providers are
+  planned for future releases.
 
 ### Manage onboarding portal links
 
