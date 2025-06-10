@@ -1,0 +1,66 @@
+---
+id: code-submission-limit
+title:  Code submissions limit
+---
+
+A code is sent to a user controlled address (for example an email address) in some flows such as verification recovery, registration, etc.
+
+It is important to find a balance between allowing a user to submit a wrong code multiple times, due for example to typos, and not
+too many times, to prevent an attacker from brute-forcing the code.
+
+To that end, a numeric limit can be configured. The
+default is `5`. To prevent misconfiguration, this number is required to be between `1` and `255`. We recommend a rather small
+number for security reasons, probably under 10. Organisations with strict security policies might set this number to `2` or `3`.
+
+When the code is submitted too many times (that is to say, the configured limit is reached), the recovery flow fails.
+
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem'
+```
+
+````mdx-code-block
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+To change the limit, go to [**Ory Console**](https://console.ory.sh/) → **Authentication** -> **FIXME***, enter the desired number, and click the **Save** button.
+
+</TabItem>
+<TabItem value="cloud" label="Ory CLI">
+
+1. Download the Ory Identities config from your project and save it to a file:
+
+   ```shell
+   ## List all available workspaces
+   ory list workspaces
+
+   ## List all available projects
+   ory list projects --workspace <workspace-id>
+
+   ## Get config
+   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
+   ```
+
+2. Update the configuration value to the desired value:
+
+   ```yaml title="config.yml"
+   config:
+       selfservice:
+           methods:
+               code:
+                   // highlight-start
+                   max_submissions: 3
+                  // highlight-end
+   ```
+
+3. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
+   ```
+
+</TabItem>
+</Tabs>
+````
