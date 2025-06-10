@@ -1,0 +1,11 @@
+---
+id: recovery-code-limits
+title: Limits on how many times a recovery code can be submitted
+---
+
+A user can recover their account by providing an address associated with their account, for example an email-address, and having the system send a code to that address. Then, the user submits this code, to prove they own the address.
+
+It is important to find a balance between allowing a user to submit the code multiple times, due to network issues or typos, and security, to prevent an attacker from brute-forcing the code.
+
+To that end, a numeric limit can be configured with the setting `kratos_selfservice_methods_code_config_max_submissions`. The default is `5`. To prevent misconfiguration, this number is required to be between `1` and `255`. We recommend a rather small number for security reasons, probably under 10. Organisations with strict security policies will tend to set this number to `2` or `3`.
+
