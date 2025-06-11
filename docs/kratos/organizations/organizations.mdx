@@ -549,3 +549,15 @@ Result:
 
 The link generated from the Ory Network Console expires in 7 days. The API allows you to set an expiration value with a minimum
 expiry of 1 day. Once the link expires, it no longer works. You can also delete the link and generate a new one.
+
+#### Handover and using the portal
+
+Once you generate the link, share it with the organization's administrator. They can access this link multiple times until its
+expiration to manage (add, edit, or delete) the organization's SSO connections.
+
+```mdx-code-block
+
+<BrowserWindow url="https://<your-slug>.projects.oryapis.com/onboarding/<unique-token>">
+    ![Onboarding portal](./_static/onboarding-portal.png)
+</BrowserWindow>
+```
