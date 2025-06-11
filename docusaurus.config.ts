@@ -108,8 +108,8 @@ const config: Config = {
           href: "https://www.ory.sh/privacy",
         },
         {
-          label: "Imprint",
-          href: "https://www.ory.sh/imprint",
+          label: "Company",
+          href: "https://www.ory.sh/legal/company",
         },
         {
           label: "Terms of Service",
