@@ -87,11 +87,7 @@ Add a custom sorcery provider for Ory Polis. We will name it `Boxyhqsso`.
 We rely on the `Protocols::Oauth2` mixin from the sorcery package. In a nutshell, here we are wiring up the OAuth 2.0 flow with
 Ory Polis. Ory Polis will redirect to the configured IdP connection based on the tenant/product.
 
-:::info
-
 By including the file in the `app/lib` folder, rails will autoload the provider class.
-
-:::
 
 ```ruby title="app/lib/sorcery/providers/boxyhqsso.rb"
     module Sorcery
@@ -206,11 +202,7 @@ provider settings.
 Finally, we need to add the routes and controller files that initiate the login flow and handle the callback from the Ory Polis
 service.
 
-:::info
-
 The login flow is initiated by posting to `/sso`
-
-:::
 
   <Tabs>
      <TabItem value="routes" label="Routes" default>
@@ -319,11 +311,7 @@ Else a new user is created in the database and returned.
 
 #### With OmniAuth
 
-:::info
-
 Unlike sorcery, omniauth does not automatically associate with a User model nor persist the user in the database.
-
-:::
 
 First, we need to install and configure [omniauth](https://github.com/omniauth/omniauth).
 
@@ -464,16 +452,12 @@ strategies.
     end
 ```
 
-##### Routes and Controllers
+##### Routes and controllers
 
 Finally, we need to add the routes and controller files that initiate the login flow and handle the callback from the Ory Polis
 service. We also use a controller `concern` to control access to protected routes such as the profile page.
 
-:::info
-
 The login flow is initiated by posting to `/auth/boxyhqsso` which is handled by omniauth in the rack middleware pipeline.
-
-:::
 
   <Tabs>
 

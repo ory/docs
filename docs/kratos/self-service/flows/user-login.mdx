@@ -698,13 +698,7 @@ curl -s -H "Authorization: Bearer svX8bE9HTiVpMr7r55TtKtcOkLRhAq1a" \
 ## Refreshing a session
 
 In some cases it's required to refresh a login session. This is the case when updating one's password. Refreshing a session
-updates the `authenticated_at` time.
-
-:::info
-
-Refreshing a session won't log the user out, unless another user signs in.
-
-:::
+updates the `authenticated_at` time. Refreshing a session won't log the user out, unless another user signs in.
 
 To refresh a session, append `?refresh=true` to:
 

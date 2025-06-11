@@ -5,11 +5,7 @@ title: Changelog and roadmap
 
 ## Ory Changelog
 
-:::info
-
 Read the changelog for Ory Network at [changelog.ory.sh](https://changelog.ory.sh/) !
-
-:::
 
 > Running security-critical open source technology in a self-service format requires vigilance. We make your life easier by
 > announcing important software updates via the [Ory Security Newsletter](https://www.ory.sh/l/sign-up-newsletter). Never miss an

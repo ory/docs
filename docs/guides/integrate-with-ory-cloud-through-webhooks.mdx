@@ -363,7 +363,7 @@ else
 
 :::info
 
-Currently, Jsonnet doesn't support regular expressions. Follow this issue to see if the feature has been implemented:
+Jsonnet doesn't support regular expressions yet. Follow this issue to see if the feature has been implemented:
 [google/go-jsonnet/409](https://github.com/google/go-jsonnet/issues/409).
 
 :::
@@ -406,13 +406,8 @@ config:
 ```
 
 When the webhook target returns a 200 OK response code and the response body is a JSON object with the key `identity` in it, the
-values from that object will be used to change the identity before it is saved to the database.
-
-:::info
-
-Modifying the identity is currently only possible during the registration and settings flows.
-
-:::
+values from that object will be used to change the identity before it is saved to the database. Modifying the identity is only
+possible during registration and settings flows.
 
 When updating any of the identity fields, be aware that the whole field is replaced by the value returned by the webhook. For
 example, if the user signed up with
@@ -456,13 +451,8 @@ complete data:
 #### Update identity traits
 
 When the webhook target returns a 200 OK response code and the response body is a JSON object with the key `identity.traits` in
-it, the values from that object will be used to replace the identity traits before they are saved to the database.
-
-:::info
-
-This method replaces the entire identity traits object. It is not possible to update only a single trait.
-
-:::
+it, the values from that object will be used to replace the identity traits before they are saved to the database. This method
+replaces the entire identity traits object. It isn't possible to update only a single trait.
 
 ```json
 {
@@ -480,13 +470,8 @@ This method replaces the entire identity traits object. It is not possible to up
 When the webhook target returns a 200 OK response code and the response body is a JSON object with the key
 `identity.metadata_public` or `identity.metadata_admin` in it, the values from that object will be used to replace the
 [identity metadata](../kratos/manage-identities/10_managing-users-identities-metadata.mdx) fields before they are saved to the
-database.
-
-:::info
-
-This method replaces the entire metadata object. You can't update only a single value in `metadata_public` or `metadata_admin`.
-
-:::
+database. This method replaces the entire metadata object. Partial updates to values in `metadata_public` or `metadata_admin`
+aren't supported.
 
 ```json
 {
@@ -509,12 +494,8 @@ When the webhook target returns a 200 OK response code and the response body is 
 `identity.verifiable_addresses` in it, the values from that object will be used to replace the identity verification addresses
 before they are saved to the database.
 
-:::info
-
 Verification and recovery addresses are taken from the `identity.traits` object using the Identity Schema. If you add additional
-verification or recovery addresses, these will be deleted unless the Identity traits also contain that address.
-
-:::
+verification or recovery addresses, these will be deleted unless the identity traits also contain that address.
 
 ```json5
 {
