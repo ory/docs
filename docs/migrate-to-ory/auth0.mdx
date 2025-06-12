@@ -24,22 +24,11 @@ This document takes you through the following steps:
 Because password hashes are considered sensitive information, Auth0 doesn't export them as part of the general export process. To
 get the password hashes and other password-related information, you must create an Auth0 support ticket.
 
-:::danger
-
-You must be on a paid Auth0 plan to export password hashes. Auth0 makes no commitments about the processing time for this kind of
-request.
-
-:::
-
 If you get your users' password hashes and import them to Ory, users can log in to their accounts using the same credentials they
 used before the migration. If you can't get users' password hashes, you can still import Auth0 user accounts to Ory and migrate
 them using a [Password migration hook](../kratos/manage-identities/25_import-user-accounts-identities.mdx).
 
-:::info
-
 When you export password hashes, none of the involved parties has access to users' plain text passwords.
-
-:::
 
 ### Create Auth0 support ticket
 
@@ -74,14 +63,8 @@ the script [here](https://raw.githubusercontent.com/ory/docs/master/code-example
 Follow these steps to get the Management API Access Token and connection ID:
 
 1. Go to your [Auth0 dashboard](https://manage.auth0.com/#) and navigate to **Applications** → **APIs**.
-2. Select **Auth0 Management API** and go to the **API Explorer** tab. Copy the displayed token.
-
-   :::info
-
-   The token is valid for 24 hours. When this time passes, repeat the process to generate a new token.
-
-   :::
-
+2. Select **Auth0 Management API** and go to the **API Explorer** tab. Copy the displayed token. The token is valid for 24 hours,
+   repeat the process to generate a new token.
 3. Go to **Authentication** and navigate to **Database**.
 4. Click the connection for which you want to export user data and copy its ID.
 

@@ -33,12 +33,8 @@ If you set the account recovery method to `link`, the system uses these template
 - `recovery.valid`
 - `recovery.invalid`
 
-:::info
-
-To read more about the recovery flow, read
+To learn more about the recovery flow, read
 [Account recovery and password reset](../self-service/flows/account-recovery-password-reset.mdx).
-
-:::
 
 ```mdx-code-block
 </TabItem>
@@ -55,12 +51,8 @@ If you set the account verification method to `link`, the system uses these temp
 - `verification.valid`
 - `verification.invalid`
 
-:::info
-
-To read more about the verification flow, read
+To learn more about the verification flow, read
 [Email and phone verification](../self-service/flows/verify-email-account-activation.mdx).
-
-:::
 
 ```mdx-code-block
 </TabItem>
@@ -71,11 +63,7 @@ To read more about the verification flow, read
 When you enable the one-time code method the login flow will need to send out an email to users signing in through the one-time
 code method. The system will then use the `login_code.valid` template to send the login code to the user.
 
-:::info
-
-To read more about login via a one-time code, read the [one-time code](../passwordless/06_code.mdx) documentation.
-
-:::
+To learn more about login via a one-time code, read the [one-time code](../passwordless/06_code.mdx) documentation.
 
 ```mdx-code-block
 </TabItem>
@@ -86,11 +74,7 @@ To read more about login via a one-time code, read the [one-time code](../passwo
 When you enable the one-time code method the registration flow will need to send out an email to users signing up using the
 one-time code method. The system will then use the `registration_code.valid` template to send the registration code to the user.
 
-:::info
-
-To read more about registration via a one-time code, read the [one-time code](../passwordless/06_code.mdx) documentation.
-
-:::
+To learn more about registration via a one-time code, read the [one-time code](../passwordless/06_code.mdx) documentation.
 
 ```mdx-code-block
 </TabItem>
@@ -102,12 +86,8 @@ To read more about registration via a one-time code, read the [one-time code](..
 Templates can be customized to fit your own branding and requirements. If you don't customize a specific template, the system
 automatically uses the built-in template.
 
-:::info
-
 A custom email server is required to use custom templates. Read more about
 [custom SMTP and HTTP servers](./01_sending-emails-smtp.mdx).
-
-:::
 
 ```mdx-code-block
 <Tabs>
@@ -117,16 +97,11 @@ A custom email server is required to use custom templates. Read more about
 1. Go to <ConsoleLink route="project.emailTemplates" />
 2. Select the email template you want to customize.
 
-:::info
-
 The recovery & verification templates only show the versions for the method (**one-time code** or **link**) you have selected in
 the flow configuration.
 
 - <ConsoleLink route="project.recovery" />
-
 - <ConsoleLink route="project.verification" />
-
-:::
 
 ```mdx-code-block
 </TabItem>

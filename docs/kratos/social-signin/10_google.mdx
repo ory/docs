@@ -28,14 +28,7 @@ Follow these steps to add Google as a social sign-in provider to your project us
 4. Go to [Google Cloud Console → APIs & Services](https://console.cloud.google.com/apis/) to set up OAuth 2.
 5. Using the project dropdown menu, select an existing project or create a new one.
 6. Go to [Credentials](https://console.cloud.google.com/apis/credentials) and create a new
-   [OAuth client ID](https://console.cloud.google.com/apis/credentials/oauthclient).
-
-   :::info
-
-   You must have a consent screen configured to proceed.
-
-   :::
-
+   [OAuth client ID](https://console.cloud.google.com/apis/credentials/oauthclient). You must have a consent screen configured to proceed.
 7. Configure the Google OAuth client. In the **Authorized redirect URIs** section, add the redirect URI copied from the Ory
    Console.
 8. Save the configuration and copy the Client ID and Client secret.
@@ -262,19 +255,14 @@ The following steps are required to integrate the Google SDK with Ory:
 The `id_token` is verified using Google's publicly available signing keys, available under
 https://www.googleapis.com/oauth2/v3/certs.
 
-Make sure to request the scopes you require in your Jsonnet mapping, otherwise they will be empty after the registration.
+Make sure to request the scopes you require in your Jsonnet mapping, otherwise they will be empty after the registration. Ory
+doesn't communicate directly with Google during this flow and doesn't have access to the Access & Refresh Tokens. This means that
+Ory cannot return these in the admin APIs or SDK.
 
 :::danger
 
-While not explicitly required, as not all of Google SDKs support it, we recommend that you use a `nonce` to prevent replay attacks
-wherever possible.
-
-:::
-
-:::info
-
-Ory does not communicate directly with Google during this flow and does not have access to the Access & Refresh Tokens. This means
-that Ory cannot return these in the admin APIs or SDK.
+While not explicitly required, as not all of Google SDKs support it, Ory recommends that you use a `nonce` to prevent replay
+attacks wherever possible.
 
 :::
 
