@@ -187,7 +187,7 @@ export const frontendFrameworks: {
         "Integrate authentication into your Next.js application with Ory",
       language: "nextjs",
       languageLogoAlt: "Next.js logo",
-      docs: "/docs/getting-started/integrate-auth/nextjs",
+      docs: "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
     },
     {
       title: "Vue.js integration",
