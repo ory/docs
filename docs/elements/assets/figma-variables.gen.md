@@ -1,6 +1,34 @@
 
 | CSS Variable | Description |
 | ------------ | ----------- |
+| `--ui-100` | **Default**: #f1f5f9|
+| `--ui-200` | **Default**: #e2e8f0|
+| `--ui-300` | **Default**: #cbd5e1|
+| `--ui-400` | **Default**: #94a3b8|
+| `--ui-50` | **Default**: #f8fafc|
+| `--ui-500` | **Default**: #64748b|
+| `--ui-600` | **Default**: #475569|
+| `--ui-700` | **Default**: #334155|
+| `--ui-800` | **Default**: #1e293b|
+| `--ui-900` | **Default**: #0f172a|
+| `--ui-950` | **Default**: #020617|
+| `--ui-black` | **Default**: #000000|
+| `--ui-danger` | **Default**: #dc2626|
+| `--ui-success` | **Default**: #22c55e|
+| `--ui-transparent` | **Default**: #ffffff00|
+| `--ui-warning` | **Default**: #eab308|
+| `--ui-white` | **Default**: #ffffff|
+| `--brand-100` | **Default**: `ui-100`|
+| `--brand-200` | **Default**: `ui-300`|
+| `--brand-300` | **Default**: `ui-500`|
+| `--brand-400` | **Default**: `ui-700`|
+| `--brand-50` | **Default**: `ui-50`|
+| `--brand-500` | **Default**: `ui-900`|
+| `--brand-600` | **Default**: `ui-white`|
+| `--brand-700` | **Default**: `ui-200`|
+| `--brand-800` | **Default**: `ui-400`|
+| `--brand-900` | **Default**: `ui-600`|
+| `--brand-950` | **Default**: `ui-800`|
 | `--button-identifier-background-default` | The background color for the identifier button in its default state.<br/>**Default**: `interface-background-brand-secondary`|
 | `--button-identifier-background-hover` | The background color for the identifier button when hovered.<br/>**Default**: `interface-background-brand-secondary-hover`|
 | `--button-identifier-border-border-default` | The border color for the identifier button in its default state.<br/>**Default**: `interface-border-brand-brand`|
@@ -116,31 +144,3 @@
 | `--toggle-border-default` | The border color for toggles when unchecked.<br/>**Default**: `interface-border-default-primary`|
 | `--toggle-foreground-checked` | The text color for toggles when checked.<br/>**Default**: `interface-foreground-brand-on-primary`|
 | `--toggle-foreground-default` | The text color for toggles when unchecked.<br/>**Default**: `interface-foreground-brand-primary`|
-| `--brand-100` | **Default**: `ui-100`|
-| `--brand-200` | **Default**: `ui-300`|
-| `--brand-300` | **Default**: `ui-500`|
-| `--brand-400` | **Default**: `ui-700`|
-| `--brand-50` | **Default**: `ui-50`|
-| `--brand-500` | **Default**: `ui-900`|
-| `--brand-600` | **Default**: `ui-white`|
-| `--brand-700` | **Default**: `ui-200`|
-| `--brand-800` | **Default**: `ui-400`|
-| `--brand-900` | **Default**: `ui-600`|
-| `--brand-950` | **Default**: `ui-800`|
-| `--ui-100` | **Default**: #f1f5f9|
-| `--ui-200` | **Default**: #e2e8f0|
-| `--ui-300` | **Default**: #cbd5e1|
-| `--ui-400` | **Default**: #94a3b8|
-| `--ui-50` | **Default**: #f8fafc|
-| `--ui-500` | **Default**: #64748b|
-| `--ui-600` | **Default**: #475569|
-| `--ui-700` | **Default**: #334155|
-| `--ui-800` | **Default**: #1e293b|
-| `--ui-900` | **Default**: #0f172a|
-| `--ui-950` | **Default**: #020617|
-| `--ui-black` | **Default**: #000000|
-| `--ui-danger` | **Default**: #dc2626|
-| `--ui-success` | **Default**: #22c55e|
-| `--ui-transparent` | **Default**: #ffffff00|
-| `--ui-warning` | **Default**: #eab308|
-| `--ui-white` | **Default**: #ffffff|
