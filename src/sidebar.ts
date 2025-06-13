@@ -1250,7 +1250,10 @@ const elements: SidebarItemsConfig = [
       slug: "/elements/reference",
       keywords: ["guides"],
     },
-    ...require("../docs/elements/reference/typedoc-sidebar.ts"),
+    items: [
+      ...require("../docs/elements/reference/typedoc-sidebar.ts").items,
+      "elements/css-reference",
+    ],
   },
 ]
 
