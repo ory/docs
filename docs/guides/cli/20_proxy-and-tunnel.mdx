@@ -112,13 +112,6 @@ This behavior is necessary to avoid issues with the browsers
 
 Ory Proxy converts sessions into JSON Web Tokens (JWTs) and ensures that cookies and URLs are properly configured.
 
-:::info
-
-Using Ory Proxy is an alternative to [custom domains (CNAME)](../custom-domains), and a useful tool when developing locally. Read
-more about [adding a Custom Domain to your Ory Network project](../custom-domains.mdx) for production setups.
-
-:::
-
 ### URL structure
 
 :::tip
@@ -276,17 +269,11 @@ ory proxy --project <project-id> --workspace <workspace-id> --port 8080 http://1
 node your-entrypoint.js
 ```
 
-:::tip
-
 Ory Proxy should never be the main entry point to your application. Always run an ingress proxy such as Nginx or Traefik in front.
-
-:::
 
 ### Use Ory Proxy in Docker
 
 To use Ory Proxy in Docker, add your application and Ory Proxy to a single Docker container.
-
-:::info
 
 This isn't a perfect solution as Docker watches the processes running in the foreground. With the application and Ory Proxy in one
 container, you must decide which becomes the foreground process.
@@ -298,8 +285,6 @@ In this example, Ory Proxy is the background process.
 
 Read the [Docker documentation](https://docs.docker.com/config/containers/multi-service_container/) to learn more about running
 multiple processes in a single container.
-
-:::
 
 To run Ory Proxy in one container with your application, create an `entrypoint.sh` file like this:
 

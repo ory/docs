@@ -5,7 +5,7 @@ title: Performance problems and out of memory panics caused by password hashing
 
 :::info
 
-This page only applies to you if you use Argon2 instead of BCrypt hashing
+This document only applies if you use Argon2 hashing.
 
 :::
 
