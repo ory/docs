@@ -14,6 +14,14 @@ Identities have traits and metadata:
   sign up date if the identity was created through a migration. Other common use cases include for example storing a user's
   subscription status, legacy user ID, or basic roles.
 
+## At a glance
+
+|                   | User changeable via [settings](../../reference/api#tag/frontend/operation/updateSettingsFlow) flow | Available in [toSession](../../reference/api#tag/frontend/operation/toSession) API | [getIdentity](../../reference/api#tag/identity/operation/getIdentity) API (updatable via [updateIdentity](../../reference/api#tag/identity/operation/updateIdentity)) |
+| ----------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `traits`          | ✅                                                                                                 | ✅                                                                                 | ✅                                                                                                                                                                    |
+| `metadata_public` |                                                                                                    | ✅                                                                                 | ✅                                                                                                                                                                    |
+| `metadata_admin`  |                                                                                                    |                                                                                    | ✅                                                                                                                                                                    |
+
 ## Metadata
 
 There are two types of identity metadata:
