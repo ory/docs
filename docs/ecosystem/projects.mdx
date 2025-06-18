@@ -103,14 +103,14 @@ Elements to build a custom UI that fits your application's design and user exper
 import Mermaid from "@site/src/theme/Mermaid"
 
 <Mermaid
-  chart={`graph TD
+  chart={`graph LR
 
 User[User]
 Devices[Devices Web, Mobile, etc.]
-Oathkeeper[ORY / oathkeeper<br>Identity and Access Proxy IAP]
-Hydra[ORY / hydra<br>OAuth 2.0 and OpenID Connect]
-Kratos[ORY / kratos<br>Cloud native identity infrastructure]
-Keto[ORY / keto<br>Permission and Role Management]
+Oathkeeper[Ory / oathkeeper<br>Identity and Access Proxy IAP]
+Hydra[Ory / hydra<br>OAuth 2.0 and OpenID Connect]
+Kratos[Ory / kratos<br>Cloud native identity infrastructure]
+Keto[Ory / keto<br>Permission and Role Management]
 API[Your Code<br>API Endpoint 1 & API Endpoint 2]
 
 User --> Devices
@@ -120,7 +120,6 @@ Oathkeeper -->|protects| API
 Oathkeeper -->|authenticates credentials with| Hydra
 User -->|Registers, log in, manages profiles, ...| Kratos
 Oathkeeper --> Kratos
-User -->|checks permissions with| Keto
 Oathkeeper -->|checks permissions with| Keto
 `}
   width="100%" />
@@ -133,7 +132,3 @@ Now you know what this ecosystem has to offer you. To get some more information 
 selecting the software of your choice from the navigation on the left!
 
 Contact us at [support@ory.sh](mailto:support@ory.sh) if you need consulting with your specific project.
-
-```
-
-```

@@ -459,6 +459,7 @@ const kratos: SidebarItemsConfig = [
         items: [
           "account-experience/index",
           "kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
+          "kratos/bring-your-own-ui/custom-vs-built-in-ui",
           {
             type: "category",
             label: "Build your own UI",

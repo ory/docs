@@ -302,7 +302,7 @@ export const elementsGuides: {
 } = {
   id: "elements",
   title: "Ory Elements Guides",
-  description: "Learn how to use Ory Elements in your application",
+  description: "",
   cards: [
     {
       title: "Next.js (App Router)",
