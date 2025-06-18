@@ -108,8 +108,8 @@ const config: Config = {
           href: "https://www.ory.sh/privacy",
         },
         {
-          label: "Imprint",
-          href: "https://www.ory.sh/imprint",
+          label: "Company",
+          href: "https://www.ory.sh/legal/company",
         },
         {
           label: "Terms of Service",
@@ -120,7 +120,7 @@ const config: Config = {
           href: "https://www.ory.sh/contact/",
         },
         {
-          html: `<button class="footer__link-item" onClick="window.__showOryConsentDialog()">Consent Preferences</button>`,
+          html: `<button onClick="window.__showOryConsentDialog()">Consent Preferences</button>`,
         },
       ] satisfies Preset.ThemeConfig["footer"]["links"],
       logo: {

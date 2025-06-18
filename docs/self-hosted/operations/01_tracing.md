@@ -21,13 +21,6 @@ You have the option to use a tracing backend or follow existing traces. Ory supp
 To follow existing traces: If you have deployed Ory behind a proxy that has initiated a trace, Ory will attempt to join that trace
 by examining the request headers for tracing context.
 
-:::info
-
-Adding support for other [opentracing compliant backends](https://opentracing.io/docs/supported-tracers) is planned according to
-community feedback. To aid in priority, please [create an issue](https://github.com/ory/hydra/issues) with your feature request.
-
-:::
-
 ### What an Ory trace includes
 
 In DT speak, a trace is comprised of one or more spans which are logical units of work. Each Ory span is encapsulated with the

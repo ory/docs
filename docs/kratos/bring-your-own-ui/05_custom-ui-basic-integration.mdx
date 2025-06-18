@@ -87,22 +87,11 @@ what security measures are applied.
 
 - Browser applications are apps with which users interact through their web browsers. Two common types of browser applications are
   server-side rendered apps (SSR) and single-page apps (SPA). Since the application is rendered in the browser, the communication
-  between the user that interacts with the app and Ory must be secured. This is achieved by setting a CSRF cookie and token.
-
-  :::info
-
-  All browser apps must call Ory self-service APIs at `/self-service/{flow_type}/browser`
-
-  :::
-
+  between the user that interacts with the app and Ory must be secured. This is achieved by setting a CSRF cookie and token. All
+  browser apps must call Ory self-service APIs at `/self-service/{flow_type}/browser`
 - Native applications, such as Android mobile apps or desktop applications, aren't rendered in the browser. Since the application
-  isn't rendered in the browser, the CSRF cookie and token aren't necessary.
-
-  :::info
-
-  All native apps must call Ory self-service APIs at `/self-service/{flow_type}/api`
-
-  :::
+  isn't rendered in the browser, the CSRF cookie and token aren't necessary. All native apps must call Ory self-service APIs at
+  `/self-service/{flow_type}/api`
 
 ## Create a flow
 

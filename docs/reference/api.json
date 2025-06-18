@@ -1401,6 +1401,10 @@
             "description": "Configures the Cloudflare Turnstile site key for CAPTCHA protection\n\nThe site key is public and will be shared with the client.\n\nReach out to your account manager to enable this feature.",
             "type": "string"
           },
+          "kratos_selfservice_methods_captcha_config_legacy_inject_node": {
+            "description": "Configures the Ory Kratos Self-Service Methods' Captcha Enabled Setting\n\nReach out to your account manager to enable this feature.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_captcha_enabled": {
             "description": "Configures the Ory Kratos Self-Service Methods' Captcha Enabled Setting\n\nReach out to your account manager to enable this feature.",
             "type": "boolean"
@@ -1408,6 +1412,9 @@
           "kratos_selfservice_methods_code_config_lifespan": {
             "description": "Configures the Ory Kratos Code Method's lifespan\n\nThis governs the \"selfservice.methods.code.config.lifespan\" setting.",
             "type": "string"
+          },
+          "kratos_selfservice_methods_code_config_max_submissions": {
+            "$ref": "#/components/schemas/nullInt64"
           },
           "kratos_selfservice_methods_code_config_missing_credential_fallback_enabled": {
             "description": "Enables a fallback method required in certain legacy use cases.\n\nThis governs the \"selfservice.methods.code.config.missing_credential_fallback_enabled\" setting.",
@@ -6087,6 +6094,10 @@
             "description": "Configures the Cloudflare Turnstile site key for CAPTCHA protection\n\nThe site key is public and will be shared with the client.\n\nReach out to your account manager to enable this feature.",
             "type": "string"
           },
+          "kratos_selfservice_methods_captcha_config_legacy_inject_node": {
+            "description": "Configures the Ory Kratos Self-Service Methods' Captcha Enabled Setting\n\nReach out to your account manager to enable this feature.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_captcha_enabled": {
             "description": "Configures the Ory Kratos Self-Service Methods' Captcha Enabled Setting\n\nReach out to your account manager to enable this feature.",
             "type": "boolean"
@@ -6094,6 +6105,9 @@
           "kratos_selfservice_methods_code_config_lifespan": {
             "description": "Configures the Ory Kratos Code Method's lifespan\n\nThis governs the \"selfservice.methods.code.config.lifespan\" setting.",
             "type": "string"
+          },
+          "kratos_selfservice_methods_code_config_max_submissions": {
+            "$ref": "#/components/schemas/nullInt64"
           },
           "kratos_selfservice_methods_code_config_missing_credential_fallback_enabled": {
             "description": "Enables a fallback method required in certain legacy use cases.\n\nThis governs the \"selfservice.methods.code.config.missing_credential_fallback_enabled\" setting.",
@@ -7601,6 +7615,9 @@
           "base_url": {
             "type": "string"
           },
+          "kratos_selfservice_methods_oidc_config_providers": {
+            "$ref": "#/components/schemas/projectRevisionThirdPartyLoginProviders"
+          },
           "kratos_selfservice_methods_saml_config_providers": {
             "$ref": "#/components/schemas/projectRevisionSamlProviders"
           },
@@ -7621,7 +7638,8 @@
         "required": [
           "revision_id",
           "base_url",
-          "kratos_selfservice_methods_saml_config_providers"
+          "kratos_selfservice_methods_saml_config_providers",
+          "kratos_selfservice_methods_oidc_config_providers"
         ],
         "type": "object"
       },
@@ -9171,6 +9189,9 @@
       },
       "setOrganizationFromOnboardingPortalLinkBody": {
         "properties": {
+          "kratos_selfservice_methods_oidc_config_providers": {
+            "$ref": "#/components/schemas/projectRevisionThirdPartyLoginProviders"
+          },
           "kratos_selfservice_methods_saml_config_providers": {
             "$ref": "#/components/schemas/projectRevisionSamlProviders"
           },
@@ -9181,7 +9202,8 @@
         },
         "required": [
           "revision_id",
-          "kratos_selfservice_methods_saml_config_providers"
+          "kratos_selfservice_methods_saml_config_providers",
+          "kratos_selfservice_methods_oidc_config_providers"
         ],
         "type": "object"
       },
@@ -16593,6 +16615,236 @@
         "tags": ["project"]
       }
     },
+    "/projects/{project_id}/organizations/{organization_id}/onboarding-portal-links": {
+      "get": {
+        "description": "Retrieves the organization onboarding portal links.",
+        "operationId": "getOrganizationOnboardingPortalLinks",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Organization ID\n\nThe Organization's ID.",
+            "in": "path",
+            "name": "organization_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/organizationOnboardingPortalLinksResponse"
+                }
+              }
+            },
+            "description": "organizationOnboardingPortalLinksResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryWorkspaceApiKey": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
+          }
+        ],
+        "summary": "Get the organization onboarding portal links",
+        "tags": ["project"]
+      },
+      "post": {
+        "description": "Create a onboarding portal link for an organization.",
+        "operationId": "createOrganizationOnboardingPortalLink",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Organization ID\n\nThe Organization's ID.",
+            "in": "path",
+            "name": "organization_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createOrganizationOnboardingPortalLinkBody"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/onboardingPortalLink"
+                }
+              }
+            },
+            "description": "onboardingPortalLink"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryWorkspaceApiKey": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
+          }
+        ],
+        "summary": "Create organization onboarding portal link",
+        "tags": ["project"]
+      }
+    },
+    "/projects/{project_id}/organizations/{organization_id}/onboarding-portal-links/{onboarding_portal_link_id}": {
+      "delete": {
+        "description": "Deletes a onboarding portal link for an organization.",
+        "operationId": "deleteOrganizationOnboardingPortalLink",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "organization_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "onboarding_portal_link_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryWorkspaceApiKey": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
+          }
+        ],
+        "summary": "Delete an organization onboarding portal link",
+        "tags": ["project"]
+      }
+    },
     "/projects/{project_id}/revision/{revision_id}": {
       "patch": {
         "description": "This endpoints allows you to patch individual Ory Network Project configuration keys for\nOry's services (identity, permission, ...). The configuration format is fully compatible\nwith the open source projects for the respective services (e.g. Ory Kratos for Identity, Ory Keto for Permissions).\n\nThis endpoint expects the `version` key to be set in the payload. If it is unset, it\nwill try to import the config as if it is from the most recent version.\n\nIf you have an older version of a configuration, you should set the version key in the payload!\n\nWhile this endpoint is able to process all configuration items related to features (e.g. password reset),\nit does not support operational configuration items (e.g. port, tracing, logging) otherwise available in the\nopen source.\n\nFor configuration items that can not be translated to the Ory Network, this endpoint will return a list of warnings\nto help you understand which parts of your config could not be processed.",
@@ -20819,7 +21071,7 @@
       "variables": {
         "project_slug": {
           "default": "playground",
-          "description": "Your Ory Network Project slug. You can find it in the [Ory Network Console](https://console.ory.sh/projects/current/developers/guides)."
+          "description": "Your Ory Network Project slug. You can find it in the [Ory Network Console](https://console.ory.sh/projects/current/get-started)."
         }
       }
     }

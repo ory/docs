@@ -495,6 +495,7 @@ const kratos: SidebarItemsConfig = [
       "identities/sign-in/identifier-first-authentication",
       "identities/sign-in/login-hint",
       "identities/sign-in/actions",
+      "identities/sign-in/code-submission-limit",
     ],
   },
   {

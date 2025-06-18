@@ -165,3 +165,19 @@ svg[class*="iconExternalLink"] {
 .config-editor p {
   margin: unset;
 }
+
+.footer__link-item:hover {
+  color: unset;
+}
+.footer__link-item button {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
+.footer__link-item button:hover {
+  text-decoration: underline;
+}
