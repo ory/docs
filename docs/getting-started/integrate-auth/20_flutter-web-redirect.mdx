@@ -83,7 +83,9 @@ touch .env
 ```
 
 ```mdx-code-block
-import env from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/env'
+import envDefault from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/.env';
+
+const env = envDefault.default;
 
 <CodeBlock language="text" title=".env">{env}</CodeBlock>
 ```
