@@ -1,6 +1,3 @@
-// Copyright © 2022 Ory Corp
-// SPDX-License-Identifier: Apache-2.0
-
 import 'package:universal_html/html.dart';
 import 'package:dio/browser.dart';
 import 'package:dio/dio.dart';
@@ -19,9 +16,7 @@ Future main() async {
     baseUrl: baseUrl,
     connectTimeout: const Duration(seconds: 10000),
     receiveTimeout: const Duration(seconds: 5000),
-    headers: {
-      "Accept": "application/json",
-    },
+    headers: {"Accept": "application/json"},
     validateStatus: (status) {
       // here we prevent the request from throwing an error when the status code is less than 500 (internal server error)
       return status! < 500;
@@ -53,16 +48,14 @@ class MyApp extends StatelessWidget {
   final AuthService auth;
 
   const MyApp({Key? key, required this.dio, required this.auth})
-      : super(key: key);
+    : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: MyHomePage(title: 'Ory ❤ Flutter Web', auth: auth),
     );
   }
@@ -70,7 +63,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title, required this.auth})
-      : super(key: key);
+    : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -123,7 +116,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text('Session Information:${widget.auth.identity.toString()}'),
             TextButton(
-                onPressed: widget.auth.logout, child: const Text('Logout')),
+              onPressed: widget.auth.logout,
+              child: const Text('Logout'),
+            ),
           ],
         ),
       ),
