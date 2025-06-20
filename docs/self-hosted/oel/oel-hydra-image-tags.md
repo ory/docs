@@ -1,5 +1,6 @@
 | Image Tag                                | Release Date |
 | ---------------------------------------- | ------------ |
+| 19fae4f763fa139db38db601000cb80b53ebde4d | 2025-06-20   |
 | 290abca8469dc46c1ba07708849fed28fdbc1b69 | 2025-06-11   |
 | d389bd4c1bc21c1cdaf5e60688314a5bf9bfce3e | 2025-06-06   |
 | d4f640cf72989adf24ba153919ede18d4cddc98e | 2025-05-27   |
