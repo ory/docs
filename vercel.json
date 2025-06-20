@@ -1223,6 +1223,16 @@
       "source": "/docs/self-hosted/oel/kratos/upgrade-kratos",
       "destination": "/docs/self-hosted/oel/kratos/upgrade",
       "permanent": false
+    },
+    {
+      "source": "/docs/getting-started/integrate-auth/nextjs",
+      "destination": "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/bring-your-own-ui/custom-ui-ory-elements",
+      "destination": "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
+      "permanent": true
     }
   ]
 }
