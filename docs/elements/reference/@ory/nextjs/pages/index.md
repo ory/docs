@@ -1,4 +1,4 @@
-# pages
+# @ory/nextjs/pages
 
 ## Hooks
 

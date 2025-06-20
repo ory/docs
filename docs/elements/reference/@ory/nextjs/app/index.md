@@ -1,4 +1,4 @@
-# app
+# @ory/nextjs/app
 
 ## Interfaces
 

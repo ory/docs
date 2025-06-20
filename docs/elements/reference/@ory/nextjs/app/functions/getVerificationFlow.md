@@ -1,27 +1,23 @@
 # getVerificationFlow()
 
 ```ts
-function getVerificationFlow(
-  config: {
-    project: {
-      verification_ui_url: string
-    }
-  },
-  params: QueryParams | Promise<QueryParams>,
-): Promise<null | void | VerificationFlow>
+function getVerificationFlow(config: {
+  project: {
+     verification_ui_url: string;
+  };
+}, params: QueryParams | Promise<QueryParams>): Promise<null | void | VerificationFlow>;
 ```
 
-Use this method in an app router page to fetch an existing verification flow or to create a new one. This method works with
-server-side rendering.
+Use this method in an app router page to fetch an existing verification flow or to create a new one. This method works with server-side rendering.
 
 ## Parameters
 
-| Parameter                            | Type                                                     | Description                          |
-| ------------------------------------ | -------------------------------------------------------- | ------------------------------------ |
-| `config`                             | \{ `project`: \{ `verification_ui_url`: `string`; \}; \} | The Ory configuration object.        |
-| `config.project`                     | \{ `verification_ui_url`: `string`; \}                   | -                                    |
-| `config.project.verification_ui_url` | `string`                                                 | -                                    |
-| `params`                             | `QueryParams` \| `Promise`\<`QueryParams`\>              | The query parameters of the request. |
+| Parameter | Type | Description |
+| ------ | ------ | ------ |
+| `config` | \{ `project`: \{ `verification_ui_url`: `string`; \}; \} | The Ory configuration object. |
+| `config.project` | \{ `verification_ui_url`: `string`; \} | - |
+| `config.project.verification_ui_url` | `string` | - |
+| `params` | `QueryParams` \| `Promise`\<`QueryParams`\> | The query parameters of the request. |
 
 ## Returns
 

@@ -1,7 +1,7 @@
 # useRecoveryFlow()
 
 ```ts
-function useRecoveryFlow(): null | void | RecoveryFlow
+function useRecoveryFlow(): null | void | RecoveryFlow;
 ```
 
 A client side hook to create a recovery flow.

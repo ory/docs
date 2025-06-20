@@ -1,4 +1,4 @@
-# middleware
+# @ory/nextjs/middleware
 
 ## Functions
 

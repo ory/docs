@@ -1,7 +1,7 @@
 # useRegistrationFlow()
 
 ```ts
-function useRegistrationFlow(): null | void | RegistrationFlow
+function useRegistrationFlow(): null | void | RegistrationFlow;
 ```
 
 A client side hook to create a registration flow.
