@@ -86,10 +86,10 @@ ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
 ```
 
 The authentication session has no impact on any existing access, refresh, or ID tokens. If it is expired, the user will have to
-perform the "login flow" again when performing the OAuth2 Authorization Code Flow or OpenID Connect Implicit / Hybrid Flow.
+perform the "login flow" again when performing the [OAuth2 Authorization Code Flow](../oauth2-oidc/authorization-code-flow) or
+OpenID Connect Implicit / Hybrid Flow.
 
-Furthermore, OpenID Connect Back-Channel Logout will not work if the authentication session is expired which is a known limitation
-to be addressed in the future.
+Furthermore, [OpenID Connect Back-Channel Logout](../oauth2-oidc/oidc-logout) won't work if the authentication session is expired.
 
 ## Lifespan configuration for specific clients
 
