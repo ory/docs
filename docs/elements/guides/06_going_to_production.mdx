@@ -1,0 +1,28 @@
+---
+id: going-to-production
+title: Going to Production
+sidebar_label: Going to Production
+---
+
+Ory Elements is designed to be used in production environments. However, there are a few things you should consider when going to
+production.
+
+## Base URL
+
+Make sure to set the `baseURL` to the correct value. This is the base URL of your Ory Elements instance.
+
+```ts title="projectConfig.ts"
+const projectConfig: OryElementsConfiguration = {
+  sdk: {
+    baseURL: "https://$PROJECT_SLUG.projects.oryapis.com", // Or your custom domain
+  },
+}
+```
+
+Setting this value is important because it ensures that the Ory Elements SDK is able to communicate with the correct Ory API
+instance.
+
+In contrast to development environments, Ory Elements and the Ory APIs should be hosted on the same second level domain to make
+sure that the cookies set by the Ory APIs are accessible by the Ory Elements SDK.
+
+Read more about the `baseURL` in the [Configuration](./04_configuration.mdx#base-url) guide.
