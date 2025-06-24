@@ -40,10 +40,10 @@ mermaid.initialize({
 })
 mermaid.registerIconPacks([
   {
-    name: 'tabler',
-    loader: () => import('@iconify-json/tabler').then((module) => module.icons),
+    name: "tabler",
+    loader: () => import("@iconify-json/tabler").then((module) => module.icons),
   },
-]);
+])
 
 const Mermaid = ({ chart }) => {
   const [zoomed, setZoomed] = useState(false)
