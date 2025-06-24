@@ -6,7 +6,7 @@ function OrySelfServiceFlowCard(): Element
 
 The `OrySelfServiceFlowCard` component is an umbrella component that can render the self-service flows.
 
-Note: prefer using the Login, etc. components directly instead of this component.
+Note: prefer using the [\<Login /\> component](../theme/functions/Login.md), etc. directly instead of this component.
 
 It renders different forms based on the current flow state, such as providing an identifier, entering a password or one time code
 or selecting a method for authentication.

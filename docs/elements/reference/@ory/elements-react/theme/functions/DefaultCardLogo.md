@@ -15,5 +15,5 @@ the default logo for the Ory Card component.
 
 ## See
 
-- [@ory/elements-react!OryProvider](../../functions/OryProvider.md)
-- [@ory/elements-react!OryElementsConfiguration](../../interfaces/OryElementsConfiguration.md)
+- [OryProvider#](../../index.md)
+- [OryElementsConfiguration#](../../index.md)
