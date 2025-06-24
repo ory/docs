@@ -10,7 +10,7 @@ export const elementsArchitectureGraph = `flowchart LR
             n@{ img: "/docs/img/examples/nextjs.svg", pos: "b", constraint: "on", h: 44, label: "Next.js" }
             n-->|Uses|react
             react@{ img: "/docs/img/examples/react.svg", pos: "b", constraint: "on", h: 44, label: "React" }
-            elements@{ img: "https://raw.githubusercontent.com/ory/meta/jonas-jonas/elementsLogo/static/logos/logo-elements.svg", pos: "b", w: 120, constraint: "on", label: "Ory Elements" }
+            elements@{ img: "https://raw.githubusercontent.com/ory/meta/master/static/logos/logo-elements.svg", pos: "b", w: 120, constraint: "on", label: "Ory Elements" }
             react-->|Renders|elements
         end
         subgraph yourCode[Your Code]
@@ -35,7 +35,7 @@ export const axArchitectureGraph = `flowchart LR
         keto@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-keto.svg", pos: "b", w: 120, constraint: "on", label: "Permissions" }
         polis@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-polis.svg", pos: "b", w: 120, constraint: "on", label: "Enterprise SSO bridge" }
         subgraph ax[Ory Account Experience]
-            elements@{ img: "https://raw.githubusercontent.com/ory/meta/jonas-jonas/elementsLogo/static/logos/logo-elements.svg", pos: "b", w: 120, constraint: "on", label: "Ory Elements" }
+            elements@{ img: "https://raw.githubusercontent.com/ory/meta/master/static/logos/logo-elements.svg", pos: "b", w: 120, constraint: "on", label: "Ory Elements" }
         end
         
         ax-.->|Fetches UI description|kratos
