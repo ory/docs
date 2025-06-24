@@ -1,7 +1,7 @@
 # `<OryCardFooter />`
 
 ```ts
-function OryCardFooter(): Element;
+function OryCardFooter(): Element
 ```
 
 ## Returns

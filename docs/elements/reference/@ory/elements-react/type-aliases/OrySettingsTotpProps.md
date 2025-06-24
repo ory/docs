@@ -2,12 +2,12 @@
 
 ```ts
 type OrySettingsTotpProps = {
-  onUnlink: () => void;
-  totpImage: UiNode | undefined;
-  totpInput: UiNode | undefined;
-  totpSecret: UiNode | undefined;
-  totpUnlink: UiNode | undefined;
-};
+  onUnlink: () => void
+  totpImage: UiNode | undefined
+  totpInput: UiNode | undefined
+  totpSecret: UiNode | undefined
+  totpUnlink: UiNode | undefined
+}
 ```
 
 ## Properties
@@ -22,34 +22,34 @@ onUnlink: () => void;
 
 `void`
 
-***
+---
 
 ### totpImage
 
 ```ts
-totpImage: UiNode | undefined;
+totpImage: UiNode | undefined
 ```
 
-***
+---
 
 ### totpInput
 
 ```ts
-totpInput: UiNode | undefined;
+totpInput: UiNode | undefined
 ```
 
-***
+---
 
 ### totpSecret
 
 ```ts
-totpSecret: UiNode | undefined;
+totpSecret: UiNode | undefined
 ```
 
-***
+---
 
 ### totpUnlink
 
 ```ts
-totpUnlink: UiNode | undefined;
+totpUnlink: UiNode | undefined
 ```

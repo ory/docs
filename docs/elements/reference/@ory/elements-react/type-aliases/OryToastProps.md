@@ -2,9 +2,9 @@
 
 ```ts
 type OryToastProps = {
-  id: string | number;
-  message: UiText;
-};
+  id: string | number
+  message: UiText
+}
 ```
 
 ## Properties
@@ -12,13 +12,13 @@ type OryToastProps = {
 ### id
 
 ```ts
-id: string | number;
+id: string | number
 ```
 
-***
+---
 
 ### message
 
 ```ts
-message: UiText;
+message: UiText
 ```

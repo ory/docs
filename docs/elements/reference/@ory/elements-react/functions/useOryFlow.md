@@ -1,7 +1,7 @@
 # useOryFlow()
 
 ```ts
-function useOryFlow(): FlowContextValue;
+function useOryFlow(): FlowContextValue
 ```
 
 Returns an object that contains the current flow and the flow type, as well as the configuration.

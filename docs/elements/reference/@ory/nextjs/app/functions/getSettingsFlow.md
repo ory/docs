@@ -1,23 +1,27 @@
 # getSettingsFlow()
 
 ```ts
-function getSettingsFlow(config: {
-  project: {
-     settings_ui_url: string;
-  };
-}, params: QueryParams | Promise<QueryParams>): Promise<null | void | SettingsFlow>;
+function getSettingsFlow(
+  config: {
+    project: {
+      settings_ui_url: string
+    }
+  },
+  params: QueryParams | Promise<QueryParams>,
+): Promise<null | void | SettingsFlow>
 ```
 
-Use this method in an app router page to fetch an existing login flow or to create a new one. This method works with server-side rendering.
+Use this method in an app router page to fetch an existing login flow or to create a new one. This method works with server-side
+rendering.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `config` | \{ `project`: \{ `settings_ui_url`: `string`; \}; \} | The Ory configuration object. |
-| `config.project` | \{ `settings_ui_url`: `string`; \} | - |
-| `config.project.settings_ui_url` | `string` | - |
-| `params` | `QueryParams` \| `Promise`\<`QueryParams`\> | The query parameters of the request. |
+| Parameter                        | Type                                                 | Description                          |
+| -------------------------------- | ---------------------------------------------------- | ------------------------------------ |
+| `config`                         | \{ `project`: \{ `settings_ui_url`: `string`; \}; \} | The Ory configuration object.        |
+| `config.project`                 | \{ `settings_ui_url`: `string`; \}                   | -                                    |
+| `config.project.settings_ui_url` | `string`                                             | -                                    |
+| `params`                         | `QueryParams` \| `Promise`\<`QueryParams`\>          | The query parameters of the request. |
 
 ## Returns
 

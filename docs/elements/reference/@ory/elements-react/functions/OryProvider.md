@@ -1,20 +1,21 @@
 # `<OryProvider />`
 
 ```ts
-function OryProvider(props: OryProviderProps): Element;
+function OryProvider(props: OryProviderProps): Element
 ```
 
 OryProvider is a React component that provides the necessary context for rendering Ory flows.
 
 It wraps the application in several context providers, including [OryConfigurationProvider](OryConfigurationProvider.md).
 
-You can use this component to set up the Ory SDK, provide custom translations, and specify the components to use for rendering Ory flows.
+You can use this component to set up the Ory SDK, provide custom translations, and specify the components to use for rendering Ory
+flows.
 
 ## Parameters
 
-| Parameter | Type | Description |
-| ------ | ------ | ------ |
-| `props` | [`OryProviderProps`](../type-aliases/OryProviderProps.md) | The properties for the OryProvider component. |
+| Parameter | Type                                                      | Description                                   |
+| --------- | --------------------------------------------------------- | --------------------------------------------- |
+| `props`   | [`OryProviderProps`](../type-aliases/OryProviderProps.md) | The properties for the OryProvider component. |
 
 ## Returns
 
@@ -23,7 +24,7 @@ You can use this component to set up the Ory SDK, provide custom translations, a
 ## Example
 
 ```tsx
-import { OryProvider, LoginFlow, OryFlowComponents, OryClientConfiguration } from "@ory/elements-react";
+import { OryProvider, LoginFlow, OryFlowComponents, OryClientConfiguration } from "@ory/elements-react"
 
 export type Props = {
   flow: LoginFlow
@@ -31,22 +32,11 @@ export type Props = {
   config: OryClientConfiguration
 }
 
-function App({
-  flow,
-  config,
-  children,
-  components,
-}: PropsWithChildren<Props>) {
+function App({ flow, config, children, components }: PropsWithChildren<Props>) {
   return (
-    <OryProvider
-      config={config}
-      flow={flow}
-      flowType={FlowType.Login}
-      components={components}
-    >
+    <OryProvider config={config} flow={flow} flowType={FlowType.Login} components={components}>
       {children}
     </OryProvider>
   )
 }
-
 ```

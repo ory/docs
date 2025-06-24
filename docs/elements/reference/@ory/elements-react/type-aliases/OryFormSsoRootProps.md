@@ -2,6 +2,6 @@
 
 ```ts
 type OryFormSsoRootProps = PropsWithChildren<{
-  nodes: UiNode[];
-}>;
+  nodes: UiNode[]
+}>
 ```

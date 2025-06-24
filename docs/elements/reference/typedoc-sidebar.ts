@@ -1,4 +1,4 @@
-import { SidebarsConfig } from "@docusaurus/plugin-content-docs";
+import { SidebarsConfig } from "@docusaurus/plugin-content-docs"
 const typedocSidebar: SidebarsConfig = {
   items: [
     {
@@ -12,79 +12,79 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/ConsentFlow",
-              label: "ConsentFlow"
+              label: "ConsentFlow",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/ConsentFlowContainer",
-              label: "ConsentFlowContainer"
+              label: "ConsentFlowContainer",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/ErrorFlowContainer",
-              label: "ErrorFlowContainer"
+              label: "ErrorFlowContainer",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/FlowContainerSetter",
-              label: "FlowContainerSetter"
+              label: "FlowContainerSetter",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/LoginFlowContainer",
-              label: "LoginFlowContainer"
+              label: "LoginFlowContainer",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/OryCardProps",
-              label: "OryCardProps"
+              label: "OryCardProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/OryCardSettingsSectionProps",
-              label: "OryCardSettingsSectionProps"
+              label: "OryCardSettingsSectionProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/OryClientConfiguration",
-              label: "OryClientConfiguration"
+              label: "OryClientConfiguration",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/OryElementsConfiguration",
-              label: "OryElementsConfiguration"
+              label: "OryElementsConfiguration",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/OryMessageContentProps",
-              label: "OryMessageContentProps"
+              label: "OryMessageContentProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/OryMessageRootProps",
-              label: "OryMessageRootProps"
+              label: "OryMessageRootProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/RecoveryFlowContainer",
-              label: "RecoveryFlowContainer"
+              label: "RecoveryFlowContainer",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/RegistrationFlowContainer",
-              label: "RegistrationFlowContainer"
+              label: "RegistrationFlowContainer",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/SettingsFlowContainer",
-              label: "SettingsFlowContainer"
+              label: "SettingsFlowContainer",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/VerificationFlowContainer",
-              label: "VerificationFlowContainer"
-            }
-          ]
+              label: "VerificationFlowContainer",
+            },
+          ],
         },
         {
           type: "category",
@@ -93,194 +93,194 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/FlowContextValue",
-              label: "FlowContextValue"
+              label: "FlowContextValue",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/FormState",
-              label: "FormState"
+              label: "FormState",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/FormStateAction",
-              label: "FormStateAction"
+              label: "FormStateAction",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/FormValues",
-              label: "FormValues"
+              label: "FormValues",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/IntlConfig",
-              label: "IntlConfig"
+              label: "IntlConfig",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OnSubmitHandlerProps",
-              label: "OnSubmitHandlerProps"
+              label: "OnSubmitHandlerProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryCardAuthMethodListItemProps",
-              label: "OryCardAuthMethodListItemProps"
+              label: "OryCardAuthMethodListItemProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryCardContentProps",
-              label: "OryCardContentProps"
+              label: "OryCardContentProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryCardDividerProps",
-              label: "OryCardDividerProps"
+              label: "OryCardDividerProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryCardFooterProps",
-              label: "OryCardFooterProps"
+              label: "OryCardFooterProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryCardHeaderProps",
-              label: "OryCardHeaderProps"
+              label: "OryCardHeaderProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryCardLogoProps",
-              label: "OryCardLogoProps"
+              label: "OryCardLogoProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryFlowComponentOverrides",
-              label: "OryFlowComponentOverrides"
+              label: "OryFlowComponentOverrides",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryFlowComponents",
-              label: "OryFlowComponents"
+              label: "OryFlowComponents",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryFlowContainer",
-              label: "OryFlowContainer"
+              label: "OryFlowContainer",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryFormGroupProps",
-              label: "OryFormGroupProps"
+              label: "OryFormGroupProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryFormRootProps",
-              label: "OryFormRootProps"
+              label: "OryFormRootProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryFormSectionContentProps",
-              label: "OryFormSectionContentProps"
+              label: "OryFormSectionContentProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryFormSectionFooterProps",
-              label: "OryFormSectionFooterProps"
+              label: "OryFormSectionFooterProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryFormSsoRootProps",
-              label: "OryFormSsoRootProps"
+              label: "OryFormSsoRootProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeAnchorProps",
-              label: "OryNodeAnchorProps"
+              label: "OryNodeAnchorProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeButtonProps",
-              label: "OryNodeButtonProps"
+              label: "OryNodeButtonProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeCaptchaProps",
-              label: "OryNodeCaptchaProps"
+              label: "OryNodeCaptchaProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeConsentScopeCheckboxProps",
-              label: "OryNodeConsentScopeCheckboxProps"
+              label: "OryNodeConsentScopeCheckboxProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeImageProps",
-              label: "OryNodeImageProps"
+              label: "OryNodeImageProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeInputProps",
-              label: "OryNodeInputProps"
+              label: "OryNodeInputProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeLabelProps",
-              label: "OryNodeLabelProps"
+              label: "OryNodeLabelProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeSsoButtonProps",
-              label: "OryNodeSsoButtonProps"
+              label: "OryNodeSsoButtonProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeTextProps",
-              label: "OryNodeTextProps"
+              label: "OryNodeTextProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryPageHeaderProps",
-              label: "OryPageHeaderProps"
+              label: "OryPageHeaderProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryProviderProps",
-              label: "OryProviderProps"
+              label: "OryProviderProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OrySettingsFormProps",
-              label: "OrySettingsFormProps"
+              label: "OrySettingsFormProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OrySettingsPasskeyProps",
-              label: "OrySettingsPasskeyProps"
+              label: "OrySettingsPasskeyProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OrySettingsRecoveryCodesProps",
-              label: "OrySettingsRecoveryCodesProps"
+              label: "OrySettingsRecoveryCodesProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OrySettingsSsoProps",
-              label: "OrySettingsSsoProps"
+              label: "OrySettingsSsoProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OrySettingsTotpProps",
-              label: "OrySettingsTotpProps"
+              label: "OrySettingsTotpProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OrySettingsWebauthnProps",
-              label: "OrySettingsWebauthnProps"
+              label: "OrySettingsWebauthnProps",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryToastProps",
-              label: "OryToastProps"
-            }
-          ]
+              label: "OryToastProps",
+            },
+          ],
         },
         {
           type: "category",
@@ -289,9 +289,9 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/variables/OryLocales",
-              label: "OryLocales"
-            }
-          ]
+              label: "OryLocales",
+            },
+          ],
         },
         {
           type: "category",
@@ -300,84 +300,84 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryCard",
-              label: "OryCard"
+              label: "OryCard",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryCardContent",
-              label: "OryCardContent"
+              label: "OryCardContent",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryCardFooter",
-              label: "OryCardFooter"
+              label: "OryCardFooter",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryCardHeader",
-              label: "OryCardHeader"
+              label: "OryCardHeader",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryCardValidationMessages",
-              label: "OryCardValidationMessages"
+              label: "OryCardValidationMessages",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryConfigurationProvider",
-              label: "OryConfigurationProvider"
+              label: "OryConfigurationProvider",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryConsentCard",
-              label: "OryConsentCard"
+              label: "OryConsentCard",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryForm",
-              label: "OryForm"
+              label: "OryForm",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryFormGroupDivider",
-              label: "OryFormGroupDivider"
+              label: "OryFormGroupDivider",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryFormSsoButtons",
-              label: "OryFormSsoButtons"
+              label: "OryFormSsoButtons",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryFormSsoForm",
-              label: "OryFormSsoForm"
+              label: "OryFormSsoForm",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryPageHeader",
-              label: "OryPageHeader"
+              label: "OryPageHeader",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryProvider",
-              label: "OryProvider"
+              label: "OryProvider",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OrySelfServiceFlowCard",
-              label: "OrySelfServiceFlowCard"
+              label: "OrySelfServiceFlowCard",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OrySettingsCard",
-              label: "OrySettingsCard"
+              label: "OrySettingsCard",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OrySettingsFormSection",
-              label: "OrySettingsFormSection"
-            }
-          ]
+              label: "OrySettingsFormSection",
+            },
+          ],
         },
         {
           type: "category",
@@ -386,24 +386,24 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/useComponents",
-              label: "useComponents"
+              label: "useComponents",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/useNodeSorter",
-              label: "useNodeSorter"
+              label: "useNodeSorter",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/useOryConfiguration",
-              label: "useOryConfiguration"
+              label: "useOryConfiguration",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/useOryFlow",
-              label: "useOryFlow"
-            }
-          ]
+              label: "useOryFlow",
+            },
+          ],
         },
         {
           type: "category",
@@ -412,20 +412,20 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/messageTestId",
-              label: "messageTestId"
+              label: "messageTestId",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/uiTextToFormattedMessage",
-              label: "uiTextToFormattedMessage"
-            }
-          ]
-        }
+              label: "uiTextToFormattedMessage",
+            },
+          ],
+        },
       ],
       link: {
         type: "doc",
-        id: "elements/reference/@ory/elements-react/index"
-      }
+        id: "elements/reference/@ory/elements-react/index",
+      },
     },
     {
       type: "category",
@@ -438,54 +438,54 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/DefaultButtonSocial",
-              label: "DefaultButtonSocial"
+              label: "DefaultButtonSocial",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/DefaultCard",
-              label: "DefaultCard"
+              label: "DefaultCard",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/DefaultCardContent",
-              label: "DefaultCardContent"
+              label: "DefaultCardContent",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/DefaultCardFooter",
-              label: "DefaultCardFooter"
+              label: "DefaultCardFooter",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/DefaultCardHeader",
-              label: "DefaultCardHeader"
+              label: "DefaultCardHeader",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/DefaultCardLogo",
-              label: "DefaultCardLogo"
+              label: "DefaultCardLogo",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/DefaultCurrentIdentifierButton",
-              label: "DefaultCurrentIdentifierButton"
+              label: "DefaultCurrentIdentifierButton",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/DefaultFormContainer",
-              label: "DefaultFormContainer"
+              label: "DefaultFormContainer",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/DefaultMessage",
-              label: "DefaultMessage"
+              label: "DefaultMessage",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/DefaultMessageContainer",
-              label: "DefaultMessageContainer"
-            }
-          ]
+              label: "DefaultMessageContainer",
+            },
+          ],
         },
         {
           type: "category",
@@ -494,39 +494,39 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/Consent",
-              label: "Consent"
+              label: "Consent",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/Error",
-              label: "Error"
+              label: "Error",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/Login",
-              label: "Login"
+              label: "Login",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/Recovery",
-              label: "Recovery"
+              label: "Recovery",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/Registration",
-              label: "Registration"
+              label: "Registration",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/Settings",
-              label: "Settings"
+              label: "Settings",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/Verification",
-              label: "Verification"
-            }
-          ]
+              label: "Verification",
+            },
+          ],
         },
         {
           type: "category",
@@ -535,15 +535,15 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/theme/functions/getOryComponents",
-              label: "getOryComponents"
-            }
-          ]
-        }
+              label: "getOryComponents",
+            },
+          ],
+        },
       ],
       link: {
         type: "doc",
-        id: "elements/reference/@ory/elements-react/theme/index"
-      }
+        id: "elements/reference/@ory/elements-react/theme/index",
+      },
     },
     {
       type: "category",
@@ -556,9 +556,9 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/app/interfaces/OryPageParams",
-              label: "OryPageParams"
-            }
-          ]
+              label: "OryPageParams",
+            },
+          ],
         },
         {
           type: "category",
@@ -567,50 +567,50 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/app/functions/getFlowFactory",
-              label: "getFlowFactory"
+              label: "getFlowFactory",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/app/functions/getLoginFlow",
-              label: "getLoginFlow"
+              label: "getLoginFlow",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/app/functions/getLogoutFlow",
-              label: "getLogoutFlow"
+              label: "getLogoutFlow",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/app/functions/getRecoveryFlow",
-              label: "getRecoveryFlow"
+              label: "getRecoveryFlow",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/app/functions/getRegistrationFlow",
-              label: "getRegistrationFlow"
+              label: "getRegistrationFlow",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/app/functions/getServerSession",
-              label: "getServerSession"
+              label: "getServerSession",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/app/functions/getSettingsFlow",
-              label: "getSettingsFlow"
+              label: "getSettingsFlow",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/app/functions/getVerificationFlow",
-              label: "getVerificationFlow"
-            }
-          ]
-        }
+              label: "getVerificationFlow",
+            },
+          ],
+        },
       ],
       link: {
         type: "doc",
-        id: "elements/reference/@ory/nextjs/app/index"
-      }
+        id: "elements/reference/@ory/nextjs/app/index",
+      },
     },
     {
       type: "category",
@@ -623,15 +623,15 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/middleware/functions/createOryMiddleware",
-              label: "createOryMiddleware"
-            }
-          ]
-        }
+              label: "createOryMiddleware",
+            },
+          ],
+        },
       ],
       link: {
         type: "doc",
-        id: "elements/reference/@ory/nextjs/middleware/index"
-      }
+        id: "elements/reference/@ory/nextjs/middleware/index",
+      },
     },
     {
       type: "category",
@@ -644,41 +644,41 @@ const typedocSidebar: SidebarsConfig = {
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/pages/functions/useLoginFlow",
-              label: "useLoginFlow"
+              label: "useLoginFlow",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/pages/functions/useLogoutFlow",
-              label: "useLogoutFlow"
+              label: "useLogoutFlow",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/pages/functions/useRecoveryFlow",
-              label: "useRecoveryFlow"
+              label: "useRecoveryFlow",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/pages/functions/useRegistrationFlow",
-              label: "useRegistrationFlow"
+              label: "useRegistrationFlow",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/pages/functions/useSettingsFlow",
-              label: "useSettingsFlow"
+              label: "useSettingsFlow",
             },
             {
               type: "doc",
               id: "elements/reference/@ory/nextjs/pages/functions/useVerificationFlow",
-              label: "useVerificationFlow"
-            }
-          ]
-        }
+              label: "useVerificationFlow",
+            },
+          ],
+        },
       ],
       link: {
         type: "doc",
-        id: "elements/reference/@ory/nextjs/pages/index"
-      }
-    }
-  ]
-};
-export default typedocSidebar;
+        id: "elements/reference/@ory/nextjs/pages/index",
+      },
+    },
+  ],
+}
+export default typedocSidebar

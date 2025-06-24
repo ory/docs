@@ -2,9 +2,9 @@
 
 ```ts
 type OryNodeTextProps = {
-  attributes: UiNodeTextAttributes;
-  node: UiNode;
-};
+  attributes: UiNodeTextAttributes
+  node: UiNode
+}
 ```
 
 ## Properties
@@ -12,13 +12,13 @@ type OryNodeTextProps = {
 ### attributes
 
 ```ts
-attributes: UiNodeTextAttributes;
+attributes: UiNodeTextAttributes
 ```
 
-***
+---
 
 ### node
 
 ```ts
-node: UiNode;
+node: UiNode
 ```

@@ -1,7 +1,7 @@
 # `<DefaultCardFooter />`
 
 ```ts
-function DefaultCardFooter(): null | Element;
+function DefaultCardFooter(): null | Element
 ```
 
 DefaultCardFooter renders the default footer for the card component based on the current flow type.

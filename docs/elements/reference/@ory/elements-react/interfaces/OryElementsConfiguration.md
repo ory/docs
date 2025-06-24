@@ -7,19 +7,17 @@ The Ory Elements configuration object.
 ### project
 
 ```ts
-project: AccountExperienceConfiguration;
+project: AccountExperienceConfiguration
 ```
 
-The project configuration.
-This includes the project name, URLs, and other settings for the Ory Elements project.
+The project configuration. This includes the project name, URLs, and other settings for the Ory Elements project.
 
-***
+---
 
 ### sdk
 
 ```ts
-sdk: OrySDK;
+sdk: OrySDK
 ```
 
-The Ory SDK configuration.
-This includes the URL and options for the Ory SDK.
+The Ory SDK configuration. This includes the URL and options for the Ory SDK.

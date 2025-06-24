@@ -1,5 +1,5 @@
 # OryCardFooterProps
 
 ```ts
-type OryCardFooterProps = Record<string, never>;
+type OryCardFooterProps = Record<string, never>
 ```

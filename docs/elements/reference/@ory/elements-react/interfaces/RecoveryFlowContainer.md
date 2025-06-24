@@ -7,13 +7,13 @@ A flow container for the RecoveryFlow
 ### flow
 
 ```ts
-flow: RecoveryFlow;
+flow: RecoveryFlow
 ```
 
-***
+---
 
 ### flowType
 
 ```ts
-flowType: Recovery;
+flowType: Recovery
 ```

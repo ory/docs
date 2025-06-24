@@ -9,10 +9,10 @@
 ### action
 
 ```ts
-action: string;
+action: string
 ```
 
-***
+---
 
 ### children?
 
@@ -26,18 +26,18 @@ optional children: ReactNode;
 PropsWithChildren.children
 ```
 
-***
+---
 
 ### method
 
 ```ts
-method: string;
+method: string
 ```
 
-***
+---
 
 ### onSubmit
 
 ```ts
-onSubmit: FormEventHandler<HTMLFormElement>;
+onSubmit: FormEventHandler<HTMLFormElement>
 ```

@@ -1,9 +1,13 @@
 # useNodeSorter()
 
 ```ts
-function useNodeSorter(): (a: UiNode, b: UiNode, ctx: {
-  flowType: string;
-}) => number;
+function useNodeSorter(): (
+  a: UiNode,
+  b: UiNode,
+  ctx: {
+    flowType: string
+  },
+) => number
 ```
 
 The `useNodeSorter` hook provides a way to access the node sorting function
@@ -18,8 +22,8 @@ a function that sorts nodes based on the provided context.
 
 ```ts
 (
-   a: UiNode, 
-   b: UiNode, 
+   a: UiNode,
+   b: UiNode,
    ctx: {
   flowType: string;
 }): number;
@@ -27,12 +31,12 @@ a function that sorts nodes based on the provided context.
 
 ### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `a` | `UiNode` |
-| `b` | `UiNode` |
-| `ctx` | \{ `flowType`: `string`; \} |
-| `ctx.flowType` | `string` |
+| Parameter      | Type                        |
+| -------------- | --------------------------- |
+| `a`            | `UiNode`                    |
+| `b`            | `UiNode`                    |
+| `ctx`          | \{ `flowType`: `string`; \} |
+| `ctx.flowType` | `string`                    |
 
 ### Returns
 

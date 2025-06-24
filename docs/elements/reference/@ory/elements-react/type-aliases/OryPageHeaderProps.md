@@ -1,5 +1,5 @@
 # OryPageHeaderProps
 
 ```ts
-type OryPageHeaderProps = Record<never, never>;
+type OryPageHeaderProps = Record<never, never>
 ```

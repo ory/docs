@@ -7,13 +7,13 @@ A flow container for the VerificationFlow
 ### flow
 
 ```ts
-flow: VerificationFlow;
+flow: VerificationFlow
 ```
 
-***
+---
 
 ### flowType
 
 ```ts
-flowType: Verification;
+flowType: Verification
 ```

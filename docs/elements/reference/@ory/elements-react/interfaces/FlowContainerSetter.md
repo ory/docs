@@ -10,9 +10,9 @@ Function to set the flow container.
 
 ## Parameters
 
-| Parameter | Type |
-| ------ | ------ |
-| `value` | [`OryFlowContainer`](../type-aliases/OryFlowContainer.md) |
+| Parameter | Type                                                      |
+| --------- | --------------------------------------------------------- |
+| `value`   | [`OryFlowContainer`](../type-aliases/OryFlowContainer.md) |
 
 ## Returns
 

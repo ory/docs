@@ -2,10 +2,10 @@
 
 ```ts
 type OryNodeConsentScopeCheckboxProps = {
-  attributes: UiNodeInputAttributes;
-  node: UiNode;
-  onCheckedChange: (checked: boolean) => void;
-};
+  attributes: UiNodeInputAttributes
+  node: UiNode
+  onCheckedChange: (checked: boolean) => void
+}
 ```
 
 ## Properties
@@ -13,18 +13,18 @@ type OryNodeConsentScopeCheckboxProps = {
 ### attributes
 
 ```ts
-attributes: UiNodeInputAttributes;
+attributes: UiNodeInputAttributes
 ```
 
-***
+---
 
 ### node
 
 ```ts
-node: UiNode;
+node: UiNode
 ```
 
-***
+---
 
 ### onCheckedChange()
 
@@ -34,8 +34,8 @@ onCheckedChange: (checked: boolean) => void;
 
 #### Parameters
 
-| Parameter | Type |
-| ------ | ------ |
+| Parameter | Type      |
+| --------- | --------- |
 | `checked` | `boolean` |
 
 #### Returns

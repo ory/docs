@@ -2,15 +2,15 @@
 
 ```ts
 type IntlConfig = {
-  customTranslations?: Partial<LocaleMap>;
-  locale: Locale;
-};
+  customTranslations?: Partial<LocaleMap>
+  locale: Locale
+}
 ```
 
 The configuration for internationalization (i18n) in Ory Elements.
 
-This configuration is used to set the locale and can be used to provide custom translations.
-The locale is used to determine the language of the UI.
+This configuration is used to set the locale and can be used to provide custom translations. The locale is used to determine the
+language of the UI.
 
 ## Properties
 
@@ -22,12 +22,12 @@ optional customTranslations: Partial<LocaleMap>;
 
 Provide custom translations for the UI.
 
-***
+---
 
 ### locale
 
 ```ts
-locale: Locale;
+locale: Locale
 ```
 
 The locale to use for internationalization.

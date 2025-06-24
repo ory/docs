@@ -2,14 +2,15 @@
 
 ```ts
 type OryNodeButtonProps = {
-  attributes: UiNodeInputAttributes;
-  node: UiNode;
-} & Omit<ComponentPropsWithoutRef<"button">, "children"> & ButtonVariants;
+  attributes: UiNodeInputAttributes
+  node: UiNode
+} & Omit<ComponentPropsWithoutRef<"button">, "children"> &
+  ButtonVariants
 ```
 
 ## Type declaration
 
-| Name | Type |
-| ------ | ------ |
+| Name         | Type                    |
+| ------------ | ----------------------- |
 | `attributes` | `UiNodeInputAttributes` |
-| `node` | `UiNode` |
+| `node`       | `UiNode`                |

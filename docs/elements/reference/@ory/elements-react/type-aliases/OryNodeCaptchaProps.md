@@ -2,8 +2,8 @@
 
 ```ts
 type OryNodeCaptchaProps = {
-  node: UiNode;
-};
+  node: UiNode
+}
 ```
 
 ## Properties
@@ -11,5 +11,5 @@ type OryNodeCaptchaProps = {
 ### node
 
 ```ts
-node: UiNode;
+node: UiNode
 ```

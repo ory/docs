@@ -1,5 +1,5 @@
 # OryLocales
 
 ```ts
-const OryLocales: LocaleMap;
+const OryLocales: LocaleMap
 ```

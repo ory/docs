@@ -7,13 +7,13 @@ A flow container for the FlowError
 ### flow
 
 ```ts
-flow: FlowError;
+flow: FlowError
 ```
 
-***
+---
 
 ### flowType
 
 ```ts
-flowType: Error;
+flowType: Error
 ```

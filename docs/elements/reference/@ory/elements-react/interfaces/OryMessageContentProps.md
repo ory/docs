@@ -7,7 +7,7 @@ Props for the OryMessageContent component.
 ### message
 
 ```ts
-message: UiText;
+message: UiText
 ```
 
 The message to display.

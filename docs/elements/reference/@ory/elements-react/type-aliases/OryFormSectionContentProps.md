@@ -2,7 +2,7 @@
 
 ```ts
 type OryFormSectionContentProps = PropsWithChildren<{
-  description?: string;
-  title?: string;
-}>;
+  description?: string
+  title?: string
+}>
 ```

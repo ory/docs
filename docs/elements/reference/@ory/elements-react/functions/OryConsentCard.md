@@ -1,7 +1,7 @@
 # `<OryConsentCard />`
 
 ```ts
-function OryConsentCard(): Element;
+function OryConsentCard(): Element
 ```
 
 The `OryConsentCard` component renders a card for displaying the OAuth2 consent flow.

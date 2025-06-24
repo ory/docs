@@ -2,27 +2,26 @@
 
 ```ts
 type OryCardAuthMethodListItemProps = {
-  group: string;
-  onClick: () => void;
+  group: string
+  onClick: () => void
   title?: {
-     id: string;
-     values?: Record<string, string>;
-  };
-};
+    id: string
+    values?: Record<string, string>
+  }
+}
 ```
 
-Props for the AuthMethodListItem component. This component is used
-to render a single auth method in the AuthMethodList component.
+Props for the AuthMethodListItem component. This component is used to render a single auth method in the AuthMethodList component.
 
 ## Properties
 
 ### group
 
 ```ts
-group: string;
+group: string
 ```
 
-***
+---
 
 ### onClick()
 
@@ -34,7 +33,7 @@ onClick: () => void;
 
 `void`
 
-***
+---
 
 ### title?
 
@@ -45,7 +44,7 @@ optional title: {
 };
 ```
 
-| Name | Type |
-| ------ | ------ |
-| `id` | `string` |
+| Name      | Type                           |
+| --------- | ------------------------------ |
+| `id`      | `string`                       |
 | `values?` | `Record`\<`string`, `string`\> |

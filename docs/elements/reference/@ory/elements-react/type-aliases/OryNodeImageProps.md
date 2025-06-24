@@ -2,9 +2,9 @@
 
 ```ts
 type OryNodeImageProps = {
-  attributes: UiNodeImageAttributes;
-  node: UiNode;
-};
+  attributes: UiNodeImageAttributes
+  node: UiNode
+}
 ```
 
 ## Properties
@@ -12,13 +12,13 @@ type OryNodeImageProps = {
 ### attributes
 
 ```ts
-attributes: UiNodeImageAttributes;
+attributes: UiNodeImageAttributes
 ```
 
-***
+---
 
 ### node
 
 ```ts
-node: UiNode;
+node: UiNode
 ```
