@@ -10421,6 +10421,19 @@
         "required": ["identifier", "method"],
         "type": "object"
       },
+      "updateOrganizationOnboardingPortalLinkBody": {
+        "properties": {
+          "enable_sso": {
+            "description": "Feature flag to enable SSO configuration",
+            "type": "boolean"
+          },
+          "expires_at": {
+            "$ref": "#/components/schemas/Time"
+          }
+        },
+        "required": ["enable_sso"],
+        "type": "object"
+      },
       "updateRecoveryFlowBody": {
         "description": "Update Recovery Flow Request Body",
         "discriminator": {
@@ -16842,6 +16855,83 @@
           }
         ],
         "summary": "Delete an organization onboarding portal link",
+        "tags": ["project"]
+      },
+      "post": {
+        "description": "Update a onboarding portal link for an organization.",
+        "operationId": "updateOrganizationOnboardingPortalLink",
+        "parameters": [
+          {
+            "description": "Project ID\n\nThe project's ID.",
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Organization ID\n\nThe Organization's ID.",
+            "in": "path",
+            "name": "organization_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "onboarding_portal_link_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/updateOrganizationOnboardingPortalLinkBody"
+              }
+            }
+          },
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/onboardingPortalLink"
+                }
+              }
+            },
+            "description": "onboardingPortalLink"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryWorkspaceApiKey": []
+          }
+        ],
+        "servers": [
+          {
+            "description": "The Ory Network control plane API which is used to manage your Ory Network projects and workspaces.",
+            "url": "https://api.console.ory.sh"
+          }
+        ],
+        "summary": "Update organization onboarding portal link",
         "tags": ["project"]
       }
     },
