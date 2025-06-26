@@ -76,16 +76,15 @@ import auth from '!!raw-loader!../../../code-examples/protect-page-login/flutter
 ## Add environment variables
 
 Create a `.env` file in the root of the project to hold the `ORY_BASE_URL` variable. The value of the variable is the Ory Tunnel
-URL, for example `http://localhost:3005`.
+URL, for example `http://localhost:3000`.
 
 ```shell-session
 touch .env
 ```
 
 ```mdx-code-block
-import envDefault from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/.env';
+import env from '!!raw-loader!../../../code-examples/protect-page-login/flutter_web_redirect/.env.example';
 
-const env = envDefault.default;
 
 <CodeBlock language="text" title=".env">{env}</CodeBlock>
 ```
