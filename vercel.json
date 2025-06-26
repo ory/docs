@@ -1224,94 +1224,90 @@
       "destination": "/docs/self-hosted/oel/kratos/upgrade",
       "permanent": false
     },
-  {
-    "source": "/docs/guides/manage-identities/create-users-identities",
-    "destination": "/docs/kratos/manage-identities/create-users-identities",
-    "permanent": true
-  },
-  {
-    "source": "/docs/guides/manage-identities/overview",
-    "destination": "/docs/kratos/manage-identities/overview",
-    "permanent": true
-  },
-  {
-    "source": "/docs/guides/mfa/overview",
-    "destination": "/docs/kratos/mfa/overview",
-    "permanent": true
-  },
-  {
-    "source": "/docs/guides/session-management/overview",
-    "destination": "/docs/kratos/session-management/overview",
-    "permanent": true
-  },
-  {
-    "source": "/docs/guides/social-signin/overview",
-    "destination": "/docs/kratos/social-signin/overview",
-    "permanent": true
-  },
-  {
-    "source": "/docs/hydra/next/guides/hsm-support",
-    "destination": "/docs/hydra/guides/hsm-support",
-    "permanent": true
-  },
-  {
-    "source": "/docs/keto/next/sdk",
-    "destination": "/docs/keto/sdk",
-    "permanent": true
-  },
-  {
-    "source": "/docs/kratos/concepts/identity-data-model",
-    "destination": "/docs/kratos/concepts/identity-schema",
-    "permanent": true
-  },
-  {
-    "source": "/docs/kratos/next/concepts/identity-schema",
-    "destination": "/docs/kratos/concepts/identity-schema",
-    "permanent": true
-  },
-  {
-    "source": "/docs/kratos/next/concepts/security",
-    "destination": "/docs/kratos/concepts/security",
-    "permanent": true
-  },
-  {
-    "source": "/docs/kratos/next/concepts/ui-user-interface",
-    "destination": "/docs/kratos/concepts/ui-user-interface",
-    "permanent": true
-  },
-  {
-    "source": "/docs/kratos/next/guides/configuring-cookies",
-    "destination": "/docs/kratos/guides/configuring-cookies",
-    "permanent": true
-  },
-  {
-    "source": "/docs/kratos/next/guides/password-policy",
-    "destination": "/docs/kratos/guides/password-policy",
-    "permanent": true
-  },
-  {
-    "source":
-      "/docs/kratos/next/guides/sign-in-with-github-google-facebook-linkedin",
-    "destination":
-      "/docs/kratos/guides/sign-in-with-github-google-facebook-linkedin",
-    "permanent": true
-  },
-  {
-    "source": "/docs/kratos/next/sdk",
-    "destination": "/docs/kratos/sdk",
-    "permanent": true
-  },
-  {
-    "source":
-      "/docs/kratos/next/self-service/flows/verify-email-account-activation",
-    "destination":
-      "/docs/kratos/self-service/flows/verify-email-account-activation",
-    "permanent": true
-  },
-  {
-    "source": "/docs/kratos/next/two-factor-authentication-2fa-mfa",
-    "destination": "/docs/kratos/two-factor-authentication-2fa-mfa",
-    "permanent": true
-  }
+    {
+      "source": "/docs/guides/manage-identities/create-users-identities",
+      "destination": "/docs/kratos/manage-identities/create-users-identities",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/manage-identities/overview",
+      "destination": "/docs/kratos/manage-identities/overview",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/mfa/overview",
+      "destination": "/docs/kratos/mfa/overview",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/session-management/overview",
+      "destination": "/docs/kratos/session-management/overview",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/social-signin/overview",
+      "destination": "/docs/kratos/social-signin/overview",
+      "permanent": true
+    },
+    {
+      "source": "/docs/hydra/next/guides/hsm-support",
+      "destination": "/docs/hydra/guides/hsm-support",
+      "permanent": true
+    },
+    {
+      "source": "/docs/keto/next/sdk",
+      "destination": "/docs/keto/sdk",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/concepts/identity-data-model",
+      "destination": "/docs/kratos/concepts/identity-schema",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/next/concepts/identity-schema",
+      "destination": "/docs/kratos/concepts/identity-schema",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/next/concepts/security",
+      "destination": "/docs/kratos/concepts/security",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/next/concepts/ui-user-interface",
+      "destination": "/docs/kratos/concepts/ui-user-interface",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/next/guides/configuring-cookies",
+      "destination": "/docs/kratos/guides/configuring-cookies",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/next/guides/password-policy",
+      "destination": "/docs/kratos/guides/password-policy",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/next/guides/sign-in-with-github-google-facebook-linkedin",
+      "destination": "/docs/kratos/guides/sign-in-with-github-google-facebook-linkedin",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/next/sdk",
+      "destination": "/docs/kratos/sdk",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/next/self-service/flows/verify-email-account-activation",
+      "destination": "/docs/kratos/self-service/flows/verify-email-account-activation",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/next/two-factor-authentication-2fa-mfa",
+      "destination": "/docs/kratos/two-factor-authentication-2fa-mfa",
+      "permanent": true
+    }
   ]
 }
