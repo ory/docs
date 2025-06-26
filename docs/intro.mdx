@@ -67,30 +67,39 @@ around identities, sessions, login, OAuth2, permissions, and more. The core comp
 
 Ory Network incorporates the open-source [Ory Kratos Identity Server](https://www.ory.sh/kratos) and offers:
 
-- **Self-service** flows are everything users do on their own / without the help of others:
-- Registration with passwords, social sign-in, OpenID Connect, ...
-- Login with passwords, social sign-in, OpenID Connect, ...
-- Updating the profile, email, changing the password, un/linking with social sign-in providers, ...
+- Self-service flows are everything users do on their own / without the help of others:
+- Registration with passwords, social sign-in, OpenID Connect, passkeys, and more.
+- Login with passwords, social sign-in, OpenID Connect, passkeys, and more.
+- Updating the profile, email, changing the password, un/linking with social sign-in providers, and more.
 - Recovering the account by resetting the password.
-- Verifying email addresses, phone numbers,...
+- Verifying email addresses, phone numbers, and more.
 - Multi-factor authentication flows and recovery processes.
-- **Administrative identity management** to get, create, update, and delete identities (users) and their data.
-- **Headless APIs and data models** allow you to fully customize Identity Schemas (for example adding fields like first name,
-  accept tos, shipping address, gender, ...) and create your login, registration, profile settings, recovery, and verification
-  screen using SDKs and REST APIs.
+- Administrative identity management to get, create, update, and delete identities and their data.
+- Headless APIs and data models allow you to fully customize Identity Schemas - for example adding fields like name, accept ToS,
+  phone number - and create your login, registration, profile settings, recovery, and verification screen using SDKs and REST
+  APIs.
+- SCIM support for automated user provisioning and deprovisioning with supported identity providers.
 
 ### Permissions and relationships
 
 Ory Network incorporates the open-source [Ory Keto Permission Server](https://www.ory.sh/keto) and offers:
 
-- **Permission management** to get, create, update, and delete permissions.
-- **Permission checking** to check if a user has a permission.
+- Permission management to get, create, update, and delete permissions.
+- Permission checking to check if a user has a permission.
 
 ### OAuth2 and OIDC
 
 Ory Network incorporates the open-source [Ory Hydra OAuth2 & OpenID Server](https://www.ory.sh/hydra) and offers:
 
-- **Fully featured OAuth2 & [OpenID Certified](https://openid.net/developers/certified/)® OIDC Provider**
+- Fully featured OAuth2 & [OpenID Certified](https://openid.net/developers/certified/)® OIDC Provider
+
+### SAML
+
+Ory Network incorporates the open-source [Ory Polis](https://www.ory.sh/polis) and offers:
+
+- Enterprise SSO integration with SAML identity providers such as Okta, Azure AD, and Google Workspace.
+- Simplified SSO flow by implementing SSO as a standard OAuth 2.0 flow, abstracting away the complexities of SAML.
+- Act as a SAML Identity Provider (IdP).
 
 ### Ory Console
 
@@ -118,18 +127,3 @@ in the world. Ory is not another company "greenwashing" with open source by publ
 all Ory core systems are available as Apache 2.0 licensed software without enterprise or open-core models.
 
 Head over to the [Ory Open Source Overview](./open-source.mdx) for an introduction to the different projects.
-
-### Is open source taking a back seat?
-
-**No!**
-
-Ory Network is the commercial offering which generates revenue to sustain high quality development and add more features to Ory
-Open Source. The value proposition and vision for Ory Network is to incorporate and advance the open-source ecosystem and add
-additional services which aren't possible to open source (for example analytics, SLAs, SRE, low-latency).
-
-The Ory Network and Ory Open Source software are interlinked. Ory Network is using the [Ory Open Source](https://github.com/ory/)
-code base, APIs, features, and configurations to provide services. Ory Network features modifications to better support the custom
-multi-tenant environment and operational (SRE) mode.
-
-In the future, Ory will continue to increase its open-source footprint. and make the projects easier to modify, use, access, and
-distribute. The biggest impact Ory Network will have is that it will accelerate and sustain the development of Ory Open Source.
