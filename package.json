@@ -38,6 +38,7 @@
     "@docusaurus/preset-classic": "3.8.0",
     "@docusaurus/theme-classic": "3.8.0",
     "@docusaurus/theme-search-algolia": "3.8.0",
+    "@iconify-json/tabler": "1.2.19",
     "@octokit/rest": "20.0.2",
     "@ory/client-fetch": "1.15.16",
     "@rjsf/bootstrap-4": "5.24.1",
