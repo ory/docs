@@ -61,7 +61,6 @@ svg[class*="iconExternalLink"] {
   background-color: rgba(255, 0, 0, 0.2);
   margin: 0 -12px;
   padding: 0 12px;
-  display: block;
   text-decoration: line-through;
 }
 
@@ -69,7 +68,6 @@ svg[class*="iconExternalLink"] {
   background-color: rgba(0, 255, 0, 0.2);
   margin: 0 -12px;
   padding: 0 12px;
-  display: block;
 }
 
 @media (max-width: 996px) {
