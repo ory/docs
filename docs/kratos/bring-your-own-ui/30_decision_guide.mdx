@@ -1,0 +1,63 @@
+---
+id: custom-vs-built-in-ui
+title: "Decision guide: Custom vs. Built-in UI"
+sidebar_label: When to use custom UI?
+---
+
+# Decision guide: Custom vs. Built-in UI
+
+Ory provides multiple options for integrating user interfaces (UI) with your applications. This guide helps you decide when to use
+a custom UI versus the built-in Ory Account Experience UI.
+
+## Understanding the Options
+
+Ory offers three main approaches for integrating UIs:
+
+```mdx-code-block
+import { elementsArchitectureGraph, axArchitectureGraph, customArchitectureGraph } from "@site/src/pages/_assets/ui-graphs"
+import Mermaid from "@site/src/theme/Mermaid"
+```
+
+### Option 1: Built-in Ory Account Experience UI
+
+The Ory Account Experience UI is a fully customizable, out-of-the-box solution that allows you to integrate essential user flows
+like login, registration, and account management without the need to design and code your own UI. It dynamically adjusts to
+changes in your project configuration, such as adding new social sign-in providers, and can be customized to match your brand
+using the tools available in the Ory Console.
+
+<Mermaid chart={axArchitectureGraph} />
+
+**When to choose:** This option is ideal for most use cases, especially if you want to quickly integrate Ory into your
+application.
+
+- Documentation: [Ory Account Experience](../../account-experience/index.mdx)
+
+### Option 2: Custom User Interface with Ory Elements
+
+For more advanced use cases, Ory Elements provides a component library that allows you to build custom user interfaces for Ory
+self-service flows. It includes pre-built components that can be easily integrated into your application, enabling you to create a
+seamless user experience while leveraging Ory's powerful authentication and identity management capabilities. It provides the same
+theming options, and additionally allows you to override specific components of the UI to match your brand and user experience
+requirements.
+
+Currently only available for React.
+
+<Mermaid chart={elementsArchitectureGraph} />
+
+**When to choose:** This option is suitable if you want to build a custom UI while in a React application, but don't want to start
+from scratch.
+
+- Documentation: [Ory Elements](../../elements/index.mdx)
+
+### Option 3: Custom User Interface with Ory SDKs
+
+The most advanced option is to build a custom user interface using Ory SDKs. This approach gives you the highest level of control
+over the user experience and allows you to implement complex business logic. However, it requires a deeper understanding of Ory's
+APIs and flows, and it may take more time to implement compared to the other options.
+
+<Mermaid chart={customArchitectureGraph} />
+
+**When to choose:** This option is ideal for complex applications that require a high level of customization and control over the
+user experience.
+
+- Documentation: [Custom UI Quickstarts](../../getting-started/custom-ui.mdx)
