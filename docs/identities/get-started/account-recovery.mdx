@@ -42,16 +42,13 @@ configure account recovery in your Ory project.
 </BrowserWindow>
 ```
 
-
 **Enable the feature flag `use_recovery_v2` (unlocks sending a recovery code via SMS)**
-
 
 1. Log in to your [Ory Console](https://console.ory.sh/)
 2. Select your workspace and project
 3. Navigate to **Project settings** → **Advanced**
 4. Toggle "Receive a recovery code via SMS" to on
 5. Click **Save**
-
 
 ```mdx-code-block
 <BrowserWindow url="https://console.ory.sh/projects/<id>/settings/advanced">
@@ -175,8 +172,11 @@ When the feature flag `use_recovery_v2` is disabled, or the `link` method is in 
 If the address is malformed, or well-formed but not registered as a recovery address for this user:
 
 - The recovery flow will not complete. This means that no recovery code will be generated and sent.
-- The UI will look indistinguishable from the case of a valid recovery address provided. That is to prevent an attacker from probing the system to discover which addresses are registered.
-- If the address is a valid email address but not registered as a recovery address for this user, and the configuration value `selfservice.flows.recovery.notify_unknown_recipients` is enabled, an email will be sent to this address with this wording (this can be [customized](../../kratos/emails-sms/sending-emails-smtp#send-emails-using-an-http-server)):
+- The UI will look indistinguishable from the case of a valid recovery address provided. That is to prevent an attacker from
+  probing the system to discover which addresses are registered.
+- If the address is a valid email address but not registered as a recovery address for this user, and the configuration value
+  `selfservice.flows.recovery.notify_unknown_recipients` is enabled, an email will be sent to this address with this wording (this
+  can be [customized](../../kratos/emails-sms/sending-emails-smtp#send-emails-using-an-http-server)):
   > Hi,
   >
   > you (or someone else) entered this email address when trying to recover access to an account.
@@ -186,4 +186,5 @@ If the address is malformed, or well-formed but not registered as a recovery add
   > If this was you, check if you signed up using a different address.
   >
   > If this was not you, please ignore this email.
-- If the address is a phone number (meaning a SMS would be sent), or if the configuration value `selfservice.flows.recovery.notify_unknown_recipients` is disabled, nothing will be sent.
+- If the address is a phone number (meaning a SMS would be sent), or if the configuration value
+  `selfservice.flows.recovery.notify_unknown_recipients` is disabled, nothing will be sent.
