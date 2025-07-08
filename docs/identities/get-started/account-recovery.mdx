@@ -28,7 +28,7 @@ configure account recovery in your Ory project.
 <TabItem value="console">
 ```
 
-**Enable and configure account recovery**
+### Enable and configure account recovery
 
 1. Log in to your [Ory Console](https://console.ory.sh/)
 2. Select your workspace and project
@@ -42,7 +42,7 @@ configure account recovery in your Ory project.
 </BrowserWindow>
 ```
 
-**Enable the feature flag `use_recovery_v2` (unlocks sending a recovery code via SMS)**
+### Enable the feature flag `use_recovery_v2` (unlocks sending a recovery code via SMS)
 
 1. Log in to your [Ory Console](https://console.ory.sh/)
 2. Select your workspace and project
@@ -51,11 +51,11 @@ configure account recovery in your Ory project.
 5. Click **Save**
 
 ```mdx-code-block
-<BrowserWindow url="https://console.ory.sh/projects/<id>/settings/advanced">
-</BrowserWindow>
+<ConsoleLink route="project.settings.advanced" />
 ```
 
-**Recovery strategy**
+
+### Recovery strategy
 
 You can choose between the following recovery strategies:
 
@@ -81,7 +81,7 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 <TabItem value="cli">
 ```
 
-**Download your current configuration**
+### Download your current configuration
 
 First, get your current identity configuration:
 
@@ -96,7 +96,7 @@ ory list projects --workspace <workspace-id>
 ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
 ```
 
-**Edit recovery configuration**
+### Edit recovery configuration
 
 Add or modify the recovery section in your configuration file:
 
@@ -115,7 +115,7 @@ selfservice:
       notify_unknown_recipients: false # Define if the system sends automated recovery notifications to unknown email addresses.
 ```
 
-**Update your configuration**
+### Update your configuration
 
 After editing, update your configuration:
 
@@ -167,7 +167,7 @@ When the feature flag `use_recovery_v2` is disabled, or the `link` method is in 
 3. After clicking the link or entering the code, they're prompted to set a new password
 4. Once completed, they regain access to their account with a new password
 
-### What happens if the address provided by the user is 'wrong'?
+## What happens if the address provided by the user is 'wrong'?
 
 If the address is malformed, or well-formed but not registered as a recovery address for this user:
 
