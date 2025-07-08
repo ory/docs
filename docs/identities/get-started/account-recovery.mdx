@@ -51,9 +51,6 @@ configure account recovery in your Ory project.
 4. Toggle "Receive a recovery code via SMS" to on
 5. Click **Save**
 
-![Enable the feature flag](../_assets/feature_flag_use_recovery_v2.png)
-
-
 **Recovery strategy**
 
 You can choose between the following recovery strategies:
@@ -172,7 +169,7 @@ If the address is malformed, or well-formed but not registered as a recovery add
 
 - The recovery flow will not complete. This means that no recovery code will be generated and sent.
 - The UI will look indistinguishable from the case of a valid recovery address provided. That is to prevent an attacker from probing the system to discover which addresses are registered.
-- If the address is a valid email address but not registered as a recovery address for this user, and the configuration value `selfservice.flows.recovery.notify_unknown_recipients` is enabled, an email will be sent to this address with this wording (this can be customized):
+- If the address is a valid email address but not registered as a recovery address for this user, and the configuration value `selfservice.flows.recovery.notify_unknown_recipients` is enabled, an email will be sent to this address with this wording (this can be [customized](../../kratos/emails-sms/sending-emails-smtp#send-emails-using-an-http-server)):
   > Hi,
   >
   > you (or someone else) entered this email address when trying to recover access to an account.
