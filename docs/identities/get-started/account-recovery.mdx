@@ -42,7 +42,7 @@ configure account recovery in your Ory project.
 </BrowserWindow>
 ```
 
-### Enable the feature flag `use_recovery_v2` (unlocks sending a recovery code via SMS)
+### Enable the feature flag `choose_recovery_address` (unlocks sending a recovery code via SMS)
 
 1. Log in to your [Ory Console](https://console.ory.sh/)
 2. Select your workspace and project
@@ -58,7 +58,7 @@ configure account recovery in your Ory project.
 
 You can choose between the following recovery strategies:
 
-- One-time passwords: Sends a one-time code via email, or SMS (with the feature flag `use_recovery_v2` enabled)
+- One-time passwords: Sends a one-time code via email, or SMS (with the feature flag `choose_recovery_address` enabled)
 - Magic link: Sends a recovery link via email
 
 1. In the Account recovery section
@@ -147,7 +147,7 @@ When a user initiates account recovery:
 
 ### User flow
 
-When the feature flag `use_recovery_v2` is enabled and the `code` method is in use:
+When the feature flag `choose_recovery_address` is enabled and the `code` method is in use:
 
 1. They enter their email address on the recovery page
 2. If they have multiple recovery addresses, they can pick which one to use
@@ -157,7 +157,7 @@ When the feature flag `use_recovery_v2` is enabled and the `code` method is in u
 
 ---
 
-When the feature flag `use_recovery_v2` is disabled, or the `link` method is in use:
+When the feature flag `choose_recovery_address` is disabled, or the `link` method is in use:
 
 1. They enter their email address on the recovery page
 2. They receive either:
