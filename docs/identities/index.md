@@ -6,7 +6,7 @@ sidebar_label: Introduction
 
 Ory Kratos Identities is an API-first identity and user management system built on top of the widely deployed open-source
 [Ory Kratos](https://github.com/ory/kratos) following
-[cloud architecture best practices](ecosystem/software-architecture-philosophy.md). It implements mechanisms that allow handling
+[cloud architecture best practices](ecosystem/software-architecture-philosophy.mdx). It implements mechanisms that allow handling
 core use cases that the majority of modern software applications have to deal with:
 
 - **Self-service login and registration**: Allow end-users to create and sign in to accounts using username/email and password
