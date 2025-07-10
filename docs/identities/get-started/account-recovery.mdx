@@ -90,6 +90,11 @@ ory list projects --workspace <workspace-id>
 
 # Get the configuration
 ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
+
+# Toggle the feature flag 'on'
+ory patch project --replace '/services/identity/config/feature_flags/choose_recovery_address=true'
+
+ory get project --format='jsonpointer=/services/identity/config/feature_flags/choose_recovery_address'
 ```
 
 ### Edit recovery configuration
