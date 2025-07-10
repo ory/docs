@@ -1,0 +1,188 @@
+---
+id: configuration
+title: Configuration
+sidebar_label: Configuration
+---
+
+Ory Elements exposes a few configuration options that can be used to configure the default behavior of the UI components. These
+options can be set globally or per component. This guide will cover the global configuration options available in Ory Elements.
+
+## Project configuration
+
+The `project` configuration is used to configure the overall behavior of the Ory Elements UI components. It includes settings such
+as the default locale, redirect URLs, and UI URLs for various actions like login, registration, and recovery.
+
+You can set the project configuration globally in your application, and it will be used by all Ory Elements components. This
+allows you to use the default UI but still configure certain behaviors and URLs to match your application's requirements.
+
+Define the project configuration in your application like this:
+
+```ts title="projectConfig.ts"
+import { AccountExperienceConfiguration } from "@ory/elements-react"
+
+const projectConfig: AccountExperienceConfiguration = {
+  default_locale: "en", // default locale for the UI
+  default_redirect_url: "https://example.com/dashboard", // URL to redirect after successful login or registration
+  error_ui_url: "https://example.com/error", // URL to handle errors
+  login_ui_url: "https://example.com/login", // URL to the login page
+  registration_ui_url: "https://example.com/register", // URL to the registration page
+  recovery_ui_url: "https://example.com/recovery", // URL to the recovery page
+  settings_ui_url: "https://example.com/settings", // URL to the settings page
+  verification_ui_url: "https://example.com/verify", // URL to the verification page
+  name: "My Project", // the name of your project, used in the UI
+  logo_light_url: "https://example.com/logo-light.png", // URL to the light theme logo
+  recovery_enabled: true, // controls whether the "Forgot Password" button is shown
+  registration_enabled: true, // controls whether the "Register" button in the footer is shown
+  verification_enabled: true,
+
+  locale_behavior: "respect_accept_language", // currently unused
+}
+```
+
+After defining the configuration, you can pass it to the `<Login />`, `<Registration />`, `<Recovery />`, `<Settings />`, and
+`<Verification />` components as a prop:
+
+```tsx title="App.tsx"
+import { Login } from "@ory/elements-react/theme"
+import { OryProvider } from "@ory/elements-react"
+
+import { projectConfig } from "./projectConfig" // import your project configuration
+
+function App() {
+  const flow = // fetch or create a flow object for login, registration, etc.
+  return <Login flow={flow} config={{ project: projectConfig }} />
+}
+```
+
+If you're building your own components, you can pass it to the `OryProvider` to make it available to all Ory Elements components:
+
+```tsx title="App.tsx"
+import { OryProvider } from "@ory/elements-react"
+import { projectConfig } from "./projectConfig" // import your project configuration
+
+function App() {
+  return <OryProvider project={{ project: projectConfig }}>{/* Your application components */}</OryProvider>
+}
+```
+
+### UI URLs
+
+To set the URLs for various UI components, you can use the following properties in the `AccountExperienceConfiguration`:
+
+```typescript title="projectConfig.ts"
+const projectConfig: AccountExperienceConfiguration = {
+  login_ui_url: "https://example.com/login",
+  registration_ui_url: "https://example.com/register",
+  recovery_ui_url: "https://example.com/recovery",
+  settings_ui_url: "https://example.com/settings",
+  verification_ui_url: "https://example.com/verify",
+  // ....
+}
+```
+
+These will be used when the respective actions are triggered, such as when a user needs to log in, register, or recover their
+account and should match the URLs of your application's UI. You can also set the `error_ui_url` to handle errors in a custom way:
+
+```typescript title="projectConfig.ts"
+const projectConfig: AccountExperienceConfiguration = {
+  error_ui_url: "https://example.com/error",
+  // ....
+}
+```
+
+### Logos
+
+To set the logos for the light theme, you can use the following properties:
+
+```typescript title="projectConfig.ts"
+const projectConfig: AccountExperienceConfiguration = {
+  logo_light_url: "https://example.com/logo-light.png",
+  // ....
+}
+```
+
+### Locale (i18n)
+
+To set a default locale:
+
+```typescript title="projectConfig.ts"
+const projectConfig: AccountExperienceConfiguration = {
+  default_locale: "en",
+  // ....
+}
+```
+
+For more advanced localization options, such as providing custom translations, refer to the
+[Internationalization guide](./03_internationalization.mdx).
+
+Reference:
+
+- [OryClientConfiguration](../reference/@ory/elements-react/interfaces/OryClientConfiguration.md)
+
+## SDK configuration
+
+The `sdk` configuration is used to configure the Ory SDK client that is used by Ory Elements. This includes settings such as the
+base URL for the Ory API. You can set the SDK configuration globally in your application, and it will be used by all Ory Elements
+components. You can define the SDK configuration like this:
+
+```ts title="sdkConfig.ts"
+import { OryClientConfiguration } from "@ory/elements-react"
+export const sdkConfig: OryClientConfiguration = {
+  sdk: {
+    baseUrl: "https://api.example.com", // base URL for the Ory API
+    options: {
+      headers: {
+        "X-Custom-Header": "value", // custom headers for the SDK requests
+      },
+      middlewares: [], // custom middlewares for the SDK requests
+      // other options for the SDK requests
+    },
+  },
+}
+```
+
+:::note
+
+If you're running against a standard Ory Network project you don't need to add any special headers or middlewares. Set the
+`baseUrl` to your project's URL as listed on <ConsoleLink route="project.settings" /> under **API&nbsp;endpoints**.
+
+:::
+
+Typically, this URL is the same as the one you use to access your Ory services, such as Ory Kratos or Ory Hydra. It is important
+to ensure that the base URL is correctly set to match your Ory deployment.
+
+After defining the SDK configuration, you can pass it to the `<OryProvider>` component:
+
+```tsx title="App.tsx"
+import { OryProvider } from "@ory/elements-react"
+import { sdkConfig } from "./sdkConfig" // import your SDK configuration
+import { projectConfig } from "./projectConfig" // import your project configuration
+
+function App() {
+  return <OryProvider config={{ project: projectConfig, sdk: sdkConfig }}>{/* Your application components */}</OryProvider>
+}
+```
+
+### Base URL
+
+If the `baseUrl` property in the `sdk` configuration is unset, the base URL can be set via the environment variable `ORY_SDK_URL`.
+
+In development environments, if neither is set, Ory Elements tries to "guess" the base URL by looking at the current origin of the
+page.
+
+For code that is executed in the server side rendering part of the application, the base URL is set to the value of the
+`__NEXT_PRIVATE_ORIGIN` or `VERCEL_URL` environment variable (for Vercel preview environments), if available. If neither is found,
+an error is thrown.
+
+For code that is run in the browser, the base URL is set to the current origin of the page (via `window.location.origin`), which
+is typically the URL of your application. Make sure to use the
+[Ory middleware](../reference/@ory/nextjs/middleware/functions/createOryMiddleware.md), so that Ory's self-service API endpoints
+are available at the correct paths, such as `/self-service/login`, `/self-service/registration`, etc. on the same origin as your
+application. This is the default behavior when using Ory Elements in a Next.js application with the Ory middleware.
+
+:::caution
+
+In production environments it is required to explicitly set the `baseUrl` or `ORY_SDK_URL` environment variable to ensure that the
+Ory SDK client communicates with the correct Ory services.
+
+:::

@@ -51,6 +51,7 @@
   cursor: pointer;
   border-radius: 4px;
   transition: all 0.2s ease;
+  font-size: 0.8rem;
 }
 
 .cardbutton:hover {

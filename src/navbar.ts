@@ -44,6 +44,10 @@ export const navbar: Navbar = {
           to: "/docs/self-hosted/oel",
           label: "Ory Enterprise License",
         },
+        {
+          to: "/docs/elements",
+          label: "Ory Elements",
+        },
       ],
     },
     {

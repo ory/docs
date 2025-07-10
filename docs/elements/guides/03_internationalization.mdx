@@ -1,0 +1,177 @@
+---
+id: internationalization
+title: Use custom translations (i18n)
+sidebar_label: Internationalization (i18n)
+---
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+```
+
+Ory Elements supports internationalization (i18n) to help you create applications that can be used by users from different
+locales. This guide will show you how to use custom translations in your Ory Elements components.
+
+Ory Elements uses the react-intl library to handle translations. You can provide your own translations for the Ory Elements
+components by wrapping your application in the `IntlProvider` component from `react-intl` and passing your translations as
+messages.
+
+## Set the default locale
+
+By default, a set of translations is provided for the following locales:
+
+- English (`en`)
+- German (`de`)
+- Spanish (`es`)
+- French (`fr`)
+- Italian (`it`)
+- Swedish (`sv`)
+
+:::note
+
+A full list is available in the
+[GitHub repository of Ory Elements](https://github.com/ory/elements/tree/main/packages/elements-react/src/locales). Contributions
+of new translations are welcome!
+
+:::
+
+To set the default locale for your application, see [the locale configuration section](./04_configuration.mdx#locale-i18n).
+
+## Detecting a user's locale
+
+If your application supports multiple languages, you can detect the user's locale and set it dynamically. This can be done using
+the `Accept-Language` header from the request in a server-side application or by using the browser's `navigator.language` property
+in a client-side application.
+
+## Using custom translations
+
+To use custom translations in your Ory Elements components, follow these steps:
+
+```mdx-code-block
+<Tabs>
+<TabItem value="standalone" label="Standalone" default>
+```
+
+1. Define your translations in typescript files. Here is an example of how to create a translations file:
+
+   ```typescript title="translations.ts"
+   export const messages: Record<string, Record<string, string>> = {
+     de: {
+       "login.title": "Anmeldung",
+       "login.description": "Bitte melden Sie sich an, um fortzufahren.",
+       // other messages...
+     },
+     en: {
+       "login.title": "Login",
+       "login.description": "Please log in to continue.",
+       // other messages...
+     },
+   }
+   ```
+
+   :::note
+
+   The keys in the `messages` object should match the keys used in the Ory Elements components. You can find the full original
+   files in the
+   [GitHub repository of Ory Elements](https://github.com/ory/elements/tree/main/packages/elements-react/src/locales).
+
+   :::
+
+2. Pass it to the OryProvider's `customTranslations` prop. Here is an example of how to do this in a Next.js application:
+
+   ```tsx title="app.tsx"
+   import { OryProvider } from "@ory/elements-react"
+   import { messages } from "./translations"
+
+   export default function MyApp({ Component, ...props }: { Component: NextPage }) {
+     return (
+       <OryProvider customTranslations={messages}>
+         <Component {...props} />
+       </OryProvider>
+     )
+   }
+   ```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="react-intl" label="With react-intl">
+```
+
+1. Install the `react-intl` library if you haven't already:
+
+   ```bash
+   npm install react-intl
+   ```
+
+2. Create a translations file (e.g., `translations.ts`) that contains your translations for different locales. Here is an example:
+
+   ```typescript title="translations.ts"
+   export const messages: Record<string, string> = {
+     en: {
+       "login.title": "Login",
+       // other messages...
+     },
+     de: {
+       "login.title": "Anmeldung",
+     },
+   }
+   ```
+
+   :::note
+
+   The keys in the `messages` object should match the keys used in the Ory Elements components. You can find the full original
+   files in the
+   [GitHub repository of Ory Elements](https://github.com/ory/elements/tree/main/packages/elements-react/src/locales).
+
+   :::
+
+3. Wrap your application in the `IntlProvider` component and pass your translations as messages. Here is an example of how to do
+   this in a Next.js application:
+
+   ```mdx-code-block
+   <Tabs>
+   <TabItem value="next-app" label="Next.js App Router" default>
+   ```
+
+   ```tsx title="layout.tsx"
+   import { PropsWithChildren } from "react"
+   import { IntlProvider } from "react-intl"
+   import { messages } from "./translations"
+
+   export default function Layout({ children }: PropsWithChildren) {
+     return (
+       <IntlProvider locale="en" messages={messages.en}>
+         {children}
+       </IntlProvider>
+     )
+   }
+   ```
+
+   ```mdx-code-block
+   </TabItem>
+   <TabItem value="next-pages" label="Next.js Pages Router">
+   ```
+
+   ```tsx title="app.tsx"
+   import type { NextPage } from "next"
+   import { IntlProvider } from "react-intl"
+   import { messages } from "./translations"
+
+   export default function MyApp({ Component, ...props }: { Component: NextPage }) {
+     return (
+       <IntlProvider locale="en" messages={messages.en}>
+         <Component {...props} />
+       </IntlProvider>
+     )
+   }
+   ```
+
+   ```mdx-code-block
+   </TabItem>
+   </Tabs>
+   ```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
