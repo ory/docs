@@ -9,6 +9,7 @@ export interface CardItem {
   description?: string
   language?: string
   languageLogoAlt?: string
+  logoUrl?: string
   author?: string
   tested?: boolean
   repo?: string
@@ -22,6 +23,7 @@ export const Card: React.FC<CardItem> = ({
   description,
   language,
   languageLogoAlt,
+  logoUrl,
   author,
   tested,
   repo,
@@ -32,7 +34,7 @@ export const Card: React.FC<CardItem> = ({
   const link = docs || repo || ""
 
   // Generate language logo path based on language prop
-  const logoPath = language ? `/docs/img/examples/${language}.svg` : null
+  const logoPath = language ? `/docs/img/examples/${language}.svg` : logoUrl
 
   const cardContent = (
     <div className={clsx(styles.card, isLarge && styles.cardLarge)}>
