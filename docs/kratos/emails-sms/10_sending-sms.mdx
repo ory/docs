@@ -97,7 +97,7 @@ Read the [Jsonnet documentation](../../kratos/reference/jsonnet.mdx) to learn mo
 
 ## Templates
 
-Only the `verification_code` and `login_code` templates support an SMS variant. Use the CLI to configure it:
+Only the `recovery_code`, `verification_code`, and `login_code` templates support an SMS variant. Use the CLI to configure it:
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
@@ -132,6 +132,12 @@ Only the `verification_code` and `login_code` templates support an SMS variant. 
             sms:
               body:
                 plaintext: "base64://WW91ciBsb2dpbiBjb2RlIGlzOiB7eyAuTG9naW5Db2RlIH19"
+
+        recovery_code:
+          valid:
+            sms:
+              body:
+                plaintext: "base64://WW91ciByZWNvdmVyeSBjb2RlIGlzOiB7eyAuUmVjb3ZlcnlDb2RlIH19CgpAe3sgLlJlcXVlc3RVUkxEb21haW4gfX0gI3t7IC5SZWNvdmVyeUNvZGUgfX0K"
    ```
 
 3. Update the Ory Identities configuration using the file you worked with:
