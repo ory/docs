@@ -2,6 +2,12 @@
 title: "Quickstart: Cat Videos Example"
 ---
 
+```mdx-code-block
+import Help from '@site/docs/_common/need-selfhosted-support.mdx'
+
+<Help/>
+```
+
 This example describes a video sharing service. The individual videos are organized in directories. Every directory has an owner
 and every video has the same owner as it's parent directory. The owner has elevated privileges about the video files that aren't
 modeled individually in Ory Keto. The only other privilege modeled in this example is "view access." Every owner has view access
@@ -9,12 +15,8 @@ to their objects, and this privilege can be granted to other users as well. The 
 `*` user ID as any user, including anonymous users. Note that Ory Keto doesn't interpret this subject any differently from other
 subjects. It also doesn't know anything about directory structures or induced ownership.
 
-:::info Terminology
-
 The "Keto client" is the application interacting with Keto. In this case we refer to the video sharing service backend as the Keto
 client.
-
-:::
 
 ## Starting the example
 
