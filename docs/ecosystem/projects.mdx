@@ -103,32 +103,6 @@ import { ProjectOverviewGraph } from "@site/src/pages/_assets/project-overview-g
 <ProjectOverviewGraph />
 ```
 
-```mdx-code-block
-import Mermaid from "@site/src/theme/Mermaid"
-
-<Mermaid
-  chart={`graph LR
-
-User[User]
-Devices[Devices Web, Mobile, etc.]
-Oathkeeper[Ory / oathkeeper<br>Identity and Access Proxy IAP]
-Hydra[Ory / hydra<br>OAuth 2.0 and OpenID Connect]
-Kratos[Ory / kratos<br>Cloud native identity infrastructure]
-Keto[Ory / keto<br>Permission and Role Management]
-API[Your Code<br>API Endpoint 1 & API Endpoint 2]
-
-User --> Devices
-Devices --> Oathkeeper
-
-Oathkeeper -->|protects| API
-Oathkeeper -->|authenticates credentials with| Hydra
-User -->|Registers, log in, manages profiles, ...| Kratos
-Oathkeeper --> Kratos
-Oathkeeper -->|checks permissions with| Keto
-`}
-  width="100%" />
-```
-
 If you were to use the full Ory Ecosystem, it would probably look something like this. Keep in mind that any component shown here
 can be replaced or removed, depending on your use case.
 
