@@ -1,0 +1,82 @@
+---
+id: migration-0x
+title: Migration from Ory Elements 0.x to 1.x
+sidebar_label: Migration from 0.x to 1.x
+---
+
+This guide will show you how to migrate from Ory Elements 0.x to 1.x.
+
+Ory Elements 1.0 is a complete rewrite of the Ory Elements 0.x library. It is not backwards compatible with 0.x.
+
+## Migration from Ory Elements 0.x to 1.x
+
+### Update the package name
+
+```bash
+npm install @ory/elements-react
+```
+
+And change the import path to the new package name.
+
+### `<UserAuthCard />`
+
+Instead of exporting a single UserAuthCard component, the 1.0 version exports a set of components for each flow.
+
+- In most cases, you can simply replace `<UserAuthCard />` with `<Login />`, `<Registration />`, `<Recovery />`, `<Settings />`,
+  or `<Verification />` depending on the flow you are using.
+- Remove the `additionalProps` prop from the components and pass in the configuration object as a prop to each component. You can
+  read more about the configuration in the [configuration guide](./04_configuration.mdx).
+- You no longer need to handle the onSubmit event of the components. The components now handle the form submission automatically
+  based on the configuration object.
+- `includeScripts` is no longer supported. You can remove it from props.
+- `cardImage` is no longer supported. You can remove it from props. Use the `logo_light_url` property in the configuration object
+  to set the logo.
+- `className` is no longer supported. You can remove it from props. Read the [theming guide](./02_theming.mdx) to learn how to
+  customize the look and feel of the components.
+- `title` is no longer supported. You can remove it from props. Read the [configuration guide](./04_configuration.mdx) to learn
+  how to set the title in the card header.
+- `subtitle` is no longer supported. Instead, the card's subtitle will be determined dynamically based on the flow's state.
+
+### `<UserConsentCard />`
+
+The `<UserConsentCard />` component has been removed. You can now use the `<Consent />` component to render the consent page.
+
+- Change the `consent` prop to `consentChallenge`.
+- `cardImage` is no longer supported. You can remove it from props. Use the `logo_light_url` property in the configuration object
+  to set the logo.
+- `client_name` will be inferred from the `consentChallenge` prop. You can remove it.
+- `requested_scope` will be inferred from the `consentChallenge` prop. You can remove it.
+- `client` will be inferred from the `consentChallenge` prop. You can remove it.
+- `className` is no longer supported. You can remove it from props. Read the [theming guide](./02_theming.mdx) to learn how to
+  customize the look and feel of the components.
+
+### `<UserErrorCard />`
+
+The `<UserErrorCard />` component has been removed. You can now use the `<Error />` component to render the error page.
+
+- `title` is no longer supported. You can remove it from props.
+- `error` now supports more variants. In most cases you can pass in the same object, as before.
+- `backUrl` has been removed.
+- `cardImage` is no longer supported. You can remove it from props. Use the `logo_light_url` property in the configuration object
+  to set the logo.
+- `contactSupportEmail` has been removed.
+- `className` is no longer supported. You can remove it from props. Read the [theming guide](./02_theming.mdx) to learn how to
+  customize the look and feel of the components.
+
+### `<UserLogoutCard />`
+
+The `<UserLogoutCard />` component has been removed. You can now use the `useLogoutFlow` hook from the "@ory/nextjs/pages" package
+to build your own logout flow component.
+
+### `<UserSettingsCard />`, `<UserSettingsScreen.Nav />` & `<UserSettingsScreen.Body />`
+
+The `<UserSettingsCard />` component has been removed. You can now use the `<Settings />` component to render the settings page.
+
+- `className` is no longer supported. You can remove it from props. Read the [theming guide](./02_theming.mdx) to learn how to
+  customize the look and feel of the components.
+- `dividerClassName` is no longer supported. You can remove it from props. Read the [theming guide](./02_theming.mdx) to learn how
+  to customize the look and feel of the components.
+- `includeScripts` is no longer supported. You can remove it from props.
+- `title` is no longer supported. You can remove it from props. Read the [configuration guide](./04_configuration.mdx) to learn
+  how to set the title in the card header.
+- `method` is no longer supported. You can remove it from props.
