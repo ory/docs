@@ -86,6 +86,10 @@ export const navbar: Navbar = {
           to: "/docs/sdk",
           label: "Ory SDKs",
         },
+        {
+          to: "/docs/category/operations-reference",
+          label: "Operations",
+        },
       ],
     },
     {
