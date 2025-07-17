@@ -1,5 +1,3 @@
-// Copyright © 2022 Ory Corp
-// SPDX-License-Identifier: Apache-2.0
 import 'package:universal_html/html.dart';
 
 import 'package:dio/dio.dart';
@@ -12,15 +10,18 @@ class AuthService {
   AuthService(Dio dio) : _ory = OryClient(dio: dio).getFrontendApi();
 
   Future<bool> isAuthenticated() async {
-    return _ory.toSession().then((resp) {
-      if (resp.statusCode == 200) {
-        _identity = resp.data;
-        return true;
-      }
-      return false;
-    }).catchError((error) {
-      return false;
-    });
+    return _ory
+        .toSession()
+        .then((resp) {
+          if (resp.statusCode == 200) {
+            _identity = resp.data;
+            return true;
+          }
+          return false;
+        })
+        .catchError((error) {
+          return false;
+        });
   }
 
   Future logout() async {
