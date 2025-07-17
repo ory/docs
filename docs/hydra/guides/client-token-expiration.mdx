@@ -1,7 +1,7 @@
 ---
 id: client-token-expiration
-title: Configure token expiration time
-sidebar_label: Configure token expiration
+title: Configure OAuth2 & OpenID Connect expiration times
+sidebar_label: Configure expiration
 ---
 
 This document describes how to configure the token expiration time for various tokens in Ory, including the user login and consent
@@ -73,6 +73,24 @@ ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
   --replace "/ttl/login_consent_request=\"2h\"" \
   --format yaml
 ```
+
+### Authentication session
+
+The authentication session in Ory defines how long the user remains authenticated after logging in. By default, the authentication
+session lasts for 30 days and the maximum time is 180 days. You can modify this value using the Ory CLI:
+
+```shell
+ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
+  --replace "/ttl/authentication_session=\"30d\"" \
+  --format yaml
+```
+
+The authentication session has no impact on any existing access, refresh, or ID tokens. If it is expired, the user will have to
+perform the "login flow" again when performing the [OAuth2 Authorization Code Flow](../../oauth2-oidc/authorization-code-flow) or
+OpenID Connect Implicit / Hybrid Flow.
+
+Furthermore, [OpenID Connect Back-Channel Logout](../../oauth2-oidc/oidc-logout) won't work if the authentication session is
+expired.
 
 ## Lifespan configuration for specific clients
 
