@@ -17,7 +17,7 @@ the required user information. To add a social sign-in provider, you need these 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-<Tabs>
+<Tabs groupId="console-or-cli">
 <TabItem value="console" label="Ory Console" default>
 
 Follow these steps to add a generic, OIDC-certified social sign-in provider to your project using the Ory Console:
@@ -149,6 +149,71 @@ selfservice:
             claims_source: userinfo # default: "id_token"
             # ...
 ```
+
+### Issuer URL mismatch
+
+Some OIDC providers incorrectly advertise an issuer URL in their openid-configuration that differs from the URL used to serve that
+configuration. This mismatch can cause validation errors when Ory attempts to verify the issuer URL.
+
+Issuer URL validation is a critical security step to ensure tokens originate from the expected provider. If you encounter this
+issue, you can override the default behavior by explicitly specifying a discovery URL. This tells Ory to use the provided
+discovery URL instead of the issuer URL for validation purposes.
+
+<Tabs groupId="console-or-cli">
+<TabItem value="console" label="Ory Console" default>
+
+1. Go to <ConsoleLink route="project.socialSignIn" />.
+2. Click the **Add a new OpenID Connect provider** button or edit an existing generic provider.
+3. In the **Issuer URL** field, enter the URL advertised by the provider.
+4. Enable the **Override discovery URL** option.
+5. In the **Discovery URL** field, enter the URL where Ory can find the provider's openid-configuration.
+6. Click **Save** to finish.
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+
+Follow these steps to add a generic provider as a social sign-in provider to your project using the Ory CLI:
+
+1. Create a client at your generic provider to get a Client ID and Client Secret.
+2. Create a [Jsonnet code snippet](#data-mapping) to map the desired claims to the Ory Identity schema.
+3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
+4. Download the Ory Identities config from your project and save it to a file:
+
+   ```shell
+   ## List all available workspaces
+   ory list workspaces
+
+   ## List all available projects
+   ory list projects --workspace <workspace-id>
+
+   ## Get config
+   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
+   ```
+
+5. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
+   string or provide an URL to the file.
+
+   ```yaml
+   selfservice:
+     methods:
+       oidc:
+         config:
+           providers:
+             - id: generic # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+               provider: generic
+               discovery_base_url: https://example.com/oauth # Replace this with the providers discovery URL
+               # other configuration options ...
+         enabled: true
+   ```
+
+6. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
+   ```
+
+</TabItem>
+</Tabs>
 
 ## Troubleshooting
 
