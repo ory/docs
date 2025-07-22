@@ -91,6 +91,7 @@ const api: SidebarItemsConfig = [
       "guides/rate-limits",
       "guides/ip-allowlist",
       "api/eventual-consistency",
+      "kratos/reference/jsonnet",
     ],
   },
 ]
@@ -575,7 +576,6 @@ const kratos: SidebarItemsConfig = [
           "kratos/reference/configuration",
           "kratos/reference/json-schema-json-paths",
           "kratos/reference/html-forms",
-          "kratos/reference/jsonnet",
         ],
       },
     ],
