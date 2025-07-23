@@ -3,7 +3,7 @@ id: rest-api-guidelines
 title: REST API Guidelines
 ---
 
-This design documents provides guidelines for specifying API documentation in Go Code using go-swagger, OpenAPI 3.0, and OpenAPI
+This design document provides guidelines for specifying API documentation in Go Code using go-swagger, OpenAPI 3.0, and OpenAPI
 Generator. This document standardizes Ory's V1 API contract.
 
 ## Context and Reference
