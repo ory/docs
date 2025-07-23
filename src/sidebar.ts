@@ -91,6 +91,7 @@ const api: SidebarItemsConfig = [
       "guides/rate-limits",
       "guides/ip-allowlist",
       "api/eventual-consistency",
+      "kratos/reference/jsonnet",
     ],
   },
 ]
@@ -461,6 +462,12 @@ const kratos: SidebarItemsConfig = [
           "kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
           "kratos/bring-your-own-ui/custom-vs-built-in-ui",
           {
+            type: "doc",
+            id: "elements/index",
+            label: "Ory Elements",
+            className: "external-link",
+          },
+          {
             type: "category",
             label: "Build your own UI",
             link: {
@@ -476,9 +483,6 @@ const kratos: SidebarItemsConfig = [
                 id: "elements/index",
                 label: "Ory Elements",
                 className: "external-link",
-                customProps: {
-                  asd: "asd",
-                },
               },
             ],
           },
@@ -575,7 +579,6 @@ const kratos: SidebarItemsConfig = [
           "kratos/reference/configuration",
           "kratos/reference/json-schema-json-paths",
           "kratos/reference/html-forms",
-          "kratos/reference/jsonnet",
         ],
       },
     ],
