@@ -213,12 +213,12 @@ To migrate from an existing system, you can bulk import identities into Kratos a
 
 ## Troubleshooting
 
-| Error Code           | Description                                                 |
-| -------------------- | ----------------------------------------------------------- |
-| `409`                | Conflict: `external_id` already exists                      |
-| `400`                | Invalid payload                                             |
-| `504`                | Timeout — reduce batch size or pre-hash passwords           |
-| Tokenization failure | Occurs if `external_id` is not set but is required as `sub` |
+| Error / Code                | Context                      | Description                                                                                                                                                                                                |
+| --------------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `409 Conflict`              | **Migration** (batch import) | One or more identities have a duplicate `external_id`. Ensure all values are unique.                                                                                                                       |
+| `400 Bad Request`           | **Migration** (batch import) | The request payload is invalid or improperly formatted. Check JSON structure and required fields.                                                                                                          |
+| `504 Gateway Timeout`       | **Migration** (batch import) | The batch is too large or includes plaintext passwords. Reduce batch size or [pre-hash passwords](https://www.ory.sh/docs/kratos/manage-identities/import-user-accounts-identities#pre-hashing-passwords). |
+| `500 Internal Server Error` | **Session token generation** | If `subject_source = external_id` is configured, the session will not tokenize unless the identity has an `external_id` set.                                                                               |
 
 For advanced examples, see:
 
