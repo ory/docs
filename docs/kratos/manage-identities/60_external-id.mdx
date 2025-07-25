@@ -9,6 +9,13 @@ This guide explains how to configure and use the `external_id` field in Ory Krat
 `customer_id`, `employee_id`, or similar. This is especially useful for migrations from systems where you need to preserve
 identifiers or support user-defined primary identifiers.
 
+:::note
+
+The `external_id` must be unique across all identities. If you attempt to import multiple identities with the same `external_id`,
+the operation will fail with a `409 Conflict`.
+
+:::
+
 ---
 
 ## Overview
@@ -171,9 +178,9 @@ If `external_id` is missing, tokenization will fail.
 To migrate from an existing system, you can bulk import identities into Kratos and set their `external_id` using the
 [batch API](https://www.ory.sh/docs/reference/api#tag/identity/operation/batchPatchIdentities).
 
-### Use: `PATCH /admin/identities`
+### Use `PATCH /admin/identities`
 
-#### Example: basic import
+#### Example: Basic import
 
 ```json
 [
@@ -187,7 +194,7 @@ To migrate from an existing system, you can bulk import identities into Kratos a
 ]
 ```
 
-#### Example: with pre-hashed password
+#### Example: With pre-hashed password
 
 ```json
 [
@@ -211,23 +218,23 @@ To migrate from an existing system, you can bulk import identities into Kratos a
 ### Migration tips
 
 - Pre-hash passwords to avoid timeouts
-- Validate external_id uniqueness before import
+- Validate `external_id` uniqueness before import
 - Import in smaller batches (≤ 200 identities if using plaintext passwords)
 
 ---
 
 ## Troubleshooting
 
-| Error Code           | Description                                              |
-| -------------------- | -------------------------------------------------------- |
-| `409`                | Conflict: external_id already exists                     |
-| `400`                | Invalid payload                                          |
-| `504`                | Timeout — reduce batch size or pre-hash passwords        |
-| Tokenization failure | Occurs if `external_id` is not set but required as `sub` |
+| Error Code           | Description                                                 |
+| -------------------- | ----------------------------------------------------------- |
+| `409`                | Conflict: `external_id` already exists                      |
+| `400`                | Invalid payload                                             |
+| `504`                | Timeout — reduce batch size or pre-hash passwords           |
+| Tokenization failure | Occurs if `external_id` is not set but is required as `sub` |
 
 ---
 
 For advanced examples, see:
 
 - [Tokenization with Jsonnet](../../identities/session-to-jwt-cors)
-- [Importing Users in Bulk](../../kratos/manage-identities/import-user-accounts-identities)
+- [Importing Users in Bulk](../../kratos/manage-identities/import-user-accounts-identities#bulk-import-identities-from-other-providers)
