@@ -1,0 +1,231 @@
+---
+id: external-id
+title: External Identifiers
+---
+
+# Using external identifiers (`external_id`)
+
+This guide explains how to configure and use the `external_id` field in Ory Kratos to support custom identity keys such as
+`customer_id`, `employee_id`, or similar. This is especially useful for enterprise migrations from systems like ForgeRock,
+PingFederate, or Okta that support user-defined primary identifiers.
+
+---
+
+## Overview
+
+Traditionally, Ory Kratos identifies users using an internal `identity.id` UUID. With the `external_id` feature, you can:
+
+- Assign a unique, domain-specific identifier to each identity.
+- Query and manage identities using `external_id`.
+- Use `external_id` as the `sub` (subject) claim in JWTs.
+- Preserve identity semantics across systems during migration.
+
+This helps simplify migrations, reduce mapping layers, and align Kratos with your existing infrastructure.
+
+---
+
+## Configuration
+
+### 1. use `external_id` via api, not schema
+
+The `external_id` is **not** part of the identity JSON Schema. Instead, it is a dedicated top-level attribute in API requests that
+create or update identities.
+
+:::warning
+
+Do not add `external_id` to your identity schema definition. It is handled separately by Kratos internally.
+
+:::
+
+### 2. use `external_id` in jwt `sub` claim
+
+Set the `subject_source` to `external_id` in the tokenization config:
+
+```yaml
+session:
+  whoami:
+    tokenizer:
+      templates:
+      jwt_template_1:
+        jwks_url: base64://... # A JSON Web Key Set (required)
+        claims_mapper_url: base64://... # A JsonNet template for modifying the claims
+        ttl: 1m # 1 minute (defaults to 10 minutes)
+        subject_source: external_id
+      another_jwt_template:
+        jwks_url: base64://... # A JSON Web Key Set
+```
+
+This will populate the `sub` claim in JWTs with the value of `external_id`.
+
+:::warning
+
+If `external_id` is not set for a user when `subject_source` is `external_id`, tokenization will fail.
+
+:::
+
+---
+
+## API usage
+
+### Create an identity with `external_id`
+
+```http
+POST /admin/identities
+Content-Type: application/json
+
+{
+  "schema_id": "default",
+  "traits": {
+    "email": "user@example.com"
+  },
+  "external_id": "customer-12345"
+}
+```
+
+### Get identity by external id
+
+```http
+GET /admin/identities/by/external/customer-12345
+```
+
+#### Optional query parameter
+
+- `include_credential=password,oidc,...` — Include specific credentials in the response.
+
+#### Example:
+
+```http
+GET /admin/identities/by/external/customer-12345?include_credential=password
+```
+
+#### Response:
+
+```json
+{
+  "id": "uuid-abc123",
+  "external_id": "customer-12345",
+  "traits": {
+    "email": "user@example.com"
+  },
+  "credentials": {
+    "password": { ... }
+  }
+}
+```
+
+#### Error responses:
+
+- `404` – Identity not found.
+- `409` – Duplicate `external_id` on creation.
+- `400` – Invalid request structure.
+
+---
+
+### Other APIs
+
+There are no other additional APIs that support `external_id`, for the APIs that require a Kratos `identity_id` you will have to
+use the `Get identity by external id` API above and use the identity id from there.
+
+## JWT configuration
+
+### Jsonnet example
+
+When [tokenizing sessions](../../identities/session-to-jwt-cors), `external_id` is available in the session context:
+
+```jsonnet
+local claims = std.extVar('claims');
+local session = std.extVar('session');
+
+{
+  claims: {
+    iss: claims.iss + "/additional-component",
+    schema_id: session.identity.schema_id,
+    external_id: session.identity.external_id,
+    session: session,
+  }
+}
+```
+
+### Token behavior with `external_id`
+
+If `subject_source` is set to `external_id` in the tokenizer template, the JWT's `sub` claim becomes:
+
+```json
+{
+  "sub": "customer-12345"
+}
+```
+
+:::warning
+
+If `external_id` is missing, tokenization will fail.
+
+:::
+
+---
+
+## Migration guide
+
+If you're migrating from ForgeRock or a similar IAM that uses domain-specific IDs, you can import identities into Kratos with
+their `external_id` using the [batch API](https://www.ory.sh/docs/reference/api#tag/identity/operation/batchPatchIdentities).
+
+### Use: `PATCH /admin/identities`
+
+#### Example: basic import
+
+```json
+[
+  {
+    "schema_id": "default",
+    "external_id": "customer-001",
+    "traits": {
+      "email": "alice@example.com"
+    }
+  }
+]
+```
+
+#### Example: with pre-hashed password
+
+```json
+[
+  {
+    "schema_id": "default",
+    "external_id": "customer-002",
+    "traits": {
+      "email": "bob@example.com"
+    },
+    "credentials": {
+      "password": {
+        "config": {
+          "hashed_password": "$2b$12$abc123..." // bcrypt hash
+        }
+      }
+    }
+  }
+]
+```
+
+### Migration tips
+
+- Pre-hash passwords to avoid timeouts
+- Validate external_id uniqueness before import
+- Import in smaller batches (≤ 200 identities if using plaintext passwords)
+
+---
+
+## Troubleshooting
+
+| Error Code           | Description                                              |
+| -------------------- | -------------------------------------------------------- |
+| `409`                | Conflict: external_id already exists                     |
+| `400`                | Invalid payload                                          |
+| `504`                | Timeout — reduce batch size or pre-hash passwords        |
+| Tokenization failure | Occurs if `external_id` is not set but required as `sub` |
+
+---
+
+For advanced examples, see:
+
+- [Tokenization with Jsonnet](../../identities/session-to-jwt-cors)
+- [Importing Users in Bulk](../../kratos/manage-identities/import-user-accounts-identities)

@@ -433,6 +433,8 @@ const kratos: SidebarItemsConfig = [
               "kratos/manage-identities/scim/okta",
             ],
           },
+
+          "kratos/manage-identities/external-id",
         ],
       },
       {
