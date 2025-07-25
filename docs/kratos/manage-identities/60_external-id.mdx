@@ -29,7 +29,7 @@ This helps simplify migrations, reduce mapping layers, and align Kratos with you
 
 ## Configuration
 
-### 1. use `external_id` via api, not schema
+### 1. Use `external_id` via api, not schema
 
 The `external_id` is **not** part of the identity JSON Schema. Instead, it is a dedicated top-level attribute in API requests that
 create or update identities.
@@ -40,7 +40,7 @@ Do not add `external_id` to your identity schema definition. It is handled separ
 
 :::
 
-### 2. use `external_id` in jwt `sub` claim
+### 2. Use `external_id` in jwt `sub` claim
 
 Set the `subject_source` to `external_id` in the tokenization config:
 
