@@ -4,6 +4,21 @@ title: Changelog for Ory Kratos OEL
 sidebar_label: Changelog
 ---
 
+## 2025-07-25
+
+Tag: `beebb63c5cd4a58b218a792027b34d231735dc05`
+
+### Support for External Identity IDs
+
+Identity admins can now set an external_id field on an identity. If set, the external ID must be unique within the project. Admins
+can retrieve an identity by external ID through the /admin/identities/by/external/{id} endpoint. In responses, the external_id is
+contained in all identity and session responses. When tokenizing a session, the external_id is available in the Jsonnet context.
+Optionally, admins can set the subject_source option on the tokenization config to external_id, in which case the sub claim will
+be the external ID. Note that in this case tokenization fails if the external ID is not set for the identity bound to that
+session.
+
+This release needs previous version (`097934fff2bda05c808d962a92f52140f80dff83`) to be applied first
+
 ## 2025-06-11
 
 Tag: `290abca8469dc46c1ba07708849fed28fdbc1b69`
