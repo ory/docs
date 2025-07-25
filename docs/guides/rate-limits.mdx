@@ -162,10 +162,47 @@ Endpoint based rate limits are controls applied to individual API endpoints with
 which govern overall project request volumes, endpoint based rate limits focus on safeguarding specific functionalities against
 abuse.
 
-### How endpoint based rate limits work
+### Purpose of endpoint-based rate limits
 
-These limits act as a first line of defense for your project endpoints. They analyze incoming request patterns and consider
-factors such as:
+Ory implements endpoint-based rate limits to proactively secure individual endpoints and protect against common attack vectors
+like brute-force and credential stuffing, while allowing for higher volumes of legitimate traffic from trusted sources. These
+attacks typically involve numerous attempts to guess credentials or exploit vulnerabilities, often from a limited set of IP
+addresses.
+
+1. **Enhanced security:**
+
+   - Restricts the number of requests from specific sources within a given timeframe.
+   - Makes it significantly harder for attackers to succeed with brute-force or credential stuffing attacks.
+   - Strengthens the security of your Ory projects and protects sensitive user data.
+
+2. **Protection against malicious bots:**
+
+   - Differentiates between genuine user traffic and potentially harmful bot activity.
+   - Analyzes request patterns to identify and block automated malicious activities.
+
+3. **Safeguarding specific endpoints:**
+
+   - Offers granular control over how each endpoint handles traffic and responds to potential threats.
+   - Allows fine-tuning of security measures for individual endpoints.
+   - Optimizes protection without compromising the user experience.
+
+4. **Fair usage:**
+
+   - Complements project rate limits in ensuring fair resource allocation.
+   - Contributes to a fairer and more stable platform for all users by mitigating abusive traffic.
+
+5. **Flexibility for high-volume legitimate traffic:**
+   - Provides options for Enterprise and Growth customers to whitelist internal IPs for higher rate limits.
+   - Balances security needs with the requirements of high-volume legitimate traffic.
+
+### Types of endpoint-based protection
+
+These limits act as a first line of defense for your project endpoints. Ory implements multiple layers of endpoint-based
+protection:
+
+#### Traditional Rate Limiting
+
+Analyzes incoming request patterns and considers factors such as:
 
 - Source IP Address: Identifies and potentially blocks requests from suspicious sources or those exhibiting behavior indicative of
   malicious activity.
@@ -176,44 +213,40 @@ factors such as:
 - Request Method: May apply different limits based on the HTTP method used (GET, POST, etc.).
 - IP Whitelist Status: Applies higher limits to whitelisted IPs for Enterprise and Growth customers.
 
-### Purpose endpoint based rate limits
+#### Inflight Request Limiting
 
-Ory implements endpoint based rate limits to proactively secure individual endpoints and protect against common attack vectors
-like brute-force and credential stuffing, while allowing for higher volumes of legitimate traffic from trusted sources. These
-attacks typically involve numerous attempts to guess credentials or exploit vulnerabilities, often from a limited set of IP
-addresses.
+In addition to traditional rate limiting, Ory employs inflight request limiting to protect critical administrative resources from
+concurrent access issues. This mechanism prevents multiple parallel requests to sensitive endpoints that could cause data
+inconsistency or resource conflicts.
 
-1. Enhanced security:
+The inflight rate limiting middleware protects critical Kratos endpoints that could be subject to concurrent request attacks,
+preventing race conditions and ensuring data consistency. This protection ensures that administrative operations complete safely
+without interference from concurrent requests, maintaining data integrity and system stability.
 
-   - Restricts the number of requests from specific sources within a given timeframe.
-   - Makes it significantly harder for attackers to succeed with brute-force or credential stuffing attacks.
-   - Strengthens the security of your Ory projects and protects sensitive user data.
+### Protected endpoints
 
-2. Protection against malicious bots:
+The following endpoints are protected by different types of rate limiting:
 
-   - Differentiates between genuine user traffic and potentially harmful bot activity.
-   - Analyzes request patterns to identify and block automated malicious activities.
+| Type        | Endpoint                          | HTTP Methods      | Ratelimit Key                           | Action                                 |
+| ----------- | --------------------------------- | ----------------- | --------------------------------------- | -------------------------------------- |
+| Brute-force |                                   |                   |                                         | To be added later                      |
+| Inflight    | `/admin/identities`               | POST, PUT, DELETE | `{project_id} + {full_path}`            | Blocks concurrent requests (enforced)  |
+| Inflight    | `/admin/identities/{id}`          | PUT, DELETE       | `{project_id} + {full_path}`            | Blocks concurrent requests (enforced)  |
+| Inflight    | `/admin/identities/{id}/sessions` | DELETE            | `{project_id} + {full_path}`            | Blocks concurrent requests (enforced)  |
+| Inflight    | `/admin/sessions`                 | DELETE            | `{project_id} + {full_path}`            | Logs concurrent requests (report-only) |
+| Inflight    | `/admin/sessions/{id}`            | DELETE, PATCH     | `{project_id} + {full_path}`            | Logs concurrent requests (report-only) |
+| Inflight    | `/admin/sessions/{id}/extend`     | PATCH             | `{project_id} + {full_path}`            | Logs concurrent requests (report-only) |
+| Inflight    | `/self-service/recovery`          | POST              | `{project_id} + {path} + {email\|flow_id}` | Logs concurrent requests (report-only) |
 
-3. Safeguarding specific endpoints:
+**Note**: Report-only endpoints are observed over a period of time before enforcement is enabled. They currently log rate limit
+violations for monitoring purposes but do not block requests, while enforced endpoints return HTTP 429 when rate limits are
+exceeded. GET, OPTIONS, and HEAD requests are exempt from rate limiting.
 
-   - Offers granular control over how each endpoint handles traffic and responds to potential threats.
-   - Allows fine-tuning of security measures for individual endpoints.
-   - Optimizes protection without compromising the user experience.
-
-4. Fair usage:
-
-   - Complements project rate limits in ensuring fair resource allocation.
-   - Contributes to a fairer and more stable platform for all users by mitigating abusive traffic.
-
-5. Flexibility for high volume legitimate traffic:
-   - Provides options for Enterprise and Growth customers to whitelist internal IPs for higher rate limits.
-   - Balances security needs with the requirements of high-volume legitimate traffic.
-
-### Notes on rate limit rules
+### Configuration and management
 
 #### Rule management
 
-The endpoint based rate limit rules are set and managed by Ory. These rules are not directly configurable by Enterprise and Growth
+The endpoint-based rate limit rules are set and managed by Ory. These rules are not directly configurable by Enterprise and Growth
 customers yet.
 
 #### IP Whitelisting for Enterprise and Growth plans
