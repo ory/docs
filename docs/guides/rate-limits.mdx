@@ -170,24 +170,20 @@ attacks typically involve numerous attempts to guess credentials or exploit vuln
 addresses.
 
 1. **Enhanced security:**
-
    - Restricts the number of requests from specific sources within a given timeframe.
    - Makes it significantly harder for attackers to succeed with brute-force or credential stuffing attacks.
    - Strengthens the security of your Ory projects and protects sensitive user data.
 
 2. **Protection against malicious bots:**
-
    - Differentiates between genuine user traffic and potentially harmful bot activity.
    - Analyzes request patterns to identify and block automated malicious activities.
 
 3. **Safeguarding specific endpoints:**
-
    - Offers granular control over how each endpoint handles traffic and responds to potential threats.
    - Allows fine-tuning of security measures for individual endpoints.
    - Optimizes protection without compromising the user experience.
 
 4. **Fair usage:**
-
    - Complements project rate limits in ensuring fair resource allocation.
    - Contributes to a fairer and more stable platform for all users by mitigating abusive traffic.
 
@@ -227,15 +223,15 @@ without interference from concurrent requests, maintaining data integrity and sy
 
 The following endpoints are protected by different types of rate limiting:
 
-| Type        | Endpoint                          | HTTP Methods      | Ratelimit Key                           | Action                                 |
-| ----------- | --------------------------------- | ----------------- | --------------------------------------- | -------------------------------------- |
-| Brute-force |                                   |                   |                                         | To be added later                      |
-| Inflight    | `/admin/identities`               | POST, PUT, DELETE | `{project_id} + {full_path}`            | Blocks concurrent requests (enforced)  |
-| Inflight    | `/admin/identities/{id}`          | PUT, DELETE       | `{project_id} + {full_path}`            | Blocks concurrent requests (enforced)  |
-| Inflight    | `/admin/identities/{id}/sessions` | DELETE            | `{project_id} + {full_path}`            | Blocks concurrent requests (enforced)  |
-| Inflight    | `/admin/sessions`                 | DELETE            | `{project_id} + {full_path}`            | Logs concurrent requests (report-only) |
-| Inflight    | `/admin/sessions/{id}`            | DELETE, PATCH     | `{project_id} + {full_path}`            | Logs concurrent requests (report-only) |
-| Inflight    | `/admin/sessions/{id}/extend`     | PATCH             | `{project_id} + {full_path}`            | Logs concurrent requests (report-only) |
+| Type        | Endpoint                          | HTTP Methods      | Ratelimit Key                              | Action                                 |
+| ----------- | --------------------------------- | ----------------- | ------------------------------------------ | -------------------------------------- |
+| Brute-force |                                   |                   |                                            | To be added later                      |
+| Inflight    | `/admin/identities`               | POST, PUT, DELETE | `{project_id} + {full_path}`               | Blocks concurrent requests (enforced)  |
+| Inflight    | `/admin/identities/{id}`          | PUT, DELETE       | `{project_id} + {full_path}`               | Blocks concurrent requests (enforced)  |
+| Inflight    | `/admin/identities/{id}/sessions` | DELETE            | `{project_id} + {full_path}`               | Blocks concurrent requests (enforced)  |
+| Inflight    | `/admin/sessions`                 | DELETE            | `{project_id} + {full_path}`               | Logs concurrent requests (report-only) |
+| Inflight    | `/admin/sessions/{id}`            | DELETE, PATCH     | `{project_id} + {full_path}`               | Logs concurrent requests (report-only) |
+| Inflight    | `/admin/sessions/{id}/extend`     | PATCH             | `{project_id} + {full_path}`               | Logs concurrent requests (report-only) |
 | Inflight    | `/self-service/recovery`          | POST              | `{project_id} + {path} + {email\|flow_id}` | Logs concurrent requests (report-only) |
 
 **Note**: Report-only endpoints are observed over a period of time before enforcement is enabled. They currently log rate limit

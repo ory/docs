@@ -125,7 +125,6 @@ The main steps in the passwordless login flow are, as follows:
    dialog in the browser, asking the user to choose an authenticator.
 4. WebAuthn delegates identity verification to the browser, passing the challenge and the choice of authenticator to the browser.
    The browser invokes the chosen authenticator to verify the user's identity.
-
    - **On-device authenticator:** If the user authenticates successfully, the platform selects the key pair that matches this app
      and uses the private key to sign the challenge.
    - **External authenticator:** Identity verification is delegated to the external device, which holds the private key that is
