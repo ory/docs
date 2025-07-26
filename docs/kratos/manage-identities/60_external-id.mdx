@@ -29,7 +29,7 @@ This helps simplify migrations, reduce mapping layers, and align Kratos with you
 
 ## Configuration
 
-### 1. Use `external_id` via api, not schema
+### 1. Use `external_id` via API, not schema
 
 The `external_id` is **not** part of the identity JSON Schema. Instead, it is a dedicated top-level attribute in API requests that
 create or update identities.
@@ -40,7 +40,7 @@ Do not add `external_id` to your identity schema definition. It is handled separ
 
 :::
 
-### 2. Use `external_id` in jwt `sub` claim
+### 2. Use `external_id` in JWT `sub` claim
 
 Set the `subject_source` to `external_id` in the tokenization config:
 
@@ -123,7 +123,7 @@ GET /admin/identities/by/external/customer-12345?include_credential=password
 :::note
 
 There are no other APIs that support `external_id`, for the APIs that require a Kratos `identity_id` you need to use the
-`Get identity by external id` API above and use the identity id from there.
+[Get identity by external_id](#get-identity-by-external_id) API above and use the identity id from there.
 
 :::
 
@@ -170,7 +170,7 @@ To migrate from an existing system, you can bulk import identities into Kratos a
 
 ### Use `PATCH /admin/identities`
 
-#### Example: Basic import
+#### Basic import example
 
 ```json
 [
@@ -184,7 +184,7 @@ To migrate from an existing system, you can bulk import identities into Kratos a
 ]
 ```
 
-#### Example: With pre-hashed password
+#### Pre-hashed password example
 
 ```json
 [
