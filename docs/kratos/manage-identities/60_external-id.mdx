@@ -3,8 +3,6 @@ id: external-id
 title: External Identifiers
 ---
 
-# Using external identifiers (`external_id`)
-
 This guide explains how to configure and use the `external_id` field in Ory Kratos to support external primary identifiers such as
 `customer_id`, `employee_id`, or similar. This is especially useful for migrations from systems where you need to preserve
 identifiers or support user-defined primary identifiers.
@@ -29,18 +27,14 @@ This helps simplify migrations, reduce mapping layers, and align Kratos with you
 
 ## Configuration
 
-### 1. Use `external_id` via API, not schema
+### Use `external_id` via API, not schema
 
 The `external_id` is **not** part of the identity JSON Schema. Instead, it is a dedicated top-level attribute in API requests that
 create or update identities.
 
-:::warning
+Do not add `external_id` to your identity schema definition. It is handled separately by Ory Kratos internally.
 
-Do not add `external_id` to your identity schema definition. It is handled separately by Kratos internally.
-
-:::
-
-### 2. Use `external_id` in JWT `sub` claim
+### Use `external_id` in JWT `sub` claim
 
 Set the `subject_source` to `external_id` in the tokenization config:
 
@@ -60,11 +54,7 @@ session:
 
 This will populate the `sub` claim in JWTs with the value of `external_id`.
 
-:::warning
-
 If `external_id` is not set for a user when `subject_source` is `external_id`, tokenization will fail.
-
-:::
 
 ## API usage
 
@@ -157,16 +147,12 @@ If `subject_source` is set to `external_id` in the tokenizer template, the JWT's
 }
 ```
 
-:::warning
-
 If `external_id` is missing, tokenization will fail.
-
-:::
 
 ## Migration guide
 
 To migrate from an existing system, you can bulk import identities into Kratos and set their `external_id` using the
-[Batch API](https://www.ory.sh/docs/reference/api#tag/identity/operation/batchPatchIdentities).
+[Identity Import API](../reference/api#tag/identity/operation/batchPatchIdentities).
 
 ### Use `PATCH /admin/identities`
 
