@@ -1210,6 +1210,11 @@ const oel: SidebarItemsConfig = [
       "self-hosted/oel/kratos/changelog",
     ],
   },
+  {
+    type: "category",
+    label: "Ory Polis",
+    items: ["self-hosted/oel/polis/changelog"],
+  },
   "self-hosted/oel/monitoring/monitoring",
 ]
 
