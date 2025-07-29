@@ -37,24 +37,6 @@ When using CockroachDB Enterprise:
 - Zero-downtime migrations.
 - Automatic clean up of stale records - no Hydra Janitor needed.
 
-## Ory Oathkeeper Enterprise License
-
-The Ory Oathkeeper Enterprise license includes additional features and support for enterprise customers:
-
-- Regular releases addressing CVEs and security vulnerabilities.
-
-## Ory Polis Enterprise License
-
-The Ory Polis Enterprise license includes additional features and support for enterprise customers:
-
-- Regular releases addressing CVEs and security vulnerabilities.
-
-## Ory Kratos Enterprise License
-
-The Ory Kratos Enterprise license includes additional features and support for enterprise customers:
-
-- Regular releases addressing CVEs and security vulnerabilities.
-
 ### Ory Hydra Docker Registry
 
 There are two Docker registries available in different regions:
@@ -67,35 +49,6 @@ Image tags:
 import ImageTagsHydra from "./oel-hydra-image-tags.md"
 
 <ImageTagsHydra />
-
-### Ory Oathkeeper Docker Registry
-
-This is Docker registries available in the EU region:
-`europe-docker.pkg.dev/ory-artifacts/ory-enterprise-oathkeeper/oathkeeper-oel`
-
-import ImageTagsOathkeeper from "./oel-oathkeeper-image-tags.md"
-
-Image tags:
-
-<ImageTagsOathkeeper />
-
-import ImageTagsKratos from "./oel-kratos-image-tags.md"
-
-Image tags:
-
-<ImageTagsKratos />
-
-### Docker
-
-Enterprise Docker images are kept in a private registry that requires authorization. An authorization key is provided for each
-customer separately. The next steps assume that the key is stored in `keyfile.json`.
-
-To authenticate to docker registry execute:
-
-```
-gcloud auth activate-service-account --key-file=keyfile.json
-gcloud auth configure-docker europe-docker.pkg.dev
-```
 
 To run the Ory Hydra Enterprise build, you need to set the `DSN` environment variable to the
 [database connection string](../deployment.md) and provide a [configuration file](../../hydra/reference/configuration.mdx).
@@ -179,4 +132,65 @@ Install Ory Hydra
 
 ```
 helm install ory-oel-hydra ory/hydra --namespace ory --create-namespace -f values.yaml
+```
+
+## Ory Oathkeeper Enterprise License
+
+The Ory Oathkeeper Enterprise license includes additional features and support for enterprise customers:
+
+- Regular releases addressing CVEs and security vulnerabilities.
+
+### Ory Oathkeeper Docker Registry
+
+This is Docker registries available in the EU region:
+`europe-docker.pkg.dev/ory-artifacts/ory-enterprise-oathkeeper/oathkeeper-oel`
+
+import ImageTagsOathkeeper from "./oel-oathkeeper-image-tags.md"
+
+Image tags:
+
+<ImageTagsOathkeeper />
+
+## Ory Polis Enterprise License
+
+The Ory Polis Enterprise license includes additional features and support for enterprise customers:
+
+- Regular releases addressing CVEs and security vulnerabilities.
+
+### Ory Polis Docker Registry
+
+This is Docker registries available in the EU region: `europe-docker.pkg.dev/ory-artifacts/ory-enterprise-polis/polis-oel`
+
+import ImageTagsPolis from "./oel-polis-image-tags.md"
+
+Image tags:
+
+<ImageTagsPolis />
+
+## Ory Kratos Enterprise License
+
+The Ory Kratos Enterprise license includes additional features and support for enterprise customers:
+
+- Regular releases addressing CVEs and security vulnerabilities.
+
+### Ory Kratos Docker Registry
+
+This is Docker registries available in the EU region: `europe-docker.pkg.dev/ory-artifacts/ory-enterprise-kratos/kratos-oel`
+
+import ImageTagsKratos from "./oel-kratos-image-tags.md"
+
+Image tags:
+
+<ImageTagsKratos />
+
+## Docker Registry
+
+Enterprise Docker images are kept in a private registry that requires authorization. An authorization key is provided for each
+customer separately. The next steps assume that the key is stored in `keyfile.json`.
+
+To authenticate to docker registry execute:
+
+```
+gcloud auth activate-service-account --key-file=keyfile.json
+gcloud auth configure-docker europe-docker.pkg.dev
 ```
