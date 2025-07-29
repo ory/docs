@@ -187,7 +187,7 @@ export const frontendFrameworks: {
         "Integrate authentication into your Next.js application with Ory",
       language: "nextjs",
       languageLogoAlt: "Next.js logo",
-      docs: "/docs/getting-started/integrate-auth/nextjs",
+      docs: "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
     },
     {
       title: "Vue.js integration",
@@ -263,6 +263,60 @@ export const deploymentOptions: {
       language: "github",
       languageLogoAlt: "GitHub icon",
       docs: "/docs/open-source",
+    },
+  ],
+}
+
+export const elements: {
+  id: string
+  title: string
+  description: string
+  cards: CardItem[]
+} = {
+  id: "elements",
+  title: "Ory Elements Quickstart",
+  description: "Quickly add authentication to your app with Ory Elements",
+  cards: [
+    {
+      title: "Next.js (App Router)",
+      description:
+        "Learn how to use Ory Elements in your Next.js application with the App Router.",
+      logoUrl: "/docs/img/examples/nextjs.svg",
+      docs: "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
+    },
+    {
+      title: "Next.js (Pages Router)",
+      description:
+        "Learn how to use Ory Elements in your Next.js application with the Pages Router.",
+      logoUrl: "/docs/img/examples/nextjs.svg",
+      docs: "/docs/getting-started/integrate-auth/nextjs-pages-router-quickstart",
+    },
+  ],
+}
+
+export const elementsGuides: {
+  id: string
+  title: string
+  description: string
+  cards: CardItem[]
+} = {
+  id: "elements",
+  title: "Ory Elements Guides",
+  description: "",
+  cards: [
+    {
+      title: "Next.js (App Router)",
+      description:
+        "Learn how to use Ory Elements in your Next.js application with the App Router.",
+      logoUrl: "/docs/img/examples/nextjs.svg",
+      docs: "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
+    },
+    {
+      title: "Next.js (Pages Router)",
+      description:
+        "Learn how to use Ory Elements in your Next.js application with the Pages Router.",
+      logoUrl: "/docs/img/examples/nextjs.svg",
+      docs: "/docs/getting-started/integrate-auth/nextjs-pages-router-quickstart",
     },
   ],
 }

@@ -44,6 +44,10 @@ export const navbar: Navbar = {
           to: "/docs/self-hosted/oel",
           label: "Ory Enterprise License",
         },
+        {
+          to: "/docs/elements",
+          label: "Ory Elements",
+        },
       ],
     },
     {
@@ -81,6 +85,10 @@ export const navbar: Navbar = {
         {
           to: "/docs/sdk",
           label: "Ory SDKs",
+        },
+        {
+          to: "/docs/category/operations-reference",
+          label: "Operations",
         },
       ],
     },

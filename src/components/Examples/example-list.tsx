@@ -1,10 +1,11 @@
 import React from "react"
 import styles from "./example-list.module.css"
+import Link from "@docusaurus/Link"
 
 export interface PropTypes {
-  id
-  title?
-  description?
+  id: string
+  title?: string
+  description?: string
   examples: Array<ExampleCard>
 }
 
@@ -44,11 +45,7 @@ const ExampleCard = ({
       </div>
 
       <div className={styles.cardbuttongroup}>
-        <button
-          className={styles.cardbutton}
-          onClick={() => (location.href = `${repo}`)}
-          type="button"
-        >
+        <Link className={styles.cardbutton} href={repo} target="_blank">
           <svg
             className={styles.cardbuttonimg}
             width="16"
@@ -70,13 +67,9 @@ const ExampleCard = ({
             <path d="M6.125 12.85C6.13625 12.9113 6.07375 12.975 5.985 12.99C5.89625 13.005 5.81625 12.9688 5.805 12.9075C5.79375 12.8463 5.8575 12.7825 5.945 12.7675C6.0325 12.7525 6.11375 12.7888 6.125 12.85Z" />
           </svg>
           Code
-        </button>
+        </Link>
         {docs && (
-          <button
-            className={styles.cardbutton}
-            onClick={() => (location.href = `${docs}`)}
-            type="button"
-          >
+          <Link className={styles.cardbutton} href={docs}>
             <svg
               className={styles.cardbuttonimg}
               width="16"
@@ -91,7 +84,7 @@ const ExampleCard = ({
               />
             </svg>
             Docs
-          </button>
+          </Link>
         )}
       </div>
     </section>

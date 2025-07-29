@@ -65,13 +65,13 @@ A flow in Ory consists of five operations:
 
 This table shows the methods available for each flow:
 
-| Flow         | Methods                                                            |
-| ------------ | ------------------------------------------------------------------ |
-| login        | `password`, `oidc`, `totp`, `webauthn`, `lookup_secret`            |
-| registration | `password`, `oidc`, `webauthn`                                     |
-| settings     | `profile`, `password`, `oidc`, `lookup_secret`, `webauthn`, `totp` |
-| recovery     | `link`, `code`                                                     |
-| verification | `link`, `code`                                                     |
+| Flow         | Methods                                                                       |
+| ------------ | ----------------------------------------------------------------------------- |
+| login        | `password`, `oidc`, `totp`, `webauthn`, `lookup_secret`, `passkey`            |
+| registration | `password`, `oidc`, `webauthn`, `passkey`                                     |
+| settings     | `profile`, `password`, `oidc`, `lookup_secret`, `webauthn`, `totp`, `passkey` |
+| recovery     | `link`, `code`                                                                |
+| verification | `link`, `code`                                                                |
 
 :::note
 

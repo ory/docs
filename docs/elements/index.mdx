@@ -1,0 +1,33 @@
+---
+id: index
+title: Ory Elements Introduction
+---
+
+import WelcomePageSection from "@site/src/components/Welcome/welcome"
+import { elements } from "@site/src/pages/_assets/welcome-content"
+import { elementsArchitectureGraph } from "@site/src/pages/_assets/ui-graphs"
+import Mermaid from "@site/src/theme/Mermaid"
+
+<WelcomePageSection {...elements} />
+
+## Overview
+
+Ory Elements is a component library that allows you to build custom user interfaces for Ory self-service flows. It provides a set
+of pre-built components that can be easily integrated into your application, enabling you to create a seamless user experience
+while leveraging Ory's powerful authentication and identity management capabilities.
+
+The following diagram illustrates how Ory Elements fits into the Ory ecosystem and your application architecture:
+
+```mdx-code-block
+
+<Mermaid chart={elementsArchitectureGraph} />
+```
+
+It is designed to work with Ory's self-service flows, such as login, registration, settings, verification, and recovery and the
+OAuth2 consent flow. It will automatically adjust to the configured identity schema and configuration of your Ory deployment,
+ensuring that your UI is always in sync with the backend. Ory Elements provides a consistent and user-friendly experience across
+all self-service flows, making it easier for users to interact with your application.
+
+While it's default experience is a great starting point, Ory Elements allows you to customize the look and feel of your UI to
+match your brand and user experience requirements. You can use Ory Elements to build a custom UI that fits your application's
+design and user experience, while still leveraging Ory's powerful authentication and identity management capabilities.

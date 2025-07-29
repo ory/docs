@@ -6,8 +6,7 @@ import fetch from "node-fetch"
 import React, { useEffect, useState } from "react"
 import styles from "./CodeFromRemote.module.css"
 
-const detectLanguage = (src) => {
-  const ext = src.split(".").pop()
+const detectLanguage = (ext) => {
   switch (ext) {
     case "jsx":
       return "jsx"
@@ -85,6 +84,7 @@ const CodeFromRemote = (props: {
   startAt?: string
   endAt?: string
   showLink?: boolean
+  lang: string
 }) => {
   const { src, title, contentOverride } = props
   const [content, setContent] = useState(contentOverride || "")
@@ -111,7 +111,7 @@ const CodeFromRemote = (props: {
       .catch(console.error)
   }, [contentOverride, src])
 
-  const lang = `language-${detectLanguage(src)}`
+  const lang = `language-${detectLanguage(props.lang || src.split(".").pop())}`
 
   return (
     <div className={styles.container}>

@@ -28,7 +28,7 @@ configure account recovery in your Ory project.
 <TabItem value="console">
 ```
 
-**Enable and configure account recovery**
+### Enable and configure account recovery
 
 1. Log in to your [Ory Console](https://console.ory.sh/)
 2. Select your workspace and project
@@ -42,11 +42,21 @@ configure account recovery in your Ory project.
 </BrowserWindow>
 ```
 
-**Recovery strategy**
+### Enable SMS account recovery
+
+Enable the feature flag `choose_recovery_address` to be able to send a recovery code via SMS.
+
+1. Log in to your [Ory Console](https://console.ory.sh/)
+2. Select your workspace and project
+3. Navigate to <ConsoleLink route="project.settings.advanced" />
+4. Toggle "Receive a recovery code via SMS" to 'on'
+5. Click **Save**
+
+### Recovery strategy
 
 You can choose between the following recovery strategies:
 
-- One-time passwords: Sends a one-time code via email
+- One-time passwords: Sends a one-time code via email, or SMS (with the feature flag `choose_recovery_address` enabled)
 - Magic link: Sends a recovery link via email
 
 1. In the Account recovery section
@@ -68,7 +78,7 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 <TabItem value="cli">
 ```
 
-**Download your current configuration**
+### Download your current configuration
 
 First, get your current identity configuration:
 
@@ -81,9 +91,14 @@ ory list projects --workspace <workspace-id>
 
 # Get the configuration
 ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
+
+# Toggle the feature flag 'on'
+ory patch project --replace '/services/identity/config/feature_flags/choose_recovery_address=true'
+
+ory get project --format='jsonpointer=/services/identity/config/feature_flags/choose_recovery_address'
 ```
 
-**Edit recovery configuration**
+### Edit recovery configuration
 
 Add or modify the recovery section in your configuration file:
 
@@ -102,7 +117,7 @@ selfservice:
       notify_unknown_recipients: false # Define if the system sends automated recovery notifications to unknown email addresses.
 ```
 
-**Update your configuration**
+### Update your configuration
 
 After editing, update your configuration:
 
@@ -135,9 +150,43 @@ When a user initiates account recovery:
 
 ### User flow
 
+When the feature flag `choose_recovery_address` is enabled and the `code` method is in use:
+
+1. They enter their email address on the recovery page
+2. If they have multiple recovery addresses, they can pick which one to use
+3. They receive a one-time code on their recovery address, via email or SMS, depending on the type of address
+4. After entering the code, they're prompted to set a new password
+5. Once completed, they regain access to their account with a new password
+
+---
+
+When the feature flag `choose_recovery_address` is disabled, or the `link` method is in use:
+
 1. They enter their email address on the recovery page
 2. They receive either:
    - A recovery link via email if using the `link` method
    - A one-time code via email if using the `code` method
 3. After clicking the link or entering the code, they're prompted to set a new password
 4. Once completed, they regain access to their account with a new password
+
+## What happens if the address provided by the user is 'wrong'?
+
+If the address is malformed, or well-formed but not registered as a recovery address for this user:
+
+- The recovery flow will not complete. This means that no recovery code will be generated and sent.
+- The UI will look indistinguishable from the case of a valid recovery address provided. That is to prevent an attacker from
+  probing the system to discover which addresses are registered.
+- If the address is a valid email address but not registered as a recovery address for this user, and the configuration value
+  `selfservice.flows.recovery.notify_unknown_recipients` is enabled, an email will be sent to this address with this wording (this
+  can be [customized](../../kratos/emails-sms/sending-emails-smtp#send-emails-using-an-http-server)):
+  > Hi,
+  >
+  > you (or someone else) entered this email address when trying to recover access to an account.
+  >
+  > However, this email address is not on our database of registered users and therefore the attempt has failed.
+  >
+  > If this was you, check if you signed up using a different address.
+  >
+  > If this was not you, please ignore this email.
+- If the address is a phone number (meaning a SMS would be sent), or if the configuration value
+  `selfservice.flows.recovery.notify_unknown_recipients` is disabled, nothing will be sent.

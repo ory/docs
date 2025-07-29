@@ -9,9 +9,6 @@ module.exports = function (context, options) {
     configureWebpack(config, isServer, utils) {
       const plugins = [
         new NodePolyfillPlugin(),
-        new webpack.DefinePlugin({
-          "process.env.DEBUG": "({}).DEBUG",
-        }),
       ]
 
       return {

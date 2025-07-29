@@ -10,13 +10,12 @@ Every social sign-in provider returns different data in their payloads. Some pro
 While you might expect to get some basic information consistently, the payload isn't standardized. As a result, when integrating
 with social sign-in providers, you must specify how to map the data you get from the specific provider to the Identity traits.
 
-You define this mapping by creating a [Jsonnet code snippet](../../kratos/reference/jsonnet.mdx). This snippet becomes a part of
-the Ory Identities configuration for the given social sign-in provider.
+You define this mapping by creating a [Jsonnet](https://jsonnet.org/) code snippet. This snippet becomes a part of the Ory
+Identities configuration for the given social sign-in provider.
 
 :::tip
 
-You can find the mapping required for a basic configuration of social sign-in providers in our documentation. For example,
-[learn how to create a data mapping for GitHub.](25_github.mdx#data-mapping)
+To learn more about Jsonnet, see the [Data mapping with Jsonnet guide](../reference/jsonnet).
 
 :::
 
