@@ -420,16 +420,17 @@ email verification token. More details [here](https://next-auth.js.org/configura
 ### **NEXTAUTH_ACL**
 
 Set this to a comma separated string of email addresses or glob patterns like: `tonystark@gmail.com,*@marvel.com`. Access will be
-denied to email addresses which don't match. If you don't specify any value access is denied to all.
+denied to email addresses which don't match. If you don't specify any value access is denied to all and magic links are turned
+off.
 
 ### **NEXTAUTH_ADMIN_CREDENTIALS**
 
 Set this to a comma separated string of the pattern `email:password` to enable login to the Admin Portal, for example
 `NEXTAUTH_ADMIN_CREDENTIALS=deepak@ory.sh:Password123`. If you don't specify any value access is denied to all.
 
-### **ADMIN_PORTAL_HIDE_AUDIT_LOGS**
+### **ADMIN_PORTAL_HIDE_DIRECTORY_SYNC**
 
-Set this to `true` if you want to hide the Audit Logs product in the sidebar.
+Set this to `true` if you want to hide the Directory Sync product in the sidebar.
 
 Default: `false`
 
