@@ -6,8 +6,8 @@
   --ifm-font-family-base-fallback: sans-serif;
   --ifm-font-family-monospace-fallback: monospace;
   --ifm-font-family-base: "InterVariable", var(--ifm-font-family-base-fallback);
-  --ifm-font-family-monospace: "JetBrains Mono",
-    var(--ifm-font-family-monospace-fallback);
+  --ifm-font-family-monospace:
+    "JetBrains Mono", var(--ifm-font-family-monospace-fallback);
   --ifm-color-primary: var(--color-indigo-900); /* Indigo 900 */
   --ifm-heading-color: var(
     --color-indigo-900
@@ -26,8 +26,8 @@
 @supports (font-variation-settings: normal) {
   :root {
     --ifm-font-family-base: InterVariable, var(--ifm-font-family-base-fallback);
-    --ifm-heading-font-family: InterVariable,
-      var(--ifm-font-family-base-fallback);
+    --ifm-heading-font-family:
+      InterVariable, var(--ifm-font-family-base-fallback);
   }
 }
 
