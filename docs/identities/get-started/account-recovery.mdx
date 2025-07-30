@@ -44,6 +44,21 @@ configure account recovery in your Ory project.
 
 ### Enable SMS account recovery
 
+This is enabled by turning a feature flag to 'on' at the project level (opt-in). This flag is enabled by default for newly created projects.
+
+This feature only works when the recovery strategy is `code` (not `link`).
+
+
+#### As a user
+
+If you want to receive SMSes, make sure that a phone number is registered as a recovery address.
+
+If you have multiple recovery addresses registered, during the recovery flow, you will be presented a list of your (masked) addresses and you will be prompted to choose one of them.
+
+You may also be prompted to enter this address in full to prove that you know the complete address, for security reasons.
+
+#### As an Administrator
+
 Enable the feature flag `choose_recovery_address` to be able to send a recovery code via SMS.
 
 1. Log in to your [Ory Console](https://console.ory.sh/)
@@ -51,6 +66,26 @@ Enable the feature flag `choose_recovery_address` to be able to send a recovery 
 3. Navigate to <ConsoleLink route="project.settings.advanced" />
 4. Toggle "Receive a recovery code via SMS" to 'on'
 5. Click **Save**
+
+It is safe to toggle this feature flag on and off. This flag only is take into account when a new recovery flow is created. Existing flows will be unaffected by toggling the flag.
+
+SMSes can only be delivered if a [SMS HTTP gateway](../../kratos/emails-sms/10_sending-sms.mdx) is configured.
+
+#### As a developer
+
+When using `elements`, there is nothing special to do. Otherwise, you need to do some changes.
+
+New fields have been added to the payload when getting and updating the recovery flow that are exclusively used when this feature flag is enabled:
+
+- `recovery_address`
+- `recovery_select_address`
+- `recovery_confirm_address`
+- `screen`
+
+When integrating with the API directly, your applications must send and receive these fields. Refer to the OpenAPI specification for more details.
+
+
+There is a limit of 10 recovery addresses to be considered and shown during the recovery flow for a particular user.
 
 ### Recovery strategy
 
