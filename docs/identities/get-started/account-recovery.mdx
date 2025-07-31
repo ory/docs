@@ -57,7 +57,8 @@ To receive a recovery code via SMS, the users phone number must be registered as
 If the user has multiple recovery addresses registered, they will be prompted to choose one from a masked list during the recovery
 process.
 
-To confirm ownership, the user may be asked to enter the complete address after selecting it. This verification step is skipped if they already entered that same address to begin the recovery process.
+To confirm ownership, the user may be asked to enter the complete address after selecting it. This verification step is skipped if
+they already entered that same address to begin the recovery process.
 
 #### As a developer
 
@@ -69,10 +70,10 @@ Enable the feature flag `choose_recovery_address` to be able to send a recovery 
 4. Toggle "Receive a recovery code via SMS" to 'on'
 5. Click **Save**
 
-It is safe to toggle this feature flag. Changes only take effect when a new recovery flow is initiated; existing flows are unaffected.
+It is safe to toggle this feature flag. Changes only take effect when a new recovery flow is initiated; existing flows are
+unaffected.
 
 A [SMS HTTP gateway](../../kratos/emails-sms/10_sending-sms.mdx) must be configured to deliver SMS messages.
-
 
 ##### API changes
 
