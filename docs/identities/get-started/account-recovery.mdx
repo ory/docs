@@ -69,8 +69,7 @@ Enable the feature flag `choose_recovery_address` to be able to send a recovery 
 4. Toggle "Receive a recovery code via SMS" to 'on'
 5. Click **Save**
 
-It is safe to toggle this feature flag on and off. This flag only is take into account when a new recovery flow is created.
-Existing flows will be unaffected by toggling the flag.
+It is safe to toggle this feature flag. Changes only take effect when a new recovery flow is initiated; existing flows are unaffected.
 
 SMSes can only be delivered if a [SMS HTTP gateway](../../kratos/emails-sms/10_sending-sms.mdx) is configured.
 
