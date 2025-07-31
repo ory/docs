@@ -82,6 +82,7 @@ When using `elements`, there is nothing special to do. Otherwise, you need to do
 New fields have been added to the payload when getting and updating the recovery flow that are exclusively used when this feature
 flag is enabled:
 
+
 - `recovery_address`
 - `recovery_select_address`
 - `recovery_confirm_address`
@@ -90,7 +91,6 @@ flag is enabled:
 And these fields will have no effect anymore (they can be present in the payload, but will be ignored):
 
 - `email`
-- `code`
 
 When integrating with the API directly, your applications must send and receive these fields. Refer to the OpenAPI specification
 for more details.
