@@ -44,15 +44,15 @@ configure account recovery in your Ory project.
 
 ### Enable SMS account recovery
 
-This feature is enabled via a project-level feature flag, which is `on` by default for new projects in Ory Network. projects.
+This feature is enabled via a project-level feature flag, which is `on` by default for new projects in Ory Network.
 
-This feature only works when the recovery strategy is `code` (not `link`).
+This feature is only available for the one-time password recovery option, and not when using magic links for recovery.
 
 #### As a user
 
 For users with only an email address and no phone number as identifier, the recovery process is unchanged.
 
-To receive a recovery code via SMS, the users phone number must be registered as a recovery address.
+To receive a recovery code via SMS, the user's phone number must be registered as a recovery address.
 
 If the user has multiple recovery addresses registered, they will be prompted to choose one from a masked list during the recovery
 process.
@@ -62,7 +62,7 @@ they already entered that same address to begin the recovery process.
 
 #### As a developer
 
-Enable the feature flag `choose_recovery_address` to be able to send a recovery code via SMS.
+Enable the `choose_recovery_address` feature flag to send a SMS containing a recovery code.
 
 1. Log in to your [Ory Console](https://console.ory.sh/)
 2. Select your workspace and project
