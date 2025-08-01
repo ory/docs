@@ -48,6 +48,8 @@ This feature is enabled via a project-level feature flag, which is `on` by defau
 
 This feature is only available for the one-time password recovery option, and not when using magic links for recovery.
 
+A [SMS HTTP gateway](../../kratos/emails-sms/10_sending-sms.mdx) must be configured to deliver SMS messages.
+
 #### As a user
 
 For users with only an email address and no phone number as identifier, the recovery process is unchanged.
@@ -72,8 +74,6 @@ Enable the `choose_recovery_address` feature flag to send a SMS containing a rec
 
 It is safe to toggle this feature flag. Changes only take effect when a new recovery flow is initiated; existing flows are
 unaffected.
-
-A [SMS HTTP gateway](../../kratos/emails-sms/10_sending-sms.mdx) must be configured to deliver SMS messages.
 
 ##### API changes
 
