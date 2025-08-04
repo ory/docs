@@ -42,7 +42,7 @@ configure account recovery in your Ory project.
 </BrowserWindow>
 ```
 
-### Enable SMS account recovery
+### Enable users to choose email or SMS recovery method
 
 This feature is enabled via a project-level feature flag, which is `on` by default for new projects in Ory Network.
 
@@ -62,9 +62,24 @@ process.
 To confirm ownership, the user may be asked to enter the complete address after selecting it. This verification step is skipped if
 they already entered that same address to begin the recovery process.
 
-#### As a developer
+#### As an administrator
 
 Enable the `choose_recovery_address` feature flag to send a SMS containing a recovery code.
+
+It is safe to toggle this feature flag. Changes only take effect when a new recovery flow is initiated; existing flows are
+unaffected.
+
+##### When using EOL/Open-source
+
+Edit the configuration of Kratos (Ory Identities) to set the `choose_recovery_address` feature flag to `true`:
+
+```diff
+feature_flags:
+    use_continue_with_transitions: true
++   choose_recovery_address: true
+```
+
+##### When using Ory Network
 
 1. Log in to your [Ory Console](https://console.ory.sh/)
 2. Select your workspace and project
@@ -72,10 +87,11 @@ Enable the `choose_recovery_address` feature flag to send a SMS containing a rec
 4. Toggle "Receive a recovery code via SMS" to 'on'
 5. Click **Save**
 
-It is safe to toggle this feature flag. Changes only take effect when a new recovery flow is initiated; existing flows are
-unaffected.
 
-##### API changes
+##### As a developer
+
+When integrating with the API directly, your applications must send and receive these fields. Refer to the
+[API documentation](../../reference/api#tag/frontend/operation/updateRecoveryFlow) for more details.
 
 When using the built-in Account Experience UI, there is nothing special to do. Otherwise, you need to do some changes.
 
@@ -91,8 +107,6 @@ And these fields will have no effect anymore (they can be present in the payload
 
 - `email`
 
-When integrating with the API directly, your applications must send and receive these fields. Refer to the
-[API documentation](../../reference/api#tag/frontend/operation/updateRecoveryFlow) for more details.
 
 A maximum of 10 recovery addresses will be shown to a user during the recovery flow.
 
