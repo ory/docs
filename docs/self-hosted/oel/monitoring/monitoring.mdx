@@ -121,6 +121,8 @@ loki:
   commonConfig:
     # cannot be bigger than replica count
     replication_factor: 1
+  storage:
+    type: filesystem
   useTestSchema: true
 minio:
   enabled: true
