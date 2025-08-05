@@ -42,15 +42,71 @@ configure account recovery in your Ory project.
 </BrowserWindow>
 ```
 
-### Enable SMS account recovery
+### Enable users to choose email or SMS recovery method
 
-Enable the feature flag `choose_recovery_address` to be able to send a recovery code via SMS.
+This feature is enabled via a project-level feature flag, which is `on` by default for new projects in Ory Network.
+
+This feature is only available for the one-time password recovery option, and not when using magic links for recovery.
+
+A [SMS HTTP gateway](../../kratos/emails-sms/10_sending-sms.mdx) must be configured to deliver SMS messages.
+
+#### As a user
+
+For users that use only email as their identifier (a phone number was not provided), the recovery process remains the same.
+
+To receive a recovery code via SMS, the user's phone number must be registered as a recovery address.
+
+If the user has multiple recovery addresses registered, they will be prompted to choose one from a masked list during the recovery
+process.
+
+To confirm ownership, the user may be asked to enter the complete address after selecting it. This verification step is skipped if
+they already entered that same address to begin the recovery process.
+
+#### As an administrator
+
+Enable the `choose_recovery_address` feature flag to send a SMS containing a recovery code.
+
+It is safe to toggle this feature flag. Changes only take effect when a new recovery flow is initiated; existing flows are
+unaffected.
+
+##### When using EOL/Open-source
+
+Edit the configuration of Kratos (Ory Identities) to set the `choose_recovery_address` feature flag to `true`:
+
+```diff
+feature_flags:
+    use_continue_with_transitions: true
++   choose_recovery_address: true
+```
+
+##### When using Ory Network
 
 1. Log in to your [Ory Console](https://console.ory.sh/)
 2. Select your workspace and project
 3. Navigate to <ConsoleLink route="project.settings.advanced" />
 4. Toggle "Receive a recovery code via SMS" to 'on'
 5. Click **Save**
+
+##### As a developer
+
+When integrating with the API directly, your applications must send and receive these fields. Refer to the
+[API documentation](../../reference/api#tag/frontend/operation/updateRecoveryFlow) for more details.
+
+When using the built-in Account Experience UI, there is nothing special to do. Otherwise, you need to do some changes.
+
+New fields have been added to the payload when getting and updating the recovery flow that are exclusively used when this feature
+flag is enabled:
+
+- `recovery_address`
+- `recovery_select_address`
+- `recovery_confirm_address`
+- `screen`
+
+And these fields will have no effect anymore (they can be present in the payload, but will be ignored):
+
+- `email`
+
+A maximum of 10 recovery addresses are shown to a user during the recovery flow.
 
 ### Recovery strategy
 
@@ -188,5 +244,5 @@ If the address is malformed, or well-formed but not registered as a recovery add
   > If this was you, check if you signed up using a different address.
   >
   > If this was not you, please ignore this email.
-- If the address is a phone number (meaning a SMS would be sent), or if the configuration value
+- If the address is a phone number (meaning an SMS would be sent), or if the configuration value
   `selfservice.flows.recovery.notify_unknown_recipients` is disabled, nothing will be sent.
