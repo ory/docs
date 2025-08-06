@@ -542,6 +542,10 @@ curl -s -X GET \
 }
 ```
 
+When changing the password, the new password must be different from the old password. Otherwise, an error of this kind will be shown: 'The new password must be different from the old password.'.
+
+This is to help users, for example in the event of a password leak, where they want to change their password, and unknowingly set it to the same value as the old password. In that case, this check will help them realize that they need to set their new password to a different value.
+
 ### Link and unlink from Google, Facebook, GitHub, ..., OpenID Connect / OAuth 2.0
 
 :::tip Before you start
