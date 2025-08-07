@@ -542,7 +542,7 @@ curl -s -X GET \
 }
 ```
 
-When changing the password, the new password must be different from the old password. Otherwise, an error of this kind will be shown: 'The new password must be different from the old password.'.
+The new password must be different from the current one. Attempting to reuse a old password will trigger an error: `The new password must be different from the old password.`
 
 This ensures that a new, unique password is set, and prevents the reuse of a potentially compromised password.
 
