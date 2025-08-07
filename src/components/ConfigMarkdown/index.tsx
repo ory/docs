@@ -13,6 +13,9 @@ const parser = new RefParser()
 const refs = {
   "ory://tracing-config": `https://raw.githubusercontent.com/ory/x/master/otelx/config.schema.json`,
   "ory://logging-config": `https://raw.githubusercontent.com/ory/x/master/logrusx/config.schema.json`,
+  "ory://serve-config": `https://raw.githubusercontent.com/ory/x/master/configx/serve.schema.json`,
+  "ory://cors-config": `https://raw.githubusercontent.com/ory/x/master/configx/cors.schema.json`,
+  "ory://tls-config": `https://raw.githubusercontent.com/ory/x/master/configx/tls.schema.json`,
 }
 
 const enhance =
