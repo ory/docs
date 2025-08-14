@@ -448,6 +448,7 @@ const kratos: SidebarItemsConfig = [
           "kratos/manage-identities/managing-users-identities-metadata",
           "identities/model/manage-identity-schema",
           "kratos/manage-identities/customize-identity-schema",
+          "identities/model/identity-schema-selection",
           "kratos/manage-identities/best-practices",
         ],
       },
