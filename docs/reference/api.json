@@ -1407,6 +1407,9 @@
             "type": "string",
             "x-go-enum-desc": "link SelfServiceMessageVerificationStrategyLink\ncode SelfServiceMessageVerificationStrategyCode"
           },
+          "kratos_selfservice_methods_captcha_config_allowed_domains": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
           "kratos_selfservice_methods_captcha_config_cf_turnstile_secret": {
             "description": "Configures the Cloudflare Turnstile site secret for CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
             "type": "string"
@@ -4955,6 +4958,10 @@
             "format": "uuid",
             "type": "string"
           },
+          "identity_schema": {
+            "description": "IdentitySchema optionally holds the ID of the identity schema that is used\nfor this flow. This value can be set by the user when creating the flow and\nshould be retained when the flow is saved or converted to another flow.",
+            "type": "string"
+          },
           "issued_at": {
             "description": "IssuedAt is the time (UTC) when the flow started.",
             "format": "date-time",
@@ -6151,6 +6158,9 @@
             "enum": ["link", "code"],
             "type": "string",
             "x-go-enum-desc": "link SelfServiceMessageVerificationStrategyLink\ncode SelfServiceMessageVerificationStrategyCode"
+          },
+          "kratos_selfservice_methods_captcha_config_allowed_domains": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
           "kratos_selfservice_methods_captcha_config_cf_turnstile_secret": {
             "description": "Configures the Cloudflare Turnstile site secret for CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
@@ -8818,6 +8828,10 @@
           "id": {
             "description": "ID represents the flow's unique ID. When performing the registration flow, this\nrepresents the id in the registration ui's query parameter: http://\u003cselfservice.flows.registration.ui_url\u003e/?flow=\u003cid\u003e",
             "format": "uuid",
+            "type": "string"
+          },
+          "identity_schema": {
+            "description": "IdentitySchema optionally holds the ID of the identity schema that is used\nfor this flow. This value can be set by the user when creating the flow and\nshould be retained when the flow is saved or converted to another flow.",
             "type": "string"
           },
           "issued_at": {
