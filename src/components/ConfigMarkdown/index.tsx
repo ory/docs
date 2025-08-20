@@ -137,7 +137,7 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
         new Promise((resolve, reject) => {
           if (schema.title === "ORY Oathkeeper Configuration") {
             schema["$id"] =
-              "https://github.com/ory/oathkeeper/spec/config.schema.json"
+              "https://github.com/ory/oathkeeper/schema/config.schema.json"
           }
           parser.dereference(
             schema,
