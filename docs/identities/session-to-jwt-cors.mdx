@@ -226,10 +226,13 @@ If the key set contains more than one key, the first key in the list will be use
 Sometimes, Jsonnet scripting is not enough to customize the JWT. A network call to a different service is necessary.
 A typical use case is adding custom claims to the tokens based on a separate database or business logic.
 
-Be aware of the added request latency, and of the impact of this service not being available: it will result in an error leading to the user not being considered logged in.
-
 This is possible by registering a webhook endpoint in the configuration. Before the token is issued to the
 client, Ory will call your HTTPS endpoint with information about the client requesting the token.
+
+
+:::note
+Be aware of the added request latency, and of the impact of this service not being available: authentication will fail for the user.
+:::
 
 Your endpoint's response to the webhook will be used to customize the JWT token that Ory issues to the client.
 
@@ -255,7 +258,7 @@ Use the Ory CLI to register your webhook endpoint:
 `ory patch identity-config --project <project-id> --workspace <workspace-id> \\
   --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/url="https://my-example.app/token-hook"' \\
   --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/type="api_key"' \\
-  --add 'session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/config/in="header"' \\
+  --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/config/in="header"' \\
   --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/config/name="X-API-Key"' \\
   --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/config/value="MY API KEY"' \\
   --format yaml`}
@@ -266,7 +269,7 @@ Use the Ory CLI to register your webhook endpoint:
 `ory patch identity-config --project <project-id> --workspace <workspace-id> \\
   --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/url="https://my-example.app/token-hook"' \\
   --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/type="api_key"' \\
-  --add 'session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/config/in="cookie"' \\
+  --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/config/in="cookie"' \\
   --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/config/name="X-Cookie-Name"' \\
   --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/config/value="MY SECRET COOKIE"' \\
   --format yaml`}
@@ -298,9 +301,10 @@ session:
           url: http://example.com/sessions/whoami
           auth:
             type: api_key
-            in: header
-            name: X-API-Key
-            value: "MY API KEY"
+            config:
+              in: header
+              name: X-API-Key
+              value: "MY API KEY"
     // highlight-end
       another_jwt_template:
         jwks_url: base64://... # A JSON Web Key Set
