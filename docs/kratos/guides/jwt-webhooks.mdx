@@ -1,0 +1,221 @@
+---
+id: claims-at-refresh
+title: Customize JWT claims with webhooks
+sidebar_label: webhooks
+keywords:
+  - webhooks
+  - custom
+  - customize
+  - claims
+  - jwt
+  - access
+  - token
+---
+
+# Customizing JWT claims with webhooks
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem'
+```
+
+You can modify aspects of the JWT tokens returned from the `/whoami` endpoint. A typical use case is
+adding custom claims to the tokens.
+
+Customize the token response by registering a webhook endpoint in the configuration. Before the token is issued to the
+client, Ory will call your HTTPS endpoint with information about the client requesting the token.
+
+Your endpoint's response to the webhook will be used to customize the token that Ory issues to the client.
+
+Using webhooks is supported for all flows.
+
+If your endpoint is gated behind authentication, ensure that the configuration contains the correct credentials. They will be sent in the request when contacting the endpoint.
+
+:::note
+
+The webhook is called before any other logic is executed. If the webhook execution fails -- for example if your endpoint is
+unreachable or responds with an HTTP error code -- the token exchange will fail for the client.
+
+:::
+
+## Configuration
+
+Use the Ory CLI to register your webhook endpoint:
+
+```mdx-code-block
+<Tabs>
+  <TabItem value="header-auth" label="with authentication in header" default >
+    <CodeBlock language="shell">{
+`ory patch oauth2-config --project <project-id> --workspace <workspace-id> \\
+  --add '/oauth2/token_hook/url="https://my-example.app/token-hook"' \\
+  --add '/oauth2/token_hook/auth/type="api_key"' \\
+  --add '/oauth2/token_hook/auth/config/in="header"' \\
+  --add '/oauth2/token_hook/auth/config/name="X-API-Key"' \\
+  --add '/oauth2/token_hook/auth/config/value="MY API KEY"' \\
+  --format yaml`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="cookie-auth" label="with authentication in cookie">
+    <CodeBlock language="shell">{
+`ory patch oauth2-config --project <project-id> --workspace <workspace-id> \\
+  --add '/oauth2/token_hook/url="https://my-example.app/token-hook"' \\
+  --add '/oauth2/token_hook/auth/type="api_key"' \\
+  --add '/oauth2/token_hook/auth/config/in="cookie"' \\
+  --add '/oauth2/token_hook/auth/config/name="X-Cookie-Name"' \\
+  --add '/oauth2/token_hook/auth/config/value="MY SECRET COOKIE"' \\
+  --format yaml`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="no-auth" label="no authentication">
+    <CodeBlock language="shell">{
+`ory patch oauth2-config --project <project-id> --workspace <workspace-id> \\
+--add '/oauth2/token_hook="https://my-example.app/token-hook"' \\
+--format yaml`}
+    </CodeBlock>
+  </TabItem>
+</Tabs>
+```
+
+## Webhook payload
+
+Ory will perform a POST request with a JSON payload towards your endpoint.
+
+```json title="Example OAuth2 token webhook request payload"
+{
+  "session": {
+    "id_token": {
+      "id_token_claims": {
+        "jti": "",
+        "iss": "http://your-slug-xyz.projects.oryapis.com",
+        "sub": "subject",
+        "aud": ["app-client"],
+        "nonce": "",
+        "at_hash": "",
+        "acr": "1",
+        "amr": null,
+        "c_hash": "",
+        "ext": {}
+      },
+      "headers": {
+        "extra": {}
+      },
+      "username": "",
+      "subject": "foo"
+    },
+    "extra": {},
+    "client_id": "app-client",
+    "consent_challenge": "",
+    "exclude_not_before_claim": false,
+    "allowed_top_level_claims": []
+  },
+  "request": {
+    "client_id": "app-client",
+    "granted_scopes": ["offline", "openid", "hydra.*"],
+    "granted_audience": [],
+    "grant_types": ["authorization_code"],
+    "payload": {
+      "assertion": ["eyJhbGciOiJIUzI..."]
+    }
+  }
+}
+```
+
+`session` represents the Identities session.
+
+`request` contains information from the client's request to the `/whoami` endpoint.
+
+The `request.payload.assertion` field will be populated for flows of the
+[`urn:ietf:params:oauth:grant-type:jwt-bearer`](jwt.mdx#using-jwts-as-authorization-grants) grant type only, and contains the JWT
+the client passed as the `assertion` in their call to the token endpoint.
+
+## Responding to the webhook
+
+When handling the webhook in your endpoint, use the request payload to decide how Ory should proceed in the token exchange with
+the client.
+
+To accept the token exchange without modification, return a `204` or `200` HTTP status code without a response body.
+
+To deny the token exchange, reply with a `403` HTTP status code.
+
+To keep the claims as is, return an empty body with a 204 status code.
+
+To modify the claims of the issued tokens and instruct Identities to proceed with the token exchange, return `200` with a JSON response
+body:
+
+```json
+{
+  "session": {
+    "access_token": {
+      "your:custom:access-token-claim": "any value you like",
+      "your:second:access-token-claim": 124390123
+    },
+    "id_token": {
+      "your:custom:id-token-claim": "another value",
+      "your:second:id-token-claim": 2394123
+    }
+  }
+}
+```
+
+Responding with any other HTTP status code will abort the token exchange toward the client with an error message. In case of a 40x or 50x response code from your endpoint, a response body of any shape can be sent and it will be included in the error sent back to the client on a best effort basis.
+
+## Updated tokens
+
+Tokens issued by Ory to the client will contain the data from your webhook response:
+
+```mdx-code-block
+<Tabs>
+  <TabItem value="id_token" label="id_token" default>
+    <CodeBlock language="json">{`
+{
+  "aud": [
+    "my_client"
+  ],
+  "auth_time": 1647427485,
+  "your:custom:id-token-claim": "another value",
+  "your:second:id-token-claim": 2394123,
+  "iss": "http://ory.hydra.example/",
+  "sub": "foo@bar.com"
+}
+    `}</CodeBlock>
+  </TabItem>
+  <TabItem value="access_token" label="access_token">
+    <CodeBlock language="json">{`
+{
+  "active": true,
+  "scope": "openid offline",
+  "client_id": "my_client",
+  "sub": "foo@bar.com",
+  "aud": [],
+  "iss": "http://ory.hydra.example/",
+  "token_type": "Bearer",
+  "token_use": "access_token",
+  "ext": {
+      "your:custom:access-token-claim": "any value you like",
+      "your:second:access-token-claim": 124390123,
+    }
+}
+     `}</CodeBlock>
+  </TabItem>
+</Tabs>
+```
+
+:::note
+
+You cannot override the token subject.
+
+:::
+
+### Add custom claims to top level
+
+By default, all custom claims are mirrored under the `ext` claim in the token.
+
+To flatten custom claims directly into the top level token instead of nesting them under `ext`, use the following
+[configuration](../../oauth2-oidc/jwt-access-token#adding-custom-claims-to-top-level).
+
+### Refresh token
+
+If a webhook for `refresh_token` grant type fails with a non-graceful result, the refresh flow will fail and the supplied
+`refresh_token` will remain unused.
+
