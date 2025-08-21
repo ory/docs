@@ -406,13 +406,13 @@ partners.
 The onboarding portal addresses the often-burdensome process of setting up and managing identity connections with external
 organizations. Traditionally, integrating with a customer's or partner's identity provider (IdP) for single sign-on (SSO) or
 synchronizing user directories involves manual, error-prone configurations. This often requires deep technical expertise in
-protocols such as SAML.
+protocols such as SAML/SCIM.
 
 Onboarding portal aims to:
 
 - Simplify complex integrations: By providing a self-service or guided onboarding experience, they abstract away the underlying
-  technical complexities of SAML. This means IT administrators on the client side don't need to be SAML experts to connect their
-  organization's identity system.
+  technical complexities of SAML/SCIM. This means IT administrators on the client side don't need to be SAML/SCIM experts to
+  connect their organization's identity system.
 - Reduce onboarding time: Instead of lengthy back-and-forth communication and manual configuration, an onboarding portal link
   allows an external administrator to configure the connection directly through a user-friendly interface. This drastically
   reduces the time and effort required to establish new B2B integrations.
@@ -420,7 +420,7 @@ Onboarding portal aims to:
   administrator receiving the link can configure their side of the connection securely, maintaining control over their IdP
   settings while establishing a trusted connection with your application.
 - Enable Self-Service for Organizations: For SaaS providers, this means empowering your customers to self-onboard and manage their
-  own SSO connections, freeing up your engineering and support teams. Support Scalability for B2B Models: As your application
+  own SSO/SCIM connections, freeing up your engineering and support teams. Support Scalability for B2B Models: As your application
   grows and serves more enterprise clients, manually managing each integration becomes unsustainable. These features provide a
   scalable solution for onboarding and managing a large number of organizational customers.
 - Validate SSO Connections instantly: The onboarding portal includes the ability to immediately test the configured SSO
@@ -442,6 +442,14 @@ Provider support:
 
 - The onboarding portal currently supports all well known providers. You can also connect any SAML/OIDC compliant provider using
   the Generic SAML/OIDC IdP option. If you don't find your provider listed, please [contact us](https://www.ory.sh/contact/).
+
+### SCIM support
+
+The onboarding portal also supports SCIM. You can set up a SCIM server for an organization.
+
+```mdx-code-block
+
+```
 
 ### Manage onboarding portal links
 
@@ -550,11 +558,25 @@ expiry of 1 day. Once the link expires, it no longer works. You can also delete 
 #### Handover and using the portal
 
 Once you generate the link, share it with the organization's administrator. They can access this link multiple times until its
-expiration to manage (add, edit, or delete) the organization's SSO connections.
+expiration to manage SSO and SCIM connections.
 
 ```mdx-code-block
 
 <BrowserWindow url="https://<your-slug>.projects.oryapis.com/onboarding/<unique-token>">
-    ![Onboarding portal](./_static/onboarding-portal.png)
+    ![Onboarding portal](./_static/onboarding-portal-home.png)
+</BrowserWindow>
+```
+
+```mdx-code-block
+
+<BrowserWindow url="https://<your-slug>.projects.oryapis.com/onboarding/<unique-token>/sso">
+    ![Onboarding portal](./_static/onboarding-portal-sso.png)
+</BrowserWindow>
+```
+
+```mdx-code-block
+
+<BrowserWindow url="https://<your-slug>.projects.oryapis.com/onboarding/<unique-token>/scim">
+    ![Onboarding portal](./_static/onboarding-portal-scim.png)
 </BrowserWindow>
 ```
