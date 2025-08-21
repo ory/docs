@@ -491,7 +491,8 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
      -H "Content-Type: application/json" \
      -d '{
            "expires_at": "2025-06-01T00:00:00Z",
-           "enable_sso": true
+           "enable_sso": true,
+           "enable_scim": true
          }'
 ```
 
@@ -504,6 +505,7 @@ Result:
   "project_id": "836b03f7-fdce-466a-9407-8595a0f615ce",
   "organization_id": "517cc5e7-1ab6-4dcf-ba02-00fad003af92",
   "enable_sso": true,
+  "enable_scim": true,
   "created_at": "2025-06-02T05:23:45.299988Z",
   "expires_at": "2025-06-03T05:23:45Z"
 }
@@ -512,6 +514,34 @@ Result:
 The response contains a `value` token that you can use to construct the onboarding portal link as follows:
 
 `https://your-slug.projects.oryapis.com/onboarding/<value>`
+
+#### Update an onboarding portal link
+
+```shell
+curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "expires_at": "2025-06-01T00:00:00Z",
+           "enable_sso": true,
+           "enable_scim": true
+         }'
+```
+
+Result:
+
+```json
+{
+  "id": "655fa1d7-8404-4aa5-a90d-7f0aee060bc6",
+  "value": "emH8rO0f9S8VtLXLhBdNc9vBPSgsoT3qYHQQd7ROf8HwMmtK",
+  "project_id": "94d32bfd-08ea-4a11-a026-b9d7ddda0f09",
+  "organization_id": "9e83d579-ba29-43dd-b245-28c525c82066",
+  "enable_sso": true,
+  "enable_scim": true,
+  "created_at": "2025-08-21T15:48:00.101704Z",
+  "expires_at": "2027-06-01T00:00:00Z"
+}
+```
 
 #### Delete an onboarding portal link
 
