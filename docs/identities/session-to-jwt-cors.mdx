@@ -425,7 +425,7 @@ Ory will perform a POST request with a JSON payload towards your endpoint.
 }
 ```
 
-`request` contains information from the client's request to the `/whoami` endpoint.
+Fields prefixed with `request_` contain information from the client's request to the `/whoami` endpoint.
 
 The HTTP headers present in the client request and that are in the allow-list (from the configuration field `clients.web_hook.header_allowlist`) will be forwarded to the webhook endpoint. In the above example, `X-Claim-Name` is such a HTTP header.
 
