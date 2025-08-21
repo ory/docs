@@ -226,6 +226,8 @@ If the key set contains more than one key, the first key in the list will be use
 Sometimes, Jsonnet scripting is not enough to customize the JWT. A network call to a different service is necessary.
 A typical use case is adding custom claims to the tokens based on a separate database or business logic.
 
+Be aware of the added request latency, and of the impact of this service not being available: it will result in an error leading to the user not being considered logged in.
+
 This is possible by registering a webhook endpoint in the configuration. Before the token is issued to the
 client, Ory will call your HTTPS endpoint with information about the client requesting the token.
 
@@ -248,7 +250,7 @@ Use the Ory CLI to register your webhook endpoint:
 
 ```mdx-code-block
 <Tabs>
-  <TabItem value="header-auth" label="with authentication in header" default >
+  <TabItem value="header-auth" label="With authentication in header" default >
     <CodeBlock language="shell">{
 `ory patch identity-config --project <project-id> --workspace <workspace-id> \\
   --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/url="https://my-example.app/token-hook"' \\
@@ -259,7 +261,7 @@ Use the Ory CLI to register your webhook endpoint:
   --format yaml`}
     </CodeBlock>
   </TabItem>
-  <TabItem value="cookie-auth" label="with authentication in cookie">
+  <TabItem value="cookie-auth" label="With authentication in cookie">
     <CodeBlock language="shell">{
 `ory patch identity-config --project <project-id> --workspace <workspace-id> \\
   --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/url="https://my-example.app/token-hook"' \\
@@ -270,7 +272,7 @@ Use the Ory CLI to register your webhook endpoint:
   --format yaml`}
     </CodeBlock>
   </TabItem>
-  <TabItem value="no-auth" label="no authentication">
+  <TabItem value="no-auth" label="No authentication">
     <CodeBlock language="shell">{
 `ory patch identity-config --project <project-id> --workspace <workspace-id> \\
   --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/url="https://my-example.app/token-hook"' \\
@@ -293,7 +295,7 @@ session:
         ttl: 1m # 1 minute (defaults to 10 minutes)
     // highlight-start
         claims_hook:
-          url: https://my-service.net
+          url: http://example.com/sessions/whoami
           auth:
             type: api_key
             in: header
@@ -396,9 +398,9 @@ body containing the claims that the final JWT should contain:
 }
 ```
 
-For the happy path, the response body must be an object containing a key `claims`, whose value is a map of string keys to any value. Each key-value in the `claims` object will be added to the final JWT claims.
+For the happy path, the response body must be an object containing a key `claims`, whose value is a map of string keys to any value. Each key-value in the `claims` object will be added as-is to the final JWT claims.
 
-Responding with any other HTTP status code will abort the token exchange toward the client with an error message. In case of a 40x or 50x response code from your endpoint, a response body of any shape can be sent and it will be included in the error sent back to the client on a best effort basis.
+Responding with any other HTTP status code will abort the token exchange toward the client with an error message. In case of a 40x or 50x response code from your endpoint, a response body of any shape can be sent (for example containing an error message or code) and this response body will be included in the error sent back to the client on a best effort basis.
 
 #### Updated tokens
 
