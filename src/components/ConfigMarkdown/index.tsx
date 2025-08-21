@@ -116,7 +116,36 @@ const enhance =
 export const oryResolver = {
   order: 1,
   canRead: /^ory:/i,
-  read: ({ url }) => axios.get(refs[url]).then(({ data }) => data),
+  read: ({ url }) =>
+    axios.get(refs[url]).then(({ data }) => {
+      // Manually resolve internal $refs for schemas that have this issue
+      const resolveInternalRefs = (obj, definitions) => {
+        if (typeof obj === "object" && obj !== null) {
+          for (const key in obj) {
+            if (
+              key === "$ref" &&
+              typeof obj[key] === "string" &&
+              obj[key].startsWith("#/definitions/")
+            ) {
+              const defName = obj[key].replace("#/definitions/", "")
+              if (definitions && definitions[defName]) {
+                // Replace the $ref with the actual definition
+                delete obj["$ref"]
+                Object.assign(obj, definitions[defName])
+              }
+            } else if (typeof obj[key] === "object") {
+              resolveInternalRefs(obj[key], definitions)
+            }
+          }
+        }
+      }
+
+      if (data.definitions) {
+        resolveInternalRefs(data, data.definitions)
+      }
+
+      return data
+    }),
 }
 
 export default function ConfigMarkdown(props: { src: string; binary: string }) {
