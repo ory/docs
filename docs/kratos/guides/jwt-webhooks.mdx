@@ -47,31 +47,31 @@ Use the Ory CLI to register your webhook endpoint:
 <Tabs>
   <TabItem value="header-auth" label="with authentication in header" default >
     <CodeBlock language="shell">{
-`ory patch oauth2-config --project <project-id> --workspace <workspace-id> \\
-  --add '/oauth2/token_hook/url="https://my-example.app/token-hook"' \\
-  --add '/oauth2/token_hook/auth/type="api_key"' \\
-  --add '/oauth2/token_hook/auth/config/in="header"' \\
-  --add '/oauth2/token_hook/auth/config/name="X-API-Key"' \\
-  --add '/oauth2/token_hook/auth/config/value="MY API KEY"' \\
+`ory patch identity-config --project <project-id> --workspace <workspace-id> \\
+  --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/url="https://my-example.app/token-hook"' \\
+  --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/type="api_key"' \\
+  --add 'session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/config/in="header"' \\
+  --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/config/name="X-API-Key"' \\
+  --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/config/value="MY API KEY"' \\
   --format yaml`}
     </CodeBlock>
   </TabItem>
   <TabItem value="cookie-auth" label="with authentication in cookie">
     <CodeBlock language="shell">{
-`ory patch oauth2-config --project <project-id> --workspace <workspace-id> \\
-  --add '/oauth2/token_hook/url="https://my-example.app/token-hook"' \\
-  --add '/oauth2/token_hook/auth/type="api_key"' \\
-  --add '/oauth2/token_hook/auth/config/in="cookie"' \\
-  --add '/oauth2/token_hook/auth/config/name="X-Cookie-Name"' \\
-  --add '/oauth2/token_hook/auth/config/value="MY SECRET COOKIE"' \\
+`ory patch identity-config --project <project-id> --workspace <workspace-id> \\
+  --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/url="https://my-example.app/token-hook"' \\
+  --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/type="api_key"' \\
+  --add 'session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/config/in="cookie"' \\
+  --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/config/name="X-Cookie-Name"' \\
+  --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/auth/config/value="MY SECRET COOKIE"' \\
   --format yaml`}
     </CodeBlock>
   </TabItem>
   <TabItem value="no-auth" label="no authentication">
     <CodeBlock language="shell">{
-`ory patch oauth2-config --project <project-id> --workspace <workspace-id> \\
---add '/oauth2/token_hook="https://my-example.app/token-hook"' \\
---format yaml`}
+`ory patch identity-config --project <project-id> --workspace <workspace-id> \\
+  --add '/session/whoami/tokenizer/templates/jwt_template_1/claims_hook/url="https://my-example.app/token-hook"' \\
+  --format yaml`}
     </CodeBlock>
   </TabItem>
 </Tabs>
@@ -83,51 +83,64 @@ Ory will perform a POST request with a JSON payload towards your endpoint.
 
 ```json title="Example OAuth2 token webhook request payload"
 {
-  "session": {
-    "id_token": {
-      "id_token_claims": {
-        "jti": "",
-        "iss": "http://your-slug-xyz.projects.oryapis.com",
-        "sub": "subject",
-        "aud": ["app-client"],
-        "nonce": "",
-        "at_hash": "",
-        "acr": "1",
-        "amr": null,
-        "c_hash": "",
-        "ext": {}
-      },
-      "headers": {
-        "extra": {}
-      },
-      "username": "",
-      "subject": "foo"
-    },
-    "extra": {},
-    "client_id": "app-client",
-    "consent_challenge": "",
-    "exclude_not_before_claim": false,
-    "allowed_top_level_claims": []
+  "request_headers": {
+    "X-Claim-Name": [
+      "a custom claim"
+    ]
   },
-  "request": {
-    "client_id": "app-client",
-    "granted_scopes": ["offline", "openid", "hydra.*"],
-    "granted_audience": [],
-    "grant_types": ["authorization_code"],
-    "payload": {
-      "assertion": ["eyJhbGciOiJIUzI..."]
-    }
+  "request_method": "GET",
+  "request_url": "http://example.com/sessions/whoami",
+  "request_cookies": {},
+  "session": {
+    "id": "432caf86-c1d8-401c-978a-8da89133f78b",
+    "active": true,
+    "expires_at": "2025-08-22T16:29:26.579741+02:00",
+    "authenticated_at": "2025-08-21T16:29:26.579741+02:00",
+    "authenticator_assurance_level": "aal1",
+    "authentication_methods": [
+      {
+        "method": "password",
+        "aal": "aal1",
+        "completed_at": "2025-08-21T14:29:26.899803Z"
+      }
+    ],
+    "issued_at": "2025-08-21T16:29:26.579741+02:00",
+    "identity": {
+      "id": "7458af86-c1d8-401c-978a-8da89133f78b",
+      "external_id": "external-id",
+      "schema_id": "default",
+      "schema_url": "http://localhost/schemas/ZGVmYXVsdA",
+      "state": "active",
+      "state_changed_at": "2025-08-21T14:29:26.899788Z",
+      "traits": {},
+      "metadata_public": null,
+      "created_at": "0001-01-01T00:00:00Z",
+      "updated_at": "2025-08-21T16:29:26.900034+02:00",
+      "organization_id": null
+    },
+    "devices": [
+      {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "ip_address": "192.0.2.1:1234",
+        "user_agent": null,
+        "location": ""
+      }
+    ],
+    "tokenized": "eyJhbGciOiJFUzUxMiIsImtpZCI6ImJjN2Y3YWZjLTY3NDItNDI3Yy1iYjllLTE2NGZlMGY4YjZhNyIsInR5cCI6IkpXVCJ9.eyJhYWwiOiJhYWwxIiwiZXhwIjoxNjc1MjA5NjYwLCJleHRlcm5hbF9pZCI6ImV4dGVybmFsLWlkIiwiZm9vIjoiYmFyIiwiaWF0IjoxNjc1MjA5NjAwLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0LyIsImp0aSI6IjYwZjdjOGU2LTIxYzMtNGExYi1hMTBhLTRjZjUyNmVhOWMzOCIsIm5iZiI6MTY3NTIwOTYwMCwic2NoZW1hX2lkIjoiZGVmYXVsdCIsInNlY29uZF9jbGFpbSI6MTY3NTIwOTY2MCwic2lkIjoiNDMyY2FmODYtYzFkOC00MDFjLTk3OGEtOGRhODkxMzNmNzhiIiwic3ViIjoiZXh0ZXJuYWwtaWQifQ.AXSrbfjtCvufuZEosTeHbS_oo01MiwdaB3ebS96pb9fO51QkC0rQHadY2hC3Ig4SP2x60NMl-Ff5mlEp4QTY9tPIATwFPbXFs-dBCKlZsLk7RA_s2fi4JXTQJU2WbxdHNGn_W3tL4IsTIQLPrrxXd301c72kDc4TVhLX99kIlasheBas"
+  },
+  "claims": {
+    "exp": 1675209660,
+    "iat": 1675209600,
+    "iss": "http://localhost/",
+    "jti": "eecab9dd-86fe-469a-8c04-ed7e103aea1e",
+    "nbf": 1675209600,
+    "sid": "432caf86-c1d8-401c-978a-8da89133f78b",
+    "sub": "7458af86-c1d8-401c-978a-8da89133f78b"
   }
 }
 ```
 
-`session` represents the Identities session.
-
 `request` contains information from the client's request to the `/whoami` endpoint.
-
-The `request.payload.assertion` field will be populated for flows of the
-[`urn:ietf:params:oauth:grant-type:jwt-bearer`](jwt.mdx#using-jwts-as-authorization-grants) grant type only, and contains the JWT
-the client passed as the `assertion` in their call to the token endpoint.
 
 ## Responding to the webhook
 
@@ -141,22 +154,18 @@ To deny the token exchange, reply with a `403` HTTP status code.
 To keep the claims as is, return an empty body with a 204 status code.
 
 To modify the claims of the issued tokens and instruct Identities to proceed with the token exchange, return `200` with a JSON response
-body:
+body containing the claims that the final JWT should contain:
 
 ```json
 {
-  "session": {
-    "access_token": {
-      "your:custom:access-token-claim": "any value you like",
-      "your:second:access-token-claim": 124390123
-    },
-    "id_token": {
-      "your:custom:id-token-claim": "another value",
-      "your:second:id-token-claim": 2394123
-    }
+  "claims": {
+    "name": "John Doe",
+    "admin": true
   }
 }
 ```
+
+For the happy path, the response body must be an object containing a key `claims`, whose value is a map of string keys to any value. Each key-value in the `claims` object will be added to the final JWT claims.
 
 Responding with any other HTTP status code will abort the token exchange toward the client with an error message. In case of a 40x or 50x response code from your endpoint, a response body of any shape can be sent and it will be included in the error sent back to the client on a best effort basis.
 
@@ -164,41 +173,18 @@ Responding with any other HTTP status code will abort the token exchange toward 
 
 Tokens issued by Ory to the client will contain the data from your webhook response:
 
-```mdx-code-block
-<Tabs>
-  <TabItem value="id_token" label="id_token" default>
-    <CodeBlock language="json">{`
+```json
 {
-  "aud": [
-    "my_client"
-  ],
-  "auth_time": 1647427485,
-  "your:custom:id-token-claim": "another value",
-  "your:second:id-token-claim": 2394123,
-  "iss": "http://ory.hydra.example/",
-  "sub": "foo@bar.com"
+  "admin": true,
+  "exp": 1675209660,
+  "iat": 1675209600,
+  "iss": "http://localhost/",
+  "jti": "d4ef10de-bffd-48cb-a9cf-3cab91d4f5c2",
+  "name": "John Doe",
+  "nbf": 1675209600,
+  "sid": "432caf86-c1d8-401c-978a-8da89133f78b",
+  "sub": "7458af86-c1d8-401c-978a-8da89133f78b"
 }
-    `}</CodeBlock>
-  </TabItem>
-  <TabItem value="access_token" label="access_token">
-    <CodeBlock language="json">{`
-{
-  "active": true,
-  "scope": "openid offline",
-  "client_id": "my_client",
-  "sub": "foo@bar.com",
-  "aud": [],
-  "iss": "http://ory.hydra.example/",
-  "token_type": "Bearer",
-  "token_use": "access_token",
-  "ext": {
-      "your:custom:access-token-claim": "any value you like",
-      "your:second:access-token-claim": 124390123,
-    }
-}
-     `}</CodeBlock>
-  </TabItem>
-</Tabs>
 ```
 
 :::note
@@ -206,16 +192,3 @@ Tokens issued by Ory to the client will contain the data from your webhook respo
 You cannot override the token subject.
 
 :::
-
-### Add custom claims to top level
-
-By default, all custom claims are mirrored under the `ext` claim in the token.
-
-To flatten custom claims directly into the top level token instead of nesting them under `ext`, use the following
-[configuration](../../oauth2-oidc/jwt-access-token#adding-custom-claims-to-top-level).
-
-### Refresh token
-
-If a webhook for `refresh_token` grant type fails with a non-graceful result, the refresh flow will fail and the supplied
-`refresh_token` will remain unused.
-
