@@ -616,6 +616,49 @@
 }
 ```
 
+###### A recovery code has been sent to {masked_address}. If you have not received it, check the spelling of the address and make sure to use the address you registered with. (1060004)
+
+```json
+{
+  "id": 1060004,
+  "text": "A recovery code has been sent to {masked_address}. If you have not received it, check the spelling of the address and make sure to use the address you registered with.",
+  "type": "info",
+  "context": {
+    "masked_address": "{masked_address}"
+  }
+}
+```
+
+###### Recover access to your account by providing your recovery address in full. (1060005)
+
+```json
+{
+  "id": 1060005,
+  "text": "Recover access to your account by providing your recovery address in full.",
+  "type": "info"
+}
+```
+
+###### How do you want to recover your account? (1060006)
+
+```json
+{
+  "id": 1060006,
+  "text": "How do you want to recover your account?",
+  "type": "info"
+}
+```
+
+###### Back (1060007)
+
+```json
+{
+  "id": 1060007,
+  "text": "Back",
+  "type": "info"
+}
+```
+
 ###### Password (1070001)
 
 ```json
@@ -765,6 +808,26 @@
 {
   "id": 1070015,
   "text": "Please complete the captcha challenge to continue.",
+  "type": "info"
+}
+```
+
+###### Recovery address (1070016)
+
+```json
+{
+  "id": 1070016,
+  "text": "Recovery address",
+  "type": "info"
+}
+```
+
+###### Phone number (1070017)
+
+```json
+{
+  "id": 1070017,
+  "text": "Phone number",
   "type": "info"
 }
 ```
@@ -1250,6 +1313,16 @@
 {
   "id": 4000038,
   "text": "Captcha verification failed, please try again.",
+  "type": "error"
+}
+```
+
+###### The new password must be different from the old password. (4000039)
+
+```json
+{
+  "id": 4000039,
+  "text": "The new password must be different from the old password.",
   "type": "error"
 }
 ```
