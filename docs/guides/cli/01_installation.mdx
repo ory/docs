@@ -13,58 +13,13 @@ Network to self-hosted setups alike.
 
 ## Installation
 
-You can install the Ory CLI directly on your machine, or run the tool in Docker.
+```mdx-code-block
+import Install from '@site/docs/_common/install-cli.mdx'
 
-### macOS
-
-Run this command to install the Ory CLI using Homebrew:
-
-```shell
-brew install ory/tap/cli
+<Install />
 ```
 
-Verify the installation:
-
-```shell
-ory help
-```
-
-### Linux
-
-The Ory CLI works on all Linux distributions. Run this command to install:
-
-```shell
-bash <(curl https://raw.githubusercontent.com/ory/meta/master/install.sh) -b . ory
-```
-
-You may want to move the Ory CLI to your `$PATH`:
-
-```shell
-sudo mv ./ory /usr/local/bin/
-```
-
-Verify the installation after moving to `$PATH`:
-
-```shell
-ory help
-```
-
-### Windows
-
-To install the CLI on Windows, use [scoop](https://scoop.sh). Run:
-
-```shell
-> scoop bucket add ory https://github.com/ory/scoop.git
-> scoop install ory
-```
-
-Verify the installation:
-
-```shell
-ory help
-```
-
-### Docker
+#### Docker
 
 ```shell
 ### Pull Ory CLI image
@@ -74,7 +29,7 @@ docker pull oryd/ory
 docker run --rm -it oryd/ory help
 ```
 
-### Binary
+#### Binary
 
 You can download the server and client binaries from the [GitHub "releases" tab](https://github.com/ory/cli/releases).
 
