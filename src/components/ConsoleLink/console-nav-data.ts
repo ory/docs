@@ -69,7 +69,7 @@ export const brandingPaths: Path[] = [
 
 export const authenticationPaths: Path[] = [
   {
-    title: "Registration",
+    title: "General",
     href: routes.project.authentication.route,
   },
   {
