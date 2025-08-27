@@ -1,12 +1,34 @@
 ---
 id: cors
-title: Setting up cross-origin resource sharing (CORS)
+title: Configure cross-origin resource sharing (CORS)
 ---
 
-Both Ory Hydra's Admin and Public endpoints support CORS. For detailed information, head over to the exemplary
-[config file](https://github.com/ory/hydra/blob/master/.schema/config.schema.json).
+Ory services support cross-origin resource sharing (CORS). For the full schema, see the
+[configuration file](https://github.com/ory/hydra/blob/master/.schema/config.schema.json).
 
-For CORS to work properly, we encourage to set the following values:
+## Configure CORS in Ory Kratos
+
+Enable CORS for specific origins in your configuration file:
+
+```yaml
+serve:
+  admin:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://example.com
+        - https://*.example.com # Wildcards are supported
+  public:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://example.com
+        - https://*.example.com
+```
+
+## Configure CORS in Ory Hydra
+
+We recommend the following base configuration:
 
 ```yaml
 serve:
@@ -16,37 +38,23 @@ serve:
       allowed_origins:
         - https://example.com
         - https://*.example.com
-      allowed_methods:
-        - POST
-        - GET
-        - PUT
-        - PATCH
-        - DELETE
-      allowed_headers:
-        - Authorization
-      exposed_headers:
-        - Content-Type
   public:
     cors:
       enabled: true
       allowed_origins:
         - https://example.com
         - https://*.example.com
-      allowed_methods:
-        - POST
-        - GET
-        - PUT
-        - PATCH
-        - DELETE
-      allowed_headers:
-        - Authorization
-      exposed_headers:
-        - Content-Type
 ```
 
-Keep in mind that the OAuth 2.0 Authorization Endpoint (`/oauth2/auth`) doesn't expose CORS by design. This endpoint should never
-be consumed in a CORS-fashion. Some endpoints (`/oauth2/token`, `/userinfo`, `/oauth2/revoke`) also include URLs listed in field
-`allowed_cors_origins` of the OAuth 2.0 Client that is making the request. For example, OAuth 2.0 Client
+### OAuth 2.0 Authoriaztion endpoint
+
+The **authorization endpoint** (`/oauth2/auth`) never supports CORS. Browsers call this endpoint directly, not through AJAX, so
+CORS is unnecessary and unsafe.
+
+### OAuth 2.0 Token Endpoint
+
+The **token**, **userinfo**, and **revocation** endpoints (`/oauth2/token`, `/userinfo`, `/oauth2/revoke`) allow requests from
+origins defined in the OAuth 2.0 client’s `allowed_cors_origins` field. Example:
 
 ```json
 {
@@ -55,5 +63,81 @@ be consumed in a CORS-fashion. Some endpoints (`/oauth2/token`, `/userinfo`, `/o
 }
 ```
 
-is allowed to make CORS request to `/oauth2/token` from origin `https://foo-bar.com/` even if that origin isn't listed in
+This client can make CORS requests to `/oauth2/token` from `https://foo-bar.com/`, even if that origin is not listed in
 `public.cors.allowed_origins`.
+
+::: note
+
+For **preflight (OPTIONS) requests**, you must also configure the origin in the global CORS settings. OPTIONS requests don’t
+include authorization headers, so Hydra cannot resolve which OAuth 2.0 client is making the request.
+
+:::
+
+## Configure CORS in Ory Keto
+
+```yaml
+serve:
+  read:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://example.com
+        - https://*.example.com
+  write:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://example.com
+        - https://*.example.com
+  metrics:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://example.com
+        - https://*.example.com
+```
+
+## Configure CORS in Ory Oathkeeper
+
+```yaml
+serve:
+  proxy:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://example.com
+        - https://*.example.com
+  api:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://example.com
+        - https://*.example.com
+```
+
+## Advanced configuration
+
+You can customize allowed methods, headers, and other CORS behavior:
+
+```yaml
+cors:
+  enabled: true
+  allowed_origins:
+    - https://example.com
+
+  allowed_methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - OPTIONS
+  allowed_headers:
+    - Content-Type
+  exposed_headers:
+    - Content-Type
+    - Date
+    - Vary
+  allow_credentials: true
+  debug: true
+```
