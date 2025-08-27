@@ -48,13 +48,13 @@ serve:
 
 ### OAuth 2.0 authorization endpoint
 
-The authorization endpoint (`/oauth2/auth`) never supports CORS. Browsers call this endpoint directly, not through AJAX, so
-CORS is unnecessary and unsafe.
+The authorization endpoint (`/oauth2/auth`) never supports CORS. Browsers call this endpoint directly, not through AJAX, so CORS
+is unnecessary and unsafe.
 
 ### OAuth 2.0 token endpoint
 
-The token, userinfo, and revocation endpoints (`/oauth2/token`, `/userinfo`, `/oauth2/revoke`) allow requests from
-origins defined in the OAuth 2.0 client’s `allowed_cors_origins` field. Example:
+The token, userinfo, and revocation endpoints (`/oauth2/token`, `/userinfo`, `/oauth2/revoke`) allow requests from origins defined
+in the OAuth 2.0 client’s `allowed_cors_origins` field. Example:
 
 ```json
 {
@@ -68,8 +68,8 @@ This client can make CORS requests to `/oauth2/token` from `https://foo-bar.com/
 
 ::: note
 
-For preflight (OPTIONS) requests, you must also configure the origin in the global CORS settings. OPTIONS requests don’t
-include authorization headers, so Hydra can't resolve which OAuth 2.0 client is making the request.
+For preflight (OPTIONS) requests, you must also configure the origin in the global CORS settings. OPTIONS requests don’t include
+authorization headers, so Hydra can't resolve which OAuth 2.0 client is making the request.
 
 :::
 
