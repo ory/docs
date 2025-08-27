@@ -228,8 +228,20 @@ case is adding custom claims to the tokens based on a separate database or busin
 This is possible by registering a webhook endpoint in the configuration. Before the token is issued to the client, Ory will call
 your HTTPS endpoint with information about the client requesting the token.
 
-:::note Be aware of the added request latency, and of the impact of this service not being available: authentication will fail for
-the user. :::
+:::note
+
+Be aware that this approach is easy but also has numerous disadvantages:
+
+- Added request latency: if the third-party service takes 100 milliseconds to responsd to the request, that means that the
+  response time for the `/whoami` increased by that much
+- If the third-party service is not available, authentication will fail for the user.
+
+Thus, we recommend creating the JWT yourself if you need to add a lot of dynamic claims.
+
+Alternatively and preferrably, you can use
+[distributed/aggregated claims](https://openid.net/specs/openid-connect-core-1_0.html#AggregatedDistributedClaims).
+
+:::
 
 Your endpoint's response to the webhook will be used to customize the JWT token that Ory issues to the client.
 
