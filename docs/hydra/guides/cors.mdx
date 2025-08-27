@@ -51,7 +51,7 @@ serve:
 The authorization endpoint (`/oauth2/auth`) never supports CORS. Browsers call this endpoint directly, not through AJAX, so
 CORS is unnecessary and unsafe.
 
-### OAuth 2.0 Token Endpoint
+### OAuth 2.0 token endpoint
 
 The token, userinfo, and revocation endpoints (`/oauth2/token`, `/userinfo`, `/oauth2/revoke`) allow requests from
 origins defined in the OAuth 2.0 client’s `allowed_cors_origins` field. Example:
