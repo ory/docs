@@ -233,7 +233,7 @@ your HTTPS endpoint with information about the client requesting the token.
 Be aware that this approach is easy but also has numerous disadvantages:
 
 - Added request latency: if the third-party service takes 100 milliseconds to responsd to the request, that means that the
-  response time for the `/whoami` increased by that much
+  response time for the `/whoami` increases by that much
 - If the third-party service is not available, authentication will fail for the user.
 
 Thus, we recommend creating the JWT yourself if you need to add a lot of dynamic claims.
