@@ -1,0 +1,74 @@
+---
+id: user-impersonation
+title: Implementing user impersonation securely
+sidebar_label: User impersonation
+---
+
+User impersonation is a powerful feature that allows a privileged user, such as a system administrator or a customer support
+agent, to perform actions on behalf of another user. It's a common misconception that impersonation is an authentication problem.
+In fact, it is an authorization problem.
+
+This guide explains the difference and presents a secure pattern for implementing user impersonation that doesn't break the
+security guarantees of your system.
+
+## Authentication vs. authorization
+
+To understand impersonation correctly, it's important to first distinguish between authentication and authorization.
+
+- Authentication is the process of determining and proving who a user or system is. It answers the question, "Who is doing the
+  action?"
+- Authorization is the process of determining what an authenticated subject, such as a user or a service, is allowed to do. It
+  answers the question, "Is this subject allowed to do the action?"
+
+Typically, the authentication process provides a stable identifier, such as a `userID`, which becomes the subject for
+authorization checks. For secure impersonation it is important to not break the guarantees given by the authentication and
+authorization. Therefore, impersonation doesn't change who is authenticated; it changes the subject used for subsequent
+authorization decisions.
+
+## How impersonation works
+
+A secure impersonation flow doesn't create a new login session for the target user or compromise the original user's authenticated
+identity. The system always knows who the originally authenticated user is.
+
+Instead, the flow introduces an additional authorization check: "Is the currently logged-in user allowed to act as the target
+user?"
+
+This approach preserves the core promises of both authentication and authorization:
+
+- The original user remains authenticated, which is critical for audit trails.
+- The system makes an explicit authorization decision before granting impersonation capabilities.
+- Application logic continues to work with a clear subject, unaware of the impersonation details.
+
+This check can be as simple as verifying group membership, for example, "is the user in the `support-agents` group?", or can
+involve complex rules based on context, such as the target user's data, group membership, or active back-channel consent.
+
+## Impersonation implementation suggestion
+
+You can abstract the complexity of impersonation by using a middleware that runs between your authentication and authorization
+layers. This middleware intercepts incoming requests to manage the impersonation logic before the request reaches your application
+code.
+
+The middleware performs these steps:
+
+1.  It identifies the authenticated user from a valid session, for example from a JWT or a session cookie.
+1.  It looks for an impersonation instruction in the request, for example a special HTTP header or a query parameter that contains
+    the ID of the target user to impersonate.
+1.  When it detects an impersonation request, the middleware performs an authorization check. For example, "Does the authenticated
+    user have permission to impersonate the target user?"
+1.  If the authorization check passes, the middleware sets the target user's ID as the effective subject for the downstream
+    request. It's good practice to also pass along the original user's ID in a separate header (for example,
+    `X-Original-Subject-ID`) for detailed audit logging.
+1.  The middleware then forwards the request to the application.
+
+Your application code then uses the effective subject to perform its own authorization checks without needing to know that an
+impersonation session is active. When the user requests to end the impersonation session, the middleware simply stops substituting
+the subject on subsequent requests.
+
+Using a middleware for impersonation provides several advantages:
+
+- You never break the authentication promise keeping a clear security context. Audit logs can record actions taken by the original
+  authenticated user "on behalf of" the impersonated user, providing a complete and accurate record.
+- Decoupled application logic means your application code stays simple. It continues to make authorization decisions based on the
+  subject it receives, without needing any special logic to handle impersonation.
+- All impersonation rules are managed in one place. This makes it easy to update, audit, or revoke impersonation permissions
+  across your entire system without changing your application code.
