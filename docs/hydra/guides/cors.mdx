@@ -42,8 +42,7 @@ serve:
     cors:
       enabled: true
       allowed_origins:
-        - https://example.com
-        - https://*.example.com
+        - * # Use wildcard for using Ory Hydra in 3rd party scenarios (public OAuth2 client registration), otherwise fixed domains.
 ```
 
 ### OAuth 2.0 authorization endpoint
