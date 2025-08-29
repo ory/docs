@@ -305,22 +305,22 @@ session:
   whoami:
     tokenizer:
       templates:
-      jwt_template_1:
-        jwks_url: base64://... # A JSON Web Key Set (required)
-        ttl: 1m # 1 minute (defaults to 10 minutes)
-    // highlight-start
-        claims_hook:
-          url: https://my-example.app/token-hook
-          auth:
-            type: api_key
-            config:
-              in: header
-              name: X-API-Key
-              value: "MY API KEY"
-    // highlight-end
-      another_jwt_template:
-        jwks_url: base64://... # A JSON Web Key Set
-        # [...]
+        jwt_template_1:
+          jwks_url: base64://... # A JSON Web Key Set (required)
+          ttl: 1m # 1 minute (defaults to 10 minutes)
+      // highlight-start
+          claims_hook:
+            url: https://my-example.app/token-hook
+            auth:
+              type: api_key
+              config:
+                in: header
+                name: X-API-Key
+                value: "MY API KEY"
+      // highlight-end
+        another_jwt_template:
+          jwks_url: base64://... # A JSON Web Key Set
+          # [...]
 `}
     </CodeBlock>
   </TabItem>
@@ -330,22 +330,22 @@ session:
   whoami:
     tokenizer:
       templates:
-      jwt_template_1:
-        jwks_url: base64://... # A JSON Web Key Set (required)
-        ttl: 1m # 1 minute (defaults to 10 minutes)
-    // highlight-start
-        claims_hook:
-          url: https://my-example.app/token-hook
-          auth:
-            type: api_key
-            config:
-              in: cookie
-              name: X-Cookie-Name
-              value: "MY SECRET COOKIE"
-    // highlight-end
-      another_jwt_template:
-        jwks_url: base64://... # A JSON Web Key Set
-        # [...]
+        jwt_template_1:
+          jwks_url: base64://... # A JSON Web Key Set (required)
+          ttl: 1m # 1 minute (defaults to 10 minutes)
+      // highlight-start
+          claims_hook:
+            url: https://my-example.app/token-hook
+            auth:
+              type: api_key
+              config:
+                in: cookie
+                name: X-Cookie-Name
+                value: "MY SECRET COOKIE"
+      // highlight-end
+        another_jwt_template:
+          jwks_url: base64://... # A JSON Web Key Set
+          # [...]
 `}
     </CodeBlock>
   </TabItem>
@@ -355,16 +355,16 @@ session:
   whoami:
     tokenizer:
       templates:
-      jwt_template_1:
-        jwks_url: base64://... # A JSON Web Key Set (required)
-        ttl: 1m # 1 minute (defaults to 10 minutes)
-    // highlight-start
-        claims_hook:
-          url: http://example.com/sessions/whoami
-    // highlight-end
-      another_jwt_template:
-        jwks_url: base64://... # A JSON Web Key Set
-        # [...]
+        jwt_template_1:
+          jwks_url: base64://... # A JSON Web Key Set (required)
+          ttl: 1m # 1 minute (defaults to 10 minutes)
+      // highlight-start
+          claims_hook:
+            url: http://example.com/sessions/whoami
+      // highlight-end
+        another_jwt_template:
+          jwks_url: base64://... # A JSON Web Key Set
+          # [...]
 `}
     </CodeBlock>
   </TabItem>
