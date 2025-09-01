@@ -225,9 +225,10 @@ If the key set contains more than one key, the first key in the list will be use
 Sometimes, Jsonnet scripting is not enough to customize the JWT. A network call to a different service is necessary. A typical use
 case is adding custom claims to the tokens based on a separate database or business logic.
 
-This is possible by registering a webhook endpoint in the configuration. This is all done in a separate endpoint: `/sessions/whoami-jwt/{templateName}`.
-Before the token is issued to the client, Ory will call your HTTPS endpoint with information about the client requesting the token. Note that the template name is mandatory.
-This way, your application can at runtime use different template names and thus third-party endpoints at will.
+This is possible by registering a webhook endpoint in the configuration. This is all done in a separate endpoint:
+`/sessions/whoami-jwt/{templateName}`. Before the token is issued to the client, Ory will call your HTTPS endpoint with
+information about the client requesting the token. Note that the template name is mandatory. This way, your application can at
+runtime use different template names and thus third-party endpoints at will.
 
 :::note
 
@@ -374,7 +375,8 @@ session:
 
 #### Webhook payload
 
-Ory will perform a POST request with a JSON payload towards your endpoint as configured, e.g. `http://svc.example.com/jwt-webhook`.
+Ory will perform a POST request with a JSON payload towards your endpoint as configured, e.g.
+`http://svc.example.com/jwt-webhook`.
 
 ```json title="Example token webhook request payload"
 {
@@ -433,7 +435,8 @@ Ory will perform a POST request with a JSON payload towards your endpoint as con
 }
 ```
 
-Fields prefixed with `request_` contain information from the client's request to the `/sessions/whoami-jwt/{templateName}` endpoint.
+Fields prefixed with `request_` contain information from the client's request to the `/sessions/whoami-jwt/{templateName}`
+endpoint.
 
 The HTTP headers, present in the client request and that are in the allow-list (from the configuration field
 `clients.web_hook.header_allowlist`), will be forwarded to the webhook endpoint. In the above example, `X-Claim-Name` is such a
