@@ -234,8 +234,8 @@ runtime use different template names and thus third-party endpoints at will.
 
 Be aware that this approach is easy but also has numerous disadvantages:
 
-- Added request latency: if the third-party service takes 100 milliseconds to respond to the request, that means that the
-  response time for the `/sessions/whoami-jwt/{templateName}` increases by that much
+- Added request latency: if the third-party service takes 100 milliseconds to respond to the request, that means that the response
+  time for the `/sessions/whoami-jwt/{templateName}` increases by that much
 - If the third-party service is not available, authentication will fail for the user.
 
 Thus, we recommend creating the JWT yourself if you need to add a lot of dynamic claims.
