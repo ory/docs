@@ -80,7 +80,6 @@ Access Rules have four principal keys:
     - set to `/api/v1`: Incoming HTTP Request at `/api/v1/users` -> Forwarding HTTP Request at `/users`.
     - unset: Incoming HTTP Request at `/api/v1/users` -> Forwarding HTTP Request at `/api/v1/users`.
 - `match` (object): Defines the URL(s) this Access Rule should match.
-
   - `methods` (string[]): Array of HTTP methods (for example GET, POST, PUT, DELETE, ...).
   - `url` (string): The URL that should be matched. You can use regular expressions or glob patterns in this field to match more
     than one url. The matching strategy (glob or regexp) is defined in the global configuration file as
@@ -88,7 +87,6 @@ Access Rules have four principal keys:
     encapsulated in brackets `<` and `>`.
 
     Regular expressions examples:
-
     - `https://mydomain.com/` matches `https://mydomain.com/` and doesn't match `https://mydomain.com/foo` or
       `https://mydomain.com`.
     - `<https|http>://mydomain.com/<.*>` matches:`https://mydomain.com/` or `http://mydomain.com/foo`. Doesn't match:
@@ -98,7 +96,6 @@ Access Rules have four principal keys:
       `http://mydomain.com/protected`
 
     [Glob](http://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm) patterns examples:
-
     - `https://mydomain.com/<m?n>` matches `https://mydomain.com/man` and does not match `http://mydomain.com/foo`.
     - `https://mydomain.com/<{foo*,bar*}>` matches `https://mydomain.com/foo` or `https://mydomain.com/bar` and doesn't match
       `https://mydomain.com/any`.
