@@ -5,12 +5,26 @@ sidebar_label: Troubleshooting iframes
 ---
 
 Iframes can pose a significant security risk for authentication services due to many attack vectors such as clickjacking, iframe
-injection, iframe phishing, and many others.
+injection, iframe phishing, and others. Most browsers have implemented measures to block cookies in iframe contexts that break
+authentication, CSRF-prevention, and sessions.
 
-Safari has additionally implemented a feature called
-[Intelligent Tracking Prevention](https://webkit.org/blog/7675/intelligent-tracking-prevention/) that blocks third-party cookies
-by default in iframe contexts, which breaks authentication, CSRF-prevention, and sessions. Chrome is planning on rolling out the
-same changes in 2024.
+- Safari has implemented [Intelligent Tracking Prevention](https://webkit.org/blog/7675/intelligent-tracking-prevention/) which
+  blocks third-party cookies by default.
+- Firefox has implemented
+  [Total Cookie Protection](https://blog.mozilla.org/en/mozilla/firefox-rolls-out-total-cookie-protection-by-default-to-all-users-worldwide/)
+  which gives third-party cookies a separate cookie jar per site by default, preventing cross-site tracking.
+- Google Chrome only blocks third-party cookies in Incognito mode by default, but users can set Google Chrome to block all
+  third-party cookies in regular mode. As an alternative, Google has implemented FedCM, which Ory supports. Read more about
+  [FedCM](../kratos/social-signin/fedcm.mdx).
+- Edge blocks trackers by default. Microsoft is also exploring blocking third-party cookies in Edge by default.
+- Brave browser blocks third-party cookies by default.
 
-We therefore discourage use of iframes when using Ory and have implemented HTTP headers (`X-Frame-Options: DENY`) indicating to
-browsers that iframes can not be used with the Ory Account Experience.
+:::danger
+
+Identity flows, such as authentication, login, registration, and MFA, must not be embedded inside an iframe! Embedding these flows
+increases the risk of phishing, session hijacking, and clickjacking.
+
+:::
+
+Ory has implemented HTTP headers (`X-Frame-Options: DENY` and `Content-Security-Policy: frame-ancestors 'none'`) to indicate to
+browsers that iframes can't be used with the Ory Account Experience self-service user flows.

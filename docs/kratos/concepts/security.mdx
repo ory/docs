@@ -85,10 +85,6 @@ Supported CAPTCHA providers are:
 
 - [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile)
 
-Cloudflare Turnstile widgets support a maximum of 10 allowed domains. When CAPTCHA is enabled, this list will be automatically
-populated with your currently configured [custom domains](../../guides/custom-domains.mdx). If your domain list exceeds this
-limit, you won't be able to enable CAPTCHA protection.
-
 ```mdx-code-block
 <Tabs groupId="console-or-api">
 <TabItem value="console" label="Ory Console">
@@ -96,9 +92,13 @@ limit, you won't be able to enable CAPTCHA protection.
 
 1. Go to <ConsoleLink route="project.authentication" />.
 2. Toggle **CAPTCHA protection**.
-3. Click **Save**.
+3. (optional) Add or remove domains from the **Allowed domains** list.
 
-4. Navigate to your registration or login screen to test the CAPTCHA protection.
+- You must define at least one valid domain.
+- You can list up to 10 domains in total.
+
+4. Click **Save**.
+5. Navigate to your registration or login screen to test the CAPTCHA protection.
 
 ```mdx-code-block
 </TabItem>
@@ -107,7 +107,8 @@ limit, you won't be able to enable CAPTCHA protection.
 
 ```shell
 ory patch identity-config --project <project-id> --workspace <workspace-id> \
-  --replace '/selfservice/mehods/captcha/enabled=true'
+  --replace '/selfservice/mehods/captcha/enabled=true' \
+  --replace '/selfservice/methods/captcha/config/allowed_domains=["example.org", "foo.bar.dev"]'
 ```
 
 ```mdx-code-block
