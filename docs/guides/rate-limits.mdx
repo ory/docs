@@ -211,28 +211,30 @@ Analyzes incoming request patterns and considers factors such as:
 
 #### Inflight Request Limiting
 
-In addition to traditional rate limiting, Ory employs inflight request limiting to protect critical administrative resources from
-concurrent access issues. This mechanism prevents multiple parallel requests to sensitive endpoints that could cause data
-inconsistency or resource conflicts.
+We limit inflight requests to protect important admin resources from problems caused by multiple requests happening at the same
+time. This prevents data conflicts and keeps your system stable. Our inflight limiting protects critical Kratos endpoints from
+concurrent request attacks. It prevents race conditions and keeps your data consistent. Admin operations complete safely without
+interference from other requests.
 
-The inflight rate limiting middleware protects critical Kratos endpoints that could be subject to concurrent request attacks,
-preventing race conditions and ensuring data consistency. This protection ensures that administrative operations complete safely
-without interference from concurrent requests, maintaining data integrity and system stability.
+:::note
+
+These limits mainly protect against write requests to the same resource happening in parallel—usually caused by implementation
+issues. :::
 
 ### Protected endpoints
 
 The following endpoints are protected by different types of rate limiting:
 
-| Type        | Endpoint                          | HTTP Methods      | Ratelimit Key                              | Action                                 |
-| ----------- | --------------------------------- | ----------------- | ------------------------------------------ | -------------------------------------- |
-| Brute-force |                                   |                   |                                            | To be added later                      |
-| Inflight    | `/admin/identities`               | POST, PUT, DELETE | `{project_id} + {full_path}`               | Blocks concurrent requests (enforced)  |
-| Inflight    | `/admin/identities/{id}`          | PUT, DELETE       | `{project_id} + {full_path}`               | Blocks concurrent requests (enforced)  |
-| Inflight    | `/admin/identities/{id}/sessions` | DELETE            | `{project_id} + {full_path}`               | Blocks concurrent requests (enforced)  |
-| Inflight    | `/admin/sessions`                 | DELETE            | `{project_id} + {full_path}`               | Logs concurrent requests (report-only) |
-| Inflight    | `/admin/sessions/{id}`            | DELETE, PATCH     | `{project_id} + {full_path}`               | Logs concurrent requests (report-only) |
-| Inflight    | `/admin/sessions/{id}/extend`     | PATCH             | `{project_id} + {full_path}`               | Logs concurrent requests (report-only) |
-| Inflight    | `/self-service/recovery`          | POST              | `{project_id} + {path} + {email\|flow_id}` | Logs concurrent requests (report-only) |
+| Type        | Endpoint                                    | HTTP Methods             | Ratelimit Key                                    | Action                                 |
+| :---------- | :------------------------------------------ | :----------------------- | :----------------------------------------------- | :------------------------------------- |
+| Brute-force |                                             |                          |                                                  | To be added later                      |
+| Inflight    | `/admin/identities`                         | `POST`, `PATCH`          | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
+| Inflight    | `/admin/identities/{id}`                    | `PUT`, `PATCH`, `DELETE` | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
+| Inflight    | `/admin/identities/{id}/credentials/{type}` | `DELETE`                 | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
+| Inflight    | `/admin/identities/{id}/sessions`           | `DELETE`                 | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
+| Inflight    | `/admin/sessions/{id}`                      | `DELETE`                 | `{project_id} + {full_path}`                     | Logs concurrent requests (report-only) |
+| Inflight    | `/admin/sessions/{id}/extend`               | `PATCH`                  | `{project_id} + {full_path}`                     | Logs concurrent requests (report-only) |
+| Inflight    | `/self-service/recovery`                    | `POST`                   | `{project_id} + {path} + "/" + {email\|flow_id}` | Logs concurrent requests (report-only) |
 
 **Note**: Report-only endpoints are observed over a period of time before enforcement is enabled. They currently log rate limit
 violations for monitoring purposes but do not block requests, while enforced endpoints return HTTP 429 when rate limits are
