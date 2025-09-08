@@ -12,9 +12,9 @@ usage for all our customers.
 
 Ory implements two main rate limit types:
 
-1. **Project rate limits:** Based on your subscription plan and environment (Production, Staging, or Development). These control
-   the overall request volume your projects can make to Ory's APIs.
-2. **Endpoint-based rate limits:** Additional security controls that protect specific endpoints against attacks like brute-force,
+1. Project rate limits: Based on your subscription plan and environment (Production, Staging, or Development). These control the
+   overall request volume your projects can make to Ory's APIs.
+2. Endpoint-based rate limits: Additional security controls that protect specific endpoints against attacks like brute-force,
    credential stuffing, and concurrent request abuse, regardless of your project limits.
 
 ## Project rate limits in workspaces
@@ -27,10 +27,10 @@ Network across different usage scenarios.
 
 Rate limits for each project are determined by two main factors:
 
-1. **Workspace subscription:** Your subscription plan (Developer, Production, Growth, or Enterprise) sets the baseline for your
-   rate limits.
-2. **Project environment:** Within each workspace, projects can be assigned to Production, Staging, or Development environments,
-   each with specific rate limit configurations.
+1. Workspace subscription: Your subscription plan (Developer, Production, Growth, or Enterprise) sets the baseline for your rate
+   limits.
+2. Project environment: Within each workspace, projects can be assigned to Production, Staging, or Development environments, each
+   with specific rate limit configurations.
 
 For a detailed explanation of workspaces and environments, see our [Workspaces and environments guide](/docs/guides/workspaces).
 
@@ -38,8 +38,8 @@ For a detailed explanation of workspaces and environments, see our [Workspaces a
 
 Each rate limit policy includes two limits:
 
-1. **Burst limit:** Maximum requests per second (rps), allowing for short traffic spikes.
-2. **Sustained limit:** Maximum requests per minute (rpm), ensuring consistent performance over time.
+1. Burst limit: Maximum requests per second (rps), allowing for short traffic spikes.
+2. Sustained limit: Maximum requests per minute (rpm), ensuring consistent performance over time.
 
 ### Determine your project's rate limits
 
@@ -166,10 +166,10 @@ addresses or JA4 fingerprints.
 
 Benefits:
 
-- **Enhanced security:** Restricts requests from specific sources, making attacks significantly harder to succeed
-- **Bot protection:** Differentiates genuine users from harmful automated activity
-- **Granular control:** Fine-tunes security for individual endpoints without compromising user experience
-- **Enterprise & Growth flexibility:** Allows IP whitelisting for high-volume legitimate traffic
+- Enhanced security: Restricts requests from specific sources, making attacks significantly harder to succeed
+- Bot protection: Differentiates genuine users from harmful automated activity
+- Granular control: Fine-tunes security for individual endpoints without compromising user experience
+- Enterprise & Growth flexibility: Allows IP whitelisting for high-volume legitimate traffic
 
 ### Types of endpoint-based protection
 
@@ -179,11 +179,11 @@ Ory implements two layers of endpoint-based protection:
 
 Analyzes incoming request patterns based on:
 
-- **Source identification:** IP addresses and JA3/JA4 fingerprints
-- **Request frequency:** Detects volumetric attacks and system overwhelm attempts
-- **Authentication status:** Different limits for authenticated vs. unauthenticated requests
-- **HTTP method:** Varying limits based on GET, POST, etc.
-- **Whitelist status:** Higher limits for whitelisted IPs and JA4 fingerprints (Enterprise and Growth only)
+- Source identification: IP addresses and JA3/JA4 fingerprints
+- Request frequency: Detects volumetric attacks and system overwhelm attempts
+- Authentication status: Different limits for authenticated vs. unauthenticated requests
+- HTTP method: Varying limits based on GET, POST, etc.
+- Whitelist status: Higher limits for whitelisted IPs and JA4 fingerprints (Enterprise and Growth only)
 
 #### Inflight rate limits
 
@@ -212,9 +212,13 @@ The following endpoints are protected by different types of rate limiting:
 | Inflight   | `/admin/sessions/{id}/extend`               | `PATCH`                  | `{project_id} + {full_path}`                     | Logs concurrent requests (report-only) |
 | Inflight   | `/self-service/recovery`                    | `POST`                   | `{project_id} + {path} + "/" + {email\|flow_id}` | Logs concurrent requests (report-only) |
 
-**Note:** Report-only endpoints are observed over a period of time before enforcement is enabled. They currently log rate limit
-violations for monitoring purposes but don't block requests, while enforced endpoints return HTTP 429 when rate limits are
-exceeded. GET, OPTIONS, and HEAD requests are exempt from rate limiting.
+:::note
+
+Report-only endpoints are observed over a period of time before enforcement is enabled. They currently log rate limit violations
+for monitoring purposes but don't block requests, while enforced endpoints return HTTP 429 when rate limits are exceeded. GET,
+OPTIONS, and HEAD requests are exempt from rate limiting.
+
+:::
 
 ### Configuration and management
 
