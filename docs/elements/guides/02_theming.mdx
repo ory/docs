@@ -70,3 +70,9 @@ function MyApp({ Component, pageProps }) {
 }
 export default MyApp
 ```
+
+## Using the default theme with custom components
+
+When building custom components, you can still leverage the default theme by using the CSS variables defined in Ory Elements. The
+default theme's styles are scoped to the `.ory-elements` CSS class. This means that if you wrap your custom components in a
+container with this class, they will inherit the default theme styles.
