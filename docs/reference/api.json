@@ -126,436 +126,436 @@
     "schemas": {
       "AccountExperienceColors": {
         "properties": {
-          "ax-background-default": {
+          "ax_background_default": {
             "type": "string"
           },
-          "brand-100": {
+          "brand_100": {
             "type": "string"
           },
-          "brand-200": {
+          "brand_200": {
             "type": "string"
           },
-          "brand-300": {
+          "brand_300": {
             "type": "string"
           },
-          "brand-400": {
+          "brand_400": {
             "type": "string"
           },
-          "brand-50": {
+          "brand_50": {
             "type": "string"
           },
-          "brand-500": {
+          "brand_500": {
             "type": "string"
           },
-          "brand-600": {
+          "brand_600": {
             "type": "string"
           },
-          "brand-700": {
+          "brand_700": {
             "type": "string"
           },
-          "brand-800": {
+          "brand_800": {
             "type": "string"
           },
-          "brand-900": {
+          "brand_900": {
             "type": "string"
           },
-          "brand-950": {
+          "brand_950": {
             "type": "string"
           },
-          "button-identifier-background-default": {
+          "button_identifier_background_default": {
             "type": "string"
           },
-          "button-identifier-background-hover": {
+          "button_identifier_background_hover": {
             "type": "string"
           },
-          "button-identifier-border-border-default": {
+          "button_identifier_border_border_default": {
             "type": "string"
           },
-          "button-identifier-border-border-hover": {
+          "button_identifier_border_border_hover": {
             "type": "string"
           },
-          "button-identifier-foreground-default": {
+          "button_identifier_foreground_default": {
             "type": "string"
           },
-          "button-identifier-foreground-hover": {
+          "button_identifier_foreground_hover": {
             "type": "string"
           },
-          "button-link-brand-brand": {
+          "button_link_brand_brand": {
             "type": "string"
           },
-          "button-link-brand-brand-hover": {
+          "button_link_brand_brand_hover": {
             "type": "string"
           },
-          "button-link-default-primary": {
+          "button_link_default_primary": {
             "type": "string"
           },
-          "button-link-default-primary-hover": {
+          "button_link_default_primary_hover": {
             "type": "string"
           },
-          "button-link-default-secondary": {
+          "button_link_default_secondary": {
             "type": "string"
           },
-          "button-link-default-secondary-hover": {
+          "button_link_default_secondary_hover": {
             "type": "string"
           },
-          "button-link-disabled-disabled": {
+          "button_link_disabled_disabled": {
             "type": "string"
           },
-          "button-primary-background-default": {
+          "button_primary_background_default": {
             "type": "string"
           },
-          "button-primary-background-disabled": {
+          "button_primary_background_disabled": {
             "type": "string"
           },
-          "button-primary-background-hover": {
+          "button_primary_background_hover": {
             "type": "string"
           },
-          "button-primary-border-default": {
+          "button_primary_border_default": {
             "type": "string"
           },
-          "button-primary-border-disabled": {
+          "button_primary_border_disabled": {
             "type": "string"
           },
-          "button-primary-border-hover": {
+          "button_primary_border_hover": {
             "type": "string"
           },
-          "button-primary-foreground-default": {
+          "button_primary_foreground_default": {
             "type": "string"
           },
-          "button-primary-foreground-disabled": {
+          "button_primary_foreground_disabled": {
             "type": "string"
           },
-          "button-primary-foreground-hover": {
+          "button_primary_foreground_hover": {
             "type": "string"
           },
-          "button-secondary-background-default": {
+          "button_secondary_background_default": {
             "type": "string"
           },
-          "button-secondary-background-disabled": {
+          "button_secondary_background_disabled": {
             "type": "string"
           },
-          "button-secondary-background-hover": {
+          "button_secondary_background_hover": {
             "type": "string"
           },
-          "button-secondary-border-default": {
+          "button_secondary_border_default": {
             "type": "string"
           },
-          "button-secondary-border-disabled": {
+          "button_secondary_border_disabled": {
             "type": "string"
           },
-          "button-secondary-border-hover": {
+          "button_secondary_border_hover": {
             "type": "string"
           },
-          "button-secondary-foreground-default": {
+          "button_secondary_foreground_default": {
             "type": "string"
           },
-          "button-secondary-foreground-disabled": {
+          "button_secondary_foreground_disabled": {
             "type": "string"
           },
-          "button-secondary-foreground-hover": {
+          "button_secondary_foreground_hover": {
             "type": "string"
           },
-          "button-social-background-default": {
+          "button_social_background_default": {
             "type": "string"
           },
-          "button-social-background-disabled": {
+          "button_social_background_disabled": {
             "type": "string"
           },
-          "button-social-background-generic-provider": {
+          "button_social_background_generic_provider": {
             "type": "string"
           },
-          "button-social-background-hover": {
+          "button_social_background_hover": {
             "type": "string"
           },
-          "button-social-border-default": {
+          "button_social_border_default": {
             "type": "string"
           },
-          "button-social-border-disabled": {
+          "button_social_border_disabled": {
             "type": "string"
           },
-          "button-social-border-generic-provider": {
+          "button_social_border_generic_provider": {
             "type": "string"
           },
-          "button-social-border-hover": {
+          "button_social_border_hover": {
             "type": "string"
           },
-          "button-social-foreground-default": {
+          "button_social_foreground_default": {
             "type": "string"
           },
-          "button-social-foreground-disabled": {
+          "button_social_foreground_disabled": {
             "type": "string"
           },
-          "button-social-foreground-generic-provider": {
+          "button_social_foreground_generic_provider": {
             "type": "string"
           },
-          "button-social-foreground-hover": {
+          "button_social_foreground_hover": {
             "type": "string"
           },
-          "checkbox-background-checked": {
+          "checkbox_background_checked": {
             "type": "string"
           },
-          "checkbox-background-default": {
+          "checkbox_background_default": {
             "type": "string"
           },
-          "checkbox-border-checkbox-border-checked": {
+          "checkbox_border_checkbox_border_checked": {
             "type": "string"
           },
-          "checkbox-border-checkbox-border-default": {
+          "checkbox_border_checkbox_border_default": {
             "type": "string"
           },
-          "checkbox-foreground-checked": {
+          "checkbox_foreground_checked": {
             "type": "string"
           },
-          "checkbox-foreground-default": {
+          "checkbox_foreground_default": {
             "type": "string"
           },
-          "form-background-default": {
+          "form_background_default": {
             "type": "string"
           },
-          "form-border-default": {
+          "form_border_default": {
             "type": "string"
           },
-          "input-background-default": {
+          "input_background_default": {
             "type": "string"
           },
-          "input-background-disabled": {
+          "input_background_disabled": {
             "type": "string"
           },
-          "input-background-hover": {
+          "input_background_hover": {
             "type": "string"
           },
-          "input-border-default": {
+          "input_border_default": {
             "type": "string"
           },
-          "input-border-disabled": {
+          "input_border_disabled": {
             "type": "string"
           },
-          "input-border-focus": {
+          "input_border_focus": {
             "type": "string"
           },
-          "input-border-hover": {
+          "input_border_hover": {
             "type": "string"
           },
-          "input-foreground-disabled": {
+          "input_foreground_disabled": {
             "type": "string"
           },
-          "input-foreground-primary": {
+          "input_foreground_primary": {
             "type": "string"
           },
-          "input-foreground-secondary": {
+          "input_foreground_secondary": {
             "type": "string"
           },
-          "input-foreground-tertiary": {
+          "input_foreground_tertiary": {
             "type": "string"
           },
-          "interface-background-brand-primary": {
+          "interface_background_brand_primary": {
             "type": "string"
           },
-          "interface-background-brand-primary-hover": {
+          "interface_background_brand_primary_hover": {
             "type": "string"
           },
-          "interface-background-brand-secondary": {
+          "interface_background_brand_secondary": {
             "type": "string"
           },
-          "interface-background-brand-secondary-hover": {
+          "interface_background_brand_secondary_hover": {
             "type": "string"
           },
-          "interface-background-default-inverted": {
+          "interface_background_default_inverted": {
             "type": "string"
           },
-          "interface-background-default-inverted-hover": {
+          "interface_background_default_inverted_hover": {
             "type": "string"
           },
-          "interface-background-default-none": {
+          "interface_background_default_none": {
             "type": "string"
           },
-          "interface-background-default-primary": {
+          "interface_background_default_primary": {
             "type": "string"
           },
-          "interface-background-default-primary-hover": {
+          "interface_background_default_primary_hover": {
             "type": "string"
           },
-          "interface-background-default-secondary": {
+          "interface_background_default_secondary": {
             "type": "string"
           },
-          "interface-background-default-secondary-hover": {
+          "interface_background_default_secondary_hover": {
             "type": "string"
           },
-          "interface-background-default-tertiary": {
+          "interface_background_default_tertiary": {
             "type": "string"
           },
-          "interface-background-default-tertiary-hover": {
+          "interface_background_default_tertiary_hover": {
             "type": "string"
           },
-          "interface-background-disabled-disabled": {
+          "interface_background_disabled_disabled": {
             "type": "string"
           },
-          "interface-background-validation-danger": {
+          "interface_background_validation_danger": {
             "type": "string"
           },
-          "interface-background-validation-success": {
+          "interface_background_validation_success": {
             "type": "string"
           },
-          "interface-background-validation-warning": {
+          "interface_background_validation_warning": {
             "type": "string"
           },
-          "interface-border-brand-brand": {
+          "interface_border_brand_brand": {
             "type": "string"
           },
-          "interface-border-default-inverted": {
+          "interface_border_default_inverted": {
             "type": "string"
           },
-          "interface-border-default-none": {
+          "interface_border_default_none": {
             "type": "string"
           },
-          "interface-border-default-primary": {
+          "interface_border_default_primary": {
             "type": "string"
           },
-          "interface-border-disabled-disabled": {
+          "interface_border_disabled_disabled": {
             "type": "string"
           },
-          "interface-border-validation-danger": {
+          "interface_border_validation_danger": {
             "type": "string"
           },
-          "interface-border-validation-success": {
+          "interface_border_validation_success": {
             "type": "string"
           },
-          "interface-border-validation-warning": {
+          "interface_border_validation_warning": {
             "type": "string"
           },
-          "interface-foreground-brand-on-primary": {
+          "interface_foreground_brand_on_primary": {
             "type": "string"
           },
-          "interface-foreground-brand-on-secondary": {
+          "interface_foreground_brand_on_secondary": {
             "type": "string"
           },
-          "interface-foreground-brand-primary": {
+          "interface_foreground_brand_primary": {
             "type": "string"
           },
-          "interface-foreground-brand-secondary": {
+          "interface_foreground_brand_secondary": {
             "type": "string"
           },
-          "interface-foreground-default-inverted": {
+          "interface_foreground_default_inverted": {
             "type": "string"
           },
-          "interface-foreground-default-primary": {
+          "interface_foreground_default_primary": {
             "type": "string"
           },
-          "interface-foreground-default-secondary": {
+          "interface_foreground_default_secondary": {
             "type": "string"
           },
-          "interface-foreground-default-tertiary": {
+          "interface_foreground_default_tertiary": {
             "type": "string"
           },
-          "interface-foreground-disabled-disabled": {
+          "interface_foreground_disabled_disabled": {
             "type": "string"
           },
-          "interface-foreground-disabled-on-disabled": {
+          "interface_foreground_disabled_on_disabled": {
             "type": "string"
           },
-          "interface-foreground-validation-danger": {
+          "interface_foreground_validation_danger": {
             "type": "string"
           },
-          "interface-foreground-validation-success": {
+          "interface_foreground_validation_success": {
             "type": "string"
           },
-          "interface-foreground-validation-warning": {
+          "interface_foreground_validation_warning": {
             "type": "string"
           },
-          "ory-background-default": {
+          "ory_background_default": {
             "type": "string"
           },
-          "ory-border-default": {
+          "ory_border_default": {
             "type": "string"
           },
-          "ory-foreground-default": {
+          "ory_foreground_default": {
             "type": "string"
           },
-          "radio-background-checked": {
+          "radio_background_checked": {
             "type": "string"
           },
-          "radio-background-default": {
+          "radio_background_default": {
             "type": "string"
           },
-          "radio-border-checked": {
+          "radio_border_checked": {
             "type": "string"
           },
-          "radio-border-default": {
+          "radio_border_default": {
             "type": "string"
           },
-          "radio-foreground-checked": {
+          "radio_foreground_checked": {
             "type": "string"
           },
-          "radio-foreground-default": {
+          "radio_foreground_default": {
             "type": "string"
           },
-          "toggle-background-checked": {
+          "toggle_background_checked": {
             "type": "string"
           },
-          "toggle-background-default": {
+          "toggle_background_default": {
             "type": "string"
           },
-          "toggle-border-checked": {
+          "toggle_border_checked": {
             "type": "string"
           },
-          "toggle-border-default": {
+          "toggle_border_default": {
             "type": "string"
           },
-          "toggle-foreground-checked": {
+          "toggle_foreground_checked": {
             "type": "string"
           },
-          "toggle-foreground-default": {
+          "toggle_foreground_default": {
             "type": "string"
           },
-          "ui-100": {
+          "ui_100": {
             "type": "string"
           },
-          "ui-200": {
+          "ui_200": {
             "type": "string"
           },
-          "ui-300": {
+          "ui_300": {
             "type": "string"
           },
-          "ui-400": {
+          "ui_400": {
             "type": "string"
           },
-          "ui-50": {
+          "ui_50": {
             "type": "string"
           },
-          "ui-500": {
+          "ui_500": {
             "type": "string"
           },
-          "ui-600": {
+          "ui_600": {
             "type": "string"
           },
-          "ui-700": {
+          "ui_700": {
             "type": "string"
           },
-          "ui-800": {
+          "ui_800": {
             "type": "string"
           },
-          "ui-900": {
+          "ui_900": {
             "type": "string"
           },
-          "ui-950": {
+          "ui_950": {
             "type": "string"
           },
-          "ui-black": {
+          "ui_black": {
             "type": "string"
           },
-          "ui-danger": {
+          "ui_danger": {
             "type": "string"
           },
-          "ui-success": {
+          "ui_success": {
             "type": "string"
           },
-          "ui-transparent": {
+          "ui_transparent": {
             "type": "string"
           },
-          "ui-warning": {
+          "ui_warning": {
             "type": "string"
           },
-          "ui-white": {
+          "ui_white": {
             "type": "string"
           }
         },
@@ -1406,6 +1406,9 @@
             "enum": ["link", "code"],
             "type": "string",
             "x-go-enum-desc": "link SelfServiceMessageVerificationStrategyLink\ncode SelfServiceMessageVerificationStrategyCode"
+          },
+          "kratos_selfservice_methods_captcha_config_allowed_domains": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
           "kratos_selfservice_methods_captcha_config_cf_turnstile_secret": {
             "description": "Configures the Cloudflare Turnstile site secret for CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
@@ -2500,287 +2503,6 @@
         ],
         "type": "object"
       },
-      "accountExperienceThemeVariables": {
-        "properties": {
-          "accent": {
-            "type": "string"
-          },
-          "bg-default": {
-            "type": "string"
-          },
-          "border-radius-branding": {
-            "type": "string"
-          },
-          "border-radius-buttons": {
-            "type": "string"
-          },
-          "border-radius-cards": {
-            "type": "string"
-          },
-          "border-radius-forms": {
-            "type": "string"
-          },
-          "border-radius-general": {
-            "type": "string"
-          },
-          "button-primary-bg-default": {
-            "type": "string"
-          },
-          "button-primary-bg-disabled": {
-            "type": "string"
-          },
-          "button-primary-bg-hover": {
-            "type": "string"
-          },
-          "button-primary-border-default": {
-            "type": "string"
-          },
-          "button-primary-border-disabled": {
-            "type": "string"
-          },
-          "button-primary-border-hover": {
-            "type": "string"
-          },
-          "button-primary-fg-default": {
-            "type": "string"
-          },
-          "button-primary-fg-disabled": {
-            "type": "string"
-          },
-          "button-primary-fg-hover": {
-            "type": "string"
-          },
-          "button-secondary-bg-default": {
-            "type": "string"
-          },
-          "button-secondary-bg-disabled": {
-            "type": "string"
-          },
-          "button-secondary-bg-hover": {
-            "type": "string"
-          },
-          "button-secondary-border-default": {
-            "type": "string"
-          },
-          "button-secondary-border-disabled": {
-            "type": "string"
-          },
-          "button-secondary-border-hover": {
-            "type": "string"
-          },
-          "button-secondary-fg-default": {
-            "type": "string"
-          },
-          "button-secondary-fg-disabled": {
-            "type": "string"
-          },
-          "button-secondary-fg-hover": {
-            "type": "string"
-          },
-          "button-social-bg-default": {
-            "type": "string"
-          },
-          "button-social-bg-disabled": {
-            "type": "string"
-          },
-          "button-social-bg-hover": {
-            "type": "string"
-          },
-          "button-social-bg-provider": {
-            "type": "string"
-          },
-          "button-social-border-default": {
-            "type": "string"
-          },
-          "button-social-border-disabled": {
-            "type": "string"
-          },
-          "button-social-border-hover": {
-            "type": "string"
-          },
-          "button-social-border-provider": {
-            "type": "string"
-          },
-          "button-social-fg-default": {
-            "type": "string"
-          },
-          "button-social-fg-disabled": {
-            "type": "string"
-          },
-          "button-social-fg-hover": {
-            "type": "string"
-          },
-          "button-social-fg-provider": {
-            "type": "string"
-          },
-          "created_at": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "dialog-bg-default": {
-            "type": "string"
-          },
-          "dialog-bg-subtle": {
-            "type": "string"
-          },
-          "dialog-border-default": {
-            "type": "string"
-          },
-          "dialog-fg-default": {
-            "type": "string"
-          },
-          "dialog-fg-mute": {
-            "type": "string"
-          },
-          "dialog-fg-subtle": {
-            "type": "string"
-          },
-          "forms-bg-default": {
-            "type": "string"
-          },
-          "forms-bg-disabled": {
-            "type": "string"
-          },
-          "forms-bg-hover": {
-            "type": "string"
-          },
-          "forms-border-default": {
-            "type": "string"
-          },
-          "forms-border-disabled": {
-            "type": "string"
-          },
-          "forms-border-error": {
-            "type": "string"
-          },
-          "forms-border-focus": {
-            "type": "string"
-          },
-          "forms-border-hover": {
-            "type": "string"
-          },
-          "forms-border-success": {
-            "type": "string"
-          },
-          "forms-border-warn": {
-            "type": "string"
-          },
-          "forms-checkbox-bg-checked": {
-            "type": "string"
-          },
-          "forms-checkbox-bg-default": {
-            "type": "string"
-          },
-          "forms-checkbox-border-checked": {
-            "type": "string"
-          },
-          "forms-checkbox-border-default": {
-            "type": "string"
-          },
-          "forms-checkbox-fg-checked": {
-            "type": "string"
-          },
-          "forms-checkbox-fg-default": {
-            "type": "string"
-          },
-          "forms-fg-default": {
-            "type": "string"
-          },
-          "forms-fg-error": {
-            "type": "string"
-          },
-          "forms-fg-mute": {
-            "type": "string"
-          },
-          "forms-fg-subtle": {
-            "type": "string"
-          },
-          "forms-fg-success": {
-            "type": "string"
-          },
-          "forms-fg-warn": {
-            "type": "string"
-          },
-          "forms-radio-bg-checked": {
-            "type": "string"
-          },
-          "forms-radio-bg-default": {
-            "type": "string"
-          },
-          "forms-radio-border-checked": {
-            "type": "string"
-          },
-          "forms-radio-border-default": {
-            "type": "string"
-          },
-          "forms-radio-fg-checked": {
-            "type": "string"
-          },
-          "forms-radio-fg-default": {
-            "type": "string"
-          },
-          "forms-toggle-bg-checked": {
-            "type": "string"
-          },
-          "forms-toggle-bg-default": {
-            "type": "string"
-          },
-          "forms-toggle-border-checked": {
-            "type": "string"
-          },
-          "forms-toggle-border-default": {
-            "type": "string"
-          },
-          "forms-toggle-fg-checked": {
-            "type": "string"
-          },
-          "forms-toggle-fg-default": {
-            "type": "string"
-          },
-          "id": {
-            "format": "uuid",
-            "type": "string"
-          },
-          "links-link-default": {
-            "type": "string"
-          },
-          "links-link-disabled": {
-            "type": "string"
-          },
-          "links-link-hover": {
-            "type": "string"
-          },
-          "links-link-inverted-default": {
-            "type": "string"
-          },
-          "links-link-inverted-hover": {
-            "type": "string"
-          },
-          "links-link-mute-default": {
-            "type": "string"
-          },
-          "links-link-mute-hover": {
-            "type": "string"
-          },
-          "syntax-syntax": {
-            "type": "string"
-          },
-          "syntax-syntax-key": {
-            "type": "string"
-          },
-          "syntax-syntax-num": {
-            "type": "string"
-          },
-          "syntax-syntax-value": {
-            "type": "string"
-          },
-          "updated_at": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "type": "object"
-      },
       "activeProjectInConsole": {
         "description": "The Active Project ID",
         "properties": {
@@ -3260,6 +2982,10 @@
       },
       "createOrganizationOnboardingPortalLinkBody": {
         "properties": {
+          "enable_scim": {
+            "description": "Feature flag to enable SCIM configuration",
+            "type": "boolean"
+          },
           "enable_sso": {
             "description": "Feature flag to enable SSO configuration",
             "type": "boolean"
@@ -3268,7 +2994,7 @@
             "$ref": "#/components/schemas/Time"
           }
         },
-        "required": ["enable_sso"],
+        "required": ["enable_sso", "enable_scim"],
         "type": "object"
       },
       "createProjectBody": {
@@ -4797,7 +4523,7 @@
         "type": "object"
       },
       "keysetPaginationRequestParameters": {
-        "description": "The `Link` HTTP header contains multiple links (`first`, `next`) formatted as:\n`\u003chttps://{project-slug}.projects.oryapis.com/admin/sessions?page_size=250\u0026page_token=\u003e; rel=\"first\"`\n\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
+        "description": "For details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
         "properties": {
           "page_size": {
             "default": 250,
@@ -4953,6 +4679,10 @@
           "id": {
             "description": "ID represents the flow's unique ID. When performing the login flow, this\nrepresents the id in the login UI's query parameter: http://\u003cselfservice.flows.login.ui_url\u003e/?flow=\u003cflow_id\u003e",
             "format": "uuid",
+            "type": "string"
+          },
+          "identity_schema": {
+            "description": "IdentitySchema optionally holds the ID of the identity schema that is used\nfor this flow. This value can be set by the user when creating the flow and\nshould be retained when the flow is saved or converted to another flow.",
             "type": "string"
           },
           "issued_at": {
@@ -6152,6 +5882,9 @@
             "type": "string",
             "x-go-enum-desc": "link SelfServiceMessageVerificationStrategyLink\ncode SelfServiceMessageVerificationStrategyCode"
           },
+          "kratos_selfservice_methods_captcha_config_allowed_domains": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
           "kratos_selfservice_methods_captcha_config_cf_turnstile_secret": {
             "description": "Configures the Cloudflare Turnstile site secret for CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
             "type": "string"
@@ -6505,6 +6238,9 @@
             "format": "uuid",
             "type": "string"
           },
+          "selfservice_selectable": {
+            "type": "boolean"
+          },
           "updated_at": {
             "description": "Last Time Project's Revision was Updated",
             "format": "date-time",
@@ -6586,6 +6322,10 @@
             "description": "The SCIM client's creation time",
             "format": "date-time",
             "readOnly": true,
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
             "type": "string"
           },
           "label": {
@@ -7173,31 +6913,6 @@
           "context": {
             "$ref": "#/components/schemas/JSONRawMessage"
           },
-          "expires_at": {
-            "properties": {
-              "access_token": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "authorize_code": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "id_token": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "par_context": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "refresh_token": {
-                "format": "date-time",
-                "type": "string"
-              }
-            },
-            "type": "object"
-          },
           "grant_access_token_audience": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
@@ -7633,6 +7348,10 @@
             "readOnly": true,
             "type": "string"
           },
+          "enable_scim": {
+            "description": "Feature flag to enable SCIM configuration",
+            "type": "boolean"
+          },
           "enable_sso": {
             "description": "Feature flag to enable SSO configuration",
             "type": "boolean"
@@ -7699,13 +7418,25 @@
           "revision_id": {
             "format": "uuid",
             "type": "string"
+          },
+          "scim_clients": {
+            "$ref": "#/components/schemas/projectRevisionScimClients"
+          },
+          "scim_enabled": {
+            "type": "boolean"
+          },
+          "sso_enabled": {
+            "type": "boolean"
           }
         },
         "required": [
           "revision_id",
           "base_url",
+          "sso_enabled",
+          "scim_enabled",
           "kratos_selfservice_methods_saml_config_providers",
-          "kratos_selfservice_methods_oidc_config_providers"
+          "kratos_selfservice_methods_oidc_config_providers",
+          "scim_clients"
         ],
         "type": "object"
       },
@@ -8169,17 +7900,6 @@
             "description": "AccentSubtleColor is a hex color code used by the Ory Account Experience theme.",
             "type": "string"
           },
-          "account_experience_variables": {
-            "description": "The Account Experience Theme Variables.",
-            "items": {
-              "$ref": "#/components/schemas/accountExperienceThemeVariables"
-            },
-            "type": "array"
-          },
-          "account_experience_variables_stylesheet": {
-            "description": "AccountExperienceVariableStylesheet holds a reference to the current stylesheet that can be used in the AX",
-            "type": "string"
-          },
           "background_canvas_color": {
             "description": "BackgroundCanvasColor is a hex color code used by the Ory Account Experience theme.",
             "type": "string"
@@ -8525,6 +8245,15 @@
         },
         "type": "array"
       },
+      "projectServiceAccountExperience": {
+        "properties": {
+          "config": {
+            "type": "object"
+          }
+        },
+        "required": ["config"],
+        "type": "object"
+      },
       "projectServiceIdentity": {
         "properties": {
           "config": {
@@ -8554,6 +8283,9 @@
       },
       "projectServices": {
         "properties": {
+          "account_experience": {
+            "$ref": "#/components/schemas/projectServiceAccountExperience"
+          },
           "identity": {
             "$ref": "#/components/schemas/projectServiceIdentity"
           },
@@ -8815,6 +8547,10 @@
           "id": {
             "description": "ID represents the flow's unique ID. When performing the registration flow, this\nrepresents the id in the registration ui's query parameter: http://\u003cselfservice.flows.registration.ui_url\u003e/?flow=\u003cid\u003e",
             "format": "uuid",
+            "type": "string"
+          },
+          "identity_schema": {
+            "description": "IdentitySchema optionally holds the ID of the identity schema that is used\nfor this flow. This value can be set by the user when creating the flow and\nshould be retained when the flow is saved or converted to another flow.",
             "type": "string"
           },
           "issued_at": {
@@ -9086,7 +8822,7 @@
             "type": "string"
           },
           "tokenized": {
-            "description": "Tokenized is the tokenized (e.g. JWT) version of the session.\n\nIt is only set when the `tokenize` query parameter was set to a valid tokenize template during calls to `/session/whoami`.",
+            "description": "Tokenized is the tokenized (e.g. JWT) version of the session.\n\nIt is only set when the `tokenize_as` query parameter was set to a valid tokenize template during calls to `/session/whoami`.",
             "type": "string"
           }
         },
@@ -9105,19 +8841,22 @@
             "type": "string"
           },
           "method": {
+            "description": "The method used in this authenticator.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "enum": [
-              "link_recovery",
-              "code_recovery",
               "password",
-              "code",
-              "totp",
               "oidc",
-              "webauthn",
+              "totp",
               "lookup_secret",
-              "v0.6_legacy_session"
+              "webauthn",
+              "code",
+              "passkey",
+              "profile",
+              "saml",
+              "link_recovery",
+              "code_recovery"
             ],
-            "title": "The method used",
-            "type": "string"
+            "type": "string",
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "organization": {
             "description": "The Organization id used for authentication",
@@ -9234,13 +8973,12 @@
           "revision_id": {
             "format": "uuid",
             "type": "string"
+          },
+          "scim_clients": {
+            "$ref": "#/components/schemas/projectRevisionScimClients"
           }
         },
-        "required": [
-          "revision_id",
-          "kratos_selfservice_methods_saml_config_providers",
-          "kratos_selfservice_methods_oidc_config_providers"
-        ],
+        "required": ["revision_id"],
         "type": "object"
       },
       "setProject": {
@@ -10463,6 +10201,10 @@
       },
       "updateOrganizationOnboardingPortalLinkBody": {
         "properties": {
+          "enable_scim": {
+            "description": "Feature flag to enable SCIM configuration",
+            "type": "boolean"
+          },
           "enable_sso": {
             "description": "Feature flag to enable SSO configuration",
             "type": "boolean"
@@ -10471,7 +10213,7 @@
             "$ref": "#/components/schemas/Time"
           }
         },
-        "required": ["enable_sso"],
+        "required": ["enable_sso", "enable_scim"],
         "type": "object"
       },
       "updateRecoveryFlowBody": {
@@ -17512,18 +17254,23 @@
         "operationId": "getRelationships",
         "parameters": [
           {
+            "description": "Items per Page\n\nThis is the number of items per page to return.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 250,
+              "format": "int64",
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
             "in": "query",
             "name": "page_token",
             "schema": {
               "type": "string"
-            }
-          },
-          {
-            "in": "query",
-            "name": "page_size",
-            "schema": {
-              "format": "int64",
-              "type": "integer"
             }
           },
           {
@@ -18614,6 +18361,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "An optional identity schema to use for the registration flow.",
+            "in": "query",
+            "name": "identity_schema",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -18709,6 +18464,14 @@
             "description": "Via should contain the identity's credential the code should be sent to. Only relevant in aal2 flows.\n\nDEPRECATED: This field is deprecated. Please remove it from your requests. The user will now see a choice\nof MFA credentials to choose from to perform the second factor instead.",
             "in": "query",
             "name": "via",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "An optional identity schema to use for the registration flow.",
+            "in": "query",
+            "name": "identity_schema",
             "schema": {
               "type": "string"
             }
@@ -19390,6 +19153,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "An optional identity schema to use for the registration flow.",
+            "in": "query",
+            "name": "identity_schema",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -19461,6 +19232,14 @@
             "description": "An optional organization ID that should be used to register this user.\nThis parameter is only effective in the Ory Network.",
             "in": "query",
             "name": "organization",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "An optional identity schema to use for the registration flow.",
+            "in": "query",
+            "name": "identity_schema",
             "schema": {
               "type": "string"
             }
