@@ -2,9 +2,10 @@ import React from 'react';
 import Heading from '@theme/Heading';
 
 const contexts = {
+  keto: require.context('../../../docs/self-hosted/oel/keto/changelog', false, /\.md$/),
   kratos: require.context( '../../../docs/self-hosted/oel/kratos/changelog', false, /\.md$/),
-  oauth2: require.context('../../../docs/self-hosted/oel/oauth2/changelog', false, /\.md$/),
   oathkeeper: require.context('../../../docs/self-hosted/oel/oathkeeper/changelog', false, /\.md$/),
+  oauth2: require.context('../../../docs/self-hosted/oel/oauth2/changelog', false, /\.md$/),
   polis: require.context('../../../docs/self-hosted/oel/polis/changelog', false, /\.md$/)
 };
 
