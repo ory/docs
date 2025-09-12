@@ -65,9 +65,9 @@ in the OAuth 2.0 client’s `allowed_cors_origins` field. Example:
 This client can make CORS requests to `/oauth2/token` from `https://foo-bar.com/`, even if that origin isn't listed in
 `public.cors.allowed_origins`.
 
-::: note
+:::note
 
-For preflight (OPTIONS) requests, you must also configure the origin in the global CORS settings. OPTIONS requests don’t include
+For preflight (OPTIONS) requests, you must also configure the origin in the global CORS settings. OPTIONS requests don't include
 authorization headers, so Hydra can't resolve which OAuth 2.0 client is making the request.
 
 :::
