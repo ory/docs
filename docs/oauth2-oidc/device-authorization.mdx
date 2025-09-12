@@ -1,0 +1,130 @@
+---
+id: device-authorization
+title: Device Authorization
+sidebar_label: Device authorization flow
+---
+
+The OAuth 2.0 Device Authorization Grant -also known as Device Flow- is OAuth 2.0 extension that enables devices with no browser
+or limited input capability to obtain an access token. It enables users to authotize devices with limited input capabilities, such
+as smart TVs, gaming consoles, or IoT devices, by delegating the authentication process to another device with a full browser such
+as a phone or computer.
+
+This document provides an overview of the Device Authorization Grant, a step-by-step example of its implementation, configuration
+options, and guidance on creating custom user interfaces for the verification screen.
+
+## Overview of the flow
+
+Here is the high-level overview for the Device Authorization Flow:
+
+1. The device requests to be authorized from the Authorization Server.
+1. The user is instructed to visit a URL on a different device and is given a user code.
+1. On a different device the user visits the URL, provides the user code, logs in and grants access to the device.
+1. The device polls the Authorization Server. Once the user authenticates and grants access, an access token is returned that can
+   be used to access the protected resource.
+
+### Device requests authorization
+
+The user tries to log in through the limited input device. The device sends a POST request to the Authorization Server to initiate
+the flow with the following parameters:
+
+- `client_id`: The ID of the client that's making the request.
+- `scope` (optional): The scope of the access request, which specifies what resources the requesting application can access.
+
+The Authorization Server responds with the following information:
+
+- `device_code`: A unique code to identify the authorization request.
+- `user_code`: A code the user will enter at the verification URL.
+- `verification_uri`: The URL where the user can authorize the device.
+- `verification_uri_complete`: The URL where the user can authorize the device, with the user_code already filled in.
+- `expires_in`: The lifespan of the device code (in seconds).
+- `interval`: The polling interval (in seconds) for the client to check if the user has authorized the device.
+
+### Display user code and verification URI
+
+The device shows the user the `user_code` and `verification_uri` it received from the Authorization Server.
+
+The user visits the provided URI on a separate device, such as a phone, and enters the code.
+
+### User grants permission
+
+Once the user enters the code, they're prompted to log in, if not already authenticated, and grant or deny permission to the
+client. After granting permission, the user is redirected to a page confirming successful login.
+
+### Device polls for the access token
+
+While the user is authorizing the device, the device polls the `token` endpoint of the Authorization Server to check whether the
+user has completed the authorization process, by making a POST request with the following parameters:
+
+- `client_id`: The ID of the client that's making the request.
+- `device_code`: The device code received from the device authorization request.
+- `grant_type`: This should always be `urn:ietf:params:oauth:grant-type:device_code`.
+
+After the user grants permission, the Authorization Server will respond with an access token.
+
+## Configuration options
+
+### Configuring the user interface
+
+To enable and configure the Device Authorization Grant in Ory Hydra, adjust the following settings in your configuration file:
+
+```
+urls:
+  device:
+    verification: http://path/to/device/verification/ui
+    success: http://path/to/device/success
+```
+
+### Configuring user code entropy
+
+Depending on your security needs and your traffic load, you may wish to enhance your `user_code` entropy. The Ory Hydra
+`oauth2.device_authorization.user_code_entropy` configuration supports 3 values:
+
+- `high`: `user_code` is 8 characters long and consists of alphanumeric characters, excluding some ambiguous symbols
+- `medium`: `user_code` is 8 characters long and consists of upper case letter
+- `low`: `user_code` is 9 characters long and consists of numbers
+
+Keep in mind that higher entropy may make it harder for the user to enter the user code.
+
+## Device verification user interface implementation
+
+Here is a sample implementation for a device verification UI :
+
+```js
+import { Configuration, OAuth2Api } from "@ory/client"
+import { Request, Response } from "express"
+
+const ory = new OAuth2Api(
+  new Configuration({
+    basePath: `https://${process.env.ORY_PROJECT_SLUG}.projects.oryapis.com`,
+    accessToken: process.env.ORY_API_KEY,
+  }),
+)
+
+// Please note that this is an example implementation.
+// In a production app, please add proper error handling.
+export async function handleLogin(request: Request, response: Response) {
+  const challenge = request.query.device_challenge.toString()
+  const userCode = request.query.user_code.toString()
+
+  // Show the login form if the form was not submitted.
+  if (request.method === "GET") {
+    response.render("device", {
+      challenge,
+      userCode,
+    })
+    return
+  }
+
+  // User was authenticated successfully,
+  return await ory
+    .acceptUserCodeRequest({
+      deviceChallenge: challenge,
+      acceptDeviceUserCodeRequest: {
+        user_code: userCode,
+      },
+    })
+    .then(({ redirect_to }) => {
+      response.redirect(String(redirect_to))
+    })
+}
+```
