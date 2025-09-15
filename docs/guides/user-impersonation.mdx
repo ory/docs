@@ -4,25 +4,24 @@ title: Implementing user impersonation securely
 sidebar_label: User impersonation
 ---
 
-User impersonation is a powerful feature that allows a privileged user, such as a system administrator or a customer support
-agent, to perform actions on behalf of another user. It's a common misconception that impersonation is an authentication problem.
-In fact, it is an authorization problem.
+User impersonation is a security and administrative feature that allows authorized users (for example, system administrators or
+support agents) to temporarily become another user within a system, accessing the application exactly as that user would see and
+experience it.
 
-This guide explains the difference and presents a secure pattern for implementing user impersonation that doesn't break the
-security guarantees of your system.
+To understand user impersonation, it is helpful to distinguish between authentication and authorization.
 
 ## Authentication vs. authorization
-
-To understand impersonation correctly, it's important to first distinguish between authentication and authorization.
 
 - Authentication is the process of determining and proving who a user or system is. It answers the question, "Who is doing the
   action?"
 - Authorization is the process of determining what an authenticated subject, such as a user or a service, is allowed to do. It
   answers the question, "Is this subject allowed to do the action?"
 
-Ory Kratos provides a stable identifier, the `identity.id`, which can become the subject for authorization checks. For secure
-impersonation, it is important to not break the guarantees given by authentication and authorization. Therefore, impersonation
-doesn't change who is authenticated; it changes the subject used for subsequent authorization decisions.
+For secure user impersonation, it is important to not break the guarantees given by authentication and authorization. Therefore,
+impersonation doesn't change who is authenticated; it changes the subject used for subsequent authorization decisions.
+
+This guide presents a secure pattern for implementing user impersonation, using Ory Kratos, that doesn't break the security
+guarantees of your system.
 
 ## How impersonation works
 
@@ -32,9 +31,6 @@ identity. The system always knows who the originally authenticated user is.
 The crucial check relies on the immutable identity provided by Ory, such as the `identity.id` from the
 [/whoami](https://www.ory.sh/docs/reference/api#tag/frontend/operation/toSession) API response from Ory Kratos or the `subject`
 claim from an OAuth2 token introspection from Ory Hydra.
-
-Instead, the flow introduces an additional authorization check: "Is the currently logged-in user allowed to act as the target
-user?"
 
 This approach preserves the core promises of both authentication and authorization:
 
@@ -78,3 +74,26 @@ Using a middleware for impersonation provides several advantages:
   subject it receives, without needing any special logic to handle impersonation.
 - All impersonation rules are managed in one place. This makes it easy to update, audit, or revoke impersonation permissions
   across your entire system without changing your application code.
+
+  ## Implementation best practices
+
+  When implementing your user impersonation flow, consider the following best practices.
+  1. Limit scope
+  - Not all admins should have impersonation rights
+  - Limit who can be impersonated (protect executives, other admins)
+  - Restrict available actions during impersonation, for example, prevent sensitive operations (password changes, account
+    deletion)
+  - Implement time limits and automatic session expiration
+  2. Transparency
+  - Log every action taken during impersonation
+  - Notify impersonated user (email/notification)
+  - Maintain a clear audit trail
+
+  User impersonation is a powerful administrative tool that requires careful implementation, strong security controls, and
+  comprehensive auditing to prevent abuse while enabling legitimate support and troubleshooting activities.
+
+```mdx-code-block
+import Help from '@site/docs/_common/need-help.mdx'
+
+<Help/>
+```
