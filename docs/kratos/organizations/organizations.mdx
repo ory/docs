@@ -5,13 +5,11 @@ title: B2B SSO & SAML
 
 # B2B Single Sign-On & SAML
 
-:::info
+```mdx-code-block
+import Help from '@site/docs/_common/need-help.mdx'
 
-Organizations are only available in Ory Network and are not supported in self-hosted Ory Kratos. If you have any questions, or if
-you would like more information about transitioning to Ory Network, please don't hesitate to
-[reach out](https://www.ory.sh/contact/).
-
-:::
+<Help/>
+```
 
 ```mdx-code-block
 import webm from './_static/organizations-ory-network.webm'
@@ -408,13 +406,13 @@ partners.
 The onboarding portal addresses the often-burdensome process of setting up and managing identity connections with external
 organizations. Traditionally, integrating with a customer's or partner's identity provider (IdP) for single sign-on (SSO) or
 synchronizing user directories involves manual, error-prone configurations. This often requires deep technical expertise in
-protocols such as SAML.
+protocols such as SAML/SCIM.
 
 Onboarding portal aims to:
 
 - Simplify complex integrations: By providing a self-service or guided onboarding experience, they abstract away the underlying
-  technical complexities of SAML. This means IT administrators on the client side don't need to be SAML experts to connect their
-  organization's identity system.
+  technical complexities of SAML/SCIM. This means IT administrators on the client side don't need to be SAML/SCIM experts to
+  connect their organization's identity system.
 - Reduce onboarding time: Instead of lengthy back-and-forth communication and manual configuration, an onboarding portal link
   allows an external administrator to configure the connection directly through a user-friendly interface. This drastically
   reduces the time and effort required to establish new B2B integrations.
@@ -422,7 +420,7 @@ Onboarding portal aims to:
   administrator receiving the link can configure their side of the connection securely, maintaining control over their IdP
   settings while establishing a trusted connection with your application.
 - Enable Self-Service for Organizations: For SaaS providers, this means empowering your customers to self-onboard and manage their
-  own SSO connections, freeing up your engineering and support teams. Support Scalability for B2B Models: As your application
+  own SSO/SCIM connections, freeing up your engineering and support teams. Support Scalability for B2B Models: As your application
   grows and serves more enterprise clients, manually managing each integration becomes unsustainable. These features provide a
   scalable solution for onboarding and managing a large number of organizational customers.
 - Validate SSO Connections instantly: The onboarding portal includes the ability to immediately test the configured SSO
@@ -440,11 +438,15 @@ These features are relevant for:
   management for applications that serve multiple organizations. Each organization has its own authentication and user
   provisioning requirements.
 
-Current limitations:
+Provider support:
 
-- The onboarding portal currently supports Microsoft Entra ID and Okta. You can also connect all SAML-compliant providers using
-  the custom SAML provider option. If you don't find your provider listed, please [contact us](https://www.ory.sh/contact/). While
-  OIDC and SCIM are part of Ory Network's capabilities, their integration with the onboarding portal is still under development.
+- The onboarding portal supports all well known providers. You can also connect any SAML/OIDC compliant provider using the Generic
+  SAML/OIDC IdP option. If you don't find your provider listed, please [contact us](https://www.ory.sh/contact/).
+
+### SCIM support
+
+The onboarding portal allows you to set up SCIM provisioning. For an organization, you can create, update, and remove SCIM
+servers. Guided walkthroughs are available for Microsoft Entra ID and Okta.
 
 ### Manage onboarding portal links
 
@@ -486,7 +488,8 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
      -H "Content-Type: application/json" \
      -d '{
            "expires_at": "2025-06-01T00:00:00Z",
-           "enable_sso": true
+           "enable_sso": true,
+           "enable_scim": true
          }'
 ```
 
@@ -499,6 +502,7 @@ Result:
   "project_id": "836b03f7-fdce-466a-9407-8595a0f615ce",
   "organization_id": "517cc5e7-1ab6-4dcf-ba02-00fad003af92",
   "enable_sso": true,
+  "enable_scim": true,
   "created_at": "2025-06-02T05:23:45.299988Z",
   "expires_at": "2025-06-03T05:23:45Z"
 }
@@ -507,6 +511,34 @@ Result:
 The response contains a `value` token that you can use to construct the onboarding portal link as follows:
 
 `https://your-slug.projects.oryapis.com/onboarding/<value>`
+
+#### Update an onboarding portal link
+
+```shell
+curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "expires_at": "2025-06-01T00:00:00Z",
+           "enable_sso": true,
+           "enable_scim": true
+         }'
+```
+
+Result:
+
+```json
+{
+  "id": "655fa1d7-8404-4aa5-a90d-7f0aee060bc6",
+  "value": "emH8rO0f9S8VtLXLhBdNc9vBPSgsoT3qYHQQd7ROf8HwMmtK",
+  "project_id": "94d32bfd-08ea-4a11-a026-b9d7ddda0f09",
+  "organization_id": "9e83d579-ba29-43dd-b245-28c525c82066",
+  "enable_sso": true,
+  "enable_scim": true,
+  "created_at": "2025-08-21T15:48:00.101704Z",
+  "expires_at": "2027-06-01T00:00:00Z"
+}
+```
 
 #### Delete an onboarding portal link
 
@@ -533,6 +565,7 @@ Result:
       "project_id": "836b03f7-fdce-466a-9407-8595a0f615ce",
       "organization_id": "517cc5e7-1ab6-4dcf-ba02-00fad003af92",
       "enable_sso": true,
+      "enable_scim": true,
       "created_at": "2025-06-02T05:44:24.883665Z",
       "expires_at": "2025-06-03T05:44:24Z"
     }
@@ -553,11 +586,28 @@ expiry of 1 day. Once the link expires, it no longer works. You can also delete 
 #### Handover and using the portal
 
 Once you generate the link, share it with the organization's administrator. They can access this link multiple times until its
-expiration to manage (add, edit, or delete) the organization's SSO connections.
+expiration to manage SSO and SCIM connections.
 
 ```mdx-code-block
 
 <BrowserWindow url="https://<your-slug>.projects.oryapis.com/onboarding/<unique-token>">
-    ![Onboarding portal](./_static/onboarding-portal.png)
+    ![Onboarding portal](./_static/onboarding-portal-home.png)
+</BrowserWindow>
+```
+
+##### Manage SSO
+
+```mdx-code-block
+<BrowserWindow url="https://<your-slug>.projects.oryapis.com/onboarding/<unique-token>/sso">
+    ![Onboarding portal](./_static/onboarding-portal-sso.png)
+</BrowserWindow>
+```
+
+##### Manage SCIM
+
+```mdx-code-block
+
+<BrowserWindow url="https://<your-slug>.projects.oryapis.com/onboarding/<unique-token>/scim">
+    ![Onboarding portal](./_static/onboarding-portal-scim.png)
 </BrowserWindow>
 ```

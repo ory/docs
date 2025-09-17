@@ -1,0 +1,72 @@
+---
+id: theming
+title: Use a custom theme
+sidebar_label: Theming
+---
+
+Ory Elements allows you to customize the look and feel of the default UI components by using a custom theme. This guide will show
+you how to create and apply a custom theme to your Ory Elements components.
+
+## Understanding CSS theming in Ory Elements
+
+Ory Elements uses CSS variables to define the styles of its components. These variables are defined in a hierarchical manner,
+allowing you to override base variables that are used in many components at once or variables that are only used in specifc
+components.
+
+To understand this hierarchical structure, consider the following diagram:
+
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+
+<Mermaid
+  chart={`graph LR
+  ui-50 --> interface-background-default-primary-hover
+  ui-50 --> interface-background-default-secondary
+
+  interface-background-default-primary-hover --> button-secondary-background-hover
+  interface-background-default-primary-hover --> button-social-background-hover
+  interface-background-default-primary-hover --> input-background-hover
+
+  interface-background-default-secondary --> checkbox-background-default
+  interface-background-default-secondary --> radio-background-default
+  interface-background-default-secondary --> toggle-background-default
+`}
+/>
+```
+
+This diagram shows how the `ui-50` variable is used as a base for other variables like
+`interface-background-default-primary-hover` and `interface-background-default-secondary`. These variables are then used in
+specific components like buttons, checkboxes, and toggles. By overriding the `ui-50` variable, you can change the look and feel of
+all components that use it.
+
+## Creating a custom theme
+
+Now, if you want to change the color in all of these components, you can simply override the `ui-50` variable in your CSS files.
+This will affect all components that use this variable, allowing you to create a consistent look and feel across your application.
+
+A mix is also possible, where you can override the core variables, and then target specific components with additional styles. For
+example, you can override the `ui-50` variable and then add specific styles for buttons:
+
+```css title="theme.css"
+:root {
+  --ui-50: #f0f4f8; /* Change the base color */
+  --button-secondary-background-hover: #e0e4e8; /* Change the button hover color */
+}
+```
+
+For a full list of CSS variables used in Ory Elements, you can refer to the [CSS Reference](../css-reference) document.
+
+## Applying the custom theme
+
+To apply the custom theme to your Ory Elements components, you need to import the CSS file in your application. You can do this in
+your main application file or in a specific component where you want to use the custom theme. Here is an example of how to import
+the CSS file in a Next.js application:
+
+```javascript title="pages/_app.js"
+import "../styles/theme.css" // Import the custom theme CSS file
+
+function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />
+}
+export default MyApp
+```

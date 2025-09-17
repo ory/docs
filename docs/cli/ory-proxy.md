@@ -1,6 +1,6 @@
 ---
 id: ory-proxy
-title: ory proxy (deprecated)
+title: ory proxy
 description: ory proxy Run your app and Ory on the same domain using a reverse proxy
 ---
 
@@ -11,10 +11,6 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## ory proxy
 
-
-:::warning DEPRECATED
-Ory Proxy has been deprecated and is no longer recommended for new implementations. Please use [Ory Tunnel](./ory-tunnel.md) instead, which provides similar functionality with an improved architecture. For migration guidance, see the [Proxy and Tunnel documentation](../guides/cli/proxy-and-tunnel#migration-from-proxy-to-tunnel).
-:::
 Run your app and Ory on the same domain using a reverse proxy
 
 ### Synopsis
@@ -181,3 +177,4 @@ ory proxy http://localhost:3000
 ### SEE ALSO
 
 * [ory](ory)	 - The Ory CLI
+

@@ -523,6 +523,22 @@ verification or recovery addresses, these will be deleted unless the identity tr
 }
 ```
 
+#### Update the identity's external ID
+
+When the webhook target returns a 200 OK response code and the response body is a JSON object with the key `identity.external_id`
+in it, the value from that object will be used to replace the identity's external ID before it is saved to the database. This
+method replaces the previous external ID, if any.
+
+```json
+{
+  "identity": {
+    // highlight-start
+    "external_id": "external-id-from-webhook"
+    // highlight-end
+  }
+}
+```
+
 ### Flow-interrupting webhooks
 
 If you want the result of webhook execution to have the potential of interrupting the flow, you can configure the webhook to parse

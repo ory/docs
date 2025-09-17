@@ -1,0 +1,206 @@
+---
+id: nextjs-app-router-quickstart
+title: Next.js App Router Quickstart
+sidebar_label: Next.js (App Router)
+---
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+import CodeFromRemote from "@theme/CodeFromRemote"
+
+This quickstart will guide you through the process of setting up Ory Elements with the App Router in a Next.js application.
+
+:::info
+
+The code used in the following quickstart is available in the
+[App Router example GitHub repository](https://github.com/ory/elements/tree/main/examples/nextjs-app-router)
+
+:::
+
+## Prerequisites
+
+:::note
+
+This quickstart assumes you're using the alias configuration and not using a `src/` directory. If your project uses `src/`, place
+all files referenced as being in the `root` directory inside `src/` instead.
+
+:::
+
+1. Create a new Next.js application using your preferred package manager. You can use the following commands to create a new
+   Next.js app:
+
+   ````mdx-code-block
+
+
+   <Tabs groupId="package-manager">
+   <TabItem value="npm" label="NPM" default>
+       ```bash
+       npm create next-app@latest
+       ```
+   </TabItem>
+   <TabItem value="pnpm" label="PNPM">
+       ```bash
+       pnpm create next-app
+       ```
+   </TabItem>
+   <TabItem value="yarn" label="Yarn">
+       ```bash
+       yarn create next-app
+       ```
+   </TabItem>
+   <TabItem value="bun" label="Bun">
+       ```bash
+       bun create next-app
+       ```
+   </TabItem>
+   </Tabs>
+   ````
+
+2. Install the `@ory/elements-react` and `@ory/nextjs` package in your Next.js application.
+
+   ````mdx-code-block
+   <Tabs groupId="package-manager">
+   <TabItem value="npm" label="NPM" default>
+       ```bash
+       npm install @ory/elements-react @ory/nextjs
+       ```
+   </TabItem>
+   <TabItem value="pnpm" label="PNPM">
+       ```bash
+       pnpm install @ory/elements-react @ory/nextjs
+       ```
+   </TabItem>
+   <TabItem value="yarn" label="Yarn">
+       ```bash
+       yarn install @ory/elements-react @ory/nextjs
+       ```
+   </TabItem>
+   <TabItem value="bun" label="Bun">
+       ```bash
+       bun install @ory/elements-react @ory/nextjs
+       ```
+   </TabItem>
+   </Tabs>
+   ````
+
+3. Add the configuration for Ory Elements in your Next.js application. Create a new file named `ory.config.ts` in the root of your
+   project and add the following code:
+
+   <CodeFromRemote
+     lang="ts"
+     title="ory.config.ts"
+     src="https://raw.githubusercontent.com/ory/elements/refs/heads/main/examples/nextjs-app-router/ory.config.ts"
+   />
+
+4. Add the middleware to your Next.js application. Create a new file named `middleware.ts` in the root of your project and add the
+   following code:
+
+   <CodeFromRemote
+     lang="ts"
+     title="middleware.ts"
+     src="https://raw.githubusercontent.com/ory/elements/refs/heads/main/examples/nextjs-app-router/middleware.ts"
+   />
+
+5. Create a new folder named `app` in the root of your project. Inside the `app` folder, create a new folder named `auth`. Inside
+   the `auth` folder, create the following files:
+
+   - `login/page.tsx`
+   - `registration/page.tsx`
+   - `recovery/page.tsx`
+   - `verification/page.tsx`
+
+   Additionally, create a `settings` folder in the `app` directory:
+
+   - `settings/page.tsx`
+
+   Each of these files will contain the respective Ory Elements component for the self-service flow.
+
+   ```mdx-code-block
+   <Tabs groupId="self-service-flows">
+       <TabItem value="login" label="Login" default>
+        <CodeFromRemote
+            lang="tsx"
+            title="app/auth/login/page.tsx"
+            src="https://raw.githubusercontent.com/ory/elements/refs/heads/main/examples/nextjs-app-router/app/auth/login/page.tsx"
+        />
+       </TabItem>
+       <TabItem value="registration" label="Registration" default>
+        <CodeFromRemote
+            lang="tsx"
+            title="app/auth/registration/page.tsx"
+            src="https://raw.githubusercontent.com/ory/elements/refs/heads/main/examples/nextjs-app-router/app/auth/registration/page.tsx"
+        />
+       </TabItem>
+       <TabItem value="recovery" label="Recovery" default>
+        <CodeFromRemote
+            lang="tsx"
+            title="app/auth/recovery/page.tsx"
+            src="https://raw.githubusercontent.com/ory/elements/refs/heads/main/examples/nextjs-app-router/app/auth/recovery/page.tsx"
+        />
+       </TabItem>
+       <TabItem value="verification" label="Verification" default>
+        <CodeFromRemote
+            lang="tsx"
+            title="app/auth/verification/page.tsx"
+            src="https://raw.githubusercontent.com/ory/elements/refs/heads/main/examples/nextjs-app-router/app/auth/verification/page.tsx"
+        />
+       </TabItem>
+       <TabItem value="settings" label="Settings" default>
+        <CodeFromRemote
+            lang="tsx"
+            title="app/settings/page.tsx"
+            src="https://raw.githubusercontent.com/ory/elements/refs/heads/main/examples/nextjs-app-router/app/settings/page.tsx"
+        />
+       </TabItem>
+   </Tabs>
+   ```
+
+6. Run the application and create your first user by navigating to `/auth/registration`. After registration, you can log in at
+   `/auth/login`. You can also access the other self-service flows at the following URLs:
+
+   - Recovery: `/auth/recovery`
+   - Verification: `/auth/verification`
+   - Settings: `/settings`
+
+   ````mdx-code-block
+   <Tabs groupId="package-manager">
+   <TabItem value="npm" label="NPM" default>
+       ```bash
+       npm run dev
+       ```
+   </TabItem>
+   <TabItem value="pnpm" label="PNPM">
+       ```bash
+       pnpm dev
+       ```
+   </TabItem>
+   <TabItem value="yarn" label="Yarn">
+       ```bash
+       yarn dev
+       ```
+   </TabItem>
+   <TabItem value="bun" label="Bun">
+       ```
+       bun dev
+       ```
+   </TabItem>
+   </Tabs>
+   ````
+
+   Open your browser and navigate to `http://localhost:3000/auth/registration` to create your first user.
+
+7. Optional: use your own Ory Network project by setting the `ORY_SDK_URL` environment variable in your `.env` file:
+
+   ```mdx-code-block
+   <CodeFromRemote lang="bash" title=".env" src="https://raw.githubusercontent.com/ory/elements/refs/heads/main/examples/nextjs-app-router/.env" />
+   ```
+
+   You can find your Ory Network project URL in the [**Get started**](https://console.ory.sh/projects/current/get-started) section
+   of the Ory Console.
+
+## Next steps
+
+Now that you have set up Ory Elements with the App Router in your Next.js application, you can further customize the components,
+add your own styles, and integrate them into your application as needed. You can also explore the Ory Elements documentation for
+more information on how to use the components and customize them to fit your needs. See
+[Theming](../../elements/guides/02_theming.mdx) for more details on how to customize look and feel of the components.

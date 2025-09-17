@@ -1,0 +1,90 @@
+---
+id: identity-schema-selection
+title: Identity schema selection
+---
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+```
+
+# Identity schema selection for self-service registration and login flows
+
+Ory Kratos now supports selecting an identity schema during registration and login self-service flows by specifying a query
+parameter. This gives administrators more control over which schemas are used and allows multi-tenant or multi-profile setups with
+distinct identity models.
+
+## Overview
+
+- Users or integrators can choose which schema to use by appending the `identity_schema` query parameter when initiating
+  registration or login flows.
+- Only schemas explicitly marked as selectable via `selfservice_selectable: true` in the configuration will be accepted.
+- If no schema is selected, the default schema is used (this is the existing behavior).
+
+## How to use
+
+### Registration example
+
+Browser flow:
+
+```
+GET /self-service/registration/browser?identity_schema=schema-a
+```
+
+API flow:
+
+```
+GET /self-service/registration/api?identity_schema=schema-a
+```
+
+### Login Example
+
+Browser flow:
+
+```
+GET /self-service/login/browser?identity_schema=schema-a
+```
+
+API flow:
+
+```
+GET /self-service/login/api?identity_schema=schema-a
+```
+
+## Configuration
+
+You must define which schemas are available for self-service selection by using the `selfservice_selectable` flag in your identity
+schema configuration.
+
+### Example configuration
+
+```yaml
+identity:
+  default_schema_id: default
+  schemas:
+    - id: default
+      url: file://./schemas/default.schema.json
+      selfservice_selectable: true
+
+    - id: schema-a
+      url: file://./schemas/schema-a.schema.json
+      selfservice_selectable: true
+
+    - id: schema-internal
+      url: file://./schemas/internal.schema.json
+      selfservice_selectable: false # This one cannot be selected by end users
+```
+
+Only schemas where `selfservice_selectable: true` will be selectable via the `identity_schema` parameter.
+
+## Behavior Summary
+
+- If a schema is listed and marked as selectable, it can be used in registration/login.
+- If a schema is not listed or not marked as selectable, it cannot be used via query param.
+- If no `identity_schema` is passed, the default schema (`default_schema_id`) is used.
+
+## Migration notes
+
+- This feature is non-breaking. Existing flows using the default schema are unaffected.
+- You only need to update configuration if you want to expose multiple schemas for selection.
+- Schemas used internally can remain non-selectable, for example for admin or machine users.
