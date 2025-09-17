@@ -1,0 +1,19 @@
+{
+  "id": "d52d5bdb-74b4-4aa0-b706-d1e9c853bd81", // the identity ID
+  "organization_id": "org-id-123", // optional, facet
+  "external_id": "external-id-123", // optional
+  "created_at": 1725031437, // UNIX timestamp, facet
+  "updated_at": 1758115258, // UNIX timestamp, facet
+  "state": "active", // "inactive", "deleted", facet
+  "schema_id": "preset://email", // identity schema ID, facet
+  "available_aal": "aal1", // "aal2" etc, facet
+  "metadata_admin": {
+    "role": "user" // custom admin metadata, indexed, search via `query_by=metadata_admin.role`
+  },
+  "metadata_public": {
+    "foo": "bar" // custom public metadata, indexed, search via `query_by=metadata_public.foo`
+  },
+  "traits": {
+    "email": "wgiho@agpaa.com" // traits based on identity schema, indexed, search via `query_by=traits.email`
+  }
+}

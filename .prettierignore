@@ -16,3 +16,4 @@ docs/keto/reference/proto-api.mdx
 vendor
 code-examples/sdk/typescript/src/**/*.hbs
 **/.dart_tool
+**/*.jsonc

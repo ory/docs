@@ -1,0 +1,105 @@
+{
+  "facet_counts": [
+    {
+      "counts": [],
+      "field_name": "organization_id",
+      "sampled": false,
+      "stats": {
+        "total_values": 0
+      }
+    }
+  ],
+  "found": 5,
+  "hits": [
+    {
+      "document": {
+        "available_aal": "aal1",
+        "created_at": 1725296067,
+        "id": "9e9763c9-80fc-43d0-97fb-d241cb274c2c",
+        "schema_id": "preset://email",
+        "state": "active",
+        "traits": {
+          "email": "wrhgr@srgpzjdrgpz"
+        },
+        "updated_at": 1725296067
+      },
+      "highlight": {},
+      "highlights": []
+    },
+    {
+      "document": {
+        "available_aal": "aal1",
+        "created_at": 1725295678,
+        "id": "38403863-16c2-4a0c-b53e-428f7d80a65b",
+        "schema_id": "preset://email",
+        "state": "active",
+        "traits": {
+          "email": "SRGSRpgj@SPRGojsgs.com"
+        },
+        "updated_at": 1725295678
+      },
+      "highlight": {},
+      "highlights": []
+    },
+    {
+      "document": {
+        "available_aal": "aal1",
+        "created_at": 1725031786,
+        "id": "f5e85c2f-6f0f-49d7-9b77-1bfbb530add4",
+        "schema_id": "preset://email",
+        "state": "active",
+        "traits": {
+          "email": "wGWRIGOH@WOsPgjzsroig"
+        },
+        "updated_at": 1725031786
+      },
+      "highlight": {},
+      "highlights": []
+    },
+    {
+      "document": {
+        "available_aal": "aal1",
+        "created_at": 1725031437,
+        "external_id": "external-id-123",
+        "id": "d52d5bdb-74b4-4aa0-b706-d1e9c853bd81",
+        "metadata_admin": {
+          "role": "user"
+        },
+        "metadata_public": {
+          "foo": "bar"
+        },
+        "schema_id": "preset://email",
+        "state": "active",
+        "traits": {
+          "email": "wgiho@agpaa.com"
+        },
+        "updated_at": 1758115258
+      },
+      "highlight": {},
+      "highlights": []
+    },
+    {
+      "document": {
+        "available_aal": "aal1",
+        "created_at": 1725031040,
+        "id": "f56128f1-687e-414e-8f5d-ec5f909b33c0",
+        "schema_id": "preset://email",
+        "state": "active",
+        "traits": {
+          "email": "sogihSOG@SdoSORghzdrg"
+        },
+        "updated_at": 1725031040
+      },
+      "highlight": {},
+      "highlights": []
+    }
+  ],
+  "page": 1,
+  "request_params": {
+    "collection_name": "identities-f59802a6-eb63-44cc-a3ac-d90db3d3abc2",
+    "first_q": "*",
+    "per_page": 20,
+    "q": "*"
+  },
+  "search_cutoff": false
+}
