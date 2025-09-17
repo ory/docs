@@ -1,0 +1,121 @@
+---
+id: identity-search-api
+title: Advanced identity search via API
+sidebar_label: Advanced search via API
+---
+
+```mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
+import basic from '!!raw-loader!../../../../code-examples/curl/search/basic.sh'
+import model from '!!raw-loader!../../../../code-examples/curl/search/model.jsonc'
+import advanced from '!!raw-loader!../../../../code-examples/curl/search/advanced.sh'
+import advancedResult from '!!raw-loader!../../../../code-examples/curl/search/advanced-result.json'
+
+import goExample from '!!raw-loader!../../../../code-examples/sdk/go/search/search.go'
+import javaExample from '!!raw-loader!../../../../code-examples/sdk/java/search/App.java'
+```
+
+:::note
+
+Advanced identity search via the API is available in preview on the Ory Network enterprise plan.
+[Get in touch](https://www.ory.sh/contact/) for more information.
+
+:::
+
+Advanced identity search allows you to perform full-text search on identity traits, metadata (public+admin), combined with
+arbitrary filters and faceting.
+
+## Getting started
+
+We recommend using the [Typesense SDKs](https://typesense.org/docs/29.0/api/api-clients.html) for your preferred language to
+interact with the advanced identity search API. Pass your [Ory Network API key](/concepts/personal-access-token) where you would
+normally pass the Typesense API key, use the following base URL:
+
+```shell
+https://{your-ory-slug}.projects.oryapis.com/admin/preview/search/v0beta1
+```
+
+and set the collection name to `identities-{your-project-id}`.
+
+See the following examples for how to configure and use the Typesense SDKs to search for identities.
+
+```mdx-code-block
+<Tabs>
+  <TabItem value="shell" label="cURL" default>
+    <CodeBlock language="shell">{basic}</CodeBlock>
+  </TabItem>
+  <TabItem value="go" label="Go">
+    <CodeBlock language="go">{goExample}</CodeBlock>
+  </TabItem>
+  <TabItem value="java" label="Java">
+    <CodeBlock language="java">{javaExample}</CodeBlock>
+  </TabItem>
+</Tabs>
+```
+
+## Data model
+
+The collection `identities-{your-project-id}` contains one document per identity. Each document contains the following fields:
+
+```mdx-code-block
+<CodeBlock language="json5">{model}</CodeBlock>
+```
+
+:::tip
+
+To avoid timing out search requests, specify the exact fields you want to search in using the `query_by` parameter. For example,
+to search for identities by email, use `query_by=traits.email`.
+
+:::
+
+:::note
+
+Because of technical limitations, non-string data in `metadata_admin` and `metadata_public` will be indexed as strings and
+returned from the Search API as strings.
+
+To retrieve the original JSON data, fetch the full identity using the
+[Get Identity API](/reference/api#tag/identity/operation/getIdentity).
+
+:::
+
+## Advanced search example
+
+Please refer to the [Typesense documentation](https://typesense.org/docs/29.0/api/search.html) for details on how to construct
+arbitrary search queries. An example:
+
+```mdx-code-block
+
+<Tabs>
+  <TabItem value="curl" label="cURL" default>
+    <CodeBlock language="shell">{advanced}</CodeBlock>
+  </TabItem>
+
+  <TabItem value="result" label="sample result">
+    <CodeBlock language="json5">{advancedResult}</CodeBlock>
+  </TabItem>
+</Tabs>
+```
+
+:::tip
+
+Most fields support infix-searching as well, so queries like `query_by=@example.com&infix=always&query_by=traits.email` are
+possible.
+
+:::
+
+## Consistency and availability
+
+The search index powering advanced identity search is eventually consistent with the main identity store. This means that there
+will be a delay between creating, updating, or deleting an identity and the changes being reflected in search results. We try to
+aim for a delay of less than one second during normal operation, but cannot provide any guarantees. The search index will have to
+be rebuilt periodically, during which time we cannot service search requests.
+
+We recommend you use the search API for non-time-critical use cases, such as admin UIs or background jobs, where you need to full
+capability of full-text search, filtering, faceting, and sorting.
+
+Before displaying search results to end-users or otherwise using the search results for business logic, we recommend you always
+[fetch the full identity](/reference/api#tag/identity/operation/getIdentity) from the main identity store using the identity ID
+returned in search results to ensure you have the most up-to-date information.
