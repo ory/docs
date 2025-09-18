@@ -25,8 +25,8 @@ guarantees of your system.
 
 ## How impersonation works
 
-A secure impersonation flow doesn't create a new login session for the target user or compromise the original user's authenticated
-identity. The system always knows who the originally authenticated user is.
+A secure impersonation flow doesn't create a new login session for the user being impersonated or compromise the impersonating user's authenticated
+identity. The system always knows who the authenticated impersonating user is.
 
 The crucial check relies on the immutable identity provided by Ory, such as the `identity.id` from the
 [/whoami](https://www.ory.sh/docs/reference/api#tag/frontend/operation/toSession) API response from Ory Kratos or the `subject`
@@ -34,12 +34,12 @@ claim from an OAuth2 token introspection from Ory Hydra.
 
 This approach preserves the core promises of both authentication and authorization:
 
-- The original user remains authenticated, which is critical for audit trails.
+- The user doing the impersonating remains authenticated, which is critical for audit trails.
 - The system makes an explicit authorization decision before granting impersonation capabilities.
 - Application logic continues to work with a clear subject, unaware of the impersonation details.
 
 This check can be as simple as verifying group membership, for example, "is the user in the `support-agents` group?", or can
-involve complex rules based on context, such as the target user's data, group membership, or active back-channel consent.
+involve complex rules based on context, such as the data, group membership, or active back-channel consent for the impersonated user.
 
 ## Impersonation implementation suggestion
 
@@ -58,7 +58,7 @@ The middleware performs these steps:
     [Ory Keto](https://www.ory.sh/docs/reference/api#tag/permission/operation/checkPermission). For example, "Does the
     authenticated user have permission to impersonate the target user?"
 1.  If the authorization check passes, the middleware sets the target user's ID as the effective subject for the downstream
-    request. It's good practice to also pass along the original user's ID in a separate header (for example,
+    request. It's good practice to also pass along the impersonating user's ID in a separate header (for example,
     `X-Original-Subject-ID`) for detailed audit logging.
 1.  The middleware then forwards the request to the application.
 
@@ -68,8 +68,8 @@ the subject on subsequent requests.
 
 Using a middleware for impersonation provides several advantages:
 
-- You never break the authentication promise keeping a clear security context. Audit logs can record actions taken by the original
-  authenticated user "on behalf of" the impersonated user, providing a complete and accurate record.
+- You never break the authentication promise keeping a clear security context. Audit logs can record actions taken by the authenticated 
+  impersonating user "on behalf of" the impersonated user, providing a complete and accurate record.
 - Decoupled application logic means your application code stays simple. It continues to make authorization decisions based on the
   subject it receives, without needing any special logic to handle impersonation.
 - All impersonation rules are managed in one place. This makes it easy to update, audit, or revoke impersonation permissions
