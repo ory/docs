@@ -25,8 +25,8 @@ guarantees of your system.
 
 ## How impersonation works
 
-A secure impersonation flow doesn't create a new login session for the user being impersonated or compromise the impersonating user's authenticated
-identity. The system always knows who the authenticated impersonating user is.
+A secure impersonation flow doesn't create a new login session for the user being impersonated or compromise the impersonating
+user's authenticated identity. The system always knows who the authenticated impersonating user is.
 
 The crucial check relies on the immutable identity provided by Ory, such as the `identity.id` from the
 [/whoami](https://www.ory.sh/docs/reference/api#tag/frontend/operation/toSession) API response from Ory Kratos or the `subject`
@@ -39,7 +39,8 @@ This approach preserves the core promises of both authentication and authorizati
 - Application logic continues to work with a clear subject, unaware of the impersonation details.
 
 This check can be as simple as verifying group membership, for example, "is the user in the `support-agents` group?", or can
-involve complex rules based on context, such as the data, group membership, or active back-channel consent for the impersonated user.
+involve complex rules based on context, such as the data, group membership, or active back-channel consent for the impersonated
+user.
 
 ## Impersonation implementation suggestion
 
@@ -68,8 +69,8 @@ the subject on subsequent requests.
 
 Using a middleware for impersonation provides several advantages:
 
-- You never break the authentication promise keeping a clear security context. Audit logs can record actions taken by the authenticated 
-  impersonating user "on behalf of" the impersonated user, providing a complete and accurate record.
+- You never break the authentication promise keeping a clear security context. Audit logs can record actions taken by the
+  authenticated impersonating user "on behalf of" the impersonated user, providing a complete and accurate record.
 - Decoupled application logic means your application code stays simple. It continues to make authorization decisions based on the
   subject it receives, without needing any special logic to handle impersonation.
 - All impersonation rules are managed in one place. This makes it easy to update, audit, or revoke impersonation permissions
@@ -78,13 +79,17 @@ Using a middleware for impersonation provides several advantages:
   ## Implementation best practices
 
   When implementing your user impersonation flow, consider the following best practices.
+
   1. Limit scope
+
   - Not all admins should have impersonation rights
   - Limit who can be impersonated (protect executives, other admins)
   - Restrict available actions during impersonation, for example, prevent sensitive operations (password changes, account
     deletion)
   - Implement time limits and automatic session expiration
+
   2. Transparency
+
   - Log every action taken during impersonation
   - Notify impersonated user (email/notification)
   - Maintain a clear audit trail
