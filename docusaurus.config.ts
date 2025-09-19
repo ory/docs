@@ -36,7 +36,6 @@ const config: Config = {
       theme: lightTheme,
       additionalLanguages: [
         "powershell",
-        "java",
         "json",
         "json5",
         "pug",
