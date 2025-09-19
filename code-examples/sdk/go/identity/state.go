@@ -8,25 +8,22 @@ import (
 	"fmt"
 	"os"
 
-	client "github.com/ory/client-go"
+	ory "github.com/ory/client-go"
 )
 
-var authed = context.WithValue(context.Background(), client.ContextAccessToken, os.Getenv("ORY_API_KEY"))
-
-func init() {
-	cfg := client.NewConfiguration()
-	cfg.Servers = client.ServerConfigurations{
-		{URL: fmt.Sprintf("https://%s.projects.oryapis.com", os.Getenv("ORY_PROJECT_SLUG"))},
-	}
-
-	ory = client.NewAPIClient(cfg)
-}
+var oryAuthed = context.WithValue(context.Background(), ory.ContextAccessToken, os.Getenv("ORY_API_KEY"))
 
 func setState(identityId string, state string) (err error) {
+	cfg := ory.NewConfiguration()
+	cfg.Servers = ory.ServerConfigurations{
+		{URL: fmt.Sprintf("https://%s.projects.oryapis.com", os.Getenv("ORY_PROJECT_SLUG"))},
+	}
+	apiClient := ory.NewAPIClient(cfg)
+
 	// highlight-start
-	_, _, err = ory.IdentityApi.
-		PatchIdentity(authed, identityId).
-		JsonPatch([]client.JsonPatch{{Op: "replace", Path: "/state", Value: state}}).Execute()
+	_, _, err = apiClient.IdentityApi.
+		PatchIdentity(oryAuthed, identityId).
+		JsonPatch([]ory.JsonPatch{{Op: "replace", Path: "/state", Value: state}}).Execute()
 	// highlight-end
 	return err
 }
