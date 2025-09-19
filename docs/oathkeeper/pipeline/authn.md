@@ -364,6 +364,8 @@ note that Gzipped responses from `check_session_url` are not supported, and will
     It can't be set along with `header` or `query_parameter`
 - `forward_http_headers` ([]string, optional - defaults ["Authorization", "Cookie"]) - If set, you can specify which headers will
   be forwarded.
+- `prefix` (string, optional) - If the bearer token does not begin with this prefix, the `bearer_token` authenticator will not
+  handle the request.
 
 ```yaml
 # Global configuration file oathkeeper.yml
@@ -420,6 +422,25 @@ authenticators:
         - Authorization
         - Cookie
         - X-Forwarded-For
+```
+
+```yaml
+# Some Access Rule Handling a Token with a Specified Prefix: access-rule-3.yaml
+id: access-rule-2
+# match: ...
+# upstream: ...
+authenticators:
+  - handler: bearer_token
+    config:
+      check_session_url: https://session-store-host/check-session
+      token_from:
+        header: Authorization
+        # or
+        # header: Custom-Authorization-Header
+        # or
+        # cookie: auth-token
+      # Will only handle requests with Authorization: bearer custom_token_prefix_xxxxxx
+      prefix: "custom_token_prefix_"
 ```
 
 ### `bearer_token` access rule example
