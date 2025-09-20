@@ -68,6 +68,9 @@ authenticators:
   noop:
     enabled: true
 
+  delegate:
+    enabled: true
+
 authorizers:
   allow:
     enabled: true
