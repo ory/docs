@@ -25,6 +25,7 @@ const config: Config = {
     format: "detect",
   },
   staticDirectories: ["src/static"],
+  trailingSlash: false,
   themeConfig: {
     respectPrefersColorScheme: true,
     tableOfContents: {
