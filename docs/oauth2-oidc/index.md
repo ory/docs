@@ -85,6 +85,6 @@ Ory OAuth2 and OpenID Connect can be used for a wide range of use cases, includi
 
 ## Next steps
 
-See [Ory Network OAuth2 quickstart guide](../getting-started/ory-network-oauth2) to learn how to set up your own OAuth2 and OpenID
+See [Ory Network OAuth2 quickstart guide](/docs/getting-started/ory-network-oauth2) to learn how to set up your own OAuth2 and OpenID
 Connect provider in just a few minutes. The guide walks you through the process of setting up Ory OAuth2 and OpenID Connect and
 configuring a sample application to use the service.

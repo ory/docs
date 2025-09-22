@@ -31,7 +31,7 @@ Before starting the actual migration you should choose a migration strategy.
 :::info
 
 If you are not sure whether or not you need OAuth2 for your use case, please read the
-[When to use OAuth2](../hydra/concepts/before-oauth2) documentation.
+[When to use OAuth2](/docs/hydra/concepts/before-oauth2) documentation.
 
 :::
 
@@ -40,7 +40,7 @@ If you are not sure whether or not you need OAuth2 for your use case, please rea
   If you're migrating from Auth0 or any other OAuth2-based login solution, you'll want to use Ory OAuth2 together with Ory
   Identities. This setup allows you to keep your existing OAuth2-based flow while integrating it with Ory's identity management.
   This approach is ideal if you want to keep your current implementation without making significant changes. To get started, refer
-  to the [Ory OAuth2 quickstart guide](../getting-started/oauth2-openid/add-oauth2-openid-connect-nodejs-expressjs) which provides
+  to the [Ory OAuth2 quickstart guide](/docs/getting-started/oauth2-openid/add-oauth2-openid-connect-nodejs-expressjs) which provides
   instructions on setting up an OAuth2/OIDC flow with Ory.
 
 - **Scenario 3** - Other
@@ -145,7 +145,7 @@ projects. This involves creating a new project environment where the migration w
 
 You can create a new Ory Network project using the Ory CLI. The command ory create project allows you to specify the environment
 of the project, the output format, the name of the project, and the workspace to use. More details about creating a project can be
-found [here](../cli/ory-create-project).
+found [here](/docs/cli/ory-create-project).
 
 Before migrating your production environment, perform the migration in a development or staging environment. This allows you to
 test and refine the process without affecting your live data or users.
@@ -156,7 +156,7 @@ To match identities from your current system with the new Ory system, you can cu
 specific requirements. This schema defines the types of data that the system can store for users, including names, email
 addresses, phone numbers, and other authentication-related information. Additionally, you can specify extra metadata fields to be
 included in user profiles. Ory offers default presets to assist you in creating and managing identity schemas. More details about
-identity schemas can be found [here](../kratos/manage-identities/identity-schema).
+identity schemas can be found [here](/docs/kratos/manage-identities/identity-schema).
 
 - Do store profile data in your identity that is used across your system. This includes the usernames, email addresses, phone
   numbers, first names, and last names.
@@ -178,7 +178,7 @@ subdomains.
 This setup allows both your front end and back end to access the authentication session cookies managed by Ory.
 
 To begin integrating Ory into your frontend, it's helpful to start with the
-["protect a page with login" guides](../getting-started/overview) that cover the basics of developing with Ory for various
+["protect a page with login" guides](/docs/getting-started/overview) that cover the basics of developing with Ory for various
 programming languages and frameworks, including SDK usage and essential setup steps.
 
 Ory Network has two types of user interfaces. We recommend starting with the built-in
@@ -195,21 +195,21 @@ Ory Elements can be found [here](../elements/index.mdx).
 
 When the frontend makes an API call to your backend, it will include the necessary cookies. Your backend must then forward these
 cookies when calling the Ory API to validate the session. For example in a Go backend, you could use a
-[middleware](../getting-started/integrate-auth/go#validate-and-login) to intercept API requests and validate the session by
-calling Ory’s toSession() method. Ensure that the cookies received from the front end are forwarded in this call. Since backend
+[middleware](/docs/getting-started/integrate-auth/go#validate-and-login) to intercept API requests and validate the session by
+calling Ory's toSession() method. Ensure that the cookies received from the front end are forwarded in this call. Since backend
 calls to Ory’s API won’t automatically include cookies, you must manually attach the relevant cookies to these requests. This is
 important for the backend to be able to check the session.
 
 When using Ory to manage identities, it is best practice to store business logic in your application database and keep only
 authentication-relevant data in Ory. Here’s a general approach:
 
-1. Configure [Ory Actions](../kratos/hooks/configure-hooks) to send webhooks to your server after user registration or other
+1. Configure [Ory Actions](/docs/kratos/hooks/configure-hooks) to send webhooks to your server after user registration or other
    identity-related events. The webhook payload will include the data of the newly created identity.
 1. Upon receiving the webhook, your server can create a corresponding user record in your database. This allows your system to
    link Ory-managed identities with your business logic.
 1. Establish a connection between the Ory identity and the user record in your database by storing the `user.id` in
    `identity.metadata_public.id`. This ensures that subsequent API calls can easily map the Ory identity to the correct internal
-   user. More about metadata in the [Identity metadata & traits ](../kratos/manage-identities/managing-users-identities-metadata)
+   user. More about metadata in the [Identity metadata & traits ](/docs/kratos/manage-identities/managing-users-identities-metadata)
    documentation.
 1. Now when the frontend makes API calls containing the Ory cookie or token, the backend should verify the session using the
    whoami API endpoint. This endpoint returns the session details, including the identity, allowing the backend to authenticate
@@ -224,14 +224,14 @@ no straightforward way to export the identities and you might need to go through
 Export user data from your existing authentication solution or database and find out the hashing algorithm used to hash their
 credentials. If your passwords are not hashed, you can bypass this step, as Ory will handle password hashing automatically during
 the import process. Ory supports a range of hashing algorithms; if yours is supported, use the
-[create identity API](../reference/api#tag/identity/operation/createIdentity) to import your users. If the hashing algorithm isn't
+[create identity API](/docs/reference/api#tag/identity/operation/createIdentity) to import your users. If the hashing algorithm isn't
 supported or if you can't get the hashed passwords from your current authentication system, you may want to do a "graceful"
 migration and use the password migration hook to migrate your existing users. You can find more details in the
 [Import identities ](../kratos/manage-identities/25_import-user-accounts-identities.mdx) documentation.
 
 ## Import identities
 
-You can use the [create identity API](../reference/api#tag/identity/operation/batchPatchIdentities) to bulk import identities into
+You can use the [create identity API](/docs/reference/api#tag/identity/operation/batchPatchIdentities) to bulk import identities into
 Ory. A maximum of 2000 identities can be created in a single request. If you need to import more identities, you need to split the
 import into multiple requests. The endpoint accepts a JSON array of identities, each of which must have a create property that
 holds the identity that should be created. You can find more details in the
