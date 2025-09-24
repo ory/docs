@@ -54,11 +54,11 @@ The middleware performs these steps:
     [/whoami](https://www.ory.sh/docs/reference/api#tag/frontend/operation/toSession) API response. With Ory Hydra it is the
     subject claim from an OAuth2 token introspection.
 1.  It looks for an impersonation instruction in the request, for example a special HTTP header or a query parameter that contains
-    the ID of the target user to impersonate.
+    the ID of the user to impersonate.
 1.  When it detects an impersonation request, the middleware performs an authorization check - for example with
     [Ory Keto](https://www.ory.sh/docs/reference/api#tag/permission/operation/checkPermission). For example, "Does the
-    authenticated user have permission to impersonate the target user?"
-1.  If the authorization check passes, the middleware sets the target user's ID as the effective subject for the downstream
+    authenticated user have permission to impersonate this user?"
+1.  If the authorization check passes, the middleware sets the impersonated user's ID as the effective subject for the downstream
     request. It's good practice to also pass along the impersonating user's ID in a separate header (for example,
     `X-Original-Subject-ID`) for detailed audit logging.
 1.  The middleware then forwards the request to the application.
@@ -76,26 +76,25 @@ Using a middleware for impersonation provides several advantages:
 - All impersonation rules are managed in one place. This makes it easy to update, audit, or revoke impersonation permissions
   across your entire system without changing your application code.
 
-  ## Implementation best practices
+## Implementation best practices
 
-  When implementing your user impersonation flow, consider the following best practices.
+When implementing your user impersonation flow, consider the following best practices.
 
-  1. Limit scope
+1. Limit scope
 
-  - Not all admins should have impersonation rights
-  - Limit who can be impersonated (protect executives, other admins)
-  - Restrict available actions during impersonation, for example, prevent sensitive operations (password changes, account
-    deletion)
-  - Implement time limits and automatic session expiration
+- Not all admins should have impersonation rights
+- Limit who can be impersonated (protect executives, other admins)
+- Restrict available actions during impersonation, for example, prevent sensitive operations (password changes, account deletion)
+- Implement time limits and automatic session expiration
 
-  2. Transparency
+2. Transparency
 
-  - Log every action taken during impersonation
-  - Notify impersonated user (email/notification)
-  - Maintain a clear audit trail
+- Log every action taken during impersonation
+- Notify impersonated user (email/notification)
+- Maintain a clear audit trail
 
-  User impersonation is a powerful administrative tool that requires careful implementation, strong security controls, and
-  comprehensive auditing to prevent abuse while enabling legitimate support and troubleshooting activities.
+User impersonation is a powerful administrative tool that requires careful implementation, strong security controls, and
+comprehensive auditing to prevent abuse while enabling legitimate support and troubleshooting activities.
 
 ```mdx-code-block
 import Help from '@site/docs/_common/need-help.mdx'
