@@ -1,0 +1,147 @@
+---
+id: amazon
+title: Add Amazon as a social sign-in provider in Ory
+sidebar_label: Amazon
+---
+
+# Amazon
+
+:::note
+
+To add Amazon as a social sign-in provider, you need a Amazon Developer account. Go to
+[Amazon Developers](https://www.amazon.com/ap/register) to create one.
+
+:::
+
+````mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+Follow these steps to add Amazon as a social sign-in provider for your to your project using the Ory Console.
+
+1. Go to <ConsoleLink route="project.socialSignIn" />.
+2. Click the switch next to the Amazon logo to start the configuration.
+3. Copy the Redirect URI and save it for later use.
+4. In your Amazon Developers account, go to **My Apps → Create App**.
+5. Select **Consumer** and click **Next**.
+6. Enter you app's name and preferred contact email. Click **Create App**.
+7. Next select the Dashboard and click on the item "Facebook Login". On the next screen add the email permission.
+8. Next select **App-Settings → Basic** from the sidebar on the bottom left.
+9. Copy the Client ID and Client secret from Facebook and paste them into the corresponding fields in the Ory Console.
+10. On Facebook Developers, click **Save Changes**.
+11. From the left navigation bar, select **Facebook Login → Settings**.
+12. Paste the redirect URI copied from Ory into the **Valid OAuth redirect URIs** and click **Save Changes**.
+13. In the Ory Console, click **Save Configuration** to enable Facebook as a social sign-in provider.
+
+:::note
+
+These steps cover the basic configuration of a social sign-in provider integration. At this point, the user experience is
+incomplete. To complete the configuration and ensure a smooth and secure user experience, configure the [scopes](#scopes) and
+[data mapping](#data-mapping) as described in the next section.
+
+:::
+
+## Additional configuration
+
+When adding a social sign-in provider, you can customize the integration by defining the OAuth scopes Ory requests from the
+provider and by setting up custom data mappings.
+
+### Scopes
+
+The Scopes section allows you to define the OAuth scopes Ory requests from the sign-in provider. Defining scopes allows you to
+interact with the provider's APIs on behalf of the user, or to access additional user data, which is exposed as claims for data
+mapping.
+
+For Amazon, add the `profile` scope for a basic setup.
+
+To learn more about the scopes available for Amazon, read the
+[related documentation](https://developer.amazon.com/docs/login-with-amazon/customer-profile.html).
+
+### Data mapping
+
+The **Data mapping** section allows you to map the data returned by the sign-in provider to traits as defined in the identity
+schema.
+
+To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
+mapping.
+
+In this sample Jsonnet snippet, the user's `email`, is mapped to `email` in the identity schema.
+
+```jsonnet
+local claims = std.extVar('claims');
+{
+  identity: {
+    traits: {
+      // The email might be empty if the user hasn't granted permissions for the email scope.
+      [if 'email' in claims then 'email' else null]: claims.email,
+    },
+  },
+}
+```
+
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+
+3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
+
+  ```shell
+  cat your-data-mapping.jsonnet | base64
+  ```
+
+4. Download the Ory Identities config from your project and save it to a file:
+
+   ```shell
+   ## List all available workspaces
+   ory list workspaces
+
+   ## List all available projects
+   ory list projects --workspace <workspace-id>
+
+   ## Get config
+   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
+   ```
+
+5. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
+   string or provide an URL to the file.
+
+   ```yaml
+   selfservice:
+   methods:
+     oidc:
+       config:
+         providers:
+           - id: amazon # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+             provider: amazon
+             client_id: .... # Replace this with the OAuth2 Client ID provided by Amazon app
+             client_secret: .... # Replace this with the OAuth2 Client Secret provided by Amazon app
+             mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
+             # Alternatively, use an URL like this example
+             # mapper_url: https://storage.googleapis.com/example-example-prd/example-file
+             scope:
+               - profile
+             pkce: "force"
+       enabled: true
+   ```
+
+6. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
+   ```
+
+</TabItem>
+</Tabs>
+````
+
+## Troubleshooting
+
+```mdx-code-block
+import SocialSigninTroubleshooting from '../_common/social-sign-in-troubleshooting.mdx'
+
+<SocialSigninTroubleshooting />
+```
+
