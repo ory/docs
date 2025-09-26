@@ -2985,6 +2985,9 @@
       },
       "createOrganizationOnboardingPortalLinkBody": {
         "properties": {
+          "custom_hostname_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
           "enable_scim": {
             "description": "Feature flag to enable SCIM configuration",
             "type": "boolean"
@@ -6265,6 +6268,9 @@
       },
       "normalizedProjectRevisionSAMLProvider": {
         "properties": {
+          "audience_override_base_url": {
+            "$ref": "#/components/schemas/String"
+          },
           "created_at": {
             "description": "The Project's Revision Creation Date",
             "format": "date-time",
@@ -7360,6 +7366,9 @@
             "format": "date-time",
             "readOnly": true,
             "type": "string"
+          },
+          "custom_hostname_id": {
+            "$ref": "#/components/schemas/NullUUID"
           },
           "enable_scim": {
             "description": "Feature flag to enable SCIM configuration",
