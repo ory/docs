@@ -113,3 +113,16 @@ ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
 ```
 
 For more information on how to create a custom keyset, see the [ory create jwk](../cli/ory-create-jwk.md) command.
+
+## Caching of JWKs
+
+The Ory Hydra Enterprise License (OEL) supports in-memory caching of JWKs to improve performance and reduce latency. It is
+configurable via the following options:
+
+- `db.jwk_cache.enabled` governs whether the cache is enabled or not
+- `db.jwk_cache.size` is the maximum number of keys to be cached
+- `db.jwk_cache.ttl` is the time-to-live for cached keys
+
+It's recommended to set a cache TTL to force regular refreshes of the keys. Updates to keys aren't propagated to the cache, so
+it's possible for tokens to be signed with rotated keys for the cache TTL duration. Clients are expected to accept old keys for a
+certain period of time.
