@@ -1,0 +1,103 @@
+---
+id: user-impersonation
+title: Implementing user impersonation securely
+sidebar_label: User impersonation
+---
+
+User impersonation is a security and administrative feature that allows authorized users (for example, system administrators or
+support agents) to temporarily become another user within a system, accessing the application exactly as that user would see and
+experience it.
+
+To understand user impersonation, it is helpful to distinguish between authentication and authorization.
+
+## Authentication vs. authorization
+
+- Authentication is the process of determining and proving who a user or system is. It answers the question, "Who is doing the
+  action?"
+- Authorization is the process of determining what an authenticated subject, such as a user or a service, is allowed to do. It
+  answers the question, "Is this subject allowed to do the action?"
+
+For secure user impersonation, it is important to not break the guarantees given by authentication and authorization. Therefore,
+impersonation doesn't change who is authenticated; it changes the subject used for subsequent authorization decisions.
+
+This guide presents a secure pattern for implementing user impersonation, using Ory Kratos, that doesn't break the security
+guarantees of your system.
+
+## How impersonation works
+
+A secure impersonation flow doesn't create a new login session for the user being impersonated or compromise the impersonating
+user's authenticated identity. The system always knows who the authenticated impersonating user is.
+
+The crucial check relies on the immutable identity provided by Ory, such as the `identity.id` from the
+[/whoami](https://www.ory.sh/docs/reference/api#tag/frontend/operation/toSession) API response from Ory Kratos or the `subject`
+claim from an OAuth2 token introspection from Ory Hydra.
+
+This approach preserves the core promises of both authentication and authorization:
+
+- The user doing the impersonating remains authenticated, which is critical for audit trails.
+- The system makes an explicit authorization decision before granting impersonation capabilities.
+- Application logic continues to work with a clear subject, unaware of the impersonation details.
+
+This check can be as simple as verifying group membership, for example, "is the user in the `support-agents` group?", or can
+involve complex rules based on context, such as the data, group membership, or active back-channel consent for the impersonated
+user.
+
+## Impersonation implementation suggestion
+
+You can abstract the complexity of impersonation by using a middleware that runs between your authentication and authorization
+layers. This middleware intercepts incoming requests to manage the impersonation logic before the request reaches your application
+code.
+
+The middleware performs these steps:
+
+1.  It identifies the authenticated user from a valid session. With Ory Kratos, this is the `identity.id` from the
+    [/whoami](https://www.ory.sh/docs/reference/api#tag/frontend/operation/toSession) API response. With Ory Hydra it is the
+    subject claim from an OAuth2 token introspection.
+1.  It looks for an impersonation instruction in the request, for example a special HTTP header or a query parameter that contains
+    the ID of the user to impersonate.
+1.  When it detects an impersonation request, the middleware performs an authorization check - for example with
+    [Ory Keto](https://www.ory.sh/docs/reference/api#tag/permission/operation/checkPermission). For example, "Does the
+    authenticated user have permission to impersonate this user?"
+1.  If the authorization check passes, the middleware sets the impersonated user's ID as the effective subject for the downstream
+    request. It's good practice to also pass along the impersonating user's ID in a separate header (for example,
+    `X-Original-Subject-ID`) for detailed audit logging.
+1.  The middleware then forwards the request to the application.
+
+Your application code then uses the effective subject to perform its own authorization checks without needing to know that an
+impersonation session is active. When the user requests to end the impersonation session, the middleware simply stops substituting
+the subject on subsequent requests.
+
+Using a middleware for impersonation provides several advantages:
+
+- You never break the authentication promise keeping a clear security context. Audit logs can record actions taken by the
+  authenticated impersonating user "on behalf of" the impersonated user, providing a complete and accurate record.
+- Decoupled application logic means your application code stays simple. It continues to make authorization decisions based on the
+  subject it receives, without needing any special logic to handle impersonation.
+- All impersonation rules are managed in one place. This makes it easy to update, audit, or revoke impersonation permissions
+  across your entire system without changing your application code.
+
+## Implementation best practices
+
+When implementing your user impersonation flow, consider the following best practices.
+
+1. Limit scope
+
+- Not all admins should have impersonation rights
+- Limit who can be impersonated (protect executives, other admins)
+- Restrict available actions during impersonation, for example, prevent sensitive operations (password changes, account deletion)
+- Implement time limits and automatic session expiration
+
+2. Transparency
+
+- Log every action taken during impersonation
+- Notify impersonated user (email/notification)
+- Maintain a clear audit trail
+
+User impersonation is a powerful administrative tool that requires careful implementation, strong security controls, and
+comprehensive auditing to prevent abuse while enabling legitimate support and troubleshooting activities.
+
+```mdx-code-block
+import Help from '@site/docs/_common/need-help.mdx'
+
+<Help/>
+```

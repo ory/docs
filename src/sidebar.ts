@@ -92,6 +92,7 @@ const api: SidebarItemsConfig = [
       "guides/ip-allowlist",
       "api/eventual-consistency",
       "kratos/reference/jsonnet",
+      "guides/user-impersonation",
     ],
   },
 ]
