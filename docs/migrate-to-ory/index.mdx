@@ -40,8 +40,8 @@ If you are not sure whether or not you need OAuth2 for your use case, please rea
   If you're migrating from Auth0 or any other OAuth2-based login solution, you'll want to use Ory OAuth2 together with Ory
   Identities. This setup allows you to keep your existing OAuth2-based flow while integrating it with Ory's identity management.
   This approach is ideal if you want to keep your current implementation without making significant changes. To get started, refer
-  to the [Ory OAuth2 quickstart guide](/docs/getting-started/oauth2-openid/add-oauth2-openid-connect-nodejs-expressjs) which provides
-  instructions on setting up an OAuth2/OIDC flow with Ory.
+  to the [Ory OAuth2 quickstart guide](/docs/getting-started/oauth2-openid/add-oauth2-openid-connect-nodejs-expressjs) which
+  provides instructions on setting up an OAuth2/OIDC flow with Ory.
 
 - **Scenario 3** - Other
 
@@ -209,8 +209,8 @@ authentication-relevant data in Ory. Here’s a general approach:
    link Ory-managed identities with your business logic.
 1. Establish a connection between the Ory identity and the user record in your database by storing the `user.id` in
    `identity.metadata_public.id`. This ensures that subsequent API calls can easily map the Ory identity to the correct internal
-   user. More about metadata in the [Identity metadata & traits ](/docs/kratos/manage-identities/managing-users-identities-metadata)
-   documentation.
+   user. More about metadata in the
+   [Identity metadata & traits ](/docs/kratos/manage-identities/managing-users-identities-metadata) documentation.
 1. Now when the frontend makes API calls containing the Ory cookie or token, the backend should verify the session using the
    whoami API endpoint. This endpoint returns the session details, including the identity, allowing the backend to authenticate
    the request and link it to the internal user record.
@@ -224,17 +224,17 @@ no straightforward way to export the identities and you might need to go through
 Export user data from your existing authentication solution or database and find out the hashing algorithm used to hash their
 credentials. If your passwords are not hashed, you can bypass this step, as Ory will handle password hashing automatically during
 the import process. Ory supports a range of hashing algorithms; if yours is supported, use the
-[create identity API](/docs/reference/api#tag/identity/operation/createIdentity) to import your users. If the hashing algorithm isn't
-supported or if you can't get the hashed passwords from your current authentication system, you may want to do a "graceful"
+[create identity API](/docs/reference/api#tag/identity/operation/createIdentity) to import your users. If the hashing algorithm
+isn't supported or if you can't get the hashed passwords from your current authentication system, you may want to do a "graceful"
 migration and use the password migration hook to migrate your existing users. You can find more details in the
 [Import identities ](../kratos/manage-identities/25_import-user-accounts-identities.mdx) documentation.
 
 ## Import identities
 
-You can use the [create identity API](/docs/reference/api#tag/identity/operation/batchPatchIdentities) to bulk import identities into
-Ory. A maximum of 2000 identities can be created in a single request. If you need to import more identities, you need to split the
-import into multiple requests. The endpoint accepts a JSON array of identities, each of which must have a create property that
-holds the identity that should be created. You can find more details in the
+You can use the [create identity API](/docs/reference/api#tag/identity/operation/batchPatchIdentities) to bulk import identities
+into Ory. A maximum of 2000 identities can be created in a single request. If you need to import more identities, you need to
+split the import into multiple requests. The endpoint accepts a JSON array of identities, each of which must have a create
+property that holds the identity that should be created. You can find more details in the
 [Import identities ](../kratos/manage-identities/25_import-user-accounts-identities.mdx) documentation.
 
 ### Phased migration for active sessions
