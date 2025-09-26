@@ -25,6 +25,7 @@ const config: Config = {
     format: "detect",
   },
   staticDirectories: ["src/static"],
+  trailingSlash: false,
   themeConfig: {
     respectPrefersColorScheme: true,
     tableOfContents: {
@@ -178,6 +179,10 @@ const config: Config = {
           {
             from: "/quickstart/sdks",
             to: "/sdk",
+          },
+          {
+            from: "/troubleshooting",
+            to: "/category/troubleshooting/",
           },
         ],
       },
