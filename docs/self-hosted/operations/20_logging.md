@@ -27,7 +27,7 @@ The `level` configuration key supports the following values:
 - `fatal`: the program is unable to continue execution and ended with a fatal state. Can happen when the configuration is invalid,
   for example.
 - `error`: used for errors that should be noted.
-- `warn`: non-critical entries that deserve eyes.
+- `warning`: non-critical entries that deserve eyes.
 - `info`: general operational entries about what's going on inside the application.
 - `debug`: usually only enabled when debugging. Very verbose logging. If `json` is the log format, the JSON will be prettified for
   better readability.

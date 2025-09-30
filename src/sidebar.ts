@@ -424,6 +424,15 @@ const kratos: SidebarItemsConfig = [
 
           {
             type: "category",
+            label: "Search",
+            items: [
+              "kratos/manage-identities/search/identity-search-console",
+              "kratos/manage-identities/search/identity-search-api",
+            ],
+          },
+
+          {
+            type: "category",
             label: "SCIM",
             link: {
               type: "doc",
