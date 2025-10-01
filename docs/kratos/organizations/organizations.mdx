@@ -459,8 +459,9 @@ servers. Guided walkthroughs are available for Microsoft Entra ID and Okta.
 
 Go to <ConsoleLink route="project.authentication.organizations" /> and continue by configuring the selected organization.
 
-In the **Edit Organization** page, under the **Onboarding Portal** section, click **Generate link** to create a link. You can then
-share this link with the organization admins.
+On the **Edit Organization** page, under the **Onboarding Portal** section, click **Generate link**. If your project has a custom
+domain configured, you must choose between the project slug and the custom domain as the link's base URL. You can then share this
+link with the organization administrators.
 
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
@@ -489,7 +490,8 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
      -d '{
            "expires_at": "2025-06-01T00:00:00Z",
            "enable_sso": true,
-           "enable_scim": true
+           "enable_scim": true,
+           "custom_hostname_id": "use a custom domain id from branding, omit the field otherwise"
          }'
 ```
 
@@ -504,7 +506,8 @@ Result:
   "enable_sso": true,
   "enable_scim": true,
   "created_at": "2025-06-02T05:23:45.299988Z",
-  "expires_at": "2025-06-03T05:23:45Z"
+  "expires_at": "2025-06-03T05:23:45Z",
+  "custom_hostname_id": "aa4c8766-02b8-423a-80d2-47adf8e8c2ca"
 }
 ```
 
