@@ -552,18 +552,25 @@ https://github.com/ory/x/blob/master/clidoc/generate.go#L96
 
 ### CanonicalURL
 
-The `CanonicalURL` component ensures search engines know the authoritative URL for a page, even though Vercel already handles trailing slash redirects. This is important for SEO consistency.
+The `CanonicalURL` component ensures search engines know the authoritative URL
+for a page, even though Vercel already handles trailing slash redirects. This is
+important for SEO consistency.
 
 #### When to use CanonicalURL
 
 Use this component on:
 
-- **Any `index.mdx` file**: These files serve content at their parent path (e.g., `/api/index.mdx`)
-- **Files matching parent directory names**: When a file shares its parent directory's name (e.g., `docs/kratos/organizations/organizations.mdx`)
+- **Any `index.mdx` file**: These files serve content at their parent path
+  (e.g., `/api/index.mdx`)
+- **Files matching parent directory names**: When a file shares its parent
+  directory's name (e.g., `docs/kratos/organizations/organizations.mdx`)
 
 Common examples include:
+
 - Index Path (`/api/index.mdx`, `/elements/index.mdx`, `/identities/index.mdx`)
-- Matching parent directory names (`docs/kratos/organizations/organizations.mdx`, `docs/self-hosted/oel/monitoring/monitoring.mdx`)
+- Matching parent directory names
+  (`docs/kratos/organizations/organizations.mdx`,
+  `docs/self-hosted/oel/monitoring/monitoring.mdx`)
 
 #### How to use CanonicalURL
 
@@ -575,7 +582,7 @@ id: your-page-id
 title: Your Page Title
 ---
 
-import CanonicalURL from '@site/src/components/CanonicalUrl'
+import CanonicalURL from "@site/src/components/CanonicalUrl"
 
 <CanonicalURL path="your/canonical/path" />
 
@@ -583,22 +590,27 @@ Your content here...
 ```
 
 The component automatically:
+
 - Generates the full canonical URL using the site's base URL
 - Removes trailing slashes to ensure URL consistency
 - Adds the appropriate `<link rel="canonical">` tag to the page's HTML head
 
-This ensures search engines understand which version of the URL should be indexed and helps consolidate page authority for better SEO performance.
+This ensures search engines understand which version of the URL should be
+indexed and helps consolidate page authority for better SEO performance.
 
 #### How to verify CanonicalURL is working
 
 1. Open the page in your browser
 2. Right-click and select "View Page Source" (not "Inspect")
 3. Search for `<link rel="canonical"` in the HTML
-4. Confirm the canonical URL exists and points to the correct path without trailing slash
+4. Confirm the canonical URL exists and points to the correct path without
+   trailing slash
 
 Example:
+
 ```html
-<link rel="canonical" href="https://www.ory.sh/docs/kratos/organizations">
+<link rel="canonical" href="https://www.ory.sh/docs/kratos/organizations" />
 ```
 
-If you see a trailing slash in the canonical URL or if there's no canonical tag at all, the component may not be properly implemented.
+If you see a trailing slash in the canonical URL or if there's no canonical tag
+at all, the component may not be properly implemented.
