@@ -48,8 +48,12 @@ In this command:
 
 :::info
 
-The grace period cannot exceed 5 minutes unless a count limit is also configured. If a count limit is configured, the grace period
-can be set to a maximum of 30 days.
+On the Ory Network, the grace period can never exceed 5 minutes.
+
+On Kratos OEL or Kratos OSS, the grace period cannot exceed 5 minutes unless a count limit is also configured. If a count limit is
+configured, the grace period can be set to a maximum of 180 days. Note that setting a very long grace period or a high reuse count
+can have security implications, and should only be done after careful consideration of the risks involved and for explicit
+migration scenarios.
 
 :::
 
