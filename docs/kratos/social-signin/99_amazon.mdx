@@ -24,15 +24,15 @@ import TabItem from '@theme/TabItem';
 Follow these steps to add Amazon as a social sign-in provider for your project, using the Ory Console.
 
 1. Go to <ConsoleLink route="project.socialSignIn" />.
-2. Enable the **Enable OpenID Connect** toggle, then click **Add new OpenID Connect provider**.
-3. Click the Amazon logo to open the **Configure Amazon screen**. You may need to click **Show more providers** to see the full list of providers.
-3. Copy the Redirect URI and save it for later use.
-4. Follow the [official steps](https://developer.amazon.com/docs/login-with-amazon/register-web.html) to create a security profile.
-9. Once you've created the security profile, click **Show Client Secret** and copy the Client ID and Client secret. Then paste them into the corresponding fields in the Ory Console's **Configure Amazon** screen.
-10. On Amazon Developers, click **Save Changes**.
-11. On Amazon Developers, go to Settings > Security Profiles > [Your profile] > Web Settings .
-12. Paste the redirect URI copied from Ory into the **Allowed Returned URLs** and click **Save Changes**.
-13. In the Ory Console, click **Save Configuration** to enable Amazon as a social sign-in provider.
+1. Enable the **Enable OpenID Connect** toggle, then click **Add new OpenID Connect provider**.
+1. Click the Amazon logo to open the **Configure Amazon screen**. You may need to click **Show more providers** to see the full list of providers.
+1. Copy the Redirect URI and save it for later use.
+1. Follow the [official steps](https://developer.amazon.com/docs/login-with-amazon/register-web.html) to create a security profile.
+1. Once you've created the security profile, click **Show Client Secret** and copy the Client ID and Client secret. Then paste them into the corresponding fields in the Ory Console's **Configure Amazon** screen.
+1. In the Ory Console, click **Save Configuration** to enable Amazon as a social sign-in provider.
+1. On Amazon Developers, click **Save Changes**.
+1. On Amazon Developers, go to Settings > Security Profiles > [Your profile] > Web Settings .
+1. Open the Amazon *Security Profile Management* screen, select the *Web Settings* tab, click *Edit*, and paste the redirect URI into the *Allowed Return URLs* field. Click *Save*.
 
 :::note
 
@@ -49,7 +49,7 @@ provider and by setting up custom data mappings.
 
 ### Scopes
 
-In the **Scopes** field, you can define the OAuth (access) scopes that Ory requests from the sign-in provider. Defining access scopes enables you to 
+In the **Scopes** field, you can define the OAuth (access) scopes that Ory requests from the sign-in provider. Defining access scopes enables you to
 interact with the provider's APIs on behalf of the user, or to access additional user data, which is exposed as claims for data
 mapping.
 
