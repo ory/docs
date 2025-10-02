@@ -20,10 +20,11 @@ import TabItem from '@theme/TabItem';
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 
-Follow these steps to add Amazon as a social sign-in provider for your to your project using the Ory Console.
+Follow these steps to add Amazon as a social sign-in provider for your project, using the Ory Console.
 
 1. Go to <ConsoleLink route="project.socialSignIn" />.
-2. Click the switch next to the Amazon logo to start the configuration.
+2. Enable the **Enable OpenID Connect** toggle, then click **Add new OpenID Connect provider**. 
+3. Click the Amazon logo to open the **Configure Amazon screen**. You may need to click **Show more providers** to see the full list of providers.
 3. Copy the Redirect URI and save it for later use.
 4. Follow the [official steps](https://developer.amazon.com/docs/login-with-amazon/register-web.html) to create a security profile.
 9. Copy the Client ID and Client secret from Amazon and paste them into the corresponding fields in the Ory Console.
@@ -58,7 +59,7 @@ To learn more about the scopes available for Amazon, read the
 
 ### Data mapping
 
-The **Data mapping** section allows you to map the data returned by the sign-in provider to traits as defined in the identity
+In the **Data mapping** field, you can map the data returned by the sign-in provider to traits as defined in the identity
 schema.
 
 To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
@@ -81,7 +82,7 @@ local claims = std.extVar('claims');
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
-
+Follow these steps to add Amazon as a social sign-in provider to your project using the Ory CLI:
 3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
 
   ```shell
