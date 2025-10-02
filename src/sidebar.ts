@@ -58,6 +58,7 @@ const oidcSSO: SidebarItemConfig = {
         "kratos/social-signin/linkedin",
         "kratos/social-signin/x-twitter",
         "kratos/social-signin/line",
+        "kratos/social-signin/amazon",
       ],
     },
     "kratos/social-signin/data-mapping",
