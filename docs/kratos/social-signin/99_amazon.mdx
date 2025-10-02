@@ -25,14 +25,13 @@ Follow these steps to add Amazon as a social sign-in provider for your project, 
 
 1. Go to <ConsoleLink route="project.socialSignIn" />.
 1. Enable the **Enable OpenID Connect** toggle, then click **Add new OpenID Connect provider**.
-1. Click the Amazon logo to open the **Configure Amazon screen**. You may need to click **Show more providers** to see the full list of providers.
+1. Click the Amazon logo to open the **Configure Amazon** screen. You may need to click **Show more providers** to see the full list of providers.
 1. Copy the Redirect URI and save it for later use.
 1. Follow the [official steps](https://developer.amazon.com/docs/login-with-amazon/register-web.html) to create a security profile.
 1. Once you've created the security profile, click **Show Client Secret** and copy the Client ID and Client secret. Then paste them into the corresponding fields in the Ory Console's **Configure Amazon** screen.
 1. In the Ory Console, click **Save Configuration** to enable Amazon as a social sign-in provider.
 1. On Amazon Developers, click **Save Changes**.
-1. On Amazon Developers, go to Settings > Security Profiles > [Your profile] > Web Settings .
-1. Open the Amazon *Security Profile Management* screen, select the *Web Settings* tab, click *Edit*, and paste the redirect URI into the *Allowed Return URLs* field. Click *Save*.
+1. Open the Amazon **Security Profile Management** screen, select the **Web Settings** tab, click **Edit**, and paste the redirect URI into the **Allowed Return URLs** field. Click **Save**.
 
 :::note
 
@@ -55,8 +54,8 @@ mapping.
 
 For a basic setup, follow these steps to add the profile access scope:
 
-- In Ory Console's *Configure Amazon* screen, click *Show advanced settings*.
-- In the *Scopes* field, enter 'profile' and click *Add*.
+- In Ory Console's **Configure Amazon** screen, click **Show advanced settings**.
+- In the **Scopes** field, enter `profile` and click **Add**.
 
 To learn more about the scopes available for Amazon, read the
 [related documentation](https://developer.amazon.com/docs/login-with-amazon/customer-profile.html).
