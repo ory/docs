@@ -1,7 +1,7 @@
 ---
 id: identity-search-api
 title: Advanced identity search via API
-sidebar_label: Advanced search via API
+sidebar_label: Advanced identity search
 ---
 
 ```mdx-code-block
@@ -29,7 +29,7 @@ import Help from '@site/docs/_common/need-help.mdx'
 
 ## Getting started
 
-We recommend using the [Typesense SDKs](https://typesense.org/docs/29.0/api/api-clients.html) for your preferred language to
+We recommend using the [Typesense library](https://typesense.org/docs/29.0/api/api-clients.html) for your preferred language to
 interact with the advanced identity search API. Pass your [Ory Network API key](/concepts/personal-access-token) where you would
 normally pass the Typesense API key, use the following base URL:
 
@@ -37,9 +37,9 @@ normally pass the Typesense API key, use the following base URL:
 https://{your-ory-slug}.projects.oryapis.com/admin/preview/search/v0beta1
 ```
 
-and set the collection name to `identities-{your-project-id}`.
+Set the collection name to `identities-{your-project-id}`.
 
-See the following examples for how to configure and use the Typesense SDKs to search for identities.
+See the following examples for how to configure and use the Typesense library to search for identities.
 
 ```mdx-code-block
 <Tabs>
@@ -57,7 +57,7 @@ See the following examples for how to configure and use the Typesense SDKs to se
 
 ## Data model
 
-The collection `identities-{your-project-id}` contains one document per identity. Each document contains the following fields:
+The `identities-{your-project-id}` collection contains one document per identity. Each document contains the following fields:
 
 ```mdx-code-block
 <CodeBlock language="json5">{model}</CodeBlock>
@@ -65,7 +65,7 @@ The collection `identities-{your-project-id}` contains one document per identity
 
 :::tip
 
-To avoid timing out search requests, specify the exact fields you want to search in using the `query_by` parameter. For example,
+To avoid search requests timing out, specify the exact fields you want to search by using the `query_by` parameter. For example,
 to search for identities by email, use `query_by=traits.email`.
 
 :::
@@ -83,7 +83,7 @@ To retrieve the original JSON data, fetch the full identity using the
 ## Advanced search example
 
 Please refer to the [Typesense documentation](https://typesense.org/docs/29.0/api/search.html) for details on how to construct
-arbitrary search queries. An example:
+custom search queries. An example:
 
 ```mdx-code-block
 
@@ -107,12 +107,12 @@ possible.
 
 ## Consistency and availability
 
-The search index powering advanced identity search is eventually consistent with the main identity store. This means that there
-will be a delay between creating, updating, or deleting an identity and the changes being reflected in search results. We try to
-aim for a delay of less than one second during normal operation, but cannot provide any guarantees. The search index will have to
-be rebuilt periodically, during which time we cannot service search requests.
+When you create, update, or delete an identity, there is a slight delay in the change being reflected in the advanced 
+identity search results. Any changes should take less that one second for the search index to become consistent with the 
+main identity store, during normal operations. The search index will have to be rebuilt periodically, during which time you 
+cannot perform advanced search requests.
 
-We recommend you use the search API for non-time-critical use cases, such as admin UIs or background jobs, where you need to full
+We recommend you use the search API only for non-time-critical use cases, such as admin UIs or background jobs, where you need to full
 capability of full-text search, filtering, faceting, and sorting.
 
 Before displaying search results to end-users or otherwise using the search results for business logic, we recommend you always
