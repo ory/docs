@@ -48,7 +48,7 @@ errors:
     redirect:
       enabled: true
       config:
-        to: https://www.ory.sh/docs
+        to: https://www.ory.com/docs
 
 mutators:
   header:
@@ -92,7 +92,7 @@ perfect for seeing how Ory Oathkeeper works. Let's define three rules:
 1. An access rule that allowing anonymous access to `https://httpbin.org/anything/header` and using the `header` mutator.
 2. An access rule denying every access to `https://httpbin.org/anything/deny`. If the request header has
    `Accept: application/json`, we will receive a JSON response. If however the accept header has `Accept: text/*`, a HTTP Redirect
-   will be sent (to `https://www.ory.sh/docs` as configured above).
+   will be sent (to `https://www.ory.com/docs` as configured above).
 3. An access rule allowing anonymous access to `https://httpbin.org/anything/id_token` using the `id_token` mutator.
 
 ```mdx-code-block
@@ -248,7 +248,7 @@ We're doing this for demonstration purposes only. In a production environment yo
 the build artifact itself. In Kubernetes, it would make most sense to provide the JSON Web Keys as a Kubernetes Secret mounted as
 in a directory, for example.
 
-We encourage you to check out our [helm charts](https://k8s.ory.sh/helm/) which apply these best practices.
+We encourage you to check out our [helm charts](https://k8s.ory.com/helm/) which apply these best practices.
 
 ## Build & run
 
@@ -329,7 +329,7 @@ curl -H "Accept: application/json" -X GET http://127.0.0.1:4455/anything/deny
 
 # Make request and accept text/* (we get a redirect response).
 curl -H "Accept: text/html" -X GET http://127.0.0.1:4455/anything/deny
-<a href="https://www.ory.sh/docs">Found</a>.
+<a href="https://www.ory.com/docs">Found</a>.
 
 curl -X GET http://127.0.0.1:4455/anything/id_token
 {

@@ -29,7 +29,7 @@ API Keys are used to authorize privileged operations to Ory Network Project Admi
 call the Admin API, which allows you to delete users.
 
 API Keys work only in the context of the Project for which they were created. You create API Keys in the
-[Ory Console](https://console.ory.sh/).
+[Ory Console](https://console.ory.com/).
 
 ### Creating API Keys
 
@@ -47,7 +47,7 @@ good practice, however it comes at the cost of increased maintenance -- automati
 renew them, your service might degrade or become unavailable.
 
 ```mdx-code-block
-<BrowserWindow url="https://console.ory.sh/projects/current/developers">
+<BrowserWindow url="https://console.ory.com/projects/current/developers">
 
 ![Configure project API keys in the Ory Console](./_static/api_keys/pak.png)
 
@@ -87,7 +87,7 @@ APIs of all projects that belong to this workspace. For example, you must use a 
 workspace, or add a new B2B SSO organization to a project within that workspace.
 
 API Keys work in the context of the workspace for which they were created, as well as for all projects of that workspace. You
-create API Keys in the [Ory Console](https://console.ory.sh/).
+create API Keys in the [Ory Console](https://console.ory.com/).
 
 However, workspace API keys do not work for managing the data of the projects itself, such as interacting with identities,
 sessions, or OAuth2 clients. For these operations, you need to use the
@@ -99,7 +99,7 @@ Follow these steps to create API keys for your workspace:
 
 [//]: # "TODO: use the <ConsoleLink> once it works with `current` workspace links"
 
-1. Go to the [Ory Console](https://console.ory.sh/).
+1. Go to the [Ory Console](https://console.ory.com/).
 2. Go to **Workspace settings** through the workspace menu in the top left corner.
 3. Select **API keys** in the sidebar.
 4. Click the **+** icon in the **API Keys** section.
@@ -112,7 +112,7 @@ good practice, however it comes at the cost of increased maintenance -- automati
 renew them, your service might degrade or become unavailable.
 
 ```mdx-code-block
-<BrowserWindow url="https://console.ory.sh/workspaces/current/settings/api-keys">
+<BrowserWindow url="https://console.ory.com/workspaces/current/settings/api-keys">
 
 ![Configure workspace API keys in the Ory Console](./_static/api_keys/wak.png)
 
@@ -139,7 +139,7 @@ For example, when calling the API to get a project at `/projects/:project_id`, i
 
 ```shell
 GET /projects/$PROJECT_ID HTTP/1.1
-Host: api.console.ory.sh
+Host: api.console.ory.com
 Accept: application/json
 # highlight-next-line
 Authorization: Bearer $API_KEY
@@ -152,7 +152,7 @@ create, read, update, delete.
 
 |                                                                                                     | Workspace API Keys   | Project API Keys                     |
 | --------------------------------------------------------------------------------------------------- | -------------------- | ------------------------------------ |
-| Base URL                                                                                            | `api.console.ory.sh` | `$PROJECT_SLUG.projects.oryapis.com` |
+| Base URL                                                                                            | `api.console.ory.com` | `$PROJECT_SLUG.projects.oryapis.com` |
 | Create projects                                                                                     | Yes                  | No                                   |
 | Change project configurations, including the identity, oauth2, and permission service configuration | Yes                  | No                                   |
 | Delete projects                                                                                     | Yes                  | No                                   |

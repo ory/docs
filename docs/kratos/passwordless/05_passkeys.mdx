@@ -68,7 +68,7 @@ By default, the passkey strategy is disabled. Go to <ConsoleLink route="project.
 **Enable Passkey authentication** to enable it.
 
 ```mdx-code-block
-<BrowserWindow url="https://console.ory.sh/projects/current/passwordless">
+<BrowserWindow url="https://console.ory.com/projects/current/passwordless">
 
 ![Passkey in Console](../_static/passkeys/console.png)
 
@@ -130,7 +130,7 @@ is defined, the passkey strategy will not work.
           format: "email",
           title: "Your E-Mail",
           minLength: 3,
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             credentials: {
               // ...
               passkey: {
@@ -159,7 +159,7 @@ To allow using passkeys, enable passwordless login. To do that in the Ory Networ
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 
-<BrowserWindow url="https://console.ory.sh/">
+<BrowserWindow url="https://console.ory.com/">
 
 ![Enabling passwordless login allows to use passkeys](../_static/webauthn/1.png)
 
@@ -310,7 +310,7 @@ This is used for WebAuthn both in passwordless flows and multi-factor authentica
           format: "email",
           title: "Your E-Mail",
           minLength: 3,
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             credentials: {
               // ...
               webauthn: {

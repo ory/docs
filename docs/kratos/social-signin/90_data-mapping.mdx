@@ -90,8 +90,8 @@ returns this object:
 {
   "identity": {
     "traits": {
-      "email": "foo@ory.sh",
-      "website": "https://www.ory.sh"
+      "email": "foo@ory.com",
+      "website": "https://www.ory.com"
     }
   }
 }
@@ -248,7 +248,7 @@ import TabItem from '@theme/TabItem'
 
 Let's set up a complete example with GitHub:
 
-1. Create a new project or use an existing one in the [Ory Console](https://console.ory.sh).
+1. Create a new project or use an existing one in the [Ory Console](https://console.ory.com).
 2. Go to <ConsoleLink route="project.socialSignIn" />.
 3. Use the **Add GitHub** provider, follow the set-up steps from the [GitHub social sign-in documentation](25_github.mdx).
 4. Copy and paste the following JsonNet data mapper:
@@ -281,7 +281,7 @@ Let's assume that GitHub returns the following for `std.extVar('claims')`:
 ```json
 {
   "sub": "some-identity-id-4hA8gk",
-  "email": "foo@ory.sh",
+  "email": "foo@ory.com",
   "email_verified": true,
   "username": "foo-user"
 }
@@ -293,7 +293,7 @@ The JsonNet data mapper will return the following data from GitHub:
 {
   "identity": {
     "traits": {
-      "email": "foo@ory.sh"
+      "email": "foo@ory.com"
     },
     "metadata_public": {
       "github_username": "foo-user"
@@ -323,7 +323,7 @@ credentials:
 schema_id: some-example
 
 traits:
-  email: foo@ory.sh
+  email: foo@ory.com
 
 metadata_public:
   github_username: foo-user

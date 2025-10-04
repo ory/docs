@@ -89,14 +89,14 @@ export WORKSPACE_API_KEY="ory_wak_..."
 #### List organizations
 
 ```shell
-curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations" \
+curl -X GET --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
 #### Create an organization
 
 ```shell
-curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations" \
+curl -X POST --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{
@@ -108,14 +108,14 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
 #### Get an organization
 
 ```shell
-curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
+curl -X GET --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
 #### Delete an organization
 
 ```shell
-curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
+curl -X DELETE --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
@@ -148,7 +148,7 @@ JSON response.
 #### Create an SSO connection
 
 ```shell
-curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+curl -X PATCH --location "https://api.console.ory.com/projects/$PROJECT_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '[
@@ -199,7 +199,7 @@ See the [PKCE documentation](../social-signin/oidc-pkce.mdx) for details.
 #### List SSO connections
 
 ```shell
-curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+curl -X GET --location "https://api.console.ory.com/projects/$PROJECT_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
    | jq ".services.identity.config.selfservice.methods.oidc.config.providers"
 ```
@@ -228,7 +228,7 @@ To delete an organization, you need to specify the index of the connection in th
 SSO connection in the list of connections.
 
 ```shell
-curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+curl -X PATCH --location "https://api.console.ory.com/projects/$PROJECT_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '[
@@ -274,7 +274,7 @@ This guide will walk you through the steps required to set up SAML Single Sign-O
 #### Prerequisites
 
 Before proceeding, ensure you are on a plan that supports SAML SSO. SAML is available exclusively on select Enterprise plans.
-[Contact us](https://www.ory.sh/contact/) if you need SAML support.
+[Contact us](https://www.ory.com/contact/) if you need SAML support.
 
 ```mdx-code-block
 <Tabs groupId="console-or-api">
@@ -299,7 +299,7 @@ Before proceeding, ensure you are on a plan that supports SAML SSO. SAML is avai
 #### Create an organization
 
 ```shell
-curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations" \
+curl -X POST --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{
@@ -311,7 +311,7 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
 #### Enable SAML authentication
 
 ```shell
-curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+curl -X PATCH --location "https://api.console.ory.com/projects/$PROJECT_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '[
@@ -327,7 +327,7 @@ curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
 #### Create a SAML connection
 
 ```shell
-curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+curl -X PATCH --location "https://api.console.ory.com/projects/$PROJECT_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '[
@@ -355,7 +355,7 @@ curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
 </Tabs>
 ```
 
-The SAML application callback URL to set at our SAML Identity Provider is: `https://api.console.ory.sh/saml/api/oauth/saml`
+The SAML application callback URL to set at our SAML Identity Provider is: `https://api.console.ory.com/saml/api/oauth/saml`
 
 #### Data mapping
 
@@ -393,7 +393,7 @@ local claims = std.extVar('claims');
 :::note
 
 Before proceeding, ensure you are on a plan that supports onboarding portal. It is available exclusively on select enterprise
-plans. The portal requires that you enable Account Experience 2.0. Please contact us [Ory Support](mailto:support@ory.sh) if you
+plans. The portal requires that you enable Account Experience 2.0. Please contact us [Ory Support](mailto:support@ory.com) if you
 have any questions or feedback.
 
 :::
@@ -441,7 +441,7 @@ These features are relevant for:
 Provider support:
 
 - The onboarding portal supports all well known providers. You can also connect any SAML/OIDC compliant provider using the Generic
-  SAML/OIDC IdP option. If you don't find your provider listed, please [contact us](https://www.ory.sh/contact/).
+  SAML/OIDC IdP option. If you don't find your provider listed, please [contact us](https://www.ory.com/contact/).
 
 ### SCIM support
 
@@ -466,7 +466,7 @@ link with the organization administrators.
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 
-<BrowserWindow url="https://console.ory.sh/projects/<id>/authentication/organizations/<id>/edit">
+<BrowserWindow url="https://console.ory.com/projects/<id>/authentication/organizations/<id>/edit">
     ![Onboarding portal link](./_static/onboarding-portal-link.png)
 </BrowserWindow>
 ```
@@ -484,7 +484,7 @@ PROJECT_ID,ORGANIZATION_ID and WORKSPACE_API_KEY:
 #### Create an onboarding portal link
 
 ```shell
-curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
+curl -X POST --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{
@@ -518,7 +518,7 @@ The response contains a `value` token that you can use to construct the onboardi
 #### Update an onboarding portal link
 
 ```shell
-curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
+curl -X POST --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{
@@ -546,14 +546,14 @@ Result:
 #### Delete an onboarding portal link
 
 ```shell
-curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
+curl -X DELETE --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
 #### List onboarding portal links
 
 ```shell
-curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
+curl -X GET --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 

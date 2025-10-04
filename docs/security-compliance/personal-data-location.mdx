@@ -5,7 +5,7 @@ sidebar_label: Personal data storage
 ---
 
 Ory Network is globally distributed for maximum resilience and minimum latency. Check out the
-[blog post](https://www.ory.sh/global-identity-and-access-management-multi-region/) for details on how this works.
+[blog post](https://www.ory.com/global-identity-and-access-management-multi-region/) for details on how this works.
 
 As discussed in that blog post, replicating personal data (also known as personally identifiable data or PII) across the globe is
 prohibited or made difficult by legislation like GDPR and would impede your user's control over their data.
@@ -27,7 +27,7 @@ automatically, reaching out behind the scenes to the region where that personal 
 
 ## Selecting a storage location for personal data
 
-When you [create a new Ory Network project](https://console.ory.sh/projects/create) in the Ory Console, you are given a choice of
+When you [create a new Ory Network project](https://console.ory.com/projects/create) in the Ory Console, you are given a choice of
 personal data storage location for your new project. Any personal data of your users and identities will be stored just in that
 region, replicated within that region for availability and durability. Note that this choice is permanent for that project: moving
 personal data between regions is an administrative action, with which Ory Support is happy to assist enterprise customers.
@@ -35,7 +35,7 @@ personal data between regions is an administrative action, with which Ory Suppor
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 
-<BrowserWindow url="https://console.ory.sh/projects/create">
+<BrowserWindow url="https://console.ory.com/projects/create">
 
 ![Passkey in Console](_static/storage-location.png)
 
@@ -45,7 +45,7 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 Your project's chosen personal data storage location is shown in the Ory Console.
 
 ```mdx-code-block
-<BrowserWindow url="https://console.ory.sh/projects/current/settings">
+<BrowserWindow url="https://console.ory.com/projects/current/settings">
 
 ![Passkey in Console](_static/storage-location-settings.png )
 
@@ -60,10 +60,10 @@ Networks storage locations across the globe. "US Continental" means the user's p
 closest storage location inside the contiguous United States.
 
 We are working toward making it easy query and change personal data storage location on a per-identity basis via UI and API. If
-this sounds interesting to you, please [reach out](https://www.ory.sh/contact/) to discuss your use case.
+this sounds interesting to you, please [reach out](https://www.ory.com/contact/) to discuss your use case.
 
 ## Regions and availability zones
 
 When an identity's personal data is stored in a region, say US west, it is still highly available and replicated across at least
 three availability zones within that region. Standard backup and disaster recovery plans are in place and regularly tested as
-well. See [https://trust.ory.sh/](https://trust.ory.sh/) for details.
+well. See [https://trust.ory.com/](https://trust.ory.com/) for details.
