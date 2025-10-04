@@ -1,11 +1,11 @@
 <h1 align="center">Ory Documentation</h1>
 
 <h4 align="center">
-    <a href="https://www.ory.sh/chat">Chat</a> |
-    <a href="https://www.ory.sh/l/sign-up-newsletter">Newsletter</a><br/><br/>
-    <a href="https://www.ory.sh/docs/">Documentation</a> |
+    <a href="https://www.ory.com/chat">Chat</a> |
+    <a href="https://www.ory.com/l/sign-up-newsletter">Newsletter</a><br/><br/>
+    <a href="https://www.ory.com/docs/">Documentation</a> |
     <a href="https://opencollective.com/ory">Support this project!</a><br/><br/>
-    <a href="https://www.ory.sh/jobs/">Work in Open Source, Ory is hiring!</a>
+    <a href="https://www.ory.com/jobs/">Work in Open Source, Ory is hiring!</a>
 </h4>
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -43,9 +43,9 @@
 
 Ory documentation is the single source of truth for usage, implementation,
 configuration, and troubleshooting of the Ory Network and all projects of the
-[Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/). The documentation
+[Ory Ecosystem](https://www.ory.com/docs/ecosystem/projects/). The documentation
 is best consumed through the
-[Ory documentation portal](https://www.ory.sh/docs/).
+[Ory documentation portal](https://www.ory.com/docs/).
 
 To see the source code of each of the projects, visit the project repository:
 
@@ -419,7 +419,7 @@ import VideoEmbed from '@site/src/components/VideoEmbed'
 You can use the `/current/` route to navigate users to their active Ory Network
 project. For example, to access the Custom UI settings for the active Ory
 Network project in the Console, you can link to:
-https://console.ory.sh/projects/current/ui
+https://console.ory.com/projects/current/ui
 
 When referencing a page of the Ory Console, use the
 `<ConsoleLink route="project..." />` component in MDX files.

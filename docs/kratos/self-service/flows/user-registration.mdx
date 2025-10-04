@@ -434,7 +434,7 @@ The Social Sign Up Method (`oidc`) enables you to use
 - [GitLab](https://docs.gitlab.com/ee/integration/openid_connect_provider.html);
 - [Google](https://developers.google.com/identity/sign-in/web/sign-in);
 - [Facebook](https://developers.facebook.com/docs/facebook-login/);
-- [Ory OAuth2 & OpenID Connect (Ory Hydra)](https://www.ory.sh/hydra);
+- [Ory OAuth2 & OpenID Connect (Ory Hydra)](https://www.ory.com/hydra);
 - [Keycloak](https://www.keycloak.org);
 - and every other OpenID Connect Certified Provider
 
@@ -524,11 +524,11 @@ The form payloads are then submitted to Ory Identities which follows up with:
 ### Registration with username/email and password
 
 To complete the registration process, the end-user fills out the form which must include a field marked as the identifier
-(`ory.sh/kratos.credentials.password.identifier: true`) in the Identity JSON Schema, for example:
+(`ory.com/kratos.credentials.password.identifier: true`) in the Identity JSON Schema, for example:
 
 ```diff
  {
-   "$id": "https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json",
+   "$id": "https://schemas.ory.com/presets/kratos/quickstart/email-password/identity.schema.json",
    "$schema": "http://json-schema.org/draft-07/schema#",
    "title": "Person",
    "type": "object",
@@ -539,7 +539,7 @@ To complete the registration process, the end-user fills out the form which must
          "email": {
            "type": "string",
            "format": "email",
-+          "ory.sh/kratos": {
++          "ory.com/kratos": {
 +            "credentials": {
 +              "password": {
 +                "identifier": true
@@ -592,7 +592,7 @@ Let's assume the Identity Schema JSON requires a `website` trait
 
 ```diff
  {
-   "$id": "https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json",
+   "$id": "https://schemas.ory.com/presets/kratos/quickstart/email-password/identity.schema.json",
    "$schema": "http://json-schema.org/draft-07/schema#",
    "title": "Person",
    "type": "object",
@@ -603,7 +603,7 @@ Let's assume the Identity Schema JSON requires a `website` trait
          "email": {
            "type": "string",
            "format": "email",
-           "ory.sh/kratos": {
+           "ory.com/kratos": {
              "credentials": {
                "password": {
                  "identifier": true
@@ -699,7 +699,7 @@ curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQ
     "schema_id": "default",
     "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
-      "email": "foouser@ory.sh",
+      "email": "foouser@ory.com",
       "name": {
         "first": "foo",
         "last": "user"
@@ -708,7 +708,7 @@ curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQ
     "verifiable_addresses": [
       {
         "id": "81bbdeae-6333-42f2-877e-26c78acb6ea5",
-        "value": "foouser@ory.sh",
+        "value": "foouser@ory.com",
         "verified": false,
         "via": "email",
         "status": "pending",
@@ -718,7 +718,7 @@ curl -s -H "Cookie: ory_kratos_session=MTU5OTE2ODc2N3xEdi1CQkFFQ180SUFBUkFCRUFBQ
     "recovery_addresses": [
       {
         "id": "596c1db4-ccaa-4f4e-9623-cb7e768026ad",
-        "value": "foouser@ory.sh",
+        "value": "foouser@ory.com",
         "via": "email"
       }
     ]

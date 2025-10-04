@@ -3,852 +3,852 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://www.ory.sh/keto/docs/http-api</loc>
+    <loc>https://www.ory.com/keto/docs/http-api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/search</loc>
+    <loc>https://www.ory.com/keto/docs/search</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/versions</loc>
+    <loc>https://www.ory.com/keto/docs/versions</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/</loc>
+    <loc>https://www.ory.com/keto/docs/next/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/CHANGELOG</loc>
+    <loc>https://www.ory.com/keto/docs/next/CHANGELOG</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-check</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-check</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-expand</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-expand</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-migrate</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-migrate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-migrate-down</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-migrate-down</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-migrate-status</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-migrate-status</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-migrate-up</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-migrate-up</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-namespace</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-namespace</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-namespace-migrate</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-namespace-migrate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-namespace-migrate-down</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-namespace-migrate-down</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-namespace-migrate-legacy</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-namespace-migrate-legacy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-namespace-migrate-status</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-namespace-migrate-status</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-namespace-migrate-up</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-namespace-migrate-up</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-namespace-validate</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-namespace-validate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-relation-tuple</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-relation-tuple</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-relation-tuple-create</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-relation-tuple-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-relation-tuple-delete</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-relation-tuple-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-relation-tuple-delete-all</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-relation-tuple-delete-all</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-relation-tuple-get</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-relation-tuple-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-relation-tuple-parse</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-relation-tuple-parse</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-serve</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-serve</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-status</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-status</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/cli/keto-version</loc>
+    <loc>https://www.ory.com/keto/docs/next/cli/keto-version</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/concepts/api-overview</loc>
+    <loc>https://www.ory.com/keto/docs/next/concepts/api-overview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/concepts/graph-of-relations</loc>
+    <loc>https://www.ory.com/keto/docs/next/concepts/graph-of-relations</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/concepts/internal-algorithms</loc>
+    <loc>https://www.ory.com/keto/docs/next/concepts/internal-algorithms</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/concepts/namespaces</loc>
+    <loc>https://www.ory.com/keto/docs/next/concepts/namespaces</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/concepts/objects</loc>
+    <loc>https://www.ory.com/keto/docs/next/concepts/objects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/concepts/relation-tuples</loc>
+    <loc>https://www.ory.com/keto/docs/next/concepts/relation-tuples</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/concepts/snaptokens-evaluation-consistency</loc>
+    <loc>https://www.ory.com/keto/docs/next/concepts/snaptokens-evaluation-consistency</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/concepts/subjects</loc>
+    <loc>https://www.ory.com/keto/docs/next/concepts/subjects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/contributing</loc>
+    <loc>https://www.ory.com/keto/docs/next/contributing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/examples/olymp-file-sharing</loc>
+    <loc>https://www.ory.com/keto/docs/next/examples/olymp-file-sharing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/guides/access-control-inheritance</loc>
+    <loc>https://www.ory.com/keto/docs/next/guides/access-control-inheritance</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/guides/access-control-list-design-best-practices</loc>
+    <loc>https://www.ory.com/keto/docs/next/guides/access-control-list-design-best-practices</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/guides/expand-api-display-who-has-access</loc>
+    <loc>https://www.ory.com/keto/docs/next/guides/expand-api-display-who-has-access</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/guides/list-api-display-objects</loc>
+    <loc>https://www.ory.com/keto/docs/next/guides/list-api-display-objects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/guides/production</loc>
+    <loc>https://www.ory.com/keto/docs/next/guides/production</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/guides/rbac</loc>
+    <loc>https://www.ory.com/keto/docs/next/guides/rbac</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/guides/simple-access-check-guide</loc>
+    <loc>https://www.ory.com/keto/docs/next/guides/simple-access-check-guide</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/guides/v0.7-migration</loc>
+    <loc>https://www.ory.com/keto/docs/next/guides/v0.7-migration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/implemented-planned-features</loc>
+    <loc>https://www.ory.com/keto/docs/next/implemented-planned-features</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/install</loc>
+    <loc>https://www.ory.com/keto/docs/next/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/milestones</loc>
+    <loc>https://www.ory.com/keto/docs/next/milestones</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/performance</loc>
+    <loc>https://www.ory.com/keto/docs/next/performance</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/quickstart</loc>
+    <loc>https://www.ory.com/keto/docs/next/quickstart</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/reference/configuration</loc>
+    <loc>https://www.ory.com/keto/docs/next/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/reference/proto-api</loc>
+    <loc>https://www.ory.com/keto/docs/next/reference/proto-api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/reference/rest-api</loc>
+    <loc>https://www.ory.com/keto/docs/next/reference/rest-api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/sdk/index</loc>
+    <loc>https://www.ory.com/keto/docs/next/sdk/index</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/next/secure</loc>
+    <loc>https://www.ory.com/keto/docs/next/secure</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.5/</loc>
+    <loc>https://www.ory.com/keto/docs/v0.5/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.5/configure-deploy</loc>
+    <loc>https://www.ory.com/keto/docs/v0.5/configure-deploy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.5/engines/acl</loc>
+    <loc>https://www.ory.com/keto/docs/v0.5/engines/acl</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.5/engines/acp-aws</loc>
+    <loc>https://www.ory.com/keto/docs/v0.5/engines/acp-aws</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.5/engines/acp-ory</loc>
+    <loc>https://www.ory.com/keto/docs/v0.5/engines/acp-ory</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.5/engines/index</loc>
+    <loc>https://www.ory.com/keto/docs/v0.5/engines/index</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.5/engines/rbac</loc>
+    <loc>https://www.ory.com/keto/docs/v0.5/engines/rbac</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.5/install</loc>
+    <loc>https://www.ory.com/keto/docs/v0.5/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.5/reference/api</loc>
+    <loc>https://www.ory.com/keto/docs/v0.5/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.5/reference/configuration</loc>
+    <loc>https://www.ory.com/keto/docs/v0.5/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.5/sdk/index</loc>
+    <loc>https://www.ory.com/keto/docs/v0.5/sdk/index</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.5/secure</loc>
+    <loc>https://www.ory.com/keto/docs/v0.5/secure</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-check</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-check</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-expand</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-expand</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-migrate</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-migrate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-migrate-down</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-migrate-down</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-migrate-status</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-migrate-status</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-migrate-up</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-migrate-up</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-namespace</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-namespace</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-namespace-migrate</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-namespace-migrate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-namespace-migrate-down</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-namespace-migrate-down</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-namespace-migrate-status</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-namespace-migrate-status</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-namespace-migrate-up</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-namespace-migrate-up</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-namespace-validate</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-namespace-validate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-relation-tuple</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-relation-tuple</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-relation-tuple-create</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-relation-tuple-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-relation-tuple-delete</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-relation-tuple-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-relation-tuple-get</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-relation-tuple-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-relation-tuple-parse</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-relation-tuple-parse</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-serve</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-serve</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-status</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-status</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/cli/keto-version</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/cli/keto-version</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/concepts/api-overview</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/concepts/api-overview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/concepts/graph-of-relations</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/concepts/graph-of-relations</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/concepts/internal-algorithms</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/concepts/internal-algorithms</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/concepts/namespaces</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/concepts/namespaces</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/concepts/objects</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/concepts/objects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/concepts/relation-tuples</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/concepts/relation-tuples</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/concepts/snaptokens-evaluation-consistency</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/concepts/snaptokens-evaluation-consistency</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/concepts/subjects</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/concepts/subjects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/contributing</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/contributing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/examples/olymp-file-sharing</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/examples/olymp-file-sharing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/guides/access-control-inheritance</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/guides/access-control-inheritance</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/guides/access-control-list-design-best-practices</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/guides/access-control-list-design-best-practices</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/guides/expand-api-display-who-has-access</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/guides/expand-api-display-who-has-access</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/guides/list-api-display-objects</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/guides/list-api-display-objects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/guides/production</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/guides/production</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/guides/rbac</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/guides/rbac</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/guides/simple-access-check-guide</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/guides/simple-access-check-guide</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/implemented-planned-features</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/implemented-planned-features</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/install</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/milestones</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/milestones</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/performance</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/performance</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/quickstart</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/quickstart</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/reference/api</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/reference/configuration</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/reference/proto-api</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/reference/proto-api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/reference/rest-api</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/reference/rest-api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/sdk/index</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/sdk/index</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/v0.6/secure</loc>
+    <loc>https://www.ory.com/keto/docs/v0.6/secure</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/</loc>
+    <loc>https://www.ory.com/keto/docs/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/CHANGELOG</loc>
+    <loc>https://www.ory.com/keto/docs/CHANGELOG</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-check</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-check</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-expand</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-expand</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-migrate</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-migrate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-migrate-down</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-migrate-down</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-migrate-status</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-migrate-status</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-migrate-up</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-migrate-up</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-namespace</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-namespace</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-namespace-migrate</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-namespace-migrate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-namespace-migrate-down</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-namespace-migrate-down</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-namespace-migrate-legacy</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-namespace-migrate-legacy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-namespace-migrate-status</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-namespace-migrate-status</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-namespace-migrate-up</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-namespace-migrate-up</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-namespace-validate</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-namespace-validate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-relation-tuple</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-relation-tuple</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-relation-tuple-create</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-relation-tuple-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-relation-tuple-delete</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-relation-tuple-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-relation-tuple-get</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-relation-tuple-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-relation-tuple-parse</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-relation-tuple-parse</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-serve</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-serve</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-status</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-status</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/cli/keto-version</loc>
+    <loc>https://www.ory.com/keto/docs/cli/keto-version</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/concepts/api-overview</loc>
+    <loc>https://www.ory.com/keto/docs/concepts/api-overview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/concepts/graph-of-relations</loc>
+    <loc>https://www.ory.com/keto/docs/concepts/graph-of-relations</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/concepts/internal-algorithms</loc>
+    <loc>https://www.ory.com/keto/docs/concepts/internal-algorithms</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/concepts/namespaces</loc>
+    <loc>https://www.ory.com/keto/docs/concepts/namespaces</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/concepts/objects</loc>
+    <loc>https://www.ory.com/keto/docs/concepts/objects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/concepts/relation-tuples</loc>
+    <loc>https://www.ory.com/keto/docs/concepts/relation-tuples</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/concepts/snaptokens-evaluation-consistency</loc>
+    <loc>https://www.ory.com/keto/docs/concepts/snaptokens-evaluation-consistency</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/concepts/subjects</loc>
+    <loc>https://www.ory.com/keto/docs/concepts/subjects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/contributing</loc>
+    <loc>https://www.ory.com/keto/docs/contributing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/examples/olymp-file-sharing</loc>
+    <loc>https://www.ory.com/keto/docs/examples/olymp-file-sharing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/guides/access-control-inheritance</loc>
+    <loc>https://www.ory.com/keto/docs/guides/access-control-inheritance</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/guides/access-control-list-design-best-practices</loc>
+    <loc>https://www.ory.com/keto/docs/guides/access-control-list-design-best-practices</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/guides/expand-api-display-who-has-access</loc>
+    <loc>https://www.ory.com/keto/docs/guides/expand-api-display-who-has-access</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/guides/list-api-display-objects</loc>
+    <loc>https://www.ory.com/keto/docs/guides/list-api-display-objects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/guides/production</loc>
+    <loc>https://www.ory.com/keto/docs/guides/production</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/guides/rbac</loc>
+    <loc>https://www.ory.com/keto/docs/guides/rbac</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/guides/simple-access-check-guide</loc>
+    <loc>https://www.ory.com/keto/docs/guides/simple-access-check-guide</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/guides/v0.7-migration</loc>
+    <loc>https://www.ory.com/keto/docs/guides/v0.7-migration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/implemented-planned-features</loc>
+    <loc>https://www.ory.com/keto/docs/implemented-planned-features</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/install</loc>
+    <loc>https://www.ory.com/keto/docs/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/milestones</loc>
+    <loc>https://www.ory.com/keto/docs/milestones</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/performance</loc>
+    <loc>https://www.ory.com/keto/docs/performance</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/quickstart</loc>
+    <loc>https://www.ory.com/keto/docs/quickstart</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/reference/configuration</loc>
+    <loc>https://www.ory.com/keto/docs/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/reference/proto-api</loc>
+    <loc>https://www.ory.com/keto/docs/reference/proto-api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/reference/rest-api</loc>
+    <loc>https://www.ory.com/keto/docs/reference/rest-api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/sdk/index</loc>
+    <loc>https://www.ory.com/keto/docs/sdk/index</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/keto/docs/secure</loc>
+    <loc>https://www.ory.com/keto/docs/secure</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

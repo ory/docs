@@ -181,7 +181,7 @@ authorization are no longer prefixed with `admin` for better readability. Most `
 -   V0alpha2Api.AdminUpdateIdentity(oryAuthedContext, toUpdate.Id).AdminUpdateIdentityBody(ory.AdminUpdateIdentityBody{
 +   IdentityApi.UpdateIdentity(oryAuthedContext, toUpdate.Id).UpdateIdentityBody(ory.UpdateIdentityBody{
       Traits: map[string]interface{}{
-        "email": "dev+not-" + x.NewUUID().String() + "@ory.sh",
+        "email": "dev+not-" + x.NewUUID().String() + "@ory.com",
       },
     }).Execute()
 
