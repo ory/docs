@@ -1187,6 +1187,7 @@ const oel: SidebarItemsConfig = [
       "self-hosted/oel/oauth2/token-prefix",
       "self-hosted/oel/oauth2/migrate-postgresql-ttl",
       "self-hosted/oel/oauth2/revert-database-migrations",
+      "self-hosted/oel/oauth2/configuration",
     ],
   },
   {
@@ -1195,6 +1196,7 @@ const oel: SidebarItemsConfig = [
     items: [
       "self-hosted/oel/oathkeeper/upgrade-oathkeeper",
       "self-hosted/oel/oathkeeper/changelog",
+      "self-hosted/oel/oathkeeper/configuration",
     ],
   },
   {
@@ -1203,7 +1205,13 @@ const oel: SidebarItemsConfig = [
     items: [
       "self-hosted/oel/kratos/upgrade",
       "self-hosted/oel/kratos/changelog",
+      "self-hosted/oel/kratos/configuration",
     ],
+  },
+  {
+    type: "category",
+    label: "Ory Keto Permissions",
+    items: ["self-hosted/oel/keto/configuration"],
   },
   {
     type: "category",
