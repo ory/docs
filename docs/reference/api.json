@@ -2356,9 +2356,6 @@
           "grant_scope": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
-          "handled_at": {
-            "$ref": "#/components/schemas/nullTime"
-          },
           "remember": {
             "description": "Remember, if set to true, tells ORY Hydra to remember this consent authorization and reuse it if the same\nclient asks the same user for the same, or a subset of, scope.",
             "type": "boolean"
@@ -2390,7 +2387,7 @@
       "acceptOAuth2LoginRequest": {
         "properties": {
           "acr": {
-            "description": "ACR sets the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it\nto express that, for example, a user authenticated using two factor authentication.",
+            "description": "ACR sets the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it\nto express that, for example, a user authenticated using two-factor authentication.",
             "type": "string"
           },
           "amr": {
@@ -2412,7 +2409,7 @@
             "type": "string"
           },
           "remember": {
-            "description": "Remember, if set to true, tells ORY Hydra to remember this user by telling the user agent (browser) to store\na cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, he/she\nwill not be asked to log in again.",
+            "description": "Remember, if set to true, tells Ory Hydra to remember this user by telling the user agent (browser) to store\na cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, they\nwill not be asked to log in again.",
             "type": "boolean"
           },
           "remember_for": {
@@ -6447,10 +6444,8 @@
             "$ref": "#/components/schemas/NullUUID"
           },
           "pkce": {
-            "description": "PKCE controls if the OpenID Connect OAuth2 flow should use PKCE (Proof Key for Code Exchange).\nPossible values are: `auto` (default), `never`, `force`.\n`auto`: PKCE is used if the provider supports it. Requires setting `issuer_url`.\n`never`: Disable PKCE entirely for this provider, even if the provider advertises support for it.\n`force`: Always use PKCE, even if the provider does not advertise support for it. OAuth2 flows will fail if the provider does not support PKCE.\nIMPORTANT: If you set this to `force`, you must whitelist a different return URL for your OAuth2 client in the provider's configuration.\nInstead of \u003cbase-url\u003e/self-service/methods/oidc/callback/\u003cprovider\u003e, you must use \u003cbase-url\u003e/self-service/methods/oidc/callback\n(Note the missing \u003cprovider\u003e path segment and no trailing slash).",
             "enum": ["auto", "never", "force"],
-            "nullable": true,
-            "type": "string"
+            "nullable": true
           },
           "project_revision_id": {
             "description": "The Revision's ID this schema belongs to",
@@ -14796,7 +14791,7 @@
     },
     "/oauth2/device/auth": {
       "post": {
-        "description": "This endpoint is not documented here because you should never use your own implementation to perform OAuth2 flows.\nOAuth2 is a very popular protocol and a library for your programming language will exists.\n\nTo learn more about this flow please refer to the specification: https://tools.ietf.org/html/rfc8628",
+        "description": "This endpoint is not documented here because you should never use your own implementation to perform OAuth2 flows.\nOAuth2 is a very popular protocol and a library for your programming language will exist.\n\nTo learn more about this flow please refer to the specification: https://tools.ietf.org/html/rfc8628",
         "operationId": "oAuth2DeviceFlow",
         "responses": {
           "200": {
@@ -14826,7 +14821,7 @@
     },
     "/oauth2/device/verify": {
       "get": {
-        "description": "This is the device user verification endpoint. The user is redirected here when trying to login using the device flow.",
+        "description": "This is the device user verification endpoint. The user is redirected here when trying to log in using the device flow.",
         "operationId": "performOAuth2DeviceVerificationFlow",
         "responses": {
           "302": {
