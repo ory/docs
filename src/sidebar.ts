@@ -197,7 +197,21 @@ const quickstart: SidebarItemsConfig = [
     label: "Migrate to Ory",
     collapsed: false,
     collapsible: false,
-    items: ["migrate-to-ory/index", "migrate-to-ory/auth0"],
+    link: {
+      type: "doc",
+      id: "migrate-to-ory/migrate/index",
+    },
+    items: [
+      "migrate-to-ory/migrate/index", 
+      "migrate-to-ory/migrate/migrate-strategies", 
+      "migrate-to-ory/migrate/create-project", 
+      "migrate-to-ory/migrate/define-id-schema", 
+      "migrate-to-ory/migrate/integrate-frontend", 
+      "migrate-to-ory/migrate/integrate-backend", 
+      "migrate-to-ory/migrate/user-identities", 
+      "migrate-to-ory/migrate/go-live", 
+      "migrate-to-ory/auth0",
+    ],
   },
 ]
 
