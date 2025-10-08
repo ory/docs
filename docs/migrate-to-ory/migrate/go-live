@@ -1,0 +1,27 @@
+---
+id: go-live
+title: Go live
+sidebar_label: Go live
+sidebar_position: 2
+---
+
+
+# Go live
+
+After successfully migrating your data and testing the integration in your development or staging environment, it's time to go
+live with Ory in your production environment.
+
+1. Final testing: Before switching over to Ory in production, conduct thorough testing of all user authentication flows, identity
+   management features, and access controls. This includes testing edge cases, error handling, and load testing to ensure the
+   system can handle your user base.
+1. Prepare a rollback plan: In case any issues arise during the go-live process, have a rollback plan in place. This may involve
+   reverting to your previous authentication system or restoring data from backups.
+1. Schedule the go-live: Choose a time for the go-live that minimizes the impact on your users, such as during low-traffic
+   periods. Communicate the planned migration to your users in advance, including any expected downtime or changes they should be
+   aware of.
+1. Monitor the transition: As you switch over to Ory, closely monitor the system for any issues, such as failed authentications,
+   performance bottlenecks, or user complaints. Use live events to monitor the system under
+   <ConsoleLink route="project.activity.events" />.
+1. Optimize and refine: After the go-live, continue to monitor the system and gather user feedback.
+
+Once your Ory integration is stable and users are successfully authenticating with the new system, your migration is complete.
