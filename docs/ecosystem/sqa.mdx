@@ -64,9 +64,7 @@ protect your privacy:
 1. We only transmit information on how often endpoints are requested, how fast they respond and what HTTP status code was sent.
 2. We filter out any query parameters, headers, response and request bodies and path parameters. A full list of transmitted URL
    paths is listed in section [Request telemetry](#request-telemetry).
-3. **We're unable to see or store the IP address of your host**, as the
-   [IP is set to `0.0.0.0`](https://github.com/ory/x/blob/master/metricsx/middleware.go) when transmitting data to our metrics
-   aggregator.
+3. Private IP addresses are filtered out from collected host information when transmitting data to our metrics aggregator.
 4. We don't transmit any environment information from the host, except:
 
 - Operating system id (windows, linux, osx)
@@ -97,7 +95,7 @@ We collect the following system metrics:
 
 ### Request telemetry
 
-The IP addresses of both host and client are anonymized to `0.0.0.0`.
+Client IP addresses are anonymized to `0.0.0.0`. Private IP addresses are filtered out from host data.
 
 We collect the following request metrics:
 
