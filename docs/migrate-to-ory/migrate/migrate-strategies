@@ -1,0 +1,106 @@
+---
+id: migrate-strategies
+title: Migration strategies
+sidebar_label: Migration strategies
+sidebar_position: 2
+---
+
+## Migration strategy
+
+When migrating user data from an old system to a new one, the process involves two main steps: transferring existing data and
+"go-live" when users start authenticating with the new system. The choice of migration strategy depends on your specific use case,
+the shape of existing data, and the number of "go-lives" you need to manage.
+
+- **Big bang** - Migrate everyone at once.
+- **Stepped** - Migrate your applications or user segments individually. _This is the most common choice_.
+- **Graceful** - Migrate when a user authenticates, running both solutions in parallel.
+
+Each migration strategy has its strengths and challenges. The ideal choice depends on factors such as the complexity of your
+system, the number of users, and your organization's tolerance for risk and downtime.
+
+### Big bang migration
+
+In a big bang migration, also known as "offline migration", all user data is transferred at once, and a single "go-live" event is
+scheduled, where all users start using the new system simultaneously.
+
+#### Advantages of big bang migration
+
+- Simplicity: Since there is only one "go-live", the migration process is easier to manage and plan.
+- Time efficiency: The migration process happens in one go, reducing the time needed for the transition.
+- Less complexity: There is no need to run two systems in parallel and you can retire the previous solution immediately.
+
+#### Drawbacks of big bang migration
+
+- High risk: If any issues occur during the cutover, the impact can be significant, affecting all users.
+- Downtime: This approach may require planned system downtime to ensure data consistency, which can disrupt users.
+- Increased preparation: Requires extensive planning and testing to mitigate risks, making it more resource-intensive during that
+  phase.
+
+A big bang migration is often not the best choice due to the risk and downtime, but it is recommended when
+
+- the number of users is low / app is simple
+- downtime isn't a problem
+- you need to retire the current solution yesterday
+
+### Stepwise migration
+
+Stepwise migration, also called "application-based migration", involves transferring user data in phases, focusing on specific
+applications, services, or user segments at a time. This approach results in multiple "go-lives", each affecting a defined group
+of users.
+
+#### Advantages of stepwise migration
+
+- Reduced risk: By migrating in phases, issues are isolated to specific apps or user segments.
+- Flexibility: Allows for adjustments and optimizations between phases based on lessons learned.
+- Minimized/no downtime: Since the migration occurs in stages, downtime can be limited to smaller user groups or avoided
+  completely.
+
+#### Drawbacks of stepwise migration
+
+- Complex management: Multiple "go-lives" require more coordination and detailed planning, increasing operational complexity.
+- Extended timeline: The migration process takes longer as it is broken down into phases.
+- Resource demands: Running both systems in parallel during the transition can strain resources.
+
+A stepwise migration is the best choice in most cases, especially when
+
+- you manage multiple apps/segments of users with different underlying auth systems
+- downtime should be mostly avoided
+- you have some time to migrate
+
+### Graceful migration
+
+Graceful migration - also called "slow migration", "rolling migration", or "online migration" - involves running both the old and
+new systems in parallel, gradually migrating users as they authenticate. This approach features two "go-lives": the initial
+application "go-live" and subsequent user-specific cutovers during login.
+
+#### Advantages of graceful migration
+
+- Low risk: The gradual transition reduces the risk of widespread issues, as only a few users are affected at any given time.
+- No hashed credentials needed: Users are migrated during their "normal" authentication process, so you don't need to import
+  credentials. Great if you don't have access to the hashed credentials.
+- No downtime: Both systems operate simultaneously until the migration is completed.
+
+#### Drawbacks of graceful migration
+
+- Extended migration period: The process takes longer as users are migrated individually over time.
+- Increased complexity: Maintaining synchronization between two systems adds complexity to the migration process.
+- Potential for data inconsistencies: If not carefully managed, there may be discrepancies between the two systems during the
+  transition period.
+
+A graceful migration is a good choice when
+
+- you don't have access to hashed credentials or they are hashed with a proprietary algorithm
+- absolutely no downtime is acceptable
+- running the current solution until the end of migration isn't a problem
+
+## Create Ory Network projects
+
+Now that you have chosen your migration strategy, you can begin the actual migration process by setting up your Ory Network
+projects. This involves creating a new project environment where the migration will take place.
+
+You can create a new Ory Network project using the Ory CLI. The command ory create project allows you to specify the environment
+of the project, the output format, the name of the project, and the workspace to use. More details about creating a project can be
+found [here](../cli/ory-create-project).
+
+Before migrating your production environment, perform the migration in a development or staging environment. This allows you to
+test and refine the process without affecting your live data or users.

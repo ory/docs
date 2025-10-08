@@ -1,62 +1,144 @@
 ---
 id: index
-title: Migrate to Ory tutorial
-sidebar_label: Migrate to Ory
+title: Migrate to Ory Network
+sidebar_label: Migrate to Ory Network
 sidebar_position: 1
 ---
 
-```mdx-code-block
-import CanonicalUrl from "@site/src/components/CanonicalUrl"
+# Migrate to Ory Network
 
-<CanonicalUrl path="/migrate-to-ory" />
-```
+Before you can migrate smoothly, you need a complete picture of how your identity management system works today. This step ensures 
+nothing gets missed — from everyday login flows to rare edge cases — and sets the foundation for mapping existing features to 
+Ory Network's equivalent features.
 
-This tutorial will guide you through the process of migrating your existing authentication system to Ory Identities, creating Ory
-Network projects, setting up identity schemas, and customizing the user interface to match your current interface.
+Why it matters: Not understanding your existing system’s behavior is the #1 cause of unexpected regressions during cutover. With 
+Ory Network, you gain full control, and with it, the ability to shape your system’s flows exactly to your needs.
 
-:::note
+# Understand your current identity management system
 
-This guide is an initial reference and may not cover all aspects of your use case. If you have any questions or need more help,
-don't hesitate to get in [touch with Ory Support for help](https://www.ory.com/contact).
+Below are example IAM scenarios supported by Ory Network. Use them to identify which scenario best fits your specific needs and 
+understand the unique requirements of each approach. Each scenario differs in complexity and implementation needs. Use these IAM 
+scenarios to help identify and map the authentication flows for your application.
 
-:::
+## Identify your IAM scenario
+- CIAM
+- B2B
+- Workforce
+- Agentic AI
 
-## Pre-migration considerations
+### CIAM (Customer Identity and Access Management)
 
-Before starting the actual migration you should choose a migration strategy.
+Your company sells products or services directly to individual consumers.
 
-### Migration scenario
+#### Key IAM requirements
+- Self-service registration, login, and profile management for end users
+- Social login, multi-factor passwordless options, and robust account recovery
+- Privacy compliance (GDPR, CCPA)
+- High-scale performance for millions of users
 
-- **Scenario 1** - Migrating from a self-rolled solution
+#### Ory Network features
+- Identity management & authenitication (based on Ory Kratos)
+- Authorization (based on Ory Hydra, optional for OAuth2/OIDC)
 
-  If you're coming from a custom-built authentication solution, consider using Ory Identities. This approach simplifies the
-  migration by focusing solely on identity management without introducing the complexities of OAuth2. If you plan to move towards
-  OAuth2 eventually, you can plan for that transition once the initial migration is complete. To get started, refer to the
-  "Integrate Frontend & Backend" sections later in this guide.
+### B2B (Business-to-Business)
 
-:::info
+Your company sells products or services directly to other businesses rather than individual consumers. Your customers are organizations 
+that use these products or services to run their own operations.
 
-If you are not sure whether or not you need OAuth2 for your use case, please read the
-[When to use OAuth2](../hydra/concepts/before-oauth2) documentation.
+#### Key IAM requirements
 
-:::
+- Multi-organization user management
+- SSO with SAML/OIDC providers
+- Self-service partner onboarding
+- Role-based permissions and API controls
 
-- **Scenario 2** - Migrating from Auth0 or another OAuth2-based solution
+#### Ory Network features
 
-  If you're migrating from Auth0 or any other OAuth2-based login solution, you'll want to use Ory OAuth2 together with Ory
-  Identities. This setup allows you to keep your existing OAuth2-based flow while integrating it with Ory's identity management.
-  This approach is ideal if you want to keep your current implementation without making significant changes. To get started, refer
-  to the [Ory OAuth2 quickstart guide](../getting-started/oauth2-openid/add-oauth2-openid-connect-nodejs-expressjs) which provides
-  instructions on setting up an OAuth2/OIDC flow with Ory.
+- Identity management & authenitication (based on Ory Kratos)
+- Authorization and single sign-on (based on Ory Hydra/Ory Polis)
+- Permissions (based on Ory Ketos)
+- Zero-trust access proxy (based on Ory Oathkeeper)
 
-- **Scenario 3** - Other
+### Workforce (Business-to-Enterprise)
 
-  If your authentication system doesn't fall into the categories described above - such as hybrid systems, legacy protocols, or
-  any other unique solution - you may need a different approach to migration. For such unique or complex migrations, we recommend
-  [consulting with Ory](https://www.ory.com/contact/) to get a recommendation. The Ory team can help you design a custom migration
-  plan that aligns with your specific requirements.
+Your company provides products or services. Your company wants to manage access for a single organization's extended workforce. You want to 
+consolidate employee user accounts and identities across multi-tenant brands, applications and systems. You need to seamlessly connect with 
+existing enterprise identity providers and other 3rd party systems and streamline user onboarding, offboarding, and permission management. 
 
-### Migration strategy
+#### Key IAM requirements
+- Streamline onboarding/offboarding of employee, contractor, and temporary workers
+- Role-based access aligned with organizational hierarchy
+- HR system integration with flexible identity schemas
+- Integrate with enterprise identity providers and third-party systems
+- Time-bound permissions and role assignments
+- Zero-trust security, MFA, and SSO for enterprise applications
+
+#### Ory Network features
+- Identity management & authenitication (based on Ory Kratos) 
+- Authorization and single sign-on (based on Ory Hydra/Ory Polis)
+- Permissions (based on Ory Ketos)
+- Zero-trust access proxy (based on Ory Oathkeeper)
+- Webhooks
+
+### Agentic AI
+
+Your company wants to enable AI applications to securely connect to data sources and tools. For example, servers that host resources and
+clients (AI applications) to discover and use those resources. 
+
+#### Key IAM requirements
+- Standardized protocol that works across many tools and data sources
+- Built-in authentication and access control
+
+#### Ory Network features
+- Identity management & authenitication (based on Ory Kratos)
+- Authorization (based on Ory Hydra)
+- Permissions (based on Ory Ketos)
+- Zero-trust access proxy (based on Ory Oathkeeper)
+
+## Map all authentication and identity flows in your application
+
+Build a complete picture of every authentication-related process in your system. Use your IAM scenario’s Key IAM requirements to help identify 
+authentication and identity flows. This ensures you don’t miss critical flows during migration.
+
+1. Identify all entry points where authentication occurs (e.g., web app login, mobile app sign-in, API tokens, social or enterprise sign-ins).
+1. Create a comprehensive inventory of flows, for example:
+    - Registration / Sign-up
+    - Sign-in/Sign-out
+    - Multi-Factor Authentication (MFA)
+    - Password reset and account recovery
+    - Account linking (social, enterprise logins)
+    - User profile management
+    - Token refresh and session handling
+    - Recovery flows, consent screens, or partner-specific integrations
+1. Visualize flows with diagrams (sequence diagrams or flow charts) to surface dependencies and hidden complexity.
+1. Note where authentication interacts with other systems (databases, CRMs, partner apps, or external APIs).
+
+
+### Map your existing IAM functionality to Ory Network’s equivalent capabilities
+Using your list of authentication and identity flows, create a side-by-side table to map out existing functionality and Ory Network’s equivalent 
+capabilities. While the majority of the time you'll find your existing functionality neatly maps to Ory's capabilities, now is the best time to
+identify when it does not. Some examples:
+
+- Not all vendors strickly comply with standards, whereas Ory does, so you might discover you need to
+change how you implement functionality to be compliant. 
+- You might have a unique use case to solve that requires additional help from our support.
+
+Table 1: An example of mapping functionality
+
+| Existing Functionality | Ory Capabilities |
+|---|---|
+| JSON Web Tokens | [Ory Session cookies/tokens](https://www.ory.sh/docs/identities/session-to-jwt-cors)|
+
+At the end of this process you should have a living document with diagrams that capture:
+
+- All authentication and identity flows
+- Your system's existing functionality and Ory Network's equivalent capabilites
+- Any existing dependencies on external systems
+- Edge cases requiring special handling
+
+This will serve as your blueprint for planning, designing, testing, and validating your migration.
+
+## Migration strategy
 
 When migrating user data from an old system to a new one, the process involves two main steps: transferring existing data and
 "go-live" when users start authenticating with the new system. The choice of migration strategy depends on your specific use case,
@@ -69,18 +151,18 @@ the shape of existing data, and the number of "go-lives" you need to manage.
 Each migration strategy has its strengths and challenges. The ideal choice depends on factors such as the complexity of your
 system, the number of users, and your organization's tolerance for risk and downtime.
 
-#### Big bang migration
+### Big bang migration
 
 In a big bang migration, also known as "offline migration", all user data is transferred at once, and a single "go-live" event is
 scheduled, where all users start using the new system simultaneously.
 
-##### Advantages of big bang migration
+#### Advantages of big bang migration
 
 - Simplicity: Since there is only one "go-live", the migration process is easier to manage and plan.
 - Time efficiency: The migration process happens in one go, reducing the time needed for the transition.
 - Less complexity: There is no need to run two systems in parallel and you can retire the previous solution immediately.
 
-##### Drawbacks of big bang migration
+#### Drawbacks of big bang migration
 
 - High risk: If any issues occur during the cutover, the impact can be significant, affecting all users.
 - Downtime: This approach may require planned system downtime to ensure data consistency, which can disrupt users.
@@ -93,20 +175,20 @@ A big bang migration is often not the best choice due to the risk and downtime, 
 - downtime isn't a problem
 - you need to retire the current solution yesterday
 
-#### Stepwise migration
+### Stepwise migration
 
 Stepwise migration, also called "application-based migration", involves transferring user data in phases, focusing on specific
 applications, services, or user segments at a time. This approach results in multiple "go-lives", each affecting a defined group
 of users.
 
-##### Advantages of stepwise migration
+#### Advantages of stepwise migration
 
 - Reduced risk: By migrating in phases, issues are isolated to specific apps or user segments.
 - Flexibility: Allows for adjustments and optimizations between phases based on lessons learned.
 - Minimized/no downtime: Since the migration occurs in stages, downtime can be limited to smaller user groups or avoided
   completely.
 
-##### Drawbacks of stepwise migration
+#### Drawbacks of stepwise migration
 
 - Complex management: Multiple "go-lives" require more coordination and detailed planning, increasing operational complexity.
 - Extended timeline: The migration process takes longer as it is broken down into phases.
@@ -118,20 +200,20 @@ A stepwise migration is the best choice in most cases, especially when
 - downtime should be mostly avoided
 - you have some time to migrate
 
-#### Graceful migration
+### Graceful migration
 
 Graceful migration - also called "slow migration", "rolling migration", or "online migration" - involves running both the old and
 new systems in parallel, gradually migrating users as they authenticate. This approach features two "go-lives": the initial
 application "go-live" and subsequent user-specific cutovers during login.
 
-##### Advantages of graceful migration
+#### Advantages of graceful migration
 
 - Low risk: The gradual transition reduces the risk of widespread issues, as only a few users are affected at any given time.
 - No hashed credentials needed: Users are migrated during their "normal" authentication process, so you don't need to import
   credentials. Great if you don't have access to the hashed credentials.
 - No downtime: Both systems operate simultaneously until the migration is completed.
 
-##### Drawbacks of graceful migration
+#### Drawbacks of graceful migration
 
 - Extended migration period: The process takes longer as users are migrated individually over time.
 - Increased complexity: Maintaining synchronization between two systems adds complexity to the migration process.
