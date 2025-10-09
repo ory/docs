@@ -32,10 +32,16 @@
   - [Screenshots and videos](#screenshots-and-videos)
     - [Compressing images](#compressing-images)
     - [Recording and compressing videos](#recording-and-compressing-videos)
+  - [Ory Console](#ory-console)
+    - [Navigate to Ory Console Pages](#navigate-to-ory-console-pages)
   - [Testing](#testing)
   - [Formatting documentation](#formatting-documentation)
   - [Adding content to "Examples" page](#adding-content-to-examples-page)
   - [CLI and API reference - auto-generated content](#cli-and-api-reference---auto-generated-content)
+  - [CanonicalURL](#canonicalurl)
+    - [When to use CanonicalURL](#when-to-use-canonicalurl)
+    - [How to use CanonicalURL](#how-to-use-canonicalurl)
+    - [How to verify CanonicalURL is working](#how-to-verify-canonicalurl-is-working)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -540,3 +546,61 @@ The `cmd/clidoc/main.go` is the general path for all Ory projects.
 
 The command to generate the CLI docs can be found here:
 https://github.com/ory/x/blob/master/clidoc/generate.go#L96
+
+## CanonicalURL
+
+The `CanonicalURL` component specifies the authoritative URL for a page to
+search engines. Docusaurus adds trailing slashes to `index.mdx` files and files
+matching their parent directory names before Vercel's trailing slash removal
+takes effect. This means search engines can crawl both versions (with and
+without trailing slashes). The component ensures search engines know which
+version is canonical by explicitly setting a URL without a trailing slash.
+
+### When to use CanonicalURL
+
+Use this component on:
+
+- **Any `index.mdx` file**: These files serve content at their parent path
+  (e.g., `/api/index.mdx`)
+- **Files matching parent directory names**: When a file shares its parent
+  directory's name (e.g., `docs/kratos/organizations/organizations.mdx`)
+
+Common examples include:
+
+- Index Path (`/api/index.mdx`, `/elements/index.mdx`, `/identities/index.mdx`)
+- Matching parent directory names
+  (`docs/kratos/organizations/organizations.mdx`,
+  `docs/self-hosted/oel/monitoring/monitoring.mdx`)
+
+### How to use CanonicalURL
+
+Add the component at the beginning of your MDX file after the front matter:
+
+````md
+---
+id: your-page-id
+title: Your Page Title
+---
+
+```mdx-code-block
+import CanonicalURL from "@site/src/components/CanonicalUrl"
+
+<CanonicalURL path="your/canonical/path" />
+
+Your content here...
+```
+````
+
+### How to verify CanonicalURL is working
+
+1. Open the page in your browser
+2. Right-click and select "View Page Source" (not "Inspect")
+3. Search for `<link rel="canonical"` in the HTML
+4. Confirm the canonical URL exists and points to the correct path without
+   trailing slash
+
+Example:
+
+```html
+<link rel="canonical" href="https://www.ory.com/docs/kratos/organizations" />
+```
