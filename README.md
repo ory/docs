@@ -38,11 +38,10 @@
   - [Formatting documentation](#formatting-documentation)
   - [Adding content to "Examples" page](#adding-content-to-examples-page)
   - [CLI and API reference - auto-generated content](#cli-and-api-reference---auto-generated-content)
-  - [SEO components](#seo-components)
-    - [CanonicalURL](#canonicalurl)
-      - [When to use CanonicalURL](#when-to-use-canonicalurl)
-      - [How to use CanonicalURL](#how-to-use-canonicalurl)
-      - [How to verify CanonicalURL is working](#how-to-verify-canonicalurl-is-working)
+  - [CanonicalURL](#canonicalurl)
+    - [When to use CanonicalURL](#when-to-use-canonicalurl)
+    - [How to use CanonicalURL](#how-to-use-canonicalurl)
+    - [How to verify CanonicalURL is working](#how-to-verify-canonicalurl-is-working)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -548,15 +547,16 @@ The `cmd/clidoc/main.go` is the general path for all Ory projects.
 The command to generate the CLI docs can be found here:
 https://github.com/ory/x/blob/master/clidoc/generate.go#L96
 
-## SEO components
+## CanonicalURL
 
-### CanonicalURL
+The `CanonicalURL` component specifies the authoritative URL for a page to
+search engines. Docusaurus adds trailing slashes to `index.mdx` files and files
+matching their parent directory names before Vercel's trailing slash removal
+takes effect. This means search engines can crawl both versions (with and
+without trailing slashes). The component ensures search engines know which
+version is canonical by explicitly setting a URL without a trailing slash.
 
-The `CanonicalURL` component ensures search engines know the authoritative URL
-for a page, even though Vercel already handles trailing slash redirects. This is
-important for SEO consistency.
-
-#### When to use CanonicalURL
+### When to use CanonicalURL
 
 Use this component on:
 
@@ -572,33 +572,26 @@ Common examples include:
   (`docs/kratos/organizations/organizations.mdx`,
   `docs/self-hosted/oel/monitoring/monitoring.mdx`)
 
-#### How to use CanonicalURL
+### How to use CanonicalURL
 
 Add the component at the beginning of your MDX file after the front matter:
 
-```mdx
+````md
 ---
 id: your-page-id
 title: Your Page Title
 ---
 
+```mdx-code-block
 import CanonicalURL from "@site/src/components/CanonicalUrl"
 
 <CanonicalURL path="your/canonical/path" />
 
 Your content here...
 ```
+````
 
-The component automatically:
-
-- Generates the full canonical URL using the site's base URL
-- Removes trailing slashes to ensure URL consistency
-- Adds the appropriate `<link rel="canonical">` tag to the page's HTML head
-
-This ensures search engines understand which version of the URL should be
-indexed and helps consolidate page authority for better SEO performance.
-
-#### How to verify CanonicalURL is working
+### How to verify CanonicalURL is working
 
 1. Open the page in your browser
 2. Right-click and select "View Page Source" (not "Inspect")
@@ -609,8 +602,5 @@ indexed and helps consolidate page authority for better SEO performance.
 Example:
 
 ```html
-<link rel="canonical" href="https://www.ory.sh/docs/kratos/organizations" />
+<link rel="canonical" href="https://www.ory.com/docs/kratos/organizations" />
 ```
-
-If you see a trailing slash in the canonical URL or if there's no canonical tag
-at all, the component may not be properly implemented.
