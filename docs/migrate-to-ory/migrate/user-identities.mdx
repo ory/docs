@@ -1,30 +1,31 @@
 ---
-id: user-identities
-title: Migrate user identities
-sidebar_label: Migrate user identities
+id: migrate-identities
+title: Data migration strategies
+sidebar_label: Data migration strategies
 sidebar_position: 3
 ---
+With authentication now set up on your front end and back end, the next step is to prepare your existing user identities for
+migration. 
 
 ## Get existing user identities ready for migration
-With authentication now set up on your front end and back end, the next step is to prepare your existing user identities for
-migration. If you're using a managed identity solution, it’s a good idea to start the export process early, especially if there's
+If you're using a managed identity solution, it’s a good idea to start the export process early, especially if there's
 no straightforward way to export the identities and you might need to go through a support process.
 
 Export user data from your existing authentication solution or database and find out the hashing algorithm used to hash their
 credentials. If your passwords are not hashed, you can bypass this step, as Ory will handle password hashing automatically during
 the import process. Ory supports a range of hashing algorithms; if yours is supported, use the
-[create identity API](../reference/api#tag/identity/operation/createIdentity) to import your users. If the hashing algorithm isn't
+[create identity API](../../reference/api#tag/identity/operation/createIdentity) to import your users. If the hashing algorithm isn't
 supported or if you can't get the hashed passwords from your current authentication system, you may want to do a "graceful"
 migration and use the password migration hook to migrate your existing users. You can find more details in the
-[Import identities ](../kratos/manage-identities/25_import-user-accounts-identities.mdx) documentation.
+[Import identities ](../../kratos/manage-identities/25_import-user-accounts-identities.mdx) documentation.
 
 ## Import user identities
 
-You can use the [create identity API](../reference/api#tag/identity/operation/batchPatchIdentities) to bulk import identities into
+You can use the [create identity API] (../../reference/api#tag/identity/operation/batchPatchIdentities) to bulk import identities into
 Ory. A maximum of 2000 identities can be created in a single request. If you need to import more identities, you need to split the
 import into multiple requests. The endpoint accepts a JSON array of identities, each of which must have a create property that
 holds the identity that should be created. You can find more details in the
-[Import identities ](../kratos/manage-identities/25_import-user-accounts-identities.mdx) documentation.
+[Import identities ](../../kratos/manage-identities/25_import-user-accounts-identities.mdx) documentation.
 
 ### Phased migration for active sessions
 

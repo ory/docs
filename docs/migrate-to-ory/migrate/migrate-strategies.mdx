@@ -5,8 +5,6 @@ sidebar_label: Migration strategies
 sidebar_position: 2
 ---
 
-## Migration strategy
-
 When migrating user data from an old system to a new one, the process involves two main steps: transferring existing data and
 "go-live" when users start authenticating with the new system. The choice of migration strategy depends on your specific use case,
 the shape of existing data, and the number of "go-lives" you need to manage.
@@ -100,7 +98,7 @@ projects. This involves creating a new project environment where the migration w
 
 You can create a new Ory Network project using the Ory CLI. The command ory create project allows you to specify the environment
 of the project, the output format, the name of the project, and the workspace to use. More details about creating a project can be
-found [here](../cli/ory-create-project).
+found [here](../../cli/ory-create-project).
 
 Before migrating your production environment, perform the migration in a development or staging environment. This allows you to
 test and refine the process without affecting your live data or users.
