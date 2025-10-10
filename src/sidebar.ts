@@ -207,6 +207,7 @@ const quickstart: SidebarItemsConfig = [
     },
         items: [
           "migrate-to-ory/migrate/migrate-to-ory",
+          "migrate-to-ory/migrate/map-to-orycap",
           "migrate-to-ory/migrate/migrate-strategies",
           "migrate-to-ory/migrate/create-project",
           "migrate-to-ory/migrate/design-id-schema",

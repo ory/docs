@@ -8,7 +8,7 @@ sidebar_position: 1
 
 Below are example IAM scenarios supported by Ory Network. Use them to identify which scenario best fits your specific needs and 
 understand the unique requirements of each approach. Each scenario differs in complexity and implementation needs. Use these IAM 
-scenarios to help identify and map the authentication flows for your application.
+scenarios to map the identity flows for your application.
 
 ## Identify your IAM scenario
 - [CIAM](#ciam-customer-identity-and-access-management)
@@ -27,10 +27,6 @@ Your company sells products or services directly to individual consumers.
 - Privacy compliance (GDPR, CCPA)
 - High-scale performance for millions of users
 
-#### Ory Network features
-- Identity management & authenitication (based on Ory Kratos)
-- Authorization (based on Ory Hydra, optional for OAuth2/OIDC)
-
 ### B2B (Business-to-Business)
 
 Your company sells products or services directly to other businesses rather than individual consumers. Your customers are organizations 
@@ -42,13 +38,6 @@ that use these products or services to run their own operations.
 - SSO with SAML/OIDC providers
 - Self-service partner onboarding
 - Role-based permissions and API controls
-
-#### Ory Network features
-
-- Identity management & authenitication (based on Ory Kratos)
-- Authorization and single sign-on (based on Ory Hydra/Ory Polis)
-- Permissions (based on Ory Ketos)
-- Zero-trust access proxy (based on Ory Oathkeeper)
 
 ### Workforce (Business-to-Enterprise)
 
@@ -64,13 +53,6 @@ existing enterprise identity providers and other 3rd party systems and streamlin
 - Time-bound permissions and role assignments
 - Zero-trust security, MFA, and SSO for enterprise applications
 
-#### Ory Network features
-- Identity management & authenitication (based on Ory Kratos) 
-- Authorization and single sign-on (based on Ory Hydra/Ory Polis)
-- Permissions (based on Ory Ketos)
-- Zero-trust access proxy (based on Ory Oathkeeper)
-- Webhooks
-
 ### Agentic AI
 
 Your company wants to enable AI applications to securely connect to data sources and tools. For example, servers that host resources and
@@ -80,50 +62,28 @@ clients (AI applications) to discover and use those resources.
 - Standardized protocol that works across many tools and data sources
 - Built-in authentication and access control
 
-#### Ory Network features
-- Identity management & authenitication (based on Ory Kratos)
-- Authorization (based on Ory Hydra)
-- Permissions (based on Ory Ketos)
-- Zero-trust access proxy (based on Ory Oathkeeper)
+## Map all identity flows in your application
 
-## Map all authentication and identity flows in your application
+Build a complete picture of every identity-related process in your system. Use your IAM scenario’s Key IAM requirements to identify 
+these flows. This ensures you don’t miss critical flows during migration.
 
-Build a complete picture of every authentication-related process in your system. Use your IAM scenario’s Key IAM requirements to help identify 
-authentication and identity flows. This ensures you don’t miss critical flows during migration.
-
-1. Identify all entry points where authentication occurs (e.g., web app login, mobile app sign-in, API tokens, social or enterprise sign-ins).
+1. Identify all entry points where an identity-related process occurs (e.g., web app login, mobile app sign-in, API tokens, social or enterprise sign-ins).
 1. Create a comprehensive inventory of flows, for example:
-    - Registration / Sign-up
-    - Sign-in/Sign-out
+    - Registration/sign-up
+    - Sign-in/sign-out
     - Multi-Factor Authentication (MFA)
     - Password reset and account recovery
     - Account linking (social, enterprise logins)
     - User profile management
     - Token refresh and session handling
     - Recovery flows, consent screens, or partner-specific integrations
-1. Visualize flows with diagrams (sequence diagrams or flow charts) to surface dependencies and hidden complexity.
-1. Note where authentication interacts with other systems (databases, CRMs, partner apps, or external APIs).
-
-
-## Map existing IAM functionality to Ory Network’s equivalent capabilities
-Using your list of authentication and identity flows, create a side-by-side table to map out existing functionality and Ory Network’s equivalent 
-capabilities. While the majority of the time you'll find your existing functionality neatly maps to Ory's capabilities, now is the best time to
-identify when it does not. Some examples:
-
-- Not all vendors strickly comply with standards, whereas Ory does, so you might discover you need to
-change how you implement functionality to be compliant. 
-- You might have a unique use case to solve that requires additional help from our support.
-
-Table 1: An example of mapping functionality
-
-| Existing Functionality | Ory Capabilities |
-|---|---|
-| JSON Web Tokens | [Ory Session cookies/tokens](https://www.ory.sh/docs/identities/session-to-jwt-cors)|
+1. Create flow diagrams (sequence diagrams or flow charts) to surface dependencies and hidden complexity.
+1. Note where identity (authentication and authorization) interacts with other systems (databases, CRMs, partner apps, or external APIs).
 
 At the end of this process you should have a living document with diagrams that capture:
 
-- All authentication and identity flows
-- Your system's existing functionality and Ory Network's equivalent capabilites
+- All identity (authentication and authorization) flows
+- Your system's existing functionality
 - Any existing dependencies on external systems
 - Edge cases requiring special handling
 
