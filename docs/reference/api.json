@@ -662,6 +662,13 @@
       "CreateProjectNormalizedPayload": {
         "description": "Create project (normalized) request payload",
         "properties": {
+          "account_experience_custom_translations": {
+            "description": "The Account Experience's Custom Translations\n\nContains all Custom Translations for this project.",
+            "items": {
+              "$ref": "#/components/schemas/RevisionAccountExperienceCustomTranslation"
+            },
+            "type": "array"
+          },
           "account_experience_default_locale": {
             "description": "Holds the default locale for the account experience.",
             "type": "string"
@@ -2199,6 +2206,20 @@
         "title": "RecoveryAddressType must not exceed 16 characters as that is the limitation in the SQL Schema.",
         "type": "string"
       },
+      "RevisionAccountExperienceCustomTranslation": {
+        "properties": {
+          "locale": {
+            "description": "The locale (e.g. \"en\", \"de\")",
+            "type": "string"
+          },
+          "translations": {
+            "description": "The URL where the i18n json can be found",
+            "type": "string"
+          }
+        },
+        "required": ["locale", "translations"],
+        "type": "object"
+      },
       "SessionActivityDatapoint": {
         "properties": {
           "country": {
@@ -2479,6 +2500,12 @@
           "stylesheet": {
             "type": "string"
           },
+          "translations": {
+            "items": {
+              "$ref": "#/components/schemas/RevisionAccountExperienceCustomTranslation"
+            },
+            "type": "array"
+          },
           "verification_enabled": {
             "type": "boolean"
           },
@@ -2499,7 +2526,8 @@
           "login_ui_url",
           "settings_ui_url",
           "error_ui_url",
-          "default_redirect_url"
+          "default_redirect_url",
+          "translations"
         ],
         "type": "object"
       },
@@ -5160,6 +5188,13 @@
       },
       "normalizedProjectRevision": {
         "properties": {
+          "account_experience_custom_translations": {
+            "description": "The Account Experience's Custom Translations\n\nContains all Custom Translations for this project.",
+            "items": {
+              "$ref": "#/components/schemas/RevisionAccountExperienceCustomTranslation"
+            },
+            "type": "array"
+          },
           "account_experience_default_locale": {
             "description": "Holds the default locale for the account experience.",
             "type": "string"
