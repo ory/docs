@@ -1,0 +1,19 @@
+---
+id:
+title: Google One Tap fails
+---
+
+If you receive an error such as
+
+```json
+"error": {
+  "message": "Upstream error",
+  "reason": "No nonce was provided but is required by the provider",
+  "status": "Bad Gateway",
+  "status_code": 502
+}
+```
+
+when performing social sign in using Google One Tap, you must
+[set the nonce parameter](https://developers.google.com/identity/gsi/web/reference/js-reference#nonce) when calling the Google
+SDK.
