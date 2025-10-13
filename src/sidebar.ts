@@ -211,7 +211,7 @@ const troubleshooting: SidebarItemsConfig = [
     collapsed: false,
     link: {
       type: "generated-index",
-      slug: "category/troubleshooting/",
+      slug: "/category/troubleshooting",
     },
     items: [
       {
@@ -422,15 +422,6 @@ const kratos: SidebarItemsConfig = [
           "kratos/manage-identities/invite-users",
           "kratos/manage-identities/account-recovery",
           "kratos/manage-identities/export-user-accounts-identities",
-
-          {
-            type: "category",
-            label: "Search",
-            items: [
-              "kratos/manage-identities/search/identity-search-console",
-              "kratos/manage-identities/search/identity-search-api",
-            ],
-          },
 
           {
             type: "category",
