@@ -218,8 +218,8 @@ import getActiveSessions from '!!raw-loader!../../../code-examples/sdk/go/fronte
 
 ### Perform logout flow
 
-Use [performNativeLogout](https://www.ory.com/docs/reference/api#tag/frontend/operation/performNativeLogout) to log out the current
-user for API clients such as mobile devices or native applications. For browser clients create a logout URL using
+Use [performNativeLogout](https://www.ory.com/docs/reference/api#tag/frontend/operation/performNativeLogout) to log out the
+current user for API clients such as mobile devices or native applications. For browser clients create a logout URL using
 [`createBrowserLogoutFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/createBrowserLogoutFlow). .
 
 ```mdx-code-block
@@ -256,7 +256,8 @@ authorized.
 
 - Create a free Developer project with the [Ory CLI](https://www.ory.com/docs/guides/cli/installation) or
   [Ory Console](https://console.ory.sh/guides): `ory create project --name "Ory IdentityAPI Example"`
-- Create a new [API key](https://www.ory.com/docs/concepts/personal-access-token) and export it `export ORY_API_KEY=<your-api-key>`
+- Create a new [API key](https://www.ory.com/docs/concepts/personal-access-token) and export it
+  `export ORY_API_KEY=<your-api-key>`
 - Run the example with `go run main.go`
 
 ### Create and delete identity

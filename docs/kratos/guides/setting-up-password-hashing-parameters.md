@@ -20,8 +20,8 @@ kratos hashers argon2 calibrate 1s
 
 It will output the exact values to use in the [configuration](../reference/configuration.mdx).
 
-Head to [our blogpost](https://www.ory.com/choose-recommended-argon2-parameters-password-hashing/) about Argon2 parameters to learn
-how this command and password checking in Ory Kratos works.
+Head to [our blogpost](https://www.ory.com/choose-recommended-argon2-parameters-password-hashing/) about Argon2 parameters to
+learn how this command and password checking in Ory Kratos works.
 
 If you encounter any problems like timeouts or out-of-memory errors, consolidate our
 [troubleshooting guide](../debug/performance-out-of-memory-password-hashing-argon2.md).
