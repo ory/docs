@@ -63,7 +63,7 @@ To create the client using the Ory Console:
 
 1. Sign in to your Ory Network account.
 2. Create or select a project.
-3. Go to **OAuth 2**, select [**OAuth2 Clients**](https://console.ory.com/projects/current/oauth), and select [**Create OAuth 2.0 Client**](https://console.ory.com/projects/current/oauth/create).
+3. Go to **OAuth 2**, select [**OAuth2 Clients**](https://console.ory.sh/projects/current/oauth), and select [**Create OAuth 2.0 Client**](https://console.ory.sh/projects/current/oauth/create).
 4. Select **Server App**.
 5. Enter a client name, for example, "NextAuth / Auth.js Example."
 6. Ensure the following scopes are selected:
@@ -94,7 +94,7 @@ To create the client using the Ory Console:
 To create the client using the Ory CLI, run the following command:
 
 ```shell
-export ORY_PROJECT_ID= # Take this value from https://console.ory.com/projects/current/get-started
+export ORY_PROJECT_ID= # Take this value from https://console.ory.sh/projects/current/get-started
 ory create oauth2-client --project $ORY_PROJECT_ID \
   --redirect-uri http://localhost:3000/api/auth/callback/ory \
   --name "NextAuth / Auth.js Example" \
@@ -115,7 +115,7 @@ Update your `.env.local` file to match the example:
 <CodeFromRemote lang="env" src="https://github.com/ory/next-auth-example/blob/main/.env.local.example" />
 ```
 
-Also add your Ory SDK URL. You can find it in the [**Get started**](https://console.ory.com/projects/current/get-started) section
+Also add your Ory SDK URL. You can find it in the [**Get started**](https://console.ory.sh/projects/current/get-started) section
 of the Ory Console.
 
 ## Test your application

@@ -40,7 +40,7 @@ export function getSdkUrl() {
 # Don’t submit any personally identifiable information in requests made with this project.
 # Sign up to Ory Network at
 #
-#   https://console.ory.com/registration
+#   https://console.ory.sh/registration
 #
 # and create a free Ory Network Project to see your own configuration embedded in code samples.
 `

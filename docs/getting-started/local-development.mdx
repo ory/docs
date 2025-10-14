@@ -71,7 +71,7 @@ ory create project --name "My Development Project"
 Staging projects offer all features of production environment including a custom domain (e.g.,
 `https://auth-staging.example.com`). Staging projects have lower rate limits than production projects.
 
-To create a new staging project, open the [Ory Console](https://console.ory.com/projects/create), hit "Create new project", and
+To create a new staging project, open the [Ory Console](https://console.ory.sh/projects/create), hit "Create new project", and
 select the Staging environment in the next screen.
 
 Staging projects are suitable for testing your application and its integrations with Ory Network before deploying to production.
@@ -91,7 +91,7 @@ When developing locally, your application is often exposed at the `localhost` do
 domain (so `localhost`) as your application to avoid issues with third-party cookie (e.g. when using Ory Session Cookies). The
 easiest way to expose Ory on your `localhost` domain is to use the [Ory CLI Tunnel](../guides/cli/20_proxy-and-tunnel.mdx).
 
-Copy the project slug from your project's [Connect page](https://console.ory.com/projects/current/connect) and start the Ory
+Copy the project slug from your project's [Connect page](https://console.ory.sh/projects/current/connect) and start the Ory
 Tunnel. Here we assume that your app runs on `http://localhost:3000`:
 
 ```shell

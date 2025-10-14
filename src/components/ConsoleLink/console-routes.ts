@@ -2,7 +2,7 @@ export const routes = {
   default: {
     homepage: "https://ory.com/",
     pricing: "https://ory.com/pricing",
-    console: "https://console.ory.com/",
+    console: "https://console.ory.sh/",
     tos: "https://ory.com/ptos",
     privacy: "https://ory.com/privacy",
     docs: "https://ory.com/docs",

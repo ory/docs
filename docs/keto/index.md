@@ -38,7 +38,7 @@ proprietary languages used to represent permissions, such as Rego or Casbin.
 
 :::tip
 
-You can create permission rules with OPL using the Ory Console. Go to [**Ory Console**](https://console.ory.com/) → **Namespaces &
+You can create permission rules with OPL using the Ory Console. Go to [**Ory Console**](https://console.ory.sh/) → **Namespaces &
 Rules** and use the editor in the **Permission Rules** tab.
 
 :::

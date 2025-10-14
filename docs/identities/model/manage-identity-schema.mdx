@@ -88,7 +88,7 @@ the steps 4 to 7 or check out the example code for bulk updating identities belo
    export ORY_PROJECT_ID=$PROJECT_ID
    ```
 
-2. Create a new identity with the updated schema - through the registration interface or [Ory Console](https://console.ory.com/)
+2. Create a new identity with the updated schema - through the registration interface or [Ory Console](https://console.ory.sh/)
    and copy the `schema_id` of the identity you just created.
 
    ![Identity schema ID and URL](../_assets/session-information.png)
@@ -102,8 +102,8 @@ the steps 4 to 7 or check out the example code for bulk updating identities belo
 4. Find the identity to be updated and note down their `id`.
 
 5. To update the identity, you need to use the [Admin API](../../reference/api#tag/identity/operation/updateIdentity). The API
-   requires the Ory Network [Project slug](https://console.ory.com/projects/current/settings),
-   [API Key](https://console.ory.com/projects/current/developers), and identity ID. Set them as environment variables:
+   requires the Ory Network [Project slug](https://console.ory.sh/projects/current/settings),
+   [API Key](https://console.ory.sh/projects/current/developers), and identity ID. Set them as environment variables:
 
    ```bash
    export ORY_API_KEY=$ORY_API_KEY
