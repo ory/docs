@@ -18,7 +18,7 @@ if (!process.env.TEST_HOST) {
   throw new Error("TEST_HOST env variable is not set")
 }
 
-export const oldAddress = "https://www.ory.sh/"
+export const oldAddress = "https://www.ory.com/"
 export const newAddress = process.env.TEST_HOST.replace(/\/$/, "") + "/"
 
 export type Sitemap = {
@@ -74,17 +74,17 @@ export const getLoc: GetLoc = async (
 }
 
 const ignoreUrls = [
-  "https://www.ory.sh/docs/search",
-  "https://www.ory.sh/oathkeeper/docs/search",
-  "https://www.ory.sh/keto/docs/search",
-  "https://www.ory.sh/kratos/docs/search",
-  "https://www.ory.sh/keto/docs/search",
-  "https://www.ory.sh/kratos/docs/v0.1",
-  "https://www.ory.sh/kratos/docs/v0.2",
-  "https://www.ory.sh/kratos/docs/v0.3",
-  "https://www.ory.sh/kratos/docs/v0.4",
-  "https://www.ory.sh/kratos/docs/v0.6/concepts/authenticators/look-up-secrets",
-  "https://www.ory.sh/kratos/docs/v0.7/concepts/authenticators/look-up-secrets",
+  "https://www.ory.com/docs/search",
+  "https://www.ory.com/oathkeeper/docs/search",
+  "https://www.ory.com/keto/docs/search",
+  "https://www.ory.com/kratos/docs/search",
+  "https://www.ory.com/keto/docs/search",
+  "https://www.ory.com/kratos/docs/v0.1",
+  "https://www.ory.com/kratos/docs/v0.2",
+  "https://www.ory.com/kratos/docs/v0.3",
+  "https://www.ory.com/kratos/docs/v0.4",
+  "https://www.ory.com/kratos/docs/v0.6/concepts/authenticators/look-up-secrets",
+  "https://www.ory.com/kratos/docs/v0.7/concepts/authenticators/look-up-secrets",
 ]
 
 export const readSitemapXML = (filename: string) =>
