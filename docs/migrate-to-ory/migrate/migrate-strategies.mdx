@@ -5,21 +5,38 @@ sidebar_label: Choose your migration strategy
 sidebar_position: 2
 ---
 
-When migrating user data from an old system to a new one, the process involves two main steps: transferring existing data and
-"go-live" when users start authenticating with the new system. The choice of migration strategy depends on your specific use case,
-the shape of existing data, and the number of "go-lives" you need to manage.
+When migrating user data, there are two main steps in the migration process; the first is a backfill, in which existing data 
+is transferred from the old system to the new system, and the second is a cutover or "go-live event", in which users authenticate with the new 
+system for the first time. There are three main migration strategies that consider these steps as well as when you turn-off your old system.
 
-- **Big bang** - Migrate everyone at once.
+The three main migration strategies are:
+
+- **Big bang** - Migrate all users at once.
 - **Stepped** - Migrate your applications or user segments individually. _This is the most common choice_.
 - **Graceful** - Migrate when a user authenticates, running both solutions in parallel.
 
-Each migration strategy has its strengths and challenges. The ideal choice depends on factors such as the complexity of your
-system, the number of users, and your organization's tolerance for risk and downtime.
+Each migration strategy has its strengths and challenges. Which migration strategy you choose depends on factors such as the 
+complexity of your system, the number of users, and your organization's tolerance for risk and downtime.
+
+:::info
+
+While your choice of migration strategy is mostly influenced by user data, if you have a complex system or are risk adverse, you might 
+choose your migration strategy based on its ability to breakdown the migration into a series of migrations. This lets you test your 
+processes in production by migrating less critical, sets of users or applications first and learning lessons to improve the migration process.
+
+:::
 
 ### Big bang migration
 
 In a big bang migration, also known as "offline migration", all user data is transferred at once, and a single "go-live" event is
 scheduled, where all users start using the new system simultaneously.
+
+#### Recommendation
+A big bang migration is often not the best choice due to the risk and downtime, but it is recommended when:
+
+- The number of users is low / app is simple
+- Downtime isn't a problem
+- You need to retire the current solution yesterday
 
 #### Advantages of big bang migration
 
@@ -34,17 +51,19 @@ scheduled, where all users start using the new system simultaneously.
 - Increased preparation: Requires extensive planning and testing to mitigate risks, making it more resource-intensive during that
   phase.
 
-A big bang migration is often not the best choice due to the risk and downtime, but it is recommended when
-
-- the number of users is low / app is simple
-- downtime isn't a problem
-- you need to retire the current solution yesterday
-
 ### Stepwise migration
 
 Stepwise migration, also called "application-based migration", involves transferring user data in phases, focusing on specific
 applications, services, or user segments at a time. This approach results in multiple "go-lives", each affecting a defined group
 of users.
+
+#### Recommendation
+A stepwise migration is the best choice in most cases, especially when:
+
+- You manage multiple apps/segments of users with different underlying auth systems
+- You need to keep active sessions live during the migration
+- Downtime should be mostly avoided
+- You have some time to migrate
 
 #### Advantages of stepwise migration
 
@@ -59,17 +78,18 @@ of users.
 - Extended timeline: The migration process takes longer as it is broken down into phases.
 - Resource demands: Running both systems in parallel during the transition can strain resources.
 
-A stepwise migration is the best choice in most cases, especially when
-
-- you manage multiple apps/segments of users with different underlying auth systems
-- downtime should be mostly avoided
-- you have some time to migrate
-
 ### Graceful migration
 
 Graceful migration - also called "slow migration", "rolling migration", or "online migration" - involves running both the old and
 new systems in parallel, gradually migrating users as they authenticate. This approach features two "go-lives": the initial
 application "go-live" and subsequent user-specific cutovers during login.
+
+#### Recommendation
+A graceful migration is a good choice when:
+
+- You don't have access to hashed credentials or they are hashed with a proprietary algorithm
+- Absolutely no downtime is acceptable
+- Running the current solution until the end of migration isn't a problem
 
 #### Advantages of graceful migration
 
@@ -84,9 +104,3 @@ application "go-live" and subsequent user-specific cutovers during login.
 - Increased complexity: Maintaining synchronization between two systems adds complexity to the migration process.
 - Potential for data inconsistencies: If not carefully managed, there may be discrepancies between the two systems during the
   transition period.
-
-A graceful migration is a good choice when
-
-- you don't have access to hashed credentials or they are hashed with a proprietary algorithm
-- absolutely no downtime is acceptable
-- running the current solution until the end of migration isn't a problem

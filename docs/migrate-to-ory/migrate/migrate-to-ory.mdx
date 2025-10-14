@@ -6,7 +6,7 @@ sidebar_position: 1
 ---
 # Understand your current identity management system
 
-Below are example IAM scenarios supported by Ory Network. Use them to identify which scenario best fits your specific needs and 
+Below are example IAM scenarios supported by Ory Network. Use them to identify which scenario best fits your specific IAM needs and 
 understand the unique requirements of each approach. Each scenario differs in complexity and implementation needs. Use these IAM 
 scenarios to map the identity flows for your application.
 
@@ -43,7 +43,7 @@ that use these products or services to run their own operations.
 
 Your company provides products or services. Your company wants to manage access for a single organization's extended workforce. You want to 
 consolidate employee user accounts and identities across multi-tenant brands, applications and systems. You need to seamlessly connect with 
-existing enterprise identity providers and other 3rd party systems and streamline user onboarding, offboarding, and permission management. 
+existing enterprise identity providers and other 3rd party systems, and streamline user onboarding, offboarding, and permission management. 
 
 #### Key IAM requirements
 - Streamline onboarding/offboarding of employee, contractor, and temporary workers
@@ -56,7 +56,7 @@ existing enterprise identity providers and other 3rd party systems and streamlin
 ### Agentic AI
 
 Your company wants to enable AI applications to securely connect to data sources and tools. For example, servers that host resources and
-clients (AI applications) to discover and use those resources. 
+clients (AI applications) that discover and use those resources. 
 
 #### Key IAM requirements
 - Standardized protocol that works across many tools and data sources
@@ -78,11 +78,11 @@ these flows. This ensures you don’t miss critical flows during migration.
     - Token refresh and session handling
     - Recovery flows, consent screens, or partner-specific integrations
 1. Create flow diagrams (sequence diagrams or flow charts) to surface dependencies and hidden complexity.
-1. Note where identity (authentication and authorization) interacts with other systems (databases, CRMs, partner apps, or external APIs).
+1. Note where identity-related (authentication and authorization) processes interact with other systems (databases, CRMs, partner apps, or external APIs).
 
 At the end of this process you should have a living document with diagrams that capture:
 
-- All identity (authentication and authorization) flows
+- All identity-related (authentication and authorization) flows
 - Your system's existing functionality
 - Any existing dependencies on external systems
 - Edge cases requiring special handling
