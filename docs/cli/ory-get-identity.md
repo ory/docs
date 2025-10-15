@@ -26,9 +26,9 @@ ory get identity [id-1] [id-2] [id-n] [flags]
 ### Examples
 
 ```
-To get the identities with the recovery email address at the domain "ory.sh", run:
+To get the identities with the recovery email address at the domain "ory.com", run:
 
-	ory get identity $(ory ls identities --format json | jq -r 'map(select(.recovery_addresses[].value | endswith("@ory.sh"))) | .[].id')
+	ory get identity $(ory ls identities --format json | jq -r 'map(select(.recovery_addresses[].value | endswith("@ory.com"))) | .[].id')
 ```
 
 ### Options
