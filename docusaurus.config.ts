@@ -249,11 +249,11 @@ const config: Config = {
       async: true,
     },
     {
-      src: "https://consent.ory.sh/cmp/init.js",
+      src: "https://consent.ory.com/cmp/init.js",
       async: true,
     },
     {
-      src: "https://consent.ory.sh/index.js",
+      src: "https://consent.ory.com/index.js",
       async: true,
     },
   ],
