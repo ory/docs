@@ -5,7 +5,7 @@ sidebar_label: Device authorization flow
 ---
 
 The OAuth 2.0 Device Authorization Grant (RFC 8628) brings OAuth to devices with internet connectivity but limited input 
-capabilities. This flow is designed for smart TVs, streaming devices, IoT hardware, printers, AI agents and other connected devices 
+capabilities. This flow is designed for smart TVs, streaming devices, IoT hardware, printers, AI agents, and other connected devices 
 where typing credentials isn't practical. Here's how it works: the device to be authenticated displays a URL and a short code, prompting 
 you to open that URL on your phone or computer to authorize access. The two devices don't need to communicate directly—the authorization 
 happens through the OAuth provider.
@@ -24,13 +24,13 @@ Here is the high-level overview for the device authorization grant flow:
 1. In the meantime, the device polls the authorization server. Once the user authenticates and grants access, the authenicaton server 
    sends an access token to the device, which is used to access the protected resource.
 
-### Device requests authorization
+### Step 1: Device requests authorization
 
 The user attempts to log in through the limited input device. The device sends a POST request to the authorization server to initiate
 the flow with the following parameters:
 
-- `client_id`: The ID of the client (device) that's making the request.
-- `scope` (optional): The scope of the access request, which specifies which resources the requesting device can access.
+- `client_id`: The ID of the client (device) that's making the request
+- `scope` (optional): The scope of the access request, which specifies which resources the requesting device can access
 
 The authorization server responds with the following information:
 
@@ -41,17 +41,17 @@ The authorization server responds with the following information:
 - `expires_in`: The lifespan of the device code (in seconds)
 - `interval`: The polling interval (in seconds) for the client to check if the user has authorized the device yet
 
-### Display user code and verification URI
+### Step 2: Display user code and verification URI
 
 The device shows the user the `user_code` and `verification_uri` it received from the authorization server.
 
-### User grants permission
+### Step 3: User grants permission
 
 The user visits the provided URI on a separate device, such as a phone, and enters the code. Once the user enters the code, 
 the user is prompted to log in, if not already authenticated, and grants or denies permission to the client (device). After granting 
 permission, the user is redirected to a page confirming they are successfully logged in.
 
-### Device polls for the access token
+### Step 4: Device polls for the access token
 
 While the user is authorizing the device, the device polls the `token` endpoint of the authorization server to check whether the
 user has completed the authorization process, by making a POST request with the following parameters:
