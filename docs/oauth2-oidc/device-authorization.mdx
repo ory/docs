@@ -4,68 +4,69 @@ title: Device Authorization
 sidebar_label: Device authorization flow
 ---
 
-The OAuth 2.0 Device Authorization Grant -also known as Device Flow- is OAuth 2.0 extension that enables devices with no browser
-or limited input capability to obtain an access token. It enables users to authotize devices with limited input capabilities, such
-as smart TVs, gaming consoles, or IoT devices, by delegating the authentication process to another device with a full browser such
-as a phone or computer.
+The OAuth 2.0 Device Authorization Grant (RFC 8628) brings OAuth to devices with internet connectivity but limited input 
+capabilities. This flow is designed for smart TVs, streaming devices, IoT hardware, printers, AI agents and other connected devices 
+where typing credentials isn't practical. Here's how it works: the device to be authenticated displays a URL and a short code, prompting 
+you to open that URL on your phone or computer to authorize access. The two devices don't need to communicate directly—the authorization 
+happens through the OAuth provider.
 
-This document provides an overview of the Device Authorization Grant, a step-by-step example of its implementation, configuration
+This document provides an overview of the Ory's device authorization grant flow, with a step-by-step example of its implementation, configuration
 options, and guidance on creating custom user interfaces for the verification screen.
 
 ## Overview of the flow
 
-Here is the high-level overview for the Device Authorization Flow:
+Here is the high-level overview for the device authorization grant flow:
 
-1. The device requests to be authorized from the Authorization Server.
-1. The user is instructed to visit a URL on a different device and is given a user code.
-1. On a different device the user visits the URL, provides the user code, logs in and grants access to the device.
-1. The device polls the Authorization Server. Once the user authenticates and grants access, an access token is returned that can
-   be used to access the protected resource.
+1. The user attempts to log in to the device. This initiates the device to request authorization from the authorization server.
+1. When the authorization server responds, the user is instructed to visit a URL and enter the provided user code, which they do 
+   on a different device.
+1. On the different device the user visits the URL, enters the user code, (logs in, if needed) and grants access to the device.
+1. In the meantime, the device polls the authorization server. Once the user authenticates and grants access, the authenicaton server 
+   sends an access token to the device, which is used to access the protected resource.
 
 ### Device requests authorization
 
-The user tries to log in through the limited input device. The device sends a POST request to the Authorization Server to initiate
+The user attempts to log in through the limited input device. The device sends a POST request to the authorization server to initiate
 the flow with the following parameters:
 
-- `client_id`: The ID of the client that's making the request.
-- `scope` (optional): The scope of the access request, which specifies what resources the requesting application can access.
+- `client_id`: The ID of the client (device) that's making the request.
+- `scope` (optional): The scope of the access request, which specifies which resources the requesting device can access.
 
-The Authorization Server responds with the following information:
+The authorization server responds with the following information:
 
-- `device_code`: A unique code to identify the authorization request.
-- `user_code`: A code the user will enter at the verification URL.
-- `verification_uri`: The URL where the user can authorize the device.
-- `verification_uri_complete`: The URL where the user can authorize the device, with the user_code already filled in.
-- `expires_in`: The lifespan of the device code (in seconds).
-- `interval`: The polling interval (in seconds) for the client to check if the user has authorized the device.
+- `device_code`: A unique code to identify the authorization request
+- `user_code`: A code the user enters at the verification URL
+- `verification_uri`: The URL where the user authorizes the device
+- `verification_uri_complete`: The URL where the user authorizes the device, with the user_code already filled in
+- `expires_in`: The lifespan of the device code (in seconds)
+- `interval`: The polling interval (in seconds) for the client to check if the user has authorized the device yet
 
 ### Display user code and verification URI
 
-The device shows the user the `user_code` and `verification_uri` it received from the Authorization Server.
-
-The user visits the provided URI on a separate device, such as a phone, and enters the code.
+The device shows the user the `user_code` and `verification_uri` it received from the authorization server.
 
 ### User grants permission
 
-Once the user enters the code, they're prompted to log in, if not already authenticated, and grant or deny permission to the
-client. After granting permission, the user is redirected to a page confirming successful login.
+The user visits the provided URI on a separate device, such as a phone, and enters the code. Once the user enters the code, 
+the user is prompted to log in, if not already authenticated, and grants or denies permission to the client (device). After granting 
+permission, the user is redirected to a page confirming they are successfully logged in.
 
 ### Device polls for the access token
 
-While the user is authorizing the device, the device polls the `token` endpoint of the Authorization Server to check whether the
+While the user is authorizing the device, the device polls the `token` endpoint of the authorization server to check whether the
 user has completed the authorization process, by making a POST request with the following parameters:
 
-- `client_id`: The ID of the client that's making the request.
-- `device_code`: The device code received from the device authorization request.
-- `grant_type`: This should always be `urn:ietf:params:oauth:grant-type:device_code`.
+- `client_id`: The ID of the client that's making the request
+- `device_code`: The device code returned from the authorization request
+- `grant_type`: This must always be `urn:ietf:params:oauth:grant-type:device_code`
 
-After the user grants permission, the Authorization Server will respond with an access token.
+After the user grants permission, the authenicaton server sends an access token to the device, which is used to access the protected resource.
 
 ## Configuration options
 
 ### Configuring the user interface
 
-To enable and configure the Device Authorization Grant in Ory Hydra, adjust the following settings in your configuration file:
+To enable and configure the device authorization grant in Ory Hydra, adjust the following settings in your configuration file:
 
 ```
 urls:
