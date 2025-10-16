@@ -76,14 +76,14 @@ urls:
 
 ### Configuring user code entropy
 
-Depending on your security needs and your traffic load, you may wish to enhance your `user_code` entropy. The Ory Hydra
+Depending on your security needs and your traffic load, you should choose the appropriate `user_code` entropy. The 
 `oauth2.device_authorization.user_code_entropy` configuration supports 3 values:
 
 - `high`: `user_code` is 8 characters long and consists of alphanumeric characters, excluding some ambiguous symbols
-- `medium`: `user_code` is 8 characters long and consists of upper case letter
-- `low`: `user_code` is 9 characters long and consists of numbers
+- `medium`: `user_code` is 8 characters long and consists of only upper case alphabetic characters
+- `low`: `user_code` is 9 characters long and consists of only numberic characters
 
-Keep in mind that higher entropy may make it harder for the user to enter the user code.
+As users will need to manually enter the user code, the higher the entropy, the more difficult it will be for the user to enter the user code.
 
 ## Device verification UI implementation
 
