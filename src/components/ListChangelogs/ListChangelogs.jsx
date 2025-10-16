@@ -66,17 +66,27 @@ export default function ListChangelogs({ dir }) {
   if (!ctx) return <p>No changelogs for "{dir}"</p>
 
   const keys = ctx.keys().sort(compareSemverDesc)
-  const Components = keys.map((k) => ctx(k).default)
+  const modules = keys.map((k) => ({ key: k, mod: ctx(k) }))
+  //const Components = modules.map((m) => m.mod.default)
 
   return (
     <>
-      {Components.map((Comp, i) => {
+      {modules.map(({ key, mod }, i) => {
+        const Comp = mod.default
         const basename = baseFromPath(keys[i])
         const version = extractVersion(basename)
-        // const id = slugify(version);
+        const hasContentTitle = Boolean(mod.contentTitle)
+
         return (
-          <section key={keys[i]} style={{ marginBottom: "2rem" }}>
-            <Comp />
+          <section key={key} style={{ marginBottom: "2rem" }}>
+            {hasContentTitle ? (
+              <Comp />
+            ) : (
+              <>
+                <Heading as="h2">{version}</Heading>
+                <p>No changelog entries for this release.</p>
+              </>
+            )}
             <hr />
           </section>
         )
