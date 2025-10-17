@@ -24,7 +24,38 @@ Here is the high-level overview for the device authorization grant flow:
 1. In the meantime, the device polls the authorization server. Once the user authenticates and grants access, the authenicaton server 
    sends an access token to the device, which is used to access the protected resource.
 
-![Device authorization flow](./_static/deviceAuthFlow.png)
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid";
+
+<Mermaid
+  chart={`sequenceDiagram
+    participant D as Device
+    participant U as User
+    participant AS as OAuth2 Server
+
+    activate D
+    D->>+AS: Start device code grant
+    AS-->>-D: Verification URI, Device-code, User-code
+    loop background poll before user authorized
+        D->>+AS: Request Token by device code
+        AS-->>-D: Error
+    end
+    D->>+U: Ask visit verification URI<br/>Reveal User-code
+    U->>+AS: Request verification URI
+    AS-->>-U: Prompt for User-code
+    U->>+AS: Sumbit User-code
+    AS-->>-U: Prompt for login and consent
+    U->>+AS: Submit credentials and consent
+    AS-->>-U: Show success
+    deactivate U
+    loop background poll after user authorized
+        D->>+AS: Request Token by device code
+    end
+    AS-->>-D: Token
+    D-->>D: Process and store token
+    deactivate D
+`} />
+```
 
 ### Step 1: Device requests authorization
 
