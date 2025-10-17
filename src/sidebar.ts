@@ -647,6 +647,7 @@ const hydra: SidebarItemsConfig = [
           "oauth2-oidc/refresh-token-grant",
           "oauth2-oidc/userinfo-oidc",
           "oauth2-oidc/oidc-logout",
+          "wellknown-endpoint-discovery",
         ],
       },
       {

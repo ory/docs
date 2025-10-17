@@ -1,0 +1,333 @@
+---
+id: wellknown-endpoint-discovery
+title: OAuth2 well-known endpoint discovery
+sidebar_label: OAuth2 well-known endpoint discovery
+---
+
+The OAuth 2.0 Authorization Server Metadata endpoint (also called the discovery endpoint) provides a standardized way for 
+clients to automatically discover your OAuth 2.0 server's configuration and capabilities.
+
+## What is the discovery endpoint?
+
+The discovery endpoint returns a JSON document containing metadata about your OAuth 2.0 authorization server, including:
+
+- Available endpoints (authorization, token, userinfo, etc.)
+- Supported grant types and response types
+- Supported authentication methods
+- Available scopes
+- Security capabilities (PKCE, token revocation, etc.)
+
+## Endpoint location
+The discovery endpoint is available at:
+```text
+https://your-auth-server.com/.well-known/oauth-authorization-server
+```
+For OpenID Connect, use:
+```text
+https://your-auth-server.com/.well-known/openid-configuration
+```
+
+## How It Works
+The discovery endpoint enables automatic configuration for OAuth 2.0 clients:
+
+1. Client makes a single request to the discovery endpoint
+1. Server returns metadata describing all endpoints and capabilities
+1. Client configures itself using the discovered information
+1. Client performs authentication using the discovered endpoints
+
+### Example Discovery Request
+
+```bash
+curl https://your-project.projects.oryapis.com/.well-known/oauth-authorization-server | jq
+```
+
+### Example Response
+
+```json
+{
+  "issuer": "https://your-project.projects.oryapis.com",
+  "authorization_endpoint": "https://your-project.projects.oryapis.com/oauth2/auth",
+  "token_endpoint": "https://your-project.projects.oryapis.com/oauth2/token",
+  "jwks_uri": "https://your-project.projects.oryapis.com/.well-known/jwks.json",
+  "userinfo_endpoint": "https://your-project.projects.oryapis.com/userinfo",
+  "revocation_endpoint": "https://your-project.projects.oryapis.com/oauth2/revoke",
+  "introspection_endpoint": "https://your-project.projects.oryapis.com/oauth2/introspect",
+  "grant_types_supported": [
+    "authorization_code",
+    "refresh_token",
+    "client_credentials"
+  ],
+  "response_types_supported": [
+    "code",
+    "token",
+    "id_token"
+  ],
+  "scopes_supported": [
+    "openid",
+    "offline_access",
+    "profile",
+    "email"
+  ],
+  "token_endpoint_auth_methods_supported": [
+    "client_secret_post",
+    "client_secret_basic",
+    "private_key_jwt",
+    "none"
+  ],
+  "code_challenge_methods_supported": [
+    "S256",
+    "plain"
+  ]
+}
+```
+
+## Use Cases
+
+### Automatic Client Configuration
+
+Instead of manually configuring every endpoint, clients can discover them automatically:
+
+```js
+javascript// Fetch discovery document
+const response = await fetch(
+  'https://auth.example.com/.well-known/oauth-authorization-server'
+);
+const config = await response.json();
+
+// Use discovered endpoints
+const authUrl = config.authorization_endpoint;
+const tokenUrl = config.token_endpoint;
+```
+
+### Multi-Tenant Applications
+
+Support multiple identity providers without hardcoding configurations:
+```js
+async function configureOAuth(tenantUrl) {
+  const discovery = await fetch(
+    `${tenantUrl}/.well-known/oauth-authorization-server`
+  ).then(r => r.json());
+  
+  return {
+    authEndpoint: discovery.authorization_endpoint,
+    tokenEndpoint: discovery.token_endpoint,
+    supportsPKCE: discovery.code_challenge_methods_supported?.includes('S256')
+  };
+}
+
+// Works with any OAuth 2.0 compliant server
+await configureOAuth('https://tenant-a.oryapis.com');
+await configureOAuth('https://tenant-b.oryapis.com');
+```
+
+### Capability Detection
+
+Check what features the authorization server supports before using them:
+javascriptconst discovery = await fetch(discoveryUrl).then(r => r.json());
+```js
+// Check if server supports PKCE
+const supportsPKCE = discovery.code_challenge_methods_supported?.includes('S256');
+
+// Check available grant types
+const supportsRefreshTokens = discovery.grant_types_supported?.includes('refresh_token');
+
+// Adapt your implementation accordingly
+if (supportsPKCE) {
+  // Use authorization code flow with PKCE
+} else {
+  // Fall back to basic authorization code flow
+}
+```
+
+## Implementation with Ory
+
+### Ory Network
+Ory Network automatically provides the discovery endpoint for your project:
+
+```bash
+# Replace with your project slug
+curl https://your-project.projects.oryapis.com/.well-known/oauth-authorization-server
+```
+
+### Self-Hosted Ory Hydra
+Ory Hydra exposes the discovery endpoint by default:
+```bash
+# Using default Hydra configuration
+curl http://127.0.0.1:4444/.well-known/oauth-authorization-server
+```
+
+When configuring your Hydra instance, ensure the issuer URL is set correctly:
+```yaml
+# hydra.yml
+urls:
+  self:
+    issuer: https://your-auth-server.com
+```
+
+## Building Discovery-Aware Clients
+
+### Step 1: Fetch Discovery Document
+```js
+async function initializeOAuthClient(issuerUrl) {
+  const discoveryUrl = `${issuerUrl}/.well-known/oauth-authorization-server`;
+  const config = await fetch(discoveryUrl).then(r => r.json());
+  
+  return config;
+}
+```
+
+### Step 2: Store Configuration
+```js
+const oauthConfig = await initializeOAuthClient('https://auth.example.com');
+
+// Store for later use
+localStorage.setItem('oauth_config', JSON.stringify(oauthConfig));
+```
+
+### Step 3: Use Discovered Endpoints
+```js
+// Authorization
+window.location.href = `${oauthConfig.authorization_endpoint}?
+  client_id=${clientId}&
+  response_type=code&
+  redirect_uri=${redirectUri}&
+  scope=openid profile email`;
+
+// Token exchange
+const tokenResponse = await fetch(oauthConfig.token_endpoint, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  body: new URLSearchParams({
+    grant_type: 'authorization_code',
+    code: authCode,
+    client_id: clientId,
+    redirect_uri: redirectUri
+  })
+});
+```
+
+## Key Metadata Fields
+### Required Fields
+
+- issuer - Identifier of the authorization server
+- authorization_endpoint - URL for authorization requests
+- token_endpoint - URL for token requests
+- jwks_uri - URL for public keys (token verification)
+
+### Common Optional Fields
+
+- userinfo_endpoint - URL to get user information (OIDC)
+- revocation_endpoint - URL to revoke tokens
+- introspection_endpoint - URL to validate tokens
+- registration_endpoint - URL for dynamic client registration
+- scopes_supported - List of supported OAuth 2.0 scopes
+- response_types_supported - Supported response types
+- grant_types_supported - Supported grant types
+- token_endpoint_auth_methods_supported - Client authentication methods
+- code_challenge_methods_supported - PKCE methods (S256, plain)
+
+## Best Practices
+
+### Cache Discovery Results
+Discovery documents change infrequently. Cache them to reduce latency:
+```js
+const CACHE_KEY = 'oauth_discovery';
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+
+async function getDiscoveryDocument(issuerUrl) {
+  const cached = localStorage.getItem(CACHE_KEY);
+  if (cached) {
+    const { data, timestamp } = JSON.parse(cached);
+    if (Date.now() - timestamp < CACHE_DURATION) {
+      return data;
+    }
+  }
+  
+  const discovery = await fetch(
+    `${issuerUrl}/.well-known/oauth-authorization-server`
+  ).then(r => r.json());
+  
+  localStorage.setItem(CACHE_KEY, JSON.stringify({
+    data: discovery,
+    timestamp: Date.now()
+  }));
+  
+  return discovery;
+}
+```
+
+### Handle Errors Gracefully
+```js
+async function fetchDiscovery(issuerUrl) {
+  try {
+    const response = await fetch(
+      `${issuerUrl}/.well-known/oauth-authorization-server`
+    );
+    
+    if (!response.ok) {
+      throw new Error(`Discovery failed: ${response.status}`);
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to fetch discovery document:', error);
+    // Fall back to manual configuration or show error to user
+    throw error;
+  }
+}
+```
+
+### Validate Required Fields
+```js 
+function validateDiscovery(config) {
+  const required = [
+    'issuer',
+    'authorization_endpoint',
+    'token_endpoint',
+    'jwks_uri'
+  ];
+  
+  for (const field of required) {
+    if (!config[field]) {
+      throw new Error(`Missing required field: ${field}`);
+    }
+  }
+  
+  return true;
+}
+```
+
+## Troubleshooting
+
+### Discovery Endpoint Returns 404
+Verify the URL format is correct:
+
+OAuth 2.0: /.well-known/oauth-authorization-server
+OpenID Connect: /.well-known/openid-configuration
+
+For Ory Network, ensure you're using your project's full URL:
+```text
+https://your-project.projects.oryapis.com/.well-known/oauth-authorization-server
+```
+
+### CORS Issues
+If calling the discovery endpoint from a browser, ensure CORS is properly configured on your authorization server. 
+Ory Network handles this automatically.
+For self-hosted Ory Hydra, configure CORS in your configuration:
+```yaml
+# hydra.yml
+serve:
+  public:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://your-app.com
+```
+
+### Cached Stale Data
+If endpoints have changed but clients are using old configuration, clear the discovery cache or reduce cache duration.
+
+## Summary
+The OAuth 2.0 discovery endpoint eliminates manual configuration, enables dynamic multi-tenant support, and makes OAuth 
+integrations more resilient to changes. Use it to build flexible, maintainable authentication systems that automatically 
+adapt to your authorization server's capabilities.
