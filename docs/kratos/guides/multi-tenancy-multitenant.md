@@ -13,7 +13,7 @@ isolation, scalability, and operational needs of a multi-tenant environment.
 
 :::info
 
-Please reach out on the [Ory Community Chat](https://slack.ory.sh/) or via [email](https://www.ory.sh/contact) if you have any
+Please reach out on the [Ory Community Chat](https://slack.ory.com/) or via [email](https://www.ory.com/contact) if you have any
 questions on multitenancy support.
 
 :::

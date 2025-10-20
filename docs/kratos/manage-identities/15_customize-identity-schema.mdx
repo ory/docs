@@ -108,7 +108,7 @@ login. Let's change that by adding the following schema extension:
         "username": {
           "title": "Username",
           "type": "string",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -157,7 +157,7 @@ their GitHub handle, which is clear thanks to the field description defined in t
 
 ```json {29}
 {
-  "$id": "https://schemas.ory.sh/presets/kratos/identity.basic.schema.json",
+  "$id": "https://schemas.ory.com/presets/kratos/identity.basic.schema.json",
   "title": "Person",
   "type": "object",
   "properties": {
@@ -168,7 +168,7 @@ their GitHub handle, which is clear thanks to the field description defined in t
           "type": "string",
           "format": "email",
           "title": "Email",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -218,7 +218,7 @@ available identity schema extensions:
 
 ```json
 {
-  "$id": "https://schemas.ory.sh/presets/kratos/identity.email.schema.json",
+  "$id": "https://schemas.ory.com/presets/kratos/identity.email.schema.json",
   "title": "Person",
   "type": "object",
   "properties": {
@@ -230,7 +230,7 @@ available identity schema extensions:
           "format": "email",
           "title": "E-Mail",
 # highlight-start
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -263,7 +263,7 @@ available identity schema extensions:
           "type": "string",
           "format": "tel",
           "title": "Phone number",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -297,7 +297,7 @@ sign in:
 
 ```json {9-45}
 {
-  "$id": "https://schemas.ory.sh/presets/kratos/identity.email.schema.json",
+  "$id": "https://schemas.ory.com/presets/kratos/identity.email.schema.json",
   "title": "Person",
   "type": "object",
   "properties": {
@@ -308,7 +308,7 @@ sign in:
           "type": "string",
           "minLength": 6,
           "title": "Username",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -320,7 +320,7 @@ sign in:
           "type": "string",
           "format": "email",
           "title": "E-Mail",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -360,7 +360,7 @@ You can also specify an array of elements:
 
 ```json
 {
-  "$id": "https://schemas.ory.sh/presets/kratos/identity.email.schema.json",
+  "$id": "https://schemas.ory.com/presets/kratos/identity.email.schema.json",
   "title": "Person",
   "type": "object",
   "properties": {
@@ -374,7 +374,7 @@ You can also specify an array of elements:
               "type": "string",
               "format": "email",
               "title": "E-Mail",
-              "ory.sh/kratos": {
+              "ory.com/kratos": {
                 "credentials": {
                   "password": {
                     "identifier": true
@@ -419,7 +419,7 @@ the identifier:
 
 ```json
 {
-  "ory.sh/kratos": {
+  "ory.com/kratos": {
     "credentials": {
       "password": {
         "identifier": true
@@ -436,7 +436,7 @@ Let's assume the identity's traits are
 ```yaml
 traits:
   # These are just examples
-  email: office@ory.sh
+  email: office@ory.com
   name:
     first: Aeneas
     last: Rekkas
@@ -462,7 +462,7 @@ and we are using a JSON Schema that uses the `email` field as the identifier for
           "format": "email",
 
           // This tells Ory Identities that the field should be used as the "username" for the username and password flow.
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -499,8 +499,8 @@ and we are using a JSON Schema that uses the `email` field as the identifier for
 }
 ```
 
-In this example, Ory understands that `traits.email='office@ory.sh'` is the identifier for this identity. The system must get
-`office@ory.sh` and a password to sign in an user.
+In this example, Ory understands that `traits.email='office@ory.com'` is the identifier for this identity. The system must get
+`office@ory.com` and a password to sign in an user.
 
 [Username and Password Credentials](../../kratos/concepts/credentials/username-email-password) contains more information and
 examples about credentials usage.
@@ -529,7 +529,7 @@ Let's extend the identity schema from the previous chapter with a phone number:
           "format": "email",
 
           // This tells Ory Identities that the field should be used as the "username" for the Username and Password Flow.
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -543,7 +543,7 @@ Let's extend the identity schema from the previous chapter with a phone number:
           "format": "tel",
 
           // The phone number is marked as an identifier. This allows the user to log in with both email and phone number.
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -587,7 +587,7 @@ Using the following identity schema extension we specify that the field is used 
 
 ```json
 {
-  "ory.sh/kratos": {
+  "ory.com/kratos": {
     "credentials": {
       "password": {
         "identifier": true
@@ -603,7 +603,7 @@ Using the following identity schema extension we specify that the field is used 
 
 ```json
 {
-  "ory.sh/kratos": {
+  "ory.com/kratos": {
     "credentials": {
       "passkey": {
         "display_name": true
@@ -624,7 +624,7 @@ login:
 
 ```json
 {
-  "ory.sh/kratos": {
+  "ory.com/kratos": {
     "credentials": {
       "code": {
         "identifier": true,
@@ -640,7 +640,7 @@ login:
 
 ```json
 {
-  "ory.sh/kratos": {
+  "ory.com/kratos": {
     "credentials": {
       "code": {
         "identifier": true,
@@ -662,7 +662,7 @@ name:
 
 ```json
 {
-  "ory.sh/kratos": {
+  "ory.com/kratos": {
     "credentials": {
       "totp": {
         "account_name": true
@@ -685,7 +685,7 @@ login:
 
 ```json
 {
-  "ory.sh/kratos": {
+  "ory.com/kratos": {
     "credentials": {
       "webauthn": {
         "identifier": true
@@ -705,7 +705,7 @@ Specifies that the field is verifiable by sending an email with a verification c
 
 ```json
 {
-  "ory.sh/kratos": {
+  "ory.com/kratos": {
     "recovery": {
       "via": "email"
     }
@@ -718,7 +718,7 @@ Specifies that the field is verifiable by sending an email with a verification c
 
 ```json
 {
-  "ory.sh/kratos": {
+  "ory.com/kratos": {
     "recovery": {
       "via": "sms"
     }
@@ -740,7 +740,7 @@ Specifies that the field can be used to send an account recovery code or link.
 
 ```json
 {
-  "ory.sh/kratos": {
+  "ory.com/kratos": {
     "recovery": {
       "via": "email"
     }
@@ -753,7 +753,7 @@ Specifies that the field can be used to send an account recovery code or link.
 
 ```json
 {
-  "ory.sh/kratos": {
+  "ory.com/kratos": {
     "recovery": {
       "via": "sms"
     }
@@ -785,7 +785,7 @@ For nested objects such as `name`, add the `required` property inside of the obj
 
 ```json
 {
-  "$id": "https://schemas.ory.sh/presets/kratos/identity.basic.schema.json",
+  "$id": "https://schemas.ory.com/presets/kratos/identity.basic.schema.json",
   "title": "Person",
   "type": "object",
   "properties": {
@@ -796,7 +796,7 @@ For nested objects such as `name`, add the `required` property inside of the obj
           "type": "string",
           "format": "email",
           "title": "Email address",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -879,7 +879,7 @@ Below is an example of how to do this:
 
 ```json5
 {
-  "$id": "https://schemas.ory.sh/presets/kratos/identity.email.schema.json",
+  "$id": "https://schemas.ory.com/presets/kratos/identity.email.schema.json",
   "title": "Person",
   "type": "object",
   # highlight-start
@@ -904,7 +904,7 @@ Below is an example of how to do this:
           "title": "Username",
           "minLength": 6,
           "maxLength": 32,
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -925,7 +925,7 @@ Below is an example of how to do this:
           "type": "string",
           "format": "email",
           "title": "E-Mail",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -1061,7 +1061,7 @@ To use the email address as the login identifier, define the following identity 
           "type": "string",
           "format": "email",
           "title": "E-Mail",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -1114,7 +1114,7 @@ You can allow users to sign up with multiple email addresses and use any of them
           "items": {
             "type": "string",
             "format": "email",
-            "ory.sh/kratos": {
+            "ory.com/kratos": {
               "credentials": {
                 "password": {
                   "identifier": true
@@ -1164,7 +1164,7 @@ To use a username as the login identifier, define the following identity schema:
       "properties": {
         "username": {
           "type": "string",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
              "credentials": {
                "password": {
                  "identifier": true
@@ -1205,7 +1205,7 @@ You may also mix usernames and passwords:
         "email": {
           "type": "string",
           "format": "email",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -1234,7 +1234,7 @@ You may also mix usernames and passwords:
         },
         "username": {
           "type": "string",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -1276,7 +1276,7 @@ You may also mix usernames and passwords:
         "phone": {
           "type": "string",
           "format": "tel",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -1327,7 +1327,7 @@ This identity schema is just an example. It contains too many fields to be used 
 
 ```json
 {
-  "$id": "https://schemas.ory.sh/presets/kratos/identity.basic.schema.json",
+  "$id": "https://schemas.ory.com/presets/kratos/identity.basic.schema.json",
   "title": "Person",
   "type": "object",
   "properties": {
@@ -1338,7 +1338,7 @@ This identity schema is just an example. It contains too many fields to be used 
           "type": "string",
           "format": "email",
           "title": "Email",
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true

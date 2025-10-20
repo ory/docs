@@ -6,7 +6,7 @@ export const navbar: Navbar = {
     alt: "Ory",
     src: `/docs/img/logos/logo-docs-2023-02-15.svg`,
     srcDark: `/docs/img/logos/logo-docs-dark-2023-02-15.svg`,
-    href: `https://www.ory.sh`,
+    href: `https://www.ory.com`,
     width: 63,
     height: 32,
   },
@@ -102,15 +102,15 @@ export const navbar: Navbar = {
       position: "right",
       items: [
         {
-          to: "https://www.ory.sh/support",
+          to: "https://www.ory.com/support",
           label: "Enterprise Support",
         },
         {
-          to: "https://www.ory.sh/docs/search",
+          to: "https://www.ory.com/docs/search",
           label: "Search the docs",
         },
         {
-          to: "https://www.ory.sh/chat",
+          to: "https://www.ory.com/chat",
           label: "Ory Community Slack",
         },
         {
@@ -122,7 +122,7 @@ export const navbar: Navbar = {
           label: "Stack Overflow",
         },
         {
-          to: "https://www.ory.sh/contact",
+          to: "https://www.ory.com/contact",
           label: "Schedule a discovery call",
         },
       ],

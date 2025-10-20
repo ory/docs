@@ -409,6 +409,14 @@ const kratos: SidebarItemsConfig = [
       },
       {
         type: "category",
+        label: "Search",
+        items: [
+          "kratos/manage-identities/search/identity-search-console",
+          "kratos/manage-identities/search/identity-search-api",
+        ],
+      },
+      {
+        type: "category",
         label: "Identity management",
         link: {
           type: "doc",
@@ -1160,7 +1168,7 @@ const opensource: SidebarItemsConfig = [
   {
     type: "link",
     label: "Search",
-    href: "https://www.ory.sh/docs/search",
+    href: "https://www.ory.com/docs/search",
   },
 ]
 

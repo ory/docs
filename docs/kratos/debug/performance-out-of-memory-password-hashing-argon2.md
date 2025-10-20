@@ -13,7 +13,7 @@ To securely check if passwords match, Ory Kratos stores the Argon2 hash of every
 the desired security level as well as responsiveness. Because it isn't easy to determine the exact values without trying them out,
 Ory Kratos comes with a [CLI](../cli/kratos-hashers-argon2-calibrate.md) that automatically calibrates the values, following best
 practices. You can read more about these best practices in our
-[blog post](https://www.ory.sh/choose-recommended-argon2-parameters-password-hashing/).
+[blog post](https://www.ory.com/choose-recommended-argon2-parameters-password-hashing/).
 
 ## Common errors
 

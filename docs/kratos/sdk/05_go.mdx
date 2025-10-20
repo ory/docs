@@ -42,11 +42,11 @@ Install the Ory Go SDK
 
 ## Frontend API
 
-The following code examples show how to use the Frontend API [`frontend`](https://www.ory.sh/docs/reference/api#tag/frontend).
+The following code examples show how to use the Frontend API [`frontend`](https://www.ory.com/docs/reference/api#tag/frontend).
 These endpoints are used by frontend applications (e.g. Single-Page-App, Native Apps, Server Apps, ...) to manage a user's own
 profile. There are two types of flows: native flows and browser flows. Native flows are used by **API clients**. Browser flows are
-used by **browser clients**. Read the [Browser vs. native apps](https://www.ory.sh/docs/identities/native-browser) document and
-the [Self-service flows](https://www.ory.sh/docs/kratos/self-service) overview to learn more.
+used by **browser clients**. Read the [Browser vs. native apps](https://www.ory.com/docs/identities/native-browser) document and
+the [Self-service flows](https://www.ory.com/docs/kratos/self-service) overview to learn more.
 
 ### Browser clients
 
@@ -54,9 +54,9 @@ the [Self-service flows](https://www.ory.sh/docs/kratos/self-service) overview t
 
 ### Create login flow
 
-[Create a login flow for API clients](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createNativeRegistrationFlow)
+[Create a login flow for API clients](https://www.ory.com/docs/reference/api#tag/frontend/operation/createNativeRegistrationFlow)
 such as mobile devices or native applications. For browser clients use
-[`CreateBrowserLoginFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserLoginFlow).
+[`CreateBrowserLoginFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/createBrowserLoginFlow).
 
 ```mdx-code-block
 import createLogin from '!!raw-loader!../../../code-examples/sdk/go/frontend/create-login.go'
@@ -66,9 +66,9 @@ import createLogin from '!!raw-loader!../../../code-examples/sdk/go/frontend/cre
 
 ### Create registration flow
 
-[Create a registration flow for API clients](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createNativeRegistrationFlow)
+[Create a registration flow for API clients](https://www.ory.com/docs/reference/api#tag/frontend/operation/createNativeRegistrationFlow)
 such as mobile devices or native applications. For browser clients use
-[`createBrowserLoginFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserLoginFlow).
+[`createBrowserLoginFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/createBrowserLoginFlow).
 
 ```mdx-code-block
 import createRegistration from '!!raw-loader!../../../code-examples/sdk/go/frontend/create-registration.go'
@@ -78,9 +78,9 @@ import createRegistration from '!!raw-loader!../../../code-examples/sdk/go/front
 
 ### Create recovery flow
 
-[Create a recovery flow for API clients](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createNativeRecoveryFlow)
+[Create a recovery flow for API clients](https://www.ory.com/docs/reference/api#tag/frontend/operation/createNativeRecoveryFlow)
 such as mobile devices or native applications. For browser clients use
-[`createBrowserRecoveryFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserRecoveryFlow).
+[`createBrowserRecoveryFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/createBrowserRecoveryFlow).
 
 ```mdx-code-block
 import createRecovery from '!!raw-loader!../../../code-examples/sdk/go/frontend/create-recovery.go'
@@ -90,9 +90,9 @@ import createRecovery from '!!raw-loader!../../../code-examples/sdk/go/frontend/
 
 ### Create verification flow
 
-[Create a verification flow for API clients](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createNativeVerificationFlow)
+[Create a verification flow for API clients](https://www.ory.com/docs/reference/api#tag/frontend/operation/createNativeVerificationFlow)
 such as mobile devices or native applications. For browser clients use
-[`createBrowserRecoveryFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserVerificationFlow).
+[`createBrowserRecoveryFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/createBrowserVerificationFlow).
 
 ```mdx-code-block
 import createVerification from '!!raw-loader!../../../code-examples/sdk/go/frontend/create-verification.go'
@@ -102,7 +102,7 @@ import createVerification from '!!raw-loader!../../../code-examples/sdk/go/front
 
 ### Get registration flow
 
-[Get a registration flow](https://www.ory.sh/docs/reference/api#tag/frontend/operation/getRegistrationFlow).
+[Get a registration flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/getRegistrationFlow).
 
 ```mdx-code-block
 import getRegistration from '!!raw-loader!../../../code-examples/sdk/go/frontend/get-registration.go'
@@ -112,7 +112,7 @@ import getRegistration from '!!raw-loader!../../../code-examples/sdk/go/frontend
 
 ### Get recovery flow
 
-[Get a recovery flow](https://www.ory.sh/docs/reference/api#tag/frontend/operation/getRecoveryFlow).
+[Get a recovery flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/getRecoveryFlow).
 
 ```mdx-code-block
 import getRecovery from '!!raw-loader!../../../code-examples/sdk/go/frontend/get-recovery.go'
@@ -122,7 +122,7 @@ import getRecovery from '!!raw-loader!../../../code-examples/sdk/go/frontend/get
 
 ### Get verification flow
 
-[Get a verification flow](https://www.ory.sh/docs/reference/api#tag/frontend/operation/getVerificationFlow).
+[Get a verification flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/getVerificationFlow).
 
 ```mdx-code-block
 import getVerification from '!!raw-loader!../../../code-examples/sdk/go/frontend/get-verification.go'
@@ -133,7 +133,7 @@ import getVerification from '!!raw-loader!../../../code-examples/sdk/go/frontend
 ### Submit login flow
 
 To submit or complete a login flow you need to call the
-[`updateLoginFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/updateLoginFlow) endpoint.
+[`updateLoginFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow) endpoint.
 
 ```mdx-code-block
 import submitLogin from '!!raw-loader!../../../code-examples/sdk/go/frontend/submit-login.go'
@@ -144,7 +144,7 @@ import submitLogin from '!!raw-loader!../../../code-examples/sdk/go/frontend/sub
 ### Submit registration flow
 
 To submit or complete a registration flow you need to call the
-[`updateRegistrationFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/updateRegistrationFlow) endpoint.
+[`updateRegistrationFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateRegistrationFlow) endpoint.
 
 ```mdx-code-block
 import submitRegistration from '!!raw-loader!../../../code-examples/sdk/go/frontend/submit-registration.go'
@@ -155,7 +155,7 @@ import submitRegistration from '!!raw-loader!../../../code-examples/sdk/go/front
 ### Submit recovery flow
 
 To submit or complete a recovery flow you need to call the
-[`updateRecoveryFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/updateRecoveryFlow) endpoint.
+[`updateRecoveryFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateRecoveryFlow) endpoint.
 
 ```mdx-code-block
 import submitRecovery from '!!raw-loader!../../../code-examples/sdk/go/frontend/submit-recovery.go'
@@ -166,7 +166,7 @@ import submitRecovery from '!!raw-loader!../../../code-examples/sdk/go/frontend/
 ### Submit verification flow
 
 To submit or complete a recovery flow you need to call the
-[`updateVerificationFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/updateVerificationFlow) endpoint.
+[`updateVerificationFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateVerificationFlow) endpoint.
 
 ```mdx-code-block
 import submitVerification from '!!raw-loader!../../../code-examples/sdk/go/frontend/submit-verification.go'
@@ -208,7 +208,7 @@ import whoamiNative from '!!raw-loader!../../../code-examples/sdk/go/frontend/wh
 
 ### Get active sessions
 
-[Get all active sessions](https://www.ory.sh/docs/reference/api#tag/frontend/operation/listMySessions) for the current user.
+[Get all active sessions](https://www.ory.com/docs/reference/api#tag/frontend/operation/listMySessions) for the current user.
 
 ```mdx-code-block
 import getActiveSessions from '!!raw-loader!../../../code-examples/sdk/go/frontend/get-active-sessions.go'
@@ -218,9 +218,9 @@ import getActiveSessions from '!!raw-loader!../../../code-examples/sdk/go/fronte
 
 ### Perform logout flow
 
-Use [performNativeLogout](https://www.ory.sh/docs/reference/api#tag/frontend/operation/performNativeLogout) to log out the current
-user for API clients such as mobile devices or native applications. For browser clients create a logout URL using
-[`createBrowserLogoutFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserLogoutFlow). .
+Use [performNativeLogout](https://www.ory.com/docs/reference/api#tag/frontend/operation/performNativeLogout) to log out the
+current user for API clients such as mobile devices or native applications. For browser clients create a logout URL using
+[`createBrowserLogoutFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/createBrowserLogoutFlow). .
 
 ```mdx-code-block
 import logout from '!!raw-loader!../../../code-examples/sdk/go/frontend/logout.go'
@@ -230,7 +230,7 @@ import logout from '!!raw-loader!../../../code-examples/sdk/go/frontend/logout.g
 
 ### Disable session
 
-[Revoke a specific session](https://www.ory.sh/docs/reference/api#tag/identity/operation/disableSession) for the current user.
+[Revoke a specific session](https://www.ory.com/docs/reference/api#tag/identity/operation/disableSession) for the current user.
 
 ```mdx-code-block
 import revokeSession from '!!raw-loader!../../../code-examples/sdk/go/frontend/revoke-session.go'
@@ -240,7 +240,7 @@ import revokeSession from '!!raw-loader!../../../code-examples/sdk/go/frontend/r
 
 ### Disable all other sessions
 
-[Revoke all other sessions](https://www.ory.sh/docs/reference/api#tag/frontend/operation/disableMyOtherSessions) for the current
+[Revoke all other sessions](https://www.ory.com/docs/reference/api#tag/frontend/operation/disableMyOtherSessions) for the current
 user.
 
 ```mdx-code-block
@@ -251,18 +251,19 @@ import revokeOtherSessions from '!!raw-loader!../../../code-examples/sdk/go/fron
 
 ## Identity API
 
-To use the Identity Management API [`identity`](https://www.ory.sh/docs/reference/api#tag/identity) requests need to be
+To use the Identity Management API [`identity`](https://www.ory.com/docs/reference/api#tag/identity) requests need to be
 authorized.
 
-- Create a free Developer project with the [Ory CLI](https://www.ory.sh/docs/guides/cli/installation) or
+- Create a free Developer project with the [Ory CLI](https://www.ory.com/docs/guides/cli/installation) or
   [Ory Console](https://console.ory.sh/guides): `ory create project --name "Ory IdentityAPI Example"`
-- Create a new [API key](https://www.ory.sh/docs/concepts/personal-access-token) and export it `export ORY_API_KEY=<your-api-key>`
+- Create a new [API key](https://www.ory.com/docs/concepts/personal-access-token) and export it
+  `export ORY_API_KEY=<your-api-key>`
 - Run the example with `go run main.go`
 
 ### Create and delete identity
 
-With this example you [create an identity](https://www.ory.sh/docs/reference/api#tag/identity/operation/createIdentity) and
-[delete it](https://www.ory.sh/docs/reference/api#tag/identity/operation/deleteIdentity).
+With this example you [create an identity](https://www.ory.com/docs/reference/api#tag/identity/operation/createIdentity) and
+[delete it](https://www.ory.com/docs/reference/api#tag/identity/operation/deleteIdentity).
 
 ```mdx-code-block
 import createDeleteIdentity from '!!raw-loader!../../../code-examples/sdk/go/identity/create-delete-identity.go'
@@ -272,7 +273,7 @@ import createDeleteIdentity from '!!raw-loader!../../../code-examples/sdk/go/ide
 
 ### Get identity
 
-[Get an identity](https://www.ory.sh/docs/reference/api#tag/identity/operation/getIdentity) by its ID. You can optionally include
+[Get an identity](https://www.ory.com/docs/reference/api#tag/identity/operation/getIdentity) by its ID. You can optionally include
 credentials, in this example social sign in connections.
 
 ```mdx-code-block
@@ -283,7 +284,7 @@ import gettoken from '!!raw-loader!../../../code-examples/sdk/go/social/get_toke
 
 ### Patch identity
 
-[Patch an identity](https://www.ory.sh/docs/reference/api#tag/identity/operation/patchIdentity). In this example this is used to
+[Patch an identity](https://www.ory.com/docs/reference/api#tag/identity/operation/patchIdentity). In this example this is used to
 set the identity `state`.
 
 ```mdx-code-block
@@ -294,7 +295,7 @@ import state from '!!raw-loader!../../../code-examples/sdk/go/identity/state.go'
 
 ### Delete session
 
-[Delete a specific session](https://www.ory.sh/docs/reference/api#tag/identity/operation/disableSession).
+[Delete a specific session](https://www.ory.com/docs/reference/api#tag/identity/operation/disableSession).
 
 ```mdx-code-block
 import disableSession from '!!raw-loader!../../../code-examples/sdk/go/session/disable-session.go'
@@ -304,7 +305,7 @@ import disableSession from '!!raw-loader!../../../code-examples/sdk/go/session/d
 
 ### Delete sessions
 
-[Delete all sessions](https://www.ory.sh/docs/reference/api#tag/identity/operation/deleteIdentitySessions) for a user.
+[Delete all sessions](https://www.ory.com/docs/reference/api#tag/identity/operation/deleteIdentitySessions) for a user.
 
 ```mdx-code-block
 import deleteIdentitySessions from '!!raw-loader!../../../code-examples/sdk/go/session/delete-sessions.go'
@@ -314,7 +315,7 @@ import deleteIdentitySessions from '!!raw-loader!../../../code-examples/sdk/go/s
 
 ### Get session
 
-[Get a specifc session](https://www.ory.sh/docs/reference/api#tag/identity/operation/getSessio<n).
+[Get a specifc session](https://www.ory.com/docs/reference/api#tag/identity/operation/getSessio<n).
 
 ```mdx-code-block
 import getSession from '!!raw-loader!../../../code-examples/sdk/go/session/get-session.go'
@@ -324,7 +325,7 @@ import getSession from '!!raw-loader!../../../code-examples/sdk/go/session/get-s
 
 ### Get sessions
 
-[Get all sessions](https://www.ory.sh/docs/reference/api#tag/identity/operation/listSessions) for all users.
+[Get all sessions](https://www.ory.com/docs/reference/api#tag/identity/operation/listSessions) for all users.
 
 ```mdx-code-block
 import listSessions from '!!raw-loader!../../../code-examples/sdk/go/session/get-sessions.go'
@@ -334,7 +335,7 @@ import listSessions from '!!raw-loader!../../../code-examples/sdk/go/session/get
 
 ### Refresh session
 
-[Extend a session](https://www.ory.sh/docs/reference/api#tag/identity/operation/extendSession).
+[Extend a session](https://www.ory.com/docs/reference/api#tag/identity/operation/extendSession).
 
 ```mdx-code-block
 import extendSession from '!!raw-loader!../../../code-examples/sdk/go/session/refresh-session.go'

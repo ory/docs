@@ -275,7 +275,7 @@ HTTP Requests that include one of the matching IP Addresses in the `X-Forwarded-
 
 The HTTP `Accept` Header is the most common way to tell an HTTP API what MIME content type is expected. For example, FireFox sends
 `Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8` for all regular requests for example when opening
-[www.ory.sh](https://www.ory.sh/). And a REST API Client usually sends `Accept: application/json`.
+[www.ory.com](https://www.ory.com/). And a REST API Client usually sends `Accept: application/json`.
 
 Therefore, using the `Accept` header is one of the most common ways to distinguish between "regular" browser traffic, REST API
 traffic, and other types of HTTP traffic.

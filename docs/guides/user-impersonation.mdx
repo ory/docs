@@ -29,7 +29,7 @@ A secure impersonation flow doesn't create a new login session for the user bein
 user's authenticated identity. The system always knows who the authenticated impersonating user is.
 
 The crucial check relies on the immutable identity provided by Ory, such as the `identity.id` from the
-[/whoami](https://www.ory.sh/docs/reference/api#tag/frontend/operation/toSession) API response from Ory Kratos or the `subject`
+[/whoami](https://www.ory.com/docs/reference/api#tag/frontend/operation/toSession) API response from Ory Kratos or the `subject`
 claim from an OAuth2 token introspection from Ory Hydra.
 
 This approach preserves the core promises of both authentication and authorization:
@@ -51,12 +51,12 @@ code.
 The middleware performs these steps:
 
 1.  It identifies the authenticated user from a valid session. With Ory Kratos, this is the `identity.id` from the
-    [/whoami](https://www.ory.sh/docs/reference/api#tag/frontend/operation/toSession) API response. With Ory Hydra it is the
+    [/whoami](https://www.ory.com/docs/reference/api#tag/frontend/operation/toSession) API response. With Ory Hydra it is the
     subject claim from an OAuth2 token introspection.
 1.  It looks for an impersonation instruction in the request, for example a special HTTP header or a query parameter that contains
     the ID of the user to impersonate.
 1.  When it detects an impersonation request, the middleware performs an authorization check - for example with
-    [Ory Keto](https://www.ory.sh/docs/reference/api#tag/permission/operation/checkPermission). For example, "Does the
+    [Ory Keto](https://www.ory.com/docs/reference/api#tag/permission/operation/checkPermission). For example, "Does the
     authenticated user have permission to impersonate this user?"
 1.  If the authorization check passes, the middleware sets the impersonated user's ID as the effective subject for the downstream
     request. It's good practice to also pass along the impersonating user's ID in a separate header (for example,
