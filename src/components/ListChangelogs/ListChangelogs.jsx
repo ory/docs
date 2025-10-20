@@ -96,10 +96,12 @@ export default function ListChangelogs({ dir }) {
 
   const keys = ctx.keys().sort(compareSemverDesc)
   const Components = keys.map((k) => ctx(k).default)
-  const raws = rawCtx ? keys.map((k) => {
-    const mod = rawCtx(k)
-    return typeof mod === "string" ? mod : mod.default
-  }) : keys.map(() => "")
+  const raws = rawCtx
+    ? keys.map((k) => {
+        const mod = rawCtx(k)
+        return typeof mod === "string" ? mod : mod.default
+      })
+    : keys.map(() => "")
 
   return (
     <>
