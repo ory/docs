@@ -18,7 +18,7 @@ samples, guidance on mobile development, and a full API reference.
 ## Run your Flutter Web App
 
 ```shell-session
-flutter run -d web-server --web-port 4005
+flutter run -d web-server --web-port 4000
 ```
 
 ```mdx-code-block
@@ -27,14 +27,14 @@ import SdkEnvVar from '@site/src/components/SdkEnvVar'
 <SdkEnvVar />
 ```
 
-Start the Ory Cli tunnel on [http://localhost:3005](http://localhost:3005) and
-set the proxied application to [http://localhost:4005](http://localhost:4005).
+Start the Ory Cli tunnel on [http://localhost:3000](http://localhost:3000) and
+set the proxied application to [http://localhost:4000](http://localhost:4000).
 
 ```shell-session
-ory tunnel --port 3005 http://localhost:4005
+ory tunnel --port 3000 http://localhost:4000
 ```
 
-Open the browser on [http://localhost:4005](http://localhost:4005) you should
+Open the browser on [http://localhost:4000](http://localhost:4000) you should
 now see the Ory managed Login page.
 
 ## Release Build
@@ -50,7 +50,7 @@ We then need an HTTP server to serve the files, we will use
 [dhttpd](https://pub.dev/packages/dhttpd).
 
 ```shell-session
-dhttpd --host localhost --port 4005 --path build/web
+dhttpd --host localhost --port 4000 --path build/web
 ```
 
 See here for more information on
