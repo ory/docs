@@ -20,19 +20,26 @@ The Account Experience can be themed using the Ory Console. Head over to the
 [theming settings](https://console.ory.sh/projects/current/account-experience/theming). It is also possible to set a custom logo
 and favicon.
 
-## Welcome Screen
-
-The Account Experience comes with a welcome screen that shows information about the current user's session. As this screen is
-rather meant for debugging purposes, it can be disabled in the [Ory Console](https://console.ory.sh/projects/current/ui).
-
 ## Translations (i18n) & Message Customization
 
 Currently, the account experience is available in 83 languages. For a full list of available languages please have a look at
 [the source](https://github.com/ory/elements/tree/main/packages/elements-react/src/locales). If you want to add a new language or
-fix some wording, please open a pull request in [ory/elements](https://github.com/ory/elements#internalization-i18n). To determine
-the language to use, the Account Experience uses the `Accept-Language` header. If the language is not available, the fallback
-language (English) is used. Custom translations are not supported at the moment, but please reach out if you need this feature.
+fix some wording, please open a pull request in [ory/elements](https://github.com/ory/elements#internalization-i18n).
 
-## Custom Domains
+By default, the Account Experience automatically adapts to the user's language preferences, and offers translations for all
+supported languages. Each language can be enabled or disabled in the Ory Console
+under&nbsp;<ConsoleLink route="project.accountExperience.locales" />.
 
-The Account Experience is also available under custom domains the same way it works on the slug URL.
+To determine the language to use, the Account Experience uses the `Accept-Language` header. If the language is not available, the
+Default Language (English) is used. To change the default language, go
+to&nbsp;<ConsoleLink route="project.accountExperience.locales" /> and select your preferred default language.
+
+To turn off automatic language detection, disable **Respect the user's system language preferences** in the Ory Console
+under&nbsp;<ConsoleLink route="project.accountExperience.locales" />.
+
+### Custom locales
+
+You can customize any of the existing translations or add your own translations in the Ory Console
+under&nbsp;<ConsoleLink route="project.accountExperience.locales" />. Click on the edit icon for the language you want to
+customize, and then modify the messages as needed. Custom translations will override the default translations provided by Ory
+Elements.
