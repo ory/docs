@@ -5,14 +5,33 @@ sidebar_label: Design your identity schema
 sidebar_position: 3
 ---
 
-To match identities from your current system with the new Ory system, you can customize the identity schema in Ory to meet your
-specific requirements. This schema defines the types of data that the system can store for users, including names, email
-addresses, phone numbers, and other authentication-related information. Additionally, you can specify extra metadata fields to be
-included in user profiles. Ory offers default presets to assist you in creating and managing identity schemas. More details about
-identity schemas can be found [here](../../kratos/manage-identities/identity-schema).
+To align identities from your current system with Ory, you can customize the identity schema to meet your specific requirements. 
+This ability to customize the identity schema means you can enhance and improve your old identity schema during the migration process. 
 
-- Do store profile data in your identity that is used across your system. This includes the usernames, email addresses, phone
-  numbers, first names, and last names.
-- Do not store business logic in your identity, store this information in other systems, such as your application database. This
-  includes for example credit card information, shipping addresses, shopping cart items, or user preferences. See also the
-  following section on backend integration.
+The identity schema, which implements the JSON Schema standard, defines the types of data the system can store for users—such as 
+names, email addresses, phone numbers, or birthdays—and controls business logic by specifying which fields serve as login 
+identifiers and which are used for verification or recovery. 
+
+Identities have two main data types: traits (attributes that users can modify themselves, such as username or email address) 
+and metadata (attributes defined by system admins that can only be updated through admin APIs. Metadata is useful for storing 
+information like subscription status, legacy user IDs, or basic roles). Metadata comes in two forms: public (visible to 
+users via session endpoints) and admin (only accessible through admin APIs). 
+
+## Best practices for identity schema design:
+
+### Do:
+
+- Use the identity schema for basic profile information that's used across your system, including usernames, email addresses, 
+phone numbers, first names, and last names
+- Store authentication-related data like login identifiers and verification addresses in traits
+- Use metadata fields for system-managed information like legacy user IDs, subscription status, or basic roles
+
+### Don't:
+
+- Store sensitive internal data or information that should be obfuscated from users in the identity schema, since users can 
+see traits and other data (except credentials) using the `/sessions/whoami` endpoint
+- Store business logic or application-specific data like credit card information, shipping addresses, shopping cart items, or 
+detailed user preferences—keep this in your application database instead
+
+Ory provides preset schemas to help you get started quickly. For detailed guidance on customizing schemas, see the 
+[identity schemas](../../kratos/manage-identities/identity-schema) documentation.
