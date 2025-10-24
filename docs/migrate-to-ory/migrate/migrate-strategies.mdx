@@ -1,106 +1,116 @@
 ---
 id: migrate-strategies
-title: Choose your migration strategy
-sidebar_label: Choose your migration strategy
+title: Choose your IAM migration strategy
+sidebar_label: Choose your IAM migration strategy
 sidebar_position: 2
 ---
+This section covers both the strategies for migrating user identities to Ory and the broader considerations for 
+rolling out the Ory IAM system across all your applications. While user identity migration focuses on transferring user 
+accounts, credentials, and profile data, the IAM rollout determines how and when each application transitions to using Ory 
+for authentication and authorization. Understanding both dimensions is essential for planning a successful transition—the 
+strategy you choose for migrating user identities may differ for each phase in which you roll out the Ory IAM functionality across your 
+application portfolio.
 
-When migrating user data, there are two main steps in the migration process; the first is a backfill, in which existing data 
-is transferred from the old system to the new system, and the second is a cutover or "go-live event", in which users authenticate with the new 
-system for the first time. There are three main migration strategies that consider these steps as well as when you turn-off your old system.
+Your choice of migration strategy depends on your specific requirements, technical constraints, and tolerance for user impact. 
+It should be driven by several key factors: the complexity of your system, the size of your user base, and your organization's 
+risk tolerance and downtime constraints. 
 
-The three main migration strategies are:
+## Choosing your user identity migration strategy
 
-- **Big bang** - Migrate all users at once.
-- **Stepped** - Migrate your applications or user segments individually. _This is the most common choice_.
-- **Graceful** - Migrate when a user authenticates, running both solutions in parallel.
+Ory supports two primary identity migration strategies: 
 
-Each migration strategy has its strengths and challenges. Which migration strategy you choose depends on factors such as the 
-complexity of your system, the number of users, and your organization's tolerance for risk and downtime.
+- **Bulk migration** - Migrate all users at once.
+- **Graceful migration** -  Migrate when a user authenticates, running old and new solutions in parallel.
 
-:::info
+By carefully understanding these methods and planning accordingly, you can ensure a smooth and secure transition for your users to 
+Ory Network.
 
-While your choice of migration strategy is mostly influenced by user data, if you have a complex system or are risk adverse, you might 
-choose your migration strategy based on its ability to breakdown the migration into a series of migrations. This lets you test your 
-processes in production by migrating less critical, sets of users or applications first and learning lessons to improve the migration process.
+### Bulk identity migration
 
-:::
+In a bulk identity migration, also known as "big bang" or "offline" migration, all user data is migrated at once, and a single 
+"go-live" event is scheduled, where all users start using the new system simultaneously.
 
-### Big bang migration
+#### When to use bulk identity migration
+A bulk identity migration can involve some risk and downtime, but it is recommended when:
 
-In a big bang migration, also known as "offline migration", all user data is transferred at once, and a single "go-live" event is
-scheduled, where all users start using the new system simultaneously.
+- The number of users is low and applications or services are simple
+- Planned system downtime due to the "go-live" event isn't a problem
+- You need to retire the current solution soon
+- Your legacy IAM vendor restricts your ability to use a graceful identity migration strategy (for example, Auth0).
 
-#### Recommendation
-A big bang migration is often not the best choice due to the risk and downtime, but it is recommended when:
+##### Advantages of bulk identity migration
 
-- The number of users is low / app is simple
-- Downtime isn't a problem
-- You need to retire the current solution yesterday
+- Simplicity: Since there is only one "go-live", the identity migration process is easier to manage and plan.
+- Time efficiency: The identity migration process happens in one go, reducing the transition time.
+- Less complexity: There is no need to run two systems in parallel and you can retire the previous solution immediately after
+testing and validating the migration.
 
-#### Advantages of big bang migration
+##### Drawbacks of bulk identitiy migration
 
-- Simplicity: Since there is only one "go-live", the migration process is easier to manage and plan.
-- Time efficiency: The migration process happens in one go, reducing the time needed for the transition.
-- Less complexity: There is no need to run two systems in parallel and you can retire the previous solution immediately.
-
-#### Drawbacks of big bang migration
-
-- High risk: If any issues occur during the cutover, the impact can be significant, affecting all users.
+- High risk: If any issues occur during the cutover, the impact can be significant, affecting all users. If might be difficult
+to perform a rollback.
 - Downtime: This approach may require planned system downtime to ensure data consistency, which can disrupt users.
 - Increased preparation: Requires extensive planning and testing to mitigate risks, making it more resource-intensive during that
   phase.
 
-### Stepwise migration
+### Graceful identity migration
 
-Stepwise migration, also called "application-based migration", involves transferring user data in phases, focusing on specific
-applications, services, or user segments at a time. This approach results in multiple "go-lives", each affecting a defined group
-of users.
+Graceful identity migration - also called "automatic", "trickle", "just-in-time", or "online" migration - involves running both the old and
+new systems in parallel, gradually migrating user identities as the user authenticates. This approach features two "go-lives": the initial
+application "go-live" and subsequent user-specific cutovers during login.
 
-#### Recommendation
-A stepwise migration is the best choice in most cases, especially when:
+#### When to use graceful identity migration
+A graceful identity migration is a good choice when:
 
-- You manage multiple apps/segments of users with different underlying auth systems
-- You need to keep active sessions live during the migration
-- Downtime should be mostly avoided
-- You have some time to migrate
+- You don't have access to hashed credentials or they are hashed with a proprietary algorithm
+- Authentication system downtime is not acceptable
+- Running the current solution until the end of migration isn't a problem
+- You need a smooth user experience, so your users will not notice the migration
 
-#### Advantages of stepwise migration
+##### Advantages of graceful identity migration
+
+- Low risk: The gradual identity migration reduces the risk of widespread issues, as only a few users are affected at any given time.
+- No hashed credentials needed: Users are migrated during their "normal" authentication process, so you don't need to import
+  credentials. Great if you don't have access to the hashed credentials.
+- No downtime: Both authentication systems operate simultaneously until the identity migration is completed.
+
+##### Drawbacks of graceful identity migration
+
+- Extended migration period: The process takes longer as users are migrated individually over time.
+- Increased complexity: Maintaining synchronization between two systems adds complexity to the migration process. (You need to 
+ensure identites are synchronized in both systems in case a rollback is required.) In addition, a graceful migration requires 
+additional coding effort to implement Ory's [password migration using a web hook](https://www.ory.com/docs/kratos/manage-identities/import-user-accounts-identities#password-migration-using-a-web-hook).
+- Potential for data inconsistencies: If not carefully managed, there may be discrepancies between the old and new systems during the
+  transition period. 
+
+## Choosing your IAM system rollout strategy
+
+Simpler systems with homogenous segments of users and only one legacy authenication system to migrate from can be migrated in 
+one IAM system rollout. However, complex systems or risk-averse organizations may benefit from a "stepwise", "application-based", 
+or a "phased" rollout approach. This allows you to test processes in production by migrating less critical user segments or 
+applications first, learning valuable lessons to refine your approach before a broader rollout.
+
+A stepwise approach involves migrating both user identities and applications/services in phases, focusing on specific applications, 
+services, or user segments. This approach results in multiple "go-lives", each affecting a defined group of users or applications/services. 
+A stepwise approach can employ bulk migration or graceful migration strategies, or a hybrid of both. The key difference is that a 
+specific segment of users or authenication for a specific application or service is migrated separately, each in its own specific phase.
+
+### When to use a stepwise rollout approach
+A stepwise approach is the best choice in most cases, especially when:
+
+- You manage multiple enterpise-level applications with different underlying authentication systems 
+- You manage diverse segments of users with different underlying authentication systems
+- You have a complex system, and you want to reduce the risk of unknown consequences and improve the process iteratively.
+
+### Advantages of stepwise rollout approach
 
 - Reduced risk: By migrating in phases, issues are isolated to specific apps or user segments.
 - Flexibility: Allows for adjustments and optimizations between phases based on lessons learned.
 - Minimized/no downtime: Since the migration occurs in stages, downtime can be limited to smaller user groups or avoided
   completely.
 
-#### Drawbacks of stepwise migration
+### Drawbacks of stepwise rollout approach
 
 - Complex management: Multiple "go-lives" require more coordination and detailed planning, increasing operational complexity.
-- Extended timeline: The migration process takes longer as it is broken down into phases.
+- Extended timeline: The time to migrate the whole system takes longer as it is broken down into phases.
 - Resource demands: Running both systems in parallel during the transition can strain resources.
-
-### Graceful migration
-
-Graceful migration - also called "slow migration", "rolling migration", or "online migration" - involves running both the old and
-new systems in parallel, gradually migrating users as they authenticate. This approach features two "go-lives": the initial
-application "go-live" and subsequent user-specific cutovers during login.
-
-#### Recommendation
-A graceful migration is a good choice when:
-
-- You don't have access to hashed credentials or they are hashed with a proprietary algorithm
-- Absolutely no downtime is acceptable
-- Running the current solution until the end of migration isn't a problem
-
-#### Advantages of graceful migration
-
-- Low risk: The gradual transition reduces the risk of widespread issues, as only a few users are affected at any given time.
-- No hashed credentials needed: Users are migrated during their "normal" authentication process, so you don't need to import
-  credentials. Great if you don't have access to the hashed credentials.
-- No downtime: Both systems operate simultaneously until the migration is completed.
-
-#### Drawbacks of graceful migration
-
-- Extended migration period: The process takes longer as users are migrated individually over time.
-- Increased complexity: Maintaining synchronization between two systems adds complexity to the migration process.
-- Potential for data inconsistencies: If not carefully managed, there may be discrepancies between the two systems during the
-  transition period.
