@@ -1,0 +1,60 @@
+---
+id: high-performance-pooling
+title: High-performance database connection pooling
+sidebar_label: High-performance pooling
+---
+
+High-performance pooling is available only in the Ory Enterprise License (OEL). It uses
+[pgxpool](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool) and provides additional configuration options for managing database
+connections under variable load.
+
+To activate high-performance pooling, you must set the `pool_min_conns` parameter, otherwise high-performance pooling will not be
+enabled.
+
+- `pool_min_conns` (number): The minimum number of total (in-use and idle) database connections to keep open at all times. After a
+  connection closes, the pool may dip below `pool_min_conns` momentarily. Defaults to 0.
+- `pool_max_conns` (number): Sets the maximum number of open connections to the database. Overrides `max_conns`.
+- `pool_max_conn_idle_time` (duration: for example "500ms", "5s", "30m", "1h"): Database connections will be closed after idling
+  for this duration. Overrides `max_conn_idle_time`.
+- `pool_max_conn_lifetime` (duration: for example "500ms", "5s", "30m", "1h"): Sets the time after which a connection will be
+  closed, irrespective of how long it has been idle. Overrides `max_conn_lifetime`.
+- `pool_max_conn_lifetime_jitter` (duration: for example "500ms", "5s", "30m", "1h"): Jitter to add to the
+  `pool_max_conn_lifetime` value. This is useful to avoid thundering herd problems when many connections are closed and re-opened
+  at the same time.
+- `pool_health_check_period` (duration: for example "500ms", "5s", "30m", "1h"): Sets the period for health checks to potentially
+  kill stale connections. Defaults to "1m".
+
+## Key differences from standard pooling
+
+### Standard pooling behavior
+
+- Opens connections on demand
+- Closes idle connections after timeout
+- During traffic spikes, must initialize many new connections simultaneously
+- Can cause database overload, timeouts, or connection storms when traffic surges suddenly
+
+### High-performance pooling behavior
+
+- Maintains min_pool connections open at all times
+- Traffic spikes use pre-established connections
+- Avoids connection initialization overhead during demand peaks
+- Reduces risk of overwhelming the database during sudden load increases
+
+### Connection refresh jitter
+
+High-performance pooling includes randomized jitter when refreshing connections. This prevents synchronized connection resets that
+could cause momentary overload when all connections attempt to restart simultaneously.
+
+## When to use high-performance pooling
+
+Consider high-performance pooling when your workload exhibits:
+
+- Large, unpredictable traffic spikes
+- Sudden transitions from low to high request volume
+- Time-sensitive operations where connection initialization latency is problematic
+
+For steady-state traffic or gradual load changes, standard pooling may be enough.
+
+High-performance pooling does not reload TLS certificates while the process is running. If database TLS certificates change, you
+must restart the Ory service to establish connections using the new certificates. Standard pooling supports hot reloading of TLS
+certificates because connections close after idle timeout and reconnect with refreshed credentials.
