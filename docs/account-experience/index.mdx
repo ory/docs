@@ -22,24 +22,104 @@ and favicon.
 
 ## Translations (i18n) & Message Customization
 
-Currently, the account experience is available in 83 languages. For a full list of available languages please have a look at
-[the source](https://github.com/ory/elements/tree/main/packages/elements-react/src/locales). If you want to add a new language or
-fix some wording, please open a pull request in [ory/elements](https://github.com/ory/elements#internalization-i18n).
+The Ory Account Experience is available in 83 languages.
 
-By default, the Account Experience automatically adapts to the user's language preferences, and offers translations for all
-supported languages. Each language can be enabled or disabled in the Ory Console
-under&nbsp;<ConsoleLink route="project.accountExperience.locales" />.
+<details>
+<summary>Full list of supported languages</summary>
 
-To determine the language to use, the Account Experience uses the `Accept-Language` header. If the language is not available, the
-Default Language (English) is used. To change the default language, go
-to&nbsp;<ConsoleLink route="project.accountExperience.locales" /> and select your preferred default language.
+- Afrikaans (`af`)
+- Akan (`ak`)
+- Amharic (`am`)
+- Arabic (`ar`)
+- Assamese (`as`)
+- Azerbaijani (Latin) (`az`)
+- Belarusian (`be`)
+- Bulgarian (`bg`)
+- Bamanankan (`bm`)
+- Bangla (`bn`)
+- Catalan (`ca`)
+- Czech (`cs`)
+- Danish (`da`)
+- German (`de`)
+- Greek (`el`)
+- English (`en`)
+- Spanish (`es`)
+- Estonian (`et`)
+- Persian (`fa`)
+- Finnish (`fi`)
+- French (`fr`)
+- Gujarati (`gu`)
+- Hausa (Latin) (`ha`)
+- Hebrew (`he`)
+- Hindi (`hi`)
+- Croatian (`hr`)
+- Hungarian (`hu`)
+- Armenian (`hy`)
+- Indonesian (`id`)
+- Igbo (`ig`)
+- Italian (`it`)
+- Japanese (`ja`)
+- Georgian (`ka`)
+- Kazakh (`kk`)
+- Khmer (`km`)
+- Kannada (`kn`)
+- Korean (`ko`)
+- Central Kurdish (`ku`)
+- Kyrgyz (`ky`)
+- Lithuanian (`lt`)
+- Latvian (`lv`)
+- Macedonian (`mk`)
+- Malayalam (`ml`)
+- Mongolian (Cyrillic) (`mn`)
+- Marathi (`mr`)
+- Malay (`ms`)
+- Burmese (`my`)
+- Nepali (`ne`)
+- Dutch (`nl`)
+- Norwegian (Bokmal) (`no`)
+- Odia (`or`)
+- Punjabi (`pa`)
+- Polish (`pl`)
+- Pashto (`ps`)
+- Portuguese (`pt`)
+- Romanian (`ro`)
+- Russian (`ru`)
+- Sindhi (`sd`)
+- Sinhala (`si`)
+- Slovak (`sk`)
+- Slovenian (`sl`)
+- Somali (`so`)
+- Albanian (`sq`)
+- Serbian (Latin) (`sr`)
+- Sundanese (`su`)
+- Swedish (`sv`)
+- Kiswahili (`sw`)
+- Tamil (`ta`)
+- Telugu (`te`)
+- Tajik (Cyrillic) (`tg`)
+- Thai (`th`)
+- Turkmen (`tk`)
+- Tagalog (`tl`)
+- Turkish (`tr`)
+- Uyghur (`ug`)
+- Ukrainian (`uk`)
+- Urdu (`ur`)
+- Uzbek (Latin) (`uz`)
+- Vietnamese (`vi`)
+- Xhosa (`xh`)
+- Yoruba (`yo`)
+- Chinese (Simplified) (`zh`)
+- Zulu (`zu`)
 
-To turn off automatic language detection, disable **Respect the user's system language preferences** in the Ory Console
-under&nbsp;<ConsoleLink route="project.accountExperience.locales" />.
+</details>
 
-### Custom locales
+The source is available in the
+[GitHub repository of Ory Elements](https://github.com/ory/elements/tree/main/packages/elements-react/src/locales).
 
-You can customize any of the existing translations or add your own translations in the Ory Console
-under&nbsp;<ConsoleLink route="project.accountExperience.locales" />. Click on the edit icon for the language you want to
-customize, and then modify the messages as needed. Custom translations will override the default translations provided by Ory
-Elements.
+To determine the language to use, the Account Experience uses the `Accept-Language` header. If the language isn't available, the
+fallback language (English) is used. Custom translations are supported as well, use the edit button next to the language to
+override the default translations.
+
+## Custom Domains
+
+The Account Experience is also available under custom domains the same way it works on the slug URL.
