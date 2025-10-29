@@ -9,7 +9,7 @@ This page guides you through setting up SCIM provisioning from Google Workspace 
 [automated user provisioning documentation](https://support.google.com/a/topic/6400789?hl=en&ref_topic=7556794&sjid=1261578791225148038-NC)
 for more information.
 
-## Create Keeper SAML app in Google workspace
+### Create Keeper SAML app in Google workspace
 
 Login to the [Google Workspace Admin Console](https://admin.google.com/).
 
@@ -25,3 +25,15 @@ In the **Google Identity Provider details** window, for **Option 1: Download IdP
 metadata file can be used to add a SAML connection. Click **Continue**.
 
 ![Download IdP metadata](google-screenshots/download-metadata.png)
+
+On the Service provider details page, set the values for **ACS URL** and **Entity ID** from Ory Network. To ensure that the entire
+SAML authentication response is signed, check the Signed response box. The **Name ID** should be **EMAIL**. Click **Continue**.
+
+![Set service provider details](google-screenshots/sp-details.png)
+
+In the **Attribute mapping** tab click the **Select field** menu to choose a field name for Google Directory attributes. Click
+**Finish**.
+
+![Map attributes](google-screenshots/attribute-mapping.png)
+
+### Configure User Access
