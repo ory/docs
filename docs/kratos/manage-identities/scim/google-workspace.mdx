@@ -37,3 +37,46 @@ In the **Attribute mapping** tab click the **Select field** menu to choose a fie
 ![Map attributes](google-screenshots/attribute-mapping.png)
 
 ### Configure User Access
+
+In the created SAML app, under the **User access** section click on **OFF for everyone**.
+
+![User access](google-screenshots/user-access.png)
+
+Select **ON for everyone** to activate SSO.
+
+![On for everyone](google-screenshots/on-for-all.png)
+
+You have successfully configured the Google App as a SAML Identity Provider (IdP). Using the downloaded metadata, you can now add
+an SSO connection in Ory Network.
+
+### Set up provisioning
+
+Under the provisioning section of the created app click on **Configure autoprovisioning**.
+
+![Configure autoprovisioning](google-screenshots/configure-autoprovisioning.png)
+
+For the **Access token** enter the SCIM token you created in the Ory Network.
+
+![Access token](google-screenshots/access-token.png)
+
+For the **Endpoint URL** enter the SCIM server URL from your Ory Network SCIM server.
+
+![Endpoint URL](google-screenshots/endpoint-url.png)
+
+In attribute mapping screen ensure the right attributes are mapped for the app. Complete the remaining steps by setting the
+provisioning scope to particular groups (if required) and setting the deprovisioning settings.
+
+![Attribute mapping SCIM](google-screenshots/attribute-mapping-scim.png)
+
+Finally click **Finish**. Toggle the **Autoprovisioning** to **Active** to complete the setup.
+
+![Toggle Autoprovisioning active](google-screenshots/toggle-active.png)
+
+### Troubleshooting
+
+When the provisioning fails, the error will be logged. In Ory Network, navigate to Activity > Logs & Events and look for SCIM
+provisioning error events.
+
+### Limitations
+
+There is no support for group memberships with Google SCIM.
