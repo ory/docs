@@ -55,6 +55,8 @@ Consider high-performance pooling when your workload exhibits:
 
 For steady-state traffic or gradual load changes, standard pooling may be enough.
 
+## When not to use high-performance pooling
+
 High-performance pooling does not reload TLS certificates while the process is running. If database TLS certificates change, you
 must restart the Ory service to establish connections using the new certificates. Standard pooling supports hot reloading of TLS
 certificates because connections close after idle timeout and reconnect with refreshed credentials.
