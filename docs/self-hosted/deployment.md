@@ -70,30 +70,8 @@ DSN=postgres://user:password@host:123/database?sslmode=verify-full
 
 ##### High-performance pooling
 
-:::note
-
-High-performance pooling is supported in Ory Enterprise License (OEL) images.
-
-:::
-
-High-performance pooling is built using [pgxpool](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool) and provides additional
-configuration options to the ones listed under "Standard pooling".
-
-To activate high-performance pooling, you must set at least the `pool_min_conns` parameter; otherwise, high-performance pooling
-will not be enabled.
-
-- `pool_min_conns` (number): The minimum number of total (in-use and idle) database connections to keep open at all times. After a
-  connection closes, the pool may dip below `pool_min_conns` momentarily. Defaults to 0.
-- `pool_max_conns` (number): Sets the maximum number of open connections to the database. Overrides `max_conns`.
-- `pool_max_conn_idle_time` (duration: for example "500ms", "5s", "30m", "1h"): Database connections will be closed after idling
-  for this duration. Overrides `max_conn_idle_time`.
-- `pool_max_conn_lifetime` (duration: for example "500ms", "5s", "30m", "1h"): Sets the time after which a connection will be
-  closed, irrespective of how long it has been idle. Overrides `max_conn_lifetime`.
-- `pool_max_conn_lifetime_jitter` (duration: for example "500ms", "5s", "30m", "1h"): Jitter to add to the
-  `pool_max_conn_lifetime` value. This is useful to avoid thundering herd problems when many connections are closed and re-opened
-  at the same time.
-- `pool_health_check_period` (duration: for example "500ms", "5s", "30m", "1h"): Sets the period for health checks to potentially
-  kill stale connections. Defaults to "1m".
+High-performance pooling is supported in Ory Enterprise License (OEL) images. Read more about it in the
+[high-performance pooling](./oel/high-performance-pooling) documentation.
 
 ### CockroachDB
 
