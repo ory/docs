@@ -673,6 +673,9 @@
             "description": "Holds the default locale for the account experience.",
             "type": "string"
           },
+          "account_experience_enabled_locales": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
           "account_experience_favicon_dark": {
             "description": "Holds the URL to the account experience's dark theme favicon (currently unused).",
             "type": "string"
@@ -2455,6 +2458,12 @@
           "default_redirect_url": {
             "type": "string"
           },
+          "enabled_locales": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "error_ui_url": {
             "type": "string"
           },
@@ -2527,7 +2536,8 @@
           "settings_ui_url",
           "error_ui_url",
           "default_redirect_url",
-          "translations"
+          "translations",
+          "enabled_locales"
         ],
         "type": "object"
       },
@@ -5233,6 +5243,9 @@
             "description": "Holds the default locale for the account experience.",
             "type": "string"
           },
+          "account_experience_enabled_locales": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
           "account_experience_favicon_dark": {
             "description": "Holds the URL to the account experience's dark theme favicon (currently unused).",
             "type": "string"
@@ -7519,7 +7532,6 @@
             "$ref": "#/components/schemas/projectRevisionSamlProviders"
           },
           "organization_id": {
-            "description": "Organization ID",
             "format": "uuid",
             "type": "string"
           },
@@ -7564,7 +7576,8 @@
           "scim_enabled",
           "kratos_selfservice_methods_saml_config_providers",
           "kratos_selfservice_methods_oidc_config_providers",
-          "scim_clients"
+          "scim_clients",
+          "organization_id"
         ],
         "type": "object"
       },
@@ -8628,7 +8641,7 @@
             "$ref": "#/components/schemas/RecoveryAddressType"
           }
         },
-        "required": ["id", "value", "via"],
+        "required": ["value", "via"],
         "type": "object"
       },
       "recoveryLinkForIdentity": {
