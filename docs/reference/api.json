@@ -673,6 +673,9 @@
             "description": "Holds the default locale for the account experience.",
             "type": "string"
           },
+          "account_experience_enabled_locales": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
           "account_experience_favicon_dark": {
             "description": "Holds the URL to the account experience's dark theme favicon (currently unused).",
             "type": "string"
@@ -2455,6 +2458,12 @@
           "default_redirect_url": {
             "type": "string"
           },
+          "enabled_locales": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "error_ui_url": {
             "type": "string"
           },
@@ -2527,7 +2536,8 @@
           "settings_ui_url",
           "error_ui_url",
           "default_redirect_url",
-          "translations"
+          "translations",
+          "enabled_locales"
         ],
         "type": "object"
       },
@@ -3023,6 +3033,22 @@
           },
           "expires_at": {
             "$ref": "#/components/schemas/Time"
+          },
+          "proxy_acs_url": {
+            "description": "Proxy ACS URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_oidc_redirect_url": {
+            "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_saml_audience_override": {
+            "description": "SAML Audience Override if overriding with a customer-controlled one",
+            "type": "string"
+          },
+          "proxy_scim_server_url": {
+            "description": "Proxy SCIM Server URL if overriding with a customer-controlled URL",
+            "type": "string"
           }
         },
         "required": ["enable_sso", "enable_scim"],
@@ -3641,7 +3667,7 @@
         },
         "type": "object"
       },
-      "getAttributesCountResponse": {
+      "getAttributesCount": {
         "description": "Response of the getAttributesCount endpoint",
         "properties": {
           "data": {
@@ -3665,7 +3691,25 @@
         },
         "type": "object"
       },
-      "getMetricsEventAttributesResponse": {
+      "getMetricsCount": {
+        "description": "Response of the getIdentityCount endpoint",
+        "properties": {
+          "count": {
+            "description": "The total count",
+            "format": "int64",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "service_name": {
+            "description": "Helper field to identify the service used for this response",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": ["count", "service_name"],
+        "type": "object"
+      },
+      "getMetricsEventAttributes": {
         "description": "Response of the getMetricsEventAttributes endpoint",
         "properties": {
           "events": {
@@ -3680,7 +3724,7 @@
         "required": ["events"],
         "type": "object"
       },
-      "getMetricsEventTypesResponse": {
+      "getMetricsEventTypes": {
         "description": "Response of the getMetricsEventTypes endpoint",
         "properties": {
           "events": {
@@ -3703,6 +3747,26 @@
         },
         "required": ["organization"],
         "title": "getOrganizationResponse represents a B2B SSO Organization.",
+        "type": "object"
+      },
+      "getProjectEvents": {
+        "description": "Response of the getProjectEvents endpoint",
+        "properties": {
+          "events": {
+            "description": "The list of data points.",
+            "items": {
+              "$ref": "#/components/schemas/ProjectEventsDatapoint"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "page_token": {
+            "description": "Pagination token to be included in next page request",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": ["events"],
         "type": "object"
       },
       "getProjectEventsBody": {
@@ -3744,27 +3808,7 @@
         "required": ["from", "to"],
         "type": "object"
       },
-      "getProjectEventsResponse": {
-        "description": "Response of the getProjectEvents endpoint",
-        "properties": {
-          "events": {
-            "description": "The list of data points.",
-            "items": {
-              "$ref": "#/components/schemas/ProjectEventsDatapoint"
-            },
-            "readOnly": true,
-            "type": "array"
-          },
-          "page_token": {
-            "description": "Pagination token to be included in next page request",
-            "readOnly": true,
-            "type": "string"
-          }
-        },
-        "required": ["events"],
-        "type": "object"
-      },
-      "getProjectMetricsResponse": {
+      "getProjectMetrics": {
         "description": "Response of the getMetrics endpoint",
         "properties": {
           "data": {
@@ -3779,7 +3823,7 @@
         "required": ["data"],
         "type": "object"
       },
-      "getSessionActivityResponse": {
+      "getSessionActivity": {
         "description": "Response of the getSessionActivity endpoint",
         "properties": {
           "data": {
@@ -4267,6 +4311,16 @@
         "required": ["project_slug", "path"],
         "type": "object"
       },
+      "internalIsOwnerForProjectBySlug": {
+        "properties": {
+          "project_id": {
+            "description": "ProjectID is the project's ID.",
+            "type": "string"
+          }
+        },
+        "required": ["project_id"],
+        "type": "object"
+      },
       "internalIsOwnerForProjectBySlugBody": {
         "description": "Is Owner For Project By Slug Request Body",
         "properties": {
@@ -4289,16 +4343,6 @@
           }
         },
         "required": ["subject", "namespace", "project_slug"],
-        "type": "object"
-      },
-      "internalIsOwnerForProjectBySlugResponse": {
-        "properties": {
-          "project_id": {
-            "description": "ProjectID is the project's ID.",
-            "type": "string"
-          }
-        },
-        "required": ["project_id"],
         "type": "object"
       },
       "introspectedOAuth2Token": {
@@ -5198,6 +5242,9 @@
           "account_experience_default_locale": {
             "description": "Holds the default locale for the account experience.",
             "type": "string"
+          },
+          "account_experience_enabled_locales": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
           "account_experience_favicon_dark": {
             "description": "Holds the URL to the account experience's dark theme favicon (currently unused).",
@@ -6333,6 +6380,12 @@
             "description": "ID is the provider's ID",
             "type": "string"
           },
+          "proxy_acs_url": {
+            "$ref": "#/components/schemas/String"
+          },
+          "proxy_saml_audience_override": {
+            "$ref": "#/components/schemas/String"
+          },
           "raw_idp_metadata_xml": {
             "description": "RawIDPMetadataXML is the raw XML metadata of the IDP.",
             "type": "string"
@@ -6385,6 +6438,9 @@
             "description": "OrganizationID is the organization ID for this SCIM server.",
             "format": "uuid",
             "type": "string"
+          },
+          "proxy_scim_server_url": {
+            "$ref": "#/components/schemas/String"
           },
           "state": {
             "description": "State indicates the state of the SCIM server\n\nOnly servers with state `enabled` will be available for SCIM provisioning.\nenabled ThirdPartyProviderStateEnabled\ndisabled ThirdPartyProviderStateDisabled",
@@ -6494,6 +6550,11 @@
           },
           "provider_id": {
             "description": "ID is the provider's ID",
+            "type": "string"
+          },
+          "proxy_oidc_redirect_url": {
+            "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+            "readOnly": true,
             "type": "string"
           },
           "requested_claims": {
@@ -6877,10 +6938,6 @@
           },
           "context": {
             "$ref": "#/components/schemas/JSONRawMessage"
-          },
-          "device_challenge_id": {
-            "description": "DeviceChallenge is the device challenge this consent challenge belongs to, if this flow was initiated by a device.",
-            "type": "string"
           },
           "login_challenge": {
             "description": "LoginChallenge is the login challenge this consent challenge belongs to. It can be used to associate\na login and consent request in the login \u0026 consent app.",
@@ -7432,6 +7489,22 @@
             "readOnly": true,
             "type": "string"
           },
+          "proxy_acs_url": {
+            "description": "Proxy ACS URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_oidc_redirect_url": {
+            "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_saml_audience_override": {
+            "description": "SAML Audience Override if overriding with a customer-controlled one",
+            "type": "string"
+          },
+          "proxy_scim_server_url": {
+            "description": "Proxy SCIM Server URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
           "value": {
             "description": "The onboarding portal link's value",
             "readOnly": true,
@@ -7459,12 +7532,27 @@
             "$ref": "#/components/schemas/projectRevisionSamlProviders"
           },
           "organization_id": {
-            "description": "Organization ID",
             "format": "uuid",
             "type": "string"
           },
           "organization_label": {
             "description": "Organization Label",
+            "type": "string"
+          },
+          "proxy_acs_url": {
+            "description": "Proxy ACS URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_oidc_redirect_url": {
+            "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_saml_audience_override": {
+            "description": "SAML Audience Override if overriding with a customer-controlled one",
+            "type": "string"
+          },
+          "proxy_scim_server_url": {
+            "description": "Proxy SCIM Server URL if overriding with a customer-controlled URL",
             "type": "string"
           },
           "revision_id": {
@@ -7488,7 +7576,8 @@
           "scim_enabled",
           "kratos_selfservice_methods_saml_config_providers",
           "kratos_selfservice_methods_oidc_config_providers",
-          "scim_clients"
+          "scim_clients",
+          "organization_id"
         ],
         "type": "object"
       },
@@ -8552,7 +8641,7 @@
             "$ref": "#/components/schemas/RecoveryAddressType"
           }
         },
-        "required": ["id", "value", "via"],
+        "required": ["value", "via"],
         "type": "object"
       },
       "recoveryLinkForIdentity": {
