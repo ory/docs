@@ -1,3 +1,6 @@
+// Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
+
 import { Navbar } from "@docusaurus/theme-common"
 
 export const navbar: Navbar = {
@@ -12,6 +15,25 @@ export const navbar: Navbar = {
   },
   items: [
     {
+      type: 'dropdown',
+      label: 'Product Line',
+      position: 'left',
+      items: [
+        {
+          label: 'Ory Network',
+          to: '/network/getting-started/overview',
+        },
+        {
+          label: 'Ory Enterprise License',
+          to: '/oel/getting-started/overview',
+        },
+        {
+          label: 'Open Source',
+          to: '/oss/getting-started/overview',
+        },
+      ],
+    },
+    {
       to: "/getting-started/overview",
       label: "Start",
       position: "left",
@@ -22,31 +44,31 @@ export const navbar: Navbar = {
       items: [
         {
           to: "/docs/identities",
-          label: "Ory Kratos Identities",
+          label: "Identities",
         },
         {
           to: "/docs/oauth2-oidc",
-          label: "Ory Hydra OAuth2",
+          label: "OAuth2 & OIDC",
         },
         {
           to: "/docs/keto",
-          label: "Ory Keto Permissions",
+          label: "Permissions",
         },
         {
           to: "/docs/polis",
-          label: "Ory Polis SAML",
+          label: "SAML",
         },
         {
           to: "/docs/oathkeeper",
-          label: "Ory Oathkeeper Zero Trust",
+          label: "Zero Trust",
         },
         {
           to: "/docs/self-hosted/oel",
-          label: "Ory Enterprise License",
+          label: "Enterprise License",
         },
         {
           to: "/docs/elements",
-          label: "Ory Elements",
+          label: "Elements",
         },
       ],
     },
@@ -69,8 +91,6 @@ export const navbar: Navbar = {
       ],
     },
     {
-      //   to: "/docs/reference/api",
-      //   to: "/docs/reference", // TODO: Use this route
       label: "Reference",
       position: "left",
       items: [
