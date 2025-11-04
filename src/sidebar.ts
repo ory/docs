@@ -441,6 +441,7 @@ const kratos: SidebarItemsConfig = [
             items: [
               "kratos/manage-identities/scim/ms-entra",
               "kratos/manage-identities/scim/okta",
+              "kratos/manage-identities/scim/google-workspace",
             ],
           },
 
