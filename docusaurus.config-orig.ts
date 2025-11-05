@@ -17,7 +17,7 @@ const config: Config = {
   baseUrl: "/docs/",
   favicon: "img/favico.png",
   onBrokenLinks: "warn",
-  onBrokenMarkdownLinks: "warn",
+  onBrokenMarkdownLinks: "throw",
   onDuplicateRoutes: "throw",
   organizationName: "ory",
   projectName: "docs",
@@ -142,53 +142,53 @@ const config: Config = {
     //     buttonPosition: "center-right",
     //   },
     // ],
-  async function tailwindcss(context, options) {
-    return {
-      name: "docusaurus-tailwindcss",
-      configurePostCss(postcssOptions) {
-        postcssOptions.plugins.push(require("@tailwindcss/postcss"))
-        return postcssOptions
-      },
-    }
-  },
-  // Just Network instance for testing
-  [
-    "@docusaurus/plugin-content-docs",
-    {
-      path: "docs",
-      id: 'network',
-      routeBasePath: "network",
-      sidebarPath: require.resolve("./sidebars-network.ts"),
-      editUrl: `https://github.com/ory/docs/edit/master`,
-      showLastUpdateAuthor: true,
-      showLastUpdateTime: true,
-      include: ["getting-started/**/*.{md,mdx}"],
-      docRootComponent: "@theme/DocRoot",
+    async function tailwindcss(context, options) {
+      return {
+        name: "docusaurus-tailwindcss",
+        configurePostCss(postcssOptions) {
+          // Use the new PostCSS plugin for Tailwind CSS
+          postcssOptions.plugins.push(require("@tailwindcss/postcss"))
+          return postcssOptions
+        },
+      }
     },
-  ],
-  "@docusaurus/plugin-content-pages",
-  require.resolve("./src/plugins/docusaurus-polyfill"),
-  "@docusaurus/plugin-sitemap",
-  /*
-[
-  "@docusaurus/plugin-client-redirects",
-  {
-    redirects: [
+    [
+      "@docusaurus/plugin-content-docs",
       {
-        from: "/quickstart/sdks",
-        to: "/sdk",
+        path: "docs",
+        sidebarPath: require.resolve("./src/sidebar.ts"),
+        editUrl: `https://github.com/ory/docs/edit/master`,
+        // editCurrentVersion: false,
+        routeBasePath: "/",
+        showLastUpdateAuthor: true,
+        showLastUpdateTime: true,
+        disableVersioning: false,
+        include: ["**/*.md", "**/*.mdx", "**/*.jsx", "**/*.tsx"],
+        docRootComponent: "@theme/DocRoot",
       },
     ],
-  },
-],
-*/
-  [
-    "@docusaurus/plugin-svgr",
-    {
-      svgrConfig: {},
-    },
+    "@docusaurus/plugin-content-pages",
+    require.resolve("./src/plugins/docusaurus-polyfill"),
+    // require.resolve("./src/plugins/docusaurus-static-fonts"),
+    "@docusaurus/plugin-sitemap",
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        redirects: [
+          {
+            from: "/quickstart/sdks",
+            to: "/sdk",
+          },
+        ],
+      },
+    ],
+    [
+      "@docusaurus/plugin-svgr",
+      {
+        svgrConfig: {},
+      },
+    ],
   ],
-],
   presets: [
     [
       "redocusaurus",

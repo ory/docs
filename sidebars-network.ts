@@ -10,16 +10,6 @@ const sidebars: SidebarsConfig = {
       label: 'Getting Started',
       items: ['getting-started/overview'],
     },
-    {
-      type: 'category',
-      label: 'Ory Identities',
-      items: ['identities/overview'],
-    },
-    {
-      type: 'category',
-      label: 'Ory OAuth2',
-      items: ['oauth2-oidc/overview'],
-    },
   ],
 };
 

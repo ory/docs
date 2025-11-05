@@ -16,7 +16,7 @@ export const navbar: Navbar = {
   items: [
     {
       type: 'dropdown',
-      label: 'Product Line',
+      label: 'Products',
       position: 'left',
       items: [
         {
@@ -28,7 +28,7 @@ export const navbar: Navbar = {
           to: '/oel/getting-started/overview',
         },
         {
-          label: 'Open Source',
+          label: 'Ory Open Source',
           to: '/oss/getting-started/overview',
         },
       ],
@@ -102,10 +102,10 @@ export const navbar: Navbar = {
           to: "/docs/category/ory-cli-reference",
           label: "Ory CLI",
         },
-        {
-          to: "/docs/sdk",
-          label: "Ory SDKs",
-        },
+        //{
+        //  to: "/docs/sdk",
+        //  label: "Ory SDKs",
+        //},
         {
           to: "/docs/category/operations-reference",
           label: "Operations",
