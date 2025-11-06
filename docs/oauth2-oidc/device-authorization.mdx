@@ -113,7 +113,7 @@ urls:
 ### Configuring user code entropy
 
 Depending on your security needs and your traffic load, you should choose the appropriate `user_code` entropy. The 
-`oauth2.device_authorization.user_code_entropy` configuration supports 3 values:
+`oauth2.device_authorization.user_code.entropy_preset` configuration supports 3 values:
 
 - `high`: `user_code` is 8 characters long and consists of alphanumeric characters, excluding some ambiguous symbols
 - `medium`: `user_code` is 8 characters long and consists of only upper case alphabetic characters
