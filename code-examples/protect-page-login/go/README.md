@@ -1,8 +1,10 @@
 # Protect page login Example in Go
 
-This example demonstrates protecting a page in a Go web server using the Ory SDK and Ory Account Experience.
+This example demonstrates protecting a page in a Go web server using the Ory SDK
+and Ory Account Experience.
 
-For the full step-by-step guide, see: [Integrate authentication into Go](https://www.ory.sh/docs/getting-started/integrate-auth/go)
+For the full step-by-step guide, see:
+[Integrate authentication into Go](https://www.ory.sh/docs/getting-started/integrate-auth/go)
 
 ## Prerequisites
 
@@ -25,9 +27,12 @@ go build -o server
 npx @ory/cli tunnel --dev http://localhost:3000 --project <project_id>
 ```
 
-3. Open http://localhost:3000 in your browser. You will be redirected to the Ory Account Experience for sign-in, and then returned to the protected page.
+3. Open http://localhost:3000 in your browser. You will be redirected to the Ory
+   Account Experience for sign-in, and then returned to the protected page.
 
 ## Notes
 
-- The server reads the tunnel port from `TUNNEL_PORT` (defaults to `4000`) and app port from `PORT` (defaults to `3000`).
-- This example’s middleware uses `ToSession` to validate the user session and redirects unauthenticated users to the login UI served via the Ory Tunnel.
+- The server reads the tunnel port from `TUNNEL_PORT` (defaults to `4000`) and
+  app port from `PORT` (defaults to `3000`).
+- This example’s middleware uses `ToSession` to validate the user session and
+  redirects unauthenticated users to the login UI served via the Ory Tunnel.
