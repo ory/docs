@@ -101,10 +101,12 @@ After the user grants their consent, the authentication server sends an access t
 
 To enable and configure the device authorization grant in Ory Hydra, adjust the following settings in your configuration file:
 
-```
+```yaml
 urls:
   device:
+    # The verification UI is where the user inputs the user-code
     verification: http://path/to/device/verification/ui
+    # The success UI is where the user is sent to after successful authorization
     success: http://path/to/device/success
 ```
 
