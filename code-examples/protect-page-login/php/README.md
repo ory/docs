@@ -1,8 +1,10 @@
 # Protect page login Example in PHP
 
-This example demonstrates protecting a page in a PHP web app using the Ory PHP SDK and the Ory Account Experience.
+This example demonstrates protecting a page in a PHP web app using the Ory PHP
+SDK and the Ory Account Experience.
 
-For the full step-by-step guide, see: [Integrate authentication into PHP](https://www.ory.sh/docs/getting-started/integrate-auth/php)
+For the full step-by-step guide, see:
+[Integrate authentication into PHP](https://www.ory.sh/docs/getting-started/integrate-auth/php)
 
 ## Prerequisites
 
@@ -25,18 +27,18 @@ composer install
 php -S 127.0.0.1:3000
 ```
 
-2. In another terminal, start the Ory Tunnel pointing to your local app and project:
+2. In another terminal, start the Ory Tunnel pointing to your local app and
+   project:
 
 ```bash
 npx @ory/cli tunnel --dev http://localhost:3000 --project <project_id>
 ```
 
-3. Open http://localhost:3000 in your browser. You will be redirected to the Ory Account Experience for sign-in, and then returned to the protected page.
+3. Open http://localhost:3000 in your browser. You will be redirected to the Ory
+   Account Experience for sign-in, and then returned to the protected page.
 
 ## Notes
 
 - The app reads the tunnel port from `TUNNEL_PORT` (defaults to `4000`).
-- The middleware uses `toSession` to validate the user session and redirects unauthenticated users to the login UI served via the Ory Tunnel.
-
-
-
+- The middleware uses `toSession` to validate the user session and redirects
+  unauthenticated users to the login UI served via the Ory Tunnel.
