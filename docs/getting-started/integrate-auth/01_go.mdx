@@ -119,7 +119,7 @@ go run .
 npx @ory/cli tunnel --dev http://localhost:3000
 ```
 
-3. Open [http://localhost:4000](http://localhost:4000) to access the application. Since the initial call is made by an
+3. Open [http://localhost:3000](http://localhost:3000) to access the application. Since the initial call is made by an
    unauthenticated user, the middleware doesn't detect a valid session and redirects to the login page of the defined Ory project.
    <br /> <br /> From there, you can create a new account or sign in using an existing identity. When you sign in, the session
    becomes valid and the application shows the `Dashboard` page with the session data.
