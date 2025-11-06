@@ -1,6 +1,7 @@
 {
   "require": {
-    "ory/client": "^1.20",
+    "php": ">=8.1",
+    "ory/client": "^1.22.8",
     "bramus/router": "^1.6"
   }
 }
