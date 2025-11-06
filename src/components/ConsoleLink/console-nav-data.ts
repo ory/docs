@@ -98,10 +98,9 @@ export const authenticationPaths: Path[] = [
     pill: "Preview",
   },
   {
-    title: "Enterprise SSO",
+    title: "Organizations",
     href: routes.project.authentication.organizations.route,
   },
-
   {
     title: "Sessions",
     href: routes.project.authentication.sessionSettings.route,
