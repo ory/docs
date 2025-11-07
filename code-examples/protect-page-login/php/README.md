@@ -1,4 +1,4 @@
-# Protect page login Example in PHP
+# Protect page with login example in PHP
 
 This example demonstrates a PHP web app page, built using Ory Account
 Experience, and protected using the Ory PHP SDK.
