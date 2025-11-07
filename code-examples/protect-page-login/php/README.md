@@ -1,7 +1,7 @@
 # Protect page login Example in PHP
 
-This example demonstrates protecting a page in a PHP web app using the Ory PHP
-SDK and the Ory Account Experience.
+This example demonstrates a PHP web app page, built using Ory Account
+Experience, and protected using the Ory PHP SDK.
 
 For the full step-by-step guide, see:
 [Integrate authentication into PHP](https://www.ory.sh/docs/getting-started/integrate-auth/php)
