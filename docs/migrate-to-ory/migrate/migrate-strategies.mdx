@@ -4,31 +4,119 @@ title: Choose your IAM migration strategy
 sidebar_label: Choose your IAM migration strategy
 sidebar_position: 2
 ---
-This section covers both the strategies for migrating user identities to Ory and the broader considerations for 
-rolling out the Ory IAM system across all your applications. While user identity migration focuses on transferring user 
-accounts, credentials, and profile data, the IAM rollout determines how and when each application transitions to using Ory 
-for authentication and authorization. Understanding both dimensions is essential for planning a successful transition—the 
-strategy you choose for migrating user identities may differ for each phase in which you roll out the Ory IAM functionality across your 
-application portfolio.
+This section covers two aspects of migrating to Ory: transferring user identities and rolling out IAM functionality to your 
+applications. User identity migration involves moving user accounts, credentials, and profile data from your existing system 
+to Ory. IAM rollout determines the sequence and timing for transitioning each application to use Ory for authentication and 
+authorization.
 
-Your choice of migration strategy depends on your specific requirements, technical constraints, and tolerance for user impact. 
-It should be driven by several key factors: the complexity of your system, the size of your user base, and your organization's 
-risk tolerance and downtime constraints. 
+These two aspects are distinct but interconnected. You might choose different identity migration strategies for different 
+applications or rollout phases. For example, you could use bulk identity migration for your first application in a single-phased
+rollout, and later use graceful identity migration for subsequent multi-phased rollouts. Understanding both aspects helps you design a 
+transition plan that balances technical constraints, business priorities, and user impact. Your choice of approach should be 
+driven by several key factors: the complexity of your system, the size of your user base, and your organization's risk 
+tolerance and downtime constraints.
 
-## Choosing your user identity migration strategy
+## Choose your IAM system rollout strategy
+
+Simpler systems with homogeneous user segments and a single legacy authentication system can be implemented in a single-phase IAM system rollout.
+However, complex systems or risk-averse organizations may benefit from a multi-phased, application-based, or phased rollout approach. This strategy 
+allows you to test processes in production by first rolling out to less critical user segments or applications, learning valuable lessons to 
+refine your approach before a broader rollout.
+
+<Tabs
+  defaultValue="single"
+  values={[
+    {label: 'Single-phase rollout', value: 'single'},
+    {label: 'Multi-phase rollout', value: 'multi'},
+  ]}>
+<TabItem value="single">
+
+### Single-phase rollout
+
+A single-phase approach involves migrating user identities and rolling out applications/services in a single "go-live" event. 
+This approach results in all users and applications/services being impacted at the same time. The single-phase rollout requires 
+you to perform a bulk identity migration.
+
+A single-phase rollout approach is the best choice when:
+
+- The number of users is low and applications or services are simple
+- Planned system downtime due to the "go-live" event isn't a problem
+- You need to retire the current solution soon
+
+#### Advantages of single-phase rollout
+
+- Faster time to value: All users gain access to the new system immediately rather than waiting months or years for their turn.
+- Simplifies planning: You only need to plan, execute, and close out one major deployment rather than coordinating multiple 
+phases with interdependencies, handoffs, and varying timelines.
+- Lower total cost: Running one migration event typically costs less than maintaining parallel systems, conducting multiple training sessions, 
+and supporting both old and new systems across an extended timeline.
+- Eliminates integration complexity: You avoid the technical challenges and data synchronization issues that arise when different user groups 
+operate on different systems that need to communicate with each other.
+
+#### Drawbacks of single-phase rollout
+
+- Higher risk concentration: If something goes wrong during deployment, it impacts your entire organization simultaneously rather than being 
+contained to a smaller group, potentially causing widespread business disruption.
+- Support burden: Your support team must handle issues from all users at once, which can lead to long resolution times, frustrated 
+users, and inability to provide quality assistance when everyone needs help simultaneously.
+- Limited learning opportunity: You can't incorporate lessons learned from early adopters because there are no early adopters—any design flaws, 
+training gaps, or technical issues only become apparent when it's too late to adjust your approach.
+- Difficult rollback: Reverting to the old system after a full cutover can be complex and potentially impossible if you've already 
+decommissioned infrastructure or migrated data irreversibly.
+</TabItem>
+
+<TabItem value="multi">
+### Multi-phase rollout
+
+A multi-phase approach involves migrating user identities and rolling out applications/services in phases, focusing on specific applications, 
+services, or user segments. This approach results in multiple "go-lives", each affecting a defined group of users or applications/services. 
+A multi-phase approach can employ bulk or graceful identity imigration strategies, or a hybrid of both. The key difference is that a 
+specific segment of users or authenication for a specific application or service is rolled out separately, each in its own specific phase.
+
+A multi-phase rollout is the best choice in most cases, especially when:
+
+- You manage multiple enterpise-level applications with different underlying authentication systems 
+- You manage diverse segments of users with different underlying authentication systems
+- You have a complex system, and you want to reduce the risk of unknown consequences and improve the process iteratively.
+
+#### Advantages of multi-phase rollout
+
+- Reduced risk: By rolling out in phases, issues are isolated to specific apps or user segments.
+- Flexibility: Allows for adjustments and optimizations between phases based on lessons learned.
+- Minimized/no downtime: Since the rollout occurs in stages, downtime can be limited to smaller user groups or avoided
+  completely.
+
+#### Drawbacks of multi-phase rollout
+
+- Complex management: Multiple "go-lives" require more coordination and detailed planning, increasing operational complexity.
+- Extended timeline: The time to roll out the whole system takes longer as it is broken down into phases.
+- Resource demands: Running both systems in parallel during the transition can strain resources.
+</TabItem>
+</Tabs>
+
+## Choose your user identity migration strategy
 
 Ory supports two primary identity migration strategies: 
 
-- **Bulk migration** - Migrate all users at once.
-- **Graceful migration** -  Migrate when a user authenticates, running old and new solutions in parallel.
+- **Bulk identity migration** - Migrate all users at once.
+- **Graceful identity migration** -  Migrate when a user authenticates, running old and new solutions in parallel.
 
-By carefully understanding these methods and planning accordingly, you can ensure a smooth and secure transition for your users to 
+By understanding these methods and planning accordingly, you can ensure a smooth and secure transition for your users to 
 Ory Network.
+
+<Tabs
+  defaultValue="bulk"
+  values={[
+    {label: 'Bulk identity migration', value: 'bulk'},
+    {label: 'Graceful identity migration', value: 'graceful'},
+  ]}>
+<TabItem value="bulk">
 
 ### Bulk identity migration
 
-In a bulk identity migration, also known as "big bang" or "offline" migration, all user data is migrated at once, and a single 
-"go-live" event is scheduled, where all users start using the new system simultaneously.
+In a bulk identity migration, also known as big-bang or offline migration, all user data is migrated at once. The identity 
+migration must happen in close coordination with the overall rollout. This creates a single "go-live" event, where all 
+users included in the bulk identity migration start using the new system simultaneously.
 
 #### When to use bulk identity migration
 A bulk identity migration can involve some risk and downtime, but it is recommended when:
@@ -36,26 +124,28 @@ A bulk identity migration can involve some risk and downtime, but it is recommen
 - The number of users is low and applications or services are simple
 - Planned system downtime due to the "go-live" event isn't a problem
 - You need to retire the current solution soon
-- Your legacy IAM vendor restricts your ability to use a graceful identity migration strategy (for example, Auth0).
+- Your legacy IAM vendor restricts your ability to use a graceful identity migration strategy.
 
 ##### Advantages of bulk identity migration
 
-- Simplicity: Since there is only one "go-live", the identity migration process is easier to manage and plan.
-- Time efficiency: The identity migration process happens in one go, reducing the transition time.
+- Simplifies planning: Since there is only one "go-live", the identity migration process is easier to manage and plan.
+- Reduces transition time: The identity migration process happens in one go, reducing the transition time.
 - Less complexity: There is no need to run two systems in parallel and you can retire the previous solution immediately after
 testing and validating the migration.
 
-##### Drawbacks of bulk identitiy migration
+##### Drawbacks of bulk identity migration
 
-- High risk: If any issues occur during the cutover, the impact can be significant, affecting all users. If might be difficult
+- High risk: If any issues occur during the cutover, the impact can be significant, affecting all users. It might be difficult
 to perform a rollback.
 - Downtime: This approach may require planned system downtime to ensure data consistency, which can disrupt users.
 - Increased preparation: Requires extensive planning and testing to mitigate risks, making it more resource-intensive during that
   phase.
+</TabItem>
+<TabItem value="graceful">
 
 ### Graceful identity migration
 
-Graceful identity migration - also called "automatic", "trickle", "just-in-time", or "online" migration - involves running both the old and
+Graceful identity migration—also called automatic, trickle, just-in-time, or online migration—involves running both the old and
 new systems in parallel, gradually migrating user identities as the user authenticates. This approach features two "go-lives": the initial
 application "go-live" and subsequent user-specific cutovers during login.
 
@@ -82,35 +172,5 @@ ensure identites are synchronized in both systems in case a rollback is required
 additional coding effort to implement Ory's [password migration using a web hook](https://www.ory.com/docs/kratos/manage-identities/import-user-accounts-identities#password-migration-using-a-web-hook).
 - Potential for data inconsistencies: If not carefully managed, there may be discrepancies between the old and new systems during the
   transition period. 
-
-## Choosing your IAM system rollout strategy
-
-Simpler systems with homogenous segments of users and only one legacy authenication system to migrate from can be migrated in 
-one IAM system rollout. However, complex systems or risk-averse organizations may benefit from a "stepwise", "application-based", 
-or a "phased" rollout approach. This allows you to test processes in production by migrating less critical user segments or 
-applications first, learning valuable lessons to refine your approach before a broader rollout.
-
-A stepwise approach involves migrating both user identities and applications/services in phases, focusing on specific applications, 
-services, or user segments. This approach results in multiple "go-lives", each affecting a defined group of users or applications/services. 
-A stepwise approach can employ bulk migration or graceful migration strategies, or a hybrid of both. The key difference is that a 
-specific segment of users or authenication for a specific application or service is migrated separately, each in its own specific phase.
-
-### When to use a stepwise rollout approach
-A stepwise approach is the best choice in most cases, especially when:
-
-- You manage multiple enterpise-level applications with different underlying authentication systems 
-- You manage diverse segments of users with different underlying authentication systems
-- You have a complex system, and you want to reduce the risk of unknown consequences and improve the process iteratively.
-
-### Advantages of stepwise rollout approach
-
-- Reduced risk: By migrating in phases, issues are isolated to specific apps or user segments.
-- Flexibility: Allows for adjustments and optimizations between phases based on lessons learned.
-- Minimized/no downtime: Since the migration occurs in stages, downtime can be limited to smaller user groups or avoided
-  completely.
-
-### Drawbacks of stepwise rollout approach
-
-- Complex management: Multiple "go-lives" require more coordination and detailed planning, increasing operational complexity.
-- Extended timeline: The time to migrate the whole system takes longer as it is broken down into phases.
-- Resource demands: Running both systems in parallel during the transition can strain resources.
+</TabItem>
+</Tabs>

@@ -6,11 +6,11 @@ sidebar_position: 1
 ---
 
 When the frontend makes an API call to your backend, it will include the necessary cookies. Your backend must then forward these
-cookies when calling the Ory API to validate the session. For example in a Go backend, you could use a
+cookies when calling the Ory API to validate the session. For example, in a Go backend, you could use a
 [middleware](../../getting-started/integrate-auth/go#validate-and-login) to intercept API requests and validate the session by
-calling Ory’s toSession() method. Ensure that the cookies received from the front end are forwarded in this call. Since backend
-calls to Ory’s API won’t automatically include cookies, you must manually attach the relevant cookies to these requests. This is
-important for the backend to be able to check the session.
+calling Ory’s `toSession()` method. Ensure that the cookies received from the frontend are forwarded in this call. Since backend
+calls to Ory’s API won’t automatically include cookies, you must manually attach the relevant cookies to these requests. This 
+allows the backend to validate the session.
 
 When using Ory to manage identities, it is best practice to store business logic in your application database and keep only
 authentication-relevant data in Ory. Here’s a general approach:
@@ -21,8 +21,9 @@ authentication-relevant data in Ory. Here’s a general approach:
    link Ory-managed identities with your business logic.
 1. Establish a connection between the Ory identity and the user record in your database by storing the `user.id` in
    `identity.metadata_public.id`. This ensures that subsequent API calls can easily map the Ory identity to the correct internal
-   user. More about metadata in the [Identity metadata & traits ](../../kratos/manage-identities/managing-users-identities-metadata)
-   documentation.
-1. Now when the frontend makes API calls containing the Ory cookie or token, the backend should verify the session using the
-   whoami API endpoint. This endpoint returns the session details, including the identity, allowing the backend to authenticate
+   user. See [Identity metadata & traits ](../../kratos/manage-identities/managing-users-identities-metadata) documentation for details.
+1. When the frontend makes API calls containing the Ory cookie or token, the backend should verify the session using the
+   [`whoami`](https://www.ory.com/docs/kratos/reference/api#tag/frontend/operation/toSession) API endpoint. This endpoint returns the session details, including the identity, allowing the backend to authenticate
    the request and link it to the internal user record.
+
+   
