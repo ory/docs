@@ -5,12 +5,17 @@ sidebar_label: Create an Ory Network project
 sidebar_position: 3
 ---
 
-Now that you have chosen your migration strategy, you can begin the actual migration process by setting up your Ory Network
-projects in a development, staging, and production environment. 
+Now that you have chosen your migration strategy, you can begin the actual migration process. Perform the migration in a 
+development or staging environment before migrating to your production environment. This allows you to test and refine the 
+process without affecting your live data or users.
 
-You can create a new Ory Network project using the Ory CLI. The command `ory create project` allows you to specify the environment
-of the project, the output format, the name of the project, and the workspace to use. More details about creating a project can be
-found [here](../../cli/ory-create-project).
+1. Get an [Ory Network account](https://console.ory.sh/login?flow=c59cbae0-ea41-44e4-b46a-f9e1857be3a2).
+1. Install Ory CLI and [set up your local environment](https://www.ory.com/docs/getting-started/local-development) to start 
+developing with Ory.
+1. Create an Ory project and get your Ory project ID.
+1. [Set up the necessary dependencies and configurations](https://www.ory.com/docs/identities/get-started/setup) to integrate 
+Ory's features into your application.
+1. Review a [quick start](https://www.ory.com/docs/welcome) for your framework.
 
-Before migrating to your production environment, perform the migration in a development or staging environment. This allows you to
-test and refine the process without affecting your live data or users.
+You can use the Ory CLI to specify the environment of the project, the output format, the name of the project, and the workspace to use. 
+See the [Ory CLI Reference](../../cli/ory-create-project) for the `ory create project` command and additional options.

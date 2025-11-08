@@ -9,21 +9,24 @@ to ensure your authentication system works securely and reliably. You should tes
 staging, and production environments, validating that configurations, custom domains, and integrations work correctly 
 at each stage. 
 
-Create a comprehensive list of testing requirements. For example:
+## Create a comprehensive list of testing requirements 
 
-- Authentication Flows: Login, registration, password reset, account recovery
-- Session Management: Creation, validation, expiration, security
-- Data Integrity: User profiles, metadata synchronization, permissions
-- API Functionality: All protected routes, authorization checks
-- User Interface: Forms, redirects, error handling, responsive design
+Your testing should cover:
+
+- Authentication flows: Login, registration, password reset, account recovery
+- Session management: Creation, validation, expiration, security
+- Data integrity: User profiles, metadata synchronization, permissions
+- API functionality: All protected routes, authorization checks
+- User interface: Forms, redirects, error handling, responsive design
 - Performance: Response times, concurrent user handling, load capacity
 - Security: CSRF protection, session security, data encryption
 
-## Migration Validation Process
-Implement systematic validation to ensure migration completeness, data accuracy, and functional parity with existing systems. 
-Compare user counts between systems, validate authentication flows for sample users, and verify all business logic continues 
-to function correctly.
+## Implement systematic validation to ensure migration completeness
 
-## User Acceptance Testing
-Conduct thorough user acceptance testing with representative user groups to ensure the migrated system meets usability 
+Your validation should cover:
+
+- Compare user counts between systems (should match within acceptable margin)
+- Validate authentication flows for representative sample users
+- Verify all business logic continues to function correctly
+- Conduct user acceptance testing with representative user groups to ensure the migrated system meets usability 
 requirements and maintains expected functionality.
