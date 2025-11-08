@@ -4,34 +4,37 @@ title: Migrate your existing identities
 sidebar_label: Migrate your existing identities
 sidebar_position: 3
 ---
-With authentication now set up on your frontend and backend, the next step is to prepare your existing user identities for
-migration. You should have already chosen your identity migration strategy in [Choose your IAM migration strategy](https://www.ory.com/docs/migrate-to-ory/migrate/migrate-strategies): 
-bulk or graceful identity migration. You will now implement your chosen identity migration strategy.
 
-- For Auth0 migrations, see the dedicated [Migrate user identities from Auth0 to Ory](../migrate-from-auth0) guide. 
+With authentication now set up on your frontend and backend, the next step is to prepare your existing user identities for
+migration. You should have already chosen your identity migration strategy in
+[Choose your IAM migration strategy](https://www.ory.com/docs/migrate-to-ory/migrate/migrate-strategies): bulk or graceful
+identity migration. You will now implement your chosen identity migration strategy.
+
+- For Auth0 migrations, see the dedicated [Migrate user identities from Auth0 to Ory](../migrate-from-auth0) guide.
 
 ## Bulk identity migration
 
-If you're using a managed identity solution, start the export of existing identities early, especially 
-if there's no straightforward way to export the identities and you might need to go through a support process. Identify the 
-hashing algorithm used for credentials. If your passwords aren't hashed, Ory handles hashing automatically during import. 
-If Ory supports your hashing algorithm, use the [`createIdentity`](https://www.ory.com/docs/reference/api#tag/identity/operation/createIdentity) API
-to import users. If the hashing algorithm isn't supported or if you can't get the hashed passwords from your current 
-authentication system, you may want to do a graceful identity migration. 
+If you're using a managed identity solution, start the export of existing identities early, especially if there's no
+straightforward way to export the identities and you might need to go through a support process. Identify the hashing algorithm
+used for credentials. If your passwords aren't hashed, Ory handles hashing automatically during import. If Ory supports your
+hashing algorithm, use the [`createIdentity`](https://www.ory.com/docs/reference/api#tag/identity/operation/createIdentity) API to
+import users. If the hashing algorithm isn't supported or if you can't get the hashed passwords from your current authentication
+system, you may want to do a graceful identity migration.
 
-The `createIdentity` API supports bulk imports with a maximum of 1000 identities per request—larger imports require multiple 
-requests. The endpoint accepts a JSON array of identities, each of which must have a create property containing the identity 
-data. See the [Import identities ](../../kratos/manage-identities/25_import-user-accounts-identities.mdx) 
-documentation for complete details.
+The `createIdentity` API supports bulk imports with a maximum of 1000 identities per request—larger imports require multiple
+requests. The endpoint accepts a JSON array of identities, each of which must have a create property containing the identity data.
+See the [Import identities](../../kratos/manage-identities/25_import-user-accounts-identities.mdx) documentation for complete
+details.
 
 ## Graceful identity migration
 
-Ory does not support the direct import of active sessions from your existing system. To ensure that users with active sessions
-can continue accessing your services without needing to reauthenticate immediately, implement a transition
-period where both systems operate concurrently. During this period, use the [password migration hook](https://www.ory.com/docs/kratos/manage-identities/import-user-accounts-identities#password-migration-using-a-web-hook) 
-to migrate existing users. All user authentication flows—including login, registration, password recovery, and settings management—should be 
-managed by Ory. However, your backend must be configured to recognize and accept sessions from both the old system and Ory. 
-As the transition progresses, gradually phase out the old system. Once most or all active sessions from the old system have
-expired or been replaced by new sessions in Ory, you can complete the migration to Ory exclusively. This gradual approach
-minimizes user disruption and provides your development team with time to resolve any issues that arise
-during the migration.
+Ory does not support the direct import of active sessions from your existing system. To ensure that users with active sessions can
+continue accessing your services without needing to reauthenticate immediately, implement a transition period where both systems
+operate concurrently. During this period, use the
+[password migration hook](https://www.ory.com/docs/kratos/manage-identities/import-user-accounts-identities#password-migration-using-a-web-hook)
+to migrate existing users. All user authentication flows—including login, registration, password recovery, and settings
+management—should be managed by Ory. However, your backend must be configured to recognize and accept sessions from both the old
+system and Ory. As the transition progresses, gradually phase out the old system. Once most or all active sessions from the old
+system have expired or been replaced by new sessions in Ory, you can complete the migration to Ory exclusively. This gradual
+approach minimizes user disruption and provides your development team with time to resolve any issues that arise during the
+migration.
