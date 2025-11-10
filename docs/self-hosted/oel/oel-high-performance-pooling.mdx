@@ -4,8 +4,8 @@ title: High-performance database connection pooling
 sidebar_label: High-performance pooling
 ---
 
-High-performance pooling is available for CockroachDB and PostgreSQL with an Ory Enterprise License (OEL).
-It provides additional configuration options for managing database connections under variable load.
+High-performance pooling is available for CockroachDB and PostgreSQL with an Ory Enterprise License (OEL). It provides additional
+configuration options for managing database connections under variable load.
 
 To activate high-performance pooling, you must set the `pool_min_conns` parameter, otherwise high-performance pooling will not be
 enabled.
@@ -23,28 +23,11 @@ enabled.
 - `pool_health_check_period` (duration: for example "500ms", "5s", "30m", "1h"): Sets the period for health checks to potentially
   kill stale connections. Defaults to "1m".
 
-## Key differences from standard pooling
-
-### Standard pooling behavior
-
-- Opens connections on demand
-- Closes idle connections after timeout
-- During traffic spikes, must initialize many new connections simultaneously
-- Can cause database overload, timeouts, or connection storms when traffic surges suddenly
-
-### High-performance pooling behavior
-
-- Maintains min_pool connections open at all times
-- Traffic spikes use pre-established connections
-- Avoids connection initialization overhead during demand peaks
-- Reduces risk of overwhelming the database during sudden load increases
-
-### Connection refresh jitter
-
-High-performance pooling includes randomized jitter when refreshing connections. This prevents synchronized connection resets that
-could cause momentary overload when all connections attempt to restart simultaneously.
-
 ## When to use high-performance pooling
+
+Standard pooling opens connections on demand and closes them after idle timeout, which can cause connection storms during sudden
+traffic spikes. High-performance pooling maintains `min_pool` persistent connections and includes refresh jitter to prevent
+synchronized resets, without initialization overhead and reducing the risk of database overload during demand surges.
 
 Consider high-performance pooling when your workload exhibits:
 
