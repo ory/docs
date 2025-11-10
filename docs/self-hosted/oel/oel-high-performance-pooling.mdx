@@ -4,9 +4,8 @@ title: High-performance database connection pooling
 sidebar_label: High-performance pooling
 ---
 
-High-performance pooling is available only with an Ory Enterprise License (OEL). It uses
-[pgxpool](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool) and provides additional configuration options for managing database
-connections under variable load.
+High-performance pooling is available for CockroachDB and PostgreSQL with an Ory Enterprise License (OEL).
+It provides additional configuration options for managing database connections under variable load.
 
 To activate high-performance pooling, you must set the `pool_min_conns` parameter, otherwise high-performance pooling will not be
 enabled.
