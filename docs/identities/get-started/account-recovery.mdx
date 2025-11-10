@@ -92,7 +92,9 @@ feature_flags:
 When integrating with the API directly, your applications must send and receive these fields. Refer to the
 [API documentation](../../reference/api#tag/frontend/operation/updateRecoveryFlow) for more details.
 
-When using the built-in Account Experience UI, there is nothing special to do. Otherwise, you need to do some changes.
+When using the built-in Ory Account Experience, no changes are needed in your application code.
+
+If you're using a custom UI, ensure that your recovery forms handle the new fields appropriately:
 
 New fields have been added to the payload when getting and updating the recovery flow that are exclusively used when this feature
 flag is enabled:

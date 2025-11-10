@@ -26,6 +26,7 @@ export const routes = {
   support: "/support",
   account: {
     login: "/login",
+    consent: "/oauth2/consent",
     recovery: "/recovery",
     verification: "/verification",
     register: "/registration",
@@ -36,7 +37,6 @@ export const routes = {
     onboard: "/get-started",
   },
   invites: "/invites",
-  guides: "/guides",
   project: {
     activity: {
       route: "/projects/[project]/activity",
@@ -56,10 +56,6 @@ export const routes = {
       actions: {
         route: "/projects/[project]/developers/actions",
         href: (project: string) => `/projects/${project}/developers/actions`,
-      },
-      guides: {
-        route: "/projects/[project]/developers/guides",
-        href: (project: string) => `/projects/${project}/developers/guides`,
       },
     },
     list: "/projects",
@@ -98,12 +94,21 @@ export const routes = {
       href: (project: string) => `/projects/${project}/mfa`,
     },
     recovery: {
-      route: "/projects/[project]/recovery",
-      href: (project: string) => `/projects/${project}/recovery`,
+      route: "/projects/[project]/authentication/recovery",
+      href: (project: string) => `/projects/${project}/authentication/recovery`,
     },
     verification: {
-      route: "/projects/[project]/verification",
-      href: (project: string) => `/projects/${project}/verification`,
+      route: "/projects/[project]/authentication/verification",
+      href: (project: string) =>
+        `/projects/${project}/authentication/verification`,
+    },
+    smsConfiguration: {
+      route: "/projects/[project]/sms-configuration",
+      href: (project: string) => `/projects/${project}/sms-configuration`,
+    },
+    limits: {
+      route: "/projects/[project]/limits",
+      href: (project: string) => `/projects/${project}/limits`,
     },
     emailConfiguration: {
       route: "/projects/[project]/email-configuration",
@@ -112,10 +117,6 @@ export const routes = {
     emailTemplates: {
       route: "/projects/[project]/email-templates",
       href: (project: string) => `/projects/${project}/email-templates`,
-    },
-    smsConfiguration: {
-      route: "/projects/[project]/sms-configuration",
-      href: (project: string) => `/projects/${project}/sms-configuration`,
     },
     sessionSettings: {
       route: "/projects/[project]/session-settings",
@@ -172,30 +173,45 @@ export const routes = {
           `/projects/${project}/social-signin/${providerId}`,
       },
     },
+    saml: {
+      route: "/projects/[project]/saml",
+      href: (project: string) => `/projects/${project}/saml`,
+      configureProvider: {
+        route: "/projects/[project]/saml/[provider]",
+        href: (project: string, providerId: string) =>
+          `/projects/${project}/saml/${providerId}`,
+      },
+    },
     oauthConfiguration: {
       route: "/projects/[project]/oauth",
       href: (project: string) => `/projects/${project}/oauth`,
-      edit: {
-        route: "/projects/[project]/oauth/[client]",
-        href: (project: string, client: string) =>
-          `/projects/${project}/oauth/${client}`,
-      },
-      create: {
-        route: "/projects/[project]/oauth/create",
-        href: (project: string) => `/projects/${project}/oauth/create`,
-      },
-      overview: {
-        route: "/projects/[project]/oauth/overview",
-        href: (project: string) => `/projects/${project}/oauth/overview`,
+      endpoints: {
+        route: "/projects/[project]/oauth/endpoints",
+        href: (project: string) => `/projects/${project}/oauth/endpoints`,
       },
       configure: {
         route: "/projects/[project]/oauth/configure",
         href: (project: string) => `/projects/${project}/oauth/configure`,
       },
-      identityIntegration: {
-        route: "/projects/[project]/oauth/identity-integration-settings",
-        href: (project: string) =>
-          `/projects/${project}/oauth/identity-integration-settings`,
+      openid: {
+        route: "/projects/[project]/oauth/openid",
+        href: (project: string) => `/projects/${project}/oauth/openid`,
+      },
+      urls: {
+        route: "/projects/[project]/oauth/urls",
+        href: (project: string) => `/projects/${project}/oauth/urls`,
+      },
+      lifespans: {
+        route: "/projects/[project]/oauth/lifespans",
+        href: (project: string) => `/projects/${project}/oauth/lifespans`,
+      },
+      strategies: {
+        route: "/projects/[project]/oauth/strategies",
+        href: (project: string) => `/projects/${project}/oauth/strategies`,
+      },
+      cookies: {
+        route: "/projects/[project]/oauth/cookies",
+        href: (project: string) => `/projects/${project}/oauth/cookies`,
       },
     },
     courierMessages: {
@@ -214,6 +230,21 @@ export const routes = {
         route: "/projects/[project]/account-experience/theming",
         href: (project: string) =>
           `/projects/${project}/account-experience/theming`,
+        customize: {
+          route: "/projects/[project]/account-experience/theming/customize",
+          href: (project: string) =>
+            `/projects/${project}/account-experience/theming/customize`,
+        },
+      },
+      locales: {
+        route: "/projects/[project]/account-experience/locales",
+        href: (project: string) =>
+          `/projects/${project}/account-experience/locales`,
+        edit: {
+          route: "/projects/[project]/account-experience/locales/[locale]",
+          href: (project: string, locale: string) =>
+            `/projects/${project}/account-experience/locales/${locale}`,
+        },
       },
     },
     authentication: {
@@ -261,15 +292,15 @@ export const routes = {
         href: (workspace: string) =>
           `/workspaces/${workspace}/settings/members`,
       },
-      apiKeys: {
-        route: "/workspaces/[workspace]/settings/api-keys",
-        href: (workspace: string) =>
-          `/workspaces/${workspace}/settings/api-keys`,
-      },
       subscription: {
         route: "/workspaces/[workspace]/settings/subscription",
         href: (workspace: string) =>
           `/workspaces/${workspace}/settings/subscription`,
+      },
+      apiKeys: {
+        route: "/workspaces/[workspace]/settings/api-keys",
+        href: (workspace: string) =>
+          `/workspaces/${workspace}/settings/api-keys`,
       },
       billing: {
         route: "/workspaces/[workspace]/settings/billing",

@@ -1,7 +1,6 @@
 ---
 id: sending-emails-smtp
-title: Use a custom server to send Ory Identity messages to users
-sidebar_label: Email delivery configuration
+title: Email delivery configuration
 ---
 
 ```mdx-code-block
@@ -10,7 +9,7 @@ import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
 ```
 
-The Ory Network comes with SMTP email sending configured out of the box. Ory emails are sent from this address:
+The Ory Network provides a default SMTP server for sending emails. Ory emails are sent from this address:
 
 ```
 {project.name} via Ory <no-reply@courier-eu.mg.oryapis.com>
@@ -18,13 +17,147 @@ The Ory Network comes with SMTP email sending configured out of the box. Ory ema
 
 :::info
 
-You must send emails using your SMTP server to change the sender address (`from_address`) and sender name (`from_name`).
+To customize the sender address, sender name, and email content, you need to use your own SMTP server. This prevents abuse and
+ensures high deliverability rates.
 
 :::
 
-## Send emails using your SMTP server
+## Integrations
 
-You can send emails from your own SMTP server. Follow these steps to configure Ory to use a custom SMTP server:
+Ory's email delivery system is flexible and can be configured to work with various email service providers. Below are the
+connection URIs and settings for some popular email service providers.
+
+If a provider you use is not listed here, you can still configure Ory to use it by following the instructions in the
+[Your own server](#your-own-server) section.
+
+:::info Need more flexibility?
+
+Request an integration through our [support channels](https://www.ory.sh/support) or contribute one yourself by following the
+[instructions on GitHub](https://github.com/ory/kratos).
+
+:::
+
+### Sendgrid
+
+<Tabs>
+<TabItem value="smtp" label="SMTP">
+
+Use the following connection URI and settings to
+[send emails using Sendgrid](https://www.twilio.com/docs/sendgrid/for-developers/sending-email/integrating-with-the-smtp-api) via
+SMTP.
+
+- Sender address: an email address for a domain that has been verified in SendGrid via Domain Authentication (See your available
+  [senders](https://app.sendgrid.com/settings/sender_auth/senders).)
+- Port: `587`
+- Security Mode: `STARTTLS`
+- Username: `apikey` (constant string)
+- Hostname: `smtp.sendgrid.net`
+- Password: the API key created in SendGrid, with the full “Mail Send” permission (no other permissions needed)
+- SMTP Headers: none
+
+```
+smtp://apikey:<YOUR_SENDGRID_API_KEY>@smtp.sendgrid.net:587/
+
+# For example:
+smtp://apikey:SG.xxxxxxxx.xxxxxxxxx@smtp.sendgrid.net:587/
+```
+
+</TabItem>
+<TabItem value="http" label="HTTP">
+
+Use the following connection URI and settings to
+[send emails using Sendgrid](https://www.twilio.com/docs/sendgrid/api-reference/mail-send/mail-send) via HTTP.
+
+First, create a Sendgrid API key with the "Mail Send" permission on https://app.sendgrid.com/settings/api_keys.
+
+Then, add the following configuration to your Ory Identities configuration:
+
+```yaml title="kratos.yml"
+courier:
+  delivery_strategy: http
+  http:
+    request_config:
+      url: https://api.sendgrid.com/v3/mail/send
+      method: POST
+      body: file:///etc/config/kratos/mail.template.jsonnet
+      headers:
+        "Content-Type": "application/json"
+      auth:
+        type: api_key
+        config:
+          name: Authorization
+          value: Bearer <API_KEY>
+          in: header
+```
+
+Here is one example of a Jsonnet body:
+
+```jsonnet
+function(ctx) {
+  "personalizations": [
+      {
+        "to": [
+          {
+            "email": if "TemplateData" in ctx && "To" in ctx.TemplateData then ctx.TemplateData.To else null
+          }
+        ],
+        "verificationCode": if "TemplateData" in ctx && "VerificationCode" in ctx.TemplateData then ctx.TemplateData.VerificationCode else null
+      }
+    ],
+    // Other values and personalizations .......
+}
+```
+
+</TabItem>
+</Tabs>
+To configure Sendgrid as your email provider, go to <ConsoleLink route="project.emailConfiguration" />.
+
+### Mailgun
+
+Use the following connection URI to
+[send emails using Mailgun](https://documentation.mailgun.com/en/latest/quickstart-sending.html) via SMTP.
+
+Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
+
+```
+smtp://{smtp-user}:{smtp-password}@smtp.mailgun.org:587
+
+# For example:
+# smtp://some-user%40mailgun.example.org:df2a2c4e-5caa-4f04-85b9-72d54a2468ad@smtp.eu.mailgun.org:587
+```
+
+### AWS SES
+
+Use the following connection URI to
+[send emails using AWS SES SMTP](https://docs.aws.amazon.com/ses/latest/dg/send-email-smtp.html) via SMTP.
+
+Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
+
+```
+smtp://{smtp-user}:{smtp-password}@email-smtp.{region}.amazonaws.com:587/
+
+# For example:
+# smtp://theuser:the-password@email-smtp.eu-central-1.amazonaws.com:587/
+```
+
+### Postmark
+
+Use the following connection URI to [send emails using Postmark](https://postmarkapp.com/smtp-service) via SMTP.
+
+Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
+
+```
+smtp://{YOUR_POSTMARK_SEVER_API_TOKEN}:{YOUR_POSTMARK_SEVER_API_TOKEN}@smtp.postmarkapp.com:587/
+
+# For example:
+# smtp://thetoken:thetoken@smtp.postmarkapp.com:587/
+```
+
+### Your own server
+
+<Tabs>
+<TabItem value="smtp" label="SMTP">
+  You can send emails from your own SMTP server. Follow these steps to configure Ory to use a custom SMTP server:
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
@@ -77,104 +210,49 @@ Note: The username and password must be [URI encoded](https://en.wikipedia.org/w
 </Tabs>
 ```
 
-### SMTP security mechanisms
+#### SMTP security mechanisms
 
 SMTP has six different security mechanisms. Most SMTP services today use Explicit StartTLS with trusted certificates.
 
 1. **Recommended**: StartTLS with certificate trust verification. This is the most common option today:
+
    ```
    smtp://username:password@server:port/
    ```
+
 2. StartTLS without certificate trust verification:
+
    ```
    smtp://username:password@server:port/?skip_ssl_verify=true
    ```
+
 3. Cleartext SMTP uses no encryption and is not secure. This option is often used in development environments:
+
    ```
    smtp://username:password@server:port/?disable_starttls=true
    ```
+
 4. Implicit TLS with certificate trust verification:
+
    ```
    smtps://username:password@server:port/
    ```
+
 5. Implicit TLS without certificate trust verification:
+
    ```
    smtps://username:password@server:port/?skip_ssl_verify=true
    ```
+
 6. Implicit TLS with certificate verification which works if the server is hosted on a subdomain and uses a non-wildcard domain
    certificate:
+
    ```
    smtps://username:password@subdomain.my-mailserver.com:1234/?server_name=my-mailserver.com
    ```
 
-### SMTP Integrations
-
-Sample connection URIs to send emails via SMTP using different providers.
-
-#### Mailgun
-
-Use the following connection URI to
-[send emails using Mailgun](https://documentation.mailgun.com/en/latest/quickstart-sending.html) via SMTP.
-
-Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
-
-```
-smtp://{smtp-user}:{smtp-password}@smtp.mailgun.org:587
-
-# For example:
-# smtp://some-user%40mailgun.example.org:df2a2c4e-5caa-4f04-85b9-72d54a2468ad@smtp.eu.mailgun.org:587
-```
-
-#### AWS SES SMTP
-
-Use the following connection URI to
-[send emails using AWS SES SMTP](https://docs.aws.amazon.com/ses/latest/dg/send-email-smtp.html) via SMTP.
-
-Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
-
-```
-smtp://{smtp-user}:{smtp-password}@email-smtp.{region}.amazonaws.com:587/
-
-# For example:
-# smtp://theuser:the-password@email-smtp.eu-central-1.amazonaws.com:587/
-```
-
-#### Postmark
-
-Use the following connection URI to [send emails using Postmark](https://postmarkapp.com/smtp-service) via SMTP.
-
-Note: The username and password must be [URI encoded](https://en.wikipedia.org/wiki/Percent-encoding).
-
-```
-smtp://{YOUR_POSTMARK_SEVER_API_TOKEN}:{YOUR_POSTMARK_SEVER_API_TOKEN}@smtp.postmarkapp.com:587/
-
-# For example:
-# smtp://thetoken:thetoken@smtp.postmarkapp.com:587/
-```
-
-#### Sendgrid
-
-Use the following connection URI and settings to
-[send emails using Sendgrid](https://www.twilio.com/docs/sendgrid/for-developers/sending-email/integrating-with-the-smtp-api) via
-SMTP.
-
-- Sender address: an email address for a domain that has been verified in SendGrid via Domain Authentication
-- Hostname: smtp.sendgrid.net
-- Port: 587
-- Security Mode: STARTTLS
-- Username: apikey
-- Password: the API key created in SendGrid, with the full “Mail Send” permission (no other permissions needed)
-- SMTP Headers: none If you are unsure which port to use, a TLS connection on port 587 is typically recommended.
-
-```
-smtp://apikey:<YOUR_SENDGRID_API_KEY>@smtp.sendgrid.net:587/
-
-# For example:
-smtp://apikey:somekey@smtp.sendgrid.net:587/
-
-```
-
-## Send emails using an HTTP server
+</TabItem>
+<TabItem value="http" label="HTTP">
 
 Ory Identities supports sending emails using an HTTP server. This is useful if you want to customize the email content or use a
 service that doesn't provide an SMTP server.
@@ -272,52 +350,8 @@ The courier passes the following object as the `ctx` parameter into the Jsonnet 
 
 In most cases, the default payload should be sufficient.
 
-### HTTP Integrations
-
-Sample configurations to send emails via HTTP using different providers.
-
-#### Sendgrid
-
-Use the following connection URI and settings to
-[send emails using Sendgrid](https://www.twilio.com/docs/sendgrid/api-reference/mail-send/mail-send) via HTTP.
-
-```
-...
-courier:
-  delivery_strategy: http
-  http:
-    request_config:
-      url: https://api.sendgrid.com/v3/mail/send
-      method: POST
-      body: file:///etc/config/kratos/mail.template.jsonnet
-      headers:
-        "Content-Type": "application/json"
-      auth:
-        type: api_key
-        config:
-          name: Authorization
-          value: Bearer <API_KEY>
-          in: header
-...
-```
-
-Here is one example of a Jsonnet body:
-
-```
-function(ctx) {
-"personalizations": [
-    {
-      "to": [
-        {
-          "email": if "TemplateData" in ctx && "To" in ctx.TemplateData then ctx.TemplateData.To else null)
-        }
-      ],
-     "verificationCode": if "TemplateData" in ctx && "VerificationCode" in ctx.TemplateData then ctx.TemplateData.VerificationCode else null
-    }
-  ],
-  // Other values and personalizations .......
-}
-```
+</TabItem>
+</Tabs>
 
 ## Troubleshooting
 

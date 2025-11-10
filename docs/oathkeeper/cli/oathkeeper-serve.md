@@ -22,7 +22,7 @@ Opens two ports for serving both the HTTP/2 Rest API and the HTTP/2 Reverse Prox
 ORY Oathkeeper can be configured using environment variables as well as a configuration file. For more information
 on configuration options, open the configuration documentation:
 
-&gt;&gt; https://www.ory.com/oathkeeper/docs/configuration &lt;&lt;
+&gt;&gt; https://www.ory.sh/oathkeeper/docs/configuration &lt;&lt;
 
 
 ```
@@ -32,9 +32,9 @@ oathkeeper serve [flags]
 ### Options
 
 ```
-      --disable-telemetry   Disable anonymized telemetry reports - for more information please visit https://www.ory.com/docs/ecosystem/sqa
+      --disable-telemetry   Disable anonymized telemetry reports - for more information please visit https://www.ory.sh/docs/ecosystem/sqa
   -h, --help                help for serve
-      --sqa-opt-out         Disable anonymized telemetry reports - for more information please visit https://www.ory.com/docs/ecosystem/sqa
+      --sqa-opt-out         Disable anonymized telemetry reports - for more information please visit https://www.ory.sh/docs/ecosystem/sqa
 ```
 
 ### Options inherited from parent commands
