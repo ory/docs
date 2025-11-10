@@ -653,6 +653,7 @@ const hydra: SidebarItemsConfig = [
         items: [
           "oauth2-oidc/authorization-code-flow",
           "oauth2-oidc/client-credentials",
+          "oauth2-oidc/device-authorization",
           "oauth2-oidc/resource-owner-password-grant",
           "oauth2-oidc/refresh-token-grant",
           "oauth2-oidc/userinfo-oidc",
