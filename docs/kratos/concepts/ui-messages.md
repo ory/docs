@@ -677,6 +677,7 @@
   "text": "{title}",
   "type": "info",
   "context": {
+    "name": "{name}",
     "title": "{title}"
   }
 }

@@ -3,6 +3,12 @@ id: organizations
 title: B2B SSO & SAML
 ---
 
+```mdx-code-block
+import CanonicalUrl from "@site/src/components/CanonicalUrl"
+
+<CanonicalUrl path="/kratos/organizations" />
+```
+
 # B2B Single Sign-On & SAML
 
 ```mdx-code-block
@@ -274,7 +280,7 @@ This guide will walk you through the steps required to set up SAML Single Sign-O
 #### Prerequisites
 
 Before proceeding, ensure you are on a plan that supports SAML SSO. SAML is available exclusively on select Enterprise plans.
-[Contact us](https://www.ory.sh/contact/) if you need SAML support.
+[Contact us](https://www.ory.com/contact/) if you need SAML support.
 
 ```mdx-code-block
 <Tabs groupId="console-or-api">
@@ -393,7 +399,7 @@ local claims = std.extVar('claims');
 :::note
 
 Before proceeding, ensure you are on a plan that supports onboarding portal. It is available exclusively on select enterprise
-plans. The portal requires that you enable Account Experience 2.0. Please contact us [Ory Support](mailto:support@ory.sh) if you
+plans. The portal requires that you enable Account Experience 2.0. Please contact us [Ory Support](mailto:support@ory.com) if you
 have any questions or feedback.
 
 :::
@@ -441,7 +447,7 @@ These features are relevant for:
 Provider support:
 
 - The onboarding portal supports all well known providers. You can also connect any SAML/OIDC compliant provider using the Generic
-  SAML/OIDC IdP option. If you don't find your provider listed, please [contact us](https://www.ory.sh/contact/).
+  SAML/OIDC IdP option. If you don't find your provider listed, please [contact us](https://www.ory.com/contact/).
 
 ### SCIM support
 
@@ -459,8 +465,9 @@ servers. Guided walkthroughs are available for Microsoft Entra ID and Okta.
 
 Go to <ConsoleLink route="project.authentication.organizations" /> and continue by configuring the selected organization.
 
-In the **Edit Organization** page, under the **Onboarding Portal** section, click **Generate link** to create a link. You can then
-share this link with the organization admins.
+On the **Edit Organization** page, under the **Onboarding Portal** section, click **Generate link**. If your project has a custom
+domain configured, you must choose between the project slug and the custom domain as the link's base URL. You can then share this
+link with the organization administrators.
 
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
@@ -489,7 +496,8 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
      -d '{
            "expires_at": "2025-06-01T00:00:00Z",
            "enable_sso": true,
-           "enable_scim": true
+           "enable_scim": true,
+           "custom_hostname_id": "use a custom domain id from branding, omit the field otherwise"
          }'
 ```
 
@@ -504,7 +512,8 @@ Result:
   "enable_sso": true,
   "enable_scim": true,
   "created_at": "2025-06-02T05:23:45.299988Z",
-  "expires_at": "2025-06-03T05:23:45Z"
+  "expires_at": "2025-06-03T05:23:45Z",
+  "custom_hostname_id": "aa4c8766-02b8-423a-80d2-47adf8e8c2ca"
 }
 ```
 

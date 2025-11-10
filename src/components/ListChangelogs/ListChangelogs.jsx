@@ -29,6 +29,34 @@ const contexts = {
   ),
 }
 
+const rawContexts = {
+  keto: require.context(
+    "!!raw-loader!../../../docs/self-hosted/oel/keto/changelog",
+    false,
+    /\.md$/,
+  ),
+  kratos: require.context(
+    "!!raw-loader!../../../docs/self-hosted/oel/kratos/changelog",
+    false,
+    /\.md$/,
+  ),
+  oathkeeper: require.context(
+    "!!raw-loader!../../../docs/self-hosted/oel/oathkeeper/changelog",
+    false,
+    /\.md$/,
+  ),
+  oauth2: require.context(
+    "!!raw-loader!../../../docs/self-hosted/oel/oauth2/changelog",
+    false,
+    /\.md$/,
+  ),
+  polis: require.context(
+    "!!raw-loader!../../../docs/self-hosted/oel/polis/changelog",
+    false,
+    /\.md$/,
+  ),
+}
+
 function baseFromPath(p) {
   // "./v1.3.2.md" -> "v1.3.2" ; "./CHANGELOG_2.0.md" -> "CHANGELOG_2.0"
   return p.replace("./", "").replace(/\.md$/, "")
@@ -63,20 +91,35 @@ function compareSemverDesc(a, b) {
 
 export default function ListChangelogs({ dir }) {
   const ctx = contexts[dir]
+  const rawCtx = rawContexts[dir]
   if (!ctx) return <p>No changelogs for "{dir}"</p>
 
   const keys = ctx.keys().sort(compareSemverDesc)
   const Components = keys.map((k) => ctx(k).default)
+  const raws = rawCtx
+    ? keys.map((k) => {
+        const mod = rawCtx(k)
+        return typeof mod === "string" ? mod : mod.default
+      })
+    : keys.map(() => "")
 
   return (
     <>
       {Components.map((Comp, i) => {
         const basename = baseFromPath(keys[i])
         const version = extractVersion(basename)
-        // const id = slugify(version);
+        const raw = raws[i] || ""
+        const isNoChanges = /no changelog entries found/i.test(raw.trim())
         return (
           <section key={keys[i]} style={{ marginBottom: "2rem" }}>
-            <Comp />
+            {isNoChanges ? (
+              <>
+                <Heading as="h2">{version}</Heading>
+                <p>No changes requiring a changelog in the {version}.</p>
+              </>
+            ) : (
+              <Comp />
+            )}
             <hr />
           </section>
         )

@@ -662,9 +662,19 @@
       "CreateProjectNormalizedPayload": {
         "description": "Create project (normalized) request payload",
         "properties": {
+          "account_experience_custom_translations": {
+            "description": "The Account Experience's Custom Translations\n\nContains all Custom Translations for this project.",
+            "items": {
+              "$ref": "#/components/schemas/RevisionAccountExperienceCustomTranslation"
+            },
+            "type": "array"
+          },
           "account_experience_default_locale": {
             "description": "Holds the default locale for the account experience.",
             "type": "string"
+          },
+          "account_experience_enabled_locales": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
           "account_experience_favicon_dark": {
             "description": "Holds the URL to the account experience's dark theme favicon (currently unused).",
@@ -2199,6 +2209,20 @@
         "title": "RecoveryAddressType must not exceed 16 characters as that is the limitation in the SQL Schema.",
         "type": "string"
       },
+      "RevisionAccountExperienceCustomTranslation": {
+        "properties": {
+          "locale": {
+            "description": "The locale (e.g. \"en\", \"de\")",
+            "type": "string"
+          },
+          "translations": {
+            "description": "The URL where the i18n json can be found",
+            "type": "string"
+          }
+        },
+        "required": ["locale", "translations"],
+        "type": "object"
+      },
       "SessionActivityDatapoint": {
         "properties": {
           "country": {
@@ -2356,9 +2380,6 @@
           "grant_scope": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
-          "handled_at": {
-            "$ref": "#/components/schemas/nullTime"
-          },
           "remember": {
             "description": "Remember, if set to true, tells ORY Hydra to remember this consent authorization and reuse it if the same\nclient asks the same user for the same, or a subset of, scope.",
             "type": "boolean"
@@ -2390,7 +2411,7 @@
       "acceptOAuth2LoginRequest": {
         "properties": {
           "acr": {
-            "description": "ACR sets the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it\nto express that, for example, a user authenticated using two factor authentication.",
+            "description": "ACR sets the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it\nto express that, for example, a user authenticated using two-factor authentication.",
             "type": "string"
           },
           "amr": {
@@ -2412,7 +2433,7 @@
             "type": "string"
           },
           "remember": {
-            "description": "Remember, if set to true, tells ORY Hydra to remember this user by telling the user agent (browser) to store\na cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, he/she\nwill not be asked to log in again.",
+            "description": "Remember, if set to true, tells Ory Hydra to remember this user by telling the user agent (browser) to store\na cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, they\nwill not be asked to log in again.",
             "type": "boolean"
           },
           "remember_for": {
@@ -2436,6 +2457,12 @@
           },
           "default_redirect_url": {
             "type": "string"
+          },
+          "enabled_locales": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           },
           "error_ui_url": {
             "type": "string"
@@ -2482,6 +2509,12 @@
           "stylesheet": {
             "type": "string"
           },
+          "translations": {
+            "items": {
+              "$ref": "#/components/schemas/RevisionAccountExperienceCustomTranslation"
+            },
+            "type": "array"
+          },
           "verification_enabled": {
             "type": "boolean"
           },
@@ -2502,7 +2535,9 @@
           "login_ui_url",
           "settings_ui_url",
           "error_ui_url",
-          "default_redirect_url"
+          "default_redirect_url",
+          "translations",
+          "enabled_locales"
         ],
         "type": "object"
       },
@@ -2998,6 +3033,22 @@
           },
           "expires_at": {
             "$ref": "#/components/schemas/Time"
+          },
+          "proxy_acs_url": {
+            "description": "Proxy ACS URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_oidc_redirect_url": {
+            "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_saml_audience_override": {
+            "description": "SAML Audience Override if overriding with a customer-controlled one",
+            "type": "string"
+          },
+          "proxy_scim_server_url": {
+            "description": "Proxy SCIM Server URL if overriding with a customer-controlled URL",
+            "type": "string"
           }
         },
         "required": ["enable_sso", "enable_scim"],
@@ -3616,7 +3667,7 @@
         },
         "type": "object"
       },
-      "getAttributesCountResponse": {
+      "getAttributesCount": {
         "description": "Response of the getAttributesCount endpoint",
         "properties": {
           "data": {
@@ -3640,7 +3691,25 @@
         },
         "type": "object"
       },
-      "getMetricsEventAttributesResponse": {
+      "getMetricsCount": {
+        "description": "Response of the getIdentityCount endpoint",
+        "properties": {
+          "count": {
+            "description": "The total count",
+            "format": "int64",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "service_name": {
+            "description": "Helper field to identify the service used for this response",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": ["count", "service_name"],
+        "type": "object"
+      },
+      "getMetricsEventAttributes": {
         "description": "Response of the getMetricsEventAttributes endpoint",
         "properties": {
           "events": {
@@ -3655,7 +3724,7 @@
         "required": ["events"],
         "type": "object"
       },
-      "getMetricsEventTypesResponse": {
+      "getMetricsEventTypes": {
         "description": "Response of the getMetricsEventTypes endpoint",
         "properties": {
           "events": {
@@ -3678,6 +3747,26 @@
         },
         "required": ["organization"],
         "title": "getOrganizationResponse represents a B2B SSO Organization.",
+        "type": "object"
+      },
+      "getProjectEvents": {
+        "description": "Response of the getProjectEvents endpoint",
+        "properties": {
+          "events": {
+            "description": "The list of data points.",
+            "items": {
+              "$ref": "#/components/schemas/ProjectEventsDatapoint"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "page_token": {
+            "description": "Pagination token to be included in next page request",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": ["events"],
         "type": "object"
       },
       "getProjectEventsBody": {
@@ -3719,27 +3808,7 @@
         "required": ["from", "to"],
         "type": "object"
       },
-      "getProjectEventsResponse": {
-        "description": "Response of the getProjectEvents endpoint",
-        "properties": {
-          "events": {
-            "description": "The list of data points.",
-            "items": {
-              "$ref": "#/components/schemas/ProjectEventsDatapoint"
-            },
-            "readOnly": true,
-            "type": "array"
-          },
-          "page_token": {
-            "description": "Pagination token to be included in next page request",
-            "readOnly": true,
-            "type": "string"
-          }
-        },
-        "required": ["events"],
-        "type": "object"
-      },
-      "getProjectMetricsResponse": {
+      "getProjectMetrics": {
         "description": "Response of the getMetrics endpoint",
         "properties": {
           "data": {
@@ -3754,7 +3823,7 @@
         "required": ["data"],
         "type": "object"
       },
-      "getSessionActivityResponse": {
+      "getSessionActivity": {
         "description": "Response of the getSessionActivity endpoint",
         "properties": {
           "data": {
@@ -4242,6 +4311,16 @@
         "required": ["project_slug", "path"],
         "type": "object"
       },
+      "internalIsOwnerForProjectBySlug": {
+        "properties": {
+          "project_id": {
+            "description": "ProjectID is the project's ID.",
+            "type": "string"
+          }
+        },
+        "required": ["project_id"],
+        "type": "object"
+      },
       "internalIsOwnerForProjectBySlugBody": {
         "description": "Is Owner For Project By Slug Request Body",
         "properties": {
@@ -4264,16 +4343,6 @@
           }
         },
         "required": ["subject", "namespace", "project_slug"],
-        "type": "object"
-      },
-      "internalIsOwnerForProjectBySlugResponse": {
-        "properties": {
-          "project_id": {
-            "description": "ProjectID is the project's ID.",
-            "type": "string"
-          }
-        },
-        "required": ["project_id"],
         "type": "object"
       },
       "introspectedOAuth2Token": {
@@ -5163,9 +5232,19 @@
       },
       "normalizedProjectRevision": {
         "properties": {
+          "account_experience_custom_translations": {
+            "description": "The Account Experience's Custom Translations\n\nContains all Custom Translations for this project.",
+            "items": {
+              "$ref": "#/components/schemas/RevisionAccountExperienceCustomTranslation"
+            },
+            "type": "array"
+          },
           "account_experience_default_locale": {
             "description": "Holds the default locale for the account experience.",
             "type": "string"
+          },
+          "account_experience_enabled_locales": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
           "account_experience_favicon_dark": {
             "description": "Holds the URL to the account experience's dark theme favicon (currently unused).",
@@ -6301,6 +6380,12 @@
             "description": "ID is the provider's ID",
             "type": "string"
           },
+          "proxy_acs_url": {
+            "$ref": "#/components/schemas/String"
+          },
+          "proxy_saml_audience_override": {
+            "$ref": "#/components/schemas/String"
+          },
           "raw_idp_metadata_xml": {
             "description": "RawIDPMetadataXML is the raw XML metadata of the IDP.",
             "type": "string"
@@ -6353,6 +6438,9 @@
             "description": "OrganizationID is the organization ID for this SCIM server.",
             "format": "uuid",
             "type": "string"
+          },
+          "proxy_scim_server_url": {
+            "$ref": "#/components/schemas/String"
           },
           "state": {
             "description": "State indicates the state of the SCIM server\n\nOnly servers with state `enabled` will be available for SCIM provisioning.\nenabled ThirdPartyProviderStateEnabled\ndisabled ThirdPartyProviderStateDisabled",
@@ -6447,10 +6535,8 @@
             "$ref": "#/components/schemas/NullUUID"
           },
           "pkce": {
-            "description": "PKCE controls if the OpenID Connect OAuth2 flow should use PKCE (Proof Key for Code Exchange).\nPossible values are: `auto` (default), `never`, `force`.\n`auto`: PKCE is used if the provider supports it. Requires setting `issuer_url`.\n`never`: Disable PKCE entirely for this provider, even if the provider advertises support for it.\n`force`: Always use PKCE, even if the provider does not advertise support for it. OAuth2 flows will fail if the provider does not support PKCE.\nIMPORTANT: If you set this to `force`, you must whitelist a different return URL for your OAuth2 client in the provider's configuration.\nInstead of \u003cbase-url\u003e/self-service/methods/oidc/callback/\u003cprovider\u003e, you must use \u003cbase-url\u003e/self-service/methods/oidc/callback\n(Note the missing \u003cprovider\u003e path segment and no trailing slash).",
             "enum": ["auto", "never", "force"],
-            "nullable": true,
-            "type": "string"
+            "nullable": true
           },
           "project_revision_id": {
             "description": "The Revision's ID this schema belongs to",
@@ -6464,6 +6550,11 @@
           },
           "provider_id": {
             "description": "ID is the provider's ID",
+            "type": "string"
+          },
+          "proxy_oidc_redirect_url": {
+            "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+            "readOnly": true,
             "type": "string"
           },
           "requested_claims": {
@@ -6847,10 +6938,6 @@
           },
           "context": {
             "$ref": "#/components/schemas/JSONRawMessage"
-          },
-          "device_challenge_id": {
-            "description": "DeviceChallenge is the device challenge this consent challenge belongs to, if this flow was initiated by a device.",
-            "type": "string"
           },
           "login_challenge": {
             "description": "LoginChallenge is the login challenge this consent challenge belongs to. It can be used to associate\na login and consent request in the login \u0026 consent app.",
@@ -7402,6 +7489,22 @@
             "readOnly": true,
             "type": "string"
           },
+          "proxy_acs_url": {
+            "description": "Proxy ACS URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_oidc_redirect_url": {
+            "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_saml_audience_override": {
+            "description": "SAML Audience Override if overriding with a customer-controlled one",
+            "type": "string"
+          },
+          "proxy_scim_server_url": {
+            "description": "Proxy SCIM Server URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
           "value": {
             "description": "The onboarding portal link's value",
             "readOnly": true,
@@ -7429,12 +7532,27 @@
             "$ref": "#/components/schemas/projectRevisionSamlProviders"
           },
           "organization_id": {
-            "description": "Organization ID",
             "format": "uuid",
             "type": "string"
           },
           "organization_label": {
             "description": "Organization Label",
+            "type": "string"
+          },
+          "proxy_acs_url": {
+            "description": "Proxy ACS URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_oidc_redirect_url": {
+            "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_saml_audience_override": {
+            "description": "SAML Audience Override if overriding with a customer-controlled one",
+            "type": "string"
+          },
+          "proxy_scim_server_url": {
+            "description": "Proxy SCIM Server URL if overriding with a customer-controlled URL",
             "type": "string"
           },
           "revision_id": {
@@ -7458,7 +7576,8 @@
           "scim_enabled",
           "kratos_selfservice_methods_saml_config_providers",
           "kratos_selfservice_methods_oidc_config_providers",
-          "scim_clients"
+          "scim_clients",
+          "organization_id"
         ],
         "type": "object"
       },
@@ -8522,7 +8641,7 @@
             "$ref": "#/components/schemas/RecoveryAddressType"
           }
         },
-        "required": ["id", "value", "via"],
+        "required": ["value", "via"],
         "type": "object"
       },
       "recoveryLinkForIdentity": {
@@ -11093,18 +11212,11 @@
       },
       "verifyUserCodeRequest": {
         "properties": {
-          "challenge": {
-            "description": "ID is the identifier (\"device challenge\") of the device request. It is used to\nidentify the session.",
-            "type": "string"
-          },
           "client": {
             "$ref": "#/components/schemas/oAuth2Client"
           },
           "device_code_request_id": {
             "type": "string"
-          },
-          "handled_at": {
-            "$ref": "#/components/schemas/nullTime"
           },
           "request_url": {
             "description": "RequestURL is the original Device Authorization URL requested.",
@@ -14796,7 +14908,7 @@
     },
     "/oauth2/device/auth": {
       "post": {
-        "description": "This endpoint is not documented here because you should never use your own implementation to perform OAuth2 flows.\nOAuth2 is a very popular protocol and a library for your programming language will exists.\n\nTo learn more about this flow please refer to the specification: https://tools.ietf.org/html/rfc8628",
+        "description": "This endpoint is not documented here because you should never use your own implementation to perform OAuth2 flows.\nOAuth2 is a very popular protocol and a library for your programming language will exist.\n\nTo learn more about this flow please refer to the specification: https://tools.ietf.org/html/rfc8628",
         "operationId": "oAuth2DeviceFlow",
         "responses": {
           "200": {
@@ -14826,7 +14938,7 @@
     },
     "/oauth2/device/verify": {
       "get": {
-        "description": "This is the device user verification endpoint. The user is redirected here when trying to login using the device flow.",
+        "description": "This is the device user verification endpoint. The user is redirected here when trying to log in using the device flow.",
         "operationId": "performOAuth2DeviceVerificationFlow",
         "responses": {
           "302": {

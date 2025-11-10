@@ -90,8 +90,8 @@ returns this object:
 {
   "identity": {
     "traits": {
-      "email": "foo@ory.sh",
-      "website": "https://www.ory.sh"
+      "email": "foo@ory.com",
+      "website": "https://www.ory.com"
     }
   }
 }
@@ -281,7 +281,7 @@ Let's assume that GitHub returns the following for `std.extVar('claims')`:
 ```json
 {
   "sub": "some-identity-id-4hA8gk",
-  "email": "foo@ory.sh",
+  "email": "foo@ory.com",
   "email_verified": true,
   "username": "foo-user"
 }
@@ -293,7 +293,7 @@ The JsonNet data mapper will return the following data from GitHub:
 {
   "identity": {
     "traits": {
-      "email": "foo@ory.sh"
+      "email": "foo@ory.com"
     },
     "metadata_public": {
       "github_username": "foo-user"
@@ -323,7 +323,7 @@ credentials:
 schema_id: some-example
 
 traits:
-  email: foo@ory.sh
+  email: foo@ory.com
 
 metadata_public:
   github_username: foo-user

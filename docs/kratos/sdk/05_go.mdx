@@ -42,11 +42,11 @@ Install the Ory Go SDK
 
 ## Frontend API
 
-The following code examples show how to use the Frontend API [`frontend`](https://www.ory.sh/docs/reference/api#tag/frontend).
+The following code examples show how to use the Frontend API [`frontend`](https://www.ory.com/docs/reference/api#tag/frontend).
 These endpoints are used by frontend applications (e.g. Single-Page-App, Native Apps, Server Apps, ...) to manage a user's own
 profile. There are two types of flows: native flows and browser flows. Native flows are used by **API clients**. Browser flows are
-used by **browser clients**. Read the [Browser vs. native apps](https://www.ory.sh/docs/identities/native-browser) document and
-the [Self-service flows](https://www.ory.sh/docs/kratos/self-service) overview to learn more.
+used by **browser clients**. Read the [Browser vs. native apps](https://www.ory.com/docs/identities/native-browser) document and
+the [Self-service flows](https://www.ory.com/docs/kratos/self-service) overview to learn more.
 
 ### Browser clients
 
@@ -54,124 +54,124 @@ the [Self-service flows](https://www.ory.sh/docs/kratos/self-service) overview t
 
 ### Create login flow
 
-[Create a login flow for API clients](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createNativeRegistrationFlow)
+[Create a login flow for API clients](https://www.ory.com/docs/reference/api#tag/frontend/operation/createNativeRegistrationFlow)
 such as mobile devices or native applications. For browser clients use
-[`CreateBrowserLoginFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserLoginFlow).
+[`CreateBrowserLoginFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/createBrowserLoginFlow).
 
 ```mdx-code-block
 import createLogin from '!!raw-loader!../../../code-examples/sdk/go/frontend/create-login.go'
 
-<CodeBlock language="go" title="login.go">{createLogin}</CodeBlock>
+<CodeBlock language="go" title="create-login.go">{createLogin}</CodeBlock>
 ```
 
 ### Create registration flow
 
-[Create a registration flow for API clients](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createNativeRegistrationFlow)
+[Create a registration flow for API clients](https://www.ory.com/docs/reference/api#tag/frontend/operation/createNativeRegistrationFlow)
 such as mobile devices or native applications. For browser clients use
-[`createBrowserLoginFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserLoginFlow).
+[`createBrowserLoginFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/createBrowserLoginFlow).
 
 ```mdx-code-block
 import createRegistration from '!!raw-loader!../../../code-examples/sdk/go/frontend/create-registration.go'
 
-<CodeBlock language="go" title="login.go">{createRegistration}</CodeBlock>
+<CodeBlock language="go" title="create-registration.go">{createRegistration}</CodeBlock>
 ```
 
 ### Create recovery flow
 
-[Create a recovery flow for API clients](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createNativeRecoveryFlow)
+[Create a recovery flow for API clients](https://www.ory.com/docs/reference/api#tag/frontend/operation/createNativeRecoveryFlow)
 such as mobile devices or native applications. For browser clients use
-[`createBrowserRecoveryFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserRecoveryFlow).
+[`createBrowserRecoveryFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/createBrowserRecoveryFlow).
 
 ```mdx-code-block
 import createRecovery from '!!raw-loader!../../../code-examples/sdk/go/frontend/create-recovery.go'
 
-<CodeBlock language="go" title="login.go">{createRecovery}</CodeBlock>
+<CodeBlock language="go" title="create-recovery.go">{createRecovery}</CodeBlock>
 ```
 
 ### Create verification flow
 
-[Create a verification flow for API clients](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createNativeVerificationFlow)
+[Create a verification flow for API clients](https://www.ory.com/docs/reference/api#tag/frontend/operation/createNativeVerificationFlow)
 such as mobile devices or native applications. For browser clients use
-[`createBrowserRecoveryFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserVerificationFlow).
+[`createBrowserRecoveryFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/createBrowserVerificationFlow).
 
 ```mdx-code-block
 import createVerification from '!!raw-loader!../../../code-examples/sdk/go/frontend/create-verification.go'
 
-<CodeBlock language="go" title="login.go">{createVerification}</CodeBlock>
+<CodeBlock language="go" title="create-verification.go">{createVerification}</CodeBlock>
 ```
 
 ### Get registration flow
 
-[Get a registration flow](https://www.ory.sh/docs/reference/api#tag/frontend/operation/getRegistrationFlow).
+[Get a registration flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/getRegistrationFlow).
 
 ```mdx-code-block
 import getRegistration from '!!raw-loader!../../../code-examples/sdk/go/frontend/get-registration.go'
 
-<CodeBlock language="go" title="login.go">{getRegistration}</CodeBlock>
+<CodeBlock language="go" title="get-registration.go">{getRegistration}</CodeBlock>
 ```
 
 ### Get recovery flow
 
-[Get a recovery flow](https://www.ory.sh/docs/reference/api#tag/frontend/operation/getRecoveryFlow).
+[Get a recovery flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/getRecoveryFlow).
 
 ```mdx-code-block
 import getRecovery from '!!raw-loader!../../../code-examples/sdk/go/frontend/get-recovery.go'
 
-<CodeBlock language="go" title="login.go">{getRecovery}</CodeBlock>
+<CodeBlock language="go" title="get-recovery.go">{getRecovery}</CodeBlock>
 ```
 
 ### Get verification flow
 
-[Get a verification flow](https://www.ory.sh/docs/reference/api#tag/frontend/operation/getVerificationFlow).
+[Get a verification flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/getVerificationFlow).
 
 ```mdx-code-block
 import getVerification from '!!raw-loader!../../../code-examples/sdk/go/frontend/get-verification.go'
 
-<CodeBlock language="go" title="login.go">{getVerification}</CodeBlock>
+<CodeBlock language="go" title="get-verification.go">{getVerification}</CodeBlock>
 ```
 
 ### Submit login flow
 
 To submit or complete a login flow you need to call the
-[`updateLoginFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/updateLoginFlow) endpoint.
+[`updateLoginFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow) endpoint.
 
 ```mdx-code-block
 import submitLogin from '!!raw-loader!../../../code-examples/sdk/go/frontend/submit-login.go'
 
-<CodeBlock language="go" title="login.go">{submitLogin}</CodeBlock>
+<CodeBlock language="go" title="submit-login.go">{submitLogin}</CodeBlock>
 ```
 
 ### Submit registration flow
 
 To submit or complete a registration flow you need to call the
-[`updateRegistrationFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/updateRegistrationFlow) endpoint.
+[`updateRegistrationFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateRegistrationFlow) endpoint.
 
 ```mdx-code-block
 import submitRegistration from '!!raw-loader!../../../code-examples/sdk/go/frontend/submit-registration.go'
 
-<CodeBlock language="go" title="login.go">{submitRegistration}</CodeBlock>
+<CodeBlock language="go" title="submit-registration.go">{submitRegistration}</CodeBlock>
 ```
 
 ### Submit recovery flow
 
 To submit or complete a recovery flow you need to call the
-[`updateRecoveryFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/updateRecoveryFlow) endpoint.
+[`updateRecoveryFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateRecoveryFlow) endpoint.
 
 ```mdx-code-block
 import submitRecovery from '!!raw-loader!../../../code-examples/sdk/go/frontend/submit-recovery.go'
 
-<CodeBlock language="go" title="login.go">{submitRecovery}</CodeBlock>
+<CodeBlock language="go" title="submit-recovery.go">{submitRecovery}</CodeBlock>
 ```
 
 ### Submit verification flow
 
 To submit or complete a recovery flow you need to call the
-[`updateVerificationFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/updateVerificationFlow) endpoint.
+[`updateVerificationFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateVerificationFlow) endpoint.
 
 ```mdx-code-block
 import submitVerification from '!!raw-loader!../../../code-examples/sdk/go/frontend/submit-verification.go'
 
-<CodeBlock language="go" title="login.go">{submitVerification}</CodeBlock>
+<CodeBlock language="go" title="submit-verification.go">{submitVerification}</CodeBlock>
 ```
 
 ### Browser - check who the current HTTP session belongs to
@@ -193,7 +193,7 @@ Traits  map[email:youremail@example.com]
 ```mdx-code-block
 import whoamiBrowser from '!!raw-loader!../../../code-examples/sdk/go/frontend/whoami-browser.go'
 
-<CodeBlock language="go" title="login.go">{whoamiBrowser}</CodeBlock>
+<CodeBlock language="go" title="whoami-browser.go">{whoamiBrowser}</CodeBlock>
 ```
 
 ### Native - check who the current HTTP session belongs to
@@ -203,66 +203,67 @@ This example uses [toSession](../reference/api#tag/frontend/operation/toSession)
 ```mdx-code-block
 import whoamiNative from '!!raw-loader!../../../code-examples/sdk/go/frontend/whoami-native.go'
 
-<CodeBlock language="go" title="login.go">{whoamiNative}</CodeBlock>
+<CodeBlock language="go" title="whoami-native.go">{whoamiNative}</CodeBlock>
 ```
 
 ### Get active sessions
 
-[Get all active sessions](https://www.ory.sh/docs/reference/api#tag/frontend/operation/listMySessions) for the current user.
+[Get all active sessions](https://www.ory.com/docs/reference/api#tag/frontend/operation/listMySessions) for the current user.
 
 ```mdx-code-block
 import getActiveSessions from '!!raw-loader!../../../code-examples/sdk/go/frontend/get-active-sessions.go'
 
-<CodeBlock language="go" title="login.go">{getActiveSessions}</CodeBlock>
+<CodeBlock language="go" title="get-active-sessions.go">{getActiveSessions}</CodeBlock>
 ```
 
 ### Perform logout flow
 
-Use [performNativeLogout](https://www.ory.sh/docs/reference/api#tag/frontend/operation/performNativeLogout) to log out the current
-user for API clients such as mobile devices or native applications. For browser clients create a logout URL using
-[`createBrowserLogoutFlow`](https://www.ory.sh/docs/reference/api#tag/frontend/operation/createBrowserLogoutFlow). .
+Use [performNativeLogout](https://www.ory.com/docs/reference/api#tag/frontend/operation/performNativeLogout) to log out the
+current user for API clients such as mobile devices or native applications. For browser clients create a logout URL using
+[`createBrowserLogoutFlow`](https://www.ory.com/docs/reference/api#tag/frontend/operation/createBrowserLogoutFlow). .
 
 ```mdx-code-block
 import logout from '!!raw-loader!../../../code-examples/sdk/go/frontend/logout.go'
 
-<CodeBlock language="go" title="login.go">{logout}</CodeBlock>
+<CodeBlock language="go" title="logout.go">{logout}</CodeBlock>
 ```
 
 ### Disable session
 
-[Revoke a specific session](https://www.ory.sh/docs/reference/api#tag/identity/operation/disableSession) for the current user.
+[Revoke a specific session](https://www.ory.com/docs/reference/api#tag/identity/operation/disableSession) for the current user.
 
 ```mdx-code-block
 import revokeSession from '!!raw-loader!../../../code-examples/sdk/go/frontend/revoke-session.go'
 
-<CodeBlock language="go" title="login.go">{revokeSession}</CodeBlock>
+<CodeBlock language="go" title="revoke-session.go">{revokeSession}</CodeBlock>
 ```
 
 ### Disable all other sessions
 
-[Revoke all other sessions](https://www.ory.sh/docs/reference/api#tag/frontend/operation/disableMyOtherSessions) for the current
+[Revoke all other sessions](https://www.ory.com/docs/reference/api#tag/frontend/operation/disableMyOtherSessions) for the current
 user.
 
 ```mdx-code-block
 import revokeOtherSessions from '!!raw-loader!../../../code-examples/sdk/go/frontend/revoke-other-sessions.go'
 
-<CodeBlock language="go" title="login.go">{revokeOtherSessions}</CodeBlock>
+<CodeBlock language="go" title="revoke-other-sessions.go">{revokeOtherSessions}</CodeBlock>
 ```
 
 ## Identity API
 
-To use the Identity Management API [`identity`](https://www.ory.sh/docs/reference/api#tag/identity) requests need to be
+To use the Identity Management API [`identity`](https://www.ory.com/docs/reference/api#tag/identity) requests need to be
 authorized.
 
-- Create a free Developer project with the [Ory CLI](https://www.ory.sh/docs/guides/cli/installation) or
+- Create a free Developer project with the [Ory CLI](https://www.ory.com/docs/guides/cli/installation) or
   [Ory Console](https://console.ory.sh/guides): `ory create project --name "Ory IdentityAPI Example"`
-- Create a new [API key](https://www.ory.sh/docs/concepts/personal-access-token) and export it `export ORY_API_KEY=<your-api-key>`
+- Create a new [API key](https://www.ory.com/docs/concepts/personal-access-token) and export it
+  `export ORY_API_KEY=<your-api-key>`
 - Run the example with `go run main.go`
 
 ### Create and delete identity
 
-With this example you [create an identity](https://www.ory.sh/docs/reference/api#tag/identity/operation/createIdentity) and
-[delete it](https://www.ory.sh/docs/reference/api#tag/identity/operation/deleteIdentity).
+With this example you [create an identity](https://www.ory.com/docs/reference/api#tag/identity/operation/createIdentity) and
+[delete it](https://www.ory.com/docs/reference/api#tag/identity/operation/deleteIdentity).
 
 ```mdx-code-block
 import createDeleteIdentity from '!!raw-loader!../../../code-examples/sdk/go/identity/create-delete-identity.go'
@@ -272,18 +273,18 @@ import createDeleteIdentity from '!!raw-loader!../../../code-examples/sdk/go/ide
 
 ### Get identity
 
-[Get an identity](https://www.ory.sh/docs/reference/api#tag/identity/operation/getIdentity) by its ID. You can optionally include
+[Get an identity](https://www.ory.com/docs/reference/api#tag/identity/operation/getIdentity) by its ID. You can optionally include
 credentials, in this example social sign in connections.
 
 ```mdx-code-block
 import gettoken from '!!raw-loader!../../../code-examples/sdk/go/social/get_token.go'
 
-<CodeBlock language="go" title="state.go">{gettoken}</CodeBlock>
+<CodeBlock language="go" title="get_token.go">{gettoken}</CodeBlock>
 ```
 
 ### Patch identity
 
-[Patch an identity](https://www.ory.sh/docs/reference/api#tag/identity/operation/patchIdentity). In this example this is used to
+[Patch an identity](https://www.ory.com/docs/reference/api#tag/identity/operation/patchIdentity). In this example this is used to
 set the identity `state`.
 
 ```mdx-code-block
@@ -294,52 +295,52 @@ import state from '!!raw-loader!../../../code-examples/sdk/go/identity/state.go'
 
 ### Delete session
 
-[Delete a specific session](https://www.ory.sh/docs/reference/api#tag/identity/operation/disableSession).
+[Delete a specific session](https://www.ory.com/docs/reference/api#tag/identity/operation/disableSession).
 
 ```mdx-code-block
 import disableSession from '!!raw-loader!../../../code-examples/sdk/go/session/disable-session.go'
 
-<CodeBlock language="go" title="login.go">{disableSession}</CodeBlock>
+<CodeBlock language="go" title="disable-session.go">{disableSession}</CodeBlock>
 ```
 
 ### Delete sessions
 
-[Delete all sessions](https://www.ory.sh/docs/reference/api#tag/identity/operation/deleteIdentitySessions) for a user.
+[Delete all sessions](https://www.ory.com/docs/reference/api#tag/identity/operation/deleteIdentitySessions) for a user.
 
 ```mdx-code-block
 import deleteIdentitySessions from '!!raw-loader!../../../code-examples/sdk/go/session/delete-sessions.go'
 
-<CodeBlock language="go" title="login.go">{deleteIdentitySessions}</CodeBlock>
+<CodeBlock language="go" title="delete-sessions.go">{deleteIdentitySessions}</CodeBlock>
 ```
 
 ### Get session
 
-[Get a specifc session](https://www.ory.sh/docs/reference/api#tag/identity/operation/getSessio<n).
+[Get a specifc session](https://www.ory.com/docs/reference/api#tag/identity/operation/getSessio<n).
 
 ```mdx-code-block
 import getSession from '!!raw-loader!../../../code-examples/sdk/go/session/get-session.go'
 
-<CodeBlock language="go" title="login.go">{getSession}</CodeBlock>
+<CodeBlock language="go" title="get-session.go">{getSession}</CodeBlock>
 ```
 
 ### Get sessions
 
-[Get all sessions](https://www.ory.sh/docs/reference/api#tag/identity/operation/listSessions) for all users.
+[Get all sessions](https://www.ory.com/docs/reference/api#tag/identity/operation/listSessions) for all users.
 
 ```mdx-code-block
 import listSessions from '!!raw-loader!../../../code-examples/sdk/go/session/get-sessions.go'
 
-<CodeBlock language="go" title="login.go">{listSessions}</CodeBlock>
+<CodeBlock language="go" title="get-sessions.go">{listSessions}</CodeBlock>
 ```
 
 ### Refresh session
 
-[Extend a session](https://www.ory.sh/docs/reference/api#tag/identity/operation/extendSession).
+[Extend a session](https://www.ory.com/docs/reference/api#tag/identity/operation/extendSession).
 
 ```mdx-code-block
 import extendSession from '!!raw-loader!../../../code-examples/sdk/go/session/refresh-session.go'
 
-<CodeBlock language="go" title="login.go">{extendSession}</CodeBlock>
+<CodeBlock language="go" title="refresh-session.go">{extendSession}</CodeBlock>
 ```
 
 ## Go frameworks
@@ -364,7 +365,7 @@ pong
 ```mdx-code-block
 import gin from '!!raw-loader!../../../code-examples/sdk/go/frameworks/gin.go'
 
-<CodeBlock language="go" title="state.go">{gin}</CodeBlock>
+<CodeBlock language="go" title="gin.go">{gin}</CodeBlock>
 ```
 
 ### Echo middleware
@@ -386,5 +387,5 @@ Hello World
 ```mdx-code-block
 import echo from '!!raw-loader!../../../code-examples/sdk/go/frameworks/echo.go'
 
-<CodeBlock language="go" title="state.go">{echo}</CodeBlock>
+<CodeBlock language="go" title="echo.go">{echo}</CodeBlock>
 ```

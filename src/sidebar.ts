@@ -58,6 +58,7 @@ const oidcSSO: SidebarItemConfig = {
         "kratos/social-signin/linkedin",
         "kratos/social-signin/x-twitter",
         "kratos/social-signin/line",
+        "kratos/social-signin/amazon",
       ],
     },
     "kratos/social-signin/data-mapping",
@@ -258,7 +259,7 @@ const troubleshooting: SidebarItemsConfig = [
     collapsed: false,
     link: {
       type: "generated-index",
-      slug: "category/troubleshooting/",
+      slug: "/category/troubleshooting",
     },
     items: [
       {
@@ -457,6 +458,14 @@ const kratos: SidebarItemsConfig = [
       },
       {
         type: "category",
+        label: "Search",
+        items: [
+          "kratos/manage-identities/search/identity-search-console",
+          "kratos/manage-identities/search/identity-search-api",
+        ],
+      },
+      {
+        type: "category",
         label: "Identity management",
         link: {
           type: "doc",
@@ -480,6 +489,7 @@ const kratos: SidebarItemsConfig = [
             items: [
               "kratos/manage-identities/scim/ms-entra",
               "kratos/manage-identities/scim/okta",
+              "kratos/manage-identities/scim/google-workspace",
             ],
           },
 
@@ -1208,7 +1218,7 @@ const opensource: SidebarItemsConfig = [
   {
     type: "link",
     label: "Search",
-    href: "https://www.ory.sh/docs/search",
+    href: "https://www.ory.com/docs/search",
   },
 ]
 

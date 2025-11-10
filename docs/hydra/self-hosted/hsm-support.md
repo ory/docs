@@ -24,7 +24,7 @@ set.
 ## Hardware Security Module configuration
 
 Ory Hydra can be configured using environment variables as well as a configuration file. For more information on configuration
-options, visit the [configuration reference](https://www.ory.sh/hydra/docs/reference/configuration)
+options, visit the [configuration reference](https://www.ory.com/hydra/docs/reference/configuration)
 
 ```
 HSM_ENABLED=true
