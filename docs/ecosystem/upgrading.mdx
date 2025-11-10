@@ -26,39 +26,10 @@ Before upgrading to a newer version, please make sure to check with these docume
 
 ## Versioning
 
-The Ory ecosystem consists of multiple services versioned using [semantic versioning](https://semver.org). This section explains
-how we define service versions and what they mean.
-
-## Development stages
-
-:::important
-
-**Ory only releases software that is stable and ready for production!**  
-The sandbox/incubating stage is an indicator of how much the API could change in the future, including backward incompatible
-changes.
-
-Ory was founded in 2015, secures more than 50B requests monthly and is the most trusted open source ecosystem for authentication &
-authorization.
-
-:::
-
-There are three main stages of development for services:
-
-- **Graduated:** Mature implementations of proven concepts. They rarely change in backwards incompatible ways. A software is
-  considered graduated if the major version is >= 1, for example `v1.0.1`, `v2.2.2`. Backwards incompatible changes are indicated
-  by a bump of the major version number. Most, if not all, REST APIs will provide backwards compatible transformations that make
-  it possible to interact with the server using older API versions.
-- **Incubating:** Implements well defined but not fully matured concepts. Incubating software has a major version number of `0`,
-  for example `v0.10.0`. You may see a pre-release version such as `v0.10.0-beta.1`. Incubating software has a higher (but overall
-  moderate) probability for larger changes that can break backwards compatibility, for which there are upgrade guides.
-- **Sandbox:** Implements concepts, APIs and CLIs at the experimental stage and may change in unpredictable ways. Sandbox software
-  has a major version number of `0` with a `alpha` or `beta` pre-release indicator, for example `v0.10.0-alpha.1`. It's more
-  likely that you'll encounter a version tag with a `alpha` pre-release version. We will provide upgrade guides wherever possible,
-  when they're used in production already.
-
-The following is a list of maturity level per project:
-
-- [Ory Hydra](https://github.com/ory/hydra) is a **graduated** project.
-- [Ory Kratos](https://github.com/ory/kratos) is a **graduated** project.
-- [Ory Oathkeeper](https://github.com/ory/oathkeeper) is an **incubating** project.
-- [Ory Keto](https://github.com/ory/keto) is a **sandbox** project.
+Ory uses a calendar-based product versioning system, where the version format is `YY.Q.N`, representing the year, quarter, and
+release number within that quarter. For example, version `26.2.0` indicates a product release in the second quarter of 2026, with
+`0` being the first release in that quarter. The release number increases with each subsequent release during the quarter. With
+this system you can understand when a version was released and how recent it released. Starting from October 2025, all Ory
+components use a common versioning number, meaning releases are synchronized across all components such as Ory Kratos, Ory Hydra,
+Ory Oathkeeper, and Ory Keto. This unified versioning simplifies upgrades and ensures compatibility across the entire Ory
+ecosystem.
