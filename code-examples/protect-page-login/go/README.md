@@ -1,4 +1,4 @@
-# Protect page with login example in Go
+# Ory Authentication Example with Go
 
 This example demonstrates protecting a page in a Go web server using the Ory SDK
 and Ory Account Experience.
