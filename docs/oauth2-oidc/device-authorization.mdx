@@ -1,0 +1,184 @@
+---
+id: device-authorization
+title: Device Authorization
+sidebar_label: Device authorization flow
+---
+
+The OAuth 2.0 Device Authorization Grant (RFC 8628) brings OAuth to devices with internet connectivity but limited input
+capabilities. This flow is designed for smart TVs, streaming devices, IoT hardware, printers, remote terminal sessions, AI agents,
+and other connected devices where typing credentials or opening a browser isn't practical or possible. Here's how it works: the
+device to be authenticated displays a URL and a short code, prompting you to open that URL on your phone or computer to authorize
+access. After successful authorization, the device will get an access and (optionally) a refresh token. The two devices don't need
+to communicate directly; the authorization happens through the OAuth provider.
+
+This document provides an overview of the Ory's device authorization grant flow, with a step-by-step example of its
+implementation, configuration options, and guidance on creating custom user interfaces for the verification screen.
+
+## Overview of the flow
+
+Here is the high-level overview for the device authorization grant flow:
+
+1. The user attempts to log in to the device. This initiates the device to request authorization from the authorization server.
+1. When the authorization server responds, the user is instructed to visit a URL and enter the provided user code, which they do
+   on a different device.
+1. On the different device the user visits the URL, enters the user code, logs in, and grants access to the device.
+1. In the meantime, the device polls the authorization server. Once the user authenticates and grants access, the authentication
+   server sends an access token to the device, which is used to access the protected resource.
+
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid";
+
+<Mermaid
+  chart={`sequenceDiagram
+    participant D as Device
+    participant U as User
+    participant AS as OAuth2 Server
+
+    activate D
+    D->>+AS: Start device code grant
+    AS-->>-D: Verification URI, Device-code, User-code
+    loop background poll before user authorized
+        D->>+AS: Request Token by device code
+        AS-->>-D: Error
+    end
+    D->>+U: Ask visit verification URI<br/>Reveal User-code
+    U->>+AS: Request verification URI
+    AS-->>-U: Prompt for User-code
+    U->>+AS: Sumbit User-code
+    AS-->>-U: Prompt for login and consent
+    U->>+AS: Submit credentials and consent
+    AS-->>-U: Show success
+    deactivate U
+    loop background poll after user authorized
+        D->>+AS: Request Token by device code
+    end
+    AS-->>-D: Token
+    D-->>D: Process and store token
+    deactivate D
+`} />
+```
+
+### Step 1: Device requests authorization
+
+The user attempts to log in through the limited input device. The device sends a POST request to the authorization server to
+initiate the flow with the following parameters:
+
+- `client_id`: The ID of the client (device) that's making the request
+- `scope` (optional): The scope of the access request, which specifies which resources the requesting device can access
+
+The authorization server responds with the following information:
+
+- `device_code`: A unique code to identify the authorization request
+- `user_code`: A code the user enters at the verification URL
+- `verification_uri`: The URL where the user authorizes the device
+- `verification_uri_complete`: The URL where the user authorizes the device, with the user_code already filled in
+- `expires_in`: The lifespan of the device code (in seconds)
+- `interval`: The polling interval (in seconds) for the client to check if the user has authorized the device yet
+
+### Step 2: Display user code and verification URI
+
+The device shows the user the `user_code` and `verification_uri` it received from the authorization server. Depending on the
+device, this can be in the form of a URL, QR code, acoustically, or any other form that the device can communicate with the user.
+
+### Step 3: User grants permission
+
+The user visits the provided URI on a separate device, such as a phone, and enters the code. Once the user enters the code, the
+user is prompted to log in, if not already authenticated, and grants or denies permission to the client (device). After granting
+permission, the user is redirected to a page confirming they are successfully logged in.
+
+### Step 4: Device polls for the access token
+
+While the user is authorizing the device, the device polls the `token` endpoint of the authorization server to check whether the
+user has completed the authorization process by making a POST request with the following parameters:
+
+- `client_id`: The ID of the client that's making the request
+- `device_code`: The device code returned from the authorization request
+- `grant_type`: This must always be `urn:ietf:params:oauth:grant-type:device_code`
+
+After the user grants their consent, the authentication server sends an access token to the device, which is used to access the
+protected resource.
+
+## Configuration options
+
+### Configure the user interface
+
+To enable and configure the device authorization grant in Ory Hydra, adjust the following settings in your configuration file:
+
+```yaml
+urls:
+  device:
+    # The verification UI is where the user inputs the user-code
+    verification: http://path/to/device/verification/ui
+    # The success UI is where the user is sent to after successful authorization
+    success: http://path/to/device/success
+```
+
+### Configure user code entropy
+
+Depending on your security needs and your traffic load, you should choose the appropriate `user_code` entropy. The
+`oauth2.device_authorization.user_code.entropy_preset` configuration supports 3 values:
+
+- `high`: `user_code` is 8 characters long and consists of alphanumeric characters, excluding some ambiguous symbols
+- `medium`: `user_code` is 8 characters long and consists of only upper case alphabetic characters
+- `low`: `user_code` is 9 characters long and consists of only numeric characters
+
+It is also possible to configure the length and character set directly:
+
+```yaml
+oauth2:
+  device_authorization:
+    user_code:
+      length: 8
+      character_set: abcdefghijklmnopqrstuvwxyz0123456789
+```
+
+It is important to strike the right balance between security and user experience here. Higher entropy enhances security and
+protects against an attacker randomly guessing valid user-codes. This is especially important when more concurrent device flows
+are being performed. As users will need to manually enter the user code, the higher the entropy, the more difficult it will be for
+the user to enter the user code. For a better user experience, ambiguous characters should be avoided, for example `O` and `0` on
+any display, or `1` and `7` on a 7-segment display. This isn't of any concern when the user doesn't need to input the user-code
+manually, for example when scanning a QR code.
+
+## Device verification UI implementation
+
+Here is a sample UI implementation for device verification:
+
+```js
+import { Configuration, OAuth2Api } from "@ory/client"
+import { Request, Response } from "express"
+
+const ory = new OAuth2Api(
+  new Configuration({
+    basePath: `https://${process.env.ORY_PROJECT_SLUG}.projects.oryapis.com`,
+    accessToken: process.env.ORY_API_KEY,
+  }),
+)
+
+// Please note that this is an example implementation.
+// In a production app, please add proper error handling.
+export async function handleLogin(request: Request, response: Response) {
+  const challenge = request.query.device_challenge.toString()
+  const userCode = request.query.user_code.toString()
+
+  // Show the login form if the form was not submitted.
+  if (request.method === "GET") {
+    response.render("device", {
+      challenge,
+      userCode,
+    })
+    return
+  }
+
+  // User was authenticated successfully,
+  return await ory
+    .acceptUserCodeRequest({
+      deviceChallenge: challenge,
+      acceptDeviceUserCodeRequest: {
+        user_code: userCode,
+      },
+    })
+    .then(({ redirect_to }) => {
+      response.redirect(String(redirect_to))
+    })
+}
+```
