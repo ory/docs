@@ -1213,6 +1213,7 @@ const oel: SidebarItemsConfig = [
     items: ["self-hosted/oel/polis/changelog"],
   },
   "self-hosted/oel/monitoring/monitoring",
+  "self-hosted/oel/high-performance-pooling",
 ]
 
 const security: SidebarItemsConfig = [
