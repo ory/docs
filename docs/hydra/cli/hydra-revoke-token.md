@@ -1,7 +1,7 @@
 ---
 id: hydra-revoke-token
 title: hydra revoke token
-description: hydra revoke token Revoke an access or refresh token
+description: hydra revoke token
 ---
 
 <!--
@@ -41,7 +41,7 @@ hydra revoke token --client-id a0184d6c-b313-4e70-a0b9-905b581e9218 --client-sec
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra revoke](hydra-revoke)	 - Revoke resources
+* [hydra revoke](hydra-revoke) Revoke resources
 

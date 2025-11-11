@@ -1,7 +1,7 @@
 ---
 id: hydra-revoke
 title: hydra revoke
-description: hydra revoke Revoke resources
+description: hydra revoke
 ---
 
 <!--
@@ -24,8 +24,8 @@ Revoke resources
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
+* [hydra](hydra) Run and manage Ory Hydra
 * [hydra revoke token](hydra-revoke-token)	 - Revoke an access or refresh token
 

@@ -1,7 +1,7 @@
 ---
 id: hydra-perform-authorization-code
 title: hydra perform authorization-code
-description: hydra perform authorization-code Example OAuth 2.0 Client performing the OAuth 2.0 Authorize Code Flow
+description: hydra perform authorization-code
 ---
 
 <!--
@@ -63,7 +63,7 @@ hydra perform authorization-code --client-id ... --client-secret ...
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra perform](hydra-perform)	 - Perform OAuth 2.0 Flows
+* [hydra perform](hydra-perform) Perform OAuth 2.0 Flows
 

@@ -1,7 +1,7 @@
 ---
 id: hydra-create-oauth2-client
 title: hydra create oauth2-client
-description: hydra create oauth2-client Create an OAuth 2.0 Client
+description: hydra create oauth2-client
 ---
 
 <!--
@@ -94,7 +94,7 @@ client_secret=$(echo $client | jq -r '.client_secret')
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra create](hydra-create)	 - Create resources
+* [hydra create](hydra-create) Create resources
 

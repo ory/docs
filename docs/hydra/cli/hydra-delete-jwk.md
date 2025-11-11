@@ -1,7 +1,7 @@
 ---
 id: hydra-delete-jwk
 title: hydra delete jwk
-description: hydra delete jwk Delete one or more JSON Web Key Sets by their set ID
+description: hydra delete jwk
 ---
 
 <!--
@@ -43,7 +43,7 @@ hydra delete jwk <set-1> <set-2> <set-3>
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra delete](hydra-delete)	 - Delete resources
+* [hydra delete](hydra-delete) Delete resources
 

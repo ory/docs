@@ -1,7 +1,7 @@
 ---
 id: hydra-get-jwk
 title: hydra get jwk
-description: hydra get jwk Get one or more JSON Web Key Set by its ID(s)
+description: hydra get jwk
 ---
 
 <!--
@@ -51,7 +51,7 @@ To get the JSON Web Key Set as only public keys:
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra get](hydra-get)	 - Get resources
+* [hydra get](hydra-get) Get resources
 
