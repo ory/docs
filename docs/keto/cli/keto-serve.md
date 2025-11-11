@@ -1,7 +1,7 @@
 ---
 id: keto-serve
 title: keto serve
-description: keto serve Starts the server and serves the HTTP REST and gRPC APIs
+description: keto serve
 ---
 
 <!--
@@ -41,7 +41,7 @@ keto serve [flags]
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto](keto)	 - Global and consistent permission and authorization server
+* [keto](keto) Global and consistent permission and authorization server
 

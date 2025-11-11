@@ -1,7 +1,7 @@
 ---
 id: keto-check
 title: keto check
-description: keto check Check whether a subject has a relation on an object
+description: keto check
 ---
 
 <!--
@@ -42,7 +42,7 @@ keto check <subject> <relation> <namespace> <object> [flags]
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto](keto)	 - Global and consistent permission and authorization server
+* [keto](keto) Global and consistent permission and authorization server
 

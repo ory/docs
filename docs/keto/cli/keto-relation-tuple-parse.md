@@ -1,7 +1,7 @@
 ---
 id: keto-relation-tuple-parse
 title: keto relation-tuple parse
-description: keto relation-tuple parse Parse human readable relationships
+description: keto relation-tuple parse
 ---
 
 <!--
@@ -37,7 +37,7 @@ keto relation-tuple parse [flags]
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relationships
+* [keto relation-tuple](keto-relation-tuple) Read and manipulate relationships
 

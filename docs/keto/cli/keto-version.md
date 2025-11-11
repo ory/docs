@@ -1,7 +1,7 @@
 ---
 id: keto-version
 title: keto version
-description: keto version Show the build version, build time, and git hash
+description: keto version
 ---
 
 <!--
@@ -29,7 +29,7 @@ keto version [flags]
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto](keto)	 - Global and consistent permission and authorization server
+* [keto](keto) Global and consistent permission and authorization server
 
