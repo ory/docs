@@ -265,6 +265,11 @@ export const routes = {
             `/projects/${project}/authentication/organizations/${id}`,
         },
       },
+      applications: {
+        route: "/projects/[project]/authentication/applications",
+        href: (project: string) =>
+          `/projects/${project}/authentication/applications`,
+      },
     },
     hostedUI: {
       registration: (base: string) => `${base}/registration`,

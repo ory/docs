@@ -107,6 +107,10 @@ export const authenticationPaths: Path[] = [
     href: routes.project.authentication.sessionSettings.route,
   },
   {
+    title: "SAML Applications",
+    href: routes.project.authentication.applications.route,
+  },
+  {
     title: "Account recovery",
     href: routes.project.recovery.route,
   },
