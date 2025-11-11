@@ -1,7 +1,7 @@
 ---
 id: kratos-list
 title: kratos list
-description: kratos list List resources
+description: kratos list
 ---
 
 <!--
@@ -22,8 +22,8 @@ List resources
   -q, --quiet             Be quiet with output printing.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
+* [kratos](kratos)
 * [kratos list identities](kratos-list-identities)	 - List identities
 

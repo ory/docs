@@ -1,7 +1,7 @@
 ---
 id: kratos-lint-lint
 title: kratos lint lint
-description: kratos lint lint 
+description: kratos lint lint
 ---
 
 <!--
@@ -19,28 +19,36 @@ Lints JSONNet files using the official JSONNet linter and exits with a status co
 
 Glob Syntax:
 
-    pattern:
-        { term }
+```
+pattern:
+    { term }
+```
 
-    term:
-        '*'         matches any sequence of non-separator characters
-        '**'        matches any sequence of characters
-        '?'         matches any single non-separator character
-        '[' [ '!' ] { character-range } ']'
-                    character class (must be non-empty)
-        '{' pattern-list '}'
-                    pattern alternatives
-        c           matches character c (c != '*', '**', '?', '\', '[', '{', '}')
-        '\' c       matches character c
+```
+term:
+    '*'         matches any sequence of non-separator characters
+    '**'        matches any sequence of characters
+    '?'         matches any single non-separator character
+    '[' [ '!' ] { character-range } ']'
+                character class (must be non-empty)
+    '{' pattern-list '}'
+                pattern alternatives
+    c           matches character c (c != '*', '**', '?', '\', '[', '{', '}')
+    '\' c       matches character c
+```
 
-    character-range:
-        c           matches character c (c != '\\', '-', ']')
-        '\' c       matches character c
-        lo '-' hi   matches character c for lo <= c <= hi
+```
+character-range:
+    c           matches character c (c != '\\', '-', ']')
+    '\' c       matches character c
+    lo '-' hi   matches character c for lo <= c <= hi
+```
 
-    pattern-list:
-        pattern { ',' pattern }
-                    comma-separated (without spaces) patterns
+```
+pattern-list:
+    pattern { ',' pattern }
+                comma-separated (without spaces) patterns
+```
 
 ```
 kratos lint lint path/to/files/*.jsonnet [more/files.jsonnet] [supports/**/{foo,bar}.jsonnet] [flags]
@@ -52,7 +60,7 @@ kratos lint lint path/to/files/*.jsonnet [more/files.jsonnet] [supports/**/{foo,
   -h, --help   help for lint
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos lint](kratos-lint)	 - Helpers for linting code
+* [kratos lint](kratos-lint) Helpers for linting code
 

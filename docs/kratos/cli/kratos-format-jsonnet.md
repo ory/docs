@@ -1,7 +1,7 @@
 ---
 id: kratos-format-jsonnet
 title: kratos format jsonnet
-description: kratos format jsonnet 
+description: kratos format jsonnet
 ---
 
 <!--
@@ -21,28 +21,36 @@ Use -w or --write to write output back to files instead of stdout.
 
 Glob Syntax:
 
-    pattern:
-        { term }
+```
+pattern:
+    { term }
+```
 
-    term:
-        '*'         matches any sequence of non-separator characters
-        '**'        matches any sequence of characters
-        '?'         matches any single non-separator character
-        '[' [ '!' ] { character-range } ']'
-                    character class (must be non-empty)
-        '{' pattern-list '}'
-                    pattern alternatives
-        c           matches character c (c != '*', '**', '?', '\', '[', '{', '}')
-        '\' c       matches character c
+```
+term:
+    '*'         matches any sequence of non-separator characters
+    '**'        matches any sequence of characters
+    '?'         matches any single non-separator character
+    '[' [ '!' ] { character-range } ']'
+                character class (must be non-empty)
+    '{' pattern-list '}'
+                pattern alternatives
+    c           matches character c (c != '*', '**', '?', '\', '[', '{', '}')
+    '\' c       matches character c
+```
 
-    character-range:
-        c           matches character c (c != '\\', '-', ']')
-        '\' c       matches character c
-        lo '-' hi   matches character c for lo <= c <= hi
+```
+character-range:
+    c           matches character c (c != '\\', '-', ']')
+    '\' c       matches character c
+    lo '-' hi   matches character c for lo <= c <= hi
+```
 
-    pattern-list:
-        pattern { ',' pattern }
-                    comma-separated (without spaces) patterns
+```
+pattern-list:
+    pattern { ',' pattern }
+                comma-separated (without spaces) patterns
+```
 
 ```
 kratos format jsonnet path/to/files/*.jsonnet [more/files.jsonnet] [supports/**/{foo,bar}.jsonnet] [flags]
@@ -55,7 +63,7 @@ kratos format jsonnet path/to/files/*.jsonnet [more/files.jsonnet] [supports/**/
   -w, --write   Write formatted output back to file.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos format](kratos-format)	 - Helpers for formatting code
+* [kratos format](kratos-format) Helpers for formatting code
 

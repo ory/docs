@@ -1,7 +1,7 @@
 ---
 id: kratos-courier-watch
 title: kratos courier watch
-description: kratos courier watch Starts the Ory Kratos message courier
+description: kratos courier watch
 ---
 
 <!--
@@ -30,7 +30,7 @@ kratos courier watch [flags]
   -c, --config strings   Path to one or more .json, .yaml, .yml, .toml config files. Values are loaded in the order provided, meaning that the last config file overwrites values from the previous config file.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos courier](kratos-courier)	 - Commands related to the Ory Kratos message courier
+* [kratos courier](kratos-courier) Commands related to the Ory Kratos message courier
 

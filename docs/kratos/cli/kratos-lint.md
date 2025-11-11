@@ -1,7 +1,7 @@
 ---
 id: kratos-lint
 title: kratos lint
-description: kratos lint Helpers for linting code
+description: kratos lint
 ---
 
 <!--
@@ -19,8 +19,8 @@ Helpers for linting code
   -h, --help   help for lint
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
-* [kratos lint lint](kratos-lint-lint)	 - 
+* [kratos](kratos)
+* [kratos lint lint](kratos-lint-lint)	
 

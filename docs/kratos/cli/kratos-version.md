@@ -1,7 +1,7 @@
 ---
 id: kratos-version
 title: kratos version
-description: kratos version Show the build version, build time, and git hash
+description: kratos version
 ---
 
 <!--
@@ -23,7 +23,7 @@ kratos version [flags]
   -h, --help   help for version
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
+* [kratos](kratos)
 

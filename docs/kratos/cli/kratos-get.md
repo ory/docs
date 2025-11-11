@@ -1,7 +1,7 @@
 ---
 id: kratos-get
 title: kratos get
-description: kratos get Get resources
+description: kratos get
 ---
 
 <!--
@@ -22,8 +22,8 @@ Get resources
   -q, --quiet             Be quiet with output printing.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
+* [kratos](kratos)
 * [kratos get identity](kratos-get-identity)	 - Get one or more identities by their ID(s)
 
