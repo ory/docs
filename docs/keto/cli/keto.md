@@ -1,7 +1,7 @@
 ---
 id: keto
 title: keto
-description: keto Global and consistent permission and authorization server
+description: keto
 ---
 
 <!--
@@ -20,7 +20,7 @@ Global and consistent permission and authorization server
   -h, --help             help for keto
 ```
 
-### SEE ALSO
+### See also
 
 * [keto check](keto-check)	 - Check whether a subject has a relation on an object
 * [keto expand](keto-expand)	 - Expand a subject set

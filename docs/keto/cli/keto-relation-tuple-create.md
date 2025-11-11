@@ -1,7 +1,7 @@
 ---
 id: keto-relation-tuple-create
 title: keto relation-tuple create
-description: keto relation-tuple create Create relationships from JSON files
+description: keto relation-tuple create
 ---
 
 <!--
@@ -43,7 +43,7 @@ keto relation-tuple create <relationships.json> [<relationships-dir>] [flags]
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relationships
+* [keto relation-tuple](keto-relation-tuple) Read and manipulate relationships
 

@@ -1,7 +1,7 @@
 ---
 id: keto-relation-tuple-delete-all
 title: keto relation-tuple delete-all
-description: keto relation-tuple delete-all Delete ALL relationships matching the relation query.
+description: keto relation-tuple delete-all
 ---
 
 <!--
@@ -48,7 +48,7 @@ keto relation-tuple delete-all [flags]
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relationships
+* [keto relation-tuple](keto-relation-tuple) Read and manipulate relationships
 

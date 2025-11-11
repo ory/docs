@@ -1,7 +1,7 @@
 ---
 id: keto-migrate-down
 title: keto migrate down
-description: keto migrate down Migrate the database down
+description: keto migrate down
 ---
 
 <!--
@@ -37,7 +37,7 @@ keto migrate down <steps> [flags]
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto migrate](keto-migrate)	 - Commands to migrate the database
+* [keto migrate](keto-migrate) Commands to migrate the database
 
