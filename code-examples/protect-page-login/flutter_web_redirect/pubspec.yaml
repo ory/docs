@@ -13,7 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   dio: ^5.8.0+1
   flutter_dotenv: ^6.0.0
-  ory_client: ^1.20.11
+  ory_client: ^1.22.8
   universal_html: ^2.2.4
 
 dev_dependencies:
