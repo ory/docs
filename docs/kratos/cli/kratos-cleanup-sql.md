@@ -1,7 +1,7 @@
 ---
 id: kratos-cleanup-sql
 title: kratos cleanup sql
-description: kratos cleanup sql Cleanup sql database from expired flows and sessions
+description: kratos cleanup sql
 ---
 
 <!--
@@ -19,8 +19,10 @@ Run this command as frequently as you need.
 It is recommended to run this command close to the SQL instance (e.g. same subnet) instead of over the public internet.
 This decreases risk of failure and decreases time required.
 You can read in the database URL using the -e flag, for example:
-	export DSN=...
-	kratos cleanup sql -e
+```
+export DSN=...
+kratos cleanup sql -e
+```
 ### WARNING ###
 Before running this command on an existing database, create a back up!
 
@@ -40,7 +42,7 @@ kratos cleanup sql <database-url> [flags]
   -e, --read-from-env                            If set, reads the database connection string from the environment variable DSN or config file key dsn. (default true)
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos cleanup](kratos-cleanup)	 - Various cleanup helpers
+* [kratos cleanup](kratos-cleanup) Various cleanup helpers
 

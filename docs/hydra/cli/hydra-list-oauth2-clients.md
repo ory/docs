@@ -1,7 +1,7 @@
 ---
 id: hydra-list-oauth2-clients
 title: hydra list oauth2-clients
-description: hydra list oauth2-clients List OAuth 2.0 Clients
+description: hydra list oauth2-clients
 ---
 
 <!--
@@ -45,7 +45,7 @@ hydra list oauth2-clients --page-token eyJwYWdlIjoxfQ --page-size 10
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra list](hydra-list)	 - List resources
+* [hydra list](hydra-list) List resources
 

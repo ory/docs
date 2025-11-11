@@ -1,7 +1,7 @@
 ---
 id: keto-relation-tuple-get
 title: keto relation-tuple get
-description: keto relation-tuple get Get relationships
+description: keto relation-tuple get
 ---
 
 <!--
@@ -49,7 +49,7 @@ keto relation-tuple get [flags]
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relationships
+* [keto relation-tuple](keto-relation-tuple) Read and manipulate relationships
 

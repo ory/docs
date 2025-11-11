@@ -233,7 +233,7 @@ export const backendFrameworks: {
         "Integrate Ory authentication and permissions with your Python application",
       language: "python",
       languageLogoAlt: "Python logo",
-      docs: "https://www.ory.sh/blog/securing-flask-application-using-kratos-and-keto",
+      docs: "https://www.ory.com/blog/securing-flask-application-using-kratos-and-keto",
     },
   ],
 }

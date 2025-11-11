@@ -22,7 +22,7 @@ export const getStartedPaths: Path[] = [
     href: routes.project.getStarted.route + "#integrations",
   },
   {
-    title: "Guides and Tutorials",
+    title: "Guides and concepts",
     href: routes.project.getStarted.route + "#guides-tutorials",
   },
   { title: "Community", href: routes.project.getStarted.route + "#community" },
@@ -31,15 +31,15 @@ export const getStartedPaths: Path[] = [
 export const activityPaths: Path[] = [
   { title: "Live", href: routes.project.activity.route },
   {
-    title: "Logs & Events",
+    title: "Logs & events",
     href: routes.project.activity.events.route,
   },
   { title: "Sessions", href: routes.project.sessions.list.route },
-  { title: "Email delivery", href: routes.project.courierMessages.route },
+  { title: "Message delivery", href: routes.project.courierMessages.route },
 ]
 
 export const identititesPaths: Path[] = [
-  { title: "Users & Identities", href: routes.project.identities.list.route },
+  { title: "Users & identities", href: routes.project.identities.list.route },
   { title: "Identity schema", href: routes.project.identitySchema.route },
   {
     title: "Import users",
@@ -54,6 +54,10 @@ export const brandingPaths: Path[] = [
     href: routes.project.accountExperience.theming.route,
   },
   {
+    title: "Localization",
+    href: routes.project.accountExperience.locales.route,
+  },
+  {
     title: "Custom domains",
     href: routes.project.cname.route,
   },
@@ -65,11 +69,15 @@ export const brandingPaths: Path[] = [
     title: "UI URLs",
     href: routes.project.ui.route,
   },
+  {
+    title: "Email templates",
+    href: routes.project.emailTemplates.route,
+  },
 ]
 
 export const authenticationPaths: Path[] = [
   {
-    title: "Registration",
+    title: "General",
     href: routes.project.authentication.route,
   },
   {
@@ -81,16 +89,22 @@ export const authenticationPaths: Path[] = [
     href: routes.project.mfa.route,
   },
   {
-    title: "Social Sign-In",
+    title: "Social Sign-In (OIDC)",
     href: routes.project.socialSignIn.route,
   },
   {
-    title: "Actions & Webhooks",
-    href: routes.project.developers.actions.route,
+    title: "SAML Sign-In",
+    href: routes.project.saml.route,
+    pill: "Preview",
   },
   {
     title: "Enterprise SSO",
     href: routes.project.authentication.organizations.route,
+  },
+
+  {
+    title: "Sessions",
+    href: routes.project.authentication.sessionSettings.route,
   },
   {
     title: "Account recovery",
@@ -101,39 +115,51 @@ export const authenticationPaths: Path[] = [
     href: routes.project.verification.route,
   },
   {
-    title: "Email configuration",
+    title: "Email Configuration",
     href: routes.project.emailConfiguration.route,
   },
   {
-    title: "Email templates",
-    href: routes.project.emailTemplates.route,
-  },
-  {
-    title: "SMS configuration",
+    title: "SMS Configuration",
     href: routes.project.smsConfiguration.route,
   },
   {
-    title: "Sessions",
-    href: routes.project.authentication.sessionSettings.route,
+    title: "Actions & Webhooks",
+    href: routes.project.developers.actions.route,
   },
 ]
 
 export const oauthPaths: Path[] = [
   {
-    title: "Overview",
-    href: routes.project.oauthConfiguration.overview.route,
-  },
-  {
-    title: "OAuth2 Clients",
+    title: "Clients and applications",
     href: routes.project.oauthConfiguration.route,
   },
   {
-    title: "Configuration",
+    title: "Endpoints",
+    href: routes.project.oauthConfiguration.endpoints.route,
+  },
+  {
+    title: "General",
     href: routes.project.oauthConfiguration.configure.route,
   },
   {
-    title: "Identity integration settings",
-    href: routes.project.oauthConfiguration.identityIntegration.route,
+    title: "OpenID Connect",
+    href: routes.project.oauthConfiguration.openid.route,
+  },
+  {
+    title: "URLs",
+    href: routes.project.oauthConfiguration.urls.route,
+  },
+  {
+    title: "Lifespans",
+    href: routes.project.oauthConfiguration.lifespans.route,
+  },
+  {
+    title: "Token strategies",
+    href: routes.project.oauthConfiguration.strategies.route,
+  },
+  {
+    title: "Cookies",
+    href: routes.project.oauthConfiguration.cookies.route,
   },
 ]
 
@@ -217,7 +243,7 @@ export const projectPaths: RootPath[] = [
   },
   {
     title: "OAuth 2",
-    href: routes.project.oauthConfiguration.overview.route,
+    href: routes.project.oauthConfiguration.route,
     paths: oauthPaths,
   },
   {

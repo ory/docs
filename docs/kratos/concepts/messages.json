@@ -70,7 +70,7 @@
   },
   {
     "id": 1010014,
-    "text": "A code has been sent to the address you provided. If you have not received an message, check the spelling of the address and retry the login.",
+    "text": "A code was sent to the address you provided. If you didn't receive it, please check the spelling of the address and try again.",
     "type": "info"
   },
   {
@@ -346,6 +346,29 @@
     "type": "info"
   },
   {
+    "id": 1060004,
+    "text": "A recovery code has been sent to {masked_address}. If you have not received it, check the spelling of the address and make sure to use the address you registered with.",
+    "type": "info",
+    "context": {
+      "masked_address": "{masked_address}"
+    }
+  },
+  {
+    "id": 1060005,
+    "text": "Recover access to your account by providing your recovery address in full.",
+    "type": "info"
+  },
+  {
+    "id": 1060006,
+    "text": "How do you want to recover your account?",
+    "type": "info"
+  },
+  {
+    "id": 1060007,
+    "text": "Back",
+    "type": "info"
+  },
+  {
     "id": 1070001,
     "text": "Password",
     "type": "info"
@@ -355,6 +378,7 @@
     "text": "{title}",
     "type": "info",
     "context": {
+      "name": "{name}",
       "title": "{title}"
     }
   },
@@ -421,6 +445,16 @@
   {
     "id": 1070015,
     "text": "Please complete the captcha challenge to continue.",
+    "type": "info"
+  },
+  {
+    "id": 1070016,
+    "text": "Recovery address",
+    "type": "info"
+  },
+  {
+    "id": 1070017,
+    "text": "Phone number",
     "type": "info"
   },
   {
@@ -701,6 +735,11 @@
   {
     "id": 4000038,
     "text": "Captcha verification failed, please try again.",
+    "type": "error"
+  },
+  {
+    "id": 4000039,
+    "text": "The new password must be different from the old password.",
     "type": "error"
   },
   {

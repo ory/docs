@@ -230,7 +230,7 @@ function(ctx) { user_id: ctx.identity.id }
           "created_at": "0001-01-01T00:00:00Z",
           "id": "00000000-0000-0000-0000-000000000000",
           "updated_at": "0001-01-01T00:00:00Z",
-          "value": "0.g5vv0qpoxl@ory.sh",
+          "value": "0.g5vv0qpoxl@ory.com",
           "via": "email"
         }
       ],
@@ -239,7 +239,7 @@ function(ctx) { user_id: ctx.identity.id }
       "state": "active",
       "state_changed_at": "2023-01-31T11:19:37.096674Z",
       "traits": {
-        "email": "0.g5vv0qpoxl@ory.sh"
+        "email": "0.g5vv0qpoxl@ory.com"
       },
       "updated_at": "0001-01-01T00:00:00Z",
       "verifiable_addresses": [
@@ -248,7 +248,7 @@ function(ctx) { user_id: ctx.identity.id }
           "id": "00000000-0000-0000-0000-000000000000",
           "status": "pending",
           "updated_at": "0001-01-01T00:00:00Z",
-          "value": "0.g5vv0qpoxl@ory.sh",
+          "value": "0.g5vv0qpoxl@ory.com",
           "verified": false,
           "via": "email"
         }
@@ -458,7 +458,7 @@ replaces the entire identity traits object. It isn't possible to update only a s
 {
   "identity": {
     "traits": {
-      "email": "0.g5vv0qpoxl@ory.sh",
+      "email": "0.g5vv0qpoxl@ory.com",
       "the_webhook": "updated this value"
     }
   }
@@ -520,6 +520,22 @@ verification or recovery addresses, these will be deleted unless the identity tr
     ],
     // highlight-end
   },
+}
+```
+
+#### Update the identity's external ID
+
+When the webhook target returns a 200 OK response code and the response body is a JSON object with the key `identity.external_id`
+in it, the value from that object will be used to replace the identity's external ID before it is saved to the database. This
+method replaces the previous external ID, if any.
+
+```json
+{
+  "identity": {
+    // highlight-start
+    "external_id": "external-id-from-webhook"
+    // highlight-end
+  }
 }
 ```
 

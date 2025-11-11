@@ -3,2427 +3,2427 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://www.ory.sh/hydra/docs/http-api</loc>
+    <loc>https://www.ory.com/hydra/docs/http-api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/search</loc>
+    <loc>https://www.ory.com/hydra/docs/search</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/versions</loc>
+    <loc>https://www.ory.com/hydra/docs/versions</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/</loc>
+    <loc>https://www.ory.com/hydra/docs/next/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/5min-tutorial</loc>
+    <loc>https://www.ory.com/hydra/docs/next/5min-tutorial</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/advanced</loc>
+    <loc>https://www.ory.com/hydra/docs/next/advanced</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/benchmark</loc>
+    <loc>https://www.ory.com/hydra/docs/next/benchmark</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/case-study</loc>
+    <loc>https://www.ory.com/hydra/docs/next/case-study</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-clients</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-clients</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-clients-create</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-clients-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-clients-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-clients-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-clients-get</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-clients-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-clients-import</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-clients-import</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-clients-list</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-clients-list</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-clients-update</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-clients-update</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-janitor</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-janitor</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-keys</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-keys</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-keys-create</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-keys-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-keys-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-keys-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-keys-get</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-keys-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-keys-import</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-keys-import</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-migrate</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-migrate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-migrate-sql</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-migrate-sql</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-serve</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-serve</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-serve-admin</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-serve-admin</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-serve-all</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-serve-all</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-serve-public</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-serve-public</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-token</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-token</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-token-client</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-token-client</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-token-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-token-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-token-flush</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-token-flush</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-token-introspect</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-token-introspect</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-token-revoke</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-token-revoke</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-token-user</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-token-user</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/cli/hydra-version</loc>
+    <loc>https://www.ory.com/hydra/docs/next/cli/hydra-version</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/concepts/before-oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/next/concepts/before-oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/concepts/consent</loc>
+    <loc>https://www.ory.com/hydra/docs/next/concepts/consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/concepts/login</loc>
+    <loc>https://www.ory.com/hydra/docs/next/concepts/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/concepts/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/next/concepts/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/concepts/oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/next/concepts/oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/concepts/openid-connect-oidc</loc>
+    <loc>https://www.ory.com/hydra/docs/next/concepts/openid-connect-oidc</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/configure-deploy</loc>
+    <loc>https://www.ory.com/hydra/docs/next/configure-deploy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/contributing</loc>
+    <loc>https://www.ory.com/hydra/docs/next/contributing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/debug</loc>
+    <loc>https://www.ory.com/hydra/docs/next/debug</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/debug/config</loc>
+    <loc>https://www.ory.com/hydra/docs/next/debug/config</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/debug/csrf</loc>
+    <loc>https://www.ory.com/hydra/docs/next/debug/csrf</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/debug/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/next/debug/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/debug/token-endpoint-auth-method</loc>
+    <loc>https://www.ory.com/hydra/docs/next/debug/token-endpoint-auth-method</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/dependencies-environment</loc>
+    <loc>https://www.ory.com/hydra/docs/next/dependencies-environment</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/faq</loc>
+    <loc>https://www.ory.com/hydra/docs/next/faq</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/common-oauth2-openid-connect-flows</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/common-oauth2-openid-connect-flows</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/consent</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/cookies</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/cookies</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/cors</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/cors</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/gitlab</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/gitlab</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/hsm-support</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/hsm-support</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/kubernetes-helm-chart</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/kubernetes-helm-chart</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/login</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/merge-multiple-db-secrets</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/merge-multiple-db-secrets</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/migrating-from-mitreid</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/migrating-from-mitreid</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/oauth2-clients</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/oauth2-clients</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/oauth2-grant-type-jwt-bearer</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/oauth2-grant-type-jwt-bearer</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/oauth2-public-spa-mobile</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/oauth2-public-spa-mobile</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/oauth2-token-introspection</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/oauth2-token-introspection</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/openid-connect-dynamic-client-registration</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/openid-connect-dynamic-client-registration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/scaling-hydra</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/scaling-hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/secrets-key-rotation</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/secrets-key-rotation</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/ssl-https-tls</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/ssl-https-tls</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/token-expiration</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/token-expiration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/tracing</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/tracing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/guides/using-oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/next/guides/using-oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/install</loc>
+    <loc>https://www.ory.com/hydra/docs/next/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/jwks</loc>
+    <loc>https://www.ory.com/hydra/docs/next/jwks</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/limitations</loc>
+    <loc>https://www.ory.com/hydra/docs/next/limitations</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/login-consent-flow</loc>
+    <loc>https://www.ory.com/hydra/docs/next/login-consent-flow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/milestones</loc>
+    <loc>https://www.ory.com/hydra/docs/next/milestones</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/production</loc>
+    <loc>https://www.ory.com/hydra/docs/next/production</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/reference/api</loc>
+    <loc>https://www.ory.com/hydra/docs/next/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/reference/configuration</loc>
+    <loc>https://www.ory.com/hydra/docs/next/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/sdk</loc>
+    <loc>https://www.ory.com/hydra/docs/next/sdk</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/sdk/go</loc>
+    <loc>https://www.ory.com/hydra/docs/next/sdk/go</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/sdk/js</loc>
+    <loc>https://www.ory.com/hydra/docs/next/sdk/js</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/sdk/php</loc>
+    <loc>https://www.ory.com/hydra/docs/next/sdk/php</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/next/security-architecture</loc>
+    <loc>https://www.ory.com/hydra/docs/next/security-architecture</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/5min-tutorial</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/5min-tutorial</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/advanced</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/advanced</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/benchmark</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/benchmark</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/case-study</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/case-study</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/configure-deploy</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/configure-deploy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/debugging</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/debugging</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/dependencies-environment</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/dependencies-environment</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/faq</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/faq</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/implementing-consent</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/implementing-consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/install</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/integration</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/integration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/jwks</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/jwks</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/limitations</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/limitations</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/login-consent-flow</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/login-consent-flow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/production</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/production</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/reference/api</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/reference/configuration</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/sdk/go</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/sdk/go</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/sdk/index</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/sdk/index</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/sdk/js</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/sdk/js</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/sdk/php</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/sdk/php</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.4/security-architecture</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.4/security-architecture</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/5min-tutorial</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/5min-tutorial</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/advanced</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/advanced</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/benchmark</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/benchmark</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/case-study</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/case-study</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/configure-deploy</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/configure-deploy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/debugging</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/debugging</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/dependencies-environment</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/dependencies-environment</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/faq</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/faq</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/implementing-consent</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/implementing-consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/install</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/integration</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/integration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/jwks</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/jwks</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/limitations</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/limitations</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/login-consent-flow</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/login-consent-flow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/production</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/production</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/reference/api</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/reference/configuration</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/sdk</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/sdk</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/sdk/go</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/sdk/go</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/sdk/js</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/sdk/js</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/sdk/php</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/sdk/php</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.5/security-architecture</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.5/security-architecture</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/5min-tutorial</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/5min-tutorial</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/advanced</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/advanced</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/benchmark</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/benchmark</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/case-study</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/case-study</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/concepts/consent</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/concepts/consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/concepts/login</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/concepts/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/concepts/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/concepts/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/concepts/oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/concepts/oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/concepts/openid-connect-oidc</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/concepts/openid-connect-oidc</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/configure-deploy</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/configure-deploy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/debug</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/debug</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/debug/csrf</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/debug/csrf</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/debug/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/debug/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/debug/token-endpoint-auth-method</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/debug/token-endpoint-auth-method</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/dependencies-environment</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/dependencies-environment</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/faq</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/faq</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/common-oauth2-openid-connect-flows</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/common-oauth2-openid-connect-flows</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/consent</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/cookies</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/cookies</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/cors</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/cors</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/kubernetes-helm-chart</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/kubernetes-helm-chart</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/login</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/oauth2-clients</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/oauth2-clients</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/oauth2-public-spa-mobile</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/oauth2-public-spa-mobile</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/oauth2-token-introspection</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/oauth2-token-introspection</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/scaling-hydra</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/scaling-hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/secrets-key-rotation</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/secrets-key-rotation</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/ssl-https-tls</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/ssl-https-tls</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/tracing</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/tracing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/guides/using-oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/guides/using-oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/install</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/jwks</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/jwks</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/limitations</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/limitations</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/login-consent-flow</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/login-consent-flow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/production</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/production</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/reference/api</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/reference/configuration</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/sdk</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/sdk</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/sdk/go</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/sdk/go</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/sdk/js</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/sdk/js</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/sdk/php</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/sdk/php</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.6/security-architecture</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.6/security-architecture</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/5min-tutorial</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/5min-tutorial</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/advanced</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/advanced</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/benchmark</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/benchmark</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/case-study</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/case-study</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-clients</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-clients</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-clients-create</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-clients-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-clients-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-clients-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-clients-get</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-clients-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-clients-import</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-clients-import</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-clients-list</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-clients-list</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-keys</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-keys</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-keys-create</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-keys-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-keys-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-keys-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-keys-get</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-keys-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-keys-import</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-keys-import</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-migrate</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-migrate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-migrate-sql</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-migrate-sql</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-serve</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-serve</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-serve-admin</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-serve-admin</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-serve-all</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-serve-all</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-serve-public</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-serve-public</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-token</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-token</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-token-client</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-token-client</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-token-flush</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-token-flush</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-token-introspect</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-token-introspect</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-token-revoke</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-token-revoke</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-token-user</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-token-user</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/cli/hydra-version</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/cli/hydra-version</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/concepts/before-oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/concepts/before-oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/concepts/consent</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/concepts/consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/concepts/login</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/concepts/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/concepts/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/concepts/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/concepts/oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/concepts/oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/concepts/openid-connect-oidc</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/concepts/openid-connect-oidc</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/configure-deploy</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/configure-deploy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/contributing</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/contributing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/debug</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/debug</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/debug/csrf</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/debug/csrf</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/debug/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/debug/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/debug/token-endpoint-auth-method</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/debug/token-endpoint-auth-method</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/dependencies-environment</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/dependencies-environment</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/faq</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/faq</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/common-oauth2-openid-connect-flows</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/common-oauth2-openid-connect-flows</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/consent</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/cookies</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/cookies</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/cors</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/cors</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/kubernetes-helm-chart</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/kubernetes-helm-chart</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/login</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/oauth2-clients</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/oauth2-clients</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/oauth2-public-spa-mobile</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/oauth2-public-spa-mobile</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/oauth2-token-introspection</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/oauth2-token-introspection</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/scaling-hydra</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/scaling-hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/secrets-key-rotation</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/secrets-key-rotation</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/ssl-https-tls</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/ssl-https-tls</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/token-expiration</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/token-expiration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/tracing</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/tracing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/guides/using-oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/guides/using-oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/install</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/jwks</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/jwks</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/limitations</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/limitations</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/login-consent-flow</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/login-consent-flow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/milestones</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/milestones</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/production</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/production</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/reference/api</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/reference/configuration</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/sdk</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/sdk</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/sdk/go</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/sdk/go</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/sdk/js</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/sdk/js</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/sdk/php</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/sdk/php</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.7/security-architecture</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.7/security-architecture</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/5min-tutorial</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/5min-tutorial</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/advanced</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/advanced</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/benchmark</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/benchmark</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/case-study</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/case-study</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-clients</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-clients</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-clients-create</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-clients-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-clients-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-clients-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-clients-get</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-clients-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-clients-import</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-clients-import</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-clients-list</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-clients-list</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-clients-update</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-clients-update</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-keys</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-keys</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-keys-create</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-keys-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-keys-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-keys-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-keys-get</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-keys-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-keys-import</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-keys-import</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-migrate</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-migrate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-migrate-sql</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-migrate-sql</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-serve</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-serve</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-serve-admin</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-serve-admin</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-serve-all</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-serve-all</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-serve-public</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-serve-public</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-token</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-token</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-token-client</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-token-client</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-token-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-token-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-token-flush</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-token-flush</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-token-introspect</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-token-introspect</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-token-revoke</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-token-revoke</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-token-user</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-token-user</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/cli/hydra-version</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/cli/hydra-version</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/concepts/before-oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/concepts/before-oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/concepts/consent</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/concepts/consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/concepts/login</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/concepts/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/concepts/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/concepts/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/concepts/oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/concepts/oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/concepts/openid-connect-oidc</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/concepts/openid-connect-oidc</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/configure-deploy</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/configure-deploy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/contributing</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/contributing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/debug</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/debug</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/debug/csrf</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/debug/csrf</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/debug/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/debug/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/debug/token-endpoint-auth-method</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/debug/token-endpoint-auth-method</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/dependencies-environment</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/dependencies-environment</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/faq</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/faq</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/common-oauth2-openid-connect-flows</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/common-oauth2-openid-connect-flows</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/consent</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/cookies</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/cookies</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/cors</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/cors</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/gitlab</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/gitlab</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/kubernetes-helm-chart</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/kubernetes-helm-chart</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/login</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/oauth2-clients</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/oauth2-clients</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/oauth2-public-spa-mobile</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/oauth2-public-spa-mobile</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/oauth2-token-introspection</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/oauth2-token-introspection</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/scaling-hydra</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/scaling-hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/secrets-key-rotation</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/secrets-key-rotation</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/ssl-https-tls</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/ssl-https-tls</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/token-expiration</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/token-expiration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/tracing</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/tracing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/guides/using-oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/guides/using-oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/install</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/jwks</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/jwks</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/limitations</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/limitations</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/login-consent-flow</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/login-consent-flow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/milestones</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/milestones</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/production</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/production</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/reference/api</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/reference/configuration</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/sdk</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/sdk</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/sdk/go</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/sdk/go</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/sdk/js</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/sdk/js</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/sdk/php</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/sdk/php</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.8/security-architecture</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.8/security-architecture</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/5min-tutorial</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/5min-tutorial</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/advanced</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/advanced</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/benchmark</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/benchmark</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/case-study</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/case-study</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-clients</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-clients</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-clients-create</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-clients-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-clients-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-clients-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-clients-get</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-clients-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-clients-import</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-clients-import</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-clients-list</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-clients-list</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-clients-update</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-clients-update</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-keys</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-keys</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-keys-create</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-keys-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-keys-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-keys-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-keys-get</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-keys-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-keys-import</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-keys-import</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-migrate</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-migrate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-migrate-sql</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-migrate-sql</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-serve</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-serve</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-serve-admin</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-serve-admin</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-serve-all</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-serve-all</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-serve-public</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-serve-public</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-token</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-token</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-token-client</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-token-client</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-token-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-token-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-token-flush</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-token-flush</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-token-introspect</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-token-introspect</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-token-revoke</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-token-revoke</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-token-user</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-token-user</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/cli/hydra-version</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/cli/hydra-version</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/concepts/before-oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/concepts/before-oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/concepts/consent</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/concepts/consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/concepts/login</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/concepts/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/concepts/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/concepts/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/concepts/oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/concepts/oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/concepts/openid-connect-oidc</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/concepts/openid-connect-oidc</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/configure-deploy</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/configure-deploy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/contributing</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/contributing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/debug</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/debug</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/debug/config</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/debug/config</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/debug/csrf</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/debug/csrf</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/debug/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/debug/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/debug/token-endpoint-auth-method</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/debug/token-endpoint-auth-method</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/dependencies-environment</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/dependencies-environment</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/faq</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/faq</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/common-oauth2-openid-connect-flows</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/common-oauth2-openid-connect-flows</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/consent</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/cookies</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/cookies</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/cors</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/cors</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/gitlab</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/gitlab</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/kubernetes-helm-chart</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/kubernetes-helm-chart</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/login</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/migrating-from-mitreid</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/migrating-from-mitreid</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/oauth2-clients</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/oauth2-clients</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/oauth2-public-spa-mobile</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/oauth2-public-spa-mobile</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/oauth2-token-introspection</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/oauth2-token-introspection</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/scaling-hydra</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/scaling-hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/secrets-key-rotation</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/secrets-key-rotation</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/ssl-https-tls</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/ssl-https-tls</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/token-expiration</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/token-expiration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/tracing</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/tracing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/guides/using-oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/guides/using-oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/install</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/jwks</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/jwks</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/limitations</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/limitations</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/login-consent-flow</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/login-consent-flow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/milestones</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/milestones</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/production</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/production</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/reference/api</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/reference/configuration</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/sdk</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/sdk</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/sdk/go</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/sdk/go</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/sdk/js</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/sdk/js</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/sdk/php</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/sdk/php</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/v1.9/security-architecture</loc>
+    <loc>https://www.ory.com/hydra/docs/v1.9/security-architecture</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/</loc>
+    <loc>https://www.ory.com/hydra/docs/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/5min-tutorial</loc>
+    <loc>https://www.ory.com/hydra/docs/5min-tutorial</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/advanced</loc>
+    <loc>https://www.ory.com/hydra/docs/advanced</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/benchmark</loc>
+    <loc>https://www.ory.com/hydra/docs/benchmark</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/case-study</loc>
+    <loc>https://www.ory.com/hydra/docs/case-study</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-clients</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-clients</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-clients-create</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-clients-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-clients-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-clients-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-clients-get</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-clients-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-clients-import</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-clients-import</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-clients-list</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-clients-list</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-clients-update</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-clients-update</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-janitor</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-janitor</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-keys</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-keys</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-keys-create</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-keys-create</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-keys-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-keys-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-keys-get</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-keys-get</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-keys-import</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-keys-import</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-migrate</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-migrate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-migrate-sql</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-migrate-sql</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-serve</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-serve</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-serve-admin</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-serve-admin</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-serve-all</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-serve-all</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-serve-public</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-serve-public</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-token</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-token</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-token-client</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-token-client</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-token-delete</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-token-delete</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-token-flush</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-token-flush</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-token-introspect</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-token-introspect</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-token-revoke</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-token-revoke</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-token-user</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-token-user</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/cli/hydra-version</loc>
+    <loc>https://www.ory.com/hydra/docs/cli/hydra-version</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/concepts/before-oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/concepts/before-oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/concepts/consent</loc>
+    <loc>https://www.ory.com/hydra/docs/concepts/consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/concepts/login</loc>
+    <loc>https://www.ory.com/hydra/docs/concepts/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/concepts/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/concepts/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/concepts/oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/concepts/oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/concepts/openid-connect-oidc</loc>
+    <loc>https://www.ory.com/hydra/docs/concepts/openid-connect-oidc</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/configure-deploy</loc>
+    <loc>https://www.ory.com/hydra/docs/configure-deploy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/contributing</loc>
+    <loc>https://www.ory.com/hydra/docs/contributing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/debug</loc>
+    <loc>https://www.ory.com/hydra/docs/debug</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/debug/config</loc>
+    <loc>https://www.ory.com/hydra/docs/debug/config</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/debug/csrf</loc>
+    <loc>https://www.ory.com/hydra/docs/debug/csrf</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/debug/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/debug/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/debug/token-endpoint-auth-method</loc>
+    <loc>https://www.ory.com/hydra/docs/debug/token-endpoint-auth-method</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/dependencies-environment</loc>
+    <loc>https://www.ory.com/hydra/docs/dependencies-environment</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/faq</loc>
+    <loc>https://www.ory.com/hydra/docs/faq</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/common-oauth2-openid-connect-flows</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/common-oauth2-openid-connect-flows</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/consent</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/consent</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/cookies</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/cookies</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/cors</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/cors</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/gitlab</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/gitlab</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/kubernetes-helm-chart</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/kubernetes-helm-chart</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/login</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/login</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/logout</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/logout</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/merge-multiple-db-secrets</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/merge-multiple-db-secrets</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/migrating-from-mitreid</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/migrating-from-mitreid</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/oauth2-clients</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/oauth2-clients</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/oauth2-public-spa-mobile</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/oauth2-public-spa-mobile</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/oauth2-token-introspection</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/oauth2-token-introspection</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/scaling-hydra</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/scaling-hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/secrets-key-rotation</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/secrets-key-rotation</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/ssl-https-tls</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/ssl-https-tls</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/token-expiration</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/token-expiration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/tracing</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/tracing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/guides/using-oauth2</loc>
+    <loc>https://www.ory.com/hydra/docs/guides/using-oauth2</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/install</loc>
+    <loc>https://www.ory.com/hydra/docs/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/jwks</loc>
+    <loc>https://www.ory.com/hydra/docs/jwks</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/limitations</loc>
+    <loc>https://www.ory.com/hydra/docs/limitations</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/login-consent-flow</loc>
+    <loc>https://www.ory.com/hydra/docs/login-consent-flow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/milestones</loc>
+    <loc>https://www.ory.com/hydra/docs/milestones</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/production</loc>
+    <loc>https://www.ory.com/hydra/docs/production</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/reference/api</loc>
+    <loc>https://www.ory.com/hydra/docs/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/reference/configuration</loc>
+    <loc>https://www.ory.com/hydra/docs/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/sdk</loc>
+    <loc>https://www.ory.com/hydra/docs/sdk</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/sdk/go</loc>
+    <loc>https://www.ory.com/hydra/docs/sdk/go</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/sdk/js</loc>
+    <loc>https://www.ory.com/hydra/docs/sdk/js</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/sdk/php</loc>
+    <loc>https://www.ory.com/hydra/docs/sdk/php</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/hydra/docs/security-architecture</loc>
+    <loc>https://www.ory.com/hydra/docs/security-architecture</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

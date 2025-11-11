@@ -191,7 +191,7 @@ Before we start with the examples below, let's create a user using the API-based
 token which then use to perform the Settings Flow on this page:
 
 ```shell script
-username=dev+docs.$(date +%s)@ory.sh
+username=dev+docs.$(date +%s)@ory.com
 password=$(openssl rand -base64 12)
 
 actionUrl=$(curl -s -H "Accept: application/json" \
@@ -377,12 +377,12 @@ curl -s -X GET \
     "state": "active",
     "state_changed_at": "2021-07-09T11:06:02.23703Z",
     "traits": {
-      "email": "dev+docs.1625828760@ory.sh"
+      "email": "dev+docs.1625828760@ory.com"
     },
     "verifiable_addresses": [
       {
         "id": "a5c0a49b-aa8d-44fd-ae20-361136a7260e",
-        "value": "dev+docs.1625828760@ory.sh",
+        "value": "dev+docs.1625828760@ory.com",
         "verified": false,
         "via": "email",
         "status": "sent",
@@ -394,7 +394,7 @@ curl -s -X GET \
     "recovery_addresses": [
       {
         "id": "ac4b8521-905c-4492-9b9c-c877d94ca7db",
-        "value": "dev+docs.1625828760@ory.sh",
+        "value": "dev+docs.1625828760@ory.com",
         "via": "email",
         "created_at": "2021-07-09T11:06:02.249405Z",
         "updated_at": "2021-07-09T11:06:02.249405Z"
@@ -453,7 +453,7 @@ curl -s -X GET \
   "attributes": {
     "name": "traits.email",
     "type": "email",
-    "value": "dev+docs.1625828760@ory.sh",
+    "value": "dev+docs.1625828760@ory.com",
     "disabled": false
   },
   "messages": [],
@@ -541,6 +541,11 @@ curl -s -X GET \
   }
 }
 ```
+
+The new password must be different from the current one. Attempting to reuse an old password will trigger an error:
+`The new password must be different from the old password.`
+
+This ensures that a new, unique password is set, and prevents the reuse of a potentially compromised password.
 
 ### Link and unlink from Google, Facebook, GitHub, ..., OpenID Connect / OAuth 2.0
 
@@ -804,12 +809,12 @@ curl -s -X GET \
     "schema_id": "default",
     "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
-      "email": "example.user@ory.sh"
+      "email": "example.user@ory.com"
     },
     "verifiable_addresses": [
       {
         "id": "d2214ea2-8b0e-49c0-a9e0-9998ea4527aa",
-        "value": "example.user@ory.sh",
+        "value": "example.user@ory.com",
         "verified": false,
         "via": "email",
         "status": "pending",
@@ -819,7 +824,7 @@ curl -s -X GET \
     "recovery_addresses": [
       {
         "id": "29ef1378-0f13-4f2e-a9cf-683320771d5b",
-        "value": "example.user@ory.sh",
+        "value": "example.user@ory.com",
         "via": "email"
       }
     ]
@@ -883,12 +888,12 @@ session=$( \
     "schema_id": "default",
     "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
-      "email": "example.user@ory.sh"
+      "email": "example.user@ory.com"
     },
     "verifiable_addresses": [
       {
         "id": "d2214ea2-8b0e-49c0-a9e0-9998ea4527aa",
-        "value": "example.user@ory.sh",
+        "value": "example.user@ory.com",
         "verified": false,
         "via": "email",
         "status": "pending",
@@ -898,7 +903,7 @@ session=$( \
     "recovery_addresses": [
       {
         "id": "29ef1378-0f13-4f2e-a9cf-683320771d5b",
-        "value": "example.user@ory.sh",
+        "value": "example.user@ory.com",
         "via": "email"
       }
     ]
@@ -948,12 +953,12 @@ curl -s -X POST -H "Accept: application/json" -H "Content-Type: application/json
     "schema_id": "default",
     "schema_url": "https://playground.projects.oryapis.com/schemas/default",
     "traits": {
-      "email": "example.user@ory.sh"
+      "email": "example.user@ory.com"
     },
     "verifiable_addresses": [
       {
         "id": "d2214ea2-8b0e-49c0-a9e0-9998ea4527aa",
-        "value": "example.user@ory.sh",
+        "value": "example.user@ory.com",
         "verified": false,
         "via": "email",
         "status": "pending",
@@ -963,7 +968,7 @@ curl -s -X POST -H "Accept: application/json" -H "Content-Type: application/json
     "recovery_addresses": [
       {
         "id": "29ef1378-0f13-4f2e-a9cf-683320771d5b",
-        "value": "example.user@ory.sh",
+        "value": "example.user@ory.com",
         "via": "email"
       }
     ]

@@ -3,237 +3,237 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/http-api</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/http-api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/search</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/search</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/versions</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/versions</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/api-access-rules</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/api-access-rules</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/changelog</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/changelog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/configure-deploy</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/configure-deploy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/contributing</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/contributing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/install</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/milestones</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/milestones</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/oauth2-token-introspection-hydra</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/oauth2-token-introspection-hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/pipeline</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/pipeline</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/pipeline/authn</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/pipeline/authn</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/pipeline/authz</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/pipeline/authz</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/pipeline/error</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/pipeline/error</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/pipeline/mutator</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/pipeline/mutator</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/reference/api</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/reference/configuration</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/next/sdk</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/next/sdk</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/v0.37/</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/v0.37/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/v0.37/api-access-rules</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/v0.37/api-access-rules</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/v0.37/configure-deploy</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/v0.37/configure-deploy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/v0.37/install</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/v0.37/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/v0.37/pipeline/authn</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/v0.37/pipeline/authn</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/v0.37/pipeline/authz</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/v0.37/pipeline/authz</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/v0.37/pipeline/error</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/v0.37/pipeline/error</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/v0.37/pipeline/index</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/v0.37/pipeline/index</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/v0.37/pipeline/mutator</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/v0.37/pipeline/mutator</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/v0.37/reference/api</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/v0.37/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/v0.37/reference/configuration</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/v0.37/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/v0.37/sdk/index</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/v0.37/sdk/index</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/api-access-rules</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/api-access-rules</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/changelog</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/changelog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/configure-deploy</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/configure-deploy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/contributing</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/contributing</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/install</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/install</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/milestones</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/milestones</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/oauth2-token-introspection-hydra</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/oauth2-token-introspection-hydra</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/pipeline</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/pipeline</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/pipeline/authn</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/pipeline/authn</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/pipeline/authz</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/pipeline/authz</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/pipeline/error</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/pipeline/error</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/pipeline/mutator</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/pipeline/mutator</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/reference/api</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/reference/api</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/reference/configuration</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/reference/configuration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.ory.sh/oathkeeper/docs/sdk</loc>
+    <loc>https://www.ory.com/oathkeeper/docs/sdk</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

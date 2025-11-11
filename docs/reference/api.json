@@ -126,436 +126,436 @@
     "schemas": {
       "AccountExperienceColors": {
         "properties": {
-          "ax-background-default": {
+          "ax_background_default": {
             "type": "string"
           },
-          "brand-100": {
+          "brand_100": {
             "type": "string"
           },
-          "brand-200": {
+          "brand_200": {
             "type": "string"
           },
-          "brand-300": {
+          "brand_300": {
             "type": "string"
           },
-          "brand-400": {
+          "brand_400": {
             "type": "string"
           },
-          "brand-50": {
+          "brand_50": {
             "type": "string"
           },
-          "brand-500": {
+          "brand_500": {
             "type": "string"
           },
-          "brand-600": {
+          "brand_600": {
             "type": "string"
           },
-          "brand-700": {
+          "brand_700": {
             "type": "string"
           },
-          "brand-800": {
+          "brand_800": {
             "type": "string"
           },
-          "brand-900": {
+          "brand_900": {
             "type": "string"
           },
-          "brand-950": {
+          "brand_950": {
             "type": "string"
           },
-          "button-identifier-background-default": {
+          "button_identifier_background_default": {
             "type": "string"
           },
-          "button-identifier-background-hover": {
+          "button_identifier_background_hover": {
             "type": "string"
           },
-          "button-identifier-border-border-default": {
+          "button_identifier_border_border_default": {
             "type": "string"
           },
-          "button-identifier-border-border-hover": {
+          "button_identifier_border_border_hover": {
             "type": "string"
           },
-          "button-identifier-foreground-default": {
+          "button_identifier_foreground_default": {
             "type": "string"
           },
-          "button-identifier-foreground-hover": {
+          "button_identifier_foreground_hover": {
             "type": "string"
           },
-          "button-link-brand-brand": {
+          "button_link_brand_brand": {
             "type": "string"
           },
-          "button-link-brand-brand-hover": {
+          "button_link_brand_brand_hover": {
             "type": "string"
           },
-          "button-link-default-primary": {
+          "button_link_default_primary": {
             "type": "string"
           },
-          "button-link-default-primary-hover": {
+          "button_link_default_primary_hover": {
             "type": "string"
           },
-          "button-link-default-secondary": {
+          "button_link_default_secondary": {
             "type": "string"
           },
-          "button-link-default-secondary-hover": {
+          "button_link_default_secondary_hover": {
             "type": "string"
           },
-          "button-link-disabled-disabled": {
+          "button_link_disabled_disabled": {
             "type": "string"
           },
-          "button-primary-background-default": {
+          "button_primary_background_default": {
             "type": "string"
           },
-          "button-primary-background-disabled": {
+          "button_primary_background_disabled": {
             "type": "string"
           },
-          "button-primary-background-hover": {
+          "button_primary_background_hover": {
             "type": "string"
           },
-          "button-primary-border-default": {
+          "button_primary_border_default": {
             "type": "string"
           },
-          "button-primary-border-disabled": {
+          "button_primary_border_disabled": {
             "type": "string"
           },
-          "button-primary-border-hover": {
+          "button_primary_border_hover": {
             "type": "string"
           },
-          "button-primary-foreground-default": {
+          "button_primary_foreground_default": {
             "type": "string"
           },
-          "button-primary-foreground-disabled": {
+          "button_primary_foreground_disabled": {
             "type": "string"
           },
-          "button-primary-foreground-hover": {
+          "button_primary_foreground_hover": {
             "type": "string"
           },
-          "button-secondary-background-default": {
+          "button_secondary_background_default": {
             "type": "string"
           },
-          "button-secondary-background-disabled": {
+          "button_secondary_background_disabled": {
             "type": "string"
           },
-          "button-secondary-background-hover": {
+          "button_secondary_background_hover": {
             "type": "string"
           },
-          "button-secondary-border-default": {
+          "button_secondary_border_default": {
             "type": "string"
           },
-          "button-secondary-border-disabled": {
+          "button_secondary_border_disabled": {
             "type": "string"
           },
-          "button-secondary-border-hover": {
+          "button_secondary_border_hover": {
             "type": "string"
           },
-          "button-secondary-foreground-default": {
+          "button_secondary_foreground_default": {
             "type": "string"
           },
-          "button-secondary-foreground-disabled": {
+          "button_secondary_foreground_disabled": {
             "type": "string"
           },
-          "button-secondary-foreground-hover": {
+          "button_secondary_foreground_hover": {
             "type": "string"
           },
-          "button-social-background-default": {
+          "button_social_background_default": {
             "type": "string"
           },
-          "button-social-background-disabled": {
+          "button_social_background_disabled": {
             "type": "string"
           },
-          "button-social-background-generic-provider": {
+          "button_social_background_generic_provider": {
             "type": "string"
           },
-          "button-social-background-hover": {
+          "button_social_background_hover": {
             "type": "string"
           },
-          "button-social-border-default": {
+          "button_social_border_default": {
             "type": "string"
           },
-          "button-social-border-disabled": {
+          "button_social_border_disabled": {
             "type": "string"
           },
-          "button-social-border-generic-provider": {
+          "button_social_border_generic_provider": {
             "type": "string"
           },
-          "button-social-border-hover": {
+          "button_social_border_hover": {
             "type": "string"
           },
-          "button-social-foreground-default": {
+          "button_social_foreground_default": {
             "type": "string"
           },
-          "button-social-foreground-disabled": {
+          "button_social_foreground_disabled": {
             "type": "string"
           },
-          "button-social-foreground-generic-provider": {
+          "button_social_foreground_generic_provider": {
             "type": "string"
           },
-          "button-social-foreground-hover": {
+          "button_social_foreground_hover": {
             "type": "string"
           },
-          "checkbox-background-checked": {
+          "checkbox_background_checked": {
             "type": "string"
           },
-          "checkbox-background-default": {
+          "checkbox_background_default": {
             "type": "string"
           },
-          "checkbox-border-checkbox-border-checked": {
+          "checkbox_border_checkbox_border_checked": {
             "type": "string"
           },
-          "checkbox-border-checkbox-border-default": {
+          "checkbox_border_checkbox_border_default": {
             "type": "string"
           },
-          "checkbox-foreground-checked": {
+          "checkbox_foreground_checked": {
             "type": "string"
           },
-          "checkbox-foreground-default": {
+          "checkbox_foreground_default": {
             "type": "string"
           },
-          "form-background-default": {
+          "form_background_default": {
             "type": "string"
           },
-          "form-border-default": {
+          "form_border_default": {
             "type": "string"
           },
-          "input-background-default": {
+          "input_background_default": {
             "type": "string"
           },
-          "input-background-disabled": {
+          "input_background_disabled": {
             "type": "string"
           },
-          "input-background-hover": {
+          "input_background_hover": {
             "type": "string"
           },
-          "input-border-default": {
+          "input_border_default": {
             "type": "string"
           },
-          "input-border-disabled": {
+          "input_border_disabled": {
             "type": "string"
           },
-          "input-border-focus": {
+          "input_border_focus": {
             "type": "string"
           },
-          "input-border-hover": {
+          "input_border_hover": {
             "type": "string"
           },
-          "input-foreground-disabled": {
+          "input_foreground_disabled": {
             "type": "string"
           },
-          "input-foreground-primary": {
+          "input_foreground_primary": {
             "type": "string"
           },
-          "input-foreground-secondary": {
+          "input_foreground_secondary": {
             "type": "string"
           },
-          "input-foreground-tertiary": {
+          "input_foreground_tertiary": {
             "type": "string"
           },
-          "interface-background-brand-primary": {
+          "interface_background_brand_primary": {
             "type": "string"
           },
-          "interface-background-brand-primary-hover": {
+          "interface_background_brand_primary_hover": {
             "type": "string"
           },
-          "interface-background-brand-secondary": {
+          "interface_background_brand_secondary": {
             "type": "string"
           },
-          "interface-background-brand-secondary-hover": {
+          "interface_background_brand_secondary_hover": {
             "type": "string"
           },
-          "interface-background-default-inverted": {
+          "interface_background_default_inverted": {
             "type": "string"
           },
-          "interface-background-default-inverted-hover": {
+          "interface_background_default_inverted_hover": {
             "type": "string"
           },
-          "interface-background-default-none": {
+          "interface_background_default_none": {
             "type": "string"
           },
-          "interface-background-default-primary": {
+          "interface_background_default_primary": {
             "type": "string"
           },
-          "interface-background-default-primary-hover": {
+          "interface_background_default_primary_hover": {
             "type": "string"
           },
-          "interface-background-default-secondary": {
+          "interface_background_default_secondary": {
             "type": "string"
           },
-          "interface-background-default-secondary-hover": {
+          "interface_background_default_secondary_hover": {
             "type": "string"
           },
-          "interface-background-default-tertiary": {
+          "interface_background_default_tertiary": {
             "type": "string"
           },
-          "interface-background-default-tertiary-hover": {
+          "interface_background_default_tertiary_hover": {
             "type": "string"
           },
-          "interface-background-disabled-disabled": {
+          "interface_background_disabled_disabled": {
             "type": "string"
           },
-          "interface-background-validation-danger": {
+          "interface_background_validation_danger": {
             "type": "string"
           },
-          "interface-background-validation-success": {
+          "interface_background_validation_success": {
             "type": "string"
           },
-          "interface-background-validation-warning": {
+          "interface_background_validation_warning": {
             "type": "string"
           },
-          "interface-border-brand-brand": {
+          "interface_border_brand_brand": {
             "type": "string"
           },
-          "interface-border-default-inverted": {
+          "interface_border_default_inverted": {
             "type": "string"
           },
-          "interface-border-default-none": {
+          "interface_border_default_none": {
             "type": "string"
           },
-          "interface-border-default-primary": {
+          "interface_border_default_primary": {
             "type": "string"
           },
-          "interface-border-disabled-disabled": {
+          "interface_border_disabled_disabled": {
             "type": "string"
           },
-          "interface-border-validation-danger": {
+          "interface_border_validation_danger": {
             "type": "string"
           },
-          "interface-border-validation-success": {
+          "interface_border_validation_success": {
             "type": "string"
           },
-          "interface-border-validation-warning": {
+          "interface_border_validation_warning": {
             "type": "string"
           },
-          "interface-foreground-brand-on-primary": {
+          "interface_foreground_brand_on_primary": {
             "type": "string"
           },
-          "interface-foreground-brand-on-secondary": {
+          "interface_foreground_brand_on_secondary": {
             "type": "string"
           },
-          "interface-foreground-brand-primary": {
+          "interface_foreground_brand_primary": {
             "type": "string"
           },
-          "interface-foreground-brand-secondary": {
+          "interface_foreground_brand_secondary": {
             "type": "string"
           },
-          "interface-foreground-default-inverted": {
+          "interface_foreground_default_inverted": {
             "type": "string"
           },
-          "interface-foreground-default-primary": {
+          "interface_foreground_default_primary": {
             "type": "string"
           },
-          "interface-foreground-default-secondary": {
+          "interface_foreground_default_secondary": {
             "type": "string"
           },
-          "interface-foreground-default-tertiary": {
+          "interface_foreground_default_tertiary": {
             "type": "string"
           },
-          "interface-foreground-disabled-disabled": {
+          "interface_foreground_disabled_disabled": {
             "type": "string"
           },
-          "interface-foreground-disabled-on-disabled": {
+          "interface_foreground_disabled_on_disabled": {
             "type": "string"
           },
-          "interface-foreground-validation-danger": {
+          "interface_foreground_validation_danger": {
             "type": "string"
           },
-          "interface-foreground-validation-success": {
+          "interface_foreground_validation_success": {
             "type": "string"
           },
-          "interface-foreground-validation-warning": {
+          "interface_foreground_validation_warning": {
             "type": "string"
           },
-          "ory-background-default": {
+          "ory_background_default": {
             "type": "string"
           },
-          "ory-border-default": {
+          "ory_border_default": {
             "type": "string"
           },
-          "ory-foreground-default": {
+          "ory_foreground_default": {
             "type": "string"
           },
-          "radio-background-checked": {
+          "radio_background_checked": {
             "type": "string"
           },
-          "radio-background-default": {
+          "radio_background_default": {
             "type": "string"
           },
-          "radio-border-checked": {
+          "radio_border_checked": {
             "type": "string"
           },
-          "radio-border-default": {
+          "radio_border_default": {
             "type": "string"
           },
-          "radio-foreground-checked": {
+          "radio_foreground_checked": {
             "type": "string"
           },
-          "radio-foreground-default": {
+          "radio_foreground_default": {
             "type": "string"
           },
-          "toggle-background-checked": {
+          "toggle_background_checked": {
             "type": "string"
           },
-          "toggle-background-default": {
+          "toggle_background_default": {
             "type": "string"
           },
-          "toggle-border-checked": {
+          "toggle_border_checked": {
             "type": "string"
           },
-          "toggle-border-default": {
+          "toggle_border_default": {
             "type": "string"
           },
-          "toggle-foreground-checked": {
+          "toggle_foreground_checked": {
             "type": "string"
           },
-          "toggle-foreground-default": {
+          "toggle_foreground_default": {
             "type": "string"
           },
-          "ui-100": {
+          "ui_100": {
             "type": "string"
           },
-          "ui-200": {
+          "ui_200": {
             "type": "string"
           },
-          "ui-300": {
+          "ui_300": {
             "type": "string"
           },
-          "ui-400": {
+          "ui_400": {
             "type": "string"
           },
-          "ui-50": {
+          "ui_50": {
             "type": "string"
           },
-          "ui-500": {
+          "ui_500": {
             "type": "string"
           },
-          "ui-600": {
+          "ui_600": {
             "type": "string"
           },
-          "ui-700": {
+          "ui_700": {
             "type": "string"
           },
-          "ui-800": {
+          "ui_800": {
             "type": "string"
           },
-          "ui-900": {
+          "ui_900": {
             "type": "string"
           },
-          "ui-950": {
+          "ui_950": {
             "type": "string"
           },
-          "ui-black": {
+          "ui_black": {
             "type": "string"
           },
-          "ui-danger": {
+          "ui_danger": {
             "type": "string"
           },
-          "ui-success": {
+          "ui_success": {
             "type": "string"
           },
-          "ui-transparent": {
+          "ui_transparent": {
             "type": "string"
           },
-          "ui-warning": {
+          "ui_warning": {
             "type": "string"
           },
-          "ui-white": {
+          "ui_white": {
             "type": "string"
           }
         },
@@ -662,9 +662,19 @@
       "CreateProjectNormalizedPayload": {
         "description": "Create project (normalized) request payload",
         "properties": {
+          "account_experience_custom_translations": {
+            "description": "The Account Experience's Custom Translations\n\nContains all Custom Translations for this project.",
+            "items": {
+              "$ref": "#/components/schemas/RevisionAccountExperienceCustomTranslation"
+            },
+            "type": "array"
+          },
           "account_experience_default_locale": {
             "description": "Holds the default locale for the account experience.",
             "type": "string"
+          },
+          "account_experience_enabled_locales": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
           "account_experience_favicon_dark": {
             "description": "Holds the URL to the account experience's dark theme favicon (currently unused).",
@@ -1204,6 +1214,9 @@
           "kratos_secrets_default": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
+          "kratos_secrets_pagination": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
           "kratos_security_account_enumeration_mitigate": {
             "description": "Configures if account enumeration should be mitigated when using identifier first login.",
             "type": "boolean"
@@ -1406,6 +1419,9 @@
             "enum": ["link", "code"],
             "type": "string",
             "x-go-enum-desc": "link SelfServiceMessageVerificationStrategyLink\ncode SelfServiceMessageVerificationStrategyCode"
+          },
+          "kratos_selfservice_methods_captcha_config_allowed_domains": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
           "kratos_selfservice_methods_captcha_config_cf_turnstile_secret": {
             "description": "Configures the Cloudflare Turnstile site secret for CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
@@ -2193,6 +2209,20 @@
         "title": "RecoveryAddressType must not exceed 16 characters as that is the limitation in the SQL Schema.",
         "type": "string"
       },
+      "RevisionAccountExperienceCustomTranslation": {
+        "properties": {
+          "locale": {
+            "description": "The locale (e.g. \"en\", \"de\")",
+            "type": "string"
+          },
+          "translations": {
+            "description": "The URL where the i18n json can be found",
+            "type": "string"
+          }
+        },
+        "required": ["locale", "translations"],
+        "type": "object"
+      },
       "SessionActivityDatapoint": {
         "properties": {
           "country": {
@@ -2350,9 +2380,6 @@
           "grant_scope": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
-          "handled_at": {
-            "$ref": "#/components/schemas/nullTime"
-          },
           "remember": {
             "description": "Remember, if set to true, tells ORY Hydra to remember this consent authorization and reuse it if the same\nclient asks the same user for the same, or a subset of, scope.",
             "type": "boolean"
@@ -2384,7 +2411,7 @@
       "acceptOAuth2LoginRequest": {
         "properties": {
           "acr": {
-            "description": "ACR sets the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it\nto express that, for example, a user authenticated using two factor authentication.",
+            "description": "ACR sets the Authentication AuthorizationContext Class Reference value for this authentication session. You can use it\nto express that, for example, a user authenticated using two-factor authentication.",
             "type": "string"
           },
           "amr": {
@@ -2406,7 +2433,7 @@
             "type": "string"
           },
           "remember": {
-            "description": "Remember, if set to true, tells ORY Hydra to remember this user by telling the user agent (browser) to store\na cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, he/she\nwill not be asked to log in again.",
+            "description": "Remember, if set to true, tells Ory Hydra to remember this user by telling the user agent (browser) to store\na cookie with authentication data. If the same user performs another OAuth 2.0 Authorization Request, they\nwill not be asked to log in again.",
             "type": "boolean"
           },
           "remember_for": {
@@ -2430,6 +2457,12 @@
           },
           "default_redirect_url": {
             "type": "string"
+          },
+          "enabled_locales": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           },
           "error_ui_url": {
             "type": "string"
@@ -2476,6 +2509,12 @@
           "stylesheet": {
             "type": "string"
           },
+          "translations": {
+            "items": {
+              "$ref": "#/components/schemas/RevisionAccountExperienceCustomTranslation"
+            },
+            "type": "array"
+          },
           "verification_enabled": {
             "type": "boolean"
           },
@@ -2496,289 +2535,10 @@
           "login_ui_url",
           "settings_ui_url",
           "error_ui_url",
-          "default_redirect_url"
+          "default_redirect_url",
+          "translations",
+          "enabled_locales"
         ],
-        "type": "object"
-      },
-      "accountExperienceThemeVariables": {
-        "properties": {
-          "accent": {
-            "type": "string"
-          },
-          "bg-default": {
-            "type": "string"
-          },
-          "border-radius-branding": {
-            "type": "string"
-          },
-          "border-radius-buttons": {
-            "type": "string"
-          },
-          "border-radius-cards": {
-            "type": "string"
-          },
-          "border-radius-forms": {
-            "type": "string"
-          },
-          "border-radius-general": {
-            "type": "string"
-          },
-          "button-primary-bg-default": {
-            "type": "string"
-          },
-          "button-primary-bg-disabled": {
-            "type": "string"
-          },
-          "button-primary-bg-hover": {
-            "type": "string"
-          },
-          "button-primary-border-default": {
-            "type": "string"
-          },
-          "button-primary-border-disabled": {
-            "type": "string"
-          },
-          "button-primary-border-hover": {
-            "type": "string"
-          },
-          "button-primary-fg-default": {
-            "type": "string"
-          },
-          "button-primary-fg-disabled": {
-            "type": "string"
-          },
-          "button-primary-fg-hover": {
-            "type": "string"
-          },
-          "button-secondary-bg-default": {
-            "type": "string"
-          },
-          "button-secondary-bg-disabled": {
-            "type": "string"
-          },
-          "button-secondary-bg-hover": {
-            "type": "string"
-          },
-          "button-secondary-border-default": {
-            "type": "string"
-          },
-          "button-secondary-border-disabled": {
-            "type": "string"
-          },
-          "button-secondary-border-hover": {
-            "type": "string"
-          },
-          "button-secondary-fg-default": {
-            "type": "string"
-          },
-          "button-secondary-fg-disabled": {
-            "type": "string"
-          },
-          "button-secondary-fg-hover": {
-            "type": "string"
-          },
-          "button-social-bg-default": {
-            "type": "string"
-          },
-          "button-social-bg-disabled": {
-            "type": "string"
-          },
-          "button-social-bg-hover": {
-            "type": "string"
-          },
-          "button-social-bg-provider": {
-            "type": "string"
-          },
-          "button-social-border-default": {
-            "type": "string"
-          },
-          "button-social-border-disabled": {
-            "type": "string"
-          },
-          "button-social-border-hover": {
-            "type": "string"
-          },
-          "button-social-border-provider": {
-            "type": "string"
-          },
-          "button-social-fg-default": {
-            "type": "string"
-          },
-          "button-social-fg-disabled": {
-            "type": "string"
-          },
-          "button-social-fg-hover": {
-            "type": "string"
-          },
-          "button-social-fg-provider": {
-            "type": "string"
-          },
-          "created_at": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "dialog-bg-default": {
-            "type": "string"
-          },
-          "dialog-bg-subtle": {
-            "type": "string"
-          },
-          "dialog-border-default": {
-            "type": "string"
-          },
-          "dialog-fg-default": {
-            "type": "string"
-          },
-          "dialog-fg-mute": {
-            "type": "string"
-          },
-          "dialog-fg-subtle": {
-            "type": "string"
-          },
-          "forms-bg-default": {
-            "type": "string"
-          },
-          "forms-bg-disabled": {
-            "type": "string"
-          },
-          "forms-bg-hover": {
-            "type": "string"
-          },
-          "forms-border-default": {
-            "type": "string"
-          },
-          "forms-border-disabled": {
-            "type": "string"
-          },
-          "forms-border-error": {
-            "type": "string"
-          },
-          "forms-border-focus": {
-            "type": "string"
-          },
-          "forms-border-hover": {
-            "type": "string"
-          },
-          "forms-border-success": {
-            "type": "string"
-          },
-          "forms-border-warn": {
-            "type": "string"
-          },
-          "forms-checkbox-bg-checked": {
-            "type": "string"
-          },
-          "forms-checkbox-bg-default": {
-            "type": "string"
-          },
-          "forms-checkbox-border-checked": {
-            "type": "string"
-          },
-          "forms-checkbox-border-default": {
-            "type": "string"
-          },
-          "forms-checkbox-fg-checked": {
-            "type": "string"
-          },
-          "forms-checkbox-fg-default": {
-            "type": "string"
-          },
-          "forms-fg-default": {
-            "type": "string"
-          },
-          "forms-fg-error": {
-            "type": "string"
-          },
-          "forms-fg-mute": {
-            "type": "string"
-          },
-          "forms-fg-subtle": {
-            "type": "string"
-          },
-          "forms-fg-success": {
-            "type": "string"
-          },
-          "forms-fg-warn": {
-            "type": "string"
-          },
-          "forms-radio-bg-checked": {
-            "type": "string"
-          },
-          "forms-radio-bg-default": {
-            "type": "string"
-          },
-          "forms-radio-border-checked": {
-            "type": "string"
-          },
-          "forms-radio-border-default": {
-            "type": "string"
-          },
-          "forms-radio-fg-checked": {
-            "type": "string"
-          },
-          "forms-radio-fg-default": {
-            "type": "string"
-          },
-          "forms-toggle-bg-checked": {
-            "type": "string"
-          },
-          "forms-toggle-bg-default": {
-            "type": "string"
-          },
-          "forms-toggle-border-checked": {
-            "type": "string"
-          },
-          "forms-toggle-border-default": {
-            "type": "string"
-          },
-          "forms-toggle-fg-checked": {
-            "type": "string"
-          },
-          "forms-toggle-fg-default": {
-            "type": "string"
-          },
-          "id": {
-            "format": "uuid",
-            "type": "string"
-          },
-          "links-link-default": {
-            "type": "string"
-          },
-          "links-link-disabled": {
-            "type": "string"
-          },
-          "links-link-hover": {
-            "type": "string"
-          },
-          "links-link-inverted-default": {
-            "type": "string"
-          },
-          "links-link-inverted-hover": {
-            "type": "string"
-          },
-          "links-link-mute-default": {
-            "type": "string"
-          },
-          "links-link-mute-hover": {
-            "type": "string"
-          },
-          "syntax-syntax": {
-            "type": "string"
-          },
-          "syntax-syntax-key": {
-            "type": "string"
-          },
-          "syntax-syntax-num": {
-            "type": "string"
-          },
-          "syntax-syntax-value": {
-            "type": "string"
-          },
-          "updated_at": {
-            "format": "date-time",
-            "type": "string"
-          }
-        },
         "type": "object"
       },
       "activeProjectInConsole": {
@@ -3260,15 +3020,38 @@
       },
       "createOrganizationOnboardingPortalLinkBody": {
         "properties": {
+          "custom_hostname_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
+          "enable_scim": {
+            "description": "Feature flag to enable SCIM configuration",
+            "type": "boolean"
+          },
           "enable_sso": {
             "description": "Feature flag to enable SSO configuration",
             "type": "boolean"
           },
           "expires_at": {
             "$ref": "#/components/schemas/Time"
+          },
+          "proxy_acs_url": {
+            "description": "Proxy ACS URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_oidc_redirect_url": {
+            "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_saml_audience_override": {
+            "description": "SAML Audience Override if overriding with a customer-controlled one",
+            "type": "string"
+          },
+          "proxy_scim_server_url": {
+            "description": "Proxy SCIM Server URL if overriding with a customer-controlled URL",
+            "type": "string"
           }
         },
-        "required": ["enable_sso"],
+        "required": ["enable_sso", "enable_scim"],
         "type": "object"
       },
       "createProjectBody": {
@@ -3538,7 +3321,7 @@
               ""
             ],
             "type": "string",
-            "x-go-enum-desc": "initializing initializing\npending_validation pending_validation\ndeleted deleted\npending_issuance pending_issuance\npending_deployment pending_deployment\npending_deletion pending_deletion\npending_expiration pending_expiration\nexpired expired\nactive active\ninitializing_timed_out initializing_timed_out\nvalidation_timed_out validation_timed_out\nissuance_timed_out issuance_timed_out\ndeployment_timed_out deployment_timed_out\ndeletion_timed_out deletion_timed_out\npending_cleanup pending_cleanup\nstaging_deployment staging_deployment\nstaging_active staging_active\ndeactivating deactivating\ninactive inactive\nbackup_issued backup_issued\nholding_deployment holding_deployment\n unknown  Cloudflare sometimes returns an empty string."
+            "x-go-enum-desc": "initializing _\npending_validation _\ndeleted _\npending_issuance _\npending_deployment _\npending_deletion _\npending_expiration _\nexpired _\nactive _\ninitializing_timed_out _\nvalidation_timed_out _\nissuance_timed_out _\ndeployment_timed_out _\ndeletion_timed_out _\npending_cleanup _\nstaging_deployment _\nstaging_active _\ndeactivating _\ninactive _\nbackup_issued _\nholding_deployment _\n _  Cloudflare sometimes returns an empty string."
           },
           "updated_at": {
             "format": "date-time",
@@ -3884,7 +3667,7 @@
         },
         "type": "object"
       },
-      "getAttributesCountResponse": {
+      "getAttributesCount": {
         "description": "Response of the getAttributesCount endpoint",
         "properties": {
           "data": {
@@ -3908,7 +3691,25 @@
         },
         "type": "object"
       },
-      "getMetricsEventAttributesResponse": {
+      "getMetricsCount": {
+        "description": "Response of the getIdentityCount endpoint",
+        "properties": {
+          "count": {
+            "description": "The total count",
+            "format": "int64",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "service_name": {
+            "description": "Helper field to identify the service used for this response",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": ["count", "service_name"],
+        "type": "object"
+      },
+      "getMetricsEventAttributes": {
         "description": "Response of the getMetricsEventAttributes endpoint",
         "properties": {
           "events": {
@@ -3923,7 +3724,7 @@
         "required": ["events"],
         "type": "object"
       },
-      "getMetricsEventTypesResponse": {
+      "getMetricsEventTypes": {
         "description": "Response of the getMetricsEventTypes endpoint",
         "properties": {
           "events": {
@@ -3946,6 +3747,26 @@
         },
         "required": ["organization"],
         "title": "getOrganizationResponse represents a B2B SSO Organization.",
+        "type": "object"
+      },
+      "getProjectEvents": {
+        "description": "Response of the getProjectEvents endpoint",
+        "properties": {
+          "events": {
+            "description": "The list of data points.",
+            "items": {
+              "$ref": "#/components/schemas/ProjectEventsDatapoint"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "page_token": {
+            "description": "Pagination token to be included in next page request",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": ["events"],
         "type": "object"
       },
       "getProjectEventsBody": {
@@ -3987,27 +3808,7 @@
         "required": ["from", "to"],
         "type": "object"
       },
-      "getProjectEventsResponse": {
-        "description": "Response of the getProjectEvents endpoint",
-        "properties": {
-          "events": {
-            "description": "The list of data points.",
-            "items": {
-              "$ref": "#/components/schemas/ProjectEventsDatapoint"
-            },
-            "readOnly": true,
-            "type": "array"
-          },
-          "page_token": {
-            "description": "Pagination token to be included in next page request",
-            "readOnly": true,
-            "type": "string"
-          }
-        },
-        "required": ["events"],
-        "type": "object"
-      },
-      "getProjectMetricsResponse": {
+      "getProjectMetrics": {
         "description": "Response of the getMetrics endpoint",
         "properties": {
           "data": {
@@ -4022,7 +3823,7 @@
         "required": ["data"],
         "type": "object"
       },
-      "getSessionActivityResponse": {
+      "getSessionActivity": {
         "description": "Response of the getSessionActivity endpoint",
         "properties": {
           "data": {
@@ -4324,6 +4125,7 @@
             "type": "object"
           }
         },
+        "required": ["id", "schema"],
         "type": "object"
       },
       "identitySchemaPreset": {
@@ -4509,6 +4311,16 @@
         "required": ["project_slug", "path"],
         "type": "object"
       },
+      "internalIsOwnerForProjectBySlug": {
+        "properties": {
+          "project_id": {
+            "description": "ProjectID is the project's ID.",
+            "type": "string"
+          }
+        },
+        "required": ["project_id"],
+        "type": "object"
+      },
       "internalIsOwnerForProjectBySlugBody": {
         "description": "Is Owner For Project By Slug Request Body",
         "properties": {
@@ -4531,16 +4343,6 @@
           }
         },
         "required": ["subject", "namespace", "project_slug"],
-        "type": "object"
-      },
-      "internalIsOwnerForProjectBySlugResponse": {
-        "properties": {
-          "project_id": {
-            "description": "ProjectID is the project's ID.",
-            "type": "string"
-          }
-        },
-        "required": ["project_id"],
         "type": "object"
       },
       "introspectedOAuth2Token": {
@@ -4797,7 +4599,7 @@
         "type": "object"
       },
       "keysetPaginationRequestParameters": {
-        "description": "The `Link` HTTP header contains multiple links (`first`, `next`) formatted as:\n`\u003chttps://{project-slug}.projects.oryapis.com/admin/sessions?page_size=250\u0026page_token=\u003e; rel=\"first\"`\n\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
+        "description": "For details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
         "properties": {
           "page_size": {
             "default": 250,
@@ -4953,6 +4755,10 @@
           "id": {
             "description": "ID represents the flow's unique ID. When performing the login flow, this\nrepresents the id in the login UI's query parameter: http://\u003cselfservice.flows.login.ui_url\u003e/?flow=\u003cflow_id\u003e",
             "format": "uuid",
+            "type": "string"
+          },
+          "identity_schema": {
+            "description": "IdentitySchema optionally holds the ID of the identity schema that is used\nfor this flow. This value can be set by the user when creating the flow and\nshould be retained when the flow is saved or converted to another flow.",
             "type": "string"
           },
           "issued_at": {
@@ -5426,9 +5232,19 @@
       },
       "normalizedProjectRevision": {
         "properties": {
+          "account_experience_custom_translations": {
+            "description": "The Account Experience's Custom Translations\n\nContains all Custom Translations for this project.",
+            "items": {
+              "$ref": "#/components/schemas/RevisionAccountExperienceCustomTranslation"
+            },
+            "type": "array"
+          },
           "account_experience_default_locale": {
             "description": "Holds the default locale for the account experience.",
             "type": "string"
+          },
+          "account_experience_enabled_locales": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
           "account_experience_favicon_dark": {
             "description": "Holds the URL to the account experience's dark theme favicon (currently unused).",
@@ -5949,6 +5765,9 @@
           "kratos_secrets_default": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
+          "kratos_secrets_pagination": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
+          },
           "kratos_security_account_enumeration_mitigate": {
             "description": "Configures if account enumeration should be mitigated when using identifier first login.",
             "type": "boolean"
@@ -6151,6 +5970,9 @@
             "enum": ["link", "code"],
             "type": "string",
             "x-go-enum-desc": "link SelfServiceMessageVerificationStrategyLink\ncode SelfServiceMessageVerificationStrategyCode"
+          },
+          "kratos_selfservice_methods_captcha_config_allowed_domains": {
+            "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
           "kratos_selfservice_methods_captcha_config_cf_turnstile_secret": {
             "description": "Configures the Cloudflare Turnstile site secret for CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
@@ -6505,6 +6327,9 @@
             "format": "uuid",
             "type": "string"
           },
+          "selfservice_selectable": {
+            "type": "boolean"
+          },
           "updated_at": {
             "description": "Last Time Project's Revision was Updated",
             "format": "date-time",
@@ -6522,6 +6347,9 @@
       },
       "normalizedProjectRevisionSAMLProvider": {
         "properties": {
+          "audience_override_base_url": {
+            "$ref": "#/components/schemas/String"
+          },
           "created_at": {
             "description": "The Project's Revision Creation Date",
             "format": "date-time",
@@ -6551,6 +6379,12 @@
           "provider_id": {
             "description": "ID is the provider's ID",
             "type": "string"
+          },
+          "proxy_acs_url": {
+            "$ref": "#/components/schemas/String"
+          },
+          "proxy_saml_audience_override": {
+            "$ref": "#/components/schemas/String"
           },
           "raw_idp_metadata_xml": {
             "description": "RawIDPMetadataXML is the raw XML metadata of the IDP.",
@@ -6588,6 +6422,10 @@
             "readOnly": true,
             "type": "string"
           },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
           "label": {
             "description": "The SCIM server's label",
             "type": "string"
@@ -6600,6 +6438,9 @@
             "description": "OrganizationID is the organization ID for this SCIM server.",
             "format": "uuid",
             "type": "string"
+          },
+          "proxy_scim_server_url": {
+            "$ref": "#/components/schemas/String"
           },
           "state": {
             "description": "State indicates the state of the SCIM server\n\nOnly servers with state `enabled` will be available for SCIM provisioning.\nenabled ThirdPartyProviderStateEnabled\ndisabled ThirdPartyProviderStateDisabled",
@@ -6694,10 +6535,8 @@
             "$ref": "#/components/schemas/NullUUID"
           },
           "pkce": {
-            "description": "PKCE controls if the OpenID Connect OAuth2 flow should use PKCE (Proof Key for Code Exchange).\nPossible values are: `auto` (default), `never`, `force`.\n`auto`: PKCE is used if the provider supports it. Requires setting `issuer_url`.\n`never`: Disable PKCE entirely for this provider, even if the provider advertises support for it.\n`force`: Always use PKCE, even if the provider does not advertise support for it. OAuth2 flows will fail if the provider does not support PKCE.\nIMPORTANT: If you set this to `force`, you must whitelist a different return URL for your OAuth2 client in the provider's configuration.\nInstead of \u003cbase-url\u003e/self-service/methods/oidc/callback/\u003cprovider\u003e, you must use \u003cbase-url\u003e/self-service/methods/oidc/callback\n(Note the missing \u003cprovider\u003e path segment and no trailing slash).",
             "enum": ["auto", "never", "force"],
-            "nullable": true,
-            "type": "string"
+            "nullable": true
           },
           "project_revision_id": {
             "description": "The Revision's ID this schema belongs to",
@@ -6711,6 +6550,11 @@
           },
           "provider_id": {
             "description": "ID is the provider's ID",
+            "type": "string"
+          },
+          "proxy_oidc_redirect_url": {
+            "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+            "readOnly": true,
             "type": "string"
           },
           "requested_claims": {
@@ -6771,6 +6615,12 @@
           "project_revision_id": {
             "description": "The Revision's ID this schema belongs to",
             "format": "uuid",
+            "type": "string"
+          },
+          "subject_source": {
+            "default": "id",
+            "description": "Subject source for the tokenizer\n\nCan be either id or external_id or empty",
+            "enum": ["id", "external_id"],
             "type": "string"
           },
           "ttl": {
@@ -7089,10 +6939,6 @@
           "context": {
             "$ref": "#/components/schemas/JSONRawMessage"
           },
-          "device_challenge_id": {
-            "description": "DeviceChallenge is the device challenge this consent challenge belongs to, if this flow was initiated by a device.",
-            "type": "string"
-          },
           "login_challenge": {
             "description": "LoginChallenge is the login challenge this consent challenge belongs to. It can be used to associate\na login and consent request in the login \u0026 consent app.",
             "type": "string"
@@ -7172,31 +7018,6 @@
           },
           "context": {
             "$ref": "#/components/schemas/JSONRawMessage"
-          },
-          "expires_at": {
-            "properties": {
-              "access_token": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "authorize_code": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "id_token": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "par_context": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "refresh_token": {
-                "format": "date-time",
-                "type": "string"
-              }
-            },
-            "type": "object"
           },
           "grant_access_token_audience": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
@@ -7633,6 +7454,13 @@
             "readOnly": true,
             "type": "string"
           },
+          "custom_hostname_id": {
+            "$ref": "#/components/schemas/NullUUID"
+          },
+          "enable_scim": {
+            "description": "Feature flag to enable SCIM configuration",
+            "type": "boolean"
+          },
           "enable_sso": {
             "description": "Feature flag to enable SSO configuration",
             "type": "boolean"
@@ -7659,6 +7487,22 @@
             "description": "The onboarding portal link's project ID",
             "format": "uuid",
             "readOnly": true,
+            "type": "string"
+          },
+          "proxy_acs_url": {
+            "description": "Proxy ACS URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_oidc_redirect_url": {
+            "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_saml_audience_override": {
+            "description": "SAML Audience Override if overriding with a customer-controlled one",
+            "type": "string"
+          },
+          "proxy_scim_server_url": {
+            "description": "Proxy SCIM Server URL if overriding with a customer-controlled URL",
             "type": "string"
           },
           "value": {
@@ -7688,7 +7532,6 @@
             "$ref": "#/components/schemas/projectRevisionSamlProviders"
           },
           "organization_id": {
-            "description": "Organization ID",
             "format": "uuid",
             "type": "string"
           },
@@ -7696,16 +7539,45 @@
             "description": "Organization Label",
             "type": "string"
           },
+          "proxy_acs_url": {
+            "description": "Proxy ACS URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_oidc_redirect_url": {
+            "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "proxy_saml_audience_override": {
+            "description": "SAML Audience Override if overriding with a customer-controlled one",
+            "type": "string"
+          },
+          "proxy_scim_server_url": {
+            "description": "Proxy SCIM Server URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
           "revision_id": {
             "format": "uuid",
             "type": "string"
+          },
+          "scim_clients": {
+            "$ref": "#/components/schemas/projectRevisionScimClients"
+          },
+          "scim_enabled": {
+            "type": "boolean"
+          },
+          "sso_enabled": {
+            "type": "boolean"
           }
         },
         "required": [
           "revision_id",
           "base_url",
+          "sso_enabled",
+          "scim_enabled",
           "kratos_selfservice_methods_saml_config_providers",
-          "kratos_selfservice_methods_oidc_config_providers"
+          "kratos_selfservice_methods_oidc_config_providers",
+          "scim_clients",
+          "organization_id"
         ],
         "type": "object"
       },
@@ -8169,17 +8041,6 @@
             "description": "AccentSubtleColor is a hex color code used by the Ory Account Experience theme.",
             "type": "string"
           },
-          "account_experience_variables": {
-            "description": "The Account Experience Theme Variables.",
-            "items": {
-              "$ref": "#/components/schemas/accountExperienceThemeVariables"
-            },
-            "type": "array"
-          },
-          "account_experience_variables_stylesheet": {
-            "description": "AccountExperienceVariableStylesheet holds a reference to the current stylesheet that can be used in the AX",
-            "type": "string"
-          },
           "background_canvas_color": {
             "description": "BackgroundCanvasColor is a hex color code used by the Ory Account Experience theme.",
             "type": "string"
@@ -8525,6 +8386,15 @@
         },
         "type": "array"
       },
+      "projectServiceAccountExperience": {
+        "properties": {
+          "config": {
+            "type": "object"
+          }
+        },
+        "required": ["config"],
+        "type": "object"
+      },
       "projectServiceIdentity": {
         "properties": {
           "config": {
@@ -8554,6 +8424,9 @@
       },
       "projectServices": {
         "properties": {
+          "account_experience": {
+            "$ref": "#/components/schemas/projectServiceAccountExperience"
+          },
           "identity": {
             "$ref": "#/components/schemas/projectServiceIdentity"
           },
@@ -8576,7 +8449,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM",
+            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM",
             "enum": [
               "production_projects",
               "staging_projects",
@@ -8604,6 +8477,7 @@
               "m2m_token_issuance",
               "permission_checks",
               "captcha",
+              "identity_search_api",
               "saml_sp",
               "saml_idp",
               "auto_link_policy",
@@ -8627,7 +8501,7 @@
               "scim_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM"
+            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM"
           },
           "feature_available": {
             "type": "boolean"
@@ -8767,7 +8641,7 @@
             "$ref": "#/components/schemas/RecoveryAddressType"
           }
         },
-        "required": ["id", "value", "via"],
+        "required": ["value", "via"],
         "type": "object"
       },
       "recoveryLinkForIdentity": {
@@ -8815,6 +8689,10 @@
           "id": {
             "description": "ID represents the flow's unique ID. When performing the registration flow, this\nrepresents the id in the registration ui's query parameter: http://\u003cselfservice.flows.registration.ui_url\u003e/?flow=\u003cid\u003e",
             "format": "uuid",
+            "type": "string"
+          },
+          "identity_schema": {
+            "description": "IdentitySchema optionally holds the ID of the identity schema that is used\nfor this flow. This value can be set by the user when creating the flow and\nshould be retained when the flow is saved or converted to another flow.",
             "type": "string"
           },
           "issued_at": {
@@ -9086,7 +8964,7 @@
             "type": "string"
           },
           "tokenized": {
-            "description": "Tokenized is the tokenized (e.g. JWT) version of the session.\n\nIt is only set when the `tokenize` query parameter was set to a valid tokenize template during calls to `/session/whoami`.",
+            "description": "Tokenized is the tokenized (e.g. JWT) version of the session.\n\nIt is only set when the `tokenize_as` query parameter was set to a valid tokenize template during calls to `/session/whoami`.",
             "type": "string"
           }
         },
@@ -9105,19 +8983,22 @@
             "type": "string"
           },
           "method": {
+            "description": "The method used in this authenticator.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "enum": [
-              "link_recovery",
-              "code_recovery",
               "password",
-              "code",
-              "totp",
               "oidc",
-              "webauthn",
+              "totp",
               "lookup_secret",
-              "v0.6_legacy_session"
+              "webauthn",
+              "code",
+              "passkey",
+              "profile",
+              "saml",
+              "link_recovery",
+              "code_recovery"
             ],
-            "title": "The method used",
-            "type": "string"
+            "type": "string",
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "organization": {
             "description": "The Organization id used for authentication",
@@ -9234,13 +9115,12 @@
           "revision_id": {
             "format": "uuid",
             "type": "string"
+          },
+          "scim_clients": {
+            "$ref": "#/components/schemas/projectRevisionScimClients"
           }
         },
-        "required": [
-          "revision_id",
-          "kratos_selfservice_methods_saml_config_providers",
-          "kratos_selfservice_methods_oidc_config_providers"
-        ],
+        "required": ["revision_id"],
         "type": "object"
       },
       "setProject": {
@@ -10463,6 +10343,10 @@
       },
       "updateOrganizationOnboardingPortalLinkBody": {
         "properties": {
+          "enable_scim": {
+            "description": "Feature flag to enable SCIM configuration",
+            "type": "boolean"
+          },
           "enable_sso": {
             "description": "Feature flag to enable SSO configuration",
             "type": "boolean"
@@ -10471,7 +10355,7 @@
             "$ref": "#/components/schemas/Time"
           }
         },
-        "required": ["enable_sso"],
+        "required": ["enable_sso", "enable_scim"],
         "type": "object"
       },
       "updateRecoveryFlowBody": {
@@ -11328,18 +11212,11 @@
       },
       "verifyUserCodeRequest": {
         "properties": {
-          "challenge": {
-            "description": "ID is the identifier (\"device challenge\") of the device request. It is used to\nidentify the session.",
-            "type": "string"
-          },
           "client": {
             "$ref": "#/components/schemas/oAuth2Client"
           },
           "device_code_request_id": {
             "type": "string"
-          },
-          "handled_at": {
-            "$ref": "#/components/schemas/nullTime"
           },
           "request_url": {
             "description": "RequestURL is the original Device Authorization URL requested.",
@@ -15031,7 +14908,7 @@
     },
     "/oauth2/device/auth": {
       "post": {
-        "description": "This endpoint is not documented here because you should never use your own implementation to perform OAuth2 flows.\nOAuth2 is a very popular protocol and a library for your programming language will exists.\n\nTo learn more about this flow please refer to the specification: https://tools.ietf.org/html/rfc8628",
+        "description": "This endpoint is not documented here because you should never use your own implementation to perform OAuth2 flows.\nOAuth2 is a very popular protocol and a library for your programming language will exist.\n\nTo learn more about this flow please refer to the specification: https://tools.ietf.org/html/rfc8628",
         "operationId": "oAuth2DeviceFlow",
         "responses": {
           "200": {
@@ -15061,7 +14938,7 @@
     },
     "/oauth2/device/verify": {
       "get": {
-        "description": "This is the device user verification endpoint. The user is redirected here when trying to login using the device flow.",
+        "description": "This is the device user verification endpoint. The user is redirected here when trying to log in using the device flow.",
         "operationId": "performOAuth2DeviceVerificationFlow",
         "responses": {
           "302": {
@@ -17512,18 +17389,23 @@
         "operationId": "getRelationships",
         "parameters": [
           {
+            "description": "Items per Page\n\nThis is the number of items per page to return.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "default": 250,
+              "format": "int64",
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
             "in": "query",
             "name": "page_token",
             "schema": {
               "type": "string"
-            }
-          },
-          {
-            "in": "query",
-            "name": "page_size",
-            "schema": {
-              "format": "int64",
-              "type": "integer"
             }
           },
           {
@@ -18614,6 +18496,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "An optional identity schema to use for the registration flow.",
+            "in": "query",
+            "name": "identity_schema",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -18709,6 +18599,14 @@
             "description": "Via should contain the identity's credential the code should be sent to. Only relevant in aal2 flows.\n\nDEPRECATED: This field is deprecated. Please remove it from your requests. The user will now see a choice\nof MFA credentials to choose from to perform the second factor instead.",
             "in": "query",
             "name": "via",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "An optional identity schema to use for the registration flow.",
+            "in": "query",
+            "name": "identity_schema",
             "schema": {
               "type": "string"
             }
@@ -19390,6 +19288,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "An optional identity schema to use for the registration flow.",
+            "in": "query",
+            "name": "identity_schema",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -19461,6 +19367,14 @@
             "description": "An optional organization ID that should be used to register this user.\nThis parameter is only effective in the Ory Network.",
             "in": "query",
             "name": "organization",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "An optional identity schema to use for the registration flow.",
+            "in": "query",
+            "name": "identity_schema",
             "schema": {
               "type": "string"
             }

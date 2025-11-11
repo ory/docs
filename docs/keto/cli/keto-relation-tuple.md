@@ -1,7 +1,7 @@
 ---
 id: keto-relation-tuple
 title: keto relation-tuple
-description: keto relation-tuple Read and manipulate relationships
+description: keto relation-tuple
 ---
 
 <!--
@@ -25,9 +25,9 @@ Read and manipulate relationships
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto](keto)	 - Global and consistent permission and authorization server
+* [keto](keto) Global and consistent permission and authorization server
 * [keto relation-tuple create](keto-relation-tuple-create)	 - Create relationships from JSON files
 * [keto relation-tuple delete](keto-relation-tuple-delete)	 - Delete relationships defined in JSON files
 * [keto relation-tuple delete-all](keto-relation-tuple-delete-all)	 - Delete ALL relationships matching the relation query.

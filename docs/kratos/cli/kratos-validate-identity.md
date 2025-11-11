@@ -1,7 +1,7 @@
 ---
 id: kratos-validate-identity
 title: kratos validate identity
-description: kratos validate identity Validate local identity files
+description: kratos validate identity
 ---
 
 <!--
@@ -37,7 +37,7 @@ kratos validate identity file.json [file-2.json] [file-3.json] [file-n.json] [fl
   -q, --quiet             Be quiet with output printing.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos validate](kratos-validate)	 - Validate resources
+* [kratos validate](kratos-validate) Validate resources
 

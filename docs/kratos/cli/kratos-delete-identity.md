@@ -1,7 +1,7 @@
 ---
 id: kratos-delete-identity
 title: kratos delete identity
-description: kratos delete identity Delete one or more identities by their ID(s)
+description: kratos delete identity
 ---
 
 <!--
@@ -45,7 +45,7 @@ To delete the identity with the recovery email address "foo@bar.com", run:
   -q, --quiet             Be quiet with output printing.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos delete](kratos-delete)	 - Delete resources
+* [kratos delete](kratos-delete) Delete resources
 

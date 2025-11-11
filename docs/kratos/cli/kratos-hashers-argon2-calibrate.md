@@ -1,7 +1,7 @@
 ---
 id: kratos-hashers-argon2-calibrate
 title: kratos hashers argon2 calibrate
-description: kratos hashers argon2 calibrate Computes Optimal Argon2 Parameters
+description: kratos hashers argon2 calibrate
 ---
 
 <!--
@@ -46,7 +46,7 @@ kratos hashers argon2 calibrate <requests-per-minute> [flags]
   -m, --start-memory byte_size        Amount of memory to start probing at. (default 0.00B)
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos hashers argon2](kratos-hashers-argon2)	 - 
+* [kratos hashers argon2](kratos-hashers-argon2)
 

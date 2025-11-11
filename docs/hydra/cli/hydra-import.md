@@ -1,7 +1,7 @@
 ---
 id: hydra-import
 title: hydra import
-description: hydra import Import resources
+description: hydra import
 ---
 
 <!--
@@ -24,9 +24,9 @@ Import resources
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
+* [hydra](hydra) Run and manage Ory Hydra
 * [hydra import jwk](hydra-import-jwk)	 - Imports JSON Web Keys from one or more JSON files.
 * [hydra import oauth2-client](hydra-import-oauth2-client)	 - Import one or more OAuth 2.0 Clients from files or STDIN
 

@@ -46,7 +46,7 @@ registration:
           node_type: "input",
           name: "traits.email",
           type: "email",
-          value: "foo@ory.sh",
+          value: "foo@ory.com",
           disabled: false,
         },
         messages: null,
@@ -80,7 +80,7 @@ The above example would be rendered in HTML like this:
   />
 
   <!-- this is the second node -->
-  <input type="email" name="traits.email" value="foo@ory.sh" />
+  <input type="email" name="traits.email" value="foo@ory.com" />
   <label for="traits.email">E-Mail</label>
 </form>
 ```
@@ -643,7 +643,7 @@ Here are some examples for you to get a feeling for possible payloads!
   "attributes": {
     "name": "traits.email",
     "type": "email",
-    "value": "foo@ory.sh",
+    "value": "foo@ory.com",
     "disabled": false
   },
   "messages": null,
@@ -667,7 +667,7 @@ Here are some examples for you to get a feeling for possible payloads!
   "attributes": {
     "name": "traits.website",
     "type": "url",
-    "value": "https://www.ory.sh/",
+    "value": "https://www.ory.com/",
     "required": true,
     "disabled": false,
     "node_type": "input"
@@ -740,7 +740,7 @@ For all traits, the labels and orders are taken from the Identity Schema. An Ide
 
 ```json
 {
-  "$id": "https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json",
+  "$id": "https://schemas.ory.com/presets/kratos/quickstart/email-password/identity.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Person",
   "type": "object",
@@ -753,7 +753,7 @@ For all traits, the labels and orders are taken from the Identity Schema. An Ide
           "format": "email",
           "title": "E-Mail",
           "minLength": 3,
-          "ory.sh/kratos": {
+          "ory.com/kratos": {
             "credentials": {
               "password": {
                 "identifier": true
@@ -793,7 +793,7 @@ will generate the following fields - take note that the order of the JSON Schema
     "attributes": {
       "name": "traits.email",
       "type": "email",
-      "value": "foo@ory.sh",
+      "value": "foo@ory.com",
       "disabled": false
     },
     "messages": null,

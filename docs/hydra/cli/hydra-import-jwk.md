@@ -1,7 +1,7 @@
 ---
 id: hydra-import-jwk
 title: hydra import jwk
-description: hydra import jwk Imports JSON Web Keys from one or more JSON files.
+description: hydra import jwk
 ---
 
 <!--
@@ -49,7 +49,7 @@ hydra import jwk my-set ./path/to/rsa.key ./path/to/rsa.pub --use enc
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra import](hydra-import)	 - Import resources
+* [hydra import](hydra-import) Import resources
 

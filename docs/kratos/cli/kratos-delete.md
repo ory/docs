@@ -1,7 +1,7 @@
 ---
 id: kratos-delete
 title: kratos delete
-description: kratos delete Delete resources
+description: kratos delete
 ---
 
 <!--
@@ -22,8 +22,8 @@ Delete resources
   -q, --quiet             Be quiet with output printing.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
+* [kratos](kratos)
 * [kratos delete identity](kratos-delete-identity)	 - Delete one or more identities by their ID(s)
 

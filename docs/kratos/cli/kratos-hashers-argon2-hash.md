@@ -1,7 +1,7 @@
 ---
 id: kratos-hashers-argon2-hash
 title: kratos hashers argon2 hash
-description: kratos hashers argon2 hash Hash a list of passwords for benchmarking the hashing parameters
+description: kratos hashers argon2 hash
 ---
 
 <!--
@@ -33,7 +33,7 @@ kratos hashers argon2 hash <password1> [<password2> ...] [flags]
       --salt-length uint32            Length of the salt in bytes. (default 16)
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos hashers argon2](kratos-hashers-argon2)	 - 
+* [kratos hashers argon2](kratos-hashers-argon2)
 

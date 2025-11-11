@@ -1,7 +1,7 @@
 ---
 id: kratos-remote-status
 title: kratos remote status
-description: kratos remote status Print the alive and readiness status of a Ory Kratos instance
+description: kratos remote status
 ---
 
 <!--
@@ -31,7 +31,7 @@ kratos remote status [flags]
   -q, --quiet             Be quiet with output printing.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos remote](kratos-remote)	 - Helpers and management for remote Ory Kratos instances
+* [kratos remote](kratos-remote) Helpers and management for remote Ory Kratos instances
 

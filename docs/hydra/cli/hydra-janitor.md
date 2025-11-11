@@ -1,7 +1,7 @@
 ---
 id: hydra-janitor
 title: hydra janitor
-description: hydra janitor This command cleans up stale database rows.
+description: hydra janitor
 ---
 
 <!--
@@ -34,30 +34,44 @@ Janitor can be used in several ways.
    Pass the database url (dsn) as an argument to janitor. E.g. janitor {database-url}
 2. By passing the DSN as an environment variable
 
-		export DSN=...
-		janitor -e
+```
+	export DSN=...
+	janitor -e
+```
 
 3. By passing a configuration file containing the DSN
    janitor -c /path/to/conf.yml
 4. Extra *optional* parameters can also be added such as
 
-		hydra janitor --keep-if-younger 23h --access-lifespan 1h --refresh-lifespan 40h --consent-request-lifespan 10m {database-url}
+```
+	hydra janitor --keep-if-younger 23h --access-lifespan 1h --refresh-lifespan 40h --consent-request-lifespan 10m {database-url}
+```
 
 5. Running only a certain cleanup
 
-		hydra janitor --tokens {database-url}
+```
+	hydra janitor --tokens {database-url}
+```
 
    or
 
-		hydra janitor --requests {database-url}
+```
+	hydra janitor --requests {database-url}
+```
 
-    or
+```
+or
+```
 
-		hydra janitor --grants {database-url}
+```
+	hydra janitor --grants {database-url}
+```
 
    or any combination of them
 
-		hydra janitor --tokens --requests --grants {database-url}
+```
+	hydra janitor --tokens --requests --grants {database-url}
+```
 
 
 ```
@@ -87,7 +101,7 @@ hydra janitor --keep-if-younger 23h --access-lifespan 1h --refresh-lifespan 40h 
       --tokens                              This will only run the cleanup on tokens and will skip requests and trust relationships cleanup.
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
+* [hydra](hydra) Run and manage Ory Hydra
 

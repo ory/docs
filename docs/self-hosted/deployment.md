@@ -6,21 +6,21 @@ title: Database
 ## Integrates with Kubernetes
 
 Ory technology is cloud first and runs natively on Docker and Kubernetes and naturally supports Kubernetes Helm Charts. Head over
-to our [Kubernetes Helm Chart Repository](https://k8s.ory.sh/helm) for Charts and accompanying Documentation.
+to our [Kubernetes Helm Chart Repository](https://k8s.ory.com/helm) for Charts and accompanying Documentation.
 
 ## Data storage and persistence
 
 All Ory projects support storing data in memory and in relational databases:
 
-- PostgreSQL is recommended as the default database.
-- MySQL is supported, some flavors like MariaDB and AWS Aurora may require additional work.
-- CockroachDB is supported.
-- SQLite is supported (in-memory and persistent) but must not be used for a production service.
+- PostgreSQL is fully supported.
+- MySQL is fully supported. Some flavors like MariaDB and AWS Aurora may require additional setup.
+- CockroachDB is fully supported.
+- SQLite is supported (in-memory and persistent) but must not be used in a production deployment.
 
 ### PostgreSQL
 
 If configuration key `dsn` (Data Source Name) is prefixed with `postgres://`, then PostgreSQL will be used as storage backend. An
-exemplary configuration would look like this:
+example configuration would look like this:
 
 ```
 DSN=postgres://user:password@host:123/database
@@ -30,7 +30,7 @@ Parameters are configured by appending them to the DSN query. For example, to se
 the DSN query like this:
 
 ```
-postgres://user:password@host:123/database?sslmode=verify-full
+DSN=postgres://user:password@host:123/database?sslmode=verify-full
 ```
 
 #### Supported parameters
@@ -40,79 +40,92 @@ postgres://user:password@host:123/database?sslmode=verify-full
   - `require` - Always SSL (skip verification)
   - `verify-ca` - Always SSL (verify that the certificate presented by the `server` was signed by a trusted CA)
   - `verify-full` - Always SSL (verify that the certification presented by the server was signed by a trusted CA and the server
-    host name matches the one in the certificate)
-- `application_name` (string): An initial value for the application_name session variable.
+    host name matches the one in the certificate). This is the recommended setting.
+- `application_name` (string): Set to your application name (.e.g. `ory_hydra`, `ory_kratos`). This identifier will show up in
+  your database's metrics, allowing you to easily see which application performs which queries.
 - `fallback_application_name` (string): An application_name to fall back to if one isn't provided.
 - `search_path` (string): specifies the [search path](https://www.postgresql.org/docs/12/ddl-schemas.html), such as the schema.
-- `sslcert` (string): Cert file location. The file must contain PEM encoded data.
-- `sslkey` (string): Key file location. The file must contain PEM encoded data.
-- `sslrootcert` (string): The location of the root certificate file. The file must contain PEM encoded data.
+- `sslcert` (string): TLS client certificate file location. The file must contain PEM encoded data.
+- `sslkey` (string): TLS client certificate private key file location, matching `sslcert`. The file must contain PEM encoded data.
+- `sslrootcert` (string): The location of the CA (root) certificate file. The file must contain PEM encoded data.
 
 ##### Standard pooling
 
-- `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
-- `max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores times 2.
-- `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
-- `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
+- `max_conns` (number): Sets the maximum number of open (in use+idle) connections to the database. If this number is too low,
+  operations will be blocked waiting for a database connection. For the database server, connections might be expensive (e.g.
+  PostgreSQL without an intermediary connection pool), quite cheap (e.g. MySQL), or very cheap (e.g. CockroachDB). For the client
+  (Ory Software), database connections are always very cheap.
+- `max_idle_conns` (number): The maximum number of _idle_ (not currently in use) connections. Useful to lower resource consumption
+  in your database if connections are expensive for the database server (primarily PostgreSQL without an intermediary connection
+  pool such as `pgbouncer`).
+- `max_conn_lifetime` (duration: for example "500ms", "5s", "30m", "1h"): Sets the time after which a connection will be closed,
+  irrespective of how long it has been idle. This is useful for maintenance: most database systems will not close connections
+  towards the client even if the database server is being drained (for example for a software upgrade). Instead, the server relies
+  on the client to close the connection. In those scenarios, this value determines the drain time of your database nodes. Setting
+  this too short will cause connections to be re-established very frequently, negatively impacting latency.
+- `max_conn_idle_time` (duration: for example "500ms", "5s", "30m", "1h"): Database connections will be closed after idling for
+  this duration. Potentially useful to reduce resource consumption on the database server (see `max_idle_conns`) after a traffic
+  spike.
 - `connect_timeout` (number): Maximum wait for connection, in seconds. Zero or not specified means wait indefinitely.
 
 ##### High-performance pooling
 
-:::note
-
-High-performance pooling is supported in Ory Enterprise License (OEL) images.
-
-:::
-
-High-performance pooling is built using [pgxpool](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool) and provides additional
-configuration options to the ones listed under "Standard pooling".
-
-Using pool configuration overrides standard pool options. It is recommended to set both `pool_` and not `pool_` prefixed values to
-ensure that the standard pool options are set as well (`postgres://...?max_conns=4&pool_max_conns=4`).
-
-To activate high-performance pooling, you must set at least the `pool_min_conns` parameter; otherwise, high-performance pooling
-will not be enabled.
-
-- `pool_max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores
-  times 2. Overrides `max_conns`.
-- `pool_max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused. Overrides
-  `max_conn_lifetime`.
-- `pool_max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
-  Overrides `max_conn_idle_time`.
-- `pool_min_conns` (number): The minimum size of the pool. After connection closes, the pool might dip below MinConns. A low
-  number of MinConns might mean the pool is empty after MaxConnLifetime until the health check has a chance to create new
-  connections. Defaults to 0.
-- `pool_health_check_period` (duration): Sets the period for health checks to potentially kill stale
-  connections.` Defaults to 1 minute.`
-- `pool_max_conn_lifetime_jitter` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused.
-  This is a random value that is added to the `pool_max_conn_lifetime` value. This is useful to avoid thundering herd problems
-  when many connections are closed at the same time.
+High-performance pooling is supported in Ory Enterprise License (OEL) images. Read more about it in the
+[high-performance pooling](./oel/high-performance-pooling) documentation.
 
 ### CockroachDB
 
 If configuration key `dsn` (Data Source Name) is prefixed with `cockroach://`, then CockroachDB will be used as storage backend.
 CockroachDB supports the same parameters as PostgreSQL.
 
-An exemplary configuration would look like this:
+An example configuration would look like this:
 
 ```
 DSN=cockroach://user:password@host:123/database?sslmode=verify-full&...
 ```
 
+In CockroachDB, database connections consume little resources server-side. By contrast, establishing a new TLS connection to a
+cluster can take several hundred milliseconds in many scenarios. As a consequence, Ory recommends using
+[high-performance pooling](#high-performance-pooling) and setting the minimum and maximum pool sizes equal, as well as disabling
+termination of idle connections (`pool_max_conn_idle_time=0`).
+
+In this configuration, a fixed-size pool of database connections is available at all times, preventing connection storms during
+traffic spikes. This pool size should be oversized for normal use: you might see most connections seemingly idle in your database
+metrics. Because connections are virtually free to keep around for both client and server, this is not a concern. An excessively
+sized connection pool may overload your database during extreme traffic peaks, whereas an undersized pool will have requests
+waiting unnecessarily.
+
+We recommend setting `pool_max_conn_lifetime=30m&pool_max_conn_lifetime_jitter=5m` as a compromise between low drain times during
+CockroachDB upgrades and re-establishing connections more frequently than necessary.
+
 ### MySQL
 
-If configuration key `dsn` (Data Source Name) is prefixed with `mysql://`, then MySQL will be used as storage backend. An
-exemplary configuration would look like this: `DSN=mysql://user:password@tcp(host:123)/database?parseTime=true`
+If configuration key `dsn` (Data Source Name) is prefixed with `mysql://`, then MySQL will be used as storage backend. An example
+configuration would look like this:
+
+```
+DSN=mysql://user:password@tcp(host:123)/database?parseTime=true
+```
 
 #### Supported parameters
 
 The following DSN parameters are supported:
 
-- `max_conns` (number): Sets the maximum number of open connections to the database. Defaults to the number of CPU cores times 2.
-- `max_idle_conns` (number): Sets the maximum number of connections in the idle. Defaults to the number of CPU cores.
-- `max_conn_lifetime` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection may be reused. Defaults to 0s
-  (disabled).
-- `max_conn_idle_time` (duration): Sets the maximum amount of time ("ms", "s", "m", "h") a connection can be kept alive.
+- `max_conns` (number): Sets the maximum number of open (in use+idle) connections to the database. If this number is too low,
+  operations will be blocked waiting for a database connection. For the database server, connections might be expensive (e.g.
+  PostgreSQL without an intermediary connection pool), quite cheap (e.g. MySQL), or very cheap (e.g. CockroachDB). For the client
+  (Ory Software), database connections are always very cheap.
+- `max_idle_conns` (number): The maximum number of _idle_ (not currently in use) connections. Useful to lower resource consumption
+  in your database if connections are expensive for the database server (primarily PostgreSQL without an intermediary connection
+  pool such as `pgbouncer`).
+- `max_conn_lifetime` (duration: for example "500ms", "5s", "30m", "1h"): Sets the time after which a connection will be closed,
+  irrespective of how long it has been idle. This is useful for maintenance: most database systems will not close connections
+  towards the client even if the database server is being drained (for example for a software upgrade). Instead, the server relies
+  on the client to close the connection. In those scenarios, this value determines the drain time of your database nodes. Setting
+  this too short will cause connections to be re-established very frequently, negatively impacting latency.
+- `max_conn_idle_time` (duration: for example "500ms", "5s", "30m", "1h"): Database connections will be closed after idling for
+  this duration. Potentially useful to reduce resource consumption on the database server (see `max_idle_conns`) after a traffic
+  spike.
 - `collation` (string): Sets the collation used for client-server interaction on connection. In contrast to charset, collation
   doesn't issue additional queries. If the specified collation is unavailable on the target server, the connection will fail.
 - `loc` (string): Sets the location for time.Time values. Note that this sets the location for time.Time values but doesn't change
@@ -156,7 +169,11 @@ See also:
 If configuration key `dsn` (Data Source Name) is prefixed with `sqlite://`, then SQLite will be used as storage backend. SQLite is
 a great choice for development but has many drawbacks and should not be used in production.
 
-An exemplary configuration would look like this: `DSN=sqlite:///tmp/some-db.sqlite?_fk=true`
+An example configuration would look like this:
+
+```
+DSN=sqlite:///tmp/some-db.sqlite?_fk=true
+```
 
 The following DSN parameters are required:
 

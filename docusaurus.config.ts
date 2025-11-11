@@ -13,7 +13,7 @@ const config: Config = {
   },
   title: "Ory",
   tagline: "Open Source Identity and Access Infrastructure",
-  url: `https://www.ory.sh`,
+  url: `https://www.ory.com`,
   baseUrl: "/docs/",
   favicon: "img/favico.png",
   onBrokenLinks: "throw",
@@ -93,31 +93,31 @@ const config: Config = {
       links: [
         {
           label: "Need Support?",
-          href: "https://www.ory.sh/support/",
+          href: "https://www.ory.com/support/",
         },
         {
           label: "Search",
-          href: "https://www.ory.sh/docs/search/",
+          href: "https://www.ory.com/docs/search/",
         },
         {
           label: "Status",
-          href: "https://status.ory.sh/",
+          href: "https://status.ory.com/",
         },
         {
           label: "Privacy",
-          href: "https://www.ory.sh/privacy",
+          href: "https://www.ory.com/privacy",
         },
         {
           label: "Company",
-          href: "https://www.ory.sh/legal/company",
+          href: "https://www.ory.com/legal/company",
         },
         {
           label: "Terms of Service",
-          href: "https://www.ory.sh/tos",
+          href: "https://www.ory.com/tos",
         },
         {
           label: "Schedule a discovery call",
-          href: "https://www.ory.sh/contact/",
+          href: "https://www.ory.com/contact/",
         },
         {
           html: `<button onClick="window.__showOryConsentDialog()">Consent Preferences</button>`,
@@ -126,7 +126,7 @@ const config: Config = {
       logo: {
         alt: "Ory logo in white",
         src: "/docs/img/logos/logo-ory-white-2022-11-04.svg",
-        href: "https://www.ory.sh/",
+        href: "https://www.ory.com/",
         height: 80,
         width: 130.7,
       },
@@ -249,11 +249,11 @@ const config: Config = {
       async: true,
     },
     {
-      src: "https://consent.ory.sh/cmp/init.js",
+      src: "https://consent.ory.com/cmp/init.js",
       async: true,
     },
     {
-      src: "https://consent.ory.sh/index.js",
+      src: "https://consent.ory.com/index.js",
       async: true,
     },
   ],

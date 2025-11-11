@@ -1,7 +1,7 @@
 ---
 id: hydra-get
 title: hydra get
-description: hydra get Get resources
+description: hydra get
 ---
 
 <!--
@@ -24,9 +24,9 @@ Get resources
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
+* [hydra](hydra) Run and manage Ory Hydra
 * [hydra get jwk](hydra-get-jwk)	 - Get one or more JSON Web Key Set by its ID(s)
 * [hydra get oauth2-client](hydra-get-oauth2-client)	 - Get one or more OAuth 2.0 Clients by their ID(s)
 

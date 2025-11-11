@@ -16,7 +16,7 @@ To be able to run an enterprise build, you need:
 :::note
 
 Support for MySQL and PostgreSQL is available as well, but some features will be unavailable. Please
-[contact the team](https://www.ory.sh/contact) to talk about your use case.
+[contact the team](https://www.ory.com/contact) to talk about your use case.
 
 :::
 
@@ -70,7 +70,7 @@ docker run -e DSN=cockroach://... europe-docker.pkg.dev/ory-artifacts/ory-enterp
 Setup Ory helm repository:
 
 ```
-helm repo add ory https://k8s.ory.sh/helm/charts
+helm repo add ory https://k8s.ory.com/helm/charts
 helm repo update
 ```
 
@@ -100,7 +100,7 @@ metadata:
   namespace: ory
 data:
   dsn: cockroach://
-  # https://www.ory.sh/docs/hydra/reference/configuration
+  # https://www.ory.com/docs/hydra/reference/configuration
   secretsCookie:
   secretsSystem:
 ```
@@ -125,7 +125,7 @@ secret:
   nameOverride: "ory-oel-hydra-secret"
 config:
   # --hydra config--
-  # https://www.ory.sh/docs/hydra/reference/configuration
+  # https://www.ory.com/docs/hydra/reference/configuration
 ```
 
 Install Ory Hydra
@@ -172,6 +172,7 @@ Image tags:
 The Ory Kratos Enterprise license includes additional features and support for enterprise customers:
 
 - Regular releases addressing CVEs and security vulnerabilities.
+- Multitenancy
 
 ### Ory Kratos Docker Registry
 

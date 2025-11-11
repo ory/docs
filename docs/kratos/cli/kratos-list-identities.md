@@ -1,7 +1,7 @@
 ---
 id: kratos-list-identities
 title: kratos list identities
-description: kratos list identities List identities
+description: kratos list identities
 ---
 
 <!--
@@ -47,7 +47,7 @@ kratos list identities --page-size 100 --consistency eventual
   -q, --quiet             Be quiet with output printing.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos list](kratos-list)	 - List resources
+* [kratos list](kratos-list) List resources
 

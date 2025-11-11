@@ -1,7 +1,7 @@
 ---
 id: hydra-get-oauth2-client
 title: hydra get oauth2-client
-description: hydra get oauth2-client Get one or more OAuth 2.0 Clients by their ID(s)
+description: hydra get oauth2-client
 ---
 
 <!--
@@ -45,7 +45,7 @@ To get the OAuth 2.0 Client's name, run:
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra get](hydra-get)	 - Get resources
+* [hydra get](hydra-get) Get resources
 

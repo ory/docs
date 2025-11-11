@@ -4,8 +4,14 @@ title: Account Experience Overview
 sidebar_label: Account Experience
 ---
 
+```mdx-code-block
+import CanonicalUrl from "@site/src/components/CanonicalUrl"
+
+<CanonicalUrl path="/account-experience" />
+```
+
 The Ory Account Experience is the default user interface for all self-service screens like login, registration, or consent. It can
-be accessed under `https://your-slug.projects.oryapis.com/ui`. New Ory Network projects are automatically configured to use the
+be accessed under `https://your-slug.projects.oryapis.com/login`. New Ory Network projects are automatically configured to use the
 Account Experience. You can find various customizations and settings in the Ory Console under `Account Experience`.
 
 ## Theming
@@ -14,19 +20,105 @@ The Account Experience can be themed using the Ory Console. Head over to the
 [theming settings](https://console.ory.sh/projects/current/account-experience/theming). It is also possible to set a custom logo
 and favicon.
 
-## Welcome Screen
-
-The Account Experience comes with a welcome screen that shows information about the current user's session. As this screen is
-rather meant for debugging purposes, it can be disabled in the [Ory Console](https://console.ory.sh/projects/current/ui).
-
 ## Translations (i18n) & Message Customization
 
-Currently, the account experience is available in English, Spanish, German, French, Spanish, Portuguese, Polish, Finnish, Dutch,
-Swedish, and more. For a full list of available languages please have a look at
-[the source](https://github.com/ory/elements/tree/main/packages/elements-react/src/locales). If you want to add a new language or
-fix some wording, please open a pull request in [ory/elements](https://github.com/ory/elements#internalization-i18n). To determine
-the language to use, the Account Experience uses the `Accept-Language` header. If the language is not available, the fallback
-language (English) is used. Custom translations are not supported at the moment, but please reach out if you need this feature.
+The Ory Account Experience is available in 83 languages.
+
+<details>
+<summary>Full list of supported languages</summary>
+
+- Afrikaans (`af`)
+- Akan (`ak`)
+- Amharic (`am`)
+- Arabic (`ar`)
+- Assamese (`as`)
+- Azerbaijani (Latin) (`az`)
+- Belarusian (`be`)
+- Bulgarian (`bg`)
+- Bamanankan (`bm`)
+- Bangla (`bn`)
+- Catalan (`ca`)
+- Czech (`cs`)
+- Danish (`da`)
+- German (`de`)
+- Greek (`el`)
+- English (`en`)
+- Spanish (`es`)
+- Estonian (`et`)
+- Persian (`fa`)
+- Finnish (`fi`)
+- French (`fr`)
+- Gujarati (`gu`)
+- Hausa (Latin) (`ha`)
+- Hebrew (`he`)
+- Hindi (`hi`)
+- Croatian (`hr`)
+- Hungarian (`hu`)
+- Armenian (`hy`)
+- Indonesian (`id`)
+- Igbo (`ig`)
+- Italian (`it`)
+- Japanese (`ja`)
+- Georgian (`ka`)
+- Kazakh (`kk`)
+- Khmer (`km`)
+- Kannada (`kn`)
+- Korean (`ko`)
+- Central Kurdish (`ku`)
+- Kyrgyz (`ky`)
+- Lithuanian (`lt`)
+- Latvian (`lv`)
+- Macedonian (`mk`)
+- Malayalam (`ml`)
+- Mongolian (Cyrillic) (`mn`)
+- Marathi (`mr`)
+- Malay (`ms`)
+- Burmese (`my`)
+- Nepali (`ne`)
+- Dutch (`nl`)
+- Norwegian (Bokmal) (`no`)
+- Odia (`or`)
+- Punjabi (`pa`)
+- Polish (`pl`)
+- Pashto (`ps`)
+- Portuguese (`pt`)
+- Romanian (`ro`)
+- Russian (`ru`)
+- Sindhi (`sd`)
+- Sinhala (`si`)
+- Slovak (`sk`)
+- Slovenian (`sl`)
+- Somali (`so`)
+- Albanian (`sq`)
+- Serbian (Latin) (`sr`)
+- Sundanese (`su`)
+- Swedish (`sv`)
+- Kiswahili (`sw`)
+- Tamil (`ta`)
+- Telugu (`te`)
+- Tajik (Cyrillic) (`tg`)
+- Thai (`th`)
+- Turkmen (`tk`)
+- Tagalog (`tl`)
+- Turkish (`tr`)
+- Uyghur (`ug`)
+- Ukrainian (`uk`)
+- Urdu (`ur`)
+- Uzbek (Latin) (`uz`)
+- Vietnamese (`vi`)
+- Xhosa (`xh`)
+- Yoruba (`yo`)
+- Chinese (Simplified) (`zh`)
+- Zulu (`zu`)
+
+</details>
+
+The source is available in the
+[GitHub repository of Ory Elements](https://github.com/ory/elements/tree/main/packages/elements-react/src/locales).
+
+To determine the language to use, the Account Experience uses the `Accept-Language` header. If the language isn't available, the
+fallback language (English) is used. Custom translations are supported as well, use the edit button next to the language to
+override the default translations.
 
 ## Custom Domains
 

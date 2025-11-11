@@ -1,7 +1,7 @@
 ---
 id: hydra
 title: hydra
-description: hydra Run and manage Ory Hydra
+description: hydra
 ---
 
 <!--
@@ -19,7 +19,7 @@ Run and manage Ory Hydra
   -h, --help   help for hydra
 ```
 
-### SEE ALSO
+### See also
 
 * [hydra create](hydra-create)	 - Create resources
 * [hydra delete](hydra-delete)	 - Delete resources
@@ -28,7 +28,6 @@ Run and manage Ory Hydra
 * [hydra introspect](hydra-introspect)	 - Introspect resources
 * [hydra janitor](hydra-janitor)	 - This command cleans up stale database rows.
 * [hydra list](hydra-list)	 - List resources
-* [hydra migrate](hydra-migrate)	 - Various migration helpers
 * [hydra perform](hydra-perform)	 - Perform OAuth 2.0 Flows
 * [hydra revoke](hydra-revoke)	 - Revoke resources
 * [hydra serve](hydra-serve)	 - Parent command for starting public and administrative HTTP/2 APIs

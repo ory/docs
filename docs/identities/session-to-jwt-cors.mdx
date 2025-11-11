@@ -27,7 +27,7 @@ ory create jwk some-example-set \
   > es256.jwks.json
 ```
 
-Next, we need to create a JsonNet template that will be used to modify the claims of the JWT:
+Next, we need to create a Jsonnet template that will be used to modify the claims of the JWT:
 
 ```jsonnet title="claims.jsonnet"
 local claims = std.extVar('claims');
@@ -42,7 +42,7 @@ local session = std.extVar('session');
 }
 ```
 
-The easiest way to supplies these files to Ory Network is to base64-encode them:
+The easiest way to supply these files to Ory Network is to base64-encode them:
 
 ```shell
 JWKS_B64_ENCODED=$(cat es256.jwks.json | base64 -w 0)

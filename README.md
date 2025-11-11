@@ -1,11 +1,11 @@
 <h1 align="center">Ory Documentation</h1>
 
 <h4 align="center">
-    <a href="https://www.ory.sh/chat">Chat</a> |
-    <a href="https://www.ory.sh/l/sign-up-newsletter">Newsletter</a><br/><br/>
-    <a href="https://www.ory.sh/docs/">Documentation</a> |
+    <a href="https://www.ory.com/chat">Chat</a> |
+    <a href="https://www.ory.com/l/sign-up-newsletter">Newsletter</a><br/><br/>
+    <a href="https://www.ory.com/docs/">Documentation</a> |
     <a href="https://opencollective.com/ory">Support this project!</a><br/><br/>
-    <a href="https://www.ory.sh/jobs/">Work in Open Source, Ory is hiring!</a>
+    <a href="https://www.ory.com/jobs/">Work in Open Source, Ory is hiring!</a>
 </h4>
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -32,10 +32,16 @@
   - [Screenshots and videos](#screenshots-and-videos)
     - [Compressing images](#compressing-images)
     - [Recording and compressing videos](#recording-and-compressing-videos)
+  - [Ory Console](#ory-console)
+    - [Navigate to Ory Console Pages](#navigate-to-ory-console-pages)
   - [Testing](#testing)
   - [Formatting documentation](#formatting-documentation)
   - [Adding content to "Examples" page](#adding-content-to-examples-page)
   - [CLI and API reference - auto-generated content](#cli-and-api-reference---auto-generated-content)
+  - [CanonicalURL](#canonicalurl)
+    - [When to use CanonicalURL](#when-to-use-canonicalurl)
+    - [How to use CanonicalURL](#how-to-use-canonicalurl)
+    - [How to verify CanonicalURL is working](#how-to-verify-canonicalurl-is-working)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -43,9 +49,9 @@
 
 Ory documentation is the single source of truth for usage, implementation,
 configuration, and troubleshooting of the Ory Network and all projects of the
-[Ory Ecosystem](https://www.ory.sh/docs/ecosystem/projects/). The documentation
+[Ory Ecosystem](https://www.ory.com/docs/ecosystem/projects/). The documentation
 is best consumed through the
-[Ory documentation portal](https://www.ory.sh/docs/).
+[Ory documentation portal](https://www.ory.com/docs/).
 
 To see the source code of each of the projects, visit the project repository:
 
@@ -419,7 +425,7 @@ import VideoEmbed from '@site/src/components/VideoEmbed'
 You can use the `/current/` route to navigate users to their active Ory Network
 project. For example, to access the Custom UI settings for the active Ory
 Network project in the Console, you can link to:
-https://console.ory.sh/projects/current/ui
+https://console.ory.com/projects/current/ui
 
 When referencing a page of the Ory Console, use the
 `<ConsoleLink route="project..." />` component in MDX files.
@@ -540,3 +546,61 @@ The `cmd/clidoc/main.go` is the general path for all Ory projects.
 
 The command to generate the CLI docs can be found here:
 https://github.com/ory/x/blob/master/clidoc/generate.go#L96
+
+## CanonicalURL
+
+The `CanonicalURL` component specifies the authoritative URL for a page to
+search engines. Docusaurus adds trailing slashes to `index.mdx` files and files
+matching their parent directory names before Vercel's trailing slash removal
+takes effect. This means search engines can crawl both versions (with and
+without trailing slashes). The component ensures search engines know which
+version is canonical by explicitly setting a URL without a trailing slash.
+
+### When to use CanonicalURL
+
+Use this component on:
+
+- **Any `index.mdx` file**: These files serve content at their parent path
+  (e.g., `/api/index.mdx`)
+- **Files matching parent directory names**: When a file shares its parent
+  directory's name (e.g., `docs/kratos/organizations/organizations.mdx`)
+
+Common examples include:
+
+- Index Path (`/api/index.mdx`, `/elements/index.mdx`, `/identities/index.mdx`)
+- Matching parent directory names
+  (`docs/kratos/organizations/organizations.mdx`,
+  `docs/self-hosted/oel/monitoring/monitoring.mdx`)
+
+### How to use CanonicalURL
+
+Add the component at the beginning of your MDX file after the front matter:
+
+````md
+---
+id: your-page-id
+title: Your Page Title
+---
+
+```mdx-code-block
+import CanonicalURL from "@site/src/components/CanonicalUrl"
+
+<CanonicalURL path="your/canonical/path" />
+
+Your content here...
+```
+````
+
+### How to verify CanonicalURL is working
+
+1. Open the page in your browser
+2. Right-click and select "View Page Source" (not "Inspect")
+3. Search for `<link rel="canonical"` in the HTML
+4. Confirm the canonical URL exists and points to the correct path without
+   trailing slash
+
+Example:
+
+```html
+<link rel="canonical" href="https://www.ory.com/docs/kratos/organizations" />
+```

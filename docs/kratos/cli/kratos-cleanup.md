@@ -1,7 +1,7 @@
 ---
 id: kratos-cleanup
 title: kratos cleanup
-description: kratos cleanup Various cleanup helpers
+description: kratos cleanup
 ---
 
 <!--
@@ -20,8 +20,8 @@ Various cleanup helpers
   -h, --help             help for cleanup
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
+* [kratos](kratos)
 * [kratos cleanup sql](kratos-cleanup-sql)	 - Cleanup sql database from expired flows and sessions
 

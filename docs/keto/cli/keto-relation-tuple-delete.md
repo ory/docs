@@ -1,7 +1,7 @@
 ---
 id: keto-relation-tuple-delete
 title: keto relation-tuple delete
-description: keto relation-tuple delete Delete relationships defined in JSON files
+description: keto relation-tuple delete
 ---
 
 <!--
@@ -43,7 +43,7 @@ keto relation-tuple delete <relation-tuple.json> [<relation-tuple-dir>] [flags]
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relationships
+* [keto relation-tuple](keto-relation-tuple) Read and manipulate relationships
 
