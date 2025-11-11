@@ -1,7 +1,7 @@
 ---
 id: hydra-version
 title: hydra version
-description: hydra version Display this binary's version, build time and git hash of this build
+description: hydra version
 ---
 
 <!--
@@ -23,7 +23,7 @@ hydra version [flags]
   -h, --help   help for version
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
+* [hydra](hydra) Run and manage Ory Hydra
 

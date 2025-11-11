@@ -1,7 +1,7 @@
 ---
 id: hydra-perform-client-credentials
 title: hydra perform client-credentials
-description: hydra perform client-credentials Perform the OAuth2 Client Credentials Flow
+description: hydra perform client-credentials
 ---
 
 <!--
@@ -48,7 +48,7 @@ hydra perform client-credentials --client-id ... --client-secret
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra perform](hydra-perform)	 - Perform OAuth 2.0 Flows
+* [hydra perform](hydra-perform) Perform OAuth 2.0 Flows
 

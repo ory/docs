@@ -1,7 +1,7 @@
 ---
 id: hydra-serve-public
 title: hydra serve public
-description: hydra serve public Serves Public HTTP/2 APIs
+description: hydra serve public
 ---
 
 <!--
@@ -53,7 +53,7 @@ hydra serve public [flags]
       --sqa-opt-out      Disable anonymized telemetry reports - for more information please visit https://www.ory.sh/docs/ecosystem/sqa
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra serve](hydra-serve)	 - Parent command for starting public and administrative HTTP/2 APIs
+* [hydra serve](hydra-serve) Parent command for starting public and administrative HTTP/2 APIs
 

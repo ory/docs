@@ -1,7 +1,7 @@
 ---
 id: hydra-list
 title: hydra list
-description: hydra list List resources
+description: hydra list
 ---
 
 <!--
@@ -24,8 +24,8 @@ List resources
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
+* [hydra](hydra) Run and manage Ory Hydra
 * [hydra list oauth2-clients](hydra-list-oauth2-clients)	 - List OAuth 2.0 Clients
 

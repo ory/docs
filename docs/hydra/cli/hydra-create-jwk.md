@@ -1,7 +1,7 @@
 ---
 id: hydra-create-jwk
 title: hydra create jwk
-description: hydra create jwk Create a JSON Web Key Set with a JSON Web Key
+description: hydra create jwk
 ---
 
 <!--
@@ -42,7 +42,7 @@ hydra create jwk <my-jwk-set> --alg RS256 --use sig
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra create](hydra-create)	 - Create resources
+* [hydra create](hydra-create) Create resources
 

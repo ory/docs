@@ -1,7 +1,7 @@
 ---
 id: hydra-introspect-token
 title: hydra introspect token
-description: hydra introspect token Introspect an OAuth 2.0 Access or Refresh Token
+description: hydra introspect token
 ---
 
 <!--
@@ -40,7 +40,7 @@ hydra introspect token AYjcyMzY3ZDhiNmJkNTY --project 32197be3-8e57-4009-becd-9d
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra introspect](hydra-introspect)	 - Introspect resources
+* [hydra introspect](hydra-introspect) Introspect resources
 
