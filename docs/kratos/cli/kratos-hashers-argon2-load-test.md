@@ -1,7 +1,7 @@
 ---
 id: kratos-hashers-argon2-load-test
 title: kratos hashers argon2 load-test
-description: kratos hashers argon2 load-test Simulate the password hashing with a number of concurrent requests/minute.
+description: kratos hashers argon2 load-test
 ---
 
 <!--
@@ -38,7 +38,7 @@ kratos hashers argon2 load-test <authentication-requests-per-minute> [flags]
       --salt-length uint32            Length of the salt in bytes. (default 16)
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos hashers argon2](kratos-hashers-argon2)	 - 
+* [kratos hashers argon2](kratos-hashers-argon2)
 

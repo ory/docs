@@ -1,7 +1,7 @@
 ---
 id: kratos-courier
 title: kratos courier
-description: kratos courier Commands related to the Ory Kratos message courier
+description: kratos courier
 ---
 
 <!--
@@ -20,8 +20,8 @@ Commands related to the Ory Kratos message courier
   -h, --help             help for courier
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
+* [kratos](kratos)
 * [kratos courier watch](kratos-courier-watch)	 - Starts the Ory Kratos message courier
 

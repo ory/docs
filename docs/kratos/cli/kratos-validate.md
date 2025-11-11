@@ -1,7 +1,7 @@
 ---
 id: kratos-validate
 title: kratos validate
-description: kratos validate Validate resources
+description: kratos validate
 ---
 
 <!--
@@ -22,8 +22,8 @@ Validate resources
   -q, --quiet             Be quiet with output printing.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
+* [kratos](kratos)
 * [kratos validate identity](kratos-validate-identity)	 - Validate local identity files
 

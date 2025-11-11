@@ -1,7 +1,7 @@
 ---
 id: kratos-hashers
 title: kratos hashers
-description: kratos hashers This command contains helpers around hashing
+description: kratos hashers
 ---
 
 <!--
@@ -19,8 +19,8 @@ This command contains helpers around hashing
   -h, --help   help for hashers
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
-* [kratos hashers argon2](kratos-hashers-argon2)	 - 
+* [kratos](kratos)
+* [kratos hashers argon2](kratos-hashers-argon2)	
 

@@ -1,7 +1,7 @@
 ---
 id: kratos-get-identity
 title: kratos get identity
-description: kratos get identity Get one or more identities by their ID(s)
+description: kratos get identity
 ---
 
 <!--
@@ -46,7 +46,7 @@ To get the identities with the recovery email address at the domain "ory.sh", ru
   -q, --quiet             Be quiet with output printing.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos get](kratos-get)	 - Get resources
+* [kratos get](kratos-get) Get resources
 

@@ -1,7 +1,7 @@
 ---
 id: kratos-format
 title: kratos format
-description: kratos format Helpers for formatting code
+description: kratos format
 ---
 
 <!--
@@ -19,8 +19,8 @@ Helpers for formatting code
   -h, --help   help for format
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
-* [kratos format jsonnet](kratos-format-jsonnet)	 - 
+* [kratos](kratos)
+* [kratos format jsonnet](kratos-format-jsonnet)	
 
