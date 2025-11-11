@@ -1,7 +1,7 @@
 ---
 id: hydra-update
 title: hydra update
-description: hydra update Update resources
+description: hydra update
 ---
 
 <!--
@@ -24,8 +24,8 @@ Update resources
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
+* [hydra](hydra) Run and manage Ory Hydra
 * [hydra update oauth2-client](hydra-update-oauth2-client)	 - Update an OAuth 2.0 Client
 

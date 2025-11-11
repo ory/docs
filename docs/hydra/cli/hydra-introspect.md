@@ -1,7 +1,7 @@
 ---
 id: hydra-introspect
 title: hydra introspect
-description: hydra introspect Introspect resources
+description: hydra introspect
 ---
 
 <!--
@@ -24,8 +24,8 @@ Introspect resources
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
+* [hydra](hydra) Run and manage Ory Hydra
 * [hydra introspect token](hydra-introspect-token)	 - Introspect an OAuth 2.0 Access or Refresh Token
 

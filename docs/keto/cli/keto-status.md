@@ -1,7 +1,7 @@
 ---
 id: keto-status
 title: keto status
-description: keto status Get the status of the upstream Keto instance
+description: keto status
 ---
 
 <!--
@@ -41,7 +41,7 @@ keto status [flags]
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto](keto)	 - Global and consistent permission and authorization server
+* [keto](keto) Global and consistent permission and authorization server
 

@@ -1,7 +1,7 @@
 ---
 id: keto-expand
 title: keto expand
-description: keto expand Expand a subject set
+description: keto expand
 ---
 
 <!--
@@ -42,7 +42,7 @@ keto expand <relation> <namespace> <object> [flags]
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto](keto)	 - Global and consistent permission and authorization server
+* [keto](keto) Global and consistent permission and authorization server
 

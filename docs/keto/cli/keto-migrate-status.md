@@ -1,7 +1,7 @@
 ---
 id: keto-migrate-status
 title: keto migrate status
-description: keto migrate status Get the current migration status
+description: keto migrate status
 ---
 
 <!--
@@ -37,7 +37,7 @@ keto migrate status [flags]
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto migrate](keto-migrate)	 - Commands to migrate the database
+* [keto migrate](keto-migrate) Commands to migrate the database
 

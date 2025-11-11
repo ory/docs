@@ -1,7 +1,7 @@
 ---
 id: hydra-import-oauth2-client
 title: hydra import oauth2-client
-description: hydra import oauth2-client Import one or more OAuth 2.0 Clients from files or STDIN
+description: hydra import oauth2-client
 ---
 
 <!--
@@ -21,8 +21,10 @@ The format for the JSON file is:
 
 [
   {
-    "client_secret": "...",
-    // ... all other fields of the OAuth 2.0 Client model are allowed here
+```
+"client_secret": "...",
+// ... all other fields of the OAuth 2.0 Client model are allowed here
+```
   }
 ]
 
@@ -80,7 +82,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra import](hydra-import)	 - Import resources
+* [hydra import](hydra-import) Import resources
 

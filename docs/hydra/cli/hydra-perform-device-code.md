@@ -1,7 +1,7 @@
 ---
 id: hydra-perform-device-code
 title: hydra perform device-code
-description: hydra perform device-code An exemplary OAuth 2.0 Client performing the OAuth 2.0 Device Code Flow
+description: hydra perform device-code
 ---
 
 <!--
@@ -50,7 +50,7 @@ hydra perform device-code --client-id ...
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra perform](hydra-perform)	 - Perform OAuth 2.0 Flows
+* [hydra perform](hydra-perform) Perform OAuth 2.0 Flows
 
