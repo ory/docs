@@ -1,28 +1,28 @@
 name: flutter_web_redirect
-description: A Flutter Web App integrated with Ory.
+description: "A Flutter Web App integrated with Ory."
 
 publish_to: "none"
-
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.0.6 <4.0.0"
+  sdk: ">=3.8.1 <4.0.0"
+  flutter: 3.35.7
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.5
-  dio: ^5.3.2
-  flutter_dotenv: ^5.1.0
-  ory_client: ^1.1.41
-  universal_html: ^2.2.3
+  cupertino_icons: ^1.0.8
+  dio: ^5.8.0+1
+  flutter_dotenv: ^6.0.0
+  ory_client: ^1.22.8
+  universal_html: ^2.2.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.2
+  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true
   # Load our env file from the root directory
   assets:
-    - env
+    - .env
