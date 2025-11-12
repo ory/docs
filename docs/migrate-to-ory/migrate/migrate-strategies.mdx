@@ -91,9 +91,8 @@ A multi-phase rollout is the best choice in most cases, especially when:
 
 - Complex management: Multiple "go-lives" require more coordination and detailed planning, increasing operational complexity.
 - Extended timeline: The time to roll out the whole system takes longer as it is broken down into phases.
-- Resource demands: Running both systems in parallel during the transition can strain resources.
-    </TabItem>
-</Tabs>
+- Resource demands: Running both systems in parallel during the transition can strain resources. </TabItem>
+  </Tabs>
 
 ## Choose your user identity migration strategy
 
@@ -141,9 +140,8 @@ A bulk identity migration can involve some risk and downtime, but it is recommen
   perform a rollback.
 - Downtime: This approach may require planned system downtime to ensure data consistency, which can disrupt users.
 - Increased preparation: Requires extensive planning and testing to mitigate risks, making it more resource-intensive during that
-  phase.
-    </TabItem>
-<TabItem value="graceful">
+  phase. </TabItem>
+  <TabItem value="graceful">
 
 ### Graceful identity migration
 
@@ -176,6 +174,5 @@ A graceful identity migration is a good choice when:
   additional coding effort to implement Ory's
   [password migration using a web hook](https://www.ory.com/docs/kratos/manage-identities/import-user-accounts-identities#password-migration-using-a-web-hook).
 - Potential for data inconsistencies: If not carefully managed, there may be discrepancies between the old and new systems during
-  the transition period.
-    </TabItem>
-</Tabs>
+  the transition period. </TabItem>
+  </Tabs>
