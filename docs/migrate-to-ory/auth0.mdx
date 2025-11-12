@@ -15,29 +15,29 @@ If your setup is different, you can use this document as a starting point in def
 
 Before you begin, ensure you have:
 
-- **Auth0 account** with admin access to export user data
-- **Ory account** and CLI installed
+- Auth0 account with admin access to export user data
+- Ory account and CLI installed
   {/* TODO: change this to refer to new migration guide (docs/migrate-to-ory/migrate/create-project.mdx) */}
-- **Ory project** created - See [creating a project](index.mdx) for instructions
-- **Required tools**:
+- Ory project created - See [creating a project](index.mdx) for instructions
+- Required tools:
   - [jq](https://jqlang.org/) - Command-line JSON processor
   - [Gzip](https://www.gnu.org/software/gzip/) - Compression utility
   - [Ory CLI](../guides/cli/01_installation.mdx) - Ory command-line interface
-- **Time estimate**: 1-2 hours depending on the number of users
+- Time estimate: 1-2 hours depending on the number of users
 
 ## Overview
 
 The migration process consists of three phases:
 
-1. **Prepare your Auth0 data** - Export user data and password hashes
-2. **Configure your Ory project** - Set up identity schema for email authentication
-3. **Import users to Ory** - Run the migration script to create users in Ory
+1. [Prepare your Auth0 data](#prepare-your-auth0-data): Export user data and password hashes
+2. [Configure your Ory project](#configure-your-ory-project): Set up identity schema for email authentication
+3. [Import users to Ory](#import-users-to-ory): Run the migration script to create users in Ory
 
 ---
 
-## Phase 1: Prepare your Auth0 data
+## Prepare your Auth0 data
 
-### 1. Create bulk user export
+### Create bulk user export
 
 To create a [bulk user export](https://auth0.com/docs/manage-users/user-migration/bulk-user-exports), you need a Management API
 Access Token and the ID of your connection. This data is used by the migration script you run to get the user data. You can
@@ -82,17 +82,21 @@ Follow these steps to export the user data:
    bash <(curl https://raw.githubusercontent.com/ory/docs/master/code-examples/migrate-to-ory/0-get-auth0-user-data.sh)
    ```
 
-   This script creates `AUTH0_USERDATA.json` in your current directory containing all exported user data.
+   This script creates `AUTH0_USERDATA.json` in your current directory and contains all the exported user data.
 
-### 2. Export password hashes
+### Export password hashes
 
 Exporting password hashes is optional but recommended. Because password hashes are considered sensitive information, Auth0 doesn't
 export them as part of the general export process. To get the password hashes and other password-related information, you must
 [create an Auth0 support ticket](#create-auth0-support-ticket).
 
 If you get your users' password hashes and import them to Ory, users can log in to their accounts using the same credentials they
-used before the migration. If you can't get users' password hashes, you can still import Auth0 user accounts to Ory and migrate
-them using a [Password migration hook](../kratos/manage-identities/25_import-user-accounts-identities.mdx).
+used before the migration. For more information, see
+[Bulk identity migration](../migrate-to-ory/migrate/migrate-strategies#bulk-identity-migration).
+
+- If you can't get users' password hashes, you can still import Auth0 user accounts to Ory and migrate them using a
+  [Password migration hook](../kratos/manage-identities/25_import-user-accounts-identities.mdx). For more information, see
+  [Graceful identity migration](../migrate-to-ory/migrate/migrate-strategies#graceful-identity-migration).
 
 :::note
 
@@ -125,9 +129,9 @@ The file you get has this format:
 
 ---
 
-## Phase 2: Configure your Ory project
+## Configure your Ory project
 
-### 1. Set environment variables
+### Set environment variables
 
 Set your project and workspace IDs as environment variables:
 
@@ -140,13 +144,12 @@ export ORY_WORKSPACE_ID='{your-workspace-id}'
 
 If you don't have these values, you can retrieve them:
 
-- **Using the CLI**: Run `ory list projects` to see all your projects and their IDs
-- **Using the Console**: Go to [Ory Console](https://console.ory.sh/), select your project, and find the IDs in the project
-  settings
+- Using the CLI: Run `ory list projects` to see all your projects and their IDs
+- Using the Console: Go to [Ory Console](https://console.ory.sh/), select your project, and find the IDs in the project settings
 
 :::
 
-### 2. Configure identity schema
+### Configure identity schema
 
 Before importing users, you need to configure your Ory project's identity schema to match your Auth0 setup. Since Auth0 users
 authenticate with email and password, configure the identity schema to use the email preset.
@@ -161,9 +164,9 @@ ory patch identity-config --project $ORY_PROJECT_ID --workspace $ORY_WORKSPACE_I
 
 ---
 
-## Phase 3: Import users to Ory
+## Import users to Ory
 
-### 1. Configure environment variables
+### Configure environment variables
 
 Configure the migration script by exporting the necessary environment variables:
 
@@ -180,7 +183,7 @@ export AUTH0_PWEXPORT="{path-to-the-json-file-with-password-hashes}"
 
 :::
 
-### 2. Run import script
+### Run import script
 
 Execute the migration script to import users:
 
@@ -197,25 +200,24 @@ You can inspect the script
 
 After the import script completes, follow these steps to verify and finalize the migration:
 
-1. **Verify the migration**: Check the list of users available in your project to confirm the import was successful:
+1. Verify the migration: Check the list of users available in your project to confirm the import was successful:
 
    ```shell
    ory list identities --project $ORY_PROJECT_ID --workspace $ORY_WORKSPACE_ID
    ```
 
-2. **Test user login**: Try logging in with a few test accounts to ensure the migration was successful.
+2. Test user login: Try logging in with a few test accounts to ensure the migration was successful.
 
-3. **Enable account recovery** (if migrating without password hashes):
+3. Enable account recovery (if migrating without password hashes):
 
    - Users will need to reset their passwords on first login
    - Ensure [account recovery](../kratos/self-service/flows/account-recovery-password-reset) is enabled
    - Communicate this to your users before migration
 
-4. **Communicate with users**: Inform your users about:
+4. Communicate with users: Inform your users about:
 
    - The migration timeline
    - Any actions they need to take (password reset if migrating without password hashes)
    - How to get support if they encounter issues
 
-5. **Monitor the migration**: Keep track of user login attempts and any issues that arise during the first few days after
-   migration.
+5. Monitor the migration: Keep track of user login attempts and any issues that arise during the first few days after migration.
