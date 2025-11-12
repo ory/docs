@@ -14,8 +14,13 @@ more resilient to changes. Discovery endpoints allow clients to adapt automatica
 ## OAuth 2.0 discovery endpoint
 
 Use the OAuth 2.0 `oauth-authorization-server` when you're implementing pure OAuth 2.0 (authorization only). Example use cases are
-when you need: - API access tokens - Machine-to-machine authentication - Resource server authorization - Client credentials flow -
-No user identity information needed
+when you need:
+
+- API access tokens
+- Machine-to-machine authentication
+- Resource server authorization
+- Client credentials flow
+- No user identity information needed
 
 ## OIDC discovery endpoint
 
@@ -25,7 +30,8 @@ are when you need: - User login/authentication - User profile information - ID t
 Click the appropriate tab below to learn more about the OAuth2.0 or OIDC discovery endpoint.
 
 <Tabs>
-  <TabItem value="OAuth 2" label="OAuth 2.0 discovery endpoint" default>
+
+<TabItem value="OAuth 2" label="OAuth 2.0 discovery endpoint" default>
 
 ## What is the OAuth 2.0 discovery endpoint?
 
@@ -357,9 +363,9 @@ serve:
 
 If endpoints have changed but clients are using old configuration, clear the discovery cache or reduce cache duration.
 
-    </TabItem>
+</TabItem>
 
-    <TabItem value="OIDC" label="OIDC discovery endpoint" default>
+<TabItem value="OIDC" label="OIDC discovery endpoint" default>
 
 ## What is the OIDC discovery endpoint?
 
@@ -888,6 +894,6 @@ if (unsupported.length > 0) {
 }
 ```
 
-    </TabItem>
+</TabItem>
 
 </Tabs>
