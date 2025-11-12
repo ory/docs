@@ -13,6 +13,9 @@ const parser = new RefParser()
 const refs = {
   "ory://tracing-config": `https://raw.githubusercontent.com/ory/x/master/otelx/config.schema.json`,
   "ory://logging-config": `https://raw.githubusercontent.com/ory/x/master/logrusx/config.schema.json`,
+  "ory://serve-config": `https://raw.githubusercontent.com/ory/x/master/configx/serve.schema.json`,
+  "ory://cors-config": `https://raw.githubusercontent.com/ory/x/master/configx/cors.schema.json`,
+  "ory://tls-config": `https://raw.githubusercontent.com/ory/x/master/configx/tls.schema.json`,
 }
 
 const enhance =
@@ -113,7 +116,36 @@ const enhance =
 export const oryResolver = {
   order: 1,
   canRead: /^ory:/i,
-  read: ({ url }) => axios.get(refs[url]).then(({ data }) => data),
+  read: ({ url }) =>
+    axios.get(refs[url]).then(({ data }) => {
+      // Manually resolve internal $refs for schemas that have this issue
+      const resolveInternalRefs = (obj, definitions) => {
+        if (typeof obj === "object" && obj !== null) {
+          for (const key in obj) {
+            if (
+              key === "$ref" &&
+              typeof obj[key] === "string" &&
+              obj[key].startsWith("#/definitions/")
+            ) {
+              const defName = obj[key].replace("#/definitions/", "")
+              if (definitions && definitions[defName]) {
+                // Replace the $ref with the actual definition
+                delete obj["$ref"]
+                Object.assign(obj, definitions[defName])
+              }
+            } else if (typeof obj[key] === "object") {
+              resolveInternalRefs(obj[key], definitions)
+            }
+          }
+        }
+      }
+
+      if (data.definitions) {
+        resolveInternalRefs(data, data.definitions)
+      }
+
+      return data
+    }),
 }
 
 export default function ConfigMarkdown(props: { src: string; binary: string }) {
@@ -132,6 +164,10 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
       .then((r) => r.json())
       .then((schema) => {
         new Promise((resolve, reject) => {
+          if (schema.title === "ORY Oathkeeper Configuration") {
+            schema["$id"] =
+              "https://github.com/ory/oathkeeper/schema/config.schema.json"
+          }
           parser.dereference(
             schema,
             {
