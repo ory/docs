@@ -1,6 +1,6 @@
 ---
 id: organizations
-title: B2B SSO & SAML
+title: Organizations
 ---
 
 ```mdx-code-block
@@ -9,7 +9,7 @@ import CanonicalUrl from "@site/src/components/CanonicalUrl"
 <CanonicalUrl path="/kratos/organizations" />
 ```
 
-# B2B Single Sign-On & SAML
+# Organizations for B2B Single Sign-On OIDC & SAML
 
 ```mdx-code-block
 import Help from '@site/docs/_common/need-help.mdx'
@@ -29,16 +29,15 @@ import Mermaid from "@site/src/theme/Mermaid"
 ```
 
 Organizations are a way to group users within one project. An organization always belongs to one Ory project. Within a project, an
-identity can belong to an organization or remain without an organization. Organizations contain multiple OIDC SSO connections. All
-members of an organization must use one of the organization's OIDC SSO connections to log in.
+identity can belong to an organization or remain without an organization. Organizations contain multiple OIDC or SAML SSO
+connections. All members of an organization must use one of the organization's OIDC or SAML SSO connections to log in.
 
 An organization can have multiple domains. Registrations for email addresses with a domain that belongs to an organization must go
-through one of the organization's OIDC SSO connections.
+through one of the organization's OIDC or SAML SSO connections.
 
-Some identity providers do not validate email domain ownership. This can lead to situations where Enterprise SSO with
-Organizations is configured for a specified domain such as `@example.com`, but due to this lack of this email domain ownership
-validation by the identity provider, a users with other email domains such as `@gmail.com` can still authenticate successfully via
-the identity provider.
+Some identity providers do not validate email domain ownership. This can lead to situations where Organization login is configured
+for a specified domain such as `@example.com`, but due to this lack of this email domain ownership validation by the identity
+provider, a users with other email domains such as `@gmail.com` can still authenticate successfully via the identity provider.
 
 This will end up with the user being part of the configured organization in your Ory project, even if the domain does not match
 any of the configured domains.
@@ -92,14 +91,14 @@ export PROJECT_ID="..."
 export WORKSPACE_API_KEY="ory_wak_..."
 ```
 
-#### List organizations
+##### List organizations
 
 ```shell
 curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
-#### Create an organization
+##### Create an organization
 
 ```shell
 curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations" \
@@ -111,14 +110,14 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
          }'
 ```
 
-#### Get an organization
+##### Get an organization
 
 ```shell
 curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
-#### Delete an organization
+##### Delete an organization
 
 ```shell
 curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
@@ -151,7 +150,7 @@ The SSO connections are part of the project configuration. To authenticate, use 
 organizations. The examples use [curl](https://curl.se/) to make HTTP requests and [jq](https://jqlang.github.io/jq/) to parse
 JSON response.
 
-#### Create an SSO connection
+##### Create an SSO connection
 
 ```shell
 curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
@@ -202,7 +201,7 @@ See the [PKCE documentation](../social-signin/oidc-pkce.mdx) for details.
 
 :::
 
-#### List SSO connections
+##### List SSO connections
 
 ```shell
 curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
@@ -228,7 +227,7 @@ Result:
 ]
 ```
 
-#### Delete an SSO connection
+##### Delete an SSO connection
 
 To delete an organization, you need to specify the index of the connection in the `path` field. The index is the position of the
 SSO connection in the list of connections.
@@ -248,7 +247,7 @@ curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
 
 Note that the `organization_id` field contains the organization ID to which the connection belongs.
 
-### See it live
+##### See it live
 
 After having set up everything, go to your registration page. Entering an email that ends with the organization's domain, such as
 `@my.example.com` from the example above, shows a **Sign in with SSO** button instead of the password field. Clicking it will take
@@ -302,7 +301,7 @@ Before proceeding, ensure you are on a plan that supports SAML SSO. SAML is avai
 <TabItem value="api" label="API">
 ```
 
-#### Create an organization
+##### Create an organization
 
 ```shell
 curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations" \
@@ -314,7 +313,7 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
          }'
 ```
 
-#### Enable SAML authentication
+##### Enable SAML authentication
 
 ```shell
 curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
@@ -330,7 +329,7 @@ curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
    | jq ".project.services.identity.config.selfservice.methods.saml"
 ```
 
-#### Create a SAML connection
+##### Create a SAML connection
 
 ```shell
 curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
@@ -376,7 +375,7 @@ Ensure that the appropriate identity schema is created before mapping attributes
 
 :::
 
-#### Example SAML data mapping
+##### Example SAML data mapping
 
 Mapping `firstName` and `lastName` from the SAML Identity Provider to the Ory identity schema (traits).
 
@@ -394,65 +393,45 @@ local claims = std.extVar('claims');
 }
 ```
 
-## Onboarding portal
+## Self-service organization onboarding
 
-:::note
+```mdx-code-block
+<Help/>
+```
 
-Before proceeding, ensure you are on a plan that supports onboarding portal. It is available exclusively on select enterprise
-plans. The portal requires that you enable Account Experience 2.0. Please contact us [Ory Support](mailto:support@ory.com) if you
-have any questions or feedback.
-
-:::
-
-Onboarding portal is a powerful tool designed to simplify complex identity and access management tasks for businesses and their
-partners.
+The onboarding portal is a powerful tool designed to simplify complex identity and access management tasks for businesses and
+their partners.
 
 ### Streamline organization onboarding
 
-The onboarding portal addresses the often-burdensome process of setting up and managing identity connections with external
-organizations. Traditionally, integrating with a customer's or partner's identity provider (IdP) for single sign-on (SSO) or
-synchronizing user directories involves manual, error-prone configurations. This often requires deep technical expertise in
-protocols such as SAML/SCIM.
+The onboarding portal simplifies setting up and managing identity connections with external organizations.
 
-Onboarding portal aims to:
+The onboarding portal aims to:
 
-- Simplify complex integrations: By providing a self-service or guided onboarding experience, they abstract away the underlying
-  technical complexities of SAML/SCIM. This means IT administrators on the client side don't need to be SAML/SCIM experts to
-  connect their organization's identity system.
-- Reduce onboarding time: Instead of lengthy back-and-forth communication and manual configuration, an onboarding portal link
-  allows an external administrator to configure the connection directly through a user-friendly interface. This drastically
-  reduces the time and effort required to establish new B2B integrations.
-- Enhance security and control: Onboarding portal links are designed to be shareable without exposing sensitive information. The
-  administrator receiving the link can configure their side of the connection securely, maintaining control over their IdP
-  settings while establishing a trusted connection with your application.
-- Enable Self-Service for Organizations: For SaaS providers, this means empowering your customers to self-onboard and manage their
-  own SSO/SCIM connections, freeing up your engineering and support teams. Support Scalability for B2B Models: As your application
-  grows and serves more enterprise clients, manually managing each integration becomes unsustainable. These features provide a
-  scalable solution for onboarding and managing a large number of organizational customers.
-- Validate SSO Connections instantly: The onboarding portal includes the ability to immediately test the configured SSO
-  connection. This allows IT administrators to verify that the integration works as expected before deploying it to their users,
-  reducing troubleshooting time and ensuring a smooth rollout.
+- Simplify complex integrations: A self-service or guided experience removes the need for client IT administrators to be SAML/SCIM
+  experts.
+- Reduce onboarding time: External administrators configure connections directly through a user-friendly interface instead of
+  lengthy manual setup and back-and-forth communication.
+- Enhance security and control: Shareable links don't expose sensitive information. Administrators configure their side securely
+  while maintaining control over their IdP settings.
+- Enable self-service: SaaS providers can let customers manage their own SSO/SCIM connections, freeing up engineering and support
+  teams.
+- Scale B2B integrations: Manual management becomes unsustainable as enterprise clients grow. The portal provides a scalable
+  solution.
+- Validate instantly: Test SSO connections immediately to verify integration before deployment, reducing troubleshooting time.
 
-These features are relevant for:
-
-- SaaS (Software-as-a-Service) providers: SaaS companies offer services to other businesses (B2B) or to businesses that then serve
-  their own customers (B2B2C). This is crucial for enabling enterprise clients to use their existing corporate identity systems
-  (for example, Microsoft Entra ID, Okta, Google Workspace) for seamless access to the SaaS application.
-- Enterprise IT administrators: These individuals in your customer organizations are responsible for managing their internal
-  identity providers and user directories. They use the onboarding portal to configure the connection to your application.
-- Developers and architects building multi-tenant applications: These individuals implement robust and scalable identity
-  management for applications that serve multiple organizations. Each organization has its own authentication and user
-  provisioning requirements.
+The onboarding is relevant for SaaS providers serving B2B or B2B2C customers, enterprise IT administrators managing identity
+providers, and developers building multi-tenant applications.
 
 Provider support:
 
 - The onboarding portal supports all well known providers. You can also connect any SAML/OIDC compliant provider using the Generic
-  SAML/OIDC IdP option. If you don't find your provider listed, please [contact us](https://www.ory.com/contact/).
+  SAML/OIDC IdP option. If you don't find your provider listed, please contact [Ory Support](mailto:support@ory.sh).
 
 ### SCIM support
 
 The onboarding portal allows you to set up SCIM provisioning. For an organization, you can create, update, and remove SCIM
-servers. Guided walkthroughs are available for Microsoft Entra ID and Okta.
+servers. Guided walkthroughs are available for Microsoft Entra ID, Google Workspace, and Okta.
 
 ### Manage onboarding portal links
 
@@ -461,7 +440,7 @@ servers. Guided walkthroughs are available for Microsoft Entra ID and Okta.
 <TabItem value="console" label="Ory Console">
 ```
 
-#### Create a link
+##### Create a link
 
 Go to <ConsoleLink route="project.authentication.organizations" /> and continue by configuring the selected organization.
 
@@ -487,7 +466,7 @@ Onboarding portal links can also be managed using the Ory API. To authenticate y
 make HTTP requests. You can use any HTTP client to make these requests. Before copy & pasting the following examples, export your
 PROJECT_ID,ORGANIZATION_ID and WORKSPACE_API_KEY:
 
-#### Create an onboarding portal link
+##### Create an onboarding portal link
 
 ```shell
 curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
@@ -521,7 +500,7 @@ The response contains a `value` token that you can use to construct the onboardi
 
 `https://your-slug.projects.oryapis.com/onboarding/<value>`
 
-#### Update an onboarding portal link
+##### Update an onboarding portal link
 
 ```shell
 curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
@@ -549,14 +528,14 @@ Result:
 }
 ```
 
-#### Delete an onboarding portal link
+##### Delete an onboarding portal link
 
 ```shell
 curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
-#### List onboarding portal links
+##### List onboarding portal links
 
 ```shell
 curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
@@ -587,12 +566,12 @@ Result:
 </Tabs>
 ```
 
-#### Expiry
+##### Expiry
 
 The link generated from the Ory Network Console expires in 7 days. The API allows you to set an expiration value with a minimum
 expiry of 1 day. Once the link expires, it no longer works. You can also delete the link and generate a new one.
 
-#### Handover and using the portal
+##### Handover and using the portal
 
 Once you generate the link, share it with the organization's administrator. They can access this link multiple times until its
 expiration to manage SSO and SCIM connections.
