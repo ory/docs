@@ -1,0 +1,40 @@
+---
+id: integrate-frontend
+title: Integrate your frontend
+sidebar_label: Integrate your frontend
+sidebar_position: 1
+---
+
+To make authenticated API calls using Ory, start by properly configuring your domain and subdomains. By default the cookie domain
+is set to the root domain (e.g., example.org) when you add a custom domain. This ensures that cookies can be shared across all
+subdomains.
+
+Example subdomain structure:
+
+- Run Ory at auth.example.org.
+- Host your backend API at api.example.org.
+- Serve your frontend UI at www.example.org or another designated subdomain.
+
+This setup allows both your frontend and backend applications to access the authentication session cookies managed by Ory.
+
+To begin integrating Ory into your frontend, start with the ["protect a page with login" guides](../../getting-started/overview)
+that cover the basics of developing with Ory for various programming languages and frameworks, including SDK usage and essential
+setup steps.
+
+## Account Experience
+
+Ory Network has two types of user interfaces. We recommend starting with the built-in
+[Account Experience](../../account-experience/index.mdx), which offers a standard user interface, covering all self-service flows
+with the option to style branding to get you up and running.
+
+## Custom user interface
+
+If you prefer a custom user interface that matches your current design exactly, Ory allows you to create and style a custom UI
+that integrates seamlessly with your existing setup. You can do this using the API directly, the SDK for your language, or, if you
+are working in the React ecosystem, Ory Elements.
+
+### Ory Elements
+
+[Ory Elements](../../elements/index.mdx) is a component library designed to make building login, registration, and account pages
+for Ory easy. It is modular and customizable, allowing you to use only the components you need while tailoring them to fit your
+implementation's design. The UI created with Ory Elements changes dynamically to adapt to your Ory Network configuration.
