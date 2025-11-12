@@ -16173,7 +16173,7 @@
     },
     "/projects/{project_id}/organizations": {
       "get": {
-        "description": "Lists all Enterprise SSO organizations in a project.",
+        "description": "Deprecated: use getProject instead\n\nLists all Enterprise SSO organizations in a project.",
         "operationId": "listOrganizations",
         "parameters": [
           {
@@ -16271,7 +16271,7 @@
         "tags": ["project"]
       },
       "post": {
-        "description": "Creates an Enterprise SSO Organization in a project.",
+        "description": "Deprecated: use setProject or patchProjectWithRevision instead\n\nCreates an Enterprise SSO Organization in a project.",
         "operationId": "createOrganization",
         "parameters": [
           {
@@ -16363,7 +16363,7 @@
     },
     "/projects/{project_id}/organizations/{organization_id}": {
       "delete": {
-        "description": "Irrecoverably deletes an Enterprise SSO Organization in a project by its ID.",
+        "description": "Deprecated: use setProject or patchProjectWithRevision instead\n\nIrrecoverably deletes an Enterprise SSO Organization in a project by its ID.",
         "operationId": "deleteOrganization",
         "parameters": [
           {
@@ -16455,7 +16455,7 @@
         "tags": ["project"]
       },
       "get": {
-        "description": "Retrieves an Enterprise SSO Organization for a project by its ID",
+        "description": "Deprecated: use getProject instead\n\nRetrieves an Enterprise SSO Organization for a project by its ID",
         "operationId": "getOrganization",
         "parameters": [
           {
@@ -16534,7 +16534,7 @@
         "tags": ["project"]
       },
       "put": {
-        "description": "Updates an Enterprise SSO Organization in a project by its ID.",
+        "description": "Deprecated: use setProject or patchProjectWithRevision instead\n\nUpdates an Enterprise SSO Organization in a project by its ID.",
         "operationId": "updateOrganization",
         "parameters": [
           {
@@ -18498,7 +18498,7 @@
             }
           },
           {
-            "description": "An optional identity schema to use for the registration flow.",
+            "description": "An optional identity schema to use for the login flow.",
             "in": "query",
             "name": "identity_schema",
             "schema": {
@@ -18604,7 +18604,7 @@
             }
           },
           {
-            "description": "An optional identity schema to use for the registration flow.",
+            "description": "An optional identity schema to use for the login flow.",
             "in": "query",
             "name": "identity_schema",
             "schema": {
