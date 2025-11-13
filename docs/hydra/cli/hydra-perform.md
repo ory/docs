@@ -1,7 +1,7 @@
 ---
 id: hydra-perform
 title: hydra perform
-description: hydra perform Perform OAuth 2.0 Flows
+description: hydra perform
 ---
 
 <!--
@@ -24,9 +24,9 @@ Perform OAuth 2.0 Flows
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
+* [hydra](hydra) Run and manage Ory Hydra
 * [hydra perform authorization-code](hydra-perform-authorization-code)	 - Example OAuth 2.0 Client performing the OAuth 2.0 Authorize Code Flow
 * [hydra perform client-credentials](hydra-perform-client-credentials)	 - Perform the OAuth2 Client Credentials Flow
 * [hydra perform device-code](hydra-perform-device-code)	 - An exemplary OAuth 2.0 Client performing the OAuth 2.0 Device Code Flow

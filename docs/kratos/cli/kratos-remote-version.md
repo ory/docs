@@ -1,7 +1,7 @@
 ---
 id: kratos-remote-version
 title: kratos remote version
-description: kratos remote version Print the version of an Ory Kratos instance
+description: kratos remote version
 ---
 
 <!--
@@ -31,7 +31,7 @@ kratos remote version [flags]
   -q, --quiet             Be quiet with output printing.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos remote](kratos-remote)	 - Helpers and management for remote Ory Kratos instances
+* [kratos remote](kratos-remote) Helpers and management for remote Ory Kratos instances
 

@@ -1,7 +1,7 @@
 ---
 id: hydra-delete-oauth2-client
 title: hydra delete oauth2-client
-description: hydra delete oauth2-client Delete one or more OAuth 2.0 Clients by their ID(s)
+description: hydra delete oauth2-client
 ---
 
 <!--
@@ -47,7 +47,7 @@ To delete OAuth 2.0 Clients with the owner of "foo@bar.com", run:
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra delete](hydra-delete)	 - Delete resources
+* [hydra delete](hydra-delete) Delete resources
 

@@ -1,7 +1,7 @@
 ---
 id: hydra-delete-access-tokens
 title: hydra delete access-tokens
-description: hydra delete access-tokens Delete all OAuth2 Access Tokens of an OAuth2 Client
+description: hydra delete access-tokens
 ---
 
 <!--
@@ -39,7 +39,7 @@ hydra delete access-tokens <client-id>
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra delete](hydra-delete)	 - Delete resources
+* [hydra delete](hydra-delete) Delete resources
 

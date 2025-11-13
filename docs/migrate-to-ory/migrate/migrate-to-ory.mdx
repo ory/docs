@@ -1,0 +1,101 @@
+---
+id: migrate-to-ory
+title: Understand your current identity management system
+sidebar_label: Understand your current identity management system
+sidebar_position: 1
+---
+
+# Understand your current IAM system
+
+Below are example IAM scenarios supported by Ory Network. Use them to identify which scenario best fits your specific IAM needs
+and understand the unique requirements of each approach. Each scenario differs in complexity and implementation needs. Use these
+IAM scenarios to map the identity flows for your application.
+
+## Identify your IAM scenario
+
+- [CIAM](#ciam-customer-identity-and-access-management)
+- [B2B](#b2b-business-to-business)
+- [Workforce](#workforce-business-to-enterprise)
+- [Agentic AI](#agentic-ai)
+
+### CIAM (Customer Identity and Access Management)
+
+Your company sells products or services directly to individual consumers.
+
+#### Key IAM requirements
+
+- Self-service registration, login, and profile management for end users
+- Social login, multi-factor passwordless options, and robust account recovery
+- Privacy compliance (GDPR, CCPA)
+- High-scale performance for millions of users
+
+### B2B (Business-to-Business)
+
+Your company sells products or services directly to other businesses rather than individual consumers. Your customers are
+organizations that use these products or services to run their own operations.
+
+#### Key IAM requirements
+
+- Multi-organization user management
+- SSO with SAML/OIDC providers
+- Self-service partner onboarding
+- Role-based permissions and API controls
+- Privacy compliance (GDPR, CCPA)
+- High-scale performance for millions of users
+
+### Workforce (Business-to-Enterprise)
+
+Your company provides products or services. Your company wants to manage access for a single organization's extended workforce.
+You want to consolidate employee user accounts and identities across multi-tenant brands, applications and systems. You need to
+seamlessly connect with existing enterprise identity providers and other 3rd party systems, and streamline user onboarding,
+offboarding, and permission management.
+
+#### Key IAM requirements
+
+- Streamline onboarding/offboarding of employee, contractor, and temporary workers
+- Role-based access aligned with organizational hierarchy
+- HR system integration with flexible identity schemas
+- Integrate with enterprise identity providers and third-party systems
+- Time-bound permissions and role assignments
+- Zero-trust security, MFA, and SSO for enterprise applications
+- Privacy compliance (GDPR, CCPA)
+- High-scale performance for millions of users
+
+### Agentic AI
+
+Your company wants to enable AI applications to securely connect to data sources and tools. For example, servers that host
+resources and clients (AI applications) that discover and use those resources.
+
+#### Key IAM requirements
+
+- Standardized protocol that works across many tools and data sources
+- Built-in authentication and access control
+
+## Map all identity flows in your application
+
+Build a complete picture of every identity-related process in your system. Use your IAM scenario’s Key IAM requirements to
+identify these flows. This ensures you don’t miss critical flows during migration.
+
+1. Identify all entry points where an identity-related process occurs (e.g., web app login, mobile app sign-in, API tokens, social
+   or enterprise sign-ins).
+1. Create a comprehensive inventory of flows, for example:
+   - Registration/sign-up
+   - Sign-in/sign-out
+   - Multi-Factor Authentication (MFA)
+   - Password reset and account recovery
+   - Account linking (social, enterprise logins)
+   - User profile management
+   - Token refresh and session handling
+   - Recovery flows, consent screens, or partner-specific integrations
+1. Create flow diagrams (sequence diagrams or flow charts) to surface dependencies and hidden complexity.
+1. Note where identity-related (authentication and authorization) processes interact with other systems (databases, CRMs, partner
+   apps, or external APIs).
+
+At the end of this process you should have a living document with diagrams that capture:
+
+- All identity-related (authentication and authorization) flows
+- Your system's existing functionality
+- Any existing dependencies on external systems
+- Edge cases requiring special handling
+
+This will serve as your blueprint for planning, designing, testing, and validating your migration.

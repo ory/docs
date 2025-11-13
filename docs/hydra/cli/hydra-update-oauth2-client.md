@@ -1,7 +1,7 @@
 ---
 id: hydra-update-oauth2-client
 title: hydra update oauth2-client
-description: hydra update oauth2-client Update an OAuth 2.0 Client
+description: hydra update oauth2-client
 ---
 
 <!--
@@ -81,7 +81,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra update](hydra-update)	 - Update resources
+* [hydra update](hydra-update) Update resources
 

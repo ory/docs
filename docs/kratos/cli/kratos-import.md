@@ -1,7 +1,7 @@
 ---
 id: kratos-import
 title: kratos import
-description: kratos import Import resources
+description: kratos import
 ---
 
 <!--
@@ -22,8 +22,8 @@ Import resources
   -q, --quiet             Be quiet with output printing.
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
+* [kratos](kratos)
 * [kratos import identities](kratos-import-identities)	 - Import one or more identities from files or STD_IN
 

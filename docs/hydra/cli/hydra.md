@@ -1,7 +1,7 @@
 ---
 id: hydra
 title: hydra
-description: hydra Run and manage Ory Hydra
+description: hydra
 ---
 
 <!--
@@ -19,7 +19,7 @@ Run and manage Ory Hydra
   -h, --help   help for hydra
 ```
 
-### SEE ALSO
+### See also
 
 * [hydra create](hydra-create)	 - Create resources
 * [hydra delete](hydra-delete)	 - Delete resources

@@ -1,7 +1,7 @@
 ---
 id: kratos
 title: kratos
-description: kratos 
+description: kratos
 ---
 
 <!--
@@ -19,7 +19,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
   -h, --help   help for kratos
 ```
 
-### SEE ALSO
+### See also
 
 * [kratos cleanup](kratos-cleanup)	 - Various cleanup helpers
 * [kratos courier](kratos-courier)	 - Commands related to the Ory Kratos message courier

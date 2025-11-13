@@ -1,7 +1,7 @@
 ---
 id: kratos-serve
 title: kratos serve
-description: kratos serve Run the Ory Kratos server
+description: kratos serve
 ---
 
 <!--
@@ -27,7 +27,7 @@ kratos serve [flags]
       --watch-courier    Run the message courier as a background task, to simplify single-instance setup
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
+* [kratos](kratos)
 

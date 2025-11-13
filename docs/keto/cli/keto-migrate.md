@@ -1,7 +1,7 @@
 ---
 id: keto-migrate
 title: keto migrate
-description: keto migrate Commands to migrate the database
+description: keto migrate
 ---
 
 <!--
@@ -30,9 +30,9 @@ This does not affect namespaces. Use `keto namespace migrate` for migrating name
   -c, --config strings   Config files to load, overwriting in the order specified. (default [/home/runner/keto.yml])
 ```
 
-### SEE ALSO
+### See also
 
-* [keto](keto)	 - Global and consistent permission and authorization server
+* [keto](keto) Global and consistent permission and authorization server
 * [keto migrate down](keto-migrate-down)	 - Migrate the database down
 * [keto migrate status](keto-migrate-status)	 - Get the current migration status
 * [keto migrate up](keto-migrate-up)	 - Migrate the database up

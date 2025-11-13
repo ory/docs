@@ -1,7 +1,7 @@
 ---
 id: hydra-create
 title: hydra create
-description: hydra create Create resources
+description: hydra create
 ---
 
 <!--
@@ -24,9 +24,9 @@ Create resources
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [hydra](hydra)	 - Run and manage Ory Hydra
+* [hydra](hydra) Run and manage Ory Hydra
 * [hydra create jwk](hydra-create-jwk)	 - Create a JSON Web Key Set with a JSON Web Key
 * [hydra create oauth2-client](hydra-create-oauth2-client)	 - Create an OAuth 2.0 Client
 
