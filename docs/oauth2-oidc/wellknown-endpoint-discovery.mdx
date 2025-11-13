@@ -51,7 +51,7 @@ Ory Network automatically provides the discovery endpoint for your project:
 
 ```bash
 # Replace with your project slug
-curl https://your-project.projects.oryapis.com/.well-known/oauth-authorization-server
+curl https://$PROJECT_SLUG.projects.oryapis.com/.well-known/oauth-authorization-server
 ```
 
 ### Ory Hydra (Self-hosted)
@@ -84,18 +84,18 @@ The discovery endpoint enables automatic configuration for OAuth 2.0 clients:
 ### Example discovery requests
 
 ```bash
-curl https://your-project.projects.oryapis.com/.well-known/oauth-authorization-server | jq
+curl https://$PROJECT_SLUG.projects.oryapis.com/.well-known/oauth-authorization-server | jq
 ```
 
 ### Example response
 
 ```json
 {
-  "issuer": "https://your-project.projects.oryapis.com",
-  "authorization_endpoint": "https://your-project.projects.oryapis.com/oauth2/auth",
-  "device_authorization_endpoint": "https://your-project.projects.oryapis.com/oauth2/device/auth",
-  "token_endpoint": "https://your-project.projects.oryapis.com/oauth2/token",
-  "jwks_uri": "https://your-project.projects.oryapis.com/.well-known/jwks.json",
+  "issuer": "https://$PROJECT_SLUG.projects.oryapis.com",
+  "authorization_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/auth",
+  "device_authorization_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/device/auth",
+  "token_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/token",
+  "jwks_uri": "https://$PROJECT_SLUG.projects.oryapis.com/.well-known/jwks.json",
   "subject_types_supported": ["public"],
   "response_types_supported": ["code", "code id_token", "id_token", "token id_token", "token", "token id_token code"],
   "claims_supported": ["sub"],
@@ -107,7 +107,7 @@ curl https://your-project.projects.oryapis.com/.well-known/oauth-authorization-s
     "urn:ietf:params:oauth:grant-type:device_code"
   ],
   "response_modes_supported": ["query", "fragment", "form_post"],
-  "userinfo_endpoint": "https://your-project.projects.oryapis.com/userinfo",
+  "userinfo_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/userinfo",
   "scopes_supported": ["offline_access", "offline", "openid"],
   "token_endpoint_auth_methods_supported": ["client_secret_post", "client_secret_basic", "private_key_jwt", "none"],
   "userinfo_signing_alg_values_supported": ["none", "RS256"],
@@ -118,15 +118,15 @@ curl https://your-project.projects.oryapis.com/.well-known/oauth-authorization-s
   "request_uri_parameter_supported": true,
   "require_request_uri_registration": true,
   "claims_parameter_supported": false,
-  "revocation_endpoint": "https://your-project.projects.oryapis.com/oauth2/revoke",
+  "revocation_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/revoke",
   "backchannel_logout_supported": true,
   "backchannel_logout_session_supported": true,
   "frontchannel_logout_supported": true,
   "frontchannel_logout_session_supported": true,
-  "end_session_endpoint": "https://your-project.projects.oryapis.com/oauth2/sessions/logout",
+  "end_session_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/sessions/logout",
   "request_object_signing_alg_values_supported": ["none", "RS256", "ES256"],
   "code_challenge_methods_supported": ["plain", "S256"],
-  "credentials_endpoint_draft_00": "https://your-project.projects.oryapis.com/credentials",
+  "credentials_endpoint_draft_00": "https://$PROJECT_SLUG.projects.oryapis.com/credentials",
   "credentials_supported_draft_00": [
     {
       "format": "jwt_vc_json",
@@ -146,7 +146,7 @@ Instead of manually configuring every endpoint, clients can discover them automa
 
 ```js
 // Fetch discovery document
-const response = await fetch("https://your-project.projects.oryapis.com/.well-known/oauth-authorization-server")
+const response = await fetch("https://$PROJECT_SLUG.projects.oryapis.com.well-known/oauth-authorization-server")
 const config = await response.json()
 
 // Use discovered endpoints
@@ -341,7 +341,7 @@ Verify the URL format is correct:
 For Ory Network, ensure you're using your project's full URL:
 
 ```text
-https://your-project.projects.oryapis.com/.well-known/oauth-authorization-server
+https://$PROJECT_SLUG.projects.oryapis.com/.well-known/oauth-authorization-server
 ```
 
 ### CORS issues
@@ -386,7 +386,7 @@ Ory Network automatically provides the OpenID Connect discovery endpoint:
 
 ```bash
 # Replace with your project slug
-curl https://your-project.projects.oryapis.com/.well-known/openid-configuration
+curl https://$PROJECT_SLUG.projects.oryapis.com/.well-known/openid-configuration
 ```
 
 Ory Hydra (Self-Hosted) exposes the discovery endpoint by default:
@@ -415,18 +415,18 @@ The discovery endpoint enables automatic configuration for OpenID Connect client
 ### Example discovery requests
 
 ```bash
-curl https://your-project.projects.oryapis.com/.well-known/openid-configuration | jq
+curl https://$PROJECT_SLUG.projects.oryapis.com/.well-known/openid-configuration | jq
 ```
 
 ### Example discovery response
 
 ```json
 {
-  "issuer": "https://your-project.projects.oryapis.com",
-  "authorization_endpoint": "https://your-project.projects.oryapis.com/oauth2/auth",
-  "device_authorization_endpoint": "https://your-project.projects.oryapis.com/oauth2/device/auth",
-  "token_endpoint": "https://your-project.projects.oryapis.com/oauth2/token",
-  "jwks_uri": "https://your-project.projects.oryapis.com/.well-known/jwks.json",
+  "issuer": "https://$PROJECT_SLUG.projects.oryapis.com",
+  "authorization_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/auth",
+  "device_authorization_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/device/auth",
+  "token_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/token",
+  "jwks_uri": "https://$PROJECT_SLUG.projects.oryapis.com/.well-known/jwks.json",
   "subject_types_supported": ["public"],
   "response_types_supported": ["code", "code id_token", "id_token", "token id_token", "token", "token id_token code"],
   "claims_supported": ["sub"],
@@ -438,7 +438,7 @@ curl https://your-project.projects.oryapis.com/.well-known/openid-configuration 
     "urn:ietf:params:oauth:grant-type:device_code"
   ],
   "response_modes_supported": ["query", "fragment", "form_post"],
-  "userinfo_endpoint": "https://your-project.projects.oryapis.com/userinfo",
+  "userinfo_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/userinfo",
   "scopes_supported": ["offline_access", "offline", "openid"],
   "token_endpoint_auth_methods_supported": ["client_secret_post", "client_secret_basic", "private_key_jwt", "none"],
   "userinfo_signing_alg_values_supported": ["none", "RS256"],
@@ -449,15 +449,15 @@ curl https://your-project.projects.oryapis.com/.well-known/openid-configuration 
   "request_uri_parameter_supported": true,
   "require_request_uri_registration": true,
   "claims_parameter_supported": false,
-  "revocation_endpoint": "https://your-project.projects.oryapis.com/oauth2/revoke",
+  "revocation_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/revoke",
   "backchannel_logout_supported": true,
   "backchannel_logout_session_supported": true,
   "frontchannel_logout_supported": true,
   "frontchannel_logout_session_supported": true,
-  "end_session_endpoint": "https://your-project.projects.oryapis.com/oauth2/sessions/logout",
+  "end_session_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/sessions/logout",
   "request_object_signing_alg_values_supported": ["none", "RS256", "ES256"],
   "code_challenge_methods_supported": ["plain", "S256"],
-  "credentials_endpoint_draft_00": "https://your-project.projects.oryapis.com/credentials",
+  "credentials_endpoint_draft_00": "https://$PROJECT_SLUG.projects.oryapis.com/credentials",
   "credentials_supported_draft_00": [
     {
       "format": "jwt_vc_json",
@@ -512,7 +512,7 @@ async function configureSSOProvider(providerUrl) {
 // Configure different providers
 const google = await configureSSOProvider("https://accounts.google.com")
 const okta = await configureSSOProvider("https://your-domain.okta.com")
-const ory = await configureSSOProvider("https://your-project.projects.oryapis.com")
+const ory = await configureSSOProvider("https://$PROJECT_SLUG.projects.oryapis.com")
 ```
 
 ### Dynamic client registration
@@ -675,7 +675,7 @@ class OIDCClient {
 
 ```javascript
 // Initialize
-const client = new OIDCClient("https://your-project.projects.oryapis.com", "your-client-id", "https://your-app.com/callback")
+const client = new OIDCClient("https://$PROJECT_SLUG.projects.oryapis.com", "your-client-id", "https://your-app.com/callback")
 
 // Login
 await client.login(["openid", "profile", "email"])
@@ -838,7 +838,7 @@ https://your-auth-server.com/.well-known/openid-configuration
 For Ory Network, ensure you're using your project's full URL:
 
 ```text
-https://your-project.projects.oryapis.com/.well-known/openid-configuration
+https://$PROJECT_SLUG.projects.oryapis.com/.well-known/openid-configuration
 ```
 
 ### Issuer mismatch error
