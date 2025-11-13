@@ -76,7 +76,7 @@ func main() {
 		},
 	}
 	ory := ory.NewAPIClient(configuration)
-	resp, r, err := ory.OAuth2Api.CreateOAuth2Client(oryAuthedContext).OAuth2Client(oAuth2Client).Execute()
+	resp, r, err := ory.OAuth2API.CreateOAuth2Client(oryAuthedContext).OAuth2Client(oAuth2Client).Execute()
 	if err != nil {
 		switch r.StatusCode {
 		case http.StatusConflict:
@@ -89,7 +89,7 @@ func main() {
 	// response from `CreateOAuth2Client`: OAuth2Client
 	fmt.Fprintf(os.Stdout, "Created client with name %s\n", resp.GetClientName())
 
-	clients, r, err := ory.OAuth2Api.ListOAuth2Clients(oryAuthedContext).ClientName(clientName).Execute()
+	clients, r, err := ory.OAuth2API.ListOAuth2Clients(oryAuthedContext).ClientName(clientName).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AdminApi.ListOAuth2Clients``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
