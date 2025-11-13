@@ -17,7 +17,6 @@ Before you begin, ensure you have:
 
 - Auth0 account with admin access to export user data
 - Ory account and CLI installed
-  {/* TODO: change this to refer to new migration guide () */}
 - Ory project created - See [creating a project](docs/migrate-to-ory/migrate/create-project.mdx) for instructions
 - Required tools:
   - [jq](https://jqlang.org/) - Command-line JSON processor
@@ -90,9 +89,9 @@ Exporting password hashes is optional but recommended. Because password hashes a
 export them as part of the general export process. To get the password hashes and other password-related information, you must
 [create an Auth0 support ticket](#create-auth0-support-ticket).
 
-- If you get your users' password hashes and import them to Ory, users can log in to their accounts using the same credentials they
-used before the migration. For more information, see
-[Bulk identity migration](../migrate-to-ory/migrate/migrate-strategies#bulk-identity-migration).
+- If you get your users' password hashes and import them to Ory, users can log in to their accounts using the same credentials
+  they used before the migration. For more information, see
+  [Bulk identity migration](../migrate-to-ory/migrate/migrate-strategies#bulk-identity-migration).
 
 - If you can't get users' password hashes, you can still import Auth0 user accounts to Ory and migrate the hashes using a
   [Password migration hook](../kratos/manage-identities/25_import-user-accounts-identities.mdx). For more information, see
