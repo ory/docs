@@ -15,6 +15,11 @@ export const navbar: Navbar = {
   },
   items: [
     {
+      label: "Get Started",
+      to: "/docs/welcome",
+      position: "left",
+    },
+    {
       type: 'dropdown',
       label: 'Products',
       position: 'left',
@@ -34,12 +39,7 @@ export const navbar: Navbar = {
       ],
     },
     {
-      to: "/getting-started/overview",
-      label: "Start",
-      position: "left",
-    },
-    {
-      label: "Products",
+      label: "Solutions",
       position: "left",
       items: [
         {
@@ -73,24 +73,6 @@ export const navbar: Navbar = {
       ],
     },
     {
-      label: "Manage",
-      position: "left",
-      items: [
-        {
-          to: "/docs/guides/operations",
-          label: "Platform",
-        },
-        {
-          to: "/docs/category/troubleshooting",
-          label: "Troubleshooting",
-        },
-        {
-          to: "/docs/security-compliance/compliance-and-certifications",
-          label: "Security and compliance",
-        },
-      ],
-    },
-    {
       label: "Reference",
       position: "left",
       items: [
@@ -113,9 +95,22 @@ export const navbar: Navbar = {
       ],
     },
     {
-      to: "/docs/ecosystem/projects",
-      label: "Open Source",
+      label: "Release Notes",
       position: "left",
+      items: [
+        {
+          to: "/docs/guides/operations",
+          label: "Platform",
+        },
+        {
+          to: "/docs/category/troubleshooting",
+          label: "Troubleshooting",
+        },
+        {
+          to: "/docs/security-compliance/compliance-and-certifications",
+          label: "Security and compliance",
+        },
+      ],
     },
     {
       label: "Need Support?",
