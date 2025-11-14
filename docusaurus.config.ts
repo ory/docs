@@ -227,35 +227,18 @@ const config: Config = {
         href: "/docs/fonts/fonts.css",
       },
     },
-    ...[
-      "InterVariable.woff2?v=4.0",
-      "JetBrainsMono-Regular.woff2",
-      "JetBrainsMono-Italic.woff2",
-    ].map((font: string) => ({
-      tagName: "link",
-      attributes: {
-        rel: "preload",
-        type: "font/woff2",
-        as: "font",
-        crossOrigin: "anonymous",
-        href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
-      },
-    })),
-  ],
-  scripts: [
-    // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
-    {
-      src: "/docs/scripts/redirect.js",
-      async: true,
-    },
-    {
-      src: "https://consent.ory.com/cmp/init.js",
-      async: true,
-    },
-    {
-      src: "https://consent.ory.com/index.js",
-      async: true,
-    },
+    ...["InterVariable.woff2?v=4.0", "JetBrainsMono-Regular.woff2"].map(
+      (font: string) => ({
+        tagName: "link",
+        attributes: {
+          rel: "preload",
+          type: "font/woff2",
+          as: "font",
+          crossOrigin: "anonymous",
+          href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
+        },
+      }),
+    ),
   ],
 }
 
