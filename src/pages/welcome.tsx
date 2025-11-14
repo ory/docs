@@ -8,11 +8,12 @@ export default function Welcome() {
       description="Landing page for Ory documentation"
     >
       <main style={{ padding: "2rem", maxWidth: "800px", margin: "0 auto" }}>
-        <h1>Welcome to Ory Docs</h1>
+        <h1>How to use this help center</h1>
 
         <p>
-          This is your new documentation landing page.  
-          Use the navigation bar to explore sections, or add quick links here.
+          Not sure where to start? Use our guided paths—structured journeys that walk you through the Ory products 
+          and solutions and get you learning and building faster.
+
         </p>
 
         <ul>

@@ -7,18 +7,8 @@ const sidebars: SidebarsConfig = {
   docs: [
     {
       type: 'category',
-      label: 'Getting Started',
+      label: 'Getting Started 2',
       items: ['getting-started/overview'],
-    },
-    {
-      type: 'category',
-      label: 'Ory Kratos',
-      items: ['identities/overview'],
-    },
-    {
-      type: 'category',
-      label: 'Ory Hydra',
-      items: ['oauth2-oidc/overview'],
     },
   ],
 };

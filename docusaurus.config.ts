@@ -166,6 +166,7 @@ const config: Config = {
       docRootComponent: "@theme/DocRoot",
     },
   ],
+  
   "@docusaurus/plugin-content-pages",
   require.resolve("./src/plugins/docusaurus-polyfill"),
   "@docusaurus/plugin-sitemap",
