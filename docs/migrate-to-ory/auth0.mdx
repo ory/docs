@@ -16,8 +16,8 @@ If your setup is different, you can use this document as a starting point in def
 Before you begin, ensure you have:
 
 - Auth0 account with admin access to export user data
-- Ory account and CLI installed
-- Ory project created - See [creating a project](docs/migrate-to-ory/migrate/create-project.mdx) for instructions
+- Ory account with an Ory project already created - See [creating a project](docs/migrate-to-ory/migrate/create-project.mdx) for
+  instructions
 - Required tools:
   - [jq](https://jqlang.org/) - Command-line JSON processor
   - [Gzip](https://www.gnu.org/software/gzip/) - Compression utility
@@ -30,7 +30,7 @@ The migration process consists of three phases:
 
 1. [Prepare your Auth0 data](#prepare-your-auth0-data): Export user data and password hashes
 2. [Configure your Ory project](#configure-your-ory-project): Set up identity schema for email authentication
-3. [Import users to Ory](#import-users-to-ory): Run the migration script to create users in Ory
+3. [Import users to Ory](#import-users-to-ory): Run the migration import script to create users in Ory
 
 ---
 
@@ -59,9 +59,9 @@ Follow these steps to get the Management API Access Token and connection ID:
 3. Go to **Authentication** and navigate to **Database**.
 4. Click the connection for which you want to export user data and copy its ID.
 
-#### Run export script
+### Run export script
 
-The script accounts for all possible metrics you can export in a bulk user export. The bulk user export is a compressed,
+The export script accounts for all possible metrics you can export in a bulk user export. The bulk user export is a compressed,
 newline-delimited JSON file. The process takes some time to complete and the compressed file is downloaded automatically when it's
 ready.
 
@@ -75,13 +75,13 @@ Follow these steps to export the user data:
    export AUTH0_TOKEN="your_auth0_management_api_token"
    ```
 
-2. Run the script:
+2. Run the export script:
 
    ```shell
    bash <(curl https://raw.githubusercontent.com/ory/docs/master/code-examples/migrate-to-ory/0-get-auth0-user-data.sh)
    ```
 
-   This script creates `AUTH0_USERDATA.json` in your current directory and contains all the exported user data.
+   This export script creates `AUTH0_USERDATA.json` in your current directory and contains all the exported user data.
 
 ### Export password hashes
 
@@ -165,9 +165,13 @@ ory patch identity-config --project $ORY_PROJECT_ID --workspace $ORY_WORKSPACE_I
 
 ## Import users to Ory
 
+The migration import script processes your exported Auth0 user data and creates corresponding identities in Ory. You can inspect
+the import script
+[here](https://raw.githubusercontent.com/ory/docs/master/code-examples/migrate-to-ory/1-create-ory-identities.sh).
+
 ### Configure environment variables
 
-Configure the migration script by exporting the necessary environment variables:
+Set necessary environment variables for the import script:
 
 ```shell
 export RESERVE_ONLY="false" # Set to "true" if you DON'T HAVE Auth0 password hashes.
@@ -182,16 +186,13 @@ export AUTH0_PWEXPORT="{path-to-the-json-file-with-password-hashes}"
 
 :::
 
-### Run import script
+### Run the import script
 
 Execute the migration script to import users:
 
 ```shell
 bash <(curl https://raw.githubusercontent.com/ory/docs/master/code-examples/migrate-to-ory/1-create-ory-identities.sh)
 ```
-
-You can inspect the script
-[here](https://raw.githubusercontent.com/ory/docs/master/code-examples/migrate-to-ory/1-create-ory-identities.sh).
 
 ---
 
@@ -211,7 +212,6 @@ After the import script completes, follow these steps to verify and finalize the
 
    - Users will need to reset their passwords on first login
    - Ensure [account recovery](../kratos/self-service/flows/account-recovery-password-reset) is enabled
-   - Communicate this to your users before migration
 
 4. Communicate with users: Inform your users about:
 
