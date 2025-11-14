@@ -11,8 +11,6 @@ function Root({ children }) {
   return (
     <>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      <script src={"//consent.ory.com/cmp/init.js"} async></script>
-      <script src={"//consent.ory.com/index.js"} async></script>
       <KapaWidget />
     </>
   )

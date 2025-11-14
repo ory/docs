@@ -75,6 +75,18 @@ const config: Config = {
           line: "Copyright © 2023 Ory Corp",
         },
         {
+          className: "copyright-2024-ory-corp",
+          line: "Copyright © 2024 Ory Corp",
+        },
+        {
+          className: "copyright-2025-ory-corp",
+          line: "Copyright © 2025 Ory Corp",
+        },
+        {
+          className: "copyright-2026-ory-corp",
+          line: "Copyright © 2026 Ory Corp",
+        },
+        {
           className: "spdx-license-identifier",
           line: "SPDX-License-Identifier: Apache-2.0",
         },
@@ -219,6 +231,16 @@ const config: Config = {
   ],
   headTags: [
     // add css to the head
+    ...["InterVariable.woff2?v=4.0"].map((font: string) => ({
+      tagName: "link",
+      attributes: {
+        rel: "preload",
+        type: "font/woff2",
+        as: "font",
+        crossOrigin: "anonymous",
+        href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
+      },
+    })),
     {
       tagName: "link",
       attributes: {
@@ -227,18 +249,17 @@ const config: Config = {
         href: "/docs/fonts/fonts.css",
       },
     },
-    ...["InterVariable.woff2?v=4.0", "JetBrainsMono-Regular.woff2"].map(
-      (font: string) => ({
-        tagName: "link",
-        attributes: {
-          rel: "preload",
-          type: "font/woff2",
-          as: "font",
-          crossOrigin: "anonymous",
-          href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
-        },
-      }),
-    ),
+  ],
+  scripts: [
+    // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
+    {
+      src: "https://consent.ory.com/cmp/init.js",
+      defer: true,
+    },
+    {
+      src: "https://consent.ory.com/index.js",
+      defer: true,
+    },
   ],
 }
 
