@@ -1,0 +1,899 @@
+---
+id: wellknown-endpoint-discovery
+title: OAuth2.0 & OpenID Connect well-known endpoint discovery
+sidebar_label: OAuth2.0 & OpenID Connect well-known endpoint discovery
+---
+
+There are two types of well-known discovery endpoints. The OAuth2.0 and the OpenID Connect (OIDC) discovery endpoints. Both
+endpoints return nearly identical information as OIDC is built on top of OAuth 2.0 (OIDC is a superset of OAuth 2.0).
+
+The discovery endpoints provide a standardized way for clients to automatically discover your server's configuration and
+capabilities. They eliminate manual configuration, enable dynamic multi-tenant support, and make OAuth 2.0 and ODIC integrations
+more resilient to changes. Discovery endpoints allow clients to adapt automatically to configuration changes without code updates.
+
+## OAuth 2.0 discovery endpoint
+
+Use the OAuth 2.0 `oauth-authorization-server` when you're implementing pure OAuth 2.0 (authorization only). Example use cases are
+when you need:
+
+- API access tokens
+- Machine-to-machine authentication
+- Resource server authorization
+- Client credentials flow
+- No user identity information needed
+
+## OIDC discovery endpoint
+
+Use the OIDC `openid-configuration` when you're implementing OpenID Connect (authentication + authorization). Example use cases
+are when you need: - User login/authentication - User profile information - ID tokens - Single sign-on (SSO) - Other sign in flows
+
+Click the appropriate tab below to learn more about the OAuth2.0 or OIDC discovery endpoint.
+
+<Tabs>
+
+<TabItem value="OAuth 2" label="OAuth 2.0 discovery endpoint" default>
+
+## What is the OAuth 2.0 discovery endpoint?
+
+The discovery endpoint returns a JSON document containing metadata about your OAuth 2.0 authorization server, including:
+
+- Available endpoints (authorization, token, userinfo, etc.)
+- Supported grant types and response types
+- Supported authentication methods
+- Available scopes
+- Security capabilities (PKCE, token revocation, etc.)
+
+## Implementation with Ory
+
+### Ory Network
+
+Ory Network automatically provides the discovery endpoint for your project:
+
+```bash
+# Replace with your project slug
+curl https://$PROJECT_SLUG.projects.oryapis.com/.well-known/oauth-authorization-server
+```
+
+### Ory Hydra (Self-hosted)
+
+Ory Hydra exposes the discovery endpoint by default:
+
+```bash
+# Using default Hydra configuration
+curl http://127.0.0.1:4444/.well-known/oauth-authorization-server
+```
+
+When configuring your Ory Hydra instance, ensure the issuer URL is set correctly:
+
+```yaml
+# hydra.yml
+urls:
+  self:
+    issuer: https://your-auth-server.com
+```
+
+## How it works
+
+The discovery endpoint enables automatic configuration for OAuth 2.0 clients:
+
+1. Client makes a single request to the discovery endpoint
+1. Server returns metadata describing all endpoints and capabilities
+1. Client configures itself using the discovered information
+1. Client performs authentication using the discovered endpoints
+
+### Example discovery requests
+
+```bash
+curl https://$PROJECT_SLUG.projects.oryapis.com/.well-known/oauth-authorization-server | jq
+```
+
+### Example response
+
+```json
+{
+  "issuer": "https://$PROJECT_SLUG.projects.oryapis.com",
+  "authorization_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/auth",
+  "device_authorization_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/device/auth",
+  "token_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/token",
+  "jwks_uri": "https://$PROJECT_SLUG.projects.oryapis.com/.well-known/jwks.json",
+  "subject_types_supported": ["public"],
+  "response_types_supported": ["code", "code id_token", "id_token", "token id_token", "token", "token id_token code"],
+  "claims_supported": ["sub"],
+  "grant_types_supported": [
+    "authorization_code",
+    "implicit",
+    "client_credentials",
+    "refresh_token",
+    "urn:ietf:params:oauth:grant-type:device_code"
+  ],
+  "response_modes_supported": ["query", "fragment", "form_post"],
+  "userinfo_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/userinfo",
+  "scopes_supported": ["offline_access", "offline", "openid"],
+  "token_endpoint_auth_methods_supported": ["client_secret_post", "client_secret_basic", "private_key_jwt", "none"],
+  "userinfo_signing_alg_values_supported": ["none", "RS256"],
+  "id_token_signing_alg_values_supported": ["RS256"],
+  "id_token_signed_response_alg": ["RS256"],
+  "userinfo_signed_response_alg": ["RS256"],
+  "request_parameter_supported": true,
+  "request_uri_parameter_supported": true,
+  "require_request_uri_registration": true,
+  "claims_parameter_supported": false,
+  "revocation_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/revoke",
+  "backchannel_logout_supported": true,
+  "backchannel_logout_session_supported": true,
+  "frontchannel_logout_supported": true,
+  "frontchannel_logout_session_supported": true,
+  "end_session_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/sessions/logout",
+  "request_object_signing_alg_values_supported": ["none", "RS256", "ES256"],
+  "code_challenge_methods_supported": ["plain", "S256"],
+  "credentials_endpoint_draft_00": "https://$PROJECT_SLUG.projects.oryapis.com/credentials",
+  "credentials_supported_draft_00": [
+    {
+      "format": "jwt_vc_json",
+      "types": ["VerifiableCredential", "UserInfoCredential"],
+      "cryptographic_binding_methods_supported": ["jwk"],
+      "cryptographic_suites_supported": ["PS256", "RS256", "ES256", "PS384", "RS384", "ES384", "PS512", "RS512", "ES512", "EdDSA"]
+    }
+  ]
+}
+```
+
+## Use cases
+
+### Automatic client configuration
+
+Instead of manually configuring every endpoint, clients can discover them automatically:
+
+```js
+// Fetch discovery document
+const response = await fetch("https://$PROJECT_SLUG.projects.oryapis.com.well-known/oauth-authorization-server")
+const config = await response.json()
+
+// Use discovered endpoints
+const authUrl = config.authorization_endpoint
+const tokenUrl = config.token_endpoint
+```
+
+### Multi-tenant applications
+
+Support multiple identity providers without hardcoding configurations:
+
+```js
+async function configureOAuth(tenantUrl) {
+  const discovery = await fetch(`${tenantUrl}/.well-known/oauth-authorization-server`).then((r) => r.json())
+
+  return {
+    authEndpoint: discovery.authorization_endpoint,
+    tokenEndpoint: discovery.token_endpoint,
+    supportsPKCE: discovery.code_challenge_methods_supported?.includes("S256"),
+  }
+}
+
+// Works with any OAuth 2.0 compliant server
+await configureOAuth("https://tenant-a.oryapis.com")
+await configureOAuth("https://tenant-b.oryapis.com")
+```
+
+### Capability detection
+
+Check what features the authorization server supports before using them:
+
+```js
+const discovery = await fetch(discoveryUrl).then((r) => r.json())
+
+// Check if server supports PKCE
+const supportsPKCE = discovery.code_challenge_methods_supported?.includes("S256")
+
+// Check available grant types
+const supportsRefreshTokens = discovery.grant_types_supported?.includes("refresh_token")
+
+// Adapt your implementation accordingly
+if (supportsPKCE) {
+  // Use authorization code flow with PKCE
+} else {
+  // Fall back to basic authorization code flow
+}
+```
+
+## Building discovery-aware clients
+
+### Step 1: Fetch discovery document
+
+```js
+async function initializeOAuthClient(issuerUrl) {
+  const discoveryUrl = `${issuerUrl}/.well-known/oauth-authorization-server`
+  const config = await fetch(discoveryUrl).then((r) => r.json())
+
+  return config
+}
+```
+
+### Step 2: Store configuration
+
+```js
+const oauthConfig = await initializeOAuthClient("https://auth.example.com")
+
+// Store for later use
+localStorage.setItem("oauth_config", JSON.stringify(oauthConfig))
+```
+
+### Step 3: Use discovered endpoints
+
+```js
+// Authorization
+window.location.href = `${oauthConfig.authorization_endpoint}?
+  client_id=${clientId}&
+  response_type=code&
+  redirect_uri=${redirectUri}&
+  scope=openid profile email`
+
+// Token exchange
+const tokenResponse = await fetch(oauthConfig.token_endpoint, {
+  method: "POST",
+  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  body: new URLSearchParams({
+    grant_type: "authorization_code",
+    code: authCode,
+    client_id: clientId,
+    redirect_uri: redirectUri,
+  }),
+})
+```
+
+## Key metadata fields
+
+### Required fields
+
+- `issuer`: Identifier of the authorization server
+- `authorization_endpoint`: URL for authorization requests
+- `token_endpoint`: URL for token requests
+- `jwks_uri`: URL for public keys (token verification)
+
+### Common optional fields
+
+- `userinfo_endpoint`: URL to get user information (OIDC)
+- `revocation_endpoint`: URL to revoke tokens
+- `introspection_endpoint`: URL to validate tokens
+- `registration_endpoint`: URL for dynamic client registration
+- `scopes_supported`: List of supported OAuth 2.0 scopes
+- `response_types_supported`: Supported response types
+- `grant_types_supported`: Supported grant types
+- `token_endpoint_auth_methods_supported`: Client authentication methods
+- `code_challenge_methods_supported`: PKCE methods (S256, plain)
+
+## Best practices
+
+### Cache discovery results
+
+Discovery documents change infrequently. You can cache them to reduce latency:
+
+```js
+const CACHE_KEY = "oauth_discovery"
+const CACHE_DURATION = 24 * 60 * 60 * 1000 // 24 hours
+
+async function getDiscoveryDocument(issuerUrl) {
+  const cached = localStorage.getItem(CACHE_KEY)
+  if (cached) {
+    const { data, timestamp } = JSON.parse(cached)
+    if (Date.now() - timestamp < CACHE_DURATION) {
+      return data
+    }
+  }
+
+  const discovery = await fetch(`${issuerUrl}/.well-known/oauth-authorization-server`).then((r) => r.json())
+
+  localStorage.setItem(
+    CACHE_KEY,
+    JSON.stringify({
+      data: discovery,
+      timestamp: Date.now(),
+    }),
+  )
+
+  return discovery
+}
+```
+
+### Handle errors gracefully
+
+```js
+async function fetchDiscovery(issuerUrl) {
+  try {
+    const response = await fetch(`${issuerUrl}/.well-known/oauth-authorization-server`)
+
+    if (!response.ok) {
+      throw new Error(`Discovery failed: ${response.status}`)
+    }
+
+    return await response.json()
+  } catch (error) {
+    console.error("Failed to fetch discovery document:", error)
+    // Fall back to manual configuration or show error to user
+    throw error
+  }
+}
+```
+
+### Validate required fields
+
+```js
+function validateDiscovery(config) {
+  const required = ["issuer", "authorization_endpoint", "token_endpoint", "jwks_uri"]
+
+  for (const field of required) {
+    if (!config[field]) {
+      throw new Error(`Missing required field: ${field}`)
+    }
+  }
+
+  return true
+}
+```
+
+## Troubleshooting
+
+### Discovery endpoint returns 404
+
+Verify the URL format is correct:
+
+- OAuth 2.0: `/.well-known/oauth-authorization-server`
+
+For Ory Network, ensure you're using your project's full URL:
+
+```text
+https://$PROJECT_SLUG.projects.oryapis.com/.well-known/oauth-authorization-server
+```
+
+### CORS issues
+
+If calling the discovery endpoint from a browser, ensure CORS is properly configured on your authorization server. Ory Network
+handles this automatically. For self-hosted Ory Hydra, configure CORS in your configuration:
+
+```yaml
+# hydra.yml
+serve:
+  public:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://your-app.com
+```
+
+### Cached stale data
+
+If endpoints have changed but clients are using old configuration, clear the discovery cache or reduce cache duration.
+
+</TabItem>
+
+<TabItem value="OIDC" label="OIDC discovery endpoint" default>
+
+## What is the OIDC discovery endpoint?
+
+The discovery endpoint returns a JSON document containing metadata about your OIDC identity provider, including:
+
+- Authentication and token endpoints
+- Supported authentication flows
+- Available claims and scopes
+- Signing algorithms and keys
+- User information endpoint
+- Supported token types
+
+This endpoint enables automatic configuration for authentication flows without manual setup.
+
+## Ory implementation
+
+Ory Network automatically provides the OpenID Connect discovery endpoint:
+
+```bash
+# Replace with your project slug
+curl https://$PROJECT_SLUG.projects.oryapis.com/.well-known/openid-configuration
+```
+
+Ory Hydra (Self-Hosted) exposes the discovery endpoint by default:
+
+```bash
+# Using default Hydra configuration
+curl http://127.0.0.1:4444/.well-known/openid-configuration
+Configure the issuer URL in your Hydra configuration:
+yaml# hydra.yml
+urls:
+  self:
+    issuer: https://your-auth-server.com
+  login: https://your-app.com/login
+  consent: https://your-app.com/consent
+```
+
+## How it works
+
+The discovery endpoint enables automatic configuration for OpenID Connect clients:
+
+- Client makes a single request to the discovery endpoint
+- Server returns metadata describing all endpoints and capabilities
+- Client configures itself using the discovered information
+- Client performs authentication using the discovered endpoints
+
+### Example discovery requests
+
+```bash
+curl https://$PROJECT_SLUG.projects.oryapis.com/.well-known/openid-configuration | jq
+```
+
+### Example discovery response
+
+```json
+{
+  "issuer": "https://$PROJECT_SLUG.projects.oryapis.com",
+  "authorization_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/auth",
+  "device_authorization_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/device/auth",
+  "token_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/token",
+  "jwks_uri": "https://$PROJECT_SLUG.projects.oryapis.com/.well-known/jwks.json",
+  "subject_types_supported": ["public"],
+  "response_types_supported": ["code", "code id_token", "id_token", "token id_token", "token", "token id_token code"],
+  "claims_supported": ["sub"],
+  "grant_types_supported": [
+    "authorization_code",
+    "implicit",
+    "client_credentials",
+    "refresh_token",
+    "urn:ietf:params:oauth:grant-type:device_code"
+  ],
+  "response_modes_supported": ["query", "fragment", "form_post"],
+  "userinfo_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/userinfo",
+  "scopes_supported": ["offline_access", "offline", "openid"],
+  "token_endpoint_auth_methods_supported": ["client_secret_post", "client_secret_basic", "private_key_jwt", "none"],
+  "userinfo_signing_alg_values_supported": ["none", "RS256"],
+  "id_token_signing_alg_values_supported": ["RS256"],
+  "id_token_signed_response_alg": ["RS256"],
+  "userinfo_signed_response_alg": ["RS256"],
+  "request_parameter_supported": true,
+  "request_uri_parameter_supported": true,
+  "require_request_uri_registration": true,
+  "claims_parameter_supported": false,
+  "revocation_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/revoke",
+  "backchannel_logout_supported": true,
+  "backchannel_logout_session_supported": true,
+  "frontchannel_logout_supported": true,
+  "frontchannel_logout_session_supported": true,
+  "end_session_endpoint": "https://$PROJECT_SLUG.projects.oryapis.com/oauth2/sessions/logout",
+  "request_object_signing_alg_values_supported": ["none", "RS256", "ES256"],
+  "code_challenge_methods_supported": ["plain", "S256"],
+  "credentials_endpoint_draft_00": "https://$PROJECT_SLUG.projects.oryapis.com/credentials",
+  "credentials_supported_draft_00": [
+    {
+      "format": "jwt_vc_json",
+      "types": ["VerifiableCredential", "UserInfoCredential"],
+      "cryptographic_binding_methods_supported": ["jwk"],
+      "cryptographic_suites_supported": ["PS256", "RS256", "ES256", "PS384", "RS384", "ES384", "PS512", "RS512", "ES512", "EdDSA"]
+    }
+  ]
+}
+```
+
+## Use cases
+
+### User authentication flows
+
+Implement login without hardcoding endpoints:
+
+```javascript
+// Fetch discovery document
+const discovery = await fetch("https://auth.example.com/.well-known/openid-configuration").then((r) => r.json())
+
+// Build authorization URL
+const authUrl = new URL(discovery.authorization_endpoint)
+authUrl.searchParams.set("client_id", "your-client-id")
+authUrl.searchParams.set("response_type", "code")
+authUrl.searchParams.set("scope", "openid profile email")
+authUrl.searchParams.set("redirect_uri", "https://your-app.com/callback")
+
+// Redirect user to login
+window.location.href = authUrl.toString()
+```
+
+### Single sign-On (SSO)
+
+Support multiple identity providers with automatic discovery:
+
+```javascript
+async function configureSSOProvider(providerUrl) {
+  const discovery = await fetch(`${providerUrl}/.well-known/openid-configuration`).then((r) => r.json())
+
+  return {
+    issuer: discovery.issuer,
+    authEndpoint: discovery.authorization_endpoint,
+    tokenEndpoint: discovery.token_endpoint,
+    userinfoEndpoint: discovery.userinfo_endpoint,
+    jwksUri: discovery.jwks_uri,
+    supportedScopes: discovery.scopes_supported,
+    supportedClaims: discovery.claims_supported,
+  }
+}
+
+// Configure different providers
+const google = await configureSSOProvider("https://accounts.google.com")
+const okta = await configureSSOProvider("https://your-domain.okta.com")
+const ory = await configureSSOProvider("https://$PROJECT_SLUG.projects.oryapis.com")
+```
+
+### Dynamic client registration
+
+Discover the registration endpoint for creating OAuth clients programmatically:
+
+```javascript
+const discovery = await fetch(discoveryUrl).then((r) => r.json())
+
+if (discovery.registration_endpoint) {
+  // Create a new OAuth client dynamically
+  const client = await fetch(discovery.registration_endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      client_name: "My Application",
+      redirect_uris: ["https://myapp.com/callback"],
+      grant_types: ["authorization_code"],
+      response_types: ["code"],
+    }),
+  }).then((r) => r.json())
+
+  console.log("Client ID:", client.client_id)
+  console.log("Client Secret:", client.client_secret)
+}
+```
+
+### ID token verification
+
+Discover keys for verifying ID token signatures:
+
+```javascript
+const discovery = await fetch(discoveryUrl).then((r) => r.json())
+
+// Fetch public keys for token verification
+const jwks = await fetch(discovery.jwks_uri).then((r) => r.json())
+
+// Use keys to verify ID token signature
+import { createRemoteJWKSet, jwtVerify } from "jose"
+
+const JWKS = createRemoteJWKSet(new URL(discovery.jwks_uri))
+
+const { payload } = await jwtVerify(idToken, JWKS, {
+  issuer: discovery.issuer,
+  audience: "your-client-id",
+})
+
+console.log("User ID:", payload.sub)
+console.log("Email:", payload.email)
+```
+
+## Building discovery-aware clients
+
+### Step 1: Initialize OpenID Connect client
+
+```javascript
+class OIDCClient {
+  constructor(issuerUrl, clientId, redirectUri) {
+    this.issuerUrl = issuerUrl
+    this.clientId = clientId
+    this.redirectUri = redirectUri
+    this.config = null
+  }
+
+  async initialize() {
+    const discoveryUrl = `${this.issuerUrl}/.well-known/openid-configuration`
+    this.config = await fetch(discoveryUrl).then((r) => r.json())
+    return this
+  }
+
+  async login(scopes = ["openid", "profile", "email"]) {
+    if (!this.config) await this.initialize()
+
+    const authUrl = new URL(this.config.authorization_endpoint)
+    authUrl.searchParams.set("client_id", this.clientId)
+    authUrl.searchParams.set("response_type", "code")
+    authUrl.searchParams.set("scope", scopes.join(" "))
+    authUrl.searchParams.set("redirect_uri", this.redirectUri)
+
+    // Generate PKCE parameters if supported
+    if (this.config.code_challenge_methods_supported?.includes("S256")) {
+      const { codeVerifier, codeChallenge } = await this.generatePKCE()
+      sessionStorage.setItem("pkce_verifier", codeVerifier)
+      authUrl.searchParams.set("code_challenge", codeChallenge)
+      authUrl.searchParams.set("code_challenge_method", "S256")
+    }
+
+    window.location.href = authUrl.toString()
+  }
+
+  async exchangeCodeForTokens(code) {
+    if (!this.config) await this.initialize()
+
+    const body = new URLSearchParams({
+      grant_type: "authorization_code",
+      code: code,
+      client_id: this.clientId,
+      redirect_uri: this.redirectUri,
+    })
+
+    // Add PKCE verifier if used
+    const verifier = sessionStorage.getItem("pkce_verifier")
+    if (verifier) {
+      body.set("code_verifier", verifier)
+      sessionStorage.removeItem("pkce_verifier")
+    }
+
+    const response = await fetch(this.config.token_endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body,
+    })
+
+    return await response.json()
+  }
+
+  async getUserInfo(accessToken) {
+    if (!this.config) await this.initialize()
+
+    const response = await fetch(this.config.userinfo_endpoint, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
+
+    return await response.json()
+  }
+
+  async generatePKCE() {
+    const codeVerifier = this.generateRandomString(128)
+    const encoder = new TextEncoder()
+    const data = encoder.encode(codeVerifier)
+    const digest = await crypto.subtle.digest("SHA-256", data)
+    const codeChallenge = this.base64URLEncode(digest)
+
+    return { codeVerifier, codeChallenge }
+  }
+
+  generateRandomString(length) {
+    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~"
+    let result = ""
+    const values = new Uint8Array(length)
+    crypto.getRandomValues(values)
+    for (let i = 0; i < length; i++) {
+      result += charset[values[i] % charset.length]
+    }
+    return result
+  }
+
+  base64URLEncode(buffer) {
+    const bytes = new Uint8Array(buffer)
+    let binary = ""
+    for (let i = 0; i < bytes.length; i++) {
+      binary += String.fromCharCode(bytes[i])
+    }
+    return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "")
+  }
+}
+```
+
+### Step 2: Use the client
+
+```javascript
+// Initialize
+const client = new OIDCClient("https://$PROJECT_SLUG.projects.oryapis.com", "your-client-id", "https://your-app.com/callback")
+
+// Login
+await client.login(["openid", "profile", "email"])
+
+// Handle callback
+const urlParams = new URLSearchParams(window.location.search)
+const code = urlParams.get("code")
+
+if (code) {
+  const tokens = await client.exchangeCodeForTokens(code)
+  console.log("Access Token:", tokens.access_token)
+  console.log("ID Token:", tokens.id_token)
+
+  // Get user info
+  const userInfo = await client.getUserInfo(tokens.access_token)
+  console.log("User:", userInfo)
+}
+```
+
+## Key metadata fields
+
+### Required fields
+
+- `issuer`: Identifier of the OpenID Connect provider
+- `authorization_endpoint`: URL for authorization requests
+- `token_endpoint`: URL for token requests
+- `jwks_uri`: URL for public keys (ID token verification)
+- `response_types_supported`: Supported response types
+- `subject_types_supported`: Subject identifier types (public, pairwise)
+- `id_token_signing_alg_values_supported`: Signing algorithms for ID tokens
+
+### Common optional fields
+
+- `userinfo_endpoint`: URL to get user information
+- `registration_endpoint`: URL for dynamic client registration
+- `scopes_supported`: List of supported scopes
+- `claims_supported`: List of supported claims
+- `grant_types_supported`: Supported grant types
+- `token_endpoint_auth_methods_supported`: Client authentication methods
+- `code_challenge_methods_supported`: PKCE methods (S256, plain)
+- `end_session_endpoint`: URL for logout/end session
+- `revocation_endpoint`: URL to revoke tokens
+- `introspection_endpoint`: URL to validate tokens
+
+## Best practices
+
+### Cache discovery results
+
+Discovery documents change infrequently. Cache them to improve performance:
+
+```javascript
+class CachedOIDCClient {
+  static CACHE_KEY = "oidc_discovery"
+  static CACHE_DURATION = 24 * 60 * 60 * 1000 // 24 hours
+
+  static async getDiscovery(issuerUrl) {
+    const cached = localStorage.getItem(this.CACHE_KEY)
+
+    if (cached) {
+      const { data, timestamp, issuer } = JSON.parse(cached)
+      if (issuer === issuerUrl && Date.now() - timestamp < this.CACHE_DURATION) {
+        return data
+      }
+    }
+
+    const discoveryUrl = `${issuerUrl}/.well-known/openid-configuration`
+    const discovery = await fetch(discoveryUrl).then((r) => r.json())
+
+    localStorage.setItem(
+      this.CACHE_KEY,
+      JSON.stringify({
+        data: discovery,
+        timestamp: Date.now(),
+        issuer: issuerUrl,
+      }),
+    )
+
+    return discovery
+  }
+}
+```
+
+### Validate discovery response
+
+```javascript
+function validateOIDCDiscovery(config) {
+  const required = [
+    "issuer",
+    "authorization_endpoint",
+    "token_endpoint",
+    "jwks_uri",
+    "response_types_supported",
+    "subject_types_supported",
+    "id_token_signing_alg_values_supported",
+  ]
+
+  for (const field of required) {
+    if (!config[field]) {
+      throw new Error(`Missing required OIDC field: ${field}`)
+    }
+  }
+
+  // Verify issuer matches expected value
+  if (config.issuer !== expectedIssuer) {
+    throw new Error("Issuer mismatch")
+  }
+
+  return true
+}
+```
+
+### Handle errors gracefully
+
+```javascript
+async function safeDiscoveryFetch(issuerUrl) {
+  const discoveryUrl = `${issuerUrl}/.well-known/openid-configuration`
+
+  try {
+    const response = await fetch(discoveryUrl)
+
+    if (!response.ok) {
+      throw new Error(`Discovery failed: ${response.status} ${response.statusText}`)
+    }
+
+    const config = await response.json()
+    validateOIDCDiscovery(config)
+
+    return config
+  } catch (error) {
+    console.error("OpenID Connect discovery failed:", error)
+
+    // Fall back to manual configuration or show error
+    throw new Error(`Failed to discover OIDC configuration: ${error.message}`)
+  }
+}
+```
+
+### Verify issuer match
+
+Always verify the issuer in the discovery document matches your expected issuer:
+
+```javascript
+const discovery = await fetch(discoveryUrl).then((r) => r.json())
+
+if (discovery.issuer !== expectedIssuer) {
+  throw new Error("Issuer mismatch - possible security issue")
+}
+```
+
+## Troubleshooting
+
+### Discovery endpoint returns 404
+
+Verify the URL format:
+
+```text
+https://your-auth-server.com/.well-known/openid-configuration
+```
+
+For Ory Network, ensure you're using your project's full URL:
+
+```text
+https://$PROJECT_SLUG.projects.oryapis.com/.well-known/openid-configuration
+```
+
+### Issuer mismatch error
+
+Ensure the issuer in the discovery document matches your expected issuer URL exactly (including trailing slashes):
+
+```javascript
+// Discovery returns
+{ "issuer": "https://auth.example.com" }
+
+// Your code expects
+const expectedIssuer = "https://auth.example.com"; // ✓ Match
+
+// NOT
+const expectedIssuer = "https://auth.example.com/"; // ✗ Trailing slash mismatch
+```
+
+### CORS issues
+
+If calling discovery from a browser, ensure CORS is configured. Ory Network handles this automatically.
+
+For self-hosted Ory Hydra:
+
+```yaml
+# hydra.yml
+serve:
+  public:
+    cors:
+      enabled: true
+      allowed_origins:
+        - https://your-app.com
+      allowed_methods:
+        - GET
+        - POST
+        - OPTIONS
+```
+
+### Missing required scopes
+
+Check supported scopes in the discovery document:
+
+```javascript
+const discovery = await fetch(discoveryUrl).then((r) => r.json())
+
+console.log("Supported scopes:", discovery.scopes_supported)
+
+// Verify your requested scopes are supported
+const requestedScopes = ["openid", "profile", "email"]
+const unsupported = requestedScopes.filter((scope) => !discovery.scopes_supported.includes(scope))
+
+if (unsupported.length > 0) {
+  console.warn("Unsupported scopes:", unsupported)
+}
+```
+
+</TabItem>
+
+</Tabs>
