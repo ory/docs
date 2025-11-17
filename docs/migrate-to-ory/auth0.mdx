@@ -122,8 +122,28 @@ information.
 The file you get has this format:
 
 ```json
-{"_ID":{"$oid":"60425dc43519d90068f82973"},"email_verified":false,"email":"test2@example.com","passwordHash":"$2b$10$Z6hUTEEeoJXN5/AmSm/4.eZ75RYgFVriQM9LPhNEC7kbAbS/VAaJ2","password_set_date":{"$date":"2021-03-05T16:35:16.775Z"},"tenant":"dev-rwsbs6ym","connection":"Username-Password-Authentication","_tmp_is_unique":true}
-{"_ID":{"$oid":"60425da93519d90068f82966"},"email_verified":false,"email":"test@example.com","passwordHash":"$2b$10$CSZ2JarG4XYbGa.JkfpqnO2wrlbfp5eb5LScHSGo9XGeZ.a.Ic54S","password_set_date":{"$date":"2021-03-05T16:34:49.502Z"},"tenant":"dev-rwsbs6ym","connection":"Username-Password-Authentication","_tmp_is_unique":true}
+[
+  {
+    "_ID": { "$oid": "60425dc43519d90068f82973" },
+    "email_verified": false,
+    "email": "test2@example.com",
+    "passwordHash": "$2b$10$Z6hUTEEeoJXN5/AmSm/4.eZ75RYgFVriQM9LPhNEC7kbAbS/VAaJ2",
+    "password_set_date": { "$date": "2021-03-05T16:35:16.775Z" },
+    "tenant": "dev-rwsbs6ym",
+    "connection": "Username-Password-Authentication",
+    "_tmp_is_unique": true
+  },
+  {
+    "_ID": { "$oid": "60425da93519d90068f82966" },
+    "email_verified": false,
+    "email": "test@example.com",
+    "passwordHash": "$2b$10$CSZ2JarG4XYbGa.JkfpqnO2wrlbfp5eb5LScHSGo9XGeZ.a.Ic54S",
+    "password_set_date": { "$date": "2021-03-05T16:34:49.502Z" },
+    "tenant": "dev-rwsbs6ym",
+    "connection": "Username-Password-Authentication",
+    "_tmp_is_unique": true
+  }
+]
 ```
 
 ---
@@ -169,7 +189,7 @@ The migration import script processes your exported Auth0 user data and creates 
 the import script
 [here](https://raw.githubusercontent.com/ory/docs/master/code-examples/migrate-to-ory/1-create-ory-identities.sh).
 
-### Configure environment variables
+### Set environment variables
 
 Set necessary environment variables for the import script:
 
