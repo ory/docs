@@ -204,6 +204,17 @@ Default: `true`
 
 NPM library option: `openid.subjectPrefix`
 
+### **OPENID_REDIRECT_EXACT_MATCH**
+
+When set to `true`, redirect URI validation requires an **exact match** of the full URL, including scheme, host, and path.  
+By default (`false`), redirect validation only checks the scheme and host and **ignores the path**.
+
+Enable this option to enforce stricter and more secure redirect URI checks.
+
+**Default:** `false`
+
+**NPM library option:** `openid.redirectExactMatch`
+
 ## Database configuration
 
 ### **DB_ENGINE**
