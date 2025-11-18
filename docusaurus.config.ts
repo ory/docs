@@ -240,7 +240,7 @@ const config: Config = {
         crossOrigin: "anonymous",
         href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
       },
-    }))
+    })),
   ],
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
