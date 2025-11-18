@@ -230,7 +230,7 @@ const config: Config = {
     "docusaurus-theme-redoc",
   ],
   headTags: [
-    // add css to the head
+    // Main font, so pre-load it.
     ...["InterVariable.woff2?v=4.0"].map((font: string) => ({
       tagName: "link",
       attributes: {
@@ -241,14 +241,6 @@ const config: Config = {
         href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
       },
     })),
-    {
-      tagName: "link",
-      attributes: {
-        rel: "stylesheet",
-        type: "text/css",
-        href: "/docs/fonts/fonts.css",
-      },
-    },
   ],
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
