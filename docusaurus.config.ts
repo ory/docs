@@ -105,11 +105,11 @@ const config: Config = {
       links: [
         {
           label: "Need Support?",
-          href: "https://www.ory.com/support/",
+          href: "https://www.ory.com/support",
         },
         {
           label: "Search",
-          href: "https://www.ory.com/docs/search/",
+          href: "https://www.ory.com/docs/search",
         },
         {
           label: "Status",
@@ -117,7 +117,7 @@ const config: Config = {
         },
         {
           label: "Privacy",
-          href: "https://www.ory.com/privacy",
+          href: "https://www.ory.com/legal/privacy",
         },
         {
           label: "Company",
@@ -125,11 +125,11 @@ const config: Config = {
         },
         {
           label: "Terms of Service",
-          href: "https://www.ory.com/tos",
+          href: "https://www.ory.com/legal/tos",
         },
         {
           label: "Schedule a discovery call",
-          href: "https://www.ory.com/contact/",
+          href: "https://www.ory.com/contact",
         },
         {
           html: `<button onClick="window.__showOryConsentDialog()">Consent Preferences</button>`,
