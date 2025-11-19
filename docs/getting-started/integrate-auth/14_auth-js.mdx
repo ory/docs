@@ -159,5 +159,21 @@ The request is missing a required parameter, includes an invalid parameter value
 The 'redirect_uri' parameter does not match any of the OAuth 2.0 Client's pre-registered redirect URLs.
 ```
 
-Make sure that the redirect URL exactly matches the one registered in Ory. Use the browser’s network tab to inspect requests made
+Make sure that the redirect URL exactly matches the one registered in Ory. Use the browser's network tab to inspect requests made
 to `/oauth2/auth`.
+
+### Resolve UntrustedHost errors
+
+If you receive an error like:
+
+```
+[auth][error] UntrustedHost: Host must be trusted. URL was: http://localhost:3000/auth/signin?callbackUrl=...
+```
+
+Add the following to your `.env.local` file:
+
+```
+AUTH_TRUST_HOST=1
+```
+
+This allows Auth.js to trust the localhost host during development. For production, make sure to configure trusted hosts properly.
