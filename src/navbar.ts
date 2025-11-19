@@ -13,6 +13,7 @@ export const navbar: Navbar = {
     width: 63,
     height: 32,
   },
+
   items: [
     {
       label: "Get Started",
@@ -25,16 +26,19 @@ export const navbar: Navbar = {
       position: 'left',
       items: [
         {
-          label: 'Ory Network',
-          to: '/network/getting-started/overview',
+          type: "doc",
+          docId: "network/getting-started/index",
+          label: "Ory Network",
         },
         {
+          type: "doc",
+          docId: 'oel/getting-started/index',
           label: 'Ory Enterprise License',
-          to: '/oel/getting-started/overview',
         },
         {
+          type: "doc",
+          docId: 'oss/getting-started/index',
           label: 'Ory Open Source',
-          to: '/oss/getting-started/overview',
         },
       ],
     },
@@ -95,20 +99,21 @@ export const navbar: Navbar = {
       ],
     },
     {
-      label: "Release Notes",
+      label: "Change Log",
       position: "left",
       items: [
         {
-          to: "/docs/guides/operations",
-          label: "Platform",
+          to: "https://changelog.ory.com/?categories=cat_6MGGeXN7WohDH",
+          label: "Ory Network",
         },
         {
-          to: "/docs/category/troubleshooting",
-          label: "Troubleshooting",
+          to: "https://changelog.ory.com/?categories=cat_s3C6qgDr7FEyo%2Ccat_n9fSarZSCxDTl%2Ccat_ZTXuym1ZfOYZx%2Ccat_YZLKJTlx35HVW",
+          label: "Ory OEL",
         },
+        
         {
-          to: "/docs/security-compliance/compliance-and-certifications",
-          label: "Security and compliance",
+          to: "https://github.com/ory/hydra/blob/master/CHANGELOG.md",
+          label: "Ory Hydra OSS",
         },
       ],
     },

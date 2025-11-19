@@ -152,18 +152,17 @@ const config: Config = {
     }
   },
   // Just Network instance for testing
+
   [
     "@docusaurus/plugin-content-docs",
     {
-      path: "docs",
-      id: 'network',
-      routeBasePath: "network",
-      sidebarPath: require.resolve("./sidebars-network.ts"),
-      editUrl: `https://github.com/ory/docs/edit/master`,
+      id: "default",
+      path: "docs",                          // all product docs live here
+      routeBasePath: "docs",                 // gives URLs like /docs/xxx
+      sidebarPath: require.resolve("./sidebars.ts"),
+      editUrl: "https://github.com/ory/docs/edit/master",
       showLastUpdateAuthor: true,
       showLastUpdateTime: true,
-      include: ["getting-started/**/*.{md,mdx}"],
-      docRootComponent: "@theme/DocRoot",
     },
   ],
   

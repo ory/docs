@@ -1,16 +1,16 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
+// sidebars-oel.ts
+const oelSidebar = [
+  {
+    type: "category",
+    label: "Getting started",
+    items: [
+      "oel/getting-started/index",
+      "oel/getting-started/auth-overview",
+    ],
+  },
+]
 
-const sidebars: SidebarsConfig = {
-  docs: [
-    {
-      type: 'category',
-      label: 'Getting Started 2',
-      items: ['getting-started/overview'],
-    },
-  ],
-};
-
-export default sidebars;
+export default oelSidebar
