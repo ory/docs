@@ -110,7 +110,7 @@ export const navbar: Navbar = {
           label: "Search the docs",
         },
         {
-          to: "https://www.ory.com/chat",
+          to: "https://slack.ory.com",
           label: "Ory Community Slack",
         },
         {
