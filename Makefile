@@ -23,6 +23,7 @@ install: code-examples/protect-page-login/nextjs-12/package-lock.json code-examp
 	cd code-examples/auth-api/expressjs && npm i
 	cd code-examples/protect-page-login/vue && npm i
 	cd code-examples/protect-page-login/react && npm i
+	cd code-examples/protect-page-login/java && mvn dependency:resolve
 
 .PHONY: build-examples
 build-examples:
@@ -32,6 +33,7 @@ build-examples:
 	cd code-examples/protect-page-login/vue && VUE_APP_API_URL=http://localhost:4007 VUE_APP_ORY_URL=http://localhost:3006 npm run build
 	cd code-examples/protect-page-login/react && npm run build
 	cd code-examples/protect-page-login/dotnet && docker build --build-arg APP_DIR=01-basic -t dotnet-01-basic .
+	cd code-examples/protect-page-login/java && mvn clean compile
 
 licenses: .bin/licenses node_modules  # checks open-source licenses
 	.bin/licenses
