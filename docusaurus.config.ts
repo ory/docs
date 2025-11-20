@@ -50,6 +50,7 @@ const config: Config = {
         "cshtml",
         "diff",
         "java",
+        "scala",
       ],
       magicComments: [
         {
