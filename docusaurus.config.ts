@@ -49,6 +49,7 @@ const config: Config = {
         "csharp",
         "cshtml",
         "diff",
+        "java",
       ],
       magicComments: [
         {
