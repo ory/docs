@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ory/client": "^1.17.2",
-    "@ory/client-fetch": "^1.17.2",
-    "vue": "^3.5.13"
+    "@ory/client": "^1.22.11",
+    "@ory/client-fetch": "^1.22.11",
+    "vue": "^3.5.24"
   },
   "devDependencies": {
     "@ory/cli": "^1.1.0",
