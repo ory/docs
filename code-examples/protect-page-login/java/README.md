@@ -65,7 +65,7 @@ Now head to http://localhost:3000 to test.
 
 - `Application.java` - Main Spring Boot application class
 - `SessionInterceptor.java` - Interceptor that validates user sessions using Ory
-  FrontendApi
+  `FrontendApi`
 - `HomeController.java` - Controller for the protected home page
 - `WebConfig.java` - Configuration to register the session interceptor
 
