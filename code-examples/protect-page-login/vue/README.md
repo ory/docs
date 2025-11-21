@@ -1,31 +1,41 @@
-# ory-vue-demo
+# Vue.js Authentication Example
 
-This template should help get you started developing with Vue 3 in Vite.
+This example demonstrates how to implement authentication in a Vue.js
+application using Ory.
 
-## Recommended IDE Setup
+## Prerequisites
 
-[VSCode](https://code.visualstudio.com/) +
-[Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and
-disable Vetur).
+- Node.js installed on your machine
+- An Ory Network account with a project set up
+- Your Ory Project ID
 
-## Customize configuration
+## Getting Started
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### 1. Install Dependencies
 
-## Project Setup
+First, install the necessary dependencies by running:
 
-```sh
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 2. Start the Application
 
-```sh
+You can start the application with:
+
+```bash
 npm run dev
 ```
 
-### Compile and Minify for Production
+### 3. Run the Ory Tunnel
 
-```sh
-npm run build
+To ensure cookies are on the same domain, run the Ory Tunnel with your project
+ID:
+
+```bash
+ORY_PROJECT_ID=<Project_ID> npm run tunnel
 ```
+
+Replace `<Project_ID>` with your actual Ory Project ID from the Ory Console.
+
+Now go to http://localhost:3000 to test.
