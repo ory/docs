@@ -140,7 +140,7 @@ const config: Config = {
       ] satisfies Preset.ThemeConfig["footer"]["links"],
       logo: {
         alt: "Ory logo in white",
-        src: "/docs/img/logos/logo-ory-white-2022-11-04.svg",
+        src: "/docs/img/logos/logo-dark-mode.svg",
         href: "https://www.ory.com/",
         height: 80,
         width: 130.7,

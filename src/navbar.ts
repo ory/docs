@@ -4,8 +4,8 @@ export const navbar: Navbar = {
   hideOnScroll: false,
   logo: {
     alt: "Ory",
-    src: `/docs/img/logos/logo-docs-2023-02-15.svg`,
-    srcDark: `/docs/img/logos/logo-docs-dark-2023-02-15.svg`,
+    src: `/docs/img/logos/logo-light-mode.svg`,
+    srcDark: `/docs/img/logos/logo-dark-mode.svg`,
     href: `https://www.ory.com`,
     width: 63,
     height: 32,
