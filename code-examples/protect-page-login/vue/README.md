@@ -38,4 +38,4 @@ ORY_PROJECT_ID=<Project_ID> npm run tunnel
 
 Replace `<Project_ID>` with your actual Ory Project ID from the Ory Console.
 
-Now head to http://localhost:3000 to test.
+Now go to http://localhost:3000 to test.
