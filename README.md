@@ -1,7 +1,7 @@
 <h1 align="center">Ory Documentation</h1>
 
 <h4 align="center">
-    <a href="https://www.ory.com/chat">Chat</a> |
+    <a href="https://slack.ory.com">Chat</a> |
     <a href="https://www.ory.com/l/sign-up-newsletter">Newsletter</a><br/><br/>
     <a href="https://www.ory.com/docs/">Documentation</a> |
     <a href="https://opencollective.com/ory">Support this project!</a><br/><br/>

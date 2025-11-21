@@ -21,6 +21,7 @@ const config: Config = {
   onDuplicateRoutes: "throw",
   organizationName: "ory",
   projectName: "docs",
+  trailingSlash: false,
   markdown: {
     format: "detect",
   },
@@ -49,6 +50,8 @@ const config: Config = {
         "csharp",
         "cshtml",
         "diff",
+        "java",
+        "scala",
       ],
       magicComments: [
         {
@@ -105,11 +108,11 @@ const config: Config = {
       links: [
         {
           label: "Need Support?",
-          href: "https://www.ory.com/support/",
+          href: "https://www.ory.com/support",
         },
         {
           label: "Search",
-          href: "https://www.ory.com/docs/search/",
+          href: "https://www.ory.com/docs/search",
         },
         {
           label: "Status",
@@ -117,7 +120,7 @@ const config: Config = {
         },
         {
           label: "Privacy",
-          href: "https://www.ory.com/privacy",
+          href: "https://www.ory.com/legal/privacy",
         },
         {
           label: "Company",
@@ -125,11 +128,11 @@ const config: Config = {
         },
         {
           label: "Terms of Service",
-          href: "https://www.ory.com/tos",
+          href: "https://www.ory.com/legal/tos",
         },
         {
           label: "Schedule a discovery call",
-          href: "https://www.ory.com/contact/",
+          href: "https://www.ory.com/contact",
         },
         {
           html: `<button onClick="window.__showOryConsentDialog()">Consent Preferences</button>`,
@@ -230,7 +233,7 @@ const config: Config = {
     "docusaurus-theme-redoc",
   ],
   headTags: [
-    // add css to the head
+    // Main font, so pre-load it.
     ...["InterVariable.woff2?v=4.0"].map((font: string) => ({
       tagName: "link",
       attributes: {
@@ -241,14 +244,6 @@ const config: Config = {
         href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
       },
     })),
-    {
-      tagName: "link",
-      attributes: {
-        rel: "stylesheet",
-        type: "text/css",
-        href: "/docs/fonts/fonts.css",
-      },
-    },
   ],
   scripts: [
     // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
