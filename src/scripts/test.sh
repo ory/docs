@@ -13,7 +13,7 @@ export ORY_ORYAPIS_URL=https://staging.oryapis.dev
 # export ORY_PROJECT_ID=a931be69-adcc-4a23-875c-23286fc9c8ac
 
 # ensure ports are free
-npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,3008,3009,4002,4003,4004,4005,4006,4007,4008,4009
+npx kill-port --port 3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,4002,4003,4004,4005,4006,4007,4008,4009,4010
 
 #
 # Please add any build steps to the Makefile and not here!
@@ -84,6 +84,13 @@ ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RAT
 ## app runs on 4009
 docker run --rm -d --name dotnet-01-basic --env APP_PORT=4009 -p 4009:4009 --env ORY_TUNNEL_PORT=3009 -p 3009:3009 dotnet-01-basic
 
+## Java Spring Boot example ##
+## proxy runs on 3010
+## app runs on 4010
+cd code-examples/protect-page-login/java && \
+  ORY_SDK_URL=http://localhost:3010 mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=4010 &
+ory tunnel --additional-request-headers "$ORY_CI_RATE_LIMIT_HEADER"="$ORY_CI_RATE_LIMIT_HEADER_VALUE" --port 3010 --dev http://localhost:4010/ -q -y &
+
 trap "exit" INT TERM ERR
 trap 'docker stop dotnet-01-basic; kill $(jobs -p)' EXIT
 
@@ -97,6 +104,7 @@ npx wait-on -v -t 300000 \
   tcp:127.0.0.1:3007 \
   tcp:127.0.0.1:3008 \
   tcp:127.0.0.1:3009 \
+  tcp:127.0.0.1:3010 \
   tcp:127.0.0.1:4002 \
   tcp:127.0.0.1:4003 \
   tcp:127.0.0.1:4004 \
@@ -104,6 +112,7 @@ npx wait-on -v -t 300000 \
   tcp:localhost:4006 \
   tcp:localhost:4007 \
   tcp:localhost:4008 \
-  tcp:localhost:4009
+  tcp:localhost:4009 \
+  tcp:localhost:4010
 
 npm run test

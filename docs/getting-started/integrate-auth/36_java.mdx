@@ -1,0 +1,186 @@
+---
+id: java
+title: Integrate authentication into Java + Spring Boot
+sidebar_label: Java (Spring Boot)
+---
+
+```mdx-code-block
+import Teaser from '../_common/teaser.mdx'
+import CodeBlock from '@theme/CodeBlock'
+```
+
+This guide shows how to create a simple Java Spring Boot application and secure it with authentication powered by Ory.
+
+This guide is perfect for you if:
+
+- You have Java 17+ and Maven installed.
+- You want to build an app using Spring Boot.
+- You want to give access to your application to signed-in users only.
+
+## Create Spring Boot app
+
+First, create a new Spring Boot project. You can use [Spring Initializr](https://start.spring.io/) or create the project structure
+manually:
+
+```shell
+mkdir your-project
+cd your-project
+```
+
+Create a `pom.xml` file with the following dependencies:
+
+```mdx-code-block
+import javaPom from '!!raw-loader!../../../code-examples/protect-page-login/java/pom.xml'
+
+<CodeBlock language="xml" title="./pom.xml">{javaPom}</CodeBlock>
+```
+
+## Install Ory SDK
+
+To interact with Ory's APIs, install the Ory Java SDK:
+
+```shell
+mvn install
+```
+
+The Ory Java SDK dependency is already included in the `pom.xml` file above.
+
+## Create a new Ory project
+
+```mdx-code-block
+import CreateProject from '../_common/create-project.mdx'
+
+<CreateProject />
+```
+
+## Install Ory CLI
+
+Follow [this guide](../../guides/cli/01_installation.mdx) to install the Ory CLI on your machine.
+
+### Why do I need the Ory CLI
+
+```mdx-code-block
+import OryCLI from '../_common/ory-cli.mdx'
+
+<OryCLI isTunnel={true} />
+```
+
+## Run Ory APIs on `localhost`
+
+In a new terminal window, run the Ory Tunnel:
+
+```shell
+npx @ory/cli tunnel --dev http://localhost:3000 --project <project-id>
+```
+
+This command mirrors Ory APIs on `http://localhost:4000`. Use that URL as the `basePath` for Ory API calls (see configuration
+below). The `--dev` flag disables security checks for easier integration and should not be used when running the Ory Tunnel in an
+insecure environment like public networks.
+
+## Create the application structure
+
+Create the following directory structure:
+
+```shell
+src/main/java/com/ory/example/
+src/main/resources/
+```
+
+### Main application class
+
+Create the main Spring Boot application class:
+
+```mdx-code-block
+import javaApp from '!!raw-loader!../../../code-examples/protect-page-login/java/src/main/java/com/ory/example/Application.java'
+
+<CodeBlock language="java" title="./src/main/java/com/ory/example/Application.java">{javaApp}</CodeBlock>
+```
+
+### Session interceptor
+
+Create an interceptor to validate user sessions:
+
+```mdx-code-block
+import javaInterceptor from '!!raw-loader!../../../code-examples/protect-page-login/java/src/main/java/com/ory/example/SessionInterceptor.java'
+
+<CodeBlock language="java" title="./src/main/java/com/ory/example/SessionInterceptor.java">{javaInterceptor}</CodeBlock>
+```
+
+The interceptor uses the Ory Java SDK's `FrontendApi` directly to validate sessions. It extracts the cookie header from the
+request and calls `toSession(null, cookieHeader, null)` to check if the user has a valid session. If the session is invalid or
+missing, the user is redirected to the login page.
+
+### Web configuration
+
+Register the interceptor:
+
+```mdx-code-block
+import javaWebConfig from '!!raw-loader!../../../code-examples/protect-page-login/java/src/main/java/com/ory/example/WebConfig.java'
+
+<CodeBlock language="java" title="./src/main/java/com/ory/example/WebConfig.java">{javaWebConfig}</CodeBlock>
+```
+
+### Home controller
+
+Create a controller for the protected page:
+
+```mdx-code-block
+import javaController from '!!raw-loader!../../../code-examples/protect-page-login/java/src/main/java/com/ory/example/HomeController.java'
+
+<CodeBlock language="java" title="./src/main/java/com/ory/example/HomeController.java">{javaController}</CodeBlock>
+```
+
+### Application configuration
+
+Create the application configuration file:
+
+```mdx-code-block
+import javaYaml from '!!raw-loader!../../../code-examples/protect-page-login/java/src/main/resources/application.yaml'
+
+<CodeBlock language="yaml" title="./src/main/resources/application.yaml">{javaYaml}</CodeBlock>
+```
+
+## Test your application
+
+With all of the pieces in place, it's time to test your application. Follow these steps:
+
+1. Start your Spring Boot app:
+
+```shell
+mvn spring-boot:run
+```
+
+2. Run the Ory Tunnel to mirror the Ory API endpoints on your application's domain (`localhost`). Upon first start, the Ory Tunnel
+   will ask you to log into your Ory Console account.
+
+```shell
+npx @ory/cli tunnel --dev http://localhost:3000 --project <project_id>
+```
+
+3. Open [http://localhost:3000](http://localhost:3000) to access the application. Since the initial call is made by an
+   unauthenticated user, the interceptor doesn't detect a valid session and redirects to the login page of the defined Ory
+   project.
+   <br /> <br /> From there, you can create a new account or sign in using an existing identity. When you sign in, the session
+   becomes valid and the application shows the `Home` page with the session data.
+
+## Go to production
+
+```mdx-code-block
+import ToProd from '../_common/going-to-prod.mdx'
+
+<ToProd />
+```
+
+Update the `application.yaml` or set the environment variable to point to your production Ory domain:
+
+```yaml
+ory:
+  sdk:
+    url: https://ory.example.org
+```
+
+Or set it as an environment variable:
+
+```shell
+export ORY_SDK_URL=https://ory.example.org
+```
