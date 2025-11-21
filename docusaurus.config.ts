@@ -93,15 +93,15 @@ const config: Config = {
       links: [
         {
           label: "Need Support?",
-          href: "https://www.ory.com/support/",
+          href: "https://www.ory.com/support",
         },
         {
           label: "Search",
-          href: "https://www.ory.com/docs/search/",
+          href: "https://www.ory.com/docs/search",
         },
         {
           label: "Status",
-          href: "https://status.ory.com/",
+          href: "https://status.ory.com",
         },
         {
           label: "Privacy",
@@ -117,7 +117,7 @@ const config: Config = {
         },
         {
           label: "Schedule a discovery call",
-          href: "https://www.ory.com/contact/",
+          href: "https://www.ory.com/contact",
         },
         {
           html: `<button onClick="window.__showOryConsentDialog()">Consent Preferences</button>`,
@@ -151,8 +151,7 @@ const config: Config = {
       },
     }
   },
-  // Just Network instance for testing
-
+  
   [
     "@docusaurus/plugin-content-docs",
     {
