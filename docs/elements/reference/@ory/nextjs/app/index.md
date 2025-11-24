@@ -1,15 +1,3 @@
----
-id: index
-title: "@ory/nextjs/app"
-sidebar_label: "app"
----
-
-```mdx-code-block
-import CanonicalUrl from "@site/src/components/CanonicalUrl"
-
-<CanonicalUrl path="/elements/reference/@ory/nextjs/app" />
-```
-
 # @ory/nextjs/app
 
 ## Interfaces

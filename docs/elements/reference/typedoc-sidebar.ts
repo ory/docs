@@ -117,6 +117,11 @@ const typedocSidebar: SidebarsConfig = {
             },
             {
               type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/NodeProps",
+              label: "NodeProps",
+            },
+            {
+              type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OnSubmitHandlerProps",
               label: "OnSubmitHandlerProps",
             },
@@ -197,6 +202,11 @@ const typedocSidebar: SidebarsConfig = {
             },
             {
               type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryNodeButtonButtonProps",
+              label: "OryNodeButtonButtonProps",
+            },
+            {
+              type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeButtonProps",
               label: "OryNodeButtonProps",
             },
@@ -204,6 +214,16 @@ const typedocSidebar: SidebarsConfig = {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeCaptchaProps",
               label: "OryNodeCaptchaProps",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryNodeCheckboxInputProps",
+              label: "OryNodeCheckboxInputProps",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryNodeCheckboxProps",
+              label: "OryNodeCheckboxProps",
             },
             {
               type: "doc",
@@ -217,6 +237,11 @@ const typedocSidebar: SidebarsConfig = {
             },
             {
               type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryNodeInputInputProps",
+              label: "OryNodeInputInputProps",
+            },
+            {
+              type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeInputProps",
               label: "OryNodeInputProps",
             },
@@ -224,6 +249,11 @@ const typedocSidebar: SidebarsConfig = {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeLabelProps",
               label: "OryNodeLabelProps",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryNodeSettingsButton",
+              label: "OryNodeSettingsButton",
             },
             {
               type: "doc",
@@ -280,6 +310,41 @@ const typedocSidebar: SidebarsConfig = {
               id: "elements/reference/@ory/elements-react/type-aliases/OryToastProps",
               label: "OryToastProps",
             },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/UiNodeAnchor",
+              label: "UiNodeAnchor",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/UiNodeDiv",
+              label: "UiNodeDiv",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/UiNodeFixed",
+              label: "UiNodeFixed",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/UiNodeImage",
+              label: "UiNodeImage",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/UiNodeInput",
+              label: "UiNodeInput",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/UiNodeScript",
+              label: "UiNodeScript",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/UiNodeText",
+              label: "UiNodeText",
+            },
           ],
         },
         {
@@ -295,8 +360,54 @@ const typedocSidebar: SidebarsConfig = {
         },
         {
           type: "category",
+          label: "Functions",
+          items: [
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/functions/isUiNodeAnchor",
+              label: "isUiNodeAnchor",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/functions/isUiNodeDiv",
+              label: "isUiNodeDiv",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/functions/isUiNodeImage",
+              label: "isUiNodeImage",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/functions/isUiNodeInput",
+              label: "isUiNodeInput",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/functions/isUiNodeScript",
+              label: "isUiNodeScript",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/functions/isUiNodeText",
+              label: "isUiNodeText",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/functions/resolvePlaceholder",
+              label: "resolvePlaceholder",
+            },
+          ],
+        },
+        {
+          type: "category",
           label: "Components",
           items: [
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/variables/Node",
+              label: "Node",
+            },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/OryCard",
@@ -402,6 +513,11 @@ const typedocSidebar: SidebarsConfig = {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/useOryFlow",
               label: "useOryFlow",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/functions/useResendCode",
+              label: "useResendCode",
             },
           ],
         },

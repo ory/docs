@@ -1,15 +1,3 @@
----
-id: index
-title: "@ory/nextjs/pages"
-sidebar_label: "pages"
----
-
-```mdx-code-block
-import CanonicalUrl from "@site/src/components/CanonicalUrl"
-
-<CanonicalUrl path="/elements/reference/@ory/nextjs/pages" />
-```
-
 # @ory/nextjs/pages
 
 ## Hooks

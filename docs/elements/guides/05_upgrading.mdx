@@ -1,8 +1,37 @@
 ---
-id: migration-0x
-title: Migration from Ory Elements 0.x to 1.x
-sidebar_label: Migration from 0.x to 1.x
+id: upgrade
+title: Upgrading Ory Elements
+sidebar_label: Upgrading
 ---
+
+# Ory Elements 1.1.0 to 1.2.0 Upgrade Guide
+
+This guide will show you how to migrate from Ory Elements 1.1.0 to 1.2.0.
+
+If you are current overriding components using the `components` prop, you may need to update your overrides to pass the correct
+props to your custom components.
+
+- `Node.Button`: Now receives additional props:
+  - `isSubmitting`: This prop indicates whether this button was used to submit the form and the form is currently submitting.
+  - `buttonProps`: This prop contains all other button-related props that should be spread onto the button element.
+- `Node.Input`: Now receives additional props:
+  - `inputProps`: This prop contains all other input-related props that should be spread onto the input element.
+- `Node.Checkbox`:
+  - `inputProps`: This prop contains all other checkbox-related props that should be spread onto the checkbox input element.
+- `Node.ConsentScopeCheckbox`:
+  - `inputProps`: This prop contains all other checkbox-related props that should be spread onto the checkbox input element.
+- `Node.Label`:
+  - `fieldError`: This prop contains the error message associated with the field, if any.
+- Settings Pages:
+  - Each settings section now similarly receives the nodes with a `buttonProps` or `inputProps` prop, depending on the type of
+    node.
+
+## Fixes
+
+- If you were using the `RecoveryCodesSettings` component, there was a typo in the prop name for regenerating codes. The correct
+  prop name is now `regenerateButton` instead of `regnerateButton`.
+
+# Ory Elements 0.x to 1.x Upgrade Guide
 
 This guide will show you how to migrate from Ory Elements 0.x to 1.x.
 

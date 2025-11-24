@@ -2,15 +2,24 @@
 
 ```ts
 type OrySettingsTotpProps = {
+  isSubmitting: boolean
   onUnlink: () => void
-  totpImage: UiNode | undefined
-  totpInput: UiNode | undefined
-  totpSecret: UiNode | undefined
-  totpUnlink: UiNode | undefined
+  totpImage: UiNodeImage | undefined
+  totpInput: UiNodeInput | undefined
+  totpSecret: UiNodeText | undefined
+  totpUnlink: UiNodeInput | undefined
 }
 ```
 
 ## Properties
+
+### isSubmitting
+
+```ts
+isSubmitting: boolean
+```
+
+---
 
 ### onUnlink()
 
@@ -27,7 +36,7 @@ onUnlink: () => void;
 ### totpImage
 
 ```ts
-totpImage: UiNode | undefined
+totpImage: UiNodeImage | undefined
 ```
 
 ---
@@ -35,7 +44,7 @@ totpImage: UiNode | undefined
 ### totpInput
 
 ```ts
-totpInput: UiNode | undefined
+totpInput: UiNodeInput | undefined
 ```
 
 ---
@@ -43,7 +52,7 @@ totpInput: UiNode | undefined
 ### totpSecret
 
 ```ts
-totpSecret: UiNode | undefined
+totpSecret: UiNodeText | undefined
 ```
 
 ---
@@ -51,5 +60,5 @@ totpSecret: UiNode | undefined
 ### totpUnlink
 
 ```ts
-totpUnlink: UiNode | undefined
+totpUnlink: UiNodeInput | undefined
 ```
