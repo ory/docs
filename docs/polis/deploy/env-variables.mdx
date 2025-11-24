@@ -11,21 +11,21 @@ initializing the library.
 
 ## General configuration
 
-### **HOSTNAME**
+### HOSTNAME
 
 If you need to bind to a specific hostname, you can define `HOSTNAME` environment variable. For example, if you are planning to
 use a Docker health check like `wget -q --spider http://localhost:{PORT}/api/health || exit 1` set `HOSTNAME=0.0.0.0` to listen to
 localhost.
 
-### **HOST_URL**
+### HOST_URL
 
 The URL to bind to. Default: `localhost`
 
-### **PORT**
+### PORT
 
 The port to bind to. Default: `5225`
 
-### **EXTERNAL_URL**
+### EXTERNAL_URL
 
 The public URL to reach this service. This is used internally to construct the callback url at which the SAML/OIDC IdP sends back
 the authorization response.
@@ -34,7 +34,7 @@ Default: `http://{HOST_URL}:{PORT}`
 
 NPM library option: `externalUrl`
 
-### **ACS_URL**
+### ACS_URL
 
 The custom ACS URL (if used) to let Ory Polis know which ACS URL to send to in the SAML Request to the IdP. Custom ACS URL can
 also be defined per SAML connection.
@@ -43,16 +43,16 @@ Available from version `1.40.1`.
 
 NPM library option: `acsUrl`
 
-### **JACKSON_API_KEYS**
+### JACKSON_API_KEYS
 
-A comma separated list of API keys that will be validated when serving the API requests (`/api/v1/**`).
+A comma separated list of API keys that will be validated when serving the API requests (`/api/v1/`).
 
 For example `JACKSON_API_KEYS=key1,key2,key3`
 
 The API requests will then need to specify an `Authorization` header which contains one of the API keys above in this format:
 `Api-Key key1`
 
-### **SAML_AUDIENCE**
+### SAML_AUDIENCE
 
 The value of this setting (same as SP EntityID of Ory Polis) allows the Ory Polis instance to verify that it is the intended
 recipient of a SAML response. The same value is also set in the SAML App created on the IdP end by your customers. Once set do not
@@ -63,9 +63,9 @@ Default: `https://saml.boxyhq.com`
 
 NPM library option: `samlAudience`
 
-### **samlPath**
+### samlPath
 
-> **_NOTE:_** This is only applicable to the Ory Polis npm library.
+This is only applicable to the Ory Polis npm library.
 
 The ACS path at which the [saml response](../guides/npm-library#saml-response) is sent back from the SAML IdP. Set this when using
 the npm package.
@@ -74,9 +74,9 @@ NPM library option: `samlPath`
 
 For example: `/api/oauth/saml`
 
-### **oidcPath**
+### oidcPath
 
-> **_NOTE:_** This is only applicable to the Ory Polis npm library.
+This is only applicable to the Ory Polis npm library.
 
 The `redirect_uri` at which the Authorization response is sent back from the OpenID Connect IdP. Set this when using the npm
 package.
@@ -85,7 +85,7 @@ NPM library option: `oidcPath`
 
 For example: `/api/oauth/oidc`
 
-### **IDP_DISCOVERY_PATH**
+### IDP_DISCOVERY_PATH
 
 This is the path for showing the IdP Selection screen in case there are multiple SSO Connections for the same `tenant` and
 `product`. This path is also used to show the App Selection screen in the case of IdP-initiated SAML login (Different apps using
@@ -96,7 +96,7 @@ NPM library option: `idpDiscoveryPath`
 For example: `/idp/select` - You can find an implementation of IdP/App Selection
 [here](https://github.com/ory/polis/blob/main/pages/idp/select.tsx).
 
-### **CLIENT_SECRET_VERIFIER**
+### CLIENT_SECRET_VERIFIER
 
 When `tenant` and `product` are used for the SAML flow (and PKCE is not being used) then we use `dummy` as placeholders for
 `client_id` and `client_secret`. This is not a security issue because SAML is tenanted and hence your Identity Provider will block
@@ -107,7 +107,7 @@ Default: `dummy`
 
 NPM library option: `clientSecretVerifier`
 
-### **IDP_ENABLED**
+### IDP_ENABLED
 
 Set to true to enable IdP initiated login for SAML. SP initiated login is the only recommended flow but you might have to support
 IdP login at times.
@@ -116,13 +116,13 @@ Default: `false`
 
 NPM library option: `idpEnabled`
 
-### **PUBLIC_KEY**
+### PUBLIC_KEY
 
 This is the public key of the private key used to sign the SAML requests. Ory Polis expects the public key to be base64 encoded.
 
 NPM library option: `certs.publicKey`
 
-### **PRIVATE_KEY**
+### PRIVATE_KEY
 
 This is the private key used to sign the SAML requests. Ory Polis expects the private key to be base64 encoded.
 
@@ -140,7 +140,7 @@ cat public.crt | base64
 cat key.pem | base64
 ```
 
-### **FLATTEN_RAW_CLAIMS**
+### FLATTEN_RAW_CLAIMS
 
 Set this config if you want to flatten all the raw claims into the profile instead of grouping them into profile.raw, this is
 needed for some OIDC providers that do no support nested objects
@@ -153,7 +153,7 @@ NPM library option: `flattenRawClaims`
 
 For supporting OpenID flow, we need to set the algorithm and keys used to sign the ID token JWT.
 
-### **OPENID_JWS_ALG**
+### OPENID_JWS_ALG
 
 The algorithm used to sign the id_token. Ory Polis uses [jose](https://github.com/panva/jose) to create the ID token. Supported
 algorithms can be found [here](https://github.com/panva/jose/issues/114#digital-signatures).
@@ -162,7 +162,7 @@ Default: `RS256`
 
 NPM library option: `openid.jwsAlg`
 
-### **OPENID_RSA_PRIVATE_KEY**
+### OPENID_RSA_PRIVATE_KEY
 
 Base64 value of private key. To generate one:
 
@@ -174,7 +174,7 @@ cat private_key.pem | base64
 
 NPM library option: `openid.jwtSigningKeys.private`
 
-### **OPENID_RSA_PUBLIC_KEY**
+### OPENID_RSA_PUBLIC_KEY
 
 Base64 value of public key. You can generate the public key from the private key as shown below:
 
@@ -185,7 +185,7 @@ cat public_key.pem | base64
 
 NPM library option: `openid.jwtSigningKeys.public`
 
-### **OPENID_REQUEST_PROFILE_SCOPE**
+### OPENID_REQUEST_PROFILE_SCOPE
 
 By setting this to `false`, the profile scope will no longer be automatically included in the Authorization request to the OIDC
 provider. This will enable apps to request the minimum required authorization permissions from the signed in user. Apps can
@@ -195,7 +195,7 @@ Default: `true`
 
 NPM library option: `openid.requestProfileScope`
 
-### **OPENID_SUBJECT_PREFIX**
+### OPENID_SUBJECT_PREFIX
 
 By setting this to `true`, the `id` and `subject` in OIDC claims will be prefixed with `${tenant}:${product}:` to prevent any
 potential collisions or malicious IdPs.
@@ -204,20 +204,20 @@ Default: `true`
 
 NPM library option: `openid.subjectPrefix`
 
-### **OPENID_REDIRECT_EXACT_MATCH**
+### OPENID_REDIRECT_EXACT_MATCH
 
-When set to `true`, redirect URI validation requires an **exact match** of the full URL, including scheme, host, and path.  
-By default (`false`), redirect validation only checks the scheme and host and **ignores the path**.
+When set to `true`, redirect URI validation requires an exact match of the full URL, including scheme, host, and path.  
+By default (`false`), redirect validation only checks the scheme and host and ignores the path.
 
 Enable this option to enforce stricter and more secure redirect URI checks.
 
-**Default:** `false`
+Default: `false`
 
-**NPM library option:** `openid.redirectExactMatch`
+NPM library option: `openid.redirectExactMatch`
 
 ## Database configuration
 
-### **DB_ENGINE**
+### DB_ENGINE
 
 Supported values are `redis`, `sql`, `mongo`, `mem`, `planetscale`, `dynamodb`
 
@@ -225,14 +225,18 @@ Default: `sql`
 
 NPM library option: `db.engine`
 
-> **_NOTE:_** If you are using DynamoDB then you also need to set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. For additional
-> options like region and capacity units check [this section](#db_dynamodb_region)
+If you are using DynamoDB then you also need to set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. For additional options like
+region and capacity units check [this section](#db_dynamodb_region)
 
-> **_NOTE:_** `mem` DB (In memory database) is useful to test the Ory Polis setup locally and is not intended for production. In a
-> serverless deployment like Vercel, the mem DB won't persist across API calls since each call is a fresh lambda invocation with
-> an entirely new context.
+:::note
 
-### **DB_TYPE**
+`mem` DB (In memory database) is useful to test the Ory Polis setup locally and is not intended for production. In a serverless
+deployment like Vercel, the mem DB won't persist across API calls since each call is a fresh lambda invocation with an entirely
+new context.
+
+:::
+
+### DB_TYPE
 
 Only needed when DB_ENGINE is sql. Supported values are `postgres`, `cockroachdb`, `mysql`, `mariadb`, `mssql`
 
@@ -240,7 +244,7 @@ Default: `postgres`
 
 NPM library option: `db.type`
 
-### **DB_URL**
+### DB_URL
 
 The database URL to connect to. If you are using self-signed certificates then pass `sslmode=no-verify` instead of
 `sslmode=require` in the `DB_URL`. This is because self-signed certs will be rejected as unauthorized in strict mode. Also, set
@@ -252,26 +256,26 @@ Example: `postgres://postgres:postgres@localhost:5432/postgres` or
 For `mssql` the URL takes the form of
 `sqlserver://localhost:1433;database=<db name>;username=<username>;password=<password>;encrypt=true`
 
-> **_NOTE:_** If you are using DynamoDB then you also need to set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. For additional
-> options like region and capacity units check [this section](#db_dynamodb_region)
+If you are using DynamoDB then you also need to set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. For additional options like
+region and capacity units check [this section](#db_dynamodb_region)
 
 NPM library option: `db.url`
 
-### **DB_SSL**
+### DB_SSL
 
 This needs to be set to `true` if you are using SSL with your database (You should definitely be using SSL if the database needs
 to be access via a public url).
 
 Default: `false`
 
-### **DB_SSL_REJECT_UNAUTHORIZED**
+### DB_SSL_REJECT_UNAUTHORIZED
 
 If you are using a self-signed certificate then set this to `false`, otherwise it will be rejected due to Certificate Authority
 checks.
 
 Default: `true`
 
-### **DB_MANUAL_MIGRATION**
+### DB_MANUAL_MIGRATION
 
 Set this to true to trigger execution of migration scripts when you use the Ory Polis docker image.
 
@@ -282,7 +286,7 @@ command and migration file.
 
 NPM library option: `db.manualMigration` Default: `false`
 
-### **DB_TTL**
+### DB_TTL
 
 TTL for the code, session and token stores (in seconds)
 
@@ -290,7 +294,7 @@ Default: `300`
 
 NPM library option: `db.ttl`
 
-### **DB_CLEANUP_LIMIT**
+### DB_CLEANUP_LIMIT
 
 Limit cleanup of TTL entries to this number
 
@@ -298,7 +302,7 @@ Default: `1000`
 
 NPM library option: `db.cleanupLimit`
 
-### **DB_ENCRYPTION_KEY**
+### DB_ENCRYPTION_KEY
 
 To encrypt data at rest specify a 32 byte key (encoded in base64)
 
@@ -310,12 +314,12 @@ openssl rand -base64 32
 
 NPM library option: `db.encryptionKey`
 
-### **PGSSLMODE**
+### PGSSLMODE
 
 If you use Heroku to deploy Postgres (or use self-signed certs for Postgres) then set this to `no-verify`. See
 [Heroku docs](https://devcenter.heroku.com/articles/connecting-heroku-postgres#connecting-in-node-js) for more details
 
-### **DB_DYNAMODB_REGION**
+### DB_DYNAMODB_REGION
 
 If you are using DynamoDB then you can specify the region.
 
@@ -323,7 +327,7 @@ Default: `us-east-1`
 
 NPM library option: `db.dynamodb.region`
 
-### **DB_DYNAMODB_RCUS**
+### DB_DYNAMODB_RCUS
 
 If you are using DynamoDB then you can specify the read capacity units. Check
 [AWS docs](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html) for more
@@ -333,7 +337,7 @@ Default: 5
 
 NPM library option: `db.dynamodb.readCapacityUnits`
 
-### **DB_DYNAMODB_WCUS**
+### DB_DYNAMODB_WCUS
 
 If you are using DynamoDB then you can specify the write capacity units.
 
@@ -343,13 +347,13 @@ NPM library option: `db.dynamodb.writeCapacityUnits`
 
 ## Webhook configuration
 
-### **WEBHOOK_URL**
+### WEBHOOK_URL
 
 Specify a webhook URL to receive events about sso and directory connections.
 
 NPM library option: `webhook.endpoint`
 
-### **WEBHOOK_SECRET**
+### WEBHOOK_SECRET
 
 Specify a secret to be used to sign the webhook payload. This is used to verify the authenticity of the webhook payload.
 
@@ -359,7 +363,7 @@ Both the `WEBHOOK_URL` and `WEBHOOK_SECRET` are required to enable webhook event
 
 ## Pre-loaded Connections
 
-### **PRE_LOADED_CONNECTION**
+### PRE_LOADED_CONNECTION
 
 If you only need a single tenant or a handful of pre-configured tenants then this config will help you read and load IdP (both
 OpenID and SAML)connections. It works well with the mem DB engine so you don't have to configure any external databases for this
@@ -373,92 +377,92 @@ NPM library option: `preLoadedConnection`
 Ory Polis supports observability via OpenTelemetry. The following env vars are available for configuration (along with the rest of
 the [supported ones](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/exporter.md))
 
-### **OTEL_EXPORTER_OTLP_ENDPOINT** or **OTEL_EXPORTER_OTLP_METRICS_ENDPOINT**
+### OTEL_EXPORTER_OTLP_ENDPOINT or OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
 
 Target URL to which the exporter is going to send metrics.
 
 Example: `https://ingest.lightstep.com:443/metrics/otlp/v0.6`
 
-### **OTEL_EXPORTER_OTLP_HEADERS** or **OTEL_EXPORTER_OTLP_METRICS_HEADERS**
+### OTEL_EXPORTER_OTLP_HEADERS or OTEL_EXPORTER_OTLP_METRICS_HEADERS
 
 Headers relevant for the endpoint, useful for specifying authentication details for providers.
 
 Example: `lightstep-access-token=<token>,...`
 
-### **OTEL_EXPORTER_OTLP_PROTOCOL** or **OTEL_EXPORTER_OTLP_METRICS_PROTOCOL**
+### OTEL_EXPORTER_OTLP_PROTOCOL or OTEL_EXPORTER_OTLP_METRICS_PROTOCOL
 
 The transport protocol. Options MUST be one of: `grpc`, `http/protobuf` or `http/json`.
 
-### **OTEL_EXPORTER_DEBUG**
+### OTEL_EXPORTER_DEBUG
 
 Set this to `true` to enable debug logs for Opentelemetry. This is only meant for purposes of debugging otel locally.
 
 ## Admin Portal configuration
 
 Below variables are used to enable [Magic link](https://next-auth.js.org/providers/email) based authentication for Admin Portal.
-The **SMTP\_** variables are used for sending email which contain the magic link (one-time use) for sign in.
+The SMTP\_ variables are used for sending email which contain the magic link (one-time use) for sign in.
 
-### **SMTP_HOST**
+### SMTP_HOST
 
 The SMTP host like `smtp.example.com`.
 
-### **SMTP_PORT**
+### SMTP_PORT
 
 The SMTP server port like `587`.
 
-### **SMTP_USER**
+### SMTP_USER
 
 Username for the SMTP server.
 
-### **SMTP_PASSWORD**
+### SMTP_PASSWORD
 
 Password for the SMTP server.
 
-### **SMTP_FROM**
+### SMTP_FROM
 
 _From_ address used to send mail like: `noreply@example.com`.
 
-### **NEXTAUTH_URL**
+### NEXTAUTH_URL
 
 When running locally this will point to the local server: `http://localhost:5225`. When deploying to production, set this to the
 canonical URL of the site. More details [here](https://next-auth.js.org/configuration/options#nextauth_url).
 
-### **NEXTAUTH_SECRET**
+### NEXTAUTH_SECRET
 
 Set this to a random string. You can use `openssl rand -base64 32` to get one. This secret is used to encrypt JWT and hash the
 email verification token. More details [here](https://next-auth.js.org/configuration/options#nextauth_secret).
 
-### **NEXTAUTH_ACL**
+### NEXTAUTH_ACL
 
 Set this to a comma separated string of email addresses or glob patterns like: `tonystark@gmail.com,*@marvel.com`. Access will be
 denied to email addresses which don't match. If you don't specify any value access is denied to all and magic links are turned
 off.
 
-### **NEXTAUTH_ADMIN_CREDENTIALS**
+### NEXTAUTH_ADMIN_CREDENTIALS
 
 Set this to a comma separated string of the pattern `email:password` to enable login to the Admin Portal, for example
 `NEXTAUTH_ADMIN_CREDENTIALS=deepak@ory.com:Password123`. If you don't specify any value access is denied to all.
 
-### **ADMIN_PORTAL_HIDE_DIRECTORY_SYNC**
+### ADMIN_PORTAL_HIDE_DIRECTORY_SYNC
 
 Set this to `true` if you want to hide the Directory Sync product in the sidebar.
 
 Default: `false`
 
-### **ADMIN_PORTAL_HIDE_IDENTITY_FEDERATION**
+### ADMIN_PORTAL_HIDE_IDENTITY_FEDERATION
 
 Set this to `true` if you want to hide the Identity Federation product in the sidebar.
 
 Default: `false`
 
-### **ADMIN_PORTAL_SSO_TENANT**
+### ADMIN_PORTAL_SSO_TENANT
 
 This will be used as the tenant for the SSO connections (added from Settings tab) used to login into the Admin portal itself. Set
 this to a value that is less likely to conflict with the main Enterprise SSO connections.
 
 Default: `_polis_boxyhq`
 
-### **ADMIN_PORTAL_SSO_PRODUCT**
+### ADMIN_PORTAL_SSO_PRODUCT
 
 This will be used as the product for the SSO connections (added from Settings tab) used to login into the Admin portal itself. Set
 this to a value that is less likely to conflict with the main Enterprise SSO connections.
@@ -467,26 +471,26 @@ Default: `_polis_admin_portal`
 
 ## Anonymous Analytics
 
-### **BOXYHQ_NO_TELEMETRY** or **DO_NOT_TRACK**
+### BOXYHQ_NO_TELEMETRY or DO_NOT_TRACK
 
 Set one of these to `1` or `true` to turn off anonymous analytics. Ory only tracks usage events once per day and it does not
 contain information that can identify you in any form.
 
 ## SSO Traces
 
-### **SSO_TRACES_DISABLE**
+### SSO_TRACES_DISABLE
 
 Set this to `true` to disable SSO Traces collection.
 
 NPM library option: `ssoTraces.disable`
 
-### **SSO_TRACES_REDACT**
+### SSO_TRACES_REDACT
 
 Set this to `true` to redact profile information in SSO Traces.
 
 NPM library option: `ssoTraces.redact`
 
-### **SSO_TRACES_TTL**
+### SSO_TRACES_TTL
 
 Set this to a value in hours to control how long SSO Traces are stored. Default: `7 days`
 
@@ -498,38 +502,38 @@ The following env vars are used to configure the directory sync feature.
 
 `DSYNC_GOOGLE_` env vars are only applicable if you are using Google Workspace as a directory sync provider.
 
-### **DSYNC_WEBHOOK_BATCH_SIZE**
+### DSYNC_WEBHOOK_BATCH_SIZE
 
 Enable batch processing of directory sync events. The value represents the number of events to batch together instead of sending
 each event individually. This requires you to configure a cron job to
 [process the queued events](../directory-sync/api-reference.mdx#batch-processing-events). Alternatively you can set
 `DSYNC_WEBHOOK_BATCH_CRON_INTERVAL` below if you are not deploying the service in an Edge environment.
 
-### **DSYNC_WEBHOOK_BATCH_CRON_INTERVAL**
+### DSYNC_WEBHOOK_BATCH_CRON_INTERVAL
 
 The cron interval at which to process the queued events. Provide a number in seconds. By default, the cron job is disabled.
 
 NPM library option: `dsync.webhookBatchCronInterval`
 
-### **DSYNC_GOOGLE_CRON_INTERVAL**
+### DSYNC_GOOGLE_CRON_INTERVAL
 
 The cron interval at which to sync the Google Workspace. Provide a number in seconds. By default, the cron job is disabled.
 
 NPM library option: `dsync.providers.google.cronInterval`
 
-### **DSYNC_GOOGLE_CLIENT_ID**
+### DSYNC_GOOGLE_CLIENT_ID
 
 The Google authentication client ID.
 
 NPM library option: `dsync.providers.google.clientId`
 
-### **DSYNC_GOOGLE_CLIENT_SECRET**
+### DSYNC_GOOGLE_CLIENT_SECRET
 
 The Google authentication client secret.
 
 NPM library option: `dsync.providers.google.clientSecret`
 
-### **dsync.providers.google.authorizePath**
+### dsync.providers.google.authorizePath
 
 The authorization endpoint for Google SCIM.
 
@@ -537,7 +541,7 @@ NPM library option: `dsync.providers.google.authorizePath`
 
 For example: `/api/scim/oauth/authorize`
 
-### **dsync.providers.google.callbackPath**
+### dsync.providers.google.callbackPath
 
 The path to redirect to after completing the authorization request for Google SCIM.
 
@@ -547,16 +551,16 @@ For example: `/api/scim/oauth/callback`
 
 ## Enterprise Features
 
-### **BOXYHQ_LICENSE_KEY**
+### BOXYHQ_LICENSE_KEY
 
 Please [reach out](https://ory.com/contact) to obtain a license for enterprise features.
 
 ## Logger options
 
-### **LOG_FILE**
+### LOG_FILE
 
 Log file to write to
 
-### **LOG_LEVEL**
+### LOG_LEVEL
 
 Log levels - "fatal" | "error" | "warn" | "info" (default) | "debug" | "trace"
