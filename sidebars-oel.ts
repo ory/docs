@@ -5,7 +5,7 @@
 const oelSidebar = [
   {
     type: "category",
-    label: "Getting started",
+    label: "Ory Enterprise License",
     items: [
       "oel/getting-started/index",
       "oel/getting-started/auth-overview",

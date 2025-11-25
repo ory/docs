@@ -5,7 +5,7 @@
 const networkSidebar = [
   {
     type: "category",
-    label: "Getting started",
+    label: "Ory Network",
     items: [
       "network/getting-started/index",
       "network/getting-started/auth-overview",

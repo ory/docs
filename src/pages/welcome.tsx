@@ -6,6 +6,7 @@ import Link from "@docusaurus/Link"
 import CodeBlock from "@theme/CodeBlock"
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
+import OryHeroDemo from "@site/src/components/OryHeroDemo"
 
 function Hero() {
   return (
@@ -13,7 +14,7 @@ function Hero() {
       <div className="container">
         <div className="row">
           {/* Left: text */}
-          <div className="col col--7">
+          <div className="col col--5">
             <h1 className="hero__title">Build secure identity into your apps</h1>
             <p className="hero__subtitle" style={{ maxWidth: 520 }}>
               Ory gives you authentication, authorization, and user management APIs
@@ -43,64 +44,9 @@ function Hero() {
             </p>
           </div>
 
-          {/* Right: quick code example */}
-          <div className="col col--5">
-            <div
-              style={{
-                background: "var(--ifm-background-surface-color)",
-                borderRadius: "0.75rem",
-                boxShadow: "0 12px 30px rgba(0,0,0,0.18)",
-                padding: "1.25rem 1.25rem 1rem",
-              }}
-            >
-              <p
-                style={{
-                  fontSize: "0.8rem",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                  opacity: 0.7,
-                  marginBottom: "0.5rem",
-                }}
-              >
-                Example: sign in a user
-              </p>
-
-              <Tabs groupId="language" defaultValue="curl">
-                <TabItem value="curl" label="cURL">
-                  <CodeBlock language="bash">
-                    {`curl -X POST "$ORY_SDK_URL/self-service/login/flows" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "identifier": "user@example.com",
-    "password": "super-secret"
-  }'`}
-                  </CodeBlock>
-                </TabItem>
-
-                <TabItem value="js" label="JavaScript">
-                  <CodeBlock language="ts">
-                    {`import { FrontendApi, Configuration } from "@ory/client"
-
-const ory = new FrontendApi(
-  new Configuration({ basePath: process.env.ORY_SDK_URL })
-)
-
-const { data: flow } = await ory.createBrowserLoginFlow()
-`}
-                  </CodeBlock>
-                </TabItem>
-
-                <TabItem value="react" label="React + Elements">
-                  <CodeBlock language="tsx">
-                    {`import { LoginForm } from "@ory/elements-react"
-
-export function Login() {
-  return <LoginForm projectSlug={process.env.NEXT_PUBLIC_ORY_PROJECT_SLUG!} />
-}`}
-                  </CodeBlock>
-                </TabItem>
-              </Tabs>
-            </div>
+          {/* Right: interactive demo */}
+          <div className="col col--7">
+            <OryHeroDemo />
           </div>
         </div>
       </div>

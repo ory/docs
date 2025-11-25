@@ -21,6 +21,7 @@ const config: Config = {
   onDuplicateRoutes: "throw",
   organizationName: "ory",
   projectName: "docs",
+  trailingSlash: false,
   markdown: {
     format: "detect",
   },

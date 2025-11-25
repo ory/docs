@@ -5,7 +5,7 @@
 const ossSidebar = [
   {
     type: "category",
-    label: "Getting started",
+    label: "Ory Open Source",
     items: [
       "oss/getting-started/index",
       "oss/getting-started/auth-overview",

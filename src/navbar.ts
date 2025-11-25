@@ -16,7 +16,7 @@ export const navbar: Navbar = {
 
   items: [
     {
-      label: "Get Started",
+      label: "Home",
       to: "/docs/welcome",
       position: "left",
     },
