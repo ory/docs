@@ -1,0 +1,874 @@
+---
+id: passkeys-implementation
+title: Implement passkey authentication in web and mobile applications
+sidebar_label: Passkeys implementation
+slug: passkeys-mobile-web-implementation
+---
+
+## Implementing passkeys for web and mobile
+
+This guide covers how to implement passkey authentication in your applications using Ory Kratos or Ory Network. Passkeys provide a passwordless authentication experience using WebAuthn across web browsers and mobile platforms.
+
+:::info
+This page assumes you have already configured the passkey method in your Ory configuration. See the [Passkeys overview](../passwordless/passkeys) for initial setup instructions.
+:::
+
+:::note
+Code examples in this guide are illustrative and likely need adjustments based on your specific configuration, identity schema, and application requirements.
+:::
+
+## Overview
+
+Passkey implementation differs between platforms:
+
+- Web applications use browser-native WebAuthn APIs with JavaScript.
+- Mobile applications use platform-specific credential management APIs (iOS AuthenticationServices, Android CredentialManager) with Ory's JSON API endpoints.
+
+This guide focuses on the integration patterns for each platform.
+
+## Web implementation
+
+For web applications, you can use the browser's native WebAuthn API to create and authenticate with passkeys.
+
+### Using Ory's webauthn.js
+
+Ory provides a `webauthn.js` helper script that simplifies WebAuthn integration in browser flows. When you initialize a registration or login flow through the browser, Ory automatically injects the necessary JavaScript to handle passkey operations.
+
+```html
+<!-- The flow response includes script nodes that handle WebAuthn -->
+<script src="https://$PROJECT_SLUG.projects.oryapis.com/.well-known/ory/webauthn.js"></script>
+```
+
+The script automatically:
+
+- Detects passkey-related form fields.
+- Calls `navigator.credentials.create()` for registration.
+- Calls `navigator.credentials.get()` for authentication.
+- Submits the WebAuthn response back to Ory.
+
+See [Custom UI Advanced Integration](../bring-your-own-ui/custom-ui-advanced-integration#passwordless-authentication) for details on using `webauthn.js` in custom UIs.
+
+### Manual WebAuthn integration
+
+For more control, you can manually integrate the [W3C WebAuthn API](https://www.w3.org/TR/webauthn-2/):
+
+1. Initialize a registration or login flow via Ory's API.
+2. Parse the WebAuthn challenge from the flow response.
+3. Call `navigator.credentials.create()` or `navigator.credentials.get()`.
+4. Submit the credential response back to Ory.
+
+The WebAuthn API is well-documented by the W3C and MDN:
+
+- [W3C WebAuthn Specification](https://www.w3.org/TR/webauthn-2/)
+- [MDN Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API)
+
+## Mobile implementation
+
+Mobile passkey implementation requires using platform-specific APIs and Ory's JSON API endpoints. Unlike browser flows, mobile apps don't receive the `webauthn.js` script and must handle credential operations manually.
+
+### Platform requirements
+
+Both iOS and Android require configuration to associate your app with your authentication domain.
+
+### iOS Associated Domains
+
+iOS requires an Associated Domains entitlement that links your app to your authentication domain.
+
+#### Add the Associated Domains entitlement
+
+Add the entitlement to your Xcode project:
+
+```xml
+<!-- YourApp.entitlements -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>com.apple.developer.associated-domains</key>
+    <array>
+        <string>webcredentials:$PROJECT_SLUG.projects.oryapis.com</string>
+    </array>
+</dict>
+</plist>
+```
+
+The domain in your entitlement must match the Relying Party ID in your Kratos passkey configuration.
+
+#### Serve the apple-app-site-association file
+
+You need to host an `apple-app-site-association` file at `https://{your_domain}/.well-known/apple-app-site-association` to allow the application to register and authenticate with credentials associated with the Relying Party ID.
+
+Example `apple-app-site-association` file:
+
+```json
+{
+  "webcredentials": {
+    "apps": ["ABCDE12345.com.example.app"]
+  }
+}
+```
+
+The value uses the format `{Application_Identifier_Prefix}.{Bundle_Identifier}`. Find your Application Identifier Prefix (Team ID) in the [Apple Developer portal](https://developer.apple.com/account) under Membership.
+
+```mdx-code-block
+<Tabs groupId="ory-network-or-kratos">
+<TabItem value="ory-network" label="Ory Network">
+```
+
+:::warning
+Ory Network doesn't currently host `apple-app-site-association` files automatically. This feature is planned for future releases. You must host this file on your own domain and configure your Kratos passkey settings to use that domain as the Relying Party ID.
+:::
+
+```mdx-code-block
+</TabItem>
+<TabItem value="ory-kratos" label="Ory Kratos">
+```
+
+For self-hosted Kratos, serve the `apple-app-site-association` file at your authentication domain:
+
+`https://ory.your-custom-domain.com/.well-known/apple-app-site-association`
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+#### Important constraints
+
+The domain in your Associated Domains entitlement must exactly match the `rp.id` in your Kratos passkey configuration. The domain must be accessible via HTTPS with a valid TLS certificate. The `apple-app-site-association` file must be served with `Content-Type: application/json`.
+
+#### Apple documentation
+
+- [Supporting Associated Domains](https://developer.apple.com/documentation/xcode/supporting-associated-domains)
+- [About the apple-app-site-association file](https://developer.apple.com/documentation/bundleresources/applinks/details/supporting_associated_domains)
+
+### Android Digital Asset Links
+
+Android requires an `assetlinks.json` file to verify your app's relationship with your authentication domain.
+
+#### Serve the assetlinks.json file
+
+You need to host an `assetlinks.json` file at `https://{your_domain}/.well-known/assetlinks.json` to verify your app's relationship with your authentication domain.
+
+Example `assetlinks.json` file:
+
+```json
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.example.yourapp",
+      "sha256_cert_fingerprints": [
+        "14:6D:E9:83:C5:73:06:50:D8:EE:B9:95:2F:34:FC:64:16:A0:83:42:E6:1D:BE:A8:8A:04:96:B2:3F:CF:44:E5"
+      ]
+    }
+  }
+]
+```
+
+Generate your SHA-256 certificate fingerprint:
+
+```shell
+keytool -list -v -keystore your-keystore.jks
+```
+
+```mdx-code-block
+<Tabs groupId="ory-network-or-kratos">
+<TabItem value="ory-network" label="Ory Network">
+```
+
+:::warning
+Ory Network doesn't currently host `assetlinks.json` files automatically. This feature is planned for future releases. You must host this file on your own domain and configure your Kratos passkey settings to use that domain as the Relying Party ID.
+:::
+
+```mdx-code-block
+</TabItem>
+<TabItem value="ory-kratos" label="Ory Kratos">
+```
+
+For self-hosted Kratos, serve the `assetlinks.json` file at your authentication domain:
+
+`https://ory.your-custom-domain.com/.well-known/assetlinks.json`
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+#### Important constraints
+
+The domain in your `assetlinks.json` must exactly match the `rp.id` in your Kratos passkey configuration. The domain must be accessible via HTTPS with a valid TLS certificate. The file must be served with `Content-Type: application/json`. The package name must match your Android app's `applicationId`. The SHA-256 fingerprint must match your app's signing key.
+
+#### Android documentation
+
+- [Android Credential Manager](https://developer.android.com/training/sign-in/passkeys)
+- [Digital Asset Links](https://developers.google.com/digital-asset-links/v1/getting-started)
+- [Verify Android App Links](https://developer.android.com/training/app-links/verify-android-applinks)
+
+### iOS implementation
+
+iOS passkey support uses the [AuthenticationServices framework](https://developer.apple.com/documentation/authenticationservices). Here's how to integrate with Ory's API.
+
+#### Registration flow
+
+Initialize the registration flow:
+
+```swift
+func initializeRegistrationFlow() async throws -> FlowResponse {
+    var request = URLRequest(url: URL(string: "\(oryBaseURL)/self-service/registration/api")!)
+    request.httpMethod = "GET"
+    request.setValue("application/json", forHTTPHeaderField: "Accept")
+
+    let (data, response) = try await URLSession.shared.data(for: request)
+    // Handle response...
+    return try decodeFlowResponse(from: data)
+}
+```
+
+Parse the WebAuthn challenge by extracting the challenge from the `passkey_create_data` node:
+
+```swift
+func extractRegistrationChallenge(_ flow: FlowResponse) -> String? {
+    guard let ui = flow.raw["ui"] as? [String: Any],
+          let nodes = ui["nodes"] as? [[String: Any]] else {
+        return nil
+    }
+
+    // Find the passkey_create_data node
+    for node in nodes {
+        guard let attributes = node["attributes"] as? [String: Any],
+              let name = attributes["name"] as? String,
+              name == "passkey_create_data" else {
+            continue
+        }
+
+        // Parse the nested JSON value
+        if let valueStr = attributes["value"] as? String,
+           let valueData = valueStr.data(using: .utf8),
+           let json = try? JSONSerialization.jsonObject(with: valueData) as? [String: Any],
+           let credentialOptions = json["credentialOptions"] as? [String: Any],
+           let publicKey = credentialOptions["publicKey"] as? [String: Any],
+           let challenge = publicKey["challenge"] as? String {
+            return challenge
+        }
+    }
+    return nil
+}
+```
+
+The `passkey_create_data` node contains a JSON string with this structure:
+
+```json
+{
+  "credentialOptions": {
+    "publicKey": {
+      "challenge": "base64url-encoded-challenge",
+      "rp": { "name": "Your App", "id": "ory.your-custom-domain.com" },
+      "user": { "id": "base64url-user-id", "name": "", "displayName": "" },
+      "pubKeyCredParams": [
+        { "type": "public-key", "alg": -7 },
+        { "type": "public-key", "alg": -257 }
+      ],
+      "authenticatorSelection": {
+        "userVerification": "required",
+        "residentKey": "required"
+      }
+    }
+  },
+  "displayNameFieldName": "traits.email"
+}
+```
+
+Create the passkey:
+
+```swift
+func signUpWith(userName: String, challenge: Data, domain: String) {
+    let publicKeyCredentialProvider = ASAuthorizationPlatformPublicKeyCredentialProvider(
+        relyingPartyIdentifier: domain
+    )
+
+    let userID = Data(UUID().uuidString.utf8)
+    let registrationRequest = publicKeyCredentialProvider.createCredentialRegistrationRequest(
+        challenge: challenge,
+        name: userName,
+        userID: userID
+    )
+
+    let authController = ASAuthorizationController(authorizationRequests: [registrationRequest])
+    authController.delegate = self
+    authController.presentationContextProvider = self
+    authController.performRequests()
+}
+```
+
+When the user completes registration, format and submit the credential:
+
+```swift
+func submitRegistration(credential: ASAuthorizationPlatformPublicKeyCredentialRegistration) async throws {
+    let credentialDict: [String: Any] = [
+        "id": credential.credentialID.base64URLEncodedString(),
+        "rawId": credential.credentialID.base64URLEncodedString(),
+        "type": "public-key",
+        "response": [
+            "clientDataJSON": credential.rawClientDataJSON.base64URLEncodedString(),
+            "attestationObject": credential.rawAttestationObject?.base64URLEncodedString() ?? ""
+        ]
+    ]
+
+    let credentialJSON = try JSONSerialization.data(withJSONObject: credentialDict)
+    let credentialString = String(data: credentialJSON, encoding: .utf8)!
+
+    var request = URLRequest(url: URL(string: "\(oryBaseURL)/self-service/registration?flow=\(flowId)")!)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+    let payload: [String: Any] = [
+        "method": "passkey",
+        "passkey_register": credentialString,
+        "traits": [
+            "email": userName  // Or other identity traits
+        ]
+    ]
+
+    request.httpBody = try JSONSerialization.data(withJSONObject: payload)
+    let (data, response) = try await URLSession.shared.data(for: request)
+    // Handle response...
+}
+```
+
+#### Login flow
+
+Initialize the login flow:
+
+```swift
+func initializeLoginFlow() async throws -> FlowResponse {
+    var request = URLRequest(url: URL(string: "\(oryBaseURL)/self-service/login/api")!)
+    request.httpMethod = "GET"
+    request.setValue("application/json", forHTTPHeaderField: "Accept")
+
+    let (data, response) = try await URLSession.shared.data(for: request)
+    return try decodeFlowResponse(from: data)
+}
+```
+
+Extract the challenge from the `passkey_challenge` node:
+
+```swift
+func extractLoginChallenge(_ flow: FlowResponse) -> String? {
+    guard let ui = flow.raw["ui"] as? [String: Any],
+          let nodes = ui["nodes"] as? [[String: Any]] else {
+        return nil
+    }
+
+    // Find the passkey_challenge node
+    for node in nodes {
+        guard let attributes = node["attributes"] as? [String: Any],
+              let name = attributes["name"] as? String,
+              name == "passkey_challenge" else {
+            continue
+        }
+
+        // Parse the JSON value
+        if let valueStr = attributes["value"] as? String,
+           let valueData = valueStr.data(using: .utf8),
+           let json = try? JSONSerialization.jsonObject(with: valueData) as? [String: Any],
+           let publicKey = json["publicKey"] as? [String: Any],
+           let challenge = publicKey["challenge"] as? String {
+            return challenge
+        }
+    }
+    return nil
+}
+```
+
+The `passkey_challenge` node contains a JSON string with this structure:
+
+```json
+{
+  "publicKey": {
+    "challenge": "base64url-encoded-challenge",
+    "rpId": "ory.your-custom-domain.com",
+    "allowCredentials": [],
+    "userVerification": "required"
+  }
+}
+```
+
+Authenticate with passkey:
+
+```swift
+func signInWith(challenge: Data, domain: String) {
+    let publicKeyCredentialProvider = ASAuthorizationPlatformPublicKeyCredentialProvider(
+        relyingPartyIdentifier: domain
+    )
+
+    let assertionRequest = publicKeyCredentialProvider.createCredentialAssertionRequest(
+        challenge: challenge
+    )
+
+    let authController = ASAuthorizationController(authorizationRequests: [assertionRequest])
+    authController.delegate = self
+    authController.presentationContextProvider = self
+    authController.performRequests()
+}
+```
+
+Submit the assertion:
+
+```swift
+func submitLogin(credential: ASAuthorizationPlatformPublicKeyCredentialAssertion) async throws {
+    let credentialDict: [String: Any] = [
+        "id": credential.credentialID.base64URLEncodedString(),
+        "rawId": credential.credentialID.base64URLEncodedString(),
+        "type": "public-key",
+        "response": [
+            "clientDataJSON": credential.rawClientDataJSON.base64URLEncodedString(),
+            "authenticatorData": credential.rawAuthenticatorData.base64URLEncodedString(),
+            "signature": credential.signature.base64URLEncodedString(),
+            "userHandle": credential.userID.base64URLEncodedString()
+        ]
+    ]
+
+    let credentialJSON = try JSONSerialization.data(withJSONObject: credentialDict)
+    let credentialString = String(data: credentialJSON, encoding: .utf8)!
+
+    var request = URLRequest(url: URL(string: "\(oryBaseURL)/self-service/login?flow=\(flowId)")!)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+    let payload: [String: Any] = [
+        "method": "passkey",
+        "passkey_login": credentialString
+    ]
+
+    request.httpBody = try JSONSerialization.data(withJSONObject: payload)
+    let (data, response) = try await URLSession.shared.data(for: request)
+    // Handle response...
+}
+```
+
+#### Base64URL encoding
+
+iOS requires Base64URL encoding (not standard Base64) for WebAuthn:
+
+```swift
+extension Data {
+    func base64URLEncodedString() -> String {
+        return self.base64EncodedString()
+            .replacingOccurrences(of: "+", with: "-")
+            .replacingOccurrences(of: "/", with: "_")
+            .replacingOccurrences(of: "=", with: "")
+    }
+
+    init?(base64URLEncoded string: String) {
+        var base64 = string
+            .replacingOccurrences(of: "-", with: "+")
+            .replacingOccurrences(of: "_", with: "/")
+        let remainder = base64.count % 4
+        if remainder > 0 {
+            base64 += String(repeating: "=", count: 4 - remainder)
+        }
+        self.init(base64Encoded: base64)
+    }
+}
+```
+
+### Android implementation
+
+Android passkey support uses the [Credential Manager API](https://developer.android.com/training/sign-in/passkeys). The integration pattern is similar to iOS.
+
+#### Dependencies
+
+Add the Credential Manager dependency to your `build.gradle`:
+
+```gradle
+dependencies {
+    implementation "androidx.credentials:credentials:1.2.0"
+    implementation "androidx.credentials:credentials-play-services-auth:1.2.0"
+}
+```
+
+#### Registration flow
+
+Initialize the registration flow:
+
+```kotlin
+suspend fun initializeRegistrationFlow(): FlowResponse {
+    val url = URL("$oryBaseURL/self-service/registration/api")
+    val connection = url.openConnection() as HttpURLConnection
+    connection.requestMethod = "GET"
+    connection.setRequestProperty("Accept", "application/json")
+
+    val response = connection.inputStream.bufferedReader().readText()
+    return parseFlowResponse(response)
+}
+```
+
+Parse the WebAuthn challenge:
+
+```kotlin
+fun extractRegistrationChallenge(flow: FlowResponse): String? {
+    val ui = flow.raw["ui"] as? Map<*, *> ?: return null
+    val nodes = ui["nodes"] as? List<*> ?: return null
+
+    for (node in nodes) {
+        val nodeMap = node as? Map<*, *> ?: continue
+        val attributes = nodeMap["attributes"] as? Map<*, *> ?: continue
+        val name = attributes["name"] as? String ?: continue
+
+        if (name == "passkey_create_data") {
+            val valueStr = attributes["value"] as? String ?: continue
+            val json = JSONObject(valueStr)
+            val credentialOptions = json.getJSONObject("credentialOptions")
+            val publicKey = credentialOptions.getJSONObject("publicKey")
+            return publicKey.getString("challenge")
+        }
+    }
+    return null
+}
+```
+
+Create the passkey:
+
+```kotlin
+suspend fun signUpWith(userName: String, requestJson: String, context: Context) {
+    val credentialManager = CredentialManager.create(context)
+
+    val request = CreatePublicKeyCredentialRequest(requestJson)
+
+    try {
+        val result = credentialManager.createCredential(
+            request = request,
+            context = context as Activity
+        ) as CreatePublicKeyCredentialResponse
+
+        submitRegistration(result.registrationResponseJson)
+    } catch (e: CreateCredentialException) {
+        // Handle error
+    }
+}
+```
+
+Submit the credential:
+
+```kotlin
+suspend fun submitRegistration(credentialJson: String) {
+    val url = URL("$oryBaseURL/self-service/registration?flow=$flowId")
+    val connection = url.openConnection() as HttpURLConnection
+    connection.requestMethod = "POST"
+    connection.setRequestProperty("Content-Type", "application/json")
+    connection.doOutput = true
+
+    val payload = JSONObject().apply {
+        put("method", "passkey")
+        put("passkey_register", credentialJson)
+        put("traits", JSONObject().apply {
+            put("email", userName)
+        })
+    }
+
+    connection.outputStream.write(payload.toString().toByteArray())
+    val response = connection.inputStream.bufferedReader().readText()
+    // Handle response...
+}
+```
+
+#### Login flow
+
+Initialize the login flow:
+
+```kotlin
+suspend fun initializeLoginFlow(): FlowResponse {
+    val url = URL("$oryBaseURL/self-service/login/api")
+    val connection = url.openConnection() as HttpURLConnection
+    connection.requestMethod = "GET"
+    connection.setRequestProperty("Accept", "application/json")
+
+    val response = connection.inputStream.bufferedReader().readText()
+    return parseFlowResponse(response)
+}
+```
+
+Parse the WebAuthn challenge:
+
+```kotlin
+fun extractLoginChallenge(flow: FlowResponse): String? {
+    val ui = flow.raw["ui"] as? Map<*, *> ?: return null
+    val nodes = ui["nodes"] as? List<*> ?: return null
+
+    for (node in nodes) {
+        val nodeMap = node as? Map<*, *> ?: continue
+        val attributes = nodeMap["attributes"] as? Map<*, *> ?: continue
+        val name = attributes["name"] as? String ?: continue
+
+        if (name == "passkey_challenge") {
+            val valueStr = attributes["value"] as? String ?: continue
+            val json = JSONObject(valueStr)
+            val publicKey = json.getJSONObject("publicKey")
+            return publicKey.getString("challenge")
+        }
+    }
+    return null
+}
+```
+
+Authenticate with passkey:
+
+```kotlin
+suspend fun signInWith(requestJson: String, context: Context) {
+    val credentialManager = CredentialManager.create(context)
+
+    val request = GetPublicKeyCredentialOption(requestJson)
+    val getCredRequest = GetCredentialRequest(listOf(request))
+
+    try {
+        val result = credentialManager.getCredential(
+            request = getCredRequest,
+            context = context as Activity
+        )
+
+        val credential = result.credential as PublicKeyCredential
+        submitLogin(credential.authenticationResponseJson)
+    } catch (e: GetCredentialException) {
+        // Handle error
+    }
+}
+```
+
+Submit the assertion:
+
+```kotlin
+suspend fun submitLogin(credentialJson: String) {
+    val url = URL("$oryBaseURL/self-service/login?flow=$flowId")
+    val connection = url.openConnection() as HttpURLConnection
+    connection.requestMethod = "POST"
+    connection.setRequestProperty("Content-Type", "application/json")
+    connection.doOutput = true
+
+    val payload = JSONObject().apply {
+        put("method", "passkey")
+        put("passkey_login", credentialJson)
+    }
+
+    connection.outputStream.write(payload.toString().toByteArray())
+    val response = connection.inputStream.bufferedReader().readText()
+    // Handle response...
+}
+```
+
+## API response handling
+
+### Flow response structure
+
+All registration and login flows return a similar structure:
+
+```json
+{
+  "id": "flow-id-uuid",
+  "type": "api",
+  "expires_at": "2025-11-23T12:00:00Z",
+  "issued_at": "2025-11-23T11:00:00Z",
+  "request_url": "https://example.com/self-service/registration/api",
+  "ui": {
+    "action": "https://example.com/self-service/registration?flow=flow-id-uuid",
+    "method": "POST",
+    "nodes": [...]
+  }
+}
+```
+
+### Node types to parse
+
+Registration flows contain these key nodes:
+
+- `csrf_token` (group: default): CSRF protection token
+- `traits.email` (group: default): User identity traits
+- `passkey_create_data` (group: passkey): WebAuthn creation options
+- `passkey_register` (group: passkey): Where to submit the credential
+
+Login flows contain:
+
+- `csrf_token` (group: default): CSRF protection token
+- `identifier` (group: default): Optional username field
+- `passkey_challenge` (group: passkey): WebAuthn assertion options
+- `passkey_login` (group: passkey): Where to submit the assertion
+
+### Success response
+
+On successful authentication, Ory returns a session:
+
+```json
+{
+  "session": {
+    "id": "session-id-uuid",
+    "active": true,
+    "expires_at": "2025-11-23T13:00:00Z",
+    "authenticated_at": "2025-11-23T11:00:00Z",
+    "authenticator_assurance_level": "aal1",
+    "authentication_methods": [
+      {
+        "method": "passkey",
+        "aal": "aal1",
+        "completed_at": "2025-11-23T11:00:00Z"
+      }
+    ],
+    "identity": {
+      "id": "identity-id-uuid",
+      "schema_id": "default",
+      "traits": {
+        "email": "user@example.com"
+      }
+    }
+  }
+}
+```
+
+Store the session token for authenticated requests. On mobile, use secure storage (iOS Keychain, Android Keystore).
+
+## Error handling
+
+### Common errors
+
+#### Invalid WebAuthn response
+
+```json
+{
+  "error": {
+    "id": "browser_location_change_required",
+    "code": 422,
+    "status": "Unprocessable Entity",
+    "reason": "Unable to parse WebAuthn response: Parse error for Registration"
+  }
+}
+```
+
+This error occurs when there is incorrect Base64URL encoding (using standard Base64 instead), missing required fields in the credential response, or malformed JSON in `passkey_register` or `passkey_login` fields.
+
+To resolve this, verify your Base64URL encoding and ensure all required WebAuthn response fields are included.
+
+#### Domain mismatch
+
+```json
+{
+  "error": {
+    "id": "security_identity_mismatch",
+    "code": 400,
+    "status": "Bad Request",
+    "reason": "The request was malformed or contained invalid parameters"
+  }
+}
+```
+
+This error occurs when the Associated Domains or `assetlinks.json` domain doesn't match Kratos `rp.id`, the AASA or `assetlinks.json` file isn't properly served, or the application uses HTTP instead of HTTPS.
+
+To resolve this, verify your Associated Domains entitlement matches your Kratos configuration. Test AASA file accessibility using `curl https://ory.your-custom-domain.com/.well-known/apple-app-site-association`. Test `assetlinks.json` using `curl https://ory.your-custom-domain.com/.well-known/assetlinks.json`. Ensure HTTPS with valid certificate.
+
+#### Flow expired
+
+```json
+{
+  "error": {
+    "id": "self_service_flow_expired",
+    "code": 410,
+    "status": "Gone",
+    "reason": "The self-service flow has expired"
+  }
+}
+```
+
+This error occurs when the user took too long to complete the flow (default: 1 hour).
+
+To resolve this, initialize a new flow and retry the operation.
+
+#### User canceled
+
+On mobile platforms, users can cancel the passkey prompt. Handle this gracefully.
+
+```mdx-code-block
+<Tabs groupId="mobile-platform">
+<TabItem value="ios" label="iOS">
+```
+
+```swift
+func authorizationController(controller: ASAuthorizationController,
+                            didCompleteWithError error: Error) {
+    if let authError = error as? ASAuthorizationError,
+       authError.code == .canceled {
+        // User canceled - show alternative login options
+    }
+}
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="android" label="Android">
+```
+
+```kotlin
+catch (e: GetCredentialException) {
+    when (e) {
+        is GetCredentialCancellationException -> {
+            // User canceled - show alternative login options
+        }
+    }
+}
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+### Mobile-specific issues
+
+#### AASA file not found on iOS
+
+The passkey prompt doesn't appear or the user sees "No credentials available" errors.
+
+To troubleshoot this issue:
+
+1. Verify the AASA file is accessible via browser.
+2. Check the file has correct `Content-Type: application/json`.
+3. Verify the Team ID and Bundle ID are correct.
+4. Try uninstalling and reinstalling the app.
+5. Check the device isn't using a VPN that blocks the domain.
+
+#### assetlinks.json validation failed on Android
+
+The user sees "No credentials found" errors or the passkey dialog doesn't show.
+
+To troubleshoot this issue:
+
+1. Verify the `assetlinks.json` file is accessible via browser.
+2. Use the [Statement List Generator and Tester](https://developers.google.com/digital-asset-links/tools/generator) to validate.
+3. Verify the SHA-256 fingerprint matches your signing key.
+4. Ensure the package name matches exactly.
+5. Clear app data and retry.
+
+#### Domain not HTTPS
+
+Both iOS and Android require HTTPS for passkeys. HTTP domains fail silently or with cryptic errors.
+
+To resolve this, use HTTPS with a valid TLS certificate. For local development, use a tool like [ngrok](https://ngrok.com/) to create an HTTPS tunnel.
+
+## Best practices
+
+### Session management
+
+Store session tokens securely using iOS Keychain or Android Keystore. Handle session expiration by checking session validity before making authenticated requests. Implement token refresh using Ory's `/sessions/whoami` endpoint to verify sessions.
+
+### User experience
+
+Provide fallback options to allow users to sign in with other methods if passkeys fail. Handle errors gracefully by showing user-friendly error messages. Support AutoFill on iOS 17+ and Android 14+ to enable AutoFill-assisted passkey sign-in for better user experience.
+
+### Testing
+
+Test on physical devices as passkeys don't work reliably in simulators or emulators. Test with multiple accounts to verify credential isolation. Test cross-platform to ensure passkeys created on one platform work on others via cloud sync.
+
+## Next steps
+
+Review the [Passkeys overview](../passwordless/passkeys) for configuration options. See [Self-Service Flows](../self-service) for more flow details. Check out the [API documentation](../reference/api) for complete endpoint reference.
