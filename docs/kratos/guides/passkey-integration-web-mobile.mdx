@@ -13,11 +13,19 @@ import TabItem from "@theme/TabItem"
 This guide covers how to implement passkey authentication in your applications using Ory Kratos or Ory Network. Passkeys provide a
 passwordless authentication experience using WebAuthn across web browsers and mobile platforms.
 
-:::info This page assumes you have already configured the passkey method in your Ory configuration. See the
-[Passkeys overview](../passwordless/passkeys) for initial setup instructions. :::
+:::info 
 
-:::note Code examples in this guide are illustrative and likely need adjustments based on your specific configuration, identity
-schema, and application requirements. :::
+This page assumes you have already configured the passkey method in your Ory configuration. See the
+[Passkeys overview](../passwordless/passkeys) for initial setup instructions. 
+
+:::
+
+:::note 
+
+Code examples in this guide are illustrative and likely need adjustments based on your specific configuration, identity
+schema, and application requirements. 
+
+:::
 
 ## Overview
 
@@ -118,8 +126,11 @@ Example `apple-app-site-association` file:
 The value uses the format `{Application_Identifier_Prefix}.{Bundle_Identifier}`. Find your Application Identifier Prefix (Team ID)
 in the [Apple Developer portal](https://developer.apple.com/account) under Membership.
 
-:::warning Ory Network doesn't currently host `apple-app-site-association` files automatically. This feature is planned for future
-releases. :::
+:::warning 
+
+Ory Network doesn't currently host `apple-app-site-association` files automatically.
+
+:::
 
 ```mdx-code-block
 <Tabs groupId="ory-network-or-kratos">
