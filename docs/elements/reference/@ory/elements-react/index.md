@@ -1,9 +1,3 @@
----
-id: index
-title: "@ory/elements-react"
-sidebar_label: "@ory/elements-react"
----
-
 # @ory/elements-react
 
 This package provides the core functionality for Ory Elements in React.
