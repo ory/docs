@@ -1,7 +1,7 @@
 ---
-id: passkeys-implementation
+id: passkeys-mobile
 title: Implement passkey authentication in web and mobile applications
-sidebar_label: Passkeys implementation
+sidebar_label: Passkeys for mobile
 slug: passkeys-mobile-web-implementation
 ---
 
@@ -12,7 +12,7 @@ This guide covers how to implement passkey authentication in your applications u
 passwordless authentication experience using WebAuthn across web browsers and mobile platforms.
 
 This page assumes you have already configured the passkey method in your Ory configuration. See the
-[Passkeys overview](../passwordless/passkeys) for initial setup instructions.
+[Passkeys overview](./05_passkeys.mdx) for initial setup instructions.
 
 :::note
 
@@ -52,8 +52,8 @@ The script automatically:
 - Calls `navigator.credentials.get()` for authentication.
 - Submits the WebAuthn response back to Ory.
 
-See [Custom UI Advanced Integration](../bring-your-own-ui/custom-ui-advanced-integration#passwordless-authentication) for details
-on using `webauthn.js` in custom UIs.
+See [Custom UI Advanced Integration](../bring-your-own-ui/custom-ui-advanced-integration#passwordless-authentication.mdx) for
+details on using `webauthn.js` in custom UIs.
 
 ### Manual WebAuthn integration
 
@@ -899,5 +899,5 @@ credential isolation. Test cross-platform to ensure passkeys created on one plat
 
 ## Next steps
 
-Review the [Passkeys overview](../passwordless/passkeys) for configuration options. See [Self-Service Flows](../self-service) for
-more flow details. Check out the [API documentation](../reference/api) for complete endpoint reference.
+Review the [Passkeys overview](./05_passkeys.mdx) for configuration options. See [Self-Service Flows](../self-service.mdx) for
+more flow details. Check out the [API documentation](../reference/api.mdx) for complete endpoint reference.

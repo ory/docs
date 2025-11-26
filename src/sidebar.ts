@@ -358,6 +358,7 @@ const kratos: SidebarItemsConfig = [
           "kratos/passwordless/passwordless",
           "kratos/passwordless/one-time-code",
           "kratos/passwordless/passkeys",
+          "kratos/passwordless/passkeys-mobile",
           "kratos/organizations/organizations",
           "kratos/emails-sms/custom-email-templates",
         ],
