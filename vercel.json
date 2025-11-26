@@ -1201,17 +1201,17 @@
     },
     {
       "source": "/docs/ecosystem/benchmark",
-      "destination": "/docs/docs/oauth2-oidc",
+      "destination": "/docs/oauth2-oidc",
       "permanent": false
     },
     {
       "source": "/docs/hydra/case-study",
-      "destination": "/docs/docs/oauth2-oidc",
+      "destination": "/docs/oauth2-oidc",
       "permanent": false
     },
     {
       "source": "/docs/hydra/faq",
-      "destination": "/docs/docs/oauth2-oidc",
+      "destination": "/docs/oauth2-oidc",
       "permanent": false
     },
     {
