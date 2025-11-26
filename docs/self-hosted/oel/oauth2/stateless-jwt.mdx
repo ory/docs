@@ -4,13 +4,14 @@ title: Stateless JWT access tokens
 sidebar_label: Stateless JWT tokens
 ---
 
-# Stateless JWT access tokens
-
 This document explains how to configure stateless JWT access tokens in Ory Hydra. When enabled, JWT access tokens are issued as
 self-contained tokens without persisting them to the database, significantly improving performance for high-throughput workloads.
 
-Stateless JWT access tokens are available only to customers on an Ory Enterprise plan (Ory Enterprise License / Ory Network
-Enterprise). If you are interested in this feature, please [contact us](https://www.ory.sh/contact).
+```mdx-code-block
+import Help from '@site/docs/_common/need-help.mdx'
+
+<Help/>
+```
 
 ## Overview
 
@@ -23,27 +24,26 @@ tokens are issued as self-contained JWTs with a configurable boolean claim that 
 require token state (introspection, revocation, and userinfo) will return an error for these tokens.
 
 This feature applies when either the OAuth2 client is configured to use the JWT access token strategy or the global access token
-strategy is set to JWT (instead of opaque).
+strategy is set to JWT instead of opaque.
 
 ## How it works
 
 When stateless JWT tokens are enabled:
 
-1. **Token Generation**: JWT access tokens are issued with an additional boolean claim (default: `sl`) set to `true`. This claim
+1. Token Generation: JWT access tokens are issued with an additional boolean claim (default: `sl`) set to `true`. This claim
    identifies the token as stateless.
 
-2. **No Database Writes**: Access token sessions are not written to the database, eliminating write operations and improving
+2. No Database Writes: Access token sessions are not written to the database, eliminating write operations and improving
    performance.
 
-3. **Stateful Operations Unavailable**: Operations that require token state return HTTP 501 (Not Implemented) with error
+3. Stateful Operations Unavailable: Operations that require token state return HTTP 501 (Not Implemented) with error
    `unsupported_token_type`:
 
-   - **Token Introspection** (`/oauth2/introspect`): Returns 501 for stateless JWT tokens
-   - **Token Revocation** (`/oauth2/revoke`): Returns 501 for stateless JWT tokens
-   - **Userinfo Endpoint** (`/userinfo`): Returns 501 for stateless JWT tokens
+   - Token Introspection (`/oauth2/introspect`): Returns 501 for stateless JWT tokens
+   - Token Revocation (`/oauth2/revoke`): Returns 501 for stateless JWT tokens
+   - Userinfo Endpoint (`/userinfo`): Returns 501 for stateless JWT tokens
 
-4. **Standard JWT Validation**: Token validation continues to work through standard JWT signature verification and claims
-   validation.
+4. Standard JWT Validation: Token validation continues to work through standard JWT signature verification and claims validation.
 
 ## Configuration
 
@@ -113,63 +113,35 @@ Enabling stateless JWT tokens disables certain OAuth2 and OpenID Connect feature
 
 ### Token introspection
 
-**Endpoint**: `/oauth2/introspect`
+Endpoint: `/oauth2/introspect`
 
 When introspecting a stateless JWT access token, the endpoint returns:
 
-- **HTTP Status**: 501 Not Implemented
-- **Error**: `unsupported_token_type`
+- HTTP Status: 501 Not Implemented
+- Error: `unsupported_token_type`
 
 Standard opaque and JWT access tokens (with stateless disabled) continue to support introspection normally.
 
 ### Token revocation
 
-**Endpoint**: `/oauth2/revoke`
+Endpoint: `/oauth2/revoke`
 
 Attempting to revoke a stateless JWT access token returns:
 
-- **HTTP Status**: 501 Not Implemented
-- **Error**: `unsupported_token_type`
+- HTTP Status: 501 Not Implemented
+- Error: `unsupported_token_type`
 
 Since stateless tokens are not persisted in the database, they cannot be revoked. Token expiration is enforced through the JWT
 `exp` claim during validation.
 
 ### Userinfo endpoint
 
-**Endpoint**: `/userinfo`
+Endpoint: `/userinfo`
 
 Requesting user information with a stateless JWT access token returns:
 
-- **HTTP Status**: 501 Not Implemented
-- **Error**: `unsupported_token_type`
+- HTTP Status: 501 Not Implemented
+- Error: `unsupported_token_type`
 
 The userinfo endpoint requires database lookups to retrieve the consent session data associated with the access token, which is
 not available for stateless tokens.
-
-## When to use stateless JWT tokens
-
-Stateless JWT access tokens are suitable for scenarios where:
-
-- **High throughput is required**: Applications with high token issuance rates benefit from eliminating database writes
-- **Token revocation is not needed**: Workloads that rely solely on JWT expiration for token lifecycle management
-- **Introspection is not used**: Resource servers validate tokens using JWT signature verification rather than introspection
-- **Userinfo endpoint is not required**: Client applications do not call the userinfo endpoint for user information
-- **JWT access tokens are used**: The feature only applies when clients or the global strategy is configured for JWT tokens (not
-  opaque tokens)
-
-## When not to use stateless JWT tokens
-
-Do not enable stateless JWT tokens if your application requires:
-
-- **Token revocation**: Immediate invalidation of access tokens before expiration
-- **Token introspection**: Validating tokens through the introspection endpoint
-- **Userinfo endpoint support**: Retrieving user information associated with access tokens
-- **Audit trail of active tokens**: Database records of issued tokens for compliance or auditing purposes
-
-## Performance considerations
-
-Enabling stateless JWT tokens provides performance benefits by:
-
-- Eliminating database write operations for access token sessions
-- Reducing database connection pool usage during token issuance
-- Decreasing storage requirements by not persisting JWT access tokens
