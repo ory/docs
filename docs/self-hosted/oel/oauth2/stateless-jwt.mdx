@@ -109,7 +109,7 @@ The `sl` claim (or your custom claim name) with a boolean value of `true` identi
 
 ## Functional limitations
 
-Enabling stateless JWT tokens disables certain OAuth2 and OpenID Connect features that require access to persisted token state.
+Enabling stateless JWT tokens disables certain OAuth2 and OpenID Connect features that require access to a persisted token state.
 
 ### Token introspection
 
@@ -143,5 +143,4 @@ Requesting user information with a stateless JWT access token returns:
 - HTTP Status: 501 Not Implemented
 - Error: `unsupported_token_type`
 
-The userinfo endpoint requires database lookups to retrieve the consent session data associated with the access token, which is
-not available for stateless tokens.
+The `/userinfo` endpoint requires database lookups to retrieve the consent session data associated with the access token.
