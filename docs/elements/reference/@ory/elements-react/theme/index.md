@@ -1,3 +1,9 @@
+---
+id: index
+title: "@ory/elements-react/theme"
+sidebar_label: "theme"
+---
+
 # @ory/elements-react/theme
 
 This package provides the default theme for Ory Elements React.

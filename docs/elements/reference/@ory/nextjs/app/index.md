@@ -1,3 +1,9 @@
+---
+id: index
+title: "@ory/nextjs/app"
+sidebar_label: "app"
+---
+
 # @ory/nextjs/app
 
 ## Interfaces

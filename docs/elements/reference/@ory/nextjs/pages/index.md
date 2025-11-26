@@ -1,3 +1,9 @@
+---
+id: index
+title: "@ory/nextjs/pages"
+sidebar_label: "pages"
+---
+
 # @ory/nextjs/pages
 
 ## Hooks
