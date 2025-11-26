@@ -23,6 +23,7 @@ Follow these steps to integrate Ory:
 import CodeFromRemote from "@theme/CodeFromRemote"
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
+import ConfigureProductionSdkUrl from '../_common/configure-production-sdk-url.mdx'
 ```
 
 ## Clone Next.js app
@@ -74,7 +75,7 @@ To create the client using the Ory Console:
 7. Add the following to **Redirect URIs**:
 
    ```
-   http://localhost:3000/api/auth/callback/ory
+   http://localhost:3000/auth/callback/ory
    ```
 
 8. Add the following to **Post Logout Redirect URIs**:
@@ -115,8 +116,8 @@ Update your `.env.local` file to match the example:
 <CodeFromRemote lang="env" src="https://github.com/ory/next-auth-example/blob/main/.env.local.example" />
 ```
 
-Also add your Ory SDK URL. You can find it in the [**Get started**](https://console.ory.sh/projects/current/get-started) section
-of the Ory Console.
+Also add your Ory SDK URL as `ORY_SDK_URL`. You can find it in the
+[**Get started**](https://console.ory.sh/projects/current/get-started) section of the Ory Console.
 
 ## Test your application
 
@@ -148,6 +149,10 @@ import ToProd from '../_common/going-to-prod.mdx'
 <ToProd />
 ```
 
+```mdx-code-block
+<ConfigureProductionSdkUrl />
+```
+
 ## Troubleshoot common integration errors
 
 ### Resolve redirect URL mismatch errors
@@ -159,5 +164,21 @@ The request is missing a required parameter, includes an invalid parameter value
 The 'redirect_uri' parameter does not match any of the OAuth 2.0 Client's pre-registered redirect URLs.
 ```
 
-Make sure that the redirect URL exactly matches the one registered in Ory. Use the browser’s network tab to inspect requests made
+Make sure that the redirect URL exactly matches the one registered in Ory. Use the browser's network tab to inspect requests made
 to `/oauth2/auth`.
+
+### Resolve UntrustedHost errors
+
+If you receive an error like:
+
+```
+[auth][error] UntrustedHost: Host must be trusted. URL was: http://localhost:3000/auth/signin?callbackUrl=...
+```
+
+Add the following to your `.env.local` file:
+
+```
+AUTH_TRUST_HOST=1
+```
+
+This allows Auth.js to trust the localhost host during development. For production, make sure to configure trusted hosts properly.
