@@ -496,7 +496,7 @@
     },
     {
       "source": "/docs/kratos/concepts/federation",
-      "destination": "https://www.ory.com/docs/kratos/",
+      "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
     },
     {
@@ -511,7 +511,7 @@
     },
     {
       "source": "/docs/kratos/concepts/securing-applications",
-      "destination": "https://www.ory.com/docs/kratos/",
+      "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
     },
     {
@@ -521,7 +521,7 @@
     },
     {
       "source": "/docs/kratos/further-reading/comparison",
-      "destination": "https://www.ory.com/docs/kratos/",
+      "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
     },
     {
@@ -566,7 +566,7 @@
     },
     {
       "source": "/docs/start-building/single-page-app-spa",
-      "destination": "https://www.ory.com/login-spa-react-nextjs-authentication-example-api-open-source/",
+      "destination": "https://www.ory.com/login-spa-react-nextjs-authentication-example-api-open-source",
       "permanent": false
     },
     {
@@ -916,12 +916,12 @@
     },
     {
       "source": "/docs/kratos/emails-sms/sms-messages",
-      "destination": "https://www.ory.com/docs/kratos/",
+      "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
     },
     {
       "source": "/docs/kratos/self-hosted/sms-messages",
-      "destination": "https://www.ory.com/docs/kratos/",
+      "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
     },
     {
@@ -1151,7 +1151,7 @@
     },
     {
       "source": "/docs/kratos/ory-kratos-intro",
-      "destination": "/docs/identities/",
+      "destination": "/docs/identities",
       "permanent": false
     },
     {
@@ -1166,7 +1166,7 @@
     },
     {
       "source": "/docs/identities/sign-in/saml",
-      "destination": "/docs/kratos/organizations/",
+      "destination": "/docs/kratos/organizations",
       "permanent": false
     },
     {

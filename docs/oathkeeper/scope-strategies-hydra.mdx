@@ -12,7 +12,7 @@ When using Ory Oathkeeper together with Ory Hydra the scope strategy needs to be
 Ory Oathkeeper sends the scope as part of the introspection request.
 [(More about token introspection)](https://www.oauth.com/oauth2-servers/token-introspection-endpoint/)
 
-[Hydra](https://www.ory.com/hydra/docs/guides/oauth2-token-introspection/) processes this scope parameter (which is actually not
+[Hydra](https://www.ory.com/hydra/docs/guides/oauth2-token-introspection) processes this scope parameter (which is actually not
 defined in the OAuth2 Introspection RFC) according to the scope strategy defined in Hydra.
 
 The scope strategy defined in Ory Oathkeeper serves as a fallback for when OAuth2 servers don't implement this feature.
