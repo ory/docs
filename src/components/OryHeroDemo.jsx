@@ -8,7 +8,7 @@ const OryHeroDemo = () => {
 
   const script = [
     // CLI setup
-    { type: "comment", text: "# One-time project setup", delay: 0 },
+    { type: "comment", text: "# One-time project setup via Ory CLI", delay: 0 },
     { type: "command", text: "brew install ory/tap/cli", delay: 300 },
     { type: "output", text: "Installing ory...", delay: 500 },
     { type: "success", text: "✓ Installed", delay: 600 },
@@ -16,22 +16,22 @@ const OryHeroDemo = () => {
     { type: "output", text: "Opening browser to create your Ory developer account...", delay: 500 },
     { type: "success", text: "✓ Authenticated as <your-email>", delay: 700 },
     { type: "command", text: "ory create project --name \"MyApp\"", delay: 400 },
-    { type: "output", text: "Project created!", delay: 600 },
-    { type: "output", text: "Slug: myapp-abc123", delay: 200 },
+    { type: "output", text: "Project slug: myapp-abc123", delay: 600 },
+    { type: "success", text: "✓ Project created", delay: 200 },
     
     // API registration
-    { type: "comment", text: "# Register a user via API", delay: 600 },
-    { type: "note", text: "Note: Traits depend on your identity schema. This sample uses Ory's 'username' preset.", delay: 400 },
+    { type: "comment", text: "# Register a user via Ory API", delay: 600 },
+    { type: "note", text: "Note: Traits depend on your identity schema. This sample uses Ory's 'username' preset schema.", delay: 400 },
     { type: "command", text: "curl -s -X GET \\", delay: 300 },
     { type: "command-cont", text: "  \"https://<YOUR_PROJECT_SLUG>.projects.oryapis.com/self-service/registration/api\"", delay: 100 },
-    { type: "output", text: "{ \"id\": \"<FLOW_ID>\", \"type\": \"api\", \"ui\": { ... } }", delay: 500 },
+    { type: "output", text: "{ \"id\": \"<FLOW_ID>\", \"type\": \"api\", \"expires_at\":\"...\",\"issued_at\":\"...\",\"request_url\":\"<YOUR_PROJECT_SLUG>/self-service/registration/api\",\"ui\":{\"action\":\"<YOUR_PROJECT_SLUG>.projects.oryapis.com/self-service/registration?flow=<FLOW_ID>\",\"method\":\"POST\", ... } }", delay: 500 },
     { type: "command", text: "curl -s -X POST \\", delay: 400 },
     { type: "command-cont", text: "  -H \"Content-Type: application/json\" \\", delay: 100 },
     { type: "command-cont", text: "  -d '{\"traits\":{\"username\":\"<YOUR_USERNAME>\"},\"password\":\"<YOUR_PASSWORD>\",\"method\":\"password\"}' \\", delay: 100 },
     { type: "command-cont", text: "  \"https://<YOUR_PROJECT_SLUG>.projects.oryapis.com/self-service/registration?flow=<FLOW_ID>\"", delay: 100 },
-    { type: "output", text: "{ \"identity\": { \"id\": \"...\", \"traits\": { \"username\": \"<YOUR_USERNAME>\" } } }", delay: 600 },
+    { type: "output", text: "{\"identity\":{\"id\":\"...\",\"schema_id\":\"preset://username\",\"schema_url\":\"<YOUR_PROJECT_SLUG>.projects.oryapis.com/schemas/cHJlc2V0Oi8vdXNlcm5hbWU\",\"state\":\"active\", ... } }", delay: 600 },
     { type: "success", text: "✓ User registered!", delay: 400 },
-    { type: "link", text: "Create your free project →", url: "https://console.ory.sh/", delay: 300 },
+    { type: "link", text: "Create your free project via Ory Console →", url: "https://console.ory.sh/", delay: 300 },
   ]
 
   const runDemo = async () => {
@@ -70,16 +70,16 @@ const OryHeroDemo = () => {
       borderRadius: "8px",
       overflow: "hidden",
       boxShadow: "0 12px 30px rgba(0,0,0,0.25)",
-      background: "#1e1e1e",
-      border: "1px solid #333",
+      background: "#1a1033",
+      border: "1px solid #3d2a6d",
     },
     header: {
       display: "flex",
       alignItems: "center",
       gap: "8px",
       padding: "12px 16px",
-      background: "#2d2d2d",
-      borderBottom: "1px solid #333",
+      background: "#241845",
+      borderBottom: "1px solid #3d2a6d",
     },
     trafficLights: {
       display: "flex",
@@ -101,36 +101,36 @@ const OryHeroDemo = () => {
       padding: "16px",
       fontFamily: "monospace",
       fontSize: "13px",
-      minHeight: "200px",
-      maxHeight: "200px",
+      height: "320px",
       overflowY: "auto",
     },
     comment: {
-      color: "#6a9955",
+      color: "#d2a8ff",
       marginTop: "12px",
     },
     note: {
-      color: "#dcdcaa",
+      color: "#d2a8ff",
       fontSize: "11px",
       marginTop: "4px",
       marginBottom: "8px",
+      paddingLeft: "16px",
     },
     command: {
-      color: "#d4d4d4",
+      color: "#ffffff",
     },
     commandCont: {
-      color: "#d4d4d4",
+      color: "#ffffff",
       paddingLeft: "16px",
     },
     prompt: {
-      color: "#6a9955",
+      color: "#67e8f9",
     },
     output: {
-      color: "#808080",
+      color: "#a5d6ff",
       paddingLeft: "8px",
     },
     success: {
-      color: "#4ec9b0",
+      color: "#ff7b72",
       paddingLeft: "8px",
       fontWeight: "600",
     },
@@ -160,8 +160,8 @@ const OryHeroDemo = () => {
       display: "flex",
       gap: "8px",
       padding: "12px 16px",
-      background: "#2d2d2d",
-      borderTop: "1px solid #333",
+      background: "#241845",
+      borderTop: "1px solid #3d2a6d",
     },
     button: {
       padding: "6px 16px",
@@ -216,8 +216,8 @@ const OryHeroDemo = () => {
         <div ref={terminalRef} style={styles.body}>
           {/* Initial prompt when empty */}
           {lines.length === 0 && !isRunning && (
-            <div style={{ color: "#808080" }}>
-              <span style={styles.prompt}>$</span> Click "Run" to start the demo...
+            <div style={{ color: "#67e8f9" }}>
+              <span style={styles.prompt}>$</span> From zero to registered user in minutes! Click 'Run'.
             </div>
           )}
 

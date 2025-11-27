@@ -7,54 +7,88 @@ import CodeBlock from "@theme/CodeBlock"
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import OryHeroDemo from "@site/src/components/OryHeroDemo"
+import heroBg from "@site/src/static/img/background_image2.png"
 
-function Hero() {
+function StartHeading() {
+  const guides = [
+    {
+      to: "/products",
+    },
+    {
+      to: "/quickstarts",
+    },
+    {
+      to: "/reference",
+    },
+  ]
+
   return (
-    <section className="hero hero--primary" style={{ padding: "4rem 0 3rem" }}>
+    <section style={{ padding: "2.5rem 0 1.5rem", backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
       <div className="container">
-        <div className="row">
-          {/* Left: text */}
-          <div className="col col--5">
-            <h1 className="hero__title">Build secure identity into your apps</h1>
-            <p className="hero__subtitle" style={{ maxWidth: 520 }}>
-              Ory gives you authentication, authorization, and user management APIs
+        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+          <h1>How to use the Ory help center</h1>
+          <p style={{ maxWidth: 800, margin: "0 auto" }}>Ory gives you authentication, authorization, and user management APIs
               designed for modern applications. Start fast, scale to millions, and
-              keep security best practices baked in.
-            </p>
+              keep security best practices baked in.</p>
+          <div style={{ 
+            height: "1px", 
+            margin: "1rem 0" 
+            }} />
+          <p style={{ maxWidth: 800, margin: "0 auto" }}>
+            <strong>Not sure where to start?</strong> Follow our guided paths—structured journeys that walk you through Ory's products and solutions so you can learn and build faster.
+          </p>
+        </div>
 
-            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "1.25rem" }}>
-              <Link
-                className="button button--secondary button--lg"
-                to="/network/getting-started"
-              >
-                Get started with Ory Network
-              </Link>
-              <Link
-                className="button button--outline button--lg"
-                to="/getting-started/overview"
-              >
-                Explore all getting-started guides
-              </Link>
+        <div className="row">
+          {guides.map((guide, index) => (
+            <div className="col col--4" key={index}>
+              <div className="card" style={{ height: "100%" }}>
+                {index === 0 && (
+                  <div className="card__header">
+                    <p style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>
+                      <strong>Want to learn more about a specific product suite or solution?</strong> Go directly to product and solution specific information.
+                    </p>
+                  </div>
+                )}
+                {index === 1 && (
+                  <div className="card__header">
+                    <p style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>
+                      <strong>Want to start coding and need an example?</strong> Take a look in the Quickstarts to find the framework and language you want to use.
+                    </p>
+                  </div>
+                )}
+                {index === 2 && (
+                  <div className="card__header">
+                    <p style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>
+                      <strong>Want to find the right API to use?</strong> Go directly to the REST API, SDKs, or CLI references.
+                    </p>
+                  </div>
+                )}
+                {index === 0 && (
+                  <div className="card__footer">
+                    <Link to="/products">Click on <strong>Products</strong> or <strong>Solutions</strong></Link>
+                  </div>
+                )}
+                {index === 1 && (
+                  <div className="card__footer">
+                    <Link to="/quickstarts">Click on <strong>Quickstarts</strong></Link>
+                  </div>
+                )}
+                {index === 2 && (
+                  <div className="card__footer">
+                    <Link to="/reference">Click on <strong>Reference</strong></Link>
+                  </div>
+                )}
+              </div>
             </div>
-
-            <p style={{ marginTop: "1rem", fontSize: "0.9rem", opacity: 0.85 }}>
-              Prefer to self-host?{" "}
-              <Link to="/oel/getting-started">Start with Ory Enterprise License</Link>{" "}
-              or <Link to="/oss/getting-started">open source</Link>.
-            </p>
-          </div>
-
-          {/* Right: interactive demo */}
-          <div className="col col--7">
-            <OryHeroDemo />
-          </div>
+          ))}
         </div>
       </div>
     </section>
   )
 }
 
-function ProductQuickstarts() {
+function Hero() {
   const cards = [
     {
       label: "Ory Network",
@@ -80,14 +114,87 @@ function ProductQuickstarts() {
   ]
 
   return (
+    <section 
+      className="hero" 
+      style={{ 
+        padding: "1rem 0 1.5rem", 
+        backgroundImage: "url('/img/hero-bg.webp')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="container">
+        {/* Heading above both columns */}
+        <h2 className="hero__title" style={{ marginBottom: "1.5rem", fontSize: "1.5rem"}}>
+          Choose a deployment model 
+        </h2>
+        
+        <div className="row" style={{ alignItems: "flex-start" }}>
+          {/* Left: text and cards */}
+          <div className="col col--5">
+            <p className="hero__subtitle" style={{ maxWidth: 520, marginTop: 0, fontSize: "1rem" }}>
+              Choose the deployment model that fits your organization and build secure IAM into your apps. You can switch later — the core concepts stay the same.
+            </p>
+
+            {/* Product cards */}
+            <div style={{ marginTop: "1.5rem" }}>
+              {cards.map(card => (
+                <div className="card" style={{ marginBottom: "1rem" }} key={card.label}>
+                  <div className="card__header">
+                    <h3 style={{ fontSize: "1rem", marginBottom: "0.25rem" }}>{card.label}</h3>
+                  </div>
+                  <div className="card__body" style={{ paddingTop: 0 }}>
+                    <p style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>{card.description}</p>
+                    <p style={{ fontSize: "0.75rem", opacity: 0.8, marginBottom: "0.5rem" }}>{card.meta}</p>
+                    <Link className="button button--secondary button--sm" to={card.to}>
+                      View quickstart
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: interactive demo */}
+          <div className="col col--7">
+            <OryHeroDemo />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function ProductQuickstarts() {
+  const cards = [
+    {
+      label: "Ory Kratos/Indentities",
+      description:
+        "Description TBD",
+      to: "/network/getting-started",
+    },
+    {
+      label: "Ory Hyra/OAuth2 & OIDC",
+      description:
+        "Description TBD",
+      to: "/oel/getting-started",
+    },
+    {
+      label: "Ory Keto/Permissions",
+      description:
+        "Description TBD",
+      to: "/oss/getting-started",
+    },
+  ]
+
+  return (
     <section style={{ padding: "2.5rem 0 1.5rem" }}>
       <div className="container">
         <div className="row margin-bottom--sm">
           <div className="col col--8">
-            <h2>Start by product</h2>
+            <h2 style={{ marginBottom: "1.5rem", fontSize: "1.5rem"}}>Start by product</h2>
             <p style={{ maxWidth: 540 }}>
-              Choose the deployment model that fits your organization. You can switch
-              later — the core concepts stay the same.
+              Choose the Ory product(s) that fits your needs.
             </p>
           </div>
         </div>
@@ -105,7 +212,7 @@ function ProductQuickstarts() {
                 </div>
                 <div className="card__footer">
                   <Link className="button button--secondary button--sm" to={card.to}>
-                    View quickstart
+                    Get started
                   </Link>
                 </div>
               </div>
@@ -331,6 +438,7 @@ function ToolsAndEcosystem() {
 export default function WelcomePage() {
   return (
     <Layout title="Ory Documentation" description="Developer documentation for Ory">
+      <StartHeading/>
       <Hero />
       <ProductQuickstarts />
       <LanguageQuickstarts />
