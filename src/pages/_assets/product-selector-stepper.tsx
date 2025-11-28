@@ -1,6 +1,7 @@
 import Mermaid from "@site/src/theme/Mermaid"
 import React, { useState, useEffect } from "react"
 import styles from "./product-selector-stepper.module.css"
+import graphStyles from "./product-selector-graph.module.css"
 
 // Types
 type ComponentKey =
@@ -515,33 +516,22 @@ export function ProductSelectorStepper() {
                     Based on your answers, here are the recommended Ory products for your
                     use case:
                   </p>
-                  <div className={styles.componentsSummary}>
+                  <ul className={styles.componentsList}>
                     {selectedComponents.map((component) => {
                       const config = COMPONENT_CONFIGS.find((c) => c.key === component)
                       if (!config) return null
                       return (
-                        <div key={component} className={styles.componentCard}>
-                          <div className={styles.componentCardHeader}>
-                            <img
-                              src={config.logoUrl}
-                              alt={config.label}
-                              className={styles.componentLogo}
-                            />
-                            <h4 className={styles.componentName}>{config.label}</h4>
-                          </div>
-                          <p className={styles.componentDescription}>
-                            {config.description}
-                          </p>
+                        <li key={component} className={styles.componentListItem}>
                           <a
                             href={config.gettingStartedUrl}
-                            className={styles.gettingStartedLink}
+                            className={styles.componentLink}
                           >
-                            Get Started →
+                            {config.label}
                           </a>
-                        </div>
+                        </li>
                       )
                     })}
-                  </div>
+                  </ul>
                 </>
               ) : (
                 <p className={styles.completionDescription}>
@@ -586,9 +576,9 @@ export function ProductSelectorStepper() {
 
         {/* Right column: Graph visualization */}
         <div className={styles.graphColumn}>
-          <div className={styles.graphSection}>
-            <h3 className={styles.graphTitle}>Your Architecture</h3>
-            <div className={styles.graphContainer}>
+          <div className={graphStyles.graphSection}>
+            <h3 className={graphStyles.graphTitle}>Your Architecture</h3>
+            <div className={graphStyles.graphContainer}>
               <Mermaid chart={chart} />
             </div>
           </div>
