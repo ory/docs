@@ -3,9 +3,12 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 
 const DEFAULT_FRAMEWORKS = [
-  { value: "javascript", label: "Expressjs" },
+  { value: "javascript", label: "Express.js (JS)" },
+  { value: "typescript", label: "Express.js (TS)" },
   { value: "nextjs", label: "Next.js" },
   { value: "go", label: "Go" },
+  { value: "java", label: "Java" },
+  { value: "csharp", label: "C#" },
 ]
 
 export const FrameworkCodeTabs = ({ children }) => {

@@ -8,6 +8,7 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import OryHeroDemo from "@site/src/components/OryHeroDemo"
 import heroBg from "@site/src/static/img/background_image2.png"
+import { ProductSelectorStepper } from "./_assets/product-selector-stepper"
 
 function StartHeading() {
   const guides = [
@@ -166,59 +167,10 @@ function Hero() {
 }
 
 function ProductQuickstarts() {
-  const cards = [
-    {
-      label: "Ory Kratos/Indentities",
-      description:
-        "Description TBD",
-      to: "/network/getting-started",
-    },
-    {
-      label: "Ory Hyra/OAuth2 & OIDC",
-      description:
-        "Description TBD",
-      to: "/oel/getting-started",
-    },
-    {
-      label: "Ory Keto/Permissions",
-      description:
-        "Description TBD",
-      to: "/oss/getting-started",
-    },
-  ]
-
   return (
     <section style={{ padding: "2.5rem 0 1.5rem" }}>
       <div className="container">
-        <div className="row margin-bottom--sm">
-          <div className="col col--8">
-            <h2 style={{ marginBottom: "1.5rem", fontSize: "1.5rem"}}>Start by product</h2>
-            <p style={{ maxWidth: 540 }}>
-              Choose the Ory product(s) that fits your needs.
-            </p>
-          </div>
-        </div>
-
-        <div className="row">
-          {cards.map(card => (
-            <div className="col col--4" key={card.label}>
-              <div className="card" style={{ height: "100%" }}>
-                <div className="card__header">
-                  <h3>{card.label}</h3>
-                </div>
-                <div className="card__body">
-                  <p>{card.description}</p>
-                  <p style={{ fontSize: "0.8rem", opacity: 0.8 }}>{card.meta}</p>
-                </div>
-                <div className="card__footer">
-                  <Link className="button button--secondary button--sm" to={card.to}>
-                    Get started
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ProductSelectorStepper />
       </div>
     </section>
   )

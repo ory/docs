@@ -1,0 +1,590 @@
+/* Product Selector Stepper Styles */
+.stepper {
+  width: 100%;
+}
+
+.contentWrapper {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.stepperColumn {
+  flex: 1;
+  min-width: 0;
+}
+
+.graphColumn {
+  flex: 1;
+  min-width: 0;
+  position: sticky;
+  top: 2rem;
+  align-self: flex-start;
+  padding-top: 2rem; /* Align with step card (matches progress container margin-bottom) */
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: var(--ifm-h2-font-size);
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+.description {
+  font-size: var(--ifm-font-size-base);
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+}
+
+/* Progress Indicator */
+.progressContainer {
+  margin-bottom: 2rem;
+}
+
+.progressBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.progressSegment {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--ifm-color-emphasis-200);
+  transition: background-color 0.2s ease;
+}
+
+.progressSegmentActive {
+  background-color: var(--ifm-color-primary);
+}
+
+.progressDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--ifm-color-emphasis-200);
+  transition: background-color 0.2s ease;
+}
+
+.progressDotActive {
+  background-color: var(--ifm-color-primary);
+}
+
+.progressText {
+  font-size: var(--ifm-font-size-sm);
+  color: var(--ifm-color-emphasis-600);
+  text-align: center;
+}
+
+/* Step Card */
+.stepCard {
+  background-color: var(--ifm-pre-background);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: all 0.2s ease;
+}
+
+.stepCard:hover {
+  border-color: var(--ifm-color-emphasis-300);
+}
+
+.stepTitle {
+  font-size: var(--ifm-h3-font-size);
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+.stepQuestion {
+  font-size: var(--ifm-font-size-lg);
+  margin-bottom: 1.5rem;
+  color: var(--ifm-color-emphasis-800);
+  line-height: 1.6;
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.optionButton {
+  width: 100%;
+  text-align: left;
+  padding: 1rem 1.25rem;
+  background-color: transparent;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  color: var(--ifm-font-color-base);
+  font-size: var(--ifm-font-size-base);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.optionButton:hover {
+  background-color: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-1px);
+}
+
+.optionButton:active {
+  transform: translateY(0);
+}
+
+.optionButtonSelected {
+  background-color: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-primary);
+  border-width: 2px;
+}
+
+:global([data-theme="dark"]) .optionButtonSelected {
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+/* Completion Card */
+.completionCard {
+  background-color: var(--ifm-pre-background);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.completionTitle {
+  font-size: var(--ifm-h3-font-size);
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+.completionDescription {
+  font-size: var(--ifm-font-size-base);
+  margin-bottom: 1.5rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+}
+
+.componentsSummary {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.componentCard {
+  background-color: var(--ifm-pre-background);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.componentCard:hover {
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.componentCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.componentLogo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.componentName {
+  font-size: var(--ifm-h4-font-size);
+  font-weight: 600;
+  margin: 0;
+  color: var(--ifm-color-primary);
+  flex: 1;
+}
+
+.componentDescription {
+  font-size: var(--ifm-font-size-base);
+  color: var(--ifm-color-emphasis-700);
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.gettingStartedLink {
+  display: inline-flex;
+  align-items: center;
+  color: var(--ifm-color-primary);
+  font-weight: 500;
+  font-size: var(--ifm-font-size-base);
+  text-decoration: none;
+  margin-top: auto;
+  transition: color 0.2s ease;
+}
+
+.gettingStartedLink:hover {
+  color: var(--ifm-color-primary-dark);
+  text-decoration: underline;
+}
+
+:global([data-theme="dark"]) .componentCard {
+  background-color: var(--ifm-pre-background);
+  border-color: var(--ifm-color-emphasis-300);
+}
+
+:global([data-theme="dark"]) .componentCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+:global([data-theme="dark"]) .componentDescription {
+  color: var(--ifm-color-emphasis-300);
+}
+
+:global([data-theme="dark"]) .gettingStartedLink:hover {
+  color: var(--ifm-color-primary-light);
+}
+
+.resetButton {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--ifm-color-emphasis-200);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  color: var(--ifm-font-color-base);
+  font-size: var(--ifm-font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetButton:hover {
+  background-color: var(--ifm-color-emphasis-300);
+  border-color: var(--ifm-color-emphasis-400);
+  transform: translateY(-1px);
+}
+
+.resetButton:active {
+  transform: translateY(0);
+}
+
+.link {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.navButton {
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  color: var(--ifm-font-color-base);
+  font-size: var(--ifm-font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navButton:hover:not(:disabled) {
+  background-color: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-1px);
+}
+
+.navButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.navButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.navButtonPrimary {
+  background-color: var(--ifm-color-primary);
+  color: var(--ifm-color-white);
+  border-color: var(--ifm-color-primary);
+}
+
+.navButtonPrimary:hover:not(:disabled) {
+  background-color: var(--ifm-color-primary-dark);
+  border-color: var(--ifm-color-primary-dark);
+}
+
+:global([data-theme="dark"]) .navButtonPrimary {
+  color: var(--ifm-color-white);
+}
+
+:global([data-theme="dark"]) .navButtonPrimary:hover:not(:disabled) {
+  background-color: var(--ifm-color-primary-darker);
+}
+
+.navCounter {
+  font-size: var(--ifm-font-size-sm);
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* Graph Section */
+.graphSection {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.graphTitle {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.graphTitle {
+  font-size: var(--ifm-h3-font-size);
+  margin-bottom: 1rem;
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+.graphContainer {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  padding: 1.5rem;
+  background-color: var(--ifm-pre-background);
+  overflow-x: auto;
+}
+
+/* Style the "Your Code" subgraph in Mermaid */
+.graphContainer :global(.mermaid) :global(.cluster) {
+  fill: transparent !important;
+  stroke: var(--ifm-color-emphasis-300) !important;
+  stroke-width: 2px !important;
+  stroke-dasharray: 5 5 !important;
+  rx: 8px !important;
+  ry: 8px !important;
+}
+
+.graphContainer :global(.mermaid) :global(.cluster-label) {
+  fill: var(--ifm-color-primary) !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  font-family: var(--ifm-font-family-base) !important;
+}
+
+.graphContainer :global(.mermaid) :global(.cluster-label text) {
+  fill: var(--ifm-color-primary) !important;
+  font-weight: 600 !important;
+}
+
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.cluster) {
+  fill: transparent !important;
+  stroke: var(--ifm-color-emphasis-400) !important;
+  stroke-dasharray: 5 5 !important;
+}
+
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.cluster-label),
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.cluster-label text) {
+  fill: var(--ifm-color-primary) !important;
+}
+
+/* Remove boxes/borders from Ory product icon nodes (nodes with images) */
+.graphContainer :global(.mermaid) :global(.nodeLabel) :global(img) {
+  background: transparent !important;
+}
+
+/* Hide rectangles for nodes containing product logos */
+.graphContainer :global(.mermaid) :global(g) :global(.nodeLabel):has(img) ~ :global(rect),
+.graphContainer :global(.mermaid) :global(g):has(:global(.nodeLabel):has(img)) :global(rect) {
+  fill: transparent !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+  opacity: 0 !important;
+}
+
+/* More specific targeting using node IDs */
+.graphContainer :global(.mermaid) :global(g[id*="flowchart-Kratos"]) :global(rect),
+.graphContainer :global(.mermaid) :global(g[id*="flowchart-Hydra"]) :global(rect),
+.graphContainer :global(.mermaid) :global(g[id*="flowchart-Keto"]) :global(rect),
+.graphContainer :global(.mermaid) :global(g[id*="flowchart-Polis"]) :global(rect),
+.graphContainer :global(.mermaid) :global(g[id*="flowchart-Oathkeeper"]) :global(rect),
+.graphContainer :global(.mermaid) :global(g[id*="flowchart-Elements"]) :global(rect) {
+  fill: transparent !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+  opacity: 0 !important;
+}
+
+/* Style Mermaid edges - primary color in light mode, purple in dark mode */
+.graphContainer :global(.mermaid) :global(.flowchart-link) {
+  stroke: var(--ifm-color-primary) !important;
+  stroke-width: 3px !important;
+  fill: none !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+.graphContainer :global(.mermaid) :global(.edgePath) :global(path) {
+  stroke: var(--ifm-color-primary) !important;
+  stroke-width: 3px !important;
+  fill: none !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+/* Arrow heads with matching color */
+.graphContainer :global(.mermaid) :global(.arrowheadPath) {
+  fill: var(--ifm-color-primary) !important;
+  stroke: var(--ifm-color-primary) !important;
+}
+
+/* Edge labels with modern styling - transparent background */
+.graphContainer :global(.mermaid) :global(.edgeLabel) {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: var(--ifm-color-emphasis-800) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.graphContainer :global(.mermaid) :global(.edgeLabel) :global(text) {
+  fill: var(--ifm-color-emphasis-800) !important;
+  font-weight: 600 !important;
+  font-family: var(--ifm-font-family-base) !important;
+}
+
+/* Target all possible background elements in edge labels */
+.graphContainer :global(.mermaid) :global(.edgeLabel) :global(rect),
+.graphContainer :global(.mermaid) :global(.edgeLabel) :global(path),
+.graphContainer :global(.mermaid) :global(.edgeLabel) :global(g) :global(rect) {
+  fill: transparent !important;
+  fill-opacity: 0 !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+}
+
+/* Target foreignObject backgrounds if used */
+.graphContainer :global(.mermaid) :global(.edgeLabel) :global(foreignObject),
+.graphContainer :global(.mermaid) :global(.edgeLabel) :global(foreignObject) :global(div) {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Dark mode edge styling - keep purple */
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.flowchart-link),
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.edgePath) :global(path) {
+  stroke: var(--ifm-color-primary) !important;
+}
+
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.arrowheadPath) {
+  fill: var(--ifm-color-primary) !important;
+  stroke: var(--ifm-color-primary) !important;
+}
+
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.edgeLabel) {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: var(--ifm-color-emphasis-100) !important;
+  border: none !important;
+}
+
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.edgeLabel) :global(text) {
+  fill: var(--ifm-color-emphasis-100) !important;
+}
+
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.edgeLabel) :global(rect),
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.edgeLabel) :global(path),
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.edgeLabel) :global(g) :global(rect) {
+  fill: transparent !important;
+  fill-opacity: 0 !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+}
+
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.edgeLabel) :global(foreignObject),
+:global([data-theme="dark"]) .graphContainer :global(.mermaid) :global(.edgeLabel) :global(foreignObject) :global(div) {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 996px) {
+  .contentWrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .graphColumn {
+    position: static;
+  }
+
+  .graphSection {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .stepCard {
+    padding: 1.5rem;
+  }
+
+  .stepTitle {
+    font-size: var(--ifm-h4-font-size);
+  }
+
+  .stepQuestion {
+    font-size: var(--ifm-font-size-base);
+  }
+
+  .optionButton {
+    padding: 0.875rem 1rem;
+    font-size: var(--ifm-font-size-sm);
+  }
+
+  .navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .navButton {
+    width: 100%;
+  }
+
+  .graphContainer {
+    padding: 1rem;
+  }
+
+  .componentsSummary {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .componentCard {
+    padding: 1.25rem;
+  }
+}
+
