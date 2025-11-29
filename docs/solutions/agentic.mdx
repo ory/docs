@@ -1,0 +1,18 @@
+---
+id: solution_agentic
+title: Agentic IAM Solution
+sidebar_label: Agentic IAM
+---
+
+Agentic IAM handles authentication and authorization for AI agents—autonomous software that acts on behalf of users or systems to perform tasks, make decisions, and interact with APIs. As AI agents become more prevalent, they need secure identities, scoped permissions, and auditable access trails just like human users.
+Ory's stack supports Agentic IAM patterns:
+
+Ory Hydra — issues OAuth 2.0 tokens for machine-to-machine authentication, enabling agents to securely access APIs with scoped permissions. Supports the OAuth 2.0 Device Authorization Flow for agents that can't use browser-based flows, and token exchange for delegation scenarios where agents act on behalf of users
+Ory Kratos — manages identities for both human users and service accounts, allowing you to define agent identities with specific traits and metadata
+Ory Keto — enforces fine-grained, relationship-based access control so agents only access resources they're explicitly permitted to use. Model complex delegation chains (user X authorizes agent Y to access resource Z on their behalf)
+Ory Oathkeeper — validates agent tokens at the API gateway, enforcing permission boundaries before requests reach your services
+
+Key Agentic IAM patterns Ory supports include agent identity registration, scoped token issuance (limiting what an agent can do), delegation and consent (users authorizing agents to act on their behalf), token chain revocation (instantly revoking an agent's access), and audit logging for compliance and debugging.
+
+Why Ory for Agentic IAM?
+Every AI agent request—whether from a human, app, or autonomous system—must be verified and authorized with the right permissions. Building secure agent authentication yourself means handling token lifecycles, delegation chains, and revocation across distributed systems. Ory provides the OAuth 2.0 and permissions infrastructure to implement Agentic IAM while maintaining the auditability and control enterprises require.RetryClaude can make mistakes. Please double-check responses. Opus 4.5

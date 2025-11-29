@@ -43,39 +43,28 @@ export const navbar: Navbar = {
       ],
     },
     {
+      type: "dropdown",
       label: "Solutions",
       position: "left",
       items: [
         {
-          to: "/docs/identities",
-          label: "Identities",
+          type: "doc",
+          docId: "solutions/solution_CIAM",
+          label: "CIAM",
         },
         {
-          to: "/docs/oauth2-oidc",
-          label: "OAuth2 & OIDC",
+          type: "doc",
+          docId: "solutions/solution_B2B",
+          label: "B2B IAM",
         },
         {
-          to: "/docs/keto",
-          label: "Permissions",
-        },
-        {
-          to: "/docs/polis",
-          label: "SAML",
-        },
-        {
-          to: "/docs/oathkeeper",
-          label: "Zero Trust",
-        },
-        {
-          to: "/docs/self-hosted/oel",
-          label: "Enterprise License",
-        },
-        {
-          to: "/docs/elements",
-          label: "Elements",
+          type: "doc",
+          docId: "solutions/solution_agentic",
+          label: "Agentic IAM",
         },
       ],
     },
+    
     {
       label: "Reference",
       position: "left",
@@ -112,8 +101,8 @@ export const navbar: Navbar = {
         },
         
         {
-          to: "https://github.com/ory/hydra/blob/master/CHANGELOG.md",
-          label: "Ory Hydra OSS",
+          to: "/docs/ecosystem/changelog",
+          label: "Ory OSS",
         },
       ],
     },

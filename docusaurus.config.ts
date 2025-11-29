@@ -159,7 +159,7 @@ const config: Config = {
       id: "default",
       path: "docs",                          // all product docs live here
       routeBasePath: "/",                    // gives URLs like /docs/xxx
-      sidebarPath: require.resolve("./src/sidebar.ts"),
+      sidebarPath: require.resolve("./sidebars.ts"),
       editUrl: "https://github.com/ory/docs/edit/master",
       showLastUpdateAuthor: true,
       showLastUpdateTime: true,

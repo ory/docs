@@ -1,5 +1,5 @@
 // Copyright © 2022 Ory Corp
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 
 
 // sidebars.ts
 import type { SidebarsConfig } from "@docusaurus/plugin-content-docs"
@@ -13,6 +13,7 @@ type SidebarItemsConfig = SidebarItemConfig[]
 import networkSidebar from "../sidebars-network"
 import oelSidebar from "../sidebars-oel"
 import ossSidebar from "../sidebars-oss"
+import agenticSidebar from "../sidebars-agentic"
 
 const api: SidebarItemsConfig = [
   "reference/api",
@@ -78,6 +79,9 @@ const sidebars: SidebarsConfig = {
   networkSidebar: networkSidebar as SidebarItemsConfig,
   oelSidebar: oelSidebar as SidebarItemsConfig,
   ossSidebar: ossSidebar as SidebarItemsConfig,
+  agenticSidebar: agenticSidebar as SidebarItemsConfig,
+  b2bSidebar: b2bSidebar as SidebarItemsConfig,
+  ciamSidebar: ciamSidebar as SidebarItemsConfig,
   api,
   cli,
 }
