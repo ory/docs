@@ -24,17 +24,33 @@ function StartHeading() {
   ]
 
   return (
-    <section style={{ padding: "2.5rem 0 1.5rem", backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
+    <section style={{ padding: "2.5rem 0 0", backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
       <div className="container">
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <h1>How to use the Ory help center</h1>
-          <p style={{ maxWidth: 800, margin: "0 auto" }}>Ory gives you authentication, authorization, and user management APIs
-              designed for modern applications. Start fast, scale to millions, and
-              keep security best practices baked in.</p>
-          <div style={{ 
-            height: "1px", 
-            margin: "1rem 0" 
-            }} />
+          <h1>Welcome to the Ory help center</h1>
+        </div>
+
+        {/* Intro text and demo in two columns */}
+        <div className="row" style={{ alignItems: "flex-start", marginBottom: ".5rem" }}>
+          <div className="col col--5" style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <p style={{ fontSize: "1.25rem", marginTop: "3rem", textAlign: "center"}}>
+              Ory gives you authentication, authorization, and user management APIs
+              designed for modern applications. </p>
+            <p style={{ fontSize: "1.25rem", marginTop: 0, textAlign: "center"}}>Start fast, scale to millions, and
+              keep security best practices baked in.
+            </p>
+          </div>
+          <div className="col col--7">
+            <OryHeroDemo />
+          </div>
+        </div>
+
+        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+          <h2 style={{ maxWidth: 800, margin: "0 auto" }}>
+            How to use the Ory help center
+          </h2>
+        </div>
+        <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           <p style={{ maxWidth: 800, margin: "0 auto" }}>
             <strong>Not sure where to start?</strong> Follow our guided paths—structured journeys that walk you through Ory's products and solutions so you can learn and build faster.
           </p>
@@ -118,48 +134,41 @@ function Hero() {
     <section 
       className="hero" 
       style={{ 
-        padding: "1rem 0 1.5rem", 
+        padding: "2.5rem 0 0", 
         backgroundImage: "url('/img/hero-bg.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
       <div className="container">
-        {/* Heading above both columns */}
-        <h2 className="hero__title" style={{ marginBottom: "1.5rem", fontSize: "1.5rem"}}>
-          Choose a deployment model 
-        </h2>
-        
-        <div className="row" style={{ alignItems: "flex-start" }}>
-          {/* Left: text and cards */}
-          <div className="col col--5">
-            <p className="hero__subtitle" style={{ maxWidth: 520, marginTop: 0, fontSize: "1rem" }}>
-              Choose the deployment model that fits your organization and build secure IAM into your apps. You can switch later — the core concepts stay the same.
+        {/* Heading row above cards */}
+        <div className="row" style={{ marginTop: "2rem" }}>
+          <div className="col col--12">
+            <StepHeading step={1}>Choose a deployment option</StepHeading>
+            <p style={{ fontSize: "1rem", marginBottom: "1rem" }}>
+              Choose the deployment option that fits your organization and build secure IAM into your apps. You can switch later — the core concepts stay the same.
             </p>
+          </div>
+        </div>
 
-            {/* Product cards */}
-            <div style={{ marginTop: "1.5rem" }}>
-              {cards.map(card => (
-                <div className="card" style={{ marginBottom: "1rem" }} key={card.label}>
-                  <div className="card__header">
-                    <h3 style={{ fontSize: "1rem", marginBottom: "0.25rem" }}>{card.label}</h3>
-                  </div>
-                  <div className="card__body" style={{ paddingTop: 0 }}>
-                    <p style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>{card.description}</p>
-                    <p style={{ fontSize: "0.75rem", opacity: 0.8, marginBottom: "0.5rem" }}>{card.meta}</p>
-                    <Link className="button button--secondary button--sm" to={card.to}>
-                      View quickstart
-                    </Link>
-                  </div>
+        {/* Product cards - 3 columns */}
+        <div className="row">
+          {cards.map(card => (
+            <div className="col col--4" key={card.label}>
+              <div className="card" style={{ height: "100%" }}>
+                <div className="card__header">
+                  <h3 style={{ fontSize: "1rem", marginBottom: "0.25rem" }}>{card.label}</h3>
                 </div>
-              ))}
+                <div className="card__body" style={{ paddingTop: 0 }}>
+                  <p style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>{card.description}</p>
+                  <p style={{ fontSize: "0.75rem", opacity: 0.8, marginBottom: "0.5rem" }}>{card.meta}</p>
+                  <Link className="button button--secondary button--sm" to={card.to}>
+                    View quickstart
+                  </Link>
+                </div>
+              </div>
             </div>
-          </div>
-
-          {/* Right: interactive demo */}
-          <div className="col col--7">
-            <OryHeroDemo />
-          </div>
+          ))}
         </div>
       </div>
     </section>
@@ -168,8 +177,9 @@ function Hero() {
 
 function ProductQuickstarts() {
   return (
-    <section style={{ padding: "2.5rem 0 1.5rem" }}>
-      <div className="container">
+    <section style={{ padding: "2.5rem 0 0", background: "#f8f9fa" }}>
+      <div className="container" >
+        <StepHeading2 step={2}>Design your Ory solution</StepHeading2>
         <ProductSelectorStepper />
       </div>
     </section>
@@ -205,11 +215,11 @@ function LanguageQuickstarts() {
   ]
 
   return (
-    <section style={{ padding: "2.5rem 0 1.5rem" }}>
+    <section style={{ padding: "2.5rem 0 0" }}>
       <div className="container">
         <div className="row margin-bottom--sm">
           <div className="col col--8">
-            <h2>Start by framework or language</h2>
+            <StepHeading step={3}>Select your framework or language</StepHeading>
             <p style={{ maxWidth: 560 }}>
               Drop Ory into an existing app. Pick your stack and follow the
               step-by-step integration guides.
@@ -246,47 +256,31 @@ function LanguageQuickstarts() {
   )
 }
 
-function PopularGuides() {
+function OtherGuides() {
   const guides = [
     {
-      label: "Overview: Ory Network",
+      label: "Install from green-field",
       to: "/getting-started/overview",
-      description: "Understand the core building blocks and architecture.",
+      description: "Replace your home-grown IAM system.",
     },
     {
-      label: "Implement sign-in and sign-up",
+      label: "Migrate to Ory",
       to: "/kratos/self-service/flows/user-login-user-registration",
-      description: "Design user login, registration, and account activation flows.",
+      description: "Plan your migration to Ory from an existing system.",
     },
     {
-      label: "Add social sign-in",
-      to: "/kratos/social-signin/overview",
-      description:
-        "Let users sign in with Google, GitHub and more via OAuth2/OIDC providers.",
-    },
-    {
-      label: "Protect APIs with OAuth2",
-      to: "/oauth2-oidc/authorization-code-flow",
-      description: "Secure backend services using OAuth2 and OpenID Connect.",
-    },
-    {
-      label: "Model permissions with Ory Keto",
-      to: "/keto/modeling/create-permission-model",
-      description: "Design relationship-based access control for complex systems.",
-    },
-    {
-      label: "Migrate from an existing IdP",
-      to: "/migrate-to-ory/migrate/index",
-      description: "Strategies and checklists for moving from legacy identity systems.",
+      label: "Ory architecture",
+      to: "/kratos/self-service/flows/user-login-user-registration",
+      description: "Understand the core building blocks and architecture.",
     },
   ]
 
   return (
-    <section style={{ padding: "2.5rem 0 1.5rem", background: "var(--ifm-background-surface-color)" }}>
+    <section style={{ padding: "2.5rem 0 0", background: "#f8f9fa" }}>
       <div className="container">
         <div className="row margin-bottom--sm">
           <div className="col col--8">
-            <h2>Popular guides</h2>
+            <h2>Other guides</h2>
             <p style={{ maxWidth: 560 }}>
               Opinionated, end-to-end walkthroughs to help you ship real features,
               not just hello-world demos.
@@ -315,27 +309,27 @@ function PopularGuides() {
   )
 }
 
-function ToolsAndEcosystem() {
+function ComponentsTools() {
   const items = [
     {
-      label: "REST API reference",
-      to: "/reference/api",
-      description: "Complete OpenAPI reference for all Ory Network endpoints.",
+      label: "Ory Console",
+      to: "/cli/ory",
+      description: "User interface to manage projects, configurations, and more.",
     },
     {
-      label: "Ory CLI",
-      to: "/cli/ory",
-      description: "Manage projects, identities, permissions and more from the terminal.",
+      label: "Ory Account Experience",
+      to: "/reference/api",
+      description: "User interface for all self-service screens like login, registration, or consent.",
     },
     {
       label: "Ory Elements",
-      to: "/elements/index",
+      to: "/docs/elements",
       description: "Pre-built UI components for login, registration, and account flows.",
     },
     {
-      label: "Open source projects",
-      to: "/ecosystem/projects",
-      description: "Explore and contribute to the individual Ory services.",
+      label: "Ory Actions",
+      to: "/docs/kratos/hooks/configure-hooks",
+      description: "Define custom business logic, automating system behavior in response to events, and integrating with third-party services.",
     },
     {
       label: "Changelog",
@@ -350,14 +344,13 @@ function ToolsAndEcosystem() {
   ]
 
   return (
-    <section style={{ padding: "2.5rem 0 3rem" }}>
+    <section style={{ padding: "2.5rem 0 0" }}>
       <div className="container">
         <div className="row margin-bottom--sm">
           <div className="col col--8">
-            <h2>Tools & ecosystem</h2>
+            <h2>Components & tools</h2>
             <p style={{ maxWidth: 560 }}>
-              Everything around the core APIs: observability, tooling, open source
-              projects, and community support.
+              Everything around the core APIs: observability, tooling.
             </p>
           </div>
         </div>
@@ -387,6 +380,61 @@ function ToolsAndEcosystem() {
   )
 }
 
+function SectionDivider() {
+  return (
+    <div style={{ 
+      height: "1px", 
+      background: "var(--ifm-color-emphasis-800)", 
+      margin: "0 auto",
+      width: "100%",
+    }} />
+  )
+}
+
+function StepHeading({ step, children }: { step: number; children: React.ReactNode }) {
+  return (
+    <h2 style={{ fontSize: "1.5rem", marginBottom: "0.5rem", display: "flex", alignItems: "center" }}>
+      <span style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "36px",
+        height: "36px",
+        borderRadius: "50%",
+        background: "var(--ifm-color-primary)",
+        color: "white",
+        fontSize: "1.1rem",
+        fontWeight: "bold",
+        marginRight: "0.75rem",
+        flexShrink: 0,
+      }}>{step}</span>
+      {children}
+    </h2>
+  )
+}
+
+function StepHeading2({ step, children }: { step: number; children: React.ReactNode }) {
+  return (
+    <h2 style={{ fontSize: "1.5rem", marginBottom: "0.5rem", display: "flex", alignItems: "center" }}>
+      <span style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "36px",
+        height: "36px",
+        borderRadius: "50%",
+        border: "2px solid var(--ifm-color-primary)",
+        color: "var(--ifm-color-primary)",
+        fontSize: "1.1rem",
+        fontWeight: "bold",
+        marginRight: "0.75rem",
+        flexShrink: 0,
+      }}>{step}</span>
+      {children}
+    </h2>
+  )
+}
+
 export default function WelcomePage() {
   return (
     <Layout title="Ory Documentation" description="Developer documentation for Ory">
@@ -394,8 +442,8 @@ export default function WelcomePage() {
       <Hero />
       <ProductQuickstarts />
       <LanguageQuickstarts />
-      <PopularGuides />
-      <ToolsAndEcosystem />
+      <OtherGuides />
+      <ComponentsTools />
     </Layout>
   )
 }

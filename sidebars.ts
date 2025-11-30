@@ -21,7 +21,7 @@ import ossSidebar from "./sidebars-oss"
 import agenticSidebar from "./sidebars-agentic"
 import ciamSidebar from "./sidebars-ciam"
 import b2bSidebar from "./sidebars-b2b"
-
+import quickstartsSidebar from "./sidebars-quickstarts"
 
 const cli: SidebarItemsConfig = [
   {
@@ -92,6 +92,7 @@ const sidebars: SidebarsConfig = {
   agenticSidebar,
   ciamSidebar,
   b2bSidebar,
+  quickstartsSidebar,
   api,
   cli,
 }

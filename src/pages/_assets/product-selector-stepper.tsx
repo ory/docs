@@ -451,9 +451,8 @@ export function ProductSelectorStepper() {
   return (
     <div className={styles.stepper}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Find Your Ory Stack</h2>
         <p className={styles.description}>
-          Answer a few questions to discover which Ory products best fit your needs.
+          Answer a few questions about your IAM requirements. We'll match you with the right Ory products.
         </p>
       </div>
 
@@ -545,7 +544,7 @@ export function ProductSelectorStepper() {
                 </p>
               )}
               <button onClick={handleReset} className={styles.resetButton}>
-                Start Over
+                Start over
               </button>
             </div>
           )}
@@ -577,7 +576,7 @@ export function ProductSelectorStepper() {
         {/* Right column: Graph visualization */}
         <div className={styles.graphColumn}>
           <div className={graphStyles.graphSection}>
-            <h3 className={graphStyles.graphTitle}>Your Architecture</h3>
+            <h3 className={graphStyles.graphTitle}>Your solution</h3>
             <div className={graphStyles.graphContainer}>
               <Mermaid chart={chart} />
             </div>

@@ -21,6 +21,12 @@ export const navbar: Navbar = {
       position: "left",
     },
     {
+      type: "doc",
+      docId: "getting-started/overview",
+      label: "Quickstarts",
+      position: "left",
+    },
+    {
       type: 'dropdown',
       label: 'Products',
       position: 'left',
@@ -44,6 +50,7 @@ export const navbar: Navbar = {
     },
     {
       type: "dropdown",
+      to: "/docs/solutions/solutions_overview",
       label: "Solutions",
       position: "left",
       items: [
@@ -77,10 +84,10 @@ export const navbar: Navbar = {
           to: "/docs/category/ory-cli-reference",
           label: "Ory CLI",
         },
-        //{
-        //  to: "/docs/sdk",
-        //  label: "Ory SDKs",
-        //},
+        {
+          to: "/docs/sdk",
+          label: "Ory SDKs",
+        },
         {
           to: "/docs/category/operations-reference",
           label: "Operations",

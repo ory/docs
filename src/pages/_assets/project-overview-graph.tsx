@@ -34,7 +34,7 @@ interface ChartConnection {
 const COMPONENT_CONFIGS: ComponentConfig[] = [
   {
     key: "kratos",
-    label: "Identity Management",
+    label: "Identity management",
     logoUrl:
       "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-kratos.svg",
     description: "Identity Management",
@@ -62,10 +62,10 @@ const COMPONENT_CONFIGS: ComponentConfig[] = [
   },
   {
     key: "oathkeeper",
-    label: "Identity and Access Proxy IAP",
+    label: "Identity Access Proxy (IAP)",
     logoUrl:
       "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-oathkeeper.svg",
-    description: "Identity and Access Proxy IAP",
+    description: "Identity Access Proxy (IAP)",
   },
   {
     key: "elements",

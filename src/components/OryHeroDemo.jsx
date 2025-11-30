@@ -62,9 +62,10 @@ const OryHeroDemo = () => {
 
   const styles = {
     wrapper: {
-      width: "100%",
-      maxWidth: "640px",
+      width: "80%",
+      maxWidth: "500px",
       margin: "0 auto",
+      maxHeight: "500px",
     },
     terminal: {
       borderRadius: "8px",
@@ -101,7 +102,7 @@ const OryHeroDemo = () => {
       padding: "16px",
       fontFamily: "monospace",
       fontSize: "13px",
-      height: "320px",
+      height: "200px",
       overflowY: "auto",
     },
     comment: {
