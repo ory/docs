@@ -144,3 +144,29 @@ Requesting user information with a stateless JWT access token returns:
 - Error: `unsupported_token_type`
 
 The `/userinfo` endpoint requires database lookups to retrieve the consent session data associated with the access token.
+
+## When to use stateless JWT tokens
+
+Stateless JWT access tokens are suitable for scenarios where:
+
+- High throughput is required: Applications with high token issuance rates benefit from eliminating database writes
+- Token revocation is not needed: Workloads that rely solely on JWT expiration for token lifecycle management
+- Introspection is not used: Resource servers validate tokens using JWT signature verification rather than introspection
+- Userinfo endpoint is not required: Client applications do not call the userinfo endpoint for user information
+- JWT access tokens are used: The feature only applies when clients or the global strategy is configured for JWT tokens
+
+## When not to use stateless JWT tokens
+
+Do not enable stateless JWT tokens if your application requires:
+
+- Token revocation: Immediate invalidation of access tokens before expiration
+- Token introspection: Validating tokens through the introspection endpoint
+- Userinfo endpoint support: Retrieving user information associated with access tokens
+- Audit trail of active tokens: Database records of issued tokens for compliance or auditing purposes
+
+## Performance considerations
+
+Enabling stateless JWT tokens provides performance benefits by:
+
+- Eliminating database write operations for access token sessions
+- Decreasing storage requirements by not persisting JWT access tokens
