@@ -7,36 +7,24 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "https://www.ory.com/docs",
-      "has": [
-        {
-          "type": "header",
-          "key": "host",
-          "value": "docs-omega-six.vercel.app"
-        }
-      ],
-      "permanent": false
-    },
-    {
-      "source": "/docs(/|)",
-      "destination": "https://www.ory.com/docs/welcome",
-      "has": [
-        {
-          "type": "header",
-          "key": "host",
-          "value": "docs-omega-six.vercel.app"
-        }
-      ],
-      "permanent": false
-    },
-    {
-      "source": "/",
       "destination": "/docs",
       "permanent": false
     },
     {
       "source": "/docs(/|)",
       "destination": "/docs/welcome",
+      "permanent": false
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "https://www.ory.com/docs/:path",
+      "has": [
+        {
+          "type": "header",
+          "key": "host",
+          "value": "docs-omega-six.vercel.app"
+        }
+      ],
       "permanent": false
     },
     {
