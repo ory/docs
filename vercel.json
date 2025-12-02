@@ -25,6 +25,18 @@
           "value": "docs-omega-six.vercel.app"
         }
       ],
+      "permanent": true
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "https://www.ory.com/docs/:path",
+      "has": [
+        {
+          "type": "header",
+          "key": "host",
+          "value": "docs-ory.vercel.app"
+        }
+      ],
       "permanent": false
     },
     {
