@@ -27,7 +27,7 @@ function StartHeading() {
     <section style={{ padding: "2.5rem 0 0", backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
       <div className="container">
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <h1>Welcome to the Ory help center</h1>
+          <h1>Welcome to the Ory developer center</h1>
         </div>
 
         {/* Intro text and demo in two columns */}
@@ -47,7 +47,7 @@ function StartHeading() {
 
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           <h2 style={{ maxWidth: 800, margin: "0 auto" }}>
-            How to use the Ory help center
+            How to use the Ory developer center
           </h2>
         </div>
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
@@ -83,18 +83,19 @@ function StartHeading() {
                 )}
                 {index === 0 && (
                   <div className="card__footer">
-                    <Link to="/products">Click on <strong>Products</strong> or <strong>Solutions</strong></Link>
+                    <p>Click on 
+                    <Link to="/products/products-overview"><strong> Products</strong></Link> or <Link to="/solutions/solutions-overview"><strong> Solutions</strong></Link></p>
                   </div>
                 )}
                 {index === 1 && (
-                  <div className="card__footer">
-                    <Link to="/quickstarts">Click on <strong>Quickstarts</strong></Link>
-                  </div>
+                  <div className="card__footer"><p>Click on  
+                    <Link to="/getting-started/overview"><strong> Quickstarts</strong></Link>
+                  </p></div>
                 )}
                 {index === 2 && (
-                  <div className="card__footer">
-                    <Link to="/reference">Click on <strong>Reference</strong></Link>
-                  </div>
+                  <div className="card__footer"><p>Click on  
+                    <Link to="/reference/reference-overview"><strong> Reference</strong></Link>
+                  </p></div>
                 )}
               </div>
             </div>
@@ -163,7 +164,7 @@ function Hero() {
                   <p style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>{card.description}</p>
                   <p style={{ fontSize: "0.75rem", opacity: 0.8, marginBottom: "0.5rem" }}>{card.meta}</p>
                   <Link className="button button--secondary button--sm" to={card.to}>
-                    View quickstart
+                    Learn more
                   </Link>
                 </div>
               </div>

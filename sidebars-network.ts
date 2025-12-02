@@ -2,6 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // sidebars-network.ts
+
+import {
+  SidebarItem,
+  SidebarItemConfig,
+} from "@docusaurus/plugin-content-docs/src/sidebars/types"
+
+type SidebarItemsConfig = SidebarItemConfig[]
+
+
+
 const networkSidebar = [
   {
     type: "category",
@@ -29,4 +39,8 @@ const networkSidebar = [
   },
 ]
 
+
+
+
 export default networkSidebar
+

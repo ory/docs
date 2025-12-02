@@ -28,6 +28,7 @@ export const navbar: Navbar = {
     },
     {
       type: 'dropdown',
+      to: 'products/products-overview',
       label: 'Products',
       position: 'left',
       items: [
@@ -50,7 +51,7 @@ export const navbar: Navbar = {
     },
     {
       type: "dropdown",
-      to: "/docs/solutions/solutions_overview",
+      to: "/docs/solutions/solutions-overview",
       label: "Solutions",
       position: "left",
       items: [
@@ -73,6 +74,8 @@ export const navbar: Navbar = {
     },
     
     {
+      type: "dropdown",
+      to: "/docs/reference/reference-overview",
       label: "Reference",
       position: "left",
       items: [
