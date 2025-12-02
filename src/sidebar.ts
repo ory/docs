@@ -1263,7 +1263,10 @@ const oel: SidebarItemsConfig = [
   {
     type: "category",
     label: "Ory Keto Permissions",
-    items: ["self-hosted/oel/keto/configuration"],
+    items: [
+      "self-hosted/oel/keto/changelog",
+      "self-hosted/oel/keto/configuration",
+    ],
   },
   {
     type: "category",
