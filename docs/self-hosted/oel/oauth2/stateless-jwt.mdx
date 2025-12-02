@@ -150,7 +150,8 @@ The `/userinfo` endpoint requires database lookups to retrieve the consent sessi
 Stateless JWT access tokens are suitable for scenarios where:
 
 - High throughput is required: Applications with high token issuance rates benefit from eliminating database writes
-- Token revocation is not needed: Workloads that rely solely on JWT expiration for token lifecycle management, or have a dedicated mechanism for revoking tokens
+- Token revocation is not needed: Workloads that rely solely on JWT expiration for token lifecycle management, or have a dedicated
+  mechanism for revoking tokens
 - Introspection is not used: Resource servers validate tokens using JWT signature verification rather than introspection
 - Userinfo endpoint is not required: Client applications do not call the userinfo endpoint for user information
 - JWT access tokens are used: The feature only applies when clients or the global strategy is configured for JWT tokens
