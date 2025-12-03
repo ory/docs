@@ -27,7 +27,7 @@ function StartHeading() {
     <section style={{ padding: "2.5rem 0 0", backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
       <div className="container">
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-          <h1>Welcome to the Ory developer center</h1>
+          <h1>Welcome to the Ory Developer Portal</h1>
         </div>
 
         {/* Intro text and demo in two columns */}
@@ -47,7 +47,7 @@ function StartHeading() {
 
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           <h2 style={{ maxWidth: 800, margin: "0 auto" }}>
-            How to use the Ory developer center
+            How to use the Ory Developer Portal
           </h2>
         </div>
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>

@@ -249,14 +249,6 @@ export const deploymentOptions: {
   title: "Deploy Ory",
   description: "Choose your deployment option",
   cards: [
-      {
-      title: "Ory Network",
-      description:
-        "Enterprise-grade support and features for SaaS Ory deployments.",
-      language: "ory",
-      languageLogoAlt: "Enterprise icon",
-      docs: "/docs/network/quickstart",
-    },
     {
       title: "Ory Enterprise License",
       description:
