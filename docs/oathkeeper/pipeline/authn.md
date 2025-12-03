@@ -54,12 +54,9 @@ are valid! If a handler encounters invalid credentials, then other handlers will
 
 ## `noop`
 
-The `noop` handler tells Ory Oathkeeper to bypass authentication, authorization, and mutation. This implies that no authorization
-will be executed and no credentials will be issued. It's basically a pass-all authenticator that allows any request to be
-forwarded to the upstream URL.
+The `noop` handler always authenticate the user, no questions asked. It applies authorization, and mutation.
 
-> Using this handler is basically an allow-all configuration. It makes sense when the upstream handles access control itself or
-> doesn't need any type of access control.
+> Using this handler is basically an allow-all configuration.
 
 ### `noop` configuration
 
@@ -213,6 +210,56 @@ curl -X GET -H "Authorization: Bearer foobar" http://my-app/some-route
 HTTP/1.0 401 Status Unauthorized
 The request isn't authorized because credentials have been provided but only the anonymous
 authenticator is enabled for this URL.
+```
+
+## `delegate`
+
+The `delegate` handler tells Ory Oathkeeper to bypass authentication, authorization, and mutation. This implies that no
+authorization will be executed and no credentials will be issued. It's basically a pass-all authenticator that allows any request
+to be forwarded to the upstream URL.
+
+> Using this handler is basically an allow-all configuration. It makes sense when the upstream handles access control itself or
+> doesn't need any type of access control.
+
+### `delegate` configuration
+
+This handler isn't configurable.
+
+To enable this handler, set:
+
+```yaml
+# Global configuration file oathkeeper.yml
+authenticators:
+  delegate:
+    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    enabled: true
+```
+
+### `delegate` access rule example
+
+```sh
+cat ./rules.json
+
+[{
+  "id": "some-id",
+  "upstream": {
+    "url": "http://my-backend-service"
+  },
+  "match": {
+    "url": "http://my-app/some-route",
+    "methods": [
+      "GET"
+    ]
+  },
+  "authenticators": [{
+    "handler": "delegate"
+  }]
+}]
+
+curl -X GET http://my-app/some-route
+
+HTTP/1.0 200 Status OK
+The request has been allowed!
 ```
 
 ## `cookie_session`
