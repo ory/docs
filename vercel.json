@@ -16,6 +16,11 @@
       "permanent": false
     },
     {
+      "source": "/docs/next/:path",
+      "destination": "/docs/:path",
+      "permanent": false
+    },
+    {
       "source": "/docs/:path*",
       "destination": "https://www.ory.com/docs/:path",
       "has": [
@@ -1221,11 +1226,6 @@
       "source": "/docs/kratos/bring-your-own-ui/custom-ui-ory-elements",
       "destination": "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
       "permanent": true
-    },
-    {
-      "source": "/docs/next/:path",
-      "destination": "/docs/:path",
-      "permanent": false
     }
   ]
 }
