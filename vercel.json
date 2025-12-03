@@ -16,7 +16,7 @@
       "permanent": false
     },
     {
-      "source": "/docs/next/:path",
+      "source": "/docs/next/:path*",
       "destination": "/docs/:path",
       "permanent": false
     },
