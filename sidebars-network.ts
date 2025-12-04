@@ -23,7 +23,7 @@ const networkSidebar = [
   },
   {
     type: "category",
-    label: "Guides",
+    label: "Identity Management",
     items: [
       "guides/email-sms",
       "guides/oauth2-openid-connect",
@@ -32,7 +32,35 @@ const networkSidebar = [
   },
   {
     type: "category",
-    label: "Manage identities",
+    label: "OAuth2.0 & OpenID Connect",
+    items: [
+      "kratos/manage-identities/scim",
+    ],
+  },
+  {
+    type: "category",
+    label: "Permissions",
+    items: [
+      "kratos/manage-identities/scim",
+    ],
+  },
+  {
+    type: "category",
+    label: "Enterprise SSO & SAML",
+    items: [
+      "kratos/manage-identities/scim",
+    ],
+  },
+  {
+    type: "category",
+    label: "Identities and Access Managment",
+    items: [
+      "kratos/manage-identities/scim",
+    ],
+  },
+  {
+    type: "category",
+    label: "Ory Elements",
     items: [
       "kratos/manage-identities/scim",
     ],
