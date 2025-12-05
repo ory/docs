@@ -80,7 +80,8 @@ Both iOS and Android require configuration to associate your app with your authe
 
 ### iOS Associated Domains
 
-iOS requires an `apple-app-site-association` (AASA) file to create a bidirectional link between your app and your domain. This proves that your app and domain are controlled by the same entity.
+iOS requires an `apple-app-site-association` (AASA) file to create a bidirectional link between your app and your domain. This
+proves that your app and domain are controlled by the same entity.
 
 #### How iOS association works
 
@@ -117,7 +118,8 @@ This allows your app to work with any subdomain. However, the AASA file must sti
 
 #### Serve the apple-app-site-association file
 
-The AASA file must be hosted at `https://{your-rp-id}/.well-known/apple-app-site-association`. If your RP ID is `example.com`, host it at:
+The AASA file must be hosted at `https://{your-rp-id}/.well-known/apple-app-site-association`. If your RP ID is `example.com`,
+host it at:
 
 ```
 https://example.com/.well-known/apple-app-site-association
@@ -128,18 +130,18 @@ https://example.com/.well-known/apple-app-site-association
 ```json
 {
   "webcredentials": {
-    "apps": [
-      "ABCDE12345.com.example.yourapp"
-    ]
+    "apps": ["ABCDE12345.com.example.yourapp"]
   }
 }
 ```
 
 The value format is `{Team_ID}.{Bundle_Identifier}`:
+
 - **Team ID**: Find in [Apple Developer portal](https://developer.apple.com/account) under Membership
 - **Bundle Identifier**: Your app's bundle ID from Xcode (e.g., `com.example.yourapp`)
 
 **File requirements:**
+
 - Must be served over HTTPS with a valid TLS certificate
 - Must return `Content-Type: application/json`
 - Must be accessible without authentication
@@ -147,7 +149,8 @@ The value format is `{Team_ID}.{Bundle_Identifier}`:
 
 :::warning
 
-Ory Network doesn't host `apple-app-site-association` files automatically. You must host this file on your own domain at the RP ID you configured.
+Ory Network doesn't host `apple-app-site-association` files automatically. You must host this file on your own domain at the RP ID
+you configured.
 
 :::
 
@@ -158,11 +161,13 @@ Ory Network doesn't host `apple-app-site-association` files automatically. You m
 
 ### Android Digital Asset Links
 
-Android uses Digital Asset Links to establish trust between your app and your domain. This verification allows credential sharing between your website and app.
+Android uses Digital Asset Links to establish trust between your app and your domain. This verification allows credential sharing
+between your website and app.
 
 #### How Android association works
 
 When your app requests passkey operations, Android:
+
 1. Checks the domain associated with the RP ID
 2. Downloads the `assetlinks.json` file from that domain
 3. Verifies your app's package name and signing certificate match the file
@@ -183,10 +188,7 @@ https://example.com/.well-known/assetlinks.json
 ```json
 [
   {
-    "relation": [
-      "delegate_permission/common.handle_all_urls",
-      "delegate_permission/common.get_login_creds"
-    ],
+    "relation": ["delegate_permission/common.handle_all_urls", "delegate_permission/common.get_login_creds"],
     "target": {
       "namespace": "android_app",
       "package_name": "com.example.yourapp",
@@ -198,7 +200,8 @@ https://example.com/.well-known/assetlinks.json
 ]
 ```
 
-**Key relation for passkeys:** `delegate_permission/common.get_login_creds` enables credential sharing between your website and app.
+**Key relation for passkeys:** `delegate_permission/common.get_login_creds` enables credential sharing between your website and
+app.
 
 #### Generate SHA-256 certificate fingerprint
 
@@ -217,6 +220,7 @@ keytool -list -v -keystore /path/to/your-release-key.keystore
 Copy the SHA-256 fingerprint from the output.
 
 **File requirements:**
+
 - Must be served over HTTPS with a valid TLS certificate
 - Must return `Content-Type: application/json`
 - Must be accessible without authentication
@@ -225,7 +229,8 @@ Copy the SHA-256 fingerprint from the output.
 
 :::warning
 
-Ory Network doesn't host `assetlinks.json` files automatically. You must host this file on your own domain at the RP ID you configured.
+Ory Network doesn't host `assetlinks.json` files automatically. You must host this file on your own domain at the RP ID you
+configured.
 
 :::
 
@@ -238,6 +243,7 @@ Unlike iOS, Android does **not** support wildcard associations. If you need pass
 3. All subdomains will share the same passkey credentials
 
 **Example:** With RP ID `example.com`, passkeys work on:
+
 - `https://example.com`
 - `https://login.example.com`
 - `https://app.example.com`
