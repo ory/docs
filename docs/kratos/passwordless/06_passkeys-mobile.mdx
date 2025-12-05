@@ -80,11 +80,17 @@ Both iOS and Android require configuration to associate your app with your authe
 
 ### iOS Associated Domains
 
-iOS requires an Associated Domains entitlement that links your app to your authentication domain.
+iOS requires an `apple-app-site-association` (AASA) file to create a bidirectional link between your app and your domain. This proves that your app and domain are controlled by the same entity.
+
+#### How iOS association works
+
+1. You add an Associated Domains entitlement to your app: `webcredentials:example.com`
+2. When your app is installed/updated, iOS downloads the AASA file from that domain (via Apple's CDN)
+3. When creating a passkey, iOS verifies the RP ID matches a domain in your entitlements AND the AASA file lists your app
 
 #### Add the Associated Domains entitlement
 
-Add the entitlement to your Xcode project:
+Add the entitlement to your Xcode project. The domain should match your RP ID:
 
 ```xml
 <!-- YourApp.entitlements -->
@@ -94,64 +100,56 @@ Add the entitlement to your Xcode project:
 <dict>
     <key>com.apple.developer.associated-domains</key>
     <array>
-        <string>webcredentials:$PROJECT_SLUG.projects.oryapis.com</string>
+        <!-- Use your root domain as RP ID -->
+        <string>webcredentials:example.com</string>
     </array>
 </dict>
 </plist>
 ```
 
-The domain in your entitlement must match the Relying Party ID in your Kratos passkey configuration.
+**For subdomain support**, iOS allows wildcard entitlements:
+
+```xml
+<string>webcredentials:*.example.com</string>
+```
+
+This allows your app to work with any subdomain. However, the AASA file must still be served from your RP ID domain.
 
 #### Serve the apple-app-site-association file
 
-You need to host an `apple-app-site-association` file at `https://{your_domain}/.well-known/apple-app-site-association` to allow
-the application to register and authenticate with credentials associated with the Relying Party ID.
+The AASA file must be hosted at `https://{your-rp-id}/.well-known/apple-app-site-association`. If your RP ID is `example.com`, host it at:
 
-Example `apple-app-site-association` file:
+```
+https://example.com/.well-known/apple-app-site-association
+```
+
+**File structure:**
 
 ```json
 {
   "webcredentials": {
-    "apps": ["ABCDE12345.com.example.app"]
+    "apps": [
+      "ABCDE12345.com.example.yourapp"
+    ]
   }
 }
 ```
 
-The value uses the format `{Application_Identifier_Prefix}.{Bundle_Identifier}`. Find your Application Identifier Prefix (Team ID)
-in the [Apple Developer portal](https://developer.apple.com/account) under Membership.
+The value format is `{Team_ID}.{Bundle_Identifier}`:
+- **Team ID**: Find in [Apple Developer portal](https://developer.apple.com/account) under Membership
+- **Bundle Identifier**: Your app's bundle ID from Xcode (e.g., `com.example.yourapp`)
+
+**File requirements:**
+- Must be served over HTTPS with a valid TLS certificate
+- Must return `Content-Type: application/json`
+- Must be accessible without authentication
+- Apple's CDN caches the file for up to 24 hours
 
 :::warning
 
-Ory Network doesn't currently host `apple-app-site-association` files automatically.
+Ory Network doesn't host `apple-app-site-association` files automatically. You must host this file on your own domain at the RP ID you configured.
 
 :::
-
-```mdx-code-block
-<Tabs groupId="ory-network-or-kratos">
-<TabItem value="ory-network" label="Ory Network">
-```
-
-You must host this file on your own domain and configure your Kratos passkey settings to use that domain as the Relying Party ID.
-
-```mdx-code-block
-</TabItem>
-<TabItem value="ory-kratos" label="Ory Kratos">
-```
-
-For self-hosted Kratos, serve the `apple-app-site-association` file at your authentication domain:
-
-`https://ory.your-custom-domain.com/.well-known/apple-app-site-association`
-
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
-
-#### Important constraints
-
-The domain in your Associated Domains entitlement must exactly match the `rp.id` in your Kratos passkey configuration. The domain
-must be accessible via HTTPS with a valid TLS certificate. The `apple-app-site-association` file must be served with
-`Content-Type: application/json`.
 
 #### Apple documentation
 
@@ -160,19 +158,35 @@ must be accessible via HTTPS with a valid TLS certificate. The `apple-app-site-a
 
 ### Android Digital Asset Links
 
-Android requires an `assetlinks.json` file to verify your app's relationship with your authentication domain.
+Android uses Digital Asset Links to establish trust between your app and your domain. This verification allows credential sharing between your website and app.
+
+#### How Android association works
+
+When your app requests passkey operations, Android:
+1. Checks the domain associated with the RP ID
+2. Downloads the `assetlinks.json` file from that domain
+3. Verifies your app's package name and signing certificate match the file
+4. Grants permission for credential operations if validated
+
+**Important:** Android does **not** support wildcard domains. The `assetlinks.json` file must be hosted at the exact RP ID domain.
 
 #### Serve the assetlinks.json file
 
-You need to host an `assetlinks.json` file at `https://{your_domain}/.well-known/assetlinks.json` to verify your app's
-relationship with your authentication domain.
+The file must be hosted at `https://{your-rp-id}/.well-known/assetlinks.json`. If your RP ID is `example.com`, host it at:
 
-Example `assetlinks.json` file:
+```
+https://example.com/.well-known/assetlinks.json
+```
+
+**File structure:**
 
 ```json
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls", "delegate_permission/common.get_login_creds"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.example.yourapp",
@@ -184,41 +198,58 @@ Example `assetlinks.json` file:
 ]
 ```
 
-Generate your SHA-256 certificate fingerprint:
+**Key relation for passkeys:** `delegate_permission/common.get_login_creds` enables credential sharing between your website and app.
+
+#### Generate SHA-256 certificate fingerprint
+
+For debug builds:
 
 ```shell
-keytool -list -v -keystore your-keystore.jks
+keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
 ```
 
-:::warning Ory Network doesn't currently host `assetlinks.json` files automatically. This feature is planned for future releases.
+For release builds:
+
+```shell
+keytool -list -v -keystore /path/to/your-release-key.keystore
+```
+
+Copy the SHA-256 fingerprint from the output.
+
+**File requirements:**
+- Must be served over HTTPS with a valid TLS certificate
+- Must return `Content-Type: application/json`
+- Must be accessible without authentication
+- Package name must match your app's `applicationId` in `build.gradle`
+- SHA-256 fingerprint must match your app's signing key
+
+:::warning
+
+Ory Network doesn't host `assetlinks.json` files automatically. You must host this file on your own domain at the RP ID you configured.
+
 :::
 
-```mdx-code-block
-<Tabs groupId="ory-network-or-kratos">
-<TabItem value="ory-network" label="Ory Network">
-```
+#### Subdomain handling
 
-You must host this file on your own domain and configure your Kratos passkey settings to use that domain as the Relying Party ID.
+Unlike iOS, Android does **not** support wildcard associations. If you need passkeys on multiple subdomains:
 
-```mdx-code-block
-</TabItem>
-<TabItem value="ory-kratos" label="Ory Kratos">
-```
+1. Use your root domain as the RP ID (recommended)
+2. Host the `assetlinks.json` at the root domain
+3. All subdomains will share the same passkey credentials
 
-For self-hosted Kratos, serve the `assetlinks.json` file at your authentication domain:
+**Example:** With RP ID `example.com`, passkeys work on:
+- `https://example.com`
+- `https://login.example.com`
+- `https://app.example.com`
 
-`https://ory.your-custom-domain.com/.well-known/assetlinks.json`
+All using the single `assetlinks.json` file at `https://example.com/.well-known/assetlinks.json`.
 
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
+#### Validation tools
 
-#### Important constraints
+Test your `assetlinks.json` configuration:
 
-The domain in your `assetlinks.json` must exactly match the `rp.id` in your Kratos passkey configuration. The domain must be
-accessible via HTTPS with a valid TLS certificate. The file must be served with `Content-Type: application/json`. The package name
-must match your Android app's `applicationId`. The SHA-256 fingerprint must match your app's signing key.
+- [Statement List Generator and Tester](https://developers.google.com/digital-asset-links/tools/generator)
+- Command line: `curl https://example.com/.well-known/assetlinks.json`
 
 #### Android documentation
 
