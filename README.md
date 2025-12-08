@@ -24,7 +24,7 @@
     - [Placeholders and dummy data](#placeholders-and-dummy-data)
     - [UI references](#ui-references)
     - [Diagrams](#diagrams)
-  - [Import \& reference content](#import--reference-content)
+  - [Import & reference content](#import--reference-content)
     - [Markdown partials](#markdown-partials)
     - [Code snippets](#code-snippets)
       - [From GitHub](#from-github)
@@ -35,6 +35,8 @@
   - [Ory Console](#ory-console)
     - [Navigate to Ory Console Pages](#navigate-to-ory-console-pages)
   - [Testing](#testing)
+    - [Redirects](#redirects)
+      - [How to add a redirect](#how-to-add-a-redirect)
   - [Formatting documentation](#formatting-documentation)
   - [Adding content to "Examples" page](#adding-content-to-examples-page)
   - [CLI and API reference - auto-generated content](#cli-and-api-reference---auto-generated-content)
@@ -475,6 +477,44 @@ To test the documentation locally:
    Run `npm run start`.
 4. Create a production build to check for any technical issues, such as invalid
    internal links. Run `npm run build`.
+
+### Redirects
+
+When you delete, rename, or change the slug metadata of a document, you must set
+up a redirect to preserve SEO and prevent broken links.
+
+You must add a redirect when you
+
+- delete a document
+- rename a document file
+- change the slug property in the document front matter
+- move a document to a different directory
+
+Without redirects, the original URL returns a 404 error. This breaks existing
+links from external sites, internal documentation cross-references, and
+bookmarks. Search engines also lose the page authority built up over time.
+
+#### How to add a redirect
+
+Add redirects to the vercel.json file in the repository root. Use this format:
+
+```json
+{
+  "redirects": [
+    {
+      "source": "/docs/old-path",
+      "destination": "/docs/new-path",
+      "permanent": false
+    }
+  ]
+}
+```
+
+- Start with permanent: false (302 redirect) until you confirm the redirect
+  works in the preview or production environment.
+- Change to permanent: true (301 redirect) after you verify the redirect
+  functions correctly.
+- Test the redirect in the Vercel preview deployment before merging.
 
 ## Formatting documentation
 
