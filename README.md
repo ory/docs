@@ -480,19 +480,23 @@ To test the documentation locally:
 
 ### Redirects
 
-When you delete, rename, or change the slug metadata of a document, you must set
-up a redirect to preserve SEO and prevent broken links.
+When the URL of a document changes, you must set up a redirect to preserve SEO
+and prevent broken links. Without redirects, the original URL returns a 404
+error, breaking existing links from external sites and causing search engines to
+lose page authority.
+
+The rule is: if the URL in the browser changes, add a redirect. If it doesn't,
+no redirect is required.
+
+Filenames don't always determine URLs. Ory documentation uses numbered prefixes
+in filenames and sets URLs explicitly in the front matter. Renaming with no
+other changes doesn't require a redirect because the final URL stays the same.
 
 You must add a redirect when you
 
+- change the `slug` or `id` property in the document front matter
 - delete a document
-- rename a document file
-- change the slug property in the document front matter
-- move a document to a different directory
-
-Without redirects, the original URL returns a 404 error. This breaks existing
-links from external sites, internal documentation cross-references, and
-bookmarks. Search engines also lose the page authority built up over time.
+- move a document to a different directory (if it changes the URL path)
 
 #### How to add a redirect
 
