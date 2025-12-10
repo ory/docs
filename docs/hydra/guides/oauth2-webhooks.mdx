@@ -123,7 +123,7 @@ Ory will perform a POST request with a JSON payload towards your endpoint.
 ```
 
 `session` represents the OAuth2 session, along with the data that was passed to the
-[Accept Consent Request](../../hydra/reference/api#operation/acceptConsentRequest) in the `id_token` field (only applicable to
+[Accept Consent Request](../../hydra/reference/api#tag/oAuth2/operation/acceptOAuth2ConsentRequest) in the `id_token` field (only applicable to
 Authorization code flows).
 
 `request` contains information from the OAuth client's request to the token endpoint.
@@ -215,7 +215,8 @@ You cannot override the token subject.
 By default, all custom claims are mirrored under the `ext` claim in the token.
 
 To flatten custom claims directly into the top level token instead of nesting them under `ext`, use the following
-[configuration](../../oauth2-oidc/jwt-access-token#adding-custom-claims-to-top-level).
+[configuration](../../oauth2-oidc/jwt-access-token#add-custom-claims-to-top-level
+).
 
 ### Refresh token
 
