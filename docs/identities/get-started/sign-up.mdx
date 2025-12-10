@@ -15,6 +15,9 @@ import { FrameworkCodeTabs } from '@site/src/components/GuidesComponents'
 import jsSignUp from '!!raw-loader!./_common/code-examples/js/sign-up.js'
 import goSignUp from '!!raw-loader!./_common/code-examples/go/signup_handler.go'
 import nextSignUp from '!!raw-loader!./_common/code-examples/nextjs/sign-up.tsx'
+import tsSignUp from '!!raw-loader!./_common/code-examples/express-ts/sign-up.ts'
+import javaSignUp from '!!raw-loader!./_common/code-examples/java/SignUpController.java'
+import dotnetSignUp from '!!raw-loader!./_common/code-examples/dotnet/SignUp.cs'
 ```
 
 This guide shows how to implement a secure sign up flow that authenticates users and creates sessions.
@@ -39,11 +42,20 @@ the Ory registration page.
 
 ```mdx-code-block
 </TabItem>
+<TabItem value="express-ts">
+```
+
+```mdx-code-block
+<CodeBlock language="ts" title={"sign-up.ts"}>{tsSignUp}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
 <TabItem value="nextjs">
 ```
 
 ```mdx-code-block
-<CodeBlock className="language-js">{nextSignUp}</CodeBlock>
+<CodeBlock className="language-tsx">{nextSignUp}</CodeBlock>
 ```
 
 ```mdx-code-block
@@ -54,6 +66,24 @@ the Ory registration page.
 ```mdx-code-block
 <CodeBlock className="language-go" title={"signup_handler.go"}>{goSignUp}</CodeBlock>
 
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="java">
+```
+
+```mdx-code-block
+<CodeBlock language="java" title={"SignUpController.java"}>{javaSignUp}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="dotnet">
+```
+
+```mdx-code-block
+<CodeBlock language="csharp" title={"SignUp.cs"}>{dotnetSignUp}</CodeBlock>
 ```
 
 ```mdx-code-block

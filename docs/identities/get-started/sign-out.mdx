@@ -15,6 +15,9 @@ import { FrameworkCodeTabs, ImplementationSteps } from '@site/src/components/Gui
 import jsLogout from '!!raw-loader!./_common/code-examples/js/logout.js'
 import nextLogout from '!!raw-loader!./_common/code-examples/nextjs/logout.tsx'
 import goLogout from '!!raw-loader!./_common/code-examples/go/logout_handler.go'
+import tsLogout from '!!raw-loader!./_common/code-examples/express-ts/logout.ts'
+import javaLogout from '!!raw-loader!./_common/code-examples/java/LogoutController.java'
+import dotnetLogout from '!!raw-loader!./_common/code-examples/dotnet/Logout.cs'
 ```
 
 The logout flow allows users to securely terminate their sessions. This guide shows how to implement proper logout functionality
@@ -26,6 +29,15 @@ in your application.
 ```
 
 <CodeBlock className="language-js">{jsLogout}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="express-ts">
+```
+
+<CodeBlock className="language-ts" title={"logout.ts"}>
+  {tsLogout}
+</CodeBlock>
 
 ```mdx-code-block
 </TabItem>
@@ -42,6 +54,24 @@ in your application.
 ```
 
 <CodeBlock className="language-go">{goLogout}</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="java">
+```
+
+<CodeBlock className="language-java" title={"LogoutController.java"}>
+  {javaLogout}
+</CodeBlock>
+
+```mdx-code-block
+</TabItem>
+<TabItem value="dotnet">
+```
+
+<CodeBlock className="language-csharp" title={"Logout.cs"}>
+  {dotnetLogout}
+</CodeBlock>
 
 ```mdx-code-block
 </TabItem>

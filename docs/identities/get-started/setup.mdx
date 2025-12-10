@@ -12,6 +12,9 @@ import { FrameworkCodeTabs } from '@site/src/components/GuidesComponents'
 import nextDevSetup from '!!raw-loader!./_common/code-examples/nextjs/ory.ts'
 import goSetup from '!!raw-loader!./_common/code-examples/go/ory_client.go'
 import jsDevSetup from '!!raw-loader!./_common/code-examples/js/setupDev.js'
+import javaDevSetup from '!!raw-loader!./_common/code-examples/java/setupDev.java'
+import dotnetDevSetup from '!!raw-loader!./_common/code-examples/dotnet/setupDev.cs'
+import expressTsDevSetup from '!!raw-loader!./_common/code-examples/express-ts/setupDev.ts'
 ```
 
 This guide shows how to set up the necessary dependencies and configurations to integrate Ory's identity management features into
@@ -38,7 +41,7 @@ npm install @ory/client-fetch --save
 
 ```mdx-code-block
 </TabItem>
-<TabItem value="nextjs">
+<TabItem value="ts-nextjs">
 ```
 
 ```shell
@@ -52,6 +55,28 @@ npm install @ory/client-fetch --save
 
 ```shell
 go get github.com/ory/client-go
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="java">
+```
+
+```xml
+<dependency>
+  <groupId>sh.ory</groupId>
+  <artifactId>ory-client</artifactId>
+  <version>latest</version>
+</dependency>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="dotnet">
+```
+
+```shell
+dotnet add package Ory.Client
 ```
 
 ```mdx-code-block
@@ -119,6 +144,15 @@ Configure your SDK to use the URL:
 
 ```mdx-code-block
 </TabItem>
+<TabItem value="express-ts">
+```
+
+```mdx-code-block
+<CodeBlock language="ts" title="sdk.ts"> {expressTsDevSetup} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
 <TabItem value="nextjs">
 ```
 
@@ -135,6 +169,24 @@ Configure your SDK to use the URL:
 
 ```mdx-code-block
  <CodeBlock language="go" title="ory_client.go"> {goSetup} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="java">
+```
+
+```mdx-code-block
+<CodeBlock language="java" title="OryClientFactory.java"> {javaDevSetup} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="dotnet">
+```
+
+```mdx-code-block
+<CodeBlock language="csharp" title="OryClientFactory.cs"> {dotnetDevSetup} </CodeBlock>
 ```
 
 ```mdx-code-block

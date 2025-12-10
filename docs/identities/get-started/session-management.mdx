@@ -15,6 +15,12 @@ import nextRefreshSession from '!!raw-loader!./_common/code-examples/nextjs/sess
 import nextCheckSession from '!!raw-loader!./_common/code-examples/nextjs/session/middleware.ts'
 import goCheckSession from '!!raw-loader!./_common/code-examples/go/middleware.go'
 import goRefreshHandler from '!!raw-loader!./_common/code-examples/go/refresh_handler.go'
+import tsCheckSession from '!!raw-loader!./_common/code-examples/express-ts/session/check-session.ts'
+import tsRefreshSession from '!!raw-loader!./_common/code-examples/express-ts/session/refresh-session.ts'
+import javaSessionMiddleware from '!!raw-loader!./_common/code-examples/java/SessionMiddleware.java'
+import javaRefreshSession from '!!raw-loader!./_common/code-examples/java/RefreshSessionController.java'
+import dotnetSessionMiddleware from '!!raw-loader!./_common/code-examples/dotnet/SessionMiddleware.cs'
+import dotnetRefreshSession from '!!raw-loader!./_common/code-examples/dotnet/RefreshSession.cs'
 ```
 
 After a user has logged in, Ory creates a session cookie that your application can use to verify the user's authentication status.
@@ -31,6 +37,15 @@ You can protect routes by checking for a session cookie.
 
 ```mdx-code-block
 <CodeBlock language="js"> {jsCheckSession} </CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="express-ts">
+```
+
+```mdx-code-block
+<CodeBlock language="ts" title="check-session.ts">{tsCheckSession}</CodeBlock>
 ```
 
 ```mdx-code-block
@@ -53,6 +68,24 @@ You can protect routes by checking for a session cookie.
 
 ```mdx-code-block
 </TabItem>
+<TabItem value="java">
+```
+
+```mdx-code-block
+<CodeBlock language="java" title="SessionMiddleware.java">{javaSessionMiddleware}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="dotnet">
+```
+
+```mdx-code-block
+<CodeBlock language="csharp" title="SessionMiddleware.cs">{dotnetSessionMiddleware}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
 </FrameworkCodeTabs>
 ```
 
@@ -71,6 +104,15 @@ You can refresh user sessions to extend their expiration time:
 
 ```mdx-code-block
 </TabItem>
+<TabItem value="express-ts">
+```
+
+```mdx-code-block
+<CodeBlock language="ts" title="refresh-session.ts">{tsRefreshSession}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
 <TabItem value="nextjs">
 ```
 
@@ -85,6 +127,24 @@ You can refresh user sessions to extend their expiration time:
 
 ```mdx-code-block
 <CodeBlock className="language-go" title="refresh_handler.go">{goRefreshHandler}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="java">
+```
+
+```mdx-code-block
+<CodeBlock language="java" title="RefreshSessionController.java">{javaRefreshSession}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="dotnet">
+```
+
+```mdx-code-block
+<CodeBlock language="csharp" title="RefreshSession.cs">{dotnetRefreshSession}</CodeBlock>
 ```
 
 ```mdx-code-block
