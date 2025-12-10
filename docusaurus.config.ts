@@ -245,17 +245,6 @@ const config: Config = {
       },
     })),
   ],
-  scripts: [
-    // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
-    {
-      src: "https://consent.ory.com/cmp/init.js",
-      defer: true,
-    },
-    {
-      src: "https://consent.ory.com/index.js",
-      defer: true,
-    },
-  ],
 }
 
 module.exports = config
