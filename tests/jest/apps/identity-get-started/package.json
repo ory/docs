@@ -1,0 +1,15 @@
+{
+  "name": "ory-identity-get-started-tests-app",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "cookie-parser": "^1.4.6",
+    "@ory/client-fetch": "1.15.16"
+  }
+}
