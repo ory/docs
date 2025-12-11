@@ -1,13 +1,16 @@
 // Create logout route
-app.get("/logout", async (req, res) => {
-  try {
-    // Create a logout flow
-    const { logout_url } = await ory.createBrowserLogoutFlow({
-      cookie: req.header("cookie"),
-    })
-    // Redirect to logout URL
-    res.redirect(logout_url)
-  } catch (err) {
-    res.redirect("/")
-  }
-})
+export const registerLogoutRoute = (app, ory) => {
+  app.get("/logout", async (req, res) => {
+    try {
+      // Create a logout flow
+      const { data } = await ory.createBrowserLogoutFlow({
+        cookie: req.header("cookie"),
+      })
+      const logoutUrl = data.logout_url || data.logoutUrl
+      // Redirect to logout URL
+      res.redirect(logoutUrl)
+    } catch (err) {
+      res.redirect("/")
+    }
+  })
+}
