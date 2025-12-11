@@ -24,4 +24,3 @@ describe("identity signup (Express/JS)", () => {
     expect(location).toContain("/self-service/registration/browser")
   })
 })
-
