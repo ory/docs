@@ -20,7 +20,7 @@ describe("identity signup (Express/JS)", () => {
     })
 
     expect(res.status).toBe(302)
-    const location = res.headers.get("location") || ""
+    const location = res.headers.get("location")
     expect(location).toContain("/self-service/registration/browser")
   })
 })
