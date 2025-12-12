@@ -55,13 +55,13 @@ For additional DSN options including SSL/TLS configuration, see
 Hydra doesn't create the database schema automatically. You must run migrations before starting the server and after every
 upgrade.
 
+Always back up your database before running migrations. For upgrade-specific guidance, see the
+[upgrade instructions](./upgrade.mdx).
+
 ```shell
 hydra migrate sql -e
 ```
 
 The `-e` flag reads the DSN from the environment variable.
-
-Always back up your database before running migrations. For upgrade-specific guidance, see the
-[upgrade instructions](./upgrade.mdx).
 
 For Docker deployments, see the [docker-compose example](https://github.com/ory/hydra/blob/master/quickstart-postgres.yml).
