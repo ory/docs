@@ -1,0 +1,156 @@
+---
+id: client-id-metadata-document
+title: Use client ID metadata documents
+sidebar_label: Client ID metadata
+slug: client-id-metadata-document
+---
+
+## Overview
+
+Client ID Metadata Document (CIMD) lets Hydra treat a `client_id` as an HTTPS URL that points to a metadata document. Hydra
+fetches that document to populate client settings such as redirect URIs, token endpoint auth method, and JWKS. The feature follows
+the draft OAuth Client ID Metadata Document specification. See the current draft for details in the
+[IETF document](https://datatracker.ietf.org/doc/draft-ietf-oauth-client-id-metadata-document/).
+
+CIMD modes control acceptance of URL-based client identifiers:
+
+- `disabled`: CIMD is off and Hydra only accepts string or UUID client IDs (default).
+- `optional`: Hydra accepts both URL client IDs and non-URL client IDs (typical starting point).
+- `enforced`: Hydra only accepts URL client IDs.
+
+Discovery stays disabled by default. Enabling CIMD does not expose discovery unless you also enable discovery in your deployment.
+
+## Enable CIMD in Hydra
+
+1. Upgrade Hydra to a build that includes CIMD and apply the accompanying migrations.
+2. In the Hydra configuration, enable CIMD and pick the mode:
+
+   ```yaml
+   oauth2:
+     client_id_metadata_document:
+       enabled: true
+       mode: optional # disabled | optional | enforced
+       cache:
+         min_ttl: 5m
+         max_ttl: 30m
+       http:
+         timeout: 5s
+       max_size: 1048576 # bytes
+   clients:
+     http:
+       disallow_private_ip_ranges: true
+       private_ip_exception_urls:
+         - https://metadata.example.internal/client.json
+   ```
+
+3. Adjust HTTP safety limits to match your environment:
+   - `oauth2.client_id_metadata_document.http.timeout` controls the metadata fetch timeout.
+   - `oauth2.client_id_metadata_document.max_size` rejects responses larger than this value.
+   - `clients.http.disallow_private_ip_ranges` blocks metadata fetches to private networks. Add allowed hosts to
+     `clients.http.private_ip_exception_urls` when needed.
+4. Set cache bounds with `oauth2.client_id_metadata_document.cache.min_ttl` and `oauth2.client_id_metadata_document.cache.max_ttl`
+   to avoid over-fetching while keeping metadata fresh.
+5. Enable discovery only if you want to expose CIMD through the well-known endpoint. CIMD works without discovery.
+
+## Configuration reference
+
+Use these configuration keys to control CIMD behavior. Defaults are shown for reference; confirm them against your release.
+
+- `oauth2.client_id_metadata_document.enabled`: Enables CIMD feature. Default: `false`.
+- `oauth2.client_id_metadata_document.mode`: `disabled` | `optional` | `enforced`. Default: `disabled`.
+- `oauth2.client_id_metadata_document.cache.min_ttl`: Minimum cache TTL for fetched metadata. Default: `5m`.
+- `oauth2.client_id_metadata_document.cache.max_ttl`: Maximum cache TTL for fetched metadata. Default: `24h`.
+- `oauth2.client_id_metadata_document.http.timeout`: HTTP client timeout for CIMD fetches. Default: `5s`.
+- `oauth2.client_id_metadata_document.max_size`: Maximum response body size for a metadata fetch. Default: `5KB`.
+- `clients.http.disallow_private_ip_ranges`: Enforces SSRF protection by disallowing private IP ranges. Default: project-global
+  setting.
+- `clients.http.private_ip_exception_urls`: Explicit allowlist entries when private IP ranges are disallowed.
+
+## Discovery and well-known exposure
+
+Hydra serves `.well-known/openid-configuration` and `.well-known/oauth-authorization-server` by default. CIMD-specific fields
+appear in those documents only when CIMD is enabled. If CIMD is disabled, the well-known responses remain unchanged.
+
+When CIMD is enabled, Hydra adds details to the discovery documents:
+
+- Indicates CIMD support (for example, as a capability entry alongside other Hydra extensions).
+- States that `client_id` can be an HTTPS URL referencing a metadata document when `mode` is `optional`, and must be when `mode`
+  is `enforced`.
+- Notes JWKS requirements for `private_key_jwt` clients (publish `jwks` or `jwks_uri`).
+- Explains CORS validation uses resolved metadata, so URL-based `client_id` values participate in CORS decisions.
+- Documents security constraints: HTTPS-only, path required, no fragment, SSRF and allowlist enforcement, timeout, and maximum
+  response size limits.
+- Mentions metadata caching with minimum and maximum TTLs; exact values remain deployment-specific unless you choose to expose
+  them.
+
+Discovery visibility is separate from operational behavior. Fetching and validation follow `enabled`, `mode`, and the safety
+limits above, regardless of whether discovery is exposed.
+
+## Prepare the client metadata document
+
+Publish a client metadata document at the HTTPS URL you plan to use as `client_id`. The URL must use HTTPS, include a path, and
+omit fragments. The document must satisfy these rules:
+
+- Provide `redirect_uris` that follow RFC 8252 rules. Loopback and `localhost` redirects are allowed per the specification.
+- For `private_key_jwt` clients, include `jwks` or `jwks_uri` so Hydra can validate assertions.
+- Include the token endpoint auth method in `token_endpoint_auth_method` when the client is not using the default
+  `client_secret_basic`.
+- Keep the document within the configured `max_size` and ensure the server responds within the configured timeout.
+
+Example document:
+
+```json
+{
+  "redirect_uris": ["https://app.example.com/callback", "http://localhost:8080/callback"],
+  "token_endpoint_auth_method": "private_key_jwt",
+  "jwks": {
+    "keys": [
+      {
+        "kty": "RSA",
+        "kid": "client-key-1",
+        "e": "AQAB",
+        "n": "...base64-modulus..."
+      }
+    ]
+  },
+  "client_name": "Example CIMD client"
+}
+```
+
+## How CIMD works at runtime
+
+When Hydra receives a `client_id` that is a valid HTTPS URL, it fetches the metadata document and applies these checks:
+
+- Enforces HTTPS, rejects URLs without a path, and rejects URLs that include fragments.
+- Applies SSRF protections using `clients.http.disallow_private_ip_ranges` and `clients.http.private_ip_exception_urls`.
+- Honors `oauth2.client_id_metadata_document.http.timeout` and `oauth2.client_id_metadata_document.max_size`.
+- Validates redirect URIs against RFC 8252 rules.
+- Requires JWKS or `jwks_uri` for `private_key_jwt` clients.
+
+A successful fetch populates the client settings and records `client_id_metadata_fetched_at`. Cache TTLs from the CIMD
+configuration prevent repeated fetches; subsequent requests reuse cached metadata until the TTL expires. Concurrent fetches for
+the same URL are safe.
+
+CORS, device flow, logout, and token handlers rely on the same client lookup logic, so URL-based `client_id` values work across
+those paths.
+
+## Operate and verify
+
+- Default behavior does not change until `oauth2.client_id_metadata_document.enabled` is set to `true`.
+- If you set `mode` to `enforced`, Hydra rejects non-URL client IDs.
+- Keep cache TTLs aligned with how often client operators update their metadata documents.
+- If you disallow private IP ranges, configure exception URLs for trusted metadata hosts before enabling CIMD for those clients.
+- Run your CI or staging environment with timeouts and maximum size values that match production to catch oversized or slow
+  metadata responses early.
+
+## Test the setup
+
+Use these checks in your deployment tests:
+
+- Verify a URL `client_id` is accepted when CIMD is `optional` and rejected when CIMD is `disabled`.
+- Confirm Hydra rejects metadata fetches that exceed the configured timeout or maximum size.
+- Verify SSRF protections by confirming requests to private IP ranges fail unless listed in
+  `clients.http.private_ip_exception_urls`.
+- Confirm `private_key_jwt` clients are rejected when the metadata document omits `jwks` or `jwks_uri`.
+- Run auth, token, device, and logout flows with URL `client_id` values to confirm end-to-end behavior.
+- If you enable discovery, verify the well-known endpoint reflects CIMD as expected.
