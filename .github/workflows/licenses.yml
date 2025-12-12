@@ -19,7 +19,7 @@ jobs:
       - name: Install script
         uses: ory/ci/licenses/setup@master
         with:
-          token: ${{ secrets.ORY_BOT_PAT || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ORY_BOT_PAT }}
       - name: Check licenses
         uses: ory/ci/licenses/check@master
       - name: Write, commit, push licenses
