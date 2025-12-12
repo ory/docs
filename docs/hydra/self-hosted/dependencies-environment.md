@@ -21,7 +21,7 @@ No further dependencies are required for a production-ready instance.
 
 For more information on configuring
 
-The SQL adapter supports PostgreSQL 9.6+, MySQL 8.0+ and SQLite. Please note that older MySQL versions have issues with Ory
+The SQL adapter supports PostgreSQL 12.0+, MySQL 8.0+ and SQLite. Please note that older MySQL versions have issues with Ory
 Hydra's database schema. For more information [go here](https://github.com/ory/hydra/issues/377).
 
 If you do run the SQL adapter, you must first create the database schema. The `hydra serve` command doesn't do this automatically,
