@@ -3,36 +3,65 @@ id: dependencies-environment
 title: Database setup and configuration
 ---
 
-Ory Hydra is built cloud native and implements [12factor](https://www.12factor.net/) principles. The Docker Image is 5 MB light
-and versioned with [verbose upgrade instructions](https://github.com/ory/hydra/blob/master/UPGRADE.md) and
-[detailed changelogs](https://github.com/ory/hydra/blob/master/CHANGELOG.md). Auto-scaling, migrations, health checks, it all
-works with zero additional work required. It's possible to run Ory Hydra on any platform, including but not limited to OSX, Linux,
-Windows, ARM, FreeBSD and more.
+Ory Hydra requires a database to store OAuth 2.0 clients, consent sessions, and access tokens. Choose between two operational
+modes based on your deployment needs.
 
-Ory Hydra has two operational modes:
+## In-memory mode
 
-- In-memory: This mode doesn't work with more than one instance ("cluster") and any state is lost after restarting the instance.
-  Ory Hydra uses SQLite with in-memory mode to achieve this.
-- SQL: This mode works with more than one instance and state isn't lost after restarts.
+Set `DSN=memory` to run Hydra with an ephemeral SQLite database. This mode is useful for development and testing but has
+limitations:
 
-No further dependencies are required for a production-ready instance.
+- Data is lost when the instance restarts
+- Only single-instance deployments work (no clustering)
 
-## Database configuration
+## SQL mode
 
-For more information on configuring
+For production deployments, configure Hydra with a persistent database. Hydra supports PostgreSQL 12.0+, MySQL 8.0+, CockroachDB,
+and SQLite. Older MySQL versions have known issues with Hydra's database schema.
 
-The SQL adapter supports PostgreSQL 12.0+, MySQL 8.0+ and SQLite. Please note that older MySQL versions have issues with Ory
-Hydra's database schema. For more information [go here](https://github.com/ory/hydra/issues/377).
+Set the database connection using the `DSN` environment variable or the `dsn` configuration key.
 
-If you do run the SQL adapter, you must first create the database schema. The `hydra serve` command doesn't do this automatically,
-instead you must run `hydra migrate sql` to create the schemas. The `hydra migrate sql` command also runs database migrations in
-case of an upgrade. Please follow the [upgrade instructions](https://github.com/ory/hydra/blob/master/UPGRADE.md) to see when you
-need to run this command. Always create a backup before running `hydra migrate sql`!
+PostgreSQL:
 
-Running SQL migrations in Docker is very easy, check out the
-[docker-compose](https://github.com/ory/hydra/blob/master/quickstart-postgres.yml) example to see how we did it!
+```shell
+DSN=postgres://user:password@host:5432/database
+```
 
-### Configuration
+MySQL:
 
-For more information on configuring the DSN (Data-Source-Name), head over to the
-[Deployment Fundamentals and Requirements](../../self-hosted/deployment) document.
+```shell
+DSN=mysql://user:password@tcp(host:3306)/database?parseTime=true
+```
+
+CockroachDB:
+
+```shell
+DSN=cockroach://user:password@host:26257/database?sslmode=verify-full
+```
+
+SQLite (file-based):
+
+```shell
+DSN=sqlite:///path/to/hydra.sqlite?_fk=true
+```
+
+The `_fk=true` parameter is required for SQLite to enable foreign key constraints.
+
+For additional DSN options including SSL/TLS configuration, see
+[Deployment Fundamentals and Requirements](../../self-hosted/deployment).
+
+## Running migrations
+
+Hydra doesn't create the database schema automatically. You must run migrations before starting the server and after every
+upgrade.
+
+```shell
+hydra migrate sql -e
+```
+
+The `-e` flag reads the DSN from the environment variable.
+
+Always back up your database before running migrations. For upgrade-specific guidance, see the
+[upgrade instructions](./upgrade.mdx).
+
+For Docker deployments, see the [docker-compose example](https://github.com/ory/hydra/blob/master/quickstart-postgres.yml).
