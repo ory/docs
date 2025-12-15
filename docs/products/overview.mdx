@@ -1,0 +1,21 @@
+---
+id: products-overview
+title: Products
+sidebar_label: Overview
+#displayed_sidebar: sidebars-ciam
+---
+
+import Link from "@docusaurus/Link"
+
+## Which deployment option?
+
+The right option depends on your organization’s goals and how much control you want over your infrastructure.
+If you need to maintain full control, meet strict compliance requirements, or operate at massive scale, Ory Enterprise License (OEL) is the best fit.
+For teams that want zero infrastructure management and seamless scaling, Ory Network provides a fully managed platform.
+And if you’re exploring, testing, or building prototypes, start with Ory Open Source or the Ory Network free tier.
+All Ory products share the same open standards and APIs, so you can move between them without rewriting your code.
+
+import WelcomePageSection from "@site/src/components/Welcome/welcome";
+import * as welcomeContent from "@site/src/pages/_assets/welcome-content";
+
+<WelcomePageSection {...welcomeContent.deploymentOptions} />
