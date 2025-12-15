@@ -149,4 +149,4 @@ const quickstartsSidebar = [
       },
 ]
 
-export default quickstartsSidebar;
+export default quickstartsSidebar
