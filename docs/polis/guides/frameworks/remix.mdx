@@ -184,8 +184,8 @@ app/auth.jackson.server.ts: https://github.com/boxyhq/jackson-remix-auth/blob/ma
 
 ### Resource routes to handle OAuth 2.0 and SSO Connections
 
-Next, create the api files for [OAuth 2.0 flow](../../..../../sso-flow/#3-oauth-20-flow) and
-[SSO Connection](../../..../../sso-flow/#2-sso-connection-api):
+Next, create the api files for [OAuth 2.0 flow](../../..../../sso-flow/#oauth-20-flow) and
+[SSO Connection](../../..../../sso-flow/#sso-connection-api):
 
 ```bash
 app/routes $ mkdir api && cd api
@@ -407,7 +407,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 ## Add an SSO Connection
 
-[Add a SAML SSO connection](../../..../../sso-flow/#21-add-connection) for [mocksaml.com](https://mocksaml.com). You can start the
+[Add a SAML SSO connection](../../..../../sso-flow/#add-connection) for [mocksaml.com](https://mocksaml.com). You can start the
 app and call the connection API as shown below:
 
 <details>
