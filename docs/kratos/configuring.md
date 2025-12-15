@@ -11,7 +11,7 @@ This document describes _how_ the service can be configured. For a documentation
 Files in the format of JSON, YAML and TOML are supported. When starting Kratos you specify the path to the config file via the
 `--config` flag. For more in-depth info run `kratos help`. We recommend you name your configuration file
 `kratos.(json|yml|yaml|toml)`. This will enable automatic validation and code completion in VSCode, JetBrains' IDEs and other
-tools that utilize [schemastore.org](https://www.schemastore.org/json/) JSON schemas. Alternatively you can add the schema mapping
+tools that utilize [schemastore.org](https://www.schemastore.org/) JSON schemas. Alternatively you can add the schema mapping
 manually as well. It's recommended to prevent leaking of secrets by setting sensitive values via environmental variables as
 described in the following section.
 
