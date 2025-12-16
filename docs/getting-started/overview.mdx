@@ -4,12 +4,11 @@ title: Quickstarts
 displayed_sidebar: quickstartsSidebar
 ---
 
-```mdx-code-block
-import QuickstartFilter from "@site/src/components/Quickstarts/QuickstartFilter"
-```
+Are you looking for an example to just get started? Check out all available examples!
 
-# Quickstarts
+import ExampleList from "@site/src/components/Examples/example-list"
+import * as content from "@site/src/pages/_assets/examples-content"
 
-Get started with Ory using the guides and examples that best match your use case.
-
-<QuickstartFilter />
+<ExampleList {...content.basic} />
+<ExampleList {...content.customui} />
+<ExampleList {...content.community} />
