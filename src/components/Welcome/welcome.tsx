@@ -18,21 +18,11 @@ const WelcomePageSection: React.FC<WelcomePageSectionProps> = ({
   cards,
 }) => {
   return (
-    <section id={id}>
-      {(title || description) && (
-        <div className={styles.sectionHeading}>
-          {title && <h2 className={styles.sectionTitle}>{title}</h2>}
-          {description && (
-            <p className={styles.sectionDescription}>{description}</p>
-          )}
-        </div>
-      )}
       <CardGrid>
         {cards.map((card, index) => (
           <Card key={index} {...card} />
         ))}
       </CardGrid>
-    </section>
   )
 }
 
