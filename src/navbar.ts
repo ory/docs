@@ -1,76 +1,81 @@
+// Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
+
 import { Navbar } from "@docusaurus/theme-common"
 
 export const navbar: Navbar = {
   hideOnScroll: false,
   logo: {
     alt: "Ory",
-    src: `/docs/img/logos/logo-light-mode.svg`,
-    srcDark: `/docs/img/logos/logo-dark-mode.svg`,
+    src: `/docs/img/logos/logo-docs-2023-02-15.svg`,
+    srcDark: `/docs/img/logos/logo-docs-dark-2023-02-15.svg`,
     href: `https://www.ory.com`,
     width: 63,
     height: 32,
   },
+
   items: [
     {
-      to: "/getting-started/overview",
-      label: "Start",
+      label: "Home",
+      to: "/docs/welcome",
       position: "left",
     },
     {
-      label: "Products",
+      type: "doc",
+      docId: "getting-started/overview",
+      label: "Quickstarts",
       position: "left",
+    },
+    {
+      type: 'dropdown',
+      to: 'products/products-overview',
+      label: 'Products',
+      position: 'left',
       items: [
         {
-          to: "/docs/identities",
-          label: "Ory Kratos Identities",
+          type: "doc",
+          docId: "network/getting-started/index",
+          label: "Ory Network",
         },
         {
-          to: "/docs/oauth2-oidc",
-          label: "Ory Hydra OAuth2",
+          type: "doc",
+          docId: 'oel/getting-started/index',
+          label: 'Ory Enterprise License',
         },
         {
-          to: "/docs/keto",
-          label: "Ory Keto Permissions",
-        },
-        {
-          to: "/docs/polis",
-          label: "Ory Polis SAML",
-        },
-        {
-          to: "/docs/oathkeeper",
-          label: "Ory Oathkeeper Zero Trust",
-        },
-        {
-          to: "/docs/self-hosted/oel",
-          label: "Ory Enterprise License",
-        },
-        {
-          to: "/docs/elements",
-          label: "Ory Elements",
+          type: "doc",
+          docId: 'oss/getting-started/index',
+          label: 'Ory Open Source',
         },
       ],
     },
     {
-      label: "Manage",
+      type: "dropdown",
+      to: "/docs/solutions/solutions-overview",
+      label: "Solutions",
       position: "left",
       items: [
         {
-          to: "/docs/guides/operations",
-          label: "Platform",
+          type: "doc",
+          docId: "solutions/solution_CIAM",
+          label: "CIAM",
         },
         {
-          to: "/docs/category/troubleshooting",
-          label: "Troubleshooting",
+          type: "doc",
+          docId: "solutions/solution_B2B",
+          label: "B2B IAM",
         },
         {
-          to: "/docs/security-compliance/compliance-and-certifications",
-          label: "Security and compliance",
+          type: "doc",
+          docId: "solutions/solution_agentic",
+          label: "Agentic IAM",
         },
       ],
     },
+    
     {
-      //   to: "/docs/reference/api",
-      //   to: "/docs/reference", // TODO: Use this route
+      type: "dropdown",
+      to: "/docs/reference/reference-overview",
       label: "Reference",
       position: "left",
       items: [
@@ -93,9 +98,23 @@ export const navbar: Navbar = {
       ],
     },
     {
-      to: "/docs/ecosystem/projects",
-      label: "Open Source",
+      label: "Change Log",
       position: "left",
+      items: [
+        {
+          to: "https://changelog.ory.com/?categories=cat_6MGGeXN7WohDH",
+          label: "Ory Network",
+        },
+        {
+          to: "https://changelog.ory.com/?categories=cat_s3C6qgDr7FEyo%2Ccat_n9fSarZSCxDTl%2Ccat_ZTXuym1ZfOYZx%2Ccat_YZLKJTlx35HVW",
+          label: "Ory OEL",
+        },
+        
+        {
+          to: "/docs/ecosystem/changelog",
+          label: "Ory OSS",
+        },
+      ],
     },
     {
       label: "Need Support?",
@@ -110,7 +129,7 @@ export const navbar: Navbar = {
           label: "Search the docs",
         },
         {
-          to: "https://slack.ory.com",
+          to: "https://www.ory.com/chat",
           label: "Ory Community Slack",
         },
         {
