@@ -596,6 +596,9 @@ Token Introspection to check if the token is valid and if the token was granted 
 - `introspection_url` (string, required) - The OAuth 2.0 Token Introspection endpoint.
 - `scope_strategy` (string, optional) - Sets the strategy to be used to validate/match the token scope. Supports "hierarchic",
   "exact", "wildcard", "none". Defaults to "none".
+- `scope_validation` (string, optional) - Sets the validation strategy to be used to validate/match the token scopes. Supports
+  "default", "any". Defaults to "default" requiring all scopes to match. Strategy set to "any" works as logical OR - any matched
+  scope will pass the validation.
 - `required_scope` ([]string, optional) - Sets what scope is required by the URL and when performing OAuth 2.0 Client Credentials
   request, the scope will be included in the request.
 - `target_audience` ([]string, optional) - Sets what audience is required by the URL.
@@ -642,6 +645,7 @@ authenticators:
     config:
       introspection_url: https://my-website.com/oauth2/introspection
       scope_strategy: exact
+      scope_validation: default
       required_scope:
         - photo
         - profile
@@ -682,6 +686,7 @@ authenticators:
     config:
       introspection_url: https://my-website.com/oauth2/introspection
       scope_strategy: exact
+      scope_validation: any
       required_scope:
         - photo
         - profile
@@ -791,6 +796,9 @@ verify the signature of it.
 - `jwks_ttl` (duration, optional) - The duration for which fetched JWKs should be cached internally. Defaults to "30s".
 - `scope_strategy` (string, optional) - Sets the strategy to be used to validate/match the scope. Supports "hierarchic", "exact",
   "wildcard", "none". Defaults to "none".
+- `scope_validation` (string, optional) - Sets the validation strategy to be used to validate/match the token scopes. Supports
+  "default", "any". Defaults to "default" requiring all scopes to match. Strategy set to "any" works as logical OR - any matched
+  scope will pass the validation.
 - If `trusted_issuers` ([]string) is set, the JWT must contain a value for claim `iss` that matches _exactly_ (case-sensitive) one
   of the values of `trusted_issuers`. If no values are configured, the issuer will be ignored.
 - If `target_audience` ([]string) is set, the JWT must contain all values (exact, case-sensitive) in the claim `aud`. If no values
