@@ -48,6 +48,21 @@
       "permanent": false
     },
     {
+      "source": "/:project(keto|kratos)/docs/:version(v[0-9.]+|v[0-9.]+/|next|next/)/:path*",
+      "destination": "https://www.ory.com/docs/:project",
+      "permanent": false
+    },
+    {
+      "source": "/hydra/docs/:version(v[0-9.]+|v[0-9.]+/|next|next/)/:segment/:path*",
+      "destination": "/docs/oauth2-oidc",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/:version(v[0-9.]+|v[0-9.]+/|next|next/)/:segment/:path*",
+      "destination": "/docs/oauth2-oidc",
+      "permanent": false
+    },
+    {
       "source": "/oathkeeper/docs/:path*",
       "destination": "https://www.ory.com/docs/oathkeeper/:path",
       "permanent": false
@@ -65,6 +80,16 @@
     {
       "source": "/docs/oathkeeper/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
       "destination": "https://www.ory.com/docs/oathkeeper",
+      "permanent": false
+    },
+    {
+      "source": "/hydra/docs/:version(v[0-9.]+|next)/:path*",
+      "destination": "https://www.ory.com/docs/hydra/:path",
+      "permanent": false
+    },
+    {
+      "source": "/hydra/docs/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
+      "destination": "https://www.ory.com/docs/hydra",
       "permanent": false
     },
     {
@@ -88,6 +113,16 @@
       "permanent": false
     },
     {
+      "source": "/keto/docs/:version(v[0-9.]+|next)/:path*",
+      "destination": "https://www.ory.com/docs/keto/:path",
+      "permanent": false
+    },
+    {
+      "source": "/keto/docs/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
+      "destination": "https://www.ory.com/docs/keto",
+      "permanent": false
+    },
+    {
       "source": "/keto/docs/:path*",
       "destination": "https://www.ory.com/docs/keto/:path",
       "permanent": false
@@ -105,6 +140,16 @@
     {
       "source": "/docs/keto/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
       "destination": "https://www.ory.com/docs/keto",
+      "permanent": false
+    },
+    {
+      "source": "/kratos/docs/:version(v[0-9.]+|next)/:path*",
+      "destination": "https://www.ory.com/docs/kratos/:path",
+      "permanent": false
+    },
+    {
+      "source": "/kratos/docs/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
+      "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
     },
     {
