@@ -69,6 +69,11 @@ configure SMS:
    ory update identity-config --project <project-id> --workspace <workspace-id> --file updated_config.yaml
    ```
 
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
 ### Body configuration
 
 The body of the above snippet decodes to the following Jsonnet template:
@@ -87,22 +92,43 @@ Fields available on the `ctx` object are:
 - `template_type`: The template type, e.g. `verification_code`
 - `template_data`: The template data, e.g. `{ "VerificationCode": "1234", Idenity: { ... } }`
 - `message_type`: The message type, e.g. `sms`
+- `request_headers`: A map of all HTTP request headers forwarded from the user request (see below)
+
+#### Accessing request headers
+
+The following request headers are available via `ctx.request_headers`:
+
+```
+Accept
+Accept-Encoding
+Accept-Language
+Content-Length
+Content-Type
+Origin
+Priority
+Referer
+Sec-Ch-Ua
+Sec-Ch-Ua-Mobile
+Sec-Ch-Ua-Platform
+Sec-Fetch-Dest
+Sec-Fetch-Mode
+Sec-Fetch-Site
+Sec-Fetch-User
+True-Client-Ip
+User-Agent
+X-Forwarded-Host
+Ory-Base-Url-Rewrite
+Ory-Base-Url-Rewrite-Token
+X-Ory-Original-Host
+Ory-No-Custom-Domain-Redirect
+Cf-Ipcountry
+```
 
 Read the [Jsonnet documentation](../../kratos/reference/jsonnet.mdx) to learn more about the Jsonnet templating language.
-
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
 
 ## Templates
 
 Only the `recovery_code`, `verification_code`, and `login_code` templates support an SMS variant. Use the CLI to configure it:
-
-```mdx-code-block
-<Tabs groupId="console-or-cli">
-<TabItem value="cli" label="Ory CLI">
-```
 
 1. Download the Ory Identities config from your project and save it to a file:
 
@@ -145,8 +171,3 @@ Only the `recovery_code`, `verification_code`, and `login_code` templates suppor
    ```shell
    ory update identity-config --project <project-id> --workspace <workspace-id> --file updated_config.yaml
    ```
-
-```mdx-code-block
-</TabItem>
-</Tabs>
-```
