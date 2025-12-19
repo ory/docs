@@ -115,7 +115,10 @@ export default function ListChangelogs({ dir }) {
             {isNoChanges ? (
               <>
                 <Heading as="h2">{version}</Heading>
-                <p>This version contains minor changes and improvements, such as dependency updates, only.</p>
+                <p>
+                  This version contains only minor changes and improvements such
+                  as dependency updates.
+                </p>
               </>
             ) : (
               <Comp />
