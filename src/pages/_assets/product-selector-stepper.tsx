@@ -100,7 +100,8 @@ const STEPS: Step[] = [
   {
     id: "identity",
     title: "Identity Management",
-    question: "Do you need identity management (user registration, profile management)?",
+    question:
+      "Do you need identity management (user registration, profile management)?",
     options: [
       {
         value: "yes",
@@ -366,9 +367,16 @@ function generateChartConnections(components: ComponentKey[]): string {
 function generateMermaidChart(components: ComponentKey[]): string {
   const nodes = generateChartNodes(components)
   const connections = generateChartConnections(components)
-  
+
   // Generate style directives for Ory product nodes to remove borders
-  const productNodeIds = ["Kratos", "Hydra", "Keto", "Polis", "Oathkeeper", "Elements"]
+  const productNodeIds = [
+    "Kratos",
+    "Hydra",
+    "Keto",
+    "Polis",
+    "Oathkeeper",
+    "Elements",
+  ]
   const visibleProductNodes = productNodeIds.filter((id) => {
     if (id === "Kratos") return components.includes("kratos")
     if (id === "Hydra") return components.includes("hydra")
@@ -378,7 +386,7 @@ function generateMermaidChart(components: ComponentKey[]): string {
     if (id === "Elements") return components.includes("elements")
     return false
   })
-  
+
   const nodeStyles = visibleProductNodes
     .map((id) => `style ${id} fill:transparent,stroke:none`)
     .join("\n")
@@ -404,7 +412,9 @@ ${connections}
 export function ProductSelectorStepper() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
-  const [selectedComponents, setSelectedComponents] = useState<ComponentKey[]>([])
+  const [selectedComponents, setSelectedComponents] = useState<ComponentKey[]>(
+    [],
+  )
 
   // Recalculate selected components whenever answers change
   useEffect(() => {
@@ -452,7 +462,8 @@ export function ProductSelectorStepper() {
     <div className={styles.stepper}>
       <div className={styles.header}>
         <p className={styles.description}>
-          Answer a few questions about your IAM requirements. We'll match you with the right Ory products.
+          Answer a few questions about your IAM requirements. We'll match you
+          with the right Ory products.
         </p>
       </div>
 
@@ -491,11 +502,14 @@ export function ProductSelectorStepper() {
               <p className={styles.stepQuestion}>{currentStepData.question}</p>
               <div className={styles.optionsContainer}>
                 {currentStepData.options.map((option) => {
-                  const isSelected = answers[currentStepData.id] === option.value
+                  const isSelected =
+                    answers[currentStepData.id] === option.value
                   return (
                     <button
                       key={option.value}
-                      onClick={() => handleAnswer(currentStepData.id, option.value)}
+                      onClick={() =>
+                        handleAnswer(currentStepData.id, option.value)
+                      }
                       className={`${styles.optionButton} ${
                         isSelected ? styles.optionButtonSelected : ""
                       }`}
@@ -508,19 +522,26 @@ export function ProductSelectorStepper() {
             </div>
           ) : (
             <div className={styles.completionCard}>
-              <h3 className={styles.completionTitle}>Configuration Complete!</h3>
+              <h3 className={styles.completionTitle}>
+                Configuration Complete!
+              </h3>
               {selectedComponents.length > 0 ? (
                 <>
                   <p className={styles.completionDescription}>
-                    Based on your answers, here are the recommended Ory products for your
-                    use case:
+                    Based on your answers, here are the recommended Ory products
+                    for your use case:
                   </p>
                   <ul className={styles.componentsList}>
                     {selectedComponents.map((component) => {
-                      const config = COMPONENT_CONFIGS.find((c) => c.key === component)
+                      const config = COMPONENT_CONFIGS.find(
+                        (c) => c.key === component,
+                      )
                       if (!config) return null
                       return (
-                        <li key={component} className={styles.componentListItem}>
+                        <li
+                          key={component}
+                          className={styles.componentListItem}
+                        >
                           <a
                             href={config.gettingStartedUrl}
                             className={styles.componentLink}
@@ -534,9 +555,9 @@ export function ProductSelectorStepper() {
                 </>
               ) : (
                 <p className={styles.completionDescription}>
-                  Based on your answers, you may not need any Ory products, or you might
-                  be using an existing identity solution. If you need help determining the
-                  right setup for your use case, please{" "}
+                  Based on your answers, you may not need any Ory products, or
+                  you might be using an existing identity solution. If you need
+                  help determining the right setup for your use case, please{" "}
                   <a href="mailto:support@ory.com" className={styles.link}>
                     contact our support team
                   </a>
@@ -586,4 +607,3 @@ export function ProductSelectorStepper() {
     </div>
   )
 }
-

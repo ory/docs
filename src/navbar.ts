@@ -27,10 +27,10 @@ export const navbar: Navbar = {
       position: "left",
     },
     {
-      type: 'dropdown',
-      to: 'products/products-overview',
-      label: 'Products',
-      position: 'left',
+      type: "dropdown",
+      to: "products/products-overview",
+      label: "Products",
+      position: "left",
       items: [
         {
           type: "doc",
@@ -39,13 +39,13 @@ export const navbar: Navbar = {
         },
         {
           type: "doc",
-          docId: 'oel/getting-started/index',
-          label: 'Ory Enterprise License',
+          docId: "oel/getting-started/index",
+          label: "Ory Enterprise License",
         },
         {
           type: "doc",
-          docId: 'oss/getting-started/index',
-          label: 'Ory Open Source',
+          docId: "oss/getting-started/index",
+          label: "Ory Open Source",
         },
       ],
     },
@@ -72,7 +72,7 @@ export const navbar: Navbar = {
         },
       ],
     },
-    
+
     {
       type: "dropdown",
       to: "/docs/reference/reference-overview",
@@ -109,7 +109,7 @@ export const navbar: Navbar = {
           to: "https://changelog.ory.com/?categories=cat_s3C6qgDr7FEyo%2Ccat_n9fSarZSCxDTl%2Ccat_ZTXuym1ZfOYZx%2Ccat_YZLKJTlx35HVW",
           label: "Ory OEL",
         },
-        
+
         {
           to: "/docs/ecosystem/changelog",
           label: "Ory OSS",

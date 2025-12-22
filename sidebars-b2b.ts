@@ -5,9 +5,7 @@ const b2bSidebar = [
   {
     type: "category",
     label: "B2B",
-    items: [
-      "solutions/solution_B2B",
-    ],
+    items: ["solutions/solution_B2B"],
   },
 ]
 

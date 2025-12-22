@@ -14,9 +14,7 @@ const networkSidebar = [
   {
     type: "category",
     label: "Ory Network",
-    items: [
-      "network/getting-started/index",
-    ],
+    items: ["network/getting-started/index"],
   },
   {
     type: "category",
@@ -378,273 +376,276 @@ const networkSidebar = [
     ],
   },
   {
-      type: "category",
-      label: "Ory Hydra",
-      collapsed: true,
-      items: [
-        "oauth2-oidc/index",
-        {
-          type: "category",
-          label: "Start",
-          collapsed: false,
-          collapsible: false,
-          link: {
-            type: "doc",
-            id: "getting-started/ory-network-oauth2",
-          },
-          items: [
-            "getting-started/oauth2-openid/expressjs",
-            "hydra/guides/using-oauth2",
-          ],
+    type: "category",
+    label: "Ory Hydra",
+    collapsed: true,
+    items: [
+      "oauth2-oidc/index",
+      {
+        type: "category",
+        label: "Start",
+        collapsed: false,
+        collapsible: false,
+        link: {
+          type: "doc",
+          id: "getting-started/ory-network-oauth2",
         },
-        {
-          type: "category",
-          label: "Concepts",
-          collapsed: false,
-          collapsible: false,
-          link: {
-            type: "doc",
-            id: "oauth2-oidc/index",
-          },
-          items: [
-            "oauth2-oidc/overview/oauth2-concepts",
-            "oauth2-oidc/overview/oidc-concepts",
-            "hydra/concepts/before-oauth2",
-            "hydra/security-architecture",
-          ],
+        items: [
+          "getting-started/oauth2-openid/expressjs",
+          "hydra/guides/using-oauth2",
+        ],
+      },
+      {
+        type: "category",
+        label: "Concepts",
+        collapsed: false,
+        collapsible: false,
+        link: {
+          type: "doc",
+          id: "oauth2-oidc/index",
         },
-        {
-          type: "category",
-          label: "Guides",
-          collapsed: false,
-          collapsible: false,
-          link: {
-            type: "doc",
-            id: "hydra/guides/oauth2-token-introspection",
+        items: [
+          "oauth2-oidc/overview/oauth2-concepts",
+          "oauth2-oidc/overview/oidc-concepts",
+          "hydra/concepts/before-oauth2",
+          "hydra/security-architecture",
+        ],
+      },
+      {
+        type: "category",
+        label: "Guides",
+        collapsed: false,
+        collapsible: false,
+        link: {
+          type: "doc",
+          id: "hydra/guides/oauth2-token-introspection",
+        },
+        items: [
+          {
+            type: "category",
+            label: "Flows",
+            link: {
+              type: "doc",
+              id: "oauth2-oidc/authorization-code-flow",
+            },
+            items: [
+              "oauth2-oidc/authorization-code-flow",
+              "oauth2-oidc/client-credentials",
+              "oauth2-oidc/device-authorization",
+              "oauth2-oidc/resource-owner-password-grant",
+              "oauth2-oidc/refresh-token-grant",
+              "oauth2-oidc/userinfo-oidc",
+              "oauth2-oidc/oidc-logout",
+              "oauth2-oidc/wellknown-endpoint-discovery",
+            ],
           },
-          items: [
-            {
-              type: "category",
-              label: "Flows",
-              link: {
-                type: "doc",
-                id: "oauth2-oidc/authorization-code-flow",
+          {
+            type: "category",
+            label: "Token management",
+            link: {
+              type: "generated-index",
+              slug: "guides/token-management",
+            },
+            items: [
+              "hydra/guides/oauth2-token-introspection",
+              "oauth2-oidc/revoke-consent",
+              "oauth2-oidc/skip-consent",
+              "oauth2-oidc/jwt-access-token",
+              "hydra/guides/audiences",
+              "hydra/guides/jwt",
+              "hydra/guides/client-token-expiration",
+              "hydra/guides/graceful-token-refresh",
+              "oauth2-oidc/claims-scope",
+            ],
+          },
+          {
+            type: "category",
+            label: "Ory Actions",
+            items: ["hydra/guides/claims-at-refresh"],
+          },
+          {
+            type: "category",
+            label: "Client management",
+            items: [
+              "hydra/guides/oauth2-clients",
+              "hydra/jwks",
+              "hydra/guides/openid",
+              "oauth2-oidc/issuer-url",
+            ],
+          },
+          {
+            type: "category",
+            label: "User Interface",
+            link: {
+              type: "doc",
+              id: "hydra/guides/custom-ui-oauth2",
+            },
+            items: [
+              "oauth2-oidc/custom-login-consent/flow",
+              "hydra/guides/logout",
+            ],
+          },
+        ],
+      },
+      {
+        type: "category",
+        label: "Self-Hosted",
+        collapsed: false,
+        collapsible: false,
+        items: [
+          "hydra/self-hosted/install",
+          "hydra/self-hosted/quickstart",
+          {
+            type: "category",
+            label: "Configuration",
+            items: [
+              "hydra/reference/configuration",
+              "hydra/reference/configuration-editor",
+              "hydra/self-hosted/configure-deploy",
+              "hydra/self-hosted/dependencies-environment",
+              "hydra/self-hosted/production",
+              "hydra/self-hosted/hsm-support",
+              "self-hosted/operations/scalability",
+              "hydra/self-hosted/merge-multiple-db-secrets",
+              "hydra/self-hosted/gitlab",
+              "hydra/self-hosted/secrets-key-rotation",
+              "hydra/self-hosted/kubernetes-helm-chart",
+              "hydra/self-hosted/ssl-https-tls",
+              "self-hosted/operations/tracing",
+              "hydra/guides/cookies",
+              "hydra/guides/cors",
+              "self-hosted/hydra/debug/csrf",
+            ],
+          },
+          {
+            type: "category",
+            label: "Guides",
+            items: [
+              "hydra/self-hosted/deploy-hydra-example",
+              "hydra/self-hosted/upgrade",
+            ],
+          },
+          {
+            type: "category",
+            label: "Reference",
+            items: [
+              "hydra/reference/api",
+              {
+                "Command Line Interface (CLI)": [
+                  {
+                    type: "autogenerated",
+                    dirName: "hydra/cli",
+                  },
+                ],
               },
-              items: [
-                "oauth2-oidc/authorization-code-flow",
-                "oauth2-oidc/client-credentials",
-                "oauth2-oidc/device-authorization",
-                "oauth2-oidc/resource-owner-password-grant",
-                "oauth2-oidc/refresh-token-grant",
-                "oauth2-oidc/userinfo-oidc",
-                "oauth2-oidc/oidc-logout",
-                "oauth2-oidc/wellknown-endpoint-discovery",
-              ],
-            },
-            {
-              type: "category",
-              label: "Token management",
-              link: {
-                type: "generated-index",
-                slug: "guides/token-management",
+              {
+                SDK: [
+                  "hydra/sdk/overview",
+                  "hydra/self-hosted/go",
+                  "hydra/self-hosted/js",
+                ],
               },
-              items: [
-                "hydra/guides/oauth2-token-introspection",
-                "oauth2-oidc/revoke-consent",
-                "oauth2-oidc/skip-consent",
-                "oauth2-oidc/jwt-access-token",
-                "hydra/guides/audiences",
-                "hydra/guides/jwt",
-                "hydra/guides/client-token-expiration",
-                "hydra/guides/graceful-token-refresh",
-                "oauth2-oidc/claims-scope",
-              ],
-            },
-            {
-              type: "category",
-              label: "Ory Actions",
-              items: ["hydra/guides/claims-at-refresh"],
-            },
-            {
-              type: "category",
-              label: "Client management",
-              items: [
-                "hydra/guides/oauth2-clients",
-                "hydra/jwks",
-                "hydra/guides/openid",
-                "oauth2-oidc/issuer-url",
-              ],
-            },
-            {
-              type: "category",
-              label: "User Interface",
-              link: {
-                type: "doc",
-                id: "hydra/guides/custom-ui-oauth2",
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: "category",
+    label: "Ory Keto",
+    collapsed: true,
+    items: [
+      "keto/index",
+      {
+        type: "category",
+        label: "Start",
+        collapsed: false,
+        collapsible: false,
+        link: {
+          type: "doc",
+          id: "guides/permissions/overview",
+        },
+        items: ["keto/quickstart", "keto/examples/olymp-file-sharing"],
+      },
+      {
+        type: "category",
+        label: "Concepts",
+        collapsed: false,
+        collapsible: false,
+        link: {
+          type: "doc",
+          id: "keto/index",
+        },
+        items: [
+          "keto/guides/rbac",
+          {
+            type: "autogenerated",
+            dirName: "keto/concepts",
+          },
+          "keto/reference/ory-permission-language",
+        ],
+      },
+      {
+        type: "category",
+        label: "Guides",
+        collapsed: false,
+        collapsible: false,
+        items: [
+          "keto/guides/simple-access-check-guide",
+          "keto/modeling/create-permission-model",
+          "keto/guides/list-api-display-objects",
+          "keto/guides/expand-api-display-who-has-access",
+        ],
+      },
+      {
+        type: "category",
+        label: "Self-Hosted",
+        collapsed: false,
+        collapsible: false,
+        items: [
+          "keto/install",
+          "keto/quickstart",
+          {
+            type: "category",
+            label: "Configuration",
+            items: [
+              "keto/reference/configuration",
+              "keto/reference/configuration-editor",
+            ],
+          },
+          {
+            type: "category",
+            label: "Guides",
+            items: [
+              "keto/guides/production",
+              "keto/guides/v0.7-migration",
+              "keto/guides/migrating-legacy-policies",
+              "keto/guides/upgrade",
+            ],
+          },
+          {
+            Reference: [
+              "keto/reference/rest-api",
+              "keto/reference/proto-api",
+              {
+                "Command Line Interface (CLI)": [
+                  {
+                    type: "autogenerated",
+                    dirName: "keto/cli",
+                  },
+                ],
               },
-              items: ["oauth2-oidc/custom-login-consent/flow", "hydra/guides/logout"],
-            },
-          ],
-        },
-        {
-          type: "category",
-          label: "Self-Hosted",
-          collapsed: false,
-          collapsible: false,
-          items: [
-            "hydra/self-hosted/install",
-            "hydra/self-hosted/quickstart",
-            {
-              type: "category",
-              label: "Configuration",
-              items: [
-                "hydra/reference/configuration",
-                "hydra/reference/configuration-editor",
-                "hydra/self-hosted/configure-deploy",
-                "hydra/self-hosted/dependencies-environment",
-                "hydra/self-hosted/production",
-                "hydra/self-hosted/hsm-support",
-                "self-hosted/operations/scalability",
-                "hydra/self-hosted/merge-multiple-db-secrets",
-                "hydra/self-hosted/gitlab",
-                "hydra/self-hosted/secrets-key-rotation",
-                "hydra/self-hosted/kubernetes-helm-chart",
-                "hydra/self-hosted/ssl-https-tls",
-                "self-hosted/operations/tracing",
-                "hydra/guides/cookies",
-                "hydra/guides/cors",
-                "self-hosted/hydra/debug/csrf",
-              ],
-            },
-            {
-              type: "category",
-              label: "Guides",
-              items: [
-                "hydra/self-hosted/deploy-hydra-example",
-                "hydra/self-hosted/upgrade",
-              ],
-            },
-            {
-              type: "category",
-              label: "Reference",
-              items: [
-                "hydra/reference/api",
-                {
-                  "Command Line Interface (CLI)": [
-                    {
-                      type: "autogenerated",
-                      dirName: "hydra/cli",
-                    },
-                  ],
-                },
-                {
-                  SDK: [
-                    "hydra/sdk/overview",
-                    "hydra/self-hosted/go",
-                    "hydra/self-hosted/js",
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      type: "category",
-      label: "Ory Keto",
-      collapsed: true,
-      items: [
-        "keto/index",
-        {
-          type: "category",
-          label: "Start",
-          collapsed: false,
-          collapsible: false,
-          link: {
-            type: "doc",
-            id: "guides/permissions/overview",
+              {
+                SDK: ["keto/sdk/overview", "keto/self-hosted/go"],
+              },
+            ],
           },
-          items: ["keto/quickstart", "keto/examples/olymp-file-sharing"],
-        },
-        {
-          type: "category",
-          label: "Concepts",
-          collapsed: false,
-          collapsible: false,
-          link: {
-            type: "doc",
-            id: "keto/index",
-          },
-          items: [
-            "keto/guides/rbac",
-            {
-              type: "autogenerated",
-              dirName: "keto/concepts",
-            },
-            "keto/reference/ory-permission-language",
-          ],
-        },
-        {
-          type: "category",
-          label: "Guides",
-          collapsed: false,
-          collapsible: false,
-          items: [
-            "keto/guides/simple-access-check-guide",
-            "keto/modeling/create-permission-model",
-            "keto/guides/list-api-display-objects",
-            "keto/guides/expand-api-display-who-has-access",
-          ],
-        },
-        {
-          type: "category",
-          label: "Self-Hosted",
-          collapsed: false,
-          collapsible: false,
-          items: [
-            "keto/install",
-            "keto/quickstart",
-            {
-              type: "category",
-              label: "Configuration",
-              items: [
-                "keto/reference/configuration",
-                "keto/reference/configuration-editor",
-              ],
-            },
-            {
-              type: "category",
-              label: "Guides",
-              items: [
-                "keto/guides/production",
-                "keto/guides/v0.7-migration",
-                "keto/guides/migrating-legacy-policies",
-                "keto/guides/upgrade",
-              ],
-            },
-            {
-              Reference: [
-                "keto/reference/rest-api",
-                "keto/reference/proto-api",
-                {
-                  "Command Line Interface (CLI)": [
-                    {
-                      type: "autogenerated",
-                      dirName: "keto/cli",
-                    },
-                  ],
-                },
-                {
-                  SDK: ["keto/sdk/overview", "keto/self-hosted/go"],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    {
+        ],
+      },
+    ],
+  },
+  {
     type: "category",
     label: "Ory Polis",
     collapsed: true,

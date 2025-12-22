@@ -12,8 +12,8 @@ export function AuthOverview({ product }: AuthOverviewProps) {
     product === "network"
       ? "Ory Network"
       : product === "oel"
-      ? "Ory Enterprise License"
-      : "Ory Open Source"
+        ? "Ory Enterprise License"
+        : "Ory Open Source"
 
   return (
     <>

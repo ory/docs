@@ -9,7 +9,8 @@ import Link from "@docusaurus/Link"
 
 # Solutions
 
-Ory provides flexible identity and access management solutions for different use cases. Choose the solution that best fits your business needs.
+Ory provides flexible identity and access management solutions for different use cases. Choose the solution that best fits your
+business needs.
 
 <div className="row" style={{ marginTop: "2rem" }}>
   <div className="col col--4">
@@ -31,24 +32,25 @@ Ory provides flexible identity and access management solutions for different use
     </div>
   </div>
 
-  <div className="col col--4">
-    <div className="card" style={{ height: "100%" }}>
-      <div className="card__header">
-        <h3>B2B IAM</h3>
-      </div>
-      <div className="card__body">
-        <p>
-          Business-to-Business Identity and Access Management. Manage organizations, 
-          enterprise SSO via SAML/OIDC, and multi-tenant permissions.
-        </p>
-      </div>
-      <div className="card__footer">
-        <Link className="button button--secondary button--block" to="/docs/solutions/solution_B2B">
-          Learn about B2B IAM
-        </Link>
-      </div>
+{" "}
+<div className="col col--4">
+  <div className="card" style={{ height: "100%" }}>
+    <div className="card__header">
+      <h3>B2B IAM</h3>
+    </div>
+    <div className="card__body">
+      <p>
+        Business-to-Business Identity and Access Management. Manage organizations, enterprise SSO via SAML/OIDC, and multi-tenant
+        permissions.
+      </p>
+    </div>
+    <div className="card__footer">
+      <Link className="button button--secondary button--block" to="/docs/solutions/solution_B2B">
+        Learn about B2B IAM
+      </Link>
     </div>
   </div>
+</div>
 
   <div className="col col--4">
     <div className="card" style={{ height: "100%" }}>
@@ -71,8 +73,8 @@ Ory provides flexible identity and access management solutions for different use
   
   </div>
 
-import WelcomePageSection from "@site/src/components/Welcome/welcome";
-import * as welcomeContent from "@site/src/pages/_assets/welcome-content";
+import WelcomePageSection from "@site/src/components/Welcome/welcome"
+import * as welcomeContent from "@site/src/pages/_assets/welcome-content"
 
 <WelcomePageSection {...welcomeContent.identityManagement} />
 <WelcomePageSection {...welcomeContent.authorizationSecurity} />

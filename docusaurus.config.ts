@@ -143,33 +143,33 @@ const config: Config = {
     //     buttonPosition: "center-right",
     //   },
     // ],
-  async function tailwindcss(context, options) {
-    return {
-      name: "docusaurus-tailwindcss",
-      configurePostCss(postcssOptions) {
-        postcssOptions.plugins.push(require("@tailwindcss/postcss"))
-        return postcssOptions
-      },
-    }
-  },
-  
-  [
-    "@docusaurus/plugin-content-docs",
-    {
-      id: "default",
-      path: "docs",                          // all product docs live here
-      routeBasePath: "/",                    // gives URLs like /docs/xxx
-      sidebarPath: require.resolve("./sidebars.ts"),
-      editUrl: "https://github.com/ory/docs/edit/master",
-      showLastUpdateAuthor: true,
-      showLastUpdateTime: true,
+    async function tailwindcss(context, options) {
+      return {
+        name: "docusaurus-tailwindcss",
+        configurePostCss(postcssOptions) {
+          postcssOptions.plugins.push(require("@tailwindcss/postcss"))
+          return postcssOptions
+        },
+      }
     },
-  ],
-  
-  "@docusaurus/plugin-content-pages",
-  require.resolve("./src/plugins/docusaurus-polyfill"),
-  "@docusaurus/plugin-sitemap",
-  /*
+
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "default",
+        path: "docs", // all product docs live here
+        routeBasePath: "/", // gives URLs like /docs/xxx
+        sidebarPath: require.resolve("./sidebars.ts"),
+        editUrl: "https://github.com/ory/docs/edit/master",
+        showLastUpdateAuthor: true,
+        showLastUpdateTime: true,
+      },
+    ],
+
+    "@docusaurus/plugin-content-pages",
+    require.resolve("./src/plugins/docusaurus-polyfill"),
+    "@docusaurus/plugin-sitemap",
+    /*
 [
   "@docusaurus/plugin-client-redirects",
   {
@@ -182,13 +182,13 @@ const config: Config = {
   },
 ],
 */
-  [
-    "@docusaurus/plugin-svgr",
-    {
-      svgrConfig: {},
-    },
+    [
+      "@docusaurus/plugin-svgr",
+      {
+        svgrConfig: {},
+      },
+    ],
   ],
-],
   presets: [
     [
       "redocusaurus",

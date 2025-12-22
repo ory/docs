@@ -18,11 +18,11 @@ const WelcomePageSection: React.FC<WelcomePageSectionProps> = ({
   cards,
 }) => {
   return (
-      <CardGrid>
-        {cards.map((card, index) => (
-          <Card key={index} {...card} />
-        ))}
-      </CardGrid>
+    <CardGrid>
+      {cards.map((card, index) => (
+        <Card key={index} {...card} />
+      ))}
+    </CardGrid>
   )
 }
 
