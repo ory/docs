@@ -724,7 +724,7 @@
     },
     {
       "source": "/docs/kratos/milestones",
-      "destination": "https://www.ory.com/docs/ecosystem/changelog",
+      "destination": "https://www.ory.com/docs/oss/changelog",
       "permanent": false
     },
     {
@@ -1054,12 +1054,12 @@
     },
     {
       "source": "/docs/kratos/self-hosted/examples",
-      "destination": "https://www.ory.com/docs/ecosystem/community",
+      "destination": "https://www.ory.com/docs/oss/community",
       "permanent": false
     },
     {
       "source": "/docs/ecosystem/deployment",
-      "destination": "https://www.ory.com/docs/self-hosted/deployment",
+      "destination": "https://www.ory.com/docs/oss/deployment",
       "permanent": false
     },
     {
@@ -1079,17 +1079,17 @@
     },
     {
       "source": "/docs/ecosystem/versioning",
-      "destination": "https://www.ory.com/docs/ecosystem/upgrading",
+      "destination": "https://www.ory.com/docs/oss/upgrading",
       "permanent": false
     },
     {
       "source": "/docs/ecosystem/roadmap",
-      "destination": "https://www.ory.com/docs/ecosystem/changelog",
+      "destination": "https://www.ory.com/docs/oss/changelog",
       "permanent": false
     },
     {
       "source": "/docs/hydra/benchmark",
-      "destination": "https://www.ory.com/docs/ecosystem/benchmark",
+      "destination": "https://www.ory.com/docs/docs/oauth2-oidc",
       "permanent": false
     },
     {
@@ -1231,6 +1231,62 @@
       "source": "/docs/migrate-to-ory",
       "destination": "/docs/migrate-to-ory/migrate",
       "permanent": false
+    },
+    // OSS redirects
+    {
+      "source": "/docs/ecosystem/projects",
+      "destination": "/docs/oss/projects",
+      "permanent": true
+    },
+    {
+      "source": "/docs/open-source",
+      "destination": "/docs/oss/open-source",
+      "permanent": true
+    },
+    {
+      "source": "/docs/ecosystem/community",
+      "destination": "/docs/oss/community",
+      "permanent": true
+    },
+    {
+      "source": "/docs/ecosystem/contributing",
+      "destination": "/docs/oss/contributing",
+      "permanent": true
+    },
+    {
+      "source": "/docs/open-source/commitment",
+      "destination": "/docs/oss/commitment",
+      "permanent": true
+    },
+    {
+      "source": "/docs/ecosystem/software-architecture-philosophy",
+      "destination": "/docs/oss/software-architecture-philosophy",
+      "permanent": true
+    },
+    {
+      "source": "/docs/open-source/guidelines/rest-api-guidelines",
+      "destination": "/docs/oss/guidelines/rest-api-guidelines",
+      "permanent": true
+    },
+    {
+      "source": "/docs/ecosystem/upgrading",
+      "destination": "/docs/oss/upgrading",
+      "permanent": true
+    },
+    {
+      "source": "/docs/ecosystem/sqa",
+      "destination": "/docs/oss/sqa",
+      "permanent": true
+    },
+    {
+      "source": "/docs/ecosystem/changelog",
+      "destination": "/docs/oss/changelog",
+      "permanent": true
+    },
+    {
+      "source": "/docs/self-hosted/deployment",
+      "destination": "/docs/oss/deployment",
+      "permanent": true
     }
   ]
 }

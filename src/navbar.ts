@@ -111,7 +111,7 @@ export const navbar: Navbar = {
         },
 
         {
-          to: "/docs/ecosystem/changelog",
+          to: "/docs/oss/changelog",
           label: "Ory OSS",
         },
       ],
