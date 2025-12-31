@@ -37,37 +37,27 @@ const ossSidebar = [
       {
         type: "category",
         label: "Ory Kratos",
-        items: [
-          "kratos/quickstart",
-        ],
+        items: ["kratos/quickstart"],
       },
       {
         type: "category",
         label: "Ory Hydra",
-        items: [
-          "hydra/self-hosted/quickstart",
-        ],
+        items: ["hydra/self-hosted/quickstart"],
       },
       {
         type: "category",
         label: "Ory Keto",
-        items: [
-          "keto/quickstart",
-        ],
+        items: ["keto/quickstart"],
       },
       {
         type: "category",
         label: "Ory Polis",
-        items: [
-          "polis/quickstart",
-        ],
+        items: ["polis/quickstart"],
       },
       {
         type: "category",
         label: "Ory Oathkeeper",
-        items: [
-          "oathkeeper/index",
-        ],
+        items: ["oathkeeper/index"],
       },
       "oss/deployment",
       "oss/configuring",

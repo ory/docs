@@ -75,7 +75,7 @@ const api: SidebarItemsConfig = [
   homeLink,
   "reference/api",
 
- // "ecosystem/api-design",
+  // "ecosystem/api-design",
   {
     type: "category",
     label: "Operations",
@@ -1157,16 +1157,16 @@ const oathkeeper: SidebarItemsConfig = [
 
 const opensource: SidebarItemsConfig = [
   homeLink,
- // "ecosystem/projects",
+  // "ecosystem/projects",
   {
     type: "category",
     label: "Open source",
     items: [
       "open-source",
-    //  "ecosystem/community",
-    //  "ecosystem/contributing",
-    //  "open-source/commitment",
-    //  "ecosystem/software-architecture-philosophy",
+      //  "ecosystem/community",
+      //  "ecosystem/contributing",
+      //  "open-source/commitment",
+      //  "ecosystem/software-architecture-philosophy",
       {
         type: "category",
         label: "Guidelines",
@@ -1214,9 +1214,9 @@ const opensource: SidebarItemsConfig = [
       },
     ],
   },
- // "ecosystem/upgrading",
- // "ecosystem/sqa",
- // "ecosystem/changelog",
+  // "ecosystem/upgrading",
+  // "ecosystem/sqa",
+  // "ecosystem/changelog",
   {
     type: "link",
     label: "Search",
