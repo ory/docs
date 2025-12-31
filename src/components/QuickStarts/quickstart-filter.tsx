@@ -1,15 +1,15 @@
-import React, { useMemo, useState, useRef } from "react"
-import styles from "./quickstart-filter.module.css"
+import { useMemo, useRef, useState } from "react"
 import ExampleList from "../Examples/example-list"
+import { CategoryFilter } from "./CategoryFilter"
 import { CATEGORIES } from "./constants"
 import { DeploymentModeSelector } from "./DeploymentModeSelector"
-import { CategoryFilter } from "./CategoryFilter"
-import { QuickstartGrid } from "./QuickstartGrid"
-import { LanguageFilter, type LanguageFilterRef } from "./LanguageFilter"
 import { useExampleFilter } from "./hooks/useExampleFilter"
+import { LanguageFilter, type LanguageFilterRef } from "./LanguageFilter"
+import styles from "./quickstart-filter.module.css"
+import { QuickstartGrid } from "./QuickstartGrid"
 import type { DeploymentMode } from "./types"
 
-const QuickstartFilter: React.FC = () => {
+export const QuickstartFilter = () => {
   const [activeCategoryId, setActiveCategoryId] = useState<string>(
     CATEGORIES[0]?.id ?? "",
   )
@@ -90,5 +90,3 @@ const QuickstartFilter: React.FC = () => {
     </>
   )
 }
-
-export default QuickstartFilter
