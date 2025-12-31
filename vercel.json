@@ -1220,73 +1220,72 @@
     {
       "source": "/docs/getting-started/integrate-auth/nextjs",
       "destination": "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/kratos/bring-your-own-ui/custom-ui-ory-elements",
       "destination": "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/migrate-to-ory",
       "destination": "/docs/migrate-to-ory/migrate",
       "permanent": false
     },
-    // OSS redirects
     {
       "source": "/docs/ecosystem/projects",
       "destination": "/docs/oss/projects",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/open-source",
       "destination": "/docs/oss/open-source",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/community",
       "destination": "/docs/oss/community",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/contributing",
       "destination": "/docs/oss/contributing",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/open-source/commitment",
       "destination": "/docs/oss/commitment",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/software-architecture-philosophy",
       "destination": "/docs/oss/software-architecture-philosophy",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/open-source/guidelines/rest-api-guidelines",
       "destination": "/docs/oss/guidelines/rest-api-guidelines",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/upgrading",
       "destination": "/docs/oss/upgrading",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/sqa",
       "destination": "/docs/oss/sqa",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/changelog",
       "destination": "/docs/oss/changelog",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/self-hosted/deployment",
       "destination": "/docs/oss/deployment",
-      "permanent": true
+      "permanent": false
     }
   ]
 }
