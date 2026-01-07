@@ -18,6 +18,8 @@ const oelSidebar = [
       "oel/getting-started/index",
       "self-hosted/oel/index",
       "self-hosted/oel/quickstart",
+      "self-hosted/oel/monitoring/monitoring",
+      "self-hosted/oel/high-performance-pooling",
     ],
   },
   {
@@ -494,7 +496,7 @@ const oelSidebar = [
   },
   {
     type: "category",
-    label: "Ory Oathkeeper Zero Trust",
+    label: "Ory Oathkeeper Zero Trust Proxy",
     collapsed: true,
     collapsible: true,
     items: [
@@ -558,8 +560,6 @@ const oelSidebar = [
       },
     ],
   },
-  "self-hosted/oel/monitoring/monitoring",
-  "self-hosted/oel/high-performance-pooling",
 ]
 
 export default oelSidebar

@@ -14,10 +14,8 @@ const ossSidebar = [
   {
     type: "category",
     label: "Open Source",
-    link: {
-      type: "generated-index",
-      slug: "/category/open-source",
-    },
+    collapsed: false,
+    collapsible: false,
     items: [
       "oss/getting-started/index",
       "oss/projects",
@@ -33,31 +31,6 @@ const ossSidebar = [
           "oss/guidelines/rest-api-guidelines",
           "oss/guidelines/e2e-integration-tests",
         ],
-      },
-      {
-        type: "category",
-        label: "Ory Kratos",
-        items: ["kratos/quickstart"],
-      },
-      {
-        type: "category",
-        label: "Ory Hydra",
-        items: ["hydra/self-hosted/quickstart"],
-      },
-      {
-        type: "category",
-        label: "Ory Keto",
-        items: ["keto/quickstart"],
-      },
-      {
-        type: "category",
-        label: "Ory Polis",
-        items: ["polis/quickstart"],
-      },
-      {
-        type: "category",
-        label: "Ory Oathkeeper",
-        items: ["oathkeeper/index"],
       },
       "oss/deployment",
       "oss/configuring",
@@ -75,6 +48,31 @@ const ossSidebar = [
       "oss/sqa",
       "oss/changelog",
     ],
+  },
+  {
+    type: "category",
+    label: "Ory Kratos - Identities",
+    items: ["kratos/quickstart"],
+  },
+  {
+    type: "category",
+    label: "Ory Hydra - OAuth2 & OIDC",
+    items: ["hydra/self-hosted/quickstart"],
+  },
+  {
+    type: "category",
+    label: "Ory Keto - Permissions",
+    items: ["keto/quickstart"],
+  },
+  {
+    type: "category",
+    label: "Ory Polis - SAML Enterprise SSO",
+    items: ["polis/quickstart"],
+  },
+  {
+    type: "category",
+    label: "Ory Oathkeeper - Zero Trust Proxy",
+    items: ["oathkeeper/index"],
   },
 ]
 
