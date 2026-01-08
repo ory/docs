@@ -13,6 +13,7 @@ import webm from '../_static/react/screencast.webm'
   framework={<a href="https://reactjs.org/">React</a>}
   mp4={mp4}
   webm={webm}
+  url="https://github.com/ory/docs/tree/master/code-examples/protect-page-login/react"
 />
 ```
 
@@ -59,11 +60,12 @@ import OryCLI from '../_common/ory-cli.mdx'
 In a new terminal window, start the Ory Tunnel:
 
 ```shell
-ory tunnel --project <project-id> http://localhost:5173
+npx @ory/cli tunnel --dev http://localhost:5173 --project <project-id>
 ```
 
-This command mirrors Ory APIs on `http://localhost:4000`. Use that URL as the `basePath` for the `@ory/client-fetch` SDK. Obtain
-your project ID from the Ory Console.
+This command mirrors Ory APIs on `http://localhost:4000`. Use that URL as the `basePath` for the `@ory/client-fetch` SDK (see
+`App.tsx` code below). The `--dev` flag disables security checks for easier integration and should not be used when running the
+Tunnel in an insecure environment like public networks.
 
 ## Validate and login
 
