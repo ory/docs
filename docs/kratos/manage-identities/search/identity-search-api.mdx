@@ -29,9 +29,9 @@ import Help from '@site/docs/_common/need-help.mdx'
 
 ## Getting started
 
-We recommend using the [Typesense SDKs](https://typesense.org/docs/29.0/api/api-clients.html) for your preferred language to
-interact with the advanced identity search API. Pass your [Ory Network API key](/concepts/personal-access-token) where you would
-normally pass the Typesense API key, use the following base URL:
+Ory exposes an advanced Identity Search API that is compatible with the Typesense search protocol. You can use existing Typesense
+SDKs to interact with it. Pass your [Ory Network API key](/concepts/personal-access-token) where you would normally pass the
+Typesense API key, and use the following base URL:
 
 ```shell
 https://{your-ory-slug}.projects.oryapis.com/admin/preview/search/v0beta1
@@ -104,6 +104,13 @@ Most fields support infix-searching as well, so queries like `query_by=@example.
 possible.
 
 :::
+
+## Search result set limit
+
+The identity search API does not support pagination (unlike the List Identities API) and will return a maximum of 1,000 results
+per request. If you are frequently hitting this limit, consider refining your search queries to reduce the number of results
+returned. To paginate through _all_ your identities, use the
+[List Identities API](/reference/api#tag/identity/operation/listIdentities).
 
 ## Consistency and availability
 
