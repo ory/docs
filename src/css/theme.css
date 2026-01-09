@@ -533,3 +533,34 @@ svg[class*="iconExternalLink"] {
   /* Make it lighter/less bold */
   opacity: 0.6;
 }
+
+/* Move the caret button to the left by reversing the flex direction of the container */
+.theme-doc-sidebar-item-category-level-2 .menu__list-item-collapsible,
+.theme-doc-sidebar-item-category-level-3 .menu__list-item-collapsible,
+.theme-doc-sidebar-item-category-level-4 .menu__list-item-collapsible {
+  display: flex !important;
+  flex-direction: row-reverse !important;
+  justify-content: flex-end !important;
+}
+
+.theme-doc-sidebar-item-category-level-2 .menu__list-item-collapsible > .menu__caret,
+.theme-doc-sidebar-item-category-level-3 .menu__list-item-collapsible > .menu__caret,
+.theme-doc-sidebar-item-category-level-4 .menu__list-item-collapsible > .menu__caret {
+  margin-left: 0 !important;
+  margin-right: 8px !important;
+  opacity: 0.6 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  transform: scale(0.667) !important;
+  transform-origin: center center !important;
+}
+
+.theme-doc-sidebar-item-category-level-2 .menu__list-item-collapsible > .menu__caret:hover,
+.theme-doc-sidebar-item-category-level-3 .menu__list-item-collapsible > .menu__caret:hover,
+.theme-doc-sidebar-item-category-level-4 .menu__list-item-collapsible > .menu__caret:hover {
+  background: transparent !important;
+  opacity: 0.6 !important;
+  transform: scale(0.667) !important;
+  transform-origin: center center !important;
+}

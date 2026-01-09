@@ -24,6 +24,11 @@ const networkSidebar = [
       {
         type: "category",
         label: "Identity Management",
+        link: {
+          type: "generated-index",
+        },
+        collapsed: true,
+        collapsible: true,
         items: [
           "guides/email-sms",
           "guides/oauth2-openid-connect",
@@ -53,8 +58,8 @@ const networkSidebar = [
       {
         type: "category",
         label: "Concepts",
-        collapsed: false,
-        collapsible: false,
+        collapsed: true,
+        collapsible: true,
         link: {
           type: "generated-index",
         },
@@ -187,6 +192,11 @@ const networkSidebar = [
           {
             type: "category",
             label: "Search",
+            collapsed: true,
+            collapsible: true,
+            link: {
+              type: "generated-index",
+            },
             items: [
               "kratos/manage-identities/search/identity-search-console",
               "kratos/manage-identities/search/identity-search-api",
