@@ -24,14 +24,14 @@ app.get("/configure", (req, res) => {
   })
 })
 
-// Routers that reuse the docs sample snippets.
+// import the middleware that checks if the user is authenticated.
+const requireAuth = createRequireAuth(ory, baseUrl)
+
+// register the routers that reuse the docs sample snippets.
 registerSignUpRoute(app, ory, baseUrl)
 registerLoginRoute(app, ory, baseUrl)
 registerLogoutRoute(app, ory)
-
-const requireAuth = createRequireAuth(ory, baseUrl)
 registerSessionRoute(app, requireAuth)
-
 registerRefreshSessionRoute(app, baseUrl)
 
 const port = process.env.EXAMPLES_TEST_APP_PORT || 3000
