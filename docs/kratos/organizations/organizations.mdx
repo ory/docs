@@ -480,7 +480,8 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
            "expires_at": "2025-06-01T00:00:00Z",
            "enable_sso": true,
            "enable_scim": true,
-           "custom_hostname_id": "use a custom domain id from branding, omit the field otherwise"
+           "custom_hostname_id": "use a custom domain id from branding, omit the field otherwise",
+           "saml_mapper_url": "base64://{BASE64_ENCODED_JSONNET}"
          }'
 ```
 
