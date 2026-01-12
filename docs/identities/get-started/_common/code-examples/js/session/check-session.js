@@ -13,7 +13,7 @@ export const createRequireAuth = (ory, baseUrl = process.env.ORY_SDK_URL) => {
 }
 
 export const registerSessionRoute = (app, requireAuth) => {
-  app.get("/", requireAuth, (req, res) => {
+  app.get("/session", requireAuth, (req, res) => {
     res.json(req.session.identity.traits) // { email: 'newtestuser@gmail.com' }
   })
 }

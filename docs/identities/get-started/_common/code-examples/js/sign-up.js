@@ -1,5 +1,5 @@
 export const registerSignUpRoute = (app, ory, baseUrl) => {
-  app.get("/", (req, res) => {
+  app.get("/signup", (req, res) => {
     ory
       .toSession({ cookie: req.header("cookie") })
       .then((data) => res.json(data))

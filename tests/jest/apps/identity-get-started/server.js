@@ -25,22 +25,15 @@ app.get("/configure", (req, res) => {
 })
 
 // Routers that reuse the docs sample snippets.
-const signupRouter = express.Router()
-registerSignUpRoute(signupRouter, ory, baseUrl)
-app.use("/signup", signupRouter)
-
-const loginRouter = express.Router()
-registerLoginRoute(loginRouter, ory, baseUrl)
-app.use("/login", loginRouter)
+registerSignUpRoute(app, ory, baseUrl)
+registerLoginRoute(app, ory, baseUrl)
 
 const logoutRouter = express.Router()
 registerLogoutRoute(logoutRouter, ory)
 app.use("/", logoutRouter)
 
 const requireAuth = createRequireAuth(ory, baseUrl)
-const sessionRouter = express.Router()
-registerSessionRoute(sessionRouter, requireAuth)
-app.use("/session", sessionRouter)
+registerSessionRoute(app, requireAuth)
 
 registerRefreshSessionRoute(app, baseUrl)
 
