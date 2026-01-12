@@ -1,0 +1,12 @@
+### Configure your production SDK URL
+
+For production, configure `ORY_SDK_URL` to point to your Ory Network CNAME instead of the `oryapis.com` domain:
+
+```env
+# Production configuration
+ORY_SDK_URL=https://ory.your-domain.com
+```
+
+If you haven't set up a custom domain yet, [add a Custom Domain to your Ory Network project](../../guides/custom-domains.mdx). The
+CNAME becomes your project's SDK Configuration URL, which you can verify in the
+[project settings](https://console.ory.sh/projects/current/settings).

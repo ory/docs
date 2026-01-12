@@ -73,16 +73,6 @@ If `LOG_LEVEL=trace`, traces will be included for log calls and errors:
 
 Ory provides as much context as possible for each log operation.
 
-### Audience
-
-The `audience` field distinguishes between `application` logs intended for operators and developers, and `audit` logs that
-document allowed and denied authorizations, failed and succeeded log in attempts, and so on:
-
-```sh
-time=2020-05-20T11:57:09+02:00 level=info msg=An example log message. audience=application service_name=foo service_version=bar
-time=2020-05-20T11:57:29+02:00 level=info msg=Login successful. audience=audit service_name=foo service_version=bar
-```
-
 ### HTTP request context
 
 We include vital HTTP request info whenever possible:
