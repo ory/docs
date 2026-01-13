@@ -14,7 +14,8 @@
     "serve": "docusaurus serve",
     "test": "playwright test",
     "test:debug": "playwright test --debug",
-    "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1"
+    "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1",
+    "test:integration": "jest tests/jest/integration --runInBand --bail 1"
   },
   "browserslist": {
     "production": [
