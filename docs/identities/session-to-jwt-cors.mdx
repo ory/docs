@@ -118,6 +118,7 @@ session:
         jwks_url: base64://... # A JSON Web Key Set (required)
         claims_mapper_url: base64://... # A JsonNet template for modifying the claims
         ttl: 1m # 1 minute (defaults to 10 minutes)
+        subject_source: id # (optional, defaults to id, other option: external_id if you're using `external_id` on identities)
       another_jwt_template:
         jwks_url: base64://... # A JSON Web Key Set
 ```
