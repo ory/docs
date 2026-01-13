@@ -1,0 +1,33 @@
+name: JavaScript Integration Tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test-javascript-integration:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Install test app dependencies
+        run: |
+          cd tests/jest/apps/identity-get-started
+          npm ci
+      - name: Run JavaScript integration tests
+        run: npm run test:integration
+        env:
+          ORY_SDK_URL: ${{ secrets.ORY_SDK_URL }}
+          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
