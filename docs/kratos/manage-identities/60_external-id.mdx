@@ -34,7 +34,7 @@ create or update identities.
 
 Do not add `external_id` to your identity schema definition. It is handled separately by Ory Kratos internally.
 
-### Use `external_id` in JWT `sub` claim
+### Use `external_id` in tokenized session JWTs `sub` claim
 
 Set the `subject_source` to `external_id` in the tokenization config:
 
@@ -43,14 +43,16 @@ session:
   whoami:
     tokenizer:
       templates:
-      jwt_template_1:
-        jwks_url: base64://... # A JSON Web Key Set (required)
-        claims_mapper_url: base64://... # A JsonNet template for modifying the claims
-        ttl: 1m # 1 minute (defaults to 10 minutes)
-        subject_source: external_id
-      another_jwt_template:
-        jwks_url: base64://... # A JSON Web Key Set
+        jwt_template_1:
+          jwks_url: base64://... # A JSON Web Key Set (required)
+          claims_mapper_url: base64://... # A JsonNet template for modifying the claims
+          ttl: 1m # 1 minute (defaults to 10 minutes)
+          subject_source: external_id
+        another_jwt_template:
+          jwks_url: base64://... # A JSON Web Key Set
 ```
+
+Read more about [session tokenization here](../../identities/session-to-jwt-cors.mdx).
 
 This will populate the `sub` claim in JWTs with the value of `external_id`.
 
