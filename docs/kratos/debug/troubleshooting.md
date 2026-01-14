@@ -57,14 +57,3 @@ To resolve this issue, you can either:
    navigations.
 
 Read more about CNAME cloaking: https://www.cookiestatus.com/safari/#cname-cloaking
-
-### Failing code flows
-
-If an authentication flow using the one time code method was already passed, Ory Kratos will reject any further attempts to use
-the same flow.
-
-This can happen if the user clicks the submit button multiple times, and the frontend does not properly prevent multiple
-submissions.
-
-To fix this, ensure that your frontend disables the submit button after the first click, or otherwise prevents multiple
-submissions of the same form.
