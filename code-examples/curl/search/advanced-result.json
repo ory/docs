@@ -96,7 +96,7 @@
   ],
   "page": 1,
   "request_params": {
-    "collection_name": "identities-f59802a6-eb63-44cc-a3ac-d90db3d3abc2",
+    "collection_name": "identities",
     "first_q": "*",
     "per_page": 20,
     "q": "*"
