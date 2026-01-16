@@ -734,6 +734,27 @@ When importing SAML or OIDC connections that are only available for certain [org
 }
 ```
 
+### TOTP credentials
+
+When importing TOTP credentials, the `totp_url` field needs to be set in your configuration. It follows the spec
+[here](https://github.com/google/google-authenticator/wiki/Key-Uri-Format).
+
+```json
+{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-oidc@example.org"
+  },
+  "credentials": {
+    "totp": {
+      "config": {
+        "totp_url": "otpauth://totp/ACME%20Co:john.doe@email.com?secret=HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ&issuer=ACME%20Co&algorithm=SHA1&digits=6&period=30"
+      }
+    }
+  }
+}
+```
+
 ## Bulk import identities from other providers
 
 To import multiple identities into Ory Identities, use the
