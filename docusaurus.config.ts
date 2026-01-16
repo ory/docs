@@ -168,20 +168,24 @@ const config: Config = {
 
     "@docusaurus/plugin-content-pages",
     require.resolve("./src/plugins/docusaurus-polyfill"),
-    "@docusaurus/plugin-sitemap",
-    /*
-[
-  "@docusaurus/plugin-client-redirects",
-  {
-    redirects: [
+    // require.resolve("./src/plugins/docusaurus-static-fonts"),
+    [
+      "@docusaurus/plugin-sitemap",
       {
-        from: "/quickstart/sdks",
-        to: "/sdk",
+        lastmod: "date",
       },
     ],
-  },
-],
-*/
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        redirects: [
+          {
+            from: "/quickstart/sdks",
+            to: "/sdk",
+          },
+        ],
+      },
+    ],
     [
       "@docusaurus/plugin-svgr",
       {
