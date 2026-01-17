@@ -451,6 +451,40 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 </BrowserWindow>
 ```
 
+##### Configure provider-specific data mappings
+
+You configure data mappers in the Onboarding Portal by attaching a Jsonnet script to each provider that supports mapping (for
+example, social sign-in providers, SAML, SCIM).
+
+The mapper must return an object like:
+
+```jsonnet
+local claims = std.extVar('claims');  // or std.extVar('scim') for SCIM
+
+{
+  identity: {
+    traits: {
+      // map incoming data to your identity schema traits
+      [if 'email' in claims then 'email' else null]: claims.email,
+    },
+  },
+}
+```
+
+For SAML organizations, SAML attributes are available under `claims.email` and `claims.raw_claims`.
+[SAML mapping](https://www.ory.com/docs/kratos/organizations#data-mapping)
+
+For SCIM provisioning, the SCIM user object is available as `std.extVar('scim')` and you map it to the identity in the same way.
+[SCIM mapping](https://www.ory.com/docs/kratos/manage-identities/scim#set-up-identity-provisioning-with-scim)
+
+For social sign-in, all upstream data is available as `std.extVar('claims')`, including standard claims and any `raw_claims` for
+non-standard fields.
+[Social Sign-In mapping](https://www.ory.com/docs/kratos/social-signin/data-mapping#write-a-jsonnet-data-mapper)
+
+<BrowserWindow url="https://console.ory.sh/projects/<id>/authentication/organizations/<id>/edit">
+  ![Onboarding portal link](./_static/onboarding-portal-link-mappers.png)
+</BrowserWindow>
+
 ```mdx-code-block
 </TabItem>
 <TabItem value="api" label="API">
@@ -471,7 +505,8 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
            "expires_at": "2025-06-01T00:00:00Z",
            "enable_sso": true,
            "enable_scim": true,
-           "custom_hostname_id": "use a custom domain id from branding, omit the field otherwise"
+           "custom_hostname_id": "use a custom domain id from branding, omit the field otherwise",
+           "saml_mapper_url": "base64://{BASE64_ENCODED_JSONNET}"
          }'
 ```
 
