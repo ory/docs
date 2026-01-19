@@ -2081,6 +2081,9 @@
             "description": "Description is the description of the plan.",
             "type": "string"
           },
+          "development_features": {
+            "$ref": "#/components/schemas/PlanFeatures"
+          },
           "features": {
             "$ref": "#/components/schemas/PlanFeatures"
           },
@@ -2091,6 +2094,12 @@
           "name": {
             "description": "Name is the name of the plan.",
             "type": "string"
+          },
+          "production_features": {
+            "$ref": "#/components/schemas/PlanFeatures"
+          },
+          "staging_features": {
+            "$ref": "#/components/schemas/PlanFeatures"
           },
           "version": {
             "description": "Version is the version of the plan. The combination of `name@version` must be unique.",
@@ -2105,7 +2114,10 @@
           "custom",
           "base_fee_monthly",
           "base_fee_yearly",
-          "features"
+          "features",
+          "production_features",
+          "staging_features",
+          "development_features"
         ],
         "type": "object"
       },
@@ -2113,7 +2125,7 @@
         "additionalProperties": {
           "$ref": "#/components/schemas/GenericUsage"
         },
-        "title": "Features are the feature definitions included in the plan.",
+        "title": "PlanFeatures are the feature definitions included in the plan.",
         "type": "object"
       },
       "Pricing": {
@@ -2204,10 +2216,6 @@
         },
         "title": "RFC6749ErrorJson is a helper struct for JSON encoding/decoding of RFC6749Error.",
         "type": "object"
-      },
-      "RecoveryAddressType": {
-        "title": "RecoveryAddressType must not exceed 16 characters as that is the limitation in the SQL Schema.",
-        "type": "string"
       },
       "RevisionAccountExperienceCustomTranslation": {
         "properties": {
@@ -3020,6 +3028,14 @@
       },
       "createOrganizationOnboardingPortalLinkBody": {
         "properties": {
+          "apple_mapper_url": {
+            "description": "AppleMapper specifies the JSONNet code snippet which uses Apple's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "auth0_mapper_url": {
+            "description": "Auth0Mapper specifies the JSONNet code snippet which uses Auth0's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
           "custom_hostname_id": {
             "$ref": "#/components/schemas/NullUUID"
           },
@@ -3033,6 +3049,34 @@
           },
           "expires_at": {
             "$ref": "#/components/schemas/Time"
+          },
+          "facebook_mapper_url": {
+            "description": "FacebookMapper specifies the JSONNet code snippet which uses Facebook's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "generic_oidc_mapper_url": {
+            "description": "GenericOIDCMapper specifies the JSONNet code snippet which uses the OIDC Provider's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "github_mapper_url": {
+            "description": "GithubMapper specifies the JSONNet code snippet which uses GitHub's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "gitlab_mapper_url": {
+            "description": "GitLabMapper specifies the JSONNet code snippet which uses GitLab's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "google_mapper_url": {
+            "description": "GoogleMapper specifies the JSONNet code snippet which uses Google's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "microsoft_mapper_url": {
+            "description": "MicrosoftMapper specifies the JSONNet code snippet which uses Microsoft's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "netid_mapper_url": {
+            "description": "NetIDMapper specifies the JSONNet code snippet which uses NetID's\nprofile information to hydrate the identity's data.",
+            "type": "string"
           },
           "proxy_acs_url": {
             "description": "Proxy ACS URL if overriding with a customer-controlled URL",
@@ -3048,6 +3092,14 @@
           },
           "proxy_scim_server_url": {
             "description": "Proxy SCIM Server URL if overriding with a customer-controlled URL",
+            "type": "string"
+          },
+          "saml_mapper_url": {
+            "description": "SAMLMapper specifies the JSONNet code snippet which uses the SAML Provider's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "scim_mapper_url": {
+            "description": "SCIMMapper specifies the JSONNet code snippet which uses the SCIM Provider's\nprofile information to hydrate the identity's data.",
             "type": "string"
           }
         },
@@ -4360,7 +4412,7 @@
             "type": "array"
           },
           "client_id": {
-            "description": "ID is aclient identifier for the OAuth 2.0 client that\nrequested this token.",
+            "description": "ID is a client identifier for the OAuth 2.0 client that\nrequested this token.",
             "type": "string"
           },
           "exp": {
@@ -7448,6 +7500,14 @@
       },
       "onboardingPortalLink": {
         "properties": {
+          "apple_mapper_url": {
+            "description": "AppleMapper specifies the JSONNet code snippet which uses Apple's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "auth0_mapper_url": {
+            "description": "Auth0Mapper specifies the JSONNet code snippet which uses Auth0's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
           "created_at": {
             "description": "The onboarding portal link's creation date",
             "format": "date-time",
@@ -7471,10 +7531,38 @@
             "readOnly": true,
             "type": "string"
           },
+          "facebook_mapper_url": {
+            "description": "FacebookMapper specifies the JSONNet code snippet which uses Facebook's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "generic_oidc_mapper_url": {
+            "description": "GenericOIDCMapper specifies the JSONNet code snippet which uses the OIDC Provider's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "github_mapper_url": {
+            "description": "GithubMapper specifies the JSONNet code snippet which uses GitHub's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "gitlab_mapper_url": {
+            "description": "GitLabMapper specifies the JSONNet code snippet which uses GitLab's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "google_mapper_url": {
+            "description": "GoogleMapper specifies the JSONNet code snippet which uses Google's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
           "id": {
             "description": "The onboarding portal link's ID.",
             "format": "uuid",
             "readOnly": true,
+            "type": "string"
+          },
+          "microsoft_mapper_url": {
+            "description": "MicrosoftMapper specifies the JSONNet code snippet which uses Microsoft's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "netid_mapper_url": {
+            "description": "NetIDMapper specifies the JSONNet code snippet which uses NetID's\nprofile information to hydrate the identity's data.",
             "type": "string"
           },
           "organization_id": {
@@ -7505,6 +7593,14 @@
             "description": "Proxy SCIM Server URL if overriding with a customer-controlled URL",
             "type": "string"
           },
+          "saml_mapper_url": {
+            "description": "SAMLMapper specifies the JSONNet code snippet which uses the SAML Provider's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "scim_mapper_url": {
+            "description": "SCIMMapper specifies the JSONNet code snippet which uses the SCIM Provider's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
           "value": {
             "description": "The onboarding portal link's value",
             "readOnly": true,
@@ -7522,7 +7618,35 @@
       },
       "onboardingPortalOrganization": {
         "properties": {
+          "apple_mapper_url": {
+            "description": "AppleMapper specifies the JSONNet code snippet which uses Apple's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "auth0_mapper_url": {
+            "description": "Auth0Mapper specifies the JSONNet code snippet which uses Auth0's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
           "base_url": {
+            "type": "string"
+          },
+          "facebook_mapper_url": {
+            "description": "FacebookMapper specifies the JSONNet code snippet which uses Facebook's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "generic_oidc_mapper_url": {
+            "description": "GenericOIDCMapper specifies the JSONNet code snippet which uses the OIDC Provider's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "github_mapper_url": {
+            "description": "GithubMapper specifies the JSONNet code snippet which uses GitHub's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "gitlab_mapper_url": {
+            "description": "GitLabMapper specifies the JSONNet code snippet which uses GitLab's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "google_mapper_url": {
+            "description": "GoogleMapper specifies the JSONNet code snippet which uses Google's\nprofile information to hydrate the identity's data.",
             "type": "string"
           },
           "kratos_selfservice_methods_oidc_config_providers": {
@@ -7530,6 +7654,17 @@
           },
           "kratos_selfservice_methods_saml_config_providers": {
             "$ref": "#/components/schemas/projectRevisionSamlProviders"
+          },
+          "microsoft_mapper_url": {
+            "description": "MicrosoftMapper specifies the JSONNet code snippet which uses Microsoft's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "netid_mapper_url": {
+            "description": "NetIDMapper specifies the JSONNet code snippet which uses NetID's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "oidc_sso_enabled": {
+            "type": "boolean"
           },
           "organization_id": {
             "format": "uuid",
@@ -7559,11 +7694,22 @@
             "format": "uuid",
             "type": "string"
           },
+          "saml_mapper_url": {
+            "description": "SAMLMapper specifies the JSONNet code snippet which uses the SAML Provider's\nprofile information to hydrate the identity's data.",
+            "type": "string"
+          },
+          "saml_sso_enabled": {
+            "type": "boolean"
+          },
           "scim_clients": {
             "$ref": "#/components/schemas/projectRevisionScimClients"
           },
           "scim_enabled": {
             "type": "boolean"
+          },
+          "scim_mapper_url": {
+            "description": "SCIMMapper specifies the JSONNet code snippet which uses the SCIM Provider's\nprofile information to hydrate the identity's data.",
+            "type": "string"
           },
           "sso_enabled": {
             "type": "boolean"
@@ -8638,7 +8784,7 @@
             "type": "string"
           },
           "via": {
-            "$ref": "#/components/schemas/RecoveryAddressType"
+            "type": "string"
           }
         },
         "required": ["value", "via"],
@@ -10429,7 +10575,7 @@
             "type": "string"
           },
           "email": {
-            "description": "Email to Recover\n\nNeeds to be set when initiating the flow. If the email is a registered\nrecovery email, a recovery link will be sent. If the email is not known,\na email with details on what happened will be sent instead.\n\nformat: email",
+            "description": "Email to Recover\n\nNeeds to be set when initiating the flow. If the email is a registered\nrecovery email, a recovery link will be sent. If the email is not known,\nan email with details on what happened will be sent instead.\n\nformat: email",
             "type": "string"
           },
           "method": {
@@ -12904,7 +13050,7 @@
         "tags": ["jwk"]
       },
       "post": {
-        "description": "This endpoint is capable of generating JSON Web Key Sets for you. There a different strategies available, such as symmetric cryptographic keys (HS256, HS512) and asymetric cryptographic keys (RS256, ECDSA). If the specified JSON Web Key Set does not exist, it will be created.\n\nA JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.",
+        "description": "This endpoint is capable of generating JSON Web Key Sets for you. There are different strategies available, such as symmetric cryptographic keys (HS256, HS512) and asymmetric cryptographic keys (RS256, ECDSA). If the specified JSON Web Key Set does not exist, it will be created.\n\nA JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.",
         "operationId": "createJsonWebKeySet",
         "parameters": [
           {
@@ -15545,7 +15691,7 @@
         "tags": ["project"]
       },
       "get": {
-        "description": "Get a projects you have access to by its ID.",
+        "description": "Get a project you have access to by its ID.",
         "operationId": "getProject",
         "parameters": [
           {
@@ -17029,6 +17175,16 @@
             "description": "errorGeneric"
           },
           "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "409": {
             "content": {
               "application/json": {
                 "schema": {
