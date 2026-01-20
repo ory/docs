@@ -184,7 +184,7 @@ const config: Config = {
     ],
     "@docusaurus/plugin-content-pages",
     require.resolve("./src/plugins/docusaurus-polyfill"),
-    // require.resolve("./src/plugins/docusaurus-static-fonts"),/
+    // require.resolve("./src/plugins/docusaurus-static-fonts"),
     [
       "@docusaurus/plugin-sitemap",
       {
