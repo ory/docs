@@ -14,15 +14,25 @@ const oelSidebar = [
   {
     type: "category",
     label: "Ory Enterprise License",
+    collapsed: false,
+    collapsible: false,
+    link: {
+      type: "doc",
+      id: "oel/getting-started/index"},
     items: [
       "oel/getting-started/index",
-      "self-hosted/oel/index",
-      "self-hosted/oel/quickstart",
-      "self-hosted/oel/monitoring/monitoring",
-      "self-hosted/oel/high-performance-pooling",
-    ],
-  },
-  {
+      {
+        type: "category",
+        label: "Getting started",
+        collapsed: true,
+        collapsible: true,
+        items: [
+          "self-hosted/oel/quickstart",
+          "self-hosted/oel/monitoring/monitoring",
+          "self-hosted/oel/high-performance-pooling",
+        ]
+      },
+    {
     type: "category",
     label: "Ory Kratos Identities",
     items: [
@@ -560,6 +570,8 @@ const oelSidebar = [
       },
     ],
   },
-]
+],
+    },
+  ]
 
 export default oelSidebar

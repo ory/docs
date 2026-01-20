@@ -58,7 +58,7 @@ const quickstartsSidebar = [
     label: "Ory Enterprise License",
     collapsed: false,
     collapsible: false,
-    items: ["self-hosted/oel/index", "self-hosted/oel/quickstart"],
+    items: ["self-hosted/oel/quickstart"],
   },
   {
     type: "category",

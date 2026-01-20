@@ -1,24 +1,9 @@
 ---
-id: products-overview
-title: Products
-sidebar_label: Overview
-#displayed_sidebar: sidebars-ciam
+id: products-arch
+title: Ory product architecture
+sidebar_label: Architecture
+#displayed_sidebar: sidebars
 ---
-
-import Link from "@docusaurus/Link"
-
-## Which deployment option?
-
-The right option depends on your organization’s goals and how much control you want over your infrastructure. If you need to
-maintain full control, meet strict compliance requirements, or operate at massive scale, Ory Enterprise License (OEL) is the best
-fit. For teams that want zero infrastructure management and seamless scaling, Ory Network provides a fully managed platform. And
-if you’re exploring, testing, or building prototypes, start with Ory Open Source or the Ory Network free tier. All Ory products
-share the same open standards and APIs, so you can move between them without rewriting your code.
-
-import WelcomePageSection from "@site/src/components/Welcome/welcome"
-import * as welcomeContent from "@site/src/pages/_assets/welcome-content"
-
-<WelcomePageSection {...welcomeContent.deploymentOptions} />
 
 ## Authentication
 
@@ -40,7 +25,6 @@ Kratos + Hydra + Keto — when you need all three: user login, token issuance/SS
 
 The choice depends on whether you're solving for internal permissions vs. external/delegated access.
 
-```mermaid
 flowchart TD
     Start([What are you building?]) --> Q1{Need to manage<br>user identities?}
     
@@ -71,4 +55,3 @@ flowchart TD
     Q5 -->|Yes| Oathkeeper[✓ Add Oathkeeper]
     Q5 -->|No| Done([Your stack is ready])
     Oathkeeper --> Done
-    ```
