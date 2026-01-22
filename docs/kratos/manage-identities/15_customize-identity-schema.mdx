@@ -1316,10 +1316,8 @@ You may also mix usernames and passwords:
 
 ### Advanced schema
 
-The following identity schema includes first name, last name, a nickname, and numerical fields for the users' age. There are also
-two checkboxes for specifying the newsletter subscription and enterprise customer status.
-
-:::note
+The identity schema defines personal fields for first name, last name, nickname, and age, and includes two checkboxes: one
+required for accepting the terms of service and one optional for newsletter subscription. :::note
 
 This identity schema is just an example. It contains too many fields to be used in production.
 
@@ -1390,14 +1388,15 @@ This identity schema is just an example. It contains too many fields to be used 
           "type": "integer",
           "title": "How old are you?"
         },
+        "tos": {
+          "type": "boolean",
+          "title": "I accept the [terms of service](https://example.com/tos)",
+          "const": true
+        },
         "newsletter": {
           "type": "boolean",
-          "title": "Newsletter subscription"
+            "title": "I want to sign up for the newsletter"
         },
-        "enterprise": {
-          "type": "boolean",
-          "title": "Are you an Enterprise customer?"
-        }
       },
       "required": [
         "email"
