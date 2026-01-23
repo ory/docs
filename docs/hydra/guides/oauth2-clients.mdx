@@ -133,7 +133,9 @@ See [API documentation](../../reference/api#tag/oAuth2/operation/patchOAuth2Clie
 
 ## Rotate OAuth2 client secret
 
-OAuth2 client secret rotation allows you to change a client's secret without downtime. When you rotate a secret, the old secret remains valid until you explicitly clean it up, allowing you to update all services using the client credentials without service interruption.
+OAuth2 client secret rotation allows you to change a client's secret without downtime. When you rotate a secret, the old secret
+remains valid until you explicitly clean it up, allowing you to update all services using the client credentials without service
+interruption.
 
 ### How secret rotation works
 
@@ -186,7 +188,8 @@ console.log("New secret:", client.client_secret)
 
 ### Clear rotated secrets
 
-Once all services have been updated to use the new secret, you can remove the old rotated secrets to revoke access using the old credentials:
+Once all services have been updated to use the new secret, you can remove the old rotated secrets to revoke access using the old
+credentials:
 
 ````mdx-code-block
 <Tabs>
@@ -245,13 +248,12 @@ curl -X DELETE "https://{project.slug}.projects.oryapis.com/admin/clients/$CLIEN
 # Old secret is now revoked
 ```
 
-:::tip Zero-downtime credential rotation
-Secret rotation enables zero-downtime credential updates. Both the old and new secrets remain valid until you manually clean up the rotated secrets, allowing you to update all your services without service interruption.
-:::
+:::tip Zero-downtime credential rotation Secret rotation enables zero-downtime credential updates. Both the old and new secrets
+remain valid until you manually clean up the rotated secrets, allowing you to update all your services without service
+interruption. :::
 
-:::warning Security best practice
-Rotated secrets remain valid indefinitely until you explicitly clean them up. Always remove old rotated secrets once your migration is complete to ensure that compromised credentials cannot be used.
-:::
+:::warning Security best practice Rotated secrets remain valid indefinitely until you explicitly clean them up. Always remove old
+rotated secrets once your migration is complete to ensure that compromised credentials cannot be used. :::
 
 ## Delete OAuth2 client
 
