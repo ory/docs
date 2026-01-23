@@ -131,6 +131,128 @@ See [API documentation](../../reference/api#tag/oAuth2/operation/patchOAuth2Clie
 </Tabs>
 ````
 
+## Rotate OAuth2 client secret
+
+OAuth2 client secret rotation allows you to change a client's secret without downtime. When you rotate a secret, the old secret remains valid until you explicitly clean it up, allowing you to update all services using the client credentials without service interruption.
+
+### How secret rotation works
+
+1. **Rotate the secret**: Generate a new secret for the client
+2. **Both secrets work**: Old and new secrets both authenticate until cleanup
+3. **Update services**: Update your applications to use the new secret
+4. **Cleanup**: Manually remove old rotated secrets once all services are updated
+
+### Rotate client secret
+
+To rotate an OAuth2 client secret, use the following methods:
+
+````mdx-code-block
+<Tabs>
+<TabItem value="rest" label="REST API">
+
+```bash
+curl -X POST https://{project.slug}.projects.oryapis.com/admin/clients/{client-id}/secret/rotate \
+  -H "Authorization: Bearer ory_pat_..."
+```
+
+The response includes the new `client_secret`. **Save this value immediately** - it will not be shown again.
+
+See [API documentation](../../reference/api#tag/oAuth2/operation/oauth2RotateClientSecret).
+
+</TabItem>
+<TabItem value="sdk" label="Ory SDK">
+
+```typescript
+import { Configuration, OAuth2Api } from "@ory/client"
+
+const ory = new OAuth2Api(
+  new Configuration({
+    basePath: `https://${projectSlug}.projects.oryapis.com`,
+    accessToken: "ory_pat_..."
+  })
+)
+
+const { data: client } = await ory.oauth2RotateClientSecret({
+  id: clientId
+})
+
+// Save the new client_secret immediately
+console.log("New secret:", client.client_secret)
+```
+
+</TabItem>
+</Tabs>
+````
+
+### Clear rotated secrets
+
+Once all services have been updated to use the new secret, you can remove the old rotated secrets to revoke access using the old credentials:
+
+````mdx-code-block
+<Tabs>
+<TabItem value="rest" label="REST API">
+
+```bash
+curl -X DELETE https://{project.slug}.projects.oryapis.com/admin/clients/{client-id}/secret/rotate \
+  -H "Authorization: Bearer ory_pat_..."
+```
+
+After cleanup, only the current secret will be valid. Old secrets will no longer authenticate.
+
+See [API documentation](../../reference/api#tag/oAuth2/operation/oauth2DeleteRotatedClientSecrets).
+
+</TabItem>
+<TabItem value="sdk" label="Ory SDK">
+
+```typescript
+await ory.oauth2DeleteRotatedClientSecrets({
+  id: clientId
+})
+
+// Old secrets are now revoked
+```
+
+</TabItem>
+</Tabs>
+````
+
+### Secret rotation workflow example
+
+Here's a complete workflow for rotating a client secret:
+
+```bash
+# 1. Get current client
+CLIENT_ID="your-client-id"
+
+# 2. Rotate the secret
+NEW_SECRET=$(curl -X POST "https://{project.slug}.projects.oryapis.com/admin/clients/$CLIENT_ID/secret/rotate" \
+  -H "Authorization: Bearer ory_pat_..." | jq -r '.client_secret')
+
+echo "New secret: $NEW_SECRET"
+
+# 3. Update your applications with the new secret
+# (Both old and new secrets work during this period)
+
+# 4. Verify the new secret works
+curl -X POST "https://{project.slug}.projects.oryapis.com/oauth2/token" \
+  -u "$CLIENT_ID:$NEW_SECRET" \
+  -d "grant_type=client_credentials"
+
+# 5. Once all services are updated, clean up old secrets
+curl -X DELETE "https://{project.slug}.projects.oryapis.com/admin/clients/$CLIENT_ID/secret/rotate" \
+  -H "Authorization: Bearer ory_pat_..."
+
+# Old secret is now revoked
+```
+
+:::tip Zero-downtime credential rotation
+Secret rotation enables zero-downtime credential updates. Both the old and new secrets remain valid until you manually clean up the rotated secrets, allowing you to update all your services without service interruption.
+:::
+
+:::warning Security best practice
+Rotated secrets remain valid indefinitely until you explicitly clean them up. Always remove old rotated secrets once your migration is complete to ensure that compromised credentials cannot be used.
+:::
+
 ## Delete OAuth2 client
 
 To delete an existing OAuth2 client, use the following methods:
