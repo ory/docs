@@ -1,11 +1,11 @@
-# OryNodeInputProps
+# OryNodeCheckboxProps
 
 ```ts
-type OryNodeInputProps = {
+type OryNodeCheckboxProps = {
   attributes: UiNodeInputAttributes
-  inputProps: OryNodeInputInputProps
+  inputProps: OryNodeCheckboxInputProps
   node: UiNodeInput
-  onClick?: MouseEventHandler
+  onClick: MouseEventHandler
 }
 ```
 
@@ -26,7 +26,7 @@ attributes: UiNodeInputAttributes
 ### inputProps
 
 ```ts
-inputProps: OryNodeInputInputProps
+inputProps: OryNodeCheckboxInputProps
 ```
 
 ---
@@ -39,10 +39,10 @@ node: UiNodeInput
 
 ---
 
-### ~~onClick?~~
+### ~~onClick~~
 
 ```ts
-optional onClick: MouseEventHandler;
+onClick: MouseEventHandler
 ```
 
 #### Deprecated
