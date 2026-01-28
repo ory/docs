@@ -358,6 +358,321 @@
     "calt" 1; /* fix for Chrome */
 }
 
+/* ----------------------------
+   Navbar (Figma node 5046:5330)
+   Exact styling from Figma design
+----------------------------- */
+:root {
+  --ory-navbar-height: 48px;
+  --ory-navbar-bg: #ffffff;
+  --ory-navbar-border: #cbd5e1;
+  --ory-navbar-text: #0f172a;
+  --ory-navbar-link: #0f172a;
+  --ory-navbar-link-hover: #383bca;
+  --ory-navbar-font-size: 14px;
+  --ory-navbar-gap: 24px;
+  --ory-navbar-left-width: 312px;
+  --ory-navbar-left-padding-x: 16px;
+  --ory-navbar-content-padding-left: 32px;
+  --ory-navbar-right-width: auto;
+  --ory-navbar-right-gap: 24px;
+  --ory-search-width: 200px;
+}
+
+.navbar {
+  height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+  background: var(--ory-navbar-bg);
+  border-bottom: 1px solid var(--ory-navbar-border);
+  box-shadow: none;
+  padding: 0;
+}
+
+.navbar__inner {
+  height: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+  align-items: center;
+  padding: 0 8px;
+}
+
+/* Left logo section - 312px with borders */
+.navbar__brand {
+  width: var(--ory-navbar-left-width);
+  max-width: var(--ory-navbar-left-width);
+  border-left: 1px solid var(--ory-navbar-border);
+  border-right: 1px solid var(--ory-navbar-border);
+  padding: 0 var(--ory-navbar-left-padding-x);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  flex: 1 0 0;
+  padding: 4px;
+}
+
+.navbar__logo img {
+  height: 14.6px;
+  width: 40.15px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.navbar__logo::after {
+  content: "/ Documentation";
+  display: inline-block;
+  font-family: Inter, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-left: 6px;
+  white-space: nowrap;
+  background: linear-gradient(
+    to right,
+    #383bca 0,
+    #383bca 1ch,
+    var(--ory-navbar-text) 1ch,
+    var(--ory-navbar-text) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--ory-navbar-text);
+}
+
+/* Dropdown icon after logo area */
+.navbar__brand::after {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath stroke='%230f172a' stroke-width='1.5' fill='none' d='M4 6l4 4 4-4'/%3E%3C/svg%3E") no-repeat center;
+  background-size: contain;
+  margin-left: 4px;
+  flex-shrink: 0;
+}
+
+/* Middle nav links */
+.navbar__items {
+  flex: 1 0 0;
+  gap: var(--ory-navbar-gap);
+  font-size: var(--ory-navbar-font-size);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--ory-navbar-text);
+  padding-left: var(--ory-navbar-content-padding-left);
+  display: flex;
+  align-items: center;
+}
+
+.navbar__link {
+  color: var(--ory-navbar-link);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--ory-navbar-link-hover);
+}
+
+/* Ensure all navbar items have consistent width */
+.navbar__item {
+  flex-shrink: 0;
+  min-width: fit-content;
+}
+
+.navbar__item .navbar__link {
+  display: inline-block;
+  width: auto;
+  min-width: fit-content;
+}
+
+/* Right section - Links and Search */
+.navbar__items--right {
+  gap: var(--ory-navbar-right-gap);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Search input styling from Figma node 5211:5845 */
+.navbar .DocSearch-Button,
+.navbar__items--right .DocSearch-Button,
+.DocSearch-Button {
+  width: var(--ory-search-width) !important;
+  max-width: var(--ory-search-width) !important;
+  height: auto !important;
+  min-height: 32px !important;
+  border: 1px solid var(--ory-navbar-border) !important;
+  background: #fff !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--ory-navbar-text) !important;
+  font-size: 16px !important;
+  font-family: Inter, sans-serif !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  padding: 0 !important;
+  padding-left: 4px !important;
+  padding-right: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+.navbar .DocSearch-Button-Placeholder,
+.navbar__items--right .DocSearch-Button-Placeholder {
+  color: #64748b !important;
+  font-size: 16px !important;
+  font-family: Inter, sans-serif !important;
+  font-weight: 400 !important;
+  padding: 8px !important;
+  flex: 1 0 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Search icon wrapper - DocSearch uses SVG */
+.navbar .DocSearch-Button .DocSearch-Search-Icon,
+.navbar__items--right .DocSearch-Button .DocSearch-Search-Icon,
+.navbar .DocSearch-Button svg,
+.navbar__items--right .DocSearch-Button svg {
+  padding: 8px !important;
+  flex-shrink: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+  color: var(--ory-navbar-text) !important;
+  margin: 0 !important;
+}
+
+/* ⌘K keyboard shortcut badge - Figma node 5211:5845 */
+/* Container for keyboard keys */
+.navbar .DocSearch-Button-Key,
+.navbar__items--right .DocSearch-Button-Key,
+.navbar .DocSearch-Button-Keys,
+.navbar__items--right .DocSearch-Button-Keys,
+.DocSearch-Button-Key,
+.DocSearch-Button-Keys {
+  background: #e2e8f0 !important;
+  color: #64748b !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+  border: none !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  padding: 0 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: Inter, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  margin-left: auto !important;
+  gap: 2px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* All text content inside keyboard badge - ensure visibility */
+.navbar .DocSearch-Button-Key *,
+.navbar__items--right .DocSearch-Button-Key *,
+.navbar .DocSearch-Button-Keys *,
+.navbar__items--right .DocSearch-Button-Keys *,
+.DocSearch-Button-Key *,
+.DocSearch-Button-Keys * {
+  color: #64748b !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Individual key elements (kbd tags) inside the badge */
+.navbar .DocSearch-Button-Key kbd,
+.navbar__items--right .DocSearch-Button-Key kbd,
+.navbar .DocSearch-Button-Keys kbd,
+.navbar__items--right .DocSearch-Button-Keys kbd,
+.DocSearch-Button-Key kbd,
+.DocSearch-Button-Keys kbd,
+.navbar .DocSearch-Button-Key > kbd,
+.navbar__items--right .DocSearch-Button-Key > kbd,
+.navbar .DocSearch-Button-Keys > kbd,
+.navbar__items--right .DocSearch-Button-Keys > kbd {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: Inter, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  color: #64748b !important;
+  min-width: auto !important;
+  height: auto !important;
+  display: inline !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Text/span elements inside the keyboard badge */
+.navbar .DocSearch-Button-Key span,
+.navbar__items--right .DocSearch-Button-Key span,
+.navbar .DocSearch-Button-Keys span,
+.navbar__items--right .DocSearch-Button-Keys span,
+.DocSearch-Button-Key span,
+.DocSearch-Button-Keys span,
+.navbar .DocSearch-Button-Key > span,
+.navbar__items--right .DocSearch-Button-Key > span,
+.navbar .DocSearch-Button-Keys > span,
+.navbar__items--right .DocSearch-Button-Keys > span {
+  font-family: Inter, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  color: #64748b !important;
+  display: inline !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Direct text content and any other elements */
+.navbar .DocSearch-Button-Key,
+.navbar__items--right .DocSearch-Button-Key,
+.navbar .DocSearch-Button-Keys,
+.navbar__items--right .DocSearch-Button-Keys {
+  text-align: center !important;
+  white-space: nowrap !important;
+  color: #64748b !important;
+}
+
+/* Ensure text nodes are visible */
+.navbar .DocSearch-Button-Key::before,
+.navbar__items--right .DocSearch-Button-Key::before,
+.navbar .DocSearch-Button-Keys::before,
+.navbar__items--right .DocSearch-Button-Keys::before {
+  display: none !important;
+}
+
+
+
 @supports (font-variation-settings: normal) {
   :root {
     --ifm-font-family-base: InterVariable, var(--ifm-font-family-base-fallback);
@@ -563,4 +878,111 @@ svg[class*="iconExternalLink"] {
   opacity: 0.6 !important;
   transform: scale(0.667) !important;
   transform-origin: center center !important;
+}
+
+/* Code sample tabs styling for welcome page */
+.tabs-container[data-group-id="language-quickstarts"] .tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 16px;
+  padding-left: 0;
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-right: none;
+  border-radius: 0;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  color: #0f172a;
+  cursor: pointer;
+  transition: none;
+  border-bottom: 3px solid transparent;
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item:last-child {
+  border-right: 1px solid #cbd5e1;
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item:hover {
+  background-color: #ffffff;
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item--active {
+  background: #e0e1ff;
+  border-color: #6366f1;
+  border-right: 1px solid #6366f1;
+  color: #2e3081;
+  border-bottom-color: #6366f1;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  z-index: 1;
+  position: relative;
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item--active:hover {
+  background-color: #e0e1ff;
+}
+
+/* Override CodeBlock background in code sample tabs */
+.tabs-container[data-group-id="language-quickstarts"] ~ * [class*="theme-code-block"],
+.tabs-container[data-group-id="language-quickstarts"] [class*="theme-code-block"],
+.tabs-container[data-group-id="language-quickstarts"] pre,
+.tabs-container[data-group-id="language-quickstarts"] code {
+  background: #ffffff !important;
+  border: none !important;
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item > div > div:last-child {
+  background: #ffffff !important;
+  border: none !important;
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item > div > div:last-child code {
+  background: transparent !important;
+  border: none !important;
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item > div > div:last-child span {
+  background: transparent !important;
+  border: none !important;
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item > div > div:last-child * {
+  border: none !important;
+}
+
+/* Override Docusaurus styles for code sample body in framework selection section */
+.code-sample-body {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+.code-sample-body code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+  color: #0f172a !important;
+}
+
+.code-sample-body code span {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.code-sample-body span {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
 }
