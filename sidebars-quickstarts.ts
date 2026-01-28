@@ -15,7 +15,8 @@ const quickstartsSidebar = [
     items: [
       {
         type: "category",
-        label: "Ory Kratos",
+        label: "Identity Management & AuthN",
+        className: "sidebar-icon sidebar-icon-kratos",
         items: [
           "identities/index",
           "kratos/quickstart",
@@ -25,7 +26,8 @@ const quickstartsSidebar = [
       },
       {
         type: "category",
-        label: "Ory Hydra",
+        label: "Delegated Scope-based AuthZ & Federated AuthN",
+        className: "sidebar-icon sidebar-icon-hydra",
         items: [
           "oauth2-oidc/index",
           "getting-started/ory-network-oauth2",
@@ -33,20 +35,23 @@ const quickstartsSidebar = [
       },
       {
         type: "category",
-        label: "Ory Keto",
+        label: "Fine-grained AuthZ & Permissions",
+        className: "sidebar-icon sidebar-icon-keto",
         items: [
           "keto/index",
         ],
       },
             {
         type: "category",
-        label: "Ory Polis",
+        label: "Enterprise SSO AuthZ",
+        className: "sidebar-icon sidebar-icon-polis",
         items: [
           "polis/index", 
         ],
       },      {
         type: "category",
-        label: "Ory Oathkeeper",
+        label: "Proxy-based Access Control",
+        className: "sidebar-icon sidebar-icon-oathkeeper",
         items: [
           "oathkeeper/index",
         ],

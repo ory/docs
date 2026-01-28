@@ -564,3 +564,51 @@ svg[class*="iconExternalLink"] {
   transform: scale(0.667) !important;
   transform-origin: center center !important;
 }
+
+/* Base styles - apply to all icon items */
+.sidebar-icon > .menu__list-item-collapsible > .menu__link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.sidebar-icon > .menu__list-item-collapsible > .menu__link > span {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sidebar-icon > .menu__list-item-collapsible > .menu__link > span::before {
+  content: "";
+  width: 68px;
+  height: 20px;
+  margin-right: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Icon variants */
+.sidebar-icon-hydra > .menu__list-item-collapsible > .menu__link > span::before {
+  background-image: url("/img/ory-hydra-icon.svg");
+}
+
+.sidebar-icon-kratos > .menu__list-item-collapsible > .menu__link > span::before {
+  background-image: url("/img/ory-kratos-icon.svg");
+}
+
+.sidebar-icon-keto > .menu__list-item-collapsible > .menu__link > span::before {
+  background-image: url("/img/ory-keto-icon.svg");
+}
+
+.sidebar-icon-oathkeeper > .menu__list-item-collapsible > .menu__link > span::before {
+  background-image: url("/img/ory-oathkeeper-icon.svg");
+}
+
+.sidebar-icon-polis > .menu__list-item-collapsible > .menu__link > span::before {
+  background-image: url("/img/ory-polis-icon.svg");
+}
+
+.sidebar-icon-network > .menu__list-item-collapsible > .menu__link > span::before {
+  background-image: url("/img/ory-network-icon.svg");
+}

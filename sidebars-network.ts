@@ -30,7 +30,8 @@ const networkSidebar = [
       },
       {
         type: "category",
-        label: "Identity Management & AuthN 'Ory Kratos'",
+        label: "Identity Management & AuthN",
+        className: "sidebar-icon sidebar-icon-kratos",
         collapsed: true,
         items: [
           {
@@ -281,7 +282,8 @@ const networkSidebar = [
       },
       {
         type: "category",
-        label: "Fine-grained AuthZ & Permissions 'Ory Keto'",
+        label: "Fine-grained AuthZ & Permissions",
+        className: "sidebar-icon sidebar-icon-keto",
         collapsed: true,
         items: [
           "keto/index",
@@ -330,7 +332,8 @@ const networkSidebar = [
       },
       {
         type: "category",
-        label: "Delegated Scope-based AuthZ & Federated AuthN 'Ory Hydra'",
+        label: "Delegated Scope-based AuthZ & Federated AuthN",
+        className: "sidebar-icon sidebar-icon-hydra",
         collapsed: true,
         items: [
           "oauth2-oidc/index",
@@ -444,7 +447,8 @@ const networkSidebar = [
       },
       {
         type: "category",
-        label: "Enterprise SSO AuthZ 'Ory Polis'",
+        label: "Enterprise SSO AuthZ",
+        className: "sidebar-icon sidebar-icon-polis",
         collapsed: true,
         items: [
           "polis/index",
@@ -631,7 +635,8 @@ const networkSidebar = [
       },
       {
         type: "category",
-        label: "Proxy-based Access Control 'Ory Oathkeeper'",
+        label: "Proxy-based Access Control",
+        className: "sidebar-icon sidebar-icon-oathkeeper",
         collapsed: true,
         items: [
           "oathkeeper/index",
