@@ -45,7 +45,7 @@ export const QuickstartFilter = () => {
           onChange={setDeploymentMode}
         />
 
-        <h2 className={styles.sectionHeading}>Guides & quickstarts</h2>
+        <h2 className={styles.sectionHeading}>Quickstart guides</h2>
 
         <div className={styles.headerRow}>
           <CategoryFilter

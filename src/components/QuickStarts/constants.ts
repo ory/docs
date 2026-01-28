@@ -6,24 +6,38 @@ export const CATEGORIES: QuickstartCategory[] = [
     label: "Ory Kratos",
     items: [
       {
-        label: "Introduction to Ory Identities",
+        label: "Introduction to Ory Kratos",
         to: "/docs/identities",
-        description: "What Ory Identities (Kratos) is and when to use it.",
-        deploymentModes: ["network"],
+        description: "Identity management and authentication.",
+        deploymentModes: ["network", "oel", "oss"],
       },
       {
-        label: "Identity management guide",
-        to: "/docs/identities/get-started",
-        description:
-          "Day 1 essentials for browser-based authentication with Ory.",
-        deploymentModes: ["network"],
-      },
-      {
-        label: "Kratos self-hosted quickstart",
+        label: "Get started with Ory Kratos",
         to: "/docs/kratos/quickstart",
         description:
           "Run Ory Kratos locally with Docker and explore the main flows.",
         deploymentModes: ["oel", "oss"],
+      },
+      {
+        label: "Get started with identity management",
+        to: "/docs/kratos/manage-identities/overview",
+        description:
+          "Identity management and authentication.",
+        deploymentModes: ["network", "oel", "oss"],
+      },
+    {
+        label: "Get started with authentication",
+        to: "/docs/guides/authentication",
+        description:
+          "Password, passwordless, passkey, and other authentication.",
+        deploymentModes: ["network", "oel", "oss"],
+      },
+      {
+        label: "Get started with multi-factor authentication",
+        to: "/docs/kratos/mfa/overview",
+        description:
+          "Multi-factor authentication.",
+        deploymentModes: ["network", "oel", "oss"],
       },
     ],
   },
@@ -32,33 +46,25 @@ export const CATEGORIES: QuickstartCategory[] = [
     label: "Ory Hydra",
     items: [
       {
-        label: "Introduction to Ory Hydra OAuth2",
+        label: "Introduction to Ory Hydra",
         to: "/docs/oauth2-oidc",
         description:
-          "High-level OAuth2 & OpenID Connect overview for Ory Hydra.",
+          "OAuth2 & OpenID Connect social sign-in concepts.",
+          deploymentModes: ["network", "oel", "oss"],
       },
       {
-        label: "OAuth2 & OpenID Connect",
-        to: "/docs/oauth2-oidc",
-        description: "Concepts and flows for Ory OAuth2 & OpenID Connect.",
-      },
-      {
-        label: "Try common OAuth2 grants",
+        label: "Get started with Ory Hydra",
         to: "/docs/getting-started/ory-network-oauth2",
         description:
-          "Hands-on Authorization Code and Client Credentials flows.",
+          "Client credential and authorization code grant.",
+          deploymentModes: ["network"],
       },
       {
-        label: "Hydra self-hosted quickstart",
+        label: "Get started with Ory Hydra",
         to: "/docs/hydra/self-hosted/quickstart",
         description:
           "Run Ory Hydra locally and try the most important OAuth2 flows.",
-      },
-      {
-        label: "Hydra guides",
-        to: "/docs/hydra/guides/common-oauth2-openid-connect-flows",
-        description:
-          "Deep-dive guides for specific OAuth2/OpenID Connect scenarios.",
+          deploymentModes: ["oel", "oss"],
       },
     ],
   },
@@ -67,15 +73,17 @@ export const CATEGORIES: QuickstartCategory[] = [
     label: "Ory Keto",
     items: [
       {
-        label: "Introduction to Ory Keto Permissions",
+        label: "Introduction to Ory Keto",
         to: "/docs/keto",
-        description: "Overview of Ory's relationship-based permission system.",
+        description: "Relationship-based permissions system.",
+        deploymentModes: ["network", "oel", "oss"],
       },
       {
-        label: "Keto quickstart",
+        label: "Get started with Ory Keto",
         to: "/docs/keto/quickstart",
         description:
-          "Cat videos example to understand relationships and permission checks.",
+          "Quickstart for understanding relationships and permission checks.",
+          deploymentModes: ["oel", "oss"],
       },
     ],
   },
@@ -87,6 +95,13 @@ export const CATEGORIES: QuickstartCategory[] = [
         label: "Introduction to Ory Oathkeeper",
         to: "/docs/oathkeeper",
         description: "Zero trust proxy concepts and architecture.",
+        deploymentModes: ["network", "oel", "oss"],
+      },
+      {
+        label: "Configure and deploy Ory Oathkeeper",
+        to: "/docs/oathkeeper/configure-deploy",
+        description: "Configure, build, and deploy Ory Oathkeeper.",
+        deploymentModes: ["oel", "oss"],
       },
     ],
   },
@@ -97,13 +112,15 @@ export const CATEGORIES: QuickstartCategory[] = [
       {
         label: "Introduction to Ory Polis",
         to: "/docs/polis",
-        description: "Enterprise SSO bridge for SAML and OIDC.",
+        description: "Enterprise SSO for SAML and OIDC identity providers and SCIM provising.",
+        deploymentModes: ["network", "oel", "oss"],
       },
       {
-        label: "Polis quickstart",
+        label: "Get started with Ory Polis",
         to: "/docs/polis/quickstart",
         description:
-          "Choose between service or npm-library integration for enterprise SSO.",
+          "Quickstart for Enterprise SSO authentication and SCIM provisioning.",
+          deploymentModes: ["oel", "oss"],
       },
     ],
   },
@@ -116,16 +133,19 @@ export const CATEGORIES: QuickstartCategory[] = [
         to: "/docs/elements",
         description:
           "Pre-built UI components for Ory self-service and OAuth2 flows.",
+        deploymentModes: ["network", "oel"],
       },
       {
         label: "Next.js App Router quickstart",
         to: "/docs/getting-started/integrate-auth/16_nextjs_app_router",
         description: "Use Ory Elements in a Next.js App Router application.",
+        deploymentModes: ["network", "oel"],
       },
       {
         label: "Next.js Pages Router quickstart",
         to: "/docs/getting-started/integrate-auth/17_nextjs_pages_router",
         description: "Use Ory Elements in a Next.js Pages Router application.",
+        deploymentModes: ["network", "oel"],
       },
     ],
   },

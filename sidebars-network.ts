@@ -444,7 +444,7 @@ const networkSidebar = [
       },
       {
         type: "category",
-        label: "Organization & Role-based AuthZ 'Ory Polis'",
+        label: "Enterprise SSO AuthZ 'Ory Polis'",
         collapsed: true,
         items: [
           "polis/index",
