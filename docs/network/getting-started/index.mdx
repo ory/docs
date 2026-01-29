@@ -1,7 +1,125 @@
 ---
-title: Getting started
+title: Introduction to Ory Network
 ---
 
-# Getting started with Ory Network
+Ory is a software infrastructure provider building a global zero-trust network for humans, robots, devices, and software services.
+Ory develops open-source software on [GitHub](https://github.com/ory) and publishes open standards such as the
+[Ory Permission Language](https://github.com/ory/keto/blob/master/docs/ory_permission_language_spec.md).
+[The Ory Network](https://console.ory.sh/) uses cloud-native open-source technologies (Kubernetes, Crossplane, Cockroach, Linux,
+Ory) and standards (OAuth 2.0/2.1, OpenID Connect, MITREid, WebAuthn, TOTP, FIDO3) to deliver a low-latency, planet-scale
+zero-trust infrastructure. Ory combines centuries of open source, security, operational, and industry expertise with a
+user-centric and security-first mindset.
 
-Welcome text!
+Core infrastructure components of [Ory Network](https://console.ory.sh) are open source to foster collaboration, reduce supply
+chain risk, broaden access to secure services, and introduce the open standard for internet security. Being open source Ory
+improves the safety of everyone:
+
+- Ory Identities offers a secure and modern central identity management solution with MFA, passwordless, WebAuthn, and more. It's
+  based on the open-source [Ory Kratos Identity Server](https://github.com/ory/kratos).
+- Ory OAuth2 & OpenID Connect implements 15+ IETF and OpenID standards to facilitate single sign-on (SSO), delegation, and API
+  access authorization. It's based on the open-source [Ory Hydra Federation Server](https://github.com/ory/hydra).
+- Ory Permissions is a low-latency, high-performance, relationship-based authorization system that enables fine-grained access
+  control (incl. RBAC and ABAC models) in any application. It's based on the open-source
+  [Ory Keto Permission Server](https://github.com/ory/keto), which implements
+  [Zanzibar: Google’s Consistent, Global Authorization System](https://research.google/pubs/pub48190/).
+
+Ory develops and maintains many additional open-source projects. From an Ory Zero Trust Identity & Access Proxy
+[Ory Oathkeeper](https://github.com/ory/oathkeeper) to developer tooling [Ory Dockertest](https://github.com/ory/dockertest) to
+language-specific libraries [Ory Ladon](https://github.com/ory/ladon). Ory has
+[170+ open source repositories](https://github.com/orgs/ory/repositories) and over 35.000 GitHub stars.
+
+Ory secures billions of requests each month, runs in over 50,000 live deployments, and improves hourly.
+
+## Why Ory is different
+
+Ory differentiates from other vendors in the following key areas:
+
+- Ory core services and APIs are developed and licensed under Apache 2.0, allowing you to participate, collaborate, and understand
+  the inner workings of Ory.
+- You can bring your UI, in the programming language of your choosing, with the user experience that you like.
+- From designing Identity Schemas using JSON Schema, to webhooks, to advanced configuration options - Ory is the most customizable
+  platform out there.
+- Ory spans the whole authentication and authorization universe with well-designed products and APIs:
+  - Identity Management with session management & flows for login, registration, recovery, verification, MFA, and more.
+  - Permission and Role Management.
+  - Delegation via OAuth2 and OpenID Connect.
+  - Zero Trust Networking.
+  - Modern API design with partial support for gRPC.
+
+## Ory Network
+
+The Ory Network is the commercial offering of Ory and is built on top of Ory Open Source software. The goal with Ory Network is to
+offer a planet-scale, low-latency, resilient, and secure service that's easy to use and set up.
+
+In short: Ory Network is the most convenient way to run Ory. [Sign up](https://console.ory.sh/registration) and create a free
+developer project.
+
+## Components
+
+Each project in Ory Network is an isolated tenant and uses many components providing functionality, user interfaces, and APIs
+around identities, sessions, login, OAuth2, permissions, and more. The core components of projects in Ory Network are
+[Ory Open Source servers](https://github.com/ory/).
+
+### Identities and sessions
+
+Ory Network incorporates the open-source [Ory Kratos Identity Server](https://www.ory.com/kratos) and offers:
+
+- Self-service flows are everything users do on their own / without the help of others:
+- Registration with passwords, social sign-in, OpenID Connect, passkeys, and more.
+- Login with passwords, social sign-in, OpenID Connect, passkeys, and more.
+- Updating the profile, email, changing the password, un/linking with social sign-in providers, and more.
+- Recovering the account by resetting the password.
+- Verifying email addresses, phone numbers, and more.
+- Multi-factor authentication flows and recovery processes.
+- Administrative identity management to get, create, update, and delete identities and their data.
+- Headless APIs and data models allow you to fully customize Identity Schemas - for example adding fields like name, accept ToS,
+  phone number - and create your login, registration, profile settings, recovery, and verification screen using SDKs and REST
+  APIs.
+- SCIM support for automated user provisioning and deprovisioning with supported identity providers.
+
+### Permissions and relationships
+
+Ory Network incorporates the open-source [Ory Keto Permission Server](https://www.ory.com/keto) and offers:
+
+- Permission management to get, create, update, and delete permissions.
+- Permission checking to check if a user has a permission.
+
+### OAuth2 and OIDC
+
+Ory Network incorporates the open-source [Ory Hydra OAuth2 & OpenID Server](https://www.ory.com/hydra) and offers:
+
+- Fully featured OAuth2 & [OpenID Certified](https://openid.net/developers/certified/)® OIDC Provider
+
+### SAML
+
+Ory Network incorporates the open-source [Ory Polis](https://www.ory.com/polis) and offers:
+
+- Enterprise SSO integration with SAML identity providers such as Okta, Azure AD, and Google Workspace.
+- Simplified SSO flow by implementing SSO as a standard OAuth 2.0 flow, abstracting away the complexities of SAML.
+- Act as a SAML Identity Provider (IdP).
+
+### Ory Console
+
+Ory Console is the management UI of Ory Network.
+
+### Ory Account Experience
+
+Ory Account Experience implements screens such as login, registration, account recovery, account setting, and account verification
+for fast adoption of Ory.
+
+Ory allows you to implement your own authentication UI by offering simple, headless APIs. Use the open-source
+[Ory Elements](https://github.com/ory/elements) components library for fast integration with frameworks like React and Next.js.
+
+### Ory Actions
+
+[Ory Actions](./kratos/hooks/configure-hooks) provide a flexible way to extend the capabilities of the Ory Network by defining
+custom business logic, automating system behavior in response to events, and integrating with third-party services such as CRM
+platforms, payment gateways, business analytics tools, and integration platforms.
+
+## Ory Open Source
+
+Ory is the largest open-source ecosystem in the area of authentication, authorization, access control, and zero-trust networking
+in the world. Ory is not another company "greenwashing" with open source by publishing SDKs under open-source licenses. Instead,
+all Ory core systems are available as Apache 2.0 licensed software without enterprise or open-core models.
+
+Head over to the [Ory Open Source Overview](./open-source.mdx) for an introduction to the different projects.

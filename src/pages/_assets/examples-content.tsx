@@ -2,7 +2,7 @@ import { PropTypes } from "../../components/Examples/example-list"
 
 export const basic: PropTypes = {
   id: "basic",
-  title: "Basic examples",
+  title: "Quickstart examples",
   description:
     "Guides, tutorials, and configurations for using Ory services. Examples are maintained by the Ory team.",
   examples: [
