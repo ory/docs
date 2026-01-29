@@ -14,13 +14,68 @@ const OryHeroDemo = () => {
   const terminalRef = useRef(null)
 
   const script = [
+    // CLI setup
+    { type: "comment", text: "# One-time project setup via Ory CLI", delay: 0 },
+    { type: "command", text: "brew install ory/tap/cli", delay: 300 },
+    { type: "output", text: "Installing ory...", delay: 500 },
+    { type: "success", text: "✓ Installed", delay: 600 },
+    { type: "command", text: "ory auth", delay: 400 },
     {
-      type: "line",
-      number: 1,
-      text: "From zero to registered user in minutes!",
-      delay: 300,
+      type: "output",
+      text: "Opening browser to create your Ory developer account...",
+      delay: 500,
     },
-    { type: "line", number: 2, text: "Click 'Run'.", delay: 300 },
+    { type: "success", text: "✓ Authenticated as <your-email>", delay: 700 },
+    { type: "command", text: 'ory create project --name "MyApp"', delay: 400 },
+    { type: "output", text: "Project slug: myapp-abc123", delay: 600 },
+    { type: "success", text: "✓ Project created", delay: 200 },
+
+    // API registration
+    { type: "comment", text: "# Register a user via Ory API", delay: 600 },
+    {
+      type: "note",
+      text: "Note: Traits depend on your identity schema. This sample uses Ory's 'username' preset schema.",
+      delay: 400,
+    },
+    { type: "command", text: "curl -s -X GET \\", delay: 300 },
+    {
+      type: "command-cont",
+      text: '  "https://<YOUR_PROJECT_SLUG>.projects.oryapis.com/self-service/registration/api"',
+      delay: 100,
+    },
+    {
+      type: "output",
+      text: '{ "id": "<FLOW_ID>", "type": "api", "expires_at":"...","issued_at":"...","request_url":"<YOUR_PROJECT_SLUG>/self-service/registration/api","ui":{"action":"<YOUR_PROJECT_SLUG>.projects.oryapis.com/self-service/registration?flow=<FLOW_ID>","method":"POST", ... } }',
+      delay: 500,
+    },
+    { type: "command", text: "curl -s -X POST \\", delay: 400 },
+    {
+      type: "command-cont",
+      text: '  -H "Content-Type: application/json" \\',
+      delay: 100,
+    },
+    {
+      type: "command-cont",
+      text: '  -d \'{"traits":{"username":"<YOUR_USERNAME>"},"password":"<YOUR_PASSWORD>","method":"password"}\' \\',
+      delay: 100,
+    },
+    {
+      type: "command-cont",
+      text: '  "https://<YOUR_PROJECT_SLUG>.projects.oryapis.com/self-service/registration?flow=<FLOW_ID>"',
+      delay: 100,
+    },
+    {
+      type: "output",
+      text: '{"identity":{"id":"...","schema_id":"preset://username","schema_url":"<YOUR_PROJECT_SLUG>.projects.oryapis.com/schemas/cHJlc2V0Oi8vdXNlcm5hbWU","state":"active", ... } }',
+      delay: 600,
+    },
+    { type: "success", text: "✓ User registered!", delay: 400 },
+    {
+      type: "link",
+      text: "Create your free project via Ory Console →",
+      url: "https://console.ory.sh/",
+      delay: 400,
+    },
   ]
 
   const runDemo = async () => {
