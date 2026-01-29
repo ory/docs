@@ -580,35 +580,46 @@ svg[class*="iconExternalLink"] {
 
 .sidebar-icon > .menu__list-item-collapsible > .menu__link > span::before {
   content: "";
-  width: 68px;
-  height: 20px;
   margin-right: 8px;
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: left;
 }
 
 /* Icon variants */
 .sidebar-icon-hydra > .menu__list-item-collapsible > .menu__link > span::before {
   background-image: url("/img/ory-hydra-icon.svg");
+  height: 30px;
+  width: 108px;
 }
 
 .sidebar-icon-kratos > .menu__list-item-collapsible > .menu__link > span::before {
   background-image: url("/img/ory-kratos-icon.svg");
+  height: 30px;
+  width: 120px;
 }
 
 .sidebar-icon-keto > .menu__list-item-collapsible > .menu__link > span::before {
   background-image: url("/img/ory-keto-icon.svg");
+  height: 30px;
+  width: 108px;
 }
 
 .sidebar-icon-oathkeeper > .menu__list-item-collapsible > .menu__link > span::before {
   background-image: url("/img/ory-oathkeeper-icon.svg");
+  height: 30px;
+  width: 140px;
 }
 
 .sidebar-icon-polis > .menu__list-item-collapsible > .menu__link > span::before {
   background-image: url("/img/ory-polis-icon.svg");
+  height: 30px;
+  width: 108px;
 }
 
 .sidebar-icon-network > .menu__list-item-collapsible > .menu__link > span::before {
   background-image: url("/img/ory-network-icon.svg");
+  height: 30px;
+  width: 108px;
 }
+
