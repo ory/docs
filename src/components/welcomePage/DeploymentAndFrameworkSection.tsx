@@ -75,7 +75,8 @@ export function DeploymentAndFrameworkSection() {
     },
   ]
 
-  const selectedLang = langs.find((l) => l.value === selectedFramework) ?? langs[1]
+  const selectedLang =
+    langs.find((l) => l.value === selectedFramework) ?? langs[1]
   const selectedSnippet = selectedLang.snippet
   const snippetPrefix = selectedSnippet.startsWith("npm install ")
     ? "npm install "
@@ -89,7 +90,9 @@ export function DeploymentAndFrameworkSection() {
       style={{
         paddingTop: spacing.size16,
         paddingBottom: spacing.size16,
-        background: colors.backgroundSecondary,
+        background: colors.backgroundPrimary,
+        borderTop: `1px solid ${colors.borderPrimary}`,
+        borderBottom: `1px solid ${colors.borderPrimary}`,
       }}
     >
       <div
@@ -324,7 +327,11 @@ export function DeploymentAndFrameworkSection() {
               }}
             >
               <div
-                style={{ display: "flex", flexDirection: "column", gap: spacing.size2 }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: spacing.size2,
+                }}
               >
                 <div
                   style={{
@@ -464,8 +471,8 @@ style Elements fill:transparent,stroke:none`}
                         paddingBottom: spacing.size3,
                       }}
                     >
-                      Do you need identity management (user registration, profile
-                      management)?
+                      Do you need identity management (user registration,
+                      profile management)?
                     </p>
                   </div>
 
@@ -669,7 +676,9 @@ style Elements fill:transparent,stroke:none`}
                   <IconTerminal style={{ width: "16px", height: "16px" }} />
                 </div>
 
-                <div style={{ display: "flex", gap: spacing.size1, flex: "1 0 0" }}>
+                <div
+                  style={{ display: "flex", gap: spacing.size1, flex: "1 0 0" }}
+                >
                   {langs.map((lang) => {
                     const active = lang.value === selectedFramework
                     const LangIcon = lang.Icon
@@ -801,4 +810,3 @@ style Elements fill:transparent,stroke:none`}
     </section>
   )
 }
-

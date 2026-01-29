@@ -1,4 +1,4 @@
-// Shared tokens for `src/pages/welcome.tsx` sections 
+// Shared tokens for `src/pages/welcome.tsx` sections
 
 export const colors = {
   textPrimary: "#0f172a",
@@ -67,4 +67,3 @@ export const radius = {
   buttons: "4px",
   general: "4px",
 } as const
-

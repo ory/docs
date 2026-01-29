@@ -90,8 +90,7 @@ export function OtherGuides() {
                   minHeight: "200px",
                 }}
               >
-                <div>
-                </div>
+                <div></div>
                 <div>
                   <h3
                     style={{
@@ -145,8 +144,7 @@ export function OtherGuides() {
                   minHeight: "200px",
                 }}
               >
-                <div>
-                </div>
+                <div></div>
                 <div>
                   <div
                     style={{
@@ -221,4 +219,3 @@ export function OtherGuides() {
     </section>
   )
 }
-

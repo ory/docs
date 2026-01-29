@@ -32,4 +32,3 @@ export function StepBadge({ step }: { step: number }) {
     </div>
   )
 }
-

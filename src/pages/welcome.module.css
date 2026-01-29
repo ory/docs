@@ -1,4 +1,4 @@
- :root {
+:root {
   /* Local page tokens from Figma node 4994:5842/6425 */
   --home-text-primary: #0f172a;
   --home-text-secondary: #334155;
@@ -52,8 +52,6 @@
 .heroTop {
   padding-top: var(--home-s16);
   padding-bottom: 0;
-  background-size: auto auto, 208px 112px;
-  background-position: top left;
 }
 .heroRow {
   display: flex;

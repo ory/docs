@@ -363,26 +363,33 @@
    Exact styling from Figma design
 ----------------------------- */
 :root {
-  --ory-navbar-height: 48px;
+  --ory-navbar-height: 64px;
   --ory-navbar-bg: #ffffff;
   --ory-navbar-border: #cbd5e1;
   --ory-navbar-text: #0f172a;
   --ory-navbar-link: #0f172a;
   --ory-navbar-link-hover: #383bca;
   --ory-navbar-font-size: 14px;
-  --ory-navbar-gap: 24px;
-  --ory-navbar-left-width: 312px;
+  --ory-navbar-gap: 8px;
+  --ory-navbar-left-width: 80px;
   --ory-navbar-left-padding-x: 16px;
   --ory-navbar-content-padding-left: 32px;
   --ory-navbar-right-width: auto;
-  --ory-navbar-right-gap: 24px;
+  --ory-navbar-right-gap: 8px;
   --ory-search-width: 200px;
+  /* Button hover effect variables */
+  --button-button-height: 32px;
+  --size-25: 10px;
+  --size-05: 2px;
+  --radius-buttons: 4px;
+  --border-transparent-transparent: rgba(255, 255, 255, 0);
+  --background-transparent-primary-hover: rgba(0, 0, 0, 0.02);
 }
 
 .navbar {
-  height: 48px !important;
-  min-height: 48px !important;
-  max-height: 48px !important;
+  height: 64px !important;
+  min-height: 64px !important;
+  max-height: 64px !important;
   background: var(--ory-navbar-bg);
   border-bottom: 1px solid var(--ory-navbar-border);
   box-shadow: none;
@@ -416,52 +423,23 @@
 .navbar__logo {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   height: 24px;
-  flex: 1 0 0;
+  width: 100%;
   padding: 4px;
 }
 
 .navbar__logo img {
-  height: 14.6px;
-  width: 40.15px;
-  display: block;
-  flex-shrink: 0;
-}
-
-.navbar__logo::after {
-  content: "/ Documentation";
-  display: inline-block;
-  font-family: Inter, sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1;
-  flex-shrink: 0;
-  margin-left: 6px;
-  white-space: nowrap;
-  background: linear-gradient(
-    to right,
-    #383bca 0,
-    #383bca 1ch,
-    var(--ory-navbar-text) 1ch,
-    var(--ory-navbar-text) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: var(--ory-navbar-text);
-}
-
-/* Dropdown icon after logo area */
-.navbar__brand::after {
-  content: "";
-  display: block;
-  width: 16px;
   height: 16px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath stroke='%230f172a' stroke-width='1.5' fill='none' d='M4 6l4 4 4-4'/%3E%3C/svg%3E") no-repeat center;
-  background-size: contain;
-  margin-left: 4px;
+  width: auto;
+  display: block;
   flex-shrink: 0;
+}
+
+.navbar__logo::before,
+.navbar__logo::after {
+  display: none;
 }
 
 /* Middle nav links */
@@ -483,23 +461,57 @@
   font-size: 14px;
   line-height: 1;
   white-space: nowrap;
+  display: flex;
+  height: var(--button-button-height, 32px);
+  padding: 0 var(--size-25, 10px);
+  justify-content: center;
+  align-items: center;
+  gap: var(--size-05, 2px);
+  border-radius: var(--radius-buttons, 4px);
+  border: 1px solid
+    var(--border-transparent-transparent, rgba(255, 255, 255, 0));
+  transition: background-color 0.2s ease;
 }
 
 .navbar__link:hover,
 .navbar__link--active {
   color: var(--ory-navbar-link-hover);
+  background: var(--background-transparent-primary-hover, rgba(0, 0, 0, 0.02));
+}
+
+/* Style dropdown chevrons in top navbar only (nav/Button/right) */
+.navbar .dropdown > .navbar__link::after {
+  border: none;
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url("../static/img/icons/nav-dropdown-chevron.svg") no-repeat
+    center;
+  background-size: contain;
+  margin-left: 2px;
+  position: static;
+  top: auto;
+  transform: none;
+  vertical-align: middle;
 }
 
 /* Ensure all navbar items have consistent width */
 .navbar__item {
   flex-shrink: 0;
   min-width: fit-content;
+  margin: 0 !important;
 }
 
-.navbar__item .navbar__link {
-  display: inline-block;
-  width: auto;
-  min-width: fit-content;
+/* Ensure dropdown items have same spacing as direct links */
+.navbar__item.dropdown {
+  margin: 0 !important;
+  padding: 0;
+}
+
+/* Ensure dropdown links have same styling as direct links */
+.navbar__item.dropdown > .navbar__link {
+  margin: 0;
 }
 
 /* Right section - Links and Search */
@@ -548,6 +560,21 @@
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
+}
+
+/* Override search placeholder text - hide original and show new */
+.navbar .DocSearch-Button-Placeholder,
+.navbar__items--right .DocSearch-Button-Placeholder {
+  font-size: 0 !important;
+}
+
+.navbar .DocSearch-Button-Placeholder::after,
+.navbar__items--right .DocSearch-Button-Placeholder::after {
+  content: "Search or ask AI ✨" !important;
+  font-size: 16px !important;
+  font-family: Inter, sans-serif !important;
+  font-weight: 400 !important;
+  color: #64748b !important;
 }
 
 /* Search icon wrapper - DocSearch uses SVG */
@@ -670,8 +697,6 @@
 .navbar__items--right .DocSearch-Button-Keys::before {
   display: none !important;
 }
-
-
 
 @supports (font-variation-settings: normal) {
   :root {
@@ -858,9 +883,15 @@ svg[class*="iconExternalLink"] {
   justify-content: flex-end !important;
 }
 
-.theme-doc-sidebar-item-category-level-2 .menu__list-item-collapsible > .menu__caret,
-.theme-doc-sidebar-item-category-level-3 .menu__list-item-collapsible > .menu__caret,
-.theme-doc-sidebar-item-category-level-4 .menu__list-item-collapsible > .menu__caret {
+.theme-doc-sidebar-item-category-level-2
+  .menu__list-item-collapsible
+  > .menu__caret,
+.theme-doc-sidebar-item-category-level-3
+  .menu__list-item-collapsible
+  > .menu__caret,
+.theme-doc-sidebar-item-category-level-4
+  .menu__list-item-collapsible
+  > .menu__caret {
   margin-left: 0 !important;
   margin-right: 8px !important;
   opacity: 0.6 !important;
@@ -871,9 +902,15 @@ svg[class*="iconExternalLink"] {
   transform-origin: center center !important;
 }
 
-.theme-doc-sidebar-item-category-level-2 .menu__list-item-collapsible > .menu__caret:hover,
-.theme-doc-sidebar-item-category-level-3 .menu__list-item-collapsible > .menu__caret:hover,
-.theme-doc-sidebar-item-category-level-4 .menu__list-item-collapsible > .menu__caret:hover {
+.theme-doc-sidebar-item-category-level-2
+  .menu__list-item-collapsible
+  > .menu__caret:hover,
+.theme-doc-sidebar-item-category-level-3
+  .menu__list-item-collapsible
+  > .menu__caret:hover,
+.theme-doc-sidebar-item-category-level-4
+  .menu__list-item-collapsible
+  > .menu__caret:hover {
   background: transparent !important;
   opacity: 0.6 !important;
   transform: scale(0.667) !important;
@@ -927,35 +964,54 @@ svg[class*="iconExternalLink"] {
   position: relative;
 }
 
-.tabs-container[data-group-id="language-quickstarts"] .tabs__item--active:hover {
+.tabs-container[data-group-id="language-quickstarts"]
+  .tabs__item--active:hover {
   background-color: #e0e1ff;
 }
 
 /* Override CodeBlock background in code sample tabs */
-.tabs-container[data-group-id="language-quickstarts"] ~ * [class*="theme-code-block"],
-.tabs-container[data-group-id="language-quickstarts"] [class*="theme-code-block"],
+.tabs-container[data-group-id="language-quickstarts"]
+  ~ *
+  [class*="theme-code-block"],
+.tabs-container[data-group-id="language-quickstarts"]
+  [class*="theme-code-block"],
 .tabs-container[data-group-id="language-quickstarts"] pre,
 .tabs-container[data-group-id="language-quickstarts"] code {
   background: #ffffff !important;
   border: none !important;
 }
 
-.tabs-container[data-group-id="language-quickstarts"] .tabs__item > div > div:last-child {
+.tabs-container[data-group-id="language-quickstarts"]
+  .tabs__item
+  > div
+  > div:last-child {
   background: #ffffff !important;
   border: none !important;
 }
 
-.tabs-container[data-group-id="language-quickstarts"] .tabs__item > div > div:last-child code {
+.tabs-container[data-group-id="language-quickstarts"]
+  .tabs__item
+  > div
+  > div:last-child
+  code {
   background: transparent !important;
   border: none !important;
 }
 
-.tabs-container[data-group-id="language-quickstarts"] .tabs__item > div > div:last-child span {
+.tabs-container[data-group-id="language-quickstarts"]
+  .tabs__item
+  > div
+  > div:last-child
+  span {
   background: transparent !important;
   border: none !important;
 }
 
-.tabs-container[data-group-id="language-quickstarts"] .tabs__item > div > div:last-child * {
+.tabs-container[data-group-id="language-quickstarts"]
+  .tabs__item
+  > div
+  > div:last-child
+  * {
   border: none !important;
 }
 

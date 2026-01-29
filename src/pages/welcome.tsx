@@ -7,7 +7,10 @@ import { OtherGuides } from "@site/src/components/welcomePage/OtherGuides"
 
 export default function WelcomePage() {
   return (
-    <Layout title="Ory Documentation" description="Developer documentation for Ory">
+    <Layout
+      title="Ory Documentation"
+      description="Developer documentation for Ory"
+    >
       <StartHeading />
       <HowToUseSection />
       <DeploymentAndFrameworkSection />
@@ -15,4 +18,3 @@ export default function WelcomePage() {
     </Layout>
   )
 }
-

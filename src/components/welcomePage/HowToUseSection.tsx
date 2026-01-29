@@ -6,22 +6,25 @@ import styles from "@site/src/pages/welcome.module.css"
 export function HowToUseSection() {
   const guides = [
     {
-      title: "Want to learn more about a specific product suite or solution?",
-      description: "Go directly to product and solution specific information.",
-      links: [
-        { label: "Products", to: "/products/products-overview" },
-        { label: "Solutions", to: "/solutions/solutions-overview" },
-      ],
+      title: "Learn about a specific product",
+      description: "Go directly to product specific information.",
+      link: { label: "Products", to: "/products/products-overview" },
     },
     {
-      title: "Want to start coding and need an example?",
-      description: "Want to start coding and need an example?",
-      links: [{ label: "Quickstarts", to: "/getting-started/overview" }],
+      title: "Learn about a specific solution",
+      description: "Go directly to solution specific information.",
+      link: { label: "Solutions", to: "/solutions/solutions-overview" },
     },
     {
-      title: "Want to find the right API to use?",
+      title: "Start coding with an example",
+      description:
+        "Take a look in the Quickstarts to find the framework and language you want to use.",
+      link: { label: "Quickstarts", to: "/getting-started/overview" },
+    },
+    {
+      title: "Find the right API to use",
       description: "Go directly to the REST API, SDKs, or CLI references.",
-      links: [{ label: "Reference", to: "/reference/reference-overview" }],
+      link: { label: "API reference", to: "/reference/reference-overview" },
     },
   ]
 
@@ -42,7 +45,7 @@ export function HowToUseSection() {
             display: "flex",
             flexDirection: "column",
             gap: spacing.size4,
-            marginBottom: spacing.size8,
+            marginBottom: spacing.size12,
           }}
         >
           <h2
@@ -75,10 +78,20 @@ export function HowToUseSection() {
           </p>
         </div>
 
+        {/* Horizontal separator */}
+        <div
+          style={{
+            width: "100%",
+            height: "1px",
+            background: colors.borderPrimary,
+            marginBottom: spacing.size12,
+          }}
+        />
+
         <div
           style={{
             display: "flex",
-            gap: spacing.size4,
+            gap: spacing.size6,
             background: colors.backgroundPrimary,
           }}
         >
@@ -87,85 +100,60 @@ export function HowToUseSection() {
               key={index}
               style={{
                 flex: "1 0 0",
-                background: colors.backgroundSecondary,
-                padding: spacing.size4,
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "space-between",
-                minHeight: "auto",
+                gap: spacing.size4,
               }}
             >
-              <div
+              <p
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "6px",
-                  maxWidth: "240px",
+                  fontFamily: typography.fontFamily,
+                  fontSize: typography.fontSizeSm,
+                  fontWeight: "600",
+                  lineHeight: typography.lineHeightNormal,
+                  color: colors.textPrimary,
+                  margin: 0,
                 }}
               >
-                <p
-                  style={{
-                    fontFamily: typography.fontFamily,
-                    fontSize: typography.fontSizeSm,
-                    fontWeight: "600",
-                    lineHeight: typography.lineHeightNormal,
-                    color: colors.textPrimary,
-                    margin: 0,
-                  }}
-                >
-                  {guide.title}
-                </p>
-                <p
-                  style={{
-                    fontFamily: typography.fontFamily,
-                    fontSize: typography.fontSizeSm,
-                    fontWeight: typography.fontWeightNormal,
-                    lineHeight: typography.lineHeightNormal,
-                    color: colors.textSecondary,
-                    margin: 0,
-                  }}
-                >
-                  {guide.description}
-                </p>
-              </div>
-              <div
+                {guide.title}
+              </p>
+              <p
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: spacing.size2,
-                  paddingTop: spacing.size8,
+                  fontFamily: typography.fontFamily,
+                  fontSize: typography.fontSizeSm,
+                  fontWeight: typography.fontWeightNormal,
+                  lineHeight: typography.lineHeightNormal,
+                  color: colors.textSecondary,
+                  margin: 0,
                 }}
               >
-                {guide.links.map((link, linkIndex) => (
-                  <Link
-                    key={linkIndex}
-                    to={link.to}
-                    style={{
-                      display: "flex",
-                      gap: spacing.size1,
-                      alignItems: "center",
-                      textDecoration: "none",
-                      color: colors.brandPrimary,
-                      fontFamily: typography.fontFamily,
-                      fontSize: typography.fontSizeSm,
-                      fontWeight: typography.fontWeightNormal,
-                      lineHeight: typography.lineHeightNormal,
-                    }}
-                  >
-                    {link.label}
-                    <span
-                      style={{
-                        display: "inline-block",
-                        width: "16px",
-                        height: "16px",
-                        color: colors.brandPrimary,
-                      }}
-                    >
-                      →
-                    </span>
-                  </Link>
-                ))}
-              </div>
+                {guide.description}
+              </p>
+              <Link
+                to={guide.link.to}
+                style={{
+                  display: "inline-flex",
+                  gap: spacing.size1,
+                  alignItems: "center",
+                  textDecoration: "none",
+                  color: colors.brandPrimary,
+                  fontFamily: typography.fontFamily,
+                  fontSize: typography.fontSizeSm,
+                  fontWeight: typography.fontWeightNormal,
+                  lineHeight: typography.lineHeightNormal,
+                  marginTop: "auto",
+                }}
+              >
+                {guide.link.label}
+                <span
+                  style={{
+                    display: "inline-block",
+                    color: colors.brandPrimary,
+                  }}
+                >
+                  →
+                </span>
+              </Link>
             </div>
           ))}
         </div>
@@ -173,4 +161,3 @@ export function HowToUseSection() {
     </section>
   )
 }
-
