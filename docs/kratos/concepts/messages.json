@@ -743,6 +743,22 @@
     "type": "error"
   },
   {
+    "id": 4000040,
+    "text": "Enter a valid email address",
+    "type": "error",
+    "context": {
+      "value": "{value}"
+    }
+  },
+  {
+    "id": 4000041,
+    "text": "Enter a valid phone number",
+    "type": "error",
+    "context": {
+      "value": "{value}"
+    }
+  },
+  {
     "id": 4010001,
     "text": "The login flow expired 1.00 minutes ago, please try again.",
     "type": "error",
