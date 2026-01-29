@@ -62,9 +62,8 @@ export function OtherGuides() {
               maxWidth: "680px",
             }}
           >
-            Not sure where to start? Follow our guided paths—structured journeys
-            that walk you through Ory's products and solutions so you can learn
-            and build faster.
+            Opinionated, end-to-end walkthroughs to help you ship real features,
+            not just hello-world demos.
           </p>
         </div>
 

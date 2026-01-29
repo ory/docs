@@ -23,11 +23,14 @@ export function StartHeading() {
       <div className={`container ${styles.container1024}`}>
         <div className={styles.heroRow}>
           <div className={styles.heroCopy}>
-            <h1 className={styles.h1}>How to use the Ory Developer Portal</h1>
+            <h1 className={styles.h1}>Welcome to the Ory Developer Portal </h1>
             <p className={styles.pBase}>
-              Not sure where to start? Follow our guided paths and structured
-              journeys that walk you through Ory's products and solutions so you
-              can learn and build faster.
+              Ory gives you authentication, authorization, and user management
+              APIs designed for modern applications.
+              <br />
+              <br />
+              Start fast, scale to millions, and keep security best practices
+              baked in.
             </p>
           </div>
           <div style={{ flex: "1 0 0" }}>

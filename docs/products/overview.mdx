@@ -22,53 +22,59 @@ import * as welcomeContent from "@site/src/pages/_assets/welcome-content"
 
 ## Authentication
 
-Kratos — fully standalone. Handles the complete identity lifecycle (registration, login, recovery, MFA, profile management) without dependencies.
+Kratos — fully standalone. Handles the complete identity lifecycle (registration, login, recovery, MFA, profile management)
+without dependencies.
 
 ## Authorization
 
-Hydra — needs an identity provider. It's deliberately "headless"—it issues OAuth tokens but doesn't manage users. It asks "who is this user?" and needs Kratos (or another IdP) to answer.
+Hydra — needs an identity provider. It's deliberately "headless"—it issues OAuth tokens but doesn't manage users. It asks "who is
+this user?" and needs Kratos (or another IdP) to answer.
 
-Keto — needs an identity provider. It answers "can this subject do this action?" but needs something upstream to authenticate who the subject is.
+Keto — needs an identity provider. It answers "can this subject do this action?" but needs something upstream to authenticate who
+the subject is.
 
 ## Authentication & Authorization
 
-Kratos + Keto — when you need authentication and fine-grained permissions within your own application(s). Users log in via Kratos, and Keto controls what they can access internally.
+Kratos + Keto — when you need authentication and fine-grained permissions within your own application(s). Users log in via Kratos,
+and Keto controls what they can access internally.
 
-Kratos + Hydra — when you need authentication plus OAuth 2.0/OIDC capabilities: SSO across multiple apps, third-party integrations, or federating identity to external services.
+Kratos + Hydra — when you need authentication plus OAuth 2.0/OIDC capabilities: SSO across multiple apps, third-party
+integrations, or federating identity to external services.
 
 Kratos + Hydra + Keto — when you need all three: user login, token issuance/SSO, and fine-grained permissions.
 
 The choice depends on whether you're solving for internal permissions vs. external/delegated access.
 
-```mermaid
+````mermaid
 flowchart TD
     Start([What are you building?]) --> Q1{Need to manage<br>user identities?}
-    
+
     Q1 -->|Yes| Kratos[✓ Kratos]
     Q1 -->|No, using existing IdP| ExternalIdP[Use your existing IdP]
-    
+
     Kratos --> Q2{Need B2B features?<br>Organizations, teams,<br>org-level SSO?}
     ExternalIdP --> Q3
-    
+
     Q2 -->|Yes| Polis[✓ Add Polis]
     Q2 -->|No| Q3
     Polis --> Q3
-    
+
     Q3{Need SSO across apps<br>or third-party integrations?}
-    
+
     Q3 -->|Yes| Hydra[✓ Add Hydra]
     Q3 -->|No| Q4
     Hydra --> Q4
-    
+
     Q4{Need fine-grained<br>permissions?<br>e.g. can user X edit doc Y}
-    
+
     Q4 -->|Yes| Keto[✓ Add Keto]
     Q4 -->|No| Q5
     Keto --> Q5
-    
+
     Q5{Microservices or<br>zero-trust architecture?}
-    
+
     Q5 -->|Yes| Oathkeeper[✓ Add Oathkeeper]
     Q5 -->|No| Done([Your stack is ready])
     Oathkeeper --> Done
     ```
+````
