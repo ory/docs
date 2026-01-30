@@ -311,8 +311,8 @@ export function DeploymentAndFrameworkSection() {
                   maxWidth: "800px",
                 }}
               >
-                Answer a few questions about your IAM requirements. We'll
-                match you with the right Ory products.
+                Answer a few questions about your IAM requirements. We'll match
+                you with the right Ory products.
               </p>
             </div>
 
