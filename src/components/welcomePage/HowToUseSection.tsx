@@ -6,12 +6,12 @@ import styles from "@site/src/pages/welcome.module.css"
 export function HowToUseSection() {
   const guides = [
     {
-      title: "Learn about a specific product",
+      title: "Want to learn more about a specific product suite",
       description: "Go directly to product specific information.",
       link: { label: "Products", to: "/products/products-overview" },
     },
     {
-      title: "Learn about a specific solution",
+      title: "Want to learn more about a specific solution suite",
       description: "Go directly to solution specific information.",
       link: { label: "Solutions", to: "/solutions/solutions-overview" },
     },
