@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useRef } from "react"
 
 const OryHeroDemo = () => {
-  const [lines, setLines] = useState([])
+  const [lines, setLines] = useState([
+    {
+      type: "line",
+      number: 1,
+      text: "From zero to registered user in minutes!",
+    },
+    { type: "line", number: 2, text: "Click 'Run'." },
+  ])
   const [isRunning, setIsRunning] = useState(false)
   const [hasRun, setHasRun] = useState(false)
   const terminalRef = useRef(null)
@@ -67,7 +74,7 @@ const OryHeroDemo = () => {
       type: "link",
       text: "Create your free project via Ory Console →",
       url: "https://console.ory.sh/",
-      delay: 300,
+      delay: 400,
     },
   ]
 
@@ -87,7 +94,14 @@ const OryHeroDemo = () => {
   }
 
   const reset = () => {
-    setLines([])
+    setLines([
+      {
+        type: "line",
+        number: 1,
+        text: "From zero to registered user in minutes!",
+      },
+      { type: "line", number: 2, text: "Click 'Run'." },
+    ])
     setHasRun(false)
   }
 
@@ -99,25 +113,28 @@ const OryHeroDemo = () => {
 
   const styles = {
     wrapper: {
-      width: "80%",
-      maxWidth: "500px",
+      width: "416px",
       margin: "0 auto",
-      maxHeight: "500px",
     },
     terminal: {
+      width: "416px",
+      height: "280px",
       borderRadius: "8px",
       overflow: "hidden",
-      boxShadow: "0 12px 30px rgba(0,0,0,0.25)",
-      background: "#1a1033",
-      border: "1px solid #3d2a6d",
+      boxShadow:
+        "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+      background: "#ffffff",
+      border: "1px solid #e2e8f0",
+      display: "flex",
+      flexDirection: "column",
     },
     header: {
       display: "flex",
       alignItems: "center",
       gap: "8px",
       padding: "12px 16px",
-      background: "#241845",
-      borderBottom: "1px solid #3d2a6d",
+      background: "#f8fafc",
+      borderBottom: "1px solid #e2e8f0",
     },
     trafficLights: {
       display: "flex",
@@ -130,47 +147,59 @@ const OryHeroDemo = () => {
       background: color,
     }),
     headerText: {
-      color: "#888",
+      color: "#64748b",
       fontSize: "13px",
-      fontFamily: "monospace",
-      marginLeft: "8px",
+      fontFamily: "Inter, sans-serif",
+      fontWeight: "400",
     },
     body: {
       padding: "16px",
-      fontFamily: "monospace",
+      fontFamily: "JetBrains Mono, monospace",
       fontSize: "13px",
-      height: "200px",
+      flex: "1",
       overflowY: "auto",
+      background: "#ffffff",
+      color: "#0f172a",
+      lineHeight: "1.6",
+    },
+    lineNumber: {
+      color: "#94a3b8",
+      marginRight: "12px",
+      fontFamily: "JetBrains Mono, monospace",
+      fontSize: "13px",
     },
     comment: {
-      color: "#d2a8ff",
+      color: "#64748b",
       marginTop: "12px",
     },
     note: {
-      color: "#d2a8ff",
+      color: "#64748b",
       fontSize: "11px",
       marginTop: "4px",
       marginBottom: "8px",
       paddingLeft: "16px",
     },
     command: {
-      color: "#ffffff",
+      color: "#0f172a",
+      display: "flex",
+      alignItems: "flex-start",
     },
     commandCont: {
-      color: "#ffffff",
+      color: "#0f172a",
       paddingLeft: "16px",
     },
     prompt: {
-      color: "#67e8f9",
+      color: "#64748b",
+      marginRight: "8px",
     },
     output: {
-      color: "#a5d6ff",
+      color: "#334155",
       paddingLeft: "8px",
     },
     success: {
-      color: "#ff7b72",
+      color: "#334155",
       paddingLeft: "8px",
-      fontWeight: "600",
+      fontWeight: "400",
     },
     linkWrapper: {
       paddingLeft: "8px",
@@ -180,7 +209,7 @@ const OryHeroDemo = () => {
       display: "inline-flex",
       alignItems: "center",
       padding: "6px 12px",
-      background: "#0e639c",
+      background: "#383bca",
       color: "#fff",
       fontSize: "13px",
       fontWeight: "500",
@@ -191,45 +220,61 @@ const OryHeroDemo = () => {
       display: "inline-block",
       width: "8px",
       height: "16px",
-      background: "#d4d4d4",
+      background: "#0f172a",
       animation: "blink 1s infinite",
     },
     controls: {
       display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
       gap: "8px",
       padding: "12px 16px",
-      background: "#241845",
-      borderTop: "1px solid #3d2a6d",
+      background: "#f1f5f9",
+      borderTop: "1px solid #e2e8f0",
+    },
+    controlsText: {
+      color: "#94a3b8",
+      fontSize: "13px",
+      fontFamily: "Inter, sans-serif",
+      fontWeight: "400",
     },
     button: {
-      padding: "6px 16px",
+      padding: "8px 16px",
       fontSize: "13px",
-      fontWeight: "500",
-      borderRadius: "4px",
+      fontWeight: "600",
+      borderRadius: "0",
       border: "none",
       cursor: "pointer",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "6px",
     },
     runButton: {
-      background: "#0e639c",
-      color: "#fff",
+      background: "#6366f1",
+      color: "#ffffff",
     },
     runButtonDisabled: {
-      background: "#555",
-      color: "#999",
+      background: "#e2e8f0",
+      color: "#94a3b8",
       cursor: "not-allowed",
     },
     resetButton: {
-      background: "#3c3c3c",
-      color: "#d4d4d4",
+      background: "#e2e8f0",
+      color: "#334155",
+    },
+    buttonIcon: {
+      fontSize: "14px",
+      lineHeight: "1",
+      fontWeight: "400",
     },
     caption: {
       textAlign: "center",
-      color: "#888",
+      color: "#64748b",
       fontSize: "14px",
       marginTop: "16px",
     },
     placeholder: {
-      color: "#6a9955",
+      color: "#94a3b8",
     },
   }
 
@@ -247,22 +292,30 @@ const OryHeroDemo = () => {
             <div style={styles.light("#ffbd2e")} />
             <div style={styles.light("#27c93f")} />
           </div>
-          <span style={styles.headerText}>terminal</span>
+          <span style={styles.headerText}>Terminal</span>
         </div>
 
         {/* Terminal body */}
         <div ref={terminalRef} style={styles.body}>
-          {/* Initial prompt when empty */}
-          {lines.length === 0 && !isRunning && (
-            <div style={{ color: "#67e8f9" }}>
-              <span style={styles.prompt}>$</span> From zero to registered user
-              in minutes! Click 'Run'.
-            </div>
-          )}
-
           {/* Script output */}
           {lines.map((line, i) => (
-            <div key={i} style={{ marginBottom: "2px" }}>
+            <div
+              key={i}
+              style={{
+                marginBottom: "4px",
+                display: "flex",
+                alignItems: "flex-start",
+              }}
+            >
+              {line.type === "line" && (
+                <>
+                  <span style={styles.lineNumber}>{line.number}</span>
+                  <span style={styles.prompt}>$</span>
+                  <span style={{ ...styles.command, marginLeft: "8px" }}>
+                    {line.text}
+                  </span>
+                </>
+              )}
               {line.type === "comment" && (
                 <div
                   style={
@@ -312,6 +365,9 @@ const OryHeroDemo = () => {
 
         {/* Controls */}
         <div style={styles.controls}>
+          <span style={styles.controlsText}>
+            From zero to registered user in minutes
+          </span>
           <button
             onClick={runDemo}
             disabled={isRunning}
@@ -320,21 +376,11 @@ const OryHeroDemo = () => {
               ...(isRunning ? styles.runButtonDisabled : styles.runButton),
             }}
           >
-            {isRunning ? "Running..." : hasRun ? "Run Again" : "Run"}
+            <span style={styles.buttonIcon}>&gt;</span>
+            Run
           </button>
-          {hasRun && !isRunning && (
-            <button
-              onClick={reset}
-              style={{ ...styles.button, ...styles.resetButton }}
-            >
-              Reset
-            </button>
-          )}
         </div>
       </div>
-
-      {/* Caption */}
-      <p style={styles.caption}>From zero to registered user in minutes.</p>
     </div>
   )
 }

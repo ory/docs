@@ -7,11 +7,11 @@ export const navbar: Navbar = {
   hideOnScroll: false,
   logo: {
     alt: "Ory",
-    src: `/docs/img/logos/logo-docs-2023-02-15.svg`,
-    srcDark: `/docs/img/logos/logo-docs-dark-2023-02-15.svg`,
+    src: `/docs/img/logos/ory-logo.svg`,
+    srcDark: `/docs/img/logos/ory-logo.svg`,
     href: `https://www.ory.com`,
-    width: 63,
-    height: 32,
+    width: 44,
+    height: 16,
   },
 
   items: [
@@ -117,7 +117,7 @@ export const navbar: Navbar = {
       ],
     },
     {
-      label: "Need Support?",
+      label: "Support",
       position: "right",
       items: [
         {

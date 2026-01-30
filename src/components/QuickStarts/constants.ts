@@ -21,11 +21,10 @@ export const CATEGORIES: QuickstartCategory[] = [
       {
         label: "Get started with identity management",
         to: "/docs/kratos/manage-identities/overview",
-        description:
-          "Identity management and authentication.",
+        description: "Identity management and authentication.",
         deploymentModes: ["network", "oel", "oss"],
       },
-    {
+      {
         label: "Get started with authentication",
         to: "/docs/guides/authentication",
         description:
@@ -35,8 +34,7 @@ export const CATEGORIES: QuickstartCategory[] = [
       {
         label: "Get started with multi-factor authentication",
         to: "/docs/kratos/mfa/overview",
-        description:
-          "Multi-factor authentication.",
+        description: "Multi-factor authentication.",
         deploymentModes: ["network", "oel", "oss"],
       },
     ],
@@ -48,23 +46,21 @@ export const CATEGORIES: QuickstartCategory[] = [
       {
         label: "Introduction to Ory Hydra",
         to: "/docs/oauth2-oidc",
-        description:
-          "OAuth2 & OpenID Connect social sign-in concepts.",
-          deploymentModes: ["network", "oel", "oss"],
+        description: "OAuth2 & OpenID Connect social sign-in concepts.",
+        deploymentModes: ["network", "oel", "oss"],
       },
       {
         label: "Get started with Ory Hydra",
         to: "/docs/getting-started/ory-network-oauth2",
-        description:
-          "Client credential and authorization code grant.",
-          deploymentModes: ["network"],
+        description: "Client credential and authorization code grant.",
+        deploymentModes: ["network"],
       },
       {
         label: "Get started with Ory Hydra",
         to: "/docs/hydra/self-hosted/quickstart",
         description:
           "Run Ory Hydra locally and try the most important OAuth2 flows.",
-          deploymentModes: ["oel", "oss"],
+        deploymentModes: ["oel", "oss"],
       },
     ],
   },
@@ -83,7 +79,7 @@ export const CATEGORIES: QuickstartCategory[] = [
         to: "/docs/keto/quickstart",
         description:
           "Quickstart for understanding relationships and permission checks.",
-          deploymentModes: ["oel", "oss"],
+        deploymentModes: ["oel", "oss"],
       },
     ],
   },
@@ -112,7 +108,8 @@ export const CATEGORIES: QuickstartCategory[] = [
       {
         label: "Introduction to Ory Polis",
         to: "/docs/polis",
-        description: "Enterprise SSO for SAML and OIDC identity providers and SCIM provising.",
+        description:
+          "Enterprise SSO for SAML and OIDC identity providers and SCIM provising.",
         deploymentModes: ["network", "oel", "oss"],
       },
       {
@@ -120,7 +117,7 @@ export const CATEGORIES: QuickstartCategory[] = [
         to: "/docs/polis/quickstart",
         description:
           "Quickstart for Enterprise SSO authentication and SCIM provisioning.",
-          deploymentModes: ["oel", "oss"],
+        deploymentModes: ["oel", "oss"],
       },
     ],
   },

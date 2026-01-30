@@ -93,7 +93,7 @@ const config: Config = {
       copyright: `Copyright © ${new Date().getFullYear()} Ory Corp`,
       links: [
         {
-          label: "Need Support?",
+          label: "Support?",
           href: "https://www.ory.com/support",
         },
         {

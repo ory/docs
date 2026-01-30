@@ -28,33 +28,25 @@ const quickstartsSidebar = [
         type: "category",
         label: "Delegated Scope-based AuthZ & Federated AuthN",
         className: "sidebar-icon sidebar-icon-hydra",
-        items: [
-          "oauth2-oidc/index",
-          "getting-started/ory-network-oauth2",
-        ],
+        items: ["oauth2-oidc/index", "getting-started/ory-network-oauth2"],
       },
       {
         type: "category",
         label: "Fine-grained AuthZ & Permissions",
         className: "sidebar-icon sidebar-icon-keto",
-        items: [
-          "keto/index",
-        ],
+        items: ["keto/index"],
       },
-            {
+      {
         type: "category",
         label: "Enterprise SSO AuthZ",
         className: "sidebar-icon sidebar-icon-polis",
-        items: [
-          "polis/index", 
-        ],
-      },      {
+        items: ["polis/index"],
+      },
+      {
         type: "category",
         label: "Proxy-based Access Control",
         className: "sidebar-icon sidebar-icon-oathkeeper",
-        items: [
-          "oathkeeper/index",
-        ],
+        items: ["oathkeeper/index"],
       },
     ],
   },
@@ -63,14 +55,15 @@ const quickstartsSidebar = [
     label: "Ory Enterprise License",
     collapsed: false,
     collapsible: false,
-    items: [,
+    items: [
+      ,
       {
         type: "category",
         label: "Ory Kratos",
         collapsed: true,
         collapsible: true,
         items: [
-          "identities/index", 
+          "identities/index",
           "kratos/quickstart",
           "kratos/manage-identities/overview",
           "kratos/mfa/overview",
@@ -81,40 +74,28 @@ const quickstartsSidebar = [
         label: "Ory Hydra",
         collapsed: true,
         collapsible: true,
-        items: [
-          "oauth2-oidc/index",
-          "hydra/self-hosted/quickstart",
-        ],
+        items: ["oauth2-oidc/index", "hydra/self-hosted/quickstart"],
       },
       {
         type: "category",
         label: "Ory Keto",
         collapsed: true,
         collapsible: true,
-        items: [
-          "keto/index",
-          "keto/quickstart",
-        ],
+        items: ["keto/index", "keto/quickstart"],
       },
       {
         type: "category",
         label: "Ory Polis",
         collapsed: true,
         collapsible: true,
-        items: [
-          "polis/index", 
-          "polis/quickstart",
-        ],
+        items: ["polis/index", "polis/quickstart"],
       },
       {
         type: "category",
         label: "Ory Oathkeeper",
         collapsed: true,
         collapsible: true,
-        items: [
-          "oathkeeper/index",
-          "oathkeeper/configure-deploy",
-        ],
+        items: ["oathkeeper/index", "oathkeeper/configure-deploy"],
       },
     ],
   },
@@ -130,7 +111,7 @@ const quickstartsSidebar = [
         collapsed: true,
         collapsible: true,
         items: [
-          "identities/index", 
+          "identities/index",
           "kratos/quickstart",
           "kratos/manage-identities/overview",
           "kratos/mfa/overview",
@@ -141,40 +122,28 @@ const quickstartsSidebar = [
         label: "Ory Hydra",
         collapsed: true,
         collapsible: true,
-        items: [
-          "oauth2-oidc/index",
-          "hydra/self-hosted/quickstart",
-        ],
+        items: ["oauth2-oidc/index", "hydra/self-hosted/quickstart"],
       },
       {
         type: "category",
         label: "Ory Keto",
         collapsed: true,
         collapsible: true,
-        items: [
-          "keto/index",
-          "keto/quickstart",
-        ],
+        items: ["keto/index", "keto/quickstart"],
       },
       {
         type: "category",
         label: "Ory Polis",
         collapsed: true,
         collapsible: true,
-        items: [
-          "polis/index", 
-          "polis/quickstart",
-        ],
+        items: ["polis/index", "polis/quickstart"],
       },
       {
         type: "category",
         label: "Ory Oathkeeper",
         collapsed: true,
         collapsible: true,
-        items: [
-          "oathkeeper/index",
-          "oathkeeper/configure-deploy",
-        ],
+        items: ["oathkeeper/index", "oathkeeper/configure-deploy"],
       },
     ],
   },

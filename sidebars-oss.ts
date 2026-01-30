@@ -21,20 +21,20 @@ const ossSidebar = [
       id: "oss/getting-started/index",
     },
     items: [
-          "oss/getting-started/index",
-          {
-            type: "category",
-            label: "Open Source",
-            collapsed: true,
-            collapsible: true,
-            items: [
-              "oss/open-source",
-              "oss/community",
-              "oss/contributing",
-              "oss/commitment",
-              "oss/software-architecture-philosophy",
-            ],
-          },
+      "oss/getting-started/index",
+      {
+        type: "category",
+        label: "Open Source",
+        collapsed: true,
+        collapsible: true,
+        items: [
+          "oss/open-source",
+          "oss/community",
+          "oss/contributing",
+          "oss/commitment",
+          "oss/software-architecture-philosophy",
+        ],
+      },
       {
         type: "category",
         label: "Getting started",
@@ -88,6 +88,6 @@ const ossSidebar = [
       },
     ],
   },
-] 
+]
 
 export default ossSidebar

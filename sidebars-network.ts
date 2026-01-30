@@ -42,9 +42,7 @@ const networkSidebar = [
             link: {
               type: "generated-index",
             },
-            items: [
-              "identities/get-started/setup",
-              ],
+            items: ["identities/get-started/setup"],
           },
           {
             type: "category",
@@ -228,7 +226,7 @@ const networkSidebar = [
                       "actions/integrations/hubspot",
                       "actions/integrations/mailchimp",
                       "actions/integrations/segment",
-                      ],
+                    ],
                   },
                 ],
               },
