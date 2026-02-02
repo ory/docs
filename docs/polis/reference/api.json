@@ -2203,9 +2203,9 @@
             "type": "string",
             "description": "Override the SAML Audience on a per app basis"
           },
-          "includeTokensInSAMLResponse": {
+          "includeOidcTokensInAssertion": {
             "type": "boolean",
-            "description": "Include OIDC tokens in the SAML response"
+            "description": "Include OIDC tokens in the SAML assertion"
           },
           "ttlInMinutes": {
             "type": "number",
