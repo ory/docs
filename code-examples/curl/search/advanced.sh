@@ -11,4 +11,4 @@ curl -H "Authorization: Bearer $ORY_API_KEY" \
   --url-query 'filter_by=available_aal:!=aal2' \
   --url-query 'facet_by=organization_id' \
   --url-query 'sort_by=created_at:desc' \
-  --url-query 'per_page=20'
+  --url-query 'per_page=5'
