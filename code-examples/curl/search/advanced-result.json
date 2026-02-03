@@ -1,105 +1,141 @@
 {
   "facet_counts": [
     {
-      "counts": [],
+      "counts": [
+        {
+          "count": 534,
+          "highlighted": "6e0b1f71-4236-44a3-a730-a033fcd21eab",
+          "value": "6e0b1f71-4236-44a3-a730-a033fcd21eab"
+        },
+        {
+          "count": 489,
+          "highlighted": "6bd7de58-a3d4-412c-a3fd-0c04a14b03f7",
+          "value": "6bd7de58-a3d4-412c-a3fd-0c04a14b03f7"
+        }
+      ],
       "field_name": "organization_id",
-      "sampled": false,
       "stats": {
-        "total_values": 0
+        "avg": 0,
+        "sum": 0,
+        "total_values": 2
       }
     }
   ],
-  "found": 5,
+  "found": 2163,
   "hits": [
     {
       "document": {
-        "available_aal": "aal1",
-        "created_at": 1725296067,
-        "id": "9e9763c9-80fc-43d0-97fb-d241cb274c2c",
-        "schema_id": "preset://email",
+        "available_aal": "aal0",
+        "created_at": 1769995344,
+        "id": "8a2a14af-7a89-4424-aebd-1db3e3b8a229",
+        "nid": "e70f3b9e-f343-40e6-89f1-de24e459722e",
+        "organization_id": "6bd7de58-a3d4-412c-a3fd-0c04a14b03f7",
+        "schema_id": "preset://basic",
         "state": "active",
         "traits": {
-          "email": "wrhgr@srgpzjdrgpz"
+          "email": "louise_henderson760@aol.com",
+          "name": {
+            "first": "Louise",
+            "last": "Henderson"
+          }
         },
-        "updated_at": 1725296067
+        "updated_at": 1770125357
       },
       "highlight": {},
       "highlights": []
     },
     {
       "document": {
-        "available_aal": "aal1",
-        "created_at": 1725295678,
-        "id": "38403863-16c2-4a0c-b53e-428f7d80a65b",
-        "schema_id": "preset://email",
+        "available_aal": "aal0",
+        "created_at": 1769900788,
+        "id": "dc6b133f-363a-42e2-83b1-78a4a81e0a07",
+        "nid": "e70f3b9e-f343-40e6-89f1-de24e459722e",
+        "organization_id": "6bd7de58-a3d4-412c-a3fd-0c04a14b03f7",
+        "schema_id": "preset://basic",
         "state": "active",
         "traits": {
-          "email": "SRGSRpgj@SPRGojsgs.com"
+          "email": "patricia.lefebvre570@mailbox.org",
+          "name": {
+            "first": "Patricia",
+            "last": "Lefebvre"
+          }
         },
-        "updated_at": 1725295678
+        "updated_at": 1770125352
       },
       "highlight": {},
       "highlights": []
     },
     {
       "document": {
-        "available_aal": "aal1",
-        "created_at": 1725031786,
-        "id": "f5e85c2f-6f0f-49d7-9b77-1bfbb530add4",
-        "schema_id": "preset://email",
+        "available_aal": "aal0",
+        "created_at": 1769785191,
+        "id": "f748b84f-8ad0-4f72-8a3c-5e38bd0fe96d",
+        "nid": "e70f3b9e-f343-40e6-89f1-de24e459722e",
+        "organization_id": "6e0b1f71-4236-44a3-a730-a033fcd21eab",
+        "schema_id": "preset://basic",
         "state": "active",
         "traits": {
-          "email": "wGWRIGOH@WOsPgjzsroig"
+          "email": "steven.r740@posteo.de",
+          "name": {
+            "first": "Steven",
+            "last": "Roussel"
+          }
         },
-        "updated_at": 1725031786
+        "updated_at": 1770125356
       },
       "highlight": {},
       "highlights": []
     },
     {
       "document": {
-        "available_aal": "aal1",
-        "created_at": 1725031437,
-        "external_id": "external-id-123",
-        "id": "d52d5bdb-74b4-4aa0-b706-d1e9c853bd81",
-        "metadata_admin": {
-          "role": "user"
-        },
-        "metadata_public": {
-          "foo": "bar"
-        },
-        "schema_id": "preset://email",
+        "available_aal": "aal0",
+        "created_at": 1769316538,
+        "id": "1c00a491-c5cf-47d5-a306-2214248f81d5",
+        "nid": "e70f3b9e-f343-40e6-89f1-de24e459722e",
+        "organization_id": "6bd7de58-a3d4-412c-a3fd-0c04a14b03f7",
+        "schema_id": "preset://basic",
         "state": "active",
         "traits": {
-          "email": "wgiho@agpaa.com"
+          "email": "thomasmitchell631@wanadoo.fr",
+          "name": {
+            "first": "Thomas",
+            "last": "Mitchell"
+          }
         },
-        "updated_at": 1758115258
+        "updated_at": 1770125354
       },
       "highlight": {},
       "highlights": []
     },
     {
       "document": {
-        "available_aal": "aal1",
-        "created_at": 1725031040,
-        "id": "f56128f1-687e-414e-8f5d-ec5f909b33c0",
-        "schema_id": "preset://email",
-        "state": "active",
+        "available_aal": "aal0",
+        "created_at": 1769293967,
+        "id": "07421d7e-0e84-4e05-bd1e-9c446dc94a6d",
+        "nid": "e70f3b9e-f343-40e6-89f1-de24e459722e",
+        "organization_id": "6bd7de58-a3d4-412c-a3fd-0c04a14b03f7",
+        "schema_id": "preset://basic",
+        "state": "inactive",
         "traits": {
-          "email": "sogihSOG@SdoSORghzdrg"
+          "email": "vhughes947@zoho.com",
+          "name": {
+            "first": "Valerie",
+            "last": "Hughes"
+          }
         },
-        "updated_at": 1725031040
+        "updated_at": 1770125361
       },
       "highlight": {},
       "highlights": []
     }
   ],
+  "out_of": 2163,
   "page": 1,
   "request_params": {
-    "collection_name": "identities",
-    "first_q": "*",
-    "per_page": 20,
+    "collection_name": "identities-e70f3b9e-f343-40e6-89f1-de24e459722e",
+    "per_page": 5,
     "q": "*"
   },
-  "search_cutoff": false
+  "search_cutoff": false,
+  "search_time_ms": 2
 }
