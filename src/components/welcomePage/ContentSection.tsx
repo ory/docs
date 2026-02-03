@@ -2,22 +2,44 @@ import React from "react"
 import Link from "@docusaurus/Link"
 import { colors, radius, spacing, typography } from "./tokens"
 
-export function OtherGuides() {
-  const guides = [
+/**
+ * Content section (placeholder – title and items will be adjusted later).
+ * Layout from Figma: 2 rows × 3 cards.
+ */
+export function ContentSection() {
+  const items = [
     {
-      label: "Install from green-field",
-      to: "/getting-started/overview",
+      label: "Ory Console",
+      to: "/docs",
       description:
-        "Replace your home-grown IAM system with Ory, fully or partially.",
+        "User Interface to manage projects, configurations, and more.",
     },
     {
-      label: "Migrate to Ory",
-      to: "/kratos/self-service/flows/user-login-user-registration",
+      label: "Ory Account Experience",
+      to: "/docs",
+      description:
+        "User interface for all self-service screens like login, registration, or consent.",
+    },
+    {
+      label: "Ory Elements",
+      to: "/docs",
+      description:
+        "Pre-built UI components for login, registration, and account flows.",
+    },
+    {
+      label: "Ory Actions",
+      to: "/docs",
+      description:
+        "Define custom business logic, automating system behavior in response to events, and integrating with third-party services.",
+    },
+    {
+      label: "Changelog",
+      to: "/docs",
       description: "Plan your migration to Ory from an existing system.",
     },
     {
-      label: "Ory Architecture",
-      to: "/kratos/self-service/flows/user-login-user-registration",
+      label: "Status and SLA",
+      to: "/docs",
       description:
         "Understand the core building blocks and architecture.",
     },
@@ -34,9 +56,6 @@ export function OtherGuides() {
       <div className="container" style={{ maxWidth: "1024px" }}>
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: spacing.size1_5,
             marginBottom: spacing.size6,
           }}
         >
@@ -50,22 +69,9 @@ export function OtherGuides() {
               margin: 0,
             }}
           >
-            Other guides
+            Content
           </h2>
-          <p
-            style={{
-              fontFamily: typography.fontFamily,
-              fontSize: typography.fontSizeBase,
-              fontWeight: typography.fontWeightNormal,
-              lineHeight: typography.lineHeightNormal,
-              color: colors.textSecondary,
-              margin: 0,
-              maxWidth: "680px",
-            }}
-          >
-            Opinionated, end-to-end walkthroughs to help you ship real features,
-            not just hello-world demos.
-          </p>
+          {/* Subtitle to be added when section is adjusted later */}
         </div>
 
         <div
@@ -80,19 +86,16 @@ export function OtherGuides() {
 
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
             gap: spacing.size4,
-            flexWrap: "wrap",
           }}
         >
-          {guides.map((guide) => (
+          {items.map((item) => (
             <Link
-              key={guide.label}
-              to={guide.to}
+              key={item.label}
+              to={item.to}
               style={{
-                flex: "1 1 0",
-                minWidth: "280px",
                 background: colors.backgroundSecondary,
                 border: `1px solid ${colors.borderPrimary}`,
                 borderRadius: radius.general,
@@ -114,7 +117,7 @@ export function OtherGuides() {
                   margin: 0,
                 }}
               >
-                {guide.label}
+                {item.label}
               </h3>
               <p
                 style={{
@@ -126,7 +129,7 @@ export function OtherGuides() {
                   margin: 0,
                 }}
               >
-                {guide.description}
+                {item.description}
               </p>
             </Link>
           ))}

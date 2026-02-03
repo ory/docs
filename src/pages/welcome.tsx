@@ -4,6 +4,8 @@ import { StartHeading } from "@site/src/components/welcomePage/StartHeading"
 import { HowToUseSection } from "@site/src/components/welcomePage/HowToUseSection"
 import { DeploymentAndFrameworkSection } from "@site/src/components/welcomePage/DeploymentAndFrameworkSection"
 import { OtherGuides } from "@site/src/components/welcomePage/OtherGuides"
+import { ContentSection } from "@site/src/components/welcomePage/ContentSection"
+import { NewsletterSection } from "@site/src/components/welcomePage/NewsletterSection"
 
 export default function WelcomePage() {
   return (
@@ -15,6 +17,8 @@ export default function WelcomePage() {
       <HowToUseSection />
       <DeploymentAndFrameworkSection />
       <OtherGuides />
+      <ContentSection />
+      <NewsletterSection />
     </Layout>
   )
 }
