@@ -48,6 +48,11 @@ authentication method. They can be used to complete the second factor when users
 SMS for MFA sends a one-time password to the user's registered mobile phone number via text message. Read the
 [Code via SMS](../../../docs/kratos/mfa/mfa-via-sms) documentation to learn more.
 
+### Email
+
+Email for MFA sends a one-time code to the user's registered email address. Read the
+[Code via Email](../../../docs/kratos/mfa/mfa-via-sms) documentation to learn more.
+
 ## Terminology
 
 Learn more about the terms and concepts used when talking about 2FA in Ory.
@@ -59,6 +64,7 @@ The Authentication Method Reference (AMR) is an array of authentication methods 
 The following methods can be present in a session:
 
 - `password` - When the user authenticated with their password.
+- `code` - When the user authenticated by code sent via email address.
 - `oidc`- When the user authenticated by signing in with a social sign-in provider.
 - `totp`- When the user authenticated by entering a time-based one-time password.
 - `webauthn` - When the user authenticated through a WebAuthn channel, such as OS-level biometric authentication or a hardware
@@ -120,15 +126,18 @@ The Authenticator Assurance Level (AAL) indicates how many authentication factor
 
 Authentication methods are classified into factors:
 
-| Authentication method | Factor |
-| :-------------------- | :----- |
-| `password`            | first  |
-| `oidc`                | first  |
-| `totp`                | second |
-| `webauthn`            | second |
-| `lookup_secret`       | second |
+| Authentication method | Factor       |
+| :-------------------- | :----------- |
+| `password`            | first        |
+| `oidc`                | first        |
+| `code`                | first/second |
+| `totp`                | second       |
+| `webauthn`            | second       |
+| `lookup_secret`       | second       |
 
 :::info
+
+You can use `code` as first or second factor but not both at the same time.
 
 When you enable [passwordless authentication with WebAuthn or Passkeys](../passwordless/05_passkeys.mdx), it isn't considered as a
 second authentication factor.
