@@ -962,3 +962,86 @@ The request has been allowed! The subject is: "peter"
 
 In the background, this handler will fetch all JSON Web Key Sets provided by configuration key `authenticators.jwt.jwks_urls` and
 use those keys to verify the signature. If the signature can't be verified by any of those keys, the JWT is considered invalid.
+
+## `remote_json`
+
+The `remote_json` authenticator will forward the HTTP request (method, path, headers and body) to an upstream service. This authenticator aims to send both, the request headers and body to the authentication service, in contrast with the `bearer_token` authenticator, where the request only contains the request headers. If the service returns `200 OK` and body `{ "subject": "...", "extra": {} }`, then the authenticator will set the subject appropriately.
+
+### `remote_json` Configuration
+
+- `service_url` (string, required) - The service to forward request method/path/headers/body to for authentication.
+- `preserve_path` (boolean, optional - defaults to `false`) - If set to `true`, any path in `service_url` will be preserved instead of replacing the path with the path of the request being checked.
+- `extra_from` (string, optional - defaults to `extra`) - A [GJSON Path](https://github.com/tidwall/gjson/blob/master/SYNTAX.md) pointing to the `extra` field. This defaults to `extra`, but it could also be `@this` (for the root element), `session.foo.bar` for `{ "subject": "...", "session": { "foo": {"bar": "whatever"} } }`, and so on.
+- `subject_from` (string, optional - defaults to `subject`) - A [GJSON Path](https://github.com/tidwall/gjson/blob/master/SYNTAX.md) pointing to the `subject` field. This defaults to `subject`. Example: `identity.id` for `{ "identity": { "id": "1234" } }`.
+- `method` (string, optional) - The method to pass to the authenticator service. If set, the method of the original request is overwritten with the specified method. If not set, the method used will be `POST` by default, or the original request method if the `use_original_method` fiels is set to `true`.
+- `use_original_method` (boolean, optional - defaults to `false`) - If set to `true`, the request to the authentication service will be performed using the original request method; otherwise, the request will be performed using the method `POST`. This field is ignored if the `method` field is set.
+
+```yaml
+# Global configuration file oathkeeper.yml
+authenticators:
+  remote_json:
+    # Set enabled to true if authenticator should be neabled and false to disable the authenticator. Defaults to false.
+    enabled: true
+
+    config:
+      service_url: https://auth-service-host
+```
+
+```yaml
+# Some Access Rule: access-rule-1.yml
+id: access-rule-1
+# match: ...
+# upstream: ...
+authenticators:
+  - handler: remote_json
+    config:
+      service_url: https://auth-service-host
+      preserve_path: false
+```
+
+```yaml
+# Some Access Rule Using A Custom Method: access-rule-2.yml
+id: access-rule-2
+# match: ...
+# upstream: ...
+authenticators:
+  - handler: remote_json
+    config:
+      service_url: https://auth-service-host
+      preserve_path: true
+      method: "POST"
+```
+
+### `remote_json` Access Rule Example
+
+```shell
+cat ./rules.json
+
+[{
+  "id": "some-id",
+  "upstream": {
+    "url": "http://my-backend-service"
+  },
+  "match": {
+    "url": "http://my-app/some-route",
+    "methods": [
+      "GET"
+    ]
+  },
+  "authenticators": [{
+    "handler": "remote_json"
+  }],
+  "authorizer": { "handler": "allow" },
+  "mutators": [{ "handler": "noop" }]
+}]
+
+curl -X GET -H "token: my-token" -d '{ "some": "body" }' http://my-app/some-route
+
+HTTP/1.0 200 OK
+The request has been allowed! The subject is: "peter"
+
+curl -X GET -H "token: invalid" -d '{ "some": "body" }' http://my-app/some-route
+
+HTTP/1.0 401 Status Unauthorized
+The request isn't authorized because the provided credentials are invalid.
+```
