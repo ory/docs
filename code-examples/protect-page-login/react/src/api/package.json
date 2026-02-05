@@ -10,7 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@ory/client-fetch": "^1.20.6",
+    "@ory/client-fetch": "^1.22.11",
     "cors": "^2.8.5",
     "express": "^5.1.0"
   }
