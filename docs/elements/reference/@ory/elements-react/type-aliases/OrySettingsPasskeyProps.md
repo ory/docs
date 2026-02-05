@@ -2,24 +2,26 @@
 
 ```ts
 type OrySettingsPasskeyProps = {
-  removeButtons: UiNode &
-    {
-      onClick: () => void
-    }[]
-  triggerButton: UiNode & {
-    onClick: () => void
-  }
+  isSubmitting: boolean
+  removeButtons: OryNodeSettingsButton[]
+  triggerButton: OryNodeSettingsButton
 }
 ```
 
 ## Properties
 
+### isSubmitting
+
+```ts
+isSubmitting: boolean
+```
+
+---
+
 ### removeButtons
 
 ```ts
-removeButtons: UiNode & {
-  onClick: () => void;
-}[];
+removeButtons: OryNodeSettingsButton[];
 ```
 
 ---
@@ -27,13 +29,5 @@ removeButtons: UiNode & {
 ### triggerButton
 
 ```ts
-triggerButton: UiNode & {
-  onClick: () => void;
-};
+triggerButton: OryNodeSettingsButton
 ```
-
-#### Type declaration
-
-| Name        | Type         |
-| ----------- | ------------ |
-| `onClick()` | () => `void` |

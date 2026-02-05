@@ -1315,11 +1315,8 @@ const elements: SidebarItemsConfig = [
     label: "Reference",
     collapsible: false,
     link: {
-      type: "generated-index",
-      title: "Ory Elements Reference",
-      description: "Learn about the most important Ory Elements concepts!",
-      slug: "/elements/reference",
-      keywords: ["guides"],
+      type: "doc",
+      id: "elements/reference/index",
     },
     items: [
       ...require("../docs/elements/reference/typedoc-sidebar.ts").items,
