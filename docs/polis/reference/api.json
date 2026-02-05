@@ -2203,6 +2203,10 @@
             "type": "string",
             "description": "Override the SAML Audience on a per app basis"
           },
+          "includeOidcTokensInAssertion": {
+            "type": "boolean",
+            "description": "Include OIDC tokens in the SAML assertion"
+          },
           "ttlInMinutes": {
             "type": "number",
             "description": "Time-to-live in minutes for the SAML assertion, does not apply to OIDC flows"
