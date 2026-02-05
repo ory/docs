@@ -64,7 +64,23 @@ The code used in the following quickstart is available in the
      src="https://raw.githubusercontent.com/ory/elements/refs/heads/main/examples/nextjs-pages-router/middleware.ts"
    />
 
-4. Create a new folder named `pages` in the root of your project. Inside the `pages` folder, create a new folder named `auth`.
+4. Configure browser redirects in your Ory Console. Navigate to **Branding** > **Browser redirects** and set the **Global redirect
+   URL** to `/ui/welcome`. This ensures users are redirected to the correct page after completing authentication flows.
+
+   ![Browser Redirects Configuration](../_static/nextjs/branding_browser_redirects.png)
+
+5. Create a new folder named `components` in the root of your project. Inside the `components` folder, create a new file named
+   `custom-card-header.tsx` and add the following code:
+
+   <CodeFromRemote
+     lang="tsx"
+     title="components/custom-card-header.tsx"
+     src="https://raw.githubusercontent.com/ory/elements/refs/heads/main/examples/nextjs-app-router/components/custom-card-header.tsx"
+   />
+
+   This component is used by the Verification and Settings pages to customize the card header.
+
+6. Create a new folder named `pages` in the root of your project. Inside the `pages` folder, create a new folder named `auth`.
    Inside the `auth` folder, create the following files:
 
    - `login.tsx`
@@ -118,7 +134,16 @@ The code used in the following quickstart is available in the
    </Tabs>
    ```
 
-5. Run the application and create your first user by navigating to `/auth/registration`. After registration, you can log in at
+7. Use your own Ory Network project by setting the `ORY_SDK_URL` environment variable in your `.env` file:
+
+   ```mdx-code-block
+   <CodeFromRemote lang="bash" title=".env" src="https://raw.githubusercontent.com/ory/elements/refs/heads/main/examples/nextjs-pages-router/.env" />
+   ```
+
+   You can find your Ory Network project URL in the [**Get started**](https://console.ory.sh/projects/current/get-started) section
+   of the Ory Console.
+
+8. Run the application and create your first user by navigating to `/auth/registration`. After registration, you can log in at
    `/auth/login`. You can also access the other self-service flows at the following URLs:
 
    - Recovery: `/auth/recovery`
@@ -152,18 +177,9 @@ The code used in the following quickstart is available in the
 
    Open your browser and navigate to `http://localhost:3000/auth/registration` to create your first user.
 
-6. Optional: use your own Ory Network project by setting the `ORY_SDK_URL` environment variable in your `.env` file:
-
-   ```mdx-code-block
-   <CodeFromRemote lang="bash" title=".env" src="https://raw.githubusercontent.com/ory/elements/refs/heads/main/examples/nextjs-pages-router/.env" />
-   ```
-
-   You can find your Ory Network project URL in the [**Get started**](https://console.ory.sh/projects/current/get-started) section
-   of the Ory Console.
-
 ## Next steps
 
-Now that you have set up Ory Elements with the App Router in your Next.js application, you can further customize the components,
+Now that you have set up Ory Elements with the Pages Router in your Next.js application, you can further customize the components,
 add your own styles, and integrate them into your application as needed. You can also explore the Ory Elements documentation for
 more information on how to use the components and customize them to fit your needs. See
 [Theming](../../elements/guides/02_theming.mdx) for more details on how to customize look and feel of the components.
