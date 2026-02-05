@@ -40,8 +40,7 @@ export function ContentSection() {
     {
       label: "Status and SLA",
       to: "/docs",
-      description:
-        "Understand the core building blocks and architecture.",
+      description: "Understand the core building blocks and architecture.",
     },
   ]
 

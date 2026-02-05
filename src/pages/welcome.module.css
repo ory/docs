@@ -47,7 +47,12 @@
 }
 
 .container1024 {
+  margin-left: auto;
+  margin-right: auto;
   max-width: 1024px;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
 }
 .heroTop {
   padding-top: var(--home-s16);

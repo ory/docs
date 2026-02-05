@@ -20,7 +20,7 @@ export function StartHeading() {
       }}
       className={styles.heroTop}
     >
-      <div className={`container ${styles.container1024}`}>
+      <div className={styles.container1024}>
         <div className={styles.heroRow}>
           <div className={styles.heroCopy}>
             <h1 className={styles.h1}>Welcome to the Ory Developer Portal </h1>

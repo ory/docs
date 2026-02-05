@@ -148,42 +148,41 @@ const CHART_NODES: ChartNode[] = [
   {
     id: "Kratos",
     config:
-      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-kratos.svg", pos: "b", w: 120, constraint: "on", label: "Identity Management" }',
+      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-kratos.svg", pos: "b", w: 120, constraint: "on" }',
     condition: (c) => c.includes("kratos"),
   },
   {
     id: "Hydra",
     config:
-      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-hydra.svg", pos: "b", w: 120, constraint: "on", label: "OAuth2 & OpenID Connect Server" }',
+      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-hydra.svg", pos: "b", w: 120, constraint: "on" }',
     condition: (c) => c.includes("hydra"),
   },
   {
     id: "Keto",
     config:
-      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-keto.svg", pos: "b", w: 120, constraint: "on", label: "Permissions" }',
+      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-keto.svg", pos: "b", w: 120, constraint: "on" }',
     condition: (c) => c.includes("keto"),
   },
   {
     id: "Polis",
     config:
-      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-polis.svg", pos: "b", w: 120, constraint: "on", label: "Enterprise SSO bridge" }',
+      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-polis.svg", pos: "b", w: 120, constraint: "on" }',
     condition: (c) => c.includes("polis"),
   },
   {
     id: "Oathkeeper",
     config:
-      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-oathkeeper.svg", pos: "b", w: 120, constraint: "on", label: "Identity and Access Proxy IAP" }',
+      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-oathkeeper.svg", pos: "b", w: 120, constraint: "on" }',
     condition: (c) => c.includes("oathkeeper"),
   },
   {
     id: "API",
-    config:
-      '@{ icon: "tabler:code", label: "API Endpoint 1<br/> API Endpoint 2" }',
+    config: '@{ icon: "tabler:code" }',
   },
   {
     id: "Elements",
     config:
-      '@{ img: "https://raw.githubusercontent.com/ory/meta/master/static/logos/logo-elements.svg", pos: "b", w: 120, constraint: "on", label: "Ory Elements" }',
+      '@{ img: "https://raw.githubusercontent.com/ory/meta/master/static/logos/logo-elements.svg", pos: "b", w: 120, constraint: "on" }',
     condition: (c) => c.includes("elements"),
   },
 ]
@@ -233,15 +232,13 @@ const CHART_CONNECTIONS: ChartConnection[] = [
     from: "Oathkeeper",
     to: "Kratos",
     label: "checks session with",
-    condition: (c) =>
-      c.includes("oathkeeper") && c.includes("kratos"),
+    condition: (c) => c.includes("oathkeeper") && c.includes("kratos"),
   },
   {
     from: "Oathkeeper",
     to: "Keto",
     label: "checks permissions with",
-    condition: (c) =>
-      c.includes("keto") && c.includes("oathkeeper"),
+    condition: (c) => c.includes("keto") && c.includes("oathkeeper"),
   },
   {
     from: "Devices",
@@ -296,7 +293,14 @@ function generateChartConnections(components: ProductKey[]): string {
 function generateMermaidChart(components: ProductKey[]): string {
   const nodes = generateChartNodes(components)
   const connections = generateChartConnections(components)
-  const productIds = ["Kratos", "Hydra", "Keto", "Polis", "Oathkeeper", "Elements"]
+  const productIds = [
+    "Kratos",
+    "Hydra",
+    "Keto",
+    "Polis",
+    "Oathkeeper",
+    "Elements",
+  ]
   const visibleProducts = productIds.filter((id) => {
     const key = id.toLowerCase() as ProductKey
     return components.includes(key)
@@ -317,6 +321,265 @@ ${connections}
 `
 }
 
+function IntroGraphic({
+  colors,
+}: {
+  colors: Readonly<typeof import("./tokens").colors>
+}) {
+  return (
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 1008 400"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ maxHeight: "100%", objectFit: "contain" }}
+    >
+      <defs>
+        <pattern
+          id="intro-dots"
+          width="24"
+          height="24"
+          patternUnits="userSpaceOnUse"
+        >
+          <circle
+            cx="12"
+            cy="12"
+            r="1.5"
+            fill={colors.borderPrimary}
+            opacity="0.5"
+          />
+        </pattern>
+        <linearGradient
+          id="intro-card-gradient"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+        >
+          <stop offset="0%" stopColor={colors.backgroundPrimary} />
+          <stop offset="100%" stopColor={colors.backgroundSecondary} />
+        </linearGradient>
+        <filter id="intro-shadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow
+            dx="0"
+            dy="2"
+            stdDeviation="8"
+            floodColor={colors.textPrimary}
+            floodOpacity="0.06"
+          />
+        </filter>
+      </defs>
+      <rect width="1008" height="400" fill="url(#intro-dots)" />
+      <g filter="url(#intro-shadow)">
+        <rect
+          x="120"
+          y="120"
+          width="200"
+          height="160"
+          rx="8"
+          fill="url(#intro-card-gradient)"
+          stroke={colors.borderPrimary}
+          strokeWidth="1"
+        />
+        <circle
+          cx="180"
+          cy="165"
+          r="20"
+          fill={colors.brandPrimaryAlt}
+          opacity="0.2"
+        />
+        <circle cx="180" cy="165" r="10" fill={colors.brandPrimary} />
+        <rect
+          x="220"
+          y="155"
+          width="80"
+          height="8"
+          rx="4"
+          fill={colors.borderPrimary}
+          opacity="0.6"
+        />
+        <rect
+          x="220"
+          y="175"
+          width="60"
+          height="8"
+          rx="4"
+          fill={colors.borderPrimary}
+          opacity="0.4"
+        />
+        <rect
+          x="220"
+          y="195"
+          width="70"
+          height="8"
+          rx="4"
+          fill={colors.borderPrimary}
+          opacity="0.4"
+        />
+      </g>
+      <path
+        d="M 340 200 L 428 200"
+        stroke={colors.brandPrimary}
+        strokeWidth="2"
+        strokeDasharray="6 6"
+        opacity="0.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 418 200 L 428 194 L 428 206 Z"
+        fill={colors.brandPrimary}
+        opacity="0.7"
+      />
+      <g filter="url(#intro-shadow)">
+        <rect
+          x="448"
+          y="120"
+          width="200"
+          height="160"
+          rx="8"
+          fill="url(#intro-card-gradient)"
+          stroke={colors.borderPrimary}
+          strokeWidth="1"
+        />
+        <rect
+          x="478"
+          y="145"
+          width="48"
+          height="32"
+          rx="4"
+          fill={colors.brandPrimary}
+          opacity="0.15"
+        />
+        <rect
+          x="538"
+          y="145"
+          width="48"
+          height="32"
+          rx="4"
+          fill={colors.brandPrimary}
+          opacity="0.15"
+        />
+        <rect
+          x="598"
+          y="145"
+          width="48"
+          height="32"
+          rx="4"
+          fill={colors.brandPrimary}
+          opacity="0.15"
+        />
+        <rect
+          x="478"
+          y="195"
+          width="48"
+          height="32"
+          rx="4"
+          fill={colors.borderPrimary}
+          opacity="0.3"
+        />
+        <rect
+          x="538"
+          y="195"
+          width="48"
+          height="32"
+          rx="4"
+          fill={colors.borderPrimary}
+          opacity="0.3"
+        />
+      </g>
+      <path
+        d="M 668 200 L 756 200"
+        stroke={colors.brandPrimary}
+        strokeWidth="2"
+        strokeDasharray="6 6"
+        opacity="0.7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 746 200 L 756 194 L 756 206 Z"
+        fill={colors.brandPrimary}
+        opacity="0.7"
+      />
+      <g filter="url(#intro-shadow)">
+        <rect
+          x="776"
+          y="120"
+          width="200"
+          height="160"
+          rx="8"
+          fill="url(#intro-card-gradient)"
+          stroke={colors.borderPrimary}
+          strokeWidth="1"
+        />
+        <circle
+          cx="876"
+          cy="165"
+          r="24"
+          fill={colors.brandPrimary}
+          opacity="0.12"
+        />
+        <circle
+          cx="836"
+          cy="200"
+          r="16"
+          fill={colors.borderPrimary}
+          opacity="0.4"
+        />
+        <circle
+          cx="916"
+          cy="200"
+          r="16"
+          fill={colors.borderPrimary}
+          opacity="0.4"
+        />
+        <path
+          d="M 860 185 L 892 185 M 876 165 L 876 195"
+          stroke={colors.brandPrimary}
+          strokeWidth="1.5"
+          opacity="0.6"
+        />
+      </g>
+      <text
+        x="220"
+        y="315"
+        fill={colors.textSecondary}
+        style={{
+          fontFamily: "Inter, sans-serif",
+          fontSize: "14px",
+          fontWeight: 500,
+        }}
+      >
+        Answer a few questions
+      </text>
+      <text
+        x="498"
+        y="315"
+        fill={colors.textSecondary}
+        style={{
+          fontFamily: "Inter, sans-serif",
+          fontSize: "14px",
+          fontWeight: 500,
+        }}
+      >
+        Get your Ory stack
+      </text>
+      <text
+        x="816"
+        y="315"
+        fill={colors.textSecondary}
+        style={{
+          fontFamily: "Inter, sans-serif",
+          fontSize: "14px",
+          fontWeight: 500,
+        }}
+      >
+        See your architecture
+      </text>
+    </svg>
+  )
+}
+
 export function SolutionDesignStepper() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, "yes" | "no">>({})
@@ -333,21 +596,23 @@ export function SolutionDesignStepper() {
     return Array.from(set)
   }, [answers])
 
-  const isIntro = currentStep === 0
-  const isResults = currentStep === STEPS.length + 1
-  const questionIndex = currentStep - 1
-  const currentQuestion = questionIndex >= 0 && questionIndex < STEPS.length
-    ? STEPS[questionIndex]
-    : null
+  const isResults = currentStep === STEPS.length
+  const questionIndex = currentStep
+  const currentQuestion =
+    questionIndex >= 0 && questionIndex < STEPS.length
+      ? STEPS[questionIndex]
+      : null
 
-  const handleStart = () => setCurrentStep(1)
+  const isOnFirstQuestion = currentStep === 0
+  const showIntroDiagram =
+    isOnFirstQuestion && answers[STEPS[0].id] === undefined
 
   const handleAnswer = (stepId: string, value: "yes" | "no") => {
     setAnswers((prev) => ({ ...prev, [stepId]: value }))
   }
 
   const handleNext = () => {
-    if (currentStep <= STEPS.length) {
+    if (currentStep < STEPS.length) {
       setCurrentStep(currentStep + 1)
     }
   }
@@ -368,7 +633,7 @@ export function SolutionDesignStepper() {
   const currentAnswer = currentQuestion
     ? answers[currentQuestion.id]
     : undefined
-  const canProceed = isIntro || isResults || currentAnswer !== undefined
+  const canProceed = isResults || currentAnswer !== undefined
 
   return (
     <div>
@@ -385,7 +650,7 @@ export function SolutionDesignStepper() {
         <h2
           style={{
             fontFamily: typography.fontFamily,
-            fontSize: typography.fontSizeXl,
+            fontSize: typography.fontSizeLg,
             fontWeight: typography.fontWeightMedium,
             lineHeight: typography.lineHeightTight,
             color: colors.textPrimary,
@@ -393,7 +658,7 @@ export function SolutionDesignStepper() {
             maxWidth: "800px",
           }}
         >
-          Design your Ory solution
+          Pick your Ory products
         </h2>
         <p
           style={{
@@ -421,7 +686,7 @@ export function SolutionDesignStepper() {
           borderRadius: radius.general,
         }}
       >
-        {/* Architecture diagram */}
+        {/* Architecture diagram or intro graphic */}
         <div
           style={{
             padding: spacing.size4,
@@ -437,13 +702,39 @@ export function SolutionDesignStepper() {
               width: "100%",
               borderRadius: radius.general,
               overflow: "hidden",
+              ...(showIntroDiagram && {
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }),
             }}
           >
-            <Mermaid
-              key={selectedProducts.slice().sort().join(",")}
-              // @ts-expect-error Mermaid theme component uses chart prop (untyped JS)
-              chart={generateMermaidChart(selectedProducts)}
-            />
+            {showIntroDiagram ? (
+              <IntroGraphic colors={colors} />
+            ) : (
+              <>
+                <style>{`
+                  .solution-design-diagram-fill { display: flex; flex-direction: column; }
+                  .solution-design-diagram-fill > *:first-child { flex: 1; min-height: 0; display: flex; }
+                  .solution-design-diagram-fill svg { width: 100%; height: 100%; object-fit: contain; }
+                `}</style>
+                <div
+                  className="solution-design-diagram-fill"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                >
+                  <Mermaid
+                    key={selectedProducts.slice().sort().join(",")}
+                    // @ts-expect-error Mermaid theme component uses chart prop (untyped JS)
+                    chart={generateMermaidChart(selectedProducts)}
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -471,7 +762,7 @@ export function SolutionDesignStepper() {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  Step {currentStep} of {STEPS.length}
+                  Step {currentStep + 1} of {STEPS.length}
                 </span>
               </div>
               <div
@@ -576,36 +867,36 @@ export function SolutionDesignStepper() {
                     gap: spacing.size2,
                   }}
                 >
-                  {RESULTS_ORDER.filter((k) => selectedProducts.includes(k)).map(
-                    (key) => {
-                      const p = PRODUCT_LABELS[key]
-                      return (
-                        <li
-                          key={key}
+                  {RESULTS_ORDER.filter((k) =>
+                    selectedProducts.includes(k),
+                  ).map((key) => {
+                    const p = PRODUCT_LABELS[key]
+                    return (
+                      <li
+                        key={key}
+                        style={{
+                          fontFamily: typography.fontFamily,
+                          fontSize: typography.fontSizeBase,
+                          fontWeight: typography.fontWeightNormal,
+                          lineHeight: typography.lineHeightNormal,
+                          color: colors.textSecondary,
+                        }}
+                      >
+                        <Link
+                          to={p.to}
                           style={{
-                            fontFamily: typography.fontFamily,
-                            fontSize: typography.fontSizeBase,
-                            fontWeight: typography.fontWeightNormal,
-                            lineHeight: typography.lineHeightNormal,
-                            color: colors.textSecondary,
+                            color: colors.textPrimary,
+                            fontWeight: typography.fontWeightMedium,
+                            textDecoration: "none",
                           }}
                         >
-                          <Link
-                            to={p.to}
-                            style={{
-                              color: colors.textPrimary,
-                              fontWeight: typography.fontWeightMedium,
-                              textDecoration: "none",
-                            }}
-                          >
-                            {p.label}
-                          </Link>
-                          {" — "}
-                          {p.description}
-                        </li>
-                      )
-                    },
-                  )}
+                          {p.label}
+                        </Link>
+                        {" — "}
+                        {p.description}
+                      </li>
+                    )
+                  })}
                 </ul>
               ) : (
                 <p
@@ -618,8 +909,8 @@ export function SolutionDesignStepper() {
                     margin: 0,
                   }}
                 >
-                  Based on your answers, you may not need additional Ory products
-                  for your current use case. You can still explore our{" "}
+                  Based on your answers, you may not need additional Ory
+                  products for your current use case. You can still explore our{" "}
                   <Link to="/getting-started/overview">quickstarts</Link> or{" "}
                   <a
                     href="https://www.ory.com/contact"
@@ -734,14 +1025,11 @@ export function SolutionDesignStepper() {
               color: colors.textTertiary,
             }}
           >
-            {isIntro && "Answer a few questions to get a tailored recommendation"}
-            {currentQuestion &&
-              !isResults &&
-              "Select an option to continue"}
+            {currentQuestion && !isResults && "Select an option to continue"}
             {isResults && "Start over to try different answers"}
           </span>
           <div style={{ display: "flex", gap: spacing.size2 }}>
-            {!isIntro && (
+            {!isOnFirstQuestion && (
               <button
                 type="button"
                 onClick={handleBack}
@@ -762,28 +1050,7 @@ export function SolutionDesignStepper() {
                 {isResults ? "Start over" : "Back"}
               </button>
             )}
-            {isIntro && (
-              <button
-                type="button"
-                onClick={handleStart}
-                style={{
-                  height: "32px",
-                  padding: `0 ${spacing.size4}`,
-                  background: colors.backgroundDark,
-                  border: "none",
-                  borderRadius: radius.buttons,
-                  fontFamily: typography.fontFamily,
-                  fontSize: typography.fontSizeSm,
-                  fontWeight: typography.fontWeightNormal,
-                  lineHeight: "1",
-                  color: colors.backgroundPrimary,
-                  cursor: "pointer",
-                }}
-              >
-                Start
-              </button>
-            )}
-            {!isIntro && !isResults && (
+            {!isResults && (
               <button
                 type="button"
                 onClick={handleNext}
@@ -804,7 +1071,7 @@ export function SolutionDesignStepper() {
                   cursor: canProceed ? "pointer" : "not-allowed",
                 }}
               >
-                {currentStep === STEPS.length ? "See results" : "Continue"}
+                {currentStep === STEPS.length - 1 ? "See results" : "Continue"}
               </button>
             )}
           </div>

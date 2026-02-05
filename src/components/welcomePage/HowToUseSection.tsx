@@ -6,12 +6,12 @@ import styles from "@site/src/pages/welcome.module.css"
 export function HowToUseSection() {
   const guides = [
     {
-      title: "Want to learn more about a specific product suite",
+      title: "Want to learn more about a specific product suite?",
       description: "Go directly to product specific information.",
       link: { label: "Products", to: "/products/products-overview" },
     },
     {
-      title: "Want to learn more about a specific solution suite",
+      title: "Want to learn more about a specific solution suite?",
       description: "Go directly to solution specific information.",
       link: { label: "Solutions", to: "/solutions/solutions-overview" },
     },
@@ -36,10 +36,7 @@ export function HowToUseSection() {
         background: colors.backgroundPrimary,
       }}
     >
-      <div
-        className={`container ${styles.container1024}`}
-        style={{ padding: `0 ${spacing.size2}` }}
-      >
+      <div className={styles.container1024}>
         <div
           style={{
             display: "flex",

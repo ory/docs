@@ -58,7 +58,14 @@ export function NewsletterSection() {
               maxWidth: "480px",
             }}
           >
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: spacing.size3 }}>
+            <form
+              onSubmit={handleSubmit}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: spacing.size3,
+              }}
+            >
               <div
                 style={{
                   display: "flex",

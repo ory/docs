@@ -18,8 +18,7 @@ export function OtherGuides() {
     {
       label: "Ory Architecture",
       to: "/kratos/self-service/flows/user-login-user-registration",
-      description:
-        "Understand the core building blocks and architecture.",
+      description: "Understand the core building blocks and architecture.",
     },
   ]
 
