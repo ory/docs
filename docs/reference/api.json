@@ -6914,6 +6914,10 @@
             "format": "date-time",
             "type": "string"
           },
+          "rotated_secrets": {
+            "description": "OAuth 2.0 Client Rotated Secrets\n\nRotatedSecrets holds previously rotated secrets that are still valid for authentication. This allows for secret rotation without downtime. The secrets are stored in hashed format and remain valid until explicitly cleaned up.",
+            "type": "string"
+          },
           "userinfo_signed_response_alg": {
             "description": "OpenID Connect Request Userinfo Signed Response Algorithm\n\nJWS alg algorithm [JWA] REQUIRED for signing UserInfo Responses. If this is specified, the response will be JWT\n[JWT] serialized, and signed using JWS. The default, if omitted, is for the UserInfo Response to return the Claims\nas a UTF-8 encoded JSON object using the application/json content-type.",
             "type": "string"
@@ -11945,6 +11949,88 @@
           }
         ],
         "summary": "Set OAuth2 Client Token Lifespans",
+        "tags": ["oAuth2"]
+      }
+    },
+    "/admin/clients/{id}/secret/rotate": {
+      "post": {
+        "description": "Rotate the client secret of an OAuth 2.0 Client. The old secret will be moved to the rotated_secrets list and will remain valid until explicitly cleaned up. This allows for zero-downtime credential rotation.\n\nThe new secret will be returned in the response. Make sure to store it securely as it will not be retrievable later.",
+        "operationId": "oauth2RotateClientSecret",
+        "parameters": [
+          {
+            "description": "OAuth 2.0 Client ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/oAuth2Client"
+                }
+              }
+            },
+            "description": "oAuth2Client"
+          },
+          "404": {
+            "$ref": "#/components/responses/errorOAuth2NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/errorOAuth2Default"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Rotate OAuth2 Client Secret",
+        "tags": ["oAuth2"]
+      },
+      "delete": {
+        "description": "Delete all rotated secrets from an OAuth 2.0 Client. This will revoke access for all previously rotated secrets, leaving only the current secret valid.\n\nUse this endpoint after you have updated all services to use the new secret following a rotation.",
+        "operationId": "oauth2DeleteRotatedClientSecrets",
+        "parameters": [
+          {
+            "description": "OAuth 2.0 Client ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/oAuth2Client"
+                }
+              }
+            },
+            "description": "oAuth2Client"
+          },
+          "404": {
+            "$ref": "#/components/responses/errorOAuth2NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/errorOAuth2Default"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Delete OAuth2 Client Rotated Secrets",
         "tags": ["oAuth2"]
       }
     },
