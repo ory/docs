@@ -1,0 +1,140 @@
+Multi-factor authentication (MFA) provides an additional layer of security that helps ensure that the accounts of your users can't
+be easily compromised by malicious actors.
+
+Nowadays, many of the passwords in use can be easily compromised because:
+
+- They are re-used across multiple websites and applications.
+- They were leaked to the web and sold to malicious actors.
+- They are considered "weak" because they are short, have obvious, derivable patterns, or contain easy-to-guess character strings.
+
+By enabling two-factor authentication in your project, you introduce an additional verification step that can protect user login
+or self-service actions, such as updating account information or credentials, from malicious actors.  
+For example, you might decide to require a user to log in with two factors right at the start of the session. Alternatively, you
+could allow the user to start the session by logging in with the first factor and only require the second factor at the point
+where the user is about to perform a security-sensitive operation. Read more about dynamic MFA in the
+[step-up authentication](../../kratos/mfa/step-up-authentication) document.
+
+## Available methods
+
+Ory offers multiple second-factor authentication methods:
+
+### Time-based one-time password (TOTP)
+
+Time-based one time passwords (TOTP) are a flexible 2FA authentication method based on a shared secret, and can be used both with
+browser-based apps and native apps. Read [Time-based one-time passwords (TOTP)](./15_totp.mdx) to learn more.
+
+### WebAuthn
+
+This method uses the [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API), also known
+as WebAuthn, which allows servers to register and authenticate users using public-key cryptography. Read
+[WebAuthn and FIDO2 (YubiKey)](./20_webauthn-fido-yubikey.mdx) to learn more.
+
+### Lookup Secrets
+
+Lookup Secrets, also known as Backup Codes or Recovery Codes, are a 2FA fail-safe mechanism, rather than a standalone two-factor
+authentication method. They can be used to complete the second factor when users lose access to their selected 2FA method. Read
+[Lookup Secrets (Recovery Codes)](./25_lookup-secrets.mdx) to learn more.
+
+### SMS
+
+SMS for MFA sends a one-time password to the user's registered mobile phone number via text message. Read the
+[Code via SMS](../../../docs/kratos/mfa/mfa-via-sms) documentation to learn more.
+
+## Terminology
+
+Learn more about the terms and concepts used when talking about 2FA in Ory.
+
+### Authentication Method Reference (AMR)
+
+The Authentication Method Reference (AMR) is an array of authentication methods used over the lifetime of an Ory Session.
+
+The following methods can be present in a session:
+
+- `password` - When the user authenticated with their password.
+- `oidc`- When the user authenticated by signing in with a social sign-in provider.
+- `totp`- When the user authenticated by entering a time-based one-time password.
+- `webauthn` - When the user authenticated through a WebAuthn channel, such as OS-level biometric authentication or a hardware
+  token.
+- `lookup_secret` - When the user entered a valid one-time recovery code.
+
+This is how the information is presented in the Ory Session when you fetch the session from the Ory Identities API:
+
+```json5 title="Sample Ory Session JSON payload"
+{
+  id: "6b51a3f2-6a2c-4557-90a8-4e23de7072aa",
+  active: true,
+  // ...
+  authenticator_assurance_level: "aal2",
+  authentication_methods: [
+    {
+      method: "password",
+      completed_at: "2021-10-14T09:37:53.872104Z",
+    },
+    {
+      method: "totp",
+      completed_at: "2021-10-14T09:41:16.771859Z",
+    },
+  ],
+  // ...
+}
+```
+
+If a user authenticates multiple times over the lifetime of the same session with the same method, every successful attempt will
+be present in the session:
+
+```json5 title="Sample Ory Session JSON Payload"
+{
+  id: "6b51a3f2-6a2c-4557-90a8-4e23de7072aa",
+  active: true,
+  // ...
+  authenticator_assurance_level: "aal2",
+  authentication_methods: [
+    {
+      method: "password",
+      completed_at: "2021-10-14T09:37:53.872104Z",
+    },
+    {
+      method: "lookup_secret",
+      completed_at: "2021-10-14T09:41:16.771859Z",
+    },
+    {
+      method: "password",
+      completed_at: "2021-10-14T12:00:00.134567Z",
+    },
+  ],
+  // ...
+}
+```
+
+### Authenticator Assurance Level (AAL)
+
+The Authenticator Assurance Level (AAL) indicates how many authentication factors the identity has completed.
+
+Authentication methods are classified into factors:
+
+| Authentication method | Factor |
+| :-------------------- | :----- |
+| `password`            | first  |
+| `oidc`                | first  |
+| `totp`                | second |
+| `webauthn`            | second |
+| `lookup_secret`       | second |
+
+:::info
+
+When you enable [passwordless authentication with WebAuthn or Passkeys](../passwordless/05_passkeys.mdx), it isn't considered as a
+second authentication factor.
+
+:::
+
+The AAL parameter can take one of two values:
+
+- `aal1`: The user completed only the first authentication factor(s).
+- `aal2`: The user completed the first and the second authentication factor(s).
+
+:::danger
+
+Completing two first authentication factors doesn't give the user `aal2`. For example, logging in with a `password` and `oidc` is
+still `aal1`.
+
+:::

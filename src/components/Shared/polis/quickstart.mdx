@@ -1,0 +1,24 @@
+```mdx-code-block
+import Help from '@site/docs/_common/need-selfhosted-support.mdx'
+
+<Help/>
+```
+
+Ory Polis can be used with any web application to integrate Single Sign-On (SSO) authentication.
+
+There are two ways to integrate Ory Polis with an application. Depending on your use case, you can choose either one of them.
+
+- As a separate service
+  - This is available for all frameworks and languages.
+  - The advantage of running a separate service is that you get all of the UI tooling such as the Admin Portal to handle the SSO
+    and Directory Sync connections with the service.
+  - The disadvantage is that you have to manage the operations of a separate service.
+
+For the service quickstart head over to the [service quickstart](guides/service.mdx) documentation.
+
+- As an NPM library
+  - This is available only if you are developing your application using Node.js.
+  - The advantage of embedding Ory Polis as an npm library is that you do not have to manage the operations of a separate service.
+  - The disadvantage is that you do not readily get the UI tooling such as the Admin Portal with this method.
+
+For the NPM quickstart head over to the [NPM quickstart](guides/npm-library.mdx) documentation.

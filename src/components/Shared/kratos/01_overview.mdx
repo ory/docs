@@ -1,0 +1,72 @@
+Identities are sets of data that describe humans that sign up on a website or an application, for example online store customers,
+file sharing service users, or company contractors signing up to use internal systems.
+
+:::info
+
+What Ory calls identities, other software often refers to as "users", "accounts", or "user accounts". For the sake of clarity, we
+use the term "identity" interchangeably with other common names for user accounts in the documentation.
+
+:::
+
+Identities are created on the basis of schemas, which define what fields (data) the system stores for the identity. Thanks to
+schemas, every identity created in your system can store its own set of data, which allows you to easily differentiate between
+user types, for example customers and employees.
+
+## Identity example
+
+This is a sample identity presented in the YAML format. To manage identities, use the `/admin/identities` endpoint. Keep in mind
+that the API payload is in JSON format.
+
+```yaml
+# This is a UUID generated when the identity is created. Can't be changed or updated.
+id: "9f425a8d-7efc-4768-8f23-7647a74fdf13"
+
+# Every identity has a state. Inactive identities can't log into the system.
+state: active
+
+# This section represents all credentials associated with the identity.
+credentials:
+  password:
+    id: password
+    identifiers:
+      - john.doe@acme.com
+      - johnd@ory.com
+    config:
+      hashed_password: ...
+  oidc:
+    id: oidc
+    identifiers:
+      - google:j8kf7a3...
+      - facebook:83475891...
+    config:
+      - provider: google
+        identifier: j8kf7a3
+      - provider: facebook
+        identifier: 83475891
+
+# This is the JSON Schema ID used for validating the traits of this identity.
+schema_id: default
+
+# Traits represent information about the identity, such as the first or last name. The traits content is
+# up to you and will be validated using the JSON Schema at `traits_schema_url`.
+traits:
+  # These are just examples
+  email: office@ory.com
+  name:
+    first: Aeneas
+    last: Rekkas
+  favorite_animal: Dog
+  accepted_tos: true
+
+# Public metadata is visible at the `/session/whoami` endpoint but cannot be modified by the users themselves.
+metadata_public:
+  any:
+    valid: ["json"]
+    example: 1
+
+# Admin metadata only visible at administrative endpoints and cannot be modified by the users themselves.
+metadata_admin:
+  another:
+    valid: ["yaml"]
+    example: 2
+```

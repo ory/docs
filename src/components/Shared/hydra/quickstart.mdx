@@ -1,0 +1,274 @@
+```mdx-code-block
+import Help from '@site/docs/_common/need-selfhosted-support.mdx'
+
+<Help/>
+```
+
+In this quickstart, you will set up Ory Hydra OAuth2 & OpenID Connect Server and an exemplary User Login & Consent App using
+Docker Compose. You need to have the latest [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose)
+version and Git installed, as well as [`jq`](https://stedolan.github.io/jq/download/).
+
+You do not want to self-host? Try
+[out common OAuth2 grants on the fully managed version of Ory Hydra](../../getting-started/ory-network-oauth2.mdx).
+
+```mdx-code-block
+import CodeFromRemote from "@theme/CodeFromRemote"
+import { useLatestRelease } from '@site/src/hooks'
+```
+
+![OAuth2 Flow with Open Source OAuth2 Server Ory Hydra](_static/oauth2-flow.gif)
+
+```mdx-code-block
+<p align="center">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/tlO9p2E501A" frameborder="0" allowfullscreen />
+</p>
+```
+
+To get started, clone the Ory Hydra locally:
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock className="language-shell">{`
+git clone https://github.com/ory/hydra.git
+cd hydra
+git checkout ${useLatestRelease('hydra')}`}
+</CodeBlock>
+```
+
+Run the following command(s) to start the OAuth2 server:
+
+````mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import MacOS from '@site/src/components/Install/MacOS'
+import Linux from '@site/src/components/Install/Linux'
+import Windows from '@site/src/components/Install/Windows'
+
+<Tabs>
+  <TabItem value="postgres-prod" label="PostgreSQL (prod)" default>
+
+Run the latest Ory Hydra production build:
+
+```sh
+docker compose -f quickstart.yml \
+    -f quickstart-postgres.yml \
+    up
+
+Starting hydra_postgresd_1
+Starting hydra_hydra_1
+[...]
+```
+
+  </TabItem>
+  <TabItem value="postgres-dev" label="PostgreSQL (dev)">
+
+
+Run the current commit of Ory Hydra.
+
+```sh
+docker compose -f quickstart.yml \
+    -f quickstart-postgres.yml \
+    up \
+    --build
+
+Starting hydra_postgresd_1
+Starting hydra_hydra_1
+[...]
+```
+
+Building the image will override the Ory Hydra production image on your local registry. To download the latest
+production image again, run:
+
+```sh
+docker compose -f quickstart.yml pull hydra --policy always
+```
+
+
+  </TabItem>
+  <TabItem value="mysql-prod" label="MySQL">
+
+
+```shell
+docker compose -f quickstart.yml \
+    -f quickstart-mysql.yml \
+    up
+```
+
+
+  </TabItem>
+  <TabItem value="sqlite" label="SQLite" default>
+
+
+```shell
+docker compose -f quickstart.yml up
+```
+
+
+  </TabItem>
+  <TabItem value="observability" label="Observability">
+
+
+You may also extend the command above to enable distributed tracing. The tracing UI is exposed at
+[http://127.0.0.1:16686/search](http://127.0.0.1:16686/search):
+
+```sh
+docker compose -f quickstart.yml \
+    -f quickstart-postgres.yml \
+    -f quickstart-tracing.yml \
+    up --build
+```
+
+Hydra provides an endpoint for Prometheus to scrape as a target. You can run the following command to start the needed containers,
+and status of Hydra is exposed at targets page in Prometheus [http://localhost:9090/targets](http://localhost:9090/targets):
+
+```sh
+docker compose -f quickstart.yml \
+  -f quickstart-prometheus.yml \
+  up --build
+```
+
+
+  </TabItem>
+  <TabItem value="hsm" label="HSM">
+
+
+If you want to test Hardware Security Module add `-f quickstart-hsm.yml`. For more information head over to
+[HSM support](hsm-support.md).
+
+```sh
+docker compose -f quickstart.yml \
+    -f quickstart-hsm.yml \
+    up --build
+```
+
+
+  </TabItem>
+</Tabs>
+````
+
+Let's confirm that everything is working by creating an OAuth 2.0 Client.
+
+The OAuth 2.0 client uses port `4444` and `4445`. The former is Ory Hydra's public endpoint, the latter its administrative
+endpoint. For more information head over to [Exposing Administrative and Public API Endpoints](production.md).
+
+Let's create the OAuth 2.0 Client:
+
+```sh
+client=$(docker compose -f quickstart.yml exec hydra \
+    hydra create client \
+    --endpoint http://127.0.0.1:4445/ \
+    --format json \
+    --grant-type client_credentials)
+
+# We parse the JSON response using jq to get the client ID and client secret:
+client_id=$(echo $client | jq -r '.client_id')
+client_secret=$(echo $client | jq -r '.client_secret')
+```
+
+Let's perform the client credentials grant:
+
+```sh
+docker compose -f quickstart.yml exec hydra \
+  hydra perform client-credentials \
+  --endpoint http://127.0.0.1:4444/ \
+  --client-id "$client_id" \
+  --client-secret "$client_secret"
+
+ACCESS TOKEN    ory_at_ZDTkKci59rH_8KlZlRjIek0812n9oPsvJX_nTdptGt0.bbpFutv5CsfjHzs8QrsnmPZ-0VxgwPvg9jgw1DQaYNg
+REFRESH TOKEN   <empty>
+ID TOKEN        <empty>
+EXPIRY          2022-06-27 11:50:28.244046504 +0000 UTC m=+3599.059213960
+```
+
+Let's perform token introspection on that token. Make sure to copy the token you just got and not the dummy value.
+
+```sh
+docker compose -f quickstart.yml exec hydra \
+  hydra introspect token \
+  --format json-pretty \
+  --endpoint http://127.0.0.1:4445/ \
+  UDYMha9TwsMBejEvKfnDOXkhgkLsnmUNYVQDklT5bD8.ZNpuNRC85erbIYDjPqhMwTinlvQmNTk_UvttcLQxFJY
+
+{
+  "active": true,
+  "client_id": "24451202-afa7-4278-98ce-8d40f421afec",
+  "exp": 1656330629,
+  "iat": 1656327029,
+  "iss": "http://127.0.0.1:4444",
+  "nbf": 1656327029,
+  "sub": "24451202-afa7-4278-98ce-8d40f421afec",
+  "token_type": "Bearer",
+  "token_use": "access_token"
+}
+```
+
+Next, we will perform the OAuth 2.0 Authorization Code Grant. For that, we must first create a client that's capable of performing
+that grant:
+
+```sh
+code_client=$(docker compose -f quickstart.yml exec hydra \
+    hydra create client \
+    --endpoint http://127.0.0.1:4445 \
+    --grant-type authorization_code,refresh_token \
+    --response-type code,id_token \
+    --format json \
+    --scope openid --scope offline \
+    --redirect-uri http://127.0.0.1:5555/callback)
+
+code_client_id=$(echo $code_client | jq -r '.client_id')
+code_client_secret=$(echo $code_client | jq -r '.client_secret')
+```
+
+Note that you need to add `--token-endpoint-auth-method none` if your clients are public (such as SPA apps and native apps)
+because the public clients can't provide client secrets.
+
+The following command starts a server that serves an example web application. The application will perform the OAuth 2.0
+Authorization Code Flow using Ory Hydra. The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).
+
+```sh
+docker compose -f quickstart.yml exec hydra \
+    hydra perform authorization-code \
+    --client-id $code_client_id \
+    --client-secret $code_client_secret \
+    --endpoint http://127.0.0.1:4444/ \
+    --port 5555 \
+    --scope openid --scope offline
+
+Setting up home route on http://127.0.0.1:5555/
+Setting up callback listener on http://127.0.0.1:5555/callback
+Press ctrl + c on Linux / Windows or cmd + c on OSX to end the process.
+If your browser doesn't open automatically, navigate to:
+
+        http://127.0.0.1:5555/
+```
+
+Open the URL [http://127.0.0.1:5555](http://127.0.0.1:5555), log in, and authorize the application. Next, you should see at least
+an access token in the response. If you granted the `offline` scope, you will also see a refresh token. If you granted the
+`openid` scope, you will get an ID Token as well.
+
+Great! You installed Ory Hydra, connected the CLI, created a client and completed two authentication flows! Before you continue,
+clean up this set up in order to avoid conflicts with other tutorials from this guide:
+
+```sh
+docker compose -f quickstart.yml kill
+docker compose -f quickstart.yml rm -f -v
+```
+
+## Quickstart configuration
+
+In this tutorial we use a simplified configuration. You can find it in
+[`contrib/quickstart/5-min/hydra.yml`](https://github.com/ory/hydra/blob/master/contrib/quickstart/5-min/hydra.yml). The
+configuration gets loaded in docker compose as specified in the
+[`quickstart.yml`](https://github.com/ory/hydra/blob/master/quickstart.yml).
+
+```mdx-code-block
+<CodeFromRemote
+  lang="js"
+  link="https://github.com/ory/hydra/blob/master/contrib/quickstart/5-min/hydra.yml"
+  src="https://raw.githubusercontent.com/ory/hydra/master/contrib/quickstart/5-min/hydra.yml"
+/>
+```
+
+Have a look at the [reference configuration](../reference/configuration.mdx) for further information on all possible configuration
+options.

@@ -1,0 +1,172 @@
+```mdx-code-block
+import Help from '@site/docs/_common/need-selfhosted-support.mdx'
+
+<Help/>
+```
+
+This example describes a video sharing service. The individual videos are organized in directories. Every directory has an owner
+and every video has the same owner as it's parent directory. The owner has elevated privileges about the video files that aren't
+modeled individually in Ory Keto. The only other privilege modeled in this example is "view access." Every owner has view access
+to their objects, and this privilege can be granted to other users as well. The video sharing application interprets the special
+`*` user ID as any user, including anonymous users. Note that Ory Keto doesn't interpret this subject any differently from other
+subjects. It also doesn't know anything about directory structures or induced ownership.
+
+The "Keto client" is the application interacting with Keto. In this case we refer to the video sharing service backend as the Keto
+client.
+
+## Starting the example
+
+First, [install Keto](./install.mdx).
+
+Now you can start the example using either `docker-compose` or a bash script. The bash script requires you to have the `keto`
+binary in your `$PATH`.
+
+Alternatively, use Docker to automatically get the required images.
+
+```shell
+# clone the repository if you don't have it yet
+git clone git@github.com:ory/keto.git && cd keto
+
+# Alternatively, you can use 'https' to clone if ssh cloning gives permission denied error. (Configure ssh keys in github to resolve the issue.)
+git clone https://github.com/ory/keto.git && cd keto
+
+docker-compose -f contrib/cat-videos-example/docker-compose.yml up
+# or
+./contrib/cat-videos-example/up.sh
+
+# output: all initially created relationships
+
+# NAMESPACE       OBJECT          RELATION NAME   SUBJECT
+# videos          /cats/1.mp4     owner           videos:/cats#owner
+# videos          /cats/1.mp4     view            videos:/cats/1.mp4#owner
+# videos          /cats/1.mp4     view            *
+# videos          /cats/2.mp4     owner           videos:/cats#owner
+# videos          /cats/2.mp4     view            videos:/cats/2.mp4#owner
+# videos          /cats           owner           cat lady
+# videos          /cats           view            videos:/cats#owner
+```
+
+## State of the system
+
+At the current state only one user with the username `cat lady` has added videos. Both videos are in the `/cats` directory owned
+by `cat lady`. The file `/cats/1.mp4` can be viewed by anyone (`*`), while `/cats/2.mp4` has no extra sharing options, and can
+therefore only be viewed by its owner, `cat lady`. The relationship definitions are located in the
+`contrib/cat-videos-example/relation-tuples` directory.
+
+## Simulating the video sharing application
+
+Now you can open a second terminal to run the queries against, just like the video service client would do. In this example we
+will use the Keto CLI client.
+
+If you want to run the Keto CLI within **Docker**, set the alias
+
+```shell
+alias keto="docker run -it --network cat-videos-example_default -e KETO_READ_REMOTE=\"keto:4466\" oryd/keto:v0.7.0-alpha.1"
+```
+
+in your terminal session. Alternatively, you need to set the remote endpoint so that the Keto CLI knows where to connect to (not
+necessary if using Docker):
+
+```shell
+export KETO_READ_REMOTE="127.0.0.1:4466"
+```
+
+### Check incoming requests
+
+First off, we get a request by an anonymous user that would like to view `/cats/2.mp4`. The client now has to ask Keto if that
+operation should be allowed or denied.
+
+```shell
+# Is "*" allowed to "view" the object "videos":"/cats/2.mp4"?
+keto check "*" view videos /cats/2.mp4
+# output:
+
+# Denied
+```
+
+We already discussed that this request should be denied, but it's always good to see this in action.
+
+Now `cat lady` wants to change some view permissions of `/cats/1.mp4`. For this, the video service application has to show all
+users that are allowed to view the video. It uses Keto's [expand-API](./concepts/25_api-overview.mdx#expand-subject-sets) to get
+these data:
+
+```shell
+# Who is allowed to "view" the object "videos":"/cats/2.mp4"?
+keto expand view videos /cats/1.mp4
+# output:
+
+# ∪ videos:/cats/1.mp4#view
+# ├─ ∪ videos:/cats/1.mp4#owner
+# │  ├─ ∪ videos:/cats#owner
+# │  │  ├─ ☘ cat lady️
+# ├─ ☘ *️
+```
+
+Here we can see the full subject set expansion. The first branch
+
+```keto-relation-tuples
+videos:/cats/1.mp4#view
+```
+
+indicates that every owner of the object is allowed to view
+
+```keto-relation-tuples
+videos:/cats/1.mp4#owner
+```
+
+In the next step we see that the object's owners are the owners of `/cats`
+
+```keto-relation-tuples
+videos:/cats#owner
+```
+
+We see that `cat lady` is the owner of `/cats`.
+
+Note that there is no direct relationship that would grant `cat lady` view access on `/cats/1.mp4` as this is indirectly defined
+via the ownership relation.
+
+The special user `*` on the other hand was directly granted view access on the object, as it's a first-level leaf of the expansion
+tree. The following CLI command proves that this is the case:
+
+```shell
+# Is "*" allowed to "view" the object "videos":"/cats/1.mp4"?
+keto check "*" view videos /cats/1.mp4
+# output:
+
+# Allowed
+```
+
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+
+<Mermaid
+  chart={`
+flowchart TD
+  obj[videos:/cats] --- r1((owner))
+  obj --- r2((view))
+  r1 -.-> r2
+  r1 ----- sub1(["cat lady"])
+  r1 -.-> r4
+  obj1 ---- r4((owner))
+  r3 --- all(["* (anyone)"])
+  r4 -.-> r3
+  obj1[videos:/cats/1.mp4] --- r3((view))
+  obj2 --- r6((view))
+  r1 -.-> r5
+  obj2[videos/cats/2.mp4] ---- r5((owner))
+  r5 -.-> r6
+  style sub1 fill:lightgreen
+  style all fill:lightgreen
+  style r1 fill:darkgreen,color:white
+  style r2 fill:darkgreen,color:white
+  style r3 fill:darkgreen,color:white
+  style r4 fill:darkgreen,color:white
+  style r5 fill:darkgreen,color:white
+  style r6 fill:darkgreen,color:white
+`}
+/>
+```
+
+<!--TODO-->
+
+Updating the view permissions will be added here at a later stage.
