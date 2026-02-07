@@ -1,8 +1,6 @@
 ---
 id: products-overview
-title: Products
-sidebar_label: Overview
-#displayed_sidebar: sidebars-ciam
+title: Ory ecosystem and architect
 ---
 
 import Link from "@docusaurus/Link"
@@ -27,23 +25,16 @@ composable building block.
 
 ![Ory Ecosystem architecture](./_static/oryeco-diagram4.png)
 
-Choose Ory products based on the specific identity, authorization, or access control challenge you’re solving. | **IAM Concept /
-Layer** | **Core IAM Question** | **Ory Product — What it does (and how)** | |
---------------------------------------------------------- |
-------------------------------------------------------------------------- |
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-| | Identity Management & Authentication | Who is the user and how do they sign in? | **Ory Kratos** Manages user identities and
-handles direct authentication flows such as login, registration, account recovery, MFA-ready flows, and session management
-(cookies). | | Delegated, Scope-based Authorization & Token Issuance | Which application can act on behalf of a user, and with
-what level of access? | **Ory Hydra** Implements OAuth2 and OpenID Connect to issue access and ID tokens with scopes. Delegates
-user login to Kratos or another IdP, enabling SSO and API access across apps and services. | | Enterprise Federation & Single
-Sign-On (SSO) | How can enterprise customers sign in with their corporate identity provider? | **Ory Polis** Provides enterprise
-SSO by connecting apps to SAML and OIDC identity providers. Bridges legacy SAML into modern OAuth2 flows and supports SCIM
-directory sync for automated user and group provisioning. | | Fine-grained Authorization & Permissions | Can this user perform
-this action on this specific resource? | **Ory Keto** Provides relationship-based, fine-grained authorization for
-application-level permissions, such as access to documents, projects, or business objects. | | Proxy Access Control (Enforcement)
-| Should this request be allowed to reach the API right now? | **Ory Oathkeeper** Acts as a proxy-based enforcement layer in front
-of APIs and services, validating credentials and applying authorization decisions before traffic reaches your application. |
+Choose Ory products based on the specific identity, authorization, or access control challenge you’re solving. 
+
+| **IAM Concept / Layer**                                   | **Core IAM Question**                                                     | **Ory Product — What it does (and how)**                                                                                                                                                                                 |
+| --------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Identity Management & Authentication                  | Who is the user and how do they sign in?                                      | **Ory Kratos** Manages user identities and handles direct authentication flows such as login, registration, account recovery, MFA-ready flows, and session management (cookies).                                       |
+| Delegated, Scope-based Authorization & Token Issuance | Which application can act on behalf of a user, and with what level of access? | **Ory Hydra** Implements OAuth2 and OpenID Connect to issue access and ID tokens with scopes. Delegates user login to Kratos or another IdP, enabling SSO and API access across apps and services.                     |
+| Enterprise Federation & Single Sign-On (SSO)          | How can enterprise customers sign in with their corporate identity provider?  | **Ory Polis** Provides enterprise SSO by connecting apps to SAML and OIDC identity providers. Bridges legacy SAML into modern OAuth2 flows and supports SCIM directory sync for automated user and group provisioning. |
+| Fine-grained Authorization & Permissions              | Can this user perform this action on this specific resource?                  | **Ory Keto** Provides relationship-based, fine-grained authorization for application-level permissions, such as access to documents, projects, or business objects.                                                    |
+| Proxy Access Control (Enforcement)                    | Should this request be allowed to reach the API right now?                    | **Ory Oathkeeper** Acts as a proxy-based enforcement layer in front of APIs and services, validating credentials and applying authorization decisions before traffic reaches your application.                         |
+
 
 ## Identity and Authentication
 
@@ -97,36 +88,3 @@ Kratos + Hydra + Keto — when you need all three: user login, token issuance/SS
 
 The choice depends on whether you're solving for internal permissions vs. external/delegated access.
 
-````mermaid
-flowchart TD
-    Start([What are you building?]) --> Q1{Need to manage<br>user identities?}
-
-    Q1 -->|Yes| Kratos[✓ Kratos]
-    Q1 -->|No, using existing IdP| ExternalIdP[Use your existing IdP]
-
-    Kratos --> Q2{Need B2B features?<br>Organizations, teams,<br>org-level SSO?}
-    ExternalIdP --> Q3
-
-    Q2 -->|Yes| Polis[✓ Add Polis]
-    Q2 -->|No| Q3
-    Polis --> Q3
-
-    Q3{Need SSO across apps<br>or third-party integrations?}
-
-    Q3 -->|Yes| Hydra[✓ Add Hydra]
-    Q3 -->|No| Q4
-    Hydra --> Q4
-
-    Q4{Need fine-grained<br>permissions?<br>e.g. can user X edit doc Y}
-
-    Q4 -->|Yes| Keto[✓ Add Keto]
-    Q4 -->|No| Q5
-    Keto --> Q5
-
-    Q5{Microservices or<br>zero-trust architecture?}
-
-    Q5 -->|Yes| Oathkeeper[✓ Add Oathkeeper]
-    Q5 -->|No| Done([Your stack is ready])
-    Oathkeeper --> Done
-    ```
-````

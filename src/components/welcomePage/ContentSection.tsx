@@ -10,37 +10,37 @@ export function ContentSection() {
   const items = [
     {
       label: "Ory Console",
-      to: "/docs",
+      to: "https://console.ory.sh/registration?flow=e27eca2b-ca8a-4722-8a4e-9c52a20aa0d4",
       description:
-        "User Interface to manage projects, configurations, and more.",
+        "Sign up to Ory Network's central console to set up projects, manage users, and configure authentication and authorization flows. Monitor, manage, and develop — all in one place.",
     },
     {
       label: "Ory Account Experience",
-      to: "/docs",
+      to: "/account-experience",
       description:
-        "User interface for all self-service screens like login, registration, or consent.",
+        "Learn about Ory Network's default UI for self-service registration, login, verification, recovery, and account settings flows. A polished authentication experience out-of-the-box — no frontend work required.",
     },
     {
       label: "Ory Elements",
-      to: "/docs",
+      to: "/elements",
       description:
-        "Pre-built UI components for login, registration, and account flows.",
+        "Learn how to use Ory's pre-built, customizable UI components to build your own self-service registration, login, recovery, and account settings flows.",
     },
     {
       label: "Ory Actions",
-      to: "/docs",
+      to: "/kratos/hooks/configure-hooks",
       description:
-        "Define custom business logic, automating system behavior in response to events, and integrating with third-party services.",
+        "Learn how to add custom business logic to authentication and authorization flows. Automate event-driven, and integrate third-party services like HubSpot, Google Analytics, and Stripe.",
     },
     {
       label: "Changelog",
-      to: "/docs",
-      description: "Plan your migration to Ory from an existing system.",
+      to: "https://changelog.ory.com/?",
+      description: "Track changes and updates to Ory products and components.",
     },
     {
       label: "Status and SLA",
-      to: "/docs",
-      description: "Understand the core building blocks and architecture.",
+      to: "https://status.ory.com/",
+      description: "Check operational status and uptime for Ory's services.",
     },
   ]
 

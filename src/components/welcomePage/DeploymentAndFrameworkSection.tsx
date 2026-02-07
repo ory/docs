@@ -11,23 +11,23 @@ export function DeploymentAndFrameworkSection() {
     {
       label: "Ory Network",
       description:
-        "Managed identity, OAuth2/OIDC, and permissions. Best choice for new projects.",
+        "Fully managed, multi-regional cloud platform for identity management, authentication, and authorization. Ory handles infrastructure, scaling, and updates — you focus on your app.",
       to: "/network/getting-started",
-      tags: ["Cloud", "Multi-region", "Production ready"],
+      tags: [],
     },
     {
       label: "Ory Enterprise License",
       description:
-        "Self-host Ory with enterprise support, SLAs, and advanced compliance options.",
+        "Deploy and operate the Ory ecosystem on your own infrastructure while retaining full control over your data and environment. Includes enterprise production support.",
       to: "/oel/getting-started",
-      tags: ["Self-hosted", "Enterprise"],
+      tags: [],
     },
     {
-      label: "Open Source",
+      label: "Ory Open Source",
       description:
-        "Use the individual Ory projects directly and run everything yourself.",
+        "Community-driven, open-source identity management, authentication, and authorization. Deploy on your own infrastructure with complete access to the codebase.",
       to: "/oss/getting-started",
-      tags: ["Open Source", "Multi-region"],
+      tags: [],
     },
   ]
 

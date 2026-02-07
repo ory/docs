@@ -5,20 +5,20 @@ import { colors, radius, spacing, typography } from "./tokens"
 export function OtherGuides() {
   const guides = [
     {
-      label: "Install from green-field",
-      to: "/getting-started/overview",
-      description:
-        "Replace your home-grown IAM system with Ory, fully or partially.",
+      label: "Ory Ecosystem & Architecture",
+      to: "/products/products-overview",
+      description: "Understand the core building blocks and architecture.",
     },
     {
       label: "Migrate to Ory",
-      to: "/kratos/self-service/flows/user-login-user-registration",
-      description: "Plan your migration to Ory from an existing system.",
+      to: "/migrate-to-ory/migrate",
+      description: "Plan your migration to Ory.",
     },
-    {
-      label: "Ory Architecture",
-      to: "/kratos/self-service/flows/user-login-user-registration",
-      description: "Understand the core building blocks and architecture.",
+        {
+      label: "Operations",
+      to: "/category/operations-reference",
+      description:
+        "Learn how to operate and maintain Ory in production.",
     },
   ]
 

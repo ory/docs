@@ -26,7 +26,58 @@ const networkSidebar = [
         label: "Getting Started",
         collapsed: true,
         collapsible: true,
-        items: ["getting-started/local-development"],
+        items: [
+          
+          {
+            type: "category",
+            label: "Migrating to Ory",
+            collapsed:true,
+            collapsible: true,
+            items: [
+            {
+            type: "category",
+            label: "Phase 1: Plan & prepare",
+            collapsed: true,
+            collapsible: true,
+            items: [
+              "migrate-to-ory/migrate/index",
+              "migrate-to-ory/migrate/map-to-orycap",
+              "migrate-to-ory/migrate/migrate-strategies",
+              //"migrate-to-ory/migrate/faq-migrate",
+              ],
+            },
+            {
+            type: "category",
+            label: "Phase 2: Migrate",
+            collapsed: true,
+            collapsible: true,
+            items: [
+              "migrate-to-ory/migrate/create-project",
+              "migrate-to-ory/migrate/design-id-schema",
+              "migrate-to-ory/migrate/integrate-frontend",
+              "migrate-to-ory/migrate/integrate-backend",
+              "migrate-to-ory/migrate/migrate-identities",
+            ],
+            },
+            {
+            type: "category",
+            label: "Phase 3: Test & validate",
+            collapsed: true,
+            collapsible: true,
+            items: ["migrate-to-ory/migrate/test-validate"],
+            },
+            {
+            type: "category",
+            label: "Phase 4: Go live",
+            collapsed: true,
+            collapsible: true,
+            items: ["migrate-to-ory/migrate/go-live"],
+            },
+          ],
+        },
+        "migrate-to-ory/auth0",
+        "getting-started/local-development",
+      ],
       },
       {
         type: "category",
