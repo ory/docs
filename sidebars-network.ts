@@ -284,17 +284,18 @@ const networkSidebar = [
         className: "sidebar-icon sidebar-icon-keto",
         collapsed: true,
         items: [
-          "keto/index",
+          "network/keto/index",
           {
             type: "category",
-            label: "Start",
+            label: "Get started",
             collapsed: false,
             collapsible: false,
             link: {
               type: "doc",
-              id: "guides/permissions/overview",
+              id: "network/keto/overview",
             },
-            items: ["keto/quickstart", "keto/examples/olymp-file-sharing"],
+            items: ["network/keto/quickstart", 
+              "network/keto/file-sharing-example"],
           },
           {
             type: "category",
@@ -334,15 +335,15 @@ const networkSidebar = [
         className: "sidebar-icon sidebar-icon-hydra",
         collapsed: true,
         items: [
-          "oauth2-oidc/index",
+          "network/hydra/index",
           {
             type: "category",
-            label: "Start",
+            label: "Get started",
             collapsed: false,
             collapsible: false,
             link: {
               type: "doc",
-              id: "getting-started/ory-network-oauth2",
+              id: "network/hydra/ory-network-oauth2",
             },
             items: [
               "getting-started/oauth2-openid/expressjs",
@@ -449,16 +450,16 @@ const networkSidebar = [
         className: "sidebar-icon sidebar-icon-polis",
         collapsed: true,
         items: [
-          "polis/index",
+          "network/polis/index",
           {
             type: "category",
-            label: "Self-Hosted",
+            label: "Get started",
             collapsed: false,
             collapsible: false,
             items: [
-              "polis/install",
-              "polis/quickstart",
-              "polis/reference/api",
+              "network/polis/quickstart",
+              "polis/reference/api"],
+            },
               {
                 type: "category",
                 label: "Enterprise SSO",
@@ -627,8 +628,6 @@ const networkSidebar = [
                   },
                 ],
               },
-            ],
-          },
         ],
       },
       {
