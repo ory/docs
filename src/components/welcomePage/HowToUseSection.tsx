@@ -11,7 +11,7 @@ export function HowToUseSection() {
       link: { label: "Products", to: "/products/products-overview" },
     },
     {
-      title: "Want to learn more about a specific solution suite?",
+      title: "Want to learn more about a specific solution?",
       description: "Go directly to solution specific information.",
       link: { label: "Solutions", to: "/solutions/solutions-overview" },
     },
