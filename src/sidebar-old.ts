@@ -288,6 +288,7 @@ const operations: SidebarItemsConfig = [
     collapsible: false,
     items: [
       "guides/workspaces",
+      "console/roles-and-permissions",
       "guides/custom-domains",
       "console/usage-billing",
       "guides/manage-project-via-api",
