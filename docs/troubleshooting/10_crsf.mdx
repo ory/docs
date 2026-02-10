@@ -59,6 +59,21 @@ you need to configure your AJAX request to include cookies, because AJAX doesn't
 For example, when using the browser's `fetch` function, you need to set
 [`credentials: 'include'`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters).
 
+### Admin API URLs in local development
+
+When you develop locally with [Ory Tunnel](../getting-started/local-development.mdx), Admin API endpoints such as
+`/admin/recovery/link` and `/admin/recovery/code` return URLs that point to your project slug domain, for example
+`https://{project-slug}.projects.oryapis.com/self-service/recovery?flow=...`. When a user opens one of these URLs in the browser,
+the request goes to a different origin than your local application. This causes a CORS error that can surface as a
+`401 Unauthorized` response or an unhandled error in the Ory SDK.
+
+To fix this, replace the project slug domain in the URL with your Ory Tunnel URL before you send the link to users. For example,
+replace `https://{project-slug}.projects.oryapis.com` with `http://localhost:4000`.
+
+This applies to all flows that use Admin API-generated URLs in the browser, including the
+[account recovery](../kratos/manage-identities/30_account-recovery.mdx) and
+[invite users](../kratos/manage-identities/40_invite-users.mdx) flows.
+
 ### Accessing APIs from a server-side application
 
 When building a server-side application, make sure to include the `Cookie` header from the client when fetching the self-service
