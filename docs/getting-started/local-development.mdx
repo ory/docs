@@ -104,9 +104,9 @@ available. The `--dev` flag disables a few security checks to make local develop
 performing the registration flow: [`http://localhost:4000/ui/registration`](http://localhost:4000/ui/registration).
 
 You can now start developing locally. Make sure to send any HTTP calls you make to `http://localhost:4000` and not
-`https://{your-slug}.projects.oryapis.com`. This also applies to URLs returned by Admin API endpoints, such as recovery or
-invite links. These URLs point to the project slug domain by default and must be rewritten to the Tunnel URL before use in the
-browser. Read [CSRF troubleshooting](../troubleshooting/10_crsf.mdx#admin-api-urls-in-local-development) for more details.
+`https://{your-slug}.projects.oryapis.com`. This also applies to URLs returned by Admin API endpoints, such as recovery or invite
+links. These URLs point to the project slug domain by default and must be rewritten to the Tunnel URL before use in the browser.
+Read [CSRF troubleshooting](../troubleshooting/10_crsf.mdx#admin-api-urls-in-local-development) for more details.
 
 For example, when you configure the Ory SDK (here in Node.js):
 
