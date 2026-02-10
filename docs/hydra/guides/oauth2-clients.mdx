@@ -159,7 +159,7 @@ curl -X POST https://{project.slug}.projects.oryapis.com/admin/clients/{client-i
 
 The response includes the new `client_secret`. **Save this value immediately** - it will not be shown again.
 
-See [API documentation](../../reference/api#tag/oAuth2/operation/oauth2RotateClientSecret).
+See [API documentation](../../reference/api#tag/oAuth2/operation/rotateOAuth2ClientSecret).
 
 </TabItem>
 <TabItem value="sdk" label="Ory SDK">
@@ -174,7 +174,7 @@ const ory = new OAuth2Api(
   })
 )
 
-const { data: client } = await ory.oauth2RotateClientSecret({
+const { data: client } = await ory.rotateOAuth2ClientSecret({
   id: clientId
 })
 
@@ -202,13 +202,13 @@ curl -X DELETE https://{project.slug}.projects.oryapis.com/admin/clients/{client
 
 After cleanup, only the current secret will be valid. Old secrets will no longer authenticate.
 
-See [API documentation](../../reference/api#tag/oAuth2/operation/oauth2DeleteRotatedClientSecrets).
+See [API documentation](../../reference/api#tag/oAuth2/operation/deleteRotatedOAuth2ClientSecrets).
 
 </TabItem>
 <TabItem value="sdk" label="Ory SDK">
 
 ```typescript
-await ory.oauth2DeleteRotatedClientSecrets({
+await ory.deleteRotatedOAuth2ClientSecrets({
   id: clientId
 })
 
