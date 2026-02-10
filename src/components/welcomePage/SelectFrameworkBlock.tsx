@@ -1,8 +1,8 @@
 import React from "react"
-import Link from "@docusaurus/Link"
 import IconCopy from "@site/src/static/img/icons/copy.svg"
 import { StepBadge } from "./StepBadge"
 import { FrameworkCodeSnippet } from "./FrameworkCodeSnippet"
+import { GuideLinkBox } from "./GuideLinkBox"
 import { colors, radius, spacing, typography } from "./tokens"
 
 export type FrameworkValue = "typescript" | "nextjs" | "vue" | "go"
@@ -74,8 +74,8 @@ export function SelectFrameworkBlock({
             maxWidth: "672px",
           }}
         >
-          Already building with a specific framework or language? Pick your stack and follow
-          the quickstart example for that framework/language.
+          Already building with a specific framework or language? Pick your
+          stack and follow the quickstart example for that framework/language.
         </p>
       </div>
 
@@ -191,49 +191,7 @@ export function SelectFrameworkBlock({
         />
       </div>
 
-      {/* Follow the full guide – info box */}
-      <div
-        style={{
-          marginTop: spacing.size4,
-          background: colors.infoTertiary,
-          border: `1px solid ${colors.borderInfoTertiary}`,
-          borderRadius: radius.general,
-          padding: spacing.size6,
-          display: "flex",
-          flexDirection: "column",
-          gap: spacing.size3,
-        }}
-      >
-        <Link
-          to={selected.guideTo}
-          style={{
-            fontFamily: typography.fontFamily,
-            fontSize: typography.fontSizeSm,
-            fontWeight: typography.fontWeightMedium,
-            lineHeight: typography.lineHeightNormal,
-            color: colors.infoOnTertiary,
-            textDecoration: "none",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: spacing.size2,
-          }}
-        >
-          <span
-            style={{
-              width: "20px",
-              height: "20px",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: colors.infoPrimary,
-            }}
-            aria-hidden
-          >
-            💡
-          </span>
-          Follow the quickstart example for {selected.label}
-        </Link>
-      </div>
+      <GuideLinkBox to={selected.guideTo} label={selected.label} />
     </div>
   )
 }

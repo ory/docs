@@ -9,38 +9,40 @@ import {
   type FrameworkValue,
 } from "./SelectFrameworkBlock"
 
+const QUICKSTART_OVERVIEW = "/getting-started/overview"
+
 const FRAMEWORKS: FrameworkOption[] = [
   {
     value: "typescript",
     label: "Typescript",
     Icon: IconTypescript as React.ComponentType<React.SVGProps<SVGSVGElement>>,
     snippet: "npm install @ory/elements-react @ory/nextjs",
-    guideTitle: "Follow the quickstart example for Typescript",
-    guideTo: "/getting-started/overview"
+    guideTitle: "Follow the quickstart guide for Typescript",
+    guideTo: `${QUICKSTART_OVERVIEW}?language=typescript`,
   },
   {
     value: "nextjs",
     label: "Next.js",
     Icon: IconNextjs as React.ComponentType<React.SVGProps<SVGSVGElement>>,
     snippet: "npm install @ory/elements-react @ory/nextjs",
-    guideTitle: "Follow the quickstart example for Next.js",
-    guideTo: "/getting-started/overview"
+    guideTitle: "Follow the quickstart guide for Next.js",
+    guideTo: `${QUICKSTART_OVERVIEW}?language=nextjs`,
   },
   {
     value: "vue",
     label: "Vue",
     Icon: IconVue as React.ComponentType<React.SVGProps<SVGSVGElement>>,
     snippet: "npm install @ory/elements-react @ory/nextjs",
-    guideTitle: "Follow the quickstart example for Vue",
-    guideTo: "/getting-started/overview"
+    guideTitle: "Follow the quickstart guide for Vue",
+    guideTo: `${QUICKSTART_OVERVIEW}?language=vue`,
   },
   {
     value: "go",
     label: "Go",
     Icon: IconGo as React.ComponentType<React.SVGProps<SVGSVGElement>>,
     snippet: "npm install @ory/elements-react @ory/nextjs",
-    guideTitle: "Follow the quickstart example for Go",
-    guideTo: "/getting-started/overview"
+    guideTitle: "Follow the quickstart guide for Go",
+    guideTo: `${QUICKSTART_OVERVIEW}?language=go`,
   },
 ]
 

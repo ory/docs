@@ -9,13 +9,22 @@ import styles from "./quickstart-filter.module.css"
 import { QuickstartGrid } from "./QuickstartGrid"
 import type { DeploymentMode } from "./types"
 
+function getInitialLanguageFromUrl(): string {
+  if (typeof window === "undefined") return "all"
+  const params = new URLSearchParams(window.location.search)
+  const lang = params.get("language")
+  return lang ?? "all"
+}
+
 export const QuickstartFilter = () => {
   const [activeCategoryId, setActiveCategoryId] = useState<string>(
     CATEGORIES[0]?.id ?? "",
   )
   const [deploymentMode, setDeploymentMode] =
     useState<DeploymentMode>("network")
-  const [activeLanguage, setActiveLanguage] = useState<string>("all")
+  const [activeLanguage, setActiveLanguage] = useState<string>(
+    getInitialLanguageFromUrl,
+  )
   const languageFilterRef = useRef<LanguageFilterRef>(null)
 
   const activeCategory =
