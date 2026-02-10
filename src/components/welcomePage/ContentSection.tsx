@@ -71,6 +71,7 @@ export function ContentSection() {
               lineHeight: typography.lineHeightNormal,
               color: colors.textPrimary,
               margin: 0,
+              maxWidth: "800px",
             }}
           >
             Explore Ory's supporting components and resources
@@ -83,7 +84,7 @@ export function ContentSection() {
               lineHeight: typography.lineHeightNormal,
               color: colors.textSecondary,
               margin: 0,
-              maxWidth: "680px",
+              maxWidth: "800px",
             }}
           >
             Learn about the components and resources that complement Ory's core products.

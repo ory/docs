@@ -7,8 +7,48 @@ sidebar_label: Overview
 
 import Link from "@docusaurus/Link"
 
-## Rest APIs
-
 ## Ory CLI
 
-## Ory SDKS
+The Ory CLI is the primary interface for managing Ory from the command line. Use it to create and configure projects, 
+manage identities and permissions, run local development environments with built-in tunneling, and move configurations 
+between self-hosted and Ory Network deployments.
+
+[Learn more...](/category/ory-cli-reference)
+
+## Rest APIs
+
+Ory's REST APIs let you manage identities, OAuth2 clients, permissions, and project configuration programmatically. 
+Public APIs handle end-user flows like authentication. Administrative APIs require a Personal Access Token and cover 
+backend operations. SDKs are available for supported languages.
+
+[Learn more...](/reference/api)
+
+## Ory SDKs
+
+Ory provides two SDK families depending on your deployment. The Ory Network SDK is a single, unified client that covers 
+identity management, OAuth2, and permissions in one package. Service-specific SDKs are available for self-hosted 
+deployments, with a separate client for each Ory product.
+
+### Ory Network SDK
+
+A unified client (ory_client) for integrating with Ory Network. It covers identities, OAuth2, and permissions in a 
+single package, targeting your project's API at `https://{project_slug}.projects.oryapis.com/`. Available in multiple 
+languages. Consult the REST API documentation for code samples and usage examples.
+
+[Learn more...](/sdk)
+
+### Service‑specific SDKs for self‑hosted deployments
+
+Each SDK is documented under its respective product reference. These are intended for self-hosted deployments only. You
+must use the unified Ory Network SDK for Ory Network integrations.
+
+Separate clients for each self-hosted Ory product:
+
+- [Ory Kratos](/kratos/sdk/overview)
+- [Ory Hydra](/hydra/sdk/overview)
+- [Ory Keto](/keto/sdk/overview)  
+- [Ory Polis](/polis/reference/api)
+- [Ory Oathkeeper](/oathkeeper/sdk)
+
+
+

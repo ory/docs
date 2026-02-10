@@ -70,6 +70,11 @@ export const navbar: Navbar = {
           docId: "solutions/solution_agentic",
           label: "Agentic IAM",
         },
+        {
+          type: "doc",
+          docId: "solutions/solution_workforce",
+          label: "Workforce IAM",
+        },
       ],
     },
 

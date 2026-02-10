@@ -6,22 +6,31 @@ sidebar_label: B2B IAM
 
 B2B IAM (Business-to-Business Identity and Access Management) handles authentication and authorization for applications where your
 customers are organizations, not just individual users. This adds complexity: you need to manage organizations (tenants), their
-members, roles within those organizations, and often integrate with your customers' existing identity providers. Ory's stack
-supports B2B IAM patterns:
+members, roles within those organizations, and often integrate with your customers' existing identity providers. 
 
-Ory Kratos — manages user identities, authentication flows (registration, login, password reset, MFA, social sign-in, SSO,
-passkeys), and account management Ory Hydra — provides OAuth2/OIDC for secure API access and machine-to-machine authentication
-between services Ory Keto — models complex organizational permissions (user X is admin of organization Y, organization Y has
-access to resource Z) using relationship-based access control Ory Oathkeeper — enforces tenant isolation at the API layer,
-ensuring users only access their organization's data Ory Polis — provides enterprise SSO via SAML 2.0 and OIDC, abstracting
-protocol complexity into a standard OAuth 2.0 flow. Supports directory sync via SCIM for automatic user
-provisioning/deprovisioning, plus multi-tenancy and self-service SSO configuration for your enterprise customers
+Ory's stack supports B2B IAM patterns:
+
+- Ory Kratos — manages user identities, authentication flows (registration, login, password reset, MFA, social sign-in, SSO,
+passkeys), and account management. 
+
+- Ory Hydra — provides OAuth2/OIDC for secure API access and machine-to-machine authentication between services. 
+
+- Ory Keto — models complex organizational permissions (user X is admin of organization Y, organization Y has
+access to resource Z) using relationship-based access control. 
+
+- Ory Oathkeeper — enforces tenant isolation at the API layer, ensuring users only access their organization's data. 
+
+- Ory Polis — provides enterprise SSO via SAML 2.0 and OIDC, abstracting protocol complexity into a standard OAuth 2.0 
+flow. Supports directory sync via SCIM for automatic user provisioning/deprovisioning, plus multi-tenancy and 
+self-service SSO configuration for your enterprise customers.
 
 Key B2B patterns Ory supports include multi-tenancy (isolating customer data), organization hierarchies, role-based access within
 organizations, delegated administration (letting your customers manage their own users), and enterprise SSO onboarding via SAML
 2.0 and OIDC federation.
 
-Why Ory for B2B? B2B customers expect enterprise-grade identity features—SAML SSO, directory sync, audit logs, compliance
-certifications. Building SAML support alone can take months of XML parsing and certificate management. Ory Polis abstracts this
-complexity, letting you implement enterprise SSO in days instead of months while staying flexible enough to match your specific
-tenant and permissions model.RetryClaude can make mistakes. Please double-check cited sources.
+## Why Ory for B2B? 
+
+B2B customers expect enterprise-grade identity features—SAML SSO, directory sync, audit logs, compliance certifications. 
+Building SAML support alone can take months of XML parsing and certificate management. Ory Polis abstracts this
+complexity, letting you implement enterprise SSO in days instead of months while staying flexible enough to match your 
+specific tenant and permissions model.

@@ -67,7 +67,7 @@ const STEPS: StepQuestion[] = [
   {
     id: "permissions",
     question:
-      "Do you need fine-grained permissions inside your application (for example, “can this user edit this document?”)?",
+      "Do you need fine-grained permissions inside your application? For example, 'can this user edit this document?'",
     options: [
       { value: "yes", label: "Yes", addProducts: ["keto"] },
       { value: "no", label: "No", addProducts: [] },
@@ -90,17 +90,17 @@ const PRODUCT_LABELS: Record<
 > = {
   kratos: {
     label: "Ory Kratos",
-    description: "Identity and login",
+    description: "Identity management and authentication",
     to: "/docs/kratos",
   },
   hydra: {
     label: "Ory Hydra",
-    description: "OAuth2/OIDC tokens",
+    description: "OAuth2/OIDC tokens for authorization",
     to: "/docs/hydra",
   },
   polis: {
     label: "Ory Polis",
-    description: "Enterprise SSO + SCIM",
+    description: "Enterprise SSO & SCIM",
     to: "/docs/polis",
   },
   keto: {
@@ -115,7 +115,7 @@ const PRODUCT_LABELS: Record<
   },
   elements: {
     label: "Ory Elements",
-    description: "Pre-built login and account UI",
+    description: "Pre-built, UI components for self-service flows",
     to: "/docs/elements",
   },
 }
@@ -933,71 +933,7 @@ export function SolutionDesignStepper() {
                   gap: spacing.size3,
                 }}
               >
-                <p
-                  style={{
-                    fontFamily: typography.fontFamily,
-                    fontSize: typography.fontSizeSm,
-                    fontWeight: typography.fontWeightMedium,
-                    lineHeight: "1",
-                    color: colors.textPrimary,
-                    margin: 0,
-                  }}
-                >
-                  Next steps:
-                </p>
-                <ul
-                  style={{
-                    margin: 0,
-                    paddingLeft: spacing.size6,
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: spacing.size2,
-                  }}
-                >
-                  <li>
-                    <Link
-                      to="/getting-started/overview"
-                      style={{
-                        color: colors.brandPrimary,
-                        textDecoration: "underline",
-                        fontFamily: typography.fontFamily,
-                        fontSize: typography.fontSizeBase,
-                      }}
-                    >
-                      View quickstart tutorials
-                    </Link>
-                  </li>
-                  <li>
-                    <a
-                      href="https://console.ory.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        color: colors.brandPrimary,
-                        textDecoration: "underline",
-                        fontFamily: typography.fontFamily,
-                        fontSize: typography.fontSizeBase,
-                      }}
-                    >
-                      Create a free Ory Network project
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.ory.com/contact"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        color: colors.brandPrimary,
-                        textDecoration: "underline",
-                        fontFamily: typography.fontFamily,
-                        fontSize: typography.fontSizeBase,
-                      }}
-                    >
-                      Contact Sales
-                    </a>
-                  </li>
-                </ul>
+                
               </div>
             </div>
           )}

@@ -1,0 +1,43 @@
+---
+id: solution_workforce
+title: Workforce IAM Solution
+sidebar_label: Workforce IAM
+---
+
+Workforce IAM handles authentication and authorization for your internal users — employees, contractors, and partners 
+who need secure access to internal applications, tools, and resources. Unlike CIAM where you control the full identity 
+lifecycle, workforce scenarios often require integrating with existing corporate identity providers, enforcing 
+compliance policies, and managing access across a mix of internal and third-party applications. Ory's stack supports 
+
+Workforce IAM patterns:
+
+- Ory Kratos: manages employee identities, authentication flows (login, MFA, password reset, account management), and 
+supports federation with existing corporate identity providers via OIDC and SAML so employees use their existing 
+credentials.
+
+- Ory Hydra: provides OAuth2/OIDC for single sign-on across internal applications and secure machine-to-machine 
+communication between internal services.
+
+- Ory Keto: enforces role-based and relationship-based access control across internal tools and resources. Model 
+organizational structures (user X belongs to department Y, department Y has access to application Z) and enforce 
+least-privilege access policies.
+
+- Ory Polis: federates with corporate identity providers via SAML 2.0 and OIDC, enabling employees to authenticate with 
+existing enterprise credentials. Supports directory sync via SCIM for automated onboarding and offboarding as employees 
+join, move between teams, or leave the organization.
+
+- Ory Oathkeeper: acts as an identity-aware gateway for internal services, validating employee sessions and enforcing 
+access policies before requests reach backend applications.
+
+Key Workforce IAM patterns Ory supports include single sign-on across internal applications, integration with existing 
+corporate identity providers (Active Directory, Okta, Google Workspace), automated provisioning and deprovisioning via 
+SCIM directory sync, role-based access control aligned to organizational structure, MFA enforcement for sensitive 
+resources, and session policies that adapt to compliance requirements.
+
+## Why Ory for Workforce IAM? 
+
+Employee onboarding and offboarding is a security-critical process — orphaned accounts and 
+stale permissions are among the most common attack vectors in enterprise breaches. Building SSO federation and 
+directory sync yourself means months of SAML XML parsing, SCIM endpoint implementation, and lifecycle management logic. 
+Ory provides the identity federation, provisioning, and access control infrastructure to secure your workforce while 
+integrating with the corporate identity systems your organization already uses.

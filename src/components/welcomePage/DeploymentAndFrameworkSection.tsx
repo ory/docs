@@ -35,7 +35,7 @@ export function DeploymentAndFrameworkSection() {
     <section
       style={{
         paddingTop: spacing.size16,
-        paddingBottom: spacing.size16,
+        paddingBottom: spacing.size12,
         background: colors.backgroundPrimary,
         borderTop: `1px solid ${colors.borderPrimary}`,
         borderBottom: `1px solid ${colors.borderPrimary}`,

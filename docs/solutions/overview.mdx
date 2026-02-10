@@ -71,12 +71,42 @@ business needs.
       </div>
     </div>
   </div>
+
+   <div className="col col--4">
+    <div className="card" style={{ height: "100%" }}>
+      <div className="card__header">
+        <h3>Workforce IAM</h3>
+      </div>
+      <div className="card__body">
+        <p>
+          Friction free authentication, seamless access only to what's needed, and ability to add or revoke 
+          access instantly.
+        </p>
+      </div>
+      <div className="card__footer">
+        <Link className="button button--secondary button--block" to="/docs/solutions/solution_workforce">
+          Learn about Workforce IAM
+        </Link>
+      </div>
+    </div>
+  </div>
   
   </div>
 
 import WelcomePageSection from "@site/src/components/Welcome/welcome"
 import * as welcomeContent from "@site/src/pages/_assets/welcome-content"
 
+<h3>Identity management & authentication solutions</h3>
+<p>What your users need for authentication and user management.</p>
+
 <WelcomePageSection {...welcomeContent.identityManagement} />
+
+<h3>Authorization solutions</h3>
+<p>How to secure access to resources and APIs.</p>
+
 <WelcomePageSection {...welcomeContent.authorizationSecurity} />
+
+<h3>Permission management solutions</h3>
+<p>Controlling who can access what.</p>
+
 <WelcomePageSection {...welcomeContent.permissionManagement} />

@@ -13,7 +13,6 @@ export interface FrameworkOption {
   Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
   snippet: string
   guideTitle: string
-  guideSteps: string[]
   guideTo: string
 }
 
@@ -234,23 +233,6 @@ export function SelectFrameworkBlock({
           </span>
           Follow the quickstart example for {selected.label}
         </Link>
-        <ul
-          style={{
-            margin: 0,
-            paddingLeft: spacing.size6,
-            fontFamily: typography.fontFamily,
-            fontSize: typography.fontSizeSm,
-            fontWeight: typography.fontWeightNormal,
-            lineHeight: typography.lineHeightNormal,
-            color: colors.infoOnTertiary,
-          }}
-        >
-          {selected.guideSteps.map((step, i) => (
-            <li key={i} style={{ marginBottom: spacing.size0_5 }}>
-              {step}
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   )

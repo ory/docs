@@ -18,6 +18,7 @@ import ossSidebar from "./sidebars-oss"
 import agenticSidebar from "./sidebars-agentic"
 import ciamSidebar from "./sidebars-ciam"
 import b2bSidebar from "./sidebars-b2b"
+import workforceSidebar from "./sidebars-workforce"
 import quickstartsSidebar from "./sidebars-quickstarts"
 
 const cli: SidebarItemsConfig = [
