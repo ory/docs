@@ -62,6 +62,21 @@ export function DeploymentAndFrameworkSection() {
           >
             How to design your Ory solution
           </h2>
+          <p
+                  style={{
+                    fontFamily: typography.fontFamily,
+                    fontSize: typography.fontSizeBase,
+                    fontWeight: typography.fontWeightNormal,
+                    lineHeight: typography.lineHeightNormal,
+                    color: colors.textSecondary,
+                    margin: 0,
+                    maxWidth: "800px",
+                  }}
+                >
+                  Every Ory implementation starts with these decisions — how to deploy, which 
+                  products to use, and what framework or language to build with. Start here to find 
+                  the right combination for your use case.
+                </p>
           <div
             style={{
               borderLeft: `1px solid ${colors.borderPrimary}`,

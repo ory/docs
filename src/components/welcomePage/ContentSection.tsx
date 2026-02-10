@@ -33,14 +33,19 @@ export function ContentSection() {
         "Learn how to add custom business logic to authentication and authorization flows. Automate event-driven, and integrate third-party services like HubSpot, Google Analytics, and Stripe.",
     },
     {
-      label: "Changelog",
-      to: "https://changelog.ory.com/?",
-      description: "Track changes and updates to Ory products and components.",
+      label: "Operations",
+      to: "/category/operations-reference",
+      description: "Learn how to operate and maintain Ory in production.",
     },
     {
       label: "Status and SLA",
       to: "https://status.ory.com/",
       description: "Check operational status and uptime for Ory's services.",
+    },
+        {
+      label: "Changelog",
+      to: "https://changelog.ory.com/?",
+      description: "Track changes and updates to Ory products and components.",
     },
   ]
 
@@ -68,9 +73,21 @@ export function ContentSection() {
               margin: 0,
             }}
           >
-            Content
+            Explore Ory's supporting components and resources
           </h2>
-          {/* Subtitle to be added when section is adjusted later */}
+          <p
+            style={{
+              fontFamily: typography.fontFamily,
+              fontSize: typography.fontSizeBase,
+              fontWeight: typography.fontWeightNormal,
+              lineHeight: typography.lineHeightNormal,
+              color: colors.textSecondary,
+              margin: 0,
+              maxWidth: "680px",
+            }}
+          >
+            Learn about the components and resources that complement Ory's core products.
+          </p>
         </div>
 
         <div

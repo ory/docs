@@ -5,20 +5,20 @@ import { colors, radius, spacing, typography } from "./tokens"
 export function OtherGuides() {
   const guides = [
     {
-      label: "Ory Ecosystem & Architecture",
+      label: "Ory ecosystem & architecture",
       to: "/products/products-overview",
       description: "Understand the core building blocks and architecture.",
+    },
+    {
+      label: "Install from green-field",
+      to: "/solutions/solutions-overview",
+      description:
+        "Replace your home-grown IAM solution with Ory, fully or partially.",
     },
     {
       label: "Migrate to Ory",
       to: "/migrate-to-ory/migrate",
       description: "Plan your migration to Ory.",
-    },
-        {
-      label: "Operations",
-      to: "/category/operations-reference",
-      description:
-        "Learn how to operate and maintain Ory in production.",
     },
   ]
 
@@ -49,7 +49,7 @@ export function OtherGuides() {
               margin: 0,
             }}
           >
-            Other guides
+            Start building with Ory
           </h2>
           <p
             style={{
@@ -62,8 +62,7 @@ export function OtherGuides() {
               maxWidth: "680px",
             }}
           >
-            Opinionated, end-to-end walkthroughs to help you ship real features,
-            not just hello-world demos.
+            Starting fresh or migrating? Find your path to production.
           </p>
         </div>
 

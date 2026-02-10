@@ -75,8 +75,8 @@ export function SelectFrameworkBlock({
             maxWidth: "672px",
           }}
         >
-          Drop Ory into an existing app. Pick your stack and follow the
-          step-by-step integration guides.
+          Already building with a specific framework or language? Pick your stack and follow
+          the quickstart example for that framework/language.
         </p>
       </div>
 
@@ -232,7 +232,7 @@ export function SelectFrameworkBlock({
           >
             💡
           </span>
-          Follow the full guide for {selected.label}
+          Follow the quickstart example for {selected.label}
         </Link>
         <ul
           style={{

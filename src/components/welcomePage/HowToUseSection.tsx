@@ -6,23 +6,23 @@ import styles from "@site/src/pages/welcome.module.css"
 export function HowToUseSection() {
   const guides = [
     {
-      title: "Want to learn more about a specific product suite?",
+      title: "Explore by product",
       description: "Go directly to product specific information.",
       link: { label: "Products", to: "/products/products-overview" },
     },
     {
-      title: "Want to learn more about a specific solution?",
+      title: "Explore by solution",
       description: "Go directly to solution specific information.",
       link: { label: "Solutions", to: "/solutions/solutions-overview" },
     },
     {
-      title: "Start coding with an example",
+      title: "Start from an example",
       description:
-        "Take a look in the Quickstarts to find the framework and language you want to use.",
+        "Check the Quickstarts to find the framework and language you want to use.",
       link: { label: "Quickstarts", to: "/getting-started/overview" },
     },
     {
-      title: "Find the right API to use",
+      title: "Find an API reference",
       description: "Go directly to the REST API, SDKs, or CLI references.",
       link: { label: "API reference", to: "/reference/reference-overview" },
     },
