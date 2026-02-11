@@ -1,6 +1,6 @@
 import React from "react"
-import Link from "@docusaurus/Link"
-import { colors, radius, spacing, typography } from "./tokens"
+import { OverviewCard } from "./OverviewCard"
+import { colors, spacing, typography } from "./tokens"
 
 export function OtherGuides() {
   const guides = [
@@ -85,48 +85,16 @@ export function OtherGuides() {
           }}
         >
           {guides.map((guide) => (
-            <Link
+            <div
               key={guide.label}
-              to={guide.to}
-              style={{
-                flex: "1 1 0",
-                minWidth: "280px",
-                background: colors.backgroundSecondary,
-                border: `1px solid ${colors.borderPrimary}`,
-                borderRadius: radius.general,
-                padding: spacing.size6,
-                display: "flex",
-                flexDirection: "column",
-                gap: spacing.size2,
-                textDecoration: "none",
-                color: "inherit",
-              }}
+              style={{ flex: "1 1 0", minWidth: "280px" }}
             >
-              <h3
-                style={{
-                  fontFamily: typography.fontFamily,
-                  fontSize: typography.fontSizeBase,
-                  fontWeight: typography.fontWeightMedium,
-                  lineHeight: typography.lineHeightTight,
-                  color: colors.textPrimary,
-                  margin: 0,
-                }}
-              >
-                {guide.label}
-              </h3>
-              <p
-                style={{
-                  fontFamily: typography.fontFamily,
-                  fontSize: typography.fontSizeBase,
-                  fontWeight: typography.fontWeightNormal,
-                  lineHeight: typography.lineHeightNormal,
-                  color: colors.textSecondary,
-                  margin: 0,
-                }}
-              >
-                {guide.description}
-              </p>
-            </Link>
+              <OverviewCard
+                title={guide.label}
+                description={guide.description}
+                to={guide.to}
+              />
+            </div>
           ))}
         </div>
       </div>

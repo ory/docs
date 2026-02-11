@@ -1,6 +1,6 @@
 import React from "react"
-import Link from "@docusaurus/Link"
-import { colors, radius, spacing, typography } from "./tokens"
+import { OverviewCard } from "./OverviewCard"
+import { colors, spacing, typography } from "./tokens"
 
 /**
  * Content section (placeholder – title and items will be adjusted later).
@@ -109,46 +109,12 @@ export function ContentSection() {
           }}
         >
           {items.map((item) => (
-            <Link
+            <OverviewCard
               key={item.label}
+              title={item.label}
+              description={item.description}
               to={item.to}
-              style={{
-                background: colors.backgroundSecondary,
-                border: `1px solid ${colors.borderPrimary}`,
-                borderRadius: radius.general,
-                padding: spacing.size6,
-                display: "flex",
-                flexDirection: "column",
-                gap: spacing.size2,
-                textDecoration: "none",
-                color: "inherit",
-              }}
-            >
-              <h3
-                style={{
-                  fontFamily: typography.fontFamily,
-                  fontSize: typography.fontSizeBase,
-                  fontWeight: typography.fontWeightMedium,
-                  lineHeight: typography.lineHeightTight,
-                  color: colors.textPrimary,
-                  margin: 0,
-                }}
-              >
-                {item.label}
-              </h3>
-              <p
-                style={{
-                  fontFamily: typography.fontFamily,
-                  fontSize: typography.fontSizeBase,
-                  fontWeight: typography.fontWeightNormal,
-                  lineHeight: typography.lineHeightNormal,
-                  color: colors.textSecondary,
-                  margin: 0,
-                }}
-              >
-                {item.description}
-              </p>
-            </Link>
+            />
           ))}
         </div>
       </div>
