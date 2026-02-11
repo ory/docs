@@ -139,10 +139,10 @@ interruption.
 
 ### How secret rotation works
 
-1. **Rotate the secret**: Generate a new secret for the client
-2. **Both secrets work**: Old and new secrets both authenticate until cleanup
-3. **Update services**: Update your applications to use the new secret
-4. **Cleanup**: Manually remove old rotated secrets once all services are updated
+1. Rotate the secret: Generate a new secret for the client
+2. Both secrets work: Old and new secrets both authenticate until cleanup
+3. Update services: Update your applications to use the new secret
+4. Cleanup: Manually remove old rotated secrets once all services are updated
 
 ### Rotate client secret
 
@@ -157,7 +157,7 @@ curl -X POST https://{project.slug}.projects.oryapis.com/admin/clients/{client-i
   -H "Authorization: Bearer ory_pat_..."
 ```
 
-The response includes the new `client_secret`. **Save this value immediately** - it will not be shown again.
+The response includes the new `client_secret`. Save this value immediately - it will not be shown again.
 
 See [API documentation](../../reference/api#tag/oAuth2/operation/rotateOAuth2ClientSecret).
 
