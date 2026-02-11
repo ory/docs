@@ -377,11 +377,15 @@
   --ory-navbar-right-width: auto;
   --ory-navbar-right-gap: 8px;
   --ory-search-width: 200px;
-  /* Button hover effect variables */
   --button-button-height: 32px;
+  --button-primary-bg: #0f172a;
+  --button-primary-text: #ffffff;
   --size-25: 10px;
   --size-05: 2px;
   --radius-buttons: 4px;
+  --background-inverted-primary: #0f172a;
+  --border-inverted-primary: #0f172a;
+  --text-inverted-primary: #ffffff;
   --border-transparent-transparent: rgba(255, 255, 255, 0);
   --background-transparent-primary-hover: rgba(0, 0, 0, 0.02);
 }
@@ -426,6 +430,7 @@
   justify-content: center;
   gap: 6px;
   height: 24px;
+  min-width: 0;
   width: 100%;
   padding: 4px;
 }
@@ -433,8 +438,11 @@
 .navbar__logo img {
   height: 16px;
   width: auto;
+  max-width: 100%;
   display: block;
   flex-shrink: 0;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .navbar__logo::before,

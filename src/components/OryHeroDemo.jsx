@@ -242,16 +242,18 @@ const OryHeroDemo = () => {
       padding: "8px 16px",
       fontSize: "13px",
       fontWeight: "600",
-      borderRadius: "0",
       border: "none",
+      borderRadius: "0",
       cursor: "pointer",
       display: "inline-flex",
       alignItems: "center",
       gap: "6px",
     },
     runButton: {
-      background: "#6366f1",
-      color: "#ffffff",
+      borderRadius: "var(--radius-buttons, 4px)",
+      border: "1px solid var(--border-inverted-primary, #0f172a)",
+      background: "var(--background-inverted-primary, #0f172a)",
+      color: "var(--button-primary-text, #ffffff)",
     },
     runButtonDisabled: {
       background: "#e2e8f0",
@@ -376,7 +378,6 @@ const OryHeroDemo = () => {
               ...(isRunning ? styles.runButtonDisabled : styles.runButton),
             }}
           >
-            <span style={styles.buttonIcon}>&gt;</span>
             Run
           </button>
         </div>

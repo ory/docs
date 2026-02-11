@@ -1,8 +1,8 @@
 import React from "react"
-import { Card, CardGrid, CardItem } from "../WelcomeCard/welcome-card"
-import styles from "./welcome.module.css"
+import { CardItem } from "../WelcomeCard/welcome-card"
+import { OverviewCard } from "../welcomePage/OverviewCard"
+import { spacing } from "../welcomePage/tokens"
 
-// Interface for the section props
 export interface WelcomePageSectionProps {
   id: string
   title?: string
@@ -10,19 +10,29 @@ export interface WelcomePageSectionProps {
   cards: Array<CardItem>
 }
 
-// Section Component
 const WelcomePageSection: React.FC<WelcomePageSectionProps> = ({
   id,
-  title,
-  description,
   cards,
 }) => {
   return (
-    <CardGrid>
-      {cards.map((card, index) => (
-        <Card key={index} {...card} />
-      ))}
-    </CardGrid>
+    <section id={id}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+          gap: spacing.size4,
+        }}
+      >
+        {cards.map((card, index) => (
+          <OverviewCard
+            key={index}
+            title={card.title}
+            description={card.description ?? ""}
+            to={card.docs || card.repo || "#"}
+          />
+        ))}
+      </div>
+    </section>
   )
 }
 
