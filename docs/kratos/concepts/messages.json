@@ -905,5 +905,10 @@
     "context": {
       "reason": "{reason}"
     }
+  },
+  {
+    "id": 5000002,
+    "text": "No authentication methods are available. Please contact the system administrator.",
+    "type": "error"
   }
 ]

@@ -1627,4 +1627,14 @@
 }
 ```
 
+###### No authentication methods are available. Please contact the system administrator. (5000002)
+
+```json
+{
+  "id": 5000002,
+  "text": "No authentication methods are available. Please contact the system administrator.",
+  "type": "error"
+}
+```
+
 <!-- END MESSAGE TABLE -->
