@@ -862,33 +862,33 @@ svg[class*="iconExternalLink"] {
   text-decoration: underline;
 }
 
-/* Move collapse arrows to left side */
+/* Sidebar carets on the right (Figma node 6276-46122) */
 .menu__link--sublist-caret {
   display: flex !important;
-  flex-direction: row-reverse !important;
-  justify-content: flex-end !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
 }
 
 .menu__link--sublist-caret:after {
-  margin-left: 0 !important;
-  margin-right: 8px !important;
+  margin-left: 8px !important;
+  margin-right: 0 !important;
+  flex-shrink: 0 !important;
   /* Size adjustments */
   height: 1rem !important;
   width: 1rem !important;
   min-width: 1rem !important;
   background-size: 1.5rem 1.5rem !important;
-
-  /* Make it lighter/less bold */
-  opacity: 0.6;
+  opacity: 0.6 !important;
 }
 
-/* Move the caret button to the left by reversing the flex direction of the container */
 .theme-doc-sidebar-item-category-level-2 .menu__list-item-collapsible,
 .theme-doc-sidebar-item-category-level-3 .menu__list-item-collapsible,
 .theme-doc-sidebar-item-category-level-4 .menu__list-item-collapsible {
   display: flex !important;
-  flex-direction: row-reverse !important;
-  justify-content: flex-end !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
 }
 
 .theme-doc-sidebar-item-category-level-2
@@ -900,8 +900,8 @@ svg[class*="iconExternalLink"] {
 .theme-doc-sidebar-item-category-level-4
   .menu__list-item-collapsible
   > .menu__caret {
-  margin-left: 0 !important;
-  margin-right: 8px !important;
+  margin-left: 8px !important;
+  margin-right: 0 !important;
   opacity: 0.6 !important;
   background: transparent !important;
   padding: 0 !important;
