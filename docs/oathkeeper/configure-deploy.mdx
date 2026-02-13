@@ -84,6 +84,24 @@ EOF
 This configuration file will run the proxy at port 4455, the api at port 4456, and enable the anonymous authenticator, the allow
 and deny authorizers, and the noop and id_token mutators.
 
+### Secure logging
+
+Ory Oathkeeper logs request information including headers. By default, sensitive headers like `authorization`, `cookie`,
+`set-cookie`, and `x-session-token` are automatically redacted in logs.
+
+If your application uses custom authentication headers (for example, `x-custom-authorization` or `x-api-key`), configure
+Oathkeeper to redact these headers in log output:
+
+```yaml
+log:
+  redact_headers:
+    - x-custom-authorization
+    - x-api-key
+    - x-secret-token
+```
+
+You can also use the `LOG_REDACT_HEADERS` environment variable with a comma-separated list.
+
 ### Access rules
 
 We will be using [httpbin.org](https://httpbin.org) as the upstream server. The service echoes incoming HTTP Requests and is
