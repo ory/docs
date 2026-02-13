@@ -114,21 +114,40 @@ Then we can run
 
 ```bash
 keto relation-tuple parse policies.rts --format json | \
-  keto relation-tuple create - >/dev/null \
+  keto relation-tuple create -f - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
 ```
 
+:::tip
+
+The `-f` flag is now required for file-based operations. The command above reads from stdin (indicated by `-`), so `-f -` is used.
+
+Alternatively, you can create relation tuples directly using the new syntax:
+
+```bash
+# Create a single relation tuple directly
+keto relation-tuple create Dilan member groups:community
+```
+
+:::
+
 Since Dilan works as a community manager, the following check examples show that he has access only to community reports
 
 ```bash
-keto check Dilan view reports finance
-Denied
-keto check Dilan view reports community
-Allowed
-keto check Dilan edit reports community
-Denied
+keto check Dilan view reports:finance
+# Denied
+keto check Dilan view reports:community
+# Allowed
+keto check Dilan edit reports:community
+# Denied
 ```
+
+:::tip
+
+The new syntax uses `namespace:object` format (e.g., `reports:finance`). The old syntax `namespace object` (e.g., `reports finance`) is still supported but deprecated and will show a warning message.
+
+:::
 
 Now Dilan decided to also work with marketing. Therefore we need to update his permissions and add him to the marketing group.
 
@@ -136,11 +155,17 @@ Now Dilan decided to also work with marketing. Therefore we need to update his p
 groups:marketing#member@Dilan
 ```
 
+You can create this relation tuple using:
+
+```bash
+keto relation-tuple create Dilan member groups:marketing
+```
+
 Now he also has access to marketing reports:
 
-```
-keto check Dilan view reports marketing
-Allowed
+```bash
+keto check Dilan view reports:marketing
+# Allowed
 ```
 
 ## Display all objects a user has access to

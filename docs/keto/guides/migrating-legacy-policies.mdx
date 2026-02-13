@@ -92,38 +92,59 @@ This example uses the Ory Keto CLI to create the relationship using the [write A
 
 ```bash
 keto relation-tuple parse alice_policies --format json | \
-  keto relation-tuple create - >/dev/null \
+  keto relation-tuple create -f - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
 ```
 
 ```bash
 keto relation-tuple parse bob_policies --format json | \
-  keto relation-tuple create - >/dev/null \
+  keto relation-tuple create -f - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
 ```
+
+:::tip
+
+The `-f` flag is now required for file-based operations. The command above reads from stdin (indicated by `-`), so `-f -` is used.
+
+Alternatively, you can create relation tuples directly using the new syntax:
+
+```bash
+# Create a single relation tuple directly
+keto relation-tuple create alice read blog_posts:my-first-blog-post
+keto relation-tuple create alice modify blog_posts:my-first-blog-post
+# ... and so on
+```
+
+:::
 
 Now we can use the [check-API](../guides/simple-access-check-guide) to verify that `alice` is allowed to `read` the
 `my-first-blog-post`:
 
 ```sh
-keto check alice read blog_posts my-first-blog-post
-Allowed
+keto check alice read blog_posts:my-first-blog-post
+# Allowed
 ```
+
+:::tip
+
+The new syntax uses `namespace:object` format (e.g., `blog_posts:my-first-blog-post`). The old syntax `namespace object` (e.g., `blog_posts my-first-blog-post`) is still supported but deprecated and will show a warning message.
+
+:::
 
 What about Bob?
 
-```
-keto check bob read blog_posts my-first-blog-post
-Allowed
+```sh
+keto check bob read blog_posts:my-first-blog-post
+# Allowed
 ```
 
 What about John?
 
-```
-keto check john read blog_posts my-first-blog-post
-Denied
+```sh
+keto check john read blog_posts:my-first-blog-post
+# Denied
 ```
 
 ## Next steps

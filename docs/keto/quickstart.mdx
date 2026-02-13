@@ -82,11 +82,17 @@ operation should be allowed or denied.
 
 ```shell
 # Is "*" allowed to "view" the object "videos":"/cats/2.mp4"?
-keto check "*" view videos /cats/2.mp4
+keto check "*" view videos:/cats/2.mp4
 # output:
 
 # Denied
 ```
+
+:::tip
+
+The new syntax uses `namespace:object` format (e.g., `videos:/cats/2.mp4`). The old syntax `namespace object` (e.g., `videos /cats/2.mp4`) is still supported but deprecated and will show a warning message.
+
+:::
 
 We already discussed that this request should be denied, but it's always good to see this in action.
 
@@ -96,7 +102,7 @@ these data:
 
 ```shell
 # Who is allowed to "view" the object "videos":"/cats/2.mp4"?
-keto expand view videos /cats/1.mp4
+keto expand view videos:/cats/1.mp4
 # output:
 
 # ∪ videos:/cats/1.mp4#view
@@ -105,6 +111,12 @@ keto expand view videos /cats/1.mp4
 # │  │  ├─ ☘ cat lady️
 # ├─ ☘ *️
 ```
+
+:::tip
+
+The new syntax uses `namespace:object` format (e.g., `videos:/cats/1.mp4`). The old syntax `namespace object` (e.g., `videos /cats/1.mp4`) is still supported but deprecated and will show a warning message.
+
+:::
 
 Here we can see the full subject set expansion. The first branch
 
@@ -134,7 +146,7 @@ tree. The following CLI command proves that this is the case:
 
 ```shell
 # Is "*" allowed to "view" the object "videos":"/cats/1.mp4"?
-keto check "*" view videos /cats/1.mp4
+keto check "*" view videos:/cats/1.mp4
 # output:
 
 # Allowed
