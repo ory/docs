@@ -113,8 +113,8 @@ groups:admin#member@Neel
 Then we can run
 
 ```bash
-keto relation-tuple parse policies.rts --format json | \
-  keto relation-tuple create - >/dev/null \
+keto tuple parse policies.rts --format json | \
+  keto tuple create - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
 ```
@@ -149,7 +149,7 @@ The example below shows you how to get a list of objects Dilan has access to
 
 ```bash
 # Get all groups for Dilan
-keto relation-tuple get --subject-id=Dilan --relation=member --format json --read-remote localhost:4466 | jq
+keto tuple get --subject-id=Dilan --relation=member --format json --read-remote localhost:4466 | jq
 {
   "relation_tuples": [
     {
@@ -169,7 +169,7 @@ keto relation-tuple get --subject-id=Dilan --relation=member --format json --rea
 }
 
 # Get permissions to objects for marketing group
-keto relation-tuple get --subject-set="groups:marketing#member" --format json --read-remote localhost:4466 | jq
+keto tuple get --subject-set="groups:marketing#member" --format json --read-remote localhost:4466 | jq
 {
   "relation_tuples": [
     {
@@ -186,7 +186,7 @@ keto relation-tuple get --subject-set="groups:marketing#member" --format json --
   "next_page_token": ""
 }
 # Get permissions to objects for community group
-keto relation-tuple get --subject-set="groups:community#member" --format json --read-remote localhost:4466 | jq
+keto tuple get --subject-set="groups:community#member" --format json --read-remote localhost:4466 | jq
 {
   "relation_tuples": [
     {

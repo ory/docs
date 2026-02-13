@@ -91,15 +91,15 @@ blog_posts:3#create@bob
 This example uses the Ory Keto CLI to create the relationship using the [write API](../concepts/api-overview#write-apis)
 
 ```bash
-keto relation-tuple parse alice_policies --format json | \
-  keto relation-tuple create - >/dev/null \
+keto tuple parse alice_policies --format json | \
+  keto tuple create - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
 ```
 
 ```bash
-keto relation-tuple parse bob_policies --format json | \
-  keto relation-tuple create - >/dev/null \
+keto tuple parse bob_policies --format json | \
+  keto tuple create - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
 ```
