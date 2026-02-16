@@ -40,7 +40,7 @@ const STEPS: StepQuestion[] = [
   {
     id: "oauth",
     question:
-      "Do you need authentication for APIs, mobile apps, or single-page applications (beyond browser cookies and sessions)? These typically require OAuth2/OIDC tokens.",
+      "Do you need users to sign in once and use multiple applications, or let third-party apps access your APIs on the user's behalf?",
     options: [
       { value: "yes", label: "Yes", addProducts: ["hydra"] },
       { value: "no", label: "No", addProducts: [] },
