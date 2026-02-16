@@ -2,6 +2,245 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 
+/* Ory design tokens - enables Tailwind utilities */
+/* Font source of truth: HomePage uses Inter, sans-serif */
+@theme {
+  --font-ory: "Inter", sans-serif;
+
+  --color-ory-text-primary: #0f172a;
+  --color-ory-text-secondary: #334155;
+  --color-ory-text-tertiary: #64748b;
+  --color-ory-brand-primary: #383bca;
+  --color-ory-brand-on-tertiary: #2e3081;
+  --color-ory-bg-primary: #fff;
+  --color-ory-bg-brand-tertiary: #e0e1ff;
+  --color-ory-bg-secondary: #f8fafc;
+  --color-ory-bg-secondary-hover: #e2e8f0;
+  --color-ory-bg-dark: #0f172a;
+  --color-ory-border-primary: #cbd5e1;
+  --color-ory-border-brand-tertiary: #6366f1;
+  --color-ory-bg-tertiary: #e2e8f0;
+  --color-ory-info-primary: #0ea5e9;
+  --color-ory-info-tertiary: #e0f2fe;
+  --color-ory-info-on-tertiary: #0c4a6e;
+  --color-ory-border-info-tertiary: #0ea5e9;
+
+  --text-ory-heading-1: 40px;
+  --text-ory-heading-1--line-height: 1.25;
+  --text-ory-section: 24px;
+  --text-ory-section--line-height: 1.5;
+  --text-ory-body: 16px;
+  --text-ory-body--line-height: 1.5;
+  --text-ory-sm: 14px;
+  --text-ory-xs: 12px;
+
+  --spacing-ory-2: 8px;
+  --spacing-ory-3: 12px;
+  --spacing-ory-4: 16px;
+  --spacing-ory-6: 24px;
+  --spacing-ory-8: 32px;
+  --spacing-ory-12: 48px;
+  --spacing-ory-16: 64px;
+  --radius-ory: 6px;
+  --radius-ory-btn: 4px;
+}
+
+/* Ory semantic component classes - typography and buttons */
+/* Unlayered so they override Docusaurus/Infima base h1–h6 styles (layered styles lose to unlayered) */
+h1.ory-heading-1,
+.ory-heading-1 {
+  font-family: var(--ory-font);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--ory-text-primary);
+  margin: 0;
+}
+
+h2.ory-heading-2,
+h2.ory-section-title,
+.ory-heading-2,
+.ory-section-title {
+  font-family: var(--ory-font);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-primary);
+  margin: 0;
+}
+
+h3.ory-heading-3,
+.ory-heading-3 {
+  font-family: var(--ory-font);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--ory-text-primary);
+  margin: 0;
+}
+
+.ory-body {
+  font-family: var(--ory-font);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-secondary);
+  margin: 0;
+}
+
+.ory-body-sm {
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-secondary);
+  margin: 0;
+}
+
+.ory-body-xs {
+  font-family: var(--ory-font);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-secondary);
+  margin: 0;
+}
+
+.ory-link {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ory-brand-primary);
+  font-family: var(--ory-font);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.ory-btn-primary {
+  height: 32px;
+  padding: 0 16px;
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  background-color: var(--ory-bg-dark);
+  color: white;
+  border: none;
+  border-radius: var(--ory-radius-btn);
+  cursor: pointer;
+}
+
+.ory-btn-secondary {
+  height: 32px;
+  padding: 0 16px;
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  background-color: var(--ory-bg-primary);
+  color: var(--ory-text-primary);
+  border: 1px solid var(--ory-border-primary);
+  border-radius: var(--ory-radius-btn);
+  cursor: pointer;
+}
+
+.ory-btn-ghost {
+  height: 28px;
+  padding: 0 10px;
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--ory-radius-btn);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Active state for code snippet framework tab – overrides .ory-btn-ghost */
+.ory-code-tab--active {
+  background: var(--ory-bg-brand-tertiary);
+  border-color: var(--ory-border-brand-tertiary);
+  color: var(--ory-brand-on-tertiary);
+}
+
+.ory-btn-icon {
+  width: 32px;
+  height: 28px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--ory-radius-btn);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Reusable guide card (e.g. How to use section) */
+.ory-guide-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ory-s4);
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.ory-guide-card__title {
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--ory-text-primary);
+  margin: 0;
+}
+
+.ory-guide-card__description {
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-secondary);
+  margin: 0;
+}
+
+.ory-guide-card__link {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  margin-top: auto;
+  text-decoration: none;
+  color: var(--ory-brand-primary);
+  font-family: var(--ory-font);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Section heading (page/section title) – correct weight for h2 */
+.ory-heading-2.ory-section-heading,
+h2.ory-section-heading {
+  font-weight: 500;
+}
+
+.ory-tag {
+  font-family: var(--ory-font);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 2px 8px;
+  border-radius: var(--ory-radius);
+  background: var(--ory-bg-tertiary);
+  color: var(--ory-text-secondary);
+}
+
+.ory-tag-highlight {
+  background: #c7c8fe;
+  color: #3032a3;
+}
+
 /**
  * fonts in this file are being loaded from the main website to improve
  * caching.
@@ -338,16 +577,21 @@
 }
 
 :root {
+  /* Font source of truth: HomePage uses Inter, sans-serif */
   --ifm-font-family-base-fallback: sans-serif;
   --ifm-font-family-monospace-fallback: monospace;
-  --ifm-font-family-base: "InterVariable", var(--ifm-font-family-base-fallback);
+  --ifm-font-family-base: "Inter", var(--ifm-font-family-base-fallback);
   --ifm-font-family-monospace: "JetBrains Mono",
     var(--ifm-font-family-monospace-fallback);
   --ifm-color-primary: var(--color-indigo-900); /* Indigo 900 */
-  --ifm-heading-color: var(
-    --color-indigo-900
-  ); /* Indigo 900 - Color used for headings in text */
-  --ifm-heading-font-family: "InterVariable";
+  --ifm-heading-color: var(--ory-text-primary);
+  --ifm-heading-font-family: "Inter";
+  --ifm-heading-font-weight: 400;
+  --ifm-heading-line-height: 1.25;
+  /* Ory typography scale for doc content (matches ory-heading-1, ory-heading-2, etc.) */
+  --ifm-h1-font-size: 2.5rem; /* 40px */
+  --ifm-h2-font-size: 1.5rem; /* 24px */
+  --ifm-h3-font-size: 1rem; /* 16px */
   --ifm-navbar-link-hover-color: var(--color-indigo-500); /* Cyan 500 */
   --ifm-menu-color-active: var(
     --color-indigo-500
@@ -358,9 +602,14 @@
     "calt" 1; /* fix for Chrome */
 }
 
+/* Override .markdown h1:first-child so doc title uses Ory size (not Infima 3rem) */
+.markdown h1:first-child {
+  --ifm-h1-font-size: 2.5rem; /* 40px - matches ory-heading-1 */
+}
+
 /* ----------------------------
-   Navbar (Figma node 5046:5330)
-   Exact styling from Figma design
+   Navbar
+   Exact styling from design
 ----------------------------- */
 :root {
   --ory-navbar-height: 64px;
@@ -389,7 +638,7 @@
   --border-transparent-transparent: rgba(255, 255, 255, 0);
   --background-transparent-primary-hover: rgba(0, 0, 0, 0.02);
 
-  /* Sidebar product circle icons (from Figma vars) */
+  /* Sidebar product circle icons */
   --icons-base: 16px;
   --icon-kratos-tertiary: #f97316;
   --icon-hydra-tertiary: var(--color-blue-500);
@@ -397,6 +646,44 @@
   --icon-oathkeeper-tertiary: var(--color-teal-500);
   --icon-polis-tertiary: var(--color-purple-500);
   --icon-network-tertiary: var(--color-indigo-500);
+
+  /* Ory design tokens (for non-Tailwind use - mirrors @theme) */
+  /* Font source of truth: HomePage uses Inter, sans-serif */
+  --ory-font: "Inter", sans-serif;
+  --ory-text-primary: #0f172a;
+  --ory-text-secondary: #334155;
+  --ory-text-tertiary: #64748b;
+  --ory-brand-primary: #383bca;
+  --ory-brand-on-tertiary: #2e3081;
+  --ory-bg-primary: #fff;
+  --ory-bg-brand-tertiary: #e0e1ff;
+  --ory-bg-secondary: #f8fafc;
+  --ory-bg-secondary-hover: #e2e8f0;
+  --ory-bg-tertiary: #e2e8f0;
+  --ory-bg-dark: #0f172a;
+  --ory-border-primary: #cbd5e1;
+  --ory-border-brand-tertiary: #6366f1;
+  --ory-border-info-tertiary: #0ea5e9;
+  --ory-info-tertiary: #e0f2fe;
+  --ory-info-primary: #0ea5e9;
+  --ory-info-on-tertiary: #0c4a6e;
+  --ory-radius: 6px;
+  --ory-radius-btn: 4px;
+
+  /* Spacing */
+  --ory-s0: 0px;
+  --ory-s0_5: 2px;
+  --ory-s1: 4px;
+  --ory-s1_5: 6px;
+  --ory-s2: 8px;
+  --ory-s2_5: 10px;
+  --ory-s3: 12px;
+  --ory-s4: 16px;
+  --ory-s5: 20px;
+  --ory-s6: 24px;
+  --ory-s8: 32px;
+  --ory-s12: 48px;
+  --ory-s16: 64px;
 }
 
 .navbar {
@@ -539,7 +826,7 @@
   flex-shrink: 0;
 }
 
-/* Search input styling from Figma node 5211:5845 */
+/* Search input styling */
 .navbar .DocSearch-Button,
 .navbar__items--right .DocSearch-Button,
 .DocSearch-Button {
@@ -607,7 +894,7 @@
   margin: 0 !important;
 }
 
-/* ⌘K keyboard shortcut badge - Figma node 5211:5845 */
+/* ⌘K keyboard shortcut badge */
 /* Container for keyboard keys */
 .navbar .DocSearch-Button-Key,
 .navbar__items--right .DocSearch-Button-Key,
@@ -717,9 +1004,8 @@
 
 @supports (font-variation-settings: normal) {
   :root {
-    --ifm-font-family-base: InterVariable, var(--ifm-font-family-base-fallback);
-    --ifm-heading-font-family: InterVariable,
-      var(--ifm-font-family-base-fallback);
+    --ifm-font-family-base: Inter, var(--ifm-font-family-base-fallback);
+    --ifm-heading-font-family: Inter, var(--ifm-font-family-base-fallback);
   }
 }
 /* If you have a different syntax highlighting theme for dark mode. */
@@ -871,7 +1157,7 @@ svg[class*="iconExternalLink"] {
   text-decoration: underline;
 }
 
-/* Sidebar carets on the right (Figma node 6276-46122) */
+/* Sidebar carets on the right */
 .menu__link--sublist-caret {
   display: flex !important;
   flex-direction: row !important;
@@ -1085,7 +1371,7 @@ svg[class*="iconExternalLink"] {
   flex-shrink: 0;
 }
 
-/* Circle icon variants - product colors from Figma vars */
+/* Circle icon variants - product colors */
 .sidebar-icon-hydra
   > .menu__list-item-collapsible
   > .menu__link

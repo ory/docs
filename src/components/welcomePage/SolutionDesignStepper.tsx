@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react"
 import Link from "@docusaurus/Link"
 import Mermaid from "@theme/Mermaid"
-import { colors, radius, spacing, typography } from "./tokens"
+import { colors } from "./tokens"
 import { StepBadge } from "./StepBadge"
 
 type ProductKey =
@@ -637,71 +637,22 @@ export function SolutionDesignStepper() {
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: spacing.size4,
-          marginBottom: spacing.size8,
-          position: "relative",
-        }}
-      >
+      <div className="flex flex-col gap-ory-4 mb-ory-8 relative">
         <StepBadge step={2} />
-        <h2
-          style={{
-            fontFamily: typography.fontFamily,
-            fontSize: typography.fontSizeLg,
-            fontWeight: typography.fontWeightMedium,
-            lineHeight: typography.lineHeightTight,
-            color: colors.textPrimary,
-            margin: 0,
-            maxWidth: "800px",
-          }}
-        >
-          Pick your Ory products
-        </h2>
-        <p
-          style={{
-            fontFamily: typography.fontFamily,
-            fontSize: typography.fontSizeBase,
-            fontWeight: typography.fontWeightNormal,
-            lineHeight: typography.lineHeightNormal,
-            color: colors.textSecondary,
-            margin: 0,
-            maxWidth: "800px",
-          }}
-        >
+        <h3 className="ory-heading-3 max-w-[800px]">Pick your Ory products</h3>
+        <p className="ory-body max-w-[800px]">
           Answer a few questions about your IAM requirements, and we'll
           recommend the right products for your solution.
         </p>
       </div>
 
-      <div
-        style={{
-          background: colors.backgroundPrimary,
-          border: `1px solid ${colors.borderPrimary}`,
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-          borderRadius: radius.general,
-        }}
-      >
+      <div className="bg-ory-bg-primary border border-ory-border-primary flex flex-col overflow-hidden rounded-ory">
         {/* Architecture diagram or intro graphic */}
-        <div
-          style={{
-            padding: spacing.size4,
-            position: "relative",
-            background: colors.backgroundPrimary,
-          }}
-        >
+        <div className="p-ory-4 relative bg-ory-bg-primary">
           <div
+            className="relative w-full overflow-hidden rounded-ory bg-ory-bg-secondary"
             style={{
               aspectRatio: "1008 / 400",
-              position: "relative",
-              background: colors.backgroundSecondary,
-              width: "100%",
-              borderRadius: radius.general,
-              overflow: "hidden",
               ...(showIntroDiagram && {
                 display: "flex",
                 alignItems: "center",
@@ -739,64 +690,22 @@ export function SolutionDesignStepper() {
         </div>
 
         {/* Content area */}
-        <div
-          style={{
-            borderTop: `1px solid ${colors.borderPrimary}`,
-            padding: spacing.size6,
-            display: "flex",
-            flexDirection: "column",
-            gap: spacing.size6,
-            minHeight: "192px",
-          }}
-        >
+        <div className="border-t border-ory-border-primary p-ory-6 flex flex-col gap-ory-6 min-h-[192px]">
           {currentQuestion && !isResults && (
             <>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <span
-                  style={{
-                    fontFamily: typography.fontFamily,
-                    fontSize: typography.fontSizeSm,
-                    fontWeight: typography.fontWeightNormal,
-                    lineHeight: "1",
-                    color: colors.textTertiary,
-                    whiteSpace: "nowrap",
-                  }}
-                >
+              <div className="flex justify-center">
+                <span className="ory-body-sm text-ory-text-tertiary whitespace-nowrap leading-none">
                   Step {currentStep + 1} of {STEPS.length}
                 </span>
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  gap: spacing.size6,
-                  width: "100%",
-                  flexWrap: "wrap",
-                }}
-              >
-                <div style={{ flex: "1 1 280px", minWidth: 0 }}>
-                  <p
-                    style={{
-                      fontFamily: typography.fontFamily,
-                      fontSize: typography.fontSizeSm,
-                      fontWeight: typography.fontWeightMedium,
-                      lineHeight: typography.lineHeightNormal,
-                      color: colors.textPrimary,
-                      margin: 0,
-                      paddingBottom: spacing.size3,
-                    }}
-                  >
+              <div className="flex justify-between gap-ory-6 w-full flex-wrap">
+                <div className="flex-[1_1_280px] min-w-0">
+                  <p className="ory-body-sm font-medium text-ory-text-primary pb-ory-3 m-0">
                     {currentQuestion.question}
                   </p>
                 </div>
-                <div style={{ flex: "1 1 200px", minWidth: 0 }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: spacing.size3,
-                    }}
-                  >
+                <div className="flex-[1_1_200px] min-w-0">
+                  <div className="flex flex-col gap-ory-3">
                     {currentQuestion.options.map((option) => {
                       const selected = currentAnswer === option.value
                       return (
@@ -806,25 +715,7 @@ export function SolutionDesignStepper() {
                           onClick={() =>
                             handleAnswer(currentQuestion.id, option.value)
                           }
-                          style={{
-                            background: colors.backgroundPrimary,
-                            border: `1px solid ${
-                              selected
-                                ? colors.borderBrandTertiary
-                                : colors.borderPrimary
-                            }`,
-                            borderRadius: radius.buttons,
-                            padding: `${spacing.size2} ${spacing.size4}`,
-                            display: "flex",
-                            alignItems: "center",
-                            width: "100%",
-                            cursor: "pointer",
-                            fontFamily: typography.fontFamily,
-                            fontSize: typography.fontSizeSm,
-                            fontWeight: typography.fontWeightNormal,
-                            color: colors.textPrimary,
-                            textAlign: "left",
-                          }}
+                          className={`w-full flex items-center cursor-pointer text-left bg-ory-bg-primary border rounded-ory-btn py-ory-2 px-ory-4 ory-body-sm text-ory-text-primary ${selected ? "border-ory-border-brand-tertiary" : "border-ory-border-primary"}`}
                         >
                           {option.label}
                         </button>
@@ -837,36 +728,13 @@ export function SolutionDesignStepper() {
           )}
 
           {isResults && (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: spacing.size6,
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: typography.fontFamily,
-                  fontSize: typography.fontSizeBase,
-                  fontWeight: typography.fontWeightMedium,
-                  lineHeight: typography.lineHeightNormal,
-                  color: colors.textPrimary,
-                  margin: 0,
-                }}
-              >
+            <div className="flex flex-col gap-ory-6">
+              <p className="ory-body font-medium text-ory-text-primary m-0">
                 Based on your answers, here's the Ory stack that matches your
                 IAM requirements:
               </p>
               {selectedProducts.length > 0 ? (
-                <ul
-                  style={{
-                    margin: 0,
-                    paddingLeft: spacing.size6,
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: spacing.size2,
-                  }}
-                >
+                <ul className="m-0 pl-ory-6 flex flex-col gap-ory-2 list-disc">
                   {RESULTS_ORDER.filter((k) =>
                     selectedProducts.includes(k),
                   ).map((key) => {
@@ -874,21 +742,11 @@ export function SolutionDesignStepper() {
                     return (
                       <li
                         key={key}
-                        style={{
-                          fontFamily: typography.fontFamily,
-                          fontSize: typography.fontSizeBase,
-                          fontWeight: typography.fontWeightNormal,
-                          lineHeight: typography.lineHeightNormal,
-                          color: colors.textSecondary,
-                        }}
+                        className="ory-body text-ory-text-secondary"
                       >
                         <Link
                           to={p.to}
-                          style={{
-                            color: colors.textPrimary,
-                            fontWeight: typography.fontWeightMedium,
-                            textDecoration: "none",
-                          }}
+                          className="text-ory-text-primary font-medium no-underline"
                         >
                           {p.label}
                         </Link>
@@ -899,16 +757,7 @@ export function SolutionDesignStepper() {
                   })}
                 </ul>
               ) : (
-                <p
-                  style={{
-                    fontFamily: typography.fontFamily,
-                    fontSize: typography.fontSizeBase,
-                    fontWeight: typography.fontWeightNormal,
-                    lineHeight: typography.lineHeightNormal,
-                    color: colors.textSecondary,
-                    margin: 0,
-                  }}
-                >
+                <p className="ory-body text-ory-text-secondary m-0">
                   Based on your answers, you may not need additional Ory
                   products for your current use case. You can still explore our{" "}
                   <Link to="/getting-started/overview">quickstarts</Link> or{" "}
@@ -916,72 +765,30 @@ export function SolutionDesignStepper() {
                     href="https://www.ory.com/contact"
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{
-                      color: colors.brandPrimary,
-                      textDecoration: "underline",
-                    }}
+                    className="text-ory-brand-primary underline"
                   >
                     contact sales
                   </a>{" "}
                   for guidance.
                 </p>
               )}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: spacing.size3,
-                }}
-              >
-                
-              </div>
+              <div className="flex flex-col gap-ory-3" />
             </div>
           )}
         </div>
 
         {/* Footer navigation */}
-        <div
-          style={{
-            background: colors.backgroundSecondary,
-            borderTop: `1px solid ${colors.borderPrimary}`,
-            padding: spacing.size4,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: spacing.size3,
-          }}
-        >
-          <span
-            style={{
-              fontFamily: typography.fontFamily,
-              fontSize: typography.fontSizeSm,
-              fontWeight: typography.fontWeightNormal,
-              lineHeight: "1",
-              color: colors.textTertiary,
-            }}
-          >
+        <div className="bg-ory-bg-secondary border-t border-ory-border-primary p-ory-4 flex justify-between items-center flex-wrap gap-ory-3">
+          <span className="ory-body-sm text-ory-text-tertiary leading-none">
             {currentQuestion && !isResults && "Select an option to continue"}
             {isResults && "Start over to try different answers"}
           </span>
-          <div style={{ display: "flex", gap: spacing.size2 }}>
+          <div className="flex gap-ory-2">
             {!isOnFirstQuestion && (
               <button
                 type="button"
                 onClick={handleBack}
-                style={{
-                  height: "32px",
-                  padding: `0 ${spacing.size4}`,
-                  background: colors.backgroundPrimary,
-                  border: `1px solid ${colors.borderPrimary}`,
-                  borderRadius: radius.buttons,
-                  fontFamily: typography.fontFamily,
-                  fontSize: typography.fontSizeSm,
-                  fontWeight: typography.fontWeightNormal,
-                  lineHeight: "1",
-                  color: colors.textPrimary,
-                  cursor: "pointer",
-                }}
+                className="ory-btn-secondary"
               >
                 {isResults ? "Start over" : "Back"}
               </button>
@@ -991,21 +798,7 @@ export function SolutionDesignStepper() {
                 type="button"
                 onClick={handleNext}
                 disabled={!canProceed}
-                style={{
-                  height: "32px",
-                  padding: `0 ${spacing.size4}`,
-                  background: canProceed
-                    ? colors.backgroundDark
-                    : colors.backgroundTertiary,
-                  border: "none",
-                  borderRadius: radius.buttons,
-                  fontFamily: typography.fontFamily,
-                  fontSize: typography.fontSizeSm,
-                  fontWeight: typography.fontWeightNormal,
-                  lineHeight: "1",
-                  color: colors.backgroundPrimary,
-                  cursor: canProceed ? "pointer" : "not-allowed",
-                }}
+                className="ory-btn-primary disabled:bg-ory-bg-tertiary disabled:cursor-not-allowed"
               >
                 {currentStep === STEPS.length - 1 ? "See results" : "Continue"}
               </button>

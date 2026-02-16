@@ -1,6 +1,5 @@
 import React from "react"
 import { OverviewCard } from "./OverviewCard"
-import { colors, spacing, typography } from "./tokens"
 
 export function OtherGuides() {
   const guides = [
@@ -23,72 +22,23 @@ export function OtherGuides() {
   ]
 
   return (
-    <section
-      style={{
-        paddingTop: spacing.size16,
-        paddingBottom: spacing.size16,
-        background: colors.backgroundPrimary,
-      }}
-    >
-      <div className="container" style={{ maxWidth: "1024px" }}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: spacing.size1_5,
-            marginBottom: spacing.size6,
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: typography.fontFamily,
-              fontSize: typography.fontSizeXl,
-              fontWeight: typography.fontWeightNormal,
-              lineHeight: typography.lineHeightNormal,
-              color: colors.textPrimary,
-              margin: 0,
-            }}
-          >
-            Start building with Ory
-          </h2>
-          <p
-            style={{
-              fontFamily: typography.fontFamily,
-              fontSize: typography.fontSizeBase,
-              fontWeight: typography.fontWeightNormal,
-              lineHeight: typography.lineHeightNormal,
-              color: colors.textSecondary,
-              margin: 0,
-              maxWidth: "680px",
-            }}
-          >
+    <section className="pt-ory-16 pb-ory-16 bg-ory-bg-primary">
+      <div className="max-w-[1024px] mx-auto px-6 w-full">
+        <div className="flex flex-col gap-2 mb-ory-6">
+          <h2 className="ory-heading-2">Start building with Ory</h2>
+          <p className="ory-body max-w-[680px]">
             Starting fresh or migrating? Find your path to production.
           </p>
         </div>
 
         <div
-          style={{
-            width: "100%",
-            height: "1px",
-            background: colors.borderPrimary,
-            marginBottom: spacing.size6,
-          }}
+          className="w-full h-px bg-ory-border-primary mb-ory-6"
           aria-hidden
         />
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            gap: spacing.size4,
-            flexWrap: "wrap",
-          }}
-        >
+        <div className="flex flex-row gap-ory-4 flex-wrap">
           {guides.map((guide) => (
-            <div
-              key={guide.label}
-              style={{ flex: "1 1 0", minWidth: "280px" }}
-            >
+            <div key={guide.label} className="flex-1 min-w-[280px]">
               <OverviewCard
                 title={guide.label}
                 description={guide.description}

@@ -1,6 +1,5 @@
 import React from "react"
 import { OverviewCard } from "./OverviewCard"
-import { colors, spacing, typography } from "./tokens"
 
 /**
  * Content section (placeholder – title and items will be adjusted later).
@@ -42,7 +41,7 @@ export function ContentSection() {
       to: "https://status.ory.com/",
       description: "Check operational status and uptime for Ory's services.",
     },
-        {
+    {
       label: "Changelog",
       to: "https://changelog.ory.com/?",
       description: "Track changes and updates to Ory products and components.",
@@ -50,64 +49,24 @@ export function ContentSection() {
   ]
 
   return (
-    <section
-      style={{
-        paddingTop: spacing.size16,
-        paddingBottom: spacing.size16,
-        background: colors.backgroundPrimary,
-      }}
-    >
-      <div className="container" style={{ maxWidth: "1024px" }}>
-        <div
-          style={{
-            marginBottom: spacing.size6,
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: typography.fontFamily,
-              fontSize: typography.fontSizeXl,
-              fontWeight: typography.fontWeightNormal,
-              lineHeight: typography.lineHeightNormal,
-              color: colors.textPrimary,
-              margin: 0,
-              maxWidth: "800px",
-            }}
-          >
+    <section className="pt-ory-16 pb-ory-16 bg-ory-bg-primary">
+      <div className="max-w-[1024px] mx-auto px-6 w-full">
+        <div className="mb-ory-6">
+          <h2 className="ory-heading-2 max-w-[800px]">
             Explore Ory's supporting components and resources
           </h2>
-          <p
-            style={{
-              fontFamily: typography.fontFamily,
-              fontSize: typography.fontSizeBase,
-              fontWeight: typography.fontWeightNormal,
-              lineHeight: typography.lineHeightNormal,
-              color: colors.textSecondary,
-              margin: 0,
-              maxWidth: "800px",
-            }}
-          >
-            Learn about the components and resources that complement Ory's core products.
+          <p className="ory-body max-w-[800px]">
+            Learn about the components and resources that complement Ory's core
+            products.
           </p>
         </div>
 
         <div
-          style={{
-            width: "100%",
-            height: "1px",
-            background: colors.borderPrimary,
-            marginBottom: spacing.size6,
-          }}
+          className="w-full h-px bg-ory-border-primary mb-ory-6"
           aria-hidden
         />
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            gap: spacing.size4,
-          }}
-        >
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-ory-4">
           {items.map((item) => (
             <OverviewCard
               key={item.label}
