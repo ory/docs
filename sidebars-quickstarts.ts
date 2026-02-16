@@ -12,10 +12,11 @@ const quickstartsSidebar = [
     label: "Ory Network",
     collapsed: false,
     collapsible: false,
+    className: "sidebar-quickstart-top-level",
     items: [
       {
         type: "category",
-        label: "Identity Management & AuthN",
+        label: "Ory Kratos: Identity Management & AuthN",
         className: "sidebar-icon sidebar-icon-kratos",
         items: [
           "network/kratos/intro",
@@ -66,13 +67,14 @@ const quickstartsSidebar = [
     label: "Ory Enterprise License",
     collapsed: false,
     collapsible: false,
+    className: "sidebar-quickstart-top-level",
     items: [
-      ,
       {
         type: "category",
         label: "Ory Kratos",
         collapsed: true,
         collapsible: true,
+        className: "sidebar-icon sidebar-icon-kratos",
         items: [
           "oel/kratos/intro",
           "oel/kratos/quickstart",
@@ -85,6 +87,7 @@ const quickstartsSidebar = [
         label: "Ory Hydra",
         collapsed: true,
         collapsible: true,
+        className: "sidebar-icon sidebar-icon-hydra",
         items: ["oel/hydra/index", "oel/hydra/quickstart"],
       },
       {
@@ -92,6 +95,7 @@ const quickstartsSidebar = [
         label: "Ory Keto",
         collapsed: true,
         collapsible: true,
+        className: "sidebar-icon sidebar-icon-keto",
         items: ["oel/keto/index", "oel/keto/quickstart"],
       },
       {
@@ -99,6 +103,7 @@ const quickstartsSidebar = [
         label: "Ory Polis",
         collapsed: true,
         collapsible: true,
+        className: "sidebar-icon sidebar-icon-polis",
         items: ["oel/polis/index", "oel/polis/quickstart"],
       },
       {
@@ -106,6 +111,7 @@ const quickstartsSidebar = [
         label: "Ory Oathkeeper",
         collapsed: true,
         collapsible: true,
+        className: "sidebar-icon sidebar-icon-oathkeeper",
         items: ["oel/oathkeeper/index", "oel/oathkeeper/configure-deploy"],
       },
     ],
@@ -115,12 +121,14 @@ const quickstartsSidebar = [
     label: "Ory Open Source",
     collapsed: false,
     collapsible: false,
+    className: "sidebar-quickstart-top-level",
     items: [
       {
         type: "category",
         label: "Ory Kratos",
         collapsed: true,
         collapsible: true,
+        className: "sidebar-icon sidebar-icon-kratos",
         items: [
           "oss/kratos/intro",
           "oss/kratos/quickstart",
@@ -133,6 +141,7 @@ const quickstartsSidebar = [
         label: "Ory Hydra",
         collapsed: true,
         collapsible: true,
+        className: "sidebar-icon sidebar-icon-hydra",
         items: ["oss/hydra/index", "oss/hydra/quickstart"],
       },
       {
@@ -140,6 +149,7 @@ const quickstartsSidebar = [
         label: "Ory Keto",
         collapsed: true,
         collapsible: true,
+        className: "sidebar-icon sidebar-icon-keto",
         items: ["oss/keto/index", "oss/keto/quickstart"],
       },
       {
@@ -147,6 +157,7 @@ const quickstartsSidebar = [
         label: "Ory Polis",
         collapsed: true,
         collapsible: true,
+        className: "sidebar-icon sidebar-icon-polis",
         items: ["oss/polis/index", "oss/polis/quickstart"],
       },
       {
@@ -154,6 +165,7 @@ const quickstartsSidebar = [
         label: "Ory Oathkeeper",
         collapsed: true,
         collapsible: true,
+        className: "sidebar-icon sidebar-icon-oathkeeper",
         items: ["oss/oathkeeper/index", "oss/oathkeeper/configure-deploy"],
       },
     ],

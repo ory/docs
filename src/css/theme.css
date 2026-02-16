@@ -685,6 +685,8 @@ h2.ory-section-heading {
   --icon-oathkeeper-tertiary: var(--color-teal-500);
   --icon-polis-tertiary: var(--color-purple-500);
   --icon-network-tertiary: var(--color-indigo-500);
+  --icon-oel-tertiary: #475569;
+  --icon-oss-tertiary: #10b981;
 
   /* Ory design tokens (for non-Tailwind use - mirrors @theme) */
   /* Font source of truth: HomePage uses Inter, sans-serif */
@@ -1177,6 +1179,18 @@ svg[class*="iconExternalLink"] {
   padding: 0.5rem 0.75rem;
 }
 
+/* Quickstart sidebar: allow top-level category labels to wrap */
+.sidebar-quickstart-top-level .menu__list-item-collapsible .menu__link {
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+.sidebar-quickstart-top-level .menu__list-item-collapsible .menu__link > span {
+  white-space: normal !important;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
 .config-editor .unsupported-field pre {
   max-width: 100%;
   overflow: hidden;
@@ -1455,4 +1469,18 @@ svg[class*="iconExternalLink"] {
   > .menu__link
   > span::before {
   background-color: var(--icon-network-tertiary);
+}
+
+.sidebar-icon-oel
+  > .menu__list-item-collapsible
+  > .menu__link
+  > span::before {
+  background-color: var(--icon-oel-tertiary);
+}
+
+.sidebar-icon-oss
+  > .menu__list-item-collapsible
+  > .menu__link
+  > span::before {
+  background-color: var(--icon-oss-tertiary);
 }
