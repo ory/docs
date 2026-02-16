@@ -95,7 +95,7 @@ const PRODUCT_LABELS: Record<
   },
   hydra: {
     label: "Ory Hydra",
-    description: "OAuth2/OIDC tokens for authorization",
+    description: "SSO & delegated, scope-based authorization (OAuth2/OIDC)",
     to: "/docs/hydra",
   },
   polis: {
@@ -110,12 +110,12 @@ const PRODUCT_LABELS: Record<
   },
   oathkeeper: {
     label: "Ory Oathkeeper",
-    description: "API enforcement gateway",
+    description: "Proxy-based enforcement gateway",
     to: "/docs/oathkeeper",
   },
   elements: {
     label: "Ory Elements",
-    description: "Pre-built, UI components for self-service flows",
+    description: "Pre-built, customizable UI components for self-service flows",
     to: "/docs/elements",
   },
 }
