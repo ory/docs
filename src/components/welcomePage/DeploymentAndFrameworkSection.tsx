@@ -3,8 +3,6 @@ import { StepBadge } from "./StepBadge"
 import { SolutionDesignStepper } from "./SolutionDesignStepper"
 import { SelectFrameworkSection } from "./SelectFrameworkSection"
 import { OverviewCard } from "./OverviewCard"
-import { colors, spacing, typography } from "./tokens"
-import styles from "@site/src/pages/welcome.module.css"
 
 export function DeploymentAndFrameworkSection() {
   const cards = [
@@ -32,107 +30,35 @@ export function DeploymentAndFrameworkSection() {
   ]
 
   return (
-    <section
-      style={{
-        paddingTop: spacing.size16,
-        paddingBottom: spacing.size12,
-        background: colors.backgroundPrimary,
-        borderTop: `1px solid ${colors.borderPrimary}`,
-        borderBottom: `1px solid ${colors.borderPrimary}`,
-      }}
-    >
-      <div className={styles.container1024}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: spacing.size8,
-          }}
-        >
-          <h2
-            style={{
-              fontFamily: typography.fontFamily,
-              fontSize: typography.fontSizeXl,
-              fontWeight: typography.fontWeightMedium,
-              lineHeight: typography.lineHeightTight,
-              color: colors.textPrimary,
-              margin: 0,
-              maxWidth: "800px",
-            }}
-          >
+    <section className="pt-ory-16 pb-ory-12 bg-ory-bg-primary border-t border-b border-ory-border-primary">
+      <div className="max-w-[1024px] mx-auto px-6 w-full">
+        <div className="flex flex-col gap-ory-8">
+          <h2 className="ory-heading-2 max-w-[800px]">
             How to design your Ory solution
           </h2>
-          <p
-            style={{
-              fontFamily: typography.fontFamily,
-              fontSize: typography.fontSizeBase,
-              fontWeight: typography.fontWeightNormal,
-              lineHeight: typography.lineHeightNormal,
-              color: colors.textSecondary,
-              margin: 0,
-              maxWidth: "800px",
-            }}
-          >
+          <p className="ory-body max-w-[800px]">
             Every Ory implementation starts with these decisions — how to
             deploy, which products to use, and what framework or language to
             build with. Start here to find the right combination for your use
             case.
           </p>
-          <div
-            style={{
-              borderLeft: `1px solid ${colors.borderPrimary}`,
-              paddingLeft: spacing.size8,
-              paddingBottom: spacing.size16,
-              display: "flex",
-              flexDirection: "column",
-              gap: spacing.size8,
-            }}
-          >
-            {/* Choose a deployment option */}
+          <div className="border-l border-ory-border-primary pl-ory-8 pb-ory-16 flex flex-col gap-ory-8">
             <div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: spacing.size4,
-                  marginBottom: spacing.size8,
-                  position: "relative",
-                }}
-              >
+              <div className="flex flex-col gap-ory-4 mb-ory-8 relative">
                 <StepBadge step={1} />
-                <h3
-                  style={{
-                    fontFamily: typography.fontFamily,
-                    fontSize: typography.fontSizeLg,
-                    fontWeight: typography.fontWeightMedium,
-                    lineHeight: typography.lineHeightTight,
-                    color: colors.textPrimary,
-                    margin: 0,
-                    maxWidth: "800px",
-                  }}
-                >
+                <h3 className="ory-heading-3 text-xl max-w-[800px]">
                   Choose your deployment option
                 </h3>
-                <p
-                  style={{
-                    fontFamily: typography.fontFamily,
-                    fontSize: typography.fontSizeBase,
-                    fontWeight: typography.fontWeightNormal,
-                    lineHeight: typography.lineHeightNormal,
-                    color: colors.textSecondary,
-                    margin: 0,
-                    maxWidth: "800px",
-                  }}
-                >
+                <p className="ory-body max-w-[800px]">
                   Choose the deployment option that fits your organization and
                   build secure IAM into your apps. You can switch later — the
                   core concepts stay the same.
                 </p>
               </div>
 
-              <div style={{ display: "flex", gap: spacing.size4 }}>
+              <div className="flex gap-ory-4">
                 {cards.map((card) => (
-                  <div key={card.label} style={{ flex: "1 0 0" }}>
+                  <div key={card.label} className="flex-1 min-w-0">
                     <OverviewCard
                       title={card.label}
                       description={card.description}

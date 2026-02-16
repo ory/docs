@@ -27,57 +27,56 @@ const networkSidebar = [
         collapsed: true,
         collapsible: true,
         items: [
-          
           {
             type: "category",
             label: "Migrating to Ory",
-            collapsed:true,
-            collapsible: true,
-            items: [
-            {
-            type: "category",
-            label: "Phase 1: Plan & prepare",
             collapsed: true,
             collapsible: true,
             items: [
-              "migrate-to-ory/migrate/index",
-              "migrate-to-ory/migrate/map-to-orycap",
-              "migrate-to-ory/migrate/migrate-strategies",
-              //"migrate-to-ory/migrate/faq-migrate",
-              ],
-            },
-            {
-            type: "category",
-            label: "Phase 2: Migrate",
-            collapsed: true,
-            collapsible: true,
-            items: [
-              "migrate-to-ory/migrate/create-project",
-              "migrate-to-ory/migrate/design-id-schema",
-              "migrate-to-ory/migrate/integrate-frontend",
-              "migrate-to-ory/migrate/integrate-backend",
-              "migrate-to-ory/migrate/migrate-identities",
+              {
+                type: "category",
+                label: "Phase 1: Plan & prepare",
+                collapsed: true,
+                collapsible: true,
+                items: [
+                  "migrate-to-ory/migrate/index",
+                  "migrate-to-ory/migrate/map-to-orycap",
+                  "migrate-to-ory/migrate/migrate-strategies",
+                  //"migrate-to-ory/migrate/faq-migrate",
+                ],
+              },
+              {
+                type: "category",
+                label: "Phase 2: Migrate",
+                collapsed: true,
+                collapsible: true,
+                items: [
+                  "migrate-to-ory/migrate/create-project",
+                  "migrate-to-ory/migrate/design-id-schema",
+                  "migrate-to-ory/migrate/integrate-frontend",
+                  "migrate-to-ory/migrate/integrate-backend",
+                  "migrate-to-ory/migrate/migrate-identities",
+                ],
+              },
+              {
+                type: "category",
+                label: "Phase 3: Test & validate",
+                collapsed: true,
+                collapsible: true,
+                items: ["migrate-to-ory/migrate/test-validate"],
+              },
+              {
+                type: "category",
+                label: "Phase 4: Go live",
+                collapsed: true,
+                collapsible: true,
+                items: ["migrate-to-ory/migrate/go-live"],
+              },
             ],
-            },
-            {
-            type: "category",
-            label: "Phase 3: Test & validate",
-            collapsed: true,
-            collapsible: true,
-            items: ["migrate-to-ory/migrate/test-validate"],
-            },
-            {
-            type: "category",
-            label: "Phase 4: Go live",
-            collapsed: true,
-            collapsible: true,
-            items: ["migrate-to-ory/migrate/go-live"],
-            },
-          ],
-        },
-        "migrate-to-ory/auth0",
-        "getting-started/local-development",
-      ],
+          },
+          "migrate-to-ory/auth0",
+          "getting-started/local-development",
+        ],
       },
       {
         type: "category",
@@ -345,8 +344,10 @@ const networkSidebar = [
               type: "doc",
               id: "network/keto/overview",
             },
-            items: ["network/keto/quickstart", 
-              "network/keto/file-sharing-example"],
+            items: [
+              "network/keto/quickstart",
+              "network/keto/file-sharing-example",
+            ],
           },
           {
             type: "category",
@@ -507,178 +508,176 @@ const networkSidebar = [
             label: "Get started",
             collapsed: false,
             collapsible: false,
-            items: [
-              "network/polis/quickstart",
-              "polis/reference/api"],
+            items: ["network/polis/quickstart", "polis/reference/api"],
+          },
+          {
+            type: "category",
+            label: "Enterprise SSO",
+            collapsed: false,
+            collapsible: false,
+            link: {
+              type: "doc",
+              id: "polis/saml-federation/index",
             },
+            items: [
               {
                 type: "category",
-                label: "Enterprise SSO",
-                collapsed: false,
-                collapsible: false,
+                label: "Concepts",
                 link: {
                   type: "doc",
-                  id: "polis/saml-federation/index",
+                  id: "polis/sso-flow/index",
+                },
+                items: [
+                  "polis/sso-flow/index",
+                  "polis/sso-flow/example-flow",
+                  "polis/security",
+                ],
+              },
+              {
+                type: "category",
+                label: "Configuration",
+                items: [
+                  "polis/deploy/env-variables",
+                  "polis/guides/configuring-saml-sso",
+                  "polis/guides/login-with-saml-sso",
+                  "polis/deploy/pre-loaded-connections",
+                ],
+              },
+              {
+                type: "category",
+                label: "Guides",
+                link: {
+                  type: "doc",
+                  id: "polis/guides/service",
+                },
+                items: [
+                  "polis/guides/service",
+                  "polis/guides/npm-library",
+                  "polis/upgrade",
+                  "polis/guides/examples",
+                  "polis/sbom",
+                  "polis/container-signing",
+                  "polis/events",
+                  "polis/observability",
+                  {
+                    type: "category",
+                    label: "Frameworks",
+                    items: [
+                      {
+                        type: "autogenerated",
+                        dirName: "polis/guides/frameworks",
+                      },
+                    ],
+                  },
+                  {
+                    type: "category",
+                    label: "Deployment",
+                    items: [
+                      {
+                        type: "autogenerated",
+                        dirName: "polis/guides/deployment",
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: "category",
+                label: "SAML SSO Providers",
+                link: {
+                  type: "doc",
+                  id: "polis/sso-providers/index",
                 },
                 items: [
                   {
-                    type: "category",
-                    label: "Concepts",
-                    link: {
-                      type: "doc",
-                      id: "polis/sso-flow/index",
-                    },
-                    items: [
-                      "polis/sso-flow/index",
-                      "polis/sso-flow/example-flow",
-                      "polis/security",
-                    ],
+                    type: "autogenerated",
+                    dirName: "polis/sso-providers",
                   },
+                ],
+              },
+            ],
+          },
+          {
+            type: "category",
+            label: "Directory Sync",
+            collapsed: false,
+            collapsible: false,
+            link: {
+              type: "doc",
+              id: "polis/directory-sync/index",
+            },
+            items: [
+              "polis/directory-sync/quickstart",
+              "polis/directory-sync/api-reference",
+              {
+                type: "category",
+                label: "Guides",
+                collapsed: true,
+                link: {
+                  type: "generated-index",
+                  slug: "polis/directory-sync/guides",
+                },
+                items: [
+                  "polis/directory-sync/webhooks",
+                  "polis/directory-sync/events",
+                  "polis/directory-sync/observability",
+                  "polis/directory-sync/examples",
+                  "polis/directory-sync/faq",
                   {
                     type: "category",
-                    label: "Configuration",
-                    items: [
-                      "polis/deploy/env-variables",
-                      "polis/guides/configuring-saml-sso",
-                      "polis/guides/login-with-saml-sso",
-                      "polis/deploy/pre-loaded-connections",
-                    ],
-                  },
-                  {
-                    type: "category",
-                    label: "Guides",
+                    label: "Directory providers",
                     link: {
-                      type: "doc",
-                      id: "polis/guides/service",
-                    },
-                    items: [
-                      "polis/guides/service",
-                      "polis/guides/npm-library",
-                      "polis/upgrade",
-                      "polis/guides/examples",
-                      "polis/sbom",
-                      "polis/container-signing",
-                      "polis/events",
-                      "polis/observability",
-                      {
-                        type: "category",
-                        label: "Frameworks",
-                        items: [
-                          {
-                            type: "autogenerated",
-                            dirName: "polis/guides/frameworks",
-                          },
-                        ],
-                      },
-                      {
-                        type: "category",
-                        label: "Deployment",
-                        items: [
-                          {
-                            type: "autogenerated",
-                            dirName: "polis/guides/deployment",
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                  {
-                    type: "category",
-                    label: "SAML SSO Providers",
-                    link: {
-                      type: "doc",
-                      id: "polis/sso-providers/index",
+                      type: "generated-index",
+                      slug: "polis/directory-sync/providers",
                     },
                     items: [
                       {
                         type: "autogenerated",
-                        dirName: "polis/sso-providers",
+                        dirName: "polis/directory-sync/providers",
                       },
                     ],
                   },
-                ],
-              },
-              {
-                type: "category",
-                label: "Directory Sync",
-                collapsed: false,
-                collapsible: false,
-                link: {
-                  type: "doc",
-                  id: "polis/directory-sync/index",
-                },
-                items: [
-                  "polis/directory-sync/quickstart",
-                  "polis/directory-sync/api-reference",
                   {
                     type: "category",
-                    label: "Guides",
-                    collapsed: true,
-                    link: {
-                      type: "generated-index",
-                      slug: "polis/directory-sync/guides",
-                    },
+                    label: "Frameworks",
                     items: [
-                      "polis/directory-sync/webhooks",
-                      "polis/directory-sync/events",
-                      "polis/directory-sync/observability",
-                      "polis/directory-sync/examples",
-                      "polis/directory-sync/faq",
                       {
-                        type: "category",
-                        label: "Directory providers",
-                        link: {
-                          type: "generated-index",
-                          slug: "polis/directory-sync/providers",
-                        },
-                        items: [
-                          {
-                            type: "autogenerated",
-                            dirName: "polis/directory-sync/providers",
-                          },
-                        ],
-                      },
-                      {
-                        type: "category",
-                        label: "Frameworks",
-                        items: [
-                          {
-                            type: "autogenerated",
-                            dirName: "polis/directory-sync/guides",
-                          },
-                        ],
+                        type: "autogenerated",
+                        dirName: "polis/directory-sync/guides",
                       },
                     ],
                   },
                 ],
               },
+            ],
+          },
+          {
+            type: "category",
+            label: "Admin Portal",
+            collapsed: false,
+            collapsible: false,
+            link: {
+              type: "doc",
+              id: "polis/admin-portal/index",
+            },
+            items: [
               {
                 type: "category",
-                label: "Admin Portal",
-                collapsed: false,
-                collapsible: false,
+                label: "Guides",
+                collapsed: true,
                 link: {
-                  type: "doc",
-                  id: "polis/admin-portal/index",
+                  type: "generated-index",
+                  slug: "polis/admin-portal/guides",
                 },
                 items: [
-                  {
-                    type: "category",
-                    label: "Guides",
-                    collapsed: true,
-                    link: {
-                      type: "generated-index",
-                      slug: "polis/admin-portal/guides",
-                    },
-                    items: [
-                      "polis/admin-portal/enterprise-sso",
-                      "polis/admin-portal/setup-links-enterprise-sso",
-                      "polis/admin-portal/directory-sync",
-                      "polis/admin-portal/setup-links-directory-sync",
-                    ],
-                  },
+                  "polis/admin-portal/enterprise-sso",
+                  "polis/admin-portal/setup-links-enterprise-sso",
+                  "polis/admin-portal/directory-sync",
+                  "polis/admin-portal/setup-links-directory-sync",
                 ],
               },
+            ],
+          },
         ],
       },
       {

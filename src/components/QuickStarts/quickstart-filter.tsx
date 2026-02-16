@@ -54,7 +54,9 @@ export const QuickstartFilter = () => {
           onChange={setDeploymentMode}
         />
 
-        <h2 className={styles.sectionHeading}>Quickstart guides</h2>
+        <h2 className={`ory-heading-2 ${styles.sectionHeading}`}>
+          Quickstart guides
+        </h2>
 
         <div className={styles.headerRow}>
           <CategoryFilter
@@ -91,7 +93,7 @@ export const QuickstartFilter = () => {
             />
           ))
         ) : (
-          <p className={styles.noExamplesText}>
+          <p className={`ory-body-sm ${styles.noExamplesText}`}>
             No code examples are available for this product yet.
           </p>
         )}

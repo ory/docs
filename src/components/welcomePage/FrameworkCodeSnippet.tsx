@@ -1,4 +1,4 @@
-import { colors, spacing, typography } from "./tokens"
+import React from "react"
 
 export interface FrameworkCodeSnippetProps {
   /** Full snippet text to display */
@@ -17,45 +17,18 @@ export function FrameworkCodeSnippet({
   const showHighlight = snippetPrefix && snippetRest !== undefined
 
   return (
-    <div
-      className="code-sample-body"
-      style={{
-        background: colors.backgroundPrimary,
-        border: `1px solid ${colors.borderPrimary}`,
-        padding: spacing.size6,
-        fontFamily: typography.fontFamilyMono,
-        fontSize: typography.fontSizeSm,
-        display: "flex",
-        gap: spacing.size6,
-        alignItems: "flex-start",
-      }}
-    >
-      <span
-        style={{
-          color: colors.textTertiary,
-          lineHeight: "1.65",
-          textAlign: "right",
-          flexShrink: 0,
-        }}
-      >
+    <div className="code-sample-body flex gap-ory-6 items-start p-ory-6 bg-ory-bg-primary border border-ory-border-primary font-mono text-sm">
+      <span className="text-ory-text-tertiary shrink-0 text-right leading-[1.65]">
         1
       </span>
-      <code
-        style={{
-          flex: "1 0 0",
-          color: colors.textPrimary,
-          lineHeight: "1.65",
-          whiteSpace: "pre-wrap",
-          fontFamily: typography.fontFamilyMono,
-        }}
-      >
+      <code className="flex-1 min-w-0 text-ory-text-primary leading-[1.65] whitespace-pre-wrap font-mono">
         {showHighlight ? (
           <>
-            <span style={{ color: colors.textPrimary }}>{snippetPrefix}</span>
-            <span style={{ color: colors.brandPrimary }}>{snippetRest}</span>
+            <span className="text-ory-text-primary">{snippetPrefix}</span>
+            <span className="text-ory-brand-primary">{snippetRest}</span>
           </>
         ) : (
-          <span style={{ color: colors.textPrimary }}>{snippet}</span>
+          <span className="text-ory-text-primary">{snippet}</span>
         )}
       </code>
     </div>

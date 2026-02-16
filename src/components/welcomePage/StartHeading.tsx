@@ -1,30 +1,27 @@
 import React from "react"
 import useBaseUrl from "@docusaurus/useBaseUrl"
 import OryHeroDemo from "@site/src/components/OryHeroDemo"
-import { colors, spacing } from "./tokens"
-import styles from "@site/src/pages/welcome.module.css"
 
 export function StartHeading() {
   const backgroundPattern = useBaseUrl("/img/home-bg-grid.svg")
 
   return (
     <section
+      className="pt-ory-16 pb-0 bg-ory-bg-secondary"
       style={{
-        paddingTop: spacing.size16,
-        paddingBottom: 0,
         backgroundImage: `url(${backgroundPattern})`,
         backgroundSize: "100% auto",
         backgroundPosition: "top left",
         backgroundRepeat: "repeat",
-        backgroundColor: colors.backgroundSecondary,
       }}
-      className={styles.heroTop}
     >
-      <div className={styles.container1024}>
-        <div className={styles.heroRow}>
-          <div className={styles.heroCopy}>
-            <h1 className={styles.h1}>Welcome to the Ory Developer Portal </h1>
-            <p className={styles.pBase}>
+      <div className="max-w-[1024px] mx-auto px-6 w-full">
+        <div className="flex gap-ory-6 items-center mb-ory-6">
+          <div className="flex-1 min-w-0 flex flex-col gap-ory-6">
+            <h1 className="ory-heading-1">
+              Welcome to the Ory Developer Portal{" "}
+            </h1>
+            <p className="ory-body">
               Ory gives you authentication, authorization, and user management
               APIs designed for modern applications.
               <br />
@@ -33,7 +30,7 @@ export function StartHeading() {
               baked in.
             </p>
           </div>
-          <div style={{ flex: "1 0 0" }}>
+          <div className="flex-1 min-w-0">
             <OryHeroDemo />
           </div>
         </div>

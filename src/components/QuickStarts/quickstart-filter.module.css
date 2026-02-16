@@ -6,7 +6,6 @@
 
 .sectionHeading {
   margin: 0 0 1rem;
-  font-size: 1.4rem;
 }
 
 .headerRow {
@@ -38,16 +37,20 @@
 }
 
 .filterLabel {
+  font-family: var(--ory-font);
+  font-size: 14px;
   font-weight: 600;
   margin-right: 0.5rem;
+  color: var(--ory-text-primary);
 }
 
 .chip {
-  border: 1px solid var(--ifm-color-emphasis-200);
+  border: 1px solid var(--ory-border-primary);
   border-radius: 999px;
   padding: 0.35rem 0.9rem;
   background: transparent;
-  font-size: 0.85rem;
+  font-family: var(--ory-font);
+  font-size: 14px;
   cursor: pointer;
   transition:
     background 0.15s ease,
@@ -56,8 +59,8 @@
 }
 
 .chipActive {
-  background: var(--ifm-color-primary);
-  border-color: var(--ifm-color-primary);
+  background: var(--ory-brand-primary);
+  border-color: var(--ory-brand-primary);
   color: #fff;
 }
 
@@ -67,18 +70,20 @@
   gap: 0.4rem;
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
-  border: 1px solid var(--ifm-color-emphasis-200);
-  background: var(--ifm-background-surface-color);
-  font-size: 0.85rem;
+  border: 1px solid var(--ory-border-primary);
+  background: var(--ory-bg-primary);
+  font-family: var(--ory-font);
+  font-size: 14px;
   cursor: pointer;
 }
 
 .languageTriggerLabel {
   font-weight: 500;
+  color: var(--ory-text-primary);
 }
 
 .languageTriggerValue {
-  color: var(--ifm-color-emphasis-700);
+  color: var(--ory-text-secondary);
 }
 
 .languageTriggerChevron {
@@ -91,9 +96,9 @@
   right: 0;
   margin-top: 0.5rem;
   padding: 1.1rem 1.4rem 0.9rem;
-  border-radius: 0.75rem;
-  border: 1px solid var(--ifm-color-emphasis-200);
-  background: var(--ifm-background-surface-color);
+  border-radius: var(--ory-radius);
+  border: 1px solid var(--ory-border-primary);
+  background: var(--ory-bg-primary);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 1rem 1.75rem;
@@ -108,9 +113,11 @@
 }
 
 .languageGroupLabel {
-  font-size: 0.85rem;
+  font-family: var(--ory-font);
+  font-size: 14px;
   font-weight: 600;
   margin-bottom: 0.35rem;
+  color: var(--ory-text-primary);
 }
 
 .languageOption {
@@ -129,15 +136,17 @@
 }
 
 .languageOption span {
-  font-size: 0.9rem;
+  font-family: var(--ory-font);
+  font-size: 14px;
+  color: var(--ory-text-primary);
 }
 
 .languageOption:hover {
-  background: var(--ifm-color-emphasis-100);
+  background: var(--ory-bg-secondary);
 }
 
 .languageOptionActive {
-  background: var(--ifm-color-emphasis-200);
+  background: var(--ory-bg-tertiary);
 }
 
 .languageIcon {
@@ -155,8 +164,9 @@
 .languageAllButton {
   border: none;
   background: transparent;
-  color: var(--ifm-color-primary);
-  font-size: 0.8rem;
+  color: var(--ory-brand-primary);
+  font-family: var(--ory-font);
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -166,18 +176,20 @@
   gap: 0.4rem;
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
-  border: 1px solid var(--ifm-color-emphasis-200);
-  background: var(--ifm-background-surface-color);
-  font-size: 0.85rem;
+  border: 1px solid var(--ory-border-primary);
+  background: var(--ory-bg-primary);
+  font-family: var(--ory-font);
+  font-size: 14px;
   cursor: pointer;
 }
 
 .deploymentTriggerLabel {
   font-weight: 500;
+  color: var(--ory-text-primary);
 }
 
 .deploymentTriggerValue {
-  color: var(--ifm-color-emphasis-700);
+  color: var(--ory-text-secondary);
 }
 
 .deploymentTriggerChevron {
@@ -190,9 +202,9 @@
   right: 0;
   margin-top: 0.5rem;
   padding: 0.5rem;
-  border-radius: 0.75rem;
-  border: 1px solid var(--ifm-color-emphasis-200);
-  background: var(--ifm-background-surface-color);
+  border-radius: var(--ory-radius);
+  border: 1px solid var(--ory-border-primary);
+  background: var(--ory-bg-primary);
   min-width: 220px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
   display: flex;
@@ -206,17 +218,19 @@
   padding: 0.6rem 0.75rem;
   text-align: left;
   cursor: pointer;
-  border-radius: 0.5rem;
-  font-size: 0.9rem;
+  border-radius: var(--ory-radius-btn);
+  font-family: var(--ory-font);
+  font-size: 14px;
+  color: var(--ory-text-primary);
   transition: background 0.15s ease;
 }
 
 .deploymentOption:hover {
-  background: var(--ifm-color-emphasis-100);
+  background: var(--ory-bg-secondary);
 }
 
 .deploymentOptionActive {
-  background: var(--ifm-color-emphasis-200);
+  background: var(--ory-bg-tertiary);
   font-weight: 600;
 }
 
@@ -229,9 +243,9 @@
 .card {
   display: block;
   padding: 1rem 1.25rem;
-  border-radius: 0.75rem;
-  border: 1px solid var(--ifm-color-emphasis-200);
-  background: var(--ifm-background-surface-color);
+  border-radius: var(--ory-radius);
+  border: 1px solid var(--ory-border-primary);
+  background: var(--ory-bg-primary);
   text-decoration: none;
   color: inherit;
   transition:
@@ -243,18 +257,15 @@
 .card:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  border-color: var(--ifm-color-primary);
+  border-color: var(--ory-brand-primary);
 }
 
 .cardTitle {
   margin: 0 0 0.25rem;
-  font-size: 0.98rem;
 }
 
 .cardDescription {
   margin: 0;
-  font-size: 0.85rem;
-  color: var(--ifm-color-emphasis-700);
 }
 
 .examplesSection {
@@ -264,6 +275,5 @@
 }
 
 .noExamplesText {
-  font-size: 0.9rem;
-  color: var(--ifm-color-emphasis-700);
+  color: var(--ory-text-tertiary);
 }

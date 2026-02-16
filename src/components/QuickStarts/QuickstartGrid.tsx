@@ -23,9 +23,11 @@ export const QuickstartGrid: React.FC<QuickstartGridProps> = ({
     <div className={styles.grid}>
       {filteredItems.map((item) => (
         <Link key={item.to} className={styles.card} to={item.to}>
-          <h3 className={styles.cardTitle}>{item.label}</h3>
+          <h3 className={`ory-heading-3 ${styles.cardTitle}`}>{item.label}</h3>
           {item.description && (
-            <p className={styles.cardDescription}>{item.description}</p>
+            <p className={`ory-body-sm ${styles.cardDescription}`}>
+              {item.description}
+            </p>
           )}
         </Link>
       ))}

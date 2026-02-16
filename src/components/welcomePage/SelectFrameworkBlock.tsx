@@ -3,7 +3,7 @@ import IconCopy from "@site/src/static/img/icons/copy.svg"
 import { StepBadge } from "./StepBadge"
 import { FrameworkCodeSnippet } from "./FrameworkCodeSnippet"
 import { GuideLinkBox } from "./GuideLinkBox"
-import { colors, radius, spacing, typography } from "./tokens"
+import { colors } from "./tokens"
 
 export type FrameworkValue = "typescript" | "nextjs" | "vue" | "go"
 
@@ -40,71 +40,21 @@ export function SelectFrameworkBlock({
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: spacing.size4,
-          marginBottom: spacing.size8,
-          position: "relative",
-        }}
-      >
+      <div className="flex flex-col gap-ory-4 mb-ory-8 relative">
         <StepBadge step={3} />
-        <h2
-          style={{
-            fontFamily: typography.fontFamily,
-            fontSize: typography.fontSizeLg,
-            fontWeight: typography.fontWeightMedium,
-            lineHeight: typography.lineHeightTight,
-            color: colors.textPrimary,
-            margin: 0,
-            maxWidth: "672px",
-          }}
-        >
+        <h2 className="ory-heading-3 text-xl max-w-[672px]">
           Select your framework or language
         </h2>
-        <p
-          style={{
-            fontFamily: typography.fontFamily,
-            fontSize: typography.fontSizeSm,
-            fontWeight: typography.fontWeightNormal,
-            lineHeight: typography.lineHeightNormal,
-            color: colors.textSecondary,
-            margin: 0,
-            maxWidth: "672px",
-          }}
-        >
+        <p className="ory-body-sm max-w-[672px]">
           Already building with a specific framework or language? Pick your
           stack and follow the quickstart example for that framework/language.
         </p>
       </div>
 
-      <div
-        style={{
-          background: colors.backgroundSecondaryHover,
-          border: `1px solid ${colors.borderPrimary}`,
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-        }}
-      >
+      <div className="bg-ory-bg-secondary-hover border border-ory-border-primary flex flex-col overflow-hidden">
         {/* Toolbar: framework tabs + copy */}
-        <div
-          style={{
-            background: colors.backgroundSecondary,
-            display: "flex",
-            alignItems: "center",
-            gap: spacing.size1,
-            padding: `${spacing.size2} ${spacing.size4}`,
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              gap: spacing.size1,
-              flex: "1 0 0",
-            }}
-          >
+        <div className="bg-ory-bg-secondary flex items-center gap-1 py-ory-2 px-ory-4">
+          <div className="flex gap-1 flex-1 min-w-0">
             {frameworks.map((lang) => {
               const active = lang.value === selectedFramework
               const LangIcon = lang.Icon
@@ -116,43 +66,18 @@ export function SelectFrameworkBlock({
                   key={lang.value}
                   type="button"
                   onClick={() => onFrameworkChange(lang.value)}
-                  style={{
-                    height: "28px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: spacing.size0_5,
-                    padding: `0 ${spacing.size2_5}`,
-                    borderRadius: radius.buttons,
-                    background: active
-                      ? colors.backgroundBrandTertiary
-                      : "transparent",
-                    border: active
-                      ? `1px solid ${colors.borderBrandTertiary}`
-                      : "1px solid transparent",
-                    cursor: "pointer",
-                  }}
+                  className={`ory-btn-ghost ${active ? "ory-code-tab--active" : ""}`}
                 >
                   <LangIcon
+                    className="w-4 h-4 shrink-0"
                     style={
-                      {
-                        width: "16px",
-                        height: "16px",
-                        flexShrink: 0,
-                        ["--stroke-0"]: iconStroke,
-                      } as React.CSSProperties
+                      { ["--stroke-0"]: iconStroke } as React.CSSProperties
                     }
                   />
                   <span
-                    style={{
-                      fontFamily: typography.fontFamily,
-                      fontSize: typography.fontSizeSm,
-                      fontWeight: typography.fontWeightNormal,
-                      lineHeight: "1",
-                      color: active
-                        ? colors.brandOnTertiary
-                        : colors.textPrimary,
-                      whiteSpace: "nowrap",
-                    }}
+                    className={
+                      active ? "text-inherit" : "text-ory-text-primary"
+                    }
                   >
                     {lang.label}
                   </span>
@@ -168,19 +93,9 @@ export function SelectFrameworkBlock({
               navigator.clipboard.writeText(selected.snippet)
               onCopy?.()
             }}
-            style={{
-              width: "32px",
-              height: "28px",
-              background: "transparent",
-              border: "1px solid transparent",
-              borderRadius: radius.buttons,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-            }}
+            className="ory-btn-icon"
           >
-            <IconCopy style={{ width: "16px", height: "16px" }} />
+            <IconCopy className="w-4 h-4" />
           </button>
         </div>
 
