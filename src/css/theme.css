@@ -388,6 +388,15 @@
   --text-inverted-primary: #ffffff;
   --border-transparent-transparent: rgba(255, 255, 255, 0);
   --background-transparent-primary-hover: rgba(0, 0, 0, 0.02);
+
+  /* Sidebar product circle icons (from Figma vars) */
+  --icons-base: 16px;
+  --icon-kratos-tertiary: #f97316;
+  --icon-hydra-tertiary: var(--color-blue-500);
+  --icon-keto-tertiary: var(--color-green-500);
+  --icon-oathkeeper-tertiary: var(--color-teal-500);
+  --icon-polis-tertiary: var(--color-purple-500);
+  --icon-network-tertiary: var(--color-indigo-500);
 }
 
 .navbar {
@@ -1061,65 +1070,57 @@ svg[class*="iconExternalLink"] {
 .sidebar-icon > .menu__list-item-collapsible > .menu__link > span {
   display: inline-flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .sidebar-icon > .menu__list-item-collapsible > .menu__link > span::before {
   content: "";
-  margin-right: 8px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: left;
+  margin-right: var(--size-2, 8px);
+  width: var(--icons-base);
+  height: var(--icons-base);
+  min-width: var(--icons-base);
+  min-height: var(--icons-base);
+  border-radius: 9999px;
+  flex-shrink: 0;
 }
 
-/* Icon variants */
+/* Circle icon variants - product colors from Figma vars */
 .sidebar-icon-hydra
   > .menu__list-item-collapsible
   > .menu__link
   > span::before {
-  background-image: url("/img/ory-hydra-icon.svg");
-  height: 30px;
-  width: 108px;
+  background-color: var(--icon-hydra-tertiary);
 }
 
 .sidebar-icon-kratos
   > .menu__list-item-collapsible
   > .menu__link
   > span::before {
-  background-image: url("/img/ory-kratos-icon.svg");
-  height: 30px;
-  width: 120px;
+  background-color: var(--icon-kratos-tertiary);
 }
 
 .sidebar-icon-keto > .menu__list-item-collapsible > .menu__link > span::before {
-  background-image: url("/img/ory-keto-icon.svg");
-  height: 30px;
-  width: 108px;
+  background-color: var(--icon-keto-tertiary);
 }
 
 .sidebar-icon-oathkeeper
   > .menu__list-item-collapsible
   > .menu__link
   > span::before {
-  background-image: url("/img/ory-oathkeeper-icon.svg");
-  height: 30px;
-  width: 140px;
+  background-color: var(--icon-oathkeeper-tertiary);
 }
 
 .sidebar-icon-polis
   > .menu__list-item-collapsible
   > .menu__link
   > span::before {
-  background-image: url("/img/ory-polis-icon.svg");
-  height: 30px;
-  width: 108px;
+  background-color: var(--icon-polis-tertiary);
 }
 
 .sidebar-icon-network
   > .menu__list-item-collapsible
   > .menu__link
   > span::before {
-  background-image: url("/img/ory-network-icon.svg");
-  height: 30px;
-  width: 108px;
+  background-color: var(--icon-network-tertiary);
 }
