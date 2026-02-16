@@ -122,6 +122,29 @@ h3.ory-heading-3,
   font-weight: 500;
 }
 
+/* Step badge (e.g. deployment section step circles) */
+.ory-step-badge {
+  position: absolute;
+  left: -43.5px;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--background-inverted-primary, #0f172a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ory-step-badge__number {
+  font-family: var(--ory-font);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text-inverted-primary, #ffffff);
+  text-align: center;
+}
+
 .ory-link {
   display: inline-flex;
   gap: 4px;

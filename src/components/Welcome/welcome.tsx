@@ -1,7 +1,6 @@
 import React from "react"
 import { CardItem } from "../WelcomeCard/welcome-card"
 import { OverviewCard } from "../welcomePage/OverviewCard"
-import { spacing } from "../welcomePage/tokens"
 
 export interface WelcomePageSectionProps {
   id: string
@@ -16,13 +15,7 @@ const WelcomePageSection: React.FC<WelcomePageSectionProps> = ({
 }) => {
   return (
     <section id={id}>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: spacing.size4,
-        }}
-      >
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-ory-4">
         {cards.map((card, index) => (
           <OverviewCard
             key={index}
