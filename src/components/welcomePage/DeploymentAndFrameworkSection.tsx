@@ -37,7 +37,7 @@ export function DeploymentAndFrameworkSection() {
             How to design your Ory solution
           </h2>
           <p className="ory-body max-w-[800px]">
-            Every Ory implementation starts with these decisions — how to
+            Every Ory implementation starts with these decisions—how to
             deploy, which products to use, and what framework or language to
             build with. Start here to find the right combination for your use
             case.
@@ -51,7 +51,7 @@ export function DeploymentAndFrameworkSection() {
                 </h3>
                 <p className="ory-body max-w-[800px]">
                   Choose the deployment option that fits your organization and
-                  build secure IAM into your apps. You can switch later — the
+                  build secure IAM into your apps. You can switch later—the
                   core concepts stay the same.
                 </p>
               </div>

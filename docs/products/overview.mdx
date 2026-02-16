@@ -7,23 +7,30 @@ import Link from "@docusaurus/Link"
 import WelcomePageSection from "@site/src/components/Welcome/welcome"
 import * as welcomeContent from "@site/src/pages/_assets/welcome-content"
 
+Ory's identity and access management platform is modular; each product handles a specific capability, and you combine them based on what 
+your system needs. This section walks you through choosing the right deployment option for your system, understanding what each Ory 
+product does, and seeing how products combine into solutions that address real-world authentication and authorization requirements.
+
 ## Which deployment option?
 
 The right option depends on your organization’s goals and how much control you want over your infrastructure. If you need to
 maintain full control, meet strict compliance requirements, or operate at massive scale, Ory Enterprise License (OEL) is the best
 fit. For teams that want zero infrastructure management and seamless scaling, Ory Network provides a fully managed platform. And
-if you’re exploring, testing, or building prototypes, start with Ory Open Source or the Ory Network free tier. All Ory products
-share the same open standards and APIs, so you can move between them without rewriting your code.
+if you’re exploring, testing, or building prototypes, start with Ory Open Source or the Ory Network free tier. All Ory deployment
+options share the same open standards and APIs, so you can move between them without rewriting your code.
 
 <WelcomePageSection {...welcomeContent.deploymentOptions} />
 
 ## Which Ory product?
 
-Ory provides everything you need to build a modern identity and access management system. Ory doesn't treat IAM as one monolith
-system, we approach is as a set of layered responsibilities. Here’s how Ory maps core IAM concepts to our products, each acting as
-a composable building block.
+Each Ory deployment option, provides everything you need to build a modern identity and access management system. Ory doesn't 
+treat IAM as one monolithic system, we approach is as a set of layered responsibilities. Here’s how Ory maps core IAM concepts to our 
+products, each acting as a composable building block. 
 
-### Ory ecosystem architecture
+NOTE: Product names, features, and capabilities may vary between deployment options. The product descriptions below apply 
+generally across all deployments.
+
+### The Ory ecosystem
 
 ![Ory Ecosystem architecture](./_static/ory-eco-arch.png)
 
@@ -33,7 +40,7 @@ Choose Ory products based on the specific identity, authorization, or access con
 
 | **IAM Concept / Layer**                                   | **Core IAM Question**                                                     | **Ory Product — What it does and how**                                                                                                                                                                                 |
 | --------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Identity Management & Authentication                  | Who is the user and how do they sign in?                                      | **Ory Kratos** Manages user identities and handles direct authentication flows such as login, registration, account recovery, MFA-ready flows, and session management (cookies).                                       |
+| Identity Management & Authentication                  | Who is the user and how do they sign in?                                      | **Ory Kratos** Manages user identities and handles direct authentication flows such as login, registration, account recovery, MFA-ready flows, and session management (cookies/jwt).                                       |
 | Delegated, Scope-based Authorization & Token Issuance | Which application can act on behalf of a user, and with what level of access? | **Ory Hydra** Implements OAuth2 and OpenID Connect to issue access and ID tokens with scopes. Delegates user login to Kratos or another IdP, enabling SSO and API access across apps and services.                     |
 | Enterprise Federation & Single Sign-On (SSO)          | How can enterprise customers sign in with their corporate identity provider?  | **Ory Polis** Provides enterprise SSO by connecting apps to SAML and OIDC identity providers. Bridges legacy SAML into modern OAuth2 flows and supports SCIM directory sync for automated user and group provisioning. |
 | Fine-grained Authorization & Permissions              | Can this user perform this action on this specific resource?                  | **Ory Keto** Provides relationship-based, fine-grained authorization for application-level permissions, such as access to documents, projects, or business objects.                                                    |
@@ -42,82 +49,50 @@ Choose Ory products based on the specific identity, authorization, or access con
 
 
 
-Each Ory product solves a specific IAM challenge, but most real-world implementations combine several. Below are common 
-product combinations organized by whether you're solving for authentication, authorization, permissions or all three.
-
-**Ory Kratos**—a fully standalone identity management product. It handles the complete identity lifecycle (registration, login, recovery, MFA, profile
-management) without dependencies.
-
-Ory Kratos is the primary product that authenticates users directly through login, registration, and session-based flows. On its
-own, it is best suited for browser-based applications that rely on cookies and sessions for user authentication.
-
-For architectures that extend beyond browser-based apps—such as mobile clients, single-page applications, or service-to-service
-APIs—Ory Hydra complements Kratos by providing OAuth2 and OpenID Connect support. Hydra delegates user login to Kratos (or another
-identity provider) and then issues standardized tokens for downstream applications and APIs. In these deployments, Kratos sessions
-can still be used for browser interactions, while Hydra tokens enable secure access across additional clients and services.
-
-- **Ory Account Experience** (Ory Network only)—is the default, hosted user interface that comes with
-  every Ory Network project and covers all self‑service flows such as login, registration, recovery, verification, settings, and
-  consent.
-
-- **Ory Elements**—Ory's default UI flows, build customize flows, or bring your own UI. Ory Elements is a component library
-  that allows you to build custom user interfaces for Ory self-service flows. It provides a set of pre-built components that can
-  be easily integrated into your application, enabling you to create a seamless user experience while leveraging Ory's powerful
-  authentication and identity management capabilities.
-
-**Ory Keto**—provides fine-grained authorization for modern applications. It answers questions such as “Can this user
-perform this action on this resource?” by evaluating permissions and access relationships. Keto does not authenticate users
-itself, so it relies on an upstream identity provider (such as Ory Kratos or a third-party IdP) to establish who the subject is
-before making authorization decisions.
-
-**Ory Hydra**—is Ory’s OAuth2 and OpenID Connect provider for delegated authorization and federated authentication. It
-issues access and ID tokens that enable secure access across applications, APIs, and third-party integrations. Hydra is
-intentionally headless and does not manage users directly; instead, it delegates authentication to an identity provider like Ory
-Kratos or an external IdP, and then provides standardized tokens for downstream services.
-
-**Ory Polis**—is an enterprise Single Sign-On (SSO) service that connects applications to corporate identity providers
-using SAML and OIDC. It abstracts protocol complexity by presenting enterprise SSO through a standard OAuth 2.0 flow, enabling
-modern authentication even when customers rely on legacy SAML systems. Polis also supports enterprise identity lifecycle
-operations such as SCIM-based directory sync, allowing automatic synchronization of accounts and groups from corporate
-directories.
-
-**Ory Oathkeeper**—is a proxy gateway..
-
 ## From products to solutions
 
-### Authentication & fine-grained permissons (Kratos + Keto) 
+Each Ory product solves a specific IAM challenge, but most real-world implementations combine several. Below are common 
+product combinations that demonstrate Ory's modular approach to building IAM solutions.
 
-When you need authentication and fine-grained permissions within your own application(s). Users log in via Kratos,
-and Keto controls what they can access internally.
+### Authentication & access control for your applications (Kratos & Keto) 
+
+Users register and sign in through Kratos, while Keto controls what they can see and do based on roles, relationships, or custom rules. 
+Use this combination when your application needs both identity management and fine-grained permissions.
 
 ![Ory Kratos](./_static/kratos-keto.drawio.svg)
 
-### Authentication & authorization with OAuth2.0/ODIC tokens (Kratos + Hydra)
+### Authentication & delegated access across apps and services (Kratos & Hydra)
 
-When you need authentication plus OAuth 2.0/OIDC capabilities: SSO across multiple apps, third-party
-integrations, or federating identity to external services.
+Users authenticate through Kratos, and Hydra issues OAuth2/OIDC tokens that enable single sign-on and let applications act on users' behalf 
+with scoped access. Use this combination when you need a shared identity across multiple apps, third-party integrations, or API access.
 
 ![Ory Kratos](./_static/kratos-hydra.drawio.svg)
 
-### Authentication, authorization with OAuth2.0/ODIC tokens, and fine-grained permissons (Kratos + Hydra + Keto)
+### Authentication, SSO, & fine-grained access control (Kratos, Hydra & Keto)
 
-When you need all three: user login, token issuance/SSO, and fine-grained permissions.
+Combines user authentication, token-based SSO and delegated access, and granular permission checks into a single stack. Use this combination 
+when your system needs to manage who users are, which apps can act for them, and exactly what they're allowed to do.
 
 ![Ory Kratos](./_static/kratos-hydra-keto.drawio.svg)
 
-The choice depends on whether you're solving for internal permissions vs. external/delegated access.
+### Enterprise SSO with external identity federation (Polis)
 
-### Polis + IdP
+Polis manages federation and communication between your application and third-party identity providers. Use Polis when your customers need to 
+authenticate through their own IdP, while session management and user lifecycle remain in your application.
 
 ![Ory Kratos](./_static/polis-only.drawio.svg)
 
-### Kratos + Hydra + Keto + Polis
+### Authentication, external identity federation, & fine-grained access control  (Kratos, Polis, & Keto)
+
+Users authenticate through Kratos or a federated external IdP via Polis, and Keto enforces what they can access. Use this combination when you 
+need both internal identity management and external federation with granular permissions.
 
 ![Ory Kratos](./_static/kratos-polis-keto.drawio.svg)
 
-### Ory's full IAM stack (Kratos + Hydra + Keto + Polis + Oathkeeper)
+### Ory's full IAM stack,  (Kratos, Hydra, Keto, Polis, & Oathkeeper)
 
-This ecosystem enables highly secure, standards-based authentication and authorization for web, mobile, and API access, 
-both for end users and machine-to-machine contexts.
+The complete Ory ecosystem covers authentication, token issuance, fine-grained permissions, external identity federation, and request-level 
+enforcement at the network edge. Use this when you need end-to-end identity and access management for users, apps, APIs, and machine-to-machine 
+contexts.
 
 ![Ory Kratos](./_static/ory-fullstack-arch.drawio.svg)
