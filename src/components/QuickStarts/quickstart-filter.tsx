@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from "react"
+import { useQuickstartsDeployment } from "@site/src/contexts/QuickstartsDeploymentContext"
 import ExampleList from "../Examples/example-list"
 import { CategoryFilter } from "./CategoryFilter"
 import { CATEGORIES } from "./constants"
@@ -17,15 +18,26 @@ function getInitialLanguageFromUrl(): string {
 }
 
 export const QuickstartFilter = () => {
+  const quickstartsDeployment = useQuickstartsDeployment()
   const [activeCategoryId, setActiveCategoryId] = useState<string>(
     CATEGORIES[0]?.id ?? "",
   )
-  const [deploymentMode, setDeploymentMode] =
+  const [localDeploymentMode, setLocalDeploymentMode] =
     useState<DeploymentMode>("network")
   const [activeLanguage, setActiveLanguage] = useState<string>(
     getInitialLanguageFromUrl,
   )
   const languageFilterRef = useRef<LanguageFilterRef>(null)
+
+  const deploymentMode: DeploymentMode =
+    quickstartsDeployment?.deployment ?? localDeploymentMode
+  const setDeploymentMode = (mode: DeploymentMode) => {
+    if (quickstartsDeployment) {
+      quickstartsDeployment.setDeployment(mode)
+    } else {
+      setLocalDeploymentMode(mode)
+    }
+  }
 
   const activeCategory =
     CATEGORIES.find((cat) => cat.id === activeCategoryId) ?? CATEGORIES[0]

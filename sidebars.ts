@@ -21,6 +21,7 @@ import b2bSidebar from "./sidebars-b2b"
 import workforceSidebar from "./sidebars-workforce"
 import quickstartsSidebar, {
   quickstartsNetworkSidebar,
+  quickstartsNetworkOnlySidebar,
   quickstartsOelSidebar,
   quickstartsOssSidebar,
 } from "./sidebars-quickstarts"
@@ -94,6 +95,7 @@ const sidebars: SidebarsConfig = {
   b2bSidebar,
   quickstartsSidebar,
   quickstartsNetworkSidebar,
+  quickstartsNetworkOnlySidebar,
   quickstartsOelSidebar,
   quickstartsOssSidebar,
   api,

@@ -1334,6 +1334,15 @@ svg[class*="iconExternalLink"] {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+button.sidebar-deployment-model__link {
+  width: 100%;
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
 .sidebar-deployment-model__link:hover {
   color: var(--ifm-color-primary);
 }
