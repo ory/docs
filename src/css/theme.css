@@ -106,6 +106,22 @@ h3.ory-heading-3,
   margin: 0;
 }
 
+/* flex/xs/normal – small body text (e.g. CTA description) */
+.ory-text-xs-normal {
+  font-family: var(--font-family-flex, Inter, sans-serif);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: var(--font-weight-font-weight);
+}
+
+/* flex/sm/normal – small title (e.g. CTA heading) */
+.ory-text-sm-normal {
+  font-family: var(--font-family-flex, Inter, sans-serif);
+  font-size: var(--font-size-sm);
+  font-style: normal;
+  font-weight: 500;
+}
+
 .ory-link {
   display: inline-flex;
   gap: 4px;
@@ -653,6 +669,13 @@ h2.ory-section-heading {
   --ory-text-primary: #0f172a;
   --ory-text-secondary: #334155;
   --ory-text-tertiary: #64748b;
+  /* Figma alias for tertiary text */
+  --text-default-tertiary: #64748b;
+  /* Figma typography (flex/xs/normal, flex/sm/normal) */
+  --font-family-flex: Inter, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-weight-font-weight: 400;
   --ory-brand-primary: #383bca;
   --ory-brand-on-tertiary: #2e3081;
   --ory-bg-primary: #fff;
