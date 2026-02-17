@@ -3,7 +3,6 @@ import IconCopy from "@site/src/static/img/icons/copy.svg"
 import { StepBadge } from "./StepBadge"
 import { FrameworkCodeSnippet } from "./FrameworkCodeSnippet"
 import { GuideLinkBox } from "./GuideLinkBox"
-import { colors } from "./tokens"
 
 export type FrameworkValue = "typescript" | "nextjs" | "vue" | "go"
 
@@ -58,9 +57,7 @@ export function SelectFrameworkBlock({
             {frameworks.map((lang) => {
               const active = lang.value === selectedFramework
               const LangIcon = lang.Icon
-              const iconStroke = active
-                ? colors.brandOnTertiary
-                : colors.textPrimary
+              const iconStroke = active ? "#2e3081" : "#0f172a"
               return (
                 <button
                   key={lang.value}

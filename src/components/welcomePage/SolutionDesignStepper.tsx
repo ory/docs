@@ -1,8 +1,18 @@
 import React, { useState, useMemo } from "react"
 import Link from "@docusaurus/Link"
+import useBaseUrl from "@docusaurus/useBaseUrl"
 import Mermaid from "@theme/Mermaid"
-import { colors } from "./tokens"
 import { StepBadge } from "./StepBadge"
+
+const STEP_DIAGRAM_FILES = [
+  "diag-01.png",
+  "diag-02.png",
+  "diag-03.png",
+  "diag-04.png",
+  "diag-05.png",
+  "diag-06.png",
+  "diag-07.png",
+]
 
 type ProductKey =
   | "kratos"
@@ -321,265 +331,6 @@ ${connections}
 `
 }
 
-function IntroGraphic({
-  colors,
-}: {
-  colors: Readonly<typeof import("./tokens").colors>
-}) {
-  return (
-    <svg
-      width="100%"
-      height="100%"
-      viewBox="0 0 1008 400"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ maxHeight: "100%", objectFit: "contain" }}
-    >
-      <defs>
-        <pattern
-          id="intro-dots"
-          width="24"
-          height="24"
-          patternUnits="userSpaceOnUse"
-        >
-          <circle
-            cx="12"
-            cy="12"
-            r="1.5"
-            fill={colors.borderPrimary}
-            opacity="0.5"
-          />
-        </pattern>
-        <linearGradient
-          id="intro-card-gradient"
-          x1="0%"
-          y1="0%"
-          x2="100%"
-          y2="100%"
-        >
-          <stop offset="0%" stopColor={colors.backgroundPrimary} />
-          <stop offset="100%" stopColor={colors.backgroundSecondary} />
-        </linearGradient>
-        <filter id="intro-shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow
-            dx="0"
-            dy="2"
-            stdDeviation="8"
-            floodColor={colors.textPrimary}
-            floodOpacity="0.06"
-          />
-        </filter>
-      </defs>
-      <rect width="1008" height="400" fill="url(#intro-dots)" />
-      <g filter="url(#intro-shadow)">
-        <rect
-          x="120"
-          y="120"
-          width="200"
-          height="160"
-          rx="8"
-          fill="url(#intro-card-gradient)"
-          stroke={colors.borderPrimary}
-          strokeWidth="1"
-        />
-        <circle
-          cx="180"
-          cy="165"
-          r="20"
-          fill={colors.brandPrimaryAlt}
-          opacity="0.2"
-        />
-        <circle cx="180" cy="165" r="10" fill={colors.brandPrimary} />
-        <rect
-          x="220"
-          y="155"
-          width="80"
-          height="8"
-          rx="4"
-          fill={colors.borderPrimary}
-          opacity="0.6"
-        />
-        <rect
-          x="220"
-          y="175"
-          width="60"
-          height="8"
-          rx="4"
-          fill={colors.borderPrimary}
-          opacity="0.4"
-        />
-        <rect
-          x="220"
-          y="195"
-          width="70"
-          height="8"
-          rx="4"
-          fill={colors.borderPrimary}
-          opacity="0.4"
-        />
-      </g>
-      <path
-        d="M 340 200 L 428 200"
-        stroke={colors.brandPrimary}
-        strokeWidth="2"
-        strokeDasharray="6 6"
-        opacity="0.7"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 418 200 L 428 194 L 428 206 Z"
-        fill={colors.brandPrimary}
-        opacity="0.7"
-      />
-      <g filter="url(#intro-shadow)">
-        <rect
-          x="448"
-          y="120"
-          width="200"
-          height="160"
-          rx="8"
-          fill="url(#intro-card-gradient)"
-          stroke={colors.borderPrimary}
-          strokeWidth="1"
-        />
-        <rect
-          x="478"
-          y="145"
-          width="48"
-          height="32"
-          rx="4"
-          fill={colors.brandPrimary}
-          opacity="0.15"
-        />
-        <rect
-          x="538"
-          y="145"
-          width="48"
-          height="32"
-          rx="4"
-          fill={colors.brandPrimary}
-          opacity="0.15"
-        />
-        <rect
-          x="598"
-          y="145"
-          width="48"
-          height="32"
-          rx="4"
-          fill={colors.brandPrimary}
-          opacity="0.15"
-        />
-        <rect
-          x="478"
-          y="195"
-          width="48"
-          height="32"
-          rx="4"
-          fill={colors.borderPrimary}
-          opacity="0.3"
-        />
-        <rect
-          x="538"
-          y="195"
-          width="48"
-          height="32"
-          rx="4"
-          fill={colors.borderPrimary}
-          opacity="0.3"
-        />
-      </g>
-      <path
-        d="M 668 200 L 756 200"
-        stroke={colors.brandPrimary}
-        strokeWidth="2"
-        strokeDasharray="6 6"
-        opacity="0.7"
-        strokeLinecap="round"
-      />
-      <path
-        d="M 746 200 L 756 194 L 756 206 Z"
-        fill={colors.brandPrimary}
-        opacity="0.7"
-      />
-      <g filter="url(#intro-shadow)">
-        <rect
-          x="776"
-          y="120"
-          width="200"
-          height="160"
-          rx="8"
-          fill="url(#intro-card-gradient)"
-          stroke={colors.borderPrimary}
-          strokeWidth="1"
-        />
-        <circle
-          cx="876"
-          cy="165"
-          r="24"
-          fill={colors.brandPrimary}
-          opacity="0.12"
-        />
-        <circle
-          cx="836"
-          cy="200"
-          r="16"
-          fill={colors.borderPrimary}
-          opacity="0.4"
-        />
-        <circle
-          cx="916"
-          cy="200"
-          r="16"
-          fill={colors.borderPrimary}
-          opacity="0.4"
-        />
-        <path
-          d="M 860 185 L 892 185 M 876 165 L 876 195"
-          stroke={colors.brandPrimary}
-          strokeWidth="1.5"
-          opacity="0.6"
-        />
-      </g>
-      <text
-        x="220"
-        y="315"
-        fill={colors.textSecondary}
-        style={{
-          fontFamily: "Inter, sans-serif",
-          fontSize: "14px",
-          fontWeight: 500,
-        }}
-      >
-        Answer a few questions
-      </text>
-      <text
-        x="498"
-        y="315"
-        fill={colors.textSecondary}
-        style={{
-          fontFamily: "Inter, sans-serif",
-          fontSize: "14px",
-          fontWeight: 500,
-        }}
-      >
-        Get your Ory stack
-      </text>
-      <text
-        x="816"
-        y="315"
-        fill={colors.textSecondary}
-        style={{
-          fontFamily: "Inter, sans-serif",
-          fontSize: "14px",
-          fontWeight: 500,
-        }}
-      >
-        See your architecture
-      </text>
-    </svg>
-  )
-}
-
 export function SolutionDesignStepper() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, "yes" | "no">>({})
@@ -604,11 +355,26 @@ export function SolutionDesignStepper() {
       : null
 
   const isOnFirstQuestion = currentStep === 0
-  const showIntroDiagram =
-    isOnFirstQuestion && answers[STEPS[0].id] === undefined
+  // Only show step diagram after user has selected an answer for that step (e.g. Yes)
+  const stepsAnsweredCount = STEPS.filter(
+    (s) => answers[s.id] !== undefined,
+  ).length
+  const showIntroDiagram = stepsAnsweredCount === 0
+  const stepDiagramNumber = Math.min(stepsAnsweredCount, STEPS.length)
+  const stepDiagramSrc = useBaseUrl(
+    `/img/home/design-your-solution/${STEP_DIAGRAM_FILES[stepDiagramNumber - 1]}`,
+  )
 
   const handleAnswer = (stepId: string, value: "yes" | "no") => {
     setAnswers((prev) => ({ ...prev, [stepId]: value }))
+  }
+
+  const clearAnswer = (stepId: string) => {
+    setAnswers((prev) => {
+      const next = { ...prev }
+      delete next[stepId]
+      return next
+    })
   }
 
   const handleNext = () => {
@@ -622,7 +388,15 @@ export function SolutionDesignStepper() {
       handleReset()
       return
     }
-    if (currentStep > 0) setCurrentStep(currentStep - 1)
+    if (currentStep > 0) {
+      const stepIdToClear = STEPS[currentStep].id
+      setAnswers((prev) => {
+        const next = { ...prev }
+        delete next[stepIdToClear]
+        return next
+      })
+      setCurrentStep(currentStep - 1)
+    }
   }
 
   const handleReset = () => {
@@ -647,44 +421,26 @@ export function SolutionDesignStepper() {
       </div>
 
       <div className="bg-ory-bg-primary border border-ory-border-primary flex flex-col overflow-hidden rounded-ory">
-        {/* Architecture diagram or intro graphic */}
+        {/* Step diagram (1–7) from design-your-solution; intro graphic only on first step before answer */}
         <div className="p-ory-4 relative bg-ory-bg-primary">
           <div
-            className="relative w-full overflow-hidden rounded-ory bg-ory-bg-secondary"
-            style={{
-              aspectRatio: "1008 / 400",
-              ...(showIntroDiagram && {
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }),
-            }}
+            className="relative w-full overflow-hidden rounded-ory bg-ory-bg-secondary flex items-center justify-center"
+            style={{ aspectRatio: "1008 / 400" }}
           >
             {showIntroDiagram ? (
-              <IntroGraphic colors={colors} />
+              <div className="w-full h-full flex items-center justify-center bg-ory-bg-secondary border border-dashed border-ory-border-primary rounded-ory p-ory-8">
+                <p className="ory-body-sm text-ory-text-tertiary m-0 text-center">
+                  Select an option below to see your solution diagram.
+                </p>
+              </div>
             ) : (
-              <>
-                <style>{`
-                  .solution-design-diagram-fill { display: flex; flex-direction: column; }
-                  .solution-design-diagram-fill > *:first-child { flex: 1; min-height: 0; display: flex; }
-                  .solution-design-diagram-fill svg { width: 100%; height: 100%; object-fit: contain; }
-                `}</style>
-                <div
-                  className="solution-design-diagram-fill"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                  }}
-                >
-                  <Mermaid
-                    key={selectedProducts.slice().sort().join(",")}
-                    // @ts-expect-error Mermaid theme component uses chart prop (untyped JS)
-                    chart={generateMermaidChart(selectedProducts)}
-                  />
-                </div>
-              </>
+              <img
+                key={stepDiagramNumber}
+                src={stepDiagramSrc}
+                alt={`Architecture diagram for step ${stepDiagramNumber}`}
+                className="w-full h-full object-contain"
+                style={{ maxHeight: "100%" }}
+              />
             )}
           </div>
         </div>
@@ -708,14 +464,21 @@ export function SolutionDesignStepper() {
                   <div className="flex flex-col gap-ory-3">
                     {currentQuestion.options.map((option) => {
                       const selected = currentAnswer === option.value
+                      const isNo = option.value === "no"
+                      const disabled = isNo
                       return (
                         <button
                           key={option.value}
                           type="button"
-                          onClick={() =>
-                            handleAnswer(currentQuestion.id, option.value)
-                          }
-                          className={`w-full flex items-center cursor-pointer text-left bg-ory-bg-primary border rounded-ory-btn py-ory-2 px-ory-4 ory-body-sm text-ory-text-primary ${selected ? "border-ory-border-brand-tertiary" : "border-ory-border-primary"}`}
+                          disabled={disabled}
+                          onClick={() => {
+                            if (selected) {
+                              clearAnswer(currentQuestion.id)
+                            } else if (!disabled) {
+                              handleAnswer(currentQuestion.id, option.value)
+                            }
+                          }}
+                          className={`w-full flex items-center text-left bg-ory-bg-primary border rounded-ory-btn py-ory-2 px-ory-4 ory-body-sm ${disabled ? "cursor-not-allowed opacity-50 border-ory-border-primary text-ory-text-tertiary" : `cursor-pointer text-ory-text-primary ${selected ? "border-ory-border-brand-tertiary" : "border-ory-border-primary"}`}`}
                         >
                           {option.label}
                         </button>
