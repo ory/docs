@@ -31,24 +31,24 @@ has to be considered.
 
 :::
 
-```keto-relation-tuples
-// user1 has access on dir1
-dir1#access@user1
+```keto-tuples
+// User:1 has access on Dir:1
+Dir:1#access@User:1
 
 // This is an empty relation.
-dir1#child@(file1#)
+Dir:1#child@(File:1#)
 
-// Everyone with access to dir1 has access to file1.
-file1#access@(dir1#access)
+// Everyone with access to Dir:1 has access to File:1.
+File:1#access@(Dir:1#access)
 
-// Direct access on file2 was granted.
-file2#access@user1
+// Direct access on File:2 was granted.
+File:2#access@User:1
 
-// user2 is owner of file2
-file2#owner@user2
+// User:2 is owner of File:2
+File:2#owner@User:2
 
-// Owners of file2 have access to it; possibly defined through subject set rewrites.
-file2#access@(file2#owner)
+// Owners of File:2 have access to it; possibly defined through subject set rewrites.
+File:2#access@(File:2#owner)
 ```
 
 This is represented by the following graph:
@@ -65,21 +65,21 @@ Solid edges represent explicitly defined relations, while dotted edges represent
   chart={`
 graph TD
     subgraph obj [Object region]
-    E[dir1]
-    A[file1] -->|child| E
-    G[file2]
+    E[Dir:1]
+    A[File:1] -->|child| E
+    G[File:2]
     end
     subgraph subjID [Subject ID region]
-    F([user1])
-    C([user2])
+    F([User:1])
+    C([User:2])
     end
-    A -->|access| B{{dir1#access}}
-    B -. file1#access .-> F
+    A -->|access| B{{Dir:1#access}}
+    B -. File:1#access .-> F
     E -->|access| F
     G -->|access| F
     G -->|owner| C
-    G -->|access| H{{file2#owner}}
-    H -. file2#access .-> C
+    G -->|access| H{{File:2#owner}}
+    H -. File:2#access .-> C
 `}
 />
 ```
@@ -95,5 +95,5 @@ Ory Permissions utilizes the following key properties of the graph of relations:
 
   Trying to find a path from an object to a subject will always happen locally. This means that it's only necessary to traverse
   the nodes that are successors of the object. In typical setups, this means that only a small fraction of the graph has to be
-  searched, regardless of the outcome. The intuition here is that the relations of user1's files are irrelevant when checking
-  access to user2's files.
+  searched, regardless of the outcome. The intuition here is that the relations of User:1's files are irrelevant when checking
+  access to User:2's files.

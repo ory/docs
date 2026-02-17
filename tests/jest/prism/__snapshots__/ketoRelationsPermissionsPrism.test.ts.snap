@@ -1,0 +1,932 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ketoRelationsPermissionsPrism declarative: lowercase simple: user:bob is owner of document:x should tokenize: "user:bob is owner of document:x" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "user",
+            "length": 4,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "bob",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 8,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "is",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "owner",
+        "length": 5,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "of",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "x",
+            "length": 1,
+            "type": "id",
+          },
+        ],
+        "length": 10,
+        "type": "object",
+      },
+    ],
+    "length": 31,
+    "type": "natural",
+  },
+]
+`;
+
+exports[`ketoRelationsPermissionsPrism declarative: relation as subject with 'are in': viewers of Group:Eng are in readers of Document:Xyz should tokenize: "viewers of Group:Eng are in readers of Document:Xyz" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "viewers",
+            "length": 7,
+            "type": "subjectRelation",
+          },
+          " ",
+          Token {
+            "alias": undefined,
+            "content": "of",
+            "length": 2,
+            "type": "keyword",
+          },
+          " ",
+          Token {
+            "alias": undefined,
+            "content": "Group",
+            "length": 5,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Eng",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 20,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "are",
+        "length": 3,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "in",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "readers",
+        "length": 7,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "of",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Xyz",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 12,
+        "type": "object",
+      },
+    ],
+    "length": 51,
+    "type": "natural",
+  },
+]
+`;
+
+exports[`ketoRelationsPermissionsPrism declarative: relation as subject with 'in': members in Group:Eng are viewers of Document:Xyz should tokenize: "members in Group:Eng are viewers of Document:Xyz" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "members",
+            "length": 7,
+            "type": "subjectRelation",
+          },
+          " ",
+          Token {
+            "alias": undefined,
+            "content": "in",
+            "length": 2,
+            "type": "keyword",
+          },
+          " ",
+          Token {
+            "alias": undefined,
+            "content": "Group",
+            "length": 5,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Eng",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 20,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "are",
+        "length": 3,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "viewers",
+        "length": 7,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "of",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Xyz",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 12,
+        "type": "object",
+      },
+    ],
+    "length": 48,
+    "type": "natural",
+  },
+]
+`;
+
+exports[`ketoRelationsPermissionsPrism declarative: relation as subject: members of Group:Eng are viewers of Document:Xyz should tokenize: "members of Group:Eng are viewers of Document:Xyz" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "members",
+            "length": 7,
+            "type": "subjectRelation",
+          },
+          " ",
+          Token {
+            "alias": undefined,
+            "content": "of",
+            "length": 2,
+            "type": "keyword",
+          },
+          " ",
+          Token {
+            "alias": undefined,
+            "content": "Group",
+            "length": 5,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Eng",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 20,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "are",
+        "length": 3,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "viewers",
+        "length": 7,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "of",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Xyz",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 12,
+        "type": "object",
+      },
+    ],
+    "length": 48,
+    "type": "natural",
+  },
+]
+`;
+
+exports[`ketoRelationsPermissionsPrism declarative: simple with 'on': User:Bob is owner on Document:X should tokenize: "User:Bob is owner on Document:X" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "User",
+            "length": 4,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Bob",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 8,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "is",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "owner",
+        "length": 5,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "on",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "X",
+            "length": 1,
+            "type": "id",
+          },
+        ],
+        "length": 10,
+        "type": "object",
+      },
+    ],
+    "length": 31,
+    "type": "natural",
+  },
+]
+`;
+
+exports[`ketoRelationsPermissionsPrism declarative: simple: User:Bob is owner of Document:X should tokenize: "User:Bob is owner of Document:X" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "User",
+            "length": 4,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Bob",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 8,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "is",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "owner",
+        "length": 5,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "of",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "X",
+            "length": 1,
+            "type": "id",
+          },
+        ],
+        "length": 10,
+        "type": "object",
+      },
+    ],
+    "length": 31,
+    "type": "natural",
+  },
+]
+`;
+
+exports[`ketoRelationsPermissionsPrism declarative: with 'is in': Group:group2 is in members of Group:group1 should tokenize: "Group:group2 is in members of Group:group1" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Group",
+            "length": 5,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "group2",
+            "length": 6,
+            "type": "id",
+          },
+        ],
+        "length": 12,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "is",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "in",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "members",
+        "length": 7,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "of",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Group",
+            "length": 5,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "group1",
+            "length": 6,
+            "type": "id",
+          },
+        ],
+        "length": 12,
+        "type": "object",
+      },
+    ],
+    "length": 42,
+    "type": "natural",
+  },
+]
+`;
+
+exports[`ketoRelationsPermissionsPrism question: question with 'in': is User:Alice in viewers of Document:X should tokenize: "is User:Alice in viewers of Document:X" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": "is",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "User",
+            "length": 4,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Alice",
+            "length": 5,
+            "type": "id",
+          },
+        ],
+        "length": 10,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "in",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "viewers",
+        "length": 7,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "of",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "X",
+            "length": 1,
+            "type": "id",
+          },
+        ],
+        "length": 10,
+        "type": "object",
+      },
+    ],
+    "length": 38,
+    "type": "natural-check",
+  },
+]
+`;
+
+exports[`ketoRelationsPermissionsPrism question: question with relation subject: are members of Group:XYZ allowed to view on Document:X should tokenize: "are members of Group:XYZ allowed to view on Document:X" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": "are",
+        "length": 3,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "members",
+            "length": 7,
+            "type": "subjectRelation",
+          },
+          " ",
+          Token {
+            "alias": undefined,
+            "content": "of",
+            "length": 2,
+            "type": "keyword",
+          },
+          " ",
+          Token {
+            "alias": undefined,
+            "content": "Group",
+            "length": 5,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "XYZ",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 20,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "allowed to",
+        "length": 10,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "view",
+        "length": 4,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "on",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "X",
+            "length": 1,
+            "type": "id",
+          },
+        ],
+        "length": 10,
+        "type": "object",
+      },
+    ],
+    "length": 54,
+    "type": "natural-check",
+  },
+]
+`;
+
+exports[`ketoRelationsPermissionsPrism question: simple question: is User:Bob allowed to view on Document:X should tokenize: "is User:Bob allowed to view on Document:X" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": "is",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "User",
+            "length": 4,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Bob",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 8,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "allowed to",
+        "length": 10,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "view",
+        "length": 4,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "on",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "X",
+            "length": 1,
+            "type": "id",
+          },
+        ],
+        "length": 10,
+        "type": "object",
+      },
+    ],
+    "length": 41,
+    "type": "natural-check",
+  },
+]
+`;

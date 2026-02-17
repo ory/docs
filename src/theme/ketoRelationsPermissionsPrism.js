@@ -1,75 +1,133 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-const namespace = {
-  pattern: /[a-zA-Z0-9-_]+:/,
-  inside: {
-    delimiter: /:/,
-    namespace: /[a-zA-Z0-9-_]+/,
-  },
-}
-
-const object = {
-  pattern: /[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+/,
-  inside: {
-    namespace,
-    id: /.*/, // everything else that is not the namespace
-  },
-}
-
-const relation = {
-  pattern: /[a-zA-Z0-9-_]+ o[fn] /,
-  inside: {
-    delimiter: / o[fn] /,
-  },
-}
-
-const relationAndObject = {
-  pattern: /[a-zA-Z0-9-_]+ o[fn] [a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+/,
-  inside: {
-    relation,
-    object,
-  },
-}
-
-const relationSubject = {
-  pattern: /\(?([a-zA-Z0-9-_]+ o[fn] )?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)? is /,
-  inside: {
-    delimiter: /( is )|[()]/,
-    // we first try to match relationAndObject, if that fails we match object
-    "": relationAndObject,
-    object,
-  },
-}
-
-const permissionSubject = {
-  pattern: /is \(?([a-zA-Z0-9-_]+ o[fn] )?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)?/,
-  inside: {
-    delimiter: /(is )|[()]/,
-    // we first try to match relationAndObject, if that fails we match object
-    "": relationAndObject,
-    object,
-  },
-}
+/**
+ * Prism language for English-ish relationship sentences
+ *
+ * Declarative sentences:
+ * - User:Bob is owner of Document:X
+ * - Group:group2 is in members of Group:group1
+ * - members of Group:Eng are viewers of Document:Xyz
+ * - viewers of Group:Eng are in readers of Document:Xyz
+ *
+ * Question sentences:
+ * - is User:Bob allowed to view on Document:X
+ * - is User:Alice in viewers of Document:X
+ * - are members of Group:XYZ allowed to view on Document:X
+ */
 
 export default (prism) => {
-  prism.languages["keto-relationships"] = {
+  prism.languages["keto-natural"] = {
     comment: /\/\/.*(\n|$)/,
-    relationship: {
+    // Placeholder-based declarative sentences (match first, more specific)
+    "natural-placeholder": {
       pattern:
-        /\(?([a-zA-Z0-9-_]+\s+o[fn]\s+)?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)?\s+((is( in)?)|are)\s+[a-zA-Z0-9-_]+\s+o[fn]\s+[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+/,
+        /(?=.*<(?:Subject|relation|Object)>)(?:(?:[a-z][a-zA-Z0-9_-]* (?:of|in) )?[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+|<Subject>) (?:is|are)(?: in)? (?:[a-z][a-zA-Z0-9_-]*|<relation>) (?:of|on) (?:[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+|<Object>)/,
+      alias: "natural",
       inside: {
-        subject: relationSubject,
-        "": relationAndObject,
+        // Placeholder <Subject>
+        "placeholder-subject": {
+          pattern: /<Subject>/,
+          alias: "subject",
+        },
+        // Placeholder <Object>
+        "placeholder-object": {
+          pattern: /<Object>/,
+          alias: "object",
+        },
+        // Placeholder <relation>
+        "placeholder-relation": {
+          pattern: /<relation>/,
+        },
+        // Subject: can be "relation of Namespace:Id" or "relation in Namespace:Id" or just "Namespace:Id"  (at start)
+        subject: {
+          pattern:
+            /^(?:[a-z][a-zA-Z0-9_-]* (?:of|in) )?[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+/,
+          inside: {
+            subjectRelation: /^[a-z][a-zA-Z0-9_-]*(?= (?:of|in))/,
+            keyword: /\b(?:of|in)\b/,
+            namespace: /[A-Za-z][a-zA-Z0-9_-]*(?=:)/,
+            delimiter: /:/,
+            id: /[^@#:\s]+$/,
+          },
+        },
+        // Object: always "Namespace:Id" (at end) - match before permit
+        object: {
+          pattern: /[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+$/,
+          inside: {
+            namespace: /^[A-Za-z][a-zA-Z0-9_-]*/,
+            delimiter: /:/,
+            id: /[^@#:\s]+$/,
+          },
+        },
+        // Regular relation word (not placeholder)
+        subjectRelation: /[a-z][a-zA-Z0-9_-]*(?= (?:of|on))/,
+        // Keywords - match last
+        keyword: /\b(?:is|are|in|of|on)\b/,
       },
     },
-    "permission-question": {
+    // Declarative relationship sentences
+    natural: {
       pattern:
-        /(is|are)\s+\(?([a-zA-Z0-9-_]+\s+o[fn]\s+)?[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\)?\s+(allowed to|in)\s+[a-zA-Z0-9-_]+\s+o[fn]\s+[a-zA-Z0-9-_]+:[a-zA-Z0-9-_]+\??/,
+        /(?:[a-z][a-zA-Z0-9_-]* (?:of|in) )?[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+ (?:is|are)(?: in)? [a-z][a-zA-Z0-9_-]* (?:of|on) [A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+/,
       inside: {
-        delimiter: /( allowed to )|\?/,
-        subject: permissionSubject,
-        "": relationAndObject,
+        // Subject: can be "relation of Namespace:Id" or "relation in Namespace:Id" or just "Namespace:Id"  (at start)
+        subject: {
+          pattern:
+            /^(?:[a-z][a-zA-Z0-9_-]* (?:of|in) )?[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+/,
+          inside: {
+            subjectRelation: /^[a-z][a-zA-Z0-9_-]*(?= (?:of|in))/,
+            keyword: /\b(?:of|in)\b/,
+            namespace: /[A-Za-z][a-zA-Z0-9_-]*(?=:)/,
+            delimiter: /:/,
+            id: /[^@#:\s]+$/,
+          },
+        },
+        // Object: always "Namespace:Id" (at end) - match before permit
+        object: {
+          pattern: /[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+$/,
+          inside: {
+            namespace: /^[A-Za-z][a-zA-Z0-9_-]*/,
+            delimiter: /:/,
+            id: /[^@#:\s]+$/,
+          },
+        },
+        // Permit (the action/role) - match before keywords
+        permit: /[a-z][a-zA-Z0-9_-]*(?= (?:of|on))/,
+        // Keywords - match last
+        keyword: /\b(?:is|are|in|of|on)\b/,
+      },
+    },
+    // Permission question sentences
+    "natural-check": {
+      pattern:
+        /(?:is|are) (?:[a-z][a-zA-Z0-9_-]* (?:of|in) )?[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+ (?:allowed to|in) [a-z][a-zA-Z0-9_-]* (?:of|on) [A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+/,
+      inside: {
+        // Subject (comes after is/are)
+        subject: {
+          pattern:
+            /(?<=(?:is|are) )(?:[a-z][a-zA-Z0-9_-]* (?:of|in) )?[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+/,
+          inside: {
+            subjectRelation: /^[a-z][a-zA-Z0-9_-]*(?= (?:of|in))/,
+            keyword: /\b(?:of|in)\b/,
+            namespace: /[A-Za-z][a-zA-Z0-9_-]*(?=:)/,
+            delimiter: /:/,
+            id: /[^@#:\s]+$/,
+          },
+        },
+        // Object (at end) - match before permit
+        object: {
+          pattern: /[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+$/,
+          inside: {
+            namespace: /^[A-Za-z][a-zA-Z0-9_-]*/,
+            delimiter: /:/,
+            id: /[^@#:\s]+$/,
+          },
+        },
+        // Permit - match before keywords
+        permit: /[a-z][a-zA-Z0-9_-]*(?= (?:of|on))/,
+        // Keywords (including the starting is/are) - match last
+        keyword: /\b(?:is|are|allowed to|in|of|on)\b/,
       },
     },
   }

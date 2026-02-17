@@ -58,13 +58,15 @@ namespaces:
     name: groups
   - id: 1
     name: reports
+  - id: 1
+    name: reports
 #...
 ```
 
 We can have two types of permission to access reports for granularity. Let's assume that we need `edit` and `view` access to the
 reports.
 
-```keto-relation-tuples
+```keto-tuples
 // View only access for finance department
 reports:finance#view@(groups:finance#member)
 // View only access for community department
@@ -83,7 +85,7 @@ reports:marketing#view@(groups:admin#member)
 Let's assume that we have four people in our organization. Lila is CFO and needs access to financial reports, Hadley works in
 marketing, and Dilan works as a community manager. Neel is an admin of a system and needs to have edit permissions for reports.
 
-```keto-relation-tuples
+```keto-tuples
 groups:finance#member@Lila
 groups:community#member@Dilan
 groups:marketing#member@Hadley
@@ -94,7 +96,7 @@ groups:admin#member@Neel
 
 Let's copy all permissions we created to a `policies.rts` file with the following content.
 
-```keto-relation-tuples
+```keto-tuples
 reports:finance#view@(groups:finance#member)
 reports:community#view@(groups:community#member)
 reports:marketing#view@(groups:marketing#member)
@@ -114,7 +116,7 @@ Then we can run
 
 ```bash
 keto relation-tuple parse policies.rts --format json | \
-  keto relation-tuple create - >/dev/null \
+  keto relation-tuple create -f - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
 ```
@@ -132,7 +134,7 @@ Denied
 
 Now Dilan decided to also work with marketing. Therefore we need to update his permissions and add him to the marketing group.
 
-```keto-relation-tuples
+```keto-tuples
 groups:marketing#member@Dilan
 ```
 
