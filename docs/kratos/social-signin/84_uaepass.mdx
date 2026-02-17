@@ -6,9 +6,8 @@ sidebar_label: UAE PASS
 
 # UAE PASS
 
-[UAE PASS](https://uaepass.ae/) is the UAE's official digital identity platform. It allows UAE nationals, residents, and
-visitors to authenticate using their UAE digital identity. Ory supports both web and mobile authentication flows for UAE
-PASS.
+[UAE PASS](https://uaepass.ae/) is the UAE's official digital identity platform. It allows UAE nationals, residents, and visitors
+to authenticate using their UAE digital identity. Ory supports both web and mobile authentication flows for UAE PASS.
 
 ````mdx-code-block
 import JsonnetWarning from "../../_common/jsonnetwarning.mdx"
@@ -18,71 +17,60 @@ import TabItem from '@theme/TabItem';
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
 
-Follow these steps to add UAE PASS as a social sign-in provider to your project using the Ory Console:
+Follow these steps to add UAE PASS as a social sign-in provider for your project, using the Ory Console.
 
 1. Go to <ConsoleLink route="project.socialSignIn" />.
-2. Click the switch next to the UAE PASS logo to start the configuration.
-3. Copy the Redirect URI and save it for later use.
-4. Register your application on the [UAE PASS partner portal](https://docs.uaepass.ae/). You will receive a Client ID
-   and Client Secret.
-5. Enter the Redirect URI you copied from Ory in the UAE PASS application configuration.
-6. Copy the following data from the UAE PASS application settings to the corresponding fields in the form in the Ory
-   Console:
-   - **Client ID**
-   - **Client Secret**
-7. Set the **Issuer URL** based on your environment:
+1. Enable the **Enable OpenID Connect** toggle, then click **Add new OpenID Connect provider**.
+1. Click the UAE PASS logo to open the **Configure UAE PASS** screen. You may need to click **Show more providers** to see the full list of providers.
+1. Copy the Redirect URI and save it for later use.
+1. Register your application on the [UAE PASS partner portal](https://docs.uaepass.ae/). You will receive a Client ID and Client Secret.
+1. Paste the **Client ID** and **Client Secret** into the corresponding fields in the Ory Console's **Configure UAE PASS** screen.
+1. Set the **Issuer URL** based on your environment:
    - **Production**: `https://id.uaepass.ae`
    - **Staging**: `https://stg-id.uaepass.ae`
-8. Select the **Authentication Channel**:
+1. Select the **Authentication Channel**:
    - **Web**: For browser-based authentication.
    - **Mobile**: For mobile app-to-app integration.
-9. In the **Scopes** field of the form in the Ory Console, add the following scopes:
-   - `urn:uae:digitalid:profile:general`
-   - `urn:uae:digitalid:profile:general:unifiedId`
+1. In the Ory Console, click **Save Configuration** to enable UAE PASS as a social sign-in provider.
+1. In the UAE PASS application configuration, paste the Redirect URI you copied from Ory into the allowed redirect URIs.
 
-   :::tip
+### Data mapping
 
-   Add `openid` to the scopes if you need an `id_token` returned in the flow.
+In the **Data mapping** field, you can map the data returned by the sign-in provider to traits as defined in the identity
+schema.
 
-   :::
+To define the mapping, create a Jsonnet code snippet. Read [this document](./data-mapping) to learn more about Jsonnet data
+mapping.
 
-10. In the **Data Mapping** field of the form in the Ory Console, add the following Jsonnet code snippet,
-    which maps the desired claims to the Ory Identity schema:
+In this sample Jsonnet snippet, the user's `email` and `fullnameEN` are mapped to the identity schema.
 
-    ```jsonnet
-    local claims = std.extVar('claims');
+```jsonnet
+local claims = std.extVar('claims');
 
-    {
-      identity: {
-        traits: {
-          [if 'sub' in claims then 'subject' else null]: claims.sub,
-          [if 'email' in claims then 'email' else null]: claims.email,
-          [if 'fullnameEN' in claims then 'name' else null]: claims.fullnameEN,
-        },
-      },
-    }
-    ```
-
-```mdx-code-block
-    <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
+{
+  identity: {
+    traits: {
+      [if 'sub' in claims then 'subject' else null]: claims.sub,
+      [if 'email' in claims then 'email' else null]: claims.email,
+      [if 'fullnameEN' in claims then 'name' else null]: claims.fullnameEN,
+    },
+  },
+}
 ```
-
-11. Click **Save Configuration**.
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
-
 Follow these steps to add UAE PASS as a social sign-in provider to your project using the Ory CLI:
 
 1. Register your application on the [UAE PASS partner portal](https://docs.uaepass.ae/). You will receive a Client ID
    and Client Secret.
-2. In the created app, set the redirect URI to:
+1. In the created app, set the redirect URI to:
 
    ```shell
    https://$PROJECT_SLUG.projects.oryapis.com/self-service/methods/oidc/callback/uaepass
    ```
 
-3. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
+1. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
 
    ```jsonnet
    local claims = std.extVar('claims');
@@ -111,13 +99,13 @@ Follow these steps to add UAE PASS as a social sign-in provider to your project 
     <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
-4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
+1. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
 
-   ```shell
-   cat your-data-mapping.jsonnet | base64
-   ```
+    ```shell
+    cat your-data-mapping.jsonnet | base64
+    ```
 
-5. Download the Ory Identities config from your project and save it to a file:
+1. Download the Ory Identities config from your project and save it to a file:
 
    ```shell
    ## List all available workspaces
@@ -130,31 +118,31 @@ Follow these steps to add UAE PASS as a social sign-in provider to your project 
    ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
    ```
 
-6. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
+1. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
    string or provide an URL to the file.
 
    ```yaml
    selfservice:
-     methods:
-       oidc:
-         config:
-           providers:
-             - id: uaepass # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
-               provider: uaepass
-               client_id: .... # Replace this with the Client ID from UAE PASS
-               client_secret: .... # Replace this with the Client Secret from UAE PASS
-               issuer_url: https://id.uaepass.ae # Use https://stg-id.uaepass.ae for staging
-               uaepass_auth_flow: web # Use "mobile" for mobile app-to-app integration
-               mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
-               # Alternatively, use an URL:
-               # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
-               scope:
-                 - urn:uae:digitalid:profile:general
-                 - urn:uae:digitalid:profile:general:unifiedId
-         enabled: true
+   methods:
+     oidc:
+       config:
+         providers:
+           - id: uaepass # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+             provider: uaepass
+             client_id: .... # Replace this with the Client ID from UAE PASS
+             client_secret: .... # Replace this with the Client Secret from UAE PASS
+             issuer_url: https://id.uaepass.ae # Use https://stg-id.uaepass.ae for staging
+             uaepass_auth_flow: web # Use "mobile" for mobile app-to-app integration
+             mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
+             # Alternatively, use an URL:
+             # mapper_url: https://storage.googleapis.com/abc-cde-prd/9cac9717f007808bf17f22ce7f4295c739604b183f05ac4afb4
+             scope:
+               - urn:uae:digitalid:profile:general
+               - urn:uae:digitalid:profile:general:unifiedId
+       enabled: true
    ```
 
-7. Update the Ory Identities configuration using the file you worked with:
+1. Update the Ory Identities configuration using the file you worked with:
 
    ```shell
    ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
@@ -170,19 +158,19 @@ Follow these steps to add UAE PASS as a social sign-in provider to your project 
 
 UAE PASS provides two environments. Set the `issuer_url` accordingly:
 
-| Environment | Issuer URL                    |
-| ----------- | ----------------------------- |
-| Production  | `https://id.uaepass.ae`       |
-| Staging     | `https://stg-id.uaepass.ae`   |
+| Environment | Issuer URL                  |
+| ----------- | --------------------------- |
+| Production  | `https://id.uaepass.ae`     |
+| Staging     | `https://stg-id.uaepass.ae` |
 
 ### Authentication flows
 
 UAE PASS supports two authentication flows configured through the `uaepass_auth_flow` parameter:
 
-| Flow   | Description                                     | Use case                   |
-| ------ | ----------------------------------------------- | -------------------------- |
-| `web`  | Browser-based authentication (default)          | Web applications           |
-| `mobile` | Mobile app-to-app integration                 | Native mobile applications |
+| Flow     | Description                            | Use case                   |
+| -------- | -------------------------------------- | -------------------------- |
+| `web`    | Browser-based authentication (default) | Web applications           |
+| `mobile` | Mobile app-to-app integration          | Native mobile applications |
 
 ### Scopes
 
@@ -190,17 +178,17 @@ UAE PASS uses custom scopes to control which user data is returned. The availabl
 
 **For UAE nationals and residents:**
 
-| Scope                                              | Description            |
-| -------------------------------------------------- | ---------------------- |
-| `urn:uae:digitalid:profile:general`                | General profile info   |
-| `urn:uae:digitalid:profile:general:profileType`    | Profile type           |
-| `urn:uae:digitalid:profile:general:unifiedId`      | Unified ID             |
+| Scope                                           | Description          |
+| ----------------------------------------------- | -------------------- |
+| `urn:uae:digitalid:profile:general`             | General profile info |
+| `urn:uae:digitalid:profile:general:profileType` | Profile type         |
+| `urn:uae:digitalid:profile:general:unifiedId`   | Unified ID           |
 
 **For visitors:**
 
-| Scope                              | Description     |
-| ---------------------------------- | --------------- |
-| `urn:uae:digitalid:profile`        | Basic profile   |
+| Scope                       | Description   |
+| --------------------------- | ------------- |
+| `urn:uae:digitalid:profile` | Basic profile |
 
 For more information on scopes and endpoints, refer to the
 [UAE PASS documentation](https://docs.uaepass.ae/feature-guides/authentication/web-application/endpoints).
@@ -209,24 +197,24 @@ For more information on scopes and endpoints, refer to the
 
 UAE PASS returns the following claims. Use these in your Jsonnet data mapping to populate identity traits.
 
-| Claim           | Description                       |
-| --------------- | --------------------------------- |
-| `sub`           | Subject identifier (unique ID)    |
-| `email`         | Email address                     |
-| `fullnameEN`    | Full name (English)               |
-| `firstnameEN`   | First name (English)              |
-| `lastnameEN`    | Last name (English)               |
-| `fullnameAR`    | Full name (Arabic)                |
-| `firstnameAR`   | First name (Arabic)               |
-| `lastnameAR`    | Last name (Arabic)                |
-| `uuid`          | UUID identifier                   |
-| `unifiedID`     | UAE unified identifier            |
-| `idn`           | Identity number                   |
-| `userType`      | Profile type (SOP1/SOP2/SOP3)    |
-| `nationalityEN` | Nationality                       |
-| `gender`        | Gender                            |
-| `dob`           | Date of birth                     |
-| `mobile`        | Mobile number                     |
+| Claim           | Description                    |
+| --------------- | ------------------------------ |
+| `sub`           | Subject identifier (unique ID) |
+| `email`         | Email address                  |
+| `fullnameEN`    | Full name (English)            |
+| `firstnameEN`   | First name (English)           |
+| `lastnameEN`    | Last name (English)            |
+| `fullnameAR`    | Full name (Arabic)             |
+| `firstnameAR`   | First name (Arabic)            |
+| `lastnameAR`    | Last name (Arabic)             |
+| `uuid`          | UUID identifier                |
+| `unifiedID`     | UAE unified identifier         |
+| `idn`           | Identity number                |
+| `userType`      | Profile type (SOP1/SOP2/SOP3)  |
+| `nationalityEN` | Nationality                    |
+| `gender`        | Gender                         |
+| `dob`           | Date of birth                  |
+| `mobile`        | Mobile number                  |
 
 **User types:**
 
@@ -269,8 +257,8 @@ local claims = std.extVar('claims');
 
 :::note
 
-Your Ory Identity schema must include the corresponding fields for any claims you map. Update your identity schema to
-include the fields you need before configuring the data mapping.
+Your Ory Identity schema must include the corresponding fields for any claims you map. Update your identity schema to include the
+fields you need before configuring the data mapping.
 
 :::
 
