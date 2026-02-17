@@ -34,23 +34,24 @@ Each relationship consists of:
 
 - **Subject** – The entity that receives the role or permission.
 - **Object** – The entity on which the role or permission is granted.
+- **Relation** – The relationship between Subject and Object.
 
 Examples:
 
 ```keto-natural
 User:user1 is in members of Group:group1
-members of Group:group1 are readers of File:file1
+admins of Group:group1 are readers of File:file1
 ```
 
 As you can see, the subject of a relationship can either be a specific subject ID (e.g. User:user1), or subjects defined through
-an indirection (e.g. all members of Group:group1). The object is referenced by its ID (e.g. Group:group1, File:file1).
+an indirection (e.g. all admins of Group:group1). The object is referenced by its ID (e.g. Group:group1, File:file1).
 
 ### Checking permissions
 
 Permissions are just another form of relations. Therefore, a permission check is a request to check whether a subject has a
 certain relation to an object, possibly through one or more indirections.
 
-As a very simple example, leat's assume the following tuples exist:
+As a very simple example, let's assume the following tuples exist:
 
 ```keto-natural
 User:user1 is in members of Group:group1
@@ -59,7 +60,7 @@ members of Group:group1 are readers of File:file1
 
 Based on these tuples, you can run permission checks:
 
-- Is `user1` a `reader` of `file1`?
+- Is `User:user1` a `reader` of `File:file1`?
 
   ```keto-natural
   is User:user1 in readers of File:file1?  // Yes
@@ -67,13 +68,13 @@ Based on these tuples, you can run permission checks:
 
   Yes, because `user1` is in `members` of `Group:group1` and all `members` of `Group:group1` are `readers` of `File:file1`.
 
-- Is `user2` a member of `group1`?
+- Is `User:user2` a member of `Group:group1`?
 
   ```keto-natural
   is users:user2 in members of Group:group1?  // No
   ```
 
-  No, because there is no relation between `user2` and `group1`.
+  No, because there is no relation between `User:user2` and `Group:group1`.
 
 ## Example
 
