@@ -5,7 +5,6 @@ import { CATEGORIES } from "./constants"
 import { DeploymentModeSelector } from "./DeploymentModeSelector"
 import { useExampleFilter } from "./hooks/useExampleFilter"
 import { LanguageFilter, type LanguageFilterRef } from "./LanguageFilter"
-import styles from "./quickstart-filter.module.css"
 import { QuickstartGrid } from "./QuickstartGrid"
 import type { DeploymentMode } from "./types"
 
@@ -48,17 +47,17 @@ export const QuickstartFilter = () => {
 
   return (
     <>
-      <section className={styles.container}>
+      <section className="my-8 mb-12 relative pt-10">
         <DeploymentModeSelector
           value={deploymentMode}
           onChange={setDeploymentMode}
         />
 
-        <h2 className={`ory-heading-2 ${styles.sectionHeading}`}>
+        <h2 className="ory-heading-2 mt-8 mb-12">
           Quickstart guides
         </h2>
 
-        <div className={styles.headerRow}>
+        <div className="flex flex-wrap justify-between gap-4 items-start">
           <CategoryFilter
             activeCategory={activeCategory}
             onCategoryChange={(categoryId) => {
@@ -74,7 +73,7 @@ export const QuickstartFilter = () => {
         />
       </section>
 
-      <section className={styles.examplesSection}>
+      <section className="mt-10 relative pt-10">
         <LanguageFilter
           ref={languageFilterRef}
           availableLanguages={availableLanguages}
@@ -93,7 +92,7 @@ export const QuickstartFilter = () => {
             />
           ))
         ) : (
-          <p className={`ory-body-sm ${styles.noExamplesText}`}>
+          <p className="ory-body-sm text-ory-text-tertiary">
             No code examples are available for this product yet.
           </p>
         )}

@@ -1,6 +1,5 @@
 import React, { useRef, useState, useImperativeHandle, forwardRef } from "react"
 import clsx from "clsx"
-import styles from "./quickstart-filter.module.css"
 import { LANGUAGE_META } from "./constants"
 import { useClickOutside } from "./hooks/useClickOutside"
 import { useLanguageGrouping } from "./hooks/useLanguageGrouping"
@@ -34,23 +33,28 @@ export const LanguageFilter = forwardRef<
   }
 
   return (
-    <div className={styles.languageBar} ref={menuRef}>
+    <div className="absolute top-0 right-0" ref={menuRef}>
       <button
         type="button"
-        className={styles.languageTrigger}
+        className="inline-flex items-center gap-1.5 py-1.5 px-3.5 rounded-full border border-ory-border-primary bg-ory-bg-primary ory-body-sm cursor-pointer"
         onClick={() => setMenuOpen((open) => !open)}
       >
-        <span className={styles.languageTriggerLabel}>Language/framework</span>
-        <span className={styles.languageTriggerValue}>
+        <span className="font-medium text-ory-text-primary">
+          Language/framework
+        </span>
+        <span className="text-ory-text-secondary">
           {activeLanguage === "all"
             ? "All languages"
             : LANGUAGE_META[activeLanguage]?.label ?? activeLanguage}
         </span>
-        <span className={styles.languageTriggerChevron}>▾</span>
+        <span className="text-[0.7rem]">▾</span>
       </button>
 
       {menuOpen && (
-        <div className={styles.languageMenu}>
+        <div
+          className="absolute z-[5] right-0 mt-2 py-4 px-5 rounded-[var(--ory-radius)] border border-ory-border-primary bg-ory-bg-primary grid gap-4 min-w-[min(100%,680px)] shadow-[0_16px_40px_rgba(0,0,0,0.12)]"
+          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}
+        >
           {["Web", "Mobile", "Backend", "Other"].map((group) => {
             const langs = groupedLanguages[group]
             if (!langs || langs.length === 0) {
@@ -58,38 +62,43 @@ export const LanguageFilter = forwardRef<
             }
 
             return (
-              <div key={group} className={styles.languageColumn}>
-                <div className={styles.languageGroupLabel}>{group}</div>
+              <div key={group} className="flex flex-col gap-1.5">
+                <div className="ory-body-sm font-semibold mb-1.5 text-ory-text-primary">
+                  {group}
+                </div>
                 {langs.map((meta) => (
                   <button
                     key={meta.id}
                     type="button"
                     className={clsx(
-                      styles.languageOption,
-                      activeLanguage === meta.id && styles.languageOptionActive,
+                      "border-0 bg-transparent py-1.5 px-1.5 text-left cursor-pointer rounded-xl",
+                      activeLanguage === meta.id && "bg-ory-bg-tertiary",
+                      activeLanguage !== meta.id && "hover:bg-ory-bg-secondary",
                     )}
                     onClick={() => {
                       onLanguageChange(meta.id)
                       setMenuOpen(false)
                     }}
                   >
-                    <span className={styles.languageOptionInner}>
+                    <span className="inline-flex items-center gap-2.5">
                       <img
                         src={meta.icon}
                         alt={`${meta.label} logo`}
-                        className={styles.languageIcon}
+                        className="w-[22px] h-[22px]"
                       />
-                      <span>{meta.label}</span>
+                      <span className="ory-body-sm text-ory-text-primary">
+                        {meta.label}
+                      </span>
                     </span>
                   </button>
                 ))}
               </div>
             )
           })}
-          <div className={styles.languageFooter}>
+          <div className="col-span-full flex justify-end mt-2">
             <button
               type="button"
-              className={styles.languageAllButton}
+              className="border-0 bg-transparent text-ory-brand-primary ory-body-sm cursor-pointer"
               onClick={() => {
                 onLanguageChange("all")
                 setMenuOpen(false)

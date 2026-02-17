@@ -1,6 +1,5 @@
 import React from "react"
 import clsx from "clsx"
-import styles from "./quickstart-filter.module.css"
 import { CATEGORIES } from "./constants"
 import type { QuickstartCategory } from "./types"
 
@@ -14,15 +13,18 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
   onCategoryChange,
 }) => {
   return (
-    <div className={styles.filterBar}>
-      <span className={styles.filterLabel}>Categories</span>
+    <div className="flex flex-wrap items-center gap-2 mb-5">
+      <span className="ory-body-sm font-semibold mr-2 text-ory-text-primary">
+        Categories
+      </span>
       {CATEGORIES.map((cat) => (
         <button
           key={cat.id}
           type="button"
           className={clsx(
-            styles.chip,
-            activeCategory.id === cat.id && styles.chipActive,
+            "border rounded-full py-1.5 px-3.5 bg-transparent ory-body-sm cursor-pointer transition-[background,color,border-color] duration-150 border-ory-border-primary",
+            activeCategory.id === cat.id &&
+              "bg-ory-brand-primary border-ory-brand-primary text-white",
           )}
           onClick={() => onCategoryChange(cat.id)}
         >

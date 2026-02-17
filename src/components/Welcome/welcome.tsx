@@ -15,21 +15,18 @@ const WelcomePageSection: React.FC<WelcomePageSectionProps> = ({
 }) => {
   return (
     <section id={id}>
-
-     <div className="flex gap-ory-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-ory-4">
         {cards.map((card) => (
-          <div key={card.label} className="flex-1 min-w-0">
+          <div key={card.title ?? card.docs} className="min-w-0">
             <OverviewCard
               title={card.title}
               description={card.description}
               to={card.docs}
               linkLabel="Learn more"
               tags={card.tags}
-              />
-            </div>
-            )
-          )
-        }
+            />
+          </div>
+        ))}
       </div>
     </section>
   )
