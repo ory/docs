@@ -80,10 +80,11 @@ const networkSidebar = [
       },
       {
         type: "category",
-        label: "Identity Management & AuthN",
+        label: "Identity & AuthN",
         className: "sidebar-icon sidebar-icon-kratos",
         collapsed: true,
         items: [
+          "network/kratos/intro",
           {
             type: "category",
             label: "Get Started",
@@ -128,7 +129,7 @@ const networkSidebar = [
                 label: "Identity management",
                 link: {
                   type: "doc",
-                  id: "kratos/manage-identities/overview",
+                  id: "network/kratos/identity_model",
                 },
                 items: [
                   "kratos/manage-identities/create-users-identities",
@@ -232,7 +233,7 @@ const networkSidebar = [
                 label: "Multi-factor authentication",
                 link: {
                   type: "doc",
-                  id: "kratos/mfa/overview",
+                  id: "network/kratos/mfa-overview",
                 },
                 items: [
                   "kratos/mfa/lookup-secrets",
@@ -330,7 +331,7 @@ const networkSidebar = [
       },
       {
         type: "category",
-        label: "Fine-grained AuthZ & Permissions",
+        label: "Fine-grained Permissions",
         className: "sidebar-icon sidebar-icon-keto",
         collapsed: true,
         items: [
@@ -383,7 +384,7 @@ const networkSidebar = [
       },
       {
         type: "category",
-        label: "Delegated Scope-based AuthZ & Federated AuthN",
+        label: "Delegated AuthZ & Federated AuthN",
         className: "sidebar-icon sidebar-icon-hydra",
         collapsed: true,
         items: [
@@ -686,7 +687,7 @@ const networkSidebar = [
         className: "sidebar-icon sidebar-icon-oathkeeper",
         collapsed: true,
         items: [
-          "oathkeeper/index",
+          "network/oathkeeper/index",
           "oathkeeper/install",
           "oathkeeper/reference/api",
           {

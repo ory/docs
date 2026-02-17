@@ -49,27 +49,27 @@ const ossSidebar = [
       },
       {
         type: "category",
-        label: "Ory Kratos - Identities",
+        label: "Ory Kratos",
         items: ["kratos/quickstart"],
       },
       {
         type: "category",
-        label: "Ory Hydra - OAuth2 & OIDC",
+        label: "Ory Hydra",
         items: ["hydra/self-hosted/quickstart"],
       },
       {
         type: "category",
-        label: "Ory Keto - Permissions",
+        label: "Ory Keto",
         items: ["keto/quickstart"],
       },
       {
         type: "category",
-        label: "Ory Polis - SAML Enterprise SSO",
+        label: "Ory Polis",
         items: ["polis/quickstart"],
       },
       {
         type: "category",
-        label: "Ory Oathkeeper - Zero Trust Proxy",
+        label: "Ory Oathkeeper",
         items: ["oathkeeper/index"],
       },
       {

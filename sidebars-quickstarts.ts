@@ -16,18 +16,18 @@ const quickstartsSidebar = [
     items: [
       {
         type: "category",
-        label: "Ory Kratos: Identity Management & AuthN",
+        label: "Identity & AuthN",
         className: "sidebar-icon sidebar-icon-kratos",
         items: [
-          "network/kratos/intro",
-          "network/kratos/quickstart",
-          "network/kratos/identity_model",
-          "network/kratos/mfa-overview",
+          "network/kratos/quickstarts/intro",
+          "network/kratos/quickstarts/quickstart",
+          "network/kratos/quickstarts/identity_model",
+          "network/kratos/quickstarts/mfa-overview",
         ],
       },
       {
         type: "category",
-        label: "Delegated Scope-based AuthZ & Federated AuthN",
+        label: "Delegated AuthZ & Federated AuthN",
         className: "sidebar-icon sidebar-icon-hydra",
         items: [
           "network/hydra/quickstarts/index",
@@ -36,7 +36,7 @@ const quickstartsSidebar = [
       },
       {
         type: "category",
-        label: "Fine-grained AuthZ & Permissions",
+        label: "Fine-grained Permissions",
         className: "sidebar-icon sidebar-icon-keto",
         items: [
           "network/keto/quickstarts/index",
@@ -58,7 +58,7 @@ const quickstartsSidebar = [
         type: "category",
         label: "Proxy-based Access Control",
         className: "sidebar-icon sidebar-icon-oathkeeper",
-        items: ["network/oathkeeper/index"],
+        items: ["network/oathkeeper/quickstarts/index"],
       },
     ],
   },

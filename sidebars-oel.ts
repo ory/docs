@@ -35,7 +35,7 @@ const oelSidebar = [
       },
       {
         type: "category",
-        label: "Ory Kratos Identities",
+        label: "Ory Kratos",
         items: [
           "self-hosted/oel/kratos/upgrade",
           "self-hosted/oel/kratos/changelog",
@@ -192,7 +192,7 @@ const oelSidebar = [
       },
       {
         type: "category",
-        label: "Ory Hydra OAuth2",
+        label: "Ory Hydra",
         items: [
           "self-hosted/oel/oauth2/migrate",
           "self-hosted/oel/oauth2/upgrade",
@@ -270,7 +270,7 @@ const oelSidebar = [
       },
       {
         type: "category",
-        label: "Ory Keto Permissions",
+        label: "Ory Keto",
         items: [
           "self-hosted/oel/keto/changelog",
           "self-hosted/oel/keto/configuration",
@@ -510,7 +510,7 @@ const oelSidebar = [
       },
       {
         type: "category",
-        label: "Ory Oathkeeper Zero Trust Proxy",
+        label: "Ory Oathkeeper",
         collapsed: true,
         collapsible: true,
         items: [
