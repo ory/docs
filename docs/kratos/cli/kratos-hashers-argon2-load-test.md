@@ -27,7 +27,7 @@ kratos hashers argon2 load-test <authentication-requests-per-minute> [flags]
   -c, --config strings                Path to one or more .json, .yaml, .yml, .toml config files. Values are loaded in the order provided, meaning that the last config file overwrites values from the previous config file.
       --dedicated-memory byte_size    Amount of memory dedicated for password hashing. Kratos will try to not consume more memory. (default 1.00GB)
       --expected-deviation duration   Expected deviation of the time a hashing operation (~login request) takes. (default 500ms)
-      --format string                 Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string                 Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                          help for load-test
       --iterations uint32             Number of iterations to start probing at. (default 1)
       --key-length uint32             Length of the key in bytes. (default 32)
