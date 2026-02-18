@@ -564,6 +564,7 @@ const kratos: SidebarItemsConfig = [
       "identities/sign-in/login-hint",
       "identities/sign-in/actions",
       "identities/sign-in/code-submission-limit",
+      "kratos/deprecations/index",
     ],
   },
   {
