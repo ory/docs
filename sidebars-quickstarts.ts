@@ -76,8 +76,8 @@ const quickstartsSidebar = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-kratos",
         items: [
-          "oel/kratos/intro",
-          "oel/kratos/quickstart",
+          "oel/kratos/quickstarts/intro",
+          "oel/kratos/quickstarts/quickstart",
           "oel/kratos/identity_model",
           "oel/kratos/mfa-overview",
         ],
@@ -88,7 +88,7 @@ const quickstartsSidebar = [
         collapsed: true,
         collapsible: true,
         className: "sidebar-icon sidebar-icon-hydra",
-        items: ["oel/hydra/index", "oel/hydra/quickstart"],
+        items: ["oel/hydra/quickstarts/index", "oel/hydra/quickstarts/quickstart"],
       },
       {
         type: "category",
@@ -96,7 +96,7 @@ const quickstartsSidebar = [
         collapsed: true,
         collapsible: true,
         className: "sidebar-icon sidebar-icon-keto",
-        items: ["oel/keto/index", "oel/keto/quickstart"],
+        items: ["oel/keto/quickstarts/index", "oel/keto/quickstarts/quickstart"],
       },
       {
         type: "category",
@@ -104,7 +104,7 @@ const quickstartsSidebar = [
         collapsed: true,
         collapsible: true,
         className: "sidebar-icon sidebar-icon-polis",
-        items: ["oel/polis/index", "oel/polis/quickstart"],
+        items: ["oel/polis/quickstarts/index", "oel/polis/quickstarts/quickstart"],
       },
       {
         type: "category",
@@ -112,7 +112,7 @@ const quickstartsSidebar = [
         collapsed: true,
         collapsible: true,
         className: "sidebar-icon sidebar-icon-oathkeeper",
-        items: ["oel/oathkeeper/index", "oel/oathkeeper/configure-deploy"],
+        items: ["oel/oathkeeper/quickstarts/index", "oel/oathkeeper/quickstarts/configure-deploy"],
       },
     ],
   },
