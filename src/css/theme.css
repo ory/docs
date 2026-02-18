@@ -25,6 +25,14 @@
   --color-ory-info-on-tertiary: #0c4a6e;
   --color-ory-border-info-tertiary: #0ea5e9;
 
+  /* product indicator colors (chips, sidebar icons) – muted, same hue */
+  --color-ory-product-kratos: #fb923c;
+  --color-ory-product-hydra: #fb7185;
+  --color-ory-product-keto: #34d399;
+  --color-ory-product-oathkeeper: #f472b6;
+  --color-ory-product-polis: #fbbf24;
+  --color-ory-product-elements: #6366f1;
+
   --text-ory-heading-1: 40px;
   --text-ory-heading-1--line-height: 1.25;
   --text-ory-section: 24px;
@@ -677,13 +685,13 @@ h2.ory-section-heading {
   --border-transparent-transparent: rgba(255, 255, 255, 0);
   --background-transparent-primary-hover: rgba(0, 0, 0, 0.02);
 
-  /* Sidebar product circle icons */
+  /* Sidebar product circle icons (alias to product colors) */
   --icons-base: 16px;
-  --icon-kratos-tertiary: #f97316;
-  --icon-hydra-tertiary: var(--color-blue-500);
-  --icon-keto-tertiary: var(--color-green-500);
-  --icon-oathkeeper-tertiary: var(--color-teal-500);
-  --icon-polis-tertiary: var(--color-purple-500);
+  --icon-kratos-tertiary: var(--color-ory-product-kratos);
+  --icon-hydra-tertiary: var(--color-ory-product-hydra);
+  --icon-keto-tertiary: var(--color-ory-product-keto);
+  --icon-oathkeeper-tertiary: var(--color-ory-product-oathkeeper);
+  --icon-polis-tertiary: var(--color-ory-product-polis, #eab308);
   --icon-network-tertiary: var(--color-indigo-500);
   --icon-oel-tertiary: #475569;
   --icon-oss-tertiary: #10b981;
@@ -1261,20 +1269,17 @@ svg[class*="iconExternalLink"] {
 
 .sidebar-deployment-model__icon {
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: var(--background-inverted-primary, #0f172a);
+  width: 64px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .sidebar-deployment-model__icon img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
 }
 
 .sidebar-deployment-model__text {
@@ -1326,12 +1331,23 @@ svg[class*="iconExternalLink"] {
 }
 
 .sidebar-deployment-model__link {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 6px 12px;
   font-size: 14px;
   color: var(--ifm-font-color-base);
   text-decoration: none;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebar-deployment-model__menu-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
 }
 
 button.sidebar-deployment-model__link {
@@ -1616,16 +1632,10 @@ button.sidebar-deployment-model__link {
   background-color: var(--icon-network-tertiary);
 }
 
-.sidebar-icon-oel
-  > .menu__list-item-collapsible
-  > .menu__link
-  > span::before {
+.sidebar-icon-oel > .menu__list-item-collapsible > .menu__link > span::before {
   background-color: var(--icon-oel-tertiary);
 }
 
-.sidebar-icon-oss
-  > .menu__list-item-collapsible
-  > .menu__link
-  > span::before {
+.sidebar-icon-oss > .menu__list-item-collapsible > .menu__link > span::before {
   background-color: var(--icon-oss-tertiary);
 }

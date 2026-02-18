@@ -3,7 +3,6 @@ import { useQuickstartsDeployment } from "@site/src/contexts/QuickstartsDeployme
 import ExampleList from "../Examples/example-list"
 import { CategoryFilter } from "./CategoryFilter"
 import { CATEGORIES } from "./constants"
-import { DeploymentModeSelector } from "./DeploymentModeSelector"
 import { useExampleFilter } from "./hooks/useExampleFilter"
 import { LanguageFilter, type LanguageFilterRef } from "./LanguageFilter"
 import { QuickstartGrid } from "./QuickstartGrid"
@@ -30,13 +29,6 @@ export const QuickstartFilter = () => {
 
   const deploymentMode: DeploymentMode =
     quickstartsDeployment?.deployment ?? localDeploymentMode
-  const setDeploymentMode = (mode: DeploymentMode) => {
-    if (quickstartsDeployment) {
-      quickstartsDeployment.setDeployment(mode)
-    } else {
-      setLocalDeploymentMode(mode)
-    }
-  }
 
   const activeCategory =
     CATEGORIES.find((cat) => cat.id === activeCategoryId) ?? CATEGORIES[0]
@@ -60,11 +52,6 @@ export const QuickstartFilter = () => {
   return (
     <>
       <section className="my-8 mb-12 relative pt-10">
-        <DeploymentModeSelector
-          value={deploymentMode}
-          onChange={setDeploymentMode}
-        />
-
         <h2 className="ory-heading-2 mt-8 mb-12">
           Quickstart guides
         </h2>

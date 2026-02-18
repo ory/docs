@@ -1,10 +1,32 @@
 import React, { useState, useRef, useEffect } from "react"
 import Link from "@docusaurus/Link"
-import useBaseUrl from "@docusaurus/useBaseUrl"
 import { useLocation } from "@docusaurus/router"
 import clsx from "clsx"
+import { useDocsSidebar } from "@docusaurus/plugin-content-docs/client"
 import { useQuickstartsDeployment } from "@site/src/contexts/QuickstartsDeploymentContext"
 import type { QuickstartsDeploymentId } from "@site/src/contexts/QuickstartsDeploymentContext"
+
+import networkImg from "@site/src/static/img/quickstarts/deployment-model-picker/network.png"
+import oelImg from "@site/src/static/img/quickstarts/deployment-model-picker/oel.png"
+import ossImg from "@site/src/static/img/quickstarts/deployment-model-picker/oss.png"
+
+const toImgSrc = (m: string | { default?: string }): string =>
+  typeof m === "string" ? m : (m as { default?: string }).default ?? ""
+
+const DEPLOYMENT_IMAGES = {
+  network: toImgSrc(networkImg),
+  oel: toImgSrc(oelImg),
+  oss: toImgSrc(ossImg),
+} as const
+
+/** Sidebar names that show the deployment model picker (quickstarts only). */
+const QUICKSTARTS_SIDEBAR_NAMES = new Set([
+  "quickstartsSidebar",
+  "quickstartsNetworkSidebar",
+  "quickstartsNetworkOnlySidebar",
+  "quickstartsOelSidebar",
+  "quickstartsOssSidebar",
+])
 
 const DEPLOYMENT_OPTIONS = [
   {
@@ -33,18 +55,6 @@ function getCurrentDeployment(
   return DEPLOYMENT_OPTIONS[0]
 }
 
-/** True when the current doc is part of quickstarts or OEL self-hosted (sidebar shows deployment switcher). */
-function isQuickstartsPath(pathname: string): boolean {
-  const p = pathname.replace(/^\/docs\/?/, "")
-  return (
-    p.startsWith("getting-started") ||
-    p.startsWith("network/") ||
-    p.startsWith("oel/") ||
-    p.startsWith("oss/") ||
-    p.startsWith("self-hosted/oel/")
-  )
-}
-
 /** True when on getting-started/* only (no network/oel/oss in path); switching deployment should filter sidebar only. */
 function isGettingStartedOnlyPath(pathname: string): boolean {
   if (!pathname) return false
@@ -59,8 +69,10 @@ function isGettingStartedOnlyPath(pathname: string): boolean {
 
 export default function SidebarDeploymentModel(): JSX.Element | null {
   const location = useLocation()
+  const sidebar = useDocsSidebar()
   const quickstartsDeployment = useQuickstartsDeployment()
-  if (!isQuickstartsPath(location.pathname)) return null
+  if (!sidebar?.name || !QUICKSTARTS_SIDEBAR_NAMES.has(sidebar.name))
+    return null
 
   const filterOnly = isGettingStartedOnlyPath(location.pathname)
   const currentFromPath = getCurrentDeployment(location.pathname)
@@ -72,7 +84,7 @@ export default function SidebarDeploymentModel(): JSX.Element | null {
       : currentFromPath
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
-  const networkIconUrl = useBaseUrl("img/ory-network-icon.svg")
+  const triggerImageUrl = DEPLOYMENT_IMAGES[current.id]
 
   const handleSelect = (opt: (typeof DEPLOYMENT_OPTIONS)[number]) => {
     if (filterOnly && quickstartsDeployment) {
@@ -117,10 +129,10 @@ export default function SidebarDeploymentModel(): JSX.Element | null {
         >
           <span className="sidebar-deployment-model__icon">
             <img
-              src={networkIconUrl}
+              src={triggerImageUrl}
               alt=""
-              width={20}
-              height={20}
+              width={48}
+              height={48}
               aria-hidden
             />
           </span>
@@ -138,8 +150,22 @@ export default function SidebarDeploymentModel(): JSX.Element | null {
         </button>
         {open && (
           <ul className="sidebar-deployment-model__menu">
-            {DEPLOYMENT_OPTIONS.map((opt) =>
-              filterOnly ? (
+            {DEPLOYMENT_OPTIONS.map((opt) => {
+              const optImageUrl = DEPLOYMENT_IMAGES[opt.id]
+              const content = (
+                <>
+                  <img
+                    src={optImageUrl}
+                    alt=""
+                    width={48}
+                    height={48}
+                    className="sidebar-deployment-model__menu-icon"
+                    aria-hidden
+                  />
+                  {opt.label}
+                </>
+              )
+              return filterOnly ? (
                 <li key={opt.id}>
                   <button
                     type="button"
@@ -150,7 +176,7 @@ export default function SidebarDeploymentModel(): JSX.Element | null {
                     )}
                     onClick={() => handleSelect(opt)}
                   >
-                    {opt.label}
+                    {content}
                   </button>
                 </li>
               ) : (
@@ -164,11 +190,11 @@ export default function SidebarDeploymentModel(): JSX.Element | null {
                     )}
                     onClick={() => setOpen(false)}
                   >
-                    {opt.label}
+                    {content}
                   </Link>
                 </li>
-              ),
-            )}
+              )
+            })}
           </ul>
         )}
       </div>

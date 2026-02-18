@@ -8,6 +8,8 @@ export type QuickstartItem = {
 export type QuickstartCategory = {
   id: string
   label: string
+  /** CSS color for the category chip indicator (e.g. #f97316 or var(--icon-kratos-tertiary)) */
+  color?: string
   items: QuickstartItem[]
 }
 

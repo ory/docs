@@ -22,12 +22,19 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
           key={cat.id}
           type="button"
           className={clsx(
-            "border rounded-full py-1.5 px-3.5 bg-transparent ory-body-sm cursor-pointer transition-[background,color,border-color] duration-150 border-ory-border-primary",
+            "border rounded-full py-1.5 px-3.5 bg-transparent ory-body-sm cursor-pointer transition-[background,color,border-color] duration-150 border-ory-border-primary inline-flex items-center gap-2",
             activeCategory.id === cat.id &&
               "bg-ory-brand-primary border-ory-brand-primary text-white",
           )}
           onClick={() => onCategoryChange(cat.id)}
         >
+          {cat.color && (
+            <span
+              className="shrink-0 rounded-full w-2 h-2"
+              style={{ backgroundColor: cat.color }}
+              aria-hidden
+            />
+          )}
           {cat.label}
         </button>
       ))}
