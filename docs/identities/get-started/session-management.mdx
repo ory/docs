@@ -15,6 +15,9 @@ import nextRefreshSession from '!!raw-loader!./_common/code-examples/nextjs/sess
 import nextCheckSession from '!!raw-loader!./_common/code-examples/nextjs/session/middleware.ts'
 import goCheckSession from '!!raw-loader!./_common/code-examples/go/middleware.go'
 import goRefreshHandler from '!!raw-loader!./_common/code-examples/go/refresh_handler.go'
+import javaRequireAuth from '!!raw-loader!./_common/code-examples/java/session/RequireAuth.java'
+import javaSessionHandler from '!!raw-loader!./_common/code-examples/java/session/SessionHandler.java'
+import javaRefreshSession from '!!raw-loader!./_common/code-examples/java/session/RefreshSessionHandler.java'
 ```
 
 After a user has logged in, Ory creates a session cookie that your application can use to verify the user's authentication status.
@@ -53,6 +56,19 @@ You can protect routes by checking for a session cookie.
 
 ```mdx-code-block
 </TabItem>
+<TabItem value="java">
+```
+
+```mdx-code-block
+<CodeBlock language="java" title="RequireAuth.java">{javaRequireAuth}</CodeBlock>
+```
+
+```mdx-code-block
+<CodeBlock language="java" title="SessionHandler.java">{javaSessionHandler}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
 </FrameworkCodeTabs>
 ```
 
@@ -85,6 +101,15 @@ You can refresh user sessions to extend their expiration time:
 
 ```mdx-code-block
 <CodeBlock className="language-go" title="refresh_handler.go">{goRefreshHandler}</CodeBlock>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="java">
+```
+
+```mdx-code-block
+<CodeBlock className="language-java" title="RefreshSessionHandler.java">{javaRefreshSession}</CodeBlock>
 ```
 
 ```mdx-code-block
