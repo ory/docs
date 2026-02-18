@@ -19,7 +19,12 @@ import agenticSidebar from "./sidebars-agentic"
 import ciamSidebar from "./sidebars-ciam"
 import b2bSidebar from "./sidebars-b2b"
 import workforceSidebar from "./sidebars-workforce"
-import quickstartsSidebar from "./sidebars-quickstarts"
+import quickstartsSidebar, {
+  quickstartsNetworkSidebar,
+  quickstartsNetworkOnlySidebar,
+  quickstartsOelSidebar,
+  quickstartsOssSidebar,
+} from "./sidebars-quickstarts"
 
 const cli: SidebarItemsConfig = [
   {
@@ -89,6 +94,10 @@ const sidebars: SidebarsConfig = {
   ciamSidebar,
   b2bSidebar,
   quickstartsSidebar,
+  quickstartsNetworkSidebar,
+  quickstartsNetworkOnlySidebar,
+  quickstartsOelSidebar,
+  quickstartsOssSidebar,
   api,
   cli,
 }

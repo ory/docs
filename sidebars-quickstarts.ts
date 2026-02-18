@@ -1,7 +1,13 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-const quickstartsSidebar = [
+/**
+ * Quickstarts sidebars per deployment. Each deployment-specific sidebar has a root category
+ * ("Ory Network", "Ory Enterprise License", "Ory Open Source") for consistency.
+ * Deployment switcher in sidebar shows only on these routes and links to network/oel/oss kratos/intro.
+ */
+
+const overviewAndNetwork = [
   {
     type: "doc",
     id: "getting-started/overview",
@@ -172,4 +178,140 @@ const quickstartsSidebar = [
   },
 ]
 
-export default quickstartsSidebar
+// Network-only: Quickstarts doc + Ory Network category (for overview when deployment = network)
+const overviewAndNetworkOnly = [
+  overviewAndNetwork[0],
+  overviewAndNetwork[1],
+]
+
+const overviewAndOel = [
+  {
+    type: "doc",
+    id: "getting-started/overview",
+    label: "Quickstarts",
+  },
+  {
+    type: "category",
+    label: "Ory Enterprise License",
+    collapsed: false,
+    collapsible: false,
+    className: "sidebar-quickstart-top-level",
+    items: [
+      {
+        type: "category",
+        label: "Ory Kratos",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-kratos",
+        items: [
+          "oel/kratos/intro",
+          "oel/kratos/quickstart",
+          "oel/kratos/identity_model",
+          "oel/kratos/mfa-overview",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Hydra",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-hydra",
+        items: ["oel/hydra/index", "oel/hydra/quickstart"],
+      },
+      {
+        type: "category",
+        label: "Ory Keto",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-keto",
+        items: ["oel/keto/index", "oel/keto/quickstart"],
+      },
+      {
+        type: "category",
+        label: "Ory Polis",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-polis",
+        items: ["oel/polis/index", "oel/polis/quickstart"],
+      },
+      {
+        type: "category",
+        label: "Ory Oathkeeper",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-oathkeeper",
+        items: ["oel/oathkeeper/index", "oel/oathkeeper/configure-deploy"],
+      },
+    ],
+  },
+]
+
+const overviewAndOss = [
+  {
+    type: "doc",
+    id: "getting-started/overview",
+    label: "Quickstarts",
+  },
+  {
+    type: "category",
+    label: "Ory Open Source",
+    collapsed: false,
+    collapsible: false,
+    className: "sidebar-quickstart-top-level",
+    items: [
+      {
+        type: "category",
+        label: "Ory Kratos",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-kratos",
+        items: [
+          "oss/kratos/intro",
+          "oss/kratos/quickstart",
+          "oss/kratos/identity_model",
+          "oss/kratos/mfa-overview",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Hydra",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-hydra",
+        items: ["oss/hydra/index", "oss/hydra/quickstart"],
+      },
+      {
+        type: "category",
+        label: "Ory Keto",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-keto",
+        items: ["oss/keto/index", "oss/keto/quickstart"],
+      },
+      {
+        type: "category",
+        label: "Ory Polis",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-polis",
+        items: ["oss/polis/index", "oss/polis/quickstart"],
+      },
+      {
+        type: "category",
+        label: "Ory Oathkeeper",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-oathkeeper",
+        items: ["oss/oathkeeper/index", "oss/oathkeeper/configure-deploy"],
+      },
+    ],
+  },
+]
+
+export const quickstartsNetworkSidebar = overviewAndNetwork
+export const quickstartsNetworkOnlySidebar = overviewAndNetworkOnly
+export const quickstartsOelSidebar = overviewAndOel
+export const quickstartsOssSidebar = overviewAndOss
+
+// Legacy single sidebar: default for overview (shows all three sections; DocRoot overrides to deployment-specific)
+export default quickstartsNetworkSidebar
