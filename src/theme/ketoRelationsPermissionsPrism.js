@@ -9,6 +9,8 @@
  * - Group:group2 is in members of Group:group1
  * - members of Group:Eng are viewers of Document:Xyz
  * - viewers of Group:Eng are in readers of Document:Xyz
+ * - User:Bob is allowed to read Document:X
+ * - members of Group:Eng is allowed to read Document:X
  *
  * Question sentences:
  * - is User:Bob allowed to view on Document:X
@@ -69,7 +71,7 @@ export default (prism) => {
     // Declarative relationship sentences
     natural: {
       pattern:
-        /(?:[a-z][a-zA-Z0-9_-]* (?:of|in) )?[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+ (?:is|are)(?: in)? [a-z][a-zA-Z0-9_-]* (?:of|on) [A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+/,
+        /(?:[a-z][a-zA-Z0-9_-]* (?:of|in) )?[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+ (?:(?:is|are)(?: in)? [a-z][a-zA-Z0-9_-]* (?:of|on)|(?:is|are) allowed to [a-z][a-zA-Z0-9_-]*) [A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+/,
       inside: {
         // Subject: can be "relation of Namespace:Id" or "relation in Namespace:Id" or just "Namespace:Id"  (at start)
         subject: {
@@ -83,7 +85,7 @@ export default (prism) => {
             id: /[^@#:\s]+$/,
           },
         },
-        // Object: always "Namespace:Id" (at end) - match before permit
+        // Object: always "Namespace:Id" (at end)
         object: {
           pattern: /[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+$/,
           inside: {
@@ -92,10 +94,10 @@ export default (prism) => {
             id: /[^@#:\s]+$/,
           },
         },
-        // Permit (the action/role) - match before keywords
-        permit: /[a-z][a-zA-Z0-9_-]*(?= (?:of|on))/,
-        // Keywords - match last
-        keyword: /\b(?:is|are|in|of|on)\b/,
+        // Keywords - match before permit so permit only matches the remaining word
+        keyword: /\b(?:is|are|allowed to|in|of|on)\b/,
+        // Permit (the action/role) - matches any remaining lowercase word
+        permit: /[a-z][a-zA-Z0-9_-]*/,
       },
     },
     // Permission question sentences
