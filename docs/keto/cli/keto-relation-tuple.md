@@ -28,8 +28,8 @@ Read and manipulate relationships
 ### See also
 
 * [keto](keto) Global and consistent permission and authorization server
-* [keto relation-tuple create](keto-relation-tuple-create)	 - Create relationships from JSON files
-* [keto relation-tuple delete](keto-relation-tuple-delete)	 - Delete relationships defined in JSON files
+* [keto relation-tuple create](keto-relation-tuple-create)	 - Create relationship tuples from inline arguments or JSON files and folders
+* [keto relation-tuple delete](keto-relation-tuple-delete)	 - Delete relationship tuples from inline arguments or JSON files and folders
 * [keto relation-tuple delete-all](keto-relation-tuple-delete-all)	 - Delete ALL relationships matching the relation query.
 * [keto relation-tuple get](keto-relation-tuple-get)	 - Get relationships
 * [keto relation-tuple parse](keto-relation-tuple-parse)	 - Parse human readable relationships

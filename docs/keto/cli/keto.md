@@ -23,7 +23,7 @@ Global and consistent permission and authorization server
 ### See also
 
 * [keto check](keto-check)	 - Check whether a subject has a relation on an object
-* [keto expand](keto-expand)	 - Expand a subject set
+* [keto expand](keto-expand)	 - Expand all subjects that have the relation on the object
 * [keto migrate](keto-migrate)	 - Commands to migrate the database
 * [keto relation-tuple](keto-relation-tuple)	 - Read and manipulate relationships
 * [keto serve](keto-serve)	 - Starts the server and serves the HTTP REST and gRPC APIs

@@ -11,16 +11,31 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## keto relation-tuple create
 
-Create relationships from JSON files
+Create relationship tuples from inline arguments or JSON files and folders
 
 ### Synopsis
 
-Create relationships from JSON files.
-A directory will be traversed and all relationships will be created.
-Pass the special filename `-` to read from STD_IN.
+Create relationship tuples from inline arguments or JSON files and folders.
+
+Inline example:
+```
+keto relation-tuple create User:alice owner Doc:readme
+```
+
+From file or folder:
+```
+keto relation-tuple create -f relationships1.json -f relationships2.json
+keto relation-tuple create -f relationships-dir1 -f relationships-dir2
+```
+
+If a directory is provided, all JSON files inside it are processed.
+Use '-' as filename to read from STD_IN:
+```
+keto relation-tuple create -f -
+```
 
 ```
-keto relation-tuple create <relationships.json> [<relationships-dir>] [flags]
+keto relation-tuple create <subject_namespace>:<subject_id> <relation> <object_namespace>:<object_id> [flags]
 ```
 
 ### Options
@@ -28,7 +43,8 @@ keto relation-tuple create <relationships.json> [<relationships-dir>] [flags]
 ```
       --authority string                      Set the authority header for the remote gRPC server.
       --block                                 Block until the connection is up.
-      --format string                         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+  -f, --file strings                          Read relationships from JSON files or directories (use the special filename - for stdin)
+      --format string                         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                                  help for create
       --insecure-disable-transport-security   Disables transport security. Do not use this in production.
       --insecure-skip-hostname-verification   Disables hostname verification. Do not use this in production.
