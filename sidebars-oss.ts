@@ -50,6 +50,7 @@ const ossSidebar = [
       {
         type: "category",
         label: "Ory Kratos",
+        className: "sidebar-icon sidebar-icon-kratos",
         items: [
           "oel/kratos/intro",
           "kratos/install",
@@ -128,6 +129,7 @@ const ossSidebar = [
       {
         type: "category",
         label: "Ory Hydra",
+        className: "sidebar-icon sidebar-icon-hydra",
         items: [
           "oel/hydra/index",
           "hydra/self-hosted/install",
@@ -198,6 +200,7 @@ const ossSidebar = [
       {
         type: "category",
         label: "Ory Keto",
+        className: "sidebar-icon sidebar-icon-keto",
         items: [
           "oel/keto/index",
           "keto/install",
@@ -243,6 +246,7 @@ const ossSidebar = [
       {
             type: "category",
             label: "Ory Polis",
+            className: "sidebar-icon sidebar-icon-polis",
             collapsed: true,
             collapsible: true,
             items: [
@@ -398,6 +402,7 @@ const ossSidebar = [
       {
         type: "category",
         label: "Ory Oathkeeper",
+        className: "sidebar-icon sidebar-icon-oathkeeper",
         collapsed: true,
         collapsible: true,
         items: [
