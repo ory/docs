@@ -97,45 +97,46 @@ export default {
       },
     },
     {
-      languages: ["keto-relation-tuples", "keto-relationships"],
+      languages: ["keto-tuples", "keto-natural"],
       types: ["namespace"],
       style: {
-        color: "#666",
+        color: "#036363",
+        fontWeight: "bold",
       },
     },
     {
-      languages: ["keto-relation-tuples"],
-      types: ["object"],
+      languages: ["keto-tuples", "keto-natural"],
+      types: ["id", "placeholder-subject", "placeholder-object"],
       style: {
-        color: "#939",
+        color: "#993399",
       },
     },
     {
-      languages: ["keto-relation-tuples", "keto-relationships"],
-      types: ["relation"],
+      languages: ["keto-tuples", "keto-natural"],
+      types: ["permit", "placeholder-relation"],
       style: {
-        color: "#e80",
+        color: "#cf222e",
       },
     },
     {
-      languages: ["keto-relation-tuples", "keto-relationships"],
+      languages: ["keto-tuples", "keto-natural"],
+      types: ["keyword"],
+      style: {
+        color: "#868686",
+      },
+    },
+    {
+      languages: ["keto-tuples", "keto-natural"],
+      types: ["subjectRelation"],
+      style: {
+        color: "#cf222e",
+      },
+    },
+    {
+      languages: ["keto-tuples", "keto-natural"],
       types: ["delimiter"],
       style: {
         color: "#555",
-      },
-    },
-    {
-      languages: ["keto-relation-tuples"],
-      types: ["subject"],
-      style: {
-        color: "#903",
-      },
-    },
-    {
-      languages: ["keto-relationships"],
-      types: ["id"],
-      style: {
-        color: "#939",
       },
     },
   ],

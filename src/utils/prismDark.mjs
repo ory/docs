@@ -75,5 +75,48 @@ export default {
         color: "#4FC1FF",
       },
     },
+    {
+      languages: ["keto-tuples", "keto-natural"],
+      types: ["namespace"],
+      style: {
+        color: "#47B098",
+        fontWeight: "bold",
+      },
+    },
+    {
+      languages: ["keto-tuples", "keto-natural"],
+      types: ["id", "placeholder-subject", "placeholder-object"],
+      style: {
+        color: "#DDA0DD",
+      },
+    },
+    {
+      languages: ["keto-tuples", "keto-natural"],
+      types: ["permit", "placeholder-relation"],
+      style: {
+        color: "#ee8800",
+      },
+    },
+    {
+      languages: ["keto-tuples", "keto-natural"],
+      types: ["keyword"],
+      style: {
+        color: "#858585",
+      },
+    },
+    {
+      languages: ["keto-tuples", "keto-natural"],
+      types: ["subjectRelation"],
+      style: {
+        color: "#ee8800",
+      },
+    },
+    {
+      languages: ["keto-tuples", "keto-natural"],
+      types: ["delimiter"],
+      style: {
+        color: "#888888",
+      },
+    },
   ],
 }
