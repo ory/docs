@@ -288,6 +288,7 @@ const operations: SidebarItemsConfig = [
     collapsible: false,
     items: [
       "guides/workspaces",
+      "console/roles-and-permissions",
       "guides/custom-domains",
       "console/usage-billing",
       "guides/manage-project-via-api",
@@ -1237,6 +1238,7 @@ const oel: SidebarItemsConfig = [
       "self-hosted/oel/oauth2/upgrade",
       "self-hosted/oel/oauth2/changelog",
       "self-hosted/oel/oauth2/token-prefix",
+      "self-hosted/oel/oauth2/stateless-jwt",
       "self-hosted/oel/oauth2/migrate-postgresql-ttl",
       "self-hosted/oel/oauth2/revert-database-migrations",
       "self-hosted/oel/oauth2/configuration",
@@ -1263,7 +1265,10 @@ const oel: SidebarItemsConfig = [
   {
     type: "category",
     label: "Ory Keto Permissions",
-    items: ["self-hosted/oel/keto/configuration"],
+    items: [
+      "self-hosted/oel/keto/changelog",
+      "self-hosted/oel/keto/configuration",
+    ],
   },
   {
     type: "category",

@@ -273,7 +273,7 @@ This guide will walk you through the steps required to set up SAML Single Sign-O
 #### Prerequisites
 
 Before proceeding, ensure you are on a plan that supports SAML SSO. SAML is available exclusively on select Enterprise plans.
-[Contact us](https://www.ory.com/contact/) if you need SAML support.
+[Contact us](https://www.ory.com/contact) if you need SAML support.
 
 ```mdx-code-block
 <Tabs groupId="console-or-api">
@@ -354,7 +354,8 @@ curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
 </Tabs>
 ```
 
-The SAML application callback URL to set at our SAML Identity Provider is: `https://api.console.ory.sh/saml/api/oauth/saml`
+The SAML application callback URL to set as the SAML Identity Provider is:
+`https://$PROJECT_SLUG.projects.oryapis.com/saml/api/oauth/saml`
 
 #### Data mapping
 
@@ -386,6 +387,26 @@ local claims = std.extVar('claims');
   },
 }
 ```
+
+#### Signing certificate expiry details
+
+The SAML connection includes a `valid_to` attribute, which is an array of expiry dates for the signing certificates associated
+with the connection.
+
+Each date is returned in the same format as Node.js `crypto.X509Certificate.validTo`, matching OpenSSL’s textual representation:
+
+```shell
+MMM dd HH:mm:ss yyyy GMT
+```
+
+Example:
+
+```shell
+Jun 10 09:16:40 2038 GMT
+```
+
+You can use this information to externally monitor certificate expirations or integrate it into your internal workflows and
+alerting systems as needed.
 
 ## Self-service organization onboarding
 
@@ -450,6 +471,40 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 </BrowserWindow>
 ```
 
+##### Configure provider-specific data mappings
+
+You configure data mappers in the Onboarding Portal by attaching a Jsonnet script to each provider that supports mapping (for
+example, social sign-in providers, SAML, SCIM).
+
+The mapper must return an object like:
+
+```jsonnet
+local claims = std.extVar('claims');  // or std.extVar('scim') for SCIM
+
+{
+  identity: {
+    traits: {
+      // map incoming data to your identity schema traits
+      [if 'email' in claims then 'email' else null]: claims.email,
+    },
+  },
+}
+```
+
+For SAML organizations, SAML attributes are available under `claims.email` and `claims.raw_claims`.
+[SAML mapping](https://www.ory.com/docs/kratos/organizations#data-mapping)
+
+For SCIM provisioning, the SCIM user object is available as `std.extVar('scim')` and you map it to the identity in the same way.
+[SCIM mapping](https://www.ory.com/docs/kratos/manage-identities/scim#set-up-identity-provisioning-with-scim)
+
+For social sign-in, all upstream data is available as `std.extVar('claims')`, including standard claims and any `raw_claims` for
+non-standard fields.
+[Social Sign-In mapping](https://www.ory.com/docs/kratos/social-signin/data-mapping#write-a-jsonnet-data-mapper)
+
+<BrowserWindow url="https://console.ory.sh/projects/<id>/authentication/organizations/<id>/edit">
+  ![Onboarding portal link](./_static/onboarding-portal-link-mappers.png)
+</BrowserWindow>
+
 ```mdx-code-block
 </TabItem>
 <TabItem value="api" label="API">
@@ -470,7 +525,8 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
            "expires_at": "2025-06-01T00:00:00Z",
            "enable_sso": true,
            "enable_scim": true,
-           "custom_hostname_id": "use a custom domain id from branding, omit the field otherwise"
+           "custom_hostname_id": "use a custom domain id from branding, omit the field otherwise",
+           "saml_mapper_url": "base64://{BASE64_ENCODED_JSONNET}"
          }'
 ```
 

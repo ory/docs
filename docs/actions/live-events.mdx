@@ -11,7 +11,7 @@ your Ory Network project, to your own infrastructure. Pipe those events into you
 choice, and use them to power your own analytics, dashboards, data science, and more.
 
 Live event streams are available for Ory Network enterprise contracts. Talk to your account manager or
-[reach out directly](https://www.ory.com/contact/).
+[reach out directly](https://www.ory.com/contact).
 
 ## Event shape
 
@@ -123,6 +123,39 @@ New event names may be added in the future, in which case this list will be upda
 | **PermissionsExpanded**   | Permissions have been expanded, likely increasing access or privileges for certain users or entities. |
 | **PermissionsChecked**    | A permission check has been performed to verify if access is allowed for a given action or resource.  |
 
+### Ory Network
+
+| **Event**                                   | **Description**                                     |
+| ------------------------------------------- | --------------------------------------------------- |
+| **ProjectCreated**                          | A project was created.                              |
+| **ProjectUpdated**                          | A project was updated.                              |
+| **ProjectDeleted**                          | A project was deleted.                              |
+| **StripeSubscriptionUpdated**               | A Stripe subscription was updated.                  |
+| **APIKeyCreated**                           | An API key was created.                             |
+| **APIKeyDeleted**                           | An API key was deleted.                             |
+| **CustomDomainCreated**                     | A custom domain was created for a project.          |
+| **CustomDomainDeleted**                     | A custom domain was deleted from a project.         |
+| **CustomDomainUpdated**                     | A custom domain was updated.                        |
+| **ProjectMemberInviteCreated**              | An invitation for a project member was created.     |
+| **ProjectMemberInviteAccepted**             | A project member invitation was accepted.           |
+| **ProjectMemberInviteCancelled**            | A project member invitation was canceled.           |
+| **ProjectMemberInviteDeclined**             | A project member invitation was declined.           |
+| **ProjectMemberInviteDeleted**              | A project member invitation was deleted.            |
+| **ProjectMemberRemoved**                    | A member was removed from a project.                |
+| **OrganizationOnboardingPortalLinkCreated** | An onboarding link for an organization was created. |
+| **OrganizationOnboardingPortalLinkCreated** | An onboarding link for an organization was created. |
+| **OrganizationOnboardingPortalLinkDeleted** | An onboarding link for an organization was deleted. |
+| **OrganizationOnboardingPortalLinkUpdated** | An onboarding link for an organization was updated. |
+| **SAMLProviderCreated**                     | A SAML provider was created.                        |
+| **SAMLProviderDeleted**                     | A SAML provider was deleted.                        |
+| **SAMLProviderUpdated**                     | A SAML provider was updated.                        |
+| **OIDCProviderCreated**                     | An OIDC provider was created.                       |
+| **OIDCProviderDeleted**                     | An OIDC provider was deleted.                       |
+| **OIDCProviderUpdated**                     | An OIDC provider was updated.                       |
+| **SCIMClientCreated**                       | A SCIM client was created.                          |
+| **SCIMClientDeleted**                       | A SCIM client was deleted.                          |
+| **SCIMClientUpdated**                       | A SCIM client was updated.                          |
+
 ## Delivery guarantees
 
 1. Possible duplicates: There might be duplicates in the event stream. While rare (typically caused by retries because of network
@@ -139,7 +172,7 @@ Stronger guarantees can be implemented for your use case if needed, in this case
 
 ## Configure event streams
 
-Is your workload not running on AWS or you don't want to use SNS? [Reach out](https://www.ory.com/contact/) to discuss your
+Is your workload not running on AWS or you don't want to use SNS? [Reach out](https://www.ory.com/contact) to discuss your
 requirements! Event streams can be implemented for any data warehouse, data lake, or equivalent solution.
 
 ### Stream to AWS SNS

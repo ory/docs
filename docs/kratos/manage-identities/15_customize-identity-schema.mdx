@@ -1016,7 +1016,7 @@ log in.
 
 The email address however represents a unique identifier and personally identifiable information (PII). An attacker could for
 example check if the email address `john.doe@gmail.com` is registered at for example an adult website and use that information for
-blackmail (see [Account Enumeration Attacks](../concepts/security.mdx#account-enumeration-attacks)).
+blackmail.
 
 The same considerations apply to using a phone number as the primary registration & login identifier.
 
@@ -1312,14 +1312,11 @@ You may also mix usernames and passwords:
 
 ### Advanced schema
 
-The following identity schema includes first name, last name, a nickname, and numerical fields for the users' age. There are also
-two checkboxes for specifying the newsletter subscription and enterprise customer status.
-
-:::note
-
-This identity schema is just an example. It contains too many fields to be used in production.
-
-:::
+The following identity schema defines personal fields for first name, last name, nickname, and age, and includes two checkboxes:
+one required for accepting the terms of service and one optional for newsletter subscription.  
+To render links in a checkbox label, use markdown link syntax. Links open in a new tab.  
+To make a checkbox required, add `"const": true` to the property definition. This differs from text fields, which use the required
+array.
 
 ````mdx-code-block
 <Tabs>
@@ -1386,14 +1383,15 @@ This identity schema is just an example. It contains too many fields to be used 
           "type": "integer",
           "title": "How old are you?"
         },
+        "tos": {
+          "type": "boolean",
+          "title": "I accept the [terms of service](https://example.com/tos)",
+          "const": true
+        },
         "newsletter": {
           "type": "boolean",
-          "title": "Newsletter subscription"
+            "title": "I want to sign up for the newsletter"
         },
-        "enterprise": {
-          "type": "boolean",
-          "title": "Are you an Enterprise customer?"
-        }
       },
       "required": [
         "email"

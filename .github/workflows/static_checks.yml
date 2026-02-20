@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Lint files
         uses: avto-dev/markdown-lint@v1.5.0
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code.
-        uses: actions/checkout@v1
+        uses: actions/checkout@v6
 
       - name: misspell
         id: check_for_typos

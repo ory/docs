@@ -24,7 +24,7 @@
     - [Placeholders and dummy data](#placeholders-and-dummy-data)
     - [UI references](#ui-references)
     - [Diagrams](#diagrams)
-  - [Import \& reference content](#import--reference-content)
+  - [Import & reference content](#import--reference-content)
     - [Markdown partials](#markdown-partials)
     - [Code snippets](#code-snippets)
       - [From GitHub](#from-github)
@@ -35,6 +35,8 @@
   - [Ory Console](#ory-console)
     - [Navigate to Ory Console Pages](#navigate-to-ory-console-pages)
   - [Testing](#testing)
+    - [Redirects](#redirects)
+      - [How to add a redirect](#how-to-add-a-redirect)
   - [Formatting documentation](#formatting-documentation)
   - [Adding content to "Examples" page](#adding-content-to-examples-page)
   - [CLI and API reference - auto-generated content](#cli-and-api-reference---auto-generated-content)
@@ -475,6 +477,48 @@ To test the documentation locally:
    Run `npm run start`.
 4. Create a production build to check for any technical issues, such as invalid
    internal links. Run `npm run build`.
+
+### Redirects
+
+When the URL of a document changes, you must set up a redirect to preserve SEO
+and prevent broken links. Without redirects, the original URL returns a 404
+error, breaking existing links from external sites and causing search engines to
+lose page authority.
+
+The rule is: if the URL in the browser changes, add a redirect. If it doesn't,
+no redirect is required.
+
+Filenames don't always determine URLs. Ory documentation uses numbered prefixes
+in filenames and sets URLs explicitly in the front matter. Renaming with no
+other changes doesn't require a redirect because the final URL stays the same.
+
+You must add a redirect when you
+
+- change the `slug` or `id` property in the document front matter
+- delete a document
+- move a document to a different directory (if it changes the URL path)
+
+#### How to add a redirect
+
+Add redirects to the vercel.json file in the repository root. Use this format:
+
+```json
+{
+  "redirects": [
+    {
+      "source": "/docs/old-path",
+      "destination": "/docs/new-path",
+      "permanent": false
+    }
+  ]
+}
+```
+
+- Start with permanent: false (302 redirect) until you confirm the redirect
+  works in the preview or production environment.
+- Change to permanent: true (301 redirect) after you verify the redirect
+  functions correctly.
+- Test the redirect in the Vercel preview deployment before merging.
 
 ## Formatting documentation
 

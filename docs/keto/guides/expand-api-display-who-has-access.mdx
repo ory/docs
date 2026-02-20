@@ -30,21 +30,21 @@ To assist users with managing permissions for their files, the application has t
 this example, we assume that the application knows the following files and directories:
 
 ```
-├─ photos            (owner: maureen; shared with laura)
-   ├─ beach.jpg      (owner: maureen)
-   ├─ mountains.jpg  (owner: laura)
+├─ photos            (owner: Alice; shared with Bob)
+   ├─ beach.jpg      (owner: Alice)
+   ├─ mountains.jpg  (owner: Bob)
 ```
 
 This is represented in Ory Keto by the following [relationships](../concepts/01_relation-tuples.mdx):
 
-```keto-relation-tuples
+```keto-tuples
 // ownership
-directories:/photos#owner@maureen
-files:/photos/beach.jpg#owner@maureen
-files:/photos/mountains.jpg#owner@laura
+directories:/photos#owner@Alice
+files:/photos/beach.jpg#owner@Alice
+files:/photos/mountains.jpg#owner@Bob
 
-// maureen granted access to /photos to laura
-directories:/photos#access@laura
+// Alice granted access to /photos to Bob
+directories:/photos#access@Bob
 
 // the following tuples are defined implicitly through subject set rewrites (not supported yet)
 directories:/photos#access@(directories:/photos#owner)
@@ -58,8 +58,8 @@ directories:/photos#parent@(files:/photos/beach.jpg#_)
 directories:/photos#parent@(files:/photos/mountains.jpg#_)
 ```
 
-The user `maureen` now wants to manage `access` for the file `/photos/beach.jpg`. Therefore, the application uses the expand-API
-to get a tree of everyone who has access to that file.
+The user `Alice` now wants to manage `access` for the file `/photos/beach.jpg`. Therefore, the application uses the expand-API to
+get a tree of everyone who has access to that file.
 
 :::note
 
@@ -68,7 +68,7 @@ TLS.
 
 :::
 
-<CodeTabs sampleId="expand-api-display-access/01-expand-beach" version="master" />
+<CodeTabs sampleId="expand-api-display-access/01-expand-beach" version="master" outputExt="json" />
 
 ### Maximum tree depth
 

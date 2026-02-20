@@ -47,7 +47,7 @@ jobs:
     container: oryd/ory:v1
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: Push changes to Ory Network
         run: ory update identity-config --file identity-config.json
 ```
@@ -205,5 +205,5 @@ You can also version and track email templates in the same way. One option is to
 templates and add the .html templates there. As with the other configurations you have to convert it into base64 and add it to the
 config file, whenever you make changes to the template.
 
-Read the [Custom email templates with Ory](https://www.ory.com/custom-email-templates/) blog post to learn more about email
+Read the [Custom email templates with Ory](https://www.ory.com/custom-email-templates) blog post to learn more about email
 template configuration via the Ory CLI.

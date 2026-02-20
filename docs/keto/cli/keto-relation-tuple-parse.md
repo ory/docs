@@ -19,6 +19,17 @@ Parse human readable relationships as used in the documentation.
 Supports various output formats. Especially useful for piping into other commands by using `--format json`.
 Ignores comments (lines starting with `//`) and blank lines.
 
+From file or folder:
+```
+keto relation-tuple parse -f tuples1.txt -f tuples2.txt
+keto relation-tuple parse -f tuples-dir
+```
+
+Use '-' as filename to read from STD_IN:
+```
+keto relation-tuple parse -f -
+```
+
 ```
 keto relation-tuple parse [flags]
 ```
@@ -26,7 +37,8 @@ keto relation-tuple parse [flags]
 ### Options
 
 ```
-      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+  -f, --file strings    Read relationships from JSON files or directories (use the special filename - for stdin)
+      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help            help for parse
   -q, --quiet           Be quiet with output printing.
 ```

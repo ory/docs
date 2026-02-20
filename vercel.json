@@ -7,30 +7,6 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "https://www.ory.com/docs",
-      "has": [
-        {
-          "type": "header",
-          "key": "host",
-          "value": "docs-omega-six.vercel.app"
-        }
-      ],
-      "permanent": false
-    },
-    {
-      "source": "/docs(/|)",
-      "destination": "https://www.ory.com/docs/welcome",
-      "has": [
-        {
-          "type": "header",
-          "key": "host",
-          "value": "docs-omega-six.vercel.app"
-        }
-      ],
-      "permanent": false
-    },
-    {
-      "source": "/",
       "destination": "/docs",
       "permanent": false
     },
@@ -38,6 +14,23 @@
       "source": "/docs(/|)",
       "destination": "/docs/welcome",
       "permanent": false
+    },
+    {
+      "source": "/docs/next/:path*",
+      "destination": "/docs/:path",
+      "permanent": false
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "https://www.ory.com/docs/:path",
+      "has": [
+        {
+          "type": "header",
+          "key": "host",
+          "value": "docs-omega-six.vercel.app"
+        }
+      ],
+      "permanent": true
     },
     {
       "source": "/keto/docs/(|v0.5/)engines",
@@ -496,7 +489,7 @@
     },
     {
       "source": "/docs/kratos/concepts/federation",
-      "destination": "https://www.ory.com/docs/kratos/",
+      "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
     },
     {
@@ -511,7 +504,7 @@
     },
     {
       "source": "/docs/kratos/concepts/securing-applications",
-      "destination": "https://www.ory.com/docs/kratos/",
+      "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
     },
     {
@@ -521,7 +514,7 @@
     },
     {
       "source": "/docs/kratos/further-reading/comparison",
-      "destination": "https://www.ory.com/docs/kratos/",
+      "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
     },
     {
@@ -566,7 +559,7 @@
     },
     {
       "source": "/docs/start-building/single-page-app-spa",
-      "destination": "https://www.ory.com/login-spa-react-nextjs-authentication-example-api-open-source/",
+      "destination": "https://www.ory.com/login-spa-react-nextjs-authentication-example-api-open-source",
       "permanent": false
     },
     {
@@ -916,12 +909,12 @@
     },
     {
       "source": "/docs/kratos/emails-sms/sms-messages",
-      "destination": "https://www.ory.com/docs/kratos/",
+      "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
     },
     {
       "source": "/docs/kratos/self-hosted/sms-messages",
-      "destination": "https://www.ory.com/docs/kratos/",
+      "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
     },
     {
@@ -1151,7 +1144,7 @@
     },
     {
       "source": "/docs/kratos/ory-kratos-intro",
-      "destination": "/docs/identities/",
+      "destination": "/docs/identities",
       "permanent": false
     },
     {
@@ -1166,7 +1159,7 @@
     },
     {
       "source": "/docs/identities/sign-in/saml",
-      "destination": "/docs/kratos/organizations/",
+      "destination": "/docs/kratos/organizations",
       "permanent": false
     },
     {
@@ -1201,17 +1194,17 @@
     },
     {
       "source": "/docs/ecosystem/benchmark",
-      "destination": "/docs/docs/oauth2-oidc",
+      "destination": "/docs/oauth2-oidc",
       "permanent": false
     },
     {
       "source": "/docs/hydra/case-study",
-      "destination": "/docs/docs/oauth2-oidc",
+      "destination": "/docs/oauth2-oidc",
       "permanent": false
     },
     {
       "source": "/docs/hydra/faq",
-      "destination": "/docs/docs/oauth2-oidc",
+      "destination": "/docs/oauth2-oidc",
       "permanent": false
     },
     {
@@ -1233,6 +1226,11 @@
       "source": "/docs/kratos/bring-your-own-ui/custom-ui-ory-elements",
       "destination": "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
       "permanent": true
+    },
+    {
+      "source": "/docs/migrate-to-ory",
+      "destination": "/docs/migrate-to-ory/migrate",
+      "permanent": false
     }
   ]
 }

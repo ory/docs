@@ -185,7 +185,12 @@ const config: Config = {
     "@docusaurus/plugin-content-pages",
     require.resolve("./src/plugins/docusaurus-polyfill"),
     // require.resolve("./src/plugins/docusaurus-static-fonts"),
-    "@docusaurus/plugin-sitemap",
+    [
+      "@docusaurus/plugin-sitemap",
+      {
+        lastmod: "date",
+      },
+    ],
     [
       "@docusaurus/plugin-client-redirects",
       {
@@ -232,30 +237,7 @@ const config: Config = {
     "@docusaurus/theme-search-algolia",
     "docusaurus-theme-redoc",
   ],
-  headTags: [
-    // Main font, so pre-load it.
-    ...["InterVariable.woff2?v=4.0"].map((font: string) => ({
-      tagName: "link",
-      attributes: {
-        rel: "preload",
-        type: "font/woff2",
-        as: "font",
-        crossOrigin: "anonymous",
-        href: `/docs/fonts/${font.includes("Inter") ? "Inter" : "JetBrainsMono"}/${font}`,
-      },
-    })),
-  ],
-  scripts: [
-    // Needed as a workaround for https://answers.netlify.com/t/trailing-slash-missing-on-proxied-netlify-site/36367
-    {
-      src: "https://consent.ory.com/cmp/init.js",
-      defer: true,
-    },
-    {
-      src: "https://consent.ory.com/index.js",
-      defer: true,
-    },
-  ],
+  headTags: [],
 }
 
 module.exports = config

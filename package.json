@@ -14,7 +14,8 @@
     "serve": "docusaurus serve",
     "test": "playwright test",
     "test:debug": "playwright test --debug",
-    "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1"
+    "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1",
+    "test:integration": "jest tests/jest/integration --runInBand --bail 1"
   },
   "browserslist": {
     "production": [
@@ -61,9 +62,9 @@
     "parser-front-matter": "1.6.4",
     "prism-react-renderer": "2.4.1",
     "prismjs": "1.30.0",
-    "react": "19.0.0",
+    "react": "19.0.1",
     "react-bootstrap": "^1.6.8",
-    "react-dom": "19.0.0",
+    "react-dom": "19.0.1",
     "redocusaurus": "2.5.0",
     "remark-admonitions": "1.2.1",
     "remarkable": "2.0.1",

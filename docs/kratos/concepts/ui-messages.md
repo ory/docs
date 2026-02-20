@@ -1328,6 +1328,32 @@
 }
 ```
 
+###### Enter a valid email address (4000040)
+
+```json
+{
+  "id": 4000040,
+  "text": "Enter a valid email address",
+  "type": "error",
+  "context": {
+    "value": "{value}"
+  }
+}
+```
+
+###### Enter a valid phone number (4000041)
+
+```json
+{
+  "id": 4000041,
+  "text": "Enter a valid phone number",
+  "type": "error",
+  "context": {
+    "value": "{value}"
+  }
+}
+```
+
 ###### The login flow expired 1.00 minutes ago, please try again. (4010001)
 
 ```json
@@ -1598,6 +1624,16 @@
   "context": {
     "reason": "{reason}"
   }
+}
+```
+
+###### No authentication methods are available. Please contact the system administrator. (5000002)
+
+```json
+{
+  "id": 5000002,
+  "text": "No authentication methods are available. Please contact the system administrator.",
+  "type": "error"
 }
 ```
 
