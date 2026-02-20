@@ -58,8 +58,6 @@ namespaces:
     name: groups
   - id: 1
     name: reports
-  - id: 1
-    name: reports
 #...
 ```
 
@@ -116,7 +114,7 @@ Then we can run
 
 ```bash
 keto relation-tuple parse policies.rts --format json | \
-  keto relation-tuple create -f - >/dev/null \
+  keto relation-tuple create - >/dev/null \
   && echo "Successfully created tuple" \
   || echo "Encountered error"
 ```
