@@ -61,9 +61,9 @@ c5b6454f-f79c-4a6d-9e1b-b44e04b56009:
 
 Ory Permissions understands the following relationship:
 
-```keto-tuples
-// Allow access to TCP port 22 when the request originates from a specific subnet during office hours
-TcpPort:22#access@UserAttributes:c5b6454f-f79c-4a6d-9e1b-b44e04b56009
+
+```keto-natural
+UserAttributes:c5b6454f-f79c-4a6d-9e1b-b44e04b56009 is allowed to access TcpPort:22
 ```
 
 The application must map every incoming request to a subject string that represents the attributes of the request. Ory Permissions

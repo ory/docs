@@ -52,9 +52,9 @@ docker-compose -f contrib/cat-videos-example/docker-compose.yml up
 
 ## State of the system
 
-At the current state only one user with the username `Alice` has added videos. Both videos are in the `/cats` directory owned by
-`Alice`. The file `/cats/1.mp4` can be viewed by anyone (`*`), while `/cats/2.mp4` has no extra sharing options, and can therefore
-only be viewed by its owner, `Alice`. The relationship definitions are located in the `contrib/cat-videos-example/relation-tuples`
+At the current state only `User:Alice` has added videos. Both videos are in the `/cats` directory owned by
+`User:Alice`. The file `File:/cats/1.mp4` can be viewed by anyone (`User:*`), while `Video:/cats/2.mp4` has no extra sharing options, and can therefore
+only be viewed by its owner, `User:Alice`. The relationship definitions are located in the `contrib/cat-videos-example/relation-tuples`
 directory.
 
 ## Simulating the video sharing application
@@ -90,7 +90,7 @@ keto check "User:*" view Video /cats/2.mp4 --insecure-disable-transport-security
 
 We already discussed that this request should be denied, but it's always good to see this in action.
 
-Now `Alice` wants to change some view permissions of `/cats/1.mp4`. For this, the video service application has to show all users
+Now `User:Alice` wants to change some view permissions of `Video:/cats/1.mp4`. For this, the video service application has to show all users
 that are allowed to view the video. It uses Keto's [expand-API](./concepts/25_api-overview.mdx#expand-subject-sets) to get these
 data:
 
@@ -122,7 +122,7 @@ In the next step we see that the object's owners are the owners of `Video:/cats`
 Video:/cats#owner
 ```
 
-On the last line, We see that `Alice` is the owner of `/cats`.
+On the last line, we see that `User:Alice` is the owner of `Video:/cats`.
 
 Note that there is no direct relationship that would grant `Alice` view access on `/cats/1.mp4` as this is indirectly defined via
 the ownership relation.
@@ -147,15 +147,15 @@ flowchart TD
   obj[Video:/cats] --- r1((owner))
   obj --- r2((view))
   r1 -.-> r2
-  r1 ----- sub1(["Alice"])
+  r1 ----- sub1(["User:Alice"])
   r1 -.-> r4
   obj1 ---- r4((owner))
-  r3 --- all(["* (anyone)"])
+  r3 --- all(["User:* (anyone)"])
   r4 -.-> r3
   obj1[Video:/cats/1.mp4] --- r3((view))
   obj2 --- r6((view))
   r1 -.-> r5
-  obj2[videos/cats/2.mp4] ---- r5((owner))
+  obj2[Video:/cats/2.mp4] ---- r5((owner))
   r5 -.-> r6
   style sub1 fill:green,color:white
   style all fill:green,color:white

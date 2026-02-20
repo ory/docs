@@ -71,7 +71,7 @@ export default (prism) => {
     // Declarative relationship sentences
     natural: {
       pattern:
-        /(?:[a-z][a-zA-Z0-9_-]* (?:of|in) )?[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+ (?:(?:is|are)(?: in)? [a-z][a-zA-Z0-9_-]* (?:of|on)|(?:is|are) allowed to [a-z][a-zA-Z0-9_-]*) [A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+/,
+        /(?:[a-z][a-zA-Z0-9_-]* (?:of|in) )?[A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+ (?:(?:is|are)(?: in)? [a-z][a-zA-Z0-9_-]* (?:of|on)|(?:is|are) allowed to [a-z][a-zA-Z0-9_-]*(?: to)?) [A-Za-z][a-zA-Z0-9_-]*:[^@#:\s]+/,
       inside: {
         // Subject: can be "relation of Namespace:Id" or "relation in Namespace:Id" or just "Namespace:Id"  (at start)
         subject: {
@@ -95,7 +95,7 @@ export default (prism) => {
           },
         },
         // Keywords - match before permit so permit only matches the remaining word
-        keyword: /\b(?:is|are|allowed to|in|of|on)\b/,
+        keyword: /\b(?:is|are|allowed to|to|in|of|on)\b/,
         // Permit (the action/role) - matches any remaining lowercase word
         permit: /[a-z][a-zA-Z0-9_-]*/,
       },

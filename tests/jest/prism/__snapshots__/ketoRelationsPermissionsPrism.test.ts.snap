@@ -1112,3 +1112,94 @@ exports[`ketoRelationsPermissionsPrism declarative: allowed to with subject rela
   },
 ]
 `;
+
+exports[`ketoRelationsPermissionsPrism declarative: allowed to with 'to': User:Bob is allowed to access to Document:X should tokenize: "User:Bob is allowed to access to Document:X" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "User",
+            "length": 4,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Bob",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 8,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "is",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "allowed to",
+        "length": 10,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "access",
+        "length": 6,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "to",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "X",
+            "length": 1,
+            "type": "id",
+          },
+        ],
+        "length": 10,
+        "type": "object",
+      },
+    ],
+    "length": 43,
+    "type": "natural",
+  },
+]
+`;

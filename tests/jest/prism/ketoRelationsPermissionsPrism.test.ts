@@ -46,6 +46,10 @@ describe("ketoRelationsPermissionsPrism", () => {
       name: "allowed to with subject relation: members of Group:Eng is allowed to read Document:X",
       input: "members of Group:Eng is allowed to read Document:X",
     },
+    {
+      name: "allowed to with 'to': User:Bob is allowed to access to Document:X",
+      input: "User:Bob is allowed to access to Document:X",
+    },
   ]
 
   const questionTestCases = [
