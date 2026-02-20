@@ -65,7 +65,7 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
      Copy the **Key ID**.
    - Private Key: Paste the contents of the downloaded files into the field in the Ory Console.
 6. In the **Scopes** field of the form in the Ory Console, add the following scope:
-   - `email`
+   - `email name`
 7. Copy the following details from your registered application in Apple to the corresponding fields in the Ory Console form:
    - **Apple Team Id**
    - **Apple Private Key Id**
@@ -88,6 +88,8 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
          // Therefore we only return the email if it (a) exists and (b) is marked verified
          // by Apple.
          [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+         [if 'given_name' in claims then 'firstName' else null]: claims.given_name,
+         [if 'last_name' in claims then 'lastName' else null]: claims.last_name,
        },
      },
    }
@@ -138,6 +140,8 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
          // Therefore we only return the email if it (a) exists and (b) is marked verified
          // by Apple.
          [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,
+         [if 'given_name' in claims then 'firstName' else null]: claims.given_name,
+         [if 'last_name' in claims then 'lastName' else null]: claims.last_name,
        },
      },
    }
