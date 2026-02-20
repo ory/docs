@@ -52,10 +52,10 @@ docker-compose -f contrib/cat-videos-example/docker-compose.yml up
 
 ## State of the system
 
-At the current state only `User:Alice` has added videos. Both videos are in the `/cats` directory owned by
-`User:Alice`. The file `File:/cats/1.mp4` can be viewed by anyone (`User:*`), while `Video:/cats/2.mp4` has no extra sharing options, and can therefore
-only be viewed by its owner, `User:Alice`. The relationship definitions are located in the `contrib/cat-videos-example/relation-tuples`
-directory.
+At the current state only `User:Alice` has added videos. Both videos are in the `/cats` directory owned by `User:Alice`. The file
+`File:/cats/1.mp4` can be viewed by anyone (`User:*`), while `Video:/cats/2.mp4` has no extra sharing options, and can therefore
+only be viewed by its owner, `User:Alice`. The relationship definitions are located in the
+`contrib/cat-videos-example/relation-tuples` directory.
 
 ## Simulating the video sharing application
 
@@ -90,9 +90,9 @@ keto check "User:*" view Video /cats/2.mp4 --insecure-disable-transport-security
 
 We already discussed that this request should be denied, but it's always good to see this in action.
 
-Now `User:Alice` wants to change some view permissions of `Video:/cats/1.mp4`. For this, the video service application has to show all users
-that are allowed to view the video. It uses Keto's [expand-API](./concepts/25_api-overview.mdx#expand-subject-sets) to get these
-data:
+Now `User:Alice` wants to change some view permissions of `Video:/cats/1.mp4`. For this, the video service application has to show
+all users that are allowed to view the video. It uses Keto's [expand-API](./concepts/25_api-overview.mdx#expand-subject-sets) to
+get these data:
 
 ```shell
 # Who is allowed to "view" the object "videos":"/cats/2.mp4"?
