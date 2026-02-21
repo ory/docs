@@ -148,6 +148,18 @@ is defined, the passkey strategy will not work.
 }
 ```
 
+### Implementing passkeys in your application
+
+After configuring passkeys, you need to integrate them into your application. The implementation differs depending on your
+platform:
+
+- Web applications can use Ory's `webauthn.js` helper script or manually integrate the WebAuthn API.
+- Mobile applications (iOS and Android) require platform-specific credential management APIs and direct integration with Ory's
+  JSON API endpoints.
+
+For detailed implementation instructions, code examples, and best practices for both web and mobile platforms, see
+[Implementing passkeys for web and mobile](./06_passkeys-mobile.mdx).
+
 ## Passkeys with the WebAuthN strategy
 
 ### Configuration
