@@ -184,6 +184,7 @@ const config: Config = {
     ],
     "@docusaurus/plugin-content-pages",
     require.resolve("./src/plugins/docusaurus-polyfill"),
+    require.resolve("./src/plugins/docusaurus-rate-limits-data/index.ts"),
     // require.resolve("./src/plugins/docusaurus-static-fonts"),
     [
       "@docusaurus/plugin-sitemap",
