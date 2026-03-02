@@ -12,8 +12,8 @@ type SidebarItemsConfig = SidebarItemConfig[]
 //import type { SidebarsConfig } from "@docusaurus/plugin-content-docs"
 
 // adjust imports depending on how those files export
-import networkSidebar from "./sidebars-network"
 import oelSidebar from "./sidebars-oel"
+import networkSidebar from "./sidebars-network"
 import ossSidebar from "./sidebars-oss"
 import agenticSidebar from "./sidebars-agentic"
 import ciamSidebar from "./sidebars-ciam"

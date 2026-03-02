@@ -52,8 +52,8 @@ const ossSidebar = [
         label: "Ory Kratos",
         className: "sidebar-icon sidebar-icon-kratos",
         items: [
-          "oel/kratos/intro",
-          "kratos/install",
+          { type: "ref", id: "oel/kratos/intro" },
+          { type: "ref", id: "kratos/install" },
           "self-hosted/oel/kratos/upgrade",
           "self-hosted/oel/kratos/changelog",
           "oel/kratos/quickstart",
