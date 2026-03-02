@@ -63,7 +63,7 @@ const cli: SidebarItemsConfig = [
 
 const api: SidebarItemsConfig = [
   "reference/api",
-  //"ecosystem/api-design",
+  "ecosystem/api-design",
   {
     type: "category",
     label: "Operations",
