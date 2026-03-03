@@ -1,0 +1,69 @@
+---
+id: workos
+title: Add WorkOS as a social sign-in provider in Ory
+sidebar_label: WorkOS
+---
+
+# WorkOS
+
+Follow these steps to add [WorkOS](https://workos.com/) as a social sign-in provider to your project using the Ory CLI:
+
+:::info
+
+The provider configuration in Kratos needs to be set up for each of your Enterprise SAML/SSO clients. WorkOS is simply a connector
+that simplifies the SAML integration. The example below uses `demo-organization` but you would create one for each of your SAML
+organizations.
+
+:::
+
+1. [Get your OAuth2 Credentials](https://dashboard.workos.com/api-keys) from WorkOS which are scoped to your environment
+
+2. In the created app, add a redirect URI:
+
+   ```shell
+   https://{host}/self-service/methods/oidc/callback/demo-organization
+   ```
+
+3. Create a [Jsonnet code snippet](/docs/kratos/social-signin/generic#data-mapping) to map the desired claims to the Ory Identity
+   schema.
+
+4. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
+
+   ```shell
+   cat your-data-mapping.jsonnet | base64
+   ```
+
+5. Download the Ory Identities config from your project and save it to a file:
+
+   ```shell
+   ## List all available projects
+   ory list projects
+
+   ## Get config
+   ory get identity-config {project-id} --format yaml > identity-config.yaml
+   ```
+
+6. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
+   string or provide an URL to the file.
+
+   ```yaml
+   selfservice:
+     methods:
+       oidc:
+         config:
+           providers:
+             - id: demo-organization
+               provider: workos
+               client_id: client_00000000000000000
+               client_secret: sk_...
+               workos_organization_id: org_000000000000000000
+               mapper_url: "base64://..."
+               scope: []
+         enabled: true
+   ```
+
+7. Update the Ory Identities configuration using the file you worked with:
+
+   ```shell
+   ory update identity-config {project-id} --file identity-config.yaml
+   ```
