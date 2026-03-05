@@ -4,8 +4,10 @@ title: Understand Ory Network rate limits
 sidebar_label: Rate limits
 ---
 
-:::info Rate limit changes The way Ory calculates rate limits is changing. Customers who joined before March 1, 2026, keep their
-existing rate limits. New customers are subject to the updated calculation. :::
+:::info Rate limit changes 
+The way Ory calculates rate limits is changing. Customers who joined before March 1, 2026, keep their
+existing rate limits. New customers are subject to the updated calculation. 
+:::
 
 Ory uses rate limiting to protect your applications against abuse, attacks, and service disruptions, and to maintain fair resource
 allocation and network stability.
@@ -42,9 +44,11 @@ Buckets follow a `{service}-{access}-{cost}` naming pattern. For example:
 - `kratos-admin-high` — expensive admin operations like `POST /admin/identities`
 - `hydra-public-medium` — moderate-cost endpoints like `POST /oauth2/token`
 
-:::info A bucket counter is shared across all endpoints in the same bucket. For example, `POST /admin/relation-tuples` and 
+:::info 
+A bucket counter is shared across all endpoints in the same bucket. For example, `POST /admin/relation-tuples` and 
 `DELETE /admin/relation-tuples` both belong to `keto-admin-high`, so every call to either endpoint counts against the same limit.
-Plan your request volumes accordingly. :::
+Plan your request volumes accordingly. 
+:::
 
 ### Rate limit structure
 
