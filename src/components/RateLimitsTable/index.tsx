@@ -178,7 +178,7 @@ export default function RateLimitsTable({
 
       <section>
         <h4 className="text-lg font-semibold mb-2">
-          Thresholds by bucket ({tier} / {env})
+          Thresholds per bucket ({tier} / {env})
           {searchQuery && (
             <span className="ml-2 text-sm font-normal text-gray-600 dark:text-gray-400">
               (filtered by search)
