@@ -4,11 +4,7 @@
 /**
  * Subscription tier (doc-friendly; CSV has "Develop" which we normalize to "Developer").
  */
-export type Tier =
-  | "Developer"
-  | "Production"
-  | "Growth"
-  | "Enterprise"
+export type Tier = "Developer" | "Production" | "Growth" | "Enterprise"
 
 /**
  * Project environment (doc-friendly; CSV has dev/prod/stage which we normalize).

@@ -54,7 +54,10 @@ export default function RateLimitsTable({
   const [pathSearchDebounced, setPathSearchDebounced] = useState("")
 
   useEffect(() => {
-    const t = setTimeout(() => setPathSearchDebounced(pathSearch), SEARCH_DEBOUNCE_MS)
+    const t = setTimeout(
+      () => setPathSearchDebounced(pathSearch),
+      SEARCH_DEBOUNCE_MS,
+    )
     return () => clearTimeout(t)
   }, [pathSearch])
 
@@ -256,7 +259,8 @@ export default function RateLimitsTable({
         </div>
         {searchQuery && displayedThresholds.length === 0 && (
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            No buckets match the search &quot;{pathSearchDebounced.trim()}&quot;.
+            No buckets match the search &quot;{pathSearchDebounced.trim()}
+            &quot;.
           </p>
         )}
       </section>

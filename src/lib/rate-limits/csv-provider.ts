@@ -3,7 +3,14 @@
 
 import * as fs from "fs"
 import * as path from "path"
-import type { EndpointRow, Env, GetThresholdsOptions, RateLimitsProvider, ThresholdRow, Tier } from "./types"
+import type {
+  EndpointRow,
+  Env,
+  GetThresholdsOptions,
+  RateLimitsProvider,
+  ThresholdRow,
+  Tier,
+} from "./types"
 import { ENV_FROM_CSV, TIER_FROM_CSV } from "./types"
 
 const ENDPOINTS_CSV = "bucket-to-endpoints-20260204-1941.csv"
@@ -43,7 +50,9 @@ export interface CsvProviderOptions {
   siteDir?: string
 }
 
-export function createCsvProvider(options?: CsvProviderOptions): RateLimitsProvider {
+export function createCsvProvider(
+  options?: CsvProviderOptions,
+): RateLimitsProvider {
   const dataDir = getDataDir(options?.siteDir)
   const endpointsPath = path.join(dataDir, ENDPOINTS_CSV)
   const thresholdsPath = path.join(dataDir, THRESHOLDS_CSV)
@@ -53,7 +62,12 @@ export function createCsvProvider(options?: CsvProviderOptions): RateLimitsProvi
       const raw = fs.readFileSync(endpointsPath, "utf-8")
       const rows = parseCsv(raw)
       const [header, ...dataRows] = rows
-      if (!header || header[0] !== "Method" || header[1] !== "Path" || header[2] !== "Bucket") {
+      if (
+        !header ||
+        header[0] !== "Method" ||
+        header[1] !== "Path" ||
+        header[2] !== "Bucket"
+      ) {
         throw new Error(`Unexpected endpoints CSV header: ${header?.join(",")}`)
       }
       return dataRows
@@ -61,7 +75,9 @@ export function createCsvProvider(options?: CsvProviderOptions): RateLimitsProvi
         .map((r) => ({ method: r[0], path: r[1], bucket: r[2] }))
     },
 
-    async getThresholds(options?: GetThresholdsOptions): Promise<ThresholdRow[]> {
+    async getThresholds(
+      options?: GetThresholdsOptions,
+    ): Promise<ThresholdRow[]> {
       const raw = fs.readFileSync(thresholdsPath, "utf-8")
       const rows = parseCsv(raw)
       const [header, ...dataRows] = rows
@@ -73,7 +89,9 @@ export function createCsvProvider(options?: CsvProviderOptions): RateLimitsProvi
         header[3] !== "rpm" ||
         header[4] !== "rps"
       ) {
-        throw new Error(`Unexpected thresholds CSV header: ${header?.join(",")}`)
+        throw new Error(
+          `Unexpected thresholds CSV header: ${header?.join(",")}`,
+        )
       }
       let result: ThresholdRow[] = dataRows
         .filter((r) => r.length >= 5 && r[0] && r[1] && r[2])
@@ -91,7 +109,8 @@ export function createCsvProvider(options?: CsvProviderOptions): RateLimitsProvi
       result = dedupeThresholds(result)
       if (options?.tier) result = result.filter((r) => r.tier === options.tier)
       if (options?.env) result = result.filter((r) => r.env === options.env)
-      if (options?.bucket) result = result.filter((r) => r.bucket === options.bucket)
+      if (options?.bucket)
+        result = result.filter((r) => r.bucket === options.bucket)
       return result
     },
   }
