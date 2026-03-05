@@ -74,7 +74,6 @@ const oidcSSO: SidebarItemConfig = {
 const api: SidebarItemsConfig = [
   homeLink,
   "reference/api",
-
   "ecosystem/api-design",
   {
     type: "category",
@@ -90,6 +89,16 @@ const api: SidebarItemsConfig = [
       "guides/cors",
       "guides/api-rest-pagination",
       "guides/rate-limits",
+      {
+        type: "category",
+        label: "Rate limits NEW!",
+        link: {
+          type: "doc",
+          id: "guides/rate-limits-new",
+        },
+        items: ["guides/rate-limits-project", "guides/rate-limits-endpoint"],
+      },
+      "guides/load-performance-testing",
       "guides/ip-allowlist",
       "api/eventual-consistency",
       "kratos/reference/jsonnet",
