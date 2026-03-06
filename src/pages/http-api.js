@@ -2,20 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React from "react"
-import ApiDoc from "@theme/ApiDoc"
-import useSpecData from "@theme/useSpecData"
+import { Redirect } from "@docusaurus/router"
 
-function CustomPage() {
-  const specData = useSpecData("ory-network-api")
-  return (
-    <ApiDoc
-      layoutProps={{
-        title: "HTTP API Docs",
-        description: `Read the HTTP API reference documentation`,
-      }}
-      specProps={specData}
-    />
-  )
+export default function CustomPage() {
+  return <Redirect to="/docs/reference/api/ory-apis" />
 }
-
-export default CustomPage

@@ -344,3 +344,120 @@ svg[class*="iconExternalLink"] {
 .footer__link-item button:hover {
   text-decoration: underline;
 }
+
+/* ============================================================
+ * OpenAPI Docs Styling
+ * ============================================================ */
+
+:root {
+  --openapi-code-green: #059669;
+  --openapi-code-red: #dc2626;
+  --openapi-code-blue: #3b82f6;
+  --openapi-code-orange: #d97706;
+  --openapi-code-purple: #7c3aed;
+}
+
+[data-theme="dark"] {
+  --openapi-code-green: #34d399;
+  --openapi-code-red: #f87171;
+  --openapi-code-blue: #60a5fa;
+  --openapi-code-orange: #fbbf24;
+  --openapi-code-purple: #a78bfa;
+}
+
+/* --- Sidebar HTTP method badges --- */
+.api-method > .menu__link {
+  align-items: center;
+  justify-content: start;
+}
+
+.api-method > .menu__link::before {
+  display: inline-block;
+  width: 3.8rem;
+  min-width: 3.8rem;
+  margin-right: 0.5rem;
+  padding: 0.15rem 0;
+  font-size: 0.6rem;
+  font-weight: 600;
+  font-family: var(--ifm-font-family-monospace);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+}
+
+.get > .menu__link::before {
+  content: "GET";
+  background-color: color-mix(in srgb, var(--openapi-code-blue) 15%, transparent);
+  color: var(--openapi-code-blue);
+  border: 1px solid color-mix(in srgb, var(--openapi-code-blue) 30%, transparent);
+}
+
+.post > .menu__link::before {
+  content: "POST";
+  background-color: color-mix(in srgb, var(--openapi-code-green) 15%, transparent);
+  color: var(--openapi-code-green);
+  border: 1px solid color-mix(in srgb, var(--openapi-code-green) 30%, transparent);
+}
+
+.delete > .menu__link::before {
+  content: "DEL";
+  background-color: color-mix(in srgb, var(--openapi-code-red) 15%, transparent);
+  color: var(--openapi-code-red);
+  border: 1px solid color-mix(in srgb, var(--openapi-code-red) 30%, transparent);
+}
+
+.put > .menu__link::before {
+  content: "PUT";
+  background-color: color-mix(in srgb, var(--openapi-code-orange) 15%, transparent);
+  color: var(--openapi-code-orange);
+  border: 1px solid color-mix(in srgb, var(--openapi-code-orange) 30%, transparent);
+}
+
+.patch > .menu__link::before {
+  content: "PATCH";
+  background-color: color-mix(in srgb, var(--openapi-code-purple) 15%, transparent);
+  color: var(--openapi-code-purple);
+  border: 1px solid color-mix(in srgb, var(--openapi-code-purple) 30%, transparent);
+}
+
+.head > .menu__link::before {
+  content: "HEAD";
+  background-color: color-mix(in srgb, var(--ifm-color-secondary-darkest) 15%, transparent);
+  color: var(--ifm-color-secondary-darkest);
+  border: 1px solid color-mix(in srgb, var(--ifm-color-secondary-darkest) 30%, transparent);
+}
+
+/* --- API page heading --- */
+.openapi__heading {
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* --- Method + path endpoint row --- */
+.openapi__method-endpoint {
+  margin-bottom: 1.5rem;
+}
+
+.openapi__divider {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* --- Two-panel layout spacing --- */
+.openapi-left-panel__container {
+  line-height: 1.7;
+}
+
+/* --- OpenAPI tabs (Request / Response) --- */
+.openapi-tabs__heading {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ifm-toc-border-color);
+}
+
+/* --- Version badge on the intro page --- */
+.theme-doc-version-badge {
+  margin-bottom: 1.5rem;
+}

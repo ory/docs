@@ -3,6 +3,7 @@
 
 import type { Config } from "@docusaurus/types"
 import type * as Preset from "@docusaurus/preset-classic"
+import type * as OpenApiPlugin from "docusaurus-plugin-openapi-docs"
 
 import lightTheme from "./src/utils/prismLight.mjs"
 import darkTheme from "./src/utils/prismDark.mjs"
@@ -180,6 +181,7 @@ const config: Config = {
         disableVersioning: false,
         include: ["**/*.md", "**/*.mdx", "**/*.jsx", "**/*.tsx"],
         docRootComponent: "@theme/DocRoot",
+        docItemComponent: "@theme/ApiItem",
       },
     ],
     "@docusaurus/plugin-content-pages",
@@ -208,25 +210,31 @@ const config: Config = {
         svgrConfig: {},
       },
     ],
-  ],
-  presets: [
     [
-      "redocusaurus",
+      "docusaurus-plugin-openapi-docs",
       {
-        specs: [
-          {
-            id: "ory-network-api",
-            spec: "docs/reference/api.json",
-          },
-          {
-            id: "polis-api",
-            spec: "docs/polis/reference/api.json",
-          },
-        ],
-        theme: {},
+        id: "openapi",
+        docsPluginId: "default",
+        config: {
+          oryNetworkApi: {
+            specPath: "docs/reference/api.json",
+            outputDir: "docs/reference/api",
+            sidebarOptions: {
+              groupPathsBy: "tag",
+            },
+          } satisfies OpenApiPlugin.Options,
+          polisApi: {
+            specPath: "docs/polis/reference/api.json",
+            outputDir: "docs/polis/reference/api",
+            sidebarOptions: {
+              groupPathsBy: "tag",
+            },
+          } satisfies OpenApiPlugin.Options,
+        },
       },
     ],
   ],
+  presets: [],
   themes: [
     [
       "@docusaurus/theme-classic",
@@ -235,7 +243,7 @@ const config: Config = {
       },
     ],
     "@docusaurus/theme-search-algolia",
-    "docusaurus-theme-redoc",
+    "docusaurus-theme-openapi-docs",
   ],
   headTags: [],
 }

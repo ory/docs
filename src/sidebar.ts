@@ -5,6 +5,8 @@ import {
   SidebarItem,
   SidebarItemConfig,
 } from "@docusaurus/plugin-content-docs/src/sidebars/types"
+import oryNetworkApiSidebar from "../docs/reference/api/sidebar"
+import polisApiSidebar from "../docs/polis/reference/api/sidebar"
 
 type SidebarItemsConfig = SidebarItemConfig[]
 
@@ -73,7 +75,17 @@ const oidcSSO: SidebarItemConfig = {
 
 const api: SidebarItemsConfig = [
   homeLink,
-  "reference/api",
+  {
+    type: "category",
+    label: "REST API Reference",
+    collapsed: false,
+    collapsible: true,
+    link: {
+      type: "doc",
+      id: "reference/api/ory-apis",
+    },
+    items: oryNetworkApiSidebar,
+  },
 
   "ecosystem/api-design",
   {
@@ -98,7 +110,20 @@ const api: SidebarItemsConfig = [
   },
 ]
 
-const polisApi: SidebarItemsConfig = [polisLink, "polis/reference/api"]
+const polisApi: SidebarItemsConfig = [
+  polisLink,
+  {
+    type: "category",
+    label: "REST API Reference",
+    collapsed: false,
+    collapsible: true,
+    link: {
+      type: "doc",
+      id: "polis/reference/api/enterprise-sso-directory-sync",
+    },
+    items: polisApiSidebar,
+  },
+]
 
 const sdk: SidebarItemsConfig = [
   homeLink,
