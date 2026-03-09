@@ -29,7 +29,7 @@ class Folder implements Namespace {}
 Each namespace holds a set of permissions, which define which relationships are checked. For example, checking a `view` permission
 for `User:bob` on an `readme.txt` file in the `Document` namespace requires the following relationship lookups:
 
-```keto-relationships
+```keto-natural
 is User:bob in viewers of Document:readme.txt // all viewers can view the document
 is User:bob in editors of Document:readme.txt // all editors can view the document
 is User:bob in owners of Document:readme.txt // all owners can view the document
@@ -56,8 +56,8 @@ the type they describe. The name should be in [upper camel case](https://wiki.c2
 Relationships in a namespace should be named with a plural form word that describes what relation a subject has with an object.
 Every relationship should translate to an English sentence, for example:
 
-```keto-relationships
-Subject is in members of Object
+```keto-natural
+<Subject> is in <relation> of <Object>
 ```
 
 Relationships are like the edges in a graph connecting subjects and objects. These edges are always
@@ -68,7 +68,7 @@ form.
 
 - Correct naming ✅
 
-  ```keto-relationships
+  ```keto-natural
   User:02a3c847-c903-446a-a34f-dae74b4fab86 is in writers of File:8f427c01-c295-44f3-b43d-49c3a1042f35
   User:b8d00059-b803-4123-9d3d-b3613bfe7c1b is in members of Group:43784684-103e-44c0-9d6c-db9fb265f617
   File:11488ab9-4ede-479f-add4-f1379da4ae43 is in children of Directory:803a87e9-0da0-486e-bc08-ef559dd8e034
@@ -77,7 +77,7 @@ form.
 
 - Incorrect naming ❌
 
-  ```keto-relationships
+  ```keto-natural
   // namespace isn't describing homogenous type of objects
   User:7a012165-7b21-495b-b84b-cf4e1a21b484 is in members of Tenant1Objects:62237c27-19c3-4bb1-9cbc-a5a67372569b
 
