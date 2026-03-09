@@ -11,10 +11,12 @@ import {
 let oryNetworkApiSidebar: SidebarItemConfig[] = []
 let polisApiSidebar: SidebarItemConfig[] = []
 try {
-  oryNetworkApiSidebar = require("../docs/reference/api/sidebar")
+  const mod = require("../docs/reference/api/sidebar")
+  oryNetworkApiSidebar = mod.default || mod
 } catch {}
 try {
-  polisApiSidebar = require("../docs/polis/reference/api/sidebar")
+  const mod = require("../docs/polis/reference/api/sidebar")
+  polisApiSidebar = mod.default || mod
 } catch {}
 
 type SidebarItemsConfig = SidebarItemConfig[]
