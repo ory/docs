@@ -14,6 +14,22 @@ Read more about [deployment fundamentals and requirements for Ory](../../self-ho
 Ory Keto requires a production-grade database such as PostgreSQL, MySQL, CockroachDB. Don't use SQLite in production! Read more
 about [deployment fundamentals and requirements for Ory](../../self-hosted/deployment).
 
+## Security checklist
+
+Before deploying to production, review and explicitly set the following security-critical configuration values. Do not rely on
+defaults in a production environment.
+
+### Secrets
+
+Review the Secrets section in the secrets section of the [Configuration](../reference/configuration.mdx).
+
+Set a custom value for `secrets.pagination` and do not rely on the default value in production. Generate a cryptographically
+secure random value, for example:
+
+```sh
+openssl rand -base64 32
+```
+
 ## Ory Keto API behind an API gateway
 
 Although Ory Keto implements all Go best practices around running public-facing production HTTP servers, we discourage running Ory
