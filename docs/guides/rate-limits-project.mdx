@@ -9,18 +9,18 @@ thresholds. When a request comes in, Ory resolves which bucket the endpoint belo
 
 Bucket thresholds are determined by two factors:
 
-- **Subscription tier:** The project's subscription tier (Developer, Production, Growth, or Enterprise).
-- **Project environment:** The project's environment (Production, Staging, or Development).
+- **Subscription tier**: The project's subscription tier (Developer, Production, Growth, or Enterprise).
+- **Project environment**: The project's environment (Production, Staging, or Development).
 
 For a detailed explanation of tiers and environments, see our [Workspaces and environments guide](/docs/guides/workspaces).
 
 ## Rate limits per bucket
 
-Buckets follow a `{service}-{access}-{cost}` naming pattern. For example:
+Buckets follow a `{service}-{access}-{threshold}` naming pattern. For example:
 
-- `kratos-public-low` — lightweight public endpoints like `GET /sessions/whoami`
-- `kratos-admin-high` — expensive admin operations like `POST /admin/identities`
-- `hydra-public-medium` — moderate-cost endpoints like `POST /oauth2/token`
+- `kratos-public-high`: for endpoints with a high rate limit allowance
+- `hydra-public-medium`: for endpoints with a moderate rate limit allowance
+- `hydra-admin-low`: for endpoints with a low rate limit allowance
 
 :::info
 
