@@ -161,16 +161,15 @@ UAE PASS provides two environments. Set the `issuer_url` accordingly:
 
 ### Authentication flows
 
-UAE PASS supports two authentication flows: web (default) and mobile. The provider defaults to the web flow. To use the
-mobile app-to-app flow, pass the `acr_values` upstream parameter at request time.
+UAE PASS supports two authentication flows: web (default) and mobile. The provider defaults to the web flow. To use the mobile
+app-to-app flow, pass the `acr_values` upstream parameter at request time.
 
-| Flow   | ACR value                                              | Use case                   |
-| ------ | ------------------------------------------------------ | -------------------------- |
+| Flow   | ACR value                                                       | Use case                   |
+| ------ | --------------------------------------------------------------- | -------------------------- |
 | Web    | `urn:safelayer:tws:policies:authentication:level:low` (default) | Web applications           |
-| Mobile | `urn:digitalid:authentication:flow:mobileondevice`     | Native mobile applications |
+| Mobile | `urn:digitalid:authentication:flow:mobileondevice`              | Native mobile applications |
 
-To trigger the mobile flow, include `acr_values` in the `upstream_parameters` when initiating the OIDC login or
-registration flow:
+To trigger the mobile flow, include `acr_values` in the `upstream_parameters` when initiating the OIDC login or registration flow:
 
 ```json
 {
