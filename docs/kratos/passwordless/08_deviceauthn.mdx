@@ -68,6 +68,16 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
 1. To delete an existing key,
    [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) like this:
 
+   ```json
+   {
+     "delete" : {
+       "client_key_id" : "4fcXqFY9kg2unsTCM33GH8ayIWY6WdIGFWXMzhl9Vik="
+     },
+     "method" : "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
    ```kotlin
    val clientKeyIdToDelete = "..."
 
@@ -87,6 +97,19 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
 
 1. To add a new key,
    [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) like this:
+
+   ```json
+   {
+     "method": "deviceauthn",
+     "add": {
+       "device_name": "iPhone (iPhone14,5)",
+       "attestation_ios": "...",
+       "client_key_id": "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE="
+     }
+   }
+   ```
+
+   Or using the SDK:
 
    ```kotlin
    val apiClient = Configuration.getDefaultApiClient()
@@ -117,6 +140,16 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
 
 1. To use a key to step-up the AAL,
    [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) like this:
+
+   ```json
+   {
+     "signature" : "...",
+     "client_key_id" : "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE=",
+     "method" : "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
 
    ```kotlin
    val clientKeyId = "..."
