@@ -66,7 +66,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
 1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
    response contains the list of existing Device Binding keys.
 1. To delete an existing key,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) like this:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this payload:
 
    ```json
    {
@@ -96,7 +96,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    KeyStore API.
 
 1. To add a new key,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) like this:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this payload:
 
    ```json
    {
@@ -139,7 +139,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    identity, and there is no point to create multiple keys for the same user on the same device, even though the server allows it.
 
 1. To use a key to step-up the AAL,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) like this:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this payload:
 
    ```json
    {
@@ -371,6 +371,10 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
        deviceauthn:
          enabled: true
    ```
+1. In XCode, add a permission so that the application is allowed to use FaceID. In `Target settings > Info > Custom iOS Target Properties`, add:
+    - Key: `Privacy - Face ID Usage Description`
+    - Type: `String`
+    - Value: `This app uses FaceID to authenticate signing operations.`
 1. Implement a runtime check for the OS version. If is lower than the [documented ones](https://developer.apple.com/documentation/devicecheck/dcappattestservice), Device Binding may not be used, and a fallback should
    be found, for example using passkeys.
 1. Device Binding is (currently) only a second factor, the UI should only show existing Device Binding keys and related buttons
@@ -378,7 +382,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
 1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
    response contains the list of existing Device Binding keys.
 1. To delete an existing key,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) like this:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this payload:
 
    ```json
    {
@@ -417,7 +421,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    KeyStore API.
 
 1. To add a new key,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) like this:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this payload:
 
    ```json
    {
@@ -468,7 +472,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    and there is no point to create multiple keys for the same user on the same device, even though the server allows it.
 
 1. To use a key to step-up the AAL,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) like this:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this payload:
 
    ```json
    {
