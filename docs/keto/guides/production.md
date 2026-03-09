@@ -23,7 +23,7 @@ defaults in a production environment.
 
 Review the Secrets section in the secrets section of the [Configuration](../reference/configuration.mdx).
 
-Set a custom value for `secrets.pagination` and do not rely on the default value in production. Generate a cryptographically
+Do not rely on the defaults in production, and set a custom secret value for `secrets.pagination`. Generate a cryptographically
 secure random value, for example:
 
 ```sh
