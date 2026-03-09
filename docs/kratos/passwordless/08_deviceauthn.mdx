@@ -191,6 +191,439 @@ create and use keys. The Android emulator create keys in software.
 When running Kratos in production mode, only hardware-resident keys are accepted, and thus the Android emulator cannot be used to
 create or use keys.
 
+
+There are two Keystore calls required: one to create the key and one to use it to sign:
+
+```kotlin
+package com.ory.sdk
+
+import android.os.Build
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
+import android.util.Log
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import kotlinx.coroutines.suspendCancellableCoroutine
+import java.security.KeyPairGenerator
+import java.security.KeyStore
+import java.security.PrivateKey
+import java.security.Signature
+import java.security.cert.Certificate
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+
+private const val TAG = "com.ory.sdk"
+
+public interface Api {
+    public companion object {
+        @JvmStatic
+        public fun create(): Api {
+            return OryApi()
+        }
+    }
+
+    public fun createKeyPair(
+        keyAlias: String,
+        challenge: ByteArray,
+        withStrongBox: Boolean
+    ): List<Certificate>
+
+    public suspend fun launchBiometricSigner(
+        activity: FragmentActivity,
+        keyAlias: String,
+        challenge: ByteArray,
+        title: String,
+        negativeButtonText: String,
+    ): ByteArray
+}
+
+internal class OryApi : Api {
+    private val keyStore: KeyStore by lazy {
+        KeyStore.getInstance("AndroidKeyStore").apply {
+            load(null)
+        }
+    }
+
+    private fun getCertificateChain(keyAlias: String): List<Certificate> {
+        return keyStore.getCertificateChain(keyAlias).toList()
+    }
+
+
+    override fun createKeyPair(
+        keyAlias: String,
+        challenge: ByteArray,
+        withStrongBox: Boolean,
+    ): List<Certificate> {
+        val kpg: KeyPairGenerator = KeyPairGenerator.getInstance(
+            KeyProperties.KEY_ALGORITHM_EC,
+            "AndroidKeyStore"
+        )
+
+        val parameterSpec: KeyGenParameterSpec = KeyGenParameterSpec.Builder(
+            keyAlias,
+            KeyProperties.PURPOSE_SIGN
+        ).run {
+            setDigests(KeyProperties.DIGEST_SHA256)
+            if (Build.VERSION.SDK_INT >= 24) {
+                setAttestationChallenge(challenge)
+            }
+
+            if (Build.VERSION.SDK_INT >= 28) {
+                setIsStrongBoxBacked(withStrongBox)
+            }
+            // Require biometric/PIN for every single use.
+            setUserAuthenticationRequired(true)
+            // TODO: Should we use: setInvalidatedByBiometricEnrollment(true) ?
+            build()
+        }
+
+        kpg.initialize(parameterSpec)
+        kpg.generateKeyPair()
+        Log.i(TAG, "created keypair: alias=$keyAlias")
+
+        return getCertificateChain(keyAlias)
+    }
+
+
+    /**
+     * Provides an uninitialized Signature object for the App to use in BiometricPrompt.
+     */
+    private fun getSignatureObject(keyAlias: String): Signature {
+        val privateKey = keyStore.getKey(keyAlias, null) as? PrivateKey
+
+        return Signature.getInstance("SHA256withECDSA").apply {
+            initSign(privateKey)
+        }
+    }
+
+    override suspend fun launchBiometricSigner(
+        activity: FragmentActivity,
+        keyAlias: String,
+        challenge: ByteArray,
+        title: String,
+        negativeButtonText: String,
+    ): ByteArray = suspendCancellableCoroutine { continuation ->
+        val executor = ContextCompat.getMainExecutor(activity)
+
+        val biometricPrompt = BiometricPrompt(
+            activity, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    try {
+                        val signature = result.cryptoObject?.signature
+                        if (signature != null) {
+                            signature.update(challenge)
+                            continuation.resume(signature.sign())
+                        } else {
+                            continuation.resumeWithException(Exception("Signature object is null"))
+                        }
+                    } catch (e: Exception) {
+                        continuation.resumeWithException(e)
+                    }
+                }
+
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    // Wrap the error in a custom Exception or handle specific error codes
+                    continuation.resumeWithException(Exception(errString.toString()))
+                }
+
+                override fun onAuthenticationFailed() {
+                    // Note: onAuthenticationFailed is called for finger-read errors
+                    // but doesn't dismiss the prompt; we usually wait for Error or Success.
+                }
+            }
+        )
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(title)
+            .setNegativeButtonText(negativeButtonText)
+            .build()
+
+        // Cancel the biometric prompt if the coroutine is cancelled
+        continuation.invokeOnCancellation {
+            biometricPrompt.cancelAuthentication()
+        }
+
+        biometricPrompt.authenticate(
+            promptInfo,
+            BiometricPrompt.CryptoObject(getSignatureObject(keyAlias))
+        )
+    }
+}
+
+```
+
+### How to implement Device Binding in your iOS application
+
+A notable difference with Android is that Apple's app attestation APIs require a network call to Apple's servers from a real device.
+
+This means that the emulator cannot be used.
+
+Since Device Binding only is supported on native devices (not in the browser), all corresponding API calls should be done using
+the endpoints for native apps, to avoid having to pass cookies around manually.
+
+1. Ensure that the `DeviceAuthn` strategy is enabled in the Kratos configuration. This strategy implements the settings and login
+   flow. This is done so:
+   ```yaml
+   selfservice:
+     methods:
+       deviceauthn:
+         enabled: true
+   ```
+1. Implement a runtime check for the OS version. If is lower than the [documented ones](https://developer.apple.com/documentation/devicecheck/dcappattestservice), Device Binding may not be used, and a fallback should
+   be found, for example using passkeys.
+1. Device Binding is (currently) only a second factor, the UI should only show existing Device Binding keys and related buttons
+   (e.g. to add a key) if the user is currently logged in. This can be confirmed with a `whoami` call.
+1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
+   response contains the list of existing Device Binding keys.
+1. To delete an existing key,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) like this:
+
+   ```json
+   {
+     "delete" : {
+       "client_key_id" : "4fcXqFY9kg2unsTCM33GH8ayIWY6WdIGFWXMzhl9Vik="
+     },
+     "method" : "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
+   ```swift
+   let clientKeyId = "..."
+
+   let flow = try await FrontendAPI.createNativeSettingsFlow(
+       xSessionToken: sessionToken
+   )
+
+   let body: UpdateSettingsFlowBody =
+       .typeUpdateSettingsFlowWithDeviceAuthnMethod(
+           UpdateSettingsFlowWithDeviceAuthnMethod(
+               delete: UpdateSettingsFlowWithDeviceAuthnMethodDelete(
+                   clientKeyId: clientKeyId,
+               ),
+               method: "deviceauthn"
+           )
+       )
+   let finalFlow = try await FrontendAPI.updateSettingsFlow(
+       flow: flow.id,
+       updateSettingsFlowBody: body,
+       xSessionToken: sessionToken
+   )
+   ```
+
+   Once the key has been deleted server-side, it is fine (although not required) to also delete it on the device using the
+   KeyStore API.
+
+1. To add a new key,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) like this:
+
+   ```json
+   {
+     "method": "deviceauthn",
+     "add": {
+       "device_name": "iPhone (iPhone14,5)",
+       "attestation_ios": "...",
+       "client_key_id": "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE="
+     }
+   }
+   ```
+
+   Or using the SDK:
+
+   ```swift
+   let clientKeyId = "..."
+
+   let flow = try await FrontendAPI.createNativeSettingsFlow(
+       xSessionToken: sessionToken
+   )
+
+   let nonce = extractNonceFromUiNodes(nodes: flow.ui.nodes) ?? ""
+   let deviceName = "My work phone"
+   let (clientKeyId, attestation) = try await OryApi().createKey(
+       challengeB64: nonce
+   )
+
+   let body: UpdateSettingsFlowBody =
+       .typeUpdateSettingsFlowWithDeviceAuthnMethod(
+           UpdateSettingsFlowWithDeviceAuthnMethod(
+               add: UpdateSettingsFlowWithDeviceAuthnMethodAdd(
+                   attestationIos: attestation,
+                   clientKeyId: clientKeyId,
+                   deviceName: deviceName,
+               ),
+               method: "deviceauthn"
+           )
+       )
+   let finalFlow = try await FrontendAPI.updateSettingsFlow(
+       flow: flow.id,
+       updateSettingsFlowBody: body,
+       xSessionToken: sessionToken
+   )
+   ```
+
+   Once a key is created, the application must store the key id somewhere, because there are no APIs to list keys or check if a key exists.
+   Note that there is a maximum number of keys that can be created for an identity,
+   and there is no point to create multiple keys for the same user on the same device, even though the server allows it.
+
+1. To use a key to step-up the AAL,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) like this:
+
+   ```json
+   {
+     "signature" : "...",
+     "client_key_id" : "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE=",
+     "method" : "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
+
+   ```swift
+   let clientKeyId = "..."
+
+   let flow = try await FrontendAPI.createNativeLoginFlow(
+       refresh: false,
+       aal: AuthenticatorAssuranceLevel.aal2.rawValue,
+       xSessionToken: sessionToken
+   )
+   let nonce = extractNonceFromUiNodes(nodes: flow.ui.nodes) ?? ""
+
+   let signature = try await OryApi().signWithKey(
+       keyId: clientKeyId,
+       challengeB64: nonce,
+   )
+
+   let body =
+       UpdateLoginFlowBody
+       .typeUpdateLoginFlowWithDeviceAuthnMethod(
+           UpdateLoginFlowWithDeviceAuthnMethod(
+               clientKeyId: clientKeyId,
+               method: "deviceauthn",
+               signature: signature,
+           )
+       )
+
+   let finalFlow = try await FrontendAPI.updateLoginFlow(
+       flow: flow.id,
+       updateLoginFlowBody: body,
+       xSessionToken: sessionToken
+   )
+   ```
+
+
+There are two required App Attest calls to create a key and use it to sign:
+
+```swift
+import CryptoKit
+import DeviceCheck
+import Foundation
+import LocalAuthentication
+import OSLog
+import Security
+
+public enum OryApiError: Error, LocalizedError {
+    case secureEnclaveError(String, OSStatus?)
+    case appAttestationNotSupported
+    case appAttestationError(String)
+    case biometricAuthenticationFailed(String?)
+    case biometricAuthenticationCancelled
+
+    public var errorDescription: String? {
+        switch self {
+        case .secureEnclaveError(let message, let status):
+            let statusString = status != nil ? " (Status: \(status!))" : ""
+            return "Secure Enclave Error: \(message)\(statusString)"
+        case .appAttestationNotSupported:
+            return "App Attestation is not supported on this device."
+        case .appAttestationError(let message):
+            return "App Attestation Error: \(message)"
+        case .biometricAuthenticationFailed(let message):
+            return
+                "Biometric authentication failed: \(message ?? "Unknown error")"
+        case .biometricAuthenticationCancelled:
+            return "Biometric authentication cancelled by user."
+        }
+    }
+}
+
+public class OryApi {
+    public func createKey(challengeB64: String)
+        async throws -> (clientKeyId: String, attestation: Data)
+    {
+        if #available(iOS 14.0, *) {
+            let service = DCAppAttestService.shared
+            guard service.isSupported else {
+                throw OryApiError.appAttestationNotSupported
+            }
+
+            let keyId: String
+            do {
+                keyId = try await service.generateKey()
+            } catch {
+                let errorMessage =
+                    "Failed to generate key: \(error.localizedDescription)"
+                throw OryApiError.appAttestationError(errorMessage)
+            }
+
+            let challenge = Data(base64Encoded: challengeB64)!
+            let attestation = try await service.attestKey(
+                keyId,
+                clientDataHash: challenge
+            )
+
+            return (keyId, attestation)
+        } else {
+            // Fallback for older iOS versions
+            throw OryApiError.secureEnclaveError(
+                "iOS 14.0 or newer is required for App Attestation.",
+                nil
+            )
+        }
+    }
+
+    public func signWithKey(keyId: String, challengeB64: String)
+        async throws -> Data
+    {
+        if #available(iOS 14.0, watchOS 14.0, *) {
+            let context = LAContext()
+            let reason = "Authenticate to sign in"
+            do {
+                try await context.evaluatePolicy(
+                    .deviceOwnerAuthenticationWithBiometrics,
+                    localizedReason: reason
+                )
+            } catch let error as LAError {
+                switch error.code {
+                case .userCancel, .appCancel, .systemCancel, .userFallback:
+                    throw OryApiError.biometricAuthenticationCancelled
+                default:
+                    throw OryApiError.biometricAuthenticationFailed(
+                        error.localizedDescription
+                    )
+                }
+            } catch {
+                throw OryApiError.biometricAuthenticationFailed(
+                    error.localizedDescription
+                )
+            }
+
+            let challenge = Data(base64Encoded: challengeB64)!
+            let assertion = try await DCAppAttestService.shared
+                .generateAssertion(keyId, clientDataHash: challenge)
+
+            return assertion
+        } else {
+            throw OryApiError.secureEnclaveError(
+                "iOS 14.0 or newer is required for App Attestation.",
+                nil
+            )
+        }
+    }
+}
+```
+
 ## Reference
 
 ### Enrollment
