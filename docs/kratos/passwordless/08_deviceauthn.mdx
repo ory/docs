@@ -354,7 +354,7 @@ internal class OryApi : Api {
 
 ```
 
-### How to implement Device Binding in your iOS application
+### How to implement Device Binding in your iOS/iPadOS application
 
 A notable difference with Android is that Apple's app attestation APIs require a network call to Apple's servers from a real device.
 
@@ -700,9 +700,7 @@ The settings flow contains all keys for the identity. This is used to present th
 The security of this design relies on a chain of trust anchored in hardware and standard cryptographic primitives.
 
 - **Asymmetric Cryptography**: **ECDSA with P-256** is used for the device key pair. This is a modern, efficient, and widely
-  supported standard for digital signatures. It is less computationally expensive than RSA. However, some old Android devices only
-  support RSA so we might have to support both schemes (TODO @Philippe Gaultier: check if we want to support these devices -
-  probably not)
+  supported standard for digital signatures. It is less computationally expensive than RSA.
 - **Hardware-Backed Keys**: Private keys are generated and stored as **non-exportable** within the device's **Secure Enclave
   (iOS)** or **Trusted Execution Environment (TEE)/StrongBox (Android)**. They cannot be accessed by the OS or any application,
   providing strong protection against extraction. As much as the APIs allow it, the keys are marked as requiring user
@@ -854,7 +852,7 @@ they share core cryptographic principles, their goals and scope are fundamentall
 
 - Android:
   [https://developer.android.com/privacy-and-security/security-key-attestation](https://developer.android.com/privacy-and-security/security-key-attestation)
-- iOS:
+- iOS/iPadOS:
   [https://developer.apple.com/documentation/devicecheck/validating-apps-that-connect-to-your-server](https://developer.apple.com/documentation/devicecheck/validating-apps-that-connect-to-your-server)
   and
   [https://developer.apple.com/documentation/devicecheck/establishing-your-app-s-integrity](https://developer.apple.com/documentation/devicecheck/establishing-your-app-s-integrity)
