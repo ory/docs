@@ -24,7 +24,8 @@ Since this is a strategy, it supports all the same hooks as the other strategies
 
 - This is implemented in the OEL version with the strategy `DeviceAuthn`, in spirit similar to `WebAuthn`
 - The settings flow is used to manage keys (create, delete)
-- The login flow is used to step-up the AAL. Hardware-backed keys (TEE) satisfy AAL2, while keys stored in a dedicated security chip (StrongBox) may eventually be categorized as AAL3.
+- The login flow is used to step-up the AAL. Hardware-backed keys (TEE) satisfy AAL2, while keys stored in a dedicated security
+  chip (StrongBox) may eventually be categorized as AAL3.
 - Using the admin API, it is possible to delete all keys for a device on behalf of the user in case of theft or loss
 - A device may have multiple keys, to support multiple user accounts on the same device.
 - Only these platforms are currently supported, because they offer native APIs, strong hardware, and trust guarantees:
@@ -66,18 +67,20 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
 1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
    response contains the list of existing Device Binding keys.
 1. To delete an existing key,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this payload:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
 
    ```json
    {
-     "delete" : {
-       "client_key_id" : "4fcXqFY9kg2unsTCM33GH8ayIWY6WdIGFWXMzhl9Vik="
+     "delete": {
+       "client_key_id": "4fcXqFY9kg2unsTCM33GH8ayIWY6WdIGFWXMzhl9Vik="
      },
-     "method" : "deviceauthn"
+     "method": "deviceauthn"
    }
    ```
 
    Or using the SDK:
+
    ```kotlin
    val clientKeyIdToDelete = "..."
 
@@ -96,7 +99,8 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    KeyStore API.
 
 1. To add a new key,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this payload:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
 
    ```json
    {
@@ -139,13 +143,14 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    identity, and there is no point to create multiple keys for the same user on the same device, even though the server allows it.
 
 1. To use a key to step-up the AAL,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this payload:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
 
    ```json
    {
-     "signature" : "...",
-     "client_key_id" : "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE=",
-     "method" : "deviceauthn"
+     "signature": "...",
+     "client_key_id": "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE=",
+     "method": "deviceauthn"
    }
    ```
 
@@ -190,7 +195,6 @@ create and use keys. The Android emulator create keys in software.
 
 When running Kratos in production mode, only hardware-resident keys are accepted, and thus the Android emulator cannot be used to
 create or use keys.
-
 
 There are two Keystore calls required: one to create the key and one to use it to sign:
 
@@ -356,7 +360,8 @@ internal class OryApi : Api {
 
 ### How to implement Device Binding in your iOS/iPadOS application
 
-A notable difference with Android is that Apple's app attestation APIs require a network call to Apple's servers from a real device.
+A notable difference with Android is that Apple's app attestation APIs require a network call to Apple's servers from a real
+device.
 
 This means that the emulator cannot be used.
 
@@ -371,29 +376,33 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
        deviceauthn:
          enabled: true
    ```
-1. In XCode, add a permission so that the application is allowed to use FaceID. In `Target settings > Info > Custom iOS Target Properties`, add:
-    - Key: `Privacy - Face ID Usage Description`
-    - Type: `String`
-    - Value: `This app uses FaceID to authenticate signing operations.`
-1. Implement a runtime check for the OS version. If is lower than the [documented ones](https://developer.apple.com/documentation/devicecheck/dcappattestservice), Device Binding may not be used, and a fallback should
-   be found, for example using passkeys.
+1. In XCode, add a permission so that the application is allowed to use FaceID. In
+   `Target settings > Info > Custom iOS Target Properties`, add:
+   - Key: `Privacy - Face ID Usage Description`
+   - Type: `String`
+   - Value: `This app uses FaceID to authenticate signing operations.`
+1. Implement a runtime check for the OS version. If is lower than the
+   [documented ones](https://developer.apple.com/documentation/devicecheck/dcappattestservice), Device Binding may not be used,
+   and a fallback should be found, for example using passkeys.
 1. Device Binding is (currently) only a second factor, the UI should only show existing Device Binding keys and related buttons
    (e.g. to add a key) if the user is currently logged in. This can be confirmed with a `whoami` call.
 1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
    response contains the list of existing Device Binding keys.
 1. To delete an existing key,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this payload:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
 
    ```json
    {
-     "delete" : {
-       "client_key_id" : "4fcXqFY9kg2unsTCM33GH8ayIWY6WdIGFWXMzhl9Vik="
+     "delete": {
+       "client_key_id": "4fcXqFY9kg2unsTCM33GH8ayIWY6WdIGFWXMzhl9Vik="
      },
-     "method" : "deviceauthn"
+     "method": "deviceauthn"
    }
    ```
 
    Or using the SDK:
+
    ```swift
    let clientKeyId = "..."
 
@@ -421,7 +430,8 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    KeyStore API.
 
 1. To add a new key,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this payload:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
 
    ```json
    {
@@ -467,18 +477,19 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    )
    ```
 
-   Once a key is created, the application must store the key id somewhere, because there are no APIs to list keys or check if a key exists.
-   Note that there is a maximum number of keys that can be created for an identity,
-   and there is no point to create multiple keys for the same user on the same device, even though the server allows it.
+   Once a key is created, the application must store the key id somewhere, because there are no APIs to list keys or check if a
+   key exists. Note that there is a maximum number of keys that can be created for an identity, and there is no point to create
+   multiple keys for the same user on the same device, even though the server allows it.
 
 1. To use a key to step-up the AAL,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this payload:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
 
    ```json
    {
-     "signature" : "...",
-     "client_key_id" : "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE=",
-     "method" : "deviceauthn"
+     "signature": "...",
+     "client_key_id": "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE=",
+     "method": "deviceauthn"
    }
    ```
 
@@ -515,7 +526,6 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
        xSessionToken: sessionToken
    )
    ```
-
 
 There are two required App Attest calls to create a key and use it to sign:
 
