@@ -21,7 +21,7 @@ defaults in a production environment.
 
 ### Secrets
 
-Review the Secrets section in the secrets section of the [Configuration](../reference/configuration.mdx).
+Review the secrets section of the [Configuration](../reference/configuration.mdx).
 
 Do not rely on the defaults in production, and set a custom secret value for `secrets.pagination`. Generate a cryptographically
 secure random value, for example:

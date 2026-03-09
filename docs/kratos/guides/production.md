@@ -22,7 +22,7 @@ When preparing for production it's paramount to omit the `--dev` flag from `krat
 
 ### Secrets
 
-Review the Secrets section in the secrets section of the [Configuration](../reference/configuration.mdx).
+Review the secrets section of the [Configuration](../reference/configuration.mdx).
 
 Do not rely on the defaults in production, and set a custom secret value for `default`, `cookie`, `pagination` and `cipher`.
 Generate a cryptographically secure random value, for example:
