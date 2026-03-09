@@ -10,7 +10,7 @@ resident private key.
 Since the key cannot leave the device, once the key has been added to the identity, it gives a high assurance that the user is who
 they say they are, and is using a trusted, known device, without needing to remember something like a password.
 
-This is very similar to passkeys with one crucial difference: passkeys are usually synced in the cloud amon many devices, whereas
+This is very similar to passkeys with one crucial difference: passkeys are usually synced in the cloud among many devices, whereas
 a DeviceAuthn key cannot leave the hardware where it was created.
 
 Using this approach, the system can restrict the use of an application on specific, whitelisted devices.
@@ -24,7 +24,7 @@ Since this is a strategy, it supports all the same hooks as the other strategies
 
 - This is implemented in the OEL version with the strategy `DeviceAuthn`, in spirit similar to `WebAuthn`
 - The settings flow is used to manage keys (create, delete)
-- The login flow is used to step-up the AAL to AAL2, or in the future AAL3
+- The login flow is used to step-up the AAL. Hardware-backed keys (TEE) satisfy AAL2, while keys stored in a dedicated security chip (StrongBox) may eventually be categorized as AAL3.
 - Using the admin API, it is possible to delete all keys for a device on behalf of the user in case of theft or loss
 - A device may have multiple keys, to support multiple user accounts on the same device.
 - Only these platforms are currently supported, because they offer native APIs, strong hardware, and trust guarantees:
@@ -82,7 +82,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    val clientKeyIdToDelete = "..."
 
    val apiClient = Configuration.getDefaultApiClient()
-   val apiInstance = FrontendApi(apiClien)
+   val apiInstance = FrontendApi(apiClient)
    val body = UpdateSettingsFlowBody()
    val method = UpdateSettingsFlowWithDeviceAuthnMethod()
    method.method = "deviceauthn"
