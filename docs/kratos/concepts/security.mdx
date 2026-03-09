@@ -73,8 +73,8 @@ Ory OAuth2 and OpenID Connect is a certified OAuth2 and OpenID Connect provider.
 
 ## CAPTCHAs
 
-Ory Identities supports protecting the registration and login endpoints with CAPTCHA challenges. This is useful to prevent
-credential stuffing, brute force and other automated attacks.
+Ory Identities supports protecting self-service flows with CAPTCHA challenges. This is useful to prevent credential stuffing,
+brute force and other automated attacks.
 
 #### Prerequisites
 
@@ -92,23 +92,39 @@ Supported CAPTCHA providers are:
 
 1. Go to <ConsoleLink route="project.authentication" />.
 2. Toggle **CAPTCHA protection**.
-3. (optional) Add or remove domains from the **Allowed domains** list.
-
-- You must define at least one valid domain.
-- You can list up to 10 domains in total.
-
+3. Choose your preferred configuration mode:
+   - **Managed Mode**: Our standard, zero-setup integrated Cloudflare Turnstile widget.
+     - Add or remove domains from the **Allowed domains** list.
+     - You must define at least one valid domain.
+     - You can list up to 10 domains in total.
+   - **Custom Credentials (BYO)**: Connect your existing Cloudflare Turnstile account to view detailed security analytics directly
+     within your own Cloudflare dashboard.
+     - Enter your Turnstile **Site Key** and **Secret Key**.
 4. Click **Save**.
-5. Navigate to your registration or login screen to test the CAPTCHA protection.
+5. Navigate to any protected self-service screen (e.g., registration or login) to test the CAPTCHA protection.
 
 ```mdx-code-block
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
 ```
 
+**Configure Managed Mode:**
+
 ```shell
 ory patch identity-config --project <project-id> --workspace <workspace-id> \
-  --replace '/selfservice/mehods/captcha/enabled=true' \
+  --replace '/selfservice/methods/captcha/enabled=true' \
+  --replace '/selfservice/methods/captcha/config/byo=false' \
   --replace '/selfservice/methods/captcha/config/allowed_domains=["example.org", "foo.bar.dev"]'
+```
+
+**Configure BYO Mode:**
+
+```shell
+ory patch identity-config --project <project-id> --workspace <workspace-id> \
+  --replace '/selfservice/methods/captcha/enabled=true' \
+  --replace '/selfservice/methods/captcha/config/byo=true' \
+  --replace '/selfservice/methods/captcha/config/cf_turnstile/sitekey=your-site-key' \
+  --replace '/selfservice/methods/captcha/config/cf_turnstile/secret=your-secret-key'
 ```
 
 ```mdx-code-block
