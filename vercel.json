@@ -1235,7 +1235,7 @@
     {
       "source": "/docs/ecosystem/projects",
       "destination": "/docs/oss/projects",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/open-source",
@@ -1245,7 +1245,7 @@
     {
       "source": "/docs/ecosystem/community",
       "destination": "/docs/oss/community",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/contributing",
@@ -1274,7 +1274,7 @@
     },
     {
       "source": "/docs/ecosystem/sqa",
-      "destination": "/docs/oss/sqa",
+      "destination": "/docs/oss/telemetry",
       "permanent": false
     },
     {
@@ -1285,6 +1285,31 @@
     {
       "source": "/docs/self-hosted/deployment",
       "destination": "/docs/oss/deployment",
+      "permanent": false
+    },
+    {
+      "source": "/docs/ecosystem/changelog",
+      "destination": "/docs/oss/changelog",
+      "permanent": false
+    },
+    {
+      "source": "/docs/ecosystem/configuring",
+      "destination": "/docs/oss/configuring",
+      "permanent": false
+    },
+    {
+      "source": "/docs/open-source",
+      "destination": "/docs/oss/open-source",
+      "permanent": false
+    },
+    {
+      "source": "/docs/open-source/guidelines/rest-api-guidelines",
+      "destination": "/docs/oss/guidelines/rest-api-guidelines",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/passwordless/06_code",
+      "destination": "/docs/kratos/passwordless/07_code",
       "permanent": false
     }
   ]
