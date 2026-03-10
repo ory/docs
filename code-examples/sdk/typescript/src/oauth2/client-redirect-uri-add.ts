@@ -10,11 +10,15 @@ const ory = new OAuth2Api(
   }),
 )
 
-export async function revokeConsent() {
+export async function addRedirectUri(clientId: string, newUri: string) {
   // highlight-start
-  const { data } = await ory.revokeOAuth2ConsentSessions({
-    subject: "some-user-id",
-    client: "some-client-id",
+  const { data: client } = await ory.getOAuth2Client({ id: clientId })
+  await ory.setOAuth2Client({
+    id: clientId,
+    oAuth2Client: {
+      ...client,
+      redirect_uris: [...(client.redirect_uris ?? []), newUri],
+    },
   })
   // highlight-end
 }

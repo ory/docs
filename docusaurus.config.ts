@@ -1,4 +1,4 @@
-// Copyright © 2022 Ory Corp
+// Copyright © 2026 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
 import type { Config } from "@docusaurus/types"
