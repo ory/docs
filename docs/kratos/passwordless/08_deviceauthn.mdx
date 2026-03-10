@@ -33,8 +33,7 @@ Since this is a strategy, it supports all the same hooks as the other strategies
   - iPadOS: 14.0+
   - tvOS: 15.0+ (untested)
   - visionOS 1.0+ (untested)
-  - Android SDK 24.0+ More platforms may be added in the future. Older versions of the platforms in this list are unlikely to be
-    supported.
+  - Android SDK 24.0+. Older versions are unlikely to be supported.
 
 ## Acronyms
 
@@ -358,18 +357,24 @@ internal class OryApi : Api {
 
 ```
 
-
 #### Making it work in the Android emulator
 
 1. Create an emulated device in the Android emulator with an Android version which is at least 24.
 1. Start the emulated device.
-1. Inside the emulated device, go to 'Settings > Security & Location > Screen Lock' and set a device PIN (this is required for biometrics).
-1. Inside the emulated device, go to 'Settings > Security & Location > Fingerprints' and add a fingerprint. A biometric prompt will appear on the screen of the emulated device.
-1. In the 'Extended Controls' for the emulated device (not inside the device, but in Android Studio), go to the 'Fingerprints' section and click on 'Touch sensor' to pass the biometrics prompt of the device. This simulates placing your finger on the sensor.
+1. Inside the emulated device, go to 'Settings > Security & Location > Screen Lock' and set a device PIN (this is required for
+   biometrics).
+1. Inside the emulated device, go to 'Settings > Security & Location > Fingerprints' and add a fingerprint. A biometric prompt
+   will appear on the screen of the emulated device.
+1. In the 'Extended Controls' for the emulated device (not inside the device, but in Android Studio), go to the 'Fingerprints'
+   section and click on 'Touch sensor' to pass the biometrics prompt of the device. This simulates placing your finger on the
+   sensor.
 
 At this point the fingerprint is registered for the emulated device. The process must be repeated for each emulated device.
 
-Then, start the application inside the emulated device. When the biometric prompt appears, repeat step 5. to pass the biometric prompt. There are several fingerprints available, so it is possible to test the case of using a registered fingerprint, and the case of using an unknown fingerprint. To test the case of no fingerprint registered, remove the registered fingerprint in the 'Settings' of the emulated device.
+Then, start the application inside the emulated device. When the biometric prompt appears, repeat step 5. to pass the biometric
+prompt. There are several fingerprints available, so it is possible to test the case of using a registered fingerprint, and the
+case of using an unknown fingerprint. To test the case of no fingerprint registered, remove the registered fingerprint in the
+'Settings' of the emulated device.
 
 ### How to implement Device Binding in your iOS/iPadOS application
 
@@ -871,7 +876,7 @@ they share core cryptographic principles, their goals and scope are fundamentall
   - **This Design**: Attestation is **mandatory and central** to the entire security model. The main purpose of the enrollment
     ceremony is for the server to validate the device's hardware and software integrity.
 
-### Reference documentation
+### Further reading
 
 - Android:
   [https://developer.android.com/privacy-and-security/security-key-attestation](https://developer.android.com/privacy-and-security/security-key-attestation)
