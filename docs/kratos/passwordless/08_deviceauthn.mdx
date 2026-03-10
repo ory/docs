@@ -747,7 +747,6 @@ import Flutter
       (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
 
       if call.method == "generateResidentKey" {
-        // Just for demo, checking if arguments are arriving
         let alias = (call.arguments as? [String: Any])?["alias"] as? String ?? "unknown"
 
         // Just for the example, get the iOS version.
