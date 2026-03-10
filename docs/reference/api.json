@@ -1268,6 +1268,10 @@
             "description": "Configures the Ory Kratos Login Lifespan\n\nThis governs the \"selfservice.flows.login.lifespan\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_login_style": {
+            "description": "Configures the Ory Kratos Login Flow Style\n\nThis governs the \"selfservice.flows.login.style\" setting.\nPossible values are \"unified\" and \"identifier_first\".",
+            "type": "string"
+          },
           "kratos_selfservice_flows_login_ui_url": {
             "description": "Configures the Ory Kratos Login UI URL\n\nThis governs the \"selfservice.flows.login.ui_url\" setting.",
             "type": "string"
@@ -5907,6 +5911,10 @@
             "description": "Configures the Ory Kratos Login Lifespan\n\nThis governs the \"selfservice.flows.login.lifespan\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_login_style": {
+            "description": "Configures the Ory Kratos Login Flow Style\n\nThis governs the \"selfservice.flows.login.style\" setting.\nPossible values are \"unified\" and \"identifier_first\".",
+            "type": "string"
+          },
           "kratos_selfservice_flows_login_ui_url": {
             "description": "Configures the Ory Kratos Login UI URL\n\nThis governs the \"selfservice.flows.login.ui_url\" setting.",
             "type": "string"
@@ -9624,9 +9632,7 @@
             "type": "integer"
           },
           "page_token": {
-            "default": "1",
             "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
-            "minimum": 1,
             "type": "string"
           }
         },
@@ -9657,9 +9663,7 @@
             "type": "integer"
           },
           "page_token": {
-            "default": "1",
             "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
-            "minimum": 1,
             "type": "string"
           }
         },
@@ -12219,8 +12223,6 @@
             "in": "query",
             "name": "page_token",
             "schema": {
-              "default": "1",
-              "minimum": 1,
               "type": "string"
             }
           },
@@ -13006,8 +13008,6 @@
             "in": "query",
             "name": "page_token",
             "schema": {
-              "default": "1",
-              "minimum": 1,
               "type": "string"
             }
           },
@@ -14060,8 +14060,6 @@
             "in": "query",
             "name": "page_token",
             "schema": {
-              "default": "1",
-              "minimum": 1,
               "type": "string"
             }
           },
@@ -18427,8 +18425,6 @@
             "in": "query",
             "name": "page_token",
             "schema": {
-              "default": "1",
-              "minimum": 1,
               "type": "string"
             }
           }
@@ -20596,8 +20592,6 @@
             "in": "query",
             "name": "page_token",
             "schema": {
-              "default": "1",
-              "minimum": 1,
               "type": "string"
             }
           },
