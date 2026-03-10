@@ -716,49 +716,53 @@ class MainActivity: FlutterActivity() {
 }
 ```
 
-And for macOS (the same approach works on iOS):
+And for iOS:
 
 ```swift
-import Cocoa
-import FlutterMacOS
+import UIKit
+import Flutter
 
 @main
-class AppDelegate: FlutterAppDelegate {
-  override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-    return true
-  }
+@objc class AppDelegate: FlutterAppDelegate {
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
 
-  override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
-    return true
-  }
+    // 1. Standard plugin registration for things like path_provider, etc.
+    GeneratedPluginRegistrant.register(with: self)
 
-  override func applicationDidFinishLaunching(_ notification: Notification) {
-    let controller = mainFlutterWindow?.contentViewController as! FlutterViewController
+    // 2. Create a registrar for our custom "inline" plugin
+    // The name "SecureKeystorePlugin" can be anything unique.
+    let registrar = self.registrar(forPlugin: "SecureKeystorePlugin")
+
+    // 3. Setup the channel using the registrar's messenger
     let channel = FlutterMethodChannel(
-      name: "com.example.secure/keystore",
-      binaryMessenger: controller.engine.binaryMessenger)
+        name: "com.example.secure/keystore",
+        binaryMessenger: registrar!.messenger()
+    )
 
-    channel.setMethodCallHandler { (call: FlutterMethodCall, result: @escaping FlutterResult) in
+    // 4. Handle the method calls
+    channel.setMethodCallHandler({
+      (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
+
       if call.method == "generateResidentKey" {
-        guard let args = call.arguments as? [String: Any],
-          let alias = args["alias"] as? String
-        else {
-          result(FlutterError(code: "INVALID_ARGUMENTS", message: "Alias is missing", details: nil))
-          return
-        }
+        // Just for demo, checking if arguments are arriving
+        let alias = (call.arguments as? [String: Any])?["alias"] as? String ?? "unknown"
 
-        // Call the native API here, for the example we simply get the macOS version.
-        let version = ProcessInfo.processInfo.operatingSystemVersionString
-        result("macOS version: \(version)")
+        let version = UIDevice.current.systemVersion
+        result("iOS \(version)")
       } else {
         result(FlutterMethodNotImplemented)
       }
-    }
+    })
+
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }
 ```
 
-And the Flutter code gets this result back: `macOS version: Version 26.2 (Build 25C56)` (for example).
+And the Flutter code gets this result back: `iOS 26.2.1` (for example).
 
 ## Reference
 
