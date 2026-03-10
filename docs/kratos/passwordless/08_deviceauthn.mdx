@@ -657,6 +657,66 @@ public class OryApi {
 }
 ```
 
+
+## How to implement Device Binding in your Dart/Flutter application
+
+Dart can call native APIs via message passing. Let's call a function called `generateKey` with the parameter `{'alias': 'my_key_01'}`:
+
+```dart
+Future<void> _generateKey() async {
+setState(() => _isLoading = true);
+
+try {
+  // Calling the native method
+  final String result = await platform.invokeMethod('generateKey', {
+    'alias': 'my_key_01',
+  });
+
+  setState(() {
+    _keyStoreResult = result;
+    _isLoading = false;
+  });
+} on PlatformException catch (e) {
+  setState(() {
+    _keyStoreResult = "Failed to generate key: '${e.message}'.";
+    _isLoading = false;
+  });
+}
+}
+```
+
+Since the call might block, it is marked async and a loading indicator is shown in the UI via the `_isLoading` field.
+
+
+Now to the platform code, for example for Android:
+
+```kotlin
+class MainActivity: FlutterActivity() {
+    private val CHANNEL = "com.example.secure/keystore"
+
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
+
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
+            if (call.method == "generateKey") {
+                val alias = call.argument<String>("alias") ?: "default_alias"
+                try {
+                    val keyStoreResult = [..] // Call the KeyStore here.
+
+                    // Send the result back to Flutter.
+                    result.success(keyStoreResult)
+                } catch (e: Exception) {
+                    // If generation fails (e.g., hardware issues), send an error
+                    result.error("KEY_GEN_FAIL", e.localizedMessage, null)
+                }
+            } else {
+                result.notImplemented()
+            }
+        }
+    }
+}
+```
+
 ## Reference
 
 ### Enrollment
