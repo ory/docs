@@ -1060,7 +1060,7 @@
     {
       "source": "/docs/ecosystem/deployment",
       "destination": "https://www.ory.com/docs/oss/deployment",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/high-availability-ha",
@@ -1240,7 +1240,7 @@
     {
       "source": "/docs/open-source",
       "destination": "/docs/oss/open-source",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/community",
@@ -1250,67 +1250,67 @@
     {
       "source": "/docs/ecosystem/contributing",
       "destination": "/docs/oss/contributing",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/open-source/commitment",
       "destination": "/docs/oss/commitment",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/software-architecture-philosophy",
       "destination": "/docs/oss/software-architecture-philosophy",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/open-source/guidelines/rest-api-guidelines",
       "destination": "/docs/oss/guidelines/rest-api-guidelines",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/upgrading",
       "destination": "/docs/oss/upgrading",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/sqa",
       "destination": "/docs/oss/telemetry",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/changelog",
       "destination": "/docs/oss/changelog",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/self-hosted/deployment",
       "destination": "/docs/oss/deployment",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/changelog",
       "destination": "/docs/oss/changelog",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/configuring",
       "destination": "/docs/oss/configuring",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/open-source",
       "destination": "/docs/oss/open-source",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/open-source/guidelines/rest-api-guidelines",
       "destination": "/docs/oss/guidelines/rest-api-guidelines",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/passwordless/06_code",
       "destination": "/docs/kratos/passwordless/07_code",
-      "permanent": false
+      "permanent": true
     }
   ]
 }

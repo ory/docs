@@ -76,6 +76,22 @@ const networkSidebar = [
           },
           "migrate-to-ory/auth0",
           "getting-started/local-development",
+          {
+            type: "category",
+            label: "Ory Console",
+            collapsed: true,
+            collapsible: true,
+            items: [
+              "guides/workspaces",
+              "console/roles-and-permissions",
+              "guides/custom-domains",
+              "console/usage-billing",
+              "guides/manage-project-via-api",
+              "console/change-owner",
+              "guides/gitops",
+              "actions/live-events",
+            ],
+          },
         ],
       },
       {
