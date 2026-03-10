@@ -59,9 +59,12 @@ See [API documentation](../../reference/api#tag/oAuth2/operation/createOAuth2Cli
 
 ## Redirect URI requirements
 
-Redirect URIs must match exactly. Wildcard patterns such as `https://*.example.com/callback` are not supported in any environment, including development mode.
+Redirect URIs must match exactly. Wildcard patterns such as `https://*.example.com/callback` are not supported in any environment,
+including development mode.
 
-The OAuth 2.0 specification ([RFC 6749, Section 3.1.2.2](https://datatracker.ietf.org/doc/html/rfc6749#section-3.1.2.2)) requires exact URI matching. On shared platforms such as Heroku, Vercel, and Netlify, wildcard subdomains would allow any tenant on that platform to intercept authorization codes or tokens intended for your application.
+The OAuth 2.0 specification ([RFC 6749, Section 3.1.2.2](https://datatracker.ietf.org/doc/html/rfc6749#section-3.1.2.2)) requires
+exact URI matching. On shared platforms such as Heroku, Vercel, and Netlify, wildcard subdomains would allow any tenant on that
+platform to intercept authorization codes or tokens intended for your application.
 
 ### Dynamic preview and review environments
 
@@ -69,23 +72,24 @@ If your CI/CD pipeline creates ephemeral environments with unpredictable URLs, u
 
 #### Programmatic client updates (recommended)
 
-Update the client's `redirect_uris` via the API when a review app is deployed, and remove the URI when the environment is torn down. This approach works for any number of preview environments and requires no manual intervention.
+Update the client's `redirect_uris` via the API when a review app is deployed, and remove the URI when the environment is torn
+down. This approach works for any number of preview environments and requires no manual intervention.
 
 Add the preview URL when the review app is deployed:
 
-````mdx-code-block
+```mdx-code-block
 import redirectUriAddTs from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/client-redirect-uri-add.ts'
 
 <CodeBlock language="tsx">{redirectUriAddTs}</CodeBlock>
-````
+```
 
 Remove the URI when the review app is destroyed:
 
-````mdx-code-block
+```mdx-code-block
 import redirectUriRemoveTs from '!!raw-loader!../../../code-examples/sdk/typescript/src/oauth2/client-redirect-uri-remove.ts'
 
 <CodeBlock language="tsx">{redirectUriRemoveTs}</CodeBlock>
-````
+```
 
 #### Explicit URI listing
 
@@ -99,7 +103,8 @@ ory update oauth2-client {client.id} \
 
 #### Custom domain
 
-Point a stable domain you control at the review environment (for example, `preview.yourapp.com`). The redirect URI stays constant across deployments and requires no client updates.
+Point a stable domain you control at the review environment (for example, `preview.yourapp.com`). The redirect URI stays constant
+across deployments and requires no client updates.
 
 ## Update OAuth2 client
 
