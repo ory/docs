@@ -657,10 +657,10 @@ public class OryApi {
 }
 ```
 
-
 ## How to implement Device Binding in your Dart/Flutter application
 
-Dart can call native APIs via message passing. Let's call a function called `generateKey` with the parameter `{'alias': 'my_key_01'}`:
+Dart can call native APIs via message passing. Let's call a function called `generateKey` with the parameter
+`{'alias': 'my_key_01'}`:
 
 ```dart
 Future<void> _generateKey() async {
@@ -686,7 +686,6 @@ try {
 ```
 
 Since the call might block, it is marked async and a loading indicator is shown in the UI via the `_isLoading` field.
-
 
 Now to the platform code, for example for Android:
 
@@ -716,6 +715,50 @@ class MainActivity: FlutterActivity() {
     }
 }
 ```
+
+And for macOS (the same approach works on iOS):
+
+```swift
+import Cocoa
+import FlutterMacOS
+
+@main
+class AppDelegate: FlutterAppDelegate {
+  override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+    return true
+  }
+
+  override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
+    return true
+  }
+
+  override func applicationDidFinishLaunching(_ notification: Notification) {
+    let controller = mainFlutterWindow?.contentViewController as! FlutterViewController
+    let channel = FlutterMethodChannel(
+      name: "com.example.secure/keystore",
+      binaryMessenger: controller.engine.binaryMessenger)
+
+    channel.setMethodCallHandler { (call: FlutterMethodCall, result: @escaping FlutterResult) in
+      if call.method == "generateResidentKey" {
+        guard let args = call.arguments as? [String: Any],
+          let alias = args["alias"] as? String
+        else {
+          result(FlutterError(code: "INVALID_ARGUMENTS", message: "Alias is missing", details: nil))
+          return
+        }
+
+        // Call the native API here, for the example we simply get the macOS version.
+        let version = ProcessInfo.processInfo.operatingSystemVersionString
+        result("macOS version: \(version)")
+      } else {
+        result(FlutterMethodNotImplemented)
+      }
+    }
+  }
+}
+```
+
+And the Flutter code gets this result back: `macOS version: Version 26.2 (Build 25C56)` (for example).
 
 ## Reference
 
