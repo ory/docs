@@ -1,253 +1,52 @@
 ---
 id: rate-limits
-title: Understand Ory Network rate limiting
+title: Ory Network rate limiting
 sidebar_label: Rate limits
 ---
 
-:::info
+Ory Network uses rate limits to protect your applications against abuse and ensure fair resource allocation across all customers.
+Ory is currently migrating to a new rate limiting policy. New workspaces are automatically on the new policy; existing customers
+are being migrated by subscription tier.
 
-!! ADD COMMUNICATION NOTICE !!
+## Which system applies to you?
 
-:::
+| You are...                                         | Your system                                |
+| -------------------------------------------------- | ------------------------------------------ |
+| A new customer (workspace created after [DATE])    | [New rate limits](./rate-limits-new)       |
+| An existing customer — migration not yet completed | [Legacy rate limits](./rate-limits-legacy) |
+| An existing customer — migration completed         | [New rate limits](./rate-limits-new)       |
 
-This page provides a high-level overview of the rate limiting mechanisms employed by Ory to ensure system security and
-availability. Rate limiting protects your applications against abuse and attacks, prevents service disruptions, and ensures fair
-usage for all our customers.
+:::tip
 
-## Types of rate limits
-
-Ory implements two main rate limit types:
-
-1. Project rate limits: Based on your subscription plan and environment (Production, Staging, or Development). These control the
-   overall request volume your projects can make to Ory's APIs.
-2. Endpoint-based rate limits: Additional security controls that protect specific endpoints against attacks like brute-force,
-   credential stuffing, and concurrent request abuse, regardless of your project limits.
-
-## Project rate limits in workspaces
-
-With the introduction of workspaces in Ory Network, rate limits are now applied to projects based on their assigned environment
-and the workspace's subscription plan. This approach ensures fair resource allocation and maintains the stability of the Ory
-Network across different usage scenarios.
-
-### How project rate limits work in workspaces
-
-Rate limits for each project are determined by two main factors:
-
-1. Workspace subscription: Your subscription plan (Developer, Production, Growth, or Enterprise) sets the baseline for your rate
-   limits.
-2. Project environment: Within each workspace, projects can be assigned to Production, Staging, or Development environments, each
-   with specific rate limit configurations.
-
-For a detailed explanation of workspaces and environments, see our [Workspaces and environments guide](/docs/guides/workspaces).
-
-### Rate limit structure
-
-Each rate limit policy includes two limits:
-
-1. Burst limit: Maximum requests per second (rps), allowing for short traffic spikes.
-2. Sustained limit: Maximum requests per minute (rpm), ensuring consistent performance over time.
-
-### Determine your project's rate limits
-
-To identify the rate limits that apply to your project:
-
-1. Check your workspace subscription plan (Developer, Production, Growth, or Enterprise).
-2. Identify the environment (Production, Staging, or Development) assigned to your project.
-3. Refer to the tables below based on your subscription plan and project environment.
-
-### Rate limit tables by subscription plan
-
-#### Developer plan rate limits
-
-| Environment | Path / Bucket                     | Burst (rps) | Sustained (rpm) |
-| :---------- | :-------------------------------- | ----------: | --------------: |
-| Development | `/sessions/whoami`                |          10 |             300 |
-|             | `/admin/oauth2/introspect`        |          10 |             300 |
-|             | `/relation-tuples/check`          |          10 |             300 |
-|             | `GET /admin/identities`           |           1 |              10 |
-|             | `POST /admin/identities`          |           1 |              10 |
-|             | `PATCH /admin/identities`         |           1 |              10 |
-|             | `POST /admin/recovery/*`          |           1 |              10 |
-|             | `POST /self-service/registration` |           1 |              10 |
-|             | `POST /self-service/recovery`     |           1 |              10 |
-|             | `POST /self-service/settings`     |           1 |              10 |
-|             | `POST /self-service/verification` |           1 |              10 |
-|             | `/scim/**`                        |           1 |              10 |
-|             | `*`                               |           5 |             150 |
-
-:::note
-
-For Developer plans, all environments (Production, Staging, Development) use the same rate limits.
+You can check which policy your workspace is on in the Ory Console under **Settings → Rate Limits**, or by checking your migration
+notification email.
 
 :::
 
-#### Production plan rate limits
+## What's changing?
 
-| Environment           | Path / Bucket                     | Burst (rps) | Sustained (rpm) |
-| :-------------------- | :-------------------------------- | ----------: | --------------: |
-| Production            | `/sessions/whoami`                |          80 |            1800 |
-|                       | `/admin/oauth2/introspect`        |          80 |            1800 |
-|                       | `/relation-tuples/check`          |          80 |            1800 |
-|                       | `GET /admin/identities`           |          10 |             300 |
-|                       | `POST /admin/recovery/*`          |          10 |              30 |
-|                       | `/scim/**`                        |          10 |             300 |
-|                       | `*`                               |          40 |             900 |
-| Development / Staging | `/sessions/whoami`                |          10 |             300 |
-|                       | `/admin/oauth2/introspect`        |          10 |             300 |
-|                       | `/relation-tuples/check`          |          10 |             300 |
-|                       | `GET /admin/identities`           |           1 |              10 |
-|                       | `POST /admin/identities`          |           1 |              10 |
-|                       | `PATCH /admin/identities`         |           1 |              10 |
-|                       | `POST /admin/recovery/*`          |           1 |              10 |
-|                       | `POST /self-service/registration` |           1 |              10 |
-|                       | `POST /self-service/recovery`     |           1 |              10 |
-|                       | `POST /self-service/settings`     |           1 |              10 |
-|                       | `POST /self-service/verification` |           1 |              10 |
-|                       | `/scim/**`                        |           1 |              10 |
-|                       | `*`                               |           5 |             150 |
+The legacy rate limit policy applied limits per endpoint-path and limits were fixed per subscription plan and environment. The new
+rate limit policy is a more structured model that distributes project rate limits across different types of API operations. API
+operations are now organized into **buckets** based on service, access level, and rate limit threshold. This allows the Ory
+platform to handle traffic more efficiently while giving you clearer and more consistent behavior when interacting with the APIs.
 
-:::note
+## Migration plan
 
-Production plan rate limits also apply to the Legacy `Essential` plan.
+The new rate limits will be introduced gradually to ensure a smooth transition. No action is required on your end. Ory will notify
+you before your workspace is migrated. During the migration, your rate limit behavior remains unchanged until the cutover
+completes.
 
-:::
+Migration schedule:
 
-#### Growth plan rate limits
+| Phase | Plan                | Date   |
+| ----- | ------------------- | ------ |
+| 1     | Developer           | [DATE] |
+| 2     | Production          | [DATE] |
+| 3     | Growth & Enterprise | [DATE] |
 
-| Environment           | Path / Bucket                     | Burst (rps) | Sustained (rpm) |
-| :-------------------- | :-------------------------------- | ----------: | --------------: |
-| Production            | `/sessions/whoami`                |         800 |           18000 |
-|                       | `/admin/oauth2/introspect`        |         800 |           18000 |
-|                       | `/relation-tuples/check`          |         800 |           18000 |
-|                       | `GET /admin/identities`           |          20 |             600 |
-|                       | `POST /admin/recovery/*`          |          10 |             300 |
-|                       | `/scim/**`                        |          10 |             300 |
-|                       | `*`                               |         400 |            9000 |
-| Development / Staging | `/sessions/whoami`                |          10 |             300 |
-|                       | `/admin/oauth2/introspect`        |          10 |             300 |
-|                       | `/relation-tuples/check`          |          10 |             300 |
-|                       | `GET /admin/identities`           |           1 |              10 |
-|                       | `POST /admin/identities`          |           1 |              10 |
-|                       | `PATCH /admin/identities`         |           1 |              10 |
-|                       | `POST /admin/recovery/*`          |           1 |              10 |
-|                       | `POST /self-service/registration` |           1 |              10 |
-|                       | `POST /self-service/recovery`     |           1 |              10 |
-|                       | `POST /self-service/settings`     |           1 |              10 |
-|                       | `POST /self-service/verification` |           1 |              10 |
-|                       | `/scim/**`                        |           1 |              10 |
-|                       | `*`                               |           5 |             150 |
+The types of rate limits, for project-based and endpoint-based, remain the same in both rate limit policies.
 
-:::note
+## Learn more about rate limits
 
-Growth plan rate limits also apply to the legacy `Scale` plan.
-
-:::
-
-#### Enterprise plan rate limits
-
-The Enterprise plan has the same default rate limits as the Growth plan. If your use case requires higher limits,
-[get in touch with us to discuss your requirements](https://ory.com/contact).
-
-| Environment           | Path / Bucket                     | Burst (rps) | Sustained (rpm) |
-| :-------------------- | :-------------------------------- | ----------: | --------------: |
-| Production            | `/sessions/whoami`                |        1200 |           36000 |
-|                       | `/admin/oauth2/introspect`        |        1200 |           36000 |
-|                       | `/relation-tuples/check`          |        1200 |           36000 |
-|                       | `GET /admin/identities`           |          60 |            1200 |
-|                       | `POST /admin/recovery/*`          |          20 |             600 |
-|                       | `/scim/**`                        |          20 |             600 |
-|                       | `*`                               |         800 |           18000 |
-| Development / Staging | `/sessions/whoami`                |          10 |             300 |
-|                       | `/admin/oauth2/introspect`        |          10 |             300 |
-|                       | `/relation-tuples/check`          |          10 |             300 |
-|                       | `GET /admin/identities`           |           1 |              10 |
-|                       | `POST /admin/identities`          |           1 |              10 |
-|                       | `PATCH /admin/identities`         |           1 |              10 |
-|                       | `POST /admin/recovery/*`          |           1 |              10 |
-|                       | `POST /self-service/registration` |           1 |              10 |
-|                       | `POST /self-service/recovery`     |           1 |              10 |
-|                       | `POST /self-service/settings`     |           1 |              10 |
-|                       | `POST /self-service/verification` |           1 |              10 |
-|                       | `/scim/**`                        |           1 |              10 |
-|                       | `*`                               |           5 |             150 |
-
-## Endpoint-based rate limits
-
-Endpoint-based rate limits are controls applied to individual API endpoints within your Ory projects. Unlike project rate limits,
-which govern overall project request volumes, endpoint-based rate limits focus on safeguarding specific functionalities against
-abuse.
-
-:::note
-
-Endpoint-based rate limits operate independently from project rate limits in workspaces. While project rate limits control overall
-request volumes based on your subscription and environment, endpoint-based rate limits provide additional security for specific
-endpoints regardless of your project rate limit values.
-
-:::
-
-### Purpose of endpoint-based rate limits
-
-Endpoint-based rate limits protect individual endpoints against common attack vectors like brute-force and credential stuffing.
-These attacks typically involve numerous attempts to guess credentials or exploit vulnerabilities, often from a limited set of IP
-addresses or JA4 fingerprints.
-
-Benefits:
-
-- Enhanced security: Restricts requests from specific sources, making attacks significantly harder to succeed
-- Bot protection: Differentiates genuine users from harmful automated activity
-- Granular control: Fine-tunes security for individual endpoints without compromising user experience
-
-### Types of endpoint-based protection
-
-Ory implements two layers of endpoint-based protection:
-
-#### Volumetric rate limits
-
-Analyzes incoming request patterns based on:
-
-- Source identification: IP addresses and JA3/JA4 fingerprints
-- Request frequency: Detects volumetric attacks and system overwhelm attempts
-- Authentication status: Different limits for authenticated vs. unauthenticated requests
-- HTTP method: Varying limits based on GET, POST, etc.
-
-#### Inflight rate limits
-
-Inflight rate limits protect critical endpoints from concurrent request attacks. By preventing multiple requests to the same
-resource at once, it eliminates race conditions, ensures data consistency, and lets critical operations complete safely.
-
-:::note
-
-These limits mainly protect against write requests to the same resource happening in parallel — usually caused by implementation
-issues.
-
-:::
-
-### Protected endpoints
-
-The following endpoints are protected by different types of rate limiting:
-
-| Type       | Endpoint                                    | HTTP Methods             | Ratelimit Key                                    | Action                                 |
-| :--------- | :------------------------------------------ | :----------------------- | :----------------------------------------------- | :------------------------------------- |
-| Volumetric |                                             |                          |                                                  | To be added later                      |
-| Inflight   | `/admin/identities`                         | `POST`, `PATCH`          | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
-| Inflight   | `/admin/identities/{id}`                    | `PUT`, `PATCH`, `DELETE` | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
-| Inflight   | `/admin/identities/{id}/credentials/{type}` | `DELETE`                 | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
-| Inflight   | `/admin/identities/{id}/sessions`           | `DELETE`                 | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
-| Inflight   | `/admin/sessions/{id}`                      | `DELETE`                 | `{project_id} + {full_path}`                     | Logs concurrent requests (report-only) |
-| Inflight   | `/admin/sessions/{id}/extend`               | `PATCH`                  | `{project_id} + {full_path}`                     | Logs concurrent requests (report-only) |
-| Inflight   | `/self-service/recovery`                    | `POST`                   | `{project_id} + {path} + "/" + {email\|flow_id}` | Logs concurrent requests (report-only) |
-
-:::note
-
-Report-only endpoints are observed over a period of time before enforcement is enabled. They currently log rate limit violations
-for monitoring purposes but don't block requests, while enforced endpoints return HTTP 429 when rate limits are exceeded. GET,
-OPTIONS, and HEAD requests are exempt from rate limiting.
-
-:::
-
-### Configuration and management
-
-#### Rule management
-
-The endpoint-based rate limit rules are set and managed by Ory. These rules aren't directly configurable by Enterprise and Growth
-customers yet.
+- [New rate limits](./rate-limits-new) — applies to new customers and migrated workspaces
+- [Legacy rate limits](./rate-limits-legacy) — applies to existing customers pending migration

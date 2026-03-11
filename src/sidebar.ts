@@ -88,15 +88,30 @@ const api: SidebarItemsConfig = [
       "concepts/personal-access-token",
       "guides/cors",
       "guides/api-rest-pagination",
-      "guides/rate-limits",
       {
         type: "category",
-        label: "Rate limits NEW!",
+        label: "Rate limits",
         link: {
           type: "doc",
-          id: "guides/rate-limits-new",
+          id: "guides/rate-limits",
         },
-        items: ["guides/rate-limits-project", "guides/rate-limits-endpoint"],
+        items: [
+          // ← restored items array
+          "guides/rate-limits-legacy",
+          {
+            // ← New rate limits as nested category
+            type: "category",
+            label: "New rate limits",
+            link: {
+              type: "doc",
+              id: "guides/rate-limits-new",
+            },
+            items: [
+              "guides/rate-limits-project",
+              "guides/rate-limits-endpoint",
+            ],
+          },
+        ],
       },
       "guides/load-performance-testing",
       "guides/ip-allowlist",
@@ -146,6 +161,7 @@ const sdk: SidebarItemsConfig = [
     items: ["keto/self-hosted/go", "keto/sdk/python"],
   },
 ]
+
 const cli: SidebarItemsConfig = [
   homeLink,
   {
