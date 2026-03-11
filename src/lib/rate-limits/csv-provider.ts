@@ -13,8 +13,8 @@ import type {
 } from "./types"
 import { ENV_FROM_CSV, TIER_FROM_CSV } from "./types"
 
-const ENDPOINTS_CSV = "bucket-to-endpoints-20260204-1941.csv"
-const THRESHOLDS_CSV = "bucket-to-threshold-20260204-1941.csv"
+const ENDPOINTS_CSV = "bucket-to-endpoints-20260311.csv"
+const THRESHOLDS_CSV = "bucket-to-threshold-20260311.csv"
 
 /**
  * Resolve data directory. When running from Docusaurus plugin, pass siteDir so paths resolve correctly.

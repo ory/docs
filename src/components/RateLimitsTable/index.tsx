@@ -139,7 +139,7 @@ export default function RateLimitsTable({
             value={tier}
             onChange={(e) => setTier(e.target.value as Tier)}
             aria-label="Subscription tier"
-            className="rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-2 py-1"
+            className="rounded border px-2 py-1 bg-[var(--ifm-background-surface-color)] text-[var(--ifm-font-color-base)] border-[var(--ifm-color-emphasis-300)]"
           >
             {TIERS.map((t) => (
               <option key={t} value={t}>
@@ -154,7 +154,7 @@ export default function RateLimitsTable({
             value={env}
             onChange={(e) => setEnv(e.target.value as Env)}
             aria-label="Project environment"
-            className="rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-2 py-1"
+            className="rounded border px-2 py-1 bg-[var(--ifm-background-surface-color)] text-[var(--ifm-font-color-base)] border-[var(--ifm-color-emphasis-300)]"
           >
             {ENVS.map((e) => (
               <option key={e} value={e}>
@@ -171,7 +171,7 @@ export default function RateLimitsTable({
             onChange={(e) => setPathSearch(e.target.value)}
             placeholder="e.g. /sessions/whoami"
             aria-label="Search by API path or method"
-            className="min-w-[200px] rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-2 py-1"
+            className="min-w-[200px] rounded border px-2 py-1 bg-[var(--ifm-background-surface-color)] text-[var(--ifm-font-color-base)] border-[var(--ifm-color-emphasis-300)]"
           />
         </label>
       </div>
