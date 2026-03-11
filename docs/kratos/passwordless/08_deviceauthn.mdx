@@ -344,7 +344,7 @@ internal class OryApi : Api {
             .setNegativeButtonText(negativeButtonText)
             .build()
 
-        // Cancel the biometric prompt if the coroutine is cancelled
+        // Cancel the biometric prompt if the coroutine is canceled
         continuation.invokeOnCancellation {
             biometricPrompt.cancelAuthentication()
         }
@@ -576,7 +576,7 @@ public enum OryApiError: Error, LocalizedError {
             return
                 "Biometric authentication failed: \(message ?? "Unknown error")"
         case .biometricAuthenticationCancelled:
-            return "Biometric authentication cancelled by user."
+            return "Biometric authentication canceled by user."
         }
     }
 }
