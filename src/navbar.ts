@@ -77,7 +77,6 @@ export const navbar: Navbar = {
         },
       ],
     },
-
     {
       type: "dropdown",
       to: "/docs/reference/reference-overview",
@@ -114,7 +113,6 @@ export const navbar: Navbar = {
           to: "https://changelog.ory.com/?categories=cat_s3C6qgDr7FEyo%2Ccat_n9fSarZSCxDTl%2Ccat_ZTXuym1ZfOYZx%2Ccat_YZLKJTlx35HVW",
           label: "Ory OEL",
         },
-
         {
           to: "/docs/oss/changelog",
           label: "Ory OSS",
