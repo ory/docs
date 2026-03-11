@@ -1,2359 +1,2359 @@
 {
-    "endpoints": [
-        {
-            "method": "GET",
-            "path": "/.well-known/jwks.json",
-            "bucket": "hydra-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/.well-known/openid-configuration",
-            "bucket": "hydra-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/.well-known/ory/webauthn.js",
-            "bucket": "hydra-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/clients",
-            "bucket": "hydra-admin-medium"
-        },
-        {
-            "method": "POST",
-            "path": "/admin/clients",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/clients/{id}",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "DELETE",
-            "path": "/admin/clients/{id}",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "PATCH",
-            "path": "/admin/clients/{id}",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/clients/{id}",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "HEAD",
-            "path": "/.well-known/openid-configuration",
-            "bucket": "hydra-public-high"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/clients/{id}/lifespans",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/keys/{set}",
-            "bucket": "hydra-admin-medium"
-        },
-        {
-            "method": "DELETE",
-            "path": "/admin/keys/{set}",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "POST",
-            "path": "/admin/keys/{set}",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/keys/{set}",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/keys/{set}/{kid}",
-            "bucket": "hydra-admin-medium"
-        },
-        {
-            "method": "DELETE",
-            "path": "/admin/keys/{set}/{kid}",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/keys/{set}/{kid}",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/oauth2/auth/requests/consent",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/oauth2/auth/requests/consent/accept",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/oauth2/auth/requests/consent/reject",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/oauth2/auth/requests/device/accept",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/oauth2/auth/requests/login",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/oauth2/auth/requests/login/accept",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/oauth2/auth/requests/login/reject",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/oauth2/auth/requests/logout",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/oauth2/auth/requests/logout/accept",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/oauth2/auth/requests/logout/reject",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/oauth2/auth/sessions/consent",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "DELETE",
-            "path": "/admin/oauth2/auth/sessions/consent",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "DELETE",
-            "path": "/admin/oauth2/auth/sessions/login",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "POST",
-            "path": "/admin/oauth2/introspect",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "DELETE",
-            "path": "/admin/oauth2/tokens",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/trust/grants/jwt-bearer/issuers",
-            "bucket": "hydra-admin-medium"
-        },
-        {
-            "method": "POST",
-            "path": "/admin/trust/grants/jwt-bearer/issuers",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/trust/grants/jwt-bearer/issuers/{id}",
-            "bucket": "hydra-admin-medium"
-        },
-        {
-            "method": "DELETE",
-            "path": "/admin/trust/grants/jwt-bearer/issuers/{id}",
-            "bucket": "hydra-admin-low"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/admin/clients",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/admin/clients/{id}",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "POST",
-            "path": "/credentials",
-            "bucket": "hydra-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/oauth2/auth",
-            "bucket": "hydra-public-medium"
-        },
-        {
-            "method": "HEAD",
-            "path": "/oauth2/auth",
-            "bucket": "hydra-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/oauth2/device/auth",
-            "bucket": "hydra-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/oauth2/device/verify",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/oauth2/auth",
-            "bucket": "hydra-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/oauth2/register",
-            "bucket": "hydra-public-low"
-        },
-        {
-            "method": "GET",
-            "path": "/oauth2/register/{id}",
-            "bucket": "hydra-admin-high"
-        },
-        {
-            "method": "DELETE",
-            "path": "/oauth2/register/{id}",
-            "bucket": "hydra-public-low"
-        },
-        {
-            "method": "PUT",
-            "path": "/oauth2/register/{id}",
-            "bucket": "hydra-public-low"
-        },
-        {
-            "method": "POST",
-            "path": "/oauth2/revoke",
-            "bucket": "hydra-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/oauth2/sessions/logout",
-            "bucket": "hydra-public-medium"
-        },
-        {
-            "method": "POST",
-            "path": "/oauth2/auth",
-            "bucket": "hydra-public-medium"
-        },
-        {
-            "method": "POST",
-            "path": "/oauth2/token",
-            "bucket": "hydra-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/oauth2/consent",
-            "bucket": "hydra-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/oauth2/fallbacks/logout/callback",
-            "bucket": "hydra-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/oauth2/sessions/logout",
-            "bucket": "hydra-public-medium"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/oauth2/token",
-            "bucket": "hydra-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/userinfo",
-            "bucket": "hydra-public-medium"
-        },
-        {
-            "method": "DELETE",
-            "path": "/admin/relation-tuples",
-            "bucket": "keto-admin-low"
-        },
-        {
-            "method": "PATCH",
-            "path": "/admin/relation-tuples",
-            "bucket": "keto-admin-low"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/relation-tuples",
-            "bucket": "keto-admin-low"
-        },
-        {
-            "method": "GET",
-            "path": "/namespaces",
-            "bucket": "keto-admin-low"
-        },
-        {
-            "method": "POST",
-            "path": "/opl/syntax/check",
-            "bucket": "keto-admin-medium"
-        },
-        {
-            "method": "POST",
-            "path": "/ory.keto.relation_tuples.v1alpha2.CheckService/BatchCheck",
-            "bucket": "keto-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/ory.keto.relation_tuples.v1alpha2.CheckService/Check",
-            "bucket": "keto-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/ory.keto.relation_tuples.v1alpha2.WriteService/TransactRelationTuples",
-            "bucket": "keto-admin-low"
-        },
-        {
-            "method": "GET",
-            "path": "/relation-tuples",
-            "bucket": "keto-admin-medium"
-        },
-        {
-            "method": "POST",
-            "path": "/relation-tuples/batch/check",
-            "bucket": "keto-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/relation-tuples/check",
-            "bucket": "keto-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/relation-tuples/check",
-            "bucket": "keto-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/relation-tuples/check/openapi",
-            "bucket": "keto-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/relation-tuples/check/openapi",
-            "bucket": "keto-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/relation-tuples/expand",
-            "bucket": "keto-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/courier/messages",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "PATCH",
-            "path": "/admin/identities",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "POST",
-            "path": "/admin/identities",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "DELETE",
-            "path": "/admin/identities/{id}",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "PATCH",
-            "path": "/admin/identities/{id}",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "PUT",
-            "path": "/admin/identities/{id}",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "DELETE",
-            "path": "/admin/identities/{id}/credentials/{type}",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "DELETE",
-            "path": "/admin/identities/{id}/sessions",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "POST",
-            "path": "/admin/recovery/code",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "POST",
-            "path": "/admin/recovery/link",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "DELETE",
-            "path": "/admin/sessions/{id}",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "PATCH",
-            "path": "/admin/sessions/{id}/extend",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "POST",
-            "path": "/scim/{client}/v2/Groups",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "PUT",
-            "path": "/scim/{client}/v2/Groups/{id}",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "PATCH",
-            "path": "/scim/{client}/v2/Groups/{id}",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "DELETE",
-            "path": "/scim/{client}/v2/Groups/{id}",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "POST",
-            "path": "/scim/{client}/v2/Users",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "PUT",
-            "path": "/scim/{client}/v2/Users/{id}",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "PATCH",
-            "path": "/scim/{client}/v2/Users/{id}",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "DELETE",
-            "path": "/scim/{client}/v2/Users/{id}",
-            "bucket": "kratos-admin-low"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/identities/{id}",
-            "bucket": "kratos-admin-high"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/sessions/{id}",
-            "bucket": "kratos-admin-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/admin/identities/{id}",
-            "bucket": "kratos-admin-high"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/courier/messages/{id}",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/identities",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/identities/{id}/sessions",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/identities/by/external/{externalID}",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/admin/sessions",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/schemas",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/schemas/{id}",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/scim/{client}/v2/Groups",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/scim/{client}/v2/Groups/{id}",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/scim/{client}/v2/Schemas",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/scim/{client}/v2/Schemas/{id}",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/scim/{client}/v2/ServiceProviderConfig",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/scim/{client}/v2/Users",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/scim/{client}/v2/Users/{id}",
-            "bucket": "kratos-admin-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/errors",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/fed-cm/parameters",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/self-service/fed-cm/token",
-            "bucket": "kratos-public-low"
-        },
-        {
-            "method": "POST",
-            "path": "/self-service/login",
-            "bucket": "kratos-public-low"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/login/api",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/login/browser",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/login/flows",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "HEAD",
-            "path": "/self-service/fed-cm/parameters",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/logout",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/fed-cm/token",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "DELETE",
-            "path": "/self-service/logout/api",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/logout/browser",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/login",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/login",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/methods/oidc/callback/{provider_id}",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/methods/oidc/organizations/{organization_id}",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/methods/saml/callback/{provider_id}",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/methods/saml/organizations/{organization_id}",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "POST",
-            "path": "/self-service/recovery",
-            "bucket": "kratos-public-low"
-        },
-        {
-            "method": "HEAD",
-            "path": "/self-service/login/browser",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/login/browser",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/self-service/login/browser",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/recovery/api",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/recovery/browser",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/login/flows",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/recovery/flows",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/logout",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/self-service/registration",
-            "bucket": "kratos-public-low"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/logout/browser",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/methods/oidc/callback",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/registration/api",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/registration/browser",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/registration/flows",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/self-service/settings",
-            "bucket": "kratos-public-low"
-        },
-        {
-            "method": "HEAD",
-            "path": "/self-service/methods/oidc/callback/{provider_id}",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/recovery",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/settings/api",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/settings/browser",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/settings/flows",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/self-service/verification",
-            "bucket": "kratos-public-low"
-        },
-        {
-            "method": "HEAD",
-            "path": "/self-service/recovery",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/recovery",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "HEAD",
-            "path": "/self-service/recovery/browser",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/verification/api",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/verification/browser",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/recovery/browser",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/verification/flows",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/recovery/flows",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/sessions",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "DELETE",
-            "path": "/sessions",
-            "bucket": "kratos-public-low"
-        },
-        {
-            "method": "DELETE",
-            "path": "/sessions/{id}",
-            "bucket": "kratos-public-low"
-        },
-        {
-            "method": "GET",
-            "path": "/sessions/token-exchange",
-            "bucket": "kratos-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/registration",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/registration",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "HEAD",
-            "path": "/self-service/registration/browser",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/sessions/whoami",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/registration/browser",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/settings",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/settings",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/self-service/verification",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "HEAD",
-            "path": "/self-service/verification",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/verification",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "HEAD",
-            "path": "/self-service/verification/browser",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/self-service/verification/flows",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "OPTIONS",
-            "path": "/sessions",
-            "bucket": "kratos-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/saml/.well-known/idp-metadata",
-            "bucket": "polis-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/saml/.well-known/saml.cer",
-            "bucket": "polis-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/saml/.well-known/sp-metadata",
-            "bucket": "polis-public-high"
-        },
-        {
-            "method": "GET",
-            "path": "/saml/api/error",
-            "bucket": "polis-public-high"
-        },
-        {
-            "method": "POST",
-            "path": "/saml/api/identity-federation/sso",
-            "bucket": "polis-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/saml/api/identity-federation/sso",
-            "bucket": "polis-public-medium"
-        },
-        {
-            "method": "POST",
-            "path": "/saml/api/oauth/authorize",
-            "bucket": "polis-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/saml/api/oauth/authorize",
-            "bucket": "polis-public-medium"
-        },
-        {
-            "method": "GET",
-            "path": "/saml/api/oauth/oidc",
-            "bucket": "polis-public-medium"
-        },
-        {
-            "method": "POST",
-            "path": "/saml/api/oauth/saml",
-            "bucket": "polis-public-medium"
-        }
-    ],
-    "thresholds": [
-        {
-            "bucket": "hydra-admin-high",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-high",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-high",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-high",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-admin-high",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 4800,
-            "rps": 160
-        },
-        {
-            "bucket": "hydra-admin-high",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-admin-high",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-admin-high",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 2400,
-            "rps": 80
-        },
-        {
-            "bucket": "hydra-admin-high",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-admin-high",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-admin-high",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 250,
-            "rps": 10
-        },
-        {
-            "bucket": "hydra-admin-high",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-admin-low",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 20,
-            "rps": 2
-        },
-        {
-            "bucket": "hydra-admin-low",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 20,
-            "rps": 2
-        },
-        {
-            "bucket": "hydra-admin-low",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 20,
-            "rps": 2
-        },
-        {
-            "bucket": "hydra-admin-low",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-low",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 320,
-            "rps": 10
-        },
-        {
-            "bucket": "hydra-admin-low",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-low",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-low",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 160,
-            "rps": 7
-        },
-        {
-            "bucket": "hydra-admin-low",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-low",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-low",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-admin-low",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-medium",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 20,
-            "rps": 2
-        },
-        {
-            "bucket": "hydra-admin-medium",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 20,
-            "rps": 2
-        },
-        {
-            "bucket": "hydra-admin-medium",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 20,
-            "rps": 2
-        },
-        {
-            "bucket": "hydra-admin-medium",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-medium",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 320,
-            "rps": 10
-        },
-        {
-            "bucket": "hydra-admin-medium",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-medium",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-medium",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 160,
-            "rps": 7
-        },
-        {
-            "bucket": "hydra-admin-medium",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-medium",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-admin-medium",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-admin-medium",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-high",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 60,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-high",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 60,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-high",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 60,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-high",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "hydra-public-high",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 1500,
-            "rps": 55
-        },
-        {
-            "bucket": "hydra-public-high",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "hydra-public-high",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "hydra-public-high",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 720,
-            "rps": 30
-        },
-        {
-            "bucket": "hydra-public-high",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "hydra-public-high",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "hydra-public-high",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 250,
-            "rps": 10
-        },
-        {
-            "bucket": "hydra-public-high",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "hydra-public-low",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 20,
-            "rps": 2
-        },
-        {
-            "bucket": "hydra-public-low",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 20,
-            "rps": 2
-        },
-        {
-            "bucket": "hydra-public-low",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 20,
-            "rps": 2
-        },
-        {
-            "bucket": "hydra-public-low",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-low",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 320,
-            "rps": 10
-        },
-        {
-            "bucket": "hydra-public-low",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-low",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-low",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 160,
-            "rps": 7
-        },
-        {
-            "bucket": "hydra-public-low",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-low",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-low",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-public-low",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-medium",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-medium",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-medium",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 40,
-            "rps": 3
-        },
-        {
-            "bucket": "hydra-public-medium",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-public-medium",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 3000,
-            "rps": 100
-        },
-        {
-            "bucket": "hydra-public-medium",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-public-medium",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-public-medium",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 1000,
-            "rps": 35
-        },
-        {
-            "bucket": "hydra-public-medium",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-public-medium",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "hydra-public-medium",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 320,
-            "rps": 10
-        },
-        {
-            "bucket": "hydra-public-medium",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 80,
-            "rps": 4
-        },
-        {
-            "bucket": "keto-admin-low",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 60,
-            "rps": 3
-        },
-        {
-            "bucket": "keto-admin-low",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 60,
-            "rps": 3
-        },
-        {
-            "bucket": "keto-admin-low",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 60,
-            "rps": 3
-        },
-        {
-            "bucket": "keto-admin-low",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "keto-admin-low",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 1000,
-            "rps": 35
-        },
-        {
-            "bucket": "keto-admin-low",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "keto-admin-low",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "keto-admin-low",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 250,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-admin-low",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "keto-admin-low",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "keto-admin-low",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 250,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-admin-low",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "keto-admin-medium",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "keto-admin-medium",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "keto-admin-medium",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "keto-admin-medium",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-admin-medium",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 2000,
-            "rps": 70
-        },
-        {
-            "bucket": "keto-admin-medium",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-admin-medium",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-admin-medium",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 1000,
-            "rps": 35
-        },
-        {
-            "bucket": "keto-admin-medium",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-admin-medium",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-admin-medium",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 500,
-            "rps": 20
-        },
-        {
-            "bucket": "keto-admin-medium",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-public-high",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "keto-public-high",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "keto-public-high",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "keto-public-high",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 240,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-public-high",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 18000,
-            "rps": 600
-        },
-        {
-            "bucket": "keto-public-high",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 240,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-public-high",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 240,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-public-high",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 9000,
-            "rps": 300
-        },
-        {
-            "bucket": "keto-public-high",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 240,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-public-high",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 240,
-            "rps": 10
-        },
-        {
-            "bucket": "keto-public-high",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 1500,
-            "rps": 55
-        },
-        {
-            "bucket": "keto-public-high",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 240,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-high",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-admin-high",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-admin-high",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-admin-high",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-high",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 2400,
-            "rps": 80
-        },
-        {
-            "bucket": "kratos-admin-high",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-high",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-high",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 1200,
-            "rps": 45
-        },
-        {
-            "bucket": "kratos-admin-high",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-high",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-high",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 400,
-            "rps": 15
-        },
-        {
-            "bucket": "kratos-admin-high",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-low",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-admin-low",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-admin-low",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-admin-low",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-low",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 2400,
-            "rps": 80
-        },
-        {
-            "bucket": "kratos-admin-low",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-low",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-low",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 1200,
-            "rps": 45
-        },
-        {
-            "bucket": "kratos-admin-low",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-low",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-low",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 400,
-            "rps": 15
-        },
-        {
-            "bucket": "kratos-admin-low",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-medium",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 50,
-            "rps": 3
-        },
-        {
-            "bucket": "kratos-admin-medium",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 50,
-            "rps": 3
-        },
-        {
-            "bucket": "kratos-admin-medium",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 50,
-            "rps": 3
-        },
-        {
-            "bucket": "kratos-admin-medium",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-admin-medium",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 800,
-            "rps": 30
-        },
-        {
-            "bucket": "kratos-admin-medium",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-admin-medium",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-admin-medium",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 400,
-            "rps": 15
-        },
-        {
-            "bucket": "kratos-admin-medium",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-admin-medium",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-admin-medium",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-admin-medium",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-public-high",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-public-high",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-public-high",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-public-high",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 400,
-            "rps": 15
-        },
-        {
-            "bucket": "kratos-public-high",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 21600,
-            "rps": 700
-        },
-        {
-            "bucket": "kratos-public-high",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 400,
-            "rps": 15
-        },
-        {
-            "bucket": "kratos-public-high",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 400,
-            "rps": 15
-        },
-        {
-            "bucket": "kratos-public-high",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 7200,
-            "rps": 240
-        },
-        {
-            "bucket": "kratos-public-high",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 400,
-            "rps": 15
-        },
-        {
-            "bucket": "kratos-public-high",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 400,
-            "rps": 15
-        },
-        {
-            "bucket": "kratos-public-high",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 2400,
-            "rps": 80
-        },
-        {
-            "bucket": "kratos-public-high",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 400,
-            "rps": 15
-        },
-        {
-            "bucket": "kratos-public-low",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 50,
-            "rps": 3
-        },
-        {
-            "bucket": "kratos-public-low",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 50,
-            "rps": 3
-        },
-        {
-            "bucket": "kratos-public-low",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 50,
-            "rps": 3
-        },
-        {
-            "bucket": "kratos-public-low",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-public-low",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 1200,
-            "rps": 45
-        },
-        {
-            "bucket": "kratos-public-low",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-public-low",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-public-low",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 600,
-            "rps": 25
-        },
-        {
-            "bucket": "kratos-public-low",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-public-low",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-public-low",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-public-low",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-public-medium",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-public-medium",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-public-medium",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 100,
-            "rps": 5
-        },
-        {
-            "bucket": "kratos-public-medium",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-public-medium",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 1600,
-            "rps": 55
-        },
-        {
-            "bucket": "kratos-public-medium",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-public-medium",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-public-medium",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 800,
-            "rps": 30
-        },
-        {
-            "bucket": "kratos-public-medium",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-public-medium",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "kratos-public-medium",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 400,
-            "rps": 15
-        },
-        {
-            "bucket": "kratos-public-medium",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 200,
-            "rps": 10
-        },
-        {
-            "bucket": "polis-public-high",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 15,
-            "rps": 2
-        },
-        {
-            "bucket": "polis-public-high",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 15,
-            "rps": 2
-        },
-        {
-            "bucket": "polis-public-high",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 15,
-            "rps": 2
-        },
-        {
-            "bucket": "polis-public-high",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 30,
-            "rps": 2
-        },
-        {
-            "bucket": "polis-public-high",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 250,
-            "rps": 10
-        },
-        {
-            "bucket": "polis-public-high",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 30,
-            "rps": 2
-        },
-        {
-            "bucket": "polis-public-high",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 30,
-            "rps": 2
-        },
-        {
-            "bucket": "polis-public-high",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "polis-public-high",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 30,
-            "rps": 2
-        },
-        {
-            "bucket": "polis-public-high",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 30,
-            "rps": 2
-        },
-        {
-            "bucket": "polis-public-high",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 60,
-            "rps": 3
-        },
-        {
-            "bucket": "polis-public-high",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 30,
-            "rps": 2
-        },
-        {
-            "bucket": "polis-public-medium",
-            "tier": "Developer",
-            "env": "Development",
-            "rpm": 60,
-            "rps": 3
-        },
-        {
-            "bucket": "polis-public-medium",
-            "tier": "Developer",
-            "env": "Production",
-            "rpm": 60,
-            "rps": 3
-        },
-        {
-            "bucket": "polis-public-medium",
-            "tier": "Developer",
-            "env": "Staging",
-            "rpm": 60,
-            "rps": 3
-        },
-        {
-            "bucket": "polis-public-medium",
-            "tier": "Enterprise",
-            "env": "Development",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "polis-public-medium",
-            "tier": "Enterprise",
-            "env": "Production",
-            "rpm": 1000,
-            "rps": 35
-        },
-        {
-            "bucket": "polis-public-medium",
-            "tier": "Enterprise",
-            "env": "Staging",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "polis-public-medium",
-            "tier": "Growth",
-            "env": "Development",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "polis-public-medium",
-            "tier": "Growth",
-            "env": "Production",
-            "rpm": 500,
-            "rps": 20
-        },
-        {
-            "bucket": "polis-public-medium",
-            "tier": "Growth",
-            "env": "Staging",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "polis-public-medium",
-            "tier": "Production",
-            "env": "Development",
-            "rpm": 120,
-            "rps": 7
-        },
-        {
-            "bucket": "polis-public-medium",
-            "tier": "Production",
-            "env": "Production",
-            "rpm": 250,
-            "rps": 10
-        },
-        {
-            "bucket": "polis-public-medium",
-            "tier": "Production",
-            "env": "Staging",
-            "rpm": 120,
-            "rps": 7
-        }
-    ]
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/.well-known/jwks.json",
+      "bucket": "hydra-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/.well-known/openid-configuration",
+      "bucket": "hydra-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/.well-known/ory/webauthn.js",
+      "bucket": "hydra-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/clients",
+      "bucket": "hydra-admin-medium"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/clients",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/clients/{id}",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/clients/{id}",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/clients/{id}",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/clients/{id}",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "HEAD",
+      "path": "/.well-known/openid-configuration",
+      "bucket": "hydra-public-high"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/clients/{id}/lifespans",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/keys/{set}",
+      "bucket": "hydra-admin-medium"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/keys/{set}",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/keys/{set}",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/keys/{set}",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/keys/{set}/{kid}",
+      "bucket": "hydra-admin-medium"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/keys/{set}/{kid}",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/keys/{set}/{kid}",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/oauth2/auth/requests/consent",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/oauth2/auth/requests/consent/accept",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/oauth2/auth/requests/consent/reject",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/oauth2/auth/requests/device/accept",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/oauth2/auth/requests/login",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/oauth2/auth/requests/login/accept",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/oauth2/auth/requests/login/reject",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/oauth2/auth/requests/logout",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/oauth2/auth/requests/logout/accept",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/oauth2/auth/requests/logout/reject",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/oauth2/auth/sessions/consent",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/oauth2/auth/sessions/consent",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/oauth2/auth/sessions/login",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/oauth2/introspect",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/oauth2/tokens",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/trust/grants/jwt-bearer/issuers",
+      "bucket": "hydra-admin-medium"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/trust/grants/jwt-bearer/issuers",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/trust/grants/jwt-bearer/issuers/{id}",
+      "bucket": "hydra-admin-medium"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/trust/grants/jwt-bearer/issuers/{id}",
+      "bucket": "hydra-admin-low"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/admin/clients",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/admin/clients/{id}",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "POST",
+      "path": "/credentials",
+      "bucket": "hydra-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/oauth2/auth",
+      "bucket": "hydra-public-medium"
+    },
+    {
+      "method": "HEAD",
+      "path": "/oauth2/auth",
+      "bucket": "hydra-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/oauth2/device/auth",
+      "bucket": "hydra-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/oauth2/device/verify",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/oauth2/auth",
+      "bucket": "hydra-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/oauth2/register",
+      "bucket": "hydra-public-low"
+    },
+    {
+      "method": "GET",
+      "path": "/oauth2/register/{id}",
+      "bucket": "hydra-admin-high"
+    },
+    {
+      "method": "DELETE",
+      "path": "/oauth2/register/{id}",
+      "bucket": "hydra-public-low"
+    },
+    {
+      "method": "PUT",
+      "path": "/oauth2/register/{id}",
+      "bucket": "hydra-public-low"
+    },
+    {
+      "method": "POST",
+      "path": "/oauth2/revoke",
+      "bucket": "hydra-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/oauth2/sessions/logout",
+      "bucket": "hydra-public-medium"
+    },
+    {
+      "method": "POST",
+      "path": "/oauth2/auth",
+      "bucket": "hydra-public-medium"
+    },
+    {
+      "method": "POST",
+      "path": "/oauth2/token",
+      "bucket": "hydra-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/oauth2/consent",
+      "bucket": "hydra-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/oauth2/fallbacks/logout/callback",
+      "bucket": "hydra-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/oauth2/sessions/logout",
+      "bucket": "hydra-public-medium"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/oauth2/token",
+      "bucket": "hydra-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/userinfo",
+      "bucket": "hydra-public-medium"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/relation-tuples",
+      "bucket": "keto-admin-low"
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/relation-tuples",
+      "bucket": "keto-admin-low"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/relation-tuples",
+      "bucket": "keto-admin-low"
+    },
+    {
+      "method": "GET",
+      "path": "/namespaces",
+      "bucket": "keto-admin-low"
+    },
+    {
+      "method": "POST",
+      "path": "/opl/syntax/check",
+      "bucket": "keto-admin-medium"
+    },
+    {
+      "method": "POST",
+      "path": "/ory.keto.relation_tuples.v1alpha2.CheckService/BatchCheck",
+      "bucket": "keto-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/ory.keto.relation_tuples.v1alpha2.CheckService/Check",
+      "bucket": "keto-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/ory.keto.relation_tuples.v1alpha2.WriteService/TransactRelationTuples",
+      "bucket": "keto-admin-low"
+    },
+    {
+      "method": "GET",
+      "path": "/relation-tuples",
+      "bucket": "keto-admin-medium"
+    },
+    {
+      "method": "POST",
+      "path": "/relation-tuples/batch/check",
+      "bucket": "keto-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/relation-tuples/check",
+      "bucket": "keto-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/relation-tuples/check",
+      "bucket": "keto-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/relation-tuples/check/openapi",
+      "bucket": "keto-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/relation-tuples/check/openapi",
+      "bucket": "keto-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/relation-tuples/expand",
+      "bucket": "keto-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/courier/messages",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/identities",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/identities",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/identities/{id}",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/identities/{id}",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/identities/{id}",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/identities/{id}/credentials/{type}",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/identities/{id}/sessions",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/recovery/code",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/recovery/link",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "DELETE",
+      "path": "/admin/sessions/{id}",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/sessions/{id}/extend",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "POST",
+      "path": "/scim/{client}/v2/Groups",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "PUT",
+      "path": "/scim/{client}/v2/Groups/{id}",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "PATCH",
+      "path": "/scim/{client}/v2/Groups/{id}",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "DELETE",
+      "path": "/scim/{client}/v2/Groups/{id}",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "POST",
+      "path": "/scim/{client}/v2/Users",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "PUT",
+      "path": "/scim/{client}/v2/Users/{id}",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "PATCH",
+      "path": "/scim/{client}/v2/Users/{id}",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "DELETE",
+      "path": "/scim/{client}/v2/Users/{id}",
+      "bucket": "kratos-admin-low"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/identities/{id}",
+      "bucket": "kratos-admin-high"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/sessions/{id}",
+      "bucket": "kratos-admin-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/admin/identities/{id}",
+      "bucket": "kratos-admin-high"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/courier/messages/{id}",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/identities",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/identities/{id}/sessions",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/identities/by/external/{externalID}",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/sessions",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/schemas",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/schemas/{id}",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/scim/{client}/v2/Groups",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/scim/{client}/v2/Groups/{id}",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/scim/{client}/v2/Schemas",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/scim/{client}/v2/Schemas/{id}",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/scim/{client}/v2/ServiceProviderConfig",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/scim/{client}/v2/Users",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/scim/{client}/v2/Users/{id}",
+      "bucket": "kratos-admin-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/errors",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/fed-cm/parameters",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/self-service/fed-cm/token",
+      "bucket": "kratos-public-low"
+    },
+    {
+      "method": "POST",
+      "path": "/self-service/login",
+      "bucket": "kratos-public-low"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/login/api",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/login/browser",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/login/flows",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "HEAD",
+      "path": "/self-service/fed-cm/parameters",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/logout",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/fed-cm/token",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "DELETE",
+      "path": "/self-service/logout/api",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/logout/browser",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/login",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/login",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/methods/oidc/callback/{provider_id}",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/methods/oidc/organizations/{organization_id}",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/methods/saml/callback/{provider_id}",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/methods/saml/organizations/{organization_id}",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "POST",
+      "path": "/self-service/recovery",
+      "bucket": "kratos-public-low"
+    },
+    {
+      "method": "HEAD",
+      "path": "/self-service/login/browser",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/login/browser",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/self-service/login/browser",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/recovery/api",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/recovery/browser",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/login/flows",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/recovery/flows",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/logout",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/self-service/registration",
+      "bucket": "kratos-public-low"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/logout/browser",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/methods/oidc/callback",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/registration/api",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/registration/browser",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/registration/flows",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/self-service/settings",
+      "bucket": "kratos-public-low"
+    },
+    {
+      "method": "HEAD",
+      "path": "/self-service/methods/oidc/callback/{provider_id}",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/recovery",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/settings/api",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/settings/browser",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/settings/flows",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/self-service/verification",
+      "bucket": "kratos-public-low"
+    },
+    {
+      "method": "HEAD",
+      "path": "/self-service/recovery",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/recovery",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "HEAD",
+      "path": "/self-service/recovery/browser",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/verification/api",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/verification/browser",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/recovery/browser",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/verification/flows",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/recovery/flows",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/sessions",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "DELETE",
+      "path": "/sessions",
+      "bucket": "kratos-public-low"
+    },
+    {
+      "method": "DELETE",
+      "path": "/sessions/{id}",
+      "bucket": "kratos-public-low"
+    },
+    {
+      "method": "GET",
+      "path": "/sessions/token-exchange",
+      "bucket": "kratos-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/registration",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/registration",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "HEAD",
+      "path": "/self-service/registration/browser",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/sessions/whoami",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/registration/browser",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/settings",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/settings",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/self-service/verification",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "HEAD",
+      "path": "/self-service/verification",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/verification",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "HEAD",
+      "path": "/self-service/verification/browser",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/self-service/verification/flows",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "OPTIONS",
+      "path": "/sessions",
+      "bucket": "kratos-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/saml/.well-known/idp-metadata",
+      "bucket": "polis-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/saml/.well-known/saml.cer",
+      "bucket": "polis-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/saml/.well-known/sp-metadata",
+      "bucket": "polis-public-high"
+    },
+    {
+      "method": "GET",
+      "path": "/saml/api/error",
+      "bucket": "polis-public-high"
+    },
+    {
+      "method": "POST",
+      "path": "/saml/api/identity-federation/sso",
+      "bucket": "polis-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/saml/api/identity-federation/sso",
+      "bucket": "polis-public-medium"
+    },
+    {
+      "method": "POST",
+      "path": "/saml/api/oauth/authorize",
+      "bucket": "polis-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/saml/api/oauth/authorize",
+      "bucket": "polis-public-medium"
+    },
+    {
+      "method": "GET",
+      "path": "/saml/api/oauth/oidc",
+      "bucket": "polis-public-medium"
+    },
+    {
+      "method": "POST",
+      "path": "/saml/api/oauth/saml",
+      "bucket": "polis-public-medium"
+    }
+  ],
+  "thresholds": [
+    {
+      "bucket": "hydra-admin-high",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-high",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-high",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-high",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-admin-high",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 4800,
+      "rps": 160
+    },
+    {
+      "bucket": "hydra-admin-high",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-admin-high",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-admin-high",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 2400,
+      "rps": 80
+    },
+    {
+      "bucket": "hydra-admin-high",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-admin-high",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-admin-high",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 250,
+      "rps": 10
+    },
+    {
+      "bucket": "hydra-admin-high",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-admin-low",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 20,
+      "rps": 2
+    },
+    {
+      "bucket": "hydra-admin-low",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 20,
+      "rps": 2
+    },
+    {
+      "bucket": "hydra-admin-low",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 20,
+      "rps": 2
+    },
+    {
+      "bucket": "hydra-admin-low",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-low",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 320,
+      "rps": 10
+    },
+    {
+      "bucket": "hydra-admin-low",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-low",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-low",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 160,
+      "rps": 7
+    },
+    {
+      "bucket": "hydra-admin-low",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-low",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-low",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-admin-low",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-medium",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 20,
+      "rps": 2
+    },
+    {
+      "bucket": "hydra-admin-medium",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 20,
+      "rps": 2
+    },
+    {
+      "bucket": "hydra-admin-medium",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 20,
+      "rps": 2
+    },
+    {
+      "bucket": "hydra-admin-medium",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-medium",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 320,
+      "rps": 10
+    },
+    {
+      "bucket": "hydra-admin-medium",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-medium",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-medium",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 160,
+      "rps": 7
+    },
+    {
+      "bucket": "hydra-admin-medium",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-medium",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-admin-medium",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-admin-medium",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-high",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 60,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-high",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 60,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-high",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 60,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-high",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "hydra-public-high",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 1500,
+      "rps": 55
+    },
+    {
+      "bucket": "hydra-public-high",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "hydra-public-high",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "hydra-public-high",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 720,
+      "rps": 30
+    },
+    {
+      "bucket": "hydra-public-high",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "hydra-public-high",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "hydra-public-high",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 250,
+      "rps": 10
+    },
+    {
+      "bucket": "hydra-public-high",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "hydra-public-low",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 20,
+      "rps": 2
+    },
+    {
+      "bucket": "hydra-public-low",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 20,
+      "rps": 2
+    },
+    {
+      "bucket": "hydra-public-low",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 20,
+      "rps": 2
+    },
+    {
+      "bucket": "hydra-public-low",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-low",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 320,
+      "rps": 10
+    },
+    {
+      "bucket": "hydra-public-low",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-low",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-low",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 160,
+      "rps": 7
+    },
+    {
+      "bucket": "hydra-public-low",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-low",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-low",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-public-low",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-medium",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-medium",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-medium",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 40,
+      "rps": 3
+    },
+    {
+      "bucket": "hydra-public-medium",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-public-medium",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 3000,
+      "rps": 100
+    },
+    {
+      "bucket": "hydra-public-medium",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-public-medium",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-public-medium",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 1000,
+      "rps": 35
+    },
+    {
+      "bucket": "hydra-public-medium",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-public-medium",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "hydra-public-medium",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 320,
+      "rps": 10
+    },
+    {
+      "bucket": "hydra-public-medium",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 80,
+      "rps": 4
+    },
+    {
+      "bucket": "keto-admin-low",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 60,
+      "rps": 3
+    },
+    {
+      "bucket": "keto-admin-low",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 60,
+      "rps": 3
+    },
+    {
+      "bucket": "keto-admin-low",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 60,
+      "rps": 3
+    },
+    {
+      "bucket": "keto-admin-low",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "keto-admin-low",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 1000,
+      "rps": 35
+    },
+    {
+      "bucket": "keto-admin-low",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "keto-admin-low",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "keto-admin-low",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 250,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-admin-low",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "keto-admin-low",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "keto-admin-low",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 250,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-admin-low",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "keto-admin-medium",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "keto-admin-medium",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "keto-admin-medium",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "keto-admin-medium",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-admin-medium",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 2000,
+      "rps": 70
+    },
+    {
+      "bucket": "keto-admin-medium",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-admin-medium",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-admin-medium",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 1000,
+      "rps": 35
+    },
+    {
+      "bucket": "keto-admin-medium",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-admin-medium",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-admin-medium",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 500,
+      "rps": 20
+    },
+    {
+      "bucket": "keto-admin-medium",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-public-high",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "keto-public-high",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "keto-public-high",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "keto-public-high",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 240,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-public-high",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 18000,
+      "rps": 600
+    },
+    {
+      "bucket": "keto-public-high",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 240,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-public-high",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 240,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-public-high",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 9000,
+      "rps": 300
+    },
+    {
+      "bucket": "keto-public-high",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 240,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-public-high",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 240,
+      "rps": 10
+    },
+    {
+      "bucket": "keto-public-high",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 1500,
+      "rps": 55
+    },
+    {
+      "bucket": "keto-public-high",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 240,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-high",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-admin-high",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-admin-high",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-admin-high",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-high",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 2400,
+      "rps": 80
+    },
+    {
+      "bucket": "kratos-admin-high",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-high",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-high",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 1200,
+      "rps": 45
+    },
+    {
+      "bucket": "kratos-admin-high",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-high",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-high",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 400,
+      "rps": 15
+    },
+    {
+      "bucket": "kratos-admin-high",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-low",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-admin-low",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-admin-low",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-admin-low",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-low",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 2400,
+      "rps": 80
+    },
+    {
+      "bucket": "kratos-admin-low",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-low",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-low",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 1200,
+      "rps": 45
+    },
+    {
+      "bucket": "kratos-admin-low",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-low",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-low",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 400,
+      "rps": 15
+    },
+    {
+      "bucket": "kratos-admin-low",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-medium",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 50,
+      "rps": 3
+    },
+    {
+      "bucket": "kratos-admin-medium",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 50,
+      "rps": 3
+    },
+    {
+      "bucket": "kratos-admin-medium",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 50,
+      "rps": 3
+    },
+    {
+      "bucket": "kratos-admin-medium",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-admin-medium",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 800,
+      "rps": 30
+    },
+    {
+      "bucket": "kratos-admin-medium",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-admin-medium",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-admin-medium",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 400,
+      "rps": 15
+    },
+    {
+      "bucket": "kratos-admin-medium",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-admin-medium",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-admin-medium",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-admin-medium",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-public-high",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-public-high",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-public-high",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-public-high",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 400,
+      "rps": 15
+    },
+    {
+      "bucket": "kratos-public-high",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 21600,
+      "rps": 700
+    },
+    {
+      "bucket": "kratos-public-high",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 400,
+      "rps": 15
+    },
+    {
+      "bucket": "kratos-public-high",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 400,
+      "rps": 15
+    },
+    {
+      "bucket": "kratos-public-high",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 7200,
+      "rps": 240
+    },
+    {
+      "bucket": "kratos-public-high",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 400,
+      "rps": 15
+    },
+    {
+      "bucket": "kratos-public-high",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 400,
+      "rps": 15
+    },
+    {
+      "bucket": "kratos-public-high",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 2400,
+      "rps": 80
+    },
+    {
+      "bucket": "kratos-public-high",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 400,
+      "rps": 15
+    },
+    {
+      "bucket": "kratos-public-low",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 50,
+      "rps": 3
+    },
+    {
+      "bucket": "kratos-public-low",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 50,
+      "rps": 3
+    },
+    {
+      "bucket": "kratos-public-low",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 50,
+      "rps": 3
+    },
+    {
+      "bucket": "kratos-public-low",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-public-low",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 1200,
+      "rps": 45
+    },
+    {
+      "bucket": "kratos-public-low",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-public-low",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-public-low",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 600,
+      "rps": 25
+    },
+    {
+      "bucket": "kratos-public-low",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-public-low",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-public-low",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-public-low",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-public-medium",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-public-medium",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-public-medium",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 100,
+      "rps": 5
+    },
+    {
+      "bucket": "kratos-public-medium",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-public-medium",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 1600,
+      "rps": 55
+    },
+    {
+      "bucket": "kratos-public-medium",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-public-medium",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-public-medium",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 800,
+      "rps": 30
+    },
+    {
+      "bucket": "kratos-public-medium",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-public-medium",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "kratos-public-medium",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 400,
+      "rps": 15
+    },
+    {
+      "bucket": "kratos-public-medium",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 200,
+      "rps": 10
+    },
+    {
+      "bucket": "polis-public-high",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 15,
+      "rps": 2
+    },
+    {
+      "bucket": "polis-public-high",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 15,
+      "rps": 2
+    },
+    {
+      "bucket": "polis-public-high",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 15,
+      "rps": 2
+    },
+    {
+      "bucket": "polis-public-high",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 30,
+      "rps": 2
+    },
+    {
+      "bucket": "polis-public-high",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 250,
+      "rps": 10
+    },
+    {
+      "bucket": "polis-public-high",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 30,
+      "rps": 2
+    },
+    {
+      "bucket": "polis-public-high",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 30,
+      "rps": 2
+    },
+    {
+      "bucket": "polis-public-high",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "polis-public-high",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 30,
+      "rps": 2
+    },
+    {
+      "bucket": "polis-public-high",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 30,
+      "rps": 2
+    },
+    {
+      "bucket": "polis-public-high",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 60,
+      "rps": 3
+    },
+    {
+      "bucket": "polis-public-high",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 30,
+      "rps": 2
+    },
+    {
+      "bucket": "polis-public-medium",
+      "tier": "Developer",
+      "env": "Development",
+      "rpm": 60,
+      "rps": 3
+    },
+    {
+      "bucket": "polis-public-medium",
+      "tier": "Developer",
+      "env": "Production",
+      "rpm": 60,
+      "rps": 3
+    },
+    {
+      "bucket": "polis-public-medium",
+      "tier": "Developer",
+      "env": "Staging",
+      "rpm": 60,
+      "rps": 3
+    },
+    {
+      "bucket": "polis-public-medium",
+      "tier": "Enterprise",
+      "env": "Development",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "polis-public-medium",
+      "tier": "Enterprise",
+      "env": "Production",
+      "rpm": 1000,
+      "rps": 35
+    },
+    {
+      "bucket": "polis-public-medium",
+      "tier": "Enterprise",
+      "env": "Staging",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "polis-public-medium",
+      "tier": "Growth",
+      "env": "Development",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "polis-public-medium",
+      "tier": "Growth",
+      "env": "Production",
+      "rpm": 500,
+      "rps": 20
+    },
+    {
+      "bucket": "polis-public-medium",
+      "tier": "Growth",
+      "env": "Staging",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "polis-public-medium",
+      "tier": "Production",
+      "env": "Development",
+      "rpm": 120,
+      "rps": 7
+    },
+    {
+      "bucket": "polis-public-medium",
+      "tier": "Production",
+      "env": "Production",
+      "rpm": 250,
+      "rps": 10
+    },
+    {
+      "bucket": "polis-public-medium",
+      "tier": "Production",
+      "env": "Staging",
+      "rpm": 120,
+      "rps": 7
+    }
+  ]
 }
