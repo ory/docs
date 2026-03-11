@@ -23,7 +23,7 @@ Follow these steps to add UAE PASS as a social sign-in provider for your project
 1. Enable the **Enable OpenID Connect** toggle, then click **Add new OpenID Connect provider**.
 1. Click the UAE PASS logo to open the **Configure UAE PASS** screen. You may need to click **Show more providers** to see the full list of providers.
 1. Copy the Redirect URI and save it for later use.
-1. Register your application on the [UAE PASS partner portal](https://docs.uaepass.ae/). You will receive a Client ID and Client Secret.
+1. Register your application on the [UAE PASS partner portal](https://uaepass.ae/). You will receive a Client ID and Client Secret.
 1. Paste the **Client ID** and **Client Secret** into the corresponding fields in the Ory Console's **Configure UAE PASS** screen.
 1. Set the **Issuer URL** based on your environment:
    - **Production**: `https://id.uaepass.ae`
@@ -59,7 +59,7 @@ local claims = std.extVar('claims');
 <TabItem value="cli" label="Ory CLI">
 Follow these steps to add UAE PASS as a social sign-in provider to your project using the Ory CLI:
 
-1. Register your application on the [UAE PASS partner portal](https://docs.uaepass.ae/). You will receive a Client ID
+1. Register your application on the [UAE PASS partner portal](https://uaepass.ae/). You will receive a Client ID
    and Client Secret.
 1. In the created app, set the redirect URI to:
 
@@ -180,6 +180,14 @@ To trigger the mobile flow, include `acr_values` in the `upstream_parameters` wh
   }
 }
 ```
+
+:::info
+
+The client UI is responsible for detecting whether the UAE PASS mobile app is installed on the user's device and passing the
+appropriate `acr_values` through `upstream_parameters` at request time. If multiple `acr_values` are provided (both web and
+mobile), UAE PASS defaults to the mobile flow.
+
+:::
 
 ### Scopes
 
