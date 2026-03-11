@@ -177,6 +177,7 @@ const quickstart: SidebarItemsConfig = [
   "welcome",
   "intro",
   "getting-started/local-development",
+  "ecosystem/mcp",
   {
     type: "category",
     label: "Quickstart",
