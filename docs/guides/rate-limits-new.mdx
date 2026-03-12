@@ -1,0 +1,47 @@
+---
+id: rate-limits-new
+title: New Ory Network rate limits
+sidebar_label: New rate limits
+---
+
+:::info
+
+This page describes the new rate limit policy, which applies to all new Ory Network customers and to existing customers after
+they've been migrated. If you're an existing customer and haven't received a migration notice yet, see the
+[legacy rate limits](/docs/guides/rate-limits-legacy). See [Rate limits](/docs/guides/rate-limits) to learn about both policies
+and the migration plan.
+
+:::
+
+Ory uses rate limits to protect your applications against abuse, attacks, and service disruptions, and to maintain fair resource
+allocation and network stability.
+
+## Types of rate limits
+
+Ory uses two types of rate limits:
+
+- [Project rate limits](./rate-limits-project): Control the overall request volume your projects can make to Ory APIs, based on
+  your subscription tier and project environment.
+- [Endpoint-based rate limits](./rate-limits-endpoint): Control traffic to individual endpoints to protect against volumetric
+  attacks, brute-force attempts, and concurrent request abuse—regardless of your project rate limits.
+
+## Identify the rate limits that apply to your project
+
+In the **Project rate limit table** below:
+
+1. Select your subscription tier from the **Tier** dropdown. Options are Developer, Production, Growth, or Enterprise.
+2. Select your project environment from the **Environment** dropdown. Options are Production, Staging, or Development.
+3. To search by API path, enter the API path into the **Search API path** box. The endpoint appears highlighted. Look to see which
+   bucket it belongs to for its rate limit.
+
+:::info
+
+Project rate limits use a bucket system to group endpoints and apply thresholds. Understanding how buckets work will help you
+understand the project rate limit table below. See [Project rate limits](./rate-limits-project) to learn how rate limits are
+applied per bucket.
+
+:::
+
+### Project rate limit table
+
+<RateLimitsTable />
