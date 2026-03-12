@@ -8,6 +8,7 @@ import type { Env, RateLimitsData, Tier } from "./types"
 const TIERS: Tier[] = ["Developer", "Production", "Growth", "Enterprise"]
 const ENVS: Env[] = ["Development", "Staging", "Production"]
 const SEARCH_DEBOUNCE_MS = 250
+const HIDDEN_METHODS = ["OPTIONS", "HEAD"]
 
 function useRateLimitsData(): {
   data: RateLimitsData | null
@@ -74,7 +75,9 @@ export default function RateLimitsTable({
   const bucketToEndpoints = useMemo(() => {
     if (!data) return new Map<string, Array<{ method: string; path: string }>>()
     const m = new Map<string, Array<{ method: string; path: string }>>()
-    for (const e of data.endpoints) {
+    for (const e of data.endpoints.filter(
+      (e) => !HIDDEN_METHODS.includes(e.method),
+    )) {
       const list = m.get(e.bucket) ?? []
       list.push({ method: e.method, path: e.path })
       m.set(e.bucket, list)
@@ -206,10 +209,8 @@ export default function RateLimitsTable({
             <tbody>
               {displayedThresholds.map((t) => {
                 const endpoints = bucketToEndpoints.get(t.bucket) ?? []
-                const maxEndpoints = searchQuery ? endpoints.length : 20
-                const endpointsToShow = endpoints.slice(0, maxEndpoints)
-                const endpointDisplay = endpointsToShow.length
-                  ? endpointsToShow.map((e) => {
+                const endpointDisplay = endpoints.length
+                  ? endpoints.map((e) => {
                       const isMatch = endpointMatchesSearch(e)
                       return (
                         <div
@@ -228,19 +229,10 @@ export default function RateLimitsTable({
                       )
                     })
                   : null
-                const overflow =
-                  endpoints.length > maxEndpoints
-                    ? endpoints.length - maxEndpoints
-                    : 0
                 return (
                   <tr key={`${t.bucket}-${t.tier}-${t.env}`}>
                     <td className="p-2 border-b border-gray-200 dark:border-gray-700 align-top max-w-md">
                       {endpointDisplay}
-                      {overflow > 0 && (
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
-                          +{overflow} more
-                        </div>
-                      )}
                     </td>
                     <td className="p-2 border-b border-gray-200 dark:border-gray-700">
                       <code>{t.bucket}</code>
