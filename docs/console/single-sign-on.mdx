@@ -17,23 +17,24 @@ your IdP's login page to authenticate.
 
 Follow these steps to configure SSO for your workspace:
 
-1. Go to your workspace's settings, and scroll down to the Single Sign-On (SSO) section.
-2. Click on the **Enroll** button to start the enrollment process.
-3. _If you did not verify your email address, you will be prompted to do so. Please check your inbox for a verification email and
+1. Remove any second factor authentication (2FA) methods from your account, as these are not compatible with SSO. You can do this in the [account settings of the Ory Console](https://console.ory.sh/settings).
+2. Go to your workspace's settings, and scroll down to the Single Sign-On (SSO) section.
+3. Click on the **Enroll** button to start the enrollment process.
+4. _If you did not verify your email address, you will be prompted to do so. Please check your inbox for a verification email and
    click on the link provided._
-4. Confirm the domain that you want to enroll for SSO. This should be the domain of your email address (e.g., `example.com`).
+5. Confirm the domain that you want to enroll for SSO. This should be the domain of your email address (e.g., `example.com`).
    ![SSO Enrollment Confirmation](./_static/sso-create-org.png)
-5. Click the **Configure SSO now** button to proceed to the SSO configuration page.
-6. On the SSO configuration page, you can choose between OIDC and SAML as your SSO protocol. Follow the instructions for your
+6. Click the **Configure SSO now** button to proceed to the SSO configuration page.
+7. On the SSO configuration page, you can choose between OIDC and SAML as your SSO protocol. Follow the instructions for your
    chosen protocol to complete the setup.
-7. After completing the SSO configuration, you must confirm the setup with your account.
+8. After completing the SSO configuration, you must confirm the setup with your account.
    1. Logout from the Ory Console.
    2. Enter your email address and click on the **Continue with SSO** button.
    3. You will be redirected to your IdP's login page. Enter your credentials and log in.
    4. Follow any additional steps required by your IdP (e.g., multi-factor authentication). Note that you might be asked to enter
       your existing password for the Ory Console one last time to confirm the SSO setup.
    5. After successful authentication, you will be redirected back to the Ory Console and logged in.
-8. Congratulations! You have successfully set up Single Sign-On for your workspace in Ory Console. You can now use your IdP
+9. Congratulations! You have successfully set up Single Sign-On for your workspace in Ory Console. You can now use your IdP
    credentials to access the console.
 
 ### Restricting access to your workspace
