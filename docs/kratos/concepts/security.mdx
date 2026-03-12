@@ -76,10 +76,10 @@ Ory OAuth2 and OpenID Connect is a certified OAuth2 and OpenID Connect provider.
 Ory Identities supports protecting self-service flows with CAPTCHA challenges. This is useful to prevent credential stuffing,
 brute force and other automated attacks.
 
-#### Prerequisites
+### Prerequisites
 
-Before proceeding, ensure you are on a plan that supports this feature. If you need CAPTCHA support, please
-[reach out](https://www.ory.com/contact).
+Before proceeding, ensure you are on a plan that supports this feature. If you need CAPTCHA support,
+[contact us](https://www.ory.com/contact).
 
 Supported CAPTCHA providers are:
 
@@ -93,22 +93,22 @@ Supported CAPTCHA providers are:
 1. Go to <ConsoleLink route="project.authentication" />.
 2. Toggle **CAPTCHA protection**.
 3. Choose your preferred configuration mode:
-   - **Managed Mode**: Our standard, zero-setup integrated Cloudflare Turnstile widget.
+   - **Managed**: Our standard, zero-setup integrated Cloudflare Turnstile widget.
      - Add or remove domains from the **Allowed domains** list.
      - You must define at least one valid domain.
      - You can list up to 10 domains in total.
-   - **Custom Credentials (BYO)**: Connect your existing Cloudflare Turnstile account to view detailed security analytics directly
+   - **Bring Your Own Keys**: Connect your existing Cloudflare Turnstile account to view detailed security analytics directly
      within your own Cloudflare dashboard.
      - Enter your Turnstile **Site Key** and **Secret Key**.
 4. Click **Save**.
-5. Navigate to any protected self-service screen (e.g., registration or login) to test the CAPTCHA protection.
+5. Navigate to any protected self-service screen, for example the registration or login page, to test the CAPTCHA protection.
 
 ```mdx-code-block
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
 ```
 
-**Configure Managed Mode:**
+Configure Managed Mode:
 
 ```shell
 ory patch identity-config --project <project-id> --workspace <workspace-id> \
@@ -117,7 +117,7 @@ ory patch identity-config --project <project-id> --workspace <workspace-id> \
   --replace '/selfservice/methods/captcha/config/allowed_domains=["example.org", "foo.bar.dev"]'
 ```
 
-**Configure BYO Mode:**
+Configure BYO Mode:
 
 ```shell
 ory patch identity-config --project <project-id> --workspace <workspace-id> \
