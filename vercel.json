@@ -1354,12 +1354,7 @@
     },
     {
       "source": "/docs/ecosystem/security",
-      "destination": "/docs/oss/security",
-      "permanent": true
-    },
-    {
-      "source": "/docs/security-compliance/compliance-and-certifications",
-      "destination": "/docs/oss/security",
+      "destination": "/docs/security-compliance/security",
       "permanent": true
     }
     

@@ -99,6 +99,14 @@ export const navbar: Navbar = {
           to: "/docs/category/operations-reference",
           label: "Operations",
         },
+        {
+          to: "/docs/category/troubleshooting-reference",
+          label: "Troubleshooting",
+        },
+        {
+          to: "/docs/category/security-compliance",
+          label: "Security and compliance",
+        },
       ],
     },
     {
