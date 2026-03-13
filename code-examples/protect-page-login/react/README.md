@@ -1,6 +1,6 @@
 # Ory React Authentication Example
 
-This example demonstrates how to implement authentication in a React.js
+This example demonstrates how to implement authentication in a React
 application built with Vite and TypeScript using Ory.
 
 ## Prerequisites
@@ -9,9 +9,9 @@ application built with Vite and TypeScript using Ory.
 - An Ory Network account with a project set up
 - Your Ory Project ID
 
-## Getting Started
+## Get started
 
-### 1. Install Dependencies
+### 1. Install dependencies
 
 First, install the necessary dependencies by running:
 
@@ -19,7 +19,7 @@ First, install the necessary dependencies by running:
 npm install
 ```
 
-### 2. Start the Application
+### 2. Start the application
 
 You can start the application with:
 
@@ -46,7 +46,7 @@ npx @ory/cli tunnel --dev http://localhost:5173
 This will make Ory APIs available at `http://localhost:4000`, which is the URL
 used as the `basePath` in the Ory SDK configuration.
 
-## Making API Calls
+## Making API calls
 
 The example also demonstrates how to make authenticated API calls to a backend
 server. To run the API server:
@@ -65,13 +65,13 @@ node index.js
 The API server runs on port 8081 and requires the proper session cookies from
 Ory to authenticate requests.
 
-## Project Structure
+## Project structure
 
 - `src/App.tsx` - Basic authentication example
 - `src/AppWithApi.tsx` - Authentication with API integration example
 - `src/api/index.js` - Express.js API server example
 
-## Available Scripts
+## Available scripts
 
 - `npm run dev` - Start the development server
 - `npm run build` - Build the app for production
