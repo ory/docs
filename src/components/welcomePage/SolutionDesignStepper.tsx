@@ -1,26 +1,8 @@
 import React, { useState, useMemo } from "react"
 import Link from "@docusaurus/Link"
-import useBaseUrl from "@docusaurus/useBaseUrl"
-import Mermaid from "@theme/Mermaid"
 import { StepBadge } from "./StepBadge"
-
-const STEP_DIAGRAM_FILES = [
-  "diag-01.png",
-  "diag-02.png",
-  "diag-03.png",
-  "diag-04.png",
-  "diag-05.png",
-  "diag-06.png",
-  "diag-07.png",
-]
-
-type ProductKey =
-  | "kratos"
-  | "elements"
-  | "hydra"
-  | "polis"
-  | "keto"
-  | "oathkeeper"
+import OryArchitectureDiagram from "../OryArchitectureDiagram"
+import type { ProductKey } from "./solutionDesignTypes"
 
 interface StepQuestion {
   id: string
@@ -139,198 +121,6 @@ const RESULTS_ORDER: ProductKey[] = [
   "elements",
 ]
 
-// Dynamic diagram: nodes and edges shown based on selected products
-interface ChartNode {
-  id: string
-  config: string
-  condition?: (components: ProductKey[]) => boolean
-}
-interface ChartConnection {
-  from: string
-  to: string
-  label?: string
-  condition?: (components: ProductKey[]) => boolean
-}
-
-const CHART_NODES: ChartNode[] = [
-  { id: "User", config: '@{ icon: "tabler:user" }' },
-  { id: "Devices", config: '@{ icon: "tabler:devices"}' },
-  {
-    id: "Kratos",
-    config:
-      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-kratos.svg", pos: "b", w: 120, constraint: "on" }',
-    condition: (c) => c.includes("kratos"),
-  },
-  {
-    id: "Hydra",
-    config:
-      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-hydra.svg", pos: "b", w: 120, constraint: "on" }',
-    condition: (c) => c.includes("hydra"),
-  },
-  {
-    id: "Keto",
-    config:
-      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-keto.svg", pos: "b", w: 120, constraint: "on" }',
-    condition: (c) => c.includes("keto"),
-  },
-  {
-    id: "Polis",
-    config:
-      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-polis.svg", pos: "b", w: 120, constraint: "on" }',
-    condition: (c) => c.includes("polis"),
-  },
-  {
-    id: "Oathkeeper",
-    config:
-      '@{ img: "https://raw.githubusercontent.com/ory/meta/refs/heads/master/static/logos/logo-oathkeeper.svg", pos: "b", w: 120, constraint: "on" }',
-    condition: (c) => c.includes("oathkeeper"),
-  },
-  {
-    id: "API",
-    config: '@{ icon: "tabler:code" }',
-  },
-  {
-    id: "Elements",
-    config:
-      '@{ img: "https://raw.githubusercontent.com/ory/meta/master/static/logos/logo-elements.svg", pos: "b", w: 120, constraint: "on" }',
-    condition: (c) => c.includes("elements"),
-  },
-]
-
-const CHART_CONNECTIONS: ChartConnection[] = [
-  { from: "User", to: "Devices" },
-  {
-    from: "Devices",
-    to: "Oathkeeper",
-    condition: (c) => c.includes("oathkeeper"),
-  },
-  {
-    from: "Oathkeeper",
-    to: "API",
-    label: "protects",
-    condition: (c) => c.includes("oathkeeper"),
-  },
-  {
-    from: "Oathkeeper",
-    to: "Hydra",
-    label: "authenticates credentials with",
-    condition: (c) => c.includes("hydra") && c.includes("oathkeeper"),
-  },
-  {
-    from: "User",
-    to: "Kratos",
-    label: "Registers, log in, <br/> manages profile via API",
-    condition: (c) => c.includes("kratos"),
-  },
-  {
-    from: "User",
-    to: "Elements",
-    label: "Registers, logs in, <br/> manages profile via prebuilt UI",
-    condition: (c) => c.includes("elements"),
-  },
-  {
-    from: "Elements",
-    to: "Kratos",
-    condition: (c) => c.includes("elements") && c.includes("kratos"),
-  },
-  {
-    from: "Elements",
-    to: "Hydra",
-    condition: (c) => c.includes("elements") && c.includes("hydra"),
-  },
-  {
-    from: "Oathkeeper",
-    to: "Kratos",
-    label: "checks session with",
-    condition: (c) => c.includes("oathkeeper") && c.includes("kratos"),
-  },
-  {
-    from: "Oathkeeper",
-    to: "Keto",
-    label: "checks permissions with",
-    condition: (c) => c.includes("keto") && c.includes("oathkeeper"),
-  },
-  {
-    from: "Devices",
-    to: "API",
-    condition: (c) => !c.includes("oathkeeper"),
-  },
-  {
-    from: "Kratos",
-    to: "Polis",
-    label: "OIDC",
-    condition: (c) => c.includes("polis") && c.includes("kratos"),
-  },
-  {
-    from: "API",
-    to: "Hydra",
-    label: "OAuth2",
-    condition: (c) => c.includes("hydra"),
-  },
-  {
-    from: "API",
-    to: "Kratos",
-    label: "Checks session with",
-    condition: (c) => c.includes("kratos"),
-  },
-  {
-    from: "API",
-    to: "Keto",
-    label: "Checks permissions with",
-    condition: (c) => c.includes("keto"),
-  },
-]
-
-function generateChartNodes(components: ProductKey[]): string {
-  return CHART_NODES.filter(
-    (node) => !node.condition || node.condition(components),
-  )
-    .map((node) => `${node.id}${node.config}`)
-    .join("\n")
-}
-
-function generateChartConnections(components: ProductKey[]): string {
-  return CHART_CONNECTIONS.filter(
-    (conn) => !conn.condition || conn.condition(components),
-  )
-    .map((conn) => {
-      const label = conn.label ? `|${conn.label}|` : ""
-      return `${conn.from} -->${label} ${conn.to}`
-    })
-    .join("\n")
-}
-
-function generateMermaidChart(components: ProductKey[]): string {
-  const nodes = generateChartNodes(components)
-  const connections = generateChartConnections(components)
-  const productIds = [
-    "Kratos",
-    "Hydra",
-    "Keto",
-    "Polis",
-    "Oathkeeper",
-    "Elements",
-  ]
-  const visibleProducts = productIds.filter((id) => {
-    const key = id.toLowerCase() as ProductKey
-    return components.includes(key)
-  })
-  const nodeStyles =
-    visibleProducts.length > 0
-      ? visibleProducts
-          .map((id) => `style ${id} fill:transparent,stroke:none`)
-          .join("\n")
-      : ""
-
-  return `graph LR
-${nodes}
-
-${nodeStyles}
-
-${connections}
-`
-}
-
 export function SolutionDesignStepper() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, "yes" | "no">>({})
@@ -355,15 +145,10 @@ export function SolutionDesignStepper() {
       : null
 
   const isOnFirstQuestion = currentStep === 0
-  // Only show step diagram after user has selected an answer for that step (e.g. Yes)
   const stepsAnsweredCount = STEPS.filter(
     (s) => answers[s.id] !== undefined,
   ).length
   const showIntroDiagram = stepsAnsweredCount === 0
-  const stepDiagramNumber = Math.min(stepsAnsweredCount, STEPS.length)
-  const stepDiagramSrc = useBaseUrl(
-    `/img/home/design-your-solution/${STEP_DIAGRAM_FILES[stepDiagramNumber - 1]}`,
-  )
 
   const handleAnswer = (stepId: string, value: "yes" | "no") => {
     setAnswers((prev) => ({ ...prev, [stepId]: value }))
@@ -434,12 +219,10 @@ export function SolutionDesignStepper() {
                 </p>
               </div>
             ) : (
-              <img
-                key={stepDiagramNumber}
-                src={stepDiagramSrc}
-                alt={`Architecture diagram for step ${stepDiagramNumber}`}
-                className="w-full h-full object-contain"
-                style={{ maxHeight: "100%" }}
+              <OryArchitectureDiagram
+                selectedProducts={selectedProducts}
+                scimSelected={answers.scim === "yes"}
+                currentStep={currentStep}
               />
             )}
           </div>
@@ -464,21 +247,18 @@ export function SolutionDesignStepper() {
                   <div className="flex flex-col gap-ory-3">
                     {currentQuestion.options.map((option) => {
                       const selected = currentAnswer === option.value
-                      const isNo = option.value === "no"
-                      const disabled = isNo
                       return (
                         <button
                           key={option.value}
                           type="button"
-                          disabled={disabled}
                           onClick={() => {
                             if (selected) {
                               clearAnswer(currentQuestion.id)
-                            } else if (!disabled) {
+                            } else {
                               handleAnswer(currentQuestion.id, option.value)
                             }
                           }}
-                          className={`w-full flex items-center text-left bg-ory-bg-primary border rounded-ory-btn py-ory-2 px-ory-4 ory-body-sm ${disabled ? "cursor-not-allowed opacity-50 border-ory-border-primary text-ory-text-tertiary" : `cursor-pointer text-ory-text-primary ${selected ? "border-ory-border-brand-tertiary" : "border-ory-border-primary"}`}`}
+                          className={`w-full flex items-center text-left bg-ory-bg-primary border rounded-ory-btn py-ory-2 px-ory-4 ory-body-sm cursor-pointer text-ory-text-primary ${selected ? "border-ory-border-brand-tertiary" : "border-ory-border-primary"}`}
                         >
                           {option.label}
                         </button>
