@@ -7,14 +7,12 @@ slug: link-multiple-provider-account
 
 # Account linking
 
-Ory supports three types of account linking:
+Ory supports four types of account linking:
 
 - Manual account linking through account settings.
 - Account linking during login with a social login or single sign on provider.
 - Automatic account linking for imported users without additional user interaction.
-
-Ory doesn't support automatic account linking for users who sign up with a social login provider. This is to prevent account
-takeover attacks.
+- Automatic account linking for Google and Apple consumer accounts based on verified email addresses.
 
 ## Manual account linking
 
@@ -89,7 +87,7 @@ import Mermaid from "@theme/Mermaid"
 />
 ```
 
-### Automatic account linking
+### Automatic account linking for imported users
 
 In some migration scenarios, the legacy system may only store the email address of the SSO user, but not the subject identifier
 typically used for performing SSO flows. To solve this migration case, automatic account linking can be used. This allows users to
@@ -127,11 +125,131 @@ individual identity would look like this:
 Additionally, your Ory project must have the `use_auto_link` feature flag enabled. To enable it, please reach out to Ory support
 or your account executive. This feature is only available for Ory Network or self-hosted enterprise customers.
 
+### Automatic account linking for Google and Apple
+
+Ory supports automatic account linking for Google and Apple consumer accounts. When you enable this feature, users who sign in
+with Google or Apple are automatically linked to an existing account if both identities share the same verified email address. No
+additional verification step, such as entering a password, is required.
+
+This is useful when you want a frictionless sign-in experience for users who already have an account and later sign in with Google
+or Apple using the same email address.
+
+#### How it works
+
+1. A user creates an account with the email `alice@example.com` and a login method such as a password.
+2. The user later signs in with Google or Apple. The provider returns a verified email of `alice@example.com`.
+3. Ory checks that the email is verified both by the provider and on the existing identity.
+4. Because both conditions are met, Ory automatically links the Google or Apple account to the existing identity.
+5. The user is signed in without needing to enter their password.
+
+```mdx-code-block
+<Mermaid
+  chart={`flowchart LR
+    A["Existing account with alice\\@example.com"]
+    B["Sign in with Google or Apple"]
+    C["Provider returns verified alice\\@example.com"]
+    D{"Email verified on both sides?"}
+    E["Auto-link provider to account"]
+    F["Session created"]
+    G["Fall back to manual linking"]
+
+    A --> B --> C --> D
+    D -->|Yes| E --> F
+    D -->|No| G
+`}
+/>
+```
+
+#### Restrictions
+
+Automatic account linking is only available for the following providers:
+
+- **Google** — consumer accounts (`gmail.com`) only. Google Workspace accounts are excluded because expired domains can be
+  re-registered by an attacker, allowing them to take over accounts associated with that domain.
+- **Apple** — all Apple ID accounts.
+
+Other providers such as GitHub, GitLab, or generic OIDC providers don't support automatic account linking.
+
+#### Enable automatic account linking
+
+To enable automatic account linking, set the `account_linking_mode` on the provider configuration to `automatic`.
+
+````mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+1. Go to <ConsoleLink route="project.socialSignIn" />.
+2. Open the configuration for your Google or Apple provider.
+3. Set the **Account Linking Mode** to **Automatic**.
+4. Click **Save Configuration**.
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+
+1. Download the Ory Identities config from your project:
+
+   ```shell
+   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
+   ```
+
+2. Add `account_linking_mode: automatic` to the provider configuration:
+
+   ```yaml
+   selfservice:
+     methods:
+       oidc:
+         config:
+           providers:
+             - id: google
+               provider: google
+               client_id: ....
+               client_secret: ....
+               account_linking_mode: automatic # Enable automatic account linking
+               mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
+               scope:
+                 - email
+                 - profile
+         enabled: true
+   ```
+
+3. Update the Ory Identities configuration:
+
+   ```shell
+   ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
+   ```
+
+</TabItem>
+</Tabs>
+````
+
+The `account_linking_mode` setting accepts the following values:
+
+| Value                             | Description                                                                           |
+| :-------------------------------- | :------------------------------------------------------------------------------------ |
+| `verify_with_existing_credential` | Default. Users must verify their identity with an existing credential before linking. |
+| `automatic`                       | Automatically link accounts when the provider verifies a matching email address.      |
+
+#### Security requirements for automatic linking
+
+For automatic linking to succeed, all of the following conditions must be true:
+
+- The provider is Google (consumer account) or Apple.
+- The provider has verified the user's email address (`email_verified` claim is `true`).
+- The existing identity has the same email address as a verified address.
+- For Google, the account must not be a Google Workspace account (no `hd` claim in the ID token).
+
 ## Account linking security considerations
 
-Ory doesn't support fully automatic account linking when users sign up with a social login provider. This restriction is in place
-to mitigate several classes of account takeover attacks. Even though automatic linking can improve UX, it opens up critical
-security risks. Below are the threat models that justify this decision.
+Ory doesn't support fully automatic account linking for arbitrary social login providers. This restriction is in place to mitigate
+several classes of account takeover attacks. Even though automatic linking can improve UX, it opens up critical security risks for
+most providers. Below are the threat models that justify this decision.
+
+Automatic account linking is available only for [Google and Apple](#automatic-account-linking-for-google-and-apple), which meet
+strict security requirements. See the [conditions for safe automatic linking](#conditions-for-safe-automatic-linking) section for
+details.
 
 ### Risks from verified email addresses
 
@@ -180,32 +298,32 @@ which invalidates the previous link’s integrity.
 
 To avoid these risks:
 
-- Ory requires an additional verification step, like password or passkey input, before linking a new login method.
+- Ory requires an additional verification step, like password or passkey input, before linking a new login method for most
+  providers.
 - Automatic account linking is only allowed for pre-provisioned identities where you explicitly configure the trusted linkage
   using the `use_auto_link` flag via the API.
 - The `use_auto_link` feature isn't enabled by default and only available for Ory Network and Enterprise customers after security
   evaluation.
+- For Google and Apple, Ory supports [automatic account linking](#automatic-account-linking-for-google-and-apple) based on
+  verified email addresses because these providers meet strict security criteria.
 
 ##### Conditions for safe automatic linking
 
-Some identity providers enforce stricter identity guarantees and may be considered for automatic account linking in the future
-under a feature flag. These providers must meet several criteria:
+Ory allows automatic account linking only for providers that meet all of the following criteria:
 
 - Strong verification of email ownership: The `email_verified` claim must be reliably set only after a secure email verification
   process.
 - No email address reuse: Once an email address has been used, it must never be reassigned to another user.
 - Trusted domains: The provider must control and protect its domains (e.g., `gmail.com`, `icloud.com`) and prevent misuse via
   dangling subdomains or unowned DNS entries.
-- Immutable identifiers: Changes to the user's email address must not silently affect the linked identity without re-verification
+- Immutable identifiers: Changes to the user’s email address must not silently affect the linked identity without re-verification
   or user intent.
 
-Examples of providers that are likely to meet these standards include:
+Currently, the following providers meet these standards:
 
-- Google (Gmail): Strong domain control, verified email, and no email recycling.
-- Apple (iCloud): Verified identities and strict lifecycle policies.
-
-Ory is evaluating support for automatic account linking under a feature flag for selected, well-defined providers that meet these
-security conditions.
+- **Google (Gmail)**: Strong domain control, verified email, and no email recycling. Google Workspace accounts are excluded
+  because expired domains can be re-registered by an attacker.
+- **Apple (iCloud)**: Verified identities and strict lifecycle policies.
 
 ### Troubleshooting
 
