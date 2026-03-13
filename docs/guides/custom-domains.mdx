@@ -150,6 +150,78 @@ your Ory Network project, please check that:
   https://developers.cloudflare.com/fundamentals/setup/account/account-security/zone-holds/#release-zone-holds for more
   information.
 
+## Vercel deployments
+
+If you host your application on Vercel and want to use Ory Network custom domains, the standard CNAME approach won't work. Vercel
+manages DNS for the domains it serves, so pointing a CNAME to both Vercel and Ory at the same time isn't possible. Use an A record
+instead.
+
+### Get Vercel's IP address
+
+In your Vercel project dashboard, go to **Settings → Domains**. The interface shows the recommended A record IP address for your
+domain. The common Vercel Anycast IP is `76.76.21.21`, but always verify against what's shown in your dashboard.
+
+### Add A records in your DNS provider
+
+Instead of a CNAME record, add an A record for each subdomain you want to use:
+
+```
+auth.example.com.  A  76.76.21.21
+```
+
+Replace `76.76.21.21` with the IP shown in your Vercel project dashboard.
+
+### Add CAA records
+
+Ory Network uses Google's certificate authority (`pki.goog`) to issue TLS certificates. Vercel uses Let's Encrypt. If you have or
+plan to add CAA records, include both:
+
+```
+example.com.  CAA  0 issue "letsencrypt.org"
+example.com.  CAA  0 issue "pki.goog"
+```
+
+For wildcard certificate support:
+
+```
+example.com.  CAA  0 issuewild "letsencrypt.org"
+example.com.  CAA  0 issuewild "pki.goog"
+```
+
+:::note
+
+CAA records are inherited by subdomains. Adding them at the root domain (e.g., `example.com`) is sufficient unless you have
+subdomain-level CAA records that would take precedence.
+
+:::
+
+### Add the domain manually in each Vercel project
+
+When A and CAA records already exist for a domain, Vercel does not automatically provision CNAME records. You must add the domain
+manually in each Vercel project:
+
+1. Go to your Vercel project dashboard (repeat for each project — dev, staging, production)
+2. Navigate to **Settings → Domains**
+3. Add your domain (e.g., `auth.example.com`)
+
+### Configure the custom domain in Ory Console
+
+After DNS changes have propagated, add your custom domain in <ConsoleLink route="project.cname" /> as described in
+[Adding a custom domain to your project](#adding-a-custom-domain-to-your-project).
+
+Before triggering certificate issuance in Ory Console, verify your CAA records have propagated:
+
+```shell
+dig CAA example.com +short
+```
+
+Expected output:
+
+```
+0 issue "letsencrypt.org"
+0 issue "pki.goog"
+```
+
 ## CAA records
 
 If your domain is protected by CAA record, issuing a certificate for a custom hostname will only work, if `pki.goog` is already
