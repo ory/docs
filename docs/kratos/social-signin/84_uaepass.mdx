@@ -67,8 +67,8 @@ local claims = std.extVar('claims');
 
 ```jsonnet
 local claims = std.extVar('claims');
-local hasRaw = 'rawClaims' in claims;
-local raw = if hasRaw then claims.rawClaims else {};
+local hasRaw = 'raw_claims' in claims;
+local raw = if hasRaw then claims.raw_claims else {};
 local titleCase(s) =
   local words = std.split(s, ' ');
   std.join(' ', [
@@ -135,8 +135,8 @@ UAE PASS returns different attributes depending on the user's account level (SOP
 | SOP2 | Advanced | All SOP1 + full names (EN/AR), nationality, gender, idn, idType |
 | SOP3 | Qualified | All SOP2 + titleEN/AR, profileType, unifiedId |
 
-All raw attributes are accessible via `claims.rawClaims.*` in the Jsonnet mapper. Always guard access to
-`rawClaims` with `'rawClaims' in claims` to avoid runtime errors if the field is not populated.
+All raw attributes are accessible via `claims.raw_claims.*` in the Jsonnet mapper. Always guard access to
+`raw_claims` with `'raw_claims' in claims` to avoid runtime errors if the field is not populated.
 
 UAE PASS returns names in **uppercase** (e.g., `"MOHAMMED ALI"`). Use a `titleCase` helper in your mapper to
 normalize names before storing them in traits.
@@ -151,7 +151,7 @@ Follow these steps to add UAE PASS as a social sign-in provider to your project 
 1. Create a Jsonnet code snippet to map the desired claims to the Ory Identity schema.
 
    UAE PASS doesn't return an `id_token`. Ory sends requests to UAE PASS's userinfo API and adds the user info to
-   `std.extVar('claims')`. All UAE PASS-specific attributes are available via `claims.rawClaims`.
+   `std.extVar('claims')`. All UAE PASS-specific attributes are available via `claims.raw_claims`.
 
    **Basic mapping** (email and name):
 
@@ -174,8 +174,8 @@ Follow these steps to add UAE PASS as a social sign-in provider to your project 
 
    ```jsonnet
    local claims = std.extVar('claims');
-   local hasRaw = 'rawClaims' in claims;
-   local raw = if hasRaw then claims.rawClaims else {};
+   local hasRaw = 'raw_claims' in claims;
+   local raw = if hasRaw then claims.raw_claims else {};
    local titleCase(s) =
      local words = std.split(s, ' ');
      std.join(' ', [
@@ -242,8 +242,8 @@ Follow these steps to add UAE PASS as a social sign-in provider to your project 
    | SOP2 | Advanced | All SOP1 + full names (EN/AR), nationality, gender, idn, idType |
    | SOP3 | Qualified | All SOP2 + titleEN/AR, profileType, unifiedId |
 
-   All raw attributes are accessible via `claims.rawClaims.*` in the Jsonnet mapper. Always guard access to
-   `rawClaims` with `'rawClaims' in claims` to avoid runtime errors if the field is not populated.
+   All raw attributes are accessible via `claims.raw_claims.*` in the Jsonnet mapper. Always guard access to
+   `raw_claims` with `'raw_claims' in claims` to avoid runtime errors if the field is not populated.
 
    UAE PASS returns names in **uppercase** (e.g., `"MOHAMMED ALI"`). Use a `titleCase` helper in your mapper to
    normalize names before storing them in traits.
@@ -254,7 +254,7 @@ Follow these steps to add UAE PASS as a social sign-in provider to your project 
     <JsonnetWarning format="Jsonnet code snippets" use="data mapping" />
 ```
 
-2. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
+2. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under a URL accessible to Ory Network.
 
    ```shell
    cat your-data-mapping.jsonnet | base64
@@ -274,7 +274,7 @@ Follow these steps to add UAE PASS as a social sign-in provider to your project 
    ```
 
 4. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
-   string or provide an URL to the file.
+   string or provide a URL to the file.
 
    **Staging configuration:**
 
@@ -292,7 +292,7 @@ Follow these steps to add UAE PASS as a social sign-in provider to your project 
                token_url: https://stg-id.uaepass.ae/idshub/token
                issuer_url: https://stg-id.uaepass.ae/idshub
                mapper_url: "base64://{YOUR_BASE64_ENCODED_JSONNET_HERE}"
-               # Alternatively, use an URL:
+               # Alternatively, use a URL:
                # mapper_url: https://storage.googleapis.com/example-example-prd/example-file
                scope:
                  - urn:uae:digitalid:profile:general
@@ -423,32 +423,32 @@ These claims are mapped automatically by the provider and available directly on 
 | `claims.phone_number` | Phone       | Mobile number                      |
 | `claims.gender`       | Gender      | Gender                             |
 
-### UAE PASS-specific claims (rawClaims)
+### UAE PASS-specific claims (raw_claims)
 
-These are accessible via `claims.rawClaims` in the Jsonnet mapper. Availability depends on the user's account level (SOP):
+These are accessible via `claims.raw_claims` in the Jsonnet mapper. Availability depends on the user's account level (SOP):
 
 | Claim                            | SOP Level       | Description                                       |
 | -------------------------------- | --------------- | ------------------------------------------------- |
-| `claims.rawClaims.uuid`          | All             | UAE PASS unique user identifier                   |
-| `claims.rawClaims.userType`      | All             | Account type: `SOP1`, `SOP2`, or `SOP3`           |
-| `claims.rawClaims.mobile`        | All             | Verified phone number                             |
-| `claims.rawClaims.email`         | All             | Verified email                                    |
-| `claims.rawClaims.firstnameEN`   | All             | Given name (English)                              |
-| `claims.rawClaims.lastnameEN`    | All             | Family name (English)                             |
-| `claims.rawClaims.firstnameAR`   | SOP2+           | Given name (Arabic)                               |
-| `claims.rawClaims.lastnameAR`    | SOP2+           | Family name (Arabic)                              |
-| `claims.rawClaims.fullnameEN`    | SOP2+           | Full name (English)                               |
-| `claims.rawClaims.fullnameAR`    | SOP2+           | Full name (Arabic)                                |
-| `claims.rawClaims.nationalityEN` | SOP2+           | Nationality (English)                             |
-| `claims.rawClaims.nationalityAR` | SOP2+           | Nationality (Arabic)                              |
-| `claims.rawClaims.gender`        | SOP2+           | Gender                                            |
-| `claims.rawClaims.idn`           | SOP2+           | Emirates ID number (citizens/residents only)      |
-| `claims.rawClaims.idType`        | SOP2+           | ID type                                           |
-| `claims.rawClaims.spuuid`        | SOP2+           | SmartPass UUID (SmartPass-verified accounts only) |
-| `claims.rawClaims.titleEN`       | SOP2+           | Title (English)                                   |
-| `claims.rawClaims.titleAR`       | SOP2+           | Title (Arabic)                                    |
-| `claims.rawClaims.profileType`   | SOP3 (Visitors) | `1` (Citizen/Resident) or `2` (Visitor)           |
-| `claims.rawClaims.unifiedId`     | SOP3 (Visitors) | Unified user ID                                   |
+| `claims.raw_claims.uuid`          | All             | UAE PASS unique user identifier                   |
+| `claims.raw_claims.userType`      | All             | Account type: `SOP1`, `SOP2`, or `SOP3`           |
+| `claims.raw_claims.mobile`        | All             | Verified phone number                             |
+| `claims.raw_claims.email`         | All             | Verified email                                    |
+| `claims.raw_claims.firstnameEN`   | All             | Given name (English)                              |
+| `claims.raw_claims.lastnameEN`    | All             | Family name (English)                             |
+| `claims.raw_claims.firstnameAR`   | SOP2+           | Given name (Arabic)                               |
+| `claims.raw_claims.lastnameAR`    | SOP2+           | Family name (Arabic)                              |
+| `claims.raw_claims.fullnameEN`    | SOP2+           | Full name (English)                               |
+| `claims.raw_claims.fullnameAR`    | SOP2+           | Full name (Arabic)                                |
+| `claims.raw_claims.nationalityEN` | SOP2+           | Nationality (English)                             |
+| `claims.raw_claims.nationalityAR` | SOP2+           | Nationality (Arabic)                              |
+| `claims.raw_claims.gender`        | SOP2+           | Gender                                            |
+| `claims.raw_claims.idn`           | SOP2+           | Emirates ID number (citizens/residents only)      |
+| `claims.raw_claims.idType`        | SOP2+           | ID type                                           |
+| `claims.raw_claims.spuuid`        | SOP2+           | SmartPass UUID (SmartPass-verified accounts only) |
+| `claims.raw_claims.titleEN`       | SOP2+           | Title (English)                                   |
+| `claims.raw_claims.titleAR`       | SOP2+           | Title (Arabic)                                    |
+| `claims.raw_claims.profileType`   | SOP3 (Visitors) | `1` (Citizen/Resident) or `2` (Visitor)           |
+| `claims.raw_claims.unifiedId`     | SOP3 (Visitors) | Unified user ID                                   |
 
 :::caution
 
