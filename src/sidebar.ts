@@ -1,4 +1,4 @@
-// Copyright © 2022 Ory Corp
+// Copyright © 2026 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
 import {
@@ -177,6 +177,7 @@ const quickstart: SidebarItemsConfig = [
   "welcome",
   "intro",
   "getting-started/local-development",
+  "ecosystem/mcp",
   {
     type: "category",
     label: "Quickstart",
@@ -289,6 +290,7 @@ const operations: SidebarItemsConfig = [
     collapsible: false,
     items: [
       "guides/workspaces",
+      "console/single-sign-on",
       "console/roles-and-permissions",
       "guides/custom-domains",
       "console/usage-billing",
