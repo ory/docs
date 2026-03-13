@@ -4,6 +4,7 @@ import { projectPaths, workspacesPaths } from "./console-nav-data"
 
 type ConsoleLinkProps = {
   route: string
+  hash?: string
 }
 
 const flatConsolePaths = [...projectPaths, ...workspacesPaths].flatMap((p) => {
@@ -33,7 +34,7 @@ const flatConsolePaths = [...projectPaths, ...workspacesPaths].flatMap((p) => {
  * @param route a (possible nested) accesor from the routes object
  * @returns
  */
-export default function ConsoleLink({ route }: ConsoleLinkProps) {
+export default function ConsoleLink({ route, hash }: ConsoleLinkProps) {
   const routeObj = route.split(".").reduce((p, c) => p[c], routes)
   if (!routeObj || (typeof routeObj !== "string" && !("route" in routeObj))) {
     throw new Error("Route not found: " + route)
@@ -61,7 +62,9 @@ export default function ConsoleLink({ route }: ConsoleLinkProps) {
 
   // TODO: add current project resolution via the console API
   const renderedRoute =
-    "https://console.ory.sh" + resolvedRoute.replace("[project]", "current")
+    "https://console.ory.sh" +
+    resolvedRoute.replace("[project]", "current") +
+    (hash ? `#${hash}` : "")
 
   return (
     <>
