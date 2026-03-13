@@ -1,25 +1,39 @@
 # Ory React Authentication Example
 
-This project demonstrates how to integrate Ory authentication into a React
-application built with Vite and TypeScript.
+This example demonstrates how to implement authentication in a React
+application built with Vite and TypeScript using Ory.
 
-## Project Setup
+## Prerequisites
+
+- Node.js installed on your machine
+- An Ory Network account with a project set up
+- Your Ory Project ID
+
+## Get started
+
+### 1. Install dependencies
+
+First, install the necessary dependencies by running:
 
 ```bash
-# Install dependencies
 npm install
+```
 
-# Start the development server
+### 2. Start the application
+
+You can start the application with:
+
+```bash
 npm run dev
 ```
 
 Your application will be running at
 [http://localhost:5173](http://localhost:5173).
 
-## Connecting to Ory
+### 3. Run the Ory Tunnel
 
-To get your application running locally with Ory APIs on the same domain, use
-the Ory Tunnel - a development tool bundled with Ory CLI:
+To ensure cookies are on the same domain, run the Ory Tunnel with your project
+ID:
 
 ```bash
 # Set your Ory project URL
@@ -30,16 +44,16 @@ npx @ory/cli tunnel --dev http://localhost:5173
 ```
 
 This will make Ory APIs available at `http://localhost:4000`, which is the URL
-used as the `baseUrl` in the Ory SDK configuration.
+used as the `basePath` in the Ory SDK configuration.
 
-## Making API Calls
+## Making API calls
 
 The example also demonstrates how to make authenticated API calls to a backend
 server. To run the API server:
 
 ```bash
 # Navigate to the API directory
-cd api
+cd src/api
 
 # Install dependencies if needed
 npm install
@@ -51,12 +65,13 @@ node index.js
 The API server runs on port 8081 and requires the proper session cookies from
 Ory to authenticate requests.
 
-## Project Structure
+## Project structure
 
 - `src/App.tsx` - Basic authentication example
-- `src/AppWithAPI.tsx` - Authentication with API integration example
+- `src/AppWithApi.tsx` - Authentication with API integration example
+- `src/api/index.js` - Express.js API server example
 
-## Available Scripts
+## Available scripts
 
 - `npm run dev` - Start the development server
 - `npm run build` - Build the app for production
@@ -77,3 +92,12 @@ To deploy this application to production:
 2. Deploy the API server (e.g., on Heroku)
 3. Configure a custom domain for your Ory project to match your application
    domain
+
+These three components must be hosted on the same top-level domain as they were
+on your local machine:
+
+| Component       | Production      | Local          |
+| --------------- | --------------- | -------------- |
+| Single Page App | www.example.org | localhost:5173 |
+| API             | api.example.org | localhost:8081 |
+| Ory             | ory.example.org | localhost:4000 |
