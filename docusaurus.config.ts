@@ -1,4 +1,4 @@
-// Copyright © 2022 Ory Corp
+// Copyright © 2026 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
 import type { Config } from "@docusaurus/types"
@@ -237,7 +237,35 @@ const config: Config = {
     "@docusaurus/theme-search-algolia",
     "docusaurus-theme-redoc",
   ],
-  headTags: [],
+  headTags: [
+    {
+      tagName: "link",
+      attributes: {
+        rel: "stylesheet",
+        href: "/docs/fonts/fonts.css",
+      },
+    },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "preload",
+        href: "/docs/fonts/Inter/InterVariable.woff2?v=4.0",
+        as: "font",
+        type: "font/woff2",
+        crossorigin: "anonymous",
+      },
+    },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "preload",
+        href: "/docs/fonts/Inter/InterVariable-Italic.woff2?v=4.0",
+        as: "font",
+        type: "font/woff2",
+        crossorigin: "anonymous",
+      },
+    },
+  ],
 }
 
 module.exports = config
