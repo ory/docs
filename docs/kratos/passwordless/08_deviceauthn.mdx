@@ -22,11 +22,11 @@ Since this is a strategy, it supports all the same hooks as the other strategies
 
 ## Short summary
 
-- This is implemented in the OEL version with the strategy `DeviceAuthn`, in spirit similar to `WebAuthn`
-- The settings flow is used to manage keys (create, delete)
+- This is implemented in the OEL version with the strategy `DeviceAuthn`, in spirit similar to `WebAuthn`.
+- The settings flow is used to manage keys (create, delete).
 - The login flow is used to step-up the AAL. Hardware-backed keys (TEE) satisfy AAL2, while keys stored in a dedicated security
   chip (StrongBox) may eventually be categorized as AAL3.
-- Using the admin API, it is possible to delete all keys for a device on behalf of the user in case of theft or loss
+- Using the admin API, it is possible to delete all keys for a device on behalf of the user in case of theft or loss.
 - A device may have multiple keys, to support multiple user accounts on the same device.
 - Only these platforms are currently supported, because they offer native APIs, strong hardware, and trust guarantees:
   - iOS: 14.0+
