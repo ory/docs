@@ -1356,6 +1356,11 @@
       "source": "/docs/ecosystem/security",
       "destination": "/docs/security-compliance/security",
       "permanent": true
+    },
+    {
+      "source": "/docs/getting-started/overview",
+      "destination": "/docs/welcome",
+      "permanent": true
     }
     
   ]

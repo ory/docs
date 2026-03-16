@@ -47,6 +47,10 @@ export const navbar: Navbar = {
           docId: "oss/getting-started/index",
           label: "Ory Open Source",
         },
+        {
+          to: "/docs/elements",
+          label: "Ory Elements",
+        },
       ],
     },
     {
