@@ -21,9 +21,9 @@ usage for all our customers.
 
 Ory implements two main rate limit types:
 
-1. Project rate limits: Based on your subscription plan and environment (Production, Staging, or Development). These control the
+- Project rate limits: Based on your subscription plan and environment (Production, Staging, or Development). These control the
    overall request volume your projects can make to Ory's APIs.
-2. Endpoint-based rate limits: Additional security controls that protect specific endpoints against attacks like brute-force,
+- 2Endpoint-based rate limits: Additional security controls that protect specific endpoints against attacks like brute-force,
    credential stuffing, and concurrent request abuse, regardless of your project limits.
 
 ## Project rate limits in workspaces
@@ -36,9 +36,9 @@ Network across different usage scenarios.
 
 Rate limits for each project are determined by two main factors:
 
-1. Workspace subscription: Your subscription plan (Developer, Production, Growth, or Enterprise) sets the baseline for your rate
+- Workspace subscription: Your subscription plan (Developer, Production, Growth, or Enterprise) sets the baseline for your rate
    limits.
-2. Project environment: Within each workspace, projects can be assigned to Production, Staging, or Development environments, each
+- Project environment: Within each workspace, projects can be assigned to Production, Staging, or Development environments, each
    with specific rate limit configurations.
 
 For a detailed explanation of workspaces and environments, see our [Workspaces and environments guide](/docs/guides/workspaces).
@@ -47,8 +47,68 @@ For a detailed explanation of workspaces and environments, see our [Workspaces a
 
 Each rate limit policy includes two limits:
 
-1. Burst limit: Maximum requests per second (rps), allowing for short traffic spikes.
-2. Sustained limit: Maximum requests per minute (rpm), ensuring consistent performance over time.
+- Burst limit: Maximum requests per second (rps), allowing for short traffic spikes.
+- Sustained limit: Maximum requests per minute (rpm), ensuring consistent performance over time.
+
+## Monitor rate limit headers
+
+Ory Network includes rate limit information in API response headers for project rate-limits. Use these headers to avoid exceeding
+the applicable rate limit. Your client must handle these responses to maintain service quality.
+
+| Header                  | Description                                                                             |
+| ----------------------- | --------------------------------------------------------------------------------------- |
+| `x-ratelimit-limit`     | The rate limit ceiling(s) for the current request, including burst and sustained limits |
+| `x-ratelimit-remaining` | Number of requests remaining in the current window                                      |
+| `x-ratelimit-reset`     | Number of seconds until the rate limit window resets                                    |
+
+Example header values:
+
+```shell
+x-ratelimit-limit: 10, 10;w=1, 300;w=60
+x-ratelimit-remaining: 8
+x-ratelimit-reset: 1
+```
+
+The `x-ratelimit-limit` header follows the
+[IETF RateLimit header fields draft](https://datatracker.ietf.org/doc/draft-ietf-httpapi-ratelimit-headers/), where `w=1`
+indicates a 1-second window and `w=60` indicates a 60-second window. Use these headers to throttle requests proactively and reduce
+the likelihood of hitting 429 errors.
+
+## How to handle 429 responses
+
+When your client receives a `429 Too Many Requests` response, you've exceeded the applicable rate limit. Your client must handle
+these responses to maintain service quality.
+
+Your implementation must:
+
+- **Detect 429 responses**: Monitor for HTTP 429 status codes on all API calls.
+- **Implement exponential backoff**: When receiving a 429, pause and retry with increasing delays (for example: 1s, 2s, 4s, 8s).
+- **Respect rate limit headers**: Check `x-ratelimit-remaining` and `x-ratelimit-reset`, when available, to throttle requests
+  proactively.
+- **Avoid retry storms**: Don't retry failed requests in a tight loop.
+
+### Exponential backoff strategy
+
+Implement an exponential backoff strategy to proactively avoid hitting rate limits.
+
+```jsx
+async function callApiWithBackoff(request, maxRetries = 5) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    const response = await fetch(request)
+    if (response.status === 429) {
+      const delay = Math.pow(2, attempt) * 1000 // 1s, 2s, 4s, 8s, 16s
+      await new Promise((resolve) => setTimeout(resolve, delay))
+      continue
+    }
+    return response
+  }
+  throw new Error("Max retries exceeded")
+}
+```
+
+Clients that repeatedly exceed rate limits without proper backoff may have their API access temporarily blocked. For high-volume
+use cases that exceed your plan's limits, open a support ticket via the [Ory Console](https://console.ory.sh/support) or email
+[support@ory.sh](mailto:support@ory.sh).
 
 ### Determine your project's rate limits
 
@@ -231,7 +291,6 @@ The following endpoints are protected by different types of rate limiting:
 
 | Type       | Endpoint                                    | HTTP Methods             | Ratelimit Key                                    | Action                                 |
 | :--------- | :------------------------------------------ | :----------------------- | :----------------------------------------------- | :------------------------------------- |
-| Volumetric |                                             |                          |                                                  | To be added later                      |
 | Inflight   | `/admin/identities`                         | `POST`, `PATCH`          | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
 | Inflight   | `/admin/identities/{id}`                    | `PUT`, `PATCH`, `DELETE` | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
 | Inflight   | `/admin/identities/{id}/credentials/{type}` | `DELETE`                 | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
