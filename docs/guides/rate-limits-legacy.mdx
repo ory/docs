@@ -22,9 +22,9 @@ usage for all our customers.
 Ory implements two main rate limit types:
 
 - Project rate limits: Based on your subscription plan and environment (Production, Staging, or Development). These control the
-   overall request volume your projects can make to Ory's APIs.
+  overall request volume your projects can make to Ory's APIs.
 - 2Endpoint-based rate limits: Additional security controls that protect specific endpoints against attacks like brute-force,
-   credential stuffing, and concurrent request abuse, regardless of your project limits.
+  credential stuffing, and concurrent request abuse, regardless of your project limits.
 
 ## Project rate limits in workspaces
 
@@ -37,9 +37,9 @@ Network across different usage scenarios.
 Rate limits for each project are determined by two main factors:
 
 - Workspace subscription: Your subscription plan (Developer, Production, Growth, or Enterprise) sets the baseline for your rate
-   limits.
+  limits.
 - Project environment: Within each workspace, projects can be assigned to Production, Staging, or Development environments, each
-   with specific rate limit configurations.
+  with specific rate limit configurations.
 
 For a detailed explanation of workspaces and environments, see our [Workspaces and environments guide](/docs/guides/workspaces).
 
@@ -289,15 +289,15 @@ issues.
 
 The following endpoints are protected by different types of rate limiting:
 
-| Type       | Endpoint                                    | HTTP Methods             | Ratelimit Key                                    | Action                                 |
-| :--------- | :------------------------------------------ | :----------------------- | :----------------------------------------------- | :------------------------------------- |
-| Inflight   | `/admin/identities`                         | `POST`, `PATCH`          | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
-| Inflight   | `/admin/identities/{id}`                    | `PUT`, `PATCH`, `DELETE` | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
-| Inflight   | `/admin/identities/{id}/credentials/{type}` | `DELETE`                 | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
-| Inflight   | `/admin/identities/{id}/sessions`           | `DELETE`                 | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
-| Inflight   | `/admin/sessions/{id}`                      | `DELETE`                 | `{project_id} + {full_path}`                     | Logs concurrent requests (report-only) |
-| Inflight   | `/admin/sessions/{id}/extend`               | `PATCH`                  | `{project_id} + {full_path}`                     | Logs concurrent requests (report-only) |
-| Inflight   | `/self-service/recovery`                    | `POST`                   | `{project_id} + {path} + "/" + {email\|flow_id}` | Logs concurrent requests (report-only) |
+| Type     | Endpoint                                    | HTTP Methods             | Ratelimit Key                                    | Action                                 |
+| :------- | :------------------------------------------ | :----------------------- | :----------------------------------------------- | :------------------------------------- |
+| Inflight | `/admin/identities`                         | `POST`, `PATCH`          | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
+| Inflight | `/admin/identities/{id}`                    | `PUT`, `PATCH`, `DELETE` | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
+| Inflight | `/admin/identities/{id}/credentials/{type}` | `DELETE`                 | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
+| Inflight | `/admin/identities/{id}/sessions`           | `DELETE`                 | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
+| Inflight | `/admin/sessions/{id}`                      | `DELETE`                 | `{project_id} + {full_path}`                     | Logs concurrent requests (report-only) |
+| Inflight | `/admin/sessions/{id}/extend`               | `PATCH`                  | `{project_id} + {full_path}`                     | Logs concurrent requests (report-only) |
+| Inflight | `/self-service/recovery`                    | `POST`                   | `{project_id} + {path} + "/" + {email\|flow_id}` | Logs concurrent requests (report-only) |
 
 :::note
 
