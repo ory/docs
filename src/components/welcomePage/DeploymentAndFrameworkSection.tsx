@@ -1,4 +1,3 @@
-import React from "react"
 import { StepBadge } from "./StepBadge"
 import { SolutionDesignStepper } from "./SolutionDesignStepper"
 import { SelectFrameworkSection } from "./SelectFrameworkSection"
@@ -37,10 +36,9 @@ export function DeploymentAndFrameworkSection() {
             How to design your Ory solution
           </h2>
           <p className="ory-body max-w-[800px]">
-            Every Ory implementation starts with these decisions—how to
-            deploy, which products to use, and what framework or language to
-            build with. Start here to find the right combination for your use
-            case.
+            Every Ory implementation starts with these decisions—how to deploy,
+            which products to use, and what framework or language to build with.
+            Start here to find the right combination for your use case.
           </p>
           <div className="border-l border-ory-border-primary pl-ory-8 pb-ory-16 flex flex-col gap-ory-8">
             <div>
@@ -51,12 +49,12 @@ export function DeploymentAndFrameworkSection() {
                 </h3>
                 <p className="ory-body max-w-[800px]">
                   Choose the deployment option that fits your organization and
-                  build secure IAM into your apps. You can switch later—the
-                  core concepts stay the same.
+                  build secure IAM into your apps. You can switch later—the core
+                  concepts stay the same.
                 </p>
               </div>
 
-              <div className="flex gap-ory-4">
+              <div className="flex flex-col md:flex-row gap-ory-4">
                 {cards.map((card) => (
                   <div key={card.label} className="flex-1 min-w-0">
                     <OverviewCard

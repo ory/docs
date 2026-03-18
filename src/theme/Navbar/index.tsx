@@ -84,7 +84,7 @@ function OryNavbar() {
               className={clsx(
                 "h-8 w-8 inline-flex items-center justify-center",
                 "rounded-ory-btn border border-transparent",
-                "hover:bg-ory-bg-secondary-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-ory-border-brand-tertiary",
+                "bg-transparent hover:bg-transparent active:bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-ory-border-brand-tertiary",
               )}
             >
               <IconMenu />
