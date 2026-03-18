@@ -43,15 +43,15 @@ export function OverviewCard({
   )
 
   const wrapperClass =
-    "flex flex-col overflow-hidden rounded-ory bg-ory-bg-secondary"
-  const innerClass = "flex flex-col gap-ory-8 p-ory-4"
+    "flex flex-col overflow-hidden rounded-ory bg-ory-bg-secondary h-full"
+  const innerClass = "flex flex-col gap-ory-8 p-ory-4 flex-1 min-h-0"
 
   if (linkLabel) {
     return (
       <div className={wrapperClass}>
         <div className={innerClass}>
           {content}
-          <Link to={to} className="ory-guide-card__link">
+          <Link to={to} className="ory-guide-card__link mt-auto">
             {linkLabel}
             <span aria-hidden>→</span>
           </Link>
