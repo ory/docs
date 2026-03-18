@@ -1,6 +1,6 @@
 import React from "react"
 import useBaseUrl from "@docusaurus/useBaseUrl"
-import OryHeroDemo from "@site/src/components/OryHeroDemo"
+import OryHeroDemo from "../OryHeroDemo"
 
 export function StartHeading() {
   const backgroundPattern = useBaseUrl("/img/home-bg-grid.svg")
@@ -15,11 +15,11 @@ export function StartHeading() {
         backgroundRepeat: "repeat",
       }}
     >
-      <div className="max-w-[1024px] mx-auto px-6 w-full">
-        <div className="flex gap-ory-6 items-center mb-ory-6">
-          <div className="flex-1 min-w-0 flex flex-col gap-ory-6">
-            <h1 className="ory-heading-1">
-              Welcome to the Ory Developer Portal{" "}
+      <div className="max-w-[1024px] mx-auto w-full px-4 lg:px-8">
+        <div className="flex flex-col xl:flex-row xl:items-center gap-ory-6 mb-ory-6">
+          <div className="min-w-0 flex flex-col gap-ory-6 xl:flex-1">
+            <h1 className="ory-heading-1 text-[40px] leading-none lg:text-[48px]">
+              Welcome to the Ory Developer Portal
             </h1>
             <p className="ory-body">
               Ory gives you authentication, authorization, and user management
@@ -27,10 +27,10 @@ export function StartHeading() {
               <br />
               <br />
               Start fast, scale to millions, and keep security best practices
-              baked in.
+              baked{"\u00A0"}in.
             </p>
           </div>
-          <div className="flex-1 min-w-0">
+          <div className="min-w-0 w-full xl:flex-1 xl:max-w-[456px] xl:ml-auto">
             <OryHeroDemo />
           </div>
         </div>

@@ -111,248 +111,80 @@ const OryHeroDemo = () => {
     }
   }, [lines])
 
-  const styles = {
-    wrapper: {
-      width: "416px",
-      margin: "0 auto",
-    },
-    terminal: {
-      width: "416px",
-      height: "280px",
-      borderRadius: "8px",
-      overflow: "hidden",
-      boxShadow:
-        "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-      background: "#ffffff",
-      border: "1px solid #e2e8f0",
-      display: "flex",
-      flexDirection: "column",
-    },
-    header: {
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
-      padding: "12px 16px",
-      background: "#f8fafc",
-      borderBottom: "1px solid #e2e8f0",
-    },
-    trafficLights: {
-      display: "flex",
-      gap: "6px",
-    },
-    light: (color) => ({
-      width: "12px",
-      height: "12px",
-      borderRadius: "50%",
-      background: color,
-    }),
-    headerText: {
-      color: "#64748b",
-      fontSize: "13px",
-      fontFamily: "Inter, sans-serif",
-      fontWeight: "400",
-    },
-    body: {
-      padding: "16px",
-      fontFamily: "JetBrains Mono, monospace",
-      fontSize: "13px",
-      flex: "1",
-      overflowY: "auto",
-      background: "#ffffff",
-      color: "#0f172a",
-      lineHeight: "1.6",
-    },
-    lineNumber: {
-      color: "#94a3b8",
-      marginRight: "12px",
-      fontFamily: "JetBrains Mono, monospace",
-      fontSize: "13px",
-    },
-    comment: {
-      color: "#64748b",
-      marginTop: "12px",
-    },
-    note: {
-      color: "#64748b",
-      fontSize: "11px",
-      marginTop: "4px",
-      marginBottom: "8px",
-      paddingLeft: "16px",
-    },
-    command: {
-      color: "#0f172a",
-      display: "flex",
-      alignItems: "flex-start",
-    },
-    commandCont: {
-      color: "#0f172a",
-      paddingLeft: "16px",
-    },
-    prompt: {
-      color: "#64748b",
-      marginRight: "8px",
-    },
-    output: {
-      color: "#334155",
-      paddingLeft: "8px",
-    },
-    success: {
-      color: "#334155",
-      paddingLeft: "8px",
-      fontWeight: "400",
-    },
-    linkWrapper: {
-      paddingLeft: "8px",
-      marginTop: "12px",
-    },
-    link: {
-      display: "inline-flex",
-      alignItems: "center",
-      padding: "6px 12px",
-      background: "#383bca",
-      color: "#fff",
-      fontSize: "13px",
-      fontWeight: "500",
-      borderRadius: "4px",
-      textDecoration: "none",
-    },
-    cursor: {
-      display: "inline-block",
-      width: "8px",
-      height: "16px",
-      background: "#0f172a",
-      animation: "blink 1s infinite",
-    },
-    controls: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      gap: "8px",
-      padding: "12px 16px",
-      background: "#f1f5f9",
-      borderTop: "1px solid #e2e8f0",
-    },
-    controlsText: {
-      color: "#94a3b8",
-      fontSize: "13px",
-      fontFamily: "Inter, sans-serif",
-      fontWeight: "400",
-    },
-    button: {
-      padding: "8px 16px",
-      fontSize: "13px",
-      fontWeight: "600",
-      border: "none",
-      borderRadius: "0",
-      cursor: "pointer",
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "6px",
-    },
-    runButton: {
-      borderRadius: "var(--radius-buttons, 4px)",
-      border: "1px solid var(--border-inverted-primary, #0f172a)",
-      background: "var(--background-inverted-primary, #0f172a)",
-      color: "var(--button-primary-text, #ffffff)",
-    },
-    runButtonDisabled: {
-      background: "#e2e8f0",
-      color: "#94a3b8",
-      cursor: "not-allowed",
-    },
-    resetButton: {
-      background: "#e2e8f0",
-      color: "#334155",
-    },
-    buttonIcon: {
-      fontSize: "14px",
-      lineHeight: "1",
-      fontWeight: "400",
-    },
-    caption: {
-      textAlign: "center",
-      color: "#64748b",
-      fontSize: "14px",
-      marginTop: "16px",
-    },
-    placeholder: {
-      color: "#94a3b8",
-    },
-  }
-
   return (
-    <div style={styles.wrapper}>
+    <div className="w-full">
       <style>
         {`@keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }`}
       </style>
 
-      <div style={styles.terminal}>
-        {/* Terminal header */}
-        <div style={styles.header}>
-          <div style={styles.trafficLights}>
-            <div style={styles.light("#ff5f56")} />
-            <div style={styles.light("#ffbd2e")} />
-            <div style={styles.light("#27c93f")} />
+      <div className="w-full h-[368px] overflow-hidden bg-white border border-ory-border-primary rounded-[8px] shadow-[0_4px_32px_0_var(--ory-bg-brand-tertiary,_#E0E1FF)] flex flex-col">
+        <div className="h-12 px-4 flex items-center gap-2 bg-ory-bg-secondary border-b border-ory-border-primary">
+          <div className="w-[52px] h-3 flex items-center gap-[6px]">
+            <div className="w-3 h-3 rounded-full bg-[var(--background-danger-secondary)]" />
+            <div className="w-3 h-3 rounded-full bg-[var(--background-warning-secondary)]" />
+            <div className="w-3 h-3 rounded-full bg-[var(--background-success-secondary)]" />
           </div>
-          <span style={styles.headerText}>Terminal</span>
+          <span className="text-[13px] font-sans font-normal text-ory-text-tertiary">
+            Terminal
+          </span>
         </div>
 
-        {/* Terminal body */}
-        <div ref={terminalRef} style={styles.body}>
-          {/* Script output */}
+        <div
+          ref={terminalRef}
+          className="p-4 font-mono text-[13px] text-ory-text-primary bg-white leading-[1.6] overflow-y-auto flex-1 min-h-0"
+        >
           {lines.map((line, i) => (
-            <div
-              key={i}
-              style={{
-                marginBottom: "4px",
-                display: "flex",
-                alignItems: "flex-start",
-              }}
-            >
+            <div key={i} className="mb-1 flex items-start">
               {line.type === "line" && (
                 <>
-                  <span style={styles.lineNumber}>{line.number}</span>
-                  <span style={styles.prompt}>$</span>
-                  <span style={{ ...styles.command, marginLeft: "8px" }}>
-                    {line.text}
+                  <span className="text-[#94a3b8] mr-3 tabular-nums">
+                    {line.number}
                   </span>
+                  <span className="text-ory-text-tertiary mr-2">$</span>
+                  <span className="text-ory-text-primary ml-2">{line.text}</span>
                 </>
               )}
+
               {line.type === "comment" && (
-                <div
-                  style={
-                    i === 0
-                      ? { ...styles.comment, marginTop: 0 }
-                      : styles.comment
-                  }
-                >
+                <div className={i === 0 ? "text-ory-text-tertiary mt-0" : "text-ory-text-tertiary mt-3"}>
                   {line.text}
                 </div>
               )}
+
               {line.type === "note" && (
-                <div style={styles.note}>{line.text}</div>
-              )}
-              {line.type === "command" && (
-                <div style={styles.command}>
-                  <span style={styles.prompt}>$</span> {line.text}
+                <div className="text-ory-text-tertiary text-[11px] mt-1 mb-2 pl-4">
+                  {line.text}
                 </div>
               )}
+
+              {line.type === "command" && (
+                <div className="text-ory-text-primary flex items-start">
+                  <span className="text-ory-text-tertiary mr-2">$</span>{" "}
+                  {line.text}
+                </div>
+              )}
+
               {line.type === "command-cont" && (
-                <div style={styles.commandCont}>{line.text}</div>
+                <div className="text-ory-text-primary pl-4">{line.text}</div>
               )}
+
               {line.type === "output" && (
-                <div style={styles.output}>{line.text}</div>
+                <div className="text-ory-text-secondary pl-2">{line.text}</div>
               )}
+
               {line.type === "success" && (
-                <div style={styles.success}>{line.text}</div>
+                <div className="text-ory-text-secondary pl-2 font-normal">
+                  {line.text}
+                </div>
               )}
+
               {line.type === "link" && (
-                <div style={styles.linkWrapper}>
+                <div className="pl-2 mt-3">
                   <a
                     href={line.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={styles.link}
+                    className="inline-flex items-center h-8 px-4 bg-white text-ory-text-primary text-[13px] font-semibold rounded-ory-btn no-underline border border-ory-border-primary shadow-[0_1px_2px_rgba(15,23,42,0.12)] hover:bg-ory-bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ory-border-brand-tertiary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                   >
                     {line.text}
                   </a>
@@ -361,22 +193,26 @@ const OryHeroDemo = () => {
             </div>
           ))}
 
-          {/* Blinking cursor */}
-          {isRunning && <span style={styles.cursor} />}
+          {isRunning && (
+            <span
+              className="inline-block w-2 h-4 bg-ory-text-primary"
+              style={{ animation: "blink 1s infinite" }}
+            />
+          )}
         </div>
 
-        {/* Controls */}
-        <div style={styles.controls}>
-          <span style={styles.controlsText}>
+        <div className="px-4 py-3 bg-[#f1f5f9] border-t border-ory-border-primary flex items-center justify-between gap-2">
+          <span className="text-[#94a3b8] text-[13px] font-sans font-normal">
             From zero to registered user in minutes
           </span>
           <button
             onClick={runDemo}
             disabled={isRunning}
-            style={{
-              ...styles.button,
-              ...(isRunning ? styles.runButtonDisabled : styles.runButton),
-            }}
+            className={
+              isRunning
+                ? "h-8 px-4 text-[13px] font-semibold inline-flex items-center gap-1.5 border border-transparent bg-ory-bg-tertiary text-[#94a3b8] cursor-not-allowed rounded-ory-btn"
+                : "h-8 px-4 text-[13px] font-semibold inline-flex items-center gap-1.5 border border-ory-bg-dark bg-ory-bg-dark text-white rounded-ory-btn cursor-pointer"
+            }
           >
             Run
           </button>

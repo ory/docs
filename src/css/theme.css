@@ -554,6 +554,9 @@ h2.ory-section-heading {
   --ory-info-tertiary: #e0f2fe;
   --ory-info-primary: #0ea5e9;
   --ory-info-on-tertiary: #0c4a6e;
+  --background-success-secondary: #bbf7d0;
+  --background-warning-secondary: #fde68a;
+  --background-danger-secondary: #fecaca;
   --ory-radius: 6px;
   --ory-radius-btn: 4px;
 
@@ -583,94 +586,7 @@ h2.ory-section-heading {
   padding: 0;
 }
 
-.navbar__inner {
-  height: 100%;
-  max-width: 1920px;
-  margin: 0 auto;
-  display: flex;
-  gap: 0;
-  align-items: center;
-  padding: 0 8px;
-}
-
-/* Left logo section - 312px with borders */
-.navbar__brand {
-  width: var(--ory-navbar-left-width);
-  max-width: var(--ory-navbar-left-width);
-  border-left: 1px solid var(--ory-navbar-border);
-  border-right: 1px solid var(--ory-navbar-border);
-  padding: 0 var(--ory-navbar-left-padding-x);
-  height: 100%;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  position: relative;
-}
-
-.navbar__logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  height: 24px;
-  min-width: 0;
-  width: 100%;
-  padding: 4px;
-}
-
-.navbar__logo img {
-  height: 16px;
-  width: auto;
-  max-width: 100%;
-  display: block;
-  flex-shrink: 0;
-  object-fit: contain;
-  object-position: left center;
-}
-
-.navbar__logo::before,
-.navbar__logo::after {
-  display: none;
-}
-
-/* Middle nav links */
-.navbar__items {
-  flex: 1 0 0;
-  gap: var(--ory-navbar-gap);
-  font-size: var(--ory-navbar-font-size);
-  font-weight: 400;
-  line-height: 1;
-  color: var(--ory-navbar-text);
-  padding-left: var(--ory-navbar-content-padding-left);
-  display: flex;
-  align-items: center;
-}
-
-.navbar__link {
-  color: var(--ory-navbar-link);
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1;
-  white-space: nowrap;
-  display: flex;
-  height: var(--button-button-height, 32px);
-  padding: 0 var(--size-25, 10px);
-  justify-content: center;
-  align-items: center;
-  gap: var(--size-05, 2px);
-  border-radius: var(--radius-buttons, 4px);
-  border: 1px solid
-    var(--border-transparent-transparent, rgba(255, 255, 255, 0));
-  transition: background-color 0.2s ease;
-}
-
-.navbar__link:hover,
-.navbar__link--active {
-  color: var(--ory-navbar-link-hover);
-  background: var(--background-transparent-primary-hover, rgba(0, 0, 0, 0.02));
-}
-
-/* Style dropdown chevrons in top navbar only (nav/Button/right) */
+/* Navbar dropdown chevron to overwrite default caret */
 .navbar .dropdown > .navbar__link::after {
   border: none;
   content: "";
@@ -687,38 +603,10 @@ h2.ory-section-heading {
   vertical-align: middle;
 }
 
-/* Ensure all navbar items have consistent width */
-.navbar__item {
-  flex-shrink: 0;
-  min-width: fit-content;
-  margin: 0 !important;
-}
-
-/* Ensure dropdown items have same spacing as direct links */
-.navbar__item.dropdown {
-  margin: 0 !important;
-  padding: 0;
-}
-
-/* Ensure dropdown links have same styling as direct links */
-.navbar__item.dropdown > .navbar__link {
-  margin: 0;
-}
-
-/* Right section - Links and Search */
-.navbar__items--right {
-  gap: var(--ory-navbar-right-gap);
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-/* Search input styling */
-.navbar .DocSearch-Button,
-.navbar__items--right .DocSearch-Button,
-.DocSearch-Button {
-  width: var(--ory-search-width) !important;
-  max-width: var(--ory-search-width) !important;
+/* Search input styling (navbar only) */
+.navbar .DocSearch-Button {
+  width: 100% !important;
+  max-width: 100% !important;
   height: auto !important;
   min-height: 32px !important;
   border: 1px solid var(--ory-navbar-border) !important;
@@ -735,44 +623,32 @@ h2.ory-section-heading {
   padding-right: 12px !important;
   display: flex !important;
   align-items: center !important;
+  justify-content: space-between !important;
   gap: 0 !important;
   flex-shrink: 0 !important;
   margin: 0 !important;
 }
 
-.navbar .DocSearch-Button-Placeholder,
-.navbar__items--right .DocSearch-Button-Placeholder {
+.navbar .DocSearch-Button-Container {
+  min-width: 0 !important;
+}
+
+.navbar .DocSearch-Button-Placeholder {
   color: #64748b !important;
   font-size: 16px !important;
   font-family: Inter, sans-serif !important;
   font-weight: 400 !important;
   padding: 8px !important;
   flex: 1 0 0 !important;
+  min-width: 0 !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
 }
 
-/* Override search placeholder text - hide original and show new */
-.navbar .DocSearch-Button-Placeholder,
-.navbar__items--right .DocSearch-Button-Placeholder {
-  font-size: 0 !important;
-}
-
-.navbar .DocSearch-Button-Placeholder::after,
-.navbar__items--right .DocSearch-Button-Placeholder::after {
-  content: "Search or ask AI ✨" !important;
-  font-size: 16px !important;
-  font-family: Inter, sans-serif !important;
-  font-weight: 400 !important;
-  color: #64748b !important;
-}
-
 /* Search icon wrapper - DocSearch uses SVG */
 .navbar .DocSearch-Button .DocSearch-Search-Icon,
-.navbar__items--right .DocSearch-Button .DocSearch-Search-Icon,
-.navbar .DocSearch-Button svg,
-.navbar__items--right .DocSearch-Button svg {
+.navbar .DocSearch-Button svg {
   padding: 8px !important;
   flex-shrink: 0 !important;
   width: 16px !important;
@@ -784,11 +660,7 @@ h2.ory-section-heading {
 /* ⌘K keyboard shortcut badge */
 /* Container for keyboard keys */
 .navbar .DocSearch-Button-Key,
-.navbar__items--right .DocSearch-Button-Key,
-.navbar .DocSearch-Button-Keys,
-.navbar__items--right .DocSearch-Button-Keys,
-.DocSearch-Button-Key,
-.DocSearch-Button-Keys {
+.navbar .DocSearch-Button-Keys {
   background: #e2e8f0 !important;
   color: #64748b !important;
   border-radius: 6px !important;
@@ -804,19 +676,19 @@ h2.ory-section-heading {
   font-size: 12px !important;
   font-weight: 500 !important;
   line-height: 1.25 !important;
-  margin-left: auto !important;
+  margin-left: 0 !important;
   gap: 2px !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
 
+.navbar .DocSearch-Button-Keys {
+  flex-shrink: 0 !important;
+}
+
 /* All text content inside keyboard badge - ensure visibility */
 .navbar .DocSearch-Button-Key *,
-.navbar__items--right .DocSearch-Button-Key *,
-.navbar .DocSearch-Button-Keys *,
-.navbar__items--right .DocSearch-Button-Keys *,
-.DocSearch-Button-Key *,
-.DocSearch-Button-Keys * {
+.navbar .DocSearch-Button-Keys * {
   color: #64748b !important;
   opacity: 1 !important;
   visibility: visible !important;
@@ -824,15 +696,9 @@ h2.ory-section-heading {
 
 /* Individual key elements (kbd tags) inside the badge */
 .navbar .DocSearch-Button-Key kbd,
-.navbar__items--right .DocSearch-Button-Key kbd,
 .navbar .DocSearch-Button-Keys kbd,
-.navbar__items--right .DocSearch-Button-Keys kbd,
-.DocSearch-Button-Key kbd,
-.DocSearch-Button-Keys kbd,
 .navbar .DocSearch-Button-Key > kbd,
-.navbar__items--right .DocSearch-Button-Key > kbd,
-.navbar .DocSearch-Button-Keys > kbd,
-.navbar__items--right .DocSearch-Button-Keys > kbd {
+.navbar .DocSearch-Button-Keys > kbd {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -852,15 +718,9 @@ h2.ory-section-heading {
 
 /* Text/span elements inside the keyboard badge */
 .navbar .DocSearch-Button-Key span,
-.navbar__items--right .DocSearch-Button-Key span,
 .navbar .DocSearch-Button-Keys span,
-.navbar__items--right .DocSearch-Button-Keys span,
-.DocSearch-Button-Key span,
-.DocSearch-Button-Keys span,
 .navbar .DocSearch-Button-Key > span,
-.navbar__items--right .DocSearch-Button-Key > span,
-.navbar .DocSearch-Button-Keys > span,
-.navbar__items--right .DocSearch-Button-Keys > span {
+.navbar .DocSearch-Button-Keys > span {
   font-family: Inter, sans-serif !important;
   font-size: 12px !important;
   font-weight: 500 !important;
@@ -873,9 +733,7 @@ h2.ory-section-heading {
 
 /* Direct text content and any other elements */
 .navbar .DocSearch-Button-Key,
-.navbar__items--right .DocSearch-Button-Key,
-.navbar .DocSearch-Button-Keys,
-.navbar__items--right .DocSearch-Button-Keys {
+.navbar .DocSearch-Button-Keys {
   text-align: center !important;
   white-space: nowrap !important;
   color: #64748b !important;
@@ -883,9 +741,7 @@ h2.ory-section-heading {
 
 /* Ensure text nodes are visible */
 .navbar .DocSearch-Button-Key::before,
-.navbar__items--right .DocSearch-Button-Key::before,
-.navbar .DocSearch-Button-Keys::before,
-.navbar__items--right .DocSearch-Button-Keys::before {
+.navbar .DocSearch-Button-Keys::before {
   display: none !important;
 }
 
