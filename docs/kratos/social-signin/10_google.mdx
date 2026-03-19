@@ -233,6 +233,18 @@ The parameters can be passed along to Ory on `login`, `registration` and `settin
 See the [Advanced Integration](../bring-your-own-ui/custom-ui-advanced-integration#upstream-provider-parameters) document for more
 information on passing parameters from your UI to Ory.
 
+### Account linking
+
+Google supports [automatic account linking](./link-multiple-provider-account#automatic-account-linking-for-google-and-apple). When
+enabled, users who sign in with a Google consumer account (`gmail.com`) that shares a verified email with an existing identity are
+automatically linked without additional verification.
+
+Automatic account linking is not available for Google Workspace accounts because expired domains can be re-registered by an
+attacker.
+
+To enable automatic account linking, set `account_linking_mode` to `automatic` in the provider configuration. Read the
+[account linking documentation](./link-multiple-provider-account#enable-automatic-account-linking) for setup instructions.
+
 ## Using the Google SDK on native apps
 
 Google provides a more integrated UX for native apps using the
