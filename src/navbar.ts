@@ -8,7 +8,7 @@ export const navbar: Navbar = {
   logo: {
     alt: "Ory",
     src: `/docs/img/logos/ory-logo.svg`,
-    srcDark: `/docs/img/logos/ory-logo.svg`,
+    srcDark: `/docs/img/logos/ory-logo-dark.svg`,
     href: `https://www.ory.com`,
     width: 44,
     height: 16,

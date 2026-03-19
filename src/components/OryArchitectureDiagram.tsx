@@ -58,12 +58,12 @@ function OryProductNode({
     <div
       style={{
         background: bgColor,
-        border: `1px solid ${selected ? "#0ea5e9" : "#94a3b8"}`,
+        border: `1px solid ${selected ? "var(--ory-info-primary)" : "var(--ory-border-primary)"}`,
         borderRadius: 8,
         padding: "10px 14px",
         minWidth: 140,
         position: "relative",
-        boxShadow: selected ? "0 0 0 2px #0ea5e9" : undefined,
+        boxShadow: selected ? "0 0 0 2px var(--ory-info-primary)" : undefined,
       }}
     >
       <div
@@ -89,7 +89,7 @@ function OryProductNode({
         <div
           style={{
             fontSize: 11,
-            color: "#475569",
+            color: "var(--ory-text-tertiary)",
             paddingLeft: 14,
             whiteSpace: "pre-line",
           }}
@@ -204,13 +204,13 @@ function PlainNode({
   return (
     <div
       style={{
-        background: "#f1f5f9",
-        border: `1px solid ${selected ? "#0ea5e9" : "#94a3b8"}`,
+        background: "var(--ory-bg-secondary)",
+        border: `1px solid ${selected ? "var(--ory-info-primary)" : "var(--ory-border-primary)"}`,
         borderRadius: 8,
         padding: "10px 14px",
         minWidth: 120,
         fontSize: 12,
-        boxShadow: selected ? "0 0 0 2px #0ea5e9" : undefined,
+        boxShadow: selected ? "0 0 0 2px var(--ory-info-primary)" : undefined,
       }}
     >
       {(data?.label ?? "").split(/\r?\n/).map((line, i) => (
@@ -318,10 +318,13 @@ function LabeledSmoothStepEdge({
         labelY={labelY}
         labelStyle={{
           fontSize: 10,
-          fill: "#334155",
+          fill: "var(--ory-text-secondary)",
           fontWeight: 500,
         }}
-        labelBgStyle={{ fill: "#fff", stroke: "#e2e8f0" }}
+        labelBgStyle={{
+          fill: "var(--ory-bg-primary)",
+          stroke: "var(--ory-border-primary)",
+        }}
         labelBgBorderRadius={4}
         labelBgPadding={[4, 6] as [number, number]}
       />
@@ -361,6 +364,97 @@ function FitViewOnChange({
     return () => clearTimeout(id)
   }, [selectedProducts, fitView])
   return null
+}
+
+// TODO: replace with icons from design system
+const svgProps = {
+  width: 16,
+  height: 16,
+  viewBox: "0 0 24 24" as const,
+  fill: "none" as const,
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
+}
+
+function DiagramControls({
+  hideZoomFit,
+  toggleFullscreen,
+  isFullscreen,
+}: {
+  hideZoomFit: boolean
+  toggleFullscreen: () => void
+  isFullscreen: boolean
+}) {
+  const { zoomIn, zoomOut, fitView } = useReactFlow()
+  const handleFitView = useCallback(
+    () => fitView({ padding: 40, duration: 200, minZoom: 1 }),
+    [fitView],
+  )
+  return (
+    <Controls
+      position="bottom-left"
+      className={`ory-architecture-controls${hideZoomFit ? " ory-architecture-controls--compact" : ""}`}
+      showZoom={false}
+      showFitView={false}
+      showInteractive={false}
+      orientation="horizontal"
+    >
+      {!hideZoomFit && (
+        <>
+          <ControlButton
+            onClick={() => zoomIn()}
+            title="Zoom in"
+            aria-label="Zoom in"
+          >
+            <svg {...svgProps}>
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+              <path d="M11 8v6" />
+              <path d="M8 11h6" />
+            </svg>
+          </ControlButton>
+          <ControlButton
+            onClick={() => zoomOut()}
+            title="Zoom out"
+            aria-label="Zoom out"
+          >
+            <svg {...svgProps}>
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+              <path d="M8 11h6" />
+            </svg>
+          </ControlButton>
+          <ControlButton
+            onClick={handleFitView}
+            title="Fit view"
+            aria-label="Fit view"
+          >
+            <svg {...svgProps}>
+              <circle cx="12" cy="12" r="10" />
+              <circle cx="12" cy="12" r="3" fill="currentColor" />
+            </svg>
+          </ControlButton>
+        </>
+      )}
+      <ControlButton
+        onClick={toggleFullscreen}
+        title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+        aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
+      >
+        {isFullscreen ? (
+          <svg {...svgProps}>
+            <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" />
+          </svg>
+        ) : (
+          <svg {...svgProps}>
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+          </svg>
+        )}
+      </ControlButton>
+    </Controls>
+  )
 }
 
 export default function OryArchitectureDiagram({
@@ -418,6 +512,15 @@ export default function OryArchitectureDiagram({
   const containerRef = useRef<HTMLDivElement>(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
 
+  const [hideZoomFit, setHideZoomFit] = useState(false)
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 996px)")
+    const handler = () => setHideZoomFit(mql.matches)
+    handler()
+    mql.addEventListener("change", handler)
+    return () => mql.removeEventListener("change", handler)
+  }, [])
+
   const toggleFullscreen = useCallback(() => {
     const el = containerRef.current
     if (!el) return
@@ -437,6 +540,7 @@ export default function OryArchitectureDiagram({
   return (
     <div
       ref={containerRef}
+      className="ory-architecture-diagram"
       style={{ height: 560, width: "100%", minWidth: 320 }}
     >
       <ReactFlow
@@ -455,45 +559,14 @@ export default function OryArchitectureDiagram({
         fitView
         fitViewOptions={{ padding: 40, minZoom: 1 }}
         connectOnClick={false}
-        style={{ background: "#f8fafc" }}
+        style={{ background: "var(--ory-bg-secondary)" }}
       >
         <FitViewOnChange selectedProducts={selectedProducts} />
-        <Controls position="bottom-left" showZoom showFitView showInteractive>
-          <ControlButton
-            onClick={toggleFullscreen}
-            title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
-            aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
-          >
-            {isFullscreen ? (
-              // TODO: Add a proper icon for fullscreen exit
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" />
-              </svg>
-            ) : (
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
-              </svg>
-            )}
-          </ControlButton>
-        </Controls>
+        <DiagramControls
+          hideZoomFit={hideZoomFit}
+          toggleFullscreen={toggleFullscreen}
+          isFullscreen={isFullscreen}
+        />
       </ReactFlow>
     </div>
   )

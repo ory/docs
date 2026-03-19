@@ -7,15 +7,16 @@ export function StartHeading() {
 
   return (
     <section
-      className="pt-ory-16 pb-0 bg-ory-bg-secondary"
-      style={{
-        backgroundImage: `url(${backgroundPattern})`,
-        backgroundSize: "100% auto",
-        backgroundPosition: "top left",
-        backgroundRepeat: "repeat",
-      }}
+      className="pt-ory-16 pb-0 bg-ory-bg-secondary relative overflow-hidden"
     >
-      <div className="max-w-[1024px] mx-auto w-full px-4 lg:px-8">
+      {/* Vector grid background (filtered for dark mode) */}
+      <div
+        aria-hidden
+        className="ory-home-hero-grid"
+        style={{ backgroundImage: `url(${backgroundPattern})` }}
+      />
+
+      <div className="relative z-10 max-w-[1024px] mx-auto w-full px-4 lg:px-8">
         <div className="flex flex-col xl:flex-row xl:items-center gap-ory-6 mb-ory-6">
           <div className="min-w-0 flex flex-col gap-ory-6 xl:flex-1">
             <h1 className="ory-heading-1 text-[40px] leading-none lg:text-[48px]">

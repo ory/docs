@@ -57,7 +57,9 @@ export function SelectFrameworkBlock({
             {frameworks.map((lang) => {
               const active = lang.value === selectedFramework
               const LangIcon = lang.Icon
-              const iconStroke = active ? "#2e3081" : "#0f172a"
+              const iconStroke = active
+                ? "var(--ory-brand-on-tertiary)"
+                : "var(--ory-text-primary)"
               return (
                 <button
                   key={lang.value}

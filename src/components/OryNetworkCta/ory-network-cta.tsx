@@ -25,7 +25,7 @@ export const OryNetworkCta = () => {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="ory-network-cta mt-4 flex flex-shrink-0 flex-col rounded-xl bg-white p-6 shadow-md no-underline transition-shadow hover:shadow-lg xl:flex"
+      className="ory-network-cta mt-4 flex flex-shrink-0 flex-col rounded-xl bg-ory-bg-secondary border border-ory-border-primary p-6 shadow-md no-underline transition-shadow hover:shadow-lg xl:flex"
     >
       <img src={imageSrc} alt="" className="mb-4 w-full object-contain" />
       <div className="flex flex-col gap-4">
@@ -36,7 +36,7 @@ export const OryNetworkCta = () => {
           {description}
         </p>
       </div>
-      <span className="mt-6 inline-flex h-8 w-full items-center justify-center rounded-ory-btn bg-[#6366f1] font-medium text-[#eeeeff]">
+      <span className="mt-6 inline-flex h-8 w-full items-center justify-center rounded-ory-btn bg-ory-border-brand-tertiary font-medium text-white">
         {ctaLabel}
       </span>
     </a>

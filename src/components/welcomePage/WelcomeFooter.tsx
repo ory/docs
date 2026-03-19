@@ -8,7 +8,7 @@ export function WelcomeFooter() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-ory-border-primary pt-ory-6 pb-ory-6 bg-[#f6f7f9]">
+    <footer className="border-t border-ory-border-primary pt-ory-6 pb-ory-6 bg-ory-bg-secondary">
       <div className="max-w-[1024px] mx-auto px-6 w-full">
         <div className="flex flex-wrap items-center justify-between gap-ory-4">
           <div className="flex flex-wrap items-center gap-ory-2 ory-body-xs text-ory-text-tertiary">

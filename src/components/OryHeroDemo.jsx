@@ -117,7 +117,7 @@ const OryHeroDemo = () => {
         {`@keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }`}
       </style>
 
-      <div className="w-full h-[368px] overflow-hidden bg-white border border-ory-border-primary rounded-[8px] shadow-[0_4px_32px_0_var(--ory-bg-brand-tertiary,_#E0E1FF)] flex flex-col">
+      <div className="w-full h-[368px] overflow-hidden bg-ory-bg-primary border border-ory-border-primary rounded-[8px] shadow-[0_4px_32px_0_var(--ory-bg-brand-tertiary,_#E0E1FF)] flex flex-col">
         <div className="h-12 px-4 flex items-center gap-2 bg-ory-bg-secondary border-b border-ory-border-primary">
           <div className="w-[52px] h-3 flex items-center gap-[6px]">
             <div className="w-3 h-3 rounded-full bg-[var(--background-danger-secondary)]" />
@@ -131,13 +131,13 @@ const OryHeroDemo = () => {
 
         <div
           ref={terminalRef}
-          className="p-4 font-mono text-[13px] text-ory-text-primary bg-white leading-[1.6] overflow-y-auto flex-1 min-h-0"
+          className="p-4 font-mono text-[13px] text-ory-text-primary bg-ory-bg-primary leading-[1.6] overflow-y-auto flex-1 min-h-0"
         >
           {lines.map((line, i) => (
             <div key={i} className="mb-1 flex items-start">
               {line.type === "line" && (
                 <>
-                  <span className="text-[#94a3b8] mr-3 tabular-nums">
+                  <span className="text-ory-text-tertiary mr-3 tabular-nums">
                     {line.number}
                   </span>
                   <span className="text-ory-text-tertiary mr-2">$</span>
@@ -184,7 +184,7 @@ const OryHeroDemo = () => {
                     href={line.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center h-8 px-4 bg-white text-ory-text-primary text-[13px] font-semibold rounded-ory-btn no-underline border border-ory-border-primary shadow-[0_1px_2px_rgba(15,23,42,0.12)] hover:bg-ory-bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ory-border-brand-tertiary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                    className="inline-flex items-center h-8 px-4 bg-ory-bg-primary text-ory-text-primary text-[13px] font-semibold rounded-ory-btn no-underline border border-ory-border-primary shadow-[0_1px_2px_rgba(15,23,42,0.12)] hover:bg-ory-bg-secondary focus:outline-none focus-visible:ring-2 focus-visible:ring-ory-border-brand-tertiary focus-visible:ring-offset-2 focus-visible:ring-offset-ory-bg-primary"
                   >
                     {line.text}
                   </a>
@@ -201,8 +201,8 @@ const OryHeroDemo = () => {
           )}
         </div>
 
-        <div className="px-4 py-3 bg-[#f1f5f9] border-t border-ory-border-primary flex items-center justify-between gap-2">
-          <span className="text-[#94a3b8] text-[13px] font-sans font-normal">
+        <div className="px-4 py-3 bg-ory-bg-secondary border-t border-ory-border-primary flex items-center justify-between gap-2">
+          <span className="text-ory-text-tertiary text-[13px] font-sans font-normal">
             From zero to registered user in minutes
           </span>
           <button
@@ -210,8 +210,8 @@ const OryHeroDemo = () => {
             disabled={isRunning}
             className={
               isRunning
-                ? "h-8 px-4 text-[13px] font-semibold inline-flex items-center gap-1.5 border border-transparent bg-ory-bg-tertiary text-[#94a3b8] cursor-not-allowed rounded-ory-btn"
-                : "h-8 px-4 text-[13px] font-semibold inline-flex items-center gap-1.5 border border-ory-bg-dark bg-ory-bg-dark text-white rounded-ory-btn cursor-pointer"
+                ? "h-8 px-4 text-[13px] font-semibold inline-flex items-center gap-1.5 border border-transparent bg-ory-bg-tertiary text-ory-text-tertiary cursor-not-allowed rounded-ory-btn"
+                : "h-8 px-4 text-[13px] font-semibold inline-flex items-center gap-1.5 border border-ory-bg-dark bg-ory-bg-dark text-ory-text-primary rounded-ory-btn cursor-pointer"
             }
           >
             Run

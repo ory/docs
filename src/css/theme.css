@@ -130,29 +130,6 @@ h3.ory-heading-3,
   font-weight: 500;
 }
 
-/* Step badge (e.g. deployment section step circles) */
-.ory-step-badge {
-  position: absolute;
-  left: -43.5px;
-  top: 0;
-  width: 24px;
-  height: 24px;
-  background: var(--background-inverted-primary, #0f172a);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ory-step-badge__number {
-  font-family: var(--ory-font);
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--text-inverted-primary, #ffffff);
-  text-align: center;
-}
-
 .ory-link {
   display: inline-flex;
   gap: 4px;
@@ -546,6 +523,9 @@ h2.ory-section-heading {
   --ory-bg-brand-tertiary: #e0e1ff;
   --ory-bg-secondary: #f8fafc;
   --ory-bg-secondary-hover: #e2e8f0;
+  --background-default-secondary: #f8fafc;
+  --background-default-secondary-hover: #e2e8f0;
+  --ifm-pre-background: var(--background-default-secondary);
   --ory-bg-tertiary: #e2e8f0;
   --ory-bg-dark: #0f172a;
   --ory-border-primary: #cbd5e1;
@@ -610,7 +590,7 @@ h2.ory-section-heading {
   height: auto !important;
   min-height: 32px !important;
   border: 1px solid var(--ory-navbar-border) !important;
-  background: #fff !important;
+  background: var(--ory-navbar-bg) !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   color: var(--ory-navbar-text) !important;
@@ -634,7 +614,7 @@ h2.ory-section-heading {
 }
 
 .navbar .DocSearch-Button-Placeholder {
-  color: #64748b !important;
+  color: var(--ory-text-tertiary) !important;
   font-size: 16px !important;
   font-family: Inter, sans-serif !important;
   font-weight: 400 !important;
@@ -661,8 +641,8 @@ h2.ory-section-heading {
 /* Container for keyboard keys */
 .navbar .DocSearch-Button-Key,
 .navbar .DocSearch-Button-Keys {
-  background: #e2e8f0 !important;
-  color: #64748b !important;
+  background: var(--ory-bg-tertiary) !important;
+  color: var(--ory-text-tertiary) !important;
   border-radius: 6px !important;
   box-shadow: none !important;
   border: none !important;
@@ -689,7 +669,7 @@ h2.ory-section-heading {
 /* All text content inside keyboard badge - ensure visibility */
 .navbar .DocSearch-Button-Key *,
 .navbar .DocSearch-Button-Keys * {
-  color: #64748b !important;
+  color: var(--ory-text-tertiary) !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
@@ -708,7 +688,7 @@ h2.ory-section-heading {
   font-size: 12px !important;
   font-weight: 500 !important;
   line-height: 1.25 !important;
-  color: #64748b !important;
+  color: var(--ory-text-tertiary) !important;
   min-width: auto !important;
   height: auto !important;
   display: inline !important;
@@ -725,7 +705,7 @@ h2.ory-section-heading {
   font-size: 12px !important;
   font-weight: 500 !important;
   line-height: 1.25 !important;
-  color: #64748b !important;
+  color: var(--ory-text-tertiary) !important;
   display: inline !important;
   opacity: 1 !important;
   visibility: visible !important;
@@ -736,7 +716,7 @@ h2.ory-section-heading {
 .navbar .DocSearch-Button-Keys {
   text-align: center !important;
   white-space: nowrap !important;
-  color: #64748b !important;
+  color: var(--ory-text-tertiary) !important;
 }
 
 /* Ensure text nodes are visible */
@@ -752,11 +732,118 @@ h2.ory-section-heading {
   }
 }
 /* If you have a different syntax highlighting theme for dark mode. */
-[data-theme="dark"] {
+html[data-theme="dark"],
+:root[data-theme="dark"] {
   /* Color which works with dark mode syntax highlighting theme */
   --docusaurus-highlighted-code-line-bg: rgba(66, 66, 66, 0.35);
-  --ifm-color-primary: #7986cb; /* Indigo 300 */
-  --ifm-heading-color: #7986cb; /* Indigo 300 - Color used for headings in text */
+
+  /*
+    Dark theme tokens (-dark suffix).
+    Semantic vars below reference these.
+  */
+  --background-default-secondary-dark: #020617;
+  --border-info-tertiary-dark: #0284c7;
+  --background-info-tertiary-dark: #082f49;
+  --background-default-primary-dark: #0f172a;
+  --text-inverted-primary-dark: #0f172a;
+  --background-success-secondary-dark: #166534;
+  --icon-success-tertiary-dark: #16a34a;
+  --background-brand-tertiary-dark: #1b1c4b;
+  --background-default-tertiary-dark: #1e293b;
+  --background-default-secondary-hover-dark: #1e293b;
+  --border-default-primary-dark: #334155;
+  --text-brand-tertiary-dark: #4649e5;
+  --background-warning-secondary-dark: #92400e;
+  --text-default-tertiary-dark: #94a3b8;
+  --background-danger-secondary-dark: #991b1b;
+  --text-brand-primary-dark: #a5a7fc;
+  --icon-brand-primary-dark: #a5a7fc;
+  --background-default-secondary: var(--background-default-secondary-dark);
+  --background-default-secondary-hover: var(
+    --background-default-secondary-hover-dark
+  );
+  --ifm-pre-background: var(--background-default-secondary);
+
+  /* Global Docusaurus/Infima dark vars */
+  --ifm-color-scheme: dark;
+  --ifm-background-color: var(--background-default-primary-dark);
+  --ifm-background-surface-color: var(--background-default-secondary-dark);
+  --ifm-hover-overlay: rgba(255, 255, 255, 0.06);
+  --ifm-color-content: #ffffff;
+  --ifm-color-content-secondary: var(--text-default-tertiary-dark);
+  --ifm-color-emphasis-0: #ffffff;
+  --ifm-color-emphasis-100: #ffffff;
+  --ifm-color-emphasis-200: var(--border-default-primary-dark);
+  --ifm-color-emphasis-300: #cbd5e1;
+  --ifm-color-emphasis-400: #94a3b8;
+  --ifm-color-emphasis-500: var(--text-default-tertiary-dark);
+  --ifm-color-emphasis-600: var(--text-default-tertiary-dark);
+  --ifm-color-emphasis-700: #64748b;
+  --ifm-color-emphasis-800: #475569;
+  --ifm-color-emphasis-900: #334155;
+  --ifm-color-emphasis-1000: #1e293b;
+  --ifm-color-primary: var(--text-brand-primary-dark);
+  --ifm-heading-color: var(--text-brand-primary-dark);
+
+  /* Tailwind token vars (reference -dark tokens) */
+  --color-ory-text-primary: #ffffff;
+  --color-ory-text-secondary: var(--text-default-tertiary-dark);
+  --color-ory-text-tertiary: var(--text-default-tertiary-dark);
+  --color-ory-brand-primary: var(--text-brand-primary-dark);
+  --color-ory-brand-on-tertiary: var(--text-brand-tertiary-dark);
+
+  --color-ory-bg-primary: var(--background-default-primary-dark);
+  --color-ory-bg-secondary: var(--background-default-secondary);
+  --color-ory-bg-secondary-hover: var(--background-default-secondary-hover);
+  --color-ory-bg-dark: var(--background-default-primary-dark);
+  --color-ory-bg-tertiary: var(--background-default-tertiary-dark);
+  --color-ory-bg-brand-tertiary: var(--background-brand-tertiary-dark);
+
+  --color-ory-border-primary: var(--border-default-primary-dark);
+  --color-ory-border-brand-tertiary: var(--text-brand-tertiary-dark);
+
+  --color-ory-info-primary: #0ea5e9;
+  --color-ory-info-tertiary: var(--background-info-tertiary-dark);
+  --color-ory-info-on-tertiary: #0c4a6e;
+  --color-ory-border-info-tertiary: var(--border-info-tertiary-dark);
+
+  /* Semantic alias vars */
+  --ory-text-primary: #ffffff;
+  --ory-text-secondary: var(--text-default-tertiary-dark);
+  --ory-text-tertiary: var(--text-default-tertiary-dark);
+  --ory-brand-primary: var(--text-brand-primary-dark);
+  --ory-brand-on-tertiary: var(--text-brand-tertiary-dark);
+
+  --ory-bg-primary: var(--background-default-primary-dark);
+  --ory-bg-secondary: var(--background-default-secondary);
+  --ory-bg-secondary-hover: var(--background-default-secondary-hover);
+  --ory-bg-dark: var(--background-default-primary-dark);
+  --ory-bg-tertiary: var(--background-default-tertiary-dark);
+
+  --ory-border-primary: var(--border-default-primary-dark);
+  --ory-border-brand-tertiary: var(--text-brand-tertiary-dark);
+  --ory-border-info-tertiary: var(--border-info-tertiary-dark);
+  --ory-info-primary: #0ea5e9;
+  --ory-info-tertiary: var(--background-info-tertiary-dark);
+  --ory-info-on-tertiary: #0c4a6e;
+
+  /* Navbar/button facing colors */
+  --ory-navbar-bg: var(--background-default-primary-dark);
+  --ory-navbar-border: var(--border-default-primary-dark);
+  --ory-navbar-text: #ffffff;
+  --ory-navbar-link: #ffffff;
+  --ory-navbar-link-hover: var(--text-brand-primary-dark);
+
+  --button-primary-bg: var(--background-default-primary-dark);
+  --button-primary-text: #ffffff;
+
+  --background-inverted-primary: var(--background-default-secondary-dark);
+  --border-inverted-primary: var(--background-default-secondary-dark);
+  --text-inverted-primary: var(--text-inverted-primary-dark);
+
+  --background-success-secondary: var(--background-success-secondary-dark);
+  --background-warning-secondary: var(--background-warning-secondary-dark);
+  --background-danger-secondary: var(--background-danger-secondary-dark);
 }
 
 .markdown figure {
@@ -775,6 +862,49 @@ svg[class*="iconExternalLink"] {
 
 .command-line span.token.output {
   user-select: none;
+}
+
+/* Home page hero grid (vector background) */
+.ory-home-hero-grid {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  background-position: top left;
+  background-size: 100% auto;
+  z-index: 0;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .ory-home-hero-grid {
+  /* SVG is authored for light backgrounds; invert and tone down in dark mode. */
+  filter: invert(1) brightness(0.7) contrast(1.1);
+  opacity: 0.35;
+}
+
+/* Architecture diagram zoom/fit controls – theme tokens, nudge up so all buttons visible */
+.ory-architecture-diagram .ory-architecture-controls {
+  bottom: 94px !important;
+  left: 12px;
+  background: var(--ory-bg-primary) !important;
+  border: 1px solid var(--ory-border-primary) !important;
+  border-radius: var(--ory-radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.ory-architecture-diagram .ory-architecture-controls button {
+  background: var(--ory-bg-primary) !important;
+  color: var(--ory-text-primary) !important;
+  border-color: var(--ory-border-primary) !important;
+}
+
+.ory-architecture-diagram .ory-architecture-controls button:hover {
+  background: var(--ory-bg-secondary) !important;
+  color: var(--ory-text-primary) !important;
+}
+
+.ory-architecture-diagram .ory-architecture-controls button svg {
+  fill: none;
+  stroke: currentColor;
 }
 
 .code-block-delete-line {
@@ -892,6 +1022,14 @@ svg[class*="iconExternalLink"] {
 .theme-doc-sidebar-item-link .menu__link--active {
   background-color: transparent !important;
   font-weight: 500;
+}
+
+/* Desktop docs sidebar background */
+@media (min-width: 997px) {
+  .theme-doc-sidebar-container,
+  [class*="docSidebarContainer_"] {
+    background: var(--background-default-secondary);
+  }
 }
 
 .theme-doc-sidebar-item-link:not(:first-child),
@@ -1089,7 +1227,7 @@ button.sidebar-deployment-model__link {
 [data-theme="dark"]
   .theme-doc-sidebar-item-category
   .menu__list-item-collapsible:hover {
-  background-color: rgba(255, 255, 255, 0.06) !important;
+  background-color: var(--ifm-hover-overlay) !important;
 }
 
 .sidebar-deployment-model__separator {
@@ -1161,7 +1299,7 @@ button.sidebar-deployment-model__link {
   transform-origin: center center !important;
 }
 
-/* Code sample tabs styling for welcome page */
+/* Code sample tabs: use theme tokens so dark mode applies seamlessly */
 .tabs-container[data-group-id="language-quickstarts"] .tabs {
   display: flex;
   gap: 0;
@@ -1170,8 +1308,8 @@ button.sidebar-deployment-model__link {
 }
 
 .tabs-container[data-group-id="language-quickstarts"] .tabs__item {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
+  background: var(--ory-bg-primary);
+  border: 1px solid var(--ory-border-primary);
   border-right: none;
   border-radius: 0;
   padding: 10px 16px;
@@ -1182,38 +1320,35 @@ button.sidebar-deployment-model__link {
   font-size: 14px;
   font-weight: 400;
   line-height: 1;
-  color: #0f172a;
+  color: var(--ory-text-primary);
   cursor: pointer;
   transition: none;
   border-bottom: 3px solid transparent;
 }
 
 .tabs-container[data-group-id="language-quickstarts"] .tabs__item:last-child {
-  border-right: 1px solid #cbd5e1;
+  border-right: 1px solid var(--ory-border-primary);
 }
 
 .tabs-container[data-group-id="language-quickstarts"] .tabs__item:hover {
-  background-color: #ffffff;
+  background-color: var(--ory-bg-primary);
 }
 
-.tabs-container[data-group-id="language-quickstarts"] .tabs__item--active {
-  background: #e0e1ff;
-  border-color: #6366f1;
-  border-right: 1px solid #6366f1;
-  color: #2e3081;
-  border-bottom-color: #6366f1;
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item--active,
+.tabs-container[data-group-id="language-quickstarts"]
+  .tabs__item--active:hover {
+  background: var(--ory-bg-brand-tertiary);
+  border-color: var(--ory-border-brand-tertiary);
+  border-right-color: var(--ory-border-brand-tertiary);
+  color: var(--ory-brand-on-tertiary);
+  border-bottom-color: var(--ory-border-brand-tertiary);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   z-index: 1;
   position: relative;
 }
 
-.tabs-container[data-group-id="language-quickstarts"]
-  .tabs__item--active:hover {
-  background-color: #e0e1ff;
-}
-
-/* Override CodeBlock background in code sample tabs */
+/* Code zone = background/default/primary via theme tokens */
 .tabs-container[data-group-id="language-quickstarts"]
   ~ *
   [class*="theme-code-block"],
@@ -1221,7 +1356,7 @@ button.sidebar-deployment-model__link {
   [class*="theme-code-block"],
 .tabs-container[data-group-id="language-quickstarts"] pre,
 .tabs-container[data-group-id="language-quickstarts"] code {
-  background: #ffffff !important;
+  background: var(--ory-bg-primary) !important;
   border: none !important;
 }
 
@@ -1229,7 +1364,7 @@ button.sidebar-deployment-model__link {
   .tabs__item
   > div
   > div:last-child {
-  background: #ffffff !important;
+  background: var(--ory-bg-primary) !important;
   border: none !important;
 }
 
@@ -1259,12 +1394,7 @@ button.sidebar-deployment-model__link {
   border: none !important;
 }
 
-/* Override Docusaurus styles for code sample body in framework selection section */
-.code-sample-body {
-  background: #ffffff !important;
-  border: 1px solid #cbd5e1 !important;
-}
-
+/* Framework selection code snippet: component uses Tailwind (bg-ory-bg-primary, etc.) so theme switches seamlessly; only reset code-block defaults */
 .code-sample-body code {
   background: transparent !important;
   border: none !important;
@@ -1272,7 +1402,6 @@ button.sidebar-deployment-model__link {
   font-family: "JetBrains Mono", monospace !important;
   font-size: 14px !important;
   line-height: 1.65 !important;
-  color: #0f172a !important;
 }
 
 .code-sample-body code span {
@@ -1364,8 +1493,10 @@ button.sidebar-deployment-model__link {
   background-color: var(--icon-oss-tertiary);
 }
 
-/* Generated docs index cards */
-[class*="generatedIndexPage_"] [class*="docCardListItem_"] > .card {
+/* Generated docs index cards (generic selector for plain + hashed card classes) */
+[class*="generatedIndexPage_"]
+  [class*="docCardListItem_"]
+  > :is(.card, [class*="card_"]) {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -1373,7 +1504,6 @@ button.sidebar-deployment-model__link {
   padding: var(--ory-s4) !important;
   border: none;
   border-radius: var(--ory-radius);
-  background: var(--ory-bg-secondary);
   text-decoration: none !important;
   box-shadow: none;
   transition:
@@ -1381,11 +1511,16 @@ button.sidebar-deployment-model__link {
     color 0.2s ease;
 }
 
-[class*="generatedIndexPage_"] [class*="docCardListItem_"] > .card:hover {
-  background: var(--ory-bg-secondary-hover);
+[class*="generatedIndexPage_"]
+  [class*="docCardListItem_"]
+  > :is(.card, [class*="card_"]):hover {
+  background: var(--background-default-secondary-hover);
 }
 
-[class*="generatedIndexPage_"] [class*="docCardListItem_"] > .card h2 {
+[class*="generatedIndexPage_"]
+  [class*="docCardListItem_"]
+  > :is(.card, [class*="card_"])
+  h2 {
   margin: 0;
   font-family: var(--ory-font);
   font-size: 16px;
@@ -1400,7 +1535,10 @@ button.sidebar-deployment-model__link {
   -webkit-box-orient: vertical;
 }
 
-[class*="generatedIndexPage_"] [class*="docCardListItem_"] > .card p {
+[class*="generatedIndexPage_"]
+  [class*="docCardListItem_"]
+  > :is(.card, [class*="card_"])
+  p {
   margin: 0;
   font-family: var(--ory-font);
   font-size: 14px;
@@ -1413,22 +1551,4 @@ button.sidebar-deployment-model__link {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-}
-
-[data-theme="dark"]
-  [class*="generatedIndexPage_"]
-  [class*="docCardListItem_"]
-  > .card {
-  background: var(
-    --ifm-card-background-color,
-    var(--ifm-background-surface-color)
-  );
-  border: none;
-}
-
-[data-theme="dark"]
-  [class*="generatedIndexPage_"]
-  [class*="docCardListItem_"]
-  > .card:hover {
-  background: var(--ifm-hover-overlay);
 }
