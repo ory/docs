@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import Link from "@docusaurus/Link"
 import { StepBadge } from "./StepBadge"
 import OryArchitectureDiagram from "../OryArchitectureDiagram"
@@ -121,9 +121,66 @@ const RESULTS_ORDER: ProductKey[] = [
   "elements",
 ]
 
+const STORAGE_KEY = "ory.solutionDesignStepper"
+
+function loadProgressFromSessionStorage(): {
+  currentStep: number
+  answers: Record<string, "yes" | "no">
+} | null {
+  try {
+    const raw = typeof window !== "undefined" ? window.sessionStorage.getItem(STORAGE_KEY) : null
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as {
+      currentStep?: unknown
+      answers?: unknown
+    }
+
+    const stepIds = new Set(STEPS.map((s) => s.id))
+    const nextAnswers: Record<string, "yes" | "no"> = {}
+    if (parsed.answers && typeof parsed.answers === "object") {
+      for (const [k, v] of Object.entries(
+        parsed.answers as Record<string, unknown>,
+      )) {
+        if (!stepIds.has(k)) continue
+        if (v === "yes" || v === "no") nextAnswers[k] = v
+      }
+    }
+
+    const stepNum =
+      typeof parsed.currentStep === "number" &&
+      Number.isFinite(parsed.currentStep)
+        ? parsed.currentStep
+        : 0
+
+    const clampedStep = Math.max(0, Math.min(STEPS.length, stepNum))
+    return { currentStep: clampedStep, answers: nextAnswers }
+  } catch {
+    return null
+  }
+}
+
 export function SolutionDesignStepper() {
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, "yes" | "no">>({})
+
+  useEffect(() => {
+    const progress = loadProgressFromSessionStorage()
+    if (progress) {
+      setAnswers(progress.answers)
+      setCurrentStep(progress.currentStep)
+    }
+  }, [])
+
+  useEffect(() => {
+    try {
+      window.sessionStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ currentStep, answers }),
+      )
+    } catch {
+      // ignore storage errors (private mode, quota, etc.)
+    }
+  }, [currentStep, answers])
 
   const selectedProducts = useMemo(() => {
     const set = new Set<ProductKey>()
@@ -154,14 +211,6 @@ export function SolutionDesignStepper() {
     setAnswers((prev) => ({ ...prev, [stepId]: value }))
   }
 
-  const clearAnswer = (stepId: string) => {
-    setAnswers((prev) => {
-      const next = { ...prev }
-      delete next[stepId]
-      return next
-    })
-  }
-
   const handleNext = () => {
     if (currentStep < STEPS.length) {
       setCurrentStep(currentStep + 1)
@@ -187,6 +236,11 @@ export function SolutionDesignStepper() {
   const handleReset = () => {
     setCurrentStep(0)
     setAnswers({})
+    try {
+      window.sessionStorage.removeItem(STORAGE_KEY)
+    } catch {
+      // ignore storage errors
+    }
   }
 
   const currentAnswer = currentQuestion
@@ -251,13 +305,9 @@ export function SolutionDesignStepper() {
                         <button
                           key={option.value}
                           type="button"
-                          onClick={() => {
-                            if (selected) {
-                              clearAnswer(currentQuestion.id)
-                            } else {
-                              handleAnswer(currentQuestion.id, option.value)
-                            }
-                          }}
+                          onClick={() =>
+                            handleAnswer(currentQuestion.id, option.value)
+                          }
                           className={`w-full flex items-center text-left bg-ory-bg-primary border rounded-ory-btn py-ory-2 px-ory-4 ory-body-sm cursor-pointer text-ory-text-primary ${selected ? "border-ory-border-brand-tertiary" : "border-ory-border-primary"}`}
                         >
                           {option.label}

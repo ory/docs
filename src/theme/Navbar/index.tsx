@@ -69,7 +69,7 @@ function OryNavbar() {
           />
         </div>
 
-        <div className="h-full flex items-center border-r border-ory-border-primary px-4 xl:hidden">
+        <div className="h-full flex items-center border-r border-ory-border-primary px-4 min-[997px]:hidden">
           {!mobileSidebar.disabled && (
             <button
               onClick={mobileSidebar.toggle}
@@ -94,13 +94,13 @@ function OryNavbar() {
 
         <div className="flex-1 min-w-0 h-full flex items-center gap-2 px-4 lg:px-8">
           {/* Desktop links (Option A) */}
-          <div className="hidden xl:flex min-w-0 items-center gap-2">
+          <div className="hidden min-[997px]:flex min-w-0 items-center gap-2">
             <NavbarItems items={leftItems} />
           </div>
 
           <div className="ml-auto flex items-center gap-2 min-w-0">
             {/* Right-side items from config (e.g. GitHub, Support dropdown) */}
-            <div className="hidden xl:flex items-center gap-2">
+            <div className="hidden min-[997px]:flex items-center gap-2">
               <NavbarItems items={rightItems} />
             </div>
 
