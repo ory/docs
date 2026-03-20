@@ -6594,6 +6594,12 @@
       },
       "normalizedProjectRevisionThirdPartyProvider": {
         "properties": {
+          "account_linking_mode": {
+            "description": "AccountLinkingMode controls how account conflicts are resolved for this provider.\n\nPossible values are `confirm_with_existing_credential` (default) and `automatic`.\n`automatic` silently links accounts when the provider verifies email ownership.\nOnly supported for `apple` and `google` providers.\nautomatic AccountLinkingModeAutomatic  AccountLinkingModeAutomatic silently links accounts if the provider verifies email ownership.\nconfirm_with_existing_credential AccountLinkingModeConfirmWithExistingCredential  AccountLinkingModeConfirmWithExistingCredential requires the user to confirm the account linking by providing an existing credential.",
+            "enum": ["automatic", "confirm_with_existing_credential"],
+            "type": "string",
+            "x-go-enum-desc": "automatic AccountLinkingModeAutomatic  AccountLinkingModeAutomatic silently links accounts if the provider verifies email ownership.\nconfirm_with_existing_credential AccountLinkingModeConfirmWithExistingCredential  AccountLinkingModeConfirmWithExistingCredential requires the user to confirm the account linking by providing an existing credential."
+          },
           "additional_id_token_audiences": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
