@@ -192,6 +192,108 @@ local claims = std.extVar('claims');
 }
 ```
 
+### Update identity on login
+
+By default, the data mapper runs only during registration. If you want to keep identity data in sync with the upstream provider,
+set `update_identity_on_login` to `automatic` on the provider configuration. This re-runs the Jsonnet data mapper on every login
+and updates the identity's traits and metadata when they change.
+
+This is useful when the upstream identity provider is the source of truth for user attributes such as group memberships, roles, or
+profile information that can change over time.
+
+#### Configure in the Ory Console
+
+1. Go to <ConsoleLink route="project.socialSignIn" />.
+2. Select the provider you want to configure.
+3. Open **advanced settings**.
+4. Set **Update identity on login** to **automatic**.
+
+#### Configure via the CLI
+
+```shell
+ory patch identity-config <project-id> \
+  --replace '/selfservice/methods/oidc/config/providers/0/update_identity_on_login="automatic"'
+```
+
+Or set it in the full provider configuration:
+
+```json
+{
+  "selfservice": {
+    "methods": {
+      "oidc": {
+        "config": {
+          "providers": [
+            {
+              "id": "my-provider",
+              "provider": "generic",
+              "update_identity_on_login": "automatic",
+              "mapper_url": "base64://..."
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+#### Access the current identity in the mapper
+
+When `update_identity_on_login` is set to `automatic`, the data mapper receives the current identity as an additional variable
+`std.extVar('identity')`. This lets you write conditional logic — for example, preserving existing trait values or merging data
+selectively.
+
+The `identity` variable contains:
+
+```json5
+{
+  traits: {
+    /* current identity traits */
+  },
+  metadata_public: {
+    /* current public metadata */
+  },
+  metadata_admin: {
+    /* current admin metadata */
+  },
+}
+```
+
+Example: update the user's groups from the provider while preserving an existing display name set by the user:
+
+```jsonnet title="data-mapper.jsonnet"
+local claims = std.extVar('claims');
+local identity = std.extVar('identity');
+
+{
+  identity: {
+    traits: {
+      email: claims.email,
+      // Keep the display name if the user has set one.
+      [if "display_name" in identity.traits && identity.traits.display_name != "" then "display_name"]:
+        identity.traits.display_name,
+      // Always update groups from the provider.
+      [if "groups" in claims.raw_claims then "groups" else null]:
+        claims.raw_claims.groups,
+    },
+    metadata_admin: {
+      [if "office" in claims.raw_claims then "office" else null]:
+        claims.raw_claims.office,
+    },
+  },
+}
+```
+
+#### Behavior details
+
+- **No unnecessary writes.** The identity is only updated in the database when traits or metadata actually changed.
+- **Metadata preservation.** When the mapper omits `metadata_public` or `metadata_admin` from its output, existing values are
+  preserved. When the mapper explicitly outputs `{}`, the field is cleared.
+- **Schema validation.** The updated identity is validated against the identity schema before it is persisted. If the mapper
+  produces invalid traits, the login fails with a validation error.
+- **No credential changes.** Credentials and verified addresses are never modified by this feature.
+
 ### Emails and phone numbers
 
 :::danger
