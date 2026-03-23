@@ -132,7 +132,7 @@
   "out_of": 2163,
   "page": 1,
   "request_params": {
-    "collection_name": "identities-e70f3b9e-f343-40e6-89f1-de24e459722e",
+    "collection_name": "identities",
     "per_page": 5,
     "q": "*"
   },
