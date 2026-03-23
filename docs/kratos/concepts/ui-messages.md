@@ -1458,6 +1458,16 @@
 }
 ```
 
+###### This account has been disabled. Please contact support for assistance. (4010011)
+
+```json
+{
+  "id": 4010011,
+  "text": "This account has been disabled. Please contact support for assistance.",
+  "type": "error"
+}
+```
+
 ###### The registration flow expired 1.00 minutes ago, please try again. (4040001)
 
 ```json

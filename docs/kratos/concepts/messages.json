@@ -813,6 +813,11 @@
     "type": "error"
   },
   {
+    "id": 4010011,
+    "text": "This account has been disabled. Please contact support for assistance.",
+    "type": "error"
+  },
+  {
     "id": 4040001,
     "text": "The registration flow expired 1.00 minutes ago, please try again.",
     "type": "error",
