@@ -1,15 +1,15 @@
 ---
 id: rate-limits-legacy
-title: Legacy Ory Network rate limits
-sidebar_label: Legacy rate limits
+title: Ory Network rate limits - legacy
+sidebar_label: Rate limits - legacy
 ---
 
 :::info
 
-This page describes the legacy rate limit policy, which applies to existing Ory Network customers who haven't been migrated to the
-new rate limit policy yet. If you're a new customer or have already been migrated, see the
-[new rate limits](/docs/guides/rate-limits-new). See [Rate limits](/docs/guides/rate-limits) to learn about both policies and the
-migration plan.
+This page describes the legacy project rate limit policy, which applies to existing Ory Network customers who haven't been
+migrated to the new rate limit policy yet. If you're a new customer or have already been migrated, see the
+[rate limits - new](/docs/guides/rate-limits-new). See [Rate limits](/docs/guides/rate-limits) to learn about both policies and
+the migration plan. Endpoint rate limits have not changed.
 
 :::
 
@@ -21,9 +21,9 @@ usage for all our customers.
 
 Ory implements two main rate limit types:
 
-- Project rate limits: Based on your subscription plan and environment (Production, Staging, or Development). These control the
-  overall request volume your projects can make to Ory's APIs.
-- 2Endpoint-based rate limits: Additional security controls that protect specific endpoints against attacks like brute-force,
+- **Project rate limits**: Based on your subscription plan and environment (Production, Staging, or Development). These control
+  the overall request volume your projects can make to Ory's APIs.
+- **Endpoint-based rate limits**: Additional security controls that protect specific endpoints against attacks like brute-force,
   credential stuffing, and concurrent request abuse, regardless of your project limits.
 
 ## Project rate limits in workspaces
@@ -36,9 +36,9 @@ Network across different usage scenarios.
 
 Rate limits for each project are determined by two main factors:
 
-- Workspace subscription: Your subscription plan (Developer, Production, Growth, or Enterprise) sets the baseline for your rate
+- Workspace subscription—Your subscription plan (Developer, Production, Growth, or Enterprise) sets the baseline for your rate
   limits.
-- Project environment: Within each workspace, projects can be assigned to Production, Staging, or Development environments, each
+- Project environment—Within each workspace, projects can be assigned to Production, Staging, or Development environments, each
   with specific rate limit configurations.
 
 For a detailed explanation of workspaces and environments, see our [Workspaces and environments guide](/docs/guides/workspaces).
@@ -47,13 +47,13 @@ For a detailed explanation of workspaces and environments, see our [Workspaces a
 
 Each rate limit policy includes two limits:
 
-- Burst limit: Maximum requests per second (rps), allowing for short traffic spikes.
-- Sustained limit: Maximum requests per minute (rpm), ensuring consistent performance over time.
+- Burst limit—Maximum requests per second (rps), allowing for short traffic spikes.
+- Sustained limit—Maximum requests per minute (rpm), ensuring consistent performance over time.
 
 ## Monitor rate limit headers
 
-Ory Network includes rate limit information in API response headers for project rate-limits. Use these headers to avoid exceeding
-the applicable rate limit. Your client must handle these responses to maintain service quality.
+Ory Network includes rate limit information in API response headers. Use these headers to avoid exceeding the applicable rate
+limit. Your client must handle these responses to maintain service quality.
 
 | Header                  | Description                                                                             |
 | ----------------------- | --------------------------------------------------------------------------------------- |
@@ -256,9 +256,9 @@ addresses or JA4 fingerprints.
 
 Benefits:
 
-- Enhanced security: Restricts requests from specific sources, making attacks significantly harder to succeed
-- Bot protection: Differentiates genuine users from harmful automated activity
-- Granular control: Fine-tunes security for individual endpoints without compromising user experience
+- Enhanced security—Restricts requests from specific sources, making attacks significantly harder to succeed
+- Bot protection—Differentiates genuine users from harmful automated activity
+- Granular control—Fine-tunes security for individual endpoints without compromising user experience
 
 ### Types of endpoint-based protection
 
@@ -268,10 +268,10 @@ Ory implements two layers of endpoint-based protection:
 
 Analyzes incoming request patterns based on:
 
-- Source identification: IP addresses and JA3/JA4 fingerprints
-- Request frequency: Detects volumetric attacks and system overwhelm attempts
-- Authentication status: Different limits for authenticated vs. unauthenticated requests
-- HTTP method: Varying limits based on GET, POST, etc.
+- Source identification—IP addresses and JA3/JA4 fingerprints
+- Request frequency—Detects volumetric attacks and system overwhelm attempts
+- Authentication status—Different limits for authenticated vs. unauthenticated requests
+- HTTP method—Varying limits based on GET, POST, etc.
 
 #### Inflight rate limits
 

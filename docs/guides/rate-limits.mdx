@@ -5,16 +5,16 @@ sidebar_label: Rate limits
 ---
 
 Ory Network uses rate limits to protect your applications against abuse and ensure fair resource allocation across all customers.
-Ory is currently migrating to a new rate limiting policy. New workspaces are automatically on the new policy; existing customers
-are being migrated by subscription tier.
+Ory is currently migrating to a new project rate limiting policy. New workspaces are automatically on the new policy; existing
+customers are being migrated by subscription tier.
 
 ## Which system applies to you?
 
-| You are...                                         | Your system                                |
-| -------------------------------------------------- | ------------------------------------------ |
-| A new customer (workspace created after [DATE])    | [New rate limits](./rate-limits-new)       |
-| An existing customer — migration not yet completed | [Legacy rate limits](./rate-limits-legacy) |
-| An existing customer — migration completed         | [New rate limits](./rate-limits-new)       |
+| You are...                                         | Your system                                  |
+| -------------------------------------------------- | -------------------------------------------- |
+| A new customer (workspace created after [DATE])    | [Rate limits - new](./rate-limits-new)       |
+| An existing customer — migration not yet completed | [Rate limits - legacy](./rate-limits-legacy) |
+| An existing customer — migration completed         | [Rate limits - new](./rate-limits-new)       |
 
 :::tip
 
@@ -25,15 +25,16 @@ notification email.
 
 ## What's changing?
 
-The legacy rate limit policy applied limits per endpoint-path and limits were fixed per subscription plan and environment. The new
-rate limit policy is a more structured model that distributes project rate limits across different types of API operations. API
-operations are now organized into **buckets** based on service, access level, and rate limit threshold. This allows the Ory
-platform to handle traffic more efficiently while giving you clearer and more consistent behavior when interacting with the APIs.
+The legacy rate limit policy applied project rate limits per endpoint-path and limits were fixed per subscription plan and
+environment. The new project rate limit policy is a more structured model that distributes project rate limits across different
+types of API operations. API operations are now organized into **buckets** based on service, access level, and rate limit
+threshold. This allows the Ory platform to handle traffic more efficiently while giving you clearer and more consistent behavior
+when interacting with the APIs.
 
 ## Migration plan
 
 The new rate limits will be introduced gradually to ensure a smooth transition. No action is required on your end. Ory will notify
-you before your workspace is migrated. During the migration, your rate limit behavior remains unchanged until the cutover
+you before your workspace is migrated. During the migration, your project rate limit behavior remains unchanged until the cutover
 completes.
 
 Migration schedule:
@@ -48,5 +49,5 @@ The types of rate limits, for project-based and endpoint-based, remain the same 
 
 ## Learn more about rate limits
 
-- [New rate limits](./rate-limits-new) — applies to new customers and migrated workspaces
-- [Legacy rate limits](./rate-limits-legacy) — applies to existing customers pending migration
+- [Rate limits - new](./rate-limits-new)—applies to new customers and migrated workspaces
+- [Rate limits - legacy](./rate-limits-legacy)—applies to existing customers pending migration

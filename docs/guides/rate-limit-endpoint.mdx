@@ -10,25 +10,25 @@ fingerprints.
 
 Benefits:
 
-- Enhanced security: Restricts requests from specific sources, making attacks significantly harder to succeed
-- Bot protection: Differentiates genuine users from harmful automated activity
-- Granular control: Fine-tunes security for individual endpoints without compromising user experience
+- Enhanced security—Restricts requests from specific sources, making attacks significantly harder to succeed
+- Bot protection—Differentiates genuine users from harmful automated activity
+- Granular control—Fine-tunes security for individual endpoints without compromising user experience
 
 ## Types of endpoint-based protection
 
-Ory implements two layers of endpoint-based protection:
+Ory implements two types of endpoint-based protection:
 
-- Volumetric: Limits the total amount of traffic over time.
-- Inflight: Limits the number of concurrent active requests.
+- **Volumetric**: Limits the total amount of traffic over time.
+- **Inflight**: Limits the number of concurrent active requests.
 
 ### Volumetric rate limits
 
 Volumetric rate limits analyze incoming request patterns based on:
 
-- Source identification: IP addresses and JA3/JA4 fingerprints
-- Request frequency: Detects volumetric attacks and system overwhelm attempts
-- Authentication status: Different limits for authenticated vs. unauthenticated requests
-- HTTP method: Varying limits based on GET, POST, etc.
+- Source identification—IP addresses and JA3/JA4 fingerprints
+- Request frequency—Detects volumetric attacks and system overwhelm attempts
+- Authentication status—Different limits for authenticated vs. unauthenticated requests
+- HTTP method—Varying limits based on GET, POST, etc.
 
 ### Inflight rate limits
 

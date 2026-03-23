@@ -1,15 +1,15 @@
 ---
 id: rate-limits-new
-title: New Ory Network rate limits
-sidebar_label: New rate limits
+title: Ory Network rate limits - new
+sidebar_label: Rate limits - New
 ---
 
 :::info
 
-This page describes the new rate limit policy, which applies to all new Ory Network customers and to existing customers after
-they've been migrated. If you're an existing customer and haven't received a migration notice yet, see the
-[legacy rate limits](/docs/guides/rate-limits-legacy). See [Rate limits](/docs/guides/rate-limits) to learn about both policies
-and the migration plan.
+There is a new project rate limit policy, which applies to all new Ory Network customers and to existing customers after they've
+been migrated. If you're an existing customer and haven't received a migration notice yet, see the
+[rate limits - legacy](/docs/guides/rate-limits-legacy). See [Rate limits](/docs/guides/rate-limits) to learn about both policies
+and the migration plan. Enpoint-based rate limits have not changed.
 
 :::
 
@@ -20,48 +20,16 @@ allocation and network stability.
 
 Ory uses two types of rate limits:
 
-- [Project rate limits](./rate-limits-project): Control the overall request volume your projects can make to Ory APIs, based on
-  your subscription tier and project environment.
-- [Endpoint-based rate limits](./rate-limits-endpoint): Control traffic to individual endpoints to protect against volumetric
-  attacks, brute-force attempts, and concurrent request abuse—regardless of your project rate limits.
-
-Each project has a set of rate limit buckets. A bucket is a named group of API endpoints that share the same rate limit
-thresholds. When a request comes in, Ory resolves which bucket the endpoint belongs to and applies the threshold for that bucket.
-
-Bucket thresholds are determined by two factors:
-
-- **Subscription tier**: The project's subscription tier (Developer, Production, Growth, or Enterprise).
-- **Project environment**: The project's environment (Production, Staging, or Development).
-
-For a detailed explanation of tiers and environments, see our [Workspaces and environments guide](/docs/guides/workspaces).
-
-## Rate limits per bucket
-
-Buckets follow a `{service}-{access}-{threshold}` naming pattern. For example:
-
-- `kratos-public-high`: for endpoints with a high rate limit allowance
-- `hydra-public-medium`: for endpoints with a moderate rate limit allowance
-- `hydra-admin-low`: for endpoints with a low rate limit allowance
-
-:::info
-
-A bucket counter is shared across all endpoints in the same bucket. For example, `POST /admin/relation-tuples` and 
-`DELETE /admin/relation-tuples` both belong to `keto-admin-high`, so every call to either endpoint counts against the same limit.
-Plan your request volumes accordingly.
-
-:::
-
-### Rate limit dimensions
-
-You will see two rate limits for each bucket:
-
-- **Burst limit**: Maximum requests per second (rps), allowing for short traffic spikes.
-- **Sustained limit**: Maximum requests per minute (rpm), ensuring consistent performance over time.
+- **Project rate limits**: Control the overall request volume your projects can make to Ory APIs, based on your subscription tier
+  and project environment. See [Project rate limits](./rate-limits-project) for more information.
+- **Endpoint-based rate limits**: Control traffic to individual endpoints to protect against volumetric attacks, brute-force
+  attempts, and concurrent request abuse—regardless of your project rate limits. See
+  [Endpoint-based rate limits](./rate-limits-endpoint) for more information.
 
 ## Monitor rate limit headers
 
-Ory Network includes rate limit information in API response headers for project rate-limits. Use these headers to avoid exceeding
-the applicable rate limit. Your client must handle these responses to maintain service quality.
+Ory Network includes rate limit information in API response headers. Use these headers to avoid exceeding the applicable rate
+limit. Your client must handle these responses to maintain service quality.
 
 | Header                  | Description                                                                             |
 | ----------------------- | --------------------------------------------------------------------------------------- |

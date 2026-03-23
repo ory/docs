@@ -101,7 +101,7 @@ const api: SidebarItemsConfig = [
           {
             // ← New rate limits as nested category
             type: "category",
-            label: "New rate limits",
+            label: "Rate limits - New",
             link: {
               type: "doc",
               id: "guides/rate-limits-new",
