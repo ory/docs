@@ -1,7 +1,6 @@
 // Copyright © 2026 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import { useQuery } from "@tanstack/react-query"
 import { useEffect, useState } from "react"
 import { Configuration, ProjectApi } from "@ory/client-fetch"
 import { Octokit } from "@octokit/rest"
@@ -9,30 +8,24 @@ import useDocusaurusContext from "@docusaurus/core/lib/client/exports/useDocusau
 
 export function getSdkUrl() {
   const { siteConfig } = useDocusaurusContext()
+  const [projectSlug, setProjectSlug] = useState<string>("")
 
-  const sdk = new ProjectApi(
-    new Configuration({
-      basePath: String(siteConfig.customFields.CLOUD_URL),
-      credentials: "include",
-    }),
-  )
-  const { data: projectSlug } = useQuery({
-    queryKey: ["getSdkUrl"],
-    queryFn: () =>
-      sdk
-        .listProjects()
-        .then((projects) => {
-          if (projects.length === 0) {
-            return
-          }
-
-          // Fall back to the first project found
-          return projects[0].slug
-        })
-        .catch(() => {
-          return ""
-        }),
-  })
+  useEffect(() => {
+    const sdk = new ProjectApi(
+      new Configuration({
+        basePath: String(siteConfig.customFields.CLOUD_URL),
+        credentials: "include",
+      }),
+    )
+    sdk
+      .listProjects()
+      .then((projects) => {
+        if (projects.length > 0) {
+          setProjectSlug(projects[0].slug)
+        }
+      })
+      .catch(() => {})
+  }, [siteConfig.customFields.CLOUD_URL])
 
   const hint = projectSlug
     ? ""

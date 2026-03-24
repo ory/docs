@@ -36,22 +36,16 @@ const config: Config = {
       darkTheme: darkTheme,
       theme: lightTheme,
       additionalLanguages: [
-        "powershell",
         "json",
         "json5",
-        "pug",
         "shell-session",
         "bash",
         "tsx",
         "markup-templating",
         "php",
         "yaml",
-        "dart",
         "csharp",
-        "cshtml",
         "diff",
-        "java",
-        "scala",
       ],
       magicComments: [
         {
