@@ -41,9 +41,9 @@ Choose Ory products based on the specific identity, authorization, or access con
 | **IAM Concept / Layer**                                   | **Core IAM Question**                                                     | **Ory Product — What it does and how**                                                                                                                                                                                 |
 | --------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Identity Management & Authentication                  | Who is the user and how do they sign in?                                      | **Ory Kratos** Manages user identities and handles direct authentication flows such as login, registration, account recovery, MFA-ready flows, and session management (cookies/jwt).                                       |
+| Fine-grained Authorization & Permissions              | Can this user perform this action on this specific resource?                  | **Ory Keto** Provides relationship-based, fine-grained authorization for application-level permissions, such as access to documents, projects, or business objects.                                                    |
 | Delegated, Scope-based Authorization & Token Issuance | Which application can act on behalf of a user, and with what level of access? | **Ory Hydra** Implements OAuth2 and OpenID Connect to issue access and ID tokens with scopes. Delegates user login to Kratos or another IdP, enabling SSO and API access across apps and services.                     |
 | Enterprise Federation & Single Sign-On (SSO)          | How can enterprise customers sign in with their corporate identity provider?  | **Ory Polis** Provides enterprise SSO by connecting apps to SAML and OIDC identity providers. Bridges legacy SAML into modern OAuth2 flows and supports SCIM directory sync for automated user and group provisioning. |
-| Fine-grained Authorization & Permissions              | Can this user perform this action on this specific resource?                  | **Ory Keto** Provides relationship-based, fine-grained authorization for application-level permissions, such as access to documents, projects, or business objects.                                                    |
 | Proxy Access Control (Enforcement)                    | Should this request be allowed to reach the API right now?                    | **Ory Oathkeeper** Acts as a proxy-based enforcement layer in front of APIs and services, validating credentials and applying authorization decisions before traffic reaches your application.                         |
 
 
@@ -54,45 +54,125 @@ Choose Ory products based on the specific identity, authorization, or access con
 Each Ory product solves a specific IAM challenge, but most real-world implementations combine several. Below are common 
 product combinations that demonstrate Ory's modular approach to building IAM solutions.
 
-### Authentication & access control for your applications (Kratos & Keto) 
+<details>
+
+<summary> **Authentication & access control for your applications (Kratos & Keto)** </summary>
 
 Users register and sign in through Kratos, while Keto controls what they can see and do based on roles, relationships, or custom rules. 
 Use this combination when your application needs both identity management and fine-grained permissions.
 
-![Ory Kratos](./_static/kratos-keto.drawio.svg)
+![Ory Kratos](./_static/kratos-keto.drawio2.svg)
 
-### Authentication & delegated access across apps and services (Kratos & Hydra)
+1. User attempts to access client app; client app requests a login flow from Ory Kratos.
+2. Ory Kratos returns a login flow ID.
+3. User submits credentials; client app forwards credentials with flow ID to Ory Kratos.
+4. Ory Kratos authenticates and returns a session cookie/token.
+5. Client app attaches session cookie/token to subsequent requests.
+6. Backend verifies session with Ory Kratos (gets user identity).
+7. Backend checks permissions with Ory Keto before fulfilling requests.
+</details>
 
-Users authenticate through Kratos, and Hydra issues OAuth2/OIDC tokens that enable single sign-on and let applications act on users' behalf 
-with scoped access. Use this combination when you need a shared identity across multiple apps, third-party integrations, or API access.
+<details>
 
-![Ory Kratos](./_static/kratos-hydra.drawio.svg)
+<summary>**Authentication & delegated access across apps and services (Kratos & Hydra)**</summary>
 
-### Authentication, SSO, & fine-grained access control (Kratos, Hydra & Keto)
+Users authenticate through Kratos, and Hydra issues OAuth2/OIDC tokens that enable single sign-on 
+and let applications act on users' behalf with scoped access. Use this combination when you need a 
+shared identity across multiple apps, third-party integrations, or API access.
+
+![Ory Kratos](./_static/kratos-hydra.drawio2.svg)
+
+1. User attempts to access client app; client app requests an OAuth2 authorization code flow 
+by redirecting the request to Ory Hydra.
+2. Ory Hydra redirects to Ory Kratos for user authentication.
+3. Ory Kratos authenticates the user (login and/or MFA). On success, Ory Kratos notifies 
+Ory Hydra.
+4. Ory Hydra presents a consent screen; user approves requested scopes/permissions.
+5. Ory Hydra issues an authorization code to the client app.
+6. The client app exchanges the authorization code with Ory Hydra for tokens (access, refresh, ID tokens).
+7. The client sends the access token on requests to your backend/API (resource server).
+8. The backend validates the access token with Ory Hydra (via introspection or JWT validation). 
+Scopes in token govern what is allowed.
+
+</details>
+
+<details>
+
+<summary>**Authentication, SSO, & fine-grained access control (Kratos, Hydra & Keto)**</summary>
 
 Combines user authentication, token-based SSO and delegated access, and granular permission checks into a single stack. Use this combination 
 when your system needs to manage who users are, which apps can act for them, and exactly what they're allowed to do.
 
-![Ory Kratos](./_static/kratos-hydra-keto.drawio.svg)
+![Ory Kratos](./_static/kratos-hydra-keto.drawio2.svg)
 
-### Enterprise SSO with external identity federation (Polis)
+1. User attempts to access client app; client app requests an OAuth2 authorization code flow 
+by redirecting the request to Ory Hydra.
+2. Ory Hydra redirects to Ory Kratos for user authentication.
+3. Ory Kratos authenticates the user (login and/or MFA). On success, Ory Kratos notifies 
+Ory Hydra.
+4. Ory Hydra presents a consent screen; user approves requested scopes/permissions.
+5. Ory Hydra issues an authorization code to the client app.
+6. The client app exchanges the authorization code with Ory Hydra for tokens (access, refresh, ID tokens).
+7. The client sends the access token on requests to your backend/API (resource server).
+8. The backend validates the access token with Ory Hydra (via introspection or JWT validation). 
+9. Backend checks permissions with Ory Keto; Ory Keto returns an authorization decision (allow/deny).
+10. The backend proceeds or blocks the request based on Keto's answer.
 
-Polis manages federation and communication between your application and third-party identity providers. Use Polis when your customers need to 
-authenticate through their own IdP, while session management and user lifecycle remain in your application.
+</details>
 
-![Ory Kratos](./_static/polis-only.drawio.svg)
+<details>
 
-### Authentication, external identity federation, & fine-grained access control  (Kratos, Polis, & Keto)
+<summary>**Enterprise SSO with external identity federation (Polis)**</summary>
+
+Ory Polis manages the federation and communication between the client app and the third-party identity provider. 
+The client app handles session management and user lifecycle. Use this combination when you need Enterprise-level
+external federated authentication.
+
+![Ory Kratos](./_static/polis-only.drawio2.svg)
+
+1. User attempts to access client app; the client app sends a SAML request to Ory Polis.
+2. Ory Polis allows the user to choose their IdP and redirects to the selected IdP for authentication.
+3. After successful authentication, Ory Polis processes the SAML response from the IdP and creates a 
+new SAML response to send back to the client app.
+
+</details>
+
+<details>
+
+<summary>**Authentication, external identity federation, & fine-grained access control (Kratos, Polis, & Keto)**</summary>
 
 Users authenticate through Kratos or a federated external IdP via Polis, and Keto enforces what they can access. Use this combination when you 
 need both internal identity management and external federation with granular permissions.
 
-![Ory Kratos](./_static/kratos-polis-keto.drawio.svg)
+![Ory Kratos](./_static/kratos-polis-keto.drawio2.svg)
 
-### Ory's full IAM stack,  (Kratos, Hydra, Keto, Polis, & Oathkeeper)
+1. User attempts to access client app; the client app sends a SAML request to Ory Polis.
+2. Ory Polis allows the user to choose their IdP and redirects to the selected IdP for authentication.
+3. After successful authentication, Ory Polis processes the SAML response from the IdP and creates a 
+new SAML response to send back to the client app.
+4. The user enters credentials/multi-factor as required by the IdP. 
+5. Ory Polis relays user details to Ory Kratos, which manages the local identity/session.
+6. Backend checks permissions with Ory Keto; Ory Keto returns an authorization decision (allow/deny).
+7. The backend proceeds or blocks the request based on Keto's answer.
+
+</details>
+
+<details>
+
+<summary>**Ory's full IAM stack (Kratos, Hydra, Keto, Polis, & Oathkeeper)**</summary>
 
 The complete Ory ecosystem covers authentication, token issuance, fine-grained permissions, external identity federation, and request-level 
 enforcement at the network edge. Use this when you need end-to-end identity and access management for users, apps, APIs, and machine-to-machine 
 contexts.
 
-![Ory Kratos](./_static/ory-fullstack-arch.drawio.svg)
+![Ory Kratos](./_static/ory-fullstack.drawio2.svg)
+
+1. User request hits Ory Oathkeeper.
+2. If unauthorized, redirects to Ory Kratos (or Ory Polis for Enterprise SSO).
+3. Ory Kratos returns session/identity.
+4. For OAuth2/ODIC, Ory Hydra delegates login to Ory Kratos.
+6. Ory Oathkeeper validates session or token.
+7. Ory Keto checks permissions, returns allow/deny.
+8. Request forwarded or blocked
+
+</details>
