@@ -265,6 +265,16 @@ const config: Config = {
         crossorigin: "anonymous",
       },
     },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "preload",
+        href: "/docs/fonts/JetBrainsMono/JetBrainsMonoVariable.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossorigin: "anonymous",
+      },
+    },
   ],
 }
 
