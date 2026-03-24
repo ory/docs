@@ -1232,5 +1232,41 @@
       "destination": "/docs/migrate-to-ory/migrate",
       "permanent": false
     }
+  ],
+  "headers": [
+    {
+      "source": "/docs/(assets)/(.*)",
+      "headers": [
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "s-maxage=604800, immutable"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "s-maxage=604800, immutable"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "max-age=259200, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/docs/(img|fonts|scripts)/(.*)",
+      "headers": [
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "s-maxage=86400, stale-while-revalidate=604800"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "s-maxage=86400, stale-while-revalidate=604800"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "max-age=3600"
+        }
+      ]
+    }
   ]
 }
