@@ -18,16 +18,7 @@ module.exports = function preloadCssPlugin() {
 
       const baseUrl = siteConfig.baseUrl.replace(/\/$/, "")
       const href = `${baseUrl}/assets/css/${cssFile}`
-
-      // Non-blocking async CSS: preload with onload swap + noscript fallback.
-      // The onload flips rel from "preload" to "stylesheet" once the file is
-      // fetched, so it never blocks the initial render.
-      const asyncTag = `<link rel="preload" as="style" href="${href}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="${href}"></noscript>`
-
-      // Pattern matching the blocking stylesheet Docusaurus injects into <head>
-      const blockingPattern = new RegExp(
-        `<link[^>]+rel="stylesheet"[^>]+href="${href.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"[^>]*>`,
-      )
+      const preloadTag = `<link rel="preload" as="style" href="${href}">`
 
       function walk(dir) {
         for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -35,16 +26,15 @@ module.exports = function preloadCssPlugin() {
           if (entry.isDirectory()) {
             walk(full)
           } else if (entry.name.endsWith(".html")) {
-            transform(full)
+            inject(full)
           }
         }
       }
 
-      function transform(filePath) {
+      function inject(filePath) {
         let html = fs.readFileSync(filePath, "utf8")
-        if (!blockingPattern.test(html)) return
-        // Remove the blocking <link rel="stylesheet"> and replace with async pattern
-        html = html.replace(blockingPattern, asyncTag)
+        if (html.includes(preloadTag)) return
+        html = html.replace("<head>", `<head>${preloadTag}`)
         fs.writeFileSync(filePath, html)
       }
 
