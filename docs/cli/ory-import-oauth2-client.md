@@ -1,7 +1,7 @@
 ---
 id: ory-import-oauth2-client
 title: ory import oauth2-client
-description: ory import oauth2-client Import one or more OAuth 2.0 Clients from files or STDIN
+description: ory import oauth2-client
 ---
 
 <!--
@@ -21,8 +21,10 @@ The format for the JSON file is:
 
 [
   {
-    "client_secret": "...",
-    // ... all other fields of the OAuth 2.0 Client model are allowed here
+```
+"client_secret": "...",
+// ... all other fields of the OAuth 2.0 Client model are allowed here
+```
   }
 ]
 
@@ -57,7 +59,7 @@ Alternatively:
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  ory import oauth2-client -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  ory import oauth2-client --name "my app" --grant-type client_credentials --response-type token --scope core,foobar --keybase keybase_username
 
 ```
 
@@ -65,7 +67,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
 
 ```
   -e, --endpoint string      The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string        Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string        Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                 help for oauth2-client
       --keybase string       Keybase username for encrypting client secret.
       --pgp-key string       Base64 encoded PGP encryption key for encrypting client secret.
@@ -82,7 +84,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory import](ory-import)	 - Import resources
+* [ory import](ory-import) Import resources
 

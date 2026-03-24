@@ -1,7 +1,7 @@
 ---
 id: ory-create-event-stream
 title: ory create event-stream
-description: ory create event-stream Create a new event stream
+description: ory create event-stream
 ---
 
 <!--
@@ -22,7 +22,7 @@ ory create event-stream [--project=PROJECT_ID] --type=sns --aws-iam-role-arn=arn
 ```
       --aws-iam-role-arn string    The ARN of the AWS IAM role to assume when publishing messages to the SNS topic.
       --aws-sns-topic-arn string   The ARN of the AWS SNS topic.
-      --format string              Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string              Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                       help for event-stream
       --project string             The project to use, either project ID or a (partial) slug.
   -q, --quiet                      Be quiet with output printing.
@@ -37,7 +37,7 @@ ory create event-stream [--project=PROJECT_ID] --type=sns --aws-iam-role-arn=arn
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory create](ory-create)	 - Create Ory Network resources
+* [ory create](ory-create) Create Ory Network resources
 

@@ -1,7 +1,7 @@
 ---
 id: ory-open
 title: ory open
-description: ory open Open Ory Account Experience Pages
+description: ory open
 ---
 
 <!--
@@ -23,8 +23,8 @@ Open Ory Account Experience Pages
   -y, --yes              Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory open account-experience](ory-open-account-experience)	 - Open Ory Account Experience Pages
 

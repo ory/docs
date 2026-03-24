@@ -1,7 +1,7 @@
 ---
 id: ory-update-oauth2-client
 title: ory update oauth2-client
-description: ory update oauth2-client Update an OAuth 2.0 Client
+description: ory update oauth2-client
 ---
 
 <!--
@@ -24,11 +24,11 @@ ory update oauth2-client [id] [flags]
 ### Examples
 
 ```
-ory update oauth2-client <client-id-here> -c http://localhost/cb -g authorization_code -r code -a core,foobar
+ory update oauth2-client <client-id-here> --redirect-uri http://localhost/cb --grant-type authorization_code --response-type code --scope core,foobar
 
 To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp-key-url` or `--keybase` flag, for example:
 
-  ory update oauth2-client e6e96aa5-9cd2-4a70-bf56-ad6434c8aaa2 -n "my app" -g client_credentials -r token -a core,foobar --keybase keybase_username
+  ory update oauth2-client e6e96aa5-9cd2-4a70-bf56-ad6434c8aaa2 --name "my app" --grant-type client_credentials --response-type token --scope core,foobar --keybase keybase_username
 
 ```
 
@@ -44,7 +44,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
       --contact strings                                 A list representing ways to contact people responsible for this client, typically email addresses.
   -e, --endpoint string                                 The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
       --file string                                     Read a JSON file representing a client from this location. If set, the other client flags are ignored.
-      --format string                                   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string                                   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
       --frontchannel-logout-callback string             Client URL that will cause the client to log itself out when rendered in an iframe by Hydra.
       --frontchannel-logout-session-required            Boolean flag specifying whether the client requires that a sid (session ID) Claim be included in the Logout Token to identify the client session with the OP when the frontchannel-logout-callback is used. If omitted, the default value is false.
       --grant-type strings                              A list of allowed grant types. (default [authorization_code])
@@ -83,7 +83,7 @@ To encrypt an auto-generated OAuth2 Client Secret, use flags `--pgp-key`, `--pgp
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory update](ory-update)	 - Update resources
+* [ory update](ory-update) Update resources
 

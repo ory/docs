@@ -1,7 +1,7 @@
 ---
 id: ory-list-event-streams
 title: ory list event-streams
-description: ory list event-streams List your event streams
+description: ory list event-streams
 ---
 
 <!--
@@ -20,7 +20,7 @@ ory list event-streams [flags]
 ### Options
 
 ```
-      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help               help for event-streams
       --project string     The project to use, either project ID or a (partial) slug.
   -q, --quiet              Be quiet with output printing.
@@ -34,7 +34,7 @@ ory list event-streams [flags]
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory list](ory-list)	 - List resources
+* [ory list](ory-list) List resources
 

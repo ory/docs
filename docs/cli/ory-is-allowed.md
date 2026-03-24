@@ -1,7 +1,7 @@
 ---
 id: ory-is-allowed
 title: ory is allowed
-description: ory is allowed Check whether a subject has a relation on an object
+description: ory is allowed
 ---
 
 <!--
@@ -15,7 +15,14 @@ Check whether a subject has a relation on an object
 
 ### Synopsis
 
-Check whether a subject has a relation on an object. This method resolves subject sets and subject set rewrites.
+Check whether a subject has a relation on an object.
+
+Example:
+```
+keto check User:Alice view Doc:readme
+```
+
+Legacy format 'keto check <subject_namespace>:<subject_id> <relation> <object_namespace> <object_id>' is deprecated.
 
 ```
 ory is allowed <subject> <relation> <namespace> <object> [flags]
@@ -26,7 +33,7 @@ ory is allowed <subject> <relation> <namespace> <object> [flags]
 ```
       --authority string   Set the authority header for the remote gRPC server.
       --block              Block until the connection is up.
-      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help               help for allowed
   -d, --max-depth int32    Maximum depth of the search tree. If the value is less than 1 or greater than the global max-depth then the global max-depth will be used instead.
       --project string     The project to use, either project ID or a (partial) slug.
@@ -41,7 +48,7 @@ ory is allowed <subject> <relation> <namespace> <object> [flags]
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory is](ory-is)	 - Assert the state of Ory Network resources
+* [ory is](ory-is) Assert the state of Ory Network resources
 

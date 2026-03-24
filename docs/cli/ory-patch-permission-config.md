@@ -1,7 +1,7 @@
 ---
 id: ory-patch-permission-config
 title: ory patch permission-config
-description: ory patch permission-config Patch the Ory Permissions configuration of an Ory Network project.
+description: ory patch permission-config
 ---
 
 <!--
@@ -22,18 +22,24 @@ Compared to the `patch project` command, this command updates only the Ory Permi
 and returns the configuration as a result. This command is useful when you want to import configuration from
 self-hosted Ory Keto to Ory Network. Using this command allows for shorter paths when specifying the flags:
 
-	ory patch permission-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
-		--replace '/limit/max_read_depth=5'
+```
+ory patch permission-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+	--replace '/limit/max_read_depth=5'
+```
 
 when compared to the `patch project` command:
 
-	ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
-		--replace '/services/permission/config/limit/max_read_depth=5'
+```
+ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+	--replace '/services/permission/config/limit/max_read_depth=5'
+```
 
 The format of the patch is a JSON-Patch document. For more details please check:
 
-	https://www.ory.sh/docs/reference/api#operation/patchProject
-	https://jsonpatch.com
+```
+https://www.ory.sh/docs/reference/api#operation/patchProject
+https://jsonpatch.com
+```
 
 ```
 ory patch permission-config [flags]
@@ -68,7 +74,7 @@ $ ory patch permission-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 ```
       --add stringArray       Add a specific key to the configuration
   -f, --file strings          Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the project
-      --format string         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                  help for permission-config
       --project string        The project to use, either project ID or a (partial) slug.
   -q, --quiet                 Be quiet with output printing.
@@ -84,7 +90,7 @@ $ ory patch permission-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
   -c, --config string   Path to the Ory Network configuration file.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory patch](ory-patch)	 - Patch resources
+* [ory patch](ory-patch) Patch resources
 

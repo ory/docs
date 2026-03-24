@@ -1,7 +1,7 @@
 ---
 id: ory-update-organization
 title: ory update organization
-description: ory update organization Update the organization with the given ID
+description: ory update organization
 ---
 
 <!--
@@ -21,7 +21,7 @@ ory update organization <id> [--project=PROJECT_ID] [--domains=a.example.com,b.e
 
 ```
   -d, --domains strings   A list of domains that will be used for this organization.
-      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help              help for organization
   -l, --label string      The label of the organization.
       --project string    The project to use, either project ID or a (partial) slug.
@@ -35,7 +35,7 @@ ory update organization <id> [--project=PROJECT_ID] [--domains=a.example.com,b.e
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory update](ory-update)	 - Update resources
+* [ory update](ory-update) Update resources
 

@@ -1,7 +1,7 @@
 ---
 id: ory-format
 title: ory format
-description: ory format Helpers for formatting code
+description: ory format
 ---
 
 <!--
@@ -19,8 +19,8 @@ Helpers for formatting code
   -h, --help   help for format
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
-* [ory format jsonnet](ory-format-jsonnet)	 - 
+* [ory](ory) The Ory CLI
+* [ory format jsonnet](ory-format-jsonnet)	
 
