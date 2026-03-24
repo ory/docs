@@ -1252,7 +1252,7 @@
       ]
     },
     {
-      "source": "/docs/(img|fonts|scripts)/(.*)",
+      "source": "/docs/(img|scripts)/(.*)",
       "headers": [
         {
           "key": "Vercel-CDN-Cache-Control",
