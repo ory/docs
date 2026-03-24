@@ -22,3 +22,12 @@ jobs:
       - run: npm install
       - name: Test Build
         run: npm run build
+      - name: Commit updated vercel.json
+        if: github.event_name == 'pull_request'
+        run: |
+          git diff --quiet vercel.json && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add vercel.json
+          git commit -m "chore: update CSS preload headers in vercel.json"
+          git push origin HEAD:${{ github.head_ref }}
