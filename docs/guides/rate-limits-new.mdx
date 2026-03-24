@@ -1,0 +1,87 @@
+---
+id: rate-limits-new
+title: Ory Network rate limits - new
+sidebar_label: Rate limits - New
+---
+
+:::info
+
+There is a new project rate limit policy, which applies to all new Ory Network customers and to existing customers after they've
+been migrated. If you're an existing customer and haven't received a migration notice yet, see the
+[rate limits - legacy](/docs/guides/rate-limits-legacy). See [Rate limits](/docs/guides/rate-limits) to learn about both policies
+and the migration plan. Enpoint-based rate limits have not changed.
+
+:::
+
+Ory uses rate limits to protect your applications against abuse, attacks, and service disruptions, and to maintain fair resource
+allocation and network stability.
+
+## Types of rate limits
+
+Ory uses two types of rate limits:
+
+- **Project rate limits**: Control the overall request volume your projects can make to Ory APIs, based on your subscription tier
+  and project environment. See [Project rate limits](./rate-limits-project) for more information.
+- **Endpoint-based rate limits**: Control traffic to individual endpoints to protect against volumetric attacks, brute-force
+  attempts, and concurrent request abuse—regardless of your project rate limits. See
+  [Endpoint-based rate limits](./rate-limits-endpoint) for more information.
+
+## Monitor rate limit headers
+
+Ory Network includes rate limit information in API response headers. Use these headers to avoid exceeding the applicable rate
+limit. Your client must handle these responses to maintain service quality.
+
+| Header                  | Description                                                                             |
+| ----------------------- | --------------------------------------------------------------------------------------- |
+| `x-ratelimit-limit`     | The rate limit ceiling(s) for the current request, including burst and sustained limits |
+| `x-ratelimit-remaining` | Number of requests remaining in the current window                                      |
+| `x-ratelimit-reset`     | Number of seconds until the rate limit window resets                                    |
+
+Example header values:
+
+```shell
+x-ratelimit-limit: 10, 10;w=1, 300;w=60
+x-ratelimit-remaining: 8
+x-ratelimit-reset: 1
+```
+
+The `x-ratelimit-limit` header follows the
+[IETF RateLimit header fields draft](https://datatracker.ietf.org/doc/draft-ietf-httpapi-ratelimit-headers/), where `w=1`
+indicates a 1-second window and `w=60` indicates a 60-second window. Use these headers to throttle requests proactively and reduce
+the likelihood of hitting 429 errors.
+
+## How to handle 429 responses
+
+When your client receives a `429 Too Many Requests` response, you've exceeded the applicable rate limit. Your client must handle
+these responses to maintain service quality.
+
+Your implementation must:
+
+- **Detect 429 responses**: Monitor for HTTP 429 status codes on all API calls.
+- **Implement exponential backoff**: When receiving a 429, pause and retry with increasing delays (for example: 1s, 2s, 4s, 8s).
+- **Respect rate limit headers**: Check `x-ratelimit-remaining` and `x-ratelimit-reset`, when available, to throttle requests
+  proactively.
+- **Avoid retry storms**: Don't retry failed requests in a tight loop.
+
+### Exponential backoff strategy
+
+Implement an exponential backoff strategy to proactively avoid hitting rate limits.
+
+```jsx
+async function callApiWithBackoff(request, maxRetries = 5) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    const response = await fetch(request)
+    if (response.status === 429) {
+      const delay = Math.pow(2, attempt) * 1000 // 1s, 2s, 4s, 8s, 16s
+      await new Promise((resolve) => setTimeout(resolve, delay))
+      continue
+    }
+    return response
+  }
+  throw new Error("Max retries exceeded")
+}
+```
+
+Clients that repeatedly exceed rate limits without proper backoff may have their API access temporarily blocked. For high-volume
+use cases that exceed your plan's limits, open a support ticket via the [Ory Console](https://console.ory.sh/support) or email
+[support@ory.sh](mailto:support@ory.sh).

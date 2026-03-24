@@ -4,12 +4,14 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import AjaxWarning from "./AjaxWarning"
 import ConsoleLink from "../components/ConsoleLink/console-link"
+import RateLimitsTable from "../components/RateLimitsTable"
 
 export default {
   // Re-use the default mapping
   ...MDXComponents,
   AjaxWarning,
   ConsoleLink,
+  RateLimitsTable,
   Tabs,
   TabItem,
 }

@@ -1,0 +1,57 @@
+---
+id: rate-limits-project
+title: Project rate limits
+sidebar_label: Project rate limits
+---
+
+Each project has a set of rate limit buckets. A bucket is a named group of API endpoints that share the same rate limit threshold.
+When a request comes in, Ory resolves which bucket the endpoint belongs to and applies the threshold for that bucket.
+
+Bucket thresholds are determined by two factors:
+
+- **Subscription tier**: The project's subscription tier (Developer, Production, Growth, or Enterprise).
+- **Project environment**: The project's environment (Production, Staging, or Development).
+
+For a detailed explanation of tiers and environments, see our [Workspaces and environments guide](/docs/guides/workspaces).
+
+## Rate limits per bucket
+
+Buckets follow a `{service}-{access}-{threshold}` naming pattern. For example:
+
+- `kratos-public-high`: for endpoints with a high rate limit allowance
+- `hydra-public-medium`: for endpoints with a moderate rate limit allowance
+- `hydra-admin-low`: for endpoints with a low rate limit allowance
+
+:::info
+
+A bucket counter is shared across all endpoints in the same bucket. For example, `POST /admin/relation-tuples` and 
+`DELETE /admin/relation-tuples` both belong to `keto-admin-high`, so every call to either endpoint counts against the same limit.
+Plan your request volumes accordingly.
+
+:::
+
+You will see two rate limits for each bucket:
+
+- **Burst limit**: Maximum requests per second (rps), allowing for short traffic spikes.
+- **Sustained limit**: Maximum requests per minute (rpm), ensuring consistent performance over time.
+
+## Identify the rate limits that apply to your project
+
+In the **Project rate limit table** below:
+
+1. Select your subscription tier from the **Tier** dropdown. Options are Developer, Production, Growth, or Enterprise.
+2. Select your project environment from the **Environment** dropdown. Options are Production, Staging, or Development.
+3. To search by API path, enter the API path into the **Search API path** box. The endpoint appears highlighted. Look to see which
+   bucket it belongs to for its rate limit.
+
+:::info
+
+Project rate limits use a bucket system to group endpoints and apply thresholds. Understanding how buckets work will help you
+understand the project rate limit table below. See [Project rate limits](./rate-limits-project) to learn how rate limits are
+applied per bucket.
+
+:::
+
+### Project rate limit table
+
+<RateLimitsTable />
