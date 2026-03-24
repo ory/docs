@@ -1,4 +1,4 @@
-// Shared types for solution design stepper and architecture diagram (avoids circular deps).
+// Shared types for solution design stepper and architecture diagram.
 
 export type ProductKey =
   | "kratos"

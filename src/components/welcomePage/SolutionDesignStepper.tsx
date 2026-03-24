@@ -1,162 +1,30 @@
+// Copyright © 2022 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
+
 import React, { useEffect, useMemo, useState } from "react"
 import Link from "@docusaurus/Link"
 import { StepBadge } from "./StepBadge"
 import OryArchitectureDiagram from "../OryArchitectureDiagram"
-import type { ProductKey } from "./solutionDesignTypes"
+import {
+  SOLUTION_DESIGN_PRODUCT_LABELS,
+  SOLUTION_DESIGN_RESULTS_ORDER,
+  SOLUTION_DESIGN_STORAGE_KEY,
+  SOLUTION_DESIGN_STEPS,
+} from "./solutionDesignStepper/consts"
+import { computeSelectedProductsFromAnswers } from "./solutionDesignStepper/utils/products"
+import { loadSolutionDesignProgressFromSessionStorage } from "./solutionDesignStepper/utils/storage"
 
-interface StepQuestion {
-  id: string
-  question: string
-  options: { value: "yes" | "no"; label: string; addProducts?: ProductKey[] }[]
-}
-
-const STEPS: StepQuestion[] = [
-  {
-    id: "identity",
-    question:
-      "Do you need to support user sign-up, login, account recovery, and profile management?",
-    options: [
-      { value: "yes", label: "Yes", addProducts: ["kratos"] },
-      { value: "no", label: "No", addProducts: [] },
-    ],
-  },
-  {
-    id: "ui",
-    question:
-      "Do you want a prebuilt or customizable login and account UI, instead of building the UI entirely yourself?",
-    options: [
-      { value: "yes", label: "Yes", addProducts: ["elements"] },
-      { value: "no", label: "No", addProducts: [] },
-    ],
-  },
-  {
-    id: "oauth",
-    question:
-      "Do you need users to sign in once and use multiple applications, or let third-party apps access your APIs on the user's behalf?",
-    options: [
-      { value: "yes", label: "Yes", addProducts: ["hydra"] },
-      { value: "no", label: "No", addProducts: [] },
-    ],
-  },
-  {
-    id: "sso",
-    question:
-      "Do you need Enterprise Single Sign-On (SSO), so business customers can sign in with IdPs like Okta, Azure AD, or Google Workspace?",
-    options: [
-      { value: "yes", label: "Yes", addProducts: ["polis"] },
-      { value: "no", label: "No", addProducts: [] },
-    ],
-  },
-  {
-    id: "scim",
-    question:
-      "Do you need automated user and group provisioning from enterprise directories (SCIM directory sync)?",
-    options: [
-      { value: "yes", label: "Yes", addProducts: ["polis"] },
-      { value: "no", label: "No", addProducts: [] },
-    ],
-  },
-  {
-    id: "permissions",
-    question:
-      "Do you need fine-grained permissions inside your application? For example, 'can this user edit this document?'",
-    options: [
-      { value: "yes", label: "Yes", addProducts: ["keto"] },
-      { value: "no", label: "No", addProducts: [] },
-    ],
-  },
-  {
-    id: "gateway",
-    question:
-      "Do you want a centralized gateway that enforces authentication and authorization before requests reach your APIs?",
-    options: [
-      { value: "yes", label: "Yes", addProducts: ["oathkeeper"] },
-      { value: "no", label: "No", addProducts: [] },
-    ],
-  },
-]
-
-const PRODUCT_LABELS: Record<
-  ProductKey,
-  { label: string; description: string; to: string }
-> = {
-  kratos: {
-    label: "Ory Kratos",
-    description: "Identity management and authentication",
-    to: "/docs/kratos",
-  },
-  hydra: {
-    label: "Ory Hydra",
-    description: "SSO & delegated, scope-based authorization (OAuth2/OIDC)",
-    to: "/docs/hydra",
-  },
-  polis: {
-    label: "Ory Polis",
-    description: "Enterprise SSO & SCIM",
-    to: "/docs/polis",
-  },
-  keto: {
-    label: "Ory Keto",
-    description: "Fine-grained permissions",
-    to: "/docs/keto",
-  },
-  oathkeeper: {
-    label: "Ory Oathkeeper",
-    description: "Proxy-based enforcement gateway",
-    to: "/docs/oathkeeper",
-  },
-  elements: {
-    label: "Ory Elements",
-    description: "Pre-built, customizable UI components for self-service flows",
-    to: "/docs/elements",
-  },
-}
-
-const RESULTS_ORDER: ProductKey[] = [
-  "kratos",
-  "hydra",
-  "polis",
-  "keto",
-  "oathkeeper",
-  "elements",
-]
-
-const STORAGE_KEY = "ory.solutionDesignStepper"
-
-function loadProgressFromSessionStorage(): {
-  currentStep: number
-  answers: Record<string, "yes" | "no">
-} | null {
-  try {
-    const raw = typeof window !== "undefined" ? window.sessionStorage.getItem(STORAGE_KEY) : null
-    if (!raw) return null
-    const parsed = JSON.parse(raw) as {
-      currentStep?: unknown
-      answers?: unknown
-    }
-
-    const stepIds = new Set(STEPS.map((s) => s.id))
-    const nextAnswers: Record<string, "yes" | "no"> = {}
-    if (parsed.answers && typeof parsed.answers === "object") {
-      for (const [k, v] of Object.entries(
-        parsed.answers as Record<string, unknown>,
-      )) {
-        if (!stepIds.has(k)) continue
-        if (v === "yes" || v === "no") nextAnswers[k] = v
-      }
-    }
-
-    const stepNum =
-      typeof parsed.currentStep === "number" &&
-      Number.isFinite(parsed.currentStep)
-        ? parsed.currentStep
-        : 0
-
-    const clampedStep = Math.max(0, Math.min(STEPS.length, stepNum))
-    return { currentStep: clampedStep, answers: nextAnswers }
-  } catch {
-    return null
-  }
+const STEPS = SOLUTION_DESIGN_STEPS
+const PRODUCT_LABELS = SOLUTION_DESIGN_PRODUCT_LABELS
+const RESULTS_ORDER = SOLUTION_DESIGN_RESULTS_ORDER
+const STORAGE_KEY = SOLUTION_DESIGN_STORAGE_KEY
+const RESULT_DOT_COLORS: Record<string, string> = {
+  kratos: "var(--icon-kratos-tertiary)",
+  hydra: "var(--icon-hydra-tertiary)",
+  keto: "var(--icon-keto-tertiary)",
+  oathkeeper: "var(--icon-oathkeeper-tertiary)",
+  polis: "var(--icon-polis-tertiary)",
+  elements: "#8b5cf6",
 }
 
 export function SolutionDesignStepper() {
@@ -164,7 +32,7 @@ export function SolutionDesignStepper() {
   const [answers, setAnswers] = useState<Record<string, "yes" | "no">>({})
 
   useEffect(() => {
-    const progress = loadProgressFromSessionStorage()
+    const progress = loadSolutionDesignProgressFromSessionStorage()
     if (progress) {
       setAnswers(progress.answers)
       setCurrentStep(progress.currentStep)
@@ -178,21 +46,14 @@ export function SolutionDesignStepper() {
         JSON.stringify({ currentStep, answers }),
       )
     } catch {
-      // ignore storage errors (private mode, quota, etc.)
+      /* sessionStorage unavailable */
     }
   }, [currentStep, answers])
 
-  const selectedProducts = useMemo(() => {
-    const set = new Set<ProductKey>()
-    STEPS.forEach((step) => {
-      const answer = answers[step.id]
-      if (answer === "yes") {
-        const option = step.options.find((o) => o.value === "yes")
-        option?.addProducts?.forEach((p) => set.add(p))
-      }
-    })
-    return Array.from(set)
-  }, [answers])
+  const selectedProducts = useMemo(
+    () => computeSelectedProductsFromAnswers(answers, STEPS),
+    [answers],
+  )
 
   const isResults = currentStep === STEPS.length
   const questionIndex = currentStep
@@ -217,6 +78,16 @@ export function SolutionDesignStepper() {
     }
   }
 
+  const handleReset = () => {
+    setCurrentStep(0)
+    setAnswers({})
+    try {
+      window.sessionStorage.removeItem(STORAGE_KEY)
+    } catch {
+      /* sessionStorage unavailable */
+    }
+  }
+
   const handleBack = () => {
     if (isResults) {
       handleReset()
@@ -230,16 +101,6 @@ export function SolutionDesignStepper() {
         return next
       })
       setCurrentStep(currentStep - 1)
-    }
-  }
-
-  const handleReset = () => {
-    setCurrentStep(0)
-    setAnswers({})
-    try {
-      window.sessionStorage.removeItem(STORAGE_KEY)
-    } catch {
-      // ignore storage errors
     }
   }
 
@@ -260,7 +121,6 @@ export function SolutionDesignStepper() {
       </div>
 
       <div className="bg-ory-bg-primary border border-ory-border-primary flex flex-col overflow-hidden rounded-ory">
-        {/* Step diagram (1–7) from design-your-solution; intro graphic only on first step before answer */}
         <div className="p-ory-4 relative bg-ory-bg-primary">
           <div
             className="relative w-full overflow-hidden rounded-ory bg-ory-bg-secondary flex items-center justify-center"
@@ -282,7 +142,6 @@ export function SolutionDesignStepper() {
           </div>
         </div>
 
-        {/* Content area */}
         <div className="border-t border-ory-border-primary p-ory-6 flex flex-col gap-ory-6 min-h-[192px]">
           {currentQuestion && !isResults && (
             <>
@@ -335,8 +194,17 @@ export function SolutionDesignStepper() {
                     return (
                       <li
                         key={key}
-                        className="ory-body text-ory-text-secondary"
+                        className="ory-body text-ory-text-secondary flex items-center gap-2"
                       >
+                        <span
+                          aria-hidden
+                          className="inline-block rounded-full"
+                          style={{
+                            width: 10,
+                            height: 10,
+                            backgroundColor: RESULT_DOT_COLORS[key],
+                          }}
+                        />
                         <Link
                           to={p.to}
                           className="text-ory-text-primary font-medium no-underline"
@@ -365,12 +233,10 @@ export function SolutionDesignStepper() {
                   for guidance.
                 </p>
               )}
-              <div className="flex flex-col gap-ory-3" />
             </div>
           )}
         </div>
 
-        {/* Footer navigation */}
         <div className="bg-ory-bg-secondary border-t border-ory-border-primary p-ory-4 flex justify-between items-center flex-wrap gap-ory-3">
           <span className="ory-body-sm text-ory-text-tertiary leading-none">
             {currentQuestion && !isResults && "Select an option to continue"}

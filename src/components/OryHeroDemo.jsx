@@ -211,7 +211,7 @@ const OryHeroDemo = () => {
             className={
               isRunning
                 ? "h-8 px-4 text-[13px] font-semibold inline-flex items-center gap-1.5 border border-transparent bg-ory-bg-tertiary text-ory-text-tertiary cursor-not-allowed rounded-ory-btn"
-                : "h-8 px-4 text-[13px] font-semibold inline-flex items-center gap-1.5 border border-ory-bg-dark bg-ory-bg-dark text-ory-text-primary rounded-ory-btn cursor-pointer"
+                : "h-8 px-4 text-[13px] font-semibold inline-flex items-center gap-1.5 border border-ory-bg-dark bg-ory-bg-dark text-white rounded-ory-btn cursor-pointer"
             }
           >
             Run
