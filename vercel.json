@@ -1239,15 +1239,15 @@
       "headers": [
         {
           "key": "Vercel-CDN-Cache-Control",
-          "value": "s-maxage=604800, immutable"
+          "value": "s-maxage=2592000, immutable"
         },
         {
           "key": "CDN-Cache-Control",
-          "value": "s-maxage=604800, immutable"
+          "value": "s-maxage=2592000, immutable"
         },
         {
           "key": "Cache-Control",
-          "value": "max-age=259200, immutable"
+          "value": "max-age=2592000, immutable"
         }
       ]
     },
@@ -1264,7 +1264,7 @@
         },
         {
           "key": "Cache-Control",
-          "value": "max-age=86400"
+          "value": "max-age=86400, stale-while-revalidate=604800"
         }
       ]
     }
