@@ -30,9 +30,9 @@ export function SelectFrameworkBlock({
 }: SelectFrameworkBlockProps) {
   const selected =
     frameworks.find((f) => f.value === selectedFramework) ?? frameworks[1]
-  const snippetPrefix = selected.snippet.startsWith("npm install ")
-    ? "npm install "
-    : ""
+  const snippetPrefixes = ["npm install ", "go get "]
+  const snippetPrefix =
+    snippetPrefixes.find((prefix) => selected.snippet.startsWith(prefix)) ?? ""
   const snippetRest = snippetPrefix
     ? selected.snippet.slice(snippetPrefix.length)
     : selected.snippet
