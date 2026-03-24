@@ -112,7 +112,7 @@ const OATHKEEPER_CANONICAL_NODES: CanonicalNodeMap = {
   user: {
     id: "user",
     type: "plain",
-    position: { x: 0, y: 520 },
+    position: { x: 50, y: 530 },
     data: { label: "User" },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
@@ -120,7 +120,7 @@ const OATHKEEPER_CANONICAL_NODES: CanonicalNodeMap = {
   "ory-elements": {
     id: "ory-elements",
     type: "oryProduct",
-    position: { x: 220, y: 520 },
+    position: { x: 300, y: 520 },
     data: {
       label: "Your App/Backend\n(With Ory Elements)",
       dotColor: "#8b5cf6",
@@ -144,7 +144,7 @@ const OATHKEEPER_CANONICAL_NODES: CanonicalNodeMap = {
   "corporate-idp": {
     id: "corporate-idp",
     type: "plain",
-    position: { x: 340, y: 220 },
+    position: { x: 300, y: 220 },
     data: { label: "Corporate IdP\nSAML, AD, etc" },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
@@ -176,7 +176,7 @@ const OATHKEEPER_CANONICAL_NODES: CanonicalNodeMap = {
   "ory-polis": {
     id: "ory-polis",
     type: "oryProduct",
-    position: { x: 340, y: 380 },
+    position: { x: 300, y: 380 },
     data: {
       label: "Ory Polis\n• Enterprise SSO",
       dotColor: "var(--icon-polis-tertiary)",

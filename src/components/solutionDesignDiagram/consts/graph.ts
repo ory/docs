@@ -375,7 +375,7 @@ export function applyOathkeeperTopologyEdgeHandles(
         return {
           ...e,
           sourceHandle: "out-left-4",
-          targetHandle: "in-right-2",
+          targetHandle: "in-right-4",
         }
       default:
         return e

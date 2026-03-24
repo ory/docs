@@ -134,6 +134,12 @@ function OryProductNode({
       />
       <Handle
         type="target"
+        position={Position.Right}
+        id="in-right-4"
+        style={{ ...hs, top: "85%" }}
+      />
+      <Handle
+        type="target"
         position={Position.Bottom}
         id="in-bottom"
         style={{ ...hs, left: "50%" }}
@@ -160,7 +166,7 @@ function OryProductNode({
         type="source"
         position={Position.Left}
         id="out-left-4"
-        style={{ ...hs, top: "70%" }}
+        style={{ ...hs, top: "80%" }}
       />
       <Handle
         type="source"
