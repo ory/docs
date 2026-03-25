@@ -1,4 +1,4 @@
-// Copyright © 2022 Ory Corp
+// Copyright © 2026 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
 import type { Config } from "@docusaurus/types"
@@ -36,19 +36,15 @@ const config: Config = {
       darkTheme: darkTheme,
       theme: lightTheme,
       additionalLanguages: [
-        "powershell",
         "json",
         "json5",
-        "pug",
         "shell-session",
         "bash",
         "tsx",
         "markup-templating",
         "php",
         "yaml",
-        "dart",
         "csharp",
-        "cshtml",
         "diff",
       ],
       magicComments: [

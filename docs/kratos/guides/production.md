@@ -13,9 +13,23 @@ Read more about [deployment fundamentals and requirements for Ory](../../oss/dep
 
 Ory Kratos requires a production-grade database such as PostgreSQL, MySQL, CockroachDB. Don't use SQLite in production!
 
-## Security
+## Security checklist
+
+Before deploying to production, review and explicitly set the following security-critical configuration values. Do not rely on
+defaults in a production environment.
 
 When preparing for production it's paramount to omit the `--dev` flag from `kratos serve`.
+
+### Secrets
+
+Review the secrets section of the [Configuration](../reference/configuration.mdx).
+
+Do not rely on the defaults in production, and set a custom secret value for `default`, `cookie`, `pagination` and `cipher`.
+Generate a cryptographically secure random value, for example:
+
+```sh
+openssl rand -base64 32
+```
 
 ### HTTP clients
 

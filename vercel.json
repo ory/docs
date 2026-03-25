@@ -1362,6 +1362,41 @@
       "destination": "/docs/welcome",
       "permanent": true
     }
-    
+  ],
+  "headers": [
+    {
+      "source": "/docs/(assets)/(.*)",
+      "headers": [
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "s-maxage=2592000, immutable"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "s-maxage=2592000, immutable"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "max-age=2592000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/docs/(img|scripts)/(.*)",
+      "headers": [
+        {
+          "key": "Vercel-CDN-Cache-Control",
+          "value": "s-maxage=86400, stale-while-revalidate=604800"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "s-maxage=86400, stale-while-revalidate=604800"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    }
   ]
 }

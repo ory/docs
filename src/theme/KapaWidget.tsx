@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import "./KapaWidget.css"
 
 export default function KapaWidget() {
   const [isScriptLoaded, setIsScriptLoaded] = useState(false)
@@ -29,6 +28,8 @@ export default function KapaWidget() {
     script.setAttribute("data-button-hide", "true")
     script.setAttribute("data-modal-override-open-id", "kapa-ai-button")
     script.setAttribute("data-modal-open-by-default", "true")
+    script.setAttribute("data-mcp-enabled", "true")
+    script.setAttribute("data-mcp-server-url", "https://ory-docs.mcp.kapa.ai")
     script.onload = () => setIsScriptLoaded(true)
     document.body.appendChild(script)
   }
@@ -36,56 +37,48 @@ export default function KapaWidget() {
   return (
     <button
       id="kapa-ai-button"
-      className="mantine-UnstyledButton-root mantine-Button-root mantine-124rx6h"
       type="button"
-      data-button="true"
       style={{
         position: "fixed",
         bottom: "20px",
         right: "20px",
         height: "5rem",
         width: "4.5rem",
-        padding: "0px",
+        padding: 0,
         backgroundColor: "rgb(26, 35, 126)",
         boxShadow: "rgba(0, 0, 0, 0.2) 0px 0px 10px",
         zIndex: 199,
+        border: "none",
+        borderRadius: "0.25rem",
+        cursor: "pointer",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "4px",
       }}
       onClick={loadKapaWidget}
     >
-      <div className="mantine-1wpc1xj mantine-Button-inner">
-        <span className="mantine-1ryt1ht mantine-Button-label">
-          <div
-            className="mantine-Stack-root mantine-1b4vo4u"
-            style={{ marginTop: "4px" }}
-          >
-            <div
-              className="mantine-Image-root mantine-yxmaw9"
-              style={{ width: "2rem" }}
-            >
-              <figure className="mantine-qenwvq mantine-Image-figure">
-                <div className="mantine-1iugybl mantine-Image-imageWrapper">
-                  <img
-                    src="/docs/img/kapa-logo.png"
-                    alt="Project Logo"
-                    className="mantine-1sc70ew mantine-Image-image"
-                    style={{
-                      objectFit: "cover",
-                      width: "2rem",
-                      height: "2rem",
-                    }}
-                  />
-                </div>
-              </figure>
-            </div>
-            <div
-              className="mantine-Text-root mantine-1y9jqg9"
-              style={{ textShadow: "rgba(0, 0, 0, 0.2) 1px 1px 2px" }}
-            >
-              Ask AI
-            </div>
-          </div>
-        </span>
-      </div>
+      <img
+        src="/docs/img/kapa-logo.png"
+        alt="Ask AI"
+        style={{
+          width: "2rem",
+          height: "2rem",
+          objectFit: "cover",
+          borderRadius: "0.25rem",
+        }}
+      />
+      <span
+        style={{
+          color: "white",
+          fontSize: "1.125rem",
+          fontWeight: 600,
+          textShadow: "rgba(0, 0, 0, 0.2) 1px 1px 2px",
+        }}
+      >
+        Ask AI
+      </span>
     </button>
   )
 }

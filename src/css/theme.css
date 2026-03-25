@@ -265,182 +265,12 @@ h2.ory-section-heading {
   color: #3032a3;
 }
 
-/**
- * fonts in this file are being loaded from the main website to improve
- * caching.
- */
-
-@font-face {
-  font-family: InterVariable;
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url("../static/fonts/Inter/InterVariable.woff2?v=4.0") format("woff2");
-}
-
-@font-face {
-  font-family: InterVariable;
-  font-style: italic;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url("../static/fonts/Inter/InterVariable-Italic.woff2?v=4.0")
-    format("woff2");
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-Bold.woff2")
-    format("woff2");
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-BoldItalic.woff2")
-    format("woff2");
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-ExtraBold.woff2")
-    format("woff2");
-  font-weight: 800;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-ExtraBoldItalic.woff2")
-    format("woff2");
-  font-weight: 800;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-ExtraLight.woff2")
-    format("woff2");
-  font-weight: 200;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-ExtraLightItalic.woff2")
-    format("woff2");
-  font-weight: 200;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-Italic.woff2")
-    format("woff2");
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-Light.woff2")
-    format("woff2");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-LightItalic.woff2")
-    format("woff2");
-  font-weight: 300;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-Medium.woff2")
-    format("woff2");
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-MediumItalic.woff2")
-    format("woff2");
-  font-weight: 500;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-Regular.woff2")
-    format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-SemiBold.woff2")
-    format("woff2");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-SemiBoldItalic.woff2")
-    format("woff2");
-  font-weight: 600;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-Thin.woff2")
-    format("woff2");
-  font-weight: 100;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-display: swap;
-  src: url("../static/fonts/JetBrainsMono/JetBrainsMono-ThinItalic.woff2")
-    format("woff2");
-  font-weight: 100;
-  font-style: italic;
-}
-
 :root {
-  /* Font source of truth: HomePage uses Inter, sans-serif */
-  --ifm-font-family-base-fallback: sans-serif;
-  --ifm-font-family-monospace-fallback: monospace;
-  --ifm-font-family-base: "Inter", var(--ifm-font-family-base-fallback);
-  --ifm-font-family-monospace: "JetBrains Mono",
-    var(--ifm-font-family-monospace-fallback);
+  --ifm-font-family-base: system-ui, sans-serif;
+  --ifm-font-family-monospace: ui-monospace, monospace;
   --ifm-color-primary: var(--color-indigo-900); /* Indigo 900 */
   --ifm-heading-color: var(--ory-text-primary);
-  --ifm-heading-font-family: "Inter";
+  --ifm-heading-font-family: var(--ifm-font-family-base);
   --ifm-heading-font-weight: 400;
   --ifm-heading-line-height: 1.25;
   /* Ory typography scale for doc content (matches ory-heading-1, ory-heading-2, etc.) */
@@ -727,8 +557,8 @@ h2.ory-section-heading {
 
 @supports (font-variation-settings: normal) {
   :root {
-    --ifm-font-family-base: Inter, var(--ifm-font-family-base-fallback);
-    --ifm-heading-font-family: Inter, var(--ifm-font-family-base-fallback);
+    --ifm-font-family-base: system-ui, sans-serif;
+    --ifm-heading-font-family: var(--ifm-font-family-base);
   }
 }
 /* If you have a different syntax highlighting theme for dark mode. */
@@ -1399,7 +1229,7 @@ button.sidebar-deployment-model__link {
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
-  font-family: "JetBrains Mono", monospace !important;
+  font-family: var(--ifm-font-family-monospace) !important;
   font-size: 14px !important;
   line-height: 1.65 !important;
 }

@@ -1268,6 +1268,10 @@
             "description": "Configures the Ory Kratos Login Lifespan\n\nThis governs the \"selfservice.flows.login.lifespan\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_login_style": {
+            "description": "Configures the Ory Kratos Login Flow Style\n\nThis governs the \"selfservice.flows.login.style\" setting.\nPossible values are \"unified\" and \"identifier_first\".",
+            "type": "string"
+          },
           "kratos_selfservice_flows_login_ui_url": {
             "description": "Configures the Ory Kratos Login UI URL\n\nThis governs the \"selfservice.flows.login.ui_url\" setting.",
             "type": "string"
@@ -1423,12 +1427,24 @@
           "kratos_selfservice_methods_captcha_config_allowed_domains": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
+          "kratos_selfservice_methods_captcha_config_byo": {
+            "description": "Configures whether to use BYO or managed widget\n\nReach out to your account manager to enable this feature.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_captcha_config_cf_turnstile_byo_secret": {
+            "description": "Configures the Cloudflare Turnstile site secret for Ory BYO CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_captcha_config_cf_turnstile_byo_sitekey": {
+            "description": "Configures the Cloudflare Turnstile site key for Ory BYO CAPTCHA protection\n\nThe site key is public and will be shared with the client.\n\nReach out to your account manager to enable this feature.",
+            "type": "string"
+          },
           "kratos_selfservice_methods_captcha_config_cf_turnstile_secret": {
-            "description": "Configures the Cloudflare Turnstile site secret for CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
+            "description": "Configures the Cloudflare Turnstile site secret for managed CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
             "type": "string"
           },
           "kratos_selfservice_methods_captcha_config_cf_turnstile_sitekey": {
-            "description": "Configures the Cloudflare Turnstile site key for CAPTCHA protection\n\nThe site key is public and will be shared with the client.\n\nReach out to your account manager to enable this feature.",
+            "description": "Configures the Cloudflare Turnstile site key for managed CAPTCHA protection\n\nThe site key is public and will be shared with the client.\n\nReach out to your account manager to enable this feature.",
             "type": "string"
           },
           "kratos_selfservice_methods_captcha_config_legacy_inject_node": {
@@ -2123,6 +2139,10 @@
             "description": "Version is the version of the plan. The combination of `name@version` must be unique.",
             "format": "int64",
             "type": "integer"
+          },
+          "yearly_only": {
+            "description": "YearlyOnly is true if the plan only supports yearly billing.",
+            "type": "boolean"
           }
         },
         "required": [
@@ -2130,6 +2150,7 @@
           "version",
           "description",
           "custom",
+          "yearly_only",
           "base_fee_monthly",
           "base_fee_yearly",
           "features",
@@ -5907,6 +5928,10 @@
             "description": "Configures the Ory Kratos Login Lifespan\n\nThis governs the \"selfservice.flows.login.lifespan\" setting.",
             "type": "string"
           },
+          "kratos_selfservice_flows_login_style": {
+            "description": "Configures the Ory Kratos Login Flow Style\n\nThis governs the \"selfservice.flows.login.style\" setting.\nPossible values are \"unified\" and \"identifier_first\".",
+            "type": "string"
+          },
           "kratos_selfservice_flows_login_ui_url": {
             "description": "Configures the Ory Kratos Login UI URL\n\nThis governs the \"selfservice.flows.login.ui_url\" setting.",
             "type": "string"
@@ -6062,12 +6087,24 @@
           "kratos_selfservice_methods_captcha_config_allowed_domains": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
+          "kratos_selfservice_methods_captcha_config_byo": {
+            "description": "Configures whether to use BYO or managed widget\n\nReach out to your account manager to enable this feature.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_captcha_config_cf_turnstile_byo_secret": {
+            "description": "Configures the Cloudflare Turnstile site secret for Ory BYO CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
+            "type": "string"
+          },
+          "kratos_selfservice_methods_captcha_config_cf_turnstile_byo_sitekey": {
+            "description": "Configures the Cloudflare Turnstile site key for Ory BYO CAPTCHA protection\n\nThe site key is public and will be shared with the client.\n\nReach out to your account manager to enable this feature.",
+            "type": "string"
+          },
           "kratos_selfservice_methods_captcha_config_cf_turnstile_secret": {
-            "description": "Configures the Cloudflare Turnstile site secret for CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
+            "description": "Configures the Cloudflare Turnstile site secret for managed CAPTCHA protection\n\nThe site secret is private and will be never be shared with the client. This key is write only and the value will not be returned in response to a read request.\n\nReach out to your account manager to enable this feature.",
             "type": "string"
           },
           "kratos_selfservice_methods_captcha_config_cf_turnstile_sitekey": {
-            "description": "Configures the Cloudflare Turnstile site key for CAPTCHA protection\n\nThe site key is public and will be shared with the client.\n\nReach out to your account manager to enable this feature.",
+            "description": "Configures the Cloudflare Turnstile site key for managed CAPTCHA protection\n\nThe site key is public and will be shared with the client.\n\nReach out to your account manager to enable this feature.",
             "type": "string"
           },
           "kratos_selfservice_methods_captcha_config_legacy_inject_node": {
@@ -6557,6 +6594,12 @@
       },
       "normalizedProjectRevisionThirdPartyProvider": {
         "properties": {
+          "account_linking_mode": {
+            "description": "AccountLinkingMode controls how account conflicts are resolved for this provider.\n\nPossible values are `confirm_with_existing_credential` (default) and `automatic`.\n`automatic` silently links accounts when the provider verifies email ownership.\nOnly supported for `apple` and `google` providers.\nautomatic AccountLinkingModeAutomatic  AccountLinkingModeAutomatic silently links accounts if the provider verifies email ownership.\nconfirm_with_existing_credential AccountLinkingModeConfirmWithExistingCredential  AccountLinkingModeConfirmWithExistingCredential requires the user to confirm the account linking by providing an existing credential.",
+            "enum": ["automatic", "confirm_with_existing_credential"],
+            "type": "string",
+            "x-go-enum-desc": "automatic AccountLinkingModeAutomatic  AccountLinkingModeAutomatic silently links accounts if the provider verifies email ownership.\nconfirm_with_existing_credential AccountLinkingModeConfirmWithExistingCredential  AccountLinkingModeConfirmWithExistingCredential requires the user to confirm the account linking by providing an existing credential."
+          },
           "additional_id_token_audiences": {
             "$ref": "#/components/schemas/StringSliceJSONFormat"
           },
@@ -9624,9 +9667,7 @@
             "type": "integer"
           },
           "page_token": {
-            "default": "1",
             "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
-            "minimum": 1,
             "type": "string"
           }
         },
@@ -9657,9 +9698,7 @@
             "type": "integer"
           },
           "page_token": {
-            "default": "1",
             "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.sh/docs/ecosystem/api-design#pagination).",
-            "minimum": 1,
             "type": "string"
           }
         },
@@ -10389,7 +10428,7 @@
             "type": "object"
           },
           "upstream_parameters": {
-            "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.",
+            "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
             "type": "object"
           }
         },
@@ -10725,7 +10764,7 @@
             "type": "object"
           },
           "upstream_parameters": {
-            "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.",
+            "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
             "type": "object"
           }
         },
@@ -10978,7 +11017,7 @@
             "type": "string"
           },
           "upstream_parameters": {
-            "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.",
+            "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
             "type": "object"
           }
         },
@@ -12219,8 +12258,6 @@
             "in": "query",
             "name": "page_token",
             "schema": {
-              "default": "1",
-              "minimum": 1,
               "type": "string"
             }
           },
@@ -13006,8 +13043,6 @@
             "in": "query",
             "name": "page_token",
             "schema": {
-              "default": "1",
-              "minimum": 1,
               "type": "string"
             }
           },
@@ -14060,8 +14095,6 @@
             "in": "query",
             "name": "page_token",
             "schema": {
-              "default": "1",
-              "minimum": 1,
               "type": "string"
             }
           },
@@ -18427,8 +18460,6 @@
             "in": "query",
             "name": "page_token",
             "schema": {
-              "default": "1",
-              "minimum": 1,
               "type": "string"
             }
           }
@@ -20596,8 +20627,6 @@
             "in": "query",
             "name": "page_token",
             "schema": {
-              "default": "1",
-              "minimum": 1,
               "type": "string"
             }
           },

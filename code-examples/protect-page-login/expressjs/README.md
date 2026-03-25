@@ -1,4 +1,4 @@
-# Express.js Authentication Example
+# Ory Authentication Example with Express
 
 This example demonstrates how to implement authentication in an Express.js
 application using Ory.
