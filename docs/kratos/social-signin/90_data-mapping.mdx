@@ -287,12 +287,12 @@ local identity = std.extVar('identity');
 
 #### Behavior details
 
-- **No unnecessary writes.** The identity is only updated in the database when traits or metadata actually changed.
-- **Metadata preservation.** When the mapper omits `metadata_public` or `metadata_admin` from its output, existing values are
+- No unnecessary writes. The identity is only updated in the database when traits or metadata actually changed.
+- Metadata preservation. When the mapper omits `metadata_public` or `metadata_admin` from its output, existing values are
   preserved. When the mapper explicitly outputs `{}`, the field is cleared.
-- **Schema validation.** The updated identity is validated against the identity schema before it is persisted. If the mapper
+- Schema validation. The updated identity is validated against the identity schema before it is persisted. If the mapper
   produces invalid traits, the login fails with a validation error.
-- **No credential changes.** Credentials and verified addresses are never modified by this feature.
+- No credential changes. Credentials and verified addresses are never modified by this feature.
 
 ### Emails and phone numbers
 
