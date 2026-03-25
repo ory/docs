@@ -32,7 +32,7 @@ const P5K_CANONICAL_NODES: CanonicalNodeMap = {
   "ory-keto": {
     id: "ory-keto",
     type: "oryProduct",
-    position: { x: 500, y: 270 },
+    position: { x: 500, y: 280 },
     data: {
       label: "Ory Keto\n• Permissions",
       dotColor: "var(--icon-keto-tertiary)",
@@ -222,6 +222,47 @@ function cloneNode(def: Omit<Node, "id"> & { id: string }): Node {
   return { id, ...(JSON.parse(JSON.stringify(rest)) as Omit<Node, "id">) }
 }
 
+/**
+ * Reuse the Kratos slot for an external IdP (Hydra path; Polis uses Corporate IdP).
+ */
+export function shouldShowExistingIdp(
+  selected: Set<ProductKey>,
+  identityAnswer?: "yes" | "no",
+): boolean {
+  // Never show when Polis is selected (Corporate IdP is shown instead).
+  if (selected.has("polis")) return false
+
+  // Real Kratos product takes precedence.
+  if (selected.has("kratos")) return false
+
+  // When driven by the stepper, only show after the user explicitly chose "No".
+  if (identityAnswer === "yes") return false
+  if (identityAnswer === "no") return true
+
+  // No identity context (e.g. diagram without stepper): infer from products.
+  // Only show it when it's actually relevant (Hydra is present).
+  return selected.has("hydra")
+}
+
+function buildKratosIdentityNode(
+  selected: Set<ProductKey>,
+  canonical: CanonicalNodeMap,
+  identityAnswer?: "yes" | "no",
+): Node | null {
+  if (selected.has("kratos")) {
+    return cloneNode(canonical["ory-kratos"])
+  }
+  if (shouldShowExistingIdp(selected, identityAnswer)) {
+    const base = canonical["ory-kratos"]
+    return {
+      ...cloneNode(base),
+      type: "plain",
+      data: { label: "Your existing IdP" },
+    }
+  }
+  return null
+}
+
 function buildAppNode(
   elementsSelected: boolean,
   canonical: CanonicalNodeMap,
@@ -240,6 +281,7 @@ function buildAppNode(
 export function buildVisibleNodes(
   selectedProducts: ProductKey[],
   compactRowLayout: boolean,
+  identityAnswer?: "yes" | "no",
 ): Node[] {
   const selected = new Set(selectedProducts)
   const canonical = resolveCanonicalNodes(selected, compactRowLayout)
@@ -255,7 +297,12 @@ export function buildVisibleNodes(
     nodes.push(cloneNode(canonical["ory-polis"]))
   }
   if (selected.has("hydra")) nodes.push(cloneNode(canonical["ory-hydra"]))
-  if (selected.has("kratos")) nodes.push(cloneNode(canonical["ory-kratos"]))
+  const kratosIdentity = buildKratosIdentityNode(
+    selected,
+    canonical,
+    identityAnswer,
+  )
+  if (kratosIdentity) nodes.push(kratosIdentity)
   if (selected.has("oathkeeper")) {
     nodes.push(cloneNode(canonical["ory-oathkeeper"]))
     nodes.push(cloneNode(canonical["protected-app"]))

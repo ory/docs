@@ -137,6 +137,7 @@ export function SolutionDesignStepper() {
                 selectedProducts={selectedProducts}
                 scimSelected={answers.scim === "yes"}
                 currentStep={currentStep}
+                identityAnswer={answers.identity}
               />
             )}
           </div>

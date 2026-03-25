@@ -145,6 +145,12 @@ function OryProductNode({
         style={{ ...hs, left: "50%" }}
       />
       <Handle
+        type="target"
+        position={Position.Bottom}
+        id="in-bottom-4"
+        style={{ ...hs, left: "90%" }}
+      />
+      <Handle
         type="source"
         position={Position.Left}
         id="out-left"
@@ -242,9 +248,21 @@ function PlainNode({
       />
       <Handle
         type="target"
+        position={Position.Right}
+        id="in-right"
+        style={{ ...hs, top: "50%" }}
+      />
+      <Handle
+        type="target"
         position={Position.Bottom}
         id="in-bottom"
         style={{ ...hs, left: "50%" }}
+      />
+      <Handle
+        type="target"
+        position={Position.Bottom}
+        id="in-bottom-4"
+        style={{ ...hs, left: "90%" }}
       />
       <Handle
         type="source"

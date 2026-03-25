@@ -28,6 +28,8 @@ export interface OryArchitectureDiagramProps {
   selectedProducts?: ProductKey[]
   scimSelected?: boolean
   currentStep?: number
+  /** First step: declining Ory Kratos enables "Your existing IdP" in the diagram. */
+  identityAnswer?: "yes" | "no"
   readonly?: boolean
 }
 
@@ -140,12 +142,18 @@ export default function OryArchitectureDiagram({
   selectedProducts = [],
   scimSelected = false,
   currentStep,
+  identityAnswer,
   readonly = true,
 }: OryArchitectureDiagramProps) {
   const { nodes: graphNodes, edges: graphEdges } = useMemo(
     () =>
-      buildArchitectureGraph(selectedProducts, scimSelected, currentStep),
-    [selectedProducts, scimSelected, currentStep],
+      buildArchitectureGraph(
+        selectedProducts,
+        scimSelected,
+        currentStep,
+        identityAnswer,
+      ),
+    [selectedProducts, scimSelected, currentStep, identityAnswer],
   )
 
   const [nodes, setNodes, onNodesChange] = useNodesState(graphNodes)

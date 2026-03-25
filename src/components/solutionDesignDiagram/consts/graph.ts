@@ -3,10 +3,14 @@
 
 import type { Edge, Node } from "@xyflow/react"
 import type { ProductKey } from "../../welcomePage/solutionDesignStepper/types/solutionDesignTypes"
+import { shouldShowExistingIdp } from "./canonicalNodes"
 
 type EdgeRule = {
   edge: Edge
-  when: (selected: Set<ProductKey>) => boolean
+  when: (
+    selected: Set<ProductKey>,
+    identityAnswer?: "yes" | "no",
+  ) => boolean
   scimSensitive?: boolean
 }
 
@@ -62,6 +66,18 @@ function p5kBaseEdgeRules(): EdgeRule[] {
     },
     {
       edge: {
+        id: "hydra-existing-idp-login-p5k",
+        source: "ory-hydra",
+        target: "ory-kratos",
+        sourceHandle: "out-right",
+        targetHandle: "in-left",
+        type: "smoothstep-solid",
+        data: { label: "Delegates login" },
+      },
+      when: (s, id) => s.has("hydra") && shouldShowExistingIdp(s, id),
+    },
+    {
+      edge: {
         id: "hydra-protected-direct-p5k",
         source: "ory-hydra",
         target: "ory-elements",
@@ -109,6 +125,18 @@ function p5kBaseEdgeRules(): EdgeRule[] {
       },
       when: (s) => s.has("polis") && s.has("kratos"),
     },
+    {
+      edge: {
+        id: "polis-elements-sso-p5k",
+        source: "ory-polis",
+        target: "ory-elements",
+        sourceHandle: "out-left",
+        targetHandle: "in-right",
+        type: "smoothstep-solid",
+        data: { label: "SSO / Identity" },
+      },
+      when: (s) => s.has("polis") && !s.has("kratos"),
+    },
   ]
 }
 
@@ -139,7 +167,10 @@ function appToKratosWhenNoHydra(): EdgeRule {
       type: "smoothstep-dashed",
       data: { label: "Session / JWT" },
     },
-    when: (s) => s.has("kratos") && !s.has("hydra") && !s.has("oathkeeper"),
+    when: (s, identityAnswer) =>
+      (s.has("kratos") || shouldShowExistingIdp(s, identityAnswer)) &&
+      !s.has("hydra") &&
+      !s.has("oathkeeper"),
   }
 }
 
@@ -168,6 +199,18 @@ function oathkeeperEdgeRules(): EdgeRule[] {
         data: { label: "Session / JWT" },
       },
       when: (s) => s.has("oathkeeper") && s.has("kratos"),
+    },
+    {
+      edge: {
+        id: "existing-idp-oathkeeper",
+        source: "ory-kratos",
+        target: "ory-oathkeeper",
+        sourceHandle: "out-bottom",
+        targetHandle: "in-top",
+        type: "smoothstep-dashed",
+        data: { label: "Session / JWT" },
+      },
+      when: (s, id) => s.has("oathkeeper") && shouldShowExistingIdp(s, id),
     },
     {
       edge: {
@@ -215,10 +258,14 @@ const ALL_EDGE_RULES: EdgeRule[] = [
   ...oathkeeperEdgeRules(),
 ]
 
-export function collectEdges(selected: Set<ProductKey>, showScim: boolean): Edge[] {
+export function collectEdges(
+  selected: Set<ProductKey>,
+  showScim: boolean,
+  identityAnswer?: "yes" | "no",
+): Edge[] {
   const out: Edge[] = []
   for (const rule of ALL_EDGE_RULES) {
-    if (!rule.when(selected)) continue
+    if (!rule.when(selected, identityAnswer)) continue
     if (rule.scimSensitive && !showScim) continue
     const label = (rule.edge.data as { label?: string } | undefined)?.label
     if (label === "SCIM" && !showScim) continue
@@ -288,7 +335,10 @@ export function remapEdgesForCompactRow(edges: Edge[], nodes: Node[]): Edge[] {
 }
 
 /** Offset handles when SCIM edges are visible to reduce path overlap. */
-export function spreadScimEdgeHandles(edges: Edge[], showScim: boolean): Edge[] {
+export function spreadScimEdgeHandles(
+  edges: Edge[],
+  showScim: boolean,
+): Edge[] {
   if (!showScim) return edges
   return edges.map((e) => {
     switch (e.id) {
@@ -340,6 +390,18 @@ export function applyOathkeeperTopologyEdgeHandles(
           sourceHandle: "out-left",
           targetHandle: "in-right",
         }
+      case "hydra-existing-idp-login-p5k":
+        return {
+          ...e,
+          sourceHandle: "out-left",
+          targetHandle: "in-right",
+        }
+      case "polis-elements-sso-p5k":
+        return {
+          ...e,
+          sourceHandle: "out-bottom",
+          targetHandle: "in-top",
+        }
       case "elements-hydra-request-p5k":
         return {
           ...e,
@@ -381,6 +443,100 @@ export function applyOathkeeperTopologyEdgeHandles(
         return e
     }
   })
+}
+
+/** Polis → app/backend: anchor at bottom-right of backend when Polis + Keto and no Kratos (P5K only; not Oathkeeper topology). */
+export function applyPolisElementsKetoNoKratosHandles(
+  edges: Edge[],
+  selected: Set<ProductKey>,
+): Edge[] {
+  if (
+    !selected.has("polis") ||
+    !selected.has("keto") ||
+    selected.has("kratos") ||
+    selected.has("oathkeeper")
+  ) {
+    return edges
+  }
+  return edges.map((e) => {
+    if (e.id !== "polis-elements-sso-p5k") return e
+    return {
+      ...e,
+      sourceHandle: "out-left",
+      targetHandle: "in-bottom-4",
+    }
+  })
+}
+
+/**
+ * P5K canonical layout tweak:
+ * when only Kratos + Keto (and optional Elements) are selected, connect Keto from
+ * the bottom of the backend node to avoid overlapping right-side edges.
+ */
+export function applyKratosKetoOnlyEdgeHandles(
+  edges: Edge[],
+  selected: Set<ProductKey>,
+  compactRowLayout: boolean,
+): Edge[] {
+  if (compactRowLayout) return edges
+
+  // "first canonical layout" is the non-Oathkeeper topology.
+  if (selected.has("oathkeeper")) return edges
+
+  const allowed = new Set<ProductKey>(["kratos", "keto", "elements"])
+  let containsDisallowed = false
+  selected.forEach((k) => {
+    if (!allowed.has(k)) containsDisallowed = true
+  })
+  if (containsDisallowed) return edges
+  if (!(selected.has("kratos") && selected.has("keto"))) return edges
+
+  return edges.map((e) => {
+    if (e.id !== "elements-keto-permissions-p5k") return e
+    return {
+      ...e,
+      sourceHandle: "out-bottom",
+      targetHandle: "in-left",
+    }
+  })
+}
+
+export function applyKratosKetoOnlyNodePositionAdjustments(
+  nodes: Node[],
+  selected: Set<ProductKey>,
+  compactRowLayout: boolean,
+): Node[] {
+  if (compactRowLayout) return nodes
+  if (selected.has("oathkeeper")) return nodes
+
+  const allowed = new Set<ProductKey>(["kratos", "keto", "elements"])
+  let containsDisallowed = false
+  selected.forEach((k) => {
+    if (!allowed.has(k)) containsDisallowed = true
+  })
+  if (containsDisallowed) return nodes
+  if (!(selected.has("kratos") && selected.has("keto"))) return nodes
+
+  const ketoIdx = nodes.findIndex((n) => n.id === "ory-keto")
+  const kratosIdx = nodes.findIndex((n) => n.id === "ory-kratos")
+  if (ketoIdx === -1 || kratosIdx === -1) return nodes
+
+  const keto = nodes[ketoIdx]
+  const kratos = nodes[kratosIdx]
+
+  // Switch vertical ordering (swap Y)
+  const targetX = Math.max(keto.position.x, kratos.position.x)
+
+  const out = [...nodes]
+  out[ketoIdx] = {
+    ...keto,
+    position: { x: targetX, y: kratos.position.y },
+  }
+  out[kratosIdx] = {
+    ...kratos,
+    position: { x: targetX, y: keto.position.y },
+  }
+  return out
 }
 
 export function filterEdgesByVisibleNodes(
