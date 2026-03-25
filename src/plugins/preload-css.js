@@ -4,9 +4,9 @@
 const fs = require("fs")
 const path = require("path")
 
-module.exports = function preloadCssPlugin() {
+module.exports = function embedCssPlugin() {
   return {
-    name: "preload-css",
+    name: "embed-css",
     async postBuild({ outDir, siteConfig }) {
       const cssDir = path.join(outDir, "assets", "css")
       if (!fs.existsSync(cssDir)) return
@@ -18,7 +18,9 @@ module.exports = function preloadCssPlugin() {
 
       const baseUrl = siteConfig.baseUrl.replace(/\/$/, "")
       const href = `${baseUrl}/assets/css/${cssFile}`
-      const preloadTag = `<link rel="preload" as="style" href="${href}">`
+      const cssContent = fs.readFileSync(path.join(cssDir, cssFile), "utf8")
+      const styleTag = `<style>${cssContent}</style>`
+      const linkTag = `<link href="${href}" rel="stylesheet">`
 
       function walk(dir) {
         for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -33,8 +35,9 @@ module.exports = function preloadCssPlugin() {
 
       function inject(filePath) {
         let html = fs.readFileSync(filePath, "utf8")
-        if (html.includes(preloadTag)) return
-        html = html.replace("<head>", `<head>${preloadTag}`)
+        if (html.includes(styleTag)) return
+        html = html.replace(linkTag, "")
+        html = html.replace("<head>", `<head>${styleTag}`)
         fs.writeFileSync(filePath, html)
       }
 
