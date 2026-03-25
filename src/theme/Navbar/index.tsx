@@ -109,8 +109,8 @@ function OryNavbar() {
             </div>
 
             {!searchBarItem && (
-              <NavbarSearch className="min-w-0 flex-1 lg:flex-none">
-                <div className="min-w-0 w-full lg:w-64">
+              <NavbarSearch className="min-w-0 flex-none">
+                <div className="min-w-0">
                   <SearchBar />
                 </div>
               </NavbarSearch>

@@ -417,30 +417,32 @@ h2.ory-section-heading {
 .navbar .DocSearch-Button {
   width: 100% !important;
   max-width: 100% !important;
-  height: auto !important;
+  height: 32px !important;
   min-height: 32px !important;
   border: 1px solid var(--ory-navbar-border) !important;
   background: var(--ory-navbar-bg) !important;
-  border-radius: 0 !important;
+  border-radius: 4px !important;
   box-shadow: none !important;
   color: var(--ory-navbar-text) !important;
   font-size: 16px !important;
   font-family: Inter, sans-serif !important;
   font-weight: 400 !important;
   line-height: 1.25 !important;
-  padding: 0 !important;
-  padding-left: 4px !important;
-  padding-right: 12px !important;
+  padding: 0 10px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  gap: 0 !important;
+  gap: 2px !important;
   flex-shrink: 0 !important;
   margin: 0 !important;
 }
 
 .navbar .DocSearch-Button-Container {
+  display: flex !important;
+  align-items: center !important;
   min-width: 0 !important;
+  flex: 1 1 auto !important;
+  gap: 2px !important;
 }
 
 .navbar .DocSearch-Button-Placeholder {
@@ -448,26 +450,28 @@ h2.ory-section-heading {
   font-size: 16px !important;
   font-family: Inter, sans-serif !important;
   font-weight: 400 !important;
-  padding: 8px !important;
-  flex: 1 0 0 !important;
+  line-height: 1.25 !important;
+  padding: 0 !important;
+  flex: 1 1 auto !important;
   min-width: 0 !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
 }
 
-/* Search icon wrapper - DocSearch uses SVG */
-.navbar .DocSearch-Button .DocSearch-Search-Icon,
-.navbar .DocSearch-Button svg {
-  padding: 8px !important;
+/* Magnifier */
+.navbar .DocSearch-Button-Container .DocSearch-Search-Icon,
+.navbar .DocSearch-Button-Container > svg {
+  padding: 0 !important;
+  margin: 0 6px 0 0 !important;
   flex-shrink: 0 !important;
   width: 16px !important;
   height: 16px !important;
+  display: block !important;
   color: var(--ory-navbar-text) !important;
-  margin: 0 !important;
+  box-sizing: content-box !important;
 }
 
-/* ⌘K keyboard shortcut badge */
 /* Container for keyboard keys */
 .navbar .DocSearch-Button-Key,
 .navbar .DocSearch-Button-Keys {
@@ -478,7 +482,7 @@ h2.ory-section-heading {
   border: none !important;
   height: 20px !important;
   min-width: 20px !important;
-  padding: 0 4px !important;
+  padding: 7px 0px 2px 2px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -487,7 +491,7 @@ h2.ory-section-heading {
   font-weight: 500 !important;
   line-height: 1.25 !important;
   margin-left: 0 !important;
-  gap: 2px !important;
+  gap: 0px !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
@@ -553,6 +557,46 @@ h2.ory-section-heading {
 .navbar .DocSearch-Button-Key::before,
 .navbar .DocSearch-Button-Keys::before {
   display: none !important;
+}
+
+/* Navbar search responsiveness */
+@media (min-width: 997px) {
+  .navbar .DocSearch-Button {
+    width: clamp(180px, 20vw, 256px) !important;
+    max-width: 256px !important;
+  }
+}
+
+@media (max-width: 1380px) {
+  /* Icon-only button: hide placeholder + key hints */
+  .navbar .DocSearch-Button {
+    width: 32px !important;
+    max-width: 32px !important;
+    margin-left: auto !important;
+    padding: 0 !important;
+    justify-content: center !important;
+  }
+
+  /* Ensure the right-side navbar flex group stays right-aligned */
+  .navbar .navbar__items--right {
+    margin-left: auto !important;
+    justify-content: flex-end !important;
+  }
+
+  .navbar .DocSearch-Button-Container {
+    flex: 0 0 auto !important;
+  }
+
+  .navbar .DocSearch-Button-Placeholder,
+  .navbar .DocSearch-Button-Key,
+  .navbar .DocSearch-Button-Keys {
+    display: none !important;
+  }
+
+  .navbar .DocSearch-Button-Container .DocSearch-Search-Icon,
+  .navbar .DocSearch-Button-Container > svg {
+    margin-right: 0 !important;
+  }
 }
 
 @supports (font-variation-settings: normal) {
