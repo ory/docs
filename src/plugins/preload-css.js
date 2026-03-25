@@ -3,11 +3,12 @@
 
 const fs = require("fs")
 const path = require("path")
+const cheerio = require("cheerio")
 
 module.exports = function embedCssPlugin() {
   return {
     name: "embed-css",
-    async postBuild({ outDir, siteConfig }) {
+    async postBuild({ outDir }) {
       const cssDir = path.join(outDir, "assets", "css")
       if (!fs.existsSync(cssDir)) return
 
@@ -16,11 +17,7 @@ module.exports = function embedCssPlugin() {
       )
       if (!cssFile) return
 
-      const baseUrl = siteConfig.baseUrl.replace(/\/$/, "")
-      const href = `${baseUrl}/assets/css/${cssFile}`
       const cssContent = fs.readFileSync(path.join(cssDir, cssFile), "utf8")
-      const styleTag = `<style>${cssContent}</style>`
-      const linkTag = `<link href="${href}" rel="stylesheet">`
 
       function walk(dir) {
         for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -34,11 +31,14 @@ module.exports = function embedCssPlugin() {
       }
 
       function inject(filePath) {
-        let html = fs.readFileSync(filePath, "utf8")
-        if (html.includes(styleTag)) return
-        html = html.replace(linkTag, "")
-        html = html.replace("<head>", `<head>${styleTag}`)
-        fs.writeFileSync(filePath, html)
+        const html = fs.readFileSync(filePath, "utf8")
+        const $ = cheerio.load(html, { decodeEntities: false })
+
+        const link = $(`link[rel="stylesheet"][href$="${cssFile}"]`)
+        if (!link.length) return
+
+        link.replaceWith(`<style>${cssContent}</style>`)
+        fs.writeFileSync(filePath, $.html())
       }
 
       walk(outDir)
