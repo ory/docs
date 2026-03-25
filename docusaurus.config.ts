@@ -139,6 +139,7 @@ const config: Config = {
     //     buttonPosition: "center-right",
     //   },
     // ],
+    "./src/plugins/preload-css",
     async function tailwindcss(context, options) {
       return {
         name: "docusaurus-tailwindcss",

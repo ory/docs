@@ -1,7 +1,7 @@
 ---
 id: ory-use-project
 title: ory use project
-description: ory use project Set the project as the default. When no id is provided, prints the currently used default project.
+description: ory use project
 ---
 
 <!--
@@ -34,7 +34,7 @@ $ ory use project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 ### Options
 
 ```
-      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help            help for project
   -q, --quiet           Be quiet with output printing.
 ```
@@ -46,7 +46,7 @@ $ ory use project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory use](ory-use)	 - Use a resource
+* [ory use](ory-use) Use a resource
 

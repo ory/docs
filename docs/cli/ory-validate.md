@@ -1,7 +1,7 @@
 ---
 id: ory-validate
 title: ory validate
-description: ory validate Validate resources
+description: ory validate
 ---
 
 <!--
@@ -23,8 +23,8 @@ Validate resources
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory validate identity](ory-validate-identity)	 - Validate local identity files
 

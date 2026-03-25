@@ -1,7 +1,7 @@
 ---
 id: ory-get
 title: ory get
-description: ory get Get a resource
+description: ory get
 ---
 
 <!--
@@ -22,9 +22,9 @@ Get a resource
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory get identity](ory-get-identity)	 - Get one or more identities by their ID(s)
 * [ory get identity-config](ory-get-identity-config)	 - Get Ory Identities configuration.
 * [ory get jwk](ory-get-jwk)	 - Get one or more JSON Web Key Set by its ID(s)

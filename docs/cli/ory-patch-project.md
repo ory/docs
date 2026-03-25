@@ -1,7 +1,7 @@
 ---
 id: ory-patch-project
 title: ory patch project
-description: ory patch project Patch the Ory Network project configuration.
+description: ory patch project
 ---
 
 <!--
@@ -20,8 +20,10 @@ specified in the patch will be overwritten. To replace the config use the `updat
 
 The format of the patch is a JSON-Patch document. For more details please check:
 
-	https://www.ory.sh/docs/reference/api#operation/patchProject
-	https://jsonpatch.com
+```
+https://www.ory.sh/docs/reference/api#operation/patchProject
+https://jsonpatch.com
+```
 
 ```
 ory patch project [flags]
@@ -47,7 +49,7 @@ ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 ```
       --add stringArray       Add a specific key to the configuration
   -f, --file strings          Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the project
-      --format string         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                  help for project
       --project string        The project to use, either project ID or a (partial) slug.
   -q, --quiet                 Be quiet with output printing.
@@ -63,7 +65,7 @@ ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
   -c, --config string   Path to the Ory Network configuration file.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory patch](ory-patch)	 - Patch resources
+* [ory patch](ory-patch) Patch resources
 

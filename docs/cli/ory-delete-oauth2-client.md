@@ -1,7 +1,7 @@
 ---
 id: ory-delete-oauth2-client
 title: ory delete oauth2-client
-description: ory delete oauth2-client Delete one or more OAuth 2.0 Clients by their ID(s)
+description: ory delete oauth2-client
 ---
 
 <!--
@@ -35,7 +35,7 @@ To delete OAuth 2.0 Clients with the owner of "foo@bar.com", run:
 
 ```
   -e, --endpoint string    The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help               help for oauth2-client
       --project string     The project to use, either project ID or a (partial) slug.
   -q, --quiet              Be quiet with output printing.
@@ -49,7 +49,7 @@ To delete OAuth 2.0 Clients with the owner of "foo@bar.com", run:
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory delete](ory-delete)	 - Delete resources
+* [ory delete](ory-delete) Delete resources
 

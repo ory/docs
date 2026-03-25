@@ -1,7 +1,7 @@
 ---
 id: ory-create-project
 title: ory create project
-description: ory create project Create a new Ory Network project
+description: ory create project
 ---
 
 <!--
@@ -22,7 +22,7 @@ ory create project [flags]
 ```
       --create-workspace string   Create a new workspace with the given name and use it for the project
   -e, --environment environment   The environment of the project. Valid values are: prod, stage, dev (default dev)
-      --format string             Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string             Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                      help for project
   -n, --name string               The name of the project, required when quiet mode is used
   -q, --quiet                     Be quiet with output printing.
@@ -37,7 +37,7 @@ ory create project [flags]
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory create](ory-create)	 - Create Ory Network resources
+* [ory create](ory-create) Create Ory Network resources
 
