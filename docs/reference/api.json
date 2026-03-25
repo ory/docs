@@ -2952,21 +2952,25 @@
       "createEventStreamBody": {
         "description": "Create Event Stream Request Body",
         "properties": {
+          "https_endpoint": {
+            "description": "The HTTPS endpoint URL to send events to. Required if type is https.",
+            "type": "string"
+          },
           "role_arn": {
-            "description": "The AWS IAM role ARN to assume when publishing to the SNS topic.",
+            "description": "The AWS IAM role ARN to assume when publishing to the SNS topic. Required if type is sns.",
             "type": "string"
           },
           "topic_arn": {
-            "description": "The AWS SNS topic ARN.",
+            "description": "The AWS SNS topic ARN. Required if type is sns.",
             "type": "string"
           },
           "type": {
-            "description": "The type of the event stream (AWS SNS, GCP Pub/Sub, etc).",
-            "enum": ["sns"],
+            "description": "The type of the event stream (AWS SNS or HTTPS webhook).",
+            "enum": ["sns", "https"],
             "type": "string"
           }
         },
-        "required": ["type", "topic_arn", "role_arn"],
+        "required": ["type"],
         "type": "object"
       },
       "createFedcmFlowResponse": {
@@ -3605,6 +3609,9 @@
           "created_at": {
             "format": "date-time",
             "type": "string"
+          },
+          "https_endpoint": {
+            "$ref": "#/components/schemas/String"
           },
           "id": {
             "format": "uuid",
@@ -8680,7 +8687,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM",
+            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM",
             "enum": [
               "production_projects",
               "staging_projects",
@@ -8708,6 +8715,7 @@
               "m2m_token_issuance",
               "permission_checks",
               "captcha",
+              "captcha_byo",
               "identity_search_api",
               "saml_sp",
               "saml_idp",
@@ -8733,7 +8741,7 @@
               "scim_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM"
+            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM"
           },
           "feature_available": {
             "type": "boolean"
@@ -9308,21 +9316,25 @@
       "setEventStreamBody": {
         "description": "Update Event Stream Body",
         "properties": {
+          "https_endpoint": {
+            "description": "The HTTPS endpoint URL to send events to. Required if type is https.",
+            "type": "string"
+          },
           "role_arn": {
-            "description": "The AWS IAM role ARN to assume when publishing to the SNS topic.",
+            "description": "The AWS IAM role ARN to assume when publishing to the SNS topic. Required if type is sns.",
             "type": "string"
           },
           "topic_arn": {
-            "description": "The AWS SNS topic ARN.",
+            "description": "The AWS SNS topic ARN. Required if type is sns.",
             "type": "string"
           },
           "type": {
-            "description": "The type of the event stream (AWS SNS, GCP Pub/Sub, etc).",
-            "enum": ["sns"],
+            "description": "The type of the event stream (AWS SNS or HTTPS webhook).",
+            "enum": ["sns", "https"],
             "type": "string"
           }
         },
-        "required": ["type", "topic_arn", "role_arn"],
+        "required": ["type"],
         "type": "object"
       },
       "setOrganizationFromOnboardingPortalLinkBody": {
@@ -11680,7 +11692,7 @@
         },
         "summary": "Discover Well-Known JSON Web Keys",
         "tags": ["wellknown"],
-        "x-ory-ratelimit-bucket": "hydra-public-low"
+        "x-ory-ratelimit-bucket": "hydra-public-high"
       }
     },
     "/.well-known/openid-configuration": {
@@ -11711,7 +11723,7 @@
         },
         "summary": "OpenID Connect Discovery",
         "tags": ["oidc"],
-        "x-ory-ratelimit-bucket": "hydra-public-low"
+        "x-ory-ratelimit-bucket": "hydra-public-high"
       }
     },
     "/.well-known/ory/webauthn.js": {
@@ -11732,7 +11744,7 @@
         },
         "summary": "Get WebAuthn JavaScript",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "hydra-public-low"
+        "x-ory-ratelimit-bucket": "hydra-public-high"
       }
     },
     "/admin/clients": {
@@ -11834,7 +11846,7 @@
         ],
         "summary": "Create OAuth 2.0 Client",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       }
     },
     "/admin/clients/{id}": {
@@ -11874,7 +11886,7 @@
         ],
         "summary": "Delete OAuth 2.0 Client",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       },
       "get": {
         "description": "Get an OAuth 2.0 client by its ID. This endpoint never returns the client secret.\n\nOAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are\ngenerated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.",
@@ -11912,7 +11924,7 @@
         ],
         "summary": "Get an OAuth 2.0 Client",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       },
       "patch": {
         "description": "Patch an existing OAuth 2.0 Client using JSON Patch. If you pass `client_secret`\nthe secret will be updated and returned via the API. This is the\nonly time you will be able to retrieve the client secret, so write it down and keep it safe.\n\nOAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are\ngenerated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.",
@@ -11965,7 +11977,7 @@
         ],
         "summary": "Patch OAuth 2.0 Client",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       },
       "put": {
         "description": "Replaces an existing OAuth 2.0 Client with the payload you send. If you pass `client_secret` the secret is used,\notherwise the existing secret is used.\n\nIf set, the secret is echoed in the response. It is not possible to retrieve it later on.\n\nOAuth 2.0 Clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are\ngenerated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.",
@@ -12021,7 +12033,7 @@
         ],
         "summary": "Set OAuth 2.0 Client",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       }
     },
     "/admin/clients/{id}/lifespans": {
@@ -12078,7 +12090,7 @@
         ],
         "summary": "Set OAuth2 Client Token Lifespans",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       }
     },
     "/admin/courier/messages": {
@@ -12155,7 +12167,7 @@
         ],
         "summary": "List Messages",
         "tags": ["courier"],
-        "x-ory-ratelimit-bucket": "kratos-admin-high"
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       }
     },
     "/admin/courier/messages/{id}": {
@@ -12404,7 +12416,7 @@
         ],
         "summary": "Create multiple identities",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-high"
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       },
       "post": {
         "description": "Create an [identity](https://www.ory.sh/docs/kratos/concepts/identity-user-model).  This endpoint can also be used to\n[import credentials](https://www.ory.sh/docs/kratos/manage-identities/import-user-accounts-identities)\nfor instance passwords, social sign in configurations or multifactor methods.",
@@ -12468,7 +12480,7 @@
         ],
         "summary": "Create an Identity",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-high"
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       }
     },
     "/admin/identities/by/external/{externalID}": {
@@ -12599,7 +12611,7 @@
         ],
         "summary": "Delete an Identity",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-high"
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       },
       "get": {
         "description": "Return an [identity](https://www.ory.sh/docs/kratos/concepts/identity-user-model) by its ID. You can optionally\ninclude credentials (e.g. social sign in connections) in the response by using the `include_credential` query parameter.",
@@ -12678,7 +12690,7 @@
         ],
         "summary": "Get an Identity",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-low"
+        "x-ory-ratelimit-bucket": "kratos-admin-high"
       },
       "patch": {
         "description": "Partially updates an [identity's](https://www.ory.sh/docs/kratos/concepts/identity-user-model) field using [JSON Patch](https://jsonpatch.com/).\nThe fields `id`, `stateChangedAt` and `credentials` can not be updated using this method.",
@@ -12763,7 +12775,7 @@
         ],
         "summary": "Patch an Identity",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-high"
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       },
       "put": {
         "description": "This endpoint updates an [identity](https://www.ory.sh/docs/kratos/concepts/identity-user-model). The full identity\npayload, except credentials, is expected. For partial updates, use the [patchIdentity](https://www.ory.sh/docs/reference/api#tag/identity/operation/patchIdentity) operation.\n\nA credential can be provided via the `credentials` field in the request body.\nIf provided, the credentials will be imported and added to the existing credentials of the identity.",
@@ -12848,7 +12860,7 @@
         ],
         "summary": "Update an Identity",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-high"
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       }
     },
     "/admin/identities/{id}/credentials/{type}": {
@@ -12929,7 +12941,7 @@
         ],
         "summary": "Delete a credential for a specific identity",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-high"
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       }
     },
     "/admin/identities/{id}/sessions": {
@@ -12999,7 +13011,7 @@
         ],
         "summary": "Delete \u0026 Invalidate an Identity's Sessions",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-high"
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       },
       "get": {
         "description": "This endpoint returns all sessions that belong to the given Identity.",
@@ -13146,7 +13158,7 @@
         ],
         "summary": "Delete JSON Web Key Set",
         "tags": ["jwk"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       },
       "get": {
         "description": "This endpoint can be used to retrieve JWK Sets stored in ORY Hydra.\n\nA JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.",
@@ -13247,7 +13259,7 @@
         ],
         "summary": "Create JSON Web Key",
         "tags": ["jwk"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       },
       "put": {
         "description": "Use this method if you do not want to let Hydra generate the JWKs for you, but instead save your own.\n\nA JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.",
@@ -13302,7 +13314,7 @@
         ],
         "summary": "Update a JSON Web Key Set",
         "tags": ["jwk"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       }
     },
     "/admin/keys/{set}/{kid}": {
@@ -13351,7 +13363,7 @@
         ],
         "summary": "Delete JSON Web Key",
         "tags": ["jwk"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       },
       "get": {
         "description": "This endpoint returns a singular JSON Web Key contained in a set. It is identified by the set and the specific key ID (kid).",
@@ -13469,7 +13481,7 @@
         ],
         "summary": "Set JSON Web Key",
         "tags": ["jwk"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       }
     },
     "/admin/oauth2/auth/requests/consent": {
@@ -13526,7 +13538,7 @@
         ],
         "summary": "Get OAuth 2.0 Consent Request",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/oauth2/auth/requests/consent/accept": {
@@ -13583,7 +13595,7 @@
         ],
         "summary": "Accept OAuth 2.0 Consent Request",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/oauth2/auth/requests/consent/reject": {
@@ -13640,7 +13652,7 @@
         ],
         "summary": "Reject OAuth 2.0 Consent Request",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/oauth2/auth/requests/device/accept": {
@@ -13696,7 +13708,7 @@
         ],
         "summary": "Accepts a device grant user_code request",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/oauth2/auth/requests/login": {
@@ -13753,7 +13765,7 @@
         ],
         "summary": "Get OAuth 2.0 Login Request",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/oauth2/auth/requests/login/accept": {
@@ -13810,7 +13822,7 @@
         ],
         "summary": "Accept OAuth 2.0 Login Request",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/oauth2/auth/requests/login/reject": {
@@ -13867,7 +13879,7 @@
         ],
         "summary": "Reject OAuth 2.0 Login Request",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/oauth2/auth/requests/logout": {
@@ -13923,7 +13935,7 @@
         ],
         "summary": "Get OAuth 2.0 Session Logout Request",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/oauth2/auth/requests/logout/accept": {
@@ -13970,7 +13982,7 @@
         ],
         "summary": "Accept OAuth 2.0 Session Logout Request",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/oauth2/auth/requests/logout/reject": {
@@ -14009,7 +14021,7 @@
         ],
         "summary": "Reject OAuth 2.0 Session Logout Request",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/oauth2/auth/sessions/consent": {
@@ -14072,7 +14084,7 @@
         ],
         "summary": "Revoke OAuth 2.0 Consent Sessions of a Subject",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       },
       "get": {
         "description": "This endpoint lists all subject's granted consent sessions, including client and granted scope.\nIf the subject is unknown or has not granted any consent sessions yet, the endpoint returns an\nempty JSON array with status code 200 OK.",
@@ -14145,7 +14157,7 @@
         ],
         "summary": "List OAuth 2.0 Consent Sessions of a Subject",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/oauth2/auth/sessions/login": {
@@ -14192,7 +14204,7 @@
         ],
         "summary": "Revokes OAuth 2.0 Login Sessions by either a Subject or a SessionID",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       }
     },
     "/admin/oauth2/introspect": {
@@ -14251,7 +14263,7 @@
         ],
         "summary": "Introspect OAuth2 Access and Refresh Tokens",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/oauth2/tokens": {
@@ -14291,7 +14303,7 @@
         ],
         "summary": "Delete OAuth 2.0 Access Tokens from specific OAuth 2.0 Client",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       }
     },
     "/admin/recovery/code": {
@@ -14357,7 +14369,7 @@
         ],
         "summary": "Create a Recovery Code",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-high"
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       }
     },
     "/admin/recovery/link": {
@@ -14432,7 +14444,7 @@
         ],
         "summary": "Create a Recovery Link",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-high"
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       }
     },
     "/admin/relation-tuples": {
@@ -14529,7 +14541,7 @@
         ],
         "summary": "Delete Relationships",
         "tags": ["relationship"],
-        "x-ory-ratelimit-bucket": "keto-admin-high"
+        "x-ory-ratelimit-bucket": "keto-admin-low"
       },
       "patch": {
         "description": "Use this endpoint to patch one or more relationships.",
@@ -14589,7 +14601,7 @@
         ],
         "summary": "Patch Multiple Relationships",
         "tags": ["relationship"],
-        "x-ory-ratelimit-bucket": "keto-admin-high"
+        "x-ory-ratelimit-bucket": "keto-admin-low"
       },
       "put": {
         "description": "Use this endpoint to create a relationship.",
@@ -14643,7 +14655,7 @@
         ],
         "summary": "Create a Relationship",
         "tags": ["relationship"],
-        "x-ory-ratelimit-bucket": "keto-admin-high"
+        "x-ory-ratelimit-bucket": "keto-admin-low"
       }
     },
     "/admin/sessions": {
@@ -14784,7 +14796,7 @@
         ],
         "summary": "Deactivate a Session",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-high"
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       },
       "get": {
         "description": "This endpoint is useful for:\n\nGetting a session object with all specified expandables that exist in an administrative context.",
@@ -14851,7 +14863,7 @@
         ],
         "summary": "Get Session",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-low"
+        "x-ory-ratelimit-bucket": "kratos-admin-high"
       }
     },
     "/admin/sessions/{id}/extend": {
@@ -14921,7 +14933,7 @@
         ],
         "summary": "Extend a Session",
         "tags": ["identity"],
-        "x-ory-ratelimit-bucket": "kratos-admin-high"
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       }
     },
     "/admin/trust/grants/jwt-bearer/issuers": {
@@ -15031,7 +15043,7 @@
         ],
         "summary": "Trust OAuth2 JWT Bearer Grant Type Issuer",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       }
     },
     "/admin/trust/grants/jwt-bearer/issuers/{id}": {
@@ -15071,7 +15083,7 @@
         ],
         "summary": "Delete Trusted OAuth2 JWT Bearer Grant Type Issuer",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-high"
+        "x-ory-ratelimit-bucket": "hydra-admin-low"
       },
       "get": {
         "description": "Use this endpoint to get a trusted JWT Bearer Grant Type Issuer. The ID is the one returned when you\ncreated the trust relationship.",
@@ -15203,7 +15215,7 @@
         ],
         "summary": "Query namespaces",
         "tags": ["relationship"],
-        "x-ory-ratelimit-bucket": "keto-admin-high"
+        "x-ory-ratelimit-bucket": "keto-admin-low"
       }
     },
     "/oauth2/auth": {
@@ -15258,7 +15270,7 @@
         },
         "summary": "The OAuth 2.0 Device Authorize Endpoint",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-public-low"
+        "x-ory-ratelimit-bucket": "hydra-public-high"
       }
     },
     "/oauth2/device/verify": {
@@ -15282,7 +15294,7 @@
         },
         "summary": "OAuth 2.0 Device Verification Endpoint",
         "tags": ["oAuth2"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/oauth2/register": {
@@ -15321,7 +15333,7 @@
         },
         "summary": "Register OAuth2 Client using OpenID Dynamic Client Registration",
         "tags": ["oidc"],
-        "x-ory-ratelimit-bucket": "hydra-public-high"
+        "x-ory-ratelimit-bucket": "hydra-public-low"
       }
     },
     "/oauth2/register/{id}": {
@@ -15361,7 +15373,7 @@
         ],
         "summary": "Delete OAuth 2.0 Client using the OpenID Dynamic Client Registration Management Protocol",
         "tags": ["oidc"],
-        "x-ory-ratelimit-bucket": "hydra-public-high"
+        "x-ory-ratelimit-bucket": "hydra-public-low"
       },
       "get": {
         "description": "This endpoint behaves like the administrative counterpart (`getOAuth2Client`) but is capable of facing the\npublic internet directly and can be used in self-service. It implements the OpenID Connect\nDynamic Client Registration Protocol.\n\nTo use this endpoint, you will need to present the client's authentication credentials. If the OAuth2 Client\nuses the Token Endpoint Authentication Method `client_secret_post`, you need to present the client secret in the URL query.\nIf it uses `client_secret_basic`, present the Client ID and the Client Secret in the Authorization header.",
@@ -15399,7 +15411,7 @@
         ],
         "summary": "Get OAuth2 Client using OpenID Dynamic Client Registration",
         "tags": ["oidc"],
-        "x-ory-ratelimit-bucket": "hydra-admin-low"
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       },
       "put": {
         "description": "This endpoint behaves like the administrative counterpart (`setOAuth2Client`) but is capable of facing the\npublic internet directly to be used by third parties. It implements the OpenID Connect\nDynamic Client Registration Protocol.\n\nThis feature is disabled per default. It can be enabled by a system administrator.\n\nIf you pass `client_secret` the secret is used, otherwise the existing secret is used. If set, the secret is echoed in the response.\nIt is not possible to retrieve it later on.\n\nTo use this endpoint, you will need to present the client's authentication credentials. If the OAuth2 Client\nuses the Token Endpoint Authentication Method `client_secret_post`, you need to present the client secret in the URL query.\nIf it uses `client_secret_basic`, present the Client ID and the Client Secret in the Authorization header.\n\nOAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are\ngenerated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.",
@@ -15452,7 +15464,7 @@
         ],
         "summary": "Set OAuth2 Client using OpenID Dynamic Client Registration",
         "tags": ["oidc"],
-        "x-ory-ratelimit-bucket": "hydra-public-high"
+        "x-ory-ratelimit-bucket": "hydra-public-low"
       }
     },
     "/oauth2/revoke": {
@@ -15723,7 +15735,7 @@
         ],
         "summary": "List All Projects",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       },
       "post": {
         "description": "Creates a new project.",
@@ -15803,7 +15815,7 @@
         ],
         "summary": "Create a Project",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/projects/{project_id}": {
@@ -15879,7 +15891,7 @@
         ],
         "summary": "Irrecoverably purge a project",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       },
       "get": {
         "description": "Get a project you have access to by its ID.",
@@ -16064,7 +16076,7 @@
         ],
         "summary": "Patch an Ory Network Project Configuration",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       },
       "put": {
         "description": "This endpoints allows you to update the Ory Network project configuration for\nindividual services (identity, permission, ...). The configuration is fully compatible\nwith the open source projects for the respective services (e.g. Ory Kratos for Identity, Ory Keto for Permissions).\n\nThis endpoint expects the `version` key to be set in the payload. If it is unset, it\nwill try to import the config as if it is from the most recent version.\n\nIf you have an older version of a configuration, you should set the version key in the payload!\n\nWhile this endpoint is able to process all configuration items related to features (e.g. password reset),\nit does not support operational configuration items (e.g. port, tracing, logging) otherwise available in the\nopen source.\n\nFor configuration items that can not be translated to the Ory Network, this endpoint will return a list of warnings\nto help you understand which parts of your config could not be processed.\n\nBe aware that updating any service's configuration will completely override your current configuration for that\nservice!",
@@ -16165,7 +16177,7 @@
         ],
         "summary": "Update an Ory Network Project Configuration",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/projects/{project_id}/eventstreams": {
@@ -16328,7 +16340,7 @@
         ],
         "summary": "Create an event stream for your project.",
         "tags": ["events"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/projects/{project_id}/eventstreams/{event_stream_id}": {
@@ -16413,7 +16425,7 @@
         ],
         "summary": "Remove an event stream from a project",
         "tags": ["events"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       },
       "put": {
         "operationId": "setEventStream",
@@ -16512,7 +16524,7 @@
         ],
         "summary": "Update an event stream for a project.",
         "tags": ["events"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/projects/{project_id}/organizations": {
@@ -16704,7 +16716,7 @@
         ],
         "summary": "Create an Enterprise SSO Organization",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/projects/{project_id}/organizations/{organization_id}": {
@@ -16799,7 +16811,7 @@
         ],
         "summary": "Delete Enterprise SSO Organization",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       },
       "get": {
         "description": "Deprecated: use getProject instead\n\nRetrieves an Enterprise SSO Organization for a project by its ID",
@@ -16999,7 +17011,7 @@
         ],
         "summary": "Update an Enterprise SSO Organization",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/projects/{project_id}/organizations/{organization_id}/onboarding-portal-links": {
@@ -17151,7 +17163,7 @@
         ],
         "summary": "Create organization onboarding portal link",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/projects/{project_id}/organizations/{organization_id}/onboarding-portal-links/{onboarding_portal_link_id}": {
@@ -17232,7 +17244,7 @@
         ],
         "summary": "Delete an organization onboarding portal link",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       },
       "post": {
         "description": "Update a onboarding portal link for an organization.",
@@ -17310,7 +17322,7 @@
         ],
         "summary": "Update organization onboarding portal link",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/projects/{project_id}/revision/{revision_id}": {
@@ -17435,7 +17447,7 @@
         ],
         "summary": "Patch an Ory Network Project Configuration based on a revision ID",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/projects/{project}/members": {
@@ -17507,7 +17519,7 @@
         ],
         "summary": "Get all members associated with this project",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/projects/{project}/members/{member}": {
@@ -17580,7 +17592,7 @@
         ],
         "summary": "Remove a member associated with this project",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/projects/{project}/tokens": {
@@ -17633,7 +17645,7 @@
         ],
         "summary": "List a project's API keys",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       },
       "post": {
         "description": "Create an API key for a project.",
@@ -17704,7 +17716,7 @@
         ],
         "summary": "Create project API key",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/projects/{project}/tokens/{token_id}": {
@@ -17759,7 +17771,7 @@
         ],
         "summary": "Delete project API key",
         "tags": ["project"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/relation-tuples": {
@@ -17949,7 +17961,7 @@
         ],
         "summary": "Batch check permissions",
         "tags": ["permission"],
-        "x-ory-ratelimit-bucket": "keto-public-low"
+        "x-ory-ratelimit-bucket": "keto-public-high"
       }
     },
     "/relation-tuples/check": {
@@ -18071,7 +18083,7 @@
         ],
         "summary": "Check a permission",
         "tags": ["permission"],
-        "x-ory-ratelimit-bucket": "keto-public-low"
+        "x-ory-ratelimit-bucket": "keto-public-high"
       },
       "post": {
         "description": "To learn how relationship tuples and the check works, head over to [the documentation](https://www.ory.sh/docs/keto/concepts/api-overview).",
@@ -18145,7 +18157,7 @@
         ],
         "summary": "Check a permission",
         "tags": ["permission"],
-        "x-ory-ratelimit-bucket": "keto-public-low"
+        "x-ory-ratelimit-bucket": "keto-public-high"
       }
     },
     "/relation-tuples/check/openapi": {
@@ -18257,7 +18269,7 @@
         ],
         "summary": "Check a permission",
         "tags": ["permission"],
-        "x-ory-ratelimit-bucket": "keto-public-low"
+        "x-ory-ratelimit-bucket": "keto-public-high"
       },
       "post": {
         "description": "To learn how relationship tuples and the check works, head over to [the documentation](https://www.ory.sh/docs/keto/concepts/api-overview).",
@@ -18321,7 +18333,7 @@
         ],
         "summary": "Check a permission",
         "tags": ["permission"],
-        "x-ory-ratelimit-bucket": "keto-public-low"
+        "x-ory-ratelimit-bucket": "keto-public-high"
       }
     },
     "/relation-tuples/expand": {
@@ -18595,7 +18607,7 @@
         },
         "summary": "Get User-Flow Errors",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-low"
+        "x-ory-ratelimit-bucket": "kratos-public-high"
       }
     },
     "/self-service/fed-cm/parameters": {
@@ -18636,7 +18648,7 @@
         },
         "summary": "Get FedCM Parameters",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-low"
+        "x-ory-ratelimit-bucket": "kratos-public-high"
       }
     },
     "/self-service/fed-cm/token": {
@@ -18716,7 +18728,7 @@
         },
         "summary": "Submit a FedCM token",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-high"
+        "x-ory-ratelimit-bucket": "kratos-public-low"
       }
     },
     "/self-service/login": {
@@ -18823,7 +18835,7 @@
         },
         "summary": "Submit a Login Flow",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-high"
+        "x-ory-ratelimit-bucket": "kratos-public-low"
       }
     },
     "/self-service/login/api": {
@@ -19120,7 +19132,7 @@
         },
         "summary": "Get Login Flow",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-low"
+        "x-ory-ratelimit-bucket": "kratos-public-high"
       }
     },
     "/self-service/logout": {
@@ -19173,7 +19185,7 @@
         },
         "summary": "Update Logout Flow",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-low"
+        "x-ory-ratelimit-bucket": "kratos-public-high"
       }
     },
     "/self-service/logout/api": {
@@ -19394,7 +19406,7 @@
         },
         "summary": "Update Recovery Flow",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-high"
+        "x-ory-ratelimit-bucket": "kratos-public-low"
       }
     },
     "/self-service/recovery/api": {
@@ -19559,7 +19571,7 @@
         },
         "summary": "Get Recovery Flow",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-low"
+        "x-ory-ratelimit-bucket": "kratos-public-high"
       }
     },
     "/self-service/registration": {
@@ -19658,7 +19670,7 @@
         },
         "summary": "Update Registration Flow",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-high"
+        "x-ory-ratelimit-bucket": "kratos-public-low"
       }
     },
     "/self-service/registration/api": {
@@ -19889,7 +19901,7 @@
         },
         "summary": "Get Registration Flow",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-low"
+        "x-ory-ratelimit-bucket": "kratos-public-high"
       }
     },
     "/self-service/settings": {
@@ -20021,7 +20033,7 @@
         ],
         "summary": "Complete Settings Flow",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-high"
+        "x-ory-ratelimit-bucket": "kratos-public-low"
       }
     },
     "/self-service/settings/api": {
@@ -20252,7 +20264,7 @@
         },
         "summary": "Get Settings Flow",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-low"
+        "x-ory-ratelimit-bucket": "kratos-public-high"
       }
     },
     "/self-service/verification": {
@@ -20349,7 +20361,7 @@
         },
         "summary": "Complete Verification Flow",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-high"
+        "x-ory-ratelimit-bucket": "kratos-public-low"
       }
     },
     "/self-service/verification/api": {
@@ -20514,7 +20526,7 @@
         },
         "summary": "Get Verification Flow",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-low"
+        "x-ory-ratelimit-bucket": "kratos-public-high"
       }
     },
     "/sessions": {
@@ -20583,7 +20595,7 @@
         },
         "summary": "Disable my other sessions",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-high"
+        "x-ory-ratelimit-bucket": "kratos-public-low"
       },
       "get": {
         "description": "This endpoints returns all other active sessions that belong to the logged-in user.\nThe current session can be retrieved by calling the `/sessions/whoami` endpoint.",
@@ -20843,7 +20855,7 @@
         },
         "summary": "Check Who the Current HTTP Session Belongs To",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-low"
+        "x-ory-ratelimit-bucket": "kratos-public-high"
       }
     },
     "/sessions/{id}": {
@@ -20914,7 +20926,7 @@
         },
         "summary": "Disable one of my sessions",
         "tags": ["frontend"],
-        "x-ory-ratelimit-bucket": "kratos-public-high"
+        "x-ory-ratelimit-bucket": "kratos-public-low"
       }
     },
     "/userinfo": {
@@ -21085,7 +21097,7 @@
         ],
         "summary": "List workspaces the user is a member of",
         "tags": ["workspace"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       },
       "post": {
         "operationId": "createWorkspace",
@@ -21174,7 +21186,7 @@
         ],
         "summary": "Create a new workspace",
         "tags": ["workspace"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/workspaces/{workspace}": {
@@ -21366,7 +21378,7 @@
         ],
         "summary": "Update an workspace",
         "tags": ["workspace"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/workspaces/{workspace}/projects": {
@@ -21458,7 +21470,7 @@
         ],
         "summary": "List all projects of a workspace",
         "tags": ["workspace"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/workspaces/{workspace}/tokens": {
@@ -21511,7 +21523,7 @@
         ],
         "summary": "List a workspace's API keys",
         "tags": ["workspace"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       },
       "post": {
         "description": "Create an API key for a workspace.",
@@ -21572,7 +21584,7 @@
         ],
         "summary": "Create workspace API key",
         "tags": ["workspace"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     },
     "/workspaces/{workspace}/tokens/{token_id}": {
@@ -21627,7 +21639,7 @@
         ],
         "summary": "Delete workspace API key",
         "tags": ["workspace"],
-        "x-ory-ratelimit-bucket": "backoffice-admin-high"
+        "x-ory-ratelimit-bucket": "backoffice-admin-low"
       }
     }
   },
