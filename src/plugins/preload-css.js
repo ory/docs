@@ -3,7 +3,6 @@
 
 const fs = require("fs")
 const path = require("path")
-const cheerio = require("cheerio")
 
 module.exports = function embedCssPlugin() {
   return {
@@ -31,14 +30,15 @@ module.exports = function embedCssPlugin() {
       }
 
       function inject(filePath) {
-        const html = fs.readFileSync(filePath, "utf8")
-        const $ = cheerio.load(html, { decodeEntities: false })
+        let html = fs.readFileSync(filePath, "utf8")
 
-        const link = $(`link[rel="stylesheet"][href$="${cssFile}"]`)
-        if (!link.length) return
+        if (!html.includes(cssFile)) return
 
-        link.replaceWith(`<style>${cssContent}</style>`)
-        fs.writeFileSync(filePath, $.html())
+        html = html.replace(
+          /<link\b[^>]*\bhref="[^"]*styles\.[^"]*\.css"[^>]*>/i,
+          `<style>${cssContent}</style>`,
+        )
+        fs.writeFileSync(filePath, html)
       }
 
       walk(outDir)
