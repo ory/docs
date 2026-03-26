@@ -1235,7 +1235,7 @@
   ],
   "headers": [
     {
-      "source": "/docs/(assets)/(.*)",
+      "source": "/docs/assets/(.*)",
       "headers": [
         {
           "key": "Vercel-CDN-Cache-Control",
