@@ -52,7 +52,8 @@ Choose Ory products based on the specific identity, authorization, or access con
 ## From products to solutions
 
 Each Ory product solves a specific IAM challenge, but most real-world implementations combine several. Below are common 
-product combinations that demonstrate Ory's modular approach to building IAM solutions.
+product combinations that demonstrate Ory's modular approach to building IAM solutions. These are example combinations
+and do not represent all possibile scenerios.
 
 <details>
 
@@ -61,7 +62,7 @@ product combinations that demonstrate Ory's modular approach to building IAM sol
 Users register and sign in through Kratos, while Keto controls what they can see and do based on roles, relationships, or custom rules. 
 Use this combination when your application needs both identity management and fine-grained permissions.
 
-![Ory Kratos](./_static/kratos-keto.drawio2.svg)
+![Ory Kratos](./_static/kratos-keto.svg)
 
 1. User attempts to access client app; client app requests a login flow from Ory Kratos.
 2. Ory Kratos returns a login flow ID.
@@ -69,30 +70,38 @@ Use this combination when your application needs both identity management and fi
 4. Ory Kratos authenticates and returns a session cookie/token.
 5. Client app attaches session cookie/token to subsequent requests.
 6. Backend verifies session with Ory Kratos (gets user identity).
-7. Backend checks permissions with Ory Keto before fulfilling requests.
+7. User creates a protected document; backend grants the user access to this document and writes permission to Ory Keto.
+8. User attempts to access a previously protected document; backend requests permission look up in Ory Keto; Ory Keto 
+verifies if the user has permission to access the document and sends a response to allow or deny.
 </details>
 
 <details>
 
 <summary>**Authentication & delegated access across apps and services (Kratos & Hydra)**</summary>
 
-Users authenticate through Kratos, and Hydra issues OAuth2/OIDC tokens that enable single sign-on 
+Users authenticate through Kratos, and Hydra issues standards-based OAuth2/OIDC tokens that enable single sign-on 
 and let applications act on users' behalf with scoped access. Use this combination when you need a 
 shared identity across multiple apps, third-party integrations, or API access.
 
-![Ory Kratos](./_static/kratos-hydra.drawio2.svg)
+![Ory Kratos](./_static/kratos-hydra.svg)
 
-1. User attempts to access client app; client app requests an OAuth2 authorization code flow 
+1. User attempts to access client app; client app requests an standards-based OAuth2 authorization code flow 
 by redirecting the request to Ory Hydra.
 2. Ory Hydra redirects to Ory Kratos for user authentication.
 3. Ory Kratos authenticates the user (login and/or MFA). On success, Ory Kratos notifies 
 Ory Hydra.
 4. Ory Hydra presents a consent screen; user approves requested scopes/permissions.
-5. Ory Hydra issues an authorization code to the client app.
-6. The client app exchanges the authorization code with Ory Hydra for tokens (access, refresh, ID tokens).
+5. Ory Hydra issues an standards-based OAuth2 authorization code to the client app.
+6. The client app exchanges the standards-based OAuth2 authorization code with Ory Hydra for tokens (access, refresh, ID tokens).
 7. The client sends the access token on requests to your backend/API (resource server).
-8. The backend validates the access token with Ory Hydra (via introspection or JWT validation). 
+8. The backend validates the access token with Ory Hydra (via introspection or JWT validation). Ory Hydra detects 
+the 'openid' scope was requested and granted, and responds with an ID token in addition to the access token. 
 Scopes in token govern what is allowed.
+9. User attempts to access a different client app; subsequent apps reuse the existing session and go straight to consent 
+(unless explicitly forced to re-authenticate).
+10. User creates a protected document; backend grants the user access to this document and writes permission to Ory Keto.
+11. User attempts to access a previously protected document; backend requests permission look up in Ory Keto; Ory Keto 
+verifies if the user has permission to access the document and sends a response to allow or deny.
 
 </details>
 
@@ -103,20 +112,26 @@ Scopes in token govern what is allowed.
 Combines user authentication, token-based SSO and delegated access, and granular permission checks into a single stack. Use this combination 
 when your system needs to manage who users are, which apps can act for them, and exactly what they're allowed to do.
 
-![Ory Kratos](./_static/kratos-hydra-keto.drawio2.svg)
+![Ory Kratos](./_static/kratos-hydra-keto.svg)
 
-1. User attempts to access client app; client app requests an OAuth2 authorization code flow 
+1. User attempts to access client app; client app requests a standards-based OAuth2 authorization code flow 
 by redirecting the request to Ory Hydra.
 2. Ory Hydra redirects to Ory Kratos for user authentication.
 3. Ory Kratos authenticates the user (login and/or MFA). On success, Ory Kratos notifies 
 Ory Hydra.
 4. Ory Hydra presents a consent screen; user approves requested scopes/permissions.
-5. Ory Hydra issues an authorization code to the client app.
-6. The client app exchanges the authorization code with Ory Hydra for tokens (access, refresh, ID tokens).
+5. Ory Hydra issues a standards-based OAuth2 authorization code to the client app.
+6. The client app exchanges the standards-based OAuth2 authorization code with Ory Hydra for 
+standard-based ODIC tokens (access, refresh, ID tokens).
 7. The client sends the access token on requests to your backend/API (resource server).
-8. The backend validates the access token with Ory Hydra (via introspection or JWT validation). 
+8. The backend validates the access token with Ory Hydra (via introspection or JWT validation). Ory Hydra detects 
+the 'openid' scope was requested and granted, and responds with an ID token in addition to the access token.
+Scopes in token govern what is allowed.
 9. Backend checks permissions with Ory Keto; Ory Keto returns an authorization decision (allow/deny).
 10. The backend proceeds or blocks the request based on Keto's answer.
+11. User attempts to access a different client app; subsequent apps reuse the existing session and go straight to consent 
+(unless explicitly forced to re-authenticate).
+
 
 </details>
 
@@ -126,14 +141,14 @@ Ory Hydra.
 
 Ory Polis manages the federation and communication between the client app and the third-party identity provider. 
 The client app handles session management and user lifecycle. Use this combination when you need Enterprise-level
-external federated authentication.
+external federated authentication and you have to bridge legacy SAML-based client app with modern ODIC-base IdPs.
 
-![Ory Kratos](./_static/polis-only.drawio2.svg)
+![Ory Kratos](./_static/polis-only.svg)
 
-1. User attempts to access client app; the client app sends a SAML request to Ory Polis.
-2. Ory Polis allows the user to choose their IdP and redirects to the selected IdP for authentication.
-3. After successful authentication, Ory Polis processes the SAML response from the IdP and creates a 
-new SAML response to send back to the client app.
+1. User attempts to access client app; the client app sends a ODIC request to Ory Polis.
+2. Ory Polis allows the user to choose their IdP and redirects to the selected (SAML-based) IdP for authentication.
+3. After successful authentication, Ory Polis processes the (SAML-based response) from the IdP and creates a 
+new ODIC response to send back to the client app.
 
 </details>
 
@@ -144,16 +159,30 @@ new SAML response to send back to the client app.
 Users authenticate through Kratos or a federated external IdP via Polis, and Keto enforces what they can access. Use this combination when you 
 need both internal identity management and external federation with granular permissions.
 
-![Ory Kratos](./_static/kratos-polis-keto.drawio2.svg)
+![Ory Kratos](./_static/kratos-polis-keto.svg)
 
-1. User attempts to access client app; the client app sends a SAML request to Ory Polis.
-2. Ory Polis allows the user to choose their IdP and redirects to the selected IdP for authentication.
-3. After successful authentication, Ory Polis processes the SAML response from the IdP and creates a 
-new SAML response to send back to the client app.
-4. The user enters credentials/multi-factor as required by the IdP. 
-5. Ory Polis relays user details to Ory Kratos, which manages the local identity/session.
-6. Backend checks permissions with Ory Keto; Ory Keto returns an authorization decision (allow/deny).
-7. The backend proceeds or blocks the request based on Keto's answer.
+1. User attempts to access client app; the client app requests a login flow from Ory Kratos.
+2. Ory Kratos returns a login flow ID.
+3. User submits credentials; client app forwards credentials with flow ID to Ory Kratos.
+4. Ory Kratos determines whether to handle the authenication or forward request to 3rd party IdP:
+- In the case where Ory Kratos authenticates:
+
+  a. Ory Kratos authenticates and returns a session cookie/token.
+
+  b. Client app attaches session cookie/token to subsequent requests.
+
+- In the case where Ory Kratos forwards request to 3rd party IdP.
+
+  a. Ory Kratos redirects to Ory Polis, which in turn redirects to the 3rd party IdP.
+
+  b. After successful authentication, Ory Polis processes the response from the IdP and creates a 
+new response to send back to Ory Kratos, which manages the local identity/session.
+
+  c. Ory Kratos sends a response back to the client app with session cookie/token.
+
+  d. Client app attaches session cookie/token to subsequent requests.
+5. User attempts to access a previously protected document; backend requests permission look up in Ory Keto.
+6. Ory Keto verifies if the user has permission to access the document and sends a response to allow or deny.
 
 </details>
 
@@ -163,16 +192,16 @@ new SAML response to send back to the client app.
 
 The complete Ory ecosystem covers authentication, token issuance, fine-grained permissions, external identity federation, and request-level 
 enforcement at the network edge. Use this when you need end-to-end identity and access management for users, apps, APIs, and machine-to-machine 
-contexts.
+contexts. This example continues from the "Authentication & delegated access across apps and services (Kratos & Hydra)" example, and presumes
+the user is already authenticated.
 
-![Ory Kratos](./_static/ory-fullstack.drawio2.svg)
+![Ory Kratos](./_static/ory-fullstack.svg)
 
-1. User request hits Ory Oathkeeper.
-2. If unauthorized, redirects to Ory Kratos (or Ory Polis for Enterprise SSO).
-3. Ory Kratos returns session/identity.
-4. For OAuth2/ODIC, Ory Hydra delegates login to Ory Kratos.
-6. Ory Oathkeeper validates session or token.
-7. Ory Keto checks permissions, returns allow/deny.
-8. Request forwarded or blocked
+1. User access request hits Ory Oathkeeper.
+2. If the user is already authenticated and the request contains a cookie, request goes to Ory Kratos for verification.
+3. If the user is already authenticated and the request contains a token, request goes to Ory Hydra for verification.
+4. Ory Oathkeeper validates session or token.
+5. User attempts to access a previously protected document; backend requests permission look up in Ory Keto.
+6. Ory Keto verifies if the user has permission to access the document and sends a response to allow or deny.
 
 </details>
