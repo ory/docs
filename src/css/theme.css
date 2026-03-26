@@ -1376,6 +1376,7 @@ button.sidebar-deployment-model__link {
   flex-direction: column;
   gap: var(--ory-s2);
   padding: var(--ory-s4) !important;
+  background: var(--background-default-secondary);
   border: none;
   border-radius: var(--ory-radius);
   text-decoration: none !important;
