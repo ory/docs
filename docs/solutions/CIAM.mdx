@@ -8,14 +8,13 @@ Ory abstracts away the complexity of secure authentication flows, session manage
 Instead of implementing password hashing, OAuth2 flows, CSRF protection, and session invalidation yourself, you integrate with
 Ory's APIs. 
 
-Ory's CIAM stack includes:
+Ory's stack supports CIAM patterns:
 
 - Ory Kratos — identity management (registration, login, password reset, profile management, MFA, social sign-in, passkeys) 
 
 - Ory Hydra — OAuth2 and OpenID Connect server for token-based API authorization 
 
-- Ory Keto — fine-grained, relationship-based access
-control (permissions) 
+- Ory Keto — fine-grained, relationship-based access control (permissions) 
 
 - Ory Oathkeeper — identity-aware API gateway that validates sessions and tokens
 
@@ -24,8 +23,8 @@ and set authorization policies (who can access what). Ory handles the flow lifec
 integrate via SDKs or REST APIs, and Ory's self-service flows mean users handle their own registration, login, and recovery
 without you building custom UIs.
 
-## Why Ory for CIAM? 
+## [Why Ory for CIAM?](https://www.ory.com/customer-identity-and-access-management-ciam)
 
-Building auth correctly is hard! Subtle bugs create security vulnerabilities. Ory provides battle-tested,
+Building identity and access management correctly is hard! Subtle bugs create security vulnerabilities. Ory provides battle-tested,
 open-source implementations you can self-host or run as a managed service (Ory Network), so your team focuses on your product, not
 reinventing login screens.
