@@ -408,6 +408,80 @@ Jun 10 09:16:40 2038 GMT
 You can use this information to externally monitor certificate expirations or integrate it into your internal workflows and
 alerting systems as needed.
 
+## Break-glass account recovery for SSO
+
+When an organization's SSO provider is unavailable due to an outage or misconfiguration, organization members can't sign in because
+they must authenticate through SSO. Break-glass account recovery lets designated users bypass SSO and recover access to their
+accounts through email-based recovery.
+
+Only identities with the `break_glass` flag set on their recovery address can use this feature. Normal organization members without
+this flag remain blocked from email-based recovery.
+
+### How it works
+
+1. An admin enables the `break_glass` flag on a recovery address for the designated user.
+2. The user navigates to the account recovery page and enters their email address.
+3. Ory sends a recovery code to the email address.
+4. The user enters the recovery code and gets a session.
+
+### Enable break-glass recovery
+
+```mdx-code-block
+<Tabs groupId="console-or-api">
+<TabItem value="console" label="Ory Console">
+```
+
+Go to the workspace member settings in the Ory Console and enable the break-glass flag for the user.
+
+```mdx-code-block
+</TabItem>
+
+<TabItem value="api" label="API">
+```
+
+Use the Admin API to set the `break_glass` flag on a recovery address. You need the identity ID and the index of the recovery
+address you want to update.
+
+```shell
+curl -X PATCH "https://$PROJECT_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID" \
+     -H "Authorization: Bearer $ORY_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '[
+           {
+             "op": "replace",
+             "path": "/recovery_addresses/0/break_glass",
+             "value": true
+           }
+         ]'
+```
+
+To disable break-glass recovery for a user, set the value to `false`:
+
+```shell
+curl -X PATCH "https://$PROJECT_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID" \
+     -H "Authorization: Bearer $ORY_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '[
+           {
+             "op": "replace",
+             "path": "/recovery_addresses/0/break_glass",
+             "value": false
+           }
+         ]'
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+:::warning
+
+Grant break-glass recovery only to a small number of trusted users, such as organization administrators. Any user with this flag can
+bypass SSO and recover their account through email, which sidesteps your organization's SSO policies.
+
+:::
+
 ## Self-service organization onboarding
 
 ```mdx-code-block
