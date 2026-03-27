@@ -26,7 +26,6 @@ const overviewAndNetwork = [
         className: "sidebar-icon sidebar-icon-kratos",
         items: [
           "network/kratos/quickstarts/intro",
-          "network/kratos/quickstarts/quickstart",
           "network/kratos/quickstarts/identity_model",
           "network/kratos/quickstarts/mfa-overview",
         ],
@@ -38,8 +37,6 @@ const overviewAndNetwork = [
         items: [
           "network/keto/quickstarts/index",
           "network/keto/quickstarts/overview",
-          "network/keto/quickstarts/quickstart",
-          "network/keto/quickstarts/file-sharing-example",
         ],
       },
       {
@@ -57,7 +54,6 @@ const overviewAndNetwork = [
         className: "sidebar-icon sidebar-icon-polis",
         items: [
           "network/polis/quickstarts/index",
-          "network/polis/quickstarts/quickstart",
         ],
       },
       {
