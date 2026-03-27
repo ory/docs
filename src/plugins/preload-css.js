@@ -42,8 +42,8 @@ function splitCssBlocks(css) {
 function isDocSearchBlock(block) {
   if (!block.includes(".DocSearch") && !block.includes("--docsearch-"))
     return false
-  // Keep mixed :root blocks (with both --docsearch and --ifm vars) in main CSS
-  if (block.includes(":root") && block.includes("--ifm-")) return false
+  // Keep all :root blocks — CSS variable definitions are needed for initial layout
+  if (block.includes(":root")) return false
   // Keep DocSearch button styles in main CSS — the button is always visible
   if (block.includes(".DocSearch-Button")) return false
   return true
