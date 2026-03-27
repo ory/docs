@@ -28,6 +28,7 @@ const overviewAndNetwork = [
           "network/kratos/quickstarts/intro",
           "network/kratos/quickstarts/identity_model",
           "network/kratos/quickstarts/mfa-overview",
+          "network/kratos/quickstarts/authenticate",
         ],
       },
       {
@@ -162,7 +163,7 @@ const overviewAndNetwork = [
         collapsed: true,
         collapsible: true,
         className: "sidebar-icon sidebar-icon-hydra",
-        items: ["oss/hydra/index", "oss/hydra/quickstart"],
+        items: ["oss/hydra/quickstarts/index", "oss/hydra/quickstarts/quickstart"],
       },
       {
         type: "category",
@@ -170,7 +171,7 @@ const overviewAndNetwork = [
         collapsed: true,
         collapsible: true,
         className: "sidebar-icon sidebar-icon-polis",
-        items: ["oss/polis/index", "oss/polis/quickstart"],
+        items: ["oss/polis/quickstarts/index", "oss/polis/quickstarts/quickstart"],
       },
       {
         type: "category",
@@ -178,7 +179,7 @@ const overviewAndNetwork = [
         collapsed: true,
         collapsible: true,
         className: "sidebar-icon sidebar-icon-oathkeeper",
-        items: ["oss/oathkeeper/index", "oss/oathkeeper/configure-deploy"],
+        items: ["oss/oathkeeper/quickstarts/index", "oss/oathkeeper/quickstarts/configure-deploy"],
       },
     ],
   },
@@ -233,8 +234,8 @@ const overviewAndOel = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-hydra",
         items: [
-          "oel/hydra/index", 
-          "oel/hydra/quickstart"],
+          "oel/hydra/quickstarts/index", 
+          "oel/hydra/quickstarts/quickstart"],
       },
       {
         type: "category",
@@ -243,8 +244,8 @@ const overviewAndOel = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-polis",
         items: [
-          "oel/polis/index", 
-          "oel/polis/quickstart"],
+          "oel/polis/quickstarts/index", 
+          "oel/polis/quickstarts/quickstart"],
       },
       {
         type: "category",
@@ -253,8 +254,8 @@ const overviewAndOel = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-oathkeeper",
         items: [
-          "oel/oathkeeper/index", 
-          "oel/oathkeeper/configure-deploy"],
+          "oel/oathkeeper/quickstarts/index", 
+          "oel/oathkeeper/quickstarts/configure-deploy"],
       },
     ],
   },
@@ -303,8 +304,8 @@ const overviewAndOss = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-hydra",
         items: [
-          "oss/hydra/index", 
-          "oss/hydra/quickstart"],
+          "oss/hydra/quickstarts/index", 
+          "oss/hydra/quickstarts/quickstart"],
       },
       {
         type: "category",
@@ -313,8 +314,8 @@ const overviewAndOss = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-polis",
         items: [
-          "oss/polis/index", 
-          "oss/polis/quickstart"],
+          "oss/polis/quickstarts/index", 
+          "oss/polis/quickstarts/quickstart"],
       },
       {
         type: "category",
@@ -323,8 +324,8 @@ const overviewAndOss = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-oathkeeper",
         items: [
-          "oss/oathkeeper/index", 
-          "oss/oathkeeper/configure-deploy"],
+          "oss/oathkeeper/quickstarts/index", 
+          "oss/oathkeeper/quickstarts/configure-deploy"],
       },
     ],
   },

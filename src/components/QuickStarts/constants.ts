@@ -14,7 +14,7 @@ export const CATEGORIES: QuickstartCategory[] = [
       },
       {
         label: "Get started with Ory Kratos",
-        to: "/kratos/quickstart",
+        to: "/kratos/quickstarts/quickstart",
         description:
           "Run Ory Kratos locally with Docker and explore the main flows.",
         deploymentModes: ["oel", "oss"],
@@ -27,7 +27,7 @@ export const CATEGORIES: QuickstartCategory[] = [
       },
       {
         label: "Get started with authentication",
-        to: "../guides/authentication",
+        to: "/kratos/quickstarts/authenticate",
         description:
           "Password, passwordless, passkey, and other authentication.",
         deploymentModes: ["network", "oel", "oss"],
@@ -37,32 +37,6 @@ export const CATEGORIES: QuickstartCategory[] = [
         to: "/kratos/quickstarts/mfa-overview",
         description: "Multi-factor authentication.",
         deploymentModes: ["network", "oel", "oss"],
-      },
-    ],
-  },
-  {
-    id: "ory-hydra",
-    label: "Ory Hydra",
-    color: "var(--color-ory-product-hydra)",
-    items: [
-      {
-        label: "Introduction to Ory Hydra",
-        to: "/hydra/quickstarts",
-        description: "OAuth2 & OpenID Connect social sign-in concepts.",
-        deploymentModes: ["network", "oel", "oss"],
-      },
-      {
-        label: "Get started with Ory Hydra",
-        to: "/hydra/quickstarts/ory-network-oauth2",
-        description: "Client credential and authorization code grant.",
-        deploymentModes: ["network"],
-      },
-      {
-        label: "Get started with Ory Hydra",
-        to: "/hydra/self-hosted/quickstart",
-        description:
-          "Run Ory Hydra locally and try the most important OAuth2 flows.",
-        deploymentModes: ["oel", "oss"],
       },
     ],
   },
@@ -94,6 +68,39 @@ export const CATEGORIES: QuickstartCategory[] = [
     ],
   },
   {
+    id: "ory-hydra",
+    label: "Ory Hydra",
+    color: "var(--color-ory-product-hydra)",
+    items: [
+      {
+        label: "Introduction to Ory Hydra",
+        to: "/hydra/quickstarts",
+        description: "OAuth2 & OpenID Connect social sign-in concepts.",
+        deploymentModes: ["network", "oel", "oss"],
+      },
+      {
+        label: "Get started with Ory Hydra",
+        to: "/hydra/quickstarts/ory-network-oauth2",
+        description: "Client credential and authorization code grant.",
+        deploymentModes: ["network"],
+      },
+      {
+        label: "Get started with Ory Hydra",
+        to: "/hydra/quickstarts/quickstart",
+        description:
+          "Run Ory Hydra locally and try the most important OAuth2 flows.",
+        deploymentModes: ["oel"],
+      },
+      {
+        label: "Get started with Ory Hydra",
+        to: "/hydra/quickstarts/quickstart",
+        description:
+          "Run Ory Hydra locally and try the most important OAuth2 flows.",
+        deploymentModes: ["oss"],
+      },
+    ],
+  },
+  {
     id: "ory-polis",
     label: "Ory Polis",
     color: "var(--color-ory-product-polis)",
@@ -107,7 +114,7 @@ export const CATEGORIES: QuickstartCategory[] = [
       },
       {
         label: "Get started with Ory Polis",
-        to: "/polis/quickstart",
+        to: "/polis/quickstarts/quickstart",
         description:
           "Quickstart for Enterprise SSO authentication and SCIM provisioning.",
         deploymentModes: ["oel", "oss"],
@@ -127,7 +134,7 @@ export const CATEGORIES: QuickstartCategory[] = [
       },
       {
         label: "Configure and deploy Ory Oathkeeper",
-        to: "/oathkeeper/configure-deploy",
+        to: "/oathkeeper/quickstarts/configure-deploy",
         description: "Configure, build, and deploy Ory Oathkeeper.",
         deploymentModes: ["oel", "oss"],
       },
