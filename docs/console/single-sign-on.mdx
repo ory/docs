@@ -57,6 +57,40 @@ this setting, as it may lock out users who have not completed the SSO setup.
 
 :::
 
+## Break-glass account recovery
+
+When your SSO provider is unavailable due to an outage or misconfiguration, organization members can't sign in. Break-glass
+account recovery lets designated users bypass SSO enforcement and recover access to their accounts through email.
+
+### Enable account recovery for a member
+
+Go to **Workspace Settings** > **Members**. For workspaces with SSO enabled, an **Allow account recovery** toggle appears for each
+organization member. Enable this toggle for the designated user.
+
+You can also use the workspace members API:
+
+```shell
+curl -X PATCH "https://api.console.ory.sh/workspaces/$WORKSPACE_ID/members/$MEMBER_ID" \
+     -H "Authorization: Bearer $ORY_SESSION_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{"break_glass": true}'
+```
+
+To disable account recovery, set `break_glass` to `false` or use the toggle in the Console.
+
+### How recovery works
+
+1. The designated user navigates to the account recovery page and enters their email address.
+2. Ory sends a recovery code to the email address.
+3. The user enters the recovery code and gets a session.
+
+:::warning
+
+Grant account recovery access only to a small number of trusted users, such as organization administrators. Any user with this
+access can bypass SSO and recover their account through email.
+
+:::
+
 ## Known limitiations
 
 - Only one domain is supported. If you need to support multiple domains, choose one primary domain for SSO and ensure that all
