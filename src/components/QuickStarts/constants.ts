@@ -27,7 +27,7 @@ export const CATEGORIES: QuickstartCategory[] = [
       },
       {
         label: "Get started with authentication",
-        to: "/kratos/quickstarts/authenticate",
+        to: "/guides/authentication",
         description:
           "Password, passwordless, passkey, and other authentication.",
         deploymentModes: ["network", "oel", "oss"],

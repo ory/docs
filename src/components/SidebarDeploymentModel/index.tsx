@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react"
-import Link from "@docusaurus/Link"
-import { useLocation } from "@docusaurus/router"
+import { useHistory, useLocation } from "@docusaurus/router"
 import clsx from "clsx"
 import { useDocsSidebar } from "@docusaurus/plugin-content-docs/client"
 import { useQuickstartsDeployment } from "@site/src/contexts/QuickstartsDeploymentContext"
@@ -32,17 +31,14 @@ const DEPLOYMENT_OPTIONS = [
   {
     id: "network" as const,
     label: "Ory Network",
-    to: "/docs/network/kratos/intro",
   },
   {
     id: "oel" as const,
     label: "Ory Enterprise License",
-    to: "/docs/oel/kratos/intro",
   },
   {
     id: "oss" as const,
     label: "Ory Open Source",
-    to: "/docs/oss/kratos/intro",
   },
 ]
 
@@ -55,42 +51,30 @@ function getCurrentDeployment(
   return DEPLOYMENT_OPTIONS[0]
 }
 
-/** True when on getting-started/* only (no network/oel/oss in path); switching deployment should filter sidebar only. */
-function isGettingStartedOnlyPath(pathname: string): boolean {
-  if (!pathname) return false
-  const p = pathname.replace(/^\/docs\/?/, "")
-  return (
-    p.startsWith("getting-started") &&
-    !pathname.includes("/network/") &&
-    !pathname.includes("/oel/") &&
-    !pathname.includes("/oss/")
-  )
-}
-
 export default function SidebarDeploymentModel(): JSX.Element | null {
+  const history = useHistory()
   const location = useLocation()
   const sidebar = useDocsSidebar()
   const quickstartsDeployment = useQuickstartsDeployment()
   if (!sidebar?.name || !QUICKSTARTS_SIDEBAR_NAMES.has(sidebar.name))
     return null
 
-  const filterOnly = isGettingStartedOnlyPath(location.pathname)
   const currentFromPath = getCurrentDeployment(location.pathname)
-  const current =
-    filterOnly && quickstartsDeployment
-      ? DEPLOYMENT_OPTIONS.find(
-          (o) => o.id === quickstartsDeployment.deployment,
-        ) ?? currentFromPath
-      : currentFromPath
+  const current = quickstartsDeployment
+    ? DEPLOYMENT_OPTIONS.find(
+        (o) => o.id === quickstartsDeployment.deployment,
+      ) ?? currentFromPath
+    : currentFromPath
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const triggerImageUrl = DEPLOYMENT_IMAGES[current.id]
 
   const handleSelect = (opt: (typeof DEPLOYMENT_OPTIONS)[number]) => {
-    if (filterOnly && quickstartsDeployment) {
+    if (quickstartsDeployment) {
       quickstartsDeployment.setDeployment(opt.id as QuickstartsDeploymentId)
-      setOpen(false)
     }
+    setOpen(false)
+    history.push("/docs/getting-started/overview")
   }
 
   useEffect(() => {
@@ -144,9 +128,10 @@ export default function SidebarDeploymentModel(): JSX.Element | null {
               Deployment Model
             </span>
           </span>
-          <span className="sidebar-deployment-model__chevron" aria-hidden>
-            ▾
-          </span>
+          <span
+            className="sidebar-deployment-model__chevron"
+            aria-hidden
+          ></span>
         </button>
         {open && (
           <ul className="sidebar-deployment-model__menu">
@@ -165,7 +150,7 @@ export default function SidebarDeploymentModel(): JSX.Element | null {
                   {opt.label}
                 </>
               )
-              return filterOnly ? (
+              return (
                 <li key={opt.id}>
                   <button
                     type="button"
@@ -178,20 +163,6 @@ export default function SidebarDeploymentModel(): JSX.Element | null {
                   >
                     {content}
                   </button>
-                </li>
-              ) : (
-                <li key={opt.id}>
-                  <Link
-                    to={opt.to}
-                    className={clsx(
-                      "sidebar-deployment-model__link",
-                      current.id === opt.id &&
-                        "sidebar-deployment-model__link--active",
-                    )}
-                    onClick={() => setOpen(false)}
-                  >
-                    {content}
-                  </Link>
                 </li>
               )
             })}

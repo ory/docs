@@ -34,7 +34,7 @@ const P5K_CANONICAL_NODES: CanonicalNodeMap = {
     type: "oryProduct",
     position: { x: 500, y: 280 },
     data: {
-      label: "Ory Keto\n• Permissions",
+      label: "Ory Keto\nPermissions",
       dotColor: "var(--icon-keto-tertiary)",
       bgColor: "#bbf7d0",
     },
@@ -54,7 +54,7 @@ const P5K_CANONICAL_NODES: CanonicalNodeMap = {
     type: "oryProduct",
     position: { x: 220, y: 400 },
     data: {
-      label: "Ory Hydra\n• OAuth2 / OIDC",
+      label: "Ory Hydra\nOAuth2 / OIDC",
       dotColor: "var(--icon-hydra-tertiary)",
       bgColor: "#fecaca",
     },
@@ -66,7 +66,7 @@ const P5K_CANONICAL_NODES: CanonicalNodeMap = {
     type: "oryProduct",
     position: { x: 620, y: 400 },
     data: {
-      label: "Ory Kratos\n• Identity & AuthN",
+      label: "Ory Kratos\nIdentity & AuthN",
       dotColor: "var(--icon-kratos-tertiary)",
       bgColor: "#fed7aa",
     },
@@ -78,7 +78,7 @@ const P5K_CANONICAL_NODES: CanonicalNodeMap = {
     type: "oryProduct",
     position: { x: 860, y: 400 },
     data: {
-      label: "Ory Polis\n• Enterprise SSO",
+      label: "Ory Polis\nEnterprise SSO",
       dotColor: "var(--icon-polis-tertiary)",
       bgColor: "#fef08a",
     },
@@ -90,7 +90,7 @@ const P5K_CANONICAL_NODES: CanonicalNodeMap = {
     type: "oryProduct",
     position: { x: 560, y: 500 },
     data: {
-      label: "Ory Oathkeeper\n• Proxy Gateway",
+      label: "Ory Oathkeeper\nProxy Gateway",
       dotColor: "var(--icon-oathkeeper-tertiary)",
       bgColor: "#fbcfe8",
     },
@@ -132,9 +132,9 @@ const OATHKEEPER_CANONICAL_NODES: CanonicalNodeMap = {
   "ory-keto": {
     id: "ory-keto",
     type: "oryProduct",
-    position: { x: 820, y: 520 },
+    position: { x: 820, y: 660 },
     data: {
-      label: "Ory Keto\n• Permissions",
+      label: "Ory Keto\nPermissions",
       dotColor: "var(--icon-keto-tertiary)",
       bgColor: "#bbf7d0",
     },
@@ -154,7 +154,7 @@ const OATHKEEPER_CANONICAL_NODES: CanonicalNodeMap = {
     type: "oryProduct",
     position: { x: 860, y: 380 },
     data: {
-      label: "Ory Hydra\n• OAuth2 / OIDC",
+      label: "Ory Hydra\nOAuth2 / OIDC",
       dotColor: "var(--icon-hydra-tertiary)",
       bgColor: "#fecaca",
     },
@@ -166,7 +166,7 @@ const OATHKEEPER_CANONICAL_NODES: CanonicalNodeMap = {
     type: "oryProduct",
     position: { x: 560, y: 380 },
     data: {
-      label: "Ory Kratos\n• Identity & AuthN",
+      label: "Ory Kratos\nIdentity & AuthN",
       dotColor: "var(--icon-kratos-tertiary)",
       bgColor: "#fed7aa",
     },
@@ -178,7 +178,7 @@ const OATHKEEPER_CANONICAL_NODES: CanonicalNodeMap = {
     type: "oryProduct",
     position: { x: 300, y: 380 },
     data: {
-      label: "Ory Polis\n• Enterprise SSO",
+      label: "Ory Polis\nEnterprise SSO",
       dotColor: "var(--icon-polis-tertiary)",
       bgColor: "#fef08a",
     },
@@ -190,7 +190,7 @@ const OATHKEEPER_CANONICAL_NODES: CanonicalNodeMap = {
     type: "oryProduct",
     position: { x: 560, y: 520 },
     data: {
-      label: "Ory Oathkeeper\n• Proxy Gateway",
+      label: "Ory Oathkeeper\nProxy Gateway",
       dotColor: "var(--icon-oathkeeper-tertiary)",
       bgColor: "#fbcfe8",
     },

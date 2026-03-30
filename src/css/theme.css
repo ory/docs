@@ -1031,9 +1031,11 @@ svg[class*="iconExternalLink"] {
 
 .sidebar-deployment-model__chevron {
   flex-shrink: 0;
-  font-size: 12px;
+  width: 16px;
+  height: 16px;
   opacity: 0.6;
-  line-height: 1;
+  background: url("../static/img/icons/nav-dropdown-chevron.svg") no-repeat center;
+  background-size: contain;
 }
 
 .sidebar-deployment-model__menu {

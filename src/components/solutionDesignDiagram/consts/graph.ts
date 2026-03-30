@@ -226,11 +226,11 @@ function oathkeeperEdgeRules(): EdgeRule[] {
     },
     {
       edge: {
-        id: "oathkeeper-keto",
-        source: "ory-oathkeeper",
-        target: "ory-keto",
-        sourceHandle: "out-top",
-        targetHandle: "in-bottom",
+        id: "keto-protected",
+        source: "ory-keto",
+        target: "protected-app",
+        sourceHandle: "out-left",
+        targetHandle: "in-right",
         type: "smoothstep-dashed",
         data: { label: "Allow / deny" },
       },
@@ -408,11 +408,11 @@ export function applyOathkeeperTopologyEdgeHandles(
           sourceHandle: "out-top",
           targetHandle: "in-bottom",
         }
-      case "oathkeeper-keto":
+      case "keto-protected":
         return {
           ...e,
-          sourceHandle: "out-right",
-          targetHandle: "in-left",
+          sourceHandle: "out-left",
+          targetHandle: "in-right",
         }
       case "hydra-oathkeeper":
         return {
