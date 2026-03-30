@@ -122,7 +122,7 @@ Ory Hydra.
 4. Ory Hydra presents a consent screen; user approves requested scopes/permissions.
 5. Ory Hydra issues a standards-based OAuth2 authorization code to the client app.
 6. The client app exchanges the standards-based OAuth2 authorization code with Ory Hydra for 
-standard-based ODIC tokens (access, refresh, ID tokens).
+standard-based OIDC tokens (access, refresh, ID tokens).
 7. The client sends the access token on requests to your backend/API (resource server).
 8. The backend validates the access token with Ory Hydra (via introspection or JWT validation). Ory Hydra detects 
 the 'openid' scope was requested and granted, and responds with an ID token in addition to the access token.
@@ -141,14 +141,14 @@ Scopes in token govern what is allowed.
 
 Ory Polis manages the federation and communication between the client app and the third-party identity provider. 
 The client app handles session management and user lifecycle. Use this combination when you need Enterprise-level
-external federated authentication and you have to bridge legacy SAML-based client app with modern ODIC-base IdPs.
+external federated authentication and you have to bridge legacy SAML-based client app with modern OIDC-base IdPs.
 
 ![Ory Kratos](./_static/polis-only.svg)
 
-1. User attempts to access client app; the client app sends a ODIC request to Ory Polis.
+1. User attempts to access client app; the client app sends a OIDC request to Ory Polis.
 2. Ory Polis allows the user to choose their IdP and redirects to the selected (SAML-based) IdP for authentication.
 3. After successful authentication, Ory Polis processes the (SAML-based response) from the IdP and creates a 
-new ODIC response to send back to the client app.
+new OIDC response to send back to the client app.
 
 </details>
 
