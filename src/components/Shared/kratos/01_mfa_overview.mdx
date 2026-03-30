@@ -12,7 +12,7 @@ or self-service actions, such as updating account information or credentials, fr
 For example, you might decide to require a user to log in with two factors right at the start of the session. Alternatively, you
 could allow the user to start the session by logging in with the first factor and only require the second factor at the point
 where the user is about to perform a security-sensitive operation. Read more about dynamic MFA in the
-[step-up authentication](../../kratos/mfa/step-up-authentication) document.
+[step-up authentication](/docs/kratos/mfa/step-up-authentication) document.
 
 ## Available methods
 
@@ -21,24 +21,24 @@ Ory offers multiple second-factor authentication methods:
 ### Time-based one-time password (TOTP)
 
 Time-based one time passwords (TOTP) are a flexible 2FA authentication method based on a shared secret, and can be used both with
-browser-based apps and native apps. Read [Time-based one-time passwords (TOTP)](./15_totp.mdx) to learn more.
+browser-based apps and native apps. Read [Time-based one-time passwords (TOTP)](/docs/kratos/mfa/totp) to learn more.
 
 ### WebAuthn
 
 This method uses the [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API), also known
 as WebAuthn, which allows servers to register and authenticate users using public-key cryptography. Read
-[WebAuthn and FIDO2 (YubiKey)](./20_webauthn-fido-yubikey.mdx) to learn more.
+[WebAuthn and FIDO2 (YubiKey)](/docs/kratos/mfa/webauthn-fido-yubikey) to learn more.
 
 ### Lookup Secrets
 
 Lookup Secrets, also known as Backup Codes or Recovery Codes, are a 2FA fail-safe mechanism, rather than a standalone two-factor
 authentication method. They can be used to complete the second factor when users lose access to their selected 2FA method. Read
-[Lookup Secrets (Recovery Codes)](./25_lookup-secrets.mdx) to learn more.
+[Lookup Secrets (Recovery Codes)](/docs/kratos/mfa/lookup-secrets) to learn more.
 
 ### SMS
 
 SMS for MFA sends a one-time password to the user's registered mobile phone number via text message. Read the
-[Code via SMS](../../../docs/kratos/mfa/mfa-via-sms) documentation to learn more.
+[Code via SMS](/docs/kratos/mfa/mfa-via-sms) documentation to learn more.
 
 ## Terminology
 
@@ -122,7 +122,7 @@ Authentication methods are classified into factors:
 
 :::info
 
-When you enable [passwordless authentication with WebAuthn or Passkeys](../passwordless/05_passkeys.mdx), it isn't considered as a
+When you enable [passwordless authentication with WebAuthn or Passkeys](/docs/kratos/passwordless/passkeys), it isn't considered as a
 second authentication factor.
 
 :::
