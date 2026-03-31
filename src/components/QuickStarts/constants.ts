@@ -147,20 +147,20 @@ export const CATEGORIES: QuickstartCategory[] = [
     items: [
       {
         label: "Ory Elements introduction",
-        to: "../elements",
+        to: "/elements",
         description:
           "Pre-built UI components for Ory self-service and OAuth2 flows.",
         deploymentModes: ["network", "oel"],
       },
       {
         label: "Next.js App Router quickstart",
-        to: "../getting-started/integrate-auth/nextjs-app-router-quickstart",
+        to: "/getting-started/integrate-auth/nextjs-app-router-quickstart",
         description: "Use Ory Elements in a Next.js App Router application.",
         deploymentModes: ["network", "oel"],
       },
       {
         label: "Next.js Pages Router quickstart",
-        to: "../getting-started/integrate-auth/nextjs-pages-router-quickstart",
+        to: "/getting-started/integrate-auth/nextjs-pages-router-quickstart",
         description: "Use Ory Elements in a Next.js Pages Router application.",
         deploymentModes: ["network", "oel"],
       },

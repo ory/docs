@@ -10,8 +10,14 @@ interface QuickstartGridProps {
 /** Prefix doc path with deployment so links go to network/oel/oss variant. */
 function toDeploymentPath(path: string, deployment: DeploymentMode): string {
   const normalized = path.startsWith("/") ? path : `/${path}`
-  // Example: "/guides/authentication" must stay "/guides/authentication".
-  if (normalized.startsWith("/guides/")) return normalized
+  // Some routes intentionally do not have per-deployment variants.
+  if (
+    normalized.startsWith("/guides/") ||
+    normalized.startsWith("/elements") ||
+    normalized.startsWith("/getting-started/")
+  ) {
+    return normalized
+  }
   return `/${deployment}${normalized}`
 }
 

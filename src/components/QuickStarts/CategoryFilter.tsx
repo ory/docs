@@ -1,14 +1,15 @@
 import React from "react"
 import clsx from "clsx"
-import { CATEGORIES } from "./constants"
 import type { QuickstartCategory } from "./types"
 
 interface CategoryFilterProps {
+  categories: QuickstartCategory[]
   activeCategory: QuickstartCategory
   onCategoryChange: (categoryId: string) => void
 }
 
 export const CategoryFilter: React.FC<CategoryFilterProps> = ({
+  categories,
   activeCategory,
   onCategoryChange,
 }) => {
@@ -17,7 +18,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
       <span className="ory-body-sm font-semibold mr-2 text-ory-text-primary">
         Categories
       </span>
-      {CATEGORIES.map((cat) => (
+      {categories.map((cat) => (
         <button
           key={cat.id}
           type="button"
