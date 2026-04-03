@@ -509,6 +509,39 @@ Note that the `format` field of the identity schema will perform validation of t
 is validated using the [JSON Schema](https://json-schema.org/understanding-json-schema/reference/string.html#email-addresses) rule
 set.
 
+##### Email validation rules
+
+When you use `"format": "email"`, Ory validates the email address against
+[RFC 5322, section 3.4.1](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1) and the domain part against
+[RFC 1034, section 3.1](https://datatracker.ietf.org/doc/html/rfc1034#section-3.1) and
+[RFC 1123, section 2.1](https://datatracker.ietf.org/doc/html/rfc1123#section-2.1).
+
+The following rules are enforced:
+
+- The total address length must not exceed 254 characters.
+- The address must contain an `@` separator.
+- The local part (before `@`) must not exceed 64 characters.
+- The domain part (after `@`) must be a valid hostname:
+  - Only ASCII letters (`a-z`, `A-Z`), digits (`0-9`), and hyphens (`-`) are allowed.
+  - Each label must be 1–63 characters long.
+  - Labels must not start or end with a hyphen.
+  - The total hostname length must not exceed 253 characters.
+
+For example, `test_user_name@example.com` is valid because underscores are allowed in the local part. However,
+`user@domain_name.com` is rejected because underscores are not allowed in the domain part.
+
+To customize email validation beyond these rules, you can replace `"format": "email"` with a `"pattern"` regex in your identity
+schema. Alternatively, you can use a [before-registration webhook](../../guides/integrate-with-ory-cloud-through-webhooks.mdx) to
+apply custom validation logic.
+
+:::caution
+
+Replacing `"format": "email"` with a custom `"pattern"` bypasses RFC-compliant validation. This can allow malformed or
+undeliverable addresses into your system, which may cause issues with account recovery, email verification, and other flows that
+depend on valid email addresses. Only relax validation when you have a clear need and understand the trade-offs.
+
+:::
+
 #### Phone number
 
 Let's extend the identity schema from the previous chapter with a phone number:
