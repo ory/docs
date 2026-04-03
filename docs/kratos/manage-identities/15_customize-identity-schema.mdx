@@ -527,8 +527,8 @@ The following rules are enforced:
   - Labels must not start or end with a hyphen.
   - The total hostname length must not exceed 253 characters.
 
-For example, `user_name@example.com` is valid because underscores are allowed in the local part. However, `user@domain_name.com`
-is rejected because underscores are not allowed in the domain part.
+For example, `test_user_name@example.com` is valid because underscores are allowed in the local part. However,
+`user@domain_name.com` is rejected because underscores are not allowed in the domain part.
 
 To customize email validation beyond these rules, you can replace `"format": "email"` with a `"pattern"` regex in your identity
 schema. Alternatively, you can use a [before-registration webhook](../../guides/integrate-with-ory-cloud-through-webhooks.mdx) to
