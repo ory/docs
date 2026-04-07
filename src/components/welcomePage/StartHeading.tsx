@@ -1,4 +1,5 @@
 import React from "react"
+import Head from "@docusaurus/Head"
 import useBaseUrl from "@docusaurus/useBaseUrl"
 import OryHeroDemo from "../OryHeroDemo"
 
@@ -9,6 +10,14 @@ export function StartHeading() {
     <section
       className="pt-ory-16 pb-0 bg-ory-bg-secondary relative overflow-hidden"
     >
+      <Head>
+        <link
+          rel="preload"
+          as="image"
+          href={backgroundPattern}
+          fetchPriority="high"
+        />
+      </Head>
       {/* Vector grid background (filtered for dark mode) */}
       <div
         aria-hidden
