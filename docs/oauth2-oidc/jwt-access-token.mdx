@@ -209,3 +209,33 @@ This results in an access token with the following structure:
   // ...
 }
 ```
+
+### Preserve non-promoted claims in `ext`
+
+When mirroring is disabled, custom claims that are not listed in `allowed_top_level_claims` are dropped from the access token. To
+keep these claims in the `ext` object, set `oauth2.preserve_ext_claims` to `true`:
+
+```shell
+ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
+  --replace "/oauth2/preserve_ext_claims=true" \
+  --replace "/oauth2/mirror_top_level_claims=false" \
+  --replace "/oauth2/allowed_top_level_claims=[\"some_custom_claim\"]"
+```
+
+For example, if you set `some_custom_claim` and `another_claim` during consent, but only `some_custom_claim` is in
+`allowed_top_level_claims`, the access token has this structure:
+
+```json
+{
+  "sub": "...",
+  "some_custom_claim": "some_custom_value",
+  "ext": {
+    "another_claim": "another_value"
+  }
+}
+```
+
+Without `preserve_ext_claims`, `another_claim` would not appear in the token.
+
+This setting has no effect when `mirror_top_level_claims` is `true`, because mirroring already includes all custom claims in
+`ext`.
