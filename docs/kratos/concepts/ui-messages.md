@@ -833,6 +833,16 @@
 }
 ```
 
+###### Email or phone number (1070018)
+
+```json
+{
+  "id": 1070018,
+  "text": "Email or phone number",
+  "type": "info"
+}
+```
+
 ###### An email containing a verification link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with. (1080001)
 
 ```json
@@ -860,6 +870,26 @@
   "id": 1080003,
   "text": "An email containing a verification code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
   "type": "info"
+}
+```
+
+###### A text message containing a verification code has been sent to the phone number you provided. If you have not received a text message, check the spelling of the number and make sure to use the number you registered with. (1080004)
+
+```json
+{
+  "id": 1080004,
+  "text": "A text message containing a verification code has been sent to the phone number you provided. If you have not received a text message, check the spelling of the number and make sure to use the number you registered with.",
+  "type": "info"
+}
+```
+
+###### You successfully verified your phone number. (1080005)
+
+```json
+{
+  "id": 1080005,
+  "text": "You successfully verified your phone number.",
+  "type": "success"
 }
 ```
 
@@ -1643,6 +1673,16 @@
 {
   "id": 5000002,
   "text": "No authentication methods are available. Please contact the system administrator.",
+  "type": "error"
+}
+```
+
+###### Your organization requires SSO authentication, but no SSO provider is configured. Please contact the system administrator. (5000003)
+
+```json
+{
+  "id": 5000003,
+  "text": "Your organization requires SSO authentication, but no SSO provider is configured. Please contact the system administrator.",
   "type": "error"
 }
 ```

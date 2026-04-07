@@ -14,7 +14,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 Create a new event stream
 
 ```
-ory create event-stream [--project=PROJECT_ID] --type=sns --aws-iam-role-arn=arn:aws:iam::123456789012:role/MyRole --aws-sns-topic-arn=arn:aws:sns:us-east-1:123456789012:MyTopic [flags]
+ory create event-stream [--project=PROJECT_ID] --type={sns,https} {--aws-iam-role-arn=arn:aws:iam::123456789012:role/MyRole --aws-sns-topic-arn=arn:aws:sns:us-east-1:123456789012:MyTopic, --https-endpoint=https://example.com/webhook} [flags]
 ```
 
 ### Options
@@ -24,9 +24,10 @@ ory create event-stream [--project=PROJECT_ID] --type=sns --aws-iam-role-arn=arn
       --aws-sns-topic-arn string   The ARN of the AWS SNS topic.
       --format string              Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                       help for event-stream
+      --https-endpoint string      The URL of the HTTPS endpoint.
       --project string             The project to use, either project ID or a (partial) slug.
   -q, --quiet                      Be quiet with output printing.
-      --type string                The type of the event stream destination. Only "sns" is supported at the moment.
+      --type string                The type of the event stream destination. Supported values are "sns" for AWS SNS topics and "https" for generic HTTPS endpoints.
       --workspace string           The workspace to use, either workspace ID or a (partial) name.
 ```
 

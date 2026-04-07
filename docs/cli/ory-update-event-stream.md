@@ -14,7 +14,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 Update the event stream with the given ID
 
 ```
-ory update event-stream id [--project=PROJECT_ID] [--type=sns] [--aws-iam-role-arn=arn:aws:iam::123456789012:role/MyRole] [--aws-sns-topic-arn=arn:aws:sns:us-east-1:123456789012:MyTopic] [flags]
+ory update event-stream id [--project=PROJECT_ID] --type={sns,https} {--aws-iam-role-arn=arn:aws:iam::123456789012:role/MyRole --aws-sns-topic-arn=arn:aws:sns:us-east-1:123456789012:MyTopic, --https-endpoint=https://example.com/webhook} [flags]
 ```
 
 ### Options
