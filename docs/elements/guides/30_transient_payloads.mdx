@@ -70,9 +70,9 @@ export function RegistrationWithPayload({ flow }: { flow: RegistrationFlow }) {
       flow={flow}
       config={config}
       transientPayload={(formValues) => {
-        const referalCode = localStorage.getItem("referal-code")
+        const referralCode = localStorage.getItem("referral-code")
         return {
-          referalCode,
+          referralCode,
         }
       }}
     />
