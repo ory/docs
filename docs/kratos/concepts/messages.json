@@ -930,5 +930,10 @@
     "id": 5000002,
     "text": "No authentication methods are available. Please contact the system administrator.",
     "type": "error"
+  },
+  {
+    "id": 5000003,
+    "text": "Your organization requires SSO authentication, but no SSO provider is configured. Please contact the system administrator.",
+    "type": "error"
   }
 ]

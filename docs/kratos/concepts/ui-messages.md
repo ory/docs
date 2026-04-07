@@ -1677,4 +1677,14 @@
 }
 ```
 
+###### Your organization requires SSO authentication, but no SSO provider is configured. Please contact the system administrator. (5000003)
+
+```json
+{
+  "id": 5000003,
+  "text": "Your organization requires SSO authentication, but no SSO provider is configured. Please contact the system administrator.",
+  "type": "error"
+}
+```
+
 <!-- END MESSAGE TABLE -->
