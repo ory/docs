@@ -65,7 +65,7 @@ Ory Kratos isn't just an API: it uses cookies, HTTP redirects, anti-CSRF tokens 
 The Node.js app and Ory Kratos need to share cookies in order for anti-CSRF tokens and login sessions to work. Because the
 quickstart runs on different ports on `127.0.0.1` there isn't anything we need to do to get this all working. In environments
 where you have multiple sub-domains or reverse proxies, the set up will be a bit more sophisticated. You can find more information
-about the different set up possibilities in the [Getting Cookies to Work on Multi-Domains Guide](guides/multi-domain-cookies.mdx).
+about the different set up possibilities in the [Getting Cookies to Work on Multi-Domains Guide](/docs/kratos/guides/multi-domain-cookies).
 
 Ory Kratos doesn't ship with an administrative user interface. You must implement that UI yourself. If you need a managed solution
 that takes care of everything, consider signing up to [Ory Network](https://console.ory.sh/).
@@ -471,7 +471,7 @@ your credentials to log back in again. Exciting!
 
 ### Understand how login and registration work
 
-Head over to the [Self-Service Flows Chapter](self-service.mdx) for an in-depth explanation of how each individual flow works.
+Head over to the [Self-Service Flows Chapter](/docs/kratos/self-service) for an in-depth explanation of how each individual flow works.
 
 ### Email verification
 
@@ -545,7 +545,7 @@ Next, click the verification link. You will end up at the dashboard, with a veri
 To re-request the verification email, fill out the form at [127.0.0.1:4455/verification](http://127.0.0.1:4455/verification).
 
 To learn more about verification recovery, head over to the
-[Email and Phone Verification and Account Activation Documentation](self-service/flows/verify-email-account-activation.mdx).
+[Email and Phone Verification and Account Activation Documentation](/docs/kratos/self-service/flows/verify-email-account-activation).
 
 ### Account recovery
 
@@ -566,7 +566,7 @@ Click the link, and change your password:
 ![Change your password](@site/src/components/Shared/kratos/_static/quickstart/quickstart-recover-iv.png)
 
 You are now able to sign in with the new password. To learn more about account recovery, head over to the
-[Account Recovery Documentation](./self-service/flows/account-recovery-password-reset.mdx).
+[Account Recovery Documentation](/docs/kratos/self-service/flows/account-recovery-password-reset).
 
 #### Configuration
 
@@ -603,12 +603,12 @@ Here is some information should you want to modify the quickstart:
 
 **Social Login**
 
-[Step-by-step guides](./social-signin/overview) to add sign up and login with popular OIDC providers to the Ory Kratos Quickstart,
+[Step-by-step guides](/docs/kratos/social-signin/overview) to add sign up and login with popular OIDC providers to the Ory Kratos Quickstart,
 for example:
 
-- [GitHub](./social-signin/github)
-- [Google](./social-signin/google)
-- [Facebook](./social-signin/facebook)
+- [GitHub](/docs/kratos/social-signin/github)
+- [Google](/docs/kratos/social-signin/google)
+- [Facebook](/docs/kratos/social-signin/facebook)
 
 **Use a different database**
 
@@ -633,7 +633,7 @@ The same procedure applies if you want to change ports for the Public UI/Admin U
 **Hooks**
 
 To change the redirects happening after registration,login or a settings change, take a look at this document:
-[Hooks](hooks/configure-hooks).
+[Hooks](/docs/kratos/hooks/configure-hooks).
 
 If you delete the `session` hook from `kratos.yml`, the user will _not_ be immediately signed in after registration.
 
@@ -652,5 +652,5 @@ the tutorial can be found. The configuration gets loaded in docker-compose as sp
   src="https://github.com/ory/kratos/blob/master/contrib/quickstart/kratos/email-password/kratos.yml"
 />
 
-Have a look at the [reference configuration](./reference/configuration.mdx) for further information on possible configuration
+Have a look at the [reference configuration](/docs/kratos/reference/configuration) for further information on possible configuration
 options.

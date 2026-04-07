@@ -9,7 +9,7 @@ Docker Compose. You need to have the latest [Docker](https://www.docker.com) and
 version and Git installed, as well as [`jq`](https://stedolan.github.io/jq/download/).
 
 You do not want to self-host? Try
-[out common OAuth2 grants on the fully managed version of Ory Hydra](../../getting-started/ory-network-oauth2.mdx).
+[out common OAuth2 grants on the fully managed version of Ory Hydra](/docs/getting-started/ory-network-oauth2).
 
 ```mdx-code-block
 import CodeFromRemote from "@theme/CodeFromRemote"
@@ -134,7 +134,7 @@ docker compose -f quickstart.yml \
 
 
 If you want to test Hardware Security Module add `-f quickstart-hsm.yml`. For more information head over to
-[HSM support](hsm-support.md).
+[HSM support](/docs/hydra/self-hosted/hsm-support).
 
 ```sh
 docker compose -f quickstart.yml \
@@ -150,7 +150,7 @@ docker compose -f quickstart.yml \
 Let's confirm that everything is working by creating an OAuth 2.0 Client.
 
 The OAuth 2.0 client uses port `4444` and `4445`. The former is Ory Hydra's public endpoint, the latter its administrative
-endpoint. For more information head over to [Exposing Administrative and Public API Endpoints](production.md).
+endpoint. For more information head over to [Exposing Administrative and Public API Endpoints](/docs/hydra/self-hosted/production).
 
 Let's create the OAuth 2.0 Client:
 
@@ -270,5 +270,5 @@ configuration gets loaded in docker compose as specified in the
 />
 ```
 
-Have a look at the [reference configuration](../reference/configuration.mdx) for further information on all possible configuration
+Have a look at the [reference configuration](/docs/hydra/reference/configuration) for further information on all possible configuration
 options.
