@@ -1,6 +1,6 @@
 import React from "react"
-import styles from "./example-list.module.css"
 import Link from "@docusaurus/Link"
+import styles from "./example-list.module.css"
 
 export interface PropTypes {
   id: string
@@ -28,30 +28,43 @@ const ExampleCard = ({
   repo,
   docs,
 }: ExampleCard) => (
-  <article className={styles.card}>
-    <div>
-      <img
-        className={styles.cardimage}
-        src={"/docs/img/examples/" + language + ".svg"}
-        alt={languageLogoAlt}
-      />
-    </div>
-    <section className={styles.cardcontent}>
-      <div>
-        <h3 className={styles.cardtitle}>{title}</h3>
-        <p>
-          by <a href={"https://github.com/" + author}>@{author}</a>
-        </p>
+  <article className="flex flex-col overflow-hidden rounded-ory bg-ory-bg-secondary h-full min-w-0">
+    <div className="flex flex-col gap-ory-8 p-ory-4 flex-1 min-h-0">
+      <div className="flex flex-col gap-ory-3 sm:flex-row sm:items-start">
+        <img
+          className="w-8 h-8 shrink-0"
+          src={"/docs/img/examples/" + language + ".svg"}
+          alt={languageLogoAlt}
+        />
+        <div className="flex flex-col gap-ory-2 min-w-0 flex-1">
+          <h3 className="ory-heading-3">{title}</h3>
+          <p className="ory-body-sm text-ory-text-secondary m-0">
+            by{" "}
+            <a
+              href={"https://github.com/" + author}
+              className="text-ory-brand-primary no-underline hover:underline"
+            >
+              @{author}
+            </a>
+          </p>
+        </div>
       </div>
 
-      <div className={styles.cardbuttongroup}>
-        <Link className={styles.cardbutton} href={repo} target="_blank">
+      <div className="mt-auto flex flex-row flex-wrap gap-x-ory-6 gap-y-ory-2">
+        <Link
+          className="ory-guide-card__link"
+          href={repo}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <svg
-            className={styles.cardbuttonimg}
+            className="shrink-0 w-4 h-4"
             width="16"
             height="16"
             viewBox="0 0 16 16"
             xmlns="http://www.w3.org/2000/svg"
+            aria-hidden
+            fill="currentColor"
           >
             <path
               fillRule="evenodd"
@@ -67,15 +80,18 @@ const ExampleCard = ({
             <path d="M6.125 12.85C6.13625 12.9113 6.07375 12.975 5.985 12.99C5.89625 13.005 5.81625 12.9688 5.805 12.9075C5.79375 12.8463 5.8575 12.7825 5.945 12.7675C6.0325 12.7525 6.11375 12.7888 6.125 12.85Z" />
           </svg>
           Code
+          <span aria-hidden>→</span>
         </Link>
         {docs && (
-          <Link className={styles.cardbutton} href={docs}>
+          <Link className="ory-guide-card__link" href={docs}>
             <svg
-              className={styles.cardbuttonimg}
+              className="shrink-0 w-4 h-4"
               width="16"
               height="16"
               viewBox="0 0 16 16"
               xmlns="http://www.w3.org/2000/svg"
+              aria-hidden
+              fill="currentColor"
             >
               <path
                 fillRule="evenodd"
@@ -84,22 +100,23 @@ const ExampleCard = ({
               />
             </svg>
             Docs
+            <span aria-hidden>→</span>
           </Link>
         )}
       </div>
-    </section>
+    </div>
   </article>
 )
 
 const ExampleList = ({ id, examples, title, description }: PropTypes) => (
   <section className={styles.examplesection} id={id}>
     <div className={styles.examplesectionheading}>
-      {title && <h2>{title}</h2>}
-      {description && <p>{description}</p>}
+      {title && <h2 className="ory-heading-2">{title}</h2>}
+      {description && <p className="ory-body text-ory-text-secondary">{description}</p>}
     </div>
     <div className={styles.cardgrid}>
       {examples.map((examples, index) => (
-        <div key={index}>
+        <div key={index} className="min-w-0 h-full">
           <ExampleCard {...examples} />
         </div>
       ))}

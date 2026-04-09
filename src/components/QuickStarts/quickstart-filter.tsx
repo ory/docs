@@ -122,10 +122,10 @@ export const QuickstartFilter = () => {
 
   return (
     <>
-      <section className="my-8 mb-12 relative pt-10">
-        <h2 className="ory-heading-2 mt-8 mb-12">
-          Quickstart guides
-        </h2>
+      <section className="pt-ory-4 mb-12 relative">
+        <div className="mb-ory-8">
+          <h2 className="ory-heading-2">Quickstart guides</h2>
+        </div>
 
         <div className="flex flex-wrap justify-between gap-4 items-start">
           <CategoryFilter

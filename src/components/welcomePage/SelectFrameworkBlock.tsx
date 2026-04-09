@@ -1,6 +1,5 @@
 import React from "react"
 import IconCopy from "@site/src/static/img/icons/copy.svg"
-import { StepBadge } from "./StepBadge"
 import { FrameworkCodeSnippet } from "./FrameworkCodeSnippet"
 import { GuideLinkBox } from "./GuideLinkBox"
 
@@ -39,12 +38,11 @@ export function SelectFrameworkBlock({
 
   return (
     <div>
-      <div className="flex flex-col gap-ory-4 mb-ory-8 relative">
-        <StepBadge step={3} />
-        <h2 className="ory-heading-3 text-xl max-w-[672px]">
+      <div className="flex flex-col gap-ory-4 mb-ory-8">
+        <h4 className="ory-heading-4 max-w-[800px]">
           Select your framework or language
-        </h2>
-        <p className="ory-body-sm max-w-[672px]">
+        </h4>
+        <p className="ory-body-sm max-w-[800px]">
           Already building with a specific framework or language? Pick your
           stack and follow the quickstart example for that framework/language.
         </p>

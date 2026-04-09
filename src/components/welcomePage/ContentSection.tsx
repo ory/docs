@@ -73,6 +73,7 @@ export function ContentSection() {
               title={item.label}
               description={item.description}
               to={item.to}
+              linkLabel="Learn more"
             />
           ))}
         </div>

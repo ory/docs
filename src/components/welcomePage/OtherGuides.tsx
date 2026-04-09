@@ -43,6 +43,7 @@ export function OtherGuides() {
                 title={guide.label}
                 description={guide.description}
                 to={guide.to}
+                linkLabel="Learn more"
               />
             </div>
           ))}

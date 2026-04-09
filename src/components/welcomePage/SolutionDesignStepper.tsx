@@ -3,7 +3,6 @@
 
 import React, { useEffect, useMemo, useState } from "react"
 import Link from "@docusaurus/Link"
-import { StepBadge } from "./StepBadge"
 import OryArchitectureDiagram from "../OryArchitectureDiagram"
 import {
   SOLUTION_DESIGN_PRODUCT_LABELS,
@@ -111,9 +110,8 @@ export function SolutionDesignStepper() {
 
   return (
     <div>
-      <div className="flex flex-col gap-ory-4 mb-ory-8 relative">
-        <StepBadge step={2} />
-        <h3 className="ory-heading-3 max-w-[800px]">Pick your Ory products</h3>
+      <div className="flex flex-col gap-ory-4 mb-ory-8">
+        <h4 className="ory-heading-4 max-w-[800px]">Pick your Ory products</h4>
         <p className="ory-body max-w-[800px]">
           Answer a few questions about your IAM requirements, and we'll
           recommend the right products for your solution.

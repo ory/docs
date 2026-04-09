@@ -1,4 +1,3 @@
-import { StepBadge } from "./StepBadge"
 import { SolutionDesignStepper } from "./SolutionDesignStepper"
 import { SelectFrameworkSection } from "./SelectFrameworkSection"
 import { OverviewCard } from "./OverviewCard"
@@ -40,13 +39,12 @@ export function DeploymentAndFrameworkSection() {
             which products to use, and what framework or language to build with.
             Start here to find the right combination for your use case.
           </p>
-          <div className="border-l border-ory-border-primary pl-ory-8 pb-ory-16 flex flex-col gap-ory-8">
+          <div className="pb-ory-16 flex flex-col gap-ory-8">
             <div>
-              <div className="flex flex-col gap-ory-4 mb-ory-8 relative">
-                <StepBadge step={1} />
-                <h3 className="ory-heading-3 text-xl max-w-[800px]">
+              <div className="flex flex-col gap-ory-4 mb-ory-8">
+                <h4 className="ory-heading-4 max-w-[800px]">
                   Choose your deployment option
-                </h3>
+                </h4>
                 <p className="ory-body max-w-[800px]">
                   Choose the deployment option that fits your organization and
                   build secure IAM into your apps. You can switch later—the core
