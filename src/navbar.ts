@@ -34,6 +34,11 @@ export const navbar: Navbar = {
       items: [
         {
           type: "doc",
+          docId: "products/products-overview",
+          label: "Ory products, ecosystem, and architecture",
+        },
+        {
+          type: "doc",
           docId: "network/getting-started/index",
           label: "Ory Network",
         },
@@ -47,10 +52,6 @@ export const navbar: Navbar = {
           docId: "oss/getting-started/index",
           label: "Ory Open Source",
         },
-        {
-          to: "/docs/elements",
-          label: "Ory Elements",
-        },
       ],
     },
     {
@@ -59,6 +60,11 @@ export const navbar: Navbar = {
       label: "Solutions",
       position: "left",
       items: [
+        {
+          type: "doc",
+          docId: "solutions/solutions-overview",
+          label: "Solutions overview",
+        },
         {
           type: "doc",
           docId: "solutions/solution_CIAM",
