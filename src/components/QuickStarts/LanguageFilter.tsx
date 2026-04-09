@@ -53,7 +53,9 @@ export const LanguageFilter = forwardRef<
       {menuOpen && (
         <div
           className="absolute z-[5] right-0 mt-2 py-4 px-5 rounded-[var(--ory-radius)] border border-ory-border-primary bg-ory-bg-primary grid gap-4 min-w-[min(100%,680px)] shadow-[0_16px_40px_rgba(0,0,0,0.12)]"
-          style={{ gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))" }}
+          style={{
+            gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))",
+          }}
         >
           {["Web", "Mobile", "Backend", "Other"].map((group) => {
             const langs = groupedLanguages[group]

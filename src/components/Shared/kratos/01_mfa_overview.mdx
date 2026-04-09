@@ -1,17 +1,23 @@
-Multi-factor authentication (MFA) provides an additional layer of security that helps ensure that the accounts of your users can't
-be easily compromised by malicious actors.
+Multi-factor authentication (MFA) provides an additional layer of security that
+helps ensure that the accounts of your users can't be easily compromised by
+malicious actors.
 
 Nowadays, many of the passwords in use can be easily compromised because:
 
 - They are re-used across multiple websites and applications.
 - They were leaked to the web and sold to malicious actors.
-- They are considered "weak" because they are short, have obvious, derivable patterns, or contain easy-to-guess character strings.
+- They are considered "weak" because they are short, have obvious, derivable
+  patterns, or contain easy-to-guess character strings.
 
-By enabling two-factor authentication in your project, you introduce an additional verification step that can protect user login
-or self-service actions, such as updating account information or credentials, from malicious actors.  
-For example, you might decide to require a user to log in with two factors right at the start of the session. Alternatively, you
-could allow the user to start the session by logging in with the first factor and only require the second factor at the point
-where the user is about to perform a security-sensitive operation. Read more about dynamic MFA in the
+By enabling two-factor authentication in your project, you introduce an
+additional verification step that can protect user login or self-service
+actions, such as updating account information or credentials, from malicious
+actors.  
+For example, you might decide to require a user to log in with two factors right
+at the start of the session. Alternatively, you could allow the user to start
+the session by logging in with the first factor and only require the second
+factor at the point where the user is about to perform a security-sensitive
+operation. Read more about dynamic MFA in the
 [step-up authentication](/docs/kratos/mfa/step-up-authentication) document.
 
 ## Available methods
@@ -20,25 +26,34 @@ Ory offers multiple second-factor authentication methods:
 
 ### Time-based one-time password (TOTP)
 
-Time-based one time passwords (TOTP) are a flexible 2FA authentication method based on a shared secret, and can be used both with
-browser-based apps and native apps. Read [Time-based one-time passwords (TOTP)](/docs/kratos/mfa/totp) to learn more.
+Time-based one time passwords (TOTP) are a flexible 2FA authentication method
+based on a shared secret, and can be used both with browser-based apps and
+native apps. Read [Time-based one-time passwords (TOTP)](/docs/kratos/mfa/totp)
+to learn more.
 
 ### WebAuthn
 
-This method uses the [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API), also known
-as WebAuthn, which allows servers to register and authenticate users using public-key cryptography. Read
-[WebAuthn and FIDO2 (YubiKey)](/docs/kratos/mfa/webauthn-fido-yubikey) to learn more.
+This method uses the
+[Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API),
+also known as WebAuthn, which allows servers to register and authenticate users
+using public-key cryptography. Read
+[WebAuthn and FIDO2 (YubiKey)](/docs/kratos/mfa/webauthn-fido-yubikey) to learn
+more.
 
 ### Lookup Secrets
 
-Lookup Secrets, also known as Backup Codes or Recovery Codes, are a 2FA fail-safe mechanism, rather than a standalone two-factor
-authentication method. They can be used to complete the second factor when users lose access to their selected 2FA method. Read
-[Lookup Secrets (Recovery Codes)](/docs/kratos/mfa/lookup-secrets) to learn more.
+Lookup Secrets, also known as Backup Codes or Recovery Codes, are a 2FA
+fail-safe mechanism, rather than a standalone two-factor authentication method.
+They can be used to complete the second factor when users lose access to their
+selected 2FA method. Read
+[Lookup Secrets (Recovery Codes)](/docs/kratos/mfa/lookup-secrets) to learn
+more.
 
 ### SMS
 
-SMS for MFA sends a one-time password to the user's registered mobile phone number via text message. Read the
-[Code via SMS](/docs/kratos/mfa/mfa-via-sms) documentation to learn more.
+SMS for MFA sends a one-time password to the user's registered mobile phone
+number via text message. Read the [Code via SMS](/docs/kratos/mfa/mfa-via-sms)
+documentation to learn more.
 
 ## Terminology
 
@@ -46,18 +61,22 @@ Learn more about the terms and concepts used when talking about 2FA in Ory.
 
 ### Authentication Method Reference (AMR)
 
-The Authentication Method Reference (AMR) is an array of authentication methods used over the lifetime of an Ory Session.
+The Authentication Method Reference (AMR) is an array of authentication methods
+used over the lifetime of an Ory Session.
 
 The following methods can be present in a session:
 
 - `password` - When the user authenticated with their password.
-- `oidc`- When the user authenticated by signing in with a social sign-in provider.
-- `totp`- When the user authenticated by entering a time-based one-time password.
-- `webauthn` - When the user authenticated through a WebAuthn channel, such as OS-level biometric authentication or a hardware
-  token.
+- `oidc`- When the user authenticated by signing in with a social sign-in
+  provider.
+- `totp`- When the user authenticated by entering a time-based one-time
+  password.
+- `webauthn` - When the user authenticated through a WebAuthn channel, such as
+  OS-level biometric authentication or a hardware token.
 - `lookup_secret` - When the user entered a valid one-time recovery code.
 
-This is how the information is presented in the Ory Session when you fetch the session from the Ory Identities API:
+This is how the information is presented in the Ory Session when you fetch the
+session from the Ory Identities API:
 
 ```json5 title="Sample Ory Session JSON payload"
 {
@@ -79,8 +98,8 @@ This is how the information is presented in the Ory Session when you fetch the s
 }
 ```
 
-If a user authenticates multiple times over the lifetime of the same session with the same method, every successful attempt will
-be present in the session:
+If a user authenticates multiple times over the lifetime of the same session
+with the same method, every successful attempt will be present in the session:
 
 ```json5 title="Sample Ory Session JSON Payload"
 {
@@ -108,7 +127,8 @@ be present in the session:
 
 ### Authenticator Assurance Level (AAL)
 
-The Authenticator Assurance Level (AAL) indicates how many authentication factors the identity has completed.
+The Authenticator Assurance Level (AAL) indicates how many authentication
+factors the identity has completed.
 
 Authentication methods are classified into factors:
 
@@ -122,8 +142,9 @@ Authentication methods are classified into factors:
 
 :::info
 
-When you enable [passwordless authentication with WebAuthn or Passkeys](/docs/kratos/passwordless/passkeys), it isn't considered as a
-second authentication factor.
+When you enable
+[passwordless authentication with WebAuthn or Passkeys](/docs/kratos/passwordless/passkeys),
+it isn't considered as a second authentication factor.
 
 :::
 
@@ -134,7 +155,7 @@ The AAL parameter can take one of two values:
 
 :::danger
 
-Completing two first authentication factors doesn't give the user `aal2`. For example, logging in with a `password` and `oidc` is
-still `aal1`.
+Completing two first authentication factors doesn't give the user `aal2`. For
+example, logging in with a `password` and `oidc` is still `aal1`.
 
 :::

@@ -19,7 +19,8 @@ export const QuickstartFilter = () => {
   const location = useLocation()
   const quickstartsDeployment = useQuickstartsDeployment()
 
-  const deploymentMode: DeploymentMode = quickstartsDeployment?.deployment ?? "network"
+  const deploymentMode: DeploymentMode =
+    quickstartsDeployment?.deployment ?? "network"
 
   const visibleCategories = useMemo(() => {
     return CATEGORIES.filter((cat) =>
@@ -31,14 +32,13 @@ export const QuickstartFilter = () => {
   }, [deploymentMode])
 
   const [activeCategoryId, setActiveCategoryId] = useState<string>(() => {
-    if (typeof window === "undefined") return visibleCategories[0]?.id ?? CATEGORIES[0]?.id ?? ""
+    if (typeof window === "undefined")
+      return visibleCategories[0]?.id ?? CATEGORIES[0]?.id ?? ""
     const params = getSearchParams(window.location.search)
     const fromUrl = params.get("category")
     const isValid = visibleCategories.some((c) => c.id === fromUrl)
     return (
-      (isValid ? fromUrl : visibleCategories[0]?.id) ??
-      CATEGORIES[0]?.id ??
-      ""
+      (isValid ? fromUrl : visibleCategories[0]?.id) ?? CATEGORIES[0]?.id ?? ""
     )
   })
 
@@ -77,7 +77,10 @@ export const QuickstartFilter = () => {
       .filter((group) => group.examples.length > 0)
   }, [filteredExampleGroups, activeLanguage])
 
-  const updateUrlParams = (next: { categoryId?: string; language?: string }) => {
+  const updateUrlParams = (next: {
+    categoryId?: string
+    language?: string
+  }) => {
     const params = getSearchParams(location.search)
     const firstCategoryId = visibleCategories[0]?.id ?? ""
     const nextCategoryId = next.categoryId ?? activeCategoryId

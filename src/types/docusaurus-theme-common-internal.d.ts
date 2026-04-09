@@ -5,4 +5,3 @@ declare module "@docusaurus/theme-common/internal" {
     toggle: () => void
   }
 }
-

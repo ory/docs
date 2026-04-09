@@ -4,9 +4,11 @@ import Help from '@site/docs/_common/need-selfhosted-support.mdx'
 <Help/>
 ```
 
-In this quickstart, you will set up Ory Hydra OAuth2 & OpenID Connect Server and an exemplary User Login & Consent App using
-Docker Compose. You need to have the latest [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose)
-version and Git installed, as well as [`jq`](https://stedolan.github.io/jq/download/).
+In this quickstart, you will set up Ory Hydra OAuth2 & OpenID Connect Server and
+an exemplary User Login & Consent App using Docker Compose. You need to have the
+latest [Docker](https://www.docker.com) and
+[Docker Compose](https://docs.docker.com/compose) version and Git installed, as
+well as [`jq`](https://stedolan.github.io/jq/download/).
 
 You do not want to self-host? Try
 [out common OAuth2 grants on the fully managed version of Ory Hydra](/docs/getting-started/ory-network-oauth2).
@@ -149,8 +151,10 @@ docker compose -f quickstart.yml \
 
 Let's confirm that everything is working by creating an OAuth 2.0 Client.
 
-The OAuth 2.0 client uses port `4444` and `4445`. The former is Ory Hydra's public endpoint, the latter its administrative
-endpoint. For more information head over to [Exposing Administrative and Public API Endpoints](/docs/hydra/self-hosted/production).
+The OAuth 2.0 client uses port `4444` and `4445`. The former is Ory Hydra's
+public endpoint, the latter its administrative endpoint. For more information
+head over to
+[Exposing Administrative and Public API Endpoints](/docs/hydra/self-hosted/production).
 
 Let's create the OAuth 2.0 Client:
 
@@ -181,7 +185,8 @@ ID TOKEN        <empty>
 EXPIRY          2022-06-27 11:50:28.244046504 +0000 UTC m=+3599.059213960
 ```
 
-Let's perform token introspection on that token. Make sure to copy the token you just got and not the dummy value.
+Let's perform token introspection on that token. Make sure to copy the token you
+just got and not the dummy value.
 
 ```sh
 docker compose -f quickstart.yml exec hydra \
@@ -203,8 +208,8 @@ docker compose -f quickstart.yml exec hydra \
 }
 ```
 
-Next, we will perform the OAuth 2.0 Authorization Code Grant. For that, we must first create a client that's capable of performing
-that grant:
+Next, we will perform the OAuth 2.0 Authorization Code Grant. For that, we must
+first create a client that's capable of performing that grant:
 
 ```sh
 code_client=$(docker compose -f quickstart.yml exec hydra \
@@ -220,11 +225,13 @@ code_client_id=$(echo $code_client | jq -r '.client_id')
 code_client_secret=$(echo $code_client | jq -r '.client_secret')
 ```
 
-Note that you need to add `--token-endpoint-auth-method none` if your clients are public (such as SPA apps and native apps)
-because the public clients can't provide client secrets.
+Note that you need to add `--token-endpoint-auth-method none` if your clients
+are public (such as SPA apps and native apps) because the public clients can't
+provide client secrets.
 
-The following command starts a server that serves an example web application. The application will perform the OAuth 2.0
-Authorization Code Flow using Ory Hydra. The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).
+The following command starts a server that serves an example web application.
+The application will perform the OAuth 2.0 Authorization Code Flow using Ory
+Hydra. The web server runs on [http://127.0.0.1:5555](http://127.0.0.1:5555).
 
 ```sh
 docker compose -f quickstart.yml exec hydra \
@@ -243,12 +250,14 @@ If your browser doesn't open automatically, navigate to:
         http://127.0.0.1:5555/
 ```
 
-Open the URL [http://127.0.0.1:5555](http://127.0.0.1:5555), log in, and authorize the application. Next, you should see at least
-an access token in the response. If you granted the `offline` scope, you will also see a refresh token. If you granted the
-`openid` scope, you will get an ID Token as well.
+Open the URL [http://127.0.0.1:5555](http://127.0.0.1:5555), log in, and
+authorize the application. Next, you should see at least an access token in the
+response. If you granted the `offline` scope, you will also see a refresh token.
+If you granted the `openid` scope, you will get an ID Token as well.
 
-Great! You installed Ory Hydra, connected the CLI, created a client and completed two authentication flows! Before you continue,
-clean up this set up in order to avoid conflicts with other tutorials from this guide:
+Great! You installed Ory Hydra, connected the CLI, created a client and
+completed two authentication flows! Before you continue, clean up this set up in
+order to avoid conflicts with other tutorials from this guide:
 
 ```sh
 docker compose -f quickstart.yml kill
@@ -258,8 +267,8 @@ docker compose -f quickstart.yml rm -f -v
 ## Quickstart configuration
 
 In this tutorial we use a simplified configuration. You can find it in
-[`contrib/quickstart/5-min/hydra.yml`](https://github.com/ory/hydra/blob/master/contrib/quickstart/5-min/hydra.yml). The
-configuration gets loaded in docker compose as specified in the
+[`contrib/quickstart/5-min/hydra.yml`](https://github.com/ory/hydra/blob/master/contrib/quickstart/5-min/hydra.yml).
+The configuration gets loaded in docker compose as specified in the
 [`quickstart.yml`](https://github.com/ory/hydra/blob/master/quickstart.yml).
 
 ```mdx-code-block
@@ -270,5 +279,6 @@ configuration gets loaded in docker compose as specified in the
 />
 ```
 
-Have a look at the [reference configuration](/docs/hydra/reference/configuration) for further information on all possible configuration
-options.
+Have a look at the
+[reference configuration](/docs/hydra/reference/configuration) for further
+information on all possible configuration options.

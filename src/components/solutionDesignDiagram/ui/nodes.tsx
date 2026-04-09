@@ -2,12 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import React from "react"
-import {
-  Position,
-  Handle,
-  type NodeProps,
-  type Node,
-} from "@xyflow/react"
+import { Position, Handle, type NodeProps, type Node } from "@xyflow/react"
 
 export const architectureDiagramHiddenHandleStyle: React.CSSProperties = {
   opacity: 0,

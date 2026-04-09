@@ -1,10 +1,7 @@
 // Copyright © 2022 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
-import {
-  SOLUTION_DESIGN_STORAGE_KEY,
-  SOLUTION_DESIGN_STEPS,
-} from "../consts"
+import { SOLUTION_DESIGN_STORAGE_KEY, SOLUTION_DESIGN_STEPS } from "../consts"
 
 export function loadSolutionDesignProgressFromSessionStorage(): {
   currentStep: number

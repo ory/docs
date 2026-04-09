@@ -141,12 +141,20 @@ const OryHeroDemo = () => {
                     {line.number}
                   </span>
                   <span className="text-ory-text-tertiary mr-2">$</span>
-                  <span className="text-ory-text-primary ml-2">{line.text}</span>
+                  <span className="text-ory-text-primary ml-2">
+                    {line.text}
+                  </span>
                 </>
               )}
 
               {line.type === "comment" && (
-                <div className={i === 0 ? "text-ory-text-tertiary mt-0" : "text-ory-text-tertiary mt-3"}>
+                <div
+                  className={
+                    i === 0
+                      ? "text-ory-text-tertiary mt-0"
+                      : "text-ory-text-tertiary mt-3"
+                  }
+                >
                   {line.text}
                 </div>
               )}

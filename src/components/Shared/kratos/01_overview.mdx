@@ -1,21 +1,26 @@
-Identities are sets of data that describe humans that sign up on a website or an application, for example online store customers,
-file sharing service users, or company contractors signing up to use internal systems.
+Identities are sets of data that describe humans that sign up on a website or an
+application, for example online store customers, file sharing service users, or
+company contractors signing up to use internal systems.
 
 :::info
 
-What Ory calls identities, other software often refers to as "users", "accounts", or "user accounts". For the sake of clarity, we
-use the term "identity" interchangeably with other common names for user accounts in the documentation.
+What Ory calls identities, other software often refers to as "users",
+"accounts", or "user accounts". For the sake of clarity, we use the term
+"identity" interchangeably with other common names for user accounts in the
+documentation.
 
 :::
 
-Identities are created on the basis of schemas, which define what fields (data) the system stores for the identity. Thanks to
-schemas, every identity created in your system can store its own set of data, which allows you to easily differentiate between
-user types, for example customers and employees.
+Identities are created on the basis of schemas, which define what fields (data)
+the system stores for the identity. Thanks to schemas, every identity created in
+your system can store its own set of data, which allows you to easily
+differentiate between user types, for example customers and employees.
 
 ## Identity example
 
-This is a sample identity presented in the YAML format. To manage identities, use the `/admin/identities` endpoint. Keep in mind
-that the API payload is in JSON format.
+This is a sample identity presented in the YAML format. To manage identities,
+use the `/admin/identities` endpoint. Keep in mind that the API payload is in
+JSON format.
 
 ```yaml
 # This is a UUID generated when the identity is created. Can't be changed or updated.

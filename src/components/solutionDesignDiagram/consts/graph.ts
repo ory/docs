@@ -7,10 +7,7 @@ import { shouldShowExistingIdp } from "./canonicalNodes"
 
 type EdgeRule = {
   edge: Edge
-  when: (
-    selected: Set<ProductKey>,
-    identityAnswer?: "yes" | "no",
-  ) => boolean
+  when: (selected: Set<ProductKey>, identityAnswer?: "yes" | "no") => boolean
   scimSensitive?: boolean
 }
 

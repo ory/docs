@@ -53,9 +53,7 @@ const overviewAndNetwork = [
         type: "category",
         label: "Enterprise SSO AuthZ",
         className: "sidebar-icon sidebar-icon-polis",
-        items: [
-          "network/polis/quickstarts/index",
-        ],
+        items: ["network/polis/quickstarts/index"],
       },
       {
         type: "category",
@@ -92,8 +90,9 @@ const overviewAndNetwork = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-keto",
         items: [
-          "oel/keto/quickstarts/index", 
-          "oel/keto/quickstarts/quickstart"],
+          "oel/keto/quickstarts/index",
+          "oel/keto/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
@@ -102,8 +101,9 @@ const overviewAndNetwork = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-hydra",
         items: [
-          "oel/hydra/quickstarts/index", 
-          "oel/hydra/quickstarts/quickstart"],
+          "oel/hydra/quickstarts/index",
+          "oel/hydra/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
@@ -112,8 +112,9 @@ const overviewAndNetwork = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-polis",
         items: [
-          "oel/polis/quickstarts/index", 
-          "oel/polis/quickstarts/quickstart"],
+          "oel/polis/quickstarts/index",
+          "oel/polis/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
@@ -122,8 +123,9 @@ const overviewAndNetwork = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-oathkeeper",
         items: [
-          "oel/oathkeeper/quickstarts/index", 
-          "oel/oathkeeper/quickstarts/configure-deploy"],
+          "oel/oathkeeper/quickstarts/index",
+          "oel/oathkeeper/quickstarts/configure-deploy",
+        ],
       },
     ],
   },
@@ -154,8 +156,9 @@ const overviewAndNetwork = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-keto",
         items: [
-          "oss/keto/quickstarts/index", 
-          "oss/keto/quickstarts/quickstart"],
+          "oss/keto/quickstarts/index",
+          "oss/keto/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
@@ -163,7 +166,10 @@ const overviewAndNetwork = [
         collapsed: true,
         collapsible: true,
         className: "sidebar-icon sidebar-icon-hydra",
-        items: ["oss/hydra/quickstarts/index", "oss/hydra/quickstarts/quickstart"],
+        items: [
+          "oss/hydra/quickstarts/index",
+          "oss/hydra/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
@@ -171,7 +177,10 @@ const overviewAndNetwork = [
         collapsed: true,
         collapsible: true,
         className: "sidebar-icon sidebar-icon-polis",
-        items: ["oss/polis/quickstarts/index", "oss/polis/quickstarts/quickstart"],
+        items: [
+          "oss/polis/quickstarts/index",
+          "oss/polis/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
@@ -179,17 +188,17 @@ const overviewAndNetwork = [
         collapsed: true,
         collapsible: true,
         className: "sidebar-icon sidebar-icon-oathkeeper",
-        items: ["oss/oathkeeper/quickstarts/index", "oss/oathkeeper/quickstarts/configure-deploy"],
+        items: [
+          "oss/oathkeeper/quickstarts/index",
+          "oss/oathkeeper/quickstarts/configure-deploy",
+        ],
       },
     ],
   },
 ]
 
 // Network-only: Quickstarts doc + Ory Network category (for overview when deployment = network)
-const overviewAndNetworkOnly = [
-  overviewAndNetwork[0],
-  overviewAndNetwork[1],
-]
+const overviewAndNetworkOnly = [overviewAndNetwork[0], overviewAndNetwork[1]]
 
 const overviewAndOel = [
   {
@@ -224,8 +233,9 @@ const overviewAndOel = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-keto",
         items: [
-          "oel/keto/quickstarts/index", 
-          "oel/keto/quickstarts/quickstart"],
+          "oel/keto/quickstarts/index",
+          "oel/keto/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
@@ -234,8 +244,9 @@ const overviewAndOel = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-hydra",
         items: [
-          "oel/hydra/quickstarts/index", 
-          "oel/hydra/quickstarts/quickstart"],
+          "oel/hydra/quickstarts/index",
+          "oel/hydra/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
@@ -244,8 +255,9 @@ const overviewAndOel = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-polis",
         items: [
-          "oel/polis/quickstarts/index", 
-          "oel/polis/quickstarts/quickstart"],
+          "oel/polis/quickstarts/index",
+          "oel/polis/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
@@ -254,8 +266,9 @@ const overviewAndOel = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-oathkeeper",
         items: [
-          "oel/oathkeeper/quickstarts/index", 
-          "oel/oathkeeper/quickstarts/configure-deploy"],
+          "oel/oathkeeper/quickstarts/index",
+          "oel/oathkeeper/quickstarts/configure-deploy",
+        ],
       },
     ],
   },
@@ -294,8 +307,9 @@ const overviewAndOss = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-keto",
         items: [
-          "oss/keto/quickstarts/index", 
-          "oss/keto/quickstarts/quickstart"],
+          "oss/keto/quickstarts/index",
+          "oss/keto/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
@@ -304,8 +318,9 @@ const overviewAndOss = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-hydra",
         items: [
-          "oss/hydra/quickstarts/index", 
-          "oss/hydra/quickstarts/quickstart"],
+          "oss/hydra/quickstarts/index",
+          "oss/hydra/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
@@ -314,8 +329,9 @@ const overviewAndOss = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-polis",
         items: [
-          "oss/polis/quickstarts/index", 
-          "oss/polis/quickstarts/quickstart"],
+          "oss/polis/quickstarts/index",
+          "oss/polis/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
@@ -324,8 +340,9 @@ const overviewAndOss = [
         collapsible: true,
         className: "sidebar-icon sidebar-icon-oathkeeper",
         items: [
-          "oss/oathkeeper/quickstarts/index", 
-          "oss/oathkeeper/quickstarts/configure-deploy"],
+          "oss/oathkeeper/quickstarts/index",
+          "oss/oathkeeper/quickstarts/configure-deploy",
+        ],
       },
     ],
   },

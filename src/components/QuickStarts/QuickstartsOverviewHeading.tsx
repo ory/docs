@@ -15,9 +15,5 @@ export function QuickstartsOverviewHeading() {
   const id = ctx?.deployment ?? "network"
   const label = DEPLOYMENT_LABEL[id]
 
-  return (
-    <Heading as="h1">
-      Quickstarts ({label})
-    </Heading>
-  )
+  return <Heading as="h1">Quickstarts ({label})</Heading>
 }

@@ -49,9 +49,9 @@ export function buildArchitectureGraph(
   ).length
   const effectiveProductCount =
     productCountExcludingElements +
-    (shouldShowExistingIdp(selected, identityAnswer) ? 1 : 0)
+    (shouldShowExistingIdp(selected, identityAnswer) ? 1 : 0) +
     // Polis selection introduces a second node ("corporate-idp") in the diagram.
-    + (selected.has("polis") ? 1 : 0)
+    (selected.has("polis") ? 1 : 0)
   const compactRowLayout = effectiveProductCount <= 1
   let nodes = buildVisibleNodes(
     selectedProducts,

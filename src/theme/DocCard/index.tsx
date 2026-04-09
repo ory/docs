@@ -58,15 +58,9 @@ function CardLayout({
   })
 
   return (
-    <div
-      className={clsx("card padding--lg flex flex-col h-full", className)}
-    >
+    <div className={clsx("card padding--lg flex flex-col h-full", className)}>
       <div className="flex flex-col gap-ory-2 flex-1 min-h-0">
-        <Heading
-          as="h2"
-          className="text--truncate"
-          title={title}
-        >
+        <Heading as="h2" className="text--truncate" title={title}>
           {icon} {title}
         </Heading>
         {description && (

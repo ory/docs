@@ -112,7 +112,9 @@ const ExampleList = ({ id, examples, title, description }: PropTypes) => (
   <section className={styles.examplesection} id={id}>
     <div className={styles.examplesectionheading}>
       {title && <h2 className="ory-heading-2">{title}</h2>}
-      {description && <p className="ory-body text-ory-text-secondary">{description}</p>}
+      {description && (
+        <p className="ory-body text-ory-text-secondary">{description}</p>
+      )}
     </div>
     <div className={styles.cardgrid}>
       {examples.map((examples, index) => (

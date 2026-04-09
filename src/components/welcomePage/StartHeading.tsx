@@ -7,9 +7,7 @@ export function StartHeading() {
   const backgroundPattern = useBaseUrl("/img/home-bg-grid.svg")
 
   return (
-    <section
-      className="pt-ory-16 pb-0 bg-ory-bg-secondary relative overflow-hidden"
-    >
+    <section className="pt-ory-16 pb-0 bg-ory-bg-secondary relative overflow-hidden">
       <Head>
         <link
           rel="preload"

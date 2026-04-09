@@ -6,9 +6,7 @@ module.exports = function (context, options) {
     name: "docusaurus-polyfill",
     configureWebpack(config, isServer, utils) {
       return {
-        plugins: [
-          new NodePolyfillPlugin(),
-        ],
+        plugins: [new NodePolyfillPlugin()],
         resolve: {
           fallback: {
             buffer: require.resolve("buffer/"),
