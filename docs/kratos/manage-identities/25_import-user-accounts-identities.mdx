@@ -566,19 +566,23 @@ The following steps are necessary to set up password migration using a web hook:
     <TabItem value="console">
     ```
 
-    To configure the password migration hook using the Ory Console:
+    a. Go to your project in the [Ory Console](https://console.ory.sh).
 
-    1. Go to your project in the [Ory Console](https://console.ory.sh).
-    2. Click **Authentication** in the top navigation bar.
-    3. Click **Actions & Webhooks** in the left sidebar.
-    4. Click **Create new Action**.
+    b. Click **Authentication** in the top navigation bar.
 
-    In the **Action Base Details** dialog, fill in the following fields:
+    c. Click **Actions & Webhooks** in the left sidebar.
+
+    d. Click **Create new Action**.
+
+    e. In the **Action Base Details** dialog, fill in the following fields:
 
     - **Flow** — Select **Password Migration**. The execution phase and method fields are hidden because the migration hook runs
       at login time automatically, outside of the standard flow lifecycle.
+
     - **URL** — Enter the URL of your password migration webhook endpoint, for example `https://example.org/migrate-password`.
+
     - **Method** — Select the HTTP method your endpoint expects, for example **POST**.
+
     - **Action HTTP body** — The body is pre-filled with a Jsonnet template that maps `ctx.identifier` and `ctx.password` to the
       request payload. You can customize it. See the
       [webhook documentation](../../guides/integrate-with-ory-cloud-through-webhooks.mdx#customizing-request-body-with-jsonnet)
@@ -590,7 +594,7 @@ The following steps are necessary to set up password migration using a web hook:
     </BrowserWindow>
     ```
 
-    Click **Next** to proceed to the **Action authentication** step. Select the authentication type for your webhook endpoint. Ory
+    f. Click **Next** to proceed to the **Action authentication** step. Select the authentication type for your webhook endpoint. Ory
     supports **None**, **Basic** (username and password), and **Key** (API key in a header or cookie). See the
     [webhook authentication documentation](../../guides/integrate-with-ory-cloud-through-webhooks.mdx#request-authentication) for
     details on each option.
@@ -608,7 +612,7 @@ The following steps are necessary to set up password migration using a web hook:
     </BrowserWindow>
     ```
 
-    Click **Save action**. The new **Password Migration** action appears in the actions table.
+    g. Click **Save action**. The new **Password Migration** action appears in the actions table.
 
     ```mdx-code-block
     <BrowserWindow url="https://console.ory.sh/projects/b3b748e5-7ddc-4860-a672-2436a877dc93/developers/actions">
@@ -677,13 +681,18 @@ The following steps are necessary to set up password migration using a web hook:
 
     To verify that an identity is pending migration in the Ory Console:
 
-    1. Go to your project in the [Ory Console](https://console.ory.sh).
-    2. Click **User management** in the top navigation bar.
-    3. Click **Users & identities** in the left sidebar.
-    4. Find the identity you want to review and click the three-dot menu (**⋮**) on its row.
-    5. Click **View identity** to open its details.
-    6. In the **Basic Information** section, under **Credential Identifiers**, the identity shows a **Migration pending** badge if
-       the user hasn't logged in and completed the password migration yet.
+    a. Go to your project in the [Ory Console](https://console.ory.sh).
+
+    b. Click **User management** in the top navigation bar.
+
+    c. Click **Users & identities** in the left sidebar.
+
+    d. Find the identity you want to review and click the three-dot menu (**⋮**) on its row.
+
+    e. Click **View identity** to open its details.
+
+    f. In the **Basic Information** section, under **Credential Identifiers**, the identity shows a **Migration pending** badge if
+    the user hasn't logged in and completed the password migration yet.
 
     ```mdx-code-block
     <BrowserWindow url="https://console.ory.sh/projects/b3b748e5-7ddc-4860-a672-2436a877dc93/identities/2db9fa1c-95fd-4112-bdbc-a4bd857d7426">
