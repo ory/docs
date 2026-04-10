@@ -408,6 +408,57 @@ Jun 10 09:16:40 2038 GMT
 You can use this information to externally monitor certificate expirations or integrate it into your internal workflows and
 alerting systems as needed.
 
+## Break-glass account recovery for SSO
+
+When an organization's SSO provider is unavailable, organization members can't sign in. Break-glass account recovery lets
+designated users bypass SSO enforcement and recover access through email-based recovery.
+
+Each recovery address has a `break_glass_for_organization` field that stores the organization UUID it applies to. Recovery is only
+allowed when this field matches the identity's current organization. If the user moves to a different organization, the flag
+doesn't carry over.
+
+For Ory Network users, the easiest way to manage this is through the
+[Ory Console SSO settings](/docs/console/single-sign-on#break-glass-account-recovery).
+
+### Set break-glass via the identity admin API
+
+Set the `break_glass_for_organization` field on a recovery address to the organization's UUID:
+
+```shell
+curl -X PATCH "https://$PROJECT_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID" \
+     -H "Authorization: Bearer $ORY_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '[
+           {
+             "op": "replace",
+             "path": "/recovery_addresses/0/break_glass_for_organization",
+             "value": "$ORGANIZATION_ID"
+           }
+         ]'
+```
+
+To disable break-glass recovery, set the value to the nil UUID:
+
+```shell
+curl -X PATCH "https://$PROJECT_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID" \
+     -H "Authorization: Bearer $ORY_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '[
+           {
+             "op": "replace",
+             "path": "/recovery_addresses/0/break_glass_for_organization",
+             "value": "00000000-0000-0000-0000-000000000000"
+           }
+         ]'
+```
+
+:::warning
+
+Grant break-glass recovery only to a small number of trusted users. Any user with this flag can bypass SSO and recover their
+account through email.
+
+:::
+
 ## Self-service organization onboarding
 
 ```mdx-code-block

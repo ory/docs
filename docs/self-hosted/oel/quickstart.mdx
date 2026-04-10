@@ -88,7 +88,8 @@ Create a `values.yaml` file to customize the configuration:
 
 ```yaml
 image:
-  repository: europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel
+  registry: europe-docker.pkg.dev
+  repository: ory-artifacts/ory-enterprise/hydra-oel
   tag: <replace-with-current-image-tag>
 imagePullSecrets:
   - name: ory-oel-gcr-secret
