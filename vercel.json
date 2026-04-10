@@ -54,7 +54,7 @@
     },
     {
       "source": "/oathkeeper/docs",
-      "destination": "https://www.ory.com/docs/oathkeeper",
+      "destination": "https://www.ory.com/docs/network/oathkeeper",
       "permanent": false
     },
     {
@@ -64,7 +64,7 @@
     },
     {
       "source": "/docs/oathkeeper/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
-      "destination": "https://www.ory.com/docs/oathkeeper",
+      "destination": "https://www.ory.com/docs/network/oathkeeper",
       "permanent": false
     },
     {
@@ -94,7 +94,7 @@
     },
     {
       "source": "/keto/docs",
-      "destination": "https://www.ory.com/docs/keto",
+      "destination": "https://www.ory.com/docs/network/keto",
       "permanent": false
     },
     {
@@ -104,7 +104,7 @@
     },
     {
       "source": "/docs/keto/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
-      "destination": "https://www.ory.com/docs/keto",
+      "destination": "https://www.ory.com/docs/network/keto",
       "permanent": false
     },
     {
@@ -254,7 +254,7 @@
     },
     {
       "source": "/docs/keto/versions",
-      "destination": "https://www.ory.com/docs/keto",
+      "destination": "https://www.ory.com/docs/network/keto",
       "permanent": false
     },
     {
@@ -519,7 +519,7 @@
     },
     {
       "source": "/docs/kratos/further-reading/kratos-video-tutorials",
-      "destination": "https://www.ory.com/docs/kratos/quickstart",
+      "destination": "https://www.ory.com/docs/oel/kratos/quickstart",
       "permanent": false
     },
     {
@@ -889,7 +889,7 @@
     },
     {
       "source": "/docs/getting-started/ory-cloud-oauth2",
-      "destination": "https://www.ory.com/docs/getting-started/ory-network-oauth2",
+      "destination": "https://www.ory.com/docs/network/hydra/ory-network-oauth2",
       "permanent": false
     },
     {
@@ -939,37 +939,37 @@
     },
     {
       "source": "/docs/keto/guides/userset-rewrites",
-      "destination": "https://www.ory.com/docs/guides/permissions/overview",
+      "destination": "https://www.ory.com/docs/network/keto/overview",
       "permanent": false
     },
     {
       "source": "/docs/keto/concepts/internal-algorithms",
-      "destination": "https://www.ory.com/docs/guides/permissions/overview",
+      "destination": "https://www.ory.com/docs/network/keto/overview",
       "permanent": false
     },
     {
       "source": "/docs/keto/concepts/snaptokens-evaluation-consistency",
-      "destination": "https://www.ory.com/docs/guides/permissions/overview",
+      "destination": "https://www.ory.com/docs/network/keto/overview",
       "permanent": false
     },
     {
       "source": "/docs/keto/guides/access-control-inheritance",
-      "destination": "https://www.ory.com/docs/guides/permissions/overview",
+      "destination": "https://www.ory.com/docs/network/keto/overview",
       "permanent": false
     },
     {
       "source": "/docs/keto/guides/access-control-list-design-best-practices",
-      "destination": "https://www.ory.com/docs/guides/permissions/overview",
+      "destination": "https://www.ory.com/docs/network/keto/overview",
       "permanent": false
     },
     {
       "source": "/docs/keto/performance",
-      "destination": "https://www.ory.com/docs/guides/permissions/overview",
+      "destination": "https://www.ory.com/docs/network/keto/overview",
       "permanent": false
     },
     {
       "source": "/docs/keto/secure",
-      "destination": "https://www.ory.com/docs/guides/permissions/overview",
+      "destination": "https://www.ory.com/docs/network/keto/overview",
       "permanent": false
     },
     {
@@ -1049,7 +1049,7 @@
     },
     {
       "source": "/docs/hydra",
-      "destination": "/docs/oauth2-oidc",
+      "destination": "/docs/network/hydra",
       "permanent": false
     },
     {
@@ -1164,7 +1164,7 @@
     },
     {
       "source": "/docs/hydra/5min-tutorial",
-      "destination": "/docs/hydra/self-hosted/quickstart",
+      "destination": "/docs/oel/hydra/quickstart",
       "permanent": false
     },
     {
@@ -1234,7 +1234,7 @@
     },
     {
       "source": "/docs/ecosystem/projects",
-      "destination": "/docs/oss/projects",
+      "destination": "/docs/oss/getting-started",
       "permanent": true
     },
     {
@@ -1361,7 +1361,123 @@
       "source": "/docs/getting-started/overview",
       "destination": "/docs/welcome",
       "permanent": true
+    },
+    {
+      "source": "/docs/intro",
+      "destination": "/docs/network/getting-started",
+      "permanent": true
+    },
+    {
+      "source": "/docs/identities",
+      "destination": "/docs/network/kratos/intro",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/quickstart",
+      "destination": "/docs/oel/kratos/quickstart",
+      "permanent": true
+    },
+    {
+      "source": "/docs/oauth2-oidc",
+      "destination": "/docs/network/hydra",
+      "permanent": true
+    },
+    {
+      "source": "/docs/getting-started/ory-network-oauth2",
+      "destination": "/docs/network/hydra/ory-network-oauth2",
+      "permanent": true
+    },
+    {
+      "source": "/docs/hydra/self-hosted/quickstart",
+      "destination": "/docs/oel/hydra/quickstart",
+      "permanent": true
+    },
+    {
+      "source": "/docs/hydra/reference/configuration",
+      "destination": "/docs/self-hosted/oel/oauth2/configuration",
+      "permanent": true
+    },
+    {
+      "source": "/docs/keto",
+      "destination": "/docs/network/keto",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/permissions/overview",
+      "destination": "/docs/network/keto/overview",
+      "permanent": true
+    },
+    {
+      "source": "/docs/keto/quickstart",
+      "destination": "/docs/network/keto/quickstart",
+      "permanent": true
+    },
+    {
+      "source": "/docs/keto/examples/olymp-file-sharing",
+      "destination": "/docs/network/keto/file-sharing-example",
+      "permanent": true
+    },
+    {
+      "source": "/docs/keto/reference/configuration",
+      "destination": "/docs/self-hosted/oel/keto/configuration",
+      "permanent": true
+    },
+    {
+      "source": "/docs/polis",
+      "destination": "/docs/network/polis",
+      "permanent": true
+    },
+    {
+      "source": "/docs/polis/quickstart",
+      "destination": "/docs/oel/polis/quickstart",
+      "permanent": true
+    },
+    {
+      "source": "/docs/polis/directory-sync/guides",
+      "destination": "/docs/category/guides-3",
+      "permanent": true
+    },
+    {
+      "source": "/docs/oathkeeper/guides/upgrade",
+      "destination": "/docs/self-hosted/oel/oathkeeper/upgrade-oathkeeper",
+      "permanent": true
+    },
+    {
+      "source": "/docs/oathkeeper/configure-deploy",
+      "destination": "/docs/oel/oathkeeper/configure-deploy",
+      "permanent": true
+    },
+    {
+      "source": "/docs/oathkeeper/reference/configuration",
+      "destination": "/docs/self-hosted/oel/oathkeeper/configuration",
+      "permanent": true
+    },
+    {
+      "source": "/docs/self-hosted/oel",
+      "destination": "/docs/oel/getting-started",
+      "permanent": true
+    },
+    {
+      "source": "/docs/category/operations-reference",
+      "destination": "/docs/self-hosted/operations/scalability",
+      "permanent": true
+    },
+    {
+      "source": "/docs/category/troubleshooting",
+      "destination": "/docs/category/troubleshooting-reference",
+      "permanent": true
+    },
+    {
+      "source": "/docs/guides/operations",
+      "destination": "/docs/category/operations-reference",
+      "permanent": true
+    },
+    {
+      "source": "/docs/security-compliance/compliance-and-certifications",
+      "destination": "/docs/category/security-compliance",
+      "permanent": true
     }
+
   ],
   "headers": [
     {
