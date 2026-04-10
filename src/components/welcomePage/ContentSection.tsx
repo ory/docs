@@ -46,6 +46,11 @@ export function ContentSection() {
       to: "https://changelog.ory.com/?",
       description: "Track changes and updates to Ory products and components.",
     },
+    {
+      label: "Ory Docs MCP Server",
+      to: "/docs/ecosystem/mcp",
+      description: "Configure your AI assistant to search and retrieve Ory documentation in real time.",
+    },
   ]
 
   return (
