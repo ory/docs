@@ -49,7 +49,8 @@ export function ContentSection() {
     {
       label: "Ory Docs MCP Server",
       to: "/docs/ecosystem/mcp",
-      description: "Configure your AI assistant to search and retrieve Ory documentation in real time.",
+      description:
+        "Configure your AI assistant to search and retrieve Ory documentation in real time.",
     },
   ]
 
