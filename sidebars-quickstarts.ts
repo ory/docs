@@ -28,7 +28,6 @@ const overviewAndNetwork = [
           "network/kratos/quickstarts/intro",
           "network/kratos/quickstarts/identity_model",
           "network/kratos/quickstarts/mfa-overview",
-          "network/kratos/quickstarts/authenticate",
         ],
       },
       {
@@ -53,7 +52,10 @@ const overviewAndNetwork = [
         type: "category",
         label: "Enterprise SSO AuthZ",
         className: "sidebar-icon sidebar-icon-polis",
-        items: ["network/polis/quickstarts/index"],
+        items: [
+          "network/polis/quickstarts/index",
+          "oel/polis/quickstarts/quickstart",
+        ],
       },
       {
         type: "category",
