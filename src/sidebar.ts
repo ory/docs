@@ -177,7 +177,7 @@ const quickstart: SidebarItemsConfig = [
   "welcome",
   "intro",
   "getting-started/local-development",
-  "ecosystem/mcp",
+  "ecosystem/ai-tools",
   {
     type: "category",
     label: "Quickstart",
@@ -1172,6 +1172,7 @@ const opensource: SidebarItemsConfig = [
       "ecosystem/community",
       "ecosystem/contributing",
       "open-source/commitment",
+      "ecosystem/ai-tools",
       "ecosystem/software-architecture-philosophy",
       {
         type: "category",
