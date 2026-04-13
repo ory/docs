@@ -83,6 +83,7 @@ const networkSidebar = [
             collapsible: true,
             items: [
               "guides/workspaces",
+              "console/single-sign-on",
               "console/roles-and-permissions",
               "guides/custom-domains",
               "console/usage-billing",
@@ -269,6 +270,7 @@ const networkSidebar = [
                   "identities/get-started/sign-out",
                   "kratos/self-service/flows/user-settings",
                   "kratos/self-service/flows/verify-email-account-activation",
+                  "kratos/self-service/flows/CAPTCHA",
                   "kratos/self-service/flows/account-recovery-password-reset",
                   "identities/get-started/account-recovery",
                   "kratos/self-service/flows/user-facing-errors",

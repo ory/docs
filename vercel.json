@@ -1476,6 +1476,16 @@
       "source": "/docs/security-compliance/compliance-and-certifications",
       "destination": "/docs/category/security-compliance",
       "permanent": true
+    },
+    {
+      "source": "/docs/identities/get-started",
+      "destination": "/docs/identities/get-started/setup",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/guides/e2e-integration-tests",
+      "destination": "/docs/oss/guidelines/e2e-integration-tests",
+      "permanent": false
     }
   ],
   "headers": [
