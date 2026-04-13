@@ -54,7 +54,7 @@
     },
     {
       "source": "/oathkeeper/docs",
-      "destination": "https://www.ory.com/docs/network/oathkeeper",
+      "destination": "https://www.ory.com/docs/oathkeeper",
       "permanent": false
     },
     {
@@ -1225,7 +1225,7 @@
     {
       "source": "/docs/kratos/bring-your-own-ui/custom-ui-ory-elements",
       "destination": "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
-      "permanent": false
+      "permanent": true 
     },
     {
       "source": "/docs/migrate-to-ory",
@@ -1235,247 +1235,247 @@
     {
       "source": "/docs/ecosystem/projects",
       "destination": "/docs/oss/getting-started",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/open-source",
       "destination": "/docs/oss/open-source",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/community",
       "destination": "/docs/oss/community",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/contributing",
       "destination": "/docs/oss/contributing",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/open-source/commitment",
       "destination": "/docs/oss/commitment",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/software-architecture-philosophy",
       "destination": "/docs/oss/software-architecture-philosophy",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/open-source/guidelines/rest-api-guidelines",
       "destination": "/docs/oss/guidelines/rest-api-guidelines",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/upgrading",
       "destination": "/docs/oss/upgrading",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/sqa",
       "destination": "/docs/oss/telemetry",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/changelog",
       "destination": "/docs/oss/changelog",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/self-hosted/deployment",
       "destination": "/docs/oss/deployment",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/changelog",
       "destination": "/docs/oss/changelog",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/configuring",
       "destination": "/docs/oss/configuring",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/open-source",
       "destination": "/docs/oss/open-source",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/open-source/guidelines/rest-api-guidelines",
       "destination": "/docs/oss/guidelines/rest-api-guidelines",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/kratos/passwordless/06_code",
       "destination": "/docs/kratos/passwordless/07_code",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/guides/workspaces",
       "destination": "/docs/network/workspaces",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/console/roles-and-permissions",
       "destination": "/docs/network/roles-and-permissions",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/guides/custom-domains",
       "destination": "/docs/network/custom-domains",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/console/usage-billing",
       "destination": "/docs/network/usage-billing",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/guides/manage-project-via-api",
       "destination": "/docs/network/manage-project-via-api",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/console/change-owner",
       "destination": "/docs/network/change-owner",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/guides/gitops",
       "destination": "/docs/network/gitops",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/actions/live-events",
       "destination": "/docs/network/live-events",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/ecosystem/security",
       "destination": "/docs/security-compliance/security",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/getting-started/overview",
       "destination": "/docs/welcome",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/intro",
       "destination": "/docs/network/getting-started",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/identities",
       "destination": "/docs/network/kratos/intro",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/kratos/quickstart",
       "destination": "/docs/oel/kratos/quickstart",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/oauth2-oidc",
       "destination": "/docs/network/hydra",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/getting-started/ory-network-oauth2",
       "destination": "/docs/network/hydra/ory-network-oauth2",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/hydra/self-hosted/quickstart",
       "destination": "/docs/oel/hydra/quickstart",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/hydra/reference/configuration",
       "destination": "/docs/self-hosted/oel/oauth2/configuration",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/keto",
       "destination": "/docs/network/keto",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/guides/permissions/overview",
       "destination": "/docs/network/keto/overview",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/keto/quickstart",
       "destination": "/docs/network/keto/quickstart",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/keto/examples/olymp-file-sharing",
       "destination": "/docs/network/keto/file-sharing-example",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/keto/reference/configuration",
       "destination": "/docs/self-hosted/oel/keto/configuration",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/polis",
       "destination": "/docs/network/polis",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/polis/quickstart",
       "destination": "/docs/oel/polis/quickstart",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/polis/directory-sync/guides",
       "destination": "/docs/category/guides-3",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/oathkeeper/guides/upgrade",
       "destination": "/docs/self-hosted/oel/oathkeeper/upgrade-oathkeeper",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/oathkeeper/configure-deploy",
       "destination": "/docs/oel/oathkeeper/configure-deploy",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/oathkeeper/reference/configuration",
       "destination": "/docs/self-hosted/oel/oathkeeper/configuration",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/self-hosted/oel",
       "destination": "/docs/oel/getting-started",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/category/operations-reference",
       "destination": "/docs/self-hosted/operations/scalability",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/category/troubleshooting",
       "destination": "/docs/category/troubleshooting-reference",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/guides/operations",
       "destination": "/docs/category/operations-reference",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/security-compliance/compliance-and-certifications",
       "destination": "/docs/category/security-compliance",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/identities/get-started",
@@ -1486,7 +1486,13 @@
       "source": "/docs/kratos/guides/e2e-integration-tests",
       "destination": "/docs/oss/guidelines/e2e-integration-tests",
       "permanent": false
+    },
+    {
+      "source": "/docs/oathkeeper",
+      "destination": "/docs/network/oathkeeper",
+      "permanent": false
     }
+
   ],
   "headers": [
     {
@@ -1494,15 +1500,15 @@
       "headers": [
         {
           "key": "Vercel-CDN-Cache-Control",
-          "value": "s-maxage=2592000, immutable"
+          "value": "s-maxage=604800, immutable"
         },
         {
           "key": "CDN-Cache-Control",
-          "value": "s-maxage=2592000, immutable"
+          "value": "s-maxage=604800, immutable"
         },
         {
           "key": "Cache-Control",
-          "value": "max-age=2592000, immutable"
+          "value": "max-age=259200, immutable"
         }
       ]
     },
