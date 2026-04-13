@@ -146,7 +146,7 @@ const networkSidebar = [
                 label: "Identity management",
                 link: {
                   type: "doc",
-                  id: "network/kratos/identity_model",
+                  id: "network/kratos/identity-model",
                 },
                 items: [
                   "kratos/manage-identities/create-users-identities",

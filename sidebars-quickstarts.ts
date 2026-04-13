@@ -26,7 +26,7 @@ const overviewAndNetwork = [
         className: "sidebar-icon sidebar-icon-kratos",
         items: [
           "network/kratos/quickstarts/intro",
-          "network/kratos/quickstarts/identity_model",
+          "network/kratos/quickstarts/identity-model",
           "network/kratos/quickstarts/mfa-overview",
         ],
       },
@@ -81,7 +81,7 @@ const overviewAndNetwork = [
         items: [
           "oel/kratos/quickstarts/intro",
           "oel/kratos/quickstarts/quickstart",
-          "oel/kratos/quickstarts/identity_model",
+          "oel/kratos/quickstarts/identity-model",
           "oel/kratos/quickstarts/mfa-overview",
         ],
       },
@@ -147,7 +147,7 @@ const overviewAndNetwork = [
         items: [
           "oss/kratos/quickstarts/intro",
           "oss/kratos/quickstarts/quickstart",
-          "oss/kratos/quickstarts/identity_model",
+          "oss/kratos/quickstarts/identity-model",
           "oss/kratos/quickstarts/mfa-overview",
         ],
       },
@@ -224,7 +224,7 @@ const overviewAndOel = [
         items: [
           "oel/kratos/quickstarts/intro",
           "oel/kratos/quickstarts/quickstart",
-          "oel/kratos/quickstarts/identity_model",
+          "oel/kratos/quickstarts/identity-model",
           "oel/kratos/quickstarts/mfa-overview",
         ],
       },
@@ -298,7 +298,7 @@ const overviewAndOss = [
         items: [
           "oss/kratos/quickstarts/intro",
           "oss/kratos/quickstarts/quickstart",
-          "oss/kratos/quickstarts/identity_model",
+          "oss/kratos/quickstarts/identity-model",
           "oss/kratos/quickstarts/mfa-overview",
         ],
       },
