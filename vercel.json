@@ -1225,7 +1225,7 @@
     {
       "source": "/docs/kratos/bring-your-own-ui/custom-ui-ory-elements",
       "destination": "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
-      "permanent": true 
+      "permanent": true
     },
     {
       "source": "/docs/migrate-to-ory",
@@ -1492,7 +1492,6 @@
       "destination": "/docs/network/oathkeeper",
       "permanent": false
     }
-
   ],
   "headers": [
     {
