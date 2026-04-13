@@ -205,6 +205,47 @@ their GitHub handle, which is clear thanks to the field description defined in t
 </Tabs>
 ````
 
+## Restrict values with `enum`
+
+Use the JSON Schema `enum` keyword to restrict a trait to a fixed set of
+allowed values. When you declare an `enum` on a string property, the Ory
+Account Experience renders the field as a dropdown (a native `<select>`) and
+only accepts values from the list at registration, settings, and admin updates.
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "traits": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string",
+          "title": "Country",
+          "enum": ["US", "UK", "DE", "AT"]
+        }
+      },
+      "required": ["country"]
+    }
+  }
+}
+```
+
+Kratos surfaces the allowed values on the UI node by attaching an `options`
+array to the input attributes. Custom UIs that already know how to render a
+UI node can read `attributes.options` and display a `<select>`; UIs that do
+not look at `options` fall back to a plain text input, so the change is
+backward compatible with older custom UIs.
+
+:::note
+
+Only top-level string properties under `traits` are supported today. The
+rendered option value is used as both the submitted value and the visible
+label.
+
+:::
+
 ## Identity schema extensions
 
 Because the system doesn't know which fields have system-relevant meaning, you have to specify that in the schema. For example:
