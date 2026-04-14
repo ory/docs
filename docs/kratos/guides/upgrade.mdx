@@ -17,6 +17,11 @@ Back up your data! Applying upgrades can lead to data loss if handled incorrectl
 1. Update the [Ory Kratos SDK](../sdk/01_overview.md) if used in your application.
 1. [Install](../install.mdx) the new version of Ory Kratos.
 1. Run [`kratos migrate sql`](../cli/kratos-migrate-sql.md) to run the SQL migrations to the new database schema.
+1. If you are upgrading to a version that introduces phone number normalization, run
+   [`kratos migrate normalize-phone-numbers`](./normalize-phone-numbers.mdx) after the new
+   version is deployed and serving traffic. This rewrites existing phone identifiers to
+   E.164 format. See the [phone normalization guide](./normalize-phone-numbers.mdx) for
+   the recommended rollout sequence.
 
 Should you run into problems with the upgrade, consider a stepped upgrade and please visit the community
 [chat](https://slack.ory.com/) or start a [discussion](https://github.com/ory/kratos/discussions).
