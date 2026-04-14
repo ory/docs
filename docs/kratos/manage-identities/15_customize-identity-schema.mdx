@@ -232,7 +232,7 @@ only accepts values from the list at registration, settings, and admin updates.
 }
 ```
 
-Kratos surfaces the allowed values on the UI node by attaching an `options`
+Ory Kratos surfaces the allowed values on the UI node by attaching an `options`
 array to the input attributes. Custom UIs that already know how to render a
 UI node can read `attributes.options` and display a `<select>`; UIs that do
 not look at `options` fall back to a plain text input, so the change is
@@ -240,7 +240,7 @@ backward compatible with older custom UIs.
 
 :::note
 
-Only top-level string properties under `traits` are supported today. The
+Only top-level string properties under `traits` are supported. The
 rendered option value is used as both the submitted value and the visible
 label.
 
