@@ -607,7 +607,6 @@ const kratos: SidebarItemsConfig = [
           "kratos/guides/docker",
           "kratos/guides/deploy-kratos-example",
           "kratos/guides/upgrade",
-          "kratos/guides/normalize-phone-numbers",
           "kratos/guides/production",
           "kratos/guides/multi-tenancy-multitenant",
           "self-hosted/operations/scalability",
