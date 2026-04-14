@@ -1380,10 +1380,7 @@ button.sidebar-deployment-model__link {
   background-color: var(--icon-oss-tertiary);
 }
 
-/* Generated docs index cards (generic selector for plain + hashed card classes) */
-[class*="generatedIndexPage_"]
-  [class*="docCardListItem_"]
-  > :is(.card, [class*="card_"]) {
+[class*="docCardListItem"] > :is(.card, [class*="card_"]) {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -1397,17 +1394,12 @@ button.sidebar-deployment-model__link {
 }
 
 /* No hover affordance — card is not a single link; keep background stable */
-[class*="generatedIndexPage_"]
-  [class*="docCardListItem_"]
-  > :is(.card, [class*="card_"]):hover {
+[class*="docCardListItem"] > :is(.card, [class*="card_"]):hover {
   background: var(--background-default-secondary);
   box-shadow: none;
 }
 
-[class*="generatedIndexPage_"]
-  [class*="docCardListItem_"]
-  > :is(.card, [class*="card_"])
-  h2 {
+[class*="docCardListItem"] > :is(.card, [class*="card_"]) h2 {
   margin: 0;
   font-family: var(--ory-font);
   font-size: 16px;
@@ -1422,10 +1414,7 @@ button.sidebar-deployment-model__link {
   -webkit-box-orient: vertical;
 }
 
-[class*="generatedIndexPage_"]
-  [class*="docCardListItem_"]
-  > :is(.card, [class*="card_"])
-  p {
+[class*="docCardListItem"] > :is(.card, [class*="card_"]) p {
   margin: 0;
   font-family: var(--ory-font);
   font-size: 14px;
