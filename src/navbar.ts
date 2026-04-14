@@ -120,7 +120,7 @@ export const navbar: Navbar = {
       ],
     },
     {
-      label: "Change Log",
+      label: "Changelog",
       position: "left",
       items: [
         {
