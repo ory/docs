@@ -920,7 +920,7 @@
     {
       "source": "/docs/keto/guides/userset-rewrites",
       "destination": "https://www.ory.com/docs/network/keto/overview",
-      "permanent": false 
+      "permanent": false
     },
     {
       "source": "/docs/keto/concepts/internal-algorithms",
