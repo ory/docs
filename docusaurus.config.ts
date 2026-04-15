@@ -180,6 +180,10 @@ const config: Config = {
             from: "/quickstart/sdks",
             to: "/sdk",
           },
+          {
+            from: "/product-selector",
+            to: "/welcome",
+          },
         ],
       },
     ],

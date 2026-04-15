@@ -21,7 +21,7 @@ export const CATEGORIES: QuickstartCategory[] = [
       },
       {
         label: "Get started with identity management",
-        to: "/kratos/quickstarts/identity_model",
+        to: "/kratos/quickstarts/identity-model",
         description: "Identity management and authentication.",
         deploymentModes: ["network", "oel", "oss"],
       },

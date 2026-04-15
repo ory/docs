@@ -1393,11 +1393,6 @@
       "permanent": false
     },
     {
-      "source": "/docs/guides/operations",
-      "destination": "/docs/category/operations-reference",
-      "permanent": false
-    },
-    {
       "source": "/docs/security-compliance/compliance-and-certifications",
       "destination": "/docs/category/security-compliance",
       "permanent": false

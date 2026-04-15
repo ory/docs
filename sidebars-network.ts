@@ -81,6 +81,10 @@ const networkSidebar = [
             label: "Ory Console",
             collapsed: true,
             collapsible: true,
+            link: {
+              type: "doc",
+              id: "guides/operations",
+            },
             items: [
               "guides/workspaces",
               "console/single-sign-on",
