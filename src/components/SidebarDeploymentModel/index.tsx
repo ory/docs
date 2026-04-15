@@ -56,9 +56,6 @@ export default function SidebarDeploymentModel(): JSX.Element | null {
   const location = useLocation()
   const sidebar = useDocsSidebar()
   const quickstartsDeployment = useQuickstartsDeployment()
-  if (!sidebar?.name || !QUICKSTARTS_SIDEBAR_NAMES.has(sidebar.name))
-    return null
-
   const currentFromPath = getCurrentDeployment(location.pathname)
   const current = quickstartsDeployment
     ? DEPLOYMENT_OPTIONS.find(
@@ -78,6 +75,7 @@ export default function SidebarDeploymentModel(): JSX.Element | null {
   }
 
   useEffect(() => {
+    if (!sidebar?.name || !QUICKSTARTS_SIDEBAR_NAMES.has(sidebar.name)) return
     const handleClickOutside = (e: MouseEvent | TouchEvent | FocusEvent) => {
       if (!ref.current?.contains(e.target as Node)) setOpen(false)
     }
@@ -89,7 +87,10 @@ export default function SidebarDeploymentModel(): JSX.Element | null {
       document.removeEventListener("touchstart", handleClickOutside)
       document.removeEventListener("focusin", handleClickOutside)
     }
-  }, [])
+  }, [sidebar?.name])
+
+  if (!sidebar?.name || !QUICKSTARTS_SIDEBAR_NAMES.has(sidebar.name))
+    return null
 
   return (
     <div className="sidebar-deployment-model" ref={ref}>
