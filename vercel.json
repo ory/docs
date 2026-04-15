@@ -48,13 +48,13 @@
       "permanent": false
     },
     {
-      "source": "/oathkeeper/docs/:path*",
-      "destination": "https://www.ory.com/docs/oathkeeper/:path",
+      "source": "/oathkeeper/docs",
+      "destination": "https://www.ory.com/docs/oathkeeper",
       "permanent": false
     },
     {
-      "source": "/oathkeeper/docs",
-      "destination": "https://www.ory.com/docs/oathkeeper",
+      "source": "/oathkeeper/docs/:path*",
+      "destination": "https://www.ory.com/docs/oathkeeper/:path",
       "permanent": false
     },
     {
@@ -68,13 +68,13 @@
       "permanent": false
     },
     {
-      "source": "/hydra/docs/:path*",
-      "destination": "https://www.ory.com/docs/hydra/:path",
+      "source": "/hydra/docs",
+      "destination": "https://www.ory.com/docs/hydra",
       "permanent": false
     },
     {
-      "source": "/hydra/docs",
-      "destination": "https://www.ory.com/docs/hydra",
+      "source": "/hydra/docs/:path*",
+      "destination": "https://www.ory.com/docs/hydra/:path",
       "permanent": false
     },
     {
@@ -88,13 +88,13 @@
       "permanent": false
     },
     {
-      "source": "/keto/docs/:path*",
-      "destination": "https://www.ory.com/docs/keto/:path",
+      "source": "/keto/docs",
+      "destination": "https://www.ory.com/docs/network/keto",
       "permanent": false
     },
     {
-      "source": "/keto/docs",
-      "destination": "https://www.ory.com/docs/network/keto",
+      "source": "/keto/docs/:path*",
+      "destination": "https://www.ory.com/docs/keto/:path",
       "permanent": false
     },
     {
@@ -108,13 +108,13 @@
       "permanent": false
     },
     {
-      "source": "/kratos/docs/:path*",
-      "destination": "https://www.ory.com/docs/kratos/:path",
+      "source": "/kratos/docs",
+      "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
     },
     {
-      "source": "/kratos/docs",
-      "destination": "https://www.ory.com/docs/kratos",
+      "source": "/kratos/docs/:path*",
+      "destination": "https://www.ory.com/docs/kratos/:path",
       "permanent": false
     },
     {
@@ -203,11 +203,6 @@
       "permanent": false
     },
     {
-      "source": "/docs/kratos/milestones",
-      "destination": "https://github.com/ory/kratos/milestones",
-      "permanent": false
-    },
-    {
       "source": "/docs/oathkeeper/milestones",
       "destination": "https://github.com/ory/oathkeeper/milestones",
       "permanent": false
@@ -240,11 +235,6 @@
     {
       "source": "/docs/versions",
       "destination": "https://www.ory.com/docs",
-      "permanent": false
-    },
-    {
-      "source": "/docs/hydra/versions",
-      "destination": "https://www.ory.com/docs/hydra",
       "permanent": false
     },
     {
@@ -358,11 +348,6 @@
       "permanent": false
     },
     {
-      "source": "/:path*/index",
-      "destination": "https://www.ory.com/:path",
-      "permanent": false
-    },
-    {
       "source": "/docs/guides/config-with-cli",
       "destination": "https://www.ory.com/docs/guides/cli/config-with-cli",
       "permanent": false
@@ -455,11 +440,6 @@
     {
       "source": "/docs/guides/create-personal-access-token",
       "destination": "https://www.ory.com/docs/welcome",
-      "permanent": false
-    },
-    {
-      "source": "/docs/hydra/milestones",
-      "destination": "https://github.com/ory/hydra/milestones",
       "permanent": false
     },
     {
@@ -940,7 +920,7 @@
     {
       "source": "/docs/keto/guides/userset-rewrites",
       "destination": "https://www.ory.com/docs/network/keto/overview",
-      "permanent": false
+      "permanent": false 
     },
     {
       "source": "/docs/keto/concepts/internal-algorithms",
@@ -1089,7 +1069,7 @@
     },
     {
       "source": "/docs/hydra/benchmark",
-      "destination": "https://www.ory.com/docs/docs/oauth2-oidc",
+      "destination": "/docs/oauth2-oidc",
       "permanent": false
     },
     {
@@ -1220,7 +1200,7 @@
     {
       "source": "/docs/getting-started/integrate-auth/nextjs",
       "destination": "/docs/getting-started/integrate-auth/nextjs-app-router-quickstart",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/bring-your-own-ui/custom-ui-ory-elements",
@@ -1288,68 +1268,13 @@
       "permanent": false
     },
     {
-      "source": "/docs/ecosystem/changelog",
-      "destination": "/docs/oss/changelog",
-      "permanent": false
-    },
-    {
       "source": "/docs/ecosystem/configuring",
       "destination": "/docs/oss/configuring",
       "permanent": false
     },
     {
-      "source": "/docs/open-source",
-      "destination": "/docs/oss/open-source",
-      "permanent": false
-    },
-    {
-      "source": "/docs/open-source/guidelines/rest-api-guidelines",
-      "destination": "/docs/oss/guidelines/rest-api-guidelines",
-      "permanent": false
-    },
-    {
       "source": "/docs/kratos/passwordless/06_code",
       "destination": "/docs/kratos/passwordless/07_code",
-      "permanent": false
-    },
-    {
-      "source": "/docs/guides/workspaces",
-      "destination": "/docs/network/workspaces",
-      "permanent": false
-    },
-    {
-      "source": "/docs/console/roles-and-permissions",
-      "destination": "/docs/network/roles-and-permissions",
-      "permanent": false
-    },
-    {
-      "source": "/docs/guides/custom-domains",
-      "destination": "/docs/network/custom-domains",
-      "permanent": false
-    },
-    {
-      "source": "/docs/console/usage-billing",
-      "destination": "/docs/network/usage-billing",
-      "permanent": false
-    },
-    {
-      "source": "/docs/guides/manage-project-via-api",
-      "destination": "/docs/network/manage-project-via-api",
-      "permanent": false
-    },
-    {
-      "source": "/docs/console/change-owner",
-      "destination": "/docs/network/change-owner",
-      "permanent": false
-    },
-    {
-      "source": "/docs/guides/gitops",
-      "destination": "/docs/network/gitops",
-      "permanent": false
-    },
-    {
-      "source": "/docs/actions/live-events",
-      "destination": "/docs/network/live-events",
       "permanent": false
     },
     {
