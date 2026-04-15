@@ -4,15 +4,12 @@ title: Normalize phone numbers to E.164
 sidebar_label: Normalize phone numbers
 ---
 
-Starting with this release, Ory Kratos normalizes phone numbers to
-[E.164 format](https://en.wikipedia.org/wiki/E.164) when they're used as
-identifiers, verifiable addresses, or recovery addresses. New data is normalized
-on write. Existing data continues to work through a backward-compatible lookup,
-but you should run the `normalize-phone-numbers` migration command after
-upgrading to converge all rows to E.164.
+Starting with this release, Ory Kratos normalizes phone numbers to [E.164 format](https://en.wikipedia.org/wiki/E.164) when
+they're used as identifiers, verifiable addresses, or recovery addresses. New data is normalized on write. Existing data continues
+to work through a backward-compatible lookup, but you should run the `normalize-phone-numbers` migration command after upgrading
+to converge all rows to E.164.
 
-This guide is for self-hosted Kratos administrators (OSS and OEL). Ory Network
-customers don't need to take any action.
+This guide is for self-hosted Kratos administrators (OSS and OEL). Ory Network customers don't need to take any action.
 
 :::info
 
@@ -22,24 +19,20 @@ Back up your database before running the migration.
 
 ## Why normalize
 
-Before this change, Kratos stored phone numbers exactly as users entered them.
-A user who registered with `+49 176 671 11 638` and another who registered with
-`+4917667111638` would create two separate identities for the same phone number.
-Lookups, recovery, and verification could behave inconsistently depending on the
-input format.
+Before this change, Kratos stored phone numbers exactly as users entered them. A user who registered with `+49 176 671 11 638` and
+another who registered with `+4917667111638` would create two separate identities for the same phone number. Lookups, recovery,
+and verification could behave inconsistently depending on the input format.
 
-After normalization, all phone numbers are stored in E.164 format
-(for example, `+4917667111638`). Lookups match regardless of how the user
-formatted the input.
+After normalization, all phone numbers are stored in E.164 format (for example, `+4917667111638`). Lookups match regardless of how
+the user formatted the input.
 
 ## Rollout sequence
 
 Run the steps in this exact order:
 
 1. **Deploy the new Kratos version.**  
-   The new code normalizes phone numbers on write and uses a backward-compatible
-   lookup that matches both E.164 and legacy formats. Existing users can still
-   log in with whatever format they originally registered with.
+   The new code normalizes phone numbers on write and uses a backward-compatible lookup that matches both E.164 and legacy
+   formats. Existing users can still log in with whatever format they originally registered with.
 
 2. **Run the migration command.**  
    After the deploy completes and traffic is stable, run:
@@ -55,16 +48,14 @@ Run the steps in this exact order:
    kratos migrate normalize-phone-numbers -e
    ```
 
-   The command iterates over `identity_credential_identifiers`,
-   `identity_verifiable_addresses`, and `identity_recovery_addresses` and
-   rewrites any non-E.164 phone numbers in place.
+   The command iterates over `identity_credential_identifiers`, `identity_verifiable_addresses`, and `identity_recovery_addresses`
+   and rewrites any non-E.164 phone numbers in place.
 
 :::caution
 
-Don't run the migration before deploying the new Kratos version. The previous
-version does exact-string matching on identifiers. If you normalize the database
-first, users who type their phone number in the original (non-E.164) format
-won't be able to log in until the new code is deployed.
+Don't run the migration before deploying the new Kratos version. The previous version does exact-string matching on identifiers.
+If you normalize the database first, users who type their phone number in the original (non-E.164) format won't be able to log in
+until the new code is deployed.
 
 :::
 
@@ -72,28 +63,25 @@ won't be able to log in until the new code is deployed.
 
 The command uses keyset pagination to scan three tables in batches:
 
-| Table | Column | Filter |
-|-------|--------|--------|
+| Table                             | Column       | Filter                 |
+| --------------------------------- | ------------ | ---------------------- |
 | `identity_credential_identifiers` | `identifier` | `identifier LIKE '+%'` |
-| `identity_verifiable_addresses` | `value` | `via = 'sms'` |
-| `identity_recovery_addresses` | `value` | `via = 'sms'` |
+| `identity_verifiable_addresses`   | `value`      | `via = 'sms'`          |
+| `identity_recovery_addresses`     | `value`      | `via = 'sms'`          |
 
-For each row, the command parses the value with the
-[`nyaruka/phonenumbers`](https://github.com/nyaruka/phonenumbers) library and
-rewrites it to E.164 if parsing succeeds. Rows that fail to parse (for example,
-an OIDC subject that happens to start with `+`) are left untouched and counted
-as skipped.
+For each row, the command parses the value with the [`nyaruka/phonenumbers`](https://github.com/nyaruka/phonenumbers) library and
+rewrites it to E.164 if parsing succeeds. Rows that fail to parse (for example, an OIDC subject that happens to start with `+`)
+are left untouched and counted as skipped.
 
-The command is **idempotent**: running it twice is safe. The second run only
-reports skipped rows.
+The command is **idempotent**: running it twice is safe. The second run only reports skipped rows.
 
 ## Flags
 
-| Flag | Default | Description |
-|------|---------|-------------|
+| Flag                    | Default | Description                                                              |
+| ----------------------- | ------- | ------------------------------------------------------------------------ |
 | `-e`, `--read-from-env` | `false` | Read the database connection string from the `DSN` environment variable. |
-| `-b`, `--batch-size` | `1000` | Number of rows to process per batch. |
-| `--dry-run` | `false` | Report what would change without writing. |
+| `-b`, `--batch-size`    | `1000`  | Number of rows to process per batch.                                     |
+| `--dry-run`             | `false` | Report what would change without writing.                                |
 
 Use `--dry-run` first to preview the changes:
 
@@ -119,23 +107,19 @@ identity_recovery_addresses: scanned=987 updated=15 skipped=972 errors=0
 ```
 
 - `scanned`: rows examined.
-- `updated`: rows rewritten to E.164 (or rows that *would* be rewritten in dry-run mode).
+- `updated`: rows rewritten to E.164 (or rows that _would_ be rewritten in dry-run mode).
 - `skipped`: rows already in E.164 format, or values that aren't valid phone numbers.
 - `errors`: rows that failed to update. Errors are logged to stderr with the row ID and source value.
 
 ## Duplicate handling
 
-If the migration finds two rows that normalize to the same E.164 value (for
-example, `+49 176 671 11 638` and `+4917667111638` for the same user), the
-update fails on the second row with a unique constraint violation, which the
-command logs as an error and skips. You can resolve the duplicate manually and
-re-run the command.
+If the migration finds two rows that normalize to the same E.164 value (for example, `+49 176 671 11 638` and `+4917667111638` for
+the same user), the update fails on the second row with a unique constraint violation, which the command logs as an error and
+skips. You can resolve the duplicate manually and re-run the command.
 
-In practice, duplicates are rare. Most identities have only one phone identifier
-per credential type.
+In practice, duplicates are rare. Most identities have only one phone identifier per credential type.
 
 ## Rolling back
 
-The migration only converts non-E.164 values to E.164. It doesn't store the
-original value, so there's no automatic rollback. If you need to revert, restore
-from the backup you took before running the command.
+The migration only converts non-E.164 values to E.164. It doesn't store the original value, so there's no automatic rollback. If
+you need to revert, restore from the backup you took before running the command.
