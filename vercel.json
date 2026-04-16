@@ -1045,7 +1045,7 @@
     {
       "source": "/docs/ecosystem/deployment",
       "destination": "https://www.ory.com/docs/oss/deployment",
-      "permanent": true
+      "permanent": false
     },
     {
       "source": "/docs/kratos/guides/high-availability-ha",
