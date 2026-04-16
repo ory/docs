@@ -54,7 +54,7 @@ const ossSidebar = [
         items: [
           { type: "ref", id: "oel/kratos/intro" },
           { type: "ref", id: "kratos/install" },
-          "self-hosted/oel/kratos/upgrade",
+          "kratos/guides/upgrade",
           "self-hosted/oel/kratos/changelog",
           "oel/kratos/quickstart",
           {
