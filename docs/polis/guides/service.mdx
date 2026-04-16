@@ -18,8 +18,8 @@ response contains the current version of Ory Polis. For example: `{"version":"1.
 The docker container can be found at [boxyhq/jackson](https://hub.docker.com/r/boxyhq/jackson/tags). It is preferable to use a
 specific version instead of the `latest` tag.
 
-Replace the values for `DB_URL`, `JACKSON_API_KEYS`, `NEXTAUTH_SECRET` and `NEXTAUTH_ADMIN_CREDENTIALS` with your own values
-before running docker run command.
+Replace the values for `DB_URL`, `API_KEYS`, `NEXTAUTH_SECRET` and `NEXTAUTH_ADMIN_CREDENTIALS` with your own values before
+running docker run command.
 
 ```bash
 docker run \
@@ -27,7 +27,7 @@ docker run \
   -e DB_ENGINE="sql" \
   -e DB_TYPE="postgres" \
   -e DB_URL="postgres://postgres:postgres@postgres:5432/postgres" \
-  -e JACKSON_API_KEYS="secret" \
+  -e API_KEYS="secret" \
   -e NEXTAUTH_URL="http://localhost:5225" \
   -e EXTERNAL_URL="http://localhost:5225" \
   -e NEXTAUTH_SECRET="super-secret" \
@@ -42,7 +42,7 @@ docker run \
   -p 5225:5225 \
   -e DB_ENGINE="mongo" \
   -e DB_URL="mongodb://localhost:27017/jackson" \
-  -e JACKSON_API_KEYS="secret" \
+  -e API_KEYS="secret" \
   -e NEXTAUTH_URL="http://localhost:5225" \
   -e EXTERNAL_URL="http://localhost:5225" \
   -e NEXTAUTH_SECRET="super-secret" \
