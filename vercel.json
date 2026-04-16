@@ -69,22 +69,22 @@
     },
     {
       "source": "/hydra/docs",
-      "destination": "https://www.ory.com/docs/hydra",
+      "destination": "/docs/hydra",
       "permanent": false
     },
     {
       "source": "/hydra/docs/:path*",
-      "destination": "https://www.ory.com/docs/hydra/:path",
+      "destination": "/docs/hydra/:path",
       "permanent": false
     },
     {
       "source": "/docs/hydra/:version(v[0-9.]+|next)/:path*",
-      "destination": "https://www.ory.com/docs/hydra/:path",
+      "destination": "/docs/hydra/:path",
       "permanent": false
     },
     {
       "source": "/docs/hydra/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
-      "destination": "https://www.ory.com/docs/hydra",
+      "destination": "/docs/hydra",
       "permanent": false
     },
     {
@@ -179,7 +179,7 @@
     },
     {
       "source": "/docs/hydra/implementing-consent",
-      "destination": "https://www.ory.com/docs/hydra/guides/consent",
+      "destination": "/docs/hydra/guides/consent",
       "permanent": false
     },
     {
@@ -264,7 +264,7 @@
     },
     {
       "source": "/docs/kratos/sdk/api",
-      "destination": "https://www.ory.com/docs/kratos/reference/api",
+      "destination": "/docs/kratos/reference/api",
       "permanent": false
     },
     {
@@ -274,12 +274,12 @@
     },
     {
       "source": "/:path*/index",
-      "destination": "https://www.ory.com/:path",
+      "destination": "/:path",
       "permanent": false
     },
     {
       "source": "/docs/kratos/concepts/identity-(data|user)-model",
-      "destination": "https://www.ory.com/docs/kratos/concepts/identity-schema",
+      "destination": "/docs/kratos/concepts/identity-schema",
       "permanent": false
     },
     {
@@ -299,7 +299,12 @@
     },
     {
       "source": "/docs/kratos/self-service/(flows|strategies)",
-      "destination": "https://www.ory.com/docs/kratos/self-service",
+      "destination": "/docs/kratos/self-service",
+      "permanent": false
+    },
+    {
+      "source": "/docs/kratos/self-service/strategies/:path*",
+      "destination": "/docs/kratos/self-service",
       "permanent": false
     },
     {
@@ -469,7 +474,7 @@
     },
     {
       "source": "/docs/kratos/concepts/federation",
-      "destination": "https://www.ory.com/docs/kratos",
+      "destination": "/docs/kratos",
       "permanent": false
     },
     {
@@ -729,7 +734,7 @@
     },
     {
       "source": "/docs/kratos/sdk/01_overview.md",
-      "destination": "https://www.ory.com/docs/kratos/sdk/overview",
+      "destination": "/docs/kratos/sdk/overview",
       "permanent": false
     },
     {
@@ -849,12 +854,12 @@
     },
     {
       "source": "/docs/kratos/sdk/index",
-      "destination": "https://www.ory.com/docs/kratos/sdk/overview",
+      "destination": "/docs/kratos/sdk/overview",
       "permanent": false
     },
     {
       "source": "/docs/kratos/sdk",
-      "destination": "https://www.ory.com/docs/kratos/sdk/overview",
+      "destination": "/docs/kratos/sdk/overview",
       "permanent": false
     },
     {
@@ -969,7 +974,7 @@
     },
     {
       "source": "/docs/hydra/limitations",
-      "destination": "https://www.ory.com/docs/oauth2-oidc/overview/oauth2-concepts",
+      "destination": "/docs/oauth2-oidc/overview/oauth2-concepts",
       "permanent": false
     },
     {
@@ -1155,6 +1160,206 @@
     {
       "source": "/docs/hydra/cli/hydra-clients-create",
       "destination": "/docs/hydra/cli/hydra-create-client",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/advanced/caching",
+      "destination": "/docs/hydra/jwks",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/advanced/refresh-tokens",
+      "destination": "/docs/oauth2-oidc/refresh-token-grant",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/advanced/tls",
+      "destination": "/docs/hydra/self-hosted/ssl-https-tls",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/appendix",
+      "destination": "/docs/oauth2-oidc",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli",
+      "destination": "/docs/hydra/cli/hydra",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/concepts/jwk",
+      "destination": "/docs/hydra/jwks",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/debug/config",
+      "destination": "/docs/hydra/reference/configuration",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/debug/csrf",
+      "destination": "/docs/self-hosted/hydra/debug/csrf",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides",
+      "destination": "/docs/oauth2-oidc",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/claims-at-refresh&lt;/source",
+      "destination": "/docs/hydra/guides/claims-at-refresh",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/device-authorization-grant",
+      "destination": "/docs/oauth2-oidc/device-authorization",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/login-consent",
+      "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/login-consent-flow",
+      "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/oauth2",
+      "destination": "/docs/oauth2-oidc/overview/oauth2-concepts",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/oauth2-client-authentication",
+      "destination": "/docs/hydra/concepts/before-oauth2",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/ssl-https-tls",
+      "destination": "/docs/hydra/self-hosted/ssl-https-tls",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/token-introspection",
+      "destination": "/docs/hydra/guides/oauth2-token-introspection",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/token-revocation",
+      "destination": "/docs/oauth2-oidc/revoke-consent",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/guides/tracing",
+      "destination": "/docs/self-hosted/operations/tracing",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/hydra-configure-deploy",
+      "destination": "/docs/hydra/self-hosted/configure-deploy",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/overview",
+      "destination": "/docs/oauth2-oidc",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/quickstart",
+      "destination": "/docs/network/hydra/ory-network-oauth2",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/recipes/mcp",
+      "destination": "/docs/ecosystem/mcp",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/recipes/oauth2",
+      "destination": "/docs/oauth2-oidc",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/reference/api&lt;/source",
+      "destination": "/docs/hydra/reference/api",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/security",
+      "destination": "/docs/hydra/security-architecture",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-clients-delete",
+      "destination": "/docs/hydra/cli/hydra-delete-oauth2-client",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-clients-get",
+      "destination": "/docs/hydra/cli/hydra-get-oauth2-client",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-keys",
+      "destination": "/docs/hydra/cli/hydra-get-jwk",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-keys-create",
+      "destination": "/docs/hydra/cli/hydra-create-jwk",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-keys-delete",
+      "destination": "/docs/hydra/cli/hydra-delete-jwk",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-keys-get",
+      "destination": "/docs/hydra/cli/hydra-get-jwk",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-keys-import",
+      "destination": "/docs/hydra/cli/hydra-import-jwk",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-token",
+      "destination": "/docs/hydra/cli/hydra-perform",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-token-client",
+      "destination": "/docs/hydra/cli/hydra-perform-client-credentials",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-token-delete",
+      "destination": "/docs/hydra/cli/hydra-delete-access-tokens",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-token-flush",
+      "destination": "/docs/hydra/cli/hydra-janitor",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-token-introspect",
+      "destination": "/docs/hydra/cli/hydra-introspect-token",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-token-revoke",
+      "destination": "/docs/hydra/cli/hydra-revoke-token",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/cli/hydra-token-user",
+      "destination": "/docs/hydra/cli/hydra-perform-authorization-code",
       "permanent": false
     },
     {

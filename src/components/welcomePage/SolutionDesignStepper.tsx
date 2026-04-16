@@ -180,57 +180,63 @@ export function SolutionDesignStepper() {
 
           {isResults && (
             <div className="flex flex-col gap-ory-6">
-              <p className="ory-body font-medium text-ory-text-primary m-0">
-                Based on your answers, here's the Ory stack that matches your
-                IAM requirements:
-              </p>
               {selectedProducts.length > 0 ? (
-                <ul className="m-0 pl-ory-6 flex flex-col gap-ory-2 list-disc">
-                  {RESULTS_ORDER.filter((k) =>
-                    selectedProducts.includes(k),
-                  ).map((key) => {
-                    const p = PRODUCT_LABELS[key]
-                    return (
-                      <li
-                        key={key}
-                        className="ory-body text-ory-text-secondary flex items-center gap-2"
-                      >
-                        <span
-                          aria-hidden
-                          className="inline-block rounded-full"
-                          style={{
-                            width: 10,
-                            height: 10,
-                            backgroundColor: RESULT_DOT_COLORS[key],
-                          }}
-                        />
-                        <Link
-                          to={p.to}
-                          className="text-ory-text-primary font-medium no-underline"
+                <>
+                  <p className="ory-body font-medium text-ory-text-primary m-0">
+                    Here’s the Ory stack that matches your IAM requirements:
+                  </p>
+                  <ul className="m-0 pl-ory-6 flex flex-col gap-ory-2 list-disc">
+                    {RESULTS_ORDER.filter((k) =>
+                      selectedProducts.includes(k),
+                    ).map((key) => {
+                      const p = PRODUCT_LABELS[key]
+                      return (
+                        <li
+                          key={key}
+                          className="ory-body text-ory-text-secondary flex items-center gap-2"
                         >
-                          {p.label}
-                        </Link>
-                        {" — "}
-                        {p.description}
-                      </li>
-                    )
-                  })}
-                </ul>
+                          <span
+                            aria-hidden
+                            className="inline-block rounded-full"
+                            style={{
+                              width: 10,
+                              height: 10,
+                              backgroundColor: RESULT_DOT_COLORS[key],
+                            }}
+                          />
+                          <Link
+                            to={p.to}
+                            className="text-ory-text-primary font-medium no-underline"
+                          >
+                            {p.label}
+                          </Link>
+                          {" — "}
+                          {p.description}
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </>
               ) : (
-                <p className="ory-body text-ory-text-secondary m-0">
-                  Based on your answers, you may not need additional Ory
-                  products for your current use case. You can still explore our{" "}
-                  <Link to="/getting-started/overview">quickstarts</Link> or{" "}
-                  <a
-                    href="https://www.ory.com/contact"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-ory-brand-primary underline"
-                  >
-                    contact sales
-                  </a>{" "}
-                  for guidance.
-                </p>
+                <>
+                  <p className="ory-body font-medium text-ory-text-primary m-0">
+                    No additional Ory products recommended.
+                  </p>
+                  <p className="ory-body text-ory-text-secondary m-0">
+                    It looks like you may not need additional Ory products for
+                    your current use case. You can still explore our{" "}
+                    <Link to="/getting-started/overview">quickstarts</Link> or{" "}
+                    <a
+                      href="https://www.ory.com/contact"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-ory-brand-primary underline"
+                    >
+                      contact sales
+                    </a>{" "}
+                    for guidance.
+                  </p>
+                </>
               )}
             </div>
           )}
