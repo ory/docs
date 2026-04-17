@@ -78,7 +78,7 @@ ports on `127.0.0.1` there isn't anything we need to do to get this all working.
 In environments where you have multiple sub-domains or reverse proxies, the set
 up will be a bit more sophisticated. You can find more information about the
 different set up possibilities in the
-[Getting Cookies to Work on Multi-Domains Guide](/docs/kratos/guides/multi-domain-cookies).
+[Getting Cookies to Work on Multi-Domains Guide](@site/docs/kratos/guides/multi-domain-cookies.mdx).
 
 Ory Kratos doesn't ship with an administrative user interface. You must
 implement that UI yourself. If you need a managed solution that takes care of
@@ -512,7 +512,7 @@ again. Exciting!
 
 ### Understand how login and registration work
 
-Head over to the [Self-Service Flows Chapter](/docs/kratos/self-service) for an
+Head over to the [Self-Service Flows Chapter](@site/docs/kratos/self-service.mdx) for an
 in-depth explanation of how each individual flow works.
 
 ### Email verification
@@ -590,7 +590,7 @@ To re-request the verification email, fill out the form at
 [127.0.0.1:4455/verification](http://127.0.0.1:4455/verification).
 
 To learn more about verification recovery, head over to the
-[Email and Phone Verification and Account Activation Documentation](/docs/kratos/self-service/flows/verify-email-account-activation).
+[Email and Phone Verification and Account Activation Documentation](@site/docs/kratos/self-service/flows/verify-email-account-activation.mdx).
 
 ### Account recovery
 
@@ -613,7 +613,7 @@ Click the link, and change your password:
 
 You are now able to sign in with the new password. To learn more about account
 recovery, head over to the
-[Account Recovery Documentation](/docs/kratos/self-service/flows/account-recovery-password-reset).
+[Account Recovery Documentation](@site/docs/kratos/self-service/flows/account-recovery-password-reset.mdx).
 
 #### Configuration
 
@@ -658,12 +658,12 @@ Here is some information should you want to modify the quickstart:
 
 **Social Login**
 
-[Step-by-step guides](/docs/kratos/social-signin/overview) to add sign up and
+[Step-by-step guides](@site/docs/kratos/social-signin/01_overview.mdx) to add sign up and
 login with popular OIDC providers to the Ory Kratos Quickstart, for example:
 
-- [GitHub](/docs/kratos/social-signin/github)
-- [Google](/docs/kratos/social-signin/google)
-- [Facebook](/docs/kratos/social-signin/facebook)
+- [GitHub](@site/docs/kratos/social-signin/25_github.mdx)
+- [Google](@site/docs/kratos/social-signin/10_google.mdx)
+- [Facebook](@site/docs/kratos/social-signin/15_facebook.mdx)
 
 **Use a different database**
 
@@ -693,7 +693,7 @@ UI or the Mailslurper.
 **Hooks**
 
 To change the redirects happening after registration,login or a settings change,
-take a look at this document: [Hooks](/docs/kratos/hooks/configure-hooks).
+take a look at this document: [Hooks](@site/docs/kratos/hooks/01_configure-hooks.mdx).
 
 If you delete the `session` hook from `kratos.yml`, the user will _not_ be
 immediately signed in after registration.
@@ -715,5 +715,5 @@ docker-compose as specified in the
 />
 
 Have a look at the
-[reference configuration](/docs/kratos/reference/configuration) for further
+[reference configuration](@site/docs/kratos/reference/configuration.mdx) for further
 information on possible configuration options.
