@@ -18,7 +18,8 @@ at the start of the session. Alternatively, you could allow the user to start
 the session by logging in with the first factor and only require the second
 factor at the point where the user is about to perform a security-sensitive
 operation. Read more about dynamic MFA in the
-[step-up authentication](@site/docs/kratos/mfa/05_step-up-authentication.mdx) document.
+[step-up authentication](@site/docs/kratos/mfa/05_step-up-authentication.mdx)
+document.
 
 ## Available methods
 
@@ -28,8 +29,9 @@ Ory offers multiple second-factor authentication methods:
 
 Time-based one time passwords (TOTP) are a flexible 2FA authentication method
 based on a shared secret, and can be used both with browser-based apps and
-native apps. Read [Time-based one-time passwords (TOTP)](@site/docs/kratos/mfa/15_totp.mdx)
-to learn more.
+native apps. Read
+[Time-based one-time passwords (TOTP)](@site/docs/kratos/mfa/15_totp.mdx) to
+learn more.
 
 ### WebAuthn
 
@@ -37,8 +39,8 @@ This method uses the
 [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API),
 also known as WebAuthn, which allows servers to register and authenticate users
 using public-key cryptography. Read
-[WebAuthn and FIDO2 (YubiKey)](@site/docs/kratos/mfa/20_webauthn-fido-yubikey.mdx) to learn
-more.
+[WebAuthn and FIDO2 (YubiKey)](@site/docs/kratos/mfa/20_webauthn-fido-yubikey.mdx)
+to learn more.
 
 ### Lookup Secrets
 
@@ -46,14 +48,14 @@ Lookup Secrets, also known as Backup Codes or Recovery Codes, are a 2FA
 fail-safe mechanism, rather than a standalone two-factor authentication method.
 They can be used to complete the second factor when users lose access to their
 selected 2FA method. Read
-[Lookup Secrets (Recovery Codes)](@site/docs/kratos/mfa/25_lookup-secrets.mdx) to learn
-more.
+[Lookup Secrets (Recovery Codes)](@site/docs/kratos/mfa/25_lookup-secrets.mdx)
+to learn more.
 
 ### SMS
 
 SMS for MFA sends a one-time password to the user's registered mobile phone
-number via text message. Read the [Code via SMS](@site/docs/kratos/mfa/30_sms.mdx)
-documentation to learn more.
+number via text message. Read the
+[Code via SMS](@site/docs/kratos/mfa/30_sms.mdx) documentation to learn more.
 
 ## Terminology
 
