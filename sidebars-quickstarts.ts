@@ -1,6 +1,3 @@
-// Copyright © 2022 Ory Corp
-// SPDX-License-Identifier: Apache-2.0
-
 /**
  * Quickstarts sidebars per deployment. Each deployment-specific sidebar has a root category
  * ("Ory Network", "Ory Enterprise License", "Ory Open Source") for consistency.

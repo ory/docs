@@ -1,6 +1,3 @@
-// Copyright © 2022 Ory Corp
-// SPDX-License-Identifier: Apache-2.0
-
 import type { Edge, Node } from "@xyflow/react"
 import type { ProductKey } from "../../welcomePage/solutionDesignStepper/types/solutionDesignTypes"
 import { shouldShowExistingIdp } from "./canonicalNodes"

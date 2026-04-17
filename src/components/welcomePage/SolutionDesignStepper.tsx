@@ -1,6 +1,3 @@
-// Copyright © 2022 Ory Corp
-// SPDX-License-Identifier: Apache-2.0
-
 import React, { useEffect, useMemo, useState } from "react"
 import Link from "@docusaurus/Link"
 import OryArchitectureDiagram from "../OryArchitectureDiagram"

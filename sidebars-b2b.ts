@@ -1,5 +1,3 @@
-// Copyright © 2022 Ory Corp
-// SPDX-License-Identifier: Apache-2.0
 // sidebars-b2b.ts
 const b2bSidebar = [
   {

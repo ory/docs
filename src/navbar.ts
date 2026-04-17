@@ -1,6 +1,3 @@
-// Copyright © 2022 Ory Corp
-// SPDX-License-Identifier: Apache-2.0
-
 import { Navbar } from "@docusaurus/theme-common"
 
 export const navbar: Navbar = {

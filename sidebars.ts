@@ -1,6 +1,3 @@
-// Copyright © 2022 Ory Corp
-// SPDX-License-Identifier: Apache-2.0
-
 // sidebars.ts
 import type { SidebarsConfig } from "@docusaurus/plugin-content-docs"
 
