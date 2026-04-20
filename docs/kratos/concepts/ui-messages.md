@@ -1586,6 +1586,16 @@
 }
 ```
 
+###### You can only change one address at a time. Please update each address separately. (4050002)
+
+```json
+{
+  "id": 4050002,
+  "text": "You can only change one address at a time. Please update each address separately.",
+  "type": "error"
+}
+```
+
 ###### The request was already completed successfully and can not be retried. (4060001)
 
 ```json
