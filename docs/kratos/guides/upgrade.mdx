@@ -11,9 +11,8 @@ Back up your data! Applying upgrades can lead to data loss if handled incorrectl
 
 :::
 
-1. Review breaking changes.  
-   Visit the [CHANGELOG.md](https://github.com/ory/kratos/blob/master/CHANGELOG.md) to see if breaking changes have been
-   introduced in the version you are upgrading to.
+1. Review breaking changes. Visit the [CHANGELOG.md](https://github.com/ory/kratos/blob/master/CHANGELOG.md) to see if breaking
+   changes have been introduced in the version you are upgrading to.
 1. Backup your data.
 1. Update the [Ory Kratos SDK](../sdk/01_overview.md) if used in your application.
 1. [Install](../install.mdx) the new version of Ory Kratos.
@@ -26,5 +25,10 @@ Should you run into problems with the upgrade, consider a stepped upgrade and pl
 
 In [Ory Kratos v0.7](https://github.com/ory/kratos/blob/v0.7.0-alpha.1/CHANGELOG.md#breaking-changes) the cookie behavior has
 changed. Review
-[changes in the exemplary self-service user interface](https://github.com/ory/kratos-selfservice-ui-node/commit/e7fa292968111e06401fcfc9b1dd0e8e285a4d87).  
+[changes in the exemplary self-service user interface](https://github.com/ory/kratos-selfservice-ui-node/commit/e7fa292968111e06401fcfc9b1dd0e8e285a4d87).
 Visit the [Cookie Settings](https://www.ory.com/kratos/docs/guides/multi-domain-cookies/#cookies) document for more information.
+
+#### v0.10.0 Authenticator assurance level (AAL) in session
+
+Since [Ory Kratos v0.10.0](https://github.com/ory/kratos/blob/v0.10.0/CHANGELOG.md#breaking-changes), the AAL is part of the
+session. When upgrading, sessions need to be reissued to observe a higher AAL due to multi-factor methods.
