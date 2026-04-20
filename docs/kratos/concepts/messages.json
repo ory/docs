@@ -40,7 +40,7 @@
   },
   {
     "id": 1010008,
-    "text": "Sign in with hardware key",
+    "text": "Sign in with a hardware key",
     "type": "info"
   },
   {
@@ -55,7 +55,7 @@
   },
   {
     "id": 1010011,
-    "text": "Sign in with hardware key",
+    "text": "Sign in with a hardware key",
     "type": "info"
   },
   {
@@ -128,6 +128,11 @@
       "address": "{address}",
       "channel": "{channel}"
     }
+  },
+  {
+    "id": 1010024,
+    "text": "Sign in with a hardware key",
+    "type": "info"
   },
   {
     "id": 1040001,
@@ -772,6 +777,21 @@
     "context": {
       "value": "{value}"
     }
+  },
+  {
+    "id": 4000042,
+    "text": "You have no DeviceAuthn device set up.",
+    "type": "error"
+  },
+  {
+    "id": 4000043,
+    "text": "The provided web authn login is invalid, please try again.",
+    "type": "error"
+  },
+  {
+    "id": 4000044,
+    "text": "The provided DeviceAuthn signature is invalid.",
+    "type": "error"
   },
   {
     "id": 4010001,
