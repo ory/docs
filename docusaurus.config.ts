@@ -231,6 +231,7 @@ const config: Config = {
     ],
     "@docusaurus/theme-search-algolia",
     "docusaurus-theme-redoc",
+    "docusaurus-theme-openapi-docs",
   ],
   headTags: [],
 }

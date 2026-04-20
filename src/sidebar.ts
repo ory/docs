@@ -5,6 +5,7 @@ import {
   SidebarItem,
   SidebarItemConfig,
 } from "@docusaurus/plugin-content-docs/src/sidebars/types"
+import apiSidebar from "../docs/talos/reference/api/sidebar";
 
 type SidebarItemsConfig = SidebarItemConfig[]
 
@@ -917,6 +918,130 @@ const keto: SidebarItemsConfig = [
   },
 ]
 
+const talos: SidebarItemsConfig =  [
+    {
+      type: "doc",
+      id: "talos/index",
+      label: "Home",
+    },
+    {
+      type: "category",
+      label: "Quickstart",
+      collapsed: false,
+      link: { type: "doc", id: "talos/quickstart/index" },
+      items: ["talos/quickstart/docker-commercial"],
+    },
+    {
+      type: "category",
+      label: "talos/integrate",
+      collapsed: false,
+      link: { type: "doc", id: "talos/integrate/index" },
+      items: [
+        "talos/integrate/issue-and-verify",
+        "talos/integrate/import-keys",
+        "talos/integrate/derive-tokens",
+        "talos/integrate/batch-operations",
+        "talos/integrate/key-lifecycle",
+        "talos/integrate/self-revocation",
+        "talos/integrate/ip-restrictions",
+        "talos/integrate/rate-limiting",
+        "talos/integrate/error-handling",
+        {
+          type: "category",
+          label: "SDK",
+          items: ["talos/integrate/sdk/go", "talos/integrate/sdk/curl"],
+        },
+      ],
+    },
+    {
+      type: "category",
+      label: "talos/operate",
+      collapsed: false,
+      link: { type: "doc", id: "talos/operate/index" },
+      items: [
+        "talos/operate/install",
+        "talos/operate/configure",
+        {
+          type: "category",
+          label: "Database",
+          link: { type: "doc", id: "talos/operate/database/index" },
+          items: [
+            "talos/operate/database/sqlite",
+            "talos/operate/database/postgresql",
+            "talos/operate/database/mysql",
+            "talos/operate/database/cockroachdb",
+            "talos/operate/database/migrations",
+          ],
+        },
+        {
+          type: "category",
+          label: "Deploy",
+          link: { type: "doc", id: "talos/operate/deploy/index" },
+          items: [
+            "talos/operate/deploy/docker",
+            "talos/operate/deploy/kubernetes",
+            "talos/operate/deploy/separate-planes",
+            "talos/operate/deploy/edge-proxy",
+          ],
+        },
+        "talos/operate/secrets",
+        "talos/operate/tls",
+        {
+          type: "category",
+          label: "Monitoring",
+          link: { type: "doc", id: "talos/operate/monitoring/index" },
+          items: [
+            "talos/operate/monitoring/metrics",
+            "talos/operate/monitoring/tracing",
+            "talos/operate/monitoring/health-checks",
+          ],
+        },
+        {
+          type: "category",
+          label: "Cache",
+          link: { type: "doc", id: "talos/operate/cache/index" },
+          items: ["talos/operate/cache/memory", "talos/operate/cache/redis"],
+        },
+        "talos/operate/multi-tenancy",
+        "talos/operate/troubleshooting",
+        "talos/operate/security-hardening",
+      ],
+    },
+    {
+      type: "category",
+      label: "Concepts",
+      collapsed: true,
+      link: { type: "doc", id: "talos/concepts/index" },
+      items: [
+        "talos/concepts/architecture",
+        "talos/concepts/credential-types",
+        "talos/concepts/token-format",
+        "talos/concepts/security-model",
+        "talos/concepts/ip-restrictions",
+        "talos/concepts/caching",
+        "talos/concepts/rate-limiting",
+        "talos/concepts/token-derivation-security",
+      ],
+    },
+    {
+      type: "category",
+      label: "Reference",
+      collapsed: true,
+      link: { type: "doc", id: "talos/reference/index" },
+      items: [
+        {
+          type: "category",
+          label: "API",
+          link: { type: "doc", id: "talos/reference/api/ory-talos-api" },
+          items: apiSidebar,
+        },
+        "talos/reference/config",
+        "talos/reference/error-codes",
+        "talos/reference/token-format",
+      ],
+    },
+  ]
+
 const polis: SidebarItemsConfig = [
   homeLink,
   "polis/index",
@@ -1346,6 +1471,7 @@ module.exports = {
   polis,
   oathkeeper,
   api,
+  talos,
   polisApi,
   sdk,
   cli,

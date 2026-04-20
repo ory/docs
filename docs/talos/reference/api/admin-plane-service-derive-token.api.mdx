@@ -1,0 +1,52 @@
+---
+id: admin-plane-service-derive-token
+title: "Derive Token"
+description: "Mints a short-lived JWT or Macaroon token from an API key. Works with both"
+sidebar_label: "Derive Token"
+hide_title: true
+hide_table_of_contents: true
+api: eJztVs1y20YMfhXMnmwPJafujb1UtZ1ETm0rtjKeqelxIBISN17ubnZB2RyNZvoQfcI+SWeXkvVjJZ6m1+oicQUC2O8DPmAmCvK5k5al0SIV51KzBwRfGscdJadUwNnNEIyDc8zRGaOBzQNpGDtTAWroDfrwQE0Xbox78PAouYSR4TLT0vuaCkBdgKyscUxFsPRdGJYEBbnovfUmdUlOsgcuCSy5SnovjfZgxuEo0xYdaX6OlulMf/78uWS2mR5cXg/hcHp0iEUl9SFa+YEan7YRMj3LNEAmckcFaZaoMpFCJqg5K0fvcnkpz97+cXo1/Hjd73a7mUhac+aF3U9lJjI9j/FEIowlhwGtfiFS0QsRBwo1XZObypzuT2LUYbiVSISjrzV5/s0UjUhnIjeaSXP4idYqmUdPh198AH8mfF5SheGXdSEOS/LRVk2Mk1xW4aGgMdaKRSqGlx9OL+57v7+7vOoP35/ff7q4Hpwe99/2T09EskVsB7atz26GaeQ2UnZanFz3YM+TGndClig1FQl4OdFU7GcaXjo47x33ri4vL9JVaURX7897xy895Tgl5M4IPRX7IhGk60qkt69cYkfSO06XmYi7RLBkRQGcwEBvCRx4S7kcS2orLHeNZTNxaEuZwzO8UHsqYGzcZnX6TF8YpnRZfR72nDG8+HMf0BGgesTGg7H4taZfgEvpIVwRpAejVRO9btYGNzYk6tlJPRHzZK1CA8/PFylpGRg85Y4Y9hatZdxzZ+0Dm0XWgGstujNO7dlU97lCWcX6WliY0RfKOVj43Ni29CTThs3Ky+IAncMmPrPaYTffYqTNMZY9VOQ9TsivclxmEF4LrSMdFSJlV1MinjrGyYnUqAbosLrAKrwxCp0Vrb012rdJH7158x+6LYL38vg7cNGTlY7uWYaUZmJsXIWhQQtk6sTTHSz8EMbL1F5D2ZF15OmlmG/K7t6Wtu/voGL7ZBVqerRW0FcLAlryNsWnB77Oc/J+XCtYMtUV0W4hZj/MVm6KTdCl5p+PVveQmmlCrg3GKNUm5FgUMsRBNVh3O0+2wvzautuJ/Dfgsc6wGdXjnm52cbmo/n/n09n8mpFrvxNmDbWmJ0t5GLXknHHraAe3OPFBdF+MraCcFXFpwlCzxoeYFrkUqfjWYBWJCNxcrSbc6RNWVtHWxHpF4ddFb4nAS4la65fbpdXdQnPW+kXqsWln5Doul66BISrjgxgjlHJSdiy5WDE6X6lrhRonVIU9w7ewdKHPUKIu1GJwjGulYJUyKDmmvMkVpRA0WepJHBAJTMnJcROeuaQKkEGZR1DIpPMmadsw/Lvem+08aZsybE3PXZnER0dT8xDewdhLcQdaDgfpwVslGaRmA/xowAZ2fRqMOnBwEBmHSPnBAfz951/xxs/pr9+9nS4JOMPI4TvEpWQxapLllGmzTeDs5sP1fhvkBBk3YryAOsKyaG3Y81JPFCUwQs7LBOLK0EbbX6v5FX29QV8kYkrOt8Qedd8E1kO9VhhVQrdTodUlWE7ajXJYU5r/191X192FEDE98aFVKHUAvHZx1LcCcSumQW5jMuF7UyTuElEGOUlvxWwWlr9PTs3n4fhrTa4R6e1dIqboJI4C2bd380SUhAU5kd7OxAM1IhXHLWGdYUgmmKs6Sun2mJgnyzd6eU6Wv2u7rngBUpG0y0Q6E1WcKcLhY1jh8VGkIm7+4e04DeLZTCjUkzpquGh9hs8/obybiA==
+sidebar_class_name: "post api-method"
+info_path: reference/api/ory-talos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading as={"h1"} className={"openapi__heading"} children={"Derive Token"}></Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/v2/admin/apiKeys:derive"}
+  context={"endpoint"}
+></MethodEndpoint>
+
+Mints a short-lived JWT or Macaroon token from an API key. Works with both issued and imported keys.
+The derived token inherits the permissions of the parent API key.
+
+```http
+POST /v2/admin/apiKeys:derive
+{
+  "credential": "eyJhbGciOiJFZERTQSI...",
+  "ttl": "1h"
+}
+```
+
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails parameters={undefined}></ParamsDetails>
+
+<RequestSchema
+  {...require("./admin-plane-service-derive-token.RequestSchema.json")}
+></RequestSchema>
+
+<StatusCodes {...require("./admin-plane-service-derive-token.StatusCodes.json")}></StatusCodes>

@@ -1,0 +1,1 @@
+{"parameters":[{"description":"key_id is the ID of the existing API key to rotate","in":"path","name":"key_id","required":true,"schema":{"type":"string"}}]}
