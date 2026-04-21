@@ -266,13 +266,14 @@ Example: update the user's groups from the provider while preserving an existing
 local claims = std.extVar('claims');
 local identity = std.extVar('identity');
 
+// Keep the display name if the user has set one, otherwise use the one from the provider (if any).
+local displayName = std.get(identity.traits, "display_name", std.get(claims, "display_name", ""));
+
 {
   identity: {
     traits: {
       email: claims.email,
-      // Keep the display name if the user has set one.
-      [if "display_name" in identity.traits && identity.traits.display_name != "" then "display_name"]:
-        identity.traits.display_name,
+      [if displayName != "" then "display_name"]: displayName,
       // Always update groups from the provider.
       [if "groups" in claims.raw_claims then "groups" else null]:
         claims.raw_claims.groups,
