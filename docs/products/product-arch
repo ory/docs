@@ -7,21 +7,21 @@ sidebar_label: Architecture
 
 ## Authentication
 
-Kratos — fully standalone. Handles the complete identity lifecycle (registration, login, recovery, MFA, profile management) without dependencies.
+Ory Kratos — fully standalone. Handles the complete identity lifecycle (registration, login, recovery, MFA, profile management) without dependencies.
 
 ## Authorization
 
-Hydra — needs an identity provider. It's deliberately "headless"—it issues OAuth tokens but doesn't manage users. It asks "who is this user?" and needs Kratos (or another IdP) to answer.
+Ory Hydra — needs an identity provider. It's deliberately "headless"—it issues OAuth tokens but doesn't manage users. It asks "who is this user?" and needs Ory Kratos (or another IdP) to answer.
 
-Keto — needs an identity provider. It answers "can this subject do this action?" but needs something upstream to authenticate who the subject is.
+Ory Keto — needs an identity provider. It answers "can this subject do this action?" but needs something upstream to authenticate who the subject is.
 
 ## Authentication & Authorization
 
-Kratos + Keto — when you need authentication and fine-grained permissions within your own application(s). Users log in via Kratos, and Keto controls what they can access internally.
+Ory Kratos + Ory Keto — when you need authentication and fine-grained permissions within your own application(s). Users log in via Ory Kratos, and Ory Keto controls what they can access internally.
 
-Kratos + Hydra — when you need authentication plus OAuth 2.0/OIDC capabilities: SSO across multiple apps, third-party integrations, or federating identity to external services.
+Ory Kratos + Ory Hydra — when you need authentication plus OAuth 2.0/OIDC capabilities: SSO across multiple apps, third-party integrations, or federating identity to external services.
 
-Kratos + Hydra + Keto — when you need all three: user login, token issuance/SSO, and fine-grained permissions.
+Ory Kratos + Ory Hydra + Ory Keto — when you need all three: user login, token issuance/SSO, and fine-grained permissions.
 
 The choice depends on whether you're solving for internal permissions vs. external/delegated access.
 

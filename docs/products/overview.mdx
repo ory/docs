@@ -51,14 +51,14 @@ Choose Ory products based on the specific identity, authorization, or access con
 
 Each Ory product solves a specific IAM challenge, but most real-world implementations combine several. Below are common product
 combinations that demonstrate Ory's modular approach to building IAM solutions. These are example combinations and do not
-represent all possibile scenerios.
+represent all possible scenarios.
 
 <details>
 
-<summary> **Authentication & access control for your applications (Kratos & Keto)** </summary>
+<summary> **Authentication & access control for your applications (Ory Kratos & Ory Keto)** </summary>
 
-Users register and sign in through Kratos, while Keto controls what they can see and do based on roles, relationships, or custom
-rules. Use this combination when your application needs both identity management and fine-grained permissions.
+Users register and sign in through Ory Kratos, while Ory Keto controls what they can see and do based on roles, relationships, or
+custom rules. Use this combination when your application needs both identity management and fine-grained permissions.
 
 ![Ory Kratos](./_static/kratos-keto.svg)
 
@@ -76,9 +76,9 @@ rules. Use this combination when your application needs both identity management
 
 <details>
 
-<summary>**Authentication & delegated access across apps and services (Kratos & Hydra)**</summary>
+<summary>**Authentication & delegated access across apps and services (Ory Kratos & Ory Hydra)**</summary>
 
-Users authenticate through Kratos, and Hydra issues standards-based OAuth2/OIDC tokens that enable single sign-on and let
+Users authenticate through Ory Kratos, and Ory Hydra issues standards-based OAuth2/OIDC tokens that enable single sign-on and let
 applications act on users' behalf with scoped access. Use this combination when you need a shared identity across multiple apps,
 third-party integrations, or API access.
 
@@ -105,7 +105,7 @@ third-party integrations, or API access.
 
 <details>
 
-<summary>**Authentication, SSO, & fine-grained access control (Kratos, Hydra & Keto)**</summary>
+<summary>**Authentication, SSO, & fine-grained access control (Ory Kratos, Ory Hydra & Ory Keto)**</summary>
 
 Combines user authentication, token-based SSO and delegated access, and granular permission checks into a single stack. Use this
 combination when your system needs to manage who users are, which apps can act for them, and exactly what they're allowed to do.
@@ -133,7 +133,7 @@ combination when your system needs to manage who users are, which apps can act f
 
 <details>
 
-<summary>**Enterprise SSO with external identity federation (Polis)**</summary>
+<summary>**Enterprise SSO with external identity federation (Ory Polis)**</summary>
 
 Ory Polis manages the federation and communication between the client app and the third-party identity provider. The client app
 handles session management and user lifecycle. Use this combination when you need Enterprise-level external federated
@@ -150,9 +150,9 @@ authentication and you have to bridge legacy SAML-based client app with modern O
 
 <details>
 
-<summary>**Authentication, external identity federation, & fine-grained access control (Kratos, Polis, & Keto)**</summary>
+<summary>**Authentication, external identity federation, & fine-grained access control (Ory Kratos, Ory Polis, & Ory Keto)**</summary>
 
-Users authenticate through Kratos or a federated external IdP via Polis, and Keto enforces what they can access. Use this
+Users authenticate through Ory Kratos or a federated external IdP via Ory Polis, and Ory Keto enforces what they can access. Use this
 combination when you need both internal identity management and external federation with granular permissions.
 
 ![Ory Kratos](./_static/kratos-polis-keto.svg)
@@ -186,12 +186,12 @@ combination when you need both internal identity management and external federat
 
 <details>
 
-<summary>**Ory's full IAM stack (Kratos, Hydra, Keto, Polis, & Oathkeeper)**</summary>
+<summary>**Ory's full IAM stack (Ory Kratos, Ory Hydra, Ory Keto, Ory Polis, & Ory Oathkeeper)**</summary>
 
 The complete Ory ecosystem covers authentication, token issuance, fine-grained permissions, external identity federation, and
 request-level enforcement at the network edge. Use this when you need end-to-end identity and access management for users, apps,
 APIs, and machine-to-machine contexts. This example continues from the "Authentication & delegated access across apps and services
-(Kratos & Hydra)" example, and presumes the user is already authenticated.
+(Ory Kratos & Ory Hydra)" example, and presumes the user is already authenticated.
 
 ![Ory Kratos](./_static/ory-fullstack.svg)
 
