@@ -1857,7 +1857,10 @@
         "required": ["invitee_email", "role"],
         "type": "object"
       },
-      "DefaultError": {},
+      "DefaultError": {
+        "description": "From https://go.dev/wiki/CodeReviewComments#receiver-type:\n\u003e Can function or methods, either concurrently or when called from this method, be mutating the receiver? A value type creates a copy of the receiver when the method is invoked, so outside updates will not be applied to this receiver. If changes must be visible in the original receiver, the receiver must be a pointer.\n\u003e If the receiver is a struct, array or slice and any of its elements is a pointer to something that might be mutating,\n\u003e prefer a pointer receiver, as it will make the intention clearer to the reader.\n\u003e Don’t mix receiver types. Choose either pointers or struct types for all available methods.",
+        "title": "DefaultError is not safe to shallow copy because it contains\nfields which are not value types, e.g. maps.\nA shallow copy would inadvertently share these underlying fields,\nleading to incorrect behavior and data races in a concurrent context.\nConsequently, all methods take the type by pointer and not by value."
+      },
       "DeviceUserAuthRequest": {
         "properties": {
           "challenge": {
@@ -9260,7 +9263,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM",
+            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\nunassigned_rate_limit_tier RateLimitTierUnassigned",
             "enum": [
               "production_projects",
               "staging_projects",
@@ -9311,10 +9314,28 @@
               "permission_checks_rate_limit_tier",
               "oauth2_introspect_rate_limit_tier",
               "create_recovery_admin_rate_limit_tier",
-              "scim_rate_limit_tier"
+              "scim_rate_limit_tier",
+              "hydra_admin_high_rate_limit_tier",
+              "hydra_admin_medium_rate_limit_tier",
+              "hydra_admin_low_rate_limit_tier",
+              "hydra_public_high_rate_limit_tier",
+              "hydra_public_medium_rate_limit_tier",
+              "hydra_public_low_rate_limit_tier",
+              "keto_admin_low_rate_limit_tier",
+              "keto_admin_medium_rate_limit_tier",
+              "keto_public_high_rate_limit_tier",
+              "kratos_admin_high_rate_limit_tier",
+              "kratos_admin_medium_rate_limit_tier",
+              "kratos_admin_low_rate_limit_tier",
+              "kratos_public_high_rate_limit_tier",
+              "kratos_public_medium_rate_limit_tier",
+              "kratos_public_low_rate_limit_tier",
+              "polis_public_high_rate_limit_tier",
+              "polis_public_medium_rate_limit_tier",
+              "unassigned_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM"
+            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\nunassigned_rate_limit_tier RateLimitTierUnassigned"
           },
           "feature_available": {
             "type": "boolean"
@@ -10670,6 +10691,13 @@
             "type": "string",
             "x-go-enum-desc": "oryWebAuthnRegistration WebAuthnTriggersWebAuthnRegistration\noryWebAuthnLogin WebAuthnTriggersWebAuthnLogin\noryPasskeyLogin WebAuthnTriggersPasskeyLogin\noryPasskeyLoginAutocompleteInit WebAuthnTriggersPasskeyLoginAutocompleteInit\noryPasskeyRegistration WebAuthnTriggersPasskeyRegistration\noryPasskeySettingsRegistration WebAuthnTriggersPasskeySettingsRegistration"
           },
+          "options": {
+            "description": "The allowed values for the input when the underlying JSON schema\ndefines an `enum`. When present, clients should render the field as a\nselect/dropdown rather than a free-form text input. When absent,\nclients continue to render a plain text input, so this field is\nbackward compatible with UIs that do not look at it.",
+            "items": {
+              "$ref": "#/components/schemas/uiNodeInputAttributesOption"
+            },
+            "type": "array"
+          },
           "pattern": {
             "description": "The input's pattern.",
             "type": "string"
@@ -10703,6 +10731,16 @@
           }
         },
         "required": ["name", "type", "disabled", "node_type"],
+        "type": "object"
+      },
+      "uiNodeInputAttributesOption": {
+        "description": "Represents a single selectable value for an input whose JSON schema\ndefined an `enum`. The value is always a scalar JSON type (string, number,\nor boolean) serialized verbatim from the schema. When present, clients\nshould render the parent input as a select/dropdown.",
+        "properties": {
+          "value": {
+            "description": "The value that will be submitted when this option is picked.\nIt is serialized verbatim from the JSON schema `enum` entry, so it is\nalways a scalar JSON value (string, number, or boolean)."
+          }
+        },
+        "required": ["value"],
         "type": "object"
       },
       "uiNodeMeta": {
