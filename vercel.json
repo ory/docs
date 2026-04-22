@@ -6,6 +6,11 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/docs/ecosystem/mcp",
+      "destination": "/docs/ecosystem/ai-tools",
+      "permanent": false
+    },
+    {
       "source": "/",
       "destination": "/docs",
       "permanent": false

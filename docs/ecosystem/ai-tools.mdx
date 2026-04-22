@@ -1,0 +1,147 @@
+---
+id: ai-tools
+title: AI Tools
+---
+
+Ory provides tools to help AI coding assistants query Ory documentation and work effectively with Ory codebases.
+
+## Ory Docs MCP Server
+
+The Ory Docs MCP server lets AI assistants query Ory's documentation directly. Connect it to your AI tool of choice using the
+instructions below.
+
+### Cursor
+
+Add the following to your `.cursor/mcp.json` file:
+
+```json
+{
+  "mcpServers": {
+    "ory-docs": {
+      "type": "http",
+      "url": "https://ory-docs.mcp.kapa.ai"
+    }
+  }
+}
+```
+
+For more information, see the [Cursor MCP documentation](https://docs.cursor.com/context/model-context-protocol).
+
+### Claude Code
+
+```bash
+claude mcp add --transport http ory-docs https://ory-docs.mcp.kapa.ai
+```
+
+Then run the `/mcp` command in Claude Code and follow the steps in your browser to authenticate.
+
+For more information, see the [Claude Code MCP documentation](https://docs.anthropic.com/en/docs/claude-code/mcp).
+
+### Claude Desktop
+
+Add the following to your Claude Desktop configuration:
+
+```json
+{
+  "mcpServers": {
+    "ory-docs": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://ory-docs.mcp.kapa.ai"]
+    }
+  }
+}
+```
+
+### VS Code
+
+Prerequisites: VS Code 1.102+ with GitHub Copilot enabled.
+
+Create an `mcp.json` file in your workspace `.vscode` folder:
+
+```json title=".vscode/mcp.json"
+{
+  "servers": {
+    "ory-docs": {
+      "type": "http",
+      "url": "https://ory-docs.mcp.kapa.ai"
+    }
+  }
+}
+```
+
+For more details, see the [VS Code MCP documentation](https://code.visualstudio.com/docs/copilot/customization/mcp-servers).
+
+### ChatGPT Desktop
+
+ChatGPT Desktop supports MCP servers in developer mode:
+
+1. Open ChatGPT Desktop.
+1. Go to **Settings > Features**.
+1. Enable **Developer mode**.
+1. Navigate to **Settings > MCP Servers**.
+1. Click **Add Server** and enter:
+   - Name: `ory-docs`
+   - URL: `https://ory-docs.mcp.kapa.ai`
+
+For more information, see the [ChatGPT Desktop MCP documentation](https://platform.openai.com/docs/guides/developer-mode).
+
+### Other
+
+MCP is an open protocol supported by many clients. Use the server URL `https://ory-docs.mcp.kapa.ai` and refer to your client's
+documentation for setup instructions.
+
+Most clients accept the standard MCP JSON configuration format:
+
+```json
+{
+  "mcpServers": {
+    "ory-docs": {
+      "url": "https://ory-docs.mcp.kapa.ai"
+    }
+  }
+}
+```
+
+## Ory Claude Plugins
+
+The [Ory Claude Plugins](https://github.com/ory/claude-plugins) repository is the official Claude Code plugin marketplace for Ory.
+Install it in Claude Code with:
+
+```bash
+/plugin marketplace add ory/claude-plugins
+```
+
+This gives you access to all Ory plugins for Claude Code, including Lumen (see below).
+
+## Lumen
+
+[Lumen](https://github.com/ory/lumen) is a fully local semantic code search engine for AI coding agents. Instead of reading entire
+files, Claude uses Lumen's `semantic_search` tool to find relevant functions and types by meaning — reducing cost and session time
+without sacrificing quality.
+
+**Install via the Ory Claude Plugins:**
+
+```bash
+/plugin marketplace add ory/claude-plugins
+/plugin install lumen@ory
+```
+
+On first session start, Lumen indexes your project in the background and registers a `semantic_search` MCP tool that Claude uses
+automatically.
+
+**Prerequisites:** [Ollama](https://ollama.com/) installed and running with the default embedding model:
+
+```bash
+ollama pull ordis/jina-embeddings-v2-base-code
+```
+
+**Key results** across 8 languages and real GitHub bug-fix tasks:
+
+| Metric              | Improvement             |
+| ------------------- | ----------------------- |
+| Cost (avg)          | -26%                    |
+| Session time (avg)  | -28%                    |
+| Output tokens (avg) | -37%                    |
+| Patch quality       | Maintained in all tasks |
+
+See the [Lumen repository](https://github.com/ory/lumen) for benchmarks, configuration, and supported languages.
