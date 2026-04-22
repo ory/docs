@@ -47,7 +47,8 @@ DSN=sqlite:///path/to/hydra.sqlite?_fk=true
 
 The `_fk=true` parameter is required for SQLite to enable foreign key constraints.
 
-For additional DSN options including SSL/TLS configuration, see [Deployment Fundamentals and Requirements](../../oss/deployment).
+For additional DSN options including SSL/TLS configuration, see
+[Deployment Fundamentals and Requirements](../../oss/deployment.mdx).
 
 ## Running migrations
 
