@@ -120,7 +120,7 @@ export const navbar: Navbar = {
           label: "Ory Network",
         },
         {
-          to: "https://changelog.ory.com/?categories=cat_s3C6qgDr7FEyo%2Ccat_n9fSarZSCxDTl%2Ccat_ZTXuym1ZfOYZx%2Ccat_YZLKJTlx35HVW",
+          to: "https://changelog.ory.com/?categories=cat_HB3vkYrvl8suK",
           label: "Ory OEL",
         },
         {
