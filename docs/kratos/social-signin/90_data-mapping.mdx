@@ -273,7 +273,7 @@ local displayName = std.get(identity.traits, "display_name", std.get(claims, "di
   identity: {
     traits: {
       email: claims.email,
-      [if displayName != "" then "display_name"]: displayName,
+      [if displayName != "" then "display_name" else null]: displayName,
       // Always update groups from the provider.
       [if "groups" in claims.raw_claims then "groups" else null]:
         claims.raw_claims.groups,
