@@ -1,0 +1,101 @@
+---
+id: events
+title: Submit and error events
+sidebar_label: Lifecycle Events
+---
+
+Ory Elements emits events for form submission actions, including on success, on error, and on validation error. Your application
+can listen to these events to perform custom actions in your application.
+
+To attach an event listener, pass a callback function to the form component's corresponding event prop. The available events are:
+
+## `onSuccess`
+
+The `onSuccess` event is emitted when a form is successfully submitted. You can use this event to track successful form
+submissions.
+
+```tsx title="LoginForm.tsx"
+<Login
+  flow={flow}
+  onSuccess={(event) => {
+    console.log("Flow submitted successfully!", event)
+  }}
+/>
+```
+
+All `onSuccess` events contain the following properties:
+
+| Property   | Type       | Description                                                          |
+| ---------- | ---------- | -------------------------------------------------------------------- |
+| `flowType` | `FlowType` | The type of the flow that was submitted (Login, Registration, etc.). |
+| `flow`     | `Flow`     | The current flow object.                                             |
+| `method`   | `string`   | The method the user submitted (Password, Passkey, etc.)              |
+
+:::danger
+
+The `flow` object may contain pontentially sensitive information, such as the user's email address or other personally
+identifiable information (PII). Be cautious when logging or handling this data to avoid unintentional exposure of sensitive
+information.
+
+:::
+
+The **login** flow also contains the following additional properties:
+
+| Property  | Type      | Description                                |
+| --------- | --------- | ------------------------------------------ |
+| `session` | `Session` | The session object for the logged in user. |
+
+The **registration** flow also contains the following additional properties:
+
+| Property   | Type       | Description                                                                                                        |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------ |
+| `session`  | `Session`  | The session object for the registered user, but only if Kratos is configured to issue a session after registration |
+| `identity` | `Identity` | The identity object for the registered user.                                                                       |
+
+## `onError`
+
+The `onError` event is emitted when a form submission fails. The reason for the error is exposed via the `error` property of the
+event. You can use this event to track a failed form submission and the reason for the failure.
+
+Common reasons include:
+
+- `flow_expired`: The flow expired and a new flow was created.
+- `csrf_error`: The CSRF token is invalid or missing, or the request was made from a different origin. This can happen if the user
+  has multiple tabs open or if the user is using a different browser.
+- `flow_not_found`: The flow could not be found.
+- `flow_replaced`: The flow was replaced by another flow.
+- `consent_error`: An error occurred during the OAuth2 consent flow.
+
+In addition, the `error` property may also contain a `body` property, which is the original error response from the Ory API.
+
+```tsx title="LoginForm.tsx"
+<Login
+  flow={flow}
+  onError={(event) => {
+    console.error("Flow submission failed!", event.type, event.body)
+  }}
+/>
+```
+
+## `onValidationError`
+
+The `onValidationError` event is emitted when a form submission fails due to validation errors. The event contains the current
+flow object, which includes the validation messages. You can use this event to track validation errors and display them to the
+user.
+
+The actual error may be found in the `flow.ui.messages` property of the event object, or in the `flow.ui.nodes` property if the
+validation error is related to a specific form field.
+
+```tsx title="LoginForm.tsx"
+<Login
+  flow={flow}
+  onValidationError={(event) => {
+    console.error("Flow submission failed due to validation errors!", event.flow.ui.messages)
+  }}
+/>
+```
+
+## Examples
+
+- A full example of how to handle events with Matomo can be found here in the
+  [Ory Elements with Matomo example](https://github.com/ory/elements/tree/main/examples/nextjs-app-router-matomo).
