@@ -1,0 +1,80 @@
+---
+id: index
+title: Feature Deprecations
+sidebar_label: Feature Deprecations
+---
+
+This section lists all behavior that has been deprecated in Ory Kratos. It is recommended to check this section regularly to stay
+up-to-date with the latest changes and to avoid relying on deprecated functionality in your implementation. While Ory Kratos is
+designed to be backward compatible, some improvements require changes to the underlying implementation, which may lead to the
+deprecation of certain functionality.
+
+Ory is committed to maintaining a high level of quality and performance in our products, and deprecating features is a rare but
+necessary step to ensure that we can continue to innovate and improve our offerings. We understand that deprecations can be
+disruptive, and we strive to provide clear communication and ample time for users to adapt to changes. We encourage users to
+review the deprecation information provided in this section and to reach out to our support channels if they have any questions or
+concerns about the deprecation of features in any Ory product.
+
+## Who does this apply to?
+
+Users of the Ory Network, Ory Kratos (open source) and the OEL (Ory Enterprise License) are affected by this section.
+
+## How to use this section
+
+Each entry in this section provides information about the deprecated feature, including:
+
+- A brief description of the feature and its purpose.
+- The reason for deprecation, if available.
+- The version in which the feature was deprecated.
+- Any recommended alternatives or migration paths, if applicable.
+
+If you're using an Ory Network project, your configuration will not change, unless you have explicitly disabled the deprecated
+feature via a project level feature flag. To check which flags are currently enabled, go to
+<ConsoleLink route="project.settings.advanced" />.
+
+If you're self-hosting Ory Kratos (either through open source or the OEL), you should review your configuration and codebase to
+identify any usage of deprecated features before upgrading to a new version. This will help you avoid any potential issues that
+may arise from the removal of deprecated features in future releases.
+
+## Staying Informed
+
+Subscribe to the [Ory Changelog](https://changelog.ory.com) to receive updates on new releases, including information about
+deprecated features and their removal timelines. Additionally, consider joining the Ory community on Slack or GitHub to stay
+engaged with other users and developers, and to get support for any questions or issues related to deprecated features.
+
+## Impacted functionality
+
+### Admin session extension API (`faster_session_extend`)
+
+**Who is impacted by this change?**
+
+This improvement may impact users who are using the `/admin/sessions/{id}/extend` endpoint ([`extendSession`](../reference/api#tag/identity/operation/extendSession) SDK operation) to
+extend their users' sessions. The new implementation may result in faster response times and improved performance when extending
+sessions.
+
+**Why was this change made?**
+
+The change was made to improve the performance and efficiency of the session extension process. By decoupling the session
+extension from the retrieval of the updated session information, we can reduce the processing time and resource usage for
+extending sessions, especially in scenarios with high traffic or large session data.
+
+**How to adapt to this change?**
+
+If your application is using the updated session returned by the `/admin/sessions/{id}/extend` endpoint after the session
+extension, you will need to update your implementation to retrieve the updated session information separately, using the
+`/admin/sessions/{id}` endpoint ([`getSession`](../reference/api#tag/identity/operation/getSession) SDK operation) after the session extension.
+
+After you reviewed your usage of this API, follow the instructions below based on your deployment type to ensure that you are
+benefiting from the improved session extension process.
+
+<Tabs>
+  <TabItem value="network" label="Ory Network">
+    Go to <ConsoleLink route="project.settings.advanced" hash="kratos_feature_flags_faster_session_extend" /> and enable the
+    "Faster session extension" feature flag to benefit from this improvement.
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-hosted (OSS or OEL)">
+    Starting with [Ory Kratos v1.3.0](https://github.com/ory/kratos/releases/tag/v1.3.0), the faster session extension process is
+    enabled by default. If you need to disable this feature for any reason, you can set the `feature_flags.faster_session_extend`
+    configuration option to `false` in your Kratos configuration file.
+  </TabItem>
+</Tabs>
