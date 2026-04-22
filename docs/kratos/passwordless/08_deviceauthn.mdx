@@ -1,0 +1,987 @@
+---
+id: deviceauthn
+title: Device binding
+sidebar_label: Device binding
+---
+
+Device Authentication (also known as 'DeviceAuthn', or device binding) is a way for a user to authenticate with a hardware
+resident private key.
+
+Since the key cannot leave the device, once the key has been added to the identity, it gives a high assurance that the user is who
+they say they are, and is using a trusted, known device, without needing to remember something like a password.
+
+This is very similar to passkeys with one crucial difference: passkeys are usually synced in the cloud among many devices, whereas
+a DeviceAuthn key cannot leave the hardware where it was created.
+
+Using this approach, the system can restrict the use of an application on specific, whitelisted devices.
+
+Currently, this authentication strategy can only be used as a second factor. It may change in the future. That is because there is
+no way to do recovery, since the private key is never readable in clear and cannot be extracted out of the hardware.
+
+Since this is a strategy, it supports all the same hooks as the other strategies.
+
+## Short summary
+
+- This is implemented in the OEL version with the strategy `DeviceAuthn`, in spirit similar to `WebAuthn`.
+- The settings flow is used to manage keys (create, delete).
+- The login flow is used to step-up the AAL. Hardware-backed keys (TEE) satisfy AAL2, while keys stored in a dedicated security
+  chip (StrongBox) may eventually be categorized as AAL3.
+- Using the admin API, it is possible to delete all keys for a device on behalf of the user in case of theft or loss.
+- A device may have multiple keys, to support multiple user accounts on the same device.
+- Only these platforms are currently supported, because they offer native APIs, strong hardware, and trust guarantees:
+  - iOS: 14.0+
+  - iPadOS: 14.0+
+  - tvOS: 15.0+ (untested)
+  - visionOS 1.0+ (untested)
+  - Android SDK 24.0+. Older versions are unlikely to be supported.
+
+## Acronyms
+
+- TPM: Trusted Platform Module
+- TEE: Trusted Execution Environment
+- CA: Certificate Authority
+- AAL: Authenticator Assurance Level
+
+## Guides
+
+### How to implement Device Binding in your Android application
+
+We recommend using the Ory Java SDK to communicate with Kratos, although this is not required. Code snippets here use this SDK,
+and are written in Kotlin.
+
+Since Device Binding only is supported on native devices (not in the browser), all corresponding API calls should be done using
+the endpoints for native apps, to avoid having to pass cookies around manually.
+
+1. Ensure that the `DeviceAuthn` strategy is enabled in the Kratos configuration. This strategy implements the settings and login
+   flow. This is done so:
+   ```yaml
+   selfservice:
+     methods:
+       deviceauthn:
+         enabled: true
+   ```
+1. Implement a runtime check for the Android version. If is lower than 24, Device Binding may not be used, and a fallback should
+   be found, for example using passkeys.
+1. Device Binding is (currently) only a second factor, the UI should only show existing Device Binding keys and related buttons
+   (e.g. to add a key) if the user is currently logged in. This can be confirmed with a `whoami` call.
+1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
+   response contains the list of existing Device Binding keys.
+1. To delete an existing key,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
+
+   ```json
+   {
+     "delete": {
+       "client_key_id": "4fcXqFY9kg2unsTCM33GH8ayIWY6WdIGFWXMzhl9Vik="
+     },
+     "method": "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
+
+   ```kotlin
+   val clientKeyIdToDelete = "..."
+
+   val apiClient = Configuration.getDefaultApiClient()
+   val apiInstance = FrontendApi(apiClient)
+   val body = UpdateSettingsFlowBody()
+   val method = UpdateSettingsFlowWithDeviceAuthnMethod()
+   method.method = "deviceauthn"
+   method.delete = UpdateSettingsFlowWithDeviceAuthnMethodDelete()
+   method.delete!!.clientKeyId = clientKeyIdToDelete
+   body.actualInstance = method
+   val updatedFlow = apiInstance.updateSettingsFlow(settingsFlow?.id, body, sessionToken, "")
+   ```
+
+   Once the key has been deleted server-side, it is fine (although not required) to also delete it on the device using the
+   KeyStore API.
+
+1. To add a new key,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
+
+   ```json
+   {
+     "method": "deviceauthn",
+     "add": {
+       "device_name": "iPhone (iPhone14,5)",
+       "attestation_ios": "...",
+       "client_key_id": "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE="
+     }
+   }
+   ```
+
+   Or using the SDK:
+
+   ```kotlin
+   val apiClient = Configuration.getDefaultApiClient()
+   val withStrongbox = false // Better: Detect the presence of StrongBox at runtime.
+
+   val keyAlias = UUID.randomUUID().toString()
+   val nonce = extractNonceFromUiNodes(settingsFlow?.ui?.nodes ?: emptyList())
+   if (nonce == null) {
+       throw Exception("No nonce found in UI. Is DeviceAuthn enabled server-side?")
+   }
+   val keyCertChain = Api.create().createKeyPair(keyAlias, nonce, withStrongbox)
+   val apiInstance = FrontendApi(apiClient)
+   val body = UpdateSettingsFlowBody()
+   val method = UpdateSettingsFlowWithDeviceAuthnMethod()
+   method.method = "deviceauthn"
+   method.add = UpdateSettingsFlowWithDeviceAuthnMethodAdd()
+   method.add!!.deviceName = "My work phone"
+   method.add!!.clientKeyId = keyAlias
+   method.add!!.certificateChainAndroid = keyCertChain.map { it.encoded }.toList()
+   body.actualInstance = method
+   val updatedFlow = apiInstance.updateSettingsFlow(settingsFlow?.id, body, sessionToken, "")
+   ```
+
+   Once a key is created, the KeyStore APIs can be used to list all keys, query a key using its id, etc. However we recommend that
+   the application keeps track of what keys were created to know which ones can be used on the device, compared to which keys
+   belong to the same identity but reside on other devices. Note that there is a maximum number of keys that can be created for an
+   identity, and there is no point to create multiple keys for the same user on the same device, even though the server allows it.
+
+1. To use a key to step-up the AAL,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
+
+   ```json
+   {
+     "signature": "...",
+     "client_key_id": "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE=",
+     "method": "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
+
+   ```kotlin
+   val clientKeyId = "..."
+   val nonce = extractNonceFromUiNodes(flow?.ui?.nodes ?: emptyList())
+   if (nonce == null) {
+       throw Exception("No nonce found in UI")
+   }
+
+   val updateMethod = UpdateLoginFlowWithDeviceAuthnMethod()
+   updateMethod.clientKeyId = clientKeyId
+   updateMethod.method = "deviceauthn"
+   updateMethod.signature = Api.create().launchBiometricSigner(
+       context as FragmentActivity,
+       clientKeyId,
+       nonce,
+       "Confirm",
+       "Cancel"
+   )
+
+   val updateBody = UpdateLoginFlowBody()
+   updateBody.actualInstance = updateMethod
+
+   val apiClient = Configuration.getDefaultApiClient()
+
+   withContext(Dispatchers.IO) {
+       val apiInstance = FrontendApi(apiClient)
+       val res = apiInstance.updateLoginFlow(
+           /* flow = */ flow.id,
+           /* updateLoginFlowBody = */ updateBody,
+           /* xSessionToken = */ sessionToken,
+           /* cookie = */ ""
+       )
+   }
+   ```
+
+When running Kratos in development mode, some server-side checks are relaxed, which allows for using the Android emulator to
+create and use keys. The Android emulator create keys in software.
+
+When running Kratos in production mode, only hardware-resident keys are accepted, and thus the Android emulator cannot be used to
+create or use keys.
+
+There are two Keystore calls required: one to create the key and one to use it to sign:
+
+```kotlin
+package com.ory.sdk
+
+import android.os.Build
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
+import android.util.Log
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import kotlinx.coroutines.suspendCancellableCoroutine
+import java.security.KeyPairGenerator
+import java.security.KeyStore
+import java.security.PrivateKey
+import java.security.Signature
+import java.security.cert.Certificate
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+
+private const val TAG = "com.ory.sdk"
+
+public interface Api {
+    public companion object {
+        @JvmStatic
+        public fun create(): Api {
+            return OryApi()
+        }
+    }
+
+    public fun createKeyPair(
+        keyAlias: String,
+        challenge: ByteArray,
+        withStrongBox: Boolean
+    ): List<Certificate>
+
+    public suspend fun launchBiometricSigner(
+        activity: FragmentActivity,
+        keyAlias: String,
+        challenge: ByteArray,
+        title: String,
+        negativeButtonText: String,
+    ): ByteArray
+}
+
+internal class OryApi : Api {
+    private val keyStore: KeyStore by lazy {
+        KeyStore.getInstance("AndroidKeyStore").apply {
+            load(null)
+        }
+    }
+
+    private fun getCertificateChain(keyAlias: String): List<Certificate> {
+        return keyStore.getCertificateChain(keyAlias).toList()
+    }
+
+
+    override fun createKeyPair(
+        keyAlias: String,
+        challenge: ByteArray,
+        withStrongBox: Boolean,
+    ): List<Certificate> {
+        val kpg: KeyPairGenerator = KeyPairGenerator.getInstance(
+            KeyProperties.KEY_ALGORITHM_EC,
+            "AndroidKeyStore"
+        )
+
+        val parameterSpec: KeyGenParameterSpec = KeyGenParameterSpec.Builder(
+            keyAlias,
+            KeyProperties.PURPOSE_SIGN
+        ).run {
+            setDigests(KeyProperties.DIGEST_SHA256)
+            if (Build.VERSION.SDK_INT >= 24) {
+                setAttestationChallenge(challenge)
+            }
+
+            if (Build.VERSION.SDK_INT >= 28) {
+                setIsStrongBoxBacked(withStrongBox)
+            }
+            // Require biometric/PIN for every single use.
+            setUserAuthenticationRequired(true)
+            // TODO: Should we use: setInvalidatedByBiometricEnrollment(true) ?
+            build()
+        }
+
+        kpg.initialize(parameterSpec)
+        kpg.generateKeyPair()
+        Log.i(TAG, "created keypair: alias=$keyAlias")
+
+        return getCertificateChain(keyAlias)
+    }
+
+
+    /**
+     * Provides an uninitialized Signature object for the App to use in BiometricPrompt.
+     */
+    private fun getSignatureObject(keyAlias: String): Signature {
+        val privateKey = keyStore.getKey(keyAlias, null) as? PrivateKey
+
+        return Signature.getInstance("SHA256withECDSA").apply {
+            initSign(privateKey)
+        }
+    }
+
+    override suspend fun launchBiometricSigner(
+        activity: FragmentActivity,
+        keyAlias: String,
+        challenge: ByteArray,
+        title: String,
+        negativeButtonText: String,
+    ): ByteArray = suspendCancellableCoroutine { continuation ->
+        val executor = ContextCompat.getMainExecutor(activity)
+
+        val biometricPrompt = BiometricPrompt(
+            activity, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    try {
+                        val signature = result.cryptoObject?.signature
+                        if (signature != null) {
+                            signature.update(challenge)
+                            continuation.resume(signature.sign())
+                        } else {
+                            continuation.resumeWithException(Exception("Signature object is null"))
+                        }
+                    } catch (e: Exception) {
+                        continuation.resumeWithException(e)
+                    }
+                }
+
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    // Wrap the error in a custom Exception or handle specific error codes
+                    continuation.resumeWithException(Exception(errString.toString()))
+                }
+
+                override fun onAuthenticationFailed() {
+                    // Note: onAuthenticationFailed is called for finger-read errors
+                    // but doesn't dismiss the prompt; we usually wait for Error or Success.
+                }
+            }
+        )
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(title)
+            .setNegativeButtonText(negativeButtonText)
+            .build()
+
+        // Cancel the biometric prompt if the coroutine is canceled
+        continuation.invokeOnCancellation {
+            biometricPrompt.cancelAuthentication()
+        }
+
+        biometricPrompt.authenticate(
+            promptInfo,
+            BiometricPrompt.CryptoObject(getSignatureObject(keyAlias))
+        )
+    }
+}
+
+```
+
+#### Making it work in the Android emulator
+
+1. Create an emulated device in the Android emulator with an Android version which is at least 24.
+1. Start the emulated device.
+1. Inside the emulated device, go to 'Settings > Security & Location > Screen Lock' and set a device PIN (this is required for
+   biometrics).
+1. Inside the emulated device, go to 'Settings > Security & Location > Fingerprints' and add a fingerprint. A biometric prompt
+   will appear on the screen of the emulated device.
+1. In the 'Extended Controls' for the emulated device (not inside the device, but in Android Studio), go to the 'Fingerprints'
+   section and click on 'Touch sensor' to pass the biometrics prompt of the device. This simulates placing your finger on the
+   sensor.
+
+At this point the fingerprint is registered for the emulated device. The process must be repeated for each emulated device.
+
+Then, start the application inside the emulated device. When the biometric prompt appears, repeat step 5. to pass the biometric
+prompt. There are several fingerprints available, so it is possible to test the case of using a registered fingerprint, and the
+case of using an unknown fingerprint. To test the case of no fingerprint registered, remove the registered fingerprint in the
+'Settings' of the emulated device.
+
+### How to implement Device Binding in your iOS/iPadOS application
+
+A notable difference with Android is that Apple's app attestation APIs require a network call to Apple's servers from a real
+device.
+
+This means that the emulator cannot be used.
+
+Since Device Binding only is supported on native devices (not in the browser), all corresponding API calls should be done using
+the endpoints for native apps, to avoid having to pass cookies around manually.
+
+1. Ensure that the `DeviceAuthn` strategy is enabled in the Kratos configuration. This strategy implements the settings and login
+   flow. This is done so:
+   ```yaml
+   selfservice:
+     methods:
+       deviceauthn:
+         enabled: true
+   ```
+1. In XCode, add a permission so that the application is allowed to use FaceID. In
+   `Target settings > Info > Custom iOS Target Properties`, add:
+   - Key: `Privacy - Face ID Usage Description`
+   - Type: `String`
+   - Value: `This app uses FaceID to authenticate signing operations.`
+1. Implement a runtime check for the OS version. If is lower than the
+   [documented ones](https://developer.apple.com/documentation/devicecheck/dcappattestservice), Device Binding may not be used,
+   and a fallback should be found, for example using passkeys.
+1. Device Binding is (currently) only a second factor, the UI should only show existing Device Binding keys and related buttons
+   (e.g. to add a key) if the user is currently logged in. This can be confirmed with a `whoami` call.
+1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
+   response contains the list of existing Device Binding keys.
+1. To delete an existing key,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
+
+   ```json
+   {
+     "delete": {
+       "client_key_id": "4fcXqFY9kg2unsTCM33GH8ayIWY6WdIGFWXMzhl9Vik="
+     },
+     "method": "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
+
+   ```swift
+   let clientKeyId = "..."
+
+   let flow = try await FrontendAPI.createNativeSettingsFlow(
+       xSessionToken: sessionToken
+   )
+
+   let body: UpdateSettingsFlowBody =
+       .typeUpdateSettingsFlowWithDeviceAuthnMethod(
+           UpdateSettingsFlowWithDeviceAuthnMethod(
+               delete: UpdateSettingsFlowWithDeviceAuthnMethodDelete(
+                   clientKeyId: clientKeyId,
+               ),
+               method: "deviceauthn"
+           )
+       )
+   let finalFlow = try await FrontendAPI.updateSettingsFlow(
+       flow: flow.id,
+       updateSettingsFlowBody: body,
+       xSessionToken: sessionToken
+   )
+   ```
+
+   Once the key has been deleted server-side, it is fine (although not required) to also delete it on the device using the
+   KeyStore API.
+
+1. To add a new key,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
+
+   ```json
+   {
+     "method": "deviceauthn",
+     "add": {
+       "device_name": "iPhone (iPhone14,5)",
+       "attestation_ios": "...",
+       "client_key_id": "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE="
+     }
+   }
+   ```
+
+   Or using the SDK:
+
+   ```swift
+   let clientKeyId = "..."
+
+   let flow = try await FrontendAPI.createNativeSettingsFlow(
+       xSessionToken: sessionToken
+   )
+
+   let nonce = extractNonceFromUiNodes(nodes: flow.ui.nodes) ?? ""
+   let deviceName = "My work phone"
+   let (clientKeyId, attestation) = try await OryApi().createKey(
+       challengeB64: nonce
+   )
+
+   let body: UpdateSettingsFlowBody =
+       .typeUpdateSettingsFlowWithDeviceAuthnMethod(
+           UpdateSettingsFlowWithDeviceAuthnMethod(
+               add: UpdateSettingsFlowWithDeviceAuthnMethodAdd(
+                   attestationIos: attestation,
+                   clientKeyId: clientKeyId,
+                   deviceName: deviceName,
+               ),
+               method: "deviceauthn"
+           )
+       )
+   let finalFlow = try await FrontendAPI.updateSettingsFlow(
+       flow: flow.id,
+       updateSettingsFlowBody: body,
+       xSessionToken: sessionToken
+   )
+   ```
+
+   Once a key is created, the application must store the key id somewhere, because there are no APIs to list keys or check if a
+   key exists. Note that there is a maximum number of keys that can be created for an identity, and there is no point to create
+   multiple keys for the same user on the same device, even though the server allows it.
+
+1. To use a key to step-up the AAL,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
+
+   ```json
+   {
+     "signature": "...",
+     "client_key_id": "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE=",
+     "method": "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
+
+   ```swift
+   let clientKeyId = "..."
+
+   let flow = try await FrontendAPI.createNativeLoginFlow(
+       refresh: false,
+       aal: AuthenticatorAssuranceLevel.aal2.rawValue,
+       xSessionToken: sessionToken
+   )
+   let nonce = extractNonceFromUiNodes(nodes: flow.ui.nodes) ?? ""
+
+   let signature = try await OryApi().signWithKey(
+       keyId: clientKeyId,
+       challengeB64: nonce,
+   )
+
+   let body =
+       UpdateLoginFlowBody
+       .typeUpdateLoginFlowWithDeviceAuthnMethod(
+           UpdateLoginFlowWithDeviceAuthnMethod(
+               clientKeyId: clientKeyId,
+               method: "deviceauthn",
+               signature: signature,
+           )
+       )
+
+   let finalFlow = try await FrontendAPI.updateLoginFlow(
+       flow: flow.id,
+       updateLoginFlowBody: body,
+       xSessionToken: sessionToken
+   )
+   ```
+
+There are two required App Attest calls to create a key and use it to sign:
+
+```swift
+import CryptoKit
+import DeviceCheck
+import Foundation
+import LocalAuthentication
+import OSLog
+import Security
+
+public enum OryApiError: Error, LocalizedError {
+    case secureEnclaveError(String, OSStatus?)
+    case appAttestationNotSupported
+    case appAttestationError(String)
+    case biometricAuthenticationFailed(String?)
+    case biometricAuthenticationCancelled
+
+    public var errorDescription: String? {
+        switch self {
+        case .secureEnclaveError(let message, let status):
+            let statusString = status != nil ? " (Status: \(status!))" : ""
+            return "Secure Enclave Error: \(message)\(statusString)"
+        case .appAttestationNotSupported:
+            return "App Attestation is not supported on this device."
+        case .appAttestationError(let message):
+            return "App Attestation Error: \(message)"
+        case .biometricAuthenticationFailed(let message):
+            return
+                "Biometric authentication failed: \(message ?? "Unknown error")"
+        case .biometricAuthenticationCancelled:
+            return "Biometric authentication canceled by user."
+        }
+    }
+}
+
+public class OryApi {
+    public func createKey(challengeB64: String)
+        async throws -> (clientKeyId: String, attestation: Data)
+    {
+        if #available(iOS 14.0, *) {
+            let service = DCAppAttestService.shared
+            guard service.isSupported else {
+                throw OryApiError.appAttestationNotSupported
+            }
+
+            let keyId: String
+            do {
+                keyId = try await service.generateKey()
+            } catch {
+                let errorMessage =
+                    "Failed to generate key: \(error.localizedDescription)"
+                throw OryApiError.appAttestationError(errorMessage)
+            }
+
+            let challenge = Data(base64Encoded: challengeB64)!
+            let attestation = try await service.attestKey(
+                keyId,
+                clientDataHash: challenge
+            )
+
+            return (keyId, attestation)
+        } else {
+            // Fallback for older iOS versions
+            throw OryApiError.secureEnclaveError(
+                "iOS 14.0 or newer is required for App Attestation.",
+                nil
+            )
+        }
+    }
+
+    public func signWithKey(keyId: String, challengeB64: String)
+        async throws -> Data
+    {
+        if #available(iOS 14.0, watchOS 14.0, *) {
+            let context = LAContext()
+            let reason = "Authenticate to sign in"
+            do {
+                try await context.evaluatePolicy(
+                    .deviceOwnerAuthenticationWithBiometrics,
+                    localizedReason: reason
+                )
+            } catch let error as LAError {
+                switch error.code {
+                case .userCancel, .appCancel, .systemCancel, .userFallback:
+                    throw OryApiError.biometricAuthenticationCancelled
+                default:
+                    throw OryApiError.biometricAuthenticationFailed(
+                        error.localizedDescription
+                    )
+                }
+            } catch {
+                throw OryApiError.biometricAuthenticationFailed(
+                    error.localizedDescription
+                )
+            }
+
+            let challenge = Data(base64Encoded: challengeB64)!
+            let assertion = try await DCAppAttestService.shared
+                .generateAssertion(keyId, clientDataHash: challenge)
+
+            return assertion
+        } else {
+            throw OryApiError.secureEnclaveError(
+                "iOS 14.0 or newer is required for App Attestation.",
+                nil
+            )
+        }
+    }
+}
+```
+
+## How to implement Device Binding in your Dart/Flutter application
+
+Dart can call native APIs via message passing. Let's call a function called `generateKey` with the parameter
+`{'alias': 'my_key_01'}`:
+
+```dart
+Future<void> _generateKey() async {
+setState(() => _isLoading = true);
+
+try {
+  // Calling the native method
+  final String result = await platform.invokeMethod('generateKey', {
+    'alias': 'my_key_01',
+  });
+
+  setState(() {
+    _keyStoreResult = result;
+    _isLoading = false;
+  });
+} on PlatformException catch (e) {
+  setState(() {
+    _keyStoreResult = "Failed to generate key: '${e.message}'.";
+    _isLoading = false;
+  });
+}
+}
+```
+
+Since the call might block, it is marked async and a loading indicator is shown in the UI via the `_isLoading` field.
+
+Now to the platform code, for example for Android:
+
+```kotlin
+class MainActivity: FlutterActivity() {
+    private val CHANNEL = "com.example.secure/keystore"
+
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
+
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
+            if (call.method == "generateKey") {
+                val alias = call.argument<String>("alias") ?: "default_alias"
+                try {
+                    val keyStoreResult = [..] // Call the KeyStore here.
+
+                    // Send the result back to Flutter.
+                    result.success(keyStoreResult)
+                } catch (e: Exception) {
+                    // If generation fails (e.g., hardware issues), send an error
+                    result.error("KEY_GEN_FAIL", e.localizedMessage, null)
+                }
+            } else {
+                result.notImplemented()
+            }
+        }
+    }
+}
+```
+
+And for iOS:
+
+```swift
+import UIKit
+import Flutter
+
+@main
+@objc class AppDelegate: FlutterAppDelegate {
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
+
+    // 1. Standard plugin registration for things like path_provider, etc.
+    GeneratedPluginRegistrant.register(with: self)
+
+    // 2. Create a registrar for our custom "inline" plugin
+    // The name "SecureKeystorePlugin" can be anything unique.
+    let registrar = self.registrar(forPlugin: "SecureKeystorePlugin")
+
+    // 3. Setup the channel using the registrar's messenger
+    let channel = FlutterMethodChannel(
+        name: "com.example.secure/keystore",
+        binaryMessenger: registrar!.messenger()
+    )
+
+    // 4. Handle the method calls
+    channel.setMethodCallHandler({
+      (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
+
+      if call.method == "generateResidentKey" {
+        let alias = (call.arguments as? [String: Any])?["alias"] as? String ?? "unknown"
+
+        // Just for the example, get the iOS version.
+        result("iOS \(version)")
+      } else {
+        result(FlutterMethodNotImplemented)
+      }
+    })
+
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+}
+```
+
+And the Flutter code gets this result back: `iOS 26.2.1` (for example).
+
+## Reference
+
+### Enrollment
+
+1. The `DeviceAuthn` strategy is enabled in the Kratos configuration. This strategy implements the settings and login flow. This
+   is done so:
+   ```yaml
+   selfservice:
+     methods:
+       deviceauthn:
+         enabled: true
+   ```
+2. The client creates a new settings flow and the existing keys for the identity are in the response. The settings flow has a
+   field `nonce` which contains a random nonce. This is the server challenge. This value is opaque and should not be assigned
+   meaning. It may be a random string, or a hash of something. The important part is that it is not guessable by an attacker.
+3. The client generates a private-public Elliptic Curve (EC) key pair in the TEE/TPM of the device using the server challenge,
+   using native mobile APIs.
+4. The client completes the settings flow to enroll a new key by sending these fields:
+   1. device name (human readable, picked by the user, for example `My work phone`)
+   2. client key id
+   3. certificate chain, which contains the signature of the server challenge, and the public key (in the leaf certificate)
+5. The server:
+   1. Checks that the certificate chain is valid, using Google and Apple root CAs
+   2. Checks the certificate revocation lists to ensure no root/intermediate CA in the chain has been revoked
+   3. Checks that the challenge sent is the same as the challenge in the database (stored in the settings flow)
+   4. Checks that the key is indeed in the TEE/TPM based on the device attestation information. A key in software is rejected. A
+      key in the TPM (e.g. Strongbox) may warrant a higher AAL e.g. AAL3 in the future.
+   5. Checks that the device is not emulated, modified in some way, etc based on the device attestation information
+   6. Records the public key in the database
+   7. Erases the challenge value in the database to prevent re-use
+   8. Replies with 200
+
+At this point the key is enrolled for the identity.
+
+### Proof of device enrollment
+
+1. When the user creates the login flow with the DeviceAuthn strategy, the client receives a server challenge.
+2. Using the private key in the hardware of the device, the client signs the server challenge using ECDSA. The signature is only
+   emitted after a biometric/PIN prompt has been passed. The client then sends the signature to the server using the login flow
+   update endpoint.
+3. The server:
+   1. Checks that the signature is valid using the recorded public key in the database
+   1. Checks that no CA in the certificate chain (when the device has been enrolled) has been revoked
+   1. Erases the challenge value in the database to prevent re-use.
+   1. Replies with 200 with a fresh session token and a higher AAL e.g. AAL2 or AAL3
+
+### Key Revocation
+
+- The user can revoke a key themselves (e.g. because the device is stolen, lost, broken, etc) using the settings flow. This action
+  can be done from any device (e.g. from the browser), as it is the case for other methods e.g. WebAuthn.
+- An admin using the admin API can revoke all keys on a device on behalf of the user. This is useful when the user only owns one
+  device which is the one that should be revoked (e.g. one mobile phone) and which has been lost/stolen
+
+Revocation is done by removing the key from the database.
+
+### Device list
+
+The settings flow contains all keys for the identity. This is used to present the list of keys (including device name) in the UI.
+
+### Key lifecycle on the device
+
+- Creation: When the device enrollment process is started for the user
+- Deletion:
+  - When the app is uninstalled or when the phone is reset, the mobile OSes automatically remove all keys for the app. This means
+    that if the device was enrolled, the public key subsists server-side but the private key does not exist anymore, so no one can
+    sign any challenge for this public key. This database entry is thus useless, but poses no security risks.
+
+### Cryptography
+
+The security of this design relies on a chain of trust anchored in hardware and standard cryptographic primitives.
+
+- Asymmetric Cryptography: ECDSA with P-256 is used for the device key pair. This is a modern, efficient, and widely supported
+  standard for digital signatures. It is less computationally expensive than RSA.
+- Hardware-Backed Keys: Private keys are generated and stored as non-exportable within the device's Secure Enclave (iOS) or
+  Trusted Execution Environment (TEE)/StrongBox (Android). They cannot be accessed by the OS or any application, providing strong
+  protection against extraction. As much as the APIs allow it, the keys are marked as requiring user authentication (the phone is
+  unlocked) and a biometrics/PIN prompt.
+- Hashing: SHA-256 is used for generating nonces and hashing challenges, providing standard collision resistance.
+- Certificate Chains: X.509 certificates are used to establish the chain of trust. The device's attestation is signed by a key
+  that is, in turn, certified by a platform authority (Apple or Google), ensuring the attestation's authenticity.
+- No configurability: Intentionally, for simplicity, performance, auditability, and to avoid downgrade attacks, all cryptographic
+  primitives are fixed.
+
+### Attack Surface and Mitigations
+
+- Man-in-the-Middle (MitM) Attack
+  - Threat: An attacker intercepts and tries to modify the communication between the client and server.
+  - Mitigation: All communication occurs over TLS, encrypting the channel. More importantly, the core payloads (attestation and
+    login signatures) are themselves digitally signed using the hardware-bound key. Any tampering would invalidate the signature,
+    causing the server to reject the request.
+- Replay Attacks
+  - Threat: An attacker captures a valid attestation or login payload and "replays" it to the server at a later time to gain
+    access.
+  - Mitigation: The server generates a unique, single-use cryptographic challenge for every new enrollment or login attempt. This
+    challenge is embedded in the certificate chain. The server verifies that the challenge in the payload is the exact one it
+    issued for that specific session and reject any duplicates or expired challenges.
+- Emulation & Software-Based Attacks
+  - Threat: An attacker attempts to enroll a software-based "device" (e.g., an emulator, a script) by faking an attestation.
+  - Mitigation: This is the central problem that hardware attestation solves. The server verifies the entire certificate chain of
+    the attestation object up to a trusted root CA (Apple or Google). Only genuine hardware can obtain a valid certificate chain.
+    The server also inspects attestation flags (e.g., Android's `attestationSecurityLevel`) to explicitly reject any keys that are
+    not certified as hardware-backed.
+- Physical Attacks & Key Extraction
+  - Threat: An attacker with physical possession of the device attempts to extract the private signing key from memory.
+  - Mitigation: Keys are generated as non-exportable inside the hardware security module (Secure Enclave/TEE). This is a physical
+    countermeasure that makes it computationally infeasible to extract key material, even with advanced hardware probing
+    techniques.
+- Compromised OS (Rooting/Jailbreaking)
+  - Threat: An attacker gains root access to the device's operating system.
+  - Mitigation: The attestation object contains signals about the integrity of the operating system. Android's attestation
+    includes `VerifiedBootState`, which indicates if the bootloader is locked and the OS is unmodified. The server can enforce a
+    policy to only accept attestations from devices in a secure state.
+- Cross-App/Cross-Site Attacks
+  - Threat: An attacker tricks a user into generating an attestation for a malicious app that is then used to attack the service.
+  - Mitigation: The attestation object includes an identifier for the application that requested it. On iOS, the `authData`
+    contains the `rpIdHash` (a hash of the App ID). The server can verify that this hash matches its own app's identifier to
+    ensure the attestation originated from the legitimate, code-signed application.
+- Malicious App Key Theft/Usage
+  - Threat: A different, malicious app installed on the same device attempts to access and use the private key generated by the
+    legitimate app to impersonate the user.
+  - Mitigation: This is prevented by the fundamental application sandbox security model of both iOS and Android. Keys generated in
+    the hardware-backed key store are cryptographically bound to the application identifier that created them. The operating
+    system and the secure hardware enforce this separation, making it impossible for "App B" to access, request, or use a key
+    generated by "App A".
+- Malware and Keyloggers on a Compromised Device
+  - Threat: Malware, such as a keylogger, screen scraper, or accessibility service exploit, is active on the user's device and
+    attempts to intercept credentials.
+  - Mitigation: This design is highly resistant to such attacks. The entire flow is passwordless, meaning there is no "typeable"
+    secret for a keylogger to capture. The core secret (the private key) never leaves the secure hardware. The user authorizes its
+    use via a biometric prompt, which is managed by a privileged part of the OS, isolated from the application space where malware
+    would reside. A keylogger can neither intercept the biometric data nor the signing operation itself.
+- Device Backup, Restore, and Cloning
+  - Threat: An attacker steals a user's cloud backup (e.g., iCloud or Google One) and restores it to a new device they control,
+    hoping to clone the trusted device and its keys.
+  - Mitigation: This is mitigated by the non-exportable property of hardware-backed keys. While application data and metadata may
+    be backed up and restored, the actual private key material never leaves the Secure Enclave or TEE. When the app is restored on
+    a new device, the reference to the old key will be invalid, effectively breaking the binding and forcing the user to perform a
+    new enrollment. Furthermore, resetting the device automatically erases all keys in the TEE/TPM.
+- Biometric System Bypass
+  - Threat: An attacker with physical possession of the device attempts to bypass biometric authentication (e.g., using a lifted
+    fingerprint, high-resolution photo, or 3D mask).
+  - Mitigation: The design relies on the platform-level biometric security. Since the hardware key is only unlocked for signing
+    after the hardware confirms a match, the attacker must defeat the hardware manufacturer's physical anti-spoofing technologies.
+- Server-Side Compromise (Database Leak)
+  - Threat: An attacker breaches the server and steals the database containing public keys and device IDs for all enrolled
+    devices.
+  - Mitigation: Because this is an asymmetric system, the public keys are useless for authentication without the corresponding
+    private keys. Even with a full database leak, the attacker cannot impersonate users because they cannot sign the login
+    challenges.
+- Server-Side Compromise (CA Trust Anchor)
+  - Threat: An attacker gains enough server access to modify the list of trusted Root CAs, allowing them to accept attestations
+    from a rogue CA they control.
+  - Mitigation: The Root CA certificates for Apple and Google are hard-coded within the server-side application logic rather than
+    relying on the general OS trust store. This prevents an attacker from using a compromised system-wide trust store to validate
+    fraudulent device attestations. However, if the attacker can modify the server executable, all bets are off, because they can
+    modify the in-memory root CAs or bypass the validation logic entirely.
+- UI Redressing / Overlay Attack (Android)
+  - Threat: A malicious app with the "Draw over other apps" permission creates a transparent overlay on top of your app. When the
+    user thinks they are clicking "Enroll Device" or approving a "Transaction Signing" prompt, they are actually clicking through
+    a malicious flow hidden beneath.
+  - Mitigation:
+    - iOS: Inherently protected by the OS (overlays are not permitted over other apps).
+    - Android: We use the `setFilterTouchesWhenObscured(true)` flag on sensitive UI components. This tells the Android OS to
+      discard touch events if the window is obscured by another visible window. See
+      [tapjacking](https://developer.android.com/privacy-and-security/risks/tapjacking).
+- Dependency / Supply Chain Attack
+  - Threat: An attacker compromises the Mobile SDK or a dependency. They inject code that leaks the challenge, or subtly alters
+    device attestation.
+  - Mitigation:
+    - Minimized dependencies
+    - Automated dependency scanning
+    - Certificate pinning: The Ory server CA can be pinned in the mobile application/SDK to ensure the device is talking to the
+      legitimate server.
+    - TLS & URL whitelisting: Both Android and iOS allow for URL whitelisting to avoid attacker controlled servers from being
+      contacted.
+    - Signed Device Information: The TEE/TPM on the device signs the device information. Using Apple/Google root CAs, the server
+      checks that this information, e.g. the application id, has not been altered.
+- Attestation Misbinding Attack
+  - Threat: The attack manages to leak the challenge meant for another user (e.g. due to a supply chain attack in the mobile app
+    code), they sign the challenge with the attacker device, and they submit that to the server before the legitimate user can, in
+    order to register the attacker device for the other user account.
+  - Mitigation:
+    - Challenge bound to the identity id: The challenge is bound to the identity in the database (stored in the same row). Since
+      the identity is detected from the session token, an attacker cannot tamper with the identity id (unless they steal the
+      session token, at which point they _are_ the user, from the server perspective).
+
+### Comparison with WebAuthn and Passkeys
+
+It is useful to compare this custom implementation with the FIDO WebAuthn standard and the user-facing concept of Passkeys. While
+they share core cryptographic principles, their goals and scope are fundamentally different.
+
+#### Similarities
+
+- Core Cryptography: Both approaches are built on public-key cryptography (typically ECDSA), and use a challenge-response protocol
+
+#### Key Differences
+
+- Standard vs. proprietary:
+  - WebAuthn/passkeys: An open, interoperable standard from the W3C and FIDO Alliance, designed to work across different websites,
+    apps, browsers, and operating systems.
+  - This Design: A proprietary implementation tailored specifically for Ory's native application and server. It is not intended to
+    be interoperable with any other system. However the design is based on building blocks that are fully open and standardized:
+    PKI, TPM 2.0, ASN1, iOS & Android device attestation, etc.
+- Goal: Device Binding vs. synced credentials:
+  - WebAuthn/passkeys: The primary goal is to create a convenient and portable user credential (a Passkey). Passkeys are often
+    syncable via a cloud service (like iCloud Keychain or Google Password Manager), allowing a user who enrolls on their phone to
+    seamlessly sign in on their laptop without re-enrolling.
+  - This design: The primary goal is strict device binding. We are proving that a specific, individual piece of hardware is
+    authorized. The key is explicitly non-exportable and bound to a single installation of an app on a single device. It
+    physically cannot be synced or used elsewhere.
+- Role of attestation:
+  - WebAuthn/passkeys: Attestation is an optional feature. While a server can request it to verify the properties of an
+    authenticator, many services skip it in favor of a simpler user experience. The focus is on proving possession of the key, not
+    on scrutinizing the device itself.
+  - This design: Attestation is mandatory and central to the entire security model. The main purpose of the enrollment ceremony is
+    for the server to validate the device's hardware and software integrity.
+
+### Further reading
+
+- [Android](https://developer.android.com/privacy-and-security/security-key-attestation)
+- iOS/iPadOS: [1](https://developer.apple.com/documentation/devicecheck/validating-apps-that-connect-to-your-server) and
+  [2](https://developer.apple.com/documentation/devicecheck/establishing-your-app-s-integrity)
