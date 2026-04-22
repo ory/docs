@@ -34,7 +34,7 @@ life easier. Use the preset as a starting point and customize the identity schem
 The Ory Network provides five identity schema presets. Use a preset URL (for example `preset://email`) when configuring your
 project. Each preset defines which traits are available and which credentials and recovery/verification channels are enabled.
 
-### Profile with email
+### Profile with email - `preset://email`
 
 With this preset, identities have a single trait, the `email`. The `email` is the login identifier and is used for email
 verification and for account recovery:
@@ -49,7 +49,7 @@ verification and for account recovery:
 }
 ```
 
-### Profile with username
+### Profile with username - `preset://username`
 
 This preset is useful for applications that don't need the user's email address and don't prioritize a high degree of user
 anonymity. Without an email, users can not send recovery links to their email. They will not be able to regain access to their
@@ -67,9 +67,10 @@ With this preset, every identity has a single trait - the `username`. The `usern
 }
 ```
 
-### Profile with SMS
+### Profile with SMS - `preset://sms`
 
-This preset uses a phone number as the login identifier. Verification is done through SMS. Account recovery is not configured in this preset.
+This preset uses a phone number as the login identifier. Verification is done through SMS. Account recovery is not configured in
+this preset.
 
 Identities have a single trait, `phone_number`.
 
@@ -83,7 +84,7 @@ Identities have a single trait, `phone_number`.
 }
 ```
 
-### Profile with email, name, newsletter opt-in
+### Profile with email, name, newsletter opt-in - `preset://basic`
 
 This preset extends the email preset with additional profile fields: `first name`, `last name`, and a `newsletter` subscription
 checkbox. The `email` is the login identifier and is used for recovery and verification.
@@ -103,7 +104,7 @@ checkbox. The `email` is the login identifier and is used for recovery and verif
 }
 ```
 
-### Blank profile template
+### Blank profile template - `preset://blank`
 
 An empty schema with no traits defined. Use this as a starting point when building a fully custom identity schema from scratch.
 This preset has no login identifiers, recovery, or verification configured — you must add them yourself.
