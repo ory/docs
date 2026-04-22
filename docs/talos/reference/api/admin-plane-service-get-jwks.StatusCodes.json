@@ -1,0 +1,42 @@
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "jwks": { "title": "JSON Web Key Set", "type": "object" }
+            },
+            "type": "object",
+            "title": "v2GetJWKSResponse"
+          }
+        }
+      },
+      "description": "A successful response."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "code": { "format": "int32", "type": "integer" },
+              "details": {
+                "items": {
+                  "additionalProperties": {},
+                  "properties": { "@type": { "type": "string" } },
+                  "type": "object",
+                  "title": "protobufAny"
+                },
+                "type": "array"
+              },
+              "message": { "type": "string" }
+            },
+            "type": "object",
+            "title": "rpcStatus"
+          }
+        }
+      },
+      "description": "An unexpected error response."
+    }
+  }
+}

@@ -52,6 +52,8 @@
     "classnames": "2.5.1",
     "clsx": "2.1.0",
     "debug": "4.3.4",
+    "docusaurus-plugin-openapi-docs": "4.7.1",
+    "docusaurus-theme-openapi-docs": "4.7.1",
     "file-loader": "6.2.0",
     "json-loader": "0.5.7",
     "json-schema-faker": "0.5.8",
