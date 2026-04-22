@@ -10,14 +10,42 @@ import TabItem from '@theme/TabItem'
 
 This document explains how to create, update, and manage identity schemas in Ory Network.
 
+## Schema list overview
+
+The identity schema page in Ory Console (<ConsoleLink route="project.identitySchema" />) shows all schemas available to your
+project. The table has the following columns:
+
+- **Default** — the schema used for new identities when no schema is specified. Only one schema can be the default at a time.
+- **Self-service** — whether the schema is offered to end users during registration and login flows. See
+  [identity schema selection](./identity-schema-selection.mdx) for details on the `selfservice_selectable` flag.
+- **In project** — whether the schema is part of the current project configuration. A schema can exist as a
+  [custom schema](#create-custom-schema) or [preset](#use-an-existing-preset) without being added to your project.
+
 ## Use an existing preset
 
-Ory Network provides basic preset schemas that are ready to use out of the box. If you are just getting started with Ory Network,
-use one of the presets to make your life easier.
+Ory Network provides [five preset schemas](/kratos/manage-identities/05_identity-schema.mdx#presets) that are ready to use out of
+the box. If you are getting started with Ory Network, use one of the presets to make your life easier.
+
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
 
 1. Go to <ConsoleLink route="project.identitySchema" />.
-2. From the **Active schema** drop down, select the schema you want to use.
-3. Click the **Change active schema** button to apply the schema to your project.
+2. Find the preset you want to use in the **Preset schemas** section.
+3. Open the row menu (three dots) and select **Make default**.
+4. Confirm the change in the dialog.
+
+To add a preset to your project without making it the default, select **Add to project** from the row menu instead.
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+
+```shell
+ory patch identity-config {your-project-id} \
+  --replace '/identity/default_schema_id="preset://email"'
+```
+
+</TabItem>
+</Tabs>
 
 :::caution
 
@@ -35,15 +63,15 @@ If the presets do not fit your needs, you can create a custom schema. Follow the
 
 1. Go to <ConsoleLink route="project.identitySchema" />.
 2. From the **Select template** drop down, select the schema you want to use as a template.
-3. Click the **Duplicate to make changes** button.
+3. Click the **Create** button.
 4. Give your schema a name.
 5. Customize the schema to your needs. Read more about the
    [customization options](/kratos/manage-identities/15_customize-identity-schema.mdx).
 6. Click the **Save** button to save.
 7. Confirm the changes by clicking the **Confirm** button in the confirmation dialog.
 
-To make this schema the active schema for your project, select the newly created schema from the **Active schema** dropdown and
-click the **Change active schema** button.
+To make this schema the active schema for your project, find the newly created schema in the **Custom schemas** section, open the
+row menu, and select **Make default**.
 
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
