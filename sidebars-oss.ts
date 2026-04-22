@@ -49,11 +49,11 @@ const ossSidebar = [
         label: "Ory Kratos",
         className: "sidebar-icon sidebar-icon-kratos",
         items: [
-          { type: "ref", id: "oel/kratos/intro" },
-          { type: "ref", id: "kratos/install" },
+          "oss/kratos/intro",
+          "kratos/install",
           "kratos/guides/upgrade",
           "self-hosted/oel/kratos/changelog",
-          "oel/kratos/quickstart",
+          "oss/kratos/quickstart",
           {
             type: "category",
             label: "Configuration",
@@ -128,12 +128,12 @@ const ossSidebar = [
         label: "Ory Keto",
         className: "sidebar-icon sidebar-icon-keto",
         items: [
-          "oel/keto/index",
+          "oss/keto/index",
           "keto/install",
           "keto/guides/v0.7-migration",
           "keto/guides/migrating-legacy-policies",
           "keto/guides/upgrade",
-          "oel/keto/quickstart",
+          "oss/keto/quickstart",
           "self-hosted/oel/keto/changelog",
           {
             type: "category",
@@ -172,7 +172,7 @@ const ossSidebar = [
         label: "Ory Hydra",
         className: "sidebar-icon sidebar-icon-hydra",
         items: [
-          "oel/hydra/index",
+          "oss/hydra/index",
           "hydra/self-hosted/install",
           "self-hosted/oel/oauth2/migrate",
           "self-hosted/oel/oauth2/revert-database-migrations",
@@ -244,7 +244,7 @@ const ossSidebar = [
         collapsed: true,
         collapsible: true,
         items: [
-          "oel/polis/index",
+          "oss/polis/index",
           "polis/install",
           "self-hosted/oel/polis/changelog",
           "oel/polis/quickstart",
@@ -420,7 +420,7 @@ const ossSidebar = [
         collapsed: true,
         collapsible: true,
         items: [
-          "oel/oathkeeper/index",
+          "oss/oathkeeper/index",
           "oathkeeper/install",
           "self-hosted/oel/oathkeeper/upgrade-oathkeeper",
           "self-hosted/oel/oathkeeper/changelog",
