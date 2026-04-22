@@ -11,26 +11,21 @@ info_path: reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
 <Heading as={"h1"} className={"openapi__heading"} children={"Get JWKS"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/v2/admin/derivedKeys/jwks.json"}
-  context={"endpoint"}
-></MethodEndpoint>
+<MethodEndpoint method={"get"} path={"/v2/admin/derivedKeys/jwks.json"} context={"endpoint"}></MethodEndpoint>
 
-Returns the JSON Web Key Set for token verification. Provides the public keys needed to verify JWT
-tokens issued by this service. Keys are loaded from configuration (file://, https://, or base64://
-URIs). Follows the JWKS standard (RFC 7517).
+Returns the JSON Web Key Set for token verification. Provides the public keys needed to verify JWT tokens issued by this service.
+Keys are loaded from configuration (file://, https://, or base64:// URIs). Follows the JWKS standard (RFC 7517).
 
 ```http
 GET /v2/admin/derivedKeys/jwks.json

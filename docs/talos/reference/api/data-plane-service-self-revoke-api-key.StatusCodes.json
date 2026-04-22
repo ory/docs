@@ -1,1 +1,40 @@
-{"responses":{"200":{"content":{"application/json":{"schema":{"description":"SelfRevokeAPIKeyResponse is returned on successful self-revocation.\n\nEmpty on success","type":"object","title":"v2SelfRevokeAPIKeyResponse"}}},"description":"A successful response."},"default":{"content":{"application/json":{"schema":{"properties":{"code":{"format":"int32","type":"integer"},"details":{"items":{"additionalProperties":{},"properties":{"@type":{"type":"string"}},"type":"object","title":"protobufAny"},"type":"array"},"message":{"type":"string"}},"type":"object","title":"rpcStatus"}}},"description":"An unexpected error response."}}}
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "SelfRevokeAPIKeyResponse is returned on successful self-revocation.\n\nEmpty on success",
+            "type": "object",
+            "title": "v2SelfRevokeAPIKeyResponse"
+          }
+        }
+      },
+      "description": "A successful response."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "code": { "format": "int32", "type": "integer" },
+              "details": {
+                "items": {
+                  "additionalProperties": {},
+                  "properties": { "@type": { "type": "string" } },
+                  "type": "object",
+                  "title": "protobufAny"
+                },
+                "type": "array"
+              },
+              "message": { "type": "string" }
+            },
+            "type": "object",
+            "title": "rpcStatus"
+          }
+        }
+      },
+      "description": "An unexpected error response."
+    }
+  }
+}

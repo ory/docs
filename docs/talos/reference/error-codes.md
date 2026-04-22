@@ -8,9 +8,8 @@ description: HTTP and gRPC error codes returned by the Talos API
 
 # Error codes
 
-Talos returns structured error responses following the [herodot](https://github.com/ory/herodot)
-error format. Every error response includes an `id`, HTTP status code, status text, and a
-human-readable message.
+Talos returns structured error responses following the [herodot](https://github.com/ory/herodot) error format. Every error
+response includes an `id`, HTTP status code, status text, and a human-readable message.
 
 ## Error response format
 
@@ -97,5 +96,4 @@ The `BatchImportAPIKeys` response includes per-item error codes:
 - **4xx errors**: Fix the request and retry. Do not retry without changes.
 - **409 Conflict**: Check if the resource already exists or is in an incompatible state.
 - **5xx errors**: Retry with exponential backoff and jitter.
-- **503 Service Unavailable**: The server is temporarily overloaded. Retry after the `Retry-After`
-  header value if present.
+- **503 Service Unavailable**: The server is temporarily overloaded. Retry after the `Retry-After` header value if present.

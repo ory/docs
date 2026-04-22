@@ -7,19 +7,17 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Import existing keys
 
-Talos can manage API keys that were created outside the system. Import lets you migrate from a
-legacy key management solution or centralize keys from multiple providers without rotating
-credentials. For large migrations, use the batchImport API to import up to 1000 keys in a single
-request.
+Talos can manage API keys that were created outside the system. Import lets you migrate from a legacy key management solution or
+centralize keys from multiple providers without rotating credentials. For large migrations, use the batchImport API to import up
+to 1000 keys in a single request.
 
 ## How import works
 
-When you import a key, Talos stores a cryptographic hash (HMAC-SHA256) of the raw key. The original
-key is never stored. Verification works by computing the same hash and looking it up in the
-database.
+When you import a key, Talos stores a cryptographic hash (HMAC-SHA256) of the raw key. The original key is never stored.
+Verification works by computing the same hash and looking it up in the database.
 
-Imported keys support the same features as issued keys: scopes, metadata, expiration, token
-derivation (JWT/macaroon), and revocation.
+Imported keys support the same features as issued keys: scopes, metadata, expiration, token derivation (JWT/macaroon), and
+revocation.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -73,16 +71,14 @@ echo "export IMPORTED_KEY_ID=$IMPORTED_KEY_ID" >> "$DOCTEST_ENV_FILE"
 
 ### Request fields
 
-The key fields are `raw_key` (the actual API key string), `name`, `actor_id`, and optional `scopes`,
-`ttl`, and `metadata`. For the complete field reference, see the
-[ImportAPIKey API reference](../reference/api/admin-plane-service-import-api-key.api.mdx).
+The key fields are `raw_key` (the actual API key string), `name`, `actor_id`, and optional `scopes`, `ttl`, and `metadata`. For
+the complete field reference, see the [ImportAPIKey API reference](../reference/api/admin-plane-service-import-api-key.api.mdx).
 
 The response returns an `imported_api_key` object. The `raw_key` is **never returned** after import.
 
 ## Verify an imported key
 
-Imported keys use the same verification endpoint as issued keys. The data plane automatically
-detects the credential type:
+Imported keys use the same verification endpoint as issued keys. The data plane automatically detects the credential type:
 
 <!-- doctest:exec -->
 
@@ -142,14 +138,12 @@ curl -s -X POST "$TALOS_URL/v2/admin/importedApiKeys:batchImport" \
 
 ### Batch response
 
-The response includes a `results` array with per-item outcomes (`imported_api_key` on success,
-`error_code` and `error_message` on failure), plus `success_count` and `failure_count` counters. If
-at least one key succeeds, the HTTP response is `200 OK`.
+The response includes a `results` array with per-item outcomes (`imported_api_key` on success, `error_code` and `error_message` on
+failure), plus `success_count` and `failure_count` counters. If at least one key succeeds, the HTTP response is `200 OK`.
 
 For the complete response field reference, see the
-[BatchImportAPIKeys API reference](../reference/api/admin-plane-service-batch-import-api-keys.api.mdx).
-For batch import error codes, see the
-[error codes reference](../reference/error-codes.md#batch-import-error-codes).
+[BatchImportAPIKeys API reference](../reference/api/admin-plane-service-batch-import-api-keys.api.mdx). For batch import error
+codes, see the [error codes reference](../reference/error-codes.md#batch-import-error-codes).
 
 ## List imported keys
 

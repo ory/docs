@@ -7,15 +7,13 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Derive tokens
 
-Token derivation creates short-lived JWT or macaroon tokens from a long-lived API key. Use derived
-tokens when you need:
+Token derivation creates short-lived JWT or macaroon tokens from a long-lived API key. Use derived tokens when you need:
 
 - **Browser-safe credentials** — JWTs can be verified client-side without hitting the server.
 - **Temporary access** — grant time-limited access with a subset of the parent key's scopes.
 - **Custom claims** — embed application-specific data in the token.
 
-Derived tokens inherit permissions from the parent API key and can be verified on the same data
-plane endpoint.
+Derived tokens inherit permissions from the parent API key and can be verified on the same data plane endpoint.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -105,15 +103,14 @@ echo "export JWT_TOKEN=$JWT_TOKEN" >> "$DOCTEST_ENV_FILE"
 
 ### Request fields
 
-The key fields are `credential` (the parent API key secret), `algorithm` (`TOKEN_ALGORITHM_JWT` or
-`TOKEN_ALGORITHM_MACAROON`), optional `ttl`, `scopes` (subset of parent's), and `custom_claims`. For
-the complete field reference, see the
+The key fields are `credential` (the parent API key secret), `algorithm` (`TOKEN_ALGORITHM_JWT` or `TOKEN_ALGORITHM_MACAROON`),
+optional `ttl`, `scopes` (subset of parent's), and `custom_claims`. For the complete field reference, see the
 [DeriveToken API reference](../reference/api/admin-plane-service-derive-token.api.mdx).
 
 ### Response
 
-The response contains a `token` object with `token.token` (the derived token string),
-`token.expire_time`, `token.scopes`, and `token.claims`. For the complete field reference, see the
+The response contains a `token` object with `token.token` (the derived token string), `token.expire_time`, `token.scopes`, and
+`token.claims`. For the complete field reference, see the
 [DeriveToken API reference](../reference/api/admin-plane-service-derive-token.api.mdx).
 
 ## Verify a derived token
@@ -207,14 +204,14 @@ curl -s "$TALOS_URL/v2/admin/derivedKeys/jwks.json" | jq .
 </TabItem>
 </Tabs>
 
-Configure your JWT library to fetch keys from this URL. The keys are loaded from the server's JWKS
-configuration and are typically cached.
+Configure your JWT library to fetch keys from this URL. The keys are loaded from the server's JWKS configuration and are typically
+cached.
 
 ## Scope restrictions
 
-Derived tokens can only have scopes that are a subset of the parent key's scopes. If you request any
-scope that the parent key does not have, the request fails with a `403 Forbidden` error. To restrict
-scopes, request only scopes that exist on the parent key.
+Derived tokens can only have scopes that are a subset of the parent key's scopes. If you request any scope that the parent key
+does not have, the request fails with a `403 Forbidden` error. To restrict scopes, request only scopes that exist on the parent
+key.
 
 ## Next steps
 

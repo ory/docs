@@ -5,13 +5,12 @@ description: Using the generated Go HTTP client
 
 # Go SDK
 
-Talos provides a generated Go HTTP client based on the OpenAPI specification. The client is
-generated using `openapi-generator` and lives in the `internal/client/generated` package.
+Talos provides a generated Go HTTP client based on the OpenAPI specification. The client is generated using `openapi-generator`
+and lives in the `internal/client/generated` package.
 
-:::note Internal package The Go client is in an `internal/` package and cannot be imported by
-external Go modules. It is used for Talos's own integration tests and the admin UI backend. If you
-need a Go client for your application, generate one from the OpenAPI spec at
-`api/talos.openapi-v2.json` using [OpenAPI Generator](https://openapi-generator.tech/). :::
+:::note Internal package The Go client is in an `internal/` package and cannot be imported by external Go modules. It is used for
+Talos's own integration tests and the admin UI backend. If you need a Go client for your application, generate one from the
+OpenAPI spec at `api/talos.openapi-v2.json` using [OpenAPI Generator](https://openapi-generator.tech/). :::
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -25,12 +24,11 @@ openapi-generator generate \
   -o generated/go-client
 ```
 
-The examples below use the internal client's types for illustration. A generated external client has
-the same API shape.
+The examples below use the internal client's types for illustration. A generated external client has the same API shape.
 
 :::tip Full working example See
-[`tools/doctest/examples/go_sdk/main.go`](https://github.com/ory-corp/talos/blob/dev/tools/doctest/examples/go_sdk/main.go)
-for a complete, runnable program that exercises all operations shown below. :::
+[`tools/doctest/examples/go_sdk/main.go`](https://github.com/ory-corp/talos/blob/dev/tools/doctest/examples/go_sdk/main.go) for a
+complete, runnable program that exercises all operations shown below. :::
 
 <!-- doctest:exec -->
 
@@ -188,5 +186,4 @@ The Go SDK is regenerated with:
 make generate-sdk
 ```
 
-This reads the OpenAPI spec from `api/talos.openapi-v2.json` and outputs to
-`internal/client/generated/`.
+This reads the OpenAPI spec from `api/talos.openapi-v2.json` and outputs to `internal/client/generated/`.

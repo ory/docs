@@ -7,8 +7,8 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Error handling
 
-All Talos API errors follow a consistent JSON format. This guide covers the error response
-structure, common error codes, and retry strategies.
+All Talos API errors follow a consistent JSON format. This guide covers the error response structure, common error codes, and
+retry strategies.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -37,9 +37,8 @@ Error responses use this structure:
 
 ## Verification errors
 
-The verify endpoint (`POST /v2/admin/apiKeys:verify`) returns errors differently from admin
-endpoints. Instead of an HTTP error, it returns `200 OK` with `is_active: false` and a structured
-error code:
+The verify endpoint (`POST /v2/admin/apiKeys:verify`) returns errors differently from admin endpoints. Instead of an HTTP error,
+it returns `200 OK` with `is_active: false` and a structured error code:
 
 ```json
 {
@@ -54,8 +53,7 @@ For the complete list of verification error codes (`VERIFICATION_ERROR_*`), see 
 
 ## HTTP status codes
 
-For the complete list of HTTP status codes and error IDs, see the
-[error codes reference](../reference/error-codes.md).
+For the complete list of HTTP status codes and error IDs, see the [error codes reference](../reference/error-codes.md).
 
 Key categories:
 
@@ -66,8 +64,7 @@ Key categories:
 
 ### Safe to retry
 
-- **503 Service Unavailable** — the server is temporarily overloaded. Retry with exponential
-  backoff.
+- **503 Service Unavailable** — the server is temporarily overloaded. Retry with exponential backoff.
 - **504 Gateway Timeout** — the request timed out. Retry with backoff.
 - **Network errors** — connection refused, DNS failure, etc. Retry with backoff.
 
@@ -78,8 +75,8 @@ Key categories:
 
 ### Idempotency key
 
-When issuing API keys, you can include a `request_id` in the request body. This field is stored with
-the key for client-side deduplication:
+When issuing API keys, you can include a `request_id` in the request body. This field is stored with the key for client-side
+deduplication:
 
 <!-- doctest:exec -->
 
@@ -107,8 +104,8 @@ curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
 </TabItem>
 </Tabs>
 
-The `request_id` is recorded in the key's metadata. The server does not enforce server-side
-idempotent replay (sending the same `request_id` twice creates two keys).
+The `request_id` is recorded in the key's metadata. The server does not enforce server-side idempotent replay (sending the same
+`request_id` twice creates two keys).
 
 ## Recommended backoff
 

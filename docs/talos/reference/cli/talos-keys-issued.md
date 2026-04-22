@@ -39,6 +39,5 @@ Get, list, update, and rotate issued API keys.
 - [talos keys issued get](talos-keys-issued-get) - Get details of an issued API key
 - [talos keys issued issue](talos-keys-issued-issue) - Issue a new API key
 - [talos keys issued list](talos-keys-issued-list) - List issued API keys
-- [talos keys issued rotate](talos-keys-issued-rotate) - Rotate an issued API key (revokes old key,
-  creates new one)
+- [talos keys issued rotate](talos-keys-issued-rotate) - Rotate an issued API key (revokes old key, creates new one)
 - [talos keys issued update](talos-keys-issued-update) - Update an issued API key

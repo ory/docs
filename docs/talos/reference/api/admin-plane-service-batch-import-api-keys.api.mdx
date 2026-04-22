@@ -11,25 +11,21 @@ info_path: reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
 <Heading as={"h1"} className={"openapi__heading"} children={"Batch Import API Keys"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/v2/admin/importedApiKeys:batchImport"}
-  context={"endpoint"}
-></MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/v2/admin/importedApiKeys:batchImport"} context={"endpoint"}></MethodEndpoint>
 
-Imports up to 1000 external API keys in one request. Returns per-item results. If at least one item
-succeeds, response is 200 OK. If all items fail, the endpoint returns a non-200 error.
+Imports up to 1000 external API keys in one request. Returns per-item results. If at least one item succeeds, response is 200 OK.
+If all items fail, the endpoint returns a non-200 error.
 
 ```http
 POST /v2/admin/importedApiKeys:batchImport
@@ -47,10 +43,6 @@ POST /v2/admin/importedApiKeys:batchImport
 
 <ParamsDetails parameters={undefined}></ParamsDetails>
 
-<RequestSchema
-  {...require("./admin-plane-service-batch-import-api-keys.RequestSchema.json")}
-></RequestSchema>
+<RequestSchema {...require("./admin-plane-service-batch-import-api-keys.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./admin-plane-service-batch-import-api-keys.StatusCodes.json")}
-></StatusCodes>
+<StatusCodes {...require("./admin-plane-service-batch-import-api-keys.StatusCodes.json")}></StatusCodes>

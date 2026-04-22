@@ -18,8 +18,7 @@ Rollback migrations
 
 Roll back the last N migrations (default: 1).
 
-This is useful for reverting recent migrations in development. In production, use this carefully and
-ensure you have backups.
+This is useful for reverting recent migrations in development. In production, use this carefully and ensure you have backups.
 
 ```
 talos migrate down [flags]

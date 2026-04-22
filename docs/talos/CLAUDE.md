@@ -5,11 +5,10 @@
 Use `jq` instead of `python3` for all JSON operations in code examples:
 
 - **Pretty-print:** `| jq .` not `| python3 -m json.tool`
-- **Extract fields:** `| jq -r '.field'` not
-  `| python3 -c "import json,sys; print(json.load(sys.stdin)['field'])"`
+- **Extract fields:** `| jq -r '.field'` not `| python3 -c "import json,sys; print(json.load(sys.stdin)['field'])"`
 
-**Never write curl output to temporary files.** Capture responses in shell variables instead.
-File-based operations fail when `/tmp` doesn't exist or isn't writable.
+**Never write curl output to temporary files.** Capture responses in shell variables instead. File-based operations fail when
+`/tmp` doesn't exist or isn't writable.
 
 ```bash
 # Good: variable-based
@@ -28,8 +27,8 @@ rm -f /tmp/response.json
 
 ## API Field Documentation
 
-Integration guides under `integrate/` must NOT duplicate API field tables, error code tables, or
-enum tables. These are maintained in the canonical references:
+Integration guides under `integrate/` must NOT duplicate API field tables, error code tables, or enum tables. These are maintained
+in the canonical references:
 
 - **Field tables** -> auto-generated API reference at `reference/api/*.api.mdx`
 - **Error codes** -> `reference/error-codes.md`
@@ -37,10 +36,9 @@ enum tables. These are maintained in the canonical references:
 ### What belongs in integration guides
 
 - **Workflow and examples**: curl commands, step-by-step instructions, the "how" and "why"
-- **Brief inline mentions**: 1-3 sentences highlighting the most important fields (e.g., "The
-  response includes a `secret` field -- store it securely")
-- **Conceptual comparisons**: tables comparing patterns, trade-offs, or usage scenarios (e.g., JWT
-  vs macaroon)
+- **Brief inline mentions**: 1-3 sentences highlighting the most important fields (e.g., "The response includes a `secret` field
+  -- store it securely")
+- **Conceptual comparisons**: tables comparing patterns, trade-offs, or usage scenarios (e.g., JWT vs macaroon)
 - **Operational constraints**: limits, cache control headers, retry strategies
 - **Links to reference**: always link to the canonical source for complete field/error details
 
@@ -53,9 +51,8 @@ enum tables. These are maintained in the canonical references:
 
 ### Link format
 
-**All links MUST be relative links to markdown/mdx files with the file extension.** Never use
-absolute links (starting with `/`) or links without a file extension. Hashbang anchors are allowed
-after the file extension.
+**All links MUST be relative links to markdown/mdx files with the file extension.** Never use absolute links (starting with `/`)
+or links without a file extension. Hashbang anchors are allowed after the file extension.
 
 - Links to `.md` files: `[text](../reference/error-codes.md#section)`
 - Links to `.api.mdx` files: `[text](../reference/api/admin-plane-service-issue-api-key.api.mdx)`
@@ -88,13 +85,11 @@ Ensure that notes / callouts have two line breaks, or they will get formatted in
 **Incorrect:**
 
 ```md
-:::note Internal package The Go client is in an `internal/` package and cannot be imported by
-external Go modules. :::
+:::note Internal package The Go client is in an `internal/` package and cannot be imported by external Go modules. :::
 ```
 
 ```md
-:::note Internal package The Go client is in an `internal/` package and cannot be imported by
-external Go modules. :::
+:::note Internal package The Go client is in an `internal/` package and cannot be imported by external Go modules. :::
 ```
 
 Correct:
@@ -102,8 +97,7 @@ Correct:
 ```md
 :::note
 
-Internal package The Go client is in an `internal/` package and cannot be imported by external Go
-modules.
+Internal package The Go client is in an `internal/` package and cannot be imported by external Go modules.
 
 :::
 ```

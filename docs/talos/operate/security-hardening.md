@@ -6,19 +6,17 @@ title: Security hardening
 
 ## Network
 
-- **Restrict admin plane access** to internal networks only. The admin plane handles key issuance
-  and revocation and should never be exposed to the public internet.
-- **Use TLS** for all connections. Configure database `sslmode=verify-full` and serve HTTPS (or
-  terminate TLS at the load balancer).
+- **Restrict admin plane access** to internal networks only. The admin plane handles key issuance and revocation and should never
+  be exposed to the public internet.
+- **Use TLS** for all connections. Configure database `sslmode=verify-full` and serve HTTPS (or terminate TLS at the load
+  balancer).
 - **Separate admin and data planes** in production for independent security boundaries.
 
 ## Secrets
 
-- **Use strong HMAC secrets** of at least 32 characters, generated with a cryptographically secure
-  random generator.
+- **Use strong HMAC secrets** of at least 32 characters, generated with a cryptographically secure random generator.
 - **Use separate HMAC secrets** (`secrets.hmac.current`) rather than relying on the default secret.
-- **Rotate secrets regularly** using the retired array. Verification tries current + retired secrets
-  automatically.
+- **Rotate secrets regularly** using the retired array. Verification tries current + retired secrets automatically.
 - **Never commit secrets** to version control. Use environment variables or a secrets manager.
 
 ## API keys

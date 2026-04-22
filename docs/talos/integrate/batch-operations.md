@@ -7,8 +7,8 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Batch operations
 
-Talos supports batch endpoints for high-throughput scenarios. Batch operations process items in
-parallel and return per-item results.
+Talos supports batch endpoints for high-throughput scenarios. Batch operations process items in parallel and return per-item
+results.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -94,11 +94,9 @@ curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:batchVerify" \
 ### Response format
 
 The response contains a `results` array. Each element has the same fields as a single
-[verify response](./issue-and-verify.md#verification-response). Results are returned in the same
-order as the requests.
+[verify response](./issue-and-verify.md#verification-response). Results are returned in the same order as the requests.
 
-Invalid credentials return `active: false` with an `error_code` — they do not cause the batch
-request to fail.
+Invalid credentials return `active: false` with an `error_code` — they do not cause the batch request to fail.
 
 ### Limits
 
@@ -146,14 +144,13 @@ curl -s -X POST "$TALOS_URL/v2/admin/importedApiKeys:batchImport" \
 
 ### Response format
 
-The response includes a `results` array with per-item outcomes, plus `success_count` and
-`failure_count` counters. The HTTP response is `200 OK` if at least one key succeeds. Check
-`failure_count` and individual `error_code` fields to detect partial failures.
+The response includes a `results` array with per-item outcomes, plus `success_count` and `failure_count` counters. The HTTP
+response is `200 OK` if at least one key succeeds. Check `failure_count` and individual `error_code` fields to detect partial
+failures.
 
 For the complete field reference, see the
-[BatchImportAPIKeys API reference](../reference/api/admin-plane-service-batch-import-api-keys.api.mdx).
-For batch import error codes, see the
-[error codes reference](../reference/error-codes.md#batch-import-error-codes).
+[BatchImportAPIKeys API reference](../reference/api/admin-plane-service-batch-import-api-keys.api.mdx). For batch import error
+codes, see the [error codes reference](../reference/error-codes.md#batch-import-error-codes).
 
 ### Limits
 

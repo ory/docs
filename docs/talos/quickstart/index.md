@@ -7,8 +7,8 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Quickstart
 
-This guide walks you through issuing, verifying, and revoking an API key with Ory Talos using Docker
-Compose. You need Docker. Examples use the Talos CLI (with curl as an alternative).
+This guide walks you through issuing, verifying, and revoking an API key with Ory Talos using Docker Compose. You need Docker.
+Examples use the Talos CLI (with curl as an alternative).
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -19,8 +19,8 @@ Compose. You need Docker. Examples use the Talos CLI (with curl as an alternativ
 docker compose -f docker-compose.oss.yaml up --build -d
 ```
 
-This starts Talos with SQLite, Jaeger for tracing, and the Admin UI (available at
-http://localhost:3001). Migrations run automatically.
+This starts Talos with SQLite, Jaeger for tracing, and the Admin UI (available at http://localhost:3001). Migrations run
+automatically.
 
 Wait for the server to become healthy:
 
@@ -128,8 +128,7 @@ echo "$VERIFY_RESPONSE" | jq .
 </TabItem>
 </Tabs>
 
-The response confirms the key is active and returns the associated metadata (actor, scopes,
-expiration).
+The response confirms the key is active and returns the associated metadata (actor, scopes, expiration).
 
 ## Revoke the key
 
@@ -193,8 +192,8 @@ fi
 </TabItem>
 </Tabs>
 
-Revocation is immediate. Even though the key is cryptographically valid, the server checks the
-revocation list on every verification request.
+Revocation is immediate. Even though the key is cryptographically valid, the server checks the revocation list on every
+verification request.
 
 ## Stop the server
 
@@ -210,7 +209,6 @@ docker compose -f docker-compose.oss.yaml down -v
 
 ## Next steps
 
-- **[Integration guide](../integrate/index.md)** — detailed API walkthrough for all credential
-  operations
+- **[Integration guide](../integrate/index.md)** — detailed API walkthrough for all credential operations
 - **[Operations guide](../operate/index.md)** — install, configure, and deploy Talos in production
 - **[Architecture](../concepts/architecture.md)** — how the admin and data planes work

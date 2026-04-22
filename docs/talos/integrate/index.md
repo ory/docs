@@ -7,13 +7,11 @@ description: Add API key authentication to your application
 
 Ory Talos exposes two HTTP APIs that map to distinct responsibilities:
 
-- **Admin plane** (`/v2/admin/...`) — Create, update, rotate, and revoke API keys. Deploy behind
-  your internal network or VPN.
-- **Data plane** (`/v2/apiKeys:...`) — Verify credentials at the edge. Designed for sub-millisecond
-  latency with caching enabled.
+- **Admin plane** (`/v2/admin/...`) — Create, update, rotate, and revoke API keys. Deploy behind your internal network or VPN.
+- **Data plane** (`/v2/apiKeys:...`) — Verify credentials at the edge. Designed for sub-millisecond latency with caching enabled.
 
-Most integrations follow a simple pattern: issue keys on the admin plane, then verify them on the
-data plane every time a request arrives.
+Most integrations follow a simple pattern: issue keys on the admin plane, then verify them on the data plane every time a request
+arrives.
 
 ## Common workflows
 
@@ -30,14 +28,14 @@ data plane every time a request arrives.
 
 ## Authentication
 
-The admin plane does not enforce authentication by default. Protect it at the infrastructure level
-(VPN, service mesh, reverse proxy with mTLS). The data plane is public-facing and requires no
-authentication — callers supply the credential they want to verify.
+The admin plane does not enforce authentication by default. Protect it at the infrastructure level (VPN, service mesh, reverse
+proxy with mTLS). The data plane is public-facing and requires no authentication — callers supply the credential they want to
+verify.
 
 ## Request format
 
-All endpoints accept and return JSON with `Content-Type: application/json`. Field names use
-`snake_case` (for example `actor_id`, `key_id`, `expire_time`).
+All endpoints accept and return JSON with `Content-Type: application/json`. Field names use `snake_case` (for example `actor_id`,
+`key_id`, `expire_time`).
 
 Durations accept both Go format (`168h`, `30m`, `1h30m`) and protobuf format (`604800s`).
 

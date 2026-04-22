@@ -18,8 +18,8 @@ Start the data plane server (verification only)
 
 Starts the data plane server for API key and token verification.
 
-This mode runs only the verification endpoints with caching for optimal read performance. It's
-designed for edge deployments and high-throughput verification workloads.
+This mode runs only the verification endpoints with caching for optimal read performance. It's designed for edge deployments and
+high-throughput verification workloads.
 
 Cache configuration is read from the config file (cache.type, cache.ttl, etc.)
 

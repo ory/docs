@@ -37,9 +37,8 @@ The identifier is a Base58 encoding of `timestamp:uuid`:
 - **Timestamp**: Unix epoch seconds (int64). Embedded at key creation time.
 - **UUID**: UUID v4 (36 chars with hyphens). Used as the `key_id` for database lookup.
 
-Base58 encoding uses the Bitcoin alphabet
-(`123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`), which excludes visually ambiguous
-characters (`0`, `O`, `I`, `l`).
+Base58 encoding uses the Bitcoin alphabet (`123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`), which excludes visually
+ambiguous characters (`0`, `O`, `I`, `l`).
 
 ### Checksum verification
 
@@ -49,8 +48,8 @@ The checksum is computed over the payload `prefix_v1_identifier_`:
 2. Truncate to 64 bits
 3. Base58-encode the result
 
-During verification, all configured secrets (current + retired) are tried in order. This supports
-secret rotation without invalidating existing keys.
+During verification, all configured secrets (current + retired) are tried in order. This supports secret rotation without
+invalidating existing keys.
 
 ### Credential routing
 
@@ -65,8 +64,7 @@ When a credential is submitted for verification, Talos identifies the credential
 
 ## Imported key format
 
-Imported keys have no format requirements. Any string credential can be imported. Talos stores a
-tenant-scoped hash:
+Imported keys have no format requirements. Any string credential can be imported. Talos stores a tenant-scoped hash:
 
 ```
 SHA-512/256(network_id + 0x00 + raw_key)
@@ -84,8 +82,8 @@ Derived tokens produced as JWTs follow the standard JWT format:
 eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.signature
 ```
 
-Claims include the parent key's `key_id`, `actor_id`, scopes, and expiration. The signing algorithm
-is determined by the `alg` field in the JWK (EdDSA or RS256).
+Claims include the parent key's `key_id`, `actor_id`, scopes, and expiration. The signing algorithm is determined by the `alg`
+field in the JWK (EdDSA or RS256).
 
 ### Macaroon
 
@@ -95,8 +93,8 @@ Macaroon tokens use a configurable prefix:
 <prefix>_v1_<base64url_data>
 ```
 
-The prefix is configured via `credentials.derived_tokens.macaroon.prefix.current` (default: `mc`).
-The data section contains the macaroon identifier and signature.
+The prefix is configured via `credentials.derived_tokens.macaroon.prefix.current` (default: `mc`). The data section contains the
+macaroon identifier and signature.
 
 ## ID formats
 

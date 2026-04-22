@@ -16,8 +16,8 @@ Generate an ECDSA key pair
 
 ### Synopsis
 
-Generate an ECDSA key pair using the specified elliptic curve. Key size is determined by the curve:
-P-256 (256-bit), P-384 (384-bit), P-521 (521-bit). Default curve: P-256.
+Generate an ECDSA key pair using the specified elliptic curve. Key size is determined by the curve: P-256 (256-bit), P-384
+(384-bit), P-521 (521-bit). Default curve: P-256.
 
 ```
 talos jwk generate ecdsa [flags]

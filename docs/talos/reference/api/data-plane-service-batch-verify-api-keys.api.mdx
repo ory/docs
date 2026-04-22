@@ -11,25 +11,21 @@ info_path: reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
 <Heading as={"h1"} className={"openapi__heading"} children={"Batch Verify API Keys"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/v2/admin/apiKeys:batchVerify"}
-  context={"endpoint"}
-></MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/v2/admin/apiKeys:batchVerify"} context={"endpoint"}></MethodEndpoint>
 
-Verifies multiple credentials in a single request. Efficiently verifies up to 100 credentials in
-parallel. Each credential is verified independently; partial failures are returned.
+Verifies multiple credentials in a single request. Efficiently verifies up to 100 credentials in parallel. Each credential is
+verified independently; partial failures are returned.
 
 ```http
 POST /v2/admin/apiKeys:batchVerify
@@ -47,10 +43,6 @@ POST /v2/admin/apiKeys:batchVerify
 
 <ParamsDetails parameters={undefined}></ParamsDetails>
 
-<RequestSchema
-  {...require("./data-plane-service-batch-verify-api-keys.RequestSchema.json")}
-></RequestSchema>
+<RequestSchema {...require("./data-plane-service-batch-verify-api-keys.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./data-plane-service-batch-verify-api-keys.StatusCodes.json")}
-></StatusCodes>
+<StatusCodes {...require("./data-plane-service-batch-verify-api-keys.StatusCodes.json")}></StatusCodes>

@@ -1,1 +1,121 @@
-{"responses":{"200":{"content":{"application/json":{"schema":{"properties":{"results":{"items":{"properties":{"error_code":{"default":"VERIFICATION_ERROR_UNSPECIFIED","description":"- VERIFICATION_ERROR_UNSPECIFIED: No error (key is valid)\n - VERIFICATION_ERROR_INVALID_FORMAT: Credential format is invalid\n - VERIFICATION_ERROR_EXPIRED: Credential has expired\n - VERIFICATION_ERROR_REVOKED: Credential has been revoked\n - VERIFICATION_ERROR_NOT_FOUND: Credential not found in database\n - VERIFICATION_ERROR_SIGNATURE_INVALID: Cryptographic signature verification failed\n - VERIFICATION_ERROR_INTERNAL: Internal server error during verification\n - VERIFICATION_ERROR_IP_NOT_ALLOWED: Request IP is not in the key's allowed CIDR ranges\n - VERIFICATION_ERROR_RATE_LIMITED: Rate limit quota exhausted (commercial-only)","enum":["VERIFICATION_ERROR_UNSPECIFIED","VERIFICATION_ERROR_INVALID_FORMAT","VERIFICATION_ERROR_EXPIRED","VERIFICATION_ERROR_REVOKED","VERIFICATION_ERROR_NOT_FOUND","VERIFICATION_ERROR_SIGNATURE_INVALID","VERIFICATION_ERROR_INTERNAL","VERIFICATION_ERROR_IP_NOT_ALLOWED","VERIFICATION_ERROR_RATE_LIMITED"],"title":"VerificationErrorCode provides type-safe error codes for verification failures","type":"string"},"error_message":{"title":"Human-readable error message (only set if is_active=false)","type":"string"},"expire_time":{"format":"date-time","type":"string"},"is_active":{"type":"boolean"},"key_id":{"type":"string"},"metadata":{"type":"object"},"actor_id":{"type":"string"},"rate_limit_policy":{"description":"RateLimitPolicy describes the rate limit policy for an API key.\n\nIn OSS mode, this policy is informational and meant to be consumed by\nupstream gateways (Envoy, Cloudflare, etc.) for enforcement.\nIn commercial mode, Talos enforces rate limits using in-memory or Redis backends,\nboth powered by the GCRA (Generic Cell Rate Algorithm).\n\nCompliant with draft-ietf-httpapi-ratelimit-headers-10.","properties":{"quota":{"description":"quota is the number of requests allowed per window.","format":"int64","type":"string"},"unit":{"title":"unit describes the quota unit type.\nDefault: \"requests\"\nOther valid values per IETF spec: \"content-bytes\", \"concurrent-requests\"","type":"string"},"window":{"description":"window is the time window for the quota.\nCommon values: 60s (1 minute), 3600s (1 hour), 86400s (1 day).","type":"string"}},"type":"object","title":"v2RateLimitPolicy"},"rate_limit_remaining":{"description":"Approximate number of requests available before the rate limit is reached\n(commercial-only, only set when enforcement is active).","format":"int64","type":"string"},"rate_limit_reset_time":{"description":"Time when the rate limiter returns to full capacity (all quota recovered).","format":"date-time","type":"string"},"scopes":{"items":{"type":"string"},"type":"array"},"visibility":{"default":"KEY_VISIBILITY_UNSPECIFIED","description":"KeyVisibility distinguishes public (client-safe) keys from secret (server-only) keys.\nPublic keys use a different configurable prefix for visual distinction.\nBoth types share the same scope/permission system — visibility is about exposure safety.\n\n - KEY_VISIBILITY_UNSPECIFIED: Treated as SECRET","enum":["KEY_VISIBILITY_UNSPECIFIED","KEY_VISIBILITY_SECRET","KEY_VISIBILITY_PUBLIC"],"type":"string","title":"v2KeyVisibility"}},"type":"object","title":"v2VerifyAPIKeyResponse"},"type":"array"}},"type":"object","title":"v2BatchVerifyAPIKeysResponse"}}},"description":"A successful response."},"default":{"content":{"application/json":{"schema":{"properties":{"code":{"format":"int32","type":"integer"},"details":{"items":{"additionalProperties":{},"properties":{"@type":{"type":"string"}},"type":"object","title":"protobufAny"},"type":"array"},"message":{"type":"string"}},"type":"object","title":"rpcStatus"}}},"description":"An unexpected error response."}}}
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "results": {
+                "items": {
+                  "properties": {
+                    "error_code": {
+                      "default": "VERIFICATION_ERROR_UNSPECIFIED",
+                      "description": "- VERIFICATION_ERROR_UNSPECIFIED: No error (key is valid)\n - VERIFICATION_ERROR_INVALID_FORMAT: Credential format is invalid\n - VERIFICATION_ERROR_EXPIRED: Credential has expired\n - VERIFICATION_ERROR_REVOKED: Credential has been revoked\n - VERIFICATION_ERROR_NOT_FOUND: Credential not found in database\n - VERIFICATION_ERROR_SIGNATURE_INVALID: Cryptographic signature verification failed\n - VERIFICATION_ERROR_INTERNAL: Internal server error during verification\n - VERIFICATION_ERROR_IP_NOT_ALLOWED: Request IP is not in the key's allowed CIDR ranges\n - VERIFICATION_ERROR_RATE_LIMITED: Rate limit quota exhausted (commercial-only)",
+                      "enum": [
+                        "VERIFICATION_ERROR_UNSPECIFIED",
+                        "VERIFICATION_ERROR_INVALID_FORMAT",
+                        "VERIFICATION_ERROR_EXPIRED",
+                        "VERIFICATION_ERROR_REVOKED",
+                        "VERIFICATION_ERROR_NOT_FOUND",
+                        "VERIFICATION_ERROR_SIGNATURE_INVALID",
+                        "VERIFICATION_ERROR_INTERNAL",
+                        "VERIFICATION_ERROR_IP_NOT_ALLOWED",
+                        "VERIFICATION_ERROR_RATE_LIMITED"
+                      ],
+                      "title": "VerificationErrorCode provides type-safe error codes for verification failures",
+                      "type": "string"
+                    },
+                    "error_message": {
+                      "title": "Human-readable error message (only set if is_active=false)",
+                      "type": "string"
+                    },
+                    "expire_time": { "format": "date-time", "type": "string" },
+                    "is_active": { "type": "boolean" },
+                    "key_id": { "type": "string" },
+                    "metadata": { "type": "object" },
+                    "actor_id": { "type": "string" },
+                    "rate_limit_policy": {
+                      "description": "RateLimitPolicy describes the rate limit policy for an API key.\n\nIn OSS mode, this policy is informational and meant to be consumed by\nupstream gateways (Envoy, Cloudflare, etc.) for enforcement.\nIn commercial mode, Talos enforces rate limits using in-memory or Redis backends,\nboth powered by the GCRA (Generic Cell Rate Algorithm).\n\nCompliant with draft-ietf-httpapi-ratelimit-headers-10.",
+                      "properties": {
+                        "quota": {
+                          "description": "quota is the number of requests allowed per window.",
+                          "format": "int64",
+                          "type": "string"
+                        },
+                        "unit": {
+                          "title": "unit describes the quota unit type.\nDefault: \"requests\"\nOther valid values per IETF spec: \"content-bytes\", \"concurrent-requests\"",
+                          "type": "string"
+                        },
+                        "window": {
+                          "description": "window is the time window for the quota.\nCommon values: 60s (1 minute), 3600s (1 hour), 86400s (1 day).",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object",
+                      "title": "v2RateLimitPolicy"
+                    },
+                    "rate_limit_remaining": {
+                      "description": "Approximate number of requests available before the rate limit is reached\n(commercial-only, only set when enforcement is active).",
+                      "format": "int64",
+                      "type": "string"
+                    },
+                    "rate_limit_reset_time": {
+                      "description": "Time when the rate limiter returns to full capacity (all quota recovered).",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "scopes": {
+                      "items": { "type": "string" },
+                      "type": "array"
+                    },
+                    "visibility": {
+                      "default": "KEY_VISIBILITY_UNSPECIFIED",
+                      "description": "KeyVisibility distinguishes public (client-safe) keys from secret (server-only) keys.\nPublic keys use a different configurable prefix for visual distinction.\nBoth types share the same scope/permission system — visibility is about exposure safety.\n\n - KEY_VISIBILITY_UNSPECIFIED: Treated as SECRET",
+                      "enum": [
+                        "KEY_VISIBILITY_UNSPECIFIED",
+                        "KEY_VISIBILITY_SECRET",
+                        "KEY_VISIBILITY_PUBLIC"
+                      ],
+                      "type": "string",
+                      "title": "v2KeyVisibility"
+                    }
+                  },
+                  "type": "object",
+                  "title": "v2VerifyAPIKeyResponse"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object",
+            "title": "v2BatchVerifyAPIKeysResponse"
+          }
+        }
+      },
+      "description": "A successful response."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "code": { "format": "int32", "type": "integer" },
+              "details": {
+                "items": {
+                  "additionalProperties": {},
+                  "properties": { "@type": { "type": "string" } },
+                  "type": "object",
+                  "title": "protobufAny"
+                },
+                "type": "array"
+              },
+              "message": { "type": "string" }
+            },
+            "type": "object",
+            "title": "rpcStatus"
+          }
+        }
+      },
+      "description": "An unexpected error response."
+    }
+  }
+}

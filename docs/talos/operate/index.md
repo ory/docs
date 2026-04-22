@@ -20,8 +20,7 @@ Before going to production, review these guides:
 
 - **[Secrets management](secrets.md)** — configure HMAC secrets and JWKS signing keys
 - **[TLS](tls.md)** — enable TLS termination or configure a reverse proxy
-- **[Monitoring](monitoring/index.md)** — set up Prometheus metrics, OpenTelemetry tracing, and
-  health checks
+- **[Monitoring](monitoring/index.md)** — set up Prometheus metrics, OpenTelemetry tracing, and health checks
 - **[Security hardening](security-hardening.md)** — production security checklist
 - **[Benchmarks](benchmarks.md)** — performance baselines and load testing
 
@@ -29,8 +28,8 @@ Before going to production, review these guides:
 
 These features require the Commercial edition:
 
-- **[PostgreSQL](database/postgresql.md)**, **[MySQL](database/mysql.md)**,
-  **[CockroachDB](database/cockroachdb.md)** — production-grade SQL backends
+- **[PostgreSQL](database/postgresql.md)**, **[MySQL](database/mysql.md)**, **[CockroachDB](database/cockroachdb.md)** —
+  production-grade SQL backends
 - **[Caching](cache/index.md)** — in-memory and Redis caching for sub-millisecond verification
 - **[Edge proxy](deploy/edge-proxy.md)** — deploy data plane at the edge
 - **[Multi-tenancy](multi-tenancy.md)** — serve multiple tenants from a single cluster
@@ -42,6 +41,5 @@ Talos separates administrative operations (issuing, revoking) from verification:
 - **Admin plane** — manages key lifecycle. Runs behind your internal network.
 - **Data plane** — verifies credentials at the edge. Horizontally scalable with caching.
 
-You can run both planes in a single process (`talos serve`) or split them for production
-(`talos serve admin`, `talos serve check`). See [Separate planes](deploy/separate-planes.md) for
-details.
+You can run both planes in a single process (`talos serve`) or split them for production (`talos serve admin`,
+`talos serve check`). See [Separate planes](deploy/separate-planes.md) for details.

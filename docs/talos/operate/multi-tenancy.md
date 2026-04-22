@@ -30,18 +30,16 @@ multitenancy:
       config_path: "/etc/talos/tenant2.yaml"
 ```
 
-Each entry maps a hostname to a network. The `hostname` is matched against the incoming request's
-`Host` / `X-Forwarded-Host` header (port is stripped before comparison). The `id` is the tenant's
-UUID. The `config_path` points to a network-specific configuration file (absolute or relative to the
-working directory).
+Each entry maps a hostname to a network. The `hostname` is matched against the incoming request's `Host` / `X-Forwarded-Host`
+header (port is stripped before comparison). The `id` is the tenant's UUID. The `config_path` points to a network-specific
+configuration file (absolute or relative to the working directory).
 
 ## Database isolation
 
-Both `api_keys` and `imported_api_keys` tables use composite primary keys `(nid, key_id)`. Every
-query includes the NID, ensuring complete data isolation at the SQL level.
+Both `api_keys` and `imported_api_keys` tables use composite primary keys `(nid, key_id)`. Every query includes the NID, ensuring
+complete data isolation at the SQL level.
 
 ## Defense-in-depth
 
-Token claims embed the NID at derivation time. During verification, the claim NID is validated
-against the context NID (from hostname). A mismatch returns `VERIFICATION_ERROR_NOT_FOUND`,
-preventing cross-tenant token replay.
+Token claims embed the NID at derivation time. During verification, the claim NID is validated against the context NID (from
+hostname). A mismatch returns `VERIFICATION_ERROR_NOT_FOUND`, preventing cross-tenant token replay.

@@ -11,26 +11,21 @@ info_path: reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
 <Heading as={"h1"} className={"openapi__heading"} children={"Self-Revoke API Key"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/v2/apiKeys:selfRevoke"}
-  context={"endpoint"}
-></MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/v2/apiKeys:selfRevoke"} context={"endpoint"}></MethodEndpoint>
 
-Allows an API key holder to revoke their own key. The caller must provide the full API key secret as
-proof of possession. Supports issued API keys and imported keys. JWT and macaroon tokens cannot be
-self-revoked (they are stateless).
+Allows an API key holder to revoke their own key. The caller must provide the full API key secret as proof of possession. Supports
+issued API keys and imported keys. JWT and macaroon tokens cannot be self-revoked (they are stateless).
 
 The PRIVILEGE_WITHDRAWN reason is not allowed for self-revocation (admin-only).
 
@@ -48,10 +43,6 @@ POST /v2/apiKeys:selfRevoke
 
 <ParamsDetails parameters={undefined}></ParamsDetails>
 
-<RequestSchema
-  {...require("./data-plane-service-self-revoke-api-key.RequestSchema.json")}
-></RequestSchema>
+<RequestSchema {...require("./data-plane-service-self-revoke-api-key.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./data-plane-service-self-revoke-api-key.StatusCodes.json")}
-></StatusCodes>
+<StatusCodes {...require("./data-plane-service-self-revoke-api-key.StatusCodes.json")}></StatusCodes>

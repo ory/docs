@@ -1,1 +1,139 @@
-{"responses":{"200":{"content":{"application/json":{"schema":{"properties":{"imported_api_key":{"description":"ImportedAPIKey represents an API key imported from an external system.\nThe raw key is hashed (SHA-512/256) and stored. The original key is never retained.","properties":{"create_time":{"format":"date-time","type":"string"},"expire_time":{"format":"date-time","type":"string"},"ip_restriction":{"description":"IPRestriction defines IP-based access controls for an API key.\nWhen allowed_cidrs is non-empty, only requests from IPs matching at least one\nCIDR range are permitted. Empty allowed_cidrs means no IP restriction (all IPs allowed).\nIP restrictions apply to root API key and imported key verification only;\nderived tokens (JWT/macaroon) are stateless and not subject to IP checks.","properties":{"allowed_cidrs":{"description":"allowed_cidrs is a list of CIDR ranges that are allowed to use this key.\nSupports both IPv4 (e.g., \"10.0.0.0/8\") and IPv6 (e.g., \"2001:db8::/32\").\nIf empty, all IPs are allowed (no restriction).","items":{"type":"string"},"type":"array"}},"type":"object","title":"v2IPRestriction"},"key_hash":{"title":"SHA-512/256 of credential (for audit)","type":"string"},"key_id":{"title":"SHA-512/256 hash of credential","type":"string"},"last_used_time":{"format":"date-time","type":"string"},"metadata":{"type":"object"},"name":{"type":"string"},"actor_id":{"type":"string"},"rate_limit_policy":{"description":"RateLimitPolicy describes the rate limit policy for an API key.\n\nIn OSS mode, this policy is informational and meant to be consumed by\nupstream gateways (Envoy, Cloudflare, etc.) for enforcement.\nIn commercial mode, Talos enforces rate limits using in-memory or Redis backends,\nboth powered by the GCRA (Generic Cell Rate Algorithm).\n\nCompliant with draft-ietf-httpapi-ratelimit-headers-10.","properties":{"quota":{"description":"quota is the number of requests allowed per window.","format":"int64","type":"string"},"unit":{"title":"unit describes the quota unit type.\nDefault: \"requests\"\nOther valid values per IETF spec: \"content-bytes\", \"concurrent-requests\"","type":"string"},"window":{"description":"window is the time window for the quota.\nCommon values: 60s (1 minute), 3600s (1 hour), 86400s (1 day).","type":"string"}},"type":"object","title":"v2RateLimitPolicy"},"revocation_reason":{"default":"REVOCATION_REASON_UNSPECIFIED","description":"RevocationReason provides structured revocation reasons inspired by RFC 5280.\nUsed in both admin and self-revocation flows.\n\n - REVOCATION_REASON_PRIVILEGE_WITHDRAWN: Admin-only: not allowed in self-revocation","enum":["REVOCATION_REASON_UNSPECIFIED","REVOCATION_REASON_KEY_COMPROMISE","REVOCATION_REASON_AFFILIATION_CHANGED","REVOCATION_REASON_SUPERSEDED","REVOCATION_REASON_PRIVILEGE_WITHDRAWN"],"type":"string","title":"v2RevocationReason"},"revocation_reason_text":{"title":"Only set when reason is PRIVILEGE_WITHDRAWN","type":"string"},"scopes":{"items":{"type":"string"},"type":"array"},"status":{"default":"KEY_STATUS_UNSPECIFIED","enum":["KEY_STATUS_UNSPECIFIED","KEY_STATUS_ACTIVE","KEY_STATUS_REVOKED","KEY_STATUS_EXPIRED"],"type":"string","title":"v2KeyStatus"},"update_time":{"format":"date-time","type":"string"},"visibility":{"default":"KEY_VISIBILITY_UNSPECIFIED","description":"KeyVisibility distinguishes public (client-safe) keys from secret (server-only) keys.\nPublic keys use a different configurable prefix for visual distinction.\nBoth types share the same scope/permission system — visibility is about exposure safety.\n\n - KEY_VISIBILITY_UNSPECIFIED: Treated as SECRET","enum":["KEY_VISIBILITY_UNSPECIFIED","KEY_VISIBILITY_SECRET","KEY_VISIBILITY_PUBLIC"],"type":"string","title":"v2KeyVisibility"}},"type":"object","title":"v2ImportedAPIKey"}},"type":"object","title":"v2ImportAPIKeyResponse"}}},"description":"A successful response."},"201":{"content":{"application/json":{"schema":{}}},"description":"API key imported successfully."},"default":{"content":{"application/json":{"schema":{"properties":{"code":{"format":"int32","type":"integer"},"details":{"items":{"additionalProperties":{},"properties":{"@type":{"type":"string"}},"type":"object","title":"protobufAny"},"type":"array"},"message":{"type":"string"}},"type":"object","title":"rpcStatus"}}},"description":"An unexpected error response."}}}
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "imported_api_key": {
+                "description": "ImportedAPIKey represents an API key imported from an external system.\nThe raw key is hashed (SHA-512/256) and stored. The original key is never retained.",
+                "properties": {
+                  "create_time": { "format": "date-time", "type": "string" },
+                  "expire_time": { "format": "date-time", "type": "string" },
+                  "ip_restriction": {
+                    "description": "IPRestriction defines IP-based access controls for an API key.\nWhen allowed_cidrs is non-empty, only requests from IPs matching at least one\nCIDR range are permitted. Empty allowed_cidrs means no IP restriction (all IPs allowed).\nIP restrictions apply to root API key and imported key verification only;\nderived tokens (JWT/macaroon) are stateless and not subject to IP checks.",
+                    "properties": {
+                      "allowed_cidrs": {
+                        "description": "allowed_cidrs is a list of CIDR ranges that are allowed to use this key.\nSupports both IPv4 (e.g., \"10.0.0.0/8\") and IPv6 (e.g., \"2001:db8::/32\").\nIf empty, all IPs are allowed (no restriction).",
+                        "items": { "type": "string" },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object",
+                    "title": "v2IPRestriction"
+                  },
+                  "key_hash": {
+                    "title": "SHA-512/256 of credential (for audit)",
+                    "type": "string"
+                  },
+                  "key_id": {
+                    "title": "SHA-512/256 hash of credential",
+                    "type": "string"
+                  },
+                  "last_used_time": { "format": "date-time", "type": "string" },
+                  "metadata": { "type": "object" },
+                  "name": { "type": "string" },
+                  "actor_id": { "type": "string" },
+                  "rate_limit_policy": {
+                    "description": "RateLimitPolicy describes the rate limit policy for an API key.\n\nIn OSS mode, this policy is informational and meant to be consumed by\nupstream gateways (Envoy, Cloudflare, etc.) for enforcement.\nIn commercial mode, Talos enforces rate limits using in-memory or Redis backends,\nboth powered by the GCRA (Generic Cell Rate Algorithm).\n\nCompliant with draft-ietf-httpapi-ratelimit-headers-10.",
+                    "properties": {
+                      "quota": {
+                        "description": "quota is the number of requests allowed per window.",
+                        "format": "int64",
+                        "type": "string"
+                      },
+                      "unit": {
+                        "title": "unit describes the quota unit type.\nDefault: \"requests\"\nOther valid values per IETF spec: \"content-bytes\", \"concurrent-requests\"",
+                        "type": "string"
+                      },
+                      "window": {
+                        "description": "window is the time window for the quota.\nCommon values: 60s (1 minute), 3600s (1 hour), 86400s (1 day).",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object",
+                    "title": "v2RateLimitPolicy"
+                  },
+                  "revocation_reason": {
+                    "default": "REVOCATION_REASON_UNSPECIFIED",
+                    "description": "RevocationReason provides structured revocation reasons inspired by RFC 5280.\nUsed in both admin and self-revocation flows.\n\n - REVOCATION_REASON_PRIVILEGE_WITHDRAWN: Admin-only: not allowed in self-revocation",
+                    "enum": [
+                      "REVOCATION_REASON_UNSPECIFIED",
+                      "REVOCATION_REASON_KEY_COMPROMISE",
+                      "REVOCATION_REASON_AFFILIATION_CHANGED",
+                      "REVOCATION_REASON_SUPERSEDED",
+                      "REVOCATION_REASON_PRIVILEGE_WITHDRAWN"
+                    ],
+                    "type": "string",
+                    "title": "v2RevocationReason"
+                  },
+                  "revocation_reason_text": {
+                    "title": "Only set when reason is PRIVILEGE_WITHDRAWN",
+                    "type": "string"
+                  },
+                  "scopes": { "items": { "type": "string" }, "type": "array" },
+                  "status": {
+                    "default": "KEY_STATUS_UNSPECIFIED",
+                    "enum": [
+                      "KEY_STATUS_UNSPECIFIED",
+                      "KEY_STATUS_ACTIVE",
+                      "KEY_STATUS_REVOKED",
+                      "KEY_STATUS_EXPIRED"
+                    ],
+                    "type": "string",
+                    "title": "v2KeyStatus"
+                  },
+                  "update_time": { "format": "date-time", "type": "string" },
+                  "visibility": {
+                    "default": "KEY_VISIBILITY_UNSPECIFIED",
+                    "description": "KeyVisibility distinguishes public (client-safe) keys from secret (server-only) keys.\nPublic keys use a different configurable prefix for visual distinction.\nBoth types share the same scope/permission system — visibility is about exposure safety.\n\n - KEY_VISIBILITY_UNSPECIFIED: Treated as SECRET",
+                    "enum": [
+                      "KEY_VISIBILITY_UNSPECIFIED",
+                      "KEY_VISIBILITY_SECRET",
+                      "KEY_VISIBILITY_PUBLIC"
+                    ],
+                    "type": "string",
+                    "title": "v2KeyVisibility"
+                  }
+                },
+                "type": "object",
+                "title": "v2ImportedAPIKey"
+              }
+            },
+            "type": "object",
+            "title": "v2ImportAPIKeyResponse"
+          }
+        }
+      },
+      "description": "A successful response."
+    },
+    "201": {
+      "content": { "application/json": { "schema": {} } },
+      "description": "API key imported successfully."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "code": { "format": "int32", "type": "integer" },
+              "details": {
+                "items": {
+                  "additionalProperties": {},
+                  "properties": { "@type": { "type": "string" } },
+                  "type": "object",
+                  "title": "protobufAny"
+                },
+                "type": "array"
+              },
+              "message": { "type": "string" }
+            },
+            "type": "object",
+            "title": "rpcStatus"
+          }
+        }
+      },
+      "description": "An unexpected error response."
+    }
+  }
+}

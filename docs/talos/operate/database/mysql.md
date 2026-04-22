@@ -32,18 +32,17 @@ export TALOS_DB_DSN="mysql://talos:secret@tcp(db:3306)/talos?tls=true&parseTime=
 mysql://user:password@tcp(host:port)/dbname?param=value&param=value
 ```
 
-The `mysql://` scheme prefix is required in the configuration. Talos strips it internally before
-passing the DSN to the Go MySQL driver.
+The `mysql://` scheme prefix is required in the configuration. Talos strips it internally before passing the DSN to the Go MySQL
+driver.
 
-:::caution Required parameter Always include `parseTime=true` in the DSN. Without it, datetime
-columns are returned as byte arrays instead of `time.Time`, causing runtime errors. :::
+:::caution Required parameter Always include `parseTime=true` in the DSN. Without it, datetime columns are returned as byte arrays
+instead of `time.Time`, causing runtime errors. :::
 
 ## DSN parameters
 
 ### Connection pool parameters
 
-Pool parameters are parsed from the DSN query string and removed before the DSN is passed to the
-database driver.
+Pool parameters are parsed from the DSN query string and removed before the DSN is passed to the database driver.
 
 | Parameter            | Type     | Default         | Description                                                  |
 | -------------------- | -------- | --------------- | ------------------------------------------------------------ |
@@ -90,8 +89,8 @@ Pool behavior:
 
 ### Pool sizing
 
-Start with 25 connections per instance. The total pool across all instances should stay below
-MySQL's `max_connections` (default: 151).
+Start with 25 connections per instance. The total pool across all instances should stay below MySQL's `max_connections` (default:
+151).
 
 | Deployment      | `max_conns`    | Notes                                       |
 | --------------- | -------------- | ------------------------------------------- |
@@ -99,9 +98,8 @@ MySQL's `max_connections` (default: 151).
 | 3 instances     | `25` each      | 75 total — within default `max_connections` |
 | 5+ instances    | `15`–`20` each | Use ProxySQL or MySQL Router to multiplex   |
 
-For large deployments, place [ProxySQL](https://proxysql.com/) or
-[MySQL Router](https://dev.mysql.com/doc/mysql-router/en/) between Talos and MySQL for connection
-multiplexing.
+For large deployments, place [ProxySQL](https://proxysql.com/) or [MySQL Router](https://dev.mysql.com/doc/mysql-router/en/)
+between Talos and MySQL for connection multiplexing.
 
 ## Database preparation
 

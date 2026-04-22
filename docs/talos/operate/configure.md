@@ -5,15 +5,13 @@ description: Configuration reference for Ory Talos
 
 # Configure
 
-Talos is configured through a YAML file passed via the `--config` flag. All settings can also be set
-through environment variables or CLI flags. See the
-[Configuration reference](../reference/config.md) for the complete list of keys, types, defaults,
+Talos is configured through a YAML file passed via the `--config` flag. All settings can also be set through environment variables
+or CLI flags. See the [Configuration reference](../reference/config.md) for the complete list of keys, types, defaults,
 environment variable mappings, and precedence rules.
 
 ## Hot-reload
 
-Talos watches the config file for changes. Some settings reload automatically, others require a
-restart.
+Talos watches the config file for changes. Some settings reload automatically, others require a restart.
 
 **Hot-reloadable:**
 
@@ -108,5 +106,5 @@ tracing:
   sample_rate: 0.01
 ```
 
-See the [Configuration reference](../reference/config.md) for all available keys with types,
-defaults, and environment variable mappings.
+See the [Configuration reference](../reference/config.md) for all available keys with types, defaults, and environment variable
+mappings.

@@ -24,8 +24,8 @@ cache:
 
 ## Consistency
 
-Caching introduces eventual consistency. A revoked key may continue to pass verification until the
-cache entry expires (default: 5 minutes).
+Caching introduces eventual consistency. A revoked key may continue to pass verification until the cache entry expires (default: 5
+minutes).
 
-**Bypass cache:** Use `Cache-Control: no-cache` on verification requests to bypass the cache for
-individual requests when immediate consistency is required.
+**Bypass cache:** Use `Cache-Control: no-cache` on verification requests to bypass the cache for individual requests when
+immediate consistency is required.

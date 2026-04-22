@@ -35,6 +35,5 @@ cache:
 
 ## When to use
 
-Use Redis when running multiple Talos instances. A cache hit on one instance benefits all instances,
-reducing database load. Redis is also required for [edge proxy](../deploy/edge-proxy.md) deployments
-where each edge node shares a regional Redis instance.
+Use Redis when running multiple Talos instances. A cache hit on one instance benefits all instances, reducing database load. Redis
+is also required for [edge proxy](../deploy/edge-proxy.md) deployments where each edge node shares a regional Redis instance.

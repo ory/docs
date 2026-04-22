@@ -11,26 +11,21 @@ info_path: reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
 <Heading as={"h1"} className={"openapi__heading"} children={"Import API Key"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/v2/admin/importedApiKeys"}
-  context={"endpoint"}
-></MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/v2/admin/importedApiKeys"} context={"endpoint"}></MethodEndpoint>
 
-Imports an external API key into the system. Allows importing keys from legacy systems or external
-providers. The raw key is hashed and stored securely (HMAC). Imported keys support token derivation
-(JWT/Macaroon) like issued keys.
+Imports an external API key into the system. Allows importing keys from legacy systems or external providers. The raw key is
+hashed and stored securely (HMAC). Imported keys support token derivation (JWT/Macaroon) like issued keys.
 
 ```http
 POST /v2/admin/importedApiKeys
@@ -47,8 +42,6 @@ POST /v2/admin/importedApiKeys
 
 <ParamsDetails parameters={undefined}></ParamsDetails>
 
-<RequestSchema
-  {...require("./admin-plane-service-import-api-key.RequestSchema.json")}
-></RequestSchema>
+<RequestSchema {...require("./admin-plane-service-import-api-key.RequestSchema.json")}></RequestSchema>
 
 <StatusCodes {...require("./admin-plane-service-import-api-key.StatusCodes.json")}></StatusCodes>

@@ -42,8 +42,8 @@ secrets:
       - "old-secret-that-was-previously-current"
 ```
 
-During verification, Talos tries the current secret first, then each retired secret in order. This
-ensures existing API keys remain valid after rotation.
+During verification, Talos tries the current secret first, then each retired secret in order. This ensures existing API keys
+remain valid after rotation.
 
 ## Environment variables
 

@@ -7,8 +7,8 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Key lifecycle
 
-After issuing an API key, you can update its metadata, rotate the secret, or revoke it. All
-lifecycle operations use the admin plane.
+After issuing an API key, you can update its metadata, rotate the secret, or revoke it. All lifecycle operations use the admin
+plane.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -57,8 +57,7 @@ echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 
 ## Update key metadata
 
-Use `PATCH` to update a key's name, scopes, metadata, or rate limit policy without changing the
-secret:
+Use `PATCH` to update a key's name, scopes, metadata, or rate limit policy without changing the secret:
 
 <!-- doctest:exec -->
 
@@ -92,11 +91,10 @@ curl -s -X PATCH "$TALOS_URL/v2/admin/issuedApiKeys/$KEY_ID" \
 
 ### Update mask
 
-The `update_mask` field controls which fields are modified. Only fields listed in `paths` are
-changed. This follows the [AIP-134](https://google.aip.dev/134) standard for partial updates.
+The `update_mask` field controls which fields are modified. Only fields listed in `paths` are changed. This follows the
+[AIP-134](https://google.aip.dev/134) standard for partial updates.
 
-Updatable fields include `name`, `scopes`, `metadata`, and `rate_limit_policy`. For the complete
-field reference, see the
+Updatable fields include `name`, `scopes`, `metadata`, and `rate_limit_policy`. For the complete field reference, see the
 [UpdateIssuedAPIKey API reference](../reference/api/admin-plane-service-update-issued-api-key.api.mdx).
 
 ## Rotate a key
@@ -146,8 +144,8 @@ echo "export KEY_ID=$NEW_KEY_ID" >> "$DOCTEST_ENV_FILE"
 
 ### Rotation response
 
-The response includes the new `issued_api_key` (with a new `key_id`), the new `secret` (shown once),
-and `old_issued_api_key` (status `KEY_STATUS_REVOKED`). For the complete field reference, see the
+The response includes the new `issued_api_key` (with a new `key_id`), the new `secret` (shown once), and `old_issued_api_key`
+(status `KEY_STATUS_REVOKED`). For the complete field reference, see the
 [RotateIssuedAPIKey API reference](../reference/api/admin-plane-service-rotate-issued-api-key.api.mdx).
 
 ### Zero-downtime rotation
@@ -161,8 +159,7 @@ The `:rotate` endpoint revokes the old key immediately. For zero-downtime rotati
 
 ## Revoke a key
 
-Revocation is irreversible. Once revoked, the key fails verification immediately (subject to cache
-TTL):
+Revocation is irreversible. Once revoked, the key fails verification immediately (subject to cache TTL):
 
 <!-- doctest:exec -->
 
@@ -190,18 +187,16 @@ echo "Key revoked"
 ### Revocation reasons
 
 Standard reasons include `REVOCATION_REASON_KEY_COMPROMISE`, `REVOCATION_REASON_SUPERSEDED`,
-`REVOCATION_REASON_AFFILIATION_CHANGED`, and `REVOCATION_REASON_PRIVILEGE_WITHDRAWN` (admin only).
-For the complete list, see the
+`REVOCATION_REASON_AFFILIATION_CHANGED`, and `REVOCATION_REASON_PRIVILEGE_WITHDRAWN` (admin only). For the complete list, see the
 [RevokeAPIKey API reference](../reference/api/admin-plane-service-revoke-api-key.api.mdx).
 
-When using `PRIVILEGE_WITHDRAWN`, you can include a `reason_text` field with a human-readable
-explanation.
+When using `PRIVILEGE_WITHDRAWN`, you can include a `reason_text` field with a human-readable explanation.
 
 ### Revocation and caching
 
-Revocation takes effect in the database immediately. However, if caching is enabled, previously
-cached verification results may remain valid until the cache entry expires. To force immediate
-effect, use the `Cache-Control: no-cache` header on verification requests.
+Revocation takes effect in the database immediately. However, if caching is enabled, previously cached verification results may
+remain valid until the cache entry expires. To force immediate effect, use the `Cache-Control: no-cache` header on verification
+requests.
 
 ## Verify after revocation
 

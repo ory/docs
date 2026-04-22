@@ -11,25 +11,21 @@ info_path: reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
 <Heading as={"h1"} className={"openapi__heading"} children={"Issue API Key"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/v2/admin/issuedApiKeys"}
-  context={"endpoint"}
-></MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/v2/admin/issuedApiKeys"} context={"endpoint"}></MethodEndpoint>
 
-Creates a new API key for a given actor. The secret is returned only once in the response and cannot
-be retrieved later. Keys can be scoped with specific permissions and have optional expiration.
+Creates a new API key for a given actor. The secret is returned only once in the response and cannot be retrieved later. Keys can
+be scoped with specific permissions and have optional expiration.
 
 ```http
 POST /v2/admin/issuedApiKeys
@@ -47,8 +43,6 @@ POST /v2/admin/issuedApiKeys
 
 <ParamsDetails parameters={undefined}></ParamsDetails>
 
-<RequestSchema
-  {...require("./admin-plane-service-issue-api-key.RequestSchema.json")}
-></RequestSchema>
+<RequestSchema {...require("./admin-plane-service-issue-api-key.RequestSchema.json")}></RequestSchema>
 
 <StatusCodes {...require("./admin-plane-service-issue-api-key.StatusCodes.json")}></StatusCodes>

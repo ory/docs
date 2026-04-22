@@ -32,23 +32,20 @@ export TALOS_DB_DSN="cockroach://talos@crdb:26257/talos?sslmode=verify-full&max_
 cockroach://user:password@host:port/dbname?param=value&param=value
 ```
 
-Both `cockroach://` and `cockroachdb://` schemes are accepted. Internally, the scheme is converted
-to `postgres://` since CockroachDB uses the PostgreSQL wire protocol.
+Both `cockroach://` and `cockroachdb://` schemes are accepted. Internally, the scheme is converted to `postgres://` since
+CockroachDB uses the PostgreSQL wire protocol.
 
 ## DSN parameters, connection pooling, and TLS
 
-CockroachDB uses the PostgreSQL `pgx` driver and shares the same pooling infrastructure, including
-both standard and advanced pool modes. For the full parameter reference, see the
-[PostgreSQL DSN parameters](postgresql.md#dsn-parameters),
-[connection pooling](postgresql.md#connection-pooling), and [TLS / SSL](postgresql.md#tls--ssl)
-documentation.
+CockroachDB uses the PostgreSQL `pgx` driver and shares the same pooling infrastructure, including both standard and advanced pool
+modes. For the full parameter reference, see the [PostgreSQL DSN parameters](postgresql.md#dsn-parameters),
+[connection pooling](postgresql.md#connection-pooling), and [TLS / SSL](postgresql.md#tls--ssl) documentation.
 
 Key differences from PostgreSQL:
 
-- **Higher pool sizes** — CockroachDB connections are lighter. Start with `max_conns=50` instead of
-  `25`.
-- **No connection limit pressure** — Each CockroachDB node independently manages connections, so
-  total pool sizes can be larger without needing a connection pooler like PgBouncer.
+- **Higher pool sizes** — CockroachDB connections are lighter. Start with `max_conns=50` instead of `25`.
+- **No connection limit pressure** — Each CockroachDB node independently manages connections, so total pool sizes can be larger
+  without needing a connection pooler like PgBouncer.
 
 ## Migrations
 
@@ -58,9 +55,8 @@ talos-commercial migrate up --database "cockroach://talos@crdb:26257/talos"
 
 ## Multi-region
 
-Deploy Talos data plane nodes in each region alongside CockroachDB nodes to minimize verification
-latency. Talos does not require special configuration beyond pointing `db.dsn` at the local
-CockroachDB node.
+Deploy Talos data plane nodes in each region alongside CockroachDB nodes to minimize verification latency. Talos does not require
+special configuration beyond pointing `db.dsn` at the local CockroachDB node.
 
 ```yaml
 # Region: us-east-1
@@ -74,8 +70,7 @@ db:
 
 ## Performance
 
-CockroachDB has higher write latency than PostgreSQL due to distributed consensus (Raft). For
-verification-heavy workloads:
+CockroachDB has higher write latency than PostgreSQL due to distributed consensus (Raft). For verification-heavy workloads:
 
 - Enable [caching](../cache/index.md) to absorb verification reads
 - Use `max_conns=50` or higher — CockroachDB connections are lighter than PostgreSQL

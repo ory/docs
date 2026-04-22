@@ -109,8 +109,7 @@ docker compose -f docker-compose.commercial.yaml down -v
 
 ## Prerequisites
 
-You need Docker and Docker Compose installed. See the [OSS quickstart](./index.md) to try the free
-edition first.
+You need Docker and Docker Compose installed. See the [OSS quickstart](./index.md) to try the free edition first.
 
 ## Next steps
 

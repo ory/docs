@@ -11,26 +11,21 @@ info_path: reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
 <Heading as={"h1"} className={"openapi__heading"} children={"Rotate Issued API Key"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/v2/admin/issuedApiKeys/{key_id}:rotate"}
-  context={"endpoint"}
-></MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/v2/admin/issuedApiKeys/{key_id}:rotate"} context={"endpoint"}></MethodEndpoint>
 
-Generates a new secret for an issued API key. Creates a new API key with a new key_id and secret,
-and immediately revokes the old key. This is the recommended way to update scopes, metadata, or
-rotate credentials.
+Generates a new secret for an issued API key. Creates a new API key with a new key_id and secret, and immediately revokes the old
+key. This is the recommended way to update scopes, metadata, or rotate credentials.
 
 For zero-downtime rotation, use this workflow instead:
 
@@ -50,14 +45,8 @@ POST /v2/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ:rotate
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./admin-plane-service-rotate-issued-api-key.ParamsDetails.json")}
-></ParamsDetails>
+<ParamsDetails {...require("./admin-plane-service-rotate-issued-api-key.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./admin-plane-service-rotate-issued-api-key.RequestSchema.json")}
-></RequestSchema>
+<RequestSchema {...require("./admin-plane-service-rotate-issued-api-key.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./admin-plane-service-rotate-issued-api-key.StatusCodes.json")}
-></StatusCodes>
+<StatusCodes {...require("./admin-plane-service-rotate-issued-api-key.StatusCodes.json")}></StatusCodes>

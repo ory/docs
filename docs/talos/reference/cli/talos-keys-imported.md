@@ -36,8 +36,7 @@ Import, list, get, revoke, and delete externally-created API keys.
 ### See also
 
 - [talos keys](talos-keys) Manage API keys
-- [talos keys imported batch-import](talos-keys-imported-batch-import) - Batch import API keys from
-  a JSON file
+- [talos keys imported batch-import](talos-keys-imported-batch-import) - Batch import API keys from a JSON file
 - [talos keys imported delete](talos-keys-imported-delete) - Permanently delete an imported API key
 - [talos keys imported get](talos-keys-imported-get) - Get details of an imported API key
 - [talos keys imported import](talos-keys-imported-import) - Import an external API key

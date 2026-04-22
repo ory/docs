@@ -16,8 +16,8 @@ High-performance multi-network API key service
 
 ### Synopsis
 
-API Key Service is a high-performance, multi-network service for managing API keys with support for
-JWT tokens, JWKS, and various cryptographic algorithms.
+API Key Service is a high-performance, multi-network service for managing API keys with support for JWT tokens, JWKS, and various
+cryptographic algorithms.
 
 It provides both admin plane and data plane APIs for comprehensive key management.
 

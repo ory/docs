@@ -18,8 +18,8 @@ Start the admin plane server (management only)
 
 Starts the admin plane server for API key and network management.
 
-This mode runs only the management endpoints for administrative operations. It's designed for
-internal tools, CI/CD, and administrative access.
+This mode runs only the management endpoints for administrative operations. It's designed for internal tools, CI/CD, and
+administrative access.
 
 Features:
 

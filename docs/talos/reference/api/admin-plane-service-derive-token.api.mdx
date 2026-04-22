@@ -11,25 +11,21 @@ info_path: reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
 <Heading as={"h1"} className={"openapi__heading"} children={"Derive Token"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/v2/admin/apiKeys:derive"}
-  context={"endpoint"}
-></MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/v2/admin/apiKeys:derive"} context={"endpoint"}></MethodEndpoint>
 
-Mints a short-lived JWT or Macaroon token from an API key. Works with both issued and imported keys.
-The derived token inherits the permissions of the parent API key.
+Mints a short-lived JWT or Macaroon token from an API key. Works with both issued and imported keys. The derived token inherits
+the permissions of the parent API key.
 
 ```http
 POST /v2/admin/apiKeys:derive
@@ -45,8 +41,6 @@ POST /v2/admin/apiKeys:derive
 
 <ParamsDetails parameters={undefined}></ParamsDetails>
 
-<RequestSchema
-  {...require("./admin-plane-service-derive-token.RequestSchema.json")}
-></RequestSchema>
+<RequestSchema {...require("./admin-plane-service-derive-token.RequestSchema.json")}></RequestSchema>
 
 <StatusCodes {...require("./admin-plane-service-derive-token.StatusCodes.json")}></StatusCodes>

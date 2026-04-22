@@ -11,29 +11,23 @@ info_path: reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
 <Heading as={"h1"} className={"openapi__heading"} children={"Verify API Key"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/v2/admin/apiKeys:verify"}
-  context={"endpoint"}
-></MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/v2/admin/apiKeys:verify"} context={"endpoint"}></MethodEndpoint>
 
-Verifies a single API key or derived token. Validates the credential's signature, expiration, and
-revocation status. Works with any credential type (issued keys, imported keys, JWT, macaroon). The
-verification logic automatically detects the credential type.
+Verifies a single API key or derived token. Validates the credential's signature, expiration, and revocation status. Works with
+any credential type (issued keys, imported keys, JWT, macaroon). The verification logic automatically detects the credential type.
 
-Returns verification result with claims and metadata. Heavily cached for optimal performance
-(typically &lt;1ms).
+Returns verification result with claims and metadata. Heavily cached for optimal performance (typically &lt;1ms).
 
 Cache Control (HTTP Headers):
 
@@ -56,8 +50,6 @@ POST /v2/admin/apiKeys:verify
 
 <ParamsDetails parameters={undefined}></ParamsDetails>
 
-<RequestSchema
-  {...require("./data-plane-service-verify-api-key.RequestSchema.json")}
-></RequestSchema>
+<RequestSchema {...require("./data-plane-service-verify-api-key.RequestSchema.json")}></RequestSchema>
 
 <StatusCodes {...require("./data-plane-service-verify-api-key.StatusCodes.json")}></StatusCodes>

@@ -7,8 +7,8 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Self-revocation
 
-The self-revoke endpoint lets an API key holder revoke their own key by proving possession of the
-secret. This is a data plane operation — it does not require admin access.
+The self-revoke endpoint lets an API key holder revoke their own key by proving possession of the secret. This is a data plane
+operation — it does not require admin access.
 
 ## Prerequisites
 
@@ -124,17 +124,14 @@ fi
 </TabItem>
 </Tabs>
 
-The request requires `credential` (the full API key secret) and optionally `reason` (revocation
-reason enum). For the complete field reference, see the
-[SelfRevokeAPIKey API reference](../reference/api/data-plane-service-self-revoke-api-key.api.mdx).
+The request requires `credential` (the full API key secret) and optionally `reason` (revocation reason enum). For the complete
+field reference, see the [SelfRevokeAPIKey API reference](../reference/api/data-plane-service-self-revoke-api-key.api.mdx).
 
-Only issued and imported API keys can be self-revoked. Derived tokens (JWTs and macaroons) are
-stateless and cannot be revoked. All revocation reasons except
-`REVOCATION_REASON_PRIVILEGE_WITHDRAWN` are allowed — that reason is reserved for admin-initiated
+Only issued and imported API keys can be self-revoked. Derived tokens (JWTs and macaroons) are stateless and cannot be revoked.
+All revocation reasons except `REVOCATION_REASON_PRIVILEGE_WITHDRAWN` are allowed — that reason is reserved for admin-initiated
 revocations.
 
-A successful self-revocation returns an empty response with HTTP status `200 OK`. The key is
-immediately revoked.
+A successful self-revocation returns an empty response with HTTP status `200 OK`. The key is immediately revoked.
 
 ## Admin vs self-revocation
 

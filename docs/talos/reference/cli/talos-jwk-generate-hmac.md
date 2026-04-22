@@ -16,8 +16,8 @@ Generate an HMAC secret key
 
 ### Synopsis
 
-Generate a symmetric HMAC secret key. Default size is 512 bits. Minimum is 256 bits. Algorithm is
-determined by key size: 256→HS256, 384→HS384, ≥512→HS512.
+Generate a symmetric HMAC secret key. Default size is 512 bits. Minimum is 256 bits. Algorithm is determined by key size:
+256→HS256, 384→HS384, ≥512→HS512.
 
 ```
 talos jwk generate hmac [flags]

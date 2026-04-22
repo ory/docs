@@ -36,6 +36,5 @@ export TALOS_TRACING_SAMPLE_RATE=0.01
 
 ## Traced operations
 
-Talos traces database queries, HMAC operations, cache lookups, key verification paths, and HTTP
-request handling. Each trace includes the Network ID (for multi-tenant deployments) and relevant key
-identifiers.
+Talos traces database queries, HMAC operations, cache lookups, key verification paths, and HTTP request handling. Each trace
+includes the Network ID (for multi-tenant deployments) and relevant key identifiers.

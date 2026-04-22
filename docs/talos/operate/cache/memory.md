@@ -7,8 +7,7 @@ sidebar_custom_props:
 
 # In-memory cache
 
-The in-memory cache stores verification results in the Talos process using a ristretto-based LRU
-cache.
+The in-memory cache stores verification results in the Talos process using a ristretto-based LRU cache.
 
 ## Configuration
 
@@ -30,6 +29,5 @@ cache:
 
 ## When to use
 
-Use the in-memory cache for single-node deployments or when each Talos instance handles enough
-traffic to benefit from local caching. For multi-instance deployments, consider [Redis](redis.md)
-for shared cache across all instances.
+Use the in-memory cache for single-node deployments or when each Talos instance handles enough traffic to benefit from local
+caching. For multi-instance deployments, consider [Redis](redis.md) for shared cache across all instances.

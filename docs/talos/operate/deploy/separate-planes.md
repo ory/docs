@@ -4,22 +4,18 @@ title: Separate admin and data planes
 
 # Separate admin and data planes
 
-In production, you can deploy the admin plane and data plane as separate processes for independent
-scaling and security isolation.
+In production, you can deploy the admin plane and data plane as separate processes for independent scaling and security isolation.
 
 ## Why separate
 
-- **Security**: Admin plane (write operations) stays internal; data plane (verification) can be
-  exposed at the edge
-- **Scaling**: Data plane handles high-throughput verification and scales horizontally; admin plane
-  handles lower-volume management
-- **Network isolation**: Admin plane behind internal firewall; data plane behind public load
-  balancer
+- **Security**: Admin plane (write operations) stays internal; data plane (verification) can be exposed at the edge
+- **Scaling**: Data plane handles high-throughput verification and scales horizontally; admin plane handles lower-volume
+  management
+- **Network isolation**: Admin plane behind internal firewall; data plane behind public load balancer
 
 ## Architecture
 
-Both planes share the same database. The admin plane writes keys; the data plane reads and verifies
-them.
+Both planes share the same database. The admin plane writes keys; the data plane reads and verifies them.
 
 ```mermaid
 graph TB
@@ -53,8 +49,7 @@ talos serve check --config config.yaml
 
 ## Configuration
 
-Both deployments use the same config file or environment variables. The key difference is network
-exposure:
+Both deployments use the same config file or environment variables. The key difference is network exposure:
 
 **Admin plane** — bind to internal network only:
 
@@ -79,5 +74,4 @@ cache:
 
 ## Network policies
 
-Restrict admin plane access to internal services only. Data plane can accept traffic from any
-source.
+Restrict admin plane access to internal services only. Data plane can accept traffic from any source.

@@ -24,8 +24,7 @@ This is useful when:
 - You need to manually fix the database state
 - You want to mark a migration as applied without running it
 
-WARNING: This command should be used carefully as it can lead to inconsistent database state if used
-incorrectly.
+WARNING: This command should be used carefully as it can lead to inconsistent database state if used incorrectly.
 
 ```
 talos migrate force VERSION [flags]

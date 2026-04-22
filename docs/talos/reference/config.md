@@ -5,27 +5,25 @@ description: Auto-generated configuration reference from JSON Schema
 
 # Configuration reference
 
-This page is auto-generated from the
-[configuration schema](https://github.com/ory/talos/blob/main/spec/config.schema.json).
+This page is auto-generated from the [configuration schema](https://github.com/ory/talos/blob/main/spec/config.schema.json).
 
 Required top-level keys: `credentials`, `secrets`
 
 ## Environment variables
 
-Every configuration key can be set via an environment variable. Talos uses the `TALOS_` prefix and
-converts dot-separated config paths to uppercase with underscores:
+Every configuration key can be set via an environment variable. Talos uses the `TALOS_` prefix and converts dot-separated config
+paths to uppercase with underscores:
 
 ```
 TALOS_<SECTION>_<KEY>
 ```
 
-Replace dots (`.`) with underscores (`_`) and convert to uppercase. For example, `serve.http.port`
-becomes `TALOS_SERVE_HTTP_PORT`.
+Replace dots (`.`) with underscores (`_`) and convert to uppercase. For example, `serve.http.port` becomes
+`TALOS_SERVE_HTTP_PORT`.
 
 ### Array values
 
-For array-typed config keys (like `secrets.hmac.retired`), use comma separation or indexed
-variables:
+For array-typed config keys (like `secrets.hmac.retired`), use comma separation or indexed variables:
 
 ```bash
 # Comma-separated

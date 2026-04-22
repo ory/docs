@@ -1,0 +1,1631 @@
+{
+  "components": {
+    "schemas": {
+      "StaticCredentialsAdminRevokeAPIKeyBody": {
+        "properties": {
+          "description": {
+            "description": "Optional free-text explanation. Only allowed when reason is PRIVILEGE_WITHDRAWN.",
+            "type": "string"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/v2RevocationReason"
+          }
+        },
+        "type": "object"
+      },
+      "StaticCredentialsAdminRotateIssuedAPIKeyBody": {
+        "properties": {
+          "ip_restriction": {
+            "$ref": "#/components/schemas/v2IPRestriction"
+          },
+          "metadata": {
+            "title": "metadata for the new API key (inherits from old key if not provided)",
+            "type": "object"
+          },
+          "name": {
+            "title": "name for the new API key (inherits from old key if not provided)",
+            "type": "string"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/v2RateLimitPolicy"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "scopes for the new API key (inherits from old key if not provided)",
+            "type": "array"
+          },
+          "update_mask": {
+            "title": "update_mask disambiguates \"not provided\" from \"set to empty\" (AIP-134)",
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/v2KeyVisibility"
+          }
+        },
+        "type": "object"
+      },
+      "StaticCredentialsAdminUpdateImportedAPIKeyBody": {
+        "properties": {
+          "ip_restriction": {
+            "$ref": "#/components/schemas/v2IPRestriction"
+          },
+          "metadata": {
+            "type": "object"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/v2RateLimitPolicy"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "update_mask": {
+            "title": "AIP-134 partial update mask",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "StaticCredentialsAdminUpdateIssuedAPIKeyBody": {
+        "properties": {
+          "ip_restriction": {
+            "$ref": "#/components/schemas/v2IPRestriction"
+          },
+          "metadata": {
+            "type": "object"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/v2RateLimitPolicy"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "update_mask": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "protobufAny": {
+        "additionalProperties": {},
+        "properties": {
+          "@type": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "protobufNullValue": {
+        "default": "NULL_VALUE",
+        "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\nThe JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value.",
+        "enum": ["NULL_VALUE"],
+        "type": "string"
+      },
+      "rpcStatus": {
+        "properties": {
+          "code": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "details": {
+            "items": {
+              "$ref": "#/components/schemas/protobufAny"
+            },
+            "type": "array"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "v2BatchImportAPIKeysRequest": {
+        "description": "BatchImportAPIKeysRequest imports multiple external API keys in one request.\nThe maximum batch size is 1000 keys.",
+        "properties": {
+          "requests": {
+            "items": {
+              "$ref": "#/components/schemas/v2ImportAPIKeyRequest"
+            },
+            "title": "Keys to import",
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "v2BatchImportAPIKeysResponse": {
+        "description": "BatchImportAPIKeysResponse returns per-item results and summary counters.",
+        "properties": {
+          "failure_count": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/v2BatchImportResult"
+            },
+            "type": "array"
+          },
+          "success_count": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "v2BatchImportErrorCode": {
+        "default": "BATCH_IMPORT_ERROR_UNSPECIFIED",
+        "description": "BatchImportErrorCode classifies per-item batch import failures.\n\n - BATCH_IMPORT_ERROR_UNSPECIFIED: No error (import succeeded)\n - BATCH_IMPORT_ERROR_INVALID_ARGUMENT: The key data is malformed or missing required fields\n - BATCH_IMPORT_ERROR_ALREADY_EXISTS: A key with this identifier already exists\n - BATCH_IMPORT_ERROR_FAILED_PRECONDITION: State conflict prevents the import\n - BATCH_IMPORT_ERROR_INTERNAL: Server error during import",
+        "enum": [
+          "BATCH_IMPORT_ERROR_UNSPECIFIED",
+          "BATCH_IMPORT_ERROR_INVALID_ARGUMENT",
+          "BATCH_IMPORT_ERROR_ALREADY_EXISTS",
+          "BATCH_IMPORT_ERROR_FAILED_PRECONDITION",
+          "BATCH_IMPORT_ERROR_INTERNAL"
+        ],
+        "type": "string"
+      },
+      "v2BatchImportResult": {
+        "description": "BatchImportResult contains the result for one key in a batch import request.",
+        "properties": {
+          "error_code": {
+            "$ref": "#/components/schemas/v2BatchImportErrorCode"
+          },
+          "error_message": {
+            "title": "Human-readable failure reason",
+            "type": "string"
+          },
+          "imported_api_key": {
+            "$ref": "#/components/schemas/v2ImportedAPIKey"
+          },
+          "index": {
+            "format": "int32",
+            "title": "Zero-based index in request.requests",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "v2BatchVerifyAPIKeysRequest": {
+        "properties": {
+          "requests": {
+            "items": {
+              "$ref": "#/components/schemas/v2VerifyAPIKeyRequest"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "v2BatchVerifyAPIKeysResponse": {
+        "properties": {
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/v2VerifyAPIKeyResponse"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "v2DeriveTokenRequest": {
+        "properties": {
+          "algorithm": {
+            "$ref": "#/components/schemas/v2TokenAlgorithm"
+          },
+          "credential": {
+            "title": "The API key secret (issued or imported) to derive a token from",
+            "type": "string"
+          },
+          "custom_claims": {
+            "type": "object"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "ttl": {
+            "description": "ttl sets the expiry as a duration from now.\nAccepted formats:\n  - Extended: \"1y\" (365d), \"1mo\" (30d), \"1w\" (7d), \"1d\" (24h)\n  - Standard Go: \"24h\", \"30m\", \"60s\", \"1h30m\"\n  - Compound: \"1y6mo\", \"1d12h\", \"2w3d\"\nApproximations: 1y = 365 days, 1mo = 30 days.\nIf unset, the project default TTL applies. Maximum is ~10 years (315360000s).",
+            "type": "string"
+          }
+        },
+        "title": "Token derivation messages",
+        "type": "object"
+      },
+      "v2DeriveTokenResponse": {
+        "properties": {
+          "token": {
+            "$ref": "#/components/schemas/v2Token"
+          }
+        },
+        "type": "object"
+      },
+      "v2GetJWKSResponse": {
+        "properties": {
+          "jwks": {
+            "title": "JSON Web Key Set",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "v2IPRestriction": {
+        "description": "IPRestriction defines IP-based access controls for an API key.\nWhen allowed_cidrs is non-empty, only requests from IPs matching at least one\nCIDR range are permitted. Empty allowed_cidrs means no IP restriction (all IPs allowed).\nIP restrictions apply to root API key and imported key verification only;\nderived tokens (JWT/macaroon) are stateless and not subject to IP checks.",
+        "properties": {
+          "allowed_cidrs": {
+            "description": "allowed_cidrs is a list of CIDR ranges that are allowed to use this key.\nSupports both IPv4 (e.g., \"10.0.0.0/8\") and IPv6 (e.g., \"2001:db8::/32\").\nIf empty, all IPs are allowed (no restriction).",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "v2ImportAPIKeyRequest": {
+        "description": "Example:\n  {\n    \"raw_key\": \"sk_live_abc123xyz789\",\n    \"name\": \"Stripe Production Key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"stripe\", \"environment\": \"production\"}\n  }",
+        "properties": {
+          "actor_id": {
+            "description": "actor_id is the identifier of the entity that owns this imported key.\nRequired so every imported key is traceable to an actor for revocation and\naudit queries.",
+            "type": "string"
+          },
+          "ip_restriction": {
+            "$ref": "#/components/schemas/v2IPRestriction"
+          },
+          "metadata": {
+            "title": "Additional metadata (OPTIONAL)",
+            "type": "object"
+          },
+          "name": {
+            "title": "Human-readable name (REQUIRED)",
+            "type": "string"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/v2RateLimitPolicy"
+          },
+          "raw_key": {
+            "title": "The actual key string to import (REQUIRED)",
+            "type": "string"
+          },
+          "request_id": {
+            "title": "Client-controlled idempotency key (AIP-155)",
+            "type": "string"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes for the imported key (OPTIONAL)",
+            "type": "array"
+          },
+          "ttl": {
+            "description": "ttl sets the expiry as a duration from now.\nAccepted formats:\n  - Extended: \"1y\" (365d), \"1mo\" (30d), \"1w\" (7d), \"1d\" (24h)\n  - Standard Go: \"24h\", \"30m\", \"60s\", \"1h30m\"\n  - Compound: \"1y6mo\", \"1d12h\", \"2w3d\"\nApproximations: 1y = 365 days, 1mo = 30 days.\nIf unset, the project default TTL applies. Maximum is ~10 years (315360000s).",
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/v2KeyVisibility"
+          }
+        },
+        "title": "ImportAPIKeyRequest imports an external HMAC-based API key",
+        "type": "object"
+      },
+      "v2ImportAPIKeyResponse": {
+        "properties": {
+          "imported_api_key": {
+            "$ref": "#/components/schemas/v2ImportedAPIKey"
+          }
+        },
+        "type": "object"
+      },
+      "v2ImportedAPIKey": {
+        "description": "ImportedAPIKey represents an API key imported from an external system.\nThe raw key is hashed (SHA-512/256) and stored. The original key is never retained.",
+        "properties": {
+          "actor_id": {
+            "type": "string"
+          },
+          "create_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "expire_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "ip_restriction": {
+            "$ref": "#/components/schemas/v2IPRestriction"
+          },
+          "key_id": {
+            "title": "SHA-512/256 hash of credential",
+            "type": "string"
+          },
+          "last_used_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/v2RateLimitPolicy"
+          },
+          "revocation_description": {
+            "description": "revocation_description provides free-form context for a revocation.\nOnly set when revocation_reason is PRIVILEGE_WITHDRAWN.\nJSON API change: field was formerly revocation_reason_text. Field number 13\nis unchanged so the change is wire-compatible for binary proto encoding.",
+            "type": "string"
+          },
+          "revocation_reason": {
+            "$ref": "#/components/schemas/v2RevocationReason"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "status": {
+            "$ref": "#/components/schemas/v2KeyStatus"
+          },
+          "update_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/v2KeyVisibility"
+          }
+        },
+        "type": "object"
+      },
+      "v2IssueAPIKeyRequest": {
+        "properties": {
+          "actor_id": {
+            "type": "string"
+          },
+          "ip_restriction": {
+            "$ref": "#/components/schemas/v2IPRestriction"
+          },
+          "metadata": {
+            "type": "object"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/v2RateLimitPolicy"
+          },
+          "request_id": {
+            "title": "Client-controlled idempotency key (AIP-155)",
+            "type": "string"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "ttl": {
+            "description": "ttl sets the expiry as a duration from now.\nAccepted formats:\n  - Extended: \"1y\" (365d), \"1mo\" (30d), \"1w\" (7d), \"1d\" (24h)\n  - Standard Go: \"24h\", \"30m\", \"60s\", \"1h30m\"\n  - Compound: \"1y6mo\", \"1d12h\", \"2w3d\"\nApproximations: 1y = 365 days, 1mo = 30 days.\nIf unset, the project default TTL applies. Maximum is ~10 years (315360000s).",
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/v2KeyVisibility"
+          }
+        },
+        "type": "object"
+      },
+      "v2IssueAPIKeyResponse": {
+        "properties": {
+          "issued_api_key": {
+            "$ref": "#/components/schemas/v2IssuedAPIKey"
+          },
+          "secret": {
+            "title": "Only returned on creation",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "v2IssuedAPIKey": {
+        "description": "IssuedAPIKey represents an API key issued (generated) by Talos.\nRoot keys are opaque v1 format tokens stored in the database.\nDerived tokens (JWT/Macaroon) are created via DeriveToken and are stateless (not stored).",
+        "properties": {
+          "actor_id": {
+            "type": "string"
+          },
+          "create_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "expire_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "ip_restriction": {
+            "$ref": "#/components/schemas/v2IPRestriction"
+          },
+          "key_id": {
+            "type": "string"
+          },
+          "last_used_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/v2RateLimitPolicy"
+          },
+          "revocation_description": {
+            "description": "revocation_description provides free-form context for a revocation.\nOnly set when revocation_reason is PRIVILEGE_WITHDRAWN.\nJSON API change: field was formerly revocation_reason_text. Field number 13\nis unchanged so the change is wire-compatible for binary proto encoding.",
+            "type": "string"
+          },
+          "revocation_reason": {
+            "$ref": "#/components/schemas/v2RevocationReason"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "status": {
+            "$ref": "#/components/schemas/v2KeyStatus"
+          },
+          "update_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/v2KeyVisibility"
+          }
+        },
+        "type": "object"
+      },
+      "v2KeyStatus": {
+        "default": "KEY_STATUS_UNSPECIFIED",
+        "enum": [
+          "KEY_STATUS_UNSPECIFIED",
+          "KEY_STATUS_ACTIVE",
+          "KEY_STATUS_REVOKED",
+          "KEY_STATUS_EXPIRED"
+        ],
+        "type": "string"
+      },
+      "v2KeyVisibility": {
+        "default": "KEY_VISIBILITY_UNSPECIFIED",
+        "description": "KeyVisibility distinguishes public (client-safe) keys from secret (server-only) keys.\nPublic keys use a different configurable prefix for visual distinction.\nBoth types share the same scope/permission system — visibility is about exposure safety.\n\n - KEY_VISIBILITY_UNSPECIFIED: Treated as SECRET",
+        "enum": [
+          "KEY_VISIBILITY_UNSPECIFIED",
+          "KEY_VISIBILITY_SECRET",
+          "KEY_VISIBILITY_PUBLIC"
+        ],
+        "type": "string"
+      },
+      "v2ListImportedAPIKeysResponse": {
+        "properties": {
+          "imported_api_keys": {
+            "items": {
+              "$ref": "#/components/schemas/v2ImportedAPIKey"
+            },
+            "title": "List of imported keys",
+            "type": "array"
+          },
+          "next_page_token": {
+            "title": "Token for fetching the next page (empty if no more results)",
+            "type": "string"
+          }
+        },
+        "title": "ListImportedAPIKeysResponse returns paginated list of imported keys",
+        "type": "object"
+      },
+      "v2ListIssuedAPIKeysResponse": {
+        "properties": {
+          "issued_api_keys": {
+            "items": {
+              "$ref": "#/components/schemas/v2IssuedAPIKey"
+            },
+            "type": "array"
+          },
+          "next_page_token": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "v2RateLimitPolicy": {
+        "description": "RateLimitPolicy describes the rate limit policy for an API key.\n\nIn OSS mode, this policy is informational and meant to be consumed by\nupstream gateways (Envoy, Cloudflare, etc.) for enforcement.\nIn commercial mode, Talos enforces rate limits using in-memory or Redis backends,\nboth powered by the GCRA (Generic Cell Rate Algorithm).\n\nCompliant with draft-ietf-httpapi-ratelimit-headers-10.",
+        "properties": {
+          "quota": {
+            "description": "quota is the number of requests allowed per window.",
+            "format": "int64",
+            "type": "string"
+          },
+          "unit": {
+            "title": "unit describes the quota unit type.\nDefault: \"requests\"\nOther valid values per IETF spec: \"content-bytes\", \"concurrent-requests\"",
+            "type": "string"
+          },
+          "window": {
+            "description": "window is the time window for the quota.\nCommon values: 60s (1 minute), 3600s (1 hour), 86400s (1 day).",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "v2RevocationReason": {
+        "default": "REVOCATION_REASON_UNSPECIFIED",
+        "description": "RevocationReason provides structured revocation reasons inspired by RFC 5280.\nUsed in both admin and self-revocation flows.\n\n - REVOCATION_REASON_PRIVILEGE_WITHDRAWN: Admin-only: not allowed in self-revocation",
+        "enum": [
+          "REVOCATION_REASON_UNSPECIFIED",
+          "REVOCATION_REASON_KEY_COMPROMISE",
+          "REVOCATION_REASON_AFFILIATION_CHANGED",
+          "REVOCATION_REASON_SUPERSEDED",
+          "REVOCATION_REASON_PRIVILEGE_WITHDRAWN"
+        ],
+        "type": "string"
+      },
+      "v2RotateIssuedAPIKeyResponse": {
+        "properties": {
+          "issued_api_key": {
+            "$ref": "#/components/schemas/v2IssuedAPIKey"
+          },
+          "old_issued_api_key": {
+            "$ref": "#/components/schemas/v2IssuedAPIKey"
+          },
+          "secret": {
+            "title": "secret is the new API key secret (only returned once, never retrievable again)",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "v2SelfRevokeAPIKeyRequest": {
+        "description": "SelfRevokeAPIKeyRequest allows an API key holder to revoke their own key\nby providing the full key secret as proof of possession.",
+        "properties": {
+          "credential": {
+            "title": "Full API key secret or imported key (REQUIRED)",
+            "type": "string"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/v2RevocationReason"
+          }
+        },
+        "type": "object"
+      },
+      "v2SelfRevokeAPIKeyResponse": {
+        "description": "SelfRevokeAPIKeyResponse is returned on successful self-revocation.\n\nEmpty on success",
+        "type": "object"
+      },
+      "v2Token": {
+        "properties": {
+          "claims": {
+            "type": "object"
+          },
+          "expire_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "token": {
+            "type": "string"
+          }
+        },
+        "title": "Token represents a short-lived derived token (JWT or Macaroon)",
+        "type": "object"
+      },
+      "v2TokenAlgorithm": {
+        "default": "TOKEN_ALGORITHM_UNSPECIFIED",
+        "description": "- TOKEN_ALGORITHM_JWT: JWT with EdDSA (self-contained, signed)\n - TOKEN_ALGORITHM_MACAROON: Macaroon with HMAC (self-contained, caveat-based)",
+        "enum": [
+          "TOKEN_ALGORITHM_UNSPECIFIED",
+          "TOKEN_ALGORITHM_JWT",
+          "TOKEN_ALGORITHM_MACAROON"
+        ],
+        "title": "TokenAlgorithm specifies the cryptographic algorithm used for derived tokens\nNote: API keys (root tokens) are always opaque; this enum is only for DeriveToken",
+        "type": "string"
+      },
+      "v2VerificationErrorCode": {
+        "default": "VERIFICATION_ERROR_UNSPECIFIED",
+        "description": "- VERIFICATION_ERROR_UNSPECIFIED: No error (key is valid)\n - VERIFICATION_ERROR_INVALID_FORMAT: Credential format is invalid\n - VERIFICATION_ERROR_EXPIRED: Credential has expired\n - VERIFICATION_ERROR_REVOKED: Credential has been revoked\n - VERIFICATION_ERROR_NOT_FOUND: Credential not found in database\n - VERIFICATION_ERROR_SIGNATURE_INVALID: Cryptographic signature verification failed\n - VERIFICATION_ERROR_INTERNAL: Internal server error during verification\n - VERIFICATION_ERROR_IP_NOT_ALLOWED: Request IP is not in the key's allowed CIDR ranges\n - VERIFICATION_ERROR_RATE_LIMITED: Rate limit quota exhausted (commercial-only)",
+        "enum": [
+          "VERIFICATION_ERROR_UNSPECIFIED",
+          "VERIFICATION_ERROR_INVALID_FORMAT",
+          "VERIFICATION_ERROR_EXPIRED",
+          "VERIFICATION_ERROR_REVOKED",
+          "VERIFICATION_ERROR_NOT_FOUND",
+          "VERIFICATION_ERROR_SIGNATURE_INVALID",
+          "VERIFICATION_ERROR_INTERNAL",
+          "VERIFICATION_ERROR_IP_NOT_ALLOWED",
+          "VERIFICATION_ERROR_RATE_LIMITED"
+        ],
+        "title": "VerificationErrorCode provides type-safe error codes for verification failures",
+        "type": "string"
+      },
+      "v2VerifyAPIKeyRequest": {
+        "properties": {
+          "credential": {
+            "title": "API key or derived token (any format: sk_*, JWT, macaroon)",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "v2VerifyAPIKeyResponse": {
+        "properties": {
+          "actor_id": {
+            "type": "string"
+          },
+          "error_code": {
+            "$ref": "#/components/schemas/v2VerificationErrorCode"
+          },
+          "error_message": {
+            "title": "Human-readable error message (only set if is_active=false)",
+            "type": "string"
+          },
+          "expire_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "issuer": {
+            "description": "The configured token issuer for this project. For derived tokens (JWT/macaroon),\nthis matches the iss claim embedded in the verified token.",
+            "type": "string"
+          },
+          "key_id": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/v2RateLimitPolicy"
+          },
+          "rate_limit_remaining": {
+            "description": "Approximate number of requests available before the rate limit is reached\n(commercial-only, only set when enforcement is active).",
+            "format": "int64",
+            "type": "string"
+          },
+          "rate_limit_reset_time": {
+            "description": "Time when the rate limiter returns to full capacity (all quota recovered).",
+            "format": "date-time",
+            "type": "string"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/v2KeyVisibility"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Ory Talos is a high-performance static credential management service. It handles the full credential lifecycle: issuing keys, verifying them at low latency, deriving short-lived tokens (JWT and Macaroon), and revoking access.\n\nThe API is split into two services:\n\n- **StaticCredentials** — admin operations: key lifecycle (issue, rotate, revoke, import, derive tokens, JWKS) and verification\n- **SelfService** — self-service revocation for credential holders",
+    "title": "Ory Talos API",
+    "version": "2.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/v2/admin/.well-known/jwks.json": {
+      "get": {
+        "description": "Returns the JSON Web Key Set for token verification. Provides the public\nkeys needed to verify JWT tokens issued by this service. Keys are loaded\nfrom configuration (file://, https://, or base64:// URIs). Follows the\nJWKS standard (RFC 7517).\n\n```http\nGET /v2/admin/.well-known/jwks.json\n```",
+        "operationId": "AdminGetJWKS",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2GetJWKSResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Get JWKS",
+        "tags": ["StaticCredentials"]
+      }
+    },
+    "/v2/admin/apiKeys/{key_id}:revoke": {
+      "post": {
+        "description": "Immediately revokes an API key (issued or imported). Once revoked, the key\ncan no longer be used for authentication. This operation is irreversible.\nRevoked keys are retained for audit purposes.\n\n```http\nPOST /v2/admin/apiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ:revoke\n{\n  \"reason\": \"REVOCATION_REASON_KEY_COMPROMISE\"\n}\n```",
+        "operationId": "AdminRevokeAPIKey",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StaticCredentialsAdminRevokeAPIKeyBody"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "API key revoked successfully."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Revoke API Key",
+        "tags": ["StaticCredentials"]
+      }
+    },
+    "/v2/admin/apiKeys:batchVerify": {
+      "post": {
+        "description": "Verifies multiple credentials in a single request. Efficiently verifies up\nto 100 credentials in parallel. Each credential is verified independently;\npartial failures are returned. Admin access only.\n\n```http\nPOST /v2/admin/apiKeys:batchVerify\n{\n  \"requests\": [\n    {\"credential\": \"sk_live_abc123...\"},\n    {\"credential\": \"eyJhbGciOiJFZERTQSI...\"}\n  ]\n}\n```",
+        "operationId": "AdminBatchVerifyAPIKeys",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v2BatchVerifyAPIKeysRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2BatchVerifyAPIKeysResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Batch Verify API Keys",
+        "tags": ["StaticCredentials"]
+      }
+    },
+    "/v2/admin/apiKeys:derive": {
+      "post": {
+        "description": "Mints a short-lived JWT or Macaroon token from an API key. Works with both\nissued and imported keys. The derived token inherits the permissions of the\nparent API key.\n\n```http\nPOST /v2/admin/apiKeys:derive\n{\n  \"credential\": \"eyJhbGciOiJFZERTQSI...\",\n  \"ttl\": \"1h\"\n}\n```",
+        "operationId": "AdminDeriveToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v2DeriveTokenRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2DeriveTokenResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Derive Token",
+        "tags": ["StaticCredentials"]
+      }
+    },
+    "/v2/admin/apiKeys:verify": {
+      "post": {
+        "description": "Verifies a single API key or derived token. Validates the credential's\nsignature, expiration, and revocation status. Works with any credential\ntype (issued keys, imported keys, JWT, macaroon). The verification result\nincludes decoded claims and metadata — admin access only.\n\nCache Control (HTTP Headers):\n  - Cache-Control: no-cache  - Bypasses cache read, forces fresh DB lookup\n  - Cache-Control: no-store  - Bypasses cache read AND write (never cached)\n  - Pragma: no-cache         - Same as Cache-Control: no-cache (HTTP/1.0)\n\n```http\nPOST /v2/admin/apiKeys:verify\n{\n  \"credential\": \"sk_live_abc123...\"\n}\n```",
+        "operationId": "AdminVerifyAPIKey",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v2VerifyAPIKeyRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2VerifyAPIKeyResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Verify API Key",
+        "tags": ["StaticCredentials"]
+      }
+    },
+    "/v2/admin/importedApiKeys": {
+      "get": {
+        "description": "Lists all imported keys with filtering. Returns imported keys only (not\nissued keys). Supports pagination and AIP-160 filter expressions.\n\n```http\nGET /v2/admin/importedApiKeys?page_size=50\u0026filter=status%3DKEY_STATUS_ACTIVE\n```",
+        "operationId": "AdminListImportedAPIKeys",
+        "parameters": [
+          {
+            "description": "Number of items per page (default: 50, max: 1000)",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Cursor token for pagination (OPTIONAL)",
+            "in": "query",
+            "name": "page_token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "filter supports AIP-160 filter expressions:\n  actor_id=\"user_123\"\n  status=KEY_STATUS_ACTIVE\n  actor_id=\"user_123\" AND status=KEY_STATUS_ACTIVE",
+            "in": "query",
+            "name": "filter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2ListImportedAPIKeysResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "List Imported API Keys",
+        "tags": ["StaticCredentials"]
+      },
+      "post": {
+        "description": "Imports an external API key into the system. Allows importing keys from\nlegacy systems or external providers. The raw key is hashed and stored\nsecurely (HMAC). Imported keys support token derivation (JWT/Macaroon)\nlike issued keys.\n\n```http\nPOST /v2/admin/importedApiKeys\n{\n  \"raw_key\": \"sk_live_abc123xyz\",\n  \"name\": \"Imported Stripe Key\",\n  \"actor_id\": \"user_123\"\n}\n```",
+        "operationId": "AdminImportAPIKey",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v2ImportAPIKeyRequest"
+              }
+            }
+          },
+          "description": "Example:\n  {\n    \"raw_key\": \"sk_live_abc123xyz789\",\n    \"name\": \"Stripe Production Key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"stripe\", \"environment\": \"production\"}\n  }",
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2ImportAPIKeyResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "API key imported successfully."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Import API Key",
+        "tags": ["StaticCredentials"]
+      }
+    },
+    "/v2/admin/importedApiKeys/{key_id}": {
+      "delete": {
+        "description": "Permanently deletes an imported key (hard delete). The key is removed from\nthe database. Use RevokeAPIKey for soft deletion (recommended).\n\n```http\nDELETE /v2/admin/importedApiKeys/{key_id}\n```",
+        "operationId": "AdminDeleteImportedAPIKey",
+        "parameters": [
+          {
+            "description": "SHA512/256 hash of the imported key (REQUIRED)",
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Imported key deleted successfully."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Delete Imported API Key",
+        "tags": ["StaticCredentials"]
+      },
+      "get": {
+        "description": "Retrieves details about a specific imported key. Returns metadata about\nthe imported key. The original raw key is never returned.\n\n```http\nGET /v2/admin/importedApiKeys/{key_id}\n```",
+        "operationId": "AdminGetImportedAPIKey",
+        "parameters": [
+          {
+            "description": "SHA512/256 hash of the imported key (REQUIRED)",
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2ImportedAPIKey"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Get Imported API Key",
+        "tags": ["StaticCredentials"]
+      },
+      "patch": {
+        "description": "Updates metadata, scopes, or rate limits of an imported key. Supports\npartial updates via update_mask (AIP-134).\n\n```http\nPATCH /v2/admin/importedApiKeys/{key_id}\n{\n  \"name\": \"New name\",\n  \"update_mask\": \"name\"\n}\n```",
+        "operationId": "AdminUpdateImportedAPIKey",
+        "parameters": [
+          {
+            "description": "SHA512/256 hash of the imported key (REQUIRED, path param)",
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StaticCredentialsAdminUpdateImportedAPIKeyBody"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2ImportedAPIKey"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Update Imported API Key",
+        "tags": ["StaticCredentials"]
+      }
+    },
+    "/v2/admin/importedApiKeys:batchImport": {
+      "post": {
+        "description": "Imports up to 1000 external API keys in one request. Returns per-item\nresults. If at least one item succeeds, response is 200 OK. If all items\nfail, the endpoint returns a non-200 error.\n\n```http\nPOST /v2/admin/importedApiKeys:batchImport\n{\n  \"requests\": [\n    {\"raw_key\": \"sk_live_abc\", \"name\": \"Stripe key\", \"actor_id\": \"user_1\"},\n    {\"raw_key\": \"ghp_xyz\", \"name\": \"GitHub PAT\", \"actor_id\": \"user_2\"}\n  ]\n}\n```",
+        "operationId": "AdminBatchImportAPIKeys",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v2BatchImportAPIKeysRequest"
+              }
+            }
+          },
+          "description": "BatchImportAPIKeysRequest imports multiple external API keys in one request.\nThe maximum batch size is 1000 keys.",
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2BatchImportAPIKeysResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Batch import completed. Check per-item results for individual status."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Batch Import API Keys",
+        "tags": ["StaticCredentials"]
+      }
+    },
+    "/v2/admin/issuedApiKeys": {
+      "get": {
+        "description": "Lists issued API keys with optional filtering. Supports cursor-based\npagination and AIP-160 filter expressions. Returns only issued\n(generated) API keys; use ListImportedAPIKeys for imported keys.\n\n```http\nGET /v2/admin/issuedApiKeys?page_size=50\u0026filter=actor_id%3D%22user_123%22\n```",
+        "operationId": "AdminListIssuedAPIKeys",
+        "parameters": [
+          {
+            "description": "Number of items per page (default: 50, max: 1000)",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Cursor token for pagination",
+            "in": "query",
+            "name": "page_token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "filter supports AIP-160 filter expressions:\n  actor_id=\"user_123\"\n  status=KEY_STATUS_ACTIVE\n  actor_id=\"user_123\" AND status=KEY_STATUS_ACTIVE",
+            "in": "query",
+            "name": "filter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2ListIssuedAPIKeysResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "List Issued API Keys",
+        "tags": ["StaticCredentials"]
+      },
+      "post": {
+        "description": "Creates a new API key for a given actor. The secret is returned only once\nin the response and cannot be retrieved later. Keys can be scoped with\nspecific permissions and have optional expiration.\n\n```http\nPOST /v2/admin/issuedApiKeys\n{\n  \"name\": \"production-service\",\n  \"actor_id\": \"user_123\",\n  \"scopes\": [\"read\", \"write\"],\n  \"ttl\": \"8760h\"\n}\n```",
+        "operationId": "AdminIssueAPIKey",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v2IssueAPIKeyRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2IssueAPIKeyResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "API key issued successfully."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Issue API Key",
+        "tags": ["StaticCredentials"]
+      }
+    },
+    "/v2/admin/issuedApiKeys/{key_id}": {
+      "get": {
+        "description": "Retrieves details about a specific issued API key including its status,\nscopes, expiration, and usage statistics. The secret is never returned.\n\n```http\nGET /v2/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ\n```",
+        "operationId": "AdminGetIssuedAPIKey",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2IssuedAPIKey"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Get Issued API Key",
+        "tags": ["StaticCredentials"]
+      },
+      "patch": {
+        "description": "Updates metadata, scopes, or rate limits of an issued key without rotating\nthe secret. Use RotateIssuedAPIKey to change the secret.\n\n```http\nPATCH /v2/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ\n{\n  \"scopes\": [\"read\"],\n  \"update_mask\": \"scopes\"\n}\n```",
+        "operationId": "AdminUpdateIssuedAPIKey",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StaticCredentialsAdminUpdateIssuedAPIKeyBody"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2IssuedAPIKey"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Update Issued API Key",
+        "tags": ["StaticCredentials"]
+      }
+    },
+    "/v2/admin/issuedApiKeys/{key_id}:rotate": {
+      "post": {
+        "description": "Generates a new secret for an issued API key. Creates a new API key with a\nnew key_id and secret, and immediately revokes the old key. This is the\nrecommended way to update scopes, metadata, or rotate credentials.\n\nFor zero-downtime rotation, use this workflow instead:\n  1. IssueAPIKey with new credentials\n  2. Deploy new secret to all services\n  3. Verify new secret works everywhere\n  4. RevokeAPIKey to remove the old key\n\n```http\nPOST /v2/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ:rotate\n{\n  \"scopes\": [\"read\"]\n}\n```",
+        "operationId": "AdminRotateIssuedAPIKey",
+        "parameters": [
+          {
+            "description": "key_id is the ID of the existing API key to rotate",
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StaticCredentialsAdminRotateIssuedAPIKeyBody"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2RotateIssuedAPIKeyResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "API key rotated successfully. New key issued, old key revoked."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Rotate Issued API Key",
+        "tags": ["StaticCredentials"]
+      }
+    },
+    "/v2/apiKeys:batchVerify": {
+      "post": {
+        "description": "Verifies multiple credentials in a single request. Efficiently verifies up\nto 100 credentials in parallel. Each credential is verified independently;\npartial failures are returned in the response.\n\n```http\nPOST /v2/apiKeys:batchVerify\n{\n  \"requests\": [\n    {\"credential\": \"sk_live_abc123...\"},\n    {\"credential\": \"sk_live_xyz789...\"}\n  ]\n}\n```",
+        "operationId": "BatchVerifyAPIKeys",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v2BatchVerifyAPIKeysRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2BatchVerifyAPIKeysResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Batch Verify API Keys",
+        "tags": ["SelfService"]
+      }
+    },
+    "/v2/apiKeys:selfRevoke": {
+      "post": {
+        "description": "Allows an API key holder to revoke their own key. The caller must provide\nthe full API key secret as proof of possession. Supports issued API keys\nand imported keys. JWT and macaroon tokens cannot be self-revoked (they\nare stateless).\n\nThe PRIVILEGE_WITHDRAWN reason is not allowed for self-revocation\n(admin-only).\n\n```http\nPOST /v2/apiKeys:selfRevoke\n{\n  \"credential\": \"sk_live_abc123...\",\n  \"reason\": \"REVOCATION_REASON_KEY_COMPROMISE\"\n}\n```",
+        "operationId": "RevokeAPIKey",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v2SelfRevokeAPIKeyRequest"
+              }
+            }
+          },
+          "description": "SelfRevokeAPIKeyRequest allows an API key holder to revoke their own key\nby providing the full key secret as proof of possession.",
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2SelfRevokeAPIKeyResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Revoke API Key",
+        "tags": ["SelfService"]
+      }
+    },
+    "/v2/apiKeys:verify": {
+      "post": {
+        "description": "Verifies a single credential (API key, JWT, or macaroon). Returns whether\nthe credential is active along with associated metadata. Results are cached\nfor low-latency repeated verifications; use the Cache-Control: no-cache\nheader to bypass the cache.\n\n```http\nPOST /v2/apiKeys:verify\n{\n  \"credential\": \"sk_live_abc123...\"\n}\n```",
+        "operationId": "VerifyAPIKey",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/v2VerifyAPIKeyRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/v2VerifyAPIKeyResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rpcStatus"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Verify API Key",
+        "tags": ["SelfService"]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "Administrative operations for managing static credentials (API keys, personal access tokens, and similar long-lived secrets). Deploy behind authentication and authorization. Supports issued keys (generated by Talos), imported keys (from external systems), and credential verification.",
+      "name": "StaticCredentials"
+    },
+    {
+      "description": "Self-service operations for credential holders. Allows key holders to revoke their own credentials using proof of possession.",
+      "name": "SelfService"
+    }
+  ]
+}
