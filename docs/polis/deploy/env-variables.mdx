@@ -43,14 +43,16 @@ Available from version `1.40.1`.
 
 NPM library option: `acsUrl`
 
-### JACKSON_API_KEYS
+### API_KEYS
 
-A comma separated list of API keys that will be validated when serving the API requests (`/api/v1/`).
+A comma-separated list of API keys that will be validated when serving the API requests (`/api/v1/`).
 
-For example `JACKSON_API_KEYS=key1,key2,key3`
+For example `API_KEYS=key1,key2,key3`
 
 The API requests will then need to specify an `Authorization` header which contains one of the API keys above in this format:
 `Api-Key key1`
+
+`JACKSON_API_KEYS` is still supported but is deprecated, please switch to `API_KEYS` when you can.
 
 ### SAML_AUDIENCE
 
