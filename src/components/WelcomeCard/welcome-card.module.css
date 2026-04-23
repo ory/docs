@@ -24,7 +24,7 @@
   height: 200px; /* Fixed height for all cards */
   position: relative;
   transition: all 0.2s ease;
-  background-color: var(--ifm-pre-background);
+  background-color: var(--background-default-secondary);
   border-radius: 8px;
   padding: 1.5rem;
   display: flex;
@@ -91,12 +91,7 @@
   overflow: hidden;
 }
 
-/* Dark mode styling for cards */
-:global([data-theme="dark"]) .card {
-  background-color: #1a1a2e;
-  border-color: #2a2a4a;
-}
-
+/* Dark mode: card uses --background-default-secondary from theme */
 :global([data-theme="dark"]) .iconContainer {
   background-color: rgba(
     49,

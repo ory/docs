@@ -1,0 +1,356 @@
+/**
+ * Quickstarts sidebars per deployment. Each deployment-specific sidebar has a root category
+ * ("Ory Network", "Ory Enterprise License", "Ory Open Source") for consistency.
+ * Deployment switcher in sidebar shows only on these routes and links to network/oel/oss kratos/intro.
+ */
+
+const overviewAndNetwork = [
+  {
+    type: "doc",
+    id: "getting-started/overview",
+    label: "Quickstarts",
+  },
+  {
+    type: "category",
+    label: "Ory Network",
+    collapsed: false,
+    collapsible: false,
+    className: "sidebar-quickstart-top-level",
+    items: [
+      {
+        type: "category",
+        label: "Identity & AuthN",
+        className: "sidebar-icon sidebar-icon-kratos",
+        items: [
+          "network/kratos/quickstarts/intro",
+          "network/kratos/quickstarts/identity-model",
+          "network/kratos/quickstarts/mfa-overview",
+        ],
+      },
+      {
+        type: "category",
+        label: "Fine-grained Permissions",
+        className: "sidebar-icon sidebar-icon-keto",
+        items: [
+          "network/keto/quickstarts/index",
+          "network/keto/quickstarts/overview",
+        ],
+      },
+      {
+        type: "category",
+        label: "Delegated AuthZ & Federated AuthN",
+        className: "sidebar-icon sidebar-icon-hydra",
+        items: [
+          "network/hydra/quickstarts/index",
+          "network/hydra/quickstarts/ory-network-oauth2",
+        ],
+      },
+      {
+        type: "category",
+        label: "Enterprise SSO AuthZ",
+        className: "sidebar-icon sidebar-icon-polis",
+        items: [
+          "network/polis/quickstarts/index",
+          "oel/polis/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Proxy-based Access Control",
+        className: "sidebar-icon sidebar-icon-oathkeeper",
+        items: ["network/oathkeeper/quickstarts/index"],
+      },
+    ],
+  },
+  {
+    type: "category",
+    label: "Ory Enterprise License",
+    collapsed: false,
+    collapsible: false,
+    className: "sidebar-quickstart-top-level",
+    items: [
+      {
+        type: "category",
+        label: "Ory Kratos",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-kratos",
+        items: [
+          "oel/kratos/quickstarts/intro",
+          "oel/kratos/quickstarts/quickstart",
+          "oel/kratos/quickstarts/identity-model",
+          "oel/kratos/quickstarts/mfa-overview",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Keto",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-keto",
+        items: [
+          "oel/keto/quickstarts/index",
+          "oel/keto/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Hydra",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-hydra",
+        items: [
+          "oel/hydra/quickstarts/index",
+          "oel/hydra/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Polis",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-polis",
+        items: [
+          "oel/polis/quickstarts/index",
+          "oel/polis/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Oathkeeper",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-oathkeeper",
+        items: [
+          "oel/oathkeeper/quickstarts/index",
+          "oel/oathkeeper/quickstarts/configure-deploy",
+        ],
+      },
+    ],
+  },
+  {
+    type: "category",
+    label: "Ory Open Source",
+    collapsed: false,
+    collapsible: false,
+    className: "sidebar-quickstart-top-level",
+    items: [
+      {
+        type: "category",
+        label: "Ory Kratos",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-kratos",
+        items: [
+          "oss/kratos/quickstarts/intro",
+          "oss/kratos/quickstarts/quickstart",
+          "oss/kratos/quickstarts/identity-model",
+          "oss/kratos/quickstarts/mfa-overview",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Keto",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-keto",
+        items: [
+          "oss/keto/quickstarts/index",
+          "oss/keto/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Hydra",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-hydra",
+        items: [
+          "oss/hydra/quickstarts/index",
+          "oss/hydra/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Polis",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-polis",
+        items: [
+          "oss/polis/quickstarts/index",
+          "oss/polis/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Oathkeeper",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-oathkeeper",
+        items: [
+          "oss/oathkeeper/quickstarts/index",
+          "oss/oathkeeper/quickstarts/configure-deploy",
+        ],
+      },
+    ],
+  },
+]
+
+// Network-only: Quickstarts doc + Ory Network category (for overview when deployment = network)
+const overviewAndNetworkOnly = [overviewAndNetwork[0], overviewAndNetwork[1]]
+
+const overviewAndOel = [
+  {
+    type: "doc",
+    id: "getting-started/overview",
+    label: "Quickstarts",
+  },
+  {
+    type: "category",
+    label: "Ory Enterprise License",
+    collapsed: false,
+    collapsible: false,
+    className: "sidebar-quickstart-top-level",
+    items: [
+      {
+        type: "category",
+        label: "Ory Kratos",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-kratos",
+        items: [
+          "oel/kratos/quickstarts/intro",
+          "oel/kratos/quickstarts/quickstart",
+          "oel/kratos/quickstarts/identity-model",
+          "oel/kratos/quickstarts/mfa-overview",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Keto",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-keto",
+        items: [
+          "oel/keto/quickstarts/index",
+          "oel/keto/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Hydra",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-hydra",
+        items: [
+          "oel/hydra/quickstarts/index",
+          "oel/hydra/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Polis",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-polis",
+        items: [
+          "oel/polis/quickstarts/index",
+          "oel/polis/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Oathkeeper",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-oathkeeper",
+        items: [
+          "oel/oathkeeper/quickstarts/index",
+          "oel/oathkeeper/quickstarts/configure-deploy",
+        ],
+      },
+    ],
+  },
+]
+
+const overviewAndOss = [
+  {
+    type: "doc",
+    id: "getting-started/overview",
+    label: "Quickstarts",
+  },
+  {
+    type: "category",
+    label: "Ory Open Source",
+    collapsed: false,
+    collapsible: false,
+    className: "sidebar-quickstart-top-level",
+    items: [
+      {
+        type: "category",
+        label: "Ory Kratos",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-kratos",
+        items: [
+          "oss/kratos/quickstarts/intro",
+          "oss/kratos/quickstarts/quickstart",
+          "oss/kratos/quickstarts/identity-model",
+          "oss/kratos/quickstarts/mfa-overview",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Keto",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-keto",
+        items: [
+          "oss/keto/quickstarts/index",
+          "oss/keto/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Hydra",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-hydra",
+        items: [
+          "oss/hydra/quickstarts/index",
+          "oss/hydra/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Polis",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-polis",
+        items: [
+          "oss/polis/quickstarts/index",
+          "oss/polis/quickstarts/quickstart",
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Oathkeeper",
+        collapsed: true,
+        collapsible: true,
+        className: "sidebar-icon sidebar-icon-oathkeeper",
+        items: [
+          "oss/oathkeeper/quickstarts/index",
+          "oss/oathkeeper/quickstarts/configure-deploy",
+        ],
+      },
+    ],
+  },
+]
+
+export const quickstartsNetworkSidebar = overviewAndNetwork
+export const quickstartsNetworkOnlySidebar = overviewAndNetworkOnly
+export const quickstartsOelSidebar = overviewAndOel
+export const quickstartsOssSidebar = overviewAndOss
+
+// Legacy single sidebar: default for overview (shows all three sections; DocRoot overrides to deployment-specific)
+export default quickstartsNetworkSidebar
