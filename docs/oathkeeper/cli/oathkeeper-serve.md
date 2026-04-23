@@ -22,7 +22,7 @@ Opens two ports for serving both the HTTP/2 Rest API and the HTTP/2 Reverse Prox
 ORY Oathkeeper can be configured using environment variables as well as a configuration file. For more information
 on configuration options, open the configuration documentation:
 
-&gt;&gt; https://www.ory.com/oathkeeper/docs/configuration &lt;&lt;
+&gt;&gt; https://www.ory.com/docs/oathkeeper/reference/configuration &lt;&lt;
 
 
 ```

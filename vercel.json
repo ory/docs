@@ -1078,6 +1078,11 @@
       "permanent": false
     },
     {
+      "source": "/docs/performance/hydra",
+      "destination": "https://www.ory.com/docs/oauth2-oidc",
+      "permanent": false
+    },
+    {
       "source": "/docs/cli",
       "destination": "/docs/guides/cli/installation",
       "permanent": false
@@ -1094,6 +1099,11 @@
     },
     {
       "source": "/docs/hydra/sdk/hydra-sdk-api",
+      "destination": "/docs/hydra/reference/api",
+      "permanent": false
+    },
+    {
+      "source": "/docs/hydra/sdk/api",
       "destination": "/docs/hydra/reference/api",
       "permanent": false
     },
