@@ -129,7 +129,7 @@ recovery read the [account recovery documentation](../self-service/flows/account
 
 ## Importing credentials
 
-Ory supports importing credentials for identities including passwords and social sign-in connections.
+Ory supports importing credentials for identities including passwords, social sign-in connections, TOTP, WebAuthn, and passkeys.
 
 ### Clear text password
 
@@ -786,6 +786,138 @@ must be the ID of the user on the given platform. The subject should not be an e
   }
 }
 ```
+
+### TOTP credentials
+
+To import an identity with an existing TOTP (time-based one-time password) credential, provide the TOTP secret as an `otpauth://`
+URL following the [Google Authenticator Key URI format](https://github.com/google/google-authenticator/wiki/Key-Uri-Format).
+
+This allows users to continue using their existing authenticator app without re-enrollment.
+
+```json {6-12}
+{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-totp@example.org"
+  },
+  "credentials": {
+    "totp": {
+      "config": {
+        "totp_url": "otpauth://totp/MyApp:docs-totp@example.org?secret=JBSWY3DPEHPK3PXP&issuer=MyApp"
+      }
+    }
+  }
+}
+```
+
+The `totp_url` must be a valid `otpauth://` URL. The URL contains the shared secret, issuer, and account name:
+
+```
+otpauth://totp/{Issuer}:{AccountName}?secret={SECRET}&issuer={Issuer}
+```
+
+- `secret` (required): Base32-encoded shared secret.
+- `issuer` (required): Service or company name.
+- `digits` (optional): Number of digits, default is 6.
+- `period` (optional): Time step in seconds, default is 30.
+- `algorithm` (optional): Hash algorithm (`SHA1`, `SHA256`, `SHA512`), default is `SHA1`.
+
+Each identity supports one TOTP credential. Importing a new TOTP credential replaces the previous one.
+
+### Passkey credentials
+
+To import an identity with existing passkey credentials, provide the WebAuthn credential data including the credential ID, public
+key, and authenticator metadata. All binary fields must be base64-encoded.
+
+```json {6-24}
+{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-passkey@example.org"
+  },
+  "credentials": {
+    "passkey": {
+      "config": {
+        "user_handle": "dXNlci1oYW5kbGUtMQ==",
+        "credentials": [
+          {
+            "id": "Y3JlZGVudGlhbC1pZC0x",
+            "public_key": "cHVibGljLWtleS0x",
+            "attestation_type": "none",
+            "display_name": "Work Laptop",
+            "is_passwordless": true,
+            "authenticator": {
+              "aaguid": "YWFndWlkLTE=",
+              "sign_count": 0,
+              "clone_warning": false
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+Each credential requires the following fields:
+
+- `id` (base64, required): The credential ID assigned during registration.
+- `public_key` (base64, required): The COSE-encoded public key from the authenticator.
+- `attestation_type` (string, required): The attestation type. Use `"none"` if the original attestation is not available.
+- `authenticator.aaguid` (base64, required): The Authenticator Attestation GUID identifying the authenticator model.
+- `authenticator.sign_count` (integer, required): The signature counter from the last authentication.
+- `authenticator.clone_warning` (boolean, required): Set to `true` if the credential may have been cloned.
+- `user_handle` (base64, required on create): The WebAuthn user handle. Must be unique per identity.
+
+Optional fields include `display_name`, `is_passwordless`, `added_at`, `flags` (`user_present`, `user_verified`,
+`backup_eligible`, `backup_state`), and `transport` (`"usb"`, `"nfc"`, `"ble"`, `"internal"`).
+
+An identity can have multiple passkey credentials. When updating an identity, existing credentials with the same `id` are updated
+in place and new credentials are appended.
+
+:::warning
+
+Passkeys are bound to a relying party (RP) ID, typically your domain. If the RP ID changes during migration, existing passkeys
+will not work. Make sure the RP ID in your Ory configuration matches the one used when the passkeys were originally registered.
+
+:::
+
+### WebAuthn credentials
+
+WebAuthn credentials used for second-factor authentication (FIDO2 security keys) use the same format as passkeys. Use the
+`webauthn` key instead of `passkey`:
+
+```json {6-24}
+{
+  "schema_id": "preset://email",
+  "traits": {
+    "email": "docs-webauthn@example.org"
+  },
+  "credentials": {
+    "webauthn": {
+      "config": {
+        "user_handle": "dXNlci1oYW5kbGUtMQ==",
+        "credentials": [
+          {
+            "id": "Y3JlZGVudGlhbC1pZC0x",
+            "public_key": "cHVibGljLWtleS0x",
+            "attestation_type": "none",
+            "display_name": "YubiKey",
+            "is_passwordless": false,
+            "authenticator": {
+              "aaguid": "YWFndWlkLTE=",
+              "sign_count": 10,
+              "clone_warning": false
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+Set `is_passwordless` to `false` for second-factor WebAuthn credentials and `true` for passkeys.
 
 ## Organization-specific SAML and OIDC connections
 
