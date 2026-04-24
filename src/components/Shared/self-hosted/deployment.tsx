@@ -336,11 +336,6 @@ export function DeploymentDatabase({ product }: DeploymentDatabaseProps) {
       <p>See also:</p>
       <ul>
         <li>
-          <a href="https://github.com/ory/hydra/issues/3363">
-            https://github.com/ory/hydra/issues/3363
-          </a>
-        </li>
-        <li>
           <a href="https://github.com/ory/kratos/issues/2167">
             https://github.com/ory/kratos/issues/2167
           </a>
