@@ -340,11 +340,6 @@ export function DeploymentDatabase({ product }: DeploymentDatabaseProps) {
             https://github.com/ory/hydra/issues/3363
           </a>
         </li>
-        <li>
-          <a href="https://github.com/ory/kratos/issues/2167">
-            https://github.com/ory/kratos/issues/2167
-          </a>
-        </li>
       </ul>
 
       <h3>SQLite</h3>
