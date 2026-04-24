@@ -113,31 +113,17 @@ Alternatively, use the Ory CLI to enable the passkey strategy:
 
 ### Advanced configuration
 
-The passkey strategy exposes additional options that control the WebAuthn ceremony and post-registration policy. All options are
-optional. Defaults accept every standards-compliant passkey, so existing deployments do not need to change anything.
+The passkey strategy exposes additional options that control the WebAuthn ceremony. All options are optional. Defaults accept
+every standards-compliant passkey, so existing deployments do not need to change anything.
 
-| Option                                      | Type     | Default              | What it controls                                                                                                                                                                                                                                               |
-| ------------------------------------------- | -------- | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `authenticator_selection.attachment`        | string   | _unset_              | Restricts eligible authenticators by attachment modality: `"platform"` (Touch ID, Windows Hello) or `"cross-platform"` (HID tokens, YubiKeys). Omit this field to accept either type.                                                                          |
-| `authenticator_selection.resident_key`      | string   | `"required"`         | Whether the authenticator must create a client-side discoverable credential: `"required"`, `"preferred"`, or `"discouraged"`.                                                                                                                                  |
-| `authenticator_selection.user_verification` | string   | `"preferred"`        | Whether biometrics or a PIN are required: `"required"`, `"preferred"`, or `"discouraged"`.                                                                                                                                                                     |
-| `attestation.preference`                    | string   | `"none"`             | Attestation conveyance preference sent to the authenticator: `"none"`, `"indirect"`, `"direct"`, or `"enterprise"`.                                                                                                                                            |
-| `attestation.policy`                        | string   | `"allow_untrusted"`  | Which attestation types Kratos accepts after registration: `"allow_untrusted"` accepts any attestation, `"allow_self"` rejects credentials with unverifiable certificate chains, and `"allow_none"` only accepts credentials without an attestation statement. |
-| `timeouts.registration`                     | duration | library default (5m) | Timeout for the registration ceremony. Use Go duration format, for example `"60s"` or `"5m"`.                                                                                                                                                                  |
-| `timeouts.login`                            | duration | library default (5m) | Timeout for the login ceremony. Use Go duration format.                                                                                                                                                                                                        |
-
-:::warning
-
-Setting `attestation.policy` to a value stricter than `"allow_untrusted"` rejects most consumer passkeys. iOS, Android, and most
-password managers return no attestation statement by design, which the `"allow_none"` policy still accepts — but any authenticator
-that does provide an attestation certificate chain is rejected under `"allow_self"`. Only restrict the policy if your deployment
-has a clear requirement for attested authenticators.
-
-Kratos does not currently verify attestation certificate chains against a trust anchor (for example, the FIDO Metadata Service).
-The `"allow_self"` and `"allow_none"` values are opt-in stricter stances, not cryptographic validation of authenticator
-provenance.
-
-:::
+| Option                                      | Type     | Default              | What it controls                                                                                                                                                                      |
+| ------------------------------------------- | -------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `authenticator_selection.attachment`        | string   | _unset_              | Restricts eligible authenticators by attachment modality: `"platform"` (Touch ID, Windows Hello) or `"cross-platform"` (HID tokens, YubiKeys). Omit this field to accept either type. |
+| `authenticator_selection.resident_key`      | string   | `"required"`         | Whether the authenticator must create a client-side discoverable credential: `"required"`, `"preferred"`, or `"discouraged"`.                                                         |
+| `authenticator_selection.user_verification` | string   | `"preferred"`        | Whether biometrics or a PIN are required: `"required"`, `"preferred"`, or `"discouraged"`.                                                                                            |
+| `attestation.preference`                    | string   | `"none"`             | Attestation conveyance preference sent to the authenticator: `"none"`, `"indirect"`, `"direct"`, or `"enterprise"`.                                                                   |
+| `timeouts.registration`                     | duration | library default (5m) | Timeout for the registration ceremony. Use Go duration format, for example `"60s"` or `"5m"`.                                                                                         |
+| `timeouts.login`                            | duration | library default (5m) | Timeout for the login ceremony. Use Go duration format.                                                                                                                               |
 
 The following example configures cross-platform authenticators (such as a HID token or YubiKey) with required user verification:
 
@@ -177,7 +163,6 @@ The following example configures cross-platform authenticators (such as a HID to
           user_verification: required
         attestation:
           preference: none
-          policy: allow_untrusted
         timeouts:
           registration: 5m
           login: 5m`}</CodeBlock>
