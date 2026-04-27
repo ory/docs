@@ -116,7 +116,7 @@ free to [open an issue](https://github.com/ory/kratos/issues/new/choose).
 
 :::
 
-Let's clone Ory Kratos and run `docker-compose`:
+Let's clone Ory Kratos and run `docker compose`:
 
 ```mdx-code-block
 import { useLatestRelease } from '@site/src/hooks'
@@ -126,9 +126,9 @@ import CodeBlock from '@theme/CodeBlock'
 cd kratos
 \
 git checkout ${useLatestRelease('kratos')}
-docker-compose -f quickstart.yml -f quickstart-standalone.yml up --force-recreate
+docker compose -f quickstart.yml -f quickstart-standalone.yml up --force-recreate
 # If you have SELinux, run:
-docker-compose -f quickstart.yml -f quickstart-selinux.yml -f quickstart-standalone.yml up --force-recreate`}</CodeBlock>
+docker compose -f quickstart.yml -f quickstart-selinux.yml -f quickstart-standalone.yml up --force-recreate`}</CodeBlock>
 ```
 
 This might take a minute or two. Once the output slows down and logs indicate a
@@ -212,8 +212,8 @@ You should end up at the dashboard:
 
 ![Dashboard screen of your secured app](@site/src/components/Shared/kratos/_static/quickstart/ui-unverified-dashboard.png)
 
-Under the section `Session Information` you can find the Ory Session details, as
-there is no active session this is empty for now.
+The `Session Information` section links to [127.0.0.1:4455/sessions](http://127.0.0.1:4455/sessions), where you can inspect the
+active Ory Session. That route is protected — visiting it without an active session redirects you to the login page.
 
 :::note
 
@@ -501,14 +501,21 @@ will complain:
 
 ![Registration with network trace screen of your secured app](@site/src/components/Shared/kratos/_static/quickstart/secureapp-registration-pwpolicy.png)
 
-Setting a password that doesn't violate these policies, we will be immediately
-redirected to the dashboard:
+Setting a password that doesn't violate these policies, you'll be asked to verify your email address. Because the quickstart uses
+[MailSlurper](https://github.com/mailslurper) as a fake SMTP server, the verification email won't arrive in a real inbox — open
+the MailSlurper UI at [127.0.0.1:4436](http://127.0.0.1:4436) to retrieve it:
+
+![User Email Verification](@site/src/components/Shared/kratos/_static/quickstart/mailslurper-quickstart.png)
+
+If the email isn't visible, hard refresh the tab or click the home icon in the menu bar. Click the verification link in the email.
+Only after verification are you redirected to the `/welcome` screen, where you can inspect the active session at
+[127.0.0.1:4455/sessions](http://127.0.0.1:4455/sessions):
 
 ![SecureApp Dashboard](@site/src/components/Shared/kratos/_static/quickstart/secureapp-dashboard.png)
 
 By clicking the "logout" icon in the top right, you will be redirected to the
 login screen again where you will be able to use your credentials to log back in
-again. Exciting!
+again.
 
 ### Understand how login and registration work
 
@@ -516,22 +523,10 @@ Head over to the
 [Self-Service Flows Chapter](@site/docs/kratos/self-service.mdx) for an in-depth
 explanation of how each individual flow works.
 
-### Email verification
+### Session details
 
-As you've signed up, an email was sent to the email address you used. Because
-the quickstart uses a fake SMTP server, the email didn't arrive in your inbox.
-You can retrieve the email however by opening the MailSlurper UI at
-[127.0.0.1:4436](http://127.0.0.1:4436).
-
-You should see something like this:
-
-![User Email Verification](@site/src/components/Shared/kratos/_static/quickstart/mailslurper-quickstart.png)
-
-If not, hard refresh the tab or click on the home icon in the menu bar.
-
-Next, click the verification link. You will end up at the dashboard, with a
-verified email address (check the `verified` and `verified_at` field in the JSON
-response):
+After verifying your email, the session at [127.0.0.1:4455/sessions](http://127.0.0.1:4455/sessions) shows the verified address —
+check the `verified` and `verified_at` fields in the JSON response:
 
 ```json {31}
 {
@@ -604,11 +599,12 @@ The next screen shows a HTML form where you enter your email address:
 
 ![Enter your email address](@site/src/components/Shared/kratos/_static/quickstart/quickstart-recover-ii.png)
 
-Hit "submit" and check the emails for the account recovery message:
+Hit "submit" and open MailSlurper to retrieve the account recovery message. Recovery uses a one-time code (Ory's recommended
+practice — codes are phishing-resistant compared to magic links):
 
-![Check your email for the password reset email](@site/src/components/Shared/kratos/_static/quickstart/quickstart-recover-iii.png)
+![Check your email for the password reset code](@site/src/components/Shared/kratos/_static/quickstart/quickstart-recover-iii.png)
 
-Click the link, and change your password:
+Enter the code on the recovery page to verify your identity, then set a new password:
 
 ![Change your password](@site/src/components/Shared/kratos/_static/quickstart/quickstart-recover-iv.png)
 
@@ -649,8 +645,8 @@ To clean everything up, you need to bring down the Docker Compose environment
 and remove all mounted volumes.
 
 ```sh
-docker-compose -f quickstart.yml down -v
-docker-compose -f quickstart.yml rm -fsv
+docker compose -f quickstart.yml down -v
+docker compose -f quickstart.yml rm -fsv
 ```
 
 ## Next steps
@@ -670,15 +666,15 @@ example:
 **Use a different database**
 
 If you want to run the quickstart with PostgreSQL, run the following
-docker-compose:
-`docker-compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-postgres.yml up --build --force-recreate`
+docker compose:
+`docker compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-postgres.yml up --build --force-recreate`
 
 If you want to run the quickstart with CockroachDB, run the following
-docker-compose:
-`docker-compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-crdb.yml up --build --force-recreate`
+docker compose:
+`docker compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-crdb.yml up --build --force-recreate`
 
-If you want to run the quickstart with MySQL, run the following docker-compose:
-`docker-compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-mysql.yml up --build --force-recreate`
+If you want to run the quickstart with MySQL, run the following docker compose:
+`docker compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-mysql.yml up --build --force-recreate`
 
 **Change ports**
 
@@ -708,7 +704,7 @@ In this tutorial we use a simplified configuration. You can find it in
 In the same place the
 [identity schema](https://github.com/ory/kratos/blob/master/contrib/quickstart/kratos/email-password/identity.schema.json)
 used in the tutorial can be found. The configuration gets loaded in
-docker-compose as specified in the
+docker compose as specified in the
 [`quickstart.yml`](https://github.com/ory/kratos/blob/master/quickstart.yml).
 
 <CodeFromRemote
