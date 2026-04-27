@@ -6,11 +6,20 @@ title: Early-access quickstart
 import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 ```
 
-# Early-access preview quickstart
+# Quickstart (early access)
 
 Talos is Ory's API key management service. This guide shows how to pull the public early-access commercial image, start a local
 Postgres-backed Talos instance, and run the headline flows for issued and imported API keys. You only need Docker for the bring-up
 steps below; the `curl` examples are the preview baseline, and the Talos CLI is shown as an optional alternative.
+
+## Set up credentials
+
+1. Download `keyfile.json` from the email you received.
+2. Authenticate with Google Cloud:
+    ```bash
+    gcloud auth activate-service-account --key-file=keyfile.json
+    gcloud auth configure-docker europe-docker.pkg.dev
+    ```
 
 ## Pull the image
 
