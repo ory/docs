@@ -9,6 +9,28 @@ import apiSidebar from "../docs/talos/reference/api/sidebar"
 
 type SidebarItemsConfig = SidebarItemConfig[]
 
+function prefixSidebarIds(
+  items: SidebarItemsConfig,
+  prefix: string,
+): SidebarItemsConfig {
+  return items.map((item) => {
+    if (typeof item === "string") return `${prefix}${item}`
+    if (item.type === "doc") return { ...item, id: `${prefix}${item.id}` }
+    if (item.type === "category") {
+      const link =
+        item.link?.type === "doc"
+          ? { ...item.link, id: `${prefix}${item.link.id}` }
+          : item.link
+      return {
+        ...item,
+        link,
+        items: prefixSidebarIds(item.items as SidebarItemsConfig, prefix),
+      }
+    }
+    return item
+  })
+}
+
 const homeLink: SidebarItem = {
   type: "link",
   href: "/welcome",
@@ -1033,7 +1055,7 @@ const talos: SidebarItemsConfig = [
         type: "category",
         label: "API",
         link: { type: "doc", id: "talos/reference/api/ory-talos-api" },
-        items: apiSidebar,
+        items: prefixSidebarIds(apiSidebar, "talos/"),
       },
       "talos/reference/config",
       "talos/reference/error-codes",

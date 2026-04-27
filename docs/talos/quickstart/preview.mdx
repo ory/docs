@@ -6,12 +6,11 @@ title: Early-access quickstart
 import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 ```
 
-# Early-access quickstart
+# Early-access preview quickstart
 
-Ory Talos is Ory's API key management service. This guide shows how to pull the public early-access
-commercial image, start a local Postgres-backed Ory Talos instance, and run the headline flows for
-issued and imported API keys. You only need Docker for the bring-up steps below; the `curl`
-examples are the preview baseline, and the Talos CLI is shown as an optional alternative.
+Talos is Ory's API key management service. This guide shows how to pull the public early-access commercial image, start a local
+Postgres-backed Talos instance, and run the headline flows for issued and imported API keys. You only need Docker for the bring-up
+steps below; the `curl` examples are the preview baseline, and the Talos CLI is shown as an optional alternative.
 
 ## Pull the image
 
@@ -56,8 +55,8 @@ db:
   dsn: "postgres://talos:talos@talos-postgres:5432/talos?sslmode=disable"
 
 secrets:
-  default:    { current: "preview-default-secret-minimum-32-chars-long" }
-  hmac:       { current: "preview-hmac-secret-minimum-32-chars-long" }
+  default: { current: "preview-default-secret-minimum-32-chars-long" }
+  hmac: { current: "preview-hmac-secret-minimum-32-chars-long" }
   pagination: { current: "preview-pagination-secret-32-chars-min" }
 
 cache: { type: "memory", ttl: "5m" }
@@ -67,8 +66,8 @@ log: { level: "info", format: "json" }
 
 :::caution
 
-This config embeds the development EdDSA JWK from `deployments/docker/config/config.yaml`. Replace
-it before any non-preview use because the private key is published in the source tree.
+This config embeds the development EdDSA JWK from `deployments/docker/config/config.yaml`. Replace it before any non-preview use
+because the private key is published in the source tree.
 
 :::
 
@@ -107,11 +106,11 @@ for i in $(seq 1 30); do
 done
 ```
 
-The bring-up commands above are for local preview users. The executable API examples below are
-tested in CI against the commercial docs harness.
+The bring-up commands above are for local preview users. The executable API examples below are tested in CI against the same
+published image, running on the `talos-preview` Docker network.
 
-<!-- doctest:setup:file tools/doctest/setup-commercial.sh -->
-<!-- doctest:teardown:file tools/doctest/teardown.sh -->
+<!-- doctest:setup:file tools/doctest/setup-preview.sh -->
+<!-- doctest:teardown:file tools/doctest/teardown-preview.sh -->
 
 Set the base URL for the local server:
 
@@ -121,8 +120,8 @@ export TALOS_URL="${TALOS_URL:-http://localhost:8080}"
 
 ## Issue an API key
 
-Create an issued key on the admin plane and save its secret for later steps. For the complete field
-reference, see the [IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
+Create an issued key on the admin plane and save its secret for later steps. For the complete field reference, see the
+[IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
 
 <!-- doctest:exec -->
 
@@ -130,12 +129,14 @@ reference, see the [IssueAPIKey API reference](../reference/api/admin-issue-api-
 <TabItem value="cli" label="CLI">
 
 ```bash
-RESPONSE=$(talos keys issue "preview-issued-key" \
+RESPONSE=$(docker run --rm --network talos-preview \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6 \
+  keys issue "preview-issued-key" \
   --actor preview-user \
   --scopes "read:profile,write:profile" \
   --ttl 720h \
   --format json \
-  -e "$TALOS_URL" 2>/dev/null)
+  -e "http://talos:8080" 2>/dev/null)
 
 echo "$RESPONSE" | jq .
 
@@ -171,13 +172,12 @@ export KEY_ID=$KEY_ID
 </TabItem>
 </Tabs>
 
-The response returns `issued_api_key` metadata plus `secret`, which is shown only once. Store the
-secret securely.
+The response returns `issued_api_key` metadata plus `secret`, which is shown only once. Store the secret securely.
 
 ## Verify the issued key
 
-Send the issued key secret to the unified verify endpoint. For the full response fields and error
-codes, see the [VerifyAPIKey API reference](../reference/api/admin-verify-api-key.api.mdx).
+Send the issued key secret to the unified verify endpoint. For the full response fields and error codes, see the
+[VerifyAPIKey API reference](../reference/api/admin-verify-api-key.api.mdx).
 
 <!-- doctest:exec -->
 
@@ -185,7 +185,9 @@ codes, see the [VerifyAPIKey API reference](../reference/api/admin-verify-api-ke
 <TabItem value="cli" label="CLI">
 
 ```bash
-talos keys verify "$API_SECRET" -e "$TALOS_URL"
+docker run --rm --network talos-preview \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6 \
+  keys verify "$API_SECRET" -e "http://talos:8080"
 ```
 
 </TabItem>
@@ -206,8 +208,8 @@ An active result includes `is_active: true` plus the key's actor, scopes, issuer
 
 ## Derive a JWT from the issued key
 
-Mint a short-lived JWT from the issued key with a custom claim. For the full request and response
-schema, see the [DeriveToken API reference](../reference/api/admin-derive-token.api.mdx).
+Mint a short-lived JWT from the issued key with a custom claim. For the full request and response schema, see the
+[DeriveToken API reference](../reference/api/admin-derive-token.api.mdx).
 
 <!-- doctest:exec -->
 
@@ -215,12 +217,14 @@ schema, see the [DeriveToken API reference](../reference/api/admin-derive-token.
 <TabItem value="cli" label="CLI">
 
 ```bash
-RESPONSE=$(talos keys derive-token "$API_SECRET" \
+RESPONSE=$(docker run --rm --network talos-preview \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6 \
+  keys derive-token "$API_SECRET" \
   --algorithm jwt \
   --ttl 1h \
   --claims '{"role":"preview-user","environment":"demo"}' \
   --format json \
-  -e "$TALOS_URL" 2>/dev/null)
+  -e "http://talos:8080" 2>/dev/null)
 
 echo "$RESPONSE" | jq .
 
@@ -250,13 +254,12 @@ export JWT_TOKEN=$JWT_TOKEN
 </TabItem>
 </Tabs>
 
-The derived token inherits the parent key's permissions and returns as `token.token` with its own
-expiry metadata.
+The derived token inherits the parent key's permissions and returns as `token.token` with its own expiry metadata.
 
 ## Import an existing API key
 
-Import a raw key string into Talos without rotating the credential. For the complete field
-reference, see the [ImportAPIKey API reference](../reference/api/admin-import-api-key.api.mdx).
+Import a raw key string into Talos without rotating the credential. For the complete field reference, see the
+[ImportAPIKey API reference](../reference/api/admin-import-api-key.api.mdx).
 
 <!-- doctest:exec -->
 
@@ -266,13 +269,15 @@ reference, see the [ImportAPIKey API reference](../reference/api/admin-import-ap
 ```bash
 IMPORTED_RAW_KEY=sk_preview_demo_001
 
-RESPONSE=$(talos keys imported import "preview-imported-key" \
+RESPONSE=$(docker run --rm --network talos-preview \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6 \
+  keys imported import "preview-imported-key" \
   --raw-key "$IMPORTED_RAW_KEY" \
   --actor preview-import-user \
   --scopes "payments:read,payments:write" \
   --ttl 720h \
   --format json \
-  -e "$TALOS_URL" 2>/dev/null)
+  -e "http://talos:8080" 2>/dev/null)
 
 echo "$RESPONSE" | jq .
 
@@ -309,13 +314,11 @@ export IMPORTED_KEY_ID=$IMPORTED_KEY_ID
 </TabItem>
 </Tabs>
 
-Talos stores a cryptographic representation of the imported credential. The raw key is never
-returned after import.
+Talos stores a cryptographic representation of the imported credential. The raw key is never returned after import.
 
 ## Verify the imported key
 
-Imported keys use the same verify endpoint as issued keys. Talos detects the credential type
-automatically.
+Imported keys use the same verify endpoint as issued keys. Talos detects the credential type automatically.
 
 <!-- doctest:exec -->
 
@@ -323,7 +326,9 @@ automatically.
 <TabItem value="cli" label="CLI">
 
 ```bash
-talos keys verify "$IMPORTED_RAW_KEY" -e "$TALOS_URL"
+docker run --rm --network talos-preview \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6 \
+  keys verify "$IMPORTED_RAW_KEY" -e "http://talos:8080"
 ```
 
 </TabItem>
