@@ -103,7 +103,7 @@ problem persists, feel free to [open an issue](https://github.com/ory/kratos/iss
 
 :::
 
-Let's clone Ory Kratos and run `docker-compose`:
+Let's clone Ory Kratos and run `docker compose`:
 
 ```mdx-code-block
 import { useLatestRelease } from '@site/src/hooks'
@@ -113,9 +113,9 @@ import CodeBlock from '@theme/CodeBlock'
 cd kratos
 \
 git checkout ${useLatestRelease('kratos')}
-docker-compose -f quickstart.yml -f quickstart-standalone.yml up --force-recreate
+docker compose -f quickstart.yml -f quickstart-standalone.yml up --force-recreate
 # If you have SELinux, run:
-docker-compose -f quickstart.yml -f quickstart-selinux.yml -f quickstart-standalone.yml up --force-recreate`}</CodeBlock>
+docker compose -f quickstart.yml -f quickstart-selinux.yml -f quickstart-standalone.yml up --force-recreate`}</CodeBlock>
 ```
 
 This might take a minute or two. Once the output slows down and logs indicate a healthy system you're ready to roll! A healthy
@@ -612,8 +612,8 @@ This is just scratching the surface of Ory Kratos, see [Next Steps](#next-steps)
 To clean everything up, you need to bring down the Docker Compose environment and remove all mounted volumes.
 
 ```sh
-docker-compose -f quickstart.yml down -v
-docker-compose -f quickstart.yml rm -fsv
+docker compose -f quickstart.yml down -v
+docker compose -f quickstart.yml rm -fsv
 ```
 
 ## Next steps
@@ -631,14 +631,14 @@ for example:
 
 **Use a different database**
 
-If you want to run the quickstart with PostgreSQL, run the following docker-compose:
-`docker-compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-postgres.yml up --build --force-recreate`
+If you want to run the quickstart with PostgreSQL, run the following docker compose:
+`docker compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-postgres.yml up --build --force-recreate`
 
-If you want to run the quickstart with CockroachDB, run the following docker-compose:
-`docker-compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-crdb.yml up --build --force-recreate`
+If you want to run the quickstart with CockroachDB, run the following docker compose:
+`docker compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-crdb.yml up --build --force-recreate`
 
-If you want to run the quickstart with MySQL, run the following docker-compose:
-`docker-compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-mysql.yml up --build --force-recreate`
+If you want to run the quickstart with MySQL, run the following docker compose:
+`docker compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-mysql.yml up --build --force-recreate`
 
 **Change ports**
 
@@ -662,7 +662,7 @@ In this tutorial we use a simplified configuration. You can find it in
 [`contrib/quickstart/kratos/email-password/kratos.yml`](https://github.com/ory/kratos/blob/master/contrib/quickstart/kratos/email-password/kratos.yml).
 In the same place the
 [identity schema](https://github.com/ory/kratos/blob/master/contrib/quickstart/kratos/email-password/identity.schema.json) used in
-the tutorial can be found. The configuration gets loaded in docker-compose as specified in the
+the tutorial can be found. The configuration gets loaded in docker compose as specified in the
 [`quickstart.yml`](https://github.com/ory/kratos/blob/master/quickstart.yml).
 
 <CodeFromRemote
