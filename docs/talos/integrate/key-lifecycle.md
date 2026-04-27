@@ -95,7 +95,7 @@ The `update_mask` field controls which fields are modified. Only fields listed i
 [AIP-134](https://google.aip.dev/134) standard for partial updates.
 
 Updatable fields include `name`, `scopes`, `metadata`, and `rate_limit_policy`. For the complete field reference, see the
-[UpdateIssuedAPIKey API reference](../reference/api/admin-plane-service-update-issued-api-key.api.mdx).
+[UpdateIssuedAPIKey API reference](../reference/api/admin-update-issued-api-key.api.mdx).
 
 ## Rotate a key
 
@@ -146,7 +146,7 @@ echo "export KEY_ID=$NEW_KEY_ID" >> "$DOCTEST_ENV_FILE"
 
 The response includes the new `issued_api_key` (with a new `key_id`), the new `secret` (shown once), and `old_issued_api_key`
 (status `KEY_STATUS_REVOKED`). For the complete field reference, see the
-[RotateIssuedAPIKey API reference](../reference/api/admin-plane-service-rotate-issued-api-key.api.mdx).
+[RotateIssuedAPIKey API reference](../reference/api/admin-rotate-issued-api-key.api.mdx).
 
 ### Zero-downtime rotation
 
@@ -188,7 +188,7 @@ echo "Key revoked"
 
 Standard reasons include `REVOCATION_REASON_KEY_COMPROMISE`, `REVOCATION_REASON_SUPERSEDED`,
 `REVOCATION_REASON_AFFILIATION_CHANGED`, and `REVOCATION_REASON_PRIVILEGE_WITHDRAWN` (admin only). For the complete list, see the
-[RevokeAPIKey API reference](../reference/api/admin-plane-service-revoke-api-key.api.mdx).
+[RevokeAPIKey API reference](../reference/api/admin-revoke-api-key.api.mdx).
 
 When using `PRIVILEGE_WITHDRAWN`, you can include a `reason_text` field with a human-readable explanation.
 

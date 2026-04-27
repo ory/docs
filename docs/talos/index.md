@@ -1,5 +1,6 @@
 ---
 title: Ory Talos
+slug: /
 ---
 
 # Ory Talos

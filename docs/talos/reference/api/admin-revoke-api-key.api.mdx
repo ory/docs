@@ -1,0 +1,45 @@
+---
+id: admin-revoke-api-key
+title: "Revoke API Key"
+description: "Immediately revokes an API key (issued or imported). Once revoked, the key"
+sidebar_label: "Revoke API Key"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVttu20YQ/ZXBPiUGJbtqC6R8quLICePEkiUlzoWBs+KOxI2Xu+zuUDZhEOhH9Av7JcUuGVmRFATpA0EuOZwzlzOXeybQZVaWJI1mMUuKAoXkhKoGi2tzgw64huEkgRus4ZF0rkIBxoIsSmMJxeM+jHWGnbSIgHL0sqnOuAZtQBm9QgsLhMqhgKWxwCvKUZPMuIftwzyXDkyJNpxBOpDW4hqtkwuF/VRPW+VerwNuPRpxqTfqhCQoK1sah66f6lR//vw5JypTPRnP5nC8HhxzUUh9zEt5jrU7PvnlxeWHd3+8fX95/vLpk3eXHy7b691l3DqS6vtUA6TMIndGpyyGlE1Hb8enw3kyvriejoaz8cX1+ej99en49WQ6fp3MRilLdRPAWcQ2/iSCxWzo4Vs3hpPkHGsWsZJbXiChdSz+eM+kT0DJKWcR07xAFrMbrK+lYBGz+FclLQoWk60wYi7LseAsvmdUl17SkZV6xZrmUyuMjp4aUXuJzGhCTf6Rl6Xqon78xfmM32+pKq23mSQ6f/qGGDtHNg4PXMHSIvYI7wjwrlRcdxkda1UDV8rcooDbHDW0cfS5nUyTt8mr0fPR9VUyf/FsOry66LNo15Goi3yLveSVIhYfyMCbi9lkdJqcJaNnLNqx0se79XbaopfWrKVAB45slVFlUQTitkKdjQ6kdqWPNixqmJ6dwu+DJyf9VL/x/JUaFoZyCHwCrgU4VMvelpalMrctC6EH+wYfcD+GQI+e0aqOQRvahE7qXfUsYqirgsUffxiMH9H1oMjw7Cx5lbSvTl8ML55/R9XszWQ0nY2efefzAS/Zp90kR4wkKf9iPdjNFWuajbhZfMGMtsRnxElmpxaFbyNcub3yCuRvmma/dO56xsqV1FxNfP1dtJW2CPJe2pVGu7YEBicnP1VA35ob0L8l5BBclWXo3LJS8BWq73EHJ7/9DNQh3V2P7hrxFpKqA8Smiv53S8iMQH9fGltwX45S06+Dh9qVmnCFtgUjLlX4SxIW4YELIdu2MdlW20Q7MH+26vZ72/cJUVpDZlEthzpksRPj1vJwLtA5vvpJnbbMPM8qdzCTGiqNdyVmhALQWmO3E+rV8pXv6/tc9XVQIOXGz4XSOAqjgHIWs/1Bdd+OgKYbSyxiPknThw4/uuNFqXC/RW9q7Gsf/UG/aCIm9dIc6PW2hjlXxvnmzSGXq7xXog0k8JPfBQch23gIBdd8hQVqAod2LTPsQ0KQcy0UurAheFpu/6LkErM6UxiD3zGkXoVhH8EarVzW/kw5FsAJlLkFxQl1Vkcg0Mq1/+pyY6mn5BoFkLlB7eDRy6t56NCvecatMfpxFI4hlP4fHioktOp5jmHLkQ5cqSSB1GSAbs1XD1zsxXpwdLSX0KMj+Pfvf7qJsBn7Lg7luHGsW54isIY4+XvIaNRtUp0r2Bkfwcur89njYG8IQVejnQmolrPWrg48TInO1O2R5vejrTDnRgm/bzyw/CG7w0nCIha2rpD3Qf+ENc1/EaGFAA==
+sidebar_class_name: "post api-method"
+info_path: reference/api/ory-talos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
+
+<Heading as={"h1"} className={"openapi__heading"} children={"Revoke API Key"}></Heading>
+
+<MethodEndpoint method={"post"} path={"/v2/admin/apiKeys/{key_id}:revoke"} context={"endpoint"}></MethodEndpoint>
+
+Immediately revokes an API key (issued or imported). Once revoked, the key can no longer be used for authentication. This
+operation is irreversible. Revoked keys are retained for audit purposes.
+
+```http
+POST /v2/admin/apiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ:revoke
+{
+  "reason": "REVOCATION_REASON_KEY_COMPROMISE"
+}
+```
+
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails {...require("./admin-revoke-api-key.ParamsDetails.json")}></ParamsDetails>
+
+<RequestSchema {...require("./admin-revoke-api-key.RequestSchema.json")}></RequestSchema>
+
+<StatusCodes {...require("./admin-revoke-api-key.StatusCodes.json")}></StatusCodes>

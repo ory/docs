@@ -90,8 +90,7 @@ echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 </TabItem>
 </Tabs>
 
-For the complete request field reference, see the
-[IssueAPIKey API reference](../reference/api/admin-plane-service-issue-api-key.api.mdx).
+For the complete request field reference, see the [IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
 
 ## Verify from an allowed IP
 
@@ -195,7 +194,7 @@ echo "$UNRESTRICT_RESPONSE" | jq .
 </Tabs>
 
 For the complete update field reference, see the
-[UpdateIssuedAPIKey API reference](../reference/api/admin-plane-service-update-issued-api-key.api.mdx).
+[UpdateIssuedAPIKey API reference](../reference/api/admin-update-issued-api-key.api.mdx).
 
 ## Import keys with IP restrictions
 
@@ -235,8 +234,7 @@ echo "$IMPORT_RESPONSE" | jq .
 </TabItem>
 </Tabs>
 
-For the complete import field reference, see the
-[ImportAPIKey API reference](../reference/api/admin-plane-service-import-api-key.api.mdx).
+For the complete import field reference, see the [ImportAPIKey API reference](../reference/api/admin-import-api-key.api.mdx).
 
 ## Behavior notes
 

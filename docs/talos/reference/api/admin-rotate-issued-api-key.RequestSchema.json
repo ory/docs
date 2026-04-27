@@ -1,0 +1,77 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "ip_restriction": {
+              "description": "IPRestriction defines IP-based access controls for an API key.\nWhen allowed_cidrs is non-empty, only requests from IPs matching at least one\nCIDR range are permitted. Empty allowed_cidrs means no IP restriction (all IPs allowed).\nIP restrictions apply to root API key and imported key verification only;\nderived tokens (JWT/macaroon) are stateless and not subject to IP checks.",
+              "properties": {
+                "allowed_cidrs": {
+                  "description": "allowed_cidrs is a list of CIDR ranges that are allowed to use this key.\nSupports both IPv4 (e.g., \"10.0.0.0/8\") and IPv6 (e.g., \"2001:db8::/32\").\nIf empty, all IPs are allowed (no restriction).",
+                  "items": { "type": "string" },
+                  "type": "array"
+                }
+              },
+              "type": "object",
+              "title": "v2IPRestriction"
+            },
+            "metadata": {
+              "title": "metadata for the new API key (inherits from old key if not provided)",
+              "type": "object"
+            },
+            "name": {
+              "title": "name for the new API key (inherits from old key if not provided)",
+              "type": "string"
+            },
+            "rate_limit_policy": {
+              "description": "RateLimitPolicy describes the rate limit policy for an API key.\n\nIn OSS mode, this policy is informational and meant to be consumed by\nupstream gateways (Envoy, Cloudflare, etc.) for enforcement.\nIn commercial mode, Talos enforces rate limits using in-memory or Redis backends,\nboth powered by the GCRA (Generic Cell Rate Algorithm).\n\nCompliant with draft-ietf-httpapi-ratelimit-headers-10.",
+              "properties": {
+                "quota": {
+                  "description": "quota is the number of requests allowed per window.",
+                  "format": "int64",
+                  "type": "string"
+                },
+                "unit": {
+                  "title": "unit describes the quota unit type.\nDefault: \"requests\"\nOther valid values per IETF spec: \"content-bytes\", \"concurrent-requests\"",
+                  "type": "string"
+                },
+                "window": {
+                  "description": "window is the time window for the quota.\nCommon values: 60s (1 minute), 3600s (1 hour), 86400s (1 day).",
+                  "type": "string"
+                }
+              },
+              "type": "object",
+              "title": "v2RateLimitPolicy"
+            },
+            "scopes": {
+              "items": { "type": "string" },
+              "title": "scopes for the new API key (inherits from old key if not provided)",
+              "type": "array"
+            },
+            "update_mask": {
+              "title": "update_mask disambiguates \"not provided\" from \"set to empty\" (AIP-134)",
+              "type": "string"
+            },
+            "visibility": {
+              "default": "KEY_VISIBILITY_UNSPECIFIED",
+              "description": "KeyVisibility distinguishes public (client-safe) keys from secret (server-only) keys.\nPublic keys use a different configurable prefix for visual distinction.\nBoth types share the same scope/permission system — visibility is about exposure safety.\n\n - KEY_VISIBILITY_UNSPECIFIED: Treated as SECRET",
+              "enum": [
+                "KEY_VISIBILITY_UNSPECIFIED",
+                "KEY_VISIBILITY_SECRET",
+                "KEY_VISIBILITY_PUBLIC"
+              ],
+              "type": "string",
+              "title": "v2KeyVisibility"
+            }
+          },
+          "type": "object",
+          "title": "StaticCredentialsAdminRotateIssuedAPIKeyBody"
+        }
+      }
+    },
+    "required": true,
+    "x-originalParamName": "body"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "parameters": [
+    {
+      "description": "SHA512/256 hash of the imported key (REQUIRED, path param)",
+      "in": "path",
+      "name": "key_id",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+---
+id: revoke-api-key
+title: "Revoke API Key"
+description: "Allows an API key holder to revoke their own key. The caller must provide"
+sidebar_label: "Revoke API Key"
+hide_title: true
+hide_table_of_contents: true
+api: eJztV9tu4zYQ/ZXBPCWB7KRZFCj0VDdxdrXZTVw72aCIgiwtjS1uKFIlKSeCYaAf0S/slxQk5Uu83g0C9KEo6hdL5HA4lzNnRnPMyWSaV5YriTH2hFCPBpiE3iCBB2qgUCInDVaBppl6ILAFcQ3qUbrtLlwVBBkTgjSUtbFQaTXjOaXSFgSTWoiVJkOZJgvMOBk1ATWBShlDxnAluzCqq0ppa4AbU1O+PGZSyWQOvHSblPulLry/uQK3XLKMaaUkWPVA0kDGpFQWxgSGxKQTTM5hzxbUpJJpAmOZJUHG7HdTmUpn/mCYfEo+9N/272+Sq3enw97NBWhiRkngBpw+5sJCOUyUXivOmAtaKvdYXnLZUVI0Qefnz58La6tUDi5HV3A4Oz5kFT+nxsTu7NDblMp5KgFSzDTlJC1nIsUYUjQP94LP6J6Nsx+O33S73RSjIBlMClLD/qfLk95VcnlxP+z3RpcX9+f93+5PLj8Ohpcfk1E/xVQuvCUYoapIe1uTHGMM9/cGyTk1GKGm32sy9heVNxjPMVPSkrTukVWV4MHJwy/GwWOOJiuoZO7pOW5GK8eC4mHQGgL3Cjylcty0EOJyCisMvYwfjLDSzlPLyXhPVoF1b5ZbQRjj2Q5EKv0MXrA37P96nQz7p/sYoW0qd85YzeUUF1GbhhCCCauFdTH9Kh3XF6NB/yQ5S/qnGG0Fa7gCzzCgrK0ZA8bqOrO1phzWCGuxaIBLU3G3N25geHYCPx7/dNRN5bWhHLiEsbIFeCz60tjCKUxcJjw+oQNfG7yjCGLorZAdP6sDLrfVY4Qk6xLj2xeD8RJ2d4r0zs6SD0lYOnnXu3j7DVWj60F/OOqffmN7h5d4t53kaIWW2fF2rnCxWImr8RfK7DPxb9QBLtyxf2HJuOp3kMLY6poifOoozadcMjFgmpUXrHR+jR05eOibSkkT6uv46OgfJYyg2jGuJltrSTkoCabOMjJmUottxHko98vKNhty+LrkhDt3Zae3efPS7y56ubbqX+H7FjOpnNz/ROmSOfrg0r45XpvOpaUp6XCZZVz4U9xS6R9YnnN3DxODTbWLbQL8Oaibb1PYdwBcaWXVuJ70pM93K8a0Zv69JGPY9JU6dZWNLLO12RlmCbWkp4oyR76ktdKb0XZq2dQ4VnHJG5Ge8YxcxZZkC+XaWaWMu61itsAYdzdbjNDlZLhudf0nVlaCtvvEmgGWLP8Cmy0i5HKivsb3pW7gignlxhlgUPBp0alI+5TLLIwhPIP15VAyyaZUkrRggp9dSCwUTOaCzLquN44IPqGsyQTFfmhy5e/GowhmpPmkaemgBGZBqEcQzJLMmghy0nzmdk2htO24eSNfTlB7y9HqYzta7Uf+1VOPO8N8WayGJ0dS3ICpBLfApVVgH9XSAxM7sQ4cHIy8vycr283BAfz1x59tv1pNKCb2vLVyDPb8NBiBVm5ui1oGjNqG3bpCrfERvL85H+17e30I+HJG8yasEdRe7hmlNXWz4boxbyPMgX/NBqbX2e0NEoxwRtqEvB93jxwoHCpL5llABg4NSPThCoPXM7xscMn/M/h/cQZv2dHSkz2sBOPSoaTWfjYN3HWLM9cDdrDXXYSFY7n4FufzMTN0rcVi4ZZ/r0k3GN/eRThjmrOxQ+ft3SLCglhOGuPbOT5QgzGeBHx1rpwhTlzUntu3+9YiWp7oZRlV9ruym0TsAo1RmBXiOZa+yaFmj45N2SPG6D9FfJU7Ab82R8HktPZNBYNO9/sbqPUS1A==
+sidebar_class_name: "post api-method"
+info_path: reference/api/ory-talos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
+
+<Heading as={"h1"} className={"openapi__heading"} children={"Revoke API Key"}></Heading>
+
+<MethodEndpoint method={"post"} path={"/v2/apiKeys:selfRevoke"} context={"endpoint"}></MethodEndpoint>
+
+Allows an API key holder to revoke their own key. The caller must provide the full API key secret as proof of possession. Supports
+issued API keys and imported keys. JWT and macaroon tokens cannot be self-revoked (they are stateless).
+
+The PRIVILEGE_WITHDRAWN reason is not allowed for self-revocation (admin-only).
+
+```http
+POST /v2/apiKeys:selfRevoke
+{
+  "credential": "sk_live_abc123...",
+  "reason": "REVOCATION_REASON_KEY_COMPROMISE"
+}
+```
+
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails parameters={undefined}></ParamsDetails>
+
+<RequestSchema {...require("./revoke-api-key.RequestSchema.json")}></RequestSchema>
+
+<StatusCodes {...require("./revoke-api-key.StatusCodes.json")}></StatusCodes>

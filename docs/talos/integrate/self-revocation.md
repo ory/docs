@@ -125,7 +125,7 @@ fi
 </Tabs>
 
 The request requires `credential` (the full API key secret) and optionally `reason` (revocation reason enum). For the complete
-field reference, see the [SelfRevokeAPIKey API reference](../reference/api/data-plane-service-self-revoke-api-key.api.mdx).
+field reference, see the [SelfRevokeAPIKey API reference](../reference/api/revoke-api-key.api.mdx).
 
 Only issued and imported API keys can be self-revoked. Derived tokens (JWTs and macaroons) are stateless and cannot be revoked.
 All revocation reasons except `REVOCATION_REASON_PRIVILEGE_WITHDRAWN` are allowed — that reason is reserved for admin-initiated

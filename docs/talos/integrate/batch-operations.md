@@ -149,8 +149,8 @@ response is `200 OK` if at least one key succeeds. Check `failure_count` and ind
 failures.
 
 For the complete field reference, see the
-[BatchImportAPIKeys API reference](../reference/api/admin-plane-service-batch-import-api-keys.api.mdx). For batch import error
-codes, see the [error codes reference](../reference/error-codes.md#batch-import-error-codes).
+[BatchImportAPIKeys API reference](../reference/api/admin-batch-import-api-keys.api.mdx). For batch import error codes, see the
+[error codes reference](../reference/error-codes.md#batch-import-error-codes).
 
 ### Limits
 

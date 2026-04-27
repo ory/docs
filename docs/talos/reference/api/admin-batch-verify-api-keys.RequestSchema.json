@@ -1,0 +1,30 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "requests": {
+              "items": {
+                "properties": {
+                  "credential": {
+                    "title": "API key or derived token (any format: sk_*, JWT, macaroon)",
+                    "type": "string"
+                  }
+                },
+                "type": "object",
+                "title": "v2VerifyAPIKeyRequest"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object",
+          "title": "v2BatchVerifyAPIKeysRequest"
+        }
+      }
+    },
+    "required": true,
+    "x-originalParamName": "body"
+  }
+}

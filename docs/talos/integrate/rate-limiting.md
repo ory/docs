@@ -71,7 +71,7 @@ echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 </Tabs>
 
 The response includes the full key metadata with the `rate_limit_policy` attached. For the complete request and response field
-reference, see the [IssueAPIKey API reference](../reference/api/admin-plane-service-issue-api-key.api.mdx).
+reference, see the [IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
 
 ## Verify a rate-limited key
 
@@ -98,7 +98,7 @@ curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
 
 When rate limiting is enabled (Commercial), the response also includes `rate_limit_remaining` (approximate requests available
 before the limit is reached) and `rate_limit_reset_time` (when full capacity is recovered). For the complete response field
-reference, see the [VerifyAPIKey API reference](../reference/api/data-plane-service-verify-api-key.api.mdx).
+reference, see the [VerifyAPIKey API reference](../reference/api/admin-verify-api-key.api.mdx).
 
 ## Exceeding the limit
 
@@ -152,7 +152,7 @@ curl -s -X PATCH "$TALOS_URL/v2/admin/issuedApiKeys/$KEY_ID" \
 </Tabs>
 
 The updated policy takes effect on the next verification request (subject to cache TTL). For the complete update field reference,
-see the [UpdateIssuedAPIKey API reference](../reference/api/admin-plane-service-update-issued-api-key.api.mdx).
+see the [UpdateIssuedAPIKey API reference](../reference/api/admin-update-issued-api-key.api.mdx).
 
 ## Remove rate limit policy
 

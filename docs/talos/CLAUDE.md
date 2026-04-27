@@ -55,25 +55,25 @@ in the canonical references:
 or links without a file extension. Hashbang anchors are allowed after the file extension.
 
 - Links to `.md` files: `[text](../reference/error-codes.md#section)`
-- Links to `.api.mdx` files: `[text](../reference/api/admin-plane-service-issue-api-key.api.mdx)`
+- Links to `.api.mdx` files: `[text](../reference/api/admin-issue-api-key.api.mdx)`
 - Links to directory index pages: `[text](../operate/cache/index.md)` (never `../operate/cache/`)
 - Links within the same directory: `[text](./sibling-page.md)`
 
 ```text
 # Good: relative links with file extensions
-For the complete field reference, see the [IssueAPIKey API reference](../reference/api/admin-plane-service-issue-api-key.api.mdx).
+For the complete field reference, see the [IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
 For the full list of error codes, see the [error codes reference](../reference/error-codes.md#verification-error-codes).
 
 # Bad: absolute links without file extensions
-For the complete field reference, see the [IssueAPIKey API reference](/reference/api/admin-plane-service-issue-api-key).
+For the complete field reference, see the [IssueAPIKey API reference](/reference/api/admin-issue-api-key).
 For the full list of error codes, see the [error codes reference](/reference/error-codes#verification-error-codes).
 ```
 
 ### API reference URL pattern
 
-API reference pages are `.api.mdx` files at `reference/api/{service}-{method}.api.mdx` where:
+API reference pages are `.api.mdx` files at `reference/api/{plane}-{method}.api.mdx` where:
 
-- `{service}` is `admin-plane-service` or `data-plane-service`
+- `{plane}` is `admin` or `data`
 - `{method}` is the kebab-case method name (e.g., `issue-api-key`, `verify-api-key`)
 
 The API overview page is `reference/api/ory-talos-api.info.mdx`.

@@ -73,7 +73,7 @@ echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 
 The key fields are `name` (human-readable label), `actor_id` (key actor), and optional `scopes`, `ttl`, `metadata`, and
 `rate_limit_policy`. For the complete field reference, see the
-[IssueAPIKey API reference](../reference/api/admin-plane-service-issue-api-key.api.mdx).
+[IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
 
 ### Response fields
 
@@ -83,8 +83,7 @@ The response contains two top-level fields:
 - **`secret`** — The full API key credential. This value is returned **only once** and cannot be retrieved later. Store it
   securely.
 
-For the complete metadata field reference, see the
-[IssueAPIKey API reference](../reference/api/admin-plane-service-issue-api-key.api.mdx).
+For the complete metadata field reference, see the [IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
 
 ## Verify a key
 
@@ -116,7 +115,7 @@ curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
 The response includes `is_active` (boolean), `key_id`, `actor_id`, `scopes`, `metadata`, and `expire_time` when valid. When
 `is_active` is `false`, `error_code` and `error_message` indicate the reason. When rate limit enforcement is enabled (Commercial),
 the response also includes `rate_limit_remaining` and `rate_limit_reset_time` for keys with a rate limit policy. For the complete
-field reference, see the [VerifyAPIKey API reference](../reference/api/data-plane-service-verify-api-key.api.mdx).
+field reference, see the [VerifyAPIKey API reference](../reference/api/admin-verify-api-key.api.mdx).
 
 ### Verification error codes
 
@@ -195,7 +194,7 @@ curl -s "$TALOS_URL/v2/admin/issuedApiKeys?page_size=10&actor_id=user_42" | jq .
 ### Query parameters
 
 Key parameters are `page_size`, `page_token` (cursor-based pagination), `actor_id`, and `status` (filtering). For the complete
-parameter reference, see the [ListIssuedAPIKeys API reference](../reference/api/admin-plane-service-list-issued-api-keys.api.mdx).
+parameter reference, see the [ListIssuedAPIKeys API reference](../reference/api/admin-list-issued-api-keys.api.mdx).
 
 The response includes a `next_page_token` field. When empty, you have reached the last page.
 

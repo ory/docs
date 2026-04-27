@@ -105,13 +105,13 @@ echo "export JWT_TOKEN=$JWT_TOKEN" >> "$DOCTEST_ENV_FILE"
 
 The key fields are `credential` (the parent API key secret), `algorithm` (`TOKEN_ALGORITHM_JWT` or `TOKEN_ALGORITHM_MACAROON`),
 optional `ttl`, `scopes` (subset of parent's), and `custom_claims`. For the complete field reference, see the
-[DeriveToken API reference](../reference/api/admin-plane-service-derive-token.api.mdx).
+[DeriveToken API reference](../reference/api/admin-derive-token.api.mdx).
 
 ### Response
 
 The response contains a `token` object with `token.token` (the derived token string), `token.expire_time`, `token.scopes`, and
 `token.claims`. For the complete field reference, see the
-[DeriveToken API reference](../reference/api/admin-plane-service-derive-token.api.mdx).
+[DeriveToken API reference](../reference/api/admin-derive-token.api.mdx).
 
 ## Verify a derived token
 

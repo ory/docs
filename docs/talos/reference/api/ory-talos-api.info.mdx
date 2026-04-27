@@ -2,8 +2,8 @@
 id: ory-talos-api
 title: "Ory Talos API"
 description:
-  "Ory Talos is a high-performance API key management service. It handles the full credential lifecycle: issuing keys, verifying
-  them at low latency, deriving short-lived tokens (JWT and Macaroon), and revoking access."
+  "Ory Talos is a high-performance static credential management service. It handles the full credential lifecycle: issuing keys,
+  verifying them at low latency, deriving short-lived tokens (JWT and Macaroon), and revoking access."
 sidebar_label: "Ory Talos API"
 hide_title: true
 custom_edit_url: null
@@ -19,19 +19,18 @@ import Export from "@theme/ApiExplorer/Export"
 
 <Heading as={"h1"} className={"openapi__heading"} children={"Ory Talos API"}></Heading>
 
-Ory Talos is a high-performance API key management service. It handles the full credential lifecycle: issuing keys, verifying them
-at low latency, deriving short-lived tokens (JWT and Macaroon), and revoking access.
+Ory Talos is a high-performance static credential management service. It handles the full credential lifecycle: issuing keys,
+verifying them at low latency, deriving short-lived tokens (JWT and Macaroon), and revoking access.
 
-The API is split into two planes:
+The API is split into two services:
 
-- **Admin Plane** — key lifecycle management (issue, rotate, revoke, import, derive tokens, JWKS)
-- **Data Plane** — high-performance verification (single, batch, self-revoke)
+- **StaticCredentials** — admin operations: key lifecycle (issue, rotate, revoke, import, derive tokens, JWKS) and verification
+- **SelfService** — self-service revocation for credential holders
 
 ### Quick Links
 
-- [**Admin Plane**](./admin-plane-service-issue-api-key) — Key lifecycle management (issue, rotate, revoke, import, derive tokens,
-  JWKS)
-- [**Data Plane**](./data-plane-service-verify-api-key) — High-performance verification (single, batch, self-revoke)
+- [**Admin Plane**](./admin-issue-api-key) — Key lifecycle management (issue, rotate, revoke, import, derive tokens, JWKS)
+- [**Data Plane**](./admin-verify-api-key) — High-performance verification (single, batch, self-revoke)
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

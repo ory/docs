@@ -72,7 +72,7 @@ echo "export IMPORTED_KEY_ID=$IMPORTED_KEY_ID" >> "$DOCTEST_ENV_FILE"
 ### Request fields
 
 The key fields are `raw_key` (the actual API key string), `name`, `actor_id`, and optional `scopes`, `ttl`, and `metadata`. For
-the complete field reference, see the [ImportAPIKey API reference](../reference/api/admin-plane-service-import-api-key.api.mdx).
+the complete field reference, see the [ImportAPIKey API reference](../reference/api/admin-import-api-key.api.mdx).
 
 The response returns an `imported_api_key` object. The `raw_key` is **never returned** after import.
 
@@ -142,8 +142,8 @@ The response includes a `results` array with per-item outcomes (`imported_api_ke
 failure), plus `success_count` and `failure_count` counters. If at least one key succeeds, the HTTP response is `200 OK`.
 
 For the complete response field reference, see the
-[BatchImportAPIKeys API reference](../reference/api/admin-plane-service-batch-import-api-keys.api.mdx). For batch import error
-codes, see the [error codes reference](../reference/error-codes.md#batch-import-error-codes).
+[BatchImportAPIKeys API reference](../reference/api/admin-batch-import-api-keys.api.mdx). For batch import error codes, see the
+[error codes reference](../reference/error-codes.md#batch-import-error-codes).
 
 ## List imported keys
 

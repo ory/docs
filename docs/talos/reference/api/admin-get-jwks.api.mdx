@@ -1,0 +1,38 @@
+---
+id: admin-get-jwks
+title: "Get JWKS"
+description: "Returns the JSON Web Key Set for token verification. Provides the public"
+sidebar_label: "Get JWKS"
+hide_title: true
+hide_table_of_contents: true
+api: eJztVc1u4zYQfpUBT0mg2Knb7gI61VjsBs6i3SD2Igc7QGhyZDGmSJUcKSsYBvoQfcI+STGUEjvpYotFrz3xRzPffDOc+bQTGqMKpibjncjFDVITXAQqEa7mn36DW1zDR+xgjgSFD0B+iw5aDKYwSrLXCK6Db43G3qtu1taoldtiF8EhatRAvvfo4Op20UNEMDE2qGHdAZUmQsTQGoUjjhZBBgTrpUa9ckXwFSjvCrNpQgoJJ4WxmI/HGZREdUw7H2AtI775KR+P4fPNLJ6O4IO31j8mYit3dftxDpGk0zJoOLn58A7e/vzD29PRyq3c/f09Q63c5fsFjNvJWOrKuLHGYFrUzGn88LiNo4foe2uRCV9jz2emRS6m7HCJxGFEJgLG2ruIUeQ7Mbm44EV5R+iIt7Ku7VDAMWPyXVQlVpJ3dWBsMr03B+aVDFkUuXj9MCIT1NX8xa8fUJHY71/fZM/O7WTgeDMQFHs2f9kGU4iNUhhj0Vh4ymQkkl0hG0v/IRvlNfJa+FBJErkwjn6cHHIwjnCDoQ9G0tjkZQirtJFaG44j7fUx7D57FeaXHm73BBspGLf5Zmnq4Mmvm2LqOnEwkyHIdK4wRrn5TsxQqzlJauJXy+ygcfilRkWoAUPw4bjaDCs3UeRLwRhGvQuo0ZGRNoo7JkSl59bbpB6oJZUiF//SvCITxhWes3hJ5lPoYCGt58kECaXZlOc1hvRMTiFPDhkF6pkDVNLJDVbo6DC9M4JSOm0HNSgaa49drClQdcpinubfuA2wUGSDPvCZSqxAElj/CFYSOtVlkFLhr7H0gc4t5/UkJCcsKtJp+FUqGbx3p1k6Bmz9ln1kauU05osSYXo94xRjbQ2BceSBHv1TBjFns3M4O/tHyc/O4K8//oRUW3ie/ZhzBofE4CQJWwbBkyRemQZmYKraBxpSwYF8BjyKp4nvsagOFNAW857XEDyiLc4Hqgm5N0/SfFTm0luNIR714eF1p9czkYkWQ+zffTK64O6ufaRKpsl1smKXSyQYxOxFpxxN/v//i+/5XwwaQfiFxrWVxnHdm2CTRqbhXYqWlTBhpbI/o4lMHEb4LhOlj8T2ux0n8TnY/Z6vf28wdCJf3mWilcHINT/+8m6fiRKlxiDy5U5ssWPxUQpr1o1W2iYJ3WsR3x9rzOX7hdjv/wayxNug
+sidebar_class_name: "get api-method"
+info_path: reference/api/ory-talos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
+
+<Heading as={"h1"} className={"openapi__heading"} children={"Get JWKS"}></Heading>
+
+<MethodEndpoint method={"get"} path={"/v2/admin/derivedKeys/jwks.json"} context={"endpoint"}></MethodEndpoint>
+
+Returns the JSON Web Key Set for token verification. Provides the public keys needed to verify JWT tokens issued by this service.
+Keys are loaded from configuration (file://, https://, or base64:// URIs). Follows the JWKS standard (RFC 7517).
+
+```http
+GET /v2/admin/derivedKeys/jwks.json
+```
+
+<ParamsDetails parameters={undefined}></ParamsDetails>
+
+<RequestSchema {...require("./admin-get-jwks.RequestSchema.json")}></RequestSchema>
+
+<StatusCodes {...require("./admin-get-jwks.StatusCodes.json")}></StatusCodes>

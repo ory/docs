@@ -1,0 +1,36 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "SelfRevokeAPIKeyRequest allows an API key holder to revoke their own key\nby providing the full key secret as proof of possession.",
+          "properties": {
+            "credential": {
+              "title": "Full API key secret or imported key (REQUIRED)",
+              "type": "string"
+            },
+            "reason": {
+              "default": "REVOCATION_REASON_UNSPECIFIED",
+              "description": "RevocationReason provides structured revocation reasons inspired by RFC 5280.\nUsed in both admin and self-revocation flows.\n\n - REVOCATION_REASON_PRIVILEGE_WITHDRAWN: Admin-only: not allowed in self-revocation",
+              "enum": [
+                "REVOCATION_REASON_UNSPECIFIED",
+                "REVOCATION_REASON_KEY_COMPROMISE",
+                "REVOCATION_REASON_AFFILIATION_CHANGED",
+                "REVOCATION_REASON_SUPERSEDED",
+                "REVOCATION_REASON_PRIVILEGE_WITHDRAWN"
+              ],
+              "type": "string",
+              "title": "v2RevocationReason"
+            }
+          },
+          "type": "object",
+          "title": "v2SelfRevokeAPIKeyRequest"
+        }
+      }
+    },
+    "description": "SelfRevokeAPIKeyRequest allows an API key holder to revoke their own key\nby providing the full key secret as proof of possession.",
+    "required": true,
+    "x-originalParamName": "body"
+  }
+}
