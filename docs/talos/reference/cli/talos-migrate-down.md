@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos migrate down
 
 Rollback migrations
@@ -17,8 +18,7 @@ Rollback migrations
 
 Roll back the last N migrations (default: 1).
 
-This is useful for reverting recent migrations in development.
-In production, use this carefully and ensure you have backups.
+This is useful for reverting recent migrations in development. In production, use this carefully and ensure you have backups.
 
 ```
 talos migrate down [flags]
@@ -51,5 +51,4 @@ talos migrate down [flags]
 
 ### See also
 
-* [talos migrate](talos-migrate.md) Database migration tools
-
+- [talos migrate](talos-migrate.md) Database migration tools

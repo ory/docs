@@ -9,15 +9,15 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos jwk generate hmac
 
 Generate an HMAC secret key
 
 ### Synopsis
 
-Generate a symmetric HMAC secret key.
-Default size is 512 bits. Minimum is 256 bits.
-Algorithm is determined by key size: 256→HS256, 384→HS384, ≥512→HS512.
+Generate a symmetric HMAC secret key. Default size is 512 bits. Minimum is 256 bits. Algorithm is determined by key size:
+256→HS256, 384→HS384, ≥512→HS512.
 
 ```
 talos jwk generate hmac [flags]
@@ -56,5 +56,4 @@ talos jwk generate hmac [flags]
 
 ### See also
 
-* [talos jwk generate](talos-jwk-generate.md) Generate a new JWK key
-
+- [talos jwk generate](talos-jwk-generate.md) Generate a new JWK key

@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos keys revoke
 
 Revoke an API key
@@ -35,5 +36,4 @@ talos keys revoke [key-id] [flags]
 
 ### See also
 
-* [talos keys](talos-keys.md) Manage API keys
-
+- [talos keys](talos-keys.md) Manage API keys

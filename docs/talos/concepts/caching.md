@@ -4,14 +4,13 @@ title: Caching and consistency
 
 # Caching and consistency
 
-Talos caches verification results to reduce database load and improve latency. The OSS edition
-ships a no-op cache; in-memory and Redis backends are commercial-only — see
-[Caching](../operate/cache/index.md) for backend selection.
+Talos caches verification results to reduce database load and improve latency. The OSS edition ships a no-op cache; in-memory and
+Redis backends are commercial-only — see [Caching](../operate/cache/index.md) for backend selection.
 
 ## How it works
 
-When caching is enabled, the first verification request for a key hits the database. Subsequent
-requests within the cache TTL are served from cache without a database lookup.
+When caching is enabled, the first verification request for a key hits the database. Subsequent requests within the cache TTL are
+served from cache without a database lookup.
 
 ## Cache types
 
@@ -40,8 +39,8 @@ curl -X POST http://localhost:4420/v2alpha1/admin/apiKeys:verify \
   -d '{"credential": "..."}'
 ```
 
-See the [quickstart revocation check](../quickstart/index.md) and the
-[curl SDK reference](../integrate/sdk/curl.md) for tested examples using cache bypass.
+See the [quickstart revocation check](../quickstart/index.mdx) and the [curl SDK reference](../integrate/sdk/curl.md) for tested
+examples using cache bypass.
 
 ## TTL guidelines
 

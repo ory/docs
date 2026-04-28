@@ -5,15 +5,14 @@ description: Using the generated Go HTTP client
 
 # Go SDK
 
-Talos provides a generated Go HTTP client based on the OpenAPI specification. The client is
-generated using `openapi-generator` and lives in the `internal/client/generated` package.
+Talos provides a generated Go HTTP client based on the OpenAPI specification. The client is generated using `openapi-generator`
+and lives in the `internal/client/generated` package.
 
 :::note
 
-Internal package: the Go client is in an `internal/` package and cannot be imported by external Go
-modules. It is used for Talos's own integration tests and the admin UI backend. If you need a Go
-client for your application, generate one from the OpenAPI spec at `api/talos.openapi-v2.json`
-using [OpenAPI Generator](https://openapi-generator.tech/).
+Internal package: the Go client is in an `internal/` package and cannot be imported by external Go modules. It is used for Talos's
+own integration tests and the admin UI backend. If you need a Go client for your application, generate one from the OpenAPI spec
+at `api/talos.openapi-v3.json` using [OpenAPI Generator](https://openapi-generator.tech/).
 
 :::
 
@@ -24,19 +23,18 @@ using [OpenAPI Generator](https://openapi-generator.tech/).
 
 ```bash
 openapi-generator generate \
-  -i api/talos.openapi-v2.json \
+  -i api/talos.openapi-v3.json \
   -g go \
   -o generated/go-client
 ```
 
-The examples below use the internal client's types for illustration. A generated external client has
-the same API shape.
+The examples below use the internal client's types for illustration. A generated external client has the same API shape.
 
 :::tip
 
 Full working example: see
-[`tools/doctest/examples/go_sdk/main.go`](https://github.com/ory-corp/talos/blob/dev/tools/doctest/examples/go_sdk/main.go)
-for a complete, runnable program that exercises all operations shown below.
+[`tools/doctest/examples/go_sdk/main.go`](https://github.com/ory-corp/talos/blob/dev/tools/doctest/examples/go_sdk/main.go) for a
+complete, runnable program that exercises all operations shown below.
 
 :::
 
@@ -174,9 +172,8 @@ fmt.Println("JWT:", derivedToken.GetToken())
 ## Error handling
 
 The SDK returns an error for every non-2xx response. The error wraps a
-[`google.rpc.Status`](https://cloud.google.com/apis/design/errors#error_model) body — read it via
-the typed `GenericOpenAPIError`, not the HTTP response, so you get the canonical gRPC code,
-human-readable message, and any `ErrorInfo` details.
+[`google.rpc.Status`](https://cloud.google.com/apis/design/errors#error_model) body — read it via the typed `GenericOpenAPIError`,
+not the HTTP response, so you get the canonical gRPC code, human-readable message, and any `ErrorInfo` details.
 
 <!-- doctest:source tools/doctest/examples/go_sdk/main.go#error-handling -->
 
@@ -211,12 +208,11 @@ if err != nil {
 }
 ```
 
-Match on `details[*].reason` from the `ErrorInfo` detail — it is the stable, machine-readable
-identifier. The `message` field is meant for logs and can change between releases.
+Match on `details[*].reason` from the `ErrorInfo` detail — it is the stable, machine-readable identifier. The `message` field is
+meant for logs and can change between releases.
 
-For the verify endpoint, a verification failure returns `200 OK` with `is_active: false`, not an
-HTTP error. Branch on `verifyResp.GetIsActive()` and inspect `verifyResp.GetErrorCode()` instead of
-treating it as an SDK error.
+For the verify endpoint, a verification failure returns `200 OK` with `is_active: false`, not an HTTP error. Branch on
+`verifyResp.GetIsActive()` and inspect `verifyResp.GetErrorCode()` instead of treating it as an SDK error.
 
 ## Regenerating the client
 
@@ -226,5 +222,4 @@ The Go SDK is regenerated with:
 make generate-sdk
 ```
 
-This reads the OpenAPI spec from `api/talos.openapi-v2.json` and outputs to
-`internal/client/generated/`.
+This reads the OpenAPI spec from `api/talos.openapi-v3.json` and outputs to `internal/client/generated/`.

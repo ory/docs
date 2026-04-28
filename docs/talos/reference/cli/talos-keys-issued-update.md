@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos keys issued update
 
 Update an issued API key
@@ -40,5 +41,4 @@ talos keys issued update [key-id] [flags]
 
 ### See also
 
-* [talos keys issued](talos-keys-issued.md) Manage issued API keys
-
+- [talos keys issued](talos-keys-issued.md) Manage issued API keys

@@ -16,10 +16,10 @@ steps below; the `curl` examples are the preview baseline, and the Talos CLI is 
 
 1. Download `keyfile.json` from the email you received.
 2. Authenticate with Google Cloud:
-    ```bash
-    gcloud auth activate-service-account --key-file=keyfile.json
-    gcloud auth configure-docker europe-docker.pkg.dev
-    ```
+   ```bash
+   gcloud auth activate-service-account --key-file=keyfile.json
+   gcloud auth configure-docker europe-docker.pkg.dev
+   ```
 
 ## Pull the image
 
@@ -148,11 +148,8 @@ RESPONSE=$(docker run --rm --network talos-preview \
 
 echo "$RESPONSE" | jq .
 
-API_SECRET=$(echo "$RESPONSE" | jq -r '.secret')
-KEY_ID=$(echo "$RESPONSE" | jq -r '.issued_api_key.key_id')
-
-echo "export API_SECRET=$API_SECRET" >> "$DOCTEST_ENV_FILE"
-echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
+export API_SECRET=$(echo "$RESPONSE" | jq -er '.secret')
+export KEY_ID=$(echo "$RESPONSE" | jq -er '.issued_api_key.key_id')
 ```
 
 </TabItem>
@@ -170,11 +167,8 @@ RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
 
 echo "$RESPONSE" | jq .
 
-API_SECRET=$(echo "$RESPONSE" | jq -r '.secret')
-KEY_ID=$(echo "$RESPONSE" | jq -r '.issued_api_key.key_id')
-
-echo "export API_SECRET=$API_SECRET" >> "$DOCTEST_ENV_FILE"
-echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
+export API_SECRET=$(echo "$RESPONSE" | jq -er '.secret')
+export KEY_ID=$(echo "$RESPONSE" | jq -er '.issued_api_key.key_id')
 ```
 
 </TabItem>
@@ -236,8 +230,7 @@ RESPONSE=$(docker run --rm --network talos-preview \
 
 echo "$RESPONSE" | jq .
 
-JWT_TOKEN=$(echo "$RESPONSE" | jq -r '.token.token')
-echo "export JWT_TOKEN=$JWT_TOKEN" >> "$DOCTEST_ENV_FILE"
+export JWT_TOKEN=$(echo "$RESPONSE" | jq -er '.token.token')
 ```
 
 </TabItem>
@@ -255,8 +248,7 @@ RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:derive" \
 
 echo "$RESPONSE" | jq .
 
-JWT_TOKEN=$(echo "$RESPONSE" | jq -r '.token.token')
-echo "export JWT_TOKEN=$JWT_TOKEN" >> "$DOCTEST_ENV_FILE"
+export JWT_TOKEN=$(echo "$RESPONSE" | jq -er '.token.token')
 ```
 
 </TabItem>
@@ -275,7 +267,7 @@ Import a raw key string into Talos without rotating the credential. For the comp
 <TabItem value="cli" label="CLI">
 
 ```bash
-IMPORTED_RAW_KEY=sk_preview_demo_001
+export IMPORTED_RAW_KEY=sk_preview_demo_001
 
 RESPONSE=$(docker run --rm --network talos-preview \
   europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
@@ -289,17 +281,14 @@ RESPONSE=$(docker run --rm --network talos-preview \
 
 echo "$RESPONSE" | jq .
 
-IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -r '.imported_api_key.key_id')
-
-echo "export IMPORTED_RAW_KEY=$IMPORTED_RAW_KEY" >> "$DOCTEST_ENV_FILE"
-echo "export IMPORTED_KEY_ID=$IMPORTED_KEY_ID" >> "$DOCTEST_ENV_FILE"
+export IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -er '.imported_api_key.key_id')
 ```
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
 ```bash
-IMPORTED_RAW_KEY=sk_preview_demo_001
+export IMPORTED_RAW_KEY=sk_preview_demo_001
 
 RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys" \
   -H "Content-Type: application/json" \
@@ -313,10 +302,7 @@ RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys" \
 
 echo "$RESPONSE" | jq .
 
-IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -r '.imported_api_key.key_id')
-
-echo "export IMPORTED_RAW_KEY=$IMPORTED_RAW_KEY" >> "$DOCTEST_ENV_FILE"
-echo "export IMPORTED_KEY_ID=$IMPORTED_KEY_ID" >> "$DOCTEST_ENV_FILE"
+export IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -er '.imported_api_key.key_id')
 ```
 
 </TabItem>
@@ -362,10 +348,10 @@ docker network rm talos-preview
 
 ## Next steps
 
-- [Issue and verify API keys](../integrate/issue-and-verify.md) — issued-key lifecycle in depth
-- [Import existing keys](../integrate/import-keys.md) — batch import and hashing behavior
-- [Derive tokens](../integrate/derive-tokens.md) — JWT vs macaroon and JWKS usage
-- [Key lifecycle](../integrate/key-lifecycle.md) — rotate, update, and revoke credentials
+- [Issue and verify API keys](../integrate/issue-and-verify.mdx) — issued-key lifecycle in depth
+- [Import existing keys](../integrate/import-keys.mdx) — batch import and hashing behavior
+- [Derive tokens](../integrate/derive-tokens.mdx) — JWT vs macaroon and JWKS usage
+- [Key lifecycle](../integrate/key-lifecycle.mdx) — rotate, update, and revoke credentials
 - [Architecture](../concepts/architecture.md) — admin and data plane separation
 - [Cache configuration](../operate/cache/index.md) — switch from memory cache to Redis
-- [Docker quickstart (Commercial)](./docker-commercial.md) — full repo-based compose stack
+- [Docker quickstart (Commercial)](./docker-commercial.mdx) — full repo-based compose stack

@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos keys issued list
 
 List issued API keys
@@ -38,5 +39,4 @@ talos keys issued list [flags]
 
 ### See also
 
-* [talos keys issued](talos-keys-issued.md) Manage issued API keys
-
+- [talos keys issued](talos-keys-issued.md) Manage issued API keys

@@ -4,20 +4,19 @@ title: Kubernetes
 
 # Kubernetes
 
-The OSS edition uses an embedded SQLite database, so it cannot scale horizontally — a multi-replica
-Deployment backed by a shared volume will corrupt under concurrent writes. Run the OSS image as a
-single replica or move to the [Commercial edition](../../index.md#editions) for Postgres, MySQL, or
-CockroachDB.
+The OSS edition uses an embedded SQLite database, so it cannot scale horizontally — a multi-replica Deployment backed by a shared
+volume will corrupt under concurrent writes. Run the OSS image as a single replica or move to the
+[Commercial edition](../../index.md#editions) for Postgres, MySQL, or CockroachDB.
 
-| Edition    | Image                          | Backends                                    | Replicas                |
-| ---------- | ------------------------------ | ------------------------------------------- | ----------------------- |
-| OSS        | `oryd/talos:latest`            | SQLite (embedded)                           | 1 (single-node only)    |
-| Commercial | `oryd/talos-commercial:latest` | PostgreSQL, MySQL, CockroachDB              | Horizontally scalable   |
+| Edition    | Image                          | Backends                       | Replicas              |
+| ---------- | ------------------------------ | ------------------------------ | --------------------- |
+| OSS        | `oryd/talos:latest`            | SQLite (embedded)              | 1 (single-node only)  |
+| Commercial | `oryd/talos-commercial:latest` | PostgreSQL, MySQL, CockroachDB | Horizontally scalable |
 
 ## Deployment (Commercial, scalable)
 
-The manifest below uses the commercial image and a SQL backend stored as `dsn` in a Kubernetes
-`Secret`. Adjust `replicas` to your traffic profile.
+The manifest below uses the commercial image and a SQL backend stored as `dsn` in a Kubernetes `Secret`. Adjust `replicas` to your
+traffic profile.
 
 ```yaml
 apiVersion: apps/v1

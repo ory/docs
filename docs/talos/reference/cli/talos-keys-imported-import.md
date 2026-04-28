@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos keys imported import
 
 Import an external API key
@@ -42,5 +43,4 @@ talos keys imported import [name] [flags]
 
 ### See also
 
-* [talos keys imported](talos-keys-imported.md) Manage imported API keys
-
+- [talos keys imported](talos-keys-imported.md) Manage imported API keys

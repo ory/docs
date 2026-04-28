@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos keys derive-token
 
 Derive a short-lived JWT or macaroon from an existing API key
@@ -41,5 +42,4 @@ talos keys derive-token [api-key-token] [flags]
 
 ### See also
 
-* [talos keys](talos-keys.md) Manage API keys
-
+- [talos keys](talos-keys.md) Manage API keys

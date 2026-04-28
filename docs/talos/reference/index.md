@@ -13,7 +13,7 @@ Technical reference documentation for Ory Talos.
 
 ## Configuration
 
-- [Configuration reference](config.md) — all configuration keys with types and defaults
+- [Configuration reference](config.mdx) — all configuration keys with types and defaults
 
 ## Technical details
 

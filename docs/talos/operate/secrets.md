@@ -6,11 +6,10 @@ title: Secret management
 
 Talos uses two independent secret families:
 
-- `secrets.hmac.*` — keys API key checksums and derives the macaroon root key. **Required at
-  startup**; Talos exits with `project has no HMAC key configured` if `secrets.hmac.current` is
-  unset.
-- `secrets.pagination.*` (preferred) or `secrets.default.*` (fallback) — encrypts opaque
-  pagination tokens. Required to use list endpoints.
+- `secrets.hmac.*` — keys API key checksums and derives the macaroon root key. **Required at startup**; Talos exits with
+  `project has no HMAC key configured` if `secrets.hmac.current` is unset.
+- `secrets.pagination.*` (preferred) or `secrets.default.*` (fallback) — encrypts opaque pagination tokens. Required to use list
+  endpoints.
 
 Each secret must be at least 32 characters. Use 64 random characters for new deployments.
 
@@ -28,54 +27,49 @@ secrets:
       - "previous-pagination-token-secret-rotated-out-on-2026-03-01--64chars"
 ```
 
-If `secrets.pagination.current` is empty, Talos falls back to `secrets.default.current`. Use
-`secrets.pagination.*` for new deployments; `secrets.default.*` is retained for backwards
-compatibility with earlier configurations.
+If `secrets.pagination.current` is empty, Talos falls back to `secrets.default.current`. Use `secrets.pagination.*` for new
+deployments; `secrets.default.*` is retained for backwards compatibility with earlier configurations.
 
 ## Secret types
 
-| Secret                       | Purpose                                                          | Required                |
-| ---------------------------- | ---------------------------------------------------------------- | ----------------------- |
-| `secrets.hmac.current`       | API key checksum HMAC and macaroon root-key derivation           | Yes (min 32 chars)      |
-| `secrets.hmac.retired`       | Older HMAC secrets accepted during verification only             | No                      |
-| `secrets.pagination.current` | Pagination-token encryption (preferred over `secrets.default`)   | One of pagination/default required for list endpoints |
-| `secrets.pagination.retired` | Older pagination secrets accepted during decryption only         | No                      |
-| `secrets.default.current`    | Pagination-token fallback when `secrets.pagination.current` unset | No (use `pagination.*`) |
-| `secrets.default.retired`    | Older fallback secrets accepted during decryption only           | No                      |
+| Secret                       | Purpose                                                           | Required                                              |
+| ---------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------- |
+| `secrets.hmac.current`       | API key checksum HMAC and macaroon root-key derivation            | Yes (min 32 chars)                                    |
+| `secrets.hmac.retired`       | Older HMAC secrets accepted during verification only              | No                                                    |
+| `secrets.pagination.current` | Pagination-token encryption (preferred over `secrets.default`)    | One of pagination/default required for list endpoints |
+| `secrets.pagination.retired` | Older pagination secrets accepted during decryption only          | No                                                    |
+| `secrets.default.current`    | Pagination-token fallback when `secrets.pagination.current` unset | No (use `pagination.*`)                               |
+| `secrets.default.retired`    | Older fallback secrets accepted during decryption only            | No                                                    |
 
-The HMAC and pagination secret families are independent. Rotate them on independent schedules and
-never reuse the same value across families.
+The HMAC and pagination secret families are independent. Rotate them on independent schedules and never reuse the same value
+across families.
 
 ## Macaroon root-key derivation
 
-Talos does not store a separate macaroon signing secret. The macaroon root key is derived
-deterministically from `secrets.hmac.current` using a domain-separated HMAC-SHA256:
+Talos does not store a separate macaroon signing secret. The macaroon root key is derived deterministically from
+`secrets.hmac.current` using a domain-separated HMAC-SHA256:
 
 ```
 macaroon_root_key = HMAC-SHA256(secrets.hmac.current, "talos/macaroon/v1/root-key")
 ```
 
-The fixed domain string `talos/macaroon/v1/root-key` prevents the derived key from colliding with
-other uses of the HMAC secret (such as API key checksums). All admin and data plane processes
-configured with the same `secrets.hmac.current` derive the same macaroon root key, so any node can
-verify macaroons issued by any other node without out-of-band key distribution.
+The fixed domain string `talos/macaroon/v1/root-key` prevents the derived key from colliding with other uses of the HMAC secret
+(such as API key checksums). All admin and data plane processes configured with the same `secrets.hmac.current` derive the same
+macaroon root key, so any node can verify macaroons issued by any other node without out-of-band key distribution.
 
-Rotating `secrets.hmac.current` rotates both the API key checksum key and the macaroon root key
-at once. Verification falls back through `secrets.hmac.retired` for both purposes.
+Rotating `secrets.hmac.current` rotates both the API key checksum key and the macaroon root key at once. Verification falls back
+through `secrets.hmac.retired` for both purposes.
 
 ## Pagination-token secret
 
-List endpoints (`ListIssuedAPIKeys`, `ListImportedAPIKeys`, `ListBatchVerifications`, …) return an
-opaque `next_page_token` that encrypts the cursor (key ID and tenant ID) with NaCl secretbox. The
-encryption key is derived from `secrets.pagination.current` (or `secrets.default.current` as a
-fallback).
+List endpoints (`ListIssuedAPIKeys`, `ListImportedAPIKeys`, `ListBatchVerifications`, …) return an opaque `next_page_token` that
+encrypts the cursor (key ID and tenant ID) with NaCl secretbox. The encryption key is derived from `secrets.pagination.current`
+(or `secrets.default.current` as a fallback).
 
-Page tokens are tenant-scoped: a token issued under tenant A returns
-`page token network mismatch` if replayed against tenant B.
+Page tokens are tenant-scoped: a token issued under tenant A returns `page token network mismatch` if replayed against tenant B.
 
-Rotating the pagination secret invalidates outstanding tokens unless the previous secret remains
-in the `retired` list. Keep the previous secret in `retired` for at least the longest paging
-session you expect (typically a few minutes).
+Rotating the pagination secret invalidates outstanding tokens unless the previous secret remains in the `retired` list. Keep the
+previous secret in `retired` for at least the longest paging session you expect (typically a few minutes).
 
 ## Secret rotation
 
@@ -91,9 +85,8 @@ secrets:
       - "previous-hmac-secret-still-trusted-during-verification-padded--"
 ```
 
-During verification, Talos tries `current` first, then each entry in `retired` in order. New keys
-are always issued with `current`. Remove a value from `retired` only after every key issued with it
-has expired or been rotated.
+During verification, Talos tries `current` first, then each entry in `retired` in order. New keys are always issued with
+`current`. Remove a value from `retired` only after every key issued with it has expired or been rotated.
 
 ## Generating secrets
 
@@ -114,5 +107,5 @@ export TALOS_SECRETS_PAGINATION_RETIRED="previous-pagination-secret-1"
 export TALOS_SECRETS_DEFAULT_CURRENT="64-char-fallback-pagination-secret"
 ```
 
-Inject these from a secrets manager (HashiCorp Vault, AWS Secrets Manager, GCP Secret Manager, or
-Kubernetes `Secret`); never check secrets into version control.
+Inject these from a secrets manager (HashiCorp Vault, AWS Secrets Manager, GCP Secret Manager, or Kubernetes `Secret`); never
+check secrets into version control.

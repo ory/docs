@@ -32,13 +32,13 @@ export TALOS_DB_DSN="mysql://talos:secret@tcp(db:3306)/talos?tls=true&parseTime=
 mysql://user:password@tcp(host:port)/dbname?param=value&param=value
 ```
 
-The `mysql://` scheme prefix is required in the configuration. Talos strips it internally before
-passing the DSN to the Go MySQL driver.
+The `mysql://` scheme prefix is required in the configuration. Talos strips it internally before passing the DSN to the Go MySQL
+driver.
 
 :::caution
 
-Required parameter: always include `parseTime=true` in the DSN. Without it, datetime columns are
-returned as byte arrays instead of `time.Time`, causing runtime errors.
+Required parameter: always include `parseTime=true` in the DSN. Without it, datetime columns are returned as byte arrays instead
+of `time.Time`, causing runtime errors.
 
 :::
 
@@ -46,8 +46,7 @@ returned as byte arrays instead of `time.Time`, causing runtime errors.
 
 ### Connection pool parameters
 
-Pool parameters are parsed from the DSN query string and removed before the DSN is passed to the
-database driver.
+Pool parameters are parsed from the DSN query string and removed before the DSN is passed to the database driver.
 
 | Parameter            | Type     | Default | Description                                                  |
 | -------------------- | -------- | ------- | ------------------------------------------------------------ |
@@ -58,9 +57,8 @@ database driver.
 
 Duration values use Go duration syntax: `5m` (5 minutes), `1h` (1 hour), `30s` (30 seconds).
 
-Talos sets non-zero defaults for `max_conn_lifetime` and `max_conn_idle_time` so connections are
-recycled through load balancers and DNS rotation. Setting either to `0` disables the recycle and
-is **not recommended** outside development.
+Talos sets non-zero defaults for `max_conn_lifetime` and `max_conn_idle_time` so connections are recycled through load balancers
+and DNS rotation. Setting either to `0` disables the recycle and is **not recommended** outside development.
 
 MySQL uses standard `database/sql` pooling only. There is no advanced pool mode.
 
@@ -98,8 +96,8 @@ Pool behavior:
 
 ### Pool sizing
 
-Start with 25 connections per instance. The total pool across all instances should stay below
-MySQL's `max_connections` (default: 151).
+Start with 25 connections per instance. The total pool across all instances should stay below MySQL's `max_connections` (default:
+151).
 
 | Deployment      | `max_conns`    | Notes                                       |
 | --------------- | -------------- | ------------------------------------------- |
@@ -107,9 +105,8 @@ MySQL's `max_connections` (default: 151).
 | 3 instances     | `25` each      | 75 total — within default `max_connections` |
 | 5+ instances    | `15`–`20` each | Use ProxySQL or MySQL Router to multiplex   |
 
-For large deployments, place [ProxySQL](https://proxysql.com/) or
-[MySQL Router](https://dev.mysql.com/doc/mysql-router/en/) between Talos and MySQL for connection
-multiplexing.
+For large deployments, place [ProxySQL](https://proxysql.com/) or [MySQL Router](https://dev.mysql.com/doc/mysql-router/en/)
+between Talos and MySQL for connection multiplexing.
 
 ## Database preparation
 

@@ -5,31 +5,42 @@
 Use `jq` instead of `python3` for all JSON operations in code examples:
 
 - **Pretty-print:** `| jq .` not `| python3 -m json.tool`
-- **Extract fields:** `| jq -r '.field'` not
-  `| python3 -c "import json,sys; print(json.load(sys.stdin)['field'])"`
+- **Extract required fields:** `| jq -er '.field'` (the `-e` flag exits non-zero on `null` so `set -e` aborts the snippet instead
+  of silently exporting an empty value).
+- **Extract optional fields:** `| jq -r '.field'` is fine when the field may legitimately be missing.
 
-**Never write curl output to temporary files.** Capture responses in shell variables instead.
-File-based operations fail when `/tmp` doesn't exist or isn't writable.
+**Never write curl output to temporary files.** Capture responses in shell variables instead. File-based operations fail when
+`/tmp` doesn't exist or isn't writable.
+
+## Passing state between doctest blocks
+
+Doctest runs each code block in a fresh `bash -eu -o pipefail` subprocess and auto-captures the exported environment after each
+successful block. To make a value available to the next block, just `export` it — no manual write to `$DOCTEST_ENV_FILE` is
+needed.
 
 ```bash
-# Good: variable-based
+# Good: variable-based, exported for the next block, asserts the field is present
 RESPONSE=$(curl -s -X POST "$URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{"name": "my-key"}')
 echo "$RESPONSE" | jq .
-KEY_ID=$(echo "$RESPONSE" | jq -r '.key_id')
+export KEY_ID=$(echo "$RESPONSE" | jq -er '.key_id')
 
 # Bad: file-based
 curl -s ... -o /tmp/response.json
 jq . /tmp/response.json
 KEY_ID=$(jq -r '.key_id' /tmp/response.json)
 rm -f /tmp/response.json
+
+# Bad: redirecting to $DOCTEST_ENV_FILE (legacy; auto-capture handles this now)
+KEY_ID=$(echo "$RESPONSE" | jq -r '.key_id')
+echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 ```
 
 ## API Field Documentation
 
-Integration guides under `integrate/` must NOT duplicate API field tables, error code tables, or
-enum tables. These are maintained in the canonical references:
+Integration guides under `integrate/` must NOT duplicate API field tables, error code tables, or enum tables. These are maintained
+in the canonical references:
 
 - **Field tables** -> auto-generated API reference at `reference/api/*.api.mdx`
 - **Error codes** -> `reference/error-codes.md`
@@ -37,10 +48,9 @@ enum tables. These are maintained in the canonical references:
 ### What belongs in integration guides
 
 - **Workflow and examples**: curl commands, step-by-step instructions, the "how" and "why"
-- **Brief inline mentions**: 1-3 sentences highlighting the most important fields (e.g., "The
-  response includes a `secret` field -- store it securely")
-- **Conceptual comparisons**: tables comparing patterns, trade-offs, or usage scenarios (e.g., JWT
-  vs macaroon)
+- **Brief inline mentions**: 1-3 sentences highlighting the most important fields (e.g., "The response includes a `secret` field
+  -- store it securely")
+- **Conceptual comparisons**: tables comparing patterns, trade-offs, or usage scenarios (e.g., JWT vs macaroon)
 - **Operational constraints**: limits, cache control headers, retry strategies
 - **Links to reference**: always link to the canonical source for complete field/error details
 
@@ -53,9 +63,8 @@ enum tables. These are maintained in the canonical references:
 
 ### Link format
 
-**All links MUST be relative links to markdown/mdx files with the file extension.** Never use
-absolute links (starting with `/`) or links without a file extension. Hashbang anchors are allowed
-after the file extension.
+**All links MUST be relative links to markdown/mdx files with the file extension.** Never use absolute links (starting with `/`)
+or links without a file extension. Hashbang anchors are allowed after the file extension.
 
 - Links to `.md` files: `[text](../reference/error-codes.md#section)`
 - Links to `.api.mdx` files: `[text](../reference/api/admin-issue-api-key.api.mdx)`
@@ -88,13 +97,11 @@ Ensure that notes / callouts have two line breaks, or they will get formatted in
 **Incorrect:**
 
 ```md
-:::note Internal package The Go client is in an `internal/` package and cannot be imported by
-external Go modules. :::
+:::note Internal package The Go client is in an `internal/` package and cannot be imported by external Go modules. :::
 ```
 
 ```md
-:::note Internal package The Go client is in an `internal/` package and cannot be imported by
-external Go modules. :::
+:::note Internal package The Go client is in an `internal/` package and cannot be imported by external Go modules. :::
 ```
 
 Correct:
@@ -102,8 +109,7 @@ Correct:
 ```md
 :::note
 
-Internal package The Go client is in an `internal/` package and cannot be imported by external Go
-modules.
+Internal package The Go client is in an `internal/` package and cannot be imported by external Go modules.
 
 :::
 ```

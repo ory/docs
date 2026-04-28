@@ -29,11 +29,8 @@ RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
 
 echo "$RESPONSE" | jq .
 
-API_SECRET=$(echo "$RESPONSE" | jq -r '.secret')
-KEY_ID=$(echo "$RESPONSE" | jq -r '.issued_api_key.key_id')
-
-echo "export API_SECRET=$API_SECRET" >> "$DOCTEST_ENV_FILE"
-echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
+export API_SECRET=$(echo "$RESPONSE" | jq -er '.secret')
+export KEY_ID=$(echo "$RESPONSE" | jq -er '.issued_api_key.key_id')
 ```
 
 ### Get a key
@@ -77,8 +74,7 @@ RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys/${KEY_ID}:ro
 
 echo "$RESPONSE" | jq .
 
-API_SECRET=$(echo "$RESPONSE" | jq -r '.secret')
-echo "export API_SECRET=$API_SECRET" >> "$DOCTEST_ENV_FILE"
+export API_SECRET=$(echo "$RESPONSE" | jq -er '.secret')
 ```
 
 ## Admin plane — Imported keys
@@ -99,8 +95,7 @@ RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys" \
 
 echo "$RESPONSE" | jq .
 
-IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -r '.imported_api_key.key_id')
-echo "export IMPORTED_KEY_ID=$IMPORTED_KEY_ID" >> "$DOCTEST_ENV_FILE"
+export IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -er '.imported_api_key.key_id')
 ```
 
 ### Batch import
@@ -161,8 +156,7 @@ RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:derive" \
 
 echo "$RESPONSE" | jq .
 
-JWT_TOKEN=$(echo "$RESPONSE" | jq -r '.token.token')
-echo "export JWT_TOKEN=$JWT_TOKEN" >> "$DOCTEST_ENV_FILE"
+export JWT_TOKEN=$(echo "$RESPONSE" | jq -er '.token.token')
 ```
 
 ### Derive a macaroon token
@@ -247,7 +241,7 @@ SELF_REVOKE_RESP=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{"name":"self-revoke-demo","actor_id":"user_123"}')
 
-SELF_REVOKE_SECRET=$(echo "$SELF_REVOKE_RESP" | jq -r '.secret')
+SELF_REVOKE_SECRET=$(echo "$SELF_REVOKE_RESP" | jq -er '.secret')
 
 curl -s -X POST "$TALOS_URL/v2alpha1/apiKeys:selfRevoke" \
   -H "Content-Type: application/json" \

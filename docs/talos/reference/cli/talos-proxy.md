@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos proxy
 
 Start the edge proxy for caching verification requests
@@ -17,14 +18,12 @@ Start the edge proxy for caching verification requests
 
 Start an edge proxy that caches verification responses from an upstream Talos server.
 
-The proxy caches successful verification responses to reduce latency and load on the upstream server.
-Only active (valid) verification responses are cached.
+The proxy caches successful verification responses to reduce latency and load on the upstream server. Only active (valid)
+verification responses are cached.
 
 Cache bypass: Clients can bypass the cache by sending Cache-Control: no-cache header.
 
-The proxy exposes health endpoints:
-  /health/alive - Always returns 200 OK
-  /health/ready - Returns 200 OK if upstream is reachable
+The proxy exposes health endpoints: /health/alive - Always returns 200 OK /health/ready - Returns 200 OK if upstream is reachable
 
 ```
 talos proxy [flags]
@@ -60,5 +59,4 @@ talos proxy [flags]
 
 ### See also
 
-* [talos](talos.md) Multi-tenant API key management service
-
+- [talos](talos.md) Multi-tenant API key management service

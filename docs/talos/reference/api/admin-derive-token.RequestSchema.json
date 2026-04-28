@@ -1,1 +1,38 @@
-{"title":"Body","body":{"content":{"application/json":{"schema":{"properties":{"algorithm":{"default":"TOKEN_ALGORITHM_UNSPECIFIED","description":"- TOKEN_ALGORITHM_JWT: JWT with EdDSA (self-contained, signed)\n - TOKEN_ALGORITHM_MACAROON: Macaroon with HMAC (self-contained, caveat-based)","enum":["TOKEN_ALGORITHM_UNSPECIFIED","TOKEN_ALGORITHM_JWT","TOKEN_ALGORITHM_MACAROON"],"title":"TokenAlgorithm specifies the cryptographic algorithm used for derived tokens\nNote: API keys (root tokens) are always opaque; this enum is only for DeriveToken","type":"string"},"credential":{"title":"The API key secret (issued or imported) to derive a token from","type":"string"},"custom_claims":{"type":"object"},"scopes":{"items":{"type":"string"},"type":"array"},"ttl":{"description":"ttl sets the expiry as a duration from now.\nAccepted formats:\n  - Extended: \"1y\" (365d), \"1mo\" (30d), \"1w\" (7d), \"1d\" (24h)\n  - Standard Go: \"24h\", \"30m\", \"60s\", \"1h30m\"\n  - Compound: \"1y6mo\", \"1d12h\", \"2w3d\"\nApproximations: 1y = 365 days, 1mo = 30 days.\nIf unset, the project default TTL applies. Maximum is ~10 years (315360000s).","type":"string"}},"title":"Token derivation messages","type":"object"}}},"required":true,"x-originalParamName":"body"}}
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "algorithm": {
+              "default": "TOKEN_ALGORITHM_UNSPECIFIED",
+              "description": "- TOKEN_ALGORITHM_JWT: JWT with EdDSA (self-contained, signed)\n - TOKEN_ALGORITHM_MACAROON: Macaroon with HMAC (self-contained, caveat-based)",
+              "enum": [
+                "TOKEN_ALGORITHM_UNSPECIFIED",
+                "TOKEN_ALGORITHM_JWT",
+                "TOKEN_ALGORITHM_MACAROON"
+              ],
+              "title": "TokenAlgorithm specifies the cryptographic algorithm used for derived tokens\nNote: API keys (root tokens) are always opaque; this enum is only for DeriveToken",
+              "type": "string"
+            },
+            "credential": {
+              "title": "The API key secret (issued or imported) to derive a token from",
+              "type": "string"
+            },
+            "custom_claims": { "type": "object" },
+            "scopes": { "items": { "type": "string" }, "type": "array" },
+            "ttl": {
+              "description": "ttl sets the expiry as a duration from now.\nAccepted formats:\n  - Extended: \"1y\" (365d), \"1mo\" (30d), \"1w\" (7d), \"1d\" (24h)\n  - Standard Go: \"24h\", \"30m\", \"60s\", \"1h30m\"\n  - Compound: \"1y6mo\", \"1d12h\", \"2w3d\"\nApproximations: 1y = 365 days, 1mo = 30 days.\nIf unset, the project default TTL applies. Maximum is ~10 years (315360000s).",
+              "type": "string"
+            }
+          },
+          "title": "Token derivation messages",
+          "type": "object"
+        }
+      }
+    },
+    "required": true,
+    "x-originalParamName": "body"
+  }
+}

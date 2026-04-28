@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos keys issued
 
 Manage issued API keys
@@ -34,10 +35,9 @@ Get, list, update, and rotate issued API keys.
 
 ### See also
 
-* [talos keys](talos-keys.md) Manage API keys
-* [talos keys issued get](talos-keys-issued-get.md)	 - Get details of an issued API key
-* [talos keys issued issue](talos-keys-issued-issue.md)	 - Issue a new API key
-* [talos keys issued list](talos-keys-issued-list.md)	 - List issued API keys
-* [talos keys issued rotate](talos-keys-issued-rotate.md)	 - Rotate an issued API key (revokes old key, creates new one)
-* [talos keys issued update](talos-keys-issued-update.md)	 - Update an issued API key
-
+- [talos keys](talos-keys.md) Manage API keys
+- [talos keys issued get](talos-keys-issued-get.md) - Get details of an issued API key
+- [talos keys issued issue](talos-keys-issued-issue.md) - Issue a new API key
+- [talos keys issued list](talos-keys-issued-list.md) - List issued API keys
+- [talos keys issued rotate](talos-keys-issued-rotate.md) - Rotate an issued API key (revokes old key, creates new one)
+- [talos keys issued update](talos-keys-issued-update.md) - Update an issued API key

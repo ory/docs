@@ -1,4 +1,4 @@
-import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
+import type { SidebarsConfig } from "@docusaurus/plugin-content-docs"
 
 const sidebar: SidebarsConfig = {
   apisidebar: [
@@ -121,6 +121,6 @@ const sidebar: SidebarsConfig = {
       ],
     },
   ],
-};
+}
 
-export default sidebar.apisidebar;
+export default sidebar.apisidebar

@@ -7,8 +7,8 @@ sidebar_custom_props:
 
 # PostgreSQL
 
-PostgreSQL is the recommended production database backend. It provides connection pooling, ACID
-transactions, and high-availability via streaming replication.
+PostgreSQL is the recommended production database backend. It provides connection pooling, ACID transactions, and
+high-availability via streaming replication.
 
 ## Supported versions
 
@@ -39,22 +39,21 @@ Both `postgres://` and `postgresql://` schemes are accepted.
 
 ### Connection pool parameters
 
-Pool parameters are parsed from the DSN query string and removed before the DSN is passed to the
-database driver.
+Pool parameters are parsed from the DSN query string and removed before the DSN is passed to the database driver.
 
-| Parameter            | Type     | Default      | Description                                                                          |
-| -------------------- | -------- | ------------ | ------------------------------------------------------------------------------------ |
-| `max_conns`          | integer  | `25`         | Maximum number of open connections in the pool                                       |
-| `max_idle_conns`     | integer  | `5`          | Maximum number of idle connections (must be ≤ `max_conns`)                           |
-| `max_conn_lifetime`  | duration | `30m`        | Maximum age of a connection before it is closed and replaced                         |
-| `max_conn_idle_time` | duration | `10m`        | Maximum time a connection can sit idle before it is closed                           |
-| `pool_mode`          | string   | `standard`   | Pool implementation: `standard` or `advanced` (see below)                            |
+| Parameter            | Type     | Default    | Description                                                  |
+| -------------------- | -------- | ---------- | ------------------------------------------------------------ |
+| `max_conns`          | integer  | `25`       | Maximum number of open connections in the pool               |
+| `max_idle_conns`     | integer  | `5`        | Maximum number of idle connections (must be ≤ `max_conns`)   |
+| `max_conn_lifetime`  | duration | `30m`      | Maximum age of a connection before it is closed and replaced |
+| `max_conn_idle_time` | duration | `10m`      | Maximum time a connection can sit idle before it is closed   |
+| `pool_mode`          | string   | `standard` | Pool implementation: `standard` or `advanced` (see below)    |
 
 Duration values use Go duration syntax: `5m` (5 minutes), `1h` (1 hour), `30s` (30 seconds).
 
-Talos sets non-zero defaults for `max_conn_lifetime` and `max_conn_idle_time` so connections are
-recycled through load balancers, DNS rotation, and PostgreSQL `tcp_keepalives_*`. Setting either
-to `0` disables the recycle and is **not recommended** outside development.
+Talos sets non-zero defaults for `max_conn_lifetime` and `max_conn_idle_time` so connections are recycled through load balancers,
+DNS rotation, and PostgreSQL `tcp_keepalives_*`. Setting either to `0` disables the recycle and is **not recommended** outside
+development.
 
 ### PostgreSQL driver parameters
 
@@ -75,8 +74,7 @@ Talos supports two pool modes for PostgreSQL, controlled by the `pool_mode` DSN 
 
 ### Standard mode (default)
 
-Uses Go's `database/sql` connection pool with the `pgx` driver. This is the default and works with
-all tooling.
+Uses Go's `database/sql` connection pool with the `pgx` driver. This is the default and works with all tooling.
 
 ```yaml
 db:
@@ -92,29 +90,28 @@ Pool behavior:
 
 ### Advanced mode
 
-Uses native `pgxpool` for high-availability deployments. Provides built-in health checks and is
-optimized for Kubernetes and cloud environments.
+Uses native `pgxpool` for high-availability deployments. Provides built-in health checks and is optimized for Kubernetes and cloud
+environments.
 
 ```yaml
 db:
   dsn: "postgres://talos:secret@db:5432/talos?pool_mode=advanced&pool_max_conns=50&pool_min_conns=2&pool_max_conn_lifetime=30m&pool_max_conn_idle_time=10m"
 ```
 
-In advanced mode, pool sizing is configured through pgxpool's native parameters parsed from the
-DSN. The `max_conns`, `max_idle_conns`, `max_conn_lifetime`, and `max_conn_idle_time` parameters
-are **ignored** — use the `pool_*` equivalents instead.
+In advanced mode, pool sizing is configured through pgxpool's native parameters parsed from the DSN. The `max_conns`,
+`max_idle_conns`, `max_conn_lifetime`, and `max_conn_idle_time` parameters are **ignored** — use the `pool_*` equivalents instead.
 
-| pgxpool parameter         | Default                | Description                                            |
-| ------------------------- | ---------------------- | ------------------------------------------------------ |
-| `pool_max_conns`          | `4 × runtime.NumCPU()` | Maximum size of the pgxpool connection pool            |
-| `pool_min_conns`          | `0`                    | Minimum number of connections kept open                |
-| `pool_max_conn_lifetime`  | `1h`                   | Maximum age of a connection before it is replaced      |
-| `pool_max_conn_idle_time` | `30m`                  | Maximum idle time before an idle connection is closed  |
-| `pool_health_check_period`| `1m`                   | Interval between background health checks              |
+| pgxpool parameter          | Default                | Description                                           |
+| -------------------------- | ---------------------- | ----------------------------------------------------- |
+| `pool_max_conns`           | `4 × runtime.NumCPU()` | Maximum size of the pgxpool connection pool           |
+| `pool_min_conns`           | `0`                    | Minimum number of connections kept open               |
+| `pool_max_conn_lifetime`   | `1h`                   | Maximum age of a connection before it is replaced     |
+| `pool_max_conn_idle_time`  | `30m`                  | Maximum idle time before an idle connection is closed |
+| `pool_health_check_period` | `1m`                   | Interval between background health checks             |
 
-Talos exposes the pgxpool through Go's `database/sql` interface. The wrapper's
-`SetMaxIdleConns` is forced to `0` so that `database/sql` never holds connections idle on top of
-pgxpool — the pgxpool layer is the single source of truth for pool sizing in advanced mode.
+Talos exposes the pgxpool through Go's `database/sql` interface. The wrapper's `SetMaxIdleConns` is forced to `0` so that
+`database/sql` never holds connections idle on top of pgxpool — the pgxpool layer is the single source of truth for pool sizing in
+advanced mode.
 
 Use advanced mode when:
 
@@ -124,8 +121,8 @@ Use advanced mode when:
 
 ## Pool sizing
 
-Start with 25 connections per instance. The total pool across all instances must stay below
-PostgreSQL's `max_connections` (default: 100).
+Start with 25 connections per instance. The total pool across all instances must stay below PostgreSQL's `max_connections`
+(default: 100).
 
 | Deployment      | `max_conns`    | Notes                                       |
 | --------------- | -------------- | ------------------------------------------- |
@@ -133,9 +130,8 @@ PostgreSQL's `max_connections` (default: 100).
 | 3 instances     | `25` each      | 75 total — within default `max_connections` |
 | 5+ instances    | `15`–`20` each | Use PgBouncer to multiplex connections      |
 
-For large deployments, place [PgBouncer](https://www.pgbouncer.org/) between Talos and PostgreSQL.
-PgBouncer multiplexes many application connections over fewer database connections, allowing you to
-scale beyond PostgreSQL's connection limit.
+For large deployments, place [PgBouncer](https://www.pgbouncer.org/) between Talos and PostgreSQL. PgBouncer multiplexes many
+application connections over fewer database connections, allowing you to scale beyond PostgreSQL's connection limit.
 
 ## Migrations
 

@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos serve
 
 Start the Ory Talos server (all-in-one mode)
@@ -20,6 +21,7 @@ Starts the HTTP server for the API key service in all-in-one mode.
 This mode runs both admin plane (management) and data plane (verification) in a single process.
 
 For production deployments with high-throughput verification workloads, consider using:
+
 - `serve check` for data plane only (verification with caching)
 - `serve admin` for admin plane only (management operations)
 
@@ -48,7 +50,6 @@ talos serve [flags]
 
 ### See also
 
-* [talos](talos.md) Multi-tenant API key management service
-* [talos serve admin](talos-serve-admin.md)	 - Start the admin plane server (management only)
-* [talos serve check](talos-serve-check.md)	 - Start the data plane server (verification only)
-
+- [talos](talos.md) Multi-tenant API key management service
+- [talos serve admin](talos-serve-admin.md) - Start the admin plane server (management only)
+- [talos serve check](talos-serve-check.md) - Start the data plane server (verification only)

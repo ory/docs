@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos keys issue
 
 Issue a new API key
@@ -41,5 +42,4 @@ talos keys issue [name] [flags]
 
 ### See also
 
-* [talos keys](talos-keys.md) Manage API keys
-
+- [talos keys](talos-keys.md) Manage API keys

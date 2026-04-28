@@ -29,8 +29,7 @@ Verify `serve.http.host` and `serve.http.port` in your config.
 talos migrate status --database "sqlite:///path/to/db"
 ```
 
-If a migration failed partway through, inspect the database schema and retry with
-`talos migrate up`.
+If a migration failed partway through, inspect the database schema and retry with `talos migrate up`.
 
 ### Secret too short
 
@@ -45,13 +44,12 @@ Set `secrets.default.current` to a string of at least 32 characters.
 1. Verify the key was issued on the same Talos instance (or shared database)
 2. Check if the key has been revoked: `GET /v2alpha1/admin/issuedApiKeys/{key_id}`
 3. If using caching, try with `Cache-Control: no-cache` header
-4. For multi-tenant deployments, verify the request hostname matches the tenant where the key was
-   issued
+4. For multi-tenant deployments, verify the request hostname matches the tenant where the key was issued
 
 ### Invalid API key format
 
-The credential does not match the `prefix_v1_identifier_checksum` format. Check that the full secret
-(not the key_id) is being sent.
+The credential does not match the `prefix_v1_identifier_checksum` format. Check that the full secret (not the key_id) is being
+sent.
 
 ## Debug logging
 

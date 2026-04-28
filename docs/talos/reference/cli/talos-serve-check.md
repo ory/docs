@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos serve check
 
 Start the data plane server (verification only)
@@ -17,8 +18,8 @@ Start the data plane server (verification only)
 
 Starts the data plane server for API key and token verification.
 
-This mode runs only the verification endpoints with caching for optimal read performance.
-It's designed for edge deployments and high-throughput verification workloads.
+This mode runs only the verification endpoints with caching for optimal read performance. It's designed for edge deployments and
+high-throughput verification workloads.
 
 Cache configuration is read from the config file (cache.type, cache.ttl, etc.)
 
@@ -47,5 +48,4 @@ talos serve check [flags]
 
 ### See also
 
-* [talos serve](talos-serve.md) Start the Ory Talos server (all-in-one mode)
-
+- [talos serve](talos-serve.md) Start the Ory Talos server (all-in-one mode)

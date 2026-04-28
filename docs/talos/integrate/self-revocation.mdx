@@ -3,16 +3,17 @@ title: Self-revocation
 description: Allow API key holders to revoke their own keys
 ---
 
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 # Self-revocation
 
-The self-revoke endpoint lets an API key holder revoke their own key by proving possession of the
-secret. This is a data plane operation — it does not require admin access.
+The self-revoke endpoint lets an API key holder revoke their own key by proving possession of the secret. This is a data plane
+operation — it does not require admin access.
 
 ## Prerequisites
 
-A running Talos server. See the [quickstart](../quickstart/index.md) to start one locally.
+A running Talos server. See the [quickstart](../quickstart/index.mdx) to start one locally.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -33,12 +34,11 @@ First, issue a key to get a secret:
 <TabItem value="cli" label="CLI">
 
 ```bash
-SELF_REVOKE_SECRET=$(talos keys issue "self-revoke-demo" \
+export SELF_REVOKE_SECRET=$(talos keys issue "self-revoke-demo" \
   --actor user_99 \
   --scopes "read:data" \
   --format json \
-  -e "$TALOS_URL" 2>/dev/null | jq -r '.secret')
-echo "export SELF_REVOKE_SECRET=$SELF_REVOKE_SECRET" >> "$DOCTEST_ENV_FILE"
+  -e "$TALOS_URL" 2>/dev/null | jq -er '.secret')
 ```
 
 </TabItem>
@@ -53,8 +53,7 @@ ISSUE_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
     "scopes": ["read:data"]
   }')
 
-SELF_REVOKE_SECRET=$(echo "$ISSUE_RESPONSE" | jq -r '.secret')
-echo "export SELF_REVOKE_SECRET=$SELF_REVOKE_SECRET" >> "$DOCTEST_ENV_FILE"
+export SELF_REVOKE_SECRET=$(echo "$ISSUE_RESPONSE" | jq -er '.secret')
 ```
 
 </TabItem>
@@ -124,29 +123,26 @@ fi
 </TabItem>
 </Tabs>
 
-The request requires `credential` (the full API key secret) and optionally `reason` (revocation
-reason enum). For the complete field reference, see the
-[SelfRevokeAPIKey API reference](../reference/api/revoke-api-key.api.mdx).
+The request requires `credential` (the full API key secret) and optionally `reason` (revocation reason enum). For the complete
+field reference, see the [SelfRevokeAPIKey API reference](../reference/api/revoke-api-key.api.mdx).
 
-Only issued and imported API keys can be self-revoked. Derived tokens (JWTs and macaroons) are
-stateless and cannot be revoked. All revocation reasons except
-`REVOCATION_REASON_PRIVILEGE_WITHDRAWN` are allowed — that reason is reserved for admin-initiated
+Only issued and imported API keys can be self-revoked. Derived tokens (JWTs and macaroons) are stateless and cannot be revoked.
+All revocation reasons except `REVOCATION_REASON_PRIVILEGE_WITHDRAWN` are allowed — that reason is reserved for admin-initiated
 revocations.
 
-A successful self-revocation returns an empty response with HTTP status `200 OK`. The key is
-immediately revoked.
+A successful self-revocation returns an empty response with HTTP status `200 OK`. The key is immediately revoked.
 
 ## Admin vs self-revocation
 
-|                       | Admin revocation                         | Self-revocation                  |
-| --------------------- | ---------------------------------------- | -------------------------------- |
-| Endpoint              | `POST /v2alpha1/admin/apiKeys/{key_id}:revoke` | `POST /v2alpha1/apiKeys:selfRevoke`    |
-| Plane                 | Admin                                    | Data                             |
-| Authentication        | Requires admin access                    | Proof of possession (key secret) |
-| Identifier            | Key ID                                   | Key secret                       |
-| `PRIVILEGE_WITHDRAWN` | Allowed                                  | Not allowed                      |
+|                       | Admin revocation                               | Self-revocation                     |
+| --------------------- | ---------------------------------------------- | ----------------------------------- |
+| Endpoint              | `POST /v2alpha1/admin/apiKeys/{key_id}:revoke` | `POST /v2alpha1/apiKeys:selfRevoke` |
+| Plane                 | Admin                                          | Data                                |
+| Authentication        | Requires admin access                          | Proof of possession (key secret)    |
+| Identifier            | Key ID                                         | Key secret                          |
+| `PRIVILEGE_WITHDRAWN` | Allowed                                        | Not allowed                         |
 
 ## Next steps
 
-- [Key lifecycle](key-lifecycle.md) — admin-side key management
-- [Error handling](error-handling.md) — handle revocation errors
+- [Key lifecycle](key-lifecycle.mdx) — admin-side key management
+- [Error handling](error-handling.mdx) — handle revocation errors

@@ -8,12 +8,10 @@ description: Structured audit events emitted by Talos via OpenTelemetry
 
 # Audit events
 
-Talos emits structured audit events via OpenTelemetry span events for all significant lifecycle
-operations. Events are attached to the active OTEL span and forwarded to any configured OTEL
-collector. They are never persisted locally.
+Talos emits structured audit events via OpenTelemetry span events for all significant lifecycle operations. Events are attached to
+the active OTEL span and forwarded to any configured OTEL collector. They are never persisted locally.
 
-Each event carries a set of structured attributes that provide context about the operation, the
-actor, and the affected resource.
+Each event carries a set of structured attributes that provide context about the operation, the actor, and the affected resource.
 
 ## Event types
 
@@ -50,9 +48,9 @@ Each event carries the following OTEL span event attributes:
 
 ## Dynamic metadata attributes
 
-The `metadata.*` prefix supports arbitrary key-value pairs for event-specific context. Metadata keys
-are prefixed with `metadata.` in OTEL attributes. For example, a metadata entry
-`{"token_type": "jwt"}` becomes the OTEL attribute `metadata.token_type` with value `jwt`.
+The `metadata.*` prefix supports arbitrary key-value pairs for event-specific context. Metadata keys are prefixed with `metadata.`
+in OTEL attributes. For example, a metadata entry `{"token_type": "jwt"}` becomes the OTEL attribute `metadata.token_type` with
+value `jwt`.
 
 Metadata is optional and varies by event type. Common metadata keys include:
 
@@ -75,5 +73,4 @@ events.New(events.EventAPIKeyCreated).
     Emit(ctx, emitter)
 ```
 
-Events are attached to the active OpenTelemetry span. If no span is recording, the event is silently
-dropped.
+Events are attached to the active OpenTelemetry span. If no span is recording, the event is silently dropped.

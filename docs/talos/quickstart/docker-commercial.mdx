@@ -5,7 +5,8 @@ sidebar_custom_props:
   badge: Commercial
 ---
 
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
 # Docker quickstart (Commercial)
 
@@ -40,8 +41,7 @@ RESPONSE=$(talos keys issue "commercial-test" \
 
 echo "$RESPONSE" | jq .
 
-API_SECRET=$(echo "$RESPONSE" | jq -r '.secret')
-echo "export API_SECRET=$API_SECRET" >> "$DOCTEST_ENV_FILE"
+export API_SECRET=$(echo "$RESPONSE" | jq -er '.secret')
 ```
 
 </TabItem>
@@ -63,8 +63,7 @@ RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
 
 echo "$RESPONSE" | jq .
 
-API_SECRET=$(echo "$RESPONSE" | jq -r '.secret')
-echo "export API_SECRET=$API_SECRET" >> "$DOCTEST_ENV_FILE"
+export API_SECRET=$(echo "$RESPONSE" | jq -er '.secret')
 ```
 
 </TabItem>
@@ -109,11 +108,10 @@ docker compose -f docker-compose.commercial.yaml down -v
 
 ## Prerequisites
 
-You need Docker and Docker Compose installed. See the [OSS quickstart](./index.md) to try the free
-edition first.
+You need Docker and Docker Compose installed. See the [OSS quickstart](./index.mdx) to try the free edition first.
 
 ## Next steps
 
-- [Quickstart (OSS)](./index.md) — simpler setup with SQLite
+- [Quickstart (OSS)](./index.mdx) — simpler setup with SQLite
 - [Architecture](../concepts/architecture.md) — admin and data plane design
 - [Caching](../concepts/caching.md) — cache behavior and consistency model

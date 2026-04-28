@@ -9,6 +9,7 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
+
 ## talos migrate
 
 Database migration tools
@@ -32,9 +33,8 @@ Run database migrations for the API Key service
 
 ### See also
 
-* [talos](talos.md) Multi-tenant API key management service
-* [talos migrate down](talos-migrate-down.md)	 - Rollback migrations
-* [talos migrate force](talos-migrate-force.md)	 - Force set migration version (use with caution)
-* [talos migrate status](talos-migrate-status.md)	 - Show migration status
-* [talos migrate up](talos-migrate-up.md)	 - Run all pending migrations
-
+- [talos](talos.md) Multi-tenant API key management service
+- [talos migrate down](talos-migrate-down.md) - Rollback migrations
+- [talos migrate force](talos-migrate-force.md) - Force set migration version (use with caution)
+- [talos migrate status](talos-migrate-status.md) - Show migration status
+- [talos migrate up](talos-migrate-up.md) - Run all pending migrations

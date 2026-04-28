@@ -5,15 +5,13 @@ description: Configuration reference for Ory Talos
 
 # Configure
 
-Talos is configured through a YAML file passed via the `--config` flag. All settings can also be set
-through environment variables or CLI flags. See the
-[Configuration reference](../reference/config.md) for the complete list of keys, types, defaults,
+Talos is configured through a YAML file passed via the `--config` flag. All settings can also be set through environment variables
+or CLI flags. See the [Configuration reference](../reference/config.mdx) for the complete list of keys, types, defaults,
 environment variable mappings, and precedence rules.
 
 ## Hot-reload
 
-Talos watches the config file for changes. Some settings reload automatically, others require a
-restart.
+Talos watches the config file for changes. Some settings reload automatically, others require a restart.
 
 **Hot-reloadable:**
 
@@ -35,8 +33,8 @@ restart.
 
 ## Duration syntax
 
-All duration values (TTLs, timeouts, intervals) are Go duration strings. Combine one or more
-unsigned numbers with a unit, no spaces. Supported units:
+All duration values (TTLs, timeouts, intervals) are Go duration strings. Combine one or more unsigned numbers with a unit, no
+spaces. Supported units:
 
 | Unit | Meaning      |
 | ---- | ------------ |
@@ -48,8 +46,8 @@ unsigned numbers with a unit, no spaces. Supported units:
 | `m`  | minutes      |
 | `h`  | hours        |
 
-Examples: `500ms`, `30s`, `5m`, `1h30m`, `8760h` (one year). Days, weeks, months, and years are
-**not** supported — express them in hours (`24h`, `168h`, `8760h`).
+Examples: `500ms`, `30s`, `5m`, `1h30m`, `8760h` (one year). Days, weeks, months, and years are **not** supported — express them
+in hours (`24h`, `168h`, `8760h`).
 
 ## Minimal configuration
 
@@ -128,5 +126,5 @@ tracing: # Commercial only
   sample_rate: 0.01
 ```
 
-See the [Configuration reference](../reference/config.md) for all available keys with types,
-defaults, and environment variable mappings.
+See the [Configuration reference](../reference/config.mdx) for all available keys with types, defaults, and environment variable
+mappings.
