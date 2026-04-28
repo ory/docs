@@ -28,8 +28,8 @@ You configure two allowlists per provider:
   AAL2.
 
 When neither list matches, the session stays at AAL1. If your project enforces `session.whoami.required_aal=highest_available`,
-the user is then prompted for a Kratos-managed second factor as usual. Both fields are optional; leaving them empty preserves the
-current behavior of always issuing AAL1 sessions through this provider.
+the user is then prompted for a Kratos-managed second factor as usual. Both fields are optional; leaving them empty causes Kratos
+to always issue AAL1 sessions through this provider.
 
 The upstream `acr` and `amr` values are persisted on the session's `authentication_methods` entry as `upstream_acr` and
 `upstream_amr` for auditing. They appear on `/sessions/whoami` and in webhook payloads, so downstream systems can record which
@@ -37,20 +37,8 @@ upstream factors were used.
 
 ## Provider support
 
-Not every OIDC provider returns `acr` or `amr`. The table below lists the providers Ory ships with and whether their ID tokens
-include these claims.
-
-| Provider                                                                                                  | `acr`        | `amr`                 | Notes                                                                                                                                                              |
-| --------------------------------------------------------------------------------------------------------- | ------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Generic OIDC                                                                                              | Yes          | Yes                   | Works with any OIDC-compliant IdP that emits these claims (Keycloak, Microsoft Entra v1, PingFederate, Auth0 federation, Okta federation, and many others).        |
-| Microsoft (Entra ID / Azure AD)                                                                           | v1.0 only    | v1.0 only             | v1.0 ID tokens include both. v2.0 tokens typically omit `acr` and `amr`.                                                                                           |
-| Auth0                                                                                                     | Yes          | Yes                   | `amr` contains `mfa` once the user completed an MFA challenge. The standard step-up `acr` value is `http://schemas.openid.net/pape/policies/2007/06/multi-factor`. |
-| Okta (federation)                                                                                         | Yes          | Yes                   | Predefined `acr` values such as `urn:okta:loa:1fa:any` and `urn:okta:loa:2fa:any`. `amr` values include `pwd`, `mfa`, `sms`, `hwk`, `fpt`, `face`.                 |
-| Keycloak                                                                                                  | Yes          | Yes (recent versions) | `acr` is mapped from the Level-of-Authentication config. `amr` is populated by the dedicated AMR protocol mapper.                                                  |
-| Ping Identity (PingAM, PingFederate, PingOne AIC)                                                         | Yes (opt-in) | Yes (opt-in)          | Neither claim is added by default. Configure them through Authentication Journeys or "Force ACR in ID Token".                                                      |
-| Google                                                                                                    | No           | No                    | Google's OIDC implementation does not issue `acr` or `amr`.                                                                                                        |
-| Apple (Sign in with Apple)                                                                                | No           | No                    | Not part of Apple's documented ID-token schema.                                                                                                                    |
-| Facebook, GitHub, GitLab, Discord, Slack, Spotify, Amazon, LinkedIn, Yandex, VK, NetID, Dingtalk, Patreon | No           | No                    | OAuth2-only or non-standard OIDC; no `acr` or `amr` surfaced.                                                                                                      |
+Not every OIDC provider returns `acr` or `amr`, and the values they emit vary widely. Check your provider's documentation to see
+whether it includes these claims in the ID token and which values map to a multi-factor authentication.
 
 You can still configure the allowlist for any provider — Ory simply records the upstream values and never matches when the
 provider doesn't emit them.
@@ -194,14 +182,14 @@ still recorded under `upstream_acr` / `upstream_amr` for auditing.
 
 ## Troubleshooting
 
-**The session is still AAL1 after a successful login.** Check that the upstream provider actually emits the claim. You can inspect
+The session is still AAL1 after a successful login: Check that the upstream provider actually emits the claim. You can inspect
 the raw ID token claims from the Jsonnet data mapper through `std.extVar('claims').raw_claims.acr` and
 `std.extVar('claims').raw_claims.amr`. If the provider doesn't surface the claim, request it explicitly through `acr_values` or
 `requested_claims`.
 
-**The `upstream_acr` field is empty even though the upstream sent it.** Make sure your provider config has
+The `upstream_acr` field is empty even though the upstream sent it: Make sure your provider config has
 `claims_source: id_token` (the default) or, if you set `claims_source: userinfo`, that the userinfo endpoint also returns the
 `acr` claim. Some providers only include `acr`/`amr` in the ID token.
 
-**The session is AAL2 but the user never completed MFA.** Audit the configured allowlists carefully. An `acr` value such as `0` or
+The session is AAL2 but the user never completed MFA: Audit the configured allowlists carefully. An `acr` value such as `0` or
 `urn:mace:incommon:iap:bronze` typically means "no MFA was performed" — do not include those values in `aal2_acr_values`.
