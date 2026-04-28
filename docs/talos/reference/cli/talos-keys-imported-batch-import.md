@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos keys imported batch-import
 
 Batch import API keys from a JSON file
@@ -40,4 +39,5 @@ talos keys imported batch-import --file keys.json [flags]
 
 ### See also
 
-- [talos keys imported](talos-keys-imported) Manage imported API keys
+* [talos keys imported](talos-keys-imported.md) Manage imported API keys
+

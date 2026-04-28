@@ -4,7 +4,8 @@ title: Database
 
 # Database
 
-Talos stores API key data in a relational database. The backend is determined by the DSN scheme in `db.dsn`.
+Talos stores API key data in a relational database. The backend is determined by the DSN scheme in
+`db.dsn`.
 
 ## Supported backends
 

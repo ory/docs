@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos migrate force
 
 Force set migration version (use with caution)
@@ -19,12 +18,12 @@ Force set migration version (use with caution)
 Force the migration version to a specific value.
 
 This is useful when:
+  - A migration failed and left the database in a dirty state
+  - You need to manually fix the database state
+  - You want to mark a migration as applied without running it
 
-- A migration failed and left the database in a dirty state
-- You need to manually fix the database state
-- You want to mark a migration as applied without running it
-
-WARNING: This command should be used carefully as it can lead to inconsistent database state if used incorrectly.
+WARNING: This command should be used carefully as it can lead to
+inconsistent database state if used incorrectly.
 
 ```
 talos migrate force VERSION [flags]
@@ -53,4 +52,5 @@ talos migrate force VERSION [flags]
 
 ### See also
 
-- [talos migrate](talos-migrate) Database migration tools
+* [talos migrate](talos-migrate.md) Database migration tools
+

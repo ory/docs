@@ -7,7 +7,8 @@ sidebar_custom_props:
 
 # Edge proxy
 
-Deploy a caching reverse proxy as a sidecar to your application for sub-millisecond verification latency.
+Deploy a caching reverse proxy as a sidecar to your application for sub-millisecond verification
+latency.
 
 ## Pattern
 
@@ -38,9 +39,9 @@ graph TB
 
 ## How it works
 
-The edge proxy is an HTTP reverse proxy that sits between your application and a central Talos server. It intercepts `POST`
-requests to `/v2/verify/*` endpoints, caches positive (active) verification responses locally, and proxies everything else to
-upstream unchanged.
+The edge proxy is an HTTP reverse proxy that sits between your application and a central Talos
+server. It intercepts `POST` requests to `/v2alpha1/verify/*` endpoints, caches positive (active)
+verification responses locally, and proxies everything else to upstream unchanged.
 
 ```mermaid
 sequenceDiagram
@@ -48,27 +49,28 @@ sequenceDiagram
     participant Proxy as Edge Proxy
     participant Talos as Upstream Talos
 
-    App->>Proxy: POST /v2/verify/apiKey
+    App->>Proxy: POST /v2alpha1/verify/apiKey
     alt Cache HIT
         Proxy-->>App: 200 OK (cached, sub-ms)
     else Cache MISS
-        Proxy->>Talos: POST /v2/verify/apiKey
+        Proxy->>Talos: POST /v2alpha1/verify/apiKey
         Talos-->>Proxy: 200 OK (active=true)
         Note over Proxy: Cache response
         Proxy-->>App: 200 OK
     end
-    App->>Proxy: POST /v2/admin/issuedApiKeys
+    App->>Proxy: POST /v2alpha1/admin/issuedApiKeys
     Proxy->>Talos: Proxy unchanged
     Talos-->>Proxy: 200 OK
     Proxy-->>App: 200 OK
 ```
 
-Non-verify requests (admin operations, key issuance, health checks to upstream) pass through the proxy transparently.
+Non-verify requests (admin operations, key issuance, health checks to upstream) pass through the
+proxy transparently.
 
 ## Sidecar deployment
 
-Run the proxy as a sidecar container alongside your application. Your application sends verify requests to `localhost` (sub-ms
-cache hits) instead of the central Talos server.
+Run the proxy as a sidecar container alongside your application. Your application sends verify
+requests to `localhost` (sub-ms cache hits) instead of the central Talos server.
 
 ```
 ┌─────────────────────────────────┐
@@ -81,8 +83,9 @@ cache hits) instead of the central Talos server.
 └─────────────────────────────────┘
 ```
 
-Point your application's Talos verify URL at `http://localhost:8080` (or whichever port the proxy listens on). All other Talos API
-calls (admin, key management) should go directly to the central server.
+Point your application's Talos verify URL at `http://localhost:8080` (or whichever port the proxy
+listens on). All other Talos API calls (admin, key management) should go directly to the central
+server.
 
 ## Configuration
 
@@ -110,15 +113,16 @@ talos-commercial proxy \
 
 ### Cache key generation
 
-Cache keys are derived from `SHA256(host + credential)` using length-prefixed encoding to prevent collision attacks. The host
-component ensures tenant isolation in multi-tenant deployments: the same credential cached under `tenant-a.example.com` will not
-be served for requests from `tenant-b.example.com`.
+Cache keys are derived from `SHA256(host + credential)` using length-prefixed encoding to prevent
+collision attacks. The host component ensures tenant isolation in multi-tenant deployments: the same
+credential cached under `tenant-a.example.com` will not be served for requests from
+`tenant-b.example.com`.
 
 ### What gets cached
 
 Only responses that meet **all** of the following criteria are cached:
 
-- The request is a `POST` to `/v2/verify/*`
+- The request is a `POST` to `/v2alpha1/verify/*`
 - The upstream returned HTTP `200 OK`
 - The response body contains `"is_active": true`
 
@@ -126,9 +130,10 @@ Inactive credentials, error responses, and non-verify endpoints are never cached
 
 ### TTL calculation
 
-The effective TTL for each entry is `min(configured_ttl, time_until_expires_at)`. If the verification response includes an
-`expires_at` timestamp, the proxy ensures the cached entry expires no later than the credential itself. If `expires_at` is absent,
-the configured `--cache-ttl` is used.
+The effective TTL for each entry is `min(configured_ttl, time_until_expires_at)`. If the
+verification response includes an `expires_at` timestamp, the proxy ensures the cached entry expires
+no later than the credential itself. If `expires_at` is absent, the configured `--cache-ttl` is
+used.
 
 ### Cache headers
 
@@ -144,13 +149,14 @@ Every response from the proxy includes an `Ory-Talos-Cache` header:
 Clients can bypass the cache by including a `Cache-Control` header:
 
 ```bash
-curl -X POST http://localhost:8080/v2/verify/apiKey \
+curl -X POST http://localhost:8080/v2alpha1/verify/apiKey \
   -H "Content-Type: application/json" \
   -H "Cache-Control: no-cache" \
   -d '{"credential": "phx_..."}'
 ```
 
-Both `no-cache` and `no-store` directives trigger a cache bypass. The response is still eligible for caching.
+Both `no-cache` and `no-store` directives trigger a cache bypass. The response is still eligible for
+caching.
 
 ## Health checks
 
@@ -186,7 +192,10 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - DATABASE_URL=postgres://talos:secret@db:5432/talos?sslmode=disable
+      - TALOS_DB_DSN=postgres://talos:secret@db:5432/talos?sslmode=disable
+      - TALOS_CREDENTIALS_ISSUER=https://api.example.com
+      - TALOS_SECRETS_DEFAULT_CURRENT=use-a-random-64-char-pagination-token-secret-generated-at-deploy
+      - TALOS_SECRETS_HMAC_CURRENT=use-a-random-64-char-hmac-secret-for-api-key-checksum-validation
 
   proxy:
     image: oryd/talos-commercial:latest
@@ -262,8 +271,10 @@ spec:
 
 ## Eventual consistency
 
-Revocation takes effect in the database immediately but cached verification results persist until the cache TTL expires. To force
-an immediate re-check against upstream, send `Cache-Control: no-cache` on the verification request.
+Revocation takes effect in the database immediately but cached verification results persist until
+the cache TTL expires. To force an immediate re-check against upstream, send
+`Cache-Control: no-cache` on the verification request.
 
-Choose a `--cache-ttl` that balances latency savings against your revocation propagation requirements. Shorter TTLs provide faster
-revocation propagation at the cost of more upstream requests.
+Choose a `--cache-ttl` that balances latency savings against your revocation propagation
+requirements. Shorter TTLs provide faster revocation propagation at the cost of more upstream
+requests.

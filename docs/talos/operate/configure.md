@@ -5,13 +5,15 @@ description: Configuration reference for Ory Talos
 
 # Configure
 
-Talos is configured through a YAML file passed via the `--config` flag. All settings can also be set through environment variables
-or CLI flags. See the [Configuration reference](../reference/config.md) for the complete list of keys, types, defaults,
+Talos is configured through a YAML file passed via the `--config` flag. All settings can also be set
+through environment variables or CLI flags. See the
+[Configuration reference](../reference/config.md) for the complete list of keys, types, defaults,
 environment variable mappings, and precedence rules.
 
 ## Hot-reload
 
-Talos watches the config file for changes. Some settings reload automatically, others require a restart.
+Talos watches the config file for changes. Some settings reload automatically, others require a
+restart.
 
 **Hot-reloadable:**
 
@@ -24,12 +26,30 @@ Talos watches the config file for changes. Some settings reload automatically, o
 **Requires restart** (marked with `x-immutable` in the schema):
 
 - `serve.http.host` / `port`
-- `serve.metrics.host` / `port`
+- `serve.metrics.host` / `port` (Commercial only)
 - `db.dsn`
 - `cache.type` and all cache settings
 - `rate_limit.backend`
 - `log.level` / `format`
-- `tracing.*`
+- `tracing.*` (Commercial only)
+
+## Duration syntax
+
+All duration values (TTLs, timeouts, intervals) are Go duration strings. Combine one or more
+unsigned numbers with a unit, no spaces. Supported units:
+
+| Unit | Meaning      |
+| ---- | ------------ |
+| `ns` | nanoseconds  |
+| `us` | microseconds |
+| `µs` | microseconds |
+| `ms` | milliseconds |
+| `s`  | seconds      |
+| `m`  | minutes      |
+| `h`  | hours        |
+
+Examples: `500ms`, `30s`, `5m`, `1h30m`, `8760h` (one year). Days, weeks, months, and years are
+**not** supported — express them in hours (`24h`, `168h`, `8760h`).
 
 ## Minimal configuration
 
@@ -55,7 +75,7 @@ serve:
       allowed_origins: ["https://app.example.com"]
     request_log:
       exclude_health_endpoints: true
-  metrics:
+  metrics: # Commercial only
     host: "0.0.0.0"
     port: 4422
 
@@ -71,8 +91,10 @@ credentials:
       signing_key_id: "" # Optional JWKS kid hint; defaults to the first usable signing key
       default_ttl: "1h"
       signing_keys:
+        # Talos requires base64-encoded JWKS. To produce the value below, run:
+        #   base64 < /etc/talos/jwks.json | tr -d '\n'
         urls:
-          - "file:///etc/talos/jwks.json"
+          - "base64://eyJrZXlzIjpbXX0="
 
 db:
   dsn: "postgres://talos:secret@db:5432/talos?max_conns=25&max_conn_lifetime=5m"
@@ -98,7 +120,7 @@ log:
   level: "info"
   format: "json"
 
-tracing:
+tracing: # Commercial only
   enabled: true
   service_name: "talos"
   exporter: "otlp"
@@ -106,5 +128,5 @@ tracing:
   sample_rate: 0.01
 ```
 
-See the [Configuration reference](../reference/config.md) for all available keys with types, defaults, and environment variable
-mappings.
+See the [Configuration reference](../reference/config.md) for all available keys with types,
+defaults, and environment variable mappings.

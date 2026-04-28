@@ -9,15 +9,15 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos jwk generate ecdsa
 
 Generate an ECDSA key pair
 
 ### Synopsis
 
-Generate an ECDSA key pair using the specified elliptic curve. Key size is determined by the curve: P-256 (256-bit), P-384
-(384-bit), P-521 (521-bit). Default curve: P-256.
+Generate an ECDSA key pair using the specified elliptic curve.
+Key size is determined by the curve: P-256 (256-bit), P-384 (384-bit), P-521 (521-bit).
+Default curve: P-256.
 
 ```
 talos jwk generate ecdsa [flags]
@@ -57,4 +57,5 @@ talos jwk generate ecdsa [flags]
 
 ### See also
 
-- [talos jwk generate](talos-jwk-generate) Generate a new JWK key
+* [talos jwk generate](talos-jwk-generate.md) Generate a new JWK key
+

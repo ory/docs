@@ -955,7 +955,7 @@ const talos: SidebarItemsConfig = [
   },
   {
     type: "category",
-    label: "talos/integrate",
+    label: "Integrate",
     collapsed: false,
     link: { type: "doc", id: "talos/integrate/index" },
     items: [
@@ -977,7 +977,7 @@ const talos: SidebarItemsConfig = [
   },
   {
     type: "category",
-    label: "talos/operate",
+    label: "Operate",
     collapsed: false,
     link: { type: "doc", id: "talos/operate/index" },
     items: [
@@ -1039,7 +1039,6 @@ const talos: SidebarItemsConfig = [
       "talos/concepts/credential-types",
       "talos/concepts/token-format",
       "talos/concepts/security-model",
-      "talos/concepts/ip-restrictions",
       "talos/concepts/caching",
       "talos/concepts/rate-limiting",
       "talos/concepts/token-derivation-security",

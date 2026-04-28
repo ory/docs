@@ -7,8 +7,8 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Key lifecycle
 
-After issuing an API key, you can update its metadata, rotate the secret, or revoke it. All lifecycle operations use the admin
-plane.
+After issuing an API key, you can update its metadata, rotate the secret, or revoke it. All
+lifecycle operations use the admin plane.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -40,7 +40,7 @@ echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 <TabItem value="curl" label="curl">
 
 ```bash
-ISSUE_RESP=$(curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
+ISSUE_RESP=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{"name":"lifecycle-test","actor_id":"user_1","scopes":["read","write"],"metadata":{"team":"backend"}}')
 
@@ -55,13 +55,15 @@ echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 </TabItem>
 </Tabs>
 
-When you set `ttl` on issue or import requests, the HTTP API accepts extended formats such as `1y`, `1mo`, `1w`, `1d`, and
-compounds like `1y6mo` in addition to standard Go durations. The current CLI `--ttl` flags still expect standard Go duration
-strings; see the [configuration reference](../reference/config.md) for the canonical duration format summary.
+When you set `ttl` on issue or import requests, the HTTP API accepts extended formats such as `1y`,
+`1mo`, `1w`, `1d`, and compounds like `1y6mo` in addition to standard Go durations. The current CLI
+`--ttl` flags still expect standard Go duration strings; see the
+[configuration reference](../reference/config.md) for the canonical duration format summary.
 
 ## Update key metadata
 
-Use `PATCH` to update a key's name, scopes, metadata, or rate limit policy without changing the secret:
+Use `PATCH` to update a key's name, scopes, metadata, or rate limit policy without changing the
+secret:
 
 <!-- doctest:exec -->
 
@@ -80,7 +82,7 @@ talos keys issued update "$KEY_ID" \
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X PATCH "$TALOS_URL/v2/admin/issuedApiKeys/$KEY_ID" \
+curl -s -X PATCH "$TALOS_URL/v2alpha1/admin/issuedApiKeys/$KEY_ID" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "lifecycle-test-updated",
@@ -95,10 +97,11 @@ curl -s -X PATCH "$TALOS_URL/v2/admin/issuedApiKeys/$KEY_ID" \
 
 ### Update mask
 
-The `update_mask` field controls which fields are modified. Only fields listed in `paths` are changed. This follows the
-[AIP-134](https://google.aip.dev/134) standard for partial updates.
+The `update_mask` field controls which fields are modified. Only fields listed in `paths` are
+changed. This follows the [AIP-134](https://google.aip.dev/134) standard for partial updates.
 
-Updatable fields include `name`, `scopes`, `metadata`, and `rate_limit_policy`. For the complete field reference, see the
+Updatable fields include `name`, `scopes`, `metadata`, and `rate_limit_policy`. For the complete
+field reference, see the
 [UpdateIssuedAPIKey API reference](../reference/api/admin-update-issued-api-key.api.mdx).
 
 ## Rotate a key
@@ -128,7 +131,7 @@ echo "export KEY_ID=$NEW_KEY_ID" >> "$DOCTEST_ENV_FILE"
 <TabItem value="curl" label="curl">
 
 ```bash
-RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys/${KEY_ID}:rotate" \
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys/${KEY_ID}:rotate" \
   -H "Content-Type: application/json" \
   -d '{
     "scopes": ["read", "write", "admin"],
@@ -148,22 +151,23 @@ echo "export KEY_ID=$NEW_KEY_ID" >> "$DOCTEST_ENV_FILE"
 
 ### Rotation response
 
-The response includes the new `issued_api_key` (with a new `key_id`), the new `secret` (shown once), and `old_issued_api_key`
-(status `KEY_STATUS_REVOKED`). For the complete field reference, see the
+The response includes the new `issued_api_key` (with a new `key_id`), the new `secret` (shown once),
+and `old_issued_api_key` (status `KEY_STATUS_REVOKED`). For the complete field reference, see the
 [RotateIssuedAPIKey API reference](../reference/api/admin-rotate-issued-api-key.api.mdx).
 
 ### Zero-downtime rotation
 
 The `:rotate` endpoint revokes the old key immediately. For zero-downtime rotation:
 
-1. Issue a new key with `POST /v2/admin/issuedApiKeys`
+1. Issue a new key with `POST /v2alpha1/admin/issuedApiKeys`
 2. Deploy the new secret to all services
 3. Verify the new secret works everywhere
-4. Revoke the old key with `POST /v2/admin/apiKeys/{old_key_id}:revoke`
+4. Revoke the old key with `POST /v2alpha1/admin/apiKeys/{old_key_id}:revoke`
 
 ## Revoke a key
 
-Revocation is irreversible. Once revoked, the key fails verification immediately (subject to cache TTL):
+Revocation is irreversible. Once revoked, the key fails verification immediately (subject to cache
+TTL):
 
 <!-- doctest:exec -->
 
@@ -178,7 +182,7 @@ talos keys revoke "$KEY_ID" --reason superseded -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys/${KEY_ID}:revoke" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys/${KEY_ID}:revoke" \
   -H "Content-Type: application/json" \
   -d '{"reason": "REVOCATION_REASON_SUPERSEDED"}'
 echo ""
@@ -191,16 +195,18 @@ echo "Key revoked"
 ### Revocation reasons
 
 Standard reasons include `REVOCATION_REASON_KEY_COMPROMISE`, `REVOCATION_REASON_SUPERSEDED`,
-`REVOCATION_REASON_AFFILIATION_CHANGED`, and `REVOCATION_REASON_PRIVILEGE_WITHDRAWN` (admin only). For the complete list, see the
+`REVOCATION_REASON_AFFILIATION_CHANGED`, and `REVOCATION_REASON_PRIVILEGE_WITHDRAWN` (admin only).
+For the complete list, see the
 [RevokeAPIKey API reference](../reference/api/admin-revoke-api-key.api.mdx).
 
-When using `PRIVILEGE_WITHDRAWN`, you can include a `reason_text` field with a human-readable explanation.
+When using `PRIVILEGE_WITHDRAWN`, you can include a `reason_text` field with a human-readable
+explanation.
 
 ### Revocation and caching
 
-Revocation takes effect in the database immediately. However, if caching is enabled, previously cached verification results may
-remain valid until the cache entry expires. To force immediate effect, use the `Cache-Control: no-cache` header on verification
-requests.
+Revocation takes effect in the database immediately. However, if caching is enabled, previously
+cached verification results may remain valid until the cache entry expires. To force immediate
+effect, use the `Cache-Control: no-cache` header on verification requests.
 
 ## Verify after revocation
 
@@ -219,7 +225,7 @@ talos keys verify "$API_SECRET" --no-cache -e "$TALOS_URL" || true
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -H "Cache-Control: no-cache" \
   -d "{\"credential\":\"$API_SECRET\"}" | jq .

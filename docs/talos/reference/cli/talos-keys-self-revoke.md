@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos keys self-revoke
 
 Revoke an API key using the credential itself as proof
@@ -40,4 +39,5 @@ talos keys self-revoke [credential] [flags]
 
 ### See also
 
-- [talos keys](talos-keys) Manage API keys
+* [talos keys](talos-keys.md) Manage API keys
+

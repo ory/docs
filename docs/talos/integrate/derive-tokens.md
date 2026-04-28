@@ -7,13 +7,15 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Derive tokens
 
-Token derivation creates short-lived JWT or macaroon tokens from a long-lived API key. Use derived tokens when you need:
+Token derivation creates short-lived JWT or macaroon tokens from a long-lived API key. Use derived
+tokens when you need:
 
 - **Browser-safe credentials** — JWTs can be verified client-side without hitting the server.
 - **Temporary access** — grant time-limited access with a subset of the parent key's scopes.
 - **Custom claims** — embed application-specific data in the token.
 
-Derived tokens inherit permissions from the parent API key and can be verified on the same data plane endpoint.
+Derived tokens inherit permissions from the parent API key and can be verified on the same data
+plane endpoint.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -42,7 +44,7 @@ echo "export API_SECRET=$API_SECRET" >> "$DOCTEST_ENV_FILE"
 <TabItem value="curl" label="curl">
 
 ```bash
-ISSUE_RESP=$(curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
+ISSUE_RESP=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{"name":"derive-test","actor_id":"user_1","scopes":["read","write"]}')
 
@@ -82,7 +84,7 @@ echo "export JWT_TOKEN=$JWT_TOKEN" >> "$DOCTEST_ENV_FILE"
 <TabItem value="curl" label="curl">
 
 ```bash
-RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:derive" \
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:derive" \
   -H "Content-Type: application/json" \
   -d "{
     \"credential\": \"$API_SECRET\",
@@ -103,17 +105,19 @@ echo "export JWT_TOKEN=$JWT_TOKEN" >> "$DOCTEST_ENV_FILE"
 
 ### Request fields
 
-The key fields are `credential` (the parent API key secret), `algorithm` (`TOKEN_ALGORITHM_JWT` or `TOKEN_ALGORITHM_MACAROON`),
-optional `ttl`, `scopes` (subset of parent's), and `custom_claims`. For the complete field reference, see the
+The key fields are `credential` (the parent API key secret), `algorithm` (`TOKEN_ALGORITHM_JWT` or
+`TOKEN_ALGORITHM_MACAROON`), optional `ttl`, `scopes` (subset of parent's), and `custom_claims`. For
+the complete field reference, see the
 [DeriveToken API reference](../reference/api/admin-derive-token.api.mdx).
 
-For HTTP API requests, `ttl` accepts extended formats such as `1y`, `1mo`, `1w`, `1d`, and compounds like `1y6mo` in addition to
-standard Go durations. The current CLI `--ttl` flag still expects standard Go durations such as `1h` or `30m`.
+For HTTP API requests, `ttl` accepts extended formats such as `1y`, `1mo`, `1w`, `1d`, and compounds
+like `1y6mo` in addition to standard Go durations. The current CLI `--ttl` flag still expects
+standard Go durations such as `1h` or `30m`.
 
 ### Response
 
-The response contains a `token` object with `token.token` (the derived token string), `token.expire_time`, `token.scopes`, and
-`token.claims`. For the complete field reference, see the
+The response contains a `token` object with `token.token` (the derived token string),
+`token.expire_time`, `token.scopes`, and `token.claims`. For the complete field reference, see the
 [DeriveToken API reference](../reference/api/admin-derive-token.api.mdx).
 
 ## Verify a derived token
@@ -133,16 +137,13 @@ talos keys verify "$JWT_TOKEN" -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -d "{\"credential\":\"$JWT_TOKEN\"}" | jq .
 ```
 
 </TabItem>
 </Tabs>
-
-The current `talos keys verify` CLI command uses the admin-scoped verify API under the hood. The curl example above shows the
-self-service data-plane endpoint.
 
 The verification response includes the token's scopes, actor, and metadata from the parent key.
 
@@ -166,7 +167,7 @@ talos keys derive-token "$API_SECRET" \
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:derive" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:derive" \
   -H "Content-Type: application/json" \
   -d "{
     \"credential\": \"$API_SECRET\",
@@ -189,7 +190,8 @@ curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:derive" \
 
 ## JWKS endpoint
 
-For client-side JWT verification, fetch the public keys from the JWKS endpoint:
+For client-side JWT verification, fetch the public keys from the JWKS endpoint at
+`/v2alpha1/admin/derivedKeys/jwks.json`:
 
 <!-- doctest:exec -->
 
@@ -204,20 +206,43 @@ talos jwk get -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s "$TALOS_URL/v2/admin/.well-known/jwks.json" | jq .
+curl -s "$TALOS_URL/v2alpha1/admin/derivedKeys/jwks.json" | jq .
 ```
 
 </TabItem>
 </Tabs>
 
-Configure your JWT library to fetch keys from this URL. The keys are loaded from the server's JWKS configuration and are typically
-cached.
+The endpoint serves the active public signing keys plus any retired keys still inside the
+verification window. Each entry includes a `kid` field that matches the `kid` header on tokens
+signed with that key.
+
+### Client-side caching and refresh
+
+Cache the JWKS response on the client so verification does not call Talos on every request.
+Recommended settings:
+
+| Setting              | Recommended value | Notes                                                   |
+| -------------------- | ----------------- | ------------------------------------------------------- |
+| Cache TTL            | 5 – 15 minutes    | Bounds how long a rotated-out key keeps verifying.      |
+| Refresh-on-miss      | Enabled           | If a token's `kid` is unknown, refetch JWKS once.       |
+| Refresh failure mode | Serve stale       | If the refetch fails, keep the previous keys until TTL. |
+
+Most mature JWT libraries (`jose` for Node, `PyJWT`/`PyJWKClient` for Python, `go-jose`,
+`jjwt` for Java) support these patterns natively — set the cache TTL and enable
+refresh-on-unknown-kid. Do not poll the endpoint on a fixed interval shorter than 1 minute; it adds
+load without changing the practical revocation window, which is bounded by the longest issued
+token TTL.
+
+When you rotate signing keys, keep the previous key in the JWKS response (mark it retired in the
+server config, do not delete the JWK) for at least the longest issued token TTL plus the maximum
+client cache TTL. Otherwise clients with a freshly cached JWKS that lacks the new `kid` can reject
+valid tokens until their cache expires.
 
 ## Scope restrictions
 
-Derived tokens can only have scopes that are a subset of the parent key's scopes. If you request any scope that the parent key
-does not have, the request fails with a `403 Forbidden` error. To restrict scopes, request only scopes that exist on the parent
-key.
+Derived tokens can only have scopes that are a subset of the parent key's scopes. If you request any
+scope that the parent key does not have, the request fails with a `403 Forbidden` error. To restrict
+scopes, request only scopes that exist on the parent key.
 
 ## Next steps
 

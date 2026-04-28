@@ -1,10 +1,1 @@
-{
-  "parameters": [
-    {
-      "in": "path",
-      "name": "key_id",
-      "required": true,
-      "schema": { "type": "string" }
-    }
-  ]
-}
+{"parameters":[{"description":"Identifier of the key to revoke, taken from the path\n(`POST /v2alpha1/admin/apiKeys/{key_id}:revoke`). For issued keys this is\nthe UUID; for imported keys this is the SHA-512/256 hash. REQUIRED.","in":"path","name":"key_id","required":true,"schema":{"type":"string"}}]}

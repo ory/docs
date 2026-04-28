@@ -7,8 +7,8 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Batch operations
 
-Talos supports batch endpoints for high-throughput scenarios. Batch operations process items in parallel and return per-item
-results.
+Talos supports batch endpoints for high-throughput scenarios. Batch operations process items in
+parallel and return per-item results.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -40,12 +40,12 @@ echo "Keys issued"
 <TabItem value="curl" label="curl">
 
 ```bash
-KEY1=$(curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
+KEY1=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{"name":"batch-key-1","actor_id":"user_1","scopes":["read"]}' | \
   jq -r '.secret')
 
-KEY2=$(curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
+KEY2=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{"name":"batch-key-2","actor_id":"user_2","scopes":["write"]}' | \
   jq -r '.secret')
@@ -77,7 +77,7 @@ talos keys batch-verify "$KEY1" "$KEY2" "invalid-key-for-testing" \
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/apiKeys:batchVerify" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:batchVerify" \
   -H "Content-Type: application/json" \
   -d "{
     \"requests\": [
@@ -91,15 +91,14 @@ curl -s -X POST "$TALOS_URL/v2/apiKeys:batchVerify" \
 </TabItem>
 </Tabs>
 
-The current `talos keys batch-verify` CLI command uses the admin-scoped batch verify API under the hood. The curl example above
-shows the self-service data-plane endpoint.
-
 ### Response format
 
 The response contains a `results` array. Each element has the same fields as a single
-[verify response](./issue-and-verify.md#verification-response). Results are returned in the same order as the requests.
+[verify response](./issue-and-verify.md#verification-response). Results are returned in the same
+order as the requests.
 
-Invalid credentials return `active: false` with an `error_code` — they do not cause the batch request to fail.
+Invalid credentials return `active: false` with an `error_code` — they do not cause the batch
+request to fail.
 
 ### Limits
 
@@ -131,7 +130,7 @@ JSON
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/importedApiKeys:batchImport" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys:batchImport" \
   -H "Content-Type: application/json" \
   -d '{
     "requests": [
@@ -147,12 +146,13 @@ curl -s -X POST "$TALOS_URL/v2/admin/importedApiKeys:batchImport" \
 
 ### Response format
 
-The response includes a `results` array with per-item outcomes, plus `success_count` and `failure_count` counters. The HTTP
-response is `200 OK` if at least one key succeeds. Check `failure_count` and individual `error_code` fields to detect partial
-failures.
+The response includes a `results` array with per-item outcomes, plus `success_count` and
+`failure_count` counters. The HTTP response is `200 OK` if at least one key succeeds. Check
+`failure_count` and individual `error_code` fields to detect partial failures.
 
 For the complete field reference, see the
-[BatchImportAPIKeys API reference](../reference/api/admin-batch-import-api-keys.api.mdx). For batch import error codes, see the
+[BatchImportAPIKeys API reference](../reference/api/admin-batch-import-api-keys.api.mdx). For batch
+import error codes, see the
 [error codes reference](../reference/error-codes.md#batch-import-error-codes).
 
 ### Limits

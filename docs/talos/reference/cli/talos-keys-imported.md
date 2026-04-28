@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos keys imported
 
 Manage imported API keys
@@ -35,10 +34,11 @@ Import, list, get, revoke, and delete externally-created API keys.
 
 ### See also
 
-- [talos keys](talos-keys) Manage API keys
-- [talos keys imported batch-import](talos-keys-imported-batch-import) - Batch import API keys from a JSON file
-- [talos keys imported delete](talos-keys-imported-delete) - Permanently delete an imported API key
-- [talos keys imported get](talos-keys-imported-get) - Get details of an imported API key
-- [talos keys imported import](talos-keys-imported-import) - Import an external API key
-- [talos keys imported list](talos-keys-imported-list) - List imported API keys
-- [talos keys imported revoke](talos-keys-imported-revoke) - Revoke an imported API key
+* [talos keys](talos-keys.md) Manage API keys
+* [talos keys imported batch-import](talos-keys-imported-batch-import.md)	 - Batch import API keys from a JSON file
+* [talos keys imported delete](talos-keys-imported-delete.md)	 - Permanently delete an imported API key
+* [talos keys imported get](talos-keys-imported-get.md)	 - Get details of an imported API key
+* [talos keys imported import](talos-keys-imported-import.md)	 - Import an external API key
+* [talos keys imported list](talos-keys-imported-list.md)	 - List imported API keys
+* [talos keys imported revoke](talos-keys-imported-revoke.md)	 - Revoke an imported API key
+

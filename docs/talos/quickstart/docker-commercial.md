@@ -48,7 +48,7 @@ echo "export API_SECRET=$API_SECRET" >> "$DOCTEST_ENV_FILE"
 <TabItem value="curl" label="curl">
 
 ```bash
-RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "commercial-test",
@@ -87,7 +87,7 @@ talos keys verify "$API_SECRET" -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -d "{\"credential\":\"$API_SECRET\"}" | jq .
 ```
@@ -109,7 +109,8 @@ docker compose -f docker-compose.commercial.yaml down -v
 
 ## Prerequisites
 
-You need Docker and Docker Compose installed. See the [OSS quickstart](./index.md) to try the free edition first.
+You need Docker and Docker Compose installed. See the [OSS quickstart](./index.md) to try the free
+edition first.
 
 ## Next steps
 

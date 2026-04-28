@@ -1,36 +1,46 @@
 ---
 id: ory-talos-api
 title: "Ory Talos API"
-description:
-  "Ory Talos is a high-performance static credential management service. It handles the full credential lifecycle: issuing keys,
-  verifying them at low latency, deriving short-lived tokens (JWT and Macaroon), and revoking access."
+description: "Ory Talos is a high-performance static credential management service. It handles the full credential lifecycle: issuing keys, verifying them at low latency, deriving short-lived tokens (JWT and Macaroon), and revoking access."
 sidebar_label: "Ory Talos API"
 hide_title: true
 custom_edit_url: null
 ---
 
-import ApiLogo from "@theme/ApiLogo"
-import Heading from "@theme/Heading"
-import SchemaTabs from "@theme/SchemaTabs"
-import TabItem from "@theme/TabItem"
-import Export from "@theme/ApiExplorer/Export"
+import ApiLogo from "@theme/ApiLogo";
+import Heading from "@theme/Heading";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiExplorer/Export";
 
-<span className={"theme-doc-version-badge badge badge--secondary"} children={"Version: 2.0"}></span>
+<span
+  className={"theme-doc-version-badge badge badge--secondary"}
+  children={"Version: v2alpha1"}
+>
+</span>
 
-<Heading as={"h1"} className={"openapi__heading"} children={"Ory Talos API"}></Heading>
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Ory Talos API"}
+>
+</Heading>
 
-Ory Talos is a high-performance static credential management service. It handles the full credential lifecycle: issuing keys,
-verifying them at low latency, deriving short-lived tokens (JWT and Macaroon), and revoking access.
+
+
+Ory Talos is a high-performance static credential management service. It handles the full credential lifecycle: issuing keys, verifying them at low latency, deriving short-lived tokens (JWT and Macaroon), and revoking access.
 
 The API is split into two services:
 
 - **StaticCredentials** — admin operations: key lifecycle (issue, rotate, revoke, import, derive tokens, JWKS) and verification
-- **SelfService** — self-service verification, batch verification, and revocation for credential holders
+- **SelfService** — self-service revocation for credential holders
+
+
 
 ### Quick Links
 
 - [**Admin Plane**](./admin-issue-api-key) — Key lifecycle management (issue, rotate, revoke, import, derive tokens, JWKS)
-- [**Data Plane**](./verify-api-key) — High-performance verification (single, batch, self-revoke)
+- [**Data Plane**](./admin-verify-api-key) — High-performance verification (single, batch, self-revoke)
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

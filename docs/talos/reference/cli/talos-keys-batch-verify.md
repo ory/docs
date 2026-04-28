@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos keys batch-verify
 
 Verify multiple credentials in a single request
@@ -36,4 +35,5 @@ talos keys batch-verify [credentials...] [flags]
 
 ### See also
 
-- [talos keys](talos-keys) Manage API keys
+* [talos keys](talos-keys.md) Manage API keys
+

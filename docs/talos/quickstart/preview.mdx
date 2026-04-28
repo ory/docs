@@ -24,7 +24,7 @@ steps below; the `curl` examples are the preview baseline, and the Talos CLI is 
 ## Pull the image
 
 ```bash
-docker pull europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6
+docker pull europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8
 ```
 
 ## Start Postgres
@@ -53,7 +53,6 @@ credentials:
   derived_tokens:
     default_ttl: "1h"
     jwt:
-      algorithm: "EdDSA"
       signing_keys:
         urls:
           - "base64://eyAgImtleXMiOiBbICAgIHsgICAgICAiYWxnIjogIkVkRFNBIiwgICAgICAiY3J2IjogIkVkMjU1MTkiLCAgICAgICJkIjogIjl3VTNfV3p0dmx3TXg0SGlfN2dsSVduY09XNlVIR2I5amxDdDZEZkVGa2MiLCAgICAgICJraWQiOiAiZG9ja2VyLWRldi0wMDEiLCAgICAgICJrdHkiOiAiT0tQIiwgICAgICAidXNlIjogInNpZyIsICAgICAgIngiOiAiNGtTQTdtNU5jYnFDUC1mZk9fNGhQM2tsNHB0NGctLTNRQ21zQmwzb05lVSIgICAgfSAgXX0="
@@ -86,7 +85,7 @@ Initialize the Postgres schema before the first server start:
 
 ```bash
 docker run --rm --network talos-preview \
-  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6 \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
   migrate up --database "postgres://talos:talos@talos-postgres:5432/talos?sslmode=disable"
 ```
 
@@ -96,7 +95,7 @@ docker run --rm --network talos-preview \
 docker run -d --name talos --network talos-preview \
   -p 8080:8080 -p 4422:4422 \
   -v "$PWD/config.yaml:/etc/talos/config.yaml:ro" \
-  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6 \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
   serve --config /etc/talos/config.yaml
 ```
 
@@ -139,7 +138,7 @@ Create an issued key on the admin plane and save its secret for later steps. For
 
 ```bash
 RESPONSE=$(docker run --rm --network talos-preview \
-  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6 \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
   keys issue "preview-issued-key" \
   --actor preview-user \
   --scopes "read:profile,write:profile" \
@@ -152,15 +151,15 @@ echo "$RESPONSE" | jq .
 API_SECRET=$(echo "$RESPONSE" | jq -r '.secret')
 KEY_ID=$(echo "$RESPONSE" | jq -r '.issued_api_key.key_id')
 
-export API_SECRET=$API_SECRET
-export KEY_ID=$KEY_ID
+echo "export API_SECRET=$API_SECRET" >> "$DOCTEST_ENV_FILE"
+echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 ```
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
 ```bash
-RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "preview-issued-key",
@@ -174,8 +173,8 @@ echo "$RESPONSE" | jq .
 API_SECRET=$(echo "$RESPONSE" | jq -r '.secret')
 KEY_ID=$(echo "$RESPONSE" | jq -r '.issued_api_key.key_id')
 
-export API_SECRET=$API_SECRET
-export KEY_ID=$KEY_ID
+echo "export API_SECRET=$API_SECRET" >> "$DOCTEST_ENV_FILE"
+echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 ```
 
 </TabItem>
@@ -195,7 +194,7 @@ Send the issued key secret to the unified verify endpoint. For the full response
 
 ```bash
 docker run --rm --network talos-preview \
-  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6 \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
   keys verify "$API_SECRET" -e "http://talos:8080"
 ```
 
@@ -203,7 +202,7 @@ docker run --rm --network talos-preview \
 <TabItem value="curl" label="curl">
 
 ```bash
-VERIFY_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
+VERIFY_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -d "{\"credential\":\"$API_SECRET\"}")
 
@@ -227,7 +226,7 @@ Mint a short-lived JWT from the issued key with a custom claim. For the full req
 
 ```bash
 RESPONSE=$(docker run --rm --network talos-preview \
-  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6 \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
   keys derive-token "$API_SECRET" \
   --algorithm jwt \
   --ttl 1h \
@@ -238,14 +237,14 @@ RESPONSE=$(docker run --rm --network talos-preview \
 echo "$RESPONSE" | jq .
 
 JWT_TOKEN=$(echo "$RESPONSE" | jq -r '.token.token')
-export JWT_TOKEN=$JWT_TOKEN
+echo "export JWT_TOKEN=$JWT_TOKEN" >> "$DOCTEST_ENV_FILE"
 ```
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
 ```bash
-RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:derive" \
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:derive" \
   -H "Content-Type: application/json" \
   -d "{
     \"credential\": \"$API_SECRET\",
@@ -257,7 +256,7 @@ RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:derive" \
 echo "$RESPONSE" | jq .
 
 JWT_TOKEN=$(echo "$RESPONSE" | jq -r '.token.token')
-export JWT_TOKEN=$JWT_TOKEN
+echo "export JWT_TOKEN=$JWT_TOKEN" >> "$DOCTEST_ENV_FILE"
 ```
 
 </TabItem>
@@ -279,7 +278,7 @@ Import a raw key string into Talos without rotating the credential. For the comp
 IMPORTED_RAW_KEY=sk_preview_demo_001
 
 RESPONSE=$(docker run --rm --network talos-preview \
-  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6 \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
   keys imported import "preview-imported-key" \
   --raw-key "$IMPORTED_RAW_KEY" \
   --actor preview-import-user \
@@ -292,8 +291,8 @@ echo "$RESPONSE" | jq .
 
 IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -r '.imported_api_key.key_id')
 
-export IMPORTED_RAW_KEY=$IMPORTED_RAW_KEY
-export IMPORTED_KEY_ID=$IMPORTED_KEY_ID
+echo "export IMPORTED_RAW_KEY=$IMPORTED_RAW_KEY" >> "$DOCTEST_ENV_FILE"
+echo "export IMPORTED_KEY_ID=$IMPORTED_KEY_ID" >> "$DOCTEST_ENV_FILE"
 ```
 
 </TabItem>
@@ -302,7 +301,7 @@ export IMPORTED_KEY_ID=$IMPORTED_KEY_ID
 ```bash
 IMPORTED_RAW_KEY=sk_preview_demo_001
 
-RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/importedApiKeys" \
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys" \
   -H "Content-Type: application/json" \
   -d "{
     \"raw_key\": \"$IMPORTED_RAW_KEY\",
@@ -316,8 +315,8 @@ echo "$RESPONSE" | jq .
 
 IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -r '.imported_api_key.key_id')
 
-export IMPORTED_RAW_KEY=$IMPORTED_RAW_KEY
-export IMPORTED_KEY_ID=$IMPORTED_KEY_ID
+echo "export IMPORTED_RAW_KEY=$IMPORTED_RAW_KEY" >> "$DOCTEST_ENV_FILE"
+echo "export IMPORTED_KEY_ID=$IMPORTED_KEY_ID" >> "$DOCTEST_ENV_FILE"
 ```
 
 </TabItem>
@@ -336,7 +335,7 @@ Imported keys use the same verify endpoint as issued keys. Talos detects the cre
 
 ```bash
 docker run --rm --network talos-preview \
-  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.6 \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
   keys verify "$IMPORTED_RAW_KEY" -e "http://talos:8080"
 ```
 
@@ -344,7 +343,7 @@ docker run --rm --network talos-preview \
 <TabItem value="curl" label="curl">
 
 ```bash
-VERIFY_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
+VERIFY_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -d "{\"credential\":\"$IMPORTED_RAW_KEY\"}")
 

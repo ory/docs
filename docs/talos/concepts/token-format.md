@@ -21,9 +21,10 @@ Issued API keys follow a structured v1 format:
 
 ## How it works
 
-The identifier contains a Unix timestamp and UUID v4, Base58-encoded. The UUID is the `key_id` used for database lookup. The
-checksum is HMAC-SHA256 over the payload, enabling tamper detection.
+The identifier contains a Unix timestamp and UUID v4, Base58-encoded. The UUID is the `key_id` used
+for database lookup. The checksum is HMAC-SHA256 over the payload, enabling tamper detection.
 
-During verification, all configured secrets (current + retired) are tried, supporting zero-downtime secret rotation.
+During verification, all configured secrets (current + retired) are tried, supporting zero-downtime
+secret rotation.
 
 See [Token format reference](../reference/token-format.md) for the full specification.

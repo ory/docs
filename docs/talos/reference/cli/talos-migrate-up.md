@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos migrate up
 
 Run all pending migrations
@@ -19,9 +18,8 @@ Run all pending migrations
 Apply all pending migrations to the database.
 
 The database connection string can be provided via:
-
-- DB_DSN environment variable
-- --database flag (overrides DB_DSN)
+  - DB_DSN environment variable
+  - --database flag (overrides DB_DSN)
 
 ```
 talos migrate up [flags]
@@ -60,4 +58,5 @@ talos migrate up [flags]
 
 ### See also
 
-- [talos migrate](talos-migrate) Database migration tools
+* [talos migrate](talos-migrate.md) Database migration tools
+

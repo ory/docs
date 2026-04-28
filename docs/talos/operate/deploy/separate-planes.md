@@ -4,18 +4,22 @@ title: Separate admin and data planes
 
 # Separate admin and data planes
 
-In production, you can deploy the admin plane and data plane as separate processes for independent scaling and security isolation.
+In production, you can deploy the admin plane and data plane as separate processes for independent
+scaling and security isolation.
 
-## Why separate
+## Why run them separately
 
-- **Security**: Admin plane (write operations) stays internal; data plane (verification) can be exposed at the edge
-- **Scaling**: Data plane handles high-throughput verification and scales horizontally; admin plane handles lower-volume
-  management
-- **Network isolation**: Admin plane behind internal firewall; data plane behind public load balancer
+- **Security**: Admin plane (write operations) stays internal; data plane (verification) can be
+  exposed at the edge
+- **Scaling**: Data plane handles high-throughput verification and scales horizontally; admin plane
+  handles lower-volume management
+- **Network isolation**: Admin plane behind internal firewall; data plane behind public load
+  balancer
 
 ## Architecture
 
-Both planes share the same database. The admin plane writes keys; the data plane reads and verifies them.
+Both planes share the same database. The admin plane writes keys; the data plane reads and verifies
+them.
 
 ```mermaid
 graph TB
@@ -49,24 +53,46 @@ talos serve check --config config.yaml
 
 ## Configuration
 
-Both deployments use the same config file or environment variables. The key difference is network exposure:
+Both deployments use the same config file or environment variables. The key difference is network
+exposure:
 
-**Admin plane** — bind to internal network only:
+Both processes need the full configuration block (`secrets`, `credentials`,
+`db`). The split is driven by the `serve` subcommand and the bind address, not
+by stripping config keys.
+
+**Admin plane** — bind to an internal address:
 
 ```yaml
 serve:
   http:
     host: "10.0.0.1"
     port: 4420
+credentials:
+  issuer: "https://api.example.com"
+secrets:
+  default:
+    current: "use-the-same-pagination-secret-on-both-planes--64chars"
+  hmac:
+    current: "use-the-same-hmac-secret-on-both-planes-or-verify-fails-64chars"
 ```
 
-**Data plane** — bind to all interfaces with caching:
+**Data plane** — bind to all interfaces with caching. Use the same secrets and
+issuer as the admin plane so the two processes derive identical key checksums.
+If you co-locate both planes on the same host, change one port (for example, the
+admin plane on `4421`):
 
 ```yaml
 serve:
   http:
     host: "0.0.0.0"
     port: 4420
+credentials:
+  issuer: "https://api.example.com"
+secrets:
+  default:
+    current: "use-the-same-pagination-secret-on-both-planes--64chars"
+  hmac:
+    current: "use-the-same-hmac-secret-on-both-planes-or-verify-fails-64chars"
 cache:
   type: "memory"
   ttl: "5m"
@@ -74,4 +100,5 @@ cache:
 
 ## Network policies
 
-Restrict admin plane access to internal services only. Data plane can accept traffic from any source.
+Restrict admin plane access to internal services only. Data plane can accept traffic from any
+source.

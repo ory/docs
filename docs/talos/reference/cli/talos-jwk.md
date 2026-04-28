@@ -9,15 +9,14 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos jwk
 
 Generate JSON Web Keys (JWK/JWKS)
 
 ### Synopsis
 
-Generate cryptographic keys in JSON Web Key (JWK) format. Supports EdDSA (Ed25519), ECDSA (P-256, P-384, P-521), RSA, and HMAC
-algorithms.
+Generate cryptographic keys in JSON Web Key (JWK) format.
+Supports EdDSA (Ed25519), ECDSA (P-256, P-384, P-521), RSA, and HMAC algorithms.
 
 ### Options
 
@@ -34,6 +33,7 @@ algorithms.
 
 ### See also
 
-- [talos](talos) High-performance multi-network API key service
-- [talos jwk generate](talos-jwk-generate) - Generate a new JWK key
-- [talos jwk get](talos-jwk-get) - Fetch the server's JSON Web Key Set (JWKS)
+* [talos](talos.md) Multi-tenant API key management service
+* [talos jwk generate](talos-jwk-generate.md)	 - Generate a new JWK key
+* [talos jwk get](talos-jwk-get.md)	 - Fetch the server's JSON Web Key Set (JWKS)
+

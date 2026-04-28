@@ -9,14 +9,14 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos jwk generate rsa
 
 Generate an RSA key pair
 
 ### Synopsis
 
-Generate an RSA key pair with the specified key size. Default is 2048 bits. Minimum is 2048 bits.
+Generate an RSA key pair with the specified key size.
+Default is 2048 bits. Minimum is 2048 bits.
 
 ```
 talos jwk generate rsa [flags]
@@ -60,4 +60,5 @@ talos jwk generate rsa [flags]
 
 ### See also
 
-- [talos jwk generate](talos-jwk-generate) Generate a new JWK key
+* [talos jwk generate](talos-jwk-generate.md) Generate a new JWK key
+

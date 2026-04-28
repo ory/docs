@@ -5,25 +5,27 @@ description: Auto-generated configuration reference from JSON Schema
 
 # Configuration reference
 
-This page is auto-generated from the [configuration schema](https://github.com/ory/talos/blob/main/spec/config.schema.json).
+This page is auto-generated from the
+[configuration schema](https://github.com/ory/talos/blob/main/spec/config.schema.json).
 
 Required top-level keys: `credentials`, `secrets`
 
 ## Environment variables
 
-Every configuration key can be set via an environment variable. Talos uses the `TALOS_` prefix and converts dot-separated config
-paths to uppercase with underscores:
+Every configuration key can be set via an environment variable. Talos uses the `TALOS_` prefix and
+converts dot-separated config paths to uppercase with underscores:
 
 ```
 TALOS_<SECTION>_<KEY>
 ```
 
-Replace dots (`.`) with underscores (`_`) and convert to uppercase. For example, `serve.http.port` becomes
-`TALOS_SERVE_HTTP_PORT`.
+Replace dots (`.`) with underscores (`_`) and convert to uppercase. For example, `serve.http.port`
+becomes `TALOS_SERVE_HTTP_PORT`.
 
 ### Array values
 
-For array-typed config keys (like `secrets.hmac.retired`), use comma separation or indexed variables:
+For array-typed config keys (like `secrets.hmac.retired`), use comma separation or indexed
+variables:
 
 ```bash
 # Comma-separated
@@ -87,7 +89,7 @@ Credential configuration for API keys and derived tokens (JWT, macaroon).
 | `credentials.api_keys.prefix.retired`                | string[] | `[]`     | `TALOS_CREDENTIALS_API_KEYS_PREFIX_RETIRED`                | Retired prefixes accepted during verification for migration purposes.                                                               |
 | `credentials.clock_skew`                             | string   | `5m`     | `TALOS_CREDENTIALS_CLOCK_SKEW`                             | Maximum clock skew tolerance for timestamp and token validation.                                                                    |
 | `credentials.derived_tokens.default_ttl`             | string   | `1h`     | `TALOS_CREDENTIALS_DERIVED_TOKENS_DEFAULT_TTL`             | Default derived token TTL applied to both JWT and macaroon tokens when no explicit TTL is provided in the request (duration string) |
-| `credentials.derived_tokens.jwt.signing_key_id`      | string   | ""       | `TALOS_CREDENTIALS_DERIVED_TOKENS_JWT_SIGNING_KEY_ID`      | Preferred signing key ID (kid) to use when selecting a key from the configured JWKS.                                                |
+| `credentials.derived_tokens.jwt.signing_key_id`      | string   | —        | `TALOS_CREDENTIALS_DERIVED_TOKENS_JWT_SIGNING_KEY_ID`      | Optional JWK 'kid' hint used to select the active signing key.                                                                      |
 | `credentials.derived_tokens.jwt.signing_keys.urls`   | string[] | `[]`     | `TALOS_CREDENTIALS_DERIVED_TOKENS_JWT_SIGNING_KEYS_URLS`   | List of JWKS resources.                                                                                                             |
 | `credentials.derived_tokens.macaroon.prefix.current` | string   | `mc`     | `TALOS_CREDENTIALS_DERIVED_TOKENS_MACAROON_PREFIX_CURRENT` | Current prefix used for new macaroon token generation.                                                                              |
 | `credentials.derived_tokens.macaroon.prefix.retired` | string[] | `[]`     | `TALOS_CREDENTIALS_DERIVED_TOKENS_MACAROON_PREFIX_RETIRED` | Retired prefixes accepted during macaroon verification for rotation purposes.                                                       |
@@ -172,19 +174,19 @@ Server configuration for HTTP and metrics endpoints.
 | `serve.http.port`                                 | integer                                                                                                                                                                                                  | `4420`                                  | `TALOS_SERVE_HTTP_PORT`                                 | The port that the endpoint listens on. (restart required)                                                                                                                                                                                                 |
 | `serve.http.request_log.exclude_health_endpoints` | boolean                                                                                                                                                                                                  | `false`                                 | `TALOS_SERVE_HTTP_REQUEST_LOG_EXCLUDE_HEALTH_ENDPOINTS` | Exclude /health/alive and /health/ready endpoints from request logs                                                                                                                                                                                       |
 | `serve.http.trust_forwarded_host`                 | boolean                                                                                                                                                                                                  | `false`                                 | `TALOS_SERVE_HTTP_TRUST_FORWARDED_HOST`                 | Trust the X-Forwarded-Host header for tenant routing. (restart required)                                                                                                                                                                                  |
-| `serve.metrics.host`                              | string                                                                                                                                                                                                   | `0.0.0.0`                               | `TALOS_SERVE_METRICS_HOST`                              | The host (interface) that the metrics endpoint listens on. (restart required)                                                                                                                                                                             |
-| `serve.metrics.port`                              | integer                                                                                                                                                                                                  | `4422`                                  | `TALOS_SERVE_METRICS_PORT`                              | The port that the metrics endpoint listens on. (restart required)                                                                                                                                                                                         |
+| `serve.metrics.host`                              | string                                                                                                                                                                                                   | `0.0.0.0`                               | `TALOS_SERVE_METRICS_HOST`                              | The host (interface) that the metrics endpoint listens on. (restart required, Commercial)                                                                                                                                                                 |
+| `serve.metrics.port`                              | integer                                                                                                                                                                                                  | `4422`                                  | `TALOS_SERVE_METRICS_PORT`                              | The port that the metrics endpoint listens on. (restart required, Commercial)                                                                                                                                                                             |
 
-## `tracing` (restart required)
+## `tracing` Commercial (restart required)
 
 OpenTelemetry tracing configuration.
 
-| Key                       | Type    | Default       | Env Var                         | Description                                                        |
-| ------------------------- | ------- | ------------- | ------------------------------- | ------------------------------------------------------------------ |
-| `tracing.enabled`         | boolean | `false`       | `TALOS_TRACING_ENABLED`         | Enable tracing. (restart required)                                 |
-| `tracing.endpoint`        | string  | —             | `TALOS_TRACING_ENDPOINT`        | Trace collector endpoint. (restart required)                       |
-| `tracing.environment`     | string  | `development` | `TALOS_TRACING_ENVIRONMENT`     | Deployment environment tag in trace attributes. (restart required) |
-| `tracing.exporter`        | `otlp`  | —             | `TALOS_TRACING_EXPORTER`        | Trace exporter type. (restart required)                            |
-| `tracing.sample_rate`     | number  | `0.001`       | `TALOS_TRACING_SAMPLE_RATE`     | Sampling rate (0.0 to 1.0). (restart required)                     |
-| `tracing.service_name`    | string  | `talos`       | `TALOS_TRACING_SERVICE_NAME`    | Service name reported to OpenTelemetry. (restart required)         |
-| `tracing.service_version` | string  | `0.0.0`       | `TALOS_TRACING_SERVICE_VERSION` | Service version reported to OpenTelemetry. (restart required)      |
+| Key                       | Type    | Default       | Env Var                         | Description                                                                    |
+| ------------------------- | ------- | ------------- | ------------------------------- | ------------------------------------------------------------------------------ |
+| `tracing.enabled`         | boolean | `false`       | `TALOS_TRACING_ENABLED`         | Enable tracing. (restart required, Commercial)                                 |
+| `tracing.endpoint`        | string  | —             | `TALOS_TRACING_ENDPOINT`        | Trace collector endpoint. (restart required, Commercial)                       |
+| `tracing.environment`     | string  | `development` | `TALOS_TRACING_ENVIRONMENT`     | Deployment environment tag in trace attributes. (restart required, Commercial) |
+| `tracing.exporter`        | `otlp`  | —             | `TALOS_TRACING_EXPORTER`        | Trace exporter type. (restart required, Commercial)                            |
+| `tracing.sample_rate`     | number  | `0.001`       | `TALOS_TRACING_SAMPLE_RATE`     | Sampling rate (0.0 to 1.0). (restart required, Commercial)                     |
+| `tracing.service_name`    | string  | `talos`       | `TALOS_TRACING_SERVICE_NAME`    | Service name reported to OpenTelemetry. (restart required, Commercial)         |
+| `tracing.service_version` | string  | `0.0.0`       | `TALOS_TRACING_SERVICE_VERSION` | Service version reported to OpenTelemetry. (restart required, Commercial)      |

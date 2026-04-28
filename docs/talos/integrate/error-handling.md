@@ -7,38 +7,57 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Error handling
 
-All Talos API errors follow a consistent JSON format. This guide covers the error response structure, common error codes, and
-retry strategies.
+All Talos API errors follow the [google.rpc.Status](https://cloud.google.com/apis/design/errors#error_model)
+shape. This guide covers the error response structure, common error codes, and retry strategies.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
 
 ## Error response format
 
-Error responses use this structure:
+Every non-2xx response uses the `google.rpc.Status` envelope:
 
 ```json
 {
-  "error": {
-    "code": 400,
-    "status": "Bad Request",
-    "message": "The API key format is invalid.",
-    "reason": "invalid_api_key_format"
-  }
+  "code": 5,
+  "message": "API key not found",
+  "details": [
+    {
+      "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+      "reason": "API_KEY_NOT_FOUND",
+      "domain": "talos.ory.sh",
+      "metadata": {
+        "key_id": "01J9X7…"
+      }
+    }
+  ]
 }
 ```
 
-| Field           | Description                       |
-| --------------- | --------------------------------- |
-| `error.code`    | HTTP status code                  |
-| `error.status`  | HTTP status text                  |
-| `error.message` | Human-readable error description  |
-| `error.reason`  | Machine-readable error identifier |
+| Field     | Description                                                                                            |
+| --------- | ------------------------------------------------------------------------------------------------------ |
+| `code`    | Canonical [gRPC status code](https://grpc.github.io/grpc/core/md_doc_statuscodes.html) (integer 0-16). |
+| `message` | Human-readable summary. Suitable for logging, not for end-user display.                                |
+| `details` | Optional list of typed error details. `ErrorInfo` carries the machine-readable `reason`.               |
+
+The HTTP status code is set from the canonical
+[gRPC-to-HTTP mapping](https://cloud.google.com/apis/design/errors#http_mapping). For example, code
+`5` (`NOT_FOUND`) returns HTTP 404; code `7` (`PERMISSION_DENIED`) returns HTTP 403.
+
+### Reading the reason
+
+The stable, machine-readable identifier is `details[*].reason` on the `ErrorInfo` detail. Match on
+`reason` — never on `message`, which can change between releases.
+
+```bash
+REASON=$(echo "$RESPONSE" | jq -r '.details[]? | select(."@type" | endswith("ErrorInfo")).reason')
+```
 
 ## Verification errors
 
-The verify endpoints (`POST /v2/apiKeys:verify` and `POST /v2/admin/apiKeys:verify`) return errors differently from most admin
-endpoints. Instead of an HTTP error, they return `200 OK` with `is_active: false` and a structured error code:
+The verify endpoint (`POST /v2alpha1/admin/apiKeys:verify`) is the one exception. A verification
+failure is part of the normal verification result, not a transport-level error, so it returns
+`200 OK` with `is_active: false` and a structured error code:
 
 ```json
 {
@@ -48,12 +67,17 @@ endpoints. Instead of an HTTP error, they return `200 OK` with `is_active: false
 }
 ```
 
+Treat the response as successful; act on `is_active` and `error_code`. Only fall back to the
+`google.rpc.Status` handling above when the HTTP status is not 2xx (for example, the verify request
+itself was malformed).
+
 For the complete list of verification error codes (`VERIFICATION_ERROR_*`), see the
 [error codes reference](../reference/error-codes.md#verification-error-codes).
 
 ## HTTP status codes
 
-For the complete list of HTTP status codes and error IDs, see the [error codes reference](../reference/error-codes.md).
+For the complete list of HTTP status codes and reasons, see the
+[error codes reference](../reference/error-codes.md).
 
 Key categories:
 
@@ -64,19 +88,22 @@ Key categories:
 
 ### Safe to retry
 
-- **503 Service Unavailable** — the server is temporarily overloaded. Retry with exponential backoff.
-- **504 Gateway Timeout** — the request timed out. Retry with backoff.
+- **`UNAVAILABLE` (HTTP 503)** — the server is temporarily overloaded. Retry with exponential
+  backoff.
+- **`DEADLINE_EXCEEDED` (HTTP 504)** — the request timed out. Retry with backoff.
 - **Network errors** — connection refused, DNS failure, etc. Retry with backoff.
 
-### Not safe to retry (without idempotency key)
+### Not safe to retry without an idempotency key
 
-- **409 Conflict** — the resource already exists. Check the response and adjust.
-- **400 Bad Request** — fix the request before retrying.
+- **`ALREADY_EXISTS` (HTTP 409)** — the resource already exists. Read the existing resource and
+  reconcile.
+- **`INVALID_ARGUMENT` (HTTP 400)** / **`FAILED_PRECONDITION` (HTTP 400)** — fix the request before
+  retrying.
 
 ### Idempotency key
 
-When issuing API keys, you can include a `request_id` in the request body. This field is stored with the key for client-side
-deduplication:
+When issuing API keys, include `request_id` in the request body. This field is stored on the key
+for client-side deduplication:
 
 <!-- doctest:exec -->
 
@@ -92,7 +119,7 @@ talos keys issue "my-service" --actor user_1 -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "my-service",
@@ -104,8 +131,8 @@ curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
 </TabItem>
 </Tabs>
 
-The `request_id` is recorded in the key's metadata. The server does not enforce server-side idempotent replay (sending the same
-`request_id` twice creates two keys).
+The `request_id` is recorded in the key's metadata. The server does not enforce server-side
+idempotent replay — sending the same `request_id` twice creates two keys.
 
 ## Recommended backoff
 
@@ -117,7 +144,7 @@ attempt 4: wait 800ms
 attempt 5: wait 1600ms (give up after this)
 ```
 
-Add jitter (random 0-50% of the wait time) to avoid thundering herd effects.
+Add jitter (random 0-50% of the wait time) to avoid thundering-herd effects.
 
 ## Next steps
 

@@ -7,17 +7,19 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Import existing keys
 
-Talos can manage API keys that were created outside the system. Import lets you migrate from a legacy key management solution or
-centralize keys from multiple providers without rotating credentials. For large migrations, use the batchImport API to import up
-to 1000 keys in a single request.
+Talos can manage API keys that were created outside the system. Import lets you migrate from a
+legacy key management solution or centralize keys from multiple providers without rotating
+credentials. For large migrations, use the batchImport API to import up to 1000 keys in a single
+request.
 
 ## How import works
 
-When you import a key, Talos stores a cryptographic hash (HMAC-SHA256) of the raw key. The original key is never stored.
-Verification works by computing the same hash and looking it up in the database.
+When you import a key, Talos stores a cryptographic hash (HMAC-SHA256) of the raw key. The original
+key is never stored. Verification works by computing the same hash and looking it up in the
+database.
 
-Imported keys support the same features as issued keys: scopes, metadata, expiration, token derivation (JWT/macaroon), and
-revocation.
+Imported keys support the same features as issued keys: scopes, metadata, expiration, token
+derivation (JWT/macaroon), and revocation.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -49,7 +51,7 @@ echo "export IMPORTED_KEY_ID=$IMPORTED_KEY_ID" >> "$DOCTEST_ENV_FILE"
 <TabItem value="curl" label="curl">
 
 ```bash
-RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/importedApiKeys" \
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{
     "raw_key": "sk_live_test_51OxAM2Qly",
@@ -71,14 +73,16 @@ echo "export IMPORTED_KEY_ID=$IMPORTED_KEY_ID" >> "$DOCTEST_ENV_FILE"
 
 ### Request fields
 
-The key fields are `raw_key` (the actual API key string), `name`, `actor_id`, and optional `scopes`, `ttl`, and `metadata`. For
-the complete field reference, see the [ImportAPIKey API reference](../reference/api/admin-import-api-key.api.mdx).
+The key fields are `raw_key` (the actual API key string), `name`, `actor_id`, and optional `scopes`,
+`ttl`, and `metadata`. For the complete field reference, see the
+[ImportAPIKey API reference](../reference/api/admin-import-api-key.api.mdx).
 
 The response returns an `imported_api_key` object. The `raw_key` is **never returned** after import.
 
 ## Verify an imported key
 
-Imported keys use the same verification endpoint as issued keys. The data plane automatically detects the credential type:
+Imported keys use the same verification endpoint as issued keys. The data plane automatically
+detects the credential type:
 
 <!-- doctest:exec -->
 
@@ -93,7 +97,7 @@ talos keys verify "sk_live_test_51OxAM2Qly" -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -d '{"credential":"sk_live_test_51OxAM2Qly"}' | jq .
 ```
@@ -123,7 +127,7 @@ JSON
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/importedApiKeys:batchImport" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys:batchImport" \
   -H "Content-Type: application/json" \
   -d '{
     "requests": [
@@ -138,11 +142,13 @@ curl -s -X POST "$TALOS_URL/v2/admin/importedApiKeys:batchImport" \
 
 ### Batch response
 
-The response includes a `results` array with per-item outcomes (`imported_api_key` on success, `error_code` and `error_message` on
-failure), plus `success_count` and `failure_count` counters. If at least one key succeeds, the HTTP response is `200 OK`.
+The response includes a `results` array with per-item outcomes (`imported_api_key` on success,
+`error_code` and `error_message` on failure), plus `success_count` and `failure_count` counters. If
+at least one key succeeds, the HTTP response is `200 OK`.
 
 For the complete response field reference, see the
-[BatchImportAPIKeys API reference](../reference/api/admin-batch-import-api-keys.api.mdx). For batch import error codes, see the
+[BatchImportAPIKeys API reference](../reference/api/admin-batch-import-api-keys.api.mdx). For batch
+import error codes, see the
 [error codes reference](../reference/error-codes.md#batch-import-error-codes).
 
 ## List imported keys
@@ -160,7 +166,7 @@ talos keys imported list -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s "$TALOS_URL/v2/admin/importedApiKeys?actor_id=payment-service&page_size=10" | jq .
+curl -s "$TALOS_URL/v2alpha1/admin/importedApiKeys?actor_id=payment-service&page_size=10" | jq .
 ```
 
 </TabItem>
@@ -183,7 +189,7 @@ talos keys revoke "$IMPORTED_KEY_ID" --reason superseded -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys/$IMPORTED_KEY_ID:revoke" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys/$IMPORTED_KEY_ID:revoke" \
   -H "Content-Type: application/json" \
   -d '{"reason": "REVOCATION_REASON_SUPERSEDED"}'
 echo ""
@@ -210,7 +216,7 @@ talos keys imported delete "$IMPORTED_KEY_ID" -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X DELETE "$TALOS_URL/v2/admin/importedApiKeys/$IMPORTED_KEY_ID"
+curl -s -X DELETE "$TALOS_URL/v2alpha1/admin/importedApiKeys/$IMPORTED_KEY_ID"
 echo ""
 echo "Imported key deleted"
 ```
@@ -218,7 +224,11 @@ echo "Imported key deleted"
 </TabItem>
 </Tabs>
 
-:::caution Delete is permanent and irreversible. Prefer revocation for audit trail. :::
+:::caution
+
+Delete is permanent and irreversible. Prefer revocation for audit trail.
+
+:::
 
 ## Next steps
 

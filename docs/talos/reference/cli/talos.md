@@ -9,17 +9,17 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos
 
-High-performance multi-network API key service
+Multi-tenant API key management service
 
 ### Synopsis
 
-API Key Service is a high-performance, multi-network service for managing API keys with support for JWT tokens, JWKS, and various
-cryptographic algorithms.
-
-It provides both admin plane and data plane APIs for comprehensive key management.
+Ory Talos manages the full lifecycle of API credentials: issuing keys,
+verifying them at low latency, deriving short-lived JWT or macaroon tokens,
+and revoking access. It exposes a separate admin plane (issue, rotate,
+revoke, derive) and data plane (verify, self-revoke) so each can be scaled
+and secured independently.
 
 ### Options
 
@@ -31,8 +31,9 @@ It provides both admin plane and data plane APIs for comprehensive key managemen
 
 ### See also
 
-- [talos jwk](talos-jwk) - Generate JSON Web Keys (JWK/JWKS)
-- [talos keys](talos-keys) - Manage API keys
-- [talos migrate](talos-migrate) - Database migration tools
-- [talos proxy](talos-proxy) - Start the edge proxy (commercial edition only)
-- [talos serve](talos-serve) - Start the Ory Talos server (all-in-one mode)
+* [talos jwk](talos-jwk.md)	 - Generate JSON Web Keys (JWK/JWKS)
+* [talos keys](talos-keys.md)	 - Manage API keys
+* [talos migrate](talos-migrate.md)	 - Database migration tools
+* [talos proxy](talos-proxy.md)	 - Start the edge proxy for caching verification requests
+* [talos serve](talos-serve.md)	 - Start the Ory Talos server (all-in-one mode)
+

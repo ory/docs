@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos migrate status
 
 Show migration status
@@ -19,10 +18,9 @@ Show migration status
 Display the current database migration status.
 
 Shows:
-
-- Current migration version
-- Whether the database is in a dirty state
-- Database connection info
+  - Current migration version
+  - Whether the database is in a dirty state
+  - Database connection info
 
 ```
 talos migrate status [flags]
@@ -44,4 +42,5 @@ talos migrate status [flags]
 
 ### See also
 
-- [talos migrate](talos-migrate) Database migration tools
+* [talos migrate](talos-migrate.md) Database migration tools
+

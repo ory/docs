@@ -23,7 +23,8 @@ The binary is at `.bin/talos`. SQLite is the only supported database backend in 
 
 ### Commercial edition
 
-The Commercial edition adds PostgreSQL, MySQL, CockroachDB, caching, multi-tenancy, and the admin UI:
+The Commercial edition adds PostgreSQL, MySQL, CockroachDB, caching, multi-tenancy, and the admin
+UI:
 
 ```bash
 go build -tags commercial -o .bin/talos-commercial .
@@ -34,7 +35,7 @@ go build -tags commercial -o .bin/talos-commercial .
 <!-- doctest:exec -->
 
 ```bash
-./.bin/talos version
+./.bin/talos --version
 ./.bin/talos help
 ```
 

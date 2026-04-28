@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos keys
 
 Manage API keys
@@ -35,12 +34,13 @@ Create, list, get, revoke, and rotate API keys.
 
 ### See also
 
-- [talos](talos) High-performance multi-network API key service
-- [talos keys batch-verify](talos-keys-batch-verify) - Verify multiple credentials in a single request
-- [talos keys derive-token](talos-keys-derive-token) - Derive a new derived token from an existing API key
-- [talos keys imported](talos-keys-imported) - Manage imported API keys
-- [talos keys issue](talos-keys-issue) - Issue a new API key
-- [talos keys issued](talos-keys-issued) - Manage issued API keys
-- [talos keys revoke](talos-keys-revoke) - Revoke an API key
-- [talos keys self-revoke](talos-keys-self-revoke) - Revoke an API key using the credential itself as proof
-- [talos keys verify](talos-keys-verify) - Verify a credential (API key or token)
+* [talos](talos.md) Multi-tenant API key management service
+* [talos keys batch-verify](talos-keys-batch-verify.md)	 - Verify multiple credentials in a single request
+* [talos keys derive-token](talos-keys-derive-token.md)	 - Derive a short-lived JWT or macaroon from an existing API key
+* [talos keys imported](talos-keys-imported.md)	 - Manage imported API keys
+* [talos keys issue](talos-keys-issue.md)	 - Issue a new API key
+* [talos keys issued](talos-keys-issued.md)	 - Manage issued API keys
+* [talos keys revoke](talos-keys-revoke.md)	 - Revoke an API key
+* [talos keys self-revoke](talos-keys-self-revoke.md)	 - Revoke an API key using the credential itself as proof
+* [talos keys verify](talos-keys-verify.md)	 - Verify a credential (API key or token)
+

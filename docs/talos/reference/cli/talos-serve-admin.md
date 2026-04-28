@@ -9,7 +9,6 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos serve admin
 
 Start the admin plane server (management only)
@@ -18,11 +17,10 @@ Start the admin plane server (management only)
 
 Starts the admin plane server for API key and network management.
 
-This mode runs only the management endpoints for administrative operations. It's designed for internal tools, CI/CD, and
-administrative access.
+This mode runs only the management endpoints for administrative operations.
+It's designed for internal tools, CI/CD, and administrative access.
 
 Features:
-
 - Full read/write database access
 - API key creation, rotation, revocation
 - Network management
@@ -54,4 +52,5 @@ talos serve admin [flags]
 
 ### See also
 
-- [talos serve](talos-serve) Start the Ory Talos server (all-in-one mode)
+* [talos serve](talos-serve.md) Start the Ory Talos server (all-in-one mode)
+

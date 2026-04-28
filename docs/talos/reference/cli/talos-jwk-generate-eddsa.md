@@ -9,14 +9,14 @@ This file is auto-generated.
 
 To improve this file please make your change against the appropriate "./cmd/*.go" file.
 -->
-
 ## talos jwk generate eddsa
 
 Generate an EdDSA (Ed25519) key pair
 
 ### Synopsis
 
-Generate an EdDSA key pair using the Ed25519 curve. Ed25519 uses a fixed 256-bit key size.
+Generate an EdDSA key pair using the Ed25519 curve.
+Ed25519 uses a fixed 256-bit key size.
 
 ```
 talos jwk generate eddsa [flags]
@@ -58,4 +58,5 @@ talos jwk generate eddsa [flags]
 
 ### See also
 
-- [talos jwk generate](talos-jwk-generate) Generate a new JWK key
+* [talos jwk generate](talos-jwk-generate.md) Generate a new JWK key
+

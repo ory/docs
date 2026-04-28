@@ -7,11 +7,13 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
 # Issue and verify API keys
 
-This guide walks through the full lifecycle of issuing an API key and verifying it. All examples are executable and tested in CI.
+This guide walks through the full lifecycle of issuing an API key and verifying it. All examples are
+executable and tested in CI.
 
 ## Prerequisites
 
-A running Talos server and the `talos` CLI. See the [quickstart](../quickstart/index.md) to start one locally.
+A running Talos server and the `talos` CLI. See the [quickstart](../quickstart/index.md) to start
+one locally.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -47,7 +49,7 @@ echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 <TabItem value="curl" label="curl">
 
 ```bash
-RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "backend-service",
@@ -71,22 +73,24 @@ echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 
 ### Request fields
 
-The key fields are `name` (human-readable label), `actor_id` (key actor), and optional `scopes`, `ttl`, `metadata`, and
-`rate_limit_policy`. For the complete field reference, see the
+The key fields are `name` (human-readable label), `actor_id` (key actor), and optional `scopes`,
+`ttl`, `metadata`, and `rate_limit_policy`. For the complete field reference, see the
 [IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
 
-For HTTP API requests, `ttl` also accepts extended formats such as `1y`, `1mo`, `1w`, `1d`, and compounds like `1y6mo`. The
-current CLI `--ttl` flag examples still use standard Go durations such as `720h` and `1h30m`.
+For HTTP API requests, `ttl` also accepts extended formats such as `1y`, `1mo`, `1w`, `1d`, and
+compounds like `1y6mo`. The current CLI `--ttl` flag examples still use standard Go durations such
+as `720h` and `1h30m`.
 
 ### Response fields
 
 The response contains two top-level fields:
 
 - **`issued_api_key`** — The key metadata (ID, name, actor, scopes, status, timestamps).
-- **`secret`** — The full API key credential. This value is returned **only once** and cannot be retrieved later. Store it
-  securely.
+- **`secret`** — The full API key credential. This value is returned **only once** and cannot be
+  retrieved later. Store it securely.
 
-For the complete metadata field reference, see the [IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
+For the complete metadata field reference, see the
+[IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
 
 ## Verify a key
 
@@ -105,7 +109,7 @@ talos keys verify "$API_SECRET" -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -d "{\"credential\":\"$API_SECRET\"}" | jq .
 ```
@@ -113,29 +117,30 @@ curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
 </TabItem>
 </Tabs>
 
-The current `talos keys verify` CLI command uses the admin-scoped verify API under the hood. The curl example above shows the
-self-service data-plane endpoint that credential holders can call directly.
-
 ### Verification response
 
-The response includes `is_active` (boolean), `key_id`, `actor_id`, `issuer`, `scopes`, `metadata`, and `expire_time` when valid.
-When `is_active` is `false`, `error_code` and `error_message` indicate the reason. When rate limit enforcement is enabled
-(Commercial), the response also includes `rate_limit_remaining` and `rate_limit_reset_time` for keys with a rate limit policy. For
-the complete field reference, see the [VerifyAPIKey API reference](../reference/api/verify-api-key.api.mdx).
+The response includes `is_active` (boolean), `key_id`, `actor_id`, `issuer`, `scopes`, `metadata`,
+and `expire_time` when valid. When `is_active` is `false`, `error_code` and `error_message` indicate
+the reason. When rate limit enforcement is enabled (Commercial), the response also includes
+`rate_limit_remaining` and `rate_limit_reset_time` for keys with a rate limit policy. For the
+complete field reference, see the
+[VerifyAPIKey API reference](../reference/api/admin-verify-api-key.api.mdx).
 
 ### Verification error codes
 
-When `is_active` is `false`, the `error_code` field indicates why. Common codes include `VERIFICATION_ERROR_EXPIRED`,
-`VERIFICATION_ERROR_REVOKED`, `VERIFICATION_ERROR_NOT_FOUND`, and `VERIFICATION_ERROR_RATE_LIMITED` (Commercial, when the key's
-rate limit quota is exhausted). For the complete list, see the
+When `is_active` is `false`, the `error_code` field indicates why. Common codes include
+`VERIFICATION_ERROR_EXPIRED`, `VERIFICATION_ERROR_REVOKED`, `VERIFICATION_ERROR_NOT_FOUND`, and
+`VERIFICATION_ERROR_RATE_LIMITED` (Commercial, when the key's rate limit quota is exhausted). For
+the complete list, see the
 [verification error codes reference](../reference/error-codes.md#verification-error-codes).
 
 ## Cache bypass
 
-Verification results are cached for performance. After revoking a key, you can bypass the cache for immediate consistency:
+Verification results are cached for performance. After revoking a key, you can bypass the cache for
+immediate consistency:
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -H "Cache-Control: no-cache" \
   -d '{"credential":"sk_..."}'
@@ -166,7 +171,7 @@ talos keys issued get "$KEY_ID" -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s "$TALOS_URL/v2/admin/issuedApiKeys/$KEY_ID" | jq .
+curl -s "$TALOS_URL/v2alpha1/admin/issuedApiKeys/$KEY_ID" | jq .
 ```
 
 </TabItem>
@@ -191,7 +196,7 @@ talos keys issued list --actor user_42 --page-size 10 -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s "$TALOS_URL/v2/admin/issuedApiKeys?page_size=10&actor_id=user_42" | jq .
+curl -s "$TALOS_URL/v2alpha1/admin/issuedApiKeys?page_size=10&actor_id=user_42" | jq .
 ```
 
 </TabItem>
@@ -199,8 +204,9 @@ curl -s "$TALOS_URL/v2/admin/issuedApiKeys?page_size=10&actor_id=user_42" | jq .
 
 ### Query parameters
 
-Key parameters are `page_size`, `page_token` (cursor-based pagination), `actor_id`, and `status` (filtering). For the complete
-parameter reference, see the [ListIssuedAPIKeys API reference](../reference/api/admin-list-issued-api-keys.api.mdx).
+Key parameters are `page_size`, `page_token` (cursor-based pagination), `actor_id`, and `status`
+(filtering). For the complete parameter reference, see the
+[ListIssuedAPIKeys API reference](../reference/api/admin-list-issued-api-keys.api.mdx).
 
 The response includes a `next_page_token` field. When empty, you have reached the last page.
 

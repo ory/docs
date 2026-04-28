@@ -17,7 +17,7 @@ Replace `$TALOS_URL` with your Talos server address (e.g., `http://127.0.0.1:442
 <!-- doctest:exec -->
 
 ```bash
-RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "my-service",
@@ -30,7 +30,7 @@ RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
 echo "$RESPONSE" | jq .
 
 API_SECRET=$(echo "$RESPONSE" | jq -r '.secret')
-KEY_ID=$(echo "$RESPONSE" | jq -r '.key_id')
+KEY_ID=$(echo "$RESPONSE" | jq -r '.issued_api_key.key_id')
 
 echo "export API_SECRET=$API_SECRET" >> "$DOCTEST_ENV_FILE"
 echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
@@ -41,7 +41,7 @@ echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 <!-- doctest:exec -->
 
 ```bash
-curl -s "$TALOS_URL/v2/admin/issuedApiKeys/$KEY_ID" | jq .
+curl -s "$TALOS_URL/v2alpha1/admin/issuedApiKeys/$KEY_ID" | jq .
 ```
 
 ### List keys
@@ -49,7 +49,7 @@ curl -s "$TALOS_URL/v2/admin/issuedApiKeys/$KEY_ID" | jq .
 <!-- doctest:exec -->
 
 ```bash
-curl -s "$TALOS_URL/v2/admin/issuedApiKeys?page_size=50&actor_id=user_123&status=KEY_STATUS_ACTIVE" | jq .
+curl -s "$TALOS_URL/v2alpha1/admin/issuedApiKeys?page_size=50&actor_id=user_123&status=KEY_STATUS_ACTIVE" | jq .
 ```
 
 ### Update a key
@@ -57,7 +57,7 @@ curl -s "$TALOS_URL/v2/admin/issuedApiKeys?page_size=50&actor_id=user_123&status
 <!-- doctest:exec -->
 
 ```bash
-curl -s -X PATCH "$TALOS_URL/v2/admin/issuedApiKeys/$KEY_ID" \
+curl -s -X PATCH "$TALOS_URL/v2alpha1/admin/issuedApiKeys/$KEY_ID" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "updated-name",
@@ -71,7 +71,7 @@ curl -s -X PATCH "$TALOS_URL/v2/admin/issuedApiKeys/$KEY_ID" \
 <!-- doctest:exec -->
 
 ```bash
-RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys/${KEY_ID}:rotate" \
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys/${KEY_ID}:rotate" \
   -H "Content-Type: application/json" \
   -d '{}')
 
@@ -88,7 +88,7 @@ echo "export API_SECRET=$API_SECRET" >> "$DOCTEST_ENV_FILE"
 <!-- doctest:exec -->
 
 ```bash
-RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/importedApiKeys" \
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{
     "raw_key": "sk_live_abc123",
@@ -99,7 +99,7 @@ RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/importedApiKeys" \
 
 echo "$RESPONSE" | jq .
 
-IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -r '.key_id')
+IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -r '.imported_api_key.key_id')
 echo "export IMPORTED_KEY_ID=$IMPORTED_KEY_ID" >> "$DOCTEST_ENV_FILE"
 ```
 
@@ -108,7 +108,7 @@ echo "export IMPORTED_KEY_ID=$IMPORTED_KEY_ID" >> "$DOCTEST_ENV_FILE"
 <!-- doctest:exec -->
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/importedApiKeys:batchImport" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys:batchImport" \
   -H "Content-Type: application/json" \
   -d '{
     "requests": [
@@ -123,7 +123,7 @@ curl -s -X POST "$TALOS_URL/v2/admin/importedApiKeys:batchImport" \
 <!-- doctest:exec -->
 
 ```bash
-curl -s "$TALOS_URL/v2/admin/importedApiKeys/$IMPORTED_KEY_ID" | jq .
+curl -s "$TALOS_URL/v2alpha1/admin/importedApiKeys/$IMPORTED_KEY_ID" | jq .
 ```
 
 ### List imported keys
@@ -131,7 +131,7 @@ curl -s "$TALOS_URL/v2/admin/importedApiKeys/$IMPORTED_KEY_ID" | jq .
 <!-- doctest:exec -->
 
 ```bash
-curl -s "$TALOS_URL/v2/admin/importedApiKeys?page_size=50&actor_id=user_123" | jq .
+curl -s "$TALOS_URL/v2alpha1/admin/importedApiKeys?page_size=50&actor_id=user_123" | jq .
 ```
 
 ### Delete an imported key
@@ -139,7 +139,7 @@ curl -s "$TALOS_URL/v2/admin/importedApiKeys?page_size=50&actor_id=user_123" | j
 <!-- doctest:exec -->
 
 ```bash
-curl -s -X DELETE "$TALOS_URL/v2/admin/importedApiKeys/$IMPORTED_KEY_ID" | jq .
+curl -s -X DELETE "$TALOS_URL/v2alpha1/admin/importedApiKeys/$IMPORTED_KEY_ID" | jq .
 ```
 
 ## Admin plane — Token derivation
@@ -149,7 +149,7 @@ curl -s -X DELETE "$TALOS_URL/v2/admin/importedApiKeys/$IMPORTED_KEY_ID" | jq .
 <!-- doctest:exec -->
 
 ```bash
-RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:derive" \
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:derive" \
   -H "Content-Type: application/json" \
   -d "{
     \"credential\": \"$API_SECRET\",
@@ -170,7 +170,7 @@ echo "export JWT_TOKEN=$JWT_TOKEN" >> "$DOCTEST_ENV_FILE"
 <!-- doctest:exec -->
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:derive" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:derive" \
   -H "Content-Type: application/json" \
   -d "{
     \"credential\": \"$API_SECRET\",
@@ -184,7 +184,7 @@ curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:derive" \
 <!-- doctest:exec -->
 
 ```bash
-curl -s "$TALOS_URL/v2/admin/.well-known/jwks.json" | jq .
+curl -s "$TALOS_URL/v2alpha1/admin/derivedKeys/jwks.json" | jq .
 ```
 
 ## Data plane
@@ -194,7 +194,7 @@ curl -s "$TALOS_URL/v2/admin/.well-known/jwks.json" | jq .
 <!-- doctest:exec -->
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -d "{\"credential\":\"$API_SECRET\"}" | jq .
 ```
@@ -204,7 +204,7 @@ curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
 <!-- doctest:exec -->
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -H "Cache-Control: no-cache" \
   -d "{\"credential\":\"$API_SECRET\"}" | jq .
@@ -215,7 +215,7 @@ curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
 <!-- doctest:exec -->
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/apiKeys:batchVerify" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:batchVerify" \
   -H "Content-Type: application/json" \
   -d "{
     \"requests\": [
@@ -232,7 +232,7 @@ curl -s -X POST "$TALOS_URL/v2/apiKeys:batchVerify" \
 <!-- doctest:exec -->
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys/${KEY_ID}:revoke" \
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys/${KEY_ID}:revoke" \
   -H "Content-Type: application/json" \
   -d '{"reason": "REVOCATION_REASON_KEY_COMPROMISE"}' | jq .
 ```
@@ -243,13 +243,13 @@ curl -s -X POST "$TALOS_URL/v2/admin/apiKeys/${KEY_ID}:revoke" \
 
 ```bash
 # Issue a fresh key for the self-revocation demo
-SELF_REVOKE_RESP=$(curl -s -X POST "$TALOS_URL/v2/admin/issuedApiKeys" \
+SELF_REVOKE_RESP=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{"name":"self-revoke-demo","actor_id":"user_123"}')
 
 SELF_REVOKE_SECRET=$(echo "$SELF_REVOKE_RESP" | jq -r '.secret')
 
-curl -s -X POST "$TALOS_URL/v2/apiKeys:selfRevoke" \
+curl -s -X POST "$TALOS_URL/v2alpha1/apiKeys:selfRevoke" \
   -H "Content-Type: application/json" \
   -d "{
     \"credential\": \"$SELF_REVOKE_SECRET\",

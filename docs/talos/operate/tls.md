@@ -4,7 +4,8 @@ title: TLS configuration
 
 # TLS configuration
 
-Talos does not have built-in TLS support for its HTTP server. Use a reverse proxy (nginx, Envoy, Caddy) for TLS termination:
+Talos does not have built-in TLS support for its HTTP server. Use a reverse proxy (nginx, Envoy,
+Caddy) for TLS termination:
 
 ```
 Client --[HTTPS]--> Load Balancer --[HTTP]--> Talos

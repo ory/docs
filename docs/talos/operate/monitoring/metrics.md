@@ -28,7 +28,7 @@ GET http://localhost:4422/metrics
 | ---------- | --------------------------------------------------------- | ------------------------------------------------------ |
 | `method`   | HTTP method (lowercase)                                   | All except `http_requests_in_flight`                   |
 | `code`     | HTTP status code                                          | All except `http_requests_in_flight`                   |
-| `endpoint` | Route template (e.g., `/v2/admin/issuedApiKeys/{key_id}`) | `http_requests_total`, `http_request_duration_seconds` |
+| `endpoint` | Route template (e.g., `/v2alpha1/admin/issuedApiKeys/{key_id}`) | `http_requests_total`, `http_request_duration_seconds` |
 
 ## Configuration
 
