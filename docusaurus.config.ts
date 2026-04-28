@@ -17,13 +17,15 @@ const config: Config = {
   baseUrl: "/docs/",
   favicon: "img/favico.png",
   onBrokenLinks: "warn",
-  onBrokenMarkdownLinks: "warn",
   onDuplicateRoutes: "throw",
   organizationName: "ory",
   projectName: "docs",
   trailingSlash: false,
   markdown: {
     format: "detect",
+    hooks: {
+      onBrokenMarkdownLinks: "warn",
+    },
   },
   staticDirectories: ["src/static"],
   themeConfig: {
