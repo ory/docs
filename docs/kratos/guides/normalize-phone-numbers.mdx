@@ -4,16 +4,17 @@ title: Normalize phone numbers to E.164
 sidebar_label: Normalize phone numbers
 ---
 
-Starting with this release, Ory Kratos normalizes phone numbers to [E.164 format](https://en.wikipedia.org/wiki/E.164) when
-they're used as identifiers, verifiable addresses, or recovery addresses. New data is normalized on write. Existing data continues
-to work through a backward-compatible lookup, but you should run the `normalize-phone-numbers` migration command after upgrading
-to converge all rows to E.164.
+Ory Kratos normalizes phone numbers to [E.164 format](https://en.wikipedia.org/wiki/E.164) when they're used as identifiers,
+verifiable addresses, or recovery addresses. New data is normalized on write. Existing data continues to work through a
+backward-compatible lookup, but you should run the `normalize-phone-numbers` migration command after upgrading to converge all
+rows to E.164.
 
 This guide is for self-hosted Kratos administrators (OSS and OEL). Ory Network customers don't need to take any action.
 
-:::info
+:::important
 
-Back up your database before running the migration.
+Back up your database before running the migration. The migration doesn't store the original value, therefore there's no automatic
+rollback after migration. To revert, you will need to restore your backed-up database.
 
 :::
 
@@ -27,6 +28,14 @@ After normalization, all phone numbers are stored in E.164 format (for example, 
 the user formatted the input.
 
 ## Rollout sequence
+
+:::caution
+
+Don't run the migration before deploying the new Kratos version. The previous version does exact-string matching on identifiers.
+If you normalize the database first, users who type their phone number in the original (non-E.164) format won't be able to log in
+until the new code is deployed.
+
+:::
 
 Run the steps in this exact order:
 
@@ -50,14 +59,6 @@ Run the steps in this exact order:
 
    The command iterates over `identity_credential_identifiers`, `identity_verifiable_addresses`, and `identity_recovery_addresses`
    and rewrites any non-E.164 phone numbers in place.
-
-:::caution
-
-Don't run the migration before deploying the new Kratos version. The previous version does exact-string matching on identifiers.
-If you normalize the database first, users who type their phone number in the original (non-E.164) format won't be able to log in
-until the new code is deployed.
-
-:::
 
 ## What the command does
 
