@@ -37,8 +37,8 @@ Error responses use this structure:
 
 ## Verification errors
 
-The verify endpoint (`POST /v2/admin/apiKeys:verify`) returns errors differently from admin endpoints. Instead of an HTTP error,
-it returns `200 OK` with `is_active: false` and a structured error code:
+The verify endpoints (`POST /v2/apiKeys:verify` and `POST /v2/admin/apiKeys:verify`) return errors differently from most admin
+endpoints. Instead of an HTTP error, they return `200 OK` with `is_active: false` and a structured error code:
 
 ```json
 {

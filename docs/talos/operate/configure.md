@@ -68,7 +68,7 @@ credentials:
       current: "talos"
   derived_tokens:
     jwt:
-      algorithm: "EdDSA"
+      signing_key_id: "" # Optional JWKS kid hint; defaults to the first usable signing key
       default_ttl: "1h"
       signing_keys:
         urls:

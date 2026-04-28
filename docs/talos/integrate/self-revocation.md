@@ -60,6 +60,27 @@ echo "export SELF_REVOKE_SECRET=$SELF_REVOKE_SECRET" >> "$DOCTEST_ENV_FILE"
 </TabItem>
 </Tabs>
 
+## Verify your own credential
+
+Use the data-plane verify endpoint when a credential holder needs to check a key without admin credentials. The admin-plane verify
+endpoint returns the same response shape and is still useful for operator workflows.
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="curl">
+<TabItem value="curl" label="curl">
+
+```bash
+curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
+  -H "Content-Type: application/json" \
+  -d "{\"credential\":\"$SELF_REVOKE_SECRET\"}" | jq .
+```
+
+</TabItem>
+</Tabs>
+
+For the complete response fields, see the [Verify API Key reference](../reference/api/verify-api-key.api.mdx).
+
 Send the full key secret as proof of possession:
 
 <!-- doctest:exec -->
@@ -106,7 +127,7 @@ echo "Self-revocation confirmed"
 <TabItem value="curl" label="curl">
 
 ```bash
-VERIFY_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
+VERIFY_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -H "Cache-Control: no-cache" \
   -d "{\"credential\":\"$SELF_REVOKE_SECRET\"}")

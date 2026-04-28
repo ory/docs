@@ -75,6 +75,9 @@ The key fields are `name` (human-readable label), `actor_id` (key actor), and op
 `rate_limit_policy`. For the complete field reference, see the
 [IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
 
+For HTTP API requests, `ttl` also accepts extended formats such as `1y`, `1mo`, `1w`, `1d`, and compounds like `1y6mo`. The
+current CLI `--ttl` flag examples still use standard Go durations such as `720h` and `1h30m`.
+
 ### Response fields
 
 The response contains two top-level fields:
@@ -102,7 +105,7 @@ talos keys verify "$API_SECRET" -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -d "{\"credential\":\"$API_SECRET\"}" | jq .
 ```
@@ -110,12 +113,15 @@ curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
 </TabItem>
 </Tabs>
 
+The current `talos keys verify` CLI command uses the admin-scoped verify API under the hood. The curl example above shows the
+self-service data-plane endpoint that credential holders can call directly.
+
 ### Verification response
 
-The response includes `is_active` (boolean), `key_id`, `actor_id`, `scopes`, `metadata`, and `expire_time` when valid. When
-`is_active` is `false`, `error_code` and `error_message` indicate the reason. When rate limit enforcement is enabled (Commercial),
-the response also includes `rate_limit_remaining` and `rate_limit_reset_time` for keys with a rate limit policy. For the complete
-field reference, see the [VerifyAPIKey API reference](../reference/api/admin-verify-api-key.api.mdx).
+The response includes `is_active` (boolean), `key_id`, `actor_id`, `issuer`, `scopes`, `metadata`, and `expire_time` when valid.
+When `is_active` is `false`, `error_code` and `error_message` indicate the reason. When rate limit enforcement is enabled
+(Commercial), the response also includes `rate_limit_remaining` and `rate_limit_reset_time` for keys with a rate limit policy. For
+the complete field reference, see the [VerifyAPIKey API reference](../reference/api/verify-api-key.api.mdx).
 
 ### Verification error codes
 
@@ -129,7 +135,7 @@ rate limit quota is exhausted). For the complete list, see the
 Verification results are cached for performance. After revoking a key, you can bypass the cache for immediate consistency:
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -H "Cache-Control: no-cache" \
   -d '{"credential":"sk_..."}'

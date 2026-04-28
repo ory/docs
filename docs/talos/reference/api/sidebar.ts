@@ -114,6 +114,18 @@ const sidebar: SidebarsConfig = {
       items: [
         {
           type: "doc",
+          id: "reference/api/batch-verify-api-keys",
+          label: "Batch Verify API Keys",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
+          id: "reference/api/verify-api-key",
+          label: "Verify API Key",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
           id: "reference/api/revoke-api-key",
           label: "Revoke API Key",
           className: "api-method post",

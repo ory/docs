@@ -184,7 +184,7 @@ curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:derive" \
 <!-- doctest:exec -->
 
 ```bash
-curl -s "$TALOS_URL/v2/admin/derivedKeys/jwks.json" | jq .
+curl -s "$TALOS_URL/v2/admin/.well-known/jwks.json" | jq .
 ```
 
 ## Data plane
@@ -194,7 +194,7 @@ curl -s "$TALOS_URL/v2/admin/derivedKeys/jwks.json" | jq .
 <!-- doctest:exec -->
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -d "{\"credential\":\"$API_SECRET\"}" | jq .
 ```
@@ -204,7 +204,7 @@ curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
 <!-- doctest:exec -->
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -H "Cache-Control: no-cache" \
   -d "{\"credential\":\"$API_SECRET\"}" | jq .
@@ -215,7 +215,7 @@ curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
 <!-- doctest:exec -->
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:batchVerify" \
+curl -s -X POST "$TALOS_URL/v2/apiKeys:batchVerify" \
   -H "Content-Type: application/json" \
   -d "{
     \"requests\": [

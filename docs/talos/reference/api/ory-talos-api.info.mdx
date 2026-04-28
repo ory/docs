@@ -25,12 +25,12 @@ verifying them at low latency, deriving short-lived tokens (JWT and Macaroon), a
 The API is split into two services:
 
 - **StaticCredentials** — admin operations: key lifecycle (issue, rotate, revoke, import, derive tokens, JWKS) and verification
-- **SelfService** — self-service revocation for credential holders
+- **SelfService** — self-service verification, batch verification, and revocation for credential holders
 
 ### Quick Links
 
 - [**Admin Plane**](./admin-issue-api-key) — Key lifecycle management (issue, rotate, revoke, import, derive tokens, JWKS)
-- [**Data Plane**](./admin-verify-api-key) — High-performance verification (single, batch, self-revoke)
+- [**Data Plane**](./verify-api-key) — High-performance verification (single, batch, self-revoke)
 
 ```mdx-code-block
 import DocCardList from '@theme/DocCardList';

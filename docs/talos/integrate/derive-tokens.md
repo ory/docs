@@ -107,6 +107,9 @@ The key fields are `credential` (the parent API key secret), `algorithm` (`TOKEN
 optional `ttl`, `scopes` (subset of parent's), and `custom_claims`. For the complete field reference, see the
 [DeriveToken API reference](../reference/api/admin-derive-token.api.mdx).
 
+For HTTP API requests, `ttl` accepts extended formats such as `1y`, `1mo`, `1w`, `1d`, and compounds like `1y6mo` in addition to
+standard Go durations. The current CLI `--ttl` flag still expects standard Go durations such as `1h` or `30m`.
+
 ### Response
 
 The response contains a `token` object with `token.token` (the derived token string), `token.expire_time`, `token.scopes`, and
@@ -130,13 +133,16 @@ talos keys verify "$JWT_TOKEN" -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:verify" \
+curl -s -X POST "$TALOS_URL/v2/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -d "{\"credential\":\"$JWT_TOKEN\"}" | jq .
 ```
 
 </TabItem>
 </Tabs>
+
+The current `talos keys verify` CLI command uses the admin-scoped verify API under the hood. The curl example above shows the
+self-service data-plane endpoint.
 
 The verification response includes the token's scopes, actor, and metadata from the parent key.
 
@@ -198,7 +204,7 @@ talos jwk get -e "$TALOS_URL"
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s "$TALOS_URL/v2/admin/derivedKeys/jwks.json" | jq .
+curl -s "$TALOS_URL/v2/admin/.well-known/jwks.json" | jq .
 ```
 
 </TabItem>

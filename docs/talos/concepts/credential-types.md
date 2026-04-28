@@ -23,7 +23,7 @@ External credentials (Stripe, GitHub, etc.) stored by hash. Any string format ac
 ## Derived JWTs
 
 Short-lived tokens derived from a parent API key. The signing algorithm is determined by the `alg` field in the JWK (EdDSA or
-RS256). Can be verified independently using the JWKS endpoint (`GET /v2/admin/derivedKeys/jwks.json`). Claims include `key_id`,
+RS256). Can be verified independently using the JWKS endpoint (`GET /v2/admin/.well-known/jwks.json`). Claims include `key_id`,
 `actor_id`, scopes, and expiration.
 
 ## Derived macaroons
@@ -32,6 +32,7 @@ Short-lived tokens with HMAC binding. Format: `prefix_v1_base64data`. Support sc
 
 ## Credential routing
 
-When a credential is submitted to `/v2/admin/apiKeys:verify`, Talos identifies the type automatically by its format and routes it
-to the appropriate verification handler. See the [credential routing table](../reference/token-format.md#credential-routing) for
-the full format-to-type mapping and lookup methods.
+When a credential is submitted to `/v2/apiKeys:verify`, Talos identifies the type automatically by its format and routes it to the
+appropriate verification handler. The admin-scoped verify endpoint uses the same credential routing logic. See the
+[credential routing table](../reference/token-format.md#credential-routing) for the full format-to-type mapping and lookup
+methods.

@@ -1,0 +1,45 @@
+---
+id: batch-verify-api-keys
+title: "Batch Verify API Keys"
+description: "Verifies multiple credentials in a single request. Efficiently verifies up"
+sidebar_label: "Batch Verify API Keys"
+hide_title: true
+hide_table_of_contents: true
+sidebar_class_name: "post api-method"
+info_path: reference/api/ory-talos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
+
+<Heading as={"h1"} className={"openapi__heading"} children={"Batch Verify API Keys"}></Heading>
+
+<MethodEndpoint method={"post"} path={"/v2/apiKeys:batchVerify"} context={"endpoint"}></MethodEndpoint>
+
+Verifies multiple credentials in a single request. Efficiently verifies up to 100 credentials in parallel. Each credential is
+verified independently; partial failures are returned in the response.
+
+```http
+POST /v2/apiKeys:batchVerify
+{
+  "requests": [
+    {"credential": "sk_live_abc123..."},
+    {"credential": "sk_live_xyz789..."}
+  ]
+}
+```
+
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails parameters={undefined}></ParamsDetails>
+
+<RequestSchema {...require("./admin-batch-verify-api-keys.RequestSchema.json")}></RequestSchema>
+
+<StatusCodes {...require("./admin-batch-verify-api-keys.StatusCodes.json")}></StatusCodes>

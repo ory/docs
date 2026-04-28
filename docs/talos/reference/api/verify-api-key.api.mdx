@@ -1,0 +1,42 @@
+---
+id: verify-api-key
+title: "Verify API Key"
+description: "Verifies a single credential (API key, JWT, or macaroon). Returns whether"
+sidebar_label: "Verify API Key"
+hide_title: true
+hide_table_of_contents: true
+sidebar_class_name: "post api-method"
+info_path: reference/api/ory-talos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
+
+<Heading as={"h1"} className={"openapi__heading"} children={"Verify API Key"}></Heading>
+
+<MethodEndpoint method={"post"} path={"/v2/apiKeys:verify"} context={"endpoint"}></MethodEndpoint>
+
+Verifies a single credential (API key, JWT, or macaroon). Returns whether the credential is active along with associated metadata.
+Results are cached for low-latency repeated verifications; use the `Cache-Control: no-cache` header to bypass the cache.
+
+```http
+POST /v2/apiKeys:verify
+{
+  "credential": "sk_live_abc123..."
+}
+```
+
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails parameters={undefined}></ParamsDetails>
+
+<RequestSchema {...require("./admin-verify-api-key.RequestSchema.json")}></RequestSchema>
+
+<StatusCodes {...require("./admin-verify-api-key.StatusCodes.json")}></StatusCodes>

@@ -18,7 +18,10 @@ Endpoints: `/v2/admin/`
 The data plane handles high-throughput read operations: key verification, batch verification, and self-revocation. It is designed
 for low-latency edge deployment.
 
-Endpoints: `/v2/admin/apiKeys:verify`, `/v2/admin/apiKeys:batchVerify`, `/v2/apiKeys:selfRevoke`
+Primary endpoints: `/v2/apiKeys:verify`, `/v2/apiKeys:batchVerify`, `/v2/apiKeys:selfRevoke`
+
+Admin-scoped verification endpoints also exist for operator workflows, including `/v2/admin/apiKeys:verify` and
+`/v2/admin/apiKeys:batchVerify`, but the self-service paths are the primary data-plane surface for credential holders.
 
 ## Request flow
 
@@ -28,7 +31,7 @@ Client --> Data Plane --> Cache (hit?) --> Database --> Response
                             +-- cache hit ---------------+
 ```
 
-1. Client sends credential to `POST /v2/admin/apiKeys:verify`
+1. Client sends credential to `POST /v2/apiKeys:verify`
 2. Talos identifies the credential type (generated, imported, JWT, macaroon)
 3. For generated keys, the UUID is extracted from the token identifier
 4. For imported keys, a tenant-scoped SHA-512/256 hash is computed
@@ -162,11 +165,16 @@ The cache layer reduces database load on the verification path:
 
 ### Crypto
 
-Talos supports multiple signing algorithms:
+Talos supports multiple JWT signing algorithms and a separate API key hashing mechanism:
 
-- **Ed25519 (EdDSA)** -- default, fastest signing and smallest keys
-- **RSA-2048/4096 (RS256)** -- legacy compatibility
-- **HMAC-SHA256** -- used for API key revocation checks (\<1ms with constant-time comparison)
+- **JWT signing algorithms**
+- `Ed25519 (EdDSA)` -- default, fastest signing and smallest keys
+- `RSA-2048/4096 (RS256)` -- legacy compatibility
+- **API key hashing**
+- `HMAC-SHA256` -- used for API key revocation checks (\<1ms with constant-time comparison)
+
+The JWT signing algorithm is determined per JWK by its `alg` field, so one JWKS can contain keys for multiple signing algorithms
+at the same time.
 
 ### Observability
 

@@ -15,16 +15,16 @@ arrives.
 
 ## Common workflows
 
-| Task                                    | Endpoint                                                        | Guide                                   |
-| --------------------------------------- | --------------------------------------------------------------- | --------------------------------------- |
-| Issue a key and verify it               | `POST /v2/admin/issuedApiKeys`, `POST /v2/admin/apiKeys:verify` | [Issue and verify](issue-and-verify.md) |
-| Import keys from another system         | `POST /v2/admin/importedApiKeys`                                | [Import keys](import-keys.md)           |
-| Mint short-lived JWT or macaroon tokens | `POST /v2/admin/apiKeys:derive`                                 | [Derive tokens](derive-tokens.md)       |
-| Verify many credentials at once         | `POST /v2/admin/apiKeys:batchVerify`                            | [Batch operations](batch-operations.md) |
-| Update, rotate, or revoke a key         | `PATCH`, `:rotate`, `:revoke`                                   | [Key lifecycle](key-lifecycle.md)       |
-| Enforce per-key rate limits             | `rate_limit_policy` on issue/update                             | [Rate limiting](rate-limiting.md)       |
-| Let key holders revoke their own key    | `POST /v2/apiKeys:selfRevoke`                                   | [Self-revocation](self-revocation.md)   |
-| Handle errors and retries               | All endpoints                                                   | [Error handling](error-handling.md)     |
+| Task                                    | Endpoint                                                  | Guide                                   |
+| --------------------------------------- | --------------------------------------------------------- | --------------------------------------- |
+| Issue a key and verify it               | `POST /v2/admin/issuedApiKeys`, `POST /v2/apiKeys:verify` | [Issue and verify](issue-and-verify.md) |
+| Import keys from another system         | `POST /v2/admin/importedApiKeys`                          | [Import keys](import-keys.md)           |
+| Mint short-lived JWT or macaroon tokens | `POST /v2/admin/apiKeys:derive`                           | [Derive tokens](derive-tokens.md)       |
+| Verify many credentials at once         | `POST /v2/apiKeys:batchVerify`                            | [Batch operations](batch-operations.md) |
+| Update, rotate, or revoke a key         | `PATCH`, `:rotate`, `:revoke`                             | [Key lifecycle](key-lifecycle.md)       |
+| Enforce per-key rate limits             | `rate_limit_policy` on issue/update                       | [Rate limiting](rate-limiting.md)       |
+| Let key holders revoke their own key    | `POST /v2/apiKeys:selfRevoke`                             | [Self-revocation](self-revocation.md)   |
+| Handle errors and retries               | All endpoints                                             | [Error handling](error-handling.md)     |
 
 ## Authentication
 

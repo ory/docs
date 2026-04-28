@@ -55,6 +55,10 @@ echo "export KEY_ID=$KEY_ID" >> "$DOCTEST_ENV_FILE"
 </TabItem>
 </Tabs>
 
+When you set `ttl` on issue or import requests, the HTTP API accepts extended formats such as `1y`, `1mo`, `1w`, `1d`, and
+compounds like `1y6mo` in addition to standard Go durations. The current CLI `--ttl` flags still expect standard Go duration
+strings; see the [configuration reference](../reference/config.md) for the canonical duration format summary.
+
 ## Update key metadata
 
 Use `PATCH` to update a key's name, scopes, metadata, or rate limit policy without changing the secret:

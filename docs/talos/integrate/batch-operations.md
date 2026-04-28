@@ -77,7 +77,7 @@ talos keys batch-verify "$KEY1" "$KEY2" "invalid-key-for-testing" \
 <TabItem value="curl" label="curl">
 
 ```bash
-curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:batchVerify" \
+curl -s -X POST "$TALOS_URL/v2/apiKeys:batchVerify" \
   -H "Content-Type: application/json" \
   -d "{
     \"requests\": [
@@ -90,6 +90,9 @@ curl -s -X POST "$TALOS_URL/v2/admin/apiKeys:batchVerify" \
 
 </TabItem>
 </Tabs>
+
+The current `talos keys batch-verify` CLI command uses the admin-scoped batch verify API under the hood. The curl example above
+shows the self-service data-plane endpoint.
 
 ### Response format
 
