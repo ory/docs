@@ -28,6 +28,7 @@ const config: Config = {
     },
   },
   staticDirectories: ["src/static"],
+  clientModules: [require.resolve("./src/clientModules/speedInsights.tsx")],
   themeConfig: {
     respectPrefersColorScheme: true,
     tableOfContents: {
