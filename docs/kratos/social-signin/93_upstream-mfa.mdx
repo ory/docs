@@ -182,14 +182,14 @@ still recorded under `upstream_acr` / `upstream_amr` for auditing.
 
 ## Troubleshooting
 
-The session is still AAL1 after a successful login: Check that the upstream provider actually emits the claim. You can inspect
-the raw ID token claims from the Jsonnet data mapper through `std.extVar('claims').raw_claims.acr` and
+The session is still AAL1 after a successful login: Check that the upstream provider actually emits the claim. You can inspect the
+raw ID token claims from the Jsonnet data mapper through `std.extVar('claims').raw_claims.acr` and
 `std.extVar('claims').raw_claims.amr`. If the provider doesn't surface the claim, request it explicitly through `acr_values` or
 `requested_claims`.
 
-The `upstream_acr` field is empty even though the upstream sent it: Make sure your provider config has
-`claims_source: id_token` (the default) or, if you set `claims_source: userinfo`, that the userinfo endpoint also returns the
-`acr` claim. Some providers only include `acr`/`amr` in the ID token.
+The `upstream_acr` field is empty even though the upstream sent it: Make sure your provider config has `claims_source: id_token`
+(the default) or, if you set `claims_source: userinfo`, that the userinfo endpoint also returns the `acr` claim. Some providers
+only include `acr`/`amr` in the ID token.
 
 The session is AAL2 but the user never completed MFA: Audit the configured allowlists carefully. An `acr` value such as `0` or
 `urn:mace:incommon:iap:bronze` typically means "no MFA was performed" — do not include those values in `aal2_acr_values`.
