@@ -174,7 +174,7 @@ export function DeploymentDatabase({ product }: DeploymentDatabaseProps) {
       <p>
         High-performance pooling is supported in Ory Enterprise License (OEL)
         images. Read more about it in the{" "}
-        <a href="./oel/high-performance-pooling">high-performance pooling</a>{" "}
+        <a href="../self-hosted/oel/high-performance-pooling">high-performance pooling</a>{" "}
         documentation.
       </p>
 
@@ -197,7 +197,7 @@ export function DeploymentDatabase({ product }: DeploymentDatabaseProps) {
         server-side. By contrast, establishing a new TLS connection to a cluster
         can take several hundred milliseconds in many scenarios. As a
         consequence, Ory recommends using{" "}
-        <a href="#high-performance-pooling">high-performance pooling</a> and
+        <a href="../self-hosted/oel/high-performance-pooling">high-performance pooling</a>{" "} and
         setting the minimum and maximum pool sizes equal, as well as disabling
         termination of idle connections (<code>pool_max_conn_idle_time=0</code>
         ).
