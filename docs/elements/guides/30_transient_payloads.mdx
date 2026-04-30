@@ -1,0 +1,84 @@
+---
+id: transient-payload
+title: Transient Payload passthrough
+sidebar_label: Transient Payload
+---
+
+Transient payload is an Ory Kratos concept, that allows users of the APIs to pass data through to webhooks. All self-service
+Kratos flows support transient payloads, and they are passed through to the webhooks as JSON objects. This allows you to use the
+data in your webhooks, for example to customize the user experience or to trigger specific actions based on the data.
+
+Ory Elements allows defining transient payloads on the self-service flow components. To do this, you can use the
+`transientPayload` prop on the self-service flow components. The value of this prop should be an object that contains the data you
+want to pass through to the webhooks or a function that returns such an object. The data will be passed through to the webhooks as
+JSON objects.
+
+- [Read more about webhooks in Ory](../../guides/integrate-with-ory-cloud-through-webhooks.mdx)
+
+## Static Transient Payload
+
+In this example, we define a static transient payload that contains the user's preferred language. This data will be passed
+through to the webhooks as a JSON object.
+
+```tsx
+import { Registration } from "@ory/elements-react/theme"
+import { getRegistrationFlow, OryPageParams } from "@ory/nextjs/app"
+
+import config from "@/ory.config"
+import { headers } from "next/headers"
+
+export default async function RegistrationPage(props: OryPageParams) {
+  const flow = await getRegistrationFlow(config, props.searchParams)
+
+  const language = (await headers()).get("Accept-Language")
+
+  if (!flow) {
+    return null
+  }
+
+  return (
+    <Registration
+      flow={flow}
+      config={config}
+      components={{
+        Card: {},
+      }}
+      transientPayload={{
+        language,
+      }}
+    />
+  )
+}
+```
+
+## Dynamic Transient Payload
+
+In this example, we define a dynamic transient payload that contains the user's preferred language. The function is called, when
+the user submits the form, and the API request is made. This allows you to pass dynamic data to the webhooks, based on the user's
+input or other factors.
+
+```tsx
+"use client"
+
+import { Registration } from "@ory/elements-react/theme"
+import { RegistrationFlow } from "@ory/client-fetch"
+import config from "@/ory.config"
+
+export function RegistrationWithPayload({ flow }: { flow: RegistrationFlow }) {
+  return (
+    <Registration
+      flow={flow}
+      config={config}
+      transientPayload={(formValues) => {
+        const referralCode = localStorage.getItem("referral-code")
+        return {
+          referralCode,
+        }
+      }}
+    />
+  )
+}
+```
+
+The function also receives the form values as an argument, which allows you to use the user's input to determine the transient
+payload. In this example, we are retrieving a referral code from local storage and passing it through to the webhooks.
