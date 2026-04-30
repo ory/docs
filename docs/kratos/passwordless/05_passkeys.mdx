@@ -111,6 +111,65 @@ Alternatively, use the Ory CLI to enable the passkey strategy:
 </Tabs>
 ```
 
+### Advanced configuration
+
+The passkey strategy exposes additional options that control the WebAuthn ceremony. All options are optional. Defaults accept
+every standards-compliant passkey, so existing deployments do not need to change anything.
+
+| Option                                      | Type     | Default              | What it controls                                                                                                                                                                      |
+| ------------------------------------------- | -------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `authenticator_selection.attachment`        | string   | _unset_              | Restricts eligible authenticators by attachment modality: `"platform"` (Touch ID, Windows Hello) or `"cross-platform"` (HID tokens, YubiKeys). Omit this field to accept either type. |
+| `authenticator_selection.resident_key`      | string   | `"required"`         | Whether the authenticator must create a client-side discoverable credential: `"required"`, `"preferred"`, or `"discouraged"`.                                                         |
+| `authenticator_selection.user_verification` | string   | `"preferred"`        | Whether biometrics or a PIN are required: `"required"`, `"preferred"`, or `"discouraged"`.                                                                                            |
+| `attestation.preference`                    | string   | `"none"`             | Attestation conveyance preference sent to the authenticator: `"none"`, `"indirect"`, `"direct"`, or `"enterprise"`.                                                                   |
+| `timeouts.registration`                     | duration | library default (5m) | Timeout for the registration ceremony. Use Go duration format, for example `"60s"` or `"5m"`.                                                                                         |
+| `timeouts.login`                            | duration | library default (5m) | Timeout for the login ceremony. Use Go duration format.                                                                                                                               |
+
+The following example configures cross-platform authenticators (such as a HID token or YubiKey) with required user verification:
+
+```mdx-code-block
+<Tabs>
+  <TabItem value="cli" label="Ory CLI">
+    <CodeBlock language="shell">{`ory patch identity-config <your-project-id> \\
+  --add '/selfservice/methods/passkey/config/authenticator_selection/attachment="cross-platform"' \\
+  --add '/selfservice/methods/passkey/config/authenticator_selection/user_verification="required"'
+`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="network" label="Ory Network" default>
+    <CodeBlock language="yaml" title="config.yml">{`selfservice:
+  methods:
+    passkey:
+      enabled: true
+      config:
+        authenticator_selection:
+          attachment: cross-platform
+          user_verification: required`}</CodeBlock>
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-hosted Ory Kratos">
+    <CodeBlock language="yaml" title="config.yml">{`selfservice:
+  methods:
+    passkey:
+      enabled: true
+      config:
+        rp:
+          display_name: Your Application name
+          id: localhost
+          origins:
+            - http://localhost:4455
+        authenticator_selection:
+          attachment: cross-platform
+          resident_key: required
+          user_verification: required
+        attestation:
+          preference: none
+        timeouts:
+          registration: 5m
+          login: 5m`}</CodeBlock>
+  </TabItem>
+</Tabs>
+```
+
 ### Identity schema
 
 If you want to use a custom identity schema, you must define which field of the identity schema is the display name for the
