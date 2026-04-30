@@ -3,24 +3,56 @@ id: cookies
 title: Configuring cookies
 ---
 
-By default, cookies sent by Ory Hydra's API are set without explicitly specifying a SameSite mode. If you wish for these cookies
-to be set with a mode you can use the `serve.cookies.same_site_mode` setting. Possible values are `Strict`, `Lax` or `None`:
+Ory Hydra uses HTTP cookies for login CSRF, consent CSRF, device-flow CSRF, and the user authentication session. This guide covers
+how to tune their `SameSite` mode, domain, path, names, and development-mode flags.
+
+## SameSite mode
+
+The `serve.cookies.same_site_mode` setting controls the
+[`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Set-Cookie#samesitesamesite-value) attribute.
+Allowed values are `Strict`, `Lax`, or `None`. The default is `None`.
 
 ```yaml
 serve:
   cookies:
-    same_site_mode: Strict
+    same_site_mode: Lax
 ```
 
-If you wish to embed requests to hydra on a third party site (for example an iframe that periodically polls to check session
-status) you will need to set the mode to `None`. Some
-[browser versions](https://www.chromium.org/updates/same-site/incompatible-clients) reject cookies using the `Same-Site=None`
-attribute. Hydra implements a [workaround](https://web.dev/samesite-cookie-recipes/#handling-incompatible-clients) that can be
-enabled by setting `serve.cookies.same_site_legacy_workaround` to `true`. This workaround is disabled by default, and only takes
-effect when `serve.cookies.same_site_mode` is set to `None`:
+Pick the strictest value your deployment can tolerate:
+
+- `Strict` — cookies are only sent on same-site requests. Safest, but breaks cross-site redirects back into Hydra (for example,
+  returning from an external login UI on a different eTLD+1).
+- `Lax` — cookies are sent on top-level navigations. Good default when the login/consent UI and Hydra share a parent domain (see
+  [`serve.cookies.domain`](#cookie-domain) below).
+- `None` — cookies are sent on all cross-site requests. Required when Hydra is reached cross-site, for example by
+  [front-channel logout](./logout) iframes rendered on a different eTLD+1 than Hydra. `SameSite=None` requires the `Secure` flag,
+  so it only works over HTTPS. If the issuer URL isn't HTTPS, Hydra falls back to `Lax` at runtime.
+
+:::warning Third-party cookie deprecation
+
+Modern browsers restrict or block third-party cookies regardless of `SameSite=None`:
+
+- Safari's [Intelligent Tracking Prevention](https://webkit.org/tracking-prevention/) blocks third-party cookies by default.
+- Firefox's
+  [Total Cookie Protection](https://blog.mozilla.org/en/products/firefox/firefox-rolls-out-total-cookie-protection-by-default-to-all-users-worldwide/)
+  partitions third-party cookies by top-level site.
+- Chrome restricts third-party cookies via Tracking Protection and the Privacy Sandbox.
+
+Host Hydra on the same eTLD+1 as your application and use `SameSite=Lax` whenever possible. For cross-domain logout, prefer
+[back-channel logout](./logout) over [front-channel logout](./logout) iframes. Embedding the login, consent, or other
+authentication flows themselves inside an iframe isn't supported.
+
+:::
+
+## Legacy `SameSite=None` workaround
+
+Browsers released before 2020 (Chrome < 80, old iOS 12 / macOS 10.14 Safari, UC Browser, and a handful of embedded WebViews)
+[reject cookies with `SameSite=None`](https://www.chromium.org/updates/same-site/incompatible-clients/). Hydra can work around
+this by writing a second cookie without the `SameSite` attribute for those clients. Enable it with
+`serve.cookies.same_site_legacy_workaround: true`. It only takes effect when `same_site_mode` is `None`.
 
 ```yaml
-# SameSite=none requires HTTPS, so we need to disable dev mode:
+# SameSite=None requires Secure, so TLS must be enabled (dev: false).
 dev: false
 
 serve:
@@ -29,7 +61,13 @@ serve:
     same_site_legacy_workaround: true
 ```
 
-To set the cookie domain, use the `serve.cookies.domain` setting:
+This flag exists for backwards compatibility with legacy user agents. If you don't need to support pre-2020 browsers, leave it
+disabled.
+
+## Cookie domain
+
+Set the cookie domain with `serve.cookies.domain`. This scopes the session and CSRF cookies to a parent domain so they can be
+shared with subdomains (for example, your login/consent UI on `auth.example.com` and Hydra on `hydra.example.com`).
 
 ```yaml
 serve:
@@ -37,13 +75,55 @@ serve:
     domain: example.com
 ```
 
-To set the cookie names, use the `serve.cookies.names` setting:
+Only set this when you control every subdomain the cookie will be sent to.
+
+## Cookie path
+
+Scope the session cookie to a specific path with `serve.cookies.paths.session`. The default is `/`.
+
+```yaml
+serve:
+  cookies:
+    paths:
+      session: /
+```
+
+## Cookie names
+
+Override the default cookie names with `serve.cookies.names`:
 
 ```yaml
 serve:
   cookies:
     names:
-      login_csrf: login_name
-      consent_csrf: consent_name
-      session: session_name
+      login_csrf: my_login_csrf
+      consent_csrf: my_consent_csrf
+      device_csrf: my_device_csrf
+      session: my_session
 ```
+
+Defaults:
+
+| Key            | Default                  | Purpose                                                        |
+| -------------- | ------------------------ | -------------------------------------------------------------- |
+| `login_csrf`   | `ory_hydra_login_csrf`   | CSRF protection for the login flow.                            |
+| `consent_csrf` | `ory_hydra_consent_csrf` | CSRF protection for the consent flow.                          |
+| `device_csrf`  | `ory_hydra_device_csrf`  | CSRF protection for the OAuth 2.0 device authorization flow.   |
+| `session`      | `ory_hydra_session`      | Authenticated user session between login/consent interactions. |
+
+## Secure flag in development
+
+In production, Hydra always sets the `Secure` cookie attribute. When running with `dev: true` (no TLS), `Secure` is dropped so
+cookies work over plain HTTP. Override this with `serve.cookies.secure: true` — useful if you terminate TLS at a reverse proxy and
+run Hydra itself over HTTP:
+
+```yaml
+dev: true
+
+serve:
+  cookies:
+    secure: true
+```
+
+In development mode, CSRF and session cookie names are suffixed with `_dev` (for example, `ory_hydra_session_dev`) so they don't
+collide with production cookies on the same domain.
