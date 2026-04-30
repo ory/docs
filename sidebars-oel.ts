@@ -72,6 +72,7 @@ const oelSidebar = [
               "kratos/guides/https-tls",
               "kratos/guides/hosting-own-have-i-been-pwned-api",
               "kratos/guides/secret-key-rotation",
+              "kratos/guides/normalize-phone-numbers",
               {
                 type: "category",
                 label: "Troubleshooting",

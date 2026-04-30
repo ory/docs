@@ -1,12 +1,3 @@
-// sidebars-oss.ts
-
-import {
-  SidebarItem,
-  SidebarItemConfig,
-} from "@docusaurus/plugin-content-docs/src/sidebars/types"
-
-type SidebarItemsConfig = SidebarItemConfig[]
-
 const ossSidebar = [
   {
     type: "category",
@@ -88,6 +79,7 @@ const ossSidebar = [
               "kratos/guides/https-tls",
               "kratos/guides/hosting-own-have-i-been-pwned-api",
               "kratos/guides/secret-key-rotation",
+              "kratos/guides/normalize-phone-numbers",
               {
                 type: "category",
                 label: "Troubleshooting",
