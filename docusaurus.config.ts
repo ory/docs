@@ -225,7 +225,17 @@ const config: Config = {
     "@docusaurus/theme-search-algolia",
     "docusaurus-theme-redoc",
   ],
-  headTags: [],
+  headTags: [
+    {
+      // https://vercel.com/docs/speed-insights/quickstart?framework=html
+      tagName: "script",
+      attributes: {
+        defer: "true",
+        src: "/_vercel/speed-insights/script.js",
+      },
+      innerHTML: `window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };`,
+    },
+  ],
 }
 
 module.exports = config
