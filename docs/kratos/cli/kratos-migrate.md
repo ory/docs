@@ -1,7 +1,7 @@
 ---
 id: kratos-migrate
 title: kratos migrate
-description: kratos migrate Various migration helpers
+description: kratos migrate
 ---
 
 <!--
@@ -16,11 +16,12 @@ Various migration helpers
 ### Options
 
 ```
-  -h, --help   help for migrate
+  -c, --config strings   Path to one or more .json, .yaml, .yml, .toml config files. Values are loaded in the order provided, meaning that the last config file overwrites values from the previous config file.
+  -h, --help             help for migrate
 ```
 
-### SEE ALSO
+### See also
 
-* [kratos](kratos)	 - 
-* [kratos migrate sql](kratos-migrate-sql)	 - Create SQL schemas and apply migration plans
+* [kratos](kratos)
+* [kratos migrate normalize-phone-numbers](kratos-migrate-normalize-phone-numbers)	 - Normalize phone numbers to E.164 format in the database
 
