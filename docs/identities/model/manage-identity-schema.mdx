@@ -98,6 +98,40 @@ However, you can use the existing schema as a template to create a new schema. S
 It's recommended to manage identity schemas in version control. Learn more about
 [managing Ory Network configuration in git](../../guides/gitops).
 
+## Delete a custom schema
+
+Custom schemas you no longer need can be deleted. The deletion is rejected if the schema is still attached to a project or is
+referenced by an identity. Once a schema is attached to a project, that attachment cannot be removed, so the schema cannot be
+deleted as long as it remains in use.
+
+Presets cannot be deleted.
+
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+1. Go to <ConsoleLink route="project.identitySchema" />.
+2. Find the schema you want to delete in the **Custom schemas** section.
+3. Open the row menu (three dots) and select **Delete schema**.
+4. Confirm the deletion in the dialog.
+
+If **Delete schema** is disabled, the schema is currently attached to a project and cannot be deleted.
+
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+Delete a schema through the Ory Network Console API using a
+[workspace API key](../../concepts/personal-access-token.mdx#authorizing-ory-network-workspace-admin-apis):
+
+```shell
+curl -X DELETE "https://api.console.ory.sh/identity-schemas/$SCHEMA_ID" \
+     -H "Authorization: Bearer $ORY_WORKSPACE_API_KEY"
+```
+
+If the schema is still in use, the API returns `409 Conflict` with the number of projects that reference it.
+
+</TabItem>
+</Tabs>
+
 ## Update identities to use a new schema
 
 Updating the identity schema of a project can result in inconsistencies between the new schema and the identities created with the
