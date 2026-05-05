@@ -63,6 +63,7 @@ const oidcSSO: SidebarItemConfig = {
       ],
     },
     "kratos/social-signin/data-mapping",
+    "kratos/social-signin/upstream-mfa",
     "kratos/social-signin/account-linking",
     "kratos/social-signin/get-tokens",
     "identities/sign-in/social-sign-in/redirect-url",
