@@ -1,10 +1,16 @@
 ---
 id: single-sign-on
-title: Single Sign On
+title: Ory Console SSO
 sidebar_label: Single Sign On
 ---
 
-The Ory Console supports Single-Sign-On (SSO) via OpenID Connect (OIDC) or SAML. This allows you to use your existing identity
+:::info
+
+Ory Console SSO is available on [Ory Enterprise](https://www.ory.sh/contact/) plans.
+
+:::
+
+The Ory Console supports Single Sign-On (SSO) via OpenID Connect (OIDC) or SAML. This allows you to use your existing identity
 provider (IdP) to authenticate users of the Ory Console.
 
 Once configured, all users with email addresses matching the enrolled domain will be required to use SSO to log in to the Ory
@@ -36,7 +42,7 @@ Follow these steps to configure SSO for your workspace:
 8. Congratulations! You have successfully set up Single Sign-On for your workspace in Ory Console. You can now use your IdP
    credentials to access the console.
 
-### Restricting access to your workspace
+### Restrict access to your workspace
 
 In addition to forcing all users of your organization to use SSO, you can also restrict access to your workspace or any projects
 within it to specific email domains.
