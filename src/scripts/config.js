@@ -1,4 +1,4 @@
-// Copyright © 2022 Ory Corp
+// Copyright © 2026 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
 const RefParser = require("json-schema-ref-parser")
@@ -239,7 +239,7 @@ If you are looking for an example configuration, it is better to try out the qui
 :::
 
 To find out more about edge cases like setting string array values through environmental variables head to the
-[Configuration](https://www.ory.com/docs/ecosystem/configuring) section.
+[Configuration](https://www.ory.com/docs/oss/configuring) section.
 
 \`\`\`yaml
 ${out.yaml}

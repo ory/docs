@@ -7,12 +7,28 @@ Read this document to prepare for production when self-hosting Ory Keto.
 Feel free to [open an issue or pull request](https://github.com/ory/docs/) when you have an idea how to improve this
 documentation.
 
-Read more about [deployment fundamentals and requirements for Ory](../../self-hosted/deployment).
+Read more about [deployment fundamentals and requirements for Ory](../../oss/deployment.mdx).
 
 ## Database
 
 Ory Keto requires a production-grade database such as PostgreSQL, MySQL, CockroachDB. Don't use SQLite in production! Read more
-about [deployment fundamentals and requirements for Ory](../../self-hosted/deployment).
+about [deployment fundamentals and requirements for Ory](../../oss/deployment.mdx).
+
+## Security checklist
+
+Before deploying to production, review and explicitly set the following security-critical configuration values. Do not rely on
+defaults in a production environment.
+
+### Secrets
+
+Review the secrets section of the [Configuration](../reference/configuration.mdx).
+
+Do not rely on the defaults in production, and set a custom secret value for `secrets.pagination`. Generate a cryptographically
+secure random value, for example:
+
+```sh
+openssl rand -base64 32
+```
 
 ## Ory Keto API behind an API gateway
 

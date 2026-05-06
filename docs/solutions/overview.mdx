@@ -1,0 +1,57 @@
+---
+id: solutions-overview
+title: Solutions Overview
+sidebar_label: Solutions overview
+#displayed_sidebar: sidebars-ciam
+---
+
+import { OverviewCard } from "@site/src/components/welcomePage/OverviewCard"
+import WelcomePageSection from "@site/src/components/Welcome/welcome"
+import * as welcomeContent from "@site/src/pages/_assets/welcome-content"
+
+# Solutions overview
+
+Ory provides flexible identity and access management solutions for different use cases. Choose the solution that best fits your
+business needs.
+
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-ory-4 gap-y-ory-8 mt-ory-8">
+  <OverviewCard
+    title="CIAM"
+    description="Customer Identity and Access Management for consumer-facing applications. Handle registration, login, and user management for your customers."
+    to="/solutions/solution_CIAM"
+    linkLabel="Learn more"
+  />
+
+{" "}
+
+<OverviewCard
+  title="B2B IAM"
+  description="Business-to-Business Identity and Access Management. Manage organizations, enterprise SSO via SAML/OIDC, and multi-tenant permissions."
+  to="/solutions/solution_B2B"
+  linkLabel="Learn more"
+/>
+
+{" "}
+
+<OverviewCard
+  title="Agentic IAM"
+  description="Identity and Access Management for AI agents. Secure identities, scoped permissions, and auditable access for autonomous software."
+  to="/solutions/solution_agentic"
+  linkLabel="Learn more"
+/>
+</div>
+
+<h3>Identity management & authentication solutions</h3>
+<p>What your users need for authentication and user management.</p>
+
+<WelcomePageSection {...welcomeContent.identityManagement} />
+
+<h3>Authorization solutions</h3>
+<p>How to secure access to resources and APIs.</p>
+
+<WelcomePageSection {...welcomeContent.authorizationSecurity} />
+
+<h3>Permission management solutions</h3>
+<p>Controlling who can access what.</p>
+
+<WelcomePageSection {...welcomeContent.permissionManagement} />

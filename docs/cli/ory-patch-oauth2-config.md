@@ -1,7 +1,7 @@
 ---
 id: ory-patch-oauth2-config
 title: ory patch oauth2-config
-description: ory patch oauth2-config Patch the Ory OAuth2 & OpenID Connect configuration of an Ory Network project.
+description: ory patch oauth2-config
 ---
 
 <!--
@@ -22,18 +22,24 @@ Compared to the `patch project` command, this command updates only the Ory OAuth
 configuration and returns configuration as a result. This command is useful when you want to import configuration
 from self-hosted Ory Hydra to Ory Network. Using this command allows for shorter paths when specifying the flags:
 
-	ory patch oauth2-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
-		--replace '/strategies/access_token="jwt"'
+```
+ory patch oauth2-config ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+	--replace '/strategies/access_token="jwt"'
+```
 
 when compared to the `patch project` command:
 
-	ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
-		--replace '/strategies/access_token="jwt"'
+```
+ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+	--replace '/strategies/access_token="jwt"'
+```
 
 The format of the patch is a JSON-Patch document. For more details please check:
 
-	https://www.ory.sh/docs/reference/api#operation/patchProject
-	https://jsonpatch.com
+```
+https://www.ory.sh/docs/reference/api#operation/patchProject
+https://jsonpatch.com
+```
 
 ```
 ory patch oauth2-config [flags]
@@ -72,7 +78,7 @@ $ ory patch oauth2-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 ```
       --add stringArray       Add a specific key to the configuration
   -f, --file strings          Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the project
-      --format string         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                  help for oauth2-config
       --project string        The project to use, either project ID or a (partial) slug.
   -q, --quiet                 Be quiet with output printing.
@@ -88,7 +94,7 @@ $ ory patch oauth2-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
   -c, --config string   Path to the Ory Network configuration file.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory patch](ory-patch)	 - Patch resources
+* [ory patch](ory-patch) Patch resources
 

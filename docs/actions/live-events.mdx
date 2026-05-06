@@ -175,6 +175,25 @@ Stronger guarantees can be implemented for your use case if needed, in this case
 Is your workload not running on AWS or you don't want to use SNS? [Reach out](https://www.ory.com/contact) to discuss your
 requirements! Event streams can be implemented for any data warehouse, data lake, or equivalent solution.
 
+### Stream to HTTPS endpoint
+
+To stream events to an HTTPS endpoint, provide the URL of the endpoint when configuring the event stream:
+
+```shell
+ory create event-stream
+  --project "$YOUR_PROJECT_ID" \
+  --type https \
+  --https-endpoint https://example.com/my-event-endpoint
+```
+
+Unencrypted HTTP endpoints are not supported. Your endpoint must be able to handle POST requests with a JSON body, and respond
+with a 2xx status code to acknowledge successful processing of the event. HTTP redirects are _not_ followed and are treated as
+delivery failures.
+
+Authentication is possible by including credentials in the URL (HTTP Basic Authentication), for example:
+
+`https://username:password@example/com/my-event-endpoint`
+
 ### Stream to AWS SNS
 
 Configuring AWS SNS as an event stream destination is easy and requires no exchange of confidential information.

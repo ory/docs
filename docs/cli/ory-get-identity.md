@@ -1,7 +1,7 @@
 ---
 id: ory-get-identity
 title: ory get identity
-description: ory get identity Get one or more identities by their ID(s)
+description: ory get identity
 ---
 
 <!--
@@ -34,7 +34,7 @@ To get the identities with the recovery email address at the domain "ory.sh", ru
 ### Options
 
 ```
-      --format string                     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string                     Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                              help for identity
   -i, --include-credentials stringArray   Include third party tokens (only "oidc" supported) 
       --project string                    The project to use, either project ID or a (partial) slug.
@@ -49,7 +49,7 @@ To get the identities with the recovery email address at the domain "ory.sh", ru
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory get](ory-get)	 - Get a resource
+* [ory get](ory-get) Get a resource
 

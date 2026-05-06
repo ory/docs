@@ -1,5 +1,6 @@
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
 
+// eslint-disable-next-line
 module.exports = function (context, options) {
   return {
     name: "docusaurus-polyfill",
@@ -23,6 +24,11 @@ module.exports = function (context, options) {
               },
             },
           ],
+        },
+        resolve: {
+          fallback: {
+            path: require.resolve("path-browserify"),
+          },
         },
       }
     },

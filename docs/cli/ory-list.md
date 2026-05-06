@@ -1,7 +1,7 @@
 ---
 id: ory-list
 title: ory list
-description: ory list List resources
+description: ory list
 ---
 
 <!--
@@ -23,9 +23,9 @@ List resources
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory list event-streams](ory-list-event-streams)	 - List your event streams
 * [ory list identities](ory-list-identities)	 - List identities
 * [ory list oauth2-clients](ory-list-oauth2-clients)	 - List OAuth 2.0 Clients

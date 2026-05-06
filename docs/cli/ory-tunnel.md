@@ -1,7 +1,7 @@
 ---
 id: ory-tunnel
 title: ory tunnel
-description: ory tunnel Mirror Ory APIs on your local machine for local development and testing
+description: ory tunnel
 ---
 
 <!--
@@ -23,25 +23,33 @@ The first argument, `application-url`, points to the location of your applicatio
 
 Example usage:
 
-		$ ory tunnel --project <project-id-or-slug> https://www.example.org
-		$ ORY_PROJECT=<project-id-or-slug> ory tunnel http://localhost:3000
+```
+	$ ory tunnel --project <project-id-or-slug> https://www.example.org
+	$ ORY_PROJECT=<project-id-or-slug> ory tunnel http://localhost:3000
+```
 
 ### Connecting to Ory
 
 Before using the Ory Tunnel, ensure that you have a running Ory Network project. You can create a new project with the following command:
 
-		$ ory create project --name "Command Line Project"
+```
+	$ ory create project --name "Command Line Project"
+```
 
 Once your project is ready, pass the project's slug to the tunnel command:
 
-		$ ory tunnel --project <project-id-or-slug> ...
-		$ ORY_PROJECT=<project-id-or-slug> ory tunnel ...
+```
+	$ ory tunnel --project <project-id-or-slug> ...
+	$ ORY_PROJECT=<project-id-or-slug> ory tunnel ...
+```
 
 ### Connecting in automated environments
 
 To connect the Ory Tunnel in automated environments, create a Project API Key for your project, set it as an environment variable, and use the `--quiet` flag:
 
-		$ ORY_PROJECT_API_KEY=<project-api-key> ory tunnel -q ...
+```
+	$ ORY_PROJECT_API_KEY=<project-api-key> ory tunnel -q ...
+```
 
 This will prevent the browser window from opening.
 
@@ -49,16 +57,20 @@ This will prevent the browser window from opening.
 
 For local development, use:
 
-		$ ory tunnel --project <project-id-or-slug> http://localhost:3000
+```
+	$ ory tunnel --project <project-id-or-slug> http://localhost:3000
+```
 
 ### CORS
 
 You can restrict the CORS domains using the `--allowed-cors-origins` flag:
 
-		$ ory tunnel http://localhost:3000 https://app.example.com \
-			--allowed-cors-origins https://www.example.org \
-			--allowed-cors-origins https://api.example.org \
-			--allowed-cors-origins https://www.another-app.com
+```
+	$ ory tunnel http://localhost:3000 https://app.example.com \
+		--allowed-cors-origins https://www.example.org \
+		--allowed-cors-origins https://api.example.org \
+		--allowed-cors-origins https://www.another-app.com
+```
 
 Per default, CORS is enabled for all origins.
 
@@ -70,10 +82,12 @@ If you need to run the tunnel behind a gateway during development, you can speci
 
 Example:
 
-		$ ory tunnel --project <project-id-or-slug> \
-			https://www.example.org \
-			https://auth.example.org \
-			--cookie-domain example.org
+```
+	$ ory tunnel --project <project-id-or-slug> \
+		https://www.example.org \
+		https://auth.example.org \
+		--cookie-domain example.org
+```
 
 Note: You cannot set a path in the `tunnel-url`.
 
@@ -81,28 +95,36 @@ Note: You cannot set a path in the `tunnel-url`.
 
 By default, the tunnel listens on port 4000. To change the port, use the --port flag:
 
-		$ ory tunnel --port 8080 --project <project-id-or-slug> https://www.example.org
+```
+	$ ory tunnel --port 8080 --project <project-id-or-slug> https://www.example.org
+```
 
 If your application runs on a non-standard HTTP or HTTPS port, include the port in the `application-url`:
 
-		$ ory tunnel --project <project-id-or-slug> https://example.org:1234
+```
+	$ ory tunnel --project <project-id-or-slug> https://example.org:1234
+```
 
 ### Cookies
 
 For cookie support, set the `--cookie-domain` flag to your top-level domain:
 
-		$ ory tunnel --project <project-id-or-slug> \
-			--cookie-domain example.org \
-			https://www.example.org \
-			https://auth.example.org
+```
+	$ ory tunnel --project <project-id-or-slug> \
+		--cookie-domain example.org \
+		https://www.example.org \
+		https://auth.example.org
+```
 
 ### Redirects
 
 To specify a custom redirect URL, use the `--default-redirect-url` flag:
 
 $ ory tunnel --project <project-id-or-slug> \
-	--default-redirect-url /welcome \
-	https://www.example.org
+```
+--default-redirect-url /welcome \
+https://www.example.org
+```
 
 ```
 ory tunnel <application-url> [<tunnel-url>] [flags]
@@ -134,7 +156,7 @@ ory tunnel http://localhost:3000
   -y, --yes                               Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 

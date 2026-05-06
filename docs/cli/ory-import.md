@@ -1,7 +1,7 @@
 ---
 id: ory-import
 title: ory import
-description: ory import Import resources
+description: ory import
 ---
 
 <!--
@@ -23,9 +23,9 @@ Import resources
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory import identities](ory-import-identities)	 - Import one or more identities from files or STD_IN
 * [ory import jwk](ory-import-jwk)	 - Imports JSON Web Keys from one or more JSON files.
 * [ory import oauth2-client](ory-import-oauth2-client)	 - Import one or more OAuth 2.0 Clients from files or STDIN

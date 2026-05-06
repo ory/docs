@@ -1,16 +1,19 @@
-// Copyright © 2022 Ory Corp
+// Copyright © 2026 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
 import React from "react"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import KapaWidget from "./KapaWidget"
+import { Buffer } from "buffer"
 
-const queryClient = new QueryClient()
+// Inject Buffer globally (works for browser + weird runtimes)
+if (typeof globalThis !== "undefined" && !globalThis.Buffer) {
+  globalThis.Buffer = Buffer
+}
 
 function Root({ children }) {
   return (
     <>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      {children}
       <KapaWidget />
     </>
   )

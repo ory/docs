@@ -1,7 +1,7 @@
 ---
 id: ory-list-relationships
 title: ory list relationships
-description: ory list relationships List relation tuples
+description: ory list relationships
 ---
 
 <!--
@@ -27,7 +27,7 @@ ory list relationships [flags]
 ```
       --authority string     Set the authority header for the remote gRPC server.
       --block                Block until the connection is up.
-      --format string        Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string        Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                 help for relationships
       --namespace string     Set the requested namespace
       --object string        Set the requested object
@@ -48,7 +48,7 @@ ory list relationships [flags]
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory list](ory-list)	 - List resources
+* [ory list](ory-list) List resources
 

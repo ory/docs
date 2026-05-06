@@ -1,7 +1,7 @@
 ---
 id: ory-update-identity-config
 title: ory update identity-config
-description: ory update identity-config Update the Ory Identities configuration of an Ory Network project.
+description: ory update identity-config
 ---
 
 <!--
@@ -24,18 +24,22 @@ self-hosted Ory Kratos to Ory Network.
 
 The full configuration payload can be found at:
 
-	https://www.ory.sh/docs/reference/api#operation/updateProject.
+```
+https://www.ory.sh/docs/reference/api#operation/updateProject.
+```
 
 This command expects the contents of the `/services/identity/config` key, so for example:
 
-	{
-	  "courier": {
-		"smtp": {
-		  "from_name": "..."
-		}
-		// ...
-	  }
+```
+{
+  "courier": {
+	"smtp": {
+	  "from_name": "..."
 	}
+	// ...
+  }
+}
+```
 
 
 ```
@@ -88,7 +92,7 @@ courier:
   -c, --config string   Path to the Ory Network configuration file.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory update](ory-update)	 - Update resources
+* [ory update](ory-update) Update resources
 
