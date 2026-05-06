@@ -101,8 +101,8 @@ It's recommended to manage identity schemas in version control. Learn more about
 ## Delete a custom schema
 
 You can delete a custom schema that you no longer need if the schema is not being used by a project or referenced by an identity.
-referenced by an identity. Once a schema is attached to a project, that attachment cannot be removed, so the schema cannot be
-deleted as long as it remains in use.
+You can switch which schema your project uses, but a schema that has already been added to a project remains referenced by it.
+That reference is what blocks deletion.
 
 Presets cannot be deleted.
 
