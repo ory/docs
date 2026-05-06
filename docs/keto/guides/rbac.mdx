@@ -107,7 +107,7 @@ Organization:org_123#reports.view@Role:viewer
 Role:admin#members@User:alice
 ```
 
-```shell
+```bash
 keto relation-tuple parse -f policies.rts --format json | \
   keto relation-tuple create -f - --insecure-disable-transport-security
 
@@ -227,21 +227,21 @@ inherit from it:
 
 ```keto-tuples
 // viewer can view reports;
-Organization:org_123 reports.view Role:viewer
+Organization:org_123#reports.view@Role:viewer
 
 // report_editor can create and edit and inherits from report_viewer
-Organization:org_123 reports.create Role:report_editor
-Organization:org_123 reports.edit Role:report_editor
-Role:report_editor inherits_from Role:viewer
+Organization:org_123#reports.create@Role:report_editor
+Organization:org_123#reports.edit@Role:report_editor
+Role:report_editor#inherits_from@Role:viewer
 
-User:eve members Role:report_editor
+User:eve#members@Role:report_editor
 ```
 
 Both checks are allowed for Eve:
 
-```keto-tuples
-check User:eve viewReports Organization:org_123
-check User:eve createReports Organization:org_123
+```bash
+check User:eve viewReports Organization:org_123 // Allowed
+check User:eve createReports Organization:org_123 // Allowed
 ```
 
 `viewReports` passes because `report_editor` inherits from `viewer`, so eve passes viewer's `isMember` check without
