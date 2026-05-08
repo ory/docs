@@ -2,26 +2,732 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 
+/* Ory design tokens - enables Tailwind utilities */
+/* Font source of truth: HomePage uses Inter, sans-serif */
+@theme {
+  --font-ory: "Inter", sans-serif;
+
+  --color-ory-text-primary: #0f172a;
+  --color-ory-text-secondary: #334155;
+  --color-ory-text-tertiary: #64748b;
+  --color-ory-brand-primary: #383bca;
+  --color-ory-brand-on-tertiary: #2e3081;
+  --color-ory-bg-primary: #fff;
+  --color-ory-bg-brand-tertiary: #e0e1ff;
+  --color-ory-bg-secondary: #f8fafc;
+  --color-ory-bg-secondary-hover: #e2e8f0;
+  --color-ory-bg-dark: #0f172a;
+  --color-ory-border-primary: #cbd5e1;
+  --color-ory-border-brand-tertiary: #6366f1;
+  --color-ory-bg-tertiary: #e2e8f0;
+  --color-ory-info-primary: #0ea5e9;
+  --color-ory-info-tertiary: #e0f2fe;
+  --color-ory-info-on-tertiary: #0c4a6e;
+  --color-ory-border-info-tertiary: #0ea5e9;
+
+  /* product indicator colors (chips, sidebar icons) – muted, same hue */
+  --color-ory-product-kratos: #fb923c;
+  --color-ory-product-hydra: #fb7185;
+  --color-ory-product-keto: #34d399;
+  --color-ory-product-oathkeeper: #f472b6;
+  --color-ory-product-polis: #fbbf24;
+  --color-ory-product-elements: #6366f1;
+
+  --text-ory-heading-1: 40px;
+  --text-ory-heading-1--line-height: 1.25;
+  --text-ory-section: 24px;
+  --text-ory-section--line-height: 1.5;
+  --text-ory-body: 16px;
+  --text-ory-body--line-height: 1.5;
+  --text-ory-sm: 14px;
+  --text-ory-xs: 12px;
+
+  --spacing-ory-2: 8px;
+  --spacing-ory-3: 12px;
+  --spacing-ory-4: 16px;
+  --spacing-ory-6: 24px;
+  --spacing-ory-8: 32px;
+  --spacing-ory-12: 48px;
+  --spacing-ory-16: 64px;
+  --radius-ory: 6px;
+  --radius-ory-btn: 4px;
+}
+
+/* Ory semantic component classes - typography and buttons */
+/* Unlayered so they override Docusaurus/Infima base h1–h6 styles (layered styles lose to unlayered) */
+h1.ory-heading-1,
+.ory-heading-1 {
+  font-family: var(--ory-font);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--ory-text-primary);
+  margin: 0;
+}
+
+h2.ory-heading-2,
+h2.ory-section-title,
+.ory-heading-2,
+.ory-section-title {
+  font-family: var(--ory-font);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-primary);
+  margin: 0;
+}
+
+h3.ory-heading-3,
+.ory-heading-3 {
+  font-family: var(--ory-font);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--ory-text-primary);
+  margin: 0;
+}
+
+h4.ory-heading-4,
+.ory-heading-4 {
+  font-family: var(--ory-font);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ory-text-primary);
+  margin: 0;
+}
+
+.ory-body {
+  font-family: var(--ory-font);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-secondary);
+  margin: 0;
+}
+
+.ory-body-sm {
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-secondary);
+  margin: 0;
+}
+
+.ory-body-xs {
+  font-family: var(--ory-font);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-secondary);
+  margin: 0;
+}
+
+/* flex/xs/normal – small body text (e.g. CTA description) */
+.ory-text-xs-normal {
+  font-family: var(--font-family-flex, Inter, sans-serif);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: var(--font-weight-font-weight);
+}
+
+/* flex/sm/normal – small title (e.g. CTA heading) */
+.ory-text-sm-normal {
+  font-family: var(--font-family-flex, Inter, sans-serif);
+  font-size: var(--font-size-sm);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.ory-link {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ory-brand-primary);
+  font-family: var(--ory-font);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.ory-btn-primary {
+  height: 32px;
+  padding: 0 16px;
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  background-color: var(--ory-bg-dark);
+  color: white;
+  border: none;
+  border-radius: var(--ory-radius-btn);
+  cursor: pointer;
+}
+
+.ory-btn-secondary {
+  height: 32px;
+  padding: 0 16px;
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  background-color: var(--ory-bg-primary);
+  color: var(--ory-text-primary);
+  border: 1px solid var(--ory-border-primary);
+  border-radius: var(--ory-radius-btn);
+  cursor: pointer;
+}
+
+.ory-btn-ghost {
+  height: 28px;
+  padding: 0 10px;
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--ory-radius-btn);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Active state for code snippet framework tab – overrides .ory-btn-ghost */
+.ory-code-tab--active {
+  background: var(--ory-bg-brand-tertiary);
+  border-color: var(--ory-border-brand-tertiary);
+  color: var(--ory-brand-on-tertiary);
+}
+
+.ory-btn-icon {
+  width: 32px;
+  height: 28px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--ory-radius-btn);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Reusable guide card (e.g. How to use section) */
+.ory-guide-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ory-s4);
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.ory-guide-card__title {
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--ory-text-primary);
+  margin: 0;
+}
+
+.ory-guide-card__description {
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-secondary);
+  margin: 0;
+}
+
+.ory-guide-card__link {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  margin-top: auto;
+  text-decoration: none;
+  color: var(--ory-brand-primary);
+  font-family: var(--ory-font);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Section heading (page/section title) – correct weight for h2 */
+.ory-heading-2.ory-section-heading,
+h2.ory-section-heading {
+  font-weight: 500;
+}
+
+.ory-tag {
+  font-family: var(--ory-font);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 2px 8px;
+  border-radius: var(--ory-radius);
+  background: var(--ory-bg-tertiary);
+  color: var(--ory-text-secondary);
+}
+
+.ory-tag-highlight {
+  background: #c7c8fe;
+  color: #3032a3;
+}
+
 :root {
   --ifm-font-family-base: system-ui, sans-serif;
   --ifm-font-family-monospace: ui-monospace, monospace;
   --ifm-color-primary: var(--color-indigo-900); /* Indigo 900 */
-  --ifm-heading-color: var(
-    --color-indigo-900
-  ); /* Indigo 900 - Color used for headings in text */
+  --ifm-heading-color: var(--ory-text-primary);
   --ifm-heading-font-family: var(--ifm-font-family-base);
+  --ifm-heading-font-weight: 400;
+  --ifm-heading-line-height: 1.25;
+  /* Ory typography scale for doc content (matches ory-heading-1, ory-heading-2, etc.) */
+  --ifm-h1-font-size: 2.5rem; /* 40px */
+  --ifm-h2-font-size: 1.5rem; /* 24px */
+  --ifm-h3-font-size: 1rem; /* 16px */
   --ifm-navbar-link-hover-color: var(--color-indigo-500); /* Cyan 500 */
   --ifm-menu-color-active: var(
     --color-indigo-500
   ); /* Cyan 500 - Active text in sidebar */
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  font-feature-settings:
+    "liga" 1,
+    "calt" 1; /* fix for Chrome */
+}
+
+/* Override .markdown h1:first-child so doc title uses Ory size (not Infima 3rem) */
+.markdown h1:first-child {
+  --ifm-h1-font-size: 2.5rem; /* 40px - matches ory-heading-1 */
+}
+
+/* ----------------------------
+   Navbar
+   Exact styling from design
+----------------------------- */
+:root {
+  --ory-navbar-height: 64px;
+  --ory-navbar-bg: #ffffff;
+  --ory-navbar-border: #cbd5e1;
+  --ory-navbar-text: #0f172a;
+  --ory-navbar-link: #0f172a;
+  --ory-navbar-link-hover: #383bca;
+  --ory-navbar-font-size: 14px;
+  --ory-navbar-gap: 8px;
+  --ory-navbar-left-width: 80px;
+  --ory-navbar-left-padding-x: 16px;
+  --ory-navbar-content-padding-left: 32px;
+  --ory-navbar-right-width: auto;
+  --ory-navbar-right-gap: 8px;
+  --ory-search-width: 200px;
+  --button-button-height: 32px;
+  --button-primary-bg: #0f172a;
+  --button-primary-text: #ffffff;
+  --size-25: 10px;
+  --size-05: 2px;
+  --radius-buttons: 4px;
+  --background-inverted-primary: #0f172a;
+  --border-inverted-primary: #0f172a;
+  --text-inverted-primary: #ffffff;
+  --border-transparent-transparent: rgba(255, 255, 255, 0);
+  --background-transparent-primary-hover: rgba(0, 0, 0, 0.02);
+
+  /* Sidebar product circle icons (alias to product colors) */
+  --icons-base: 16px;
+  --icon-kratos-tertiary: #f97316;
+  --icon-hydra-tertiary: #f43f5e;
+  --icon-keto-tertiary: #22c55e;
+  --icon-oathkeeper-tertiary: #ec4899;
+  --icon-polis-tertiary: #eab308;
+  --icon-network-tertiary: #6366f1;
+  --icon-oel-tertiary: #5ae4fc;
+  --icon-oss-tertiary: #334155;
+
+  /* Ory design tokens (for non-Tailwind use - mirrors @theme) */
+  /* Font source of truth: HomePage uses Inter, sans-serif */
+  --ory-font: "Inter", sans-serif;
+  --ory-text-primary: #0f172a;
+  --ory-text-secondary: #334155;
+  --ory-text-tertiary: #64748b;
+  /* Figma alias for tertiary text */
+  --text-default-tertiary: #64748b;
+  /* Figma typography (flex/xs/normal, flex/sm/normal) */
+  --font-family-flex: Inter, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-weight-font-weight: 400;
+  --ory-brand-primary: #383bca;
+  --ory-brand-on-tertiary: #2e3081;
+  --ory-bg-primary: #fff;
+  --ory-bg-brand-tertiary: #e0e1ff;
+  --ory-bg-secondary: #f8fafc;
+  --ory-bg-secondary-hover: #e2e8f0;
+  --background-default-secondary: #f8fafc;
+  --background-default-secondary-hover: #e2e8f0;
+  --ifm-pre-background: var(--background-default-secondary);
+  --ory-bg-tertiary: #e2e8f0;
+  --ory-bg-dark: #0f172a;
+  --ory-border-primary: #cbd5e1;
+  --ory-border-brand-tertiary: #6366f1;
+  --ory-border-info-tertiary: #0ea5e9;
+  --ory-info-tertiary: #e0f2fe;
+  --ory-info-primary: #0ea5e9;
+  --ory-info-on-tertiary: #0c4a6e;
+  --background-success-secondary: #bbf7d0;
+  --background-warning-secondary: #fde68a;
+  --background-danger-secondary: #fecaca;
+  --ory-radius: 6px;
+  --ory-radius-btn: 4px;
+
+  /* Spacing */
+  --ory-s0: 0px;
+  --ory-s0_5: 2px;
+  --ory-s1: 4px;
+  --ory-s1_5: 6px;
+  --ory-s2: 8px;
+  --ory-s2_5: 10px;
+  --ory-s3: 12px;
+  --ory-s4: 16px;
+  --ory-s5: 20px;
+  --ory-s6: 24px;
+  --ory-s8: 32px;
+  --ory-s12: 48px;
+  --ory-s16: 64px;
+}
+
+.navbar {
+  height: 64px !important;
+  min-height: 64px !important;
+  max-height: 64px !important;
+  background: var(--ory-navbar-bg);
+  border-bottom: 1px solid var(--ory-navbar-border);
+  box-shadow: none;
+  padding: 0;
+}
+
+/* Navbar dropdown chevron to overwrite default caret */
+.navbar .dropdown > .navbar__link::after {
+  border: none;
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url("../static/img/icons/nav-dropdown-chevron.svg") no-repeat
+    center;
+  background-size: contain;
+  margin-left: 2px;
+  position: static;
+  top: auto;
+  transform: none;
+  vertical-align: middle;
+}
+
+/* Search input styling (navbar only) */
+.navbar .DocSearch-Button {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  border: 1px solid var(--ory-navbar-border) !important;
+  background: var(--ory-navbar-bg) !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  color: var(--ory-navbar-text) !important;
+  font-size: 16px !important;
+  font-family: Inter, sans-serif !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  padding: 0 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 2px !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+.navbar .DocSearch-Button-Container {
+  display: flex !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  gap: 2px !important;
+}
+
+.navbar .DocSearch-Button-Placeholder {
+  color: var(--ory-text-tertiary) !important;
+  font-size: 16px !important;
+  font-family: Inter, sans-serif !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  padding: 0 !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Magnifier */
+.navbar .DocSearch-Button-Container .DocSearch-Search-Icon,
+.navbar .DocSearch-Button-Container > svg {
+  padding: 0 !important;
+  margin: 0 6px 0 0 !important;
+  flex-shrink: 0 !important;
+  width: 16px !important;
+  height: 16px !important;
+  display: block !important;
+  color: var(--ory-navbar-text) !important;
+  box-sizing: content-box !important;
+}
+
+/* Container for keyboard keys */
+.navbar .DocSearch-Button-Key,
+.navbar .DocSearch-Button-Keys {
+  background: var(--ory-bg-tertiary) !important;
+  color: var(--ory-text-tertiary) !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+  border: none !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  padding: 7px 0px 2px 2px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: Inter, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  margin-left: 0 !important;
+  gap: 0px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.navbar .DocSearch-Button-Keys {
+  flex-shrink: 0 !important;
+}
+
+/* All text content inside keyboard badge - ensure visibility */
+.navbar .DocSearch-Button-Key *,
+.navbar .DocSearch-Button-Keys * {
+  color: var(--ory-text-tertiary) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Individual key elements (kbd tags) inside the badge */
+.navbar .DocSearch-Button-Key kbd,
+.navbar .DocSearch-Button-Keys kbd,
+.navbar .DocSearch-Button-Key > kbd,
+.navbar .DocSearch-Button-Keys > kbd {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: Inter, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  color: var(--ory-text-tertiary) !important;
+  min-width: auto !important;
+  height: auto !important;
+  display: inline !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Text/span elements inside the keyboard badge */
+.navbar .DocSearch-Button-Key span,
+.navbar .DocSearch-Button-Keys span,
+.navbar .DocSearch-Button-Key > span,
+.navbar .DocSearch-Button-Keys > span {
+  font-family: Inter, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  color: var(--ory-text-tertiary) !important;
+  display: inline !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Direct text content and any other elements */
+.navbar .DocSearch-Button-Key,
+.navbar .DocSearch-Button-Keys {
+  text-align: center !important;
+  white-space: nowrap !important;
+  color: var(--ory-text-tertiary) !important;
+}
+
+/* Ensure text nodes are visible */
+.navbar .DocSearch-Button-Key::before,
+.navbar .DocSearch-Button-Keys::before {
+  display: none !important;
+}
+
+/* Navbar search responsiveness */
+@media (min-width: 997px) {
+  .navbar .DocSearch-Button {
+    width: clamp(180px, 20vw, 256px) !important;
+    max-width: 256px !important;
+  }
+}
+
+@media (max-width: 1380px) {
+  /* Icon-only button: hide placeholder + key hints */
+  .navbar .DocSearch-Button {
+    width: 32px !important;
+    max-width: 32px !important;
+    margin-left: auto !important;
+    padding: 0 !important;
+    justify-content: center !important;
+  }
+
+  /* Ensure the right-side navbar flex group stays right-aligned */
+  .navbar .navbar__items--right {
+    margin-left: auto !important;
+    justify-content: flex-end !important;
+  }
+
+  .navbar .DocSearch-Button-Container {
+    flex: 0 0 auto !important;
+  }
+
+  .navbar .DocSearch-Button-Placeholder,
+  .navbar .DocSearch-Button-Key,
+  .navbar .DocSearch-Button-Keys {
+    display: none !important;
+  }
+
+  .navbar .DocSearch-Button-Container .DocSearch-Search-Icon,
+  .navbar .DocSearch-Button-Container > svg {
+    margin-right: 0 !important;
+  }
+}
+
+@supports (font-variation-settings: normal) {
+  :root {
+    --ifm-font-family-base: system-ui, sans-serif;
+    --ifm-heading-font-family: var(--ifm-font-family-base);
+  }
 }
 /* If you have a different syntax highlighting theme for dark mode. */
-[data-theme="dark"] {
+html[data-theme="dark"],
+:root[data-theme="dark"] {
   /* Color which works with dark mode syntax highlighting theme */
   --docusaurus-highlighted-code-line-bg: rgba(66, 66, 66, 0.35);
-  --ifm-color-primary: #7986cb; /* Indigo 300 */
-  --ifm-heading-color: #7986cb; /* Indigo 300 - Color used for headings in text */
+
+  /*
+    Dark theme tokens (-dark suffix).
+    Semantic vars below reference these.
+  */
+  --background-default-secondary-dark: #020617;
+  --border-info-tertiary-dark: #0284c7;
+  --background-info-tertiary-dark: #082f49;
+  --background-default-primary-dark: #0f172a;
+  --text-inverted-primary-dark: #0f172a;
+  --background-success-secondary-dark: #166534;
+  --icon-success-tertiary-dark: #16a34a;
+  --background-brand-tertiary-dark: #1b1c4b;
+  --background-default-tertiary-dark: #1e293b;
+  --background-default-secondary-hover-dark: #1e293b;
+  --border-default-primary-dark: #334155;
+  --text-brand-tertiary-dark: #4649e5;
+  --background-warning-secondary-dark: #92400e;
+  --text-default-tertiary-dark: #94a3b8;
+  --background-danger-secondary-dark: #991b1b;
+  --text-brand-primary-dark: #a5a7fc;
+  --icon-brand-primary-dark: #a5a7fc;
+  --background-default-secondary: var(--background-default-secondary-dark);
+  --background-default-secondary-hover: var(
+    --background-default-secondary-hover-dark
+  );
+  --ifm-pre-background: var(--background-default-secondary);
+
+  /* Global Docusaurus/Infima dark vars */
+  --ifm-color-scheme: dark;
+  --ifm-background-color: var(--background-default-primary-dark);
+  --ifm-background-surface-color: var(--background-default-secondary-dark);
+  --ifm-hover-overlay: rgba(255, 255, 255, 0.06);
+  --ifm-color-content: #ffffff;
+  --ifm-color-content-secondary: var(--text-default-tertiary-dark);
+  --ifm-color-emphasis-0: #ffffff;
+  --ifm-color-emphasis-100: #ffffff;
+  --ifm-color-emphasis-200: var(--border-default-primary-dark);
+  --ifm-color-emphasis-300: #cbd5e1;
+  --ifm-color-emphasis-400: #94a3b8;
+  --ifm-color-emphasis-500: var(--text-default-tertiary-dark);
+  --ifm-color-emphasis-600: var(--text-default-tertiary-dark);
+  --ifm-color-emphasis-700: #64748b;
+  --ifm-color-emphasis-800: #475569;
+  --ifm-color-emphasis-900: #334155;
+  --ifm-color-emphasis-1000: #1e293b;
+  --ifm-color-primary: var(--text-brand-primary-dark);
+  --ifm-heading-color: var(--text-brand-primary-dark);
+
+  /* Tailwind token vars (reference -dark tokens) */
+  --color-ory-text-primary: #ffffff;
+  --color-ory-text-secondary: var(--text-default-tertiary-dark);
+  --color-ory-text-tertiary: var(--text-default-tertiary-dark);
+  --color-ory-brand-primary: var(--text-brand-primary-dark);
+  --color-ory-brand-on-tertiary: var(--text-brand-tertiary-dark);
+
+  --color-ory-bg-primary: var(--background-default-primary-dark);
+  --color-ory-bg-secondary: var(--background-default-secondary);
+  --color-ory-bg-secondary-hover: var(--background-default-secondary-hover);
+  --color-ory-bg-dark: var(--background-default-primary-dark);
+  --color-ory-bg-tertiary: var(--background-default-tertiary-dark);
+  --color-ory-bg-brand-tertiary: var(--background-brand-tertiary-dark);
+
+  --color-ory-border-primary: var(--border-default-primary-dark);
+  --color-ory-border-brand-tertiary: var(--text-brand-tertiary-dark);
+
+  --color-ory-info-primary: #0ea5e9;
+  --color-ory-info-tertiary: var(--background-info-tertiary-dark);
+  --color-ory-info-on-tertiary: #0c4a6e;
+  --color-ory-border-info-tertiary: var(--border-info-tertiary-dark);
+
+  /* Semantic alias vars */
+  --ory-text-primary: #ffffff;
+  --ory-text-secondary: var(--text-default-tertiary-dark);
+  --ory-text-tertiary: var(--text-default-tertiary-dark);
+  --ory-brand-primary: var(--text-brand-primary-dark);
+  --ory-brand-on-tertiary: var(--text-brand-tertiary-dark);
+
+  --ory-bg-primary: var(--background-default-primary-dark);
+  --ory-bg-secondary: var(--background-default-secondary);
+  --ory-bg-secondary-hover: var(--background-default-secondary-hover);
+  --ory-bg-dark: var(--background-default-primary-dark);
+  --ory-bg-tertiary: var(--background-default-tertiary-dark);
+
+  --ory-border-primary: var(--border-default-primary-dark);
+  --ory-border-brand-tertiary: var(--text-brand-tertiary-dark);
+  --ory-border-info-tertiary: var(--border-info-tertiary-dark);
+  --ory-info-primary: #0ea5e9;
+  --ory-info-tertiary: var(--background-info-tertiary-dark);
+  --ory-info-on-tertiary: #0c4a6e;
+
+  /* Navbar/button facing colors */
+  --ory-navbar-bg: var(--background-default-primary-dark);
+  --ory-navbar-border: var(--border-default-primary-dark);
+  --ory-navbar-text: #ffffff;
+  --ory-navbar-link: #ffffff;
+  --ory-navbar-link-hover: var(--text-brand-primary-dark);
+
+  --button-primary-bg: var(--background-default-primary-dark);
+  --button-primary-text: #ffffff;
+
+  --background-inverted-primary: var(--background-default-secondary-dark);
+  --border-inverted-primary: var(--background-default-secondary-dark);
+  --text-inverted-primary: var(--text-inverted-primary-dark);
+
+  --background-success-secondary: var(--background-success-secondary-dark);
+  --background-warning-secondary: var(--background-warning-secondary-dark);
+  --background-danger-secondary: var(--background-danger-secondary-dark);
 }
 
 .markdown figure {
@@ -40,6 +746,49 @@ svg[class*="iconExternalLink"] {
 
 .command-line span.token.output {
   user-select: none;
+}
+
+/* Home page hero grid (vector background) */
+.ory-home-hero-grid {
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  background-position: top left;
+  background-size: 100% auto;
+  z-index: 0;
+  pointer-events: none;
+}
+
+[data-theme="dark"] .ory-home-hero-grid {
+  /* SVG is authored for light backgrounds; invert and tone down in dark mode. */
+  filter: invert(1) brightness(0.7) contrast(1.1);
+  opacity: 0.35;
+}
+
+/* Architecture diagram zoom/fit controls – theme tokens, nudge up so all buttons visible */
+.ory-architecture-diagram .ory-architecture-controls {
+  bottom: 94px !important;
+  left: 12px;
+  background: var(--ory-bg-primary) !important;
+  border: 1px solid var(--ory-border-primary) !important;
+  border-radius: var(--ory-radius);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.ory-architecture-diagram .ory-architecture-controls button {
+  background: var(--ory-bg-primary) !important;
+  color: var(--ory-text-primary) !important;
+  border-color: var(--ory-border-primary) !important;
+}
+
+.ory-architecture-diagram .ory-architecture-controls button:hover {
+  background: var(--ory-bg-secondary) !important;
+  color: var(--ory-text-primary) !important;
+}
+
+.ory-architecture-diagram .ory-architecture-controls button svg {
+  fill: none;
+  stroke: currentColor;
 }
 
 .code-block-delete-line {
@@ -119,15 +868,52 @@ svg[class*="iconExternalLink"] {
   margin-left: 0.5rem;
 }
 
+.theme-doc-sidebar-item-link .menu__link {
+  padding: var(--ory-s2, 8px);
+  border-radius: var(--radius-buttons, 4px);
+  background: transparent;
+  font-weight: 400;
+  line-height: 1.5;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  text-align: left;
+}
+
+.theme-doc-sidebar-item-category .menu__link,
+.theme-doc-sidebar-item-category .menu__list-item-collapsible > .menu__link {
+  padding: var(--ory-s2, 8px);
+  border-radius: var(--radius-buttons, 4px);
+  background: transparent;
+  font-weight: 400;
+  line-height: 1.5;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  text-align: left;
+}
+
 .theme-doc-sidebar-item-link .menu__link:hover,
 .theme-doc-sidebar-item-category .menu__link:hover,
 .theme-doc-sidebar-item-category .menu__list-item-collapsible:hover {
-  background-color: unset !important;
+  background-color: var(
+    --background-transparent-primary-hover,
+    rgba(0, 0, 0, 0.02)
+  ) !important;
   color: var(--ifm-color-primary);
 }
 
 .theme-doc-sidebar-item-link .menu__link--active {
-  background-color: unset !important;
+  background-color: transparent !important;
+  font-weight: 500;
+}
+
+/* Desktop docs sidebar background */
+@media (min-width: 997px) {
+  .theme-doc-sidebar-container,
+  [class*="docSidebarContainer_"] {
+    background: var(--background-default-secondary);
+  }
 }
 
 .theme-doc-sidebar-item-link:not(:first-child),
@@ -135,8 +921,16 @@ svg[class*="iconExternalLink"] {
   margin-top: 0;
 }
 
-.theme-doc-sidebar-item-link .menu__link {
-  padding: 0.5rem 0.75rem;
+/* Quickstart sidebar: allow top-level category labels to wrap */
+.sidebar-quickstart-top-level .menu__list-item-collapsible .menu__link {
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+.sidebar-quickstart-top-level .menu__list-item-collapsible .menu__link > span {
+  white-space: normal !important;
+  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .config-editor .unsupported-field pre {
@@ -163,4 +957,474 @@ svg[class*="iconExternalLink"] {
 
 .footer__link-item button:hover {
   text-decoration: underline;
+}
+
+/* Sidebar Deployment Model block at top (Figma node 6276-45491) */
+.sidebar-deployment-model {
+  padding: 0.5rem 0.75rem 0;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.sidebar-deployment-model__heading {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--ifm-color-emphasis-600);
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-deployment-model__block {
+  position: relative;
+  overflow: visible;
+}
+
+.sidebar-deployment-model__trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-deployment-model__trigger:hover {
+  background: var(--ifm-menu-color-background-active);
+}
+
+.sidebar-deployment-model__icon {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-deployment-model__icon img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.sidebar-deployment-model__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: flex-start;
+}
+
+.sidebar-deployment-model__label {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ifm-font-color-base);
+}
+
+.sidebar-deployment-model__sublabel {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.sidebar-deployment-model__chevron {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  opacity: 0.6;
+  background: url("../static/img/icons/nav-dropdown-chevron.svg") no-repeat
+    center;
+  background-size: contain;
+}
+
+.sidebar-deployment-model__menu {
+  list-style: none;
+  margin: 4px 0 0 0;
+  padding: 4px 0;
+  border-radius: 6px;
+  background: var(--ifm-background-surface-color, #ffffff);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  min-width: 100%;
+  z-index: 100;
+  max-height: min(60vh, 320px);
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-deployment-model__link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebar-deployment-model__menu-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+button.sidebar-deployment-model__link {
+  width: 100%;
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.sidebar-deployment-model__link:hover {
+  color: var(--ifm-color-primary);
+}
+
+.sidebar-deployment-model__link--active {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+}
+
+[data-theme="dark"] .sidebar-deployment-model__menu {
+  background: var(--ifm-background-surface-color);
+}
+
+[data-theme="dark"] .theme-doc-sidebar-item-link .menu__link:hover,
+[data-theme="dark"] .theme-doc-sidebar-item-category .menu__link:hover,
+[data-theme="dark"]
+  .theme-doc-sidebar-item-category
+  .menu__list-item-collapsible:hover {
+  background-color: var(--ifm-hover-overlay) !important;
+}
+
+.sidebar-deployment-model__separator {
+  height: 1px;
+  background: var(--ifm-color-emphasis-200);
+  margin: 0.75rem 0 0 0;
+}
+
+/* Sidebar carets on the right */
+.menu__link--sublist-caret {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.menu__link--sublist-caret:after {
+  margin-left: 8px !important;
+  margin-right: 0 !important;
+  flex-shrink: 0 !important;
+  /* Size adjustments */
+  height: 1rem !important;
+  width: 1rem !important;
+  min-width: 1rem !important;
+  background-size: 1.5rem 1.5rem !important;
+  opacity: 0.6 !important;
+}
+
+.theme-doc-sidebar-item-category-level-2 .menu__list-item-collapsible,
+.theme-doc-sidebar-item-category-level-3 .menu__list-item-collapsible,
+.theme-doc-sidebar-item-category-level-4 .menu__list-item-collapsible {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.theme-doc-sidebar-item-category-level-2
+  .menu__list-item-collapsible
+  > .menu__caret,
+.theme-doc-sidebar-item-category-level-3
+  .menu__list-item-collapsible
+  > .menu__caret,
+.theme-doc-sidebar-item-category-level-4
+  .menu__list-item-collapsible
+  > .menu__caret {
+  margin-left: 8px !important;
+  margin-right: 0 !important;
+  opacity: 0.6 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  transform: scale(0.667) !important;
+  transform-origin: center center !important;
+}
+
+.theme-doc-sidebar-item-category-level-2
+  .menu__list-item-collapsible
+  > .menu__caret:hover,
+.theme-doc-sidebar-item-category-level-3
+  .menu__list-item-collapsible
+  > .menu__caret:hover,
+.theme-doc-sidebar-item-category-level-4
+  .menu__list-item-collapsible
+  > .menu__caret:hover {
+  background: transparent !important;
+  opacity: 0.6 !important;
+  transform: scale(0.667) !important;
+  transform-origin: center center !important;
+}
+
+/* Code sample tabs: use theme tokens so dark mode applies seamlessly */
+.tabs-container[data-group-id="language-quickstarts"] .tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 16px;
+  padding-left: 0;
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item {
+  background: var(--ory-bg-primary);
+  border: 1px solid var(--ory-border-primary);
+  border-right: none;
+  border-radius: 0;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--ory-text-primary);
+  cursor: pointer;
+  transition: none;
+  border-bottom: 3px solid transparent;
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item:last-child {
+  border-right: 1px solid var(--ory-border-primary);
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item:hover {
+  background-color: var(--ory-bg-primary);
+}
+
+.tabs-container[data-group-id="language-quickstarts"] .tabs__item--active,
+.tabs-container[data-group-id="language-quickstarts"]
+  .tabs__item--active:hover {
+  background: var(--ory-bg-brand-tertiary);
+  border-color: var(--ory-border-brand-tertiary);
+  border-right-color: var(--ory-border-brand-tertiary);
+  color: var(--ory-brand-on-tertiary);
+  border-bottom-color: var(--ory-border-brand-tertiary);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  z-index: 1;
+  position: relative;
+}
+
+/* Code zone = background/default/primary via theme tokens */
+.tabs-container[data-group-id="language-quickstarts"]
+  ~ *
+  [class*="theme-code-block"],
+.tabs-container[data-group-id="language-quickstarts"]
+  [class*="theme-code-block"],
+.tabs-container[data-group-id="language-quickstarts"] pre,
+.tabs-container[data-group-id="language-quickstarts"] code {
+  background: var(--ory-bg-primary) !important;
+  border: none !important;
+}
+
+.tabs-container[data-group-id="language-quickstarts"]
+  .tabs__item
+  > div
+  > div:last-child {
+  background: var(--ory-bg-primary) !important;
+  border: none !important;
+}
+
+.tabs-container[data-group-id="language-quickstarts"]
+  .tabs__item
+  > div
+  > div:last-child
+  code {
+  background: transparent !important;
+  border: none !important;
+}
+
+.tabs-container[data-group-id="language-quickstarts"]
+  .tabs__item
+  > div
+  > div:last-child
+  span {
+  background: transparent !important;
+  border: none !important;
+}
+
+.tabs-container[data-group-id="language-quickstarts"]
+  .tabs__item
+  > div
+  > div:last-child
+  * {
+  border: none !important;
+}
+
+/* Framework selection code snippet: component uses Tailwind (bg-ory-bg-primary, etc.) so theme switches seamlessly; only reset code-block defaults */
+.code-sample-body code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  font-family: var(--ifm-font-family-monospace) !important;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+}
+
+.code-sample-body code span {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.code-sample-body span {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Base styles - apply to all icon items (Figma 8955-64013: items-start, left-aligned) */
+.sidebar-icon > .menu__list-item-collapsible > .menu__link {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.sidebar-icon > .menu__list-item-collapsible > .menu__link > span {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.sidebar-icon > .menu__list-item-collapsible > .menu__link > span::before {
+  content: "";
+  margin-right: var(--size-2, 8px);
+  margin-top: 5px;
+  width: var(--icons-base);
+  height: var(--icons-base);
+  min-width: var(--icons-base);
+  min-height: var(--icons-base);
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+/* Circle icon variants - product colors */
+.sidebar-icon-hydra
+  > .menu__list-item-collapsible
+  > .menu__link
+  > span::before {
+  background-color: var(--icon-hydra-tertiary);
+}
+
+.sidebar-icon-kratos
+  > .menu__list-item-collapsible
+  > .menu__link
+  > span::before {
+  background-color: var(--icon-kratos-tertiary);
+}
+
+.sidebar-icon-keto > .menu__list-item-collapsible > .menu__link > span::before {
+  background-color: var(--icon-keto-tertiary);
+}
+
+.sidebar-icon-oathkeeper
+  > .menu__list-item-collapsible
+  > .menu__link
+  > span::before {
+  background-color: var(--icon-oathkeeper-tertiary);
+}
+
+.sidebar-icon-polis
+  > .menu__list-item-collapsible
+  > .menu__link
+  > span::before {
+  background-color: var(--icon-polis-tertiary);
+}
+
+.sidebar-icon-network
+  > .menu__list-item-collapsible
+  > .menu__link
+  > span::before {
+  background-color: var(--icon-network-tertiary);
+}
+
+.sidebar-icon-oel > .menu__list-item-collapsible > .menu__link > span::before {
+  background-color: var(--icon-oel-tertiary);
+}
+
+.sidebar-icon-oss > .menu__list-item-collapsible > .menu__link > span::before {
+  background-color: var(--icon-oss-tertiary);
+}
+
+[class*="docCardListItem"] > :is(.card, [class*="card_"]) {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ory-s2);
+  padding: var(--ory-s4) !important;
+  background: var(--background-default-secondary);
+  border: none;
+  border-radius: var(--ory-radius);
+  text-decoration: none !important;
+  box-shadow: none;
+}
+
+/* No hover affordance — card is not a single link; keep background stable */
+[class*="docCardListItem"] > :is(.card, [class*="card_"]):hover {
+  background: var(--background-default-secondary);
+  box-shadow: none;
+}
+
+[class*="docCardListItem"] > :is(.card, [class*="card_"]) h2 {
+  margin: 0;
+  font-family: var(--ory-font);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--ory-text-primary);
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+[class*="docCardListItem"] > :is(.card, [class*="card_"]) p {
+  margin: 0;
+  font-family: var(--ory-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-secondary);
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }

@@ -273,7 +273,7 @@ export default function ConfigMarkdown(props: { src: string; binary: string }) {
       <p>
         To find out more about edge cases like setting string array values
         through environmental variables head to the{" "}
-        <a href={"/docs/ecosystem/configuring"}>Configuration</a> section.
+        <a href={"/docs/oss/configuring"}>Configuration</a> section.
       </p>
 
       <CodeBlock language="yaml">{content}</CodeBlock>
