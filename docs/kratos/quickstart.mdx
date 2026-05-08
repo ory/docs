@@ -103,7 +103,7 @@ problem persists, feel free to [open an issue](https://github.com/ory/kratos/iss
 
 :::
 
-Let's clone Ory Kratos and run `docker-compose`:
+Let's clone Ory Kratos and run `docker compose`:
 
 ```mdx-code-block
 import { useLatestRelease } from '@site/src/hooks'
@@ -113,9 +113,9 @@ import CodeBlock from '@theme/CodeBlock'
 cd kratos
 \
 git checkout ${useLatestRelease('kratos')}
-docker-compose -f quickstart.yml -f quickstart-standalone.yml up --force-recreate
+docker compose -f quickstart.yml -f quickstart-standalone.yml up --force-recreate
 # If you have SELinux, run:
-docker-compose -f quickstart.yml -f quickstart-selinux.yml -f quickstart-standalone.yml up --force-recreate`}</CodeBlock>
+docker compose -f quickstart.yml -f quickstart-selinux.yml -f quickstart-standalone.yml up --force-recreate`}</CodeBlock>
 ```
 
 This might take a minute or two. Once the output slows down and logs indicate a healthy system you're ready to roll! A healthy
@@ -192,7 +192,8 @@ You should end up at the dashboard:
 
 ![Dashboard screen of your secured app](./_static/quickstart/ui-unverified-dashboard.png)
 
-Under the section `Session Information` you can find the Ory Session details, as there is no active session this is empty for now.
+The `Session Information` section links to [127.0.0.1:4455/sessions](http://127.0.0.1:4455/sessions), where you can inspect the
+active Ory Session. Visiting it without an active session redirects you to the login page.
 
 :::note
 
@@ -231,13 +232,14 @@ curl -s -X GET \
     -H "Accept: application/json" \
     "http://127.0.0.1:4433/self-service/login/flows?id=$flowId" | jq
 {
-  "id": "f091ccf5-df85-493e-a9a3-de9b86925a45",
+  "id": "5caccb0b-c3b5-4e9d-9944-213dccb3c8d0",
+  "organization_id": null,
   "type": "api",
-  "expires_at": "2021-12-13T18:31:57.1189985Z",
-  "issued_at": "2021-12-13T18:21:57.1189985Z",
+  "expires_at": "2026-04-27T16:11:52.449591133Z",
+  "issued_at": "2026-04-27T16:01:52.449591133Z",
   "request_url": "http://127.0.0.1:4433/self-service/login/api",
   "ui": {
-    "action": "http://127.0.0.1:4433/self-service/login?flow=f091ccf5-df85-493e-a9a3-de9b86925a45",
+    "action": "http://127.0.0.1:4433/self-service/login?flow=5caccb0b-c3b5-4e9d-9944-213dccb3c8d0",
     "method": "POST",
     "nodes": [
       {
@@ -256,7 +258,7 @@ curl -s -X GET \
       },
       {
         "type": "input",
-        "group": "password",
+        "group": "default",
         "attributes": {
           "name": "identifier",
           "type": "text",
@@ -268,9 +270,13 @@ curl -s -X GET \
         "messages": [],
         "meta": {
           "label": {
-            "id": 1070004,
-            "text": "ID",
-            "type": "info"
+            "id": 1070002,
+            "text": "E-Mail",
+            "type": "info",
+            "context": {
+              "name": "traits.email",
+              "title": "E-Mail"
+            }
           }
         }
       },
@@ -281,6 +287,7 @@ curl -s -X GET \
           "name": "password",
           "type": "password",
           "required": true,
+          "autocomplete": "current-password",
           "disabled": false,
           "node_type": "input"
         },
@@ -306,19 +313,19 @@ curl -s -X GET \
         "messages": [],
         "meta": {
           "label": {
-            "id": 1010001,
-            "text": "Sign in",
-            "type": "info",
-            "context": {}
+            "id": 1010022,
+            "text": "Sign in with password",
+            "type": "info"
           }
         }
       }
     ]
   },
-  "created_at": "2021-12-13T18:21:57.121894Z",
-  "updated_at": "2021-12-13T18:21:57.121894Z",
+  "created_at": "2026-04-27T16:01:52.450977Z",
+  "updated_at": "2026-04-27T16:01:52.450977Z",
   "refresh": false,
-  "requested_aal": "aal1"
+  "requested_aal": "aal1",
+  "state": "choose_method"
 }
 ```
 
@@ -343,13 +350,13 @@ curl -s -X GET \
     -H "Accept: application/json" \
     "http://127.0.0.1:4433/self-service/registration/flows?id=$flowId" | jq
 {
-  "id": "d62a3a8d-d3f3-4ca5-af54-0e8747b53b41",
+  "id": "de07f061-8624-4888-a4ea-f36d608f8aa7",
   "type": "api",
-  "expires_at": "2021-12-13T19:55:06.9350485Z",
-  "issued_at": "2021-12-13T19:45:06.9350485Z",
+  "expires_at": "2026-04-27T16:12:41.676214919Z",
+  "issued_at": "2026-04-27T16:02:41.676214919Z",
   "request_url": "http://127.0.0.1:4433/self-service/registration/api",
   "ui": {
-    "action": "http://127.0.0.1:4433/self-service/registration?flow=d62a3a8d-d3f3-4ca5-af54-0e8747b53b41",
+    "action": "http://127.0.0.1:4433/self-service/registration?flow=de07f061-8624-4888-a4ea-f36d608f8aa7",
     "method": "POST",
     "nodes": [
       {
@@ -368,11 +375,12 @@ curl -s -X GET \
       },
       {
         "type": "input",
-        "group": "password",
+        "group": "default",
         "attributes": {
           "name": "traits.email",
           "type": "email",
           "required": true,
+          "autocomplete": "email",
           "disabled": false,
           "node_type": "input"
         },
@@ -381,32 +389,17 @@ curl -s -X GET \
           "label": {
             "id": 1070002,
             "text": "E-Mail",
-            "type": "info"
+            "type": "info",
+            "context": {
+              "name": "traits.email",
+              "title": "E-Mail"
+            }
           }
         }
       },
       {
         "type": "input",
-        "group": "password",
-        "attributes": {
-          "name": "password",
-          "type": "password",
-          "required": true,
-          "disabled": false,
-          "node_type": "input"
-        },
-        "messages": [],
-        "meta": {
-          "label": {
-            "id": 1070001,
-            "text": "Password",
-            "type": "info"
-          }
-        }
-      },
-      {
-        "type": "input",
-        "group": "password",
+        "group": "default",
         "attributes": {
           "name": "traits.name.first",
           "type": "text",
@@ -418,13 +411,17 @@ curl -s -X GET \
           "label": {
             "id": 1070002,
             "text": "First Name",
-            "type": "info"
+            "type": "info",
+            "context": {
+              "name": "traits.name.first",
+              "title": "First Name"
+            }
           }
         }
       },
       {
         "type": "input",
-        "group": "password",
+        "group": "default",
         "attributes": {
           "name": "traits.name.last",
           "type": "text",
@@ -436,17 +433,21 @@ curl -s -X GET \
           "label": {
             "id": 1070002,
             "text": "Last Name",
-            "type": "info"
+            "type": "info",
+            "context": {
+              "name": "traits.name.last",
+              "title": "Last Name"
+            }
           }
         }
       },
       {
         "type": "input",
-        "group": "password",
+        "group": "profile",
         "attributes": {
           "name": "method",
           "type": "submit",
-          "value": "password",
+          "value": "profile",
           "disabled": false,
           "node_type": "input"
         },
@@ -455,97 +456,108 @@ curl -s -X GET \
           "label": {
             "id": 1040001,
             "text": "Sign up",
-            "type": "info",
-            "context": {}
+            "type": "info"
           }
         }
       }
     ]
-  }
+  },
+  "organization_id": null,
+  "state": "choose_method"
 }
+
 ```
 
 If we try to sign up using a password like `123456`, Krato's password policy will complain:
 
 ![Registration with network trace screen of your secured app](./_static/quickstart/secureapp-registration-pwpolicy.png)
 
-Setting a password that doesn't violate these policies, we will be immediately redirected to the dashboard:
+Setting a password that doesn't violate these policies, you'll be asked to verify your email address. Because the quickstart uses
+[MailSlurper](https://github.com/mailslurper) as a fake SMTP server, the verification email won't arrive in a real inbox - open
+the MailSlurper UI at [127.0.0.1:4436](http://127.0.0.1:4436) to retrieve it:
+
+![User Email Verification](./_static/quickstart/mailslurper-quickstart.png)
+
+If the email isn't visible, hard refresh the tab or click the home icon in the menu bar. Click the verification link in the email.
+Only after verification are you redirected to the `/welcome` screen, where you can inspect the active session at
+[127.0.0.1:4455/sessions](http://127.0.0.1:4455/sessions):
 
 ![SecureApp Dashboard](./_static/quickstart/secureapp-dashboard.png)
 
 By clicking the "logout" icon in the top right, you will be redirected to the login screen again where you will be able to use
-your credentials to log back in again. Exciting!
+your credentials to log back in again.
 
 ### Understand how login and registration work
 
 Head over to the [Self-Service Flows Chapter](self-service.mdx) for an in-depth explanation of how each individual flow works.
 
-### Email verification
+### Session details
 
-As you've signed up, an email was sent to the email address you used. Because the quickstart uses a fake SMTP server, the email
-didn't arrive in your inbox. You can retrieve the email however by opening the MailSlurper UI at
-[127.0.0.1:4436](http://127.0.0.1:4436).
+After verifying your email, the session at [127.0.0.1:4455/sessions](http://127.0.0.1:4455/sessions) shows the verified address —
+check the `verified` and `verified_at` fields in the JSON response:
 
-You should see something like this:
-
-![User Email Verification](./_static/quickstart/mailslurper-quickstart.png)
-
-If not, hard refresh the tab or click on the home icon in the menu bar.
-
-Next, click the verification link. You will end up at the dashboard, with a verified email address (check the `verified` and
-`verified_at` field in the JSON response):
-
-```json {31}
+```json {32,35}
 {
-  "id": "5fe6b562-c5a6-4adf-a3a7-a1e588c11c66",
+  "id": "f28ea4ec-b5d8-4bb1-aa6e-c3046daf9129",
   "active": true,
-  "expires_at": "2021-12-14T19:35:21.7271879Z",
-  "authenticated_at": "2021-12-13T19:35:21.7271879Z",
+  "expires_at": "2026-04-28T16:05:13.011508962Z",
+  "authenticated_at": "2026-04-27T16:05:13.011508962Z",
   "authenticator_assurance_level": "aal1",
   "authentication_methods": [
     {
       "method": "password",
-      "completed_at": "2021-12-13T19:35:21.7271762Z"
+      "aal": "aal1",
+      "completed_at": "2026-04-27T16:05:13.011508587Z"
     }
   ],
-  "issued_at": "2021-12-13T19:35:21.7271879Z",
+  "issued_at": "2026-04-27T16:05:13.011508962Z",
   "identity": {
-    "id": "0435468f-5b39-4f06-8257-af418412891d",
+    "id": "8250c7cf-9815-4a30-a5f6-9166760d4b20",
     "schema_id": "default",
-    "schema_url": "http://127.0.0.1:4433/schemas/default",
+    "schema_url": "http://127.0.0.1:4433/schemas/ZGVmYXVsdA",
     "state": "active",
-    "state_changed_at": "2021-12-13T19:32:48.7715418Z",
+    "state_changed_at": "2026-04-27T16:05:13.002841003Z",
     "traits": {
       "name": {
-        "first": "Foo",
-        "last": "Bar"
+        "last": "Bar",
+        "first": "Foo"
       },
       "email": "foo@ory.com"
     },
     "verifiable_addresses": [
       {
-        "id": "9fccf5c1-c374-4a15-8f01-1fd5cb3bea55",
+        "id": "74e138d2-4991-425b-92b9-db7c87d2d416",
         "value": "foo@ory.com",
         "verified": true,
         "via": "email",
         "status": "completed",
-        "verified_at": "2021-12-13T19:34:45.4343846Z",
-        "created_at": "2021-12-13T19:32:48.775138Z",
-        "updated_at": "2021-12-13T19:34:53.449022Z"
+        "verified_at": "2026-04-27T16:05:51.622493966Z",
+        "created_at": "2026-04-27T16:05:13.005827Z",
+        "updated_at": "2026-04-27T16:05:13.005827Z"
       }
     ],
     "recovery_addresses": [
       {
-        "id": "0df6ddf6-780b-4c3c-ba31-4a349a2a1bc5",
+        "id": "bf190780-337e-44f8-91da-7abcc0f64772",
         "value": "foo@ory.com",
         "via": "email",
-        "created_at": "2021-12-13T19:32:48.775823Z",
-        "updated_at": "2021-12-13T19:34:53.449207Z"
+        "created_at": "2026-04-27T16:05:13.006044Z",
+        "updated_at": "2026-04-27T16:05:13.006044Z"
       }
     ],
-    "created_at": "2021-12-13T19:32:48.773627Z",
-    "updated_at": "2021-12-13T19:32:48.773627Z"
-  }
+    "metadata_public": null,
+    "created_at": "2026-04-27T16:05:13.005031Z",
+    "updated_at": "2026-04-27T16:05:13.005031Z",
+    "organization_id": null
+  },
+  "devices": [
+    {
+      "id": "8efe70c7-40b2-4a09-a0bc-9558bb951385",
+      "ip_address": "",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+      "location": ""
+    }
+  ]
 }
 ```
 
@@ -564,11 +576,11 @@ The next screen shows a HTML form where you enter your email address:
 
 ![Enter your email address](./_static/quickstart/quickstart-recover-ii.png)
 
-Hit "submit" and check the emails for the account recovery message:
+Hit "submit" and open MailSlurper to retrieve the account recovery message.
 
-![Check your email for the password reset email](./_static/quickstart/quickstart-recover-iii.png)
+![Check your email for the password reset code](./_static/quickstart/quickstart-recover-iii.png)
 
-Click the link, and change your password:
+Enter the code on the recovery page to verify your identity, then set a new password:
 
 ![Change your password](./_static/quickstart/quickstart-recover-iv.png)
 
@@ -600,8 +612,8 @@ This is just scratching the surface of Ory Kratos, see [Next Steps](#next-steps)
 To clean everything up, you need to bring down the Docker Compose environment and remove all mounted volumes.
 
 ```sh
-docker-compose -f quickstart.yml down -v
-docker-compose -f quickstart.yml rm -fsv
+docker compose -f quickstart.yml down -v
+docker compose -f quickstart.yml rm -fsv
 ```
 
 ## Next steps
@@ -619,14 +631,14 @@ for example:
 
 **Use a different database**
 
-If you want to run the quickstart with PostgreSQL, run the following docker-compose:
-`docker-compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-postgres.yml up --build --force-recreate`
+If you want to run the quickstart with PostgreSQL, run the following docker compose:
+`docker compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-postgres.yml up --build --force-recreate`
 
-If you want to run the quickstart with CockroachDB, run the following docker-compose:
-`docker-compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-crdb.yml up --build --force-recreate`
+If you want to run the quickstart with CockroachDB, run the following docker compose:
+`docker compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-crdb.yml up --build --force-recreate`
 
-If you want to run the quickstart with MySQL, run the following docker-compose:
-`docker-compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-mysql.yml up --build --force-recreate`
+If you want to run the quickstart with MySQL, run the following docker compose:
+`docker compose -f quickstart.yml -f quickstart-standalone.yml -f quickstart-mysql.yml up --build --force-recreate`
 
 **Change ports**
 
@@ -650,7 +662,7 @@ In this tutorial we use a simplified configuration. You can find it in
 [`contrib/quickstart/kratos/email-password/kratos.yml`](https://github.com/ory/kratos/blob/master/contrib/quickstart/kratos/email-password/kratos.yml).
 In the same place the
 [identity schema](https://github.com/ory/kratos/blob/master/contrib/quickstart/kratos/email-password/identity.schema.json) used in
-the tutorial can be found. The configuration gets loaded in docker-compose as specified in the
+the tutorial can be found. The configuration gets loaded in docker compose as specified in the
 [`quickstart.yml`](https://github.com/ory/kratos/blob/master/quickstart.yml).
 
 <CodeFromRemote

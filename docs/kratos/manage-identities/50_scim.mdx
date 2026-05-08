@@ -188,9 +188,9 @@ systems in your organization.
 ## Known limitations
 
 - When querying users with `GET /Users`, the SCIM server only supports the `eq` operator for filtering, and only with the
-  `userName` attribute. Other operators like `ne`, `co`, `sw`, and `ew` are not supported.
+  `userName` or `externalId` attribute. Other operators like `ne`, `co`, `sw`, and `ew` are not supported.
 - When querying groups with `GET /Groups`, the SCIM server only supports the `eq` operator for filtering, and only with the
-  `displayName` attribute. Other operators like `ne`, `co`, `sw`, and `ew` are not supported.
+  `displayName` or `externalId` attribute. Other operators like `ne`, `co`, `sw`, and `ew` are not supported.
 - For both user and group query endpoints, `startIndex` must be lower than 5000, and `count` must be lower than 1000.
 - If a user already exists within the same organization, SCIM provisioning will update the user using the configured data mapper.
   However, if the user exists in a different organization, provisioning may fail with a 409 Conflict error. In this case, you must

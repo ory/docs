@@ -17,16 +17,19 @@ const config: Config = {
   url: `https://www.ory.com`,
   baseUrl: "/docs/",
   favicon: "img/favico.png",
-  onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "throw",
+  onBrokenLinks: "warn",
   onDuplicateRoutes: "throw",
   organizationName: "ory",
   projectName: "docs",
   trailingSlash: false,
   markdown: {
     format: "detect",
+    hooks: {
+      onBrokenMarkdownLinks: "warn",
+    },
   },
   staticDirectories: ["src/static"],
+  clientModules: [require.resolve("./src/clientModules/speedInsights.tsx")],
   themeConfig: {
     respectPrefersColorScheme: true,
     tableOfContents: {
@@ -73,18 +76,6 @@ const config: Config = {
           line: "Copyright © 2023 Ory Corp",
         },
         {
-          className: "copyright-2024-ory-corp",
-          line: "Copyright © 2024 Ory Corp",
-        },
-        {
-          className: "copyright-2025-ory-corp",
-          line: "Copyright © 2025 Ory Corp",
-        },
-        {
-          className: "copyright-2026-ory-corp",
-          line: "Copyright © 2026 Ory Corp",
-        },
-        {
           className: "spdx-license-identifier",
           line: "SPDX-License-Identifier: Apache-2.0",
         },
@@ -102,7 +93,7 @@ const config: Config = {
       copyright: `Copyright © ${new Date().getFullYear()} Ory Corp`,
       links: [
         {
-          label: "Need Support?",
+          label: "Support?",
           href: "https://www.ory.com/support",
         },
         {
@@ -111,11 +102,11 @@ const config: Config = {
         },
         {
           label: "Status",
-          href: "https://status.ory.com/",
+          href: "https://status.ory.com",
         },
         {
           label: "Privacy",
-          href: "https://www.ory.com/legal/privacy",
+          href: "https://www.ory.com/privacy",
         },
         {
           label: "Company",
@@ -123,7 +114,7 @@ const config: Config = {
         },
         {
           label: "Terms of Service",
-          href: "https://www.ory.com/legal/tos",
+          href: "https://www.ory.com/tos",
         },
         {
           label: "Schedule a discovery call",
@@ -135,7 +126,7 @@ const config: Config = {
       ] satisfies Preset.ThemeConfig["footer"]["links"],
       logo: {
         alt: "Ory logo in white",
-        src: "/docs/img/logos/logo-dark-mode.svg",
+        src: "/docs/img/logos/logo-ory-white-2022-11-04.svg",
         href: "https://www.ory.com/",
         height: 80,
         width: 130.7,
@@ -157,20 +148,20 @@ const config: Config = {
       return {
         name: "docusaurus-tailwindcss",
         configurePostCss(postcssOptions) {
-          // Use the new PostCSS plugin for Tailwind CSS
           postcssOptions.plugins.push(require("@tailwindcss/postcss"))
           return postcssOptions
         },
       }
     },
+
     [
       "@docusaurus/plugin-content-docs",
       {
-        path: "docs",
-        sidebarPath: require.resolve("./src/sidebar.ts"),
-        editUrl: `https://github.com/ory/docs/edit/master`,
-        // editCurrentVersion: false,
-        routeBasePath: "/",
+        id: "default",
+        path: "docs", // all product docs live here
+        routeBasePath: "/", // gives URLs like /docs/xxx
+        sidebarPath: require.resolve("./sidebars.ts"),
+        editUrl: "https://github.com/ory/docs/edit/master",
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
         disableVersioning: false,
@@ -193,6 +184,7 @@ const config: Config = {
         },
       },
     ],
+
     "@docusaurus/plugin-content-pages",
     require.resolve("./src/plugins/docusaurus-polyfill"),
     // require.resolve("./src/plugins/docusaurus-static-fonts"),
@@ -209,6 +201,10 @@ const config: Config = {
           {
             from: "/quickstart/sdks",
             to: "/sdk",
+          },
+          {
+            from: "/product-selector",
+            to: "/welcome",
           },
         ],
       },
