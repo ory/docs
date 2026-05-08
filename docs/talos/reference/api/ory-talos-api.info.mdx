@@ -9,7 +9,11 @@ hide_title: true
 custom_edit_url: null
 ---
 
+import ApiLogo from "@theme/ApiLogo"
 import Heading from "@theme/Heading"
+import SchemaTabs from "@theme/SchemaTabs"
+import TabItem from "@theme/TabItem"
+import Export from "@theme/ApiExplorer/Export"
 
 <span className={"theme-doc-version-badge badge badge--secondary"} children={"Version: v2alpha1"}></span>
 
@@ -28,4 +32,9 @@ The API is split into two services:
 - [**Admin Plane**](./admin-issue-api-key) — Key lifecycle management (issue, rotate, revoke, import, derive tokens, JWKS)
 - [**Data Plane**](./admin-verify-api-key) — High-performance verification (single, batch, self-revoke)
 
-Use the **API reference** section in the sidebar for the full list of operations.
+```mdx-code-block
+import DocCardList from '@theme/DocCardList';
+import {useCurrentSidebarCategory} from '@docusaurus/theme-common';
+
+<DocCardList items={useCurrentSidebarCategory().items}/>
+```

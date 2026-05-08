@@ -1,7 +1,8 @@
 import React from "react"
-import { CardItem } from "../WelcomeCard/welcome-card"
-import { OverviewCard } from "../welcomePage/OverviewCard"
+import { Card, CardGrid, CardItem } from "../WelcomeCard/welcome-card"
+import styles from "./welcome.module.css"
 
+// Interface for the section props
 export interface WelcomePageSectionProps {
   id: string
   title?: string
@@ -9,25 +10,28 @@ export interface WelcomePageSectionProps {
   cards: Array<CardItem>
 }
 
+// Section Component
 const WelcomePageSection: React.FC<WelcomePageSectionProps> = ({
   id,
+  title,
+  description,
   cards,
 }) => {
   return (
     <section id={id}>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-ory-4">
-        {cards.map((card) => (
-          <div key={card.title ?? card.docs} className="min-w-0">
-            <OverviewCard
-              title={card.title}
-              description={card.description}
-              to={card.docs}
-              linkLabel="Learn more"
-              tags={card.tags}
-            />
-          </div>
+      {(title || description) && (
+        <div className={styles.sectionHeading}>
+          {title && <h2 className={styles.sectionTitle}>{title}</h2>}
+          {description && (
+            <p className={styles.sectionDescription}>{description}</p>
+          )}
+        </div>
+      )}
+      <CardGrid>
+        {cards.map((card, index) => (
+          <Card key={index} {...card} />
         ))}
-      </div>
+      </CardGrid>
     </section>
   )
 }

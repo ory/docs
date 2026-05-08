@@ -1,6 +1,6 @@
 ---
 title: Ory Talos
-slug: /talos
+slug: /
 ---
 
 # Ory Talos

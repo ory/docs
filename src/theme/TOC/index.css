@@ -1,3 +1,7 @@
+:root {
+  --ory-network-cta-height: 400px;
+}
+
 .ory-toc-wrapper {
   max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
   overflow: auto;
