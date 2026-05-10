@@ -17,7 +17,7 @@ A reporting application might define a fixed set of permissions:
 Users do not receive these permissions directly. Instead, users are assigned to roles, and roles are granted permissions.
 Permissions are application-defined. Roles are application data represented in Ory Keto through relationship tuples, so roles and
 role assignments can be created, updated, and deleted without changing the
-[Ory Permission Language](../../../../docs/keto/reference/ory-permission-language) (OPL) schema.
+[Ory Permission Language](../reference/ory-permission-language) (OPL) schema.
 
 ## OPL schema
 
@@ -83,8 +83,8 @@ In a non-multi-tenant app, use a single fixed object such as `Organization:main`
 
 ## Object ID guidance
 
-Object IDs in Ory Keto are global — there is no built-in namespacing by tenant or project. Two tuples that reference `Role:admin`
-refer to the same object. This applies to any namespace: `Role`, `Organization`, `User`, or any custom namespace you define.
+Object IDs in Ory Keto are global. Two tuples that reference `Role:admin` refer to the same object. This applies to any namespace:
+`Role`, `Organization`, `User`, or any custom namespace you define.
 
 To avoid collisions, object IDs must be unique within their namespace. The safest approach is to use a stable unique ID from your
 application database:
@@ -387,3 +387,58 @@ authorization can check.
 
 If the application has hundreds of fixed permissions, the OPL schema will be large but remains correct and predictable. This
 tradeoff keeps permission checks scoped and explicit while still allowing roles to be managed dynamically.
+
+## Relationship diagram
+
+The diagram below shows the relationships written in the examples above. Users connect to roles through `members`. Roles connect
+to permission relations on `Organization`. Dotted arrows show role inheritance.
+
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+
+<Mermaid
+  chart={`
+flowchart TD
+  subgraph users["Users"]
+    alice(["User:alice"])
+    bob(["User:bob"])
+    eve(["User:eve"])
+    charlie(["User:charlie"])
+  end
+
+  subgraph roles["Roles"]
+    direction LR
+    admin["Role:org_123/admin"]
+    viewer["Role:org_123/viewer"]
+    re["Role:org_123/report_editor"]
+    rm["Role:org_123/report_manager"]
+    rm -.->|inherits| re
+  end
+
+  subgraph org["Organization:org_123"]
+    direction LR
+    rv(["reports.view"])
+    rc(["reports.create"])
+    redit(["reports.edit"])
+    rd(["reports.delete"])
+    rman(["roles.manage"])
+    mi(["members.invite"])
+  end
+
+  alice -->|members| admin
+  bob -->|members| viewer
+  eve -->|members| re
+  charlie -->|members| rm
+
+  admin --> rv & rc & redit & rd & rman & mi
+  viewer --> rv
+  re --> rv & rc & redit
+  rm --> rd
+
+  style alice fill:lightgreen
+  style bob fill:lightgreen
+  style eve fill:lightgreen
+  style charlie fill:lightgreen
+`}
+/>
+```
