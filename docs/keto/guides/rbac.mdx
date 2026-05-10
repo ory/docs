@@ -16,7 +16,8 @@ A reporting application might define a fixed set of permissions:
 
 Users do not receive these permissions directly. Instead, users are assigned to roles, and roles are granted permissions.
 Permissions are application-defined. Roles are application data represented in Ory Keto through relationship tuples, so roles and
-role assignments can be created, updated, and deleted without changing the OPL schema.
+role assignments can be created, updated, and deleted without changing the
+[Ory Permission Language](../../../../docs/keto/reference/ory-permission-language) (OPL) schema.
 
 ## OPL schema
 
@@ -76,6 +77,27 @@ user can hold different roles in different organizations.
 
 In a non-multi-tenant app, use a single fixed object such as `Organization:main`. In a multi-tenant app, each tenant gets its own
 `Organization` object.
+
+`Organization` is the namespace name chosen for this guide. You can name it to match your domain — `Workspace`, `Project`, or
+`Tenant` all work the same way. The name has no special meaning in Ory Keto; it is just a label for the scope object.
+
+## Object ID guidance
+
+Object IDs in Ory Keto are global — there is no built-in namespacing by tenant or project. Two tuples that reference `Role:admin`
+refer to the same object. This applies to any namespace: `Role`, `Organization`, `User`, or any custom namespace you define.
+
+To avoid collisions, object IDs must be unique within their namespace. The safest approach is to use a stable unique ID from your
+application database:
+
+```text
+Role:d390f817-209a-4e26-a69b-b67eddc45eda
+```
+
+What to avoid is using plain labels like `admin` or `viewer` as role IDs without any scoping. Two different organizations both
+creating a `viewer` role would write their tuples to the same `Role:viewer` object, silently sharing role membership and
+permission grants across tenants.
+
+The examples in this guide use the format `Role:{org_id}/{label}` — for example `Role:org_123/admin` — for readability.
 
 ## How the model works
 
@@ -345,18 +367,6 @@ The application is responsible for:
 - Preventing inheritance cycles
 - Preventing inheritance across organizations
 - Preventing removal of the last administrator, if the product requires one
-
-## Role ID guidance
-
-Role IDs must be globally unique. The simplest way to guarantee this is to use the stable role ID from your application database:
-
-```text
-Role:01HZY3K7J8K2D9WQ7Y1A4F8X9B
-```
-
-What to avoid is using human-readable labels like `admin` or `viewer` as role IDs directly. These are not unique across tenants.
-In a multi-tenant app, `Role:admin` would refer to the same role object for every organization, causing role assignments and
-permission grants to be shared across tenants.
 
 ## Large permission sets
 
