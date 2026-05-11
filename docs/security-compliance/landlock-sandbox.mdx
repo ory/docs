@@ -98,16 +98,16 @@ Landlock rules are irrevocable, so when a symlink target swaps at runtime — fo
 certificate by writing a new file and re-pointing the symlink — the rule still references the original target inode. What happens
 next depends on the shape of the grant:
 
-- **Leaf grant on a file.** The rule covers only the original target inode. The renewed target is a fresh inode that is not in
-  the allowlist, and the kernel denies reads through the symlink with `EPERM`. Restart `kratos serve` after the swap so the rules
+- **Leaf grant on a file.** The rule covers only the original target inode. The renewed target is a fresh inode that is not in the
+  allowlist, and the kernel denies reads through the symlink with `EPERM`. Restart `kratos serve` after the swap so the rules
   re-attach to the new inodes; with automated renewal, wire the restart into the renew hook.
 - **Grant on a containing directory.** The rule covers every inode underneath. If both the symlink and the renewed target sit
   under the granted directory — as they do with certbot (`/etc/letsencrypt/live/<domain>/...` and
   `/etc/letsencrypt/archive/<domain>/...`, both under `/etc/letsencrypt`) or a typical cert-manager volume mount — the swap is
   transparent and no restart is needed.
 
-To make cert renewals robust, add the cert directory (for example `/etc/letsencrypt`) to `security.landlock.allowed_paths`
-instead of relying on the per-file grants Kratos derives from the TLS path configuration.
+To make cert renewals robust, add the cert directory (for example `/etc/letsencrypt`) to `security.landlock.allowed_paths` instead
+of relying on the per-file grants Kratos derives from the TLS path configuration.
 
 ## Local `$ref` in identity schemas
 
