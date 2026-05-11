@@ -31,12 +31,12 @@
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "14.2.0",
-    "@docusaurus/plugin-svgr": "^3.9.2",
     "@docusaurus/core": "3.10.0",
     "@docusaurus/plugin-client-redirects": "3.10.0",
     "@docusaurus/plugin-content-docs": "3.10.0",
     "@docusaurus/plugin-content-pages": "3.10.0",
     "@docusaurus/plugin-sitemap": "3.10.0",
+    "@docusaurus/plugin-svgr": "^3.9.2",
     "@docusaurus/preset-classic": "3.10.0",
     "@docusaurus/theme-classic": "3.10.0",
     "@docusaurus/theme-search-algolia": "3.10.0",
