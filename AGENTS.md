@@ -38,7 +38,7 @@ OR
 
 ### Shared Source Content
 
-- Location: `/src/components/shared/<product>/...`
+- Location: `/src/components/Shared/<product>/...`
 - Purpose:
   - Reusable, deployment-agnostic content
   - Written once, used across deployments
@@ -53,7 +53,7 @@ Locations:
 
 Shell files:
 
-- Import content from `/src/components/shared/...`
+- Import content from `/src/components/Shared/...`
 - Represent a page for a specific deployment
 - Are the files added to sidebars
 
@@ -101,12 +101,12 @@ If content is specific to **self-hosted (OEL/OSS)**: **OEL is canonical**
 
 ### 2. Update content
 
-- Edit shared source when possible:`/src/components/shared/<product>/...`
+- Edit shared source when possible: `/src/components/Shared/<product>/...`
 - Avoid duplicating content across deployments
 
 **Example (shared source):**
 
-`/src/components/shared/kratos/index.mdx`
+`/src/components/Shared/kratos/index.mdx`
 
 ```mdx
 Ory Kratos Identities is an API-first identity and user management system...
@@ -141,7 +141,7 @@ sidebar_label: Introduction
   <link rel="canonical" href="https://www.ory.com/docs/network/kratos/intro" />
 </head>
 
-import MyPartial from "@site/src/components/shared/kratos/index.mdx"
+import MyPartial from "@site/src/components/Shared/kratos/index.mdx"
 
 <MyPartial />
 ```
@@ -174,7 +174,7 @@ import MyPartial from "@site/src/components/shared/kratos/index.mdx"
 
 ### Summary
 
-- Edit → `/src/components/shared/...`
+- Edit → `/src/components/Shared/...`
 - Expose → `docs/<deployment>/...` shell files
 - Navigate → via sidebars
 - De-duplicate → with canonical URLs
@@ -190,5 +190,34 @@ import MyPartial from "@site/src/components/shared/kratos/index.mdx"
 ## When in Doubt
 
 - Check the sidebar first
-- Look for `/src/components/shared/...` usage
+- Look for `/src/components/Shared/...` usage
 - If unclear, ask the Docs team before making structural changes
+
+## MDX paths, imports, and internal links
+
+- **Use `@site` for imports (not links)**: use `@site/...` when importing
+  snippets/partials (for example `@site/src/components/Shared/...`) to avoid
+  brittle relative import paths. Do not use `@site` as a way to “link” to docs
+  pages.
+- **Don’t link to shared partials**: shared files in `src/components/Shared/...`
+  are implementation details; link to the deployment shell page(s) in
+  `docs/<deployment>/...` instead.
+- **Use `SameDeploymentLink` when linking across deployments**: if a doc exists
+  under `docs/network/...`, `docs/oel/...`, and `docs/oss/...`, use
+  `SameDeploymentLink` so readers stay on their current deployment. In this repo
+  it’s registered globally via `src/theme/MDXComponents.js`, so you can use it
+  in MDX without importing it.
+
+Example:
+
+```mdx
+<SameDeploymentLink to="kratos/intro">
+  Ory Kratos introduction
+</SameDeploymentLink>
+
+{/* Optional per-deployment overrides */}
+
+<SameDeploymentLink to="kratos/intro" oel="kratos/self-hosted/intro">
+  Kratos intro (deployment-aware)
+</SameDeploymentLink>
+```
