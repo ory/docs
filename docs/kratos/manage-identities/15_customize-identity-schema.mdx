@@ -947,10 +947,9 @@ You can read more about using the `definitions` and `dependencies` keywords in t
 
 :::info Self-hosted
 
-If you split a schema across multiple files with `"$ref": "file:///path/to/fragment.json"`, list each referenced file
-under `security.landlock.allowed_paths` so the [Landlock filesystem
-sandbox](../../security-compliance/landlock-sandbox.mdx) does not block the read. Only the top-level
-`identity.schemas[].url` entries are auto-allowed.
+If you split a schema across multiple files with `"$ref": "file:///path/to/fragment.json"`, list each referenced file under
+`security.landlock.allowed_paths` so the [Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx) does not
+block the read. Only the top-level `identity.schemas[].url` entries are auto-allowed.
 
 :::
 

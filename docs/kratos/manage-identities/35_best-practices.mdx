@@ -48,9 +48,9 @@ identity:
 :::info Self-hosted
 
 On Ory Network and Ory Enterprise License (OEL), `file://` schema URLs are auto-allowed by the
-[Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx). If a schema body uses `"$ref":
-"file:///..."` to pull in another local file, that referenced file must be listed under `security.landlock.allowed_paths`
-— only the top-level `identity.schemas[].url` entries are auto-discovered.
+[Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx). If a schema body uses `"$ref": "file:///..."` to
+pull in another local file, that referenced file must be listed under `security.landlock.allowed_paths` — only the top-level
+`identity.schemas[].url` entries are auto-discovered.
 
 :::
 

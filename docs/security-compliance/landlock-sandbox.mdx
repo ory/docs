@@ -4,10 +4,10 @@ title: Landlock filesystem sandbox for Ory Identities
 sidebar_label: Landlock filesystem sandbox
 ---
 
-Ory Identities (Kratos) uses the Linux [Landlock](https://docs.kernel.org/userspace-api/landlock.html) LSM to restrict
-filesystem access at runtime. After Kratos starts up and loads everything it needs from disk, the kernel denies any
-further open or execute on paths that are not explicitly allow-listed. This narrows the blast radius of bugs,
-misconfigurations, or supply-chain compromises that could otherwise read arbitrary files.
+Ory Identities (Kratos) uses the Linux [Landlock](https://docs.kernel.org/userspace-api/landlock.html) LSM to restrict filesystem
+access at runtime. After Kratos starts up and loads everything it needs from disk, the kernel denies any further open or execute
+on paths that are not explicitly allow-listed. This narrows the blast radius of bugs, misconfigurations, or supply-chain
+compromises that could otherwise read arbitrary files.
 
 The sandbox requires Linux 5.13 or later. On older kernels and non-Linux platforms, Kratos runs without it.
 
@@ -15,26 +15,26 @@ The sandbox requires Linux 5.13 or later. On older kernels and non-Linux platfor
 
 ### Jsonnet worker
 
-The hidden `jsonnet` subcommand that Kratos re-execs to evaluate Jsonnet mappers — OIDC claim mappers, courier
-templates, and identity-schema transforms — applies an empty Landlock layer at startup. The worker only ever needs the
-inherited stdin/stdout/stderr, so every path-based filesystem access from inside the worker is denied by the kernel,
-even if a Jsonnet snippet were to bypass the in-process import barrier. Already-open file descriptors keep working, so
-the parent ↔ worker IPC is unaffected.
+The hidden `jsonnet` subcommand that Kratos re-execs to evaluate Jsonnet mappers — OIDC claim mappers, courier templates, and
+identity-schema transforms — applies an empty Landlock layer at startup. The worker only ever needs the inherited
+stdin/stdout/stderr, so every path-based filesystem access from inside the worker is denied by the kernel, even if a Jsonnet
+snippet were to bypass the in-process import barrier. Already-open file descriptors keep working, so the parent ↔ worker IPC is
+unaffected.
 
-This layer is active on Ory Identities OSS, Network, and OEL and is not configurable: there is no legitimate use case
-to allow the Jsonnet VM to read from disk.
+This layer is active on Ory Identities OSS, Network, and OEL and is not configurable: there is no legitimate use case to allow the
+Jsonnet VM to read from disk.
 
 ### `kratos serve` (Ory Network and OEL)
 
-On Ory Network and OEL, the Landlock sandbox also wraps the main `kratos serve` process. After initialization, the
-process is restricted to the files and directories it needs at runtime:
+On Ory Network and OEL, the Landlock sandbox also wraps the main `kratos serve` process. After initialization, the process is
+restricted to the files and directories it needs at runtime:
 
 - the configuration files passed via `--config`
 - TLS certificates and keys for the public and admin listeners
 - the courier template directory (courier templates are loaded lazily, at send time)
 - identity schemas referenced via `file://` URLs in `identity.schemas[].url`
-- the directory containing the SQLite database — covers the database file itself and any `-journal`, `-wal`, `-shm`,
-  or transient `-mj-XXXXX` siblings SQLite creates next to it
+- the directory containing the SQLite database — covers the database file itself and any `-journal`, `-wal`, `-shm`, or transient
+  `-mj-XXXXX` siblings SQLite creates next to it
 - any paths listed in `security.landlock.allowed_paths`
 
 A small set of system files is allowed by default:
@@ -44,16 +44,15 @@ A small set of system files is allowed by default:
 - the running Kratos binary itself, with read + execute, so the Jsonnet sandbox can re-exec it as a worker
 
 The system trust store at `/etc/ssl` is **not** allowed. Ory Network and OEL binaries embed Mozilla's CA bundle via
-`golang.org/x/crypto/x509roots/fallback` and run with `godebug x509usefallbackroots=1`, so `crypto/x509` never reads
-the system store at runtime. Operators who need to trust an additional CA must point `SSL_CERT_FILE` or
-`SSL_CERT_DIR` at the file or directory and list it under `security.landlock.allowed_paths`.
+`golang.org/x/crypto/x509roots/fallback` and run with `godebug x509usefallbackroots=1`, so `crypto/x509` never reads the system
+store at runtime. Operators who need to trust an additional CA must point `SSL_CERT_FILE` or `SSL_CERT_DIR` at the file or
+directory and list it under `security.landlock.allowed_paths`.
 
-All other filesystem access is denied by the kernel after activation. This includes the `/proc` and `/sys` virtual
-filesystems.
+All other filesystem access is denied by the kernel after activation. This includes the `/proc` and `/sys` virtual filesystems.
 
-`os.TempDir` (typically `/tmp`) is granted read-write only when SQLite is the configured DSN — SQLite stores some
-temporary files there. With CockroachDB, PostgreSQL, or MySQL, `kratos serve` never writes to the temp directory, so
-it is left out of the allowlist for a tighter sandbox.
+`os.TempDir` (typically `/tmp`) is granted read-write only when SQLite is the configured DSN — SQLite stores some temporary files
+there. With CockroachDB, PostgreSQL, or MySQL, `kratos serve` never writes to the temp directory, so it is left out of the
+allowlist for a tighter sandbox.
 
 ## Configuration
 
@@ -74,31 +73,30 @@ security:
 ### Hot reload
 
 Landlock restrictions are irrevocable for the lifetime of the process. Hot-reloading a config that flips
-`security.landlock.disabled` from `false` to `true` does not lift the sandbox — the process must be restarted for the
-change to take effect. Other config changes (allowlist entries, courier templates, and so on) reload normally, but
-newly-introduced paths are only honoured on the next process start.
+`security.landlock.disabled` from `false` to `true` does not lift the sandbox — the process must be restarted for the change to
+take effect. Other config changes (allowlist entries, courier templates, and so on) reload normally, but newly-introduced paths
+are only honoured on the next process start.
 
 ## Symlinks
 
 Symlinks in any configured path — `--config` files, TLS paths, `identity.schemas[].url`, the SQLite DSN,
-`security.landlock.allowed_paths`, and so on — are followed by the kernel when the rule is added at startup. The rule
-attaches to the inode that the symlink resolves to at that moment. As long as the target does not change, accesses
-through the symlink keep working transparently.
+`security.landlock.allowed_paths`, and so on — are followed by the kernel when the rule is added at startup. The rule attaches to
+the inode that the symlink resolves to at that moment. As long as the target does not change, accesses through the symlink keep
+working transparently.
 
-Because Landlock rules are irrevocable, if a symlink target swaps at runtime — for example when `cert-manager` or
-`certbot` renews a certificate by writing a new file and re-pointing the symlink — the rule still references the
-original target inode. Accesses through the symlink then resolve to the new inode, which is not in the allowlist, and
-the kernel denies them with `EPERM`.
+Because Landlock rules are irrevocable, if a symlink target swaps at runtime — for example when `cert-manager` or `certbot` renews
+a certificate by writing a new file and re-pointing the symlink — the rule still references the original target inode. Accesses
+through the symlink then resolve to the new inode, which is not in the allowlist, and the kernel denies them with `EPERM`.
 
-Restart `kratos serve` after any such swap so the rules attach to the new inodes. Operators using automated
-certificate renewal should wire the renew hook to restart Kratos.
+Restart `kratos serve` after any such swap so the rules attach to the new inodes. Operators using automated certificate renewal
+should wire the renew hook to restart Kratos.
 
 ## Local `$ref` in identity schemas
 
-`$ref` references inside identity schemas that point at local files (`"$ref": "file:///path/to/fragment.json"`) are
-not auto-discovered. Only the top-level `identity.schemas[].url` entries are scanned, not the schema bodies
-themselves. If a schema relies on a local `$ref`, the referenced file must be listed under
-`security.landlock.allowed_paths`, otherwise schema compilation fails because the kernel denies the read.
+`$ref` references inside identity schemas that point at local files (`"$ref": "file:///path/to/fragment.json"`) are not
+auto-discovered. Only the top-level `identity.schemas[].url` entries are scanned, not the schema bodies themselves. If a schema
+relies on a local `$ref`, the referenced file must be listed under `security.landlock.allowed_paths`, otherwise schema compilation
+fails because the kernel denies the read.
 
 ```yaml
 security:
@@ -117,15 +115,14 @@ identity:
 { "$ref": "file:///etc/kratos/schemas/fragments/address.json" }
 ```
 
-This applies only to schemas that are split across multiple local files via `$ref`. Schemas served over HTTPS, inlined
-as `base64://`, or kept in a single file need no extra configuration.
+This applies only to schemas that are split across multiple local files via `$ref`. Schemas served over HTTPS, inlined as
+`base64://`, or kept in a single file need no extra configuration.
 
 ## Troubleshooting
 
-A path that the sandbox does not allow surfaces in the application as `EPERM` ("Operation not permitted") on
-`open(2)`, `openat(2)`, or `execve(2)`. Kratos typically logs this as `permission denied` while loading a config file,
-schema, template, or TLS material. To distinguish a Landlock denial from a regular Unix permission error, work through
-the steps below.
+A path that the sandbox does not allow surfaces in the application as `EPERM` ("Operation not permitted") on `open(2)`,
+`openat(2)`, or `execve(2)`. Kratos typically logs this as `permission denied` while loading a config file, schema, template, or
+TLS material. To distinguish a Landlock denial from a regular Unix permission error, work through the steps below.
 
 ### 1. Confirm the sandbox is the cause
 
@@ -147,8 +144,8 @@ If the path that triggered `EPERM` is missing from both lists, Landlock is the c
 
 ### 2. Read the kernel audit log
 
-On Linux 6.10 and later, Landlock emits a kernel audit record for every denied access. The record names the syscall,
-the resolved path, and the denied access right:
+On Linux 6.10 and later, Landlock emits a kernel audit record for every denied access. The record names the syscall, the resolved
+path, and the denied access right:
 
 ```bash
 sudo journalctl -k --since "5 minutes ago" | grep -i landlock
@@ -162,26 +159,26 @@ A typical record looks like:
 audit: type=1334 audit(...): domain=2 op=fs blockers=fs.read_file path="/etc/kratos/schemas/fragments/address.json" dev="vda1" ino=131072
 ```
 
-The `path=` field is exactly what to add to `security.landlock.allowed_paths`. Older kernels (5.13 – 6.9) do not emit
-these records — fall back to step 3 there.
+The `path=` field is exactly what to add to `security.landlock.allowed_paths`. Older kernels (5.13 – 6.9) do not emit these
+records — fall back to step 3 there.
 
 ### 3. Trace the syscall directly
 
-When the audit log is unavailable or the path is templated, attach `strace` to the running process and watch for
-`EPERM` on the relevant syscalls:
+When the audit log is unavailable or the path is templated, attach `strace` to the running process and watch for `EPERM` on the
+relevant syscalls:
 
 ```bash
 sudo strace -f -p "$(pgrep -f 'kratos serve')" -e trace=openat,execve -e status=failed
 ```
 
-Lines ending in `= -1 EPERM (Operation not permitted)` show the exact path the kernel rejected, even when Kratos's own
-log message has been swallowed by a wrapper.
+Lines ending in `= -1 EPERM (Operation not permitted)` show the exact path the kernel rejected, even when Kratos's own log message
+has been swallowed by a wrapper.
 
 ### 4. Fix the configuration
 
-Once the offending path is known, add it to the allowlist (a directory grants every file underneath; a file grants
-only itself), then restart `kratos serve` — Landlock rules are immutable for the lifetime of the process, so a hot
-reload will not lift the denial.
+Once the offending path is known, add it to the allowlist (a directory grants every file underneath; a file grants only itself),
+then restart `kratos serve` — Landlock rules are immutable for the lifetime of the process, so a hot reload will not lift the
+denial.
 
 ```yaml
 security:

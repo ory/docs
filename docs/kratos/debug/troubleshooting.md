@@ -13,12 +13,12 @@ Please add your troubleshooting tricks and other tips to this document, You can 
 
 ### `permission denied` / `EPERM` reading a config, schema, template, or certificate
 
-If `kratos serve` logs `permission denied` opening a path that is owned by the right user and has the right Unix
-permissions, the [Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx) on Ory Network and OEL
-binaries is most likely denying the access. Check the startup logs for the `Landlock filesystem sandbox is active`
-line and the preceding `roPaths` / `rwDirs` lists, then either add the missing path to
-`security.landlock.allowed_paths` or temporarily set `security.landlock.disabled: true` to confirm. The sandbox page
-has the full troubleshooting walkthrough, including how to read kernel audit records and use `strace`.
+If `kratos serve` logs `permission denied` opening a path that is owned by the right user and has the right Unix permissions, the
+[Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx) on Ory Network and OEL binaries is most likely
+denying the access. Check the startup logs for the `Landlock filesystem sandbox is active` line and the preceding `roPaths` /
+`rwDirs` lists, then either add the missing path to `security.landlock.allowed_paths` or temporarily set
+`security.landlock.disabled: true` to confirm. The sandbox page has the full troubleshooting walkthrough, including how to read
+kernel audit records and use `strace`.
 
 ### `400: Bad Request` on self-service flows
 
