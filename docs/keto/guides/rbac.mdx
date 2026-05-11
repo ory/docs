@@ -65,21 +65,23 @@ class Organization implements Namespace {
 
 ## Authorization scope
 
-This example uses `Organization` as the scope for every RBAC decision. Every permission check includes both the subject and the
-organization:
+In Ory Keto, every check is scoped to an object — for example, `Document:file1` or `Folder:reports`. That works well for
+per-resource permissions, but RBAC with dynamic roles typically works differently: if Alice can create reports, she can create
+them anywhere in the app. The permission is app-wide, not tied to a specific file.
+
+This guide uses `Organization:org_123` as that app-wide scope. Every permission check is made against the organization object:
 
 ```keto-natural
 is User:alice allowed to viewReports on Organization:org_123
 ```
 
-Without a scope, checks are global — "can Alice edit reports?" — with no way to express boundaries. With `Organization`, the same
-user can hold different roles in different organizations.
+Alice either has the `viewReports` permission on `org_123` or she doesn't — no per-resource logic needed.
 
-In a non-multi-tenant app, use a single fixed object such as `Organization:main`. In a multi-tenant app, each tenant gets its own
-`Organization` object.
+In a single-tenant app, one fixed object such as `Organization:main` can be used. In a multi-tenant app, each tenant gets its own
+`Organization` object, so Alice can be an admin in one organization and a viewer in another.
 
-`Organization` is the namespace name chosen for this guide. You can name it to match your domain — `Workspace`, `Project`, or
-`Tenant` all work the same way. The name has no special meaning in Ory Keto; it is just a label for the scope object.
+`Organization` is just the name chosen for this guide. You can use any name that fits your domain — `Workspace`, `Project`, or
+`Tenant` all work the same way.
 
 ## Object ID guidance
 
@@ -296,17 +298,17 @@ class Role implements Namespace {
 ```
 
 The `inheritors` relation is declared on the parent role and lists every role that inherits it. When Ory Keto evaluates
-`viewer.isMember`, it checks viewer's direct members first, then walks each role in `inheritors` and checks those too. Members of
-inheriting roles therefore pass any permission check that goes through viewer.
+`report_editor.isMember`, it checks report_editor's direct members first, then walks each role in `inheritors` and checks those
+too. Members of inheriting roles therefore pass any permission check that goes through report_editor.
 
-This change allows us creating relationship that can make report_editor an inheritor of viewer:
+For example, making `report_manager` an inheritor of `report_editor`:
 
 ```keto-natural
-Role:org_123/report_editor is in inheritors of Role:org_123/viewer
+Role:org_123/report_manager is in inheritors of Role:org_123/report_editor
 ```
 
-Which means **report_editor** inherits **viewer** — members of report_editor are treated as members of viewer for all permission
-checks. If `reports.view` is granted to viewer, then report_editor members can also view reports without an explicit grant.
+means the members of report_manager are treated as members of report_editor for all permission checks. If `reports.create` is
+granted to report_editor, then report_manager members can also create reports without an explicit grant.
 
 ### Example
 
