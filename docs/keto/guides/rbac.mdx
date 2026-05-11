@@ -390,8 +390,8 @@ tradeoff keeps permission checks scoped and explicit while still allowing roles 
 
 ## Relationship diagram
 
-The diagram below shows the relationships written in the examples above. Users connect to roles through `members`. Roles connect
-to permission relations on `Organization`. Dotted arrows show role inheritance.
+The diagram below shows the relationships written in the examples above. Users connect to roles through the `members` relation.
+Roles connect to permission relations on `Organization`. Dotted arrows show the `inheritors` relation.
 
 ```mdx-code-block
 import Mermaid from "@site/src/theme/Mermaid"
@@ -412,7 +412,7 @@ flowchart TD
     viewer["Role:org_123/viewer"]
     re["Role:org_123/report_editor"]
     rm["Role:org_123/report_manager"]
-    rm -.->|inherits| re
+    rm -.->|inheritors| re
   end
 
   subgraph org["Organization:org_123"]
