@@ -6,15 +6,14 @@ sidebar_label: Landlock filesystem sandbox
 
 Ory Identities (Kratos) uses the Linux [Landlock](https://docs.kernel.org/userspace-api/landlock.html) LSM to restrict
 filesystem access at runtime. After Kratos starts up and loads everything it needs from disk, the kernel denies any
-further open or execute on paths that were not explicitly allow-listed. This narrows the blast radius of bugs,
+further open or execute on paths that are not explicitly allow-listed. This narrows the blast radius of bugs,
 misconfigurations, or supply-chain compromises that could otherwise read arbitrary files.
 
-The sandbox is enabled by default on Linux 5.13 and later. It degrades gracefully on older kernels and non-Linux
-platforms — no action is required for deployments that do not support Landlock.
+The sandbox requires Linux 5.13 or later. On older kernels and non-Linux platforms, Kratos runs without it.
 
 ## What is sandboxed
 
-### Jsonnet worker (all deployments)
+### Jsonnet worker
 
 The hidden `jsonnet` subcommand that Kratos re-execs to evaluate Jsonnet mappers — OIDC claim mappers, courier
 templates, and identity-schema transforms — applies an empty Landlock layer at startup. The worker only ever needs the
@@ -22,13 +21,13 @@ inherited stdin/stdout/stderr, so every path-based filesystem access from inside
 even if a Jsonnet snippet were to bypass the in-process import barrier. Already-open file descriptors keep working, so
 the parent ↔ worker IPC is unaffected.
 
-This applies to Ory Identities OSS, Network, and OEL. It is **not configurable**: there is no legitimate use case to
-allow the Jsonnet VM to read from disk.
+This layer is active on Ory Identities OSS, Network, and OEL and is not configurable: there is no legitimate use case
+to allow the Jsonnet VM to read from disk.
 
 ### `kratos serve` (Ory Network and OEL)
 
-In Ory Network and OEL deployments, the Landlock sandbox is also activated for the main `kratos serve` process after
-initialization. The process is then restricted to the files and directories it needs at runtime:
+On Ory Network and OEL, the Landlock sandbox also wraps the main `kratos serve` process. After initialization, the
+process is restricted to the files and directories it needs at runtime:
 
 - the configuration files passed via `--config`
 - TLS certificates and keys for the public and admin listeners
@@ -74,10 +73,10 @@ security:
 
 ### Hot reload
 
-Configuration hot-reload still works, with one caveat: **Landlock restrictions are irrevocable for the lifetime of the
-process**. Hot-reloading a config that flips `security.landlock.disabled` from `false` to `true` will not lift the
-sandbox — the process must be restarted for the change to take effect. Other config changes (allowlist entries,
-courier templates, and so on) reload normally, but newly-introduced paths are only honoured on the next process start.
+Landlock restrictions are irrevocable for the lifetime of the process. Hot-reloading a config that flips
+`security.landlock.disabled` from `false` to `true` does not lift the sandbox — the process must be restarted for the
+change to take effect. Other config changes (allowlist entries, courier templates, and so on) reload normally, but
+newly-introduced paths are only honoured on the next process start.
 
 ## Symlinks
 
@@ -86,21 +85,20 @@ Symlinks in any configured path — `--config` files, TLS paths, `identity.schem
 attaches to the inode that the symlink resolves to at that moment. As long as the target does not change, accesses
 through the symlink keep working transparently.
 
-Because Landlock rules are irrevocable, if a symlink target **swaps at runtime** — for example when `cert-manager` or
+Because Landlock rules are irrevocable, if a symlink target swaps at runtime — for example when `cert-manager` or
 `certbot` renews a certificate by writing a new file and re-pointing the symlink — the rule still references the
 original target inode. Accesses through the symlink then resolve to the new inode, which is not in the allowlist, and
 the kernel denies them with `EPERM`.
 
-**Restart `kratos serve` after any such swap** so the rules attach to the new inodes. Operators using automated
+Restart `kratos serve` after any such swap so the rules attach to the new inodes. Operators using automated
 certificate renewal should wire the renew hook to restart Kratos.
 
-## Breaking change: local `$ref` in identity schemas
+## Local `$ref` in identity schemas
 
 `$ref` references inside identity schemas that point at local files (`"$ref": "file:///path/to/fragment.json"`) are
-**not auto-discovered**. Only the top-level `identity.schemas[].url` entries are scanned, not the schema bodies
+not auto-discovered. Only the top-level `identity.schemas[].url` entries are scanned, not the schema bodies
 themselves. If a schema relies on a local `$ref`, the referenced file must be listed under
-`security.landlock.allowed_paths`. Without it, schema compilation fails after the upgrade because the kernel denies
-the read.
+`security.landlock.allowed_paths`, otherwise schema compilation fails because the kernel denies the read.
 
 ```yaml
 security:
@@ -119,11 +117,8 @@ identity:
 { "$ref": "file:///etc/kratos/schemas/fragments/address.json" }
 ```
 
-This affects **only** operators who split their identity schemas across multiple local files via `$ref`. Schemas
-served over HTTPS, inlined as `base64://`, or kept in a single file are unaffected.
-
-If you cannot update the configuration immediately, set `security.landlock.disabled: true` to keep the previous
-behaviour, and revisit once the referenced files have been allow-listed.
+This applies only to schemas that are split across multiple local files via `$ref`. Schemas served over HTTPS, inlined
+as `base64://`, or kept in a single file need no extra configuration.
 
 ## Troubleshooting
 
