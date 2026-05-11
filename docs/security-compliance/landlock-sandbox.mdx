@@ -31,11 +31,21 @@ restricted to the files and directories it needs at runtime:
 
 - the configuration files passed via `--config`
 - TLS certificates and keys for the public and admin listeners
+- SMTP client certificate and key files (`courier.smtp.client_cert_path`, `courier.smtp.client_key_path`, and the equivalents
+  under `courier.channels[].smtp_config`)
 - the courier template directory (courier templates are loaded lazily, at send time)
-- identity schemas referenced via `file://` URLs in `identity.schemas[].url`
+- **every file referenced from the config via a `file://` URI.** Kratos walks the loaded configuration once at startup and
+  allow-lists every value that begins with `file://`. This covers identity schemas under `identity.schemas[].url`, OIDC claim
+  mappers, `web_hook` body templates, courier HTTP body templates, session tokenizer mappers and JWKS files, and any future
+  `file://` field added to the config schema. Operators do not need to duplicate these paths under
+  `security.landlock.allowed_paths`.
 - the directory containing the SQLite database — covers the database file itself and any `-journal`, `-wal`, `-shm`, or transient
   `-mj-XXXXX` siblings SQLite creates next to it
 - any paths listed in `security.landlock.allowed_paths`
+
+Auto-discovery matches the `file://` URI form documented in the config schema. A few legacy fields still accept a bare filesystem
+path without the `file://` prefix (notably the deprecated form of `web_hook` `body`); those bare paths are not auto-discovered, so
+list them under `security.landlock.allowed_paths` or migrate the configuration to the `file://` form.
 
 A small set of system files is allowed by default:
 
@@ -101,10 +111,11 @@ instead of relying on the per-file grants Kratos derives from the TLS path confi
 
 ## Local `$ref` in identity schemas
 
-`$ref` references inside identity schemas that point at local files (`"$ref": "file:///path/to/fragment.json"`) are not
-auto-discovered. Only the top-level `identity.schemas[].url` entries are scanned, not the schema bodies themselves. If a schema
-relies on a local `$ref`, the referenced file must be listed under `security.landlock.allowed_paths`, otherwise schema compilation
-fails because the kernel denies the read.
+Auto-discovery walks the loaded **config**, not the JSON bodies that the config points at. `$ref` references inside an identity
+schema body that target local files (`"$ref": "file:///path/to/fragment.json"`) are therefore not picked up — the top-level
+`identity.schemas[].url` is allowed, but the schema content is not parsed. If a schema relies on a local `$ref`, the referenced
+file must be listed under `security.landlock.allowed_paths`, otherwise schema compilation fails because the kernel denies the
+read.
 
 ```yaml
 security:

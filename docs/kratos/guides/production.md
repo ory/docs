@@ -53,11 +53,13 @@ the Admin API at all to the public internet and use a Zero Trust Networking Arch
 ### Filesystem sandbox (Ory Network / OEL)
 
 Ory Network and Ory Enterprise License binaries activate a
-[Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx) for `kratos serve` on Linux 5.13 and later. Config
-files, TLS material, courier templates, identity schemas referenced via `file://`, and the SQLite database directory are
-auto-allowed at startup; every other path is denied by the kernel. If you reference additional files (a corporate CA bundle, JSON
-Schema `$ref` fragments, an out-of-tree courier template, and so on), list them under `security.landlock.allowed_paths` before
-going to production.
+[Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx) for `kratos serve` on Linux 5.13 and later. The
+config files, TLS material, the courier template directory, the SQLite database directory, and every `file://` URI referenced in
+the loaded configuration (identity schemas, OIDC mappers, web-hook bodies, courier templates, tokenizer JWKS files, and so on)
+are auto-allowed at startup; every other path is denied by the kernel. If you depend on files the auto-discovery does not see —
+for example a corporate CA bundle pointed to by `SSL_CERT_FILE`, a JSON Schema `$ref` fragment inside an identity schema body, or
+a legacy config field that takes a bare path instead of a `file://` URI — list them under `security.landlock.allowed_paths`
+before going to production.
 
 ## Scaling
 
