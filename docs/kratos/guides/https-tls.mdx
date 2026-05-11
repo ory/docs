@@ -39,8 +39,25 @@ or mount the files using `--mount` and linking to the files.
 
 Ory Network and Ory Enterprise License (OEL) deployments run with the
 [Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx) active. The configured TLS cert and key paths are
-allow-listed at startup, including any symlinks resolved at that moment.
+allow-listed at startup, including any symlinks resolved at that moment. Landlock rules are irrevocable, and they attach to a
+specific inode.
 
-Landlock rules are irrevocable for the lifetime of the process. If your cert renewal pipeline (cert-manager, certbot, and similar)
-writes a new file and re-points the symlink, the kernel will deny reads through that symlink because the rule still attaches to
-the previous inode. **Restart `kratos serve` after every renewal** so the rules re-attach to the new inode.
+With cert-manager or certbot, a renewal writes a new file and re-points a symlink at it. Whether that "just works" depends on
+**how** the cert path is allow-listed:
+
+- **Containing-directory grant — transparent renewals.** Add the cert directory under `security.landlock.allowed_paths` (for
+  example `/etc/letsencrypt` for certbot, or the cert-manager volume mount). The rule covers every inode underneath, so the
+  symlink (typically in `live/<domain>/`) and the renewed target (in `archive/<domain>/`) both sit inside the sandbox and reads
+  keep working — no restart needed.
+
+  ```yaml
+  security:
+    landlock:
+      allowed_paths:
+        - /etc/letsencrypt
+  ```
+
+- **Leaf grant — restart required.** If only the cert and key files themselves are allow-listed (the default for
+  `SERVE_PUBLIC_TLS_CERT_PATH` and friends), the rule attaches to the original target inode. After a renewal the symlink resolves
+  to a new inode that is not in the allowlist, and the kernel denies reads with `EPERM`. Restart `kratos serve` after every
+  renewal so the rules re-attach. Wire the restart into your renew hook.
