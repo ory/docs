@@ -45,6 +45,15 @@ identity:
       url: file://path/to/user_v0.json
 ```
 
+:::info Self-hosted
+
+On Ory Network and Ory Enterprise License (OEL), `file://` schema URLs are auto-allowed by the
+[Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx). If a schema body uses `"$ref":
+"file:///..."` to pull in another local file, that referenced file must be listed under `security.landlock.allowed_paths`
+— only the top-level `identity.schemas[].url` entries are auto-discovered.
+
+:::
+
 After a few weeks, you decide that you want to add additional fields or that you need to break compatibility with your current
 schema. To do that, add another version of the schema to the configuration and change the `default_schema_id` to use the new
 schema:

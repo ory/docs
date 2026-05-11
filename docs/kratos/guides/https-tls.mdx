@@ -34,3 +34,14 @@ docker run ... \
 ```
 
 or mount the files using `--mount` and linking to the files.
+
+## Certificate renewal with the filesystem sandbox
+
+Ory Network and Ory Enterprise License (OEL) deployments run with the
+[Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx) active. The configured TLS cert and key
+paths are allow-listed at startup, including any symlinks resolved at that moment.
+
+Landlock rules are irrevocable for the lifetime of the process. If your cert renewal pipeline (cert-manager, certbot,
+and similar) writes a new file and re-points the symlink, the kernel will deny reads through that symlink because the
+rule still attaches to the previous inode. **Restart `kratos serve` after every renewal** so the rules re-attach to
+the new inode.

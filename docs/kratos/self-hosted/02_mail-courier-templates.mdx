@@ -10,6 +10,15 @@ In self-hosted Ory Kratos instances, you can add custom templates from `http://`
 and `html` fields are mandatory when defining the `body` key. All other keys are optional. If the system can't use the custom
 templates, it falls back to the built-in templates or to the `template_override_path` (if specified).
 
+:::info Self-hosted (Network / OEL)
+
+The `template_override_path` directory and any `file://` template URIs are automatically allow-listed by the
+[Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx). If you reference a template stored
+outside the override directory, list it under `security.landlock.allowed_paths` or move it inside the override
+directory.
+
+:::
+
 ```yaml title=path/to/kratos/config.yml
 courier:
   template_override_path: /conf/courier-template
