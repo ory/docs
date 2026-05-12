@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Injects x-codeSamples (TypeScript + Go) into src/static/api.json for every
- * operation, reading pre-generated examples directly from the SDK docs.
+ * Injects x-codeSamples (TypeScript + Go) and x-sdk-docs (structured param
+ * metadata) into src/static/api.json for every operation, reading
+ * pre-generated examples directly from the SDK docs.
  *
  * Run:  node scripts/inject-sdk-code-samples.mjs
  * Then: npm run docusaurus -- gen-api-docs ory
@@ -50,11 +51,58 @@ const TAG_TO_GO_SERVICE = {
   workspace: "WorkspaceAPI",
 }
 
-// ─── SDK docs parsers ────────────────────────────────────────────────────────
+// ─── Type helpers ─────────────────────────────────────────────────────────────
 
-/**
- * Parses Go SDK docs: sections start with `## MethodName` (PascalCase).
- */
+function decodeHtmlEntities(str) {
+  return str
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\\&#39;/g, "'")
+    .replace(/&#x60;/g, "`")
+    .replace(/&#x2F;/g, "/")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&#124;/g, "|")
+    .replace(/&#x7C;/g, "|")
+}
+
+function cleanTsType(raw) {
+  return decodeHtmlEntities(
+    raw
+      .replace(/\[\*\*([^*]+)\*\*\]/g, "$1") // [**Type**] → Type
+      .replace(/\*\*([^*]+)\*\*/g, "$1") // **Type** → Type
+      .trim(),
+  )
+}
+
+function cleanGoType(raw) {
+  return decodeHtmlEntities(
+    raw
+      .replace(/\[\*\*([^*]+)\*\*\]\([^)]*\)/g, "$1") // [**Type**](link) → Type
+      .replace(/\*\*([^*]+)\*\*/g, "$1") // **type** → type
+      .trim(),
+  )
+}
+
+/** Splits a markdown table into rows, skipping header and separator lines. */
+function parseMdTableRows(text) {
+  return text
+    .split("\n")
+    .filter((l) => l.includes("|") && !/^[\s|:-]+$/.test(l))
+    .slice(1) // drop header row
+    .map((l) =>
+      l
+        .split("|")
+        .map((c) => c.trim())
+        .filter(Boolean),
+    )
+    .filter((cols) => cols.length >= 2)
+}
+
+// ─── Code example parsers ─────────────────────────────────────────────────────
+
 function parseGoDocsExamples(docsDir, tagToService) {
   const examples = {}
   for (const serviceName of Object.values(tagToService)) {
@@ -76,9 +124,6 @@ function parseGoDocsExamples(docsDir, tagToService) {
   return examples
 }
 
-/**
- * Parses TypeScript SDK docs: sections start with `# **methodName**` (camelCase).
- */
 function parseTsDocsExamples(docsDir, tagToService) {
   const examples = {}
   for (const serviceName of Object.values(tagToService)) {
@@ -88,7 +133,6 @@ function parseTsDocsExamples(docsDir, tagToService) {
       continue
     }
     const content = readFileSync(filePath, "utf8")
-    // Split on h1 bold method headings: `# **methodName**`
     for (const section of content.split(/\n# \*\*/)) {
       const heading = section.match(/^(\w+)\*\*/)?.[1]
       if (!heading) continue
@@ -96,10 +140,112 @@ function parseTsDocsExamples(docsDir, tagToService) {
         /### Example\n\n```typescript\n([\s\S]*?)```/,
       )?.[1]
       if (!code) continue
-      examples[heading] = code.trimEnd() // already camelCase
+      examples[heading] = code.trimEnd()
     }
   }
   return examples
+}
+
+// ─── Structured SDK docs (signature + params + return type) ──────────────────
+
+function parseTsSdkDocs(docsDir, tagToService) {
+  const result = {}
+  for (const serviceName of Object.values(tagToService)) {
+    const filePath = join(docsDir, `${serviceName}.md`)
+    if (!existsSync(filePath)) continue
+    const content = readFileSync(filePath, "utf8")
+    for (const section of content.split(/\n# \*\*/)) {
+      const heading = section.match(/^(\w+)\*\*/)?.[1]
+      if (!heading) continue
+
+      // `> ReturnType methodName(params)` → extract `methodName(params)`
+      const sigLine = section.match(/^> (.+)\n/)?.[1] ?? ""
+      const sigMethod = sigLine.match(/\S+\s+(\w+\([^)]*\))/)
+      const signature = sigMethod?.[1] ?? `${heading}()`
+
+      // Parameters table (between ### Parameters and next ###)
+      const paramsBlock =
+        section.match(/### Parameters\n\n([\s\S]*?)(?=###|\n\n\n|$)/)?.[1] ?? ""
+      const params = parseMdTableRows(paramsBlock)
+        .map((cols) => {
+          const notes = cols[3] ?? ""
+          return {
+            name: cleanTsType(cols[0] ?? ""),
+            type: cleanTsType(cols[1] ?? ""),
+            description: cleanTsType(cols[2] ?? ""),
+            required: !notes.includes("optional"),
+          }
+        })
+        .filter((p) => p.name)
+
+      // Return type
+      const retRaw = section.match(/### Return type\n\n([^\n]+)/)?.[1] ?? ""
+      const returnType = cleanTsType(retRaw) || "void"
+
+      result[heading] = { signature, params, returnType }
+    }
+  }
+  return result
+}
+
+function parseGoSdkDocs(docsDir, tagToService) {
+  const result = {}
+  for (const serviceName of Object.values(tagToService)) {
+    const filePath = join(docsDir, `${serviceName}.md`)
+    if (!existsSync(filePath)) continue
+    const content = readFileSync(filePath, "utf8")
+    for (const section of content.split(/\n## /)) {
+      const heading = section.match(/^(\w+)\n/)?.[1]
+      if (!heading) continue
+
+      // `> ReturnType MethodName(ctx)...Execute()` → extract `MethodName(ctx)...`
+      const sigLine = section.match(/^> (.+)\n/)?.[1] ?? ""
+      const sigMethod = sigLine.match(/\S+\s+(\w+\(ctx\)[^\n]*)/)
+      const signature = sigMethod?.[1] ?? `${heading}(ctx).Execute()`
+
+      // Path parameters (required) — skip the `ctx` row
+      const pathBlock =
+        section.match(/### Path Parameters\n\n([\s\S]*?)(?=###)/)?.[1] ?? ""
+      const pathParams = parseMdTableRows(pathBlock)
+        .map((cols) => ({
+          name: cleanGoType(cols[0] ?? ""),
+          type: cleanGoType(cols[1] ?? ""),
+          description: cleanGoType(cols[2] ?? ""),
+          required: true,
+        }))
+        .filter((p) => p.name && p.name !== "ctx")
+
+      // Builder parameters (optional)
+      // The "Other Parameters" section has a prose line before the table
+      const otherSection =
+        section.match(/### Other Parameters\n\n([\s\S]*?)(?=###|$)/)?.[1] ?? ""
+      const otherTableStart = otherSection.indexOf("\nName |")
+      const otherBlock =
+        otherTableStart >= 0
+          ? otherSection.slice(otherTableStart)
+          : otherSection
+      const builderParams = parseMdTableRows(otherBlock)
+        .map((cols) => ({
+          name: cleanGoType(cols[0] ?? ""),
+          type: cleanGoType(cols[1] ?? ""),
+          description: cleanGoType(cols[2] ?? ""),
+          required: false,
+        }))
+        .filter((p) => p.name)
+
+      // Return type
+      const retRaw = section.match(/### Return type\n\n([^\n]+)/)?.[1] ?? ""
+      const returnType = cleanGoType(retRaw) || "void"
+
+      const operationId = heading.charAt(0).toLowerCase() + heading.slice(1)
+      result[operationId] = {
+        signature,
+        params: [...pathParams, ...builderParams],
+        returnType,
+      }
+    }
+  }
+  return result
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
@@ -114,6 +260,12 @@ function main() {
   console.log(
     `Go: parsed ${Object.keys(goExamples).length} examples from SDK docs`,
   )
+
+  const tsSdkDocs = parseTsSdkDocs(TS_DOCS_DIR, TAG_TO_TS_CLASS)
+  console.log(`TS: parsed ${Object.keys(tsSdkDocs).length} structured SDK docs`)
+
+  const goSdkDocs = parseGoSdkDocs(GO_DOCS_DIR, TAG_TO_GO_SERVICE)
+  console.log(`Go: parsed ${Object.keys(goSdkDocs).length} structured SDK docs`)
 
   const spec = JSON.parse(readFileSync(SPEC_PATH, "utf8"))
   let injected = 0,
@@ -146,6 +298,14 @@ function main() {
           ? [{ lang: "Go", label: "native", source: goSnippet }]
           : []),
       ]
+
+      // Structured SDK docs for the language-aware left pane
+      const xSdkDocs = {}
+      if (tsSdkDocs[op.operationId])
+        xSdkDocs["TypeScript"] = tsSdkDocs[op.operationId]
+      if (goSdkDocs[op.operationId]) xSdkDocs["go"] = goSdkDocs[op.operationId]
+      if (Object.keys(xSdkDocs).length) op["x-sdk-docs"] = xSdkDocs
+
       injected++
     }
   }
