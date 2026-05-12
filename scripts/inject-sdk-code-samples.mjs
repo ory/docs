@@ -12,29 +12,41 @@ import { fileURLToPath } from "url"
 import { dirname, join } from "path"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const SPEC_PATH    = join(__dirname, "../src/static/api.json")
-const TS_DOCS_DIR  = join(__dirname, "../../sdk/clients/client/typescript/docs")
-const GO_DOCS_DIR  = join(__dirname, "../../sdk/clients/client/go/docs")
+const SPEC_PATH = join(__dirname, "../src/static/api.json")
+const TS_DOCS_DIR = join(__dirname, "../../sdk/clients/client/typescript/docs")
+const GO_DOCS_DIR = join(__dirname, "../../sdk/clients/client/go/docs")
 
 // ─── Tag → SDK identifiers ───────────────────────────────────────────────────
 
 const TAG_TO_TS_CLASS = {
-  courier: "CourierApi",      events: "EventsApi",
-  frontend: "FrontendApi",    identity: "IdentityApi",
-  jwk: "JwkApi",              metadata: "MetadataApi",
-  oAuth2: "OAuth2Api",        oidc: "OidcApi",
-  permission: "PermissionApi", project: "ProjectApi",
-  relationship: "RelationshipApi", wellknown: "WellknownApi",
+  courier: "CourierApi",
+  events: "EventsApi",
+  frontend: "FrontendApi",
+  identity: "IdentityApi",
+  jwk: "JwkApi",
+  metadata: "MetadataApi",
+  oAuth2: "OAuth2Api",
+  oidc: "OidcApi",
+  permission: "PermissionApi",
+  project: "ProjectApi",
+  relationship: "RelationshipApi",
+  wellknown: "WellknownApi",
   workspace: "WorkspaceApi",
 }
 
 const TAG_TO_GO_SERVICE = {
-  courier: "CourierAPI",      events: "EventsAPI",
-  frontend: "FrontendAPI",    identity: "IdentityAPI",
-  jwk: "JwkAPI",              metadata: "MetadataAPI",
-  oAuth2: "OAuth2API",        oidc: "OidcAPI",
-  permission: "PermissionAPI", project: "ProjectAPI",
-  relationship: "RelationshipAPI", wellknown: "WellknownAPI",
+  courier: "CourierAPI",
+  events: "EventsAPI",
+  frontend: "FrontendAPI",
+  identity: "IdentityAPI",
+  jwk: "JwkAPI",
+  metadata: "MetadataAPI",
+  oAuth2: "OAuth2API",
+  oidc: "OidcAPI",
+  permission: "PermissionAPI",
+  project: "ProjectAPI",
+  relationship: "RelationshipAPI",
+  wellknown: "WellknownAPI",
   workspace: "WorkspaceAPI",
 }
 
@@ -80,9 +92,11 @@ function parseTsDocsExamples(docsDir, tagToService) {
     for (const section of content.split(/\n# \*\*/)) {
       const heading = section.match(/^(\w+)\*\*/)?.[1]
       if (!heading) continue
-      const code = section.match(/### Example\n\n```typescript\n([\s\S]*?)```/)?.[1]
+      const code = section.match(
+        /### Example\n\n```typescript\n([\s\S]*?)```/,
+      )?.[1]
       if (!code) continue
-      examples[heading] = code.trimEnd()  // already camelCase
+      examples[heading] = code.trimEnd() // already camelCase
     }
   }
   return examples
@@ -92,13 +106,18 @@ function parseTsDocsExamples(docsDir, tagToService) {
 
 function main() {
   const tsExamples = parseTsDocsExamples(TS_DOCS_DIR, TAG_TO_TS_CLASS)
-  console.log(`TS: parsed ${Object.keys(tsExamples).length} examples from SDK docs`)
+  console.log(
+    `TS: parsed ${Object.keys(tsExamples).length} examples from SDK docs`,
+  )
 
   const goExamples = parseGoDocsExamples(GO_DOCS_DIR, TAG_TO_GO_SERVICE)
-  console.log(`Go: parsed ${Object.keys(goExamples).length} examples from SDK docs`)
+  console.log(
+    `Go: parsed ${Object.keys(goExamples).length} examples from SDK docs`,
+  )
 
   const spec = JSON.parse(readFileSync(SPEC_PATH, "utf8"))
-  let injected = 0, skipped = 0
+  let injected = 0,
+    skipped = 0
 
   for (const pathItem of Object.values(spec.paths ?? {})) {
     for (const op of Object.values(pathItem)) {
@@ -114,12 +133,18 @@ function main() {
       const tsSnippet = tsExamples[op.operationId] ?? ""
       const goSnippet = goExamples[op.operationId] ?? ""
 
-      if (!tsSnippet) console.warn(`  WARN  No TS example for ${op.operationId}`)
-      if (!goSnippet) console.warn(`  WARN  No Go example for ${op.operationId}`)
+      if (!tsSnippet)
+        console.warn(`  WARN  No TS example for ${op.operationId}`)
+      if (!goSnippet)
+        console.warn(`  WARN  No Go example for ${op.operationId}`)
 
       op["x-codeSamples"] = [
-        ...(tsSnippet ? [{ lang: "TypeScript", label: "@ory/client", source: tsSnippet }] : []),
-        ...(goSnippet ? [{ lang: "Go",          label: "native",      source: goSnippet }] : []),
+        ...(tsSnippet
+          ? [{ lang: "TypeScript", label: "@ory/client", source: tsSnippet }]
+          : []),
+        ...(goSnippet
+          ? [{ lang: "Go", label: "native", source: goSnippet }]
+          : []),
       ]
       injected++
     }
