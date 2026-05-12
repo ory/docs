@@ -1,0 +1,1 @@
+{"parameters":[{"description":"MessageID is the ID of the message.","in":"path","name":"id","required":true,"schema":{"type":"string"}}]}

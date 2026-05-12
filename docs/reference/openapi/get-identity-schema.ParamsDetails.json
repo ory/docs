@@ -1,0 +1,1 @@
+{"parameters":[{"description":"ID must be set to the ID of schema you want to get","in":"path","name":"id","required":true,"schema":{"type":"string"}}]}

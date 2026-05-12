@@ -1,0 +1,69 @@
+---
+id: get-project-members
+title: "Get all members associated with this project"
+description: "This endpoint requires the user to be a member of the project with the role `OWNER` or `DEVELOPER`."
+sidebar_label: "Get all members associated with this project"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: reference/openapi/ory-apis
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get all members associated with this project"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/projects/{project}/members"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+This endpoint requires the user to be a member of the project with the role `OWNER` or `DEVELOPER`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./get-project-members.ParamsDetails.json")}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./get-project-members.RequestSchema.json")}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  {...require("./get-project-members.StatusCodes.json")}
+>
+  
+</StatusCodes>
+
+
+      

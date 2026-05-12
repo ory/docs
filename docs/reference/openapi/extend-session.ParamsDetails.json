@@ -1,0 +1,1 @@
+{"parameters":[{"description":"ID is the session's ID.","in":"path","name":"id","required":true,"schema":{"type":"string"}}]}

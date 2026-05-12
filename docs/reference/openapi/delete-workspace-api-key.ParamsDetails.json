@@ -1,0 +1,1 @@
+{"parameters":[{"description":"The Workspace ID or Workspace slug","in":"path","name":"workspace","required":true,"schema":{"type":"string"}},{"description":"The Token ID","in":"path","name":"token_id","required":true,"schema":{"type":"string"}}]}

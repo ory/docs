@@ -1,0 +1,127 @@
+---
+id: to-session
+title: "Check Who the Current HTTP Session Belongs To"
+description: "Uses the HTTP Headers in the GET request to determine (e.g. by using checking the cookies) who is authenticated."
+sidebar_label: "Check Who the Current HTTP Session Belongs To"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: reference/openapi/ory-apis
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Check Who the Current HTTP Session Belongs To"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/sessions/whoami"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Uses the HTTP Headers in the GET request to determine (e.g. by using checking the cookies) who is authenticated.
+Returns a session object in the body or 401 if the credentials are invalid or no credentials were sent.
+When the request it successful it adds the user ID to the 'X-Kratos-Authenticated-Identity-Id' header
+in the response.
+
+If you call this endpoint from a server-side application, you must forward the HTTP Cookie Header to this endpoint:
+
+```js
+pseudo-code example
+router.get('/protected-endpoint', async function (req, res) {
+const session = await client.toSession(undefined, req.header('cookie'))
+
+console.log(session)
+})
+```
+
+When calling this endpoint from a non-browser application (e.g. mobile app) you must include the session token:
+
+```js
+pseudo-code example
+...
+const session = await client.toSession("the-session-token")
+
+console.log(session)
+```
+
+When using a token template, the token is included in the `tokenized` field of the session.
+
+```js
+pseudo-code example
+...
+const session = await client.toSession("the-session-token", { tokenize_as: "example-jwt-template" })
+
+console.log(session.tokenized) // The JWT
+```
+
+Depending on your configuration this endpoint might return a 403 status code if the session has a lower Authenticator
+Assurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn
+credentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user
+to sign in with the second factor or change the configuration.
+
+This endpoint is useful for:
+
+AJAX calls. Remember to send credentials and set up CORS correctly!
+Reverse proxies and API Gateways
+Server-side calls - use the `X-Session-Token` header!
+
+This endpoint authenticates users by checking:
+
+if the `Cookie` HTTP header was set containing an Ory Kratos Session Cookie;
+if the `Authorization: bearer <ory-session-token>` HTTP header was set with a valid Ory Kratos Session Token;
+if the `X-Session-Token` HTTP header was set with a valid Ory Kratos Session Token.
+
+If none of these headers are set or the cookie or token are invalid, the endpoint returns a HTTP 401 status code.
+
+As explained above, this request may fail due to several reasons. The `error.id` can be one of:
+
+`session_inactive`: No active session was found in the request (e.g. no Ory Session Cookie / Ory Session Token).
+`session_aal2_required`: An active session was found but it does not fulfil the Authenticator Assurance Level, implying that the session must (e.g.) authenticate the second factor.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  {...require("./to-session.ParamsDetails.json")}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  {...require("./to-session.RequestSchema.json")}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  {...require("./to-session.StatusCodes.json")}
+>
+  
+</StatusCodes>
+
+
+      

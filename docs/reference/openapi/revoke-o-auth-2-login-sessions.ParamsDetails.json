@@ -1,0 +1,1 @@
+{"parameters":[{"description":"OAuth 2.0 Subject\n\nThe subject to revoke authentication sessions for.","in":"query","name":"subject","schema":{"type":"string"}},{"description":"Login Session ID\n\nThe login session to revoke.","in":"query","name":"sid","schema":{"type":"string"}}]}

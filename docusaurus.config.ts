@@ -3,10 +3,24 @@
 
 import type { Config } from "@docusaurus/types"
 import type * as Preset from "@docusaurus/preset-classic"
+import type * as OpenApiPlugin from "docusaurus-plugin-openapi-docs"
 
 import lightTheme from "./src/utils/prismLight.mjs"
 import darkTheme from "./src/utils/prismDark.mjs"
 import { navbar } from "./src/navbar"
+import postmanGenerators from "postman-code-generators"
+
+const postmanLanguageTabs = postmanGenerators.getLanguageList().map(
+  (lang: { key: string; label: string; syntax_mode: string; variants: { key: string }[] }) => ({
+    highlight: lang.syntax_mode,
+    language: lang.key,
+    codeSampleLanguage: lang.label,
+    logoClass: lang.key,
+    options: { longFormat: false, followRedirect: true, trimRequestBody: true },
+    variant: lang.variants[0]?.key,
+    variants: lang.variants.map((v: { key: string }) => v.key),
+  }),
+)
 const config: Config = {
   customFields: {
     CLOUD_URL: process.env.CLOUD_URL || "https://api.console.ory:8080",
@@ -86,6 +100,25 @@ const config: Config = {
       indexName: "ory",
       contextualSearch: true,
     },
+    languageTabs: [
+      {
+        highlight: "typescript",
+        language: "TypeScript",
+        codeSampleLanguage: "TypeScript",
+        logoClass: "typescript",
+        variant: "fetch",
+        variants: [],
+      },
+      {
+        highlight: "go",
+        language: "go",
+        codeSampleLanguage: "Go",
+        logoClass: "go",
+        variant: "native",
+        variants: [],
+      },
+      ...postmanLanguageTabs,
+    ],
     navbar,
     footer: {
       style: "dark",
@@ -163,6 +196,29 @@ const config: Config = {
         editUrl: "https://github.com/ory/docs/edit/master",
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
+        disableVersioning: false,
+        include: ["**/*.md", "**/*.mdx", "**/*.jsx", "**/*.tsx"],
+        docRootComponent: "@theme/DocRoot",
+        docItemComponent: "@theme/ApiItem",
+      },
+    ],
+    [
+      "docusaurus-plugin-openapi-docs",
+      {
+        id: "openapi",
+        docsPluginId: "default",
+        config: {
+          talos: {
+            specPath: "docs/talos/reference/api.json",
+            outputDir: "docs/talos/reference/api",
+            sidebarOptions: { groupPathsBy: "tag" },
+          } satisfies OpenApiPlugin.Options,
+          ory: {
+            specPath: "src/static/api.json",
+            outputDir: "docs/reference/openapi",
+            sidebarOptions: { groupPathsBy: "tag" },
+          } satisfies OpenApiPlugin.Options,
+        },
       },
     ],
 
@@ -224,6 +280,7 @@ const config: Config = {
     ],
     "@docusaurus/theme-search-algolia",
     "docusaurus-theme-redoc",
+    "docusaurus-theme-openapi-docs",
   ],
   headTags: [],
 }

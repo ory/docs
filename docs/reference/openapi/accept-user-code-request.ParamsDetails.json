@@ -1,0 +1,1 @@
+{"parameters":[{"in":"query","name":"device_challenge","required":true,"schema":{"type":"string"}}]}
