@@ -1,5 +1,7 @@
 ---
+id: talos-opentelemetry
 title: OpenTelemetry tracing
+sidebar_label: OpenTelemetry tracing
 ---
 
 # OpenTelemetry tracing

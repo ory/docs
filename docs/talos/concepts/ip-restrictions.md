@@ -1,6 +1,8 @@
 ---
-title: IP restrictions
+id: ip-restrictions
+title: Ory Talos IP restrictions
 description: CIDR-based allowlists that restrict which client IPs can use an API key
+sidebar_label: IP restrictions
 ---
 
 # IP restrictions

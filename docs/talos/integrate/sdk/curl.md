@@ -1,6 +1,8 @@
 ---
+id: talos-curl
 title: curl cheat sheet
 description: Every Talos API endpoint as a copy-paste curl command
+sidebar_label: Curl cheat sheet
 ---
 
 # curl cheat sheet

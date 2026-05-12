@@ -1,6 +1,8 @@
 ---
-title: Benchmarks
+id: talos-performance-benchmarks
+title: Performance benchmarks
 description: Performance benchmarks and load testing for Ory Talos
+sidebar_label: Performance benchmarks
 ---
 
 # Benchmarks

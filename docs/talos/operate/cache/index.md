@@ -1,5 +1,7 @@
 ---
-title: Cache
+id: index
+title: Ory Talos Cache
+sidebar_label: Cache
 ---
 
 # Cache

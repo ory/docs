@@ -1,5 +1,7 @@
 ---
-title: TLS configuration
+id: talos-tls-configuration
+title: Ory Talos TLS configuration
+sidebar_label: TLS configuration
 ---
 
 # TLS configuration

@@ -1,7 +1,8 @@
 ---
 id: talos
-title: talos
+title: Ory Talos CLI
 description: talos
+sidebar_label: Ory Talos CLI
 ---
 
 <!--

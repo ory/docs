@@ -1,6 +1,8 @@
 ---
+id: talos-configure
 title: Configure
 description: Configuration reference for Ory Talos
+sidebar_label: Configure
 ---
 
 # Configure

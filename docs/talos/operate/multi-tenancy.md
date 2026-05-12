@@ -1,6 +1,8 @@
 ---
+id: talos-multi-tenancy
 title: Multi-tenancy
 tags: [commercial]
+sidebar_label: Multi-tenancy
 sidebar_custom_props:
   badge: Commercial
 ---

@@ -1,6 +1,8 @@
 ---
+id: talos-mysql
 title: MySQL
 tags: [commercial]
+sidebar_label: MySQL
 sidebar_custom_props:
   badge: Commercial
 ---

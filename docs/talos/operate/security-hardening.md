@@ -1,5 +1,7 @@
 ---
+id: security-hardening
 title: Security hardening
+sidebar_label: Security hardening
 ---
 
 # Security hardening

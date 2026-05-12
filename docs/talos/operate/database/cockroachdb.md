@@ -1,6 +1,8 @@
 ---
+id: talos-cockroachdb
 title: CockroachDB
 tags: [commercial]
+sidebar_label: CockroachDB
 sidebar_custom_props:
   badge: Commercial
 ---

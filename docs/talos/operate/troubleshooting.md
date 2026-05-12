@@ -1,5 +1,7 @@
 ---
-title: Troubleshooting
+id: talos-troubleshooting
+title: Ory Talos troubleshooting
+sidebar_label: Troubleshooting
 ---
 
 # Troubleshooting

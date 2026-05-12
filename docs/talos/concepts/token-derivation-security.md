@@ -1,6 +1,8 @@
 ---
+id: token-derivation-security
 title: Token derivation security
 description: Stateless verification model and revocation semantics for derived tokens
+sidebar_label: Token derivation security
 ---
 
 # Token derivation security

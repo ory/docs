@@ -1,6 +1,8 @@
 ---
+id: talos-go-sdk
 title: Go SDK
 description: Using the generated Go HTTP client
+sidebar_label: Go SDK
 ---
 
 # Go SDK

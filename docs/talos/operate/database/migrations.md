@@ -1,5 +1,7 @@
 ---
+id: talos-migrations
 title: Migrations
+sidebar_label: Migrations
 ---
 
 # Migrations

@@ -1,6 +1,8 @@
 ---
+id: talos-token-format-reference
 title: Token format reference
 description: API key and derived token structure
+sidebar_label: Token format reference
 ---
 
 # Token format

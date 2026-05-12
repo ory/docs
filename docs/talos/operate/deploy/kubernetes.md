@@ -1,5 +1,7 @@
 ---
+id: talos-kubernetes
 title: Kubernetes
+sidebar_label: Kubernetes
 ---
 
 # Kubernetes

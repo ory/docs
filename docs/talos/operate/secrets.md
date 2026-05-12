@@ -1,5 +1,7 @@
 ---
+id: secret-management
 title: Secret management
+sidebar_label: Secret management
 ---
 
 # Secret management

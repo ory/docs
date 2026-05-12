@@ -1,5 +1,7 @@
 ---
+id: index
 title: Ory Talos
+sidebar_label: Introduction to Ory Talos
 slug: /talos
 ---
 

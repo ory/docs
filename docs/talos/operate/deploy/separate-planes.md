@@ -1,5 +1,7 @@
 ---
+id: separate-planes
 title: Separate admin and data planes
+sidebar_label: Separate admin and data planes
 ---
 
 # Separate admin and data planes

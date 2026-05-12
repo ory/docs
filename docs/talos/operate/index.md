@@ -1,6 +1,8 @@
 ---
+id: talos-operate
 title: Operate
 description: Install, configure, and deploy Ory Talos
+sidebar_label: Operate
 ---
 
 # Operate Ory Talos

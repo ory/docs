@@ -1,6 +1,8 @@
 ---
+id: talos-postgresql
 title: PostgreSQL
 tags: [commercial]
+sidebar_label: PostgreSQL
 sidebar_custom_props:
   badge: Commercial
 ---

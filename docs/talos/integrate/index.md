@@ -1,6 +1,8 @@
 ---
-title: Integrate
+id: index
+title: Add API key authentication to your application
 description: Add API key authentication to your application
+sidebar_label: Add API key authentication
 ---
 
 # Integrate Ory Talos

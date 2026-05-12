@@ -1,5 +1,7 @@
 ---
+id: index
 title: Monitoring
+sidebar_label: Monitoring
 ---
 
 # Monitoring

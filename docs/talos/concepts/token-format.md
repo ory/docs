@@ -1,5 +1,7 @@
 ---
-title: Token format
+id: talos-token-format
+title: Ory Talos token format
+sidebar_label: Token format
 ---
 
 # Token format

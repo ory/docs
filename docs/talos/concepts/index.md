@@ -1,8 +1,10 @@
 ---
+id: index
 title: Concepts
+sidebar_label: Core ideas
 ---
 
-# Concepts
+# Core ideas
 
 Core ideas behind Ory Talos.
 

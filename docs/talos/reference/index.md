@@ -1,6 +1,8 @@
 ---
-title: Reference
+id: talos-reference
+title: Ory Talos Reference
 description: API, configuration, and technical reference
+sidebar_label: Reference Overview
 ---
 
 # Reference

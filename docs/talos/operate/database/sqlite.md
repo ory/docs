@@ -1,5 +1,7 @@
 ---
+id: talos-sqlite
 title: SQLite
+sidebar_label: SQLite
 ---
 
 # SQLite

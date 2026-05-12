@@ -1,5 +1,7 @@
 ---
+id: talos-prometheus-metrics
 title: Prometheus metrics
+sidebar_label: Prometheus metrics
 ---
 
 # Prometheus metrics

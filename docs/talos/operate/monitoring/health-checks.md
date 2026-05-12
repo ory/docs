@@ -1,5 +1,7 @@
 ---
+id: talos-health-checks
 title: Health checks
+sidebar_label: Health checks
 ---
 
 # Health checks

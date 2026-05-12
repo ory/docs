@@ -1,5 +1,7 @@
 ---
-title: Caching and consistency
+id: caching-consistency
+title: Ory Talos caching and consistency
+sidebar_label: Caching and consistency
 ---
 
 # Caching and consistency

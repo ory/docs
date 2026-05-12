@@ -1,6 +1,8 @@
 ---
+id: talos-in-memory-cache
 title: In-memory cache
 tags: [commercial]
+sidebar_label: In-memory cache
 sidebar_custom_props:
   badge: Commercial
 ---

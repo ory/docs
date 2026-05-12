@@ -1,5 +1,7 @@
 ---
+id: index
 title: Database
+sidebar_label: Database
 ---
 
 # Database

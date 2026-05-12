@@ -1,6 +1,8 @@
 ---
+id: talos-install
 title: Install
 description: Build Talos from source or download a pre-built binary
+sidebar_label: Install
 ---
 
 # Install

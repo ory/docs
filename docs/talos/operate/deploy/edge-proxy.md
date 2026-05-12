@@ -1,6 +1,8 @@
 ---
+id: edge-proxy
 title: Edge proxy
 tags: [commercial]
+sidebar_label: Edge proxy
 sidebar_custom_props:
   badge: Commercial
 ---

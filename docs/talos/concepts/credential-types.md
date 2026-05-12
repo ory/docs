@@ -1,5 +1,7 @@
 ---
+id: credential-types
 title: Credential types
+sidebar_label: Credential types
 ---
 
 # Credential types

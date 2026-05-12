@@ -1,5 +1,7 @@
 ---
+id: talos-security-model
 title: Security model
+sidebar_label: Security model
 ---
 
 # Security model

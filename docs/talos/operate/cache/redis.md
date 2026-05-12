@@ -1,6 +1,8 @@
 ---
+id: redis-cache
 title: Redis cache
 tags: [commercial]
+sidebar_label: Redis cache
 sidebar_custom_props:
   badge: Commercial
 ---

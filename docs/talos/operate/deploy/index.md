@@ -1,5 +1,7 @@
 ---
+id: index
 title: Deploy
+sidebar_label: Deploy
 ---
 
 # Deploy
