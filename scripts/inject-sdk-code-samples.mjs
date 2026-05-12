@@ -7,14 +7,14 @@
  * Then: npm run docusaurus -- gen-api-docs ory
  */
 
-import { readFileSync, writeFileSync, readdirSync } from "fs"
+import { readFileSync, writeFileSync, readdirSync, existsSync } from "fs"
 import { fileURLToPath } from "url"
 import { dirname, join } from "path"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const SPEC_PATH       = join(__dirname, "../src/static/api.json")
 const TS_API_PATH     = join(__dirname, "../../sdk/clients/client/typescript/api.ts")
-const GO_SDK_DIR      = join(__dirname, "../../sdk/clients/client/go")
+const GO_DOCS_DIR     = join(__dirname, "../../sdk/clients/client/go/docs")
 
 // ─── Tag → SDK identifiers ───────────────────────────────────────────────────
 
@@ -118,115 +118,37 @@ function generateTsSnippet(className, methodName, fields) {
   ].join("\n")
 }
 
-// ─── Go parsing ───────────────────────────────────────────────────────────────
+// ─── Go: read from pre-generated SDK docs ────────────────────────────────────
 
-function parseGoSdk(goDir) {
-  const serviceMethods = {}  // operationId → { serviceName, methodName, pathParams, requestType }
-  const requestSetters = {}  // requestTypeName → [{ setterName, paramName, paramType }]
+function parseGoDocsExamples(goDocsDir) {
+  const examples = {}  // operationId (camelCase) → go code string
 
-  for (const file of readdirSync(goDir)) {
-    if (!file.startsWith("api_") || !file.endsWith(".go")) continue
-    const content = readFileSync(join(goDir, file), "utf8")
+  for (const [tag, serviceName] of Object.entries(TAG_TO_GO_SERVICE)) {
+    const filePath = join(goDocsDir, `${serviceName}.md`)
+    if (!existsSync(filePath)) {
+      console.warn(`  WARN  Go docs not found: ${filePath}`)
+      continue
+    }
 
-    // Service entry-point methods
-    const methodRe = /^func \(a \*(\w+APIService)\) (\w+)\(ctx context\.Context(.*?)\) (\w+) \{/gm
-    let m
-    while ((m = methodRe.exec(content)) !== null) {
-      const serviceStruct = m[1]
-      const methodName    = m[2]
-      const paramsStr     = m[3]
-      const returnType    = m[4]
-      if (methodName.endsWith("Execute") || !returnType.endsWith("Request")) continue
+    const content = readFileSync(filePath, "utf8")
 
-      const serviceName = serviceStruct.replace("Service", "")
+    // Split on top-level ## headings (method sections)
+    const sections = content.split(/\n## /)
+    for (const section of sections) {
+      const methodMatch = section.match(/^(\w+)\n/)
+      if (!methodMatch) continue
+      const methodName = methodMatch[1]  // PascalCase, e.g. "GetCourierMessage"
+
+      // Find the ### Example block
+      const exampleMatch = section.match(/### Example\n\n```go\n([\s\S]*?)```/)
+      if (!exampleMatch) continue
+
       const operationId = methodName.charAt(0).toLowerCase() + methodName.slice(1)
-      serviceMethods[operationId] = {
-        serviceName,
-        methodName,
-        pathParams: parseGoPathParams(paramsStr),
-        requestType: returnType,
-      }
-    }
-
-    // Setter methods on request objects
-    const setterRe = /^func \(r (\w+Request)\) (\w+)\((\w+) ([^)]+)\) \w+Request \{/gm
-    while ((m = setterRe.exec(content)) !== null) {
-      const requestType = m[1]
-      const setterName  = m[2]
-      const paramName   = m[3]
-      const paramType   = m[4].trim()
-      if (setterName === "Execute") continue
-      if (!requestSetters[requestType]) requestSetters[requestType] = []
-      requestSetters[requestType].push({ setterName, paramName, paramType })
+      examples[operationId] = exampleMatch[1].trimEnd()
     }
   }
 
-  return { serviceMethods, requestSetters }
-}
-
-function parseGoPathParams(paramsStr) {
-  // paramsStr looks like: ", id string" or ", id string, name string" or ""
-  return paramsStr
-    .split(",")
-    .map((p) => p.trim())
-    .filter(Boolean)
-    .map((p) => {
-      const parts = p.trim().split(/\s+/)
-      return { name: parts[0], type: parts.slice(1).join(" ") }
-    })
-}
-
-/** PascalCase a camelCase name — used to map TS field names to Go setter names */
-function toPascalCase(name) {
-  return name.charAt(0).toUpperCase() + name.slice(1)
-}
-
-function goPlaceholder(type, name) {
-  if (type === "string")  return `"<${name}>"`
-  if (type === "int64" || type === "int32" || type === "float32" || type === "float64") return "0"
-  if (type === "bool")    return "false"
-  if (type.startsWith("[]")) return `[]ory.${type.slice(2)}{}`
-  if (type.startsWith("*"))  return `ory.New${type.slice(1)}()`
-  return `ory.${type}{}`
-}
-
-function generateGoSnippet(serviceField, methodName, pathParams, allSetters, requiredSetterNames) {
-  const callArgs = [
-    "context.Background()",
-    ...pathParams.map((p) => goPlaceholder(p.type, p.name)),
-  ]
-
-  const requiredSetters = allSetters.filter((s) =>
-    requiredSetterNames.has(s.setterName)
-  )
-
-  let call
-  if (requiredSetters.length === 0) {
-    call = `apiClient.${serviceField}.${methodName}(${callArgs.join(", ")}).Execute()`
-  } else {
-    const chains = requiredSetters
-      .map((s) => `\t\t${s.setterName}(${goPlaceholder(s.paramType, s.paramName)})`)
-      .join(".\n")
-    call = `apiClient.${serviceField}.${methodName}(${callArgs.join(", ")}).\n${chains}.\n\t\tExecute()`
-  }
-
-  return [
-    "package main", "",
-    "import (",
-    '\t"context"',
-    '\t"fmt"',
-    '\tory "github.com/ory/client-go"',
-    ")", "",
-    "func main() {",
-    "\tconfiguration := ory.NewConfiguration()",
-    "\tapiClient := ory.NewAPIClient(configuration)", "",
-    `\tresp, r, err := ${call}`,
-    "\tif err != nil {",
-    "\t\tpanic(err)",
-    "\t}",
-    "\tfmt.Println(resp, r)",
-    "}",
-  ].join("\n")
+  return examples
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
@@ -237,9 +159,9 @@ function main() {
   const tsInterfaces = parseTsRequestInterfaces(tsContent)
   console.log(`TS: parsed ${Object.keys(tsInterfaces).length} request interfaces`)
 
-  // Parse Go SDK
-  const { serviceMethods: goMethods, requestSetters: goSetters } = parseGoSdk(GO_SDK_DIR)
-  console.log(`Go: parsed ${Object.keys(goMethods).length} service methods`)
+  // Parse Go SDK docs
+  const goExamples = parseGoDocsExamples(GO_DOCS_DIR)
+  console.log(`Go: parsed ${Object.keys(goExamples).length} examples from SDK docs`)
 
   const spec = JSON.parse(readFileSync(SPEC_PATH, "utf8"))
   let injected = 0, skipped = 0
@@ -248,11 +170,10 @@ function main() {
     for (const op of Object.values(pathItem)) {
       if (!op || typeof op !== "object" || !op.operationId) continue
 
-      const tag       = op.tags?.[0]
-      const tsClass   = TAG_TO_TS_CLASS[tag]
-      const goService = TAG_TO_GO_SERVICE[tag]
+      const tag     = op.tags?.[0]
+      const tsClass = TAG_TO_TS_CLASS[tag]
 
-      if (!tsClass || !goService) {
+      if (!tsClass) {
         console.warn(`  SKIP  ${op.operationId} — unknown tag "${tag}"`)
         skipped++
         continue
@@ -263,27 +184,10 @@ function main() {
       const tsFields    = tsInterfaces[tsIfaceName] ?? []
       const tsSnippet   = generateTsSnippet(tsClass, op.operationId, tsFields)
 
-      // Go sample
-      const goMethod = goMethods[op.operationId]
-      let goSnippet = ""
-      if (goMethod) {
-        const allSetters = goSetters[goMethod.requestType] ?? []
-
-        // Required setters = TS required fields that aren't path params
-        const pathParamNames = new Set(goMethod.pathParams.map((p) => p.name))
-        const requiredSetterNames = new Set(
-          tsFields
-            .filter((f) => !f.optional && !pathParamNames.has(f.name))
-            .map((f) => toPascalCase(f.name))
-        )
-
-        goSnippet = generateGoSnippet(
-          goMethod.serviceName,
-          goMethod.methodName,
-          goMethod.pathParams,
-          allSetters,
-          requiredSetterNames,
-        )
+      // Go sample from pre-generated SDK docs
+      const goSnippet = goExamples[op.operationId] ?? ""
+      if (!goSnippet) {
+        console.warn(`  WARN  No Go example for ${op.operationId}`)
       }
 
       op["x-codeSamples"] = [

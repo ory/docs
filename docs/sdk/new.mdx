@@ -1,6 +1,6 @@
 ---
 id: new
-title: Ory Network OpenAPI reference index
+title: Ory Network SDK Reference
 description: Index of REST operations from the generated OpenAPI docs, grouped by tag.
 sidebar_label: OpenAPI reference index
 hide_table_of_contents: true
@@ -8,9 +8,24 @@ wide_layout: true
 ---
 
 import OpenApiReferenceIndex from "@site/src/components/OpenApiReferenceIndex"
+import SdkClientLibraries from "@site/src/components/SdkClientLibraries"
 
-The [Ory JavaScript / TypeScript client](https://www.npmjs.com/package/@ory/client) is generated from the same OpenAPI description
-as these pages. Use the links below to jump to a specific operation, or start from the
+<div style={{ display: "flex", gap: "2rem", alignItems: "flex-start", marginBottom: "2.5rem", flexWrap: "wrap" }}>
+  <div style={{ flex: "1 1 320px", minWidth: 0 }}>
+
+## Ory SDKs
+
+The Ory APIs are available as SDKs for all major languages. Each SDK is
+generated directly from the same OpenAPI description as this reference, so
+types and method signatures stay in sync with the API.
+
+Use the links below to jump to a specific operation, or start from the
 [OpenAPI introduction](../reference/openapi/ory-apis).
+
+  </div>
+  <div style={{ flex: "0 1 600px" }}>
+    <SdkClientLibraries />
+  </div>
+</div>
 
 <OpenApiReferenceIndex />

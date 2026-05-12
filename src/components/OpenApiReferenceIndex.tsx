@@ -270,12 +270,14 @@ export default function OpenApiReferenceIndex(): React.ReactElement {
   const apiOptions = (siteConfig.themeConfig as any)?.api
   const items = openapiSidebarItems as OpenApiSidebarItem[]
 
+  const SKIP_IDS = new Set(["reference/openapi/ory-apis"])
+
   let firstDocId: string | null = null
   outer: for (const item of items) {
-    if (isDoc(item)) { firstDocId = item.id; break }
+    if (isDoc(item) && !SKIP_IDS.has(item.id)) { firstDocId = item.id; break }
     if (isCategory(item)) {
       for (const child of item.items) {
-        if (isDoc(child)) { firstDocId = child.id; break outer }
+        if (isDoc(child) && !SKIP_IDS.has(child.id)) { firstDocId = child.id; break outer }
       }
     }
   }
@@ -284,6 +286,7 @@ export default function OpenApiReferenceIndex(): React.ReactElement {
     <div>
       {items.map((item, index) => {
         if (isDoc(item)) {
+          if (SKIP_IDS.has(item.id)) return null
           return (
             <EndpointItem
               key={item.id}

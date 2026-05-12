@@ -208,11 +208,6 @@ const config: Config = {
         id: "openapi",
         docsPluginId: "default",
         config: {
-          talos: {
-            specPath: "docs/talos/reference/api.json",
-            outputDir: "docs/talos/reference/api",
-            sidebarOptions: { groupPathsBy: "tag" },
-          } satisfies OpenApiPlugin.Options,
           ory: {
             specPath: "src/static/api.json",
             outputDir: "docs/reference/openapi",

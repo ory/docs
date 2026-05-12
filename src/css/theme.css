@@ -1428,3 +1428,22 @@ button.sidebar-deployment-model__link {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+
+.openapi-tabs__code-item--typescript {
+  color: #3178c6;
+}
+
+.openapi-tabs__code-item--typescript::after {
+  content: "";
+  width: var(--code-tab-logo-width, 24px);
+  height: var(--code-tab-logo-height, 24px);
+  background: url("https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg")
+    no-repeat center / contain;
+  margin-block: auto;
+  display: block;
+}
+
+.openapi-tabs__code-item--typescript.active {
+  box-shadow: 0 0 0 3px rgba(49, 120, 198, 0.3);
+  border-color: #3178c6;
+}
