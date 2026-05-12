@@ -1,1 +1,11 @@
-{"parameters":[{"description":"OAuth 2.0 Client ID","in":"path","name":"id","required":true,"schema":{"type":"string"}}]}
+{
+  "parameters": [
+    {
+      "description": "OAuth 2.0 Client ID",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

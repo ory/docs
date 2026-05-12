@@ -11,61 +11,31 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"The OAuth 2.0 Token Endpoint"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"The OAuth 2.0 Token Endpoint"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/oauth2/token"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/oauth2/token"} context={"endpoint"}></MethodEndpoint>
 
+Use open source libraries to perform OAuth 2.0 and OpenID Connect available for any programming language. You can find a list of
+libraries here https://oauth.net/code/
 
+This endpoint should not be used via the Ory SDK and is only included for technical reasons. Instead, use one of the libraries
+linked above.
 
-Use open source libraries to perform OAuth 2.0 and OpenID Connect
-available for any programming language. You can find a list of libraries here https://oauth.net/code/
-
-This endpoint should not be used via the Ory SDK and is only included for technical reasons.
-Instead, use one of the libraries linked above.
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./oauth-2-token-exchange.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./oauth-2-token-exchange.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./oauth-2-token-exchange.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./oauth-2-token-exchange.StatusCodes.json")}></StatusCodes>

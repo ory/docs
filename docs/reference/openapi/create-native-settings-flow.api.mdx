@@ -11,80 +11,49 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Create Settings Flow for Native Apps"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Create Settings Flow for Native Apps"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/self-service/settings/api"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"get"} path={"/self-service/settings/api"} context={"endpoint"}></MethodEndpoint>
 
-
-
-This endpoint initiates a settings flow for API clients such as mobile devices, smart TVs, and so on.
-You must provide a valid Ory Kratos Session Token for this endpoint to respond with HTTP 200 OK.
+This endpoint initiates a settings flow for API clients such as mobile devices, smart TVs, and so on. You must provide a valid Ory
+Kratos Session Token for this endpoint to respond with HTTP 200 OK.
 
 To fetch an existing settings flow call `/self-service/settings/flows?flow=<flow_id>`.
 
-You MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server
-Pages, NodeJS, PHP, Golang, ...) browser applications. Using this endpoint in these applications will make
-you vulnerable to a variety of CSRF attacks.
+You MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server Pages, NodeJS,
+PHP, Golang, ...) browser applications. Using this endpoint in these applications will make you vulnerable to a variety of CSRF
+attacks.
 
-Depending on your configuration this endpoint might return a 403 error if the session has a lower Authenticator
-Assurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn
-credentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user
-to sign in with the second factor or change the configuration.
+Depending on your configuration this endpoint might return a 403 error if the session has a lower Authenticator Assurance Level
+(AAL) than is possible for the identity. This can happen if the identity has password + webauthn credentials (which would result
+in AAL2) but the session has only AAL1. If this error occurs, ask the user to sign in with the second factor or change the
+configuration.
 
 In the case of an error, the `error.id` of the JSON response body can be one of:
 
-`security_csrf_violation`: Unable to fetch the flow because a CSRF violation occurred.
-`session_inactive`: No Ory Session was found - sign in a user first.
+`security_csrf_violation`: Unable to fetch the flow because a CSRF violation occurred. `session_inactive`: No Ory Session was
+found - sign in a user first.
 
 This endpoint MUST ONLY be used in scenarios such as native mobile apps (React Native, Objective C, Swift, Java, ...).
 
-More information can be found at [Ory Kratos User Settings & Profile Management Documentation](../self-service/flows/user-settings).
+More information can be found at
+[Ory Kratos User Settings & Profile Management Documentation](../self-service/flows/user-settings).
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./create-native-settings-flow.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./create-native-settings-flow.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./create-native-settings-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./create-native-settings-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./create-native-settings-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./create-native-settings-flow.StatusCodes.json")}></StatusCodes>

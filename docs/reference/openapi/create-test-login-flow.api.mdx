@@ -11,60 +11,29 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Create a test OIDC login flow"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Create a test OIDC login flow"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/admin/test-login-flows"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/admin/test-login-flows"} context={"endpoint"}></MethodEndpoint>
 
+Creates a dry-run OIDC test login flow pre-scoped to one provider. The returned flow carries a single-submit UI and a CSRF bearer
+token. No identity is persisted and no session is issued when the flow completes; the captured debug data is returned in the
+flow's test_context.
 
-
-Creates a dry-run OIDC test login flow pre-scoped to one provider. The
-returned flow carries a single-submit UI and a CSRF bearer token. No
-identity is persisted and no session is issued when the flow completes;
-the captured debug data is returned in the flow's test_context.
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./create-test-login-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./create-test-login-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./create-test-login-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./create-test-login-flow.StatusCodes.json")}></StatusCodes>

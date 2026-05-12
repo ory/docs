@@ -3,7 +3,10 @@ import { Provider } from "react-redux"
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment"
 import BrowserOnly from "@docusaurus/BrowserOnly"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
-import { createStoreWithState, createStoreWithoutState } from "@theme/ApiItem/store"
+import {
+  createStoreWithState,
+  createStoreWithoutState,
+} from "@theme/ApiItem/store"
 import { createAuth } from "@theme/ApiExplorer/Authorization/slice"
 import { createPersistenceMiddleware } from "@theme/ApiExplorer/persistenceMiddleware"
 import { createStorage } from "@theme/ApiExplorer/storage-utils"
@@ -67,7 +70,9 @@ function base64ToUint8Array(base64: string): Uint8Array {
 
 function decompressApi(encoded: string): any {
   try {
-    return JSON.parse(new TextDecoder().decode(ungzip(base64ToUint8Array(encoded))))
+    return JSON.parse(
+      new TextDecoder().decode(ungzip(base64ToUint8Array(encoded))),
+    )
   } catch {
     return null
   }
@@ -81,11 +86,18 @@ function buildStore(api: any, options: any) {
 
   const acceptArray = Object.entries(api.responses ?? {})
     .filter(([code]) => STATUS_2XX.test(code))
-    .flatMap(([, content]: [string, any]) => Object.keys(content?.content ?? {}))
+    .flatMap(([, content]: [string, any]) =>
+      Object.keys(content?.content ?? {}),
+    )
 
   const contentTypeArray = Object.keys(api.requestBody?.content ?? {})
 
-  const params: Record<string, any[]> = { path: [], query: [], header: [], cookie: [] }
+  const params: Record<string, any[]> = {
+    path: [],
+    query: [],
+    header: [],
+    cookie: [],
+  }
   for (const param of api.parameters ?? []) params[param.in]?.push(param)
 
   const auth = createAuth({
@@ -229,9 +241,21 @@ function EndpointItem({
       </button>
 
       {(loaded || loading) && (
-        <div style={{ display: expanded ? "flex" : "none", gap: "2rem", padding: "0 0.5rem 1rem", alignItems: "flex-start" }}>
+        <div
+          style={{
+            display: expanded ? "flex" : "none",
+            gap: "2rem",
+            padding: "0 0.5rem 1rem",
+            alignItems: "flex-start",
+          }}
+        >
           {loading || !loaded ? (
-            <div style={{ padding: "1rem", color: "var(--ifm-color-emphasis-500)" }}>
+            <div
+              style={{
+                padding: "1rem",
+                color: "var(--ifm-color-emphasis-500)",
+              }}
+            >
               Loading…
             </div>
           ) : (
@@ -253,7 +277,12 @@ function EndpointItem({
                   }}
                 >
                   <BrowserOnly fallback={<div />}>
-                    {() => <ApiExplorer item={loaded.api} infoPath={loaded.infoPath} />}
+                    {() => (
+                      <ApiExplorer
+                        item={loaded.api}
+                        infoPath={loaded.infoPath}
+                      />
+                    )}
                   </BrowserOnly>
                 </div>
               )}
@@ -274,10 +303,16 @@ export default function OpenApiReferenceIndex(): React.ReactElement {
 
   let firstDocId: string | null = null
   outer: for (const item of items) {
-    if (isDoc(item) && !SKIP_IDS.has(item.id)) { firstDocId = item.id; break }
+    if (isDoc(item) && !SKIP_IDS.has(item.id)) {
+      firstDocId = item.id
+      break
+    }
     if (isCategory(item)) {
       for (const child of item.items) {
-        if (isDoc(child) && !SKIP_IDS.has(child.id)) { firstDocId = child.id; break outer }
+        if (isDoc(child) && !SKIP_IDS.has(child.id)) {
+          firstDocId = child.id
+          break outer
+        }
       }
     }
   }
@@ -299,8 +334,13 @@ export default function OpenApiReferenceIndex(): React.ReactElement {
 
         if (isCategory(item)) {
           return (
-            <section key={`${item.label}-${index}`} style={{ marginBottom: "2rem" }}>
-              <h3 style={{ textTransform: "capitalize", marginBottom: "0.5rem" }}>
+            <section
+              key={`${item.label}-${index}`}
+              style={{ marginBottom: "2rem" }}
+            >
+              <h3
+                style={{ textTransform: "capitalize", marginBottom: "0.5rem" }}
+              >
                 {item.label}
               </h3>
               <div

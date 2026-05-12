@@ -1,1 +1,11 @@
-{"parameters":[{"description":"The id of the desired grant","in":"path","name":"id","required":true,"schema":{"type":"string"}}]}
+{
+  "parameters": [
+    {
+      "description": "The id of the desired grant",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

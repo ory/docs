@@ -11,81 +11,47 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Create Login Flow for Browsers"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Create Login Flow for Browsers"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/self-service/login/browser"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"get"} path={"/self-service/login/browser"} context={"endpoint"}></MethodEndpoint>
 
+This endpoint initializes a browser-based user login flow. This endpoint will set the appropriate cookies and anti-CSRF measures
+required for browser-based flows.
 
+If this endpoint is opened as a link in the browser, it will be redirected to `selfservice.flows.login.ui_url` with the flow ID
+set as the query parameter `?flow=`. If a valid user session exists already, the browser will be redirected to
+`urls.default_redirect_url` unless the query parameter `?refresh=true` was set.
 
-This endpoint initializes a browser-based user login flow. This endpoint will set the appropriate
-cookies and anti-CSRF measures required for browser-based flows.
+If this endpoint is called via an AJAX request, the response contains the flow without a redirect. In the case of an error, the
+`error.id` of the JSON response body can be one of:
 
-If this endpoint is opened as a link in the browser, it will be redirected to
-`selfservice.flows.login.ui_url` with the flow ID set as the query parameter `?flow=`. If a valid user session
-exists already, the browser will be redirected to `urls.default_redirect_url` unless the query parameter
-`?refresh=true` was set.
-
-If this endpoint is called via an AJAX request, the response contains the flow without a redirect. In the
-case of an error, the `error.id` of the JSON response body can be one of:
-
-`session_already_available`: The user is already signed in.
-`session_aal1_required`: Multi-factor auth (e.g. 2fa) was requested but the user has no session yet.
-`security_csrf_violation`: Unable to fetch the flow because a CSRF violation occurred.
+`session_already_available`: The user is already signed in. `session_aal1_required`: Multi-factor auth (e.g. 2fa) was requested
+but the user has no session yet. `security_csrf_violation`: Unable to fetch the flow because a CSRF violation occurred.
 `security_identity_mismatch`: The requested `?return_to` address is not allowed to be used. Adjust this in the configuration!
 
-The optional query parameter login_challenge is set when using Kratos with
-Hydra in an OAuth2 flow. See the oauth2_provider.url configuration
-option.
+The optional query parameter login_challenge is set when using Kratos with Hydra in an OAuth2 flow. See the oauth2_provider.url
+configuration option.
 
 This endpoint is NOT INTENDED for clients that do not have a browser (Chrome, Firefox, ...) as cookies are needed.
 
-More information can be found at [Ory Kratos User Login](https://www.ory.com/docs/kratos/self-service/flows/user-login) and [User Registration Documentation](https://www.ory.com/docs/kratos/self-service/flows/user-registration).
+More information can be found at [Ory Kratos User Login](https://www.ory.com/docs/kratos/self-service/flows/user-login) and
+[User Registration Documentation](https://www.ory.com/docs/kratos/self-service/flows/user-registration).
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./create-browser-login-flow.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./create-browser-login-flow.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./create-browser-login-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./create-browser-login-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./create-browser-login-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./create-browser-login-flow.StatusCodes.json")}></StatusCodes>

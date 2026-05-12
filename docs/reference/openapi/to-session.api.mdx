@@ -11,36 +11,22 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Check Who the Current HTTP Session Belongs To"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Check Who the Current HTTP Session Belongs To"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/sessions/whoami"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"get"} path={"/sessions/whoami"} context={"endpoint"}></MethodEndpoint>
 
-
-
-Uses the HTTP Headers in the GET request to determine (e.g. by using checking the cookies) who is authenticated.
-Returns a session object in the body or 401 if the credentials are invalid or no credentials were sent.
-When the request it successful it adds the user ID to the 'X-Kratos-Authenticated-Identity-Id' header
-in the response.
+Uses the HTTP Headers in the GET request to determine (e.g. by using checking the cookies) who is authenticated. Returns a session
+object in the body or 401 if the credentials are invalid or no credentials were sent. When the request it successful it adds the
+user ID to the 'X-Kratos-Authenticated-Identity-Id' header in the response.
 
 If you call this endpoint from a server-side application, you must forward the HTTP Cookie Header to this endpoint:
 
@@ -73,55 +59,36 @@ const session = await client.toSession("the-session-token", { tokenize_as: "exam
 console.log(session.tokenized) // The JWT
 ```
 
-Depending on your configuration this endpoint might return a 403 status code if the session has a lower Authenticator
-Assurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn
-credentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user
-to sign in with the second factor or change the configuration.
+Depending on your configuration this endpoint might return a 403 status code if the session has a lower Authenticator Assurance
+Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn credentials (which would
+result in AAL2) but the session has only AAL1. If this error occurs, ask the user to sign in with the second factor or change the
+configuration.
 
 This endpoint is useful for:
 
-AJAX calls. Remember to send credentials and set up CORS correctly!
-Reverse proxies and API Gateways
-Server-side calls - use the `X-Session-Token` header!
+AJAX calls. Remember to send credentials and set up CORS correctly! Reverse proxies and API Gateways Server-side calls - use the
+`X-Session-Token` header!
 
 This endpoint authenticates users by checking:
 
-if the `Cookie` HTTP header was set containing an Ory Kratos Session Cookie;
-if the `Authorization: bearer <ory-session-token>` HTTP header was set with a valid Ory Kratos Session Token;
-if the `X-Session-Token` HTTP header was set with a valid Ory Kratos Session Token.
+if the `Cookie` HTTP header was set containing an Ory Kratos Session Cookie; if the `Authorization: bearer <ory-session-token>`
+HTTP header was set with a valid Ory Kratos Session Token; if the `X-Session-Token` HTTP header was set with a valid Ory Kratos
+Session Token.
 
 If none of these headers are set or the cookie or token are invalid, the endpoint returns a HTTP 401 status code.
 
 As explained above, this request may fail due to several reasons. The `error.id` can be one of:
 
 `session_inactive`: No active session was found in the request (e.g. no Ory Session Cookie / Ory Session Token).
-`session_aal2_required`: An active session was found but it does not fulfil the Authenticator Assurance Level, implying that the session must (e.g.) authenticate the second factor.
+`session_aal2_required`: An active session was found but it does not fulfil the Authenticator Assurance Level, implying that the
+session must (e.g.) authenticate the second factor.
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./to-session.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./to-session.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./to-session.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./to-session.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./to-session.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./to-session.StatusCodes.json")}></StatusCodes>

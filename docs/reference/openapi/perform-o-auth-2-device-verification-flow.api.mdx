@@ -1,7 +1,8 @@
 ---
 id: perform-o-auth-2-device-verification-flow
 title: "OAuth 2.0 Device Verification Endpoint"
-description: "This is the device user verification endpoint. The user is redirected here when trying to log in using the device flow."
+description:
+  "This is the device user verification endpoint. The user is redirected here when trying to log in using the device flow."
 sidebar_label: "OAuth 2.0 Device Verification Endpoint"
 hide_title: true
 hide_table_of_contents: true
@@ -11,49 +12,23 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"OAuth 2.0 Device Verification Endpoint"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"OAuth 2.0 Device Verification Endpoint"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/oauth2/device/verify"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/oauth2/device/verify"} context={"endpoint"}></MethodEndpoint>
 
 This is the device user verification endpoint. The user is redirected here when trying to log in using the device flow.
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./perform-o-auth-2-device-verification-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./perform-o-auth-2-device-verification-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./perform-o-auth-2-device-verification-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./perform-o-auth-2-device-verification-flow.StatusCodes.json")}></StatusCodes>

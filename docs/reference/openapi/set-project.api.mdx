@@ -11,76 +11,42 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Update an Ory Network Project Configuration"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Update an Ory Network Project Configuration"}></Heading>
 
-<MethodEndpoint
-  method={"put"}
-  path={"/projects/{project_id}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"put"} path={"/projects/{project_id}"} context={"endpoint"}></MethodEndpoint>
 
+This endpoints allows you to update the Ory Network project configuration for individual services (identity, permission, ...). The
+configuration is fully compatible with the open source projects for the respective services (e.g. Ory Kratos for Identity, Ory
+Keto for Permissions).
 
-
-This endpoints allows you to update the Ory Network project configuration for
-individual services (identity, permission, ...). The configuration is fully compatible
-with the open source projects for the respective services (e.g. Ory Kratos for Identity, Ory Keto for Permissions).
-
-This endpoint expects the `version` key to be set in the payload. If it is unset, it
-will try to import the config as if it is from the most recent version.
+This endpoint expects the `version` key to be set in the payload. If it is unset, it will try to import the config as if it is
+from the most recent version.
 
 If you have an older version of a configuration, you should set the version key in the payload!
 
-While this endpoint is able to process all configuration items related to features (e.g. password reset),
-it does not support operational configuration items (e.g. port, tracing, logging) otherwise available in the
-open source.
+While this endpoint is able to process all configuration items related to features (e.g. password reset), it does not support
+operational configuration items (e.g. port, tracing, logging) otherwise available in the open source.
 
-For configuration items that can not be translated to the Ory Network, this endpoint will return a list of warnings
-to help you understand which parts of your config could not be processed.
+For configuration items that can not be translated to the Ory Network, this endpoint will return a list of warnings to help you
+understand which parts of your config could not be processed.
 
-Be aware that updating any service's configuration will completely override your current configuration for that
-service!
+Be aware that updating any service's configuration will completely override your current configuration for that service!
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./set-project.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./set-project.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./set-project.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./set-project.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./set-project.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./set-project.StatusCodes.json")}></StatusCodes>

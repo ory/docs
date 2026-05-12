@@ -11,77 +11,46 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Create Registration Flow for Native Apps"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Create Registration Flow for Native Apps"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/self-service/registration/api"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/self-service/registration/api"} context={"endpoint"}></MethodEndpoint>
 
 This endpoint initiates a registration flow for API clients such as mobile devices, smart TVs, and so on.
 
-If a valid provided session cookie or session token is provided, a 400 Bad Request error
-will be returned unless the URL query parameter `?refresh=true` is set.
+If a valid provided session cookie or session token is provided, a 400 Bad Request error will be returned unless the URL query
+parameter `?refresh=true` is set.
 
 To fetch an existing registration flow call `/self-service/registration/flows?flow=<flow_id>`.
 
-You MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server
-Pages, NodeJS, PHP, Golang, ...) browser applications. Using this endpoint in these applications will make
-you vulnerable to a variety of CSRF attacks.
+You MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server Pages, NodeJS,
+PHP, Golang, ...) browser applications. Using this endpoint in these applications will make you vulnerable to a variety of CSRF
+attacks.
 
 In the case of an error, the `error.id` of the JSON response body can be one of:
 
-`session_already_available`: The user is already signed in.
-`security_csrf_violation`: Unable to fetch the flow because a CSRF violation occurred.
+`session_already_available`: The user is already signed in. `security_csrf_violation`: Unable to fetch the flow because a CSRF
+violation occurred.
 
 This endpoint MUST ONLY be used in scenarios such as native mobile apps (React Native, Objective C, Swift, Java, ...).
 
-More information can be found at [Ory Kratos User Login](https://www.ory.com/docs/kratos/self-service/flows/user-login) and [User Registration Documentation](https://www.ory.com/docs/kratos/self-service/flows/user-registration).
+More information can be found at [Ory Kratos User Login](https://www.ory.com/docs/kratos/self-service/flows/user-login) and
+[User Registration Documentation](https://www.ory.com/docs/kratos/self-service/flows/user-registration).
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./create-native-registration-flow.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./create-native-registration-flow.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./create-native-registration-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./create-native-registration-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./create-native-registration-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./create-native-registration-flow.StatusCodes.json")}></StatusCodes>

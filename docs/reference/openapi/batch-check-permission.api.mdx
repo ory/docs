@@ -1,7 +1,9 @@
 ---
 id: batch-check-permission
 title: "Batch check permissions"
-description: "To learn how relationship tuples and the check works, head over to [the documentation](https://www.ory.com/docs/keto/concepts/api-overview)."
+description:
+  "To learn how relationship tuples and the check works, head over to [the
+  documentation](https://www.ory.com/docs/keto/concepts/api-overview)."
 sidebar_label: "Batch check permissions"
 hide_title: true
 hide_table_of_contents: true
@@ -11,59 +13,28 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Batch check permissions"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Batch check permissions"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/relation-tuples/batch/check"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/relation-tuples/batch/check"} context={"endpoint"}></MethodEndpoint>
 
+To learn how relationship tuples and the check works, head over to
+[the documentation](https://www.ory.com/docs/keto/concepts/api-overview).
 
-
-To learn how relationship tuples and the check works, head over to [the documentation](https://www.ory.com/docs/keto/concepts/api-overview).
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./batch-check-permission.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./batch-check-permission.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./batch-check-permission.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./batch-check-permission.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./batch-check-permission.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./batch-check-permission.StatusCodes.json")}></StatusCodes>

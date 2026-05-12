@@ -1,1 +1,18 @@
-{"parameters":[{"description":"The JSON Web Key Set","in":"path","name":"set","required":true,"schema":{"type":"string"}},{"description":"The JSON Web Key ID (kid)","in":"path","name":"kid","required":true,"schema":{"type":"string"}}]}
+{
+  "parameters": [
+    {
+      "description": "The JSON Web Key Set",
+      "in": "path",
+      "name": "set",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "The JSON Web Key ID (kid)",
+      "in": "path",
+      "name": "kid",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

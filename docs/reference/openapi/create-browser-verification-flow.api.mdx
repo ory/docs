@@ -1,7 +1,8 @@
 ---
 id: create-browser-verification-flow
 title: "Create Verification Flow for Browser Clients"
-description: "This endpoint initializes a browser-based account verification flow. Once initialized, the browser will be redirected to"
+description:
+  "This endpoint initializes a browser-based account verification flow. Once initialized, the browser will be redirected to"
 sidebar_label: "Create Verification Flow for Browser Clients"
 hide_title: true
 hide_table_of_contents: true
@@ -11,31 +12,18 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Create Verification Flow for Browser Clients"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Create Verification Flow for Browser Clients"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/self-service/verification/browser"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/self-service/verification/browser"} context={"endpoint"}></MethodEndpoint>
 
 This endpoint initializes a browser-based account verification flow. Once initialized, the browser will be redirected to
 `selfservice.flows.verification.ui_url` with the flow ID set as the query parameter `?flow=`.
@@ -44,33 +32,15 @@ If this endpoint is called via an AJAX request, the response contains the recove
 
 This endpoint is NOT INTENDED for API clients and only works with browsers (Chrome, Firefox, ...).
 
-More information can be found at [Ory Kratos Email and Phone Verification Documentation](https://www.ory.com/docs/kratos/self-service/flows/verify-email-account-activation).
+More information can be found at
+[Ory Kratos Email and Phone Verification Documentation](https://www.ory.com/docs/kratos/self-service/flows/verify-email-account-activation).
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./create-browser-verification-flow.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./create-browser-verification-flow.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./create-browser-verification-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./create-browser-verification-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./create-browser-verification-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./create-browser-verification-flow.StatusCodes.json")}></StatusCodes>

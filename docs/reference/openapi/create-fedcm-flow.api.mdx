@@ -11,49 +11,23 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Get FedCM Parameters"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Get FedCM Parameters"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/self-service/fed-cm/parameters"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/self-service/fed-cm/parameters"} context={"endpoint"}></MethodEndpoint>
 
 This endpoint returns a list of all available FedCM providers. It is only supported on the Ory Network.
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./create-fedcm-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./create-fedcm-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./create-fedcm-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./create-fedcm-flow.StatusCodes.json")}></StatusCodes>

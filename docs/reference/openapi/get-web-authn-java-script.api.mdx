@@ -11,31 +11,18 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Get WebAuthn JavaScript"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Get WebAuthn JavaScript"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/.well-known/ory/webauthn.js"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/.well-known/ory/webauthn.js"} context={"endpoint"}></MethodEndpoint>
 
 This endpoint provides JavaScript which is needed in order to perform WebAuthn login and registration.
 
@@ -45,23 +32,11 @@ If you are building a JavaScript Browser App (e.g. in ReactJS or AngularJS) you 
 <script src="https://public-kratos.example.org/.well-known/ory/webauthn.js" type="script" async />
 ```
 
-More information can be found at [Ory Kratos User Login](https://www.ory.com/docs/kratos/self-service/flows/user-login) and [User Registration Documentation](https://www.ory.com/docs/kratos/self-service/flows/user-registration).
+More information can be found at [Ory Kratos User Login](https://www.ory.com/docs/kratos/self-service/flows/user-login) and
+[User Registration Documentation](https://www.ory.com/docs/kratos/self-service/flows/user-registration).
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./get-web-authn-java-script.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./get-web-authn-java-script.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./get-web-authn-java-script.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./get-web-authn-java-script.StatusCodes.json")}></StatusCodes>

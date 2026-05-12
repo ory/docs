@@ -1,7 +1,8 @@
 ---
 id: get-json-web-key
 title: "Get JSON Web Key"
-description: "This endpoint returns a singular JSON Web Key contained in a set. It is identified by the set and the specific key ID (kid)."
+description:
+  "This endpoint returns a singular JSON Web Key contained in a set. It is identified by the set and the specific key ID (kid)."
 sidebar_label: "Get JSON Web Key"
 hide_title: true
 hide_table_of_contents: true
@@ -11,59 +12,27 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Get JSON Web Key"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Get JSON Web Key"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/admin/keys/{set}/{kid}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/admin/keys/{set}/{kid}"} context={"endpoint"}></MethodEndpoint>
 
 This endpoint returns a singular JSON Web Key contained in a set. It is identified by the set and the specific key ID (kid).
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./get-json-web-key.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./get-json-web-key.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./get-json-web-key.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./get-json-web-key.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./get-json-web-key.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./get-json-web-key.StatusCodes.json")}></StatusCodes>

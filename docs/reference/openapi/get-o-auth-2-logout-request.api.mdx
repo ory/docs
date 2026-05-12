@@ -11,59 +11,27 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Get OAuth 2.0 Session Logout Request"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Get OAuth 2.0 Session Logout Request"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/admin/oauth2/auth/requests/logout"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/admin/oauth2/auth/requests/logout"} context={"endpoint"}></MethodEndpoint>
 
 Use this endpoint to fetch an Ory OAuth 2.0 logout request.
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./get-o-auth-2-logout-request.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./get-o-auth-2-logout-request.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./get-o-auth-2-logout-request.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./get-o-auth-2-logout-request.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./get-o-auth-2-logout-request.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./get-o-auth-2-logout-request.StatusCodes.json")}></StatusCodes>

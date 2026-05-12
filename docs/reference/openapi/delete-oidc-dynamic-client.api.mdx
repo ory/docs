@@ -11,69 +11,40 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
 <Heading
   as={"h1"}
   className={"openapi__heading"}
   children={"Delete OAuth 2.0 Client using the OpenID Dynamic Client Registration Management Protocol"}
->
-</Heading>
+></Heading>
 
-<MethodEndpoint
-  method={"delete"}
-  path={"/oauth2/register/{id}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"delete"} path={"/oauth2/register/{id}"} context={"endpoint"}></MethodEndpoint>
 
+This endpoint behaves like the administrative counterpart (`deleteOAuth2Client`) but is capable of facing the public internet
+directly and can be used in self-service. It implements the OpenID Connect Dynamic Client Registration Protocol. This feature
+needs to be enabled in the configuration. This endpoint is disabled by default. It can be enabled by an administrator.
 
+To use this endpoint, you will need to present the client's authentication credentials. If the OAuth2 Client uses the Token
+Endpoint Authentication Method `client_secret_post`, you need to present the client secret in the URL query. If it uses
+`client_secret_basic`, present the Client ID and the Client Secret in the Authorization header.
 
-This endpoint behaves like the administrative counterpart (`deleteOAuth2Client`) but is capable of facing the
-public internet directly and can be used in self-service. It implements the OpenID Connect
-Dynamic Client Registration Protocol. This feature needs to be enabled in the configuration. This endpoint
-is disabled by default. It can be enabled by an administrator.
+OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are generated for
+applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.
 
-To use this endpoint, you will need to present the client's authentication credentials. If the OAuth2 Client
-uses the Token Endpoint Authentication Method `client_secret_post`, you need to present the client secret in the URL query.
-If it uses `client_secret_basic`, present the Client ID and the Client Secret in the Authorization header.
-
-OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are
-generated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./delete-oidc-dynamic-client.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./delete-oidc-dynamic-client.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./delete-oidc-dynamic-client.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./delete-oidc-dynamic-client.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./delete-oidc-dynamic-client.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./delete-oidc-dynamic-client.StatusCodes.json")}></StatusCodes>

@@ -1,1 +1,18 @@
-{"parameters":[{"description":"The part of the code return when initializing the flow.","in":"query","name":"init_code","required":true,"schema":{"type":"string"}},{"description":"The part of the code returned by the return_to URL.","in":"query","name":"return_to_code","required":true,"schema":{"type":"string"}}]}
+{
+  "parameters": [
+    {
+      "description": "The part of the code return when initializing the flow.",
+      "in": "query",
+      "name": "init_code",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "The part of the code returned by the return_to URL.",
+      "in": "query",
+      "name": "return_to_code",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

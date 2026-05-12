@@ -11,59 +11,27 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Get all members associated with this project"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Get all members associated with this project"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/projects/{project}/members"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/projects/{project}/members"} context={"endpoint"}></MethodEndpoint>
 
 This endpoint requires the user to be a member of the project with the role `OWNER` or `DEVELOPER`.
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./get-project-members.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./get-project-members.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./get-project-members.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./get-project-members.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./get-project-members.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./get-project-members.StatusCodes.json")}></StatusCodes>

@@ -11,101 +11,63 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Complete Settings Flow"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Complete Settings Flow"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/self-service/settings"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/self-service/settings"} context={"endpoint"}></MethodEndpoint>
 
+Use this endpoint to complete a settings flow by sending an identity's updated password. This endpoint behaves differently for API
+and browser flows.
 
+API-initiated flows expect `application/json` to be sent in the body and respond with HTTP 200 and an application/json body with
+the session token on success; HTTP 303 redirect to a fresh settings flow if the original flow expired with the appropriate error
+messages set; HTTP 400 on form validation errors. HTTP 401 when the endpoint is called without a valid session token. HTTP 403
+when `selfservice.flows.settings.privileged_session_max_age` was reached or the session's AAL is too low. Implies that the user
+needs to re-authenticate.
 
-Use this endpoint to complete a settings flow by sending an identity's updated password. This endpoint
-behaves differently for API and browser flows.
+Browser flows without HTTP Header `Accept` or with `Accept: text/*` respond with a HTTP 303 redirect to the post/after settings
+URL or the `return_to` value if it was set and if the flow succeeded; a HTTP 303 redirect to the Settings UI URL with the flow ID
+containing the validation errors otherwise. a HTTP 303 redirect to the login endpoint when
+`selfservice.flows.settings.privileged_session_max_age` was reached or the session's AAL is too low.
 
-API-initiated flows expect `application/json` to be sent in the body and respond with
-HTTP 200 and an application/json body with the session token on success;
-HTTP 303 redirect to a fresh settings flow if the original flow expired with the appropriate error messages set;
-HTTP 400 on form validation errors.
-HTTP 401 when the endpoint is called without a valid session token.
-HTTP 403 when `selfservice.flows.settings.privileged_session_max_age` was reached or the session's AAL is too low.
-Implies that the user needs to re-authenticate.
+Browser flows with HTTP Header `Accept: application/json` respond with HTTP 200 and a application/json body with the signed in
+identity and a `Set-Cookie` header on success; HTTP 303 redirect to a fresh login flow if the original flow expired with the
+appropriate error messages set; HTTP 401 when the endpoint is called without a valid session cookie. HTTP 403 when the page is
+accessed without a session cookie or the session's AAL is too low. HTTP 400 on form validation errors.
 
-Browser flows without HTTP Header `Accept` or with `Accept: text/*` respond with
-a HTTP 303 redirect to the post/after settings URL or the `return_to` value if it was set and if the flow succeeded;
-a HTTP 303 redirect to the Settings UI URL with the flow ID containing the validation errors otherwise.
-a HTTP 303 redirect to the login endpoint when `selfservice.flows.settings.privileged_session_max_age` was reached or the session's AAL is too low.
+Depending on your configuration this endpoint might return a 403 error if the session has a lower Authenticator Assurance Level
+(AAL) than is possible for the identity. This can happen if the identity has password + webauthn credentials (which would result
+in AAL2) but the session has only AAL1. If this error occurs, ask the user to sign in with the second factor (happens
+automatically for server-side browser flows) or change the configuration.
 
-Browser flows with HTTP Header `Accept: application/json` respond with
-HTTP 200 and a application/json body with the signed in identity and a `Set-Cookie` header on success;
-HTTP 303 redirect to a fresh login flow if the original flow expired with the appropriate error messages set;
-HTTP 401 when the endpoint is called without a valid session cookie.
-HTTP 403 when the page is accessed without a session cookie or the session's AAL is too low.
-HTTP 400 on form validation errors.
+If this endpoint is called with a `Accept: application/json` HTTP header, the response contains the flow without a redirect. In
+the case of an error, the `error.id` of the JSON response body can be one of:
 
-Depending on your configuration this endpoint might return a 403 error if the session has a lower Authenticator
-Assurance Level (AAL) than is possible for the identity. This can happen if the identity has password + webauthn
-credentials (which would result in AAL2) but the session has only AAL1. If this error occurs, ask the user
-to sign in with the second factor (happens automatically for server-side browser flows) or change the configuration.
+`session_refresh_required`: The identity requested to change something that needs a privileged session. Redirect the identity to
+the login init endpoint with query parameters `?refresh=true&return_to=<the-current-browser-url>`, or initiate a refresh login
+flow otherwise. `security_csrf_violation`: Unable to fetch the flow because a CSRF violation occurred. `session_inactive`: No Ory
+Session was found - sign in a user first. `security_identity_mismatch`: The flow was interrupted with `session_refresh_required`
+but apparently some other identity logged in instead. `security_identity_mismatch`: The requested `?return_to` address is not
+allowed to be used. Adjust this in the configuration! `browser_location_change_required`: Usually sent when an AJAX request
+indicates that the browser needs to open a specific URL. Most likely used in Social Sign In flows.
 
-If this endpoint is called with a `Accept: application/json` HTTP header, the response contains the flow without a redirect. In the
-case of an error, the `error.id` of the JSON response body can be one of:
+More information can be found at
+[Ory Kratos User Settings & Profile Management Documentation](../self-service/flows/user-settings).
 
-`session_refresh_required`: The identity requested to change something that needs a privileged session. Redirect
-the identity to the login init endpoint with query parameters `?refresh=true&return_to=<the-current-browser-url>`,
-or initiate a refresh login flow otherwise.
-`security_csrf_violation`: Unable to fetch the flow because a CSRF violation occurred.
-`session_inactive`: No Ory Session was found - sign in a user first.
-`security_identity_mismatch`: The flow was interrupted with `session_refresh_required` but apparently some other
-identity logged in instead.
-`security_identity_mismatch`: The requested `?return_to` address is not allowed to be used. Adjust this in the configuration!
-`browser_location_change_required`: Usually sent when an AJAX request indicates that the browser needs to open a specific URL.
-Most likely used in Social Sign In flows.
-
-More information can be found at [Ory Kratos User Settings & Profile Management Documentation](../self-service/flows/user-settings).
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./update-settings-flow.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./update-settings-flow.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./update-settings-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./update-settings-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./update-settings-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./update-settings-flow.StatusCodes.json")}></StatusCodes>

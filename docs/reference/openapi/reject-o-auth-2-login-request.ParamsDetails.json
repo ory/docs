@@ -1,1 +1,11 @@
-{"parameters":[{"description":"OAuth 2.0 Login Request Challenge","in":"query","name":"login_challenge","required":true,"schema":{"type":"string"}}]}
+{
+  "parameters": [
+    {
+      "description": "OAuth 2.0 Login Request Challenge",
+      "in": "query",
+      "name": "login_challenge",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

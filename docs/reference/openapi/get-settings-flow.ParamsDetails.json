@@ -1,1 +1,23 @@
-{"parameters":[{"description":"ID is the Settings Flow ID\n\nThe value for this parameter comes from `flow` URL Query parameter sent to your\napplication (e.g. `/settings?flow=abcde`).","in":"query","name":"id","required":true,"schema":{"type":"string"}},{"description":"The Session Token\n\nWhen using the SDK in an app without a browser, please include the\nsession token here.","in":"header","name":"X-Session-Token","schema":{"type":"string"}},{"description":"HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.","in":"header","name":"Cookie","schema":{"type":"string"}}]}
+{
+  "parameters": [
+    {
+      "description": "ID is the Settings Flow ID\n\nThe value for this parameter comes from `flow` URL Query parameter sent to your\napplication (e.g. `/settings?flow=abcde`).",
+      "in": "query",
+      "name": "id",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "The Session Token\n\nWhen using the SDK in an app without a browser, please include the\nsession token here.",
+      "in": "header",
+      "name": "X-Session-Token",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
+      "in": "header",
+      "name": "Cookie",
+      "schema": { "type": "string" }
+    }
+  ]
+}

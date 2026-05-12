@@ -11,64 +11,32 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Delete JSON Web Key"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Delete JSON Web Key"}></Heading>
 
-<MethodEndpoint
-  method={"delete"}
-  path={"/admin/keys/{set}/{kid}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"delete"} path={"/admin/keys/{set}/{kid}"} context={"endpoint"}></MethodEndpoint>
 
 Use this endpoint to delete a single JSON Web Key.
 
-A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A
-JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses
-this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens),
-and allows storing user-defined keys as well.
+A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a
+JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this
+functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing
+user-defined keys as well.
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./delete-json-web-key.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./delete-json-web-key.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./delete-json-web-key.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./delete-json-web-key.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./delete-json-web-key.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./delete-json-web-key.StatusCodes.json")}></StatusCodes>

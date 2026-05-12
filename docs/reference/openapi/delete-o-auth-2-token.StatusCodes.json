@@ -1,1 +1,41 @@
-{"responses":{"204":{"description":"Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is\ntypically 201."},"default":{"content":{"application/json":{"schema":{"description":"Error","properties":{"error":{"description":"Error","type":"string"},"error_debug":{"description":"Error Debug Information\n\nOnly available in dev mode.","type":"string"},"error_description":{"description":"Error Description","type":"string"},"error_hint":{"description":"Error Hint\n\nHelps the user identify the error cause.","example":"The redirect URL is not allowed.","type":"string"},"status_code":{"description":"HTTP Status Code","example":401,"format":"int64","type":"integer"}},"type":"object","title":"errorOAuth2"}}},"description":"errorOAuth2"}}}
+{
+  "responses": {
+    "204": {
+      "description": "Empty responses are sent when, for example, resources are deleted. The HTTP status code for empty responses is\ntypically 201."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error",
+            "properties": {
+              "error": { "description": "Error", "type": "string" },
+              "error_debug": {
+                "description": "Error Debug Information\n\nOnly available in dev mode.",
+                "type": "string"
+              },
+              "error_description": {
+                "description": "Error Description",
+                "type": "string"
+              },
+              "error_hint": {
+                "description": "Error Hint\n\nHelps the user identify the error cause.",
+                "example": "The redirect URL is not allowed.",
+                "type": "string"
+              },
+              "status_code": {
+                "description": "HTTP Status Code",
+                "example": 401,
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            "type": "object",
+            "title": "errorOAuth2"
+          }
+        }
+      },
+      "description": "errorOAuth2"
+    }
+  }
+}

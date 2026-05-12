@@ -11,62 +11,29 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Delete a test OIDC login flow"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Delete a test OIDC login flow"}></Heading>
 
-<MethodEndpoint
-  method={"delete"}
-  path={"/self-service/login/test"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"delete"} path={"/self-service/login/test"} context={"endpoint"}></MethodEndpoint>
 
+Deletes a dry-run OIDC test login flow. A flow whose debug payload has been captured requires the HMAC cookie set by the OIDC
+callback; a flow still in the initial choose-method state is deletable with just the flow ID (it carries no PII, and the admin may
+want to abandon it).
 
-
-Deletes a dry-run OIDC test login flow. A flow whose debug payload has
-been captured requires the HMAC cookie set by the OIDC callback; a flow
-still in the initial choose-method state is deletable with just the flow
-ID (it carries no PII, and the admin may want to abandon it).
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./delete-test-login-flow.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./delete-test-login-flow.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./delete-test-login-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./delete-test-login-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./delete-test-login-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./delete-test-login-flow.StatusCodes.json")}></StatusCodes>

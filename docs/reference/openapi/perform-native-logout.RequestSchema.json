@@ -1,1 +1,23 @@
-{"title":"Body","body":{"content":{"application/json":{"schema":{"description":"Perform Native Logout Request Body","properties":{"session_token":{"description":"The Session Token\n\nInvalidate this session token.","type":"string"}},"required":["session_token"],"type":"object","title":"performNativeLogoutBody"}}},"required":true,"x-originalParamName":"Body"}}
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Perform Native Logout Request Body",
+          "properties": {
+            "session_token": {
+              "description": "The Session Token\n\nInvalidate this session token.",
+              "type": "string"
+            }
+          },
+          "required": ["session_token"],
+          "type": "object",
+          "title": "performNativeLogoutBody"
+        }
+      }
+    },
+    "required": true,
+    "x-originalParamName": "Body"
+  }
+}

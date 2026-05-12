@@ -1,1 +1,11 @@
-{"parameters":[{"description":"Error is the error's ID","in":"query","name":"id","required":true,"schema":{"type":"string"}}]}
+{
+  "parameters": [
+    {
+      "description": "Error is the error's ID",
+      "in": "query",
+      "name": "id",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

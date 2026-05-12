@@ -11,66 +11,34 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Irrecoverably purge a project"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Irrecoverably purge a project"}></Heading>
 
-<MethodEndpoint
-  method={"delete"}
-  path={"/projects/{project_id}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"delete"} path={"/projects/{project_id}"} context={"endpoint"}></MethodEndpoint>
 
 !! Use with extreme caution !!
 
-Using this API endpoint you can purge (completely delete) a project and its data.
-This action can not be undone and will delete ALL your data.
+Using this API endpoint you can purge (completely delete) a project and its data. This action can not be undone and will delete
+ALL your data.
 
 Calling this endpoint will additionally delete custom domains and other related data.
 
 If the project is linked to a subscription, the subscription needs to be unlinked first.
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./purge-project.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./purge-project.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./purge-project.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./purge-project.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./purge-project.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./purge-project.StatusCodes.json")}></StatusCodes>

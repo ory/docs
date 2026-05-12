@@ -5,33 +5,33 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import ApiCodeBlock from "@theme/ApiExplorer/ApiCodeBlock";
-import buildPostmanRequest from "@theme/ApiExplorer/buildPostmanRequest";
-import CodeTabs from "@theme/ApiExplorer/CodeTabs";
-import { useResolvedEncoding } from "@theme/ApiExplorer/EncodingSelection/useResolvedEncoding";
-import { useTypedSelector } from "@theme/ApiItem/hooks";
-import cloneDeep from "lodash/cloneDeep";
-import codegen from "postman-code-generators";
-import * as sdk from "postman-collection";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
+import ApiCodeBlock from "@theme/ApiExplorer/ApiCodeBlock"
+import buildPostmanRequest from "@theme/ApiExplorer/buildPostmanRequest"
+import CodeTabs from "@theme/ApiExplorer/CodeTabs"
+import { useResolvedEncoding } from "@theme/ApiExplorer/EncodingSelection/useResolvedEncoding"
+import { useTypedSelector } from "@theme/ApiItem/hooks"
+import cloneDeep from "lodash/cloneDeep"
+import codegen from "postman-code-generators"
+import * as sdk from "postman-collection"
 
-import { CodeSample, Language } from "./code-snippets-types";
+import { CodeSample, Language } from "./code-snippets-types"
 import {
   getCodeSampleSourceFromLanguage,
   mergeArraysbyLanguage,
   mergeCodeSampleLanguage,
   generateLanguageSet,
-} from "./languages";
+} from "./languages"
 
-export const languageSet: Language[] = generateLanguageSet();
+export const languageSet: Language[] = generateLanguageSet()
 
 export interface Props {
-  postman: sdk.Request;
-  codeSamples: CodeSample[];
-  maskCredentials?: boolean;
-  requestBody?: import("docusaurus-plugin-openapi-docs/src/openapi/types").RequestBodyObject;
+  postman: sdk.Request
+  codeSamples: CodeSample[]
+  maskCredentials?: boolean
+  requestBody?: import("docusaurus-plugin-openapi-docs/src/openapi/types").RequestBodyObject
 }
 
 function CodeTab({ children, hidden, className }: any): React.JSX.Element {
@@ -39,7 +39,7 @@ function CodeTab({ children, hidden, className }: any): React.JSX.Element {
     <div role="tabpanel" className={className} {...{ hidden }}>
       {children}
     </div>
-  );
+  )
 }
 
 function CodeSnippets({
@@ -48,57 +48,56 @@ function CodeSnippets({
   maskCredentials: propMaskCredentials,
   requestBody,
 }: Props) {
-  const { siteConfig } = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext()
 
-  const contentType = useTypedSelector((state: any) => state.contentType.value);
-  const accept = useTypedSelector((state: any) => state.accept.value);
-  const server = useTypedSelector((state: any) => state.server.value);
-  const body = useTypedSelector((state: any) => state.body);
+  const contentType = useTypedSelector((state: any) => state.contentType.value)
+  const accept = useTypedSelector((state: any) => state.accept.value)
+  const server = useTypedSelector((state: any) => state.server.value)
+  const body = useTypedSelector((state: any) => state.body)
 
-  const pathParams = useTypedSelector((state: any) => state.params.path);
-  const queryParams = useTypedSelector((state: any) => state.params.query);
-  const cookieParams = useTypedSelector((state: any) => state.params.cookie);
-  const headerParams = useTypedSelector((state: any) => state.params.header);
+  const pathParams = useTypedSelector((state: any) => state.params.path)
+  const queryParams = useTypedSelector((state: any) => state.params.query)
+  const cookieParams = useTypedSelector((state: any) => state.params.cookie)
+  const headerParams = useTypedSelector((state: any) => state.params.header)
 
-  const auth = useTypedSelector((state: any) => state.auth);
+  const auth = useTypedSelector((state: any) => state.auth)
 
   // Check if credential masking is enabled (default: true)
-  const maskCredentials = propMaskCredentials ?? true;
+  const maskCredentials = propMaskCredentials ?? true
 
   // Clone Auth if maskCredentials is not false
   const cleanedAuth = maskCredentials
     ? (() => {
-        const clonedAuth = cloneDeep(auth);
-        let placeholder: string;
+        const clonedAuth = cloneDeep(auth)
+        let placeholder: string
 
         function cleanCredentials(obj: any) {
           for (const key in obj) {
             if (typeof obj[key] === "object" && obj[key] !== null) {
               // use name as placeholder if exists
-              const comboAuthId = Object.keys(obj).join(" and ");
+              const comboAuthId = Object.keys(obj).join(" and ")
               const authOptions =
-                clonedAuth?.options?.[key] ??
-                clonedAuth?.options?.[comboAuthId];
+                clonedAuth?.options?.[key] ?? clonedAuth?.options?.[comboAuthId]
               placeholder = authOptions?.find(
-                (opt: any) => opt.key === key
-              )?.name;
-              obj[key] = cleanCredentials(obj[key]);
+                (opt: any) => opt.key === key,
+              )?.name
+              obj[key] = cleanCredentials(obj[key])
             } else {
-              obj[key] = `<${placeholder ?? key}>`;
+              obj[key] = `<${placeholder ?? key}>`
             }
           }
 
-          return obj;
+          return obj
         }
 
         return {
           ...clonedAuth,
           data: cleanCredentials(clonedAuth.data),
-        };
+        }
       })()
-    : auth;
+    : auth
 
-  const encoding = useResolvedEncoding(requestBody);
+  const encoding = useResolvedEncoding(requestBody)
 
   // Create a Postman request object using cleanedAuth or original auth
   const cleanedPostmanRequest = buildPostmanRequest(postman, {
@@ -112,50 +111,50 @@ function CodeSnippets({
     server,
     auth: cleanedAuth,
     encoding,
-  });
+  })
 
   // User-defined languages array
   // Can override languageSet, change order of langs, override options and variants
   const userDefinedLanguageSet =
     (siteConfig?.themeConfig?.languageTabs as Language[] | undefined) ??
-    languageSet;
+    languageSet
 
   // Filter languageSet by user-defined langs
   const filteredLanguageSet = languageSet.filter((ls) => {
     return userDefinedLanguageSet?.some((lang) => {
-      return lang.language === ls.language;
-    });
-  });
+      return lang.language === ls.language
+    })
+  })
 
   // Merge user-defined langs into languageSet
   const mergedLangs = mergeCodeSampleLanguage(
     mergeArraysbyLanguage(userDefinedLanguageSet, filteredLanguageSet),
-    codeSamples
-  );
+    codeSamples,
+  )
 
   // Read defaultLang from localStorage
   const defaultLang: Language[] = mergedLangs.filter(
     (lang) =>
-      lang.language === localStorage.getItem("docusaurus.tab.code-samples")
-  );
-  const [selectedVariant, setSelectedVariant] = useState<string | undefined>();
-  const [selectedSample, setSelectedSample] = useState<string | undefined>();
+      lang.language === localStorage.getItem("docusaurus.tab.code-samples"),
+  )
+  const [selectedVariant, setSelectedVariant] = useState<string | undefined>()
+  const [selectedSample, setSelectedSample] = useState<string | undefined>()
   const [language, setLanguage] = useState(() => {
     // Return first index if only 1 user-defined language exists
     if (mergedLangs.length === 1) {
-      return mergedLangs[0];
+      return mergedLangs[0]
     }
     // Fall back to language in localStorage or first user-defined language
-    return defaultLang[0] ?? mergedLangs[0];
-  });
-  const [codeText, setCodeText] = useState<string>("");
+    return defaultLang[0] ?? mergedLangs[0]
+  })
+  const [codeText, setCodeText] = useState<string>("")
   const [codeSampleCodeText, setCodeSampleCodeText] = useState<string>(() =>
-    getCodeSampleSourceFromLanguage(language)
-  );
+    getCodeSampleSourceFromLanguage(language),
+  )
 
   useEffect(() => {
     if (language && !!language.sample) {
-      setCodeSampleCodeText(getCodeSampleSourceFromLanguage(language));
+      setCodeSampleCodeText(getCodeSampleSourceFromLanguage(language))
     }
 
     if (language && !!language.options) {
@@ -166,20 +165,20 @@ function CodeSnippets({
         language.options,
         (error: any, snippet: string) => {
           if (error) {
-            return;
+            return
           }
-          setCodeText(snippet);
-        }
-      );
+          setCodeText(snippet)
+        },
+      )
     } else if (language && !language.options) {
       const langSource = mergedLangs.filter(
-        (lang) => lang.language === language.language
-      );
+        (lang) => lang.language === language.language,
+      )
 
       // Merges user-defined language with default languageSet
       // This allows users to define only the minimal properties necessary in languageTabs
       // User-defined properties should override languageSet properties
-      const mergedLanguage = { ...langSource[0], ...language };
+      const mergedLanguage = { ...langSource[0], ...language }
       codegen.convert(
         mergedLanguage.language,
         mergedLanguage.variant,
@@ -187,13 +186,13 @@ function CodeSnippets({
         mergedLanguage.options,
         (error: any, snippet: string) => {
           if (error) {
-            return;
+            return
           }
-          setCodeText(snippet);
-        }
-      );
+          setCodeText(snippet)
+        },
+      )
     } else {
-      setCodeText("");
+      setCodeText("")
     }
   }, [
     accept,
@@ -208,7 +207,7 @@ function CodeSnippets({
     server,
     cleanedPostmanRequest,
     mergedLangs,
-  ]);
+  ])
   // no dependencies was intentionally set for this particular hook. it's safe as long as if conditions are set
   useEffect(function onSelectedVariantUpdate() {
     if (selectedVariant && selectedVariant !== language?.variant) {
@@ -219,13 +218,13 @@ function CodeSnippets({
         language.options,
         (error: any, snippet: string) => {
           if (error) {
-            return;
+            return
           }
-          setCodeText(snippet);
-        }
-      );
+          setCodeText(snippet)
+        },
+      )
     }
-  });
+  })
 
   // no dependencies was intentionally set for this particular hook. it's safe as long as if conditions are set
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -238,14 +237,14 @@ function CodeSnippets({
       selectedSample !== language.sample
     ) {
       const sampleIndex = language.samples.findIndex(
-        (smp) => smp === selectedSample
-      );
-      setCodeSampleCodeText(language.samplesSources[sampleIndex]);
+        (smp) => smp === selectedSample,
+      )
+      setCodeSampleCodeText(language.samplesSources[sampleIndex])
     }
-  });
+  })
 
   if (language === undefined) {
-    return null;
+    return null
   }
 
   return (
@@ -309,7 +308,7 @@ function CodeSnippets({
                           {codeSampleCodeText}
                         </ApiCodeBlock>
                       </CodeTab>
-                    );
+                    )
                   })}
                 </CodeTabs>
               )}
@@ -347,16 +346,16 @@ function CodeSnippets({
                           {codeText}
                         </ApiCodeBlock>
                       </CodeTab>
-                    );
+                    )
                   })}
                 </CodeTabs>
               )}
             </CodeTab>
-          );
+          )
         })}
       </CodeTabs>
     </>
-  );
+  )
 }
 
-export default CodeSnippets;
+export default CodeSnippets

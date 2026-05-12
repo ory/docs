@@ -1,4 +1,4 @@
-import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
+import type { SidebarsConfig } from "@docusaurus/plugin-content-docs"
 
 const sidebar: SidebarsConfig = {
   apisidebar: [
@@ -403,13 +403,15 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "reference/openapi/create-oidc-dynamic-client",
-          label: "Register OAuth2 Client using OpenID Dynamic Client Registration",
+          label:
+            "Register OAuth2 Client using OpenID Dynamic Client Registration",
           className: "api-method post",
         },
         {
           type: "doc",
           id: "reference/openapi/delete-oidc-dynamic-client",
-          label: "Delete OAuth 2.0 Client using the OpenID Dynamic Client Registration Management Protocol",
+          label:
+            "Delete OAuth 2.0 Client using the OpenID Dynamic Client Registration Management Protocol",
           className: "api-method delete",
         },
         {
@@ -559,7 +561,8 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "reference/openapi/revoke-o-auth-2-login-sessions",
-          label: "Revokes OAuth 2.0 Login Sessions by either a Subject or a SessionID",
+          label:
+            "Revokes OAuth 2.0 Login Sessions by either a Subject or a SessionID",
           className: "api-method delete",
         },
         {
@@ -571,7 +574,8 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "reference/openapi/delete-o-auth-2-token",
-          label: "Delete OAuth 2.0 Access Tokens from specific OAuth 2.0 Client",
+          label:
+            "Delete OAuth 2.0 Access Tokens from specific OAuth 2.0 Client",
           className: "api-method delete",
         },
         {
@@ -817,7 +821,8 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "reference/openapi/patch-project-with-revision",
-          label: "Patch an Ory Network Project Configuration based on a revision ID",
+          label:
+            "Patch an Ory Network Project Configuration based on a revision ID",
           className: "api-method patch",
         },
         {
@@ -859,7 +864,8 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "reference/openapi/list-event-streams",
-          label: "List all event streams for the project. This endpoint is not paginated.",
+          label:
+            "List all event streams for the project. This endpoint is not paginated.",
           className: "api-method get",
         },
         {
@@ -979,6 +985,6 @@ const sidebar: SidebarsConfig = {
       ],
     },
   ],
-};
+}
 
-export default sidebar.apisidebar;
+export default sidebar.apisidebar

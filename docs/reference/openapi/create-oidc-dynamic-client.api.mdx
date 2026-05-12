@@ -11,67 +11,39 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
 <Heading
   as={"h1"}
   className={"openapi__heading"}
   children={"Register OAuth2 Client using OpenID Dynamic Client Registration"}
->
-</Heading>
+></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/oauth2/register"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/oauth2/register"} context={"endpoint"}></MethodEndpoint>
 
+This endpoint behaves like the administrative counterpart (`createOAuth2Client`) but is capable of facing the public internet
+directly and can be used in self-service. It implements the OpenID Connect Dynamic Client Registration Protocol. This feature
+needs to be enabled in the configuration. This endpoint is disabled by default. It can be enabled by an administrator.
 
+Please note that using this endpoint you are not able to choose the `client_secret` nor the `client_id` as those values will be
+server generated when specifying `token_endpoint_auth_method` as `client_secret_basic` or `client_secret_post`.
 
-This endpoint behaves like the administrative counterpart (`createOAuth2Client`) but is capable of facing the
-public internet directly and can be used in self-service. It implements the OpenID Connect
-Dynamic Client Registration Protocol. This feature needs to be enabled in the configuration. This endpoint
-is disabled by default. It can be enabled by an administrator.
+The `client_secret` will be returned in the response and you will not be able to retrieve it later on. Write the secret down and
+keep it somewhere safe.
 
-Please note that using this endpoint you are not able to choose the `client_secret` nor the `client_id` as those
-values will be server generated when specifying `token_endpoint_auth_method` as `client_secret_basic` or
-`client_secret_post`.
-
-The `client_secret` will be returned in the response and you will not be able to retrieve it later on.
-Write the secret down and keep it somewhere safe.
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./create-oidc-dynamic-client.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./create-oidc-dynamic-client.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./create-oidc-dynamic-client.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./create-oidc-dynamic-client.StatusCodes.json")}></StatusCodes>

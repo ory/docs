@@ -11,78 +11,46 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Create multiple identities"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Create multiple identities"}></Heading>
 
-<MethodEndpoint
-  method={"patch"}
-  path={"/admin/identities"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"patch"} path={"/admin/identities"} context={"endpoint"}></MethodEndpoint>
 
 Creates multiple [identities](https://www.ory.com/docs/kratos/concepts/identity-user-model).
 
-You can also use this endpoint to [import credentials](https://www.ory.com/docs/kratos/manage-identities/import-user-accounts-identities),
-including passwords, social sign-in settings, and multi-factor authentication methods.
+You can also use this endpoint to
+[import credentials](https://www.ory.com/docs/kratos/manage-identities/import-user-accounts-identities), including passwords,
+social sign-in settings, and multi-factor authentication methods.
 
 If the patch includes hashed passwords you can import up to 1,000 identities per request.
 
 If the patch includes at least one plaintext password you can import up to 200 identities per request.
 
-Avoid importing large batches with plaintext passwords. They can cause timeouts as the passwords need to be hashed before they are stored.
+Avoid importing large batches with plaintext passwords. They can cause timeouts as the passwords need to be hashed before they are
+stored.
 
-If at least one identity is imported successfully, the response status is 200 OK.
-If all imports fail, the response is one of the following 4xx errors:
-400 Bad Request: The request payload is invalid or improperly formatted.
-409 Conflict: Duplicate identities or conflicting data were detected.
+If at least one identity is imported successfully, the response status is 200 OK. If all imports fail, the response is one of the
+following 4xx errors: 400 Bad Request: The request payload is invalid or improperly formatted. 409 Conflict: Duplicate identities
+or conflicting data were detected.
 
-If you get a 504 Gateway Timeout:
-Reduce the batch size
-Avoid duplicate identities
-Pre-hash passwords with BCrypt
+If you get a 504 Gateway Timeout: Reduce the batch size Avoid duplicate identities Pre-hash passwords with BCrypt
 
 If the issue persists, contact support.
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./batch-patch-identities.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./batch-patch-identities.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./batch-patch-identities.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./batch-patch-identities.StatusCodes.json")}></StatusCodes>

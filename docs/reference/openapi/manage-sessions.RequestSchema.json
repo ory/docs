@@ -1,1 +1,35 @@
-{"title":"Body","body":{"content":{"application/json":{"schema":{"description":"Body for the bulk session management endpoint. Exactly one of `identities`\nor `sessions` must be provided. To operate on every session in the network,\npass `identities: [\"*\"]` — the wildcard must appear alone, never mixed with\nexplicit IDs.","properties":{"action":{"description":"Action to perform on the matching sessions.\ndisable ManageSessionsActionDisable\ndelete ManageSessionsActionDelete","enum":["disable","delete"],"type":"string","x-go-enum-desc":"disable ManageSessionsActionDisable\ndelete ManageSessionsActionDelete"},"identities":{"description":"Identity IDs whose sessions should be disabled or deleted, or `[\"*\"]`\nto operate on every session in the network. Mutually exclusive with\n`sessions`.","items":{"type":"string"},"type":"array"},"sessions":{"description":"Session IDs to disable or delete. Mutually exclusive with `identities`.\nThe wildcard `[\"*\"]` is not accepted in this field — pass\n`identities: [\"*\"]` to scope the operation to every session in the\nnetwork.","items":{"type":"string"},"type":"array"}},"required":["action"],"title":"Manage Sessions Body","type":"object"}}},"required":true,"x-originalParamName":"Body"}}
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Body for the bulk session management endpoint. Exactly one of `identities`\nor `sessions` must be provided. To operate on every session in the network,\npass `identities: [\"*\"]` — the wildcard must appear alone, never mixed with\nexplicit IDs.",
+          "properties": {
+            "action": {
+              "description": "Action to perform on the matching sessions.\ndisable ManageSessionsActionDisable\ndelete ManageSessionsActionDelete",
+              "enum": ["disable", "delete"],
+              "type": "string",
+              "x-go-enum-desc": "disable ManageSessionsActionDisable\ndelete ManageSessionsActionDelete"
+            },
+            "identities": {
+              "description": "Identity IDs whose sessions should be disabled or deleted, or `[\"*\"]`\nto operate on every session in the network. Mutually exclusive with\n`sessions`.",
+              "items": { "type": "string" },
+              "type": "array"
+            },
+            "sessions": {
+              "description": "Session IDs to disable or delete. Mutually exclusive with `identities`.\nThe wildcard `[\"*\"]` is not accepted in this field — pass\n`identities: [\"*\"]` to scope the operation to every session in the\nnetwork.",
+              "items": { "type": "string" },
+              "type": "array"
+            }
+          },
+          "required": ["action"],
+          "title": "Manage Sessions Body",
+          "type": "object"
+        }
+      }
+    },
+    "required": true,
+    "x-originalParamName": "Body"
+  }
+}

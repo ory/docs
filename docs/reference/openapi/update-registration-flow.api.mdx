@@ -11,86 +11,52 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Update Registration Flow"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Update Registration Flow"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/self-service/registration"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/self-service/registration"} context={"endpoint"}></MethodEndpoint>
 
+Use this endpoint to complete a registration flow by sending an identity's traits and password. This endpoint behaves differently
+for API and browser flows.
 
+API flows expect `application/json` to be sent in the body and respond with HTTP 200 and a application/json body with the created
+identity success - if the session hook is configured the `session` and `session_token` will also be included; HTTP 410 if the
+original flow expired with the appropriate error messages set and optionally a `use_flow_id` parameter in the body; HTTP 400 on
+form validation errors.
 
-Use this endpoint to complete a registration flow by sending an identity's traits and password. This endpoint
-behaves differently for API and browser flows.
+Browser flows expect a Content-Type of `application/x-www-form-urlencoded` or `application/json` to be sent in the body and
+respond with a HTTP 303 redirect to the post/after registration URL or the `return_to` value if it was set and if the registration
+succeeded; a HTTP 303 redirect to the registration UI URL with the flow ID containing the validation errors otherwise.
 
-API flows expect `application/json` to be sent in the body and respond with
-HTTP 200 and a application/json body with the created identity success - if the session hook is configured the
-`session` and `session_token` will also be included;
-HTTP 410 if the original flow expired with the appropriate error messages set and optionally a `use_flow_id` parameter in the body;
-HTTP 400 on form validation errors.
+Browser flows with an accept header of `application/json` will not redirect but instead respond with HTTP 200 and a
+application/json body with the signed in identity and a `Set-Cookie` header on success; HTTP 303 redirect to a fresh login flow if
+the original flow expired with the appropriate error messages set; HTTP 400 on form validation errors.
 
-Browser flows expect a Content-Type of `application/x-www-form-urlencoded` or `application/json` to be sent in the body and respond with
-a HTTP 303 redirect to the post/after registration URL or the `return_to` value if it was set and if the registration succeeded;
-a HTTP 303 redirect to the registration UI URL with the flow ID containing the validation errors otherwise.
+If this endpoint is called with `Accept: application/json` in the header, the response contains the flow without a redirect. In
+the case of an error, the `error.id` of the JSON response body can be one of:
 
-Browser flows with an accept header of `application/json` will not redirect but instead respond with
-HTTP 200 and a application/json body with the signed in identity and a `Set-Cookie` header on success;
-HTTP 303 redirect to a fresh login flow if the original flow expired with the appropriate error messages set;
-HTTP 400 on form validation errors.
+`session_already_available`: The user is already signed in. `security_csrf_violation`: Unable to fetch the flow because a CSRF
+violation occurred. `security_identity_mismatch`: The requested `?return_to` address is not allowed to be used. Adjust this in the
+configuration! `browser_location_change_required`: Usually sent when an AJAX request indicates that the browser needs to open a
+specific URL. Most likely used in Social Sign In flows.
 
-If this endpoint is called with `Accept: application/json` in the header, the response contains the flow without a redirect. In the
-case of an error, the `error.id` of the JSON response body can be one of:
+More information can be found at [Ory Kratos User Login](https://www.ory.com/docs/kratos/self-service/flows/user-login) and
+[User Registration Documentation](https://www.ory.com/docs/kratos/self-service/flows/user-registration).
 
-`session_already_available`: The user is already signed in.
-`security_csrf_violation`: Unable to fetch the flow because a CSRF violation occurred.
-`security_identity_mismatch`: The requested `?return_to` address is not allowed to be used. Adjust this in the configuration!
-`browser_location_change_required`: Usually sent when an AJAX request indicates that the browser needs to open a specific URL.
-Most likely used in Social Sign In flows.
-
-More information can be found at [Ory Kratos User Login](https://www.ory.com/docs/kratos/self-service/flows/user-login) and [User Registration Documentation](https://www.ory.com/docs/kratos/self-service/flows/user-registration).
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./update-registration-flow.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./update-registration-flow.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./update-registration-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./update-registration-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./update-registration-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./update-registration-flow.StatusCodes.json")}></StatusCodes>

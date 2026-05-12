@@ -1,1 +1,28 @@
-{"parameters":[{"description":"OAuth 2.0 Consent Subject\n\nThe subject whose consent sessions should be deleted.","in":"query","name":"subject","schema":{"type":"string"}},{"description":"OAuth 2.0 Client ID\n\nIf set, deletes only those consent sessions that have been granted to the specified OAuth 2.0 Client ID.","in":"query","name":"client","schema":{"type":"string"}},{"description":"Consent Request ID\n\nIf set, revoke all token chains derived from this particular consent request ID.","in":"query","name":"consent_request_id","schema":{"type":"string"}},{"description":"Revoke All Consent Sessions\n\nIf set to `true` deletes all consent sessions by the Subject that have been granted.","in":"query","name":"all","schema":{"type":"boolean"}}]}
+{
+  "parameters": [
+    {
+      "description": "OAuth 2.0 Consent Subject\n\nThe subject whose consent sessions should be deleted.",
+      "in": "query",
+      "name": "subject",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "OAuth 2.0 Client ID\n\nIf set, deletes only those consent sessions that have been granted to the specified OAuth 2.0 Client ID.",
+      "in": "query",
+      "name": "client",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "Consent Request ID\n\nIf set, revoke all token chains derived from this particular consent request ID.",
+      "in": "query",
+      "name": "consent_request_id",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "Revoke All Consent Sessions\n\nIf set to `true` deletes all consent sessions by the Subject that have been granted.",
+      "in": "query",
+      "name": "all",
+      "schema": { "type": "boolean" }
+    }
+  ]
+}

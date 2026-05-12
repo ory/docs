@@ -11,31 +11,18 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Create Recovery Flow for Native Apps"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Create Recovery Flow for Native Apps"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/self-service/recovery/api"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/self-service/recovery/api"} context={"endpoint"}></MethodEndpoint>
 
 This endpoint initiates a recovery flow for API clients such as mobile devices, smart TVs, and so on.
 
@@ -43,29 +30,16 @@ If a valid provided session cookie or session token is provided, a 400 Bad Reque
 
 On an existing recovery flow, use the `getRecoveryFlow` API endpoint.
 
-You MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server
-Pages, NodeJS, PHP, Golang, ...) browser applications. Using this endpoint in these applications will make
-you vulnerable to a variety of CSRF attacks.
+You MUST NOT use this endpoint in client-side (Single Page Apps, ReactJS, AngularJS) nor server-side (Java Server Pages, NodeJS,
+PHP, Golang, ...) browser applications. Using this endpoint in these applications will make you vulnerable to a variety of CSRF
+attacks.
 
 This endpoint MUST ONLY be used in scenarios such as native mobile apps (React Native, Objective C, Swift, Java, ...).
 
 More information can be found at [Ory Kratos Account Recovery Documentation](../self-service/flows/account-recovery).
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./create-native-recovery-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./create-native-recovery-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./create-native-recovery-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./create-native-recovery-flow.StatusCodes.json")}></StatusCodes>

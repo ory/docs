@@ -1,7 +1,8 @@
 ---
 id: create-browser-recovery-flow
 title: "Create Recovery Flow for Browsers"
-description: "This endpoint initializes a browser-based account recovery flow. Once initialized, the browser will be redirected to"
+description:
+  "This endpoint initializes a browser-based account recovery flow. Once initialized, the browser will be redirected to"
 sidebar_label: "Create Recovery Flow for Browsers"
 hide_title: true
 hide_table_of_contents: true
@@ -11,68 +12,36 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Create Recovery Flow for Browsers"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Create Recovery Flow for Browsers"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/self-service/recovery/browser"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/self-service/recovery/browser"} context={"endpoint"}></MethodEndpoint>
 
 This endpoint initializes a browser-based account recovery flow. Once initialized, the browser will be redirected to
-`selfservice.flows.recovery.ui_url` with the flow ID set as the query parameter `?flow=`. If a valid user session
-exists, the browser is returned to the configured return URL.
+`selfservice.flows.recovery.ui_url` with the flow ID set as the query parameter `?flow=`. If a valid user session exists, the
+browser is returned to the configured return URL.
 
-If this endpoint is called via an AJAX request, the response contains the recovery flow without any redirects
-or a 400 bad request error if the user is already authenticated.
+If this endpoint is called via an AJAX request, the response contains the recovery flow without any redirects or a 400 bad request
+error if the user is already authenticated.
 
 This endpoint is NOT INTENDED for clients that do not have a browser (Chrome, Firefox, ...) as cookies are needed.
 
 More information can be found at [Ory Kratos Account Recovery Documentation](../self-service/flows/account-recovery).
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./create-browser-recovery-flow.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./create-browser-recovery-flow.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./create-browser-recovery-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./create-browser-recovery-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./create-browser-recovery-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./create-browser-recovery-flow.StatusCodes.json")}></StatusCodes>

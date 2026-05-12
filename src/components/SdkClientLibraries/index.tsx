@@ -18,7 +18,8 @@ const SDKS: Sdk[] = [
     install: "npm install @ory/client",
     packageUrl: "https://www.npmjs.com/package/@ory/client",
     packageLabel: "@ory/client",
-    repoUrl: "https://github.com/ory/sdk/blob/master/clients/client/typescript/README.md",
+    repoUrl:
+      "https://github.com/ory/sdk/blob/master/clients/client/typescript/README.md",
   },
   {
     key: "go",
@@ -27,7 +28,8 @@ const SDKS: Sdk[] = [
     install: "go get github.com/ory/client-go",
     packageUrl: "https://github.com/ory/client-go",
     packageLabel: "ory/client-go",
-    repoUrl: "https://github.com/ory/sdk/blob/master/clients/client/go/README.md",
+    repoUrl:
+      "https://github.com/ory/sdk/blob/master/clients/client/go/README.md",
   },
   {
     key: "python",
@@ -36,7 +38,8 @@ const SDKS: Sdk[] = [
     install: "pip install ory-client",
     packageUrl: "https://pypi.org/project/ory-client/",
     packageLabel: "ory-client",
-    repoUrl: "https://github.com/ory/sdk/blob/master/clients/client/python/README.md",
+    repoUrl:
+      "https://github.com/ory/sdk/blob/master/clients/client/python/README.md",
   },
   {
     key: "php",
@@ -45,7 +48,8 @@ const SDKS: Sdk[] = [
     install: "composer require ory/client",
     packageUrl: "https://packagist.org/packages/ory/client",
     packageLabel: "ory/client",
-    repoUrl: "https://github.com/ory/sdk/blob/master/clients/client/php/README.md",
+    repoUrl:
+      "https://github.com/ory/sdk/blob/master/clients/client/php/README.md",
   },
   {
     key: "java",
@@ -54,7 +58,8 @@ const SDKS: Sdk[] = [
     install: "mvn dependency:get -Dartifact=sh.ory:ory-client:LATEST",
     packageUrl: "https://search.maven.org/artifact/sh.ory/ory-client",
     packageLabel: "sh.ory:ory-client",
-    repoUrl: "https://github.com/ory/sdk/blob/master/clients/client/java/README.md",
+    repoUrl:
+      "https://github.com/ory/sdk/blob/master/clients/client/java/README.md",
   },
   {
     key: "ruby",
@@ -63,7 +68,8 @@ const SDKS: Sdk[] = [
     install: "gem install ory-client",
     packageUrl: "https://rubygems.org/gems/ory-client",
     packageLabel: "ory-client",
-    repoUrl: "https://github.com/ory/sdk/blob/master/clients/client/ruby/README.md",
+    repoUrl:
+      "https://github.com/ory/sdk/blob/master/clients/client/ruby/README.md",
   },
   {
     key: "dotnet",
@@ -72,7 +78,8 @@ const SDKS: Sdk[] = [
     install: "dotnet add package Ory.Client",
     packageUrl: "https://www.nuget.org/packages/Ory.Client/",
     packageLabel: "Ory.Client",
-    repoUrl: "https://github.com/ory/sdk/blob/master/clients/client/dotnet/README.md",
+    repoUrl:
+      "https://github.com/ory/sdk/blob/master/clients/client/dotnet/README.md",
   },
   {
     key: "rust",
@@ -81,7 +88,8 @@ const SDKS: Sdk[] = [
     install: "cargo add ory-client",
     packageUrl: "https://crates.io/crates/ory-client",
     packageLabel: "ory-client",
-    repoUrl: "https://github.com/ory/sdk/blob/master/clients/client/rust/README.md",
+    repoUrl:
+      "https://github.com/ory/sdk/blob/master/clients/client/rust/README.md",
   },
   {
     key: "dart",
@@ -90,22 +98,33 @@ const SDKS: Sdk[] = [
     install: "dart pub add ory_client",
     packageUrl: "https://pub.dev/packages/ory_client",
     packageLabel: "ory_client",
-    repoUrl: "https://github.com/ory/sdk/blob/master/clients/client/dart/README.md",
+    repoUrl:
+      "https://github.com/ory/sdk/blob/master/clients/client/dart/README.md",
   },
   {
     key: "elixir",
     label: "Elixir",
     icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/elixir/elixir-original.svg",
-    install: 'mix deps.add ory_client',
+    install: "mix deps.add ory_client",
     packageUrl: "https://hex.pm/packages/ory_client",
     packageLabel: "ory_client",
-    repoUrl: "https://github.com/ory/sdk/blob/master/clients/client/elixir/README.md",
+    repoUrl:
+      "https://github.com/ory/sdk/blob/master/clients/client/elixir/README.md",
   },
 ]
 
 function CopyIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
       <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
     </svg>
@@ -114,7 +133,16 @@ function CopyIcon() {
 
 function CheckIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <polyline points="20 6 9 17 4 12" />
     </svg>
   )
@@ -140,31 +168,37 @@ export default function SdkClientLibraries() {
   }
 
   return (
-    <div style={{
-      border: "1px solid var(--ifm-toc-border-color)",
-      borderRadius: "var(--ifm-global-radius)",
-      overflow: "hidden",
-      marginBottom: "1.5rem",
-    }}>
-      <div style={{
-        padding: "0.6rem 1rem",
-        fontSize: "11px",
-        fontWeight: 600,
-        letterSpacing: "0.08em",
-        textTransform: "uppercase",
-        color: "var(--ifm-color-secondary)",
-        borderBottom: "1px solid var(--ifm-toc-border-color)",
-      }}>
+    <div
+      style={{
+        border: "1px solid var(--ifm-toc-border-color)",
+        borderRadius: "var(--ifm-global-radius)",
+        overflow: "hidden",
+        marginBottom: "1.5rem",
+      }}
+    >
+      <div
+        style={{
+          padding: "0.6rem 1rem",
+          fontSize: "11px",
+          fontWeight: 600,
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
+          color: "var(--ifm-color-secondary)",
+          borderBottom: "1px solid var(--ifm-toc-border-color)",
+        }}
+      >
         Client Libraries
       </div>
 
-      <div style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "0.25rem",
-        padding: "0.75rem 1rem",
-        borderBottom: "1px solid var(--ifm-toc-border-color)",
-      }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "0.25rem",
+          padding: "0.75rem 1rem",
+          borderBottom: "1px solid var(--ifm-toc-border-color)",
+        }}
+      >
         {SDKS.map((sdk) => {
           const isActive = sdk.key === selected.key
           return (
@@ -196,13 +230,17 @@ export default function SdkClientLibraries() {
                 height={28}
                 style={{ display: "block" }}
               />
-              <span style={{
-                fontSize: "10px",
-                fontWeight: isActive ? 600 : 400,
-                color: isActive ? "var(--ifm-color-primary)" : "var(--ifm-color-secondary)",
-                textTransform: "uppercase",
-                letterSpacing: "0.04em",
-              }}>
+              <span
+                style={{
+                  fontSize: "10px",
+                  fontWeight: isActive ? 600 : 400,
+                  color: isActive
+                    ? "var(--ifm-color-primary)"
+                    : "var(--ifm-color-secondary)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.04em",
+                }}
+              >
                 {sdk.label}
               </span>
             </button>
@@ -210,22 +248,34 @@ export default function SdkClientLibraries() {
         })}
       </div>
 
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0.75rem 1rem",
-        background: "var(--ifm-pre-background)",
-      }}>
-        <code style={{
-          fontSize: "0.85rem",
-          color: "var(--ifm-code-color)",
-          fontFamily: "var(--ifm-font-family-monospace)",
-          whiteSpace: "pre",
-        }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0.75rem 1rem",
+          background: "var(--ifm-pre-background)",
+        }}
+      >
+        <code
+          style={{
+            fontSize: "0.85rem",
+            color: "var(--ifm-code-color)",
+            fontFamily: "var(--ifm-font-family-monospace)",
+            whiteSpace: "pre",
+          }}
+        >
           {selected.install}
         </code>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexShrink: 0, marginLeft: "1rem" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            flexShrink: 0,
+            marginLeft: "1rem",
+          }}
+        >
           <button
             onClick={copy}
             title="Copy install command"

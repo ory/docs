@@ -1,7 +1,9 @@
 ---
 id: discover-oidc-configuration
 title: "OpenID Connect Discovery"
-description: "A mechanism for an OpenID Connect Relying Party to discover the End-User's OpenID Provider and obtain information needed to interact with it, including its OAuth 2.0 endpoint locations."
+description:
+  "A mechanism for an OpenID Connect Relying Party to discover the End-User's OpenID Provider and obtain information needed to
+  interact with it, including its OAuth 2.0 endpoint locations."
 sidebar_label: "OpenID Connect Discovery"
 hide_title: true
 hide_table_of_contents: true
@@ -11,52 +13,27 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"OpenID Connect Discovery"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"OpenID Connect Discovery"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/.well-known/openid-configuration"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"get"} path={"/.well-known/openid-configuration"} context={"endpoint"}></MethodEndpoint>
 
+A mechanism for an OpenID Connect Relying Party to discover the End-User's OpenID Provider and obtain information needed to
+interact with it, including its OAuth 2.0 endpoint locations.
 
+Popular libraries for OpenID Connect clients include oidc-client-js (JavaScript), go-oidc (Golang), and others. For a full list of
+clients go here: https://openid.net/developers/certified/
 
-A mechanism for an OpenID Connect Relying Party to discover the End-User's OpenID Provider and obtain information needed to interact with it, including its OAuth 2.0 endpoint locations.
+<ParamsDetails></ParamsDetails>
 
-Popular libraries for OpenID Connect clients include oidc-client-js (JavaScript), go-oidc (Golang), and others.
-For a full list of clients go here: https://openid.net/developers/certified/
+<RequestSchema {...require("./discover-oidc-configuration.RequestSchema.json")}></RequestSchema>
 
-<ParamsDetails>
-  
-</ParamsDetails>
-
-<RequestSchema
-  {...require("./discover-oidc-configuration.RequestSchema.json")}
->
-  
-</RequestSchema>
-
-<StatusCodes
-  {...require("./discover-oidc-configuration.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./discover-oidc-configuration.StatusCodes.json")}></StatusCodes>

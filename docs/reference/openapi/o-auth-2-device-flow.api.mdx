@@ -11,52 +11,26 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"The OAuth 2.0 Device Authorize Endpoint"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"The OAuth 2.0 Device Authorize Endpoint"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/oauth2/device/auth"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/oauth2/device/auth"} context={"endpoint"}></MethodEndpoint>
 
-
-
-This endpoint is not documented here because you should never use your own implementation to perform OAuth2 flows.
-OAuth2 is a very popular protocol and a library for your programming language will exist.
+This endpoint is not documented here because you should never use your own implementation to perform OAuth2 flows. OAuth2 is a
+very popular protocol and a library for your programming language will exist.
 
 To learn more about this flow please refer to the specification: https://tools.ietf.org/html/rfc8628
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./o-auth-2-device-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./o-auth-2-device-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./o-auth-2-device-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./o-auth-2-device-flow.StatusCodes.json")}></StatusCodes>

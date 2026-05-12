@@ -1,1 +1,9 @@
-{"parameters":[{"in":"query","name":"max-depth","schema":{"format":"int64","type":"integer"}}]}
+{
+  "parameters": [
+    {
+      "in": "query",
+      "name": "max-depth",
+      "schema": { "format": "int64", "type": "integer" }
+    }
+  ]
+}

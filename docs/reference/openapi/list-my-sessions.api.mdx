@@ -11,60 +11,28 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Get My Active Sessions"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Get My Active Sessions"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/sessions"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"get"} path={"/sessions"} context={"endpoint"}></MethodEndpoint>
 
+This endpoints returns all other active sessions that belong to the logged-in user. The current session can be retrieved by
+calling the `/sessions/whoami` endpoint.
 
-
-This endpoints returns all other active sessions that belong to the logged-in user.
-The current session can be retrieved by calling the `/sessions/whoami` endpoint.
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./list-my-sessions.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./list-my-sessions.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./list-my-sessions.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./list-my-sessions.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./list-my-sessions.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./list-my-sessions.StatusCodes.json")}></StatusCodes>

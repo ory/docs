@@ -11,61 +11,32 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Update a JSON Web Key Set"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Update a JSON Web Key Set"}></Heading>
 
-<MethodEndpoint
-  method={"put"}
-  path={"/admin/keys/{set}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"put"} path={"/admin/keys/{set}"} context={"endpoint"}></MethodEndpoint>
 
 Use this method if you do not want to let Hydra generate the JWKs for you, but instead save your own.
 
-A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.
+A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a
+JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this
+functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing
+user-defined keys as well.
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./set-json-web-key-set.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./set-json-web-key-set.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./set-json-web-key-set.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./set-json-web-key-set.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./set-json-web-key-set.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./set-json-web-key-set.StatusCodes.json")}></StatusCodes>

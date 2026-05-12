@@ -1,1 +1,48 @@
-{"title":"Body","body":{"content":{"application/json":{"schema":{"description":"Create Project Request Body","properties":{"environment":{"description":"The environment of the project.\nprod Production\nstage Staging\ndev Development","enum":["prod","stage","dev"],"type":"string","x-go-enum-desc":"prod Production\nstage Staging\ndev Development"},"home_region":{"description":"Home Region\n\nThe home region of the project. This is the region where the project will be created.\neu-central EUCentral\nasia-northeast AsiaNorthEast\nus-east USEast\nus-west USWest\neu EU\nasia Asia\nus US\nglobal Global","enum":["eu-central","asia-northeast","us-east","us-west","eu","asia","us","global"],"type":"string","x-go-enum-desc":"eu-central EUCentral\nasia-northeast AsiaNorthEast\nus-east USEast\nus-west USWest\neu EU\nasia Asia\nus US\nglobal Global"},"name":{"description":"The name of the project to be created","type":"string"},"workspace_id":{"description":"The workspace to create the project in.","format":"uuid","type":"string"}},"required":["name","environment"],"type":"object","title":"createProjectBody"}}},"x-originalParamName":"Body"}}
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Create Project Request Body",
+          "properties": {
+            "environment": {
+              "description": "The environment of the project.\nprod Production\nstage Staging\ndev Development",
+              "enum": ["prod", "stage", "dev"],
+              "type": "string",
+              "x-go-enum-desc": "prod Production\nstage Staging\ndev Development"
+            },
+            "home_region": {
+              "description": "Home Region\n\nThe home region of the project. This is the region where the project will be created.\neu-central EUCentral\nasia-northeast AsiaNorthEast\nus-east USEast\nus-west USWest\neu EU\nasia Asia\nus US\nglobal Global",
+              "enum": [
+                "eu-central",
+                "asia-northeast",
+                "us-east",
+                "us-west",
+                "eu",
+                "asia",
+                "us",
+                "global"
+              ],
+              "type": "string",
+              "x-go-enum-desc": "eu-central EUCentral\nasia-northeast AsiaNorthEast\nus-east USEast\nus-west USWest\neu EU\nasia Asia\nus US\nglobal Global"
+            },
+            "name": {
+              "description": "The name of the project to be created",
+              "type": "string"
+            },
+            "workspace_id": {
+              "description": "The workspace to create the project in.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": ["name", "environment"],
+          "type": "object",
+          "title": "createProjectBody"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}

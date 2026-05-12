@@ -1,1 +1,35 @@
-{"title":"Body","body":{"content":{"application/json":{"schema":{"description":"Update Event Stream Body","properties":{"https_endpoint":{"description":"The HTTPS endpoint URL to send events to. Required if type is https.","type":"string"},"role_arn":{"description":"The AWS IAM role ARN to assume when publishing to the SNS topic. Required if type is sns.","type":"string"},"topic_arn":{"description":"The AWS SNS topic ARN. Required if type is sns.","type":"string"},"type":{"description":"The type of the event stream (AWS SNS or HTTPS webhook).","enum":["sns","https"],"type":"string"}},"required":["type"],"type":"object","title":"setEventStreamBody"}}},"x-originalParamName":"Body"}}
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Update Event Stream Body",
+          "properties": {
+            "https_endpoint": {
+              "description": "The HTTPS endpoint URL to send events to. Required if type is https.",
+              "type": "string"
+            },
+            "role_arn": {
+              "description": "The AWS IAM role ARN to assume when publishing to the SNS topic. Required if type is sns.",
+              "type": "string"
+            },
+            "topic_arn": {
+              "description": "The AWS SNS topic ARN. Required if type is sns.",
+              "type": "string"
+            },
+            "type": {
+              "description": "The type of the event stream (AWS SNS or HTTPS webhook).",
+              "enum": ["sns", "https"],
+              "type": "string"
+            }
+          },
+          "required": ["type"],
+          "type": "object",
+          "title": "setEventStreamBody"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}

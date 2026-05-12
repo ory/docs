@@ -1,1 +1,41 @@
-{"title":"Body","body":{"content":{"application/json":{"schema":{"description":"Create B2B SSO Organization Request Body","properties":{"default_region":{"description":"DefaultRegion is the default Ory region for identities provisioned\ninto this organization via JIT. Must be inside the project's home\nregion.\n\nEmpty (or omitted) means the organization has no default region:\neach identity provisioned via JIT is then homed in the gateway\nregion of the request that created it, constrained by the project's\nhome region. On update, an empty string clears the value.\neu-central EUCentral\nasia-northeast AsiaNorthEast\nus-east USEast\nus-west USWest\neu EU\nasia Asia\nus US\nglobal Global","enum":["eu-central","asia-northeast","us-east","us-west","eu","asia","us","global"],"type":"string","x-go-enum-desc":"eu-central EUCentral\nasia-northeast AsiaNorthEast\nus-east USEast\nus-west USWest\neu EU\nasia Asia\nus US\nglobal Global"},"domains":{"description":"Domains contains the list of organization's domains.","items":{"type":"string"},"type":"array"},"label":{"description":"Label contains the organization's label.","type":"string"}},"type":"object","title":"OrganizationBody"}}},"x-originalParamName":"Body"}}
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Create B2B SSO Organization Request Body",
+          "properties": {
+            "default_region": {
+              "description": "DefaultRegion is the default Ory region for identities provisioned\ninto this organization via JIT. Must be inside the project's home\nregion.\n\nEmpty (or omitted) means the organization has no default region:\neach identity provisioned via JIT is then homed in the gateway\nregion of the request that created it, constrained by the project's\nhome region. On update, an empty string clears the value.\neu-central EUCentral\nasia-northeast AsiaNorthEast\nus-east USEast\nus-west USWest\neu EU\nasia Asia\nus US\nglobal Global",
+              "enum": [
+                "eu-central",
+                "asia-northeast",
+                "us-east",
+                "us-west",
+                "eu",
+                "asia",
+                "us",
+                "global"
+              ],
+              "type": "string",
+              "x-go-enum-desc": "eu-central EUCentral\nasia-northeast AsiaNorthEast\nus-east USEast\nus-west USWest\neu EU\nasia Asia\nus US\nglobal Global"
+            },
+            "domains": {
+              "description": "Domains contains the list of organization's domains.",
+              "items": { "type": "string" },
+              "type": "array"
+            },
+            "label": {
+              "description": "Label contains the organization's label.",
+              "type": "string"
+            }
+          },
+          "type": "object",
+          "title": "OrganizationBody"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}

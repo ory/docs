@@ -11,68 +11,34 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Create a Logout URL for Browsers"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Create a Logout URL for Browsers"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/self-service/logout/browser"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/self-service/logout/browser"} context={"endpoint"}></MethodEndpoint>
 
 This endpoint initializes a browser-based user logout flow and a URL which can be used to log out the user.
 
-This endpoint is NOT INTENDED for API clients and only works
-with browsers (Chrome, Firefox, ...). For API clients you can
-call the `/self-service/logout/api` URL directly with the Ory Session Token.
+This endpoint is NOT INTENDED for API clients and only works with browsers (Chrome, Firefox, ...). For API clients you can call
+the `/self-service/logout/api` URL directly with the Ory Session Token.
 
-The URL is only valid for the currently signed in user. If no user is signed in, this endpoint returns
-a 401 error.
+The URL is only valid for the currently signed in user. If no user is signed in, this endpoint returns a 401 error.
 
 When calling this endpoint from a backend, please ensure to properly forward the HTTP cookies.
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./create-browser-logout-flow.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./create-browser-logout-flow.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./create-browser-logout-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./create-browser-logout-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./create-browser-logout-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./create-browser-logout-flow.StatusCodes.json")}></StatusCodes>

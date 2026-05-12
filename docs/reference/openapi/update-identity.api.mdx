@@ -1,7 +1,8 @@
 ---
 id: update-identity
 title: "Update an Identity"
-description: "This endpoint updates an [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model). The full identity"
+description:
+  "This endpoint updates an [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model). The full identity"
 sidebar_label: "Update an Identity"
 hide_title: true
 hide_table_of_contents: true
@@ -11,72 +12,42 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Update an Identity"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Update an Identity"}></Heading>
 
-<MethodEndpoint
-  method={"put"}
-  path={"/admin/identities/{id}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"put"} path={"/admin/identities/{id}"} context={"endpoint"}></MethodEndpoint>
 
+This endpoint updates an [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model). The full identity payload
+(except credentials) is expected.
 
+It is possible to update the identity's credentials as well. Using this operation, credentials will not be overwritten but instead
+added to the list. For example, if a user has a social sign in connection set up, updating the credentials will keep the social
+sign in connection and add the new credentials to the list. This prevents accidentally overwriting credentials and locking out
+users. A complete view of all credential types is here:
 
-This endpoint updates an [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model). The full identity
-payload (except credentials) is expected.
+`password`: The existing password credential will be completely replaced with the new configuration. You can provide either a
+hashed password, a plaintext password (which will be hashed), or enable the password migration hook. `oidc`, `saml`: The existing
+OIDC and SAML credentials will be kept and the new credentials will be added to the list. `totp`: The existing TOTP credentials
+will be replaced with the new configuration. `lookup_secret`: The existing Lookup Secret codes will be kept and the new codes will
+be added to the list. `webauthn`, `passkey`: The existing credentials are preserved, new credentials are added, and credentials
+with matching IDs are updated with new values. If a new `user_handle` is provided, it's added to the identity's identifiers list
+while preserving previous user handles. `code`: To import code credentials, configure your identity schema to use one of the
+identity traits as an identifier source (`{"ory.sh/kratos":{"code":{"identifier":true", "via":"email"}}}`).
 
-It is possible to update the identity's credentials as well. Using this operation, credentials will not be overwritten
-but instead added to the list. For example, if a user has a social sign in connection set up, updating the credentials
-will keep the social sign in connection and add the new credentials to the list. This prevents accidentally overwriting
-credentials and locking out users. A complete view of all credential types is here:
-
-`password`: The existing password credential will be completely replaced with the new configuration. You can provide either a hashed password, a plaintext password (which will be hashed), or enable the password migration hook.
-`oidc`, `saml`: The existing OIDC and SAML credentials will be kept and the new credentials will be added to the list.
-`totp`: The existing TOTP credentials will be replaced with the new configuration.
-`lookup_secret`: The existing Lookup Secret codes will be kept and the new codes will be added to the list.
-`webauthn`, `passkey`: The existing credentials are preserved, new credentials are added, and credentials with matching IDs are updated with new values. If a new `user_handle` is provided, it's added to the identity's identifiers list while preserving previous user handles.
-`code`: To import code credentials, configure your identity schema to use one of the identity traits as an identifier source (`{"ory.sh/kratos":{"code":{"identifier":true", "via":"email"}}}`).
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./update-identity.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./update-identity.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./update-identity.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./update-identity.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./update-identity.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./update-identity.StatusCodes.json")}></StatusCodes>

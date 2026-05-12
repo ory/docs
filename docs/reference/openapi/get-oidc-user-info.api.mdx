@@ -11,54 +11,27 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"OpenID Connect Userinfo"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"OpenID Connect Userinfo"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/userinfo"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"get"} path={"/userinfo"} context={"endpoint"}></MethodEndpoint>
 
+This endpoint returns the payload of the ID Token, including `session.id_token` values, of the provided OAuth 2.0 Access Token's
+consent request.
 
+In the case of authentication error, a WWW-Authenticate header might be set in the response with more information about the error.
+See [the spec](https://datatracker.ietf.org/doc/html/rfc6750#section-3) for more details about header format.
 
-This endpoint returns the payload of the ID Token, including `session.id_token` values, of
-the provided OAuth 2.0 Access Token's consent request.
+<ParamsDetails></ParamsDetails>
 
-In the case of authentication error, a WWW-Authenticate header might be set in the response
-with more information about the error. See [the spec](https://datatracker.ietf.org/doc/html/rfc6750#section-3)
-for more details about header format.
+<RequestSchema {...require("./get-oidc-user-info.RequestSchema.json")}></RequestSchema>
 
-<ParamsDetails>
-  
-</ParamsDetails>
-
-<RequestSchema
-  {...require("./get-oidc-user-info.RequestSchema.json")}
->
-  
-</RequestSchema>
-
-<StatusCodes
-  {...require("./get-oidc-user-info.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./get-oidc-user-info.StatusCodes.json")}></StatusCodes>

@@ -11,55 +11,28 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Return Running Software Version."}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Return Running Software Version."}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/version"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/version"} context={"endpoint"}></MethodEndpoint>
 
 This endpoint returns the version of Ory Kratos.
 
-If the service supports TLS Edge Termination, this endpoint does not require the
-`X-Forwarded-Proto` header to be set.
+If the service supports TLS Edge Termination, this endpoint does not require the `X-Forwarded-Proto` header to be set.
 
-Be aware that if you are running multiple nodes of this service, the version will never
-refer to the cluster state, only to a single instance.
+Be aware that if you are running multiple nodes of this service, the version will never refer to the cluster state, only to a
+single instance.
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./get-version.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./get-version.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./get-version.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./get-version.StatusCodes.json")}></StatusCodes>

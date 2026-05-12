@@ -11,71 +11,38 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Update Logout Flow"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Update Logout Flow"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/self-service/logout"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/self-service/logout"} context={"endpoint"}></MethodEndpoint>
 
 This endpoint logs out an identity in a self-service manner.
 
-If the `Accept` HTTP header is not set to `application/json`, the browser will be redirected (HTTP 303 See Other)
-to the `return_to` parameter of the initial request or fall back to `urls.default_return_to`.
+If the `Accept` HTTP header is not set to `application/json`, the browser will be redirected (HTTP 303 See Other) to the
+`return_to` parameter of the initial request or fall back to `urls.default_return_to`.
 
-If the `Accept` HTTP header is set to `application/json`, a 204 No Content response
-will be sent on successful logout instead.
+If the `Accept` HTTP header is set to `application/json`, a 204 No Content response will be sent on successful logout instead.
 
-This endpoint is NOT INTENDED for API clients and only works
-with browsers (Chrome, Firefox, ...). For API clients you can
-call the `/self-service/logout/api` URL directly with the Ory Session Token.
+This endpoint is NOT INTENDED for API clients and only works with browsers (Chrome, Firefox, ...). For API clients you can call
+the `/self-service/logout/api` URL directly with the Ory Session Token.
 
-More information can be found at [Ory Kratos User Logout Documentation](https://www.ory.com/docs/next/kratos/self-service/flows/user-logout).
+More information can be found at
+[Ory Kratos User Logout Documentation](https://www.ory.com/docs/next/kratos/self-service/flows/user-logout).
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./update-logout-flow.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./update-logout-flow.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./update-logout-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./update-logout-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./update-logout-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./update-logout-flow.StatusCodes.json")}></StatusCodes>

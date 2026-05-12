@@ -1,1 +1,230 @@
-{"responses":{"200":{"content":{"application/json":{"schema":{"properties":{"body":{"type":"string"},"channel":{"type":"string"},"created_at":{"description":"CreatedAt is a helper struct field for gobuffalo.pop.","format":"date-time","type":"string"},"dispatches":{"description":"Dispatches store information about the attempts of delivering a message\nMay contain an error if any happened, or just the `success` state.","items":{"description":"MessageDispatch represents an attempt of sending a courier message\nIt contains the status of the attempt (failed or successful) and the error if any occured","properties":{"created_at":{"description":"CreatedAt is a helper struct field for gobuffalo.pop.","format":"date-time","type":"string"},"error":{"title":"JSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger.","type":"object"},"id":{"description":"The ID of this message dispatch","format":"uuid","type":"string"},"message_id":{"description":"The ID of the message being dispatched","format":"uuid","type":"string"},"status":{"description":"The status of this dispatch\nEither \"failed\" or \"success\"\nfailed CourierMessageDispatchStatusFailed\nsuccess CourierMessageDispatchStatusSuccess","enum":["failed","success"],"type":"string","x-go-enum-desc":"failed CourierMessageDispatchStatusFailed\nsuccess CourierMessageDispatchStatusSuccess"},"updated_at":{"description":"UpdatedAt is a helper struct field for gobuffalo.pop.","format":"date-time","type":"string"}},"required":["id","message_id","status","created_at","updated_at"],"type":"object","title":"messageDispatch"},"type":"array"},"id":{"format":"uuid","type":"string"},"recipient":{"type":"string"},"send_count":{"format":"int64","type":"integer"},"status":{"description":"A Message's Status","enum":["queued","sent","processing","abandoned"],"type":"string","title":"courierMessageStatus"},"subject":{"type":"string"},"template_type":{"description":"\nrecovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid\nverifiable_address_changed TypeVerifiableAddressChanged","enum":["recovery_invalid","recovery_valid","recovery_code_invalid","recovery_code_valid","verification_invalid","verification_valid","verification_code_invalid","verification_code_valid","stub","login_code_valid","registration_code_valid","verifiable_address_changed"],"type":"string","x-go-enum-desc":"recovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid\nverifiable_address_changed TypeVerifiableAddressChanged"},"type":{"description":"It can either be `email` or `phone`","enum":["email","phone"],"title":"A Message's Type","type":"string"},"updated_at":{"description":"UpdatedAt is a helper struct field for gobuffalo.pop.","format":"date-time","type":"string"}},"required":["id","status","type","recipient","body","subject","template_type","send_count","created_at","updated_at"],"type":"object","title":"message"}}},"description":"message"},"400":{"content":{"application/json":{"schema":{"description":"The standard Ory JSON API error format.","properties":{"error":{"description":"Error response","properties":{"debug":{"description":"Debug contains debug information. This is usually not available and has to be enabled.","example":"The database adapter was unable to find the element","type":"string"},"error":{"description":"Name is the error name.","example":"The requested resource could not be found","type":"string"},"error_description":{"description":"Description contains further information on the nature of the error.","example":"Object with ID 12345 does not exist","type":"string"},"id":{"description":"ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded","enum":["feature_not_available","quota_exceeded"],"type":"string","x-go-enum-desc":"feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"},"message":{"description":"Message contains the error message.","type":"string"},"status_code":{"description":"Code represents the error status code (404, 403, 401, ...).","example":404,"format":"int64","type":"integer"}},"type":"object","title":"genericErrorContent"}},"required":["error"],"title":"JSON API Error Response","type":"object"}}},"description":"errorGeneric"},"default":{"content":{"application/json":{"schema":{"description":"The standard Ory JSON API error format.","properties":{"error":{"description":"Error response","properties":{"debug":{"description":"Debug contains debug information. This is usually not available and has to be enabled.","example":"The database adapter was unable to find the element","type":"string"},"error":{"description":"Name is the error name.","example":"The requested resource could not be found","type":"string"},"error_description":{"description":"Description contains further information on the nature of the error.","example":"Object with ID 12345 does not exist","type":"string"},"id":{"description":"ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded","enum":["feature_not_available","quota_exceeded"],"type":"string","x-go-enum-desc":"feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"},"message":{"description":"Message contains the error message.","type":"string"},"status_code":{"description":"Code represents the error status code (404, 403, 401, ...).","example":404,"format":"int64","type":"integer"}},"type":"object","title":"genericErrorContent"}},"required":["error"],"title":"JSON API Error Response","type":"object"}}},"description":"errorGeneric"}}}
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "body": { "type": "string" },
+              "channel": { "type": "string" },
+              "created_at": {
+                "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
+                "format": "date-time",
+                "type": "string"
+              },
+              "dispatches": {
+                "description": "Dispatches store information about the attempts of delivering a message\nMay contain an error if any happened, or just the `success` state.",
+                "items": {
+                  "description": "MessageDispatch represents an attempt of sending a courier message\nIt contains the status of the attempt (failed or successful) and the error if any occured",
+                  "properties": {
+                    "created_at": {
+                      "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "error": {
+                      "title": "JSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger.",
+                      "type": "object"
+                    },
+                    "id": {
+                      "description": "The ID of this message dispatch",
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "message_id": {
+                      "description": "The ID of the message being dispatched",
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "The status of this dispatch\nEither \"failed\" or \"success\"\nfailed CourierMessageDispatchStatusFailed\nsuccess CourierMessageDispatchStatusSuccess",
+                      "enum": ["failed", "success"],
+                      "type": "string",
+                      "x-go-enum-desc": "failed CourierMessageDispatchStatusFailed\nsuccess CourierMessageDispatchStatusSuccess"
+                    },
+                    "updated_at": {
+                      "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "message_id",
+                    "status",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "type": "object",
+                  "title": "messageDispatch"
+                },
+                "type": "array"
+              },
+              "id": { "format": "uuid", "type": "string" },
+              "recipient": { "type": "string" },
+              "send_count": { "format": "int64", "type": "integer" },
+              "status": {
+                "description": "A Message's Status",
+                "enum": ["queued", "sent", "processing", "abandoned"],
+                "type": "string",
+                "title": "courierMessageStatus"
+              },
+              "subject": { "type": "string" },
+              "template_type": {
+                "description": "\nrecovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid\nverifiable_address_changed TypeVerifiableAddressChanged",
+                "enum": [
+                  "recovery_invalid",
+                  "recovery_valid",
+                  "recovery_code_invalid",
+                  "recovery_code_valid",
+                  "verification_invalid",
+                  "verification_valid",
+                  "verification_code_invalid",
+                  "verification_code_valid",
+                  "stub",
+                  "login_code_valid",
+                  "registration_code_valid",
+                  "verifiable_address_changed"
+                ],
+                "type": "string",
+                "x-go-enum-desc": "recovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid\nverifiable_address_changed TypeVerifiableAddressChanged"
+              },
+              "type": {
+                "description": "It can either be `email` or `phone`",
+                "enum": ["email", "phone"],
+                "title": "A Message's Type",
+                "type": "string"
+              },
+              "updated_at": {
+                "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
+                "format": "date-time",
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "status",
+              "type",
+              "recipient",
+              "body",
+              "subject",
+              "template_type",
+              "send_count",
+              "created_at",
+              "updated_at"
+            ],
+            "type": "object",
+            "title": "message"
+          }
+        }
+      },
+      "description": "message"
+    },
+    "400": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "The standard Ory JSON API error format.",
+            "properties": {
+              "error": {
+                "description": "Error response",
+                "properties": {
+                  "debug": {
+                    "description": "Debug contains debug information. This is usually not available and has to be enabled.",
+                    "example": "The database adapter was unable to find the element",
+                    "type": "string"
+                  },
+                  "error": {
+                    "description": "Name is the error name.",
+                    "example": "The requested resource could not be found",
+                    "type": "string"
+                  },
+                  "error_description": {
+                    "description": "Description contains further information on the nature of the error.",
+                    "example": "Object with ID 12345 does not exist",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded",
+                    "enum": ["feature_not_available", "quota_exceeded"],
+                    "type": "string",
+                    "x-go-enum-desc": "feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"
+                  },
+                  "message": {
+                    "description": "Message contains the error message.",
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "description": "Code represents the error status code (404, 403, 401, ...).",
+                    "example": 404,
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object",
+                "title": "genericErrorContent"
+              }
+            },
+            "required": ["error"],
+            "title": "JSON API Error Response",
+            "type": "object"
+          }
+        }
+      },
+      "description": "errorGeneric"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "The standard Ory JSON API error format.",
+            "properties": {
+              "error": {
+                "description": "Error response",
+                "properties": {
+                  "debug": {
+                    "description": "Debug contains debug information. This is usually not available and has to be enabled.",
+                    "example": "The database adapter was unable to find the element",
+                    "type": "string"
+                  },
+                  "error": {
+                    "description": "Name is the error name.",
+                    "example": "The requested resource could not be found",
+                    "type": "string"
+                  },
+                  "error_description": {
+                    "description": "Description contains further information on the nature of the error.",
+                    "example": "Object with ID 12345 does not exist",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded",
+                    "enum": ["feature_not_available", "quota_exceeded"],
+                    "type": "string",
+                    "x-go-enum-desc": "feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"
+                  },
+                  "message": {
+                    "description": "Message contains the error message.",
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "description": "Code represents the error status code (404, 403, 401, ...).",
+                    "example": 404,
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object",
+                "title": "genericErrorContent"
+              }
+            },
+            "required": ["error"],
+            "title": "JSON API Error Response",
+            "type": "object"
+          }
+        }
+      },
+      "description": "errorGeneric"
+    }
+  }
+}

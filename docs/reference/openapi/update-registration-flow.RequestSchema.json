@@ -1,1 +1,907 @@
-{"title":"Body","body":{"content":{"application/json":{"schema":{"description":"Update Registration Request Body","discriminator":{"mapping":{"code":{"description":"Update Registration Flow with Code Method","properties":{"code":{"description":"The OTP Code sent to the user","type":"string"},"csrf_token":{"description":"The CSRF Token","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `code` when using the code method.","type":"string"},"resend":{"description":"Resend restarts the flow with a new code","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithCodeMethod"},"oidc":{"description":"Update Registration Flow with OpenID Connect Method","properties":{"csrf_token":{"description":"The CSRF Token","type":"string"},"id_token":{"description":"IDToken is an optional id token provided by an OIDC provider\n\nIf submitted, it is verified using the OIDC provider's public key set and the claims are used to populate\nthe OIDC credentials of the identity.\nIf the OIDC provider does not store additional claims (such as name, etc.) in the IDToken itself, you can use\nthe `traits` field to populate the identity's traits. Note, that Apple only includes the users email in the IDToken.\n\nSupported providers are\nApple\nGoogle","type":"string"},"id_token_nonce":{"description":"IDTokenNonce is the nonce, used when generating the IDToken.\nIf the provider supports nonce validation, the nonce will be validated against this value and is required.","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `oidc` when using the oidc method.","type":"string"},"provider":{"description":"The provider to register with","type":"string"},"traits":{"description":"The identity traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"},"upstream_parameters":{"description":"UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.","type":"object"}},"required":["provider","method"],"type":"object","title":"updateRegistrationFlowWithOidcMethod"},"passkey":{"description":"Update Registration Flow with Passkey Method","properties":{"csrf_token":{"description":"CSRFToken is the anti-CSRF token","type":"string"},"method":{"description":"Method\n\nShould be set to \"passkey\" when trying to add, update, or remove a Passkey.","type":"string"},"passkey_register":{"description":"Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithPasskeyMethod"},"password":{"description":"Update Registration Flow with Password Method","properties":{"csrf_token":{"description":"The CSRF Token","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `password` when using the password method.","type":"string"},"password":{"description":"Password to sign the user up with","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["password","traits","method"],"type":"object","title":"updateRegistrationFlowWithPasswordMethod"},"profile":{"description":"Update Registration Flow with Profile Method","properties":{"csrf_token":{"description":"The Anti-CSRF Token\n\nThis token is only required when performing browser flows.","type":"string"},"method":{"description":"Method\n\nShould be set to profile when trying to update a profile.","type":"string"},"screen":{"description":"Screen requests navigation to a previous screen.\n\nThis must be set to credential-selection to go back to the credential\nselection screen.\ncredential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious","enum":["credential-selection","previous"],"type":"string","x-go-enum-desc":"credential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious"},"traits":{"description":"Traits\n\nThe identity's traits.","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithProfileMethod"},"saml":{"description":"Update registration flow using SAML","properties":{"csrf_token":{"description":"The CSRF Token","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `saml` when using the saml method.","type":"string"},"provider":{"description":"The provider to register with","type":"string"},"traits":{"description":"The identity traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["provider","method"],"type":"object","title":"updateRegistrationFlowWithSamlMethod"},"webauthn":{"description":"Update Registration Flow with WebAuthn Method","properties":{"csrf_token":{"description":"CSRFToken is the anti-CSRF token","type":"string"},"method":{"description":"Method\n\nShould be set to \"webauthn\" when trying to add, update, or remove a webAuthn pairing.","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"},"webauthn_register":{"description":"Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.","type":"string"},"webauthn_register_displayname":{"description":"Name of the WebAuthn Security Key to be Added\n\nA human-readable name for the security key which will be added.","type":"string"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithWebAuthnMethod"}},"propertyName":"method"},"oneOf":[{"description":"Update Registration Flow with Password Method","properties":{"csrf_token":{"description":"The CSRF Token","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `password` when using the password method.","type":"string"},"password":{"description":"Password to sign the user up with","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["password","traits","method"],"type":"object","title":"updateRegistrationFlowWithPasswordMethod"},{"description":"Update Registration Flow with OpenID Connect Method","properties":{"csrf_token":{"description":"The CSRF Token","type":"string"},"id_token":{"description":"IDToken is an optional id token provided by an OIDC provider\n\nIf submitted, it is verified using the OIDC provider's public key set and the claims are used to populate\nthe OIDC credentials of the identity.\nIf the OIDC provider does not store additional claims (such as name, etc.) in the IDToken itself, you can use\nthe `traits` field to populate the identity's traits. Note, that Apple only includes the users email in the IDToken.\n\nSupported providers are\nApple\nGoogle","type":"string"},"id_token_nonce":{"description":"IDTokenNonce is the nonce, used when generating the IDToken.\nIf the provider supports nonce validation, the nonce will be validated against this value and is required.","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `oidc` when using the oidc method.","type":"string"},"provider":{"description":"The provider to register with","type":"string"},"traits":{"description":"The identity traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"},"upstream_parameters":{"description":"UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.","type":"object"}},"required":["provider","method"],"type":"object","title":"updateRegistrationFlowWithOidcMethod"},{"description":"Update registration flow using SAML","properties":{"csrf_token":{"description":"The CSRF Token","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `saml` when using the saml method.","type":"string"},"provider":{"description":"The provider to register with","type":"string"},"traits":{"description":"The identity traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["provider","method"],"type":"object","title":"updateRegistrationFlowWithSamlMethod"},{"description":"Update Registration Flow with WebAuthn Method","properties":{"csrf_token":{"description":"CSRFToken is the anti-CSRF token","type":"string"},"method":{"description":"Method\n\nShould be set to \"webauthn\" when trying to add, update, or remove a webAuthn pairing.","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"},"webauthn_register":{"description":"Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.","type":"string"},"webauthn_register_displayname":{"description":"Name of the WebAuthn Security Key to be Added\n\nA human-readable name for the security key which will be added.","type":"string"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithWebAuthnMethod"},{"description":"Update Registration Flow with Code Method","properties":{"code":{"description":"The OTP Code sent to the user","type":"string"},"csrf_token":{"description":"The CSRF Token","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `code` when using the code method.","type":"string"},"resend":{"description":"Resend restarts the flow with a new code","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithCodeMethod"},{"description":"Update Registration Flow with Passkey Method","properties":{"csrf_token":{"description":"CSRFToken is the anti-CSRF token","type":"string"},"method":{"description":"Method\n\nShould be set to \"passkey\" when trying to add, update, or remove a Passkey.","type":"string"},"passkey_register":{"description":"Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithPasskeyMethod"},{"description":"Update Registration Flow with Profile Method","properties":{"csrf_token":{"description":"The Anti-CSRF Token\n\nThis token is only required when performing browser flows.","type":"string"},"method":{"description":"Method\n\nShould be set to profile when trying to update a profile.","type":"string"},"screen":{"description":"Screen requests navigation to a previous screen.\n\nThis must be set to credential-selection to go back to the credential\nselection screen.\ncredential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious","enum":["credential-selection","previous"],"type":"string","x-go-enum-desc":"credential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious"},"traits":{"description":"Traits\n\nThe identity's traits.","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithProfileMethod"}],"title":"updateRegistrationFlowBody"}},"application/x-www-form-urlencoded":{"schema":{"description":"Update Registration Request Body","discriminator":{"mapping":{"code":{"description":"Update Registration Flow with Code Method","properties":{"code":{"description":"The OTP Code sent to the user","type":"string"},"csrf_token":{"description":"The CSRF Token","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `code` when using the code method.","type":"string"},"resend":{"description":"Resend restarts the flow with a new code","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithCodeMethod"},"oidc":{"description":"Update Registration Flow with OpenID Connect Method","properties":{"csrf_token":{"description":"The CSRF Token","type":"string"},"id_token":{"description":"IDToken is an optional id token provided by an OIDC provider\n\nIf submitted, it is verified using the OIDC provider's public key set and the claims are used to populate\nthe OIDC credentials of the identity.\nIf the OIDC provider does not store additional claims (such as name, etc.) in the IDToken itself, you can use\nthe `traits` field to populate the identity's traits. Note, that Apple only includes the users email in the IDToken.\n\nSupported providers are\nApple\nGoogle","type":"string"},"id_token_nonce":{"description":"IDTokenNonce is the nonce, used when generating the IDToken.\nIf the provider supports nonce validation, the nonce will be validated against this value and is required.","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `oidc` when using the oidc method.","type":"string"},"provider":{"description":"The provider to register with","type":"string"},"traits":{"description":"The identity traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"},"upstream_parameters":{"description":"UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.","type":"object"}},"required":["provider","method"],"type":"object","title":"updateRegistrationFlowWithOidcMethod"},"passkey":{"description":"Update Registration Flow with Passkey Method","properties":{"csrf_token":{"description":"CSRFToken is the anti-CSRF token","type":"string"},"method":{"description":"Method\n\nShould be set to \"passkey\" when trying to add, update, or remove a Passkey.","type":"string"},"passkey_register":{"description":"Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithPasskeyMethod"},"password":{"description":"Update Registration Flow with Password Method","properties":{"csrf_token":{"description":"The CSRF Token","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `password` when using the password method.","type":"string"},"password":{"description":"Password to sign the user up with","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["password","traits","method"],"type":"object","title":"updateRegistrationFlowWithPasswordMethod"},"profile":{"description":"Update Registration Flow with Profile Method","properties":{"csrf_token":{"description":"The Anti-CSRF Token\n\nThis token is only required when performing browser flows.","type":"string"},"method":{"description":"Method\n\nShould be set to profile when trying to update a profile.","type":"string"},"screen":{"description":"Screen requests navigation to a previous screen.\n\nThis must be set to credential-selection to go back to the credential\nselection screen.\ncredential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious","enum":["credential-selection","previous"],"type":"string","x-go-enum-desc":"credential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious"},"traits":{"description":"Traits\n\nThe identity's traits.","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithProfileMethod"},"saml":{"description":"Update registration flow using SAML","properties":{"csrf_token":{"description":"The CSRF Token","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `saml` when using the saml method.","type":"string"},"provider":{"description":"The provider to register with","type":"string"},"traits":{"description":"The identity traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["provider","method"],"type":"object","title":"updateRegistrationFlowWithSamlMethod"},"webauthn":{"description":"Update Registration Flow with WebAuthn Method","properties":{"csrf_token":{"description":"CSRFToken is the anti-CSRF token","type":"string"},"method":{"description":"Method\n\nShould be set to \"webauthn\" when trying to add, update, or remove a webAuthn pairing.","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"},"webauthn_register":{"description":"Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.","type":"string"},"webauthn_register_displayname":{"description":"Name of the WebAuthn Security Key to be Added\n\nA human-readable name for the security key which will be added.","type":"string"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithWebAuthnMethod"}},"propertyName":"method"},"oneOf":[{"description":"Update Registration Flow with Password Method","properties":{"csrf_token":{"description":"The CSRF Token","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `password` when using the password method.","type":"string"},"password":{"description":"Password to sign the user up with","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["password","traits","method"],"type":"object","title":"updateRegistrationFlowWithPasswordMethod"},{"description":"Update Registration Flow with OpenID Connect Method","properties":{"csrf_token":{"description":"The CSRF Token","type":"string"},"id_token":{"description":"IDToken is an optional id token provided by an OIDC provider\n\nIf submitted, it is verified using the OIDC provider's public key set and the claims are used to populate\nthe OIDC credentials of the identity.\nIf the OIDC provider does not store additional claims (such as name, etc.) in the IDToken itself, you can use\nthe `traits` field to populate the identity's traits. Note, that Apple only includes the users email in the IDToken.\n\nSupported providers are\nApple\nGoogle","type":"string"},"id_token_nonce":{"description":"IDTokenNonce is the nonce, used when generating the IDToken.\nIf the provider supports nonce validation, the nonce will be validated against this value and is required.","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `oidc` when using the oidc method.","type":"string"},"provider":{"description":"The provider to register with","type":"string"},"traits":{"description":"The identity traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"},"upstream_parameters":{"description":"UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.","type":"object"}},"required":["provider","method"],"type":"object","title":"updateRegistrationFlowWithOidcMethod"},{"description":"Update registration flow using SAML","properties":{"csrf_token":{"description":"The CSRF Token","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `saml` when using the saml method.","type":"string"},"provider":{"description":"The provider to register with","type":"string"},"traits":{"description":"The identity traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["provider","method"],"type":"object","title":"updateRegistrationFlowWithSamlMethod"},{"description":"Update Registration Flow with WebAuthn Method","properties":{"csrf_token":{"description":"CSRFToken is the anti-CSRF token","type":"string"},"method":{"description":"Method\n\nShould be set to \"webauthn\" when trying to add, update, or remove a webAuthn pairing.","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"},"webauthn_register":{"description":"Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.","type":"string"},"webauthn_register_displayname":{"description":"Name of the WebAuthn Security Key to be Added\n\nA human-readable name for the security key which will be added.","type":"string"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithWebAuthnMethod"},{"description":"Update Registration Flow with Code Method","properties":{"code":{"description":"The OTP Code sent to the user","type":"string"},"csrf_token":{"description":"The CSRF Token","type":"string"},"method":{"description":"Method to use\n\nThis field must be set to `code` when using the code method.","type":"string"},"resend":{"description":"Resend restarts the flow with a new code","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithCodeMethod"},{"description":"Update Registration Flow with Passkey Method","properties":{"csrf_token":{"description":"CSRFToken is the anti-CSRF token","type":"string"},"method":{"description":"Method\n\nShould be set to \"passkey\" when trying to add, update, or remove a Passkey.","type":"string"},"passkey_register":{"description":"Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.","type":"string"},"traits":{"description":"The identity's traits","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithPasskeyMethod"},{"description":"Update Registration Flow with Profile Method","properties":{"csrf_token":{"description":"The Anti-CSRF Token\n\nThis token is only required when performing browser flows.","type":"string"},"method":{"description":"Method\n\nShould be set to profile when trying to update a profile.","type":"string"},"screen":{"description":"Screen requests navigation to a previous screen.\n\nThis must be set to credential-selection to go back to the credential\nselection screen.\ncredential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious","enum":["credential-selection","previous"],"type":"string","x-go-enum-desc":"credential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious"},"traits":{"description":"Traits\n\nThe identity's traits.","type":"object"},"transient_payload":{"description":"Transient data to pass along to any webhooks","type":"object"}},"required":["traits","method"],"type":"object","title":"updateRegistrationFlowWithProfileMethod"}],"title":"updateRegistrationFlowBody"}}},"required":true,"x-originalParamName":"Body"}}
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Update Registration Request Body",
+          "discriminator": {
+            "mapping": {
+              "code": {
+                "description": "Update Registration Flow with Code Method",
+                "properties": {
+                  "code": {
+                    "description": "The OTP Code sent to the user",
+                    "type": "string"
+                  },
+                  "csrf_token": {
+                    "description": "The CSRF Token",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method to use\n\nThis field must be set to `code` when using the code method.",
+                    "type": "string"
+                  },
+                  "resend": {
+                    "description": "Resend restarts the flow with a new code",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity's traits",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["traits", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithCodeMethod"
+              },
+              "oidc": {
+                "description": "Update Registration Flow with OpenID Connect Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "The CSRF Token",
+                    "type": "string"
+                  },
+                  "id_token": {
+                    "description": "IDToken is an optional id token provided by an OIDC provider\n\nIf submitted, it is verified using the OIDC provider's public key set and the claims are used to populate\nthe OIDC credentials of the identity.\nIf the OIDC provider does not store additional claims (such as name, etc.) in the IDToken itself, you can use\nthe `traits` field to populate the identity's traits. Note, that Apple only includes the users email in the IDToken.\n\nSupported providers are\nApple\nGoogle",
+                    "type": "string"
+                  },
+                  "id_token_nonce": {
+                    "description": "IDTokenNonce is the nonce, used when generating the IDToken.\nIf the provider supports nonce validation, the nonce will be validated against this value and is required.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method to use\n\nThis field must be set to `oidc` when using the oidc method.",
+                    "type": "string"
+                  },
+                  "provider": {
+                    "description": "The provider to register with",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity traits",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  },
+                  "upstream_parameters": {
+                    "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
+                    "type": "object"
+                  }
+                },
+                "required": ["provider", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithOidcMethod"
+              },
+              "passkey": {
+                "description": "Update Registration Flow with Passkey Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "CSRFToken is the anti-CSRF token",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method\n\nShould be set to \"passkey\" when trying to add, update, or remove a Passkey.",
+                    "type": "string"
+                  },
+                  "passkey_register": {
+                    "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity's traits",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["traits", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithPasskeyMethod"
+              },
+              "password": {
+                "description": "Update Registration Flow with Password Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "The CSRF Token",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method to use\n\nThis field must be set to `password` when using the password method.",
+                    "type": "string"
+                  },
+                  "password": {
+                    "description": "Password to sign the user up with",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity's traits",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["password", "traits", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithPasswordMethod"
+              },
+              "profile": {
+                "description": "Update Registration Flow with Profile Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "The Anti-CSRF Token\n\nThis token is only required when performing browser flows.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method\n\nShould be set to profile when trying to update a profile.",
+                    "type": "string"
+                  },
+                  "screen": {
+                    "description": "Screen requests navigation to a previous screen.\n\nThis must be set to credential-selection to go back to the credential\nselection screen.\ncredential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious",
+                    "enum": ["credential-selection", "previous"],
+                    "type": "string",
+                    "x-go-enum-desc": "credential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious"
+                  },
+                  "traits": {
+                    "description": "Traits\n\nThe identity's traits.",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["traits", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithProfileMethod"
+              },
+              "saml": {
+                "description": "Update registration flow using SAML",
+                "properties": {
+                  "csrf_token": {
+                    "description": "The CSRF Token",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method to use\n\nThis field must be set to `saml` when using the saml method.",
+                    "type": "string"
+                  },
+                  "provider": {
+                    "description": "The provider to register with",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity traits",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["provider", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithSamlMethod"
+              },
+              "webauthn": {
+                "description": "Update Registration Flow with WebAuthn Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "CSRFToken is the anti-CSRF token",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method\n\nShould be set to \"webauthn\" when trying to add, update, or remove a webAuthn pairing.",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity's traits",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  },
+                  "webauthn_register": {
+                    "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
+                    "type": "string"
+                  },
+                  "webauthn_register_displayname": {
+                    "description": "Name of the WebAuthn Security Key to be Added\n\nA human-readable name for the security key which will be added.",
+                    "type": "string"
+                  }
+                },
+                "required": ["traits", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithWebAuthnMethod"
+              }
+            },
+            "propertyName": "method"
+          },
+          "oneOf": [
+            {
+              "description": "Update Registration Flow with Password Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "The CSRF Token",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method to use\n\nThis field must be set to `password` when using the password method.",
+                  "type": "string"
+                },
+                "password": {
+                  "description": "Password to sign the user up with",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity's traits",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["password", "traits", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithPasswordMethod"
+            },
+            {
+              "description": "Update Registration Flow with OpenID Connect Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "The CSRF Token",
+                  "type": "string"
+                },
+                "id_token": {
+                  "description": "IDToken is an optional id token provided by an OIDC provider\n\nIf submitted, it is verified using the OIDC provider's public key set and the claims are used to populate\nthe OIDC credentials of the identity.\nIf the OIDC provider does not store additional claims (such as name, etc.) in the IDToken itself, you can use\nthe `traits` field to populate the identity's traits. Note, that Apple only includes the users email in the IDToken.\n\nSupported providers are\nApple\nGoogle",
+                  "type": "string"
+                },
+                "id_token_nonce": {
+                  "description": "IDTokenNonce is the nonce, used when generating the IDToken.\nIf the provider supports nonce validation, the nonce will be validated against this value and is required.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method to use\n\nThis field must be set to `oidc` when using the oidc method.",
+                  "type": "string"
+                },
+                "provider": {
+                  "description": "The provider to register with",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity traits",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                },
+                "upstream_parameters": {
+                  "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
+                  "type": "object"
+                }
+              },
+              "required": ["provider", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithOidcMethod"
+            },
+            {
+              "description": "Update registration flow using SAML",
+              "properties": {
+                "csrf_token": {
+                  "description": "The CSRF Token",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method to use\n\nThis field must be set to `saml` when using the saml method.",
+                  "type": "string"
+                },
+                "provider": {
+                  "description": "The provider to register with",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity traits",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["provider", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithSamlMethod"
+            },
+            {
+              "description": "Update Registration Flow with WebAuthn Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "CSRFToken is the anti-CSRF token",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method\n\nShould be set to \"webauthn\" when trying to add, update, or remove a webAuthn pairing.",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity's traits",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                },
+                "webauthn_register": {
+                  "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
+                  "type": "string"
+                },
+                "webauthn_register_displayname": {
+                  "description": "Name of the WebAuthn Security Key to be Added\n\nA human-readable name for the security key which will be added.",
+                  "type": "string"
+                }
+              },
+              "required": ["traits", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithWebAuthnMethod"
+            },
+            {
+              "description": "Update Registration Flow with Code Method",
+              "properties": {
+                "code": {
+                  "description": "The OTP Code sent to the user",
+                  "type": "string"
+                },
+                "csrf_token": {
+                  "description": "The CSRF Token",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method to use\n\nThis field must be set to `code` when using the code method.",
+                  "type": "string"
+                },
+                "resend": {
+                  "description": "Resend restarts the flow with a new code",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity's traits",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["traits", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithCodeMethod"
+            },
+            {
+              "description": "Update Registration Flow with Passkey Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "CSRFToken is the anti-CSRF token",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method\n\nShould be set to \"passkey\" when trying to add, update, or remove a Passkey.",
+                  "type": "string"
+                },
+                "passkey_register": {
+                  "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity's traits",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["traits", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithPasskeyMethod"
+            },
+            {
+              "description": "Update Registration Flow with Profile Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "The Anti-CSRF Token\n\nThis token is only required when performing browser flows.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method\n\nShould be set to profile when trying to update a profile.",
+                  "type": "string"
+                },
+                "screen": {
+                  "description": "Screen requests navigation to a previous screen.\n\nThis must be set to credential-selection to go back to the credential\nselection screen.\ncredential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious",
+                  "enum": ["credential-selection", "previous"],
+                  "type": "string",
+                  "x-go-enum-desc": "credential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious"
+                },
+                "traits": {
+                  "description": "Traits\n\nThe identity's traits.",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["traits", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithProfileMethod"
+            }
+          ],
+          "title": "updateRegistrationFlowBody"
+        }
+      },
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "description": "Update Registration Request Body",
+          "discriminator": {
+            "mapping": {
+              "code": {
+                "description": "Update Registration Flow with Code Method",
+                "properties": {
+                  "code": {
+                    "description": "The OTP Code sent to the user",
+                    "type": "string"
+                  },
+                  "csrf_token": {
+                    "description": "The CSRF Token",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method to use\n\nThis field must be set to `code` when using the code method.",
+                    "type": "string"
+                  },
+                  "resend": {
+                    "description": "Resend restarts the flow with a new code",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity's traits",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["traits", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithCodeMethod"
+              },
+              "oidc": {
+                "description": "Update Registration Flow with OpenID Connect Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "The CSRF Token",
+                    "type": "string"
+                  },
+                  "id_token": {
+                    "description": "IDToken is an optional id token provided by an OIDC provider\n\nIf submitted, it is verified using the OIDC provider's public key set and the claims are used to populate\nthe OIDC credentials of the identity.\nIf the OIDC provider does not store additional claims (such as name, etc.) in the IDToken itself, you can use\nthe `traits` field to populate the identity's traits. Note, that Apple only includes the users email in the IDToken.\n\nSupported providers are\nApple\nGoogle",
+                    "type": "string"
+                  },
+                  "id_token_nonce": {
+                    "description": "IDTokenNonce is the nonce, used when generating the IDToken.\nIf the provider supports nonce validation, the nonce will be validated against this value and is required.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method to use\n\nThis field must be set to `oidc` when using the oidc method.",
+                    "type": "string"
+                  },
+                  "provider": {
+                    "description": "The provider to register with",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity traits",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  },
+                  "upstream_parameters": {
+                    "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
+                    "type": "object"
+                  }
+                },
+                "required": ["provider", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithOidcMethod"
+              },
+              "passkey": {
+                "description": "Update Registration Flow with Passkey Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "CSRFToken is the anti-CSRF token",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method\n\nShould be set to \"passkey\" when trying to add, update, or remove a Passkey.",
+                    "type": "string"
+                  },
+                  "passkey_register": {
+                    "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity's traits",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["traits", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithPasskeyMethod"
+              },
+              "password": {
+                "description": "Update Registration Flow with Password Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "The CSRF Token",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method to use\n\nThis field must be set to `password` when using the password method.",
+                    "type": "string"
+                  },
+                  "password": {
+                    "description": "Password to sign the user up with",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity's traits",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["password", "traits", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithPasswordMethod"
+              },
+              "profile": {
+                "description": "Update Registration Flow with Profile Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "The Anti-CSRF Token\n\nThis token is only required when performing browser flows.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method\n\nShould be set to profile when trying to update a profile.",
+                    "type": "string"
+                  },
+                  "screen": {
+                    "description": "Screen requests navigation to a previous screen.\n\nThis must be set to credential-selection to go back to the credential\nselection screen.\ncredential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious",
+                    "enum": ["credential-selection", "previous"],
+                    "type": "string",
+                    "x-go-enum-desc": "credential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious"
+                  },
+                  "traits": {
+                    "description": "Traits\n\nThe identity's traits.",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["traits", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithProfileMethod"
+              },
+              "saml": {
+                "description": "Update registration flow using SAML",
+                "properties": {
+                  "csrf_token": {
+                    "description": "The CSRF Token",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method to use\n\nThis field must be set to `saml` when using the saml method.",
+                    "type": "string"
+                  },
+                  "provider": {
+                    "description": "The provider to register with",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity traits",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["provider", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithSamlMethod"
+              },
+              "webauthn": {
+                "description": "Update Registration Flow with WebAuthn Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "CSRFToken is the anti-CSRF token",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method\n\nShould be set to \"webauthn\" when trying to add, update, or remove a webAuthn pairing.",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity's traits",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  },
+                  "webauthn_register": {
+                    "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
+                    "type": "string"
+                  },
+                  "webauthn_register_displayname": {
+                    "description": "Name of the WebAuthn Security Key to be Added\n\nA human-readable name for the security key which will be added.",
+                    "type": "string"
+                  }
+                },
+                "required": ["traits", "method"],
+                "type": "object",
+                "title": "updateRegistrationFlowWithWebAuthnMethod"
+              }
+            },
+            "propertyName": "method"
+          },
+          "oneOf": [
+            {
+              "description": "Update Registration Flow with Password Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "The CSRF Token",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method to use\n\nThis field must be set to `password` when using the password method.",
+                  "type": "string"
+                },
+                "password": {
+                  "description": "Password to sign the user up with",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity's traits",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["password", "traits", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithPasswordMethod"
+            },
+            {
+              "description": "Update Registration Flow with OpenID Connect Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "The CSRF Token",
+                  "type": "string"
+                },
+                "id_token": {
+                  "description": "IDToken is an optional id token provided by an OIDC provider\n\nIf submitted, it is verified using the OIDC provider's public key set and the claims are used to populate\nthe OIDC credentials of the identity.\nIf the OIDC provider does not store additional claims (such as name, etc.) in the IDToken itself, you can use\nthe `traits` field to populate the identity's traits. Note, that Apple only includes the users email in the IDToken.\n\nSupported providers are\nApple\nGoogle",
+                  "type": "string"
+                },
+                "id_token_nonce": {
+                  "description": "IDTokenNonce is the nonce, used when generating the IDToken.\nIf the provider supports nonce validation, the nonce will be validated against this value and is required.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method to use\n\nThis field must be set to `oidc` when using the oidc method.",
+                  "type": "string"
+                },
+                "provider": {
+                  "description": "The provider to register with",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity traits",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                },
+                "upstream_parameters": {
+                  "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
+                  "type": "object"
+                }
+              },
+              "required": ["provider", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithOidcMethod"
+            },
+            {
+              "description": "Update registration flow using SAML",
+              "properties": {
+                "csrf_token": {
+                  "description": "The CSRF Token",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method to use\n\nThis field must be set to `saml` when using the saml method.",
+                  "type": "string"
+                },
+                "provider": {
+                  "description": "The provider to register with",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity traits",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["provider", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithSamlMethod"
+            },
+            {
+              "description": "Update Registration Flow with WebAuthn Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "CSRFToken is the anti-CSRF token",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method\n\nShould be set to \"webauthn\" when trying to add, update, or remove a webAuthn pairing.",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity's traits",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                },
+                "webauthn_register": {
+                  "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
+                  "type": "string"
+                },
+                "webauthn_register_displayname": {
+                  "description": "Name of the WebAuthn Security Key to be Added\n\nA human-readable name for the security key which will be added.",
+                  "type": "string"
+                }
+              },
+              "required": ["traits", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithWebAuthnMethod"
+            },
+            {
+              "description": "Update Registration Flow with Code Method",
+              "properties": {
+                "code": {
+                  "description": "The OTP Code sent to the user",
+                  "type": "string"
+                },
+                "csrf_token": {
+                  "description": "The CSRF Token",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method to use\n\nThis field must be set to `code` when using the code method.",
+                  "type": "string"
+                },
+                "resend": {
+                  "description": "Resend restarts the flow with a new code",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity's traits",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["traits", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithCodeMethod"
+            },
+            {
+              "description": "Update Registration Flow with Passkey Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "CSRFToken is the anti-CSRF token",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method\n\nShould be set to \"passkey\" when trying to add, update, or remove a Passkey.",
+                  "type": "string"
+                },
+                "passkey_register": {
+                  "description": "Register a WebAuthn Security Key\n\nIt is expected that the JSON returned by the WebAuthn registration process\nis included here.",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity's traits",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["traits", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithPasskeyMethod"
+            },
+            {
+              "description": "Update Registration Flow with Profile Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "The Anti-CSRF Token\n\nThis token is only required when performing browser flows.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method\n\nShould be set to profile when trying to update a profile.",
+                  "type": "string"
+                },
+                "screen": {
+                  "description": "Screen requests navigation to a previous screen.\n\nThis must be set to credential-selection to go back to the credential\nselection screen.\ncredential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious",
+                  "enum": ["credential-selection", "previous"],
+                  "type": "string",
+                  "x-go-enum-desc": "credential-selection RegistrationScreenCredentialSelection nolint:gosec // not a credential\nprevious RegistrationScreenPrevious"
+                },
+                "traits": {
+                  "description": "Traits\n\nThe identity's traits.",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["traits", "method"],
+              "type": "object",
+              "title": "updateRegistrationFlowWithProfileMethod"
+            }
+          ],
+          "title": "updateRegistrationFlowBody"
+        }
+      }
+    },
+    "required": true,
+    "x-originalParamName": "Body"
+  }
+}

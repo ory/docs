@@ -11,74 +11,39 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Manage sessions in bulk"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Manage sessions in bulk"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/admin/sessions"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/admin/sessions"} context={"endpoint"}></MethodEndpoint>
 
+Disable or delete sessions for a list of identities or a list of sessions in a single call. The `action` field selects the
+operation:
 
+`disable` — deactivate matching sessions (sets `active = false`, preserves audit data). `delete` — permanently delete matching
+sessions.
 
-Disable or delete sessions for a list of identities or a list of sessions in
-a single call. The `action` field selects the operation:
+Exactly one of `identities` or `sessions` must be provided. To scope the operation to every session in the network, pass
+`identities: ["*"]`; the wildcard is not accepted in the `sessions` field. Up to 500 explicit IDs are accepted per call.
 
-`disable` — deactivate matching sessions (sets `active = false`, preserves
-audit data).
-`delete` — permanently delete matching sessions.
+All requests return `200 OK` with `{processed, more}`. `processed` reports how many rows the call affected; for `disable` it
+counts only sessions that were active before the call. `more` is `true` only when a wildcard request reached the per-call batch
+limit and additional rows may remain; callers drain the network by re-issuing the same request while `more` is `true`.
+Explicit-IDs requests always return `more: false`.
 
-Exactly one of `identities` or `sessions` must be provided. To scope the
-operation to every session in the network, pass `identities: ["*"]`; the
-wildcard is not accepted in the `sessions` field. Up to 500 explicit IDs
-are accepted per call.
-
-All requests return `200 OK` with `{processed, more}`. `processed` reports
-how many rows the call affected; for `disable` it counts only sessions
-that were active before the call. `more` is `true` only when a wildcard
-request reached the per-call batch limit and additional rows may remain;
-callers drain the network by re-issuing the same request while `more` is
-`true`. Explicit-IDs requests always return `more: false`.
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./manage-sessions.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./manage-sessions.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./manage-sessions.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./manage-sessions.StatusCodes.json")}></StatusCodes>

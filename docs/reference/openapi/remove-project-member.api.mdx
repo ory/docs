@@ -11,60 +11,28 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Remove a member associated with this project"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Remove a member associated with this project"}></Heading>
 
-<MethodEndpoint
-  method={"delete"}
-  path={"/projects/{project}/members/{member}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"delete"} path={"/projects/{project}/members/{member}"} context={"endpoint"}></MethodEndpoint>
 
+This also sets their invite status to `REMOVED`. This endpoint requires the user to be a member of the project with the role
+`OWNER`.
 
-
-This also sets their invite status to `REMOVED`.
-This endpoint requires the user to be a member of the project with the role `OWNER`.
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./remove-project-member.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./remove-project-member.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./remove-project-member.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./remove-project-member.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./remove-project-member.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./remove-project-member.StatusCodes.json")}></StatusCodes>

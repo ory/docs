@@ -1,1 +1,28 @@
-{"parameters":[{"description":"Items per Page\n\nThis is the number of items per page to return.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.com/docs/ecosystem/api-design#pagination).","in":"query","name":"page_size","schema":{"default":250,"format":"int64","maximum":1000,"minimum":1,"type":"integer"}},{"description":"Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.com/docs/ecosystem/api-design#pagination).","in":"query","name":"page_token","schema":{"type":"string"}},{"description":"If optional \"issuer\" is supplied, only jwt-bearer grants with this issuer will be returned.","in":"query","name":"issuer","schema":{"type":"string"}}]}
+{
+  "parameters": [
+    {
+      "description": "Items per Page\n\nThis is the number of items per page to return.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.com/docs/ecosystem/api-design#pagination).",
+      "in": "query",
+      "name": "page_size",
+      "schema": {
+        "default": 250,
+        "format": "int64",
+        "maximum": 1000,
+        "minimum": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.com/docs/ecosystem/api-design#pagination).",
+      "in": "query",
+      "name": "page_token",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "If optional \"issuer\" is supplied, only jwt-bearer grants with this issuer will be returned.",
+      "in": "query",
+      "name": "issuer",
+      "schema": { "type": "string" }
+    }
+  ]
+}

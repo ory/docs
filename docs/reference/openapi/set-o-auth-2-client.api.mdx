@@ -11,65 +11,33 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Set OAuth 2.0 Client"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Set OAuth 2.0 Client"}></Heading>
 
-<MethodEndpoint
-  method={"put"}
-  path={"/admin/clients/{id}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"put"} path={"/admin/clients/{id}"} context={"endpoint"}></MethodEndpoint>
 
-
-
-Replaces an existing OAuth 2.0 Client with the payload you send. If you pass `client_secret` the secret is used,
-otherwise the existing secret is used.
+Replaces an existing OAuth 2.0 Client with the payload you send. If you pass `client_secret` the secret is used, otherwise the
+existing secret is used.
 
 If set, the secret is echoed in the response. It is not possible to retrieve it later on.
 
-OAuth 2.0 Clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are
-generated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.
+OAuth 2.0 Clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are generated for
+applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./set-o-auth-2-client.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./set-o-auth-2-client.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./set-o-auth-2-client.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./set-o-auth-2-client.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./set-o-auth-2-client.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./set-o-auth-2-client.StatusCodes.json")}></StatusCodes>

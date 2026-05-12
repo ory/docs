@@ -11,68 +11,36 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Reject OAuth 2.0 Login Request"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Reject OAuth 2.0 Login Request"}></Heading>
 
-<MethodEndpoint
-  method={"put"}
-  path={"/admin/oauth2/auth/requests/login/reject"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"put"} path={"/admin/oauth2/auth/requests/login/reject"} context={"endpoint"}></MethodEndpoint>
 
+When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, Ory asks the login provider to authenticate the
+subject and then tell the Ory OAuth2 Service about it.
 
+The authentication challenge is appended to the login provider URL to which the subject's user-agent (browser) is redirected to.
+The login provider uses that challenge to fetch information on the OAuth2 request and then accept or reject the requested
+authentication process.
 
-When an authorization code, hybrid, or implicit OAuth 2.0 Flow is initiated, Ory asks the login provider
-to authenticate the subject and then tell the Ory OAuth2 Service about it.
-
-The authentication challenge is appended to the login provider URL to which the subject's user-agent (browser) is redirected to. The login
-provider uses that challenge to fetch information on the OAuth2 request and then accept or reject the requested authentication process.
-
-This endpoint tells Ory that the subject has not authenticated and includes a reason why the authentication
-was denied.
+This endpoint tells Ory that the subject has not authenticated and includes a reason why the authentication was denied.
 
 The response contains a redirect URL which the login provider should redirect the user-agent to.
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./reject-o-auth-2-login-request.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./reject-o-auth-2-login-request.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./reject-o-auth-2-login-request.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./reject-o-auth-2-login-request.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./reject-o-auth-2-login-request.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./reject-o-auth-2-login-request.StatusCodes.json")}></StatusCodes>

@@ -33,25 +33,25 @@ export type CodeSampleLanguage =
   | "Scala"
   | "Shell"
   | "Swift"
-  | "TypeScript";
+  | "TypeScript"
 
 export interface Language {
-  highlight: string;
-  language: string;
-  codeSampleLanguage: CodeSampleLanguage;
-  logoClass: string;
-  variant: string;
-  variants: string[];
-  options?: { [key: string]: boolean };
-  sample?: string;
-  samples?: string[];
-  samplesSources?: string[];
-  samplesLabels?: string[];
+  highlight: string
+  language: string
+  codeSampleLanguage: CodeSampleLanguage
+  logoClass: string
+  variant: string
+  variants: string[]
+  options?: { [key: string]: boolean }
+  sample?: string
+  samples?: string[]
+  samplesSources?: string[]
+  samplesLabels?: string[]
 }
 
 // https://redocly.com/docs/api-reference-docs/specification-extensions/x-code-samples
 export interface CodeSample {
-  source: string;
-  lang: CodeSampleLanguage;
-  label?: string;
+  source: string
+  lang: CodeSampleLanguage
+  label?: string
 }

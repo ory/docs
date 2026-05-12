@@ -11,64 +11,32 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Delete OAuth 2.0 Client"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Delete OAuth 2.0 Client"}></Heading>
 
-<MethodEndpoint
-  method={"delete"}
-  path={"/admin/clients/{id}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"delete"} path={"/admin/clients/{id}"} context={"endpoint"}></MethodEndpoint>
 
 Delete an existing OAuth 2.0 Client by its ID.
 
-OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are
-generated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.
+OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are generated for
+applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.
 
 Make sure that this endpoint is well protected and only callable by first-party components.
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./delete-o-auth-2-client.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./delete-o-auth-2-client.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./delete-o-auth-2-client.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./delete-o-auth-2-client.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./delete-o-auth-2-client.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./delete-o-auth-2-client.StatusCodes.json")}></StatusCodes>

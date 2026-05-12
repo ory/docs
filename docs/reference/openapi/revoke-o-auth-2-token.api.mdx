@@ -11,60 +11,29 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Revoke OAuth 2.0 Access or Refresh Token"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Revoke OAuth 2.0 Access or Refresh Token"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/oauth2/revoke"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/oauth2/revoke"} context={"endpoint"}></MethodEndpoint>
 
+Revoking a token (both access and refresh) means that the tokens will be invalid. A revoked access token can no longer be used to
+make access requests, and a revoked refresh token can no longer be used to refresh an access token. Revoking a refresh token also
+invalidates the access token that was created with it. A token may only be revoked by the client the token was generated for.
 
-
-Revoking a token (both access and refresh) means that the tokens will be invalid. A revoked access token can no
-longer be used to make access requests, and a revoked refresh token can no longer be used to refresh an access token.
-Revoking a refresh token also invalidates the access token that was created with it. A token may only be revoked by
-the client the token was generated for.
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./revoke-o-auth-2-token.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./revoke-o-auth-2-token.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./revoke-o-auth-2-token.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./revoke-o-auth-2-token.StatusCodes.json")}></StatusCodes>

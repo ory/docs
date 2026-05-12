@@ -11,39 +11,26 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Get Recovery Flow"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Get Recovery Flow"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/self-service/recovery/flows"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/self-service/recovery/flows"} context={"endpoint"}></MethodEndpoint>
 
 This endpoint returns a recovery flow's context with, for example, error details and other information.
 
-Browser flows expect the anti-CSRF cookie to be included in the request's HTTP Cookie Header.
-For AJAX requests you must ensure that cookies are included in the request or requests will fail.
+Browser flows expect the anti-CSRF cookie to be included in the request's HTTP Cookie Header. For AJAX requests you must ensure
+that cookies are included in the request or requests will fail.
 
-If you use the browser-flow for server-side apps, the services need to run on a common top-level-domain
-and you need to forward the incoming HTTP Cookie header to this endpoint:
+If you use the browser-flow for server-side apps, the services need to run on a common top-level-domain and you need to forward
+the incoming HTTP Cookie header to this endpoint:
 
 ```js
 pseudo-code example
@@ -56,31 +43,12 @@ res.render('recovery', flow)
 
 More information can be found at [Ory Kratos Account Recovery Documentation](../self-service/flows/account-recovery).
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./get-recovery-flow.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./get-recovery-flow.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./get-recovery-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./get-recovery-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./get-recovery-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./get-recovery-flow.StatusCodes.json")}></StatusCodes>

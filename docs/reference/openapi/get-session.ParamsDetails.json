@@ -1,1 +1,20 @@
-{"parameters":[{"description":"ExpandOptions is a query parameter encoded list of all properties that must be expanded in the Session.\nExample - ?expand=Identity&expand=Devices\nIf no value is provided, the expandable properties are skipped.","in":"query","name":"expand","schema":{"items":{"enum":["identity","devices"],"type":"string"},"type":"array"}},{"description":"ID is the session's ID.","in":"path","name":"id","required":true,"schema":{"type":"string"}}]}
+{
+  "parameters": [
+    {
+      "description": "ExpandOptions is a query parameter encoded list of all properties that must be expanded in the Session.\nExample - ?expand=Identity&expand=Devices\nIf no value is provided, the expandable properties are skipped.",
+      "in": "query",
+      "name": "expand",
+      "schema": {
+        "items": { "enum": ["identity", "devices"], "type": "string" },
+        "type": "array"
+      }
+    },
+    {
+      "description": "ID is the session's ID.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

@@ -12,38 +12,65 @@ import { fileURLToPath } from "url"
 import { dirname, join } from "path"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const SPEC_PATH       = join(__dirname, "../src/static/api.json")
-const TS_API_PATH     = join(__dirname, "../../sdk/clients/client/typescript/api.ts")
-const GO_DOCS_DIR     = join(__dirname, "../../sdk/clients/client/go/docs")
+const SPEC_PATH = join(__dirname, "../src/static/api.json")
+const TS_API_PATH = join(
+  __dirname,
+  "../../sdk/clients/client/typescript/api.ts",
+)
+const GO_DOCS_DIR = join(__dirname, "../../sdk/clients/client/go/docs")
 
 // ─── Tag → SDK identifiers ───────────────────────────────────────────────────
 
 const TAG_TO_TS_CLASS = {
-  courier: "CourierApi",    events: "EventsApi",
-  frontend: "FrontendApi",  identity: "IdentityApi",
-  jwk: "JwkApi",            metadata: "MetadataApi",
-  oAuth2: "OAuth2Api",      oidc: "OidcApi",
-  permission: "PermissionApi", project: "ProjectApi",
-  relationship: "RelationshipApi", wellknown: "WellknownApi",
+  courier: "CourierApi",
+  events: "EventsApi",
+  frontend: "FrontendApi",
+  identity: "IdentityApi",
+  jwk: "JwkApi",
+  metadata: "MetadataApi",
+  oAuth2: "OAuth2Api",
+  oidc: "OidcApi",
+  permission: "PermissionApi",
+  project: "ProjectApi",
+  relationship: "RelationshipApi",
+  wellknown: "WellknownApi",
   workspace: "WorkspaceApi",
 }
 
 const TAG_TO_GO_SERVICE = {
-  courier: "CourierAPI",    events: "EventsAPI",
-  frontend: "FrontendAPI",  identity: "IdentityAPI",
-  jwk: "JwkAPI",            metadata: "MetadataAPI",
-  oAuth2: "OAuth2API",      oidc: "OidcAPI",
-  permission: "PermissionAPI", project: "ProjectAPI",
-  relationship: "RelationshipAPI", wellknown: "WellknownAPI",
+  courier: "CourierAPI",
+  events: "EventsAPI",
+  frontend: "FrontendAPI",
+  identity: "IdentityAPI",
+  jwk: "JwkAPI",
+  metadata: "MetadataAPI",
+  oAuth2: "OAuth2API",
+  oidc: "OidcAPI",
+  permission: "PermissionAPI",
+  project: "ProjectAPI",
+  relationship: "RelationshipAPI",
+  wellknown: "WellknownAPI",
   workspace: "WorkspaceAPI",
 }
 
 // ─── TypeScript parsing ───────────────────────────────────────────────────────
 
 const TS_PRIMITIVES = new Set([
-  "string","number","boolean","any","void","null",
-  "undefined","unknown","never","object",
-  "Array","Record","Promise","Set","Map",
+  "string",
+  "number",
+  "boolean",
+  "any",
+  "void",
+  "null",
+  "undefined",
+  "unknown",
+  "never",
+  "object",
+  "Array",
+  "Record",
+  "Promise",
+  "Set",
+  "Map",
 ])
 
 function parseTsRequestInterfaces(content) {
@@ -86,10 +113,10 @@ function tsImportableTypes(typeStr) {
 }
 
 function tsPlaceholder(type) {
-  if (type === "string")           return '"<value>"'
-  if (type === "number")           return "0"
-  if (type === "boolean")          return "false"
-  if (type.startsWith("Array<"))   return "[]"
+  if (type === "string") return '"<value>"'
+  if (type === "number") return "0"
+  if (type === "boolean") return "false"
+  if (type.startsWith("Array<")) return "[]"
   return `{} as ${type}`
 }
 
@@ -106,14 +133,18 @@ function generateTsSnippet(className, methodName, fields) {
   if (required.length === 0) {
     call = `await apiInstance.${methodName}()`
   } else {
-    const args = required.map((f) => `  ${f.name}: ${tsPlaceholder(f.type)},`).join("\n")
+    const args = required
+      .map((f) => `  ${f.name}: ${tsPlaceholder(f.type)},`)
+      .join("\n")
     call = `await apiInstance.${methodName}({\n${args}\n})`
   }
 
   return [
-    importLine, "",
+    importLine,
+    "",
     "const configuration = new Configuration()",
-    `const apiInstance = new ${className}(configuration)`, "",
+    `const apiInstance = new ${className}(configuration)`,
+    "",
     `const { status, data } = ${call}`,
   ].join("\n")
 }
@@ -121,7 +152,7 @@ function generateTsSnippet(className, methodName, fields) {
 // ─── Go: read from pre-generated SDK docs ────────────────────────────────────
 
 function parseGoDocsExamples(goDocsDir) {
-  const examples = {}  // operationId (camelCase) → go code string
+  const examples = {} // operationId (camelCase) → go code string
 
   for (const [tag, serviceName] of Object.entries(TAG_TO_GO_SERVICE)) {
     const filePath = join(goDocsDir, `${serviceName}.md`)
@@ -137,13 +168,14 @@ function parseGoDocsExamples(goDocsDir) {
     for (const section of sections) {
       const methodMatch = section.match(/^(\w+)\n/)
       if (!methodMatch) continue
-      const methodName = methodMatch[1]  // PascalCase, e.g. "GetCourierMessage"
+      const methodName = methodMatch[1] // PascalCase, e.g. "GetCourierMessage"
 
       // Find the ### Example block
       const exampleMatch = section.match(/### Example\n\n```go\n([\s\S]*?)```/)
       if (!exampleMatch) continue
 
-      const operationId = methodName.charAt(0).toLowerCase() + methodName.slice(1)
+      const operationId =
+        methodName.charAt(0).toLowerCase() + methodName.slice(1)
       examples[operationId] = exampleMatch[1].trimEnd()
     }
   }
@@ -155,22 +187,27 @@ function parseGoDocsExamples(goDocsDir) {
 
 function main() {
   // Parse TypeScript SDK
-  const tsContent    = readFileSync(TS_API_PATH, "utf8")
+  const tsContent = readFileSync(TS_API_PATH, "utf8")
   const tsInterfaces = parseTsRequestInterfaces(tsContent)
-  console.log(`TS: parsed ${Object.keys(tsInterfaces).length} request interfaces`)
+  console.log(
+    `TS: parsed ${Object.keys(tsInterfaces).length} request interfaces`,
+  )
 
   // Parse Go SDK docs
   const goExamples = parseGoDocsExamples(GO_DOCS_DIR)
-  console.log(`Go: parsed ${Object.keys(goExamples).length} examples from SDK docs`)
+  console.log(
+    `Go: parsed ${Object.keys(goExamples).length} examples from SDK docs`,
+  )
 
   const spec = JSON.parse(readFileSync(SPEC_PATH, "utf8"))
-  let injected = 0, skipped = 0
+  let injected = 0,
+    skipped = 0
 
   for (const pathItem of Object.values(spec.paths ?? {})) {
     for (const op of Object.values(pathItem)) {
       if (!op || typeof op !== "object" || !op.operationId) continue
 
-      const tag     = op.tags?.[0]
+      const tag = op.tags?.[0]
       const tsClass = TAG_TO_TS_CLASS[tag]
 
       if (!tsClass) {
@@ -181,8 +218,8 @@ function main() {
 
       // TypeScript sample
       const tsIfaceName = tsInterfaceName(tsClass, op.operationId)
-      const tsFields    = tsInterfaces[tsIfaceName] ?? []
-      const tsSnippet   = generateTsSnippet(tsClass, op.operationId, tsFields)
+      const tsFields = tsInterfaces[tsIfaceName] ?? []
+      const tsSnippet = generateTsSnippet(tsClass, op.operationId, tsFields)
 
       // Go sample from pre-generated SDK docs
       const goSnippet = goExamples[op.operationId] ?? ""
@@ -191,8 +228,10 @@ function main() {
       }
 
       op["x-codeSamples"] = [
-        { lang: "TypeScript", label: "@ory/client",    source: tsSnippet },
-        ...(goSnippet ? [{ lang: "Go", label: "native", source: goSnippet }] : []),
+        { lang: "TypeScript", label: "@ory/client", source: tsSnippet },
+        ...(goSnippet
+          ? [{ lang: "Go", label: "native", source: goSnippet }]
+          : []),
       ]
       injected++
     }

@@ -1,1 +1,68 @@
-{"title":"Body","body":{"content":{"application/json":{"schema":{"items":{"description":"Payload for patching a relationship","properties":{"action":{"enum":["insert","delete"],"type":"string","x-go-enum-desc":"insert ActionInsert\ndelete ActionDelete"},"relation_tuple":{"description":"Relationship","properties":{"namespace":{"description":"Namespace of the Relation Tuple","type":"string"},"object":{"description":"Object of the Relation Tuple","type":"string"},"relation":{"description":"Relation of the Relation Tuple","type":"string"},"subject_id":{"description":"SubjectID of the Relation Tuple\n\nEither SubjectSet or SubjectID can be provided.","type":"string"},"subject_set":{"properties":{"namespace":{"description":"Namespace of the Subject Set","type":"string"},"object":{"description":"Object of the Subject Set","type":"string"},"relation":{"description":"Relation of the Subject Set","type":"string"}},"required":["namespace","object","relation"],"type":"object","title":"subjectSet"}},"required":["namespace","object","relation"],"type":"object","title":"relationship"}},"type":"object","title":"relationshipPatch"},"type":"array"}}},"x-originalParamName":"Body"}}
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "items": {
+            "description": "Payload for patching a relationship",
+            "properties": {
+              "action": {
+                "enum": ["insert", "delete"],
+                "type": "string",
+                "x-go-enum-desc": "insert ActionInsert\ndelete ActionDelete"
+              },
+              "relation_tuple": {
+                "description": "Relationship",
+                "properties": {
+                  "namespace": {
+                    "description": "Namespace of the Relation Tuple",
+                    "type": "string"
+                  },
+                  "object": {
+                    "description": "Object of the Relation Tuple",
+                    "type": "string"
+                  },
+                  "relation": {
+                    "description": "Relation of the Relation Tuple",
+                    "type": "string"
+                  },
+                  "subject_id": {
+                    "description": "SubjectID of the Relation Tuple\n\nEither SubjectSet or SubjectID can be provided.",
+                    "type": "string"
+                  },
+                  "subject_set": {
+                    "properties": {
+                      "namespace": {
+                        "description": "Namespace of the Subject Set",
+                        "type": "string"
+                      },
+                      "object": {
+                        "description": "Object of the Subject Set",
+                        "type": "string"
+                      },
+                      "relation": {
+                        "description": "Relation of the Subject Set",
+                        "type": "string"
+                      }
+                    },
+                    "required": ["namespace", "object", "relation"],
+                    "type": "object",
+                    "title": "subjectSet"
+                  }
+                },
+                "required": ["namespace", "object", "relation"],
+                "type": "object",
+                "title": "relationship"
+              }
+            },
+            "type": "object",
+            "title": "relationshipPatch"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}

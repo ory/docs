@@ -11,64 +11,31 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Patch OAuth 2.0 Client"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Patch OAuth 2.0 Client"}></Heading>
 
-<MethodEndpoint
-  method={"patch"}
-  path={"/admin/clients/{id}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"patch"} path={"/admin/clients/{id}"} context={"endpoint"}></MethodEndpoint>
 
+Patch an existing OAuth 2.0 Client using JSON Patch. If you pass `client_secret` the secret will be updated and returned via the
+API. This is the only time you will be able to retrieve the client secret, so write it down and keep it safe.
 
+OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are generated for
+applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.
 
-Patch an existing OAuth 2.0 Client using JSON Patch. If you pass `client_secret`
-the secret will be updated and returned via the API. This is the
-only time you will be able to retrieve the client secret, so write it down and keep it safe.
-
-OAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are
-generated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./patch-o-auth-2-client.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./patch-o-auth-2-client.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./patch-o-auth-2-client.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./patch-o-auth-2-client.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./patch-o-auth-2-client.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./patch-o-auth-2-client.StatusCodes.json")}></StatusCodes>

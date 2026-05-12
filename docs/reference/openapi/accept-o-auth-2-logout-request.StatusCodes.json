@@ -1,1 +1,57 @@
-{"responses":{"200":{"content":{"application/json":{"schema":{"description":"Contains a redirect URL used to complete a login, consent, or logout request.","properties":{"redirect_to":{"description":"RedirectURL is the URL which you should redirect the user's browser to once the authentication process is completed.","type":"string"}},"required":["redirect_to"],"title":"OAuth 2.0 Redirect Browser To","type":"object"}}},"description":"oAuth2RedirectTo"},"default":{"content":{"application/json":{"schema":{"description":"Error","properties":{"error":{"description":"Error","type":"string"},"error_debug":{"description":"Error Debug Information\n\nOnly available in dev mode.","type":"string"},"error_description":{"description":"Error Description","type":"string"},"error_hint":{"description":"Error Hint\n\nHelps the user identify the error cause.","example":"The redirect URL is not allowed.","type":"string"},"status_code":{"description":"HTTP Status Code","example":401,"format":"int64","type":"integer"}},"type":"object","title":"errorOAuth2"}}},"description":"errorOAuth2"}}}
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Contains a redirect URL used to complete a login, consent, or logout request.",
+            "properties": {
+              "redirect_to": {
+                "description": "RedirectURL is the URL which you should redirect the user's browser to once the authentication process is completed.",
+                "type": "string"
+              }
+            },
+            "required": ["redirect_to"],
+            "title": "OAuth 2.0 Redirect Browser To",
+            "type": "object"
+          }
+        }
+      },
+      "description": "oAuth2RedirectTo"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error",
+            "properties": {
+              "error": { "description": "Error", "type": "string" },
+              "error_debug": {
+                "description": "Error Debug Information\n\nOnly available in dev mode.",
+                "type": "string"
+              },
+              "error_description": {
+                "description": "Error Description",
+                "type": "string"
+              },
+              "error_hint": {
+                "description": "Error Hint\n\nHelps the user identify the error cause.",
+                "example": "The redirect URL is not allowed.",
+                "type": "string"
+              },
+              "status_code": {
+                "description": "HTTP Status Code",
+                "example": 401,
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            "type": "object",
+            "title": "errorOAuth2"
+          }
+        }
+      },
+      "description": "errorOAuth2"
+    }
+  }
+}

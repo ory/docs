@@ -1,1 +1,77 @@
-{"responses":{"200":{"content":{"application/json":{"schema":{"description":"OAuth2 Token Exchange Result","properties":{"access_token":{"description":"The access token issued by the authorization server.","type":"string"},"expires_in":{"description":"The lifetime in seconds of the access token. For\nexample, the value \"3600\" denotes that the access token will\nexpire in one hour from the time the response was generated.","format":"int64","type":"integer"},"id_token":{"description":"To retrieve a refresh token request the id_token scope.","type":"string"},"refresh_token":{"description":"The refresh token, which can be used to obtain new\naccess tokens. To retrieve it add the scope \"offline\" to your access token request.","type":"string"},"scope":{"description":"The scope of the access token","type":"string"},"token_type":{"description":"The type of the token issued","type":"string"}},"type":"object","title":"oAuth2TokenExchange"}}},"description":"oAuth2TokenExchange"},"default":{"content":{"application/json":{"schema":{"description":"Error","properties":{"error":{"description":"Error","type":"string"},"error_debug":{"description":"Error Debug Information\n\nOnly available in dev mode.","type":"string"},"error_description":{"description":"Error Description","type":"string"},"error_hint":{"description":"Error Hint\n\nHelps the user identify the error cause.","example":"The redirect URL is not allowed.","type":"string"},"status_code":{"description":"HTTP Status Code","example":401,"format":"int64","type":"integer"}},"type":"object","title":"errorOAuth2"}}},"description":"errorOAuth2"}}}
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "OAuth2 Token Exchange Result",
+            "properties": {
+              "access_token": {
+                "description": "The access token issued by the authorization server.",
+                "type": "string"
+              },
+              "expires_in": {
+                "description": "The lifetime in seconds of the access token. For\nexample, the value \"3600\" denotes that the access token will\nexpire in one hour from the time the response was generated.",
+                "format": "int64",
+                "type": "integer"
+              },
+              "id_token": {
+                "description": "To retrieve a refresh token request the id_token scope.",
+                "type": "string"
+              },
+              "refresh_token": {
+                "description": "The refresh token, which can be used to obtain new\naccess tokens. To retrieve it add the scope \"offline\" to your access token request.",
+                "type": "string"
+              },
+              "scope": {
+                "description": "The scope of the access token",
+                "type": "string"
+              },
+              "token_type": {
+                "description": "The type of the token issued",
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "title": "oAuth2TokenExchange"
+          }
+        }
+      },
+      "description": "oAuth2TokenExchange"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error",
+            "properties": {
+              "error": { "description": "Error", "type": "string" },
+              "error_debug": {
+                "description": "Error Debug Information\n\nOnly available in dev mode.",
+                "type": "string"
+              },
+              "error_description": {
+                "description": "Error Description",
+                "type": "string"
+              },
+              "error_hint": {
+                "description": "Error Hint\n\nHelps the user identify the error cause.",
+                "example": "The redirect URL is not allowed.",
+                "type": "string"
+              },
+              "status_code": {
+                "description": "HTTP Status Code",
+                "example": 401,
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            "type": "object",
+            "title": "errorOAuth2"
+          }
+        }
+      },
+      "description": "errorOAuth2"
+    }
+  }
+}

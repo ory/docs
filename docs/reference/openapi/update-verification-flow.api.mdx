@@ -11,74 +11,43 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Complete Verification Flow"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Complete Verification Flow"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/self-service/verification"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/self-service/verification"} context={"endpoint"}></MethodEndpoint>
 
+Use this endpoint to complete a verification flow. This endpoint behaves differently for API and browser flows and has several
+states:
 
+`choose_method` expects `flow` (in the URL query) and `email` (in the body) to be sent and works with API- and Browser-initiated
+flows. For API clients and Browser clients with HTTP Header `Accept: application/json` it either returns a HTTP 200 OK when the
+form is valid and HTTP 400 OK when the form is invalid and a HTTP 303 See Other redirect with a fresh verification flow if the
+flow was otherwise invalid (e.g. expired). For Browser clients without HTTP Header `Accept` or with `Accept: text/*` it returns a
+HTTP 303 See Other redirect to the Verification UI URL with the Verification Flow ID appended. `sent_email` is the success state
+after `choose_method` when using the `link` method and allows the user to request another verification email. It works for both
+API and Browser-initiated flows and returns the same responses as the flow in `choose_method` state. `passed_challenge` expects a
+`token` to be sent in the URL query and given the nature of the flow ("sending a verification link") does not have any API
+capabilities. The server responds with a HTTP 303 See Other redirect either to the Settings UI URL (if the link was valid) and
+instructs the user to update their password, or a redirect to the Verification UI URL with a new Verification Flow ID which
+contains an error message that the verification link was invalid.
 
-Use this endpoint to complete a verification flow. This endpoint
-behaves differently for API and browser flows and has several states:
+More information can be found at
+[Ory Kratos Email and Phone Verification Documentation](https://www.ory.com/docs/kratos/self-service/flows/verify-email-account-activation).
 
-`choose_method` expects `flow` (in the URL query) and `email` (in the body) to be sent
-and works with API- and Browser-initiated flows.
-For API clients and Browser clients with HTTP Header `Accept: application/json` it either returns a HTTP 200 OK when the form is valid and HTTP 400 OK when the form is invalid
-and a HTTP 303 See Other redirect with a fresh verification flow if the flow was otherwise invalid (e.g. expired).
-For Browser clients without HTTP Header `Accept` or with `Accept: text/*` it returns a HTTP 303 See Other redirect to the Verification UI URL with the Verification Flow ID appended.
-`sent_email` is the success state after `choose_method` when using the `link` method and allows the user to request another verification email. It
-works for both API and Browser-initiated flows and returns the same responses as the flow in `choose_method` state.
-`passed_challenge` expects a `token` to be sent in the URL query and given the nature of the flow ("sending a verification link")
-does not have any API capabilities. The server responds with a HTTP 303 See Other redirect either to the Settings UI URL
-(if the link was valid) and instructs the user to update their password, or a redirect to the Verification UI URL with
-a new Verification Flow ID which contains an error message that the verification link was invalid.
-
-More information can be found at [Ory Kratos Email and Phone Verification Documentation](https://www.ory.com/docs/kratos/self-service/flows/verify-email-account-activation).
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./update-verification-flow.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./update-verification-flow.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./update-verification-flow.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./update-verification-flow.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./update-verification-flow.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./update-verification-flow.StatusCodes.json")}></StatusCodes>

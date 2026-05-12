@@ -1,1 +1,16 @@
-{"title":"Body","body":{"content":{"application/json":{"schema":{"description":"Contains information on an device verification","properties":{"user_code":{"type":"string"}},"type":"object","title":"acceptDeviceUserCodeRequest"}}},"x-originalParamName":"Body"}}
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Contains information on an device verification",
+          "properties": { "user_code": { "type": "string" } },
+          "type": "object",
+          "title": "acceptDeviceUserCodeRequest"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}

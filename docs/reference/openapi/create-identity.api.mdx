@@ -1,7 +1,8 @@
 ---
 id: create-identity
 title: "Create an Identity"
-description: "Create an [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model).  This endpoint can also be used to"
+description:
+  "Create an [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model).  This endpoint can also be used to"
 sidebar_label: "Create an Identity"
 hide_title: true
 hide_table_of_contents: true
@@ -11,59 +12,29 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Create an Identity"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Create an Identity"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/admin/identities"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/admin/identities"} context={"endpoint"}></MethodEndpoint>
 
+Create an [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model). This endpoint can also be used to
+[import credentials](https://www.ory.com/docs/kratos/manage-identities/import-user-accounts-identities) for instance passwords,
+social sign in configurations, or multifactor methods.
 
-
-Create an [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model).  This endpoint can also be used to
-[import credentials](https://www.ory.com/docs/kratos/manage-identities/import-user-accounts-identities)
-for instance passwords, social sign in configurations, or multifactor methods.
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./create-identity.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./create-identity.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./create-identity.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./create-identity.StatusCodes.json")}></StatusCodes>

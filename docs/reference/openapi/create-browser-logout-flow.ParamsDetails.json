@@ -1,1 +1,16 @@
-{"parameters":[{"description":"HTTP Cookies\n\nIf you call this endpoint from a backend, please include the\noriginal Cookie header in the request.","in":"header","name":"cookie","schema":{"type":"string"}},{"description":"Return to URL\n\nThe URL to which the browser should be redirected to after the logout\nhas been performed.","in":"query","name":"return_to","schema":{"type":"string"}}]}
+{
+  "parameters": [
+    {
+      "description": "HTTP Cookies\n\nIf you call this endpoint from a backend, please include the\noriginal Cookie header in the request.",
+      "in": "header",
+      "name": "cookie",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "Return to URL\n\nThe URL to which the browser should be redirected to after the logout\nhas been performed.",
+      "in": "query",
+      "name": "return_to",
+      "schema": { "type": "string" }
+    }
+  ]
+}

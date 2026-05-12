@@ -11,49 +11,23 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Query namespaces"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Query namespaces"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/namespaces"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
-
-
+<MethodEndpoint method={"get"} path={"/namespaces"} context={"endpoint"}></MethodEndpoint>
 
 Get all namespaces
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./list-relationship-namespaces.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./list-relationship-namespaces.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./list-relationship-namespaces.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./list-relationship-namespaces.StatusCodes.json")}></StatusCodes>

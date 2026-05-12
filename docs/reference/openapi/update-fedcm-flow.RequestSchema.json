@@ -1,1 +1,59 @@
-{"title":"Body","body":{"content":{"application/json":{"schema":{"properties":{"csrf_token":{"description":"CSRFToken is the anti-CSRF token.","type":"string"},"nonce":{"description":"Nonce is the nonce that was used in the `navigator.credentials.get` call. If\nspecified, it must match the `nonce` claim in the token.","type":"string"},"token":{"description":"Token contains the result of `navigator.credentials.get`.","type":"string"},"transient_payload":{"description":"Transient data to pass along to any webhooks.","type":"object"}},"required":["token","csrf_token"],"type":"object","title":"UpdateFedcmFlowBody"}},"application/x-www-form-urlencoded":{"schema":{"properties":{"csrf_token":{"description":"CSRFToken is the anti-CSRF token.","type":"string"},"nonce":{"description":"Nonce is the nonce that was used in the `navigator.credentials.get` call. If\nspecified, it must match the `nonce` claim in the token.","type":"string"},"token":{"description":"Token contains the result of `navigator.credentials.get`.","type":"string"},"transient_payload":{"description":"Transient data to pass along to any webhooks.","type":"object"}},"required":["token","csrf_token"],"type":"object","title":"UpdateFedcmFlowBody"}}},"required":true,"x-originalParamName":"Body"}}
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "csrf_token": {
+              "description": "CSRFToken is the anti-CSRF token.",
+              "type": "string"
+            },
+            "nonce": {
+              "description": "Nonce is the nonce that was used in the `navigator.credentials.get` call. If\nspecified, it must match the `nonce` claim in the token.",
+              "type": "string"
+            },
+            "token": {
+              "description": "Token contains the result of `navigator.credentials.get`.",
+              "type": "string"
+            },
+            "transient_payload": {
+              "description": "Transient data to pass along to any webhooks.",
+              "type": "object"
+            }
+          },
+          "required": ["token", "csrf_token"],
+          "type": "object",
+          "title": "UpdateFedcmFlowBody"
+        }
+      },
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "properties": {
+            "csrf_token": {
+              "description": "CSRFToken is the anti-CSRF token.",
+              "type": "string"
+            },
+            "nonce": {
+              "description": "Nonce is the nonce that was used in the `navigator.credentials.get` call. If\nspecified, it must match the `nonce` claim in the token.",
+              "type": "string"
+            },
+            "token": {
+              "description": "Token contains the result of `navigator.credentials.get`.",
+              "type": "string"
+            },
+            "transient_payload": {
+              "description": "Transient data to pass along to any webhooks.",
+              "type": "object"
+            }
+          },
+          "required": ["token", "csrf_token"],
+          "type": "object",
+          "title": "UpdateFedcmFlowBody"
+        }
+      }
+    },
+    "required": true,
+    "x-originalParamName": "Body"
+  }
+}

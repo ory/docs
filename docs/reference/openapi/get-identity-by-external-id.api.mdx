@@ -1,7 +1,8 @@
 ---
 id: get-identity-by-external-id
 title: "Get an Identity by its External ID"
-description: "Return an [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model) by its external ID. You can optionally"
+description:
+  "Return an [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model) by its external ID. You can optionally"
 sidebar_label: "Get an Identity by its External ID"
 hide_title: true
 hide_table_of_contents: true
@@ -11,60 +12,28 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Get an Identity by its External ID"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Get an Identity by its External ID"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/admin/identities/by/external/{externalID}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"get"} path={"/admin/identities/by/external/{externalID}"} context={"endpoint"}></MethodEndpoint>
 
+Return an [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model) by its external ID. You can optionally include
+credentials (e.g. social sign in connections) in the response by using the `include_credential` query parameter.
 
-
-Return an [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model) by its external ID. You can optionally
-include credentials (e.g. social sign in connections) in the response by using the `include_credential` query parameter.
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./get-identity-by-external-id.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./get-identity-by-external-id.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./get-identity-by-external-id.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./get-identity-by-external-id.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./get-identity-by-external-id.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./get-identity-by-external-id.StatusCodes.json")}></StatusCodes>

@@ -1,7 +1,9 @@
 ---
 id: delete-identity
 title: "Delete an Identity"
-description: "Calling this endpoint irrecoverably and permanently deletes the [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model) given its ID. This action can not be undone."
+description:
+  "Calling this endpoint irrecoverably and permanently deletes the
+  [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model) given its ID. This action can not be undone."
 sidebar_label: "Delete an Identity"
 hide_title: true
 hide_table_of_contents: true
@@ -11,60 +13,29 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Delete an Identity"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Delete an Identity"}></Heading>
 
-<MethodEndpoint
-  method={"delete"}
-  path={"/admin/identities/{id}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"delete"} path={"/admin/identities/{id}"} context={"endpoint"}></MethodEndpoint>
 
+Calling this endpoint irrecoverably and permanently deletes the
+[identity](https://www.ory.com/docs/kratos/concepts/identity-user-model) given its ID. This action can not be undone. This
+endpoint returns 204 when the identity was deleted or 404 if the identity was not found.
 
-
-Calling this endpoint irrecoverably and permanently deletes the [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model) given its ID. This action can not be undone.
-This endpoint returns 204 when the identity was deleted or 404 if the identity was not found.
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./delete-identity.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./delete-identity.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./delete-identity.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./delete-identity.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./delete-identity.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./delete-identity.StatusCodes.json")}></StatusCodes>

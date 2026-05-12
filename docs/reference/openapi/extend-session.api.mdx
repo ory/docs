@@ -11,69 +11,37 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Extend a Session"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Extend a Session"}></Heading>
 
-<MethodEndpoint
-  method={"patch"}
-  path={"/admin/sessions/{id}/extend"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"patch"} path={"/admin/sessions/{id}/extend"} context={"endpoint"}></MethodEndpoint>
 
+Calling this endpoint extends the given session ID. If `session.earliest_possible_extend` is set it will only extend the session
+after the specified time has passed.
 
+This endpoint returns per default a 204 No Content response on success. Older Ory Network projects may return a 200 OK response
+with the session in the body. Returning the session as part of the response will be deprecated in the future and should not be
+relied upon.
 
-Calling this endpoint extends the given session ID. If `session.earliest_possible_extend` is set it
-will only extend the session after the specified time has passed.
-
-This endpoint returns per default a 204 No Content response on success. Older Ory Network projects may
-return a 200 OK response with the session in the body. Returning the session as part of the response
-will be deprecated in the future and should not be relied upon.
-
-This endpoint ignores consecutive requests to extend the same session and returns a 404 error in those
-scenarios. This endpoint also returns 404 errors if the session does not exist.
+This endpoint ignores consecutive requests to extend the same session and returns a 404 error in those scenarios. This endpoint
+also returns 404 errors if the session does not exist.
 
 Retrieve the session ID from the `/sessions/whoami` endpoint / `toSession` SDK method.
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./extend-session.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./extend-session.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./extend-session.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./extend-session.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./extend-session.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./extend-session.StatusCodes.json")}></StatusCodes>

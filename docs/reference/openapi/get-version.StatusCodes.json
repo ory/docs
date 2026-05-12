@@ -1,1 +1,21 @@
-{"responses":{"200":{"content":{"application/json":{"schema":{"properties":{"version":{"description":"The version of Ory Kratos.","type":"string"}},"required":["version"],"type":"object"}}},"description":"Returns the Ory Kratos version."}}}
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "version": {
+                "description": "The version of Ory Kratos.",
+                "type": "string"
+              }
+            },
+            "required": ["version"],
+            "type": "object"
+          }
+        }
+      },
+      "description": "Returns the Ory Kratos version."
+    }
+  }
+}

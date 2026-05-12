@@ -1,1 +1,96 @@
-{"title":"Body","body":{"content":{"application/json":{"schema":{"properties":{"apple_mapper_url":{"description":"AppleMapper specifies the JSONNet code snippet which uses Apple's\nprofile information to hydrate the identity's data.","type":"string"},"auth0_mapper_url":{"description":"Auth0Mapper specifies the JSONNet code snippet which uses Auth0's\nprofile information to hydrate the identity's data.","type":"string"},"custom_hostname_id":{"format":"uuid4","nullable":true,"type":"string","title":"NullUUID"},"enable_scim":{"description":"Feature flag to enable SCIM configuration","type":"boolean"},"enable_sso":{"description":"Feature flag to enable SSO configuration","type":"boolean"},"expires_at":{"format":"date-time","type":"string","title":"Time"},"facebook_mapper_url":{"description":"FacebookMapper specifies the JSONNet code snippet which uses Facebook's\nprofile information to hydrate the identity's data.","type":"string"},"generic_oidc_mapper_url":{"description":"GenericOIDCMapper specifies the JSONNet code snippet which uses the OIDC Provider's\nprofile information to hydrate the identity's data.","type":"string"},"github_mapper_url":{"description":"GithubMapper specifies the JSONNet code snippet which uses GitHub's\nprofile information to hydrate the identity's data.","type":"string"},"gitlab_mapper_url":{"description":"GitLabMapper specifies the JSONNet code snippet which uses GitLab's\nprofile information to hydrate the identity's data.","type":"string"},"google_mapper_url":{"description":"GoogleMapper specifies the JSONNet code snippet which uses Google's\nprofile information to hydrate the identity's data.","type":"string"},"microsoft_mapper_url":{"description":"MicrosoftMapper specifies the JSONNet code snippet which uses Microsoft's\nprofile information to hydrate the identity's data.","type":"string"},"netid_mapper_url":{"description":"NetIDMapper specifies the JSONNet code snippet which uses NetID's\nprofile information to hydrate the identity's data.","type":"string"},"proxy_acs_url":{"description":"Proxy ACS URL if overriding with a customer-controlled URL","type":"string"},"proxy_oidc_redirect_url":{"description":"Proxy OIDC Redirect URL if overriding with a customer-controlled URL","type":"string"},"proxy_saml_audience_override":{"description":"SAML Audience Override if overriding with a customer-controlled one","type":"string"},"proxy_scim_server_url":{"description":"Proxy SCIM Server URL if overriding with a customer-controlled URL","type":"string"},"saml_mapper_url":{"description":"SAMLMapper specifies the JSONNet code snippet which uses the SAML Provider's\nprofile information to hydrate the identity's data.","type":"string"},"scim_mapper_url":{"description":"SCIMMapper specifies the JSONNet code snippet which uses the SCIM Provider's\nprofile information to hydrate the identity's data.","type":"string"}},"required":["enable_sso","enable_scim"],"type":"object","title":"createOrganizationOnboardingPortalLinkBody"}}},"x-originalParamName":"Body"}}
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "apple_mapper_url": {
+              "description": "AppleMapper specifies the JSONNet code snippet which uses Apple's\nprofile information to hydrate the identity's data.",
+              "type": "string"
+            },
+            "auth0_mapper_url": {
+              "description": "Auth0Mapper specifies the JSONNet code snippet which uses Auth0's\nprofile information to hydrate the identity's data.",
+              "type": "string"
+            },
+            "custom_hostname_id": {
+              "format": "uuid4",
+              "nullable": true,
+              "type": "string",
+              "title": "NullUUID"
+            },
+            "enable_scim": {
+              "description": "Feature flag to enable SCIM configuration",
+              "type": "boolean"
+            },
+            "enable_sso": {
+              "description": "Feature flag to enable SSO configuration",
+              "type": "boolean"
+            },
+            "expires_at": {
+              "format": "date-time",
+              "type": "string",
+              "title": "Time"
+            },
+            "facebook_mapper_url": {
+              "description": "FacebookMapper specifies the JSONNet code snippet which uses Facebook's\nprofile information to hydrate the identity's data.",
+              "type": "string"
+            },
+            "generic_oidc_mapper_url": {
+              "description": "GenericOIDCMapper specifies the JSONNet code snippet which uses the OIDC Provider's\nprofile information to hydrate the identity's data.",
+              "type": "string"
+            },
+            "github_mapper_url": {
+              "description": "GithubMapper specifies the JSONNet code snippet which uses GitHub's\nprofile information to hydrate the identity's data.",
+              "type": "string"
+            },
+            "gitlab_mapper_url": {
+              "description": "GitLabMapper specifies the JSONNet code snippet which uses GitLab's\nprofile information to hydrate the identity's data.",
+              "type": "string"
+            },
+            "google_mapper_url": {
+              "description": "GoogleMapper specifies the JSONNet code snippet which uses Google's\nprofile information to hydrate the identity's data.",
+              "type": "string"
+            },
+            "microsoft_mapper_url": {
+              "description": "MicrosoftMapper specifies the JSONNet code snippet which uses Microsoft's\nprofile information to hydrate the identity's data.",
+              "type": "string"
+            },
+            "netid_mapper_url": {
+              "description": "NetIDMapper specifies the JSONNet code snippet which uses NetID's\nprofile information to hydrate the identity's data.",
+              "type": "string"
+            },
+            "proxy_acs_url": {
+              "description": "Proxy ACS URL if overriding with a customer-controlled URL",
+              "type": "string"
+            },
+            "proxy_oidc_redirect_url": {
+              "description": "Proxy OIDC Redirect URL if overriding with a customer-controlled URL",
+              "type": "string"
+            },
+            "proxy_saml_audience_override": {
+              "description": "SAML Audience Override if overriding with a customer-controlled one",
+              "type": "string"
+            },
+            "proxy_scim_server_url": {
+              "description": "Proxy SCIM Server URL if overriding with a customer-controlled URL",
+              "type": "string"
+            },
+            "saml_mapper_url": {
+              "description": "SAMLMapper specifies the JSONNet code snippet which uses the SAML Provider's\nprofile information to hydrate the identity's data.",
+              "type": "string"
+            },
+            "scim_mapper_url": {
+              "description": "SCIMMapper specifies the JSONNet code snippet which uses the SCIM Provider's\nprofile information to hydrate the identity's data.",
+              "type": "string"
+            }
+          },
+          "required": ["enable_sso", "enable_scim"],
+          "type": "object",
+          "title": "createOrganizationOnboardingPortalLinkBody"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}

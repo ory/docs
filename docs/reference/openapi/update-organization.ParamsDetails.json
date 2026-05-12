@@ -1,1 +1,18 @@
-{"parameters":[{"description":"Project ID\n\nThe project's ID.","in":"path","name":"project_id","required":true,"schema":{"type":"string"}},{"description":"Organization ID\n\nThe Organization's ID.","in":"path","name":"organization_id","required":true,"schema":{"type":"string"}}]}
+{
+  "parameters": [
+    {
+      "description": "Project ID\n\nThe project's ID.",
+      "in": "path",
+      "name": "project_id",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "Organization ID\n\nThe Organization's ID.",
+      "in": "path",
+      "name": "organization_id",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

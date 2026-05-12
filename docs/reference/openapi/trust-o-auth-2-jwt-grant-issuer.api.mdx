@@ -11,59 +11,28 @@ info_path: reference/openapi/ory-apis
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Trust OAuth2 JWT Bearer Grant Type Issuer"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Trust OAuth2 JWT Bearer Grant Type Issuer"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/admin/trust/grants/jwt-bearer/issuers"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/admin/trust/grants/jwt-bearer/issuers"} context={"endpoint"}></MethodEndpoint>
 
+Use this endpoint to establish a trust relationship for a JWT issuer to perform JSON Web Token (JWT) Profile for OAuth 2.0 Client
+Authentication and Authorization Grants [RFC7523](https://datatracker.ietf.org/doc/html/rfc7523).
 
-
-Use this endpoint to establish a trust relationship for a JWT issuer
-to perform JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication
-and Authorization Grants [RFC7523](https://datatracker.ietf.org/doc/html/rfc7523).
-
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./trust-o-auth-2-jwt-grant-issuer.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./trust-o-auth-2-jwt-grant-issuer.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./trust-o-auth-2-jwt-grant-issuer.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./trust-o-auth-2-jwt-grant-issuer.StatusCodes.json")}></StatusCodes>
