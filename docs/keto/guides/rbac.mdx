@@ -16,7 +16,8 @@ A reporting application might define a fixed set of permissions:
 
 Users do not receive these permissions directly. Instead, users are assigned to roles, and roles are granted permissions.
 Permissions are application-defined. Roles are application data represented in Ory Keto through relationship tuples, so roles and
-role assignments can be created, updated, and deleted without changing the OPL schema.
+role assignments can be created, updated, and deleted without changing the
+[Ory Permission Language](../reference/ory-permission-language) (OPL) schema.
 
 ## OPL schema
 
@@ -64,18 +65,41 @@ class Organization implements Namespace {
 
 ## Authorization scope
 
-This example uses `Organization` as the scope for every RBAC decision. Every permission check includes both the subject and the
-organization:
+In Ory Keto, every check is scoped to an object — for example, `Document:file1` or `Folder:reports`. That works well for
+per-resource permissions, but RBAC with dynamic roles typically works differently: if Alice can create reports, she can create
+them anywhere in the app. The permission is app-wide, not tied to a specific file.
+
+This guide uses `Organization:org_123` as that app-wide scope. Every permission check is made against the organization object:
 
 ```keto-natural
 is User:alice allowed to viewReports on Organization:org_123
 ```
 
-Without a scope, checks are global — "can Alice edit reports?" — with no way to express boundaries. With `Organization`, the same
-user can hold different roles in different organizations.
+Alice either has the `viewReports` permission on `org_123` or she doesn't — no per-resource logic needed.
 
-In a non-multi-tenant app, use a single fixed object such as `Organization:main`. In a multi-tenant app, each tenant gets its own
-`Organization` object.
+In a single-tenant app, one fixed object such as `Organization:main` can be used. In a multi-tenant app, each tenant gets its own
+`Organization` object, so Alice can be an admin in one organization and a viewer in another.
+
+`Organization` is just the name chosen for this guide. You can use any name that fits your domain — `Workspace`, `Project`, or
+`Tenant` all work the same way.
+
+## Object ID guidance
+
+Object IDs in Ory Keto are global. Two tuples that reference `Role:admin` refer to the same object. This applies to any namespace:
+`Role`, `Organization`, `User`, or any custom namespace you define.
+
+To avoid collisions, object IDs must be unique within their namespace. The safest approach is to use a stable unique ID from your
+application database:
+
+```text
+Role:d390f817-209a-4e26-a69b-b67eddc45eda
+```
+
+What to avoid is using plain labels like `admin` or `viewer` as role IDs without any scoping. Two different organizations both
+creating a `viewer` role would write their tuples to the same `Role:viewer` object, silently sharing role membership and
+permission grants across tenants.
+
+The examples in this guide use the format `Role:{org_id}/{label}` — for example `Role:org_123/admin` — for readability.
 
 ## How the model works
 
@@ -274,17 +298,17 @@ class Role implements Namespace {
 ```
 
 The `inheritors` relation is declared on the parent role and lists every role that inherits it. When Ory Keto evaluates
-`viewer.isMember`, it checks viewer's direct members first, then walks each role in `inheritors` and checks those too. Members of
-inheriting roles therefore pass any permission check that goes through viewer.
+`report_editor.isMember`, it checks report_editor's direct members first, then walks each role in `inheritors` and checks those
+too. Members of inheriting roles therefore pass any permission check that goes through report_editor.
 
-This change allows us creating relationship that can make report_editor an inheritor of viewer:
+For example, making `report_manager` an inheritor of `report_editor`:
 
 ```keto-natural
-Role:org_123/report_editor is in inheritors of Role:org_123/viewer
+Role:org_123/report_manager is in inheritors of Role:org_123/report_editor
 ```
 
-Which means **report_editor** inherits **viewer** — members of report_editor are treated as members of viewer for all permission
-checks. If `reports.view` is granted to viewer, then report_editor members can also view reports without an explicit grant.
+means the members of report_manager are treated as members of report_editor for all permission checks. If `reports.create` is
+granted to report_editor, then report_manager members can also create reports without an explicit grant.
 
 ### Example
 
@@ -346,18 +370,6 @@ The application is responsible for:
 - Preventing inheritance across organizations
 - Preventing removal of the last administrator, if the product requires one
 
-## Role ID guidance
-
-Role IDs must be globally unique. The simplest way to guarantee this is to use the stable role ID from your application database:
-
-```text
-Role:01HZY3K7J8K2D9WQ7Y1A4F8X9B
-```
-
-What to avoid is using human-readable labels like `admin` or `viewer` as role IDs directly. These are not unique across tenants.
-In a multi-tenant app, `Role:admin` would refer to the same role object for every organization, causing role assignments and
-permission grants to be shared across tenants.
-
 ## Large permission sets
 
 This model keeps permissions in OPL because permissions are application-defined actions. A permission usually corresponds to a
@@ -377,3 +389,58 @@ authorization can check.
 
 If the application has hundreds of fixed permissions, the OPL schema will be large but remains correct and predictable. This
 tradeoff keeps permission checks scoped and explicit while still allowing roles to be managed dynamically.
+
+## Relationship diagram
+
+The diagram below shows the relationships written in the examples above. Users connect to roles through the `members` relation.
+Roles connect to permission relations on `Organization`. Dotted arrows show the `inheritors` relation.
+
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+
+<Mermaid
+  chart={`
+flowchart TD
+  subgraph users["Users"]
+    alice(["User:alice"])
+    bob(["User:bob"])
+    eve(["User:eve"])
+    charlie(["User:charlie"])
+  end
+
+  subgraph roles["Roles"]
+    direction LR
+    admin["Role:org_123/admin"]
+    viewer["Role:org_123/viewer"]
+    re["Role:org_123/report_editor"]
+    rm["Role:org_123/report_manager"]
+    rm -.->|inheritors| re
+  end
+
+  subgraph org["Organization:org_123"]
+    direction LR
+    rv(["reports.view"])
+    rc(["reports.create"])
+    redit(["reports.edit"])
+    rd(["reports.delete"])
+    rman(["roles.manage"])
+    mi(["members.invite"])
+  end
+
+  alice -->|members| admin
+  bob -->|members| viewer
+  eve -->|members| re
+  charlie -->|members| rm
+
+  admin --> rv & rc & redit & rd & rman & mi
+  viewer --> rv
+  re --> rv & rc & redit
+  rm --> rd
+
+  style alice fill:lightgreen
+  style bob fill:lightgreen
+  style eve fill:lightgreen
+  style charlie fill:lightgreen
+`}
+/>
+```
