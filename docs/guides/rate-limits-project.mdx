@@ -4,6 +4,8 @@ title: Project rate limits
 sidebar_label: Project rate limits
 ---
 
+import RateLimitsTable from "@site/src/components/RateLimitsTable"
+
 Each project has a set of rate limit buckets. A bucket is a named group of API endpoints that share the same rate limit threshold.
 When a request comes in, Ory resolves which bucket the endpoint belongs to and applies the threshold for that bucket.
 
