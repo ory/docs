@@ -12,6 +12,7 @@ type SidebarItemsConfig = SidebarItemConfig[]
 import oelSidebar from "./sidebars-oel"
 import networkSidebar from "./sidebars-network"
 import ossSidebar from "./sidebars-oss"
+import integratesSidebar from "./sidebars-integrates"
 import agenticSidebar from "./sidebars-agentic"
 import ciamSidebar from "./sidebars-ciam"
 import b2bSidebar from "./sidebars-b2b"
@@ -171,6 +172,7 @@ const sidebars: SidebarsConfig = {
   oelSidebar,
   ossSidebar,
   agenticSidebar,
+  integratesSidebar,
   ciamSidebar,
   b2bSidebar,
   quickstartsSidebar,
