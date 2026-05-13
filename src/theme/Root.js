@@ -3,6 +3,7 @@
 
 import React from "react"
 import KapaWidget from "./KapaWidget"
+import AnnouncementBanner from "@site/src/components/AnnouncementBanner/AnnouncementBanner"
 import { Buffer } from "buffer"
 
 // Inject Buffer globally (works for browser + weird runtimes)
@@ -13,6 +14,7 @@ if (typeof globalThis !== "undefined" && !globalThis.Buffer) {
 function Root({ children }) {
   return (
     <>
+      <AnnouncementBanner />
       {children}
       <KapaWidget />
     </>
