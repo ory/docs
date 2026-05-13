@@ -15,10 +15,6 @@ export const routes = {
     twitter: "https://twitter.com/orycorp",
     talkToUs: "https://ory.com/talk-to-us",
   },
-  resources: {
-    iso27001:
-      "https://www.ory.com/resources/iso27001/OryCorp-ISO27001-Certificate-of-Registration.pdf",
-  },
   root: "/",
   "404": "/404",
   _500: "/500",

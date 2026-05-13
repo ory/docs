@@ -1,0 +1,338 @@
+/* Product Selector Stepper Styles */
+
+/* Layout */
+.stepper {
+  width: 100%;
+}
+
+.contentWrapper {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.stepperColumn {
+  flex: 1;
+  min-width: 0;
+}
+
+.graphColumn {
+  flex: 1;
+  min-width: 0;
+  position: sticky;
+  top: 2rem;
+  align-self: flex-start;
+  padding-top: 2rem; /* Align with step card (matches progress container margin-bottom) */
+}
+
+/* Header */
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: var(--ifm-h2-font-size);
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+.description {
+  font-size: var(--ifm-font-size-base);
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+}
+
+/* Progress Indicator */
+.progressContainer {
+  margin-bottom: 2rem;
+}
+
+.progressBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.progressSegment {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--ifm-color-emphasis-200);
+  transition: background-color 0.2s ease;
+}
+
+.progressSegmentActive {
+  background-color: var(--ifm-color-primary);
+}
+
+.progressDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--ifm-color-emphasis-200);
+  transition: background-color 0.2s ease;
+}
+
+.progressDotActive {
+  background-color: var(--ifm-color-primary);
+}
+
+.progressText {
+  font-size: var(--ifm-font-size-sm);
+  color: var(--ifm-color-emphasis-600);
+  text-align: center;
+}
+
+/* Step Card */
+.stepCard {
+  background-color: var(--ifm-pre-background);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: all 0.2s ease;
+}
+
+.stepCard:hover {
+  border-color: var(--ifm-color-emphasis-300);
+}
+
+.stepTitle {
+  font-size: var(--ifm-h3-font-size);
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+.stepQuestion {
+  font-size: var(--ifm-font-size-lg);
+  margin-bottom: 1.5rem;
+  color: var(--ifm-color-emphasis-800);
+  line-height: 1.6;
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.optionButton {
+  width: 100%;
+  text-align: left;
+  padding: 1rem 1.25rem;
+  background-color: transparent;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  color: var(--ifm-font-color-base);
+  font-size: var(--ifm-font-size-base);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.optionButton:hover {
+  background-color: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-1px);
+}
+
+.optionButton:active {
+  transform: translateY(0);
+}
+
+.optionButtonSelected {
+  background-color: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-primary);
+  border-width: 2px;
+}
+
+:global([data-theme="dark"]) .optionButtonSelected {
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+/* Completion Card */
+.completionCard {
+  background-color: var(--ifm-pre-background);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.completionTitle {
+  font-size: var(--ifm-h3-font-size);
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+.completionDescription {
+  font-size: var(--ifm-font-size-base);
+  margin-bottom: 1.5rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+}
+
+.componentsList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.componentListItem {
+  margin-bottom: 0.75rem;
+}
+
+.componentListItem:last-child {
+  margin-bottom: 0;
+}
+
+.componentLink {
+  color: var(--ifm-color-primary);
+  font-size: var(--ifm-font-size-base);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.componentLink:hover {
+  color: var(--ifm-color-primary-dark);
+  text-decoration: underline;
+}
+
+:global([data-theme="dark"]) .componentLink:hover {
+  color: var(--ifm-color-primary-light);
+}
+
+.resetButton {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--ifm-color-emphasis-200);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  color: var(--ifm-font-color-base);
+  font-size: var(--ifm-font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetButton:hover {
+  background-color: var(--ifm-color-emphasis-300);
+  border-color: var(--ifm-color-emphasis-400);
+  transform: translateY(-1px);
+}
+
+.resetButton:active {
+  transform: translateY(0);
+}
+
+.link {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.navButton {
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  color: var(--ifm-font-color-base);
+  font-size: var(--ifm-font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navButton:hover:not(:disabled) {
+  background-color: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-1px);
+}
+
+.navButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.navButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.navButtonPrimary {
+  background-color: var(--ifm-color-primary);
+  color: var(--ifm-color-white);
+  border-color: var(--ifm-color-primary);
+}
+
+.navButtonPrimary:hover:not(:disabled) {
+  background-color: var(--ifm-color-primary-dark);
+  border-color: var(--ifm-color-primary-dark);
+}
+
+:global([data-theme="dark"]) .navButtonPrimary {
+  color: var(--ifm-color-white);
+}
+
+:global([data-theme="dark"]) .navButtonPrimary:hover:not(:disabled) {
+  background-color: var(--ifm-color-primary-darker);
+}
+
+.navCounter {
+  font-size: var(--ifm-font-size-sm);
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 996px) {
+  .contentWrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .graphColumn {
+    position: static;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .stepCard {
+    padding: 1.5rem;
+  }
+
+  .stepTitle {
+    font-size: var(--ifm-h4-font-size);
+  }
+
+  .stepQuestion {
+    font-size: var(--ifm-font-size-base);
+  }
+
+  .optionButton {
+    padding: 0.875rem 1rem;
+    font-size: var(--ifm-font-size-sm);
+  }
+
+  .navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .navButton {
+    width: 100%;
+  }
+}

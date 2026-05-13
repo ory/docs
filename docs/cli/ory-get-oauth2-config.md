@@ -1,7 +1,7 @@
 ---
 id: ory-get-oauth2-config
 title: ory get oauth2-config
-description: ory get oauth2-config Get Ory OAuth2 & OpenID Connect configuration.
+description: ory get oauth2-config
 ---
 
 <!--
@@ -63,7 +63,7 @@ $ ory get oauth2-config --format json   # uses currently selected project
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory get](ory-get)	 - Get a resource
+* [ory get](ory-get) Get a resource
 

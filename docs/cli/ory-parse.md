@@ -1,7 +1,7 @@
 ---
 id: ory-parse
 title: ory parse
-description: ory parse Parse Ory Network resources
+description: ory parse
 ---
 
 <!--
@@ -23,8 +23,8 @@ Parse Ory Network resources
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory parse relationships](ory-parse-relationships)	 - Parse human readable relationships
 

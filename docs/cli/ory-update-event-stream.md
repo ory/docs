@@ -1,7 +1,7 @@
 ---
 id: ory-update-event-stream
 title: ory update event-stream
-description: ory update event-stream Update the event stream with the given ID
+description: ory update event-stream
 ---
 
 <!--
@@ -14,13 +14,13 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 Update the event stream with the given ID
 
 ```
-ory update event-stream id [--project=PROJECT_ID] [--type=sns] [--aws-iam-role-arn=arn:aws:iam::123456789012:role/MyRole] [--aws-sns-topic-arn=arn:aws:sns:us-east-1:123456789012:MyTopic] [flags]
+ory update event-stream id [--project=PROJECT_ID] --type={sns,https} {--aws-iam-role-arn=arn:aws:iam::123456789012:role/MyRole --aws-sns-topic-arn=arn:aws:sns:us-east-1:123456789012:MyTopic, --https-endpoint=https://example.com/webhook} [flags]
 ```
 
 ### Options
 
 ```
-      --format string    Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string    Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help             help for event-stream
       --project string   The project to use, either project ID or a (partial) slug.
   -q, --quiet            Be quiet with output printing.
@@ -33,7 +33,7 @@ ory update event-stream id [--project=PROJECT_ID] [--type=sns] [--aws-iam-role-a
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory update](ory-update)	 - Update resources
+* [ory update](ory-update) Update resources
 

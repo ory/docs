@@ -1,7 +1,7 @@
 ---
 id: ory-delete-event-stream
 title: ory delete event-stream
-description: ory delete event-stream Delete the event stream with the given ID
+description: ory delete event-stream
 ---
 
 <!--
@@ -34,7 +34,7 @@ ory delete event-stream <id> [--project=PROJECT_ID] [flags]
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory delete](ory-delete)	 - Delete resources
+* [ory delete](ory-delete) Delete resources
 

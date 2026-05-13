@@ -1,7 +1,7 @@
 ---
 id: ory-introspect-token
 title: ory introspect token
-description: ory introspect token Introspect an OAuth 2.0 Access or Refresh Token
+description: ory introspect token
 ---
 
 <!--
@@ -27,7 +27,7 @@ ory introspect token AYjcyMzY3ZDhiNmJkNTY --project 32197be3-8e57-4009-becd-9d38
 
 ```
   -e, --endpoint string    The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help               help for token
       --project string     The project to use, either project ID or a (partial) slug.
   -q, --quiet              Be quiet with output printing.
@@ -44,7 +44,7 @@ ory introspect token AYjcyMzY3ZDhiNmJkNTY --project 32197be3-8e57-4009-becd-9d38
   -y, --yes               Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory introspect](ory-introspect)	 - Introspect resources
+* [ory introspect](ory-introspect) Introspect resources
 

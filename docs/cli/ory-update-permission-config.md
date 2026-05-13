@@ -1,7 +1,7 @@
 ---
 id: ory-update-permission-config
 title: ory update permission-config
-description: ory update permission-config Update Ory Permissions configuration of an Ory Network project.
+description: ory update permission-config
 ---
 
 <!--
@@ -24,19 +24,23 @@ self-hosted Ory Keto to Ory Network.
 
 The full configuration payload can be found at:
 
-	https://www.ory.sh/docs/reference/api#operation/updateProject.
+```
+https://www.ory.sh/docs/reference/api#operation/updateProject.
+```
 
 This command expects the contents of the `/services/permission/config` key, so for example:
 
+```
+{
+  "namespaces": [
     {
-	  "namespaces": [
-        {
-          "name": "files",
-          "id": 2
-        },
-        // ...
-      ]
-    }
+      "name": "files",
+      "id": 2
+    },
+    // ...
+  ]
+}
+```
 
 
 ```
@@ -90,7 +94,7 @@ namespaces:
   -c, --config string   Path to the Ory Network configuration file.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory update](ory-update)	 - Update resources
+* [ory update](ory-update) Update resources
 

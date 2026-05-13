@@ -1,7 +1,7 @@
 ---
 id: ory-update-project
 title: ory update project
-description: ory update project Update Ory Network project service configuration
+description: ory update project
 ---
 
 <!--
@@ -22,25 +22,29 @@ If the `--name` flag is not set, the project's name will not be changed.
 
 The full configuration payload can be found at
 
-	https://www.ory.sh/docs/reference/api#operation/updateProject
+```
+https://www.ory.sh/docs/reference/api#operation/updateProject
+```
 
 As an example an input could look like:
 
-	{
-      "name": "my updated name",
-	  "identity": {
-		"services": {
-		  "config": {
-			"courier": {
-			  "smtp": {
-				"from_name": "..."
-			  }
-			  // ...
-			}
+```
+{
+  "name": "my updated name",
+  "identity": {
+	"services": {
+	  "config": {
+		"courier": {
+		  "smtp": {
+			"from_name": "..."
 		  }
+		  // ...
 		}
 	  }
 	}
+  }
+}
+```
 
 
 ```
@@ -88,7 +92,7 @@ $ ory update project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 
 ```
   -f, --file strings       Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the project
-      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help               help for project
   -n, --name string        The new name of the project.
       --project string     The project to use, either project ID or a (partial) slug.
@@ -103,7 +107,7 @@ $ ory update project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
   -c, --config string   Path to the Ory Network configuration file.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory update](ory-update)	 - Update resources
+* [ory update](ory-update) Update resources
 
