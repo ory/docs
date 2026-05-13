@@ -1,0 +1,9 @@
+.announcementContent a {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+  transition: color 0.2s ease;
+}
+
+.announcementContent a:hover {
+  color: #581c87;
+}
