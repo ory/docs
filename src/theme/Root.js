@@ -11,13 +11,10 @@ if (typeof globalThis !== "undefined" && !globalThis.Buffer) {
   globalThis.Buffer = Buffer
 }
 
-// Flip to true to show the announcement banner; false to hide it.
-const SHOW_ANNOUNCEMENT_BANNER = false
-
 function Root({ children }) {
   return (
     <>
-      {SHOW_ANNOUNCEMENT_BANNER && <AnnouncementBanner />}
+      <AnnouncementBanner />
       {children}
       <KapaWidget />
     </>
