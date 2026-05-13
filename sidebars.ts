@@ -73,7 +73,7 @@ const api: SidebarItemsConfig = [
       "concepts/personal-access-token",
       "guides/cors",
       "guides/api-rest-pagination",
-{
+      {
         type: "category",
         label: "Rate limits",
         link: {
