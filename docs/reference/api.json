@@ -1873,6 +1873,9 @@
       },
       "DeviceAuthnKey": {
         "properties": {
+          "attestation": {
+            "$ref": "#/components/schemas/deviceAuthnAttestation"
+          },
           "client_key_id": {
             "description": "ClientKeyID is a client-chosen id for the key and is unique per identity.",
             "type": "string"
@@ -1950,6 +1953,11 @@
       "Duration": {
         "description": "A Duration represents the elapsed time between two instants\nas an int64 nanosecond count. The representation limits the\nlargest representable duration to approximately 290 years.",
         "format": "int64",
+        "type": "integer"
+      },
+      "Enumerated": {
+        "format": "int64",
+        "title": "An Enumerated is represented as a plain int.",
         "type": "integer"
       },
       "GenericOIDCProvider": {
@@ -3562,6 +3570,18 @@
         "required": ["plan", "interval", "provision_first_project"],
         "type": "object"
       },
+      "createTestLoginFlowBody": {
+        "properties": {
+          "provider_id": {
+            "description": "ID of the OIDC provider to test. Must match a provider configured on\nthe project that serves this request.",
+            "maxLength": 255,
+            "type": "string"
+          }
+        },
+        "required": ["provider_id"],
+        "title": "Request body for creating a test OIDC login flow.",
+        "type": "object"
+      },
       "createWorkspaceBody": {
         "properties": {
           "name": {
@@ -3735,6 +3755,259 @@
             "type": "integer"
           }
         },
+        "type": "object"
+      },
+      "deviceAuthnAndroidAuthorizationList": {
+        "description": "Schema: https://source.android.com/docs/security/features/keystore/attestation#schema",
+        "properties": {
+          "active_date_time": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "algorithm": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "application_id": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "attestation_application_id": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "attestation_id_brand": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "attestation_id_device": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "attestation_id_imei": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "attestation_id_manufacturer": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "attestation_id_meid": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "attestation_id_model": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "attestation_id_product": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "attestation_id_serial": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "auth_timeout": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "boot_patch_level": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "creation_date_time": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "digest": {
+            "items": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "ec_curve": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "key_size": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "origin": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "origination_expire_date_time": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "os_patch_level": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "os_version": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "purpose": {
+            "items": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "root_of_trust": {
+            "$ref": "#/components/schemas/deviceAuthnAndroidRootOfTrust"
+          },
+          "usage_expire_date_time": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "user_auth_type": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "vendor_patch_level": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "title": "AndroidAuthorizationList maps the ASN.1 tags to the fields defined in KeyMint 4.",
+        "type": "object"
+      },
+      "deviceAuthnAndroidKeyDescription": {
+        "description": "Schema: https://source.android.com/docs/security/features/keystore/attestation#schema",
+        "properties": {
+          "attestation_security_level": {
+            "$ref": "#/components/schemas/Enumerated"
+          },
+          "attestation_version": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "keymaster_security_level": {
+            "$ref": "#/components/schemas/Enumerated"
+          },
+          "keymaster_version": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "software_enforced": {
+            "$ref": "#/components/schemas/deviceAuthnAndroidAuthorizationList"
+          },
+          "tee_enforced": {
+            "$ref": "#/components/schemas/deviceAuthnAndroidAuthorizationList"
+          }
+        },
+        "title": "AndroidKeyDescription matches the ASN.1 sequence defined by Android.\nIt is stored in the leaf certificate's x509 extension.",
+        "type": "object"
+      },
+      "deviceAuthnAndroidRootOfTrust": {
+        "properties": {
+          "device_locked": {
+            "type": "boolean"
+          },
+          "verified_boot_hash": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "verified_boot_key": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "verified_boot_state": {
+            "$ref": "#/components/schemas/Enumerated"
+          }
+        },
+        "type": "object"
+      },
+      "deviceAuthnAttestation": {
+        "description": "Exactly one of Android / IOS is set, matching the key's DeviceType.",
+        "properties": {
+          "android": {
+            "$ref": "#/components/schemas/deviceAuthnAndroidKeyDescription"
+          },
+          "ios": {
+            "$ref": "#/components/schemas/deviceAuthnIOSAttestation"
+          }
+        },
+        "title": "Attestation holds the platform-specific attestation parsed at enrollment.",
+        "type": "object"
+      },
+      "deviceAuthnIOSAttStmt": {
+        "description": "Defined in https://developer.apple.com/documentation/devicecheck/validating-apps-that-connect-to-your-server#Verify-the-attestation .",
+        "properties": {
+          "x5c": {
+            "description": "X5c is the leaf-first certificate chain encoded as base64(DER), per\nthe JOSE convention defined in RFC 7515 §4.1.6.",
+            "items": {
+              "items": {
+                "format": "uint8",
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          }
+        },
+        "title": "IOSAttStmt is the attestation statement of an Apple App Attest attestation.",
+        "type": "object"
+      },
+      "deviceAuthnIOSAttestation": {
+        "description": "Defined in https://developer.apple.com/documentation/devicecheck/validating-apps-that-connect-to-your-server#Verify-the-attestation .",
+        "properties": {
+          "att_stmt": {
+            "$ref": "#/components/schemas/deviceAuthnIOSAttStmt"
+          },
+          "auth_data": {
+            "items": {
+              "format": "uint8",
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "fmt": {
+            "type": "string"
+          }
+        },
+        "title": "IOSAttestation is an Apple App Attest attestation.",
         "type": "object"
       },
       "deviceAuthorization": {
@@ -4364,7 +4637,7 @@
             "type": "array"
           },
           "type": {
-            "description": "Type discriminates between different types of credentials.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "Type discriminates between different types of credentials.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "enum": [
               "password",
               "oidc",
@@ -4376,11 +4649,12 @@
               "profile",
               "saml",
               "deviceauthn",
+              "identifier_first",
               "link_recovery",
               "code_recovery"
             ],
             "type": "string",
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "updated_at": {
             "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
@@ -5362,7 +5636,7 @@
         "description": "This object represents a login flow. A login flow is initiated at the \"Initiate Login API / Browser Flow\"\nendpoint by a client.\n\nOnce a login flow is completed successfully, a session cookie or session token will be issued.",
         "properties": {
           "active": {
-            "description": "The active login method\n\nIf set contains the login method used. If the flow is new, it is unset.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "The active login method\n\nIf set contains the login method used. If the flow is new, it is unset.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "enum": [
               "password",
               "oidc",
@@ -5374,11 +5648,12 @@
               "profile",
               "saml",
               "deviceauthn",
+              "identifier_first",
               "link_recovery",
               "code_recovery"
             ],
             "type": "string",
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "created_at": {
             "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
@@ -5436,6 +5711,9 @@
           "state": {
             "description": "State represents the state of this request:\n\nchoose_method: ask the user to choose a method to sign in with\nsent_email: the email has been sent to the user\npassed_challenge: the request was successful and the login challenge was passed."
           },
+          "test_context": {
+            "$ref": "#/components/schemas/loginFlowTestContext"
+          },
           "transient_payload": {
             "description": "TransientPayload is used to pass data from the login to hooks and email templates",
             "type": "object"
@@ -5470,6 +5748,98 @@
         "title": "Login flow state (experimental)",
         "type": "string"
       },
+      "loginFlowTestContext": {
+        "description": "Admin-test extension of a login flow. Populated only for flows created by\nthe admin test endpoint; included in the flow's API response so the admin\nUI can render the pre-scoped provider and (once captured) the debug\nround-trip result.",
+        "properties": {
+          "debug_payload": {
+            "$ref": "#/components/schemas/loginFlowTestDebugPayload"
+          },
+          "provider_id": {
+            "description": "The ID of the OIDC provider this test flow targets.",
+            "type": "string"
+          }
+        },
+        "required": ["provider_id"],
+        "type": "object"
+      },
+      "loginFlowTestDebugPayload": {
+        "description": "Contains the parsed claims, the Jsonnet mapper input and output, and any\nschema validation errors. Bearer tokens (id_token, access_token,\nrefresh_token) are intentionally excluded to limit the blast radius of\nthe debug payload leaking through audit logs or admin browsers.",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/loginFlowTestStepError"
+          },
+          "id_token_claims": {
+            "additionalProperties": {},
+            "description": "Claims extracted from the ID token.",
+            "type": "object"
+          },
+          "jsonnet_input": {
+            "additionalProperties": {},
+            "description": "Input JSON that was fed into the Jsonnet mapper.",
+            "type": "object"
+          },
+          "jsonnet_mapper_url": {
+            "description": "URL of the Jsonnet mapper that was executed on the claims.",
+            "type": "string"
+          },
+          "jsonnet_output": {
+            "additionalProperties": {},
+            "description": "Output JSON returned by the Jsonnet mapper.",
+            "type": "object"
+          },
+          "jsonnet_stderr": {
+            "description": "Anything the Jsonnet mapper wrote to standard error.",
+            "type": "string"
+          },
+          "schema_validation_errors": {
+            "description": "Identity-schema validation errors produced from the mapped traits.",
+            "items": {
+              "$ref": "#/components/schemas/loginFlowTestSchemaValidationError"
+            },
+            "type": "array"
+          },
+          "userinfo": {
+            "additionalProperties": {},
+            "description": "Claims returned from the provider's userinfo endpoint, if any.",
+            "type": "object"
+          }
+        },
+        "title": "Diagnostic payload captured during a test-mode OIDC round-trip.",
+        "type": "object"
+      },
+      "loginFlowTestSchemaValidationError": {
+        "description": "One identity-schema validation failure recorded while evaluating the\ntraits produced by the Jsonnet mapper.",
+        "properties": {
+          "message": {
+            "description": "Human-readable description of the validation failure.",
+            "type": "string"
+          },
+          "path": {
+            "description": "JSON pointer to the field that failed validation.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "loginFlowTestStepError": {
+        "description": "Populated when any step (token exchange, claims decode, Jsonnet\nevaluation, schema validation) cannot complete.",
+        "properties": {
+          "message": {
+            "description": "Human-readable message describing the failure.",
+            "type": "string"
+          },
+          "reason": {
+            "description": "Short classification of the failure cause (for example,\n\"access_denied\" or \"traits_invalid\").",
+            "type": "string"
+          },
+          "step": {
+            "description": "Machine-readable identifier of the failed step (for example,\n\"token_exchange\" or \"schema_validate\").",
+            "type": "string"
+          }
+        },
+        "title": "Classified failure of a step in an OIDC test round-trip.",
+        "type": "object"
+      },
       "logoutFlow": {
         "description": "Logout Flow",
         "properties": {
@@ -5483,6 +5853,50 @@
           }
         },
         "required": ["logout_url", "logout_token"],
+        "type": "object"
+      },
+      "manageSessionsBody": {
+        "description": "Body for the bulk session management endpoint. Exactly one of `identities`\nor `sessions` must be provided. To operate on every session in the network,\npass `identities: [\"*\"]` — the wildcard must appear alone, never mixed with\nexplicit IDs.",
+        "properties": {
+          "action": {
+            "description": "Action to perform on the matching sessions.\ndisable ManageSessionsActionDisable\ndelete ManageSessionsActionDelete",
+            "enum": ["disable", "delete"],
+            "type": "string",
+            "x-go-enum-desc": "disable ManageSessionsActionDisable\ndelete ManageSessionsActionDelete"
+          },
+          "identities": {
+            "description": "Identity IDs whose sessions should be disabled or deleted, or `[\"*\"]`\nto operate on every session in the network. Mutually exclusive with\n`sessions`.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "sessions": {
+            "description": "Session IDs to disable or delete. Mutually exclusive with `identities`.\nThe wildcard `[\"*\"]` is not accepted in this field — pass\n`identities: [\"*\"]` to scope the operation to every session in the\nnetwork.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["action"],
+        "title": "Manage Sessions Body",
+        "type": "object"
+      },
+      "manageSessionsResponse": {
+        "description": "Response body for the bulk session management endpoint. Reports how many\nrows the call processed and, for the wildcard variant, whether the network\nstill has matching rows left. Explicit-IDs requests always return\n`more: false`. Wildcard callers drain the network by re-issuing the same\nrequest while `more` is `true`.",
+        "properties": {
+          "more": {
+            "description": "True when the call reached the per-call batch limit and additional\nmatching rows may remain. Always false for explicit-IDs requests.",
+            "type": "boolean"
+          },
+          "processed": {
+            "description": "Number of sessions processed in this call. For `disable`, counts only\nsessions that were active before the call (already-inactive sessions\nare skipped). For `delete`, counts every matching row removed.",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "title": "Manage Sessions Response",
         "type": "object"
       },
       "managedIdentitySchema": {
@@ -5667,7 +6081,7 @@
             "type": "string"
           },
           "template_type": {
-            "description": "\nrecovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid",
+            "description": "\nrecovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid\nverifiable_address_changed TypeVerifiableAddressChanged",
             "enum": [
               "recovery_invalid",
               "recovery_valid",
@@ -5679,10 +6093,11 @@
               "verification_code_valid",
               "stub",
               "login_code_valid",
-              "registration_code_valid"
+              "registration_code_valid",
+              "verifiable_address_changed"
             ],
             "type": "string",
-            "x-go-enum-desc": "recovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid"
+            "x-go-enum-desc": "recovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid\nverifiable_address_changed TypeVerifiableAddressChanged"
           },
           "type": {
             "$ref": "#/components/schemas/courierMessageType"
@@ -9688,7 +10103,7 @@
       "registrationFlow": {
         "properties": {
           "active": {
-            "description": "Active, if set, contains the registration method that is being used. It is initially\nnot set.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "Active, if set, contains the registration method that is being used. It is initially\nnot set.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "enum": [
               "password",
               "oidc",
@@ -9700,11 +10115,12 @@
               "profile",
               "saml",
               "deviceauthn",
+              "identifier_first",
               "link_recovery",
               "code_recovery"
             ],
             "type": "string",
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "expires_at": {
             "description": "ExpiresAt is the time (UTC) when the flow expires. If the user still wishes to log in,\na new flow has to be initiated.",
@@ -10008,7 +10424,7 @@
             "type": "string"
           },
           "method": {
-            "description": "The method used in this authenticator.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "The method used in this authenticator.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "enum": [
               "password",
               "oidc",
@@ -10020,11 +10436,12 @@
               "profile",
               "saml",
               "deviceauthn",
+              "identifier_first",
               "link_recovery",
               "code_recovery"
             ],
             "type": "string",
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           "organization": {
             "description": "The Organization id used for authentication",
@@ -13371,6 +13788,7 @@
                   "profile",
                   "saml",
                   "deviceauthn",
+                  "identifier_first",
                   "link_recovery",
                   "code_recovery"
                 ],
@@ -13501,6 +13919,7 @@
                   "profile",
                   "saml",
                   "deviceauthn",
+                  "identifier_first",
                   "link_recovery",
                   "code_recovery"
                 ],
@@ -13737,7 +14156,7 @@
             }
           },
           {
-            "description": "Type is the type of credentials to delete.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+            "description": "Type is the type of credentials to delete.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
             "in": "path",
             "name": "type",
             "required": true,
@@ -13753,12 +14172,13 @@
                 "profile",
                 "saml",
                 "deviceauthn",
+                "identifier_first",
                 "link_recovery",
                 "code_recovery"
               ],
               "type": "string"
             },
-            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+            "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           {
             "description": "Identifier is the identifier of the OIDC/SAML credential to delete.\nFind the identifier by calling the `GET /admin/identities/{id}?include_credential={oidc,saml}` endpoint.",
@@ -15597,6 +16017,71 @@
         "summary": "List All Sessions",
         "tags": ["identity"],
         "x-ory-ratelimit-bucket": "kratos-admin-medium"
+      },
+      "post": {
+        "description": "Disable or delete sessions for a list of identities or a list of sessions in\na single call. The `action` field selects the operation:\n\n`disable` — deactivate matching sessions (sets `active = false`, preserves\naudit data).\n`delete` — permanently delete matching sessions.\n\nExactly one of `identities` or `sessions` must be provided. To scope the\noperation to every session in the network, pass `identities: [\"*\"]`; the\nwildcard is not accepted in the `sessions` field. Up to 500 explicit IDs\nare accepted per call.\n\nAll requests return `200 OK` with `{processed, more}`. `processed` reports\nhow many rows the call affected; for `disable` it counts only sessions\nthat were active before the call. `more` is `true` only when a wildcard\nrequest reached the per-call batch limit and additional rows may remain;\ncallers drain the network by re-issuing the same request while `more` is\n`true`. Explicit-IDs requests always return `more: false`.",
+        "operationId": "manageSessions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/manageSessionsBody"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/manageSessionsResponse"
+                }
+              }
+            },
+            "description": "manageSessionsResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Manage sessions in bulk",
+        "tags": ["identity"],
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
       }
     },
     "/admin/sessions/{id}": {
@@ -15792,6 +16277,73 @@
           }
         ],
         "summary": "Extend a Session",
+        "tags": ["identity"],
+        "x-ory-ratelimit-bucket": "kratos-admin-low"
+      }
+    },
+    "/admin/test-login-flows": {
+      "post": {
+        "description": "Creates a dry-run OIDC test login flow pre-scoped to one provider. The\nreturned flow carries a single-submit UI and a CSRF bearer token. No\nidentity is persisted and no session is issued when the flow completes;\nthe captured debug data is returned in the flow's test_context.",
+        "operationId": "createTestLoginFlow",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createTestLoginFlowBody"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "Body"
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loginFlow"
+                }
+              }
+            },
+            "description": "loginFlow"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Create a test OIDC login flow",
         "tags": ["identity"],
         "x-ory-ratelimit-bucket": "kratos-admin-low"
       }
@@ -20001,6 +20553,79 @@
           }
         },
         "summary": "Get Login Flow",
+        "tags": ["frontend"],
+        "x-ory-ratelimit-bucket": "kratos-public-high"
+      }
+    },
+    "/self-service/login/test": {
+      "delete": {
+        "description": "Deletes a dry-run OIDC test login flow. A flow whose debug payload has\nbeen captured requires the HMAC cookie set by the OIDC callback; a flow\nstill in the initial choose-method state is deletable with just the flow\nID (it carries no PII, and the admin may want to abandon it).",
+        "operationId": "deleteTestLoginFlow",
+        "parameters": [
+          {
+            "description": "ID of the test login flow to delete.",
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "HTTP Cookies. A captured test flow requires the ory_kratos_test_flow\ncookie set by the OIDC callback; a flow still in the initial\nchoose-method state does not.",
+            "in": "header",
+            "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "summary": "Delete a test OIDC login flow",
         "tags": ["frontend"],
         "x-ory-ratelimit-bucket": "kratos-public-high"
       }
