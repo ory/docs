@@ -1,7 +1,7 @@
 # Ory React Authentication Example
 
-This example demonstrates how to implement authentication in a React
-application built with Vite and TypeScript using Ory.
+This example demonstrates how to implement authentication in a React application
+built with Vite and TypeScript using Ory.
 
 ## Prerequisites
 
