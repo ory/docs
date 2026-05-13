@@ -1,0 +1,40 @@
+---
+id: gbg-acuant
+title: GBG (Acuant) identity verification
+sidebar_label: GBG (Acuant)
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/identity-verification/gbg-acuant](https://github.com/ory/integrates/tree/main/identity-verification/gbg-acuant).
+</Admonition>
+```
+
+[GBG](https://www.gbgplc.com/) (acquired Acuant) — global identity
+verification with deep document + biometric coverage. Call GBG's GO
+Journey API from an Ory Actions webhook to verify document + selfie
+evidence and gate the registration flow.
+
+## How it works
+
+Ory Action on `registration.after` (sync, `response.parse: true`)
+calls handler → handler calls GBG GO Journey API → GBG returns
+`PASS` / `REFER` / `FAIL` → handler echoes decision → Ory fails the
+flow on `REFER`/`FAIL` or writes the verdict to `identity.metadata`.
+
+## Notable
+
+- GBG-side flow is defined as a **journey**; the journey ID controls
+  which evidence types are required.
+- First-call cold-path latency can be 5–10s; handler caps at 15s.
+- One journey per risk tier; switch journey IDs per Ory hook
+  configuration.
+
+## Resources
+
+- [GBG GO documentation](https://docs.gbgplc.com/identity)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/identity-verification/gbg-acuant](https://github.com/ory/integrates/tree/main/identity-verification/gbg-acuant)

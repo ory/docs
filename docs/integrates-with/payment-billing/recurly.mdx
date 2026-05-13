@@ -1,0 +1,44 @@
+---
+id: recurly
+title: Recurly integration
+sidebar_label: Recurly
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/payment-billing/recurly](https://github.com/ory/integrates/tree/main/payment-billing/recurly).
+</Admonition>
+```
+
+[Recurly](https://recurly.com) — subscription management and billing
+platform. Bidirectional sync: Ory → Recurly creates accounts at signup;
+Recurly → Ory surfaces subscription state on the identity so application
+code can gate features by tier without a separate Recurly lookup.
+
+## How it works
+
+**Outbound** — Ory Action on `registration.after` → handler creates a
+Recurly Account with `account_code` = Ory identity id; PATCHes
+`metadata_public.recurly` on the identity.
+
+**Inbound** — Recurly webhook (subscription events) → handler verifies
+HMAC-SHA256, resolves Ory identity by `account_code`, PATCHes
+`metadata_public.recurly.subscription_state`.
+
+## Notable
+
+- Subscription gating belongs in **application code** reading
+  `metadata_public.recurly.subscription_state`, NOT in the auth flow.
+  Ory shouldn't block sign-in for churned subscribers; the app
+  redirects to the billing page.
+- Recurly webhooks are at-least-once — handler must be idempotent
+  (PATCH is naturally idempotent).
+
+## Resources
+
+- [Recurly API documentation](https://developers.recurly.com/api/)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/payment-billing/recurly](https://github.com/ory/integrates/tree/main/payment-billing/recurly)

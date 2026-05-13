@@ -1,0 +1,50 @@
+---
+id: skyfire
+title: Skyfire AI-agent identity
+sidebar_label: Skyfire
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Reference pattern (emerging space)">
+Agent-identity is a new and rapidly evolving space — this page is a
+reference architecture more than a turnkey product. Reference:
+[ory/integrates/agent-identity/skyfire](https://github.com/ory/integrates/tree/main/agent-identity/skyfire).
+</Admonition>
+```
+
+[Skyfire](https://skyfire.xyz) — AI-agent identity and payment platform
+("Know Your Agent" verification for autonomous agents). Pair with Ory
+Hydra (OAuth2 issuance) and Ory Kratos (identity records) so AI agents
+authenticate to your APIs with verifiable identity and per-agent spend
+controls.
+
+## How it works
+
+1. Skyfire issues each AI agent a verifiable credential + a
+   Skyfire-managed identity.
+2. Your application accepts Skyfire credentials, then provisions a
+   corresponding identity in Ory Kratos (one per agent) with
+   `metadata_public.skyfire = { agent_id, kya_status }`.
+3. Ory Hydra issues OAuth2 access tokens to the agent identity using
+   standard `client_credentials` flow; the access token's `sub` is
+   the Kratos identity id.
+4. Backend APIs validate the access token (see
+   [API gateways](/docs/integrations/api-gateways)) and read the
+   agent id from `metadata_public.skyfire.agent_id` for access
+   control.
+
+## Notable
+
+- Each agent is a **distinct Kratos identity** (not "user with
+  multiple agents"). Keeps audit trails and revocation clean.
+- KYA status must be re-checked periodically — Skyfire can revoke
+  agents and your code must respect that on token issuance.
+- Payment / spend controls stay on the Skyfire side.
+
+## Resources
+
+- [Skyfire documentation](https://docs.skyfire.xyz/)
+- [Ory Hydra OAuth2 server](/docs/hydra)
+- Reference: [ory/integrates/agent-identity/skyfire](https://github.com/ory/integrates/tree/main/agent-identity/skyfire)

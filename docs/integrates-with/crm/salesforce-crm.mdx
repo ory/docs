@@ -1,0 +1,51 @@
+---
+id: salesforce-crm
+title: Salesforce CRM
+sidebar_label: Salesforce (CRM)
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/crm/salesforce](https://github.com/ory/integrates/tree/main/crm/salesforce).
+</Admonition>
+```
+
+Sync Ory identities to Salesforce as **Leads or Contacts** via Ory
+Actions, calling the Salesforce REST API with OAuth2 service-to-service
+authentication.
+
+Distinct from [Salesforce social sign-in](../../kratos/social-signin/42_salesforce.mdx)
+— that integration uses Salesforce as a sign-in provider; this one
+pushes Ory users into Salesforce as records.
+
+## How it works
+
+Ory Action on `registration.after` (async) calls
+`POST /services/data/vXX.0/sobjects/Lead/` (or `Contact/`) with an
+OAuth2 access token. Best practice is a token-broker service in front
+of Ory that handles Salesforce token refresh.
+
+## Setup outline
+
+1. Salesforce → **Setup** → **App Manager** → **New Connected App**
+   with OAuth Client Credentials Flow enabled.
+2. Permission Set granting create access on Lead/Contact; assign to
+   the integration user.
+3. Ory Action on `registration.after` — Jsonnet body builds the
+   Salesforce payload.
+
+## Notable
+
+- Connected Apps + Permission Sets require **Salesforce Enterprise
+  edition or higher**.
+- Daily API call limits vary by edition; high-volume signups need
+  batch creation.
+- Start with Lead; promote to Contact via Salesforce-side automation.
+
+## Resources
+
+- [Salesforce REST API](https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/)
+- Reference: [ory/integrates/crm/salesforce](https://github.com/ory/integrates/tree/main/crm/salesforce)

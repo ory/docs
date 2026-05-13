@@ -1,0 +1,46 @@
+---
+id: wechat
+title: Sign in with WeChat
+sidebar_label: WeChat
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Reference pattern (not natively supported)">
+WeChat's "OAuth" flow is non-standard — uses `appid`/`secret` instead of
+`client_id`/`client_secret`, has separate authorization endpoints per
+surface, and never returns an `id_token`. Kratos cannot consume it
+directly. This page documents the proxy pattern. Reference:
+[ory/integrates/social-sign-in/wechat](https://github.com/ory/integrates/tree/main/social-sign-in/wechat).
+</Admonition>
+```
+
+[WeChat](https://developers.weixin.qq.com/) (微信) is the dominant
+Chinese super-app. WeChat Login is effectively the default identity for
+products targeting users in mainland China.
+
+## Recommended approach — OIDC proxy
+
+Stand up a small bridge that accepts the standard OIDC authorization
+request from Kratos, translates parameters (`client_id` → `appid`,
+etc.) and forwards to WeChat, validates WeChat's response, calls
+`/sns/userinfo`, and returns a normal OIDC `id_token` to Kratos.
+Configure Kratos against the proxy as a generic OIDC provider.
+
+## WeChat-specific quirks
+
+- **No email** — use `unionid` or `openid` as the credential
+  identifier.
+- **`unionid` vs `openid`** — prefer `unionid` (cross-app stable id).
+- **Separate flows per surface**: web (QR code), in-app, Mini Programs
+  — each with different authorization endpoints.
+- **Operational prerequisites**: Chinese business entity for Open
+  Platform registration; ICP filing for callback domain; test from
+  within China.
+
+## Resources
+
+- [WeChat OAuth web login](https://developers.weixin.qq.com/doc/oplatform/en/Website_App/WeChat_Login/Wechat_Login.html)
+- [Ory generic OIDC provider docs](../../kratos/social-signin/05_generic.mdx)
+- Reference: [ory/integrates/social-sign-in/wechat](https://github.com/ory/integrates/tree/main/social-sign-in/wechat)

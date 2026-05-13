@@ -1,0 +1,54 @@
+---
+id: new-relic
+title: New Relic OTel ingestion
+sidebar_label: New Relic
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Configures via the standard
+[OpenTelemetry path](../../self-hosted/operations/01_tracing.md). Reference:
+[ory/integrates/monitoring-observability/new-relic](https://github.com/ory/integrates/tree/main/monitoring-observability/new-relic).
+</Admonition>
+```
+
+[New Relic](https://newrelic.com) ingests OpenTelemetry over OTLP/HTTP.
+Ory products emit OTel traces and metrics that New Relic consumes
+directly.
+
+## Quick reference
+
+| Setting | Value |
+| --- | --- |
+| OTLP endpoint (US) | `https://otlp.nr-data.net:4318` |
+| OTLP endpoint (EU) | `https://otlp.eu01.nr-data.net:4318` |
+| Auth | header `api-key: {$NEW_RELIC_LICENSE_KEY}` |
+
+## Setup
+
+Set standard OTel env vars on each Ory service:
+
+```shell
+TRACING_PROVIDER=otel
+OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp.nr-data.net:4318
+OTEL_EXPORTER_OTLP_HEADERS=api-key={$NEW_RELIC_LICENSE_KEY}
+OTEL_SERVICE_NAME=ory-kratos
+```
+
+For production, prefer an OpenTelemetry Collector in front of New
+Relic for batching, retries, and sampling in one place.
+
+## Notable
+
+- New Relic attribute count/size limits — `identity.traits` as a flat
+  blob will hit them.
+- Use **Account – Ingest** scope license keys, never full user keys.
+- Sample at the OTel SDK / collector level, not backend side.
+
+## Resources
+
+- [New Relic OpenTelemetry](https://docs.newrelic.com/docs/more-integrations/open-source-telemetry-integrations/opentelemetry/get-started/opentelemetry-set-up-your-app/)
+- [Ory tracing](../../self-hosted/operations/01_tracing.md)
+- Reference: [ory/integrates/monitoring-observability/new-relic](https://github.com/ory/integrates/tree/main/monitoring-observability/new-relic)

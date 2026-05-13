@@ -1,0 +1,51 @@
+---
+id: mailchimp
+title: Mailchimp marketing audience integration
+sidebar_label: Mailchimp (Marketing)
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="info" title="Primary documentation">
+The canonical Ory–Mailchimp integration page is
+[Mailchimp integration with Ory Actions](../../actions/integrations/mailchimp.mdx),
+which covers both the marketing-audience and transactional subsystems.
+The page below focuses on the marketing-audience flow specifically; if
+it disagrees with the primary doc, the primary doc wins.
+</Admonition>
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/cdp-analytics/mailchimp](https://github.com/ory/integrates/tree/main/cdp-analytics/mailchimp).
+</Admonition>
+```
+
+Sync new Ory Network users into a [Mailchimp](https://www.mailchimp.com/)
+audience via Ory Actions so registrations automatically appear in the
+marketing CRM.
+
+Distinct from the
+[Mailchimp Transactional (Mandrill) integration](../email-providers/mailchimp-transactional.mdx)
+— that sends transactional emails; this one manages marketing audiences.
+
+## How it works
+
+Ory Action on `registration.after` (async) POSTs to Mailchimp's
+Lists/Audiences API:
+
+- URL:
+  `https://{dc}.api.mailchimp.com/3.0/lists/{list_id}/members`.
+- Auth: HTTP Basic with username `anystring` and password
+  `{api_key}`.
+- Body Jsonnet maps `identity.traits.email` and
+  `identity.traits.name` into Mailchimp merge fields.
+
+The Mailchimp Marketing API key is **distinct from** the Mandrill key
+used for the transactional integration.
+
+## Resources
+
+- [Mailchimp Marketing API](https://mailchimp.com/developer/marketing/api/)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/cdp-analytics/mailchimp](https://github.com/ory/integrates/tree/main/cdp-analytics/mailchimp)

@@ -1,0 +1,46 @@
+---
+id: recaptcha
+title: Google reCAPTCHA
+sidebar_label: reCAPTCHA
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/fraud-bot-protection/recaptcha](https://github.com/ory/integrates/tree/main/fraud-bot-protection/recaptcha).
+</Admonition>
+```
+
+[Google reCAPTCHA](https://www.google.com/recaptcha/) — the most
+widely deployed CAPTCHA service. v2 (checkbox + image challenges),
+v3 (invisible scoring 0.0–1.0), or Enterprise (richer signals).
+
+## How it works
+
+1. Registration / login UI embeds the **reCAPTCHA client widget**
+   (v2 or v3); widget returns a token (`g-recaptcha-response`).
+2. Form submits to Ory's flow with the token.
+3. Ory Action on `registration.before` / `login.before` with
+   `can_interrupt: true` calls the handler.
+4. Handler POSTs to
+   `https://www.google.com/recaptcha/api/siteverify` with the
+   token + Secret Key.
+5. For v3, handler also checks the returned `score` against a
+   threshold (typical: 0.5).
+6. On fail, handler returns an error and Ory blocks.
+
+## Notable
+
+- Two keys: **Site Key** (public) and **Secret Key** (server).
+- reCAPTCHA v3 returns a score (0.0–1.0); higher = more human.
+  Tune threshold per flow risk profile.
+- reCAPTCHA Enterprise has a different API surface
+  (`recaptchaenterprise.googleapis.com`) and returns richer signals.
+
+## Resources
+
+- [reCAPTCHA documentation](https://developers.google.com/recaptcha)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/fraud-bot-protection/recaptcha](https://github.com/ory/integrates/tree/main/fraud-bot-protection/recaptcha)

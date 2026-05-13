@@ -1,0 +1,37 @@
+---
+id: sumo-logic
+title: Sumo Logic
+sidebar_label: Sumo Logic
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/siem-security-analytics/sumo-logic](https://github.com/ory/integrates/tree/main/siem-security-analytics/sumo-logic).
+</Admonition>
+```
+
+[Sumo Logic](https://www.sumologic.com/) — cloud-native machine-data
+analytics + Cloud SIEM. The simplest SIEM ingest path of all: HTTP
+Source on a Hosted Collector accepts authenticated POSTs to a
+tokenized URL; no webhook handler needed.
+
+## How it works
+
+Ory Action POSTs JSON body directly to the Sumo Logic Hosted
+Collector HTTP Source URL. Source Category drives downstream search
+and partition rules. Sumo auto-parses the JSON.
+
+## Notable
+
+- HTTP Source URL **is the auth** — treat as a secret.
+- For Cloud SIEM, parse into Sumo's normalized schema via Field
+  Extraction Rules to unlock built-in detection rules.
+
+## Resources
+
+- [Sumo Logic HTTP Source](https://help.sumologic.com/docs/send-data/hosted-collectors/http-source/)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/siem-security-analytics/sumo-logic](https://github.com/ory/integrates/tree/main/siem-security-analytics/sumo-logic)

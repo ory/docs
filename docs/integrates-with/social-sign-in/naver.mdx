@@ -1,0 +1,37 @@
+---
+id: naver
+title: Sign in with Naver
+sidebar_label: Naver
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained, not part of Ory's officially
+supported social sign-in providers. Reference implementation:
+[ory/integrates/social-sign-in/naver](https://github.com/ory/integrates/tree/main/social-sign-in/naver).
+Contributions welcome.
+</Admonition>
+```
+
+[Naver](https://developers.naver.com/) is South Korea's largest search
+portal — a complementary sign-in option to Kakao for products targeting
+Korean users. OAuth 2.0 (not OIDC).
+
+## Setup
+
+1. Register an app at the
+   [Naver Developers Console](https://developers.naver.com/apps).
+2. Add the Ory redirect URI.
+3. Configure as a generic provider via the Ory CLI with:
+   - Authorization: `https://nid.naver.com/oauth2.0/authorize`
+   - Token: `https://nid.naver.com/oauth2.0/token`
+   - User info: `https://openapi.naver.com/v1/nid/me`
+4. Jsonnet maps `response.id`, `response.email`, `response.nickname`.
+
+## Resources
+
+- [Naver Login API](https://developers.naver.com/docs/login/api/api.md)
+- [Ory generic OIDC provider docs](../../kratos/social-signin/05_generic.mdx)
+- Reference implementation: [ory/integrates/social-sign-in/naver](https://github.com/ory/integrates/tree/main/social-sign-in/naver)

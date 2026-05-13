@@ -1,0 +1,39 @@
+---
+id: zoominfo
+title: ZoomInfo
+sidebar_label: ZoomInfo
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/user-enrichment/zoominfo](https://github.com/ory/integrates/tree/main/user-enrichment/zoominfo).
+</Admonition>
+```
+
+[ZoomInfo](https://www.zoominfo.com) — B2B data intelligence platform.
+Enrich Ory identities post-registration with B2B contact + company
+data so newly registered users land pre-qualified in your funnel.
+
+## How it works
+
+Ory Action on `registration.after` (async) → handler authenticates
+(OAuth2 client credentials) → calls
+`POST https://api.zoominfo.com/enrich/contact` → PATCHes returned data
+to `metadata_public.zoominfo` on the identity.
+
+## Notable
+
+- **B2B-focused** — personal-email signups won't resolve. Gate calls
+  on a business-email check.
+- US business contact data is strongest; EU coverage is weaker and
+  subject to GDPR opt-outs.
+- Licensing is the primary constraint.
+
+## Resources
+
+- [ZoomInfo Enrich API](https://api-docs.zoominfo.com/)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/user-enrichment/zoominfo](https://github.com/ory/integrates/tree/main/user-enrichment/zoominfo)

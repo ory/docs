@@ -1,0 +1,47 @@
+---
+id: vonage
+title: Vonage (Nexmo) SMS courier
+sidebar_label: Vonage
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/sms-providers/vonage](https://github.com/ory/integrates/tree/main/sms-providers/vonage).
+</Admonition>
+```
+
+[Vonage](https://www.vonage.com) (formerly Nexmo) — global cloud
+communications platform with strong EMEA / APAC carrier coverage.
+Common alternative to Twilio for products with significant
+international user bases.
+
+## Quick reference
+
+| Setting | Value |
+| --- | --- |
+| URL | `https://rest.nexmo.com/sms/json` |
+| Method | `POST` |
+| Auth | API key + secret in the **request body** (not headers) |
+| Body | JSON with `api_key`, `api_secret`, `from`, `to`, `text` |
+
+Vonage authenticates by including `api_key` and `api_secret` in the
+JSON body, so the Kratos courier `auth:` block stays empty —
+credentials live in the Jsonnet template.
+
+## Notable
+
+- Vonage accepts E.164 with or without the leading `+`; strip the `+`
+  in Jsonnet if a country rejects the `+` form.
+- Alphanumeric sender ID (up to 11 chars) supported in many countries;
+  not allowed in US / Canada (registered number required).
+- Newer Messages API (`api.nexmo.com/v1/messages`) available with
+  JWT/header auth; the REST SMS API above is simpler for SMS-only use.
+
+## Resources
+
+- [Vonage SMS API reference](https://developer.vonage.com/api/sms)
+- [Ory SMS courier configuration](../../kratos/emails-sms/10_sending-sms.mdx)
+- Reference: [ory/integrates/sms-providers/vonage](https://github.com/ory/integrates/tree/main/sms-providers/vonage)

@@ -1,0 +1,38 @@
+---
+id: amplitude
+title: Amplitude integration
+sidebar_label: Amplitude
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/cdp-analytics/amplitude](https://github.com/ory/integrates/tree/main/cdp-analytics/amplitude).
+</Admonition>
+```
+
+[Amplitude](https://amplitude.com) — product-analytics platform. Send
+Ory authentication events directly to Amplitude's HTTP V2 API; no
+webhook handler needed.
+
+## How it works
+
+Ory Action on lifecycle hooks (async, `response.ignore: true`) POSTs
+directly to `https://api2.amplitude.com/2/httpapi` (or
+`api.eu.amplitude.com` for EU residency). API key authenticates via the
+JSON body.
+
+## Notable
+
+- **Stable `user_id`** — use Ory identity id, not email. Identity
+  merges break if user_id changes.
+- Up to 1,000 events per HTTP request — batch via handler for
+  high-volume products.
+
+## Resources
+
+- [Amplitude HTTP V2 API](https://amplitude.com/docs/apis/analytics/http-v2)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/cdp-analytics/amplitude](https://github.com/ory/integrates/tree/main/cdp-analytics/amplitude)

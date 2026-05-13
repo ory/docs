@@ -1,0 +1,42 @@
+---
+id: cyberark-identity
+title: CyberArk Identity
+sidebar_label: CyberArk Identity
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained, not part of Ory Polis's
+officially supported SSO providers. Configures via the
+[generic SAML SP](../../polis/sso-providers/generic-saml.mdx) or
+[generic OIDC](../../polis/sso-providers/generic-oidc.mdx) walkthrough.
+Reference:
+[ory/integrates/enterprise-sso/cyberark-identity](https://github.com/ory/integrates/tree/main/enterprise-sso/cyberark-identity).
+</Admonition>
+```
+
+[CyberArk Identity](https://www.cyberark.com/products/identity/) — SSO
+and identity portion of the CyberArk platform, distinct from CyberArk's
+PAM product. Exposes standard SAML 2.0 and OIDC endpoints for Ory Polis
+to consume via the generic provider paths.
+
+## Setup outline
+
+1. In CyberArk Identity, create a **Custom SAML App** (or Custom OIDC
+   App).
+2. Configure the Polis SP metadata on the CyberArk app.
+3. In Ory Network, configure the SSO connection via the generic SAML
+   or generic OIDC walkthrough; paste CyberArk's metadata XML or
+   issuer URL + client credentials.
+4. Map released attributes (`email`, names, groups) to Ory traits.
+
+PAM-specific REST integration is out of scope — this entry covers SSO
+only.
+
+## Resources
+
+- [CyberArk Identity admin docs](https://docs.cyberark.com/Idaptive/Latest/en/Content/Home.htm)
+- [Ory Polis SSO providers](../../polis/sso-providers/index.mdx)
+- Reference: [ory/integrates/enterprise-sso/cyberark-identity](https://github.com/ory/integrates/tree/main/enterprise-sso/cyberark-identity)

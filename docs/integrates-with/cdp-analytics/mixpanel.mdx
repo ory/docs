@@ -1,0 +1,38 @@
+---
+id: mixpanel
+title: Mixpanel integration
+sidebar_label: Mixpanel
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/cdp-analytics/mixpanel](https://github.com/ory/integrates/tree/main/cdp-analytics/mixpanel).
+</Admonition>
+```
+
+[Mixpanel](https://mixpanel.com) — product-analytics platform. Send Ory
+authentication events directly to the Ingestion API; no webhook handler
+needed.
+
+## How it works
+
+Ory Action POSTs directly to `https://api.mixpanel.com/track?ip=0` (or
+`api-eu.mixpanel.com` for EU). Project Token in the event payload
+authenticates the request.
+
+## Notable
+
+- **Stable `distinct_id`** — Ory identity id (not email).
+- **`$insert_id`** for deduplication — Ory flow id.
+- `ip=0` disables Mixpanel's IP geolocation (server IP, not user).
+- Service Account auth (HTTP Basic) preferred for server-to-server
+  over Project Token in the body.
+
+## Resources
+
+- [Mixpanel HTTP API](https://developer.mixpanel.com/reference/track-event)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/cdp-analytics/mixpanel](https://github.com/ory/integrates/tree/main/cdp-analytics/mixpanel)

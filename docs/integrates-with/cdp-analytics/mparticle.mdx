@@ -1,0 +1,39 @@
+---
+id: mparticle
+title: mParticle integration
+sidebar_label: mParticle
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/cdp-analytics/mparticle](https://github.com/ory/integrates/tree/main/cdp-analytics/mparticle).
+</Admonition>
+```
+
+[mParticle](https://www.mparticle.com) — customer data platform. Send
+Ory identity events to mParticle's Events API; mParticle fans events
+to downstream destinations (analytics, marketing, advertising) without
+re-implementing each integration.
+
+## How it works
+
+Ory Action POSTs directly to `https://s2s.mparticle.com/v2/events`
+with HTTP Basic auth (mParticle API Key + Secret from a Custom Feed
+input).
+
+## Notable
+
+- `user_identities.customer_id` = Ory identity id; mParticle's
+  identity-resolution rules layer on top.
+- `environment` = `"development"` for non-prod Ory projects.
+- mParticle's value is the **routing layer** — only worth it for
+  multi-destination distribution.
+
+## Resources
+
+- [mParticle Events API](https://docs.mparticle.com/developers/server/json-reference/)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/cdp-analytics/mparticle](https://github.com/ory/integrates/tree/main/cdp-analytics/mparticle)

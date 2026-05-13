@@ -1,0 +1,46 @@
+---
+id: arkose-labs
+title: Arkose Labs bot protection
+sidebar_label: Arkose Labs
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/fraud-bot-protection/arkose-labs](https://github.com/ory/integrates/tree/main/fraud-bot-protection/arkose-labs).
+</Admonition>
+```
+
+[Arkose Labs](https://www.arkoselabs.com) — bot detection and
+fraud-prevention platform with adaptive enforcement challenges
+(invisible risk scoring escalating to interactive puzzles only when
+warranted).
+
+## How it works
+
+1. Registration / login UI embeds the **Arkose Labs client SDK**;
+   the SDK runs scoring + an optional challenge and returns a
+   one-time token.
+2. Form submits to Ory's flow with the token.
+3. An Ory Action on `registration.before` / `login.before` (with
+   `can_interrupt: true`) calls your handler.
+4. Handler POSTs to Arkose
+   `https://customer-api.arkoselabs.com/api/v4/verify/` with the
+   token + private key; checks `solved == true`.
+5. On fail, handler returns an error and the Ory flow blocks.
+
+## Notable
+
+- Two Arkose keys: **Public Key** (client SDK) and **Private Key**
+  (server verify). Never expose Private.
+- Arkose tokens are **one-time use** — retrying verify with the
+  same token returns `not_valid`.
+- Use a **per-flow** token; don't reuse across registration and login.
+
+## Resources
+
+- [Arkose Labs developer documentation](https://developer.arkoselabs.com/)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/fraud-bot-protection/arkose-labs](https://github.com/ory/integrates/tree/main/fraud-bot-protection/arkose-labs)

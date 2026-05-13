@@ -1,0 +1,36 @@
+---
+id: fullcontact
+title: FullContact
+sidebar_label: FullContact
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/user-enrichment/fullcontact](https://github.com/ory/integrates/tree/main/user-enrichment/fullcontact).
+</Admonition>
+```
+
+[FullContact](https://www.fullcontact.com) — person/company data
+enrichment.
+
+## How it works
+
+Ory Action on `registration.after` (async) → handler calls
+`POST https://api.fullcontact.com/v3/person.enrich` → PATCHes returned
+enrichment to `metadata_public.fullcontact` on the Ory identity.
+
+## Notable
+
+- Best-effort enrichment — silently no-op on 404 misses.
+- FullContact's multi-field resolution improves hit rate at the cost
+  of more credits used.
+- DSAR delete API available.
+
+## Resources
+
+- [FullContact API documentation](https://platform.fullcontact.com/docs)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/user-enrichment/fullcontact](https://github.com/ory/integrates/tree/main/user-enrichment/fullcontact)

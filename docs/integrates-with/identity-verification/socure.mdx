@@ -1,0 +1,42 @@
+---
+id: socure
+title: Socure identity verification
+sidebar_label: Socure
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/identity-verification/socure](https://github.com/ory/integrates/tree/main/identity-verification/socure).
+</Admonition>
+```
+
+[Socure](https://socure.com) — ML-based identity verification with
+strong fraud signals (device fingerprint, email reputation, network
+risk) on top of KYC. Run from an Ory Action webhook with both
+sync and async paths.
+
+## How it works
+
+**Sync** — Ory Action on `registration.after` → handler calls Socure
+ID+ → echoes decision back to Ory; response-parse Jsonnet applies
+policy.
+
+**Async** — Socure POSTs to `/socure/results-callback` when long-
+running checks finish; handler verifies `X-Socure-Signature` HMAC,
+PATCHes final decision to `metadata_public.socure_decision` on the
+matching identity.
+
+## Notable
+
+- Single deployment handles both paths.
+- Socure modules (`kyc`, `fraud`, `phonerisk`) drive which signals run.
+- DSAR delete API available — wire to your right-to-be-forgotten flow.
+
+## Resources
+
+- [Socure ID+ documentation](https://developer.socure.com/docs/idplus/overview)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/identity-verification/socure](https://github.com/ory/integrates/tree/main/identity-verification/socure)

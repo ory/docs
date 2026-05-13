@@ -1,0 +1,47 @@
+---
+id: svix
+title: Svix webhook infrastructure
+sidebar_label: Svix
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/webhook-infrastructure/svix](https://github.com/ory/integrates/tree/main/webhook-infrastructure/svix).
+</Admonition>
+```
+
+[Svix](https://www.svix.com) — webhook-sending-as-a-service.
+Compared to Hookdeck (inbound webhook reliability), Svix is for
+**outbound** webhooks — when your product fans out events to customers
+who registered subscriptions. Useful when your application sits between
+Ory and downstream consumers that need identity-event notifications.
+
+## How it works
+
+1. Ory Action on lifecycle hooks → your application handler.
+2. Handler transforms the Ory event into your product's event
+   schema.
+3. Handler calls Svix's API to fan the event out to all registered
+   subscribers for the relevant `application_id`:
+   `POST https://api.svix.com/api/v1/app/{app_id}/msg/`.
+4. Svix handles retry, replay, signing, and per-subscriber rate
+   limiting on your behalf.
+
+## When to use this
+
+- You're building a SaaS that needs to send webhooks to your own
+  customers (for example "notify this URL whenever a user verifies email
+  in my application").
+- You want signed webhooks, retries, and a dashboard for your
+  customers without building that infrastructure.
+
+Not what you want when: you're trying to make Ory's own webhooks
+more reliable — that's [Hookdeck](./hookdeck.mdx).
+
+## Resources
+
+- [Svix documentation](https://docs.svix.com)
+- Reference: [ory/integrates/webhook-infrastructure/svix](https://github.com/ory/integrates/tree/main/webhook-infrastructure/svix)

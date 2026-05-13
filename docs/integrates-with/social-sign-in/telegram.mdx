@@ -1,0 +1,51 @@
+---
+id: telegram
+title: Sign in with Telegram
+sidebar_label: Telegram
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained, not part of Ory's officially
+supported social sign-in providers. Reference implementation:
+[ory/integrates/social-sign-in/telegram](https://github.com/ory/integrates/tree/main/social-sign-in/telegram).
+Contributions welcome.
+</Admonition>
+```
+
+[Telegram Login Widget](https://core.telegram.org/widgets/login) is
+Telegram's authentication mechanism — a client-side widget that returns
+a signed payload identifying the Telegram user. Common for crypto /
+gaming / chat-adjacent products with audiences already on Telegram.
+
+Telegram's flow is **not OAuth 2.0 or OIDC** — it's a custom widget
+that POSTs a hash-signed payload (`id`, `first_name`, `username`,
+`photo_url`, `auth_date`, `hash`) to your site. The integration point
+is your application code calling the Ory Admin API, not a Kratos
+social-signin provider.
+
+## Setup pattern
+
+1. Register a bot with [@BotFather](https://t.me/botfather); set the
+   domain to where the widget will render.
+2. Embed the widget; it POSTs the signed payload to your endpoint.
+3. Your endpoint verifies the HMAC-SHA256 hash against the bot token,
+   then creates / looks up the Ory identity via the Kratos Admin API
+   (keyed by Telegram user ID) and mints an Ory session.
+
+## Notable
+
+- Telegram's signed payload is short-lived (reject `auth_date` older
+  than 86400s).
+- Phone numbers are **not released** — only `id`, `first_name`,
+  optional `last_name`, `username`, `photo_url`.
+- For Telegram Mini Apps, a different `initData` flow applies —
+  see [Mini Apps docs](https://core.telegram.org/bots/webapps).
+
+## Resources
+
+- [Telegram Login Widget docs](https://core.telegram.org/widgets/login)
+- [Ory Kratos Admin API](../../reference/api.mdx)
+- Reference: [ory/integrates/social-sign-in/telegram](https://github.com/ory/integrates/tree/main/social-sign-in/telegram)

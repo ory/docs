@@ -1,0 +1,60 @@
+---
+id: drata
+title: Drata compliance evidence collection
+sidebar_label: Drata
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Reference pattern (customer-side)">
+No first-party Ory connector or admonition; integration is implemented
+in Drata's Generic Custom Connector by polling the Ory admin API.
+Reference:
+[ory/integrates/compliance-audit/drata](https://github.com/ory/integrates/tree/main/compliance-audit/drata).
+</Admonition>
+```
+
+[Drata](https://drata.com) — automated security and compliance platform
+(SOC 2, ISO 27001, HIPAA, PCI DSS, GDPR). Configure Drata to pull
+identity and access management evidence from Ory Network's admin API
+so compliance evidence is collected automatically instead of through
+manual screenshots and exports.
+
+## Pattern
+
+```
+Drata Generic Custom Connector  →  Ory Admin API
+        ↑                              (read-only Project API key)
+        |
+   Evidence display in Drata's compliance dashboard
+```
+
+1. Create an **Ory API key** (Project-scoped) with read access to
+   identities, OAuth2 clients, and configuration.
+2. In Drata → **Connections** → **Custom Connector**, configure an
+   HTTP poller against the Ory admin API on a schedule.
+
+## Evidence to pull
+
+| Endpoint | Use for |
+| --- | --- |
+| `GET /admin/identities` | User list, lifecycle timestamps, MFA enrollment, JML controls |
+| `GET /admin/identities/{id}` | Per-user roles, credentials, recovery method |
+| `GET /admin/clients` | OAuth2 clients (service accounts) |
+| Project config | Password policy, session lifespan, MFA requirements |
+
+## Notable patterns
+
+- **Joiner / mover / leaver**: identity create / update / deactivate
+  timestamps map directly to JML controls.
+- **Privileged access**: flag any OAuth2 client whose scope grants
+  admin API access.
+- **MFA enforcement**: pull each identity's credentials array and flag
+  those without TOTP / WebAuthn where policy requires it.
+
+## Resources
+
+- [Drata Custom Connectors](https://drata.com/grc-central/drata-platform)
+- [Ory Admin API reference](../../reference/api.mdx)
+- Reference: [ory/integrates/compliance-audit/drata](https://github.com/ory/integrates/tree/main/compliance-audit/drata)

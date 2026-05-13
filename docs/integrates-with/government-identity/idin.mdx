@@ -1,0 +1,41 @@
+---
+id: idin
+title: Sign in with iDIN
+sidebar_label: iDIN
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+iDIN is exposed as standard OIDC by licensed brokers. Configures as a
+[generic OIDC provider](../../kratos/social-signin/05_generic.mdx). Reference:
+[ory/integrates/government-identity/idin](https://github.com/ory/integrates/tree/main/government-identity/idin).
+</Admonition>
+```
+
+[iDIN](https://www.idin.nl) — Dutch banks' identity-verification service.
+Users identify with their existing online-banking credentials (ING,
+Rabobank, ABN AMRO, etc.); the bank returns bank-verified attributes
+(name, address, DOB, 18+ flag). Widely used in the Netherlands for
+KYC, age verification, and onboarding.
+
+## Integration path
+
+Use a broker (Signicat, CM.com, Connective) exposing iDIN as standard
+OIDC; configure as a generic OIDC provider in Kratos.
+
+## Notable
+
+- Attributes are **bank-KYC verified** — high-confidence by
+  construction.
+- `dateOfBirth` is sensitive PII — prefer `metadata_admin`; or request
+  the `is18OrOlder` flag if only an age check is needed.
+- BSN is **not returned** by default — BSN scope requires Dutch
+  government approval.
+- PSD2 SCA: bank login is the strong-customer-auth factor.
+
+## Resources
+
+- [iDIN documentation](https://www.idin.nl/)
+- Reference: [ory/integrates/government-identity/idin](https://github.com/ory/integrates/tree/main/government-identity/idin)

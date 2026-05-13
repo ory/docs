@@ -1,0 +1,36 @@
+---
+id: zendesk
+title: Zendesk
+sidebar_label: Zendesk
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/support-helpdesk/zendesk](https://github.com/ory/integrates/tree/main/support-helpdesk/zendesk).
+</Admonition>
+```
+
+[Zendesk](https://www.zendesk.com) — customer support platform. Sync
+Ory identities into Zendesk Users via Ory Actions.
+
+## How it works
+
+Ory Action on `registration.after` (async) calls Zendesk's
+`POST /api/v2/users.json` with HTTP Basic (email/token + API token)
+or OAuth Bearer. `external_id` = Ory identity id.
+
+## Notable
+
+- Create Or Update User is idempotent on `external_id`.
+- Rate limits per plan; high-volume signups need batching at scale.
+- For Ory identity context **inside** Zendesk tickets, build a
+  Zendesk App that calls the Ory admin API.
+
+## Resources
+
+- [Zendesk Users API](https://developer.zendesk.com/api-reference/ticketing/users/users/)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/support-helpdesk/zendesk](https://github.com/ory/integrates/tree/main/support-helpdesk/zendesk)

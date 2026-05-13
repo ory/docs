@@ -1,0 +1,43 @@
+---
+id: tiktok
+title: Sign in with TikTok
+sidebar_label: TikTok
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained, not part of Ory's officially
+supported social sign-in providers. Reference implementation:
+[ory/integrates/social-sign-in/tiktok](https://github.com/ory/integrates/tree/main/social-sign-in/tiktok).
+Contributions welcome.
+</Admonition>
+```
+
+TikTok Login Kit uses a custom OAuth 2.0 flow (not OIDC). Configure as
+a **generic provider** in Ory Kratos with explicit endpoints.
+
+## Setup
+
+1. Register a TikTok Developer app at
+   [developers.tiktok.com](https://developers.tiktok.com/) and add
+   **Login Kit** as a product.
+2. Configure the Ory redirect URI in the app settings.
+3. TikTok endpoints:
+   - Authorization: `https://www.tiktok.com/v2/auth/authorize`
+   - Token: `https://open.tiktokapis.com/v2/oauth/token/`
+   - Profile: `https://open.tiktokapis.com/v2/user/info/?fields=open_id,union_id,avatar_url,display_name`
+4. Configure as a generic provider via the Ory CLI.
+5. Jsonnet maps `data.user.open_id`, `data.user.display_name`, and
+   `data.user.email` (when the email scope is granted).
+
+TikTok requires explicit scope opt-in for `user.info.basic` and
+(separately) `user.info.email`; production scopes can require app
+review.
+
+## Resources
+
+- [TikTok Login Kit](https://developers.tiktok.com/doc/login-kit-overview)
+- [Ory generic OIDC provider docs](../../kratos/social-signin/05_generic.mdx)
+- Reference: [ory/integrates/social-sign-in/tiktok](https://github.com/ory/integrates/tree/main/social-sign-in/tiktok)

@@ -1,0 +1,52 @@
+---
+id: steam
+title: Sign in with Steam
+sidebar_label: Steam
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Reference pattern (not natively supported)">
+Steam uses **OpenID 2.0** (the 2007 legacy spec), not OAuth 2.0 or OIDC.
+Ory Kratos's social sign-in subsystem only speaks OAuth 2.0 / OIDC, so
+Steam **cannot be configured directly** as a Kratos provider. This page
+documents the bridge pattern. Reference:
+[ory/integrates/social-sign-in/steam](https://github.com/ory/integrates/tree/main/social-sign-in/steam).
+</Admonition>
+```
+
+[Steam](https://steamcommunity.com/dev) by Valve is the world's largest
+PC gaming platform. Sign in with Steam is essential for gaming
+platforms, game launchers, community sites, and esports apps — but the
+protocol gap to OAuth 2.0 / OIDC requires a bridge component.
+
+## Recommended approach — OpenID 2.0 → OIDC proxy
+
+Deploy a small proxy in front of Steam's OpenID 2.0 endpoint that
+exposes an OIDC-compliant interface. Configure the proxy as a generic
+OIDC provider in Kratos.
+
+The proxy receives the OIDC authorization request from Kratos,
+translates to Steam's OpenID 2.0 flow, validates the response, extracts
+the 64-bit Steam ID from `openid.claimed_id`, calls the Steam Web API
+(`GetPlayerSummaries`) for the profile, and returns a normal
+`id_token` to Kratos.
+
+## Steam-specific quirks
+
+- **No email** — use `steam_id` as the credential identifier in the
+  identity schema.
+- **No client registration** — Steam doesn't issue Client ID/Secret;
+  a Steam Web API key (from
+  [steamcommunity.com/dev/apikey](https://steamcommunity.com/dev/apikey))
+  is all you need for the profile call.
+- **Profile visibility** — some fields are blank for private profiles.
+- **Rate limits** — ~100,000 calls/day per API key.
+
+## Resources
+
+- [OpenID 2.0 spec](https://openid.net/specs/openid-authentication-2_0.html)
+- [Steam Web API](https://developer.valvesoftware.com/wiki/Steam_Web_API)
+- [Ory generic OIDC provider docs](../../kratos/social-signin/05_generic.mdx)
+- Reference: [ory/integrates/social-sign-in/steam](https://github.com/ory/integrates/tree/main/social-sign-in/steam)

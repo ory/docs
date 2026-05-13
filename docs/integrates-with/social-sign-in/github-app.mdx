@@ -1,0 +1,62 @@
+---
+id: github-app
+title: Sign in with a GitHub App
+sidebar_label: GitHub App
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="info" title="Primary documentation">
+For GitHub sign-in generally, see the canonical
+[Add GitHub as a social sign-in provider in Ory](../../kratos/social-signin/25_github.mdx)
+page. This page documents the GitHub **App** variant specifically
+(distinct from GitHub OAuth Apps); the primary doc covers the OAuth
+App flow and gestures at this page for the App variant.
+</Admonition>
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained, not part of Ory's officially
+supported social sign-in providers. Reference implementation:
+[ory/integrates/social-sign-in/github-app](https://github.com/ory/integrates/tree/main/social-sign-in/github-app).
+Contributions welcome.
+</Admonition>
+```
+
+Sign in with a **GitHub App** (not the older OAuth Apps flow). GitHub
+Apps offer fine-grained per-repository permissions, per-installation
+rate limits, and JWT-based server-to-server authentication. Use this
+variant when your product needs to act on a GitHub installation's
+behalf in addition to identifying the user.
+
+Variant of the standard [GitHub provider](../../kratos/social-signin/25_github.mdx)
+— the OIDC flow is identical; the difference is on the GitHub side
+where you register an App instead of an OAuth App.
+
+## When to use this over the regular `github` provider
+
+| | OAuth App (`github`) | GitHub App (this) |
+|--|--|--|
+| Permissions | Broad scopes | Fine-grained, per-repo |
+| Rate limits | 5,000/hr per user | 5,000/hr per installation |
+| Server-to-server | Not supported | JWT-based |
+| Webhooks | Limited | Rich events |
+
+## Setup
+
+1. Create a **GitHub App** at
+   [github.com/settings/apps/new](https://github.com/settings/apps/new)
+   — set callback URL to Ory's redirect URI, enable "Request user
+   authorization (OAuth) during installation", configure required
+   permissions, generate `.pem` key (for server-to-server, not Ory).
+2. Configure via Ory CLI with `provider: github` and `id: github-app`.
+
+Server-to-server (acting as the app itself) is out of scope for the
+Ory provider — application code mints a JWT signed with the `.pem`
+and exchanges it at GitHub for an installation token.
+
+## Resources
+
+- [GitHub Apps documentation](https://docs.github.com/en/apps/creating-github-apps)
+- [Authenticating with a GitHub App](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app)
+- Reference implementation: [ory/integrates/social-sign-in/github-app](https://github.com/ory/integrates/tree/main/social-sign-in/github-app)

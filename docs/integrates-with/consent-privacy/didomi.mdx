@@ -1,0 +1,54 @@
+---
+id: didomi
+title: Didomi consent management
+sidebar_label: Didomi
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Reference pattern (customer-side webhook)">
+No first-party Ory connector; integration is a customer-implemented
+webhook handler responding to Didomi events and PATCHing Ory metadata.
+Reference:
+[ory/integrates/consent-privacy/didomi](https://github.com/ory/integrates/tree/main/consent-privacy/didomi).
+</Admonition>
+```
+
+[Didomi](https://www.didomi.io) — consent management platform (CMP) for
+GDPR / CCPA / ePrivacy. Sync Didomi consent state into Ory identity
+metadata so downstream services can read consent decisions alongside
+identity data, and fulfill data-subject requests (DSARs) via Ory's
+admin API.
+
+## Pattern
+
+```
+Didomi consent / DSAR event  →  Your webhook  →  Ory Admin API
+                                  (verify HMAC,    (PATCH metadata
+                                   resolve identity)  on identity)
+```
+
+1. In Didomi → **Consent Notice** → **Webhooks**, configure a webhook
+   to fire on consent events with HMAC-signed payloads.
+2. Deploy a small service that:
+   - Verifies Didomi's HMAC signature.
+   - Resolves the Ory identity by Didomi's `user_id` (matched to an
+     Ory identity trait or `metadata_public.didomi_user_id`).
+   - PATCHes `metadata_public.consent.didomi` on the identity.
+3. For DSAR fulfillment:
+   - GET `/admin/identities/{id}` for Article 15 access.
+   - DELETE `/admin/identities/{id}` for Article 17 erasure.
+
+## Notable
+
+- DSAR responses are time-bounded (30 days under GDPR) — design for
+  reliable processing, not best-effort.
+- Consent strings (TCF v2 + Didomi-specific) are long; store in
+  `metadata_public` only — they're not credentials.
+
+## Resources
+
+- [Didomi developer docs](https://developers.didomi.io)
+- [Ory Admin API reference](../../reference/api.mdx)
+- Reference: [ory/integrates/consent-privacy/didomi](https://github.com/ory/integrates/tree/main/consent-privacy/didomi)

@@ -1,0 +1,41 @@
+---
+id: keycloak
+title: Keycloak
+sidebar_label: Keycloak
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained, not part of Ory Polis's
+officially supported SSO providers. Configures via the
+[generic OIDC](../../polis/sso-providers/generic-oidc.mdx) walkthrough
+(recommended) or
+[generic SAML SP](../../polis/sso-providers/generic-saml.mdx). Reference:
+[ory/integrates/enterprise-sso/keycloak](https://github.com/ory/integrates/tree/main/enterprise-sso/keycloak).
+</Admonition>
+```
+
+[Keycloak](https://www.keycloak.org) — open-source CNCF-graduated IAM
+server. Speaks SAML 2.0, OIDC, and OAuth 2.0. Common choice for
+self-hosted IdP deployments.
+
+## Setup outline (OIDC, recommended)
+
+1. In Keycloak Admin → Clients → Create client (OpenID Connect,
+   Confidential).
+2. Set Valid redirect URI to Polis ACS URL.
+3. Note Client ID + Secret.
+4. Issuer URL pattern: `https://<keycloak-host>/realms/<realm-name>`
+   — Polis discovers automatically via `/.well-known/openid-configuration`.
+5. In Ory Network, configure via the generic OIDC walkthrough.
+
+Group claims need an explicit Group Membership mapper on the client's
+dedicated client scope.
+
+## Resources
+
+- [Keycloak documentation](https://www.keycloak.org/documentation)
+- [Ory Polis SSO providers](../../polis/sso-providers/index.mdx)
+- Reference: [ory/integrates/enterprise-sso/keycloak](https://github.com/ory/integrates/tree/main/enterprise-sso/keycloak)

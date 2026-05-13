@@ -1,0 +1,43 @@
+---
+id: messagebird
+title: MessageBird (Bird) SMS courier
+sidebar_label: MessageBird
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/sms-providers/messagebird](https://github.com/ory/integrates/tree/main/sms-providers/messagebird).
+</Admonition>
+```
+
+[MessageBird](https://www.messagebird.com) (rebranded as Bird) — European
+cloud-communications platform with strong EU/APAC coverage. Common
+alternative to Twilio for products with EU regulatory or data-residency
+concerns.
+
+## Quick reference
+
+| Setting | Value |
+| --- | --- |
+| URL | `https://rest.messagebird.com/messages` |
+| Method | `POST` |
+| Auth | header `Authorization: AccessKey {$API_KEY}` |
+| Body | JSON with `originator`, `recipients[]` (MSISDN, **no `+` prefix**), `body` |
+
+## Notable
+
+- MessageBird expects **MSISDN** format (no leading `+`). The Jsonnet
+  body must strip the `+` from Ory's E.164 recipient.
+- Originator can be a MessageBird virtual number or an alphanumeric
+  sender ID (up to 11 chars; not allowed in US/Canada/China).
+- Optional `reportUrl` in the body enables real-time delivery
+  callbacks.
+
+## Resources
+
+- [MessageBird SMS API](https://developers.messagebird.com/api/sms-messaging/)
+- [Ory SMS courier configuration](../../kratos/emails-sms/10_sending-sms.mdx)
+- Reference: [ory/integrates/sms-providers/messagebird](https://github.com/ory/integrates/tree/main/sms-providers/messagebird)

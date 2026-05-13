@@ -1,0 +1,42 @@
+---
+id: equifax
+title: Equifax identity verification
+sidebar_label: Equifax
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/identity-verification/equifax](https://github.com/ory/integrates/tree/main/identity-verification/equifax).
+</Admonition>
+```
+
+[Equifax](https://www.equifax.com/business/) — identity verification,
+fraud, and credit data APIs. Run Equifax identity verification from an
+Ory Actions webhook during registration. US-focused; common in
+financial services, lending, and insurance.
+
+## How it works
+
+Ory Action on `registration.after` (sync, `can_interrupt: true`) →
+handler authenticates against Equifax (OAuth2 client credentials) →
+calls identity verification API with PII (name, SSN, DOB, address) →
+evaluates verification result against thresholds → returns
+success/failure to Ory.
+
+## Notable
+
+- Equifax licensing is the primary constraint — API access is a paid contract
+  with vendor enablement required.
+- US-focused; for international IDV see Jumio, Onfido, Persona.
+- SSN / PII handling is regulatory — store only verification status
+  + masked PII in Ory metadata; keep full PII in your verification
+  infrastructure.
+
+## Resources
+
+- [Equifax Identity Verification API](https://developer.equifax.com/apis-and-products)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/identity-verification/equifax](https://github.com/ory/integrates/tree/main/identity-verification/equifax)

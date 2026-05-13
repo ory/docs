@@ -1,0 +1,41 @@
+---
+id: elastic-siem
+title: Elastic SIEM
+sidebar_label: Elastic SIEM
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/siem-security-analytics/elastic-siem](https://github.com/ory/integrates/tree/main/siem-security-analytics/elastic-siem).
+</Admonition>
+```
+
+[Elastic SIEM](https://www.elastic.co/security/siem) — security
+analytics on Elasticsearch + Kibana. Ingest Ory authentication events
+mapped to the Elastic Common Schema (ECS).
+
+## How it works
+
+Ory Action on each lifecycle hook → handler verifies secret →
+transforms to ECS document → POSTs to Elasticsearch `_bulk` API.
+
+ECS mapping: `event.action` for the auth verb, `user.id` + `user.email`
+for the subject, `source.ip` + `user_agent.original` for context,
+`authentication.factor` for MFA.
+
+## Notable
+
+- ILM policy on `logs-ory-*` for tier transitions per compliance
+  window.
+- Pre-built Detection Engine rules (brute force, impossible travel,
+  credential stuffing) target ECS-mapped events.
+- For Fleet deployments, package as a custom Elastic Integration.
+
+## Resources
+
+- [Elastic Common Schema](https://www.elastic.co/guide/en/ecs/current/index.html)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/siem-security-analytics/elastic-siem](https://github.com/ory/integrates/tree/main/siem-security-analytics/elastic-siem)

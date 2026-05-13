@@ -1,0 +1,66 @@
+---
+id: launchdarkly
+title: LaunchDarkly feature flags
+sidebar_label: LaunchDarkly
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/feature-flags/launchdarkly](https://github.com/ory/integrates/tree/main/feature-flags/launchdarkly).
+</Admonition>
+```
+
+[LaunchDarkly](https://launchdarkly.com) — feature management platform
+with flags, experiments, targeting rules, and observability. This
+integration passes Ory identity attributes (traits, subscription tier,
+organization, groups) to LaunchDarkly as multi-kind contexts so feature
+rollouts target by identity attributes.
+
+## How it works
+
+**Not a webhook integration** — feature evaluation happens in your
+application code via the LaunchDarkly SDK. The integration is the
+convention for what to pass:
+
+```typescript
+// In your app, after Ory session resolution:
+const session = await ory.sessions.toSession();
+const identity = session.data.identity;
+
+const context = {
+  kind: "user",
+  key: identity.id,                            // stable bucketing
+  email: identity.traits.email,
+  organization: identity.metadata_public?.org_id,
+  subscription_tier: identity.metadata_public?.subscription_tier,
+};
+
+const flag = await ldClient.variation("my-feature", context, false);
+```
+
+## What to pass to LaunchDarkly
+
+| Ory source | LaunchDarkly context attribute |
+| --- | --- |
+| `identity.id` | `key` — stable bucketing |
+| `identity.traits.email` | `email` — per-email overrides for internal testing |
+| `metadata_public.org_id` | multi-kind `organization` context |
+| `metadata_public.subscription_tier` | `tier` |
+| `metadata_public.groups` | `groups` |
+
+## Notable
+
+- Pass **stable identifiers** as `key` (use `identity.id`, not
+  email — email can change).
+- Use LaunchDarkly **multi-kind contexts** (a separate `organization`
+  context attached to the `user` context) for cleaner B2B per-account
+  targeting.
+
+## Resources
+
+- [LaunchDarkly SDK documentation](https://launchdarkly.com/docs/sdk)
+- [LaunchDarkly multi-kind contexts](https://launchdarkly.com/docs/home/observability/contexts)
+- Reference: [ory/integrates/feature-flags/launchdarkly](https://github.com/ory/integrates/tree/main/feature-flags/launchdarkly)

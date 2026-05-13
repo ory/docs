@@ -1,0 +1,45 @@
+---
+id: cloudflare-turnstile
+title: Cloudflare Turnstile CAPTCHA
+sidebar_label: Cloudflare Turnstile
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/fraud-bot-protection/cloudflare-turnstile](https://github.com/ory/integrates/tree/main/fraud-bot-protection/cloudflare-turnstile).
+</Admonition>
+```
+
+[Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/)
+— non-interactive CAPTCHA alternative using browser signals, ML, and
+proof-of-work. Free with no per-call limit, privacy-preserving.
+
+## How it works
+
+1. Registration / login UI embeds the **Turnstile client widget**;
+   the widget runs the challenge invisibly and returns a token
+   (`cf-turnstile-response`).
+2. Form submits to Ory's flow with the token.
+3. Ory Action on `registration.before` / `login.before` (with
+   `can_interrupt: true`) calls the handler.
+4. Handler POSTs to
+   `https://challenges.cloudflare.com/turnstile/v0/siteverify` with
+   the token + Secret Key; checks `success == true`.
+5. On fail, handler returns an error and Ory blocks.
+
+## Notable
+
+- Two keys: **Site Key** (public, client widget) and **Secret Key**
+  (server verify). Never expose Secret.
+- Tokens are **one-time use** and expire ~5 minutes after issue.
+- Optional `remoteip` field in siteverify enables IP-binding; pass
+  the client IP through your reverse proxy.
+
+## Resources
+
+- [Turnstile documentation](https://developers.cloudflare.com/turnstile/)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/fraud-bot-protection/cloudflare-turnstile](https://github.com/ory/integrates/tree/main/fraud-bot-protection/cloudflare-turnstile)

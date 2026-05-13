@@ -1,0 +1,59 @@
+---
+id: mailchimp-marketing
+title: Mailchimp marketing audience integration
+sidebar_label: Mailchimp (Marketing)
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="info" title="Primary documentation">
+The canonical Ory–Mailchimp integration page is
+[Mailchimp integration with Ory Actions](../../actions/integrations/mailchimp.mdx),
+which describes both Mailchimp Marketing and Mailchimp Transactional.
+This page is a Marketing-specific deep-dive; if it disagrees with the
+primary doc, the primary doc wins.
+</Admonition>
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/cdp-analytics/mailchimp](https://github.com/ory/integrates/tree/main/cdp-analytics/mailchimp).
+</Admonition>
+```
+
+Sync new Ory Network users into a [Mailchimp](https://www.mailchimp.com/)
+audience (subscriber list) via Ory Actions so newly registered users
+automatically appear in the marketing CRM.
+
+Distinct from the
+[Mailchimp Transactional (Mandrill) integration](../../kratos/emails-sms/01_sending-emails-smtp.mdx)
+under email-providers, which sends transactional emails — this one is
+for marketing campaigns and audience management.
+
+## How it works
+
+1. User completes registration in your Ory-powered application.
+2. Ory fires an Action on `registration.after`.
+3. The Jsonnet body maps Ory identity traits (email, name, custom
+   traits) into Mailchimp merge fields and audience tags.
+4. Ory POSTs to Mailchimp's Lists/Audiences API to add or update the
+   subscriber.
+
+## Setup outline
+
+1. Create a Mailchimp **Marketing API key** (distinct from the
+   Mandrill key used for transactional email).
+2. Identify the target audience (list) ID from the Mailchimp
+   dashboard.
+3. Configure an Ory Action of type `web_hook` on
+   `registration.after.hooks` pointing at
+   `https://{dc}.api.mailchimp.com/3.0/lists/{list_id}/members`.
+4. HTTP Basic auth (`anystring:{api_key}`).
+5. Body Jsonnet maps `identity.traits.email` and
+   `identity.traits.name` into Mailchimp merge fields.
+
+## Resources
+
+- [Mailchimp Marketing API](https://mailchimp.com/developer/marketing/api/)
+- [Mailchimp Transactional (Mandrill) — different product](../../kratos/emails-sms/01_sending-emails-smtp.mdx)
+- Reference: [ory/integrates/cdp-analytics/mailchimp](https://github.com/ory/integrates/tree/main/cdp-analytics/mailchimp)

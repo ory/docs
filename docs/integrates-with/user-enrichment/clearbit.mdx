@@ -1,0 +1,39 @@
+---
+id: clearbit
+title: Clearbit (HubSpot Breeze Intelligence)
+sidebar_label: Clearbit
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="warning" title="Clearbit is now HubSpot Breeze Intelligence">
+Clearbit's standalone API was deprecated after the HubSpot acquisition;
+new sign-ups use HubSpot Breeze Intelligence endpoints.
+Reference:
+[ory/integrates/user-enrichment/clearbit](https://github.com/ory/integrates/tree/main/user-enrichment/clearbit).
+</Admonition>
+```
+
+[Clearbit](https://clearbit.com) (now HubSpot Breeze Intelligence) —
+person and company data enrichment.
+
+## How it works
+
+Ory Action on `registration.after` (async) → handler calls Clearbit /
+Breeze Intelligence Person API with the user's email → PATCHes
+returned enrichment to `metadata_public.clearbit` on the identity.
+
+## Notable
+
+- New deployments use HubSpot Breeze Intelligence over
+  legacy Clearbit endpoints.
+- Best-effort enrichment — silently no-op on 404 misses.
+- DSAR delete API available — wire to your right-to-be-forgotten
+  flow.
+
+## Resources
+
+- [HubSpot Breeze Intelligence](https://www.hubspot.com/products/breeze)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/user-enrichment/clearbit](https://github.com/ory/integrates/tree/main/user-enrichment/clearbit)

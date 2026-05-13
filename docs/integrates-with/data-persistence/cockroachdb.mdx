@@ -1,0 +1,50 @@
+---
+id: cockroachdb
+title: Self-hosted Ory on CockroachDB
+sidebar_label: CockroachDB
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Reference pattern (deployment topology)">
+CockroachDB speaks the PostgreSQL wire protocol — Ory's stock Postgres
+DSN works with Cockroach-aware tuning. Reference:
+[ory/integrates/data-persistence/cockroachdb](https://github.com/ory/integrates/tree/main/data-persistence/cockroachdb).
+</Admonition>
+```
+
+[CockroachDB](https://www.cockroachlabs.com) — distributed SQL with
+horizontal scalability, strong consistency, multi-region survivability,
+and PostgreSQL wire-protocol compatibility. A viable backend for
+self-hosted Ory deployments needing geographic distribution or
+high-availability beyond a single Postgres node.
+
+## Pattern
+
+Cockroach speaks Postgres wire protocol — Ory's DSN format unchanged:
+
+```
+postgres://user:password@cockroach-host:26257/ory_kratos?sslmode=verify-full&options=--cluster%3D<cluster-id>
+```
+
+Migrations run with `kratos migrate sql` (and similar for Hydra/Keto)
+against Cockroach without changes.
+
+## Cockroach-aware tuning
+
+- **FK-heavy schema**: Ory's schema has many foreign keys; expect
+  some `40001 retry` errors under high concurrency. Configure clients
+  to retry transactions per Cockroach's standard pattern.
+- **`SERIAL` vs `UUID`**: Ory schemas use UUIDs (good for Cockroach
+  distribution). Legacy `SERIAL` would hot-shard — verify no Ory
+  product version uses SERIAL.
+- **Serverless vs Self-hosted**: CockroachDB Serverless has
+  request-per-second limits unsuitable for production identity
+  workloads. Use Self-hosted (Dedicated) tier.
+
+## Resources
+
+- [CockroachDB documentation](https://www.cockroachlabs.com/docs/)
+- [Ory self-hosted deployment](../../oss/deployment.mdx)
+- Reference: [ory/integrates/data-persistence/cockroachdb](https://github.com/ory/integrates/tree/main/data-persistence/cockroachdb)

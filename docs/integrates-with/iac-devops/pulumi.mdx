@@ -1,0 +1,51 @@
+---
+id: pulumi
+title: Pulumi infrastructure-as-code with Ory
+sidebar_label: Pulumi
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="warning" title="No official Ory Pulumi provider">
+There is no officially published Ory Pulumi provider. This page
+documents the two community paths: bridging the
+[official Terraform provider](https://github.com/ory/integrates/tree/main/iac-devops/terraform)
+via `pulumi-terraform-bridge`, or calling the Ory Network REST API
+from a Pulumi `dynamic` resource. Reference:
+[ory/integrates/iac-devops/pulumi](https://github.com/ory/integrates/tree/main/iac-devops/pulumi).
+</Admonition>
+```
+
+[Pulumi](https://www.pulumi.com) — IaC in TypeScript, Go, Python, C#.
+Two community paths to managing Ory Network with Pulumi:
+
+## Option 1 — Bridge the Terraform provider (recommended)
+
+[`pulumi-terraform-bridge`](https://github.com/pulumi/pulumi-terraform-bridge)
+turns the official `ory/ory` Terraform provider into a Pulumi-callable
+SDK. The closest you get to a first-class experience without a
+hand-written Pulumi provider.
+
+Trade-off: you maintain the bridge build for your team or generate the
+SDK on demand; you do not get an official, regularly published Pulumi
+package.
+
+## Option 2 — Pulumi `dynamic` resource calling Ory REST API
+
+For a small number of resources, write a Pulumi `dynamic` provider
+that calls the [Ory Network REST API](../../reference/api.mdx) directly
+using the language SDK of your choice (`@ory/client` for TypeScript).
+State diffing and CRUD logic is your responsibility.
+
+## Option 3 — Keep Ory in Terraform
+
+If you already manage some infrastructure with Terraform, the simplest
+answer is often: keep Ory in Terraform and don't try to bring it under
+Pulumi. See [Terraform integration](https://github.com/ory/integrates/tree/main/iac-devops/terraform).
+
+## Resources
+
+- [Pulumi documentation](https://www.pulumi.com/docs/)
+- [pulumi-terraform-bridge](https://github.com/pulumi/pulumi-terraform-bridge)
+- Reference: [ory/integrates/iac-devops/pulumi](https://github.com/ory/integrates/tree/main/iac-devops/pulumi)

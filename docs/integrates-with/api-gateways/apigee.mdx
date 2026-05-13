@@ -1,0 +1,51 @@
+---
+id: apigee
+title: Google Apigee API gateway
+sidebar_label: Google Apigee
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/api-gateways/apigee](https://github.com/ory/integrates/tree/main/api-gateways/apigee).
+</Admonition>
+```
+
+[Google Apigee](https://cloud.google.com/apigee) — enterprise API
+management platform. Validate Ory-issued JWTs at the gateway layer with
+Apigee's **VerifyJWT** policy in a SharedFlow, using Ory Network's JWKS
+endpoint.
+
+## Pattern
+
+Apigee intercepts the API request → SharedFlow runs VerifyJWT against
+`https://<project>.projects.oryapis.com/.well-known/jwks.json` → on
+valid JWT, proxy to backend; on invalid, return 401.
+
+## Setup outline
+
+1. Create an Apigee **SharedFlow** with a **VerifyJWT** policy:
+   - Algorithm: `RS256`.
+   - PublicKey JWKS URL:
+     `https://<project>.projects.oryapis.com/.well-known/jwks.json`.
+   - Issuer: `https://<project>.projects.oryapis.com`.
+   - Audience: your API's audience identifier (from Ory's OAuth2
+     client configuration).
+2. Attach the SharedFlow to your API proxy's PreFlow.
+3. Apigee caches the JWKS by URL — tune `CacheTTLInSeconds` for the
+   freshness vs. KMS-call trade-off.
+
+## Notable
+
+- Use Apigee KVM (Key Value Map) to hold per-environment audience
+  values without redeploying the shared flow.
+- For claim-based authorization, add an AssignMessage or JavaScript
+  policy after VerifyJWT to inspect JWT claims.
+
+## Resources
+
+- [Apigee VerifyJWT policy](https://cloud.google.com/apigee/docs/api-platform/reference/policies/jwt-policies-overview)
+- [Ory OAuth2 / Hydra](/docs/hydra)
+- Reference: [ory/integrates/api-gateways/apigee](https://github.com/ory/integrates/tree/main/api-gateways/apigee)

@@ -1,0 +1,37 @@
+---
+id: intercom
+title: Intercom
+sidebar_label: Intercom
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/support-helpdesk/intercom](https://github.com/ory/integrates/tree/main/support-helpdesk/intercom).
+</Admonition>
+```
+
+[Intercom](https://www.intercom.com) — customer messaging (chat,
+product tours, support). Sync Ory identities into Intercom Contacts
+so chat / support / lifecycle messaging is identity-aware.
+
+## How it works
+
+Ory Action on `registration.after` / `settings.after` POSTs to
+`https://api.intercom.io/contacts` with bearer token auth.
+
+## Notable
+
+- **Identity verification**: HMAC-based `user_hash` in the Messenger
+  prevents spoofing of authenticated chat sessions.
+- Events API (`POST /events`) is the right path for tracking specific
+  user actions, separate from contact updates.
+
+## Resources
+
+- [Intercom API reference](https://developers.intercom.com/intercom-api-reference)
+- [Intercom Messenger identity verification](https://www.intercom.com/help/en/articles/183-set-up-identity-verification-for-web-and-mobile)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/support-helpdesk/intercom](https://github.com/ory/integrates/tree/main/support-helpdesk/intercom)

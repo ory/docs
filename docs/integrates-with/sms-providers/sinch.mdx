@@ -1,0 +1,43 @@
+---
+id: sinch
+title: Sinch SMS courier
+sidebar_label: Sinch
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/sms-providers/sinch](https://github.com/ory/integrates/tree/main/sms-providers/sinch).
+</Admonition>
+```
+
+[Sinch](https://www.sinch.com) — enterprise communications platform
+with global carrier coverage and verification-specific features.
+
+## Quick reference
+
+| Setting | Value |
+| --- | --- |
+| URL (US) | `https://us.sms.api.sinch.com/xms/v1/<service-plan-id>/batches` |
+| URL (EU) | `https://eu.sms.api.sinch.com/xms/v1/<service-plan-id>/batches` |
+| Method | `POST` |
+| Auth | header `Authorization: Bearer {$API_TOKEN}` |
+| Body | JSON with `from` (registered sender), `to[]` (E.164), `body` |
+
+## Notable
+
+- Sinch enforces **per-country sender registration** — using the
+  wrong sender for a region silently degrades delivery.
+- Sinch's higher-level **Verification API** handles OTP
+  generation/validation in-house — intentionally NOT used here so
+  Kratos's OTP logic stays the source of truth.
+- For delivery reports, configure a Sinch DLR webhook to your own
+  service; Kratos doesn't consume delivery reports directly.
+
+## Resources
+
+- [Sinch SMS API](https://developers.sinch.com/docs/sms/api-reference/)
+- [Ory SMS courier configuration](../../kratos/emails-sms/10_sending-sms.mdx)
+- Reference: [ory/integrates/sms-providers/sinch](https://github.com/ory/integrates/tree/main/sms-providers/sinch)

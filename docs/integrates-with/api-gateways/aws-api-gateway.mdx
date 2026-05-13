@@ -1,0 +1,53 @@
+---
+id: aws-api-gateway
+title: AWS API Gateway
+sidebar_label: AWS API Gateway
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/api-gateways/aws-api-gateway](https://github.com/ory/integrates/tree/main/api-gateways/aws-api-gateway).
+</Admonition>
+```
+
+[AWS API Gateway](https://aws.amazon.com/api-gateway/) — managed
+REST/HTTP/WebSocket gateway. Validate Ory-issued JWTs at the gateway
+using a **Lambda authorizer** (REST API) or a **native JWT authorizer**
+(HTTP API).
+
+## Pattern
+
+**HTTP API (preferred)**: configure a native JWT authorizer pointing
+at Ory's issuer URL — no Lambda required.
+
+**REST API**: deploy a Lambda authorizer that verifies the JWT against
+Ory's JWKS and returns an IAM policy. API Gateway caches the policy
+by token for `authorizerResultTtlInSeconds`.
+
+## Setup outline (Lambda authorizer)
+
+1. Deploy a Lambda authorizer (Node.js or Python) that:
+   - Pulls JWT from `Authorization: Bearer <token>` header.
+   - Verifies against
+     `https://<project>.projects.oryapis.com/.well-known/jwks.json`
+     (cache in module scope, refresh on `kid` miss).
+   - Returns IAM policy + principalId (= JWT `sub`).
+2. Wire as Token authorizer (REST) or Lambda authorizer (HTTP).
+3. Tune `authorizerResultTtlInSeconds` for cold-start vs. revocation
+   latency.
+
+## Notable
+
+- Use the **HTTP API native JWT authorizer** when standard verification
+  suffices — Lambda is only needed for custom claim-based logic.
+- Cold-start latency matters — keep the authorizer minimal; use a
+  lean library like `aws-jwt-verify`.
+
+## Resources
+
+- [API Gateway JWT authorizer (HTTP API)](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-jwt-authorizer.html)
+- [API Gateway Lambda authorizer (REST API)](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html)
+- Reference: [ory/integrates/api-gateways/aws-api-gateway](https://github.com/ory/integrates/tree/main/api-gateways/aws-api-gateway)

@@ -1,0 +1,51 @@
+---
+id: sift
+title: Sift Digital Trust & Safety
+sidebar_label: Sift
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/fraud-bot-protection/sift](https://github.com/ory/integrates/tree/main/fraud-bot-protection/sift).
+</Admonition>
+```
+
+[Sift](https://sift.com) — digital trust & safety platform with
+real-time ML-based fraud and account-abuse scoring.
+
+## How it works
+
+**Both flows must run** for Sift to be useful:
+
+**Pre-flow check** (sync, can interrupt):
+- Ory Action on `registration.before` / `login.before` with
+  `can_interrupt: true` calls the handler.
+- Handler reads the user's Sift score:
+  `GET https://api.sift.com/v205/users/{user_id}/score`.
+- Block if score exceeds threshold.
+
+**Post-event reporter** (async, signal collection):
+- Ory Action on `registration.after` / `login.after` (async).
+- Handler POSTs reserved event names
+  (`$create_account`, `$login`, `$transaction`) to
+  `https://api.sift.com/v205/events` with IP, user agent, session,
+  traits.
+- Sift updates its model.
+
+## Notable
+
+- User IDs must be **stable across sessions** — Sift's model is
+  keyed on user_id. Use Ory identity id, not email.
+- Threshold tuning: start permissive (block on score > 80), tighten
+  as you collect data.
+- Sift's value is **longitudinal** — single events have limited
+  signal; payoff grows over time as the model learns the user base.
+
+## Resources
+
+- [Sift API reference](https://sift.com/developers/docs/curl/apis-overview)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/fraud-bot-protection/sift](https://github.com/ory/integrates/tree/main/fraud-bot-protection/sift)
