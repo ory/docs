@@ -1,7 +1,7 @@
 ---
 id: ory-patch
 title: ory patch
-description: ory patch Patch resources
+description: ory patch
 ---
 
 <!--
@@ -20,9 +20,9 @@ Patch resources
   -h, --help            help for patch
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory patch identity-config](ory-patch-identity-config)	 - Patch the Ory Identities configuration of the defined Ory Network project.
 * [ory patch oauth2-config](ory-patch-oauth2-config)	 - Patch the Ory OAuth2 & OpenID Connect configuration of an Ory Network project.
 * [ory patch opl](ory-patch-opl)	 - Update the Ory Permission Language file in Ory Network

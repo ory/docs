@@ -1,7 +1,7 @@
 ---
 id: ory-patch-identity-config
 title: ory patch identity-config
-description: ory patch identity-config Patch the Ory Identities configuration of the defined Ory Network project.
+description: ory patch identity-config
 ---
 
 <!--
@@ -21,18 +21,24 @@ Compared to the `patch project` command, this command updates only the Ory Ident
 and returns the configuration as a result. This command is useful when you want to import configuration from
 self-hosted Ory Kratos to Ory Network. Using this command allows for shorter paths when specifying the flags:
 
-	ory patch identity-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
-		--replace '/selfservice/methods/password/enabled=false'
+```
+ory patch identity-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+	--replace '/selfservice/methods/password/enabled=false'
+```
 
 when compared to the `patch project` command:
 
-	ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
-		--replace '/services/identity/config/selfservice/methods/password/enabled=false'
+```
+ory patch project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
+	--replace '/services/identity/config/selfservice/methods/password/enabled=false'
+```
 
 The format of the patch is a JSON-Patch document. For more details please check:
 
-	https://www.ory.sh/docs/reference/api#operation/patchProject
-	https://jsonpatch.com
+```
+https://www.ory.sh/docs/reference/api#operation/patchProject
+https://jsonpatch.com
+```
 
 ```
 ory patch identity-config [flags]
@@ -62,7 +68,7 @@ $ ory patch identity-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
 ```
       --add stringArray       Add a specific key to the configuration
   -f, --file strings          Configuration file(s) (file://config.json, https://example.org/config.yaml, ...) to update the project
-      --format string         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                  help for identity-config
       --project string        The project to use, either project ID or a (partial) slug.
   -q, --quiet                 Be quiet with output printing.
@@ -78,7 +84,7 @@ $ ory patch identity-config --project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 \
   -c, --config string   Path to the Ory Network configuration file.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory patch](ory-patch)	 - Patch resources
+* [ory patch](ory-patch) Patch resources
 

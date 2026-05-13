@@ -1,7 +1,7 @@
 ---
 id: ory-lint
 title: ory lint
-description: ory lint Helpers for linting code
+description: ory lint
 ---
 
 <!--
@@ -19,8 +19,8 @@ Helpers for linting code
   -h, --help   help for lint
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
-* [ory lint lint](ory-lint-lint)	 - 
+* [ory](ory) The Ory CLI
+* [ory lint lint](ory-lint-lint)	
 

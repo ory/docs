@@ -40,7 +40,7 @@
   },
   {
     "id": 1010008,
-    "text": "Sign in with hardware key",
+    "text": "Sign in with a hardware key",
     "type": "info"
   },
   {
@@ -55,7 +55,7 @@
   },
   {
     "id": 1010011,
-    "text": "Sign in with hardware key",
+    "text": "Sign in with a hardware key",
     "type": "info"
   },
   {
@@ -128,6 +128,16 @@
       "address": "{address}",
       "channel": "{channel}"
     }
+  },
+  {
+    "id": 1010024,
+    "text": "Sign in with a hardware key",
+    "type": "info"
+  },
+  {
+    "id": 1010025,
+    "text": "A code was sent to your address. If you didn't receive it, please try again.",
+    "type": "info"
   },
   {
     "id": 1040001,
@@ -458,6 +468,11 @@
     "type": "info"
   },
   {
+    "id": 1070018,
+    "text": "Email or phone number",
+    "type": "info"
+  },
+  {
     "id": 1080001,
     "text": "An email containing a verification link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
     "type": "info"
@@ -471,6 +486,16 @@
     "id": 1080003,
     "text": "An email containing a verification code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
     "type": "info"
+  },
+  {
+    "id": 1080004,
+    "text": "A text message containing a verification code has been sent to the phone number you provided. If you have not received a text message, check the spelling of the number and make sure to use the number you registered with.",
+    "type": "info"
+  },
+  {
+    "id": 1080005,
+    "text": "You successfully verified your phone number.",
+    "type": "success"
   },
   {
     "id": 4000001,
@@ -665,7 +690,7 @@
   },
   {
     "id": 4000028,
-    "text": "You tried signing in with {credential_identifier_hint} which is already in use by another account. You can sign in using {available_credential_types_list}. You can sign in using one of the following social sign in providers: {Available_oidc_providers_list}.",
+    "text": "You tried signing in with {credential_identifier_hint} which is already in use by another account. You can sign in using {available_credential_types_list}. You can sign in using one of the following social sign in providers: {available_oidc_providers_list}.",
     "type": "error",
     "context": {
       "available_credential_types": ["{available_credential_types_list}"],
@@ -759,6 +784,21 @@
     }
   },
   {
+    "id": 4000042,
+    "text": "You have no DeviceAuthn device set up.",
+    "type": "error"
+  },
+  {
+    "id": 4000043,
+    "text": "The provided web authn login is invalid, please try again.",
+    "type": "error"
+  },
+  {
+    "id": 4000044,
+    "text": "The provided DeviceAuthn signature is invalid.",
+    "type": "error"
+  },
+  {
     "id": 4010001,
     "text": "The login flow expired 1.00 minutes ago, please try again.",
     "type": "error",
@@ -813,6 +853,11 @@
     "type": "error"
   },
   {
+    "id": 4010011,
+    "text": "This account has been disabled. Please contact support for assistance.",
+    "type": "error"
+  },
+  {
     "id": 4040001,
     "text": "The registration flow expired 1.00 minutes ago, please try again.",
     "type": "error",
@@ -839,6 +884,11 @@
       "expired_at": "2020-01-01T00:59:59Z",
       "expired_at_unix": 1577840399
     }
+  },
+  {
+    "id": 4050002,
+    "text": "You can only change one address at a time. Please update each address separately.",
+    "type": "error"
   },
   {
     "id": 4060001,
@@ -909,6 +959,11 @@
   {
     "id": 5000002,
     "text": "No authentication methods are available. Please contact the system administrator.",
+    "type": "error"
+  },
+  {
+    "id": 5000003,
+    "text": "Your organization requires SSO authentication, but no SSO provider is configured. Please contact the system administrator.",
     "type": "error"
   }
 ]

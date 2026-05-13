@@ -130,3 +130,10 @@ When the user successfully provides their configured second factor:
 - The method, for example `totp`, is added to the Ory Session.
 - Ory Session Authenticator Assurance Level (AAL) is set to `aal2`.
 - The `authenticated_at` time is set to the time when the user provides the second factor.
+
+## Trust upstream MFA from a social sign-in provider
+
+If your project uses social sign-in and the upstream identity provider already enforces MFA, Ory can trust the upstream factor
+instead of asking the user to complete a second factor again. Configure `aal2_acr_values` and `aal2_amr_values` on the social
+sign-in provider to allowlist the upstream `acr` and `amr` claim values that should mark the resulting Ory session as AAL2. See
+[Upstream MFA carry-over](../social-signin/93_upstream-mfa.mdx) for details.

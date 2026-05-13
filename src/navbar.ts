@@ -4,73 +4,84 @@ export const navbar: Navbar = {
   hideOnScroll: false,
   logo: {
     alt: "Ory",
-    src: `/docs/img/logos/logo-light-mode.svg`,
-    srcDark: `/docs/img/logos/logo-dark-mode.svg`,
+    src: `/docs/img/logos/ory-logo.svg`,
+    srcDark: `/docs/img/logos/ory-logo-dark.svg`,
     href: `https://www.ory.com`,
-    width: 63,
-    height: 32,
+    width: 44,
+    height: 16,
   },
+
   items: [
     {
-      to: "/getting-started/overview",
-      label: "Start",
+      label: "Home",
+      to: "/docs/welcome",
       position: "left",
     },
     {
+      type: "doc",
+      docId: "getting-started/overview",
+      label: "Quickstarts",
+      position: "left",
+    },
+    {
+      type: "dropdown",
+      to: "products/products-overview",
       label: "Products",
       position: "left",
       items: [
         {
-          to: "/docs/identities",
-          label: "Ory Kratos Identities",
+          type: "doc",
+          docId: "products/products-overview",
+          label: "Ory products, ecosystem, and architecture",
         },
         {
-          to: "/docs/oauth2-oidc",
-          label: "Ory Hydra OAuth2",
+          type: "doc",
+          docId: "network/getting-started/index",
+          label: "Ory Network",
         },
         {
-          to: "/docs/keto",
-          label: "Ory Keto Permissions",
-        },
-        {
-          to: "/docs/polis",
-          label: "Ory Polis SAML",
-        },
-        {
-          to: "/docs/oathkeeper",
-          label: "Ory Oathkeeper Zero Trust",
-        },
-        {
-          to: "/docs/self-hosted/oel",
+          type: "doc",
+          docId: "oel/getting-started/index",
           label: "Ory Enterprise License",
         },
         {
-          to: "/docs/elements",
-          label: "Ory Elements",
+          type: "doc",
+          docId: "oss/getting-started/index",
+          label: "Ory Open Source",
         },
       ],
     },
     {
-      label: "Manage",
+      type: "dropdown",
+      to: "/docs/solutions/solutions-overview",
+      label: "Solutions",
       position: "left",
       items: [
         {
-          to: "/docs/guides/operations",
-          label: "Platform",
+          type: "doc",
+          docId: "solutions/solutions-overview",
+          label: "Solutions overview",
         },
         {
-          to: "/docs/category/troubleshooting",
-          label: "Troubleshooting",
+          type: "doc",
+          docId: "solutions/solution_CIAM",
+          label: "CIAM",
         },
         {
-          to: "/docs/security-compliance/compliance-and-certifications",
-          label: "Security and compliance",
+          type: "doc",
+          docId: "solutions/solution_B2B",
+          label: "B2B IAM",
+        },
+        {
+          type: "doc",
+          docId: "solutions/solution_agentic",
+          label: "Agentic IAM",
         },
       ],
     },
     {
-      //   to: "/docs/reference/api",
-      //   to: "/docs/reference", // TODO: Use this route
+      type: "dropdown",
+      to: "/docs/reference/reference-overview",
       label: "Reference",
       position: "left",
       items: [
@@ -90,15 +101,36 @@ export const navbar: Navbar = {
           to: "/docs/category/operations-reference",
           label: "Operations",
         },
+        {
+          to: "/docs/category/troubleshooting-reference",
+          label: "Troubleshooting",
+        },
+        {
+          to: "/docs/category/security-compliance",
+          label: "Security and compliance",
+        },
       ],
     },
     {
-      to: "/docs/ecosystem/projects",
-      label: "Open Source",
+      label: "Changelog",
       position: "left",
+      items: [
+        {
+          to: "https://changelog.ory.com/?categories=cat_6MGGeXN7WohDH",
+          label: "Ory Network",
+        },
+        {
+          to: "https://changelog.ory.com/?categories=cat_HB3vkYrvl8suK",
+          label: "Ory OEL",
+        },
+        {
+          to: "/docs/oss/changelog",
+          label: "Ory OSS",
+        },
+      ],
     },
     {
-      label: "Need Support?",
+      label: "Support",
       position: "right",
       items: [
         {
@@ -110,7 +142,7 @@ export const navbar: Navbar = {
           label: "Search the docs",
         },
         {
-          to: "https://slack.ory.com",
+          to: "https://www.ory.com/chat",
           label: "Ory Community Slack",
         },
         {

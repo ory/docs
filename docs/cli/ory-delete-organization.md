@@ -1,7 +1,7 @@
 ---
 id: ory-delete-organization
 title: ory delete organization
-description: ory delete organization Delete the organization with the given ID
+description: ory delete organization
 ---
 
 <!--
@@ -34,7 +34,7 @@ ory delete organization <id> [--project=PROJECT_ID] [flags]
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory delete](ory-delete)	 - Delete resources
+* [ory delete](ory-delete) Delete resources
 

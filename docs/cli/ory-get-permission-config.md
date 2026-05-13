@@ -1,7 +1,7 @@
 ---
 id: ory-get-permission-config
 title: ory get permission-config
-description: ory get permission-config Get Ory Permissions configuration.
+description: ory get permission-config
 ---
 
 <!--
@@ -56,7 +56,7 @@ $ ory get permission-config --format json   # uses currently selected project
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory get](ory-get)	 - Get a resource
+* [ory get](ory-get) Get a resource
 

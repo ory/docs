@@ -5,8 +5,10 @@ sidebar_label: Passkeys for mobile
 slug: passkeys-mobile-web-implementation
 ---
 
+```mdx-code-block
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
+```
 
 This guide covers how to implement passkey authentication in your applications using Ory Kratos or Ory Network. Passkeys provide a
 passwordless authentication experience using WebAuthn across web browsers and mobile platforms.
@@ -52,7 +54,7 @@ The script automatically:
 - Calls `navigator.credentials.get()` for authentication.
 - Submits the WebAuthn response back to Ory.
 
-See [Custom UI Advanced Integration](../bring-your-own-ui/custom-ui-advanced-integration#passwordless-authentication.mdx) for
+See [Custom UI Advanced Integration](../bring-your-own-ui/10_custom-ui-advanced-integration.mdx#passwordless-authentication) for
 details on using `webauthn.js` in custom UIs.
 
 ### Manual WebAuthn integration

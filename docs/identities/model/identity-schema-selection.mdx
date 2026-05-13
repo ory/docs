@@ -53,8 +53,20 @@ GET /self-service/login/api?identity_schema=schema-a
 
 ## Configuration
 
-You must define which schemas are available for self-service selection by using the `selfservice_selectable` flag in your identity
-schema configuration.
+You must define which schemas are available for self-service selection by using the `selfservice_selectable` flag. Only schemas
+with this flag set to `true` can be selected through the `identity_schema` query parameter.
+
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+
+1. Go to <ConsoleLink route="project.identitySchema" />.
+2. Find the schema in the schema list. The **Self-service** column shows whether the schema is currently enabled for self-service.
+3. Open the row menu (three dots) and select **Enable self-service** or **Disable self-service**.
+
+If the schema is not yet part of your project, enabling self-service automatically adds it.
+
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
 
 ### Example configuration
 
@@ -77,7 +89,10 @@ identity:
 
 Only schemas where `selfservice_selectable: true` will be selectable via the `identity_schema` parameter.
 
-## Behavior Summary
+</TabItem>
+</Tabs>
+
+## Behavior summary
 
 - If a schema is listed and marked as selectable, it can be used in registration/login.
 - If a schema is not listed or not marked as selectable, it cannot be used via query param.

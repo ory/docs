@@ -1,7 +1,7 @@
 ---
 id: ory-update-oauth2-config
 title: ory update oauth2-config
-description: ory update oauth2-config Update the Ory OAuth2 & OpenID Connect configuration of an Ory Network project.
+description: ory update oauth2-config
 ---
 
 <!--
@@ -24,19 +24,23 @@ from self-hosted Ory Hydra to Ory Network.
 
 The full configuration payload can be found at:
 
-	https://www.ory.sh/docs/reference/api#operation/updateProject.
+```
+https://www.ory.sh/docs/reference/api#operation/updateProject.
+```
 
 This command expects the contents of the `/services/oauth2/config` key, so for example:
 
+```
+{
+  "namespaces": [
     {
-	  "namespaces": [
-        {
-          "name": "files",
-          "id": 2
-        },
-        // ...
-      ]
-    }
+      "name": "files",
+      "id": 2
+    },
+    // ...
+  ]
+}
+```
 
 
 ```
@@ -90,7 +94,7 @@ oauth2:
   -c, --config string   Path to the Ory Network configuration file.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory update](ory-update)	 - Update resources
+* [ory update](ory-update) Update resources
 

@@ -1,7 +1,7 @@
 ---
 id: ory-use
 title: ory use
-description: ory use Use a resource
+description: ory use
 ---
 
 <!--
@@ -23,8 +23,8 @@ Use a resource
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory use project](ory-use-project)	 - Set the project as the default. When no id is provided, prints the currently used default project.
 

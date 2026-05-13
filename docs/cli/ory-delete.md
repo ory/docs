@@ -1,7 +1,7 @@
 ---
 id: ory-delete
 title: ory delete
-description: ory delete Delete resources
+description: ory delete
 ---
 
 <!--
@@ -23,9 +23,9 @@ Delete resources
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory delete access-tokens](ory-delete-access-tokens)	 - Delete all OAuth2 Access Tokens of an OAuth2 Client
 * [ory delete event-stream](ory-delete-event-stream)	 - Delete the event stream with the given ID
 * [ory delete identity](ory-delete-identity)	 - Delete one or more identities by their ID(s)
