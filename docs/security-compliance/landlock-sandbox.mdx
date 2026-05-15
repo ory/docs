@@ -109,7 +109,6 @@ next depends on the shape of the grant:
 To make cert renewals robust, add the cert directory (for example `/etc/letsencrypt`) to `security.landlock.allowed_paths` instead
 of relying on the per-file grants Kratos derives from the TLS path configuration.
 
-
 ## Troubleshooting
 
 A path that the sandbox does not allow surfaces in the application as `EPERM` ("Operation not permitted") on `open(2)`,
