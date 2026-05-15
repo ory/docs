@@ -128,26 +128,6 @@ export const organizationsPaths: Path[] = [
     title: "All organizations",
     href: routes.project.organizations.route,
   },
-  {
-    title: "Overview",
-    href: routes.project.organizations.details.route,
-  },
-  {
-    title: "B2B SSO",
-    href: routes.project.organizations.b2bSso.route,
-  },
-  {
-    title: "Onboarding Portal",
-    href: routes.project.organizations.onboardingPortal.route,
-  },
-  {
-    title: "SCIM clients",
-    href: routes.project.organizations.scim.route,
-  },
-  {
-    title: "Identities",
-    href: routes.project.organizations.identities.route,
-  },
 ]
 
 export const oauthPaths: Path[] = [
