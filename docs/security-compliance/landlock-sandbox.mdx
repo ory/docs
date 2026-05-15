@@ -109,33 +109,6 @@ next depends on the shape of the grant:
 To make cert renewals robust, add the cert directory (for example `/etc/letsencrypt`) to `security.landlock.allowed_paths` instead
 of relying on the per-file grants Kratos derives from the TLS path configuration.
 
-## Local `$ref` in identity schemas
-
-Auto-discovery walks the loaded **config**, not the JSON bodies that the config points at. `$ref` references inside an identity
-schema body that target local files (`"$ref": "file:///path/to/fragment.json"`) are therefore not picked up — the top-level
-`identity.schemas[].url` is allowed, but the schema content is not parsed. If a schema relies on a local `$ref`, the referenced
-file must be listed under `security.landlock.allowed_paths`, otherwise schema compilation fails because the kernel denies the
-read.
-
-```yaml
-security:
-  landlock:
-    allowed_paths:
-      - /etc/kratos/schemas/fragments/address.json
-identity:
-  schemas:
-    - id: customer
-      url: file:///etc/kratos/schemas/customer.json # auto-allowed
-```
-
-…where `customer.json` contains:
-
-```json
-{ "$ref": "file:///etc/kratos/schemas/fragments/address.json" }
-```
-
-This applies only to schemas that are split across multiple local files via `$ref`. Schemas served over HTTPS, inlined as
-`base64://`, or kept in a single file need no extra configuration.
 
 ## Troubleshooting
 
