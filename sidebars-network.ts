@@ -532,6 +532,7 @@ const networkSidebar = [
                   "hydra/guides/jwt",
                   "hydra/guides/client-token-expiration",
                   "hydra/guides/graceful-token-refresh",
+                  "self-hosted/oel/oauth2/token-prefix",
                   "oauth2-oidc/claims-scope",
                 ],
               },
