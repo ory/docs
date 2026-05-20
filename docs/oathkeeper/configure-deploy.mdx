@@ -378,9 +378,10 @@ EOF
 
 ### Controlling request path labels
 
-By default, Oathkeeper includes the full request path as a label on Prometheus metrics. For high-cardinality APIs this can
-produce an unbounded number of label values, which increases Prometheus memory usage. Three configuration options let you
-control this behavior:
+By default, Oathkeeper includes the request path as a label on Prometheus metrics, but collapses it to the first N segments.
+This helps avoid an unbounded number of label values for high-cardinality APIs, which would otherwise increase Prometheus
+memory usage. You can disable collapsing to keep the full request path, or hide the request path label entirely. Three
+configuration options let you control this behavior:
 
 | Option | Type | Default | Description |
 |---|---|---|---|
