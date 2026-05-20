@@ -23416,41 +23416,6 @@
         "tags": ["APIKeys"]
       }
     },
-    "/v2alpha1/admin/derivedKeys/jwks.json": {
-      "get": {
-        "description": "Returns the JSON Web Key Set for token verification. Provides the public\nkeys needed to verify JWT tokens issued by this service. Keys are loaded\nfrom configuration (file://, https://, or base64:// URIs). Follows the\nJWKS standard (RFC 7517).\n\n```http\nGET /v2alpha1/admin/derivedKeys/jwks.json\n```",
-        "operationId": "AdminGetJWKS",
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetJWKSResponse"
-                }
-              }
-            },
-            "description": "A successful response."
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Status"
-                }
-              }
-            },
-            "description": "An unexpected error response."
-          }
-        },
-        "security": [
-          {
-            "oryAccessToken": []
-          }
-        ],
-        "summary": "Get JWKS",
-        "tags": ["APIKeys"]
-      }
-    },
     "/v2alpha1/admin/importedApiKeys": {
       "get": {
         "description": "Lists all imported keys with filtering. Returns imported keys only (not\nissued keys). Supports pagination and AIP-160 filter expressions.\n\n```http\nGET /v2alpha1/admin/importedApiKeys?page_size=50\u0026filter=status%3DKEY_STATUS_ACTIVE\n```",
@@ -24175,6 +24140,36 @@
           }
         },
         "summary": "Revoke API Key (self-service)",
+        "tags": ["APIKeys"]
+      }
+    },
+    "/v2alpha1/derivedKeys/jwks.json": {
+      "get": {
+        "description": "Returns the JSON Web Key Set for token verification. Provides the public\nkeys needed to verify JWT tokens issued by this service. Keys are loaded\nfrom configuration (file://, https://, or base64:// URIs). Follows the\nJWKS standard (RFC 7517).\n\n```http\nGET /v2alpha1/derivedKeys/jwks.json\n```",
+        "operationId": "GetJWKS",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetJWKSResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Get JWKS",
         "tags": ["APIKeys"]
       }
     },
