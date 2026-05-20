@@ -1668,11 +1668,11 @@
       "headers": [
         {
           "key": "Vercel-CDN-Cache-Control",
-          "value": "public, s-maxage=300, stale-while-revalidate=604800"
+          "value": "public, s-maxage=0, stale-while-revalidate=604800"
         },
         {
           "key": "CDN-Cache-Control",
-          "value": "public, s-maxage=300, stale-while-revalidate=604800"
+          "value": "public, s-maxage=0, stale-while-revalidate=604800"
         },
         {
           "key": "Cache-Control",
