@@ -797,6 +797,20 @@ And the Flutter code gets this result back: `iOS 26.2.1` (for example).
 
 At this point the key is enrolled for the identity.
 
+{/*
+sequenceDiagram
+    participant C as Client (mobile app)
+    participant H as Device hardware (TEE/TPM)
+    participant S as Kratos server
+    C->>S: POST /self-service/settings/api (xSessionToken)
+    S-->>C: 200 settings flow {nonce, existing_keys}
+    C->>H: generateKey(nonce)
+    H-->>C: {client_key_id, cert_chain}
+    C->>S: PUT /self-service/settings?flow=... {method: deviceauthn, add: {device_name, client_key_id, cert_chain or attestation_ios}}
+    Note over S: Verify cert chain vs Apple/Google root CAs<br/>Check CRLs<br/>Match challenge to stored nonce<br/>Reject software/emulated keys<br/>Store pubkey, erase challenge
+    S-->>C: 200 updated settings flow
+*/}
+
 [![DeviceAuthn enrollment sequence](https://mermaid.ink/img/eyJjb2RlIjogInNlcXVlbmNlRGlhZ3JhbVxuICAgIHBhcnRpY2lwYW50IEMgYXMgQ2xpZW50IChtb2JpbGUgYXBwKVxuICAgIHBhcnRpY2lwYW50IEggYXMgRGV2aWNlIGhhcmR3YXJlIChURUUvVFBNKVxuICAgIHBhcnRpY2lwYW50IFMgYXMgS3JhdG9zIHNlcnZlclxuICAgIEMtPj5TOiBQT1NUIC9zZWxmLXNlcnZpY2Uvc2V0dGluZ3MvYXBpICh4U2Vzc2lvblRva2VuKVxuICAgIFMtLT4+QzogMjAwIHNldHRpbmdzIGZsb3cge25vbmNlLCBleGlzdGluZ19rZXlzfVxuICAgIEMtPj5IOiBnZW5lcmF0ZUtleShub25jZSlcbiAgICBILS0+PkM6IHtjbGllbnRfa2V5X2lkLCBjZXJ0X2NoYWlufVxuICAgIEMtPj5TOiBQVVQgL3NlbGYtc2VydmljZS9zZXR0aW5ncz9mbG93PS4uLiB7bWV0aG9kOiBkZXZpY2VhdXRobiwgYWRkOiB7ZGV2aWNlX25hbWUsIGNsaWVudF9rZXlfaWQsIGNlcnRfY2hhaW4gb3IgYXR0ZXN0YXRpb25faW9zfX1cbiAgICBOb3RlIG92ZXIgUzogVmVyaWZ5IGNlcnQgY2hhaW4gdnMgQXBwbGUvR29vZ2xlIHJvb3QgQ0FzPGJyLz5DaGVjayBDUkxzPGJyLz5NYXRjaCBjaGFsbGVuZ2UgdG8gc3RvcmVkIG5vbmNlPGJyLz5SZWplY3Qgc29mdHdhcmUvZW11bGF0ZWQga2V5czxici8+U3RvcmUgcHVia2V5LCBlcmFzZSBjaGFsbGVuZ2VcbiAgICBTLS0+PkM6IDIwMCB1cGRhdGVkIHNldHRpbmdzIGZsb3ciLCAibWVybWFpZCI6IHsidGhlbWUiOiAiZGVmYXVsdCJ9fQ==)](https://mermaid.live/edit#eyJjb2RlIjogInNlcXVlbmNlRGlhZ3JhbVxuICAgIHBhcnRpY2lwYW50IEMgYXMgQ2xpZW50IChtb2JpbGUgYXBwKVxuICAgIHBhcnRpY2lwYW50IEggYXMgRGV2aWNlIGhhcmR3YXJlIChURUUvVFBNKVxuICAgIHBhcnRpY2lwYW50IFMgYXMgS3JhdG9zIHNlcnZlclxuICAgIEMtPj5TOiBQT1NUIC9zZWxmLXNlcnZpY2Uvc2V0dGluZ3MvYXBpICh4U2Vzc2lvblRva2VuKVxuICAgIFMtLT4+QzogMjAwIHNldHRpbmdzIGZsb3cge25vbmNlLCBleGlzdGluZ19rZXlzfVxuICAgIEMtPj5IOiBnZW5lcmF0ZUtleShub25jZSlcbiAgICBILS0+PkM6IHtjbGllbnRfa2V5X2lkLCBjZXJ0X2NoYWlufVxuICAgIEMtPj5TOiBQVVQgL3NlbGYtc2VydmljZS9zZXR0aW5ncz9mbG93PS4uLiB7bWV0aG9kOiBkZXZpY2VhdXRobiwgYWRkOiB7ZGV2aWNlX25hbWUsIGNsaWVudF9rZXlfaWQsIGNlcnRfY2hhaW4gb3IgYXR0ZXN0YXRpb25faW9zfX1cbiAgICBOb3RlIG92ZXIgUzogVmVyaWZ5IGNlcnQgY2hhaW4gdnMgQXBwbGUvR29vZ2xlIHJvb3QgQ0FzPGJyLz5DaGVjayBDUkxzPGJyLz5NYXRjaCBjaGFsbGVuZ2UgdG8gc3RvcmVkIG5vbmNlPGJyLz5SZWplY3Qgc29mdHdhcmUvZW11bGF0ZWQga2V5czxici8+U3RvcmUgcHVia2V5LCBlcmFzZSBjaGFsbGVuZ2VcbiAgICBTLS0+PkM6IDIwMCB1cGRhdGVkIHNldHRpbmdzIGZsb3ciLCAibWVybWFpZCI6IHsidGhlbWUiOiAiZGVmYXVsdCJ9fQ==)
 
 ### Proof of device enrollment
@@ -810,6 +824,21 @@ At this point the key is enrolled for the identity.
    1. Checks that no CA in the certificate chain (when the device has been enrolled) has been revoked
    1. Erases the challenge value in the database to prevent re-use.
    1. Replies with 200 with a fresh session token and a higher AAL e.g. AAL2 or AAL3
+
+{/*
+sequenceDiagram
+    participant C as Client (mobile app)
+    participant H as Device hardware (TEE/TPM)
+    participant S as Kratos server
+    C->>S: POST /self-service/login/api {aal: aal2, refresh: false}
+    S-->>C: 200 login flow {nonce}
+    C->>H: sign(nonce, client_key_id)
+    Note right of H: biometric/PIN prompt<br/>private key never leaves hardware
+    H-->>C: ECDSA signature
+    C->>S: PUT /self-service/login?flow=... {method: deviceauthn,<br/>client_key_id, signature}
+    Note over S: Verify signature with stored pubkey<br/>Check no CA in chain is revoked<br/>Erase challenge
+    S-->>C: 200 {session_token, aal: aal2}
+*/}
 
 [![DeviceAuthn login sequence](https://mermaid.ink/img/eyJjb2RlIjogInNlcXVlbmNlRGlhZ3JhbVxuICAgIHBhcnRpY2lwYW50IEMgYXMgQ2xpZW50IChtb2JpbGUgYXBwKVxuICAgIHBhcnRpY2lwYW50IEggYXMgRGV2aWNlIGhhcmR3YXJlIChURUUvVFBNKVxuICAgIHBhcnRpY2lwYW50IFMgYXMgS3JhdG9zIHNlcnZlclxuICAgIEMtPj5TOiBQT1NUIC9zZWxmLXNlcnZpY2UvbG9naW4vYXBpIHthYWw6IGFhbDIsIHJlZnJlc2g6IGZhbHNlfVxuICAgIFMtLT4+QzogMjAwIGxvZ2luIGZsb3cge25vbmNlfVxuICAgIEMtPj5IOiBzaWduKG5vbmNlLCBjbGllbnRfa2V5X2lkKVxuICAgIE5vdGUgcmlnaHQgb2YgSDogYmlvbWV0cmljL1BJTiBwcm9tcHQ8YnIvPnByaXZhdGUga2V5IG5ldmVyIGxlYXZlcyBoYXJkd2FyZVxuICAgIEgtLT4+QzogRUNEU0Egc2lnbmF0dXJlXG4gICAgQy0+PlM6IFBVVCAvc2VsZi1zZXJ2aWNlL2xvZ2luP2Zsb3c9Li4uIHttZXRob2Q6IGRldmljZWF1dGhuLDxici8+Y2xpZW50X2tleV9pZCwgc2lnbmF0dXJlfVxuICAgIE5vdGUgb3ZlciBTOiBWZXJpZnkgc2lnbmF0dXJlIHdpdGggc3RvcmVkIHB1YmtleTxici8+Q2hlY2sgbm8gQ0EgaW4gY2hhaW4gaXMgcmV2b2tlZDxici8+RXJhc2UgY2hhbGxlbmdlXG4gICAgUy0tPj5DOiAyMDAge3Nlc3Npb25fdG9rZW4sIGFhbDogYWFsMn0iLCAibWVybWFpZCI6IHsidGhlbWUiOiAiZGVmYXVsdCJ9fQ==)](https://mermaid.live/edit#eyJjb2RlIjogInNlcXVlbmNlRGlhZ3JhbVxuICAgIHBhcnRpY2lwYW50IEMgYXMgQ2xpZW50IChtb2JpbGUgYXBwKVxuICAgIHBhcnRpY2lwYW50IEggYXMgRGV2aWNlIGhhcmR3YXJlIChURUUvVFBNKVxuICAgIHBhcnRpY2lwYW50IFMgYXMgS3JhdG9zIHNlcnZlclxuICAgIEMtPj5TOiBQT1NUIC9zZWxmLXNlcnZpY2UvbG9naW4vYXBpIHthYWw6IGFhbDIsIHJlZnJlc2g6IGZhbHNlfVxuICAgIFMtLT4+QzogMjAwIGxvZ2luIGZsb3cge25vbmNlfVxuICAgIEMtPj5IOiBzaWduKG5vbmNlLCBjbGllbnRfa2V5X2lkKVxuICAgIE5vdGUgcmlnaHQgb2YgSDogYmlvbWV0cmljL1BJTiBwcm9tcHQ8YnIvPnByaXZhdGUga2V5IG5ldmVyIGxlYXZlcyBoYXJkd2FyZVxuICAgIEgtLT4+QzogRUNEU0Egc2lnbmF0dXJlXG4gICAgQy0+PlM6IFBVVCAvc2VsZi1zZXJ2aWNlL2xvZ2luP2Zsb3c9Li4uIHttZXRob2Q6IGRldmljZWF1dGhuLDxici8+Y2xpZW50X2tleV9pZCwgc2lnbmF0dXJlfVxuICAgIE5vdGUgb3ZlciBTOiBWZXJpZnkgc2lnbmF0dXJlIHdpdGggc3RvcmVkIHB1YmtleTxici8+Q2hlY2sgbm8gQ0EgaW4gY2hhaW4gaXMgcmV2b2tlZDxici8+RXJhc2UgY2hhbGxlbmdlXG4gICAgUy0tPj5DOiAyMDAge3Nlc3Npb25fdG9rZW4sIGFhbDogYWFsMn0iLCAibWVybWFpZCI6IHsidGhlbWUiOiAiZGVmYXVsdCJ9fQ==)
 
