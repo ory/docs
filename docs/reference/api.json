@@ -729,13 +729,14 @@
       },
       "BatchImportErrorCode": {
         "default": "BATCH_IMPORT_ERROR_UNSPECIFIED",
-        "description": "BatchImportErrorCode classifies per-item batch import failures.\n\n - BATCH_IMPORT_ERROR_UNSPECIFIED: No error (import succeeded)\n - BATCH_IMPORT_ERROR_INVALID_ARGUMENT: The key data is malformed or missing required fields\n - BATCH_IMPORT_ERROR_ALREADY_EXISTS: A key with this identifier already exists\n - BATCH_IMPORT_ERROR_FAILED_PRECONDITION: State conflict prevents the import\n - BATCH_IMPORT_ERROR_INTERNAL: Server error during import",
+        "description": "BatchImportErrorCode classifies per-item batch import failures.\n\n - BATCH_IMPORT_ERROR_UNSPECIFIED: No error (import succeeded)\n - BATCH_IMPORT_ERROR_INVALID_ARGUMENT: The key data is malformed or missing required fields\n - BATCH_IMPORT_ERROR_ALREADY_EXISTS: A key with this identifier already exists\n - BATCH_IMPORT_ERROR_FAILED_PRECONDITION: State conflict prevents the import\n - BATCH_IMPORT_ERROR_INTERNAL: Server error during import\n - BATCH_IMPORT_ERROR_RESOURCE_EXHAUSTED: Per-tenant quota cap reached",
         "enum": [
           "BATCH_IMPORT_ERROR_UNSPECIFIED",
           "BATCH_IMPORT_ERROR_INVALID_ARGUMENT",
           "BATCH_IMPORT_ERROR_ALREADY_EXISTS",
           "BATCH_IMPORT_ERROR_FAILED_PRECONDITION",
-          "BATCH_IMPORT_ERROR_INTERNAL"
+          "BATCH_IMPORT_ERROR_INTERNAL",
+          "BATCH_IMPORT_ERROR_RESOURCE_EXHAUSTED"
         ],
         "type": "string"
       },
@@ -948,8 +949,13 @@
             "type": "string"
           },
           "hydra_oauth2_grant_refresh_token_rotation_grace_period": {
-            "description": "Configures the OAuth2 Grant Refresh Token Rotation Grace Period\n\nIf set to `null` or `\"0s\"`, the graceful refresh token rotation is disabled.\n\nThis governs the \"oauth2.grant.refresh_token_rotation_grace_period\" setting.",
+            "description": "Configures the OAuth2 Grant Refresh Token Rotation Grace Period\n\nIf set to `null` or `\"0s\"`, the graceful refresh token rotation is disabled.\n\nThis governs the \"oauth2.grant.refresh_token.rotation_grace_period\" setting.",
             "type": "string"
+          },
+          "hydra_oauth2_grant_refresh_token_rotation_grace_reuse_count": {
+            "description": "Configures the OAuth2 Grant Refresh Token Rotation Grace Reuse Count.\n\nThe maximum number of times a refresh token can be reused within the grace period.\nIf set to `null` or `0`, the limit is disabled.\n\nThis governs the \"oauth2.grant.refresh_token.rotation_grace_reuse_count\" setting.",
+            "format": "int64",
+            "type": "integer"
           },
           "hydra_oauth2_mirror_top_level_claims": {
             "description": "Set to false if you don't want to mirror custom claims under 'ext'.\n\nThis governs the \"oauth2.mirror_top_level_claims\" setting.",
@@ -973,6 +979,10 @@
           },
           "hydra_oauth2_token_hook": {
             "description": "Sets the token hook endpoint for all grant types. If set it will be called while providing token to customize claims.\n\nThis governs the \"oauth2.token_hook.url\" setting.",
+            "type": "string"
+          },
+          "hydra_oauth2_token_prefix": {
+            "description": "Sets a per-project Access Token, Refresh Token, and Authorization Code\nprefix. The literal \"%s\" is replaced at issuance time with the token kind:\n\"at\" (access token), \"rt\" (refresh token), or \"ac\" (authorization code).\nFor example, \"acme_%s_\" yields \"acme_at_…\", \"acme_rt_…\", and \"acme_ac_…\".\n\nMust be a fmt.Sprintf template with exactly one \"%s\" substitution. The\nrendered prefix may contain only ASCII letters, digits, and underscores —\nno other \"%\" directives (\"%d\", \"%%\", positional or width-flagged verbs),\nno hyphens, dots, slashes, whitespace, quotes, or non-ASCII characters.\nLeave empty to keep the default \"ory_%s_\" prefix.\n\nThis is an Enterprise feature.\n\nThis governs the \"oauth2.token_prefix\" setting.",
             "type": "string"
           },
           "hydra_oidc_dynamic_client_registration_default_scope": {
@@ -2592,19 +2602,7 @@
         "type": "object"
       },
       "Money": {
-        "properties": {
-          "Cents": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "String": {
-            "type": "string"
-          },
-          "Unit": {
-            "type": "string"
-          }
-        },
-        "type": "object"
+        "type": "string"
       },
       "NormalizedProjectRevisionCourierChannel": {
         "properties": {
@@ -2847,7 +2845,7 @@
       },
       "PlanFeatures": {
         "additionalProperties": {
-          "$ref": "#/components/schemas/GenericUsage"
+          "$ref": "#/components/schemas/Usage"
         },
         "title": "PlanFeatures are the feature definitions included in the plan.",
         "type": "object"
@@ -3170,12 +3168,20 @@
         "type": "object"
       },
       "Usage": {
-        "properties": {
-          "GenericUsage": {
+        "oneOf": [
+          {
             "$ref": "#/components/schemas/GenericUsage"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
           }
-        },
-        "type": "object"
+        ]
       },
       "VerifiableCredentialProof": {
         "properties": {
@@ -7064,8 +7070,13 @@
             "type": "string"
           },
           "hydra_oauth2_grant_refresh_token_rotation_grace_period": {
-            "description": "Configures the OAuth2 Grant Refresh Token Rotation Grace Period\n\nIf set to `null` or `\"0s\"`, the graceful refresh token rotation is disabled.\n\nThis governs the \"oauth2.grant.refresh_token_rotation_grace_period\" setting.",
+            "description": "Configures the OAuth2 Grant Refresh Token Rotation Grace Period\n\nIf set to `null` or `\"0s\"`, the graceful refresh token rotation is disabled.\n\nThis governs the \"oauth2.grant.refresh_token.rotation_grace_period\" setting.",
             "type": "string"
+          },
+          "hydra_oauth2_grant_refresh_token_rotation_grace_reuse_count": {
+            "description": "Configures the OAuth2 Grant Refresh Token Rotation Grace Reuse Count.\n\nThe maximum number of times a refresh token can be reused within the grace period.\nIf set to `null` or `0`, the limit is disabled.\n\nThis governs the \"oauth2.grant.refresh_token.rotation_grace_reuse_count\" setting.",
+            "format": "int64",
+            "type": "integer"
           },
           "hydra_oauth2_mirror_top_level_claims": {
             "description": "Set to false if you don't want to mirror custom claims under 'ext'.\n\nThis governs the \"oauth2.mirror_top_level_claims\" setting.",
@@ -7089,6 +7100,10 @@
           },
           "hydra_oauth2_token_hook": {
             "description": "Sets the token hook endpoint for all grant types. If set it will be called while providing token to customize claims.\n\nThis governs the \"oauth2.token_hook.url\" setting.",
+            "type": "string"
+          },
+          "hydra_oauth2_token_prefix": {
+            "description": "Sets a per-project Access Token, Refresh Token, and Authorization Code\nprefix. The literal \"%s\" is replaced at issuance time with the token kind:\n\"at\" (access token), \"rt\" (refresh token), or \"ac\" (authorization code).\nFor example, \"acme_%s_\" yields \"acme_at_…\", \"acme_rt_…\", and \"acme_ac_…\".\n\nMust be a fmt.Sprintf template with exactly one \"%s\" substitution. The\nrendered prefix may contain only ASCII letters, digits, and underscores —\nno other \"%\" directives (\"%d\", \"%%\", positional or width-flagged verbs),\nno hyphens, dots, slashes, whitespace, quotes, or non-ASCII characters.\nLeave empty to keep the default \"ory_%s_\" prefix.\n\nThis is an Enterprise feature.\n\nThis governs the \"oauth2.token_prefix\" setting.",
             "type": "string"
           },
           "hydra_oidc_dynamic_client_registration_default_scope": {
@@ -10537,7 +10552,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\nunassigned_rate_limit_tier RateLimitTierUnassigned",
+            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\nunassigned_rate_limit_tier RateLimitTierUnassigned",
             "enum": [
               "production_projects",
               "staging_projects",
@@ -10575,6 +10590,8 @@
               "default_smtp_email_customization",
               "onboarding_portal",
               "console_organization_sso",
+              "graceful_refresh_token_count",
+              "hydra_token_prefix",
               "update_self_service_registration_rate_limit_tier",
               "update_self_service_recovery_rate_limit_tier",
               "update_self_service_settings_rate_limit_tier",
@@ -10610,7 +10627,7 @@
               "unassigned_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\nunassigned_rate_limit_tier RateLimitTierUnassigned"
+            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\nunassigned_rate_limit_tier RateLimitTierUnassigned"
           },
           "feature_available": {
             "type": "boolean"
