@@ -4,6 +4,8 @@ title: Device binding
 sidebar_label: Device binding
 ---
 
+import Mermaid from "@site/src/theme/Mermaid"
+
 Device Authentication (also known as 'DeviceAuthn', or device binding) is a way for a user to authenticate with a hardware
 resident private key.
 
@@ -797,6 +799,22 @@ And the Flutter code gets this result back: `iOS 26.2.1` (for example).
 
 At this point the key is enrolled for the identity.
 
+<Mermaid
+  chart={`
+sequenceDiagram
+    participant C as Client (mobile app)
+    participant H as Device hardware (TEE/TPM)
+    participant S as Kratos server
+    C->>S: POST /self-service/settings/api (xSessionToken)
+    S-->>C: 200 settings flow {nonce, existing_keys}
+    C->>H: generateKey(nonce)
+    H-->>C: {client_key_id, cert_chain}
+    C->>S: PUT /self-service/settings?flow=... {method: deviceauthn, add: {device_name, client_key_id, cert_chain or attestation_ios}}
+    Note over S: Verify cert chain vs Apple/Google root CAs<br/>Check CRLs<br/>Match challenge to stored nonce<br/>Reject software/emulated keys<br/>Store pubkey, erase challenge
+    S-->>C: 200 updated settings flow
+`}
+/>
+
 ### Proof of device enrollment
 
 1. When the user creates the login flow with the DeviceAuthn strategy, the client receives a server challenge.
@@ -808,6 +826,23 @@ At this point the key is enrolled for the identity.
    1. Checks that no CA in the certificate chain (when the device has been enrolled) has been revoked
    1. Erases the challenge value in the database to prevent re-use.
    1. Replies with 200 with a fresh session token and a higher AAL e.g. AAL2 or AAL3
+
+<Mermaid
+  chart={`
+sequenceDiagram
+    participant C as Client (mobile app)
+    participant H as Device hardware (TEE/TPM)
+    participant S as Kratos server
+    C->>S: POST /self-service/login/api {aal: aal2, refresh: false}
+    S-->>C: 200 login flow {nonce}
+    C->>H: sign(nonce, client_key_id)
+    Note right of H: biometric/PIN prompt<br/>private key never leaves hardware
+    H-->>C: ECDSA signature
+    C->>S: PUT /self-service/login?flow=... {method: deviceauthn,<br/>client_key_id, signature}
+    Note over S: Verify signature with stored pubkey<br/>Check no CA in chain is revoked<br/>Erase challenge
+    S-->>C: 200 {session_token, aal: aal2}
+`}
+/>
 
 ### Key Revocation
 
