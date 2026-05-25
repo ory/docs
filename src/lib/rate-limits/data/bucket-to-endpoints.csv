@@ -86,6 +86,8 @@ PATCH,/admin/identities/{id},kratos-admin-low
 DELETE,/admin/identities/{id},kratos-admin-low
 DELETE,/admin/identities/{id}/credentials/{type},kratos-admin-low
 DELETE,/admin/sessions/{id},kratos-admin-low
+OPTIONS,/admin/sessions,kratos-admin-low
+POST,/admin/sessions,kratos-admin-low
 PUT,/scim/{name}/v2/Groups/{id},kratos-admin-low
 PATCH,/scim/{name}/v2/Groups/{id},kratos-admin-low
 DELETE,/scim/{name}/v2/Groups/{id},kratos-admin-low
