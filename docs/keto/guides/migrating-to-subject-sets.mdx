@@ -1,0 +1,186 @@
+---
+title: Migrating from subject IDs to subject sets
+sidebar_label: Migrate to subject sets
+---
+
+Early versions of Ory Permissions supported writing tuples where the subject was a plain string with no namespace — for example
+`File:readme#viewers@user_5`. These are called **subject IDs**. They predate the
+[Ory Permission Language](../reference/ory-permission-language) and have no connection to the namespaces defined in your OPL.
+
+The current model uses **subject sets** instead: the subject includes a namespace, such as `File:readme#viewers@User:user_5`.
+The namespace (`User`) refers to a class defined in your OPL, which lets the engine validate and traverse subjects correctly.
+
+Subject IDs still work in non-strict mode, but strict mode returns an explicit error when it encounters one — because they have
+no namespace, the engine cannot validate them against your OPL. In non-strict mode this produces a silent `allowed: false`
+instead, which looks identical to a legitimate denial.
+
+## What to look for
+
+Search your application for any place that writes tuples or performs permission checks using the `subject_id` field of the API
+client. That field is how subject IDs are passed.
+
+### Writing tuples
+
+**Before (subject ID):**
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
+<Tabs>
+<TabItem value="go" label="Go">
+
+```go
+payload := ory.CreateRelationshipBody{
+    Namespace: &namespace,
+    Object:    &object,
+    Relation:  &relation,
+    SubjectId: &subjectId, // plain string, no namespace
+}
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+body = ory_client.CreateRelationshipBody(
+    namespace="File",
+    object="readme",
+    relation="viewers",
+    subject_id="user_5",  # plain string, no namespace
+)
+```
+
+</TabItem>
+</Tabs>
+
+**After (subject set):**
+
+<Tabs>
+<TabItem value="go" label="Go">
+
+```go
+subjectNamespace := "User"
+subjectObject := "user_5"
+subjectRelation := ""
+
+payload := ory.CreateRelationshipBody{
+    Namespace: &namespace,
+    Object:    &object,
+    Relation:  &relation,
+    SubjectSet: &ory.SubjectSet{
+        Namespace: subjectNamespace,
+        Object:    subjectObject,
+        Relation:  subjectRelation,
+    },
+}
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+body = ory_client.CreateRelationshipBody(
+    namespace="File",
+    object="readme",
+    relation="viewers",
+    subject_set=ory_client.SubjectSet(
+        namespace="User",
+        object="user_5",
+        relation="",
+    ),
+)
+```
+
+</TabItem>
+</Tabs>
+
+### Checking permissions
+
+**Before (subject ID):**
+
+<Tabs>
+<TabItem value="go" label="Go">
+
+```go
+check, _, err := ory.PermissionApi.CheckPermission(ctx).
+    Namespace(namespace).
+    Object(object).
+    Relation(relation).
+    SubjectId(subjectId). // plain string, no namespace
+    Execute()
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+api_instance.check_permission(
+    namespace="File",
+    object="readme",
+    relation="viewers",
+    subject_id="user_5",  # plain string, no namespace
+)
+```
+
+</TabItem>
+</Tabs>
+
+**After (subject set):**
+
+<Tabs>
+<TabItem value="go" label="Go">
+
+```go
+check, _, err := ory.PermissionApi.CheckPermission(ctx).
+    Namespace(namespace).
+    Object(object).
+    Relation(relation).
+    SubjectSetNamespace("User").
+    SubjectSetObject("user_5").
+    SubjectSetRelation("").
+    Execute()
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+api_instance.check_permission(
+    namespace="File",
+    object="readme",
+    relation="viewers",
+    subject_set_namespace="User",
+    subject_set_object="user_5",
+    subject_set_relation="",
+)
+```
+
+</TabItem>
+</Tabs>
+
+## Update your OPL
+
+Every namespace you reference as a subject must be declared in your OPL. If you migrate subjects to `User:user_5`, make sure
+your OPL includes a `User` class:
+
+```ts
+class User implements Namespace {}
+```
+
+And the relation that holds them must declare `User` as a valid subject type:
+
+```ts
+class File implements Namespace {
+  related: {
+    viewers: User[]
+  }
+}
+```
+
+## Migrate existing tuples
+
+Updating your application code only affects new tuples written going forward. Existing tuples that use subject IDs remain in the
+database and will be ignored by strict mode.
+
+You need to backfill: for each old tuple with a subject ID, write a new tuple with the equivalent subject set, then delete the
+old one. Do this before enabling strict mode.
