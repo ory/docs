@@ -24,6 +24,8 @@ The `related` block defines who can be associated with an object. Each entry nam
 holds.
 
 ```ts
+import { Namespace } from "@ory/keto-namespace-types"
+
 class File implements Namespace {
   related: {
     viewers: User[]
@@ -66,14 +68,14 @@ viewers: (User | SubjectSet<Group, "members">)[]
 This allows writing tuples that point to a group's members rather than a user directly:
 
 ```keto-natural
-Group:engineering#members is in viewers of File:readme
+members of Group:engineering is in viewers of File:readme
 ```
 
 A subject can now be either a `User` directly, or any member of the `Group:engineering`.
 
 ## Permits
 
-The `permits` block defines computed relations — boolean functions the engine evaluates during a check.
+The `permits` block defines boolean functions the engine evaluates during a check.
 
 ```ts
 class File implements Namespace {
