@@ -10,11 +10,11 @@ customers are being migrated by subscription tier.
 
 ## Which rate limit system applies to you?
 
-| You are...                                         | Your system                                  |
-| -------------------------------------------------- | -------------------------------------------- |
-| A new customer (workspace created after [DATE])    | [Rate limits - new](./rate-limits-new)       |
-| An existing customer — migration not yet completed | [Rate limits - legacy](./rate-limits-legacy) |
-| An existing customer — migration completed         | [Rate limits - new](./rate-limits-new)       |
+| You are...                                              | Your system                                  |
+| ------------------------------------------------------- | -------------------------------------------- |
+| A new customer (workspace created on or after June 1)   | [Rate limits - new](./rate-limits-new)       |
+| An existing customer, migration not yet completed       | [Rate limits - legacy](./rate-limits-legacy) |
+| An existing customer, migration completed               | [Rate limits - new](./rate-limits-new)       |
 
 :::tip
 
@@ -39,11 +39,12 @@ completes.
 
 Migration schedule:
 
-| Phase | Plan                | Date   |
-| ----- | ------------------- | ------ |
-| 1     | Developer           | [DATE] |
-| 2     | Production          | [DATE] |
-| 3     | Growth & Enterprise | [DATE] |
+| Phase | Plan                                          | Date          |
+| ----- | --------------------------------------------- | ------------- |
+| 1     | New workspaces and existing Developer workspaces | Week of June 1  |
+| 2     | Existing Production workspaces                   | Week of June 8  |
+| 3     | Existing Growth workspaces                       | Week of June 15 |
+| 4     | Existing Enterprise workspaces                   | Week of June 22 |
 
 The types of rate limits, for project-based and endpoint-based, remain the same in both rate limit policies.
 

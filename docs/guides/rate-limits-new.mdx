@@ -9,7 +9,7 @@ sidebar_label: Rate limits - New
 There is a new project rate limit policy, which applies to all new Ory Network customers and to existing customers after they've
 been migrated. If you're an existing customer and haven't received a migration notice yet, see the
 [rate limits - legacy](/docs/guides/rate-limits-legacy). See [Rate limits](/docs/guides/rate-limits) to learn about both policies
-and the migration plan. Enpoint-based rate limits have not changed.
+and the migration plan. Endpoint-based rate limits have not changed.
 
 :::
 
@@ -58,30 +58,56 @@ these responses to maintain service quality.
 Your implementation must:
 
 - **Detect 429 responses**: Monitor for HTTP 429 status codes on all API calls.
-- **Implement exponential backoff**: When receiving a 429, pause and retry with increasing delays (for example: 1s, 2s, 4s, 8s).
-- **Respect rate limit headers**: Check `x-ratelimit-remaining` and `x-ratelimit-reset`, when available, to throttle requests
-  proactively.
+- **Back off before retrying**: Prefer the server's `x-ratelimit-reset` header when available; fall back to exponential backoff
+  capped at 30 seconds. Always add jitter so concurrent clients don't retry in lockstep.
+- **Throttle proactively**: Check `x-ratelimit-remaining` and `x-ratelimit-reset` to slow down before you hit a 429.
 - **Avoid retry storms**: Don't retry failed requests in a tight loop.
 
 ### Exponential backoff strategy
 
-Implement an exponential backoff strategy to proactively avoid hitting rate limits.
+When a request returns `429`, back off before retrying. Prefer the server's `x-ratelimit-reset` header when it's present, fall back
+to exponential backoff capped at 30 seconds otherwise, and always add jitter so concurrent clients don't retry in lockstep.
 
 ```jsx
 async function callApiWithBackoff(request, maxRetries = 5) {
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     const response = await fetch(request)
-    if (response.status === 429) {
-      const delay = Math.pow(2, attempt) * 1000 // 1s, 2s, 4s, 8s, 16s
-      await new Promise((resolve) => setTimeout(resolve, delay))
-      continue
-    }
-    return response
+    if (response.status !== 429) return response
+
+    const resetAfter = response.headers.get("x-ratelimit-reset")
+    const baseDelay = resetAfter
+      ? parseInt(resetAfter, 10) * 1000
+      : Math.min(Math.pow(2, attempt) * 1000, 30000) // cap at 30s
+
+    const jitter = Math.random() * 1000
+    await new Promise((resolve) => setTimeout(resolve, baseDelay + jitter))
   }
   throw new Error("Max retries exceeded")
+}
+```
+
+You can also throttle proactively using `x-ratelimit-remaining` to slow down before hitting a 429:
+
+```jsx
+async function callApiWithThrottle(request) {
+  const response = await fetch(request)
+  const remaining = parseInt(response.headers.get("x-ratelimit-remaining"), 10)
+  const resetIn = parseInt(response.headers.get("x-ratelimit-reset"), 10)
+
+  if (remaining < 5 && resetIn > 0) {
+    const paceDelay = (resetIn * 1000) / Math.max(remaining, 1)
+    await new Promise((resolve) => setTimeout(resolve, paceDelay))
+  }
+  return response
 }
 ```
 
 Clients that repeatedly exceed rate limits without proper backoff may have their API access temporarily blocked. For high-volume
 use cases that exceed your plan's limits, open a support ticket via the [Ory Console](https://console.ory.sh/support) or email
 [support@ory.sh](mailto:support@ory.sh).
+
+## Load testing
+
+Load testing against the Ory Network requires prior written approval. Unauthorized tests will be detected and may result in
+temporary blocking. To request an approved window, open a support ticket via the [Ory Console](https://console.ory.sh/support) or
+email [support@ory.sh](mailto:support@ory.sh).
