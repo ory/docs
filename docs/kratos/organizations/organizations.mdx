@@ -65,7 +65,7 @@ Organizations require identifier-first authentication and two-step registration 
 
 To create, update, or delete organizations via the Ory Console, go to
 
-<ConsoleLink route="project.authentication.organizations" />.
+<ConsoleLink route="project.organizations" />.
 
 ```mdx-code-block
 </TabItem>
@@ -132,7 +132,7 @@ After creating an organization, continue by adding one or more SSO OIDC connecti
 <TabItem value="console" label="Ory Console">
 ```
 
-Go to <ConsoleLink route="project.authentication.organizations" /> and continue by configuring the selected organization.
+Go to <ConsoleLink route="project.organizations" /> and continue by configuring the selected organization.
 
 ```mdx-code-block
 </TabItem>
@@ -280,7 +280,7 @@ Before proceeding, ensure you are on a plan that supports SAML SSO. SAML is avai
 <TabItem value="console" label="Ory Console">
 ```
 
-1. Go to <ConsoleLink route="project.authentication.organizations" /> to create an organization.
+1. Go to <ConsoleLink route="project.organizations" /> to create an organization.
 2. Select "Add a new Enterprise SAML SSO connection" and follow the instructions to configure the SAML connection. Fill out the
    following form fields:
 
@@ -508,7 +508,7 @@ servers. Guided walkthroughs are available for Microsoft Entra ID, Google Worksp
 
 ##### Create a link
 
-Go to <ConsoleLink route="project.authentication.organizations" /> and continue by configuring the selected organization.
+Go to <ConsoleLink route="project.organizations" /> and continue by configuring the selected organization.
 
 On the **Edit Organization** page, under the **Onboarding Portal** section, click **Generate link**. If your project has a custom
 domain configured, you must choose between the project slug and the custom domain as the link's base URL. You can then share this
@@ -517,7 +517,7 @@ link with the organization administrators.
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 
-<BrowserWindow url="https://console.orystg.com/projects/<id>/authentication/organizations/<id>/edit">
+<BrowserWindow url="https://console.orystg.com/projects/<id>/organizations/<id>/onboarding-portal">
     ![Onboarding portal link](./_static/onboarding-portal-link.png)
 </BrowserWindow>
 ```
@@ -552,7 +552,7 @@ For social sign-in, all upstream data is available as `std.extVar('claims')`, in
 non-standard fields.
 [Social Sign-In mapping](https://www.ory.com/docs/kratos/social-signin/data-mapping#write-a-jsonnet-data-mapper)
 
-<BrowserWindow url="https://console.orystg.com/projects/<id>/authentication/organizations/<id>/edit">
+<BrowserWindow url="https://console.orystg.com/projects/<id>/organizations/<id>/onboarding-portal">
   ![Onboarding portal link](./_static/onboarding-portal-link-mappers.png)
 </BrowserWindow>
 

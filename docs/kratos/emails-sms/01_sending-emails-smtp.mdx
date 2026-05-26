@@ -90,6 +90,14 @@ courier:
           in: header
 ```
 
+:::info Self-hosted (Network / OEL)
+
+The `body: file://...` Jsonnet template path is auto-discovered by the
+[Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx): Kratos walks the loaded config at startup and
+allow-lists every `file://` URI it finds. No `security.landlock.allowed_paths` entry is required.
+
+:::
+
 Here is one example of a Jsonnet body:
 
 ```jsonnet
