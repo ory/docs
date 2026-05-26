@@ -26,8 +26,8 @@ Buckets follow a `{service}-{access}-{threshold}` naming pattern. For example:
 
 :::info
 
-A bucket counter is shared across all endpoints in the same bucket. For example, `POST /admin/relation-tuples` and 
-`DELETE /admin/relation-tuples` both belong to `keto-admin-high`, so every call to either endpoint counts against the same limit.
+A bucket counter is shared across all endpoints in the same bucket. For example, `PUT /admin/relation-tuples` and 
+`DELETE /admin/relation-tuples` both belong to `keto-admin-low`, so every call to either endpoint counts against the same limit.
 Plan your request volumes accordingly.
 
 :::
@@ -45,14 +45,6 @@ In the **Project rate limit table** below:
 2. Select your project environment from the **Environment** dropdown. Options are Production, Staging, or Development.
 3. To search by API path, enter the API path into the **Search API path** box. The endpoint appears highlighted. Look to see which
    bucket it belongs to for its rate limit.
-
-:::info
-
-Project rate limits use a bucket system to group endpoints and apply thresholds. Understanding how buckets work will help you
-understand the project rate limit table below. See [Project rate limits](./rate-limits-project) to learn how rate limits are
-applied per bucket.
-
-:::
 
 ### Project rate limit table
 
