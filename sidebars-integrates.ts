@@ -15,8 +15,6 @@ const integratesSidebar = [
       slug: "/integrations",
     },
     items: [
-      "integrates-with/integrates-apple",
-      "integrates-with/integrates-test",
       {
         type: "category",
         label: "Agent identity",
