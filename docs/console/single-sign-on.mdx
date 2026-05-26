@@ -76,7 +76,7 @@ organization member. Enable this toggle for the designated user.
 You can also use the workspace members API:
 
 ```shell
-curl -X PATCH "https://api.console.ory.com/workspaces/$WORKSPACE_ID/members/$MEMBER_ID" \
+curl -X PATCH "https://api.console.orystg.com/workspaces/$WORKSPACE_ID/members/$MEMBER_ID" \
      -H "Authorization: Bearer $ORY_SESSION_TOKEN" \
      -H "Content-Type: application/json" \
      -d '{"break_glass": true}'

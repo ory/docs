@@ -423,7 +423,7 @@ import VideoEmbed from '@site/src/components/VideoEmbed'
 You can use the `/current/` route to navigate users to their active Ory Network
 project. For example, to access the Custom UI settings for the active Ory
 Network project in the Console, you can link to:
-https://console.ory.com/projects/current/ui
+https://console.orystg.com/projects/current/ui
 
 When referencing a page of the Ory Console, use the
 `<ConsoleLink route="project..." />` component in MDX files.
@@ -436,7 +436,7 @@ route, and renders a standard markup for both, as well as the link with the
 <ConsoleLink route="project.activity.events" />
 
 // becomes:
-// Activity → Logs & Events in the [Ory Console](https://console.ory.com/current/projects/activity/events)
+// Activity → Logs & Events in the [Ory Console](https://console.orystg.com/current/projects/activity/events)
 ```
 
 A list of all supported routes can be found here:

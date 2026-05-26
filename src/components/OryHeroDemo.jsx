@@ -73,7 +73,7 @@ const OryHeroDemo = () => {
     {
       type: "link",
       text: "Create your free project via Ory Console →",
-      url: "https://console.ory.com/",
+      url: "https://console.orystg.com/",
       delay: 400,
     },
   ]
