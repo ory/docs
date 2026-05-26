@@ -65,8 +65,8 @@ Your implementation must:
 
 ### Exponential backoff strategy
 
-When a request returns `429`, back off before retrying. Prefer the server's `x-ratelimit-reset` header when it's present, fall back
-to exponential backoff capped at 30 seconds otherwise, and always add jitter so concurrent clients don't retry in lockstep.
+When a request returns `429`, back off before retrying. Prefer the server's `x-ratelimit-reset` header when it's present, fall
+back to exponential backoff capped at 30 seconds otherwise, and always add jitter so concurrent clients don't retry in lockstep.
 
 ```jsx
 async function callApiWithBackoff(request, maxRetries = 5) {
@@ -75,9 +75,7 @@ async function callApiWithBackoff(request, maxRetries = 5) {
     if (response.status !== 429) return response
 
     const resetAfter = response.headers.get("x-ratelimit-reset")
-    const baseDelay = resetAfter
-      ? parseInt(resetAfter, 10) * 1000
-      : Math.min(Math.pow(2, attempt) * 1000, 30000) // cap at 30s
+    const baseDelay = resetAfter ? parseInt(resetAfter, 10) * 1000 : Math.min(Math.pow(2, attempt) * 1000, 30000) // cap at 30s
 
     const jitter = Math.random() * 1000
     await new Promise((resolve) => setTimeout(resolve, baseDelay + jitter))
