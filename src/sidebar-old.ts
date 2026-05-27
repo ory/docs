@@ -98,10 +98,8 @@ const api: SidebarItemsConfig = [
           id: "guides/rate-limits",
         },
         items: [
-          // ← restored items array
           "guides/rate-limits-legacy",
           {
-            // ← New rate limits as nested category
             type: "category",
             label: "Rate limits - New",
             link: {
