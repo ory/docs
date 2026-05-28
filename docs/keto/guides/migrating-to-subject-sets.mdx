@@ -3,184 +3,96 @@ title: Migrating from subject IDs to subject sets
 sidebar_label: Migrate to subject sets
 ---
 
-Early versions of Ory Permissions supported writing tuples where the subject was a plain string with no namespace — for example
-`File:readme#viewers@user_5`. These are called **subject IDs**. They predate the
-[Ory Permission Language](../reference/ory-permission-language) and have no connection to the namespaces defined in your OPL.
+import CodeTabs from "@site/src/theme/CodeTabs"
 
-The current model uses **subject sets** instead: the subject includes a namespace, such as `File:readme#viewers@User:user_5`.
-The namespace (`User`) refers to a class defined in your OPL, which lets the engine validate and traverse subjects correctly.
+Early versions of Ory Permissions allowed writing tuples where the subject was a plain string with no namespace — for example
+`File:data.txt#viewer@user_alice`. These are called **subject IDs**. They predate the
+[Ory Permission Language](../reference/ory-permission-language) and have no connection to the namespaces in your OPL.
 
-Subject IDs still work in non-strict mode, but strict mode returns an explicit error when it encounters one — because they have
-no namespace, the engine cannot validate them against your OPL. In non-strict mode this produces a silent `allowed: false`
-instead, which looks identical to a legitimate denial.
+The recommended approach is to use **subject sets** instead: a subject that includes a namespace declared in your OPL, such as
+`File:data.txt#viewer@User:alice`. The namespace (`User`) ties the subject to a class in your OPL, which lets the engine validate
+and traverse subjects correctly and faster.
 
-## What to look for
+## Am I affected?
 
-Search your application for any place that writes tuples or performs permission checks using the `subject_id` field of the API
-client. That field is how subject IDs are passed.
+You are affected if your application uses the `subject_id` field anywhere in the API client — either when writing tuples or when
+performing permission checks.
 
-### Writing tuples
+**Writing tuples with subject IDs:**
 
-**Before (subject ID):**
+<CodeTabs sampleId="subject-id-to-subjectset-migration/00-write-subject-id" version="master" />
 
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
+**Checking permissions with subject IDs:**
 
-<Tabs>
-<TabItem value="go" label="Go">
+<CodeTabs sampleId="subject-id-to-subjectset-migration/01-check-subject-id" version="master" />
 
-```go
-payload := ory.CreateRelationshipBody{
-    Namespace: &namespace,
-    Object:    &object,
-    Relation:  &relation,
-    SubjectId: &subjectId, // plain string, no namespace
-}
-```
+## Update your OPL first
 
-</TabItem>
-<TabItem value="python" label="Python">
+Before migrating tuples, make sure your OPL declares a namespace for every subject type you use. If your subject IDs follow a
+naming convention like `user_alice` or `apikey_ci-bot`, decide which OPL namespace each prefix maps to.
 
-```python
-body = ory_client.CreateRelationshipBody(
-    namespace="File",
-    object="readme",
-    relation="viewers",
-    subject_id="user_5",  # plain string, no namespace
-)
-```
-
-</TabItem>
-</Tabs>
-
-**After (subject set):**
-
-<Tabs>
-<TabItem value="go" label="Go">
-
-```go
-subjectNamespace := "User"
-subjectObject := "user_5"
-subjectRelation := ""
-
-payload := ory.CreateRelationshipBody{
-    Namespace: &namespace,
-    Object:    &object,
-    Relation:  &relation,
-    SubjectSet: &ory.SubjectSet{
-        Namespace: subjectNamespace,
-        Object:    subjectObject,
-        Relation:  subjectRelation,
-    },
-}
-```
-
-</TabItem>
-<TabItem value="python" label="Python">
-
-```python
-body = ory_client.CreateRelationshipBody(
-    namespace="File",
-    object="readme",
-    relation="viewers",
-    subject_set=ory_client.SubjectSet(
-        namespace="User",
-        object="user_5",
-        relation="",
-    ),
-)
-```
-
-</TabItem>
-</Tabs>
-
-### Checking permissions
-
-**Before (subject ID):**
-
-<Tabs>
-<TabItem value="go" label="Go">
-
-```go
-check, _, err := ory.PermissionApi.CheckPermission(ctx).
-    Namespace(namespace).
-    Object(object).
-    Relation(relation).
-    SubjectId(subjectId). // plain string, no namespace
-    Execute()
-```
-
-</TabItem>
-<TabItem value="python" label="Python">
-
-```python
-api_instance.check_permission(
-    namespace="File",
-    object="readme",
-    relation="viewers",
-    subject_id="user_5",  # plain string, no namespace
-)
-```
-
-</TabItem>
-</Tabs>
-
-**After (subject set):**
-
-<Tabs>
-<TabItem value="go" label="Go">
-
-```go
-check, _, err := ory.PermissionApi.CheckPermission(ctx).
-    Namespace(namespace).
-    Object(object).
-    Relation(relation).
-    SubjectSetNamespace("User").
-    SubjectSetObject("user_5").
-    SubjectSetRelation("").
-    Execute()
-```
-
-</TabItem>
-<TabItem value="python" label="Python">
-
-```python
-api_instance.check_permission(
-    namespace="File",
-    object="readme",
-    relation="viewers",
-    subject_set_namespace="User",
-    subject_set_object="user_5",
-    subject_set_relation="",
-)
-```
-
-</TabItem>
-</Tabs>
-
-## Update your OPL
-
-Every namespace you reference as a subject must be declared in your OPL. If you migrate subjects to `User:user_5`, make sure
-your OPL includes a `User` class:
+For example, `user_` → `User` and `apikey_` → `ApiKey`:
 
 ```ts
 class User implements Namespace {}
-```
+class ApiKey implements Namespace {}
 
-And the relation that holds them must declare `User` as a valid subject type:
-
-```ts
 class File implements Namespace {
   related: {
-    viewers: User[]
+    viewers: (User | ApiKey)[]
+  }
+  permits = {
+    view: (ctx: Context) => this.related.viewers.includes(ctx.subject),
   }
 }
 ```
 
-## Migrate existing tuples
+## Migration steps
 
-Updating your application code only affects new tuples written going forward. Existing tuples that use subject IDs remain in the
-database and will be ignored by strict mode.
+The following is one recommended migration path that requires no downtime.
 
-You need to backfill: for each old tuple with a subject ID, write a new tuple with the equivalent subject set, then delete the
-old one. Do this before enabling strict mode.
+### Step 1: Dual-write new tuples
+
+For every tuple your application writes, write two: one with the subject ID and one with the subject set. This keeps existing
+permission checks working while the migration is in progress — both representations are present in the database, so neither check
+path is broken.
+
+<CodeTabs sampleId="subject-id-to-subjectset-migration/02-write-both" version="master" />
+
+Deploy this change before moving on. Once deployed, all new tuples have subject set counterparts.
+
+### Step 2: Backfill existing tuples
+
+Paginate through all existing tuples, filter for ones where `subject_id` is set, determine the target namespace from your naming
+convention, and write the subject set equivalent for each. Consider saving the list of processed subject IDs so the backfill is
+resumable if interrupted.
+
+<CodeTabs sampleId="subject-id-to-subjectset-migration/03-migrate-existing" version="master" />
+
+After this step, every subject ID tuple has a subject set twin.
+
+### Step 3: Switch check requests to subject sets
+
+Now that every tuple has a subject set counterpart, update all permission checks to use subject set fields instead of
+`subject_id`. Both representations are still in the database, so existing checks continue to work during rollout.
+
+<CodeTabs sampleId="subject-id-to-subjectset-migration/04-check-subject-set" version="master" />
+
+Deploy this change. Once deployed, all check requests use subject sets.
+
+### Step 4: Remove dual writes
+
+Update your write code to emit only the subject set tuple. Remove the subject ID write added in step 1. Once deployed, new writes
+produce subject sets only. Subject ID tuples that already exist in the database are cleaned up in step 5.
+
+### Step 5: Delete subject ID tuples
+
+Delete all remaining subject ID tuples. This includes the original tuples from before the migration and the subject ID half of any
+dual-write tuples created in step 1.
+
+<CodeTabs sampleId="subject-id-to-subjectset-migration/05-delete-subject-id" version="master" />
+
+If you saved the list of subject IDs during backfill in step 2, you can delete directly from that list. Otherwise, paginate
+through tuples again and delete any where `subject_id` is set.
+
+After this step, only subject set tuples remain. Your application is ready for [strict mode](./strict-mode).
