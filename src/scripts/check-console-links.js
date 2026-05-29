@@ -6,7 +6,7 @@ const fs = require("fs")
 const path = require("path")
 const axios = require("axios")
 
-const CONSOLE_HOST = "console.orystg.com" // target domain to validate
+const CONSOLE_HOST = "console.ory.com" // target domain to validate
 const LEGACY_HOST = "console.ory.sh" // old domain — any match is an error
 
 const SCAN_EXTENSIONS = new Set([".mdx", ".md", ".tsx", ".ts", ".jsx", ".js"])

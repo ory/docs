@@ -9,7 +9,7 @@ export function ContentSection() {
   const items = [
     {
       label: "Ory Console",
-      to: "https://console.orystg.com/registration?flow=e27eca2b-ca8a-4722-8a4e-9c52a20aa0d4",
+      to: "https://console.ory.com/registration?flow=e27eca2b-ca8a-4722-8a4e-9c52a20aa0d4",
       description:
         "Sign up to Ory Network's central console to set up projects, manage users, and configure authentication and authorization flows. Monitor, manage, and develop — all in one place.",
     },
