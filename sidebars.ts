@@ -96,6 +96,7 @@ const api: SidebarItemsConfig = [
           },
         ],
       },
+      "guides/load-performance-testing",
       "guides/ip-allowlist",
       "api/eventual-consistency",
       "kratos/reference/jsonnet",
