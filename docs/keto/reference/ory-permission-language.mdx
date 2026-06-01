@@ -4,7 +4,12 @@ title: Ory Permission Language
 sidebar_label: Ory Permission Language
 ---
 
-OPL is a TypeScript-based language for defining permission models in Ory Permissions.
+Ory Permissions uses a relationship-based access control model (ReBAC): permissions are derived from the relationships between
+objects and subjects stored in the system. OPL is the TypeScript-based language you use to define those relationships and the
+permission rules that use them to control access.
+
+You write OPL to define things like "who can view a file", "whether a group member inherits access", or "whether owning a folder
+grants access to its contents". The schema you define is evaluated by the Ory Permissions engine at check time.
 
 ## Namespaces
 
@@ -20,11 +25,13 @@ Every class must implement `Namespace`.
 
 ## Relations
 
-The `related` block defines who can be associated with an object. Each entry names a relation and declares what subject types it
-holds.
+In OPL, **object** refers to the thing being accessed (for example, a `File`), and **subject** refers to the entity requesting
+access (for example, a `User`). Relations always run in one direction: a subject is in a relation _of_ an object. The `related`
+block on a class (the object) declares which relations it can have and what subject types are allowed in each.
 
 ```ts
 import { Namespace } from "@ory/keto-namespace-types"
+class User implements Namespace {}
 
 class File implements Namespace {
   related: {
@@ -40,6 +47,8 @@ Relations are always arrays because an object can have many subjects. This decla
 User:alice is in viewers of File:readme
 User:bob is in owners of File:readme
 ```
+
+Here, `File:readme` is the object, `User:alice` and `User:bob` are the subjects, and `viewers` and `owners` are the relations.
 
 ### Multiple subject types
 
@@ -58,26 +67,47 @@ Group:engineering is in viewers of File:readme
 
 ### Subject-set references
 
-`SubjectSet<T, R>` refers to the subjects of relation `R` on namespace `T`. Use it when a relation can hold subjects from another
-namespace's relation — for example, a group's members:
+Sometimes you want a relation to include not just individual subjects, but all members of another relation. `SubjectSet<T, R>`
+lets you do this — it refers to all subjects in relation `R` on namespace `T`.
+
+For example, to allow either individual users or all members of a group to view a file:
 
 ```ts
-viewers: (User | SubjectSet<Group, "members">)[]
+class User implements Namespace {}
+
+class Group implements Namespace {
+  related: {
+    members: User[]
+  }
+}
+
+class File implements Namespace {
+  related: {
+    viewers: (User | SubjectSet<Group, "members">)[]
+  }
+}
 ```
 
-This allows writing tuples that point to a group's members rather than a user directly:
+This means a viewer can be either a `User` directly, or any subject in the `members` relation of a `Group`. You can then write a
+tuple that grants access to a whole group at once:
 
 ```keto-natural
 members of Group:engineering is in viewers of File:readme
 ```
 
-A subject can now be either a `User` directly, or any member of the `Group:engineering`.
+This means: every subject in the `members` relation of `Group:engineering` is a viewer of `File:readme`.
 
 ## Permits
 
-The `permits` block defines boolean functions the engine evaluates during a check.
+The `permits` block defines permissions — functions that return a boolean, evaluated when a permission check is made. While
+relations model real-world associations, permissions define application-specific rules built on top of them.
+
+Each permission function receives a `Context` object as its argument. `ctx.subject` refers to the entity whose access is being
+checked — the same subject used in relation tuples.
 
 ```ts
+class User implements Namespace {}
+
 class File implements Namespace {
   related: {
     viewers: User[]
@@ -90,13 +120,20 @@ class File implements Namespace {
 }
 ```
 
+To check membership within a permission function, OPL provides two methods: `includes` for direct membership, and `traverse` for
+inherited membership through another relation.
+
 ### Direct membership: `includes`
 
-`this.related.x.includes(ctx.subject)` checks whether the subject is directly in relation `x`.
+`this.related.<relation>.includes(ctx.subject)` checks whether the subject is directly in relation `<relation>`.
 
-### Following subject-sets: `traverse`
+### Inherited membership: `traverse`
 
-`this.related.x.traverse(g => ...)` iterates over the objects in relation `x` and evaluates the inner expression for each one.
+`this.related.<relation>.traverse(fn)` takes a function and calls it for each object in `<relation>`. It returns `true` if the
+function returns `true` for any of them.
+
+The function receives each object in the relation and can check either a relation (`g.related.<relation>.includes(...)`) or call
+another permission (`g.permits.<permission>(ctx)`).
 
 ```ts
 class Group implements Namespace {
@@ -122,13 +159,11 @@ class File implements Namespace {
 Combine checks with `||`, `&&`, and `!`:
 
 ```ts
-view: (ctx: Context) =>
-  this.related.viewers.includes(ctx.subject) ||
-  this.related.owners.includes(ctx.subject),
+permits = {
+  view: (ctx: Context) => this.related.viewers.includes(ctx.subject) || this.related.owners.includes(ctx.subject),
 
-restricted: (ctx: Context) =>
-  this.related.allowlist.includes(ctx.subject) &&
-  !this.related.blocklist.includes(ctx.subject),
+  restricted: (ctx: Context) => this.related.allowlist.includes(ctx.subject) && !this.related.blocklist.includes(ctx.subject),
+}
 ```
 
 ### Calling another permission
@@ -136,8 +171,8 @@ restricted: (ctx: Context) =>
 A permission can call another permission defined on the same namespace:
 
 ```ts
-edit:  (ctx: Context) => this.related.owners.includes(ctx.subject),
-admin: (ctx: Context) => this.permits.edit(ctx) && this.related.admins.includes(ctx.subject),
+isAdmin: (ctx: Context) => this.related.admins.includes(ctx.subject),
+edit:  (ctx: Context) => this.permits.isAdmin(ctx) || this.related.owners.includes(ctx.subject),
 ```
 
 ## Complete example
@@ -147,13 +182,13 @@ class User implements Namespace {}
 
 class Group implements Namespace {
   related: {
-    members: (User | SubjectSet<Group, "members">)[]
+    members: (User | SubjectSet<Group, "members">)[] // a member can be a User, or all members of another Group (enables nested groups)
   }
 }
 
 class Folder implements Namespace {
   related: {
-    viewers: (User | SubjectSet<Group, "members">)[]
+    viewers: (User | SubjectSet<Group, "members">)[] // a viewer can be a User directly, or all members of a Group
   }
   permits = {
     view: (ctx: Context) => this.related.viewers.includes(ctx.subject),
@@ -162,7 +197,7 @@ class Folder implements Namespace {
 
 class File implements Namespace {
   related: {
-    parents: Folder[]
+    parents: Folder[] // the Folders this file is nested under, used to inherit permissions
     viewers: (User | SubjectSet<Group, "members">)[]
     owners: (User | SubjectSet<Group, "members">)[]
   }
@@ -170,7 +205,7 @@ class File implements Namespace {
     view: (ctx: Context) =>
       this.related.viewers.includes(ctx.subject) ||
       this.related.owners.includes(ctx.subject) ||
-      this.related.parents.traverse((p) => p.permits.view(ctx)),
+      this.related.parents.traverse((p) => p.permits.view(ctx)), // grants view if the subject has view permission on any parent Folder
     edit: (ctx: Context) => this.related.owners.includes(ctx.subject),
   }
 }
@@ -178,6 +213,6 @@ class File implements Namespace {
 
 This schema models:
 
-- Direct access via `viewers` and `owners`
-- Group-based access via `SubjectSet<Group, "members">`
-- Inherited access from parent folders via `traverse`
+- A `File` can have individual users or group members as viewers or owners
+- A `Group` can contain other groups, enabling nested membership
+- A `File` can inherit view permission from its parent `Folder`
