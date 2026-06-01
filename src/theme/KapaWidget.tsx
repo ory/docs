@@ -30,6 +30,7 @@ export default function KapaWidget() {
     script.setAttribute("data-modal-open-by-default", "true")
     script.setAttribute("data-mcp-enabled", "true")
     script.setAttribute("data-mcp-server-url", "https://ory-docs.mcp.kapa.ai")
+    script.setAttribute("data-bot-protection-mechanism", "hcaptcha")
     script.onload = () => setIsScriptLoaded(true)
     document.body.appendChild(script)
   }
