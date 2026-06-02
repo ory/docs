@@ -50,6 +50,10 @@ describe("ketoRelationsPermissionsPrism", () => {
       name: "allowed to with 'to': User:Bob is allowed to access to Document:X",
       input: "User:Bob is allowed to access to Document:X",
     },
+    {
+      name: "allowed to with relation containing dot: User:Bob is allowed to perform users.list on Document:X",
+      input: "User:Bob is allowed to perform users.list on Document:X",
+    },
   ]
 
   const questionTestCases = [

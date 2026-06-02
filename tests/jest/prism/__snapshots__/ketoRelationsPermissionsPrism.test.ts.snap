@@ -1,5 +1,376 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ketoRelationsPermissionsPrism declarative: allowed to simple: User:Bob is allowed to read Document:X should tokenize: "User:Bob is allowed to read Document:X" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "User",
+            "length": 4,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Bob",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 8,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "is",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "allowed to",
+        "length": 10,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "read",
+        "length": 4,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "X",
+            "length": 1,
+            "type": "id",
+          },
+        ],
+        "length": 10,
+        "type": "object",
+      },
+    ],
+    "length": 38,
+    "type": "natural",
+  },
+]
+`;
+
+exports[`ketoRelationsPermissionsPrism declarative: allowed to with 'to': User:Bob is allowed to access to Document:X should tokenize: "User:Bob is allowed to access to Document:X" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "User",
+            "length": 4,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Bob",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 8,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "is",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "allowed to",
+        "length": 10,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "access",
+        "length": 6,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "to",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "X",
+            "length": 1,
+            "type": "id",
+          },
+        ],
+        "length": 10,
+        "type": "object",
+      },
+    ],
+    "length": 43,
+    "type": "natural",
+  },
+]
+`;
+
+exports[`ketoRelationsPermissionsPrism declarative: allowed to with relation containing dot: User:Bob is allowed to perform users.list on Document:X should tokenize: "User:Bob is allowed to perform users.list on Document:X" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "User",
+            "length": 4,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Bob",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 8,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "is",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "allowed to",
+        "length": 10,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "perform",
+        "length": 7,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "users.list",
+        "length": 10,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "on",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "X",
+            "length": 1,
+            "type": "id",
+          },
+        ],
+        "length": 10,
+        "type": "object",
+      },
+    ],
+    "length": 55,
+    "type": "natural",
+  },
+]
+`;
+
+exports[`ketoRelationsPermissionsPrism declarative: allowed to with subject relation: members of Group:Eng is allowed to read Document:X should tokenize: "members of Group:Eng is allowed to read Document:X" 1`] = `
+[
+  Token {
+    "alias": undefined,
+    "content": [
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "members",
+            "length": 7,
+            "type": "subjectRelation",
+          },
+          " ",
+          Token {
+            "alias": undefined,
+            "content": "of",
+            "length": 2,
+            "type": "keyword",
+          },
+          " ",
+          Token {
+            "alias": undefined,
+            "content": "Group",
+            "length": 5,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "Eng",
+            "length": 3,
+            "type": "id",
+          },
+        ],
+        "length": 20,
+        "type": "subject",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "is",
+        "length": 2,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "allowed to",
+        "length": 10,
+        "type": "keyword",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": "read",
+        "length": 4,
+        "type": "permit",
+      },
+      " ",
+      Token {
+        "alias": undefined,
+        "content": [
+          Token {
+            "alias": undefined,
+            "content": "Document",
+            "length": 8,
+            "type": "namespace",
+          },
+          Token {
+            "alias": undefined,
+            "content": ":",
+            "length": 1,
+            "type": "delimiter",
+          },
+          Token {
+            "alias": undefined,
+            "content": "X",
+            "length": 1,
+            "type": "id",
+          },
+        ],
+        "length": 10,
+        "type": "object",
+      },
+    ],
+    "length": 50,
+    "type": "natural",
+  },
+]
+`;
+
 exports[`ketoRelationsPermissionsPrism declarative: lowercase simple: user:bob is owner of document:x should tokenize: "user:bob is owner of document:x" 1`] = `
 [
   Token {
@@ -927,279 +1298,6 @@ exports[`ketoRelationsPermissionsPrism question: simple question: is User:Bob al
     ],
     "length": 41,
     "type": "natural-check",
-  },
-]
-`;
-
-exports[`ketoRelationsPermissionsPrism declarative: allowed to simple: User:Bob is allowed to read Document:X should tokenize: "User:Bob is allowed to read Document:X" 1`] = `
-[
-  Token {
-    "alias": undefined,
-    "content": [
-      Token {
-        "alias": undefined,
-        "content": [
-          Token {
-            "alias": undefined,
-            "content": "User",
-            "length": 4,
-            "type": "namespace",
-          },
-          Token {
-            "alias": undefined,
-            "content": ":",
-            "length": 1,
-            "type": "delimiter",
-          },
-          Token {
-            "alias": undefined,
-            "content": "Bob",
-            "length": 3,
-            "type": "id",
-          },
-        ],
-        "length": 8,
-        "type": "subject",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": "is",
-        "length": 2,
-        "type": "keyword",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": "allowed to",
-        "length": 10,
-        "type": "keyword",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": "read",
-        "length": 4,
-        "type": "permit",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": [
-          Token {
-            "alias": undefined,
-            "content": "Document",
-            "length": 8,
-            "type": "namespace",
-          },
-          Token {
-            "alias": undefined,
-            "content": ":",
-            "length": 1,
-            "type": "delimiter",
-          },
-          Token {
-            "alias": undefined,
-            "content": "X",
-            "length": 1,
-            "type": "id",
-          },
-        ],
-        "length": 10,
-        "type": "object",
-      },
-    ],
-    "length": 38,
-    "type": "natural",
-  },
-]
-`;
-
-exports[`ketoRelationsPermissionsPrism declarative: allowed to with subject relation: members of Group:Eng is allowed to read Document:X should tokenize: "members of Group:Eng is allowed to read Document:X" 1`] = `
-[
-  Token {
-    "alias": undefined,
-    "content": [
-      Token {
-        "alias": undefined,
-        "content": [
-          Token {
-            "alias": undefined,
-            "content": "members",
-            "length": 7,
-            "type": "subjectRelation",
-          },
-          " ",
-          Token {
-            "alias": undefined,
-            "content": "of",
-            "length": 2,
-            "type": "keyword",
-          },
-          " ",
-          Token {
-            "alias": undefined,
-            "content": "Group",
-            "length": 5,
-            "type": "namespace",
-          },
-          Token {
-            "alias": undefined,
-            "content": ":",
-            "length": 1,
-            "type": "delimiter",
-          },
-          Token {
-            "alias": undefined,
-            "content": "Eng",
-            "length": 3,
-            "type": "id",
-          },
-        ],
-        "length": 20,
-        "type": "subject",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": "is",
-        "length": 2,
-        "type": "keyword",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": "allowed to",
-        "length": 10,
-        "type": "keyword",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": "read",
-        "length": 4,
-        "type": "permit",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": [
-          Token {
-            "alias": undefined,
-            "content": "Document",
-            "length": 8,
-            "type": "namespace",
-          },
-          Token {
-            "alias": undefined,
-            "content": ":",
-            "length": 1,
-            "type": "delimiter",
-          },
-          Token {
-            "alias": undefined,
-            "content": "X",
-            "length": 1,
-            "type": "id",
-          },
-        ],
-        "length": 10,
-        "type": "object",
-      },
-    ],
-    "length": 50,
-    "type": "natural",
-  },
-]
-`;
-
-exports[`ketoRelationsPermissionsPrism declarative: allowed to with 'to': User:Bob is allowed to access to Document:X should tokenize: "User:Bob is allowed to access to Document:X" 1`] = `
-[
-  Token {
-    "alias": undefined,
-    "content": [
-      Token {
-        "alias": undefined,
-        "content": [
-          Token {
-            "alias": undefined,
-            "content": "User",
-            "length": 4,
-            "type": "namespace",
-          },
-          Token {
-            "alias": undefined,
-            "content": ":",
-            "length": 1,
-            "type": "delimiter",
-          },
-          Token {
-            "alias": undefined,
-            "content": "Bob",
-            "length": 3,
-            "type": "id",
-          },
-        ],
-        "length": 8,
-        "type": "subject",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": "is",
-        "length": 2,
-        "type": "keyword",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": "allowed to",
-        "length": 10,
-        "type": "keyword",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": "access",
-        "length": 6,
-        "type": "permit",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": "to",
-        "length": 2,
-        "type": "keyword",
-      },
-      " ",
-      Token {
-        "alias": undefined,
-        "content": [
-          Token {
-            "alias": undefined,
-            "content": "Document",
-            "length": 8,
-            "type": "namespace",
-          },
-          Token {
-            "alias": undefined,
-            "content": ":",
-            "length": 1,
-            "type": "delimiter",
-          },
-          Token {
-            "alias": undefined,
-            "content": "X",
-            "length": 1,
-            "type": "id",
-          },
-        ],
-        "length": 10,
-        "type": "object",
-      },
-    ],
-    "length": 43,
-    "type": "natural",
   },
 ]
 `;

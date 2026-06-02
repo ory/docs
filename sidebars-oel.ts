@@ -72,6 +72,7 @@ const oelSidebar = [
               "kratos/guides/https-tls",
               "kratos/guides/hosting-own-have-i-been-pwned-api",
               "kratos/guides/secret-key-rotation",
+              "kratos/passwordless/deviceauthn",
               {
                 type: "category",
                 label: "Troubleshooting",

@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useCallback } from "react"
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react"
 
 export type QuickstartsDeploymentId = "network" | "oel" | "oss"
 
@@ -19,6 +25,13 @@ export function QuickstartsDeploymentProvider({
 }) {
   const [deployment, setDeploymentState] =
     useState<QuickstartsDeploymentId>(initialDeployment)
+
+  // Keep context in sync with explicitly segmented URLs (e.g. /docs/oel/...).
+  useEffect(() => {
+    if (initialDeployment === "network") return
+    setDeploymentState(initialDeployment)
+  }, [initialDeployment])
+
   const setDeployment = useCallback((id: QuickstartsDeploymentId) => {
     setDeploymentState(id)
   }, [])
