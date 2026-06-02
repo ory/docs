@@ -23,6 +23,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "API gateways",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/api-gateways/apigee",
           "integrates-with/api-gateways/aws-api-gateway",
@@ -33,6 +34,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "CDP and analytics",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/cdp-analytics/amplitude",
           "integrates-with/cdp-analytics/mailchimp",
@@ -44,6 +46,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Cloud infrastructure",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/cloud-infrastructure/aws",
           "integrates-with/cloud-infrastructure/azure",
@@ -53,6 +56,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Compliance and audit",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/compliance-audit/drata",
           "integrates-with/compliance-audit/vanta",
@@ -61,6 +65,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Consent and privacy",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/consent-privacy/didomi",
           "integrates-with/consent-privacy/onetrust",
@@ -70,6 +75,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Containerization",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/containerization/docker",
           "integrates-with/containerization/kubernetes",
@@ -78,6 +84,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "CRM",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/crm/microsoft-dynamics-365",
           "integrates-with/crm/salesforce-crm",
@@ -91,6 +98,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Directory sync",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/directory-sync/bamboohr",
           "integrates-with/directory-sync/workday-scim",
@@ -100,6 +108,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Edge token validation",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/edge-token-validation/akamai-edgeworkers",
           "integrates-with/edge-token-validation/cloudflare-workers",
@@ -109,6 +118,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Email providers",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/email-providers/brevo",
           "integrates-with/email-providers/mailchimp-transactional",
@@ -118,6 +128,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Enterprise SSO",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/enterprise-sso/cyberark-identity",
           "integrates-with/enterprise-sso/forgerock-am",
@@ -129,6 +140,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Feature flags",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/feature-flags/launchdarkly",
           "integrates-with/feature-flags/split-io",
@@ -137,6 +149,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Fraud and bot protection",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/fraud-bot-protection/arkose-labs",
           "integrates-with/fraud-bot-protection/castle",
@@ -149,6 +162,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Government identity",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/government-identity/aadhaar",
           "integrates-with/government-identity/bankid",
@@ -164,6 +178,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Identity verification",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/identity-verification/equifax",
           "integrates-with/identity-verification/gbg-acuant",
@@ -174,6 +189,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "MFA",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/mfa/duo-security",
           "integrates-with/mfa/okta-verify",
@@ -187,6 +203,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Payment and billing",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/payment-billing/recurly",
           "integrates-with/payment-billing/stripe",
@@ -195,6 +212,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "SIEM and security analytics",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/siem-security-analytics/elastic-siem",
           "integrates-with/siem-security-analytics/microsoft-sentinel",
@@ -205,6 +223,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "SMS providers",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/sms-providers/messagebird",
           "integrates-with/sms-providers/plivo",
@@ -217,6 +236,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Social sign-in",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/social-sign-in/battle-net",
           "integrates-with/social-sign-in/epic-games",
@@ -232,6 +252,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Support and helpdesk",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/support-helpdesk/freshdesk",
           "integrates-with/support-helpdesk/intercom",
@@ -241,6 +262,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "User enrichment",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/user-enrichment/clearbit",
           "integrates-with/user-enrichment/fullcontact",
@@ -250,6 +272,7 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Webhook infrastructure",
+        link: { type: "generated-index" },
         items: [
           "integrates-with/webhook-infrastructure/hookdeck",
           "integrates-with/webhook-infrastructure/svix",
