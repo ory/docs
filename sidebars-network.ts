@@ -340,6 +340,8 @@ const networkSidebar = [
                   "actions/revoke-active-sessions",
                   "actions/session",
                   "actions/require-verified-address",
+                  "actions/verify-new-address",
+                  "actions/notify-previous-addresses",
                   {
                     type: "category",
                     label: "Integrations",
