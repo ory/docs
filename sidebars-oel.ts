@@ -562,9 +562,9 @@ const oelSidebar = [
                   "talos/operate/database/talos-postgresql",
                   "talos/operate/database/talos-sqlite",
                   "talos/operate/database/talos-mysql",
-                  ], 
-                },
-                {
+                ],
+              },
+              {
                 type: "category",
                 label: "Monitoring",
                 items: [
@@ -572,10 +572,10 @@ const oelSidebar = [
                   "talos/operate/monitoring/talos-health-checks",
                   "talos/operate/monitoring/talos-prometheus-metrics",
                   "talos/operate/monitoring/talos-opentelemetry",
-                  ], 
-                },
-              ],
-            },
+                ],
+              },
+            ],
+          },
           {
             type: "category",
             label: "Reference",
