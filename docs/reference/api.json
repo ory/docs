@@ -930,7 +930,7 @@
             "type": "boolean"
           },
           "hydra_oauth2_exclude_not_before_claim": {
-            "description": "Set to true if you want to exclude claim `nbf (not before)` part of access token.\n\nThis governs the \"oauth2.exclude_not_before_claim\" setting.",
+            "description": "Set to true if you want to omit the `nbf` (not valid before) claim in the access token.\n\nThis governs the \"oauth2.exclude_not_before_claim\" setting.",
             "type": "boolean"
           },
           "hydra_oauth2_grant_jwt_iat_optional": {
@@ -7051,7 +7051,7 @@
             "type": "boolean"
           },
           "hydra_oauth2_exclude_not_before_claim": {
-            "description": "Set to true if you want to exclude claim `nbf (not before)` part of access token.\n\nThis governs the \"oauth2.exclude_not_before_claim\" setting.",
+            "description": "Set to true if you want to omit the `nbf` (not valid before) claim in the access token.\n\nThis governs the \"oauth2.exclude_not_before_claim\" setting.",
             "type": "boolean"
           },
           "hydra_oauth2_grant_jwt_iat_optional": {
