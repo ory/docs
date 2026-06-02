@@ -26,7 +26,7 @@ export const SIDEBAR_PRODUCT_LABELS: Record<string, SidebarProductLabel> = {
   },
   talos: {
     productName: "Ory Talos",
-    domain: "API Key Management"
+    domain: "API Keys"
   },
   network: {
     productName: "Ory Network",
