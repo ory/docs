@@ -2736,6 +2736,11 @@
           "label": {
             "description": "Label contains the organization's label.",
             "type": "string"
+          },
+          "session_lifespan": {
+            "description": "SessionLifespan overrides the project-level session.lifespan for sessions\nissued for this organization. A Go duration string between 1m and 8760h\n(e.g. \"1h\", \"24h\"). Send \"\" to clear and inherit the project default. Omit\nto leave the existing value unchanged on update.",
+            "example": "24h",
+            "type": "string"
           }
         },
         "type": "object"
@@ -3549,6 +3554,12 @@
           },
           "label": {
             "description": "The organization's human-readable label.",
+            "type": "string"
+          },
+          "session_lifespan": {
+            "description": "SessionLifespan overrides the project-level session lifespan for sessions\nissued for this organization. A Go duration string between 1m and 8760h.\nA null (or zero) value means the project default applies.",
+            "example": "24h",
+            "pattern": "^[0-9]+(s|m|h)$",
             "type": "string"
           }
         },
@@ -9682,6 +9693,12 @@
           "label": {
             "description": "The organization's human-readable label.",
             "type": "string"
+          },
+          "session_lifespan": {
+            "description": "SessionLifespan overrides the project-level session lifespan for sessions\nissued for this organization. A Go duration string between 1m and 8760h.\nA null (or zero) value means the project default applies.",
+            "example": "24h",
+            "pattern": "^[0-9]+(s|m|h)$",
+            "type": "string"
           }
         },
         "required": ["id", "label", "domains", "created_at"],
@@ -13601,6 +13618,12 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "session_lifespan": {
+            "description": "SessionLifespan overrides the project-level session lifespan for sessions\nissued for this organization. A Go duration string between 1m and 8760h.\nA null (or zero) value means the project default applies.",
+            "example": "24h",
+            "pattern": "^[0-9]+(s|m|h)$",
+            "type": "string"
           }
         },
         "required": ["id", "label", "domains", "created_at", "providers"],
