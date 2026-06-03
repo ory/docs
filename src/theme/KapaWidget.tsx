@@ -1,7 +1,22 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { useLocation } from "@docusaurus/router"
+
+const EXCLUDED_PATHS = ["/docs/kratos/fallback/error"]
 
 export default function KapaWidget() {
   const [isScriptLoaded, setIsScriptLoaded] = useState(false)
+  const { pathname } = useLocation()
+  const isExcluded = EXCLUDED_PATHS.includes(pathname)
+
+  useEffect(() => {
+    if (isExcluded && typeof window !== "undefined" && (window as any).Kapa) {
+      ;(window as any).Kapa("unmount")
+    }
+  }, [isExcluded])
+
+  if (isExcluded) {
+    return null
+  }
 
   const loadKapaWidget = () => {
     if (isScriptLoaded) {
