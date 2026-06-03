@@ -10,6 +10,24 @@ token usage. With this feature enabled, a refresh token remains valid within a d
 without immediate invalidation. This can be beneficial in scenarios where network issues or delayed token exchanges may otherwise
 disrupt session continuity.
 
+:::warning This is a workaround, not a best practice
+
+Graceful refresh token rotation should only be used if a client implementation **absolutely cannot be fixed**.
+
+Single-use refresh tokens are a key security feature: they enable refresh token reuse detection, which lets Ory detect and shut
+down stolen or replayed tokens. Enabling graceful token rotation effectively **disables this security feature** for the duration
+of the grace period, because the same refresh token can be redeemed multiple times without triggering reuse detection.
+
+The correct fix is almost always to fix the client so that it handles refresh token rotation correctly (for example, by
+serializing concurrent token refreshes and persisting the newly issued refresh token). For a detailed explanation of why clients
+break with single-use refresh tokens and how to fix them, see
+[Client cannot handle refresh token rotation](../debug.mdx#refresh-token-flow-fails).
+
+Enabling graceful token rotation also typically **increases latency on the `/oauth2/token` endpoint**, because concurrent
+refreshes of the same token chain contend for the same database rows. Fixing the client avoids this contention entirely.
+
+:::
+
 When enabled, using a refresh token marks it as "used" in the database and increments the "usage counter" for that token. Further,
 the token's expiration time is increased by the duration of the configured grace period. As long as the grace period is active and
 the reuse counter does not exceed the configured limit, subsequent token refreshes will return new access and refresh tokens. All
