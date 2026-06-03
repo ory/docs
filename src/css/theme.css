@@ -32,6 +32,7 @@
   --color-ory-product-oathkeeper: #f472b6;
   --color-ory-product-polis: #fbbf24;
   --color-ory-product-elements: #6366f1;
+  --color-ory-product-talos: #383bca;
 
   --text-ory-heading-1: 40px;
   --text-ory-heading-1--line-height: 1.25;
@@ -340,6 +341,7 @@ h2.ory-section-heading {
   --icon-keto-tertiary: #22c55e;
   --icon-oathkeeper-tertiary: #ec4899;
   --icon-polis-tertiary: #eab308;
+  --icon-talos-tertiary: hsl(206, 91%, 51%);
   --icon-network-tertiary: #6366f1;
   --icon-oel-tertiary: #5ae4fc;
   --icon-oss-tertiary: #334155;
@@ -1363,6 +1365,13 @@ button.sidebar-deployment-model__link {
   > .menu__link
   > span::before {
   background-color: var(--icon-polis-tertiary);
+}
+
+.sidebar-icon-talos
+  > .menu__list-item-collapsible
+  > .menu__link
+  > span::before {
+  background-color: var(--icon-talos-tertiary);
 }
 
 .sidebar-icon-network
