@@ -12,11 +12,11 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 
 ## talos keys derive-token
 
-Derive a short-lived JWT or macaroon from an existing API key
+Derive a new derived token from an existing API key
 
 ### Synopsis
 
-Derives a short-lived JWT or macaroon token from an existing opaque API key.
+Derives a new short-lived derived token from an existing opaque API key. The output will be a JWT or Macaroon token.
 
 ```
 talos keys derive-token [api-key-token] [flags]
@@ -30,13 +30,13 @@ talos keys derive-token [api-key-token] [flags]
       --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help               help for derive-token
   -q, --quiet              Be quiet with output printing.
-      --ttl string         Token time-to-live duration (default "1h")
+      --ttl string         Token time-to-live duration (e.g. '24h', '168h') (default "1h")
 ```
 
 ### Options inherited from parent commands
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
 ```
 

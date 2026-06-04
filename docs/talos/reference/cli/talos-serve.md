@@ -18,12 +18,13 @@ Start the Ory Talos server (all-in-one mode)
 
 Starts the HTTP server for the API key service in all-in-one mode.
 
-This mode runs both admin plane (management) and data plane (verification) in a single process.
+This mode runs both admin (management) and public endpoints in a single process.
 
-For production deployments with high-throughput verification workloads, consider using:
+For production deployments where admin and public surfaces should be isolated (different network boundaries, different scaling
+profiles, etc.), consider running them as separate processes:
 
-- `serve check` for data plane only (verification with caching)
-- `serve admin` for admin plane only (management operations)
+- 'serve public' for public-facing endpoints only (no admin privileges)
+- 'serve admin' for admin endpoints only (management and verification)
 
 ```
 talos serve [flags]
@@ -44,12 +45,12 @@ talos serve [flags]
 ### Options inherited from parent commands
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
 ```
 
 ### See also
 
-- [talos](talos.md) Multi-tenant API key management service
-- [talos serve admin](talos-serve-admin.md) - Start the admin plane server (management only)
-- [talos serve check](talos-serve-check.md) - Start the data plane server (verification only)
+- [talos](talos.md) Multi-network API key service
+- [talos serve admin](talos-serve-admin.md) - Run only the admin endpoints
+- [talos serve public](talos-serve-public.md) - Run only the public-facing endpoints

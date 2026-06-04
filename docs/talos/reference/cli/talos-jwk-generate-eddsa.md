@@ -43,7 +43,7 @@ talos jwk generate eddsa [flags]
 ```
   -h, --help            help for eddsa
       --jwks            Output as JWKS (JSON Web Key Set)
-      --kid string      Key ID (JWK Thumbprint used if not provided)
+      --kid string      Key ID (RFC 7638 JWK thumbprint used if not provided)
   -o, --output string   Output file (writes to stdout if not specified)
       --public-only     Output public key only
       --use string      Key usage: 'sig' for signing, 'enc' for encryption (default: sig)
@@ -52,7 +52,7 @@ talos jwk generate eddsa [flags]
 ### Options inherited from parent commands
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
 ```
 

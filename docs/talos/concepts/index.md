@@ -1,18 +1,15 @@
 ---
-id: index
 title: Concepts
-sidebar_label: Core ideas
+description: How Ory Talos works, from credential types to the security model.
 ---
 
-# Core ideas
+The credential types, formats, and security model behind Ory Talos.
 
-Core ideas behind Ory Talos.
-
-- [Architecture](architecture.md) — admin plane and data plane separation
-- [Credential types](credential-types.md) — generated keys, imported keys, JWTs, macaroons
-- [Token format](token-format.md) — v1 key format specification
+- [Architecture](architecture.mdx) — editions, deployment shapes, and the design choices that matter when you adopt or operate
+  Talos
+- [Credential types](credential-types.md) — issued keys, imported keys, derived JWTs, and derived macaroons
+- [Token format](token-format.md) — the v1 format for issued API keys
 - [Security model](security-model.md) — cryptographic primitives and tenant isolation
 - [Caching and consistency](caching.md) — verification caching and revocation propagation
-- [Token derivation security](token-derivation-security.md) — stateless verification and revocation semantics
-- [Rate limiting](rate-limiting.md) — rate limit metadata on API keys
-- [IP restrictions](ip-restrictions.md) — CIDR-based access control for API keys
+- [Rate limiting](rate-limiting.md) — per-key rate limit policies and enforcement by edition
+- [IP restrictions](ip-restrictions.md) — CIDR allowlists that restrict which IPs can use a key

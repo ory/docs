@@ -18,10 +18,15 @@ Run all pending migrations
 
 Apply all pending migrations to the database.
 
-The database connection string can be provided via:
+The database connection string is resolved in this order (first match wins):
 
-- DB_DSN environment variable
-- --database flag (overrides DB_DSN)
+1. --database flag
+2. DB_DSN environment variable
+3. DSN environment variable
+4. --config file's "db.dsn" key
+
+The DSN scheme selects the driver. SQLite accepts both sqlite:// and sqlite3:// prefixes; postgres:// and postgresql:// are
+aliases (same for cockroach:// and cockroachdb://).
 
 ```
 talos migrate up [flags]
@@ -54,7 +59,7 @@ talos migrate up [flags]
 ### Options inherited from parent commands
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
 ```
 

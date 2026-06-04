@@ -29,7 +29,7 @@ Get, list, update, and rotate issued API keys.
 ### Options inherited from parent commands
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
 ```
 
@@ -39,5 +39,6 @@ Get, list, update, and rotate issued API keys.
 - [talos keys issued get](talos-keys-issued-get.md) - Get details of an issued API key
 - [talos keys issued issue](talos-keys-issued-issue.md) - Issue a new API key
 - [talos keys issued list](talos-keys-issued-list.md) - List issued API keys
+- [talos keys issued revoke](talos-keys-issued-revoke.md) - Revoke an issued API key
 - [talos keys issued rotate](talos-keys-issued-rotate.md) - Rotate an issued API key (revokes old key, creates new one)
 - [talos keys issued update](talos-keys-issued-update.md) - Update an issued API key

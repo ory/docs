@@ -4,9 +4,9 @@
       "content": {
         "application/json": {
           "schema": {
-            "description": "SelfRevokeAPIKeyResponse is returned on successful self-revocation.\n\nEmpty on success",
+            "description": "SelfRevokeApiKeyResponse is returned on successful self-revocation.\n\nEmpty on success",
             "type": "object",
-            "title": "v2alpha1SelfRevokeAPIKeyResponse"
+            "title": "SelfRevokeApiKeyResponse"
           }
         }
       },
@@ -23,14 +23,14 @@
                   "additionalProperties": {},
                   "properties": { "@type": { "type": "string" } },
                   "type": "object",
-                  "title": "protobufAny"
+                  "title": "Any"
                 },
                 "type": "array"
               },
               "message": { "type": "string" }
             },
             "type": "object",
-            "title": "rpcStatus"
+            "title": "Status"
           }
         }
       },

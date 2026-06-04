@@ -1,29 +1,25 @@
 ---
-id: talos-ip-restrictions
 title: IP restrictions
 description: Restrict API key usage to specific IP addresses or CIDR ranges
-sidebar_label: IP restrictions
 ---
 
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 
-# IP restrictions
-
-IP restrictions let you limit which client IPs can use an API key. When enabled, verification rejects requests from IPs outside
-the allowed CIDR ranges. Keys without IP restrictions are unrestricted.
+IP restrictions limit which client IPs can use an API key. Verification rejects requests from IPs outside the allowed CIDR ranges.
+Keys without IP restrictions accept requests from any IP.
 
 ## Prerequisites
 
-A running Talos server. See the [quickstart](../quickstart/index.mdx) to start one locally.
+A running Ory Talos server. See the [quickstart](../quickstart/open-source.mdx) to start one locally.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
 
 ## Configure client IP source
 
-By default, Talos uses the TCP remote address (`REMOTE_ADDR`) to determine client IP. If your server runs behind a reverse proxy
-or CDN, configure the correct header in your Talos config:
+By default, Ory Talos uses the TCP remote address (`REMOTE_ADDR`) to determine the client IP. If your server runs behind a reverse
+proxy or CDN, configure the correct header in your Ory Talos config:
 
 ```yaml
 serve:
@@ -34,12 +30,13 @@ serve:
 Supported values:
 
 - `CLIENT_IP_SOURCE_UNSPECIFIED` or `CLIENT_IP_SOURCE_REMOTE_ADDR` — TCP remote address (default)
-- `CLIENT_IP_SOURCE_CF_CONNECTING_IP` — Cloudflare
-- `CLIENT_IP_SOURCE_X_FORWARDED_FOR` — Standard proxy header
-- `CLIENT_IP_SOURCE_X_REAL_IP` — Nginx
-- `CLIENT_IP_SOURCE_TRUE_CLIENT_IP` — Cloudflare Enterprise
+- `CLIENT_IP_SOURCE_CF_CONNECTING_IP` — `Cf-Connecting-Ip`, behind Cloudflare
+- `CLIENT_IP_SOURCE_X_FORWARDED_FOR` — `X-Forwarded-For` (leftmost IP), behind a standard reverse proxy
+- `CLIENT_IP_SOURCE_X_REAL_IP` — `X-Real-Ip`, behind NGINX
+- `CLIENT_IP_SOURCE_TRUE_CLIENT_IP` — `True-Client-Ip`, behind Akamai or Cloudflare Enterprise
 
-This is a global setting — all IP restriction checks use the same source. Set it once to match your infrastructure topology.
+The setting is global: all IP restriction checks use the same source. If the selected header is empty, Talos falls back to the TCP
+remote address. Talos reads this value per request, so changes take effect without a restart.
 
 ## Issue a key with IP restrictions
 
@@ -51,7 +48,7 @@ suffix) and CIDR ranges:
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 RESPONSE=$(talos keys issue "restricted-key" \
   --actor service_payments \
   --allowed-cidrs "127.0.0.1/32,10.0.0.0/8" \
@@ -67,7 +64,7 @@ export KEY_ID=$(echo "$RESPONSE" | jq -er '.issued_api_key.key_id')
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{
@@ -98,14 +95,14 @@ When the client IP is within an allowed CIDR range, verification succeeds:
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 talos keys verify "$API_SECRET" -e "$TALOS_URL"
 ```
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 VERIFY_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -d "{\"credential\": \"$API_SECRET\"}")
@@ -116,9 +113,9 @@ echo "$VERIFY_RESPONSE" | jq .
 </TabItem>
 </Tabs>
 
-The response includes the key metadata with `is_active: true`.
+The response includes the key metadata with `is_valid: true`.
 
-## Verification from a disallowed IP
+## Verify from a disallowed IP
 
 When the client IP is outside all allowed CIDR ranges, verification returns `VERIFICATION_ERROR_IP_NOT_ALLOWED`. The response does
 not reveal which CIDRs are configured.
@@ -135,7 +132,7 @@ Use `PATCH` to add, change, or remove IP restrictions on an existing key:
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 talos keys issued update "$KEY_ID" \
   --allowed-cidrs "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16" \
   -e "$TALOS_URL"
@@ -144,7 +141,7 @@ talos keys issued update "$KEY_ID" \
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 UPDATE_RESPONSE=$(curl -s -X PATCH "$TALOS_URL/v2alpha1/admin/issuedApiKeys/$KEY_ID" \
   -H "Content-Type: application/json" \
   -d '{
@@ -159,14 +156,14 @@ echo "$UPDATE_RESPONSE" | jq .
 </TabItem>
 </Tabs>
 
-To remove all IP restrictions (making the key unrestricted), set `allowed_cidrs` to an empty array:
+To remove all IP restrictions and allow requests from any IP, set `allowed_cidrs` to an empty array:
 
 <!-- doctest:exec -->
 
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 talos keys issued update "$KEY_ID" \
   --allowed-cidrs "" \
   -e "$TALOS_URL"
@@ -175,7 +172,7 @@ talos keys issued update "$KEY_ID" \
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 UNRESTRICT_RESPONSE=$(curl -s -X PATCH "$TALOS_URL/v2alpha1/admin/issuedApiKeys/$KEY_ID" \
   -H "Content-Type: application/json" \
   -d '{
@@ -195,14 +192,14 @@ For the complete update field reference, see the
 
 ## Import keys with IP restrictions
 
-You can also set IP restrictions when importing external keys:
+Set IP restrictions when you import external keys:
 
 <!-- doctest:exec -->
 
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 talos keys imported import "imported-restricted" \
   --raw-key "sk_live_example_key_for_import_test" \
   --actor "user_restrict" \
@@ -213,7 +210,7 @@ talos keys imported import "imported-restricted" \
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 IMPORT_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{
@@ -235,12 +232,12 @@ For the complete import field reference, see the [ImportAPIKey API reference](..
 
 ## Behavior notes
 
-- **Allowlist model**: Only listed CIDRs are permitted. An empty `allowed_cidrs` array means the key is unrestricted (all IPs
-  allowed).
-- **Cache TTL**: IP restriction changes take effect after the cache TTL expires. See
-  [cache configuration](../operate/cache/index.md) for TTL settings.
-- **Fail-closed**: If client IP resolution fails, the request is denied.
-- **IPv4 and IPv6**: Both address families are supported. Use `/32` for single IPv4 addresses and `/128` for single IPv6
-  addresses.
-- **Derived tokens**: IP restrictions apply to the underlying API key, not to derived tokens (JWTs/macaroons). Token verification
-  checks the key's IP restrictions at derivation time.
+- Allowlist model: Talos permits only listed CIDRs. An empty `allowed_cidrs` array allows requests from any IP.
+- Cache TTL: Talos enforces IP restrictions on every verification, including cache hits, by re-checking the current request IP.
+  Changes to the allowed CIDRs take effect after the cache TTL expires. See [cache configuration](../operate/cache/index.md) for
+  TTL settings.
+- Fail-closed: If client IP resolution fails, Talos denies the request with `VERIFICATION_ERROR_IP_NOT_ALLOWED`.
+- IPv4 and IPv6: Talos supports both address families. Use `/32` for single IPv4 addresses and `/128` for single IPv6 addresses.
+- Derived tokens: Deriving a token checks the parent key's IP restrictions, then seals the parent's allowed CIDRs into the token's
+  `acl` claim. Verifying the token enforces that sealed list against the request IP. A token from an unrestricted parent stays
+  unrestricted for its lifetime; a token from a restricted parent keeps that allowlist even if the parent later changes.

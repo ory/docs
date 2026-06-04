@@ -18,8 +18,8 @@ Fetch the server's JSON Web Key Set (JWKS)
 
 Fetch the public signing keys used to verify derived JWT tokens.
 
-The JWKS is served at GET /v2alpha1/admin/derivedKeys/jwks.json and includes the active signing key plus any retired keys still
-inside the verification window.
+The JWKS is served at GET /v2alpha1/derivedKeys/jwks.json and includes the active signing key plus any retired keys still inside
+the verification window.
 
 Clients verifying derived tokens should cache the response for 5 to 15 minutes and refetch when they encounter a token with an
 unknown 'kid'. Polling more aggressively does not shorten the practical revocation window — that window is bounded by the longest
@@ -32,7 +32,7 @@ talos jwk get [flags]
 ### Examples
 
 ```
-  # Pretty-print the JWKS served by a local Talos
+  # Pretty-print the JWKS served by a local Ory Talos
   talos jwk get -e http://localhost:4420 | jq .
 ```
 
@@ -45,7 +45,7 @@ talos jwk get [flags]
 ### Options inherited from parent commands
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
 ```
 

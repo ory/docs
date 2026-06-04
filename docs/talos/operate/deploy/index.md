@@ -1,25 +1,20 @@
 ---
-id: index
 title: Deploy
-sidebar_label: Deploy
 ---
 
-# Deploy
-
-Talos can be deployed as a standalone binary, Docker container, or Kubernetes workload.
+Deploy Ory Talos as a standalone binary or Docker container.
 
 ## Deployment options
 
-| Method                      | Best for                            |
-| --------------------------- | ----------------------------------- |
-| [Docker](docker.md)         | Development, small-scale production |
-| [Kubernetes](kubernetes.md) | Production with orchestration       |
-| Binary                      | Custom deployments                  |
+| Method              | Best for                            |
+| ------------------- | ----------------------------------- |
+| [Docker](docker.md) | Development, small-scale production |
+| Binary              | Custom deployments                  |
 
 ## Architecture options
 
-| Topology                              | Edition    | Description                                   |
-| ------------------------------------- | ---------- | --------------------------------------------- |
-| Single-node                           | OSS        | One process serves both admin and data planes |
-| [Separate planes](separate-planes.md) | Commercial | Independent admin and data plane deployments  |
-| [Edge proxy](edge-proxy.md)           | Commercial | Data plane at the edge, admin plane in core   |
+| Topology                                              | Edition         | Description                                                                  |
+| ----------------------------------------------------- | --------------- | ---------------------------------------------------------------------------- |
+| Single-node                                           | OSS, commercial | One `talos serve` process exposes both the admin and public APIs.            |
+| [Separate admin and public APIs](deployment-modes.md) | OSS, commercial | `talos serve admin` for the admin API, `talos serve public` for self-revoke. |
+| [Edge proxy](edge-proxy.mdx)                          | Commercial only | `talos proxy` sidecars cache verify responses next to your application.      |

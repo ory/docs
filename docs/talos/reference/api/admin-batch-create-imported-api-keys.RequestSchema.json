@@ -4,18 +4,18 @@
     "content": {
       "application/json": {
         "schema": {
-          "description": "BatchImportAPIKeysRequest imports multiple external API keys in one request.\nThe maximum batch size is 1000 keys.",
+          "description": "BatchCreateImportedApiKeysRequest imports multiple external API keys in one request.\nThe maximum batch size is 1000 keys.",
           "properties": {
             "requests": {
               "items": {
-                "description": "Example:\n  {\n    \"raw_key\": \"sk_live_abc123xyz789\",\n    \"name\": \"Stripe Production Key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"stripe\", \"environment\": \"production\"}\n  }",
+                "description": "ImportApiKeyRequest imports an external API key. The raw key is hashed with\nSHA-512/256 (over network_id + 0x00 + raw key) and only the hash is stored.\n\nExample:\n  {\n    \"raw_key\": \"sk_live_abc123xyz789\",\n    \"name\": \"Stripe Production Key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"stripe\", \"environment\": \"production\"}\n  }",
                 "properties": {
                   "actor_id": {
                     "description": "actor_id is the identifier of the entity that owns this imported key.\nRequired so every imported key is traceable to an actor for revocation and\naudit queries.",
                     "type": "string"
                   },
                   "ip_restriction": {
-                    "description": "IPRestriction defines IP-based access controls for an API key.\nWhen allowed_cidrs is non-empty, only requests from IPs matching at least one\nCIDR range are permitted. Empty allowed_cidrs means no IP restriction (all IPs allowed).\nIP restrictions apply to root API key and imported key verification only;\nderived tokens (JWT/macaroon) are stateless and not subject to IP checks.",
+                    "description": "IPRestriction defines IP-based access controls for an API key.\nWhen allowed_cidrs is non-empty, only requests from IPs matching at least one\nCIDR range are permitted. Empty allowed_cidrs means no IP restriction (all IPs allowed).\nDerived tokens (JWT/macaroon) inherit the parent key's CIDR allowlist: the\nrestriction is sealed into the token at derivation and re-enforced on every\nverification.",
                     "properties": {
                       "allowed_cidrs": {
                         "description": "allowed_cidrs is a list of CIDR ranges that are allowed to use this key.\nSupports both IPv4 (e.g., \"10.0.0.0/8\") and IPv6 (e.g., \"2001:db8::/32\").\nIf empty, all IPs are allowed (no restriction).",
@@ -24,10 +24,10 @@
                       }
                     },
                     "type": "object",
-                    "title": "v2alpha1IPRestriction"
+                    "title": "IPRestriction"
                   },
                   "metadata": {
-                    "title": "Additional metadata (OPTIONAL)",
+                    "description": "metadata is a free-form JSON object for caller-defined attributes (e.g.,\nsource, environment, tags). Values may be strings, numbers, booleans,\narrays, objects, or null. Total serialized size is capped at 4KB.\nAIP-148 metadata field.",
                     "type": "object"
                   },
                   "name": {
@@ -35,7 +35,7 @@
                     "type": "string"
                   },
                   "rate_limit_policy": {
-                    "description": "RateLimitPolicy describes the rate limit policy for an API key.\n\nIn OSS mode, this policy is informational and meant to be consumed by\nupstream gateways (Envoy, Cloudflare, etc.) for enforcement.\nIn commercial mode, Talos enforces rate limits using in-memory or Redis backends,\nboth powered by the GCRA (Generic Cell Rate Algorithm).\n\nCompliant with draft-ietf-httpapi-ratelimit-headers-10.",
+                    "description": "RateLimitPolicy describes the rate limit policy for an API key.\n\nIn OSS mode, this policy is informational and meant to be consumed by\nupstream gateways (Envoy, Cloudflare, etc.) for enforcement.\nIn commercial mode, Talos enforces rate limits using in-memory or Redis backends,\nboth using the GCRA (Generic Cell Rate Algorithm).\n\nCompliant with draft-ietf-httpapi-ratelimit-headers-10.",
                     "properties": {
                       "quota": {
                         "description": "quota is the number of requests allowed per window.",
@@ -52,7 +52,7 @@
                       }
                     },
                     "type": "object",
-                    "title": "v2alpha1RateLimitPolicy"
+                    "title": "RateLimitPolicy"
                   },
                   "raw_key": {
                     "title": "The actual key string to import (REQUIRED)",
@@ -68,7 +68,7 @@
                     "type": "array"
                   },
                   "ttl": {
-                    "description": "ttl sets the expiry as a duration from now.\nAccepted formats:\n  - Extended: \"1y\" (365d), \"1mo\" (30d), \"1w\" (7d), \"1d\" (24h)\n  - Standard Go: \"24h\", \"30m\", \"60s\", \"1h30m\"\n  - Compound: \"1y6mo\", \"1d12h\", \"2w3d\"\nApproximations: 1y = 365 days, 1mo = 30 days.\nIf unset, the project default TTL applies. Maximum is ~10 years (315360000s).",
+                    "description": "ttl sets the expiry as a duration from now. Encoded as a\ngoogle.protobuf.Duration (string ending in \"s\", e.g. \"3600s\").\nAccepted bounds: 1s to 315360000s (~10 years). If unset or zero, the\nproject default TTL applies.\nFor convenience, the server also accepts Go-style duration strings\n(\"24h\", \"30m\", \"1h30m\") and an extended unit set (\"1d\", \"1w\", \"1mo\",\n\"1y\"; approximations: 1mo = 30d, 1y = 365d). Clients should prefer\nthe standard Duration encoding for portability.",
                     "type": "string"
                   },
                   "visibility": {
@@ -80,22 +80,22 @@
                       "KEY_VISIBILITY_PUBLIC"
                     ],
                     "type": "string",
-                    "title": "v2alpha1KeyVisibility"
+                    "title": "KeyVisibility"
                   }
                 },
-                "title": "ImportAPIKeyRequest imports an external HMAC-based API key",
-                "type": "object"
+                "type": "object",
+                "title": "ImportApiKeyRequest"
               },
               "title": "Keys to import",
               "type": "array"
             }
           },
           "type": "object",
-          "title": "v2alpha1BatchImportAPIKeysRequest"
+          "title": "BatchCreateImportedApiKeysRequest"
         }
       }
     },
-    "description": "BatchImportAPIKeysRequest imports multiple external API keys in one request.\nThe maximum batch size is 1000 keys.",
+    "description": "BatchCreateImportedApiKeysRequest imports multiple external API keys in one request.\nThe maximum batch size is 1000 keys.",
     "required": true,
     "x-originalParamName": "body"
   }

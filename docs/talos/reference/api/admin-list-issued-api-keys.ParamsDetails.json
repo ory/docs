@@ -13,7 +13,7 @@
       "schema": { "type": "string" }
     },
     {
-      "description": "filter supports AIP-160 filter expressions:\n  actor_id=\"user_123\"\n  status=KEY_STATUS_ACTIVE\n  actor_id=\"user_123\" AND status=KEY_STATUS_ACTIVE",
+      "description": "filter is an AIP-160 expression. Indexed fields (efficient at any scale):\n  actor_id, status. Other fields are not indexed and may be rejected.\nExamples:\n  actor_id=\"user_123\"\n  status=KEY_STATUS_ACTIVE\n  actor_id=\"user_123\" AND status=KEY_STATUS_ACTIVE",
       "in": "query",
       "name": "filter",
       "schema": { "type": "string" }

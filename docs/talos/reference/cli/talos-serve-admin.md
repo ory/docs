@@ -12,22 +12,21 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 
 ## talos serve admin
 
-Start the admin plane server (management only)
+Run only the admin endpoints
 
 ### Synopsis
 
-Starts the admin plane server for API key and network management.
+WARNING: this command serves unauthenticated admin endpoints. You are responsible for placing it behind a trusted network boundary
+that authenticates and authorizes every admin request (for example, an IAM proxy, mTLS gateway, or a reverse proxy with
+internal-only routing). Talos itself adds no authN or authZ middleware on the admin surface.
 
-This mode runs only the management endpoints for administrative operations. It's designed for internal tools, CI/CD, and
-administrative access.
+Runs only the admin endpoints for API key and network management.
 
-Features:
+This mode is designed for internal tools, CI/CD, and operator workflows. It exposes the full read/write management surface: API
+key creation, rotation, revocation, verification, network management, and signing-key management.
 
-- Full read/write database access
-- API key creation, rotation, revocation
-- Network management
-- Signing key management
-- Typically behind admin firewall
+Deploy this server behind a trusted network boundary (private VPC, admin VLAN, or authenticating reverse proxy) — never expose it
+to the public internet without an external authZ layer in front.
 
 ```
 talos serve admin [flags]
@@ -48,7 +47,7 @@ talos serve admin [flags]
 ### Options inherited from parent commands
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
 ```
 

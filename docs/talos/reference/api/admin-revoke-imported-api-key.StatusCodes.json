@@ -1,18 +1,12 @@
 {
   "responses": {
     "200": {
-      "content": {
-        "application/json": {
-          "schema": {
-            "properties": {
-              "jwks": { "title": "JSON Web Key Set", "type": "object" }
-            },
-            "type": "object",
-            "title": "v2alpha1GetJWKSResponse"
-          }
-        }
-      },
+      "content": { "application/json": { "schema": { "type": "object" } } },
       "description": "A successful response."
+    },
+    "204": {
+      "content": { "application/json": { "schema": {} } },
+      "description": "API key revoked successfully."
     },
     "default": {
       "content": {
@@ -25,14 +19,14 @@
                   "additionalProperties": {},
                   "properties": { "@type": { "type": "string" } },
                   "type": "object",
-                  "title": "protobufAny"
+                  "title": "Any"
                 },
                 "type": "array"
               },
               "message": { "type": "string" }
             },
             "type": "object",
-            "title": "rpcStatus"
+            "title": "Status"
           }
         }
       },

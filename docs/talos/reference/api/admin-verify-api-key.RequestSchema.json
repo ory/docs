@@ -11,7 +11,7 @@
             }
           },
           "type": "object",
-          "title": "v2alpha1VerifyAPIKeyRequest"
+          "title": "VerifyApiKeyRequest"
         }
       }
     },

@@ -20,10 +20,13 @@
               "title": "The API key secret (issued or imported) to derive a token from",
               "type": "string"
             },
-            "custom_claims": { "type": "object" },
+            "custom_claims": {
+              "description": "custom_claims is a JSON object whose entries are merged into the JWT\npayload (or macaroon caveats) at signing time. Reserved JWT claims\n(iss, sub, aud, exp, nbf, iat, jti) are rejected. Total serialized\nsize is capped at 4KB.",
+              "type": "object"
+            },
             "scopes": { "items": { "type": "string" }, "type": "array" },
             "ttl": {
-              "description": "ttl sets the expiry as a duration from now.\nAccepted formats:\n  - Extended: \"1y\" (365d), \"1mo\" (30d), \"1w\" (7d), \"1d\" (24h)\n  - Standard Go: \"24h\", \"30m\", \"60s\", \"1h30m\"\n  - Compound: \"1y6mo\", \"1d12h\", \"2w3d\"\nApproximations: 1y = 365 days, 1mo = 30 days.\nIf unset, the project default TTL applies. Maximum is ~10 years (315360000s).",
+              "description": "ttl sets the expiry as a duration from now. Encoded as a\ngoogle.protobuf.Duration (string ending in \"s\", e.g. \"3600s\").\nAccepted bounds: 1s to 315360000s (~10 years). If unset or zero, the\nproject default TTL applies.\nFor convenience, the server also accepts Go-style duration strings\n(\"24h\", \"30m\", \"1h30m\") and an extended unit set (\"1d\", \"1w\", \"1mo\",\n\"1y\"; approximations: 1mo = 30d, 1y = 365d). Clients should prefer\nthe standard Duration encoding for portability.",
               "type": "string"
             }
           },

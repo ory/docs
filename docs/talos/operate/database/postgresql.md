@@ -1,20 +1,17 @@
 ---
-id: talos-postgresql
 title: PostgreSQL
 tags: [commercial]
-sidebar_label: PostgreSQL
 sidebar_custom_props:
   badge: Commercial
 ---
 
-# PostgreSQL
-
-PostgreSQL is the recommended production database backend. It provides connection pooling, ACID transactions, and
-high-availability via streaming replication.
+PostgreSQL is the recommended production database backend for Ory Talos. It provides connection pooling, ACID transactions, and
+high availability through streaming replication.
 
 ## Supported versions
 
-PostgreSQL 14 and later.
+Ory Talos uses the `pgx/v5` driver and standard SQL features, so any actively supported PostgreSQL release works. See the
+[PostgreSQL versioning policy](https://www.postgresql.org/support/versioning/).
 
 ## Configuration
 
@@ -23,25 +20,25 @@ db:
   dsn: "postgres://talos:secret@db:5432/talos?sslmode=require&max_conns=25&max_conn_lifetime=5m"
 ```
 
-Or via environment variable:
+Or use an environment variable:
 
-```bash
+```shell
 export TALOS_DB_DSN="postgres://talos:secret@db:5432/talos?sslmode=require&max_conns=25&max_conn_lifetime=5m"
 ```
 
 ## DSN format
 
-```
+```text
 postgres://user:password@host:port/dbname?param=value&param=value
 ```
 
-Both `postgres://` and `postgresql://` schemes are accepted.
+Talos accepts both `postgres://` and `postgresql://` schemes.
 
 ## DSN parameters
 
 ### Connection pool parameters
 
-Pool parameters are parsed from the DSN query string and removed before the DSN is passed to the database driver.
+Talos parses pool parameters from the DSN query string and removes them before passing the DSN to the database driver.
 
 | Parameter            | Type     | Default    | Description                                                  |
 | -------------------- | -------- | ---------- | ------------------------------------------------------------ |
@@ -53,13 +50,12 @@ Pool parameters are parsed from the DSN query string and removed before the DSN 
 
 Duration values use Go duration syntax: `5m` (5 minutes), `1h` (1 hour), `30s` (30 seconds).
 
-Talos sets non-zero defaults for `max_conn_lifetime` and `max_conn_idle_time` so connections are recycled through load balancers,
-DNS rotation, and PostgreSQL `tcp_keepalives_*`. Setting either to `0` disables the recycle and is **not recommended** outside
-development.
+Ory Talos sets non-zero defaults for `max_conn_lifetime` and `max_conn_idle_time` so connections recycle through load balancers
+and DNS rotation. Setting either to `0` disables recycling. Don't do this outside development.
 
 ### PostgreSQL driver parameters
 
-These parameters are passed through to the underlying PostgreSQL driver (`pgx`).
+Talos passes these parameters through to the underlying PostgreSQL driver (`pgx`).
 
 | Parameter          | Description                                                 | Recommended   |
 | ------------------ | ----------------------------------------------------------- | ------------- |
@@ -72,11 +68,11 @@ These parameters are passed through to the underlying PostgreSQL driver (`pgx`).
 
 ## Connection pooling
 
-Talos supports two pool modes for PostgreSQL, controlled by the `pool_mode` DSN parameter.
+Ory Talos supports two pool modes for PostgreSQL, set with the `pool_mode` DSN parameter.
 
-### Standard mode (default)
+### Standard mode
 
-Uses Go's `database/sql` connection pool with the `pgx` driver. This is the default and works with all tooling.
+Standard mode is the default. It uses Go's `database/sql` connection pool with the `pgx` driver and works with all tooling.
 
 ```yaml
 db:
@@ -85,41 +81,44 @@ db:
 
 Pool behavior:
 
-- Connections are created on demand up to `max_conns`
-- Idle connections are kept up to `max_idle_conns`
-- Connections older than `max_conn_lifetime` are closed and replaced
-- Connections idle longer than `max_conn_idle_time` are closed
+- Talos creates connections on demand up to `max_conns`.
+- Talos keeps idle connections up to `max_idle_conns`.
+- Talos closes and replaces connections older than `max_conn_lifetime`.
+- Talos closes connections idle longer than `max_conn_idle_time`.
 
 ### Advanced mode
 
-Uses native `pgxpool` for high-availability deployments. Provides built-in health checks and is optimized for Kubernetes and cloud
-environments.
+Advanced mode uses native `pgxpool`, which adds built-in connection health checks.
 
 ```yaml
 db:
   dsn: "postgres://talos:secret@db:5432/talos?pool_mode=advanced&pool_max_conns=50&pool_min_conns=2&pool_max_conn_lifetime=30m&pool_max_conn_idle_time=10m"
 ```
 
-In advanced mode, pool sizing is configured through pgxpool's native parameters parsed from the DSN. The `max_conns`,
-`max_idle_conns`, `max_conn_lifetime`, and `max_conn_idle_time` parameters are **ignored** — use the `pool_*` equivalents instead.
+In advanced mode, configure pool sizing through pgxpool's native parameters in the DSN. Talos ignores `max_conns`,
+`max_idle_conns`, `max_conn_lifetime`, and `max_conn_idle_time` — use the `pool_*` equivalents instead.
 
-| pgxpool parameter          | Default                | Description                                           |
-| -------------------------- | ---------------------- | ----------------------------------------------------- |
-| `pool_max_conns`           | `4 × runtime.NumCPU()` | Maximum size of the pgxpool connection pool           |
-| `pool_min_conns`           | `0`                    | Minimum number of connections kept open               |
-| `pool_max_conn_lifetime`   | `1h`                   | Maximum age of a connection before it is replaced     |
-| `pool_max_conn_idle_time`  | `30m`                  | Maximum idle time before an idle connection is closed |
-| `pool_health_check_period` | `1m`                   | Interval between background health checks             |
+| pgxpool parameter          | Description                                           |
+| -------------------------- | ----------------------------------------------------- |
+| `pool_max_conns`           | Maximum size of the pgxpool connection pool           |
+| `pool_min_conns`           | Minimum number of connections kept open               |
+| `pool_max_conn_lifetime`   | Maximum age of a connection before it is replaced     |
+| `pool_max_conn_idle_time`  | Maximum idle time before an idle connection is closed |
+| `pool_health_check_period` | Interval between background health checks             |
 
-Talos exposes the pgxpool through Go's `database/sql` interface. The wrapper's `SetMaxIdleConns` is forced to `0` so that
-`database/sql` never holds connections idle on top of pgxpool — the pgxpool layer is the single source of truth for pool sizing in
-advanced mode.
+Ory Talos sets no defaults for these parameters; pgxpool chooses them. See the
+[pgxpool documentation](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool#ParseConfig) for current defaults and the full
+parameter list.
+
+Talos exposes the pgxpool through Go's `database/sql` interface. The wrapper's `SetMaxIdleConns` is forced to `0` so
+`database/sql` never holds connections idle on top of pgxpool. In advanced mode, pgxpool is the single source of truth for pool
+sizing.
 
 Use advanced mode when:
 
 - Running in Kubernetes with connection health checks
 - Using cloud-managed PostgreSQL (RDS, Cloud SQL, AlloyDB) with aggressive connection recycling
-- Deploying with PgBouncer and needing precise pool control
+- Deploying behind PgBouncer and needing precise pool control
 
 ## Pool sizing
 
@@ -132,18 +131,18 @@ Start with 25 connections per instance. The total pool across all instances must
 | 3 instances     | `25` each      | 75 total — within default `max_connections` |
 | 5+ instances    | `15`–`20` each | Use PgBouncer to multiplex connections      |
 
-For large deployments, place [PgBouncer](https://www.pgbouncer.org/) between Talos and PostgreSQL. PgBouncer multiplexes many
-application connections over fewer database connections, allowing you to scale beyond PostgreSQL's connection limit.
+For large deployments, place [PgBouncer](https://www.pgbouncer.org/) between Ory Talos and PostgreSQL. PgBouncer multiplexes many
+application connections over fewer database connections, so you can scale beyond PostgreSQL's connection limit.
 
 ## Migrations
 
-```bash
+```shell
 talos-commercial migrate up --database "postgres://talos:secret@db:5432/talos"
 ```
 
 ## TLS / SSL
 
-Use the `sslmode` parameter in the DSN for encrypted database connections:
+Set the `sslmode` parameter in the DSN to encrypt database connections:
 
 ```yaml
 db:
@@ -166,26 +165,26 @@ db:
 
 ## Example DSNs
 
-**Development:**
+Development:
 
-```
+```text
 postgres://talos:secret@localhost:5432/talos?sslmode=disable
 ```
 
-**Production with standard pooling:**
+Production with standard pooling:
 
-```
+```text
 postgres://talos:secret@db:5432/talos?sslmode=verify-full&sslrootcert=/certs/ca.crt&max_conns=25&max_idle_conns=5&max_conn_lifetime=5m&max_conn_idle_time=1m
 ```
 
-**Production with advanced pooling (Kubernetes):**
+Production with advanced pooling (Kubernetes):
 
-```
+```text
 postgres://talos:secret@db:5432/talos?sslmode=verify-full&sslrootcert=/certs/ca.crt&pool_mode=advanced
 ```
 
-**Behind PgBouncer:**
+Behind PgBouncer:
 
-```
+```text
 postgres://talos:secret@pgbouncer:6432/talos?sslmode=require&max_conns=50&max_idle_conns=10&max_conn_lifetime=5m
 ```

@@ -14,13 +14,13 @@
                   }
                 },
                 "type": "object",
-                "title": "v2alpha1VerifyAPIKeyRequest"
+                "title": "VerifyApiKeyRequest"
               },
               "type": "array"
             }
           },
           "type": "object",
-          "title": "v2alpha1BatchVerifyAPIKeysRequest"
+          "title": "BatchVerifyApiKeysRequest"
         }
       }
     },

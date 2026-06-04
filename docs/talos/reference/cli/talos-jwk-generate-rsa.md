@@ -16,7 +16,7 @@ Generate an RSA key pair
 
 ### Synopsis
 
-Generate an RSA key pair with the specified key size. Default is 2048 bits. Minimum is 2048 bits.
+Generate an RSA key pair with the specified key size. Default is 2048 bits. Minimum is 2048 bits, maximum is 8192 bits.
 
 ```
 talos jwk generate rsa [flags]
@@ -42,10 +42,10 @@ talos jwk generate rsa [flags]
 
 ```
       --alg string      Algorithm override (e.g. RS384, RS512, PS256)
-      --bits int        Key size in bits (minimum 2048) (default 2048)
+      --bits int        Key size in bits (minimum 2048, maximum 8192) (default 2048)
   -h, --help            help for rsa
       --jwks            Output as JWKS (JSON Web Key Set)
-      --kid string      Key ID (JWK Thumbprint used if not provided)
+      --kid string      Key ID (RFC 7638 JWK thumbprint used if not provided)
   -o, --output string   Output file (writes to stdout if not specified)
       --public-only     Output public key only
       --use string      Key usage: 'sig' for signing, 'enc' for encryption (default: sig)
@@ -54,7 +54,7 @@ talos jwk generate rsa [flags]
 ### Options inherited from parent commands
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
 ```
 

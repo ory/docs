@@ -1,10 +1,16 @@
 {
   "parameters": [
     {
-      "description": "SHA512/256 hash of the imported key (REQUIRED, path param)",
+      "description": "SHA-512/256 hash of credential",
       "in": "path",
-      "name": "key_id",
+      "name": "imported_api_key.key_id",
       "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "The list of fields to update. See AIP-134.",
+      "in": "query",
+      "name": "update_mask",
       "schema": { "type": "string" }
     }
   ]

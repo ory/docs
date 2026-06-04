@@ -19,14 +19,14 @@
                   "additionalProperties": {},
                   "properties": { "@type": { "type": "string" } },
                   "type": "object",
-                  "title": "protobufAny"
+                  "title": "Any"
                 },
                 "type": "array"
               },
               "message": { "type": "string" }
             },
             "type": "object",
-            "title": "rpcStatus"
+            "title": "Status"
           }
         }
       },
