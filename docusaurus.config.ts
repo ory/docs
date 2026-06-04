@@ -210,10 +210,6 @@ const config: Config = {
           // Quickstart
           { from: "/talos/quickstart", to: "/talos/quickstart/open-source" },
           {
-            from: "/talos/quickstart/index",
-            to: "/talos/quickstart/open-source",
-          },
-          {
             from: "/talos/quickstart/early-access-quickstart",
             to: "/talos/quickstart/docker-commercial",
           },
@@ -389,6 +385,15 @@ const config: Config = {
           {
             from: "/talos/reference/api/admin-get-jwks",
             to: "/talos/reference/api/get-jwks",
+          },
+          // Reference CLI (renamed/removed commands)
+          {
+            from: "/talos/reference/cli/talos-keys-revoke",
+            to: "/talos/reference/cli/talos-keys-issued-revoke",
+          },
+          {
+            from: "/talos/reference/cli/talos-serve-check",
+            to: "/talos/reference/cli/talos-serve-public",
           },
         ],
       },

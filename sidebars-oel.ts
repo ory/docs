@@ -521,6 +521,7 @@ const oelSidebar = [
               "talos/operate/index",
               "talos/operate/install",
               "talos/operate/configure",
+              "talos/operate/benchmarks",
               {
                 type: "category",
                 label: "Database",
