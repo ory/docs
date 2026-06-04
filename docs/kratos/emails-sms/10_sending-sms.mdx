@@ -126,6 +126,123 @@ Cf-Ipcountry
 
 Read the [Jsonnet documentation](../../kratos/reference/jsonnet.mdx) to learn more about the Jsonnet templating language.
 
+## Provider examples
+
+The [Configuration](#configuration) example above uses Twilio. The following `request_config` snippets show how to adapt it for
+other SMS providers — each replaces the `url`, `method`, `headers`, and `auth` fields of the `http` channel, while the rest of the
+channel configuration stays the same.
+
+### Twilio
+
+```yaml
+url: https://api.twilio.com/2010-04-01/Accounts/{$ACCOUNT_SID}/Messages.json
+method: POST
+headers:
+  Content-Type: application/x-www-form-urlencoded # required — Twilio rejects JSON
+auth:
+  type: basic_auth
+  config:
+    user: {$ACCOUNT_SID}
+    password: {$AUTH_TOKEN}
+```
+
+### MessageBird (Bird)
+
+```yaml
+url: https://rest.messagebird.com/messages
+method: POST
+headers:
+  Content-Type: application/json
+  Authorization: AccessKey {$MESSAGEBIRD_API_KEY}
+```
+
+The body Jsonnet must strip the leading `+` from Ory's E.164 recipient (MessageBird expects MSISDN format):
+
+```jsonnet
+function(ctx) {
+  body: std.manifestJsonEx({
+    originator: 'YourApp',
+    recipients: [
+      if std.startsWith(ctx.recipient, '+')
+      then std.substr(ctx.recipient, 1, std.length(ctx.recipient) - 1)
+      else ctx.recipient,
+    ],
+    body: ctx.body,
+  }, '  '),
+}
+```
+
+### Plivo
+
+```yaml
+url: https://api.plivo.com/v1/Account/{$AUTH_ID}/Message/
+method: POST
+headers:
+  Content-Type: application/json
+auth:
+  type: basic_auth
+  config:
+    user: {$AUTH_ID}
+    password: {$AUTH_TOKEN}
+```
+
+Plivo accepts E.164 directly (no `+` stripping). For production, use a **Powerpack** (number pool with intelligent routing) —
+replace `src` with `powerpack_uuid` in the Jsonnet body.
+
+### Sinch
+
+```yaml
+# US stack
+url: https://us.sms.api.sinch.com/xms/v1/<service-plan-id>/batches
+# EU stack
+# url: https://eu.sms.api.sinch.com/xms/v1/<service-plan-id>/batches
+method: POST
+headers:
+  authorization: Bearer {$SINCH_API_TOKEN}
+  content-type: application/json
+```
+
+Sinch enforces per-country sender registration — using the wrong sender for a region silently degrades delivery.
+
+### Vonage (Nexmo)
+
+```yaml
+url: https://rest.nexmo.com/sms/json
+method: POST
+headers:
+  Content-Type: application/json
+# No `auth:` block — Vonage authenticates via API key + secret in the request BODY, not headers.
+```
+
+Body Jsonnet:
+
+```jsonnet
+function(ctx) {
+  body: std.manifestJsonEx({
+    api_key: '{$VONAGE_API_KEY}',
+    api_secret: '{$VONAGE_API_SECRET}',
+    from: 'YourApp',
+    to: ctx.recipient,
+    text: ctx.body,
+  }, '  '),
+}
+```
+
+Vonage accepts E.164 with or without the leading `+`; strip the `+` in Jsonnet if a country rejects the `+` form.
+
+### WhatsApp Business
+
+WhatsApp doesn't provide a standard OAuth flow — "WhatsApp login" in practice means **passwordless OTP delivered through
+WhatsApp**. The courier posts to a custom handler which forwards to the WhatsApp Cloud API as an authentication-template message.
+
+Configuration requires:
+
+- Meta Business Manager with WhatsApp Business enabled.
+- A pre-approved AUTHENTICATION-category template (Meta review required — typically under an hour).
+- A WhatsApp Business phone number ID and a system-user permanent access token.
+
+Because it requires the custom handler, WhatsApp is configured under `courier.channels` rather than `courier.sms`.
+
 ## Templates
 
 Only the `recovery_code`, `verification_code`, and `login_code` templates support an SMS variant. Use the CLI to configure it:

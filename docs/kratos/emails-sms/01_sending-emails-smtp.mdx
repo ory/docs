@@ -153,6 +153,107 @@ smtp://{YOUR_POSTMARK_SEVER_API_TOKEN}:{YOUR_POSTMARK_SEVER_API_TOKEN}@smtp.post
 # smtp://thetoken:thetoken@smtp.postmarkapp.com:587/
 ```
 
+### Brevo
+
+[Brevo](https://www.brevo.com) (formerly Sendinblue) is a European email platform with a strong GDPR posture, commonly used when
+EU-hosted email infrastructure is required.
+
+<Tabs>
+<TabItem value="smtp" label="SMTP">
+
+Use the following connection URI to [send emails using Brevo](https://help.brevo.com/hc/en-us/articles/209462765) via SMTP relay:
+
+```
+smtps://<brevo-smtp-login>:<brevo-smtp-key>@smtp-relay.brevo.com:587
+```
+
+The SMTP login is your Brevo account email. The SMTP key is generated under **Brevo → SMTP & API → SMTP** (distinct from Brevo API
+keys).
+
+</TabItem>
+<TabItem value="http" label="HTTP">
+
+Use Brevo's [Transactional Email API](https://developers.brevo.com/reference/sendtransacemail) via the HTTP courier:
+
+```yaml title="kratos.yml"
+courier:
+  delivery_strategy: http
+  http:
+    request_config:
+      url: https://api.brevo.com/v3/smtp/email
+      method: POST
+      body: file:///etc/config/kratos/mail.template.jsonnet
+      headers:
+        "api-key": "<your-brevo-api-key>"
+        "content-type": "application/json"
+```
+
+</TabItem>
+</Tabs>
+
+To configure Brevo as your email provider, go to <ConsoleLink route="project.emailConfiguration" />.
+
+### Mailchimp Transactional (Mandrill)
+
+[Mailchimp Transactional](https://mailchimp.com/developer/transactional/) (formerly Mandrill) is a paid add-on to Mailchimp for
+transactional email — a natural choice when Mailchimp marketing is already in place.
+
+Use the following connection URI:
+
+```
+smtps://apikey:<md-mandrill-api-key>@smtp.mandrillapp.com:465
+```
+
+The SMTP username can be any string (Mandrill ignores it but it must be present — `apikey` is conventional). The password is your
+Mandrill API key from [mandrillapp.com → Settings → SMTP & API Info](https://mandrillapp.com/settings).
+
+Mailchimp Transactional is distinct from the Mailchimp marketing audience integration, which adds users to a Mailchimp list at
+registration via Ory Actions; see [Mailchimp integration with Ory Actions](../../actions/integrations/mailchimp.mdx).
+
+### SparkPost
+
+[SparkPost](https://www.sparkpost.com) (a Bird/MessageBird company) is an enterprise-grade transactional email platform with
+per-region US / EU hosting.
+
+<Tabs>
+<TabItem value="smtp" label="SMTP">
+
+Use the following connection URI:
+
+```
+# US
+smtps://SMTP_Injection:<sparkpost-api-key>@smtp.sparkpostmail.com:587
+
+# EU
+smtps://SMTP_Injection:<sparkpost-api-key>@smtp.eu.sparkpost.com:587
+```
+
+The SMTP login is the literal string `SMTP_Injection` for all customers. The password is your SparkPost API key with the **Send via
+SMTP** permission.
+
+</TabItem>
+<TabItem value="http" label="HTTP">
+
+Use SparkPost's [Transmissions API](https://developers.sparkpost.com/api/transmissions/) via the HTTP courier:
+
+```yaml title="kratos.yml"
+courier:
+  delivery_strategy: http
+  http:
+    request_config:
+      url: https://api.sparkpost.com/api/v1/transmissions # or api.eu.sparkpost.com
+      method: POST
+      body: file:///etc/config/kratos/mail.template.jsonnet
+      headers:
+        "Authorization": "<sparkpost-api-key>"
+        "Content-Type": "application/json"
+```
+
+</TabItem>
+</Tabs>
+
+SparkPost separates US and EU accounts — pick data residency before integration; account migrations are not trivial.
+
 ### Your own server
 
 <Tabs>
