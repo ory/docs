@@ -3,6 +3,7 @@ import {
   SidebarItemConfig,
 } from "@docusaurus/plugin-content-docs/src/sidebars/types"
 import talosApiSidebar from "./docs/talos/reference/api/sidebar"
+import talosCliReference from "./docs/talos/reference/cli/sidebar"
 
 type SidebarItemsConfig = SidebarItemConfig[]
 
@@ -592,7 +593,7 @@ const oelSidebar = [
             items: [
               "talos/reference/index",
               talosApiReference,
-              "talos/reference/cli/talos",
+              talosCliReference,
               "talos/reference/config",
               "talos/reference/token-format",
               "talos/reference/events",

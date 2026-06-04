@@ -1,4 +1,5 @@
 import talosApiSidebar from "./docs/talos/reference/api/sidebar"
+import talosCliReference from "./docs/talos/reference/cli/sidebar"
 
 // The generated Talos API sidebar is [overview doc, { category "ApiKeys", items: [...methods] }].
 // Lift the methods into a single "API reference" category linked to the overview page so the
@@ -599,7 +600,7 @@ const ossSidebar = [
             items: [
               "talos/reference/index",
               talosApiReference,
-              "talos/reference/cli/talos",
+              talosCliReference,
               "talos/reference/config",
               "talos/reference/token-format",
               "talos/reference/events",
