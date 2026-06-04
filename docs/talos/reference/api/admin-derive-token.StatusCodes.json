@@ -1,0 +1,57 @@
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "token": {
+                "properties": {
+                  "claims": {
+                    "description": "claims is the decoded token payload. For JWT, this contains the\nstandard claims (iss, sub, aud, exp, iat, jti) plus custom claims.\nFor macaroons, this lists the caveats. The shape is backend-dependent\nand should be treated as opaque diagnostic data.",
+                    "type": "object"
+                  },
+                  "expire_time": { "format": "date-time", "type": "string" },
+                  "scopes": { "items": { "type": "string" }, "type": "array" },
+                  "token": {
+                    "description": "The encoded token string. JWT tokens are signed JWS in compact\nserialization (header.payload.signature). Macaroons are base64-encoded\nbinary blobs.",
+                    "type": "string"
+                  }
+                },
+                "title": "Token represents a short-lived derived token (JWT or Macaroon)",
+                "type": "object"
+              }
+            },
+            "type": "object",
+            "title": "DeriveTokenResponse"
+          }
+        }
+      },
+      "description": "A successful response."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "code": { "format": "int32", "type": "integer" },
+              "details": {
+                "items": {
+                  "additionalProperties": {},
+                  "properties": { "@type": { "type": "string" } },
+                  "type": "object",
+                  "title": "Any"
+                },
+                "type": "array"
+              },
+              "message": { "type": "string" }
+            },
+            "type": "object",
+            "title": "Status"
+          }
+        }
+      },
+      "description": "An unexpected error response."
+    }
+  }
+}

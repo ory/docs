@@ -266,13 +266,14 @@ Example: update the user's groups from the provider while preserving an existing
 local claims = std.extVar('claims');
 local identity = std.extVar('identity');
 
+// Keep the display name if the user has set one, otherwise use the one from the provider (if any).
+local displayName = std.get(identity.traits, "display_name", std.get(claims, "display_name", ""));
+
 {
   identity: {
     traits: {
       email: claims.email,
-      // Keep the display name if the user has set one.
-      [if "display_name" in identity.traits && identity.traits.display_name != "" then "display_name"]:
-        identity.traits.display_name,
+      [if displayName != "" then "display_name" else null]: displayName,
       // Always update groups from the provider.
       [if "groups" in claims.raw_claims then "groups" else null]:
         claims.raw_claims.groups,
@@ -350,7 +351,7 @@ import TabItem from '@theme/TabItem'
 
 Let's set up a complete example with GitHub:
 
-1. Create a new project or use an existing one in the [Ory Console](https://console.ory.sh).
+1. Create a new project or use an existing one in the [Ory Console](https://console.ory.com).
 2. Go to <ConsoleLink route="project.socialSignIn" />.
 3. Use the **Add GitHub** provider, follow the set-up steps from the [GitHub social sign-in documentation](25_github.mdx).
 4. Copy and paste the following JsonNet data mapper:

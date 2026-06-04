@@ -135,6 +135,11 @@
     "type": "info"
   },
   {
+    "id": 1010025,
+    "text": "A code was sent to your address. If you didn't receive it, please try again.",
+    "type": "info"
+  },
+  {
     "id": 1040001,
     "text": "Sign up",
     "type": "info"

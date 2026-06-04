@@ -250,6 +250,16 @@
 }
 ```
 
+###### A code was sent to your address. If you didn't receive it, please try again. (1010025)
+
+```json
+{
+  "id": 1010025,
+  "text": "A code was sent to your address. If you didn't receive it, please try again.",
+  "type": "info"
+}
+```
+
 ###### Sign up (1040001)
 
 ```json
