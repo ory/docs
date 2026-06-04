@@ -41,6 +41,46 @@ expire.
 
 :::
 
+## Example use cases
+
+### Ingress translates opaque API keys to JWTs
+
+A caller sends a long-lived opaque API key to an ingress or API gateway. The gateway runs next to Talos admin access, calls
+`POST /v2alpha1/admin/apiKeys:derive` to derive a short-lived JWT with scoped claims, and forwards only the derived JWT to backend
+services. Backends verify the JWT statelessly against `GET /v2alpha1/derivedKeys/jwks.json`.
+
+```json
+{
+  "credential": "$API_SECRET",
+  "algorithm": "TOKEN_ALGORITHM_JWT",
+  "ttl": "15m",
+  "scopes": ["read"],
+  "custom_claims": {
+    "service": "orders-api",
+    "tenant": "acme"
+  }
+}
+```
+
+### Agent orchestrator issues constrained macaroons
+
+An agent orchestrator holds the parent API key secret. For each agent or task, it calls `POST /v2alpha1/admin/apiKeys:derive` to
+derive a short-lived macaroon with limited `scopes` and concrete caveat-style `custom_claims`, then gives the agent only the
+derived macaroon. Verification uses the same Talos verify endpoint, and the token expires quickly.
+
+```json
+{
+  "credential": "$API_SECRET",
+  "algorithm": "TOKEN_ALGORITHM_MACAROON",
+  "ttl": "10m",
+  "scopes": ["read"],
+  "custom_claims": {
+    "access": "read_only",
+    "environment": "staging"
+  }
+}
+```
+
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
 

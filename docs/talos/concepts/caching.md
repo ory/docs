@@ -82,8 +82,8 @@ starting points for the trade-off between revocation latency and database load. 
 
 | TTL   | Trade-off                                         |
 | ----- | ------------------------------------------------- |
-| `1m`  | Fast revocation propagation, higher database load |
-| `5m`  | Balanced starting point                           |
-| `30m` | Low database load, slower revocation propagation  |
+| `15s` | Fast revocation propagation, higher database load |
+| `1m`  | Balanced starting point                           |
+| `5m`  | Low database load, slower revocation propagation  |
 
 See the [cache operations guide](../operate/cache/index.md) for configuration details.
