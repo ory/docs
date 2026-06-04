@@ -1,7 +1,7 @@
 ---
 id: talos-architecture
 title: Ory Talos architecture
-sidebar_label: Ory Talso architecture
+sidebar_label: Ory Talos architecture
 ---
 
 # Architecture
