@@ -1,29 +1,25 @@
 ---
-id: batch-operations
 title: Batch operations
 description: Verify and import multiple credentials in a single request
-sidebar_label: Batch verify and import credentials
 ---
 
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
-# Batch operations
-
-Talos supports batch endpoints for high-throughput scenarios. Batch operations process items in parallel and return per-item
-results.
+Talos batch endpoints verify or import many credentials in one request and return a result for each
+item. One bad item does not fail the rest of the batch.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
 
-First, issue two keys to use in batch operations:
+Issue two keys to use in the batch operations:
 
 <!-- doctest:exec -->
 
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 export KEY1=$(talos keys issue "batch-key-1" \
   --actor user_1 --scopes "read" \
   --format json \
@@ -40,7 +36,7 @@ echo "Keys issued"
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 export KEY1=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{"name":"batch-key-1","actor_id":"user_1","scopes":["read"]}' | \
@@ -66,7 +62,7 @@ Verify up to 100 credentials in a single request:
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 talos keys batch-verify "$KEY1" "$KEY2" "invalid-key-for-testing" \
   --format json \
   -e "$TALOS_URL" | jq .
@@ -75,7 +71,7 @@ talos keys batch-verify "$KEY1" "$KEY2" "invalid-key-for-testing" \
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:batchVerify" \
   -H "Content-Type: application/json" \
   -d "{
@@ -93,9 +89,11 @@ curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:batchVerify" \
 ### Response format
 
 The response contains a `results` array. Each element has the same fields as a single
-[verify response](./issue-and-verify.mdx#verification-response). Results are returned in the same order as the requests.
+[verify response](./issue-and-verify.mdx#verification-response). Talos returns results in the same
+order as the requests.
 
-Invalid credentials return `active: false` with an `error_code` — they do not cause the batch request to fail.
+Invalid credentials return `is_valid: false` with an `error_code` — they do not cause the batch
+request to fail.
 
 ### Limits
 
@@ -113,7 +111,7 @@ Import up to 1000 keys in a single request:
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 talos keys imported batch-import --file - -e "$TALOS_URL" <<'JSON'
 [
   {"raw_key": "legacy_key_aaa", "name": "Legacy Key A", "actor_id": "migration"},
@@ -126,8 +124,8 @@ JSON
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
-curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys:batchImport" \
+```shell
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys:batchCreate" \
   -H "Content-Type: application/json" \
   -d '{
     "requests": [
@@ -143,12 +141,14 @@ curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys:batchImport" \
 
 ### Response format
 
-The response includes a `results` array with per-item outcomes, plus `success_count` and `failure_count` counters. The HTTP
-response is `200 OK` if at least one key succeeds. Check `failure_count` and individual `error_code` fields to detect partial
-failures.
+The response includes a `results` array with per-item outcomes, plus `success_count` and
+`failure_count` counters. The response is `200 OK` when at least one key succeeds. If every key
+fails, the endpoint returns a non-200 error instead. Check `failure_count` and the per-item
+`error_code` fields to detect partial failures.
 
 For the complete field reference, see the
-[BatchImportAPIKeys API reference](../reference/api/admin-batch-import-api-keys.api.mdx). For batch import error codes, see the
+[BatchCreateImportedApiKeys API reference](../reference/api/admin-batch-create-imported-api-keys.api.mdx).
+For batch import error codes, see the
 [error codes reference](../reference/error-codes.md#batch-import-error-codes).
 
 ### Limits
@@ -156,8 +156,9 @@ For the complete field reference, see the
 | Constraint               | Value |
 | ------------------------ | ----- |
 | Maximum keys per request | 1000  |
+| Minimum keys per request | 1     |
 
 ## Next steps
 
-- [Import keys](import-keys.mdx) — single key import with full field reference
-- [Issue and verify](issue-and-verify.mdx) — create and verify individual keys
+- [Import keys](./import-keys.mdx) — single key import with full field reference
+- [Issue and verify](./issue-and-verify.mdx) — create and verify individual keys

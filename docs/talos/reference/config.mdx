@@ -1,31 +1,31 @@
 ---
-id: talos-config-reference
 title: Configuration reference
 description: Auto-generated configuration reference from JSON Schema
-sidebar_label: Configuration reference
 ---
 
 # Configuration reference
 
-This page is auto-generated from the [configuration schema](https://github.com/ory/talos/blob/main/spec/config.schema.json).
+This page is auto-generated from the
+[configuration schema](https://github.com/ory/talos/blob/main/spec/config.schema.json).
 
 Required top-level keys: `credentials`, `secrets`
 
 ## Environment variables
 
-Every configuration key can be set via an environment variable. Talos uses the `TALOS_` prefix and converts dot-separated config
-paths to uppercase with underscores:
+Every configuration key can be set via an environment variable. Ory Talos uses the `TALOS_` prefix
+and converts dot-separated config paths to uppercase with underscores:
 
 ```
 TALOS_<SECTION>_<KEY>
 ```
 
-Replace dots (`.`) with underscores (`_`) and convert to uppercase. For example, `serve.http.port` becomes
-`TALOS_SERVE_HTTP_PORT`.
+Replace dots (`.`) with underscores (`_`) and convert to uppercase. For example, `serve.http.port`
+becomes `TALOS_SERVE_HTTP_PORT`.
 
 ### Array values
 
-For array-typed config keys (like `secrets.hmac.retired`), use comma separation or indexed variables:
+For array-typed config keys (like `secrets.hmac.retired`), use comma separation or indexed
+variables:
 
 ```bash
 # Comma-separated
@@ -50,10 +50,10 @@ Environment variables always override file-based configuration.
 
 At minimum, these must be set (via env var or config file):
 
-| Variable                        | Description                                       |
-| ------------------------------- | ------------------------------------------------- |
-| `TALOS_SECRETS_DEFAULT_CURRENT` | Default secret for HMAC operations (min 32 chars) |
-| `TALOS_CREDENTIALS_ISSUER`      | Token issuer (`iss` claim) for derived tokens     |
+| Variable                     | Description                                                                  |
+| ---------------------------- | ---------------------------------------------------------------------------- |
+| `TALOS_SECRETS_HMAC_CURRENT` | HMAC secret (also derives the pagination cursor key). Minimum 32 characters. |
+| `TALOS_CREDENTIALS_ISSUER`   | Token issuer (`iss` claim) for derived tokens.                               |
 
 ## `cache` Commercial
 
@@ -69,8 +69,8 @@ Cache configuration.
 | `cache.redis.db`                 | integer                   | `0`                  | `TALOS_CACHE_REDIS_DB`                 | Redis database number. (restart required, Commercial)                                         |
 | `cache.redis.min_idle_conns`     | integer                   | `2`                  | `TALOS_CACHE_REDIS_MIN_IDLE_CONNS`     | Minimum number of idle connections kept open. (restart required, Commercial)                  |
 | `cache.redis.password`           | string                    | —                    | `TALOS_CACHE_REDIS_PASSWORD`           | Redis password. (restart required, Commercial)                                                |
-| `cache.redis.pool_size`          | integer                   | `100`                | `TALOS_CACHE_REDIS_POOL_SIZE`          | Connection pool size (Commercial)                                                             |
-| `cache.redis.timeout`            | string                    | `3s`                 | `TALOS_CACHE_REDIS_TIMEOUT`            | Redis operation timeout (duration string) (Commercial)                                        |
+| `cache.redis.pool_size`          | integer                   | `100`                | `TALOS_CACHE_REDIS_POOL_SIZE`          | Connection pool size. (restart required, Commercial)                                          |
+| `cache.redis.timeout`            | string                    | `3s`                 | `TALOS_CACHE_REDIS_TIMEOUT`            | Redis operation timeout (duration string). (restart required, Commercial)                     |
 | `cache.redis.tls.enabled`        | boolean                   | `false`              | `TALOS_CACHE_REDIS_TLS_ENABLED`        | Enable TLS using the system certificate pool. (restart required, Commercial)                  |
 | `cache.ttl`                      | string                    | `5m`                 | `TALOS_CACHE_TTL`                      | Default cache TTL (duration string). (Commercial)                                             |
 | `cache.type`                     | `memory`, `redis`, `noop` | `noop`               | `TALOS_CACHE_TYPE`                     | Cache implementation type. (restart required, Commercial)                                     |
@@ -89,7 +89,7 @@ Credential configuration for API keys and derived tokens (JWT, macaroon).
 | `credentials.api_keys.prefix.retired`                | string[] | `[]`     | `TALOS_CREDENTIALS_API_KEYS_PREFIX_RETIRED`                | Retired prefixes accepted during verification for migration purposes.                                                               |
 | `credentials.clock_skew`                             | string   | `5m`     | `TALOS_CREDENTIALS_CLOCK_SKEW`                             | Maximum clock skew tolerance for timestamp and token validation.                                                                    |
 | `credentials.derived_tokens.default_ttl`             | string   | `1h`     | `TALOS_CREDENTIALS_DERIVED_TOKENS_DEFAULT_TTL`             | Default derived token TTL applied to both JWT and macaroon tokens when no explicit TTL is provided in the request (duration string) |
-| `credentials.derived_tokens.jwt.signing_key_id`      | string   | —        | `TALOS_CREDENTIALS_DERIVED_TOKENS_JWT_SIGNING_KEY_ID`      | Optional JWK 'kid' hint used to select the active signing key.                                                                      |
+| `credentials.derived_tokens.jwt.signing_key_id`      | string   | ""       | `TALOS_CREDENTIALS_DERIVED_TOKENS_JWT_SIGNING_KEY_ID`      | Optional JWK 'kid' hint used to select the active signing key.                                                                      |
 | `credentials.derived_tokens.jwt.signing_keys.urls`   | string[] | `[]`     | `TALOS_CREDENTIALS_DERIVED_TOKENS_JWT_SIGNING_KEYS_URLS`   | List of JWKS resources.                                                                                                             |
 | `credentials.derived_tokens.macaroon.prefix.current` | string   | `mc`     | `TALOS_CREDENTIALS_DERIVED_TOKENS_MACAROON_PREFIX_CURRENT` | Current prefix used for new macaroon token generation.                                                                              |
 | `credentials.derived_tokens.macaroon.prefix.retired` | string[] | `[]`     | `TALOS_CREDENTIALS_DERIVED_TOKENS_MACAROON_PREFIX_RETIRED` | Retired prefixes accepted during macaroon verification for rotation purposes.                                                       |
@@ -108,12 +108,12 @@ Database configuration.
 
 Configuration for batched last_used_at timestamp updates.
 
-| Key                        | Type    | Default | Env Var                          | Description                                                                     |
-| -------------------------- | ------- | ------- | -------------------------------- | ------------------------------------------------------------------------------- |
-| `last_used.flush_interval` | string  | `30s`   | `TALOS_LAST_USED_FLUSH_INTERVAL` | Maximum time between batch flushes (Go duration string, e.g. (restart required) |
-| `last_used.flush_size`     | integer | `100`   | `TALOS_LAST_USED_FLUSH_SIZE`     | Number of updates per shard that triggers a batch flush. (restart required)     |
-| `last_used.num_workers`    | integer | `4`     | `TALOS_LAST_USED_NUM_WORKERS`    | Number of goroutines processing last-used batches. (restart required)           |
-| `last_used.queue_size`     | integer | `10000` | `TALOS_LAST_USED_QUEUE_SIZE`     | Buffer size for the async last-used update queue. (restart required)            |
+| Key                        | Type    | Default | Env Var                          | Description                                                                                   |
+| -------------------------- | ------- | ------- | -------------------------------- | --------------------------------------------------------------------------------------------- |
+| `last_used.flush_interval` | string  | `30s`   | `TALOS_LAST_USED_FLUSH_INTERVAL` | Maximum time between batch flushes (Go duration string, e.g. '30s', '1m'). (restart required) |
+| `last_used.flush_size`     | integer | `100`   | `TALOS_LAST_USED_FLUSH_SIZE`     | Number of updates per shard that triggers a batch flush. (restart required)                   |
+| `last_used.num_workers`    | integer | `4`     | `TALOS_LAST_USED_NUM_WORKERS`    | Number of goroutines processing last-used batches. (restart required)                         |
+| `last_used.queue_size`     | integer | `10000` | `TALOS_LAST_USED_QUEUE_SIZE`     | Buffer size for the async last-used update queue. (restart required)                          |
 
 ## `log` (restart required)
 
@@ -133,6 +133,14 @@ Multi-tenancy configuration.
 | `multitenancy.enabled`  | boolean  | `false` | `TALOS_MULTITENANCY_ENABLED`  | Enable multi-tenancy support. (restart required, Commercial)  |
 | `multitenancy.networks` | object[] | `[]`    | `TALOS_MULTITENANCY_NETWORKS` | Network routing configuration. (restart required, Commercial) |
 
+## `quota`
+
+Resource caps for the current subscription tier.
+
+| Key                  | Type    | Default | Env Var                    | Description                                                                     |
+| -------------------- | ------- | ------- | -------------------------- | ------------------------------------------------------------------------------- |
+| `quota.api_keys_max` | integer | —       | `TALOS_QUOTA_API_KEYS_MAX` | Maximum number of non-revoked API keys (issued + imported) the tenant may hold. |
+
 ## `rate_limit` Commercial
 
 Rate limit enforcement for API keys with a RateLimitPolicy.
@@ -146,14 +154,10 @@ Rate limit enforcement for API keys with a RateLimitPolicy.
 
 Centralized secrets management.
 
-| Key                          | Type     | Default | Env Var                            | Description                                                                                                         |
-| ---------------------------- | -------- | ------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `secrets.default.current`    | string   | —       | `TALOS_SECRETS_DEFAULT_CURRENT`    | Current default secret for all components without specific overrides (min 32 chars)                                 |
-| `secrets.default.retired`    | string[] | `[]`    | `TALOS_SECRETS_DEFAULT_RETIRED`    | Retired default secrets that remain valid for verification during rotation                                          |
-| `secrets.hmac.current`       | string   | —       | `TALOS_SECRETS_HMAC_CURRENT`       | Current HMAC secret for new key generation and checksum verification (min 32 chars)                                 |
-| `secrets.hmac.retired`       | string[] | `[]`    | `TALOS_SECRETS_HMAC_RETIRED`       | Retired HMAC secrets that remain valid for verification during rotation                                             |
-| `secrets.pagination.current` | string   | —       | `TALOS_SECRETS_PAGINATION_CURRENT` | Secret used to sign and encrypt pagination tokens. (min 32 chars)                                                   |
-| `secrets.pagination.retired` | string[] | `[]`    | `TALOS_SECRETS_PAGINATION_RETIRED` | List of retired pagination secrets that should remain valid for decoding legacy page tokens during secret rotation. |
+| Key                    | Type     | Default | Env Var                      | Description                                                                          |
+| ---------------------- | -------- | ------- | ---------------------------- | ------------------------------------------------------------------------------------ |
+| `secrets.hmac.current` | string   | —       | `TALOS_SECRETS_HMAC_CURRENT` | Current HMAC secret for new key generation and checksum verification. (min 32 chars) |
+| `secrets.hmac.retired` | string[] | `[]`    | `TALOS_SECRETS_HMAC_RETIRED` | Retired HMAC secrets that remain valid for verification during rotation              |
 
 ## `serve`
 

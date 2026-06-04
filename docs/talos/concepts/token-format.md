@@ -1,31 +1,32 @@
 ---
-id: talos-token-format
-title: Ory Talos token format
-sidebar_label: Token format
+title: Token format
 ---
 
-# Token format
+Issued API keys use a versioned format:
 
-Issued API keys follow a structured v1 format:
-
-```
+```text
 {prefix}_v1_{identifier}_{checksum}
 ```
 
 ## Components
 
-| Part       | Length      | Description                              |
-| ---------- | ----------- | ---------------------------------------- |
-| Prefix     | 1-8 chars   | Configurable label (e.g., `prod`, `dev`) |
-| `v1`       | 2 chars     | Format version                           |
-| Identifier | ~32 chars   | Base58-encoded timestamp + UUID          |
-| Checksum   | 10-11 chars | HMAC-SHA256, truncated, Base58           |
+| Part       | Length     | Description                                                          |
+| ---------- | ---------- | -------------------------------------------------------------------- |
+| Prefix     | 1-16 chars | Configurable label (for example, `prod` or `dev`)                    |
+| `v1`       | 2 chars    | Format version                                                       |
+| Identifier | ~64 chars  | Base58-encoded ASCII string `"{unix_seconds}:{uuid-with-hyphens}"`   |
+| Checksum   | ~44 chars  | Full HMAC-SHA256 digest (32 bytes), Base58-encoded — never truncated |
 
 ## How it works
 
-The identifier contains a Unix timestamp and UUID v4, Base58-encoded. The UUID is the `key_id` used for database lookup. The
-checksum is HMAC-SHA256 over the payload, enabling tamper detection.
+The identifier is the Base58 encoding of the ASCII string `{unix_seconds}:{uuid-with-hyphens}` (the
+timestamp and UUID v4 joined by a colon). Decoding it returns the timestamp and UUID; the UUID is
+the `key_id` used for database lookup.
 
-During verification, all configured secrets (current + retired) are tried, supporting zero-downtime secret rotation.
+The checksum is the **full** HMAC-SHA256 digest over the payload `{prefix}_v1_{identifier}_`,
+Base58-encoded. Talos never truncates the digest.
+
+During verification, Talos tries each configured secret in order (current, then retired) to support
+zero-downtime secret rotation.
 
 See [Token format reference](../reference/token-format.md) for the full specification.

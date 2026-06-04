@@ -1,119 +1,362 @@
 ---
-id: talos-docker-quickstart
-title: Docker quickstart (Commercial)
+title: Commercial quickstart
 tags: [commercial]
-sidebar_label: Docker quickstart (Commercial)
 sidebar_custom_props:
   badge: Commercial
 ---
 
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
-
-# Docker quickstart (Commercial)
-
-Run the Commercial edition with PostgreSQL and Redis using Docker Compose.
-
-<!-- doctest:setup:file tools/doctest/setup-commercial.sh -->
-<!-- doctest:teardown:file tools/doctest/teardown.sh -->
-
-## Start the stack
-
-```bash
-docker compose -f docker-compose.commercial.yaml up -d
+```mdx-code-block
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 ```
 
-This starts Talos, PostgreSQL, and Redis. Migrations run automatically.
+Run the Ory Talos commercial (OEL) edition locally with Docker and Postgres. This guide pulls the
+published commercial image, starts a Postgres-backed instance, and walks through issued and imported
+API key flows. The `curl` examples are the default; the Ory Talos CLI is an alternative.
 
-## Issue a key
+For the single-node OSS edition on SQLite, see the [Open source quickstart](./open-source.mdx).
+
+## Set up credentials
+
+1. Download `keyfile.json` from the email you received.
+2. Authenticate with Google Cloud:
+   ```shell
+   gcloud auth activate-service-account --key-file=keyfile.json
+   gcloud auth configure-docker europe-docker.pkg.dev
+   ```
+
+## Pull the image
+
+```shell
+docker pull europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8
+```
+
+## Start Postgres
+
+```shell
+docker network create talos-preview
+docker run -d --name talos-postgres --network talos-preview \
+  -e POSTGRES_USER=talos -e POSTGRES_PASSWORD=talos -e POSTGRES_DB=talos \
+  -p 5432:5432 postgres:16-alpine
+```
+
+## Configure Ory Talos
+
+Create `config.yaml` in your working directory:
+
+```yaml
+serve:
+  http: { host: "0.0.0.0", port: 8080 }
+  metrics: { host: "0.0.0.0", port: 4422 }
+
+credentials:
+  issuer: "http://localhost:8080"
+  api_keys:
+    default_ttl: "720h"
+    prefix: { current: "talos" }
+  derived_tokens:
+    default_ttl: "1h"
+    jwt:
+      signing_keys:
+        urls:
+          - "base64://eyAgImtleXMiOiBbICAgIHsgICAgICAiYWxnIjogIkVkRFNBIiwgICAgICAiY3J2IjogIkVkMjU1MTkiLCAgICAgICJkIjogIjl3VTNfV3p0dmx3TXg0SGlfN2dsSVduY09XNlVIR2I5amxDdDZEZkVGa2MiLCAgICAgICJraWQiOiAiZG9ja2VyLWRldi0wMDEiLCAgICAgICJrdHkiOiAiT0tQIiwgICAgICAidXNlIjogInNpZyIsICAgICAgIngiOiAiNGtTQTdtNU5jYnFDUC1mZk9fNGhQM2tsNHB0NGctLTNRQ21zQmwzb05lVSIgICAgfSAgXX0="
+    macaroon:
+      prefix: { current: "mc" }
+
+db:
+  dsn: "postgres://talos:talos@talos-postgres:5432/talos?sslmode=disable"
+
+secrets:
+  hmac: { current: "preview-hmac-secret-minimum-32-chars-long" }
+
+cache: { type: "memory", ttl: "5m" }
+multitenancy: { enabled: false }
+log: { level: "info", format: "json" }
+```
+
+:::caution
+
+This config embeds the development EdDSA JWK from `deployments/docker/config/config.yaml`. Replace
+it before any non-local use because the private key is published in the source tree.
+
+:::
+
+## Run database migrations
+
+Initialize the Postgres schema before the first server start:
+
+```shell
+docker run --rm --network talos-preview \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
+  migrate up --database "postgres://talos:talos@talos-postgres:5432/talos?sslmode=disable"
+```
+
+## Start Ory Talos
+
+```shell
+docker run -d --name talos --network talos-preview \
+  -p 8080:8080 -p 4422:4422 \
+  -v "$PWD/config.yaml:/etc/talos/config.yaml:ro" \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
+  serve --config /etc/talos/config.yaml
+```
+
+This starts a single-tenant commercial server that uses the in-memory cache.
+
+## Wait for the server to become ready
+
+```shell
+# Wait for the health endpoint
+for i in $(seq 1 30); do
+  if curl -sf http://localhost:8080/health/alive > /dev/null 2>&1; then
+    echo "Server is ready"
+    break
+  fi
+  sleep 1
+done
+```
+
+CI runs the API examples below against the same published image on the `talos-preview` Docker
+network.
+
+<!-- doctest:setup:file tools/doctest/setup-preview.sh -->
+<!-- doctest:teardown:file tools/doctest/teardown-preview.sh -->
+
+Set the base URL for the local server:
+
+```shell
+export TALOS_URL="${TALOS_URL:-http://localhost:8080}"
+```
+
+## Issue an API key
+
+Create an issued key on the admin API and save its secret for later steps. For the complete field
+reference, see the [IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
 
 <!-- doctest:exec -->
 
-<Tabs groupId="sdk" defaultValue="cli">
+<Tabs groupId="sdk" defaultValue="curl">
 <TabItem value="cli" label="CLI">
 
-```bash
-# Note: rate_limit_policy is only available via the HTTP API.
-RESPONSE=$(talos keys issue "commercial-test" \
-  --actor user_1 \
-  --scopes "read,write" \
-  --ttl 168h \
+```shell
+RESPONSE=$(docker run --rm --network talos-preview \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
+  keys issue "commercial-issued-key" \
+  --actor commercial-user \
+  --scopes "read:profile,write:profile" \
+  --ttl 720h \
   --format json \
-  -e "$TALOS_URL" 2>/dev/null)
+  -e "http://talos:8080" 2>/dev/null)
 
 echo "$RESPONSE" | jq .
 
 export API_SECRET=$(echo "$RESPONSE" | jq -er '.secret')
+export KEY_ID=$(echo "$RESPONSE" | jq -er '.issued_api_key.key_id')
 ```
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "commercial-test",
-    "actor_id": "user_1",
-    "scopes": ["read", "write"],
-    "ttl": "168h",
-    "rate_limit_policy": {
-      "quota": 1000,
-      "window": "60s"
-    }
+    "name": "commercial-issued-key",
+    "actor_id": "commercial-user",
+    "scopes": ["read:profile", "write:profile"],
+    "ttl": "720h"
   }')
 
 echo "$RESPONSE" | jq .
 
 export API_SECRET=$(echo "$RESPONSE" | jq -er '.secret')
+export KEY_ID=$(echo "$RESPONSE" | jq -er '.issued_api_key.key_id')
 ```
 
 </TabItem>
 </Tabs>
 
-## Verify with caching
+The response returns `issued_api_key` metadata plus `secret`. The secret is shown only once, so
+store it securely.
 
-The first request hits the database; subsequent requests within the cache TTL are served from Redis:
+## Verify the issued key
+
+Send the issued key secret to the verify endpoint. For the full response fields and error codes, see
+the [VerifyAPIKey API reference](../reference/api/admin-verify-api-key.api.mdx).
 
 <!-- doctest:exec -->
 
-<Tabs groupId="sdk" defaultValue="cli">
+<Tabs groupId="sdk" defaultValue="curl">
 <TabItem value="cli" label="CLI">
 
-```bash
-talos keys verify "$API_SECRET" -e "$TALOS_URL"
+```shell
+docker run --rm --network talos-preview \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
+  keys verify "$API_SECRET" -e "http://talos:8080"
 ```
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
-curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
+```shell
+VERIFY_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
-  -d "{\"credential\":\"$API_SECRET\"}" | jq .
+  -d "{\"credential\":\"$API_SECRET\"}")
+
+echo "$VERIFY_RESPONSE" | jq .
 ```
 
 </TabItem>
 </Tabs>
 
-## Stop the stack
+A valid result returns `is_valid: true` plus the key's actor, scopes, issuer, and expiration.
 
-```bash
-docker compose -f docker-compose.commercial.yaml down
+## Derive a JWT from the issued key
+
+Mint a short-lived JWT from the issued key with custom claims. For the full request and response
+schema, see the [DeriveToken API reference](../reference/api/admin-derive-token.api.mdx).
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="curl">
+<TabItem value="cli" label="CLI">
+
+```shell
+RESPONSE=$(docker run --rm --network talos-preview \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
+  keys derive-token "$API_SECRET" \
+  --algorithm jwt \
+  --ttl 1h \
+  --claims '{"role":"commercial-user","environment":"demo"}' \
+  --format json \
+  -e "http://talos:8080" 2>/dev/null)
+
+echo "$RESPONSE" | jq .
+
+export JWT_TOKEN=$(echo "$RESPONSE" | jq -er '.token.token')
 ```
 
-To remove all data volumes:
+</TabItem>
+<TabItem value="curl" label="curl">
 
-```bash
-docker compose -f docker-compose.commercial.yaml down -v
+```shell
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:derive" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"credential\": \"$API_SECRET\",
+    \"algorithm\": \"TOKEN_ALGORITHM_JWT\",
+    \"ttl\": \"1h\",
+    \"custom_claims\": {\"role\": \"commercial-user\", \"environment\": \"demo\"}
+  }")
+
+echo "$RESPONSE" | jq .
+
+export JWT_TOKEN=$(echo "$RESPONSE" | jq -er '.token.token')
 ```
 
-## Prerequisites
+</TabItem>
+</Tabs>
 
-You need Docker and Docker Compose installed. See the [OSS quickstart](./index.mdx) to try the free edition first.
+The derived token inherits the parent key's permissions and returns as `token.token` with its own
+expiry metadata.
+
+## Import an existing API key
+
+Import an existing key string into Ory Talos without rotating the credential. For the complete field
+reference, see the [ImportAPIKey API reference](../reference/api/admin-import-api-key.api.mdx).
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="curl">
+<TabItem value="cli" label="CLI">
+
+```shell
+export IMPORTED_RAW_KEY=sk_commercial_demo_001
+
+RESPONSE=$(docker run --rm --network talos-preview \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
+  keys imported import "commercial-imported-key" \
+  --raw-key "$IMPORTED_RAW_KEY" \
+  --actor commercial-import-user \
+  --scopes "payments:read,payments:write" \
+  --ttl 720h \
+  --format json \
+  -e "http://talos:8080" 2>/dev/null)
+
+echo "$RESPONSE" | jq .
+
+export IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -er '.key_id')
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+export IMPORTED_RAW_KEY=sk_commercial_demo_001
+
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"raw_key\": \"$IMPORTED_RAW_KEY\",
+    \"name\": \"commercial-imported-key\",
+    \"actor_id\": \"commercial-import-user\",
+    \"scopes\": [\"payments:read\", \"payments:write\"],
+    \"ttl\": \"720h\"
+  }")
+
+echo "$RESPONSE" | jq .
+
+export IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -er '.key_id')
+```
+
+</TabItem>
+</Tabs>
+
+Ory Talos stores a hash of the imported credential, not the raw key. The raw key is never returned
+after import.
+
+## Verify the imported key
+
+Imported keys use the same verify endpoint as issued keys. Ory Talos detects the credential type
+automatically.
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="curl">
+<TabItem value="cli" label="CLI">
+
+```shell
+docker run --rm --network talos-preview \
+  europe-docker.pkg.dev/ory-artifacts/ory-enterprise-talos/talos-oel:26.2.8 \
+  keys verify "$IMPORTED_RAW_KEY" -e "http://talos:8080"
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+VERIFY_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
+  -H "Content-Type: application/json" \
+  -d "{\"credential\":\"$IMPORTED_RAW_KEY\"}")
+
+echo "$VERIFY_RESPONSE" | jq .
+```
+
+</TabItem>
+</Tabs>
+
+## Stop the server
+
+```shell
+docker rm -f talos talos-postgres
+docker network rm talos-preview
+```
 
 ## Next steps
 
-- [Quickstart (OSS)](./index.mdx) — simpler setup with SQLite
-- [Architecture](../concepts/architecture.md) — admin and data plane design
-- [Caching](../concepts/caching.md) — cache behavior and consistency model
+- [Open source quickstart](./open-source.mdx) — try the OSS edition with SQLite
+- [Issue and verify API keys](../integrate/issue-and-verify.mdx) — issued-key lifecycle in depth
+- [Import existing keys](../integrate/import-keys.mdx) — batch import and hashing behavior
+- [Derive tokens](../integrate/derive-tokens.mdx) — JWT vs macaroon and JWKS usage
+- [Key lifecycle](../integrate/key-lifecycle.mdx) — rotate, update, and revoke credentials
+- [Architecture](../concepts/architecture.mdx) — admin and public API separation
+- [Cache configuration](../operate/cache/index.md) — switch from memory cache to Redis

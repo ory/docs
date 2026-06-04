@@ -1,0 +1,106 @@
+---
+title: Architecture
+---
+
+Ory Talos is an API credential service. It issues and verifies API keys, derives short-lived JWT and
+macaroon tokens from those keys, and lets credential holders revoke their own keys with proof of
+possession. This page covers the editions, the deployment shapes, and the design choices that matter
+when you adopt or operate Talos.
+
+## What Talos does
+
+Talos exposes two surfaces:
+
+- An **admin surface** for managing credentials: issue, rotate, revoke, import, derive tokens, list,
+  and get. Verification (`apiKeys:verify` and `apiKeys:batchVerify`) also lives on the admin
+  surface, because verifying a credential is a high-trust operation that needs the same network
+  protection as management. Talos ships no admin authentication; you control who can reach this
+  surface.
+- A **self-service surface** for the one credential-holder operation: self-revocation
+  (`apiKeys:selfRevoke`). The caller proves possession by presenting the credential, so this surface
+  needs no admin authentication.
+
+The JWKS endpoint (`GET /v2alpha1/derivedKeys/jwks.json`) publishes the public keys that verify
+derived JWTs. It carries no secrets, so every surface exposes it and callers can fetch it from any
+process.
+
+Run both surfaces in one process, or split them so the public self-revoke endpoint doesn't share a
+listener with management endpoints. See
+[separate admin and public APIs](../operate/deploy/deployment-modes.md) for the production topology.
+
+## Editions
+
+Talos ships in two editions. The OSS edition is single-tenant, supports only SQLite, and treats
+rate-limit policies as metadata. The commercial edition adds multi-tenancy, enforced rate limits,
+observability, and Postgres, MySQL, and CockroachDB backends.
+
+| Capability                                       | OSS                                                    | Commercial                             |
+| ------------------------------------------------ | ------------------------------------------------------ | -------------------------------------- |
+| All admin and self-service endpoints             | yes                                                    | yes                                    |
+| Single-process `serve`                           | yes                                                    | yes                                    |
+| Split deployment (`serve admin`, `serve public`) | yes                                                    | yes                                    |
+| Edge proxy (`talos proxy`)                       | no                                                     | yes                                    |
+| Cache backends                                   | `noop` only                                            | `memory`, `redis`                      |
+| Multi-tenancy (network ID derived from hostname) | no                                                     | yes                                    |
+| Rate limit enforcement                           | no (policies are stored and reported as metadata only) | yes                                    |
+| Prometheus `/metrics` endpoint on port 4422      | no                                                     | yes                                    |
+| OpenTelemetry tracing                            | no                                                     | yes                                    |
+| Database backends                                | SQLite                                                 | SQLite, PostgreSQL, MySQL, CockroachDB |
+
+The configuration schema marks commercial-only blocks (`serve.metrics`, `tracing`, `cache`,
+`rate_limit`, `multitenancy`, and the Redis sub-block) with `x-license-required`. OSS builds parse
+these blocks but never activate them: the metrics route is a no-op, no tracer or tenant routing is
+created, and rate-limit policies stay metadata. Setting `cache.type` to `memory` or `redis` fails
+because both backends require a license; OSS supports only `noop`.
+
+## Deployment topologies
+
+- **Single process.** Run `talos serve`. Both surfaces share one listener and database. This is the
+  OSS default and works for development and small deployments. See the
+  [deployment overview](../operate/deploy/index.md).
+- **Split admin and public.** Run `talos serve admin` for the admin API (management plus
+  verification) and `talos serve public` for self-revoke, against a shared database. The admin
+  process stays on an internal network behind an authenticating proxy; the public process accepts
+  public traffic. Available in OSS and commercial. See
+  [separate admin and public APIs](../operate/deploy/deployment-modes.md).
+- **Edge proxy.** Run `talos proxy` (commercial only) as a sidecar in front of a central Talos
+  cluster. The proxy caches valid verification responses locally and forwards everything else to the
+  upstream. See [edge proxy](../operate/deploy/edge-proxy.mdx).
+
+## Design principles
+
+- **Stateless verification for derived tokens.** JWT and macaroon verification reads neither the
+  database nor the cache. Talos checks signatures against the configured JWKS or shared secret. This
+  lets the edge proxy and admin process scale independently of the database.
+- **Single source of truth for tenancy.** Talos derives the network ID from the request context:
+  from the hostname in commercial deployments, always `uuid.Nil` in OSS. It never reads the network
+  ID from request bodies or persisted records. See the [security model](./security-model.md) for the
+  full rationale.
+- **Pluggable persistence and cache.** Storage and cache backends are interfaces. The commercial
+  edition supplies additional implementations without changing the OSS surface.
+
+## Scalability
+
+Approximate shapes. Exact numbers depend on key formats, cache hit ratio, and database choice.
+
+| Tier   | Process layout                                                                                  | Cache                                                    | Database                                     |
+| ------ | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------- |
+| Small  | One `talos serve` instance                                                                      | `noop` (OSS) or `memory` (commercial)                    | SQLite (OSS) or any backend (commercial)     |
+| Medium | A few `talos serve admin` instances behind a load balancer, scaled horizontally for verify load | `redis` for shared state across verify nodes             | PostgreSQL or CockroachDB                    |
+| Large  | Regional `talos proxy` sidecars in front of a central Talos cluster                             | Local cache in each proxy plus a shared `redis` upstream | CockroachDB or PostgreSQL with read replicas |
+
+Verification is the hot path. Admin operations aren't. Size for verify throughput first.
+
+## Observability
+
+Both editions emit structured JSON logs to stderr (set `log.format` to `text` for plain text). The
+commercial edition also exports Prometheus metrics on a dedicated port and OpenTelemetry traces via
+OTLP. See [monitoring](../operate/monitoring/index.md) for setup, configuration, and the available
+metrics and spans.
+
+## Ports
+
+| Port | Purpose                                                                                      | Edition         |
+| ---- | -------------------------------------------------------------------------------------------- | --------------- |
+| 4420 | HTTP API and health checks (`serve.http.port`)                                               | OSS, commercial |
+| 4422 | Health checks; Prometheus `/metrics` scrape endpoint, commercial only (`serve.metrics.port`) | OSS, commercial |

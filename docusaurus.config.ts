@@ -206,6 +206,190 @@ const config: Config = {
             from: "/product-selector",
             to: "/welcome",
           },
+          // Ory Talos: old custom-id URLs -> Rabat path-based URLs.
+          // Quickstart
+          { from: "/talos/quickstart", to: "/talos/quickstart/open-source" },
+          {
+            from: "/talos/quickstart/index",
+            to: "/talos/quickstart/open-source",
+          },
+          {
+            from: "/talos/quickstart/early-access-quickstart",
+            to: "/talos/quickstart/docker-commercial",
+          },
+          {
+            from: "/talos/quickstart/talos-docker-quickstart",
+            to: "/talos/quickstart/docker-commercial",
+          },
+          // Concepts
+          {
+            from: "/talos/concepts/talos-architecture",
+            to: "/talos/concepts/architecture",
+          },
+          {
+            from: "/talos/concepts/caching-consistency",
+            to: "/talos/concepts/caching",
+          },
+          {
+            from: "/talos/concepts/talos-rate-limiting",
+            to: "/talos/concepts/rate-limiting",
+          },
+          {
+            from: "/talos/concepts/talos-security-model",
+            to: "/talos/concepts/security-model",
+          },
+          {
+            from: "/talos/concepts/talos-token-format",
+            to: "/talos/concepts/token-format",
+          },
+          {
+            from: "/talos/concepts/token-derivation-security",
+            to: "/talos/concepts/security-model",
+          },
+          // Integrate
+          {
+            from: "/talos/integrate/talos-error-handling",
+            to: "/talos/integrate/error-handling",
+          },
+          {
+            from: "/talos/integrate/talos-import-keys",
+            to: "/talos/integrate/import-keys",
+          },
+          {
+            from: "/talos/integrate/talos-ip-restrictions",
+            to: "/talos/integrate/ip-restrictions",
+          },
+          {
+            from: "/talos/integrate/talos-issue-verify-keys",
+            to: "/talos/integrate/issue-and-verify",
+          },
+          {
+            from: "/talos/integrate/talos-rate-limiting",
+            to: "/talos/integrate/rate-limiting",
+          },
+          {
+            from: "/talos/integrate/api-key-self-revocation",
+            to: "/talos/integrate/self-revocation",
+          },
+          {
+            from: "/talos/integrate/sdk/talos-curl",
+            to: "/talos/integrate/sdk/curl",
+          },
+          {
+            from: "/talos/integrate/sdk/talos-go-sdk",
+            to: "/talos/integrate/sdk/go",
+          },
+          // Operate
+          {
+            from: "/talos/operate/talos-install",
+            to: "/talos/operate/install",
+          },
+          {
+            from: "/talos/operate/talos-configure",
+            to: "/talos/operate/configure",
+          },
+          {
+            from: "/talos/operate/talos-performance-benchmarks",
+            to: "/talos/operate/benchmarks",
+          },
+          {
+            from: "/talos/operate/talos-multi-tenancy",
+            to: "/talos/operate/multi-tenancy",
+          },
+          {
+            from: "/talos/operate/secret-management",
+            to: "/talos/operate/secrets",
+          },
+          {
+            from: "/talos/operate/talos-tls-configuration",
+            to: "/talos/operate/tls",
+          },
+          {
+            from: "/talos/operate/talos-troubleshooting",
+            to: "/talos/operate/troubleshooting",
+          },
+          {
+            from: "/talos/operate/deploy/talos-docker",
+            to: "/talos/operate/deploy/docker",
+          },
+          {
+            from: "/talos/operate/deploy/talos-kubernetes",
+            to: "/talos/operate/deploy/deployment-modes",
+          },
+          {
+            from: "/talos/operate/deploy/separate-planes",
+            to: "/talos/operate/deploy/deployment-modes",
+          },
+          {
+            from: "/talos/operate/cache/talos-in-memory-cache",
+            to: "/talos/operate/cache/memory",
+          },
+          {
+            from: "/talos/operate/cache/redis-cache",
+            to: "/talos/operate/cache/redis",
+          },
+          {
+            from: "/talos/operate/database/talos-migrations",
+            to: "/talos/operate/database/migrations",
+          },
+          {
+            from: "/talos/operate/database/talos-cockroachdb",
+            to: "/talos/operate/database/cockroachdb",
+          },
+          {
+            from: "/talos/operate/database/talos-postgresql",
+            to: "/talos/operate/database/postgresql",
+          },
+          {
+            from: "/talos/operate/database/talos-sqlite",
+            to: "/talos/operate/database/sqlite",
+          },
+          {
+            from: "/talos/operate/database/talos-mysql",
+            to: "/talos/operate/database/mysql",
+          },
+          {
+            from: "/talos/operate/monitoring/talos-health-checks",
+            to: "/talos/operate/monitoring/health-checks",
+          },
+          {
+            from: "/talos/operate/monitoring/talos-prometheus-metrics",
+            to: "/talos/operate/monitoring/metrics",
+          },
+          {
+            from: "/talos/operate/monitoring/talos-opentelemetry",
+            to: "/talos/operate/monitoring/tracing",
+          },
+          // Reference
+          {
+            from: "/talos/reference/talos-config-reference",
+            to: "/talos/reference/config",
+          },
+          {
+            from: "/talos/reference/talos-token-format-reference",
+            to: "/talos/reference/token-format",
+          },
+          {
+            from: "/talos/reference/talos-audit-events",
+            to: "/talos/reference/events",
+          },
+          {
+            from: "/talos/reference/talos-error-codes",
+            to: "/talos/reference/error-codes",
+          },
+          // Reference API (renamed methods)
+          {
+            from: "/talos/reference/api/admin-batch-import-api-keys",
+            to: "/talos/reference/api/admin-batch-create-imported-api-keys",
+          },
+          {
+            from: "/talos/reference/api/admin-revoke-api-key",
+            to: "/talos/reference/api/admin-revoke-issued-api-key",
+          },
+          {
+            from: "/talos/reference/api/admin-get-jwks",
+            to: "/talos/reference/api/get-jwks",
+          },
         ],
       },
     ],

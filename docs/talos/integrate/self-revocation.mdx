@@ -1,28 +1,25 @@
 ---
-id: api-key-self-revocation
 title: Self-revocation
 description: Allow API key holders to revoke their own keys
-sidebar_label: Self-revocation
 ---
 
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
-# Self-revocation
-
-The self-revoke endpoint lets an API key holder revoke their own key by proving possession of the secret. This is a data plane
-operation — it does not require admin access.
+Self-revocation lets an API key holder revoke their own key by proving possession of the secret. It
+is the only operation on the self-service surface and does not require admin access.
 
 ## Prerequisites
 
-A running Talos server. See the [quickstart](../quickstart/index.mdx) to start one locally.
+You need a running Ory Talos server. See the [quickstart](../quickstart/open-source.mdx) to start
+one locally.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
 
 ## When to use self-revocation
 
-- **Key compromise** — a user discovers their key was leaked and wants to revoke it immediately.
+- **Key compromise** — a user finds their key is leaked and revokes it immediately.
 - **User-initiated cleanup** — a user decommissions an integration and revokes unused keys.
 - **Security automation** — an automated system detects anomalous usage and revokes the key.
 
@@ -35,7 +32,7 @@ First, issue a key to get a secret:
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 export SELF_REVOKE_SECRET=$(talos keys issue "self-revoke-demo" \
   --actor user_99 \
   --scopes "read:data" \
@@ -46,7 +43,7 @@ export SELF_REVOKE_SECRET=$(talos keys issue "self-revoke-demo" \
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 ISSUE_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{
@@ -68,7 +65,7 @@ Send the full key secret as proof of possession:
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 talos keys self-revoke "$SELF_REVOKE_SECRET" \
   --reason key_compromise \
   -e "$TALOS_URL"
@@ -77,7 +74,7 @@ talos keys self-revoke "$SELF_REVOKE_SECRET" \
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 curl -s -X POST "$TALOS_URL/v2alpha1/apiKeys:selfRevoke" \
   -H "Content-Type: application/json" \
   -d "{
@@ -98,7 +95,7 @@ Verify the key is no longer active:
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 talos keys verify "$SELF_REVOKE_SECRET" --no-cache -e "$TALOS_URL" || true
 echo "Self-revocation confirmed"
 ```
@@ -106,7 +103,7 @@ echo "Self-revocation confirmed"
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 VERIFY_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -H "Cache-Control: no-cache" \
@@ -114,7 +111,7 @@ VERIFY_RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
 
 echo "$VERIFY_RESPONSE" | jq .
 
-if echo "$VERIFY_RESPONSE" | jq -e '.is_active == false' > /dev/null 2>&1; then
+if echo "$VERIFY_RESPONSE" | jq -e '.is_valid == false' > /dev/null 2>&1; then
   echo "Self-revocation confirmed"
 else
   echo "ERROR: Key should have been revoked"
@@ -125,24 +122,38 @@ fi
 </TabItem>
 </Tabs>
 
-The request requires `credential` (the full API key secret) and optionally `reason` (revocation reason enum). For the complete
-field reference, see the [SelfRevokeAPIKey API reference](../reference/api/revoke-api-key.api.mdx).
+The request requires `credential` (the full API key secret) and optionally `reason` (revocation
+reason enum). For the complete field reference, see the
+[SelfRevokeAPIKey API reference](../reference/api/revoke-api-key.api.mdx).
 
-Only issued and imported API keys can be self-revoked. Derived tokens (JWTs and macaroons) are stateless and cannot be revoked.
-All revocation reasons except `REVOCATION_REASON_PRIVILEGE_WITHDRAWN` are allowed — that reason is reserved for admin-initiated
-revocations.
+Self-revocation works only for issued and imported API keys. Derived tokens (JWTs and macaroons) are
+stateless and can't be revoked.
 
-A successful self-revocation returns an empty response with HTTP status `200 OK`. The key is immediately revoked.
+Self-revocation accepts the same standard reasons as admin revocation, except
+`REVOCATION_REASON_PRIVILEGE_WITHDRAWN`. Talos reserves that reason for admin-initiated revocations
+and rejects it here with `InvalidArgument`, because a key holder can't withdraw their own
+privileges. Common self-service reasons are `REVOCATION_REASON_KEY_COMPROMISE` for a leaked secret,
+`REVOCATION_REASON_SUPERSEDED` for self-service rotation, and
+`REVOCATION_REASON_AFFILIATION_CHANGED` when the user or integration goes away but the secret isn't
+compromised. For guidance on choosing a reason, see the
+[revocation reasons](key-lifecycle.mdx#revocation-reasons) section in the key lifecycle guide.
+
+A successful self-revocation returns an empty response with HTTP status `200 OK`. Talos revokes the
+key immediately.
 
 ## Admin vs self-revocation
 
-|                       | Admin revocation                               | Self-revocation                     |
-| --------------------- | ---------------------------------------------- | ----------------------------------- |
-| Endpoint              | `POST /v2alpha1/admin/apiKeys/{key_id}:revoke` | `POST /v2alpha1/apiKeys:selfRevoke` |
-| Plane                 | Admin                                          | Data                                |
-| Authentication        | Requires admin access                          | Proof of possession (key secret)    |
-| Identifier            | Key ID                                         | Key secret                          |
-| `PRIVILEGE_WITHDRAWN` | Allowed                                        | Not allowed                         |
+|                       | Admin revocation                                     | Self-revocation                     |
+| --------------------- | ---------------------------------------------------- | ----------------------------------- |
+| Endpoint              | `POST /v2alpha1/admin/issuedApiKeys/{key_id}:revoke` | `POST /v2alpha1/apiKeys:selfRevoke` |
+| Surface               | Admin                                                | Self-service                        |
+| Authentication        | Requires admin access                                | Proof of possession (key secret)    |
+| Identifier            | Key ID                                               | Key secret                          |
+| `PRIVILEGE_WITHDRAWN` | Allowed                                              | Not allowed                         |
+
+Admin revocation has a separate endpoint per key type: use
+`POST /v2alpha1/admin/issuedApiKeys/{key_id}:revoke` for issued keys and
+`POST /v2alpha1/admin/importedApiKeys/{key_id}:revoke` for imported keys.
 
 ## Next steps
 

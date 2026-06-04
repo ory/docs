@@ -1,15 +1,12 @@
 ---
-id: talos-in-memory-cache
 title: In-memory cache
 tags: [commercial]
-sidebar_label: In-memory cache
 sidebar_custom_props:
   badge: Commercial
 ---
 
-# In-memory cache
-
-The in-memory cache stores verification results in the Talos process using a ristretto-based LRU cache.
+The in-memory cache stores verification results inside each Ory Talos process. It uses
+[ristretto](https://github.com/dgraph-io/ristretto) with TinyLFU admission and sampled LFU eviction.
 
 ## Configuration
 
@@ -18,18 +15,23 @@ cache:
   type: "memory"
   ttl: "5m"
   memory:
-    max_size: 104857600 # 100MB
-    num_counters: 10000 # Frequency estimation counters
+    max_size: 104857600 # Maximum cache size in bytes (100 MiB)
+    num_counters: 10000 # Counters for TinyLFU frequency estimation
 ```
+
+`cache.type` and the entire `cache.memory.*` block are immutable. Changes require a server restart
+to take effect.
 
 ## Characteristics
 
-- **Per-process**: Each Talos instance has its own cache. Not shared across instances.
-- **LRU eviction**: Least-recently-used entries are evicted when the cache reaches `max_size`.
+- **Per-process**: Each Ory Talos instance has its own cache. It isn't shared across instances.
+- **Bounded by `max_size`**: When the cache reaches `max_size` bytes, TinyLFU admission and sampled
+  LFU eviction decide which entries to keep.
 - **TTL-based expiry**: Entries expire after the configured `ttl`.
-- **Zero network overhead**: No external dependencies.
+- **No external dependencies**: The cache runs in the Talos process, with no network round trips.
 
 ## When to use
 
-Use the in-memory cache for single-node deployments or when each Talos instance handles enough traffic to benefit from local
-caching. For multi-instance deployments, consider [Redis](redis.md) for shared cache across all instances.
+Use the in-memory cache for single-node deployments, or when each instance handles enough traffic to
+benefit from local caching on its own. For multi-instance deployments, use [Redis](redis.md) to
+share a cache across all instances.

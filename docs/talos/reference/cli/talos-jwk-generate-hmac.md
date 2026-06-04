@@ -16,8 +16,8 @@ Generate an HMAC secret key
 
 ### Synopsis
 
-Generate a symmetric HMAC secret key. Default size is 512 bits. Minimum is 256 bits. Algorithm is determined by key size:
-256→HS256, 384→HS384, ≥512→HS512.
+Generate a symmetric HMAC secret key. Default size is 512 bits. Minimum is 256 bits. Key size must
+be a multiple of 8. Algorithm is determined by key size: 256→HS256, 384→HS384, ≥512→HS512.
 
 ```
 talos jwk generate hmac [flags]
@@ -39,10 +39,10 @@ talos jwk generate hmac [flags]
 ### Options
 
 ```
-      --bits int        Key size in bits (default 512, minimum 256) (default 512)
+      --bits int        Key size in bits (default 512, minimum 256, must be a multiple of 8) (default 512)
   -h, --help            help for hmac
       --jwks            Output as JWKS (JSON Web Key Set)
-      --kid string      Key ID (JWK Thumbprint used if not provided)
+      --kid string      Key ID (RFC 7638 JWK thumbprint used if not provided)
   -o, --output string   Output file (writes to stdout if not specified)
       --use string      Key usage: 'sig' for signing, 'enc' for encryption (default: sig)
 ```
@@ -50,7 +50,7 @@ talos jwk generate hmac [flags]
 ### Options inherited from parent commands
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
 ```
 

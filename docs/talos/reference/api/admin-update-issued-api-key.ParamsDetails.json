@@ -1,11 +1,1 @@
-{
-  "parameters": [
-    {
-      "description": "UUID of the issued key to update, taken from the path\n(`PATCH /v2alpha1/admin/issuedApiKeys/{key_id}`). REQUIRED.",
-      "in": "path",
-      "name": "key_id",
-      "required": true,
-      "schema": { "type": "string" }
-    }
-  ]
-}
+{"parameters":[{"in":"path","name":"issued_api_key.key_id","required":true,"schema":{"type":"string"}},{"description":"The list of fields to update. See AIP-134.","in":"query","name":"update_mask","schema":{"type":"string"}}]}

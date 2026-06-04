@@ -1,50 +1,49 @@
 ---
-id: talos-operate
 title: Operate
 description: Install, configure, and deploy Ory Talos
-sidebar_label: Operate
 ---
 
-# Operate Ory Talos
+Run Ory Talos in production: install, configure, choose a database, and deploy.
 
-How to install, configure, deploy, and operate Talos. Pages tagged `[commercial]` apply to the Commercial edition only — the OSS
-edition runs as a single-node binary with embedded SQLite and covers the install, configure, secrets, TLS, monitoring, and
-security-hardening guides below.
+## Get started
 
-## Getting started
-
-1. **[Install](install.md)** — build from source or download a binary
+1. **[Install](install.md)** — install with Homebrew or Scoop, pull the Docker image, or download a
+   binary
 2. **[Configure](configure.md)** — set up the config file, environment variables, and secrets
 3. **[Database](database/index.md)** — choose and configure a database backend
 4. **[Deploy](deploy/index.md)** — run Talos with Docker, Kubernetes, or as a systemd service
 
 ## Production checklist
 
-Before going to production, review these guides (apply to OSS and Commercial):
+Review these guides before going to production:
 
-- **[Secrets management](secrets.md)** — configure HMAC secrets and JWKS signing keys
+- **[Secrets management](secrets.md)** — configure and rotate HMAC and pagination-token secrets
 - **[TLS](tls.md)** — enable TLS termination or configure a reverse proxy
-- **[Monitoring](monitoring/index.md)** — set up Prometheus metrics, OpenTelemetry tracing, and health checks
-- **[Security hardening](security-hardening.md)** — production security checklist, including admin plane authentication
+- **[Monitoring](monitoring/index.md)** — set up Prometheus metrics, OpenTelemetry tracing, and
+  health checks
+- **[Security hardening](security-hardening.md)** — production security checklist
 - **[Benchmarks](benchmarks.md)** — performance baselines and load testing
 
-## Commercial-only features
+## Commercial features
 
-The OSS edition is single-node SQLite. Horizontal scale, SQL backends, distributed caching, edge deployment, and multi-tenancy
-require the [Commercial edition](../index.md#editions):
+These features require the Commercial edition:
 
-- **[PostgreSQL](database/postgresql.md)**, **[MySQL](database/mysql.md)**, **[CockroachDB](database/cockroachdb.md)** —
-  production-grade SQL backends
-- **[Caching](cache/index.md)** — in-memory and Redis caching for sub-millisecond verification
-- **[Edge proxy](deploy/edge-proxy.md)** — deploy data plane at the edge
+- **[PostgreSQL](database/postgresql.md)**, **[MySQL](database/mysql.md)**, and
+  **[CockroachDB](database/cockroachdb.md)** SQL backends
+- **[Caching](cache/index.md)** — in-memory and Redis caching to cut database load and verification
+  latency
+- **[Edge proxy](deploy/edge-proxy.mdx)** — cache key verification close to your application
 - **[Multi-tenancy](multi-tenancy.md)** — serve multiple tenants from a single cluster
 
 ## Architecture
 
-Talos separates administrative operations (issuing, revoking) from verification:
+Talos exposes two surfaces in a single binary:
 
-- **Admin plane** — manages key lifecycle. Runs behind your internal network.
-- **Data plane** — verifies credentials at the edge. Horizontally scalable with caching.
+- **Admin** — manages the key lifecycle and serves verification. It has no built-in authentication,
+  so run it behind a trusted proxy or on an internal-only network. See
+  [Admin protection](security/admin-protection.md).
+- **Self-service** — exposes proof-of-possession self-revocation to credential holders. It validates
+  proof of possession inline, so it's safe on the public network.
 
-You can run both planes in a single process (`talos serve`) or split them for production (`talos serve admin`,
-`talos serve check`). See [Separate planes](deploy/separate-planes.md) for details.
+Run both surfaces in one process (`talos serve`) or split them for production (`talos serve admin`,
+`talos serve public`). See [Deployment modes](deploy/deployment-modes.md) for details.

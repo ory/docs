@@ -1,17 +1,13 @@
 ---
-id: key-lifecycle
 title: Key lifecycle
 description: Update, rotate, and revoke API keys
-sidebar_label: Key lifecycle
 ---
 
-import Tabs from "@theme/Tabs"
-import TabItem from "@theme/TabItem"
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
-# Key lifecycle
-
-After issuing an API key, you can update its metadata, rotate the secret, or revoke it. All lifecycle operations use the admin
-plane.
+After you issue an API key, you can update its metadata, rotate the secret, or revoke it. All
+lifecycle operations use the admin surface.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -23,7 +19,7 @@ First, issue a key to work with:
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 RESPONSE=$(talos keys issue "lifecycle-test" \
   --actor user_1 \
   --scopes "read,write" \
@@ -40,7 +36,7 @@ export KEY_ID=$(echo "$RESPONSE" | jq -er '.issued_api_key.key_id')
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 ISSUE_RESP=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
   -H "Content-Type: application/json" \
   -d '{"name":"lifecycle-test","actor_id":"user_1","scopes":["read","write"],"metadata":{"team":"backend"}}')
@@ -48,26 +44,28 @@ ISSUE_RESP=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
 echo "$ISSUE_RESP" | jq .
 
 export API_SECRET=$(echo "$ISSUE_RESP" | jq -er '.secret')
-export KEY_ID=$(echo "$ISSUE_RESP" | jq -er '.key_id')
+export KEY_ID=$(echo "$ISSUE_RESP" | jq -er '.issued_api_key.key_id')
 ```
 
 </TabItem>
 </Tabs>
 
-When you set `ttl` on issue or import requests, the HTTP API accepts extended formats such as `1y`, `1mo`, `1w`, `1d`, and
-compounds like `1y6mo` in addition to standard Go durations. The current CLI `--ttl` flags still expect standard Go duration
-strings; see the [configuration reference](../reference/config.mdx) for the canonical duration format summary.
+When you set `ttl` on issue or import requests, the HTTP API accepts extended formats such as `1y`,
+`1mo`, `1w`, `1d`, and compounds like `1y6mo`, plus standard Go durations. The CLI `--ttl` flag
+accepts only standard Go duration strings (for example, `24h`). See the
+[configuration reference](../reference/config.mdx) for the duration format summary.
 
 ## Update key metadata
 
-Use `PATCH` to update a key's name, scopes, metadata, or rate limit policy without changing the secret:
+Use `PATCH` to update a key's name, scopes, metadata, or rate limit policy without changing the
+secret.
 
 <!-- doctest:exec -->
 
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 talos keys issued update "$KEY_ID" \
   --name "lifecycle-test-updated" \
   --scopes "read" \
@@ -78,14 +76,16 @@ talos keys issued update "$KEY_ID" \
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
-curl -s -X PATCH "$TALOS_URL/v2alpha1/admin/issuedApiKeys/$KEY_ID" \
+```shell
+curl -s -X PATCH "$TALOS_URL/v2alpha1/admin/issuedApiKeys/${KEY_ID}?update_mask=name,scopes,metadata" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "lifecycle-test-updated",
-    "scopes": ["read"],
-    "metadata": {"team": "backend", "tier": "premium"},
-    "update_mask": {"paths": ["name", "scopes", "metadata"]}
+    "issued_api_key": {
+      "key_id": "'"$KEY_ID"'",
+      "name": "lifecycle-test-updated",
+      "scopes": ["read"],
+      "metadata": {"team": "backend", "tier": "premium"}
+    }
   }' | jq .
 ```
 
@@ -94,22 +94,25 @@ curl -s -X PATCH "$TALOS_URL/v2alpha1/admin/issuedApiKeys/$KEY_ID" \
 
 ### Update mask
 
-The `update_mask` field controls which fields are modified. Only fields listed in `paths` are changed. This follows the
-[AIP-134](https://google.aip.dev/134) standard for partial updates.
+The `update_mask` query parameter controls which fields Talos modifies. Pass a comma-separated list
+of field names (for example, `?update_mask=name,scopes,metadata`). Omitting it applies every
+populated field in the request body. To clear a field, list it in `update_mask` and leave it unset
+in the body. This follows [AIP-134](https://google.aip.dev/134) for partial updates.
 
-Updatable fields include `name`, `scopes`, `metadata`, and `rate_limit_policy`. For the complete field reference, see the
+Updatable fields include `name`, `scopes`, `metadata`, and `rate_limit_policy`. For the complete
+field reference, see the
 [UpdateIssuedAPIKey API reference](../reference/api/admin-update-issued-api-key.api.mdx).
 
 ## Rotate a key
 
-Rotation creates a new key with a new secret and immediately revokes the old one:
+Rotation creates a new key with a new secret and immediately revokes the old one.
 
 <!-- doctest:exec -->
 
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 RESPONSE=$(talos keys issued rotate "$KEY_ID" \
   --scopes "read,write,admin" \
   --format json \
@@ -124,18 +127,17 @@ export KEY_ID=$(echo "$RESPONSE" | jq -er '.issued_api_key.key_id')
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys/${KEY_ID}:rotate" \
   -H "Content-Type: application/json" \
   -d '{
-    "scopes": ["read", "write", "admin"],
-    "update_mask": {"paths": ["scopes"]}
+    "scopes": ["read", "write", "admin"]
   }')
 
 echo "$RESPONSE" | jq .
 
 export API_SECRET=$(echo "$RESPONSE" | jq -er '.secret')
-export KEY_ID=$(echo "$RESPONSE" | jq -er '.key_id')
+export KEY_ID=$(echo "$RESPONSE" | jq -er '.issued_api_key.key_id')
 ```
 
 </TabItem>
@@ -143,36 +145,38 @@ export KEY_ID=$(echo "$RESPONSE" | jq -er '.key_id')
 
 ### Rotation response
 
-The response includes the new `issued_api_key` (with a new `key_id`), the new `secret` (shown once), and `old_issued_api_key`
-(status `KEY_STATUS_REVOKED`). For the complete field reference, see the
+The response includes the new `issued_api_key` (with a new `key_id`), the new `secret` (shown once),
+and `old_issued_api_key` (status `KEY_STATUS_REVOKED`). Fields you don't set inherit from the old
+key. For the complete field reference, see the
 [RotateIssuedAPIKey API reference](../reference/api/admin-rotate-issued-api-key.api.mdx).
 
 ### Zero-downtime rotation
 
 The `:rotate` endpoint revokes the old key immediately. For zero-downtime rotation:
 
-1. Issue a new key with `POST /v2alpha1/admin/issuedApiKeys`
-2. Deploy the new secret to all services
-3. Verify the new secret works everywhere
-4. Revoke the old key with `POST /v2alpha1/admin/apiKeys/{old_key_id}:revoke`
+1. Issue a new key with `POST /v2alpha1/admin/issuedApiKeys`.
+2. Deploy the new secret to all services.
+3. Verify the new secret works everywhere.
+4. Revoke the old key with `POST /v2alpha1/admin/issuedApiKeys/{old_key_id}:revoke`.
 
 ## Revoke a key
 
-Revocation is irreversible. Once revoked, the key fails verification immediately (subject to cache TTL):
+Revocation is irreversible. Once revoked, the key fails verification immediately (subject to cache
+TTL):
 
 <!-- doctest:exec -->
 
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 talos keys revoke "$KEY_ID" --reason superseded -e "$TALOS_URL"
 ```
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys/${KEY_ID}:revoke" \
   -H "Content-Type: application/json" \
   -d '{"reason": "REVOCATION_REASON_SUPERSEDED"}'
@@ -185,17 +189,50 @@ echo "Key revoked"
 
 ### Revocation reasons
 
-Standard reasons include `REVOCATION_REASON_KEY_COMPROMISE`, `REVOCATION_REASON_SUPERSEDED`,
-`REVOCATION_REASON_AFFILIATION_CHANGED`, and `REVOCATION_REASON_PRIVILEGE_WITHDRAWN` (admin only). For the complete list, see the
-[RevokeAPIKey API reference](../reference/api/admin-revoke-api-key.api.mdx).
+Pick the reason that best describes why you're revoking the key. Talos records the reason on the key
+and includes it in audit events, so accurate reasons help with incident review and compliance
+reporting. The reason doesn't change enforcement: every revoked key fails verification the same way.
 
-When using `PRIVILEGE_WITHDRAWN`, you can include a `reason_text` field with a human-readable explanation.
+The reasons follow the semantics of
+[RFC 5280 §5.3.1](https://www.rfc-editor.org/rfc/rfc5280#section-5.3.1):
+
+- **`REVOCATION_REASON_KEY_COMPROMISE`** — the secret is exposed, or suspected to be exposed, to an
+  unauthorized party. Use this when a secret leaks into a repository, log, screenshot, support
+  ticket, or third-party system, when a scanner detects it in the wild, or for pre-emptive
+  revocation after a near-miss.
+- **`REVOCATION_REASON_SUPERSEDED`** — a new key replaces this one. Use this for routine rotation:
+  scheduled re-issuance, migration to a new key format or scope set, or any "issue new, retire old"
+  workflow. The `:rotate` endpoint records this reason automatically.
+- **`REVOCATION_REASON_AFFILIATION_CHANGED`** — the actor or owner is no longer associated with the
+  system in the same way, but the secret isn't believed to be compromised. Use this when a user
+  leaves a team or company, an integration changes ownership, or a service account is decommissioned
+  with its workload.
+- **`REVOCATION_REASON_PRIVILEGE_WITHDRAWN`** — admin only. You revoke access as a policy decision,
+  not because of compromise or replacement. Use this for terms-of-service violations, customer
+  offboarding, suspending a tenant, or pulling access during a dispute. Only this reason accepts the
+  request body's `description` field (CLI flag `--reason-text`) for a human-readable explanation;
+  Talos rejects `description` with any other reason.
+- **`REVOCATION_REASON_UNSPECIFIED`** — the default when no reason is sent. Avoid it in production:
+  audit trails are less useful without a reason.
+
+If more than one reason fits, prefer `KEY_COMPROMISE`. Don't downgrade a security signal to
+"superseded" or "affiliation changed" just because the key was also rotated or the user was also
+leaving.
+
+The self-service revoke endpoint rejects `REVOCATION_REASON_PRIVILEGE_WITHDRAWN` because a key
+holder can't withdraw their own privileges. See [self-revocation](self-revocation.mdx) for the
+allowed reasons in that flow.
+
+For the complete list, see the
+[RevokeIssuedAPIKey API reference](../reference/api/admin-revoke-issued-api-key.api.mdx).
 
 ### Revocation and caching
 
-Revocation takes effect in the database immediately. However, if caching is enabled, previously cached verification results may
-remain valid until the cache entry expires. To force immediate effect, use the `Cache-Control: no-cache` header on verification
-requests.
+Revocation takes effect in the database immediately. When verification caching is enabled,
+previously cached results stay valid until the cache entry expires (the default TTL is `5m`).
+Caching is off by default (`cache.type: noop`) and the `memory` and `redis` backends require the
+Commercial edition. To bypass the cache on a verification request, send the
+`Cache-Control: no-cache` header.
 
 ## Verify after revocation
 
@@ -206,14 +243,14 @@ Confirm the key is no longer valid:
 <Tabs groupId="sdk" defaultValue="cli">
 <TabItem value="cli" label="CLI">
 
-```bash
+```shell
 talos keys verify "$API_SECRET" --no-cache -e "$TALOS_URL" || true
 ```
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-```bash
+```shell
 curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
   -H "Content-Type: application/json" \
   -H "Cache-Control: no-cache" \
@@ -225,6 +262,6 @@ curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
 
 ## Next steps
 
-- [Self-revocation](self-revocation.mdx) -- let key holders revoke their own keys
-- [Issue and verify](issue-and-verify.mdx) -- create new keys to replace revoked ones
-- [Error handling](error-handling.mdx) -- handle revocation-related errors
+- [Self-revocation](self-revocation.mdx) — let key holders revoke their own keys
+- [Issue and verify](issue-and-verify.mdx) — create new keys to replace revoked ones
+- [Error handling](error-handling.mdx) — handle revocation-related errors

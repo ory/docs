@@ -1,8 +1,7 @@
 ---
 id: talos
-title: Ory Talos CLI
+title: talos
 description: talos
-sidebar_label: Ory Talos CLI
 ---
 
 <!--
@@ -13,18 +12,19 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 
 ## talos
 
-Multi-tenant API key management service
+Multi-network API key service
 
 ### Synopsis
 
-Ory Talos manages the full lifecycle of API credentials: issuing keys, verifying them at low latency, deriving short-lived JWT or
-macaroon tokens, and revoking access. It exposes a separate admin plane (issue, rotate, revoke, derive) and data plane (verify,
-self-revoke) so each can be scaled and secured independently.
+API Key Service is a multi-network service for managing API keys, with support for JWT tokens, JWKS,
+and several cryptographic algorithms.
+
+It provides separate admin and public APIs for key management.
 
 ### Options
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
   -h, --help              help for talos
 ```
@@ -34,5 +34,6 @@ self-revoke) so each can be scaled and secured independently.
 - [talos jwk](talos-jwk.md) - Generate JSON Web Keys (JWK/JWKS)
 - [talos keys](talos-keys.md) - Manage API keys
 - [talos migrate](talos-migrate.md) - Database migration tools
-- [talos proxy](talos-proxy.md) - Start the edge proxy for caching verification requests
+- [talos proxy](talos-proxy.md) - Start the edge proxy for caching verification requests (commercial
+  edition)
 - [talos serve](talos-serve.md) - Start the Ory Talos server (all-in-one mode)

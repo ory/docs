@@ -1,0 +1,1 @@
+{"parameters":[{"description":"UUID of the issued key (REQUIRED)","in":"path","name":"key_id","required":true,"schema":{"type":"string"}}]}

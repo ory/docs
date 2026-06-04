@@ -1,20 +1,17 @@
 ---
-id: talos-go-sdk
 title: Go SDK
 description: Using the generated Go HTTP client
-sidebar_label: Go SDK
 ---
 
-# Go SDK
-
-Talos provides a generated Go HTTP client based on the OpenAPI specification. The client is generated using `openapi-generator`
-and lives in the `internal/client/generated` package.
+Talos generates a Go HTTP client from its OpenAPI spec with
+[OpenAPI Generator](https://openapi-generator.tech/) and ships it in the `internal/client/generated`
+package.
 
 :::note
 
-Internal package: the Go client is in an `internal/` package and cannot be imported by external Go modules. It is used for Talos's
-own integration tests and the admin UI backend. If you need a Go client for your application, generate one from the OpenAPI spec
-at `api/talos.openapi-v3.json` using [OpenAPI Generator](https://openapi-generator.tech/).
+The client lives in an `internal/` package, so external Go modules can't import it. Talos uses it
+for its own integration tests. To use a Go client in your own application, generate one from the
+OpenAPI spec at `api/talos.openapi-v3.json`.
 
 :::
 
@@ -23,26 +20,26 @@ at `api/talos.openapi-v3.json` using [OpenAPI Generator](https://openapi-generat
 
 ## Generate your own client
 
-```bash
+```shell
 openapi-generator generate \
   -i api/talos.openapi-v3.json \
   -g go \
   -o generated/go-client
 ```
 
-The examples below use the internal client's types for illustration. A generated external client has the same API shape.
+The examples below use the internal client's types. A client you generate from the spec has the same
+API shape.
 
 :::tip
 
-Full working example: see
-[`tools/doctest/examples/go_sdk/main.go`](https://github.com/ory-corp/talos/blob/dev/tools/doctest/examples/go_sdk/main.go) for a
-complete, runnable program that exercises all operations shown below.
+For a complete, runnable program that exercises every operation shown below, see
+[`tools/doctest/examples/go_sdk/main.go`](https://github.com/ory/talos/blob/dev/tools/doctest/examples/go_sdk/main.go).
 
 :::
 
 <!-- doctest:exec -->
 
-```bash
+```shell
 go build -o .bin/doctest-go-sdk ./tools/doctest/examples/go_sdk
 ./.bin/doctest-go-sdk
 ```
@@ -64,9 +61,9 @@ c := client.NewAPIClient(cfg)
 <!-- doctest:source tools/doctest/examples/go_sdk/main.go#issue-key -->
 
 ```go
-issueResp, _, err := c.StaticCredentialsAPI.
-	AdminIssueAPIKey(ctx).
-	V2alpha1IssueAPIKeyRequest(client.V2alpha1IssueAPIKeyRequest{
+issueResp, _, err := c.ApiKeysAPI.
+	AdminIssueApiKey(ctx).
+	IssueApiKeyRequest(client.IssueApiKeyRequest{
 		Name:    new("my-service"),
 		ActorId: new("user_123"),
 		Scopes:  []string{"read", "write"},
@@ -88,9 +85,9 @@ fmt.Println("Secret:", issueResp.GetSecret())
 <!-- doctest:source tools/doctest/examples/go_sdk/main.go#verify-key -->
 
 ```go
-verifyResp, _, err := c.StaticCredentialsAPI.
-	AdminVerifyAPIKey(ctx).
-	V2alpha1VerifyAPIKeyRequest(client.V2alpha1VerifyAPIKeyRequest{
+verifyResp, _, err := c.ApiKeysAPI.
+	AdminVerifyApiKey(ctx).
+	VerifyApiKeyRequest(client.VerifyApiKeyRequest{
 		Credential: new(secret),
 	}).
 	Execute()
@@ -98,7 +95,7 @@ if err != nil {
 	return fmt.Errorf("verify key: %w", err)
 }
 
-if verifyResp.GetIsActive() {
+if verifyResp.GetIsValid() {
 	fmt.Println("Key is valid, owner:", verifyResp.GetActorId())
 } else {
 	fmt.Println("Key is invalid:", verifyResp.GetErrorMessage())
@@ -110,10 +107,10 @@ if verifyResp.GetIsActive() {
 <!-- doctest:source tools/doctest/examples/go_sdk/main.go#batch-verify -->
 
 ```go
-batchResp, _, err := c.StaticCredentialsAPI.
-	AdminBatchVerifyAPIKeys(ctx).
-	V2alpha1BatchVerifyAPIKeysRequest(client.V2alpha1BatchVerifyAPIKeysRequest{
-		Requests: []client.V2alpha1VerifyAPIKeyRequest{
+batchResp, _, err := c.ApiKeysAPI.
+	AdminBatchVerifyApiKeys(ctx).
+	BatchVerifyApiKeysRequest(client.BatchVerifyApiKeysRequest{
+		Requests: []client.VerifyApiKeyRequest{
 			{Credential: new(secret)},
 			{Credential: new("invalid-key-for-testing")},
 		},
@@ -124,7 +121,7 @@ if err != nil {
 }
 
 for i, result := range batchResp.GetResults() {
-	fmt.Printf("Key %d: is_active=%v\n", i, result.GetIsActive())
+	fmt.Printf("Key %d: is_valid=%v\n", i, result.GetIsValid())
 }
 ```
 
@@ -135,10 +132,10 @@ Enum fields use typed constants, not raw strings:
 <!-- doctest:source tools/doctest/examples/go_sdk/main.go#revoke-key -->
 
 ```go
-reason := client.V2ALPHA1REVOCATIONREASON_REVOCATION_REASON_KEY_COMPROMISE
-_, _, err = c.StaticCredentialsAPI.
-	AdminRevokeAPIKey(ctx, keyID).
-	StaticCredentialsAdminRevokeAPIKeyBody(client.StaticCredentialsAdminRevokeAPIKeyBody{
+reason := client.REVOCATIONREASON_REVOCATION_REASON_KEY_COMPROMISE
+_, _, err = c.ApiKeysAPI.
+	AdminRevokeIssuedApiKey(ctx, keyID).
+	AdminRevokeIssuedApiKeyBody(client.AdminRevokeIssuedApiKeyBody{
 		Reason: &reason,
 	}).
 	Execute()
@@ -153,10 +150,10 @@ fmt.Println("Key revoked successfully")
 <!-- doctest:source tools/doctest/examples/go_sdk/main.go#derive-jwt -->
 
 ```go
-algorithm := client.V2ALPHA1TOKENALGORITHM_TOKEN_ALGORITHM_JWT
-deriveResp, _, err := c.StaticCredentialsAPI.
+algorithm := client.TOKENALGORITHM_TOKEN_ALGORITHM_JWT
+deriveResp, _, err := c.ApiKeysAPI.
 	AdminDeriveToken(ctx).
-	V2alpha1DeriveTokenRequest(client.V2alpha1DeriveTokenRequest{
+	DeriveTokenRequest(client.DeriveTokenRequest{
 		Credential: new(secret),
 		Algorithm:  &algorithm,
 		Ttl:        new("1h"),
@@ -174,14 +171,15 @@ fmt.Println("JWT:", derivedToken.GetToken())
 ## Error handling
 
 The SDK returns an error for every non-2xx response. The error wraps a
-[`google.rpc.Status`](https://cloud.google.com/apis/design/errors#error_model) body — read it via the typed `GenericOpenAPIError`,
-not the HTTP response, so you get the canonical gRPC code, human-readable message, and any `ErrorInfo` details.
+[`google.rpc.Status`](https://cloud.google.com/apis/design/errors#error_model) body. Read it through
+the typed `GenericOpenAPIError` to get the canonical gRPC code, the message, and any `ErrorInfo`
+details.
 
 <!-- doctest:source tools/doctest/examples/go_sdk/main.go#error-handling -->
 
 ```go
-_, httpResp, err := c.StaticCredentialsAPI.
-	AdminGetIssuedAPIKey(ctx, "nonexistent-id").
+_, httpResp, err := c.ApiKeysAPI.
+	AdminGetIssuedApiKey(ctx, "nonexistent-id").
 	Execute()
 if err != nil {
 	var apiErr *client.GenericOpenAPIError
@@ -210,18 +208,20 @@ if err != nil {
 }
 ```
 
-Match on `details[*].reason` from the `ErrorInfo` detail — it is the stable, machine-readable identifier. The `message` field is
-meant for logs and can change between releases.
+Match on `details[*].reason` from the `ErrorInfo` detail. It's the stable, machine-readable
+identifier. The `message` field is for logs and can change between releases.
 
-For the verify endpoint, a verification failure returns `200 OK` with `is_active: false`, not an HTTP error. Branch on
-`verifyResp.GetIsActive()` and inspect `verifyResp.GetErrorCode()` instead of treating it as an SDK error.
+A failed verification is not an SDK error: the verify endpoint returns `200 OK` with
+`is_valid: false`. Branch on `verifyResp.GetIsValid()` and inspect `verifyResp.GetErrorCode()`
+instead.
 
 ## Regenerating the client
 
-The Go SDK is regenerated with:
+To regenerate the bundled Go client, run:
 
-```bash
+```shell
 make generate-sdk
 ```
 
-This reads the OpenAPI spec from `api/talos.openapi-v3.json` and outputs to `internal/client/generated/`.
+This reads the OpenAPI spec from `api/talos.openapi-v3.json` and writes to
+`internal/client/generated/`.

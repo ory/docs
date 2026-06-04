@@ -1,38 +1,88 @@
 ---
 id: admin-batch-verify-api-keys
 title: "Batch Verify API Keys"
-description: "Verifies multiple credentials in a single request. Efficiently verifies up"
+description: "Verifies up to 100 credentials in parallel in a single request. Each"
 sidebar_label: "Batch Verify API Keys"
 hide_title: true
 hide_table_of_contents: true
-api: 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
+api: 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
 sidebar_class_name: "post api-method"
-info_path: reference/api/ory-talos-api
+info_path: talos/reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
-import ParamsDetails from "@theme/ParamsDetails"
-import RequestSchema from "@theme/RequestSchema"
-import StatusCodes from "@theme/StatusCodes"
-import OperationTabs from "@theme/OperationTabs"
-import TabItem from "@theme/TabItem"
-import Heading from "@theme/Heading"
-import Translate from "@docusaurus/Translate"
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
 
-<Heading as={"h1"} className={"openapi__heading"} children={"Batch Verify API Keys"}></Heading>
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Batch Verify API Keys"}
+>
+</Heading>
 
-<MethodEndpoint method={"post"} path={"/v2alpha1/admin/apiKeys:batchVerify"} context={"endpoint"}></MethodEndpoint>
+<MethodEndpoint
+  method={"post"}
+  path={"/v2alpha1/admin/apiKeys:batchVerify"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
 
-Verifies multiple credentials in a single request. Efficiently verifies up to 100 credentials in parallel. Each credential is
-verified independently; partial failures are returned. Admin access only.
 
-<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
+
+Verifies up to 100 credentials in parallel in a single request. Each
+credential is verified independently; partial failures are returned.
+Admin access only.
+
+Cache Control (HTTP Headers):
+  - Cache-Control: no-cache  - Bypasses cache read, forces fresh DB lookup
+  - Cache-Control: no-store  - Bypasses cache read AND write (never cached)
+  - Pragma: no-cache         - Same as Cache-Control: no-cache (HTTP/1.0)
+
+The cache directive applies to every credential in the batch.
+
+```http
+POST /v2alpha1/admin/apiKeys:batchVerify
+{
+  "requests": [
+    {"credential": "sk_live_abc123..."},
+    {"credential": "eyJhbGciOiJFZERTQSI..."}
+  ]
+}
+```
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails parameters={undefined}></ParamsDetails>
+<ParamsDetails
+  {...require("./admin-batch-verify-api-keys.ParamsDetails.json")}
+>
+  
+</ParamsDetails>
 
-<RequestSchema {...require("./admin-batch-verify-api-keys.RequestSchema.json")}></RequestSchema>
+<RequestSchema
+  {...require("./admin-batch-verify-api-keys.RequestSchema.json")}
+>
+  
+</RequestSchema>
 
-<StatusCodes {...require("./admin-batch-verify-api-keys.StatusCodes.json")}></StatusCodes>
+<StatusCodes
+  {...require("./admin-batch-verify-api-keys.StatusCodes.json")}
+>
+  
+</StatusCodes>
+
+
+      

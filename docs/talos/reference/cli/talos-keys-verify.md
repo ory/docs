@@ -16,7 +16,8 @@ Verify a credential (API key or token)
 
 ### Synopsis
 
-Verifies a credential against the server. Checks if the credential is active, not expired, and not revoked.
+Verifies a credential against the server. Checks if the credential is active, not expired, and not
+revoked.
 
 ```
 talos keys verify [credential] [flags]
@@ -34,7 +35,7 @@ talos keys verify [credential] [flags]
 ### Options inherited from parent commands
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
 ```
 

@@ -22,10 +22,19 @@ Shows:
 
 - Current migration version
 - Whether the database is in a dirty state
-- Database connection info
 
 ```
 talos migrate status [flags]
+```
+
+### Examples
+
+```
+  # Status against a SQLite file
+  talos migrate status --database "sqlite3://./data/talos.db"
+
+  # Status against the DSN configured in your config file
+  talos migrate status --config /etc/talos/config.yaml
 ```
 
 ### Options
@@ -38,7 +47,7 @@ talos migrate status [flags]
 ### Options inherited from parent commands
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
 ```
 

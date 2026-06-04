@@ -29,7 +29,7 @@ talos keys imported delete [key-id] [flags]
 ### Options inherited from parent commands
 
 ```
-      --config string     config file (default is $HOME/.talos.yaml or ./config.yaml)
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
 ```
 
