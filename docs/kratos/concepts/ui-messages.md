@@ -74,12 +74,12 @@
 }
 ```
 
-###### Sign in with hardware key (1010008)
+###### Sign in with a hardware key (1010008)
 
 ```json
 {
   "id": 1010008,
-  "text": "Sign in with hardware key",
+  "text": "Sign in with a hardware key",
   "type": "info"
 }
 ```
@@ -104,12 +104,12 @@
 }
 ```
 
-###### Sign in with hardware key (1010011)
+###### Sign in with a hardware key (1010011)
 
 ```json
 {
   "id": 1010011,
-  "text": "Sign in with hardware key",
+  "text": "Sign in with a hardware key",
   "type": "info"
 }
 ```
@@ -237,6 +237,26 @@
     "address": "{address}",
     "channel": "{channel}"
   }
+}
+```
+
+###### Sign in with a hardware key (1010024)
+
+```json
+{
+  "id": 1010024,
+  "text": "Sign in with a hardware key",
+  "type": "info"
+}
+```
+
+###### A code was sent to your address. If you didn't receive it, please try again. (1010025)
+
+```json
+{
+  "id": 1010025,
+  "text": "A code was sent to your address. If you didn't receive it, please try again.",
+  "type": "info"
 }
 ```
 
@@ -1384,6 +1404,36 @@
 }
 ```
 
+###### You have no DeviceAuthn device set up. (4000042)
+
+```json
+{
+  "id": 4000042,
+  "text": "You have no DeviceAuthn device set up.",
+  "type": "error"
+}
+```
+
+###### The provided web authn login is invalid, please try again. (4000043)
+
+```json
+{
+  "id": 4000043,
+  "text": "The provided web authn login is invalid, please try again.",
+  "type": "error"
+}
+```
+
+###### The provided DeviceAuthn signature is invalid. (4000044)
+
+```json
+{
+  "id": 4000044,
+  "text": "The provided DeviceAuthn signature is invalid.",
+  "type": "error"
+}
+```
+
 ###### The login flow expired 1.00 minutes ago, please try again. (4010001)
 
 ```json
@@ -1546,6 +1596,16 @@
 }
 ```
 
+###### You can only change one address at a time. Please update each address separately. (4050002)
+
+```json
+{
+  "id": 4050002,
+  "text": "You can only change one address at a time. Please update each address separately.",
+  "type": "error"
+}
+```
+
 ###### The request was already completed successfully and can not be retried. (4060001)
 
 ```json
@@ -1673,6 +1733,16 @@
 {
   "id": 5000002,
   "text": "No authentication methods are available. Please contact the system administrator.",
+  "type": "error"
+}
+```
+
+###### Your organization requires SSO authentication, but no SSO provider is configured. Please contact the system administrator. (5000003)
+
+```json
+{
+  "id": 5000003,
+  "text": "Your organization requires SSO authentication, but no SSO provider is configured. Please contact the system administrator.",
   "type": "error"
 }
 ```

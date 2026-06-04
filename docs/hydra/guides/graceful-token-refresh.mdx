@@ -30,6 +30,17 @@ you want a longer grace period, as this minimizes the security concerns associat
 
 ## Enable graceful refresh token rotation
 
+:::tip Configure from the Ory Console
+
+On Ory Network, you can set these fields without using the CLI. Open
+
+<ConsoleLink route="project.oauthConfiguration.configure" /> and scroll to "Refresh Token Grant Configuration":
+
+- **Refresh Token Rotation Grace Period**
+- **Refresh Token Rotation Grace Reuse Count**
+
+:::
+
 To enable graceful refresh token rotation with a specific grace period and a maximum reuse count, for example 60 seconds and 3
 reuses, run the following command:
 

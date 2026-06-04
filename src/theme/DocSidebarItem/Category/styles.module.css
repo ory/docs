@@ -1,0 +1,84 @@
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * Extended with two-line label styles (main title + secondary domain) per Figma 8955-64013.
+ */
+
+.categoryLink {
+  overflow: hidden;
+}
+
+/*
+TODO merge this logic back in Infima?
+ */
+:global(.menu__link--sublist-caret)::after {
+  margin-left: var(--ifm-menu-link-padding-vertical);
+}
+
+.categoryLinkLabel {
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* Two-line sidebar item: main title (product name) + secondary (domain) — left-aligned per Figma */
+.categoryLinkLabelDouble {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-width: 0;
+  align-items: flex-start;
+  text-align: left;
+  -webkit-box-orient: vertical;
+  line-clamp: unset;
+  -webkit-line-clamp: unset;
+}
+
+/* Wrapper for main+secondary so they stack vertically beside the dot */
+.categoryLinkLabelTextBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: flex-start;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.categoryLinkLabelMain {
+  font-size: var(--font-size-sm, 14px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-primary, #0f172a);
+  text-align: left;
+  width: 100%;
+}
+
+.categoryLinkLabelSecondary {
+  font-size: var(--font-size-sm, 14px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ory-text-tertiary, #64748b);
+  text-align: left;
+  width: 100%;
+}
+
+[data-theme="dark"] .categoryLinkLabelMain {
+  color: var(--ifm-font-color-base);
+}
+
+[data-theme="dark"] .categoryLinkLabelSecondary {
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* Active state: main title medium weight (Figma 8955-64025) */
+:global(.menu__link--active) .categoryLinkLabelMain {
+  font-weight: 500;
+}

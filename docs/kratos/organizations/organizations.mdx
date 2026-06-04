@@ -65,7 +65,7 @@ Organizations require identifier-first authentication and two-step registration 
 
 To create, update, or delete organizations via the Ory Console, go to
 
-<ConsoleLink route="project.authentication.organizations" />.
+<ConsoleLink route="project.organizations" />.
 
 ```mdx-code-block
 </TabItem>
@@ -88,14 +88,14 @@ export WORKSPACE_API_KEY="ory_wak_..."
 ##### List organizations
 
 ```shell
-curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations" \
+curl -X GET --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
 ##### Create an organization
 
 ```shell
-curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations" \
+curl -X POST --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{
@@ -107,14 +107,14 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
 ##### Get an organization
 
 ```shell
-curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
+curl -X GET --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
 ##### Delete an organization
 
 ```shell
-curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
+curl -X DELETE --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
@@ -132,7 +132,7 @@ After creating an organization, continue by adding one or more SSO OIDC connecti
 <TabItem value="console" label="Ory Console">
 ```
 
-Go to <ConsoleLink route="project.authentication.organizations" /> and continue by configuring the selected organization.
+Go to <ConsoleLink route="project.organizations" /> and continue by configuring the selected organization.
 
 ```mdx-code-block
 </TabItem>
@@ -147,7 +147,7 @@ JSON response.
 ##### Create an SSO connection
 
 ```shell
-curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+curl -X PATCH --location "https://api.console.ory.com/projects/$PROJECT_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '[
@@ -198,7 +198,7 @@ See the [PKCE documentation](../social-signin/oidc-pkce.mdx) for details.
 ##### List SSO connections
 
 ```shell
-curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+curl -X GET --location "https://api.console.ory.com/projects/$PROJECT_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
    | jq ".services.identity.config.selfservice.methods.oidc.config.providers"
 ```
@@ -227,7 +227,7 @@ To delete an organization, you need to specify the index of the connection in th
 SSO connection in the list of connections.
 
 ```shell
-curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+curl -X PATCH --location "https://api.console.ory.com/projects/$PROJECT_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '[
@@ -280,7 +280,7 @@ Before proceeding, ensure you are on a plan that supports SAML SSO. SAML is avai
 <TabItem value="console" label="Ory Console">
 ```
 
-1. Go to <ConsoleLink route="project.authentication.organizations" /> to create an organization.
+1. Go to <ConsoleLink route="project.organizations" /> to create an organization.
 2. Select "Add a new Enterprise SAML SSO connection" and follow the instructions to configure the SAML connection. Fill out the
    following form fields:
 
@@ -298,7 +298,7 @@ Before proceeding, ensure you are on a plan that supports SAML SSO. SAML is avai
 ##### Create an organization
 
 ```shell
-curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations" \
+curl -X POST --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{
@@ -310,7 +310,7 @@ curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organiz
 ##### Enable SAML authentication
 
 ```shell
-curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+curl -X PATCH --location "https://api.console.ory.com/projects/$PROJECT_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '[
@@ -326,7 +326,7 @@ curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
 ##### Create a SAML connection
 
 ```shell
-curl -X PATCH --location "https://api.console.ory.sh/projects/$PROJECT_ID" \
+curl -X PATCH --location "https://api.console.ory.com/projects/$PROJECT_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '[
@@ -408,6 +408,57 @@ Jun 10 09:16:40 2038 GMT
 You can use this information to externally monitor certificate expirations or integrate it into your internal workflows and
 alerting systems as needed.
 
+## Break-glass account recovery for SSO
+
+When an organization's SSO provider is unavailable, organization members can't sign in. Break-glass account recovery lets
+designated users bypass SSO enforcement and recover access through email-based recovery.
+
+Each recovery address has a `break_glass_for_organization` field that stores the organization UUID it applies to. Recovery is only
+allowed when this field matches the identity's current organization. If the user moves to a different organization, the flag
+doesn't carry over.
+
+For Ory Network users, the easiest way to manage this is through the
+[Ory Console SSO settings](/docs/console/single-sign-on#break-glass-account-recovery).
+
+### Set break-glass via the identity admin API
+
+Set the `break_glass_for_organization` field on a recovery address to the organization's UUID:
+
+```shell
+curl -X PATCH "https://$PROJECT_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID" \
+     -H "Authorization: Bearer $ORY_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '[
+           {
+             "op": "replace",
+             "path": "/recovery_addresses/0/break_glass_for_organization",
+             "value": "$ORGANIZATION_ID"
+           }
+         ]'
+```
+
+To disable break-glass recovery, set the value to the nil UUID:
+
+```shell
+curl -X PATCH "https://$PROJECT_SLUG.projects.oryapis.com/admin/identities/$IDENTITY_ID" \
+     -H "Authorization: Bearer $ORY_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '[
+           {
+             "op": "replace",
+             "path": "/recovery_addresses/0/break_glass_for_organization",
+             "value": "00000000-0000-0000-0000-000000000000"
+           }
+         ]'
+```
+
+:::warning
+
+Grant break-glass recovery only to a small number of trusted users. Any user with this flag can bypass SSO and recover their
+account through email.
+
+:::
+
 ## Self-service organization onboarding
 
 ```mdx-code-block
@@ -457,7 +508,7 @@ servers. Guided walkthroughs are available for Microsoft Entra ID, Google Worksp
 
 ##### Create a link
 
-Go to <ConsoleLink route="project.authentication.organizations" /> and continue by configuring the selected organization.
+Go to <ConsoleLink route="project.organizations" /> and continue by configuring the selected organization.
 
 On the **Edit Organization** page, under the **Onboarding Portal** section, click **Generate link**. If your project has a custom
 domain configured, you must choose between the project slug and the custom domain as the link's base URL. You can then share this
@@ -466,7 +517,7 @@ link with the organization administrators.
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 
-<BrowserWindow url="https://console.ory.sh/projects/<id>/authentication/organizations/<id>/edit">
+<BrowserWindow url="https://console.ory.com/projects/<id>/organizations/<id>/onboarding-portal">
     ![Onboarding portal link](./_static/onboarding-portal-link.png)
 </BrowserWindow>
 ```
@@ -501,7 +552,7 @@ For social sign-in, all upstream data is available as `std.extVar('claims')`, in
 non-standard fields.
 [Social Sign-In mapping](https://www.ory.com/docs/kratos/social-signin/data-mapping#write-a-jsonnet-data-mapper)
 
-<BrowserWindow url="https://console.ory.sh/projects/<id>/authentication/organizations/<id>/edit">
+<BrowserWindow url="https://console.ory.com/projects/<id>/organizations/<id>/onboarding-portal">
   ![Onboarding portal link](./_static/onboarding-portal-link-mappers.png)
 </BrowserWindow>
 
@@ -518,7 +569,7 @@ PROJECT_ID,ORGANIZATION_ID and WORKSPACE_API_KEY:
 ##### Create an onboarding portal link
 
 ```shell
-curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
+curl -X POST --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{
@@ -553,7 +604,7 @@ The response contains a `value` token that you can use to construct the onboardi
 ##### Update an onboarding portal link
 
 ```shell
-curl -X POST --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
+curl -X POST --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY" \
      -H "Content-Type: application/json" \
      -d '{
@@ -581,14 +632,14 @@ Result:
 ##### Delete an onboarding portal link
 
 ```shell
-curl -X DELETE --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
+curl -X DELETE --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links/$ONBOARDING_PORTAL_LINK_ID" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 
 ##### List onboarding portal links
 
 ```shell
-curl -X GET --location "https://api.console.ory.sh/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
+curl -X GET --location "https://api.console.ory.com/projects/$PROJECT_ID/organizations/$ORGANIZATION_ID/onboarding-portal-links" \
      -H "Authorization: Bearer $WORKSPACE_API_KEY"
 ```
 

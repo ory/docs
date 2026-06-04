@@ -40,7 +40,7 @@
   },
   {
     "id": 1010008,
-    "text": "Sign in with hardware key",
+    "text": "Sign in with a hardware key",
     "type": "info"
   },
   {
@@ -55,7 +55,7 @@
   },
   {
     "id": 1010011,
-    "text": "Sign in with hardware key",
+    "text": "Sign in with a hardware key",
     "type": "info"
   },
   {
@@ -128,6 +128,16 @@
       "address": "{address}",
       "channel": "{channel}"
     }
+  },
+  {
+    "id": 1010024,
+    "text": "Sign in with a hardware key",
+    "type": "info"
+  },
+  {
+    "id": 1010025,
+    "text": "A code was sent to your address. If you didn't receive it, please try again.",
+    "type": "info"
   },
   {
     "id": 1040001,
@@ -774,6 +784,21 @@
     }
   },
   {
+    "id": 4000042,
+    "text": "You have no DeviceAuthn device set up.",
+    "type": "error"
+  },
+  {
+    "id": 4000043,
+    "text": "The provided web authn login is invalid, please try again.",
+    "type": "error"
+  },
+  {
+    "id": 4000044,
+    "text": "The provided DeviceAuthn signature is invalid.",
+    "type": "error"
+  },
+  {
     "id": 4010001,
     "text": "The login flow expired 1.00 minutes ago, please try again.",
     "type": "error",
@@ -861,6 +886,11 @@
     }
   },
   {
+    "id": 4050002,
+    "text": "You can only change one address at a time. Please update each address separately.",
+    "type": "error"
+  },
+  {
     "id": 4060001,
     "text": "The request was already completed successfully and can not be retried.",
     "type": "error"
@@ -929,6 +959,11 @@
   {
     "id": 5000002,
     "text": "No authentication methods are available. Please contact the system administrator.",
+    "type": "error"
+  },
+  {
+    "id": 5000003,
+    "text": "Your organization requires SSO authentication, but no SSO provider is configured. Please contact the system administrator.",
     "type": "error"
   }
 ]

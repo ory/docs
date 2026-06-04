@@ -7,7 +7,7 @@ sidebar_label: Upgrade Ory Oathkeeper OEL
 Follow this guide when you upgrade Ory Oathkeeper Enterprise License (OEL) to a newer version. Upgrade to the latest version for
 the newest features, security updates, and performance improvements.
 
-If you encounter any issues during the upgrade process, please reach out to [Ory support](https://console.ory.sh/support) for
+If you encounter any issues during the upgrade process, please reach out to [Ory support](https://console.ory.com/support) for
 assistance.
 
 ```mdx-code-block
@@ -39,7 +39,8 @@ Follow these steps to upgrade Ory Oathkeeper OEL when using Ory's Helm Charts:
 
 ```
 image:
-  repository: europe-docker.pkg.dev/ory-artifacts/ory-enterprise-oathkeeper/oathkeeper-oel
+  registry: europe-docker.pkg.dev
+  repository: ory-artifacts/ory-enterprise-oathkeeper/oathkeeper-oel
   tag: <replace-with-current-image-tag>
 # ...
 ```

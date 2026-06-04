@@ -2,7 +2,7 @@ export const routes = {
   default: {
     homepage: "https://ory.com/",
     pricing: "https://ory.com/pricing",
-    console: "https://console.ory.sh/",
+    console: "https://console.ory.com/",
     tos: "https://ory.com/ptos",
     privacy: "https://ory.com/privacy",
     docs: "https://ory.com/docs",
@@ -14,10 +14,6 @@ export const routes = {
     contact: "https://www.ory.com/contact/",
     twitter: "https://twitter.com/orycorp",
     talkToUs: "https://ory.com/talk-to-us",
-  },
-  resources: {
-    iso27001:
-      "https://www.ory.com/resources/iso27001/OryCorp-ISO27001-Certificate-of-Registration.pdf",
   },
   root: "/",
   "404": "/404",
@@ -255,15 +251,35 @@ export const routes = {
         href: (project: string) =>
           `/projects/${project}/authentication/sessions`,
       },
-      organizations: {
-        route: "/projects/[project]/authentication/organizations",
-        href: (project: string) =>
-          `/projects/${project}/authentication/organizations`,
-        edit: {
-          route: "/projects/[project]/authentication/organizations/[id]",
-          href: (project: string, id: string) =>
-            `/projects/${project}/authentication/organizations/${id}`,
-        },
+    },
+    organizations: {
+      route: "/projects/[project]/organizations",
+      href: (project: string) => `/projects/${project}/organizations`,
+      details: {
+        route: "/projects/[project]/organizations/[organization]",
+        href: (project: string, organization: string) =>
+          `/projects/${project}/organizations/${organization}`,
+      },
+      b2bSso: {
+        route: "/projects/[project]/organizations/[organization]/b2b-sso",
+        href: (project: string, organization: string) =>
+          `/projects/${project}/organizations/${organization}/b2b-sso`,
+      },
+      onboardingPortal: {
+        route:
+          "/projects/[project]/organizations/[organization]/onboarding-portal",
+        href: (project: string, organization: string) =>
+          `/projects/${project}/organizations/${organization}/onboarding-portal`,
+      },
+      scim: {
+        route: "/projects/[project]/organizations/[organization]/scim",
+        href: (project: string, organization: string) =>
+          `/projects/${project}/organizations/${organization}/scim`,
+      },
+      identities: {
+        route: "/projects/[project]/organizations/[organization]/identities",
+        href: (project: string, organization: string) =>
+          `/projects/${project}/organizations/${organization}/identities`,
       },
     },
     hostedUI: {
