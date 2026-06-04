@@ -1,3 +1,5 @@
+import talosApiSidebar from "./docs/talos/reference/api/sidebar"
+
 const ossSidebar = [
   {
     type: "category",
@@ -582,7 +584,7 @@ const ossSidebar = [
             label: "Reference",
             items: [
               "talos/reference/index",
-              "talos/reference/api/ory-talos-api",
+              ...talosApiSidebar,
               "talos/reference/cli/talos",
               "talos/reference/config",
               "talos/reference/token-format",
