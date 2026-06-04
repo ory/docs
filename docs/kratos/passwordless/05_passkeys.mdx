@@ -116,14 +116,32 @@ Alternatively, use the Ory CLI to enable the passkey strategy:
 The passkey strategy exposes additional options that control the WebAuthn ceremony. All options are optional. Defaults accept
 every standards-compliant passkey, so existing deployments do not need to change anything.
 
-| Option                                      | Type     | Default              | What it controls                                                                                                                                                                      |
-| ------------------------------------------- | -------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `authenticator_selection.attachment`        | string   | _unset_              | Restricts eligible authenticators by attachment modality: `"platform"` (Touch ID, Windows Hello) or `"cross-platform"` (HID tokens, YubiKeys). Omit this field to accept either type. |
-| `authenticator_selection.resident_key`      | string   | `"required"`         | Whether the authenticator must create a client-side discoverable credential: `"required"`, `"preferred"`, or `"discouraged"`.                                                         |
-| `authenticator_selection.user_verification` | string   | `"preferred"`        | Whether biometrics or a PIN are required: `"required"`, `"preferred"`, or `"discouraged"`.                                                                                            |
-| `attestation.preference`                    | string   | `"none"`             | Attestation conveyance preference sent to the authenticator: `"none"`, `"indirect"`, `"direct"`, or `"enterprise"`.                                                                   |
-| `timeouts.registration`                     | duration | library default (5m) | Timeout for the registration ceremony. Use Go duration format, for example `"60s"` or `"5m"`.                                                                                         |
-| `timeouts.login`                            | duration | library default (5m) | Timeout for the login ceremony. Use Go duration format.                                                                                                                               |
+| Option                                      | Type     | Default         | What it controls                                                                                                                                                                                                 |
+| ------------------------------------------- | -------- | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `authenticator_selection.attachment`        | string   | _unset_         | Restricts eligible authenticators by attachment modality: `"platform"` (Touch ID, Windows Hello) or `"cross-platform"` (HID tokens, YubiKeys). Omit this field to accept either type.                            |
+| `authenticator_selection.resident_key`      | string   | `"required"`    | Whether the authenticator must create a client-side discoverable credential: `"required"`, `"preferred"`, or `"discouraged"`.                                                                                    |
+| `authenticator_selection.user_verification` | string   | `"preferred"`   | Whether biometrics or a PIN are required: `"required"`, `"preferred"`, or `"discouraged"`.                                                                                                                       |
+| `attestation.preference`                    | string   | `"none"`        | Attestation conveyance preference Kratos _requests_ from the authenticator: `"none"`, `"indirect"`, `"direct"`, or `"enterprise"`. See the note below — this is a request hint only, not an enforcement control. |
+| `timeouts.registration`                     | duration | library default | Timeout for the registration ceremony. Use Go duration format, for example `"60s"` or `"5m"`. When unset, the library default applies: 5 minutes with user verification, 2 minutes without.                      |
+| `timeouts.login`                            | duration | library default | Timeout for the login ceremony. Use Go duration format. When unset, the same default behavior as `timeouts.registration` applies.                                                                                |
+
+:::note
+
+**Default behavior change:** Earlier versions of the passkey strategy hardcoded `attachment: platform`, so only built-in
+authenticators (Touch ID, Windows Hello) could be registered. The strategy now defaults to **no attachment preference**, which
+means users can register either platform or cross-platform (roaming) authenticators. To restore the previous behavior, set
+`authenticator_selection.attachment` to `"platform"`.
+
+:::
+
+:::note
+
+**`attestation.preference` is request-only:** This option controls only what Kratos requests from the authenticator. Kratos does
+not verify or enforce the returned attestation statement, so this option cannot be used to restrict registration to specific
+authenticator types or models. Most consumer passkeys (iOS, Android) support only `"none"`; requesting `"direct"` or
+`"enterprise"` may not be honored.
+
+:::
 
 The following example configures cross-platform authenticators (such as a HID token or YubiKey) with required user verification:
 
