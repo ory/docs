@@ -76,7 +76,7 @@ db:
 Schema validation rejects any `secrets.hmac.current` or `secrets.hmac.retired[]` value shorter than 32 characters
 (`minLength: 32`). Generate one with:
 
-```bash
+```shell
 openssl rand -base64 48 | tr -d '\n+/=' | cut -c1-64
 ```
 
