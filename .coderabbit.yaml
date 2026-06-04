@@ -1,0 +1,5 @@
+reviews:
+  review_status: false
+  # Temporarily exclude MDX files from review processing.
+  path_filters:
+    - "!**/*.mdx"

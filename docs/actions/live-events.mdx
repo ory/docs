@@ -6,6 +6,12 @@ sidebar_label: Event streams
 
 # Live event streams
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+```
+
 You can stream events (sign-ups, logins, machine-to-machine tokens issued, and many more) in real-time, live as they happen in
 your Ory Network project, to your own infrastructure. Pipe those events into your own data warehouse, data lake, or flavor of
 choice, and use them to power your own analytics, dashboards, data science, and more.
@@ -50,7 +56,7 @@ Important:
   compatibility guarantees are made for them.
 
 If you intend to write a consumer that needs a detailed schema and stability guarantees about the `eventAttributes` field, please
-[open a support ticket](https://console.ory.sh/support/).
+[open a support ticket](https://console.ory.com/support/).
 
 ## Event names
 
@@ -168,7 +174,7 @@ New event names may be added in the future, in which case this list will be upda
 1. No ordering guarantees: Events may arrive in any order, both within a request and across different requests.
 
 Stronger guarantees can be implemented for your use case if needed, in this case please
-[open a support ticket](https://console.ory.sh/support/).
+[open a support ticket](https://console.ory.com/support/).
 
 ## Configure event streams
 
@@ -179,11 +185,59 @@ requirements! Event streams can be implemented for any data warehouse, data lake
 
 To stream events to an HTTPS endpoint, provide the URL of the endpoint when configuring the event stream:
 
+```mdx-code-block
+<Tabs
+  defaultValue="console"
+  values={[
+    {label: 'Ory Console', value: 'console'},
+    {label: 'Ory CLI', value: 'cli'},
+  ]}>
+<TabItem value="console">
+```
+
+1. Go to your project in the [Ory Console](https://console.ory.com).
+
+2. Click **Project settings** in the top navigation bar.
+
+3. Click **Event streams** in the left sidebar.
+
+4. Click **Create new Event Stream**.
+
+```mdx-code-block
+<BrowserWindow url="https://console.ory.com/projects/b3b748e5-7ddc-4860-a672-2436a877dc93/settings/event-streams">
+  ![Event streams page with the Create new Event Stream button](./_static/live-events/event-streams-empty.png)
+</BrowserWindow>
+```
+
+5. In the **Create new Event Stream** dialog:
+
+   - **Event Stream Type** — Select **HTTPS**.
+
+   - **HTTPS endpoint** — Enter the URL of your endpoint, for example `https://example.com/my-event-endpoint`.
+
+6. Click **Create**. The new stream appears in the event streams table.
+
+```mdx-code-block
+<BrowserWindow url="https://console.ory.com/projects/b3b748e5-7ddc-4860-a672-2436a877dc93/settings/event-streams">
+  ![Create new Event Stream dialog with HTTPS type selected](./_static/live-events/event-stream-https-dialog.png)
+</BrowserWindow>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli">
+```
+
 ```shell
 ory create event-stream
   --project "$YOUR_PROJECT_ID" \
   --type https \
   --https-endpoint https://example.com/my-event-endpoint
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
 ```
 
 Unencrypted HTTP endpoints are not supported. Your endpoint must be able to handle POST requests with a JSON body, and respond
@@ -250,17 +304,61 @@ arn:aws:iam::123456789012:role/ory-network-event-streamer
 
 This allows Ory Network to assume the role in your AWS account, and publish to your SNS topic.
 
-4. Use the Ory CLI to configure the event stream, replacing the ARNs with those recorded in steps 1 and 2:
+4.  Configure the event stream, replacing the ARNs with those recorded in steps 1 and 2:
 
-```shell
-ory create event-stream
-  --project "$YOUR_PROJECT_ID" \
-  --type sns \
-  --aws-sns-topic-arn "$YOUR_TOPIC_ARN" \
-  --aws-iam-role-arn "$YOUR_IAM_ROLE_ARN"
-```
+    ```mdx-code-block
+    <Tabs
+      defaultValue="console"
+      values={[
+        {label: 'Ory Console', value: 'console'},
+        {label: 'Ory CLI', value: 'cli'},
+      ]}>
+    <TabItem value="console">
+    ```
 
-5. You are now ready to receive events in your AWS SNS topic!
+    a. Go to your project in the [Ory Console](https://console.ory.com).
+
+    b. Click **Project settings** in the top navigation bar.
+
+    c. Click **Event streams** in the left sidebar.
+
+    d. Click **Create new Event Stream**.
+
+    e. In the **Create new Event Stream** dialog:
+
+    - **Event Stream Type** — Select **AWS SNS**.
+
+    - **Role ARN** — Paste the IAM role ARN from step 2.
+
+    - **Topic ARN** — Paste the SNS topic ARN from step 1.
+
+    f. Click **Create**. The new stream appears in the event streams table.
+
+    ```mdx-code-block
+    <BrowserWindow url="https://console.ory.com/projects/b3b748e5-7ddc-4860-a672-2436a877dc93/settings/event-streams">
+      ![Create new Event Stream dialog with AWS SNS type selected](./_static/live-events/event-stream-sns-dialog.png)
+    </BrowserWindow>
+    ```
+
+    ```mdx-code-block
+    </TabItem>
+    <TabItem value="cli">
+    ```
+
+    ```shell
+    ory create event-stream
+      --project "$YOUR_PROJECT_ID" \
+      --type sns \
+      --aws-sns-topic-arn "$YOUR_TOPIC_ARN" \
+      --aws-iam-role-arn "$YOUR_IAM_ROLE_ARN"
+    ```
+
+    ```mdx-code-block
+    </TabItem>
+    </Tabs>
+    ```
+
+5.  You are now ready to receive events in your AWS SNS topic!
 
 :::tip
 

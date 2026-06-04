@@ -70,3 +70,9 @@ password policy, refer to the [password policy page](../../concepts/password-pol
 
 Ory OAuth2 and OpenID Connect is a certified OAuth2 and OpenID Connect provider. You can read more in the
 [OAuth 2.0 security overview](../../hydra/security-architecture) documentation.
+
+## Filesystem sandbox
+
+On Linux 5.13 and later, Ory Identities applies a [Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx) to
+limit what the process can read or execute at runtime. Ory Network and OEL deployments sandbox the full `kratos serve` process;
+the OSS binary sandboxes the hidden Jsonnet worker so mapper code cannot reach the filesystem under any circumstances.
