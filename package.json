@@ -15,7 +15,8 @@
     "test": "playwright test",
     "test:debug": "playwright test --debug",
     "test:unit": "jest tests/jest --maxConcurrency=8 --bail 1",
-    "test:integration": "jest tests/jest/integration --runInBand --bail 1"
+    "test:integration": "jest tests/jest/integration --runInBand --bail 1",
+    "check-console-links": "node src/scripts/check-console-links.js"
   },
   "browserslist": {
     "production": [
@@ -54,6 +55,8 @@
     "classnames": "2.5.1",
     "clsx": "2.1.0",
     "debug": "4.3.4",
+    "docusaurus-plugin-openapi-docs": "5.0.2",
+    "docusaurus-theme-openapi-docs": "5.0.2",
     "file-loader": "6.2.0",
     "json-loader": "0.5.7",
     "json-schema-faker": "0.5.8",
@@ -75,7 +78,7 @@
     "util": "0.12.5"
   },
   "devDependencies": {
-    "@playwright/test": "1.56.1",
+    "@playwright/test": "1.60.0",
     "@swc/core": "1.4.8",
     "@swc/jest": "0.2.36",
     "@tailwindcss/postcss": "4.1.8",

@@ -1,0 +1,29 @@
+2026-05-31T16:14:50.475Z [INFO] stdio-transport: Received SIGINT, shutting down gracefully
+2026-06-01T06:28:04.656Z [INFO] stdio-transport: Starting MCP server with stdio transport
+2026-06-01T06:28:04.658Z [INFO] mcp-server: MCP server initialized | {"name":"kapa-ai-server","version":"1.0.0"}
+2026-06-01T06:28:04.659Z [INFO] stdio-transport: Configuration loaded | {"serverName":"kapa-ai-server","serverVersion":"1.0.0","baseUrl":"https://api.kapa.ai","rateLimitPerMinute":20}
+2026-06-01T06:28:04.659Z [INFO] stdio-transport: MCP server running with stdio transport
+2026-06-01T06:28:05.378Z [INFO] stdio-transport: Starting MCP server with stdio transport
+2026-06-01T06:28:05.382Z [INFO] mcp-server: MCP server initialized | {"name":"kapa-ai-server","version":"1.0.0"}
+2026-06-01T06:28:05.382Z [INFO] stdio-transport: Configuration loaded | {"serverName":"kapa-ai-server","serverVersion":"1.0.0","baseUrl":"https://api.kapa.ai","rateLimitPerMinute":20}
+2026-06-01T06:28:05.383Z [INFO] stdio-transport: MCP server running with stdio transport
+2026-06-01T06:28:07.437Z [INFO] stdio-transport: Received SIGINT, shutting down gracefully
+2026-06-02T19:12:07.670Z [INFO] stdio-transport: Received SIGINT, shutting down gracefully
+2026-06-03T07:10:49.257Z [INFO] stdio-transport: Starting MCP server with stdio transport
+2026-06-03T07:10:49.265Z [INFO] mcp-server: MCP server initialized | {"name":"kapa-ai-server","version":"1.0.0"}
+2026-06-03T07:10:49.265Z [INFO] stdio-transport: Configuration loaded | {"serverName":"kapa-ai-server","serverVersion":"1.0.0","baseUrl":"https://api.kapa.ai","rateLimitPerMinute":20}
+2026-06-03T07:10:49.265Z [INFO] stdio-transport: MCP server running with stdio transport
+2026-06-03T07:13:07.576Z [INFO] stdio-transport: Starting MCP server with stdio transport
+2026-06-03T07:13:07.581Z [INFO] mcp-server: MCP server initialized | {"name":"kapa-ai-server","version":"1.0.0"}
+2026-06-03T07:13:07.581Z [INFO] stdio-transport: Configuration loaded | {"serverName":"kapa-ai-server","serverVersion":"1.0.0","baseUrl":"https://api.kapa.ai","rateLimitPerMinute":20}
+2026-06-03T07:13:07.581Z [INFO] stdio-transport: MCP server running with stdio transport
+2026-06-03T21:27:59.151Z [INFO] stdio-transport: Received SIGINT, shutting down gracefully
+2026-06-04T09:05:57.132Z [INFO] stdio-transport: Starting MCP server with stdio transport
+2026-06-04T09:05:57.151Z [INFO] mcp-server: MCP server initialized | {"name":"kapa-ai-server","version":"1.0.0"}
+2026-06-04T09:05:57.154Z [INFO] stdio-transport: Configuration loaded | {"serverName":"kapa-ai-server","serverVersion":"1.0.0","baseUrl":"https://api.kapa.ai","rateLimitPerMinute":20}
+2026-06-04T09:05:57.156Z [INFO] stdio-transport: MCP server running with stdio transport
+2026-06-04T09:06:17.127Z [INFO] stdio-transport: Received SIGINT, shutting down gracefully
+2026-06-04T09:06:40.307Z [INFO] stdio-transport: Starting MCP server with stdio transport
+2026-06-04T09:06:40.318Z [INFO] mcp-server: MCP server initialized | {"name":"kapa-ai-server","version":"1.0.0"}
+2026-06-04T09:06:40.318Z [INFO] stdio-transport: Configuration loaded | {"serverName":"kapa-ai-server","serverVersion":"1.0.0","baseUrl":"https://api.kapa.ai","rateLimitPerMinute":20}
+2026-06-04T09:06:40.318Z [INFO] stdio-transport: MCP server running with stdio transport
