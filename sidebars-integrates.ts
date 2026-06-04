@@ -37,8 +37,6 @@ const integratesSidebar = [
         link: { type: "generated-index" },
         items: [
           "integrates-with/cdp-analytics/amplitude",
-          "integrates-with/cdp-analytics/mailchimp",
-          "integrates-with/cdp-analytics/mailchimp-marketing",
           "integrates-with/cdp-analytics/mixpanel",
           "integrates-with/cdp-analytics/mparticle",
         ],
@@ -175,6 +173,7 @@ const integratesSidebar = [
         label: "IaC and DevOps",
         items: [
           "integrates-with/iac-devops/terraform",
+          "integrates-with/iac-devops/helm",
           "integrates-with/iac-devops/pulumi",
         ],
       },
@@ -228,11 +227,6 @@ const integratesSidebar = [
         label: "SMS providers",
         link: { type: "generated-index" },
         items: [
-          "integrates-with/sms-providers/messagebird",
-          "integrates-with/sms-providers/plivo",
-          "integrates-with/sms-providers/sinch",
-          "integrates-with/sms-providers/twilio",
-          "integrates-with/sms-providers/vonage",
           "integrates-with/sms-providers/whatsapp",
         ],
       },

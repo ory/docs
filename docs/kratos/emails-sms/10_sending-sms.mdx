@@ -232,16 +232,9 @@ Vonage accepts E.164 with or without the leading `+`; strip the `+` in Jsonnet i
 
 ### WhatsApp Business
 
-WhatsApp doesn't provide a standard OAuth flow — "WhatsApp login" in practice means **passwordless OTP delivered through
-WhatsApp**. The courier posts to a custom handler which forwards to the WhatsApp Cloud API as an authentication-template message.
-
-Configuration requires:
-
-- Meta Business Manager with WhatsApp Business enabled.
-- A pre-approved AUTHENTICATION-category template (Meta review required — typically under an hour).
-- A WhatsApp Business phone number ID and a system-user permanent access token.
-
-Because it requires the custom handler, WhatsApp is configured under `courier.channels` rather than `courier.sms`.
+WhatsApp delivers OTPs as pre-approved template messages rather than plain text, so it needs a custom courier handler configured
+under `courier.channels` instead of `courier.sms` — it doesn't fit the simple `request_config` pattern above. See
+[WhatsApp Business OTP courier](../../integrates-with/sms-providers/whatsapp.mdx) for the full setup.
 
 ## Templates
 
