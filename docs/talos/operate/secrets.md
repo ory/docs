@@ -70,7 +70,7 @@ paging session you expect (typically a few minutes).
 2. Set a new `current` value generated with a cryptographically secure RNG.
 3. Either restart Ory Talos or wait for config hot-reload to pick up the change.
 
-Apply both changes (`current` and `retired`) in **one** atomic config reload — write a single updated YAML file or update both
+Apply both changes (`current` and `retired`) in one atomic config reload — write a single updated YAML file or update both
 env-vars together. Splitting the rotation across two reloads risks a window where signatures issued under the previous `current`
 no longer verify because the value got replaced without yet being added to `retired`.
 

@@ -12,7 +12,7 @@ variable mapping, and the precedence rules.
 
 Ory Talos watches the config file for changes. Some settings reload automatically; others require a restart.
 
-**Hot-reloadable** (read per request through the config provider):
+Hot-reloadable (read per request through the config provider):
 
 - `credentials.api_keys.default_ttl` / `max_ttl`
 - `credentials.api_keys.prefix.current` / `retired`
@@ -28,7 +28,7 @@ Ory Talos watches the config file for changes. Some settings reload automaticall
 - `serve.http.request_log.exclude_health_endpoints`
 - `rate_limit.enabled` (commercial; OSS exposes the metadata field but doesn't enforce it)
 
-**Requires restart** (the configx immutable list, plus keys marked immutable in the schema):
+Requires restart (the configx immutable list, plus keys marked immutable in the schema):
 
 - `db.dsn`, `tls.key`, `redis.password` (configx-enforced immutables)
 - `serve.http.host` / `port`

@@ -232,13 +232,12 @@ For the complete import field reference, see the [ImportAPIKey API reference](..
 
 ## Behavior notes
 
-- **Allowlist model**: Talos permits only listed CIDRs. An empty `allowed_cidrs` array allows requests from any IP.
-- **Cache TTL**: Talos enforces IP restrictions on every verification, including cache hits, by re-checking the current request
-  IP. Changes to the allowed CIDRs take effect after the cache TTL expires. See [cache configuration](../operate/cache/index.md)
-  for TTL settings.
-- **Fail-closed**: If client IP resolution fails, Talos denies the request with `VERIFICATION_ERROR_IP_NOT_ALLOWED`.
-- **IPv4 and IPv6**: Talos supports both address families. Use `/32` for single IPv4 addresses and `/128` for single IPv6
-  addresses.
-- **Derived tokens**: Deriving a token checks the parent key's IP restrictions, then seals the parent's allowed CIDRs into the
-  token's `acl` claim. Verifying the token enforces that sealed list against the request IP. A token from an unrestricted parent
-  stays unrestricted for its lifetime; a token from a restricted parent keeps that allowlist even if the parent later changes.
+- Allowlist model: Talos permits only listed CIDRs. An empty `allowed_cidrs` array allows requests from any IP.
+- Cache TTL: Talos enforces IP restrictions on every verification, including cache hits, by re-checking the current request IP.
+  Changes to the allowed CIDRs take effect after the cache TTL expires. See [cache configuration](../operate/cache/index.md) for
+  TTL settings.
+- Fail-closed: If client IP resolution fails, Talos denies the request with `VERIFICATION_ERROR_IP_NOT_ALLOWED`.
+- IPv4 and IPv6: Talos supports both address families. Use `/32` for single IPv4 addresses and `/128` for single IPv6 addresses.
+- Derived tokens: Deriving a token checks the parent key's IP restrictions, then seals the parent's allowed CIDRs into the token's
+  `acl` claim. Verifying the token enforces that sealed list against the request IP. A token from an unrestricted parent stays
+  unrestricted for its lifetime; a token from a restricted parent keeps that allowlist even if the parent later changes.

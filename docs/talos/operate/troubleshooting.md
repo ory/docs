@@ -38,11 +38,10 @@ inspecting the schema, so the version must match the actual on-disk DDL). Then r
 
 For SQL errors during migration:
 
-- **`database is locked` (SQLite):** another process holds a write lock. Stop concurrent writers; SQLite serializes writes
-  internally.
-- **`relation already exists` (Postgres):** a previous migration ran partially and left the database dirty. Recover as described
+- `database is locked` (SQLite): another process holds a write lock. Stop concurrent writers; SQLite serializes writes internally.
+- `relation already exists` (Postgres): a previous migration ran partially and left the database dirty. Recover as described
   above.
-- **`permission denied`:** the DB user lacks DDL privileges. Migrations require `CREATE TABLE` / `CREATE INDEX` rights.
+- `permission denied`: the DB user lacks DDL privileges. Migrations require `CREATE TABLE` / `CREATE INDEX` rights.
 
 ### Missing or short secrets
 

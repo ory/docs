@@ -43,16 +43,16 @@ For the full parameter reference, see [PostgreSQL DSN parameters](postgresql.md#
 
 Differences from PostgreSQL:
 
-- **Pool sizing** — the default `max_conns` is `25`, the same as PostgreSQL. Raise it only after measuring pool saturation. Each
+- Pool sizing — the default `max_conns` is `25`, the same as PostgreSQL. Raise it only after measuring pool saturation. Each
   CockroachDB node has its own connection ceiling, so size the sum of all pools that target a node, not one pool in isolation.
-- **Per-node connection limits** — each CockroachDB node accepts a finite number of SQL connections, set by the
+- Per-node connection limits — each CockroachDB node accepts a finite number of SQL connections, set by the
   `server.max_connections_per_gateway` cluster setting. Keep the sum of every Talos pool that targets a node below that node's
   limit. The limit is per node, not global, so PgBouncer is rarely needed in front of CockroachDB.
-- **Schema-change blast radius** — CockroachDB applies online schema changes asynchronously. Run `talos-commercial migrate up`
-  from a single instance, then wait for the schema-change job to finish (use `SHOW JOBS` and look for rows with
-  `status = 'running'`) before you roll out the new application version.
-- **Rollback path** — `talos-commercial migrate down` is supported but irreversible once the previous version has written data
-  using the new schema. Take a backup (`BACKUP INTO …`) before a destructive migration.
+- Schema-change blast radius — CockroachDB applies online schema changes asynchronously. Run `talos-commercial migrate up` from a
+  single instance, then wait for the schema-change job to finish (use `SHOW JOBS` and look for rows with `status = 'running'`)
+  before you roll out the new application version.
+- Rollback path — `talos-commercial migrate down` is supported but irreversible once the previous version has written data using
+  the new schema. Take a backup (`BACKUP INTO …`) before a destructive migration.
 
 ## Migrations
 
@@ -89,19 +89,19 @@ Distributed consensus (Raft) gives CockroachDB higher write latency than Postgre
 
 ## Example DSNs
 
-**Development (CockroachDB Serverless):**
+Development (CockroachDB Serverless):
 
 ```text
 cockroach://talos:secret@free-tier.cockroachlabs.cloud:26257/talos?sslmode=require
 ```
 
-**Production with standard pooling:**
+Production with standard pooling:
 
 ```text
 cockroach://talos@crdb:26257/talos?sslmode=verify-full&sslrootcert=/certs/ca.crt&max_conns=50&max_idle_conns=10&max_conn_lifetime=5m&max_conn_idle_time=1m
 ```
 
-**Production with advanced pooling (multi-region):**
+Production with advanced pooling (multi-region):
 
 ```text
 cockroach://talos@crdb-local:26257/talos?sslmode=verify-full&sslrootcert=/certs/ca.crt&pool_mode=advanced

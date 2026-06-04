@@ -165,25 +165,25 @@ db:
 
 ## Example DSNs
 
-**Development:**
+Development:
 
 ```text
 postgres://talos:secret@localhost:5432/talos?sslmode=disable
 ```
 
-**Production with standard pooling:**
+Production with standard pooling:
 
 ```text
 postgres://talos:secret@db:5432/talos?sslmode=verify-full&sslrootcert=/certs/ca.crt&max_conns=25&max_idle_conns=5&max_conn_lifetime=5m&max_conn_idle_time=1m
 ```
 
-**Production with advanced pooling (Kubernetes):**
+Production with advanced pooling (Kubernetes):
 
 ```text
 postgres://talos:secret@db:5432/talos?sslmode=verify-full&sslrootcert=/certs/ca.crt&pool_mode=advanced
 ```
 
-**Behind PgBouncer:**
+Behind PgBouncer:
 
 ```text
 postgres://talos:secret@pgbouncer:6432/talos?sslmode=require&max_conns=50&max_idle_conns=10&max_conn_lifetime=5m

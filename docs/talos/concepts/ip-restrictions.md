@@ -9,13 +9,13 @@ restrictions accept traffic from any address.
 
 ## How IP restrictions work
 
-IP restriction enforcement has two stages: **IP resolution** and **CIDR matching**.
+IP restriction enforcement has two stages: IP resolution and CIDR matching.
 
 ### IP resolution
 
 When a verification request arrives, middleware captures the IP-related headers from the HTTP request into the request context. At
-verification time, the configured **client IP source** (`serve.http.client_ip_source`) determines which header Talos uses to
-extract the client address. The available sources are:
+verification time, the configured client IP source (`serve.http.client_ip_source`) determines which header Talos uses to extract
+the client address. The available sources are:
 
 | Source                              | Header or value used         | Typical use case                       |
 | ----------------------------------- | ---------------------------- | -------------------------------------- |
@@ -39,7 +39,7 @@ If the IP matches at least one CIDR range, verification proceeds. If no range ma
 
 ## Fail-closed behavior
 
-IP restrictions are **fail-closed**. If Talos can't determine the client IP -- for example, because the request context doesn't
+IP restrictions are fail-closed. If Talos can't determine the client IP -- for example, because the request context doesn't
 contain IP metadata -- it denies the verification request with `VERIFICATION_ERROR_IP_NOT_ALLOWED`. This prevents accidental
 access when header forwarding is misconfigured.
 
@@ -49,8 +49,8 @@ outages.
 ## Cache interaction
 
 Cached verification results retain the key's allowed CIDR list. When Talos serves a key from cache, it re-evaluates the IP
-restriction against the **current request's** client IP before returning a success response. Talos enforces IP restrictions on
-every request, whether the result comes from cache or the database.
+restriction against the current request's client IP before returning a success response. Talos enforces IP restrictions on every
+request, whether the result comes from cache or the database.
 
 The enforcement sequence is:
 
@@ -82,14 +82,14 @@ IPv6 addresses to IPv4 during matching, so an IPv4 range such as `10.0.0.0/8` ma
 
 ## Key concepts
 
-- **Allowlist model** -- IP restrictions define which IPs are permitted. Talos denies any IP not in the list. Keys without
+- Allowlist model -- IP restrictions define which IPs are permitted. Talos denies any IP not in the list. Keys without
   restrictions accept all IPs.
-- **Per-key granularity** -- Each key has its own CIDR list. Keys don't share IP restrictions.
-- **Fail-closed** -- If Talos can't resolve the client IP, it denies the request. Misconfigured proxies can't bypass restrictions.
-- **CIDR notation** -- Ranges use standard CIDR format (`ip/prefix_length`). Single IPs use `/32` (IPv4) or `/128` (IPv6).
-- **`VERIFICATION_ERROR_IP_NOT_ALLOWED`** -- The error code Talos returns when a request IP is outside the key's allowed ranges.
-  See the [error codes reference](../reference/error-codes.md#verification-error-codes) for the full list.
-- **Cache-safe** -- Talos enforces IP restrictions on every verification request, even when the key is served from cache.
+- Per-key granularity -- Each key has its own CIDR list. Keys don't share IP restrictions.
+- Fail-closed -- If Talos can't resolve the client IP, it denies the request. Misconfigured proxies can't bypass restrictions.
+- CIDR notation -- Ranges use standard CIDR format (`ip/prefix_length`). Single IPs use `/32` (IPv4) or `/128` (IPv6).
+- `VERIFICATION_ERROR_IP_NOT_ALLOWED` -- The error code Talos returns when a request IP is outside the key's allowed ranges. See
+  the [error codes reference](../reference/error-codes.md#verification-error-codes) for the full list.
+- Cache-safe -- Talos enforces IP restrictions on every verification request, even when the key is served from cache.
 
 ## Next steps
 

@@ -4,9 +4,9 @@ title: Separate admin and public APIs
 
 Ory Talos is a single binary with two HTTP surfaces:
 
-- The **admin API** under `/v2alpha1/admin/*` — issue, get, list, update, rotate, revoke, import, derive tokens, **verify**, and
-  **batch verify**.
-- The **public API** under `/v2alpha1/apiKeys:selfRevoke` — proof-of-possession self-revocation.
+- The admin API under `/v2alpha1/admin/*` — issue, get, list, update, rotate, revoke, import, derive tokens, verify, and batch
+  verify.
+- The public API under `/v2alpha1/apiKeys:selfRevoke` — proof-of-possession self-revocation.
 
 The JWKS endpoint, `GET /v2alpha1/derivedKeys/jwks.json`, serves the public keys that verify derived JWTs. Every mode exposes it,
 so callers can fetch it from either process.
@@ -16,12 +16,11 @@ the same database and configuration.
 
 ## Why split
 
-- **Admin needs authentication.** The admin API has no built-in auth. Any request that reaches it is treated as authorized. Bind
-  it to an internal interface and place an authenticating proxy in front. See [Admin protection](../security/admin-protection.md).
-- **Public does not.** The self-revoke endpoint validates proof of possession of the credential inline, so you can expose it to
-  the public internet without an extra auth layer.
-- **Independent scaling.** Verification is the hot path. Scale admin instances without touching the public process, and the
-  reverse.
+- Admin needs authentication. The admin API has no built-in auth. Any request that reaches it is treated as authorized. Bind it to
+  an internal interface and place an authenticating proxy in front. See [Admin protection](../security/admin-protection.md).
+- Public does not. The self-revoke endpoint validates proof of possession of the credential inline, so you can expose it to the
+  public internet without an extra auth layer.
+- Independent scaling. Verification is the hot path. Scale admin instances without touching the public process, and the reverse.
 
 The split works in both the OSS and commercial editions. The subcommands are the same; only the cache and database choices differ
 between editions.
@@ -30,11 +29,11 @@ between editions.
 
 Each Ory Talos process runs in one of three modes selected by the subcommand:
 
-| Subcommand           | API exposed                                                                                                                           |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `talos serve`        | Admin and public APIs in one process. Good for development and small deployments.                                                     |
-| `talos serve admin`  | Admin API only — including `POST /v2alpha1/admin/apiKeys:verify` and `:batchVerify`. **Requires admin authentication.**               |
-| `talos serve public` | Public API only — `POST /v2alpha1/apiKeys:selfRevoke`. **No admin authentication required**; proof of possession is validated inline. |
+| Subcommand           | API exposed                                                                                                                       |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `talos serve`        | Admin and public APIs in one process. Good for development and small deployments.                                                 |
+| `talos serve admin`  | Admin API only — including `POST /v2alpha1/admin/apiKeys:verify` and `:batchVerify`. Requires admin authentication.               |
+| `talos serve public` | Public API only — `POST /v2alpha1/apiKeys:selfRevoke`. No admin authentication required; proof of possession is validated inline. |
 
 `talos serve admin` logs a startup warning that admin endpoints have no built-in authentication. Put a trusted proxy or network
 boundary in front of it before sending traffic.

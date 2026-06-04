@@ -80,9 +80,8 @@ Over the HTTP API, `ttl` accepts protobuf seconds (`86400s`), Go durations (`720
 
 The response contains two top-level fields:
 
-- **`issued_api_key`** — The key metadata (ID, name, actor, scopes, status, and timestamps).
-- **`secret`** — The full API key credential. Talos returns this value **only once** and never exposes it again. Store it
-  securely.
+- `issued_api_key` — The key metadata (ID, name, actor, scopes, status, and timestamps).
+- `secret` — The full API key credential. Talos returns this value only once and never exposes it again. Store it securely.
 
 For the complete `issued_api_key` field reference, see the
 [IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).

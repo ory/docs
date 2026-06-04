@@ -139,19 +139,19 @@ db:
 
 ## Example DSNs
 
-**Development:**
+Development:
 
 ```text
 mysql://talos:secret@tcp(localhost:3306)/talos?parseTime=true
 ```
 
-**Production with pooling:**
+Production with pooling:
 
 ```text
 mysql://talos:secret@tcp(db:3306)/talos?parseTime=true&tls=true&max_conns=25&max_idle_conns=5&max_conn_lifetime=5m&max_conn_idle_time=1m
 ```
 
-**With timeouts:**
+With timeouts:
 
 ```text
 mysql://talos:secret@tcp(db:3306)/talos?parseTime=true&tls=true&timeout=10s&readTimeout=30s&writeTimeout=30s&max_conns=25

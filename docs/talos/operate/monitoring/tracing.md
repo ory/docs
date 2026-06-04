@@ -2,8 +2,8 @@
 title: OpenTelemetry tracing
 ---
 
-Ory Talos emits distributed traces through OpenTelemetry in **commercial builds only**. The `commercial` build tag gates the
-tracer; the OSS image treats the `tracing` config block as a no-op and emits no traces.
+Ory Talos emits distributed traces through OpenTelemetry in commercial builds only. The `commercial` build tag gates the tracer;
+the OSS image treats the `tracing` config block as a no-op and emits no traces.
 
 ## Configuration
 
@@ -32,7 +32,7 @@ OTLP is the only supported exporter. Setting `tracing.exporter` to any other val
 
 ### Transport security
 
-The OTLP gRPC client connects with `insecure` credentials, so traffic to the collector is **plaintext**. Don't send traces over an
+The OTLP gRPC client connects with `insecure` credentials, so traffic to the collector is plaintext. Don't send traces over an
 untrusted network. Pick one of these options:
 
 - Run a sidecar OpenTelemetry Collector on `localhost` that terminates TLS toward the central collector.

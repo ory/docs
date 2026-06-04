@@ -202,16 +202,16 @@ headers carry live counter state and appear only when the Commercial edition enf
 
 ## Behavior notes
 
-- **Fail-open on limiter errors** — if the rate limiter backend is unavailable (for example, Redis is down), verification succeeds
-  but Talos omits the dynamic counter fields (`rate_limit_remaining`, `rate_limit_reset_time`, and the `RateLimit` header).
-  Limiter failures never block legitimate traffic.
-- **Cache interaction** — the limiter runs on every verification, including cache hits. Talos reads the policy from the key record
+- Fail-open on limiter errors — if the rate limiter backend is unavailable (for example, Redis is down), verification succeeds but
+  Talos omits the dynamic counter fields (`rate_limit_remaining`, `rate_limit_reset_time`, and the `RateLimit` header). Limiter
+  failures never block legitimate traffic.
+- Cache interaction — the limiter runs on every verification, including cache hits. Talos reads the policy from the key record
   (which may be cached), then consults the limiter. The counter state lives outside the verification cache, so a cache hit still
   decrements the counter.
-- **Per-key isolation** — each key keeps its own counter. Keys don't share rate limit budgets, even when they belong to the same
+- Per-key isolation — each key keeps its own counter. Keys don't share rate limit budgets, even when they belong to the same
   actor.
-- **Policy changes** — because the policy is read from the key record, an updated policy applies once the cached entry refreshes.
-  To read it immediately, send the verification request with the `Cache-Control: no-cache` header (the CLI's `--no-cache` flag).
+- Policy changes — because the policy is read from the key record, an updated policy applies once the cached entry refreshes. To
+  read it immediately, send the verification request with the `Cache-Control: no-cache` header (the CLI's `--no-cache` flag).
 
 ## Next steps
 

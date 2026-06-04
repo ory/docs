@@ -71,10 +71,10 @@ store on every Ory Talos node. There's no per-process CA bundle option.
 The defaults (`pool_size: 100`, `min_idle_conns: 2`, `conn_max_lifetime: 30m`) suit most deployments. Tune them only when you can
 show a problem:
 
-- **Saturated pool:** if Ory Talos logs show repeated `redis: connection pool timeout` errors, increase `pool_size` or lower the
+- Saturated pool: if Ory Talos logs show repeated `redis: connection pool timeout` errors, increase `pool_size` or lower the
   request rate per instance.
-- **Connection churn:** if Redis logs show frequent connect and disconnect events from Ory Talos, increase `min_idle_conns`.
-- **Stale connections after failover:** lower `conn_max_lifetime` to rotate connections sooner.
+- Connection churn: if Redis logs show frequent connect and disconnect events from Ory Talos, increase `min_idle_conns`.
+- Stale connections after failover: lower `conn_max_lifetime` to rotate connections sooner.
 
 Keep `pool_size` at or below your Redis server's `maxclients` divided by the number of Ory Talos instances. When Ory Talos can't
 reach Redis, verification falls back to the database for that request and logs the failure.

@@ -67,10 +67,10 @@ Metadata is optional and varies by event type. The following keys are emitted by
 
 ## Operational notes
 
-- `EventAPIKeyVerificationFailed` emissions are **rate-limited per network (NID)** to at most `failureEventRateLimit` (10) events
-  per `failureEventWindow` (1 minute). Excess failures are silently dropped with a `DEBUG`-level log line. Security alerting that
+- `EventAPIKeyVerificationFailed` emissions are rate-limited per network (NID) to at most `failureEventRateLimit` (10) events per
+  `failureEventWindow` (1 minute). Excess failures are silently dropped with a `DEBUG`-level log line. Security alerting that
   relies on this event must account for throttling — see `internal/verifier/verifier.go`.
-- `EventAPIKeyVerified` is **not** emitted on successful verification. Verify is a hot path; only failures produce audit events.
+- `EventAPIKeyVerified` is not emitted on successful verification. Verify is a hot path; only failures produce audit events.
 - `EventAPIKeyRevoked` carries the revocation `Reason` attribute (mapped from `talosv2alpha1.RevocationReason`) when the reason is
   not `UNSPECIFIED`. Self-revoke emissions additionally set the `metadata.initiated_by="self"` key.
 

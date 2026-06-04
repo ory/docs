@@ -10,11 +10,11 @@ shapes, and the design choices that matter when you adopt or operate Talos.
 
 Talos exposes two surfaces:
 
-- An **admin surface** for managing credentials: issue, rotate, revoke, import, derive tokens, list, and get. Verification
+- An admin surface for managing credentials: issue, rotate, revoke, import, derive tokens, list, and get. Verification
   (`apiKeys:verify` and `apiKeys:batchVerify`) also lives on the admin surface, because verifying a credential is a high-trust
   operation that needs the same network protection as management. Talos ships no admin authentication; you control who can reach
   this surface.
-- A **self-service surface** for the one credential-holder operation: self-revocation (`apiKeys:selfRevoke`). The caller proves
+- A self-service surface for the one credential-holder operation: self-revocation (`apiKeys:selfRevoke`). The caller proves
   possession by presenting the credential, so this surface needs no admin authentication.
 
 The JWKS endpoint (`GET /v2alpha1/derivedKeys/jwks.json`) publishes the public keys that verify derived JWTs. It carries no
@@ -49,24 +49,24 @@ because both backends require a license; OSS supports only `noop`.
 
 ## Deployment topologies
 
-- **Single process.** Run `talos serve`. Both surfaces share one listener and database. This is the OSS default and works for
+- Single process. Run `talos serve`. Both surfaces share one listener and database. This is the OSS default and works for
   development and small deployments. See the [deployment overview](../operate/deploy/index.md).
-- **Split admin and public.** Run `talos serve admin` for the admin API (management plus verification) and `talos serve public`
-  for self-revoke, against a shared database. The admin process stays on an internal network behind an authenticating proxy; the
+- Split admin and public. Run `talos serve admin` for the admin API (management plus verification) and `talos serve public` for
+  self-revoke, against a shared database. The admin process stays on an internal network behind an authenticating proxy; the
   public process accepts public traffic. Available in OSS and commercial. See
   [separate admin and public APIs](../operate/deploy/deployment-modes.md).
-- **Edge proxy.** Run `talos proxy` (commercial only) as a sidecar in front of a central Talos cluster. The proxy caches valid
+- Edge proxy. Run `talos proxy` (commercial only) as a sidecar in front of a central Talos cluster. The proxy caches valid
   verification responses locally and forwards everything else to the upstream. See [edge proxy](../operate/deploy/edge-proxy.mdx).
 
 ## Design principles
 
-- **Stateless verification for derived tokens.** JWT and macaroon verification reads neither the database nor the cache. Talos
-  checks signatures against the configured JWKS or shared secret. This lets the edge proxy and admin process scale independently
-  of the database.
-- **Single source of truth for tenancy.** Talos derives the network ID from the request context: from the hostname in commercial
+- Stateless verification for derived tokens. JWT and macaroon verification reads neither the database nor the cache. Talos checks
+  signatures against the configured JWKS or shared secret. This lets the edge proxy and admin process scale independently of the
+  database.
+- Single source of truth for tenancy. Talos derives the network ID from the request context: from the hostname in commercial
   deployments, always `uuid.Nil` in OSS. It never reads the network ID from request bodies or persisted records. See the
   [security model](./security-model.md) for the full rationale.
-- **Pluggable persistence and cache.** Storage and cache backends are interfaces. The commercial edition supplies additional
+- Pluggable persistence and cache. Storage and cache backends are interfaces. The commercial edition supplies additional
   implementations without changing the OSS surface.
 
 ## Scalability

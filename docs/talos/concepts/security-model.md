@@ -35,7 +35,7 @@ Multi-tenant deployments resolve the JWKS per tenant via the contextualizer; the
 Ory Talos supports zero-downtime secret rotation. Configure the new secret as `current` and move the old one to `retired`. During
 verification, all secrets in the same family are tried in order.
 
-- **HMAC rotation** (`secrets.hmac.*`) rotates the API key checksum, the macaroon root key, and the pagination cursor key at once.
+- HMAC rotation (`secrets.hmac.*`) rotates the API key checksum, the macaroon root key, and the pagination cursor key at once.
   Existing API keys, macaroons, and outstanding `next_page_token` values remain valid as long as the previous secret is in
   `retired`.
 
@@ -46,11 +46,11 @@ NID) is derived from the request hostname before any handler runs. Every subsequ
 
 Ory Talos prevents cross-tenant access at three layers:
 
-- **Storage.** Every row carries the tenant identifier, and every query filters on it. No path reads or writes data outside the
+- Storage. Every row carries the tenant identifier, and every query filters on it. No path reads or writes data outside the
   caller's tenant.
-- **Derived tokens.** JWTs and macaroons issued for a tenant carry that tenant's identifier. Verifying a token under a different
+- Derived tokens. JWTs and macaroons issued for a tenant carry that tenant's identifier. Verifying a token under a different
   tenant returns the same `not found` result as an unknown key. Tokens never cross tenant boundaries.
-- **Imported keys.** The hash stored for an imported key is bound to the tenant. The same raw credential imported into two tenants
+- Imported keys. The hash stored for an imported key is bound to the tenant. The same raw credential imported into two tenants
   produces two unrelated records; verifying it in the wrong tenant fails.
 
 For tenant routing and configuration, see [Multi-tenancy](../operate/multi-tenancy.md).
@@ -119,14 +119,14 @@ the resolved algorithm into the JWK `alg` header on each signed token and overwr
 
 For the cryptographic model to hold, meet the following operational requirements:
 
-1. **HMAC secret management** -- Store the HMAC secret in a secrets manager or vault, for example HashiCorp Vault or AWS Secrets
+1. HMAC secret management -- Store the HMAC secret in a secrets manager or vault, for example HashiCorp Vault or AWS Secrets
    Manager. Never store it in the database or commit it to version control. Ory Talos supports zero-downtime rotation by
    maintaining current and retired secrets.
 
-2. **Key entropy** -- Generate API keys with a cryptographically secure random number generator that provides at least 128 bits of
+2. Key entropy -- Generate API keys with a cryptographically secure random number generator that provides at least 128 bits of
    entropy. Ory Talos generates keys internally and doesn't accept user-provided key material for issued keys.
 
-3. **Transport security** -- Use TLS for all communication. Never expose API key secrets in URLs, query parameters, or log output.
+3. Transport security -- Use TLS for all communication. Never expose API key secrets in URLs, query parameters, or log output.
 
-4. **Signing key protection** -- Store Ed25519 and RSA private keys used for JWT signing securely, and never expose them through
-   API responses or logs.
+4. Signing key protection -- Store Ed25519 and RSA private keys used for JWT signing securely, and never expose them through API
+   responses or logs.

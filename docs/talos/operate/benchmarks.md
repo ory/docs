@@ -44,11 +44,11 @@ Select a profile with the `TEST_PROFILE` environment variable:
 
 The stress profile defines three independent stage lists. Each scenario uses one of them:
 
-- **Read stages** (`read_operations`, `macaroon_derivation`): 0 to 18 over 30s, 18 to 53 over 60s, 53 to 105 over 60s, hold 105
-  for 120s, 105 to 0 over 30s.
-- **Write stages** (`key_lifecycle`, `import_lifecycle`, `self_revoke_lifecycle`, `batch_import_lifecycle`, `nid_isolation`): 0 to
-  7 over 30s, 7 to 22 over 60s, 22 to 45 over 60s, hold 45 for 120s, 45 to 0 over 30s.
-- **Functional stages** (`pagination_cursor`, `batch_boundary`): 0 to 1 over 30s, hold 1 for 240s, 1 to 0 over 30s.
+- Read stages (`read_operations`, `macaroon_derivation`): 0 to 18 over 30s, 18 to 53 over 60s, 53 to 105 over 60s, hold 105 for
+  120s, 105 to 0 over 30s.
+- Write stages (`key_lifecycle`, `import_lifecycle`, `self_revoke_lifecycle`, `batch_import_lifecycle`, `nid_isolation`): 0 to 7
+  over 30s, 7 to 22 over 60s, 22 to 45 over 60s, hold 45 for 120s, 45 to 0 over 30s.
+- Functional stages (`pagination_cursor`, `batch_boundary`): 0 to 1 over 30s, hold 1 for 240s, 1 to 0 over 30s.
 
 During the hold, the aggregate VU count peaks at 437: 2 read scenarios × 105, 5 write scenarios × 45, and 2 functional scenarios
 × 1.
@@ -123,12 +123,12 @@ Each profile enforces regression thresholds. A run fails if it breaches any of t
 
 After a k6 run, check these metrics:
 
-- **`checks` rate**: Must be 100%. Any failure indicates a correctness bug.
-- **`http_req_duration` percentiles**: Compare against the thresholds above. A large increase suggests a regression.
-- **`http_req_failed` rate**: 0% for smoke and load, under 1% for stress.
-- **Custom counters** (`key_creations`, `verifications`, `token_derivations`): Compare rates against the reference results to
-  catch throughput regressions.
-- **`iteration_duration`**: End-to-end time for each VU iteration, across all operations.
+- `checks` rate: Must be 100%. Any failure indicates a correctness bug.
+- `http_req_duration` percentiles: Compare against the thresholds above. A large increase suggests a regression.
+- `http_req_failed` rate: 0% for smoke and load, under 1% for stress.
+- Custom counters (`key_creations`, `verifications`, `token_derivations`): Compare rates against the reference results to catch
+  throughput regressions.
+- `iteration_duration`: End-to-end time for each VU iteration, across all operations.
 
 The runner writes results to `.test/k6-output.txt` (human-readable), `.test/k6-results.json` (per-data-point JSON), and
 `.test/k6-summary.json` (k6 summary export).

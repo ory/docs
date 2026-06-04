@@ -47,7 +47,7 @@ serve:
     trust_forwarded_host: true
 ```
 
-This setting is immutable, so a restart is required to change it. Set it **only** when Ory Talos runs behind a reverse proxy that
+This setting is immutable, so a restart is required to change it. Set it only when Ory Talos runs behind a reverse proxy that
 strips the client-supplied `X-Forwarded-Host` and rewrites it to the canonical edge hostname. In front of an unfiltered ingress, a
 forged `X-Forwarded-Host` lets external callers spoof tenant identity.
 
@@ -78,7 +78,7 @@ business-logic keys supports per-tenant overrides. It strips everything else sil
 | `cache.ttl`          | Override the cache TTL per tenant. The backend (`type`, `memory.*`, `redis.*`) is infrastructure-only. |
 
 All other settings — `db.*`, `serve.*`, `multitenancy.*`, `tracing.*`, `cache.type`, `rate_limit.backend`, and any unlisted key —
-are **always global** and dropped from tenant overlays.
+are always global and dropped from tenant overlays.
 
 ## Tenant isolation
 
@@ -91,9 +91,9 @@ error because each tenant signs with its own keys.
 
 Tenant identity lives in two independent places, and provisioning touches both:
 
-- **`multitenancy.networks` in the base configuration.** Maps hostnames to network IDs. The `multitenancy` block is immutable
+- `multitenancy.networks` in the base configuration. Maps hostnames to network IDs. The `multitenancy` block is immutable
   (`x-immutable`), so restart Ory Talos after you change this list.
-- **The `networks` table in the Ory Talos database.** Both `issued_api_keys` and `imported_api_keys` have a foreign key on
+- The `networks` table in the Ory Talos database. Both `issued_api_keys` and `imported_api_keys` have a foreign key on
   `nid → networks.id`. A tenant needs a row in `networks` before it can issue or import keys. The request path never writes to
   this table, so provision rows out of band when you add a tenant.
 
@@ -102,11 +102,11 @@ first key issue or import fails with a foreign-key violation.
 
 ## Provisioning a new tenant
 
-1. **Generate a tenant ID.** Use a lowercase UUID: `uuidgen | tr 'A-Z' 'a-z'`. The config schema accepts only lowercase hex, so
+1. Generate a tenant ID. Use a lowercase UUID: `uuidgen | tr 'A-Z' 'a-z'`. The config schema accepts only lowercase hex, so
    uppercase UUIDs (the macOS `uuidgen` default) are rejected.
-2. **Pick a hostname** that resolves to your Ory Talos admin process (for example, `tenant3.talos.example.com`) and add a DNS
-   record or load-balancer rule for it.
-3. **Create the tenant overlay** at `/etc/talos/tenant3.yaml` with any per-tenant business settings:
+2. Pick a hostname that resolves to your Ory Talos admin process (for example, `tenant3.talos.example.com`) and add a DNS record
+   or load-balancer rule for it.
+3. Create the tenant overlay at `/etc/talos/tenant3.yaml` with any per-tenant business settings:
 
    ```yaml
    credentials:
@@ -116,8 +116,8 @@ first key issue or import fails with a foreign-key violation.
          current: "t3"
    ```
 
-4. **Create the network row in the Ory Talos database.** Both `issued_api_keys` and `imported_api_keys` reference `networks (id)`,
-   so without this row every key issue or import for the tenant fails with a foreign-key violation. Run once against the Ory Talos
+4. Create the network row in the Ory Talos database. Both `issued_api_keys` and `imported_api_keys` reference `networks (id)`, so
+   without this row every key issue or import for the tenant fails with a foreign-key violation. Run once against the Ory Talos
    database, substituting the UUID from step 1:
 
    ```sql
@@ -132,7 +132,7 @@ first key issue or import fails with a foreign-key violation.
    ON DUPLICATE KEY UPDATE id = id;
    ```
 
-5. **Add the network entry** to the base config:
+5. Add the network entry to the base config:
 
    ```yaml
    multitenancy:
@@ -142,9 +142,9 @@ first key issue or import fails with a foreign-key violation.
          config_path: "/etc/talos/tenant3.yaml"
    ```
 
-6. **Restart Ory Talos.** The `multitenancy` block is immutable, so the new `multitenancy.networks` entry takes effect only after
-   a restart. Ory Talos re-reads the overlay file at `config_path` on the next request, so editing an overlay needs no restart.
-7. **Verify the route** with a curl against the admin process:
+6. Restart Ory Talos. The `multitenancy` block is immutable, so the new `multitenancy.networks` entry takes effect only after a
+   restart. Ory Talos re-reads the overlay file at `config_path` on the next request, so editing an overlay needs no restart.
+7. Verify the route with a curl against the admin process:
 
    ```shell
    curl -sf -X POST "https://tenant3.talos.example.com/v2alpha1/admin/issuedApiKeys" \

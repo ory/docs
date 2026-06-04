@@ -42,7 +42,7 @@ Each issued key has a `visibility` field ([`KeyVisibility`](../reference/api/adm
 `KEY_VISIBILITY_SECRET` (server-only) from `KEY_VISIBILITY_PUBLIC` (client-safe). The two values use different prefixes so callers
 can distinguish publishable credentials from secret ones.
 
-**Lifecycle**: Issue, rotate, update metadata, revoke.
+Lifecycle: Issue, rotate, update metadata, revoke.
 
 ## Imported API keys
 
@@ -64,7 +64,7 @@ On each verification request, Talos computes `SHA-512/256(network_id + 0x00 + ra
 ID scopes the hash per tenant in the commercial edition; the OSS edition uses a fixed nil network ID. Ory Talos never persists the
 raw key. Imported keys support the same metadata, scopes, and expiration as issued keys.
 
-**Lifecycle**: Import, update metadata, revoke, delete.
+Lifecycle: Import, update metadata, revoke, delete.
 
 ## Derived JWTs
 

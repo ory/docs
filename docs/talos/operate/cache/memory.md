@@ -23,11 +23,11 @@ cache:
 
 ## Characteristics
 
-- **Per-process**: Each Ory Talos instance has its own cache. It isn't shared across instances.
-- **Bounded by `max_size`**: When the cache reaches `max_size` bytes, TinyLFU admission and sampled LFU eviction decide which
-  entries to keep.
-- **TTL-based expiry**: Entries expire after the configured `ttl`.
-- **No external dependencies**: The cache runs in the Talos process, with no network round trips.
+- Per-process: Each Ory Talos instance has its own cache. It isn't shared across instances.
+- Bounded by `max_size`: When the cache reaches `max_size` bytes, TinyLFU admission and sampled LFU eviction decide which entries
+  to keep.
+- TTL-based expiry: Entries expire after the configured `ttl`.
+- No external dependencies: The cache runs in the Talos process, with no network round trips.
 
 ## When to use
 

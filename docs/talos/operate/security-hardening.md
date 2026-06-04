@@ -8,17 +8,17 @@ reference.
 
 ## Protect the admin endpoints
 
-**Ory Talos ships no built-in authentication for the admin plane.** Any caller that reaches the admin HTTP listener can issue,
-update, and revoke keys for any tenant. Treat the admin plane as a trusted internal service and put authentication in front of it.
+Ory Talos ships no built-in authentication for the admin plane. Any caller that reaches the admin HTTP listener can issue, update,
+and revoke keys for any tenant. Treat the admin plane as a trusted internal service and put authentication in front of it.
 
 Choose one of these patterns:
 
-- **Identity-aware proxy (IAP)**: terminate authentication at a gateway (Google Cloud IAP, AWS ALB with Cognito, Cloudflare
-  Access, oauth2-proxy) and forward only authenticated requests to the admin plane. Pin the admin listener to a private network so
+- Identity-aware proxy (IAP): terminate authentication at a gateway (Google Cloud IAP, AWS ALB with Cognito, Cloudflare Access,
+  oauth2-proxy) and forward only authenticated requests to the admin plane. Pin the admin listener to a private network so
   requests cannot bypass the gateway.
-- **mTLS at the load balancer**: require client certificates issued by an internal CA. Reject unauthenticated TLS handshakes at
-  the LB, then forward plain HTTP to the admin plane on a private network.
-- **Service mesh policy**: in Kubernetes, use Istio `AuthorizationPolicy` or Linkerd authorization policies to allow only specific
+- mTLS at the load balancer: require client certificates issued by an internal CA. Reject unauthenticated TLS handshakes at the
+  LB, then forward plain HTTP to the admin plane on a private network.
+- Service mesh policy: in Kubernetes, use Istio `AuthorizationPolicy` or Linkerd authorization policies to allow only specific
   service accounts to call the admin plane.
 
 Whichever pattern you choose:
@@ -35,12 +35,11 @@ Whichever pattern you choose:
 Ory Talos has no HTTP-level TLS configuration. It listens on plain HTTP and expects you to terminate TLS at a load balancer,
 ingress controller, or edge proxy on a private network.
 
-- **HTTP listeners** (`serve.http`, `serve.metrics`): terminate TLS at the load balancer or ingress, then forward plain HTTP to
-  Ory Talos on a private subnet, ClusterIP, or loopback.
-- **Database connections**: encrypt them end to end. Set `sslmode=verify-full` on PostgreSQL and CockroachDB DSNs, and the
-  equivalent TLS options on MySQL.
-- **Redis cache (commercial)**: set `cache.redis.tls.enabled` to `true` so cached credentials never cross the network in
-  plaintext.
+- HTTP listeners (`serve.http`, `serve.metrics`): terminate TLS at the load balancer or ingress, then forward plain HTTP to Ory
+  Talos on a private subnet, ClusterIP, or loopback.
+- Database connections: encrypt them end to end. Set `sslmode=verify-full` on PostgreSQL and CockroachDB DSNs, and the equivalent
+  TLS options on MySQL.
+- Redis cache (commercial): set `cache.redis.tls.enabled` to `true` so cached credentials never cross the network in plaintext.
 
 Never expose an Ory Talos listener without TLS termination in front of it. Terminate TLS even on a private VPC subnet: plaintext
 credentials on an internal network are still exposed to anything that shares it.

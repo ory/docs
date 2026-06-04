@@ -12,21 +12,21 @@ signature and expiry check, with no database round-trip.
 
 Derive tokens when you want to:
 
-- **Hand out narrow, short-lived credentials without exposing the parent key.** Each derivation drops scopes, shortens the TTL,
-  and attaches application-specific `custom_claims` (for example, `tenant` or `role`). Scopes never exceed the parent's, and the
+- Hand out narrow, short-lived credentials without exposing the parent key. Each derivation drops scopes, shortens the TTL, and
+  attaches application-specific `custom_claims` (for example, `tenant` or `role`). Scopes never exceed the parent's, and the
   derived TTL is capped at the parent's remaining lifetime.
-- **Verify tokens at the edge or inside your own services.** Ory Talos signs JWTs with EdDSA or RS256 and publishes the public
-  keys at `GET /v2alpha1/derivedKeys/jwks.json`. Any service that holds that JWKS verifies a JWT locally, without calling Ory
-  Talos on every request, which keeps verification resilient to database outages. Macaroons are HMAC-bound and require
-  verification by Ory Talos.
-- **Pick the right algorithm for the job.** Use `TOKEN_ALGORITHM_JWT` when third parties or your own edge verify the token using
-  the JWKS. Use `TOKEN_ALGORITHM_MACAROON` for contextual attenuation (third-party caveats) when third-party verification isn't
+- Verify tokens at the edge or inside your own services. Ory Talos signs JWTs with EdDSA or RS256 and publishes the public keys at
+  `GET /v2alpha1/derivedKeys/jwks.json`. Any service that holds that JWKS verifies a JWT locally, without calling Ory Talos on
+  every request, which keeps verification resilient to database outages. Macaroons are HMAC-bound and require verification by Ory
+  Talos.
+- Pick the right algorithm for the job. Use `TOKEN_ALGORITHM_JWT` when third parties or your own edge verify the token using the
+  JWKS. Use `TOKEN_ALGORITHM_MACAROON` for contextual attenuation (third-party caveats) when third-party verification isn't
   required. For format details, see [derived JWTs](../concepts/credential-types.md#derived-jwts) and
   [derived macaroons](../concepts/credential-types.md#derived-macaroons).
-- **Exchange API keys for JWTs at the edge.** A gateway or proxy accepts a long-lived API key from the caller and exchanges it for
-  a short-lived derived JWT. Backends behind the gateway verify the JWT locally against the JWKS, so the data path stays stateless
+- Exchange API keys for JWTs at the edge. A gateway or proxy accepts a long-lived API key from the caller and exchanges it for a
+  short-lived derived JWT. Backends behind the gateway verify the JWT locally against the JWKS, so the data path stays stateless
   even when the caller's credential is long-lived.
-- **Bound agent authority in agentic workflows.** An orchestrator holds the parent API key and mints a narrow, short-lived derived
+- Bound agent authority in agentic workflows. An orchestrator holds the parent API key and mints a narrow, short-lived derived
   token for each agent or tool call. A leaked or misbehaving agent is then bounded by the derived token's scopes and TTL, not the
   parent's full authority. Use macaroons when sub-agents need to attenuate further without contacting Ory Talos.
 
@@ -294,14 +294,14 @@ JWKS that lacks the new `kid` reject valid tokens until their cache expires.
 
 All checks happen before Ory Talos signs the token. If any check fails, Ory Talos issues no token.
 
-- **Parent must be `KEY_STATUS_ACTIVE`.** Ory Talos rejects a revoked, expired, or unknown parent key.
-- **Scopes must be a subset of the parent.** Requesting any scope the parent doesn't have returns `403 Forbidden`. Omitting
-  `scopes` inherits the full parent set.
-- **TTL is capped at the parent's remaining lifetime.** A `ttl` longer than the time left until `parent.expire_time` returns
+- Parent must be `KEY_STATUS_ACTIVE`. Ory Talos rejects a revoked, expired, or unknown parent key.
+- Scopes must be a subset of the parent. Requesting any scope the parent doesn't have returns `403 Forbidden`. Omitting `scopes`
+  inherits the full parent set.
+- TTL is capped at the parent's remaining lifetime. A `ttl` longer than the time left until `parent.expire_time` returns
   `400 Bad Request`. The configured `credentials.api_keys.max_ttl` also applies.
-- **Inherited fields can't be overridden.** Ory Talos copies the parent's `sub`, `actor_id`, `key_id`, `metadata`, `visibility`,
-  and CIDR allowlist and seals them into the token claims. Requests can't set them directly.
-- **Reserved claim names are stripped from `custom_claims`.** Ory Talos owns the JWT header, the standard claims, and its own
+- Inherited fields can't be overridden. Ory Talos copies the parent's `sub`, `actor_id`, `key_id`, `metadata`, `visibility`, and
+  CIDR allowlist and seals them into the token claims. Requests can't set them directly.
+- Reserved claim names are stripped from `custom_claims`. Ory Talos owns the JWT header, the standard claims, and its own
   short-form claims. It removes these names from any `custom_claims` payload before signing: `jti`, `sub`, `iss`, `aud`, `iat`,
   `exp`, `nbf`, `nid`, `akid`, `pid`, `tty`, `oid`, `scp`, `scope`, `meta`, `vis`, and `acl`. Use any other key for
   application-defined claims.
@@ -311,21 +311,21 @@ All checks happen before Ory Talos signs the token. If any check fails, Ory Talo
 Derived-token verification is stateless: no database lookup, no parent-key status check, and no re-evaluation of the parent's
 current scopes, rate-limit policy, or visibility. The data plane only checks:
 
-1. **Signature** against the JWKS (JWT) or the HMAC secret (macaroon).
-2. **`exp` and `nbf`** windows.
-3. **Issuer** matches the configured current or retired issuer.
-4. **Network ID** in the token claims matches the request's tenant, as defense-in-depth against tokens from another tenant.
-5. **CIDR allowlist** sealed into the token, against the request's source IP. This enforces the parent's IP restrictions at verify
+1. Signature against the JWKS (JWT) or the HMAC secret (macaroon).
+2. `exp` and `nbf` windows.
+3. Issuer matches the configured current or retired issuer.
+4. Network ID in the token claims matches the request's tenant, as defense-in-depth against tokens from another tenant.
+5. CIDR allowlist sealed into the token, against the request's source IP. This enforces the parent's IP restrictions at verify
    time without re-reading the parent.
 
 A revoked parent therefore blocks new derivations immediately but doesn't invalidate already-issued tokens; they stay valid until
 `exp`. If your threat model needs faster invalidation:
 
-- **Use short TTLs.** 5–15 minutes for service-to-service, 15–60 minutes for user sessions, and 1–5 minutes for sensitive
-  operations. Avoid TTLs longer than your operational MTTR.
-- **Rotate the JWK signing keys.** Tokens signed with the rotated-out key fail signature verification once you remove the old
-  `kid` from the JWKS. This invalidates every derived token signed with that key, not only those from one parent.
-- **Apply your own deny list at the gateway** if you need per-`jti` revocation. Talos doesn't maintain one for derived tokens.
+- Use short TTLs. 5–15 minutes for service-to-service, 15–60 minutes for user sessions, and 1–5 minutes for sensitive operations.
+  Avoid TTLs longer than your operational MTTR.
+- Rotate the JWK signing keys. Tokens signed with the rotated-out key fail signature verification once you remove the old `kid`
+  from the JWKS. This invalidates every derived token signed with that key, not only those from one parent.
+- Apply your own deny list at the gateway if you need per-`jti` revocation. Talos doesn't maintain one for derived tokens.
 
 ## Next steps
 

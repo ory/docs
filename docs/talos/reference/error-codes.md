@@ -95,7 +95,7 @@ The `BatchImportAPIKeys` response includes per-item error codes:
 
 ## Error handling recommendations
 
-- **4xx errors**: Fix the request and retry. Do not retry without changes.
-- **409 Conflict**: Check if the resource already exists or is in an incompatible state.
-- **5xx errors**: Retry with exponential backoff and jitter.
-- **503 Service Unavailable**: The server is temporarily overloaded. Retry after the `Retry-After` header value if present.
+- 4xx errors: Fix the request and retry. Do not retry without changes.
+- 409 Conflict: Check if the resource already exists or is in an incompatible state.
+- 5xx errors: Retry with exponential backoff and jitter.
+- 503 Service Unavailable: The server is temporarily overloaded. Retry after the `Retry-After` header value if present.

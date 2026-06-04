@@ -33,8 +33,8 @@ prod_v1_QixobFgVufjZNuoYXKtn78NAqFVroyN518nRaK3WD3nxTNufzwJq9sjdrDMrcyP2_3wyBJBd
 
 The identifier is the Base58 encoding of `timestamp:uuid`:
 
-- **Timestamp**: Unix epoch seconds (int64), set at key creation time.
-- **UUID**: UUID v4 (36 chars with hyphens). Used as the `key_id` for database lookup.
+- Timestamp: Unix epoch seconds (int64), set at key creation time.
+- UUID: UUID v4 (36 chars with hyphens). Used as the `key_id` for database lookup.
 
 Base58 uses the Bitcoin alphabet (`123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`), which omits the visually
 ambiguous characters `0`, `O`, `I`, and `l`.

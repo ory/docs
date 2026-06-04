@@ -5,11 +5,11 @@ description: Add API key authentication to your application
 
 Ory Talos exposes two surfaces:
 
-- **Admin surface** — Manage API keys (issue, import, update, rotate, revoke, and derive tokens) and verify credentials. All these
+- Admin surface — Manage API keys (issue, import, update, rotate, revoke, and derive tokens) and verify credentials. All these
   endpoints live under `/v2alpha1/admin/...`, including the verification endpoints `POST /v2alpha1/admin/apiKeys:verify` and
   `POST /v2alpha1/admin/apiKeys:batchVerify`. The admin surface has no built-in authentication, so deploy it behind your internal
   network, VPN, or an authenticating proxy.
-- **Self-service surface** — Let key holders revoke their own keys with `POST /v2alpha1/apiKeys:selfRevoke`. The caller proves
+- Self-service surface — Let key holders revoke their own keys with `POST /v2alpha1/apiKeys:selfRevoke`. The caller proves
   possession by presenting the credential, so this is the only endpoint safe to expose publicly without an extra auth layer.
 
 Most integrations issue keys on the admin surface, then verify them on every incoming request. Verification is the hot path, but

@@ -85,26 +85,26 @@ For the complete list of HTTP status codes and reasons, see the [error codes ref
 
 Key categories:
 
-- **4xx errors**: Client errors (bad request, not found, conflict). Fix the request before retrying.
-- **5xx errors**: Server errors. Retry with exponential backoff.
+- 4xx errors: Client errors (bad request, not found, conflict). Fix the request before retrying.
+- 5xx errors: Server errors. Retry with exponential backoff.
 
 ## Retry strategy
 
 ### Safe to retry
 
-- **`UNAVAILABLE` (HTTP 503)** — the server is temporarily overloaded. Retry with exponential backoff. Honor the `Retry-After`
-  header when present.
-- **`DEADLINE_EXCEEDED` (HTTP 504)** — the request timed out. Retry with backoff.
-- **`RESOURCE_EXHAUSTED` (HTTP 429)** — the server throttled the request. Honor the `Retry-After` header when present, then retry
-  with backoff.
-- **Network errors** — connection refused, DNS failure, and so on. Retry with backoff.
+- `UNAVAILABLE` (HTTP 503) — the server is temporarily overloaded. Retry with exponential backoff. Honor the `Retry-After` header
+  when present.
+- `DEADLINE_EXCEEDED` (HTTP 504) — the request timed out. Retry with backoff.
+- `RESOURCE_EXHAUSTED` (HTTP 429) — the server throttled the request. Honor the `Retry-After` header when present, then retry with
+  backoff.
+- Network errors — connection refused, DNS failure, and so on. Retry with backoff.
 
 ### Not safe to retry without an idempotency key
 
-- **`ALREADY_EXISTS` (HTTP 409)** — the resource already exists. Read the existing resource and reconcile.
-- **`FAILED_PRECONDITION` (HTTP 409)** — the operation didn't meet a precondition. It shares HTTP `409` with `ALREADY_EXISTS`, but
+- `ALREADY_EXISTS` (HTTP 409) — the resource already exists. Read the existing resource and reconcile.
+- `FAILED_PRECONDITION` (HTTP 409) — the operation didn't meet a precondition. It shares HTTP `409` with `ALREADY_EXISTS`, but
   `error.status` distinguishes the two. Fix the precondition before retrying.
-- **`INVALID_ARGUMENT` (HTTP 400)** — fix the request before retrying.
+- `INVALID_ARGUMENT` (HTTP 400) — fix the request before retrying.
 
 ### Idempotency key
 

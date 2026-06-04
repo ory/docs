@@ -2,9 +2,8 @@
 title: Admin protection
 ---
 
-Ory Talos exposes its admin surface (`/v2alpha1/admin/*`) **without any built-in authentication or authorization**. Place the
-admin server behind a trusted proxy or network boundary that authenticates and authorizes every request before it reaches Ory
-Talos.
+Ory Talos exposes its admin surface (`/v2alpha1/admin/*`) without any built-in authentication or authorization. Place the admin
+server behind a trusted proxy or network boundary that authenticates and authorizes every request before it reaches Ory Talos.
 
 Pick one of the deployment patterns below before sending admin traffic to an Ory Talos instance.
 
@@ -23,8 +22,8 @@ every operator to either:
 - Adopt Ory Talos's choice of identity provider, token format, and policy engine.
 - Bypass the embedded layer with another proxy in front, doubling the attack surface.
 
-Instead, Ory Talos accepts a hard contract: **the admin server trusts every incoming request.** You enforce identity and policy in
-the layer you already operate.
+Instead, Ory Talos accepts a hard contract: the admin server trusts every incoming request. You enforce identity and policy in the
+layer you already operate.
 
 ## Deployment patterns
 
@@ -64,7 +63,7 @@ When Ory Talos serves only internal traffic, network controls alone can be enoug
 
 ## Combining admin and self-service
 
-If you also run `talos serve public` for proof-of-possession self-revocation, place that server behind your **public** edge — it
+If you also run `talos serve public` for proof-of-possession self-revocation, place that server behind your public edge — it
 receives untrusted traffic and validates credentials inline.
 
 Expose the two surfaces on different hostnames, ports, or ingresses so admin paths stay unreachable from the public side even if

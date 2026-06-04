@@ -189,20 +189,20 @@ revoked key fails verification the same way.
 
 The reasons follow the semantics of [RFC 5280 §5.3.1](https://www.rfc-editor.org/rfc/rfc5280#section-5.3.1):
 
-- **`REVOCATION_REASON_KEY_COMPROMISE`** — the secret is exposed, or suspected to be exposed, to an unauthorized party. Use this
-  when a secret leaks into a repository, log, screenshot, support ticket, or third-party system, when a scanner detects it in the
-  wild, or for pre-emptive revocation after a near-miss.
-- **`REVOCATION_REASON_SUPERSEDED`** — a new key replaces this one. Use this for routine rotation: scheduled re-issuance,
-  migration to a new key format or scope set, or any "issue new, retire old" workflow. The `:rotate` endpoint records this reason
+- `REVOCATION_REASON_KEY_COMPROMISE` — the secret is exposed, or suspected to be exposed, to an unauthorized party. Use this when
+  a secret leaks into a repository, log, screenshot, support ticket, or third-party system, when a scanner detects it in the wild,
+  or for pre-emptive revocation after a near-miss.
+- `REVOCATION_REASON_SUPERSEDED` — a new key replaces this one. Use this for routine rotation: scheduled re-issuance, migration to
+  a new key format or scope set, or any "issue new, retire old" workflow. The `:rotate` endpoint records this reason
   automatically.
-- **`REVOCATION_REASON_AFFILIATION_CHANGED`** — the actor or owner is no longer associated with the system in the same way, but
-  the secret isn't believed to be compromised. Use this when a user leaves a team or company, an integration changes ownership, or
-  a service account is decommissioned with its workload.
-- **`REVOCATION_REASON_PRIVILEGE_WITHDRAWN`** — admin only. You revoke access as a policy decision, not because of compromise or
+- `REVOCATION_REASON_AFFILIATION_CHANGED` — the actor or owner is no longer associated with the system in the same way, but the
+  secret isn't believed to be compromised. Use this when a user leaves a team or company, an integration changes ownership, or a
+  service account is decommissioned with its workload.
+- `REVOCATION_REASON_PRIVILEGE_WITHDRAWN` — admin only. You revoke access as a policy decision, not because of compromise or
   replacement. Use this for terms-of-service violations, customer offboarding, suspending a tenant, or pulling access during a
   dispute. Only this reason accepts the request body's `description` field (CLI flag `--reason-text`) for a human-readable
   explanation; Talos rejects `description` with any other reason.
-- **`REVOCATION_REASON_UNSPECIFIED`** — the default when no reason is sent. Avoid it in production: audit trails are less useful
+- `REVOCATION_REASON_UNSPECIFIED` — the default when no reason is sent. Avoid it in production: audit trails are less useful
   without a reason.
 
 If more than one reason fits, prefer `KEY_COMPROMISE`. Don't downgrade a security signal to "superseded" or "affiliation changed"

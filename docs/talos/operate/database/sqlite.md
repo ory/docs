@@ -8,10 +8,10 @@ SQLite is the default database for the OSS edition. It needs no external depende
 
 Talos ships two SQLite drivers with different runtime behavior:
 
-- **OSS** — single-tenant. The driver pins the connection pool to a single connection and sets only `foreign_keys=ON` (no WAL, no
+- OSS — single-tenant. The driver pins the connection pool to a single connection and sets only `foreign_keys=ON` (no WAL, no
   `busy_timeout`). One connection serializes every query. Use it for development, prototypes, and low-traffic single-node
   deployments.
-- **Commercial** — multi-tenant, with data isolated per tenant network. The driver enables WAL (`journal_mode=WAL`,
+- Commercial — multi-tenant, with data isolated per tenant network. The driver enables WAL (`journal_mode=WAL`,
   `synchronous=NORMAL`, `busy_timeout=10s`) so reads run concurrently with a writer, and uses a pool of 10 connections. Every
   transaction starts with `BEGIN IMMEDIATE` (`_txlock=immediate`), which takes the write lock up front to avoid deadlocks between
   concurrent transactions. Reads gain concurrency, but SQLite's single-writer lock still serializes writes.
