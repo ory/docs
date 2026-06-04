@@ -1,6 +1,6 @@
 ---
 id: talos-rate-limiting
-title: Ory Talso rate limiting
+title: Ory Talos rate limiting
 description: Ory Talos per-key rate limit policies with metadata-only (OSS) or server-side enforcement (Commercial)
 sidebar_label: Rate limiting
 ---
