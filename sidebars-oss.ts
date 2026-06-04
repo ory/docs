@@ -1,5 +1,19 @@
 import talosApiSidebar from "./docs/talos/reference/api/sidebar"
 
+// The generated Talos API sidebar is [overview doc, { category "ApiKeys", items: [...methods] }].
+// Lift the methods into a single "API reference" category linked to the overview page so the
+// navigation reads cleanly instead of exposing the raw OpenAPI tag name.
+const talosApiReference = {
+  type: "category",
+  label: "API reference",
+  link: { type: "doc", id: "talos/reference/api/ory-talos-api" },
+  items: talosApiSidebar.flatMap((item: any) =>
+    typeof item === "object" && "items" in item && Array.isArray(item.items)
+      ? item.items
+      : [],
+  ),
+}
+
 const ossSidebar = [
   {
     type: "category",
@@ -584,7 +598,7 @@ const ossSidebar = [
             label: "Reference",
             items: [
               "talos/reference/index",
-              ...talosApiSidebar,
+              talosApiReference,
               "talos/reference/cli/talos",
               "talos/reference/config",
               "talos/reference/token-format",
