@@ -173,7 +173,10 @@ const integratesSidebar = [
       {
         type: "category",
         label: "IaC and DevOps",
-        items: ["integrates-with/iac-devops/pulumi"],
+        items: [
+          "integrates-with/iac-devops/terraform",
+          "integrates-with/iac-devops/pulumi",
+        ],
       },
       {
         type: "category",
