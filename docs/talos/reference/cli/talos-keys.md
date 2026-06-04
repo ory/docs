@@ -36,13 +36,10 @@ Create, list, get, revoke, and rotate API keys.
 ### See also
 
 - [talos](talos.md) Multi-network API key service
-- [talos keys batch-verify](talos-keys-batch-verify.md) - Verify multiple credentials in a single
-  request
-- [talos keys derive-token](talos-keys-derive-token.md) - Derive a new derived token from an
-  existing API key
+- [talos keys batch-verify](talos-keys-batch-verify.md) - Verify multiple credentials in a single request
+- [talos keys derive-token](talos-keys-derive-token.md) - Derive a new derived token from an existing API key
 - [talos keys imported](talos-keys-imported.md) - Manage imported API keys
 - [talos keys issue](talos-keys-issue.md) - Issue a new API key
 - [talos keys issued](talos-keys-issued.md) - Manage issued API keys
-- [talos keys self-revoke](talos-keys-self-revoke.md) - Revoke an API key using the credential
-  itself as proof
+- [talos keys self-revoke](talos-keys-self-revoke.md) - Revoke an API key using the credential itself as proof
 - [talos keys verify](talos-keys-verify.md) - Verify a credential (API key or token)

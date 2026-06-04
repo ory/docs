@@ -3,25 +3,23 @@ title: IP restrictions
 description: Restrict API key usage to specific IP addresses or CIDR ranges
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
-IP restrictions limit which client IPs can use an API key. Verification rejects requests from IPs
-outside the allowed CIDR ranges. Keys without IP restrictions accept requests from any IP.
+IP restrictions limit which client IPs can use an API key. Verification rejects requests from IPs outside the allowed CIDR ranges.
+Keys without IP restrictions accept requests from any IP.
 
 ## Prerequisites
 
-A running Ory Talos server. See the [quickstart](../quickstart/open-source.mdx) to start one
-locally.
+A running Ory Talos server. See the [quickstart](../quickstart/open-source.mdx) to start one locally.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
 
 ## Configure client IP source
 
-By default, Ory Talos uses the TCP remote address (`REMOTE_ADDR`) to determine the client IP. If
-your server runs behind a reverse proxy or CDN, configure the correct header in your Ory Talos
-config:
+By default, Ory Talos uses the TCP remote address (`REMOTE_ADDR`) to determine the client IP. If your server runs behind a reverse
+proxy or CDN, configure the correct header in your Ory Talos config:
 
 ```yaml
 serve:
@@ -33,19 +31,17 @@ Supported values:
 
 - `CLIENT_IP_SOURCE_UNSPECIFIED` or `CLIENT_IP_SOURCE_REMOTE_ADDR` — TCP remote address (default)
 - `CLIENT_IP_SOURCE_CF_CONNECTING_IP` — `Cf-Connecting-Ip`, behind Cloudflare
-- `CLIENT_IP_SOURCE_X_FORWARDED_FOR` — `X-Forwarded-For` (leftmost IP), behind a standard reverse
-  proxy
+- `CLIENT_IP_SOURCE_X_FORWARDED_FOR` — `X-Forwarded-For` (leftmost IP), behind a standard reverse proxy
 - `CLIENT_IP_SOURCE_X_REAL_IP` — `X-Real-Ip`, behind NGINX
 - `CLIENT_IP_SOURCE_TRUE_CLIENT_IP` — `True-Client-Ip`, behind Akamai or Cloudflare Enterprise
 
-The setting is global: all IP restriction checks use the same source. If the selected header is
-empty, Talos falls back to the TCP remote address. Talos reads this value per request, so changes
-take effect without a restart.
+The setting is global: all IP restriction checks use the same source. If the selected header is empty, Talos falls back to the TCP
+remote address. Talos reads this value per request, so changes take effect without a restart.
 
 ## Issue a key with IP restrictions
 
-Add the `ip_restriction` field when creating a key. The `allowed_cidrs` array accepts both
-individual IPs (with `/32` or `/128` suffix) and CIDR ranges:
+Add the `ip_restriction` field when creating a key. The `allowed_cidrs` array accepts both individual IPs (with `/32` or `/128`
+suffix) and CIDR ranges:
 
 <!-- doctest:exec -->
 
@@ -88,8 +84,7 @@ export KEY_ID=$(echo "$RESPONSE" | jq -er '.issued_api_key.key_id')
 </TabItem>
 </Tabs>
 
-For the complete request field reference, see the
-[IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
+For the complete request field reference, see the [IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
 
 ## Verify from an allowed IP
 
@@ -122,8 +117,8 @@ The response includes the key metadata with `is_valid: true`.
 
 ## Verify from a disallowed IP
 
-When the client IP is outside all allowed CIDR ranges, verification returns
-`VERIFICATION_ERROR_IP_NOT_ALLOWED`. The response does not reveal which CIDRs are configured.
+When the client IP is outside all allowed CIDR ranges, verification returns `VERIFICATION_ERROR_IP_NOT_ALLOWED`. The response does
+not reveal which CIDRs are configured.
 
 For the full list of verification error codes, see the
 [error codes reference](../reference/error-codes.md#verification-error-codes).
@@ -233,21 +228,17 @@ echo "$IMPORT_RESPONSE" | jq .
 </TabItem>
 </Tabs>
 
-For the complete import field reference, see the
-[ImportAPIKey API reference](../reference/api/admin-import-api-key.api.mdx).
+For the complete import field reference, see the [ImportAPIKey API reference](../reference/api/admin-import-api-key.api.mdx).
 
 ## Behavior notes
 
-- **Allowlist model**: Talos permits only listed CIDRs. An empty `allowed_cidrs` array allows
-  requests from any IP.
-- **Cache TTL**: Talos enforces IP restrictions on every verification, including cache hits, by
-  re-checking the current request IP. Changes to the allowed CIDRs take effect after the cache TTL
-  expires. See [cache configuration](../operate/cache/index.md) for TTL settings.
-- **Fail-closed**: If client IP resolution fails, Talos denies the request with
-  `VERIFICATION_ERROR_IP_NOT_ALLOWED`.
-- **IPv4 and IPv6**: Talos supports both address families. Use `/32` for single IPv4 addresses and
-  `/128` for single IPv6 addresses.
-- **Derived tokens**: Deriving a token checks the parent key's IP restrictions, then seals the
-  parent's allowed CIDRs into the token's `acl` claim. Verifying the token enforces that sealed list
-  against the request IP. A token from an unrestricted parent stays unrestricted for its lifetime; a
-  token from a restricted parent keeps that allowlist even if the parent later changes.
+- **Allowlist model**: Talos permits only listed CIDRs. An empty `allowed_cidrs` array allows requests from any IP.
+- **Cache TTL**: Talos enforces IP restrictions on every verification, including cache hits, by re-checking the current request
+  IP. Changes to the allowed CIDRs take effect after the cache TTL expires. See [cache configuration](../operate/cache/index.md)
+  for TTL settings.
+- **Fail-closed**: If client IP resolution fails, Talos denies the request with `VERIFICATION_ERROR_IP_NOT_ALLOWED`.
+- **IPv4 and IPv6**: Talos supports both address families. Use `/32` for single IPv4 addresses and `/128` for single IPv6
+  addresses.
+- **Derived tokens**: Deriving a token checks the parent key's IP restrictions, then seals the parent's allowed CIDRs into the
+  token's `acl` claim. Verifying the token enforces that sealed list against the request IP. A token from an unrestricted parent
+  stays unrestricted for its lifetime; a token from a restricted parent keeps that allowlist even if the parent later changes.

@@ -5,13 +5,12 @@ sidebar_custom_props:
   badge: Commercial
 ---
 
-PostgreSQL is the recommended production database backend for Ory Talos. It provides connection
-pooling, ACID transactions, and high availability through streaming replication.
+PostgreSQL is the recommended production database backend for Ory Talos. It provides connection pooling, ACID transactions, and
+high availability through streaming replication.
 
 ## Supported versions
 
-Ory Talos uses the `pgx/v5` driver and standard SQL features, so any actively supported PostgreSQL
-release works. See the
+Ory Talos uses the `pgx/v5` driver and standard SQL features, so any actively supported PostgreSQL release works. See the
 [PostgreSQL versioning policy](https://www.postgresql.org/support/versioning/).
 
 ## Configuration
@@ -39,8 +38,7 @@ Talos accepts both `postgres://` and `postgresql://` schemes.
 
 ### Connection pool parameters
 
-Talos parses pool parameters from the DSN query string and removes them before passing the DSN to
-the database driver.
+Talos parses pool parameters from the DSN query string and removes them before passing the DSN to the database driver.
 
 | Parameter            | Type     | Default    | Description                                                  |
 | -------------------- | -------- | ---------- | ------------------------------------------------------------ |
@@ -52,9 +50,8 @@ the database driver.
 
 Duration values use Go duration syntax: `5m` (5 minutes), `1h` (1 hour), `30s` (30 seconds).
 
-Ory Talos sets non-zero defaults for `max_conn_lifetime` and `max_conn_idle_time` so connections
-recycle through load balancers and DNS rotation. Setting either to `0` disables recycling. Don't do
-this outside development.
+Ory Talos sets non-zero defaults for `max_conn_lifetime` and `max_conn_idle_time` so connections recycle through load balancers
+and DNS rotation. Setting either to `0` disables recycling. Don't do this outside development.
 
 ### PostgreSQL driver parameters
 
@@ -75,8 +72,7 @@ Ory Talos supports two pool modes for PostgreSQL, set with the `pool_mode` DSN p
 
 ### Standard mode
 
-Standard mode is the default. It uses Go's `database/sql` connection pool with the `pgx` driver and
-works with all tooling.
+Standard mode is the default. It uses Go's `database/sql` connection pool with the `pgx` driver and works with all tooling.
 
 ```yaml
 db:
@@ -99,9 +95,8 @@ db:
   dsn: "postgres://talos:secret@db:5432/talos?pool_mode=advanced&pool_max_conns=50&pool_min_conns=2&pool_max_conn_lifetime=30m&pool_max_conn_idle_time=10m"
 ```
 
-In advanced mode, configure pool sizing through pgxpool's native parameters in the DSN. Talos
-ignores `max_conns`, `max_idle_conns`, `max_conn_lifetime`, and `max_conn_idle_time` — use the
-`pool_*` equivalents instead.
+In advanced mode, configure pool sizing through pgxpool's native parameters in the DSN. Talos ignores `max_conns`,
+`max_idle_conns`, `max_conn_lifetime`, and `max_conn_idle_time` — use the `pool_*` equivalents instead.
 
 | pgxpool parameter          | Description                                           |
 | -------------------------- | ----------------------------------------------------- |
@@ -112,12 +107,12 @@ ignores `max_conns`, `max_idle_conns`, `max_conn_lifetime`, and `max_conn_idle_t
 | `pool_health_check_period` | Interval between background health checks             |
 
 Ory Talos sets no defaults for these parameters; pgxpool chooses them. See the
-[pgxpool documentation](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool#ParseConfig) for current
-defaults and the full parameter list.
+[pgxpool documentation](https://pkg.go.dev/github.com/jackc/pgx/v5/pgxpool#ParseConfig) for current defaults and the full
+parameter list.
 
-Talos exposes the pgxpool through Go's `database/sql` interface. The wrapper's `SetMaxIdleConns` is
-forced to `0` so `database/sql` never holds connections idle on top of pgxpool. In advanced mode,
-pgxpool is the single source of truth for pool sizing.
+Talos exposes the pgxpool through Go's `database/sql` interface. The wrapper's `SetMaxIdleConns` is forced to `0` so
+`database/sql` never holds connections idle on top of pgxpool. In advanced mode, pgxpool is the single source of truth for pool
+sizing.
 
 Use advanced mode when:
 
@@ -127,8 +122,8 @@ Use advanced mode when:
 
 ## Pool sizing
 
-Start with 25 connections per instance. The total pool across all instances must stay below
-PostgreSQL's `max_connections` (default: 100).
+Start with 25 connections per instance. The total pool across all instances must stay below PostgreSQL's `max_connections`
+(default: 100).
 
 | Deployment      | `max_conns`    | Notes                                       |
 | --------------- | -------------- | ------------------------------------------- |
@@ -136,9 +131,8 @@ PostgreSQL's `max_connections` (default: 100).
 | 3 instances     | `25` each      | 75 total — within default `max_connections` |
 | 5+ instances    | `15`–`20` each | Use PgBouncer to multiplex connections      |
 
-For large deployments, place [PgBouncer](https://www.pgbouncer.org/) between Ory Talos and
-PostgreSQL. PgBouncer multiplexes many application connections over fewer database connections, so
-you can scale beyond PostgreSQL's connection limit.
+For large deployments, place [PgBouncer](https://www.pgbouncer.org/) between Ory Talos and PostgreSQL. PgBouncer multiplexes many
+application connections over fewer database connections, so you can scale beyond PostgreSQL's connection limit.
 
 ## Migrations
 

@@ -16,8 +16,7 @@ Generate an RSA key pair
 
 ### Synopsis
 
-Generate an RSA key pair with the specified key size. Default is 2048 bits. Minimum is 2048 bits,
-maximum is 8192 bits.
+Generate an RSA key pair with the specified key size. Default is 2048 bits. Minimum is 2048 bits, maximum is 8192 bits.
 
 ```
 talos jwk generate rsa [flags]

@@ -18,12 +18,10 @@ Rollback migrations
 
 Roll back the last N migrations (default: 1).
 
-WARNING: down migrations may DROP COLUMNS or TABLES and discard data permanently. There is no
-dry-run mode; the rollback runs immediately. Be extremely careful in production: during a rolling
-deploy, an in-flight pod still on the newer version may keep writing to columns the down migration
-has just removed, leading to write errors and inconsistent state. Always take a backup, drain
-traffic to the previous version, and prefer rolling forward with a corrective migration over rolling
-back.
+WARNING: down migrations may DROP COLUMNS or TABLES and discard data permanently. There is no dry-run mode; the rollback runs
+immediately. Be extremely careful in production: during a rolling deploy, an in-flight pod still on the newer version may keep
+writing to columns the down migration has just removed, leading to write errors and inconsistent state. Always take a backup,
+drain traffic to the previous version, and prefer rolling forward with a corrective migration over rolling back.
 
 See: docs/operate/database/migrations.md
 

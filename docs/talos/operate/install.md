@@ -5,8 +5,8 @@ description: Install Ory Talos with Homebrew or Scoop, a Docker image, or a pre-
 
 <!-- doctest:setup:file tools/doctest/setup-build.sh -->
 
-Ory Talos runs on Linux, macOS, and Windows on the AMD64 and ARM64 architectures. Install with
-Homebrew or Scoop, run the Docker image, or download a pre-built binary.
+Ory Talos runs on Linux, macOS, and Windows on the AMD64 and ARM64 architectures. Install with Homebrew or Scoop, run the Docker
+image, or download a pre-built binary.
 
 ## Install with Homebrew
 
@@ -35,8 +35,7 @@ docker pull oryd/talos:<version-you-want>
 docker run --rm -it oryd/talos:<version-you-want> help
 ```
 
-A Docker Compose stack ships with the source tree for local development. Clone the repository to
-fetch the compose file:
+A Docker Compose stack ships with the source tree for local development. Clone the repository to fetch the compose file:
 
 ```shell
 git clone https://github.com/ory/talos.git
@@ -44,16 +43,15 @@ cd talos
 docker compose -f docker-compose.oss.yaml up --build
 ```
 
-This builds the OSS binary, runs migrations against SQLite, and serves the API on
-`http://localhost:8080`, with the health endpoint at `http://localhost:4422/health/alive`. See
-[Docker deployment](deploy/docker.md) for production images and configuration.
+This builds the OSS binary, runs migrations against SQLite, and serves the API on `http://localhost:8080`, with the health
+endpoint at `http://localhost:4422/health/alive`. See [Docker deployment](deploy/docker.md) for production images and
+configuration.
 
 ## Download a pre-built binary
 
-Every [GitHub release](https://github.com/ory/talos/releases) ships pre-built archives for Linux,
-macOS, and Windows on AMD64 and ARM64, alongside a `checksums.txt` file. Download the archive for
-your platform, verify it against the checksum, and extract the `talos` binary. There is no
-installer.
+Every [GitHub release](https://github.com/ory/talos/releases) ships pre-built archives for Linux, macOS, and Windows on AMD64 and
+ARM64, alongside a `checksums.txt` file. Download the archive for your platform, verify it against the checksum, and extract the
+`talos` binary. There is no installer.
 
 ```shell
 # Example: Linux AMD64. Replace the version and platform to match your system.
@@ -90,9 +88,8 @@ Create the database schema before you start the server:
 talos migrate up --database "sqlite3://./data/talos.db"
 ```
 
-The Commercial edition adds PostgreSQL, MySQL, and CockroachDB backends. Run migrations for those
-with the `oryd/talos-commercial` Docker image. See the [migrations guide](database/migrations.md)
-for details.
+The Commercial edition adds PostgreSQL, MySQL, and CockroachDB backends. Run migrations for those with the `oryd/talos-commercial`
+Docker image. See the [migrations guide](database/migrations.md) for details.
 
 ## Start the server
 
@@ -100,6 +97,6 @@ for details.
 talos serve --config config.yaml
 ```
 
-`serve` requires at minimum these keys: `db.dsn`, `secrets.hmac.current` (32+ chars), and
-`credentials.issuer`. See [Configure](configure.md#minimal-configuration) for the minimal YAML and
-the [Configuration reference](../reference/config.mdx) for all keys.
+`serve` requires at minimum these keys: `db.dsn`, `secrets.hmac.current` (32+ chars), and `credentials.issuer`. See
+[Configure](configure.md#minimal-configuration) for the minimal YAML and the [Configuration reference](../reference/config.mdx)
+for all keys.

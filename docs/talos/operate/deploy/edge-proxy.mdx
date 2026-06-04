@@ -5,11 +5,11 @@ sidebar_custom_props:
   badge: Commercial
 ---
 
-import Mermaid from "@theme/Mermaid";
+import Mermaid from "@theme/Mermaid"
 
-Run a caching reverse proxy as a sidecar next to your application. Verify requests hit `localhost`,
-so cache hits return from local memory and repeat lookups don't reach your database. Other traffic
-flows through the proxy unchanged to the upstream Ory Talos server.
+Run a caching reverse proxy as a sidecar next to your application. Verify requests hit `localhost`, so cache hits return from
+local memory and repeat lookups don't reach your database. Other traffic flows through the proxy unchanged to the upstream Ory
+Talos server.
 
 <Mermaid
   value={`graph LR
@@ -23,13 +23,12 @@ flows through the proxy unchanged to the upstream Ory Talos server.
 
 ## How it works
 
-The proxy intercepts only `POST /v2alpha1/admin/apiKeys:verify`. It caches a response when the
-upstream returns `200 OK` and the body has `is_valid: true`. It forwards invalid keys, errors, and
-every other endpoint — including `:batchVerify` — transparently and never caches them.
+The proxy intercepts only `POST /v2alpha1/admin/apiKeys:verify`. It caches a response when the upstream returns `200 OK` and the
+body has `is_valid: true`. It forwards invalid keys, errors, and every other endpoint — including `:batchVerify` — transparently
+and never caches them.
 
-Verify is an admin endpoint, so the proxy must be reachable with the same admin credentials accepted
-by upstream. Point your application's verify URL at the proxy (`http://localhost:8080`) and send
-admin and key-management calls directly to upstream.
+Verify is an admin endpoint, so the proxy must be reachable with the same admin credentials accepted by upstream. Point your
+application's verify URL at the proxy (`http://localhost:8080`) and send admin and key-management calls directly to upstream.
 
 ## Configuration
 
@@ -56,15 +55,13 @@ talos-commercial proxy \
 
 ### Cache key
 
-The key is `SHA256(host, credential)` with null-byte-separated, length-prefixed inputs so the
-host/credential boundary cannot be forged. The host comes from `Host` (or `X-Forwarded-Host` when
-trusted), giving each tenant its own cache namespace.
+The key is `SHA256(host, credential)` with null-byte-separated, length-prefixed inputs so the host/credential boundary cannot be
+forged. The host comes from `Host` (or `X-Forwarded-Host` when trusted), giving each tenant its own cache namespace.
 
 ### TTL
 
-The effective TTL is `min(--cache-ttl, time_until_expiry)`, where `time_until_expiry` comes from the
-verify response's `expire_time` field when present. If the credential expires within one second, the
-proxy serves the response but doesn't cache it.
+The effective TTL is `min(--cache-ttl, time_until_expiry)`, where `time_until_expiry` comes from the verify response's
+`expire_time` field when present. If the credential expires within one second, the proxy serves the response but doesn't cache it.
 
 ### Cache headers
 
@@ -75,8 +72,8 @@ Verify responses that pass through the cache carry an `Ory-Talos-Cache` header:
 
 ### Cache bypass
 
-Send `Cache-Control: no-cache`, `Cache-Control: no-store`, or `Pragma: no-cache` to force a fresh
-upstream call. The proxy doesn't write bypassed responses back to the cache.
+Send `Cache-Control: no-cache`, `Cache-Control: no-store`, or `Pragma: no-cache` to force a fresh upstream call. The proxy doesn't
+write bypassed responses back to the cache.
 
 ```shell
 curl -X POST http://localhost:8080/v2alpha1/admin/apiKeys:verify \
@@ -88,10 +85,9 @@ curl -X POST http://localhost:8080/v2alpha1/admin/apiKeys:verify \
 
 ### Limits and consistency
 
-The proxy rejects verify request bodies larger than 1 MB with `413 Request Entity Too Large`.
-Revocation takes effect upstream immediately, but cached results persist for up to `--cache-ttl`, so
-pick a TTL that balances latency against revocation propagation. Clients that need an immediate
-recheck send `Cache-Control: no-cache`.
+The proxy rejects verify request bodies larger than 1 MB with `413 Request Entity Too Large`. Revocation takes effect upstream
+immediately, but cached results persist for up to `--cache-ttl`, so pick a TTL that balances latency against revocation
+propagation. Clients that need an immediate recheck send `Cache-Control: no-cache`.
 
 ## Health checks
 
@@ -101,8 +97,8 @@ recheck send `Cache-Control: no-cache`.
 | `/health/ready` | Calls upstream `/health/alive`. Returns `200 OK` when reachable, `503 Service Unavailable` otherwise. Use as readiness. |
 | `/metrics`      | Prometheus metrics endpoint.                                                                                            |
 
-These three paths bypass `--allowed-hosts`, so Kubernetes probes hitting the pod IP work without
-configuring the cluster IP as an allowed host.
+These three paths bypass `--allowed-hosts`, so Kubernetes probes hitting the pod IP work without configuring the cluster IP as an
+allowed host.
 
 ## Metrics
 
@@ -139,8 +135,7 @@ services:
       - proxy
 ```
 
-This example omits the upstream `talos` service — see [Install Talos](../install.md) for a complete
-server configuration.
+This example omits the upstream `talos` service — see [Install Talos](../install.md) for a complete server configuration.
 
 ### Kubernetes
 

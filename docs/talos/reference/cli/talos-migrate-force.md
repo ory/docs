@@ -24,10 +24,9 @@ This is useful when:
 - You need to manually fix the database state
 - You want to mark a migration as applied without running it
 
-WARNING: use with extreme caution. Never run 'migrate force' against a production database without
-first taking a verified backup. This command rewrites the schema_migrations table without inspecting
-the schema; if the chosen version does not match the actual on-disk DDL, subsequent 'migrate up' /
-'migrate down' invocations will produce inconsistent state that is hard to recover from.
+WARNING: use with extreme caution. Never run 'migrate force' against a production database without first taking a verified backup.
+This command rewrites the schema_migrations table without inspecting the schema; if the chosen version does not match the actual
+on-disk DDL, subsequent 'migrate up' / 'migrate down' invocations will produce inconsistent state that is hard to recover from.
 
 ```
 talos migrate force VERSION [flags]

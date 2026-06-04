@@ -18,12 +18,12 @@ Fetch the server's JSON Web Key Set (JWKS)
 
 Fetch the public signing keys used to verify derived JWT tokens.
 
-The JWKS is served at GET /v2alpha1/derivedKeys/jwks.json and includes the active signing key plus
-any retired keys still inside the verification window.
+The JWKS is served at GET /v2alpha1/derivedKeys/jwks.json and includes the active signing key plus any retired keys still inside
+the verification window.
 
-Clients verifying derived tokens should cache the response for 5 to 15 minutes and refetch when they
-encounter a token with an unknown 'kid'. Polling more aggressively does not shorten the practical
-revocation window — that window is bounded by the longest issued token TTL, not by the JWKS cache.
+Clients verifying derived tokens should cache the response for 5 to 15 minutes and refetch when they encounter a token with an
+unknown 'kid'. Polling more aggressively does not shorten the practical revocation window — that window is bounded by the longest
+issued token TTL, not by the JWKS cache.
 
 ```
 talos jwk get [flags]

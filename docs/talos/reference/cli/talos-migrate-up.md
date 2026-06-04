@@ -25,8 +25,8 @@ The database connection string is resolved in this order (first match wins):
 3. DSN environment variable
 4. --config file's "db.dsn" key
 
-The DSN scheme selects the driver. SQLite accepts both sqlite:// and sqlite3:// prefixes;
-postgres:// and postgresql:// are aliases (same for cockroach:// and cockroachdb://).
+The DSN scheme selects the driver. SQLite accepts both sqlite:// and sqlite3:// prefixes; postgres:// and postgresql:// are
+aliases (same for cockroach:// and cockroachdb://).
 
 ```
 talos migrate up [flags]

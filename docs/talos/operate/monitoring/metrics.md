@@ -3,9 +3,8 @@ title: Prometheus metrics
 description: Scrape Ory Talos Prometheus metrics from the commercial edition's /metrics endpoint.
 ---
 
-Ory Talos exposes Prometheus metrics in commercial builds only. The `commercial` build tag gates
-both the HTTP request middleware (below) and the `/metrics` scrape endpoint. The OSS build ships a
-no-op metrics implementation and doesn't register `/metrics`.
+Ory Talos exposes Prometheus metrics in commercial builds only. The `commercial` build tag gates both the HTTP request middleware
+(below) and the `/metrics` scrape endpoint. The OSS build ships a no-op metrics implementation and doesn't register `/metrics`.
 
 ## Endpoint (commercial)
 
@@ -15,8 +14,8 @@ Scrape metrics from `/metrics` on the metrics server:
 GET http://localhost:4422/metrics
 ```
 
-The metrics server listens on the metrics port (default `4422`), separate from the main HTTP port
-(default `4420`). It also serves `/health/alive` and `/health/ready`.
+The metrics server listens on the metrics port (default `4422`), separate from the main HTTP port (default `4420`). It also serves
+`/health/alive` and `/health/ready`.
 
 ## HTTP metrics
 
@@ -38,8 +37,7 @@ The metrics server listens on the metrics port (default `4422`), separate from t
 
 ## Configuration
 
-Only the commercial edition honors the `serve.metrics` block. Both fields are immutable: changing
-them requires a server restart.
+Only the commercial edition honors the `serve.metrics` block. Both fields are immutable: changing them requires a server restart.
 
 ```yaml
 serve:
@@ -55,9 +53,9 @@ The edge proxy exposes additional metrics under the `talos_proxy_` namespace. Se
 
 ## Example queries
 
-The commercial edition ships starter Grafana dashboards under
-`commercial/observability/grafana/dashboards/boards/`: `platform-overview.json`, `http-api.json`,
-`api-lifecycle.json`, `database-health.json`, and `verification-slo.json`. Start from these queries:
+The commercial edition ships starter Grafana dashboards under `commercial/observability/grafana/dashboards/boards/`:
+`platform-overview.json`, `http-api.json`, `api-lifecycle.json`, `database-health.json`, and `verification-slo.json`. Start from
+these queries:
 
 - Request rate: `rate(http_requests_total[5m])`
 - P99 latency: `histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))`

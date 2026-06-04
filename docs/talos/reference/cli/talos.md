@@ -16,8 +16,8 @@ Multi-network API key service
 
 ### Synopsis
 
-API Key Service is a multi-network service for managing API keys, with support for JWT tokens, JWKS,
-and several cryptographic algorithms.
+API Key Service is a multi-network service for managing API keys, with support for JWT tokens, JWKS, and several cryptographic
+algorithms.
 
 It provides separate admin and public APIs for key management.
 
@@ -34,6 +34,5 @@ It provides separate admin and public APIs for key management.
 - [talos jwk](talos-jwk.md) - Generate JSON Web Keys (JWK/JWKS)
 - [talos keys](talos-keys.md) - Manage API keys
 - [talos migrate](talos-migrate.md) - Database migration tools
-- [talos proxy](talos-proxy.md) - Start the edge proxy for caching verification requests (commercial
-  edition)
+- [talos proxy](talos-proxy.md) - Start the edge proxy for caching verification requests (commercial edition)
 - [talos serve](talos-serve.md) - Start the Ory Talos server (all-in-one mode)

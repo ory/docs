@@ -16,8 +16,7 @@ Verify a credential (API key or token)
 
 ### Synopsis
 
-Verifies a credential against the server. Checks if the credential is active, not expired, and not
-revoked.
+Verifies a credential against the server. Checks if the credential is active, not expired, and not revoked.
 
 ```
 talos keys verify [credential] [flags]

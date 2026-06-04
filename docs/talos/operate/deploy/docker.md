@@ -4,12 +4,10 @@ title: Docker
 
 :::warning
 
-Don't use the `latest` tag in production. Pin to a specific Talos version (for example,
-`oryd/talos:v1.2.3`) so a new release can't silently change behavior, break your configuration, or
-run migrations on the next pull. Find the version you want on the
-[GitHub releases](https://github.com/ory/talos/releases) page and update the tag deliberately. The
-examples below use `<version-you-want>` as a placeholder — replace it with the exact version you
-tested.
+Don't use the `latest` tag in production. Pin to a specific Talos version (for example, `oryd/talos:v1.2.3`) so a new release
+can't silently change behavior, break your configuration, or run migrations on the next pull. Find the version you want on the
+[GitHub releases](https://github.com/ory/talos/releases) page and update the tag deliberately. The examples below use
+`<version-you-want>` as a placeholder — replace it with the exact version you tested.
 
 :::
 
@@ -26,12 +24,12 @@ docker run -d \
   oryd/talos:<version-you-want> serve
 ```
 
-Port 4420 serves the HTTP API. Port 4422 serves the `/health/alive` and `/health/ready` endpoints
-used for health checks. In the commercial edition, port 4422 also serves the Prometheus `/metrics`
-endpoint; the open source edition exposes only the health endpoints.
+Port 4420 serves the HTTP API. Port 4422 serves the `/health/alive` and `/health/ready` endpoints used for health checks. In the
+commercial edition, port 4422 also serves the Prometheus `/metrics` endpoint; the open source edition exposes only the health
+endpoints.
 
-`serve` does not create the database schema. Run [migrations](#run-migrations) against the volume
-before the first start, or the server starts but API requests fail against the empty database.
+`serve` does not create the database schema. Run [migrations](#run-migrations) against the volume before the first start, or the
+server starts but API requests fail against the empty database.
 
 ## With config file
 

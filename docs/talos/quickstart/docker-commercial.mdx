@@ -9,9 +9,9 @@ sidebar_custom_props:
 import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 ```
 
-Run the Ory Talos commercial (OEL) edition locally with Docker and Postgres. This guide pulls the
-published commercial image, starts a Postgres-backed instance, and walks through issued and imported
-API key flows. The `curl` examples are the default; the Ory Talos CLI is an alternative.
+Run the Ory Talos commercial (OEL) edition locally with Docker and Postgres. This guide pulls the published commercial image,
+starts a Postgres-backed instance, and walks through issued and imported API key flows. The `curl` examples are the default; the
+Ory Talos CLI is an alternative.
 
 For the single-node OSS edition on SQLite, see the [Open source quickstart](./open-source.mdx).
 
@@ -75,8 +75,8 @@ log: { level: "info", format: "json" }
 
 :::caution
 
-This config embeds the development EdDSA JWK from `deployments/docker/config/config.yaml`. Replace
-it before any non-local use because the private key is published in the source tree.
+This config embeds the development EdDSA JWK from `deployments/docker/config/config.yaml`. Replace it before any non-local use
+because the private key is published in the source tree.
 
 :::
 
@@ -115,8 +115,7 @@ for i in $(seq 1 30); do
 done
 ```
 
-CI runs the API examples below against the same published image on the `talos-preview` Docker
-network.
+CI runs the API examples below against the same published image on the `talos-preview` Docker network.
 
 <!-- doctest:setup:file tools/doctest/setup-preview.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown-preview.sh -->
@@ -129,8 +128,8 @@ export TALOS_URL="${TALOS_URL:-http://localhost:8080}"
 
 ## Issue an API key
 
-Create an issued key on the admin API and save its secret for later steps. For the complete field
-reference, see the [IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
+Create an issued key on the admin API and save its secret for later steps. For the complete field reference, see the
+[IssueAPIKey API reference](../reference/api/admin-issue-api-key.api.mdx).
 
 <!-- doctest:exec -->
 
@@ -175,13 +174,12 @@ export KEY_ID=$(echo "$RESPONSE" | jq -er '.issued_api_key.key_id')
 </TabItem>
 </Tabs>
 
-The response returns `issued_api_key` metadata plus `secret`. The secret is shown only once, so
-store it securely.
+The response returns `issued_api_key` metadata plus `secret`. The secret is shown only once, so store it securely.
 
 ## Verify the issued key
 
-Send the issued key secret to the verify endpoint. For the full response fields and error codes, see
-the [VerifyAPIKey API reference](../reference/api/admin-verify-api-key.api.mdx).
+Send the issued key secret to the verify endpoint. For the full response fields and error codes, see the
+[VerifyAPIKey API reference](../reference/api/admin-verify-api-key.api.mdx).
 
 <!-- doctest:exec -->
 
@@ -212,8 +210,8 @@ A valid result returns `is_valid: true` plus the key's actor, scopes, issuer, an
 
 ## Derive a JWT from the issued key
 
-Mint a short-lived JWT from the issued key with custom claims. For the full request and response
-schema, see the [DeriveToken API reference](../reference/api/admin-derive-token.api.mdx).
+Mint a short-lived JWT from the issued key with custom claims. For the full request and response schema, see the
+[DeriveToken API reference](../reference/api/admin-derive-token.api.mdx).
 
 <!-- doctest:exec -->
 
@@ -256,13 +254,12 @@ export JWT_TOKEN=$(echo "$RESPONSE" | jq -er '.token.token')
 </TabItem>
 </Tabs>
 
-The derived token inherits the parent key's permissions and returns as `token.token` with its own
-expiry metadata.
+The derived token inherits the parent key's permissions and returns as `token.token` with its own expiry metadata.
 
 ## Import an existing API key
 
-Import an existing key string into Ory Talos without rotating the credential. For the complete field
-reference, see the [ImportAPIKey API reference](../reference/api/admin-import-api-key.api.mdx).
+Import an existing key string into Ory Talos without rotating the credential. For the complete field reference, see the
+[ImportAPIKey API reference](../reference/api/admin-import-api-key.api.mdx).
 
 <!-- doctest:exec -->
 
@@ -311,13 +308,11 @@ export IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -er '.key_id')
 </TabItem>
 </Tabs>
 
-Ory Talos stores a hash of the imported credential, not the raw key. The raw key is never returned
-after import.
+Ory Talos stores a hash of the imported credential, not the raw key. The raw key is never returned after import.
 
 ## Verify the imported key
 
-Imported keys use the same verify endpoint as issued keys. Ory Talos detects the credential type
-automatically.
+Imported keys use the same verify endpoint as issued keys. Ory Talos detects the credential type automatically.
 
 <!-- doctest:exec -->
 

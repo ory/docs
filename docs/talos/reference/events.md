@@ -8,12 +8,10 @@ description: Structured audit events emitted by Ory Talos via OpenTelemetry
 
 # Audit events
 
-Ory Talos emits structured audit events via OpenTelemetry span events for all significant lifecycle
-operations. Events are attached to the active OTEL span and forwarded to any configured OTEL
-collector. They are never persisted locally.
+Ory Talos emits structured audit events via OpenTelemetry span events for all significant lifecycle operations. Events are
+attached to the active OTEL span and forwarded to any configured OTEL collector. They are never persisted locally.
 
-Each event carries a set of structured attributes that provide context about the operation,
-the actor, and the affected resource.
+Each event carries a set of structured attributes that provide context about the operation, the actor, and the affected resource.
 
 ## Event types
 
@@ -36,25 +34,24 @@ the actor, and the affected resource.
 
 Each event carries the following OTEL span event attributes:
 
-| OTEL Key       | Struct Field | Type              | Required | Description                                                            |
-| -------------- | ------------ | ----------------- | -------- | ---------------------------------------------------------------------- |
-| `ProjectID`    | `NetworkID`  | uuid.UUID         | Required | Network (tenant) ID the event belongs to.                              |
-| `APIKeyID`     | `KeyID`      | string            | Optional | Resource ID of the affected API key.                                   |
-| `APIKeyPrefix` | `Prefix`     | string            | Optional | Public prefix of the affected API key.                                 |
-| `KeyType`      | `KeyType`    | string            | Optional | Key origin, either "issued" or "imported".                             |
-| `Operation`    | `Operation`  | string            | Optional | Operation name, for example "rotate".                                  |
-| `Reason`       | `Reason`     | string            | Optional | Failure reason or other context for the event.                         |
-| `ActorID`      | `ActorID`    | string            | Optional | ID of the actor who performed the operation.                           |
-| `Expiry`       | `Expiry`     | *time.Time        | Optional | Expiry timestamp of the affected key, if set.                          |
-| `Visibility`   | `Visibility` | string            | Optional | Key visibility, either "public" or "secret".                           |
-| `metadata.`    | `Metadata`   | map[string]string | Optional | Event-specific key-value context, emitted under the metadata.* prefix. |
+| OTEL Key       | Struct Field | Type              | Required | Description                                                             |
+| -------------- | ------------ | ----------------- | -------- | ----------------------------------------------------------------------- |
+| `ProjectID`    | `NetworkID`  | uuid.UUID         | Required | Network (tenant) ID the event belongs to.                               |
+| `APIKeyID`     | `KeyID`      | string            | Optional | Resource ID of the affected API key.                                    |
+| `APIKeyPrefix` | `Prefix`     | string            | Optional | Public prefix of the affected API key.                                  |
+| `KeyType`      | `KeyType`    | string            | Optional | Key origin, either "issued" or "imported".                              |
+| `Operation`    | `Operation`  | string            | Optional | Operation name, for example "rotate".                                   |
+| `Reason`       | `Reason`     | string            | Optional | Failure reason or other context for the event.                          |
+| `ActorID`      | `ActorID`    | string            | Optional | ID of the actor who performed the operation.                            |
+| `Expiry`       | `Expiry`     | \*time.Time       | Optional | Expiry timestamp of the affected key, if set.                           |
+| `Visibility`   | `Visibility` | string            | Optional | Key visibility, either "public" or "secret".                            |
+| `metadata.`    | `Metadata`   | map[string]string | Optional | Event-specific key-value context, emitted under the metadata.\* prefix. |
 
 ## Dynamic metadata attributes
 
-The `metadata.*` prefix supports arbitrary key-value pairs for event-specific context.
-Metadata keys are prefixed with `metadata.` in OTEL attributes. For example, a metadata
-entry `{"token_type": "jwt"}` becomes the OTEL attribute `metadata.token_type`
-with value `jwt`.
+The `metadata.*` prefix supports arbitrary key-value pairs for event-specific context. Metadata keys are prefixed with `metadata.`
+in OTEL attributes. For example, a metadata entry `{"token_type": "jwt"}` becomes the OTEL attribute `metadata.token_type` with
+value `jwt`.
 
 Metadata is optional and varies by event type. The following keys are emitted by Talos today:
 
@@ -64,14 +61,18 @@ Metadata is optional and varies by event type. The following keys are emitted by
 - `old_expires_at` — Previous expiry, RFC-3339 (`EventAPIKeyRotated`, only if the previous key had one).
 - `index` — Zero-based row index of the failed entry (`EventAPIKeyImportFailed`).
 - `error_code` — Stable error code for the failure (`EventAPIKeyImportFailed`).
-- `credential_type` — Credential class that failed verification (`EventAPIKeyVerificationFailed`; e.g., `issued`, `imported`, `derived_jwt`, `derived_macaroon`).
+- `credential_type` — Credential class that failed verification (`EventAPIKeyVerificationFailed`; e.g., `issued`, `imported`,
+  `derived_jwt`, `derived_macaroon`).
 - `initiated_by` — Set to `self` when self-revoke produced the event (`EventAPIKeyRevoked`).
 
 ## Operational notes
 
-- `EventAPIKeyVerificationFailed` emissions are **rate-limited per network (NID)** to at most `failureEventRateLimit` (10) events per `failureEventWindow` (1 minute). Excess failures are silently dropped with a `DEBUG`-level log line. Security alerting that relies on this event must account for throttling — see `internal/verifier/verifier.go`.
+- `EventAPIKeyVerificationFailed` emissions are **rate-limited per network (NID)** to at most `failureEventRateLimit` (10) events
+  per `failureEventWindow` (1 minute). Excess failures are silently dropped with a `DEBUG`-level log line. Security alerting that
+  relies on this event must account for throttling — see `internal/verifier/verifier.go`.
 - `EventAPIKeyVerified` is **not** emitted on successful verification. Verify is a hot path; only failures produce audit events.
-- `EventAPIKeyRevoked` carries the revocation `Reason` attribute (mapped from `talosv2alpha1.RevocationReason`) when the reason is not `UNSPECIFIED`. Self-revoke emissions additionally set the `metadata.initiated_by="self"` key.
+- `EventAPIKeyRevoked` carries the revocation `Reason` attribute (mapped from `talosv2alpha1.RevocationReason`) when the reason is
+  not `UNSPECIFIED`. Self-revoke emissions additionally set the `metadata.initiated_by="self"` key.
 
 ## Emitting events
 
@@ -87,5 +88,4 @@ events.New(events.EventIssuedAPIKeyCreated).
     Emit(ctx, emitter)
 ```
 
-Events are attached to the active OpenTelemetry span. If no span is recording, the event is
-silently dropped.
+Events are attached to the active OpenTelemetry span. If no span is recording, the event is silently dropped.

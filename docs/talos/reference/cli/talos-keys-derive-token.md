@@ -16,8 +16,7 @@ Derive a new derived token from an existing API key
 
 ### Synopsis
 
-Derives a new short-lived derived token from an existing opaque API key. The output will be a JWT or
-Macaroon token.
+Derives a new short-lived derived token from an existing opaque API key. The output will be a JWT or Macaroon token.
 
 ```
 talos keys derive-token [api-key-token] [flags]

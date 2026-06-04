@@ -16,19 +16,17 @@ Run only the admin endpoints
 
 ### Synopsis
 
-WARNING: this command serves unauthenticated admin endpoints. You are responsible for placing it
-behind a trusted network boundary that authenticates and authorizes every admin request (for
-example, an IAM proxy, mTLS gateway, or a reverse proxy with internal-only routing). Talos itself
-adds no authN or authZ middleware on the admin surface.
+WARNING: this command serves unauthenticated admin endpoints. You are responsible for placing it behind a trusted network boundary
+that authenticates and authorizes every admin request (for example, an IAM proxy, mTLS gateway, or a reverse proxy with
+internal-only routing). Talos itself adds no authN or authZ middleware on the admin surface.
 
 Runs only the admin endpoints for API key and network management.
 
-This mode is designed for internal tools, CI/CD, and operator workflows. It exposes the full
-read/write management surface: API key creation, rotation, revocation, verification, network
-management, and signing-key management.
+This mode is designed for internal tools, CI/CD, and operator workflows. It exposes the full read/write management surface: API
+key creation, rotation, revocation, verification, network management, and signing-key management.
 
-Deploy this server behind a trusted network boundary (private VPC, admin VLAN, or authenticating
-reverse proxy) — never expose it to the public internet without an external authZ layer in front.
+Deploy this server behind a trusted network boundary (private VPC, admin VLAN, or authenticating reverse proxy) — never expose it
+to the public internet without an external authZ layer in front.
 
 ```
 talos serve admin [flags]

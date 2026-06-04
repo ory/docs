@@ -225,8 +225,7 @@ curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:batchVerify" \
 
 ### Revoke a key (admin)
 
-Revoke by `key_id`. Revoking an already-revoked key returns HTTP 409, so this example issues a fresh
-key first.
+Revoke by `key_id`. Revoking an already-revoked key returns HTTP 409, so this example issues a fresh key first.
 
 <!-- doctest:exec -->
 

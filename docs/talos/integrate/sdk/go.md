@@ -3,15 +3,13 @@ title: Go SDK
 description: Using the generated Go HTTP client
 ---
 
-Talos generates a Go HTTP client from its OpenAPI spec with
-[OpenAPI Generator](https://openapi-generator.tech/) and ships it in the `internal/client/generated`
-package.
+Talos generates a Go HTTP client from its OpenAPI spec with [OpenAPI Generator](https://openapi-generator.tech/) and ships it in
+the `internal/client/generated` package.
 
 :::note
 
-The client lives in an `internal/` package, so external Go modules can't import it. Talos uses it
-for its own integration tests. To use a Go client in your own application, generate one from the
-OpenAPI spec at `api/talos.openapi-v3.json`.
+The client lives in an `internal/` package, so external Go modules can't import it. Talos uses it for its own integration tests.
+To use a Go client in your own application, generate one from the OpenAPI spec at `api/talos.openapi-v3.json`.
 
 :::
 
@@ -27,8 +25,7 @@ openapi-generator generate \
   -o generated/go-client
 ```
 
-The examples below use the internal client's types. A client you generate from the spec has the same
-API shape.
+The examples below use the internal client's types. A client you generate from the spec has the same API shape.
 
 :::tip
 
@@ -171,9 +168,8 @@ fmt.Println("JWT:", derivedToken.GetToken())
 ## Error handling
 
 The SDK returns an error for every non-2xx response. The error wraps a
-[`google.rpc.Status`](https://cloud.google.com/apis/design/errors#error_model) body. Read it through
-the typed `GenericOpenAPIError` to get the canonical gRPC code, the message, and any `ErrorInfo`
-details.
+[`google.rpc.Status`](https://cloud.google.com/apis/design/errors#error_model) body. Read it through the typed
+`GenericOpenAPIError` to get the canonical gRPC code, the message, and any `ErrorInfo` details.
 
 <!-- doctest:source tools/doctest/examples/go_sdk/main.go#error-handling -->
 
@@ -208,12 +204,11 @@ if err != nil {
 }
 ```
 
-Match on `details[*].reason` from the `ErrorInfo` detail. It's the stable, machine-readable
-identifier. The `message` field is for logs and can change between releases.
+Match on `details[*].reason` from the `ErrorInfo` detail. It's the stable, machine-readable identifier. The `message` field is for
+logs and can change between releases.
 
-A failed verification is not an SDK error: the verify endpoint returns `200 OK` with
-`is_valid: false`. Branch on `verifyResp.GetIsValid()` and inspect `verifyResp.GetErrorCode()`
-instead.
+A failed verification is not an SDK error: the verify endpoint returns `200 OK` with `is_valid: false`. Branch on
+`verifyResp.GetIsValid()` and inspect `verifyResp.GetErrorCode()` instead.
 
 ## Regenerating the client
 
@@ -223,5 +218,4 @@ To regenerate the bundled Go client, run:
 make generate-sdk
 ```
 
-This reads the OpenAPI spec from `api/talos.openapi-v3.json` and writes to
-`internal/client/generated/`.
+This reads the OpenAPI spec from `api/talos.openapi-v3.json` and writes to `internal/client/generated/`.

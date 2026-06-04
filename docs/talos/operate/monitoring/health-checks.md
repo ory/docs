@@ -2,9 +2,8 @@
 title: Health checks
 ---
 
-Ory Talos exposes two health endpoints on **both** the main HTTP port (default `4420`) and the
-metrics port (default `4422`). Probe the main port for Kubernetes and load balancers. See
-[Which port to probe](#which-port-to-probe) below.
+Ory Talos exposes two health endpoints on **both** the main HTTP port (default `4420`) and the metrics port (default `4422`).
+Probe the main port for Kubernetes and load balancers. See [Which port to probe](#which-port-to-probe) below.
 
 ## Endpoints
 
@@ -15,15 +14,13 @@ metrics port (default `4422`). Probe the main port for Kubernetes and load balan
 
 ## Which port to probe
 
-Both ports run the same readiness check (a database ping), so they return the same HTTP status. They
-differ only in the response body on failure:
+Both ports run the same readiness check (a database ping), so they return the same HTTP status. They differ only in the response
+body on failure:
 
-- **Probe the main HTTP port (4420)** for liveness and readiness in the typical case. Failures of
-  the gateway listener and the application code surface here, and `/health/ready` returns the
-  underlying error in the response body when a check fails.
-- **The metrics port (4422)** obfuscates the error detail in the `/health/ready` body. In commercial
-  builds it also serves the Prometheus `/metrics` scrape endpoint; OSS builds expose only the two
-  health endpoints on this port.
+- **Probe the main HTTP port (4420)** for liveness and readiness in the typical case. Failures of the gateway listener and the
+  application code surface here, and `/health/ready` returns the underlying error in the response body when a check fails.
+- **The metrics port (4422)** obfuscates the error detail in the `/health/ready` body. In commercial builds it also serves the
+  Prometheus `/metrics` scrape endpoint; OSS builds expose only the two health endpoints on this port.
 
 For Kubernetes, probe the main port.
 
@@ -47,8 +44,7 @@ readinessProbe:
 
 ## Load balancer
 
-Point your load balancer health check at `/health/ready`. It returns 200 when the database ping
-succeeds and 503 when it fails.
+Point your load balancer health check at `/health/ready`. It returns 200 when the database ping succeeds and 503 when it fails.
 
 ## Suppressing health logs
 
@@ -63,6 +59,6 @@ serve:
 
 ## Response body
 
-Both handlers return JSON: `{"status":"ok"}` when ready, or an error map when a check fails. The two
-ports report the same status, but the metrics port obfuscates the error detail. Don't parse the
-body. Treat the HTTP status as the signal: 200 means ready, 503 means not ready.
+Both handlers return JSON: `{"status":"ok"}` when ready, or an error map when a check fails. The two ports report the same status,
+but the metrics port obfuscates the error detail. Don't parse the body. Treat the HTTP status as the signal: 200 means ready, 503
+means not ready.

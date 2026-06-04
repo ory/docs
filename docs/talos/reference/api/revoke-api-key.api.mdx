@@ -11,43 +11,26 @@ info_path: talos/reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Revoke API Key (self-service)"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Revoke API Key (self-service)"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/v2alpha1/apiKeys:selfRevoke"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/v2alpha1/apiKeys:selfRevoke"} context={"endpoint"}></MethodEndpoint>
 
+Proof-of-possession variant of revocation. The `Self*` prefix on the request/response messages disambiguates from the admin
+variants (`AdminRevokeIssuedApiKey` / `AdminRevokeImportedApiKey`).
 
+Allows an API key holder to revoke their own key. The caller must provide the full API key secret as proof of possession. Supports
+issued API keys and imported keys. JWT and macaroon tokens cannot be self-revoked (they are stateless).
 
-Proof-of-possession variant of revocation. The `Self*` prefix on the
-request/response messages disambiguates from the admin variants
-(`AdminRevokeIssuedApiKey` / `AdminRevokeImportedApiKey`).
-
-Allows an API key holder to revoke their own key. The caller must provide
-the full API key secret as proof of possession. Supports issued API keys
-and imported keys. JWT and macaroon tokens cannot be self-revoked (they
-are stateless).
-
-The PRIVILEGE_WITHDRAWN reason is not allowed for self-revocation
-(admin-only).
+The PRIVILEGE_WITHDRAWN reason is not allowed for self-revocation (admin-only).
 
 ```http
 POST /v2alpha1/apiKeys:selfRevoke
@@ -57,29 +40,12 @@ POST /v2alpha1/apiKeys:selfRevoke
 }
 ```
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails>
-  
-</ParamsDetails>
+<ParamsDetails></ParamsDetails>
 
-<RequestSchema
-  {...require("./revoke-api-key.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./revoke-api-key.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./revoke-api-key.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./revoke-api-key.StatusCodes.json")}></StatusCodes>

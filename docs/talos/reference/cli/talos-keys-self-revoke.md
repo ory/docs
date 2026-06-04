@@ -16,8 +16,7 @@ Revoke an API key using the credential itself as proof
 
 ### Synopsis
 
-Self-revokes an API key by presenting the full credential as proof of ownership. Does not require
-admin access.
+Self-revokes an API key by presenting the full credential as proof of ownership. Does not require admin access.
 
 ```
 talos keys self-revoke [credential] [flags]

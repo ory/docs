@@ -16,8 +16,7 @@ Batch import API keys from a JSON file
 
 ### Synopsis
 
-Batch import API keys from a JSON file. Each request is limited to 1000 keys; the server rejects
-batches that exceed this limit.
+Batch import API keys from a JSON file. Each request is limited to 1000 keys; the server rejects batches that exceed this limit.
 
 ```
 talos keys imported batch-import --file keys.json [flags]

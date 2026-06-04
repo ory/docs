@@ -3,21 +3,20 @@ title: Import existing keys
 description: Import API keys from external systems into Ory Talos
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
-Import keys to manage credentials created outside Talos, such as keys from a legacy key management
-system. For large migrations, use the batch import API to add up to 1000 keys per request. To
-compare imported keys with issued keys and derived tokens, see
+Import keys to manage credentials created outside Talos, such as keys from a legacy key management system. For large migrations,
+use the batch import API to add up to 1000 keys per request. To compare imported keys with issued keys and derived tokens, see
 [credential types](../concepts/credential-types.md#imported-api-keys).
 
 ## How import works
 
-When you import a key, Talos stores a tenant-scoped SHA-512/256 hash of the raw key. Talos doesn't
-store the original key. Verification computes the same hash and looks it up in the database.
+When you import a key, Talos stores a tenant-scoped SHA-512/256 hash of the raw key. Talos doesn't store the original key.
+Verification computes the same hash and looks it up in the database.
 
-Imported keys support the same features as issued keys: scopes, metadata, expiration, token
-derivation (JWT/macaroon), and revocation.
+Imported keys support the same features as issued keys: scopes, metadata, expiration, token derivation (JWT/macaroon), and
+revocation.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -69,17 +68,15 @@ export IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -er '.key_id')
 
 ### Request fields
 
-Required fields are `raw_key` (the API key string to import), `name`, and `actor_id`. Optional
-fields are `scopes`, `ttl`, and `metadata`. For the complete field reference, see the
-[ImportApiKey API reference](../reference/api/admin-import-api-key.api.mdx).
+Required fields are `raw_key` (the API key string to import), `name`, and `actor_id`. Optional fields are `scopes`, `ttl`, and
+`metadata`. For the complete field reference, see the [ImportApiKey API reference](../reference/api/admin-import-api-key.api.mdx).
 
-The response is an `ImportedApiKey` object with fields such as `key_id`, `actor_id`, `name`,
-`status`, `scopes`, and `create_time`. Talos **never returns** `raw_key` after import.
+The response is an `ImportedApiKey` object with fields such as `key_id`, `actor_id`, `name`, `status`, `scopes`, and
+`create_time`. Talos **never returns** `raw_key` after import.
 
 ## Verify an imported key
 
-Imported keys use the same verification endpoint as issued keys. The verifier automatically detects
-the credential type.
+Imported keys use the same verification endpoint as issued keys. The verifier automatically detects the credential type.
 
 <!-- doctest:exec -->
 
@@ -139,14 +136,12 @@ curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys:batchCreate" \
 
 ### Batch response
 
-The response includes a `results` array with per-item outcomes (`imported_api_key` on success,
-`error_code` and `error_message` on failure), plus `success_count` and `failure_count` counters. If
-at least one key succeeds, the HTTP response is `200 OK`.
+The response includes a `results` array with per-item outcomes (`imported_api_key` on success, `error_code` and `error_message` on
+failure), plus `success_count` and `failure_count` counters. If at least one key succeeds, the HTTP response is `200 OK`.
 
 For the complete response field reference, see the
-[BatchCreateImportedApiKeys API reference](../reference/api/admin-batch-create-imported-api-keys.api.mdx).
-For batch import error codes, see the
-[error codes reference](../reference/error-codes.md#batch-import-error-codes).
+[BatchCreateImportedApiKeys API reference](../reference/api/admin-batch-create-imported-api-keys.api.mdx). For batch import error
+codes, see the [error codes reference](../reference/error-codes.md#batch-import-error-codes).
 
 ## List imported keys
 
@@ -198,8 +193,8 @@ echo "Imported key revoked"
 
 ## Delete an imported key
 
-Delete permanently removes the key record from the database (hard delete). Revoke keeps the record
-(soft delete) so you can still query its status and revocation reason. Both emit an audit event.
+Delete permanently removes the key record from the database (hard delete). Revoke keeps the record (soft delete) so you can still
+query its status and revocation reason. Both emit an audit event.
 
 <!-- doctest:exec -->
 

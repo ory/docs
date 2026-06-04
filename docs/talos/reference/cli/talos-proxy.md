@@ -20,16 +20,15 @@ Start an edge proxy that caches verification responses from an upstream Ory Talo
 
 The proxy is available in the commercial edition only.
 
-The proxy caches successful verification responses to reduce latency and load on the upstream
-server. Only active (valid) verification responses are cached.
+The proxy caches successful verification responses to reduce latency and load on the upstream server. Only active (valid)
+verification responses are cached.
 
 Cache bypass: Clients can bypass the cache by sending Cache-Control: no-cache header.
 
-The proxy exposes health endpoints: /health/alive - Always returns 200 OK /health/ready - Returns
-200 OK if upstream is reachable
+The proxy exposes health endpoints: /health/alive - Always returns 200 OK /health/ready - Returns 200 OK if upstream is reachable
 
-See also: docs/operate/deploy/edge-proxy.mdx for deployment topology, sidecar patterns, multi-tenant
-safety, and upstream sizing guidance.
+See also: docs/operate/deploy/edge-proxy.mdx for deployment topology, sidecar patterns, multi-tenant safety, and upstream sizing
+guidance.
 
 ```
 talos proxy [flags]

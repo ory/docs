@@ -11,35 +11,21 @@ info_path: talos/reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Revoke Issued API Key"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Revoke Issued API Key"}></Heading>
 
-<MethodEndpoint
-  method={"post"}
-  path={"/v2alpha1/admin/issuedApiKeys/{key_id}:revoke"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"post"} path={"/v2alpha1/admin/issuedApiKeys/{key_id}:revoke"} context={"endpoint"}></MethodEndpoint>
 
-
-
-Immediately revokes an issued API key. Once revoked, the key can no longer
-be used for authentication. This operation is irreversible. Revoked keys
-are retained for audit purposes.
+Immediately revokes an issued API key. Once revoked, the key can no longer be used for authentication. This operation is
+irreversible. Revoked keys are retained for audit purposes.
 
 ```http
 POST /v2alpha1/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ:revoke
@@ -48,31 +34,12 @@ POST /v2alpha1/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ:revoke
 }
 ```
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./admin-revoke-issued-api-key.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./admin-revoke-issued-api-key.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./admin-revoke-issued-api-key.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./admin-revoke-issued-api-key.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./admin-revoke-issued-api-key.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./admin-revoke-issued-api-key.StatusCodes.json")}></StatusCodes>

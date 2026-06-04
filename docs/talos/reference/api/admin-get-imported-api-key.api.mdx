@@ -11,64 +11,31 @@ info_path: talos/reference/api/ory-talos-api
 custom_edit_url: null
 ---
 
-import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
-import ParamsDetails from "@theme/ParamsDetails";
-import RequestSchema from "@theme/RequestSchema";
-import StatusCodes from "@theme/StatusCodes";
-import OperationTabs from "@theme/OperationTabs";
-import TabItem from "@theme/TabItem";
-import Heading from "@theme/Heading";
-import Translate from "@docusaurus/Translate";
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
 
-<Heading
-  as={"h1"}
-  className={"openapi__heading"}
-  children={"Get Imported API Key"}
->
-</Heading>
+<Heading as={"h1"} className={"openapi__heading"} children={"Get Imported API Key"}></Heading>
 
-<MethodEndpoint
-  method={"get"}
-  path={"/v2alpha1/admin/importedApiKeys/{key_id}"}
-  context={"endpoint"}
->
-  
-</MethodEndpoint>
+<MethodEndpoint method={"get"} path={"/v2alpha1/admin/importedApiKeys/{key_id}"} context={"endpoint"}></MethodEndpoint>
 
-
-
-Retrieves metadata about a specific imported key. The original raw key is
-never returned.
+Retrieves metadata about a specific imported key. The original raw key is never returned.
 
 ```http
 GET /v2alpha1/admin/importedApiKeys/{key_id}
 ```
 
-<Heading
-  id={"request"}
-  as={"h2"}
-  className={"openapi-tabs__heading"}
->
+<Heading id={"request"} as={"h2"} className={"openapi-tabs__heading"}>
   <Translate id="theme.openapi.request.title">Request</Translate>
 </Heading>
 
-<ParamsDetails
-  {...require("./admin-get-imported-api-key.ParamsDetails.json")}
->
-  
-</ParamsDetails>
+<ParamsDetails {...require("./admin-get-imported-api-key.ParamsDetails.json")}></ParamsDetails>
 
-<RequestSchema
-  {...require("./admin-get-imported-api-key.RequestSchema.json")}
->
-  
-</RequestSchema>
+<RequestSchema {...require("./admin-get-imported-api-key.RequestSchema.json")}></RequestSchema>
 
-<StatusCodes
-  {...require("./admin-get-imported-api-key.StatusCodes.json")}
->
-  
-</StatusCodes>
-
-
-      
+<StatusCodes {...require("./admin-get-imported-api-key.StatusCodes.json")}></StatusCodes>

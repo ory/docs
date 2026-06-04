@@ -510,10 +510,7 @@ const oelSidebar = [
               {
                 type: "category",
                 label: "SDKs",
-                items: [
-                  "talos/integrate/sdk/go",
-                  "talos/integrate/sdk/curl",
-                ],
+                items: ["talos/integrate/sdk/go", "talos/integrate/sdk/curl"],
               },
             ],
           },

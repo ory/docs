@@ -3,16 +3,14 @@ title: Configure
 description: Configuration reference for Ory Talos
 ---
 
-Configure Ory Talos through a YAML file passed with the `--config` flag. Override any setting with
-`TALOS_`-prefixed environment variables (for example, `TALOS_DB_DSN` overrides `db.dsn`). The
-`--config` flag is the only configuration-related CLI flag; per-key flags don't exist. See the
-[configuration reference](../reference/config.mdx) for every key, type, default, environment
+Configure Ory Talos through a YAML file passed with the `--config` flag. Override any setting with `TALOS_`-prefixed environment
+variables (for example, `TALOS_DB_DSN` overrides `db.dsn`). The `--config` flag is the only configuration-related CLI flag;
+per-key flags don't exist. See the [configuration reference](../reference/config.mdx) for every key, type, default, environment
 variable mapping, and the precedence rules.
 
 ## Hot-reload
 
-Ory Talos watches the config file for changes. Some settings reload automatically; others require a
-restart.
+Ory Talos watches the config file for changes. Some settings reload automatically; others require a restart.
 
 **Hot-reloadable** (read per request through the config provider):
 
@@ -36,10 +34,10 @@ restart.
 - `serve.http.host` / `port`
 - `serve.http.trust_forwarded_host`
 - `serve.metrics.host` / `port` (Commercial only)
-- `cache.type` and connection settings (entire `cache.memory.*` block; `cache.redis.*` except
-  `pool_size` and `timeout`, which reload without restart)
-- `multitenancy.enabled` / `multitenancy.networks` (Commercial only — adding tenants requires a
-  restart; Talos hot-reloads per-tenant config files referenced by `config_path`)
+- `cache.type` and connection settings (entire `cache.memory.*` block; `cache.redis.*` except `pool_size` and `timeout`, which
+  reload without restart)
+- `multitenancy.enabled` / `multitenancy.networks` (Commercial only — adding tenants requires a restart; Talos hot-reloads
+  per-tenant config files referenced by `config_path`)
 - `rate_limit.backend`
 - `last_used.queue_size` / `flush_size` / `flush_interval` / `num_workers`
 - `log.level` / `format`
@@ -47,8 +45,8 @@ restart.
 
 ## Duration syntax
 
-All duration values (TTLs, timeouts, and intervals) are Go duration strings. Combine one or more
-unsigned numbers with a unit, with no spaces. Supported units:
+All duration values (TTLs, timeouts, and intervals) are Go duration strings. Combine one or more unsigned numbers with a unit,
+with no spaces. Supported units:
 
 | Unit | Meaning      |
 | ---- | ------------ |
@@ -60,8 +58,8 @@ unsigned numbers with a unit, with no spaces. Supported units:
 | `m`  | minutes      |
 | `h`  | hours        |
 
-Examples: `500ms`, `30s`, `5m`, `1h30m`, and `8760h` (one year). Talos has no unit for days, weeks,
-months, or years. Express those in hours: `24h` (one day), `168h` (one week), `8760h` (one year).
+Examples: `500ms`, `30s`, `5m`, `1h30m`, and `8760h` (one year). Talos has no unit for days, weeks, months, or years. Express
+those in hours: `24h` (one day), `168h` (one week), `8760h` (one year).
 
 ## Minimal configuration
 
@@ -75,8 +73,8 @@ db:
   dsn: "sqlite://./data/talos.db"
 ```
 
-Schema validation rejects any `secrets.hmac.current` or `secrets.hmac.retired[]` value shorter than
-32 characters (`minLength: 32`). Generate one with:
+Schema validation rejects any `secrets.hmac.current` or `secrets.hmac.retired[]` value shorter than 32 characters
+(`minLength: 32`). Generate one with:
 
 ```bash
 openssl rand -base64 48 | tr -d '\n+/=' | cut -c1-64
@@ -84,9 +82,8 @@ openssl rand -base64 48 | tr -d '\n+/=' | cut -c1-64
 
 ## Production configuration
 
-The `serve.metrics.*`, `cache.*`, `rate_limit.*`, and `tracing.*` blocks take effect only in
-commercial builds (`-tags commercial`). The OSS edition serves health endpoints on the metrics
-listener but not Prometheus metrics.
+The `serve.metrics.*`, `cache.*`, `rate_limit.*`, and `tracing.*` blocks take effect only in commercial builds
+(`-tags commercial`). The OSS edition serves health endpoints on the metrics listener but not Prometheus metrics.
 
 ```yaml
 serve:
@@ -157,5 +154,4 @@ tracing: # Commercial only
   sample_rate: 0.01
 ```
 
-For every key, type, default, and environment variable mapping, see the
-[configuration reference](../reference/config.mdx).
+For every key, type, default, and environment variable mapping, see the [configuration reference](../reference/config.mdx).

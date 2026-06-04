@@ -1,1 +1,22 @@
-{"parameters":[{"description":"Number of items per page (default: 50, max: 1000)","in":"query","name":"page_size","schema":{"format":"int32","type":"integer"}},{"description":"Cursor token for pagination (OPTIONAL)","in":"query","name":"page_token","schema":{"type":"string"}},{"description":"filter is an AIP-160 expression. Indexed fields (efficient at any scale):\n  actor_id, status. Other fields are not indexed and may be rejected.\nExamples:\n  actor_id=\"user_123\"\n  status=KEY_STATUS_ACTIVE\n  actor_id=\"user_123\" AND status=KEY_STATUS_ACTIVE","in":"query","name":"filter","schema":{"type":"string"}}]}
+{
+  "parameters": [
+    {
+      "description": "Number of items per page (default: 50, max: 1000)",
+      "in": "query",
+      "name": "page_size",
+      "schema": { "format": "int32", "type": "integer" }
+    },
+    {
+      "description": "Cursor token for pagination (OPTIONAL)",
+      "in": "query",
+      "name": "page_token",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "filter is an AIP-160 expression. Indexed fields (efficient at any scale):\n  actor_id, status. Other fields are not indexed and may be rejected.\nExamples:\n  actor_id=\"user_123\"\n  status=KEY_STATUS_ACTIVE\n  actor_id=\"user_123\" AND status=KEY_STATUS_ACTIVE",
+      "in": "query",
+      "name": "filter",
+      "schema": { "type": "string" }
+    }
+  ]
+}

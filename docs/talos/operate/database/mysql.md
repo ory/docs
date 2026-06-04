@@ -30,13 +30,12 @@ export TALOS_DB_DSN="mysql://talos:secret@tcp(db:3306)/talos?tls=true&parseTime=
 mysql://user:password@tcp(host:port)/dbname?param=value&param=value
 ```
 
-The DSN requires the `mysql://` scheme prefix. Ory Talos strips it before passing the DSN to the Go
-MySQL driver.
+The DSN requires the `mysql://` scheme prefix. Ory Talos strips it before passing the DSN to the Go MySQL driver.
 
 :::note
 
-Set `parseTime=true` in the DSN. The Go MySQL driver needs it to scan `DATETIME` columns into
-`time.Time`. The example DSNs on this page include it.
+Set `parseTime=true` in the DSN. The Go MySQL driver needs it to scan `DATETIME` columns into `time.Time`. The example DSNs on
+this page include it.
 
 :::
 
@@ -44,8 +43,7 @@ Set `parseTime=true` in the DSN. The Go MySQL driver needs it to scan `DATETIME`
 
 ### Connection pool parameters
 
-Ory Talos parses these pool parameters from the DSN query string and removes them before passing the
-DSN to the database driver.
+Ory Talos parses these pool parameters from the DSN query string and removes them before passing the DSN to the database driver.
 
 | Parameter            | Type     | Default                  | Description                                                 |
 | -------------------- | -------- | ------------------------ | ----------------------------------------------------------- |
@@ -56,13 +54,11 @@ DSN to the database driver.
 
 Duration values use Go duration syntax: `5m` (5 minutes), `1h` (1 hour), `30s` (30 seconds).
 
-Always set `max_conns` and `max_idle_conns` explicitly in production. When omitted, the values
-derive from the container's CPU allocation, which can change after redeploys or node moves and
-exceed your MySQL server's `max_connections` budget.
+Always set `max_conns` and `max_idle_conns` explicitly in production. When omitted, the values derive from the container's CPU
+allocation, which can change after redeploys or node moves and exceed your MySQL server's `max_connections` budget.
 
-Ory Talos sets non-zero defaults for `max_conn_lifetime` and `max_conn_idle_time` so connections
-recycle through load balancers and DNS rotation. Setting either to `0` disables recycling. Don't do
-this outside development.
+Ory Talos sets non-zero defaults for `max_conn_lifetime` and `max_conn_idle_time` so connections recycle through load balancers
+and DNS rotation. Setting either to `0` disables recycling. Don't do this outside development.
 
 MySQL uses standard `database/sql` pooling only. There is no advanced pool mode.
 
@@ -100,8 +96,8 @@ Pool behavior:
 
 ### Pool sizing
 
-Always set `max_conns` and `max_idle_conns` explicitly. Start with 25 connections per instance and
-keep the total pool across all instances below MySQL's `max_connections` (default: 151).
+Always set `max_conns` and `max_idle_conns` explicitly. Start with 25 connections per instance and keep the total pool across all
+instances below MySQL's `max_connections` (default: 151).
 
 | Deployment      | `max_conns`    | Notes                                       |
 | --------------- | -------------- | ------------------------------------------- |
@@ -109,9 +105,8 @@ keep the total pool across all instances below MySQL's `max_connections` (defaul
 | 3 instances     | `25` each      | 75 total — within default `max_connections` |
 | 5+ instances    | `15`–`20` each | Use ProxySQL or MySQL Router to multiplex   |
 
-For large deployments, place [ProxySQL](https://proxysql.com/) or
-[MySQL Router](https://dev.mysql.com/doc/mysql-router/en/) between Ory Talos and MySQL to multiplex
-connections.
+For large deployments, place [ProxySQL](https://proxysql.com/) or [MySQL Router](https://dev.mysql.com/doc/mysql-router/en/)
+between Ory Talos and MySQL to multiplex connections.
 
 ## Database preparation
 

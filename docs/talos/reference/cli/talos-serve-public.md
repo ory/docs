@@ -18,9 +18,8 @@ Run only the public-facing endpoints
 
 Runs only the public-facing endpoints (currently: proof-of-possession self-revocation).
 
-This mode is designed to sit on the public network with no admin privileges. It does not expose any
-verification, issuance, or admin lifecycle endpoints. Verification is admin-only and must be reached
-through 'talos serve admin'.
+This mode is designed to sit on the public network with no admin privileges. It does not expose any verification, issuance, or
+admin lifecycle endpoints. Verification is admin-only and must be reached through 'talos serve admin'.
 
 Cache configuration is read from the config file (cache.type, cache.ttl, etc.).
 

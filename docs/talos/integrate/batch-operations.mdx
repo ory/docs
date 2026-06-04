@@ -3,11 +3,11 @@ title: Batch operations
 description: Verify and import multiple credentials in a single request
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
 
-Talos batch endpoints verify or import many credentials in one request and return a result for each
-item. One bad item does not fail the rest of the batch.
+Talos batch endpoints verify or import many credentials in one request and return a result for each item. One bad item does not
+fail the rest of the batch.
 
 <!-- doctest:setup:file tools/doctest/setup.sh -->
 <!-- doctest:teardown:file tools/doctest/teardown.sh -->
@@ -89,11 +89,9 @@ curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:batchVerify" \
 ### Response format
 
 The response contains a `results` array. Each element has the same fields as a single
-[verify response](./issue-and-verify.mdx#verification-response). Talos returns results in the same
-order as the requests.
+[verify response](./issue-and-verify.mdx#verification-response). Talos returns results in the same order as the requests.
 
-Invalid credentials return `is_valid: false` with an `error_code` — they do not cause the batch
-request to fail.
+Invalid credentials return `is_valid: false` with an `error_code` — they do not cause the batch request to fail.
 
 ### Limits
 
@@ -141,15 +139,13 @@ curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys:batchCreate" \
 
 ### Response format
 
-The response includes a `results` array with per-item outcomes, plus `success_count` and
-`failure_count` counters. The response is `200 OK` when at least one key succeeds. If every key
-fails, the endpoint returns a non-200 error instead. Check `failure_count` and the per-item
-`error_code` fields to detect partial failures.
+The response includes a `results` array with per-item outcomes, plus `success_count` and `failure_count` counters. The response is
+`200 OK` when at least one key succeeds. If every key fails, the endpoint returns a non-200 error instead. Check `failure_count`
+and the per-item `error_code` fields to detect partial failures.
 
 For the complete field reference, see the
-[BatchCreateImportedApiKeys API reference](../reference/api/admin-batch-create-imported-api-keys.api.mdx).
-For batch import error codes, see the
-[error codes reference](../reference/error-codes.md#batch-import-error-codes).
+[BatchCreateImportedApiKeys API reference](../reference/api/admin-batch-create-imported-api-keys.api.mdx). For batch import error
+codes, see the [error codes reference](../reference/error-codes.md#batch-import-error-codes).
 
 ### Limits
 

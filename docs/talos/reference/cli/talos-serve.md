@@ -20,8 +20,8 @@ Starts the HTTP server for the API key service in all-in-one mode.
 
 This mode runs both admin (management) and public endpoints in a single process.
 
-For production deployments where admin and public surfaces should be isolated (different network
-boundaries, different scaling profiles, etc.), consider running them as separate processes:
+For production deployments where admin and public surfaces should be isolated (different network boundaries, different scaling
+profiles, etc.), consider running them as separate processes:
 
 - 'serve public' for public-facing endpoints only (no admin privileges)
 - 'serve admin' for admin endpoints only (management and verification)
