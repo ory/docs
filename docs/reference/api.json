@@ -583,7 +583,8 @@
         },
         "type": "object"
       },
-      "AdminRevokeAPIKeyBody": {
+      "AdminRevokeImportedApiKeyBody": {
+        "description": "RevokeImportedApiKeyRequest revokes an imported API key by its key_id.",
         "properties": {
           "description": {
             "description": "Optional free-text explanation. Only allowed when reason is PRIVILEGE_WITHDRAWN.",
@@ -595,8 +596,21 @@
         },
         "type": "object"
       },
-      "AdminRotateIssuedAPIKeyBody": {
-        "description": "RotateIssuedAPIKeyRequest is the request for AdminRotateIssuedAPIKey.\n\nRotation is a custom method (AIP-136) that swaps an active key for a new\none with a fresh secret and key_id, then revokes the old key. It is not a\npartial update, so it does not carry an update_mask. Mutable fields use\npresence-based semantics: an absent field inherits from the old key, while\na present field (including an explicitly empty value) overrides.",
+      "AdminRevokeIssuedApiKeyBody": {
+        "description": "RevokeIssuedApiKeyRequest revokes an issued API key by its key_id.",
+        "properties": {
+          "description": {
+            "description": "Optional free-text explanation. Only allowed when reason is PRIVILEGE_WITHDRAWN.",
+            "type": "string"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/RevocationReason"
+          }
+        },
+        "type": "object"
+      },
+      "AdminRotateIssuedApiKeyBody": {
+        "description": "RotateIssuedApiKeyRequest is the request for AdminRotateIssuedApiKey.\n\nRotation is a custom method (AIP-136) that swaps an active key for a new\none with a fresh secret and key_id, then revokes the old key. It is not a\npartial update, so it does not carry an update_mask. Mutable fields use\npresence-based semantics: an absent field inherits from the old key, while\na present field (including an explicitly empty value) overrides.",
         "properties": {
           "ip_restriction": {
             "$ref": "#/components/schemas/IPRestriction"
@@ -694,12 +708,25 @@
         "title": "AuthenticatorTransport represents the IDL enum with the same name.",
         "type": "string"
       },
-      "BatchImportAPIKeysRequest": {
-        "description": "BatchImportAPIKeysRequest imports multiple external API keys in one request.\nThe maximum batch size is 1000 keys.",
+      "BatchCreateImportedApiKeysErrorCode": {
+        "default": "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_UNSPECIFIED",
+        "description": "BatchCreateImportedApiKeysErrorCode classifies per-item batch import failures.\n\n - BATCH_CREATE_IMPORTED_API_KEYS_ERROR_UNSPECIFIED: No error (import succeeded)\n - BATCH_CREATE_IMPORTED_API_KEYS_ERROR_INVALID_ARGUMENT: The key data is malformed or missing required fields\n - BATCH_CREATE_IMPORTED_API_KEYS_ERROR_ALREADY_EXISTS: A key with this identifier already exists\n - BATCH_CREATE_IMPORTED_API_KEYS_ERROR_FAILED_PRECONDITION: State conflict prevents the import\n - BATCH_CREATE_IMPORTED_API_KEYS_ERROR_INTERNAL: Server error during import\n - BATCH_CREATE_IMPORTED_API_KEYS_ERROR_RESOURCE_EXHAUSTED: Per-tenant quota cap reached",
+        "enum": [
+          "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_UNSPECIFIED",
+          "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_INVALID_ARGUMENT",
+          "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_ALREADY_EXISTS",
+          "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_FAILED_PRECONDITION",
+          "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_INTERNAL",
+          "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_RESOURCE_EXHAUSTED"
+        ],
+        "type": "string"
+      },
+      "BatchCreateImportedApiKeysRequest": {
+        "description": "BatchCreateImportedApiKeysRequest imports multiple external API keys in one request.\nThe maximum batch size is 1000 keys.",
         "properties": {
           "requests": {
             "items": {
-              "$ref": "#/components/schemas/ImportAPIKeyRequest"
+              "$ref": "#/components/schemas/ImportApiKeyRequest"
             },
             "title": "Keys to import",
             "type": "array"
@@ -707,8 +734,8 @@
         },
         "type": "object"
       },
-      "BatchImportAPIKeysResponse": {
-        "description": "BatchImportAPIKeysResponse returns per-item results and summary counters.",
+      "BatchCreateImportedApiKeysResponse": {
+        "description": "BatchCreateImportedApiKeysResponse returns per-item results and summary counters.",
         "properties": {
           "failure_count": {
             "format": "int32",
@@ -716,7 +743,7 @@
           },
           "results": {
             "items": {
-              "$ref": "#/components/schemas/BatchImportResult"
+              "$ref": "#/components/schemas/BatchCreateImportedApiKeysResult"
             },
             "type": "array"
           },
@@ -727,31 +754,18 @@
         },
         "type": "object"
       },
-      "BatchImportErrorCode": {
-        "default": "BATCH_IMPORT_ERROR_UNSPECIFIED",
-        "description": "BatchImportErrorCode classifies per-item batch import failures.\n\n - BATCH_IMPORT_ERROR_UNSPECIFIED: No error (import succeeded)\n - BATCH_IMPORT_ERROR_INVALID_ARGUMENT: The key data is malformed or missing required fields\n - BATCH_IMPORT_ERROR_ALREADY_EXISTS: A key with this identifier already exists\n - BATCH_IMPORT_ERROR_FAILED_PRECONDITION: State conflict prevents the import\n - BATCH_IMPORT_ERROR_INTERNAL: Server error during import\n - BATCH_IMPORT_ERROR_RESOURCE_EXHAUSTED: Per-tenant quota cap reached",
-        "enum": [
-          "BATCH_IMPORT_ERROR_UNSPECIFIED",
-          "BATCH_IMPORT_ERROR_INVALID_ARGUMENT",
-          "BATCH_IMPORT_ERROR_ALREADY_EXISTS",
-          "BATCH_IMPORT_ERROR_FAILED_PRECONDITION",
-          "BATCH_IMPORT_ERROR_INTERNAL",
-          "BATCH_IMPORT_ERROR_RESOURCE_EXHAUSTED"
-        ],
-        "type": "string"
-      },
-      "BatchImportResult": {
-        "description": "BatchImportResult contains the result for one key in a batch import request.",
+      "BatchCreateImportedApiKeysResult": {
+        "description": "BatchCreateImportedApiKeysResult contains the result for one key in a batch import request.",
         "properties": {
           "error_code": {
-            "$ref": "#/components/schemas/BatchImportErrorCode"
+            "$ref": "#/components/schemas/BatchCreateImportedApiKeysErrorCode"
           },
           "error_message": {
             "title": "Human-readable failure reason",
             "type": "string"
           },
           "imported_api_key": {
-            "$ref": "#/components/schemas/ImportedAPIKey"
+            "$ref": "#/components/schemas/ImportedApiKey"
           },
           "index": {
             "format": "int32",
@@ -761,22 +775,22 @@
         },
         "type": "object"
       },
-      "BatchVerifyAPIKeysRequest": {
+      "BatchVerifyApiKeysRequest": {
         "properties": {
           "requests": {
             "items": {
-              "$ref": "#/components/schemas/VerifyAPIKeyRequest"
+              "$ref": "#/components/schemas/VerifyApiKeyRequest"
             },
             "type": "array"
           }
         },
         "type": "object"
       },
-      "BatchVerifyAPIKeysResponse": {
+      "BatchVerifyApiKeysResponse": {
         "properties": {
           "results": {
             "items": {
-              "$ref": "#/components/schemas/VerifyAPIKeyResponse"
+              "$ref": "#/components/schemas/VerifyApiKeyResponse"
             },
             "type": "array"
           }
@@ -945,7 +959,7 @@
             "default": "720h",
             "description": "Configures what the maximum age of a JWT assertion used in the JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants (RFC7523) can be.\n\nThis feature uses the `exp` claim and `iat` claim to calculate assertion age. Assertions exceeding the max age will be denied.\n\nUseful as a safety measure and recommended to keep below 720h.\n\nThis governs the \"oauth2.grant.jwt.max_ttl\" setting.",
             "example": "30m",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_oauth2_grant_refresh_token_rotation_grace_period": {
@@ -1061,28 +1075,28 @@
             "default": "30m",
             "description": "This governs the \"ttl.access_token\" setting.",
             "example": "1h",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_auth_code": {
             "default": "720h",
             "description": "Configures how long refresh tokens are valid.\n\nSet to -1 for refresh tokens to never expire. This is not recommended!\n\nThis governs the \"ttl.auth_code\" setting.",
             "example": "30m",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_id_token": {
             "default": "30m",
             "description": "This governs the \"ttl.id_token\" setting.",
             "example": "1h",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_login_consent_request": {
             "default": "30m",
             "description": "Configures how long a user login and consent flow may take.\n\nThis governs the \"ttl.login_consent_request\" setting.",
             "example": "1h",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_refresh_token": {
@@ -1745,6 +1759,10 @@
             "description": "This setting allows the code method to always login a user with code if they have registered with another authentication method such as password or social sign in.\n\nThis governs the \"selfservice.methods.code.passwordless_login_fallback_enabled\" setting.",
             "type": "boolean"
           },
+          "kratos_selfservice_methods_deviceauthn_enabled": {
+            "description": "Configures whether Ory Kratos Device authentication is enabled\n\nThis governs the \"selfservice.methods.deviceauthn.enabled\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_link_config_base_url": {
             "description": "Configures the Base URL which Recovery, Verification, and Login Links Point to\n\nIt is recommended to leave this value empty. It will be appropriately configured to the best matching domain\n(e.g. when using custom domains) automatically.\n\nThis governs the \"selfservice.methods.link.config.base_url\" setting.",
             "type": "string"
@@ -1929,6 +1947,104 @@
           "strict_security": {
             "description": "Whether the project should employ strict security measures. Setting this to true is recommended for going into production.",
             "type": "boolean"
+          },
+          "talos_cache_enabled": {
+            "description": "Talos cache enabled.\n\nWhen true, API key verification results are cached. Revoked keys may be\naccepted until the cached entry expires. When false, every verification\nreads the database and revocations take effect immediately.",
+            "type": "boolean"
+          },
+          "talos_cache_ttl": {
+            "description": "Talos cache TTL controls how long API key verification results are cached.",
+            "example": "5m",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "type": "string"
+          },
+          "talos_credentials_api_keys_default_ttl": {
+            "description": "Talos API keys default TTL.",
+            "example": "1h",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "type": "string"
+          },
+          "talos_credentials_api_keys_max_ttl": {
+            "description": "Talos API keys max TTL.",
+            "example": "24h",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "type": "string"
+          },
+          "talos_credentials_api_keys_prefix_current": {
+            "description": "Talos API keys prefix (current).",
+            "type": "string"
+          },
+          "talos_credentials_api_keys_prefix_public_current": {
+            "description": "Talos API keys public prefix (current).",
+            "type": "string"
+          },
+          "talos_credentials_api_keys_prefix_public_retired": {
+            "description": "Talos API keys public prefix (retired).\n\nPreviously active public API key prefixes kept for verification of outstanding tokens.\nThe first element of this list was the most recently retired active prefix.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "talos_credentials_api_keys_prefix_retired": {
+            "description": "Talos API keys prefix (retired).\n\nPreviously active API key prefixes kept for verification of outstanding tokens.\nThe first element of this list was the most recently retired active prefix.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "talos_credentials_derived_tokens_default_ttl": {
+            "description": "Talos derived tokens default TTL (applies to both JWT and macaroon tokens).",
+            "example": "1h",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "type": "string"
+          },
+          "talos_credentials_derived_tokens_jwt_signing_key_id": {
+            "description": "Talos derived tokens JWT signing key ID (kid).",
+            "type": "string"
+          },
+          "talos_credentials_derived_tokens_jwt_signing_keys_urls": {
+            "description": "Talos derived tokens JWT signing key URLs.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "talos_credentials_derived_tokens_macaroon_prefix_current": {
+            "description": "Talos derived tokens macaroon prefix (current).",
+            "type": "string"
+          },
+          "talos_credentials_derived_tokens_macaroon_prefix_retired": {
+            "description": "Talos derived tokens macaroon prefix (retired).\n\nPreviously active macaroon prefixes kept for verification of outstanding tokens.\nThe first element of this list was the most recently retired active prefix.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "talos_credentials_issuer": {
+            "description": "Talos credentials issuer URL.",
+            "type": "string"
+          },
+          "talos_credentials_issuer_retired": {
+            "description": "Talos credentials retired issuer URLs.\n\nPreviously active issuer URLs kept for verification of outstanding tokens.\nTokens signed with these issuers remain valid; new tokens use the current issuer.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "talos_rate_limit_enabled": {
+            "description": "Talos rate limit enabled.\n\nWhen true, server-side rate limiting is enforced for API key verifications.",
+            "type": "boolean"
+          },
+          "talos_secrets_hmac_current": {
+            "description": "TalosSecretsHMACCurrent stores the current HMAC symmetric key as a\nplain secret string. Application-layer encryption is handled upstream;\nSanitizeModel (MarshalJSON) redacts this field from API responses.",
+            "type": "string"
+          },
+          "talos_secrets_hmac_retired": {
+            "description": "TalosSecretsHMACRetired stores previously active HMAC symmetric keys as\na JSON array of plain secret strings. Application-layer encryption is\nhandled upstream; SanitizeModel (MarshalJSON) redacts this field from\nAPI responses. The verifier tries all retired secrets when the current\nkey does not produce a matching HMAC.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           },
           "updated_at": {
             "description": "Last Time Project's Revision was Updated",
@@ -2203,7 +2319,7 @@
         },
         "type": "object"
       },
-      "ImportAPIKeyRequest": {
+      "ImportApiKeyRequest": {
         "description": "Example:\n  {\n    \"raw_key\": \"sk_live_abc123xyz789\",\n    \"name\": \"Stripe Production Key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"stripe\", \"environment\": \"production\"}\n  }",
         "properties": {
           "actor_id": {
@@ -2247,11 +2363,11 @@
             "$ref": "#/components/schemas/KeyVisibility"
           }
         },
-        "title": "ImportAPIKeyRequest imports an external HMAC-based API key",
+        "title": "ImportApiKeyRequest imports an external HMAC-based API key",
         "type": "object"
       },
-      "ImportedAPIKey": {
-        "description": "ImportedAPIKey represents an API key imported from an external system.\nThe raw key is hashed (SHA-512/256) and stored. The original key is never retained.",
+      "ImportedApiKey": {
+        "description": "ImportedApiKey represents an API key imported from an external system.\nThe raw key is hashed (SHA-512/256) and stored. The original key is never retained.",
         "properties": {
           "actor_id": {
             "type": "string"
@@ -2386,7 +2502,7 @@
         },
         "type": "array"
       },
-      "IssueAPIKeyRequest": {
+      "IssueApiKeyRequest": {
         "properties": {
           "actor_id": {
             "type": "string"
@@ -2424,10 +2540,10 @@
         },
         "type": "object"
       },
-      "IssueAPIKeyResponse": {
+      "IssueApiKeyResponse": {
         "properties": {
           "issued_api_key": {
-            "$ref": "#/components/schemas/IssuedAPIKey"
+            "$ref": "#/components/schemas/IssuedApiKey"
           },
           "secret": {
             "title": "Only returned on creation",
@@ -2436,8 +2552,8 @@
         },
         "type": "object"
       },
-      "IssuedAPIKey": {
-        "description": "IssuedAPIKey represents an API key issued (generated) by Talos.\nRoot keys are opaque v1 format tokens stored in the database.\nDerived tokens (JWT/Macaroon) are created via DeriveToken and are stateless (not stored).",
+      "IssuedApiKey": {
+        "description": "IssuedApiKey represents an API key issued (generated) by Talos.\nRoot keys are opaque v1 format tokens stored in the database.\nDerived tokens (JWT/Macaroon) are created via DeriveToken and are stateless (not stored).",
         "properties": {
           "actor_id": {
             "type": "string"
@@ -2570,11 +2686,11 @@
         },
         "type": "object"
       },
-      "ListImportedAPIKeysResponse": {
+      "ListImportedApiKeysResponse": {
         "properties": {
           "imported_api_keys": {
             "items": {
-              "$ref": "#/components/schemas/ImportedAPIKey"
+              "$ref": "#/components/schemas/ImportedApiKey"
             },
             "title": "List of imported keys",
             "type": "array"
@@ -2584,14 +2700,14 @@
             "type": "string"
           }
         },
-        "title": "ListImportedAPIKeysResponse returns paginated list of imported keys",
+        "title": "ListImportedApiKeysResponse returns paginated list of imported keys",
         "type": "object"
       },
-      "ListIssuedAPIKeysResponse": {
+      "ListIssuedApiKeysResponse": {
         "properties": {
           "issued_api_keys": {
             "items": {
-              "$ref": "#/components/schemas/IssuedAPIKey"
+              "$ref": "#/components/schemas/IssuedApiKey"
             },
             "type": "array"
           },
@@ -2979,7 +3095,7 @@
       },
       "RevocationReason": {
         "default": "REVOCATION_REASON_UNSPECIFIED",
-        "description": "RevocationReason provides structured revocation reasons inspired by RFC 5280.\nUsed in both admin and self-revocation flows.\n\n - REVOCATION_REASON_UNSPECIFIED: Default zero value. Use a specific reason; UNSPECIFIED is rejected by\nadmin and self-revocation endpoints.\n - REVOCATION_REASON_KEY_COMPROMISE: The key was leaked or believed to be in the hands of an unauthorized\nparty.\n - REVOCATION_REASON_AFFILIATION_CHANGED: The owning actor's relationship with the issuer changed (e.g., role\nchange, departure).\n - REVOCATION_REASON_SUPERSEDED: A new key has replaced this one as part of a rotation.\n - REVOCATION_REASON_PRIVILEGE_WITHDRAWN: Admin-only. The actor's privilege to use this key was withdrawn by\nan operator. Self-revocation requests using this reason are rejected\nwith InvalidArgument. Pair with `description` on RevokeAPIKeyRequest\nto record the operator-supplied justification.",
+        "description": "RevocationReason provides structured revocation reasons inspired by RFC 5280.\nUsed in both admin and self-revocation flows.\n\n - REVOCATION_REASON_UNSPECIFIED: Default zero value. Use a specific reason; UNSPECIFIED is rejected by\nadmin and self-revocation endpoints.\n - REVOCATION_REASON_KEY_COMPROMISE: The key was leaked or believed to be in the hands of an unauthorized\nparty.\n - REVOCATION_REASON_AFFILIATION_CHANGED: The owning actor's relationship with the issuer changed (e.g., role\nchange, departure).\n - REVOCATION_REASON_SUPERSEDED: A new key has replaced this one as part of a rotation.\n - REVOCATION_REASON_PRIVILEGE_WITHDRAWN: Admin-only. The actor's privilege to use this key was withdrawn by\nan operator. Self-revocation requests using this reason are rejected\nwith InvalidArgument. Pair with `description` on the admin revoke requests\nto record the operator-supplied justification.",
         "enum": [
           "REVOCATION_REASON_UNSPECIFIED",
           "REVOCATION_REASON_KEY_COMPROMISE",
@@ -2989,13 +3105,13 @@
         ],
         "type": "string"
       },
-      "RotateIssuedAPIKeyResponse": {
+      "RotateIssuedApiKeyResponse": {
         "properties": {
           "issued_api_key": {
-            "$ref": "#/components/schemas/IssuedAPIKey"
+            "$ref": "#/components/schemas/IssuedApiKey"
           },
           "old_issued_api_key": {
-            "$ref": "#/components/schemas/IssuedAPIKey"
+            "$ref": "#/components/schemas/IssuedApiKey"
           },
           "secret": {
             "title": "secret is the new API key secret (only returned once, never retrievable again)",
@@ -3004,8 +3120,8 @@
         },
         "type": "object"
       },
-      "SelfRevokeAPIKeyRequest": {
-        "description": "SelfRevokeAPIKeyRequest allows an API key holder to revoke their own key\nby providing the full key secret as proof of possession.",
+      "SelfRevokeApiKeyRequest": {
+        "description": "SelfRevokeApiKeyRequest allows an API key holder to revoke their own key\nby providing the full key secret as proof of possession.",
         "properties": {
           "credential": {
             "title": "Full API key secret or imported key (REQUIRED)",
@@ -3017,8 +3133,8 @@
         },
         "type": "object"
       },
-      "SelfRevokeAPIKeyResponse": {
-        "description": "SelfRevokeAPIKeyResponse is returned on successful self-revocation.\n\nEmpty on success",
+      "SelfRevokeApiKeyResponse": {
+        "description": "SelfRevokeApiKeyResponse is returned on successful self-revocation.\n\nEmpty on success",
         "type": "object"
       },
       "SessionActivityDatapoint": {
@@ -3217,7 +3333,7 @@
         "title": "VerificationErrorCode provides type-safe error codes for verification failures",
         "type": "string"
       },
-      "VerifyAPIKeyRequest": {
+      "VerifyApiKeyRequest": {
         "properties": {
           "credential": {
             "title": "API key or derived token (any format: sk_*, JWT, macaroon)",
@@ -3226,7 +3342,7 @@
         },
         "type": "object"
       },
-      "VerifyAPIKeyResponse": {
+      "VerifyApiKeyResponse": {
         "properties": {
           "actor_id": {
             "type": "string"
@@ -7077,7 +7193,7 @@
             "default": "720h",
             "description": "Configures what the maximum age of a JWT assertion used in the JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants (RFC7523) can be.\n\nThis feature uses the `exp` claim and `iat` claim to calculate assertion age. Assertions exceeding the max age will be denied.\n\nUseful as a safety measure and recommended to keep below 720h.\n\nThis governs the \"oauth2.grant.jwt.max_ttl\" setting.",
             "example": "30m",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_oauth2_grant_refresh_token_rotation_grace_period": {
@@ -7193,28 +7309,28 @@
             "default": "30m",
             "description": "This governs the \"ttl.access_token\" setting.",
             "example": "1h",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_auth_code": {
             "default": "720h",
             "description": "Configures how long refresh tokens are valid.\n\nSet to -1 for refresh tokens to never expire. This is not recommended!\n\nThis governs the \"ttl.auth_code\" setting.",
             "example": "30m",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_id_token": {
             "default": "30m",
             "description": "This governs the \"ttl.id_token\" setting.",
             "example": "1h",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_login_consent_request": {
             "default": "30m",
             "description": "Configures how long a user login and consent flow may take.\n\nThis governs the \"ttl.login_consent_request\" setting.",
             "example": "1h",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_refresh_token": {
@@ -7877,6 +7993,10 @@
             "description": "This setting allows the code method to always login a user with code if they have registered with another authentication method such as password or social sign in.\n\nThis governs the \"selfservice.methods.code.passwordless_login_fallback_enabled\" setting.",
             "type": "boolean"
           },
+          "kratos_selfservice_methods_deviceauthn_enabled": {
+            "description": "Configures whether Ory Kratos Device authentication is enabled\n\nThis governs the \"selfservice.methods.deviceauthn.enabled\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_link_config_base_url": {
             "description": "Configures the Base URL which Recovery, Verification, and Login Links Point to\n\nIt is recommended to leave this value empty. It will be appropriately configured to the best matching domain\n(e.g. when using custom domains) automatically.\n\nThis governs the \"selfservice.methods.link.config.base_url\" setting.",
             "type": "string"
@@ -8061,6 +8181,104 @@
           "strict_security": {
             "description": "Whether the project should employ strict security measures. Setting this to true is recommended for going into production.",
             "type": "boolean"
+          },
+          "talos_cache_enabled": {
+            "description": "Talos cache enabled.\n\nWhen true, API key verification results are cached. Revoked keys may be\naccepted until the cached entry expires. When false, every verification\nreads the database and revocations take effect immediately.",
+            "type": "boolean"
+          },
+          "talos_cache_ttl": {
+            "description": "Talos cache TTL controls how long API key verification results are cached.",
+            "example": "5m",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "type": "string"
+          },
+          "talos_credentials_api_keys_default_ttl": {
+            "description": "Talos API keys default TTL.",
+            "example": "1h",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "type": "string"
+          },
+          "talos_credentials_api_keys_max_ttl": {
+            "description": "Talos API keys max TTL.",
+            "example": "24h",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "type": "string"
+          },
+          "talos_credentials_api_keys_prefix_current": {
+            "description": "Talos API keys prefix (current).",
+            "type": "string"
+          },
+          "talos_credentials_api_keys_prefix_public_current": {
+            "description": "Talos API keys public prefix (current).",
+            "type": "string"
+          },
+          "talos_credentials_api_keys_prefix_public_retired": {
+            "description": "Talos API keys public prefix (retired).\n\nPreviously active public API key prefixes kept for verification of outstanding tokens.\nThe first element of this list was the most recently retired active prefix.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "talos_credentials_api_keys_prefix_retired": {
+            "description": "Talos API keys prefix (retired).\n\nPreviously active API key prefixes kept for verification of outstanding tokens.\nThe first element of this list was the most recently retired active prefix.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "talos_credentials_derived_tokens_default_ttl": {
+            "description": "Talos derived tokens default TTL (applies to both JWT and macaroon tokens).",
+            "example": "1h",
+            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "type": "string"
+          },
+          "talos_credentials_derived_tokens_jwt_signing_key_id": {
+            "description": "Talos derived tokens JWT signing key ID (kid).",
+            "type": "string"
+          },
+          "talos_credentials_derived_tokens_jwt_signing_keys_urls": {
+            "description": "Talos derived tokens JWT signing key URLs.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "talos_credentials_derived_tokens_macaroon_prefix_current": {
+            "description": "Talos derived tokens macaroon prefix (current).",
+            "type": "string"
+          },
+          "talos_credentials_derived_tokens_macaroon_prefix_retired": {
+            "description": "Talos derived tokens macaroon prefix (retired).\n\nPreviously active macaroon prefixes kept for verification of outstanding tokens.\nThe first element of this list was the most recently retired active prefix.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "talos_credentials_issuer": {
+            "description": "Talos credentials issuer URL.",
+            "type": "string"
+          },
+          "talos_credentials_issuer_retired": {
+            "description": "Talos credentials retired issuer URLs.\n\nPreviously active issuer URLs kept for verification of outstanding tokens.\nTokens signed with these issuers remain valid; new tokens use the current issuer.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "talos_rate_limit_enabled": {
+            "description": "Talos rate limit enabled.\n\nWhen true, server-side rate limiting is enforced for API key verifications.",
+            "type": "boolean"
+          },
+          "talos_secrets_hmac_current": {
+            "description": "TalosSecretsHMACCurrent stores the current HMAC symmetric key as a\nplain secret string. Application-layer encryption is handled upstream;\nSanitizeModel (MarshalJSON) redacts this field from API responses.",
+            "type": "string"
+          },
+          "talos_secrets_hmac_retired": {
+            "description": "TalosSecretsHMACRetired stores previously active HMAC symmetric keys as\na JSON array of plain secret strings. Application-layer encryption is\nhandled upstream; SanitizeModel (MarshalJSON) redacts this field from\nAPI responses. The verifier tries all retired secrets when the current\nkey does not produce a matching HMAC.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           },
           "updated_at": {
             "description": "Last Time Project's Revision was Updated",
@@ -10542,6 +10760,15 @@
         "required": ["config"],
         "type": "object"
       },
+      "projectServiceTalos": {
+        "properties": {
+          "config": {
+            "type": "object"
+          }
+        },
+        "required": ["config"],
+        "type": "object"
+      },
       "projectServices": {
         "properties": {
           "account_experience": {
@@ -10555,6 +10782,9 @@
           },
           "permission": {
             "$ref": "#/components/schemas/projectServicePermission"
+          },
+          "talos": {
+            "$ref": "#/components/schemas/projectServiceTalos"
           }
         },
         "type": "object"
@@ -10569,7 +10799,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\nunassigned_rate_limit_tier RateLimitTierUnassigned",
+            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ntalos_api_keys TalosAPIKeys\ntalos_rate_limit TalosRateLimit\ntalos_cache TalosCache\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\ndeviceauthn Deviceauthn\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\ntalos_admin_high_rate_limit_tier RateLimitTierTalosAdminHigh\ntalos_admin_medium_rate_limit_tier RateLimitTierTalosAdminMedium\ntalos_admin_low_rate_limit_tier RateLimitTierTalosAdminLow\ntalos_public_high_rate_limit_tier RateLimitTierTalosPublicHigh\ntalos_public_low_rate_limit_tier RateLimitTierTalosPublicLow\nunassigned_rate_limit_tier RateLimitTierUnassigned",
             "enum": [
               "production_projects",
               "staging_projects",
@@ -10607,8 +10837,12 @@
               "default_smtp_email_customization",
               "onboarding_portal",
               "console_organization_sso",
+              "talos_api_keys",
+              "talos_rate_limit",
+              "talos_cache",
               "graceful_refresh_token_count",
               "hydra_token_prefix",
+              "deviceauthn",
               "update_self_service_registration_rate_limit_tier",
               "update_self_service_recovery_rate_limit_tier",
               "update_self_service_settings_rate_limit_tier",
@@ -10641,10 +10875,15 @@
               "kratos_public_low_rate_limit_tier",
               "polis_public_high_rate_limit_tier",
               "polis_public_medium_rate_limit_tier",
+              "talos_admin_high_rate_limit_tier",
+              "talos_admin_medium_rate_limit_tier",
+              "talos_admin_low_rate_limit_tier",
+              "talos_public_high_rate_limit_tier",
+              "talos_public_low_rate_limit_tier",
               "unassigned_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\nunassigned_rate_limit_tier RateLimitTierUnassigned"
+            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ntalos_api_keys TalosAPIKeys\ntalos_rate_limit TalosRateLimit\ntalos_cache TalosCache\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\ndeviceauthn Deviceauthn\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\ntalos_admin_high_rate_limit_tier RateLimitTierTalosAdminHigh\ntalos_admin_medium_rate_limit_tier RateLimitTierTalosAdminMedium\ntalos_admin_low_rate_limit_tier RateLimitTierTalosAdminLow\ntalos_public_high_rate_limit_tier RateLimitTierTalosPublicHigh\ntalos_public_low_rate_limit_tier RateLimitTierTalosPublicLow\nunassigned_rate_limit_tier RateLimitTierUnassigned"
           },
           "feature_available": {
             "type": "boolean"
@@ -11026,6 +11265,18 @@
           "$ref": "#/components/schemas/NormalizedProjectRevisionCourierChannel"
         },
         "type": "array"
+      },
+      "rotateTalosKeyBody": {
+        "description": "Rotate Talos key request body",
+        "properties": {
+          "mode": {
+            "default": "graceful",
+            "description": "Rotation mode. Use \"graceful\" to keep the old key for verification of\nexisting tokens, or \"revoke\" to discard it immediately.",
+            "enum": ["graceful", "revoke"],
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "schemaPatch": {
         "properties": {
@@ -23227,65 +23478,10 @@
         "x-ory-ratelimit-bucket": "hydra-public-medium"
       }
     },
-    "/v2alpha1/admin/apiKeys/{key_id}:revoke": {
-      "post": {
-        "description": "Immediately revokes an API key (issued or imported). Once revoked, the key\ncan no longer be used for authentication. This operation is irreversible.\nRevoked keys are retained for audit purposes.\n\n```http\nPOST /v2alpha1/admin/apiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ:revoke\n{\n  \"reason\": \"REVOCATION_REASON_KEY_COMPROMISE\"\n}\n```",
-        "operationId": "AdminRevokeAPIKey",
-        "parameters": [
-          {
-            "description": "Identifier of the API key resource.",
-            "in": "path",
-            "name": "key_id",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AdminRevokeAPIKeyBody"
-              }
-            }
-          },
-          "required": true,
-          "x-originalParamName": "body"
-        },
-        "responses": {
-          "204": {
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            },
-            "description": "API key revoked successfully."
-          },
-          "default": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Status"
-                }
-              }
-            },
-            "description": "An unexpected error response."
-          }
-        },
-        "security": [
-          {
-            "oryAccessToken": []
-          }
-        ],
-        "summary": "Revoke API Key",
-        "tags": ["APIKeys"]
-      }
-    },
     "/v2alpha1/admin/apiKeys:batchVerify": {
       "post": {
         "description": "Verifies multiple credentials in a single request. Efficiently verifies up\nto 100 credentials in parallel. Each credential is verified independently;\npartial failures are returned. Admin access only.\n\nCache Control (HTTP Headers):\n  - Cache-Control: no-cache  - Bypasses cache read, forces fresh DB lookup\n  - Cache-Control: no-store  - Bypasses cache read AND write (never cached)\n  - Pragma: no-cache         - Same as Cache-Control: no-cache (HTTP/1.0)\n\nThe cache directive applies to every credential in the batch.\n\n```http\nPOST /v2alpha1/admin/apiKeys:batchVerify\n{\n  \"requests\": [\n    {\"credential\": \"sk_live_abc123...\"},\n    {\"credential\": \"eyJhbGciOiJFZERTQSI...\"}\n  ]\n}\n```",
-        "operationId": "AdminBatchVerifyAPIKeys",
+        "operationId": "adminBatchVerifyApiKeys",
         "parameters": [
           {
             "description": "Cache-directive controlling the verifier cache. `no-cache` forces a fresh database lookup (cache read is bypassed). `no-store` additionally prevents the result from being written to the cache. Any other value is ignored.",
@@ -23308,7 +23504,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BatchVerifyAPIKeysRequest"
+                "$ref": "#/components/schemas/BatchVerifyApiKeysRequest"
               }
             }
           },
@@ -23320,7 +23516,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BatchVerifyAPIKeysResponse"
+                  "$ref": "#/components/schemas/BatchVerifyApiKeysResponse"
                 }
               }
             },
@@ -23343,13 +23539,13 @@
           }
         ],
         "summary": "Batch Verify API Keys",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       }
     },
     "/v2alpha1/admin/apiKeys:derive": {
       "post": {
         "description": "Mints a short-lived JWT or Macaroon token from an API key. Works with both\nissued and imported keys. The derived token inherits the permissions of the\nparent API key.\n\n```http\nPOST /v2alpha1/admin/apiKeys:derive\n{\n  \"credential\": \"eyJhbGciOiJFZERTQSI...\",\n  \"ttl\": \"1h\"\n}\n```",
-        "operationId": "AdminDeriveToken",
+        "operationId": "adminDeriveToken",
         "requestBody": {
           "content": {
             "application/json": {
@@ -23389,13 +23585,13 @@
           }
         ],
         "summary": "Derive Token",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       }
     },
     "/v2alpha1/admin/apiKeys:verify": {
       "post": {
         "description": "Verifies a single API key or derived token. Validates the credential's\nsignature, expiration, and revocation status. Works with any credential\ntype (issued keys, imported keys, JWT, macaroon). The verification result\nincludes decoded claims and metadata — admin access only.\n\nCache Control (HTTP Headers):\n  - Cache-Control: no-cache  - Bypasses cache read, forces fresh DB lookup\n  - Cache-Control: no-store  - Bypasses cache read AND write (never cached)\n  - Pragma: no-cache         - Same as Cache-Control: no-cache (HTTP/1.0)\n\n```http\nPOST /v2alpha1/admin/apiKeys:verify\n{\n  \"credential\": \"sk_live_abc123...\"\n}\n```",
-        "operationId": "AdminVerifyAPIKey",
+        "operationId": "adminVerifyApiKey",
         "parameters": [
           {
             "description": "Cache-directive controlling the verifier cache. `no-cache` forces a fresh database lookup (cache read is bypassed). `no-store` additionally prevents the result from being written to the cache. Any other value is ignored.",
@@ -23418,7 +23614,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VerifyAPIKeyRequest"
+                "$ref": "#/components/schemas/VerifyApiKeyRequest"
               }
             }
           },
@@ -23430,7 +23626,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/VerifyAPIKeyResponse"
+                  "$ref": "#/components/schemas/VerifyApiKeyResponse"
                 }
               }
             },
@@ -23453,13 +23649,13 @@
           }
         ],
         "summary": "Verify API Key",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       }
     },
     "/v2alpha1/admin/importedApiKeys": {
       "get": {
         "description": "Lists all imported keys with filtering. Returns imported keys only (not\nissued keys). Supports pagination and AIP-160 filter expressions.\n\n```http\nGET /v2alpha1/admin/importedApiKeys?page_size=50\u0026filter=status%3DKEY_STATUS_ACTIVE\n```",
-        "operationId": "AdminListImportedAPIKeys",
+        "operationId": "adminListImportedApiKeys",
         "parameters": [
           {
             "description": "Number of items per page (default: 50, max: 1000)",
@@ -23492,7 +23688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ListImportedAPIKeysResponse"
+                  "$ref": "#/components/schemas/ListImportedApiKeysResponse"
                 }
               }
             },
@@ -23515,16 +23711,16 @@
           }
         ],
         "summary": "List Imported API Keys",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       },
       "post": {
         "description": "Imports an external API key into the system. Allows importing keys from\nlegacy systems or external providers. The raw key is hashed and stored\nsecurely (HMAC). Imported keys support token derivation (JWT/Macaroon)\nlike issued keys.\n\n```http\nPOST /v2alpha1/admin/importedApiKeys\n{\n  \"raw_key\": \"sk_live_abc123xyz\",\n  \"name\": \"Imported Stripe Key\",\n  \"actor_id\": \"user_123\"\n}\n```",
-        "operationId": "AdminImportAPIKey",
+        "operationId": "adminImportApiKey",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ImportAPIKeyRequest"
+                "$ref": "#/components/schemas/ImportApiKeyRequest"
               }
             }
           },
@@ -23537,7 +23733,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ImportedAPIKey"
+                  "$ref": "#/components/schemas/ImportedApiKey"
                 }
               }
             },
@@ -23560,13 +23756,13 @@
           }
         ],
         "summary": "Import API Key",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       }
     },
     "/v2alpha1/admin/importedApiKeys/{key_id}": {
       "delete": {
-        "description": "Permanently deletes an imported key (hard delete). The key is removed from\nthe database. Use RevokeAPIKey for soft deletion (recommended).\n\n```http\nDELETE /v2alpha1/admin/importedApiKeys/{key_id}\n```",
-        "operationId": "AdminDeleteImportedAPIKey",
+        "description": "Permanently deletes an imported key (hard delete). The key is removed from\nthe database. Use AdminRevokeImportedApiKey for soft deletion (recommended).\n\n```http\nDELETE /v2alpha1/admin/importedApiKeys/{key_id}\n```",
+        "operationId": "adminDeleteImportedApiKey",
         "parameters": [
           {
             "description": "SHA512/256 hash of the imported key (REQUIRED)",
@@ -23604,11 +23800,11 @@
           }
         ],
         "summary": "Delete Imported API Key",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       },
       "get": {
         "description": "Retrieves details about a specific imported key. Returns metadata about\nthe imported key. The original raw key is never returned.\n\n```http\nGET /v2alpha1/admin/importedApiKeys/{key_id}\n```",
-        "operationId": "AdminGetImportedAPIKey",
+        "operationId": "adminGetImportedApiKey",
         "parameters": [
           {
             "description": "SHA512/256 hash of the imported key (REQUIRED)",
@@ -23625,7 +23821,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ImportedAPIKey"
+                  "$ref": "#/components/schemas/ImportedApiKey"
                 }
               }
             },
@@ -23648,11 +23844,11 @@
           }
         ],
         "summary": "Get Imported API Key",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       },
       "patch": {
         "description": "Updates metadata, scopes, or rate limits of an imported key. Supports\npartial updates via the update_mask query parameter (AIP-134). Omitting\nupdate_mask is equivalent to a mask of every populated field in the body.\nTo clear a field to its zero value, list it explicitly in update_mask and\nleave it unset (or empty) in the body.\n\n```http\nPATCH /v2alpha1/admin/importedApiKeys/{key_id}?update_mask=name\n{\n  \"imported_api_key\": {\n    \"key_id\": \"{key_id}\",\n    \"name\": \"New name\"\n  }\n}\n```",
-        "operationId": "AdminUpdateImportedAPIKey",
+        "operationId": "adminUpdateImportedApiKey",
         "parameters": [
           {
             "description": "SHA-512/256 hash of credential",
@@ -23676,7 +23872,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "description": "ImportedAPIKey represents an API key imported from an external system.\nThe raw key is hashed (SHA-512/256) and stored. The original key is never retained.",
+                "description": "ImportedApiKey represents an API key imported from an external system.\nThe raw key is hashed (SHA-512/256) and stored. The original key is never retained.",
                 "properties": {
                   "actor_id": {
                     "type": "string"
@@ -23742,7 +23938,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ImportedAPIKey"
+                  "$ref": "#/components/schemas/ImportedApiKey"
                 }
               }
             },
@@ -23765,22 +23961,77 @@
           }
         ],
         "summary": "Update Imported API Key",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       }
     },
-    "/v2alpha1/admin/importedApiKeys:batchImport": {
+    "/v2alpha1/admin/importedApiKeys/{key_id}:revoke": {
       "post": {
-        "description": "Imports up to 1000 external API keys in one request. Returns per-item\nresults. If at least one item succeeds, response is 200 OK. If all items\nfail, the endpoint returns a non-200 error.\n\n```http\nPOST /v2alpha1/admin/importedApiKeys:batchImport\n{\n  \"requests\": [\n    {\"raw_key\": \"sk_live_abc\", \"name\": \"Stripe key\", \"actor_id\": \"user_1\"},\n    {\"raw_key\": \"ghp_xyz\", \"name\": \"GitHub PAT\", \"actor_id\": \"user_2\"}\n  ]\n}\n```",
-        "operationId": "AdminBatchImportAPIKeys",
+        "description": "Immediately revokes an imported API key. Once revoked, the key can no longer\nbe used for authentication. This operation is irreversible. Revoked keys\nare retained for audit purposes.\n\n```http\nPOST /v2alpha1/admin/importedApiKeys/9a3f051b2c7e8d4f1a6b9c0e5f2d8a3b:revoke\n{\n  \"reason\": \"REVOCATION_REASON_KEY_COMPROMISE\"\n}\n```",
+        "operationId": "adminRevokeImportedApiKey",
+        "parameters": [
+          {
+            "description": "SHA-512/256 hash of the imported key (REQUIRED)",
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/BatchImportAPIKeysRequest"
+                "$ref": "#/components/schemas/AdminRevokeImportedApiKeyBody"
               }
             }
           },
-          "description": "BatchImportAPIKeysRequest imports multiple external API keys in one request.\nThe maximum batch size is 1000 keys.",
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "API key revoked successfully."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Revoke Imported API Key",
+        "tags": ["ApiKeys"]
+      }
+    },
+    "/v2alpha1/admin/importedApiKeys:batchCreate": {
+      "post": {
+        "description": "Imports up to 1000 external API keys in one request. Returns per-item\nresults. If at least one item succeeds, response is 200 OK. If all items\nfail, the endpoint returns a non-200 error.\n\n```http\nPOST /v2alpha1/admin/importedApiKeys:batchCreate\n{\n  \"requests\": [\n    {\"raw_key\": \"sk_live_abc\", \"name\": \"Stripe key\", \"actor_id\": \"user_1\"},\n    {\"raw_key\": \"ghp_xyz\", \"name\": \"GitHub PAT\", \"actor_id\": \"user_2\"}\n  ]\n}\n```",
+        "operationId": "adminBatchCreateImportedApiKeys",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCreateImportedApiKeysRequest"
+              }
+            }
+          },
+          "description": "BatchCreateImportedApiKeysRequest imports multiple external API keys in one request.\nThe maximum batch size is 1000 keys.",
           "required": true,
           "x-originalParamName": "body"
         },
@@ -23789,7 +24040,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BatchImportAPIKeysResponse"
+                  "$ref": "#/components/schemas/BatchCreateImportedApiKeysResponse"
                 }
               }
             },
@@ -23812,13 +24063,13 @@
           }
         ],
         "summary": "Batch Import API Keys",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       }
     },
     "/v2alpha1/admin/issuedApiKeys": {
       "get": {
-        "description": "Lists issued API keys with optional filtering. Supports cursor-based\npagination and AIP-160 filter expressions. Returns only issued\n(generated) API keys; use ListImportedAPIKeys for imported keys.\n\n```http\nGET /v2alpha1/admin/issuedApiKeys?page_size=50\u0026filter=actor_id%3D%22user_123%22\n```",
-        "operationId": "AdminListIssuedAPIKeys",
+        "description": "Lists issued API keys with optional filtering. Supports cursor-based\npagination and AIP-160 filter expressions. Returns only issued\n(generated) API keys; use ListImportedApiKeys for imported keys.\n\n```http\nGET /v2alpha1/admin/issuedApiKeys?page_size=50\u0026filter=actor_id%3D%22user_123%22\n```",
+        "operationId": "adminListIssuedApiKeys",
         "parameters": [
           {
             "description": "Number of items per page (default: 50, max: 1000)",
@@ -23851,7 +24102,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ListIssuedAPIKeysResponse"
+                  "$ref": "#/components/schemas/ListIssuedApiKeysResponse"
                 }
               }
             },
@@ -23874,16 +24125,16 @@
           }
         ],
         "summary": "List Issued API Keys",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       },
       "post": {
         "description": "Creates a new API key for a given actor. The secret is returned only once\nin the response and cannot be retrieved later. Keys can be scoped with\nspecific permissions and have optional expiration.\n\n```http\nPOST /v2alpha1/admin/issuedApiKeys\n{\n  \"name\": \"production-service\",\n  \"actor_id\": \"user_123\",\n  \"scopes\": [\"read\", \"write\"],\n  \"ttl\": \"8760h\"\n}\n```",
-        "operationId": "AdminIssueAPIKey",
+        "operationId": "adminIssueApiKey",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IssueAPIKeyRequest"
+                "$ref": "#/components/schemas/IssueApiKeyRequest"
               }
             }
           },
@@ -23895,7 +24146,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IssueAPIKeyResponse"
+                  "$ref": "#/components/schemas/IssueApiKeyResponse"
                 }
               }
             },
@@ -23918,13 +24169,13 @@
           }
         ],
         "summary": "Issue API Key",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       }
     },
     "/v2alpha1/admin/issuedApiKeys/{key_id}": {
       "get": {
         "description": "Retrieves details about a specific issued API key including its status,\nscopes, expiration, and usage statistics. The secret is never returned.\n\n```http\nGET /v2alpha1/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ\n```",
-        "operationId": "AdminGetIssuedAPIKey",
+        "operationId": "adminGetIssuedApiKey",
         "parameters": [
           {
             "description": "Identifier of the API key resource.",
@@ -23941,7 +24192,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IssuedAPIKey"
+                  "$ref": "#/components/schemas/IssuedApiKey"
                 }
               }
             },
@@ -23964,11 +24215,11 @@
           }
         ],
         "summary": "Get Issued API Key",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       },
       "patch": {
-        "description": "Updates metadata, scopes, or rate limits of an issued key without rotating\nthe secret. Use RotateIssuedAPIKey to change the secret.\n\nFollows AIP-134: the request body is the IssuedAPIKey resource itself,\nand the update_mask query parameter names the subset of fields to apply.\nOmitting update_mask is equivalent to a mask of every populated field\nin the body. To clear a field to its zero value, list it explicitly in\nupdate_mask and leave it unset (or empty) in the body.\n\n```http\nPATCH /v2alpha1/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ?update_mask=scopes\n{\n  \"issued_api_key\": {\n    \"key_id\": \"01HQZX9VYQKJB8XQZQXQZQXQXQ\",\n    \"scopes\": [\"read\"]\n  }\n}\n```",
-        "operationId": "AdminUpdateIssuedAPIKey",
+        "description": "Updates metadata, scopes, or rate limits of an issued key without rotating\nthe secret. Use RotateIssuedApiKey to change the secret.\n\nFollows AIP-134: the request body is the IssuedApiKey resource itself,\nand the update_mask query parameter names the subset of fields to apply.\nOmitting update_mask is equivalent to a mask of every populated field\nin the body. To clear a field to its zero value, list it explicitly in\nupdate_mask and leave it unset (or empty) in the body.\n\n```http\nPATCH /v2alpha1/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ?update_mask=scopes\n{\n  \"issued_api_key\": {\n    \"key_id\": \"01HQZX9VYQKJB8XQZQXQZQXQXQ\",\n    \"scopes\": [\"read\"]\n  }\n}\n```",
+        "operationId": "adminUpdateIssuedApiKey",
         "parameters": [
           {
             "description": "Identifier of the API key resource.",
@@ -23992,7 +24243,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "description": "IssuedAPIKey represents an API key issued (generated) by Talos.\nRoot keys are opaque v1 format tokens stored in the database.\nDerived tokens (JWT/Macaroon) are created via DeriveToken and are stateless (not stored).",
+                "description": "IssuedApiKey represents an API key issued (generated) by Talos.\nRoot keys are opaque v1 format tokens stored in the database.\nDerived tokens (JWT/Macaroon) are created via DeriveToken and are stateless (not stored).",
                 "properties": {
                   "actor_id": {
                     "type": "string"
@@ -24058,7 +24309,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IssuedAPIKey"
+                  "$ref": "#/components/schemas/IssuedApiKey"
                 }
               }
             },
@@ -24081,13 +24332,68 @@
           }
         ],
         "summary": "Update Issued API Key",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
+      }
+    },
+    "/v2alpha1/admin/issuedApiKeys/{key_id}:revoke": {
+      "post": {
+        "description": "Immediately revokes an issued API key. Once revoked, the key can no longer\nbe used for authentication. This operation is irreversible. Revoked keys\nare retained for audit purposes.\n\n```http\nPOST /v2alpha1/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ:revoke\n{\n  \"reason\": \"REVOCATION_REASON_KEY_COMPROMISE\"\n}\n```",
+        "operationId": "adminRevokeIssuedApiKey",
+        "parameters": [
+          {
+            "description": "UUID of the issued key (REQUIRED)",
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminRevokeIssuedApiKeyBody"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "API key revoked successfully."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Revoke Issued API Key",
+        "tags": ["ApiKeys"]
       }
     },
     "/v2alpha1/admin/issuedApiKeys/{key_id}:rotate": {
       "post": {
-        "description": "Generates a new secret for an issued API key. Creates a new API key with a\nnew key_id and secret, and immediately revokes the old key. This is the\nrecommended way to update scopes, metadata, or rotate credentials.\n\nFor zero-downtime rotation, use this workflow instead:\n  1. IssueAPIKey with new credentials\n  2. Deploy new secret to all services\n  3. Verify new secret works everywhere\n  4. RevokeAPIKey to remove the old key\n\n```http\nPOST /v2alpha1/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ:rotate\n{\n  \"scopes\": [\"read\"]\n}\n```",
-        "operationId": "AdminRotateIssuedAPIKey",
+        "description": "Generates a new secret for an issued API key. Creates a new API key with a\nnew key_id and secret, and immediately revokes the old key. This is the\nrecommended way to update scopes, metadata, or rotate credentials.\n\nFor zero-downtime rotation, use this workflow instead:\n  1. IssueApiKey with new credentials\n  2. Deploy new secret to all services\n  3. Verify new secret works everywhere\n  4. AdminRevokeIssuedApiKey to remove the old key\n\n```http\nPOST /v2alpha1/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ:rotate\n{\n  \"scopes\": [\"read\"]\n}\n```",
+        "operationId": "adminRotateIssuedApiKey",
         "parameters": [
           {
             "description": "key_id is the ID of the existing API key to rotate",
@@ -24103,7 +24409,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AdminRotateIssuedAPIKeyBody"
+                "$ref": "#/components/schemas/AdminRotateIssuedApiKeyBody"
               }
             }
           },
@@ -24115,7 +24421,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RotateIssuedAPIKeyResponse"
+                  "$ref": "#/components/schemas/RotateIssuedApiKeyResponse"
                 }
               }
             },
@@ -24138,22 +24444,22 @@
           }
         ],
         "summary": "Rotate Issued API Key",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       }
     },
     "/v2alpha1/apiKeys:selfRevoke": {
       "post": {
-        "description": "Proof-of-possession variant of revocation. Lives alongside `AdminRevokeAPIKey`\nin this service; the `Self*` prefix on the request/response messages\ndisambiguates from the admin variant's `RevokeAPIKeyRequest`.\n\nAllows an API key holder to revoke their own key. The caller must provide\nthe full API key secret as proof of possession. Supports issued API keys\nand imported keys. JWT and macaroon tokens cannot be self-revoked (they\nare stateless).\n\nThe PRIVILEGE_WITHDRAWN reason is not allowed for self-revocation\n(admin-only).\n\n```http\nPOST /v2alpha1/apiKeys:selfRevoke\n{\n  \"credential\": \"sk_live_abc123...\",\n  \"reason\": \"REVOCATION_REASON_KEY_COMPROMISE\"\n}\n```",
-        "operationId": "RevokeAPIKey",
+        "description": "Proof-of-possession variant of revocation. The `Self*` prefix on the\nrequest/response messages disambiguates from the admin variants\n(`AdminRevokeIssuedApiKey` / `AdminRevokeImportedApiKey`).\n\nAllows an API key holder to revoke their own key. The caller must provide\nthe full API key secret as proof of possession. Supports issued API keys\nand imported keys. JWT and macaroon tokens cannot be self-revoked (they\nare stateless).\n\nThe PRIVILEGE_WITHDRAWN reason is not allowed for self-revocation\n(admin-only).\n\n```http\nPOST /v2alpha1/apiKeys:selfRevoke\n{\n  \"credential\": \"sk_live_abc123...\",\n  \"reason\": \"REVOCATION_REASON_KEY_COMPROMISE\"\n}\n```",
+        "operationId": "revokeApiKey",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SelfRevokeAPIKeyRequest"
+                "$ref": "#/components/schemas/SelfRevokeApiKeyRequest"
               }
             }
           },
-          "description": "SelfRevokeAPIKeyRequest allows an API key holder to revoke their own key\nby providing the full key secret as proof of possession.",
+          "description": "SelfRevokeApiKeyRequest allows an API key holder to revoke their own key\nby providing the full key secret as proof of possession.",
           "required": true,
           "x-originalParamName": "body"
         },
@@ -24162,7 +24468,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SelfRevokeAPIKeyResponse"
+                  "$ref": "#/components/schemas/SelfRevokeApiKeyResponse"
                 }
               }
             },
@@ -24180,13 +24486,13 @@
           }
         },
         "summary": "Revoke API Key (self-service)",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       }
     },
     "/v2alpha1/derivedKeys/jwks.json": {
       "get": {
         "description": "Returns the JSON Web Key Set for token verification. Provides the public\nkeys needed to verify JWT tokens issued by this service. Keys are loaded\nfrom configuration (file://, https://, or base64:// URIs). Follows the\nJWKS standard (RFC 7517).\n\n```http\nGET /v2alpha1/derivedKeys/jwks.json\n```",
-        "operationId": "GetJWKS",
+        "operationId": "getJwks",
         "responses": {
           "200": {
             "content": {
@@ -24210,7 +24516,7 @@
           }
         },
         "summary": "Get JWKS",
-        "tags": ["APIKeys"]
+        "tags": ["ApiKeys"]
       }
     },
     "/version": {
