@@ -1,0 +1,20 @@
+---
+id: hubspot
+title: HubSpot integration with Ory
+sidebar_label: HubSpot
+---
+
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/actions/integrations/hubspot" />
+</head>
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="info" title="Primary documentation">
+This page is a short overview; HubSpot is integrated using Ory Actions webhooks. See
+[HubSpot integration with Ory Actions](../../actions/integrations/hubspot.mdx) for the full guide.
+</Admonition>
+```
+
+[HubSpot](https://hubspot.com) is a CRM, marketing, and sales platform. This integration syncs Ory identities to HubSpot CRM contacts via an Ory Action webhook — on registration or profile update, the handler creates the corresponding HubSpot contact, or PATCHes the existing one so the sync is idempotent.

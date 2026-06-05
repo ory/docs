@@ -1,0 +1,20 @@
+---
+id: segment
+title: Segment integration with Ory
+sidebar_label: Segment
+---
+
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/actions/integrations/segment" />
+</head>
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="info" title="Primary documentation">
+This page is a short overview; Segment is integrated using Ory Actions webhooks. See
+[Segment integration with Ory Actions](../../actions/integrations/segment.mdx) for the full guide.
+</Admonition>
+```
+
+Send `identify` and `track` calls to Segment when users register or log in via Ory. This integration uses Ory Actions post-registration and post-login webhooks to call Segment's HTTP Tracking API, so customer events flow into Segment and on to your connected destinations.
