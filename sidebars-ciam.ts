@@ -3,7 +3,7 @@ const ciamSidebar = [
   {
     type: "category",
     label: "CIAM",
-    items: ["solutions/solution_CIAM"],
+    items: ["solutions/solution-CIAM"],
   },
 ]
 
