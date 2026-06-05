@@ -1,0 +1,20 @@
+---
+id: auth0
+title: Sign in with Auth0
+sidebar_label: Auth0
+---
+
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/kratos/social-signin/auth0" />
+</head>
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="info" title="Primary documentation">
+Auth0 is configured as an upstream OIDC provider in the Ory Console or via the Ory CLI — no webhook code required. See
+[Add Auth0 as a social sign-in provider in Ory](../../kratos/social-signin/40_auth0.mdx) for the full guide.
+</Admonition>
+```
+
+Add an Auth0 tenant as an upstream OIDC provider in Ory Network. Useful for migrations from Auth0 to Ory (run them side-by-side, federate Auth0 users into Ory until the cutover) or for products that already issue identities through Auth0 and want to layer Ory's flows on top.

@@ -1,0 +1,20 @@
+---
+id: github
+title: Sign in with GitHub
+sidebar_label: GitHub
+---
+
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/kratos/social-signin/github" />
+</head>
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="info" title="Primary documentation">
+GitHub is configured as a social sign-in provider in the Ory Console or via the Ory CLI — no webhook code required. See
+[Add GitHub as a social sign-in provider in Ory](../../kratos/social-signin/25_github.mdx) for the full guide.
+</Admonition>
+```
+
+Add GitHub as a social sign-in provider in Ory Network. GitHub doesn't implement OIDC, so Ory uses its OAuth2 flow and calls GitHub's User API to populate the claims envelope. Ideal for developer tools, DevOps platforms, and anything where most users already have a GitHub account.
