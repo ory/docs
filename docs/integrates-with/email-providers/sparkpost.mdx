@@ -4,48 +4,24 @@ title: SparkPost email provider
 sidebar_label: SparkPost
 ---
 
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/kratos/emails-sms/sending-emails-smtp#sparkpost" />
+</head>
+
 ```mdx-code-block
 import Admonition from '@theme/Admonition'
 
-<Admonition type="note" title="Community-contributed integration">
-This integration is community-maintained. Reference:
-[ory/integrates/email-providers/sparkpost](https://github.com/ory/integrates/tree/main/email-providers/sparkpost).
+<Admonition type="info" title="Primary documentation">
+SparkPost SMTP configuration for Ory is documented at
+[Sending emails over SMTP](../../kratos/emails-sms/01_sending-emails-smtp.mdx#sparkpost).
+That page is the source of truth; this entry exists so SparkPost is
+discoverable alongside the other email-provider integrations.
 </Admonition>
 ```
 
-[SparkPost](https://www.sparkpost.com) (a Bird/MessageBird company) —
+[SparkPost](https://www.sparkpost.com) (a Bird/MessageBird company) is an
 enterprise-grade transactional email platform with per-region US / EU
 hosting.
 
-## Quick reference
-
-| Setting | Value |
-| --- | --- |
-| SMTP host (US) | `smtp.sparkpostmail.com` |
-| SMTP host (EU) | `smtp.eu.sparkpost.com` |
-| SMTP port | `587` (STARTTLS) |
-| SMTP login | literal string `SMTP_Injection` (correct for all customers) |
-| SMTP password | SparkPost API key |
-| REST API base (US) | `https://api.sparkpost.com/api/v1` |
-| REST API base (EU) | `https://api.eu.sparkpost.com/api/v1` |
-
-Connection URI:
-
-```
-smtps://SMTP_Injection:<api-key>@smtp.sparkpostmail.com:587
-```
-
-## Notable
-
-- SparkPost separates US and EU accounts — pick data residency before
-  integration; account migrations are not trivial.
-- API key needs the **Send via SMTP** permission for the SMTP path.
-- Stored templates are available via the API; not recommended for Ory
-  identity emails — Ory renders templates by default.
-
-## Resources
-
-- [SparkPost SMTP setup](https://developers.sparkpost.com/api/smtp/)
-- [SparkPost Transmissions API](https://developers.sparkpost.com/api/transmissions/)
-- [Ory email courier configuration](../../kratos/emails-sms/01_sending-emails-smtp.mdx)
-- Reference: [ory/integrates/email-providers/sparkpost](https://github.com/ory/integrates/tree/main/email-providers/sparkpost)
+See [Sending emails over SMTP](../../kratos/emails-sms/01_sending-emails-smtp.mdx#sparkpost)
+for the full configuration.

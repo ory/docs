@@ -4,58 +4,27 @@ title: Mailchimp Transactional (Mandrill)
 sidebar_label: Mailchimp Transactional
 ---
 
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/actions/integrations/mailchimp" />
+</head>
+
 ```mdx-code-block
 import Admonition from '@theme/Admonition'
 
 <Admonition type="info" title="Primary documentation">
-The canonical Ory–Mailchimp Transactional integration walkthrough
-lives at
-[Mailchimp integration with Ory Actions](../../actions/integrations/mailchimp.mdx).
-The page below is a supplementary quick-reference for the SMTP
-settings; if it disagrees with the primary doc, the primary doc wins.
-</Admonition>
-
-<Admonition type="note" title="Community-contributed integration">
-This integration is community-maintained. Reference:
-[ory/integrates/email-providers/mailchimp-transactional](https://github.com/ory/integrates/tree/main/email-providers/mailchimp-transactional).
+The canonical Ory–Mailchimp integration walkthrough lives at
+[Mailchimp integration with Ory Actions](../../actions/integrations/mailchimp.mdx),
+which covers the transactional product. That page is the source of
+truth; this entry exists so Mailchimp Transactional is discoverable
+alongside the other email-provider integrations.
 </Admonition>
 ```
 
 [Mailchimp Transactional](https://mailchimp.com/developer/transactional/)
-(formerly Mandrill) — paid add-on to Mailchimp for transactional email.
-Natural choice when Mailchimp marketing is already in place.
+(formerly Mandrill) is the paid transactional-email add-on to Mailchimp,
+a natural choice when Mailchimp marketing is already in place.
 
-Distinct from the Mailchimp marketing-audience integration documented
-under [actions/integrations/mailchimp](../../actions/integrations/mailchimp.mdx)
-— this one delivers transactional emails (verification, recovery,
-MFA); that one adds users to a Mailchimp list at registration.
-
-## Quick reference
-
-| Setting | Value |
-| --- | --- |
-| Host | `smtp.mandrillapp.com` |
-| Port | `587` (STARTTLS), `465` (TLS), or `2525` |
-| Username | Any string (`apikey` is conventional — Mandrill ignores it but it must be present) |
-| Password | Mandrill API key |
-
-Connection URI:
-
-```
-smtps://apikey:{$MD_API_KEY}@smtp.mandrillapp.com:465
-```
-
-## Notable
-
-- Mandrill is a **paid add-on** to Mailchimp requiring a transactional
-  email block purchase.
-- Domain verification (SPF `include:spf.mandrillapp.com` + DKIM TXT)
-  is mandatory for production sending.
-- **Don't** use Mandrill's server-side templates for Ory identity
-  emails — Ory renders templates before handing to SMTP.
-
-## Resources
-
-- [Mailchimp Transactional documentation](https://mailchimp.com/developer/transactional/)
-- [Ory email courier configuration](../../kratos/emails-sms/01_sending-emails-smtp.mdx)
-- Reference: [ory/integrates/email-providers/mailchimp-transactional](https://github.com/ory/integrates/tree/main/email-providers/mailchimp-transactional)
+- See [Mailchimp integration with Ory Actions](../../actions/integrations/mailchimp.mdx)
+  for the primary documentation.
+- For the raw SMTP recipe, see
+  [Sending emails over SMTP](../../kratos/emails-sms/01_sending-emails-smtp.mdx#mailchimp-transactional-mandrill).

@@ -42,6 +42,7 @@ const integratesSidebar = [
         link: { type: "generated-index" },
         items: [
           "integrates-with/cdp-analytics/amplitude",
+          "integrates-with/cdp-analytics/mailchimp",
           "integrates-with/cdp-analytics/mixpanel",
           "integrates-with/cdp-analytics/mparticle",
         ],
@@ -92,7 +93,6 @@ const integratesSidebar = [
           "integrates-with/crm/microsoft-dynamics-365",
           "integrates-with/crm/pipedrive",
           "integrates-with/crm/salesforce",
-          "integrates-with/crm/salesforce-crm",
           "integrates-with/crm/zoho-crm",
         ],
       },
@@ -108,7 +108,6 @@ const integratesSidebar = [
         items: [
           "integrates-with/directory-sync/bamboohr",
           "integrates-with/directory-sync/workday-scim",
-          "integrates-with/directory-sync/workday",
         ],
       },
       {

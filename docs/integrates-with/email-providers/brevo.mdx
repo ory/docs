@@ -4,46 +4,24 @@ title: Brevo (Sendinblue) email provider
 sidebar_label: Brevo
 ---
 
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/kratos/emails-sms/sending-emails-smtp#brevo" />
+</head>
+
 ```mdx-code-block
 import Admonition from '@theme/Admonition'
 
-<Admonition type="note" title="Community-contributed integration">
-This integration is community-maintained. Reference:
-[ory/integrates/email-providers/brevo](https://github.com/ory/integrates/tree/main/email-providers/brevo).
+<Admonition type="info" title="Primary documentation">
+Brevo SMTP configuration for Ory is documented at
+[Sending emails over SMTP](../../kratos/emails-sms/01_sending-emails-smtp.mdx#brevo).
+That page is the source of truth; this entry exists so Brevo is
+discoverable alongside the other email-provider integrations.
 </Admonition>
 ```
 
-[Brevo](https://www.brevo.com) (formerly Sendinblue) — European email
-platform with strong GDPR posture. Common when EU-hosted email
+[Brevo](https://www.brevo.com) (formerly Sendinblue) is a European email
+platform with strong GDPR posture, commonly used when EU-hosted email
 infrastructure is required.
 
-## Quick reference
-
-| Setting | Value |
-| --- | --- |
-| SMTP host | `smtp-relay.brevo.com` |
-| SMTP port | `587` (STARTTLS) or `465` (TLS) |
-| SMTP user | Your Brevo account email |
-| SMTP password | Brevo SMTP key (under **SMTP & API → SMTP**) |
-| HTTP endpoint | `POST https://api.brevo.com/v3/smtp/email` with `api-key` header |
-
-Connection URI:
-
-```
-smtps://<smtp_login>:<smtp_key>@smtp-relay.brevo.com:587
-```
-
-## Notable
-
-- Brevo SMTP keys are **distinct from API keys** — don't confuse them.
-- Free tier rate-limits SMTP; identity flows at scale need a
-  paid plan.
-- DKIM and Return-Path alignment with the From domain is required for
-  Gmail / Microsoft deliverability.
-
-## Resources
-
-- [Brevo SMTP setup](https://help.brevo.com/hc/en-us/articles/209462765)
-- [Brevo Transactional Email API](https://developers.brevo.com/reference/sendtransacemail)
-- [Ory email courier configuration](../../kratos/emails-sms/01_sending-emails-smtp.mdx)
-- Reference: [ory/integrates/email-providers/brevo](https://github.com/ory/integrates/tree/main/email-providers/brevo)
+See [Sending emails over SMTP](../../kratos/emails-sms/01_sending-emails-smtp.mdx#brevo)
+for the full configuration.
