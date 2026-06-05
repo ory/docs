@@ -15,23 +15,22 @@ Reference:
 </Admonition>
 ```
 
-[Didomi](https://www.didomi.io) — consent management platform (CMP) for
-GDPR / CCPA / ePrivacy. Sync Didomi consent state into Ory identity
-metadata so downstream services can read consent decisions alongside
-identity data, and fulfill data-subject requests (DSARs) via Ory's
-admin API.
+[Didomi](https://www.didomi.io) is a consent management platform (CMP)
+for GDPR, CCPA, and ePrivacy. Sync Didomi consent state into Ory
+identity metadata so downstream services can read consent decisions
+alongside identity data, and fulfill data-subject requests (DSARs)
+through the Ory Admin API.
 
-## Pattern
+## How it works
 
-```
-Didomi consent / DSAR event  →  Your webhook  →  Ory Admin API
-                                  (verify HMAC,    (PATCH metadata
-                                   resolve identity)  on identity)
-```
+When a Didomi consent or DSAR event fires, your webhook verifies the
+HMAC signature, resolves the matching Ory identity, and PATCHes the
+identity metadata through the Ory Admin API.
 
-1. In Didomi → **Consent Notice** → **Webhooks**, configure a webhook
-   to fire on consent events with HMAC-signed payloads.
-2. Deploy a small service that:
+1. In Didomi, go to **Consent Notice**, then **Webhooks**, and
+   configure a webhook to fire on consent events with HMAC-signed
+   payloads.
+2. Deploy a service that:
    - Verifies Didomi's HMAC signature.
    - Resolves the Ory identity by Didomi's `user_id` (matched to an
      Ory identity trait or `metadata_public.didomi_user_id`).
@@ -42,10 +41,10 @@ Didomi consent / DSAR event  →  Your webhook  →  Ory Admin API
 
 ## Notable
 
-- DSAR responses are time-bounded (30 days under GDPR) — design for
+- DSAR responses are time-bounded (30 days under GDPR), so design for
   reliable processing, not best-effort.
-- Consent strings (TCF v2 + Didomi-specific) are long; store in
-  `metadata_public` only — they're not credentials.
+- Consent strings (TCF v2 and Didomi-specific) are long. Store them in
+  `metadata_public` only, since they aren't credentials.
 
 ## Resources
 

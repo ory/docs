@@ -13,13 +13,13 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Castle](https://castle.io) — account-takeover and fraud prevention
-platform with device fingerprinting, behavioral analytics, and risk
-scoring per user/event.
+[Castle](https://castle.io) is an account-takeover and fraud-prevention platform
+with device fingerprinting, behavioral analytics, and risk scoring per user and
+event.
 
 ## How it works
 
-Castle uses an "send-events + read-risk" model:
+Castle uses a send-events and read-risk model:
 
 **Pre-flow risk check** (sync, can interrupt the flow):
 1. Ory Action on `login.before` / `registration.before` with

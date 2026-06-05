@@ -8,28 +8,28 @@ sidebar_label: Duo Security
 import Admonition from '@theme/Admonition'
 
 <Admonition type="note" title="Community-contributed integration">
-Duo Security is not natively supported as a Kratos MFA method.
-Integration wires Duo as an Ory Actions webhook running a Duo Auth
-API check during the MFA step. Reference:
+Duo Security is not natively supported as an Ory Identities (Kratos) MFA method.
+This integration wires Duo as an Ory Actions webhook that runs a Duo Auth
+API check during the second-factor step. Reference:
 [ory/integrates/mfa/duo-security](https://github.com/ory/integrates/tree/main/mfa/duo-security).
 </Admonition>
 ```
 
-[Duo Security](https://duo.com) — workforce-focused MFA platform with
-push, OTP, phone, SMS, and device trust. Common where Duo is already
-the workforce-MFA standard.
+[Duo Security](https://duo.com) is a workforce-focused MFA platform with
+push, OTP, phone, SMS, and device trust. Use it when Duo is already
+your workforce-MFA standard.
 
 ## How it works
 
-Kratos doesn't natively support Duo. Integration via an Ory Action on
-`login.after` (with `can_interrupt: true`):
+Ory Identities (Kratos) doesn't natively support Duo. You integrate it
+with an Ory Action on `login.after` with `can_interrupt: true`:
 
-1. User completes primary auth; the Action fires.
-2. Handler calls Duo's **Auth API**
+1. The user completes primary authentication and the Action fires.
+2. Your handler calls Duo's **Auth API**
    (`POST https://api-XXXXXXXX.duosecurity.com/auth/v2/auth`).
-3. Duo prompts the user (push, OTP, phone).
-4. Handler waits for response (long-poll for push, sync for OTP).
-5. On Duo allow, return success; on deny, block.
+3. Duo prompts the user with push, OTP, or phone.
+4. Your handler waits for the response: long-poll for push, synchronous for OTP.
+5. When Duo allows, you return success. When Duo denies, you block the sign-in.
 
 For most use cases,
 [native WebAuthn MFA](../../kratos/mfa/20_webauthn-fido-yubikey.mdx) is the
@@ -37,9 +37,9 @@ simpler path with equivalent or better security.
 
 ## Notable
 
-- Duo Auth API requires Integration Key, Secret Key, and API Host
-  (from the Duo Admin Panel).
-- Stable username binding: map Ory identity id to Duo username at
+- The Duo Auth API requires an Integration Key, Secret Key, and API Host
+  from the Duo Admin Panel.
+- Bind usernames consistently by mapping the Ory identity ID to the Duo username at
   enrollment time.
 - Duo's **Universal Prompt** uses an OIDC flow as an alternative.
 

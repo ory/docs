@@ -13,18 +13,19 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Google Apigee](https://cloud.google.com/apigee) — enterprise API
-management platform. Validate Ory-issued JWTs at the gateway layer with
-Apigee's **VerifyJWT** policy in a SharedFlow, using Ory Network's JWKS
+[Google Apigee](https://cloud.google.com/apigee) is an enterprise API
+management platform. You can validate Ory-issued JWTs at the gateway layer
+with Apigee's **VerifyJWT** policy in a SharedFlow, using Ory Network's JWKS
 endpoint.
 
-## Pattern
+## How it works
 
-Apigee intercepts the API request → SharedFlow runs VerifyJWT against
-`https://<project>.projects.oryapis.com/.well-known/jwks.json` → on
-valid JWT, proxy to backend; on invalid, return 401.
+Apigee intercepts the API request, then the SharedFlow runs VerifyJWT against
+`https://<project>.projects.oryapis.com/.well-known/jwks.json`. When the JWT is
+valid, Apigee proxies the request to the backend. When it's invalid, Apigee
+returns a 401.
 
-## Setup outline
+## Set up the integration
 
 1. Create an Apigee **SharedFlow** with a **VerifyJWT** policy:
    - Algorithm: `RS256`.
@@ -34,10 +35,10 @@ valid JWT, proxy to backend; on invalid, return 401.
    - Audience: your API's audience identifier (from Ory's OAuth2
      client configuration).
 2. Attach the SharedFlow to your API proxy's PreFlow.
-3. Apigee caches the JWKS by URL — tune `CacheTTLInSeconds` for the
-   freshness vs. KMS-call trade-off.
+3. Apigee caches the JWKS by URL. Tune `CacheTTLInSeconds` to balance
+   freshness against KMS calls.
 
-## Notable
+## Notes
 
 - Use Apigee KVM (Key Value Map) to hold per-environment audience
   values without redeploying the shared flow.

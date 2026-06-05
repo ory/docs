@@ -8,8 +8,8 @@ sidebar_label: IBM Security Verify
 import Admonition from '@theme/Admonition'
 
 <Admonition type="note" title="Community-contributed integration">
-This integration is community-maintained, not part of Ory Polis's
-officially supported SSO providers. Configures via the
+This integration is community-maintained and is not part of Ory Polis's
+officially supported SSO providers. You configure it through the
 [generic SAML SP](../../polis/sso-providers/generic-saml.mdx) or
 [generic OIDC](../../polis/sso-providers/generic-oidc.mdx) walkthrough.
 Reference:
@@ -17,21 +17,21 @@ Reference:
 </Admonition>
 ```
 
-[IBM Security Verify](https://www.ibm.com/products/verify-identity) —
-IBM's cloud-delivered IAM platform. OIDC + SAML 2.0 endpoints
-consumed by Ory Polis via the generic provider paths.
+[IBM Security Verify](https://www.ibm.com/products/verify-identity) is
+IBM's cloud-delivered IAM platform. Ory Polis consumes its OIDC and
+SAML 2.0 endpoints through the generic provider paths.
 
-## Setup outline
+## Set up
 
-1. In IBM Security Verify Admin → Applications → Add application,
-   pick **Custom SAML 2.0** or **Custom OIDC**.
-2. Configure with Polis SP details.
-3. Map outbound attributes (email, names, groups).
-4. In Ory Network, configure the SSO connection via the generic
+1. In IBM Security Verify, go to **Admin → Applications → Add application**
+   and pick **Custom SAML 2.0** or **Custom OIDC**.
+2. Configure the application with the Polis SP details.
+3. Map the outbound attributes (email, names, groups).
+4. In Ory Network, configure the SSO connection through the generic
    SAML or OIDC walkthrough.
 
 Both Verify Cloud (SaaS) and Verify Access (on-prem) use the same
-federation flows; risk-based access policies stay on the IBM side.
+federation flows, and risk-based access policies stay on the IBM side.
 
 ## Resources
 

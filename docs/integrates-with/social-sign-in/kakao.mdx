@@ -16,8 +16,9 @@ Contributions welcome.
 ```
 
 [Kakao](https://developers.kakao.com/) is South Korea's dominant
-messaging and consumer-services platform — its login is the default
-sign-in for products targeting Korean users. OAuth 2.0 (not OIDC).
+messaging and consumer-services platform, and its sign-in is the default
+choice for products that target Korean users. Kakao uses OAuth 2.0
+rather than OIDC.
 
 ## Setup
 
@@ -27,13 +28,14 @@ sign-in for products targeting Korean users. OAuth 2.0 (not OIDC).
 2. Add the Ory redirect URI to **Kakao Login** product settings.
 3. Request needed consent scopes (`account_email`,
    `profile_nickname`, `profile_image`).
-4. Configure as a generic provider via the Ory CLI with:
+4. Configure it as a generic provider via the Ory CLI with:
    - Authorization: `https://kauth.kakao.com/oauth/authorize`
    - Token: `https://kauth.kakao.com/oauth/token`
    - User info: `https://kapi.kakao.com/v2/user/me`
-5. Jsonnet maps `kakao_account.email` and profile fields.
+5. Use Jsonnet to map `kakao_account.email` and the profile fields.
 
-Email scope requires Kakao app review before production release.
+The email scope requires Kakao app review before you can release it to
+production.
 
 ## Resources
 

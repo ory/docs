@@ -13,27 +13,27 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Socure](https://socure.com) — ML-based identity verification with
-strong fraud signals (device fingerprint, email reputation, network
-risk) on top of KYC. Run from an Ory Action webhook with both
-sync and async paths.
+[Socure](https://socure.com) is an ML-based identity verification service that
+adds fraud signals such as device fingerprint, email reputation, and network
+risk on top of KYC. You run it from an Ory Actions webhook using both sync and
+async paths.
 
 ## How it works
 
-**Sync** — Ory Action on `registration.after` → handler calls Socure
-ID+ → echoes decision back to Ory; response-parse Jsonnet applies
-policy.
+In the sync path, an Ory Action on `registration.after` calls your handler. The
+handler calls Socure ID+ and echoes the decision back to Ory, where a
+response-parse Jsonnet snippet applies your policy.
 
-**Async** — Socure POSTs to `/socure/results-callback` when long-
-running checks finish; handler verifies `X-Socure-Signature` HMAC,
-PATCHes final decision to `metadata_public.socure_decision` on the
-matching identity.
+In the async path, Socure POSTs to `/socure/results-callback` when long-running
+checks finish. The handler verifies the `X-Socure-Signature` HMAC and PATCHes the
+final decision to `metadata_public.socure_decision` on the matching identity.
 
 ## Notable
 
-- Single deployment handles both paths.
-- Socure modules (`kyc`, `fraud`, `phonerisk`) drive which signals run.
-- DSAR delete API available — wire to your right-to-be-forgotten flow.
+- A single deployment handles both paths.
+- The Socure modules you enable (`kyc`, `fraud`, `phonerisk`) drive which signals
+  run.
+- A DSAR delete API is available. Wire it to your right-to-be-forgotten flow.
 
 ## Resources
 

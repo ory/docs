@@ -26,9 +26,9 @@ directly.
 | OTLP endpoint (EU) | `https://otlp.eu01.nr-data.net:4318` |
 | Auth | header `api-key: {$NEW_RELIC_LICENSE_KEY}` |
 
-## Setup
+## Configuration
 
-Set standard OTel env vars on each Ory service:
+Set the standard OTel environment variables on each Ory service:
 
 ```shell
 TRACING_PROVIDER=otel
@@ -42,10 +42,10 @@ Relic for batching, retries, and sampling in one place.
 
 ## Notable
 
-- New Relic attribute count/size limits — `identity.traits` as a flat
-  blob will hit them.
+- New Relic enforces attribute count and size limits. Sending
+  `identity.traits` as a flat blob will hit them.
 - Use **Account – Ingest** scope license keys, never full user keys.
-- Sample at the OTel SDK / collector level, not backend side.
+- Sample at the OTel SDK or collector level, not on the backend side.
 
 ## Resources
 

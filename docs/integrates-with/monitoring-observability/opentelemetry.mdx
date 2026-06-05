@@ -24,7 +24,7 @@ and the [Kratos tracing guide](../../kratos/guides/tracing.mdx).
 
 ## Two paths
 
-### Self-hosted Ory — native OTLP exporter
+### Self-hosted Ory with the native OTLP exporter
 
 Each Ory product accepts standard OTel environment variables to ship traces directly
 to a collector or backend:
@@ -37,12 +37,12 @@ OTEL_RESOURCE_ATTRIBUTES=service.namespace=identity,deployment.environment=produ
 TRACING_PROVIDERS_OTLP_SAMPLING_SAMPLING_RATIO=1.0   # tune in production
 ```
 
-### Ory Network (managed) — OTLP export
+### Ory Network with OTLP export
 
-Ory Network exports OTLP from the managed control plane. In the Ory Console under
-**Project Settings → Telemetry**, set the OTLP endpoint (your collector's public
-address), pick `grpc` (4317) or `http/protobuf` (4318), and add any auth headers your
-collector requires.
+Ory Network exports OTLP from the managed control plane. In the Ory Console, go to
+**Project Settings**, then **Telemetry**, set the OTLP endpoint (your collector's
+public address), pick `grpc` (4317) or `http/protobuf` (4318), and add any auth
+headers your collector requires.
 
 ## Recommended pipeline
 
@@ -53,8 +53,8 @@ Ory  ─OTLP─▶  OTel Collector  ─export─▶  Tempo / Datadog / New Relic
                   (batch, retry, sample, redact)
 ```
 
-The collector handles batching, retries, sampling, and PII redaction in one place —
-letting you swap backends without touching the Ory configuration.
+The collector handles batching, retries, sampling, and PII redaction in one place, so
+you can swap backends without touching the Ory configuration.
 
 ## Resources
 

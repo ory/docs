@@ -8,30 +8,31 @@ sidebar_label: Keycloak
 import Admonition from '@theme/Admonition'
 
 <Admonition type="note" title="Community-contributed integration">
-This integration is community-maintained, not part of Ory Polis's
-officially supported SSO providers. Configures via the
+This integration is community-maintained and is not part of Ory Polis's
+officially supported SSO providers. You configure it through the
 [generic OIDC](../../polis/sso-providers/generic-oidc.mdx) walkthrough
-(recommended) or
+(recommended) or the
 [generic SAML SP](../../polis/sso-providers/generic-saml.mdx). Reference:
 [ory/integrates/enterprise-sso/keycloak](https://github.com/ory/integrates/tree/main/enterprise-sso/keycloak).
 </Admonition>
 ```
 
-[Keycloak](https://www.keycloak.org) — open-source CNCF-graduated IAM
-server. Speaks SAML 2.0, OIDC, and OAuth 2.0. Common choice for
+[Keycloak](https://www.keycloak.org) is an open-source, CNCF-graduated IAM
+server that speaks SAML 2.0, OIDC, and OAuth 2.0. It is a common choice for
 self-hosted IdP deployments.
 
-## Setup outline (OIDC, recommended)
+## Set up (OIDC, recommended)
 
-1. In Keycloak Admin → Clients → Create client (OpenID Connect,
-   Confidential).
-2. Set Valid redirect URI to Polis ACS URL.
-3. Note Client ID + Secret.
-4. Issuer URL pattern: `https://<keycloak-host>/realms/<realm-name>`
-   — Polis discovers automatically via `/.well-known/openid-configuration`.
-5. In Ory Network, configure via the generic OIDC walkthrough.
+1. In Keycloak, go to **Admin → Clients → Create client** and select
+   OpenID Connect with the Confidential access type.
+2. Set the valid redirect URI to the Polis ACS URL.
+3. Note the client ID and secret.
+4. The issuer URL follows the pattern
+   `https://<keycloak-host>/realms/<realm-name>`. Polis discovers it
+   automatically through `/.well-known/openid-configuration`.
+5. In Ory Network, configure the connection through the generic OIDC walkthrough.
 
-Group claims need an explicit Group Membership mapper on the client's
+Group claims require an explicit Group Membership mapper on the client's
 dedicated client scope.
 
 ## Resources

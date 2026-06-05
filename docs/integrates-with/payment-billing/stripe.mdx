@@ -13,31 +13,31 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Stripe](https://stripe.com) — payment and subscription platform.
-Create Stripe Customer records at signup and consume Stripe
+[Stripe](https://stripe.com) is a payment and subscription platform.
+You create Stripe Customer records at sign-up and consume Stripe
 subscription webhooks to keep subscription state on the Ory identity.
 
 ## How it works
 
-**Outbound** — Ory Action on `registration.after` → handler creates a
-Stripe Customer with `metadata.ory_identity_id`; PATCHes
+**Outbound:** an Ory Action on `registration.after` calls your handler, which creates a
+Stripe Customer with `metadata.ory_identity_id` and PATCHes
 `metadata_public.stripe.customer_id` on the identity.
 
-**Inbound** — Stripe webhooks (`customer.subscription.*`,
-`invoice.payment_failed`, etc.) → handler verifies
-`Stripe-Signature` over the raw body, resolves Ory identity by
-`metadata.ory_identity_id`, PATCHes
+**Inbound:** Stripe webhooks (`customer.subscription.*`,
+`invoice.payment_failed`, and others) call your handler, which verifies the
+`Stripe-Signature` over the raw body, resolves the Ory identity by
+`metadata.ory_identity_id`, and PATCHes
 `metadata_public.stripe.subscription_state`.
 
 ## Notable
 
-- **Pin a Stripe API version** in your handler's headers — Stripe
-  rolls API versions; unpinned clients break.
-- Webhook signature verification must use the **raw** request body
-  (before JSON parsing).
-- Stripe webhooks are at-least-once and can arrive out of order — handler
+- **Pin a Stripe API version** in your handler's headers. Stripe
+  rolls API versions, and unpinned clients break.
+- Webhook signature verification must use the **raw** request body,
+  before JSON parsing.
+- Stripe webhooks are at-least-once and can arrive out of order, so your handler
   must be idempotent and tolerant of event ordering.
-- Subscription gating belongs in application code, not auth flow.
+- Subscription gating belongs in application code, not in the authentication flow.
 
 ## Resources
 

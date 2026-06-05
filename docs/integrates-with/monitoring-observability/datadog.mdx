@@ -14,9 +14,9 @@ This integration is community-maintained. Reference:
 ```
 
 Monitor Ory in Datadog. Self-hosted Ory products (Kratos, Hydra, Keto, Oathkeeper)
-**natively support Datadog as a tracing backend** — listed alongside OpenTelemetry,
+**natively support Datadog as a tracing backend**, listed alongside OpenTelemetry,
 Jaeger, Elastic APM, Zipkin, and Instana in the Ory observability docs. Ory Network
-customers ingest Datadog via OpenTelemetry (OTLP) export.
+customers ingest into Datadog through OpenTelemetry (OTLP) export.
 
 See the [self-hosted distributed tracing](../../self-hosted/operations/01_tracing.md)
 and [self-hosted observability](../../self-hosted/operations/15_observability.md)
@@ -24,22 +24,21 @@ docs.
 
 ## Two paths
 
-### Self-hosted Ory — native Datadog tracer
+### Self-hosted Ory with the native Datadog tracer
 
-Configure each Ory product to emit traces directly to a Datadog agent via the native
-Datadog tracing backend (no OTLP collector required). Per the Ory docs, set the
-tracing provider to `datadog` and point at the agent's APM endpoint (typically
-`localhost:8126`).
+Configure each Ory product to emit traces directly to a Datadog agent through the
+native Datadog tracing backend (no OTLP collector required). Set the tracing provider
+to `datadog` and point it at the agent's APM endpoint (typically `localhost:8126`).
 
-### Ory Network (managed) — OTLP
+### Ory Network with OTLP
 
-Ory Network exports telemetry over OTLP. Two ingestion paths:
+Ory Network exports telemetry over OTLP. There are two ingestion paths:
 
 1. **Datadog Agent OTLP receiver** (recommended). Run the agent with
    `otlp_config.receiver.protocols.{grpc,http}` enabled (ports 4317 / 4318) and
    point Ory's OTLP exporter at it.
-2. **Datadog OTLP intake** (agentless). Ship straight to Datadog with `DD-API-KEY`
-   header — endpoints per region:
+2. **Datadog OTLP intake** (agentless). Ship straight to Datadog with the `DD-API-KEY`
+   header. Endpoints per region:
 
 | Region | OTLP gRPC | OTLP HTTP |
 | --- | --- | --- |

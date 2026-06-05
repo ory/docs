@@ -14,34 +14,35 @@ DSN works with Cockroach-aware tuning. Reference:
 </Admonition>
 ```
 
-[CockroachDB](https://www.cockroachlabs.com) — distributed SQL with
+[CockroachDB](https://www.cockroachlabs.com) is a distributed SQL database with
 horizontal scalability, strong consistency, multi-region survivability,
-and PostgreSQL wire-protocol compatibility. A viable backend for
-self-hosted Ory deployments needing geographic distribution or
+and PostgreSQL wire-protocol compatibility. It's a viable backend for
+self-hosted Ory deployments that need geographic distribution or
 high-availability beyond a single Postgres node.
 
-## Pattern
+## How it works
 
-Cockroach speaks Postgres wire protocol — Ory's DSN format unchanged:
+CockroachDB speaks the Postgres wire protocol, so Ory's DSN format is
+unchanged:
 
 ```
 postgres://user:password@cockroach-host:26257/ory_kratos?sslmode=verify-full&options=--cluster%3D<cluster-id>
 ```
 
-Migrations run with `kratos migrate sql` (and similar for Hydra/Keto)
-against Cockroach without changes.
+Run migrations with `kratos migrate sql` (and the equivalent for Ory OAuth2 &
+OpenID Connect and Ory Permissions) against CockroachDB without changes.
 
 ## Cockroach-aware tuning
 
-- **FK-heavy schema**: Ory's schema has many foreign keys; expect
+- **FK-heavy schema**: Ory's schema has many foreign keys, so expect
   some `40001 retry` errors under high concurrency. Configure clients
   to retry transactions per Cockroach's standard pattern.
-- **`SERIAL` vs `UUID`**: Ory schemas use UUIDs (good for Cockroach
-  distribution). Legacy `SERIAL` would hot-shard — verify no Ory
+- **`SERIAL` vs `UUID`**: Ory schemas use UUIDs, which distribute well on
+  CockroachDB. Legacy `SERIAL` columns would hot-shard, so verify that no Ory
   product version uses SERIAL.
 - **Serverless vs Self-hosted**: CockroachDB Serverless has
   request-per-second limits unsuitable for production identity
-  workloads. Use Self-hosted (Dedicated) tier.
+  workloads. Use the Self-hosted (Dedicated) tier.
 
 ## Resources
 

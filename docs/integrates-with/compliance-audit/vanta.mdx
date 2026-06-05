@@ -15,24 +15,21 @@ Reference:
 </Admonition>
 ```
 
-[Vanta](https://www.vanta.com) — automated security and compliance
+[Vanta](https://www.vanta.com) is an automated security and compliance
 platform (SOC 2, ISO 27001, HIPAA). Configure Vanta to pull identity
-and access management evidence from Ory Network's admin API so
+and access management evidence from the Ory Network Admin API so
 compliance evidence is collected automatically.
 
-## Pattern
+## How it works
 
-```
-Vanta Custom Integration  →  Ory Admin API
-        ↑                       (read-only Project API key)
-        |
-   Compliance Tests in Vanta evaluated against pulled data
-```
+Vanta's Custom Integration polls the Ory Admin API on a schedule using
+a read-only Project API key. Vanta evaluates its Compliance Tests
+against the pulled data.
 
 1. Create an **Ory API key** (Project-scoped) with read access.
-2. In Vanta → **Integrations** → **Add Custom Integration** (or via
-   the Vanta API), configure an API poller against the Ory admin
-   API on a schedule.
+2. In Vanta, go to **Integrations**, then **Add Custom Integration**
+   (or use the Vanta API), and configure an API poller against the Ory
+   Admin API on a schedule.
 
 ## Evidence to pull
 

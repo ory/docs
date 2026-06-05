@@ -13,44 +13,45 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Envoy](https://www.envoyproxy.io/) is a CNCF cloud-native L7 proxy — the data
-plane behind many service meshes and API gateways. Validate Ory-issued JWTs or
-Kratos sessions at the Envoy layer using the native **`jwt_authn`** filter (for
-OAuth2 access tokens from Hydra) or the **`ext_authz`** filter (delegating to Ory
-Oathkeeper or a small validator for Kratos session checks).
+[Envoy](https://www.envoyproxy.io/) is a CNCF cloud-native L7 proxy, the data
+plane behind many service meshes and API gateways. You can validate Ory-issued
+JWTs or Ory Identities (Kratos) sessions at the Envoy layer. Use the native
+**`jwt_authn`** filter for OAuth2 access tokens from Ory OAuth2 & OpenID Connect
+(Hydra), or the **`ext_authz`** filter to delegate to Ory Oathkeeper or a small
+validator for session checks.
 
 ## Two paths
 
-### Path A — OAuth2 access token validation (`jwt_authn` filter)
+### Path A: OAuth2 access token validation (`jwt_authn` filter)
 
-For Ory Hydra-issued JWTs:
+To validate JWTs issued by Ory OAuth2 & OpenID Connect:
 
 1. Add the **`jwt_authn`** HTTP filter to the listener's filter chain.
-2. Define a provider with:
-   - `remote_jwks.http_uri` → `https://<project>.projects.oryapis.com/.well-known/jwks.json`.
-   - `issuer` → your Ory project URL.
-   - `audiences` → the API's audience identifier from the Ory OAuth2 client.
-3. Envoy caches the JWKS and refreshes on `cache_duration`.
-4. Optionally forward verified claims upstream via `payload_in_metadata` for
+2. Define a provider with these values:
+   - Set `remote_jwks.http_uri` to `https://<project>.projects.oryapis.com/.well-known/jwks.json`.
+   - Set `issuer` to your Ory project URL.
+   - Set `audiences` to the API's audience identifier from the Ory OAuth2 client.
+3. Envoy caches the JWKS and refreshes it on `cache_duration`.
+4. Optionally, forward verified claims upstream via `payload_in_metadata` for
    downstream authorization.
 
-### Path B — Kratos session validation (`ext_authz` filter)
+### Path B: Ory Identities session validation (`ext_authz` filter)
 
-For end-user session cookies / tokens from Kratos:
+To validate end-user session cookies or tokens from Ory Identities:
 
-1. Add the **`ext_authz`** HTTP filter pointing at Ory Oathkeeper (or a small
-   validator service).
+1. Add the **`ext_authz`** HTTP filter pointing at Ory Oathkeeper or a small
+   validator service.
 2. The authorizer calls `https://<project>.projects.oryapis.com/sessions/whoami`
    with the session cookie.
-3. On 200, inject identity headers downstream (`X-User-Id`, `X-User-Email`) and
-   forward; on 401, reject at the edge.
+3. On a 200, inject identity headers downstream (`X-User-Id`, `X-User-Email`)
+   and forward the request. On a 401, reject it at the edge.
 
-## Notable
+## Notes
 
 - The same configuration applies whether Envoy runs standalone, as an Istio
-  sidecar/gateway, or as the data plane under a managed gateway.
-- For Kratos session checks, cache the `whoami` result per session to avoid
-  hammering Ory on every request.
+  sidecar or gateway, or as the data plane under a managed gateway.
+- For session checks, cache the `whoami` result per session to avoid sending a
+  request to Ory on every call.
 - [Tetrate Agent Router Enterprise](../agent-identity/tetrate.mdx) is built on
   **Envoy AI Gateway** and applies this token-at-the-edge pattern to AI-agent
   traffic.

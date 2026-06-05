@@ -16,36 +16,37 @@ Contributions welcome.
 ```
 
 [Telegram Login Widget](https://core.telegram.org/widgets/login) is
-Telegram's authentication mechanism — a client-side widget that returns
-a signed payload identifying the Telegram user. Common for crypto /
-gaming / chat-adjacent products with audiences already on Telegram.
+Telegram's authentication mechanism. It is a client-side widget that
+returns a signed payload identifying the Telegram user. It is common in
+crypto, gaming, and chat-adjacent products whose audiences are already
+on Telegram.
 
-Telegram's flow is **not OAuth 2.0 or OIDC** — it's a custom widget
+Telegram's flow is **not OAuth 2.0 or OIDC**. It is a custom widget
 that POSTs a hash-signed payload (`id`, `first_name`, `username`,
 `photo_url`, `auth_date`, `hash`) to your site. The integration point
-is your application code calling the Ory Admin API, not a Kratos
-social-signin provider.
+is your application code calling the Ory Identities Admin API, not a
+social sign-in provider.
 
 ## Setup pattern
 
-1. Register a bot with [@BotFather](https://t.me/botfather); set the
+1. Register a bot with [@BotFather](https://t.me/botfather) and set the
    domain to where the widget will render.
-2. Embed the widget; it POSTs the signed payload to your endpoint.
+2. Embed the widget. It POSTs the signed payload to your endpoint.
 3. Your endpoint verifies the HMAC-SHA256 hash against the bot token,
-   then creates / looks up the Ory identity via the Kratos Admin API
-   (keyed by Telegram user ID) and mints an Ory session.
+   then creates or looks up the Ory identity via the Ory Identities
+   Admin API (keyed by Telegram user ID) and mints an Ory session.
 
-## Notable
+## Things to know
 
-- Telegram's signed payload is short-lived (reject `auth_date` older
-  than 86400s).
-- Phone numbers are **not released** — only `id`, `first_name`,
-  optional `last_name`, `username`, `photo_url`.
-- For Telegram Mini Apps, a different `initData` flow applies —
-  see [Mini Apps docs](https://core.telegram.org/bots/webapps).
+- Telegram's signed payload is short-lived, so reject any `auth_date`
+  older than 86400 seconds.
+- Telegram does not release phone numbers. It returns only `id`,
+  `first_name`, optional `last_name`, `username`, and `photo_url`.
+- Telegram Mini Apps use a different `initData` flow. See the
+  [Mini Apps docs](https://core.telegram.org/bots/webapps).
 
 ## Resources
 
 - [Telegram Login Widget docs](https://core.telegram.org/widgets/login)
-- [Ory Kratos Admin API](../../reference/api.mdx)
+- [Ory Identities Admin API](../../reference/api.mdx)
 - Reference: [ory/integrates/social-sign-in/telegram](https://github.com/ory/integrates/tree/main/social-sign-in/telegram)

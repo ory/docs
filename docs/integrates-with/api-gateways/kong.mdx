@@ -13,40 +13,40 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Kong Gateway](https://konghq.com/) — cloud-native API gateway. Two
-integration paths with Ory: JWT validation (Hydra-issued access tokens)
-and Kratos session validation.
+[Kong Gateway](https://konghq.com/) is a cloud-native API gateway. There are
+two integration paths with Ory: JWT validation for access tokens issued by Ory
+OAuth2 & OpenID Connect (Hydra), and session validation for Ory Identities
+(Kratos).
 
-## Path A — OAuth2 JWT validation
+## Path A: OAuth2 JWT validation
 
 Use Kong's stock **jwt** plugin, or community plugins (`jwt-signer`,
 `jwt-keycloak`) for JWKS auto-fetch:
 
-1. Enable the **jwt** plugin on the relevant Service / Route.
-2. Configure with Ory's JWKS (or use a community plugin for auto-
-   refresh).
+1. Enable the **jwt** plugin on the relevant Service or Route.
+2. Configure it with Ory's JWKS, or use a community plugin for auto-refresh.
 3. Set `claims_to_verify` (typically `exp`) and `key_claim_name`.
 
 Kong Enterprise's **OIDC** plugin handles this with JWKS auto-discovery.
 
-## Path B — Kratos session validation
+## Path B: Ory Identities session validation
 
-Custom plugin (or `request-transformer` + `pre-function`):
+Write a custom plugin, or combine `request-transformer` with `pre-function`:
 
-1. Plugin calls
+1. The plugin calls
    `https://<project>.projects.oryapis.com/sessions/whoami` with
    the user's session cookie.
-2. On 200, inject identity headers (`X-User-Id`, `X-User-Email`)
-   downstream and forward.
-3. On 401, return 401 without forwarding.
+2. On a 200, inject identity headers (`X-User-Id`, `X-User-Email`)
+   downstream and forward the request.
+3. On a 401, return a 401 without forwarding.
 
-Cache the `whoami` response per session cookie via Kong's `proxy-cache`
-plugin to avoid hammering Ory on every request.
+Cache the `whoami` response per session cookie with Kong's `proxy-cache`
+plugin to avoid sending a request to Ory on every call.
 
-## Notable
+## Notes
 
-- Rate-limit at the gateway keyed by the validated `sub` claim —
-  Kong's `rate-limiting` plugin is the recommended pattern.
+- Rate-limit at the gateway keyed by the validated `sub` claim. Kong's
+  `rate-limiting` plugin is the recommended pattern.
 
 ## Resources
 

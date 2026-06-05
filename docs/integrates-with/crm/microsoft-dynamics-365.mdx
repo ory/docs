@@ -14,16 +14,16 @@ This integration is community-maintained. Reference:
 ```
 
 [Microsoft Dynamics 365](https://www.microsoft.com/en-us/dynamics-365)
-— enterprise CRM and ERP. Sync Ory identities to Dynamics 365 Contact
-records via the Dataverse Web API (OData v4) using an Ory Actions
+is an enterprise CRM and ERP. Sync Ory identities to Dynamics 365 Contact
+records through the Dataverse Web API (OData v4) using an Ory Actions
 webhook.
 
 ## How it works
 
-Ory Action on `registration.after` (async) → handler upserts a Contact
-in Dynamics 365 via the Dataverse Web API
+An Ory Action on `registration.after` (async) calls the handler, which upserts a
+Contact in Dynamics 365 through the Dataverse Web API
 (`https://<env>.crm.dynamics.com/api/data/v9.2`), keyed by an
-`ory_identity_id` alternate key. Auth via Entra ID OAuth2 client
+`ory_identity_id` alternate key. It authenticates with Entra ID OAuth2 client
 credentials.
 
 ## Notable

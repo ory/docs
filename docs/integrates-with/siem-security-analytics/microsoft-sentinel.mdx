@@ -14,23 +14,25 @@ This integration is community-maintained. Reference:
 ```
 
 [Microsoft Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/)
-— cloud SIEM + SOAR on Azure. Ingest Ory identity events via the Log
-Analytics Data Collector API (or newer Logs Ingestion API + DCRs).
+is a cloud SIEM and SOAR on Azure. Ingest Ory identity events through
+the Log Analytics Data Collector API (or the newer Logs Ingestion API
+with DCRs).
 
 ## How it works
 
-Ory Action → handler signs request with Azure HMAC-SHA256 → POSTs to
-`https://<workspace-id>.ods.opinsights.azure.com/api/logs` under custom
-log type `OryEvents_CL`. KQL analytics rules in Sentinel query
-`OryEvents_CL` for detection logic; Logic Apps playbooks automate
-response.
+An Ory Action calls your handler, which signs the request with Azure
+HMAC-SHA256 and POSTs it to
+`https://<workspace-id>.ods.opinsights.azure.com/api/logs` under the
+custom log type `OryEvents_CL`. KQL analytics rules in Sentinel query
+`OryEvents_CL` for detection logic, and Logic Apps playbooks automate
+the response.
 
 ## Notable
 
-- Data Collector API is being deprecated in favor of the **Logs
-  Ingestion API + DCRs**; new deployments use the newer API.
-- Alternative no-code path: Logic App as intermediary — receives the
-  Ory Action webhook and posts to Sentinel.
+- The Data Collector API is being deprecated in favor of the **Logs
+  Ingestion API with DCRs**. Use the newer API for new deployments.
+- For a no-code path, use a Logic App as an intermediary that receives
+  the Ory Action webhook and posts to Sentinel.
 
 ## Resources
 

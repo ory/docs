@@ -16,19 +16,20 @@ Contributions welcome.
 ```
 
 [Naver](https://developers.naver.com/) is South Korea's largest search
-portal — a complementary sign-in option to Kakao for products targeting
-Korean users. OAuth 2.0 (not OIDC).
+portal and a complementary sign-in option to Kakao for products that
+target Korean users. Naver uses OAuth 2.0 rather than OIDC.
 
 ## Setup
 
 1. Register an app at the
    [Naver Developers Console](https://developers.naver.com/apps).
 2. Add the Ory redirect URI.
-3. Configure as a generic provider via the Ory CLI with:
+3. Configure it as a generic provider via the Ory CLI with:
    - Authorization: `https://nid.naver.com/oauth2.0/authorize`
    - Token: `https://nid.naver.com/oauth2.0/token`
    - User info: `https://openapi.naver.com/v1/nid/me`
-4. Jsonnet maps `response.id`, `response.email`, `response.nickname`.
+4. Use Jsonnet to map `response.id`, `response.email`, and
+   `response.nickname`.
 
 ## Resources
 

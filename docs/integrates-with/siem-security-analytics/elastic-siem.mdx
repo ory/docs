@@ -13,26 +13,28 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Elastic SIEM](https://www.elastic.co/security/siem) — security
-analytics on Elasticsearch + Kibana. Ingest Ory authentication events
+[Elastic SIEM](https://www.elastic.co/security/siem) provides security
+analytics on Elasticsearch and Kibana. Ingest Ory authentication events
 mapped to the Elastic Common Schema (ECS).
 
 ## How it works
 
-Ory Action on each lifecycle hook → handler verifies secret →
-transforms to ECS document → POSTs to Elasticsearch `_bulk` API.
+An Ory Action fires on each lifecycle hook. Your handler verifies the
+secret, transforms the event into an ECS document, and POSTs it to the
+Elasticsearch `_bulk` API.
 
-ECS mapping: `event.action` for the auth verb, `user.id` + `user.email`
-for the subject, `source.ip` + `user_agent.original` for context,
-`authentication.factor` for MFA.
+For the ECS mapping, use `event.action` for the auth verb, `user.id`
+and `user.email` for the subject, `source.ip` and
+`user_agent.original` for context, and `authentication.factor` for MFA.
 
 ## Notable
 
-- ILM policy on `logs-ory-*` for tier transitions per compliance
-  window.
+- Apply an ILM policy on `logs-ory-*` for tier transitions that match
+  your compliance window.
 - Pre-built Detection Engine rules (brute force, impossible travel,
   credential stuffing) target ECS-mapped events.
-- For Fleet deployments, package as a custom Elastic Integration.
+- For Fleet deployments, package the integration as a custom Elastic
+  Integration.
 
 ## Resources
 

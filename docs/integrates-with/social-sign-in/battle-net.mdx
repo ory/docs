@@ -16,33 +16,33 @@ Contributions welcome.
 ```
 
 [Battle.net](https://develop.battle.net/) is Blizzard Entertainment's
-identity service for games (World of Warcraft, Overwatch, Diablo,
-StarCraft, etc.). Configure as a social sign-in provider in Ory Network
-for gaming, esports, and community-site use cases targeting Blizzard
-players.
+identity service for games such as World of Warcraft, Overwatch, Diablo,
+and StarCraft. You can configure it as a social sign-in provider in Ory
+Network for gaming, esports, and community-site use cases that target
+Blizzard players.
 
-Battle.net uses OAuth 2.0 (not OIDC) — configure as a **generic
-provider** in Ory Kratos with explicit endpoints.
+Battle.net uses OAuth 2.0 rather than OIDC, so you configure it as a
+**generic provider** in Ory Identities with explicit endpoints.
 
 ## Setup
 
 The full walkthrough lives at
 [ory/integrates/social-sign-in/battle-net](https://github.com/ory/integrates/tree/main/social-sign-in/battle-net).
-Short version:
+The short version is:
 
 1. Register a Battle.net OAuth client at
    [develop.battle.net](https://develop.battle.net/access/clients).
    Add the Ory redirect URI:
    `https://$PROJECT_SLUG.projects.oryapis.com/self-service/methods/oidc/callback/battle-net`.
 2. Note the **Client ID** and **Client Secret**.
-3. Configure as a generic provider via the Ory CLI:
+3. Configure it as a generic provider via the Ory CLI:
    - Authorization endpoint: `https://oauth.battle.net/authorize`
    - Token endpoint: `https://oauth.battle.net/token`
    - User info endpoint: `https://oauth.battle.net/oauth/userinfo`
-   - Region-specific hosts exist for CN: `oauth.battlenet.com.cn`.
-4. Default Jsonnet mapper extracts `sub` (BattleTag) and `battle_tag`.
+   - Region-specific hosts exist for China: `oauth.battlenet.com.cn`.
+4. The default Jsonnet mapper extracts `sub` (BattleTag) and `battle_tag`.
 
-Battle.net does not release email addresses — design your identity
+Battle.net does not release email addresses, so design your identity
 schema to use BattleTag as the credential identifier.
 
 ## Resources

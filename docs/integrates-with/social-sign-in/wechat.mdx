@@ -18,26 +18,27 @@ directly. This page documents the proxy pattern. Reference:
 
 [WeChat](https://developers.weixin.qq.com/) (微信) is the dominant
 Chinese super-app. WeChat Login is effectively the default identity for
-products targeting users in mainland China.
+products that target users in mainland China.
 
-## Recommended approach — OIDC proxy
+## Recommended approach: an OIDC proxy
 
 Stand up a small bridge that accepts the standard OIDC authorization
-request from Kratos, translates parameters (`client_id` → `appid`,
-etc.) and forwards to WeChat, validates WeChat's response, calls
-`/sns/userinfo`, and returns a normal OIDC `id_token` to Kratos.
-Configure Kratos against the proxy as a generic OIDC provider.
+request from Ory Identities, translates the parameters (for example,
+`client_id` to `appid`), and forwards them to WeChat. The bridge then
+validates WeChat's response, calls `/sns/userinfo`, and returns a normal
+OIDC `id_token` to Ory Identities. Configure Ory Identities against the
+proxy as a generic OIDC provider.
 
 ## WeChat-specific quirks
 
-- **No email** — use `unionid` or `openid` as the credential
-  identifier.
-- **`unionid` vs `openid`** — prefer `unionid` (cross-app stable id).
-- **Separate flows per surface**: web (QR code), in-app, Mini Programs
-  — each with different authorization endpoints.
-- **Operational prerequisites**: Chinese business entity for Open
-  Platform registration; ICP filing for callback domain; test from
-  within China.
+- **No email.** Use `unionid` or `openid` as the credential identifier.
+- **`unionid` vs `openid`.** Prefer `unionid`, which is a stable ID
+  across apps.
+- **Separate flows per surface.** Web (QR code), in-app, and Mini
+  Programs each use different authorization endpoints.
+- **Operational prerequisites.** You need a Chinese business entity for
+  Open Platform registration, an ICP filing for the callback domain, and
+  the ability to test from within China.
 
 ## Resources
 

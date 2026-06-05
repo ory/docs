@@ -15,22 +15,23 @@ Reference:
 </Admonition>
 ```
 
-[Clearbit](https://clearbit.com) (now HubSpot Breeze Intelligence) —
-person and company data enrichment.
+[Clearbit](https://clearbit.com) (now HubSpot Breeze Intelligence) enriches
+identities with person and company data at registration.
 
 ## How it works
 
-Ory Action on `registration.after` (async) → handler calls Clearbit /
-Breeze Intelligence Person API with the user's email → PATCHes
-returned enrichment to `metadata_public.clearbit` on the identity.
+An Ory Action on `registration.after` runs asynchronously and calls your handler.
+The handler queries the Clearbit / Breeze Intelligence Person API with the user's
+email address, then patches the returned data onto the identity under
+`metadata_public.clearbit`.
 
 ## Notable
 
-- New deployments use HubSpot Breeze Intelligence over
-  legacy Clearbit endpoints.
-- Best-effort enrichment — silently no-op on 404 misses.
-- DSAR delete API available — wire to your right-to-be-forgotten
-  flow.
+- New deployments use the HubSpot Breeze Intelligence endpoints rather than the
+  legacy Clearbit API.
+- Enrichment is best-effort: the handler silently no-ops when the API returns a
+  404.
+- A DSAR delete API is available — wire it into your right-to-be-forgotten flow.
 
 ## Resources
 

@@ -13,23 +13,23 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Freshdesk](https://www.freshworks.com/freshdesk/) — customer support
-platform. Sync Ory identities into Freshdesk Contacts so support
+[Freshdesk](https://www.freshworks.com/freshdesk/) is a customer support
+platform. You sync Ory identities into Freshdesk Contacts so support
 agents see identity context when handling tickets.
 
 ## How it works
 
-Ory Action on `registration.after` / `settings.after` (async) calls
-Freshdesk REST API to upsert the contact (`POST /api/v2/contacts`).
+An Ory Action on `registration.after` or `settings.after` runs asynchronously and calls
+the Freshdesk REST API to upsert the contact (`POST /api/v2/contacts`).
 
-Auth: HTTP Basic — **username = API key, password = literal `X`**
-(Freshdesk convention).
+For authentication, use HTTP Basic with the **API key as the username and the literal
+`X` as the password**, per Freshdesk convention.
 
 ## Notable
 
-- POST returns 409 if the contact already exists by email — handler
+- The POST returns 409 if the contact already exists by email, so your handler
   treats 409 as success.
-- Optional `ory_identity_id` custom contact field for stable
+- Add an optional `ory_identity_id` custom contact field for stable
   cross-system lookup.
 
 ## Resources

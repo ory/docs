@@ -21,25 +21,24 @@ and [`enterprise-sso/google-workspace`](../../polis/sso-providers/google.mdx).
 
 ## Two patterns
 
-### Pattern A — GCP application talking to Ory Network
+### Pattern A: GCP application talking to Ory Network
 
-- Outbound HTTPS to `*.oryapis.com` from the workload's VPC. Default
-  GKE / Cloud Run egress allows this; restrict via Cloud NAT +
+- Allow outbound HTTPS to `*.oryapis.com` from the workload's VPC. Default
+  GKE and Cloud Run egress allows this; restrict it with Cloud NAT and
   Firewall rules if needed.
-- Store the Ory API key in **Secret Manager**; mount via Workload
+- Store the Ory API key in **Secret Manager** and mount it via Workload
   Identity (GKE) or runtime secret references (Cloud Run).
 - Use **Cloud DNS** to map your custom auth domain to
-  `custom.oryapis.com` (CNAME).
+  `custom.oryapis.com` with a CNAME.
 
-### Pattern B — Self-hosted Ory on GKE
+### Pattern B: Self-hosted Ory on GKE
 
-- **GKE Autopilot** or Standard with Workload Identity enabled.
-- **Cloud SQL for PostgreSQL** (HA configuration). Connect via the
-  Cloud SQL Auth Proxy sidecar (preferred) or private IP with VPC
-  peering.
-- **Memorystore for Redis** (optional).
-- Deploy via the official Helm charts.
-- **GKE Gateway** (or Ingress with GCLB) for HTTPS termination with
+- Use **GKE Autopilot** or Standard with Workload Identity enabled.
+- Use **Cloud SQL for PostgreSQL** in an HA configuration. Connect via the
+  Cloud SQL Auth Proxy sidecar (preferred) or private IP with VPC peering.
+- Optionally, use **Memorystore for Redis**.
+- Deploy with the official Helm charts.
+- Use **GKE Gateway** (or Ingress with GCLB) for HTTPS termination with
   a Google-managed certificate.
 
 ## Resources

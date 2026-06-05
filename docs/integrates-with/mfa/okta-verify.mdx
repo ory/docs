@@ -8,27 +8,27 @@ sidebar_label: Okta Verify
 import Admonition from '@theme/Admonition'
 
 <Admonition type="note" title="Community-contributed integration">
-Okta Verify is not natively supported as a Kratos MFA method.
-Integration wires Okta Verify as an Ory Actions webhook running an
+Okta Verify is not natively supported as an Ory Identities (Kratos) MFA method.
+This integration wires Okta Verify as an Ory Actions webhook that runs an
 Okta Factors API check. Reference:
 [ory/integrates/mfa/okta-verify](https://github.com/ory/integrates/tree/main/mfa/okta-verify).
 </Admonition>
 ```
 
 [Okta Verify](https://help.okta.com/en-us/content/topics/mobile/okta-verify-overview.htm)
-— Okta's mobile MFA app (push, TOTP, FastPass). Useful when Okta is
+is Okta's mobile MFA app, supporting push, TOTP, and FastPass. Use it when Okta is
 the workforce identity store but Ory is the customer-facing layer.
 
 ## How it works
 
-Ory Action on `login.after` with `can_interrupt: true`:
+You add an Ory Action on `login.after` with `can_interrupt: true`:
 
-1. User completes primary auth in Ory.
-2. Handler calls Okta's Factors API
+1. The user completes primary authentication in Ory.
+2. Your handler calls Okta's Factors API
    (`/api/v1/users/{userId}/factors/{factorId}/verify`).
-3. Okta Verify push goes to the user's mobile device.
-4. Handler polls Okta for the result.
-5. On `SUCCESS` return success; on `REJECTED` / timeout, block.
+3. Okta Verify sends a push to the user's mobile device.
+4. Your handler polls Okta for the result.
+5. On `SUCCESS` you return success. On `REJECTED` or timeout, you block the sign-in.
 
 For most use cases, native
 [WebAuthn MFA](../../kratos/mfa/20_webauthn-fido-yubikey.mdx) or TOTP is
@@ -38,8 +38,8 @@ across the workforce.
 ## Notable
 
 - Requires an **Okta SSWS API token** scoped to the Okta org.
-- Ory identity must be mapped to an Okta user (typically via
-  `metadata_public.okta_user_id` set at enrollment).
+- Map each Ory identity to an Okta user, typically through
+  `metadata_public.okta_user_id` set at enrollment.
 - Push requires the user's mobile device to be online.
 
 ## Resources

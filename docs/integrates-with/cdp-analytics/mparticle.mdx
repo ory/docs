@@ -13,14 +13,14 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[mParticle](https://www.mparticle.com) — customer data platform. Send
-Ory identity events to mParticle's Events API; mParticle fans events
+[mParticle](https://www.mparticle.com) is a customer data platform. You can send
+Ory identity events to mParticle's Events API, and mParticle fans the events out
 to downstream destinations (analytics, marketing, advertising) without
 re-implementing each integration.
 
 ## How it works
 
-Ory Action POSTs directly to `https://s2s.mparticle.com/v2/events`
+An Ory Action POSTs directly to `https://s2s.mparticle.com/v2/events`
 with HTTP Basic auth (mParticle API Key + Secret from a Custom Feed
 input).
 

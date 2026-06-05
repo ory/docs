@@ -14,24 +14,24 @@ supported directory-sync providers. Reference:
 </Admonition>
 ```
 
-[BambooHR](https://www.bamboohr.com) — HR information system common in
-SMBs as the system of record for employee data. This integration syncs
-BambooHR employee lifecycle events (hire / role change / termination)
-to Ory Network as identity create / update / disable operations.
+[BambooHR](https://www.bamboohr.com) is an HR information system that SMBs
+commonly use as the system of record for employee data. This integration syncs
+BambooHR employee lifecycle events (hire, role change, and termination)
+to Ory Network as identity create, update, and disable operations.
 
-BambooHR doesn't speak SCIM natively; the integration is a custom
-webhook handler polling BambooHR's employee API and reconciling to
-Ory via the Kratos Admin API.
+BambooHR doesn't speak SCIM natively, so the integration is a custom
+webhook handler that polls BambooHR's employee API and reconciles to
+Ory through the Ory Identities (Kratos) Admin API.
 
-## Setup outline
+## Set up
 
-1. In BambooHR → Settings → API Keys, create an API key for the
+1. In BambooHR, go to **Settings → API Keys** and create an API key for the
    integration user.
 2. Deploy a sync service that polls `/v1/employees` (or subscribes
-   to BambooHR webhooks) and upserts Kratos identities keyed by
-   `metadata_public.hr.employee_id`. Terminated employees → disable.
-3. The Ory side is just the Kratos Admin API — nothing
-   Polis-specific.
+   to BambooHR webhooks) and upserts Ory identities keyed by
+   `metadata_public.hr.employee_id`. When an employee is terminated,
+   disable the identity.
+3. The Ory side uses only the Admin API — nothing Polis-specific.
 
 ## Resources
 

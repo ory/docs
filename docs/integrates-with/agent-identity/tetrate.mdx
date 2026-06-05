@@ -16,10 +16,10 @@ This integration is community-maintained. Reference:
 [Tetrate Agent Router Enterprise](https://tetrate.io/) is an enterprise AI gateway
 built on [Envoy AI Gateway](https://aigateway.envoyproxy.io/) for routing and
 controlling AI-agent traffic. Pair it with Ory for dynamic, granular control over
-enterprise AI agents: **Ory Hydra** issues OAuth2/OIDC tokens for agents and **Ory
-Keto** holds the fine-grained authorization policies, while Tetrate enforces those
-policies on live traffic — down to parameter-level control over Model Context
-Protocol (MCP) tool calls.
+enterprise AI agents: **Ory OAuth2 & OpenID Connect** (Hydra) issues OAuth2/OIDC tokens
+for agents and **Ory Permissions** (Keto) holds the fine-grained authorization policies,
+while Tetrate enforces those policies on live traffic, down to parameter-level control
+over Model Context Protocol (MCP) tool calls.
 
 This entry reflects an announced partnership. See
 [Tetrate and Ory bring dynamic, granular control to enterprise AI agents](https://www.prnewswire.com/news-releases/tetrate-and-ory-bring-dynamic-granular-control-to-enterprise-ai-agents-302790416.html).
@@ -30,8 +30,8 @@ Two layers, each owning a distinct concern:
 
 1. **Authorization / policy layer (Ory)** — decides what an agent or user may
    access at the resource level. AI agents are first-class identities authenticated
-   through Ory; Hydra issues OAuth2/OIDC tokens (`client_credentials`), and Keto
-   holds the fine-grained policies.
+   through Ory. Ory OAuth2 & OpenID Connect issues OAuth2/OIDC tokens
+   (`client_credentials`), and Ory Permissions holds the fine-grained policies.
 2. **Network / gateway layer (Tetrate)** — enforces those policies on live traffic
    when agents call models, tools, and enterprise services. When an agent invokes
    an MCP tool, Tetrate Agent Router Enterprise evaluates the request against the
@@ -39,7 +39,7 @@ Two layers, each owning a distinct concern:
 
 Because enforcement is parameter-level, Tetrate can gate **not only which tools** an
 agent may use **but also which request parameters** are allowed, based on policies
-defined in Ory Keto.
+defined in Ory Permissions.
 
 ## Step-up authorization
 

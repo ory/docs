@@ -15,8 +15,9 @@ Contributions welcome.
 </Admonition>
 ```
 
-TikTok Login Kit uses a custom OAuth 2.0 flow (not OIDC). Configure as
-a **generic provider** in Ory Kratos with explicit endpoints.
+TikTok Login Kit uses a custom OAuth 2.0 flow rather than OIDC. You
+configure it as a **generic provider** in Ory Identities with explicit
+endpoints.
 
 ## Setup
 
@@ -28,13 +29,12 @@ a **generic provider** in Ory Kratos with explicit endpoints.
    - Authorization: `https://www.tiktok.com/v2/auth/authorize`
    - Token: `https://open.tiktokapis.com/v2/oauth/token/`
    - Profile: `https://open.tiktokapis.com/v2/user/info/?fields=open_id,union_id,avatar_url,display_name`
-4. Configure as a generic provider via the Ory CLI.
-5. Jsonnet maps `data.user.open_id`, `data.user.display_name`, and
+4. Configure it as a generic provider via the Ory CLI.
+5. Use Jsonnet to map `data.user.open_id`, `data.user.display_name`, and
    `data.user.email` (when the email scope is granted).
 
-TikTok requires explicit scope opt-in for `user.info.basic` and
-(separately) `user.info.email`; production scopes can require app
-review.
+TikTok requires explicit scope opt-in for `user.info.basic` and,
+separately, `user.info.email`. Production scopes can require app review.
 
 ## Resources
 

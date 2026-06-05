@@ -13,37 +13,37 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[AWS API Gateway](https://aws.amazon.com/api-gateway/) — managed
-REST/HTTP/WebSocket gateway. Validate Ory-issued JWTs at the gateway
+[AWS API Gateway](https://aws.amazon.com/api-gateway/) is a managed
+REST/HTTP/WebSocket gateway. You can validate Ory-issued JWTs at the gateway
 using a **Lambda authorizer** (REST API) or a **native JWT authorizer**
 (HTTP API).
 
-## Pattern
+## How it works
 
-**HTTP API (preferred)**: configure a native JWT authorizer pointing
-at Ory's issuer URL — no Lambda required.
+For an **HTTP API** (preferred), configure a native JWT authorizer pointing at
+Ory's issuer URL. No Lambda is required.
 
-**REST API**: deploy a Lambda authorizer that verifies the JWT against
-Ory's JWKS and returns an IAM policy. API Gateway caches the policy
-by token for `authorizerResultTtlInSeconds`.
+For a **REST API**, deploy a Lambda authorizer that verifies the JWT against
+Ory's JWKS and returns an IAM policy. API Gateway caches the policy by token
+for `authorizerResultTtlInSeconds`.
 
-## Setup outline (Lambda authorizer)
+## Set up a Lambda authorizer
 
-1. Deploy a Lambda authorizer (Node.js or Python) that:
-   - Pulls JWT from `Authorization: Bearer <token>` header.
-   - Verifies against
-     `https://<project>.projects.oryapis.com/.well-known/jwks.json`
-     (cache in module scope, refresh on `kid` miss).
-   - Returns IAM policy + principalId (= JWT `sub`).
-2. Wire as Token authorizer (REST) or Lambda authorizer (HTTP).
-3. Tune `authorizerResultTtlInSeconds` for cold-start vs. revocation
-   latency.
+1. Deploy a Lambda authorizer (Node.js or Python) that does the following:
+   - Pulls the JWT from the `Authorization: Bearer <token>` header.
+   - Verifies it against
+     `https://<project>.projects.oryapis.com/.well-known/jwks.json`,
+     caching in module scope and refreshing on a `kid` miss.
+   - Returns an IAM policy and a `principalId` set to the JWT `sub`.
+2. Wire it up as a Token authorizer (REST) or Lambda authorizer (HTTP).
+3. Tune `authorizerResultTtlInSeconds` to balance cold-start cost against
+   revocation latency.
 
-## Notable
+## Notes
 
 - Use the **HTTP API native JWT authorizer** when standard verification
-  suffices — Lambda is only needed for custom claim-based logic.
-- Cold-start latency matters — keep the authorizer minimal; use a
+  suffices. You only need Lambda for custom claim-based logic.
+- Cold-start latency matters, so keep the authorizer minimal and use a
   lean library like `aws-jwt-verify`.
 
 ## Resources

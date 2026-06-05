@@ -14,16 +14,16 @@ webhook handler. Reference:
 </Admonition>
 ```
 
-[Osano](https://www.osano.com) — data privacy platform with consent
+[Osano](https://www.osano.com) is a data privacy platform with consent
 management, data discovery, and vendor monitoring (GDPR, CCPA, LGPD).
 Sync Osano consent state into Ory identity metadata and handle DSARs
-through Ory's admin API.
+through the Ory Admin API.
 
-## Pattern
+## How it works
 
-1. In Osano → **Subject Rights** → **Integrations**, configure a
-   webhook for consent and DSAR events.
-2. Deploy a small service that:
+1. In Osano, go to **Subject Rights**, then **Integrations**, and
+   configure a webhook for consent and DSAR events.
+2. Deploy a service that:
    - Verifies Osano's webhook signature.
    - Resolves the Ory identity by Osano's `user_id` (matched to an
      Ory identity trait or `metadata_public.osano_user_id`).
@@ -36,10 +36,11 @@ through Ory's admin API.
 
 ## Notable
 
-- Osano's strength is **DSAR workflow orchestration** — the
+- Osano's strength is **DSAR workflow orchestration**. The
   integration's value is wiring Osano's request tracking into Ory's
   identity store as the source of truth.
-- DSAR responses are time-bounded (30 days GDPR / 45 days CCPA).
+- DSAR responses are time-bounded (30 days under GDPR, 45 days under
+  CCPA).
 
 ## Resources
 

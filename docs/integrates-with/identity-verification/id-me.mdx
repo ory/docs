@@ -14,12 +14,12 @@ This integration is community-maintained. Configures as a
 </Admonition>
 ```
 
-[ID.me](https://www.id.me) — US-government-trusted identity verification
-delivering NIST 800-63 IAL2 / AAL2 assurance through standard OIDC.
-Also offers verified group claims (Military, Student, Teacher, etc.)
+[ID.me](https://www.id.me) is a US-government-trusted identity verification
+service that delivers NIST 800-63 IAL2 / AAL2 assurance through standard OIDC.
+It also offers verified group claims (Military, Student, Teacher, and others)
 for discount-gating use cases.
 
-Configure as a federated OIDC provider in Ory Network.
+You configure ID.me as a federated OIDC provider in Ory Network.
 
 ## Quick reference
 
@@ -30,13 +30,13 @@ Configure as a federated OIDC provider in Ory Network.
 | Userinfo | `https://api.id.me/api/public/v3/userinfo` |
 | Scopes | `openid` plus group scopes (require app review) |
 
-## Setup outline
+## Set up
 
 1. Sign up at [developers.id.me](https://developers.id.me).
-2. Create an app; add the Ory redirect URI.
-3. Submit for ID.me review (required before group scopes are
-   released).
-4. Configure as a generic OIDC provider via Ory CLI.
+2. Create an app and add the Ory redirect URI.
+3. Submit the app for ID.me review. ID.me requires this before it releases group
+   scopes.
+4. Configure ID.me as a generic OIDC provider with the Ory CLI.
 
 ## Resources
 

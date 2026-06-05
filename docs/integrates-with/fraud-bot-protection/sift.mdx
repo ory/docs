@@ -13,36 +13,38 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Sift](https://sift.com) — digital trust & safety platform with
-real-time ML-based fraud and account-abuse scoring.
+[Sift](https://sift.com) is a digital trust and safety platform with real-time,
+ML-based fraud and account-abuse scoring.
 
 ## How it works
 
-**Both flows must run** for Sift to be useful:
+Both flows must run for Sift to be useful.
 
-**Pre-flow check** (sync, can interrupt):
-- Ory Action on `registration.before` / `login.before` with
-  `can_interrupt: true` calls the handler.
-- Handler reads the user's Sift score:
+The pre-flow check (sync, can interrupt) works as follows:
+
+- An Ory Action on `registration.before` / `login.before` with
+  `can_interrupt: true` calls your handler.
+- The handler reads the user's Sift score with
   `GET https://api.sift.com/v205/users/{user_id}/score`.
-- Block if score exceeds threshold.
+- The handler blocks the flow if the score exceeds your threshold.
 
-**Post-event reporter** (async, signal collection):
-- Ory Action on `registration.after` / `login.after` (async).
-- Handler POSTs reserved event names
-  (`$create_account`, `$login`, `$transaction`) to
-  `https://api.sift.com/v205/events` with IP, user agent, session,
-  traits.
+The post-event reporter (async, signal collection) works as follows:
+
+- An Ory Action on `registration.after` / `login.after` runs asynchronously and
+  calls your handler.
+- The handler POSTs reserved event names (`$create_account`, `$login`,
+  `$transaction`) to `https://api.sift.com/v205/events` with the IP, user agent,
+  session, and traits.
 - Sift updates its model.
 
 ## Notable
 
-- User IDs must be **stable across sessions** — Sift's model is
-  keyed on user_id. Use Ory identity id, not email.
-- Threshold tuning: start permissive (block on score > 80), tighten
-  as you collect data.
-- Sift's value is **longitudinal** — single events have limited
-  signal; payoff grows over time as the model learns the user base.
+- User IDs must be stable across sessions, because Sift's model is keyed on
+  `user_id`. Use the Ory identity ID, not the email.
+- Tune your thresholds over time. Start permissive (block on a score above 80)
+  and tighten as you collect data.
+- Sift's value is longitudinal. Single events carry limited signal, and the
+  payoff grows over time as the model learns your user base.
 
 ## Resources
 

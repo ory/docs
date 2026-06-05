@@ -14,26 +14,25 @@ iDIN is exposed as standard OIDC by licensed brokers. Configures as a
 </Admonition>
 ```
 
-[iDIN](https://www.idin.nl) — Dutch banks' identity-verification service.
-Users identify with their existing online-banking credentials (ING,
-Rabobank, ABN AMRO, etc.); the bank returns bank-verified attributes
-(name, address, DOB, 18+ flag). Widely used in the Netherlands for
+[iDIN](https://www.idin.nl) is the Dutch banks' identity verification service.
+Users identify with their existing online-banking credentials (ING, Rabobank,
+ABN AMRO, and others), and the bank returns bank-verified attributes such as
+name, address, DOB, and an 18+ flag. It is widely used in the Netherlands for
 KYC, age verification, and onboarding.
 
 ## Integration path
 
-Use a broker (Signicat, CM.com, Connective) exposing iDIN as standard
-OIDC; configure as a generic OIDC provider in Kratos.
+Use a broker (such as Signicat, CM.com, or Connective) that exposes iDIN as
+standard OIDC, then configure it as a generic OIDC provider in Ory Identities.
 
 ## Notable
 
-- Attributes are **bank-KYC verified** — high-confidence by
-  construction.
-- `dateOfBirth` is sensitive PII — prefer `metadata_admin`; or request
-  the `is18OrOlder` flag if only an age check is needed.
-- BSN is **not returned** by default — BSN scope requires Dutch
-  government approval.
-- PSD2 SCA: bank login is the strong-customer-auth factor.
+- Attributes are bank-KYC verified, so they are high-confidence.
+- `dateOfBirth` is sensitive PII, so prefer `metadata_admin`. If you only need an
+  age check, request the `is18OrOlder` flag instead.
+- BSN is not returned by default. The BSN scope requires Dutch government
+  approval.
+- For PSD2 SCA, the bank sign-in is the strong-customer-authentication factor.
 
 ## Resources
 

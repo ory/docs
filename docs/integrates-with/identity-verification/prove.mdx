@@ -25,7 +25,7 @@ enrollment, and per-login validation.
 | --- | --- | --- | --- |
 | `POST /prove/lookup` | sync `registration.before`, `can_interrupt: true` | `X-Webhook-Secret` | Pre-registration phone-number lookup. Returns identity-prefill metadata (name, address, DOB) when Prove knows the phone, or surfaces a SIM-swap / low-trust signal that the registration hook can use to gate the flow. |
 | `POST /prove/enroll` | sync `registration.after` | `X-Webhook-Secret` | Registers the user's phone with Prove's Identity Manager; stores the resulting `prove_identity_id` on `metadata_admin`. |
-| `POST /prove/validate` | sync `login.after`, `can_interrupt: true` | `X-Webhook-Secret` | Confirms the user's stored Prove identity is still in good standing (no recent SIM swap, ownership unchanged); blocks login on a fail. |
+| `POST /prove/validate` | sync `login.after`, `can_interrupt: true` | `X-Webhook-Secret` | Confirms the user's stored Prove identity is still in good standing (no recent SIM swap, ownership unchanged); blocks sign-in on a failure. |
 
 All three are sync — Prove's APIs return decisions in the response, so there is no
 async callback path to verify.

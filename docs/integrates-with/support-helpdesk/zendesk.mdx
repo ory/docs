@@ -13,21 +13,21 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Zendesk](https://www.zendesk.com) — customer support platform. Sync
-Ory identities into Zendesk Users via Ory Actions.
+[Zendesk](https://www.zendesk.com) is a customer support platform. You sync
+Ory identities into Zendesk Users with Ory Actions.
 
 ## How it works
 
-Ory Action on `registration.after` (async) calls Zendesk's
-`POST /api/v2/users.json` with HTTP Basic (email/token + API token)
-or OAuth Bearer. `external_id` = Ory identity id.
+An Ory Action on `registration.after` runs asynchronously and calls Zendesk's
+`POST /api/v2/users.json` with HTTP Basic (email/token plus API token)
+or OAuth Bearer authentication. Set `external_id` to the Ory identity ID.
 
 ## Notable
 
 - Create Or Update User is idempotent on `external_id`.
-- Rate limits per plan; high-volume signups need batching at scale.
-- For Ory identity context **inside** Zendesk tickets, build a
-  Zendesk App that calls the Ory admin API.
+- Rate limits apply per plan, so high-volume sign-ups need batching at scale.
+- To show Ory identity context **inside** Zendesk tickets, build a
+  Zendesk App that calls the Ory Admin API.
 
 ## Resources
 

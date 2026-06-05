@@ -15,31 +15,31 @@ integration goes through an OIDC broker. Configures as a
 </Admonition>
 ```
 
-[BankID](https://www.bankid.com) — the high-assurance electronic
-identity used in Sweden and Norway. eIDAS Substantial/High assurance.
-De-facto authentication for banking, public services, and healthcare
-in those markets.
+[BankID](https://www.bankid.com) is the high-assurance electronic identity used
+in Sweden and Norway, providing eIDAS Substantial and High assurance. It is the
+de-facto authentication method for banking, public services, and healthcare in
+those markets.
 
 ## Integration path
 
-Use a broker that exposes BankID as standard OIDC; configure as a
-generic OIDC provider in Kratos.
+Use a broker that exposes BankID as standard OIDC, then configure it as a generic
+OIDC provider in Ory Identities.
 
-Common brokers: [Criipto](https://www.criipto.com) (cleanest),
-[Signicat](https://www.signicat.com), [Nets](https://www.nets.eu).
+Common brokers are [Criipto](https://www.criipto.com),
+[Signicat](https://www.signicat.com), and [Nets](https://www.nets.eu).
 
-## Setup outline
+## Set up
 
-1. Pick a broker; create an OIDC application; enable Swedish and/or
-   Norwegian BankID.
-2. Configure Ory redirect URI as the broker's callback.
-3. Configure as a generic OIDC provider in Kratos with `issuer_url`,
-   client id, secret. Scopes: `openid`, `profile`, broker-specific
-   personal-number scope (for example `ssn`).
-4. Jsonnet maps personal number, name, country.
+1. Pick a broker, create an OIDC application, and enable Swedish or Norwegian
+   BankID.
+2. Set the Ory redirect URI as the broker's callback.
+3. Configure the broker as a generic OIDC provider in Ory Identities with its
+   `issuer_url`, client ID, and secret. Request the `openid` and `profile` scopes
+   plus the broker-specific personal-number scope (for example `ssn`).
+4. Use Jsonnet to map the personal number, name, and country.
 
-Personal numbers are sensitive PII — consider `metadata_admin` over
-`metadata_public`. BankID satisfies PSD2 SCA.
+Personal numbers are sensitive PII, so consider storing them in `metadata_admin`
+rather than `metadata_public`. BankID satisfies PSD2 SCA.
 
 ## Resources
 

@@ -13,21 +13,21 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[FullContact](https://www.fullcontact.com) — person/company data
+[FullContact](https://www.fullcontact.com) provides person and company data
 enrichment.
 
 ## How it works
 
-Ory Action on `registration.after` (async) → handler calls
-`POST https://api.fullcontact.com/v3/person.enrich` → PATCHes returned
+An Ory Action on `registration.after` runs asynchronously and calls your handler, which
+calls `POST https://api.fullcontact.com/v3/person.enrich` and PATCHes the returned
 enrichment to `metadata_public.fullcontact` on the Ory identity.
 
 ## Notable
 
-- Best-effort enrichment — silently no-op on 404 misses.
-- FullContact's multi-field resolution improves hit rate at the cost
+- Enrichment is best-effort, so the handler silently no-ops on 404 misses.
+- FullContact's multi-field resolution improves the hit rate at the cost
   of more credits used.
-- DSAR delete API available.
+- A DSAR delete API is available.
 
 ## Resources
 

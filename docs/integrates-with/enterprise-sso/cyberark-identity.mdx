@@ -8,8 +8,8 @@ sidebar_label: CyberArk Identity
 import Admonition from '@theme/Admonition'
 
 <Admonition type="note" title="Community-contributed integration">
-This integration is community-maintained, not part of Ory Polis's
-officially supported SSO providers. Configures via the
+This integration is community-maintained and is not part of Ory Polis's
+officially supported SSO providers. You configure it through the
 [generic SAML SP](../../polis/sso-providers/generic-saml.mdx) or
 [generic OIDC](../../polis/sso-providers/generic-oidc.mdx) walkthrough.
 Reference:
@@ -17,23 +17,22 @@ Reference:
 </Admonition>
 ```
 
-[CyberArk Identity](https://www.cyberark.com/products/identity/) — SSO
+[CyberArk Identity](https://www.cyberark.com/products/identity/) is the SSO
 and identity portion of the CyberArk platform, distinct from CyberArk's
-PAM product. Exposes standard SAML 2.0 and OIDC endpoints for Ory Polis
-to consume via the generic provider paths.
+PAM product. It exposes standard SAML 2.0 and OIDC endpoints that Ory Polis
+consumes through the generic provider paths.
 
-## Setup outline
+## Set up
 
 1. In CyberArk Identity, create a **Custom SAML App** (or Custom OIDC
    App).
 2. Configure the Polis SP metadata on the CyberArk app.
-3. In Ory Network, configure the SSO connection via the generic SAML
-   or generic OIDC walkthrough; paste CyberArk's metadata XML or
-   issuer URL + client credentials.
-4. Map released attributes (`email`, names, groups) to Ory traits.
+3. In Ory Network, configure the SSO connection through the generic SAML
+   or generic OIDC walkthrough. Paste CyberArk's metadata XML or the
+   issuer URL and client credentials.
+4. Map the released attributes (`email`, names, groups) to Ory traits.
 
-PAM-specific REST integration is out of scope — this entry covers SSO
-only.
+This entry covers SSO only. PAM-specific REST integration is out of scope.
 
 ## Resources
 
