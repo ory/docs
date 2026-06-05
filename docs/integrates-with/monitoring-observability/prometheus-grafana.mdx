@@ -1,0 +1,71 @@
+---
+id: prometheus-grafana
+title: Prometheus + Grafana
+sidebar_label: Prometheus + Grafana
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/monitoring-observability/prometheus-grafana](https://github.com/ory/integrates/tree/main/monitoring-observability/prometheus-grafana).
+</Admonition>
+```
+
+Every Ory service exposes a Prometheus-compatible metrics endpoint at
+`/metrics/prometheus`. Documented in the
+[self-hosted observability](../../self-hosted/operations/15_observability.md) docs as
+the recommended metrics path.
+
+| Service | Default metrics endpoint |
+| --- | --- |
+| Kratos | `http://{host}:4434/metrics/prometheus` (admin port) |
+| Hydra | `http://{host}:4445/admin/metrics/prometheus` |
+| Keto | `http://{host}:4468/metrics/prometheus` |
+| Oathkeeper | `http://{host}:9000/metrics/prometheus` |
+
+## Scrape config
+
+Self-hosted Ory:
+
+```yaml
+scrape_configs:
+  - job_name: ory-kratos
+    metrics_path: /metrics/prometheus
+    static_configs: [{ targets: ['kratos-admin:4434'] }]
+  - job_name: ory-hydra
+    metrics_path: /admin/metrics/prometheus
+    static_configs: [{ targets: ['hydra-admin:4445'] }]
+```
+
+Ory Network:
+
+```yaml
+scrape_configs:
+  - job_name: ory-network
+    scheme: https
+    metrics_path: /metrics/prometheus
+    scrape_interval: 30s
+    static_configs:
+      - targets: ['<your-project>.projects.oryapis.com']
+        labels:
+          environment: production
+```
+
+## Dashboards
+
+There's no officially published Grafana dashboard JSON for Ory. Build your own around
+the standard Go runtime metrics (`go_*`, `process_*`) plus Ory's HTTP request metrics
+for the public API paths most relevant to your product (login, registration,
+verification, OAuth2 token, sessions).
+
+For richer signals, pair with the [OpenTelemetry integration](./opentelemetry.mdx)
+for traces and a backend like Tempo.
+
+## Resources
+
+- [Prometheus](https://prometheus.io)
+- [Grafana](https://grafana.com)
+- [Ory observability](../../self-hosted/operations/15_observability.md)
+- Reference: [ory/integrates/monitoring-observability/prometheus-grafana](https://github.com/ory/integrates/tree/main/monitoring-observability/prometheus-grafana)

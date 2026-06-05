@@ -18,7 +18,11 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Agent identity",
-        items: ["integrates-with/agent-identity/skyfire"],
+        link: { type: "generated-index" },
+        items: [
+          "integrates-with/agent-identity/skyfire",
+          "integrates-with/agent-identity/tetrate",
+        ],
       },
       {
         type: "category",
@@ -27,6 +31,7 @@ const integratesSidebar = [
         items: [
           "integrates-with/api-gateways/apigee",
           "integrates-with/api-gateways/aws-api-gateway",
+          "integrates-with/api-gateways/envoy",
           "integrates-with/api-gateways/kong",
           "integrates-with/api-gateways/traefik",
         ],
@@ -85,7 +90,10 @@ const integratesSidebar = [
         link: { type: "generated-index" },
         items: [
           "integrates-with/crm/microsoft-dynamics-365",
+          "integrates-with/crm/pipedrive",
+          "integrates-with/crm/salesforce",
           "integrates-with/crm/salesforce-crm",
+          "integrates-with/crm/zoho-crm",
         ],
       },
       {
@@ -185,6 +193,11 @@ const integratesSidebar = [
           "integrates-with/identity-verification/equifax",
           "integrates-with/identity-verification/gbg-acuant",
           "integrates-with/identity-verification/id-me",
+          "integrates-with/identity-verification/jumio",
+          "integrates-with/identity-verification/lexisnexis",
+          "integrates-with/identity-verification/onfido",
+          "integrates-with/identity-verification/persona",
+          "integrates-with/identity-verification/prove",
           "integrates-with/identity-verification/socure",
         ],
       },
@@ -200,7 +213,13 @@ const integratesSidebar = [
       {
         type: "category",
         label: "Monitoring and observability",
-        items: ["integrates-with/monitoring-observability/new-relic"],
+        link: { type: "generated-index" },
+        items: [
+          "integrates-with/monitoring-observability/datadog",
+          "integrates-with/monitoring-observability/new-relic",
+          "integrates-with/monitoring-observability/opentelemetry",
+          "integrates-with/monitoring-observability/prometheus-grafana",
+        ],
       },
       {
         type: "category",
