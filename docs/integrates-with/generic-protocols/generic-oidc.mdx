@@ -1,0 +1,23 @@
+---
+id: generic-oidc
+title: Generic OIDC Provider
+sidebar_label: Generic OIDC
+---
+
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/polis/sso-providers/generic-oidc" />
+</head>
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="info" title="Primary documentation">
+Any OIDC-compliant Identity Provider is configured into Ory Polis as the OIDC Relying Party — no custom code required. See
+[Set up app in your OpenID Connect Identity Provider](../../polis/sso-providers/generic-oidc.mdx) for the full guide.
+</Admonition>
+```
+
+Configure any OpenID Connect-compliant Identity Provider with Ory. For B2B SSO
+with per-organization isolation, Ory Polis acts as the OIDC Relying Party on
+behalf of an organization; for consumer or user-facing sign-in, Ory Kratos
+provides federated sign-in.
