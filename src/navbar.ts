@@ -64,17 +64,17 @@ export const navbar: Navbar = {
         },
         {
           type: "doc",
-          docId: "solutions/solution_CIAM",
+          docId: "solutions/solution-CIAM",
           label: "CIAM",
         },
         {
           type: "doc",
-          docId: "solutions/solution_B2B",
+          docId: "solutions/solution-B2B",
           label: "B2B IAM",
         },
         {
           type: "doc",
-          docId: "solutions/solution_agentic",
+          docId: "solutions/solution-agentic",
           label: "Agentic IAM",
         },
       ],
