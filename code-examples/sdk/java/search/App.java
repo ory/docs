@@ -16,8 +16,7 @@ public class App {
             Client searchClient = initializeSearchClient();
             // highlight-start
             // Search identities via Search API
-            String collection = "identities-" + System.getenv("ORY_PROJECT_ID"); // Set the collection name
-            SearchResult searchResult = searchClient.collections(collection).documents()
+            SearchResult searchResult = searchClient.collections("identities").documents()
                     .search(new SearchParameters().q("test@example.com").queryBy("traits.email"));
             // highlight-end
 

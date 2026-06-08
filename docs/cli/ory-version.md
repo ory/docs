@@ -1,7 +1,7 @@
 ---
 id: ory-version
 title: ory version
-description: ory version Display this binary's version, build time, and git hash of this build
+description: ory version
 ---
 
 <!--
@@ -23,7 +23,7 @@ ory version [flags]
   -h, --help   help for version
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 

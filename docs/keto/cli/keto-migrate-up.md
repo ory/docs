@@ -32,7 +32,7 @@ keto migrate up [flags]
 ### Options
 
 ```
-      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help            help for up
   -q, --quiet           Be quiet with output printing.
   -y, --yes             yes to all questions, no user input required

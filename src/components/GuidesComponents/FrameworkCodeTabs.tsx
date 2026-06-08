@@ -3,7 +3,7 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 
 const DEFAULT_FRAMEWORKS = [
-  { value: "javascript", label: "Expressjs" },
+  { value: "javascript", label: "Express (JS)" },
   { value: "nextjs", label: "Next.js" },
   { value: "go", label: "Go" },
 ]

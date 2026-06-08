@@ -114,12 +114,13 @@ session:
   whoami:
     tokenizer:
       templates:
-      jwt_template_1:
-        jwks_url: base64://... # A JSON Web Key Set (required)
-        claims_mapper_url: base64://... # A JsonNet template for modifying the claims
-        ttl: 1m # 1 minute (defaults to 10 minutes)
-      another_jwt_template:
-        jwks_url: base64://... # A JSON Web Key Set
+        jwt_template_1:
+          jwks_url: base64://... # A JSON Web Key Set (required)
+          claims_mapper_url: base64://... # A JsonNet template for modifying the claims
+          ttl: 1m # 1 minute (defaults to 10 minutes)
+          subject_source: id # (optional, defaults to id, other option: external_id if you're using `external_id` on identities)
+        another_jwt_template:
+          jwks_url: base64://... # A JSON Web Key Set
 ```
 
 ### JSON Web Token claim mapper
@@ -219,3 +220,17 @@ If the key set contains more than one key, the first key in the list will be use
   ],
 }
 ```
+
+### Handling `external_id` in the JWT sub claim
+
+If your identities use `external_id`, set `subject_source` to `external_id` in the tokenizer template to populate the JWT sub
+claim with that value.
+
+Tokenization will fail if `subject_source` is set to `external_id` but an identity is missing `external_id`. This is a security
+measure that prevents issuing tokens with the same sub claim for different identities, since identity IDs and `external_id` values
+are only guaranteed to be unique within their own namespaces, not across both.
+
+To avoid this, configure a webhook to automatically set `external_id` for new identities (for example using the same ID generation
+logic as your previous system).
+
+After migration, you can switch to using Ory identity IDs and set `subject_source` back to `id`.

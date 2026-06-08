@@ -1,7 +1,7 @@
 ---
 id: ory
 title: ory
-description: ory The Ory CLI
+description: ory
 ---
 
 <!--
@@ -19,7 +19,7 @@ The Ory CLI
   -h, --help   help for ory
 ```
 
-### SEE ALSO
+### See also
 
 * [ory auth](ory-auth)	 - Create a new Ory Network account or sign in to an existing account.
 * [ory create](ory-create)	 - Create Ory Network resources

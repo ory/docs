@@ -11,14 +11,21 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## keto expand
 
-Expand a subject set
+Expand all subjects that have the relation on the object
 
 ### Synopsis
 
-Expand a subject set into a tree of subjects.
+Expand all subjects that have the relation on the object, including how access is granted.
+
+Example:
+```
+keto expand view Doc:readme
+```
+
+
 
 ```
-keto expand <relation> <namespace> <object> [flags]
+keto expand <relation> <object_namespace>:<object_id> [flags]
 ```
 
 ### Options

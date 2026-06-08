@@ -30,14 +30,14 @@ configure account recovery in your Ory project.
 
 ### Enable and configure account recovery
 
-1. Log in to your [Ory Console](https://console.ory.sh/)
+1. Log in to your [Ory Console](https://console.ory.com/)
 2. Select your workspace and project
 3. Navigate to **Authentication** → **Account recovery**
 4. Toggle "Enable account recovery" to on
 5. Click **Save**
 
 ```mdx-code-block
-<BrowserWindow url="https://console.ory.sh/projects/<id>/authentication/recovery">
+<BrowserWindow url="https://console.ory.com/projects/<id>/authentication/recovery">
     ![Account Recovery Settings](../_assets/account-recovery-settings.png)
 </BrowserWindow>
 ```
@@ -81,7 +81,7 @@ feature_flags:
 
 ##### When using Ory Network
 
-1. Log in to your [Ory Console](https://console.ory.sh/)
+1. Log in to your [Ory Console](https://console.ory.com/)
 2. Select your workspace and project
 3. Navigate to <ConsoleLink route="project.settings.advanced" />
 4. Toggle "Receive a recovery code via SMS" to 'on'
@@ -124,7 +124,7 @@ You can choose between the following recovery strategies:
 ```mdx-code-block
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 
-<BrowserWindow url="https://console.ory.sh/projects/<id>/authentication/recovery">
+<BrowserWindow url="https://console.ory.com/projects/<id>/authentication/recovery">
 
     ![Multi-factor for Recovery](../_assets/mfa-recovery.png)
 
@@ -236,7 +236,7 @@ If the address is malformed, or well-formed but not registered as a recovery add
   probing the system to discover which addresses are registered.
 - If the address is a valid email address but not registered as a recovery address for this user, and the configuration value
   `selfservice.flows.recovery.notify_unknown_recipients` is enabled, an email will be sent to this address with this wording (this
-  can be [customized](../../kratos/emails-sms/sending-emails-smtp#send-emails-using-an-http-server)):
+  can be [customized](../../kratos/emails-sms/05_custom-email-templates.mdx)):
   > Hi,
   >
   > you (or someone else) entered this email address when trying to recover access to an account.

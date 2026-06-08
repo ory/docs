@@ -1,7 +1,7 @@
 ---
 id: ory-get-project
 title: ory get project
-description: ory get project Get the complete configuration of an Ory Network project.
+description: ory get project
 ---
 
 <!--
@@ -49,7 +49,7 @@ $ ory get project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
 ### Options
 
 ```
-      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help               help for project
   -q, --quiet              Be quiet with output printing.
       --workspace string   The workspace to use, either workspace ID or a (partial) name.
@@ -62,7 +62,7 @@ $ ory get project ecaaa3cb-0730-4ee8-a6df-9553cdfeef89 --format json
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory get](ory-get)	 - Get a resource
+* [ory get](ory-get) Get a resource
 

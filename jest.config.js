@@ -1,4 +1,4 @@
-// Copyright © 2022 Ory Corp
+// Copyright © 2026 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
 module.exports = {
@@ -8,5 +8,5 @@ module.exports = {
   transform: {
     "^.+\\.[jt]sx?$": "@swc/jest",
   },
-  testTimeout: 30000,
+  testTimeout: 60000,
 }

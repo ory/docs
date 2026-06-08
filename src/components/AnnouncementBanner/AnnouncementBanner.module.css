@@ -1,0 +1,38 @@
+.announcementContent a {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+  transition: color 0.2s ease;
+}
+
+.announcementContent a:hover {
+  color: #581c87;
+}
+
+[data-theme="dark"] .announcementContent a:hover {
+  color: #d8b4fe;
+}
+
+/* Dark mode overrides keyed to Docusaurus's data-theme attribute */
+[data-theme="dark"] .warning {
+  border-color: #92400e;
+  background-color: #451a03;
+  color: #fef3c7;
+}
+
+[data-theme="dark"] .error {
+  border-color: #991b1b;
+  background-color: #450a0a;
+  color: #fee2e2;
+}
+
+[data-theme="dark"] .success {
+  border-color: #065f46;
+  background-color: #022c22;
+  color: #d1fae5;
+}
+
+[data-theme="dark"] .info {
+  border-color: #4c1d95;
+  background-color: #2e1065;
+  color: #ede9fe;
+}

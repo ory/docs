@@ -1,0 +1,105 @@
+---
+id: mcp
+title: Ory Docs MCP Server
+sidebar_label: Docs MCP Server
+---
+
+The Ory Docs MCP (Model Context Protocol) server gives AI assistants direct access to Ory documentation, enabling more accurate
+and context-aware answers to your questions.
+
+MCP is an open protocol that allows AI tools to query external knowledge sources. Once configured, your AI assistant can search
+and retrieve Ory documentation in real time.
+
+**Server URL:** `https://ory-docs.mcp.kapa.ai`
+
+## Cursor
+
+Add the following to your `.cursor/mcp.json` file:
+
+```json
+{
+  "mcpServers": {
+    "ory-docs": {
+      "type": "http",
+      "url": "https://ory-docs.mcp.kapa.ai"
+    }
+  }
+}
+```
+
+For more information, see the [Cursor MCP documentation](https://docs.cursor.com/context/model-context-protocol).
+
+## Claude Code
+
+```shell
+claude mcp add --transport http ory-docs https://ory-docs.mcp.kapa.ai
+```
+
+Then run the `/mcp` command in Claude Code and follow the steps in your browser to authenticate.
+
+For more information, see the [Claude Code MCP documentation](https://docs.anthropic.com/en/docs/claude-code/mcp).
+
+## Claude Desktop
+
+```json
+{
+  "mcpServers": {
+    "ory-docs": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://ory-docs.mcp.kapa.ai"]
+    }
+  }
+}
+```
+
+## VS Code
+
+**Prerequisites:** VS Code 1.102+ with GitHub Copilot enabled.
+
+Create an `mcp.json` file in your workspace `.vscode` folder:
+
+`.vscode/mcp.json`
+
+```json
+{
+  "servers": {
+    "ory-docs": {
+      "type": "http",
+      "url": "https://ory-docs.mcp.kapa.ai"
+    }
+  }
+}
+```
+
+For more details, see the [VS Code MCP documentation](https://code.visualstudio.com/docs/copilot/customization/mcp-servers).
+
+## ChatGPT Desktop
+
+ChatGPT Desktop supports MCP servers in developer mode:
+
+1. Open ChatGPT Desktop.
+1. Go to **Settings > Features**.
+1. Enable **Developer mode**.
+1. Navigate to **Settings > MCP Servers**.
+1. Click **Add Server** and enter:
+   - **Name:** `ory-docs`
+   - **URL:** `https://ory-docs.mcp.kapa.ai`
+
+For more information, see the [ChatGPT Desktop MCP documentation](https://platform.openai.com/docs/guides/developer-mode).
+
+## Other clients
+
+MCP is an open protocol supported by many clients. Use the server URL `https://ory-docs.mcp.kapa.ai` and refer to your client's
+documentation for setup instructions.
+
+Most clients accept the standard MCP JSON configuration format:
+
+```json
+{
+  "mcpServers": {
+    "ory-docs": {
+      "url": "https://ory-docs.mcp.kapa.ai"
+    }
+  }
+}
+```

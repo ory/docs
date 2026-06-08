@@ -41,7 +41,7 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
    6. Go back to the [Identifiers overview](https://developer.apple.com/account/resources/identifiers/list/serviceId).
    7. Next to the search icon open the dropdown and select "Services IDs".
    8. Create a new [Services ID](https://developer.apple.com/account/resources/identifiers/add/serviceId).
-   9. Choose a description of your liking. The identifier **must match** the App ID value.
+   9. Choose a description of your liking. The identifier **must be unique**.
    10. Click **Continue**, then **Register**.
    11. Click on the newly created service identifier and click the "Sign in with Apple" checkbox.
    12. Click the **Configure** button and set the domains and subdomain to match your Ory Network domain (or custom hostname).
@@ -203,6 +203,15 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
 </TabItem>
 </Tabs>
 ```
+
+## Account linking
+
+Apple supports [automatic account linking](./link-multiple-provider-account#automatic-account-linking-for-google-and-apple). When
+enabled, users who sign in with an Apple account that shares a verified email with an existing identity are automatically linked
+without additional verification.
+
+To enable automatic account linking, set `account_linking_mode` to `automatic` in the provider configuration. Read the
+[account linking documentation](./link-multiple-provider-account#enable-automatic-account-linking) for setup instructions.
 
 ## Using the Apple SDK on native apps
 

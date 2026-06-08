@@ -13,11 +13,10 @@ import (
 var (
 	ORY_PROJECT_URL = os.Getenv("ORY_PROJECT_URL")
 	ORY_API_KEY     = os.Getenv("ORY_API_KEY")
-	Collection      = "identities-" + os.Getenv("ORY_PROJECT_ID")
 )
 
 func main() {
-	ctx := context.WithValue(context.Background(), ory.ContextAccessToken, os.Getenv("ORY_API_KEY"))
+	ctx := context.WithValue(context.Background(), ory.ContextAccessToken, ORY_API_KEY)
 
 	// Initialize Ory client
 	cfg := ory.NewConfiguration()
@@ -34,7 +33,7 @@ func main() {
 
 	// highlight-start
 	// List identities via Search API
-	list, err := searchClient.Collection(Collection).Documents().Search(ctx, &typesenseapi.SearchCollectionParams{
+	list, err := searchClient.Collection("identities").Documents().Search(ctx, &typesenseapi.SearchCollectionParams{
 		Q: ptr("*"),
 	})
 	// highlight-end
@@ -49,7 +48,7 @@ func main() {
 
 	// highlight-start
 	// Search identities via Search API
-	search, err := searchClient.Collection(Collection).Documents().Search(ctx, &typesenseapi.SearchCollectionParams{
+	search, err := searchClient.Collection("identities").Documents().Search(ctx, &typesenseapi.SearchCollectionParams{
 		Q:       ptr("foo"),
 		QueryBy: ptr("traits"),
 	})

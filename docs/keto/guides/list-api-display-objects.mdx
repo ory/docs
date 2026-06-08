@@ -47,20 +47,32 @@ coffee-break:
     - Patrik
 ```
 
-This is represented in Ory Keto by the following [relationships](../concepts/01_relation-tuples.mdx):
+This is represented in Ory Keto by the following [OPL Namespace configuration](../index.mdx#ory-permission-language):
 
-```keto-relation-tuples
-chats:memes#member@PM
-chats:memes#member@Vincent
-chats:memes#member@Julia
+```ts
+class User implements Namespace {}
 
-chats:cars#member@PM
-chats:cars#member@Julia
+class Chat implements Namespace {
+  related: {
+    member: User[]
+  }
+}
+```
 
-chats:coffee-break#member@PM
-chats:coffee-break#member@Vincent
-chats:coffee-break#member@Julia
-chats:coffee-break#member@Patrik
+and with the following [relationships](../concepts/01_relation-tuples.mdx):
+
+```keto-tuples
+Chat:memes#member@User:PM
+Chat:memes#member@User:Vincent
+Chat:memes#member@User:Julia
+
+Chat:cars#member@User:PM
+Chat:cars#member@User:Julia
+
+Chat:coffee-break#member@User:PM
+Chat:coffee-break#member@User:Vincent
+Chat:coffee-break#member@User:Julia
+Chat:coffee-break#member@User:Patrik
 ```
 
 The user `PM` now opens the chat application. To display a list of all of `PM`'s chats, the application uses Keto's list API.
@@ -72,7 +84,7 @@ TLS.
 
 :::
 
-<CodeTabs sampleId="list-api-display-objects/01-list-PM" version="v0.7.0-alpha.1" />
+<CodeTabs sampleId="list-api-display-objects-subjectset/01-list-PM" version="master" />
 
 As a response, the application gets the list of all chats the user `PM` is a member of. It can then use the information to build
 the UI.
@@ -92,7 +104,7 @@ is allowed to list the members of a group. This step isn't part of this example.
 
 In our example, a user wants to see who is a member of the `coffee-break` group:
 
-<CodeTabs sampleId="list-api-display-objects/02-list-coffee-break" version="v0.7.0-alpha.1" />
+<CodeTabs sampleId="list-api-display-objects-subjectset/02-list-coffee-break" version="master" />
 
 ## Application context
 

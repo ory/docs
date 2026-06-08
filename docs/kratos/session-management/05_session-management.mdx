@@ -83,7 +83,7 @@ allows users to log out from their account on different devices or terminate ses
 malicious activity.
 
 Sessions revoked by users are not deleted from the system. Instead, they become inactive. Only administrators can delete sessions
-using the [administrative endpoints](#administrative-session-management).
+using the [administrative endpoints](#administrative).
 
 :::info
 
@@ -130,7 +130,7 @@ To allow users to revoke all sessions other than the currently active one, use t
 [revoke sessions API](../../reference/api#tag/frontend/operation/disableMyOtherSessions). Sessions revoked by users are not
 deleted from the system. Instead, they become inactive.
 
-Only administrators can delete sessions [using the administrative endpoints](#administrative-session-management).
+Only administrators can delete sessions [using the administrative endpoints](#administrative).
 
 :::info
 
@@ -295,7 +295,7 @@ import nativeGetSession from "!!raw-loader!@site/code-examples/sdk/typescript/sr
 </TabItem>
 <TabItem value="console" label="Ory Console">
 
-To view sessions metadata, go to <ConsoleLink route="project.sessions.list" /> and click the **View** on the session you want to inspect.
+To view sessions metadata, go to <ConsoleLink route="project.sessions.list" /> and click the row of the session you want to inspect.
 
 </TabItem>
 </Tabs>
@@ -328,8 +328,8 @@ import nativeDisableSession from "!!raw-loader!@site/code-examples/sdk/typescrip
 </TabItem>
 <TabItem value="console" label="Ory Console">
 
-To revoke a session, go to <ConsoleLink route="project.sessions.list" />, click the **View** button corresponding
-to the session you want to terminate and click the **Terminate Session** button.
+To revoke a session, go to <ConsoleLink route="project.sessions.list" />, click the row of the session you want to
+terminate and click the **Terminate Session** button.
 
 </TabItem>
 </Tabs>

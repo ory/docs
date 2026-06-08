@@ -14,7 +14,7 @@ Let's see how SSO works in this case.
 
 ## Configure the SSO connection
 
-First as the application developer, you'll need to [add](./index.mdx#21-add-connection) the SSO connections for CRM and HRM. This
+First as the application developer, you'll need to [add](./index.mdx#add-connection) the SSO connections for CRM and HRM. This
 will be saved (marked as SAML Metadata and OIDC Metadata in the below diagram) within Ory Polis and later used to orchestrate the
 IdP login.
 
@@ -31,7 +31,7 @@ Ory Polis uses the Authorization Code flow as outlined by the numbered steps bel
    In the case of OIDC, the response contains the authorization code that is used by Ory Polis to obtain token and userprofile
    from the OIDC IdP. Ory Polis generates a short lived code and stores the user profile against it.
 4. The authorization code generated in the previous step is sent to the client app.
-5. The client [`exchanges`](./index.mdx#32-code-exchange) the code for token and uses it to query the
-   [`userInfo`](./index.mdx#33-profile-request) endpoint of Ory Polis to get the complete user profile.
+5. The client [`exchanges`](./index.mdx#code-exchange) the code for token and uses it to query the
+   [`userInfo`](./index.mdx#profile-request) endpoint of Ory Polis to get the complete user profile.
 
 ![SSO Flow](../_assets/sso-flow.png)
