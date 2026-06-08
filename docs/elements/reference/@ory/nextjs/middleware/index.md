@@ -1,9 +1,3 @@
----
-id: index
-title: "@ory/nextjs/middleware"
-sidebar_label: "middleware"
----
-
 # @ory/nextjs/middleware
 
 ## Functions

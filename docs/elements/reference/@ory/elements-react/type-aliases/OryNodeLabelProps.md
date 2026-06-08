@@ -3,13 +3,15 @@
 ```ts
 type OryNodeLabelProps = {
   attributes: UiNodeInputAttributes
-  node: UiNode
-} & ComponentPropsWithoutRef<"label">
+  fieldError?: object
+  node: UiNodeInput
+} & PropsWithChildren
 ```
 
 ## Type declaration
 
-| Name         | Type                    |
-| ------------ | ----------------------- |
-| `attributes` | `UiNodeInputAttributes` |
-| `node`       | `UiNode`                |
+| Name          | Type                            | Description                                 |
+| ------------- | ------------------------------- | ------------------------------------------- |
+| `attributes`  | `UiNodeInputAttributes`         | **Deprecated** Use node.attributes instead. |
+| `fieldError?` | `object`                        | -                                           |
+| `node`        | [`UiNodeInput`](UiNodeInput.md) | -                                           |
