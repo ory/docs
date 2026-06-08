@@ -3,22 +3,26 @@
 ```ts
 type OryNodeTextProps = {
   attributes: UiNodeTextAttributes
-  node: UiNode
+  node: UiNodeText
 }
 ```
 
 ## Properties
 
-### attributes
+### ~~attributes~~
 
 ```ts
 attributes: UiNodeTextAttributes
 ```
+
+#### Deprecated
+
+Use node.attributes instead.
 
 ---
 
 ### node
 
 ```ts
-node: UiNode
+node: UiNodeText
 ```

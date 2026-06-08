@@ -1,10 +1,8 @@
----
-id: index
-title: "@ory/nextjs/pages"
-sidebar_label: "pages"
----
-
 # @ory/nextjs/pages
+
+## Functions
+
+- [useError](functions/useError.md)
 
 ## Hooks
 

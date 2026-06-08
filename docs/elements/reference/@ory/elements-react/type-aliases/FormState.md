@@ -1,23 +1,7 @@
 # FormState
 
 ```ts
-type FormState =
-  | {
-      current: "select_method"
-    }
-  | {
-      current: "provide_identifier"
-    }
-  | {
-      current: "method_active"
-      method: UiNodeGroupEnum
-    }
-  | {
-      current: "success_screen"
-    }
-  | {
-      current: "settings"
-    }
+type FormState = FlowFormState & CommonFormStateProperties
 ```
 
 Represents the state of the form based on the flow type and active method. This type is used to determine which part of the form
@@ -30,3 +14,8 @@ It can be one of the following:
 - `method_active`: An authentication method is active, and the user is interacting with it.
 - `success_screen`: The flow has successfully completed (only used in the verification flow).
 - `settings`: The user is in the settings flow.
+
+In addition, it includes a common properties:
+
+- `isSubmitting`: A boolean indicating whether the form is currently being submitted.
+- `isReady`: A boolean indicating whether the form is ready.

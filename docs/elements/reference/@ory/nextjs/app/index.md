@@ -1,9 +1,3 @@
----
-id: index
-title: "@ory/nextjs/app"
-sidebar_label: "app"
----
-
 # @ory/nextjs/app
 
 ## Interfaces
@@ -12,6 +6,7 @@ sidebar_label: "app"
 
 ## Functions
 
+- [getError](functions/getError.md)
 - [getFlowFactory](functions/getFlowFactory.md)
 - [getLoginFlow](functions/getLoginFlow.md)
 - [getLogoutFlow](functions/getLogoutFlow.md)

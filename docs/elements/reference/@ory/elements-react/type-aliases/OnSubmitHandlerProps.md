@@ -3,7 +3,10 @@
 ```ts
 type OnSubmitHandlerProps<T> = {
   body: T
+  onError?: OryErrorHandler
   onRedirect: OnRedirectHandler
+  onSuccess?: OrySuccessHandler
+  onValidationError?: OryValidationErrorHandler
   setFlowContainer: (flowContainer: OryFlowContainer) => void
 }
 ```
@@ -28,6 +31,17 @@ The form values to submit.
 
 ---
 
+### onError?
+
+```ts
+optional onError: OryErrorHandler;
+```
+
+Optional callback invoked on infrastructure or flow-level errors (expired flow, CSRF, not found, replaced). Awaited if it returns
+a Promise.
+
+---
+
 ### onRedirect
 
 ```ts
@@ -35,6 +49,27 @@ onRedirect: OnRedirectHandler
 ```
 
 This method is used to redirect the user to a different page.
+
+---
+
+### onSuccess?
+
+```ts
+optional onSuccess: OrySuccessHandler;
+```
+
+Optional callback invoked after a successful submission, before the default behavior (redirect, flow update). Awaited if it
+returns a Promise.
+
+---
+
+### onValidationError?
+
+```ts
+optional onValidationError: OryValidationErrorHandler;
+```
+
+Optional callback invoked when the server returns validation errors. Awaited if it returns a Promise.
 
 ---
 
