@@ -4,6 +4,7 @@
 type OryNodeInputInputProps = {
   autoComplete?: string
   disabled?: boolean
+  id: string
   maxLength?: number
   name: string
   onBlur: () => void
@@ -30,6 +31,14 @@ optional autoComplete: string;
 
 ```ts
 optional disabled: boolean;
+```
+
+---
+
+### id
+
+```ts
+id: string
 ```
 
 ---

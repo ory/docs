@@ -7,6 +7,7 @@ const Node: (__namedParameters: NodeProps) => ReactNode & {
   ConsentCheckbox: (__namedParameters: { node: UiNodeInput }) => Element
   Image: (__namedParameters: ImageRendererProps) => Element
   Input: (__namedParameters: TextBasedInputProps) => Element
+  Select: (__namedParameters: SelectRendererProps) => Element
   SsoButton: (__namedParameters: SsoButtonProps) => Element
   Text: (__namedParameters: TextRendererProps) => Element
 }
@@ -27,6 +28,7 @@ system.
 | `ConsentCheckbox()` | (`__namedParameters`: \{ `node`: [`UiNodeInput`](../type-aliases/UiNodeInput.md); \}) => `Element` | `ConsentCheckboxRenderer` |
 | `Image()`           | (`__namedParameters`: `ImageRendererProps`) => `Element`                                           | `ImageRenderer`           |
 | `Input()`           | (`__namedParameters`: `TextBasedInputProps`) => `Element`                                          | `InputRenderer`           |
+| `Select()`          | (`__namedParameters`: `SelectRendererProps`) => `Element`                                          | `SelectRenderer`          |
 | `SsoButton()`       | (`__namedParameters`: `SsoButtonProps`) => `Element`                                               | `SSOButtonRenderer`       |
 | `Text()`            | (`__namedParameters`: `TextRendererProps`) => `Element`                                            | `TextRenderer`            |
 

@@ -1,5 +1,9 @@
 # @ory/nextjs/pages
 
+## Functions
+
+- [useError](functions/useError.md)
+
 ## Hooks
 
 - [useLoginFlow](functions/useLoginFlow.md)

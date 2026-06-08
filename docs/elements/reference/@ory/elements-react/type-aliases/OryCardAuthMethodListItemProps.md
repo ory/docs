@@ -5,10 +5,6 @@ type OryCardAuthMethodListItemProps = {
   disabled?: boolean
   group: string
   onClick: () => void
-  title?: {
-    id: string
-    values?: Record<string, string>
-  }
 }
 ```
 
@@ -41,19 +37,3 @@ onClick: () => void;
 #### Returns
 
 `void`
-
----
-
-### title?
-
-```ts
-optional title: {
-  id: string;
-  values?: Record<string, string>;
-};
-```
-
-| Name      | Type                           |
-| --------- | ------------------------------ |
-| `id`      | `string`                       |
-| `values?` | `Record`\<`string`, `string`\> |

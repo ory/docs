@@ -6,6 +6,7 @@
 
 ## Functions
 
+- [getError](functions/getError.md)
 - [getFlowFactory](functions/getFlowFactory.md)
 - [getLoginFlow](functions/getLoginFlow.md)
 - [getLogoutFlow](functions/getLogoutFlow.md)

@@ -66,6 +66,11 @@ const typedocSidebar: SidebarsConfig = {
             },
             {
               type: "doc",
+              id: "elements/reference/@ory/elements-react/interfaces/ProjectConfiguration",
+              label: "ProjectConfiguration",
+            },
+            {
+              type: "doc",
               id: "elements/reference/@ory/elements-react/interfaces/RecoveryFlowContainer",
               label: "RecoveryFlowContainer",
             },
@@ -252,6 +257,16 @@ const typedocSidebar: SidebarsConfig = {
             },
             {
               type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryNodeSelectInputProps",
+              label: "OryNodeSelectInputProps",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryNodeSelectProps",
+              label: "OryNodeSelectProps",
+            },
+            {
+              type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/OryNodeSettingsButton",
               label: "OryNodeSettingsButton",
             },
@@ -334,6 +349,16 @@ const typedocSidebar: SidebarsConfig = {
               type: "doc",
               id: "elements/reference/@ory/elements-react/type-aliases/UiNodeInput",
               label: "UiNodeInput",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/UiNodeInputAttributesOption",
+              label: "UiNodeInputAttributesOption",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/UiNodeInputAttributesWithOptions",
+              label: "UiNodeInputAttributesWithOptions",
             },
             {
               type: "doc",
@@ -492,6 +517,72 @@ const typedocSidebar: SidebarsConfig = {
         },
         {
           type: "category",
+          label: "Events",
+          items: [
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryConsentSuccessEvent",
+              label: "OryConsentSuccessEvent",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryErrorEvent",
+              label: "OryErrorEvent",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryErrorHandler",
+              label: "OryErrorHandler",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryLoginSuccessEvent",
+              label: "OryLoginSuccessEvent",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryRecoverySuccessEvent",
+              label: "OryRecoverySuccessEvent",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryRegistrationSuccessEvent",
+              label: "OryRegistrationSuccessEvent",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OrySettingsSuccessEvent",
+              label: "OrySettingsSuccessEvent",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OrySuccessEvent",
+              label: "OrySuccessEvent",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OrySuccessHandler",
+              label: "OrySuccessHandler",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryValidationErrorEvent",
+              label: "OryValidationErrorEvent",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryValidationErrorHandler",
+              label: "OryValidationErrorHandler",
+            },
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryVerificationSuccessEvent",
+              label: "OryVerificationSuccessEvent",
+            },
+          ],
+        },
+        {
+          type: "category",
           label: "Hooks",
           items: [
             {
@@ -525,6 +616,11 @@ const typedocSidebar: SidebarsConfig = {
           type: "category",
           label: "Utilities",
           items: [
+            {
+              type: "doc",
+              id: "elements/reference/@ory/elements-react/type-aliases/OryTransientPayload",
+              label: "OryTransientPayload",
+            },
             {
               type: "doc",
               id: "elements/reference/@ory/elements-react/functions/messageTestId",
@@ -682,6 +778,11 @@ const typedocSidebar: SidebarsConfig = {
           items: [
             {
               type: "doc",
+              id: "elements/reference/@ory/nextjs/app/functions/getError",
+              label: "getError",
+            },
+            {
+              type: "doc",
               id: "elements/reference/@ory/nextjs/app/functions/getFlowFactory",
               label: "getFlowFactory",
             },
@@ -753,6 +854,17 @@ const typedocSidebar: SidebarsConfig = {
       type: "category",
       label: "@ory/nextjs/pages",
       items: [
+        {
+          type: "category",
+          label: "Functions",
+          items: [
+            {
+              type: "doc",
+              id: "elements/reference/@ory/nextjs/pages/functions/useError",
+              label: "useError",
+            },
+          ],
+        },
         {
           type: "category",
           label: "Hooks",

@@ -15,6 +15,7 @@ This package provides the core functionality for Ory Elements in React.
 - [OryElementsConfiguration](interfaces/OryElementsConfiguration.md)
 - [OryMessageContentProps](interfaces/OryMessageContentProps.md)
 - [OryMessageRootProps](interfaces/OryMessageRootProps.md)
+- [ProjectConfiguration](interfaces/ProjectConfiguration.md)
 - [RecoveryFlowContainer](interfaces/RecoveryFlowContainer.md)
 - [RegistrationFlowContainer](interfaces/RegistrationFlowContainer.md)
 - [SettingsFlowContainer](interfaces/SettingsFlowContainer.md)
@@ -54,6 +55,8 @@ This package provides the core functionality for Ory Elements in React.
 - [OryNodeInputInputProps](type-aliases/OryNodeInputInputProps.md)
 - [OryNodeInputProps](type-aliases/OryNodeInputProps.md)
 - [OryNodeLabelProps](type-aliases/OryNodeLabelProps.md)
+- [OryNodeSelectInputProps](type-aliases/OryNodeSelectInputProps.md)
+- [OryNodeSelectProps](type-aliases/OryNodeSelectProps.md)
 - [OryNodeSettingsButton](type-aliases/OryNodeSettingsButton.md)
 - [OryNodeSsoButtonProps](type-aliases/OryNodeSsoButtonProps.md)
 - [OryNodeTextProps](type-aliases/OryNodeTextProps.md)
@@ -71,6 +74,8 @@ This package provides the core functionality for Ory Elements in React.
 - [UiNodeFixed](type-aliases/UiNodeFixed.md)
 - [UiNodeImage](type-aliases/UiNodeImage.md)
 - [UiNodeInput](type-aliases/UiNodeInput.md)
+- [UiNodeInputAttributesOption](type-aliases/UiNodeInputAttributesOption.md)
+- [UiNodeInputAttributesWithOptions](type-aliases/UiNodeInputAttributesWithOptions.md)
 - [UiNodeScript](type-aliases/UiNodeScript.md)
 - [UiNodeText](type-aliases/UiNodeText.md)
 
@@ -108,6 +113,21 @@ This package provides the core functionality for Ory Elements in React.
 - [OrySettingsCard](functions/OrySettingsCard.md)
 - [OrySettingsFormSection](functions/OrySettingsFormSection.md)
 
+## Events
+
+- [OryConsentSuccessEvent](type-aliases/OryConsentSuccessEvent.md)
+- [OryErrorEvent](type-aliases/OryErrorEvent.md)
+- [OryErrorHandler](type-aliases/OryErrorHandler.md)
+- [OryLoginSuccessEvent](type-aliases/OryLoginSuccessEvent.md)
+- [OryRecoverySuccessEvent](type-aliases/OryRecoverySuccessEvent.md)
+- [OryRegistrationSuccessEvent](type-aliases/OryRegistrationSuccessEvent.md)
+- [OrySettingsSuccessEvent](type-aliases/OrySettingsSuccessEvent.md)
+- [OrySuccessEvent](type-aliases/OrySuccessEvent.md)
+- [OrySuccessHandler](type-aliases/OrySuccessHandler.md)
+- [OryValidationErrorEvent](type-aliases/OryValidationErrorEvent.md)
+- [OryValidationErrorHandler](type-aliases/OryValidationErrorHandler.md)
+- [OryVerificationSuccessEvent](type-aliases/OryVerificationSuccessEvent.md)
+
 ## Hooks
 
 - [useComponents](functions/useComponents.md)
@@ -118,5 +138,6 @@ This package provides the core functionality for Ory Elements in React.
 
 ## Utilities
 
+- [OryTransientPayload](type-aliases/OryTransientPayload.md)
 - [messageTestId](functions/messageTestId.md)
 - [uiTextToFormattedMessage](functions/uiTextToFormattedMessage.md)

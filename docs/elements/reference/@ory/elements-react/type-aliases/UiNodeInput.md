@@ -2,14 +2,14 @@
 
 ```ts
 type UiNodeInput = UiNode & {
-  attributes: UiNodeInputAttributes
+  attributes: UiNodeInputAttributesWithOptions
   type: "input"
 }
 ```
 
 ## Type declaration
 
-| Name         | Type                    |
-| ------------ | ----------------------- |
-| `attributes` | `UiNodeInputAttributes` |
-| `type`       | `"input"`               |
+| Name         | Type                                                                      |
+| ------------ | ------------------------------------------------------------------------- |
+| `attributes` | [`UiNodeInputAttributesWithOptions`](UiNodeInputAttributesWithOptions.md) |
+| `type`       | `"input"`                                                                 |
