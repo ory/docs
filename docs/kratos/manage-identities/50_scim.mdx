@@ -76,6 +76,27 @@ to the [SCIM user resource schema](https://datatracker.ietf.org/doc/html/rfc7643
 
 The script should return a JSON object as defined in the [Jsonnet reference](../reference/jsonnet#output).
 
+The SCIM provisioning data mapper also receives the existing `identity` (if present) through a new identity external variable,
+alongside the existing scim variable. It exposes traits, metadata_public, and metadata_admin, each defaulting to an empty object
+when unset.
+
+This lets a mapper preserve or merge attributes that SCIM does not manage. A mapper can now merge them back in:
+
+```
+local scim = std.extVar('scim');
+local identity = std.extVar('identity');
+local existingPublic = std.get(identity, 'metadata_public', {});
+
+{
+  identity: {
+    ...
+    metadata_public: existingMetadata + {
+      // Add or override only what SCIM should manage
+    },
+  },
+}
+```
+
 ### Use the SCIM client
 
 Once you have configured a SCIM client, you can use it to provision identities. The Ory Network SCIM server provides a set of
