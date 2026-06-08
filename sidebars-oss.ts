@@ -60,7 +60,6 @@ const ossSidebar = [
           "oss/kratos/intro",
           "kratos/install",
           "kratos/guides/upgrade",
-          "self-hosted/oel/kratos/changelog",
           "oss/kratos/quickstart",
           {
             type: "category",

@@ -50,7 +50,7 @@ const oelSidebar = [
         className: "sidebar-icon sidebar-icon-kratos",
         items: [
           "oel/kratos/intro",
-          "kratos/install",
+          "oel/kratos/install",
           "self-hosted/oel/kratos/upgrade",
           "self-hosted/oel/kratos/changelog",
           "oel/kratos/quickstart",
