@@ -368,6 +368,56 @@ subscribe AWS SQS, AWS Kinesis Data Firehose, or any other AWS service that can 
 
 :::
 
+## Pause and resume event streams
+
+You can pause an event stream to temporarily stop delivering events to its destination without deleting the stream or its
+configuration. Pause a stream while its destination is undergoing maintenance, is misconfigured, or is being replaced, then resume
+it to continue delivery. Pausing one event stream has no effect on your other event streams.
+
+### Pause or resume a stream
+
+1. Go to your project in the [Ory Console](https://console.ory.com).
+2. Click **Project settings** in the top navigation bar.
+3. Click **Event streams** in the left sidebar. The **Status** column shows whether each stream is **Active** or **Paused**.
+4. Open the **⋯** menu next to the stream and click **Pause** or **Resume**.
+
+You can also change the status through the Ory APIs. Updating an event stream is a partial update: send only the `status` field
+(`active` or `paused`) and every other setting keeps its current value. This is the recommended way to pause or resume a stream,
+because resubmitting the destination is not required.
+
+When you resume a stream, Ory first verifies that the destination is reachable, the same check that runs when you create or update
+a stream.
+
+### Create a stream as paused
+
+When you create a stream in the Ory Console, set **Status** to **Paused** to save it without starting delivery. This is useful
+when you want to configure a stream before its destination is ready. Resume it later from the stream's **⋯** menu.
+
+### What happens to events while a stream is paused
+
+In short: while a stream is paused Ory keeps receiving your project's events and buffers them for that stream for up to **7
+days**. Resume within that window and Ory delivers everything that was buffered while the stream was paused.
+
+In more detail:
+
+- Pausing only stops delivery. Ory keeps collecting the events your project produces and holds them in an internal buffer
+  dedicated to that stream. Nothing is delivered to your destination while the stream is paused.
+- Buffered events are retained for up to 7 days. When you resume the stream, Ory delivers the buffered backlog first and then
+  continues with new events. This catch-up delivery follows the same guarantees as normal delivery: best-effort, possibly out of
+  order, and possibly with duplicates.
+- Events that have been buffered for longer than 7 days are permanently discarded, whether or not you resume the stream. A stream
+  that stays paused for more than 7 days keeps only the most recent 7 days of events; anything older is lost.
+
+Pausing one stream does not affect your other event streams, and does not affect events available elsewhere in Ory, such as the
+project's activity view in the Ory Console.
+
+:::warning
+
+Pausing buffers events for up to 7 days. If a stream stays paused for longer, the oldest events are permanently lost. Resume the
+stream within 7 days to receive everything you missed.
+
+:::
+
 ## Retry policy
 
 If your event stream destination is unavailable or misconfigured, Ory Network will retry sending the event multiple times with an
