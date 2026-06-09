@@ -1,5 +1,5 @@
 ---
-id: solution_agentic
+id: solution-agentic
 title: Agentic IAM Solution
 sidebar_label: Agentic IAM
 ---
@@ -21,6 +21,9 @@ Ory's stack supports Agentic IAM patterns:
   to use. Models complex delegation chains (user X authorizes agent Y to access resource Z on their behalf).
 
 - Ory Oathkeeper — validates agent tokens at the API gateway, enforcing permission boundaries before requests reach your services.
+
+- Ory Talos — derives short-lived JWTs and constrained macaroons from parent API keys for agent and gateway workflows. See
+  [Talos token derivation](../talos/integrate/derive-tokens.mdx).
 
 The key Agentic IAM patterns that Ory supports include agent identity registration, scoped token issuance (limiting what an agent
 can do), delegation and consent (users authorizing agents to act on their behalf), token chain revocation (instantly revoking an
