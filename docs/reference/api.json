@@ -4388,6 +4388,18 @@
         "title": "Request body for creating a test OIDC login flow.",
         "type": "object"
       },
+      "createTestLoginFlowFromOnboardingPortalLinkBody": {
+        "description": "Request body for starting a dry-run OIDC test login flow from an onboarding\nportal link.",
+        "properties": {
+          "provider_id": {
+            "description": "ID of the OIDC provider to test. Must match a provider configured on\nthe link's organization.",
+            "maxLength": 255,
+            "type": "string"
+          }
+        },
+        "required": ["provider_id"],
+        "type": "object"
+      },
       "createWorkspaceBody": {
         "properties": {
           "name": {
@@ -9874,6 +9886,17 @@
         ],
         "type": "object"
       },
+      "onboardingPortalTestLoginFlow": {
+        "description": "Response body for a dry-run OIDC test login flow created from an onboarding\nportal link. Only the flow ID is part of the API contract.",
+        "properties": {
+          "id": {
+            "description": "ID of the created test login flow. Append this as the `flow` query\nparameter on the test sign-in UI URL.",
+            "type": "string"
+          }
+        },
+        "required": ["id"],
+        "type": "object"
+      },
       "organization": {
         "description": "B2B SSO Organization",
         "properties": {
@@ -10134,6 +10157,11 @@
           "id": {
             "description": "The token's ID.",
             "format": "uuid",
+            "readOnly": true,
+            "type": "string"
+          },
+          "last_characters": {
+            "description": "The last characters of the token's value.\n\nLets you tell API keys apart in the UI without revealing the full\nvalue. Empty for keys created before this was introduced.",
             "readOnly": true,
             "type": "string"
           },
@@ -13784,6 +13812,11 @@
           "id": {
             "description": "The key's ID.",
             "format": "uuid",
+            "readOnly": true,
+            "type": "string"
+          },
+          "last_characters": {
+            "description": "The last characters of the key's value.\n\nLets you tell API keys apart in the UI without revealing the full\nvalue. Empty for keys created before this was introduced.",
             "readOnly": true,
             "type": "string"
           },
