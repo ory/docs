@@ -58,7 +58,7 @@ const ossSidebar = [
         className: "sidebar-icon sidebar-icon-kratos",
         items: [
           "oss/kratos/intro",
-          "kratos/install",
+          "oss/kratos/install",
           "kratos/guides/upgrade",
           "oss/kratos/quickstart",
           {

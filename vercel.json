@@ -108,6 +108,11 @@
       "permanent": false
     },
     {
+      "source": "/docs/kratos/install",
+      "destination": "/docs/oss/kratos/install",
+      "permanent": true
+    },
+    {
       "source": "/kratos/docs",
       "destination": "https://www.ory.com/docs/kratos",
       "permanent": false
