@@ -1,0 +1,66 @@
+---
+id: persona
+title: Persona
+sidebar_label: Persona
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/identity-verification/persona](https://github.com/ory/integrates/tree/main/identity-verification/persona).
+</Admonition>
+```
+
+[Persona](https://withpersona.com) is an identity verification platform with configurable templates for document capture, selfie
+and liveness, database checks, and watchlist screening. This integration runs a Persona Inquiry from Ory Actions during
+registration, consumes Persona's HMAC-signed callback when the inquiry completes, and gates sign-in on the stored verification
+status.
+
+## Endpoints
+
+| Path                     | Trigger                                   | Auth                                            | Purpose                                                                                                                                                             |
+| ------------------------ | ----------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /persona/initiate` | sync `registration.after`                 | `X-Webhook-Secret`                              | Creates a Persona Inquiry with `reference-id = <Kratos identity id>`; writes the inquiry id + hosted URL to `metadata_admin`; returns the hosted URL to the client. |
+| `POST /persona/callback` | async, FROM Persona                       | `X-Persona-Signature` (HMAC-SHA256 of raw body) | Resolves the Kratos identity via the inquiry's `reference-id`; PATCHes the verification status (`approved` / `declined` / `marked-for-review`) onto the identity.   |
+| `POST /persona/validate` | sync `login.after`, `can_interrupt: true` | `X-Webhook-Secret`                              | Blocks login when `metadata_admin.persona.status == "declined"`.                                                                                                    |
+
+## Required env vars
+
+```
+ORY_WEBHOOK_SECRET        Bearer / X-Webhook-Secret value Ory sends
+KRATOS_ADMIN_URL          Ory Network admin URL (or self-hosted Kratos admin)
+ORY_API_KEY               Ory admin API token (identities:write)
+PERSONA_API_KEY           Persona API key
+PERSONA_TEMPLATE_ID       Persona template (configures which checks run)
+PERSONA_WEBHOOK_SECRET    HMAC secret for /persona/callback
+PERSONA_INQUIRY_TYPE      default: hosted-embedded
+PERSONA_API_BASE          default: https://api.withpersona.com/api/v1
+PORT                      default: 3000
+```
+
+## Run
+
+```bash
+cd webhook/
+cp .env.example .env   # if present; otherwise set the vars above
+npm install
+npm start              # runs `tsx server.ts`
+```
+
+## Configure Ory
+
+1. Use [`ory-actions.yaml`](https://github.com/ory/integrates/tree/main/identity-verification/persona/ory-actions.yaml) as the
+   snippet for `selfservice.flows.{registration,login}.after.hooks`.
+2. The body templates are in [`jsonnet/`](https://github.com/ory/integrates/tree/main/identity-verification/persona/jsonnet).
+3. Set `ORY_WEBHOOK_SECRET` (handler) to match the `X-Webhook-Secret` value declared in the action config.
+4. The `/persona/callback` URL must be publicly reachable; configure it as the webhook target in **Persona → Webhooks** with the
+   same shared secret as `PERSONA_WEBHOOK_SECRET`.
+
+## Resources
+
+- [Persona](https://withpersona.com)
+- [Ory Actions](/docs/actions)
+- Reference:
+  [ory/integrates/identity-verification/persona](https://github.com/ory/integrates/tree/main/identity-verification/persona)

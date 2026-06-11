@@ -1,0 +1,48 @@
+---
+id: battle-net
+title: Sign in with Battle.net
+sidebar_label: Battle.net
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained, not part of Ory's officially
+supported social sign-in providers. Reference implementation:
+[ory/integrates/social-sign-in/battle-net](https://github.com/ory/integrates/tree/main/social-sign-in/battle-net).
+Contributions welcome.
+</Admonition>
+```
+
+[Battle.net](https://develop.battle.net/) is Blizzard Entertainment's identity service for games such as World of Warcraft,
+Overwatch, Diablo, and StarCraft. You can configure it as a social sign-in provider in Ory Network for gaming, esports, and
+community-site use cases that target Blizzard players.
+
+Battle.net uses OAuth 2.0 rather than OIDC, so you configure it as a **generic provider** in Ory Identities with explicit
+endpoints.
+
+## Setup
+
+The full walkthrough lives at
+[ory/integrates/social-sign-in/battle-net](https://github.com/ory/integrates/tree/main/social-sign-in/battle-net). The short
+version is:
+
+1. Register a Battle.net OAuth client at [develop.battle.net](https://develop.battle.net/access/clients). Add the Ory redirect
+   URI: `https://$PROJECT_SLUG.projects.oryapis.com/self-service/methods/oidc/callback/battle-net`.
+2. Note the **Client ID** and **Client Secret**.
+3. Configure it as a generic provider via the Ory CLI:
+   - Authorization endpoint: `https://oauth.battle.net/authorize`
+   - Token endpoint: `https://oauth.battle.net/token`
+   - User info endpoint: `https://oauth.battle.net/oauth/userinfo`
+   - Region-specific hosts exist for China: `oauth.battlenet.com.cn`.
+4. The default Jsonnet mapper extracts `sub` (BattleTag) and `battle_tag`.
+
+Battle.net does not release email addresses, so design your identity schema to use BattleTag as the credential identifier.
+
+## Resources
+
+- [Battle.net OAuth API](https://develop.battle.net/documentation/guides/using-oauth)
+- [Ory generic OIDC provider docs](../../kratos/social-signin/05_generic.mdx)
+- Reference implementation:
+  [ory/integrates/social-sign-in/battle-net](https://github.com/ory/integrates/tree/main/social-sign-in/battle-net)

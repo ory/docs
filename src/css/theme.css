@@ -572,14 +572,14 @@ h2.ory-section-heading {
 }
 
 /* Navbar search responsiveness */
-@media (min-width: 997px) {
+@media (min-width: 1271px) {
   .navbar .DocSearch-Button {
     width: clamp(180px, 20vw, 256px) !important;
     max-width: 256px !important;
   }
 }
 
-@media (max-width: 1380px) {
+@media (max-width: 1514px) {
   /* Icon-only button: hide placeholder + key hints */
   .navbar .DocSearch-Button {
     width: 32px !important;

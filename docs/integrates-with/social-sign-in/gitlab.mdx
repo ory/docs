@@ -1,0 +1,22 @@
+---
+id: gitlab
+title: Sign in with GitLab
+sidebar_label: GitLab
+---
+
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/kratos/social-signin/gitlab" />
+</head>
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="info" title="Primary documentation">
+GitLab is configured as a social sign-in provider in the Ory Console or via the Ory CLI — no webhook code required. See
+[Add GitLab as a social sign-in provider in Ory](../../kratos/social-signin/35_gitlab.mdx) for the full guide.
+</Admonition>
+```
+
+Add GitLab as a social sign-in provider in Ory Network. GitLab is OIDC-compliant natively — both GitLab.com and self-managed
+instances expose `/.well-known/openid-configuration`. Ideal for DevOps tools, CI/CD dashboards, and any developer-facing app whose
+users likely already have a GitLab account.
