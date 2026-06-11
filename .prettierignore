@@ -6,6 +6,7 @@ docs/keto/cli/
 docs/kratos/cli/
 docs/oathkeeper/cli/
 package-lock.json
+rate-limits.json
 .docusaurus/
 build/
 .next

@@ -74,7 +74,30 @@ const api: SidebarItemsConfig = [
       "concepts/personal-access-token",
       "guides/cors",
       "guides/api-rest-pagination",
-      "guides/rate-limits",
+      {
+        type: "category",
+        label: "Rate limits",
+        link: {
+          type: "doc",
+          id: "guides/rate-limits",
+        },
+        items: [
+          "guides/rate-limits-legacy",
+          {
+            type: "category",
+            label: "Rate limits - New",
+            link: {
+              type: "doc",
+              id: "guides/rate-limits-new",
+            },
+            items: [
+              "guides/rate-limits-project",
+              "guides/rate-limits-endpoint",
+            ],
+          },
+        ],
+      },
+      "guides/load-performance-testing",
       "guides/ip-allowlist",
       "api/eventual-consistency",
       "kratos/reference/jsonnet",
