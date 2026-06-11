@@ -276,6 +276,14 @@ https://$PROJECT_SLUG.projects.oryapis.com/self-service/settings/browser?organiz
 
 The same parameter works for the API (native) flow at `/self-service/settings/api`.
 
+Ory only honors the `organization` query parameter when one of the identity's email addresses is under the organization's
+configured domains. This prevents any signed-in user from scoping a flow to an arbitrary organization and enumerating its SSO
+connections. When no email address matches, the flow silently falls back to a regular, unscoped settings flow.
+
+The check uses the identity's email verifiable addresses. An identity whose schema has no `verification.via: email` annotation has
+no email verifiable address and therefore cannot use the `organization` query parameter. This domain check does not apply when the
+identity is already bound to an organization — see below.
+
 An organization-scoped settings flow behaves differently from a regular settings flow:
 
 - The flow returns link nodes only for the organization's OIDC and SAML connections. Other settings methods, such as password or
