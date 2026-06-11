@@ -13,29 +13,24 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[GBG](https://www.gbgplc.com/) (which acquired Acuant) provides global identity
-verification with document and biometric coverage. You call GBG's GO Journey
-API from an Ory Actions webhook to verify document and selfie evidence and gate
-the registration flow.
+[GBG](https://www.gbgplc.com/) (which acquired Acuant) provides global identity verification with document and biometric coverage.
+You call GBG's GO Journey API from an Ory Actions webhook to verify document and selfie evidence and gate the registration flow.
 
 ## How it works
 
-An Ory Action on `registration.after` (sync, `response.parse: true`) calls your
-handler. The handler calls the GBG GO Journey API, which returns `PASS`,
-`REFER`, or `FAIL`. The handler echoes the decision back to Ory. Ory fails the
-flow on `REFER` or `FAIL`, or writes the verdict to `identity.metadata`.
+An Ory Action on `registration.after` (sync, `response.parse: true`) calls your handler. The handler calls the GBG GO Journey API,
+which returns `PASS`, `REFER`, or `FAIL`. The handler echoes the decision back to Ory. Ory fails the flow on `REFER` or `FAIL`, or
+writes the verdict to `identity.metadata`.
 
 ## Notable
 
-- The GBG-side flow is defined as a journey. The journey ID controls which
-  evidence types are required.
-- First-call cold-path latency can be 5 to 10 seconds. The handler caps the
-  call at 15 seconds.
-- Use one journey per risk tier, and switch journey IDs in the Ory hook
-  configuration.
+- The GBG-side flow is defined as a journey. The journey ID controls which evidence types are required.
+- First-call cold-path latency can be 5 to 10 seconds. The handler caps the call at 15 seconds.
+- Use one journey per risk tier, and switch journey IDs in the Ory hook configuration.
 
 ## Resources
 
 - [GBG GO documentation](https://docs.gbgplc.com/identity)
 - [Ory Actions](/docs/actions)
-- Reference: [ory/integrates/identity-verification/gbg-acuant](https://github.com/ory/integrates/tree/main/identity-verification/gbg-acuant)
+- Reference:
+  [ory/integrates/identity-verification/gbg-acuant](https://github.com/ory/integrates/tree/main/identity-verification/gbg-acuant)

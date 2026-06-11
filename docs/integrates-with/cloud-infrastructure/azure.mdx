@@ -15,31 +15,27 @@ This page documents the Azure-side glue. Reference:
 </Admonition>
 ```
 
-For Microsoft Entra ID identity provider configuration (separate from
-Azure deployment), see [`social-sign-in/microsoft`](../../kratos/social-signin/20_microsoft.mdx)
-and [`enterprise-sso/microsoft-entra-id`](../../polis/sso-providers/azure.mdx).
+For Microsoft Entra ID identity provider configuration (separate from Azure deployment), see
+[`social-sign-in/microsoft`](../../kratos/social-signin/20_microsoft.mdx) and
+[`enterprise-sso/microsoft-entra-id`](../../polis/sso-providers/azure.mdx).
 
 ## Two patterns
 
 ### Pattern A: Azure application talking to Ory Network
 
-- Allow outbound HTTPS to `*.oryapis.com` from your VNet or subnet with an NSG
-  rule, plus an Azure Firewall application rule if egress is locked down.
-- Store the Ory API key in **Azure Key Vault** and inject it via Workload
-  Identity (AKS) or Container Apps secret references.
-- Use **Azure DNS** to map your custom auth domain to
-  `custom.oryapis.com` with a CNAME.
+- Allow outbound HTTPS to `*.oryapis.com` from your VNet or subnet with an NSG rule, plus an Azure Firewall application rule if
+  egress is locked down.
+- Store the Ory API key in **Azure Key Vault** and inject it via Workload Identity (AKS) or Container Apps secret references.
+- Use **Azure DNS** to map your custom auth domain to `custom.oryapis.com` with a CNAME.
 
 ### Pattern B: Self-hosted Ory on AKS
 
 - Use **AKS** with Azure CNI and Workload Identity enabled.
-- Use **Azure Database for PostgreSQL — Flexible Server** for the Ory
-  Identities, Ory OAuth2 & OpenID Connect, and Ory Permissions datastores. Pick
-  the Zone-Redundant HA tier for production.
+- Use **Azure Database for PostgreSQL — Flexible Server** for the Ory Identities, Ory OAuth2 & OpenID Connect, and Ory Permissions
+  datastores. Pick the Zone-Redundant HA tier for production.
 - Optionally, use **Azure Cache for Redis**.
 - Deploy with the official Helm charts.
-- Use the **Application Gateway Ingress Controller** (AGIC) for HTTPS
-  termination with a Key Vault-stored certificate.
+- Use the **Application Gateway Ingress Controller** (AGIC) for HTTPS termination with a Key Vault-stored certificate.
 
 ## Resources
 

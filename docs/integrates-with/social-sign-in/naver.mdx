@@ -15,24 +15,22 @@ Contributions welcome.
 </Admonition>
 ```
 
-[Naver](https://developers.naver.com/) is South Korea's largest search
-portal and a complementary sign-in option to Kakao for products that
-target Korean users. Naver uses OAuth 2.0 rather than OIDC.
+[Naver](https://developers.naver.com/) is South Korea's largest search portal and a complementary sign-in option to Kakao for
+products that target Korean users. Naver uses OAuth 2.0 rather than OIDC.
 
 ## Setup
 
-1. Register an app at the
-   [Naver Developers Console](https://developers.naver.com/apps).
+1. Register an app at the [Naver Developers Console](https://developers.naver.com/apps).
 2. Add the Ory redirect URI.
 3. Configure it as a generic provider via the Ory CLI with:
    - Authorization: `https://nid.naver.com/oauth2.0/authorize`
    - Token: `https://nid.naver.com/oauth2.0/token`
    - User info: `https://openapi.naver.com/v1/nid/me`
-4. Use Jsonnet to map `response.id`, `response.email`, and
-   `response.nickname`.
+4. Use Jsonnet to map `response.id`, `response.email`, and `response.nickname`.
 
 ## Resources
 
 - [Naver Login API](https://developers.naver.com/docs/login/api/api.md)
 - [Ory generic OIDC provider docs](../../kratos/social-signin/05_generic.mdx)
-- Reference implementation: [ory/integrates/social-sign-in/naver](https://github.com/ory/integrates/tree/main/social-sign-in/naver)
+- Reference implementation:
+  [ory/integrates/social-sign-in/naver](https://github.com/ory/integrates/tree/main/social-sign-in/naver)

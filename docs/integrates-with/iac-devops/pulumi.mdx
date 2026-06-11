@@ -17,32 +17,26 @@ from a Pulumi `dynamic` resource. Reference:
 </Admonition>
 ```
 
-[Pulumi](https://www.pulumi.com) — IaC in TypeScript, Go, Python, C#.
-Two community paths to managing Ory Network with Pulumi:
+[Pulumi](https://www.pulumi.com) — IaC in TypeScript, Go, Python, C#. Two community paths to managing Ory Network with Pulumi:
 
 ## Option 1 — Bridge the Terraform provider (recommended)
 
-[`pulumi-terraform-bridge`](https://github.com/pulumi/pulumi-terraform-bridge)
-turns the official `ory/ory` Terraform provider into a Pulumi-callable
-SDK. The closest you get to a first-class experience without a
-hand-written Pulumi provider.
+[`pulumi-terraform-bridge`](https://github.com/pulumi/pulumi-terraform-bridge) turns the official `ory/ory` Terraform provider
+into a Pulumi-callable SDK. The closest you get to a first-class experience without a hand-written Pulumi provider.
 
-Trade-off: you maintain the bridge build for your team or generate the
-SDK on demand; you do not get an official, regularly published Pulumi
-package.
+Trade-off: you maintain the bridge build for your team or generate the SDK on demand; you do not get an official, regularly
+published Pulumi package.
 
 ## Option 2 — Pulumi `dynamic` resource calling Ory REST API
 
-For a small number of resources, write a Pulumi `dynamic` provider
-that calls the [Ory Network REST API](../../reference/api.mdx) directly
-using the language SDK of your choice (`@ory/client` for TypeScript).
-State diffing and CRUD logic is your responsibility.
+For a small number of resources, write a Pulumi `dynamic` provider that calls the [Ory Network REST API](../../reference/api.mdx)
+directly using the language SDK of your choice (`@ory/client` for TypeScript). State diffing and CRUD logic is your
+responsibility.
 
 ## Option 3 — Keep Ory in Terraform
 
-If you already manage some infrastructure with Terraform, the simplest
-answer is often: keep Ory in Terraform and don't try to bring it under
-Pulumi. See [Terraform integration](./terraform.mdx).
+If you already manage some infrastructure with Terraform, the simplest answer is often: keep Ory in Terraform and don't try to
+bring it under Pulumi. See [Terraform integration](./terraform.mdx).
 
 ## Resources
 

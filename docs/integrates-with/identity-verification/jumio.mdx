@@ -13,20 +13,18 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Jumio](https://www.jumio.com) is a high-assurance identity verification platform
-that combines document, selfie, and face-match checks. It is common in regulated
-industries such as financial services, healthcare, gambling, and crypto. This
-integration starts a Jumio workflow from Ory Actions during registration,
-consumes Jumio's HMAC-signed callback when the workflow finishes, and gates sign-in
-on the stored verification status.
+[Jumio](https://www.jumio.com) is a high-assurance identity verification platform that combines document, selfie, and face-match
+checks. It is common in regulated industries such as financial services, healthcare, gambling, and crypto. This integration starts
+a Jumio workflow from Ory Actions during registration, consumes Jumio's HMAC-signed callback when the workflow finishes, and gates
+sign-in on the stored verification status.
 
 ## Endpoints
 
-| Path | Trigger | Auth | Purpose |
-| --- | --- | --- | --- |
-| `POST /jumio/initiate` | sync `registration.after` | `X-Webhook-Secret` | Starts a Jumio workflow with `customerInternalReference = <Kratos identity id>`; writes the Jumio account/workflow IDs to `metadata_public`. |
-| `POST /jumio/callback` | async, FROM Jumio | HMAC-SHA256 over raw body | Resolves the Kratos identity via `customerInternalReference`; PATCHes verdict (`PASSED` / `WARNING` / `FAILED`) onto the identity. |
-| `POST /jumio/validate` | sync `login.after`, `can_interrupt: true` | `X-Webhook-Secret` | Blocks login when `metadata_public.jumio.status == "rejected"`. |
+| Path                   | Trigger                                   | Auth                      | Purpose                                                                                                                                      |
+| ---------------------- | ----------------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /jumio/initiate` | sync `registration.after`                 | `X-Webhook-Secret`        | Starts a Jumio workflow with `customerInternalReference = <Kratos identity id>`; writes the Jumio account/workflow IDs to `metadata_public`. |
+| `POST /jumio/callback` | async, FROM Jumio                         | HMAC-SHA256 over raw body | Resolves the Kratos identity via `customerInternalReference`; PATCHes verdict (`PASSED` / `WARNING` / `FAILED`) onto the identity.           |
+| `POST /jumio/validate` | sync `login.after`, `can_interrupt: true` | `X-Webhook-Secret`        | Blocks login when `metadata_public.jumio.status == "rejected"`.                                                                              |
 
 ## Required env vars
 
@@ -53,14 +51,11 @@ npm start              # runs `tsx server.ts`
 
 ## Configure Ory
 
-1. Use
-   [`ory-actions.yaml`](https://github.com/ory/integrates/tree/main/identity-verification/jumio/ory-actions.yaml)
-   as the snippet for `selfservice.flows.{registration,login}.after.hooks`.
-2. The body templates are in
-   [`jsonnet/`](https://github.com/ory/integrates/tree/main/identity-verification/jumio/jsonnet).
-3. The `/jumio/callback` URL must be publicly reachable; configure it as the
-   workflow callback in **Jumio Customer Portal → Workflow Definition** with the
-   matching `JUMIO_CALLBACK_SECRET`.
+1. Use [`ory-actions.yaml`](https://github.com/ory/integrates/tree/main/identity-verification/jumio/ory-actions.yaml) as the
+   snippet for `selfservice.flows.{registration,login}.after.hooks`.
+2. The body templates are in [`jsonnet/`](https://github.com/ory/integrates/tree/main/identity-verification/jumio/jsonnet).
+3. The `/jumio/callback` URL must be publicly reachable; configure it as the workflow callback in **Jumio Customer Portal →
+   Workflow Definition** with the matching `JUMIO_CALLBACK_SECRET`.
 
 ## Resources
 

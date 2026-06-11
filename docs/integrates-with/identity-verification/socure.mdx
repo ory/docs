@@ -13,30 +13,26 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Socure](https://socure.com) is an ML-based identity verification service that
-adds fraud signals such as device fingerprint, email reputation, and network
-risk on top of KYC. You run it from an Ory Actions webhook using both sync and
-async paths.
+[Socure](https://socure.com) is an ML-based identity verification service that adds fraud signals such as device fingerprint,
+email reputation, and network risk on top of KYC. You run it from an Ory Actions webhook using both sync and async paths.
 
 ## How it works
 
-In the sync path, an Ory Action on `registration.after` calls your handler. The
-handler calls Socure ID+ and echoes the decision back to Ory, where a
-response-parse Jsonnet snippet applies your policy.
+In the sync path, an Ory Action on `registration.after` calls your handler. The handler calls Socure ID+ and echoes the decision
+back to Ory, where a response-parse Jsonnet snippet applies your policy.
 
-In the async path, Socure POSTs to `/socure/results-callback` when long-running
-checks finish. The handler verifies the `X-Socure-Signature` HMAC and PATCHes the
-final decision to `metadata_public.socure_decision` on the matching identity.
+In the async path, Socure POSTs to `/socure/results-callback` when long-running checks finish. The handler verifies the
+`X-Socure-Signature` HMAC and PATCHes the final decision to `metadata_public.socure_decision` on the matching identity.
 
 ## Notable
 
 - A single deployment handles both paths.
-- The Socure modules you enable (`kyc`, `fraud`, `phonerisk`) drive which signals
-  run.
+- The Socure modules you enable (`kyc`, `fraud`, `phonerisk`) drive which signals run.
 - A DSAR delete API is available. Wire it to your right-to-be-forgotten flow.
 
 ## Resources
 
 - [Socure ID+ documentation](https://developer.socure.com/docs/idplus/overview)
 - [Ory Actions](/docs/actions)
-- Reference: [ory/integrates/identity-verification/socure](https://github.com/ory/integrates/tree/main/identity-verification/socure)
+- Reference:
+  [ory/integrates/identity-verification/socure](https://github.com/ory/integrates/tree/main/identity-verification/socure)

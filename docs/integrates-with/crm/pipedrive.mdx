@@ -13,41 +13,32 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Pipedrive](https://pipedrive.com) is a sales-focused CRM with a
-contact-and-activity timeline as its central abstraction. This integration syncs
-Ory identities to Pipedrive persons on registration and profile updates, and logs a
-login activity to the person's timeline on every login so sales has a real-time view
-of customer engagement.
+[Pipedrive](https://pipedrive.com) is a sales-focused CRM with a contact-and-activity timeline as its central abstraction. This
+integration syncs Ory identities to Pipedrive persons on registration and profile updates, and logs a login activity to the
+person's timeline on every login so sales has a real-time view of customer engagement.
 
 ## Use case
 
-A sales-led B2B product wants every registered user mirrored into Pipedrive as a
-contact, with the Ory identity ID stored on a custom field so sales can
-reverse-lookup. Login activity (time, IP, device, method) lands on the contact's
-timeline so account-based outbound and customer-success teams see live engagement
-signal alongside CRM history.
+A sales-led B2B product wants every registered user mirrored into Pipedrive as a contact, with the Ory identity ID stored on a
+custom field so sales can reverse-lookup. Login activity (time, IP, device, method) lands on the contact's timeline so
+account-based outbound and customer-success teams see live engagement signal alongside CRM history.
 
 ## How it works
 
-1. **Sync (async post-registration / post-settings)** — Ory calls `POST
-   /pipedrive/sync-user` with `identity.id`, traits, and `created_at`. The handler
-   returns `200` immediately, then searches Pipedrive for an existing person by
-   email and either creates a new person or updates the existing one, writing
-   `ory_identity_id` to a custom field.
-2. **Track login (async post-login)** — Ory calls `POST
-   /pipedrive/track-login-activity` with identity, session metadata, and request
-   headers. The handler returns `200` immediately, finds the Pipedrive person by
-   email, and creates a `task`-type activity with the login details (time, IP,
-   device, method, session preview) marked done.
+1. **Sync (async post-registration / post-settings)** — Ory calls `POST /pipedrive/sync-user` with `identity.id`, traits, and
+   `created_at`. The handler returns `200` immediately, then searches Pipedrive for an existing person by email and either creates
+   a new person or updates the existing one, writing `ory_identity_id` to a custom field.
+2. **Track login (async post-login)** — Ory calls `POST /pipedrive/track-login-activity` with identity, session metadata, and
+   request headers. The handler returns `200` immediately, finds the Pipedrive person by email, and creates a `task`-type activity
+   with the login details (time, IP, device, method, session preview) marked done.
 3. Both hooks are fire-and-forget so Pipedrive availability never blocks user flows.
 
 ## Prerequisites
 
 - An Ory Network project.
-- A Pipedrive account and a personal API token (Pipedrive → Settings → Personal
-  preferences → API).
-- A `custom_fields.ory_identity_id` field on the Person object in Pipedrive (create
-  it in Pipedrive → Settings → Data fields → Person).
+- A Pipedrive account and a personal API token (Pipedrive → Settings → Personal preferences → API).
+- A `custom_fields.ory_identity_id` field on the Person object in Pipedrive (create it in Pipedrive → Settings → Data fields →
+  Person).
 - A deployment target for the webhook handler.
 
 ## Deploy the webhook handler
@@ -69,32 +60,26 @@ The server listens on the port specified in `.env` (default 3000) and exposes:
 ## Configure Ory
 
 1. Configure the three Action hooks using the snippets in
-   [`ory-actions.yaml`](https://github.com/ory/integrates/tree/main/crm/pipedrive/ory-actions.yaml)
-   (post-registration, post-settings, post-login).
+   [`ory-actions.yaml`](https://github.com/ory/integrates/tree/main/crm/pipedrive/ory-actions.yaml) (post-registration,
+   post-settings, post-login).
 2. Body templates:
-   [`jsonnet/sync-user.jsonnet`](https://github.com/ory/integrates/tree/main/crm/pipedrive/jsonnet/sync-user.jsonnet)
-   and
+   [`jsonnet/sync-user.jsonnet`](https://github.com/ory/integrates/tree/main/crm/pipedrive/jsonnet/sync-user.jsonnet) and
    [`jsonnet/track-login.jsonnet`](https://github.com/ory/integrates/tree/main/crm/pipedrive/jsonnet/track-login.jsonnet).
-3. Set `ORY_WEBHOOK_SECRET` in the handler's `.env` to match the `X-Webhook-Secret`
-   value in the hook config.
+3. Set `ORY_WEBHOOK_SECRET` in the handler's `.env` to match the `X-Webhook-Secret` value in the hook config.
 
 A sample of the webhook response Pipedrive returns lives at
 [`assets/sample_webhook_response.json`](https://github.com/ory/integrates/tree/main/crm/pipedrive/assets/sample_webhook_response.json).
 
 ## Troubleshooting
 
-- **`401 invalid webhook secret`** — `ORY_WEBHOOK_SECRET` doesn't match
-  `X-Webhook-Secret` in the Ory Action config.
+- **`401 invalid webhook secret`** — `ORY_WEBHOOK_SECRET` doesn't match `X-Webhook-Secret` in the Ory Action config.
 - **`Pipedrive search 401`** — `PIPEDRIVE_API_TOKEN` invalid or revoked.
-- **Custom field `ory_identity_id` ignored on the new Person** — the field isn't
-  defined on the Pipedrive Person object; create it in Pipedrive admin first.
-- **Duplicate Pipedrive persons** — the upsert searches by email; if the email is
-  different from what's in Pipedrive (e.g. plus-addressing), you get a duplicate.
-  Consider switching the lookup to the `ory_identity_id` custom field once it's
-  populated.
-- **Login activities appear without a person link** — the login email doesn't match
-  any Pipedrive person; either sync at registration time or pre-populate Pipedrive
-  with your customer list.
+- **Custom field `ory_identity_id` ignored on the new Person** — the field isn't defined on the Pipedrive Person object; create it
+  in Pipedrive admin first.
+- **Duplicate Pipedrive persons** — the upsert searches by email; if the email is different from what's in Pipedrive (e.g.
+  plus-addressing), you get a duplicate. Consider switching the lookup to the `ory_identity_id` custom field once it's populated.
+- **Login activities appear without a person link** — the login email doesn't match any Pipedrive person; either sync at
+  registration time or pre-populate Pipedrive with your customer list.
 
 ## Resources
 

@@ -15,25 +15,20 @@ Reference:
 </Admonition>
 ```
 
-[Didomi](https://www.didomi.io) is a consent management platform (CMP)
-for GDPR, CCPA, and ePrivacy. Sync Didomi consent state into Ory
-identity metadata so downstream services can read consent decisions
-alongside identity data, and fulfill data-subject requests (DSARs)
-through the Ory Admin API.
+[Didomi](https://www.didomi.io) is a consent management platform (CMP) for GDPR, CCPA, and ePrivacy. Sync Didomi consent state
+into Ory identity metadata so downstream services can read consent decisions alongside identity data, and fulfill data-subject
+requests (DSARs) through the Ory Admin API.
 
 ## How it works
 
-When a Didomi consent or DSAR event fires, your webhook verifies the
-HMAC signature, resolves the matching Ory identity, and PATCHes the
-identity metadata through the Ory Admin API.
+When a Didomi consent or DSAR event fires, your webhook verifies the HMAC signature, resolves the matching Ory identity, and
+PATCHes the identity metadata through the Ory Admin API.
 
-1. In Didomi, go to **Consent Notice**, then **Webhooks**, and
-   configure a webhook to fire on consent events with HMAC-signed
+1. In Didomi, go to **Consent Notice**, then **Webhooks**, and configure a webhook to fire on consent events with HMAC-signed
    payloads.
 2. Deploy a service that:
    - Verifies Didomi's HMAC signature.
-   - Resolves the Ory identity by Didomi's `user_id` (matched to an
-     Ory identity trait or `metadata_public.didomi_user_id`).
+   - Resolves the Ory identity by Didomi's `user_id` (matched to an Ory identity trait or `metadata_public.didomi_user_id`).
    - PATCHes `metadata_public.consent.didomi` on the identity.
 3. For DSAR fulfillment:
    - GET `/admin/identities/{id}` for Article 15 access.
@@ -41,10 +36,8 @@ identity metadata through the Ory Admin API.
 
 ## Notable
 
-- DSAR responses are time-bounded (30 days under GDPR), so design for
-  reliable processing, not best-effort.
-- Consent strings (TCF v2 and Didomi-specific) are long. Store them in
-  `metadata_public` only, since they aren't credentials.
+- DSAR responses are time-bounded (30 days under GDPR), so design for reliable processing, not best-effort.
+- Consent strings (TCF v2 and Didomi-specific) are long. Store them in `metadata_public` only, since they aren't credentials.
 
 ## Resources
 

@@ -19,10 +19,8 @@ discoverable alongside the other IaC and DevOps integrations.
 </Admonition>
 ```
 
-The official Ory Helm charts deploy the self-hosted Ory stack (Kratos,
-Hydra, Keto, Oathkeeper) on Kubernetes. Charts live in
-[github.com/ory/k8s](https://github.com/ory/k8s) and are hosted at
-`https://k8s.ory.sh/helm/charts`.
+The official Ory Helm charts deploy the self-hosted Ory stack (Kratos, Hydra, Keto, Oathkeeper) on Kubernetes. Charts live in
+[github.com/ory/k8s](https://github.com/ory/k8s) and are hosted at `https://k8s.ory.sh/helm/charts`.
 
 ```bash
 helm repo add ory https://k8s.ory.sh/helm/charts
@@ -30,6 +28,5 @@ helm repo update
 helm install kratos ory/kratos --namespace ory --create-namespace -f kratos-values.yaml
 ```
 
-See [Kubernetes Helm Chart](../../hydra/self-hosted/kubernetes-helm-chart.mdx)
-for the full guide, and [Terraform](./terraform.mdx) for managing Ory
-**Network** (rather than self-hosted) resources as code.
+See [Kubernetes Helm Chart](../../hydra/self-hosted/kubernetes-helm-chart.mdx) for the full guide, and
+[Terraform](./terraform.mdx) for managing Ory **Network** (rather than self-hosted) resources as code.

@@ -13,51 +13,46 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[LaunchDarkly](https://launchdarkly.com) is a feature management
-platform with flags, experiments, targeting rules, and observability.
-This integration passes Ory identity attributes (traits, subscription
-tier, organization, groups) to LaunchDarkly as multi-kind contexts so
-feature rollouts can target by identity attribute.
+[LaunchDarkly](https://launchdarkly.com) is a feature management platform with flags, experiments, targeting rules, and
+observability. This integration passes Ory identity attributes (traits, subscription tier, organization, groups) to LaunchDarkly
+as multi-kind contexts so feature rollouts can target by identity attribute.
 
 ## How it works
 
-This isn't a webhook integration. Feature evaluation happens in your
-application code through the LaunchDarkly SDK. The integration is the
-convention for what to pass:
+This isn't a webhook integration. Feature evaluation happens in your application code through the LaunchDarkly SDK. The
+integration is the convention for what to pass:
 
 ```typescript
 // In your app, after Ory session resolution:
-const session = await ory.sessions.toSession();
-const identity = session.data.identity;
+const session = await ory.sessions.toSession()
+const identity = session.data.identity
 
 const context = {
   kind: "user",
-  key: identity.id,                            // stable bucketing
+  key: identity.id, // stable bucketing
   email: identity.traits.email,
   organization: identity.metadata_public?.org_id,
   subscription_tier: identity.metadata_public?.subscription_tier,
-};
+}
 
-const flag = await ldClient.variation("my-feature", context, false);
+const flag = await ldClient.variation("my-feature", context, false)
 ```
 
 ## What to pass to LaunchDarkly
 
-| Ory source | LaunchDarkly context attribute |
-| --- | --- |
-| `identity.id` | `key` — stable bucketing |
-| `identity.traits.email` | `email` — per-email overrides for internal testing |
-| `metadata_public.org_id` | multi-kind `organization` context |
-| `metadata_public.subscription_tier` | `tier` |
-| `metadata_public.groups` | `groups` |
+| Ory source                          | LaunchDarkly context attribute                     |
+| ----------------------------------- | -------------------------------------------------- |
+| `identity.id`                       | `key` — stable bucketing                           |
+| `identity.traits.email`             | `email` — per-email overrides for internal testing |
+| `metadata_public.org_id`            | multi-kind `organization` context                  |
+| `metadata_public.subscription_tier` | `tier`                                             |
+| `metadata_public.groups`            | `groups`                                           |
 
 ## Notable
 
-- Pass **stable identifiers** as `key`. Use `identity.id`, not email,
-  since email can change.
-- Use LaunchDarkly **multi-kind contexts** (a separate `organization`
-  context attached to the `user` context) for cleaner B2B per-account
-  targeting.
+- Pass **stable identifiers** as `key`. Use `identity.id`, not email, since email can change.
+- Use LaunchDarkly **multi-kind contexts** (a separate `organization` context attached to the `user` context) for cleaner B2B
+  per-account targeting.
 
 ## Resources
 

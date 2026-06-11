@@ -14,17 +14,16 @@ This integration is community-maintained. Configures via the standard
 </Admonition>
 ```
 
-[New Relic](https://newrelic.com) ingests OpenTelemetry over OTLP/HTTP.
-Ory products emit OTel traces and metrics that New Relic consumes
-directly.
+[New Relic](https://newrelic.com) ingests OpenTelemetry over OTLP/HTTP. Ory products emit OTel traces and metrics that New Relic
+consumes directly.
 
 ## Quick reference
 
-| Setting | Value |
-| --- | --- |
-| OTLP endpoint (US) | `https://otlp.nr-data.net:4318` |
-| OTLP endpoint (EU) | `https://otlp.eu01.nr-data.net:4318` |
-| Auth | header `api-key: {$NEW_RELIC_LICENSE_KEY}` |
+| Setting            | Value                                      |
+| ------------------ | ------------------------------------------ |
+| OTLP endpoint (US) | `https://otlp.nr-data.net:4318`            |
+| OTLP endpoint (EU) | `https://otlp.eu01.nr-data.net:4318`       |
+| Auth               | header `api-key: {$NEW_RELIC_LICENSE_KEY}` |
 
 ## Configuration
 
@@ -37,13 +36,11 @@ OTEL_EXPORTER_OTLP_HEADERS=api-key={$NEW_RELIC_LICENSE_KEY}
 OTEL_SERVICE_NAME=ory-kratos
 ```
 
-For production, prefer an OpenTelemetry Collector in front of New
-Relic for batching, retries, and sampling in one place.
+For production, prefer an OpenTelemetry Collector in front of New Relic for batching, retries, and sampling in one place.
 
 ## Notable
 
-- New Relic enforces attribute count and size limits. Sending
-  `identity.traits` as a flat blob will hit them.
+- New Relic enforces attribute count and size limits. Sending `identity.traits` as a flat blob will hit them.
 - Use **Account – Ingest** scope license keys, never full user keys.
 - Sample at the OTel SDK or collector level, not on the backend side.
 
@@ -51,4 +48,5 @@ Relic for batching, retries, and sampling in one place.
 
 - [New Relic OpenTelemetry](https://docs.newrelic.com/docs/more-integrations/open-source-telemetry-integrations/opentelemetry/get-started/opentelemetry-set-up-your-app/)
 - [Ory tracing](../../self-hosted/operations/01_tracing.md)
-- Reference: [ory/integrates/monitoring-observability/new-relic](https://github.com/ory/integrates/tree/main/monitoring-observability/new-relic)
+- Reference:
+  [ory/integrates/monitoring-observability/new-relic](https://github.com/ory/integrates/tree/main/monitoring-observability/new-relic)

@@ -13,21 +13,18 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-Ory natively supports OpenTelemetry. Self-hosted products list it as the first
-supported tracing backend in the Ory observability docs; Ory Network exports OTLP for
-traces, metrics, and logs.
+Ory natively supports OpenTelemetry. Self-hosted products list it as the first supported tracing backend in the Ory observability
+docs; Ory Network exports OTLP for traces, metrics, and logs.
 
-See the [self-hosted distributed tracing](../../self-hosted/operations/01_tracing.md)
-docs (OpenTelemetry is the recommended backend), the
-[self-hosted observability](../../self-hosted/operations/15_observability.md) docs,
-and the [Kratos tracing guide](../../kratos/guides/tracing.mdx).
+See the [self-hosted distributed tracing](../../self-hosted/operations/01_tracing.md) docs (OpenTelemetry is the recommended
+backend), the [self-hosted observability](../../self-hosted/operations/15_observability.md) docs, and the
+[Kratos tracing guide](../../kratos/guides/tracing.mdx).
 
 ## Two paths
 
 ### Self-hosted Ory with the native OTLP exporter
 
-Each Ory product accepts standard OTel environment variables to ship traces directly
-to a collector or backend:
+Each Ory product accepts standard OTel environment variables to ship traces directly to a collector or backend:
 
 ```bash
 TRACING_PROVIDER=otel
@@ -39,10 +36,9 @@ TRACING_PROVIDERS_OTLP_SAMPLING_SAMPLING_RATIO=1.0   # tune in production
 
 ### Ory Network with OTLP export
 
-Ory Network exports OTLP from the managed control plane. In the Ory Console, go to
-**Project Settings**, then **Telemetry**, set the OTLP endpoint (your collector's
-public address), pick `grpc` (4317) or `http/protobuf` (4318), and add any auth
-headers your collector requires.
+Ory Network exports OTLP from the managed control plane. In the Ory Console, go to **Project Settings**, then **Telemetry**, set
+the OTLP endpoint (your collector's public address), pick `grpc` (4317) or `http/protobuf` (4318), and add any auth headers your
+collector requires.
 
 ## Recommended pipeline
 
@@ -53,12 +49,13 @@ Ory  ─OTLP─▶  OTel Collector  ─export─▶  Tempo / Datadog / New Relic
                   (batch, retry, sample, redact)
 ```
 
-The collector handles batching, retries, sampling, and PII redaction in one place, so
-you can swap backends without touching the Ory configuration.
+The collector handles batching, retries, sampling, and PII redaction in one place, so you can swap backends without touching the
+Ory configuration.
 
 ## Resources
 
 - [OpenTelemetry](https://opentelemetry.io)
 - [Ory tracing](../../self-hosted/operations/01_tracing.md)
 - [Kratos tracing guide](../../kratos/guides/tracing.mdx)
-- Reference: [ory/integrates/monitoring-observability/opentelemetry](https://github.com/ory/integrates/tree/main/monitoring-observability/opentelemetry)
+- Reference:
+  [ory/integrates/monitoring-observability/opentelemetry](https://github.com/ory/integrates/tree/main/monitoring-observability/opentelemetry)

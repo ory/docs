@@ -13,11 +13,9 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Hookdeck](https://hookdeck.com) is a webhook reliability layer with
-managed ingestion, automatic retries, rate limiting, replay, and
-observability. You route Ory Network Actions through Hookdeck so transient
-handler failures don't lose events and you get a queryable event store
-of every Ory webhook delivery.
+[Hookdeck](https://hookdeck.com) is a webhook reliability layer with managed ingestion, automatic retries, rate limiting, replay,
+and observability. You route Ory Network Actions through Hookdeck so transient handler failures don't lose events and you get a
+queryable event store of every Ory webhook delivery.
 
 ## How it works
 
@@ -25,36 +23,28 @@ of every Ory webhook delivery.
 Ory Action  →  Hookdeck Source  →  Hookdeck queue/retry  →  Hookdeck Destination  →  Your handler
 ```
 
-1. In Hookdeck, create a **Source** (HTTP endpoint Hookdeck exposes)
-   and a **Destination** (your handler URL).
-2. Connect them with a **Connection** that defines retry policy,
-   filtering, and transformations.
+1. In Hookdeck, create a **Source** (HTTP endpoint Hookdeck exposes) and a **Destination** (your handler URL).
+2. Connect them with a **Connection** that defines retry policy, filtering, and transformations.
 3. Point your Ory Action webhook URL at the Hookdeck Source URL.
-4. Hookdeck buffers, retries with backoff, surfaces failures for
-   replay.
+4. Hookdeck buffers, retries with backoff, surfaces failures for replay.
 
 ## Why route through Hookdeck
 
-- **Handler downtime resilience** — Hookdeck adds a more aggressive
-  retry layer with persistent storage than Ory Actions' built-in
+- **Handler downtime resilience** — Hookdeck adds a more aggressive retry layer with persistent storage than Ory Actions' built-in
   retries.
-- **Event replay** — replay any historical Ory event into your
-  handler from the Hookdeck dashboard.
-- **Filtering** — drop events that don't matter before they reach
-  your handler.
-- **Transformations** — reshape the Ory payload to match your
-  handler's expected schema without touching either side.
+- **Event replay** — replay any historical Ory event into your handler from the Hookdeck dashboard.
+- **Filtering** — drop events that don't matter before they reach your handler.
+- **Transformations** — reshape the Ory payload to match your handler's expected schema without touching either side.
 
 ## Notable
 
-- Pass through the `X-Webhook-Secret` header from Ory to your handler
-  so signature verification still works.
-- Compare with [`webhook-infrastructure/svix`](./svix.mdx) — Svix
-  focuses on outbound webhooks from your product to your customers;
-  Hookdeck focuses on inbound reliability.
+- Pass through the `X-Webhook-Secret` header from Ory to your handler so signature verification still works.
+- Compare with [`webhook-infrastructure/svix`](./svix.mdx) — Svix focuses on outbound webhooks from your product to your
+  customers; Hookdeck focuses on inbound reliability.
 
 ## Resources
 
 - [Hookdeck documentation](https://hookdeck.com/docs)
 - [Ory Actions](/docs/actions)
-- Reference: [ory/integrates/webhook-infrastructure/hookdeck](https://github.com/ory/integrates/tree/main/webhook-infrastructure/hookdeck)
+- Reference:
+  [ory/integrates/webhook-infrastructure/hookdeck](https://github.com/ory/integrates/tree/main/webhook-infrastructure/hookdeck)

@@ -14,38 +14,33 @@ DSN works with Cockroach-aware tuning. Reference:
 </Admonition>
 ```
 
-[CockroachDB](https://www.cockroachlabs.com) is a distributed SQL database with
-horizontal scalability, strong consistency, multi-region survivability,
-and PostgreSQL wire-protocol compatibility. It's a viable backend for
-self-hosted Ory deployments that need geographic distribution or
-high-availability beyond a single Postgres node.
+[CockroachDB](https://www.cockroachlabs.com) is a distributed SQL database with horizontal scalability, strong consistency,
+multi-region survivability, and PostgreSQL wire-protocol compatibility. It's a viable backend for self-hosted Ory deployments that
+need geographic distribution or high-availability beyond a single Postgres node.
 
 ## How it works
 
-CockroachDB speaks the Postgres wire protocol, so Ory's DSN format is
-unchanged:
+CockroachDB speaks the Postgres wire protocol, so Ory's DSN format is unchanged:
 
 ```
 postgres://user:password@cockroach-host:26257/ory_kratos?sslmode=verify-full&options=--cluster%3D<cluster-id>
 ```
 
-Run migrations with `kratos migrate sql` (and the equivalent for Ory OAuth2 &
-OpenID Connect and Ory Permissions) against CockroachDB without changes.
+Run migrations with `kratos migrate sql` (and the equivalent for Ory OAuth2 & OpenID Connect and Ory Permissions) against
+CockroachDB without changes.
 
 ## Cockroach-aware tuning
 
-- **FK-heavy schema**: Ory's schema has many foreign keys, so expect
-  some `40001 retry` errors under high concurrency. Configure clients
-  to retry transactions per Cockroach's standard pattern.
-- **`SERIAL` vs `UUID`**: Ory schemas use UUIDs, which distribute well on
-  CockroachDB. Legacy `SERIAL` columns would hot-shard, so verify that no Ory
-  product version uses SERIAL.
-- **Serverless vs Self-hosted**: CockroachDB Serverless has
-  request-per-second limits unsuitable for production identity
+- **FK-heavy schema**: Ory's schema has many foreign keys, so expect some `40001 retry` errors under high concurrency. Configure
+  clients to retry transactions per Cockroach's standard pattern.
+- **`SERIAL` vs `UUID`**: Ory schemas use UUIDs, which distribute well on CockroachDB. Legacy `SERIAL` columns would hot-shard, so
+  verify that no Ory product version uses SERIAL.
+- **Serverless vs Self-hosted**: CockroachDB Serverless has request-per-second limits unsuitable for production identity
   workloads. Use the Self-hosted (Dedicated) tier.
 
 ## Resources
 
 - [CockroachDB documentation](https://www.cockroachlabs.com/docs/)
 - [Ory self-hosted deployment](../../oss/deployment.mdx)
-- Reference: [ory/integrates/data-persistence/cockroachdb](https://github.com/ory/integrates/tree/main/data-persistence/cockroachdb)
+- Reference:
+  [ory/integrates/data-persistence/cockroachdb](https://github.com/ory/integrates/tree/main/data-persistence/cockroachdb)

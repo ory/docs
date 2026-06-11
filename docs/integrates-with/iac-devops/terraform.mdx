@@ -17,22 +17,16 @@ disagree.
 </Admonition>
 ```
 
-The official [`ory/ory`](https://registry.terraform.io/providers/ory/ory/latest/docs)
-Terraform provider manages **Ory Network** resources as
-infrastructure-as-code — identity schemas, OAuth2 clients, project
-configuration, identities, organizations, permissions, and webhooks.
-Source lives at
-[github.com/ory/terraform-provider-ory](https://github.com/ory/terraform-provider-ory).
+The official [`ory/ory`](https://registry.terraform.io/providers/ory/ory/latest/docs) Terraform provider manages **Ory Network**
+resources as infrastructure-as-code — identity schemas, OAuth2 clients, project configuration, identities, organizations,
+permissions, and webhooks. Source lives at [github.com/ory/terraform-provider-ory](https://github.com/ory/terraform-provider-ory).
 
-The provider is also published on the
-[OpenTofu registry](https://search.opentofu.org/provider/ory/ory/latest)
-under the same `ory/ory` source, so the configuration below works
-identically under `tofu`.
+The provider is also published on the [OpenTofu registry](https://search.opentofu.org/provider/ory/ory/latest) under the same
+`ory/ory` source, so the configuration below works identically under `tofu`.
 
 :::note
 
-This provider targets **Ory Network only** — it does not manage
-self-hosted Ory deployments. For self-hosted, use the
+This provider targets **Ory Network only** — it does not manage self-hosted Ory deployments. For self-hosted, use the
 [Helm charts](../../hydra/self-hosted/kubernetes-helm-chart.mdx) or raw
 [Kubernetes manifests](../containerization/kubernetes.mdx).
 
@@ -58,23 +52,19 @@ provider "ory" {
 }
 ```
 
-A canonical example layout — with `ory_identity_schema`,
-`ory_oauth2_client`, `ory_project_config`, and `ory_webhook` resources
+A canonical example layout — with `ory_identity_schema`, `ory_oauth2_client`, `ory_project_config`, and `ory_webhook` resources
 plus a multi-environment module — is published in the
 [provider repository's `examples/` directory](https://github.com/ory/terraform-provider-ory/tree/main/examples).
 
 ## Notable behaviours
 
-- Many `ory_project_config` attributes were renamed to follow the
-  OpenAPI spec naming convention. Old names still work but emit
+- Many `ory_project_config` attributes were renamed to follow the OpenAPI spec naming convention. Old names still work but emit
   deprecation warnings; the
-  [migration script](https://github.com/ory/terraform-provider-ory/blob/main/scripts/migrate-deprecated-attrs.sh)
-  in the provider repo rewrites your `.tf` files.
-- Ory uses two API key types — Workspace API keys and Project API keys.
-  Use the right key for the right resource: Workspace keys can manage
-  projects, Project keys can manage in-project resources.
-- Existing resources created via the Ory Console or CLI can be adopted
-  with `terraform import ory_<resource>.<name> <id>`.
+  [migration script](https://github.com/ory/terraform-provider-ory/blob/main/scripts/migrate-deprecated-attrs.sh) in the provider
+  repo rewrites your `.tf` files.
+- Ory uses two API key types — Workspace API keys and Project API keys. Use the right key for the right resource: Workspace keys
+  can manage projects, Project keys can manage in-project resources.
+- Existing resources created via the Ory Console or CLI can be adopted with `terraform import ory_<resource>.<name> <id>`.
 
 ## Resources
 

@@ -13,25 +13,22 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Sumo Logic](https://www.sumologic.com/) provides cloud-native
-machine-data analytics and a Cloud SIEM. An HTTP Source on a Hosted
-Collector accepts authenticated POSTs to a tokenized URL, with no
-webhook handler needed.
+[Sumo Logic](https://www.sumologic.com/) provides cloud-native machine-data analytics and a Cloud SIEM. An HTTP Source on a Hosted
+Collector accepts authenticated POSTs to a tokenized URL, with no webhook handler needed.
 
 ## How it works
 
-An Ory Action POSTs the JSON body directly to the Sumo Logic Hosted
-Collector HTTP Source URL. The Source Category drives downstream search
-and partition rules, and Sumo parses the JSON automatically.
+An Ory Action POSTs the JSON body directly to the Sumo Logic Hosted Collector HTTP Source URL. The Source Category drives
+downstream search and partition rules, and Sumo parses the JSON automatically.
 
 ## Notable
 
 - The HTTP Source URL **is the auth**, so treat it as a secret.
-- For Cloud SIEM, parse events into Sumo's normalized schema through
-  Field Extraction Rules to unlock built-in detection rules.
+- For Cloud SIEM, parse events into Sumo's normalized schema through Field Extraction Rules to unlock built-in detection rules.
 
 ## Resources
 
 - [Sumo Logic HTTP Source](https://help.sumologic.com/docs/send-data/hosted-collectors/http-source/)
 - [Ory Actions](/docs/actions)
-- Reference: [ory/integrates/siem-security-analytics/sumo-logic](https://github.com/ory/integrates/tree/main/siem-security-analytics/sumo-logic)
+- Reference:
+  [ory/integrates/siem-security-analytics/sumo-logic](https://github.com/ory/integrates/tree/main/siem-security-analytics/sumo-logic)

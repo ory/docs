@@ -13,21 +13,18 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Intercom](https://www.intercom.com) is a customer messaging platform for chat,
-product tours, and support. You sync Ory identities into Intercom Contacts
-so chat, support, and lifecycle messaging is identity-aware.
+[Intercom](https://www.intercom.com) is a customer messaging platform for chat, product tours, and support. You sync Ory
+identities into Intercom Contacts so chat, support, and lifecycle messaging is identity-aware.
 
 ## How it works
 
-An Ory Action on `registration.after` or `settings.after` POSTs to
-`https://api.intercom.io/contacts` with bearer token authentication.
+An Ory Action on `registration.after` or `settings.after` POSTs to `https://api.intercom.io/contacts` with bearer token
+authentication.
 
 ## Notable
 
-- **Identity verification:** an HMAC-based `user_hash` in the Messenger
-  prevents spoofing of authenticated chat sessions.
-- Use the Events API (`POST /events`) to track specific
-  user actions, separate from contact updates.
+- **Identity verification:** an HMAC-based `user_hash` in the Messenger prevents spoofing of authenticated chat sessions.
+- Use the Events API (`POST /events`) to track specific user actions, separate from contact updates.
 
 ## Resources
 

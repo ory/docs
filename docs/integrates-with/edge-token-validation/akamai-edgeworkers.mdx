@@ -15,33 +15,27 @@ reference implementation. Reference:
 </Admonition>
 ```
 
-[Akamai EdgeWorkers](https://www.akamai.com/products/serverless-computing-edgeworkers)
-is a V8-isolate serverless runtime. You can validate Ory Network session tokens
-and JWTs at the Akamai edge using the same pattern as
+[Akamai EdgeWorkers](https://www.akamai.com/products/serverless-computing-edgeworkers) is a V8-isolate serverless runtime. You can
+validate Ory Network session tokens and JWTs at the Akamai edge using the same pattern as
 [Cloudflare Workers](./cloudflare-workers.mdx).
 
 ## How it differs from the Cloudflare reference
 
 - There is **no `fetch()` global**. Use the EdgeWorkers `httpRequest` API.
-- Use **EdgeKV** for cross-edge cache. It falls back to a per-isolate `Map` when
-  not provisioned.
-- The **CPU budget** is stricter (~50ms wall-clock). JWKS verification fits
-  comfortably, but `whoami` calls eat into the budget.
-- **Akamai Property Manager** wires the EdgeWorker to a request behavior on the
-  relevant hostname or path.
+- Use **EdgeKV** for cross-edge cache. It falls back to a per-isolate `Map` when not provisioned.
+- The **CPU budget** is stricter (~50ms wall-clock). JWKS verification fits comfortably, but `whoami` calls eat into the budget.
+- **Akamai Property Manager** wires the EdgeWorker to a request behavior on the relevant hostname or path.
 
 ## How it works
 
 1. The EdgeWorker fires on `onClientRequest`.
 2. It reads the session cookie or `Authorization: Bearer` header.
-3. For JWTs, it verifies the signature against the cached Ory JWKS via the
-   Crypto API.
-4. For session cookies, it calls Ory's `/sessions/whoami` via `httpRequest` and
-   caches the result for 30–60s in EdgeKV.
-5. When the token is valid, it injects the `X-User-Id` header. When it's
-   invalid, it returns a 401 from the edge.
+3. For JWTs, it verifies the signature against the cached Ory JWKS via the Crypto API.
+4. For session cookies, it calls Ory's `/sessions/whoami` via `httpRequest` and caches the result for 30–60s in EdgeKV.
+5. When the token is valid, it injects the `X-User-Id` header. When it's invalid, it returns a 401 from the edge.
 
 ## Resources
 
 - [Akamai EdgeWorkers documentation](https://techdocs.akamai.com/edgeworkers/docs)
-- Reference: [ory/integrates/edge-token-validation/akamai-edgeworkers](https://github.com/ory/integrates/tree/main/edge-token-validation/akamai-edgeworkers)
+- Reference:
+  [ory/integrates/edge-token-validation/akamai-edgeworkers](https://github.com/ory/integrates/tree/main/edge-token-validation/akamai-edgeworkers)

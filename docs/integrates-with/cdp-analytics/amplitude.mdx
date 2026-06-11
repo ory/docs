@@ -13,22 +13,18 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Amplitude](https://amplitude.com) is a product-analytics platform. You can send
-Ory authentication events directly to Amplitude's HTTP V2 API without a webhook
-handler.
+[Amplitude](https://amplitude.com) is a product-analytics platform. You can send Ory authentication events directly to Amplitude's
+HTTP V2 API without a webhook handler.
 
 ## How it works
 
-An Ory Action on lifecycle hooks (async, `response.ignore: true`) POSTs directly
-to `https://api2.amplitude.com/2/httpapi` (or `api.eu.amplitude.com` for EU
-residency). The API key authenticates the request through the JSON body.
+An Ory Action on lifecycle hooks (async, `response.ignore: true`) POSTs directly to `https://api2.amplitude.com/2/httpapi` (or
+`api.eu.amplitude.com` for EU residency). The API key authenticates the request through the JSON body.
 
 ## Notable
 
-- **Stable `user_id`** — use Ory identity id, not email. Identity
-  merges break if user_id changes.
-- Up to 1,000 events per HTTP request — batch via handler for
-  high-volume products.
+- **Stable `user_id`** — use Ory identity id, not email. Identity merges break if user_id changes.
+- Up to 1,000 events per HTTP request — batch via handler for high-volume products.
 
 ## Resources
 

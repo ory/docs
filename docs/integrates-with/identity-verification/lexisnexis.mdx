@@ -13,27 +13,24 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[LexisNexis Risk Solutions](https://risk.lexisnexis.com) provides InstantID, a
-database-backed identity verification API that scores name, address, SSN, and DOB
-matches and returns NAS, NAP, and CVI scores. It is common in US financial
-services and insurance flows where document scans add too much friction. This
-integration runs InstantID synchronously from Ory Actions during registration and
-gates sign-in on the stored verification status.
+[LexisNexis Risk Solutions](https://risk.lexisnexis.com) provides InstantID, a database-backed identity verification API that
+scores name, address, SSN, and DOB matches and returns NAS, NAP, and CVI scores. It is common in US financial services and
+insurance flows where document scans add too much friction. This integration runs InstantID synchronously from Ory Actions during
+registration and gates sign-in on the stored verification status.
 
 ## Endpoints
 
-| Path | Trigger | Auth | Purpose |
-| --- | --- | --- | --- |
-| `POST /lexisnexis/verify` | sync `registration.after`, `can_interrupt: true` | `X-Webhook-Secret` | Calls LexisNexis InstantID with the identity's PII; evaluates NAS/NAP/CVI against thresholds; PATCHes verdict (`passed` / `failed`) onto the identity; returns `{ status: "ok" }` or surfaces an error to fail the registration flow. |
-| `POST /lexisnexis/validate` | sync `login.after`, `can_interrupt: true` | `X-Webhook-Secret` | Blocks login when `metadata_public.lexisnexis.verification_status == "failed"`. |
+| Path                        | Trigger                                          | Auth               | Purpose                                                                                                                                                                                                                               |
+| --------------------------- | ------------------------------------------------ | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /lexisnexis/verify`   | sync `registration.after`, `can_interrupt: true` | `X-Webhook-Secret` | Calls LexisNexis InstantID with the identity's PII; evaluates NAS/NAP/CVI against thresholds; PATCHes verdict (`passed` / `failed`) onto the identity; returns `{ status: "ok" }` or surfaces an error to fail the registration flow. |
+| `POST /lexisnexis/validate` | sync `login.after`, `can_interrupt: true`        | `X-Webhook-Secret` | Blocks login when `metadata_public.lexisnexis.verification_status == "failed"`.                                                                                                                                                       |
 
 ## NAS / NAP / CVI
 
-LexisNexis returns three scores per inquiry; defaults below are 50 (calibrated for
-low-risk consumer flows; tune up for higher-risk products):
+LexisNexis returns three scores per inquiry; defaults below are 50 (calibrated for low-risk consumer flows; tune up for
+higher-risk products):
 
-- **NAS** — Name + Address Score: how well the supplied name + address match
-  LexisNexis records.
+- **NAS** — Name + Address Score: how well the supplied name + address match LexisNexis records.
 - **NAP** — Name + Phone Score: name + phone match.
 - **CVI** — Comprehensive Verification Index: roll-up score across all signals.
 
@@ -66,4 +63,5 @@ npm start              # runs `tsx server.ts`
 
 - [LexisNexis Risk Solutions](https://risk.lexisnexis.com)
 - [Ory Actions](/docs/actions)
-- Reference: [ory/integrates/identity-verification/lexisnexis](https://github.com/ory/integrates/tree/main/identity-verification/lexisnexis)
+- Reference:
+  [ory/integrates/identity-verification/lexisnexis](https://github.com/ory/integrates/tree/main/identity-verification/lexisnexis)

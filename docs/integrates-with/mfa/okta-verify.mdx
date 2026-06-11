@@ -15,31 +15,26 @@ Okta Factors API check. Reference:
 </Admonition>
 ```
 
-[Okta Verify](https://help.okta.com/en-us/content/topics/mobile/okta-verify-overview.htm)
-is Okta's mobile MFA app, supporting push, TOTP, and FastPass. Use it when Okta is
-the workforce identity store but Ory is the customer-facing layer.
+[Okta Verify](https://help.okta.com/en-us/content/topics/mobile/okta-verify-overview.htm) is Okta's mobile MFA app, supporting
+push, TOTP, and FastPass. Use it when Okta is the workforce identity store but Ory is the customer-facing layer.
 
 ## How it works
 
 You add an Ory Action on `login.after` with `can_interrupt: true`:
 
 1. The user completes primary authentication in Ory.
-2. Your handler calls Okta's Factors API
-   (`/api/v1/users/{userId}/factors/{factorId}/verify`).
+2. Your handler calls Okta's Factors API (`/api/v1/users/{userId}/factors/{factorId}/verify`).
 3. Okta Verify sends a push to the user's mobile device.
 4. Your handler polls Okta for the result.
 5. On `SUCCESS` you return success. On `REJECTED` or timeout, you block the sign-in.
 
-For most use cases, native
-[WebAuthn MFA](../../kratos/mfa/20_webauthn-fido-yubikey.mdx) or TOTP is
-simpler. Okta Verify makes sense primarily when it's already deployed
-across the workforce.
+For most use cases, native [WebAuthn MFA](../../kratos/mfa/20_webauthn-fido-yubikey.mdx) or TOTP is simpler. Okta Verify makes
+sense primarily when it's already deployed across the workforce.
 
 ## Notable
 
 - Requires an **Okta SSWS API token** scoped to the Okta org.
-- Map each Ory identity to an Okta user, typically through
-  `metadata_public.okta_user_id` set at enrollment.
+- Map each Ory identity to an Okta user, typically through `metadata_public.okta_user_id` set at enrollment.
 - Push requires the user's mobile device to be online.
 
 ## Resources

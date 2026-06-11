@@ -16,47 +16,35 @@ custom handler. Reference:
 </Admonition>
 ```
 
-Use the WhatsApp Business Cloud API as the OTP delivery channel for Ory
-Identities verification, recovery, and MFA self-service flows. This is common in
-markets where WhatsApp adoption beats SMS deliverability.
+Use the WhatsApp Business Cloud API as the OTP delivery channel for Ory Identities verification, recovery, and MFA self-service
+flows. This is common in markets where WhatsApp adoption beats SMS deliverability.
 
 ## How it works
 
-This is a variant of the standard courier-spi pattern, but you configure it
-under `courier.channels` rather than `courier.sms` because it requires a custom
-handler:
+This is a variant of the standard courier-spi pattern, but you configure it under `courier.channels` rather than `courier.sms`
+because it requires a custom handler:
 
-1. Ory Identities generates an OTP and POSTs the rendered message to the
-   handler at `/whatsapp/send`.
-2. The handler verifies the shared secret, extracts the OTP from
-   the message body via regex, and normalizes the recipient to
+1. Ory Identities generates an OTP and POSTs the rendered message to the handler at `/whatsapp/send`.
+2. The handler verifies the shared secret, extracts the OTP from the message body via regex, and normalizes the recipient to
    E.164.
-3. The handler POSTs to
-   `https://graph.facebook.com/<v>/<phone_number_id>/messages` with
-   a `type: template` payload — the OTP goes into both the body
-   parameter and the copy-code button parameter.
+3. The handler POSTs to `https://graph.facebook.com/<v>/<phone_number_id>/messages` with a `type: template` payload — the OTP goes
+   into both the body parameter and the copy-code button parameter.
 
 ## Prerequisites
 
 - Meta Business Manager account with **WhatsApp Business** enabled.
-- A WhatsApp Business **phone number ID** (numeric, not the phone
-  itself).
-- A **system-user permanent access token** with WhatsApp messaging
-  permission.
-- An **approved AUTHENTICATION-category template** — Meta review
-  required (typically under an hour).
+- A WhatsApp Business **phone number ID** (numeric, not the phone itself).
+- A **system-user permanent access token** with WhatsApp messaging permission.
+- An **approved AUTHENTICATION-category template** — Meta review required (typically under an hour).
 - A deployment target for the webhook handler.
 
-WhatsApp Cloud API does not allow ad-hoc text for OTPs — the template
-must be pre-approved.
+WhatsApp Cloud API does not allow ad-hoc text for OTPs — the template must be pre-approved.
 
 ## Notable
 
-- **Recipient must be on WhatsApp** — no automatic SMS fallback. For
-  uncertain audiences, layer a try-WA / fallback-SMS pattern in your
-  courier config or handler.
-- The handler approach is necessary because Kratos's stock SMS
-  courier cannot construct WhatsApp's template-typed payload —
+- **Recipient must be on WhatsApp** — no automatic SMS fallback. For uncertain audiences, layer a try-WA / fallback-SMS pattern in
+  your courier config or handler.
+- The handler approach is necessary because Kratos's stock SMS courier cannot construct WhatsApp's template-typed payload —
   WhatsApp doesn't accept raw OTP text.
 
 ## Resources

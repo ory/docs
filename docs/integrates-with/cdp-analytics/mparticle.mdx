@@ -13,24 +13,20 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[mParticle](https://www.mparticle.com) is a customer data platform. You can send
-Ory identity events to mParticle's Events API, and mParticle fans the events out
-to downstream destinations (analytics, marketing, advertising) without
-re-implementing each integration.
+[mParticle](https://www.mparticle.com) is a customer data platform. You can send Ory identity events to mParticle's Events API,
+and mParticle fans the events out to downstream destinations (analytics, marketing, advertising) without re-implementing each
+integration.
 
 ## How it works
 
-An Ory Action POSTs directly to `https://s2s.mparticle.com/v2/events`
-with HTTP Basic auth (mParticle API Key + Secret from a Custom Feed
-input).
+An Ory Action POSTs directly to `https://s2s.mparticle.com/v2/events` with HTTP Basic auth (mParticle API Key + Secret from a
+Custom Feed input).
 
 ## Notable
 
-- `user_identities.customer_id` = Ory identity id; mParticle's
-  identity-resolution rules layer on top.
+- `user_identities.customer_id` = Ory identity id; mParticle's identity-resolution rules layer on top.
 - `environment` = `"development"` for non-prod Ory projects.
-- mParticle's value is the **routing layer** — only worth it for
-  multi-destination distribution.
+- mParticle's value is the **routing layer** — only worth it for multi-destination distribution.
 
 ## Resources
 

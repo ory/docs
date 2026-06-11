@@ -13,23 +13,19 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[OneTrust](https://www.onetrust.com) is a privacy and consent
-management platform (GDPR, CCPA, LGPD, HIPAA). Sync Ory identities with
-OneTrust profiles and consume OneTrust consent webhooks to surface
-consent state on Ory identities.
+[OneTrust](https://www.onetrust.com) is a privacy and consent management platform (GDPR, CCPA, LGPD, HIPAA). Sync Ory identities
+with OneTrust profiles and consume OneTrust consent webhooks to surface consent state on Ory identities.
 
 ## How it works
 
-**Outbound**: an Ory Action on `registration.after` calls the OneTrust
-Profile API to create or update a profile keyed by the Ory identity ID.
+**Outbound**: an Ory Action on `registration.after` calls the OneTrust Profile API to create or update a profile keyed by the Ory
+identity ID.
 
-**Inbound**: when OneTrust sends a consent-change webhook, your handler
-verifies the HMAC-SHA256 signature and PATCHes
+**Inbound**: when OneTrust sends a consent-change webhook, your handler verifies the HMAC-SHA256 signature and PATCHes
 `metadata_public.consent.onetrust` on the matching Ory identity.
 
-**DSAR fulfillment**: OneTrust forwards DSARs to your handler, which
-maps them to `GET` (Article 15) or `DELETE` (Article 17) on the Ory
-Admin API.
+**DSAR fulfillment**: OneTrust forwards DSARs to your handler, which maps them to `GET` (Article 15) or `DELETE` (Article 17) on
+the Ory Admin API.
 
 ## Resources
 

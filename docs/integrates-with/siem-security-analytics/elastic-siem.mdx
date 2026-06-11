@@ -13,31 +13,26 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Elastic SIEM](https://www.elastic.co/security/siem) provides security
-analytics on Elasticsearch and Kibana. Ingest Ory authentication events
-mapped to the Elastic Common Schema (ECS).
+[Elastic SIEM](https://www.elastic.co/security/siem) provides security analytics on Elasticsearch and Kibana. Ingest Ory
+authentication events mapped to the Elastic Common Schema (ECS).
 
 ## How it works
 
-An Ory Action fires on each lifecycle hook. Your handler verifies the
-secret, transforms the event into an ECS document, and POSTs it to the
-Elasticsearch `_bulk` API.
+An Ory Action fires on each lifecycle hook. Your handler verifies the secret, transforms the event into an ECS document, and POSTs
+it to the Elasticsearch `_bulk` API.
 
-For the ECS mapping, use `event.action` for the auth verb, `user.id`
-and `user.email` for the subject, `source.ip` and
+For the ECS mapping, use `event.action` for the auth verb, `user.id` and `user.email` for the subject, `source.ip` and
 `user_agent.original` for context, and `authentication.factor` for MFA.
 
 ## Notable
 
-- Apply an ILM policy on `logs-ory-*` for tier transitions that match
-  your compliance window.
-- Pre-built Detection Engine rules (brute force, impossible travel,
-  credential stuffing) target ECS-mapped events.
-- For Fleet deployments, package the integration as a custom Elastic
-  Integration.
+- Apply an ILM policy on `logs-ory-*` for tier transitions that match your compliance window.
+- Pre-built Detection Engine rules (brute force, impossible travel, credential stuffing) target ECS-mapped events.
+- For Fleet deployments, package the integration as a custom Elastic Integration.
 
 ## Resources
 
 - [Elastic Common Schema](https://www.elastic.co/guide/en/ecs/current/index.html)
 - [Ory Actions](/docs/actions)
-- Reference: [ory/integrates/siem-security-analytics/elastic-siem](https://github.com/ory/integrates/tree/main/siem-security-analytics/elastic-siem)
+- Reference:
+  [ory/integrates/siem-security-analytics/elastic-siem](https://github.com/ory/integrates/tree/main/siem-security-analytics/elastic-siem)

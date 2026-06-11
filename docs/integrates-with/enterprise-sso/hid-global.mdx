@@ -17,22 +17,17 @@ Reference:
 </Admonition>
 ```
 
-[HID Global](https://www.hidglobal.com) unifies physical (badge
-readers, smart cards, mobile credentials) and digital (SSO, MFA,
-certificate-based authentication) identity. Common in government,
-healthcare, financial services, and manufacturing.
+[HID Global](https://www.hidglobal.com) unifies physical (badge readers, smart cards, mobile credentials) and digital (SSO, MFA,
+certificate-based authentication) identity. Common in government, healthcare, financial services, and manufacturing.
 
 ## Set up
 
-1. In the HID Authentication Service tenant, create a SAML 2.0 or
-   OIDC application.
+1. In the HID Authentication Service tenant, create a SAML 2.0 or OIDC application.
 2. Paste the Polis SP metadata into the HID app.
 3. Define the attribute release (email, names, groups).
-4. In Ory Network, configure the SSO connection through the generic
-   SAML or generic OIDC walkthrough.
+4. In Ory Network, configure the SSO connection through the generic SAML or generic OIDC walkthrough.
 
-HID enforces certificate-based authentication (PIV, CAC, or smart card),
-and Ory consumes the authenticated session.
+HID enforces certificate-based authentication (PIV, CAC, or smart card), and Ory consumes the authenticated session.
 
 ## Resources
 

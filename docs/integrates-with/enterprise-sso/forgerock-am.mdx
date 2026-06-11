@@ -17,18 +17,15 @@ Reference:
 </Admonition>
 ```
 
-[ForgeRock Access Management](https://www.pingidentity.com/en/platform/forgerock.html)
-became part of Ping Identity following the 2023 acquisition. It is a widely
-deployed enterprise IAM platform that supports OIDC, OAuth 2.0, and SAML 2.0.
-Ory Polis consumes ForgeRock as either an OIDC or SAML IdP.
+[ForgeRock Access Management](https://www.pingidentity.com/en/platform/forgerock.html) became part of Ping Identity following the
+2023 acquisition. It is a widely deployed enterprise IAM platform that supports OIDC, OAuth 2.0, and SAML 2.0. Ory Polis consumes
+ForgeRock as either an OIDC or SAML IdP.
 
 ## Set up
 
-1. In ForgeRock AM, create a SAML 2.0 entity (under **Realms →
-   Applications → Federation**) or an OAuth 2.0 client.
+1. In ForgeRock AM, create a SAML 2.0 entity (under **Realms → Applications → Federation**) or an OAuth 2.0 client.
 2. Configure the Polis SP metadata on the ForgeRock app.
-3. In Ory Network, configure the SSO connection through the generic SAML
-   or generic OIDC walkthrough.
+3. In Ory Network, configure the SSO connection through the generic SAML or generic OIDC walkthrough.
 
 Polis is SP-initiated only.
 

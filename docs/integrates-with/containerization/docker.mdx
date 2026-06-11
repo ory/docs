@@ -15,29 +15,22 @@ prefer the Helm charts. Reference:
 </Admonition>
 ```
 
-Run the open-source Ory stack locally or in CI using the official
-Docker images at `oryd/kratos`, `oryd/hydra`, `oryd/keto`,
-`oryd/oathkeeper`. Useful for local development against a self-hosted
-stack, reproducing CI failures, or trying out version upgrades before
-promoting to a real cluster.
+Run the open-source Ory stack locally or in CI using the official Docker images at `oryd/kratos`, `oryd/hydra`, `oryd/keto`,
+`oryd/oathkeeper`. Useful for local development against a self-hosted stack, reproducing CI failures, or trying out version
+upgrades before promoting to a real cluster.
 
 ## What's in the repo
 
-A reference `docker-compose.yml` that brings up the full stack against
-a local Postgres with mailslurper for email testing.
+A reference `docker-compose.yml` that brings up the full stack against a local Postgres with mailslurper for email testing.
 
 ## For production, use Helm
 
-Running these images with `docker run` or compose works but doesn't
-give you the lifecycle features (probes, rolling updates, secrets) you
-want in production. See the
-[Helm charts](https://github.com/ory/k8s) for production deployments.
+Running these images with `docker run` or compose works but doesn't give you the lifecycle features (probes, rolling updates,
+secrets) you want in production. See the [Helm charts](https://github.com/ory/k8s) for production deployments.
 
 ## Resources
 
-- Per-product install: [Kratos](../../kratos/install.mdx),
-  [Hydra](../../hydra/self-hosted/install.mdx),
-  [Keto](../../keto/install.mdx),
-  [Oathkeeper](../../oathkeeper/install.mdx)
+- Per-product install: [Kratos](../../kratos/install.mdx), [Hydra](../../hydra/self-hosted/install.mdx),
+  [Keto](../../keto/install.mdx), [Oathkeeper](../../oathkeeper/install.mdx)
 - [Hydra Docker quickstart](../../hydra/self-hosted/quickstart.mdx)
 - Reference: [ory/integrates/containerization/docker](https://github.com/ory/integrates/tree/main/containerization/docker)

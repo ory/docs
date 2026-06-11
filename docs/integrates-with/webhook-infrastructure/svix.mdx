@@ -13,33 +13,25 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Svix](https://www.svix.com) is webhook-sending-as-a-service.
-Where Hookdeck handles inbound webhook reliability, Svix handles
-**outbound** webhooks: your product fans out events to customers
-who registered subscriptions. Use it when your application sits between
-Ory and downstream consumers that need identity-event notifications.
+[Svix](https://www.svix.com) is webhook-sending-as-a-service. Where Hookdeck handles inbound webhook reliability, Svix handles
+**outbound** webhooks: your product fans out events to customers who registered subscriptions. Use it when your application sits
+between Ory and downstream consumers that need identity-event notifications.
 
 ## How it works
 
 1. An Ory Action on lifecycle hooks calls your application handler.
-2. Your handler transforms the Ory event into your product's event
-   schema.
-3. Your handler calls Svix's API to fan the event out to all registered
-   subscribers for the relevant `application_id`:
+2. Your handler transforms the Ory event into your product's event schema.
+3. Your handler calls Svix's API to fan the event out to all registered subscribers for the relevant `application_id`:
    `POST https://api.svix.com/api/v1/app/{app_id}/msg/`.
-4. Svix handles retry, replay, signing, and per-subscriber rate
-   limiting on your behalf.
+4. Svix handles retry, replay, signing, and per-subscriber rate limiting on your behalf.
 
 ## When to use this
 
-- You're building a SaaS that needs to send webhooks to your own
-  customers (for example, "notify this URL whenever a user verifies email
-  in my application").
-- You want signed webhooks, retries, and a dashboard for your
-  customers without building that infrastructure.
+- You're building a SaaS that needs to send webhooks to your own customers (for example, "notify this URL whenever a user verifies
+  email in my application").
+- You want signed webhooks, retries, and a dashboard for your customers without building that infrastructure.
 
-If instead you want to make Ory's own webhooks more reliable, use
-[Hookdeck](./hookdeck.mdx).
+If instead you want to make Ory's own webhooks more reliable, use [Hookdeck](./hookdeck.mdx).
 
 ## Resources
 

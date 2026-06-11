@@ -13,15 +13,13 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-Sync contacts from Ory Network to [Zoho CRM](https://www.zoho.com/crm/) through
-Ory Actions webhooks. When a user registers (or updates their profile) in an
-Ory-powered application, the handler upserts the corresponding Zoho Contact keyed
-by email.
+Sync contacts from Ory Network to [Zoho CRM](https://www.zoho.com/crm/) through Ory Actions webhooks. When a user registers (or
+updates their profile) in an Ory-powered application, the handler upserts the corresponding Zoho Contact keyed by email.
 
 ## Endpoints
 
-| Path | Trigger | Auth | Purpose |
-| --- | --- | --- | --- |
+| Path                      | Trigger                                       | Auth               | Purpose                                                                                                                                        |
+| ------------------------- | --------------------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | `POST /zoho/sync-contact` | async `registration.after` / `settings.after` | `X-Webhook-Secret` | Exchanges long-lived refresh token for short-lived access token (cached); upserts the Contact record by email via Zoho's bulk upsert endpoint. |
 
 ## Required env vars
@@ -50,23 +48,19 @@ npm start              # runs `tsx server.ts`
 
 ## Configure Ory
 
-1. Use
-   [`ory-actions.yaml`](https://github.com/ory/integrates/tree/main/crm/zoho-crm/ory-actions.yaml)
-   as the snippet for `selfservice.flows.{registration,settings}.after.hooks`.
-2. Body template is in
-   [`jsonnet/`](https://github.com/ory/integrates/tree/main/crm/zoho-crm/jsonnet).
-3. Set `response.ignore: true` so the handler returns 200 to Ory immediately; Zoho
-   calls run in the background and Zoho availability never blocks user flows.
+1. Use [`ory-actions.yaml`](https://github.com/ory/integrates/tree/main/crm/zoho-crm/ory-actions.yaml) as the snippet for
+   `selfservice.flows.{registration,settings}.after.hooks`.
+2. Body template is in [`jsonnet/`](https://github.com/ory/integrates/tree/main/crm/zoho-crm/jsonnet).
+3. Set `response.ignore: true` so the handler returns 200 to Ory immediately; Zoho calls run in the background and Zoho
+   availability never blocks user flows.
 
 ## Notes
 
-- **Multi-region**: Zoho is regional. Match `ZOHO_API_BASE_URL` and
-  `ZOHO_ACCOUNTS_URL` to the data-center your Zoho org lives in (US / IN / EU / AU /
-  JP / CA / CN).
-- Access tokens have a 1-hour TTL; the handler caches and refreshes automatically
-  using the refresh token.
-- Refresh tokens are **rate-limited** (15 tokens per 7 minutes per org) — don't
-  generate a fresh refresh token per request; reuse the one in env.
+- **Multi-region**: Zoho is regional. Match `ZOHO_API_BASE_URL` and `ZOHO_ACCOUNTS_URL` to the data-center your Zoho org lives in
+  (US / IN / EU / AU / JP / CA / CN).
+- Access tokens have a 1-hour TTL; the handler caches and refreshes automatically using the refresh token.
+- Refresh tokens are **rate-limited** (15 tokens per 7 minutes per org) — don't generate a fresh refresh token per request; reuse
+  the one in env.
 
 ## Resources
 

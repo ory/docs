@@ -13,31 +13,26 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Equifax](https://www.equifax.com/business/) provides identity verification,
-fraud, and credit data APIs. You run Equifax identity verification from an
-Ory Actions webhook during registration. Equifax is US-focused and common in
-financial services, lending, and insurance.
+[Equifax](https://www.equifax.com/business/) provides identity verification, fraud, and credit data APIs. You run Equifax identity
+verification from an Ory Actions webhook during registration. Equifax is US-focused and common in financial services, lending, and
+insurance.
 
 ## How it works
 
-An Ory Action on `registration.after` (sync, `can_interrupt: true`) calls your
-handler. The handler authenticates against Equifax using OAuth2 client
-credentials, then calls the identity verification API with the user's PII
-(name, SSN, DOB, address). It evaluates the verification result against your
-thresholds and returns success or failure to Ory.
+An Ory Action on `registration.after` (sync, `can_interrupt: true`) calls your handler. The handler authenticates against Equifax
+using OAuth2 client credentials, then calls the identity verification API with the user's PII (name, SSN, DOB, address). It
+evaluates the verification result against your thresholds and returns success or failure to Ory.
 
 ## Notable
 
-- Equifax licensing is the primary constraint. API access is a paid contract
-  that requires vendor enablement.
-- Equifax is US-focused. For international identity verification, see Jumio,
-  Onfido, or Persona.
-- SSN and PII handling is regulated. Store only the verification status and
-  masked PII in Ory metadata, and keep full PII in your verification
-  infrastructure.
+- Equifax licensing is the primary constraint. API access is a paid contract that requires vendor enablement.
+- Equifax is US-focused. For international identity verification, see Jumio, Onfido, or Persona.
+- SSN and PII handling is regulated. Store only the verification status and masked PII in Ory metadata, and keep full PII in your
+  verification infrastructure.
 
 ## Resources
 
 - [Equifax Identity Verification API](https://developer.equifax.com/apis-and-products)
 - [Ory Actions](/docs/actions)
-- Reference: [ory/integrates/identity-verification/equifax](https://github.com/ory/integrates/tree/main/identity-verification/equifax)
+- Reference:
+  [ory/integrates/identity-verification/equifax](https://github.com/ory/integrates/tree/main/identity-verification/equifax)

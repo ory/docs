@@ -13,29 +13,23 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Recurly](https://recurly.com) is a subscription management and billing
-platform. This integration syncs in both directions: Ory creates Recurly accounts at
-sign-up, and Recurly surfaces subscription state on the identity so your application
-code can gate features by tier without a separate Recurly lookup.
+[Recurly](https://recurly.com) is a subscription management and billing platform. This integration syncs in both directions: Ory
+creates Recurly accounts at sign-up, and Recurly surfaces subscription state on the identity so your application code can gate
+features by tier without a separate Recurly lookup.
 
 ## How it works
 
-**Outbound:** an Ory Action on `registration.after` calls your handler, which creates a
-Recurly Account with `account_code` set to the Ory identity ID and PATCHes
-`metadata_public.recurly` on the identity.
+**Outbound:** an Ory Action on `registration.after` calls your handler, which creates a Recurly Account with `account_code` set to
+the Ory identity ID and PATCHes `metadata_public.recurly` on the identity.
 
-**Inbound:** a Recurly webhook for subscription events calls your handler, which verifies
-the HMAC-SHA256 signature, resolves the Ory identity by `account_code`, and PATCHes
-`metadata_public.recurly.subscription_state`.
+**Inbound:** a Recurly webhook for subscription events calls your handler, which verifies the HMAC-SHA256 signature, resolves the
+Ory identity by `account_code`, and PATCHes `metadata_public.recurly.subscription_state`.
 
 ## Notable
 
-- Subscription gating belongs in **application code** reading
-  `metadata_public.recurly.subscription_state`, not in the authentication flow.
-  Ory shouldn't block sign-in for churned subscribers; the app
-  redirects to the billing page instead.
-- Recurly webhooks are at-least-once, so your handler must be idempotent.
-  A PATCH is naturally idempotent.
+- Subscription gating belongs in **application code** reading `metadata_public.recurly.subscription_state`, not in the
+  authentication flow. Ory shouldn't block sign-in for churned subscribers; the app redirects to the billing page instead.
+- Recurly webhooks are at-least-once, so your handler must be idempotent. A PATCH is naturally idempotent.
 
 ## Resources
 

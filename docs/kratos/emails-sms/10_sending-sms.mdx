@@ -142,8 +142,8 @@ headers:
 auth:
   type: basic_auth
   config:
-    user: {$ACCOUNT_SID}
-    password: {$AUTH_TOKEN}
+    user: { $ACCOUNT_SID }
+    password: { $AUTH_TOKEN }
 ```
 
 ### MessageBird (Bird)
@@ -182,8 +182,8 @@ headers:
 auth:
   type: basic_auth
   config:
-    user: {$AUTH_ID}
-    password: {$AUTH_TOKEN}
+    user: { $AUTH_ID }
+    password: { $AUTH_TOKEN }
 ```
 
 Plivo accepts E.164 directly (no `+` stripping). For production, use a **Powerpack** (number pool with intelligent routing) —

@@ -13,46 +13,41 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-Monitor Ory in Datadog. Self-hosted Ory products (Kratos, Hydra, Keto, Oathkeeper)
-**natively support Datadog as a tracing backend**, listed alongside OpenTelemetry,
-Jaeger, Elastic APM, Zipkin, and Instana in the Ory observability docs. Ory Network
+Monitor Ory in Datadog. Self-hosted Ory products (Kratos, Hydra, Keto, Oathkeeper) **natively support Datadog as a tracing
+backend**, listed alongside OpenTelemetry, Jaeger, Elastic APM, Zipkin, and Instana in the Ory observability docs. Ory Network
 customers ingest into Datadog through OpenTelemetry (OTLP) export.
 
-See the [self-hosted distributed tracing](../../self-hosted/operations/01_tracing.md)
-and [self-hosted observability](../../self-hosted/operations/15_observability.md)
-docs.
+See the [self-hosted distributed tracing](../../self-hosted/operations/01_tracing.md) and
+[self-hosted observability](../../self-hosted/operations/15_observability.md) docs.
 
 ## Two paths
 
 ### Self-hosted Ory with the native Datadog tracer
 
-Configure each Ory product to emit traces directly to a Datadog agent through the
-native Datadog tracing backend (no OTLP collector required). Set the tracing provider
-to `datadog` and point it at the agent's APM endpoint (typically `localhost:8126`).
+Configure each Ory product to emit traces directly to a Datadog agent through the native Datadog tracing backend (no OTLP
+collector required). Set the tracing provider to `datadog` and point it at the agent's APM endpoint (typically `localhost:8126`).
 
 ### Ory Network with OTLP
 
 Ory Network exports telemetry over OTLP. There are two ingestion paths:
 
-1. **Datadog Agent OTLP receiver** (recommended). Run the agent with
-   `otlp_config.receiver.protocols.{grpc,http}` enabled (ports 4317 / 4318) and
-   point Ory's OTLP exporter at it.
-2. **Datadog OTLP intake** (agentless). Ship straight to Datadog with the `DD-API-KEY`
-   header. Endpoints per region:
+1. **Datadog Agent OTLP receiver** (recommended). Run the agent with `otlp_config.receiver.protocols.{grpc,http}` enabled (ports
+   4317 / 4318) and point Ory's OTLP exporter at it.
+2. **Datadog OTLP intake** (agentless). Ship straight to Datadog with the `DD-API-KEY` header. Endpoints per region:
 
-| Region | OTLP gRPC | OTLP HTTP |
-| --- | --- | --- |
-| US1 | `otlp.datadoghq.com:4317` | `otlp.datadoghq.com:4318` |
-| US3 | `otlp.us3.datadoghq.com:4317` | `otlp.us3.datadoghq.com:4318` |
-| US5 | `otlp.us5.datadoghq.com:4317` | `otlp.us5.datadoghq.com:4318` |
-| EU | `otlp.datadoghq.eu:4317` | `otlp.datadoghq.eu:4318` |
+| Region | OTLP gRPC                     | OTLP HTTP                     |
+| ------ | ----------------------------- | ----------------------------- |
+| US1    | `otlp.datadoghq.com:4317`     | `otlp.datadoghq.com:4318`     |
+| US3    | `otlp.us3.datadoghq.com:4317` | `otlp.us3.datadoghq.com:4318` |
+| US5    | `otlp.us5.datadoghq.com:4317` | `otlp.us5.datadoghq.com:4318` |
+| EU     | `otlp.datadoghq.eu:4317`      | `otlp.datadoghq.eu:4318`      |
 
-For Prometheus metrics, the Datadog Agent's OpenMetrics check can scrape
-`/metrics/prometheus` on each Ory service.
+For Prometheus metrics, the Datadog Agent's OpenMetrics check can scrape `/metrics/prometheus` on each Ory service.
 
 ## Resources
 
 - [Datadog](https://www.datadoghq.com)
 - [Ory tracing](../../self-hosted/operations/01_tracing.md)
 - [Ory observability](../../self-hosted/operations/15_observability.md)
-- Reference: [ory/integrates/monitoring-observability/datadog](https://github.com/ory/integrates/tree/main/monitoring-observability/datadog)
+- Reference:
+  [ory/integrates/monitoring-observability/datadog](https://github.com/ory/integrates/tree/main/monitoring-observability/datadog)

@@ -13,23 +13,20 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[Mixpanel](https://mixpanel.com) is a product-analytics platform. You can send
-Ory authentication events directly to the Ingestion API without a webhook
-handler.
+[Mixpanel](https://mixpanel.com) is a product-analytics platform. You can send Ory authentication events directly to the Ingestion
+API without a webhook handler.
 
 ## How it works
 
-An Ory Action POSTs directly to `https://api.mixpanel.com/track?ip=0` (or
-`api-eu.mixpanel.com` for EU). The Project Token in the event payload
-authenticates the request.
+An Ory Action POSTs directly to `https://api.mixpanel.com/track?ip=0` (or `api-eu.mixpanel.com` for EU). The Project Token in the
+event payload authenticates the request.
 
 ## Notable
 
 - **Stable `distinct_id`** — Ory identity id (not email).
 - **`$insert_id`** for deduplication — Ory flow id.
 - `ip=0` disables Mixpanel's IP geolocation (server IP, not user).
-- Service Account auth (HTTP Basic) preferred for server-to-server
-  over Project Token in the body.
+- Service Account auth (HTTP Basic) preferred for server-to-server over Project Token in the body.
 
 ## Resources
 

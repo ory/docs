@@ -14,25 +14,19 @@ teams, the official Helm charts are the recommended path. Reference:
 </Admonition>
 ```
 
-Raw Kubernetes manifests for deploying the open-source Ory stack
-(Kratos, Hydra, Keto, Oathkeeper) without Helm — useful for teams
-using GitOps tools (Flux, ArgoCD) or that need fine-grained control
-over the manifests beyond what the Helm chart exposes.
+Raw Kubernetes manifests for deploying the open-source Ory stack (Kratos, Hydra, Keto, Oathkeeper) without Helm — useful for teams
+using GitOps tools (Flux, ArgoCD) or that need fine-grained control over the manifests beyond what the Helm chart exposes.
 
 ## When to use this vs. Helm
 
-- **[Helm](../../hydra/self-hosted/kubernetes-helm-chart.mdx)** is the
-  officially maintained path. Pin the chart version, override values,
-  done. Prefer this for most cases.
-- **Raw manifests** when you need: GitOps with full visibility into
-  each resource, customizations the Helm chart doesn't expose, or
-  tight coupling with cluster-specific tooling (Kustomize overlays
-  per environment).
+- **[Helm](../../hydra/self-hosted/kubernetes-helm-chart.mdx)** is the officially maintained path. Pin the chart version, override
+  values, done. Prefer this for most cases.
+- **Raw manifests** when you need: GitOps with full visibility into each resource, customizations the Helm chart doesn't expose,
+  or tight coupling with cluster-specific tooling (Kustomize overlays per environment).
 
 ## What's in the repo
 
-Reference manifests for the full stack — Deployments, Services (split
-public/admin), ConfigMaps, Secrets, optional Ingress.
+Reference manifests for the full stack — Deployments, Services (split public/admin), ConfigMaps, Secrets, optional Ingress.
 
 ## Resources
 

@@ -13,41 +13,35 @@ This integration is community-maintained. Reference:
 </Admonition>
 ```
 
-[AWS API Gateway](https://aws.amazon.com/api-gateway/) is a managed
-REST/HTTP/WebSocket gateway. You can validate Ory-issued JWTs at the gateway
-using a **Lambda authorizer** (REST API) or a **native JWT authorizer**
-(HTTP API).
+[AWS API Gateway](https://aws.amazon.com/api-gateway/) is a managed REST/HTTP/WebSocket gateway. You can validate Ory-issued JWTs
+at the gateway using a **Lambda authorizer** (REST API) or a **native JWT authorizer** (HTTP API).
 
 ## How it works
 
-For an **HTTP API** (preferred), configure a native JWT authorizer pointing at
-Ory's issuer URL. No Lambda is required.
+For an **HTTP API** (preferred), configure a native JWT authorizer pointing at Ory's issuer URL. No Lambda is required.
 
-For a **REST API**, deploy a Lambda authorizer that verifies the JWT against
-Ory's JWKS and returns an IAM policy. API Gateway caches the policy by token
-for `authorizerResultTtlInSeconds`.
+For a **REST API**, deploy a Lambda authorizer that verifies the JWT against Ory's JWKS and returns an IAM policy. API Gateway
+caches the policy by token for `authorizerResultTtlInSeconds`.
 
 ## Set up a Lambda authorizer
 
 1. Deploy a Lambda authorizer (Node.js or Python) that does the following:
    - Pulls the JWT from the `Authorization: Bearer <token>` header.
-   - Verifies it against
-     `https://<project>.projects.oryapis.com/.well-known/jwks.json`,
-     caching in module scope and refreshing on a `kid` miss.
+   - Verifies it against `https://<project>.projects.oryapis.com/.well-known/jwks.json`, caching in module scope and refreshing on
+     a `kid` miss.
    - Returns an IAM policy and a `principalId` set to the JWT `sub`.
 2. Wire it up as a Token authorizer (REST) or Lambda authorizer (HTTP).
-3. Tune `authorizerResultTtlInSeconds` to balance cold-start cost against
-   revocation latency.
+3. Tune `authorizerResultTtlInSeconds` to balance cold-start cost against revocation latency.
 
 ## Notes
 
-- Use the **HTTP API native JWT authorizer** when standard verification
-  suffices. You only need Lambda for custom claim-based logic.
-- Cold-start latency matters, so keep the authorizer minimal and use a
-  lean library like `aws-jwt-verify`.
+- Use the **HTTP API native JWT authorizer** when standard verification suffices. You only need Lambda for custom claim-based
+  logic.
+- Cold-start latency matters, so keep the authorizer minimal and use a lean library like `aws-jwt-verify`.
 
 ## Resources
 
 - [API Gateway JWT authorizer (HTTP API)](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-jwt-authorizer.html)
 - [API Gateway Lambda authorizer (REST API)](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html)
-- Reference: [ory/integrates/api-gateways/aws-api-gateway](https://github.com/ory/integrates/tree/main/api-gateways/aws-api-gateway)
+- Reference:
+  [ory/integrates/api-gateways/aws-api-gateway](https://github.com/ory/integrates/tree/main/api-gateways/aws-api-gateway)
