@@ -2296,7 +2296,47 @@
       "GetJWKSResponse": {
         "properties": {
           "jwks": {
-            "description": "jwks is a JSON Web Key Set (RFC 7517). Always contains a single top-level\nfield \"keys\" whose value is an array of JWK objects. Each JWK has at\nminimum a \"kty\" (key type), \"kid\" (key ID), and key-type-specific\nmaterial (e.g., \"x\" and \"crv\" for OKP/Ed25519, \"n\" and \"e\" for RSA).",
+            "description": "A JSON Web Key Set (RFC 7517). Contains a single field `keys`, an array of JWK objects.",
+            "properties": {
+              "keys": {
+                "description": "Array of JWK objects. Each key has at minimum `kty` (key type) and `kid` (key ID) plus key-type-specific material (e.g. `x`/`crv` for OKP/Ed25519, `n`/`e` for RSA).",
+                "items": {
+                  "properties": {
+                    "alg": {
+                      "type": "string"
+                    },
+                    "crv": {
+                      "type": "string"
+                    },
+                    "e": {
+                      "type": "string"
+                    },
+                    "kid": {
+                      "type": "string"
+                    },
+                    "kty": {
+                      "type": "string"
+                    },
+                    "n": {
+                      "type": "string"
+                    },
+                    "use": {
+                      "type": "string"
+                    },
+                    "x": {
+                      "type": "string"
+                    },
+                    "y": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["kty", "kid"],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": ["keys"],
             "type": "object"
           }
         },
@@ -2320,7 +2360,7 @@
         "type": "object"
       },
       "ImportApiKeyRequest": {
-        "description": "Example:\n  {\n    \"raw_key\": \"sk_live_abc123xyz789\",\n    \"name\": \"Stripe Production Key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"stripe\", \"environment\": \"production\"}\n  }",
+        "description": "Example:\n  {\n    \"raw_key\": \"imported-key-EXAMPLE-not-a-real-secret\",\n    \"name\": \"Example imported key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"example-provider\", \"environment\": \"staging\"}\n  }",
         "properties": {
           "actor_id": {
             "description": "actor_id is the identifier of the entity that owns this imported key.\nRequired so every imported key is traceable to an actor for revocation and\naudit queries.",
@@ -2639,7 +2679,7 @@
       },
       "KeyStatus": {
         "default": "KEY_STATUS_UNSPECIFIED",
-        "description": "KeyStatus represents the lifecycle state of an API key.\n\n - KEY_STATUS_UNSPECIFIED: Default zero value. Never returned by the server. Treated as ACTIVE for\nbackward compatibility but should not be relied on.\n - KEY_STATUS_ACTIVE: The key is valid and can be used to authenticate.\n - KEY_STATUS_REVOKED: The key was revoked. Verification fails with VERIFICATION_ERROR_REVOKED.\nSee revocation_reason for the cause.\n - KEY_STATUS_EXPIRED: The key passed its expire_time. Verification fails with\nVERIFICATION_ERROR_EXPIRED. The transition is computed at read time and\nnot persisted.",
+        "description": "KeyStatus represents the lifecycle state of an API key.\n\n - KEY_STATUS_UNSPECIFIED: Default zero value. Never returned by the server. Treated as ACTIVE for\nbackward compatibility but should not be relied on.\n - KEY_STATUS_ACTIVE: The key is valid and can be used to authenticate.\n - KEY_STATUS_REVOKED: The key was revoked and can no longer authenticate. On the API key object,\nthe revocation_reason field carries the cause (set via the admin and\nself-revocation flows). Verification responses do not include this status:\na revoked key fails verification with error_code VERIFICATION_ERROR_REVOKED.\n - KEY_STATUS_EXPIRED: The key passed its expire_time. Verification fails with\nVERIFICATION_ERROR_EXPIRED. The transition is computed at read time and\nnot persisted.",
         "enum": [
           "KEY_STATUS_UNSPECIFIED",
           "KEY_STATUS_ACTIVE",
@@ -4015,6 +4055,11 @@
             "description": "The AWS IAM role ARN to assume when publishing to the SNS topic. Required if type is sns.",
             "type": "string"
           },
+          "status": {
+            "description": "The status of the event stream. Defaults to active. A paused stream is\ncreated but does not forward any events until it is set to active.",
+            "enum": ["active", "paused"],
+            "type": "string"
+          },
           "topic_arn": {
             "description": "The AWS SNS topic ARN. Required if type is sns.",
             "type": "string"
@@ -4987,6 +5032,11 @@
             "type": "string"
           },
           "role_arn": {
+            "type": "string"
+          },
+          "status": {
+            "description": "The status of the event stream. A paused event stream does not forward\nany events until it is set back to active.",
+            "enum": ["active", "paused"],
             "type": "string"
           },
           "topic_arn": {
@@ -11514,27 +11564,32 @@
         "type": "object"
       },
       "setEventStreamBody": {
-        "description": "Update Event Stream Body",
+        "description": "All fields are optional. Omitted fields keep their current value, so a caller\ncan change only the status (pause/resume) without resubmitting the\ndestination. This matters because secrets such as the password in an HTTPS\nendpoint URL are redacted in API responses, and resubmitting the redacted\nvalue would overwrite the real one.",
         "properties": {
           "https_endpoint": {
-            "description": "The HTTPS endpoint URL to send events to. Required if type is https.",
+            "description": "The HTTPS endpoint URL to send events to. When omitted, the current value is kept.",
             "type": "string"
           },
           "role_arn": {
-            "description": "The AWS IAM role ARN to assume when publishing to the SNS topic. Required if type is sns.",
+            "description": "The AWS IAM role ARN to assume when publishing to the SNS topic. When omitted, the current value is kept.",
+            "type": "string"
+          },
+          "status": {
+            "description": "The desired status of the event stream. When omitted, the current status is kept.",
+            "enum": ["active", "paused"],
             "type": "string"
           },
           "topic_arn": {
-            "description": "The AWS SNS topic ARN. Required if type is sns.",
+            "description": "The AWS SNS topic ARN. When omitted, the current value is kept.",
             "type": "string"
           },
           "type": {
-            "description": "The type of the event stream (AWS SNS or HTTPS webhook).",
+            "description": "The type of the event stream (AWS SNS or HTTPS webhook). When omitted, the\ncurrent type and its destination settings are kept.",
             "enum": ["sns", "https"],
             "type": "string"
           }
         },
-        "required": ["type"],
+        "title": "Update Event Stream Body",
         "type": "object"
       },
       "setOrganizationFromOnboardingPortalLinkBody": {
@@ -23747,7 +23802,7 @@
         "tags": ["ApiKeys"]
       },
       "post": {
-        "description": "Imports an external API key into the system. Allows importing keys from\nlegacy systems or external providers. The raw key is hashed and stored\nsecurely (HMAC). Imported keys support token derivation (JWT/Macaroon)\nlike issued keys.\n\n```http\nPOST /v2alpha1/admin/importedApiKeys\n{\n  \"raw_key\": \"sk_live_abc123xyz\",\n  \"name\": \"Imported Stripe Key\",\n  \"actor_id\": \"user_123\"\n}\n```",
+        "description": "Imports an external API key into the system. Allows importing keys from\nlegacy systems or external providers. The raw key is hashed and stored\nsecurely (HMAC). Imported keys support token derivation (JWT/Macaroon)\nlike issued keys.\n\n```http\nPOST /v2alpha1/admin/importedApiKeys\n{\n  \"raw_key\": \"imported-key-EXAMPLE-not-a-real-secret\",\n  \"name\": \"Example imported key\",\n  \"actor_id\": \"user_123\"\n}\n```",
         "operationId": "adminImportApiKey",
         "requestBody": {
           "content": {
@@ -23757,7 +23812,7 @@
               }
             }
           },
-          "description": "Example:\n  {\n    \"raw_key\": \"sk_live_abc123xyz789\",\n    \"name\": \"Stripe Production Key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"stripe\", \"environment\": \"production\"}\n  }",
+          "description": "Example:\n  {\n    \"raw_key\": \"imported-key-EXAMPLE-not-a-real-secret\",\n    \"name\": \"Example imported key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"example-provider\", \"environment\": \"staging\"}\n  }",
           "required": true,
           "x-originalParamName": "body"
         },
@@ -23809,11 +23864,6 @@
         ],
         "responses": {
           "204": {
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            },
             "description": "Imported key deleted successfully."
           },
           "default": {
@@ -24025,11 +24075,6 @@
         },
         "responses": {
           "204": {
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            },
             "description": "API key revoked successfully."
           },
           "default": {
@@ -24396,11 +24441,6 @@
         },
         "responses": {
           "204": {
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            },
             "description": "API key revoked successfully."
           },
           "default": {
