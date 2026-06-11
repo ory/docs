@@ -523,6 +523,15 @@ The cron interval at which to sync the Google Workspace. Provide a number in sec
 
 NPM library option: `dsync.providers.google.cronInterval`
 
+### DSYNC_MAX_INLINE_GROUP_MEMBERS
+
+When `includeMembers=true` is set and a group has more than 500 members, the request returns a `400` error and directs you to the
+paginated group members endpoint, rather than returning a partial or oversized response. The 500-member limit is configurable.
+
+Default: `500`
+
+NPM library option: `dsync.maxInlineGroupMembers`
+
 ### DSYNC_GOOGLE_CLIENT_ID
 
 The Google authentication client ID.
