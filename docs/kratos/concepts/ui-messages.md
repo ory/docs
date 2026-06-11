@@ -601,6 +601,16 @@
 }
 ```
 
+###### Your account is managed by your organization. To change these settings, contact your organization administrator. (1050023)
+
+```json
+{
+  "id": 1050023,
+  "text": "Your account is managed by your organization. To change these settings, contact your organization administrator.",
+  "type": "info"
+}
+```
+
 ###### You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 1.00 minutes. (1060001)
 
 ```json
