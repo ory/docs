@@ -517,6 +517,16 @@ The cron interval at which to process the queued events. Provide a number in sec
 
 NPM library option: `dsync.webhookBatchCronInterval`
 
+### DSYNC_WEBHOOK_LOGS_TTL
+
+Controls how long SCIM (directory sync) webhook event logs are retained. Provide a duration string such as `720h` or `30d`.
+
+- **Unset** (default): logs keep the existing 7-day retention.
+- **Empty string**: logs are kept indefinitely (no expiry).
+- **Unrecognized value**: falls back to the 7-day default and logs a warning, so a typo never silently disables retention.
+
+NPM library option: `dsync.webhookLogsTTL`
+
 ### DSYNC_GOOGLE_CRON_INTERVAL
 
 The cron interval at which to sync the Google Workspace. Provide a number in seconds. By default, the cron job is disabled.

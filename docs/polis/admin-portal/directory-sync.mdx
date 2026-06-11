@@ -60,3 +60,7 @@ Click the button **Clear Events** to delete all events from the database.
 3. You can enable or disable the **Enable Webhook events logging**.
 
 By default, the webhook events are not logged.
+
+Logged webhook events are retained for 7 days by default. Use the
+[`DSYNC_WEBHOOK_LOGS_TTL`](../deploy/env-variables.mdx#dsync_webhook_logs_ttl) environment variable to change the retention period
+or to keep events indefinitely.
