@@ -2,13 +2,29 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import useBaseUrl from "@docusaurus/useBaseUrl"
-import React, { useMemo, useState, useEffect } from "react"
+import React, { useMemo, useRef, useState, useEffect } from "react"
 import type { Env, RateLimitsData, Tier } from "./types"
 
 const TIERS: Tier[] = ["Developer", "Production", "Growth", "Enterprise"]
 const ENVS: Env[] = ["Development", "Staging", "Production"]
 const SEARCH_DEBOUNCE_MS = 250
 const HIDDEN_METHODS = ["OPTIONS", "HEAD"]
+
+function matchParam<T extends string>(
+  value: string | null,
+  allowed: readonly T[],
+): T | undefined {
+  if (!value) return undefined
+  return allowed.find((a) => a.toLowerCase() === value.toLowerCase())
+}
+
+function writeUrlParams(params: { tier?: Tier; env?: Env }): void {
+  if (typeof window === "undefined") return
+  const url = new URL(window.location.href)
+  if (params.tier) url.searchParams.set("tier", params.tier)
+  if (params.env) url.searchParams.set("env", params.env)
+  window.history.replaceState(window.history.state, "", url.toString())
+}
 
 function useRateLimitsData(): {
   data: RateLimitsData | null
@@ -53,6 +69,10 @@ export default function RateLimitsTable({
   const [env, setEnv] = useState<Env>(initialEnv)
   const [pathSearch, setPathSearch] = useState("")
   const [pathSearchDebounced, setPathSearchDebounced] = useState("")
+  // True once the tier/env selection came from the URL or the user; props
+  // must not override it anymore.
+  const tierPinned = useRef(false)
+  const envPinned = useRef(false)
 
   useEffect(() => {
     const t = setTimeout(
@@ -63,9 +83,25 @@ export default function RateLimitsTable({
   }, [pathSearch])
 
   React.useEffect(() => {
-    setTier(initialTier)
-    setEnv(initialEnv)
+    if (!tierPinned.current) setTier(initialTier)
+    if (!envPinned.current) setEnv(initialEnv)
   }, [initialTier, initialEnv])
+
+  // Apply ?tier= and ?env= after mount; window is unavailable during SSR and
+  // the first client render must match the pre-rendered HTML.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const tierParam = matchParam(params.get("tier"), TIERS)
+    const envParam = matchParam(params.get("env"), ENVS)
+    if (tierParam) {
+      tierPinned.current = true
+      setTier(tierParam)
+    }
+    if (envParam) {
+      envPinned.current = true
+      setEnv(envParam)
+    }
+  }, [])
 
   const filteredThresholds = useMemo(() => {
     if (!data) return []
@@ -140,7 +176,12 @@ export default function RateLimitsTable({
           <span>Tier:</span>
           <select
             value={tier}
-            onChange={(e) => setTier(e.target.value as Tier)}
+            onChange={(e) => {
+              const next = e.target.value as Tier
+              tierPinned.current = true
+              setTier(next)
+              writeUrlParams({ tier: next })
+            }}
             aria-label="Subscription tier"
             className="rounded border px-2 py-1 bg-[var(--ifm-background-surface-color)] text-[var(--ifm-font-color-base)] border-[var(--ifm-color-emphasis-300)]"
           >
@@ -155,7 +196,12 @@ export default function RateLimitsTable({
           <span>Environment:</span>
           <select
             value={env}
-            onChange={(e) => setEnv(e.target.value as Env)}
+            onChange={(e) => {
+              const next = e.target.value as Env
+              envPinned.current = true
+              setEnv(next)
+              writeUrlParams({ env: next })
+            }}
             aria-label="Project environment"
             className="rounded border px-2 py-1 bg-[var(--ifm-background-surface-color)] text-[var(--ifm-font-color-base)] border-[var(--ifm-color-emphasis-300)]"
           >
