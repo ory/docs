@@ -127,8 +127,11 @@ export default function RateLimitsTable({
   useEffect(() => {
     if (!loading && scrollPending.current) {
       scrollPending.current = false
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches
       containerRef.current?.scrollIntoView({
-        behavior: "smooth",
+        behavior: reducedMotion ? "auto" : "smooth",
         block: "start",
       })
     }
