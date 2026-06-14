@@ -25,7 +25,7 @@ from self-hosted Ory Hydra to Ory Network.
 The full configuration payload can be found at:
 
 ```
-https://www.ory.sh/docs/reference/api#operation/updateProject.
+https://www.ory.com/docs/reference/api#operation/updateProject
 ```
 
 This command expects the contents of the `/services/oauth2/config` key, so for example:
