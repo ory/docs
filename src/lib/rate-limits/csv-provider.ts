@@ -107,6 +107,11 @@ export function createCsvProvider(
           }
         })
       result = dedupeThresholds(result)
+      // The Developer tier only has Development projects; the CSV export
+      // still contains the other combinations, so drop them here.
+      result = result.filter(
+        (r) => r.tier !== "Developer" || r.env === "Development",
+      )
       if (options?.tier) result = result.filter((r) => r.tier === options.tier)
       if (options?.env) result = result.filter((r) => r.env === options.env)
       if (options?.bucket)

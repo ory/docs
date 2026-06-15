@@ -2,13 +2,39 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import useBaseUrl from "@docusaurus/useBaseUrl"
-import React, { useMemo, useState, useEffect } from "react"
+import React, { useMemo, useRef, useState, useEffect } from "react"
 import type { Env, RateLimitsData, Tier } from "./types"
 
 const TIERS: Tier[] = ["Developer", "Production", "Growth", "Enterprise"]
 const ENVS: Env[] = ["Development", "Staging", "Production"]
 const SEARCH_DEBOUNCE_MS = 250
 const HIDDEN_METHODS = ["OPTIONS", "HEAD"]
+
+function matchParam<T extends string>(
+  value: string | null,
+  allowed: readonly T[],
+): T | undefined {
+  if (!value) return undefined
+  return allowed.find((a) => a.toLowerCase() === value.toLowerCase())
+}
+
+function allowedEnvsForTier(tier: Tier): Env[] {
+  // The Developer tier only has Development projects.
+  return tier === "Developer" ? ["Development"] : ENVS
+}
+
+function coerceEnv(tier: Tier, env: Env): Env {
+  const allowed = allowedEnvsForTier(tier)
+  return allowed.includes(env) ? env : allowed[0]
+}
+
+function writeUrlParams(params: { tier?: Tier; env?: Env }): void {
+  if (typeof window === "undefined") return
+  const url = new URL(window.location.href)
+  if (params.tier) url.searchParams.set("tier", params.tier)
+  if (params.env) url.searchParams.set("env", params.env)
+  window.history.replaceState(window.history.state, "", url.toString())
+}
 
 function useRateLimitsData(): {
   data: RateLimitsData | null
@@ -50,9 +76,15 @@ export default function RateLimitsTable({
 }: RateLimitsTableProps): React.ReactElement {
   const { data, loading, error } = useRateLimitsData()
   const [tier, setTier] = useState<Tier>(initialTier)
-  const [env, setEnv] = useState<Env>(initialEnv)
+  const [env, setEnv] = useState<Env>(() => coerceEnv(initialTier, initialEnv))
   const [pathSearch, setPathSearch] = useState("")
   const [pathSearchDebounced, setPathSearchDebounced] = useState("")
+  // True once the tier/env selection came from the URL or the user; props
+  // must not override it anymore.
+  const tierPinned = useRef(false)
+  const envPinned = useRef(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const scrollPending = useRef(false)
 
   useEffect(() => {
     const t = setTimeout(
@@ -63,9 +95,47 @@ export default function RateLimitsTable({
   }, [pathSearch])
 
   React.useEffect(() => {
-    setTier(initialTier)
-    setEnv(initialEnv)
+    if (!tierPinned.current) setTier(initialTier)
+    if (!envPinned.current)
+      setEnv(coerceEnv(tierPinned.current ? tier : initialTier, initialEnv))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialTier, initialEnv])
+
+  // Apply ?tier= and ?env= after mount; window is unavailable during SSR and
+  // the first client render must match the pre-rendered HTML.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const tierParam = matchParam(params.get("tier"), TIERS)
+    const envParam = matchParam(params.get("env"), ENVS)
+    if (tierParam) {
+      tierPinned.current = true
+      setTier(tierParam)
+    }
+    const nextEnv = coerceEnv(tierParam ?? initialTier, envParam ?? env)
+    if (envParam || nextEnv !== env) {
+      envPinned.current = true
+      setEnv(nextEnv)
+    }
+    // Deep links should land on the table; an explicit hash wins.
+    if ((tierParam || envParam) && !window.location.hash) {
+      scrollPending.current = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Scroll once the table has rendered, so the target has its final position.
+  useEffect(() => {
+    if (!loading && scrollPending.current) {
+      scrollPending.current = false
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches
+      containerRef.current?.scrollIntoView({
+        behavior: reducedMotion ? "auto" : "smooth",
+        block: "start",
+      })
+    }
+  }, [loading])
 
   const filteredThresholds = useMemo(() => {
     if (!data) return []
@@ -134,13 +204,31 @@ export default function RateLimitsTable({
   }
 
   return (
-    <div className="rate-limits-table">
+    <div
+      ref={containerRef}
+      className="rate-limits-table"
+      // Keep the sticky navbar and the table heading above visible when
+      // deep links scroll to the table.
+      style={{ scrollMarginTop: "calc(var(--ifm-navbar-height, 60px) + 4rem)" }}
+    >
       <div className="flex flex-wrap gap-4 mb-6">
         <label className="flex items-center gap-2">
           <span>Tier:</span>
           <select
             value={tier}
-            onChange={(e) => setTier(e.target.value as Tier)}
+            onChange={(e) => {
+              const next = e.target.value as Tier
+              tierPinned.current = true
+              setTier(next)
+              const nextEnv = coerceEnv(next, env)
+              if (nextEnv !== env) {
+                envPinned.current = true
+                setEnv(nextEnv)
+                writeUrlParams({ tier: next, env: nextEnv })
+              } else {
+                writeUrlParams({ tier: next })
+              }
+            }}
             aria-label="Subscription tier"
             className="rounded border px-2 py-1 bg-[var(--ifm-background-surface-color)] text-[var(--ifm-font-color-base)] border-[var(--ifm-color-emphasis-300)]"
           >
@@ -155,11 +243,16 @@ export default function RateLimitsTable({
           <span>Environment:</span>
           <select
             value={env}
-            onChange={(e) => setEnv(e.target.value as Env)}
+            onChange={(e) => {
+              const next = e.target.value as Env
+              envPinned.current = true
+              setEnv(next)
+              writeUrlParams({ env: next })
+            }}
             aria-label="Project environment"
             className="rounded border px-2 py-1 bg-[var(--ifm-background-surface-color)] text-[var(--ifm-font-color-base)] border-[var(--ifm-color-emphasis-300)]"
           >
-            {ENVS.map((e) => (
+            {allowedEnvsForTier(tier).map((e) => (
               <option key={e} value={e}>
                 {e}
               </option>
