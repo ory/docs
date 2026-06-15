@@ -185,23 +185,32 @@ ory patch oauth2-config \
   --replace "/oauth2/grant/jwt/max_ttl=1h"
 ```
 
-### Copying the assertion audience into the access token
+### Assertion audience in the access token
 
-By default, Ory copies the `aud` (audience) values from the assertion JWT into the access token it issues. The audience of the
-resulting access token then includes every value from the assertion's `aud` claim, including the OAuth2 token URL.
+Per [RFC 7523](https://www.rfc-editor.org/rfc/rfc7523), the assertion's `aud` (audience) claim identifies the authorization server
+as the intended recipient of the JWT. It does not define the audience of the issued access token. By default, Ory therefore does
+**not** copy the assertion's `aud` values into the access token.
 
-To stop the assertion's audience from being granted to the access token, set `copy_assertion_audience` to `false`. Ory then issues
-the access token without the audience values from the assertion:
+The `omit_assertion_audience` setting controls this behavior:
 
 ```yaml title="hydra.yml"
 oauth2:
   grant:
     jwt:
-      copy_assertion_audience: false
+      # true (default): the assertion audience is omitted from the access token.
+      # false: the assertion audience is copied into the access token (legacy behavior).
+      omit_assertion_audience: true
 ```
 
-The setting defaults to `true`, which preserves the previous behavior. It's available in self-hosted Ory Hydra (open source) and
-Ory Enterprise License deployments.
+Set it to `false` if your clients rely on the assertion's `aud` values being present in the access token.
+
+:::note
+
+The default is `true` (omit) for self-hosted Ory Hydra (open source), Ory Enterprise License deployments, and Ory Network projects
+created after this change. Ory Network projects created earlier keep the previous behavior of copying the assertion audience; set
+`omit_assertion_audience` explicitly to change it.
+
+:::
 
 ## JWTs for client authentication
 
