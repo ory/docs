@@ -188,8 +188,9 @@ organization is taken from the SCIM client's configuration, and `password` (if p
 :::note
 
 On multi-region Ory Network projects, provisioned identities (and their SCIM data) are stored in the same region as the identity.
-The mapper may set the region by returning an optional `identity.region` value; if it doesn't, the organization's default region
-is used. An invalid region value causes provisioning to fail with a `400` error.
+In addition to the standard [mapper output](../reference/jsonnet#output), the mapper may set the region by returning an optional
+`identity.region` field; if it doesn't, the organization's default region is used. An invalid region value causes provisioning to
+fail with a `400` error.
 
 :::
 

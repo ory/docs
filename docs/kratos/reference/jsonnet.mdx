@@ -164,6 +164,9 @@ local identity = std.extVar('identity');
     metadata_public: std.get(identity, 'metadata_public', {}) + {
       // Add or override only what SCIM should manage here.
     },
+    metadata_admin: std.get(identity, 'metadata_admin', {}) + {
+      // Add or override only what SCIM should manage here.
+    },
   },
 }
 ```
