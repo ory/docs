@@ -113,6 +113,11 @@
       "permanent": true
     },
     {
+      "source": "/docs/keto/install",
+      "destination": "/docs/oss/keto/install",
+      "permanent": true
+    },
+    {
       "source": "/kratos/docs",
       "destination": "https://www.ory.com/docs/kratos",
       "permanent": false

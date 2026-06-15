@@ -137,12 +137,11 @@ const ossSidebar = [
         className: "sidebar-icon sidebar-icon-keto",
         items: [
           "oss/keto/index",
-          "keto/install",
+          "oss/keto/install",
           "keto/guides/v0.7-migration",
           "keto/guides/migrating-legacy-policies",
           "keto/guides/upgrade",
           "oss/keto/quickstart",
-          "self-hosted/oel/keto/changelog",
           {
             type: "category",
             label: "Configuration",
@@ -186,7 +185,6 @@ const ossSidebar = [
           "self-hosted/oel/oauth2/revert-database-migrations",
           "self-hosted/oel/oauth2/upgrade",
           "hydra/self-hosted/upgrade",
-          "self-hosted/oel/oauth2/changelog",
           "oel/hydra/quickstart",
           {
             type: "category",
@@ -254,7 +252,6 @@ const ossSidebar = [
         items: [
           "oss/polis/index",
           "polis/install",
-          "self-hosted/oel/polis/changelog",
           "oel/polis/quickstart",
           {
             type: "category",
@@ -431,7 +428,6 @@ const ossSidebar = [
           "oss/oathkeeper/index",
           "oathkeeper/install",
           "self-hosted/oel/oathkeeper/upgrade-oathkeeper",
-          "self-hosted/oel/oathkeeper/changelog",
           {
             type: "category",
             label: "Configure",

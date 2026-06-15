@@ -130,7 +130,7 @@ const oelSidebar = [
         className: "sidebar-icon sidebar-icon-keto",
         items: [
           "oel/keto/index",
-          "keto/install",
+          "oel/keto/install",
           "keto/guides/v0.7-migration",
           "keto/guides/migrating-legacy-policies",
           "keto/guides/upgrade",
