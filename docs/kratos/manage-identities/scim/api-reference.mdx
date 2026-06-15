@@ -1,0 +1,523 @@
+---
+id: api-reference
+title: SCIM API reference
+sidebar_label: API reference
+---
+
+# SCIM API reference
+
+```mdx-code-block
+import Help from '@site/docs/_common/need-help.mdx'
+
+<Help/>
+```
+
+This page is a reference for the Ory Network SCIM server API. It describes the base URL and authentication, every available
+endpoint with example requests and responses, the supported resource schemas, pagination and filtering, and the error model.
+
+For a conceptual overview, how SCIM relates to organizations, auto-linking, and data mapping, see the
+[SCIM overview](../scim).
+
+The Ory Network SCIM server implements SCIM 2.0 as defined in [RFC 7643](https://datatracker.ietf.org/doc/html/rfc7643)
+(schemas) and [RFC 7644](https://datatracker.ietf.org/doc/html/rfc7644) (protocol), with cursor-based pagination from
+[RFC 9865](https://datatracker.ietf.org/doc/html/rfc9865).
+
+## Base URL
+
+Each SCIM client has its own base URL. The client ID you choose when configuring the SCIM client is part of the URL:
+
+```
+https://<project-slug>.projects.oryapis.com/scim/<client-id>/v2
+```
+
+The exact URL is shown in the Ory Console when you create or edit a SCIM client. All endpoint paths below are relative to this
+base URL — for example, `POST /Users` means
+`POST https://<project-slug>.projects.oryapis.com/scim/<client-id>/v2/Users`.
+
+The server returns `Content-Type: application/scim+json` on every response. Send the same content type on requests that have a
+body.
+
+## Authentication
+
+Every request must include an `Authorization` header that matches the **Authorization header secret** configured on the SCIM
+client. The server compares the header against the configured secret using a constant-time comparison.
+
+```
+Authorization: Bearer <your-secret>
+```
+
+When comparing, the server trims surrounding whitespace and strips a single leading, case-insensitive `Bearer ` prefix. This
+means that if your configured secret is `s3cr3t`, both of the following are accepted:
+
+- `Authorization: Bearer s3cr3t`
+- `Authorization: s3cr3t`
+
+:::info
+
+Some identity providers (for example Microsoft Entra) ask you to enter the token **without** the `Bearer` prefix and add it
+themselves. Because only one `Bearer ` prefix is stripped, configure the secret without a `Bearer ` prefix to avoid
+double-prefixing. See the [provider guides](../scim#use-the-scim-client) for provider-specific instructions.
+
+:::
+
+Authentication errors:
+
+| Condition                       | Status | `detail`                        |
+| ------------------------------- | ------ | ------------------------------- |
+| No `Authorization` header       | `401`  | `no authorization header found` |
+| Header does not match the secret| `401`  | `invalid authorization header`  |
+
+:::note
+
+`ServiceProviderConfig` advertises `httpbasic` as the authentication scheme for SCIM-discovery compatibility, but
+authentication is performed against the shared secret in the `Authorization` header as described above.
+
+:::
+
+## Service discovery
+
+These read-only endpoints let SCIM clients and conformance tools discover the server's capabilities. They do not require a
+resource ID.
+
+| Method | Path                          | Description                                              |
+| ------ | ----------------------------- | -------------------------------------------------------- |
+| `GET`  | `/ServiceProviderConfig`      | Server capabilities (patch, filter, pagination, auth)    |
+| `GET`  | `/ResourceTypes`              | List of supported resource types (`User`, `Group`)       |
+| `GET`  | `/ResourceTypes/{id}`         | A single resource type, where `id` is `User` or `Group`  |
+| `GET`  | `/Schemas`                    | List of supported schemas (User, Group, Enterprise User) |
+| `GET`  | `/Schemas/{id}`               | A single schema, where `id` is the schema URN            |
+
+### GET /ServiceProviderConfig
+
+```json
+{
+  "schemas": ["urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig"],
+  "documentationUri": "https://www.ory.com/docs/kratos/manage-identities/scim",
+  "patch": { "supported": true },
+  "bulk": { "supported": false },
+  "filter": { "supported": true, "maxResults": 1000 },
+  "changePassword": { "supported": true },
+  "sort": { "supported": false },
+  "etag": { "supported": false },
+  "pagination": {
+    "cursor": true,
+    "index": true,
+    "defaultPaginationMethod": "index",
+    "defaultPageSize": 100,
+    "maxPageSize": 1000,
+    "cursorTimeout": 3600
+  },
+  "authenticationSchemes": [
+    {
+      "type": "httpbasic",
+      "name": "HTTP Basic Authentication",
+      "description": "Authentication through a shared secret in the Authorization HTTP header.",
+      "specUri": "https://datatracker.ietf.org/doc/rfc7617/",
+      "documentationUri": "https://www.ory.com/docs/kratos/manage-identities/scim#configure-a-scim-client"
+    }
+  ],
+  "meta": { "resourceType": "ServiceProviderConfig" }
+}
+```
+
+## Users
+
+| Method   | Path           | Description                          | Success status |
+| -------- | -------------- | ------------------------------------ | -------------- |
+| `GET`    | `/Users`       | List or search users                 | `200`          |
+| `POST`   | `/Users`       | Create a user                        | `201`          |
+| `GET`    | `/Users/{id}`  | Retrieve a user by ID                | `200`          |
+| `PUT`    | `/Users/{id}`  | Replace a user (full update)         | `200`          |
+| `PATCH`  | `/Users/{id}`  | Partially update a user (PatchOp)    | `200`          |
+| `DELETE` | `/Users/{id}`  | Delete a user (deletes the identity) | `204`          |
+
+The `{id}` is the Ory identity ID (a UUID), returned as `id` when the user is created.
+
+### Create a user
+
+```http
+POST /Users
+Content-Type: application/scim+json
+Authorization: Bearer <your-secret>
+```
+
+```json
+{
+  "schemas": ["urn:ietf:params:scim:schemas:core:2.0:User"],
+  "externalId": "ext-123",
+  "userName": "bjensen@example.com",
+  "name": { "givenName": "Barbara", "familyName": "Jensen" },
+  "emails": [{ "value": "bjensen@example.com", "primary": true, "type": "work" }],
+  "active": true
+}
+```
+
+On success the server responds with `201 Created` and the full user resource:
+
+```json
+{
+  "schemas": ["urn:ietf:params:scim:schemas:core:2.0:User"],
+  "id": "9f8e7d6c-5b4a-3210-fedc-ba9876543210",
+  "externalId": "ext-123",
+  "userName": "bjensen@example.com",
+  "name": { "givenName": "Barbara", "familyName": "Jensen" },
+  "active": true,
+  "emails": [{ "value": "bjensen@example.com", "primary": true, "type": "work" }],
+  "groups": [],
+  "meta": {
+    "resourceType": "User",
+    "created": "2026-06-15T10:00:00Z",
+    "lastModified": "2026-06-15T10:00:00Z"
+  }
+}
+```
+
+How the incoming attributes are applied to the Ory identity is controlled by the client's
+[data mapping](../scim#data-mapping). The `password` attribute, if present, is stored as a password credential and is never
+returned in any response.
+
+If the user already exists, the create may succeed as an update (auto-linking) or fail with a `409` conflict. See
+[How SCIM relates to organizations](../scim#how-scim-relates-to-organizations) and [Errors](#errors).
+
+### Retrieve a user
+
+```http
+GET /Users/9f8e7d6c-5b4a-3210-fedc-ba9876543210
+```
+
+Returns `200 OK` and the user resource shown above.
+
+### List users
+
+```http
+GET /Users?startIndex=1&count=20
+```
+
+Returns a `ListResponse` envelope. See [Pagination](#pagination) for the offset and cursor variants and
+[Filtering](#filtering) for the `filter` query parameter.
+
+```json
+{
+  "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+  "totalResults": 42,
+  "startIndex": 1,
+  "itemsPerPage": 20,
+  "Resources": [
+    { "schemas": ["urn:ietf:params:scim:schemas:core:2.0:User"], "id": "...", "userName": "bjensen@example.com", "active": true }
+  ]
+}
+```
+
+### Replace a user
+
+`PUT /Users/{id}` replaces the user with the supplied representation. Attributes that are not present in the request are reset to
+their default. Use `PATCH` for partial updates.
+
+### Update a user (PATCH)
+
+`PATCH /Users/{id}` applies a SCIM [PatchOp](https://datatracker.ietf.org/doc/html/rfc7644#section-3.5.2) with `add`, `replace`,
+and `remove` operations:
+
+```json
+{
+  "schemas": ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+  "Operations": [
+    { "op": "replace", "path": "active", "value": false },
+    { "op": "replace", "path": "name.givenName", "value": "Babs" }
+  ]
+}
+```
+
+- Schema-qualified attribute paths are accepted, for example
+  `urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department`. Paths that reference an unsupported schema return
+  `400`.
+- A `remove` operation without a `path` returns `400` with `scimType: noTarget`.
+- Operations against read-only attributes (such as `id`, `groups`, or `meta`) are ignored.
+
+### Delete a user
+
+`DELETE /Users/{id}` returns `204 No Content` and **permanently deletes the underlying Ory identity**. To disable a user without
+deleting it, set `active` to `false` instead. See [Deprovisioning identities](../scim#deprovisioning-identities).
+
+### User resource schema
+
+Ory Network supports the standard SCIM user resource schema as defined in
+[RFC 7643, Section 4.1](https://datatracker.ietf.org/doc/html/rfc7643#section-4.1). The following attributes are supported:
+
+| Name                | Type   | Remarks                                                                                                                                                                                               |
+| ------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                | UUID   | Read-only, this is the identity ID.                                                                                                                                                                   |
+| `externalId`        | string | Optional, an ID set by the SCIM client. Filterable (case-sensitive).                                                                                                                                  |
+| `userName`          | string | Required, unique identifier for the user. Typically used as the login identifier. Filterable.                                                                                                         |
+| `name`              | object | Contains sub-attributes `formatted`, `familyName`, `givenName`, `middleName`, `honorificPrefix`, and `honorificSuffix`.                                                                               |
+| `displayName`       | string |                                                                                                                                                                                                       |
+| `nickName`          | string |                                                                                                                                                                                                       |
+| `profileUrl`        | string |                                                                                                                                                                                                       |
+| `title`             | string |                                                                                                                                                                                                       |
+| `userType`          | string |                                                                                                                                                                                                       |
+| `preferredLanguage` | string |                                                                                                                                                                                                       |
+| `locale`            | string |                                                                                                                                                                                                       |
+| `timezone`          | string | If set, must be a valid time zone.                                                                                                                                                                    |
+| `active`            | bool   | Whether the user can log in. **If omitted on create or replace, defaults to `true`.** Set to `false` to deactivate the user; deactivated users cannot log in.                                          |
+| `password`          | string | If set, the user can log in with this password. The password is never returned in any SCIM response.                                                                                                  |
+| `emails`            | array  | List of email addresses. Each email can have a `value` (string), `display` (string), `primary` (boolean), and `type` (string). At most one `primary=true` email can be set.                           |
+| `phoneNumbers`      | array  | List of phone numbers. Each entry can have `value`, `display`, `primary`, and `type`. At most one `primary=true` entry can be set.                                                                     |
+| `ims`               | array  | List of instant messaging accounts. Each entry can have `value`, `display`, `primary`, and `type`. At most one `primary=true` entry can be set.                                                        |
+| `photos`            | array  | List of photos. Each entry can have `value`, `display`, `primary`, and `type`. At most one `primary=true` entry can be set.                                                                            |
+| `addresses`         | array  | List of addresses. Each address can have `formatted`, `streetAddress`, `locality`, `region`, `postalCode`, `country`, and `type`.                                                                     |
+| `groups`            | array  | Read-only, a list of groups the user is a direct member of. Each entry has `value`, `display`, and `type`. To modify, set the `members` property on the `Groups` resource.                            |
+| `entitlements`      | array  | List of entitlements. Each entry can have `value`, `display`, `primary`, and `type`. At most one `primary=true` entry can be set.                                                                      |
+| `roles`             | array  | List of roles. Each entry can have `value`, `display`, `primary`, and `type`. At most one `primary=true` entry can be set.                                                                             |
+| `x509Certificates`  | array  | List of X.509 certificates. Each entry can have `value`, `display`, `primary`, and `type`. At most one `primary=true` entry can be set.                                                                |
+
+### Enterprise User extension
+
+The server supports the SCIM Enterprise User extension
+([RFC 7643, Section 4.3](https://datatracker.ietf.org/doc/html/rfc7643#section-4.3)), identified by the schema URN
+`urn:ietf:params:scim:schemas:extension:enterprise:2.0:User`. When present, the extension is returned as a top-level object keyed
+by the URN, and the URN is added to the resource's `schemas` array:
+
+```json
+{
+  "schemas": [
+    "urn:ietf:params:scim:schemas:core:2.0:User",
+    "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"
+  ],
+  "id": "9f8e7d6c-5b4a-3210-fedc-ba9876543210",
+  "userName": "bjensen@example.com",
+  "active": true,
+  "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+    "employeeNumber": "701984",
+    "costCenter": "4130",
+    "organization": "Universal Studios",
+    "division": "Theme Park",
+    "department": "Tour Operations",
+    "manager": { "value": "<manager-identity-id>", "displayName": "John Smith" }
+  }
+}
+```
+
+| Name             | Type   | Remarks                                                                                                                  |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `employeeNumber` | string | Filterable.                                                                                                              |
+| `costCenter`     | string |                                                                                                                          |
+| `organization`   | string | A free-form string attribute; unrelated to the Ory organization the SCIM client is bound to.                            |
+| `division`       | string |                                                                                                                          |
+| `department`     | string |                                                                                                                          |
+| `manager`        | object | `value` is the manager's identity ID. `manager.displayName` is read-only and is only resolved if the manager identity is in the same organization. |
+
+## Groups
+
+| Method   | Path            | Description                       | Success status |
+| -------- | --------------- | --------------------------------- | -------------- |
+| `GET`    | `/Groups`       | List or search groups             | `200`          |
+| `POST`   | `/Groups`       | Create a group                    | `201`          |
+| `GET`    | `/Groups/{id}`  | Retrieve a group by ID            | `200`          |
+| `PUT`    | `/Groups/{id}`  | Replace a group (full update)     | `200`          |
+| `PATCH`  | `/Groups/{id}`  | Partially update a group (PatchOp)| `200`          |
+| `DELETE` | `/Groups/{id}`  | Delete a group                    | `204`          |
+
+### Create a group
+
+```http
+POST /Groups
+Content-Type: application/scim+json
+Authorization: Bearer <your-secret>
+```
+
+```json
+{
+  "schemas": ["urn:ietf:params:scim:schemas:core:2.0:Group"],
+  "externalId": "ext-grp-1",
+  "displayName": "Engineering",
+  "members": [
+    { "value": "<identity-id>", "type": "User" },
+    { "value": "<group-id>", "type": "Group" }
+  ]
+}
+```
+
+Returns `201 Created` with the group resource:
+
+```json
+{
+  "schemas": ["urn:ietf:params:scim:schemas:core:2.0:Group"],
+  "id": "a1b2c3d4-...",
+  "externalId": "ext-grp-1",
+  "displayName": "Engineering",
+  "members": [
+    { "value": "<identity-id>", "display": "bjensen@example.com", "type": "User" },
+    { "value": "<group-id>", "display": "Backend", "type": "Group" }
+  ],
+  "meta": {
+    "resourceType": "Group",
+    "created": "2026-06-15T10:00:00Z",
+    "lastModified": "2026-06-15T10:00:00Z"
+  }
+}
+```
+
+### Group memberships
+
+Group memberships are managed through the `members` attribute on the `Groups` resource. Each member entry has:
+
+- `value`: an identity ID when `type` is `"User"`, or a group ID when `type` is `"Group"` (nested sub-groups are supported).
+- `type`: `"User"` or `"Group"`.
+- `display`: read-only, the member's `userName` (for users) or group name (for groups).
+
+The `groups` attribute on a user resource reflects only the user's **direct** memberships and is read-only.
+
+To change memberships incrementally, use `PATCH /Groups/{id}` with `add` and `remove` operations targeting the `members` path.
+A `remove` without a `path` returns `400 noTarget` rather than removing all members.
+
+### Group resource schema
+
+Ory Network supports the standard SCIM group resource schema as defined in
+[RFC 7643, Section 4.2](https://datatracker.ietf.org/doc/html/rfc7643#section-4.2):
+
+| Name          | Type   | Remarks                                                                                                                       |
+| ------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `id`          | UUID   | Read-only, this is the group ID.                                                                                              |
+| `externalId`  | string | Optional, an ID set by the SCIM client. If set, it must be unique within the organization. Filterable.                        |
+| `displayName` | string | Required, the name of the group. Filterable.                                                                                  |
+| `members`     | array  | List of members. Each member has `value`, `display` (read-only), and `type` (`"User"` or `"Group"`). See above.               |
+
+## Pagination
+
+The list endpoints (`GET /Users` and `GET /Groups`) support two mutually exclusive pagination methods. Offset-based pagination is
+the default; cursor-based pagination is used when a `cursor` query parameter is present.
+
+### Offset-based pagination (default)
+
+Uses the standard SCIM `startIndex` (1-based) and `count` query parameters.
+
+| Parameter    | Default | Limit               |
+| ------------ | ------- | ------------------- |
+| `startIndex` | `1`     | must be ≤ `5000`    |
+| `count`      | `100`   | must be ≤ `1000`    |
+
+`startIndex` or `count` above the limit returns `400` with `scimType: tooMany`. A `count` of `0` returns only `totalResults`
+with no `Resources` array. Offset responses always include `totalResults` (including `0`):
+
+```json
+{
+  "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+  "totalResults": 42,
+  "startIndex": 1,
+  "itemsPerPage": 20,
+  "Resources": [ ]
+}
+```
+
+### Cursor-based pagination
+
+For large result sets, use keyset (cursor) pagination as defined in
+[RFC 9865](https://datatracker.ietf.org/doc/html/rfc9865). Start by passing `cursor` with an empty value (or a known cursor),
+then follow `nextCursor` from each response until it is no longer returned:
+
+```http
+GET /Users?count=20&cursor=
+```
+
+```json
+{
+  "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
+  "itemsPerPage": 20,
+  "nextCursor": "<opaque-encrypted-cursor>",
+  "Resources": [ ]
+}
+```
+
+- Results are ordered by `id`.
+- Cursors are opaque, stateless tokens that **expire after one hour** (`cursorTimeout` in `ServiceProviderConfig`). An expired
+  cursor returns `400` with `scimType: expiredCursor`; an invalid cursor returns `400` with `scimType: invalidCursor`. In both
+  cases, restart pagination from the first page.
+- `nextCursor` is omitted on the last page.
+- `totalResults` is **not** returned on cursor pages.
+
+## Filtering
+
+The list endpoints accept a `filter` query parameter. Only the `eq` (equals) operator is supported, and only on indexed
+attributes:
+
+| Resource | Filterable attributes                                              |
+| -------- | ------------------------------------------------------------------ |
+| Users    | `userName`, `externalId`, `employeeNumber`, `groups.value` (a group UUID) |
+| Groups   | `displayName`, `externalId`                                        |
+
+```http
+GET /Users?filter=userName eq "bjensen@example.com"
+```
+
+- `externalId` filtering is case-sensitive.
+- Filtering on any other attribute returns `400` with `scimType: invalidFilter` ("not indexed").
+- Other operators (`ne`, `co`, `sw`, `ew`, `pr`, `gt`, and so on) are not supported.
+- A `filter` may reference a supported schema URN prefix; references to unsupported schemas return `400`.
+- The `filter` query string is limited to 1024 bytes.
+
+## Attribute selection
+
+The `attributes` and `excludedAttributes` query parameters control which attributes are returned. Only one of the two may be set
+in a single request; setting both returns `400`.
+
+## Errors
+
+Errors are returned with an appropriate HTTP status code and a SCIM error body
+([RFC 7644, Section 3.12](https://datatracker.ietf.org/doc/html/rfc7644#section-3.12)). Note that `status` is a **string**:
+
+```json
+{
+  "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+  "status": "409",
+  "scimType": "uniqueness",
+  "detail": "Could not create user: identity already exists in another scope"
+}
+```
+
+`scimType` and `detail` are present only when applicable. Common error cases:
+
+| Status | `scimType`                       | When it happens                                                                                                                                     |
+| ------ | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `400`  | `invalidSyntax`                  | The request body could not be decoded, or a resource failed validation (for example a missing `userName`, an invalid time zone, or more than one `primary` entry). |
+| `400`  | `invalidValue`                   | A value is malformed, for example a group member `value` that is not a valid UUID, or a member `type` other than `"User"` or `"Group"`.              |
+| `400`  | `invalidFilter`                  | The `filter` is malformed, references a non-indexed attribute, or references an unsupported schema.                                                  |
+| `400`  | `invalidPath`                    | A PATCH `path` is invalid or references an unsupported attribute.                                                                                    |
+| `400`  | `noTarget`                       | A PATCH `remove` (or `replace` with no matching element) has no target path.                                                                         |
+| `400`  | `tooMany`                        | `startIndex` exceeds `5000` or `count` exceeds `1000`.                                                                                               |
+| `400`  | `invalidCursor` / `expiredCursor`| The pagination cursor is invalid or has expired. Restart pagination from the first page.                                                            |
+| `401`  | —                                | The `Authorization` header is missing or does not match the configured secret.                                                                      |
+| `404`  | —                                | The SCIM client, user, group, schema, or resource type does not exist — including when the resource belongs to a different organization.            |
+| `409`  | `uniqueness`                     | A conflicting resource already exists. For users this includes a duplicate `userName`/email and the cross-organization case (see below). For groups this includes a duplicate `externalId`. |
+| `413`  | —                                | The request body exceeds the 16 MiB limit.                                                                                                          |
+| `500`  | —                                | An internal error occurred, for example the data mapping script failed to fetch or evaluate, or a database write failed.                            |
+
+The most common conflict integrators encounter is provisioning a user who already exists in a **different** organization, which
+returns:
+
+```json
+{
+  "schemas": ["urn:ietf:params:scim:api:messages:2.0:Error"],
+  "status": "409",
+  "scimType": "uniqueness",
+  "detail": "Could not create user: identity already exists in another scope"
+}
+```
+
+See [How SCIM relates to organizations](../scim#how-scim-relates-to-organizations) for why this happens and how to resolve it.
+
+## Supported features
+
+The server advertises its capabilities through `GET /ServiceProviderConfig`. At a glance:
+
+| Feature                   | Supported | Notes                                                              |
+| ------------------------- | --------- | ------------------------------------------------------------------ |
+| PATCH                     | Yes       | RFC 7644 PatchOp with `add`, `replace`, `remove`.                  |
+| Filtering                 | Yes       | `eq` operator only, on indexed attributes (see [Filtering](#filtering)). |
+| Change password           | Yes       | Through the `password` attribute.                                  |
+| Pagination (offset)       | Yes       | `startIndex` / `count`.                                            |
+| Pagination (cursor)       | Yes       | `cursor` / `nextCursor`, RFC 9865.                                 |
+| Enterprise User extension | Yes       | RFC 7643 §4.3.                                                     |
+| Sorting                   | No        | `sortBy` / `sortOrder` are not supported.                          |
+| ETag / versioning         | No        |                                                                    |
+| Bulk operations           | No        | No `/Bulk` endpoint.                                               |
+| `/Me` endpoint            | No        |                                                                    |
