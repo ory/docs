@@ -89,6 +89,27 @@ more.
       }' https://{project-slug}.projects.oryapis.com/admin/recovery/link
    ```
 
+   :::tip
+
+   Add a `return_to` query parameter to control where the user lands after they set their credentials. The target URL must be
+   allow-listed in `selfservice.allowed_return_urls` (see [Browser redirects](../concepts/browser-redirect-flow-completion.mdx)).
+
+   ```shell
+   curl --request POST -sL \
+      --header "Authorization: Bearer {ORY_API_KEY}" \
+      --header "Content-Type: application/json" \
+      --data '{
+      "expires_in": "12h",
+      "identity_id": "$ACCOUNT_ID"
+      }' 'https://{project-slug}.projects.oryapis.com/admin/recovery/link?return_to=https://your-app.example.com/welcome'
+   ```
+
+   Ory Identities carries `return_to` onto the recovery flow and then the settings flow, so your custom UI can also read it to
+   brand a first-time invitation differently from a regular password reset — for example by setting
+   `return_to=https://your-app.example.com/welcome?source=invitation` and reading `source` from the flow.
+
+   :::
+
 4. Copy the recovery link from the API response and send it to the user:
 
    ```json
