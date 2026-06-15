@@ -185,6 +185,24 @@ ory patch oauth2-config \
   --replace "/oauth2/grant/jwt/max_ttl=1h"
 ```
 
+### Copying the assertion audience into the access token
+
+By default, Ory copies the `aud` (audience) values from the assertion JWT into the access token it issues. The audience of the
+resulting access token then includes every value from the assertion's `aud` claim, including the OAuth2 token URL.
+
+To stop the assertion's audience from being granted to the access token, set `copy_assertion_audience` to `false`. Ory then issues
+the access token without the audience values from the assertion:
+
+```yaml title="hydra.yml"
+oauth2:
+  grant:
+    jwt:
+      copy_assertion_audience: false
+```
+
+The setting defaults to `true`, which preserves the previous behavior. It's available in self-hosted Ory Hydra (open source) and
+Ory Enterprise License deployments.
+
 ## JWTs for client authentication
 
 Ory provides support for OAuth 2.0 Client Authentication with RSA and ECDSA private/public key pairs and supports signing
