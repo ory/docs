@@ -376,22 +376,87 @@ it to continue delivery. Pausing one event stream has no effect on your other ev
 
 ### Pause or resume a stream
 
+```mdx-code-block
+<Tabs
+  defaultValue="console"
+  values={[
+    {label: 'Ory Console', value: 'console'},
+    {label: 'Ory CLI', value: 'cli'},
+  ]}>
+<TabItem value="console">
+```
+
 1. Go to your project in the [Ory Console](https://console.ory.com).
 2. Click **Project settings** in the top navigation bar.
 3. Click **Event streams** in the left sidebar. The **Status** column shows whether each stream is **Active** or **Paused**.
 4. Open the **⋯** menu next to the stream and click **Pause** or **Resume**.
 
-You can also change the status through the Ory APIs. Updating an event stream is a partial update: send only the `status` field
-(`active` or `paused`) and every other setting keeps its current value. This is the recommended way to pause or resume a stream,
-because resubmitting the destination is not required.
+```mdx-code-block
+</TabItem>
+<TabItem value="cli">
+```
+
+Pass the ID of the stream you want to pause or resume. Run `ory list event-streams` to look up the ID; its `STATUS` column shows
+whether each stream is currently `active` or `paused`.
+
+```shell
+# Pause a stream: delivery stops, but the stream and its configuration are kept.
+ory pause event-stream "$EVENT_STREAM_ID" --project "$YOUR_PROJECT_ID"
+
+# Resume a stream: delivery continues.
+ory resume event-stream "$EVENT_STREAM_ID" --project "$YOUR_PROJECT_ID"
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+You can also change the status directly through the Ory APIs. Updating an event stream is a partial update: send only the `status`
+field (`active` or `paused`) and every other setting keeps its current value, so resubmitting the destination is not required. The
+Ory Console and the `ory pause`/`ory resume` CLI commands use this partial update for you.
 
 When you resume a stream, Ory first verifies that the destination is reachable, the same check that runs when you create or update
 a stream.
 
 ### Create a stream as paused
 
-When you create a stream in the Ory Console, set **Status** to **Paused** to save it without starting delivery. This is useful
-when you want to configure a stream before its destination is ready. Resume it later from the stream's **⋯** menu.
+Creating a stream as paused is useful when you want to configure it before its destination is ready. Resume it once the
+destination is live.
+
+```mdx-code-block
+<Tabs
+  defaultValue="console"
+  values={[
+    {label: 'Ory Console', value: 'console'},
+    {label: 'Ory CLI', value: 'cli'},
+  ]}>
+<TabItem value="console">
+```
+
+In the **Create new Event Stream** dialog, set **Status** to **Paused** to save the stream without starting delivery. Resume it
+later from the stream's **⋯** menu.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli">
+```
+
+Pass `--status paused` to `ory create event-stream`. The flag works for both `https` and `sns` streams; when omitted, the stream
+is created `active`.
+
+```shell
+ory create event-stream \
+  --project "$YOUR_PROJECT_ID" \
+  --type https \
+  --https-endpoint https://example.com/my-event-endpoint \
+  --status paused
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
 
 ### What happens to events while a stream is paused
 
