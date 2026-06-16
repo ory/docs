@@ -134,7 +134,7 @@ The `{id}` is the Ory identity ID (a UUID), returned as `id` when the user is cr
 
 ### Create a user
 
-```text
+```http
 POST /Users
 Content-Type: application/scim+json
 Authorization: Bearer <your-secret>
@@ -178,7 +178,7 @@ If the user already exists, the create may succeed as an update (auto-linking) o
 
 ### Retrieve a user
 
-```text
+```http
 GET /Users/9f8e7d6c-5b4a-3210-fedc-ba9876543210
 ```
 
@@ -186,7 +186,7 @@ Returns `200 OK` and the user resource shown above.
 
 ### List users
 
-```text
+```http
 GET /Users?startIndex=1&count=20
 ```
 
@@ -314,7 +314,7 @@ by the URN, and the URN is added to the resource's `schemas` array:
 
 ### Create a group
 
-```text
+```http
 POST /Groups
 Content-Type: application/scim+json
 Authorization: Bearer <your-secret>
@@ -397,7 +397,7 @@ For anything beyond a small first page, use keyset (cursor) pagination as define
 passing `cursor` with an empty value (or a known cursor), then follow `nextCursor` from each response until it is no longer
 returned:
 
-```text
+```http
 GET /Users?count=20&cursor=
 ```
 
@@ -450,7 +450,7 @@ attributes:
 | Users    | `userName`, `externalId`, `employeeNumber`, `groups.value` (a group UUID) |
 | Groups   | `displayName`, `externalId`                                               |
 
-```text
+```http
 GET /Users?filter=userName eq "bjensen@example.com"
 ```
 
@@ -465,7 +465,7 @@ GET /Users?filter=userName eq "bjensen@example.com"
 A user's `groups.value` is a group ID, so you can list the users that belong to a specific group by filtering `/Users` on
 `groups.value` with that group's ID:
 
-```text
+```http
 GET /Users?filter=groups.value eq "<group-id>"
 ```
 

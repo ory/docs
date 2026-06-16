@@ -50,6 +50,7 @@ const config: Config = {
         "yaml",
         "csharp",
         "diff",
+        "http",
       ],
       magicComments: [
         {
