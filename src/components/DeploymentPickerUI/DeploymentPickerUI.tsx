@@ -74,78 +74,78 @@ export default function DeploymentPickerUI({
         <link rel="preload" as="image" href={DEPLOYMENT_IMAGES.oss} />
       </Head>
       <div className="sidebar-deployment-model" ref={ref}>
-      <div className="sidebar-deployment-model__block">
-        <button
-          type="button"
-          className={clsx(
-            "sidebar-deployment-model__trigger",
-            open && "sidebar-deployment-model__trigger--open",
-          )}
-          aria-haspopup="true"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault()
-              setOpen((v) => !v)
-            }
-          }}
-        >
-          <span className="sidebar-deployment-model__icon">
-            <img
-              src={DEPLOYMENT_IMAGES[current.id]}
-              alt=""
-              width={48}
-              height={48}
+        <div className="sidebar-deployment-model__block">
+          <button
+            type="button"
+            className={clsx(
+              "sidebar-deployment-model__trigger",
+              open && "sidebar-deployment-model__trigger--open",
+            )}
+            aria-haspopup="true"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault()
+                setOpen((v) => !v)
+              }
+            }}
+          >
+            <span className="sidebar-deployment-model__icon">
+              <img
+                src={DEPLOYMENT_IMAGES[current.id]}
+                alt=""
+                width={48}
+                height={48}
+                aria-hidden="true"
+              />
+            </span>
+            <span className="sidebar-deployment-model__text">
+              <span className="sidebar-deployment-model__label">
+                {current.label}
+              </span>
+              <span className="sidebar-deployment-model__sublabel">
+                Deployment Model
+              </span>
+            </span>
+            <span
+              className="sidebar-deployment-model__chevron"
               aria-hidden="true"
             />
-          </span>
-          <span className="sidebar-deployment-model__text">
-            <span className="sidebar-deployment-model__label">
-              {current.label}
-            </span>
-            <span className="sidebar-deployment-model__sublabel">
-              Deployment Model
-            </span>
-          </span>
-          <span
-            className="sidebar-deployment-model__chevron"
-            aria-hidden="true"
-          />
-        </button>
-        {open && (
-          <ul className="sidebar-deployment-model__menu">
-            {DEPLOYMENT_OPTIONS.map((opt) => (
-              <li key={opt.id}>
-                <button
-                  type="button"
-                  className={clsx(
-                    "sidebar-deployment-model__link",
-                    current.id === opt.id &&
-                      "sidebar-deployment-model__link--active",
-                  )}
-                  onClick={() => handleSelect(opt)}
-                >
-                  <img
-                    src={DEPLOYMENT_IMAGES[opt.id]}
-                    alt=""
-                    width={48}
-                    height={48}
-                    className="sidebar-deployment-model__menu-icon"
-                    aria-hidden="true"
-                  />
-                  {opt.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+          </button>
+          {open && (
+            <ul className="sidebar-deployment-model__menu">
+              {DEPLOYMENT_OPTIONS.map((opt) => (
+                <li key={opt.id}>
+                  <button
+                    type="button"
+                    className={clsx(
+                      "sidebar-deployment-model__link",
+                      current.id === opt.id &&
+                        "sidebar-deployment-model__link--active",
+                    )}
+                    onClick={() => handleSelect(opt)}
+                  >
+                    <img
+                      src={DEPLOYMENT_IMAGES[opt.id]}
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="sidebar-deployment-model__menu-icon"
+                      aria-hidden="true"
+                    />
+                    {opt.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div
+          className="sidebar-deployment-model__separator"
+          role="presentation"
+        />
       </div>
-      <div
-        className="sidebar-deployment-model__separator"
-        role="presentation"
-      />
-    </div>
     </>
   )
 }
