@@ -20,6 +20,7 @@ import useIsBrowser from "@docusaurus/useIsBrowser"
 import DocSidebarItems from "@theme/DocSidebarItems"
 import DocSidebarItemLink from "@theme/DocSidebarItem/Link"
 import CategoryLinkLabel from "./CategoryLinkLabel"
+import { DEPLOYMENT_LABELS } from "../../../components/DeploymentPickerUI"
 import styles from "./styles.module.css"
 
 /** Minimal shape for sidebar category item used in this component */
@@ -173,6 +174,7 @@ function DocSidebarItemCategoryCollapsible({
   ...props
 }: DocSidebarItemCategoryProps) {
   const { items, label, collapsible, className, href } = item
+  const isDeploymentRoot = level === 1 && DEPLOYMENT_LABELS.has(label)
   const {
     docs: {
       sidebar: { autoCollapseCategories },
@@ -226,6 +228,24 @@ function DocSidebarItemCategoryCollapsible({
       }
     }
   }
+
+  // Deployment root categories (e.g. "Ory Network") have their picker rendered
+  // outside the scroll area in DocSidebar/Desktop. Skip the collapsible header
+  // entirely and render children directly into the parent menu list.
+  if (isDeploymentRoot) {
+    return (
+      <DocSidebarItems
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        items={items as any}
+        tabIndex={0}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onItemClick={onItemClick as any}
+        activePath={activePath ?? ""}
+        level={level}
+      />
+    )
+  }
+
   return (
     <li
       className={clsx(
@@ -253,7 +273,9 @@ function DocSidebarItemCategoryCollapsible({
           aria-current={isCurrentPage ? "page" : undefined}
           role={collapsible && !href ? "button" : undefined}
           aria-expanded={collapsible && !href ? !collapsed : undefined}
-          href={collapsible ? hrefWithSSRFallback ?? "#" : hrefWithSSRFallback}
+          href={
+            collapsible ? hrefWithSSRFallback ?? "#" : hrefWithSSRFallback
+          }
           {...props}
         >
           <CategoryLinkLabel item={item} />
