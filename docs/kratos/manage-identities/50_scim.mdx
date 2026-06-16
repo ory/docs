@@ -75,13 +75,28 @@ identity instead of creating a duplicate. A collision is detected by checking, i
 
 There is no matching on `externalId`.
 
-When a collision is found:
+When a collision is found, the outcome depends on the existing identity's organization:
 
-- If the existing identity is **already a member of the SCIM client's organization**, it is updated through the data mapping.
-- If the existing identity **belongs to no organization**, and it has a **verified email** whose domain matches one of the
-  organization's verified domains, the identity is linked into the organization and provisioning continues. This is useful when a
-  user signed up (or was provisioned by SSO) before the organization started using SCIM.
-- Otherwise — including when the existing identity belongs to a **different** organization — provisioning fails with a conflict.
+```mdx-code-block
+<Mermaid
+  chart={`
+flowchart TD
+    A([SCIM provisions a user]) --> B{Matching identity exists?}
+    B -->|No| C[Create new identity in the client's organization]
+    B -->|Yes| D{Existing identity's organization?}
+    D -->|Same as the SCIM client| E[Update the identity via the data mapping]
+    D -->|None| F{Verified email domain matches an org domain?}
+    D -->|Different organization| G[409 Conflict: identity already exists in another scope]
+    F -->|Yes| H[Link the identity into the organization and provision]
+    F -->|No| G
+`}
+/>
+```
+
+When the existing identity belongs to **no organization** and its verified email domain matches one of the organization's verified
+domains, it is adopted into the organization. This is useful when a user signed up (or was provisioned by SSO) before the
+organization started using SCIM. Any other cross-organization collision fails with a
+[conflict](#cross-organization-conflicts).
 
 ### Cross-organization conflicts
 
