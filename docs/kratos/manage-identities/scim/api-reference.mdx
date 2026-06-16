@@ -67,9 +67,9 @@ Authentication errors:
 
 :::note
 
-`ServiceProviderConfig` advertises `oauthbearertoken` as the authentication scheme — a bearer token in the `Authorization`
-header. The token is the SCIM client's configured Authorization header secret, which is a static shared secret rather than an
-OAuth-issued token.
+`ServiceProviderConfig` advertises `oauthbearertoken` as the authentication scheme — a bearer token in the `Authorization` header.
+The token is the SCIM client's configured Authorization header secret, which is a static shared secret rather than an OAuth-issued
+token.
 
 :::
 
@@ -484,7 +484,8 @@ in a single request; setting both returns `400`.
 ## Errors
 
 Errors are returned with an appropriate HTTP status code and a SCIM error body
-([RFC 7644, Section 3.12](https://datatracker.ietf.org/doc/html/rfc7644#section-3.12)). Note that as per spec `status` is a **string**:
+([RFC 7644, Section 3.12](https://datatracker.ietf.org/doc/html/rfc7644#section-3.12)). Note that as per spec `status` is a
+**string**:
 
 ```json
 {

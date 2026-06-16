@@ -57,12 +57,12 @@ SCIM in Ory Network is always scoped to an [organization](../organizations):
 Because of this, what happens when a SCIM client provisions a user (`POST /Users`) depends on whether a matching identity already
 exists, and which organization it belongs to:
 
-| Situation                                                                                   | Result                                                                                          |
-| ------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| No matching identity exists                                                                 | A new identity is created in the SCIM client's organization.                                    |
-| A matching identity exists **in the same organization**                                     | The existing identity is updated using the client's [data mapping](#data-mapping).              |
-| A matching identity exists **with no organization**, and a verified email domain matches    | The identity is linked into the organization and provisioning continues (see [Auto-linking](#auto-linking)). |
-| A matching identity exists **in a different organization**                                  | Provisioning fails with a `409 Conflict` error (see [Cross-organization conflicts](#cross-organization-conflicts)). |
+| Situation                                                                                | Result                                                                                                              |
+| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| No matching identity exists                                                              | A new identity is created in the SCIM client's organization.                                                        |
+| A matching identity exists **in the same organization**                                  | The existing identity is updated using the client's [data mapping](#data-mapping).                                  |
+| A matching identity exists **with no organization**, and a verified email domain matches | The identity is linked into the organization and provisioning continues (see [Auto-linking](#auto-linking)).        |
+| A matching identity exists **in a different organization**                               | Provisioning fails with a `409 Conflict` error (see [Cross-organization conflicts](#cross-organization-conflicts)). |
 
 ### Auto-linking
 
@@ -95,8 +95,7 @@ flowchart TD
 
 When the existing identity belongs to **no organization** and its verified email domain matches one of the organization's verified
 domains, it is adopted into the organization. This is useful when a user signed up (or was provisioned by SSO) before the
-organization started using SCIM. Any other cross-organization collision fails with a
-[conflict](#cross-organization-conflicts).
+organization started using SCIM. Any other cross-organization collision fails with a [conflict](#cross-organization-conflicts).
 
 ### Cross-organization conflicts
 
@@ -129,9 +128,8 @@ and provision identities.
 In the organization view, under **SCIM clients**, click **Add SCIM client**. This will open a form where you can configure your
 SCIM client's settings.
 
-- **Client ID**: Enter an identifier for your SCIM client. This identifier is part of the
-  [base URL](scim/api-reference#base-url) that the client uses to access the Ory Network SCIM server, so it should be unique
-  within your project.
+- **Client ID**: Enter an identifier for your SCIM client. This identifier is part of the [base URL](scim/api-reference#base-url)
+  that the client uses to access the Ory Network SCIM server, so it should be unique within your project.
 - **Label**: Enter a human-readable label for your SCIM client.
 - **Authorization header secret**: Enter a secret in the client authentication's **secret** field. Clients authenticate by sending
   this secret in the `Authorization` header of their requests. See [Authentication](scim/api-reference#authentication) for the
@@ -162,8 +160,8 @@ The SCIM data mapping uses the **same Jsonnet engine and the same output schema*
 - It additionally receives the existing identity in `std.extVar('identity')` (see below).
 
 The script must return a JSON object as defined in the [Jsonnet reference](../reference/jsonnet#output) — `identity.traits`,
-`identity.metadata_public`, `identity.metadata_admin`, and `identity.verified_addresses`. For the available SCIM input
-attributes, see the [user resource schema](scim/api-reference#user-resource-schema).
+`identity.metadata_public`, `identity.metadata_admin`, and `identity.verified_addresses`. For the available SCIM input attributes,
+see the [user resource schema](scim/api-reference#user-resource-schema).
 
 #### Preserving data with the `identity` variable
 
@@ -237,19 +235,19 @@ import DocCardList from '@theme/DocCardList';
 
 ## Events
 
-Ory Network emits events for SCIM operations that modify data. They surface in the Ory Console under **Activity** >
-**Logs & Events**, and can be used for auditing, automation, or integration with other systems.
+Ory Network emits events for SCIM operations that modify data. They surface in the Ory Console under **Activity** > **Logs &
+Events**, and can be used for auditing, automation, or integration with other systems.
 
-| SCIM action           | Events emitted                            | Description                                                                                                                                |
-| --------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `POST /Users`         | `IdentityCreated`                         | A new identity is provisioned. If the user is [auto-linked](#auto-linking) to an existing identity instead, `IdentityUpdated` is emitted. |
-| `PUT /Users/{id}`     | `IdentityUpdated`                         | An identity is replaced.                                                                                                                   |
-| `PATCH /Users/{id}`   | `IdentityUpdated`                         | An identity is partially updated.                                                                                                          |
-| `DELETE /Users/{id}`  | `IdentityDeleted`                         | An identity is deleted.                                                                                                                    |
-| `POST /Groups`        | `SCIMGroupCreated`                        | A new group is created.                                                                                                                    |
-| `PUT /Groups/{id}`    | `SCIMGroupUpdated` (+ `IdentityUpdated`)  | A group is replaced. See the note below about member events.                                                                               |
-| `PATCH /Groups/{id}`  | `SCIMGroupUpdated` (+ `IdentityUpdated`)  | A group is partially updated. See the note below about member events.                                                                      |
-| `DELETE /Groups/{id}` | `SCIMGroupDeleted` (+ `IdentityUpdated`)  | A group is deleted. See the note below about member events.                                                                                |
+| SCIM action           | Events emitted                           | Description                                                                                                                               |
+| --------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /Users`         | `IdentityCreated`                        | A new identity is provisioned. If the user is [auto-linked](#auto-linking) to an existing identity instead, `IdentityUpdated` is emitted. |
+| `PUT /Users/{id}`     | `IdentityUpdated`                        | An identity is replaced.                                                                                                                  |
+| `PATCH /Users/{id}`   | `IdentityUpdated`                        | An identity is partially updated.                                                                                                         |
+| `DELETE /Users/{id}`  | `IdentityDeleted`                        | An identity is deleted.                                                                                                                   |
+| `POST /Groups`        | `SCIMGroupCreated`                       | A new group is created.                                                                                                                   |
+| `PUT /Groups/{id}`    | `SCIMGroupUpdated` (+ `IdentityUpdated`) | A group is replaced. See the note below about member events.                                                                              |
+| `PATCH /Groups/{id}`  | `SCIMGroupUpdated` (+ `IdentityUpdated`) | A group is partially updated. See the note below about member events.                                                                     |
+| `DELETE /Groups/{id}` | `SCIMGroupDeleted` (+ `IdentityUpdated`) | A group is deleted. See the note below about member events.                                                                               |
 
 :::note
 
@@ -266,12 +264,12 @@ the failing request's status code and details.
 
 ### Event attributes
 
-| Event                                | Attribute                                                      | Description                                                                                                |
-| ------------------------------------ | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| All events                           | `SCIMClient`                                                  | The ID of the SCIM client that made the request.                                                           |
-| `IdentityCreated`, `IdentityUpdated` | `IdentityActive`                                              | Whether the identity is active (`true` or `false`).                                                        |
-| Group events                         | `SCIMGroupID`, `SCIMGroupExternalID`, `SCIMGroupDisplayName`  | Identify the group. `SCIMGroupUpdated` also includes `SCIMGroupAddedIdentityIDs` and `SCIMGroupRemovedIdentityIDs`. |
-| `SCIMProvisioningError`              | `SCIMErrorStatusCode`, `SCIMErrorStatusText`, `SCIMErrorDetail` | Describe the failure.                                                                                       |
+| Event                                | Attribute                                                       | Description                                                                                                         |
+| ------------------------------------ | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| All events                           | `SCIMClient`                                                    | The ID of the SCIM client that made the request.                                                                    |
+| `IdentityCreated`, `IdentityUpdated` | `IdentityActive`                                                | Whether the identity is active (`true` or `false`).                                                                 |
+| Group events                         | `SCIMGroupID`, `SCIMGroupExternalID`, `SCIMGroupDisplayName`    | Identify the group. `SCIMGroupUpdated` also includes `SCIMGroupAddedIdentityIDs` and `SCIMGroupRemovedIdentityIDs`. |
+| `SCIMProvisioningError`              | `SCIMErrorStatusCode`, `SCIMErrorStatusText`, `SCIMErrorDetail` | Describe the failure.                                                                                               |
 
 ## Limitations
 

@@ -27,8 +27,8 @@ The input for Jsonnet is typically provided as an external variable using `std.e
 
 - For OpenID Connect (OIDC), the input is available in `std.extVar('claims')`.
 - For SCIM, the input is available in `std.extVar('scim')`. SCIM additionally provides the existing identity (if one exists) in
-  `std.extVar('identity')`, which exposes `traits`, `metadata_public`, and `metadata_admin` so a mapper can preserve or merge
-  data that SCIM does not manage. See [SCIM data mapping](../manage-identities/scim#data-mapping).
+  `std.extVar('identity')`, which exposes `traits`, `metadata_public`, and `metadata_admin` so a mapper can preserve or merge data
+  that SCIM does not manage. See [SCIM data mapping](../manage-identities/scim#data-mapping).
 
 The specific structure of the input object depends on the data provided by the OIDC claims or SCIM payload.
 
