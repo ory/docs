@@ -286,8 +286,8 @@ identity is already bound to an organization — see below.
 
 An organization-scoped settings flow behaves differently from a regular settings flow:
 
-- The flow returns link nodes only for the organization's OIDC and SAML connections. Other settings methods, such as password or
-  social sign-in, are not part of the flow.
+- The settings flow returns link nodes only for the organization's OIDC and SAML connections. Other settings methods, such as
+  password or social sign-in, are not part of the flow.
 - Connections the identity has already linked render as disabled. The organization owns the binding, so the user cannot remove it.
 - Submitting a link starts authentication with the organization's identity provider. On the callback, Ory links the credential and
   sets the identity's `organization_id`.
@@ -296,8 +296,8 @@ An organization-scoped settings flow behaves differently from a regular settings
 When the signed-in identity is already bound to an organization, that organization takes precedence over the `organization` query
 parameter. An identity cannot be silently re-bound to a different organization through the settings flow.
 
-If the identity's `organization_id` points to an organization that was deleted, the settings flow falls back to a regular,
-unscoped flow. This keeps account recovery and self-service settings working for users who were offboarded from a deleted
+If the identity's `organization_id` points to an organization that was deleted, the settings flow falls back to a non-organization
+scoped flow. This keeps account recovery and self-service settings working for users who were offboarded from a deleted
 organization.
 
 ## SAML
