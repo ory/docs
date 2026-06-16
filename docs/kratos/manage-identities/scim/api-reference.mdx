@@ -134,7 +134,7 @@ The `{id}` is the Ory identity ID (a UUID), returned as `id` when the user is cr
 
 ### Create a user
 
-```http
+```text
 POST /Users
 Content-Type: application/scim+json
 Authorization: Bearer <your-secret>
@@ -162,7 +162,6 @@ On success the server responds with `201 Created` and the full user resource:
   "name": { "givenName": "Barbara", "familyName": "Jensen" },
   "active": true,
   "emails": [{ "value": "bjensen@example.com", "primary": true, "type": "work" }],
-  "groups": [],
   "meta": {
     "resourceType": "User",
     "created": "2026-06-15T10:00:00Z",
@@ -179,7 +178,7 @@ If the user already exists, the create may succeed as an update (auto-linking) o
 
 ### Retrieve a user
 
-```http
+```text
 GET /Users/9f8e7d6c-5b4a-3210-fedc-ba9876543210
 ```
 
@@ -187,7 +186,7 @@ Returns `200 OK` and the user resource shown above.
 
 ### List users
 
-```http
+```text
 GET /Users?startIndex=1&count=20
 ```
 
@@ -208,8 +207,9 @@ for the `filter` query parameter.
 
 ### Replace a user
 
-`PUT /Users/{id}` replaces the user with the supplied representation. Attributes that are not present in the request are reset to
-their default. Use `PATCH` for partial updates.
+`PUT /Users/{id}` replaces the user with the supplied representation, so send the full resource. Attributes you omit are reset to
+their defaults — for example, omitting `active` re-enables the user. The `password` is the exception: it is changed only when you
+include it. Use `PATCH` for partial updates.
 
 ### Update a user (PATCH)
 
@@ -314,7 +314,7 @@ by the URN, and the URN is added to the resource's `schemas` array:
 
 ### Create a group
 
-```http
+```text
 POST /Groups
 Content-Type: application/scim+json
 Authorization: Bearer <your-secret>
@@ -397,7 +397,7 @@ For anything beyond a small first page, use keyset (cursor) pagination as define
 passing `cursor` with an empty value (or a known cursor), then follow `nextCursor` from each response until it is no longer
 returned:
 
-```http
+```text
 GET /Users?count=20&cursor=
 ```
 
@@ -450,7 +450,7 @@ attributes:
 | Users    | `userName`, `externalId`, `employeeNumber`, `groups.value` (a group UUID) |
 | Groups   | `displayName`, `externalId`                                               |
 
-```http
+```text
 GET /Users?filter=userName eq "bjensen@example.com"
 ```
 
@@ -465,8 +465,8 @@ GET /Users?filter=userName eq "bjensen@example.com"
 A user's `groups.value` is a group ID, so you can list the users that belong to a specific group by filtering `/Users` on
 `groups.value` with that group's ID:
 
-```http
-GET /Users?filter=groups.value eq "b3f8…group-uuid"
+```text
+GET /Users?filter=groups.value eq "<group-id>"
 ```
 
 - The filter value must be a valid group UUID; otherwise the request returns `400` with `scimType: invalidFilter` and the detail
