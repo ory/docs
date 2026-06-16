@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import clsx from "clsx"
+import Head from "@docusaurus/Head"
 
 import networkImg from "@site/src/static/img/quickstarts/deployment-model-picker/network.png"
 import oelImg from "@site/src/static/img/quickstarts/deployment-model-picker/oel.png"
@@ -66,7 +67,13 @@ export default function DeploymentPickerUI({
   }
 
   return (
-    <div className="sidebar-deployment-model" ref={ref}>
+    <>
+      <Head>
+        <link rel="preload" as="image" href={DEPLOYMENT_IMAGES.network} />
+        <link rel="preload" as="image" href={DEPLOYMENT_IMAGES.oel} />
+        <link rel="preload" as="image" href={DEPLOYMENT_IMAGES.oss} />
+      </Head>
+      <div className="sidebar-deployment-model" ref={ref}>
       <div className="sidebar-deployment-model__block">
         <button
           type="button"
@@ -139,5 +146,6 @@ export default function DeploymentPickerUI({
         role="presentation"
       />
     </div>
+    </>
   )
 }
