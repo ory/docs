@@ -80,6 +80,11 @@ export const navbar: Navbar = {
       ],
     },
     {
+      to: "/docs/integrations",
+      label: "Integrations",
+      position: "left",
+    },
+    {
       type: "dropdown",
       to: "/docs/reference/reference-overview",
       label: "Reference",

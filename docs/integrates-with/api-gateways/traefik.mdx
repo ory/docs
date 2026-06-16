@@ -1,0 +1,55 @@
+---
+id: traefik
+title: Traefik API gateway
+sidebar_label: Traefik
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained — also documented in
+[Oathkeeper's Traefik proxy integration guide](../../oathkeeper/guides/traefik-proxy-integration.md).
+Reference:
+[ory/integrates/api-gateways/traefik](https://github.com/ory/integrates/tree/main/api-gateways/traefik).
+</Admonition>
+```
+
+[Traefik](https://traefik.io) is a cloud-native edge router popular in Kubernetes deployments. There are two integration paths:
+validate Ory sessions with the **ForwardAuth** middleware, or put Ory Oathkeeper in front of Traefik for richer access rules.
+
+## Path A: ForwardAuth to Ory's whoami
+
+Configure Traefik's `forwardAuth` middleware to call `https://<project>.projects.oryapis.com/sessions/whoami` on every request:
+
+```yaml
+http:
+  middlewares:
+    ory-auth:
+      forwardAuth:
+        address: "https://<project>.projects.oryapis.com/sessions/whoami"
+        authResponseHeaders:
+          - "X-User-Id"
+          - "X-User-Email"
+```
+
+On a 200, Traefik proxies to the upstream with the response headers injected. On a 401, Traefik returns a 401 directly.
+
+## Path B: Oathkeeper in front of Traefik
+
+For complex access rules (per-route policy, mutators, request transformations), put [Ory Oathkeeper](../../oathkeeper/index.mdx)
+in front of Traefik. Oathkeeper's access rules can authenticate sessions, validate JWTs, and mutate requests before they reach
+Traefik.
+
+See the [Oathkeeper + Traefik integration guide](../../oathkeeper/guides/traefik-proxy-integration.md) for the canonical setup.
+
+## Notes
+
+- ForwardAuth adds one round-trip per request. Cache the response with Traefik's plugins if latency matters.
+- Sessions on cookie-bound self-service flows need `forwardAuth.trustForwardHeader: true` so the right session cookie reaches Ory.
+
+## Resources
+
+- [Traefik ForwardAuth middleware](https://doc.traefik.io/traefik/middlewares/http/forwardauth/)
+- [Oathkeeper + Traefik](../../oathkeeper/guides/traefik-proxy-integration.md)
+- Reference: [ory/integrates/api-gateways/traefik](https://github.com/ory/integrates/tree/main/api-gateways/traefik)

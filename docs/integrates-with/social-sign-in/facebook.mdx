@@ -1,0 +1,21 @@
+---
+id: facebook
+title: Sign in with Facebook
+sidebar_label: Facebook
+---
+
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/kratos/social-signin/facebook" />
+</head>
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="info" title="Primary documentation">
+Facebook is configured as a social sign-in provider in the Ory Console or via the Ory CLI — no webhook code required. See
+[Add Facebook as a social sign-in provider in Ory](../../kratos/social-signin/15_facebook.mdx) for the full guide.
+</Admonition>
+```
+
+Add Facebook as a social sign-in provider in Ory Network. Users sign in with their Facebook account; Ory fetches profile data from
+Facebook's Graph API (Facebook doesn't issue an OIDC id_token) and maps it to the identity schema.

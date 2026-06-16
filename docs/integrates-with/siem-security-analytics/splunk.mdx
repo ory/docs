@@ -1,0 +1,36 @@
+---
+id: splunk
+title: Splunk
+sidebar_label: Splunk
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/siem-security-analytics/splunk](https://github.com/ory/integrates/tree/main/siem-security-analytics/splunk).
+</Admonition>
+```
+
+[Splunk](https://www.splunk.com) provides log management and SIEM. Ingest Ory authentication events directly through Splunk's HTTP
+Event Collector (HEC), with no webhook handler needed.
+
+## How it works
+
+An Ory Action POSTs directly to `https://<splunk-host>:8088/services/collector/event` with the
+`Authorization: Splunk {$HEC_TOKEN}` header. The body Jsonnet wraps the event in Splunk's HEC envelope.
+
+## Notable
+
+- For Splunk Enterprise Security, use CIM-compatible field names (`user`, `src`, `action`, `app`) so built-in correlation searches
+  apply.
+- HEC accepts batched events (newline-delimited JSON) for high-volume products.
+- The Splunk Cloud endpoint format is `https://http-inputs-<stack>.splunkcloud.com`.
+
+## Resources
+
+- [Splunk HEC documentation](https://docs.splunk.com/Documentation/Splunk/latest/Data/UsetheHTTPEventCollector)
+- [Ory Actions](/docs/actions)
+- Reference:
+  [ory/integrates/siem-security-analytics/splunk](https://github.com/ory/integrates/tree/main/siem-security-analytics/splunk)

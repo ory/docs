@@ -78,7 +78,7 @@ function CardLayout({
 }
 
 function CardCategory({ item }: { item: PropSidebarItemCategory }): ReactNode {
-  const href = findFirstSidebarItemLink(item)
+  const href = item.href ?? findFirstSidebarItemLink(item)
   const categoryItemsPlural = useCategoryItemsPlural()
 
   if (!href) {

@@ -27,6 +27,7 @@ ory create event-stream [--project=PROJECT_ID] --type={sns,https} {--aws-iam-rol
       --https-endpoint string      The URL of the HTTPS endpoint.
       --project string             The project to use, either project ID or a (partial) slug.
   -q, --quiet                      Be quiet with output printing.
+      --status string              The status of the event stream, either "active" or "paused". When unset, a new stream defaults to "active" and an existing stream keeps its current status.
       --type string                The type of the event stream destination. Supported values are "sns" for AWS SNS topics and "https" for generic HTTPS endpoints.
       --workspace string           The workspace to use, either workspace ID or a (partial) name.
 ```
