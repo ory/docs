@@ -615,6 +615,12 @@ Social Sign In is not possible for API Clients. It will be possible in a future 
 
 :::
 
+### Link organization scoped SSO connections
+
+You can scope the settings flow to an organization by passing the `organization` query parameter. The flow then returns link nodes
+only for that organization's SSO connections, and linking one binds the identity to the organization. See
+[Bind an identity to an organization through the settings flow](../../organizations/organizations.mdx#bind-an-identity-to-an-organization-through-the-settings-flow).
+
 ## Settings form validation
 
 The form payloads are then submitted to Ory Identities which follows up with:
