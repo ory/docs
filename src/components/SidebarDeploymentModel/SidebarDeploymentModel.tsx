@@ -28,12 +28,11 @@ export default function SidebarDeploymentModel(): JSX.Element | null {
     return null
 
   const currentFromPath = getCurrentDeployment(location.pathname)
-  const current =
-    quickstartsDeployment
-      ? (DEPLOYMENT_OPTIONS.find(
-          (o) => o.id === quickstartsDeployment.deployment,
-        ) ?? currentFromPath)
-      : currentFromPath
+  const current = quickstartsDeployment
+    ? DEPLOYMENT_OPTIONS.find(
+        (o) => o.id === quickstartsDeployment.deployment,
+      ) ?? currentFromPath
+    : currentFromPath
 
   return (
     <DeploymentPickerUI

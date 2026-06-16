@@ -101,7 +101,10 @@ export default function DeploymentPickerUI({
               Deployment Model
             </span>
           </span>
-          <span className="sidebar-deployment-model__chevron" aria-hidden="true" />
+          <span
+            className="sidebar-deployment-model__chevron"
+            aria-hidden="true"
+          />
         </button>
         {open && (
           <ul className="sidebar-deployment-model__menu">
@@ -131,7 +134,10 @@ export default function DeploymentPickerUI({
           </ul>
         )}
       </div>
-      <div className="sidebar-deployment-model__separator" role="presentation" />
+      <div
+        className="sidebar-deployment-model__separator"
+        role="presentation"
+      />
     </div>
   )
 }

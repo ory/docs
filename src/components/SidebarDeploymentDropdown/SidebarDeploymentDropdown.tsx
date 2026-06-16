@@ -48,7 +48,8 @@ export default function SidebarDeploymentDropdown(): JSX.Element | null {
   if (sidebar?.name && QUICKSTARTS_SIDEBAR_NAMES.has(sidebar.name)) return null
 
   const current =
-    getDeploymentFromSidebar(sidebar) ?? getDeploymentFromPath(location.pathname)
+    getDeploymentFromSidebar(sidebar) ??
+    getDeploymentFromPath(location.pathname)
   if (!current) return null
 
   return (
