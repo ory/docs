@@ -103,6 +103,10 @@ Running this commands opens the `4000` port on your local machine. The URL `http
 available. The `--dev` flag disables a few security checks to make local development easier. After starting the Tunnel, test it by
 performing the registration flow: [`http://localhost:4000/ui/registration`](http://localhost:4000/ui/registration).
 
+To configure your project so that flows such as Social Sign-In work, the Tunnel creates a short-lived API key for your project
+while it runs and deletes it again on shutdown. See [Temporary API key](../guides/cli/20_proxy-and-tunnel.mdx#temporary-api-key)
+for details, including how to control its expiry with `--api-key-expiry`.
+
 You can now start developing locally. Make sure to send any HTTP calls you make to `http://localhost:4000` and not
 `https://{your-slug}.projects.oryapis.com`. This also applies to URLs returned by Admin API endpoints, such as recovery or invite
 links. These URLs point to the project slug domain by default and must be rewritten to the Tunnel URL before use in the browser.
