@@ -1444,6 +1444,16 @@
 }
 ```
 
+###### This DeviceAuthn key can no longer be used because relaxed attestation is expired or disabled. Please enroll your device again. (4000045)
+
+```json
+{
+  "id": 4000045,
+  "text": "This DeviceAuthn key can no longer be used because relaxed attestation is expired or disabled. Please enroll your device again.",
+  "type": "error"
+}
+```
+
 ###### The login flow expired 1.00 minutes ago, please try again. (4010001)
 
 ```json
