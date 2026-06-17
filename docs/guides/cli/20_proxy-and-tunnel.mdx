@@ -61,6 +61,44 @@ If you want to adjust the entry point URL, pass the desired address along with t
 ory tunnel --project <project-id> --workspace <workspace-id> http://localhost:3000 http://localhost:3001
 ```
 
+## Temporary API key
+
+To configure your project for local development — for example to make complex flows such as Social Sign-In work — the Ory CLI
+needs API access to your project while the Tunnel (or the deprecated Proxy) is running. To get it, the CLI creates a **temporary
+project API key** on your behalf when the command starts, and removes it again when the command stops.
+
+:::note
+
+If you supply your own key through the `ORY_PROJECT_API_KEY` environment variable (as you typically would in automated
+environments), the CLI uses that key directly and does **not** create or delete a temporary one.
+
+:::
+
+### Cleaning up on shutdown
+
+Deleting the key when the command stops is best-effort. If the process is terminated before it can clean up — for example it is
+force-killed, the terminal is closed, or the machine loses power — the key is left behind and would otherwise remain valid
+indefinitely.
+
+To prevent abandoned keys from accumulating, the CLI also gives the key a server-side **expiry**. Even if the local cleanup never
+runs, Ory Network removes the key automatically once it expires.
+
+Use the `--api-key-expiry` flag to control how long the temporary key lives. It accepts a Go duration (such as `30m`, `12h`, or
+`2h30m`) and defaults to `12h`. Set it to `0` to create the key without an expiry and rely solely on cleanup at shutdown:
+
+```shell
+# Default: the temporary key expires 12 hours after the Tunnel starts.
+ory tunnel --project <project-id> http://localhost:3000
+
+# Keep the key valid for longer before it expires.
+ory tunnel --project <project-id> --api-key-expiry 48h http://localhost:3000
+
+# Disable the expiry entirely.
+ory tunnel --project <project-id> --api-key-expiry 0 http://localhost:3000
+```
+
+The same `--api-key-expiry` flag is available on `ory proxy`.
+
 ## Migration from Proxy to Tunnel
 
 Ory Proxy has been deprecated in favor of Ory Tunnel. This section guides you through migrating from Proxy to Tunnel.
