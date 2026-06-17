@@ -1,0 +1,41 @@
+---
+id: stripe
+title: Stripe integration
+sidebar_label: Stripe
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/payment-billing/stripe](https://github.com/ory/integrates/tree/main/payment-billing/stripe).
+</Admonition>
+```
+
+[Stripe](https://stripe.com) is a payment and subscription platform. You create Stripe Customer records at sign-up and consume
+Stripe subscription webhooks to keep subscription state on the Ory identity.
+
+## How it works
+
+**Outbound:** an Ory Action on `registration.after` calls your handler, which creates a Stripe Customer with
+`metadata.ory_identity_id` and PATCHes `metadata_public.stripe.customer_id` on the identity.
+
+**Inbound:** Stripe webhooks (`customer.subscription.*`, `invoice.payment_failed`, and others) call your handler, which verifies
+the `Stripe-Signature` over the raw body, resolves the Ory identity by `metadata.ory_identity_id`, and PATCHes
+`metadata_public.stripe.subscription_state`.
+
+## Notable
+
+- **Pin a Stripe API version** in your handler's headers. Stripe rolls API versions, and unpinned clients break.
+- Webhook signature verification must use the **raw** request body, before JSON parsing.
+- Stripe webhooks are at-least-once and can arrive out of order, so your handler must be idempotent and tolerant of event
+  ordering.
+- Subscription gating belongs in application code, not in the authentication flow.
+
+## Resources
+
+- [Stripe API documentation](https://docs.stripe.com/api)
+- [Stripe webhook signatures](https://docs.stripe.com/webhooks/signature)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/payment-billing/stripe](https://github.com/ory/integrates/tree/main/payment-billing/stripe)

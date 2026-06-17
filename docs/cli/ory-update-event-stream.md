@@ -20,10 +20,16 @@ ory update event-stream id [--project=PROJECT_ID] --type={sns,https} {--aws-iam-
 ### Options
 
 ```
-      --format string    Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
-  -h, --help             help for event-stream
-      --project string   The project to use, either project ID or a (partial) slug.
-  -q, --quiet            Be quiet with output printing.
+      --aws-iam-role-arn string    The ARN of the AWS IAM role to assume when publishing messages to the SNS topic.
+      --aws-sns-topic-arn string   The ARN of the AWS SNS topic.
+      --format string              Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
+  -h, --help                       help for event-stream
+      --https-endpoint string      The URL of the HTTPS endpoint.
+      --project string             The project to use, either project ID or a (partial) slug.
+  -q, --quiet                      Be quiet with output printing.
+      --status string              The status of the event stream, either "active" or "paused". When unset, a new stream defaults to "active" and an existing stream keeps its current status.
+      --type string                The type of the event stream destination. Supported values are "sns" for AWS SNS topics and "https" for generic HTTPS endpoints.
+      --workspace string           The workspace to use, either workspace ID or a (partial) name.
 ```
 
 ### Options inherited from parent commands

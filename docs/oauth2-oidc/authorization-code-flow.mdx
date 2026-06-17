@@ -54,6 +54,9 @@ to the Authorization Server with the following parameters:
     already authenticated or has not already granted consent, the Authorization Server returns an error.
   - `login`: This value indicates that the Authorization Server should prompt the user to login before processing the access
     request.
+  - `select_account`: This value indicates that the Authorization Server should prompt the user to select a user account. Because
+    an Ory login session is tied to a single account, this behaves like `login`: the user is sent to the login screen, where they
+    can authenticate with the account of their choice.
   - `consent`: This value indicates that the Authorization Server should prompt the user to grant consent before processing the
     access request.
   - `registration`: This value indicates that the Authorization Server should display the registration UI instead of the login UI.

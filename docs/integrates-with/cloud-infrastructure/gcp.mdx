@@ -1,0 +1,43 @@
+---
+id: gcp
+title: Running Ory on Google Cloud
+sidebar_label: GCP
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Reference pattern (deployment topology)">
+Not a vendor integration — Ory Network is reached over HTTPS like any
+SaaS, and self-hosted Ory products run on standard Kubernetes (GKE).
+This page documents the GCP-side glue. Reference:
+[ory/integrates/cloud-infrastructure/gcp](https://github.com/ory/integrates/tree/main/cloud-infrastructure/gcp).
+</Admonition>
+```
+
+For Google identity provider configuration (separate from GCP deployment), see
+[`social-sign-in/google`](../../kratos/social-signin/10_google.mdx) and
+[`enterprise-sso/google-workspace`](../../polis/sso-providers/google.mdx).
+
+## Two patterns
+
+### Pattern A: GCP application talking to Ory Network
+
+- Allow outbound HTTPS to `*.oryapis.com` from the workload's VPC. Default GKE and Cloud Run egress allows this; restrict it with
+  Cloud NAT and Firewall rules if needed.
+- Store the Ory API key in **Secret Manager** and mount it via Workload Identity (GKE) or runtime secret references (Cloud Run).
+- Use **Cloud DNS** to map your custom auth domain to `custom.oryapis.com` with a CNAME.
+
+### Pattern B: Self-hosted Ory on GKE
+
+- Use **GKE Autopilot** or Standard with Workload Identity enabled.
+- Use **Cloud SQL for PostgreSQL** in an HA configuration. Connect via the Cloud SQL Auth Proxy sidecar (preferred) or private IP
+  with VPC peering.
+- Optionally, use **Memorystore for Redis**.
+- Deploy with the official Helm charts.
+- Use **GKE Gateway** (or Ingress with GCLB) for HTTPS termination with a Google-managed certificate.
+
+## Resources
+
+- [Ory self-hosted deployment](../../oss/deployment.mdx)
+- Reference: [ory/integrates/cloud-infrastructure/gcp](https://github.com/ory/integrates/tree/main/cloud-infrastructure/gcp)

@@ -9,7 +9,7 @@ const CTA_CONFIG = {
   description:
     "The largest Identity and Access Management network in the world. So you can get back to building your business.",
   ctaLabel: "Sign up for free",
-  href: "https://console.ory.sh/?mtm_campaign=Docs-SideCta&mtm_kwd=variant-0",
+  href: "https://console.ory.com/?mtm_campaign=Docs-SideCta&mtm_kwd=variant-0",
 }
 
 export const OryNetworkCta = () => {

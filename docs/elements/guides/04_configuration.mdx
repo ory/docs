@@ -18,9 +18,9 @@ allows you to use the default UI but still configure certain behaviors and URLs 
 Define the project configuration in your application like this:
 
 ```ts title="projectConfig.ts"
-import { AccountExperienceConfiguration } from "@ory/elements-react"
+import { ProjectConfiguration } from "@ory/elements-react"
 
-const projectConfig: AccountExperienceConfiguration = {
+const projectConfig: ProjectConfiguration = {
   default_locale: "en", // default locale for the UI
   default_redirect_url: "https://example.com/dashboard", // URL to redirect after successful login or registration
   error_ui_url: "https://example.com/error", // URL to handle errors
@@ -67,10 +67,10 @@ function App() {
 
 ### UI URLs
 
-To set the URLs for various UI components, you can use the following properties in the `AccountExperienceConfiguration`:
+To set the URLs for various UI components, you can use the following properties in the `ProjectConfiguration`:
 
 ```typescript title="projectConfig.ts"
-const projectConfig: AccountExperienceConfiguration = {
+const projectConfig: ProjectConfiguration = {
   login_ui_url: "https://example.com/login",
   registration_ui_url: "https://example.com/register",
   recovery_ui_url: "https://example.com/recovery",
@@ -84,7 +84,7 @@ These will be used when the respective actions are triggered, such as when a use
 account and should match the URLs of your application's UI. You can also set the `error_ui_url` to handle errors in a custom way:
 
 ```typescript title="projectConfig.ts"
-const projectConfig: AccountExperienceConfiguration = {
+const projectConfig: ProjectConfiguration = {
   error_ui_url: "https://example.com/error",
   // ....
 }
@@ -95,7 +95,7 @@ const projectConfig: AccountExperienceConfiguration = {
 To set the logos for the light theme, you can use the following properties:
 
 ```typescript title="projectConfig.ts"
-const projectConfig: AccountExperienceConfiguration = {
+const projectConfig: ProjectConfiguration = {
   logo_light_url: "https://example.com/logo-light.png",
   // ....
 }
@@ -106,7 +106,7 @@ const projectConfig: AccountExperienceConfiguration = {
 To set a default locale:
 
 ```typescript title="projectConfig.ts"
-const projectConfig: AccountExperienceConfiguration = {
+const projectConfig: ProjectConfiguration = {
   default_locale: "en",
   // ....
 }

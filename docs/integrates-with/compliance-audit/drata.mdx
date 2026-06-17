@@ -1,0 +1,50 @@
+---
+id: drata
+title: Drata compliance evidence collection
+sidebar_label: Drata
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Reference pattern (customer-side)">
+No first-party Ory connector or admonition; integration is implemented
+in Drata's Generic Custom Connector by polling the Ory admin API.
+Reference:
+[ory/integrates/compliance-audit/drata](https://github.com/ory/integrates/tree/main/compliance-audit/drata).
+</Admonition>
+```
+
+[Drata](https://drata.com) is an automated security and compliance platform (SOC 2, ISO 27001, HIPAA, PCI DSS, GDPR). Configure
+Drata to pull identity and access management evidence from the Ory Network Admin API so compliance evidence is collected
+automatically instead of through manual screenshots and exports.
+
+## How it works
+
+Drata's Generic Custom Connector polls the Ory Admin API on a schedule using a read-only Project API key, then displays the
+collected evidence in Drata's compliance dashboard.
+
+1. Create an **Ory API key** (Project-scoped) with read access to identities, OAuth2 clients, and configuration.
+2. In Drata, go to **Connections**, then **Custom Connector**, and configure an HTTP poller against the Ory Admin API on a
+   schedule.
+
+## Evidence to pull
+
+| Endpoint                     | Use for                                                       |
+| ---------------------------- | ------------------------------------------------------------- |
+| `GET /admin/identities`      | User list, lifecycle timestamps, MFA enrollment, JML controls |
+| `GET /admin/identities/{id}` | Per-user roles, credentials, recovery method                  |
+| `GET /admin/clients`         | OAuth2 clients (service accounts)                             |
+| Project config               | Password policy, session lifespan, MFA requirements           |
+
+## Notable patterns
+
+- **Joiner, mover, leaver**: identity create, update, and deactivate timestamps map directly to JML controls.
+- **Privileged access**: flag any OAuth2 client whose scope grants Admin API access.
+- **MFA enforcement**: pull each identity's credentials array and flag those without TOTP or WebAuthn where policy requires it.
+
+## Resources
+
+- [Drata Custom Connectors](https://drata.com/grc-central/drata-platform)
+- [Ory Admin API reference](../../reference/api.mdx)
+- Reference: [ory/integrates/compliance-audit/drata](https://github.com/ory/integrates/tree/main/compliance-audit/drata)
