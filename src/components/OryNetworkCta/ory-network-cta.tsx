@@ -1,8 +1,8 @@
 import React from "react"
-import useBaseUrl from "@docusaurus/useBaseUrl"
-
-// Resolve image via bundler so path works in dev and build (baseUrl: /docs/)
 import networkImg from "@site/src/static/img/network-cta/network.png"
+
+const toImgSrc = (m: string | { default?: string }): string =>
+  typeof m === "string" ? m : (m as { default?: string }).default ?? ""
 
 const CTA_CONFIG = {
   title: "Ory Network",
@@ -14,29 +14,25 @@ const CTA_CONFIG = {
 
 export const OryNetworkCta = () => {
   const { title, description, ctaLabel, href } = CTA_CONFIG
-  const imageSrc =
-    typeof networkImg === "string"
-      ? networkImg
-      : (networkImg as { default?: string }).default ??
-        useBaseUrl("/img/network-cta/network.png")
+  const imageSrc = toImgSrc(networkImg)
 
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="ory-network-cta mt-4 flex flex-shrink-0 flex-col rounded-xl bg-ory-bg-secondary border border-ory-border-primary p-6 shadow-md no-underline transition-shadow hover:shadow-lg xl:flex"
+      className="ory-network-cta flex flex-shrink-0 flex-col rounded-lg bg-ory-bg-secondary border border-ory-border-primary p-3 shadow-sm no-underline transition-shadow hover:shadow-md xl:flex"
     >
-      <img src={imageSrc} alt="" className="mb-4 w-full object-contain" />
-      <div className="flex flex-col gap-4">
-        <h3 className="ory-text-sm-normal m-0 text-ory-text-primary">
+      <img src={imageSrc} alt="" className="mb-3 w-full object-contain" />
+      <div className="flex flex-col gap-1">
+        <h3 className="ory-text-xs-normal m-0 text-ory-text-primary font-semibold">
           {title}
         </h3>
         <p className="ory-text-xs-normal m-0 text-ory-text-tertiary">
           {description}
         </p>
       </div>
-      <span className="mt-6 inline-flex h-8 w-full items-center justify-center rounded-ory-btn bg-ory-border-brand-tertiary font-medium text-white">
+      <span className="mt-2 inline-flex h-7 w-full items-center justify-center rounded-ory-btn bg-ory-border-brand-tertiary text-sm font-medium text-white">
         {ctaLabel}
       </span>
     </a>
