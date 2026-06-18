@@ -59,7 +59,7 @@ const ossSidebar = [
         items: [
           "oss/kratos/intro",
           "oss/kratos/install",
-          "kratos/guides/upgrade",
+          "oss/kratos/guides/upgrade",
           "oss/kratos/quickstart",
           {
             type: "category",
@@ -85,7 +85,7 @@ const ossSidebar = [
             items: [
               "kratos/guides/docker",
               "kratos/guides/deploy-kratos-example",
-              "kratos/guides/upgrade",
+              "oss/kratos/guides/upgrade",
               "kratos/guides/production",
               "kratos/guides/multi-tenancy-multitenant",
               "oel/kratos/scalability",
@@ -140,7 +140,7 @@ const ossSidebar = [
           "oss/keto/install",
           "keto/guides/v0.7-migration",
           "keto/guides/migrating-legacy-policies",
-          "keto/guides/upgrade",
+          "oss/keto/guides/upgrade",
           "oss/keto/quickstart",
           {
             type: "category",

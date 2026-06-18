@@ -78,7 +78,7 @@ const oelSidebar = [
             items: [
               "kratos/guides/docker",
               "kratos/guides/deploy-kratos-example",
-              "kratos/guides/upgrade",
+              "oel/kratos/guides/upgrade",
               "kratos/guides/production",
               "kratos/guides/multi-tenancy-multitenant",
               "oel/kratos/scalability",
@@ -133,7 +133,7 @@ const oelSidebar = [
           "oel/keto/install",
           "keto/guides/v0.7-migration",
           "keto/guides/migrating-legacy-policies",
-          "keto/guides/upgrade",
+          "oel/keto/guides/upgrade",
           "oel/keto/quickstart",
           "self-hosted/oel/keto/changelog",
           {
