@@ -1,8 +1,6 @@
 import React from "react"
+// @ts-expect-error — webpack resolves PNG imports to a URL string at build time
 import networkImg from "@site/src/static/img/network-cta/network.png"
-
-const toImgSrc = (m: string | { default?: string }): string =>
-  typeof m === "string" ? m : (m as { default?: string }).default ?? ""
 
 const CTA_CONFIG = {
   title: "Ory Network",
@@ -14,8 +12,6 @@ const CTA_CONFIG = {
 
 export const OryNetworkCta = () => {
   const { title, description, ctaLabel, href } = CTA_CONFIG
-  const imageSrc = toImgSrc(networkImg)
-
   return (
     <a
       href={href}
@@ -23,7 +19,7 @@ export const OryNetworkCta = () => {
       rel="noopener noreferrer"
       className="ory-network-cta flex flex-shrink-0 flex-col rounded-lg bg-ory-bg-secondary border border-ory-border-primary p-3 shadow-sm no-underline transition-shadow hover:shadow-md xl:flex"
     >
-      <img src={imageSrc} alt="" className="mb-3 w-full object-contain" />
+      <img src={networkImg} alt="" className="mb-3 w-full object-contain" />
       <div className="flex flex-col gap-1">
         <h3 className="ory-text-xs-normal m-0 text-ory-text-primary font-semibold">
           {title}
