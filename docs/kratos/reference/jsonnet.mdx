@@ -26,7 +26,9 @@ sources.
 The input for Jsonnet is typically provided as an external variable using `std.extVar`. For example:
 
 - For OpenID Connect (OIDC), the input is available in `std.extVar('claims')`.
-- For SCIM, the input is available in `std.extVar('scim')`.
+- For SCIM, the input is available in `std.extVar('scim')`. SCIM additionally provides the existing identity (if one exists) in
+  `std.extVar('identity')`, which exposes `traits`, `metadata_public`, and `metadata_admin` so a mapper can preserve or merge data
+  that SCIM does not manage. See [SCIM data mapping](../manage-identities/scim#data-mapping).
 
 The specific structure of the input object depends on the data provided by the OIDC claims or SCIM payload.
 
@@ -138,3 +140,35 @@ else
     },
   }
 ```
+
+### Mapping SCIM data
+
+For SCIM, the input is the SCIM user payload in `std.extVar('scim')`, and the existing identity (if any) is in
+`std.extVar('identity')`. Because the mapping uses full-replace semantics, merge the existing `metadata_public` and
+`metadata_admin` back in so that data managed by other sources (such as OIDC or SAML SSO) is not overwritten on each sync:
+
+```jsonnet
+local scim = std.extVar('scim');
+local identity = std.extVar('identity');
+
+{
+  identity: {
+    traits: {
+      email: scim.userName,
+      [if "name" in scim then "name" else null]: {
+        first: std.get(scim.name, 'givenName', ''),
+        last: std.get(scim.name, 'familyName', ''),
+      },
+    },
+    // Preserve metadata SCIM does not manage, then override only what SCIM should manage.
+    metadata_public: std.get(identity, 'metadata_public', {}) + {
+      // Add or override only what SCIM should manage here.
+    },
+    metadata_admin: std.get(identity, 'metadata_admin', {}) + {
+      // Add or override only what SCIM should manage here.
+    },
+  },
+}
+```
+
+See [SCIM data mapping](../manage-identities/scim#data-mapping) for more details.

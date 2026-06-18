@@ -164,6 +164,7 @@ const networkSidebar = [
                       id: "kratos/manage-identities/scim",
                     },
                     items: [
+                      "kratos/manage-identities/scim/api-reference",
                       "kratos/manage-identities/scim/ms-entra",
                       "kratos/manage-identities/scim/okta",
                       "kratos/manage-identities/scim/google-workspace",
