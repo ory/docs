@@ -1645,7 +1645,7 @@
     {
       "source": "/docs/solutions/solution_agentic",
       "destination": "/docs/solutions/solution-agentic",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/talos/quickstart",
