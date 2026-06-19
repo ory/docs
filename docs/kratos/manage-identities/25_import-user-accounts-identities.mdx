@@ -574,28 +574,29 @@ The following steps are necessary to set up password migration using a web hook:
 
     d. Click **Create new Action**.
 
-    e. In the **Action Base Details** dialog, fill in the following fields:
+    e. In the **Create a new Action or webhook** dialog, fill in the following fields:
 
-    - **Flow** — Select **Password Migration**. The execution phase and method fields are hidden because the migration hook runs
-      at login time automatically, outside of the standard flow lifecycle.
+    - **Trigger Flow** — Select **Password Migration**. The execution phase and method fields are hidden because the migration
+      hook runs at login time automatically, outside of the standard flow lifecycle.
 
-    - **URL** — Enter the URL of your password migration webhook endpoint, for example `https://example.org/migrate-password`.
+    - **Endpoint URL** — Enter the URL of your password migration webhook endpoint, for example
+      `https://example.org/migrate-password`.
 
-    - **Method** — Select the HTTP method your endpoint expects, for example **POST**.
+    - **HTTP Method** — Select the HTTP method your endpoint expects, for example **POST**.
 
-    - **Action HTTP body** — The body is pre-filled with a Jsonnet template that maps `ctx.identifier` and `ctx.password` to the
-      request payload. You can customize it. See the
+    - **Request Body Template** — The body is pre-filled with a Jsonnet template that maps `ctx.identifier` and `ctx.password` to
+      the request payload. You can customize it. See the
       [webhook documentation](../../guides/integrate-with-ory-cloud-through-webhooks.mdx#customizing-request-body-with-jsonnet)
       for all available context fields.
 
     ```mdx-code-block
     <BrowserWindow url="https://console.ory.com/projects/b3b748e5-7ddc-4860-a672-2436a877dc93/developers/actions">
-      ![Action Base Details dialog with Password Migration flow selected](../_static/manage-identities/import-user-accounts-identities/pw-migration-webhook-step-1.png)
+      ![Create a new Action or webhook dialog with Password Migration flow selected](../_static/manage-identities/import-user-accounts-identities/pw-migration-webhook-step-1.png)
     </BrowserWindow>
     ```
 
-    f. Click **Next** to proceed to the **Action authentication** step. Select the authentication type for your webhook endpoint.
-    Ory supports **None**, **Basic** (username and password), and **Key** (API key in a header or cookie). See the
+    f. Click **Next** to proceed to the authentication step. Select the authentication type for your webhook endpoint. Ory
+    supports **None**, **Basic** (username and password), and **Key** (API key in a header or cookie). See the
     [webhook authentication documentation](../../guides/integrate-with-ory-cloud-through-webhooks.mdx#request-authentication) for
     details on each option.
 
@@ -612,7 +613,7 @@ The following steps are necessary to set up password migration using a web hook:
     </BrowserWindow>
     ```
 
-    g. Click **Save action**. The new **Password Migration** action appears in the actions table.
+    g. Click **Create action**. The new **Password Migration** action appears in the actions table.
 
     ```mdx-code-block
     <BrowserWindow url="https://console.ory.com/projects/b3b748e5-7ddc-4860-a672-2436a877dc93/developers/actions">
