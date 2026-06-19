@@ -1643,234 +1643,234 @@
       "permanent": false
     },
     {
-    "source": "/talos/quickstart",
-    "destination": "/talos/quickstart/open-source",
-    "permanent": true
+      "source": "/talos/quickstart",
+      "destination": "/talos/quickstart/open-source",
+      "permanent": true
     },
     {
-    "source": "/talos/quickstart/early-access-quickstart",
-    "destination": "/talos/quickstart/docker-commercial",
-    "permanent": true
+      "source": "/talos/quickstart/early-access-quickstart",
+      "destination": "/talos/quickstart/docker-commercial",
+      "permanent": true
     },
     {
-    "source": "/talos/quickstart/talos-docker-quickstart",
-    "destination": "/talos/quickstart/docker-commercial",
-    "permanent": true
+      "source": "/talos/quickstart/talos-docker-quickstart",
+      "destination": "/talos/quickstart/docker-commercial",
+      "permanent": true
     },
     {
-    "source": "/talos/concepts/talos-architecture",
-    "destination": "/talos/concepts/architecture",
-    "permanent": true
+      "source": "/talos/concepts/talos-architecture",
+      "destination": "/talos/concepts/architecture",
+      "permanent": true
     },
     {
-    "source": "/talos/concepts/caching-consistency",
-    "destination": "/talos/concepts/caching",
-    "permanent": true
+      "source": "/talos/concepts/caching-consistency",
+      "destination": "/talos/concepts/caching",
+      "permanent": true
     },
     {
-    "source": "/talos/concepts/talos-rate-limiting",
-    "destination": "/talos/concepts/rate-limiting",
-    "permanent": true
+      "source": "/talos/concepts/talos-rate-limiting",
+      "destination": "/talos/concepts/rate-limiting",
+      "permanent": true
     },
     {
-    "source": "/talos/concepts/talos-security-model",
-    "destination": "/talos/concepts/security-model",
-    "permanent": true
+      "source": "/talos/concepts/talos-security-model",
+      "destination": "/talos/concepts/security-model",
+      "permanent": true
     },
     {
-    "source": "/talos/concepts/talos-token-format",
-    "destination": "/talos/concepts/token-format",
-    "permanent": true
+      "source": "/talos/concepts/talos-token-format",
+      "destination": "/talos/concepts/token-format",
+      "permanent": true
     },
     {
-    "source": "/talos/concepts/token-derivation-security",
-    "destination": "/talos/concepts/security-model",
-    "permanent": true
+      "source": "/talos/concepts/token-derivation-security",
+      "destination": "/talos/concepts/security-model",
+      "permanent": true
     },
     {
-    "source": "/talos/integrate/talos-error-handling",
-    "destination": "/talos/integrate/error-handling",
-    "permanent": true
+      "source": "/talos/integrate/talos-error-handling",
+      "destination": "/talos/integrate/error-handling",
+      "permanent": true
     },
     {
-    "source": "/talos/integrate/talos-import-keys",
-    "destination": "/talos/integrate/import-keys",
-    "permanent": true
+      "source": "/talos/integrate/talos-import-keys",
+      "destination": "/talos/integrate/import-keys",
+      "permanent": true
     },
     {
-    "source": "/talos/integrate/talos-ip-restrictions",
-    "destination": "/talos/integrate/ip-restrictions",
-    "permanent": true
-    },
-    { 
-    "source": "/talos/integrate/talos-issue-verify-keys",
-    "destination": "/talos/integrate/issue-and-verify",
-    "permanent": true
+      "source": "/talos/integrate/talos-ip-restrictions",
+      "destination": "/talos/integrate/ip-restrictions",
+      "permanent": true
     },
     {
-    "source": "/talos/integrate/talos-rate-limiting",
-    "destination": "/talos/integrate/rate-limiting",
-    "permanent": true
+      "source": "/talos/integrate/talos-issue-verify-keys",
+      "destination": "/talos/integrate/issue-and-verify",
+      "permanent": true
     },
     {
-    "source": "/talos/integrate/api-key-self-revocation",
-    "destination": "/talos/integrate/self-revocation",
-    "permanent": true
+      "source": "/talos/integrate/talos-rate-limiting",
+      "destination": "/talos/integrate/rate-limiting",
+      "permanent": true
     },
     {
-    "source": "/talos/integrate/sdk/talos-curl",
-    "destination": "/talos/integrate/sdk/curl",
-    "permanent": true
+      "source": "/talos/integrate/api-key-self-revocation",
+      "destination": "/talos/integrate/self-revocation",
+      "permanent": true
     },
     {
-    "source": "/talos/integrate/sdk/talos-go-sdk",
-    "destination": "/talos/integrate/sdk/go",
-    "permanent": true
+      "source": "/talos/integrate/sdk/talos-curl",
+      "destination": "/talos/integrate/sdk/curl",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/talos-install",
-    "destination": "/talos/operate/install",
-    "permanent": true
+      "source": "/talos/integrate/sdk/talos-go-sdk",
+      "destination": "/talos/integrate/sdk/go",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/talos-configure",
-    "destination": "/talos/operate/configure",
-    "permanent": true
+      "source": "/talos/operate/talos-install",
+      "destination": "/talos/operate/install",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/talos-performance-benchmarks",
-    "destination": "/talos/operate/benchmarks",
-    "permanent": true
+      "source": "/talos/operate/talos-configure",
+      "destination": "/talos/operate/configure",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/talos-multi-tenancy",
-    "destination": "/talos/operate/multi-tenancy",
-    "permanent": true
+      "source": "/talos/operate/talos-performance-benchmarks",
+      "destination": "/talos/operate/benchmarks",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/secret-management",
-    "destination": "/talos/operate/secrets",
-    "permanent": true
+      "source": "/talos/operate/talos-multi-tenancy",
+      "destination": "/talos/operate/multi-tenancy",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/talos-tls-configuration",
-    "destination": "/talos/operate/tls",
-    "permanent": true
+      "source": "/talos/operate/secret-management",
+      "destination": "/talos/operate/secrets",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/talos-troubleshooting",
-    "destination": "/talos/operate/troubleshooting",
-    "permanent": true
+      "source": "/talos/operate/talos-tls-configuration",
+      "destination": "/talos/operate/tls",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/deploy/talos-docker",
-    "destination": "/talos/operate/deploy/docker",
-    "permanent": true
+      "source": "/talos/operate/talos-troubleshooting",
+      "destination": "/talos/operate/troubleshooting",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/deploy/talos-kubernetes",
-    "destination": "/talos/operate/deploy/deployment-modes",
-    "permanent": true
+      "source": "/talos/operate/deploy/talos-docker",
+      "destination": "/talos/operate/deploy/docker",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/deploy/separate-planes",
-    "destination": "/talos/operate/deploy/deployment-modes",
-    "permanent": true
+      "source": "/talos/operate/deploy/talos-kubernetes",
+      "destination": "/talos/operate/deploy/deployment-modes",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/cache/talos-in-memory-cache",
-    "destination": "/talos/operate/cache/memory",
-    "permanent": true
+      "source": "/talos/operate/deploy/separate-planes",
+      "destination": "/talos/operate/deploy/deployment-modes",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/cache/redis-cache",
-    "destination": "/talos/operate/cache/redis",
-    "permanent": true
+      "source": "/talos/operate/cache/talos-in-memory-cache",
+      "destination": "/talos/operate/cache/memory",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/database/talos-migrations",
-    "destination": "/talos/operate/database/migrations",
-    "permanent": true
+      "source": "/talos/operate/cache/redis-cache",
+      "destination": "/talos/operate/cache/redis",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/database/talos-cockroachdb",
-    "destination": "/talos/operate/database/cockroachdb",
-    "permanent": true
+      "source": "/talos/operate/database/talos-migrations",
+      "destination": "/talos/operate/database/migrations",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/database/talos-postgresql",
-    "destination": "/talos/operate/database/postgresql",
-    "permanent": true
+      "source": "/talos/operate/database/talos-cockroachdb",
+      "destination": "/talos/operate/database/cockroachdb",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/database/talos-sqlite",
-    "destination": "/talos/operate/database/sqlite",
-    "permanent": true
+      "source": "/talos/operate/database/talos-postgresql",
+      "destination": "/talos/operate/database/postgresql",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/database/talos-mysql",
-    "destination": "/talos/operate/database/mysql",
-    "permanent": true
+      "source": "/talos/operate/database/talos-sqlite",
+      "destination": "/talos/operate/database/sqlite",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/monitoring/talos-health-checks",
-    "destination": "/talos/operate/monitoring/health-checks",
-    "permanent": true
+      "source": "/talos/operate/database/talos-mysql",
+      "destination": "/talos/operate/database/mysql",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/monitoring/talos-prometheus-metrics",
-    "destination": "/talos/operate/monitoring/metrics",
-    "permanent": true
+      "source": "/talos/operate/monitoring/talos-health-checks",
+      "destination": "/talos/operate/monitoring/health-checks",
+      "permanent": true
     },
     {
-    "source": "/talos/operate/monitoring/talos-opentelemetry",
-    "destination": "/talos/operate/monitoring/tracing",
-    "permanent": true
+      "source": "/talos/operate/monitoring/talos-prometheus-metrics",
+      "destination": "/talos/operate/monitoring/metrics",
+      "permanent": true
     },
     {
-    "source": "/talos/reference/talos-config-reference",
-    "destination": "/talos/reference/config",
-    "permanent": true
+      "source": "/talos/operate/monitoring/talos-opentelemetry",
+      "destination": "/talos/operate/monitoring/tracing",
+      "permanent": true
     },
     {
-    "source": "/talos/reference/talos-token-format-reference",
-    "destination": "/talos/reference/token-format",
-    "permanent": true
+      "source": "/talos/reference/talos-config-reference",
+      "destination": "/talos/reference/config",
+      "permanent": true
     },
     {
-    "source": "/talos/reference/talos-audit-events",
-    "destination": "/talos/reference/events",
-    "permanent": true
+      "source": "/talos/reference/talos-token-format-reference",
+      "destination": "/talos/reference/token-format",
+      "permanent": true
     },
     {
-    "source": "/talos/reference/talos-error-codes",
-    "destination": "/talos/reference/error-codes",
-    "permanent": true
+      "source": "/talos/reference/talos-audit-events",
+      "destination": "/talos/reference/events",
+      "permanent": true
     },
     {
-    "source": "/talos/reference/api/admin-batch-import-api-keys",
-    "destination": "/talos/reference/api/admin-batch-create-imported-api-keys",
-    "permanent": true
+      "source": "/talos/reference/talos-error-codes",
+      "destination": "/talos/reference/error-codes",
+      "permanent": true
     },
     {
-    "source": "/talos/reference/api/admin-revoke-api-key",
-    "destination": "/talos/reference/api/admin-revoke-issued-api-key",
-    "permanent": true
+      "source": "/talos/reference/api/admin-batch-import-api-keys",
+      "destination": "/talos/reference/api/admin-batch-create-imported-api-keys",
+      "permanent": true
     },
     {
-    "source": "/talos/reference/api/admin-get-jwks",
-    "destination": "/talos/reference/api/get-jwks",
-    "permanent": true
+      "source": "/talos/reference/api/admin-revoke-api-key",
+      "destination": "/talos/reference/api/admin-revoke-issued-api-key",
+      "permanent": true
     },
     {
-    "source": "/talos/reference/cli/talos-keys-revoke",
-    "destination": "/talos/reference/cli/talos-keys-issued-revoke",
-    "permanent": true
+      "source": "/talos/reference/api/admin-get-jwks",
+      "destination": "/talos/reference/api/get-jwks",
+      "permanent": true
     },
     {
-    "source": "/talos/reference/cli/talos-serve-check",
-    "destination": "/talos/reference/cli/talos-serve-public",
-    "permanent": true
+      "source": "/talos/reference/cli/talos-keys-revoke",
+      "destination": "/talos/reference/cli/talos-keys-issued-revoke",
+      "permanent": true
+    },
+    {
+      "source": "/talos/reference/cli/talos-serve-check",
+      "destination": "/talos/reference/cli/talos-serve-public",
+      "permanent": true
     }
   ],
   "headers": [
