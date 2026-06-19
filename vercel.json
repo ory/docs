@@ -38,7 +38,12 @@
       "permanent": true
     },
     {
-      "source": "/keto/docs/(|v0.5/):engine",
+      "source": "/keto/docs/v0.5/:engine",
+      "destination": "https://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/engines/:engine.md",
+      "permanent": true
+    },
+    {
+      "source": "/keto/docs/:engine",
       "destination": "https://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/engines/:engine.md",
       "permanent": true
     },
