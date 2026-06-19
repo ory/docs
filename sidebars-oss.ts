@@ -1,11 +1,19 @@
-// sidebars-oss.ts
+import talosApiSidebar from "./docs/talos/reference/api/sidebar"
+import talosCliReference from "./docs/talos/reference/cli/sidebar"
 
-import {
-  SidebarItem,
-  SidebarItemConfig,
-} from "@docusaurus/plugin-content-docs/src/sidebars/types"
-
-type SidebarItemsConfig = SidebarItemConfig[]
+// The generated Talos API sidebar is [overview doc, { category "ApiKeys", items: [...methods] }].
+// Lift the methods into a single "API reference" category linked to the overview page so the
+// navigation reads cleanly instead of exposing the raw OpenAPI tag name.
+const talosApiReference = {
+  type: "category",
+  label: "API reference",
+  link: { type: "doc", id: "talos/reference/api/ory-talos-api" },
+  items: talosApiSidebar.flatMap((item: any) =>
+    typeof item === "object" && "items" in item && Array.isArray(item.items)
+      ? item.items
+      : [],
+  ),
+}
 
 const ossSidebar = [
   {
@@ -88,6 +96,7 @@ const ossSidebar = [
               "kratos/guides/https-tls",
               "kratos/guides/hosting-own-have-i-been-pwned-api",
               "kratos/guides/secret-key-rotation",
+              "kratos/guides/normalize-phone-numbers",
               {
                 type: "category",
                 label: "Troubleshooting",
@@ -474,6 +483,128 @@ const ossSidebar = [
                 ],
               },
               "oathkeeper/sdk",
+            ],
+          },
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Talos",
+        className: "sidebar-icon sidebar-icon-talos",
+        collapsed: true,
+        collapsible: true,
+        items: [
+          "talos/index",
+          {
+            type: "category",
+            label: "Quickstart",
+            items: [
+              "talos/quickstart/open-source",
+              "talos/quickstart/docker-commercial",
+            ],
+          },
+          {
+            type: "category",
+            label: "Concepts",
+            items: [
+              "talos/concepts/index",
+              "talos/concepts/architecture",
+              "talos/concepts/credential-types",
+              "talos/concepts/token-format",
+              "talos/concepts/security-model",
+              "talos/concepts/caching",
+              "talos/concepts/rate-limiting",
+              "talos/concepts/ip-restrictions",
+            ],
+          },
+          {
+            type: "category",
+            label: "Integrate",
+            items: [
+              "talos/integrate/index",
+              "talos/integrate/issue-and-verify",
+              "talos/integrate/import-keys",
+              "talos/integrate/derive-tokens",
+              "talos/integrate/batch-operations",
+              "talos/integrate/key-lifecycle",
+              "talos/integrate/self-revocation",
+              "talos/integrate/ip-restrictions",
+              "talos/integrate/rate-limiting",
+              "talos/integrate/error-handling",
+              {
+                type: "category",
+                label: "SDKs",
+                items: ["talos/integrate/sdk/go", "talos/integrate/sdk/curl"],
+              },
+            ],
+          },
+          {
+            type: "category",
+            label: "Operate",
+            items: [
+              "talos/operate/index",
+              "talos/operate/install",
+              "talos/operate/configure",
+              {
+                type: "category",
+                label: "Database",
+                items: [
+                  "talos/operate/database/index",
+                  "talos/operate/database/sqlite",
+                  "talos/operate/database/postgresql",
+                  "talos/operate/database/mysql",
+                  "talos/operate/database/cockroachdb",
+                  "talos/operate/database/migrations",
+                ],
+              },
+              {
+                type: "category",
+                label: "Deploy",
+                items: [
+                  "talos/operate/deploy/index",
+                  "talos/operate/deploy/docker",
+                  "talos/operate/deploy/deployment-modes",
+                  "talos/operate/deploy/edge-proxy",
+                ],
+              },
+              "talos/operate/secrets",
+              "talos/operate/tls",
+              {
+                type: "category",
+                label: "Monitoring",
+                items: [
+                  "talos/operate/monitoring/index",
+                  "talos/operate/monitoring/metrics",
+                  "talos/operate/monitoring/tracing",
+                  "talos/operate/monitoring/health-checks",
+                ],
+              },
+              {
+                type: "category",
+                label: "Cache",
+                items: [
+                  "talos/operate/cache/index",
+                  "talos/operate/cache/memory",
+                  "talos/operate/cache/redis",
+                ],
+              },
+              "talos/operate/multi-tenancy",
+              "talos/operate/troubleshooting",
+              "talos/operate/security-hardening",
+              "talos/operate/security/admin-protection",
+            ],
+          },
+          {
+            type: "category",
+            label: "Reference",
+            items: [
+              "talos/reference/index",
+              talosApiReference,
+              talosCliReference,
+              "talos/reference/config",
+              "talos/reference/token-format",
+              "talos/reference/events",
+              "talos/reference/error-codes",
             ],
           },
         ],

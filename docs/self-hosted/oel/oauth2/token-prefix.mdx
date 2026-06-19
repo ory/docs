@@ -9,8 +9,8 @@ sidebar_label: Customize token prefix
 This document explains how to configure the token prefix for OAuth2 access tokens, refresh tokens, and authorization codes. By
 default, all tokens use the `ory_%s_` template, where `%s` is replaced with the token type.
 
-Customizing the token prefix is available only to customers on an Ory Enterprise plan (Ory Enterprise License / Ory Network
-Enterprise). If you are interested in this feature, please [contact us](https://www.ory.com/contact).
+Customizing the token prefix is available only to customers on an Ory Enterprise plan (Ory Network Enterprise or Ory Enterprise
+License). If you are interested in this feature, please [contact us](https://www.ory.com/contact).
 
 ## Default token prefix
 
@@ -29,25 +29,41 @@ token type:
 
 ## Customize the token prefix
 
-With the `oauth2.token_prefix` configuration key, you can customize the prefix for your OAuth2 tokens. This key is only available
-to Ory Enterprise License customers.
+With the `oauth2.token_prefix` configuration key, you can customize the prefix for your OAuth2 tokens.
 
-### How to configure
+The prefix must be a `fmt.Sprintf`-style template containing exactly one `%s` substitution. The rendered prefix may contain only
+ASCII letters, digits, and underscores - no other `%` directives (`%d`, `%%`, positional or width-flagged verbs), no hyphens,
+dots, slashes, whitespace, quotes, or non-ASCII characters. Invalid values are rejected with a 400 error.
 
-1. **Locate the Configuration File**: Open your Ory configuration file.
-2. **Set the `oauth2.token_prefix` Key**: Add or modify the `oauth2.token_prefix` key in your configuration file.
+### Configure on Ory Network
 
-### Example configuration
+On Ory Network, the prefix is set per project via the `oauth2.token_prefix` config key under `services.oauth2.config`. Use the
+[Ory CLI](../../../guides/cli/installation):
+
+```shell
+ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
+  --replace '/oauth2/token_prefix="acme_token_%s_"'
+```
+
+To reset back to the default `ory_%s_` prefix, remove the key:
+
+```shell
+ory patch oauth2-config --project <project-id> --workspace <workspace-id> \
+  --remove "/oauth2/token_prefix"
+```
+
+### Configure in self-hosted deployments
+
+For Ory Enterprise License (OEL) deployments, set the `oauth2.token_prefix` key in your Ory configuration file:
 
 ```yaml
 oauth2:
   token_prefix: "acme_token_%s_"
 ```
 
-In this example, tokens will use the `acme_token_%s_` template. The `%s` placeholder for the token type must always be included in
-the template.
-
 ### Resulting tokens
+
+With `acme_token_%s_`, issued tokens look like:
 
 - Refresh Token: `acme_token_rt_...`
 - Access Token: `acme_token_at_...`

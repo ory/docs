@@ -12,6 +12,7 @@ type SidebarItemsConfig = SidebarItemConfig[]
 import oelSidebar from "./sidebars-oel"
 import networkSidebar from "./sidebars-network"
 import ossSidebar from "./sidebars-oss"
+import integratesSidebar from "./sidebars-integrates"
 import agenticSidebar from "./sidebars-agentic"
 import ciamSidebar from "./sidebars-ciam"
 import b2bSidebar from "./sidebars-b2b"
@@ -73,7 +74,30 @@ const api: SidebarItemsConfig = [
       "concepts/personal-access-token",
       "guides/cors",
       "guides/api-rest-pagination",
-      "guides/rate-limits",
+      {
+        type: "category",
+        label: "Rate limits",
+        link: {
+          type: "doc",
+          id: "guides/rate-limits",
+        },
+        items: [
+          "guides/rate-limits-legacy",
+          {
+            type: "category",
+            label: "Rate limits - New",
+            link: {
+              type: "doc",
+              id: "guides/rate-limits-new",
+            },
+            items: [
+              "guides/rate-limits-project",
+              "guides/rate-limits-endpoint",
+            ],
+          },
+        ],
+      },
+      "guides/load-performance-testing",
       "guides/ip-allowlist",
       "api/eventual-consistency",
       "kratos/reference/jsonnet",
@@ -171,6 +195,7 @@ const sidebars: SidebarsConfig = {
   oelSidebar,
   ossSidebar,
   agenticSidebar,
+  integratesSidebar,
   ciamSidebar,
   b2bSidebar,
   quickstartsSidebar,

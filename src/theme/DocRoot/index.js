@@ -15,6 +15,7 @@ import {
   QuickstartsDeploymentProvider,
   useQuickstartsDeployment,
 } from "@site/src/contexts/QuickstartsDeploymentContext"
+import { docsDeploymentFromPathname } from "@site/src/utils/docsDeploymentFromPathname"
 
 const QUICKSTARTS_SIDEBAR = "quickstartsSidebar"
 
@@ -79,13 +80,14 @@ export default function DocRootWrapper(props) {
   }
   const { docElement, sidebarName, sidebarItems } = currentDocRouteMetadata
   const pathname = props.location?.pathname ?? ""
+  const deploymentFromPath = docsDeploymentFromPathname(pathname)
   const versionMetadata = useDocsVersion() ?? {}
   const docsSidebars = versionMetadata.docsSidebars ?? {}
 
   return (
     <div id="route-identifier" data-route={pathname}>
       <HtmlClassNameProvider className={clsx(ThemeClassNames.page.docsDocPage)}>
-        <QuickstartsDeploymentProvider>
+        <QuickstartsDeploymentProvider initialDeployment={deploymentFromPath}>
           <DocRootContent
             docElement={docElement}
             sidebarName={sidebarName}

@@ -32,6 +32,7 @@
   --color-ory-product-oathkeeper: #f472b6;
   --color-ory-product-polis: #fbbf24;
   --color-ory-product-elements: #6366f1;
+  --color-ory-product-talos: #383bca;
 
   --text-ory-heading-1: 40px;
   --text-ory-heading-1--line-height: 1.25;
@@ -340,6 +341,7 @@ h2.ory-section-heading {
   --icon-keto-tertiary: #22c55e;
   --icon-oathkeeper-tertiary: #ec4899;
   --icon-polis-tertiary: #eab308;
+  --icon-talos-tertiary: hsl(206, 91%, 51%);
   --icon-network-tertiary: #6366f1;
   --icon-oel-tertiary: #5ae4fc;
   --icon-oss-tertiary: #334155;
@@ -570,14 +572,14 @@ h2.ory-section-heading {
 }
 
 /* Navbar search responsiveness */
-@media (min-width: 997px) {
+@media (min-width: 1271px) {
   .navbar .DocSearch-Button {
     width: clamp(180px, 20vw, 256px) !important;
     max-width: 256px !important;
   }
 }
 
-@media (max-width: 1380px) {
+@media (max-width: 1514px) {
   /* Icon-only button: hide placeholder + key hints */
   .navbar .DocSearch-Button {
     width: 32px !important;
@@ -1049,6 +1051,10 @@ svg[class*="iconExternalLink"] {
   background-size: contain;
 }
 
+[data-theme="dark"] .sidebar-deployment-model__chevron {
+  filter: invert(1);
+}
+
 .sidebar-deployment-model__menu {
   list-style: none;
   margin: 4px 0 0 0;
@@ -1363,6 +1369,13 @@ button.sidebar-deployment-model__link {
   > .menu__link
   > span::before {
   background-color: var(--icon-polis-tertiary);
+}
+
+.sidebar-icon-talos
+  > .menu__list-item-collapsible
+  > .menu__link
+  > span::before {
+  background-color: var(--icon-talos-tertiary);
 }
 
 .sidebar-icon-network

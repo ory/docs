@@ -1626,6 +1626,21 @@
       "source": "/docs/oathkeeper",
       "destination": "/docs/network/oathkeeper",
       "permanent": false
+    },
+    {
+      "source": "/docs/solutions/solution_CIAM",
+      "destination": "/docs/solutions/solution-CIAM",
+      "permanent": false
+    },
+    {
+      "source": "/docs/solutions/solution_B2B",
+      "destination": "/docs/solutions/solution-B2B",
+      "permanent": false
+    },
+    {
+      "source": "/docs/solutions/solution_agentic",
+      "destination": "/docs/solutions/solution-agentic",
+      "permanent": false
     }
   ],
   "headers": [

@@ -98,10 +98,6 @@ export const authenticationPaths: Path[] = [
     pill: "Preview",
   },
   {
-    title: "Organizations",
-    href: routes.project.authentication.organizations.route,
-  },
-  {
     title: "Sessions",
     href: routes.project.authentication.sessionSettings.route,
   },
@@ -124,6 +120,13 @@ export const authenticationPaths: Path[] = [
   {
     title: "Actions & Webhooks",
     href: routes.project.developers.actions.route,
+  },
+]
+
+export const organizationsPaths: Path[] = [
+  {
+    title: "All organizations",
+    href: routes.project.organizations.route,
   },
 ]
 
@@ -234,6 +237,11 @@ export const projectPaths: RootPath[] = [
     title: "Authentication",
     href: routes.project.authentication.route,
     paths: authenticationPaths,
+  },
+  {
+    title: "Organizations",
+    href: routes.project.organizations.route,
+    paths: organizationsPaths,
   },
   {
     title: "Branding",
