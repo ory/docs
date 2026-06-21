@@ -1,0 +1,34 @@
+---
+id: onetrust
+title: OneTrust consent and privacy
+sidebar_label: OneTrust
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/consent-privacy/onetrust](https://github.com/ory/integrates/tree/main/consent-privacy/onetrust).
+</Admonition>
+```
+
+[OneTrust](https://www.onetrust.com) is a privacy and consent management platform (GDPR, CCPA, LGPD, HIPAA). Sync Ory identities
+with OneTrust profiles and consume OneTrust consent webhooks to surface consent state on Ory identities.
+
+## How it works
+
+**Outbound**: an Ory Action on `registration.after` calls the OneTrust Profile API to create or update a profile keyed by the Ory
+identity ID.
+
+**Inbound**: when OneTrust sends a consent-change webhook, your handler verifies the HMAC-SHA256 signature and PATCHes
+`metadata_public.consent.onetrust` on the matching Ory identity.
+
+**DSAR fulfillment**: OneTrust forwards DSARs to your handler, which maps them to `GET` (Article 15) or `DELETE` (Article 17) on
+the Ory Admin API.
+
+## Resources
+
+- [OneTrust developer docs](https://developer.onetrust.com)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/consent-privacy/onetrust](https://github.com/ory/integrates/tree/main/consent-privacy/onetrust)

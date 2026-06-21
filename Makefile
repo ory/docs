@@ -1,10 +1,13 @@
 SHELL=/bin/bash -euo pipefail
 
-export GO111MODULE        := on
 export PATH               := .bin:${PATH}
 
+node_modules/.bin/prettier: package.json package-lock.json
+	npm i
+	touch node_modules/.bin/prettier
+
 .PHONY: format
-format: node_modules
+format: node_modules/.bin/prettier
 	npm exec -- prettier --write .
 
 .PHONY: format-licenses
@@ -35,19 +38,16 @@ build-examples:
 	cd code-examples/protect-page-login/dotnet && docker build --build-arg APP_DIR=01-basic -t dotnet-01-basic .
 	cd code-examples/protect-page-login/java && mvn clean compile
 
-licenses: .bin/licenses node_modules  # checks open-source licenses
+.PHONY: licenses
+licenses: .bin/licenses package-lock.json
 	.bin/licenses
-
-.PHONY: test
-test: install build-examples .bin/ory
-	./src/scripts/test.sh
 
 .bin/licenses: Makefile
 	curl https://raw.githubusercontent.com/ory/ci/master/licenses/install | sh
 
-.bin/ory: Makefile go.sum
+.bin/ory: Makefile go.mod
 	go build -o .bin/ory github.com/ory/cli
 
-node_modules: package.json package-lock.json
-	npm ci
-	touch node_modules
+.PHONY: test
+test: install build-examples .bin/ory
+	./src/scripts/test.sh

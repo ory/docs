@@ -74,12 +74,12 @@
 }
 ```
 
-###### Sign in with hardware key (1010008)
+###### Sign in with a hardware key (1010008)
 
 ```json
 {
   "id": 1010008,
-  "text": "Sign in with hardware key",
+  "text": "Sign in with a hardware key",
   "type": "info"
 }
 ```
@@ -104,12 +104,12 @@
 }
 ```
 
-###### Sign in with hardware key (1010011)
+###### Sign in with a hardware key (1010011)
 
 ```json
 {
   "id": 1010011,
-  "text": "Sign in with hardware key",
+  "text": "Sign in with a hardware key",
   "type": "info"
 }
 ```
@@ -237,6 +237,26 @@
     "address": "{address}",
     "channel": "{channel}"
   }
+}
+```
+
+###### Sign in with a hardware key (1010024)
+
+```json
+{
+  "id": 1010024,
+  "text": "Sign in with a hardware key",
+  "type": "info"
+}
+```
+
+###### A code was sent to your address. If you didn't receive it, please try again. (1010025)
+
+```json
+{
+  "id": 1010025,
+  "text": "A code was sent to your address. If you didn't receive it, please try again.",
+  "type": "info"
 }
 ```
 
@@ -581,6 +601,16 @@
 }
 ```
 
+###### Your account is managed by your organization. To change these settings, contact your organization administrator. (1050023)
+
+```json
+{
+  "id": 1050023,
+  "text": "Your account is managed by your organization. To change these settings, contact your organization administrator.",
+  "type": "info"
+}
+```
+
 ###### You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 1.00 minutes. (1060001)
 
 ```json
@@ -833,6 +863,16 @@
 }
 ```
 
+###### Email or phone number (1070018)
+
+```json
+{
+  "id": 1070018,
+  "text": "Email or phone number",
+  "type": "info"
+}
+```
+
 ###### An email containing a verification link has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with. (1080001)
 
 ```json
@@ -860,6 +900,26 @@
   "id": 1080003,
   "text": "An email containing a verification code has been sent to the email address you provided. If you have not received an email, check the spelling of the address and make sure to use the address you registered with.",
   "type": "info"
+}
+```
+
+###### A text message containing a verification code has been sent to the phone number you provided. If you have not received a text message, check the spelling of the number and make sure to use the number you registered with. (1080004)
+
+```json
+{
+  "id": 1080004,
+  "text": "A text message containing a verification code has been sent to the phone number you provided. If you have not received a text message, check the spelling of the number and make sure to use the number you registered with.",
+  "type": "info"
+}
+```
+
+###### You successfully verified your phone number. (1080005)
+
+```json
+{
+  "id": 1080005,
+  "text": "You successfully verified your phone number.",
+  "type": "success"
 }
 ```
 
@@ -1189,12 +1249,12 @@
 }
 ```
 
-###### You tried signing in with {credential_identifier_hint} which is already in use by another account. You can sign in using {available_credential_types_list}. You can sign in using one of the following social sign in providers: {Available_oidc_providers_list}. (4000028)
+###### You tried signing in with {credential_identifier_hint} which is already in use by another account. You can sign in using {available_credential_types_list}. You can sign in using one of the following social sign in providers: {available_oidc_providers_list}. (4000028)
 
 ```json
 {
   "id": 4000028,
-  "text": "You tried signing in with {credential_identifier_hint} which is already in use by another account. You can sign in using {available_credential_types_list}. You can sign in using one of the following social sign in providers: {Available_oidc_providers_list}.",
+  "text": "You tried signing in with {credential_identifier_hint} which is already in use by another account. You can sign in using {available_credential_types_list}. You can sign in using one of the following social sign in providers: {available_oidc_providers_list}.",
   "type": "error",
   "context": {
     "available_credential_types": ["{available_credential_types_list}"],
@@ -1354,6 +1414,46 @@
 }
 ```
 
+###### You have no DeviceAuthn device set up. (4000042)
+
+```json
+{
+  "id": 4000042,
+  "text": "You have no DeviceAuthn device set up.",
+  "type": "error"
+}
+```
+
+###### The provided web authn login is invalid, please try again. (4000043)
+
+```json
+{
+  "id": 4000043,
+  "text": "The provided web authn login is invalid, please try again.",
+  "type": "error"
+}
+```
+
+###### The provided DeviceAuthn signature is invalid. (4000044)
+
+```json
+{
+  "id": 4000044,
+  "text": "The provided DeviceAuthn signature is invalid.",
+  "type": "error"
+}
+```
+
+###### This DeviceAuthn key can no longer be used because relaxed attestation is expired or disabled. Please enroll your device again. (4000045)
+
+```json
+{
+  "id": 4000045,
+  "text": "This DeviceAuthn key can no longer be used because relaxed attestation is expired or disabled. Please enroll your device again.",
+  "type": "error"
+}
+```
+
 ###### The login flow expired 1.00 minutes ago, please try again. (4010001)
 
 ```json
@@ -1458,6 +1558,16 @@
 }
 ```
 
+###### This account has been disabled. Please contact support for assistance. (4010011)
+
+```json
+{
+  "id": 4010011,
+  "text": "This account has been disabled. Please contact support for assistance.",
+  "type": "error"
+}
+```
+
 ###### The registration flow expired 1.00 minutes ago, please try again. (4040001)
 
 ```json
@@ -1503,6 +1613,16 @@
     "expired_at": "2020-01-01T00:59:59Z",
     "expired_at_unix": 1577840399
   }
+}
+```
+
+###### You can only change one address at a time. Please update each address separately. (4050002)
+
+```json
+{
+  "id": 4050002,
+  "text": "You can only change one address at a time. Please update each address separately.",
+  "type": "error"
 }
 ```
 
@@ -1633,6 +1753,16 @@
 {
   "id": 5000002,
   "text": "No authentication methods are available. Please contact the system administrator.",
+  "type": "error"
+}
+```
+
+###### Your organization requires SSO authentication, but no SSO provider is configured. Please contact the system administrator. (5000003)
+
+```json
+{
+  "id": 5000003,
+  "text": "Your organization requires SSO authentication, but no SSO provider is configured. Please contact the system administrator.",
   "type": "error"
 }
 ```

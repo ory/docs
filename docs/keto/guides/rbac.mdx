@@ -2,204 +2,445 @@
 title: Role Based Access Control (RBAC)
 ---
 
-This guide will explain how to implement RBAC using Ory Permissions.
+Role-based access control (RBAC) is useful when users should receive permissions through roles instead of assigning permissions to
+each user directly.
 
-[Role Based Access Control (RBAC)](https://en.wikipedia.org/wiki/Role-based_access_control) maps subjects to roles and roles to
-permissions. The goal of (H)RBAC is to make permission management convenient by grouping subjects in roles and assigning
-permissions roles. This type of access control is common in web applications where one often encounters roles such as
-"administrator", "moderator", and so on.
+A reporting application might define a fixed set of permissions:
 
-In **Hierarchical Role Based Access Control (HRBAC)** roles can inherit permissions from other roles. The "administrator" role,
-for example, could inherit all permissions from the "moderator" role. This reduces duplication and management complexity around
-defining privileges.
+- `reports.view`
+- `reports.create`
+- `reports.edit`
+- `reports.delete`
+- `members.invite`
+- `roles.manage`
 
-Let's assume that we are building a reporting application and need to have three groups of users with different access levels. We
-have the following group of reports in our application.
+Users do not receive these permissions directly. Instead, users are assigned to roles, and roles are granted permissions.
+Permissions are application-defined. Roles are application data represented in Ory Keto through relationship tuples, so roles and
+role assignments can be created, updated, and deleted without changing the
+[Ory Permission Language](../reference/ory-permission-language) (OPL) schema.
 
-- Financial performance reports
-- Marketing performance reports
-- Community performance reports
+## OPL schema
 
-This time we model the access rights using (H)RBAC and the roles `community`, `marketing`, `finance` and `admin`:
+```ts
+import { Namespace, Context } from "@ory/keto-namespace-types"
 
-The role `admin` inherits all privileges from `finance`, `marketing` and `community`
+class User implements Namespace {}
 
-(H)RBAC is everywhere. If you ever installed a forum software such as
-[phpBB](https://www.phpbb.com/support/docs/en/3.1/ug/adminguide/permissions_roles/) or
-[Wordpress](https://codex.wordpress.org/Roles_and_Capabilities), you have definitely encountered ACL, (H)RBAC, or both.
+class Role implements Namespace {
+  related: {
+    members: User[]
+  }
 
-(H)RBAC reduces management complexity and overhead with large user bases. Sometimes however, even (H)RBAC is not enough. An
-example is when you need to express ownership (e.g. `Dilan` can only modify his own reports), have attributes (e.g. `Dilan` needs
-to have access only during work hours), or in multi-tenant environments.
+  permits = {
+    isMember: (ctx: Context): boolean => this.related.members.includes(ctx.subject),
+  }
+}
 
-**Benefits:**
+class Organization implements Namespace {
+  related: {
+    "members.invite": Role[]
+    "roles.manage": Role[]
 
-- Reduces management complexity when many identities share similar permissions.
-- Role hierarchies can reduce redundancy even further.
-- Is well established and easily understood by many developers as it is a de-facto standard for web applications.
+    "reports.view": Role[]
+    "reports.create": Role[]
+    "reports.edit": Role[]
+    "reports.delete": Role[]
+  }
 
-**Shortcomings:**
+  permits = {
+    inviteMembers: (ctx: Context): boolean => this.related["members.invite"].traverse((role) => role.permits.isMember(ctx)),
 
-- There is no concept of ownership: _Dan is the author of article "Hello World" and is thus allowed to update it_.
-- There is no concept of environment: _Dan is allowed to access accounting services when the request comes from IP 10.0.0.3_.
-- There is no concept of tenants: _Dan is allowed to access resources on the "dan's test" tenant_.
+    manageRoles: (ctx: Context): boolean => this.related["roles.manage"].traverse((role) => role.permits.isMember(ctx)),
 
-## RBAC with Ory Keto
+    viewReports: (ctx: Context): boolean => this.related["reports.view"].traverse((role) => role.permits.isMember(ctx)),
 
-We need to have three groups, `finance`, `marketing`, `community`. Also, we need to have two namespaces: `reports` to manage
-access control and `groups` to add users to this group
+    createReports: (ctx: Context): boolean => this.related["reports.create"].traverse((role) => role.permits.isMember(ctx)),
 
-Let's add namespaces to Keto config. See the full reference API config [here](../../keto/reference/configuration).
+    editReports: (ctx: Context): boolean => this.related["reports.edit"].traverse((role) => role.permits.isMember(ctx)),
 
-```yaml
-# ...
-namespaces:
-  - id: 0
-    name: groups
-  - id: 1
-    name: reports
-#...
+    deleteReports: (ctx: Context): boolean => this.related["reports.delete"].traverse((role) => role.permits.isMember(ctx)),
+  }
+}
 ```
 
-We can have two types of permission to access reports for granularity. Let's assume that we need `edit` and `view` access to the
-reports.
+## Authorization scope
 
-```keto-relation-tuples
-// View only access for finance department
-reports:finance#view@(groups:finance#member)
-// View only access for community department
-reports:community#view@(groups:community#member)
-// View only access for marketing department
-reports:marketing#view@(groups:marketing#member)
-// Edit access for admin group
-reports:finance#edit@(groups:admin#member)
-reports:community#edit@(groups:admin#member)
-reports:marketing#edit@(groups:admin#member)
-reports:finance#view@(groups:admin#member)
-reports:community#view@(groups:admin#member)
-reports:marketing#view@(groups:admin#member)
+In Ory Keto, every check is scoped to an object — for example, `Document:file1` or `Folder:reports`. That works well for
+per-resource permissions, but RBAC with dynamic roles typically works differently: if Alice can create reports, she can create
+them anywhere in the app. The permission is app-wide, not tied to a specific file.
+
+This guide uses `Organization:org_123` as that app-wide scope. Every permission check is made against the organization object:
+
+```keto-natural
+is User:alice allowed to viewReports on Organization:org_123
 ```
 
-Let's assume that we have four people in our organization. Lila is CFO and needs access to financial reports, Hadley works in
-marketing, and Dilan works as a community manager. Neel is an admin of a system and needs to have edit permissions for reports.
+Alice either has the `viewReports` permission on `org_123` or she doesn't — no per-resource logic needed.
 
-```keto-relation-tuples
-groups:finance#member@Lila
-groups:community#member@Dilan
-groups:marketing#member@Hadley
-groups:admin#member@Neel
+In a single-tenant app, one fixed object such as `Organization:main` can be used. In a multi-tenant app, each tenant gets its own
+`Organization` object, so Alice can be an admin in one organization and a viewer in another.
+
+`Organization` is just the name chosen for this guide. You can use any name that fits your domain — `Workspace`, `Project`, or
+`Tenant` all work the same way.
+
+## Object ID guidance
+
+Object IDs in Ory Keto are global. Two tuples that reference `Role:admin` refer to the same object. This applies to any namespace:
+`Role`, `Organization`, `User`, or any custom namespace you define.
+
+To avoid collisions, object IDs must be unique within their namespace. The safest approach is to use a stable unique ID from your
+application database:
+
+```text
+Role:d390f817-209a-4e26-a69b-b67eddc45eda
 ```
 
-## Creating relationships
+What to avoid is using plain labels like `admin` or `viewer` as role IDs without any scoping. Two different organizations both
+creating a `viewer` role would write their tuples to the same `Role:viewer` object, silently sharing role membership and
+permission grants across tenants.
 
-Let's copy all permissions we created to a `policies.rts` file with the following content.
+The examples in this guide use the format `Role:{org_id}/{label}` — for example `Role:org_123/admin` — for readability.
 
-```keto-relation-tuples
-reports:finance#view@(groups:finance#member)
-reports:community#view@(groups:community#member)
-reports:marketing#view@(groups:marketing#member)
-reports:finance#edit@(groups:admin#member)
-reports:community#edit@(groups:admin#member)
-reports:marketing#edit@(groups:admin#member)
-reports:finance#view@(groups:admin#member)
-reports:community#view@(groups:admin#member)
-reports:marketing#view@(groups:admin#member)
-groups:finance#member@Lila
-groups:community#member@Dilan
-groups:marketing#member@Hadley
-groups:admin#member@Neel
+## How the model works
+
+Permissions are modeled as relations on `Organization`. Each relation holds the set of roles that have been granted that
+permission:
+
+```keto-natural
+Role:org_123/admin is allowed to perform reports.view on Organization:org_123
 ```
 
-Then we can run
+A user belongs to a role:
+
+```keto-natural
+User:alice is in members of Role:org_123/admin
+```
+
+So this check is allowed:
+
+```keto-natural
+is User:alice allowed to viewReports on Organization:org_123
+```
+
+Ory Keto traverses the roles granted `reports.view` on the organization and checks whether Alice is a member of any of them. The
+relation `Organization:org_123#reports.view` contains roles. Each role decides whether the checked subject is a member — which is
+why `Role.isMember(ctx)` exists as a permit.
+
+## Why permissions are modeled as relations
+
+An Ory Keto check always has three parts: a subject, a relation (the permission), and an object. By modeling permissions as
+relations on `Organization`, every check is automatically scoped:
+
+```
+subject    = User:alice
+relation   = viewReports
+object     = Organization:org_123
+```
+
+This means the same user can be allowed to view reports in one organization and denied in another — with no extra logic in the
+application. The scope is part of the check itself.
+
+## Client application flow
+
+Ory Keto does not create roles, users, or organizations by itself. The client application owns those lifecycle events and writes
+the corresponding tuples to Ory Keto.
+
+### Create a new organization
+
+When Alice creates a new organization, the application seeds two built-in roles: `admin`, which has full access, and `viewer`,
+which can only view reports. It then assigns Alice to the admin role. Save the following to a `policies.rts` file:
+
+```keto-tuples
+// Admin role permissions
+Organization:org_123#members.invite@Role:org_123/admin
+Organization:org_123#roles.manage@Role:org_123/admin
+Organization:org_123#reports.view@Role:org_123/admin
+Organization:org_123#reports.create@Role:org_123/admin
+Organization:org_123#reports.edit@Role:org_123/admin
+Organization:org_123#reports.delete@Role:org_123/admin
+
+// Viewer role permissions
+Organization:org_123#reports.view@Role:org_123/viewer
+
+// Assign Alice to the admin role
+Role:org_123/admin#members@User:alice
+```
 
 ```bash
-keto relation-tuple parse policies.rts --format json | \
-  keto relation-tuple create - >/dev/null \
-  && echo "Successfully created tuple" \
-  || echo "Encountered error"
+keto relation-tuple parse -f policies.rts --format json | \
+  keto relation-tuple create -f - --insecure-disable-transport-security
+
+# NAMESPACE       OBJECT          RELATION NAME   SUBJECT
+# Organization    org_123         members.invite  Role:org_123/admin
+# Organization    org_123         roles.manage    Role:org_123/admin
+# Organization    org_123         reports.view    Role:org_123/admin
+# Organization    org_123         reports.create  Role:org_123/admin
+# Organization    org_123         reports.edit    Role:org_123/admin
+# Organization    org_123         reports.delete  Role:org_123/admin
+# Organization    org_123         reports.view    Role:org_123/viewer
+# Role            org_123/admin   members         User:alice
 ```
 
-Since Dilan works as a community manager, the following check examples show that he has access only to community reports
+Verify that Alice, as an admin, can manage roles:
 
 ```bash
-keto check Dilan view reports finance
-Denied
-keto check Dilan view reports community
+keto check User:alice manageRoles Organization:org_123 --insecure-disable-transport-security
 Allowed
-keto check Dilan edit reports community
-Denied
 ```
 
-Now Dilan decided to also work with marketing. Therefore we need to update his permissions and add him to the marketing group.
+### Invite a user
 
-```keto-relation-tuples
-groups:marketing#member@Dilan
-```
+Suppose Alice invites Bob to the organization as a viewer. The application first checks whether Alice is allowed to invite
+members:
 
-Now he also has access to marketing reports:
-
-```
-keto check Dilan view reports marketing
+```bash
+keto check User:alice inviteMembers Organization:org_123 --insecure-disable-transport-security
 Allowed
 ```
 
-## Display all objects a user has access to
-
-The example below shows you how to get a list of objects Dilan has access to
+If allowed, the application processes the invitation and assigns Bob to the viewer role:
 
 ```bash
-# Get all groups for Dilan
-keto relation-tuple get --subject-id=Dilan --relation=member --format json --read-remote localhost:4466 | jq
-{
-  "relation_tuples": [
-    {
-      "namespace": "groups",
-      "object": "community",
-      "relation": "member",
-      "subject_id": "Dilan"
-    },
-    {
-      "namespace": "groups",
-      "object": "marketing",
-      "relation": "member",
-      "subject_id": "Dilan"
-    }
-  ],
-  "next_page_token": ""
-}
+keto relation-tuple create User:bob members Role:org_123/viewer --insecure-disable-transport-security
 
-# Get permissions to objects for marketing group
-keto relation-tuple get --subject-set="groups:marketing#member" --format json --read-remote localhost:4466 | jq
-{
-  "relation_tuples": [
-    {
-      "namespace": "reports",
-      "object": "marketing",
-      "relation": "view",
-      "subject_set": {
-        "namespace": "groups",
-        "object": "marketing",
-        "relation": "member"
-      }
-    }
-  ],
-  "next_page_token": ""
+# NAMESPACE       OBJECT          RELATION NAME   SUBJECT
+# Role            org_123/viewer  members         User:bob
+```
+
+Verify that Bob, as a viewer, can view reports but cannot create them:
+
+```bash
+keto check User:bob viewReports Organization:org_123 --insecure-disable-transport-security
+Allowed
+keto check User:bob createReports Organization:org_123 --insecure-disable-transport-security
+Denied
+```
+
+### Create a custom role
+
+Creating a custom role does not require an OPL change. The application creates a new role ID in its own database and writes tuples
+that grant permissions to that role.
+
+Suppose Alice creates a custom role called "Report Editor". The application first checks whether Alice can manage roles:
+
+```bash
+keto check User:alice manageRoles Organization:org_123 --insecure-disable-transport-security
+Allowed
+```
+
+If allowed, the application writes the role's permissions and assigns Eve to it. Save the following to a `report_editor.rts` file:
+
+```keto-tuples
+// Grant permissions to the new role
+Organization:org_123#reports.view@Role:org_123/report_editor
+Organization:org_123#reports.create@Role:org_123/report_editor
+Organization:org_123#reports.edit@Role:org_123/report_editor
+
+// Assign Eve to the role
+Role:org_123/report_editor#members@User:eve
+```
+
+```bash
+keto relation-tuple parse -f report_editor.rts --format json | \
+  keto relation-tuple create -f - --insecure-disable-transport-security
+
+# NAMESPACE       OBJECT                  RELATION NAME   SUBJECT
+# Organization    org_123                 reports.view    Role:org_123/report_editor
+# Organization    org_123                 reports.create  Role:org_123/report_editor
+# Organization    org_123                 reports.edit    Role:org_123/report_editor
+# Role            org_123/report_editor   members         User:eve
+```
+
+```bash
+# granted to report_editor
+keto check User:eve createReports Organization:org_123 --insecure-disable-transport-security
+Allowed
+
+# not granted to report_editor
+keto check User:eve deleteReports Organization:org_123 --insecure-disable-transport-security
+Denied
+```
+
+### Update a role
+
+Suppose Alice adds permission to delete reports to the "Report Editor" role. After checking `manageRoles`, the application creates
+the new tuple:
+
+```bash
+keto relation-tuple create Role:org_123/report_editor reports.delete Organization:org_123 --insecure-disable-transport-security
+```
+
+To remove a permission, delete the corresponding tuple:
+
+```bash
+keto relation-tuple delete Role:org_123/report_editor reports.delete Organization:org_123 --insecure-disable-transport-security
+```
+
+## Extending to hierarchical roles (HRBAC)
+
+The model above grants permissions directly to each role. With role hierarchy, a role can extend another role and automatically
+pass its permission checks — without duplicating grants.
+
+Extend `Role` with an `inheritors` relation:
+
+```ts
+class Role implements Namespace {
+  related: {
+    members: User[]
+    inheritors: Role[]
+  }
+
+  permits = {
+    isMember: (ctx: Context): boolean =>
+      this.related.members.includes(ctx.subject) || this.related.inheritors.traverse((role) => role.permits.isMember(ctx)),
+  }
 }
-# Get permissions to objects for community group
-keto relation-tuple get --subject-set="groups:community#member" --format json --read-remote localhost:4466 | jq
-{
-  "relation_tuples": [
-    {
-      "namespace": "reports",
-      "object": "community",
-      "relation": "view",
-      "subject_set": {
-        "namespace": "groups",
-        "object": "community",
-        "relation": "member"
-      }
-    }
-  ],
-  "next_page_token": ""
-}
+```
+
+The `inheritors` relation is declared on the parent role and lists every role that inherits it. When Ory Keto evaluates
+`report_editor.isMember`, it checks report_editor's direct members first, then walks each role in `inheritors` and checks those
+too. Members of inheriting roles therefore pass any permission check that goes through report_editor.
+
+For example, making `report_manager` an inheritor of `report_editor`:
+
+```keto-natural
+Role:org_123/report_manager is in inheritors of Role:org_123/report_editor
+```
+
+means the members of report_manager are treated as members of report_editor for all permission checks. If `reports.create` is
+granted to report_editor, then report_manager members can also create reports without an explicit grant.
+
+### Example
+
+Suppose the application introduces a `report_manager` role — everything `report_editor` can do, plus the ability to delete
+reports. Instead of duplicating all grants, `report_manager` inherits `report_editor` and only adds `reports.delete` on top. Save
+the following to a `report_manager.rts` file:
+
+```keto-tuples
+// report_manager-specific permission
+Organization:org_123#reports.delete@Role:org_123/report_manager
+
+// report_manager inherits report_editor, so view/create/edit come for free
+Role:org_123/report_editor#inheritors@Role:org_123/report_manager
+
+// Assign Charlie to the report_manager role
+Role:org_123/report_manager#members@User:charlie
+```
+
+```bash
+keto relation-tuple parse -f report_manager.rts --format json | \
+  keto relation-tuple create -f - --insecure-disable-transport-security
+
+# NAMESPACE       OBJECT                  RELATION NAME   SUBJECT
+# Organization    org_123                 reports.delete  Role:org_123/report_manager
+# Role            org_123/report_editor   inheritors      Role:org_123/report_manager
+# Role            org_123/report_manager  members         User:charlie
+```
+
+```bash
+# inherited from report_editor
+keto check User:charlie viewReports Organization:org_123 --insecure-disable-transport-security
+Allowed
+
+# explicitly granted to report_manager
+keto check User:charlie deleteReports Organization:org_123 --insecure-disable-transport-security
+Allowed
+
+# not in the inheritance chain
+keto check User:charlie manageRoles Organization:org_123 --insecure-disable-transport-security
+Denied
+```
+
+Charlie gets view, create, and edit through the inheritance chain (`report_manager` → `report_editor`), and delete through the
+explicit grant. Only `reports.delete` needed to be written — nothing else was duplicated.
+
+This guide models additive role inheritance. If a role should not receive a permission, do not inherit from a role that grants it
+— instead, split common permissions into smaller base roles.
+
+## Application responsibilities
+
+Ory Keto stores and evaluates authorization relationships. The application owns role lifecycle and product-specific safety rules.
+
+The application is responsible for:
+
+- Creating default roles when an organization is created
+- Defining built-in roles if the product requires them
+- Checking `manageRoles` before changing role grants or memberships
+- Preventing inheritance cycles
+- Preventing inheritance across organizations
+- Preventing removal of the last administrator, if the product requires one
+
+## Large permission sets
+
+This model keeps permissions in OPL because permissions are application-defined actions. A permission usually corresponds to a
+product action, API endpoint, page, button, or workflow step. Tenants can decide which roles receive those permissions, but the
+application defines what each permission means.
+
+The benefit is that every check keeps the full authorization context:
+
+```bash
+keto check User:alice deleteReports Organization:org_123 --insecure-disable-transport-security
+```
+
+The subject is the user, the relation is the action, and the object is the organization or resource scope. Roles remain dynamic
+data: creating a new role or changing which permissions a role has only requires tuple changes. Only adding a new application
+permission requires updating the OPL, because a new permission means the application has introduced a new action that
+authorization can check.
+
+If the application has hundreds of fixed permissions, the OPL schema will be large but remains correct and predictable. This
+tradeoff keeps permission checks scoped and explicit while still allowing roles to be managed dynamically.
+
+## Relationship diagram
+
+The diagram below shows the relationships written in the examples above. Users connect to roles through the `members` relation.
+Roles connect to permission relations on `Organization`. Dotted arrows show the `inheritors` relation.
+
+```mdx-code-block
+import Mermaid from "@site/src/theme/Mermaid"
+
+<Mermaid
+  chart={`
+flowchart TD
+  subgraph users["Users"]
+    alice(["User:alice"])
+    bob(["User:bob"])
+    eve(["User:eve"])
+    charlie(["User:charlie"])
+  end
+
+  subgraph roles["Roles"]
+    direction LR
+    admin["Role:org_123/admin"]
+    viewer["Role:org_123/viewer"]
+    re["Role:org_123/report_editor"]
+    rm["Role:org_123/report_manager"]
+    rm -.->|inheritors| re
+  end
+
+  subgraph org["Organization:org_123"]
+    direction LR
+    rv(["reports.view"])
+    rc(["reports.create"])
+    redit(["reports.edit"])
+    rd(["reports.delete"])
+    rman(["roles.manage"])
+    mi(["members.invite"])
+  end
+
+  alice -->|members| admin
+  bob -->|members| viewer
+  eve -->|members| re
+  charlie -->|members| rm
+
+  admin --> rv & rc & redit & rd & rman & mi
+  viewer --> rv
+  re --> rv & rc & redit
+  rm --> rd
+
+  style alice fill:lightgreen
+  style bob fill:lightgreen
+  style eve fill:lightgreen
+  style charlie fill:lightgreen
+`}
+/>
 ```

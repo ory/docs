@@ -1,7 +1,7 @@
 ---
 id: ory-create-workspace
 title: ory create workspace
-description: ory create workspace Create a new Ory Network workspace
+description: ory create workspace
 ---
 
 <!--
@@ -33,7 +33,7 @@ ory create workspace [flags]
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory create](ory-create)	 - Create Ory Network resources
+* [ory create](ory-create) Create Ory Network resources
 

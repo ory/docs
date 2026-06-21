@@ -1,0 +1,1848 @@
+{
+  "components": {
+    "schemas": {
+      "AdminRevokeImportedApiKeyBody": {
+        "description": "RevokeImportedApiKeyRequest revokes an imported API key by its key_id.",
+        "properties": {
+          "description": {
+            "description": "Optional free-text explanation. Only allowed when reason is PRIVILEGE_WITHDRAWN.",
+            "type": "string"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/RevocationReason"
+          }
+        },
+        "type": "object"
+      },
+      "AdminRevokeIssuedApiKeyBody": {
+        "description": "RevokeIssuedApiKeyRequest revokes an issued API key by its key_id.",
+        "properties": {
+          "description": {
+            "description": "Optional free-text explanation. Only allowed when reason is PRIVILEGE_WITHDRAWN.",
+            "type": "string"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/RevocationReason"
+          }
+        },
+        "type": "object"
+      },
+      "AdminRotateIssuedApiKeyBody": {
+        "description": "RotateIssuedApiKeyRequest is the request for AdminRotateIssuedApiKey.\n\nRotation is a custom method (AIP-136) that swaps an active key for a new\none with a fresh secret and key_id, then revokes the old key. It is not a\npartial update, so it does not carry an update_mask. Mutable fields use\npresence-based semantics: an absent field inherits from the old key, while\na present field (including an explicitly empty value) overrides.",
+        "properties": {
+          "ip_restriction": {
+            "$ref": "#/components/schemas/IPRestriction"
+          },
+          "metadata": {
+            "description": "metadata for the new API key. Absent (nil) inherits from the old key;\npresent (including empty Struct) overrides.",
+            "type": "object"
+          },
+          "name": {
+            "description": "name for the new API key. Absent (HasName() == false) inherits from the\nold key; present (including empty string) overrides.",
+            "type": "string"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/RateLimitPolicy"
+          },
+          "scopes": {
+            "description": "scopes for the new API key. Absent (nil slice) inherits from the old key;\npresent (including empty list) overrides.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/KeyVisibility"
+          }
+        },
+        "type": "object"
+      },
+      "Any": {
+        "additionalProperties": {},
+        "properties": {
+          "@type": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "BatchCreateImportedApiKeysErrorCode": {
+        "default": "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_UNSPECIFIED",
+        "description": "BatchCreateImportedApiKeysErrorCode classifies per-item batch import failures.\n\n - BATCH_CREATE_IMPORTED_API_KEYS_ERROR_UNSPECIFIED: No error (import succeeded)\n - BATCH_CREATE_IMPORTED_API_KEYS_ERROR_INVALID_ARGUMENT: The key data is malformed or missing required fields\n - BATCH_CREATE_IMPORTED_API_KEYS_ERROR_ALREADY_EXISTS: A key with this identifier already exists\n - BATCH_CREATE_IMPORTED_API_KEYS_ERROR_FAILED_PRECONDITION: State conflict prevents the import\n - BATCH_CREATE_IMPORTED_API_KEYS_ERROR_INTERNAL: Server error during import\n - BATCH_CREATE_IMPORTED_API_KEYS_ERROR_RESOURCE_EXHAUSTED: Per-tenant quota cap reached",
+        "enum": [
+          "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_UNSPECIFIED",
+          "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_INVALID_ARGUMENT",
+          "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_ALREADY_EXISTS",
+          "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_FAILED_PRECONDITION",
+          "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_INTERNAL",
+          "BATCH_CREATE_IMPORTED_API_KEYS_ERROR_RESOURCE_EXHAUSTED"
+        ],
+        "type": "string"
+      },
+      "BatchCreateImportedApiKeysRequest": {
+        "description": "BatchCreateImportedApiKeysRequest imports multiple external API keys in one request.\nThe maximum batch size is 1000 keys.",
+        "properties": {
+          "requests": {
+            "items": {
+              "$ref": "#/components/schemas/ImportApiKeyRequest"
+            },
+            "title": "Keys to import",
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "BatchCreateImportedApiKeysResponse": {
+        "description": "BatchCreateImportedApiKeysResponse returns per-item results and summary counters.",
+        "properties": {
+          "failure_count": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/BatchCreateImportedApiKeysResult"
+            },
+            "type": "array"
+          },
+          "success_count": {
+            "format": "int32",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "BatchCreateImportedApiKeysResult": {
+        "description": "BatchCreateImportedApiKeysResult contains the result for one key in a batch import request.",
+        "properties": {
+          "error_code": {
+            "$ref": "#/components/schemas/BatchCreateImportedApiKeysErrorCode"
+          },
+          "error_message": {
+            "title": "Human-readable failure reason",
+            "type": "string"
+          },
+          "imported_api_key": {
+            "$ref": "#/components/schemas/ImportedApiKey"
+          },
+          "index": {
+            "format": "int32",
+            "title": "Zero-based index in request.requests",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "BatchVerifyApiKeysRequest": {
+        "properties": {
+          "requests": {
+            "items": {
+              "$ref": "#/components/schemas/VerifyApiKeyRequest"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "BatchVerifyApiKeysResponse": {
+        "properties": {
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/VerifyApiKeyResponse"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "DeriveTokenRequest": {
+        "properties": {
+          "algorithm": {
+            "$ref": "#/components/schemas/TokenAlgorithm"
+          },
+          "credential": {
+            "title": "The API key secret (issued or imported) to derive a token from",
+            "type": "string"
+          },
+          "custom_claims": {
+            "description": "custom_claims is a JSON object whose entries are merged into the JWT\npayload (or macaroon caveats) at signing time. Reserved JWT claims\n(iss, sub, aud, exp, nbf, iat, jti) are rejected. Total serialized\nsize is capped at 4KB.",
+            "type": "object"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "ttl": {
+            "description": "ttl sets the expiry as a duration from now. Encoded as a\ngoogle.protobuf.Duration (string ending in \"s\", e.g. \"3600s\").\nAccepted bounds: 1s to 315360000s (~10 years). If unset or zero, the\nproject default TTL applies.\nFor convenience, the server also accepts Go-style duration strings\n(\"24h\", \"30m\", \"1h30m\") and an extended unit set (\"1d\", \"1w\", \"1mo\",\n\"1y\"; approximations: 1mo = 30d, 1y = 365d). Clients should prefer\nthe standard Duration encoding for portability.",
+            "type": "string"
+          }
+        },
+        "title": "Token derivation messages",
+        "type": "object"
+      },
+      "DeriveTokenResponse": {
+        "properties": {
+          "token": {
+            "$ref": "#/components/schemas/Token"
+          }
+        },
+        "type": "object"
+      },
+      "GetJWKSResponse": {
+        "properties": {
+          "jwks": {
+            "description": "jwks is a JSON Web Key Set (RFC 7517). Always contains a single top-level\nfield \"keys\" whose value is an array of JWK objects. Each JWK has at\nminimum a \"kty\" (key type), \"kid\" (key ID), and key-type-specific\nmaterial (e.g., \"x\" and \"crv\" for OKP/Ed25519, \"n\" and \"e\" for RSA).",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "IPRestriction": {
+        "description": "IPRestriction defines IP-based access controls for an API key.\nWhen allowed_cidrs is non-empty, only requests from IPs matching at least one\nCIDR range are permitted. Empty allowed_cidrs means no IP restriction (all IPs allowed).\nDerived tokens (JWT/macaroon) inherit the parent key's CIDR allowlist: the\nrestriction is sealed into the token at derivation and re-enforced on every\nverification.",
+        "properties": {
+          "allowed_cidrs": {
+            "description": "allowed_cidrs is a list of CIDR ranges that are allowed to use this key.\nSupports both IPv4 (e.g., \"10.0.0.0/8\") and IPv6 (e.g., \"2001:db8::/32\").\nIf empty, all IPs are allowed (no restriction).",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "ImportApiKeyRequest": {
+        "description": "ImportApiKeyRequest imports an external API key. The raw key is hashed with\nSHA-512/256 (over network_id + 0x00 + raw key) and only the hash is stored.\n\nExample:\n  {\n    \"raw_key\": \"sk_live_abc123xyz789\",\n    \"name\": \"Stripe Production Key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"stripe\", \"environment\": \"production\"}\n  }",
+        "properties": {
+          "actor_id": {
+            "description": "actor_id is the identifier of the entity that owns this imported key.\nRequired so every imported key is traceable to an actor for revocation and\naudit queries.",
+            "type": "string"
+          },
+          "ip_restriction": {
+            "$ref": "#/components/schemas/IPRestriction"
+          },
+          "metadata": {
+            "description": "metadata is a free-form JSON object for caller-defined attributes (e.g.,\nsource, environment, tags). Values may be strings, numbers, booleans,\narrays, objects, or null. Total serialized size is capped at 4KB.\nAIP-148 metadata field.",
+            "type": "object"
+          },
+          "name": {
+            "title": "Human-readable name (REQUIRED)",
+            "type": "string"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/RateLimitPolicy"
+          },
+          "raw_key": {
+            "title": "The actual key string to import (REQUIRED)",
+            "type": "string"
+          },
+          "request_id": {
+            "title": "Client-controlled idempotency key (AIP-155)",
+            "type": "string"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes for the imported key (OPTIONAL)",
+            "type": "array"
+          },
+          "ttl": {
+            "description": "ttl sets the expiry as a duration from now. Encoded as a\ngoogle.protobuf.Duration (string ending in \"s\", e.g. \"3600s\").\nAccepted bounds: 1s to 315360000s (~10 years). If unset or zero, the\nproject default TTL applies.\nFor convenience, the server also accepts Go-style duration strings\n(\"24h\", \"30m\", \"1h30m\") and an extended unit set (\"1d\", \"1w\", \"1mo\",\n\"1y\"; approximations: 1mo = 30d, 1y = 365d). Clients should prefer\nthe standard Duration encoding for portability.",
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/KeyVisibility"
+          }
+        },
+        "type": "object"
+      },
+      "ImportedApiKey": {
+        "description": "ImportedApiKey represents an API key imported from an external system.\nThe raw key is hashed (SHA-512/256) and stored. The original key is never retained.",
+        "properties": {
+          "actor_id": {
+            "type": "string"
+          },
+          "create_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "expire_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "ip_restriction": {
+            "$ref": "#/components/schemas/IPRestriction"
+          },
+          "key_id": {
+            "title": "SHA-512/256 hash of credential",
+            "type": "string"
+          },
+          "last_used_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "metadata is a free-form JSON object for caller-defined attributes\n(e.g., source, environment, tags). Values may be strings, numbers,\nbooleans, arrays, objects, or null. Total serialized size is capped\nat 4KB. AIP-148 metadata field.",
+            "type": "object"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/RateLimitPolicy"
+          },
+          "revocation_description": {
+            "description": "revocation_description provides free-form context for a revocation.\nOnly set when revocation_reason is PRIVILEGE_WITHDRAWN.\nJSON API change: field was formerly revocation_reason_text. Field number 13\nis unchanged so the change is wire-compatible for binary proto encoding.",
+            "type": "string"
+          },
+          "revocation_reason": {
+            "$ref": "#/components/schemas/RevocationReason"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "status": {
+            "$ref": "#/components/schemas/KeyStatus"
+          },
+          "update_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/KeyVisibility"
+          }
+        },
+        "type": "object"
+      },
+      "IssueApiKeyRequest": {
+        "properties": {
+          "actor_id": {
+            "type": "string"
+          },
+          "ip_restriction": {
+            "$ref": "#/components/schemas/IPRestriction"
+          },
+          "metadata": {
+            "description": "metadata is a free-form JSON object for caller-defined attributes\n(e.g., source, environment, tags). Values may be strings, numbers,\nbooleans, arrays, objects, or null. Total serialized size is capped\nat 4KB. AIP-148 metadata field.",
+            "type": "object"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/RateLimitPolicy"
+          },
+          "request_id": {
+            "title": "Client-controlled idempotency key (AIP-155)",
+            "type": "string"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "ttl": {
+            "description": "ttl sets the expiry as a duration from now. Encoded as a\ngoogle.protobuf.Duration (string ending in \"s\", e.g. \"3600s\").\nAccepted bounds: 1s to 315360000s (~10 years). If unset or zero, the\nproject default TTL applies.\nFor convenience, the server also accepts Go-style duration strings\n(\"24h\", \"30m\", \"1h30m\") and an extended unit set (\"1d\", \"1w\", \"1mo\",\n\"1y\"; approximations: 1mo = 30d, 1y = 365d). Clients should prefer\nthe standard Duration encoding for portability.",
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/KeyVisibility"
+          }
+        },
+        "type": "object"
+      },
+      "IssueApiKeyResponse": {
+        "properties": {
+          "issued_api_key": {
+            "$ref": "#/components/schemas/IssuedApiKey"
+          },
+          "secret": {
+            "title": "Only returned on creation",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "IssuedApiKey": {
+        "description": "IssuedApiKey represents an API key issued (generated) by Talos.\nRoot keys are opaque v1 format tokens stored in the database.\nDerived tokens (JWT/Macaroon) are created via DeriveToken and are stateless (not stored).",
+        "properties": {
+          "actor_id": {
+            "type": "string"
+          },
+          "create_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "expire_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "ip_restriction": {
+            "$ref": "#/components/schemas/IPRestriction"
+          },
+          "key_id": {
+            "type": "string"
+          },
+          "last_used_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "metadata is a free-form JSON object for caller-defined attributes\n(e.g., source, environment, tags). Values may be strings, numbers,\nbooleans, arrays, objects, or null. Total serialized size is capped\nat 4KB. AIP-148 metadata field.",
+            "type": "object"
+          },
+          "name": {
+            "type": "string"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/RateLimitPolicy"
+          },
+          "revocation_description": {
+            "description": "revocation_description provides free-form context for a revocation.\nOnly set when revocation_reason is PRIVILEGE_WITHDRAWN.\nJSON API change: field was formerly revocation_reason_text. Field number 13\nis unchanged so the change is wire-compatible for binary proto encoding.",
+            "type": "string"
+          },
+          "revocation_reason": {
+            "$ref": "#/components/schemas/RevocationReason"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "status": {
+            "$ref": "#/components/schemas/KeyStatus"
+          },
+          "update_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/KeyVisibility"
+          }
+        },
+        "type": "object"
+      },
+      "KeyStatus": {
+        "default": "KEY_STATUS_UNSPECIFIED",
+        "description": "KeyStatus represents the lifecycle state of an API key.\n\n - KEY_STATUS_UNSPECIFIED: Default zero value. Never returned by the server. Treated as ACTIVE for\nbackward compatibility but should not be relied on.\n - KEY_STATUS_ACTIVE: The key is valid and can be used to authenticate.\n - KEY_STATUS_REVOKED: The key was revoked. Verification fails with VERIFICATION_ERROR_REVOKED.\nSee revocation_reason for the cause.\n - KEY_STATUS_EXPIRED: The key passed its expire_time. Verification fails with\nVERIFICATION_ERROR_EXPIRED. The transition is computed at read time and\nnot persisted.",
+        "enum": [
+          "KEY_STATUS_UNSPECIFIED",
+          "KEY_STATUS_ACTIVE",
+          "KEY_STATUS_REVOKED",
+          "KEY_STATUS_EXPIRED"
+        ],
+        "type": "string"
+      },
+      "KeyVisibility": {
+        "default": "KEY_VISIBILITY_UNSPECIFIED",
+        "description": "KeyVisibility distinguishes public (client-safe) keys from secret (server-only) keys.\nPublic keys use a different configurable prefix for visual distinction.\nBoth types share the same scope/permission system — visibility is about exposure safety.\n\n - KEY_VISIBILITY_UNSPECIFIED: Treated as SECRET",
+        "enum": [
+          "KEY_VISIBILITY_UNSPECIFIED",
+          "KEY_VISIBILITY_SECRET",
+          "KEY_VISIBILITY_PUBLIC"
+        ],
+        "type": "string"
+      },
+      "ListImportedApiKeysResponse": {
+        "properties": {
+          "imported_api_keys": {
+            "items": {
+              "$ref": "#/components/schemas/ImportedApiKey"
+            },
+            "title": "List of imported keys",
+            "type": "array"
+          },
+          "next_page_token": {
+            "title": "Token for fetching the next page (empty if no more results)",
+            "type": "string"
+          }
+        },
+        "title": "ListImportedApiKeysResponse returns paginated list of imported keys",
+        "type": "object"
+      },
+      "ListIssuedApiKeysResponse": {
+        "properties": {
+          "issued_api_keys": {
+            "items": {
+              "$ref": "#/components/schemas/IssuedApiKey"
+            },
+            "type": "array"
+          },
+          "next_page_token": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "NullValue": {
+        "default": "NULL_VALUE",
+        "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\nThe JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value.",
+        "enum": ["NULL_VALUE"],
+        "type": "string"
+      },
+      "RateLimitPolicy": {
+        "description": "RateLimitPolicy describes the rate limit policy for an API key.\n\nIn OSS mode, this policy is informational and meant to be consumed by\nupstream gateways (Envoy, Cloudflare, etc.) for enforcement.\nIn commercial mode, Talos enforces rate limits using in-memory or Redis backends,\nboth using the GCRA (Generic Cell Rate Algorithm).\n\nCompliant with draft-ietf-httpapi-ratelimit-headers-10.",
+        "properties": {
+          "quota": {
+            "description": "quota is the number of requests allowed per window.",
+            "format": "int64",
+            "type": "string"
+          },
+          "unit": {
+            "title": "unit describes the quota unit type.\nDefault: \"requests\"\nOther valid values per IETF spec: \"content-bytes\", \"concurrent-requests\"",
+            "type": "string"
+          },
+          "window": {
+            "description": "window is the time window for the quota.\nCommon values: 60s (1 minute), 3600s (1 hour), 86400s (1 day).",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "RevocationReason": {
+        "default": "REVOCATION_REASON_UNSPECIFIED",
+        "description": "RevocationReason provides structured revocation reasons inspired by RFC 5280.\nUsed in both admin and self-revocation flows.\n\n - REVOCATION_REASON_UNSPECIFIED: Default zero value. Use a specific reason; UNSPECIFIED is rejected by\nadmin and self-revocation endpoints.\n - REVOCATION_REASON_KEY_COMPROMISE: The key was leaked or believed to be in the hands of an unauthorized\nparty.\n - REVOCATION_REASON_AFFILIATION_CHANGED: The owning actor's relationship with the issuer changed (e.g., role\nchange, departure).\n - REVOCATION_REASON_SUPERSEDED: A new key has replaced this one as part of a rotation.\n - REVOCATION_REASON_PRIVILEGE_WITHDRAWN: Admin-only. The actor's privilege to use this key was withdrawn by\nan operator. Self-revocation requests using this reason are rejected\nwith InvalidArgument. Pair with `description` on the admin revoke requests\nto record the operator-supplied justification.",
+        "enum": [
+          "REVOCATION_REASON_UNSPECIFIED",
+          "REVOCATION_REASON_KEY_COMPROMISE",
+          "REVOCATION_REASON_AFFILIATION_CHANGED",
+          "REVOCATION_REASON_SUPERSEDED",
+          "REVOCATION_REASON_PRIVILEGE_WITHDRAWN"
+        ],
+        "type": "string"
+      },
+      "RotateIssuedApiKeyResponse": {
+        "properties": {
+          "issued_api_key": {
+            "$ref": "#/components/schemas/IssuedApiKey"
+          },
+          "old_issued_api_key": {
+            "$ref": "#/components/schemas/IssuedApiKey"
+          },
+          "secret": {
+            "title": "secret is the new API key secret (only returned once, never retrievable again)",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SelfRevokeApiKeyRequest": {
+        "description": "SelfRevokeApiKeyRequest allows an API key holder to revoke their own key\nby providing the full key secret as proof of possession.",
+        "properties": {
+          "credential": {
+            "title": "Full API key secret or imported key (REQUIRED)",
+            "type": "string"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/RevocationReason"
+          }
+        },
+        "type": "object"
+      },
+      "SelfRevokeApiKeyResponse": {
+        "description": "SelfRevokeApiKeyResponse is returned on successful self-revocation.\n\nEmpty on success",
+        "type": "object"
+      },
+      "Status": {
+        "properties": {
+          "code": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "details": {
+            "items": {
+              "$ref": "#/components/schemas/Any"
+            },
+            "type": "array"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Token": {
+        "properties": {
+          "claims": {
+            "description": "claims is the decoded token payload. For JWT, this contains the\nstandard claims (iss, sub, aud, exp, iat, jti) plus custom claims.\nFor macaroons, this lists the caveats. The shape is backend-dependent\nand should be treated as opaque diagnostic data.",
+            "type": "object"
+          },
+          "expire_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "token": {
+            "description": "The encoded token string. JWT tokens are signed JWS in compact\nserialization (header.payload.signature). Macaroons are base64-encoded\nbinary blobs.",
+            "type": "string"
+          }
+        },
+        "title": "Token represents a short-lived derived token (JWT or Macaroon)",
+        "type": "object"
+      },
+      "TokenAlgorithm": {
+        "default": "TOKEN_ALGORITHM_UNSPECIFIED",
+        "description": "- TOKEN_ALGORITHM_JWT: JWT with EdDSA (self-contained, signed)\n - TOKEN_ALGORITHM_MACAROON: Macaroon with HMAC (self-contained, caveat-based)",
+        "enum": [
+          "TOKEN_ALGORITHM_UNSPECIFIED",
+          "TOKEN_ALGORITHM_JWT",
+          "TOKEN_ALGORITHM_MACAROON"
+        ],
+        "title": "TokenAlgorithm specifies the cryptographic algorithm used for derived tokens\nNote: API keys (root tokens) are always opaque; this enum is only for DeriveToken",
+        "type": "string"
+      },
+      "VerificationErrorCode": {
+        "default": "VERIFICATION_ERROR_UNSPECIFIED",
+        "description": "- VERIFICATION_ERROR_UNSPECIFIED: No error (key is valid)\n - VERIFICATION_ERROR_INVALID_FORMAT: Credential format is invalid\n - VERIFICATION_ERROR_EXPIRED: Credential has expired\n - VERIFICATION_ERROR_REVOKED: Credential has been revoked\n - VERIFICATION_ERROR_NOT_FOUND: Credential not found in database\n - VERIFICATION_ERROR_SIGNATURE_INVALID: Cryptographic signature verification failed\n - VERIFICATION_ERROR_INTERNAL: Internal server error during verification\n - VERIFICATION_ERROR_IP_NOT_ALLOWED: Request IP is not in the key's allowed CIDR ranges\n - VERIFICATION_ERROR_RATE_LIMITED: Rate limit quota exhausted (commercial-only)",
+        "enum": [
+          "VERIFICATION_ERROR_UNSPECIFIED",
+          "VERIFICATION_ERROR_INVALID_FORMAT",
+          "VERIFICATION_ERROR_EXPIRED",
+          "VERIFICATION_ERROR_REVOKED",
+          "VERIFICATION_ERROR_NOT_FOUND",
+          "VERIFICATION_ERROR_SIGNATURE_INVALID",
+          "VERIFICATION_ERROR_INTERNAL",
+          "VERIFICATION_ERROR_IP_NOT_ALLOWED",
+          "VERIFICATION_ERROR_RATE_LIMITED"
+        ],
+        "title": "VerificationErrorCode provides type-safe error codes for verification failures",
+        "type": "string"
+      },
+      "VerifyApiKeyRequest": {
+        "properties": {
+          "credential": {
+            "title": "API key or derived token (any format: sk_*, JWT, macaroon)",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "VerifyApiKeyResponse": {
+        "properties": {
+          "actor_id": {
+            "type": "string"
+          },
+          "error_code": {
+            "$ref": "#/components/schemas/VerificationErrorCode"
+          },
+          "error_message": {
+            "title": "Human-readable error message (only set if is_valid=false)",
+            "type": "string"
+          },
+          "expire_time": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "is_valid": {
+            "description": "is_valid reports whether verification succeeded. It is true only when the\ncredential parses, the signature checks out, the key was found, all\npolicy gates (expiry, revocation, IP allowlist, rate limit) pass, and the\nkey's status is KEY_STATUS_ACTIVE. When false, error_code and\nerror_message describe the reason. Use this field for authentication\ndecisions; use status to inspect lifecycle state independently.",
+            "type": "boolean"
+          },
+          "issuer": {
+            "description": "The configured token issuer for this project. For derived tokens (JWT/macaroon),\nthis matches the iss claim embedded in the verified token.",
+            "type": "string"
+          },
+          "key_id": {
+            "type": "string"
+          },
+          "metadata": {
+            "description": "metadata mirrors the metadata stored on the verified key. AIP-148\nmetadata field.",
+            "type": "object"
+          },
+          "rate_limit_policy": {
+            "$ref": "#/components/schemas/RateLimitPolicy"
+          },
+          "rate_limit_remaining": {
+            "description": "Approximate number of requests available before the rate limit is reached\n(commercial-only, only set when enforcement is active).",
+            "format": "int64",
+            "type": "string"
+          },
+          "rate_limit_reset_time": {
+            "description": "Time when the rate limiter returns to full capacity (all quota recovered).",
+            "format": "date-time",
+            "type": "string"
+          },
+          "scopes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "status": {
+            "$ref": "#/components/schemas/KeyStatus"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/KeyVisibility"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Ory Talos is a high-performance API key management service. It handles the full API key lifecycle: issuing keys, verifying them at low latency, deriving short-lived tokens (JWT and Macaroon), and revoking access.\n\n`Admin*`-prefixed RPCs require admin authentication. The bare `RevokeApiKey` RPC is authenticated by proof of possession (the raw credential secret).",
+    "title": "Ory Talos API",
+    "version": "v2alpha1"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/v2alpha1/admin/apiKeys:batchVerify": {
+      "post": {
+        "description": "Verifies up to 100 credentials in parallel in a single request. Each\ncredential is verified independently; partial failures are returned.\nAdmin access only.\n\nCache Control (HTTP Headers):\n  - Cache-Control: no-cache  - Bypasses cache read, forces fresh DB lookup\n  - Cache-Control: no-store  - Bypasses cache read AND write (never cached)\n  - Pragma: no-cache         - Same as Cache-Control: no-cache (HTTP/1.0)\n\nThe cache directive applies to every credential in the batch.\n\n```http\nPOST /v2alpha1/admin/apiKeys:batchVerify\n{\n  \"requests\": [\n    {\"credential\": \"sk_live_abc123...\"},\n    {\"credential\": \"eyJhbGciOiJFZERTQSI...\"}\n  ]\n}\n```",
+        "operationId": "adminBatchVerifyApiKeys",
+        "parameters": [
+          {
+            "description": "Cache-directive controlling the verifier cache. `no-cache` forces a fresh database lookup (cache read is bypassed). `no-store` additionally prevents the result from being written to the cache. Any other value is ignored.",
+            "in": "header",
+            "name": "Cache-Control",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "HTTP/1.0 alias for `Cache-Control: no-cache`. Behaves identically when set to `no-cache`; ignored otherwise.",
+            "in": "header",
+            "name": "Pragma",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchVerifyApiKeysRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchVerifyApiKeysResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Batch Verify API Keys",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage adminbatchverifyapikeys\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc batchVerifyAPIKeys(ctx context.Context, c *client.APIClient, credentials []string) error {\n\trequests := make([]client.V2alpha1VerifyAPIKeyRequest, len(credentials))\n\tfor i, cred := range credentials {\n\t\trequests[i] = client.V2alpha1VerifyAPIKeyRequest{\n\t\t\tCredential: client.PtrString(cred),\n\t\t}\n\t}\n\n\tresp, _, err := c.StaticCredentialsAPI.\n\t\tAdminBatchVerifyAPIKeys(ctx).\n\t\tV2alpha1BatchVerifyAPIKeysRequest(client.V2alpha1BatchVerifyAPIKeysRequest{\n\t\t\tRequests: requests,\n\t\t}).\n\t\tExecute()\n\tif err != nil {\n\t\treturn fmt.Errorf(\"batch verify: %w\", err)\n\t}\n\n\tfor i, r := range resp.Results {\n\t\tfmt.Printf(\"[%d] active=%v key_id=%s\\n\", i, r.GetIsActive(), r.GetKeyId())\n\t}\n\treturn nil\n}"
+          }
+        ]
+      }
+    },
+    "/v2alpha1/admin/apiKeys:derive": {
+      "post": {
+        "description": "Mints a short-lived JWT or Macaroon token from an API key. Works with both\nissued and imported keys. The derived token inherits the permissions of the\nparent API key.\n\n```http\nPOST /v2alpha1/admin/apiKeys:derive\n{\n  \"credential\": \"eyJhbGciOiJFZERTQSI...\",\n  \"ttl\": \"1h\"\n}\n```",
+        "operationId": "adminDeriveToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeriveTokenRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeriveTokenResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Derive Token",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage adminderivetoken\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc deriveToken(ctx context.Context, c *client.APIClient, credential string) error {\n\talgo := client.V2ALPHA1TOKENALGORITHM_TOKEN_ALGORITHM_JWT\n\tresp, _, err := c.StaticCredentialsAPI.\n\t\tAdminDeriveToken(ctx).\n\t\tV2alpha1DeriveTokenRequest(client.V2alpha1DeriveTokenRequest{\n\t\t\tCredential: client.PtrString(credential),\n\t\t\tAlgorithm:  \u0026algo,\n\t\t\tTtl:        client.PtrString(\"1h\"),\n\t\t\tScopes:     []string{\"read\"},\n\t\t}).\n\t\tExecute()\n\tif err != nil {\n\t\treturn fmt.Errorf(\"derive token: %w\", err)\n\t}\n\n\tfmt.Println(\"Token:\", resp.GetToken().GetToken())\n\treturn nil\n}"
+          }
+        ]
+      }
+    },
+    "/v2alpha1/admin/apiKeys:verify": {
+      "post": {
+        "description": "Verifies a single API key or derived token. Validates the credential's\nsignature, expiration, and revocation status. Works with any credential\ntype (issued keys, imported keys, JWT, macaroon). The response includes the\nresolved key_id, actor_id, scopes, and metadata. Admin access only.\n\nCache Control (HTTP Headers):\n  - Cache-Control: no-cache  - Bypasses cache read, forces fresh DB lookup\n  - Cache-Control: no-store  - Bypasses cache read AND write (never cached)\n  - Pragma: no-cache         - Same as Cache-Control: no-cache (HTTP/1.0)\n\n```http\nPOST /v2alpha1/admin/apiKeys:verify\n{\n  \"credential\": \"sk_live_abc123...\"\n}\n```",
+        "operationId": "adminVerifyApiKey",
+        "parameters": [
+          {
+            "description": "Cache-directive controlling the verifier cache. `no-cache` forces a fresh database lookup (cache read is bypassed). `no-store` additionally prevents the result from being written to the cache. Any other value is ignored.",
+            "in": "header",
+            "name": "Cache-Control",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "HTTP/1.0 alias for `Cache-Control: no-cache`. Behaves identically when set to `no-cache`; ignored otherwise.",
+            "in": "header",
+            "name": "Pragma",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyApiKeyRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyApiKeyResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Verify API Key",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage adminverifyapikey\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc verifyAPIKey(ctx context.Context, c *client.APIClient, credential string) error {\n\tresp, _, err := c.StaticCredentialsAPI.\n\t\tAdminVerifyAPIKey(ctx).\n\t\tV2alpha1VerifyAPIKeyRequest(client.V2alpha1VerifyAPIKeyRequest{\n\t\t\tCredential: client.PtrString(credential),\n\t\t}).\n\t\tExecute()\n\tif err != nil {\n\t\treturn fmt.Errorf(\"verify key: %w\", err)\n\t}\n\n\tif !resp.GetIsActive() {\n\t\tfmt.Println(\"Inactive:\", resp.GetErrorMessage())\n\t\treturn nil\n\t}\n\tfmt.Println(\"Active key:\", resp.GetKeyId(), \"actor:\", resp.GetActorId(), \"scopes:\", resp.Scopes)\n\treturn nil\n}"
+          }
+        ]
+      }
+    },
+    "/v2alpha1/admin/importedApiKeys": {
+      "get": {
+        "description": "Lists all imported keys with filtering. Returns imported keys only (not\nissued keys). Supports pagination and AIP-160 filter expressions.\n\n```http\nGET /v2alpha1/admin/importedApiKeys?page_size=50\u0026filter=status%3DKEY_STATUS_ACTIVE\n```",
+        "operationId": "adminListImportedApiKeys",
+        "parameters": [
+          {
+            "description": "Number of items per page (default: 50, max: 1000)",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Cursor token for pagination (OPTIONAL)",
+            "in": "query",
+            "name": "page_token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "filter is an AIP-160 expression. Indexed fields (efficient at any scale):\n  actor_id, status. Other fields are not indexed and may be rejected.\nExamples:\n  actor_id=\"user_123\"\n  status=KEY_STATUS_ACTIVE\n  actor_id=\"user_123\" AND status=KEY_STATUS_ACTIVE",
+            "in": "query",
+            "name": "filter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListImportedApiKeysResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "List Imported API Keys",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage adminlistimportedapikeys\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc listImportedAPIKeys(ctx context.Context, c *client.APIClient) error {\n\tpageToken := \"\"\n\tfor {\n\t\tresp, _, err := c.StaticCredentialsAPI.\n\t\t\tAdminListImportedAPIKeys(ctx).\n\t\t\tPageSize(50).\n\t\t\tPageToken(pageToken).\n\t\t\tExecute()\n\t\tif err != nil {\n\t\t\treturn fmt.Errorf(\"list imported keys: %w\", err)\n\t\t}\n\n\t\tfor _, key := range resp.ImportedApiKeys {\n\t\t\tfmt.Println(key.GetKeyId(), key.GetActorId(), key.GetStatus())\n\t\t}\n\n\t\tpageToken = resp.GetNextPageToken()\n\t\tif pageToken == \"\" {\n\t\t\treturn nil\n\t\t}\n\t}\n}"
+          }
+        ]
+      },
+      "post": {
+        "description": "Imports an external API key into the system. Allows importing keys from\nlegacy systems or external providers. The raw key is hashed (SHA-512/256\nover network_id + 0x00 + raw key) and stored; the original key is never\nretained. Imported keys support token derivation (JWT/Macaroon) like\nissued keys.\n\n```http\nPOST /v2alpha1/admin/importedApiKeys\n{\n  \"raw_key\": \"sk_live_abc123xyz\",\n  \"name\": \"Imported Stripe Key\",\n  \"actor_id\": \"user_123\"\n}\n```",
+        "operationId": "adminImportApiKey",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImportApiKeyRequest"
+              }
+            }
+          },
+          "description": "ImportApiKeyRequest imports an external API key. The raw key is hashed with\nSHA-512/256 (over network_id + 0x00 + raw key) and only the hash is stored.\n\nExample:\n  {\n    \"raw_key\": \"sk_live_abc123xyz789\",\n    \"name\": \"Stripe Production Key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"stripe\", \"environment\": \"production\"}\n  }",
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportedApiKey"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "API key imported successfully."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Import API Key",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage adminimportapikey\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc importAPIKey(ctx context.Context, c *client.APIClient) error {\n\tresp, _, err := c.StaticCredentialsAPI.\n\t\tAdminImportAPIKey(ctx).\n\t\tV2alpha1ImportAPIKeyRequest(client.V2alpha1ImportAPIKeyRequest{\n\t\t\tRawKey:  client.PtrString(\"legacy-secret-from-other-system\"),\n\t\t\tName:    client.PtrString(\"legacy-key\"),\n\t\t\tActorId: client.PtrString(\"user_456\"),\n\t\t\tScopes:  []string{\"read\"},\n\t\t\tTtl:     client.PtrString(\"8760h\"),\n\t\t}).\n\t\tExecute()\n\tif err != nil {\n\t\treturn fmt.Errorf(\"import key: %w\", err)\n\t}\n\n\tfmt.Println(\"Imported key ID:\", resp.GetImportedApiKey().GetKeyId())\n\treturn nil\n}"
+          }
+        ]
+      }
+    },
+    "/v2alpha1/admin/importedApiKeys/{imported_api_key.key_id}": {
+      "patch": {
+        "description": "Updates metadata, scopes, or rate limits of an imported key. Supports\npartial updates via the update_mask query parameter (AIP-134). Omitting\nupdate_mask is equivalent to a mask of every populated field in the body.\nTo clear a field to its zero value, list it explicitly in update_mask and\nleave it unset (or empty) in the body.\n\n```http\nPATCH /v2alpha1/admin/importedApiKeys/{key_id}?update_mask=name\n{\n  \"imported_api_key\": {\n    \"key_id\": \"{key_id}\",\n    \"name\": \"New name\"\n  }\n}\n```",
+        "operationId": "adminUpdateImportedApiKey",
+        "parameters": [
+          {
+            "description": "SHA-512/256 hash of credential",
+            "in": "path",
+            "name": "imported_api_key.key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The list of fields to update. See AIP-134.",
+            "in": "query",
+            "name": "update_mask",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "ImportedApiKey represents an API key imported from an external system.\nThe raw key is hashed (SHA-512/256) and stored. The original key is never retained.",
+                "properties": {
+                  "actor_id": {
+                    "type": "string"
+                  },
+                  "create_time": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "expire_time": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "ip_restriction": {
+                    "$ref": "#/components/schemas/IPRestriction"
+                  },
+                  "last_used_time": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "description": "metadata is a free-form JSON object for caller-defined attributes\n(e.g., source, environment, tags). Values may be strings, numbers,\nbooleans, arrays, objects, or null. Total serialized size is capped\nat 4KB. AIP-148 metadata field.",
+                    "type": "object"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "rate_limit_policy": {
+                    "$ref": "#/components/schemas/RateLimitPolicy"
+                  },
+                  "revocation_description": {
+                    "description": "revocation_description provides free-form context for a revocation.\nOnly set when revocation_reason is PRIVILEGE_WITHDRAWN.\nJSON API change: field was formerly revocation_reason_text. Field number 13\nis unchanged so the change is wire-compatible for binary proto encoding.",
+                    "type": "string"
+                  },
+                  "revocation_reason": {
+                    "$ref": "#/components/schemas/RevocationReason"
+                  },
+                  "scopes": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "status": {
+                    "$ref": "#/components/schemas/KeyStatus"
+                  },
+                  "update_time": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "visibility": {
+                    "$ref": "#/components/schemas/KeyVisibility"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "imported_api_key"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportedApiKey"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Update Imported API Key",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage adminupdateimportedapikey\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc updateImportedAPIKey(ctx context.Context, c *client.APIClient, keyID string) error {\n\tkey, _, err := c.StaticCredentialsAPI.\n\t\tAdminUpdateImportedAPIKey(ctx, keyID).\n\t\tStaticCredentialsAdminUpdateImportedAPIKeyBody(client.StaticCredentialsAdminUpdateImportedAPIKeyBody{\n\t\t\tName:       client.PtrString(\"renamed-legacy-key\"),\n\t\t\tScopes:     []string{\"read\"},\n\t\t\tUpdateMask: client.PtrString(\"name,scopes\"),\n\t\t}).\n\t\tExecute()\n\tif err != nil {\n\t\treturn fmt.Errorf(\"update imported key: %w\", err)\n\t}\n\n\tfmt.Println(\"Updated:\", key.GetKeyId(), key.GetName(), key.Scopes)\n\treturn nil\n}"
+          }
+        ]
+      }
+    },
+    "/v2alpha1/admin/importedApiKeys/{key_id}": {
+      "delete": {
+        "description": "Permanently deletes an imported key (hard delete). The key is removed from\nthe database. Use AdminRevokeImportedApiKey for soft deletion (recommended).\n\n```http\nDELETE /v2alpha1/admin/importedApiKeys/{key_id}\n```",
+        "operationId": "adminDeleteImportedApiKey",
+        "parameters": [
+          {
+            "description": "SHA512/256 hash of the imported key (REQUIRED)",
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Imported key deleted successfully."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Delete Imported API Key",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage admindeleteimportedapikey\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc deleteImportedAPIKey(ctx context.Context, c *client.APIClient, keyID string) error {\n\tif _, _, err := c.StaticCredentialsAPI.\n\t\tAdminDeleteImportedAPIKey(ctx, keyID).\n\t\tExecute(); err != nil {\n\t\treturn fmt.Errorf(\"delete imported key: %w\", err)\n\t}\n\n\tfmt.Println(\"Deleted imported key:\", keyID)\n\treturn nil\n}"
+          }
+        ]
+      },
+      "get": {
+        "description": "Retrieves metadata about a specific imported key. The original raw key is\nnever returned.\n\n```http\nGET /v2alpha1/admin/importedApiKeys/{key_id}\n```",
+        "operationId": "adminGetImportedApiKey",
+        "parameters": [
+          {
+            "description": "SHA512/256 hash of the imported key (REQUIRED)",
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportedApiKey"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Get Imported API Key",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage admingetimportedapikey\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc getImportedAPIKey(ctx context.Context, c *client.APIClient, keyID string) error {\n\tkey, _, err := c.StaticCredentialsAPI.\n\t\tAdminGetImportedAPIKey(ctx, keyID).\n\t\tExecute()\n\tif err != nil {\n\t\treturn fmt.Errorf(\"get imported key: %w\", err)\n\t}\n\n\tfmt.Println(\"Key ID:\", key.GetKeyId())\n\tfmt.Println(\"Actor:\", key.GetActorId())\n\tfmt.Println(\"Status:\", key.GetStatus())\n\treturn nil\n}"
+          }
+        ]
+      }
+    },
+    "/v2alpha1/admin/importedApiKeys/{key_id}:revoke": {
+      "post": {
+        "description": "Immediately revokes an imported API key. Once revoked, the key can no longer\nbe used for authentication. This operation is irreversible. Revoked keys\nare retained for audit purposes.\n\n```http\nPOST /v2alpha1/admin/importedApiKeys/9a3f051b2c7e8d4f1a6b9c0e5f2d8a3b:revoke\n{\n  \"reason\": \"REVOCATION_REASON_KEY_COMPROMISE\"\n}\n```",
+        "operationId": "adminRevokeImportedApiKey",
+        "parameters": [
+          {
+            "description": "SHA-512/256 hash of the imported key (REQUIRED)",
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminRevokeImportedApiKeyBody"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "API key revoked successfully."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Revoke Imported API Key",
+        "tags": ["ApiKeys"]
+      }
+    },
+    "/v2alpha1/admin/importedApiKeys:batchCreate": {
+      "post": {
+        "description": "Imports up to 1000 external API keys in one request. Returns per-item\nresults. If at least one item succeeds, response is 200 OK. If all items\nfail, the endpoint returns a non-200 error.\n\n```http\nPOST /v2alpha1/admin/importedApiKeys:batchCreate\n{\n  \"requests\": [\n    {\"raw_key\": \"sk_live_abc\", \"name\": \"Stripe key\", \"actor_id\": \"user_1\"},\n    {\"raw_key\": \"ghp_xyz\", \"name\": \"GitHub PAT\", \"actor_id\": \"user_2\"}\n  ]\n}\n```",
+        "operationId": "adminBatchCreateImportedApiKeys",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCreateImportedApiKeysRequest"
+              }
+            }
+          },
+          "description": "BatchCreateImportedApiKeysRequest imports multiple external API keys in one request.\nThe maximum batch size is 1000 keys.",
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchCreateImportedApiKeysResponse"
+                }
+              }
+            },
+            "description": "Batch import completed. Check per-item results for individual status."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Batch Import API Keys",
+        "tags": ["ApiKeys"]
+      }
+    },
+    "/v2alpha1/admin/issuedApiKeys": {
+      "get": {
+        "description": "Lists issued API keys with optional filtering. Supports cursor-based\npagination and AIP-160 filter expressions. Returns only issued\n(generated) API keys; use ListImportedApiKeys for imported keys.\n\n```http\nGET /v2alpha1/admin/issuedApiKeys?page_size=50\u0026filter=actor_id%3D%22user_123%22\n```",
+        "operationId": "adminListIssuedApiKeys",
+        "parameters": [
+          {
+            "description": "Number of items per page (default: 50, max: 1000)",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Cursor token for pagination",
+            "in": "query",
+            "name": "page_token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "filter is an AIP-160 expression. Indexed fields (efficient at any scale):\n  actor_id, status. Other fields are not indexed and may be rejected.\nExamples:\n  actor_id=\"user_123\"\n  status=KEY_STATUS_ACTIVE\n  actor_id=\"user_123\" AND status=KEY_STATUS_ACTIVE",
+            "in": "query",
+            "name": "filter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListIssuedApiKeysResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "List Issued API Keys",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage adminlistissuedapikeys\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc listIssuedAPIKeys(ctx context.Context, c *client.APIClient) error {\n\tpageToken := \"\"\n\tfor {\n\t\tresp, _, err := c.StaticCredentialsAPI.\n\t\t\tAdminListIssuedAPIKeys(ctx).\n\t\t\tPageSize(50).\n\t\t\tPageToken(pageToken).\n\t\t\tFilter(`status = \"KEY_STATUS_ACTIVE\"`).\n\t\t\tExecute()\n\t\tif err != nil {\n\t\t\treturn fmt.Errorf(\"list issued keys: %w\", err)\n\t\t}\n\n\t\tfor _, key := range resp.IssuedApiKeys {\n\t\t\tfmt.Println(key.GetKeyId(), key.GetActorId(), key.GetStatus())\n\t\t}\n\n\t\tpageToken = resp.GetNextPageToken()\n\t\tif pageToken == \"\" {\n\t\t\treturn nil\n\t\t}\n\t}\n}"
+          }
+        ]
+      },
+      "post": {
+        "description": "Creates a new API key for a given actor. The secret is returned only once\nin the response and cannot be retrieved later. Keys can be scoped with\nspecific permissions and have optional expiration.\n\n```http\nPOST /v2alpha1/admin/issuedApiKeys\n{\n  \"name\": \"production-service\",\n  \"actor_id\": \"user_123\",\n  \"scopes\": [\"read\", \"write\"],\n  \"ttl\": \"8760h\"\n}\n```",
+        "operationId": "adminIssueApiKey",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssueApiKeyRequest"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssueApiKeyResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "API key issued successfully."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Issue API Key",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "bash",
+            "label": "curl",
+            "source": "curl -X POST \"$TALOS_URL/v2alpha1/admin/issuedApiKeys\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"name\": \"my-service\",\n    \"actor_id\": \"user_123\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"720h\",\n    \"metadata\": {\"team\": \"backend\"}\n  }'"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage adminissueapikey\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc issueAPIKey(ctx context.Context, c *client.APIClient) error {\n\tresp, _, err := c.StaticCredentialsAPI.\n\t\tAdminIssueAPIKey(ctx).\n\t\tV2alpha1IssueAPIKeyRequest(client.V2alpha1IssueAPIKeyRequest{\n\t\t\tName:    client.PtrString(\"my-service\"),\n\t\t\tActorId: client.PtrString(\"user_123\"),\n\t\t\tScopes:  []string{\"read\", \"write\"},\n\t\t\tTtl:     client.PtrString(\"720h\"),\n\t\t}).\n\t\tExecute()\n\tif err != nil {\n\t\treturn fmt.Errorf(\"issue key: %w\", err)\n\t}\n\n\t// Secret is returned only once; store it now.\n\tfmt.Println(\"Key ID:\", resp.GetIssuedApiKey().GetKeyId())\n\tfmt.Println(\"Secret:\", resp.GetSecret())\n\treturn nil\n}"
+          },
+          {
+            "lang": "typescript",
+            "label": "TypeScript",
+            "source": "import { Configuration, StaticCredentialsApi } from \"@ory/talos-client\";\n\nconst client = new StaticCredentialsApi(new Configuration({ basePath: process.env.TALOS_URL }));\n\nconst { issuedApiKey, secret } = await client.adminIssueAPIKey({\n  v2alpha1IssueAPIKeyRequest: {\n    name: \"my-service\",\n    actorId: \"user_123\",\n    scopes: [\"read\", \"write\"],\n    ttl: \"720h\",\n    metadata: { team: \"backend\" },\n  },\n});\n\n// Secret is returned only once; store it now.\nconsole.log(\"Key ID:\", issuedApiKey?.keyId);\nconsole.log(\"Secret:\", secret);"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import os\nimport ory_talos_client\nfrom ory_talos_client.api.static_credentials_api import StaticCredentialsApi\n\ncfg = ory_talos_client.Configuration(host=os.environ[\"TALOS_URL\"])\n\nwith ory_talos_client.ApiClient(cfg) as api_client:\n    api = StaticCredentialsApi(api_client)\n    resp = api.admin_issue_api_key(\n        v2alpha1_issue_api_key_request={\n            \"name\": \"my-service\",\n            \"actor_id\": \"user_123\",\n            \"scopes\": [\"read\", \"write\"],\n            \"ttl\": \"720h\",\n            \"metadata\": {\"team\": \"backend\"},\n        }\n    )\n\n# Secret is returned only once; store it now.\nprint(\"Key ID:\", resp.issued_api_key.key_id)\nprint(\"Secret:\", resp.secret)"
+          }
+        ]
+      }
+    },
+    "/v2alpha1/admin/issuedApiKeys/{issued_api_key.key_id}": {
+      "patch": {
+        "description": "Updates metadata, scopes, or rate limits of an issued key without rotating\nthe secret. Use RotateIssuedApiKey to change the secret.\n\nFollows AIP-134: the request body is the IssuedApiKey resource itself,\nand the update_mask query parameter names the subset of fields to apply.\nOmitting update_mask is equivalent to a mask of every populated field\nin the body. To clear a field to its zero value, list it explicitly in\nupdate_mask and leave it unset (or empty) in the body.\n\n```http\nPATCH /v2alpha1/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ?update_mask=scopes\n{\n  \"issued_api_key\": {\n    \"key_id\": \"01HQZX9VYQKJB8XQZQXQZQXQXQ\",\n    \"scopes\": [\"read\"]\n  }\n}\n```",
+        "operationId": "adminUpdateIssuedApiKey",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "issued_api_key.key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The list of fields to update. See AIP-134.",
+            "in": "query",
+            "name": "update_mask",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "IssuedApiKey represents an API key issued (generated) by Talos.\nRoot keys are opaque v1 format tokens stored in the database.\nDerived tokens (JWT/Macaroon) are created via DeriveToken and are stateless (not stored).",
+                "properties": {
+                  "actor_id": {
+                    "type": "string"
+                  },
+                  "create_time": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "expire_time": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "ip_restriction": {
+                    "$ref": "#/components/schemas/IPRestriction"
+                  },
+                  "last_used_time": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "description": "metadata is a free-form JSON object for caller-defined attributes\n(e.g., source, environment, tags). Values may be strings, numbers,\nbooleans, arrays, objects, or null. Total serialized size is capped\nat 4KB. AIP-148 metadata field.",
+                    "type": "object"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "rate_limit_policy": {
+                    "$ref": "#/components/schemas/RateLimitPolicy"
+                  },
+                  "revocation_description": {
+                    "description": "revocation_description provides free-form context for a revocation.\nOnly set when revocation_reason is PRIVILEGE_WITHDRAWN.\nJSON API change: field was formerly revocation_reason_text. Field number 13\nis unchanged so the change is wire-compatible for binary proto encoding.",
+                    "type": "string"
+                  },
+                  "revocation_reason": {
+                    "$ref": "#/components/schemas/RevocationReason"
+                  },
+                  "scopes": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "status": {
+                    "$ref": "#/components/schemas/KeyStatus"
+                  },
+                  "update_time": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "visibility": {
+                    "$ref": "#/components/schemas/KeyVisibility"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "issued_api_key"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssuedApiKey"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Update Issued API Key",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage adminupdateissuedapikey\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc updateIssuedAPIKey(ctx context.Context, c *client.APIClient, keyID string) error {\n\tkey, _, err := c.StaticCredentialsAPI.\n\t\tAdminUpdateIssuedAPIKey(ctx, keyID).\n\t\tStaticCredentialsAdminUpdateIssuedAPIKeyBody(client.StaticCredentialsAdminUpdateIssuedAPIKeyBody{\n\t\t\tName:       client.PtrString(\"renamed-service\"),\n\t\t\tScopes:     []string{\"read\"},\n\t\t\tUpdateMask: client.PtrString(\"name,scopes\"),\n\t\t}).\n\t\tExecute()\n\tif err != nil {\n\t\treturn fmt.Errorf(\"update issued key: %w\", err)\n\t}\n\n\tfmt.Println(\"Updated:\", key.GetKeyId(), key.GetName(), key.Scopes)\n\treturn nil\n}"
+          }
+        ]
+      }
+    },
+    "/v2alpha1/admin/issuedApiKeys/{key_id}": {
+      "get": {
+        "description": "Retrieves details about a specific issued API key including its status,\nscopes, expiration, and usage statistics. The secret is never returned.\n\n```http\nGET /v2alpha1/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ\n```",
+        "operationId": "adminGetIssuedApiKey",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssuedApiKey"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Get Issued API Key",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage admingetissuedapikey\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc getIssuedAPIKey(ctx context.Context, c *client.APIClient, keyID string) error {\n\tkey, _, err := c.StaticCredentialsAPI.\n\t\tAdminGetIssuedAPIKey(ctx, keyID).\n\t\tExecute()\n\tif err != nil {\n\t\treturn fmt.Errorf(\"get issued key: %w\", err)\n\t}\n\n\tfmt.Println(\"Key ID:\", key.GetKeyId())\n\tfmt.Println(\"Actor:\", key.GetActorId())\n\tfmt.Println(\"Status:\", key.GetStatus())\n\treturn nil\n}"
+          }
+        ]
+      }
+    },
+    "/v2alpha1/admin/issuedApiKeys/{key_id}:revoke": {
+      "post": {
+        "description": "Immediately revokes an issued API key. Once revoked, the key can no longer\nbe used for authentication. This operation is irreversible. Revoked keys\nare retained for audit purposes.\n\n```http\nPOST /v2alpha1/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ:revoke\n{\n  \"reason\": \"REVOCATION_REASON_KEY_COMPROMISE\"\n}\n```",
+        "operationId": "adminRevokeIssuedApiKey",
+        "parameters": [
+          {
+            "description": "UUID of the issued key (REQUIRED)",
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminRevokeIssuedApiKeyBody"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "API key revoked successfully."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Revoke Issued API Key",
+        "tags": ["ApiKeys"]
+      }
+    },
+    "/v2alpha1/admin/issuedApiKeys/{key_id}:rotate": {
+      "post": {
+        "description": "Generates a new secret for an issued API key. Creates a new API key with a\nnew key_id and secret, and immediately revokes the old key. This is the\nrecommended way to update scopes, metadata, or rotate credentials.\n\nFor zero-downtime rotation, use this workflow instead:\n  1. IssueApiKey with new credentials\n  2. Deploy new secret to all services\n  3. Verify new secret works everywhere\n  4. AdminRevokeIssuedApiKey to remove the old key\n\n```http\nPOST /v2alpha1/admin/issuedApiKeys/01HQZX9VYQKJB8XQZQXQZQXQXQ:rotate\n{\n  \"scopes\": [\"read\"]\n}\n```",
+        "operationId": "adminRotateIssuedApiKey",
+        "parameters": [
+          {
+            "description": "key_id is the ID of the existing API key to rotate",
+            "in": "path",
+            "name": "key_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminRotateIssuedApiKeyBody"
+              }
+            }
+          },
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RotateIssuedApiKeyResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "API key rotated successfully. New key issued, old key revoked."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Rotate Issued API Key",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage adminrotateissuedapikey\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc rotateIssuedAPIKey(ctx context.Context, c *client.APIClient, keyID string) error {\n\tresp, _, err := c.StaticCredentialsAPI.\n\t\tAdminRotateIssuedAPIKey(ctx, keyID).\n\t\tStaticCredentialsAdminRotateIssuedAPIKeyBody(client.StaticCredentialsAdminRotateIssuedAPIKeyBody{\n\t\t\tName:       client.PtrString(\"rotated-service\"),\n\t\t\tUpdateMask: client.PtrString(\"name\"),\n\t\t}).\n\t\tExecute()\n\tif err != nil {\n\t\treturn fmt.Errorf(\"rotate issued key: %w\", err)\n\t}\n\n\t// The new secret is returned only once; store it now.\n\tfmt.Println(\"New key ID:\", resp.GetIssuedApiKey().GetKeyId())\n\tfmt.Println(\"New secret:\", resp.GetSecret())\n\tfmt.Println(\"Old key ID:\", resp.GetOldIssuedApiKey().GetKeyId())\n\treturn nil\n}"
+          }
+        ]
+      }
+    },
+    "/v2alpha1/apiKeys:selfRevoke": {
+      "post": {
+        "description": "Proof-of-possession variant of revocation. The `Self*` prefix on the\nrequest/response messages disambiguates from the admin variants\n(`AdminRevokeIssuedApiKey` / `AdminRevokeImportedApiKey`).\n\nAllows an API key holder to revoke their own key. The caller must provide\nthe full API key secret as proof of possession. Supports issued API keys\nand imported keys. JWT and macaroon tokens cannot be self-revoked (they\nare stateless).\n\nThe PRIVILEGE_WITHDRAWN reason is not allowed for self-revocation\n(admin-only).\n\n```http\nPOST /v2alpha1/apiKeys:selfRevoke\n{\n  \"credential\": \"sk_live_abc123...\",\n  \"reason\": \"REVOCATION_REASON_KEY_COMPROMISE\"\n}\n```",
+        "operationId": "revokeApiKey",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SelfRevokeApiKeyRequest"
+              }
+            }
+          },
+          "description": "SelfRevokeApiKeyRequest allows an API key holder to revoke their own key\nby providing the full key secret as proof of possession.",
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SelfRevokeApiKeyResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Revoke API Key (self-service)",
+        "tags": ["ApiKeys"],
+        "x-codeSamples": [
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "//go:build sample\n// +build sample\n\npackage revokeapikey\n\nimport (\n\t\"context\"\n\t\"fmt\"\n\n\tclient \"github.com/ory/talos-client-go\"\n)\n\nfunc selfRevokeAPIKey(ctx context.Context, c *client.APIClient, credential string) error {\n\treason := client.V2ALPHA1REVOCATIONREASON_REVOCATION_REASON_KEY_COMPROMISE\n\tif _, _, err := c.SelfServiceAPI.\n\t\tRevokeAPIKey(ctx).\n\t\tV2alpha1SelfRevokeAPIKeyRequest(client.V2alpha1SelfRevokeAPIKeyRequest{\n\t\t\tCredential: client.PtrString(credential),\n\t\t\tReason:     \u0026reason,\n\t\t}).\n\t\tExecute(); err != nil {\n\t\treturn fmt.Errorf(\"self-revoke key: %w\", err)\n\t}\n\n\tfmt.Println(\"Self-revoked successfully.\")\n\treturn nil\n}"
+          }
+        ]
+      }
+    },
+    "/v2alpha1/derivedKeys/jwks.json": {
+      "get": {
+        "description": "Returns the JSON Web Key Set (RFC 7517) with the public keys needed to\nverify JWT tokens issued by this service. Keys are loaded from\nconfiguration (file://, https://, or base64:// URIs).\n\n```http\nGET /v2alpha1/derivedKeys/jwks.json\n```",
+        "operationId": "getJwks",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetJWKSResponse"
+                }
+              }
+            },
+            "description": "A successful response."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            },
+            "description": "An unexpected error response."
+          }
+        },
+        "summary": "Get JWKS",
+        "tags": ["ApiKeys"]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://{project}.projects.oryapis.com",
+      "variables": {
+        "project": {
+          "default": "your-project",
+          "description": "Your Ory Network project slug"
+        }
+      }
+    }
+  ],
+  "tags": [
+    {
+      "description": "Administrative operations for managing API keys. Deploy behind authentication and authorization. Supports issued keys (generated by Talos), imported keys (from external systems), and key verification.",
+      "name": "ApiKeys"
+    }
+  ]
+}

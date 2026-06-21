@@ -1,0 +1,143 @@
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "results": {
+                "items": {
+                  "properties": {
+                    "actor_id": { "type": "string" },
+                    "error_code": {
+                      "default": "VERIFICATION_ERROR_UNSPECIFIED",
+                      "description": "- VERIFICATION_ERROR_UNSPECIFIED: No error (key is valid)\n - VERIFICATION_ERROR_INVALID_FORMAT: Credential format is invalid\n - VERIFICATION_ERROR_EXPIRED: Credential has expired\n - VERIFICATION_ERROR_REVOKED: Credential has been revoked\n - VERIFICATION_ERROR_NOT_FOUND: Credential not found in database\n - VERIFICATION_ERROR_SIGNATURE_INVALID: Cryptographic signature verification failed\n - VERIFICATION_ERROR_INTERNAL: Internal server error during verification\n - VERIFICATION_ERROR_IP_NOT_ALLOWED: Request IP is not in the key's allowed CIDR ranges\n - VERIFICATION_ERROR_RATE_LIMITED: Rate limit quota exhausted (commercial-only)",
+                      "enum": [
+                        "VERIFICATION_ERROR_UNSPECIFIED",
+                        "VERIFICATION_ERROR_INVALID_FORMAT",
+                        "VERIFICATION_ERROR_EXPIRED",
+                        "VERIFICATION_ERROR_REVOKED",
+                        "VERIFICATION_ERROR_NOT_FOUND",
+                        "VERIFICATION_ERROR_SIGNATURE_INVALID",
+                        "VERIFICATION_ERROR_INTERNAL",
+                        "VERIFICATION_ERROR_IP_NOT_ALLOWED",
+                        "VERIFICATION_ERROR_RATE_LIMITED"
+                      ],
+                      "title": "VerificationErrorCode provides type-safe error codes for verification failures",
+                      "type": "string"
+                    },
+                    "error_message": {
+                      "title": "Human-readable error message (only set if is_valid=false)",
+                      "type": "string"
+                    },
+                    "expire_time": { "format": "date-time", "type": "string" },
+                    "is_valid": {
+                      "description": "is_valid reports whether verification succeeded. It is true only when the\ncredential parses, the signature checks out, the key was found, all\npolicy gates (expiry, revocation, IP allowlist, rate limit) pass, and the\nkey's status is KEY_STATUS_ACTIVE. When false, error_code and\nerror_message describe the reason. Use this field for authentication\ndecisions; use status to inspect lifecycle state independently.",
+                      "type": "boolean"
+                    },
+                    "issuer": {
+                      "description": "The configured token issuer for this project. For derived tokens (JWT/macaroon),\nthis matches the iss claim embedded in the verified token.",
+                      "type": "string"
+                    },
+                    "key_id": { "type": "string" },
+                    "metadata": {
+                      "description": "metadata mirrors the metadata stored on the verified key. AIP-148\nmetadata field.",
+                      "type": "object"
+                    },
+                    "rate_limit_policy": {
+                      "description": "RateLimitPolicy describes the rate limit policy for an API key.\n\nIn OSS mode, this policy is informational and meant to be consumed by\nupstream gateways (Envoy, Cloudflare, etc.) for enforcement.\nIn commercial mode, Talos enforces rate limits using in-memory or Redis backends,\nboth using the GCRA (Generic Cell Rate Algorithm).\n\nCompliant with draft-ietf-httpapi-ratelimit-headers-10.",
+                      "properties": {
+                        "quota": {
+                          "description": "quota is the number of requests allowed per window.",
+                          "format": "int64",
+                          "type": "string"
+                        },
+                        "unit": {
+                          "title": "unit describes the quota unit type.\nDefault: \"requests\"\nOther valid values per IETF spec: \"content-bytes\", \"concurrent-requests\"",
+                          "type": "string"
+                        },
+                        "window": {
+                          "description": "window is the time window for the quota.\nCommon values: 60s (1 minute), 3600s (1 hour), 86400s (1 day).",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object",
+                      "title": "RateLimitPolicy"
+                    },
+                    "rate_limit_remaining": {
+                      "description": "Approximate number of requests available before the rate limit is reached\n(commercial-only, only set when enforcement is active).",
+                      "format": "int64",
+                      "type": "string"
+                    },
+                    "rate_limit_reset_time": {
+                      "description": "Time when the rate limiter returns to full capacity (all quota recovered).",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "scopes": {
+                      "items": { "type": "string" },
+                      "type": "array"
+                    },
+                    "status": {
+                      "default": "KEY_STATUS_UNSPECIFIED",
+                      "description": "KeyStatus represents the lifecycle state of an API key.\n\n - KEY_STATUS_UNSPECIFIED: Default zero value. Never returned by the server. Treated as ACTIVE for\nbackward compatibility but should not be relied on.\n - KEY_STATUS_ACTIVE: The key is valid and can be used to authenticate.\n - KEY_STATUS_REVOKED: The key was revoked. Verification fails with VERIFICATION_ERROR_REVOKED.\nSee revocation_reason for the cause.\n - KEY_STATUS_EXPIRED: The key passed its expire_time. Verification fails with\nVERIFICATION_ERROR_EXPIRED. The transition is computed at read time and\nnot persisted.",
+                      "enum": [
+                        "KEY_STATUS_UNSPECIFIED",
+                        "KEY_STATUS_ACTIVE",
+                        "KEY_STATUS_REVOKED",
+                        "KEY_STATUS_EXPIRED"
+                      ],
+                      "type": "string",
+                      "title": "KeyStatus"
+                    },
+                    "visibility": {
+                      "default": "KEY_VISIBILITY_UNSPECIFIED",
+                      "description": "KeyVisibility distinguishes public (client-safe) keys from secret (server-only) keys.\nPublic keys use a different configurable prefix for visual distinction.\nBoth types share the same scope/permission system — visibility is about exposure safety.\n\n - KEY_VISIBILITY_UNSPECIFIED: Treated as SECRET",
+                      "enum": [
+                        "KEY_VISIBILITY_UNSPECIFIED",
+                        "KEY_VISIBILITY_SECRET",
+                        "KEY_VISIBILITY_PUBLIC"
+                      ],
+                      "type": "string",
+                      "title": "KeyVisibility"
+                    }
+                  },
+                  "type": "object",
+                  "title": "VerifyApiKeyResponse"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object",
+            "title": "BatchVerifyApiKeysResponse"
+          }
+        }
+      },
+      "description": "A successful response."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "code": { "format": "int32", "type": "integer" },
+              "details": {
+                "items": {
+                  "additionalProperties": {},
+                  "properties": { "@type": { "type": "string" } },
+                  "type": "object",
+                  "title": "Any"
+                },
+                "type": "array"
+              },
+              "message": { "type": "string" }
+            },
+            "type": "object",
+            "title": "Status"
+          }
+        }
+      },
+      "description": "An unexpected error response."
+    }
+  }
+}

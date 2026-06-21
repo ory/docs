@@ -3,22 +3,26 @@
 ```ts
 type OryNodeImageProps = {
   attributes: UiNodeImageAttributes
-  node: UiNode
+  node: UiNodeImage
 }
 ```
 
 ## Properties
 
-### attributes
+### ~~attributes~~
 
 ```ts
 attributes: UiNodeImageAttributes
 ```
+
+#### Deprecated
+
+Use node.attributes instead.
 
 ---
 
 ### node
 
 ```ts
-node: UiNode
+node: UiNodeImage
 ```

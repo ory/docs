@@ -1,0 +1,36 @@
+---
+id: microsoft-sentinel
+title: Microsoft Sentinel
+sidebar_label: Microsoft Sentinel
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/siem-security-analytics/microsoft-sentinel](https://github.com/ory/integrates/tree/main/siem-security-analytics/microsoft-sentinel).
+</Admonition>
+```
+
+[Microsoft Sentinel](https://learn.microsoft.com/en-us/azure/sentinel/) is a cloud SIEM and SOAR on Azure. Ingest Ory identity
+events through the Log Analytics Data Collector API (or the newer Logs Ingestion API with DCRs).
+
+## How it works
+
+An Ory Action calls your handler, which signs the request with Azure HMAC-SHA256 and POSTs it to
+`https://<workspace-id>.ods.opinsights.azure.com/api/logs` under the custom log type `OryEvents_CL`. KQL analytics rules in
+Sentinel query `OryEvents_CL` for detection logic, and Logic Apps playbooks automate the response.
+
+## Notable
+
+- The Data Collector API is being deprecated in favor of the **Logs Ingestion API with DCRs**. Use the newer API for new
+  deployments.
+- For a no-code path, use a Logic App as an intermediary that receives the Ory Action webhook and posts to Sentinel.
+
+## Resources
+
+- [Logs Ingestion API](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/logs-ingestion-api-overview)
+- [Ory Actions](/docs/actions)
+- Reference:
+  [ory/integrates/siem-security-analytics/microsoft-sentinel](https://github.com/ory/integrates/tree/main/siem-security-analytics/microsoft-sentinel)

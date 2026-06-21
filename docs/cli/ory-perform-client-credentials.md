@@ -1,7 +1,7 @@
 ---
 id: ory-perform-client-credentials
 title: ory perform client-credentials
-description: ory perform client-credentials Perform the OAuth2 Client Credentials Flow
+description: ory perform client-credentials
 ---
 
 <!--
@@ -35,7 +35,7 @@ ory perform client-credentials --client-id ... --client-secret
       --client-id string       Use the provided OAuth 2.0 Client ID, defaults to environment variable OAUTH2_CLIENT_ID.
       --client-secret string   Use the provided OAuth 2.0 Client Secret, defaults to environment variable OAUTH2_CLIENT_SECRET.
   -e, --endpoint string        The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string          Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string          Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                   help for client-credentials
       --project string         The project to use, either project ID or a (partial) slug.
   -q, --quiet                  Be quiet with output printing.
@@ -50,7 +50,7 @@ ory perform client-credentials --client-id ... --client-secret
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory perform](ory-perform)	 - Perform a flow
+* [ory perform](ory-perform) Perform a flow
 

@@ -43,14 +43,16 @@ Available from version `1.40.1`.
 
 NPM library option: `acsUrl`
 
-### JACKSON_API_KEYS
+### API_KEYS
 
-A comma separated list of API keys that will be validated when serving the API requests (`/api/v1/`).
+A comma-separated list of API keys that will be validated when serving the API requests (`/api/v1/`).
 
-For example `JACKSON_API_KEYS=key1,key2,key3`
+For example `API_KEYS=key1,key2,key3`
 
 The API requests will then need to specify an `Authorization` header which contains one of the API keys above in this format:
 `Api-Key key1`
+
+`JACKSON_API_KEYS` is still supported but is deprecated, please switch to `API_KEYS` when you can.
 
 ### SAML_AUDIENCE
 
@@ -515,11 +517,30 @@ The cron interval at which to process the queued events. Provide a number in sec
 
 NPM library option: `dsync.webhookBatchCronInterval`
 
+### DSYNC_WEBHOOK_LOGS_TTL
+
+Controls how long SCIM (directory sync) webhook event logs are retained. Provide a duration string such as `720h` or `30d`.
+
+- **Unset** (default): logs keep the existing 7-day retention.
+- **Empty string**: logs are kept indefinitely (no expiry).
+- **Unrecognized value**: falls back to the 7-day default and logs a warning, so a typo never silently disables retention.
+
+NPM library option: `dsync.webhookLogsTTL`
+
 ### DSYNC_GOOGLE_CRON_INTERVAL
 
 The cron interval at which to sync the Google Workspace. Provide a number in seconds. By default, the cron job is disabled.
 
 NPM library option: `dsync.providers.google.cronInterval`
+
+### DSYNC_MAX_INLINE_GROUP_MEMBERS
+
+When `includeMembers=true` is set and a group has more than 500 members, the request returns a `400` error and directs you to the
+paginated group members endpoint, rather than returning a partial or oversized response. The 500-member limit is configurable.
+
+Default: `500`
+
+NPM library option: `dsync.maxInlineGroupMembers`
 
 ### DSYNC_GOOGLE_CLIENT_ID
 

@@ -28,7 +28,7 @@ const flatConsolePaths = [...projectPaths, ...workspacesPaths].flatMap((p) => {
  * <ConsoleLink route="project.activity.events" />
  *
  * // Renders:
- * // Activity → Logs & Events in the [Ory Console](https://console.ory.sh/current/projects/activity/events)
+ * // Activity → Logs & Events in the [Ory Console](https://console.ory.com/current/projects/activity/events)
  * ```
  *
  * @param route a (possible nested) accesor from the routes object
@@ -62,7 +62,7 @@ export default function ConsoleLink({ route, hash }: ConsoleLinkProps) {
 
   // TODO: add current project resolution via the console API
   const renderedRoute =
-    "https://console.ory.sh" +
+    "https://console.ory.com" +
     resolvedRoute.replace("[project]", "current") +
     (hash ? `#${hash}` : "")
 

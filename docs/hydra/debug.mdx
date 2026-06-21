@@ -37,17 +37,7 @@ If you expect an OAuth 2.0 Refresh Token but aren't receiving one, this can have
 
 ## OAuth 2.0 authorize code flow fails
 
-The most likely cause is misconfiguration, summarized in the next sections.
-
-## Refresh Token flow fails
-
-Refresh tokens can become invalid if abuse is detected, but coding issues may also trigger this scenario, for example if a client
-makes multiple requests.
-
-Some common examples:
-
-1.  Replay of authorization code grant.
-2.  Replay of refresh token grant.
+The most likely cause is misconfiguration of the OAuth 2.0 client or the redirect URL.
 
 ### Wrong or misconfigured OAuth 2.0 client
 
@@ -104,7 +94,59 @@ ory get oauth2-client {client.id}
 
 Here you see that `http://my-url/callback` isn't in the list, which is why the request fails.
 
-### `/oauth2/token` endpoint fails for JWKS based client
+## Refresh Token flow fails
+
+Refresh tokens in Ory OAuth2 and Ory Hydra are single-use. When a client redeems a refresh token at `/oauth2/token`, the server
+returns a new access token and a new refresh token, and invalidates the old refresh token.
+
+If an already-used refresh token is presented a second time, Ory treats that as a leaked token and revokes the entire token chain
+for that consent, logging out both the legitimate client and any attacker. This effectively prevents abuse from refresh tokens
+leaked during refresh. However, it also means that a faulty client that accidentally reuses a refresh token can cause the same
+result.
+
+A common case of a defective client implementation is a mobile app that tries to refresh tokens in the background, but gets
+suspended by the operating system before the response arrives. When it retries with the prior token on its next wake-up, it
+replays a spent token and triggers reuse detection.
+
+Another defective implementation occurs in the browser, where separate tabs or share a refresh token by storing it in cookie or
+local storage, and they all try to refresh at the same time when the access token expires. The first request rotates the token;
+the rest replay a spent token.
+
+The failures below all stem from a client redeeming a refresh token that the server has already rotated.
+
+Other possible causes include:
+
+- **The client doesn't store the new refresh token.** Each response contains a new `refresh_token`. If the client keeps using the
+  original instead of replacing its stored copy, the next refresh replays a spent token.
+- **Unsynchronized shared storage.** Instances read the refresh token from a shared store but write the rotated value back without
+  locking, so they overwrite each other and replay stale tokens.
+
+To fix the client, make sure each refresh token is redeemed once and the rotated token is stored before it is used again:
+
+- **Let the request finish even if the app is suspended.** On iOS,
+  [run the refresh on a background `URLSession`](<https://developer.apple.com/documentation/foundation/urlsessionconfiguration/background(withidentifier:)>),
+  which completes out-of-process and is delivered when the app is woken, rather than a standard session that is killed on
+  suspension. If a background session isn't an option, wrap the call in `beginBackgroundTask(withName:expirationHandler:)`. Other
+  platforms have equivalent background-completion mechanisms.
+- **Store the rotated refresh token before using it.** On every response, persist the new `refresh_token` and access token before
+  using the new access token, and discard the previous refresh token.
+- **Serialize refreshes per session.** Use a lock so only one refresh runs at a time for a session; callers that arrive during an
+  in-flight refresh wait for and reuse its result.
+- **Don't blindly retry an inconclusive refresh.** If a refresh fails without a definitive response, re-read the current token
+  from the shared store and let the serialized refresh path decide whether another refresh is needed, rather than retrying with
+  the token you originally sent.
+
+If none of these mitigations solve your problem, consider sending the user through a new OAuth2 authorization code flow to obtain
+a new refresh token if you inadvertently revoked the previous one. If you instructed Hydra to remember the user's consent during
+their prior login+consent journey, their next journey through the login+consent flow can be zero-click. This should be your
+preferred solution if the refresh token is invalidated only occasionally.
+
+If your client implementation genuinely cannot be fixed, [graceful refresh token rotation](./guides/graceful-token-refresh.mdx)
+lets a refresh token be redeemed more than once within a short grace period. This weakens the single-use guarantee for the
+duration of the grace period and typically increases latency on `/oauth2/token` due to contention on the token chain, so use it as
+a migration aid rather than a replacement for correct client behavior.
+
+## `/oauth2/token` endpoint fails for JWKS based client
 
 When trying to get an access token for a client registered with `"token_endpoint_auth_method": "private_key_jwt"` it's possible
 that the provided jwt has expired.

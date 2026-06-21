@@ -1,0 +1,126 @@
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "IssuedApiKey represents an API key issued (generated) by Talos.\nRoot keys are opaque v1 format tokens stored in the database.\nDerived tokens (JWT/Macaroon) are created via DeriveToken and are stateless (not stored).",
+            "properties": {
+              "actor_id": { "type": "string" },
+              "create_time": { "format": "date-time", "type": "string" },
+              "expire_time": { "format": "date-time", "type": "string" },
+              "ip_restriction": {
+                "description": "IPRestriction defines IP-based access controls for an API key.\nWhen allowed_cidrs is non-empty, only requests from IPs matching at least one\nCIDR range are permitted. Empty allowed_cidrs means no IP restriction (all IPs allowed).\nDerived tokens (JWT/macaroon) inherit the parent key's CIDR allowlist: the\nrestriction is sealed into the token at derivation and re-enforced on every\nverification.",
+                "properties": {
+                  "allowed_cidrs": {
+                    "description": "allowed_cidrs is a list of CIDR ranges that are allowed to use this key.\nSupports both IPv4 (e.g., \"10.0.0.0/8\") and IPv6 (e.g., \"2001:db8::/32\").\nIf empty, all IPs are allowed (no restriction).",
+                    "items": { "type": "string" },
+                    "type": "array"
+                  }
+                },
+                "type": "object",
+                "title": "IPRestriction"
+              },
+              "key_id": { "type": "string" },
+              "last_used_time": { "format": "date-time", "type": "string" },
+              "metadata": {
+                "description": "metadata is a free-form JSON object for caller-defined attributes\n(e.g., source, environment, tags). Values may be strings, numbers,\nbooleans, arrays, objects, or null. Total serialized size is capped\nat 4KB. AIP-148 metadata field.",
+                "type": "object"
+              },
+              "name": { "type": "string" },
+              "rate_limit_policy": {
+                "description": "RateLimitPolicy describes the rate limit policy for an API key.\n\nIn OSS mode, this policy is informational and meant to be consumed by\nupstream gateways (Envoy, Cloudflare, etc.) for enforcement.\nIn commercial mode, Talos enforces rate limits using in-memory or Redis backends,\nboth using the GCRA (Generic Cell Rate Algorithm).\n\nCompliant with draft-ietf-httpapi-ratelimit-headers-10.",
+                "properties": {
+                  "quota": {
+                    "description": "quota is the number of requests allowed per window.",
+                    "format": "int64",
+                    "type": "string"
+                  },
+                  "unit": {
+                    "title": "unit describes the quota unit type.\nDefault: \"requests\"\nOther valid values per IETF spec: \"content-bytes\", \"concurrent-requests\"",
+                    "type": "string"
+                  },
+                  "window": {
+                    "description": "window is the time window for the quota.\nCommon values: 60s (1 minute), 3600s (1 hour), 86400s (1 day).",
+                    "type": "string"
+                  }
+                },
+                "type": "object",
+                "title": "RateLimitPolicy"
+              },
+              "revocation_description": {
+                "description": "revocation_description provides free-form context for a revocation.\nOnly set when revocation_reason is PRIVILEGE_WITHDRAWN.\nJSON API change: field was formerly revocation_reason_text. Field number 13\nis unchanged so the change is wire-compatible for binary proto encoding.",
+                "type": "string"
+              },
+              "revocation_reason": {
+                "default": "REVOCATION_REASON_UNSPECIFIED",
+                "description": "RevocationReason provides structured revocation reasons inspired by RFC 5280.\nUsed in both admin and self-revocation flows.\n\n - REVOCATION_REASON_UNSPECIFIED: Default zero value. Use a specific reason; UNSPECIFIED is rejected by\nadmin and self-revocation endpoints.\n - REVOCATION_REASON_KEY_COMPROMISE: The key was leaked or believed to be in the hands of an unauthorized\nparty.\n - REVOCATION_REASON_AFFILIATION_CHANGED: The owning actor's relationship with the issuer changed (e.g., role\nchange, departure).\n - REVOCATION_REASON_SUPERSEDED: A new key has replaced this one as part of a rotation.\n - REVOCATION_REASON_PRIVILEGE_WITHDRAWN: Admin-only. The actor's privilege to use this key was withdrawn by\nan operator. Self-revocation requests using this reason are rejected\nwith InvalidArgument. Pair with `description` on the admin revoke requests\nto record the operator-supplied justification.",
+                "enum": [
+                  "REVOCATION_REASON_UNSPECIFIED",
+                  "REVOCATION_REASON_KEY_COMPROMISE",
+                  "REVOCATION_REASON_AFFILIATION_CHANGED",
+                  "REVOCATION_REASON_SUPERSEDED",
+                  "REVOCATION_REASON_PRIVILEGE_WITHDRAWN"
+                ],
+                "type": "string",
+                "title": "RevocationReason"
+              },
+              "scopes": { "items": { "type": "string" }, "type": "array" },
+              "status": {
+                "default": "KEY_STATUS_UNSPECIFIED",
+                "description": "KeyStatus represents the lifecycle state of an API key.\n\n - KEY_STATUS_UNSPECIFIED: Default zero value. Never returned by the server. Treated as ACTIVE for\nbackward compatibility but should not be relied on.\n - KEY_STATUS_ACTIVE: The key is valid and can be used to authenticate.\n - KEY_STATUS_REVOKED: The key was revoked. Verification fails with VERIFICATION_ERROR_REVOKED.\nSee revocation_reason for the cause.\n - KEY_STATUS_EXPIRED: The key passed its expire_time. Verification fails with\nVERIFICATION_ERROR_EXPIRED. The transition is computed at read time and\nnot persisted.",
+                "enum": [
+                  "KEY_STATUS_UNSPECIFIED",
+                  "KEY_STATUS_ACTIVE",
+                  "KEY_STATUS_REVOKED",
+                  "KEY_STATUS_EXPIRED"
+                ],
+                "type": "string",
+                "title": "KeyStatus"
+              },
+              "update_time": { "format": "date-time", "type": "string" },
+              "visibility": {
+                "default": "KEY_VISIBILITY_UNSPECIFIED",
+                "description": "KeyVisibility distinguishes public (client-safe) keys from secret (server-only) keys.\nPublic keys use a different configurable prefix for visual distinction.\nBoth types share the same scope/permission system — visibility is about exposure safety.\n\n - KEY_VISIBILITY_UNSPECIFIED: Treated as SECRET",
+                "enum": [
+                  "KEY_VISIBILITY_UNSPECIFIED",
+                  "KEY_VISIBILITY_SECRET",
+                  "KEY_VISIBILITY_PUBLIC"
+                ],
+                "type": "string",
+                "title": "KeyVisibility"
+              }
+            },
+            "type": "object",
+            "title": "IssuedApiKey"
+          }
+        }
+      },
+      "description": "A successful response."
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "code": { "format": "int32", "type": "integer" },
+              "details": {
+                "items": {
+                  "additionalProperties": {},
+                  "properties": { "@type": { "type": "string" } },
+                  "type": "object",
+                  "title": "Any"
+                },
+                "type": "array"
+              },
+              "message": { "type": "string" }
+            },
+            "type": "object",
+            "title": "Status"
+          }
+        }
+      },
+      "description": "An unexpected error response."
+    }
+  }
+}

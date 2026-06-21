@@ -1,0 +1,47 @@
+---
+id: castle
+title: Castle account-takeover protection
+sidebar_label: Castle
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/fraud-bot-protection/castle](https://github.com/ory/integrates/tree/main/fraud-bot-protection/castle).
+</Admonition>
+```
+
+[Castle](https://castle.io) is an account-takeover and fraud-prevention platform with device fingerprinting, behavioral analytics,
+and risk scoring per user and event.
+
+## How it works
+
+Castle uses a send-events and read-risk model:
+
+**Pre-flow risk check** (sync, can interrupt the flow):
+
+1. Ory Action on `login.before` / `registration.before` with `can_interrupt: true` calls the handler with identity + IP + device
+   context.
+2. Handler POSTs to Castle's `/v1/risk` endpoint with the event type and identity payload.
+3. Castle returns an `action` (`allow`, `challenge`, `deny`) and a `risk` score.
+4. On `deny`, handler returns an error and Ory blocks the flow.
+
+**Post-flow event reporting** (async, signal collection):
+
+1. Ory Action on `login.after` / `registration.after` (async, `response.ignore: true`) calls the handler.
+2. Handler POSTs `$login.succeeded` / `$registration` events to Castle's `/v1/track` endpoint.
+3. Castle updates its model for future risk scoring.
+
+Both flows must run for Castle to be useful.
+
+## Notable
+
+- Castle requires a **stable user_id** keyed on the Ory identity id (not email) for identity-graph continuity.
+- Risk thresholds are tunable per event type — start permissive, tighten as you collect data.
+
+## Resources
+
+- [Castle API reference](https://docs.castle.io/v1/reference)
+- Reference: [ory/integrates/fraud-bot-protection/castle](https://github.com/ory/integrates/tree/main/fraud-bot-protection/castle)

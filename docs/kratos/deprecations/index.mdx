@@ -6,7 +6,6 @@ sidebar_label: Feature deprecations
 
 This section lists deprecated behavior in Ory Kratos. Check this section regularly to avoid relying on deprecated functionality.
 
-
 ## Who does this apply to?
 
 Users of the Ory Network, Ory Kratos (open source) and the OEL (Ory Enterprise License) are affected by this section.
@@ -22,6 +21,7 @@ Each entry in this section provides information about the deprecated feature, in
 
 If you're using an Ory Network project, your configuration will not change, unless you have explicitly disabled the deprecated
 feature via a project level feature flag. To check which flags are currently enabled, go to
+
 <ConsoleLink route="project.settings.advanced" />.
 
 If you're self-hosting Ory Kratos (either through open source or the OEL), you should review your configuration and codebase to
@@ -40,9 +40,9 @@ engaged with other users and developers, and to get support for any questions or
 
 - Who is impacted by this change?
 
-This improvement may impact users who are using the `/admin/sessions/{id}/extend` endpoint ([`extendSession`](../reference/api#tag/identity/operation/extendSession) SDK operation) to
-extend their users' sessions. The new implementation may result in faster response times and improved performance when extending
-sessions.
+This improvement may impact users who are using the `/admin/sessions/{id}/extend` endpoint
+([`extendSession`](../reference/api#tag/identity/operation/extendSession) SDK operation) to extend their users' sessions. The new
+implementation may result in faster response times and improved performance when extending sessions.
 
 - Why was this change made?
 
@@ -54,7 +54,8 @@ extending sessions, especially in scenarios with high traffic or large session d
 
 If your application is using the updated session returned by the `/admin/sessions/{id}/extend` endpoint after the session
 extension, you will need to update your implementation to retrieve the updated session information separately, using the
-`/admin/sessions/{id}` endpoint ([`getSession`](../reference/api#tag/identity/operation/getSession) SDK operation) after the session extension.
+`/admin/sessions/{id}` endpoint ([`getSession`](../reference/api#tag/identity/operation/getSession) SDK operation) after the
+session extension.
 
 After you reviewed your usage of this API, follow the instructions below based on your deployment type to ensure that you are
 benefiting from the improved session extension process.

@@ -25,7 +25,7 @@ library. The locale is used to determine the language of the UI. The default loc
 ### project
 
 ```ts
-project: AccountExperienceConfiguration
+project: ProjectConfiguration
 ```
 
 The configuration for the project.
