@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Injects x-codeSamples (TypeScript + Go) and x-sdk-docs (structured param
- * metadata) into src/static/api.json for every operation, reading
+ * Injects x-codeSamples (TypeScript + Go + Python) and x-sdk-docs (structured
+ * param metadata) into src/static/api.json for every operation, reading
  * pre-generated examples directly from the SDK docs.
  *
  * Run:  node scripts/inject-sdk-code-samples.mjs
@@ -16,6 +16,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const SPEC_PATH = join(__dirname, "../src/static/api.json")
 const TS_DOCS_DIR = join(__dirname, "../../sdk/clients/client/typescript/docs")
 const GO_DOCS_DIR = join(__dirname, "../../sdk/clients/client/go/docs")
+const PY_DOCS_DIR = join(__dirname, "../../sdk/clients/client/python/docs")
 
 // ─── Tag → SDK identifiers ───────────────────────────────────────────────────
 
@@ -50,6 +51,8 @@ const TAG_TO_GO_SERVICE = {
   wellknown: "WellknownAPI",
   workspace: "WorkspaceAPI",
 }
+
+const TAG_TO_PY_CLASS = TAG_TO_TS_CLASS
 
 // ─── Type helpers ─────────────────────────────────────────────────────────────
 
@@ -248,6 +251,69 @@ function parseGoSdkDocs(docsDir, tagToService) {
   return result
 }
 
+// ─── Python parsers ───────────────────────────────────────────────────────────
+
+function snakeToCamel(str) {
+  return str.replace(/_([a-z])/g, (_, c) => c.toUpperCase())
+}
+
+function parsePyDocsExamples(docsDir, tagToClass) {
+  const examples = {}
+  for (const serviceName of Object.values(tagToClass)) {
+    const filePath = join(docsDir, `${serviceName}.md`)
+    if (!existsSync(filePath)) {
+      console.warn(`  WARN  Python docs not found: ${filePath}`)
+      continue
+    }
+    const content = readFileSync(filePath, "utf8")
+    for (const section of content.split(/\n# \*\*/)) {
+      const heading = section.match(/^(\w+)\*\*/)?.[1]
+      if (!heading) continue
+      const code = section.match(/```python\n([\s\S]*?)```/)?.[1]
+      if (!code) continue
+      examples[snakeToCamel(heading)] = code.trimEnd()
+    }
+  }
+  return examples
+}
+
+function parsePySdkDocs(docsDir, tagToClass) {
+  const result = {}
+  for (const serviceName of Object.values(tagToClass)) {
+    const filePath = join(docsDir, `${serviceName}.md`)
+    if (!existsSync(filePath)) continue
+    const content = readFileSync(filePath, "utf8")
+    for (const section of content.split(/\n# \*\*/)) {
+      const heading = section.match(/^(\w+)\*\*/)?.[1]
+      if (!heading) continue
+
+      const sigLine = section.match(/^> (.+)\n/)?.[1] ?? ""
+      const sigMethod = sigLine.match(/\S+\s+(\w+\([^)]*\))/)
+      const signature = sigMethod?.[1] ?? `${heading}()`
+
+      const paramsBlock =
+        section.match(/### Parameters\n\n([\s\S]*?)(?=###|\n\n\n|$)/)?.[1] ?? ""
+      const params = parseMdTableRows(paramsBlock)
+        .map((cols) => {
+          const notes = cols[3] ?? ""
+          return {
+            name: cleanTsType(cols[0] ?? ""),
+            type: cleanTsType(cols[1] ?? ""),
+            description: cleanTsType(cols[2] ?? ""),
+            required: !notes.includes("optional"),
+          }
+        })
+        .filter((p) => p.name)
+
+      const retRaw = section.match(/### Return type\n\n([^\n]+)/)?.[1] ?? ""
+      const returnType = cleanTsType(retRaw) || "void"
+
+      result[snakeToCamel(heading)] = { signature, params, returnType }
+    }
+  }
+  return result
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 function main() {
@@ -261,11 +327,21 @@ function main() {
     `Go: parsed ${Object.keys(goExamples).length} examples from SDK docs`,
   )
 
+  const pyExamples = parsePyDocsExamples(PY_DOCS_DIR, TAG_TO_PY_CLASS)
+  console.log(
+    `Python: parsed ${Object.keys(pyExamples).length} examples from SDK docs`,
+  )
+
   const tsSdkDocs = parseTsSdkDocs(TS_DOCS_DIR, TAG_TO_TS_CLASS)
   console.log(`TS: parsed ${Object.keys(tsSdkDocs).length} structured SDK docs`)
 
   const goSdkDocs = parseGoSdkDocs(GO_DOCS_DIR, TAG_TO_GO_SERVICE)
   console.log(`Go: parsed ${Object.keys(goSdkDocs).length} structured SDK docs`)
+
+  const pySdkDocs = parsePySdkDocs(PY_DOCS_DIR, TAG_TO_PY_CLASS)
+  console.log(
+    `Python: parsed ${Object.keys(pySdkDocs).length} structured SDK docs`,
+  )
 
   const spec = JSON.parse(readFileSync(SPEC_PATH, "utf8"))
   let injected = 0,
@@ -284,11 +360,14 @@ function main() {
 
       const tsSnippet = tsExamples[op.operationId] ?? ""
       const goSnippet = goExamples[op.operationId] ?? ""
+      const pySnippet = pyExamples[op.operationId] ?? ""
 
       if (!tsSnippet)
         console.warn(`  WARN  No TS example for ${op.operationId}`)
       if (!goSnippet)
         console.warn(`  WARN  No Go example for ${op.operationId}`)
+      if (!pySnippet)
+        console.warn(`  WARN  No Python example for ${op.operationId}`)
 
       op["x-codeSamples"] = [
         ...(tsSnippet
@@ -297,6 +376,9 @@ function main() {
         ...(goSnippet
           ? [{ lang: "Go", label: "native", source: goSnippet }]
           : []),
+        ...(pySnippet
+          ? [{ lang: "Python", label: "ory-client", source: pySnippet }]
+          : []),
       ]
 
       // Structured SDK docs for the language-aware left pane
@@ -304,6 +386,8 @@ function main() {
       if (tsSdkDocs[op.operationId])
         xSdkDocs["TypeScript"] = tsSdkDocs[op.operationId]
       if (goSdkDocs[op.operationId]) xSdkDocs["go"] = goSdkDocs[op.operationId]
+      if (pySdkDocs[op.operationId])
+        xSdkDocs["python"] = pySdkDocs[op.operationId]
       if (Object.keys(xSdkDocs).length) op["x-sdk-docs"] = xSdkDocs
 
       injected++

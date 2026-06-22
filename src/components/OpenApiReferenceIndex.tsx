@@ -173,6 +173,7 @@ function useSdkLanguage() {
 const LANG_LABEL: Record<string, string> = {
   TypeScript: "TypeScript",
   go: "Go",
+  python: "Python",
 }
 
 const MD_LINK = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g
@@ -247,7 +248,24 @@ function SdkUsageSection({
   if (!docs) return null
 
   const langLabel = LANG_LABEL[selectedLang] ?? selectedLang
-  const isGo = selectedLang === "go"
+  const badgeClass =
+    selectedLang === "go"
+      ? "bg-[var(--ifm-color-info)]"
+      : selectedLang === "python"
+        ? "bg-[#3776ab]"
+        : "bg-[#3178c6]"
+  const typeColorClass =
+    selectedLang === "go"
+      ? "text-[var(--ifm-color-info)]"
+      : selectedLang === "python"
+        ? "text-[#3776ab]"
+        : "text-[#3178c6]"
+  const responseVar =
+    selectedLang === "go"
+      ? "resp"
+      : selectedLang === "python"
+        ? "api_response"
+        : "data"
   const hasParams = docs.params.length > 0
   const hasResponse = docs.returnType && docs.returnType !== "void"
 
@@ -259,7 +277,7 @@ function SdkUsageSection({
           SDK Reference
         </span>
         <span
-          className={`text-[10px] font-semibold px-1.5 py-0.5 rounded text-white ${isGo ? "bg-[var(--ifm-color-info)]" : "bg-[#3178c6]"}`}
+          className={`text-[10px] font-semibold px-1.5 py-0.5 rounded text-white ${badgeClass}`}
         >
           {langLabel}
         </span>
@@ -309,7 +327,7 @@ function SdkUsageSection({
                     {p.name}
                   </td>
                   <td
-                    className={`px-2.5 py-1.5 font-mono whitespace-nowrap ${isGo ? "text-[var(--ifm-color-info)]" : "text-[#3178c6]"}`}
+                    className={`px-2.5 py-1.5 font-mono whitespace-nowrap ${typeColorClass}`}
                   >
                     {p.type}
                   </td>
@@ -353,10 +371,10 @@ function SdkUsageSection({
             <tbody>
               <tr>
                 <td className="px-2.5 py-1.5 font-mono text-[var(--ifm-color-secondary)] whitespace-nowrap">
-                  {isGo ? "resp" : "data"}
+                  {responseVar}
                 </td>
                 <td
-                  className={`px-2.5 py-1.5 font-mono whitespace-nowrap ${isGo ? "text-[var(--ifm-color-info)]" : "text-[#3178c6]"}`}
+                  className={`px-2.5 py-1.5 font-mono whitespace-nowrap ${typeColorClass}`}
                 >
                   {docs.returnType}
                 </td>
