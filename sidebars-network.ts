@@ -164,6 +164,7 @@ const networkSidebar = [
                       id: "kratos/manage-identities/scim",
                     },
                     items: [
+                      "kratos/manage-identities/scim/api-reference",
                       "kratos/manage-identities/scim/ms-entra",
                       "kratos/manage-identities/scim/okta",
                       "kratos/manage-identities/scim/google-workspace",
@@ -201,6 +202,7 @@ const networkSidebar = [
                   "kratos/passwordless/one-time-code",
                   "kratos/passwordless/passkeys",
                   "kratos/passwordless/passkeys-mobile",
+                  "kratos/passwordless/deviceauthn",
                   "kratos/organizations/organizations",
                   "kratos/emails-sms/custom-email-templates",
                 ],

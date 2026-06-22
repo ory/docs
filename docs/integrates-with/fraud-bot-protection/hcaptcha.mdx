@@ -1,0 +1,40 @@
+---
+id: hcaptcha
+title: hCaptcha
+sidebar_label: hCaptcha
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/fraud-bot-protection/hcaptcha](https://github.com/ory/integrates/tree/main/fraud-bot-protection/hcaptcha).
+</Admonition>
+```
+
+[hCaptcha](https://www.hcaptcha.com) is a privacy-focused CAPTCHA service and an alternative to reCAPTCHA. It is GDPR-compliant
+and does not sell data. The Enterprise tier adds adaptive challenge difficulty.
+
+## How it works
+
+1. Registration / login UI embeds the **hCaptcha client widget**; the widget runs the challenge and returns a token
+   (`h-captcha-response`).
+2. Form submits to Ory's flow with the token.
+3. Ory Action on `registration.before` / `login.before` with `can_interrupt: true` calls the handler.
+4. Handler POSTs to `https://hcaptcha.com/siteverify` with the token
+   - hCaptcha Secret; checks `success == true`.
+5. On fail, handler returns an error and Ory blocks.
+
+## Notable
+
+- Two keys: **Site Key** (client widget) and **Secret** (server verify). Never expose Secret.
+- Tokens are **one-time use** and expire 2 minutes after issue.
+- The hCaptcha API contract is nearly identical to reCAPTCHA, so you can migrate between the two with minimal changes.
+
+## Resources
+
+- [hCaptcha documentation](https://docs.hcaptcha.com/)
+- [Ory Actions](/docs/actions)
+- Reference:
+  [ory/integrates/fraud-bot-protection/hcaptcha](https://github.com/ory/integrates/tree/main/fraud-bot-protection/hcaptcha)

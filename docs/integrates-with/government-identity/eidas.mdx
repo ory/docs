@@ -1,0 +1,44 @@
+---
+id: eidas
+title: Sign in with eIDAS
+sidebar_label: eIDAS
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+Direct eIDAS node access requires government approval; integration
+goes through a commercial broker. Configures as a
+[generic OIDC provider](../../kratos/social-signin/05_generic.mdx). Reference:
+[ory/integrates/government-identity/eidas](https://github.com/ory/integrates/tree/main/government-identity/eidas).
+</Admonition>
+```
+
+[eIDAS](https://digital-strategy.ec.europa.eu/en/policies/eidas-regulation) is the EU regulation that enables cross-border use of
+national electronic IDs, such as the German Personalausweis, Italian SPID, Belgian eID, French FranceConnect, and Spanish DNI.
+
+## Integration path
+
+Use a commercial eIDAS broker that exposes eIDAS as standard OIDC, then configure it as a generic OIDC provider in Ory Identities.
+The broker handles the per-country eIDAS node integration.
+
+Common brokers are Signicat (pan-EU), Criipto, IDnow, and yes.com (Germany).
+
+## Assurance levels
+
+eIDAS defines three Levels of Assurance — map them to Ory session AAL:
+
+| eIDAS LoA   | Ory AAL     |
+| ----------- | ----------- |
+| Low         | aal1        |
+| Substantial | aal1 / aal2 |
+| High        | aal2        |
+
+The broker reports the LoA in the ID token. Use Jsonnet to map it to `metadata_public.eidas.loa` for downstream policy.
+
+## Resources
+
+- [eIDAS Regulation overview](https://digital-strategy.ec.europa.eu/en/policies/eidas-regulation)
+- [eIDAS Levels of Assurance](https://ec.europa.eu/digital-building-blocks/wikis/display/DIGITAL/eIDAS+Levels+of+Assurance)
+- Reference: [ory/integrates/government-identity/eidas](https://github.com/ory/integrates/tree/main/government-identity/eidas)

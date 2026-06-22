@@ -184,6 +184,7 @@ ory proxy http://localhost:3000
 ```
       --additional-cors-headers strings   A list of additional CORS headers to allow. Wildcards are allowed.
       --allowed-cors-origins strings      A list of allowed CORS origins. Wildcards are allowed.
+      --api-key-expiry duration           Sets the expiry of the temporary API key the Ory CLI creates to configure your project. The key is deleted on shutdown; this expiry ensures it is removed automatically if that cleanup fails. Set to 0 to disable expiry. (default 12h0m0s)
   -c, --config string                     Path to the Ory Network configuration file.
       --cookie-domain string              Set a dedicated cookie domain.
       --debug                             Use this flag to debug, for example, CORS requests.

@@ -1,0 +1,47 @@
+---
+id: kong
+title: Kong API Gateway
+sidebar_label: Kong
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/api-gateways/kong](https://github.com/ory/integrates/tree/main/api-gateways/kong).
+</Admonition>
+```
+
+[Kong Gateway](https://konghq.com/) is a cloud-native API gateway. There are two integration paths with Ory: JWT validation for
+access tokens issued by Ory OAuth2 & OpenID Connect (Hydra), and session validation for Ory Identities (Kratos).
+
+## Path A: OAuth2 JWT validation
+
+Use Kong's stock **jwt** plugin, or community plugins (`jwt-signer`, `jwt-keycloak`) for JWKS auto-fetch:
+
+1. Enable the **jwt** plugin on the relevant Service or Route.
+2. Configure it with Ory's JWKS, or use a community plugin for auto-refresh.
+3. Set `claims_to_verify` (typically `exp`) and `key_claim_name`.
+
+Kong Enterprise's **OIDC** plugin handles this with JWKS auto-discovery.
+
+## Path B: Ory Identities session validation
+
+Write a custom plugin, or combine `request-transformer` with `pre-function`:
+
+1. The plugin calls `https://<project>.projects.oryapis.com/sessions/whoami` with the user's session cookie.
+2. On a 200, inject identity headers (`X-User-Id`, `X-User-Email`) downstream and forward the request.
+3. On a 401, return a 401 without forwarding.
+
+Cache the `whoami` response per session cookie with Kong's `proxy-cache` plugin to avoid sending a request to Ory on every call.
+
+## Notes
+
+- Rate-limit at the gateway keyed by the validated `sub` claim. Kong's `rate-limiting` plugin is the recommended pattern.
+
+## Resources
+
+- [Kong jwt plugin](https://docs.konghq.com/hub/kong-inc/jwt/)
+- [Ory OAuth2 / Hydra](/docs/hydra)
+- Reference: [ory/integrates/api-gateways/kong](https://github.com/ory/integrates/tree/main/api-gateways/kong)

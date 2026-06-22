@@ -261,6 +261,51 @@ your system but need the identity to be created in Ory Network first, before the
 To achieve this, set the `organization_id` property to the ID of the created organization in the identity, either when creating
 the identity, or by updating the identity's data using the Ory APIs.
 
+To automate provisioning from an external identity provider instead, configure a [SCIM client](../manage-identities/50_scim.mdx)
+for the organization. The SCIM server creates and updates identities in the organization automatically. Because an identity can
+belong to only one organization, provisioning a user that already exists in a different organization fails with a conflict — see
+[How SCIM relates to organizations](../manage-identities/50_scim.mdx#how-scim-relates-to-organizations) for the full behavior and
+how to resolve it.
+
+## Bind an identity to an organization through the settings flow
+
+A signed-in user can join an organization by linking one of its SSO connections through the
+[settings flow](../self-service/flows/user-settings.mdx). When the user completes the link, Ory sets the identity's
+`organization_id` to that organization. There is no need to sign the user out or to pre-provision the identity.
+
+To scope a settings flow to an organization, pass the organization ID in the `organization` query parameter when you initialize
+the flow:
+
+```
+https://$PROJECT_SLUG.projects.oryapis.com/self-service/settings/browser?organization=$ORGANIZATION_ID
+```
+
+The same parameter works for the API (native) flow at `/self-service/settings/api`.
+
+Ory only honors the `organization` query parameter when one of the identity's email addresses is under the organization's
+configured domains. This prevents any signed-in user from scoping a flow to an arbitrary organization and enumerating its SSO
+connections. When no email address matches, the flow silently falls back to a regular, unscoped settings flow.
+
+The check uses the identity's email verifiable addresses. An identity whose schema has no `verification.via: email` annotation has
+no email verifiable address and therefore cannot use the `organization` query parameter. This domain check does not apply when the
+identity is already bound to an organization — see below.
+
+An organization-scoped settings flow behaves differently from a regular settings flow:
+
+- The settings flow returns link nodes only for the organization's OIDC and SAML connections. Other settings methods, such as
+  password or social sign-in, are not part of the flow.
+- Connections the identity has already linked render as disabled. The organization owns the binding, so the user cannot remove it.
+- Submitting a link starts authentication with the organization's identity provider. On the callback, Ory links the credential and
+  sets the identity's `organization_id`.
+- Unlink submissions are rejected. To remove a member from an organization, use the identity admin API.
+
+When the signed-in identity is already bound to an organization, that organization takes precedence over the `organization` query
+parameter. An identity cannot be silently re-bound to a different organization through the settings flow.
+
+If the identity's `organization_id` points to an organization that was deleted, the settings flow falls back to a non-organization
+scoped flow. This keeps account recovery and self-service settings working for users who were offboarded from a deleted
+organization.
+
 ## SAML
 
 SAML (Security Assertion Markup Language) is an XML-based open standard used for exchanging authentication and authorization data
