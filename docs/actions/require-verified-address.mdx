@@ -112,6 +112,51 @@ ory patch identity-config --project <project-id> --workspace <workspace-id> \
 The `verification` and `show_verification_ui` actions in login flows (but not sign up!) are also deprecated. Use
 `require_verified_address` instead.
 
+### Verified-address login error (`legacy_require_verified_login_error`)
+
+When the "require verified address" login hook blocks a login because the address is not yet verified, the response changed. The
+legacy behavior returned a `400 Bad Request` with a static error and skipped the check for non-password methods (such as social
+sign-in). The new behavior starts a verification flow and returns an actionable `continue_with` entry — `403 Forbidden` with
+`continue_with` for API clients, or a `303` redirect to the verification screen for browser clients — and applies to all login
+methods. The `feature_flags.legacy_require_verified_login_error` flag restores the old behavior and defaults to `false`.
+
+#### Am I affected?
+
+You are affected if any of the following apply:
+
+- [ ] Your configuration sets `feature_flags.legacy_require_verified_login_error: true`.
+- [ ] You enforce verified addresses at login and your client handles the unverified case by checking for a `400 Bad Request`
+      error rather than parsing `continue_with` (or following the browser redirect).
+- [ ] You rely on social sign-in / OIDC logins bypassing the verified-address requirement.
+
+If your client already parses `continue_with` (or follows the verification redirect) on login, you are not affected.
+
+#### Why was this change made?
+
+Returning a verification `continue_with` instead of a terminal error lets users recover from an unverified-address login without a
+dead end, and applying the check to all login methods closes a gap where social sign-in could bypass the requirement.
+
+#### How to adapt to this change?
+
+Update your login client to handle the new response before disabling the legacy flag:
+
+- For API / SDK clients, handle `403 Forbidden` and read the `show_verification_ui` action from the `continue_with` array to send
+  the user into the verification flow.
+- For browser clients, follow the `303` redirect to the verification screen.
+- If you use social sign-in / OIDC, confirm that requiring a verified address for those logins is acceptable, because the new
+  behavior no longer exempts them.
+
+<Tabs>
+  <TabItem value="network" label="Ory Network">
+    After your login client handles the `continue_with` verification response, disable
+    `feature_flags.legacy_require_verified_login_error` in <ConsoleLink route="project.settings.advanced" />.
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-hosted (OSS or OEL)">
+    After your login client handles the `continue_with` verification response, set
+    `feature_flags.legacy_require_verified_login_error` to `false` in your Kratos configuration and redeploy.
+  </TabItem>
+</Tabs>
+
 ## Verification on sign up
 
 Ory supports two options after sign up:
@@ -197,6 +242,61 @@ To re-enable this legacy behavior:
 ory patch identity-config --project <project-id> --workspace <workspace-id> \
   --add '/feature_flags/legacy_continue_with_verification_ui=true'
 ```
+
+### Verification UI in `continue_with` (`legacy_continue_with_verification_ui`)
+
+After registration, login, or settings, Kratos can tell the client to show a verification screen by adding a
+`show_verification_ui` entry to the flow's `continue_with` array. Previously this entry was added automatically for every
+unverified address. Going forward, it is only added when you explicitly enable the `show_verification_ui` hook. The
+`feature_flags.legacy_continue_with_verification_ui` flag restores the automatic behavior and defaults to `false`.
+
+#### Am I affected?
+
+You are affected if any of the following apply:
+
+- [ ] Your configuration sets `feature_flags.legacy_continue_with_verification_ui: true`.
+- [ ] Your UI or SDK reads `continue_with` for a `show_verification_ui` action **and** you have **not** added the
+      `show_verification_ui` hook to your post-registration / post-login / post-settings hooks.
+
+If you already configure the `show_verification_ui` hook, or you do not rely on the verification `continue_with` entry, you are not
+affected.
+
+#### Why was this change made?
+
+Making the verification screen an explicit hook gives you control over when the verification UI is surfaced, instead of Kratos
+always emitting it. It also makes the verification `continue_with` entry behave like other `continue_with` actions, which are
+driven by hooks.
+
+#### How to adapt to this change?
+
+Add the `show_verification_ui` hook to the `after` hooks of every flow where you want the verification screen surfaced
+(registration, login, and settings as applicable). Once the hook is configured, your client receives the same
+`show_verification_ui` entry in `continue_with`, and you can set the legacy flag to `false`.
+
+```yaml
+selfservice:
+  flows:
+    registration:
+      after:
+        hooks:
+          - hook: show_verification_ui
+    login:
+      after:
+        hooks:
+          - hook: show_verification_ui
+```
+
+<Tabs>
+  <TabItem value="network" label="Ory Network">
+    Add the `show_verification_ui` hook to the relevant flows in your project's identity configuration (via the Ory CLI or the Ory
+    Console configuration editor), then disable
+    `feature_flags.legacy_continue_with_verification_ui` in <ConsoleLink route="project.settings.advanced" />.
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-hosted (OSS or OEL)">
+    Add the `show_verification_ui` hook to the relevant flows in your Kratos configuration, set
+    `feature_flags.legacy_continue_with_verification_ui` to `false`, and redeploy.
+  </TabItem>
+</Tabs>
 
 ## Verification on address change
 

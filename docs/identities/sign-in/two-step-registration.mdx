@@ -5,6 +5,9 @@ sidebar_label: Two-step registration
 slug: two-step-registration
 ---
 
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
 [Identity traits](../../kratos/manage-identities/managing-users-identities-metadata#traits) are data associated with an identity
 that can be modified by the user. The traits are configured through the identity schema.
 
@@ -19,3 +22,58 @@ when you have more than two authentication methods enabled.
 
 To disable the one-step unified registration, Go to <ConsoleLink route="project.settings.advanced.route" /> and disable **Enable
 unified sign up**.
+
+## One-step registration (`enable_legacy_one_step`)
+
+The boolean `selfservice.flows.registration.enable_legacy_one_step` is replaced by the string option
+`selfservice.flows.registration.style`, which accepts `unified` (one-step) or `profile_first` (two-step). The default is
+`profile_first`, so new projects use two-step registration, where users provide their profile information first and their
+credentials second.
+
+### Am I affected?
+
+You are affected if any of the following apply:
+
+- [ ] Your configuration sets `selfservice.flows.registration.enable_legacy_one_step`.
+- [ ] Your Kratos logs contain the warning `Found use of deprecated configuration key "selfservice.flows.registration.enable_legacy_one_step"`.
+- [ ] You have a custom registration UI that assumes a single combined registration form.
+
+If you do not set `enable_legacy_one_step` and use the default registration UI, you are not affected.
+
+### Why was this change made?
+
+A single boolean could not express the growing set of registration layouts. The `style` enum replaces it and leaves room for
+additional styles. Two-step registration (`profile_first`) became the default because it produces a clearer experience when
+multiple credential methods (password, passkey, code) are enabled.
+
+### How to adapt to this change?
+
+Remove `enable_legacy_one_step` and set `style` explicitly. Use `unified` to keep one-step registration, or `profile_first` to
+adopt the two-step default. If you operate a custom registration UI, verify it renders correctly for the style you choose —
+two-step registration renders profile fields and credential fields on separate screens with a "back" navigation node.
+
+```yaml
+# Before
+selfservice:
+  flows:
+    registration:
+      enable_legacy_one_step: true
+
+# After (keep one-step behavior)
+selfservice:
+  flows:
+    registration:
+      style: unified
+```
+
+<Tabs>
+  <TabItem value="network" label="Ory Network">
+    In <ConsoleLink route="project.settings.advanced" />, review your registration configuration and set the registration `style`
+    to `unified` or `profile_first` instead of relying on `enable_legacy_one_step`. Test the registration flow with your UI before
+    rolling the change out.
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-hosted (OSS or OEL)">
+    Replace `enable_legacy_one_step` with the `style` option in your Kratos configuration and redeploy. As long as
+    `enable_legacy_one_step` is present and `true`, Kratos keeps one-step registration and logs a deprecation warning.
+  </TabItem>
+</Tabs>

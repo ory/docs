@@ -2,7 +2,28 @@
 
 **Date:** 2026-06-22
 **Branch:** `jonas-jonas/addDeprecatedFeatures`
-**Status:** Approved (design); ready for implementation plan
+**Status:** Implemented as full migration guides (not stubs) per follow-up request.
+See "Implementation note" below.
+
+## Implementation note (2026-06-22)
+
+The follow-up instruction was to write **full** migration guides for each deprecated
+feature — matching the depth of the existing `faster_session_extend` entry and adding
+explicit "Am I affected?" checklists — rather than the `TODO(collect)` stubs this
+design originally proposed. All seven in-scope features were written as complete
+`###` entries in `docs/kratos/deprecations/index.mdx`, plus the
+`password_profile_registration_node_group` triage candidate (it is an unambiguous
+deprecation that mirrors the OIDC node-group change). Each entry follows the template:
+short description → **Am I affected?** checklist → **Why was this change made?** →
+**How to adapt?** with `<Tabs>` for Ory Network vs Self-hosted.
+
+Content was sourced from code-verified research (config getters, schema defaults,
+deprecation events). Two genuinely unknown facts were intentionally **not** invented:
+exact removal version numbers (phrased as "scheduled for removal" / "a future
+release") and per-flag Ory Console deep-link anchors (the entries link to the Advanced
+settings page generically). The remaining two triage candidates
+(`use_continue_with_transitions`, `choose_recovery_address`) were deferred: they are
+V1/V2 behavior switches rather than clear deprecations.
 
 ## Goal
 

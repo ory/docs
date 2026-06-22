@@ -4,6 +4,9 @@ title: Magic links use old custom domain name
 sidebar_label: Wrong domain in magic links
 ---
 
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
 After updating their custom domain, some users reported an error that caused the verification emails to come with magic links
 generated for the old domain.
 
@@ -30,3 +33,53 @@ Ory recommends using the "one-time code" verification method. Read
 [this document](../kratos/self-service/flows/verify-email-account-activation.mdx#choosing-the-right-strategy) to learn more.
 
 :::
+
+## Link strategy base URL (`link.config.base_url`)
+
+The `selfservice.methods.link.config.base_url` option used to override the base URL for recovery and verification links. It now has
+no effect: the base URL for generated links is derived from the incoming request URL instead.
+
+### Am I affected?
+
+You are affected if:
+
+- [ ] Your `selfservice.methods.link.config` sets `base_url`.
+
+### Why was this change made?
+
+Deriving the base URL from the request makes recovery and verification links correct across multiple domains and behind reverse
+proxies without a static override, so the per-strategy `base_url` became redundant and was removed.
+
+### How to adapt to this change?
+
+Remove `base_url` from your link strategy configuration. It is ignored, so removing it does not change behavior. If you need to
+control the public base URL globally, set `serve.public.base_url` (self-hosted) and make sure any reverse proxy forwards the
+correct `Host` header to Kratos.
+
+```yaml
+# Before
+selfservice:
+  methods:
+    link:
+      config:
+        base_url: https://my-app.com
+        lifespan: 1h
+
+# After
+selfservice:
+  methods:
+    link:
+      config:
+        lifespan: 1h
+```
+
+<Tabs>
+  <TabItem value="network" label="Ory Network">
+    Remove `base_url` from the link method configuration. Recovery and verification links already use the request URL on Ory
+    Network, so no further action is required.
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-hosted (OSS or OEL)">
+    Remove `base_url` from your Kratos configuration. If links need a specific host, configure `serve.public.base_url` and ensure
+    your proxy forwards the correct `Host` header.
+  </TabItem>
+</Tabs>

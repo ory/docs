@@ -96,6 +96,83 @@ Nodes are grouped (using the `group` key) based on the source that generated the
 
 You can use the node group to filter out items, re-arrange them, render them differently - up to you!
 
+### OIDC registration node group (`legacy_oidc_registration_node_group`)
+
+During registration, profile fields collected by the OIDC (social sign-in) method used to be placed in the `oidc` UI node group.
+Going forward they are placed in the `default` group, consistent with the other methods. The
+`feature_flags.legacy_oidc_registration_node_group` flag restores the old grouping for backwards compatibility and defaults to
+`false`.
+
+#### Am I affected?
+
+You are affected if any of the following apply:
+
+- [ ] You enable OIDC / social sign-in for registration **and** your custom registration UI selects, filters, or styles form nodes
+      by the `oidc` group.
+- [ ] Your configuration sets `feature_flags.legacy_oidc_registration_node_group: true`.
+
+If you use the default Ory UI, or your UI does not branch on node groups, you are not affected.
+
+#### Why was this change made?
+
+Placing OIDC profile fields in the `default` group makes registration node grouping consistent across all methods, which
+simplifies custom UIs and unifies the experience with two-step registration.
+
+#### How to adapt to this change?
+
+Update your custom registration UI to read OIDC profile fields from the `default` node group instead of the `oidc` group. Once your
+UI no longer depends on the `oidc` group, set the flag to `false` (or remove it) to adopt the new behavior.
+
+<Tabs>
+  <TabItem value="network" label="Ory Network">
+    Ory Network projects use the `default` grouping unless the legacy flag was explicitly enabled. Review
+    <ConsoleLink route="project.settings.advanced" /> to confirm the flag is disabled after your UI is updated.
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-hosted (OSS or OEL)">
+    After updating your UI, ensure `feature_flags.legacy_oidc_registration_node_group` is unset or `false` in your Kratos
+    configuration, then redeploy.
+  </TabItem>
+</Tabs>
+
+### Password registration node group (`password_profile_registration_node_group`)
+
+This mirrors the OIDC node-group change for the password method. Profile fields collected by the password method during
+registration used to be placed in the `password` UI node group when single-step registration was used; they are now placed in the
+`default` group. The `selfservice.methods.password.config.password_profile_registration_node_group` option toggles between
+`password` and `default` and defaults to `default`.
+
+#### Am I affected?
+
+You are affected if all of the following apply:
+
+- [ ] Your configuration sets `password_profile_registration_node_group: password`.
+- [ ] You use one-step registration (registration `style` is not `profile_first`).
+- [ ] Your custom registration UI selects, filters, or styles form nodes by the `password` group.
+
+If the option is unset (defaults to `default`), or you use two-step registration, you are not affected.
+
+#### Why was this change made?
+
+As with the OIDC change, placing password profile fields in the `default` group makes node grouping consistent across methods and
+aligns single-step registration with two-step registration.
+
+#### How to adapt to this change?
+
+Update your custom registration UI to read password profile fields from the `default` node group, then set
+`password_profile_registration_node_group` to `default` or remove it. Adopting two-step registration (`style: profile_first`)
+bypasses this option entirely, because profile fields are then collected by the dedicated profile step.
+
+<Tabs>
+  <TabItem value="network" label="Ory Network">
+    Ory Network projects use the `default` grouping unless the legacy value was explicitly set. After updating your UI, confirm the
+    option is `default` or unset in <ConsoleLink route="project.settings.advanced" />.
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-hosted (OSS or OEL)">
+    After updating your UI, set `selfservice.methods.password.config.password_profile_registration_node_group` to `default` (or
+    remove it) in your Kratos configuration, then redeploy.
+  </TabItem>
+</Tabs>
+
 ## UI node types
 
 UI Nodes can have several types!

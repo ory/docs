@@ -4,6 +4,9 @@ title: Trigger custom logic and integrate with external systems with webhooks
 sidebar_label: Ory Actions
 ---
 
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
 Ory Actions supports webhooks, which are HTTP callbacks that can be triggered by specific events in your Ory-powered application.
 Webhooks allow Ory Actions to notify external systems, such as Hubspot, Mailchimp, when certain events occur, such as a user
 registration or profile update. Aside from integrating with external systems, webhooks allow you to use custom, external business
@@ -624,6 +627,61 @@ Flow-interrupting webhooks work best if you give users meaningful information ab
 trigger these hooks is `after` flows.
 
 :::
+
+### Web hook interrupts (`can_interrupt`)
+
+The `can_interrupt` option on the `web_hook` allowed a webhook to abort a self-service flow by returning an error response. It has
+been replaced by `response.parse`, which is functionally equivalent and lives inside the structured `response` configuration object.
+The deprecated `can_interrupt` field still works today but is scheduled for removal.
+
+#### Am I affected?
+
+You are affected if any of the following apply to your configuration:
+
+- [ ] You self-host Ory Kratos and any `web_hook` in your `selfservice` configuration sets `config.can_interrupt: true`.
+- [ ] Your Ory Network project configuration contains a `web_hook` with `config.can_interrupt: true`.
+
+If you do not use webhooks, or none of your webhooks set `can_interrupt`, you are not affected.
+
+#### Why was this change made?
+
+The single boolean `can_interrupt` was folded into a structured `response` object so that response-handling behavior can be
+configured consistently and extended in the future. The `response` object also exposes `response.ignore` (fire-and-forget
+webhooks), and Kratos rejects configurations that set both `response.ignore` and `response.parse` to `true`, because parsing a
+response you intend to ignore is contradictory.
+
+#### How to adapt to this change?
+
+Replace `can_interrupt: true` with `response.parse: true` in each affected webhook. The behavior is identical: the webhook
+response is parsed and can interrupt the flow by returning validation errors.
+
+```yaml
+# Before
+- hook: web_hook
+  config:
+    url: https://example.com/webhook
+    method: POST
+    can_interrupt: true
+
+# After
+- hook: web_hook
+  config:
+    url: https://example.com/webhook
+    method: POST
+    response:
+      parse: true
+```
+
+<Tabs>
+  <TabItem value="network" label="Ory Network">
+    Update your project's identity configuration with the Ory CLI (`ory patch identity-config`) or the configuration editor in the
+    Ory Console so that each affected webhook uses `response.parse` instead of `can_interrupt`.
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-hosted (OSS or OEL)">
+    Edit your Kratos configuration file and replace `can_interrupt: true` with `response.parse: true` for every affected webhook,
+    then redeploy.
+  </TabItem>
+</Tabs>
 
 ### Webhook retries
 
