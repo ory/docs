@@ -20,7 +20,7 @@ refer to the video sharing service backend as the Keto client.
 
 ## Starting the example
 
-First, <SameDeploymentLink to="keto/install">install Keto</SameDeploymentLink>.
+First, [install Keto](../../../../docs/keto/install).
 
 Now you can start the example using either `docker-compose` or a bash script.
 The bash script requires you to have the `keto` binary in your `$PATH`.
@@ -40,22 +40,22 @@ docker-compose -f contrib/cat-videos-example/docker-compose.yml up
 
 # output: all initially created relationships
 
-# NAMESPACE        OBJECT          RELATION NAME   SUBJECT
-# Video            /cats/1.mp4     owner           Video:/cats#owner
-# Video            /cats/1.mp4     view            Video:/cats/1.mp4#owner
-# Video            /cats/1.mp4     view            User:*
-# Video            /cats/2.mp4     owner           Video:/cats#owner
-# Video            /cats/2.mp4     view            Video:/cats/2.mp4#owner
-# Video            /cats           owner           User:Alice
-# Video            /cats           view            Video:/cats#owner
+# NAMESPACE       OBJECT          RELATION NAME   SUBJECT
+# videos          /cats/1.mp4     owner           videos:/cats#owner
+# videos          /cats/1.mp4     view            videos:/cats/1.mp4#owner
+# videos          /cats/1.mp4     view            *
+# videos          /cats/2.mp4     owner           videos:/cats#owner
+# videos          /cats/2.mp4     view            videos:/cats/2.mp4#owner
+# videos          /cats           owner           cat lady
+# videos          /cats           view            videos:/cats#owner
 ```
 
 ## State of the system
 
-At the current state only `User:Alice` has added videos. Both videos are in the
-`/cats` directory owned by `User:Alice`. The file `File:/cats/1.mp4` can be
-viewed by anyone (`User:*`), while `Video:/cats/2.mp4` has no extra sharing
-options, and can therefore only be viewed by its owner, `User:Alice`. The
+At the current state only one user with the username `cat lady` has added
+videos. Both videos are in the `/cats` directory owned by `cat lady`. The file
+`/cats/1.mp4` can be viewed by anyone (`*`), while `/cats/2.mp4` has no extra
+sharing options, and can therefore only be viewed by its owner, `cat lady`. The
 relationship definitions are located in the
 `contrib/cat-videos-example/relation-tuples` directory.
 
@@ -67,7 +67,7 @@ video service client would do. In this example we will use the Keto CLI client.
 If you want to run the Keto CLI within **Docker**, set the alias
 
 ```shell
-alias keto="docker run -it --network cat-videos-example_default -e KETO_READ_REMOTE=\"keto:4466\" oryd/keto:v25.4.0"
+alias keto="docker run -it --network cat-videos-example_default -e KETO_READ_REMOTE=\"keto:4466\" oryd/keto:v0.7.0-alpha.1"
 ```
 
 in your terminal session. Alternatively, you need to set the remote endpoint so
@@ -85,7 +85,7 @@ allowed or denied.
 
 ```shell
 # Is "*" allowed to "view" the object "videos":"/cats/2.mp4"?
-keto check "User:*" view Video /cats/2.mp4 --insecure-disable-transport-security
+keto check "*" view videos /cats/2.mp4
 # output:
 
 # Denied
@@ -94,52 +94,55 @@ keto check "User:*" view Video /cats/2.mp4 --insecure-disable-transport-security
 We already discussed that this request should be denied, but it's always good to
 see this in action.
 
-Now `User:Alice` wants to change some view permissions of `Video:/cats/1.mp4`.
-For this, the video service application has to show all users that are allowed
-to view the video. It uses Keto's
-[expand-API](/docs/keto/concepts/api-overview#expand-subject-sets) to get these
-data:
+Now `cat lady` wants to change some view permissions of `/cats/1.mp4`. For this,
+the video service application has to show all users that are allowed to view the
+video. It uses Keto's
+[expand-API](../../../../docs/keto/concepts/api-overview#expand-subject-sets) to
+get these data:
 
 ```shell
 # Who is allowed to "view" the object "videos":"/cats/2.mp4"?
-keto expand view Video /cats/1.mp4 --insecure-disable-transport-security
+keto expand view videos /cats/1.mp4
 # output:
+
+# ∪ videos:/cats/1.mp4#view
+# ├─ ∪ videos:/cats/1.mp4#owner
+# │  ├─ ∪ videos:/cats#owner
+# │  │  ├─ ☘ cat lady️
+# ├─ ☘ *️
 ```
 
-```keto-tuples
-# or :#@Video:/cats/1.mp4#view
-# ├──∋ :#@User:*️
-# └──or :#@Video:/cats/1.mp4#owner
-#    └──or :#@Video:/cats#owner
-#       └──∋ :#@User:Alice️
+Here we can see the full subject set expansion. The first branch
+
+```keto-relation-tuples
+videos:/cats/1.mp4#view
 ```
 
-Here we can see the full subject set expansion. The second branch
+indicates that every owner of the object is allowed to view
 
-```keto-tuples
-Video:/cats/1.mp4#owner
+```keto-relation-tuples
+videos:/cats/1.mp4#owner
 ```
 
-indicates that every owner of the object is allowed to view the Object.
+In the next step we see that the object's owners are the owners of `/cats`
 
-In the next step we see that the object's owners are the owners of `Video:/cats`
-
-```keto-tuples
-Video:/cats#owner
+```keto-relation-tuples
+videos:/cats#owner
 ```
 
-On the last line, we see that `User:Alice` is the owner of `Video:/cats`.
+We see that `cat lady` is the owner of `/cats`.
 
-Note that there is no direct relationship that would grant `Alice` view access
-on `/cats/1.mp4` as this is indirectly defined via the ownership relation.
+Note that there is no direct relationship that would grant `cat lady` view
+access on `/cats/1.mp4` as this is indirectly defined via the ownership
+relation.
 
-The special user `User:*` on the other hand was directly granted view access on
-the object, as it's a first-level leaf of the expansion tree. The following CLI
+The special user `*` on the other hand was directly granted view access on the
+object, as it's a first-level leaf of the expansion tree. The following CLI
 command proves that this is the case:
 
 ```shell
-# Is "*" allowed to "view" the object "Video":"/cats/1.mp4"?
-keto check "User:*" view Video /cats/1.mp4 --insecure-disable-transport-security
+# Is "*" allowed to "view" the object "videos":"/cats/1.mp4"?
+keto check "*" view videos /cats/1.mp4
 # output:
 
 # Allowed
@@ -151,21 +154,21 @@ import Mermaid from "@site/src/theme/Mermaid"
 <Mermaid
   chart={`
 flowchart TD
-  obj[Video:/cats] --- r1((owner))
+  obj[videos:/cats] --- r1((owner))
   obj --- r2((view))
   r1 -.-> r2
-  r1 ----- sub1(["User:Alice"])
+  r1 ----- sub1(["cat lady"])
   r1 -.-> r4
   obj1 ---- r4((owner))
-  r3 --- all(["User:* (anyone)"])
+  r3 --- all(["* (anyone)"])
   r4 -.-> r3
-  obj1[Video:/cats/1.mp4] --- r3((view))
+  obj1[videos:/cats/1.mp4] --- r3((view))
   obj2 --- r6((view))
   r1 -.-> r5
-  obj2[Video:/cats/2.mp4] ---- r5((owner))
+  obj2[videos/cats/2.mp4] ---- r5((owner))
   r5 -.-> r6
-  style sub1 fill:green,color:white
-  style all fill:green,color:white
+  style sub1 fill:lightgreen
+  style all fill:lightgreen
   style r1 fill:darkgreen,color:white
   style r2 fill:darkgreen,color:white
   style r3 fill:darkgreen,color:white
