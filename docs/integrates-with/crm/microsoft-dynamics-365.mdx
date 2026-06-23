@@ -1,0 +1,35 @@
+---
+id: microsoft-dynamics-365
+title: Microsoft Dynamics 365 CRM
+sidebar_label: Microsoft Dynamics 365
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/crm/microsoft-dynamics-365](https://github.com/ory/integrates/tree/main/crm/microsoft-dynamics-365).
+</Admonition>
+```
+
+[Microsoft Dynamics 365](https://www.microsoft.com/en-us/dynamics-365) is an enterprise CRM and ERP. Sync Ory identities to
+Dynamics 365 Contact records through the Dataverse Web API (OData v4) using an Ory Actions webhook.
+
+## How it works
+
+An Ory Action on `registration.after` (async) calls the handler, which upserts a Contact in Dynamics 365 through the Dataverse Web
+API (`https://<env>.crm.dynamics.com/api/data/v9.2`), keyed by an `ory_identity_id` alternate key. It authenticates with Entra ID
+OAuth2 client credentials.
+
+## Notable
+
+- Dataverse environments are per-region — pin the endpoint host.
+- The `ory_identity_id` alternate key must be created in Dataverse before first run.
+- Async with `response.ignore: true` — Dataverse availability never blocks Ory user flows.
+
+## Resources
+
+- [Dataverse Web API reference](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/use-web-api)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/crm/microsoft-dynamics-365](https://github.com/ory/integrates/tree/main/crm/microsoft-dynamics-365)

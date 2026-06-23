@@ -1349,6 +1349,22 @@
             "description": "Configures the Ory Kratos Valid Registration via Code SMS Body Plaintext Template\n\nThis governs the \"courier.templates.registration_code.valid.sms.body.plaintext\" setting.",
             "type": "string"
           },
+          "kratos_courier_templates_verifiable_address_changed_email_body_html": {
+            "description": "Configures the Ory Kratos Verifiable Address Changed Email Body HTML Template\n\nThis governs the \"courier.templates.verifiable_address_changed.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verifiable_address_changed_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Verifiable Address Changed Email Body Plaintext Template\n\nThis governs the \"courier.templates.verifiable_address_changed.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verifiable_address_changed_email_subject": {
+            "description": "Configures the Ory Kratos Verifiable Address Changed Email Subject Template\n\nThis governs the \"courier.templates.verifiable_address_changed.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verifiable_address_changed_sms_body_plaintext": {
+            "description": "Configures the Ory Kratos Verifiable Address Changed SMS Body Plaintext Template\n\nThis governs the \"courier.templates.verifiable_address_changed.sms.body.plaintext\" setting.",
+            "type": "string"
+          },
           "kratos_courier_templates_verification_code_invalid_email_body_html": {
             "description": "Configures the Ory Kratos Invalid Verification via Code Email Body HTML Template\n\nThis governs the \"courier.templates.verification_code.invalid.email.body.html\" setting.",
             "type": "string"
@@ -1757,6 +1773,10 @@
           },
           "kratos_selfservice_methods_code_passwordless_login_fallback_enabled": {
             "description": "This setting allows the code method to always login a user with code if they have registered with another authentication method such as password or social sign in.\n\nThis governs the \"selfservice.methods.code.passwordless_login_fallback_enabled\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_deviceauthn_config_insecure_allow_relaxed_attestation": {
+            "description": "Configures whether Ory Kratos Device authentication accepts relaxed attestations for testing\n\nOnly allowed on development projects and forced off otherwise. Keys enrolled\nunder relaxation are short-lived and refused once this is turned off.\n\nThis governs the \"selfservice.methods.deviceauthn.config.insecure_allow_relaxed_attestation\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_deviceauthn_enabled": {
@@ -2200,6 +2220,11 @@
             },
             "type": "array"
           },
+          "relaxed_attestation_expires_at": {
+            "description": "RelaxedAttestationExpiresAt is set only when the key's attestation\nchain validated because relaxed attestation was allowed (software\nroots, expired certs, software security level) rather than under\nstrict rules. Such keys are second-class: they are refused at login\nafter this time, or immediately if relaxed attestation is turned off.\nIt is nil for hardware-attested keys that pass strict validation.",
+            "format": "date-time",
+            "type": "string"
+          },
           "state": {
             "$ref": "#/components/schemas/KeyState"
           },
@@ -2296,7 +2321,47 @@
       "GetJWKSResponse": {
         "properties": {
           "jwks": {
-            "description": "jwks is a JSON Web Key Set (RFC 7517). Always contains a single top-level\nfield \"keys\" whose value is an array of JWK objects. Each JWK has at\nminimum a \"kty\" (key type), \"kid\" (key ID), and key-type-specific\nmaterial (e.g., \"x\" and \"crv\" for OKP/Ed25519, \"n\" and \"e\" for RSA).",
+            "description": "A JSON Web Key Set (RFC 7517). Contains a single field `keys`, an array of JWK objects.",
+            "properties": {
+              "keys": {
+                "description": "Array of JWK objects. Each key has at minimum `kty` (key type) and `kid` (key ID) plus key-type-specific material (e.g. `x`/`crv` for OKP/Ed25519, `n`/`e` for RSA).",
+                "items": {
+                  "properties": {
+                    "alg": {
+                      "type": "string"
+                    },
+                    "crv": {
+                      "type": "string"
+                    },
+                    "e": {
+                      "type": "string"
+                    },
+                    "kid": {
+                      "type": "string"
+                    },
+                    "kty": {
+                      "type": "string"
+                    },
+                    "n": {
+                      "type": "string"
+                    },
+                    "use": {
+                      "type": "string"
+                    },
+                    "x": {
+                      "type": "string"
+                    },
+                    "y": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["kty", "kid"],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": ["keys"],
             "type": "object"
           }
         },
@@ -2320,7 +2385,7 @@
         "type": "object"
       },
       "ImportApiKeyRequest": {
-        "description": "Example:\n  {\n    \"raw_key\": \"sk_live_abc123xyz789\",\n    \"name\": \"Stripe Production Key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"stripe\", \"environment\": \"production\"}\n  }",
+        "description": "Example:\n  {\n    \"raw_key\": \"imported-key-EXAMPLE-not-a-real-secret\",\n    \"name\": \"Example imported key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"example-provider\", \"environment\": \"staging\"}\n  }",
         "properties": {
           "actor_id": {
             "description": "actor_id is the identifier of the entity that owns this imported key.\nRequired so every imported key is traceable to an actor for revocation and\naudit queries.",
@@ -2639,7 +2704,7 @@
       },
       "KeyStatus": {
         "default": "KEY_STATUS_UNSPECIFIED",
-        "description": "KeyStatus represents the lifecycle state of an API key.\n\n - KEY_STATUS_UNSPECIFIED: Default zero value. Never returned by the server. Treated as ACTIVE for\nbackward compatibility but should not be relied on.\n - KEY_STATUS_ACTIVE: The key is valid and can be used to authenticate.\n - KEY_STATUS_REVOKED: The key was revoked. Verification fails with VERIFICATION_ERROR_REVOKED.\nSee revocation_reason for the cause.\n - KEY_STATUS_EXPIRED: The key passed its expire_time. Verification fails with\nVERIFICATION_ERROR_EXPIRED. The transition is computed at read time and\nnot persisted.",
+        "description": "KeyStatus represents the lifecycle state of an API key.\n\n - KEY_STATUS_UNSPECIFIED: Default zero value. Never returned by the server. Treated as ACTIVE for\nbackward compatibility but should not be relied on.\n - KEY_STATUS_ACTIVE: The key is valid and can be used to authenticate.\n - KEY_STATUS_REVOKED: The key was revoked and can no longer authenticate. On the API key object,\nthe revocation_reason field carries the cause (set via the admin and\nself-revocation flows). Verification responses do not include this status:\na revoked key fails verification with error_code VERIFICATION_ERROR_REVOKED.\n - KEY_STATUS_EXPIRED: The key passed its expire_time. Verification fails with\nVERIFICATION_ERROR_EXPIRED. The transition is computed at read time and\nnot persisted.",
         "enum": [
           "KEY_STATUS_UNSPECIFIED",
           "KEY_STATUS_ACTIVE",
@@ -3791,18 +3856,6 @@
         "required": ["id", "email", "name", "email_verified"],
         "type": "object"
       },
-      "consistencyRequestParameters": {
-        "description": "Control API consistency guarantees",
-        "properties": {
-          "consistency": {
-            "description": "Read Consistency Level (preview)\n\nThe read consistency level determines the consistency guarantee for reads:\n\nstrong (slow): The read is guaranteed to return the most recent data committed at the start of the read.\neventual (very fast): The result will return data that is about 4.8 seconds old.\n\nThe default consistency guarantee can be changed in the Ory Network Console or using the Ory CLI with\n`ory patch project --replace '/previews/default_read_consistency_level=\"strong\"'`.\n\nSetting the default consistency level to `eventual` may cause regressions in the future as we add consistency\ncontrols to more APIs. Currently, the following APIs will be affected by this setting:\n\n`GET /admin/identities`\n\nThis feature is in preview and only available in Ory Network.\n ConsistencyLevelUnset  ConsistencyLevelUnset is the unset / default consistency level.\nstrong ConsistencyLevelStrong  ConsistencyLevelStrong is the strong consistency level.\neventual ConsistencyLevelEventual  ConsistencyLevelEventual is the eventual consistency level using follower read timestamps.",
-            "enum": ["", "strong", "eventual"],
-            "type": "string",
-            "x-go-enum-desc": " ConsistencyLevelUnset  ConsistencyLevelUnset is the unset / default consistency level.\nstrong ConsistencyLevelStrong  ConsistencyLevelStrong is the strong consistency level.\neventual ConsistencyLevelEventual  ConsistencyLevelEventual is the eventual consistency level using follower read timestamps."
-          }
-        },
-        "type": "object"
-      },
       "continueWith": {
         "discriminator": {
           "mapping": {
@@ -4013,6 +4066,11 @@
           },
           "role_arn": {
             "description": "The AWS IAM role ARN to assume when publishing to the SNS topic. Required if type is sns.",
+            "type": "string"
+          },
+          "status": {
+            "description": "The status of the event stream. Defaults to active. A paused stream is\ncreated but does not forward any events until it is set to active.",
+            "enum": ["active", "paused"],
             "type": "string"
           },
           "topic_arn": {
@@ -4386,6 +4444,18 @@
         },
         "required": ["provider_id"],
         "title": "Request body for creating a test OIDC login flow.",
+        "type": "object"
+      },
+      "createTestLoginFlowFromOnboardingPortalLinkBody": {
+        "description": "Request body for starting a dry-run OIDC test login flow from an onboarding\nportal link.",
+        "properties": {
+          "provider_id": {
+            "description": "ID of the OIDC provider to test. Must match a provider configured on\nthe link's organization.",
+            "maxLength": 255,
+            "type": "string"
+          }
+        },
+        "required": ["provider_id"],
         "type": "object"
       },
       "createWorkspaceBody": {
@@ -4855,6 +4925,87 @@
         "title": "OAuth2 Device Flow",
         "type": "object"
       },
+      "elementsConfiguration": {
+        "description": "ElementsConfiguration is the subset of a project's configuration that Ory\nElements consumes to customize its behavior and appearance. It mirrors the\n`ProjectConfiguration` type in `@ory/elements-react` and intentionally omits\naccount-experience-only fields (stylesheet, locales, translations, favicons).",
+        "properties": {
+          "default_redirect_url": {
+            "description": "The default redirect URL.",
+            "type": "string"
+          },
+          "error_ui_url": {
+            "description": "The URL for the error UI.",
+            "type": "string"
+          },
+          "hide_ory_branding": {
+            "description": "Whether to hide the Ory branding badge.",
+            "type": "boolean"
+          },
+          "hide_registration_link": {
+            "description": "Whether to hide the \"Sign up\" link on the login card footer.",
+            "type": "boolean"
+          },
+          "login_ui_url": {
+            "description": "The URL for the login UI.",
+            "type": "string"
+          },
+          "logo_dark_url": {
+            "description": "The URL for the dark logo.",
+            "type": "string"
+          },
+          "logo_light_url": {
+            "description": "The URL for the light logo on the auth card.",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the project displayed on the auth card.",
+            "type": "string"
+          },
+          "recovery_enabled": {
+            "description": "Whether recovery is enabled.",
+            "type": "boolean"
+          },
+          "recovery_ui_url": {
+            "description": "The URL for the recovery UI.",
+            "type": "string"
+          },
+          "registration_enabled": {
+            "description": "Whether registration is enabled.",
+            "type": "boolean"
+          },
+          "registration_ui_url": {
+            "description": "The URL for the registration UI.",
+            "type": "string"
+          },
+          "settings_ui_url": {
+            "description": "The URL for the settings UI.",
+            "type": "string"
+          },
+          "verification_enabled": {
+            "description": "Whether verification is enabled.",
+            "type": "boolean"
+          },
+          "verification_ui_url": {
+            "description": "The URL for the verification UI.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "registration_enabled",
+          "hide_registration_link",
+          "verification_enabled",
+          "recovery_enabled",
+          "login_ui_url",
+          "registration_ui_url",
+          "recovery_ui_url",
+          "verification_ui_url",
+          "settings_ui_url",
+          "error_ui_url",
+          "default_redirect_url",
+          "hide_ory_branding"
+        ],
+        "type": "object"
+      },
       "emailTemplateData": {
         "description": "Contains the data of the email template, including the subject and body in HTML and plaintext variants",
         "properties": {
@@ -4975,6 +5126,11 @@
             "type": "string"
           },
           "role_arn": {
+            "type": "string"
+          },
+          "status": {
+            "description": "The status of the event stream. A paused event stream does not forward\nany events until it is set back to active.",
+            "enum": ["active", "paused"],
             "type": "string"
           },
           "topic_arn": {
@@ -7583,6 +7739,22 @@
             "description": "Configures the Ory Kratos Valid Registration via Code SMS Body Plaintext Template\n\nThis governs the \"courier.templates.registration_code.valid.sms.body.plaintext\" setting.",
             "type": "string"
           },
+          "kratos_courier_templates_verifiable_address_changed_email_body_html": {
+            "description": "Configures the Ory Kratos Verifiable Address Changed Email Body HTML Template\n\nThis governs the \"courier.templates.verifiable_address_changed.email.body.html\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verifiable_address_changed_email_body_plaintext": {
+            "description": "Configures the Ory Kratos Verifiable Address Changed Email Body Plaintext Template\n\nThis governs the \"courier.templates.verifiable_address_changed.email.body.plaintext\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verifiable_address_changed_email_subject": {
+            "description": "Configures the Ory Kratos Verifiable Address Changed Email Subject Template\n\nThis governs the \"courier.templates.verifiable_address_changed.email.subject\" setting.",
+            "type": "string"
+          },
+          "kratos_courier_templates_verifiable_address_changed_sms_body_plaintext": {
+            "description": "Configures the Ory Kratos Verifiable Address Changed SMS Body Plaintext Template\n\nThis governs the \"courier.templates.verifiable_address_changed.sms.body.plaintext\" setting.",
+            "type": "string"
+          },
           "kratos_courier_templates_verification_code_invalid_email_body_html": {
             "description": "Configures the Ory Kratos Invalid Verification via Code Email Body HTML Template\n\nThis governs the \"courier.templates.verification_code.invalid.email.body.html\" setting.",
             "type": "string"
@@ -7993,6 +8165,10 @@
             "description": "This setting allows the code method to always login a user with code if they have registered with another authentication method such as password or social sign in.\n\nThis governs the \"selfservice.methods.code.passwordless_login_fallback_enabled\" setting.",
             "type": "boolean"
           },
+          "kratos_selfservice_methods_deviceauthn_config_insecure_allow_relaxed_attestation": {
+            "description": "Configures whether Ory Kratos Device authentication accepts relaxed attestations for testing\n\nOnly allowed on development projects and forced off otherwise. Keys enrolled\nunder relaxation are short-lived and refused once this is turned off.\n\nThis governs the \"selfservice.methods.deviceauthn.config.insecure_allow_relaxed_attestation\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_deviceauthn_enabled": {
             "description": "Configures whether Ory Kratos Device authentication is enabled\n\nThis governs the \"selfservice.methods.deviceauthn.enabled\" setting.",
             "type": "boolean"
@@ -8309,6 +8485,11 @@
           "id": {
             "description": "ID of the entry",
             "format": "uuid",
+            "type": "string"
+          },
+          "notify_previous_addresses_config_recipients": {
+            "description": "The recipients to be notified in case of a change of the users verified email addresses. Possible values are: \"all\", \"all_verified\", \"removed\" (only notify about removed email addresses)",
+            "example": "all_verified",
             "type": "string"
           },
           "project_revision_id": {
@@ -9874,6 +10055,17 @@
         ],
         "type": "object"
       },
+      "onboardingPortalTestLoginFlow": {
+        "description": "Response body for a dry-run OIDC test login flow created from an onboarding\nportal link. Only the flow ID is part of the API contract.",
+        "properties": {
+          "id": {
+            "description": "ID of the created test login flow. Append this as the `flow` query\nparameter on the test sign-in UI URL.",
+            "type": "string"
+          }
+        },
+        "required": ["id"],
+        "type": "object"
+      },
       "organization": {
         "description": "B2B SSO Organization",
         "properties": {
@@ -10134,6 +10326,11 @@
           "id": {
             "description": "The token's ID.",
             "format": "uuid",
+            "readOnly": true,
+            "type": "string"
+          },
+          "last_characters": {
+            "description": "The last characters of the token's value.\n\nLets you tell API keys apart in the UI without revealing the full\nvalue. Empty for keys created before this was introduced.",
             "readOnly": true,
             "type": "string"
           },
@@ -11486,27 +11683,32 @@
         "type": "object"
       },
       "setEventStreamBody": {
-        "description": "Update Event Stream Body",
+        "description": "All fields are optional. Omitted fields keep their current value, so a caller\ncan change only the status (pause/resume) without resubmitting the\ndestination. This matters because secrets such as the password in an HTTPS\nendpoint URL are redacted in API responses, and resubmitting the redacted\nvalue would overwrite the real one.",
         "properties": {
           "https_endpoint": {
-            "description": "The HTTPS endpoint URL to send events to. Required if type is https.",
+            "description": "The HTTPS endpoint URL to send events to. When omitted, the current value is kept.",
             "type": "string"
           },
           "role_arn": {
-            "description": "The AWS IAM role ARN to assume when publishing to the SNS topic. Required if type is sns.",
+            "description": "The AWS IAM role ARN to assume when publishing to the SNS topic. When omitted, the current value is kept.",
+            "type": "string"
+          },
+          "status": {
+            "description": "The desired status of the event stream. When omitted, the current status is kept.",
+            "enum": ["active", "paused"],
             "type": "string"
           },
           "topic_arn": {
-            "description": "The AWS SNS topic ARN. Required if type is sns.",
+            "description": "The AWS SNS topic ARN. When omitted, the current value is kept.",
             "type": "string"
           },
           "type": {
-            "description": "The type of the event stream (AWS SNS or HTTPS webhook).",
+            "description": "The type of the event stream (AWS SNS or HTTPS webhook). When omitted, the\ncurrent type and its destination settings are kept.",
             "enum": ["sns", "https"],
             "type": "string"
           }
         },
-        "required": ["type"],
+        "title": "Update Event Stream Body",
         "type": "object"
       },
       "setOrganizationFromOnboardingPortalLinkBody": {
@@ -11620,6 +11822,9 @@
             "description": "IssuedAt is the time (UTC) when the flow occurred.",
             "format": "date-time",
             "type": "string"
+          },
+          "organization_id": {
+            "$ref": "#/components/schemas/NullUUID"
           },
           "request_url": {
             "description": "RequestURL is the initial URL that was requested from Ory Kratos. It can be used\nto forward information contained in the URL's path or query for example.",
@@ -12198,7 +12403,7 @@
         "description": "InputAttributes represents the attributes of an input node",
         "properties": {
           "autocomplete": {
-            "description": "The autocomplete attribute for the input.\nemail InputAttributeAutocompleteEmail\ntel InputAttributeAutocompleteTel\nurl InputAttributeAutocompleteUrl\ncurrent-password InputAttributeAutocompleteCurrentPassword\nnew-password InputAttributeAutocompleteNewPassword\none-time-code InputAttributeAutocompleteOneTimeCode\nusername webauthn InputAttributeAutocompleteUsernameWebauthn",
+            "description": "The autocomplete attribute for the input.\nemail InputAttributeAutocompleteEmail\ntel InputAttributeAutocompleteTel\nurl InputAttributeAutocompleteUrl\ncurrent-password InputAttributeAutocompleteCurrentPassword\nnew-password InputAttributeAutocompleteNewPassword\none-time-code InputAttributeAutocompleteOneTimeCode\nusername InputAttributeAutocompleteUsername\nusername webauthn InputAttributeAutocompleteUsernameWebauthn",
             "enum": [
               "email",
               "tel",
@@ -12206,10 +12411,11 @@
               "current-password",
               "new-password",
               "one-time-code",
+              "username",
               "username webauthn"
             ],
             "type": "string",
-            "x-go-enum-desc": "email InputAttributeAutocompleteEmail\ntel InputAttributeAutocompleteTel\nurl InputAttributeAutocompleteUrl\ncurrent-password InputAttributeAutocompleteCurrentPassword\nnew-password InputAttributeAutocompleteNewPassword\none-time-code InputAttributeAutocompleteOneTimeCode\nusername webauthn InputAttributeAutocompleteUsernameWebauthn"
+            "x-go-enum-desc": "email InputAttributeAutocompleteEmail\ntel InputAttributeAutocompleteTel\nurl InputAttributeAutocompleteUrl\ncurrent-password InputAttributeAutocompleteCurrentPassword\nnew-password InputAttributeAutocompleteNewPassword\none-time-code InputAttributeAutocompleteOneTimeCode\nusername InputAttributeAutocompleteUsername\nusername webauthn InputAttributeAutocompleteUsernameWebauthn"
           },
           "disabled": {
             "description": "Sets the input's disabled field to true or false.",
@@ -12495,6 +12701,7 @@
         "discriminator": {
           "mapping": {
             "code": "#/components/schemas/updateLoginFlowWithCodeMethod",
+            "deviceauthn": "#/components/schemas/updateLoginFlowWithDeviceAuthnMethod",
             "identifier_first": "#/components/schemas/updateLoginFlowWithIdentifierFirstMethod",
             "lookup_secret": "#/components/schemas/updateLoginFlowWithLookupSecretMethod",
             "oidc": "#/components/schemas/updateLoginFlowWithOidcMethod",
@@ -12521,6 +12728,9 @@
           },
           {
             "$ref": "#/components/schemas/updateLoginFlowWithWebAuthnMethod"
+          },
+          {
+            "$ref": "#/components/schemas/updateLoginFlowWithDeviceAuthnMethod"
           },
           {
             "$ref": "#/components/schemas/updateLoginFlowWithLookupSecretMethod"
@@ -12569,6 +12779,31 @@
           }
         },
         "required": ["method", "csrf_token"],
+        "type": "object"
+      },
+      "updateLoginFlowWithDeviceAuthnMethod": {
+        "description": "No CSRF token since this method may not be used from the browser.",
+        "properties": {
+          "client_key_id": {
+            "description": "Login with a DeviceAuthn Security Key.\n\nThis must contain the client ID of the DeviceAuthN key,\na.k.a 'key alias' on Android and 'key id' on iOS.",
+            "type": "string"
+          },
+          "method": {
+            "description": "Method should be set to \"deviceauthn\" when logging in using the DeviceAuthn strategy.",
+            "type": "string"
+          },
+          "signature": {
+            "description": "Signature is a ES256 signature of the server-provided challenge.",
+            "format": "byte",
+            "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
+          }
+        },
+        "required": ["method"],
+        "title": "Update Login Flow with DeviceAuthn Method",
         "type": "object"
       },
       "updateLoginFlowWithIdentifierFirstMethod": {
@@ -12645,7 +12880,7 @@
             "type": "object"
           },
           "upstream_parameters": {
-            "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
+            "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
             "type": "object"
           }
         },
@@ -12981,7 +13216,7 @@
             "type": "object"
           },
           "upstream_parameters": {
-            "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
+            "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
             "type": "object"
           }
         },
@@ -13133,6 +13368,7 @@
         "description": "Update Settings Flow Request Body",
         "discriminator": {
           "mapping": {
+            "deviceauthn": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethod",
             "lookup_secret": "#/components/schemas/updateSettingsFlowWithLookupMethod",
             "oidc": "#/components/schemas/updateSettingsFlowWithOidcMethod",
             "passkey": "#/components/schemas/updateSettingsFlowWithPasskeyMethod",
@@ -13168,8 +13404,77 @@
           },
           {
             "$ref": "#/components/schemas/updateSettingsFlowWithPasskeyMethod"
+          },
+          {
+            "$ref": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethod"
           }
         ]
+      },
+      "updateSettingsFlowWithDeviceAuthnMethod": {
+        "description": "Update Settings Flow with DeviceAuthn Method",
+        "properties": {
+          "add": {
+            "$ref": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethodAdd"
+          },
+          "csrf_token": {
+            "description": "CSRFToken is the anti-CSRF token\nIt only is required to remove a key from the browser.",
+            "type": "string"
+          },
+          "delete": {
+            "$ref": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethodDelete"
+          },
+          "method": {
+            "description": "Method\n\nShould be set to \"deviceauthn\" when trying to add or remove a DeviceAuthn key.",
+            "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
+          }
+        },
+        "required": ["method"],
+        "type": "object"
+      },
+      "updateSettingsFlowWithDeviceAuthnMethodAdd": {
+        "properties": {
+          "attestation_ios": {
+            "format": "byte",
+            "type": "string"
+          },
+          "certificate_chain_android": {
+            "description": "CertificateChainAndroid is a list of base64 strings for creating a key on Android.\nEach element is a certificate.\nThe first element is the leaf, corresponding to the on-device key, the last is the root (Google CA).",
+            "items": {
+              "format": "byte",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "client_key_id": {
+            "description": "ClientKeyID is the key id/alias on the device.",
+            "type": "string"
+          },
+          "device_name": {
+            "description": "DeviceName is a human-readable name for the device e.g. 'My work phone'.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Version is the version number for the cryptography.\nFor now only `1` is supported which corresponds to SHA256 + EC.",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": ["device_name", "client_key_id"],
+        "type": "object"
+      },
+      "updateSettingsFlowWithDeviceAuthnMethodDelete": {
+        "properties": {
+          "client_key_id": {
+            "description": "ClientKeyID is the key id/alias on the device.",
+            "type": "string"
+          }
+        },
+        "required": ["client_key_id"],
+        "type": "object"
       },
       "updateSettingsFlowWithLookupMethod": {
         "description": "Update Settings Flow with Lookup Method",
@@ -13234,7 +13539,7 @@
             "type": "string"
           },
           "upstream_parameters": {
-            "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
+            "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
             "type": "object"
           }
         },
@@ -13787,6 +14092,11 @@
             "readOnly": true,
             "type": "string"
           },
+          "last_characters": {
+            "description": "The last characters of the key's value.\n\nLets you tell API keys apart in the UI without revealing the full\nvalue. Empty for keys created before this was introduced.",
+            "readOnly": true,
+            "type": "string"
+          },
           "name": {
             "description": "The API key's Name\n\nSet this to help you remember, for example, where you use the API key.",
             "type": "string"
@@ -13938,6 +14248,30 @@
   },
   "openapi": "3.0.3",
   "paths": {
+    "/.well-known/change-password": {
+      "get": {
+        "description": "This endpoint implements the W3C \"change password URL\" well-known location by\nredirecting the browser to the configured settings UI. Password managers follow\nthis redirect to take users straight to the page where they can change their\npassword.",
+        "operationId": "getWellKnownChangePassword",
+        "responses": {
+          "303": {
+            "$ref": "#/components/responses/emptyResponse"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
+          }
+        },
+        "summary": "Change Password URL",
+        "tags": ["frontend"],
+        "x-ory-ratelimit-bucket": "kratos-public-high"
+      }
+    },
     "/.well-known/jwks.json": {
       "get": {
         "description": "This endpoint returns JSON Web Keys required to verifying OpenID Connect ID Tokens and,\nif enabled, OAuth 2.0 JWT Access Tokens. This endpoint can be used with client libraries like\n[node-jwks-rsa](https://github.com/auth0/node-jwks-rsa) among others.\n\nAdding custom keys requires first creating a keyset via the createJsonWebKeySet operation,\nand then configuring the webfinger.jwks.broadcast_keys configuration value to include the keyset name.",
@@ -17592,6 +17926,66 @@
         "summary": "Issues a Verifiable Credential",
         "tags": ["oidc"],
         "x-ory-ratelimit-bucket": "hydra-admin-medium"
+      }
+    },
+    "/elements/configuration": {
+      "get": {
+        "description": "Returns a subset of the project's configuration for the given host.\nThe response only contains non-sensitive data that is used to customize the behavior of Ory Elements.",
+        "operationId": "getConfiguration",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/elementsConfiguration"
+                }
+              }
+            },
+            "description": "elementsConfiguration"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "description": "genericError"
+          }
+        },
+        "summary": "Get Ory Elements configuration",
+        "tags": ["elements"]
       }
     },
     "/namespaces": {
@@ -22551,6 +22945,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "An optional organization ID that scopes the settings flow to providers of that organization.\nThis parameter is only effective in the Ory Network.",
+            "in": "query",
+            "name": "organization",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -22607,6 +23009,14 @@
             "description": "HTTP Cookies\n\nWhen using the SDK in a browser app, on the server side you must include the HTTP Cookie Header\nsent by the client to your server here. This ensures that CSRF and session cookies are respected.",
             "in": "header",
             "name": "Cookie",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "An optional organization ID that scopes the settings flow to providers of that organization.\nThis parameter is only effective in the Ory Network.",
+            "in": "query",
+            "name": "organization",
             "schema": {
               "type": "string"
             }
@@ -23714,7 +24124,7 @@
         "tags": ["ApiKeys"]
       },
       "post": {
-        "description": "Imports an external API key into the system. Allows importing keys from\nlegacy systems or external providers. The raw key is hashed and stored\nsecurely (HMAC). Imported keys support token derivation (JWT/Macaroon)\nlike issued keys.\n\n```http\nPOST /v2alpha1/admin/importedApiKeys\n{\n  \"raw_key\": \"sk_live_abc123xyz\",\n  \"name\": \"Imported Stripe Key\",\n  \"actor_id\": \"user_123\"\n}\n```",
+        "description": "Imports an external API key into the system. Allows importing keys from\nlegacy systems or external providers. The raw key is hashed and stored\nsecurely (HMAC). Imported keys support token derivation (JWT/Macaroon)\nlike issued keys.\n\n```http\nPOST /v2alpha1/admin/importedApiKeys\n{\n  \"raw_key\": \"imported-key-EXAMPLE-not-a-real-secret\",\n  \"name\": \"Example imported key\",\n  \"actor_id\": \"user_123\"\n}\n```",
         "operationId": "adminImportApiKey",
         "requestBody": {
           "content": {
@@ -23724,7 +24134,7 @@
               }
             }
           },
-          "description": "Example:\n  {\n    \"raw_key\": \"sk_live_abc123xyz789\",\n    \"name\": \"Stripe Production Key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"stripe\", \"environment\": \"production\"}\n  }",
+          "description": "Example:\n  {\n    \"raw_key\": \"imported-key-EXAMPLE-not-a-real-secret\",\n    \"name\": \"Example imported key\",\n    \"actor_id\": \"payment-processor\",\n    \"scopes\": [\"read\", \"write\"],\n    \"ttl\": \"8760h\",  // 1 year (also accepts: 31536000s)\n    \"metadata\": {\"source\": \"example-provider\", \"environment\": \"staging\"}\n  }",
           "required": true,
           "x-originalParamName": "body"
         },
@@ -23776,11 +24186,6 @@
         ],
         "responses": {
           "204": {
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            },
             "description": "Imported key deleted successfully."
           },
           "default": {
@@ -23992,11 +24397,6 @@
         },
         "responses": {
           "204": {
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            },
             "description": "API key revoked successfully."
           },
           "default": {
@@ -24363,11 +24763,6 @@
         },
         "responses": {
           "204": {
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            },
             "description": "API key revoked successfully."
           },
           "default": {

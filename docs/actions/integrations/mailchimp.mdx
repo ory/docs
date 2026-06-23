@@ -149,3 +149,39 @@ import JsonnetInfo from './_common/jsonnetinfo.mdx'
     --add "/selfservice/flows/registration/after/password/hooks/0=$(cat webhook-action.json)" \
     --format yaml
   ```
+
+## Marketing audience sync
+
+The other Mailchimp subsystem — the **marketing campaign tools** — manages audiences (subscriber lists) rather than transactional
+email. Instead of sending a one-off message, this use case adds each newly registered user to a Mailchimp audience so they appear
+in your marketing CRM automatically.
+
+Like the transactional integration above, it's driven by an Ory Action on `registration.after`, but it targets Mailchimp's
+Marketing (Lists/Audiences) API instead of the Mandrill transactional API.
+
+:::note
+
+The Mailchimp **Marketing** API key is distinct from the **Mandrill** key used for transactional email above. Generate it from the
+main Mailchimp dashboard, not the Mandrill dashboard.
+
+:::
+
+### How marketing audience sync works
+
+1. The user completes registration in your Ory-powered application.
+2. Ory fires an Action on `registration.after`.
+3. The Jsonnet body maps Ory identity traits (email, name, custom traits) into Mailchimp merge fields and audience tags.
+4. Ory POSTs to Mailchimp's Lists/Audiences API to add or update the subscriber:
+   - URL: `https://{dc}.api.mailchimp.com/3.0/lists/{list_id}/members`
+   - Auth: HTTP Basic, username `anystring`, password `{marketing_api_key}`
+
+### Setup outline
+
+1. Create a Mailchimp **Marketing API key** from the Mailchimp dashboard.
+2. Identify the target audience (list) ID in the Mailchimp dashboard.
+3. Create an Ory Action of type `web_hook` on `registration.after.hooks` pointing at
+   `https://{dc}.api.mailchimp.com/3.0/lists/{list_id}/members` with HTTP Basic auth (`anystring:{api_key}`).
+4. In the body Jsonnet, map `identity.traits.email` and `identity.traits.name` into Mailchimp merge fields.
+
+See the [Mailchimp Marketing API](https://mailchimp.com/developer/marketing/api/) reference for the full member schema and
+available merge fields.

@@ -1,0 +1,42 @@
+---
+id: aadhaar
+title: Sign in with Aadhaar
+sidebar_label: Aadhaar
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Reference pattern (not natively supported)">
+Aadhaar is not natively supported by Ory — UIDAI restricts direct API
+access to licensed ASA/AUA entities. Integration goes through a
+licensed eKYC provider that brokers UIDAI access. Reference:
+[ory/integrates/government-identity/aadhaar](https://github.com/ory/integrates/tree/main/government-identity/aadhaar).
+</Admonition>
+```
+
+[Aadhaar](https://uidai.gov.in) is a UIDAI-administered biometric identity used by more than 1.3 billion Indian residents. UIDAI
+restricts direct API access to licensed entities, so you integrate through a licensed third party.
+
+## How to integrate
+
+```
+Ory Identities webhook → Your verification service → Licensed ASA/AUA → UIDAI CIDR
+```
+
+Common licensed providers: Signzy, Digio, Karza Technologies, IDfy.
+
+## Compliance must-haves
+
+- **Never store the full Aadhaar number** — only masked or last-4 digits.
+- **Explicit consent** (`consent: "Y"`) on every call.
+- **Data localization**: Aadhaar-derived data must stay in India. Keep full eKYC in India-hosted infrastructure; only persist
+  verified-status + masked identifiers in Ory metadata.
+- **5-year audit trail** for authentication transactions.
+- Aadhaar Act 2016 §28/§29/§33 restrict sharing, storing, and disclosure of core biometric data.
+
+## Resources
+
+- [UIDAI Developer Portal](https://developer.uidai.gov.in/)
+- [Aadhaar Act 2016](https://uidai.gov.in/legal-framework/aadhaar-act.html)
+- Reference: [ory/integrates/government-identity/aadhaar](https://github.com/ory/integrates/tree/main/government-identity/aadhaar)

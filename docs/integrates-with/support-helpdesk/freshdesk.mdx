@@ -1,0 +1,36 @@
+---
+id: freshdesk
+title: Freshdesk
+sidebar_label: Freshdesk
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/support-helpdesk/freshdesk](https://github.com/ory/integrates/tree/main/support-helpdesk/freshdesk).
+</Admonition>
+```
+
+[Freshdesk](https://www.freshworks.com/freshdesk/) is a customer support platform. You sync Ory identities into Freshdesk Contacts
+so support agents see identity context when handling tickets.
+
+## How it works
+
+An Ory Action on `registration.after` or `settings.after` runs asynchronously and calls the Freshdesk REST API to upsert the
+contact (`POST /api/v2/contacts`).
+
+For authentication, use HTTP Basic with the **API key as the username and the literal `X` as the password**, per Freshdesk
+convention.
+
+## Notable
+
+- The POST returns 409 if the contact already exists by email, so your handler treats 409 as success.
+- Add an optional `ory_identity_id` custom contact field for stable cross-system lookup.
+
+## Resources
+
+- [Freshdesk API](https://developers.freshdesk.com/api/)
+- [Ory Actions](/docs/actions)
+- Reference: [ory/integrates/support-helpdesk/freshdesk](https://github.com/ory/integrates/tree/main/support-helpdesk/freshdesk)
