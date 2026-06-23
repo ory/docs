@@ -1573,11 +1573,6 @@
       "permanent": false
     },
     {
-      "source": "/docs/keto/quickstart",
-      "destination": "/docs/network/keto/quickstart",
-      "permanent": false
-    },
-    {
       "source": "/docs/keto/examples/olymp-file-sharing",
       "destination": "/docs/network/keto/file-sharing-example",
       "permanent": false
