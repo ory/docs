@@ -113,6 +113,31 @@
       "permanent": true
     },
     {
+      "source": "/docs/kratos/install",
+      "destination": "/docs/oel/kratos/install",
+      "permanent": true
+    },
+    {
+      "source": "/docs/keto/install",
+      "destination": "/docs/oel/keto/install",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/guides/upgrade",
+      "destination": "/docs/oss/kratos/guides/upgrade",
+      "permanent": true
+    },
+    {
+      "source": "/docs/keto/guides/upgrade",
+      "destination": "/docs/oss/keto/guides/upgrade",
+      "permanent": true
+    },
+    {
+      "source": "/docs/keto/quickstart",
+      "destination": "/docs/oss/keto/quickstart",
+      "permanent": true
+    },
+    {
       "source": "/kratos/docs",
       "destination": "https://www.ory.com/docs/kratos",
       "permanent": true
@@ -1550,11 +1575,6 @@
     {
       "source": "/docs/guides/permissions/overview",
       "destination": "/docs/network/keto/overview",
-      "permanent": true
-    },
-    {
-      "source": "/docs/keto/quickstart",
-      "destination": "/docs/network/keto/quickstart",
       "permanent": true
     },
     {

@@ -9,6 +9,9 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeBlock from '@theme/CodeBlock'
 import { FrameworkCodeTabs } from '@site/src/components/GuidesComponents'
+import Linux from '@site/src/components/Install/Linux'
+import MacOS from '@site/src/components/Install/MacOS'
+import Windows from '@site/src/components/Install/Windows'
 import nextDevSetup from '!!raw-loader!./_common/code-examples/nextjs/ory.ts'
 import goSetup from '!!raw-loader!./_common/code-examples/go/ory_client.go'
 import jsDevSetup from '!!raw-loader!./_common/code-examples/js/setupDev.js'
@@ -69,21 +72,31 @@ For local development, you'll need to use Ory Tunnel to connect your local appli
   values={[
     {label: 'macOS', value: 'macos'},
     {label: 'Linux', value: 'linux'},
+    {label: 'Windows', value: 'windows'},
   ]}>
 <TabItem value="macos">
 ```
 
-```shell
-# Install Ory CLI using Homebrew
-brew install ory/tap/cli
-
-# Verify installation
-ory help
+```mdx-code-block
+<MacOS repo="cli" command="ory" name="the Ory CLI" />
 ```
 
 ```mdx-code-block
 </TabItem>
 <TabItem value="linux">
+```
+
+```mdx-code-block
+<Linux repo="ory" name="the Ory CLI" />
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="windows">
+```
+
+```mdx-code-block
+<Windows repo="ory" name="the Ory CLI" />
 ```
 
 ```mdx-code-block
@@ -94,9 +107,12 @@ ory help
 After installing the CLI, start the tunnel to connect your local application with Ory's APIs:
 
 ```shell
-# Start the tunnel (replace with your project id)
-ory tunnel --project $PROJECT_ID http://localhost:3000
+ory tunnel --project $ORY_PROJECT_ID --port 4000 http://localhost:3000
 ```
+
+This proxies Ory's APIs on `http://localhost:4000` and forwards all other traffic to your application at `http://localhost:3000`.
+Running the tunnel is required for local development because Ory's session cookies must be set on the same domain as your
+application.
 
 :::tip
 
