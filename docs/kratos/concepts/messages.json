@@ -804,6 +804,11 @@
     "type": "error"
   },
   {
+    "id": 4000045,
+    "text": "This DeviceAuthn key can no longer be used because relaxed attestation is expired or disabled. Please enroll your device again.",
+    "type": "error"
+  },
+  {
     "id": 4010001,
     "text": "The login flow expired 1.00 minutes ago, please try again.",
     "type": "error",

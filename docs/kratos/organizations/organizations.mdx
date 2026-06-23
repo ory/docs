@@ -261,6 +261,12 @@ your system but need the identity to be created in Ory Network first, before the
 To achieve this, set the `organization_id` property to the ID of the created organization in the identity, either when creating
 the identity, or by updating the identity's data using the Ory APIs.
 
+To automate provisioning from an external identity provider instead, configure a [SCIM client](../manage-identities/50_scim.mdx)
+for the organization. The SCIM server creates and updates identities in the organization automatically. Because an identity can
+belong to only one organization, provisioning a user that already exists in a different organization fails with a conflict — see
+[How SCIM relates to organizations](../manage-identities/50_scim.mdx#how-scim-relates-to-organizations) for the full behavior and
+how to resolve it.
+
 ## Bind an identity to an organization through the settings flow
 
 A signed-in user can join an organization by linking one of its SSO connections through the
