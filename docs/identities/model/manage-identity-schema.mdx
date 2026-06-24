@@ -114,7 +114,7 @@ Presets cannot be deleted.
 3. Open the row menu (three dots) and select **Delete schema**.
 4. Confirm the deletion in the dialog.
 
-If **Delete schema** is disabled, the schema is currently attached to a project and cannot be deleted.
+If **Delete schema** is disabled, the schema is attached to a project and cannot be deleted.
 
 </TabItem>
 <TabItem value="curl" label="cURL">
@@ -127,7 +127,7 @@ curl -X DELETE "https://api.console.ory.sh/identity-schemas/$SCHEMA_ID" \
      -H "Authorization: Bearer $ORY_WORKSPACE_API_KEY"
 ```
 
-If the schema is still in use, the API returns `409 Conflict` with the number of projects that reference it.
+If the schema is used by a project or referenced by an identity, the API returns `409 Conflict` with the number of projects that reference it.
 
 </TabItem>
 </Tabs>
