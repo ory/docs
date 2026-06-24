@@ -78,7 +78,6 @@ const oelSidebar = [
             items: [
               "kratos/guides/docker",
               "kratos/guides/deploy-kratos-example",
-              "oel/kratos/guides/upgrade",
               "kratos/guides/production",
               "kratos/guides/multi-tenancy-multitenant",
               "oel/kratos/scalability",

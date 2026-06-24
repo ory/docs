@@ -9,6 +9,14 @@ title: Installation
 
 ```mdx-code-block
 import Install from '@site/src/components/Shared/install-oel.mdx'
+import ImageTags from '../../self-hosted/oel/oel-keto-image-tags.md'
 
-<Install repo="keto" name="Ory Keto" />
+<Install
+  name="Ory Keto"
+  repo="keto"
+  image="europe-docker.pkg.dev/ory-artifacts/ory-enterprise-keto/keto-oel"
+  ports={[4466, 4467]}
+  serveCommand="serve"
+  imageTags={<ImageTags />}
+/>
 ```

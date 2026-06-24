@@ -128,6 +128,11 @@
       "permanent": true
     },
     {
+      "source": "/docs/oel/kratos/guides/upgrade",
+      "destination": "/docs/self-hosted/oel/kratos/upgrade",
+      "permanent": true
+    },
+    {
       "source": "/docs/keto/guides/upgrade",
       "destination": "/docs/oss/keto/guides/upgrade",
       "permanent": true
