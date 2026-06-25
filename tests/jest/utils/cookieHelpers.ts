@@ -1,4 +1,4 @@
-export const parseCookie = (cookieHeader: string | null): string => {
+export const parseCookie = (cookieHeader: string | string[] | null): string => {
   if (!cookieHeader) return ""
 
   const attributeNames = new Set([
@@ -11,7 +11,12 @@ export const parseCookie = (cookieHeader: string | null): string => {
     "domain",
   ])
 
-  const cookieStrings = cookieHeader.split(", ")
+  // Prefer an already-split array (e.g. from Headers.getSetCookie()). Splitting a
+  // combined header on ", " is fragile because attribute values such as
+  // `Expires=Wed, 21 Oct 2025 ...` also contain ", ".
+  const cookieStrings = Array.isArray(cookieHeader)
+    ? cookieHeader
+    : cookieHeader.split(", ")
   const cookies: string[] = []
 
   for (let cookieStr of cookieStrings) {
