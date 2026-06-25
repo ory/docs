@@ -1,0 +1,75 @@
+Ory software runs on any operating system (FreeBSD, macOS, Linux, Windows, ...)
+and supports all major CPU platforms (ARM64, ARMv7, x86_64, x86, ...).
+
+```mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import Linux from '@site/src/components/Install/Linux'
+import MacOS from '@site/src/components/Install/MacOS'
+import Windows from '@site/src/components/Install/Windows'
+import Docker from '@site/src/components/Install/Docker'
+
+<Tabs
+  defaultValue="macos"
+  values={[
+    { label: 'macOS', value: 'macos' },
+    { label: 'Linux', value: 'linux' },
+    { label: 'Windows', value: 'windows' },
+    { label: 'Docker', value: 'docker' },
+    { label: 'Kubernetes', value: 'kubernetes' },
+  ]}>
+  <TabItem value="macos">
+    <MacOS repo={props.repo} command={props.command || props.repo} name={props.name} />
+  </TabItem>
+  <TabItem value="linux">
+    <Linux repo={props.repo} name={props.name} />
+  </TabItem>
+  <TabItem value="windows">
+    <Windows repo={props.repo} name={props.name} />
+  </TabItem>
+  <TabItem value="docker">
+    <Docker repo={props.repo} name={props.name} />
+  </TabItem>
+  <TabItem value="kubernetes">
+    A list of available Helm Charts for Kubernetes can be found at <a href="https://k8s.ory.com/helm">k8s.ory.com/helm</a>.
+  </TabItem>
+</Tabs>
+```
+
+## Download Binaries
+
+<p>
+  You can download the client and server binaries on our{" "}
+  <a href={`https://github.com/ory/${props.repo}/releases`}>Github releases</a>{" "}
+  page. No installer is available. You have to add the binary to the PATH in
+  your environment yourself, for example by putting it into
+  <code>/usr/local/bin</code> or something comparable.
+</p>
+
+Once installed, you should be able to run:
+
+```mdx-code-block
+import CodeBlock from '@theme/CodeBlock'
+
+<CodeBlock language='shell'>{`${props.repo} help`}</CodeBlock>
+```
+
+## Building from source
+
+If you wish to compile the binary yourself, you need to install and set up
+[Go 1.17+](https://golang.org/) and add `$GOPATH/bin` to your `$PATH`.
+
+:::danger
+
+Please note that this will check out the latest commit, which might be not yet
+released and unstable.
+
+:::
+
+```mdx-code-block
+<CodeBlock language='shell'>{`git clone https://github.com/ory/${props.repo}.git
+cd ${props.repo}
+go mod download
+go install -tags sqlite,json1,hsm .
+$(go env GOPATH)/bin/${props.repo} help`}</CodeBlock>
+```
