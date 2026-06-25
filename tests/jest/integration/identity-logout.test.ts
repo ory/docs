@@ -52,9 +52,12 @@ describe("identity logout (Express/JS)", () => {
       },
     })
 
-    // After logout, user should be redirected to home page
+    // After logout, user should be redirected to the home page.
+    // The Location header may be relative ("/"), so resolve it against the base
     const logoutLocation = logoutRes.headers.get("location")
     expect(logoutRes.status).toBe(302)
-    expect(logoutLocation).toBe("http://127.0.0.1:3000/")
+    expect(new URL(logoutLocation ?? "", examplesBaseUrl).href).toBe(
+      `${examplesBaseUrl}/`,
+    )
   })
 })
