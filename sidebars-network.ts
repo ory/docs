@@ -419,10 +419,7 @@ const networkSidebar = [
               type: "doc",
               id: "network/keto/overview",
             },
-            items: [
-              "network/keto/quickstart",
-              "network/keto/file-sharing-example",
-            ],
+            items: ["network/keto/file-sharing-example"],
           },
           {
             type: "category",

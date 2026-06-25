@@ -25,7 +25,7 @@ records so AI agents authenticate to your APIs with verifiable identity and per-
    `metadata_public.skyfire = { agent_id, kya_status }`.
 3. Ory OAuth2 & OpenID Connect issues OAuth2 access tokens to the agent identity using the standard `client_credentials` flow. The
    access token's `sub` is the Ory identity ID.
-4. Your backend APIs validate the access token (see [API gateways](/docs/integrations/api-gateways)) and read the agent ID from
+4. Your backend APIs validate the access token (see [API gateways](/docs/category/api-gateways)) and read the agent ID from
    `metadata_public.skyfire.agent_id` for access control.
 
 ## Notable
@@ -37,5 +37,5 @@ records so AI agents authenticate to your APIs with verifiable identity and per-
 ## Resources
 
 - [Skyfire documentation](https://docs.skyfire.xyz/)
-- [Ory Hydra OAuth2 server](/docs/hydra)
+- [Ory Hydra](/docs/network/hydra)
 - Reference: [ory/integrates/agent-identity/skyfire](https://github.com/ory/integrates/tree/main/agent-identity/skyfire)
