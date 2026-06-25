@@ -49,6 +49,38 @@ export async function selfServiceLogin(
     console.error("[debug]   message:", err?.message)
     console.error("[debug]   errno/type:", err?.errno, err?.type)
     console.error("[debug]   cause:", err?.cause?.message || err?.cause)
+
+    // Probe: re-fetch the SAME url with Node's native fetch (undici), which does
+    try {
+      const probe = await (globalThis as any).fetch(
+        `${baseUrl}/self-service/login/api`,
+        { headers: { Accept: "application/json" } },
+      )
+      const text = await probe.text()
+      console.error("[debug] native-fetch probe status:", probe.status)
+      console.error("[debug] native-fetch probe body length:", text.length)
+      let parsedId: string | undefined
+      try {
+        parsedId = JSON.parse(text)?.id
+      } catch {}
+      console.error(
+        "[debug] native-fetch probe parsed flow id:",
+        parsedId ?? "(parse failed)",
+      )
+      console.error(
+        parsedId
+          ? "[debug] => body was COMPLETE; node-fetch raised a FALSE premature close"
+          : "[debug] => native fetch also could not parse; body may be genuinely truncated",
+      )
+    } catch (probeErr: any) {
+      console.error(
+        "[debug] native-fetch probe ALSO failed:",
+        probeErr?.name,
+        probeErr?.message,
+      )
+      console.error("[debug] => upstream likely genuinely truncating the body")
+    }
+
     throw err
   }
   // --- END DEBUG ---
