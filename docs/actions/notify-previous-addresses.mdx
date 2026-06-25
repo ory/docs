@@ -1,0 +1,70 @@
+---
+id: notify-previous-addresses
+title: Notify previous addresses
+---
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+```
+
+The `notify_previous_addresses` action sends a notification to a user's previous email or phone addresses when they change a
+verifiable address through the settings flow. Use it to alert users to address changes on their account so they can react if a
+change was not made by them.
+
+The action runs on the `after` settings flow for the `profile` method, after the change is persisted. Notification delivery never
+blocks or fails the settings flow: if a message can't be queued, Ory logs a warning and the flow still succeeds.
+
+## Choose which addresses to notify
+
+The `recipients` configuration controls which of the user's previous addresses receive a notification:
+
+| Value          | Notifies                                                                 |
+| :------------- | :----------------------------------------------------------------------- |
+| `removed`      | Only the addresses that were removed by the change. This is the default. |
+| `all_verified` | All of the user's previously verified addresses.                         |
+| `all`          | All of the user's previous addresses, whether or not they were verified. |
+
+Only email and phone (SMS) addresses are notified. Ory sends notifications only when the set of verifiable addresses actually
+changes. Changing a verification status alone does not trigger a notification.
+
+## Enable the action
+
+Enable `notify_previous_addresses` using either the Ory Console or the Ory CLI.
+
+```mdx-code-block
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+```
+
+1. Go to <ConsoleLink route="project.verification" />.
+2. Enable **Self-service Settings: Notify previous addresses**.
+3. Select which addresses to notify under **Notify previous addresses recipients**.
+4. Click **Save**.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+```
+
+Run:
+
+```shell
+ory patch identity-config --project <project-id> --workspace <workspace-id> \
+  --add '/selfservice/flows/settings/after/profile/hooks/0/hook="notify_previous_addresses"' \
+  --add '/selfservice/flows/settings/after/profile/hooks/0/config/recipients="all_verified"'
+```
+
+Set `recipients` to `removed`, `all_verified`, or `all`. If you omit it, Ory uses `removed`.
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+:::tip
+
+To require verification of the new address before the change is applied, combine this action with
+[`verify_new_address`](verify-new-address.mdx).
+
+:::

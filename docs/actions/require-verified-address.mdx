@@ -204,6 +204,13 @@ When a user updates their email address or phone number in the settings flow, Or
 default, the settings flow will display a success message when the profile is updated, but the address remains unverified until
 the user completes the verification process.
 
+:::tip
+
+To require verification _before_ the new address replaces the old one, use the [`verify_new_address`](verify-new-address.mdx)
+action. Unlike `show_verification_ui`, it defers the change until the user verifies the new address.
+
+:::
+
 ### Show verification screen after address change
 
 If you want users to be immediately redirected to verify their new address after changing it, you can configure the
