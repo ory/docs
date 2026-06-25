@@ -8,17 +8,17 @@
     {
       "source": "/",
       "destination": "/docs",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs(/|)",
       "destination": "/docs/welcome",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/next/:path*",
       "destination": "/docs/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/:path*",
@@ -35,1382 +35,1412 @@
     {
       "source": "/keto/docs/(|v0.5/)engines",
       "destination": "https://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/engines/index.md",
-      "permanent": false
+      "permanent": true
     },
     {
-      "source": "/keto/docs/(|v0.5/):engine",
+      "source": "/keto/docs/v0.5/:engine",
       "destination": "https://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/engines/:engine.md",
-      "permanent": false
+      "permanent": true
+    },
+    {
+      "source": "/keto/docs/:engine",
+      "destination": "https://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/engines/:engine.md",
+      "permanent": true
     },
     {
       "source": "/keto/docs/(|v0.5/)configure-deploy",
       "destination": "https://github.com/ory/keto/blob/v0.7.0-alpha.1/docs/versioned_docs/version-v0.5/configure-deploy.md",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/oathkeeper/docs",
       "destination": "https://www.ory.com/docs/oathkeeper",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/oathkeeper/docs/:path*",
       "destination": "https://www.ory.com/docs/oathkeeper/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/oathkeeper/:version(v[0-9.]+|next)/:path*",
       "destination": "https://www.ory.com/docs/oathkeeper/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/oathkeeper/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
       "destination": "https://www.ory.com/docs/network/oathkeeper",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/hydra/docs",
       "destination": "/docs/hydra",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/hydra/docs/:path*",
       "destination": "/docs/hydra/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/:version(v[0-9.]+|next)/:path*",
       "destination": "/docs/hydra/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
       "destination": "/docs/hydra",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/keto/docs",
       "destination": "https://www.ory.com/docs/network/keto",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/keto/docs/:path*",
       "destination": "https://www.ory.com/docs/keto/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/:version(v[0-9.]+|next)/:path*",
       "destination": "https://www.ory.com/docs/keto/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
       "destination": "https://www.ory.com/docs/network/keto",
-      "permanent": false
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/install",
+      "destination": "/docs/oel/kratos/install",
+      "permanent": true
+    },
+    {
+      "source": "/docs/keto/install",
+      "destination": "/docs/oel/keto/install",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/guides/upgrade",
+      "destination": "/docs/oss/kratos/guides/upgrade",
+      "permanent": true
+    },
+    {
+      "source": "/docs/keto/guides/upgrade",
+      "destination": "/docs/oss/keto/guides/upgrade",
+      "permanent": true
+    },
+    {
+      "source": "/docs/keto/quickstart",
+      "destination": "/docs/oss/keto/quickstart",
+      "permanent": true
     },
     {
       "source": "/kratos/docs",
       "destination": "https://www.ory.com/docs/kratos",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/kratos/docs/:path*",
       "destination": "https://www.ory.com/docs/kratos/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/:version(v[0-9.]+|next)/:path*",
       "destination": "https://www.ory.com/docs/kratos/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/:version(v[0-9.]+|v[0-9.]+/|next|next/)",
       "destination": "https://www.ory.com/docs/kratos",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/start-building/create-project",
       "destination": "https://www.ory.com/docs/guides/console/create-project",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/start-building",
       "destination": "https://www.ory.com/docs",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/start-building/ory-cli-install-use",
       "destination": "https://www.ory.com/docs/guides/ory-cli-install-use",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/start-building/server-side-web-app",
       "destination": "https://www.ory.com/docs/guides/protect-page-login/go",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/http-api",
       "destination": "https://www.ory.com/docs/reference/api",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/oathkeeper/http-api",
       "destination": "https://www.ory.com/docs/oathkeeper/reference/api",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/http-api",
       "destination": "https://www.ory.com/docs/hydra/reference/api",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/http-api",
       "destination": "https://www.ory.com/docs/kratos/reference/api",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/integrate-golang",
       "destination": "https://www.ory.com/docs/guides/protect-page-login/go",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/debugging",
       "destination": "https://www.ory.com/docs/hydra/debug",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/implementing-consent",
       "destination": "/docs/hydra/guides/consent",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/oauth2",
       "destination": "https://www.ory.com/docs/hydra/concepts/oauth2",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/integration",
       "destination": "https://www.ory.com/docs/hydra/guides/using-oauth2",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/http-api",
       "destination": "https://www.ory.com/docs/keto/reference/api",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/milestones",
       "destination": "https://github.com/ory/keto/milestones",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/oathkeeper/milestones",
       "destination": "https://github.com/ory/oathkeeper/milestones",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/milestones",
       "destination": "https://github.com/ory/hydra/milestones",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/(CHANGELOG|changelog)",
       "destination": "https://github.com/ory/hydra/blob/master/CHANGELOG.md",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/(CHANGELOG|changelog)",
       "destination": "https://github.com/ory/keto/blob/master/CHANGELOG.md",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/oathkeeper/(CHANGELOG|changelog)",
       "destination": "https://github.com/ory/oathkeeper/blob/master/CHANGELOG.md",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/(CHANGELOG|changelog)",
       "destination": "https://github.com/ory/kratos/blob/master/CHANGELOG.md",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/versions",
       "destination": "https://www.ory.com/docs",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/versions",
       "destination": "https://www.ory.com/docs/hydra",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/versions",
       "destination": "https://www.ory.com/docs/network/keto",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/versions",
       "destination": "https://www.ory.com/docs/kratos",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/oathkeeper/versions",
       "destination": "https://www.ory.com/docs/oathkeeper",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/reference/api",
       "destination": "https://www.ory.com/docs/keto/reference/rest-api",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/sdk/api",
       "destination": "/docs/kratos/reference/api",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/faq",
       "destination": "https://www.ory.com/docs/kratos",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/:path*/index",
       "destination": "/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/identity-(data|user)-model",
       "destination": "/docs/kratos/concepts/identity-schema",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/self-service/flows/(user-settings|user-profile-management)/:path",
       "destination": "https://www.ory.com/docs/kratos/self-service/flows/user-settings",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/self-service/flows/user-login-(user-|)registration/:path",
       "destination": "https://www.ory.com/docs/kratos/self-service/flows/user-login",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/self-service/flows/(password-reset-|)account-recovery/:path",
       "destination": "https://www.ory.com/docs/kratos/self-service/flows/account-recovery",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/self-service/(flows|strategies)",
       "destination": "/docs/kratos/self-service",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/self-service/strategies/:path*",
       "destination": "/docs/kratos/self-service",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/:project/search",
       "destination": "https://www.ory.com/docs",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/authenticators/look-up-secrets",
       "destination": "https://www.ory.com/docs/kratos/guides/two-factor-authentication-2fa-mfa",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/two-factor-authentication-2fa-mfa",
       "destination": "https://www.ory.com/docs/kratos/guides/two-factor-authentication-2fa-mfa",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/start-building/server-side-web-app",
       "destination": "https://www.ory.com/docs/guides/protect-page-login/expressjs",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/start-building/ssingle-page-app-spa",
       "destination": "https://www.ory.com/docs/guides/protect-page-login/next.js",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/kratos-video-tutorials",
       "destination": "https://www.ory.com/docs/kratos/further-reading/kratos-video-tutorials",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/selfservice-flow-completion",
       "destination": "https://www.ory.com/docs/kratos/concepts/browser-redirect-flow-completion",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/login-session",
       "destination": "https://www.ory.com/docs/kratos/session-management/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/session",
       "destination": "https://www.ory.com/docs/guides/session-management/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/config-with-cli",
       "destination": "https://www.ory.com/docs/guides/cli/config-with-cli",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/ory-cli-install-use",
       "destination": "https://www.ory.com/docs/guides/cli/installation",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/(kratos|hydra|keto|oathkeeper)/contributing",
       "destination": "https://github.com/ory/(kratos|hydra|keto|oathkeeper)/blob/master/CONTRIBUTING.md",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/proxy",
       "destination": "https://www.ory.com/docs/guides/cli/proxy-and-tunnel",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/engines",
       "destination": "https://www.ory.com/docs/keto/guides/upgrade",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/admin/managing-users-identities",
       "destination": "https://www.ory.com/docs/guides/manage-identities/managing-users-identities",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/sign-in-with-github-google-facebook-linkedin",
       "destination": "https://www.ory.com/docs/guides/social-signin/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/cloud/developer",
       "destination": "https://www.ory.com/pricing",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/cloud/cloud-roadmap",
       "destination": "https://www.ory.com/cloud",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/two-factor-authentication-2fa-mfa",
       "destination": "https://www.ory.com/docs/guides/mfa/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/passwordless/social-sign-in",
       "destination": "https://www.ory.com/docs/guides/social-signin/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/concepts/self-service",
       "destination": "https://www.ory.com/docs/kratos/self-service",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/concepts/identity",
       "destination": "https://www.ory.com/docs/guides/manage-identities/identity",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/concepts/managed-ui",
       "destination": "https://www.ory.com/docs/welcome",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/concepts/project-invite-membership",
       "destination": "https://www.ory.com/docs/welcome",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/concepts/project",
       "destination": "https://www.ory.com/docs/welcome",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/concepts/terminology",
       "destination": "https://www.ory.com/docs/welcome",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/console/create-project",
       "destination": "https://www.ory.com/docs/welcome",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/create-personal-access-token",
       "destination": "https://www.ory.com/docs/welcome",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/credentials/lookup-secrets",
       "destination": "https://www.ory.com/docs/guides/mfa/lookup-secrets",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/mfa/lookup_secrets",
       "destination": "https://www.ory.com/docs/guides/mfa/lookup-secrets",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/credentials/openid-connect-oidc-oauth2",
       "destination": "https://www.ory.com/docs/guides/social-signin/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/credentials/totp",
       "destination": "https://www.ory.com/docs/guides/mfa/totp",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/credentials/webauthn",
       "destination": "https://www.ory.com/docs/guides/mfa/webauthn-fido-yubikey",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/federation",
       "destination": "/docs/kratos",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/management-ui",
       "destination": "https://www.ory.com/docs/welcome",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/rest-api",
       "destination": "https://www.ory.com/docs/ecosystem/api-design",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/securing-applications",
       "destination": "https://www.ory.com/docs/kratos",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/terminology",
       "destination": "https://www.ory.com/docs/concepts/terminology",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/further-reading/comparison",
       "destination": "https://www.ory.com/docs/kratos",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/further-reading/kratos-video-tutorials",
       "destination": "https://www.ory.com/docs/oel/kratos/quickstart",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/retrieve-social-sign-in-access-refresh-id-token",
       "destination": "https://www.ory.com/docs/guides/social-signin/get-tokens",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/setting-up-aes-cipher-parameters",
       "destination": "https://www.ory.com/docs/kratos/guides/select-cipher-algorithm",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/setting-up-noop-cipher-parameters",
       "destination": "https://www.ory.com/docs/kratos/guides/select-cipher-algorithm",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/setting-up-xchacha-cipher-parameters",
       "destination": "https://www.ory.com/docs/kratos/guides/select-cipher-algorithm",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/self-service/flows/2fa-mfa-multi-factor-authentication",
       "destination": "https://www.ory.com/docs/guides/mfa/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/start-building/deploy-auth-production",
       "destination": "https://www.ory.com/docs/guides/custom-domains",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/start-building/other-languages",
       "destination": "https://www.ory.com/docs/examples",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/start-building/single-page-app-spa",
       "destination": "https://www.ory.com/login-spa-react-nextjs-authentication-example-api-open-source",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/protect-page-login/index",
       "destination": "https://www.ory.com/docs/examples",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/concepts/services-api",
       "destination": "https://www.ory.com/docs/welcome",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/implemented-planned-features",
       "destination": "https://www.ory.com/docs/guides/cli/configure-permission-service",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/protect-page-login",
       "destination": "https://www.ory.com/docs/examples",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/concepts/session",
       "destination": "https://www.ory.com/docs/guides/session-management/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/protect-page-login/expressjs",
       "destination": "https://www.ory.com/docs/getting-started/integrate-auth/expressjs",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/protect-page-login/flutter-web-redirect",
       "destination": "https://www.ory.com/docs/getting-started/integrate-auth/flutter-web-redirect",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/protect-page-login/go",
       "destination": "https://www.ory.com/docs/getting-started/integrate-auth/go",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/protect-page-login/next.js",
       "destination": "https://www.ory.com/docs/getting-started/integrate-auth/nextjs",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/protect-page-login/php",
       "destination": "https://www.ory.com/docs/getting-started/integrate-auth/php",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/protect-page-login/react",
       "destination": "https://www.ory.com/docs/getting-started/integrate-auth/react",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/protect-page-login/vue",
       "destination": "https://www.ory.com/docs/getting-started/integrate-auth/vue",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/local-development",
       "destination": "https://www.ory.com/docs/getting-started/local-development",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/concepts/emails",
       "destination": "https://www.ory.com/docs/guides/emails",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/start-building/native-mobile-app",
       "destination": "https://www.ory.com/docs/getting-started/integrate-auth/react-native",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/identity-schema",
       "destination": "https://www.ory.com/docs/guides/manage-identities/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/manage-identities/managing-users-identities",
       "destination": "https://www.ory.com/docs/guides/manage-identities/create-users-identities",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/manage-identities/identity",
       "destination": "https://www.ory.com/docs/guides/manage-identities/identity-schema",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/manage-identities/import-identity",
       "destination": "https://www.ory.com/docs/guides/manage-identities/import-user-accounts-identities",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/customize-identity-schema",
       "destination": "https://www.ory.com/docs/guides/manage-identities/customize-identity-schema",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/cli/ory-identities",
       "destination": "https://www.ory.com/docs/cli/ory-list-identities",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/cli/ory-identities-get",
       "destination": "https://www.ory.com/docs/cli/ory-get-identity",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/token-expiration",
       "destination": "https://www.ory.com/docs/hydra/guides/client-token-expiration",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/passwordless/:path*",
       "destination": "https://www.ory.com/docs/kratos/passwordless/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/session-management/:path*",
       "destination": "https://www.ory.com/docs/kratos/session-management/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/manage-identities/:path*",
       "destination": "https://www.ory.com/docs/kratos/manage-identities/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/social-signin/:path*",
       "destination": "https://www.ory.com/docs/kratos/social-signin/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/mfa/:path*",
       "destination": "https://www.ory.com/docs/kratos/mfa/:path",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/emails",
       "destination": "https://www.ory.com/docs/kratos/emails-sms/sending-emails-smtp",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/email-sms",
       "destination": "https://www.ory.com/docs/kratos/emails-sms/custom-email-templates",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/index",
       "destination": "https://www.ory.com/docs/kratos/ory-kratos-intro",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/index",
       "destination": "https://www.ory.com/docs/kratos/ory-kratos-intro",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/milestones",
       "destination": "https://www.ory.com/docs/oss/changelog",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/account-activation-email-verification",
       "destination": "https://www.ory.com/docs/kratos/self-hosted/account-activation-email-verification",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/account-recovery-password-reset",
       "destination": "https://www.ory.com/docs/kratos/self-service/flows/account-recovery-password-reset",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/self-service/hooks",
       "destination": "https://www.ory.com/docs/kratos/hooks/configure-hooks",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/integration-with-other-systems-using-web-hooks",
       "destination": "https://www.ory.com/docs/kratos/hooks/webhooks-integrations",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/sdk/01_overview.md",
       "destination": "/docs/kratos/sdk/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/configure-ory-to-use-your-ui",
       "destination": "https://www.ory.com/docs/kratos/bring-your-own-ui/custom-ui-overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos",
       "destination": "https://www.ory.com/docs/kratos/ory-kratos-intro",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/technical-advisories/oidc-redirect-url-cname-OTA-092022-01",
       "destination": "https://www.ory.com/docs/troubleshooting/oidc-redirect-url-cname-OTA-092022-01",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/configure-deploy",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/configure-deploy",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/dependencies-environment",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/dependencies-environment",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/deploy-hydra-example",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/deploy-hydra-example",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/gitlab",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/gitlab",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/install",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/install",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/kubernetes-helm-chart",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/kubernetes-helm-chart",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/merge-multiple-db-secrets",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/merge-multiple-db-secrets",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/migrating-from-mitreid",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/migrating-from-mitreid",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/production",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/production",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/scaling-hydra",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/scaling-hydra",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/secrets-key-rotation",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/secrets-key-rotation",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/upgrade",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/upgrade",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/hsm-support",
       "destination": "https://www.ory.com/docs/hydra/self-hosted/hsm-support",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/advanced",
       "destination": "https://www.ory.com/docs/hydra/guides/openid",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/oauth2-grant-type-jwt-bearer",
       "destination": "https://www.ory.com/docs/hydra/guides/jwt",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/getting-started/custom-ui-preact-ory-elements",
       "destination": "https://www.ory.com/docs/getting-started/custom-ui-ory-elements",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/self-service/flows/account-recovery",
       "destination": "https://www.ory.com/docs/kratos/self-service/flows/account-recovery-password-reset",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/concepts/social-sign-in",
       "destination": "https://www.ory.com/docs/kratos/social-signin/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/sdk/index",
       "destination": "https://www.ory.com/docs/hydra/sdk/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/sdk",
       "destination": "https://www.ory.com/docs/hydra/sdk/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/sdk/index",
       "destination": "/docs/kratos/sdk/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/sdk",
       "destination": "/docs/kratos/sdk/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/sdk/index",
       "destination": "https://www.ory.com/docs/keto/sdk/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/sdk",
       "destination": "https://www.ory.com/docs/keto/sdk/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/getting-started/ory-cloud-oauth2",
       "destination": "https://www.ory.com/docs/network/hydra/ory-network-oauth2",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/examples",
       "destination": "https://www.ory.com/docs/getting-started/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/password-policy",
       "destination": "https://www.ory.com/docs/concepts/password-policy",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/self-service/flows/account-recovery",
       "destination": "https://www.ory.com/docs/kratos/self-service/flows/account-recovery-password-reset",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/emails-sms/sms-messages",
       "destination": "https://www.ory.com/docs/kratos",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/self-hosted/sms-messages",
       "destination": "https://www.ory.com/docs/kratos",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/mfa/enforce-mfa",
       "destination": "https://www.ory.com/docs/kratos/mfa/step-up-authentication",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/mfa/requesting-2fa",
       "destination": "https://www.ory.com/docs/kratos/mfa/step-up-authentication",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/docker",
       "destination": "https://www.ory.com/docs/kratos/guides/docker",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/hooks/webhooks-integrations",
       "destination": "https://www.ory.com/docs/guides/integrate-with-ory-cloud-through-webhooks",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/guides/userset-rewrites",
       "destination": "https://www.ory.com/docs/network/keto/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/concepts/internal-algorithms",
       "destination": "https://www.ory.com/docs/network/keto/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/concepts/snaptokens-evaluation-consistency",
       "destination": "https://www.ory.com/docs/network/keto/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/guides/access-control-inheritance",
       "destination": "https://www.ory.com/docs/network/keto/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/guides/access-control-list-design-best-practices",
       "destination": "https://www.ory.com/docs/network/keto/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/performance",
       "destination": "https://www.ory.com/docs/network/keto/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/secure",
       "destination": "https://www.ory.com/docs/network/keto/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/bring-your-user-interface",
       "destination": "https://www.ory.com/docs/kratos/bring-your-own-ui/configure-ory-to-use-your-ui",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/getting-started/custom-ui-ory-elements",
       "destination": "https://www.ory.com/docs/kratos/bring-your-own-ui/custom-ui-ory-elements",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/custom-ui",
       "destination": "https://www.ory.com/docs/kratos/bring-your-own-ui/overview",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/limitations",
       "destination": "/docs/oauth2-oidc/overview/oauth2-concepts",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/concepts/oauth2",
       "destination": "https://www.ory.com/docs/oauth2-oidc/overview/oauth2-concepts",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/oauth2-public-spa-mobile",
       "destination": "https://www.ory.com/docs/oauth2-oidc/authorization-code-flow",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/common-oauth2-openid-connect-flows",
       "destination": "https://www.ory.com/docs/oauth2-oidc/authorization-code-flow",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/concepts/openid-connect-oidc",
       "destination": "https://www.ory.com/docs/oauth2-oidc/overview/oidc-concepts",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/openid-connect-dynamic-client-registration",
       "destination": "/docs/hydra/guides/oauth2-clients",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/login",
       "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/consent",
       "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/concepts/login",
       "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/concepts/consent",
       "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/login-consent-flow",
       "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/concepts/logout",
       "destination": "/docs/oauth2-oidc/oidc-logout",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra",
       "destination": "/docs/network/hydra",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/self-hosted/examples",
       "destination": "https://www.ory.com/docs/oss/community",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/deployment",
       "destination": "https://www.ory.com/docs/oss/deployment",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/high-availability-ha",
       "destination": "https://www.ory.com/docs/self-hosted/operations/scalability",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/self-hosted/scaling-hydra",
       "destination": "https://www.ory.com/docs/self-hosted/operations/scalability",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/logging",
       "destination": "https://www.ory.com/docs/self-hosted/operations/logging",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/versioning",
       "destination": "https://www.ory.com/docs/oss/upgrading",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/roadmap",
       "destination": "https://www.ory.com/docs/oss/changelog",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/benchmark",
       "destination": "/docs/oauth2-oidc",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/performance/hydra",
       "destination": "https://www.ory.com/docs/oauth2-oidc",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/cli",
       "destination": "/docs/guides/cli/installation",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/self-hosted/tracing",
       "destination": "/docs/self-hosted/operations/tracing",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/hydra-index",
       "destination": "/docs/hydra",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/sdk/hydra-sdk-api",
       "destination": "/docs/hydra/reference/api",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/sdk/api",
       "destination": "/docs/hydra/reference/api",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/react-native-login-registration",
       "destination": "/docs/getting-started/integrate-auth/react-native",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/engines/rbac",
       "destination": "/docs/keto/guides/rbac",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/concepts",
       "destination": "/docs/kratos",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/security-questions-best-practice",
       "destination": "/docs/kratos/concepts/security",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/1-hydra/2-overview/1-oauth2",
       "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/latest/9-telemetry",
       "destination": "/docs/kratos/guides/tracing",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/ory-kratos-intro",
       "destination": "/docs/identities",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/social-signin/twitter",
       "destination": "/docs/kratos/social-signin/x-twitter",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/passwordless/webauthn",
       "destination": "/docs/kratos/passwordless/passkeys",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/identities/sign-in/saml",
       "destination": "/docs/kratos/organizations",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/5min-tutorial",
       "destination": "/docs/oel/hydra/quickstart",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/quickstart/sdks",
       "destination": "/docs/sdk",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-clients-create",
       "destination": "/docs/hydra/cli/hydra-create-client",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/advanced/caching",
       "destination": "/docs/hydra/jwks",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/advanced/refresh-tokens",
       "destination": "/docs/oauth2-oidc/refresh-token-grant",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/advanced/tls",
       "destination": "/docs/hydra/self-hosted/ssl-https-tls",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/appendix",
       "destination": "/docs/oauth2-oidc",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli",
       "destination": "/docs/hydra/cli/hydra",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/concepts/jwk",
       "destination": "/docs/hydra/jwks",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/debug/config",
       "destination": "/docs/hydra/reference/configuration",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/debug/csrf",
       "destination": "/docs/self-hosted/hydra/debug/csrf",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides",
       "destination": "/docs/oauth2-oidc",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/claims-at-refresh&lt;/source",
       "destination": "/docs/hydra/guides/claims-at-refresh",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/device-authorization-grant",
       "destination": "/docs/oauth2-oidc/device-authorization",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/login-consent",
       "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/login-consent-flow",
       "destination": "/docs/oauth2-oidc/custom-login-consent/flow",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/oauth2",
       "destination": "/docs/oauth2-oidc/overview/oauth2-concepts",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/oauth2-client-authentication",
       "destination": "/docs/hydra/concepts/before-oauth2",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/ssl-https-tls",
       "destination": "/docs/hydra/self-hosted/ssl-https-tls",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/token-introspection",
       "destination": "/docs/hydra/guides/oauth2-token-introspection",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/token-revocation",
       "destination": "/docs/oauth2-oidc/revoke-consent",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/guides/tracing",
       "destination": "/docs/self-hosted/operations/tracing",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/hydra-configure-deploy",
       "destination": "/docs/hydra/self-hosted/configure-deploy",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/overview",
       "destination": "/docs/oauth2-oidc",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/quickstart",
       "destination": "/docs/network/hydra/ory-network-oauth2",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/recipes/mcp",
       "destination": "/docs/ecosystem/mcp",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/recipes/oauth2",
       "destination": "/docs/oauth2-oidc",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/reference/api&lt;/source",
       "destination": "/docs/hydra/reference/api",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/security",
       "destination": "/docs/hydra/security-architecture",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-clients-delete",
       "destination": "/docs/hydra/cli/hydra-delete-oauth2-client",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-clients-get",
       "destination": "/docs/hydra/cli/hydra-get-oauth2-client",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-keys",
       "destination": "/docs/hydra/cli/hydra-get-jwk",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-keys-create",
       "destination": "/docs/hydra/cli/hydra-create-jwk",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-keys-delete",
       "destination": "/docs/hydra/cli/hydra-delete-jwk",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-keys-get",
       "destination": "/docs/hydra/cli/hydra-get-jwk",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-keys-import",
       "destination": "/docs/hydra/cli/hydra-import-jwk",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-token",
       "destination": "/docs/hydra/cli/hydra-perform",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-token-client",
       "destination": "/docs/hydra/cli/hydra-perform-client-credentials",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-token-delete",
       "destination": "/docs/hydra/cli/hydra-delete-access-tokens",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-token-flush",
       "destination": "/docs/hydra/cli/hydra-janitor",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-token-introspect",
       "destination": "/docs/hydra/cli/hydra-introspect-token",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-token-revoke",
       "destination": "/docs/hydra/cli/hydra-revoke-token",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/cli/hydra-token-user",
       "destination": "/docs/hydra/cli/hydra-perform-authorization-code",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/bring-your-own-ui/01_overview.mdx",
       "destination": "/docs/kratos/bring-your-own-ui/custom-ui-basic-integration",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/master/oathkeeper/1-overview/1-rules",
       "destination": "/docs/oathkeeper/api-access-rules",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/troubleshooting/oidc-redirect-url-cname-OTA-092022-01",
       "destination": "/docs/troubleshooting/troubleshooting-social-sign-in",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/benchmark",
       "destination": "/docs/oauth2-oidc",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/case-study",
       "destination": "/docs/oauth2-oidc",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/faq",
       "destination": "/docs/oauth2-oidc",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/self-hosted/account-activation-email-verification",
       "destination": "/docs/kratos/self-service/flows/verify-email-account-activation",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/self-hosted/oel/kratos/upgrade-kratos",
       "destination": "/docs/self-hosted/oel/kratos/upgrade",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/getting-started/integrate-auth/nextjs",
@@ -1425,222 +1455,217 @@
     {
       "source": "/docs/migrate-to-ory",
       "destination": "/docs/migrate-to-ory/migrate",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/projects",
       "destination": "/docs/oss/getting-started",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/open-source",
       "destination": "/docs/oss/open-source",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/community",
       "destination": "/docs/oss/community",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/contributing",
       "destination": "/docs/oss/contributing",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/open-source/commitment",
       "destination": "/docs/oss/commitment",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/software-architecture-philosophy",
       "destination": "/docs/oss/software-architecture-philosophy",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/open-source/guidelines/rest-api-guidelines",
       "destination": "/docs/oss/guidelines/rest-api-guidelines",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/upgrading",
       "destination": "/docs/oss/upgrading",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/sqa",
       "destination": "/docs/oss/telemetry",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/changelog",
       "destination": "/docs/oss/changelog",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/self-hosted/deployment",
       "destination": "/docs/oss/deployment",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/configuring",
       "destination": "/docs/oss/configuring",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/passwordless/06_code",
       "destination": "/docs/kratos/passwordless/07_code",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/ecosystem/security",
       "destination": "/docs/security-compliance/security",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/getting-started/overview",
       "destination": "/docs/welcome",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/intro",
       "destination": "/docs/network/getting-started",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/identities",
       "destination": "/docs/network/kratos/intro",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/quickstart",
       "destination": "/docs/oel/kratos/quickstart",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/oauth2-oidc",
       "destination": "/docs/network/hydra",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/getting-started/ory-network-oauth2",
       "destination": "/docs/network/hydra/ory-network-oauth2",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/self-hosted/quickstart",
       "destination": "/docs/oel/hydra/quickstart",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/hydra/reference/configuration",
       "destination": "/docs/self-hosted/oel/oauth2/configuration",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto",
       "destination": "/docs/network/keto",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/guides/permissions/overview",
       "destination": "/docs/network/keto/overview",
-      "permanent": false
-    },
-    {
-      "source": "/docs/keto/quickstart",
-      "destination": "/docs/network/keto/quickstart",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/examples/olymp-file-sharing",
       "destination": "/docs/network/keto/file-sharing-example",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/keto/reference/configuration",
       "destination": "/docs/self-hosted/oel/keto/configuration",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/polis",
       "destination": "/docs/network/polis",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/polis/quickstart",
       "destination": "/docs/oel/polis/quickstart",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/polis/directory-sync/guides",
       "destination": "/docs/category/guides-3",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/oathkeeper/guides/upgrade",
       "destination": "/docs/self-hosted/oel/oathkeeper/upgrade-oathkeeper",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/oathkeeper/configure-deploy",
       "destination": "/docs/oel/oathkeeper/configure-deploy",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/oathkeeper/reference/configuration",
       "destination": "/docs/self-hosted/oel/oathkeeper/configuration",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/self-hosted/oel",
       "destination": "/docs/oel/getting-started",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/category/operations-reference",
       "destination": "/docs/self-hosted/operations/scalability",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/category/troubleshooting",
       "destination": "/docs/category/troubleshooting-reference",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/security-compliance/compliance-and-certifications",
       "destination": "/docs/category/security-compliance",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/identities/get-started",
       "destination": "/docs/identities/get-started/setup",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/kratos/guides/e2e-integration-tests",
       "destination": "/docs/oss/guidelines/e2e-integration-tests",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/oathkeeper",
       "destination": "/docs/network/oathkeeper",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/solutions/solution_CIAM",
       "destination": "/docs/solutions/solution-CIAM",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/solutions/solution_B2B",
       "destination": "/docs/solutions/solution-B2B",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/docs/solutions/solution_agentic",
       "destination": "/docs/solutions/solution-agentic",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/talos/quickstart",

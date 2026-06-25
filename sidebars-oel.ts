@@ -50,7 +50,7 @@ const oelSidebar = [
         className: "sidebar-icon sidebar-icon-kratos",
         items: [
           "oel/kratos/intro",
-          "kratos/install",
+          "oel/kratos/install",
           "self-hosted/oel/kratos/upgrade",
           "self-hosted/oel/kratos/changelog",
           "oel/kratos/quickstart",
@@ -78,7 +78,7 @@ const oelSidebar = [
             items: [
               "kratos/guides/docker",
               "kratos/guides/deploy-kratos-example",
-              "kratos/guides/upgrade",
+              "oel/kratos/guides/upgrade",
               "kratos/guides/production",
               "kratos/guides/multi-tenancy-multitenant",
               "oel/kratos/scalability",
@@ -130,10 +130,10 @@ const oelSidebar = [
         className: "sidebar-icon sidebar-icon-keto",
         items: [
           "oel/keto/index",
-          "keto/install",
+          "oel/keto/install",
           "keto/guides/v0.7-migration",
           "keto/guides/migrating-legacy-policies",
-          "keto/guides/upgrade",
+          "oel/keto/guides/upgrade",
           "oel/keto/quickstart",
           "self-hosted/oel/keto/changelog",
           {
