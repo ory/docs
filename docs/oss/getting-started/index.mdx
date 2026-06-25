@@ -2,45 +2,38 @@
 title: Introduction to Ory Open Source
 sidebar_label: Introduction to Ory Open Source
 toc_max_heading_level: 3
-description: Ory Open Source is the Apache 2.0 licensed identity and access management software at the core of every Ory deployment — modular, self-hosted servers you run on your own infrastructure.
+description:
+  Ory Open Source is the Apache 2.0 licensed identity and access management software at the core of every Ory deployment —
+  modular, self-hosted servers you run on your own infrastructure.
 ---
 
 # Introduction to Ory Open Source
 
-Ory Open Source is the Apache 2.0 licensed identity and access management (IAM) software
-at the core of every Ory deployment. It is a modular ecosystem of cloud-native servers
-that solve authentication, authorization, and access control, which you run on your own
-infrastructure. Each service works standalone, so you can adopt a single component or
-combine them into a full IAM stack — and because the same code powers Ory Enterprise
-License and Ory Network, you can move to a supported or managed deployment later without
-rewriting your integration.
+Ory Open Source is the Apache 2.0 licensed identity and access management (IAM) software at the core of every Ory deployment. It
+is a modular ecosystem of cloud-native servers that solve authentication, authorization, and access control, which you run on your
+own infrastructure. Each service works standalone, so you can adopt a single component or combine them into a full IAM stack — and
+because the same code powers Ory Enterprise License and Ory Network, you can move to a supported or managed deployment later
+without rewriting your integration.
 
-[Browse the source on GitHub](https://github.com/ory) or
-[follow a quickstart](../getting-started/overview) to deploy your
-first service.
+[Browse the source on GitHub](https://github.com/ory) or [follow a quickstart](../getting-started/overview) to deploy your first
+service.
 
 ## Why Ory Open Source
 
-Ory Open Source gives you a modern, fully customizable IAM foundation with no license
-cost and no lock-in:
+Ory Open Source gives you a modern, fully customizable IAM foundation with no license cost and no lock-in:
 
-- **Free and open source** — Every core service is licensed under Apache 2.0 and developed
-  in the open on [GitHub](https://github.com/ory), improved by a large community of
-  contributors.
-- **Modular by design** — Use one service or all of them. Each server has clear boundaries
-  and a focused responsibility, so you can bolt on only what your system needs.
-- **Self-hosted and fully in your control** — Run Ory on any infrastructure, in the
-  language or framework of your choice. You own your data, your networking, and your
-  deployment topology.
-- **Cloud-native and lightweight** — Services ship as small, headless Docker images with
-  minimal configuration, designed to run well in containerized and microservice
-  environments. Or use the open source files to compile your own binaries.
-- **Standards-based and secure** — Ory implements established security standards from NIST,
-  the IETF, and other experts, and includes an OpenID Certified® OAuth 2.0 and OpenID
-  Connect provider.
-- **A path to supported deployments** — Ory Open Source servers share the same APIs and
-  open standards as Ory Enterprise License and Ory Network, so you can graduate to a
-  supported or fully managed deployment whenever you need to.
+- **Free and open source** — Every core service is licensed under Apache 2.0 and developed in the open on
+  [GitHub](https://github.com/ory), improved by a large community of contributors.
+- **Modular by design** — Use one service or all of them. Each server has clear boundaries and a focused responsibility, so you
+  can bolt on only what your system needs.
+- **Self-hosted and fully in your control** — Run Ory on any infrastructure, in the language or framework of your choice. You own
+  your data, your networking, and your deployment topology.
+- **Cloud-native and lightweight** — Services ship as small, headless Docker images with minimal configuration, designed to run
+  well in containerized and microservice environments. Or use the open source files to compile your own binaries.
+- **Standards-based and secure** — Ory implements established security standards from NIST, the IETF, and other experts, and
+  includes an OpenID Certified® OAuth 2.0 and OpenID Connect provider.
+- **A path to supported deployments** — Ory Open Source servers share the same APIs and open standards as Ory Enterprise License
+  and Ory Network, so you can graduate to a supported or fully managed deployment whenever you need to.
 
 ## When to choose Ory Open Source
 
@@ -49,103 +42,88 @@ Ory Open Source is a good fit if you are:
 - Evaluating Ory's capabilities or building a proof of concept.
 - Running development, testing, or staging environments.
 - Learning how Ory's identity and access flows work.
-- Operating deployments where occasional downtime for upgrades is acceptable and
-  guaranteed CVE patching is not required.
+- Operating deployments where occasional downtime for upgrades is acceptable and guaranteed CVE patching is not required.
 - Comfortable self-hosting and operating the software yourself.
 
-Consider [Ory Enterprise License](https://www.ory.com/docs/oel/getting-started) if you need
-guaranteed CVE patching, dedicated support with SLAs, zero-downtime migrations, multi-region
-deployments, or enterprise-only features. Consider
-[Ory Network](https://www.ory.com/docs/network/getting-started) if you want a fully managed
-platform with no infrastructure to operate.
+Consider [Ory Enterprise License](https://www.ory.com/docs/oel/getting-started) if you need guaranteed CVE patching, dedicated
+support with SLAs, zero-downtime migrations, multi-region deployments, or enterprise-only features. Consider
+[Ory Network](https://www.ory.com/docs/network/getting-started) if you want a fully managed platform with no infrastructure to
+operate.
 
 ## What's included
 
-Ory Open Source is composed of focused servers that each solve a distinct part of the
-identity and access problem: identity and sessions, OAuth2 and OIDC, permissions,
-enterprise SSO, edge access control, and API key management. Alongside the servers, the open source ecosystem provides the tooling you need to
-build and operate them:
+Ory Open Source is composed of focused servers that each solve a distinct part of the identity and access problem: identity and
+sessions, OAuth2 and OIDC, permissions, enterprise SSO, edge access control, and API key management. Alongside the servers, the
+open source ecosystem provides the tooling you need to build and operate them:
 
-- **[Ory Elements](https://www.ory.com/docs/elements)** — An open source component library for
-  building custom UIs for Ory self-service flows such as login, registration, settings,
-  verification, recovery, and OAuth2 consent.
-- **[Ory Actions](https://www.ory.com/docs/kratos/hooks/configure-hooks)** — Hooks that
-  extend Ory by running custom business logic and integrating with third-party services
-  such as CRMs, payment gateways, and analytics platforms in response to identity events.
-- **[Ory CLI](https://www.ory.com/docs/cli)** — A command-line tool for configuring and
-  operating your self-hosted deployment.
-- **[SDKs and reference UIs](https://github.com/ory/sdk)** — Client SDKs for popular
-  languages and reference UI implementations for frameworks like React, Next.js, and
-  React Native.
-- **[Helm charts](https://github.com/ory/k8s)** — Kubernetes Helm charts for deploying Ory
-  services in your own cluster.
+- **[Ory Elements](https://www.ory.com/docs/elements)** — An open source component library for building custom UIs for Ory
+  self-service flows such as login, registration, settings, verification, recovery, and OAuth2 consent.
+- **[Ory Actions](https://www.ory.com/docs/kratos/hooks/configure-hooks)** — Hooks that extend Ory by running custom business
+  logic and integrating with third-party services such as CRMs, payment gateways, and analytics platforms in response to identity
+  events.
+- **[Ory CLI](https://www.ory.com/docs/cli)** — A command-line tool for configuring and operating your self-hosted deployment.
+- **[SDKs and reference UIs](https://github.com/ory/sdk)** — Client SDKs for popular languages and reference UI implementations
+  for frameworks like React, Next.js, and React Native.
+- **[Helm charts](https://github.com/ory/k8s)** — Kubernetes Helm charts for deploying Ory services in your own cluster.
 
 ### Ory Kratos (Identity & AuthN)
 
-Ory Kratos manages identities, credentials, and sessions. It powers self-service flows
-for registration, login, account recovery, email and phone verification, profile
-settings, and multi-factor authentication. It supports passwords, social sign-in,
-OpenID Connect, and passkeys, and it uses customizable JSON Schema identity models so
-you control exactly what data each identity holds. SCIM support enables automated user
-provisioning and deprovisioning. Learn more in the
-[Ory Kratos documentation](https://www.ory.com/docs/oss/kratos/intro).
+```mdx-code-block
+import KratosDesc from "@site/src/components/Shared/deploy-intro/kratos-desc.mdx"
+
+<KratosDesc />
+```
 
 ### Ory Hydra (Delegated AuthZ & Federated AuthN)
 
-Ory Hydra is a fully featured, [OpenID Certified®](https://openid.net/developers/certified/)
-OAuth 2.0 and OpenID Connect provider. It handles single sign-on, API access
-authorization, token issuance, and delegation, with support for stateless JWT access
-tokens, token exchange, and credential rotation. Learn more in the
-[Ory Hydra documentation](https://www.ory.com/docs/oss/hydra).
+```mdx-code-block
+import HydraDesc from "@site/src/components/Shared/deploy-intro/hydra-desc.mdx"
+
+<HydraDesc />
+```
 
 ### Ory Keto (Fine-grained Permissions)
 
-Ory Keto provides low-latency, relationship-based authorization for fine-grained access
-control. It implements Google's Zanzibar model and supports RBAC and ABAC
-patterns, letting you define and check permissions across any application. Learn more
-in the [Ory Keto documentation](https://www.ory.com/docs/oss/keto).
+```mdx-code-block
+import KetoDesc from "@site/src/components/Shared/deploy-intro/keto-desc.mdx"
+
+<KetoDesc />
+```
 
 ### Ory Polis (Enterprise SSO AuthZ)
 
-Ory Polis adds enterprise single sign-on through SAML and OIDC. It connects to identity
-providers such as Okta, Microsoft Entra ID, and Google Workspace, supports directory
-sync, and can also act as a SAML Identity Provider — abstracting SAML complexity
-behind a standard OAuth 2.0 flow. Learn more in the
-[Ory Polis documentation](https://www.ory.com/docs/oss/polis).
+```mdx-code-block
+import PolisDesc from "@site/src/components/Shared/deploy-intro/polis-desc.mdx"
+
+<PolisDesc />
+```
 
 ### Ory Oathkeeper (Proxy-based Access Control)
 
-Ory Oathkeeper provides identity- and policy-aware access control at the network edge.
-It acts as a zero-trust proxy that authenticates and authorizes requests before they reach
-your services. Learn more in the
-[Ory Oathkeeper documentation](https://www.ory.com/docs/oss/oathkeeper).
+```mdx-code-block
+import OathkeeperDesc from "@site/src/components/Shared/deploy-intro/oathkeeper-desc.mdx"
+
+<OathkeeperDesc />
+```
 
 ### Ory Talos (API keys)
 
-Ory Talos manages the full lifecycle of API credentials for machine-to-machine and AI agent
-access: issuing keys, verifying them, deriving short-lived tokens, and revoking access.
-It replaces static, over-privileged API keys with programmable macaroon tokens
-that enforce least privilege — permissions can only be narrowed, never widened — and
-supports token derivation, IP allowlists, and time-to-live limits. Commercial builds
-add multi-tenancy, PostgreSQL, MySQL, and CockroachDB backends, Redis caching,
-rate-limit enforcement, and edge proxy nodes. Learn more in the
-[Ory Talos documentation](https://www.ory.com/docs/talos).
+```mdx-code-block
+import TalosDesc from "@site/src/components/Shared/deploy-intro/talos-desc.mdx"
+
+<TalosDesc />
+```
 
 ## Ory Open Source compared to the other deployment models
 
-Ory Open Source is one of three ways to run Ory. All three share the same open source
-core, so you can start with one and move to another as your needs change:
+Ory Open Source is one of three ways to run Ory. All three share the same open source core, so you can start with one and move to
+another as your needs change:
 
-| | Ory Open Source | Ory Enterprise License | Ory Network |
-| --- | --- | --- | --- |
-| **Hosting** | Self-hosted | Self-hosted | Fully managed (SaaS) |
-| **Who operates the infrastructure** | You | You | Ory |
-| **License** | Apache 2.0 | Commercial | Commercial |
-| **Management** | CLI | CLI | CLI, GUI (Ory Console), and Terraform |
-| **Support** | Community | Dedicated, 24/7 with SLAs | Included with the platform |
-| **CVE patching** | Self-managed | Guaranteed timeframes | Handled by Ory |
-| **Enterprise features** (e.g. multi-tenancy, ROPC) | Not included | Included | Included |
-| **Best for** | Evaluation, prototyping, and full-control self-hosting | Regulated, air-gapped, or high-control production | The fastest path to production with no operational overhead |
+```mdx-code-block
+import DeployCompare from "@site/src/components/Shared/deploy-intro/deploy-compare.mdx"
+
+<DeployCompare />
+```
 
 ## Next steps
 
