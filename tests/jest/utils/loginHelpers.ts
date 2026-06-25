@@ -19,7 +19,40 @@ export async function selfServiceLogin(
       Accept: "application/json",
     },
   })
-  const loginFlowData = await loginFlowRes.json()
+
+  // --- DEBUG: capture response framing before consuming the body ---
+  console.log("[debug] login/api status:", loginFlowRes.status)
+  console.log(
+    "[debug] login/api content-encoding:",
+    loginFlowRes.headers.get("content-encoding"),
+  )
+  console.log(
+    "[debug] login/api transfer-encoding:",
+    loginFlowRes.headers.get("transfer-encoding"),
+  )
+  console.log(
+    "[debug] login/api content-length:",
+    loginFlowRes.headers.get("content-length"),
+  )
+  console.log(
+    "[debug] login/api connection:",
+    loginFlowRes.headers.get("connection"),
+  )
+
+  let loginFlowData: any
+  try {
+    loginFlowData = await loginFlowRes.json()
+  } catch (err: any) {
+    console.error("[debug] login/api body read FAILED")
+    console.error("[debug]   name:", err?.name)
+    console.error("[debug]   code:", err?.code)
+    console.error("[debug]   message:", err?.message)
+    console.error("[debug]   errno/type:", err?.errno, err?.type)
+    console.error("[debug]   cause:", err?.cause?.message || err?.cause)
+    throw err
+  }
+  // --- END DEBUG ---
+
   const loginFlowId = loginFlowData.id
 
   // Submit login with identifier and password in single request
