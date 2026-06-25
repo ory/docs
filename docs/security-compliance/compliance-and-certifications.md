@@ -26,16 +26,12 @@ request access at the [Ory Trust Center](https://trust.ory.com).
 
 ## PCI DSS
 
-Ory Corp has completed its PCI DSS v4.0.1 SAQ D for Service Providers
-assessment with a Compliant rating. The Payment Card Industry Data Security
-Standard (PCI DSS) defines the security requirements for organizations that
-handle payment card data. The assessment was performed by BARR Advisory, a
-Qualified Security Assessor (QSA), and covers Ory Network, reflecting the design
-and implementation of Ory's controls against the applicable PCI DSS requirements
-as of the assessment date. As a service provider, Ory does not store, process,
-or transmit account data. Current and prospective customers can access the
-Attestation of Compliance (AOC) under Resources in the
-[Ory Trust Center](https://trust.ory.com/).
+Ory Corp has completed its PCI DSS v4.0.1 SAQ D for Service Providers assessment with a Compliant rating. The Payment Card
+Industry Data Security Standard (PCI DSS) defines the security requirements for organizations that handle payment card data. The
+assessment was performed by BARR Advisory, a Qualified Security Assessor (QSA), and covers Ory Network, reflecting the design and
+implementation of Ory's controls against the applicable PCI DSS requirements as of the assessment date. As a service provider, Ory
+does not store, process, or transmit account data. Current and prospective customers can access the Attestation of Compliance
+(AOC) under Resources in the [Ory Trust Center](https://trust.ory.com/).
 
 ## GDPR
 
