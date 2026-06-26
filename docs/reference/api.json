@@ -959,7 +959,7 @@
             "default": "720h",
             "description": "Configures what the maximum age of a JWT assertion used in the JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants (RFC7523) can be.\n\nThis feature uses the `exp` claim and `iat` claim to calculate assertion age. Assertions exceeding the max age will be denied.\n\nUseful as a safety measure and recommended to keep below 720h.\n\nThis governs the \"oauth2.grant.jwt.max_ttl\" setting.",
             "example": "30m",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_oauth2_grant_refresh_token_rotation_grace_period": {
@@ -1075,35 +1075,35 @@
             "default": "30m",
             "description": "This governs the \"ttl.access_token\" setting.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_auth_code": {
             "default": "720h",
             "description": "Configures how long refresh tokens are valid.\n\nSet to -1 for refresh tokens to never expire. This is not recommended!\n\nThis governs the \"ttl.auth_code\" setting.",
             "example": "30m",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_id_token": {
             "default": "30m",
             "description": "This governs the \"ttl.id_token\" setting.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_login_consent_request": {
             "default": "30m",
             "description": "Configures how long a user login and consent flow may take.\n\nThis governs the \"ttl.login_consent_request\" setting.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_refresh_token": {
             "default": "720h",
             "description": "Configures how long refresh tokens are valid.\n\nSet to -1 for refresh tokens to never expire. This is not recommended!\n\nThis governs the \"ttl.refresh_token\" setting.",
             "example": "30m",
-            "pattern": "^([0-9]+(ns|us|ms|s|m|h)|-1)$",
+            "pattern": "^(([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+|-1)$",
             "type": "string"
           },
           "hydra_urls_consent": {
@@ -1975,19 +1975,19 @@
           "talos_cache_ttl": {
             "description": "Talos cache TTL controls how long API key verification results are cached.",
             "example": "5m",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_api_keys_default_ttl": {
             "description": "Talos API keys default TTL.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_api_keys_max_ttl": {
             "description": "Talos API keys max TTL.",
             "example": "24h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_api_keys_prefix_current": {
@@ -2015,7 +2015,7 @@
           "talos_credentials_derived_tokens_default_ttl": {
             "description": "Talos derived tokens default TTL (applies to both JWT and macaroon tokens).",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_derived_tokens_jwt_signing_key_id": {
@@ -2859,7 +2859,7 @@
       },
       "NullDuration": {
         "nullable": true,
-        "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+        "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
         "type": "string"
       },
       "NullInt": {
@@ -3856,18 +3856,6 @@
         "required": ["id", "email", "name", "email_verified"],
         "type": "object"
       },
-      "consistencyRequestParameters": {
-        "description": "Control API consistency guarantees",
-        "properties": {
-          "consistency": {
-            "description": "Read Consistency Level (preview)\n\nThe read consistency level determines the consistency guarantee for reads:\n\nstrong (slow): The read is guaranteed to return the most recent data committed at the start of the read.\neventual (very fast): The result will return data that is about 4.8 seconds old.\n\nThe default consistency guarantee can be changed in the Ory Network Console or using the Ory CLI with\n`ory patch project --replace '/previews/default_read_consistency_level=\"strong\"'`.\n\nSetting the default consistency level to `eventual` may cause regressions in the future as we add consistency\ncontrols to more APIs. Currently, the following APIs will be affected by this setting:\n\n`GET /admin/identities`\n\nThis feature is in preview and only available in Ory Network.\n ConsistencyLevelUnset  ConsistencyLevelUnset is the unset / default consistency level.\nstrong ConsistencyLevelStrong  ConsistencyLevelStrong is the strong consistency level.\neventual ConsistencyLevelEventual  ConsistencyLevelEventual is the eventual consistency level using follower read timestamps.",
-            "enum": ["", "strong", "eventual"],
-            "type": "string",
-            "x-go-enum-desc": " ConsistencyLevelUnset  ConsistencyLevelUnset is the unset / default consistency level.\nstrong ConsistencyLevelStrong  ConsistencyLevelStrong is the strong consistency level.\neventual ConsistencyLevelEventual  ConsistencyLevelEventual is the eventual consistency level using follower read timestamps."
-          }
-        },
-        "type": "object"
-      },
       "continueWith": {
         "discriminator": {
           "mapping": {
@@ -4361,7 +4349,7 @@
         "properties": {
           "expires_in": {
             "description": "Code Expires In\n\nThe recovery code will expire after that amount of time has passed. Defaults to the configuration value of\n`selfservice.methods.code.config.lifespan`.",
-            "pattern": "^([0-9]+(ns|us|ms|s|m|h))*$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "flow_type": {
@@ -4381,7 +4369,7 @@
         "properties": {
           "expires_in": {
             "description": "Link Expires In\n\nThe recovery link will expire after that amount of time has passed. Defaults to the configuration value of\n`selfservice.methods.code.config.lifespan`.",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "identity_id": {
@@ -7361,7 +7349,7 @@
             "default": "720h",
             "description": "Configures what the maximum age of a JWT assertion used in the JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants (RFC7523) can be.\n\nThis feature uses the `exp` claim and `iat` claim to calculate assertion age. Assertions exceeding the max age will be denied.\n\nUseful as a safety measure and recommended to keep below 720h.\n\nThis governs the \"oauth2.grant.jwt.max_ttl\" setting.",
             "example": "30m",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_oauth2_grant_refresh_token_rotation_grace_period": {
@@ -7477,35 +7465,35 @@
             "default": "30m",
             "description": "This governs the \"ttl.access_token\" setting.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_auth_code": {
             "default": "720h",
             "description": "Configures how long refresh tokens are valid.\n\nSet to -1 for refresh tokens to never expire. This is not recommended!\n\nThis governs the \"ttl.auth_code\" setting.",
             "example": "30m",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_id_token": {
             "default": "30m",
             "description": "This governs the \"ttl.id_token\" setting.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_login_consent_request": {
             "default": "30m",
             "description": "Configures how long a user login and consent flow may take.\n\nThis governs the \"ttl.login_consent_request\" setting.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_refresh_token": {
             "default": "720h",
             "description": "Configures how long refresh tokens are valid.\n\nSet to -1 for refresh tokens to never expire. This is not recommended!\n\nThis governs the \"ttl.refresh_token\" setting.",
             "example": "30m",
-            "pattern": "^([0-9]+(ns|us|ms|s|m|h)|-1)$",
+            "pattern": "^(([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+|-1)$",
             "type": "string"
           },
           "hydra_urls_consent": {
@@ -8377,19 +8365,19 @@
           "talos_cache_ttl": {
             "description": "Talos cache TTL controls how long API key verification results are cached.",
             "example": "5m",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_api_keys_default_ttl": {
             "description": "Talos API keys default TTL.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_api_keys_max_ttl": {
             "description": "Talos API keys max TTL.",
             "example": "24h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_api_keys_prefix_current": {
@@ -8417,7 +8405,7 @@
           "talos_credentials_derived_tokens_default_ttl": {
             "description": "Talos derived tokens default TTL (applies to both JWT and macaroon tokens).",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_derived_tokens_jwt_signing_key_id": {
@@ -8956,7 +8944,7 @@
             "default": "1m",
             "description": "Token time to live",
             "example": "1h",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "updated_at": {
@@ -8983,11 +8971,6 @@
       "nullBool": {
         "nullable": true,
         "type": "boolean"
-      },
-      "nullDuration": {
-        "nullable": true,
-        "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
-        "type": "string"
       },
       "nullInt64": {
         "nullable": true,
@@ -9485,21 +9468,23 @@
       "oAuth2LogoutRequest": {
         "properties": {
           "challenge": {
-            "description": "Challenge is the identifier of the logout authentication request.",
+            "description": "Challenge is used to retrieve/accept/deny the logout request.",
             "type": "string"
           },
           "client": {
             "$ref": "#/components/schemas/oAuth2Client"
           },
           "expires_at": {
-            "$ref": "#/components/schemas/nullTime"
+            "format": "date-time",
+            "type": "string"
           },
           "request_url": {
             "description": "RequestURL is the original Logout URL requested.",
             "type": "string"
           },
           "requested_at": {
-            "$ref": "#/components/schemas/nullTime"
+            "format": "date-time",
+            "type": "string"
           },
           "rp_initiated": {
             "description": "RPInitiated is set to true if the request was initiated by a Relying Party (RP), also known as an OAuth 2.0 Client.",
@@ -9510,7 +9495,7 @@
             "type": "string"
           },
           "subject": {
-            "description": "Subject is the user for whom the logout was request.",
+            "description": "Subject is the user for whom the logout was requested.",
             "type": "string"
           }
         },
@@ -12713,6 +12698,7 @@
         "discriminator": {
           "mapping": {
             "code": "#/components/schemas/updateLoginFlowWithCodeMethod",
+            "deviceauthn": "#/components/schemas/updateLoginFlowWithDeviceAuthnMethod",
             "identifier_first": "#/components/schemas/updateLoginFlowWithIdentifierFirstMethod",
             "lookup_secret": "#/components/schemas/updateLoginFlowWithLookupSecretMethod",
             "oidc": "#/components/schemas/updateLoginFlowWithOidcMethod",
@@ -12739,6 +12725,9 @@
           },
           {
             "$ref": "#/components/schemas/updateLoginFlowWithWebAuthnMethod"
+          },
+          {
+            "$ref": "#/components/schemas/updateLoginFlowWithDeviceAuthnMethod"
           },
           {
             "$ref": "#/components/schemas/updateLoginFlowWithLookupSecretMethod"
@@ -12787,6 +12776,31 @@
           }
         },
         "required": ["method", "csrf_token"],
+        "type": "object"
+      },
+      "updateLoginFlowWithDeviceAuthnMethod": {
+        "description": "No CSRF token since this method may not be used from the browser.",
+        "properties": {
+          "client_key_id": {
+            "description": "Login with a DeviceAuthn Security Key.\n\nThis must contain the client ID of the DeviceAuthN key,\na.k.a 'key alias' on Android and 'key id' on iOS.",
+            "type": "string"
+          },
+          "method": {
+            "description": "Method should be set to \"deviceauthn\" when logging in using the DeviceAuthn strategy.",
+            "type": "string"
+          },
+          "signature": {
+            "description": "Signature is a ES256 signature of the server-provided challenge.",
+            "format": "byte",
+            "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
+          }
+        },
+        "required": ["method"],
+        "title": "Update Login Flow with DeviceAuthn Method",
         "type": "object"
       },
       "updateLoginFlowWithIdentifierFirstMethod": {
@@ -13351,6 +13365,7 @@
         "description": "Update Settings Flow Request Body",
         "discriminator": {
           "mapping": {
+            "deviceauthn": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethod",
             "lookup_secret": "#/components/schemas/updateSettingsFlowWithLookupMethod",
             "oidc": "#/components/schemas/updateSettingsFlowWithOidcMethod",
             "passkey": "#/components/schemas/updateSettingsFlowWithPasskeyMethod",
@@ -13386,8 +13401,77 @@
           },
           {
             "$ref": "#/components/schemas/updateSettingsFlowWithPasskeyMethod"
+          },
+          {
+            "$ref": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethod"
           }
         ]
+      },
+      "updateSettingsFlowWithDeviceAuthnMethod": {
+        "description": "Update Settings Flow with DeviceAuthn Method",
+        "properties": {
+          "add": {
+            "$ref": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethodAdd"
+          },
+          "csrf_token": {
+            "description": "CSRFToken is the anti-CSRF token\nIt only is required to remove a key from the browser.",
+            "type": "string"
+          },
+          "delete": {
+            "$ref": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethodDelete"
+          },
+          "method": {
+            "description": "Method\n\nShould be set to \"deviceauthn\" when trying to add or remove a DeviceAuthn key.",
+            "type": "string"
+          },
+          "transient_payload": {
+            "description": "Transient data to pass along to any webhooks",
+            "type": "object"
+          }
+        },
+        "required": ["method"],
+        "type": "object"
+      },
+      "updateSettingsFlowWithDeviceAuthnMethodAdd": {
+        "properties": {
+          "attestation_ios": {
+            "format": "byte",
+            "type": "string"
+          },
+          "certificate_chain_android": {
+            "description": "CertificateChainAndroid is a list of base64 strings for creating a key on Android.\nEach element is a certificate.\nThe first element is the leaf, corresponding to the on-device key, the last is the root (Google CA).",
+            "items": {
+              "format": "byte",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "client_key_id": {
+            "description": "ClientKeyID is the key id/alias on the device.",
+            "type": "string"
+          },
+          "device_name": {
+            "description": "DeviceName is a human-readable name for the device e.g. 'My work phone'.",
+            "type": "string"
+          },
+          "version": {
+            "description": "Version is the version number for the cryptography.\nFor now only `1` is supported which corresponds to SHA256 + EC.",
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "required": ["device_name", "client_key_id"],
+        "type": "object"
+      },
+      "updateSettingsFlowWithDeviceAuthnMethodDelete": {
+        "properties": {
+          "client_key_id": {
+            "description": "ClientKeyID is the key id/alias on the device.",
+            "type": "string"
+          }
+        },
+        "required": ["client_key_id"],
+        "type": "object"
       },
       "updateSettingsFlowWithLookupMethod": {
         "description": "Update Settings Flow with Lookup Method",
@@ -16433,16 +16517,6 @@
               }
             },
             "description": "oAuth2LogoutRequest"
-          },
-          "410": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/oAuth2RedirectTo"
-                }
-              }
-            },
-            "description": "oAuth2RedirectTo"
           },
           "default": {
             "content": {

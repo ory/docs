@@ -1,0 +1,141 @@
+import CodeBlock from "@theme/CodeBlock"
+import Prerequisites from "@site/docs/self-hosted/oel/oel-common-prerequisites.md"
+
+{props.name} Enterprise License (OEL) is distributed as a Docker image from
+Ory's private enterprise Docker registry. Unlike the open source build, it is
+not available as a public binary download or from GitHub releases, and it
+requires authentication to pull.
+
+<Prerequisites />
+
+## Docker registry
+
+The {props.name} OEL image is available from the EU region registry:
+
+<CodeBlock language="text">{props.image}</CodeBlock>
+
+## Authenticate to the registry
+
+Enterprise Docker images are kept in a private registry that requires
+authorization. An authorization key is provided for each customer separately.
+The following steps assume the key is stored in `keyfile.json`.
+
+```bash
+gcloud auth activate-service-account --key-file=keyfile.json
+gcloud auth configure-docker europe-docker.pkg.dev
+```
+
+## Pull the image
+
+Replace `<image-tag>` with the newest tag from
+[Available image tags](#available-image-tags) at the bottom of this page:
+
+<CodeBlock language="bash">{`docker pull ${props.image}:<image-tag>`}</CodeBlock>
+
+## Run with Docker
+
+To run {props.name} OEL, set the `DSN` environment variable to your database
+connection string and provide a{" "}
+
+<a
+  href={
+    props.configReference ||
+    `https://www.ory.com/docs/${props.repo}/reference/configuration`
+  }
+>
+  configuration file
+</a>
+. Pass the configuration file with the `-c` / `--config` flag and mount it into the
+container.
+
+:::note
+
+Provide the database connection string through the `DSN` environment variable.
+The enterprise build reads `DSN` from the environment when initializing, and
+supplying it this way works for both the migration and serve steps.
+
+:::
+
+Before deploying the service, apply the SQL migrations:
+
+<CodeBlock language="bash">{`docker run \\
+  -e DSN=your_database_connection_string \\
+  ${props.image}:<image-tag> \\
+  migrate sql up -e -y`}</CodeBlock>
+
+Then start the service:
+
+<CodeBlock language="bash">{`docker run \\
+  ${(props.ports || [4433, 4434]).map((p) => "-p " + p + ":" + p).join(" ")} \\
+  -e DSN=your_database_connection_string \\
+  -v /path/to/config:/etc/config/${props.repo} \\
+  ${props.image}:<image-tag> \\
+  ${props.serveCommand || "serve all"} -c /etc/config/${props.repo}/${props.repo}.yaml`}</CodeBlock>
+
+## Run on Kubernetes
+
+Ory publishes Helm charts for all enterprise builds. Add the Ory Helm
+repository:
+
+```bash
+helm repo add ory https://k8s.ory.com/helm/charts
+helm repo update
+```
+
+Create the `ory` namespace:
+
+```bash
+kubectl create namespace ory
+```
+
+Create a Kubernetes secret containing the image registry credentials:
+
+```bash
+kubectl create secret docker-registry ory-oel-gcr-secret \
+  --docker-server=europe-docker.pkg.dev \
+  --docker-username=_json_key \
+  --docker-password="$(cat keyfile.json)" \
+  --namespace ory
+```
+
+Create a Kubernetes secret containing the DSN and other secret values:
+
+<CodeBlock language="yaml">{`apiVersion: v1
+kind: Secret
+metadata:
+  name: ory-oel-${props.repo}-secret
+  namespace: ory
+data:
+  dsn:
+  # Add any additional secrets required by your configuration, base64-encoded.
+  # ${props.configReference || `https://www.ory.com/docs/${props.repo}/reference/configuration`}`}</CodeBlock>
+
+Create a `values.yaml` file to customize the configuration:
+
+<CodeBlock language="yaml">{`image:
+  registry: ${props.image.split("/")[0]}
+  repository: ${props.image.split("/").slice(1).join("/")}
+  tag: <replace-with-current-image-tag>
+imagePullSecrets:
+  - name: ory-oel-gcr-secret
+${props.repo}:
+  automigration:
+    enabled: true
+serviceMonitor:
+  enabled: true
+secret:
+  enabled: false
+  nameOverride: "ory-oel-${props.repo}-secret"
+config:
+  # ${props.name} config
+  # ${props.configReference || `https://www.ory.com/docs/${props.repo}/reference/configuration`}`}</CodeBlock>
+
+Install {props.name}:
+
+<CodeBlock language="bash">{`helm install ory-oel-${props.repo} ory/${props.repo} --namespace ory --create-namespace -f values.yaml`}</CodeBlock>
+
+## Available image tags
+
+The tags are ordered by date. Pick the newest tag from the top of the list.
+
+{props.imageTags}
