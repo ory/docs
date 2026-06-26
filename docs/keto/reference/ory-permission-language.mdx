@@ -52,7 +52,7 @@ Here, `File:readme` is the object, `User:alice` and `User:bob` are the subjects,
 
 ### Multiple subject types
 
-Use a union when a relation can hold subjects of different types:
+Use union type when a relation can hold subjects of different types:
 
 ```ts
 viewers: (User | Group)[]
@@ -67,35 +67,35 @@ Group:engineering is in viewers of File:readme
 
 ### Subject-set references
 
-Sometimes you want a relation to include not just individual subjects, but all members of another relation. `SubjectSet<T, R>`
-lets you do this — it refers to all subjects in relation `R` on namespace `T`.
+`SubjectSet<N, R>` refers to all subjects in relation `R` on namespace `N`. It lets you use a specific relation of another
+namespace as a subject in a relation tuple.
 
-For example, to allow either individual users or all members of a group to view a file:
+This is especially useful when you need to distinguish between different roles within the same namespace. For example, suppose a
+`File` can be shared with all `members` of a group, or just its `admins`:
 
 ```ts
-class User implements Namespace {}
-
 class Group implements Namespace {
   related: {
     members: User[]
+    admins: User[]
   }
 }
 
 class File implements Namespace {
   related: {
-    viewers: (User | SubjectSet<Group, "members">)[]
+    viewers: (User | SubjectSet<Group, "members"> | SubjectSet<Group, "admins">)[]
   }
 }
 ```
 
-This means a viewer can be either a `User` directly, or any subject in the `members` relation of a `Group`. You can then write a
-tuple that grants access to a whole group at once:
+When writing tuples, you specify exactly which relation of the group to use as the subject:
 
 ```keto-natural
-members of Group:engineering is in viewers of File:readme
+members of Group:engineering is in viewers of File:file1
+admins of Group:engineering is in viewers of File:file2
 ```
 
-This means: every subject in the `members` relation of `Group:engineering` is a viewer of `File:readme`.
+`File:file1` is accessible to all members of the engineering group, while `File:file2` is only accessible to admins.
 
 ## Permits
 
@@ -177,42 +177,71 @@ edit:  (ctx: Context) => this.permits.isAdmin(ctx) || this.related.owners.includ
 
 ## Complete example
 
+This schema models a file system where files and folders are organized into a hierarchy. Groups have two roles — `members` and
+`admins` — and access can be granted to each role independently. Folders can be nested inside other folders, and both files and
+folders inherit view and edit permissions from their parents. Only owners can edit; members of a group can view but not own.
+
 ```ts
 class User implements Namespace {}
 
 class Group implements Namespace {
   related: {
-    members: (User | SubjectSet<Group, "members">)[] // a member can be a User, or all members of another Group (enables nested groups)
+    // a member can be a User, or all members of another Group (enables nested groups)
+    members: (User | SubjectSet<Group, "members">)[]
+
+    admins: User[]
   }
 }
 
 class Folder implements Namespace {
   related: {
-    viewers: (User | SubjectSet<Group, "members">)[] // a viewer can be a User directly, or all members of a Group
+    // parent folders this folder is nested under; view and edit permissions are inherited from them
+    parents: Folder[]
+
+    // viewers can be individual users, group members, or group admins
+    viewers: (User | SubjectSet<Group, "members"> | SubjectSet<Group, "admins">)[]
+
+    // only individual users or group admins can own a folder
+    owners: (User | SubjectSet<Group, "admins">)[]
   }
+
   permits = {
-    view: (ctx: Context) => this.related.viewers.includes(ctx.subject),
+    view: (ctx: Context) =>
+      this.related.viewers.includes(ctx.subject) ||
+      this.related.owners.includes(ctx.subject) ||
+      // grants view if the subject has view permission on any parent Folder
+      this.related.parents.traverse((p) => p.permits.view(ctx)),
+
+    edit: (ctx: Context) =>
+      this.related.owners.includes(ctx.subject) ||
+      // grants edit if the subject has edit permission on any parent Folder
+      this.related.parents.traverse((p) => p.permits.edit(ctx)),
   }
 }
 
 class File implements Namespace {
   related: {
-    parents: Folder[] // the Folders this file is nested under, used to inherit permissions
-    viewers: (User | SubjectSet<Group, "members">)[]
-    owners: (User | SubjectSet<Group, "members">)[]
+    // Folders this file is nested under; view and edit permissions are inherited from them
+    parents: Folder[]
+
+    // viewers can be individual users, group members, or group admins
+    viewers: (User | SubjectSet<Group, "members"> | SubjectSet<Group, "admins">)[]
+
+    // only individual users or group admins can own a file
+    owners: (User | SubjectSet<Group, "admins">)[]
   }
+
   permits = {
     view: (ctx: Context) =>
       this.related.viewers.includes(ctx.subject) ||
       this.related.owners.includes(ctx.subject) ||
-      this.related.parents.traverse((p) => p.permits.view(ctx)), // grants view if the subject has view permission on any parent Folder
-    edit: (ctx: Context) => this.related.owners.includes(ctx.subject),
+      // grants view if the subject has view permission on any parent Folder
+      this.related.parents.traverse((p) => p.permits.view(ctx)),
+
+    edit: (ctx: Context) =>
+      this.related.owners.includes(ctx.subject) ||
+      // grants edit if the subject has edit permission on any parent Folder
+      this.related.parents.traverse((p) => p.permits.edit(ctx)),
   }
 }
 ```
-
-This schema models:
-
-- A `File` can have individual users or group members as viewers or owners
-- A `Group` can contain other groups, enabling nested membership
-- A `File` can inherit view permission from its parent `Folder`
