@@ -1,0 +1,59 @@
+---
+id: index
+title: Feature deprecations
+sidebar_label: Feature deprecations
+---
+
+This section lists deprecated behavior in Ory Kratos. Check this section regularly to avoid relying on deprecated functionality.
+
+## Who does this apply to?
+
+Users of the Ory Network, Ory Kratos (open source) and the OEL (Ory Enterprise License) are affected by this section.
+
+## How to use this section
+
+Documentation for each deprecated feature now lives alongside the feature it affects. Each entry provides information about the
+deprecated feature, including:
+
+- A brief description of the feature and its purpose.
+- The reason for deprecation, if available.
+- The version in which the feature was deprecated.
+- Any recommended alternatives or migration paths, if applicable.
+
+If you're using an Ory Network project, your configuration will not change, unless you have explicitly disabled the deprecated
+feature via a project level feature flag. To check which flags are currently enabled, go to
+
+<ConsoleLink route="project.settings.advanced" />.
+
+If you're self-hosting Ory Kratos (either through open source or the OEL), you should review your configuration and codebase to
+identify any usage of deprecated features before upgrading to a new version. This will help you avoid any potential issues that
+may arise from the removal of deprecated features in future releases.
+
+## Stay informed
+
+Subscribe to the [Ory Changelog](https://changelog.ory.com) to receive updates on new releases, including information about
+deprecated features and their removal timelines. Additionally, consider joining the Ory community on Slack or GitHub to stay
+engaged with other users and developers, and to get support for any questions or issues related to deprecated features.
+
+## Impacted functionality
+
+Deprecation notes are documented with the features they affect:
+
+- **Admin session extension API (`faster_session_extend`)** —
+  [Refresh sessions](../session-management/20_refresh-extend-session.mdx)
+- **Web hook interrupts (`can_interrupt`)** —
+  [Trigger custom logic and integrate with external systems with webhooks](../../guides/integrate-with-ory-cloud-through-webhooks.mdx)
+- **WebAuthn and passkey relying party origin (`rp.origin` and `rp.icon`)** —
+  [Passkeys & WebAuthN](../passwordless/05_passkeys.mdx)
+- **Link strategy base URL (`link.config.base_url`)** —
+  [Wrong domain in magic links](../../troubleshooting/magic-link-verification-url.mdx)
+- **One-step registration (`enable_legacy_one_step`)** —
+  [Two-step registration](../../identities/sign-in/two-step-registration.mdx)
+- **OIDC registration node group (`legacy_oidc_registration_node_group`)** —
+  [UI node groups](../concepts/ui-user-interface.mdx#ui-node-groups)
+- **Password registration node group (`password_profile_registration_node_group`)** —
+  [UI node groups](../concepts/ui-user-interface.mdx#ui-node-groups)
+- **Verification UI in `continue_with` (`legacy_continue_with_verification_ui`)** —
+  [Address verification](../../actions/require-verified-address.mdx)
+- **Verified-address login error (`legacy_require_verified_login_error`)** —
+  [Address verification](../../actions/require-verified-address.mdx)

@@ -111,6 +111,59 @@ Alternatively, use the Ory CLI to enable the passkey strategy:
 </Tabs>
 ```
 
+### WebAuthn and passkey relying party origin (`rp.origin` and `rp.icon`)
+
+The WebAuthn and passkey relying party (RP) configuration previously accepted a single origin via `rp.origin` and a branding image
+via `rp.icon`. The singular `rp.origin` is replaced by `rp.origins`, which accepts a list of origins and supports multi-domain
+deployments. The `rp.icon` field is deprecated and ignored for security reasons.
+
+#### Am I affected?
+
+You are affected if any of the following apply:
+
+- [ ] Your `selfservice.methods.webauthn.config.rp` (or `passkey.config.rp`) sets the singular `origin` field.
+- [ ] Your relying party configuration sets `rp.icon`.
+
+If your relying party configuration only sets `id` and `display_name`, you are not affected.
+
+#### Why was this change made?
+
+`rp.origins` lets a single project register passkeys and WebAuthn credentials across multiple domains, which the singular
+`rp.origin` could not express. The `rp.icon` field was removed because passing an externally controlled image URL into the
+credential ceremony was a security concern and had no reliable effect.
+
+#### How to adapt to this change?
+
+Move the value of `origin` into a single-element `origins` list and remove `icon`. If your origin is simply the protocol plus
+`rp.id`, you can omit `origins` entirely and let Kratos derive it.
+
+```yaml
+# Before
+rp:
+  id: ory.sh
+  display_name: Ory Foundation
+  origin: https://www.ory.com
+  icon: https://www.ory.com/logo.png
+
+# After
+rp:
+  id: ory.sh
+  display_name: Ory Foundation
+  origins:
+    - https://www.ory.com
+```
+
+<Tabs>
+  <TabItem value="network" label="Ory Network">
+    Update your project's identity configuration with the Ory CLI (`ory patch identity-config`) or the configuration editor in the
+    Ory Console: replace `rp.origin` with an `rp.origins` array and remove `rp.icon`.
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-hosted (OSS or OEL)">
+    Edit your Kratos configuration file, replace `rp.origin` with `rp.origins`, and remove `rp.icon`, then redeploy. A
+    configuration that sets both `rp.origin` and `rp.origins` is rejected, so make sure only `rp.origins` remains.
+  </TabItem>
+</Tabs>
+
 ### Identity schema
 
 If you want to use a custom identity schema, you must define which field of the identity schema is the display name for the

@@ -69,6 +69,42 @@ To get the Session ID, call the `/sessions/whoami` endpoint or `toSession` SDK m
 
 :::
 
+## Admin session extension API (`faster_session_extend`)
+
+- Who is impacted by this change?
+
+This improvement may impact users who are using the `/admin/sessions/{id}/extend` endpoint
+([`extendSession`](../../reference/api#tag/identity/operation/extendSession) SDK operation) to extend their users' sessions. The new
+implementation may result in faster response times and improved performance when extending sessions.
+
+- Why was this change made?
+
+The change was made to improve the performance and efficiency of the session extension process. By decoupling the session
+extension from the retrieval of the updated session information, we can reduce the processing time and resource usage for
+extending sessions, especially in scenarios with high traffic or large session data.
+
+- How to adapt to this change?
+
+If your application is using the updated session returned by the `/admin/sessions/{id}/extend` endpoint after the session
+extension, you will need to update your implementation to retrieve the updated session information separately, using the
+`/admin/sessions/{id}` endpoint ([`getSession`](../../reference/api#tag/identity/operation/getSession) SDK operation) after the
+session extension.
+
+After you reviewed your usage of this API, follow the instructions below based on your deployment type to ensure that you are
+benefiting from the improved session extension process.
+
+<Tabs>
+  <TabItem value="network" label="Ory Network">
+    Go to <ConsoleLink route="project.settings.advanced" hash="kratos_feature_flags_faster_session_extend" /> and enable the
+    "Faster session extension" feature flag to benefit from this improvement.
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-hosted (OSS or OEL)">
+    Starting with [Ory Kratos v1.3.0](https://github.com/ory/kratos/releases/tag/v1.3.0), the faster session extension process is
+    enabled by default. If you need to disable this feature for any reason, you can set the `feature_flags.faster_session_extend`
+    configuration option to `false` in your Kratos configuration file.
+  </TabItem>
+</Tabs>
+
 ## Refresh threshold
 
 You can limit the time in which the session can be refreshed by adjusting the `earliest_possible_extend` configuration.
