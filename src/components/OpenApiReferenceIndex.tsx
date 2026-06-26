@@ -149,6 +149,28 @@ function buildStore(api: any, options: any) {
 
 const LS_KEY = "docusaurus.tab.code-samples"
 
+// Maps inbound `?language=` values (and common aliases) to the canonical keys
+// used by the code-sample tabs and the `x-sdk-docs` metadata.
+const LANG_ALIASES: Record<string, string> = {
+  typescript: "TypeScript",
+  ts: "TypeScript",
+  javascript: "TypeScript",
+  js: "TypeScript",
+  node: "TypeScript",
+  nodejs: "TypeScript",
+  go: "go",
+  golang: "go",
+  python: "python",
+  py: "python",
+  curl: "curl",
+  shell: "curl",
+}
+
+function normalizeLang(value?: string | null): string | null {
+  if (!value) return null
+  return LANG_ALIASES[value.trim().toLowerCase()] ?? null
+}
+
 function useSdkLanguage() {
   const [lang, setLang] = useState<string>(() => {
     if (typeof localStorage !== "undefined") {
@@ -156,6 +178,16 @@ function useSdkLanguage() {
     }
     return "TypeScript"
   })
+
+  useEffect(() => {
+    const normalized = normalizeLang(
+      new URLSearchParams(window.location.search).get("language"),
+    )
+    if (normalized) {
+      localStorage.setItem(LS_KEY, normalized)
+      setLang(normalized)
+    }
+  }, [])
 
   useEffect(() => {
     const handler = (e: StorageEvent) => {
@@ -199,6 +231,24 @@ function renderInlineMarkdown(text: string): React.ReactNode {
   }
   if (last < text.length) parts.push(text.slice(last))
   return parts.length === 1 ? parts[0] : <>{parts}</>
+}
+
+// Many operations signal deprecation via a `Deprecated: …` prefix in their
+// description (the OpenAPI spec sets no `deprecated` flag). Pull that out so it
+// can be rendered as a badge + notice instead of plain inline body text.
+function parseDeprecation(text?: string): {
+  deprecated: boolean
+  notice: string
+  body: string
+} {
+  if (!text) return { deprecated: false, notice: "", body: "" }
+  const prefix = text.match(/^\s*deprecated:\s*/i)
+  if (!prefix) return { deprecated: false, notice: "", body: text }
+  const rest = text.slice(prefix[0].length)
+  const splitAt = rest.search(/\n\n+/)
+  const notice = (splitAt >= 0 ? rest.slice(0, splitAt) : rest).trim()
+  const body = (splitAt >= 0 ? rest.slice(splitAt) : "").trim()
+  return { deprecated: true, notice, body }
 }
 
 function CollapsibleSection({
@@ -268,6 +318,7 @@ function SdkUsageSection({
         : "data"
   const hasParams = docs.params.length > 0
   const hasResponse = docs.returnType && docs.returnType !== "void"
+  const { deprecated, notice, body } = parseDeprecation(description)
 
   return (
     <div className="mb-6 border border-[var(--ifm-toc-border-color)] rounded-[var(--ifm-global-radius)] overflow-hidden text-sm">
@@ -281,12 +332,24 @@ function SdkUsageSection({
         >
           {langLabel}
         </span>
+        {deprecated && (
+          <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded text-white tracking-wider uppercase bg-[var(--ifm-color-danger)]">
+            Deprecated
+          </span>
+        )}
       </div>
 
+      {/* Deprecation notice */}
+      {deprecated && notice && (
+        <div className="px-3 py-2.5 text-[0.85rem] border-b border-[var(--ifm-toc-border-color)] border-l-4 border-l-[var(--ifm-color-danger)] bg-[var(--ifm-color-danger-contrast-background)] text-[var(--ifm-color-danger-contrast-foreground)]">
+          {renderInlineMarkdown(notice)}
+        </div>
+      )}
+
       {/* Description */}
-      {description && (
+      {body && (
         <p className="px-3 py-2.5 m-0 text-[0.85rem] text-[var(--ifm-font-color-base)] border-b border-[var(--ifm-toc-border-color)]">
-          {renderInlineMarkdown(description)}
+          {renderInlineMarkdown(body)}
         </p>
       )}
 

@@ -137,7 +137,8 @@ const config: Config = {
         variant: "requests",
         variants: [],
       },
-      ...postmanLanguageTabs,
+      // supports TypeScript, Go and Python — drop the rest of the
+      ...postmanLanguageTabs.filter((tab) => tab.language === "curl"),
     ],
     navbar,
     footer: {
