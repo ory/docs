@@ -1,4 +1,3 @@
-import fetch from "node-fetch"
 import { parseCookie } from "./cookieHelpers"
 
 /**
@@ -19,7 +18,7 @@ export async function selfServiceLogin(
       Accept: "application/json",
     },
   })
-  const loginFlowData = await loginFlowRes.json()
+  const loginFlowData: any = await loginFlowRes.json()
   const loginFlowId = loginFlowData.id
 
   // Submit login with identifier and password in single request
@@ -50,7 +49,7 @@ export async function selfServiceLogin(
   )
 
   if (loginSubmitRes.status === 400) {
-    const errorData = await loginSubmitRes.json()
+    const errorData: any = await loginSubmitRes.json()
     console.error("Login error:", JSON.stringify(errorData, null, 2))
     throw new Error(
       `Login failed: ${JSON.stringify(errorData.ui?.messages || errorData)}`,
@@ -64,8 +63,9 @@ export async function selfServiceLogin(
     )
   }
 
-  const loginSetCookieHeader = loginSubmitRes.headers.get("set-cookie")
-  const sessionCookie = parseCookie(loginSetCookieHeader)
+  // getSetCookie() returns each Set-Cookie header as a separate array entry,
+  // avoiding the fragile comma-split of a combined header.
+  const sessionCookie = parseCookie(loginSubmitRes.headers.getSetCookie())
 
   if (!sessionCookie) {
     throw new Error("No session cookie received from login response")
