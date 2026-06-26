@@ -959,7 +959,7 @@
             "default": "720h",
             "description": "Configures what the maximum age of a JWT assertion used in the JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants (RFC7523) can be.\n\nThis feature uses the `exp` claim and `iat` claim to calculate assertion age. Assertions exceeding the max age will be denied.\n\nUseful as a safety measure and recommended to keep below 720h.\n\nThis governs the \"oauth2.grant.jwt.max_ttl\" setting.",
             "example": "30m",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_oauth2_grant_refresh_token_rotation_grace_period": {
@@ -1075,35 +1075,35 @@
             "default": "30m",
             "description": "This governs the \"ttl.access_token\" setting.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_auth_code": {
             "default": "720h",
             "description": "Configures how long refresh tokens are valid.\n\nSet to -1 for refresh tokens to never expire. This is not recommended!\n\nThis governs the \"ttl.auth_code\" setting.",
             "example": "30m",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_id_token": {
             "default": "30m",
             "description": "This governs the \"ttl.id_token\" setting.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_login_consent_request": {
             "default": "30m",
             "description": "Configures how long a user login and consent flow may take.\n\nThis governs the \"ttl.login_consent_request\" setting.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_refresh_token": {
             "default": "720h",
             "description": "Configures how long refresh tokens are valid.\n\nSet to -1 for refresh tokens to never expire. This is not recommended!\n\nThis governs the \"ttl.refresh_token\" setting.",
             "example": "30m",
-            "pattern": "^([0-9]+(ns|us|ms|s|m|h)|-1)$",
+            "pattern": "^(([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+|-1)$",
             "type": "string"
           },
           "hydra_urls_consent": {
@@ -1975,19 +1975,19 @@
           "talos_cache_ttl": {
             "description": "Talos cache TTL controls how long API key verification results are cached.",
             "example": "5m",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_api_keys_default_ttl": {
             "description": "Talos API keys default TTL.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_api_keys_max_ttl": {
             "description": "Talos API keys max TTL.",
             "example": "24h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_api_keys_prefix_current": {
@@ -2015,7 +2015,7 @@
           "talos_credentials_derived_tokens_default_ttl": {
             "description": "Talos derived tokens default TTL (applies to both JWT and macaroon tokens).",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_derived_tokens_jwt_signing_key_id": {
@@ -2859,7 +2859,7 @@
       },
       "NullDuration": {
         "nullable": true,
-        "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+        "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
         "type": "string"
       },
       "NullInt": {
@@ -4349,7 +4349,7 @@
         "properties": {
           "expires_in": {
             "description": "Code Expires In\n\nThe recovery code will expire after that amount of time has passed. Defaults to the configuration value of\n`selfservice.methods.code.config.lifespan`.",
-            "pattern": "^([0-9]+(ns|us|ms|s|m|h))*$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "flow_type": {
@@ -4369,7 +4369,7 @@
         "properties": {
           "expires_in": {
             "description": "Link Expires In\n\nThe recovery link will expire after that amount of time has passed. Defaults to the configuration value of\n`selfservice.methods.code.config.lifespan`.",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "identity_id": {
@@ -7349,7 +7349,7 @@
             "default": "720h",
             "description": "Configures what the maximum age of a JWT assertion used in the JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants (RFC7523) can be.\n\nThis feature uses the `exp` claim and `iat` claim to calculate assertion age. Assertions exceeding the max age will be denied.\n\nUseful as a safety measure and recommended to keep below 720h.\n\nThis governs the \"oauth2.grant.jwt.max_ttl\" setting.",
             "example": "30m",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_oauth2_grant_refresh_token_rotation_grace_period": {
@@ -7465,35 +7465,35 @@
             "default": "30m",
             "description": "This governs the \"ttl.access_token\" setting.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_auth_code": {
             "default": "720h",
             "description": "Configures how long refresh tokens are valid.\n\nSet to -1 for refresh tokens to never expire. This is not recommended!\n\nThis governs the \"ttl.auth_code\" setting.",
             "example": "30m",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_id_token": {
             "default": "30m",
             "description": "This governs the \"ttl.id_token\" setting.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_login_consent_request": {
             "default": "30m",
             "description": "Configures how long a user login and consent flow may take.\n\nThis governs the \"ttl.login_consent_request\" setting.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "hydra_ttl_refresh_token": {
             "default": "720h",
             "description": "Configures how long refresh tokens are valid.\n\nSet to -1 for refresh tokens to never expire. This is not recommended!\n\nThis governs the \"ttl.refresh_token\" setting.",
             "example": "30m",
-            "pattern": "^([0-9]+(ns|us|ms|s|m|h)|-1)$",
+            "pattern": "^(([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+|-1)$",
             "type": "string"
           },
           "hydra_urls_consent": {
@@ -8365,19 +8365,19 @@
           "talos_cache_ttl": {
             "description": "Talos cache TTL controls how long API key verification results are cached.",
             "example": "5m",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_api_keys_default_ttl": {
             "description": "Talos API keys default TTL.",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_api_keys_max_ttl": {
             "description": "Talos API keys max TTL.",
             "example": "24h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_api_keys_prefix_current": {
@@ -8405,7 +8405,7 @@
           "talos_credentials_derived_tokens_default_ttl": {
             "description": "Talos derived tokens default TTL (applies to both JWT and macaroon tokens).",
             "example": "1h",
-            "pattern": "^(\\d+(\\.\\d+)?(ns|us|µs|ms|s|m|h))+$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "talos_credentials_derived_tokens_jwt_signing_key_id": {
@@ -8944,7 +8944,7 @@
             "default": "1m",
             "description": "Token time to live",
             "example": "1h",
-            "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
           "updated_at": {
@@ -8971,11 +8971,6 @@
       "nullBool": {
         "nullable": true,
         "type": "boolean"
-      },
-      "nullDuration": {
-        "nullable": true,
-        "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
-        "type": "string"
       },
       "nullInt64": {
         "nullable": true,
@@ -9473,21 +9468,23 @@
       "oAuth2LogoutRequest": {
         "properties": {
           "challenge": {
-            "description": "Challenge is the identifier of the logout authentication request.",
+            "description": "Challenge is used to retrieve/accept/deny the logout request.",
             "type": "string"
           },
           "client": {
             "$ref": "#/components/schemas/oAuth2Client"
           },
           "expires_at": {
-            "$ref": "#/components/schemas/nullTime"
+            "format": "date-time",
+            "type": "string"
           },
           "request_url": {
             "description": "RequestURL is the original Logout URL requested.",
             "type": "string"
           },
           "requested_at": {
-            "$ref": "#/components/schemas/nullTime"
+            "format": "date-time",
+            "type": "string"
           },
           "rp_initiated": {
             "description": "RPInitiated is set to true if the request was initiated by a Relying Party (RP), also known as an OAuth 2.0 Client.",
@@ -9498,7 +9495,7 @@
             "type": "string"
           },
           "subject": {
-            "description": "Subject is the user for whom the logout was request.",
+            "description": "Subject is the user for whom the logout was requested.",
             "type": "string"
           }
         },
@@ -16520,16 +16517,6 @@
               }
             },
             "description": "oAuth2LogoutRequest"
-          },
-          "410": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/oAuth2RedirectTo"
-                }
-              }
-            },
-            "description": "oAuth2RedirectTo"
           },
           "default": {
             "content": {
