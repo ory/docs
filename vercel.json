@@ -1906,6 +1906,11 @@
       "source": "/docs/network/keto/quickstart",
       "destination": "/docs/network/keto/overview",
       "permanent": true
+    },
+    {
+      "source": "/docs/network/keto/quickstart/quickstart",
+      "destination": "/docs/network/keto/overview",
+      "permanent": true
     }
   ],
   "headers": [
