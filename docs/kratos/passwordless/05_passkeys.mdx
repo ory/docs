@@ -94,7 +94,7 @@ Alternatively, use the Ory CLI to enable the passkey strategy:
       config:
         display_name: "My Display Name"`}</CodeBlock>
   </TabItem>
-  <TabItem value="self-hosted" label="Self-hosted Ory Kratos" default>
+  <TabItem value="self-hosted" label="Self-hosted Ory Kratos">
     <CodeBlock language="yaml" title="config.yml">{`selfservice:
   methods:
     passkey:
@@ -107,6 +107,81 @@ Alternatively, use the Ory CLI to enable the passkey strategy:
           # Set 'origin' to the exact URL of the page that prompts the user to use WebAuthn. You must include the scheme, host, and port.
           origins:
             - http://localhost:4455`}</CodeBlock>
+  </TabItem>
+</Tabs>
+```
+
+### Advanced configuration
+
+The passkey strategy exposes additional settings that control the WebAuthn ceremony. All are optional and existing passkey
+credentials keep working. One default changed — see the note on authenticator attachment below.
+
+:::warning
+
+Changing these settings can prevent existing users from signing in with passkeys they already registered. Review the impact before
+changing them in production.
+
+:::
+
+| Option                                      | Type     | Default         | What it controls                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------------------------------- | -------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `authenticator_selection.attachment`        | string   | _unset_         | Restricts eligible authenticators by attachment modality: `"platform"` (Touch ID, Windows Hello) or `"cross-platform"` (HID tokens, YubiKeys). Omit this field to accept either type.                                                                                                                                                                                                                                                            |
+| `authenticator_selection.resident_key`      | string   | `"required"`    | Whether the authenticator must create a client-side discoverable credential: `"required"`, `"preferred"`, or `"discouraged"`.                                                                                                                                                                                                                                                                                                                    |
+| `authenticator_selection.user_verification` | string   | `"preferred"`   | Whether biometrics or a PIN are required: `"required"`, `"preferred"`, or `"discouraged"`.                                                                                                                                                                                                                                                                                                                                                       |
+| `attestation.preference`                    | string   | `"none"`        | Attestation conveyance preference that Ory Kratos _requests_ from the authenticator: `"none"`, `"indirect"`, `"direct"`, or `"enterprise"`. Request hint only — Ory Kratos does not verify or enforce the returned attestation statement, so it cannot restrict registration to specific authenticator types or models. Most consumer passkeys (iOS, Android) support only `"none"`; requesting `"direct"` or `"enterprise"` may not be honored. |
+| `timeouts.registration`                     | duration | library default | Timeout for the registration ceremony, in Go duration format (for example `"60s"` or `"5m"`). The browser enforces this during the ceremony; Ory Kratos does not reject late responses server-side — the flow lifespan (`selfservice.flows.*.lifespan`) governs server-side validity. When unset, the library default applies: 5 minutes, or 2 minutes when `user_verification` is set to `"discouraged"`.                                       |
+| `timeouts.login`                            | duration | library default | Timeout for the login ceremony, in Go duration format. The browser enforces it like `timeouts.registration`. When unset, the library default applies: 5 minutes, or 2 minutes when `user_verification` is set to `"discouraged"`.                                                                                                                                                                                                                |
+
+:::note
+
+**Default behavior change:** Earlier versions of the passkey strategy hardcoded `attachment: platform`, so only built-in
+authenticators (Touch ID, Windows Hello) could be registered. The strategy now defaults to **no attachment preference**, which
+means users can register using either platform or cross-platform (roaming) authenticators. To restore the previous behavior, set
+`authenticator_selection.attachment` to `"platform"`.
+
+:::
+
+The following example configures cross-platform authenticators (such as a HID token or YubiKey) with required user verification:
+
+```mdx-code-block
+<Tabs>
+  <TabItem value="cli" label="Ory CLI">
+    <CodeBlock language="shell">{`ory patch identity-config <your-project-id> \\
+  --add '/selfservice/methods/passkey/config/authenticator_selection/attachment="cross-platform"' \\
+  --add '/selfservice/methods/passkey/config/authenticator_selection/user_verification="required"'
+`}
+    </CodeBlock>
+  </TabItem>
+  <TabItem value="network" label="Ory Network" default>
+    <CodeBlock language="yaml" title="config.yml">{`selfservice:
+  methods:
+    passkey:
+      enabled: true
+      config:
+        authenticator_selection:
+          attachment: cross-platform
+          user_verification: required`}</CodeBlock>
+  </TabItem>
+  <TabItem value="self-hosted" label="Self-hosted Ory Kratos">
+    <CodeBlock language="yaml" title="config.yml">{`selfservice:
+  methods:
+    passkey:
+      enabled: true
+      config:
+        rp:
+          display_name: Your Application name
+          id: localhost
+          origins:
+            - http://localhost:4455
+        authenticator_selection:
+          attachment: cross-platform
+          resident_key: required
+          user_verification: required
+        attestation:
+          preference: none
+        timeouts:
+          registration: 5m
+          login: 5m`}</CodeBlock>
   </TabItem>
 </Tabs>
 ```
