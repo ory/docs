@@ -1908,7 +1908,7 @@
       "permanent": true
     },
     {
-      "source": "/docs/network/keto/quickstart/quickstart",
+      "source": "/docs/network/keto/quickstarts/quickstart",
       "destination": "/docs/network/keto/overview",
       "permanent": true
     }
