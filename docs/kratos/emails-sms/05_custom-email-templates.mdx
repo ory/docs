@@ -10,6 +10,7 @@ sidebar_label: Email templates
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
+import CodeFromRemote from "@theme/CodeFromRemote"
 ```
 
 Ory Identities comes with built-in templates for all messages sent by the system. You can replace the default templates with
@@ -80,6 +81,46 @@ To learn more about registration via a one-time code, read the [one-time code](.
 </TabItem>
 </Tabs>
 ```
+
+## Events that trigger an email
+
+Ory Identities sends an email for each template type below. The template type is also the `template_type` field in the
+[HTTP delivery payload](./01_sending-emails-smtp.mdx#payload).
+
+The following list of template types is imported directly from the Ory Kratos source code and stays in sync with it:
+
+<CodeFromRemote
+  lang="go"
+  link="https://github.com/ory/kratos/blob/master/courier/template/type.go"
+  src="https://raw.githubusercontent.com/ory/kratos/master/courier/template/type.go"
+  startAt="const ("
+  endAt=")"
+/>
+
+The following table is **maintained by hand**. It documents when each email is sent and the condition that gates it. These
+semantics are not represented in the source file above.
+
+| Template type                | When Ory Identities sends it                                                        | Condition                                                                            |
+| ---------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `recovery_code_valid`        | A recovery flow is started for a known address (recovery method `code`).            | Always, when recovery uses `code`.                                                   |
+| `recovery_code_invalid`      | A recovery flow is started for an address with no account (recovery method `code`). | Only if `selfservice.flows.recovery.notify_unknown_recipients` is `true`.            |
+| `recovery_valid`             | A recovery flow is started for a known address (recovery method `link`).            | Always, when recovery uses `link`.                                                   |
+| `recovery_invalid`           | A recovery flow is started for an address with no account (recovery method `link`). | Only if `selfservice.flows.recovery.notify_unknown_recipients` is `true`.            |
+| `verification_code_valid`    | A verification flow is started for a known address (method `code`).                 | Always, when verification uses `code`.                                               |
+| `verification_code_invalid`  | A verification flow is started for an address with no account (method `code`).      | Only if `selfservice.flows.verification.notify_unknown_recipients` is `true`.        |
+| `verification_valid`         | A verification flow is started for a known address (method `link`).                 | Always, when verification uses `link`.                                               |
+| `verification_invalid`       | A verification flow is started for an address with no account (method `link`).      | Only if `selfservice.flows.verification.notify_unknown_recipients` is `true`.        |
+| `login_code_valid`           | A login flow sends a one-time login code.                                           | When the one-time code login method is enabled.                                      |
+| `registration_code_valid`    | A registration flow sends a one-time registration code.                             | When the one-time code registration method is enabled.                               |
+| `verifiable_address_changed` | A verifiable address on an identity changes; sent to the previous address(es).      | Only if the `notify_previous_addresses` hook is enabled.                             |
+| `stub`                       | Not sent in production.                                                             | Test stub used by the Ory Kratos test suite. It does not correspond to a real email. |
+
+:::note
+
+The `stub` type appears in the embedded source above because it is part of the `TemplateType` enum, but it is a test stub used by
+the Ory Kratos test suite and never produces a real email.
+
+:::
 
 ## Using custom message templates
 
@@ -212,7 +253,17 @@ For security reasons, these Sprig functions are disabled in the Ory Network:
 
 ### Available variables
 
-The variables available for use in email templates change depending on the flow and the selected method:
+The variables available for use in email templates change depending on the flow and the selected method.
+
+The tables below are maintained by hand. The authoritative list of fields for each template is the per-template model struct in
+Ory Kratos, under [`courier/template/email/`](https://github.com/ory/kratos/tree/master/courier/template/email) — for example
+[`recovery_code_valid.go`](https://github.com/ory/kratos/blob/master/courier/template/email/recovery_code_valid.go) and
+[`verification_code_valid.go`](https://github.com/ory/kratos/blob/master/courier/template/email/verification_code_valid.go). If a
+field is missing below, check the matching struct.
+
+In addition to the variables listed for each template, every template can access `TransientPayload` (see
+[Transient payload in templates](#transient-payload-in-templates)) and `RequestURL` (the URL of the flow request that triggered
+the email).
 
 ```mdx-code-block
 <Tabs groupId="email-templates">
@@ -318,6 +369,21 @@ For the `registration_code.valid` template, the following variables are availabl
 | `RegistrationCode` | the registration code |
 | `Traits` | the provided traits as specified by the Identity Schema |
 | `ExpiresInMinutes` | the expiration time of the code in minutes |
+
+</TabItem>
+
+<TabItem value="verifiable_address_changed" label="Address changed">
+
+For the `verifiable_address_changed` template, the following variables are available:
+
+| Variable | Description |
+| --- | --- |
+| `To` | the previous address the notification is sent to |
+| `Identity` | the identity whose verifiable address changed |
+| `ChangedAt` | the time the address changed |
+
+This template is sent only when the `notify_previous_addresses` hook is enabled. See
+[Events that trigger an email](#events-that-trigger-an-email).
 
 </TabItem>
 </Tabs>
@@ -542,3 +608,61 @@ This results into the following email to be sent to the user.
   BAR
 </p>
 ```
+
+#### Pass brand and language to email links
+
+Building on the mechanic above, this example uses the transient payload to carry presentation data — a brand name and a language
+— through to the email template. It is useful when one Ory project serves several brands or locales and the email link must match
+the context the user started in.
+
+The example reads a brand and a language when the flow is created, passes them in `transient_payload` when the flow is submitted,
+and reads them back in the template to build a branded link.
+
+1. Read the values when you create the flow. For example, read the brand from the OAuth2 login request's client name and the
+   language from a URL query parameter:
+
+   ```ts
+   const brand = flow.oauth2_login_request?.client?.client_name ?? "Example"
+   const lang = new URL(window.location.href).searchParams.get("lang") ?? "en"
+   ```
+
+2. Inject the values into `transient_payload` when you submit the flow. For a registration flow, call `updateRegistrationFlow`;
+   for a verification flow, call `updateVerificationFlow`:
+
+   ```ts
+   // Registration flow
+   await frontend.updateRegistrationFlow({
+     flow: flow.id,
+     updateRegistrationFlowBody: {
+       method: "password",
+       traits: { email: "user@example.com" },
+       password: "a-secure-password",
+       transient_payload: { brand, lang },
+     },
+   })
+
+   // Verification flow
+   await frontend.updateVerificationFlow({
+     flow: flow.id,
+     updateVerificationFlowBody: {
+       method: "code",
+       email: "user@example.com",
+       transient_payload: { brand, lang },
+     },
+   })
+   ```
+
+   For the underlying request shapes, see
+   [Submit registration flow](../bring-your-own-ui/05_custom-ui-basic-integration.mdx#submit-registration-flow).
+
+3. Read the values in the email template and build a branded, localized link:
+
+   ```gotmpl
+   {{ $brand := index .TransientPayload "brand" }}
+   {{ $lang := index .TransientPayload "lang" }}
+
+   <p>Verify your {{ $brand }} account:</p>
+   <a href="https://accounts.example.com/{{ $lang }}/verify?code={{ .VerificationCode }}"> Verify your email </a>
+   ```
+
+Because the payload lives only for the duration of the flow, supply these values again on every flow submission.
