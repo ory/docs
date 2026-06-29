@@ -72,7 +72,7 @@ const networkSidebar = [
             ],
           },
           "migrate-to-ory/auth0",
-          "getting-started/local-development",
+          "network/getting-started/setup-dev-environ",
           {
             type: "category",
             label: "Ory Console",
