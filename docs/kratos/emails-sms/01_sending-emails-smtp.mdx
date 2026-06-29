@@ -442,7 +442,7 @@ template. The template receives a `ctx` object that Ory Identities constructs fo
 
 ### The `ctx` object
 
-The shape of `ctx` is defined by the `httpDataModel` struct in Ory Kratos. The following embed stays in sync with the source:
+The shape of `ctx` is defined by the `httpDataModel` struct in Ory Kratos.
 
 <CodeFromRemote
   lang="go"
@@ -468,7 +468,6 @@ The JSON tags on the struct are the field names available in `ctx`:
 ### Example Jsonnet template
 
 The following template is the example mailer configuration shipped with Ory Kratos. It maps the most common fields out of `ctx`.
-This embed stays in sync with the source:
 
 <CodeFromRemote
   lang="jsonnet"
@@ -476,8 +475,8 @@ This embed stays in sync with the source:
   src="https://raw.githubusercontent.com/ory/kratos/master/courier/stub/request.config.mailer.jsonnet"
 />
 
-In most cases, an example like this is sufficient. Read fields that the template you target needs from `ctx.template_data`, and
-read top-level fields such as `recipient` and `template_type` directly from `ctx`.
+Read fields that the template you target needs from `ctx.template_data`, and read top-level fields such as `recipient` and
+`template_type` directly from `ctx`.
 
 ## Troubleshooting
 
