@@ -84,8 +84,9 @@ To learn more about registration via a one-time code, read the [one-time code](.
 
 ## Events that trigger an email
 
-Ory Identities sends an email for each template type below. The template type is also the `template_type` field in the
-[HTTP delivery payload](./01_sending-emails-smtp.mdx#payload).
+Ory Identities sends an email for each template type below. The template type (for example `recovery_code_valid`) is the value of
+the `template_type` field in the [HTTP delivery payload](./01_sending-emails-smtp.mdx#payload). It differs from the template names
+used elsewhere on this page (for example `recovery_code.valid`), which identify the template directory and layout.
 
 The following list of template types is imported directly from the Ory Kratos source code and stays in sync with it:
 
