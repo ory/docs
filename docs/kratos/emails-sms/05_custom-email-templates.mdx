@@ -97,8 +97,8 @@ The following list of template types is imported directly from the Ory Kratos so
   endAt=")"
 />
 
-The following table is **maintained by hand**. It documents when each email is sent and the condition that gates it. These
-semantics are not represented in the source file above.
+The following table is maintained by hand. It documents when each email is sent and the condition that gates it. These semantics
+are not represented in the source file above.
 
 | Template type                | When Ory Identities sends it                                                        | Condition                                                                            |
 | ---------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
@@ -611,8 +611,8 @@ This results into the following email to be sent to the user.
 
 #### Pass brand and language to email links
 
-Building on the mechanic above, this example uses the transient payload to carry presentation data — a brand name and a language
-— through to the email template. It is useful when one Ory project serves several brands or locales and the email link must match
+Building on the mechanic above, this example uses the transient payload to carry presentation data — a brand name and a language —
+through to the email template. It is useful when one Ory project serves several brands or locales and the email link must match
 the context the user started in.
 
 The example reads a brand and a language when the flow is created, passes them in `transient_payload` when the flow is submitted,
