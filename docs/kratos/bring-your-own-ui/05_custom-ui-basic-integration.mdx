@@ -756,7 +756,9 @@ the POST request payload. To learn more about customizing your identity schema p
 
 For more complex use cases you can pass more data to the flow using the optional `transient_payload` field. This data gets
 forwarded to webhooks without being persisted by Ory like identity traits do. To learn how to configure and use a webhook, please
-have a look at the [Webhooks](../../guides/integrate-with-ory-cloud-through-webhooks.mdx) documentation.
+have a look at the [Webhooks](../../guides/integrate-with-ory-cloud-through-webhooks.mdx) documentation. The transient payload
+also reaches email templates: for a worked example that uses it to build branded, localized links, see
+[Transient payload in templates](../emails-sms/05_custom-email-templates.mdx#transient-payload-in-templates).
 
 For browser applications you must send all cookies and the CSRF token in the request body. The CSRF token value is a hidden input
 field called `csrf_token`.
