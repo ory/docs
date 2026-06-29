@@ -1,0 +1,98 @@
+---
+title: Migrating from subject IDs to subject sets
+sidebar_label: Migrate to subject sets
+---
+
+import CodeTabs from "@site/src/theme/CodeTabs"
+
+Early versions of Ory Permissions allowed writing tuples where the subject was a plain string with no namespace — for example
+`File:data.txt#viewer@user_alice`. These are called **subject IDs**. They predate the
+[Ory Permission Language](../reference/ory-permission-language) and have no connection to the namespaces in your OPL.
+
+The recommended approach is to use **subject sets** instead: a subject that includes a namespace declared in your OPL, such as
+`File:data.txt#viewer@User:alice`. The namespace (`User`) ties the subject to a class in your OPL, which lets the engine validate
+and traverse subjects correctly and faster.
+
+## Am I affected?
+
+You are affected if your application uses the `subject_id` field anywhere in the API client — either when writing tuples or when
+performing permission checks.
+
+**Writing tuples with subject IDs:**
+
+<CodeTabs sampleId="subject-id-to-subjectset-migration/00-write-subject-id" version="master" />
+
+**Checking permissions with subject IDs:**
+
+<CodeTabs sampleId="subject-id-to-subjectset-migration/01-check-subject-id" version="master" />
+
+## Update your OPL first
+
+Before migrating tuples, make sure your OPL declares a namespace for every subject type you use. If your subject IDs follow a
+naming convention like `user_alice` or `apikey_ci-bot`, decide which OPL namespace each prefix maps to.
+
+For example, `user_` → `User` and `apikey_` → `ApiKey`:
+
+```ts
+class User implements Namespace {}
+class ApiKey implements Namespace {}
+
+class File implements Namespace {
+  related: {
+    viewers: (User | ApiKey)[]
+  }
+  permits = {
+    view: (ctx: Context) => this.related.viewers.includes(ctx.subject),
+  }
+}
+```
+
+## Migration steps
+
+The following is one recommended migration path that requires no downtime.
+
+### Step 1: Dual-write new tuples
+
+For every tuple your application writes, write two: one with the subject ID and one with the subject set. This keeps existing
+permission checks working while the migration is in progress — both representations are present in the database, so neither check
+path is broken.
+
+<CodeTabs sampleId="subject-id-to-subjectset-migration/02-write-both" version="master" />
+
+Deploy this change before moving on. Once deployed, all new tuples have subject set counterparts.
+
+### Step 2: Backfill existing tuples
+
+Paginate through all existing tuples, filter for ones where `subject_id` is set, determine the target namespace from your naming
+convention, and write the subject set equivalent for each. Consider saving the list of processed subject IDs so the backfill is
+resumable if interrupted.
+
+<CodeTabs sampleId="subject-id-to-subjectset-migration/03-migrate-existing" version="master" />
+
+After this step, every subject ID tuple has a subject set twin.
+
+### Step 3: Switch check requests to subject sets
+
+Now that every tuple has a subject set counterpart, update all permission checks to use subject set fields instead of
+`subject_id`. Both representations are still in the database, so existing checks continue to work during rollout.
+
+<CodeTabs sampleId="subject-id-to-subjectset-migration/04-check-subject-set" version="master" />
+
+Deploy this change. Once deployed, all check requests use subject sets.
+
+### Step 4: Remove dual writes
+
+Update your write code to emit only the subject set tuple. Remove the subject ID write added in step 1. Once deployed, new writes
+produce subject sets only. Subject ID tuples that already exist in the database are cleaned up in step 5.
+
+### Step 5: Delete subject ID tuples
+
+Delete all remaining subject ID tuples. This includes the original tuples from before the migration and the subject ID half of any
+dual-write tuples created in step 1.
+
+<CodeTabs sampleId="subject-id-to-subjectset-migration/05-delete-subject-id" version="master" />
+
+If you saved the list of subject IDs during backfill in step 2, you can delete directly from that list. Otherwise, paginate
+through tuples again and delete any where `subject_id` is set.
+
+After this step, only subject set tuples remain. Your application is ready for [strict mode](./strict-mode).
