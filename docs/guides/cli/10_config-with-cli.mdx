@@ -7,6 +7,30 @@ All Ory components use the same configuration format and APIs whether they are s
 
 This allows you to use the Ory CLI to configure your components, no matter how you use Ory!
 
+## Stored secrets
+
+:::warning
+
+When you read your Ory Network project configuration through the API or the Ory CLI (for example with `ory get project` or
+`ory get identity-config`), the following secret fields are returned **empty** even when a value is stored:
+
+- SMTP `courier.smtp.connection_uri` — the password segment of the URI is removed.
+- OIDC provider `client_secret` — for every entry in `selfservice.methods.oidc.config.providers`.
+- Apple provider `apple_private_key`.
+
+The stored value stays in place and continues to be used at runtime. Only the API response is redacted.
+
+When you write the configuration back:
+
+- **To keep the stored secret**: leave the field as the API returned it (`null` for OIDC `client_secret` and `apple_private_key`,
+  or a URI without the password segment for SMTP `connection_uri`). The server merges your update with the existing secret.
+- **To rotate a secret**: set the new value explicitly.
+- **Setting an OIDC `client_secret` or Apple `apple_private_key` to an empty string is rejected by configuration validation** —
+  these fields are required when the provider is configured, so you cannot accidentally clear them by sending an empty value. To
+  remove a secret entirely, remove the provider.
+
+:::
+
 ## Configure projects
 
 There are two ways to adjust the configuration of projects. You can:

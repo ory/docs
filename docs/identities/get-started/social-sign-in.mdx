@@ -80,6 +80,14 @@ The configuration includes:
 <TabItem value="cli">
 ```
 
+:::note
+
+When you export the configuration with `ory get identity-config`, the OIDC provider `client_secret` (and the Apple
+`apple_private_key`) are returned empty even when a value is stored. See the
+[stored secrets note](../../guides/cli/config-with-cli#stored-secrets) for the behavior when writing the configuration back.
+
+:::
+
 To enable and configure social sign-in using the CLI:
 
 1. First, download your Ory Identities configuration:
