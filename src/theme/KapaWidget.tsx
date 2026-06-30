@@ -63,7 +63,9 @@ type KapaWidgetProps = {
   placement?: "floating" | "inline"
 }
 
-export default function KapaWidget({ placement = "floating" }: KapaWidgetProps) {
+export default function KapaWidget({
+  placement = "floating",
+}: KapaWidgetProps) {
   const { pathname } = useLocation()
   const isExcluded = EXCLUDED_PATHS.includes(pathname)
   const [query, setQuery] = useState("")
