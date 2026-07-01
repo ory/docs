@@ -126,8 +126,22 @@ RPI-->|has session cookie|LUI
 RPI-->|no session cookie|RPI2
 LUI-->|ask for user consent|LUI
 LUI-->|redirect with logout_verifier|RPI2[Process logout request]
-RPI2-->|execute front/backchannel logout, delete session cookie|RPI2
-RPI2-->|No post_logout_redirect_uri|End
-RPI2-->|Has post_logout_redirect_uri|End2[Redirect to post_logout_redirect_uri]
+RPI2-->|session already revoked or logout_verifier reused|End2[Redirect to post_logout_redirect_uri]
+RPI2-->|valid session - execute front/backchannel logout and delete session|Done[Logout complete]
+Done-->|No post_logout_redirect_uri|End
+Done-->|Has post_logout_redirect_uri|End2
 `} />
 ```
+
+## Logout requests are processed at most once
+
+Each logout request is handled at most once. When Ory processes the `logout_verifier`, it looks up the login session that the
+request belongs to. If that session is gone, Ory stops the flow and only redirects the browser to the `post_logout_redirect_uri`
+(or the configured fallback URL). The session can be gone for two reasons:
+
+- The `logout_verifier` was reused. The user already logged out and may have signed in again since. Ory does not log the user out
+  of the newer session.
+- The session was already revoked by another logout, an API call, or session expiry.
+
+In both cases, Ory does not call the front-channel or back-channel logout callbacks again. Each registered client is notified at
+most once per session, so clients can treat these callbacks as idempotent.
