@@ -1,5 +1,6 @@
 import React from "react"
 import Link from "@docusaurus/Link"
+import KapaWidget from "@site/src/theme/KapaWidget"
 
 export function HowToUseSection() {
   const guides = [
@@ -36,8 +37,11 @@ export function HowToUseSection() {
           <p className="ory-body max-w-[800px]">
             Not sure where to start? Follow our guided paths—structured journeys
             that walk you through Ory's products and solutions so you can learn
-            and build faster.
+            and build faster. Or ask our AI assistant for help with your
+            specific use case.
           </p>
+
+          <KapaWidget placement="inline" />
         </div>
 
         <div
