@@ -1901,6 +1901,16 @@
       "source": "/talos/reference/cli/talos-serve-check",
       "destination": "/talos/reference/cli/talos-serve-public",
       "permanent": true
+    },
+    {
+      "source": "/docs/network/keto/quickstart",
+      "destination": "/docs/network/keto/overview",
+      "permanent": true
+    },
+    {
+      "source": "/docs/network/keto/quickstarts/quickstart",
+      "destination": "/docs/network/keto/overview",
+      "permanent": true
     }
   ],
   "headers": [
