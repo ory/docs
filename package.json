@@ -59,6 +59,7 @@
     "docusaurus-plugin-openapi-docs": "5.0.2",
     "docusaurus-theme-openapi-docs": "5.0.2",
     "file-loader": "6.2.0",
+    "fuse.js": "7.4.2",
     "json-loader": "0.5.7",
     "json-schema-faker": "0.5.8",
     "lodash.get": "^4.4.2",
