@@ -1460,3 +1460,7 @@ button.sidebar-deployment-model__link {
   box-shadow: 0 0 0 3px rgba(49, 120, 198, 0.3);
   border-color: #3178c6;
 }
+
+.sdk-reference-index .openapi-explorer__code-block code {
+  max-height: min(70vh, 640px);
+}

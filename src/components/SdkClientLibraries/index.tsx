@@ -113,7 +113,7 @@ export default function SdkClientLibraries() {
           fontWeight: 600,
           letterSpacing: "0.08em",
           textTransform: "uppercase",
-          color: "var(--ifm-color-secondary)",
+          color: "var(--ifm-color-emphasis-700)",
           borderBottom: "1px solid var(--ifm-toc-border-color)",
         }}
       >
@@ -166,7 +166,7 @@ export default function SdkClientLibraries() {
                   fontWeight: isActive ? 600 : 400,
                   color: isActive
                     ? "var(--ifm-color-primary)"
-                    : "var(--ifm-color-secondary)",
+                    : "var(--ifm-color-emphasis-700)",
                   textTransform: "uppercase",
                   letterSpacing: "0.04em",
                 }}
@@ -214,7 +214,7 @@ export default function SdkClientLibraries() {
               border: "none",
               cursor: "pointer",
               padding: "0.25rem",
-              color: "var(--ifm-color-secondary)",
+              color: "var(--ifm-color-emphasis-700)",
               display: "flex",
               alignItems: "center",
             }}

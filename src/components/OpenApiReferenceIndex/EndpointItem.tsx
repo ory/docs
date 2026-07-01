@@ -12,7 +12,11 @@ import { buildStore, decompressApi } from "./api"
 import { MethodBadge } from "./MethodBadge"
 import { SdkUsageSection } from "./SdkUsageSection"
 
-let ApiExplorer: React.ComponentType<{ item: any; infoPath: any }> = () => null
+let ApiExplorer: React.ComponentType<{
+  item: any
+  infoPath: any
+  showRequestResponse?: boolean
+}> = () => null
 if (ExecutionEnvironment.canUseDOM) {
   ApiExplorer = require("@theme/ApiExplorer").default
 }
@@ -126,6 +130,7 @@ export function EndpointItem({
                       <ApiExplorer
                         item={loaded.api}
                         infoPath={loaded.infoPath}
+                        showRequestResponse={selectedLang === "curl"}
                       />
                     )}
                   </BrowserOnly>

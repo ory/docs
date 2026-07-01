@@ -32,7 +32,7 @@ function CollapsibleSection({
         className="flex items-center gap-2 w-full px-3 py-2 bg-[var(--ifm-pre-background)] border-none cursor-pointer text-left"
       >
         <span
-          className={`text-[9px] text-[var(--ifm-color-secondary)] transition-transform duration-150 ${open ? "rotate-90" : "rotate-0"}`}
+          className={`text-[9px] text-[var(--ifm-color-emphasis-700)] transition-transform duration-150 ${open ? "rotate-90" : "rotate-0"}`}
         >
           ▶
         </span>
@@ -84,7 +84,7 @@ export function SdkUsageSection({
     <div className="mb-6 border border-[var(--ifm-toc-border-color)] rounded-[var(--ifm-global-radius)] overflow-hidden text-sm">
       {/* Header */}
       <div className="flex items-center gap-2 px-3 py-2 border-b border-[var(--ifm-toc-border-color)] bg-[var(--ifm-pre-background)]">
-        <span className="text-[10px] font-semibold tracking-widest uppercase text-[var(--ifm-color-secondary)]">
+        <span className="text-[10px] font-semibold tracking-widest uppercase text-[var(--ifm-color-emphasis-700)]">
           SDK Reference
         </span>
         <span
@@ -129,7 +129,7 @@ export function SdkUsageSection({
                 {["Parameters", "Type", "Required", "Description"].map((h) => (
                   <th
                     key={h}
-                    className="px-2.5 py-1.5 text-left text-[10px] font-semibold tracking-[0.06em] uppercase text-[var(--ifm-color-secondary)] border-b border-[var(--ifm-toc-border-color)] bg-[var(--ifm-pre-background)]"
+                    className="px-2.5 py-1.5 text-left text-[10px] font-semibold tracking-[0.06em] uppercase text-[var(--ifm-color-emphasis-700)] border-b border-[var(--ifm-toc-border-color)] bg-[var(--ifm-pre-background)]"
                   >
                     {h}
                   </th>
@@ -160,12 +160,12 @@ export function SdkUsageSection({
                         required
                       </span>
                     ) : (
-                      <span className="text-[var(--ifm-color-secondary)] text-[0.78rem]">
+                      <span className="text-[var(--ifm-color-emphasis-700)] text-[0.78rem]">
                         optional
                       </span>
                     )}
                   </td>
-                  <td className="px-2.5 py-1.5 text-[var(--ifm-color-secondary)]">
+                  <td className="px-2.5 py-1.5 text-[var(--ifm-color-emphasis-700)]">
                     {renderInlineMarkdown(p.description)}
                   </td>
                 </tr>
@@ -184,7 +184,7 @@ export function SdkUsageSection({
                 {["Variable", "Type"].map((h) => (
                   <th
                     key={h}
-                    className="px-2.5 py-1.5 text-left text-[10px] font-semibold tracking-[0.06em] uppercase text-[var(--ifm-color-secondary)] border-b border-[var(--ifm-toc-border-color)] bg-[var(--ifm-pre-background)]"
+                    className="px-2.5 py-1.5 text-left text-[10px] font-semibold tracking-[0.06em] uppercase text-[var(--ifm-color-emphasis-700)] border-b border-[var(--ifm-toc-border-color)] bg-[var(--ifm-pre-background)]"
                   >
                     {h}
                   </th>
@@ -193,7 +193,7 @@ export function SdkUsageSection({
             </thead>
             <tbody>
               <tr>
-                <td className="px-2.5 py-1.5 font-mono text-[var(--ifm-color-secondary)] whitespace-nowrap">
+                <td className="px-2.5 py-1.5 font-mono text-[var(--ifm-color-emphasis-700)] whitespace-nowrap">
                   {responseVar}
                 </td>
                 <td

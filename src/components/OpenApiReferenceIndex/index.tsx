@@ -36,7 +36,7 @@ export default function OpenApiReferenceIndex(): React.ReactElement {
   const { query, setQuery, debouncedQuery, results } = useOperationSearch(items)
 
   return (
-    <div>
+    <div className="sdk-reference-index">
       <SearchBar value={query} onChange={setQuery} />
 
       {results !== null ? (
