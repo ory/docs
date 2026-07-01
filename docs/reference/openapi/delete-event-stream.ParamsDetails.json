@@ -1,0 +1,18 @@
+{
+  "parameters": [
+    {
+      "description": "Project ID\n\nThe project's ID.",
+      "in": "path",
+      "name": "project_id",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "Event Stream ID\n\nThe ID of the event stream to be deleted, as returned when created.",
+      "in": "path",
+      "name": "event_stream_id",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

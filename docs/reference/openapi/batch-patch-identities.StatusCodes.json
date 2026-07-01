@@ -1,0 +1,208 @@
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Patch identities response",
+            "properties": {
+              "identities": {
+                "description": "The patch responses for the individual identities.",
+                "items": {
+                  "description": "Response for a single identity patch",
+                  "properties": {
+                    "action": {
+                      "description": "The action for this specific patch\ncreate ActionCreate  Create this identity.\nerror ActionError  Error indicates that the patch failed.",
+                      "enum": ["create", "error"],
+                      "type": "string",
+                      "x-go-enum-desc": "create ActionCreate  Create this identity.\nerror ActionError  Error indicates that the patch failed."
+                    },
+                    "error": {
+                      "description": "From https://go.dev/wiki/CodeReviewComments#receiver-type:\n> Can function or methods, either concurrently or when called from this method, be mutating the receiver? A value type creates a copy of the receiver when the method is invoked, so outside updates will not be applied to this receiver. If changes must be visible in the original receiver, the receiver must be a pointer.\n> If the receiver is a struct, array or slice and any of its elements is a pointer to something that might be mutating,\n> prefer a pointer receiver, as it will make the intention clearer to the reader.\n> Don’t mix receiver types. Choose either pointers or struct types for all available methods.",
+                      "title": "DefaultError is not safe to shallow copy because it contains\nfields which are not value types, e.g. maps.\nA shallow copy would inadvertently share these underlying fields,\nleading to incorrect behavior and data races in a concurrent context.\nConsequently, all methods take the type by pointer and not by value."
+                    },
+                    "identity": {
+                      "description": "The identity ID payload of this patch",
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "patch_id": {
+                      "description": "The ID of this patch response, if an ID was specified in the patch.",
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object",
+                  "title": "identityPatchResponse"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object",
+            "title": "batchPatchIdentitiesResponse"
+          }
+        }
+      },
+      "description": "batchPatchIdentitiesResponse"
+    },
+    "400": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "The standard Ory JSON API error format.",
+            "properties": {
+              "error": {
+                "description": "Error response",
+                "properties": {
+                  "debug": {
+                    "description": "Debug contains debug information. This is usually not available and has to be enabled.",
+                    "example": "The database adapter was unable to find the element",
+                    "type": "string"
+                  },
+                  "error": {
+                    "description": "Name is the error name.",
+                    "example": "The requested resource could not be found",
+                    "type": "string"
+                  },
+                  "error_description": {
+                    "description": "Description contains further information on the nature of the error.",
+                    "example": "Object with ID 12345 does not exist",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded",
+                    "enum": ["feature_not_available", "quota_exceeded"],
+                    "type": "string",
+                    "x-go-enum-desc": "feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"
+                  },
+                  "message": {
+                    "description": "Message contains the error message.",
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "description": "Code represents the error status code (404, 403, 401, ...).",
+                    "example": 404,
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object",
+                "title": "genericErrorContent"
+              }
+            },
+            "required": ["error"],
+            "title": "JSON API Error Response",
+            "type": "object"
+          }
+        }
+      },
+      "description": "errorGeneric"
+    },
+    "409": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "The standard Ory JSON API error format.",
+            "properties": {
+              "error": {
+                "description": "Error response",
+                "properties": {
+                  "debug": {
+                    "description": "Debug contains debug information. This is usually not available and has to be enabled.",
+                    "example": "The database adapter was unable to find the element",
+                    "type": "string"
+                  },
+                  "error": {
+                    "description": "Name is the error name.",
+                    "example": "The requested resource could not be found",
+                    "type": "string"
+                  },
+                  "error_description": {
+                    "description": "Description contains further information on the nature of the error.",
+                    "example": "Object with ID 12345 does not exist",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded",
+                    "enum": ["feature_not_available", "quota_exceeded"],
+                    "type": "string",
+                    "x-go-enum-desc": "feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"
+                  },
+                  "message": {
+                    "description": "Message contains the error message.",
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "description": "Code represents the error status code (404, 403, 401, ...).",
+                    "example": 404,
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object",
+                "title": "genericErrorContent"
+              }
+            },
+            "required": ["error"],
+            "title": "JSON API Error Response",
+            "type": "object"
+          }
+        }
+      },
+      "description": "errorGeneric"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "The standard Ory JSON API error format.",
+            "properties": {
+              "error": {
+                "description": "Error response",
+                "properties": {
+                  "debug": {
+                    "description": "Debug contains debug information. This is usually not available and has to be enabled.",
+                    "example": "The database adapter was unable to find the element",
+                    "type": "string"
+                  },
+                  "error": {
+                    "description": "Name is the error name.",
+                    "example": "The requested resource could not be found",
+                    "type": "string"
+                  },
+                  "error_description": {
+                    "description": "Description contains further information on the nature of the error.",
+                    "example": "Object with ID 12345 does not exist",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded",
+                    "enum": ["feature_not_available", "quota_exceeded"],
+                    "type": "string",
+                    "x-go-enum-desc": "feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"
+                  },
+                  "message": {
+                    "description": "Message contains the error message.",
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "description": "Code represents the error status code (404, 403, 401, ...).",
+                    "example": 404,
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object",
+                "title": "genericErrorContent"
+              }
+            },
+            "required": ["error"],
+            "title": "JSON API Error Response",
+            "type": "object"
+          }
+        }
+      },
+      "description": "errorGeneric"
+    }
+  }
+}

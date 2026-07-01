@@ -1,0 +1,11 @@
+{
+  "parameters": [
+    {
+      "description": "OAuth 2.0 Consent Request Challenge",
+      "in": "query",
+      "name": "consent_challenge",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

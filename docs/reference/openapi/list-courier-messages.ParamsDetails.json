@@ -1,0 +1,39 @@
+{
+  "parameters": [
+    {
+      "description": "Items per Page\n\nThis is the number of items per page to return.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.com/docs/ecosystem/api-design#pagination).",
+      "in": "query",
+      "name": "page_size",
+      "schema": {
+        "default": 250,
+        "format": "int64",
+        "maximum": 1000,
+        "minimum": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.com/docs/ecosystem/api-design#pagination).",
+      "in": "query",
+      "name": "page_token",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "Status filters out messages based on status.\nIf no value is provided, it doesn't take effect on filter.",
+      "in": "query",
+      "name": "status",
+      "schema": {
+        "description": "A Message's Status",
+        "enum": ["queued", "sent", "processing", "abandoned"],
+        "type": "string",
+        "title": "courierMessageStatus"
+      }
+    },
+    {
+      "description": "Recipient filters out messages based on recipient.\nIf no value is provided, it doesn't take effect on filter.",
+      "in": "query",
+      "name": "recipient",
+      "schema": { "type": "string" }
+    }
+  ]
+}

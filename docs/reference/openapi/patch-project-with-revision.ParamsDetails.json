@@ -1,0 +1,18 @@
+{
+  "parameters": [
+    {
+      "description": "Project ID\n\nThe project's ID.",
+      "in": "path",
+      "name": "project_id",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "Revision ID\n\nThe revision ID that this patch was generated for.",
+      "in": "path",
+      "name": "revision_id",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

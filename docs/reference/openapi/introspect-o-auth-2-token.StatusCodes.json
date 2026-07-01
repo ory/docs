@@ -1,0 +1,114 @@
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Introspection contains an access token's session data as specified by\n[IETF RFC 7662](https://tools.ietf.org/html/rfc7662)",
+            "properties": {
+              "active": {
+                "description": "Active is a boolean indicator of whether or not the presented token\nis currently active.  The specifics of a token's \"active\" state\nwill vary depending on the implementation of the authorization\nserver and the information it keeps about its tokens, but a \"true\"\nvalue return for the \"active\" property will generally indicate\nthat a given token has been issued by this authorization server,\nhas not been revoked by the resource owner, and is within its\ngiven time window of validity (e.g., after its issuance time and\nbefore its expiration time).",
+                "type": "boolean"
+              },
+              "aud": {
+                "description": "Audience contains a list of the token's intended audiences.",
+                "items": { "type": "string" },
+                "type": "array"
+              },
+              "client_id": {
+                "description": "ID is a client identifier for the OAuth 2.0 client that\nrequested this token.",
+                "type": "string"
+              },
+              "exp": {
+                "description": "Expires at is an integer timestamp, measured in the number of seconds\nsince January 1 1970 UTC, indicating when this token will expire.",
+                "format": "int64",
+                "type": "integer"
+              },
+              "ext": {
+                "additionalProperties": {},
+                "description": "Extra is arbitrary data set by the session.",
+                "type": "object"
+              },
+              "iat": {
+                "description": "Issued at is an integer timestamp, measured in the number of seconds\nsince January 1 1970 UTC, indicating when this token was\noriginally issued.",
+                "format": "int64",
+                "type": "integer"
+              },
+              "iss": {
+                "description": "IssuerURL is a string representing the issuer of this token",
+                "type": "string"
+              },
+              "nbf": {
+                "description": "NotBefore is an integer timestamp, measured in the number of seconds\nsince January 1 1970 UTC, indicating when this token is not to be\nused before.",
+                "format": "int64",
+                "type": "integer"
+              },
+              "obfuscated_subject": {
+                "description": "ObfuscatedSubject is set when the subject identifier algorithm was set to \"pairwise\" during authorization.\nIt is the `sub` value of the ID Token that was issued.",
+                "type": "string"
+              },
+              "scope": {
+                "description": "Scope is a JSON string containing a space-separated list of\nscopes associated with this token.",
+                "type": "string"
+              },
+              "sub": {
+                "description": "Subject of the token, as defined in JWT [RFC7519].\nUsually a machine-readable identifier of the resource owner who\nauthorized this token.",
+                "type": "string"
+              },
+              "token_type": {
+                "description": "TokenType is the introspected token's type, typically `Bearer`.",
+                "type": "string"
+              },
+              "token_use": {
+                "description": "TokenUse is the introspected token's use, for example `access_token` or `refresh_token`.",
+                "type": "string"
+              },
+              "username": {
+                "description": "Username is a human-readable identifier for the resource owner who\nauthorized this token.",
+                "type": "string"
+              }
+            },
+            "required": ["active"],
+            "type": "object",
+            "title": "introspectedOAuth2Token"
+          }
+        }
+      },
+      "description": "introspectedOAuth2Token"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error",
+            "properties": {
+              "error": { "description": "Error", "type": "string" },
+              "error_debug": {
+                "description": "Error Debug Information\n\nOnly available in dev mode.",
+                "type": "string"
+              },
+              "error_description": {
+                "description": "Error Description",
+                "type": "string"
+              },
+              "error_hint": {
+                "description": "Error Hint\n\nHelps the user identify the error cause.",
+                "example": "The redirect URL is not allowed.",
+                "type": "string"
+              },
+              "status_code": {
+                "description": "HTTP Status Code",
+                "example": 401,
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            "type": "object",
+            "title": "errorOAuth2"
+          }
+        }
+      },
+      "description": "errorOAuth2"
+    }
+  }
+}

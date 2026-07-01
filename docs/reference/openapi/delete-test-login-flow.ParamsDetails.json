@@ -1,0 +1,17 @@
+{
+  "parameters": [
+    {
+      "description": "ID of the test login flow to delete.",
+      "in": "query",
+      "name": "id",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "HTTP Cookies. A captured test flow requires the ory_kratos_test_flow\ncookie set by the OIDC callback; a flow still in the initial\nchoose-method state does not.",
+      "in": "header",
+      "name": "Cookie",
+      "schema": { "type": "string" }
+    }
+  ]
+}

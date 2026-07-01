@@ -1,0 +1,23 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "provider_id": {
+              "description": "ID of the OIDC provider to test. Must match a provider configured on\nthe project that serves this request.",
+              "maxLength": 255,
+              "type": "string"
+            }
+          },
+          "required": ["provider_id"],
+          "title": "Request body for creating a test OIDC login flow.",
+          "type": "object"
+        }
+      }
+    },
+    "required": true,
+    "x-originalParamName": "Body"
+  }
+}

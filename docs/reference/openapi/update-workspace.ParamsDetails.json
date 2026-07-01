@@ -1,0 +1,10 @@
+{
+  "parameters": [
+    {
+      "in": "path",
+      "name": "workspace",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

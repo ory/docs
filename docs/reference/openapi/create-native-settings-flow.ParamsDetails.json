@@ -1,0 +1,10 @@
+{
+  "parameters": [
+    {
+      "description": "The Session Token of the Identity performing the settings flow.",
+      "in": "header",
+      "name": "X-Session-Token",
+      "schema": { "type": "string" }
+    }
+  ]
+}

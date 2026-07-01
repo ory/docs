@@ -1,0 +1,37 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "error": {
+              "description": "The error should follow the OAuth2 error format (e.g. `invalid_request`, `login_required`).\n\nDefaults to `request_denied`.",
+              "type": "string"
+            },
+            "error_debug": {
+              "description": "Debug contains information to help resolve the problem as a developer. Usually not exposed\nto the public but only in the server logs.",
+              "type": "string"
+            },
+            "error_description": {
+              "description": "Description of the error in a human readable format.",
+              "type": "string"
+            },
+            "error_hint": {
+              "description": "Hint to help resolve the error.",
+              "type": "string"
+            },
+            "status_code": {
+              "description": "Represents the HTTP status code of the error (e.g. 401 or 403)\n\nDefaults to 400",
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          "title": "The request payload used to accept a login or consent request.",
+          "type": "object"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}

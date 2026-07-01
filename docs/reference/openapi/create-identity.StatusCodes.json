@@ -1,0 +1,394 @@
+{
+  "responses": {
+    "201": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "An [identity](https://www.ory.com/docs/kratos/concepts/identity-user-model) represents a (human) user in Ory.",
+            "properties": {
+              "created_at": {
+                "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
+                "format": "date-time",
+                "type": "string"
+              },
+              "credentials": {
+                "additionalProperties": {
+                  "description": "Credentials represents a specific credential type",
+                  "properties": {
+                    "config": {
+                      "title": "JSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger.",
+                      "type": "object"
+                    },
+                    "created_at": {
+                      "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "identifiers": {
+                      "description": "Identifiers represent a list of unique identifiers this credential type matches.",
+                      "items": { "type": "string" },
+                      "type": "array"
+                    },
+                    "type": {
+                      "description": "Type discriminates between different types of credentials.\npassword CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode",
+                      "enum": [
+                        "password",
+                        "oidc",
+                        "totp",
+                        "lookup_secret",
+                        "webauthn",
+                        "code",
+                        "passkey",
+                        "profile",
+                        "saml",
+                        "deviceauthn",
+                        "identifier_first",
+                        "link_recovery",
+                        "code_recovery"
+                      ],
+                      "type": "string",
+                      "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
+                    },
+                    "updated_at": {
+                      "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "version": {
+                      "description": "Version refers to the version of the credential. Useful when changing the config schema.",
+                      "format": "int64",
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object",
+                  "title": "identityCredentials"
+                },
+                "description": "Credentials represents all credentials that can be used for authenticating this identity.",
+                "type": "object"
+              },
+              "external_id": {
+                "description": "ExternalID is an optional external ID of the identity. This is used to link\nthe identity to an external system. If set, the external ID must be unique\nacross all identities.",
+                "type": "string"
+              },
+              "id": {
+                "description": "ID is the identity's unique identifier.\n\nThe Identity ID can not be changed and can not be chosen. This ensures future\ncompatibility and optimization for distributed stores such as CockroachDB.",
+                "format": "uuid",
+                "type": "string"
+              },
+              "metadata_admin": {
+                "description": "NullJSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger and is NULLable-",
+                "nullable": true,
+                "type": "object",
+                "title": "nullJsonRawMessage"
+              },
+              "metadata_public": {
+                "description": "NullJSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger and is NULLable-",
+                "nullable": true,
+                "type": "object",
+                "title": "nullJsonRawMessage"
+              },
+              "organization_id": {
+                "format": "uuid4",
+                "nullable": true,
+                "type": "string",
+                "title": "NullUUID"
+              },
+              "recovery_addresses": {
+                "description": "RecoveryAddresses contains all the addresses that can be used to recover an identity.",
+                "items": {
+                  "properties": {
+                    "break_glass_for_organization": {
+                      "format": "uuid4",
+                      "nullable": true,
+                      "type": "string",
+                      "title": "NullUUID"
+                    },
+                    "created_at": {
+                      "description": "CreatedAt is a helper struct field for gobuffalo.pop.",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": { "format": "uuid", "type": "string" },
+                    "updated_at": {
+                      "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "value": { "type": "string" },
+                    "via": { "type": "string" }
+                  },
+                  "required": ["value", "via"],
+                  "type": "object",
+                  "title": "recoveryIdentityAddress"
+                },
+                "type": "array",
+                "x-omitempty": true
+              },
+              "region": {
+                "description": "Region is the Ory Network region this identity is homed in. Set by\nthe multi-region persister; empty on OSS and single-region deployments.\neu-central EUCentral\nasia-northeast AsiaNorthEast\nus-east USEast\nus-west USWest\neu EU\nasia Asia\nus US\nglobal Global",
+                "enum": [
+                  "eu-central",
+                  "asia-northeast",
+                  "us-east",
+                  "us-west",
+                  "eu",
+                  "asia",
+                  "us",
+                  "global"
+                ],
+                "type": "string",
+                "x-go-enum-desc": "eu-central EUCentral\nasia-northeast AsiaNorthEast\nus-east USEast\nus-west USWest\neu EU\nasia Asia\nus US\nglobal Global"
+              },
+              "schema_id": {
+                "description": "SchemaID is the ID of the JSON Schema to be used for validating the identity's traits.",
+                "type": "string"
+              },
+              "schema_url": {
+                "description": "SchemaURL is the URL of the endpoint where the identity's traits schema can be fetched from.\n\nformat: url",
+                "type": "string"
+              },
+              "state": {
+                "description": "State is the identity's state.\n\nThis value has currently no effect.\nactive StateActive\ninactive StateInactive",
+                "enum": ["active", "inactive"],
+                "type": "string",
+                "x-go-enum-desc": "active StateActive\ninactive StateInactive"
+              },
+              "state_changed_at": {
+                "format": "date-time",
+                "title": "NullTime implements sql.NullTime functionality.",
+                "type": "string"
+              },
+              "traits": {
+                "description": "Traits represent an identity's traits. The identity is able to create, modify, and delete traits\nin a self-service manner. The input will always be validated against the JSON Schema defined\nin `schema_url`.",
+                "title": "identityTraits"
+              },
+              "updated_at": {
+                "description": "UpdatedAt is a helper struct field for gobuffalo.pop.",
+                "format": "date-time",
+                "type": "string"
+              },
+              "verifiable_addresses": {
+                "description": "VerifiableAddresses contains all the addresses that can be verified by the user.",
+                "items": {
+                  "description": "VerifiableAddress is an identity's verifiable address",
+                  "properties": {
+                    "created_at": {
+                      "description": "When this entry was created",
+                      "example": "2014-01-01T23:28:56.782Z",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "The ID",
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "VerifiableAddressStatus must not exceed 16 characters as that is the limitation in the SQL Schema",
+                      "type": "string",
+                      "title": "identityVerifiableAddressStatus"
+                    },
+                    "updated_at": {
+                      "description": "When this entry was last updated",
+                      "example": "2014-01-01T23:28:56.782Z",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "value": {
+                      "description": "The address value\n\nexample foo@user.com",
+                      "type": "string"
+                    },
+                    "verified": {
+                      "description": "Indicates if the address has already been verified",
+                      "example": true,
+                      "type": "boolean"
+                    },
+                    "verified_at": {
+                      "format": "date-time",
+                      "title": "NullTime implements sql.NullTime functionality.",
+                      "type": "string"
+                    },
+                    "via": {
+                      "description": "The delivery method",
+                      "enum": ["email", "sms"],
+                      "example": "email",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["value", "verified", "via", "status"],
+                  "type": "object",
+                  "title": "verifiableIdentityAddress"
+                },
+                "type": "array",
+                "x-omitempty": true
+              }
+            },
+            "required": ["id", "schema_id", "schema_url", "traits"],
+            "title": "Identity represents an Ory Kratos identity",
+            "type": "object"
+          }
+        }
+      },
+      "description": "identity"
+    },
+    "400": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "The standard Ory JSON API error format.",
+            "properties": {
+              "error": {
+                "description": "Error response",
+                "properties": {
+                  "debug": {
+                    "description": "Debug contains debug information. This is usually not available and has to be enabled.",
+                    "example": "The database adapter was unable to find the element",
+                    "type": "string"
+                  },
+                  "error": {
+                    "description": "Name is the error name.",
+                    "example": "The requested resource could not be found",
+                    "type": "string"
+                  },
+                  "error_description": {
+                    "description": "Description contains further information on the nature of the error.",
+                    "example": "Object with ID 12345 does not exist",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded",
+                    "enum": ["feature_not_available", "quota_exceeded"],
+                    "type": "string",
+                    "x-go-enum-desc": "feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"
+                  },
+                  "message": {
+                    "description": "Message contains the error message.",
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "description": "Code represents the error status code (404, 403, 401, ...).",
+                    "example": 404,
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object",
+                "title": "genericErrorContent"
+              }
+            },
+            "required": ["error"],
+            "title": "JSON API Error Response",
+            "type": "object"
+          }
+        }
+      },
+      "description": "errorGeneric"
+    },
+    "409": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "The standard Ory JSON API error format.",
+            "properties": {
+              "error": {
+                "description": "Error response",
+                "properties": {
+                  "debug": {
+                    "description": "Debug contains debug information. This is usually not available and has to be enabled.",
+                    "example": "The database adapter was unable to find the element",
+                    "type": "string"
+                  },
+                  "error": {
+                    "description": "Name is the error name.",
+                    "example": "The requested resource could not be found",
+                    "type": "string"
+                  },
+                  "error_description": {
+                    "description": "Description contains further information on the nature of the error.",
+                    "example": "Object with ID 12345 does not exist",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded",
+                    "enum": ["feature_not_available", "quota_exceeded"],
+                    "type": "string",
+                    "x-go-enum-desc": "feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"
+                  },
+                  "message": {
+                    "description": "Message contains the error message.",
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "description": "Code represents the error status code (404, 403, 401, ...).",
+                    "example": 404,
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object",
+                "title": "genericErrorContent"
+              }
+            },
+            "required": ["error"],
+            "title": "JSON API Error Response",
+            "type": "object"
+          }
+        }
+      },
+      "description": "errorGeneric"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "The standard Ory JSON API error format.",
+            "properties": {
+              "error": {
+                "description": "Error response",
+                "properties": {
+                  "debug": {
+                    "description": "Debug contains debug information. This is usually not available and has to be enabled.",
+                    "example": "The database adapter was unable to find the element",
+                    "type": "string"
+                  },
+                  "error": {
+                    "description": "Name is the error name.",
+                    "example": "The requested resource could not be found",
+                    "type": "string"
+                  },
+                  "error_description": {
+                    "description": "Description contains further information on the nature of the error.",
+                    "example": "Object with ID 12345 does not exist",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded",
+                    "enum": ["feature_not_available", "quota_exceeded"],
+                    "type": "string",
+                    "x-go-enum-desc": "feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"
+                  },
+                  "message": {
+                    "description": "Message contains the error message.",
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "description": "Code represents the error status code (404, 403, 401, ...).",
+                    "example": 404,
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object",
+                "title": "genericErrorContent"
+              }
+            },
+            "required": ["error"],
+            "title": "JSON API Error Response",
+            "type": "object"
+          }
+        }
+      },
+      "description": "errorGeneric"
+    }
+  }
+}

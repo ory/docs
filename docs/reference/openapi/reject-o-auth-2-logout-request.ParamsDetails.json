@@ -1,0 +1,10 @@
+{
+  "parameters": [
+    {
+      "in": "query",
+      "name": "logout_challenge",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

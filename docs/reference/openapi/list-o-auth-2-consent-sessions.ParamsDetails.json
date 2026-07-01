@@ -1,0 +1,35 @@
+{
+  "parameters": [
+    {
+      "description": "Items per Page\n\nThis is the number of items per page to return.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.com/docs/ecosystem/api-design#pagination).",
+      "in": "query",
+      "name": "page_size",
+      "schema": {
+        "default": 250,
+        "format": "int64",
+        "maximum": 500,
+        "minimum": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.com/docs/ecosystem/api-design#pagination).",
+      "in": "query",
+      "name": "page_token",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "The subject to list the consent sessions for.",
+      "in": "query",
+      "name": "subject",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "The login session id to list the consent sessions for.",
+      "in": "query",
+      "name": "login_session_id",
+      "schema": { "type": "string" }
+    }
+  ]
+}

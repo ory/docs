@@ -1,0 +1,28 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Create Recovery Link for Identity Request Body",
+          "properties": {
+            "expires_in": {
+              "description": "Link Expires In\n\nThe recovery link will expire after that amount of time has passed. Defaults to the configuration value of\n`selfservice.methods.code.config.lifespan`.",
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string"
+            },
+            "identity_id": {
+              "description": "Identity to Recover\n\nThe identity's ID you wish to recover.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": ["identity_id"],
+          "type": "object",
+          "title": "createRecoveryLinkForIdentityBody"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}
