@@ -16,7 +16,7 @@ To install Ory Hydra, the following [configuration values](../reference/configur
 - `hydra.config.urls.consent`
 - `hydra.config.secrets.system`
 
-> **NOTE:** If no `hydra.config.secrets.system` secrets is supplied and `hydra.existingSecret` is empty, a secret is generated
+> **NOTE:** If no `hydra.config.secrets.system` secrets is supplied and `secret.enabled` is `false`, a secret is generated
 > automatically. The generated secret is cryptographically secure, and 32 signs long.
 
 If you wish to install Ory Hydra with an in-memory database, a cryptographically strong secret, a Login and Consent provider
@@ -43,7 +43,8 @@ helm install \
 ```
 
 Alternatively, you can use an existing [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) instead of
-letting the Helm Chart create one for you:
+letting the Helm Chart create one for you, by setting `secret.enabled` to `false`. You can customize the expected name of the
+custom secret using `secret.nameOverride`.
 
 ```sh
 
@@ -53,7 +54,8 @@ kubectl create secret generic my-secure-secret --from-literal=dsn=postgres://foo
 
 helm install \
     ...
-    --set 'hydra.existingSecret=my-secure-secret' \
+    --set 'secret.enabled=false` \
+    --set 'secret.nameOverride=my-secure-secret' \
     ...
     ory/hydra
 ```
