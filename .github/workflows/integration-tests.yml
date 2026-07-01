@@ -1,4 +1,4 @@
-name: JavaScript Integration Tests
+name: Integration Tests
 
 on:
   workflow_dispatch:
@@ -31,3 +31,40 @@ jobs:
           ORY_SDK_URL: ${{ secrets.ORY_SDK_URL }}
           TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+
+  test-java-integration:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+          cache: "maven"
+      - name: Install test app dependencies
+        run: |
+          cd tests/jest/apps/identity-get-started-java
+          mvn dependency:resolve
+      - name: Start test server
+        run: |
+          cd tests/jest/apps/identity-get-started-java
+          mvn spring-boot:run &
+        env:
+          ORY_SDK_URL: ${{ secrets.ORY_SDK_URL }}
+          EXAMPLES_TEST_APP_PORT: "3000"
+      - name: Wait for server to be ready
+        run: |
+          timeout 30 bash -c 'until curl -f http://127.0.0.1:3000/configure; do sleep 1; done'
+      - name: Run Java integration tests
+        run: |
+          cd tests/jest/apps/identity-get-started-java
+          mvn test
+        env:
+          ORY_SDK_URL: ${{ secrets.ORY_SDK_URL }}
+          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      - name: Stop test server
+        if: always()
+        run: |
+          pkill -f "spring-boot:run" || true
