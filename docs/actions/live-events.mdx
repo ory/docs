@@ -244,9 +244,12 @@ Unencrypted HTTP endpoints are not supported. Your endpoint must be able to hand
 with a 2xx status code to acknowledge successful processing of the event. HTTP redirects are _not_ followed and are treated as
 delivery failures.
 
+We strongly recommend that your endpoint supports HTTP/2. HTTP/2 multiplexing lets Ory deliver many events concurrently over a
+single connection, resulting in significantly more efficient throughput for event delivery.
+
 Authentication is possible by including credentials in the URL (HTTP Basic Authentication), for example:
 
-`https://username:password@example/com/my-event-endpoint`
+`https://username:password@example.com/my-event-endpoint`
 
 ### Stream to AWS SNS
 
