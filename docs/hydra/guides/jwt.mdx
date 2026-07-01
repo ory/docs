@@ -139,11 +139,13 @@ In the example above, the JWT is passed in the `assertion` parameter of the requ
 The OAuth2 token endpoint will then verify the signature of the JWT and check the claims to ensure that it is valid. If the JWT is
 valid, the OAuth2 token endpoint will issue an access token that can be used to access protected resources:
 
-```json5 title="Example claims of JSON Web Token"
+```json5 title="Example claims of the issued access token"
 {
   iss: "https://$PROJECT_SLUG.projects.oryapis.com/",
   sub: "7146dd0b-f243-43ba-815c-7a00216b4823",
   scp: ["read"],
+  // The assertion's "aud" (the authorization server) is not copied into the access token by default.
+  // See "Do not use the assertion's aud value as the access token's aud value" below.
   // ...
 }
 ```
@@ -158,7 +160,7 @@ through the following steps:
 - The JWT must contain a `sub` (subject) claim that identifies the principal as the subject of the JWT (e.g., the user ID). This
   value should match the `subject` value of the trust relationship unless `allow_any_subject` is `true`.
 - The JWT must contain an `aud` (audience) claim with a value that identifies the authorization server as an intended audience.
-  The value should be the OAuth2 Token URL.
+  The value should be the OAuth2 token endpoint URL.
 - The JWT must contain an `exp` (expiration time) claim that restricts the time window during which the JWT can be used. This can
   be controlled through the `/oauth2/grant/jwt/max_ttl` setting.
 - The JWT may contain an `nbf` (not before) claim that identifies the time before which the token must not be accepted for
@@ -184,6 +186,32 @@ ory patch oauth2-config \
   --replace "/oauth2/grant/jwt/iat_optional=true" \
   --replace "/oauth2/grant/jwt/max_ttl=1h"
 ```
+
+### Do not use the assertion's `aud` value as the access token's `aud` value
+
+Per [RFC 7523](https://www.rfc-editor.org/rfc/rfc7523), the assertion's `aud` (audience) claim identifies the authorization server
+as the intended recipient of the JWT. The issued access token's `aud` value should be the resource server(s) or the APIs that the
+token is meant for. By default, Ory therefore does **not** copy the assertion's `aud` values into the access token.
+
+The `oauth2.grant.jwt.omit_assertion_audience` setting controls whether or not the assertion's `aud` value is copied to the access
+token:
+
+```yaml title="hydra.yml"
+oauth2:
+  grant:
+    jwt:
+      # true (default): the assertion audience is omitted from the access token.
+      # false: the assertion audience is copied into the access token.
+      omit_assertion_audience: true
+```
+
+Set it to `false` if your clients rely on the assertion's `aud` values being present in the access token.
+
+:::note
+
+The default value is `true` (omit) for Ory Hydra (Ory OSS, Ory OEL, and Ory Network deployments).
+
+:::
 
 ## JWTs for client authentication
 
