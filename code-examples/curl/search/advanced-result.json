@@ -3,14 +3,14 @@
     {
       "counts": [
         {
-          "count": 534,
-          "highlighted": "6e0b1f71-4236-44a3-a730-a033fcd21eab",
-          "value": "6e0b1f71-4236-44a3-a730-a033fcd21eab"
+          "count": 24,
+          "highlighted": "68efa2e9-fcd5-4104-8f49-7c51fa5752e2",
+          "value": "68efa2e9-fcd5-4104-8f49-7c51fa5752e2"
         },
         {
-          "count": 489,
-          "highlighted": "6bd7de58-a3d4-412c-a3fd-0c04a14b03f7",
-          "value": "6bd7de58-a3d4-412c-a3fd-0c04a14b03f7"
+          "count": 20,
+          "highlighted": "d936269a-2b49-4077-b4c8-2a256979fd27",
+          "value": "d936269a-2b49-4077-b4c8-2a256979fd27"
         }
       ],
       "field_name": "organization_id",
@@ -21,25 +21,26 @@
       }
     }
   ],
-  "found": 2163,
+  "found": 56,
   "hits": [
     {
       "document": {
         "available_aal": "aal0",
-        "created_at": 1769995344,
-        "id": "8a2a14af-7a89-4424-aebd-1db3e3b8a229",
-        "nid": "e70f3b9e-f343-40e6-89f1-de24e459722e",
-        "organization_id": "6bd7de58-a3d4-412c-a3fd-0c04a14b03f7",
+        "created_at": 1781570773,
+        "id": "f329a237-3725-495f-ad5b-ceb28bb77609",
+        "nid": "8180c44b-2f36-4790-b22e-713cb3b60425",
+        "organization_id": "d936269a-2b49-4077-b4c8-2a256979fd27",
+        "region": "asia-northeast",
         "schema_id": "preset://basic",
         "state": "active",
         "traits": {
-          "email": "louise_henderson760@aol.com",
+          "email": "kimberly.schmidt87@laposte.net",
           "name": {
-            "first": "Louise",
-            "last": "Henderson"
+            "first": "Kimberly",
+            "last": "Schmidt"
           }
         },
-        "updated_at": 1770125357
+        "updated_at": 1781710590
       },
       "highlight": {},
       "highlights": []
@@ -47,20 +48,21 @@
     {
       "document": {
         "available_aal": "aal0",
-        "created_at": 1769900788,
-        "id": "dc6b133f-363a-42e2-83b1-78a4a81e0a07",
-        "nid": "e70f3b9e-f343-40e6-89f1-de24e459722e",
-        "organization_id": "6bd7de58-a3d4-412c-a3fd-0c04a14b03f7",
+        "created_at": 1781133323,
+        "id": "5f549865-b8ac-48a1-a7e2-6cdddf4645e3",
+        "nid": "8180c44b-2f36-4790-b22e-713cb3b60425",
+        "organization_id": "68efa2e9-fcd5-4104-8f49-7c51fa5752e2",
+        "region": "asia-northeast",
         "schema_id": "preset://basic",
         "state": "active",
         "traits": {
-          "email": "patricia.lefebvre570@mailbox.org",
+          "email": "wolfgangcampbell137@ymail.com",
           "name": {
-            "first": "Patricia",
-            "last": "Lefebvre"
+            "first": "Wolfgang",
+            "last": "Campbell"
           }
         },
-        "updated_at": 1770125352
+        "updated_at": 1781710601
       },
       "highlight": {},
       "highlights": []
@@ -68,20 +70,21 @@
     {
       "document": {
         "available_aal": "aal0",
-        "created_at": 1769785191,
-        "id": "f748b84f-8ad0-4f72-8a3c-5e38bd0fe96d",
-        "nid": "e70f3b9e-f343-40e6-89f1-de24e459722e",
-        "organization_id": "6e0b1f71-4236-44a3-a730-a033fcd21eab",
+        "created_at": 1776824080,
+        "id": "ec946791-8c24-4848-9916-7a98285cbd3e",
+        "nid": "8180c44b-2f36-4790-b22e-713cb3b60425",
+        "organization_id": "68efa2e9-fcd5-4104-8f49-7c51fa5752e2",
+        "region": "asia-northeast",
         "schema_id": "preset://basic",
         "state": "active",
         "traits": {
-          "email": "steven.r740@posteo.de",
+          "email": "alainlopez11@zoho.com",
           "name": {
-            "first": "Steven",
-            "last": "Roussel"
+            "first": "Alain",
+            "last": "Lopez"
           }
         },
-        "updated_at": 1770125356
+        "updated_at": 1781710574
       },
       "highlight": {},
       "highlights": []
@@ -89,20 +92,21 @@
     {
       "document": {
         "available_aal": "aal0",
-        "created_at": 1769316538,
-        "id": "1c00a491-c5cf-47d5-a306-2214248f81d5",
-        "nid": "e70f3b9e-f343-40e6-89f1-de24e459722e",
-        "organization_id": "6bd7de58-a3d4-412c-a3fd-0c04a14b03f7",
+        "created_at": 1773833986,
+        "id": "4f0ce13f-ffff-47b4-a853-b90fe438e6c7",
+        "nid": "8180c44b-2f36-4790-b22e-713cb3b60425",
+        "organization_id": "d936269a-2b49-4077-b4c8-2a256979fd27",
+        "region": "us-west",
         "schema_id": "preset://basic",
         "state": "active",
         "traits": {
-          "email": "thomasmitchell631@wanadoo.fr",
+          "email": "jacob.d36@msn.com",
           "name": {
-            "first": "Thomas",
-            "last": "Mitchell"
+            "first": "Jacob",
+            "last": "Durand"
           }
         },
-        "updated_at": 1770125354
+        "updated_at": 1781710579
       },
       "highlight": {},
       "highlights": []
@@ -110,26 +114,26 @@
     {
       "document": {
         "available_aal": "aal0",
-        "created_at": 1769293967,
-        "id": "07421d7e-0e84-4e05-bd1e-9c446dc94a6d",
-        "nid": "e70f3b9e-f343-40e6-89f1-de24e459722e",
-        "organization_id": "6bd7de58-a3d4-412c-a3fd-0c04a14b03f7",
+        "created_at": 1773463258,
+        "id": "4f48a1bc-1f8f-4592-a36a-d9c799ae08da",
+        "nid": "8180c44b-2f36-4790-b22e-713cb3b60425",
+        "region": "us-west",
         "schema_id": "preset://basic",
-        "state": "inactive",
+        "state": "active",
         "traits": {
-          "email": "vhughes947@zoho.com",
+          "email": "christophe_patel8@outlook.de",
           "name": {
-            "first": "Valerie",
-            "last": "Hughes"
+            "first": "Christophe",
+            "last": "Patel"
           }
         },
-        "updated_at": 1770125361
+        "updated_at": 1781710646
       },
       "highlight": {},
       "highlights": []
     }
   ],
-  "out_of": 2163,
+  "out_of": 56,
   "page": 1,
   "request_params": {
     "collection_name": "identities",

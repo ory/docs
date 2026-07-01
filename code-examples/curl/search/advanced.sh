@@ -1,5 +1,5 @@
 export ORY_API_KEY="ory_pat_XXXXXXXXXXXXXXXX"
-export ORY_SLUG="upbeat-lalande-zu8omm6wwp" # replace with your Ory slug
+export ORY_SLUG="zealous-perlman-yvt3ifefzf" # replace with your Ory slug
 
 # list identities which do not have two-factor authentication enabled,
 # resolved by the organization to which they belong,
