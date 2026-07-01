@@ -32,3 +32,11 @@ application.
 The Ory Network provides GUI-based flows for adding and configuring social sign-in providers through the
 [Ory Console](https://console.ory.com/login). Each flow is custom-tailored to accommodate configuration requirements of the
 specific identity provider. Alternatively, you can use the [Ory CLI](../../guides/cli/01_installation.mdx).
+
+:::note
+
+When you export the configuration with `ory get identity-config`, the OIDC provider `client_secret` and the Apple
+`apple_private_key` are returned empty even when a value is stored. See the
+[stored secrets note](../../guides/cli/config-with-cli#stored-secrets) for the behavior when writing the configuration back.
+
+:::

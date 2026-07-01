@@ -111,6 +111,14 @@ middleware, as Apple uses a POST form request that does not include the CSRF coo
 <TabItem value="cli" label="Ory CLI">
 ```
 
+:::note
+
+When you export the configuration with `ory get identity-config`, the `apple_private_key` is returned empty even when a value is
+stored. See the [stored secrets note](../../guides/cli/config-with-cli#stored-secrets) for the behavior when writing the
+configuration back.
+
+:::
+
 Follow these steps to add Apple as a social sign-in provider to your project using the Ory CLI:
 
 1. Using an Apple Developer Account, create an app, a service, and a private key. Check the Ory Console guide for the concrete

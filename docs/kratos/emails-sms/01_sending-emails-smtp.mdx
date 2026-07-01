@@ -264,6 +264,14 @@ SparkPost separates US and EU accounts — pick data residency before integratio
 
 ### Your own server
 
+:::note
+
+When you export the configuration with `ory get identity-config`, the password segment of the SMTP `connection_uri` is returned
+empty even when a value is stored. See the [stored secrets note](../../guides/cli/config-with-cli#stored-secrets) for the behavior
+when writing the configuration back.
+
+:::
+
 <Tabs>
 <TabItem value="smtp" label="SMTP">
   You can send emails from your own SMTP server. Follow these steps to configure Ory to use a custom SMTP server:

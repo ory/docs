@@ -6,6 +6,14 @@ title: Ory Identities CLI
 Using the Ory CLI, you can quickly adjust the configuration of the Ory Identities and apply config from the Ory Network
 environment to self-hosted Ory Kratos Identity Server instances.
 
+:::note
+
+When you export the configuration with `ory get identity-config`, the SMTP `connection_uri` password, OIDC provider
+`client_secret`, and `apple_private_key` are returned empty even when a value is stored. See the
+[stored secrets note](./config-with-cli#stored-secrets) for the behavior when writing the configuration back.
+
+:::
+
 :::tip
 
 [Ory Kratos](https://github.com/ory/kratos) is the open-source project that powers the Ory Identities.
