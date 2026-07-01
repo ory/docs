@@ -7,6 +7,7 @@ title: Email delivery configuration
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
+import CodeFromRemote from "@theme/CodeFromRemote"
 ```
 
 The Ory Network provides a default SMTP server for sending emails. Ory emails are sent from this address:
@@ -428,39 +429,54 @@ service that doesn't provide an SMTP server.
 </Tabs>
 ```
 
-### Payload
-
-The payload of the HTTP request is a JSON object that's generated using a Jsonnet template. By default, the following Jsonnet
-template is used:
-
-```jsonnet
-function(ctx) {
-  recipient: ctx.recipient,
-  template_type: ctx.template_type,
-  to: if "template_data" in ctx && "to" in ctx.template_data then ctx.template_data.to else null,
-  recovery_code: if "template_data" in ctx && "recovery_code" in ctx.template_data then ctx.template_data.recovery_code else null,
-  recovery_url: if "template_data" in ctx && "recovery_url" in ctx.template_data then ctx.template_data.recovery_url else null,
-  verification_url: if "template_data" in ctx && "verification_url" in ctx.template_data then ctx.template_data.verification_url else null,
-  verification_code: if "template_data" in ctx && "verification_code" in ctx.template_data then ctx.template_data.verification_code else null,
-  login_code: if "template_data" in ctx && "login_code" in ctx.template_data then ctx.template_data.login_code else null,
-  registration_code: if "template_data" in ctx && "registration_code" in ctx.template_data then ctx.template_data.registration_code else null,
-  subject: if "template_data" in ctx && "subject" in ctx.template_data then ctx.template_data.subject else null,
-  body: if "template_data" in ctx && "body" in ctx.template_data then ctx.template_data.body else null
-}
-```
-
-The courier passes the following object as the `ctx` parameter into the Jsonnet template:
-
-| Variable        | Type   | Description                                                                                                                                                        |
-| --------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `recipient`     | String | The email address of the recipient.                                                                                                                                |
-| `template_type` | String | The type of the template. See the [list of available templates for a full list](./05_custom-email-templates.mdx#built-in-templates)                                |
-| `template_data` | Object | The data that should be included in the email. See the [list of variables for each template for a full list](./05_custom-email-templates.mdx#available-variables). |
-
-In most cases, the default payload should be sufficient.
+The body is built from a Jsonnet template. See [Payload](#payload) for the `ctx` object the template receives and an example
+template.
 
 </TabItem>
 </Tabs>
+
+## Payload {#payload}
+
+When you use the HTTP delivery strategy, Ory Identities sends each email as an HTTP request whose body is built from a Jsonnet
+template. The template receives a `ctx` object that Ory Identities constructs for every message.
+
+### The `ctx` object
+
+The shape of `ctx` is defined by the `httpDataModel` struct in Ory Kratos.
+
+<CodeFromRemote
+  lang="go"
+  link="https://github.com/ory/kratos/blob/master/courier/http_channel.go"
+  src="https://raw.githubusercontent.com/ory/kratos/master/courier/http_channel.go"
+  startAt="type httpDataModel struct {"
+  endAt="}"
+/>
+
+The JSON tags on the struct are the field names available in `ctx`:
+
+| Field             | Type   | Description                                                                                                          |
+| ----------------- | ------ | -------------------------------------------------------------------------------------------------------------------- |
+| `recipient`       | String | The email address of the recipient.                                                                                  |
+| `subject`         | String | The rendered email subject.                                                                                          |
+| `body`            | String | The rendered plaintext body.                                                                                         |
+| `html_body`       | String | The rendered HTML body, when available.                                                                              |
+| `template_type`   | String | The template type. See [Events that trigger an email](./05_custom-email-templates.mdx#events-that-trigger-an-email). |
+| `template_data`   | Object | The per-template variables. See [Available variables](./05_custom-email-templates.mdx#available-variables).          |
+| `message_type`    | String | The message channel, for example `email`.                                                                            |
+| `request_headers` | Object | The HTTP headers from the flow request that triggered the email.                                                     |
+
+### Example Jsonnet template
+
+The following template is the example mailer configuration shipped with Ory Kratos. It maps the most common fields out of `ctx`.
+
+<CodeFromRemote
+  lang="jsonnet"
+  link="https://github.com/ory/kratos/blob/master/courier/stub/request.config.mailer.jsonnet"
+  src="https://raw.githubusercontent.com/ory/kratos/master/courier/stub/request.config.mailer.jsonnet"
+/>
+
+Read fields that the template you target needs from `ctx.template_data`, and read top-level fields such as `recipient` and
+`template_type` directly from `ctx`.
 
 ## Troubleshooting
 
