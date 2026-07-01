@@ -834,10 +834,18 @@
         "description": "Create Project MemberInvite Request Body",
         "properties": {
           "invitee_email": {
-            "description": "A email to invite",
+            "description": "The email address to invite.",
             "type": "string"
+          },
+          "role": {
+            "default": "developer",
+            "description": "The role the invited member will hold. Defaults to developer if omitted.\nOnly developer and viewer are valid; project ownership cannot be assigned via invite.\ndeveloper ProjectMemberRoleDeveloper\nviewer ProjectMemberRoleViewer",
+            "enum": ["developer", "viewer"],
+            "type": "string",
+            "x-go-enum-desc": "developer ProjectMemberRoleDeveloper\nviewer ProjectMemberRoleViewer"
           }
         },
+        "required": ["invitee_email"],
         "type": "object"
       },
       "CreateProjectNormalizedPayload": {
@@ -2143,10 +2151,10 @@
             "type": "string"
           },
           "role": {
-            "description": "The role the user will have in the workspace\nowner WorkspaceMemberRoleOwner\ndeveloper WorkspaceMemberRoleDeveloper",
-            "enum": ["owner", "developer"],
+            "description": "The role the user will have in the workspace\nowner WorkspaceMemberRoleOwner\ndeveloper WorkspaceMemberRoleDeveloper\nviewer WorkspaceMemberRoleViewer",
+            "enum": ["owner", "developer", "viewer"],
             "type": "string",
-            "x-go-enum-desc": "owner WorkspaceMemberRoleOwner\ndeveloper WorkspaceMemberRoleDeveloper"
+            "x-go-enum-desc": "owner WorkspaceMemberRoleOwner\ndeveloper WorkspaceMemberRoleDeveloper\nviewer WorkspaceMemberRoleViewer"
           }
         },
         "required": ["invitee_email", "role"],
@@ -10772,6 +10780,8 @@
             "$ref": "#/components/schemas/NullUUID"
           },
           "role": {
+            "description": "The member's role on the project.\nowner has full control, developer can read and write, viewer is read-only.",
+            "enum": ["owner", "developer", "viewer"],
             "type": "string"
           },
           "source": {
