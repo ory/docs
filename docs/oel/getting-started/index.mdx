@@ -15,6 +15,11 @@ You run Ory on your own infrastructure — in your cloud, your private cloud, or
 engineering team backs it with SLAs. OEL gives you the control of self-hosting with the assurance of an enterprise vendor, so you
 can run Ory in production and mission-critical environments with confidence.
 
+OpenAI runs Ory Hydra (OEL) to manage authentication for its hundreds of millions of weekly active users — read the
+[OpenAI case study](https://www.ory.com/case-studies/openai). DataRobot runs Ory Hydra (OEL) to secure service-to-service
+authentication, cutting new-service integration from weeks to minutes — read the
+[DataRobot case study](https://www.ory.com/case-studies/datarobot).
+
 [Talk to an expert](https://www.ory.com/contact) to discuss your requirements, or read the
 [OEL product brief](https://www.ory.com/resources/assets/ory-enterprise-license-product-brief) to compare OEL with Ory Open
 Source.
@@ -62,14 +67,12 @@ run them in production. The core services each map to a focused part of the iden
 OAuth2 and OIDC, permissions, enterprise SSO, edge access control, and API key management. Around them, OEL adds the enterprise
 delivery layer:
 
-- **[Ory Account Experience](https://www.ory.com/docs/account-experience)** — Prebuilt, customizable screens for login,
-  registration, recovery, verification, and account settings, so you can ship auth before building your own UI.
 - **[Ory Elements](https://www.ory.com/docs/elements)** — An open source component library for integrating your own authentication
   UI quickly with frameworks like React and Next.js.
 - **[Ory Actions](https://www.ory.com/docs/kratos/hooks/configure-hooks)** — Hooks that extend Ory by running custom business
   logic and integrating with third-party services such as CRMs, payment gateways, and analytics platforms in response to identity
   events.
-- **[Ory CLI](https://www.ory.com/docs/cli)** — A command-line tool for configuring and operating your self-hosted deployment.
+- **CLIs** — Command-line tools for configuring and operating each self-hosted service.
 - **[SDKs and reference UIs](https://github.com/ory/sdk)** — Client SDKs for popular languages and reference UI implementations
   for frameworks like React, Next.js, and React Native.
 - **Production Helm charts** — Supported Kubernetes Helm charts for deploying and operating Ory services in your own cluster.
@@ -135,9 +138,6 @@ import DeployCompare from "@site/src/components/Shared/deploy-intro/deploy-compa
 
 <DeployCompare />
 ```
-
-OpenAI runs OEL with Ory Hydra Enterprise to manage authentication for its hundreds of millions of weekly active users — read the
-[OpenAI case study](https://www.ory.com/case-studies/openai).
 
 ## Next steps
 
