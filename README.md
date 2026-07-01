@@ -108,6 +108,14 @@ Ory follows the
   structures for list items in a single list.
 - Indent lines with 3 spaces to denote nested sub-items in lists. Indent text,
   code blocks, and images.
+- When a bulleted list presents parallel items that each pair a label with an
+  explanation, bold the label as a lead-in, followed by an em dash and the
+  explanation. Use this pattern only when every bullet shares it. For example:
+  - **Fully managed infrastructure** — Ory Network runs a global edge network
+    with multi-region availability, automatic scaling, and high availability.
+    You don't patch servers, rotate keys, or manage failover.
+  - **Predictable pricing** — Usage-based billing with no per-seat fees, so cost
+    scales with traffic rather than team size.
 
 ### Headings
 
