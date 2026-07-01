@@ -1,324 +1,247 @@
 ---
 id: ory-permission-language
-title: Ory Permission Language specification
+title: Ory Permission Language
 sidebar_label: Ory Permission Language
 ---
 
-Enforcing fine-grained permissions is a critical building block of mature technology solutions that protect privacy and identity
-in the information age. Several proprietary languages used to represent permission already exist, such as Rego or Casbin. Most
-permissions are defined by developers who are likely familiar with Web technologies like JavaScript or Typescript. There is a need
-for a developer-friendly configuration language for permissions that has a learning curve small enough so that most developers can
-understand and use it with minimal effort. To fulfill this need, we defined the permissions configuration language as a subset of
-the most common general-purpose programming language: JavaScript/TypeScript.
+Ory Permissions uses a relationship-based access control model (ReBAC): permissions are derived from the relationships between
+objects and subjects stored in the system. OPL is the TypeScript-based language you use to define those relationships and the
+permission rules that use them to control access.
 
-The Ory Permission Language is a syntactical subset of TypeScript. Along with type definitions for the syntax elements of the
-language (such as `Namespace` or `Context`), users can get context help from their IDE while writing the configuration.
+You write OPL to define things like "who can view a file", "whether a group member inherits access", or "whether owning a folder
+grants access to its contents". The schema you define is evaluated by the Ory Permissions engine at check time.
 
-## Notation
+## Namespaces
 
-The syntax is specified using the Extended Backus-Naur Form (EBNF):
-
-```ebnf
-Production  = production_name "=" [ Expression ] "." .
-Expression  = Alternative { "|" Alternative } .
-Alternative = Term { Term } .
-Term        = production_name | token [ "…" token ] | Group | Option | Repetition .
-Group       = "(" Expression ")" .
-Option      = "[" Expression "]" .
-Repetition  = "{" Expression "}" .
-```
-
-Productions are expressions constructed from terms and the following operators, in increasing precedence:
-
-```ebnf
-|   alternation
-()  grouping
-[]  option (0 or 1 times)
-{}  repetition (0 to n times)
-```
-
-Lowercase production names are used to identify lexical tokens. Non-terminals are in CamelCase. Lexical tokens are enclosed in
-double quotes `""` or single quotes `''`.
-
-The form `a … b` represents the set of characters from a through b as alternatives. The horizontal ellipsis `…` is also used
-elsewhere in the spec to informally denote various enumerations or code snippets that are not further specified.
-
-## Configuration text representation
-
-The configuration is encoded in UTF-8.
-
-## Lexical elements
-
-### Comments
-
-1. Line comments start with the character sequence `//` and stop at the end of the line.
-2. General comments start with the character sequence `/*` and stop with the first subsequent character sequence `*/`.
-3. Documentation comments start with the character sequence `/**` and stop with the first subsequent character sequence `*/`.
-
-### Identifiers
-
-Identifiers name program entities such as variables and types. An identifier is a sequence of one or more letters and digits. The
-first character in an identifier must be a letter.
-
-```ebnf
-identifier = letter { letter | digit } .
-digit      = "0" … "9" .
-letter     = "A" … "Z" | "a" … "z" | "_" .
-```
-
-### String literals
-
-String literals represent string constants as sequences of characters.
-
-```ebnf
-string_lit    = single_quoted | double_quoted .
-single_quoted = "'" identifier "'" .
-double_quoted = '"' identifier '"' .
-```
-
-### Keywords
-
-The configuration language has the following keywords:
-
-- `class`
-- `implements`
-- `related`
-- `permits`
-- `this`
-- `ctx`
-- `id`
-- `imports`
-- `exports`
-- `as`
-
-### Builtin Types
-
-The following types are built in:
-
-- `Context`
-- `Namespace`
-- `Namespace[]`
-- `boolean`
-- `string`
-- `SubjectSet<T, R>`
-
-In TypeScript, they would be defined as follows:
-
-```typescript
-type Context = { subject: never }
-
-interface Namespace {
-  related?: { [relation: string]: Namespace[] }
-  permits?: { [method: string]: (ctx: Context) => boolean }
-}
-
-interface Array<Namespace> {
-  includes(element: Namespace): boolean
-  traverse(iteratorfn: (element: Namespace) => boolean): boolean
-}
-
-type SubjectSet<A extends Namespace, R extends keyof A["related"]> = A["related"][R] extends Array<infer T> ? T : never
-```
-
-### Operators
-
-The following character sequences represent boolean operators:
-
-| Operator | Signature      | Semantic                             |
-| -------- | -------------- | ------------------------------------ |
-| `&&`     | _x_ `&&` _y_   | true iff. both _x_ and _y_ are true  |
-| `\|\|`   | _x_ `\|\|` _y_ | true iff. either _x_ or _y_ are true |
-| `!`      | `!` _x_        | true iff. _x_ is false               |
-
-The following character sequences represent miscellaneous operators:
-
-| Operator | Example                                  | Semantic                                                          |
-| -------- | ---------------------------------------- | ----------------------------------------------------------------- |
-| `(`, `)` | `x()`                                    | call function `x`                                                 |
-| `[]`     | `T[]`                                    | `T` is an array type                                              |
-| `<`, `>` | `SubjectSet<Group, "members">`           | Type reference to the "members" relation of the "Group" namespace |
-| `{`, `}` | `class x {}`                             | Scope delimiters                                                  |
-| `=>`     | `list.transitive(el => f(el))`           | Lambda definition token.                                          |
-| `.`      | `this.x`                                 | Property traversal token                                          |
-| `:`      | `relation: type`                         | Relation/type separator token                                     |
-| `=`      | `permits = {...}`                        | Assignment token                                                  |
-| `,`      | `{x: 1, y: 2}`                           | Property separator                                                |
-| `'`      | `'string'`                               | Single quoted string literal                                      |
-| `"`      | `"string"`                               | Double quoted string literal                                      |
-| `*`      | `import * from @ory/permission-language` | Import glob                                                       |
-| `\|`     | `(User \| Group)[]`                      | Type union                                                        |
-
-## Statements
-
-### Type declaration
-
-The top level of the configuration consists of a list of `class` declarations for each namespace. Each `class` consists of
-relation declarations and permission declarations.
-
-```ebnf
-Config          = [ ClassDecl ] .
-ClassDecl       = "class" identifier "implements" "Namespace" "{" ClassSpec "}" .
-ClassSpec       = [ RelationDecls ] | [ PermissionDefns] .
-```
-
-The following example declares the type `User`.
+Each `class` in OPL defines a namespace — a type of object in your system, such as a file, folder, organization, or user.
 
 ```ts
 class User implements Namespace {}
+class Group implements Namespace {}
+class File implements Namespace {}
 ```
 
-### Relation declaration
+Every class must implement `Namespace`.
 
-The `related` section of type declarations defines relations. Unlike regular TypeScript, `RelationName` must be a unique
-identifier used as the relation strings in the tuples. The `TypeName` must be the name of another `type` that is defined above or
-below (in TypeScript: a class that implements `Namespace`).
+## Relations
 
-Type unions (`|`) can be used to denote that a relation can have subjects of multiple types, e.g.,
-`viewers: (User | SubjectSet<Group, "members">)[]`, meaning that the subject of the "viewer" relation can be either a "User", or a
-subject set "Group#members".
-
-```ebnf
-RelationDecls   = "related" "=" "{" { RelationName ":" ArrayType } "}" .
-RelationName    = identifier .
-ArrayType       = RelationType | ( "(" RelationType { "|" RelationType } ")" ) "[]" .
-RelationType    = SubjectType | SubjectSetType .
-SubjectType     = TypeName .
-SubjectSetType  = "SubjectSet" "<" TypeName, string_lit ">" .
-TypeName        = identifier .
-```
-
-Note that all relations are defined as array types `T[]` because there are naturally only many-to-many relations in Keto.
-
-The following declares a type `Document` with three relations: `owners` and `viewers`, both of which have `users` as subjects.
-Additionally, the relation `parent` has type `Document`.
+In OPL, **object** refers to the thing being accessed (for example, a `File`), and **subject** refers to the entity requesting
+access (for example, a `User`). Relations always run in one direction: a subject is in a relation _of_ an object. The `related`
+block on a class (the object) declares which relations it can have and what subject types are allowed in each.
 
 ```ts
-class User {}
+import { Namespace } from "@ory/keto-namespace-types"
+class User implements Namespace {}
 
-class Document {
-  related = {
-    parents: Document[]
-    owners: User[]
-    viewers: User[]
-  }
-}
-```
-
-### Permission definition
-
-Permissions are defined as functions within class declarations that take a parameter `ctx` of type `Context` and evaluate to a
-boolean `true` or `false`.
-
-The type annotations for `ctx` and the return value are optional.
-
-```ebnf
-PermissionDefns = "permits" "=" "{" Permission [ "," Permission ] "}" .
-Permission      = PermissionSign "=>" PermissionBody .
-PermissionSign  = PermissionName ":" "(" "ctx" [ ":" "Context" ] ")" [ ":" "boolean" ] .
-PermissionName  = identifier .
-```
-
-The `ctx` object is a fixed parameter that contains the `subject` for which the permission check should be conducted:
-
-```ts
-ctx = { subject: "some_user_id" }
-```
-
-```ebnf
-PermissionBody  = ( "(" PermissionBody ")" ) | ( "!" PermissionBody ) | ( PermissionCheck | { Operator PermissionBody } ) .
-Operator        = "||" | "&&" .
-PermissionCheck = TransitiveCheck | IncludesCheck .
-```
-
-The body of a permission check is either one of:
-
-- a `IncludesCheck`, a check that something is in a set, e.g., `this.related.viewers.includes(ctx.subject)`:
-
-  ```ebnf
-  IncludesCheck = Var "." "related" "." RelationName "." "includes" "(" "ctx" "." "subject" ")" .
-  Var           = identifier .
-  ```
-
-- a `TranstitiveCheck`, a call to a permission on a relation, e.g., `this.related.parents.transitive(p => p.permits.view(ctx))`:
-
-  ```ebnf
-  TransitiveCheck = "this" "." "related" "." RelationName "." "transitive" "(" Var "=>" ( PermissionCall | IncludesCheck ) ")" .
-  PermissionCall  = Var "." "permits" "." PermissionName "(" "ctx" ")" .
-  ```
-
-## Implementation notes
-
-`IncludeCheck` and `TransitiveCheck` translate to Zanzibar concepts as follows:
-
-| Keto Config                                               | Zanzibar AST                                                                         |
-| --------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| `this.related.R.includes(ctx.subject)`                    | `computed_userset { relation: "R" } }`                                               |
-| `this.related.R.transitive(x = x.permits.P(ctx.subject))` | `tuple_to_userset { tupleset { relation: "R" } computed_userset { relation: "P" } }` |
-
-## Type checking
-
-The following type checks are performed once the config is fully parsed:
-
-- Given a `TypeName` as `X` (e.g., in `RelationDecls`), we check that there exists a class declaration for `X`.
-- Given a `SubjectSetType` as `SubjectSet<T, R>`, we check that `R` is a relation defined for `T`.
-- Given an `IncludesCheck` as `this.related.R.includes(ctx.subject)`, we check that
-  - `R` is a relation defined for the current namespace.
-- Given a `TransitiveCheck` as `this.related.R.transitive(x = x.permits.P(ctx.subject))`, we check that
-  - `R` is a relation defined for the current namespace and that
-  - `P` is a permission defined for all types referenced by `R`.
-- Given a `TransitiveCheck` as `this.related.R.transitive(x = x.related.S.includes(ctx.subject))`, we check that
-  - `R` is a relation defined for the current namespace and that
-  - `S` is a relation defined for all types referenced by `R`.
-
-## Examples
-
-The config can be type-checked in `strict` mode by TypeScript with the [noLib](https://www.typescriptlang.org/tsconfig#noLib)
-option (preventing the standard globals), and the
-[strictPropertyInitialization](https://www.typescriptlang.org/tsconfig#strictPropertyInitialization) option (allowing
-uninitialized properties).
-
-```ts
-class User implements Namespace {
+class File implements Namespace {
   related: {
-    manager: User[]
+    viewers: User[]
+    owners: User[]
   }
 }
+```
 
+Relations are always arrays because an object can have many subjects. This declaration allows creating relationships like:
+
+```keto-natural
+User:alice is in viewers of File:readme
+User:bob is in owners of File:readme
+```
+
+Here, `File:readme` is the object, `User:alice` and `User:bob` are the subjects, and `viewers` and `owners` are the relations.
+
+### Multiple subject types
+
+Use union type when a relation can hold subjects of different types:
+
+```ts
+viewers: (User | Group)[]
+```
+
+This allows writing tuples with either a `User` or a `Group` as the subject:
+
+```keto-natural
+User:alice is in viewers of File:readme
+Group:engineering is in viewers of File:readme
+```
+
+### Subject-set references
+
+`SubjectSet<N, R>` refers to all subjects in relation `R` on namespace `N`. It lets you use a specific relation of another
+namespace as a subject in a relation tuple.
+
+This is especially useful when you need to distinguish between different roles within the same namespace. For example, suppose a
+`File` can be shared with all `members` of a group, or just its `admins`:
+
+```ts
 class Group implements Namespace {
   related: {
-    members: (User | Group)[]
-  }
-}
-
-class Folder implements Namespace {
-  related: {
-    parents: File[]
-    viewers: (User | SubjectSet<Group, "members">)[]
-  }
-
-  permits = {
-    view: (ctx: Context): boolean => this.related.viewers.includes(ctx.subject),
+    members: User[]
+    admins: User[]
   }
 }
 
 class File implements Namespace {
   related: {
-    parents: (File | Folder)[]
-    viewers: (User | SubjectSet<Group, "members">)[]
-    owners: (User | SubjectSet<Group, "members">)[]
-    siblings: File[]
+    viewers: (User | SubjectSet<Group, "members"> | SubjectSet<Group, "admins">)[]
+  }
+}
+```
+
+When writing tuples, you specify exactly which relation of the group to use as the subject:
+
+```keto-natural
+members of Group:engineering is in viewers of File:file1
+admins of Group:engineering is in viewers of File:file2
+```
+
+`File:file1` is accessible to all members of the engineering group, while `File:file2` is only accessible to admins.
+
+## Permits
+
+The `permits` block defines permissions — functions that return a boolean, evaluated when a permission check is made. While
+relations model real-world associations, permissions define application-specific rules built on top of them.
+
+Each permission function receives a `Context` object as its argument. `ctx.subject` refers to the entity whose access is being
+checked — the same subject used in relation tuples.
+
+```ts
+class User implements Namespace {}
+
+class File implements Namespace {
+  related: {
+    viewers: User[]
+    owners: User[]
+  }
+  permits = {
+    view: (ctx: Context) => this.related.viewers.includes(ctx.subject) || this.related.owners.includes(ctx.subject),
+    edit: (ctx: Context) => this.related.owners.includes(ctx.subject),
+  }
+}
+```
+
+To check membership within a permission function, OPL provides two methods: `includes` for direct membership, and `traverse` for
+inherited membership through another relation.
+
+### Direct membership: `includes`
+
+`this.related.<relation>.includes(ctx.subject)` checks whether the subject is directly in relation `<relation>`.
+
+### Inherited membership: `traverse`
+
+`this.related.<relation>.traverse(fn)` takes a function and calls it for each object in `<relation>`. It returns `true` if the
+function returns `true` for any of them.
+
+The function receives each object in the relation and can check either a relation (`g.related.<relation>.includes(...)`) or call
+another permission (`g.permits.<permission>(ctx)`).
+
+```ts
+class Group implements Namespace {
+  related: {
+    members: User[]
+  }
+}
+
+class File implements Namespace {
+  related: {
+    viewerGroups: Group[]
+  }
+  permits = {
+    view: (ctx: Context) => this.related.viewerGroups.traverse((g) => g.related.members.includes(ctx.subject)),
+  }
+}
+```
+
+`view` is granted if the subject is a member of any group in `viewerGroups`.
+
+### Boolean operators
+
+Combine checks with `||`, `&&`, and `!`:
+
+```ts
+permits = {
+  view: (ctx: Context) => this.related.viewers.includes(ctx.subject) || this.related.owners.includes(ctx.subject),
+
+  restricted: (ctx: Context) => this.related.allowlist.includes(ctx.subject) && !this.related.blocklist.includes(ctx.subject),
+}
+```
+
+### Calling another permission
+
+A permission can call another permission defined on the same namespace:
+
+```ts
+isAdmin: (ctx: Context) => this.related.admins.includes(ctx.subject),
+edit:  (ctx: Context) => this.permits.isAdmin(ctx) || this.related.owners.includes(ctx.subject),
+```
+
+## Complete example
+
+This schema models a file system where files and folders are organized into a hierarchy. Groups have two roles — `members` and
+`admins` — and access can be granted to each role independently. Folders can be nested inside other folders, and both files and
+folders inherit view and edit permissions from their parents. Only owners can edit; members of a group can view but not own.
+
+```ts
+class User implements Namespace {}
+
+class Group implements Namespace {
+  related: {
+    // a member can be a User, or all members of another Group (enables nested groups)
+    members: (User | SubjectSet<Group, "members">)[]
+
+    admins: User[]
+  }
+}
+
+class Folder implements Namespace {
+  related: {
+    // parent folders this folder is nested under; view and edit permissions are inherited from them
+    parents: Folder[]
+
+    // viewers can be individual users, group members, or group admins
+    viewers: (User | SubjectSet<Group, "members"> | SubjectSet<Group, "admins">)[]
+
+    // only individual users or group admins can own a folder
+    owners: (User | SubjectSet<Group, "admins">)[]
   }
 
   permits = {
-    view: (ctx: Context): boolean =>
-      this.related.parents.traverse((p) => p.related.viewers.includes(ctx.subject)) ||
-      this.related.parents.traverse((p) => p.permits.view(ctx)) ||
+    view: (ctx: Context) =>
       this.related.viewers.includes(ctx.subject) ||
-      this.related.owners.includes(ctx.subject),
+      this.related.owners.includes(ctx.subject) ||
+      // grants view if the subject has view permission on any parent Folder
+      this.related.parents.traverse((p) => p.permits.view(ctx)),
 
-    edit: (ctx: Context) => this.related.owners.includes(ctx.subject),
+    edit: (ctx: Context) =>
+      this.related.owners.includes(ctx.subject) ||
+      // grants edit if the subject has edit permission on any parent Folder
+      this.related.parents.traverse((p) => p.permits.edit(ctx)),
+  }
+}
 
-    rename: (ctx: Context) => this.related.siblings.traverse((s) => s.permits.edit(ctx)),
+class File implements Namespace {
+  related: {
+    // Folders this file is nested under; view and edit permissions are inherited from them
+    parents: Folder[]
+
+    // viewers can be individual users, group members, or group admins
+    viewers: (User | SubjectSet<Group, "members"> | SubjectSet<Group, "admins">)[]
+
+    // only individual users or group admins can own a file
+    owners: (User | SubjectSet<Group, "admins">)[]
+  }
+
+  permits = {
+    view: (ctx: Context) =>
+      this.related.viewers.includes(ctx.subject) ||
+      this.related.owners.includes(ctx.subject) ||
+      // grants view if the subject has view permission on any parent Folder
+      this.related.parents.traverse((p) => p.permits.view(ctx)),
+
+    edit: (ctx: Context) =>
+      this.related.owners.includes(ctx.subject) ||
+      // grants edit if the subject has edit permission on any parent Folder
+      this.related.parents.traverse((p) => p.permits.edit(ctx)),
   }
 }
 ```
