@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  * ========================================================================== */
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 import ApiCodeBlock from "@theme/ApiExplorer/ApiCodeBlock"
@@ -243,6 +243,23 @@ function CodeSnippets({
     }
   })
 
+  const mergedLangsRef = useRef(mergedLangs)
+  mergedLangsRef.current = mergedLangs
+  useEffect(() => {
+    const handler = (e: StorageEvent) => {
+      if (e.key !== "docusaurus.tab.code-samples" || !e.newValue) return
+      const match = mergedLangsRef.current.find(
+        (lang) => lang.language === e.newValue,
+      )
+      if (!match) return
+      setLanguage(match)
+      setSelectedSample(match.sample)
+      setSelectedVariant(match.variants[0]?.toLowerCase())
+    }
+    window.addEventListener("storage", handler)
+    return () => window.removeEventListener("storage", handler)
+  }, [])
+
   if (language === undefined) {
     return null
   }
@@ -281,7 +298,11 @@ function CodeSnippets({
                   }}
                   includeSample={true}
                   currentLanguage={lang}
-                  defaultValue={selectedSample}
+                  defaultValue={
+                    selectedSample && lang.samples?.includes(selectedSample)
+                      ? selectedSample
+                      : lang.sample
+                  }
                   languageSet={mergedLangs}
                   lazy
                 >
@@ -323,7 +344,14 @@ function CodeSnippets({
                   }}
                   includeVariant={true}
                   currentLanguage={lang}
-                  defaultValue={selectedVariant}
+                  defaultValue={
+                    selectedVariant &&
+                    lang.variants
+                      .map((v) => v.toLowerCase())
+                      .includes(selectedVariant)
+                      ? selectedVariant
+                      : lang.variants[0]?.toLowerCase()
+                  }
                   languageSet={mergedLangs}
                   lazy
                 >
