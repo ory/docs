@@ -4,16 +4,18 @@ title: Ory Permission Language
 sidebar_label: Ory Permission Language
 ---
 
-Ory Permissions uses a relationship-based access control model (ReBAC): permissions are derived from the relationships between
-objects and subjects stored in the system. OPL is the TypeScript-based language you use to define those relationships and the
-permission rules that use them to control access.
+Ory Keto (Permissions) uses a relationship-based access control model (ReBAC) in which permissions are derived from the
+relationships between objects and subjects stored in the system. Ory Permission Language (OPL) is the TypeScript-based language
+you use to define those relationships and the permission rules that use them to control access.
 
-You write OPL to define things like "who can view a file", "whether a group member inherits access", or "whether owning a folder
-grants access to its contents". The schema you define is evaluated by the Ory Permissions engine at check time.
+You use OPL to define a schema that includes permissions like "who can view a file", "whether a group member inherits access", or
+"whether owning a folder grants access to its contents". The schema you define is evaluated by the Ory Permissions engine at check
+time.
 
 ## Namespaces
 
-Each `class` in OPL defines a namespace — a type of object in your system, such as a file, folder, organization, or user.
+In OPL, each `class` defines a namespace, which represents a type of object in your system, such as a file, folder, organization,
+or user.
 
 ```ts
 class User implements Namespace {}
@@ -25,9 +27,9 @@ Every class must implement `Namespace`.
 
 ## Relations
 
-In OPL, **object** refers to the thing being accessed (for example, a `File`), and **subject** refers to the entity requesting
-access (for example, a `User`). Relations always run in one direction: a subject is in a relation _of_ an object. The `related`
-block on a class (the object) declares which relations it can have and what subject types are allowed in each.
+In OPL, `object` refers to the thing being accessed (for example, a `File`), and `subject` refers to the entity requesting access
+(for example, a `User`). Relations always run in one direction: a subject is in a relation _of_ an object. The `related` block on
+a class (the object) declares which relations it can have and what subject types are allowed in each.
 
 ```ts
 import { Namespace } from "@ory/keto-namespace-types"
@@ -41,14 +43,13 @@ class File implements Namespace {
 }
 ```
 
-Relations are always arrays because an object can have many subjects. This declaration allows creating relationships like:
+Relations are always arrays because an object can have many subjects. For example, `File:readme` is the object, `User:alice` and
+`User:bob` are the subjects, and `viewers` and `owners` are the relations.
 
 ```keto-natural
 User:alice is in viewers of File:readme
 User:bob is in owners of File:readme
 ```
-
-Here, `File:readme` is the object, `User:alice` and `User:bob` are the subjects, and `viewers` and `owners` are the relations.
 
 ### Multiple subject types
 
@@ -58,7 +59,7 @@ Use union type when a relation can hold subjects of different types:
 viewers: (User | Group)[]
 ```
 
-This allows writing tuples with either a `User` or a `Group` as the subject:
+This allows writing relation tuples with either a `User` or a `Group` as the subject:
 
 ```keto-natural
 User:alice is in viewers of File:readme
@@ -88,7 +89,7 @@ class File implements Namespace {
 }
 ```
 
-When writing tuples, you specify exactly which relation of the group to use as the subject:
+When writing relation tuples, you specify exactly which relation of the group to use as the subject:
 
 ```keto-natural
 members of Group:engineering is in viewers of File:file1
@@ -99,11 +100,11 @@ admins of Group:engineering is in viewers of File:file2
 
 ## Permits
 
-The `permits` block defines permissions — functions that return a boolean, evaluated when a permission check is made. While
+The `permits` block defines permission functions, which return a boolean and are evaluated when a permission check is made. While
 relations model real-world associations, permissions define application-specific rules built on top of them.
 
 Each permission function receives a `Context` object as its argument. `ctx.subject` refers to the entity whose access is being
-checked — the same subject used in relation tuples.
+checked, which is the same subject used in relation tuples.
 
 ```ts
 class User implements Namespace {}
@@ -123,11 +124,11 @@ class File implements Namespace {
 To check membership within a permission function, OPL provides two methods: `includes` for direct membership, and `traverse` for
 inherited membership through another relation.
 
-### Direct membership: `includes`
+### Direct membership
 
 `this.related.<relation>.includes(ctx.subject)` checks whether the subject is directly in relation `<relation>`.
 
-### Inherited membership: `traverse`
+### Inherited membership
 
 `this.related.<relation>.traverse(fn)` takes a function and calls it for each object in `<relation>`. It returns `true` if the
 function returns `true` for any of them.
@@ -154,7 +155,7 @@ class File implements Namespace {
 
 `view` is granted if the subject is a member of any group in `viewerGroups`.
 
-### Boolean operators
+### Combine boolean operators
 
 Combine checks with `||`, `&&`, and `!`:
 
@@ -166,7 +167,7 @@ permits = {
 }
 ```
 
-### Calling another permission
+### Call another permission
 
 A permission can call another permission defined on the same namespace:
 
@@ -175,7 +176,7 @@ isAdmin: (ctx: Context) => this.related.admins.includes(ctx.subject),
 edit:  (ctx: Context) => this.permits.isAdmin(ctx) || this.related.owners.includes(ctx.subject),
 ```
 
-## Complete example
+## Complete example for a permissions schema model
 
 This schema models a file system where files and folders are organized into a hierarchy. Groups have two roles — `members` and
 `admins` — and access can be granted to each role independently. Folders can be nested inside other folders, and both files and
