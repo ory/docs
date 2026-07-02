@@ -1,0 +1,413 @@
+{
+  "responses": {
+    "201": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "OAuth 2.0 Clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are\ngenerated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.",
+            "properties": {
+              "access_token_strategy": {
+                "description": "OAuth 2.0 Access Token Strategy\n\nAccessTokenStrategy is the strategy used to generate access tokens.\nValid options are `jwt` and `opaque`. `jwt` is a bad idea, see https://www.ory.com/docs/oauth2-oidc/jwt-access-token\nSetting the strategy here overrides the global setting in `strategies.access_token`.",
+                "type": "string"
+              },
+              "allowed_cors_origins": {
+                "description": "OAuth 2.0 Client Allowed CORS Origins\n\nOne or more URLs (scheme://host[:port]) which are allowed to make CORS requests\nto the /oauth/token endpoint. If this array is empty, the server's CORS origin configuration (`CORS_ALLOWED_ORIGINS`)\nwill be used instead. If this array is set, the allowed origins are appended to the server's CORS origin configuration.\nBe aware that environment variable `CORS_ENABLED` MUST be set to `true` for this to work.",
+                "items": { "type": "string" },
+                "type": "array"
+              },
+              "audience": {
+                "description": "OAuth 2.0 Client Audience\n\nAn allow-list defining the audiences this client is allowed to request tokens for. An audience limits\nthe applicability of an OAuth 2.0 Access Token to, for example, certain API endpoints. The value is a list\nof URLs. URLs MUST NOT contain whitespaces.",
+                "example": "https://mydomain.com/api/users, https://mydomain.com/api/posts",
+                "items": { "type": "string" },
+                "type": "array"
+              },
+              "authorization_code_grant_access_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "authorization_code_grant_id_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "authorization_code_grant_refresh_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "backchannel_logout_session_required": {
+                "description": "OpenID Connect Back-Channel Logout Session Required\n\nBoolean value specifying whether the RP requires that a sid (session ID) Claim be included in the Logout\nToken to identify the RP session with the OP when the backchannel_logout_uri is used.\nIf omitted, the default value is false.",
+                "type": "boolean"
+              },
+              "backchannel_logout_uri": {
+                "description": "OpenID Connect Back-Channel Logout URI\n\nRP URL that will cause the RP to log itself out when sent a Logout Token by the OP.",
+                "type": "string"
+              },
+              "client_credentials_grant_access_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "client_id": {
+                "description": "OAuth 2.0 Client ID\n\nThe ID is immutable. If no ID is provided, a UUID4 will be generated.",
+                "type": "string"
+              },
+              "client_name": {
+                "description": "OAuth 2.0 Client Name\n\nThe human-readable name of the client to be presented to the\nend-user during authorization.",
+                "type": "string"
+              },
+              "client_secret": {
+                "description": "OAuth 2.0 Client Secret\n\nThe secret will be included in the create request as cleartext, and then\nnever again. The secret is kept in hashed format and is not recoverable once lost.",
+                "type": "string"
+              },
+              "client_secret_expires_at": {
+                "description": "OAuth 2.0 Client Secret Expires At\n\nThe field is currently not supported and its value is always 0.",
+                "format": "int64",
+                "type": "integer"
+              },
+              "client_uri": {
+                "description": "OAuth 2.0 Client URI\n\nClientURI is a URL string of a web page providing information about the client.\nIf present, the server SHOULD display this URL to the end-user in\na clickable fashion.",
+                "type": "string"
+              },
+              "contacts": {
+                "description": "OAuth 2.0 Client Contact\n\nAn array of strings representing ways to contact people responsible\nfor this client, typically email addresses.",
+                "example": "help@example.org",
+                "items": { "type": "string" },
+                "type": "array"
+              },
+              "created_at": {
+                "description": "OAuth 2.0 Client Creation Date\n\nCreatedAt returns the timestamp of the client's creation.",
+                "format": "date-time",
+                "type": "string"
+              },
+              "device_authorization_grant_access_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "device_authorization_grant_id_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "device_authorization_grant_refresh_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "frontchannel_logout_session_required": {
+                "description": "OpenID Connect Front-Channel Logout Session Required\n\nBoolean value specifying whether the RP requires that iss (issuer) and sid (session ID) query parameters be\nincluded to identify the RP session with the OP when the frontchannel_logout_uri is used.\nIf omitted, the default value is false.",
+                "type": "boolean"
+              },
+              "frontchannel_logout_uri": {
+                "description": "OpenID Connect Front-Channel Logout URI\n\nRP URL that will cause the RP to log itself out when rendered in an iframe by the OP. An iss (issuer) query\nparameter and a sid (session ID) query parameter MAY be included by the OP to enable the RP to validate the\nrequest and to determine which of the potentially multiple sessions is to be logged out; if either is\nincluded, both MUST be.",
+                "type": "string"
+              },
+              "grant_types": {
+                "description": "OAuth 2.0 Client Grant Types\n\nAn array of OAuth 2.0 grant types the client is allowed to use. Can be one\nof:\n\nClient Credentials Grant: `client_credentials`\nAuthorization Code Grant: `authorization_code`\nOpenID Connect Implicit Grant (deprecated!): `implicit`\nRefresh Token Grant: `refresh_token`\nOAuth 2.0 Token Exchange: `urn:ietf:params:oauth:grant-type:jwt-bearer`\nOAuth 2.0 Device Code Grant: `urn:ietf:params:oauth:grant-type:device_code`",
+                "items": { "type": "string" },
+                "type": "array"
+              },
+              "implicit_grant_access_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "implicit_grant_id_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "jwks": {
+                "description": "JSON Web Key Set",
+                "properties": {
+                  "keys": {
+                    "description": "List of JSON Web Keys\n\nThe value of the \"keys\" parameter is an array of JSON Web Key (JWK)\nvalues. By default, the order of the JWK values within the array does\nnot imply an order of preference among them, although applications\nof JWK Sets can choose to assign a meaning to the order for their\npurposes, if desired.",
+                    "items": {
+                      "properties": {
+                        "alg": {
+                          "description": "The \"alg\" (algorithm) parameter identifies the algorithm intended for\nuse with the key.  The values used should either be registered in the\nIANA \"JSON Web Signature and Encryption Algorithms\" registry\nestablished by [JWA] or be a value that contains a Collision-\nResistant Name.",
+                          "example": "RS256",
+                          "type": "string"
+                        },
+                        "crv": { "example": "P-256", "type": "string" },
+                        "d": {
+                          "example": "T_N8I-6He3M8a7X1vWt6TGIx4xB_GP3Mb4SsZSA4v-orvJzzRiQhLlRR81naWYxfQAYt5isDI6_C2L9bdWo4FFPjGQFvNoRX-_sBJyBI_rl-TBgsZYoUlAj3J92WmY2inbA-PwyJfsaIIDceYBC-eX-xiCu6qMqkZi3MwQAFL6bMdPEM0z4JBcwFT3VdiWAIRUuACWQwrXMq672x7fMuaIaHi7XDGgt1ith23CLfaREmJku9PQcchbt_uEY-hqrFY6ntTtS4paWWQj86xLL94S-Tf6v6xkL918PfLSOTq6XCzxvlFwzBJqApnAhbwqLjpPhgUG04EDRrqrSBc5Y1BLevn6Ip5h1AhessBp3wLkQgz_roeckt-ybvzKTjESMuagnpqLvOT7Y9veIug2MwPJZI2VjczRc1vzMs25XrFQ8DpUy-bNdp89TmvAXwctUMiJdgHloJw23Cv03gIUAkDnsTqZmkpbIf-crpgNKFmQP_EDKoe8p_PXZZgfbRri3NoEVGP7Mk6yEu8LjJhClhZaBNjuWw2-KlBfOA3g79mhfBnkInee5KO9mGR50qPk1V-MorUYNTFMZIm0kFE6eYVWFBwJHLKYhHU34DoiK1VP-svZpC2uAMFNA_UJEwM9CQ2b8qe4-5e9aywMvwcuArRkAB5mBIfOaOJao3mfukKAE",
+                          "type": "string"
+                        },
+                        "dp": {
+                          "example": "G4sPXkc6Ya9y8oJW9_ILj4xuppu0lzi_H7VTkS8xj5SdX3coE0oimYwxIi2emTAue0UOa5dpgFGyBJ4c8tQ2VF402XRugKDTP8akYhFo5tAA77Qe_NmtuYZc3C3m3I24G2GvR5sSDxUyAN2zq8Lfn9EUms6rY3Ob8YeiKkTiBj0",
+                          "type": "string"
+                        },
+                        "dq": {
+                          "example": "s9lAH9fggBsoFR8Oac2R_E2gw282rT2kGOAhvIllETE1efrA6huUUvMfBcMpn8lqeW6vzznYY5SSQF7pMdC_agI3nG8Ibp1BUb0JUiraRNqUfLhcQb_d9GF4Dh7e74WbRsobRonujTYN1xCaP6TO61jvWrX-L18txXw494Q_cgk",
+                          "type": "string"
+                        },
+                        "e": { "example": "AQAB", "type": "string" },
+                        "k": {
+                          "example": "GawgguFyGrWKav7AX4VKUg",
+                          "type": "string"
+                        },
+                        "kid": {
+                          "description": "The \"kid\" (key ID) parameter is used to match a specific key.  This\nis used, for instance, to choose among a set of keys within a JWK Set\nduring key rollover.  The structure of the \"kid\" value is\nunspecified.  When \"kid\" values are used within a JWK Set, different\nkeys within the JWK Set SHOULD use distinct \"kid\" values.  (One\nexample in which different keys might use the same \"kid\" value is if\nthey have different \"kty\" (key type) values but are considered to be\nequivalent alternatives by the application using them.)  The \"kid\"\nvalue is a case-sensitive string.",
+                          "example": "1603dfe0af8f4596",
+                          "type": "string"
+                        },
+                        "kty": {
+                          "description": "The \"kty\" (key type) parameter identifies the cryptographic algorithm\nfamily used with the key, such as \"RSA\" or \"EC\". \"kty\" values should\neither be registered in the IANA \"JSON Web Key Types\" registry\nestablished by [JWA] or be a value that contains a Collision-\nResistant Name.  The \"kty\" value is a case-sensitive string.",
+                          "example": "RSA",
+                          "type": "string"
+                        },
+                        "n": {
+                          "example": "vTqrxUyQPl_20aqf5kXHwDZrel-KovIp8s7ewJod2EXHl8tWlRB3_Rem34KwBfqlKQGp1nqah-51H4Jzruqe0cFP58hPEIt6WqrvnmJCXxnNuIB53iX_uUUXXHDHBeaPCSRoNJzNysjoJ30TIUsKBiirhBa7f235PXbKiHducLevV6PcKxJ5cY8zO286qJLBWSPm-OIevwqsIsSIH44Qtm9sioFikhkbLwoqwWORGAY0nl6XvVOlhADdLjBSqSAeT1FPuCDCnXwzCDR8N9IFB_IjdStFkC-rVt2K5BYfPd0c3yFp_vHR15eRd0zJ8XQ7woBC8Vnsac6Et1pKS59pX6256DPWu8UDdEOolKAPgcd_g2NpA76cAaF_jcT80j9KrEzw8Tv0nJBGesuCjPNjGs_KzdkWTUXt23Hn9QJsdc1MZuaW0iqXBepHYfYoqNelzVte117t4BwVp0kUM6we0IqyXClaZgOI8S-WDBw2_Ovdm8e5NmhYAblEVoygcX8Y46oH6bKiaCQfKCFDMcRgChme7AoE1yZZYsPbaG_3IjPrC4LBMHQw8rM9dWjJ8ImjicvZ1pAm0dx-KHCP3y5PVKrxBDf1zSOsBRkOSjB8TPODnJMz6-jd5hTtZxpZPwPoIdCanTZ3ZD6uRBpTmDwtpRGm63UQs1m5FWPwb0T2IF0",
+                          "type": "string"
+                        },
+                        "p": {
+                          "example": "6NbkXwDWUhi-eR55Cgbf27FkQDDWIamOaDr0rj1q0f1fFEz1W5A_09YvG09Fiv1AO2-D8Rl8gS1Vkz2i0zCSqnyy8A025XOcRviOMK7nIxE4OH_PEsko8dtIrb3TmE2hUXvCkmzw9EsTF1LQBOGC6iusLTXepIC1x9ukCKFZQvdgtEObQ5kzd9Nhq-cdqmSeMVLoxPLd1blviVT9Vm8-y12CtYpeJHOaIDtVPLlBhJiBoPKWg3vxSm4XxIliNOefqegIlsmTIa3MpS6WWlCK3yHhat0Q-rRxDxdyiVdG_wzJvp0Iw_2wms7pe-PgNPYvUWH9JphWP5K38YqEBiJFXQ",
+                          "type": "string"
+                        },
+                        "q": {
+                          "example": "0A1FmpOWR91_RAWpqreWSavNaZb9nXeKiBo0DQGBz32DbqKqQ8S4aBJmbRhJcctjCLjain-ivut477tAUMmzJwVJDDq2MZFwC9Q-4VYZmFU4HJityQuSzHYe64RjN-E_NQ02TWhG3QGW6roq6c57c99rrUsETwJJiwS8M5p15Miuz53DaOjv-uqqFAFfywN5WkxHbraBcjHtMiQuyQbQqkCFh-oanHkwYNeytsNhTu2mQmwR5DR2roZ2nPiFjC6nsdk-A7E3S3wMzYYFw7jvbWWoYWo9vB40_MY2Y0FYQSqcDzcBIcq_0tnnasf3VW4Fdx6m80RzOb2Fsnln7vKXAQ",
+                          "type": "string"
+                        },
+                        "qi": {
+                          "example": "GyM_p6JrXySiz1toFgKbWV-JdI3jQ4ypu9rbMWx3rQJBfmt0FoYzgUIZEVFEcOqwemRN81zoDAaa-Bk0KWNGDjJHZDdDmFhW3AN7lI-puxk_mHZGJ11rxyR8O55XLSe3SPmRfKwZI6yU24ZxvQKFYItdldUKGzO6Ia6zTKhAVRU",
+                          "type": "string"
+                        },
+                        "use": {
+                          "description": "Use (\"public key use\") identifies the intended use of\nthe public key. The \"use\" parameter is employed to indicate whether\na public key is used for encrypting data or verifying the signature\non data. Values are commonly \"sig\" (signature) or \"enc\" (encryption).",
+                          "example": "sig",
+                          "type": "string"
+                        },
+                        "x": {
+                          "example": "f83OJ3D2xF1Bg8vub9tLe1gHMzV76e8Tus9uPHvRVEU",
+                          "type": "string"
+                        },
+                        "x5c": {
+                          "description": "The \"x5c\" (X.509 certificate chain) parameter contains a chain of one\nor more PKIX certificates [RFC5280].  The certificate chain is\nrepresented as a JSON array of certificate value strings.  Each\nstring in the array is a base64-encoded (Section 4 of [RFC4648] --\nnot base64url-encoded) DER [ITU.X690.1994] PKIX certificate value.\nThe PKIX certificate containing the key value MUST be the first\ncertificate.",
+                          "items": { "type": "string" },
+                          "type": "array"
+                        },
+                        "y": {
+                          "example": "x_FEzRu9m36HLN_tue659LNpXW6pCyStikYjKIWI5a0",
+                          "type": "string"
+                        }
+                      },
+                      "required": ["use", "kty", "kid", "alg"],
+                      "type": "object",
+                      "title": "jsonWebKey"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object",
+                "title": "jsonWebKeySet"
+              },
+              "jwks_uri": {
+                "description": "OAuth 2.0 Client JSON Web Key Set URL\n\nURL for the Client's JSON Web Key Set [JWK] document. If the Client signs requests to the Server, it contains\nthe signing key(s) the Server uses to validate signatures from the Client. The JWK Set MAY also contain the\nClient's encryption keys(s), which are used by the Server to encrypt responses to the Client. When both signing\nand encryption keys are made available, a use (Key Use) parameter value is REQUIRED for all keys in the referenced\nJWK Set to indicate each key's intended usage. Although some algorithms allow the same key to be used for both\nsignatures and encryption, doing so is NOT RECOMMENDED, as it is less secure. The JWK x5c parameter MAY be used\nto provide X.509 representations of keys provided. When used, the bare key values MUST still be present and MUST\nmatch those in the certificate.",
+                "type": "string"
+              },
+              "jwt_bearer_grant_access_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "logo_uri": {
+                "description": "OAuth 2.0 Client Logo URI\n\nA URL string referencing the client's logo.",
+                "type": "string"
+              },
+              "metadata": {
+                "title": "JSONRawMessage represents a json.RawMessage that works well with JSON, SQL, and Swagger.",
+                "type": "object"
+              },
+              "owner": {
+                "description": "OAuth 2.0 Client Owner\n\nOwner is a string identifying the owner of the OAuth 2.0 Client.",
+                "type": "string"
+              },
+              "policy_uri": {
+                "description": "OAuth 2.0 Client Policy URI\n\nPolicyURI is a URL string that points to a human-readable privacy policy document\nthat describes how the deployment organization collects, uses,\nretains, and discloses personal data.",
+                "type": "string"
+              },
+              "post_logout_redirect_uris": {
+                "description": "Allowed Post-Redirect Logout URIs\n\nArray of URLs supplied by the RP to which it MAY request that the End-User's User Agent be redirected using the\npost_logout_redirect_uri parameter after a logout has been performed.",
+                "items": { "type": "string" },
+                "type": "array"
+              },
+              "redirect_uris": {
+                "description": "OAuth 2.0 Client Redirect URIs\n\nRedirectURIs is an array of allowed redirect urls for the client.",
+                "example": "http://mydomain/oauth/callback",
+                "items": { "type": "string" },
+                "type": "array"
+              },
+              "refresh_token_grant_access_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "refresh_token_grant_id_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "refresh_token_grant_refresh_token_lifespan": {
+                "nullable": true,
+                "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+                "type": "string",
+                "title": "NullDuration"
+              },
+              "registration_access_token": {
+                "description": "OpenID Connect Dynamic Client Registration Access Token\n\nRegistrationAccessToken can be used to update, get, or delete the OAuth2 Client. It is sent when creating a client\nusing Dynamic Client Registration.",
+                "type": "string"
+              },
+              "registration_client_uri": {
+                "description": "OpenID Connect Dynamic Client Registration URL\n\nRegistrationClientURI is the URL used to update, get, or delete the OAuth2 Client.",
+                "type": "string"
+              },
+              "request_object_signing_alg": {
+                "description": "OpenID Connect Request Object Signing Algorithm\n\nJWS [JWS] alg algorithm [JWA] that MUST be used for signing Request Objects sent to the OP. All Request Objects\nfrom this Client MUST be rejected, if not signed with this algorithm.",
+                "type": "string"
+              },
+              "request_uris": {
+                "description": "OpenID Connect Request URIs\n\nArray of request_uri values that are pre-registered by the RP for use at the OP. Servers MAY cache the\ncontents of the files referenced by these URIs and not retrieve them at the time they are used in a request.\nOPs can require that request_uri values used be pre-registered with the require_request_uri_registration\ndiscovery parameter.",
+                "items": { "type": "string" },
+                "type": "array"
+              },
+              "response_types": {
+                "description": "OAuth 2.0 Client Response Types\n\nAn array of the OAuth 2.0 response type strings that the client can\nuse at the authorization endpoint. Can be one of:\n\nNeeded for OpenID Connect Implicit Grant:\nReturns ID Token to redirect URI: `id_token`\nReturns Access token redirect URI: `token`\nNeeded for Authorization Code Grant: `code`",
+                "items": { "type": "string" },
+                "type": "array"
+              },
+              "scope": {
+                "description": "OAuth 2.0 Client Scope\n\nScope is a string containing a space-separated list of scope values (as\ndescribed in Section 3.3 of OAuth 2.0 [RFC6749]) that the client\ncan use when requesting access tokens.",
+                "example": "scope1 scope-2 scope.3 scope:4",
+                "type": "string"
+              },
+              "sector_identifier_uri": {
+                "description": "OpenID Connect Sector Identifier URI\n\nURL using the https scheme to be used in calculating Pseudonymous Identifiers by the OP. The URL references a\nfile with a single JSON array of redirect_uri values.",
+                "type": "string"
+              },
+              "skip_consent": {
+                "description": "SkipConsent skips the consent screen for this client. This field can only\nbe set from the admin API.",
+                "type": "boolean"
+              },
+              "skip_logout_consent": {
+                "description": "SkipLogoutConsent skips the logout consent screen for this client. This field can only\nbe set from the admin API.",
+                "type": "boolean"
+              },
+              "subject_type": {
+                "description": "OpenID Connect Subject Type\n\nThe `subject_types_supported` Discovery parameter contains a\nlist of the supported subject_type values for this server. Valid types include `pairwise` and `public`.",
+                "type": "string"
+              },
+              "token_endpoint_auth_method": {
+                "default": "client_secret_basic",
+                "description": "OAuth 2.0 Token Endpoint Authentication Method\n\nRequested Client Authentication method for the Token Endpoint. The options are:\n\n`client_secret_basic`: (default) Send `client_id` and `client_secret` as `application/x-www-form-urlencoded` encoded in the HTTP Authorization header.\n`client_secret_post`: Send `client_id` and `client_secret` as `application/x-www-form-urlencoded` in the HTTP body.\n`private_key_jwt`: Use JSON Web Tokens to authenticate the client.\n`none`: Used for public clients (native apps, mobile apps) which can not have secrets.",
+                "type": "string"
+              },
+              "token_endpoint_auth_signing_alg": {
+                "description": "OAuth 2.0 Token Endpoint Signing Algorithm\n\nRequested Client Authentication signing algorithm for the Token Endpoint.",
+                "type": "string"
+              },
+              "tos_uri": {
+                "description": "OAuth 2.0 Client Terms of Service URI\n\nA URL string pointing to a human-readable terms of service\ndocument for the client that describes a contractual relationship\nbetween the end-user and the client that the end-user accepts when\nauthorizing the client.",
+                "type": "string"
+              },
+              "updated_at": {
+                "description": "OAuth 2.0 Client Last Update Date\n\nUpdatedAt returns the timestamp of the last update.",
+                "format": "date-time",
+                "type": "string"
+              },
+              "userinfo_signed_response_alg": {
+                "description": "OpenID Connect Request Userinfo Signed Response Algorithm\n\nJWS alg algorithm [JWA] REQUIRED for signing UserInfo Responses. If this is specified, the response will be JWT\n[JWT] serialized, and signed using JWS. The default, if omitted, is for the UserInfo Response to return the Claims\nas a UTF-8 encoded JSON object using the application/json content-type.",
+                "type": "string"
+              }
+            },
+            "title": "OAuth 2.0 Client",
+            "type": "object"
+          }
+        }
+      },
+      "description": "oAuth2Client"
+    },
+    "400": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error",
+            "properties": {
+              "error": { "description": "Error", "type": "string" },
+              "error_debug": {
+                "description": "Error Debug Information\n\nOnly available in dev mode.",
+                "type": "string"
+              },
+              "error_description": {
+                "description": "Error Description",
+                "type": "string"
+              },
+              "error_hint": {
+                "description": "Error Hint\n\nHelps the user identify the error cause.",
+                "example": "The redirect URL is not allowed.",
+                "type": "string"
+              },
+              "status_code": {
+                "description": "HTTP Status Code",
+                "example": 401,
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            "type": "object",
+            "title": "errorOAuth2"
+          }
+        }
+      },
+      "description": "Bad Request Error Response"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error",
+            "properties": {
+              "error": { "description": "Error", "type": "string" },
+              "error_debug": {
+                "description": "Error Debug Information\n\nOnly available in dev mode.",
+                "type": "string"
+              },
+              "error_description": {
+                "description": "Error Description",
+                "type": "string"
+              },
+              "error_hint": {
+                "description": "Error Hint\n\nHelps the user identify the error cause.",
+                "example": "The redirect URL is not allowed.",
+                "type": "string"
+              },
+              "status_code": {
+                "description": "HTTP Status Code",
+                "example": 401,
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            "type": "object",
+            "title": "errorOAuth2"
+          }
+        }
+      },
+      "description": "Default Error Response"
+    }
+  }
+}

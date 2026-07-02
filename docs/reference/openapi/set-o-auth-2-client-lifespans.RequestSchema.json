@@ -1,0 +1,95 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Lifespans of different token types issued for this OAuth 2.0 Client.",
+          "properties": {
+            "authorization_code_grant_access_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            },
+            "authorization_code_grant_id_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            },
+            "authorization_code_grant_refresh_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            },
+            "client_credentials_grant_access_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            },
+            "device_authorization_grant_access_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            },
+            "device_authorization_grant_id_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            },
+            "device_authorization_grant_refresh_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            },
+            "implicit_grant_access_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            },
+            "implicit_grant_id_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            },
+            "jwt_bearer_grant_access_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            },
+            "refresh_token_grant_access_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            },
+            "refresh_token_grant_id_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            },
+            "refresh_token_grant_refresh_token_lifespan": {
+              "nullable": true,
+              "pattern": "^[0-9]+(ns|us|ms|s|m|h)$",
+              "type": "string",
+              "title": "NullDuration"
+            }
+          },
+          "title": "OAuth 2.0 Client Token Lifespans",
+          "type": "object"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}

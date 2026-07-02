@@ -1,0 +1,11 @@
+{
+  "parameters": [
+    {
+      "description": "The JSON Web Key Set",
+      "in": "path",
+      "name": "set",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}
