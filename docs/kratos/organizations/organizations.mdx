@@ -433,6 +433,87 @@ local claims = std.extVar('claims');
 }
 ```
 
+#### Update identity on login
+
+By default, the data mapper runs only when an identity first signs in through the SAML connection. If you want to keep identity
+data in sync with the Identity Provider (IdP), set `update_identity_on_login` to `automatic` on the connection. This re-runs the
+connection's Jsonnet data mapper on every SAML login and updates the identity's traits and metadata when they change.
+
+This is useful when the IdP is the source of truth for user attributes such as group memberships, roles, or profile information
+that can change over time.
+
+The default is `never`, so existing SAML connections keep their current behavior until you opt in.
+
+```mdx-code-block
+<Tabs groupId="console-or-api">
+<TabItem value="console" label="Ory Console">
+```
+
+1. Go to <ConsoleLink route="project.organizations" /> and open the organization that holds the SAML connection.
+2. Edit the Enterprise SAML SSO connection.
+3. Set **Update identity on login** to **automatic**.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="api" label="API">
+```
+
+Replace the field on the connection you want to update. Adjust the provider index (`0` below) to match the position of your
+connection in the `providers` array.
+
+```shell
+curl -X PATCH --location "https://api.console.ory.com/projects/$PROJECT_ID" \
+     -H "Authorization: Bearer $WORKSPACE_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '[
+           {
+             "op": "replace",
+             "path": "/services/identity/config/selfservice/methods/saml/config/providers/0/update_identity_on_login",
+             "value": "automatic"
+           }
+         ]' \
+   | jq ".project.services.identity.config.selfservice.methods.saml"
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+##### Access the current identity in the mapper
+
+When `update_identity_on_login` is set to `automatic`, the data mapper receives the current identity as an additional variable
+`std.extVar('identity')`. This lets you write conditional logic — for example, preserving existing trait values or merging data
+selectively. The `identity` variable contains the current `traits`, `metadata_public`, and `metadata_admin`.
+
+```jsonnet
+local claims = std.extVar('claims');
+local identity = std.extVar('identity');
+
+// Keep the display name if the user has set one, otherwise use the value from the IdP (if any).
+local displayName = std.get(identity.traits, "display_name", std.get(claims.raw_claims, "displayName", ""));
+
+{
+  identity: {
+    traits: {
+      email: claims.email,
+      [if displayName != "" then "display_name" else null]: displayName,
+      // Always update groups from the IdP.
+      [if std.objectHas(claims, "raw_claims") && std.objectHas(claims.raw_claims, "groups") then "groups" else null]:
+        claims.raw_claims.groups,
+    },
+  },
+}
+```
+
+##### Behavior details
+
+- Metadata preservation. When the mapper omits `metadata_public` or `metadata_admin` from its output, existing values are
+  preserved. When the mapper explicitly outputs `{}`, the field is cleared.
+- Schema validation. The updated identity is validated against the identity schema before it is persisted. If the mapper produces
+  invalid traits, the login fails with a validation error.
+- No credential changes. Credentials and verified addresses are never modified by this feature.
+
 #### Signing certificate expiry details
 
 The SAML connection includes a `valid_to` attribute, which is an array of expiry dates for the signing certificates associated
