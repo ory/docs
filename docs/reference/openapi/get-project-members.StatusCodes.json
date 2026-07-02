@@ -1,0 +1,309 @@
+{
+  "responses": {
+    "200": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "items": {
+              "properties": {
+                "break_glass": {
+                  "description": "BreakGlass is true when the identity's recovery address has break-glass\nrecovery enabled for the identity's current organization.",
+                  "type": "boolean"
+                },
+                "email": { "type": "string" },
+                "email_verified": { "type": "boolean" },
+                "id": { "format": "uuid", "type": "string" },
+                "name": { "type": "string" },
+                "organization_id": {
+                  "format": "uuid4",
+                  "nullable": true,
+                  "type": "string",
+                  "title": "NullUUID"
+                },
+                "role": { "type": "string" },
+                "source": {
+                  "description": "Whether the member has access through the project directly or through\nworkspace membership.",
+                  "enum": ["project", "workspace"],
+                  "type": "string"
+                }
+              },
+              "required": ["id", "email", "name", "email_verified", "role"],
+              "type": "object",
+              "title": "projectMember"
+            },
+            "type": "array",
+            "title": "projectMembers"
+          }
+        }
+      },
+      "description": "projectMembers"
+    },
+    "401": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error responses are sent when an error (e.g. unauthorized, bad request, ...) occurred.",
+            "properties": {
+              "code": {
+                "description": "The status code",
+                "example": 404,
+                "format": "int64",
+                "type": "integer"
+              },
+              "debug": {
+                "description": "Debug information\n\nThis field is often not exposed to protect against leaking\nsensitive information.",
+                "example": "SQL field \"foo\" is not a bool.",
+                "type": "string"
+              },
+              "details": { "description": "Further error details" },
+              "error": {
+                "description": "Error response",
+                "properties": {
+                  "debug": {
+                    "description": "Debug contains debug information. This is usually not available and has to be enabled.",
+                    "example": "The database adapter was unable to find the element",
+                    "type": "string"
+                  },
+                  "error": {
+                    "description": "Name is the error name.",
+                    "example": "The requested resource could not be found",
+                    "type": "string"
+                  },
+                  "error_description": {
+                    "description": "Description contains further information on the nature of the error.",
+                    "example": "Object with ID 12345 does not exist",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded",
+                    "enum": ["feature_not_available", "quota_exceeded"],
+                    "type": "string",
+                    "x-go-enum-desc": "feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"
+                  },
+                  "message": {
+                    "description": "Message contains the error message.",
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "description": "Code represents the error status code (404, 403, 401, ...).",
+                    "example": 404,
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object",
+                "title": "genericErrorContent"
+              },
+              "id": {
+                "description": "The error ID\n\nUseful when trying to identify various errors in application logic.",
+                "type": "string"
+              },
+              "message": {
+                "description": "Error message\n\nThe error's message.",
+                "example": "The resource could not be found",
+                "type": "string"
+              },
+              "reason": {
+                "description": "A human-readable reason for the error",
+                "example": "User with ID 1234 does not exist.",
+                "type": "string"
+              },
+              "request": {
+                "description": "The request ID\n\nThe request ID is often exposed internally in order to trace\nerrors across service architectures. This is often a UUID.",
+                "example": "d7ef54b1-ec15-46e6-bccb-524b82c035e6",
+                "type": "string"
+              },
+              "status": {
+                "description": "The status description",
+                "example": "Not Found",
+                "type": "string"
+              }
+            },
+            "required": ["message"],
+            "title": "Error response",
+            "type": "object"
+          }
+        }
+      },
+      "description": "genericError"
+    },
+    "406": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error responses are sent when an error (e.g. unauthorized, bad request, ...) occurred.",
+            "properties": {
+              "code": {
+                "description": "The status code",
+                "example": 404,
+                "format": "int64",
+                "type": "integer"
+              },
+              "debug": {
+                "description": "Debug information\n\nThis field is often not exposed to protect against leaking\nsensitive information.",
+                "example": "SQL field \"foo\" is not a bool.",
+                "type": "string"
+              },
+              "details": { "description": "Further error details" },
+              "error": {
+                "description": "Error response",
+                "properties": {
+                  "debug": {
+                    "description": "Debug contains debug information. This is usually not available and has to be enabled.",
+                    "example": "The database adapter was unable to find the element",
+                    "type": "string"
+                  },
+                  "error": {
+                    "description": "Name is the error name.",
+                    "example": "The requested resource could not be found",
+                    "type": "string"
+                  },
+                  "error_description": {
+                    "description": "Description contains further information on the nature of the error.",
+                    "example": "Object with ID 12345 does not exist",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded",
+                    "enum": ["feature_not_available", "quota_exceeded"],
+                    "type": "string",
+                    "x-go-enum-desc": "feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"
+                  },
+                  "message": {
+                    "description": "Message contains the error message.",
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "description": "Code represents the error status code (404, 403, 401, ...).",
+                    "example": 404,
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object",
+                "title": "genericErrorContent"
+              },
+              "id": {
+                "description": "The error ID\n\nUseful when trying to identify various errors in application logic.",
+                "type": "string"
+              },
+              "message": {
+                "description": "Error message\n\nThe error's message.",
+                "example": "The resource could not be found",
+                "type": "string"
+              },
+              "reason": {
+                "description": "A human-readable reason for the error",
+                "example": "User with ID 1234 does not exist.",
+                "type": "string"
+              },
+              "request": {
+                "description": "The request ID\n\nThe request ID is often exposed internally in order to trace\nerrors across service architectures. This is often a UUID.",
+                "example": "d7ef54b1-ec15-46e6-bccb-524b82c035e6",
+                "type": "string"
+              },
+              "status": {
+                "description": "The status description",
+                "example": "Not Found",
+                "type": "string"
+              }
+            },
+            "required": ["message"],
+            "title": "Error response",
+            "type": "object"
+          }
+        }
+      },
+      "description": "genericError"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "Error responses are sent when an error (e.g. unauthorized, bad request, ...) occurred.",
+            "properties": {
+              "code": {
+                "description": "The status code",
+                "example": 404,
+                "format": "int64",
+                "type": "integer"
+              },
+              "debug": {
+                "description": "Debug information\n\nThis field is often not exposed to protect against leaking\nsensitive information.",
+                "example": "SQL field \"foo\" is not a bool.",
+                "type": "string"
+              },
+              "details": { "description": "Further error details" },
+              "error": {
+                "description": "Error response",
+                "properties": {
+                  "debug": {
+                    "description": "Debug contains debug information. This is usually not available and has to be enabled.",
+                    "example": "The database adapter was unable to find the element",
+                    "type": "string"
+                  },
+                  "error": {
+                    "description": "Name is the error name.",
+                    "example": "The requested resource could not be found",
+                    "type": "string"
+                  },
+                  "error_description": {
+                    "description": "Description contains further information on the nature of the error.",
+                    "example": "Object with ID 12345 does not exist",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded",
+                    "enum": ["feature_not_available", "quota_exceeded"],
+                    "type": "string",
+                    "x-go-enum-desc": "feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"
+                  },
+                  "message": {
+                    "description": "Message contains the error message.",
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "description": "Code represents the error status code (404, 403, 401, ...).",
+                    "example": 404,
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object",
+                "title": "genericErrorContent"
+              },
+              "id": {
+                "description": "The error ID\n\nUseful when trying to identify various errors in application logic.",
+                "type": "string"
+              },
+              "message": {
+                "description": "Error message\n\nThe error's message.",
+                "example": "The resource could not be found",
+                "type": "string"
+              },
+              "reason": {
+                "description": "A human-readable reason for the error",
+                "example": "User with ID 1234 does not exist.",
+                "type": "string"
+              },
+              "request": {
+                "description": "The request ID\n\nThe request ID is often exposed internally in order to trace\nerrors across service architectures. This is often a UUID.",
+                "example": "d7ef54b1-ec15-46e6-bccb-524b82c035e6",
+                "type": "string"
+              },
+              "status": {
+                "description": "The status description",
+                "example": "Not Found",
+                "type": "string"
+              }
+            },
+            "required": ["message"],
+            "title": "Error response",
+            "type": "object"
+          }
+        }
+      },
+      "description": "genericError"
+    }
+  }
+}

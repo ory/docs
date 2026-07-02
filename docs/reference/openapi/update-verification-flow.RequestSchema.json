@@ -1,0 +1,255 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Update Verification Flow Request Body",
+          "discriminator": {
+            "mapping": {
+              "code": {
+                "properties": {
+                  "code": {
+                    "description": "Code from the recovery email\n\nIf you want to submit a code, use this field, but make sure to _not_ include the email field, as well.",
+                    "type": "string"
+                  },
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "email": {
+                    "description": "The email address or phone number to verify\n\nIf the provided address belongs to a valid account, a verification email or SMS will be sent.\n\nIf you want to notify the email address if the account does not exist, see\nthe [notify_unknown_recipients flag](https://www.ory.com/docs/kratos/self-service/flows/verify-email-account-activation#attempted-verification-notifications)\n\nIf a code was already sent, including this field in the payload will invalidate the sent code and re-send a new code.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method is the method that should be used for this verification flow\n\nAllowed values are `link` and `code`.\nlink VerificationStrategyLink\ncode VerificationStrategyCode",
+                    "enum": ["link", "code"],
+                    "type": "string",
+                    "x-go-enum-desc": "link VerificationStrategyLink\ncode VerificationStrategyCode"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["method"],
+                "type": "object",
+                "title": "updateVerificationFlowWithCodeMethod"
+              },
+              "link": {
+                "description": "Update Verification Flow with Link Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "email": {
+                    "description": "Email to Verify\n\nNeeds to be set when initiating the flow. If the email is a registered\nverification email, a verification link will be sent. If the email is not known,\na email with details on what happened will be sent instead.\n\nformat: email",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method is the method that should be used for this verification flow\n\nAllowed values are `link` and `code`\nlink VerificationStrategyLink\ncode VerificationStrategyCode",
+                    "enum": ["link", "code"],
+                    "type": "string",
+                    "x-go-enum-desc": "link VerificationStrategyLink\ncode VerificationStrategyCode"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["email", "method"],
+                "type": "object",
+                "title": "updateVerificationFlowWithLinkMethod"
+              }
+            },
+            "propertyName": "method"
+          },
+          "oneOf": [
+            {
+              "description": "Update Verification Flow with Link Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "email": {
+                  "description": "Email to Verify\n\nNeeds to be set when initiating the flow. If the email is a registered\nverification email, a verification link will be sent. If the email is not known,\na email with details on what happened will be sent instead.\n\nformat: email",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method is the method that should be used for this verification flow\n\nAllowed values are `link` and `code`\nlink VerificationStrategyLink\ncode VerificationStrategyCode",
+                  "enum": ["link", "code"],
+                  "type": "string",
+                  "x-go-enum-desc": "link VerificationStrategyLink\ncode VerificationStrategyCode"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["email", "method"],
+              "type": "object",
+              "title": "updateVerificationFlowWithLinkMethod"
+            },
+            {
+              "properties": {
+                "code": {
+                  "description": "Code from the recovery email\n\nIf you want to submit a code, use this field, but make sure to _not_ include the email field, as well.",
+                  "type": "string"
+                },
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "email": {
+                  "description": "The email address or phone number to verify\n\nIf the provided address belongs to a valid account, a verification email or SMS will be sent.\n\nIf you want to notify the email address if the account does not exist, see\nthe [notify_unknown_recipients flag](https://www.ory.com/docs/kratos/self-service/flows/verify-email-account-activation#attempted-verification-notifications)\n\nIf a code was already sent, including this field in the payload will invalidate the sent code and re-send a new code.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method is the method that should be used for this verification flow\n\nAllowed values are `link` and `code`.\nlink VerificationStrategyLink\ncode VerificationStrategyCode",
+                  "enum": ["link", "code"],
+                  "type": "string",
+                  "x-go-enum-desc": "link VerificationStrategyLink\ncode VerificationStrategyCode"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["method"],
+              "type": "object",
+              "title": "updateVerificationFlowWithCodeMethod"
+            }
+          ],
+          "title": "updateVerificationFlowBody"
+        }
+      },
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "description": "Update Verification Flow Request Body",
+          "discriminator": {
+            "mapping": {
+              "code": {
+                "properties": {
+                  "code": {
+                    "description": "Code from the recovery email\n\nIf you want to submit a code, use this field, but make sure to _not_ include the email field, as well.",
+                    "type": "string"
+                  },
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "email": {
+                    "description": "The email address or phone number to verify\n\nIf the provided address belongs to a valid account, a verification email or SMS will be sent.\n\nIf you want to notify the email address if the account does not exist, see\nthe [notify_unknown_recipients flag](https://www.ory.com/docs/kratos/self-service/flows/verify-email-account-activation#attempted-verification-notifications)\n\nIf a code was already sent, including this field in the payload will invalidate the sent code and re-send a new code.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method is the method that should be used for this verification flow\n\nAllowed values are `link` and `code`.\nlink VerificationStrategyLink\ncode VerificationStrategyCode",
+                    "enum": ["link", "code"],
+                    "type": "string",
+                    "x-go-enum-desc": "link VerificationStrategyLink\ncode VerificationStrategyCode"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["method"],
+                "type": "object",
+                "title": "updateVerificationFlowWithCodeMethod"
+              },
+              "link": {
+                "description": "Update Verification Flow with Link Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "email": {
+                    "description": "Email to Verify\n\nNeeds to be set when initiating the flow. If the email is a registered\nverification email, a verification link will be sent. If the email is not known,\na email with details on what happened will be sent instead.\n\nformat: email",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method is the method that should be used for this verification flow\n\nAllowed values are `link` and `code`\nlink VerificationStrategyLink\ncode VerificationStrategyCode",
+                    "enum": ["link", "code"],
+                    "type": "string",
+                    "x-go-enum-desc": "link VerificationStrategyLink\ncode VerificationStrategyCode"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["email", "method"],
+                "type": "object",
+                "title": "updateVerificationFlowWithLinkMethod"
+              }
+            },
+            "propertyName": "method"
+          },
+          "oneOf": [
+            {
+              "description": "Update Verification Flow with Link Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "email": {
+                  "description": "Email to Verify\n\nNeeds to be set when initiating the flow. If the email is a registered\nverification email, a verification link will be sent. If the email is not known,\na email with details on what happened will be sent instead.\n\nformat: email",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method is the method that should be used for this verification flow\n\nAllowed values are `link` and `code`\nlink VerificationStrategyLink\ncode VerificationStrategyCode",
+                  "enum": ["link", "code"],
+                  "type": "string",
+                  "x-go-enum-desc": "link VerificationStrategyLink\ncode VerificationStrategyCode"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["email", "method"],
+              "type": "object",
+              "title": "updateVerificationFlowWithLinkMethod"
+            },
+            {
+              "properties": {
+                "code": {
+                  "description": "Code from the recovery email\n\nIf you want to submit a code, use this field, but make sure to _not_ include the email field, as well.",
+                  "type": "string"
+                },
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "email": {
+                  "description": "The email address or phone number to verify\n\nIf the provided address belongs to a valid account, a verification email or SMS will be sent.\n\nIf you want to notify the email address if the account does not exist, see\nthe [notify_unknown_recipients flag](https://www.ory.com/docs/kratos/self-service/flows/verify-email-account-activation#attempted-verification-notifications)\n\nIf a code was already sent, including this field in the payload will invalidate the sent code and re-send a new code.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method is the method that should be used for this verification flow\n\nAllowed values are `link` and `code`.\nlink VerificationStrategyLink\ncode VerificationStrategyCode",
+                  "enum": ["link", "code"],
+                  "type": "string",
+                  "x-go-enum-desc": "link VerificationStrategyLink\ncode VerificationStrategyCode"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["method"],
+              "type": "object",
+              "title": "updateVerificationFlowWithCodeMethod"
+            }
+          ],
+          "title": "updateVerificationFlowBody"
+        }
+      }
+    },
+    "required": true,
+    "x-originalParamName": "Body"
+  }
+}

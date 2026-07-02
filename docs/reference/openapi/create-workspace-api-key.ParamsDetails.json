@@ -1,0 +1,11 @@
+{
+  "parameters": [
+    {
+      "description": "The Workspace ID",
+      "in": "path",
+      "name": "workspace",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}
