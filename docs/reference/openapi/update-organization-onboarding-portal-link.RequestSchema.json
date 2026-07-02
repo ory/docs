@@ -1,0 +1,30 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "enable_scim": {
+              "description": "Feature flag to enable SCIM configuration",
+              "type": "boolean"
+            },
+            "enable_sso": {
+              "description": "Feature flag to enable SSO configuration",
+              "type": "boolean"
+            },
+            "expires_at": {
+              "format": "date-time",
+              "type": "string",
+              "title": "Time"
+            }
+          },
+          "required": ["enable_sso", "enable_scim"],
+          "type": "object",
+          "title": "updateOrganizationOnboardingPortalLinkBody"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}
