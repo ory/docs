@@ -1,0 +1,230 @@
+---
+title: Import existing keys
+description: Import API keys from external systems into Ory Talos
+---
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
+Import keys to manage credentials created outside Talos, such as keys from a legacy key management system. For large migrations,
+use the batch import API to add up to 1000 keys per request. To compare imported keys with issued keys and derived tokens, see
+[credential types](../concepts/credential-types.md#imported-api-keys).
+
+## How import works
+
+When you import a key, Talos stores a tenant-scoped SHA-512/256 hash of the raw key. Talos doesn't store the original key.
+Verification computes the same hash and looks it up in the database.
+
+Imported keys support the same features as issued keys: scopes, metadata, expiration, token derivation (JWT/macaroon), and
+revocation.
+
+<!-- doctest:setup:file tools/doctest/setup.sh -->
+<!-- doctest:teardown:file tools/doctest/teardown.sh -->
+
+## Import a single key
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="cli">
+<TabItem value="cli" label="CLI">
+
+```shell
+RESPONSE=$(talos keys imported import "Stripe production key" \
+  --raw-key "sk_live_test_51OxAM2Qly" \
+  --actor payment-service \
+  --scopes "payments:read,payments:write" \
+  --ttl 8760h \
+  --metadata '{"source": "stripe", "environment": "production"}' \
+  --format json \
+  -e "$TALOS_URL" 2>/dev/null)
+
+echo "$RESPONSE" | jq .
+
+export IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -er '.key_id')
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "raw_key": "sk_live_test_51OxAM2Qly",
+    "name": "Stripe production key",
+    "actor_id": "payment-service",
+    "scopes": ["payments:read", "payments:write"],
+    "ttl": "8760h",
+    "metadata": {"source": "stripe", "environment": "production"}
+  }')
+
+echo "$RESPONSE" | jq .
+
+export IMPORTED_KEY_ID=$(echo "$RESPONSE" | jq -er '.key_id')
+```
+
+</TabItem>
+</Tabs>
+
+### Request fields
+
+Required fields are `raw_key` (the API key string to import), `name`, and `actor_id`. Optional fields are `scopes`, `ttl`, and
+`metadata`. For the complete field reference, see the [ImportApiKey API reference](../reference/api/admin-import-api-key.api.mdx).
+
+The response is an `ImportedApiKey` object with fields such as `key_id`, `actor_id`, `name`, `status`, `scopes`, and
+`create_time`. Talos never returns `raw_key` after import.
+
+## Verify an imported key
+
+Imported keys use the same verification endpoint as issued keys. The verifier automatically detects the credential type.
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="cli">
+<TabItem value="cli" label="CLI">
+
+```shell
+talos keys verify "sk_live_test_51OxAM2Qly" -e "$TALOS_URL"
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
+  -H "Content-Type: application/json" \
+  -d '{"credential":"sk_live_test_51OxAM2Qly"}' | jq .
+```
+
+</TabItem>
+</Tabs>
+
+## Batch import
+
+Import up to 1000 keys in a single request.
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="cli">
+<TabItem value="cli" label="CLI">
+
+```shell
+talos keys imported batch-import --file - -e "$TALOS_URL" <<'JSON'
+[
+  {"raw_key": "ghp_batch_key_001", "name": "GitHub PAT 1", "actor_id": "dev-team"},
+  {"raw_key": "ghp_batch_key_002", "name": "GitHub PAT 2", "actor_id": "dev-team"}
+]
+JSON
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/importedApiKeys:batchCreate" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "requests": [
+      {"raw_key": "ghp_batch_key_001", "name": "GitHub PAT 1", "actor_id": "dev-team"},
+      {"raw_key": "ghp_batch_key_002", "name": "GitHub PAT 2", "actor_id": "dev-team"}
+    ]
+  }' | jq .
+```
+
+</TabItem>
+</Tabs>
+
+### Batch response
+
+The response includes a `results` array with per-item outcomes (`imported_api_key` on success, `error_code` and `error_message` on
+failure), plus `success_count` and `failure_count` counters. If at least one key succeeds, the HTTP response is `200 OK`.
+
+For the complete response field reference, see the
+[BatchCreateImportedApiKeys API reference](../reference/api/admin-batch-create-imported-api-keys.api.mdx). For batch import error
+codes, see the [error codes reference](../reference/error-codes.md#batch-import-error-codes).
+
+## List imported keys
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="cli">
+<TabItem value="cli" label="CLI">
+
+```shell
+talos keys imported list -e "$TALOS_URL"
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+curl -s "$TALOS_URL/v2alpha1/admin/importedApiKeys?filter=actor_id%3D%22payment-service%22&page_size=10" | jq .
+```
+
+</TabItem>
+</Tabs>
+
+## Revoke an imported key
+
+The same unified endpoint revokes imported keys and issued keys.
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="cli">
+<TabItem value="cli" label="CLI">
+
+```shell
+talos keys revoke "$IMPORTED_KEY_ID" --reason superseded -e "$TALOS_URL"
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys/$IMPORTED_KEY_ID:revoke" \
+  -H "Content-Type: application/json" \
+  -d '{"reason": "REVOCATION_REASON_SUPERSEDED"}'
+echo ""
+echo "Imported key revoked"
+```
+
+</TabItem>
+</Tabs>
+
+## Delete an imported key
+
+Delete permanently removes the key record from the database (hard delete). Revoke keeps the record (soft delete) so you can still
+query its status and revocation reason. Both emit an audit event.
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="cli">
+<TabItem value="cli" label="CLI">
+
+```shell
+talos keys imported delete "$IMPORTED_KEY_ID" -e "$TALOS_URL"
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+curl -s -X DELETE "$TALOS_URL/v2alpha1/admin/importedApiKeys/$IMPORTED_KEY_ID"
+echo ""
+echo "Imported key deleted"
+```
+
+</TabItem>
+</Tabs>
+
+:::caution
+
+Delete is permanent and irreversible. Prefer revocation so the key record stays queryable.
+
+:::
+
+## Next steps
+
+- [Batch operations](batch-operations.mdx) — batch verify and batch import in detail
+- [Key lifecycle](key-lifecycle.mdx) — update, rotate, and revoke keys
+- [Derive tokens](derive-tokens.mdx) — mint JWTs or macaroons from imported keys

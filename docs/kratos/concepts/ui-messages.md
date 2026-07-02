@@ -601,6 +601,16 @@
 }
 ```
 
+###### Your account is managed by your organization. To change these settings, contact your organization administrator. (1050023)
+
+```json
+{
+  "id": 1050023,
+  "text": "Your account is managed by your organization. To change these settings, contact your organization administrator.",
+  "type": "info"
+}
+```
+
 ###### You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 1.00 minutes. (1060001)
 
 ```json
@@ -1430,6 +1440,16 @@
 {
   "id": 4000044,
   "text": "The provided DeviceAuthn signature is invalid.",
+  "type": "error"
+}
+```
+
+###### This DeviceAuthn key can no longer be used because relaxed attestation is expired or disabled. Please enroll your device again. (4000045)
+
+```json
+{
+  "id": 4000045,
+  "text": "This DeviceAuthn key can no longer be used because relaxed attestation is expired or disabled. Please enroll your device again.",
   "type": "error"
 }
 ```

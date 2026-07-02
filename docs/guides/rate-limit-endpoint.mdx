@@ -1,0 +1,59 @@
+---
+id: rate-limits-endpoint
+title: Endpoint rate limits for Ory Network
+sidebar_label: Endpoint rate limits
+---
+
+Endpoint-based rate limits apply to individual API endpoints regardless of your project rate limits. They protect specific
+endpoints against brute-force and credential stuffing attacks, which typically originate from a limited set of IP addresses or JA4
+fingerprints.
+
+Benefits:
+
+- Enhanced security—Restricts requests from specific sources, making attacks significantly harder to succeed
+- Bot protection—Differentiates genuine users from harmful automated activity
+- Granular control—Fine-tunes security for individual endpoints without compromising user experience
+
+## Types of endpoint-based protection
+
+Ory implements two types of endpoint-based protection:
+
+- **Volumetric**: Limits the total amount of traffic over time.
+- **Inflight**: Limits the number of concurrent active requests.
+
+### Volumetric rate limits
+
+Volumetric rate limits analyze incoming request patterns based on:
+
+- Source identification—IP addresses and JA3/JA4 fingerprints
+- Request frequency—Detects volumetric attacks and system overwhelm attempts
+- Authentication status—Different limits for authenticated vs. unauthenticated requests
+- HTTP method—Varying limits based on GET, POST, etc.
+
+### Inflight rate limits
+
+Inflight rate limits protect critical endpoints from concurrent request attacks. By preventing multiple requests to the same
+resource at once, they eliminate race conditions, ensure data consistency, and let critical operations complete safely.
+
+The following endpoints are protected by rate limits.
+
+| Type     | Endpoint                                    | HTTP Methods             | Ratelimit Key                                    | Action: enforced vs report-only        |
+| :------- | :------------------------------------------ | :----------------------- | :----------------------------------------------- | :------------------------------------- |
+| Inflight | `/admin/identities`                         | `POST`, `PATCH`          | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
+| Inflight | `/admin/identities/{id}`                    | `PUT`, `PATCH`, `DELETE` | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
+| Inflight | `/admin/identities/{id}/credentials/{type}` | `DELETE`                 | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
+| Inflight | `/admin/identities/{id}/sessions`           | `DELETE`                 | `{project_id} + {full_path}`                     | Blocks concurrent requests (enforced)  |
+| Inflight | `/admin/sessions/{id}`                      | `DELETE`                 | `{project_id} + {full_path}`                     | Logs concurrent requests (report-only) |
+| Inflight | `/admin/sessions/{id}/extend`               | `PATCH`                  | `{project_id} + {full_path}`                     | Logs concurrent requests (report-only) |
+| Inflight | `/self-service/recovery`                    | `POST`                   | `{project_id} + {path} + "/" + {email\|flow_id}` | Logs concurrent requests (report-only) |
+
+:::note
+
+Enforced-endpoints return HTTP 429 when the rate limit is exceeded. Report-only-endpoints currently only log rate limit
+violations; they don't block requests. GET, OPTIONS, and HEAD requests are exempt from rate limiting.
+
+:::
+
+### Configuration and rule management
+
+The endpoint-based rate limit rules are set and managed by Ory. These rules aren't directly configurable by customers.

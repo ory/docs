@@ -192,12 +192,6 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    }
    ```
 
-When running Kratos in development mode, some server-side checks are relaxed, which allows for using the Android emulator to
-create and use keys. The Android emulator create keys in software.
-
-When running Kratos in production mode, only hardware-resident keys are accepted, and thus the Android emulator cannot be used to
-create or use keys.
-
 There are two Keystore calls required: one to create the key and one to use it to sign:
 
 ```kotlin
@@ -361,6 +355,9 @@ internal class OryApi : Api {
 ```
 
 #### Making it work in the Android emulator
+
+Because the emulator produces software-based attestations, the server only accepts its keys when relaxed attestation is enabled.
+See [Relaxed attestation for testing](#relaxed-attestation-for-testing).
 
 1. Create an emulated device in the Android emulator with an Android version which is at least 24.
 1. Start the emulated device.
@@ -764,6 +761,37 @@ import Flutter
 ```
 
 And the Flutter code gets this result back: `iOS 26.2.1` (for example).
+
+## Relaxed attestation for testing
+
+For testing purposes, you can relax the enrollment checks so that software-based attestations (such as those produced by the
+Android emulator) are accepted. This relaxes the checks for software roots, expired certificates, and software security level. Add
+`config.insecure_allow_relaxed_attestation` to the strategy configuration:
+
+```yaml
+selfservice:
+  methods:
+    deviceauthn:
+      enabled: true
+      config:
+        insecure_allow_relaxed_attestation: true
+```
+
+On Ory Network, this is exposed as a toggle in the Console under **MFA → Device Authentication**, and is only available on
+development projects.
+
+Keep the following in mind when using relaxed attestation:
+
+- Keys enrolled while relaxed attestation is enabled carry a 30-day expiry. Hardware-attested keys are unaffected.
+- Relaxed keys are refused at login as soon as the setting is disabled, the key expires, or (on Ory Network) the project is no
+  longer in the `development` environment.
+
+:::warning
+
+Relaxed attestation is intended for development and testing only. Never enable it for production traffic, as it removes the
+hardware-binding guarantees that this strategy relies on.
+
+:::
 
 ## Reference
 

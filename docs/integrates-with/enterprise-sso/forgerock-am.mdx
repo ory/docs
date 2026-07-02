@@ -1,0 +1,36 @@
+---
+id: forgerock-am
+title: ForgeRock Access Management
+sidebar_label: ForgeRock AM
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained and is not part of Ory Polis's
+officially supported SSO providers. You configure it through the
+[generic SAML SP](../../polis/sso-providers/generic-saml.mdx) or
+[generic OIDC](../../polis/sso-providers/generic-oidc.mdx) walkthrough.
+Reference:
+[ory/integrates/enterprise-sso/forgerock-am](https://github.com/ory/integrates/tree/main/enterprise-sso/forgerock-am).
+</Admonition>
+```
+
+[ForgeRock Access Management](https://www.pingidentity.com/en/platform/forgerock.html) became part of Ping Identity following the
+2023 acquisition. It is a widely deployed enterprise IAM platform that supports OIDC, OAuth 2.0, and SAML 2.0. Ory Polis consumes
+ForgeRock as either an OIDC or SAML IdP.
+
+## Set up
+
+1. In ForgeRock AM, create a SAML 2.0 entity (under **Realms → Applications → Federation**) or an OAuth 2.0 client.
+2. Configure the Polis SP metadata on the ForgeRock app.
+3. In Ory Network, configure the SSO connection through the generic SAML or generic OIDC walkthrough.
+
+Polis is SP-initiated only.
+
+## Resources
+
+- [Ping Identity Platform docs](https://docs.pingidentity.com/r/en-us/pingam/pingam_home)
+- [Ory Polis SSO providers](../../polis/sso-providers/index.mdx)
+- Reference: [ory/integrates/enterprise-sso/forgerock-am](https://github.com/ory/integrates/tree/main/enterprise-sso/forgerock-am)

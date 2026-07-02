@@ -3,6 +3,7 @@
 
 import type { Config } from "@docusaurus/types"
 import type * as Preset from "@docusaurus/preset-classic"
+import type * as OpenApiPlugin from "docusaurus-plugin-openapi-docs"
 
 import lightTheme from "./src/utils/prismLight.mjs"
 import darkTheme from "./src/utils/prismDark.mjs"
@@ -49,6 +50,7 @@ const config: Config = {
         "yaml",
         "csharp",
         "diff",
+        "http",
       ],
       magicComments: [
         {
@@ -163,11 +165,30 @@ const config: Config = {
         editUrl: "https://github.com/ory/docs/edit/master",
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
+        disableVersioning: false,
+        include: ["**/*.md", "**/*.mdx", "**/*.jsx", "**/*.tsx"],
+        docRootComponent: "@theme/DocRoot",
+        docItemComponent: "@theme/ApiItem",
+      },
+    ],
+    [
+      "docusaurus-plugin-openapi-docs",
+      {
+        id: "openapi",
+        docsPluginId: "default",
+        config: {
+          talos: {
+            specPath: "docs/talos/reference/api.json",
+            outputDir: "docs/talos/reference/api",
+            sidebarOptions: { groupPathsBy: "tag" },
+          } satisfies OpenApiPlugin.Options,
+        },
       },
     ],
 
     "@docusaurus/plugin-content-pages",
     require.resolve("./src/plugins/docusaurus-polyfill"),
+    require.resolve("./src/plugins/docusaurus-rate-limits-data/index.ts"),
     // require.resolve("./src/plugins/docusaurus-static-fonts"),
     [
       "@docusaurus/plugin-sitemap",
@@ -224,6 +245,7 @@ const config: Config = {
     ],
     "@docusaurus/theme-search-algolia",
     "docusaurus-theme-redoc",
+    "docusaurus-theme-openapi-docs",
   ],
   headTags: [],
 }

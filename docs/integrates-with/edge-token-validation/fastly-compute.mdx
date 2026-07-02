@@ -1,0 +1,46 @@
+---
+id: fastly-compute
+title: Fastly Compute@Edge — Ory token validation
+sidebar_label: Fastly Compute@Edge
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained — see
+[cloudflare-workers](./cloudflare-workers.mdx) for the canonical
+reference implementation. Reference:
+[ory/integrates/edge-token-validation/fastly-compute](https://github.com/ory/integrates/tree/main/edge-token-validation/fastly-compute).
+</Admonition>
+```
+
+[Fastly Compute@Edge](https://www.fastly.com/products/edge-compute) is a WASM-based serverless runtime (Rust, JavaScript,
+AssemblyScript, and Go via TinyGo compiled to WebAssembly). You can validate Ory Network session tokens and JWTs at the Fastly
+edge using the same pattern as [Cloudflare Workers](./cloudflare-workers.mdx), compiled to WASM.
+
+## How it differs from the Cloudflare reference
+
+- **Backend registration**: register the Ory hostname as a named Fastly backend in the service config. Compute@Edge cannot make
+  ad-hoc outbound calls.
+- Use the **KV Store** for cross-region cache. Per-execution memory only persists for one request.
+- Use **edge dictionaries** for non-secret config (Ory project URL, audience IDs) and **edge secrets** for JWKS pinning info or
+  service tokens.
+- **Rust** is the most performant runtime. **JavaScript** (via Quick.js) is the easiest path when porting from the Cloudflare
+  reference.
+
+## How it works
+
+1. The WASM module fires on every request.
+2. It reads the session cookie or `Authorization: Bearer` header.
+3. For JWTs, it verifies against the cached Ory JWKS using a language-native JWT library compiled to WASM.
+4. For session cookies, it calls `/sessions/whoami` via a registered Fastly backend and caches the result in the Fastly KV Store
+   for 30–60s.
+5. When the token is valid, it injects `X-User-Id` and forwards to the origin backend.
+6. When it's invalid, it synthesizes a 401 at the edge.
+
+## Resources
+
+- [Fastly Compute@Edge documentation](https://www.fastly.com/documentation/guides/compute/)
+- Reference:
+  [ory/integrates/edge-token-validation/fastly-compute](https://github.com/ory/integrates/tree/main/edge-token-validation/fastly-compute)

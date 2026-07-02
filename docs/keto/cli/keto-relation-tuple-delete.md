@@ -16,7 +16,6 @@ Delete relationship tuples from inline arguments or JSON files and folders
 ### Synopsis
 
 Delete relationship tuples from inline arguments or JSON files and folders.
-
 Inline example:
 ```
 keto relation-tuple delete User:alice owner Doc:readme

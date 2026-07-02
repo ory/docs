@@ -186,6 +186,8 @@ import MyPartial from "@site/src/components/Shared/kratos/index.mdx"
 - Can’t find a page → check `docs/network`, `docs/oel`, `docs/oss`
 - Duplicate content → always set canonical URLs
 - Adding a page → update the correct sidebar
+- Deleting a page → never delete without adding a Vercel redirect from the old
+  URL to a relevant replacement
 
 ## When in Doubt
 

@@ -24,6 +24,10 @@ export const SIDEBAR_PRODUCT_LABELS: Record<string, SidebarProductLabel> = {
     productName: "Ory Oathkeeper",
     domain: "Proxy-based Access Control",
   },
+  talos: {
+    productName: "Ory Talos",
+    domain: "API Keys",
+  },
   network: {
     productName: "Ory Network",
     domain: null,

@@ -1,0 +1,44 @@
+---
+id: duo-security
+title: Duo Security as a second factor
+sidebar_label: Duo Security
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+Duo Security is not natively supported as an Ory Identities (Kratos) MFA method.
+This integration wires Duo as an Ory Actions webhook that runs a Duo Auth
+API check during the second-factor step. Reference:
+[ory/integrates/mfa/duo-security](https://github.com/ory/integrates/tree/main/mfa/duo-security).
+</Admonition>
+```
+
+[Duo Security](https://duo.com) is a workforce-focused MFA platform with push, OTP, phone, SMS, and device trust. Use it when Duo
+is already your workforce-MFA standard.
+
+## How it works
+
+Ory Identities (Kratos) doesn't natively support Duo. You integrate it with an Ory Action on `login.after` with
+`can_interrupt: true`:
+
+1. The user completes primary authentication and the Action fires.
+2. Your handler calls Duo's **Auth API** (`POST https://api-XXXXXXXX.duosecurity.com/auth/v2/auth`).
+3. Duo prompts the user with push, OTP, or phone.
+4. Your handler waits for the response: long-poll for push, synchronous for OTP.
+5. When Duo allows, you return success. When Duo denies, you block the sign-in.
+
+For most use cases, [native WebAuthn MFA](../../kratos/mfa/20_webauthn-fido-yubikey.mdx) is the simpler path with equivalent or
+better security.
+
+## Notable
+
+- The Duo Auth API requires an Integration Key, Secret Key, and API Host from the Duo Admin Panel.
+- Bind usernames consistently by mapping the Ory identity ID to the Duo username at enrollment time.
+- Duo's **Universal Prompt** uses an OIDC flow as an alternative.
+
+## Resources
+
+- [Duo Auth API documentation](https://duo.com/docs/authapi)
+- Reference: [ory/integrates/mfa/duo-security](https://github.com/ory/integrates/tree/main/mfa/duo-security)

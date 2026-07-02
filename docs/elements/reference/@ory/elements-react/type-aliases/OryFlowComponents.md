@@ -34,12 +34,13 @@ type OryFlowComponents = {
     Anchor: ComponentType<OryNodeAnchorProps>
     Button: ComponentType<OryNodeButtonProps>
     Captcha: ComponentType<OryNodeCaptchaProps>
-    Checkbox: ComponentType<OryNodeInputProps>
+    Checkbox: ComponentType<OryNodeCheckboxProps>
     CodeInput: ComponentType<OryNodeInputProps>
     ConsentScopeCheckbox: ComponentType<OryNodeConsentScopeCheckboxProps>
     Image: ComponentType<OryNodeImageProps>
     Input: ComponentType<OryNodeInputProps>
     Label: ComponentType<OryNodeLabelProps>
+    Select?: ComponentType<OryNodeSelectProps>
     SsoButton: ComponentType<OryNodeSsoButtonProps>
     Text: ComponentType<OryNodeTextProps>
   }
@@ -137,33 +138,35 @@ Message: {
 
 ```ts
 Node: {
-  Anchor: ComponentType<OryNodeAnchorProps>
-  Button: ComponentType<OryNodeButtonProps>
-  Captcha: ComponentType<OryNodeCaptchaProps>
-  Checkbox: ComponentType<OryNodeInputProps>
-  CodeInput: ComponentType<OryNodeInputProps>
-  ConsentScopeCheckbox: ComponentType<OryNodeConsentScopeCheckboxProps>
-  Image: ComponentType<OryNodeImageProps>
-  Input: ComponentType<OryNodeInputProps>
-  Label: ComponentType<OryNodeLabelProps>
-  SsoButton: ComponentType<OryNodeSsoButtonProps>
-  Text: ComponentType<OryNodeTextProps>
-}
+  Anchor: ComponentType<OryNodeAnchorProps>;
+  Button: ComponentType<OryNodeButtonProps>;
+  Captcha: ComponentType<OryNodeCaptchaProps>;
+  Checkbox: ComponentType<OryNodeCheckboxProps>;
+  CodeInput: ComponentType<OryNodeInputProps>;
+  ConsentScopeCheckbox: ComponentType<OryNodeConsentScopeCheckboxProps>;
+  Image: ComponentType<OryNodeImageProps>;
+  Input: ComponentType<OryNodeInputProps>;
+  Label: ComponentType<OryNodeLabelProps>;
+  Select?: ComponentType<OryNodeSelectProps>;
+  SsoButton: ComponentType<OryNodeSsoButtonProps>;
+  Text: ComponentType<OryNodeTextProps>;
+};
 ```
 
-| Name                   | Type                                                                                         | Description                                                                                                                                                                  |
-| ---------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Anchor`               | `ComponentType`\<[`OryNodeAnchorProps`](OryNodeAnchorProps.md)\>                             | Anchor component, rendered whenever an "anchor" node is encountered                                                                                                          |
-| `Button`               | `ComponentType`\<[`OryNodeButtonProps`](OryNodeButtonProps.md)\>                             | Button component, rendered whenever a button is encountered in the Ory UI Nodes.                                                                                             |
-| `Captcha`              | `ComponentType`\<[`OryNodeCaptchaProps`](OryNodeCaptchaProps.md)\>                           | The Captcha component is rendered whenever a "captcha" group is encountered.                                                                                                 |
-| `Checkbox`             | `ComponentType`\<[`OryNodeInputProps`](OryNodeInputProps.md)\>                               | The Checkbox component is rendered whenever an input node with of boolean type is encountered.                                                                               |
-| `CodeInput`            | `ComponentType`\<[`OryNodeInputProps`](OryNodeInputProps.md)\>                               | Special version of the Input component for OTP codes.                                                                                                                        |
-| `ConsentScopeCheckbox` | `ComponentType`\<[`OryNodeConsentScopeCheckboxProps`](OryNodeConsentScopeCheckboxProps.md)\> | Special version of the Input component for scopes in OAuth2 flows.                                                                                                           |
-| `Image`                | `ComponentType`\<[`OryNodeImageProps`](OryNodeImageProps.md)\>                               | The Image component is rendered whenever an "image" node is encountered. For example used in the "Logo" node.                                                                |
-| `Input`                | `ComponentType`\<[`OryNodeInputProps`](OryNodeInputProps.md)\>                               | The Input component is rendered whenever a "input" node is encountered.                                                                                                      |
-| `Label`                | `ComponentType`\<[`OryNodeLabelProps`](OryNodeLabelProps.md)\>                               | The Label component is rendered around Input components and is used to render form labels.                                                                                   |
-| `SsoButton`            | `ComponentType`\<[`OryNodeSsoButtonProps`](OryNodeSsoButtonProps.md)\>                       | The SsoButton component is rendered whenever a button of group "oidc" or "saml" node is encountered. It renders the "Login with Google", "Login with Facebook" etc. buttons. |
-| `Text`                 | `ComponentType`\<[`OryNodeTextProps`](OryNodeTextProps.md)\>                                 | The Text component is rendered whenever a "text" node is encountered.                                                                                                        |
+| Name                   | Type                                                                                         | Description                                                                                                                                                                                                                                                                                                                                                                       |
+| ---------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Anchor`               | `ComponentType`\<[`OryNodeAnchorProps`](OryNodeAnchorProps.md)\>                             | Anchor component, rendered whenever an "anchor" node is encountered                                                                                                                                                                                                                                                                                                               |
+| `Button`               | `ComponentType`\<[`OryNodeButtonProps`](OryNodeButtonProps.md)\>                             | Button component, rendered whenever a button is encountered in the Ory UI Nodes.                                                                                                                                                                                                                                                                                                  |
+| `Captcha`              | `ComponentType`\<[`OryNodeCaptchaProps`](OryNodeCaptchaProps.md)\>                           | The Captcha component is rendered whenever a "captcha" group is encountered.                                                                                                                                                                                                                                                                                                      |
+| `Checkbox`             | `ComponentType`\<[`OryNodeCheckboxProps`](OryNodeCheckboxProps.md)\>                         | The Checkbox component is rendered whenever an input node with of boolean type is encountered.                                                                                                                                                                                                                                                                                    |
+| `CodeInput`            | `ComponentType`\<[`OryNodeInputProps`](OryNodeInputProps.md)\>                               | Special version of the Input component for OTP codes.                                                                                                                                                                                                                                                                                                                             |
+| `ConsentScopeCheckbox` | `ComponentType`\<[`OryNodeConsentScopeCheckboxProps`](OryNodeConsentScopeCheckboxProps.md)\> | Special version of the Input component for scopes in OAuth2 flows.                                                                                                                                                                                                                                                                                                                |
+| `Image`                | `ComponentType`\<[`OryNodeImageProps`](OryNodeImageProps.md)\>                               | The Image component is rendered whenever an "image" node is encountered. For example used in the "Logo" node.                                                                                                                                                                                                                                                                     |
+| `Input`                | `ComponentType`\<[`OryNodeInputProps`](OryNodeInputProps.md)\>                               | The Input component is rendered whenever a "input" node is encountered.                                                                                                                                                                                                                                                                                                           |
+| `Label`                | `ComponentType`\<[`OryNodeLabelProps`](OryNodeLabelProps.md)\>                               | The Label component is rendered around Input components and is used to render form labels.                                                                                                                                                                                                                                                                                        |
+| `Select?`              | `ComponentType`\<[`OryNodeSelectProps`](OryNodeSelectProps.md)\>                             | The Select component is rendered whenever an "input" node declares a non-empty `options` list, typically the result of an `enum` constraint in the identity schema. Optional for backward compatibility: when not provided, the dispatch falls back to the regular `Input` renderer so older consumers that constructed `OryFlowComponents` by hand keep compiling and rendering. |
+| `SsoButton`            | `ComponentType`\<[`OryNodeSsoButtonProps`](OryNodeSsoButtonProps.md)\>                       | The SsoButton component is rendered whenever a button of group "oidc" or "saml" node is encountered. It renders the "Login with Google", "Login with Facebook" etc. buttons.                                                                                                                                                                                                      |
+| `Text`                 | `ComponentType`\<[`OryNodeTextProps`](OryNodeTextProps.md)\>                                 | The Text component is rendered whenever a "text" node is encountered.                                                                                                                                                                                                                                                                                                             |
 
 ---
 

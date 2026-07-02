@@ -9,14 +9,14 @@ type AnnouncementLevel = "info" | "warning" | "error" | "success"
 function getLevelClasses(level: AnnouncementLevel) {
   switch (level) {
     case "warning":
-      return "border-amber-200 bg-amber-50 text-amber-950"
+      return `border-amber-200 bg-amber-50 text-amber-950 ${styles.warning}`
     case "error":
-      return "border-red-200 bg-red-50 text-red-950"
+      return `border-red-200 bg-red-50 text-red-950 ${styles.error}`
     case "success":
-      return "border-emerald-200 bg-emerald-50 text-emerald-950"
+      return `border-emerald-200 bg-emerald-50 text-emerald-950 ${styles.success}`
     case "info":
     default:
-      return "border-purple-200 bg-purple-50 text-purple-950"
+      return `border-purple-200 bg-purple-50 text-purple-950 ${styles.info}`
   }
 }
 

@@ -1,0 +1,41 @@
+---
+id: workday-scim
+title: Workday SCIM
+sidebar_label: Workday
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Reference pattern (not turnkey)">
+Workday's SCIM connector is not turnkey. The integration requires Workday
+Studio, a mid-tier connector, or fronting Workday through an IdP
+(Okta or Entra ID) and provisioning over SCIM from there. Reference:
+[ory/integrates/directory-sync/workday-scim](https://github.com/ory/integrates/tree/main/directory-sync/workday-scim).
+</Admonition>
+```
+
+[Workday](https://www.workday.com) is the most widely deployed enterprise HCM and the source of truth for employee data in many
+enterprises. Wiring Workday to Ory keeps Ory's identity store in sync with HR ground truth.
+
+## Three integration patterns
+
+**Pattern A — Workday Studio** (canonical, expensive). A Workday integration system maps Workday data into SCIM 2.0 calls against
+Ory's directory-sync endpoint.
+
+**Pattern B — mid-tier connector**. Tools4ever HelloID, Saviynt, or a custom service pulls Workday data over REST or SOAP and
+pushes it to the Ory SCIM endpoint.
+
+**Pattern C — provision through your IdP** (most common). Workday provisions into Okta or Entra ID through the IdP's native
+Workday connector, then the IdP provisions into Ory through the existing
+[Okta SCIM](../../polis/directory-sync/providers/okta.mdx) or
+[Microsoft Entra SCIM](../../polis/directory-sync/providers/azure.mdx) integration. This avoids touching Workday directly.
+
+## What Ory provides
+
+Ory exposes a standard SCIM 2.0 endpoint with bearer-token authentication that accepts `Users` and `Groups`.
+
+## Resources
+
+- [Workday API reference](https://community.workday.com/api)
+- Reference: [ory/integrates/directory-sync/workday-scim](https://github.com/ory/integrates/tree/main/directory-sync/workday-scim)

@@ -1,0 +1,43 @@
+---
+id: epic-games
+title: Sign in with Epic Games
+sidebar_label: Epic Games
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained, not part of Ory's officially
+supported social sign-in providers. Reference implementation:
+[ory/integrates/social-sign-in/epic-games](https://github.com/ory/integrates/tree/main/social-sign-in/epic-games).
+Contributions welcome.
+</Admonition>
+```
+
+[Epic Games](https://dev.epicgames.com/portal) provides OAuth 2.0 and OIDC sign-in for the Epic Games Store and Fortnite player
+base. You can configure it as a social sign-in provider in Ory Network for gaming, community, and companion-app use cases that
+target Epic users.
+
+## Setup
+
+The full walkthrough lives at
+[ory/integrates/social-sign-in/epic-games](https://github.com/ory/integrates/tree/main/social-sign-in/epic-games). The short
+version is:
+
+1. Create an Epic Games product at [dev.epicgames.com/portal](https://dev.epicgames.com/portal).
+2. Enable the **Account Service** and add the Ory redirect URI.
+3. Configure it as a generic OIDC provider in Ory Identities with:
+   - Issuer URL: `https://api.epicgames.dev/epic/oauth/v2`
+   - Authorization endpoint: `https://www.epicgames.com/id/authorize`
+   - Scopes: `basic_profile` plus any optional approved scopes.
+4. Map the OIDC claims (`sub`, `display_name`, `preferred_language`) to Ory identity traits via Jsonnet.
+
+Epic Games requires application review before it releases `basic_profile` and adjacent scopes, so plan for review lead time.
+
+## Resources
+
+- [Epic Online Services — Account Service](https://dev.epicgames.com/docs/epic-account-services/)
+- [Ory generic OIDC provider docs](../../kratos/social-signin/05_generic.mdx)
+- Reference implementation:
+  [ory/integrates/social-sign-in/epic-games](https://github.com/ory/integrates/tree/main/social-sign-in/epic-games)

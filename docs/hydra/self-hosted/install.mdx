@@ -10,7 +10,15 @@ import Secure from '../../_common/secure.mdx'
 ```
 
 ```mdx-code-block
-import Install from '../../_common/install.mdx'
+import Install from '@site/src/components/Shared/install-oel.mdx'
+import ImageTags from '../../self-hosted/oel/oel-hydra-image-tags.md'
 
-<Install repo="hydra" command="hydra" name="Ory Hydra" />
+<Install
+  name="Ory Hydra"
+  repo="hydra"
+  image="europe-docker.pkg.dev/ory-artifacts/ory-enterprise/hydra-oel"
+  ports={[4444, 4445]}
+  serveCommand="serve all"
+  imageTags={<ImageTags />}
+/>
 ```

@@ -1,0 +1,22 @@
+---
+id: linkedin
+title: Sign in with LinkedIn
+sidebar_label: LinkedIn
+---
+
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/kratos/social-signin/linkedin" />
+</head>
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="info" title="Primary documentation">
+LinkedIn is configured as a social sign-in provider in the Ory Console or via the Ory CLI — no webhook code required. See
+[Add LinkedIn as a social sign-in provider in Ory](../../kratos/social-signin/83_linkedin.mdx) for the full guide.
+</Admonition>
+```
+
+Add Sign In with LinkedIn as a social sign-in provider in Ory Network. LinkedIn migrated to OIDC-compliant authentication via its
+"Sign In with LinkedIn using OpenID Connect" product, returning standard `email`, `name`, and `picture` claims so the mapping is
+straightforward.

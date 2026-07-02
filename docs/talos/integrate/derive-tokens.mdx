@@ -1,0 +1,334 @@
+---
+title: Derive tokens
+description: Mint short-lived JWT or macaroon tokens from API keys
+---
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
+The holder of an API key can mint a short-lived JWT or macaroon, signed by Ory Talos, that carries a chosen subset of the parent
+key's authority. Scopes, expiration, and custom claims are sealed into the token at mint time. Verification then needs only a
+signature and expiry check, with no database round-trip.
+
+Derive tokens when you want to:
+
+- Hand out narrow, short-lived credentials without exposing the parent key. Each derivation drops scopes, shortens the TTL, and
+  attaches application-specific `custom_claims` (for example, `tenant` or `role`). Scopes never exceed the parent's, and the
+  derived TTL is capped at the parent's remaining lifetime.
+- Verify tokens at the edge or inside your own services. Ory Talos signs JWTs with EdDSA or RS256 and publishes the public keys at
+  `GET /v2alpha1/derivedKeys/jwks.json`. Any service that holds that JWKS verifies a JWT locally, without calling Ory Talos on
+  every request, which keeps verification resilient to database outages. Macaroons are HMAC-bound and require verification by Ory
+  Talos.
+- Pick the right algorithm for the job. Use `TOKEN_ALGORITHM_JWT` when third parties or your own edge verify the token using the
+  JWKS. Use `TOKEN_ALGORITHM_MACAROON` for contextual attenuation (third-party caveats) when third-party verification isn't
+  required. For format details, see [derived JWTs](../concepts/credential-types.md#derived-jwts) and
+  [derived macaroons](../concepts/credential-types.md#derived-macaroons).
+- Exchange API keys for JWTs at the edge. A gateway or proxy accepts a long-lived API key from the caller and exchanges it for a
+  short-lived derived JWT. Backends behind the gateway verify the JWT locally against the JWKS, so the data path stays stateless
+  even when the caller's credential is long-lived.
+- Bound agent authority in agentic workflows. An orchestrator holds the parent API key and mints a narrow, short-lived derived
+  token for each agent or tool call. A leaked or misbehaving agent is then bounded by the derived token's scopes and TTL, not the
+  parent's full authority. Use macaroons when sub-agents need to attenuate further without contacting Ory Talos.
+
+The same endpoint (`POST /v2alpha1/admin/apiKeys:verify`) accepts both token types and the parent API key.
+
+:::caution
+
+Derived tokens are bearer credentials. Treat them like any short-lived session token: prefer TTLs of 5–60 minutes, never log or
+persist them, and read [stateless derived-token verification](../concepts/security-model.md#stateless-derived-token-verification)
+before choosing a TTL. Revoking the parent key blocks new derivations immediately, but already-issued tokens stay valid until they
+expire.
+
+:::
+
+## Example use cases
+
+### Ingress translates opaque API keys to JWTs
+
+A caller sends a long-lived opaque API key to an ingress or API gateway. The gateway runs next to Talos admin access, calls
+`POST /v2alpha1/admin/apiKeys:derive` to derive a short-lived JWT with scoped claims, and forwards only the derived JWT to backend
+services. Backends verify the JWT statelessly against `GET /v2alpha1/derivedKeys/jwks.json`.
+
+```json
+{
+  "credential": "$API_SECRET",
+  "algorithm": "TOKEN_ALGORITHM_JWT",
+  "ttl": "15m",
+  "scopes": ["read"],
+  "custom_claims": {
+    "service": "orders-api",
+    "tenant": "acme"
+  }
+}
+```
+
+### Agent orchestrator issues constrained macaroons
+
+An agent orchestrator holds the parent API key secret. For each agent or task, it calls `POST /v2alpha1/admin/apiKeys:derive` to
+derive a short-lived macaroon with limited `scopes` and concrete caveat-style `custom_claims`, then gives the agent only the
+derived macaroon. Verification uses the same Talos verify endpoint, and the token expires quickly.
+
+```json
+{
+  "credential": "$API_SECRET",
+  "algorithm": "TOKEN_ALGORITHM_MACAROON",
+  "ttl": "10m",
+  "scopes": ["read"],
+  "custom_claims": {
+    "access": "read_only",
+    "environment": "staging"
+  }
+}
+```
+
+<!-- doctest:setup:file tools/doctest/setup.sh -->
+<!-- doctest:teardown:file tools/doctest/teardown.sh -->
+
+First, issue a parent key for token derivation.
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="cli">
+<TabItem value="cli" label="CLI">
+
+```shell
+RESPONSE=$(talos keys issue "derive-test" \
+  --actor user_1 \
+  --scopes "read,write" \
+  --format json \
+  -e "$TALOS_URL" 2>/dev/null)
+
+echo "$RESPONSE" | jq .
+
+export API_SECRET=$(echo "$RESPONSE" | jq -er '.secret')
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+ISSUE_RESP=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/issuedApiKeys" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"derive-test","actor_id":"user_1","scopes":["read","write"]}')
+
+echo "$ISSUE_RESP" | jq .
+
+export API_SECRET=$(echo "$ISSUE_RESP" | jq -er '.secret')
+```
+
+</TabItem>
+</Tabs>
+
+## Derive a JWT
+
+Send the parent key's secret to the derive endpoint with `TOKEN_ALGORITHM_JWT`.
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="cli">
+<TabItem value="cli" label="CLI">
+
+```shell
+RESPONSE=$(talos keys derive-token "$API_SECRET" \
+  --algorithm jwt \
+  --ttl 1h \
+  --claims '{"role": "viewer", "tenant": "acme"}' \
+  --format json \
+  -e "$TALOS_URL" 2>/dev/null)
+
+echo "$RESPONSE" | jq .
+
+export JWT_TOKEN=$(echo "$RESPONSE" | jq -er '.token.token')
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+RESPONSE=$(curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:derive" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"credential\": \"$API_SECRET\",
+    \"algorithm\": \"TOKEN_ALGORITHM_JWT\",
+    \"ttl\": \"1h\",
+    \"scopes\": [\"read\"],
+    \"custom_claims\": {\"role\": \"viewer\", \"tenant\": \"acme\"}
+  }")
+
+echo "$RESPONSE" | jq .
+
+export JWT_TOKEN=$(echo "$RESPONSE" | jq -er '.token.token')
+```
+
+</TabItem>
+</Tabs>
+
+### Request fields
+
+The key fields are `credential` (the parent API key secret), `algorithm` (`TOKEN_ALGORITHM_JWT` or `TOKEN_ALGORITHM_MACAROON`),
+optional `ttl`, `scopes` (a subset of the parent's), and `custom_claims`. For the complete field reference, see the
+[DeriveToken API reference](../reference/api/admin-derive-token.api.mdx).
+
+For HTTP API requests, `ttl` accepts extended formats such as `1y`, `1mo`, `1w`, and `1d`, and compounds like `1y6mo`, in addition
+to standard Go durations. The CLI `--ttl` flag expects standard Go durations such as `1h` or `30m`.
+
+### Response
+
+The response contains a `token` object with `token.token` (the derived token string), `token.expire_time`, `token.scopes`, and
+`token.claims`. For the complete field reference, see the
+[DeriveToken API reference](../reference/api/admin-derive-token.api.mdx).
+
+## Verify a derived token
+
+The same `:verify` endpoint verifies derived tokens and API keys.
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="cli">
+<TabItem value="cli" label="CLI">
+
+```shell
+talos keys verify "$JWT_TOKEN" -e "$TALOS_URL"
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:verify" \
+  -H "Content-Type: application/json" \
+  -d "{\"credential\":\"$JWT_TOKEN\"}" | jq .
+```
+
+</TabItem>
+</Tabs>
+
+The response includes the token's scopes, actor, and the metadata inherited from the parent key.
+
+## Derive a macaroon
+
+Macaroons use HMAC-based authentication with support for caveats.
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="cli">
+<TabItem value="cli" label="CLI">
+
+```shell
+talos keys derive-token "$API_SECRET" \
+  --algorithm macaroon \
+  --ttl 30m \
+  -e "$TALOS_URL"
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+curl -s -X POST "$TALOS_URL/v2alpha1/admin/apiKeys:derive" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"credential\": \"$API_SECRET\",
+    \"algorithm\": \"TOKEN_ALGORITHM_MACAROON\",
+    \"ttl\": \"30m\"
+  }" | jq .
+```
+
+</TabItem>
+</Tabs>
+
+## JWT versus macaroon
+
+| Feature                  | JWT                                                | Macaroon                                  |
+| ------------------------ | -------------------------------------------------- | ----------------------------------------- |
+| Verification             | Signature-based (can verify client-side with JWKS) | HMAC-based (requires server verification) |
+| Size                     | Larger (base64 JSON + signature)                   | Smaller (binary format)                   |
+| Client-side verification | Yes, via JWKS endpoint                             | No                                        |
+| Custom claims            | Yes                                                | Yes (as caveats)                          |
+
+## JWKS endpoint
+
+For client-side JWT verification, fetch the public keys from the JWKS endpoint at `/v2alpha1/derivedKeys/jwks.json`.
+
+<!-- doctest:exec -->
+
+<Tabs groupId="sdk" defaultValue="cli">
+<TabItem value="cli" label="CLI">
+
+```shell
+talos jwk get -e "$TALOS_URL"
+```
+
+</TabItem>
+<TabItem value="curl" label="curl">
+
+```shell
+curl -s "$TALOS_URL/v2alpha1/derivedKeys/jwks.json" | jq .
+```
+
+</TabItem>
+</Tabs>
+
+The endpoint serves the active public signing keys plus any retired keys still inside the verification window. Each entry includes
+a `kid` field that matches the `kid` header on tokens signed with that key.
+
+### Client-side caching and refresh
+
+Cache the JWKS response on the client so verification doesn't call Ory Talos on every request. Recommended settings:
+
+| Setting              | Recommended value | Notes                                                   |
+| -------------------- | ----------------- | ------------------------------------------------------- |
+| Cache TTL            | 5–15 minutes      | Bounds how long a rotated-out key keeps verifying.      |
+| Refresh-on-miss      | Enabled           | If a token's `kid` is unknown, refetch JWKS once.       |
+| Refresh failure mode | Serve stale       | If the refetch fails, keep the previous keys until TTL. |
+
+Most JWT libraries (`jose` for Node, `PyJWT`/`PyJWKClient` for Python, `go-jose`, and `jjwt` for Java) support these patterns
+natively: set the cache TTL and enable refresh-on-unknown-kid. Don't poll the endpoint on a fixed interval shorter than 1 minute.
+It adds load without shrinking the practical revocation window, which is bounded by the longest issued token TTL.
+
+When you rotate signing keys, keep the previous key in the JWKS response (mark it retired in the server config and don't delete
+the JWK) for at least the longest issued token TTL plus the maximum client cache TTL. Otherwise, clients with a freshly cached
+JWKS that lacks the new `kid` reject valid tokens until their cache expires.
+
+## Enforcement at derive time
+
+All checks happen before Ory Talos signs the token. If any check fails, Ory Talos issues no token.
+
+- Parent must be `KEY_STATUS_ACTIVE`. Ory Talos rejects a revoked, expired, or unknown parent key.
+- Scopes must be a subset of the parent. Requesting any scope the parent doesn't have returns `403 Forbidden`. Omitting `scopes`
+  inherits the full parent set.
+- TTL is capped at the parent's remaining lifetime. A `ttl` longer than the time left until `parent.expire_time` returns
+  `400 Bad Request`. The configured `credentials.api_keys.max_ttl` also applies.
+- Inherited fields can't be overridden. Ory Talos copies the parent's `sub`, `actor_id`, `key_id`, `metadata`, `visibility`, and
+  CIDR allowlist and seals them into the token claims. Requests can't set them directly.
+- Reserved claim names are stripped from `custom_claims`. Ory Talos owns the JWT header, the standard claims, and its own
+  short-form claims. It removes these names from any `custom_claims` payload before signing: `jti`, `sub`, `iss`, `aud`, `iat`,
+  `exp`, `nbf`, `nid`, `akid`, `pid`, `tty`, `oid`, `scp`, `scope`, `meta`, `vis`, and `acl`. Use any other key for
+  application-defined claims.
+
+## What verification checks
+
+Derived-token verification is stateless: no database lookup, no parent-key status check, and no re-evaluation of the parent's
+current scopes, rate-limit policy, or visibility. The data plane only checks:
+
+1. Signature against the JWKS (JWT) or the HMAC secret (macaroon).
+2. `exp` and `nbf` windows.
+3. Issuer matches the configured current or retired issuer.
+4. Network ID in the token claims matches the request's tenant, as defense-in-depth against tokens from another tenant.
+5. CIDR allowlist sealed into the token, against the request's source IP. This enforces the parent's IP restrictions at verify
+   time without re-reading the parent.
+
+A revoked parent therefore blocks new derivations immediately but doesn't invalidate already-issued tokens; they stay valid until
+`exp`. If your threat model needs faster invalidation:
+
+- Use short TTLs. 5–15 minutes for service-to-service, 15–60 minutes for user sessions, and 1–5 minutes for sensitive operations.
+  Avoid TTLs longer than your operational MTTR.
+- Rotate the JWK signing keys. Tokens signed with the rotated-out key fail signature verification once you remove the old `kid`
+  from the JWKS. This invalidates every derived token signed with that key, not only those from one parent.
+- Apply your own deny list at the gateway if you need per-`jti` revocation. Talos doesn't maintain one for derived tokens.
+
+## Next steps
+
+- [Issue and verify](issue-and-verify.mdx) — create the parent API keys used for derivation
+- [Key lifecycle](key-lifecycle.mdx) — rotate and revoke parent keys
+- [Self-revocation](self-revocation.mdx) — allow key holders to revoke their own keys

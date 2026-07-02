@@ -436,7 +436,7 @@ route, and renders a standard markup for both, as well as the link with the
 <ConsoleLink route="project.activity.events" />
 
 // becomes:
-// Activity → Logs & Events in the [Ory Console](https://console.ory.sh/current/projects/activity/events)
+// Activity → Logs & Events in the [Ory Console](https://console.ory.com/current/projects/activity/events)
 ```
 
 A list of all supported routes can be found here:

@@ -13,6 +13,7 @@ import Logo from "@theme/Logo"
 import CollapseButton from "@theme/DocSidebar/Desktop/CollapseButton"
 import Content from "@theme/DocSidebar/Desktop/Content"
 import SidebarDeploymentModel from "@site/src/components/SidebarDeploymentModel"
+import SidebarDeploymentDropdown from "@site/src/components/SidebarDeploymentDropdown"
 import styles from "./styles.module.css"
 
 function DocSidebarDesktop({ path, sidebar, onCollapse, isHidden }) {
@@ -32,6 +33,7 @@ function DocSidebarDesktop({ path, sidebar, onCollapse, isHidden }) {
     >
       {hideOnScroll && <Logo tabIndex={-1} className={styles.sidebarLogo} />}
       <SidebarDeploymentModel />
+      <SidebarDeploymentDropdown />
       <Content path={path} sidebar={sidebar} />
       {hideable && <CollapseButton onClick={onCollapse} />}
     </div>

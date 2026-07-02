@@ -1,0 +1,35 @@
+---
+id: bamboohr
+title: BambooHR directory sync
+sidebar_label: BambooHR
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained, not part of Ory's officially
+supported directory-sync providers. Reference:
+[ory/integrates/directory-sync/bamboohr](https://github.com/ory/integrates/tree/main/directory-sync/bamboohr).
+</Admonition>
+```
+
+[BambooHR](https://www.bamboohr.com) is an HR information system that SMBs commonly use as the system of record for employee data.
+This integration syncs BambooHR employee lifecycle events (hire, role change, and termination) to Ory Network as identity create,
+update, and disable operations.
+
+BambooHR doesn't speak SCIM natively, so the integration is a custom webhook handler that polls BambooHR's employee API and
+reconciles to Ory through the Ory Identities (Kratos) Admin API.
+
+## Set up
+
+1. In BambooHR, go to **Settings → API Keys** and create an API key for the integration user.
+2. Deploy a sync service that polls `/v1/employees` (or subscribes to BambooHR webhooks) and upserts Ory identities keyed by
+   `metadata_public.hr.employee_id`. When an employee is terminated, disable the identity.
+3. The Ory side uses only the Admin API — nothing Polis-specific.
+
+## Resources
+
+- [BambooHR API documentation](https://documentation.bamboohr.com/reference/get-employee)
+- [Ory Kratos Admin API](../../reference/api.mdx)
+- Reference: [ory/integrates/directory-sync/bamboohr](https://github.com/ory/integrates/tree/main/directory-sync/bamboohr)

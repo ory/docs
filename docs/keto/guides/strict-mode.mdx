@@ -1,0 +1,147 @@
+---
+title: Strict mode for Ory Permissions
+sidebar_label: Strict mode
+---
+
+## What is strict mode?
+
+Strict mode makes the Ory Permissions engine treat your [OPL](../reference/ory-permission-language) as the single source of truth
+during every check. Without strict mode, the engine doesn't use your OPL declarations to filter which tuples it follows — it may
+follow subject-set pointers that your OPL doesn't specify.
+
+Strict mode is enabled by default for all new Ory Network projects created from July 2026 onwards — if you created your project
+after that date, strict mode is already on and you don't need to configure anything. For older projects, strict mode is disabled
+by default and can be enabled in the Ory Console under **Permissions > Namespaces**.
+
+## Why enable strict mode?
+
+Strict mode improves both performance and correctness:
+
+- **Fewer queries.** Ory Keto skips evaluation steps that are impossible given your schema — following undeclared subject-set
+  pointer types, and direct tuple checks on `permits` rules.
+- **No stale grants.** Tuples that reference relations removed from your OPL no longer grant access.
+- **Explicit errors when limits are reached.** Ory Permissions enforces depth and width limits to prevent unbounded graph
+  traversal. In non-strict mode, hitting a limit silently returns `{ "allowed": false }` — identical to a legitimate denial. In
+  strict mode, the engine returns an explicit error so you can tell the check was cut short.
+
+| Scenario                      | Non-strict             | Strict                                               |
+| ----------------------------- | ---------------------- | ---------------------------------------------------- |
+| Limit hit during single check | `{ "allowed": false }` | `422 Unprocessable Entity` with reason               |
+| Limit hit during batch check  | `{ "allowed": false }` | `{ "allowed": false, "error": "max depth reached" }` |
+
+Ory Network enforces fixed depth and width limits that cannot be changed in the console. If you hit a limit, contact
+[Ory support](https://www.ory.com/support) to discuss your use case.
+
+## Patterns that break in strict mode
+
+These patterns work in non-strict mode but break after enabling strict mode.
+
+### Tuples written with a subject ID instead of a subject set
+
+If your application uses the `subject_id` API field to write tuples or perform checks — for example writing
+`File:readme#viewers@user_5` with no namespace — strict mode returns an explicit error at check time. Subject IDs have no
+connection to your OPL, so the engine cannot validate them. In non-strict mode this produces a silent `allowed: false`,
+indistinguishable from a legitimate denial. In strict mode you get an error immediately, because strict mode requires all tuples
+to be consistent with your OPL.
+
+This requires a migration: see [Migrating from subject IDs to subject sets](./migrating-to-subject-sets).
+
+### Subject-set tuples for undeclared types
+
+This covers any tuple that points to a subject-set type your OPL doesn't declare for that relation.
+
+**Example:** `viewers` is declared as `User[]`, but a tuple pointing to a `Group` subject-set was written:
+
+```ts
+class File implements Namespace {
+  related: {
+    viewers: User[] // only Users allowed
+  }
+}
+```
+
+Writing a tuple like this — which assigns a `Group` subject-set to the `viewers` relation — will be ignored in strict mode:
+
+```bash
+keto relation-tuple create Group:engineering#members viewers File:readme
+```
+
+Declare the type in OPL to keep it working:
+
+```ts
+viewers: (User | SubjectSet<Group, "members">)[]
+```
+
+The same applies in reverse: if `viewers` is declared as `SubjectSet<Group, "members">[]` but a direct user tuple was written:
+
+```keto-tuples
+File:readme#viewers@User:alice
+```
+
+Strict mode ignores it because `User` is not a declared type for that relation.
+
+### Tuples written directly against permit relations
+
+**Example:** `canView` is a computed permit, but a tuple was written against it directly:
+
+```ts
+class File implements Namespace {
+  related: {
+    editors: User[]
+    viewers: User[]
+  }
+  permits = {
+    canView: (ctx: Context) => this.related.editors.includes(ctx.subject) || this.related.viewers.includes(ctx.subject),
+  }
+}
+```
+
+```keto-tuples
+File:readme#canView@User:alice
+```
+
+Strict mode skips direct tuple checks on `permits` rules. Write tuples against `editors` or `viewers` instead.
+
+### Stale tuples from a renamed or removed relation
+
+If you renamed or removed a relation in OPL but didn't clean up the old tuples, in rare setups, Ory Keto in non-strict mode still
+follows them. Strict mode ignores them immediately.
+
+## How to check if you're ready
+
+Audit two things before enabling:
+
+1. **Tuple writes** — every relation you write tuples against should exist in your OPL, and the subject type should match what the
+   relation declares. For example, if your application writes:
+
+   ```keto-tuples
+   Document:readme#editors@User:alice
+   ```
+
+   check that the `Document` namespace in your OPL declares an `editors` relation, and that it accepts `User` as a subject type:
+
+   ```ts
+   class Document implements Namespace {
+     related: {
+       editors: User[]
+     }
+   }
+   ```
+
+2. **Check requests** — every relation you check should be defined in your OPL. For example, if your application calls:
+
+   ```keto-natural
+   is User:alice allowed to editors on Document:readme
+   ```
+
+   verify that `editors` is declared in the `Document` namespace.
+
+If both are consistent with your OPL, enabling strict mode produces identical results to non-strict mode — with faster permission
+checks.
+
+See the [Ory Permission Language](../reference/ory-permission-language) guide.
+
+## Enabling and disabling
+
+Go to the [Ory Console](https://console.ory.com), select your project, and navigate to **Permissions > Configuration**. Toggle
+**Strict mode** on or off and save. The change takes effect immediately — no restart required, and no data is modified.

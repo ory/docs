@@ -1,0 +1,40 @@
+---
+id: aws
+title: Running Ory on AWS
+sidebar_label: AWS
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Reference pattern (deployment topology)">
+Not a vendor integration — Ory Network is reached over HTTPS like any
+SaaS, and self-hosted Ory products run on standard Kubernetes (EKS).
+This page documents the AWS-side glue. Reference:
+[ory/integrates/cloud-infrastructure/aws](https://github.com/ory/integrates/tree/main/cloud-infrastructure/aws).
+</Admonition>
+```
+
+## Two patterns
+
+### Pattern A: AWS application talking to Ory Network
+
+- Allow outbound HTTPS (port 443) from your VPC to `*.oryapis.com`. Most security groups need an explicit egress rule.
+- Store the Ory API key in **AWS Secrets Manager** (or SSM Parameter Store) and inject it via task or pod IAM.
+- Use **Route 53** to map your custom auth domain (for example `auth.example.com`) to `custom.oryapis.com` with a CNAME. Configure
+  the custom domain on Ory Network with `ory update project --custom-domain`.
+
+### Pattern B: Self-hosted Ory on EKS
+
+- Use **EKS** for the cluster. `eksctl create cluster --with-oidc` is the simplest start.
+- Use **RDS PostgreSQL** Multi-AZ for the Ory Identities, Ory OAuth2 & OpenID Connect, and Ory Permissions datastores.
+- Optionally, use **ElastiCache for Redis** for session caching with `at_rest_encryption_enabled` and
+  `transit_encryption_enabled`.
+- Deploy with the official Helm charts (`helm repo add ory https://k8s.ory.sh/helm/charts`).
+- Use the **AWS Load Balancer Controller** (ALB Ingress) for HTTPS termination with an ACM certificate.
+
+## Resources
+
+- [Ory self-hosted deployment](../../oss/deployment.mdx)
+- [Ory Helm charts](https://github.com/ory/k8s)
+- Reference: [ory/integrates/cloud-infrastructure/aws](https://github.com/ory/integrates/tree/main/cloud-infrastructure/aws)

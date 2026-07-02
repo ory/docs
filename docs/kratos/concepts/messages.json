@@ -336,6 +336,11 @@
     }
   },
   {
+    "id": 1050023,
+    "text": "Your account is managed by your organization. To change these settings, contact your organization administrator.",
+    "type": "info"
+  },
+  {
     "id": 1060001,
     "text": "You successfully recovered your account. Please change your password or set up an alternative login method (e.g. social sign in) within the next 1.00 minutes.",
     "type": "success",
@@ -796,6 +801,11 @@
   {
     "id": 4000044,
     "text": "The provided DeviceAuthn signature is invalid.",
+    "type": "error"
+  },
+  {
+    "id": 4000045,
+    "text": "This DeviceAuthn key can no longer be used because relaxed attestation is expired or disabled. Please enroll your device again.",
     "type": "error"
   },
   {

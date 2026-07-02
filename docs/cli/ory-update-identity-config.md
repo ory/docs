@@ -25,7 +25,7 @@ self-hosted Ory Kratos to Ory Network.
 The full configuration payload can be found at:
 
 ```
-https://www.ory.sh/docs/reference/api#operation/updateProject.
+https://www.ory.com/docs/reference/api#operation/updateProject
 ```
 
 This command expects the contents of the `/services/identity/config` key, so for example:

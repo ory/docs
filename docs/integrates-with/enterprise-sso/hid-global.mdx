@@ -1,0 +1,36 @@
+---
+id: hid-global
+title: HID Global Identity Services
+sidebar_label: HID Global
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained and is not part of Ory Polis's
+officially supported SSO providers. You configure it through the
+[generic SAML SP](../../polis/sso-providers/generic-saml.mdx) or
+[generic OIDC](../../polis/sso-providers/generic-oidc.mdx) walkthrough.
+Reference:
+[ory/integrates/enterprise-sso/hid-global](https://github.com/ory/integrates/tree/main/enterprise-sso/hid-global).
+</Admonition>
+```
+
+[HID Global](https://www.hidglobal.com) unifies physical (badge readers, smart cards, mobile credentials) and digital (SSO, MFA,
+certificate-based authentication) identity. Common in government, healthcare, financial services, and manufacturing.
+
+## Set up
+
+1. In the HID Authentication Service tenant, create a SAML 2.0 or OIDC application.
+2. Paste the Polis SP metadata into the HID app.
+3. Define the attribute release (email, names, groups).
+4. In Ory Network, configure the SSO connection through the generic SAML or generic OIDC walkthrough.
+
+HID enforces certificate-based authentication (PIV, CAC, or smart card), and Ory consumes the authenticated session.
+
+## Resources
+
+- [HID Global Identity Services](https://www.hidglobal.com/solutions/identity-access-management)
+- [Ory Polis SSO providers](../../polis/sso-providers/index.mdx)
+- Reference: [ory/integrates/enterprise-sso/hid-global](https://github.com/ory/integrates/tree/main/enterprise-sso/hid-global)

@@ -31,6 +31,13 @@ TOC wrapper.
   flex-shrink: 1;
 }
 
+.ory-network-cta-sticky {
+  position: sticky;
+  bottom: 0;
+  padding-top: 8px;
+  background: var(--ifm-background-color);
+}
+
 .kapa-widget-placeholder {
   /* Kapa widget height */
   min-height: 80px;

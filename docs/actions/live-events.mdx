@@ -6,6 +6,12 @@ sidebar_label: Event streams
 
 # Live event streams
 
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import BrowserWindow from "@site/src/theme/BrowserWindow"
+```
+
 You can stream events (sign-ups, logins, machine-to-machine tokens issued, and many more) in real-time, live as they happen in
 your Ory Network project, to your own infrastructure. Pipe those events into your own data warehouse, data lake, or flavor of
 choice, and use them to power your own analytics, dashboards, data science, and more.
@@ -50,7 +56,7 @@ Important:
   compatibility guarantees are made for them.
 
 If you intend to write a consumer that needs a detailed schema and stability guarantees about the `eventAttributes` field, please
-[open a support ticket](https://console.ory.sh/support/).
+[open a support ticket](https://console.ory.com/support/).
 
 ## Event names
 
@@ -168,7 +174,7 @@ New event names may be added in the future, in which case this list will be upda
 1. No ordering guarantees: Events may arrive in any order, both within a request and across different requests.
 
 Stronger guarantees can be implemented for your use case if needed, in this case please
-[open a support ticket](https://console.ory.sh/support/).
+[open a support ticket](https://console.ory.com/support/).
 
 ## Configure event streams
 
@@ -179,11 +185,59 @@ requirements! Event streams can be implemented for any data warehouse, data lake
 
 To stream events to an HTTPS endpoint, provide the URL of the endpoint when configuring the event stream:
 
+```mdx-code-block
+<Tabs
+  defaultValue="console"
+  values={[
+    {label: 'Ory Console', value: 'console'},
+    {label: 'Ory CLI', value: 'cli'},
+  ]}>
+<TabItem value="console">
+```
+
+1. Go to your project in the [Ory Console](https://console.ory.com).
+
+2. Click **Project settings** in the top navigation bar.
+
+3. Click **Event streams** in the left sidebar.
+
+4. Click **Create new Event Stream**.
+
+```mdx-code-block
+<BrowserWindow url="https://console.ory.com/projects/b3b748e5-7ddc-4860-a672-2436a877dc93/settings/event-streams">
+  ![Event streams page with the Create new Event Stream button](./_static/live-events/event-streams-empty.png)
+</BrowserWindow>
+```
+
+5. In the **Create new Event Stream** dialog:
+
+   - **Event Stream Type** — Select **HTTPS**.
+
+   - **HTTPS endpoint** — Enter the URL of your endpoint, for example `https://example.com/my-event-endpoint`.
+
+6. Click **Create**. The new stream appears in the event streams table.
+
+```mdx-code-block
+<BrowserWindow url="https://console.ory.com/projects/b3b748e5-7ddc-4860-a672-2436a877dc93/settings/event-streams">
+  ![Create new Event Stream dialog with HTTPS type selected](./_static/live-events/event-stream-https-dialog.png)
+</BrowserWindow>
+```
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli">
+```
+
 ```shell
 ory create event-stream
   --project "$YOUR_PROJECT_ID" \
   --type https \
   --https-endpoint https://example.com/my-event-endpoint
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
 ```
 
 Unencrypted HTTP endpoints are not supported. Your endpoint must be able to handle POST requests with a JSON body, and respond
@@ -250,23 +304,117 @@ arn:aws:iam::123456789012:role/ory-network-event-streamer
 
 This allows Ory Network to assume the role in your AWS account, and publish to your SNS topic.
 
-4. Use the Ory CLI to configure the event stream, replacing the ARNs with those recorded in steps 1 and 2:
+4.  Configure the event stream, replacing the ARNs with those recorded in steps 1 and 2:
 
-```shell
-ory create event-stream
-  --project "$YOUR_PROJECT_ID" \
-  --type sns \
-  --aws-sns-topic-arn "$YOUR_TOPIC_ARN" \
-  --aws-iam-role-arn "$YOUR_IAM_ROLE_ARN"
-```
+    ```mdx-code-block
+    <Tabs
+      defaultValue="console"
+      values={[
+        {label: 'Ory Console', value: 'console'},
+        {label: 'Ory CLI', value: 'cli'},
+      ]}>
+    <TabItem value="console">
+    ```
 
-5. You are now ready to receive events in your AWS SNS topic!
+    a. Go to your project in the [Ory Console](https://console.ory.com).
+
+    b. Click **Project settings** in the top navigation bar.
+
+    c. Click **Event streams** in the left sidebar.
+
+    d. Click **Create new Event Stream**.
+
+    e. In the **Create new Event Stream** dialog:
+
+    - **Event Stream Type** — Select **AWS SNS**.
+
+    - **Role ARN** — Paste the IAM role ARN from step 2.
+
+    - **Topic ARN** — Paste the SNS topic ARN from step 1.
+
+    f. Click **Create**. The new stream appears in the event streams table.
+
+    ```mdx-code-block
+    <BrowserWindow url="https://console.ory.com/projects/b3b748e5-7ddc-4860-a672-2436a877dc93/settings/event-streams">
+      ![Create new Event Stream dialog with AWS SNS type selected](./_static/live-events/event-stream-sns-dialog.png)
+    </BrowserWindow>
+    ```
+
+    ```mdx-code-block
+    </TabItem>
+    <TabItem value="cli">
+    ```
+
+    ```shell
+    ory create event-stream
+      --project "$YOUR_PROJECT_ID" \
+      --type sns \
+      --aws-sns-topic-arn "$YOUR_TOPIC_ARN" \
+      --aws-iam-role-arn "$YOUR_IAM_ROLE_ARN"
+    ```
+
+    ```mdx-code-block
+    </TabItem>
+    </Tabs>
+    ```
+
+5.  You are now ready to receive events in your AWS SNS topic!
 
 :::tip
 
 For development purposes, you can subscribe an email address to your topic, and receive events via email. For production use,
 subscribe AWS SQS, AWS Kinesis Data Firehose, or any other AWS service that can consume events from an SNS topic. Check the
 [AWS documentation](https://docs.aws.amazon.com/sns/latest/dg/sns-event-destinations.html) for ideas.
+
+:::
+
+## Pause and resume event streams
+
+You can pause an event stream to temporarily stop delivering events to its destination without deleting the stream or its
+configuration. Pause a stream while its destination is undergoing maintenance, is misconfigured, or is being replaced, then resume
+it to continue delivery. Pausing one event stream has no effect on your other event streams.
+
+### Pause or resume a stream
+
+1. Go to your project in the [Ory Console](https://console.ory.com).
+2. Click **Project settings** in the top navigation bar.
+3. Click **Event streams** in the left sidebar. The **Status** column shows whether each stream is **Active** or **Paused**.
+4. Open the **⋯** menu next to the stream and click **Pause** or **Resume**.
+
+You can also change the status through the Ory APIs. Updating an event stream is a partial update: send only the `status` field
+(`active` or `paused`) and every other setting keeps its current value. This is the recommended way to pause or resume a stream,
+because resubmitting the destination is not required.
+
+When you resume a stream, Ory first verifies that the destination is reachable, the same check that runs when you create or update
+a stream.
+
+### Create a stream as paused
+
+When you create a stream in the Ory Console, set **Status** to **Paused** to save it without starting delivery. This is useful
+when you want to configure a stream before its destination is ready. Resume it later from the stream's **⋯** menu.
+
+### What happens to events while a stream is paused
+
+In short: while a stream is paused Ory keeps receiving your project's events and buffers them for that stream for up to **7
+days**. Resume within that window and Ory delivers everything that was buffered while the stream was paused.
+
+In more detail:
+
+- Pausing only stops delivery. Ory keeps collecting the events your project produces and holds them in an internal buffer
+  dedicated to that stream. Nothing is delivered to your destination while the stream is paused.
+- Buffered events are retained for up to 7 days. When you resume the stream, Ory delivers the buffered backlog first and then
+  continues with new events. This catch-up delivery follows the same guarantees as normal delivery: best-effort, possibly out of
+  order, and possibly with duplicates.
+- Events that have been buffered for longer than 7 days are permanently discarded, whether or not you resume the stream. A stream
+  that stays paused for more than 7 days keeps only the most recent 7 days of events; anything older is lost.
+
+Pausing one stream does not affect your other event streams, and does not affect events available elsewhere in Ory, such as the
+project's activity view in the Ory Console.
+
+:::warning
+
+Pausing buffers events for up to 7 days. If a stream stays paused for longer, the oldest events are permanently lost. Resume the
+stream within 7 days to receive everything you missed.
 
 :::
 

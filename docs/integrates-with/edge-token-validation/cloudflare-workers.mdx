@@ -1,0 +1,45 @@
+---
+id: cloudflare-workers
+title: Cloudflare Workers — Ory token validation at the edge
+sidebar_label: Cloudflare Workers
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained — and is the canonical
+reference implementation for edge-token-validation. Reference:
+[ory/integrates/edge-token-validation/cloudflare-workers](https://github.com/ory/integrates/tree/main/edge-token-validation/cloudflare-workers).
+</Admonition>
+```
+
+[Cloudflare Workers](https://workers.cloudflare.com/) is a V8-isolate serverless runtime at the Cloudflare edge. Validate Ory
+Network session tokens and JWTs at the edge so requests never round-trip to origin when the token is invalid, and so origin
+services receive a trusted `X-User-Id` header.
+
+## How it works
+
+1. The Worker fires on every request to the Cloudflare-fronted hostname.
+2. It reads the session cookie or `Authorization: Bearer` header.
+3. **For JWTs issued by Ory OAuth2 & OpenID Connect (Hydra)**, it verifies the signature against the cached Ory JWKS using Web
+   Crypto.
+4. **For session cookies from Ory Identities (Kratos)**, it calls `https://<project>.projects.oryapis.com/sessions/whoami` with
+   the user's session cookie and caches the response by cookie hash for 30–60s in Workers KV (or per-isolate memory).
+5. When the token is valid, it injects the `X-User-Id` header into the request before it proceeds to origin.
+6. When it's invalid, it returns a 401 directly from the edge.
+
+## Notes
+
+- Workers KV adds 50–100ms on cache miss. Per-isolate memory is faster but doesn't share across Cloudflare edges. Pick based on
+  your read/write ratio.
+- The 50ms CPU budget per request fits JWKS verification comfortably, but `whoami` calls eat into the budget.
+- Cloudflare Workers is the canonical reference implementation. [Akamai EdgeWorkers](./akamai-edgeworkers.mdx) and
+  [Fastly Compute@Edge](./fastly-compute.mdx) follow the same shape with platform-specific adaptations.
+
+## Resources
+
+- [Cloudflare Workers documentation](https://developers.cloudflare.com/workers/)
+- [Ory Kratos session API](../../kratos/session-management/01_overview.mdx)
+- Reference:
+  [ory/integrates/edge-token-validation/cloudflare-workers](https://github.com/ory/integrates/tree/main/edge-token-validation/cloudflare-workers)

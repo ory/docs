@@ -1,0 +1,22 @@
+---
+id: install
+title: Installation
+---
+
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/oel/kratos/install" />
+</head>
+
+```mdx-code-block
+import Install from '@site/src/components/Shared/install-oel.mdx'
+import ImageTags from '../../self-hosted/oel/oel-kratos-image-tags.md'
+
+<Install
+  name="Ory Kratos"
+  repo="kratos"
+  image="europe-docker.pkg.dev/ory-artifacts/ory-enterprise-kratos/kratos-oel"
+  ports={[4433, 4434]}
+  serveCommand="serve all"
+  imageTags={<ImageTags />}
+/>
+```

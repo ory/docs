@@ -1,0 +1,123 @@
+---
+id: verify-new-address
+title: Verify address changes
+---
+
+```mdx-code-block
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+```
+
+By default, when a user changes their email address or phone number in the settings flow, Ory applies the change immediately and
+sends a verification code to the new address. The address stays unverified until the user completes verification, but the old
+address is already replaced.
+
+The `verify_new_address` action makes address changes safer: it defers the change until the user verifies the new address. The
+identity's traits are only updated after verification completes. This prevents users from locking themselves out by entering an
+address they don't control, and keeps the previous verified address in place until the new one is confirmed reachable.
+
+## Enable verification before applying address changes
+
+The `verify_new_address` action runs on the `after` settings flow for the `profile` method. You can enable it using either the Ory
+Console or the Ory CLI.
+
+```mdx-code-block
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+```
+
+1. Go to <ConsoleLink route="project.verification" />.
+2. Enable **Self-service Settings: Verify new addresses**.
+3. Click **Save**.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+```
+
+Run:
+
+```shell
+ory patch identity-config --project <project-id> --workspace <workspace-id> \
+  --add '/selfservice/flows/settings/after/profile/hooks/0/hook="verify_new_address"'
+```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+## Behavior
+
+When the action is enabled and a user changes a verifiable address in the settings flow:
+
+- Ory keeps the current traits and creates a pending change instead of applying the update immediately.
+- Ory starts a verification flow for the new address and sends a verification code to it.
+- The traits update only after the user completes verification. Until then, the previous address remains in effect.
+
+The action enforces these rules:
+
+- **Privileged session required.** Changing an address is a sensitive update. If the session is no longer privileged, Ory asks the
+  user to re-authenticate before continuing.
+- **One address at a time.** Ory can only verify one new address per settings submission. If the user changes more than one
+  verifiable address at once, the flow returns an error and applies no change.
+- **No duplicate addresses.** If the new address already belongs to another identity, Ory rejects the change immediately on
+  submission with a duplicate credentials error, instead of failing later on the verification screen.
+
+```mdx-code-block
+<Tabs>
+  <TabItem value="Server rendered browser client">
+```
+
+For browser clients using native forms, Ory redirects to the verification flow with HTTP 302.
+
+```mdx-code-block
+  </TabItem>
+  <TabItem value="SPA & Native clients">
+```
+
+The settings endpoint returns the settings flow with a `continue_with` field that contains the verification flow for the new
+address:
+
+```json
+{
+  "id": "...",
+  "ui": {
+    "action": "...",
+    "method": "...",
+    "nodes": [
+      /* ... */
+    ]
+  },
+  "continue_with": [
+    {
+      "action": "show_verification_ui",
+      "flow": {
+        "id": "d859f6af-1dfe-453e-9320-d572e10edeea",
+        "verifiable_address": "new-address@ory.com",
+        "url": "https://ory.example.org/verification?flow=d859f6af-1dfe-453e-9320-d572e10edeea"
+      }
+    }
+  ]
+}
+```
+
+Send the user to the verification flow to confirm the new address. Ory applies the trait change once verification succeeds.
+
+```mdx-code-block
+  </TabItem>
+</Tabs>
+```
+
+:::note
+
+The `verify_new_address` action defers the change until the new address is verified. This differs from the `show_verification_ui`
+action described in [Verification on address change](require-verified-address.mdx#verification-on-address-change), which applies
+the change immediately and only redirects the user to the verification screen afterwards.
+
+:::
+
+## Notify previous addresses
+
+To also notify the user's previous addresses when an address changes, combine this action with
+[`notify_previous_addresses`](notify-previous-addresses.mdx).

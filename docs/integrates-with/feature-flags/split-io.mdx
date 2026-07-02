@@ -1,0 +1,56 @@
+---
+id: split-io
+title: Split.io feature flags
+sidebar_label: Split.io
+---
+
+```mdx-code-block
+import Admonition from '@theme/Admonition'
+
+<Admonition type="note" title="Community-contributed integration">
+This integration is community-maintained. Reference:
+[ory/integrates/feature-flags/split-io](https://github.com/ory/integrates/tree/main/feature-flags/split-io).
+</Admonition>
+```
+
+[Split.io](https://www.split.io) (now Harness) is a feature delivery platform that combines feature flags with metric-driven
+impact measurement. This integration passes Ory identity attributes to the Split.io SDK so feature rollouts can target by
+identity.
+
+## How it works
+
+This isn't a webhook integration. Evaluation happens in your application code through the Split SDK. The pattern matches the
+[LaunchDarkly integration](./launchdarkly.mdx).
+
+```typescript
+const session = await ory.sessions.toSession()
+const identity = session.data.identity
+
+const attributes = {
+  email: identity.traits.email,
+  org_id: identity.metadata_public?.org_id,
+  tier: identity.metadata_public?.subscription_tier,
+}
+
+const treatment = splitClient.getTreatment(identity.id, "my-feature", attributes)
+```
+
+## What to pass to Split
+
+| Ory source                          | Split attribute          |
+| ----------------------------------- | ------------------------ |
+| `identity.id`                       | `key` — stable bucketing |
+| `identity.traits.email`             | `email`                  |
+| `metadata_public.org_id`            | `org_id`                 |
+| `metadata_public.subscription_tier` | `tier`                   |
+| `metadata_public.groups`            | `groups`                 |
+
+## Notable
+
+- Pass **stable identifiers** as `key`. Use `identity.id`, not email.
+- Use the Split server SDK on the server side, and the Split JavaScript SDK with the Track API on the client side.
+
+## Resources
+
+- [Split SDK documentation](https://docs.split.io/docs/sdk-overview)
+- Reference: [ory/integrates/feature-flags/split-io](https://github.com/ory/integrates/tree/main/feature-flags/split-io)
