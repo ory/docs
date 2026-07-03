@@ -156,6 +156,30 @@ export const routes = {
           `/projects/${project}/permissions/configuration`,
       },
     },
+    // The route keys follow the Console nav labels (Keys, Imported,
+    // Playground, Configuration); the Console app's own sitemap keys are
+    // `native` and `settings` for the first and last route — this mismatch
+    // is intentional, do not "fix" it.
+    apiKeys: {
+      route: "/projects/[project]/api-keys/native",
+      href: (project: string) => `/projects/${project}/api-keys/native`,
+      keys: {
+        route: "/projects/[project]/api-keys/native",
+        href: (project: string) => `/projects/${project}/api-keys/native`,
+      },
+      imported: {
+        route: "/projects/[project]/api-keys/imported",
+        href: (project: string) => `/projects/${project}/api-keys/imported`,
+      },
+      playground: {
+        route: "/projects/[project]/api-keys/playground",
+        href: (project: string) => `/projects/${project}/api-keys/playground`,
+      },
+      configuration: {
+        route: "/projects/[project]/api-keys/settings",
+        href: (project: string) => `/projects/${project}/api-keys/settings`,
+      },
+    },
     identitySchema: {
       route: "/projects/[project]/identity-schema",
       href: (project: string) => `/projects/${project}/identity-schema`,

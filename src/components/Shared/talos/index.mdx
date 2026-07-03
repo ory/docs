@@ -1,0 +1,26 @@
+API keys are long-lived credentials for services, agents, and other machine
+callers of your APIs. API key management on Ory Network — powered by the
+open-source [Ory Talos](https://www.ory.com/talos) API key management service —
+handles the full lifecycle of these credentials: issuing keys, verifying them at
+low latency, deriving short-lived tokens, and revoking access.
+
+With API key management, you can:
+
+- Issue and manage API keys for your own APIs and services, with the one-time
+  secret shown only at creation.
+- Import existing API keys from another system, individually or in batches, and
+  manage them like native keys.
+- Verify any key — single or in batches — with one authenticated API call that
+  returns the key's status and metadata.
+- Derive short-lived JWT or macaroon tokens from long-lived keys and verify the
+  JWTs locally against a published JWKS, without a round-trip.
+- Let key holders revoke their own compromised keys through an unauthenticated
+  proof-of-possession endpoint.
+- Attach scopes, expiry times, IP CIDR restrictions, and rate-limit policies to
+  every key, managed in the Ory Console.
+
+To understand the credential model — issued keys, imported keys, and derived
+tokens — see
+[credential types](../../../../docs/talos/concepts/credential-types). For the
+trust boundaries and threat model, see the
+[security model](../../../../docs/talos/concepts/security-model).

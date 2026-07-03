@@ -176,6 +176,25 @@ export const permissionsPaths: Path[] = [
   },
 ]
 
+export const apiKeysPaths: Path[] = [
+  {
+    title: "Keys",
+    href: routes.project.apiKeys.keys.route,
+  },
+  {
+    title: "Imported",
+    href: routes.project.apiKeys.imported.route,
+  },
+  {
+    title: "Playground",
+    href: routes.project.apiKeys.playground.route,
+  },
+  {
+    title: "Configuration",
+    href: routes.project.apiKeys.configuration.route,
+  },
+]
+
 export const projectSettingsPaths: Path[] = [
   {
     title: "Overview",
@@ -252,6 +271,11 @@ export const projectPaths: RootPath[] = [
     title: "OAuth 2",
     href: routes.project.oauthConfiguration.route,
     paths: oauthPaths,
+  },
+  {
+    title: "API Keys",
+    href: routes.project.apiKeys.route,
+    paths: apiKeysPaths,
   },
   {
     title: "Permissions",

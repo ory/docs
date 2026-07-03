@@ -1,0 +1,99 @@
+---
+id: configure
+title: Configure API keys on Ory Network
+sidebar_label: Configuration
+---
+
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/network/talos/configure" />
+</head>
+
+On Ory Network there is no configuration file and no `TALOS_*` environment variables. API key settings live in your project
+configuration: change them in the Ory Console or with the project APIs and the Ory CLI.
+
+:::note
+
+Configuration changes propagate asynchronously — allow a short delay before new settings affect key issuing and verification.
+
+:::
+
+## Ory Console
+
+Go to <ConsoleLink route="project.apiKeys.configuration" />. The Configuration page has these sections:
+
+- **Rate limiting** — enable server-side rate-limit enforcement (subject to your plan).
+- **Caching** — enable verification response caching and set the cache time-to-live (subject to your plan).
+- **Lifespans** — the default and maximum lifetime of issued keys.
+- **Key prefixes** — the current and retired secret prefixes, and the public current and retired prefixes.
+- **Derived token defaults** — the token issuer, retired issuers, and the default lifetime of derived tokens.
+- **JWT tokens** — rotate the JWT signing key, gracefully or with immediate revocation.
+- **Macaroon tokens** — macaroon prefixes and HMAC secret rotation.
+
+## Ory CLI
+
+The project configuration uses the same JSON shape as the self-hosted configuration file, nested under `/services/talos`. Apply
+the whole configuration object with `ory patch project`:
+
+```shell
+ory patch project --project <project-id> --workspace <workspace-id> \
+  --add '/services/talos={"config":{"credentials":{"api_keys":{"default_ttl":"168h","max_ttl":"8760h","prefix":{"current":"acme_ak"}},"derived_tokens":{"default_ttl":"1h"}},"cache":{"enabled":true,"ttl":"30s"},"rate_limit":{"enabled":true}}}'
+```
+
+Or import a full configuration file with `ory update project`:
+
+```shell
+ory update project --project <project-id> --workspace <workspace-id> --file talos-config.json
+```
+
+where `talos-config.json` contains `{"services":{"talos":{"config":{...}}}}`.
+
+:::warning Caveats
+
+- `ory get project` does not return the API key configuration. Keep your desired configuration in a version-controlled file and
+  re-apply the whole object.
+- Always use `--add '/services/talos=...'` with the complete configuration object. Deep patch paths such as
+  `--replace '/services/talos/config/credentials/issuer=...'` are not supported, because the project document returned by the API
+  contains no `services.talos` node to patch into.
+- Use `--remove` to delete values. The `--delete` flag shown in some generated CLI examples does not exist.
+
+:::
+
+## Configuration reference
+
+These keys are configurable per project. The JSON paths are relative to `/services/talos/config`:
+
+| Setting                | JSON path                                                                     | Notes                                                  |
+| ---------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------ |
+| Token issuer           | `credentials.issuer`, `credentials.issuer_retired`                            | Must be the project URL or a registered custom domain. |
+| Key lifespans          | `credentials.api_keys.default_ttl`, `credentials.api_keys.max_ttl`            | Durations such as `168h`.                              |
+| Key prefixes           | `credentials.api_keys.prefix.{current,retired,public_current,public_retired}` | Pattern `^[a-zA-Z0-9_]{1,16}$`.                        |
+| Derived token lifetime | `credentials.derived_tokens.default_ttl`                                      | Duration such as `1h`.                                 |
+| JWT signing keys       | `credentials.derived_tokens.jwt.signing_keys.urls`                            | `base64://` literals only.                             |
+| Macaroon prefixes      | `credentials.derived_tokens.macaroon.prefix.{current,retired}`                |                                                        |
+| Caching                | `cache.enabled`, `cache.ttl`                                                  | Subject to your plan.                                  |
+| Rate limiting          | `rate_limit.enabled`                                                          | Subject to your plan.                                  |
+
+Defaults on Ory Network differ from the self-hosted defaults in a few places: the issuer defaults to your project URL, issued keys
+default to a lifetime of 168 hours (self-hosted keys have no expiry by default), the maximum lifetime is 17520 hours, and caching
+is off by default with a 15 second time-to-live when enabled.
+
+## Managed by Ory
+
+Infrastructure settings — the database, `serve.*`, logging, tracing, the cache backend type, the rate-limit backend, last-used
+tracking, multitenancy, clock skew, and the key quota (derived from your plan) — are operated by Ory. Setting them through the API
+returns a warning or is ignored.
+
+## Secrets and rotation
+
+HMAC secrets and JWT signing keys are generated and stored by Ory; you never see or set them. Rotate them in the Console under
+**API Keys** → **Configuration**:
+
+- **Graceful rotation** keeps retired secrets valid for verification during the transition.
+- **Revoke** invalidates outstanding derived tokens immediately.
+
+## Plan gating
+
+Caching and server-side rate-limit enforcement require a plan that includes them; the Console shows an upgrade prompt when they
+aren't available. See [plans and pricing](https://www.ory.com/pricing).
+
+Self-hosting? See the [configuration guide for self-hosted deployments](../../talos/operate/configure.md).

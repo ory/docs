@@ -116,6 +116,14 @@ export const authorizationSecurity: {
       languageLogoAlt: "Service account icon",
       docs: "/docs/oauth2-oidc/client-credentials",
     },
+    {
+      title: "Manage API keys",
+      description:
+        "Issue, verify, and revoke API keys for services and AI agents",
+      language: "token",
+      languageLogoAlt: "API key icon",
+      docs: "/docs/network/talos/quickstart",
+    },
   ],
 }
 

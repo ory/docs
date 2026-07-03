@@ -1,0 +1,35 @@
+---
+id: index
+title: API key management on Ory Network
+sidebar_label: Introduction
+---
+
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/network/talos" />
+</head>
+
+```mdx-code-block
+import MyPartial from "@site/src/components/Shared/talos/index.mdx"
+
+<MyPartial />
+```
+
+## Enable API keys in your project
+
+API key management starts deactivated in every project. Open the
+<ConsoleLink route="project.apiKeys.keys" /> page and select **Enable API Keys**. This one-time step generates the project's HMAC
+secret and JWT signing key and applies the default configuration.
+
+## Plans and quotas
+
+The number of active API keys, response caching, and server-side rate-limit enforcement depend on your
+[subscription plan](https://www.ory.com/pricing). Issuing a key beyond your plan's quota returns HTTP 402 with the reason
+`API_KEY_QUOTA_EXCEEDED`.
+
+## Next steps
+
+- Follow the [quickstart](./quickstart.mdx) to create a project, issue an API key, and verify it.
+- Learn how to [configure API keys on Ory Network](./configure.mdx) with the Ory Console or the Ory CLI.
+- Explore the guides for [issuing and verifying keys](../../talos/integrate/issue-and-verify.mdx),
+  [importing existing keys](../../talos/integrate/import-keys.mdx), and
+  [deriving short-lived tokens](../../talos/integrate/derive-tokens.mdx).

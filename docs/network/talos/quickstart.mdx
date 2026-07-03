@@ -1,0 +1,111 @@
+---
+id: quickstart
+title: Get started with API keys on Ory Network
+sidebar_label: Quickstart
+---
+
+<head>
+  <link rel="canonical" href="https://www.ory.com/docs/network/talos/quickstart" />
+</head>
+
+This quickstart takes you from an empty Ory Network project to issuing, verifying, and revoking an API key — using the Ory Console
+and `curl`. No installation, database, or configuration file is required.
+
+## Create a project
+
+Sign up at [console.ory.com/registration](https://console.ory.com/registration) and create a free project, or use the
+[Ory CLI](../../guides/cli/01_installation.mdx):
+
+```shell
+ory create project --name "API keys demo"
+```
+
+Note the project slug — your project's API endpoint is `https://<project-slug>.projects.oryapis.com`.
+
+## Enable API keys
+
+Go to <ConsoleLink route="project.apiKeys.keys" /> and select **Enable API Keys**. This one-time step generates the project's HMAC
+secret and JWT signing key and applies the defaults: key prefix `ory_ak`, default key lifetime of 168 hours, and a maximum
+lifetime of 17520 hours.
+
+## Get an admin credential
+
+:::info Two kinds of keys
+
+The keys you manage in the **API Keys** section are your product's API keys — credentials you issue to your own users and
+services, with the `ory_ak_` prefix. To call the management API itself, you need an **Ory Network project API key** with the
+`ory_pat_` prefix. Create one under **Project settings → API Keys** at
+[console.ory.com/projects/current/developers](https://console.ory.com/projects/current/developers).
+
+:::
+
+Export your project slug and project API key:
+
+```shell
+export PROJECT_SLUG=<your-project-slug>
+export ORY_PAT=ory_pat_...
+```
+
+## Issue an API key
+
+In the Console, go to **API Keys** → **Keys** and select **Issue new key**: set a name and an optional expiry, then copy the
+secret from the dialog — it is shown only once and starts with `ory_ak_`.
+
+Or issue a key with the API:
+
+```shell
+curl -X POST "https://$PROJECT_SLUG.projects.oryapis.com/v2alpha1/admin/issuedApiKeys" \
+  -H "Authorization: Bearer $ORY_PAT" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "my-first-key"}'
+```
+
+The response returns HTTP 201 with the one-time `secret` and the key's ID in `issued_api_key.key_id`. Export both for the next
+steps:
+
+```shell
+export API_KEY=ory_ak_...
+export KEY_ID=<key_id from the response>
+```
+
+## Verify the key
+
+In the Console, go to **API Keys** → **Playground** and paste the secret. Or verify with the API:
+
+```shell
+curl -X POST "https://$PROJECT_SLUG.projects.oryapis.com/v2alpha1/admin/apiKeys:verify" \
+  -H "Authorization: Bearer $ORY_PAT" \
+  -H "Content-Type: application/json" \
+  -d '{"credential": "'"$API_KEY"'"}'
+```
+
+The response contains `"is_valid": true`. Verification is an authenticated admin call on Ory Network: it confirms whether a
+credential is valid and returns its metadata, so it requires the project API key like every other `/admin/` endpoint.
+
+## Revoke and re-verify
+
+Revoke the key from its row menu in **API Keys** → **Keys**, or with the API:
+
+```shell
+curl -X POST "https://$PROJECT_SLUG.projects.oryapis.com/v2alpha1/admin/issuedApiKeys/$KEY_ID:revoke" \
+  -H "Authorization: Bearer $ORY_PAT"
+```
+
+The call returns HTTP 204. Run the verify request again: the response now contains `"is_valid": false` and an `error_code`.
+
+Key holders can also revoke their own key without a project API key by proving possession of the secret — see
+[self-revocation](../../talos/integrate/self-revocation.mdx).
+
+## Next steps
+
+- [Configure API keys on Ory Network](./configure.mdx) — lifespans, prefixes, caching, and secret rotation via Console or CLI.
+- [Derive short-lived tokens](../../talos/integrate/derive-tokens.mdx) from long-lived keys.
+- [Import existing keys](../../talos/integrate/import-keys.mdx) from another system.
+- Browse the [API reference](../../talos/reference/api/ory-talos-api.info.mdx).
+
+:::note
+
+Issuing keys beyond your plan's quota returns HTTP 402 with the reason `API_KEY_QUOTA_EXCEEDED`. Quotas depend on your
+[subscription plan](https://www.ory.com/pricing).
+
+:::
