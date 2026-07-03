@@ -1,69 +1,57 @@
 <!--
-This file lives only on the `kapa-sandbox` branch. It documents how writers
-test new/changed docs against the isolated kapa.ai sandbox before merging.
+This file lives only on the `wassimoo/feat-add-kapa-sandbox` branch. It documents
+how writers test new/changed docs against the isolated kapa.ai sandbox.
 Do NOT merge this branch into master.
 -->
 
 # kapa.ai content-testing sandbox
 
-This branch (`kapa-sandbox`) is a long-lived testing branch. Push draft docs
+`wassimoo/feat-add-kapa-sandbox` is a long-lived testing branch. Push draft docs
 here, let the **isolated** kapa sandbox project re-crawl the preview, then ask
 the assistant to see how it answers — all without touching the knowledge base
 that production users query.
 
+- **Preview site:**
+  https://docs-git-wassimoo-feat-add-kapa-sandbox-ory.vercel.app/docs/welcome
+- **kapa project:** `testing-docs-sandbox`
+
 ## How it works
 
-1. `kapa-sandbox` gets a **stable Vercel branch alias** (e.g.
-   `https://docs-git-kapa-sandbox-<org>.vercel.app`).
-2. On preview builds, the site is made **self-referential** (see
+1. The branch gets a **stable Vercel branch alias**:
+   `https://docs-git-wassimoo-feat-add-kapa-sandbox-ory.vercel.app`.
+2. On preview builds the site is made **self-referential** (see
    [`docusaurus.config.ts`](docusaurus.config.ts)): `url` is derived from
    `VERCEL_BRANCH_URL`, so the sitemap, canonical tags, and absolute links point
    at the preview host instead of `www.ory.com`. Previews are also marked
    `noindex`.
 3. The separate kapa project **`testing-docs-sandbox`** (its own website-id)
    crawls that stable alias, scoped to the preview host + `/docs/`.
-4. On preview builds the widget uses the sandbox website-id (via the
-   `KAPA_WEBSITE_ID` env var), so you can test in the real "Ask AI" widget.
+4. The "Ask AI" widget on the preview uses the sandbox website-id (hardcoded
+   default in `docusaurus.config.ts`, see [IDs & config](#ids--config)), so you
+   test against the sandbox knowledge base, not production.
 
-## Writer workflow
+## Test your changes in kapa (the main loop)
 
-1. **Rebase on master first** so retrieval competes against the real corpus:
-   `git fetch origin && git rebase origin/master`.
-2. Add or edit your draft docs and push to `kapa-sandbox`.
-3. Wait for the **Vercel preview deploy** to finish.
-4. **Re-index in kapa:** open the `testing-docs-sandbox` project → the website
-   data source → **Re-crawl** (kapa also auto-crawls every 24h). See
-   https://docs.kapa.ai/data-sources/refreshes#web-crawling
-   - If **>45%** of pages changed, the crawl lands in a **review** state — open
-     it in the dashboard and **approve/ingest** it manually before it goes live.
-5. **Ask:** use the "Ask AI" widget on the preview site, or the sandbox
-   project's playground in the kapa dashboard.
-6. Confirm the answer uses/cites your new page. Iterate.
+After you edit docs and want to see how kapa answers:
 
-## Testing a specific PR instead of the shared branch
+1. **(Optional) Rebase on master** so retrieval competes against the real
+   corpus: `git fetch origin && git rebase origin/master`.
+2. **Push** your changes to `wassimoo/feat-add-kapa-sandbox`.
+3. **Wait for the Vercel preview deploy** to finish (check the deployment is
+   live at the preview URL above).
+4. **Re-crawl in kapa:** dashboard → `testing-docs-sandbox` project → the
+   Website data source → **Re-crawl now**. (kapa also auto-crawls every 24h.)
+5. **Review & ingest — don't skip this.** If **>45%** of pages changed (always
+   true for the first crawl, and for large edits), the crawl lands in a
+   **"review" state** and does **not** go live automatically. Open it in the
+   dashboard and **approve/ingest** it. Small edits (≤45%) go live on their own.
+   Ref: https://docs.kapa.ai/data-sources/refreshes#web-crawling
+6. **Ask.** Use the "Ask AI" widget on the preview site, or the sandbox
+   project's **playground** in the kapa dashboard.
+7. **Confirm** the answer uses/cites your updated page. Iterate from step 2.
 
-kapa's crawler needs **one stable URL** (no wildcards/regex, no per-commit
-URLs). To test a single PR's content:
-
-1. In the kapa source config, **re-point** the source URL to that PR's preview
-   alias and re-crawl.
-2. Only one PR can be "loaded" at a time; re-point back to the `kapa-sandbox`
-   alias when done.
-
-For most work, just use the shared `kapa-sandbox` branch.
-
-### IDs & config
-
-The widget website-id is **hardcoded** in
-[`docusaurus.config.ts`](docusaurus.config.ts) (`KAPA_WEBSITE_ID` default =
-`c18328a9-10e1-4fcb-b4c9-eed45d9ca545`, the `testing-docs-sandbox` Website Widget
-integration). This is intentional for this sandbox-only branch — there's no
-Vercel env access, and the branch is never merged to master. Setting a
-`KAPA_WEBSITE_ID` env var still overrides it if that changes.
-
-The kapa **project** `testing-docs-sandbox` and its Website Widget integration
-(the `data-website-id` in the embed snippet) are managed in the kapa dashboard.
-
-**Stable preview alias:** confirm the exact
-`docs-git-kapa-sandbox-<org>.vercel.app` host after the first push and point the
-kapa website data source at it.
+> Turnaround note: a crawl of the full docs (~1,700 pages) takes a while, and
+> nothing changes in the assistant's answers until the crawl has been
+> **ingested** (step 5). If an answer says "the knowledge sources don't contain
+> enough information," the crawl hasn't been ingested yet (or the source
+> URL/scope is wrong).
