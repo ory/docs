@@ -32,13 +32,29 @@ const postmanLanguageTabs = postmanGenerators
       variants: lang.variants.map((v: { key: string }) => v.key),
     }),
   )
+// Vercel injects these env vars at build time. On preview deployments we point
+// the site at the stable branch alias so the sitemap, canonical tags, and
+// absolute internal links resolve to the preview host (they are otherwise baked
+// to www.ory.com). This keeps the kapa sandbox crawler on the branch content
+// instead of bouncing back to production. See the kapa content-testing sandbox
+// setup for the full rationale.
+const isPreview = process.env.VERCEL_ENV === "preview"
+const previewHost = process.env.VERCEL_BRANCH_URL || process.env.VERCEL_URL
+const siteUrl =
+  isPreview && previewHost ? `https://${previewHost}` : "https://www.ory.com"
+
 const config: Config = {
   customFields: {
     CLOUD_URL: process.env.CLOUD_URL || "https://api.console.ory:8080",
+    // kapa widget website-id, provided via env so no id is committed to this
+    // public repo. Set KAPA_WEBSITE_ID per environment (production and the
+    // kapa-sandbox preview each point at their own integration). If unset, the
+    // widget does not load.
+    KAPA_WEBSITE_ID: process.env.KAPA_WEBSITE_ID || "",
   },
   title: "Ory",
   tagline: "Open Source Identity and Access Infrastructure",
-  url: `https://www.ory.com`,
+  url: siteUrl,
   baseUrl: "/docs/",
   favicon: "img/favico.png",
   onBrokenLinks: "warn",
@@ -304,7 +320,17 @@ const config: Config = {
     "docusaurus-theme-redoc",
     "docusaurus-theme-openapi-docs",
   ],
-  headTags: [],
+  headTags: isPreview
+    ? [
+        {
+          tagName: "meta",
+          attributes: {
+            name: "robots",
+            content: "noindex, nofollow",
+          },
+        },
+      ]
+    : [],
 }
 
 module.exports = config

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react"
 import { useLocation } from "@docusaurus/router"
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 
 const EXCLUDED_PATHS = ["/docs/kratos/fallback/error"]
 
 export default function KapaWidget() {
   const [isScriptLoaded, setIsScriptLoaded] = useState(false)
   const { pathname } = useLocation()
+  const { siteConfig } = useDocusaurusContext()
+  // Provided via the KAPA_WEBSITE_ID env var (see docusaurus.config.ts). No id
+  // is hardcoded, so the widget only loads when the id is configured.
+  const websiteId = String(siteConfig.customFields?.KAPA_WEBSITE_ID ?? "")
   const isExcluded = EXCLUDED_PATHS.includes(pathname)
 
   useEffect(() => {
@@ -14,7 +19,7 @@ export default function KapaWidget() {
     }
   }, [isExcluded])
 
-  if (isExcluded) {
+  if (isExcluded || !websiteId) {
     return null
   }
 
@@ -26,10 +31,7 @@ export default function KapaWidget() {
     const script = document.createElement("script")
     script.src = "https://widget.kapa.ai/kapa-widget.bundle.js"
     script.async = true
-    script.setAttribute(
-      "data-website-id",
-      "e89e7663-df2c-4c7f-974a-1bf8accdd615",
-    )
+    script.setAttribute("data-website-id", websiteId)
     script.setAttribute("data-project-name", "Ory")
     script.setAttribute("data-project-color", "#1A237E")
     script.setAttribute(
