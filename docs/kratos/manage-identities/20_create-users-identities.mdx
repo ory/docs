@@ -74,6 +74,11 @@ The server response contains the created identity:
 }
 ```
 
+Newly created identities default to the `active` state, as shown by the `"state": "active"` field in the response. Active
+identities can immediately use self-service flows such as sign-in. To create an identity that can't sign in yet, set `state` to
+`inactive` in the request body. For more information, see
+[Activate and de-activate identities](/docs/identities/model/identity-state.mdx).
+
 Keep in mind that you can change the `schema_id` to reflect the schema you want to use for this identity. Similarly, the trait
 key/values depend on your schema as well. The command shown does not create a password or any other type of credential for the
 identity.
