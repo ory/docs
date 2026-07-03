@@ -52,17 +52,17 @@ URLs). To test a single PR's content:
 
 For most work, just use the shared `kapa-sandbox` branch.
 
-### IDs & config (kept out of this public repo)
+### IDs & config
 
-The kapa project ID and the widget website-id are intentionally **not
-committed** here. They live in:
+The widget website-id is **hardcoded** in
+[`docusaurus.config.ts`](docusaurus.config.ts) (`KAPA_WEBSITE_ID` default =
+`c18328a9-10e1-4fcb-b4c9-eed45d9ca545`, the `testing-docs-sandbox` Website Widget
+integration). This is intentional for this sandbox-only branch — there's no
+Vercel env access, and the branch is never merged to master. Setting a
+`KAPA_WEBSITE_ID` env var still overrides it if that changes.
 
-- **Vercel:** env var `KAPA_WEBSITE_ID` scoped to the `kapa-sandbox` branch, set
-  to the sandbox project's Website Widget integration id. The widget does not
-  load unless this is set.
-- **kapa dashboard:** the `testing-docs-sandbox` project and its Website Widget
-  integration (the `data-website-id` in the embed snippet is the value for
-  `KAPA_WEBSITE_ID`).
+The kapa **project** `testing-docs-sandbox` and its Website Widget integration
+(the `data-website-id` in the embed snippet) are managed in the kapa dashboard.
 
 **Stable preview alias:** confirm the exact
 `docs-git-kapa-sandbox-<org>.vercel.app` host after the first push and point the

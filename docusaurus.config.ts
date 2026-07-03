@@ -46,11 +46,11 @@ const siteUrl =
 const config: Config = {
   customFields: {
     CLOUD_URL: process.env.CLOUD_URL || "https://api.console.ory:8080",
-    // kapa widget website-id, provided via env so no id is committed to this
-    // public repo. Set KAPA_WEBSITE_ID per environment (production and the
-    // kapa-sandbox preview each point at their own integration). If unset, the
-    // widget does not load.
-    KAPA_WEBSITE_ID: process.env.KAPA_WEBSITE_ID || "",
+    // kapa widget website-id. Hardcoded to the `testing-docs-sandbox`
+    // integration for this sandbox-only branch (no Vercel env access; this
+    // branch is never merged to master). An env var overrides it if set.
+    KAPA_WEBSITE_ID:
+      process.env.KAPA_WEBSITE_ID || "c18328a9-10e1-4fcb-b4c9-eed45d9ca545",
   },
   title: "Ory",
   tagline: "Open Source Identity and Access Infrastructure",
