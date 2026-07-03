@@ -467,7 +467,7 @@ The JSON tags on the struct are the field names available in `ctx`:
 
 ### Example Jsonnet template
 
-The following template is the example mailer configuration shipped with Ory Kratos. It maps the most common fields out of `ctx`.
+The following is the mailer configuration template shipped with Ory Kratos. It maps the most common fields from `ctx`.
 
 <CodeFromRemote
   lang="jsonnet"
@@ -475,8 +475,7 @@ The following template is the example mailer configuration shipped with Ory Krat
   src="https://raw.githubusercontent.com/ory/kratos/master/courier/stub/request.config.mailer.jsonnet"
 />
 
-Read fields that the template you target needs from `ctx.template_data`, and read top-level fields such as `recipient` and
-`template_type` directly from `ctx`.
+When using your own template, map top-level fields such as `recipient` and `template_type` directly from `ctx`. Map the other fields your template needs from `ctx.template_data`.
 
 ## Troubleshooting
 
