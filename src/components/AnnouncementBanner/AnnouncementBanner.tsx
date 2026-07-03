@@ -70,16 +70,16 @@ export default function AnnouncementBanner() {
         "text-base",
       ].join(" ")}
     >
-      <div className="mx-auto flex max-w-screen-xl items-start gap-3 px-4 py-3">
+      <div className="mx-auto flex max-w-screen-xl items-start gap-3 px-4 py-1">
         <div
-          className={`min-w-0 flex-1 leading-5 pt-3 text-center ${styles.announcementContent}`}
+          className={`min-w-0 flex-1 leading-5 pt-1 text-center ${styles.announcementContent}`}
         >
           <AnnouncementContent />
         </div>
         <button
           type="button"
           className={[
-            "shrink-0 rounded-md p-1.5 mt-3",
+            "shrink-0 rounded-md p-1 mt-1",
             "border-none bg-transparent cursor-pointer",
             "text-current opacity-60 hover:opacity-100 hover:bg-black/5",
             "transition-all duration-200",
