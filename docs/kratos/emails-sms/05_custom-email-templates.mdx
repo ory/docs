@@ -88,9 +88,13 @@ Self-service flows trigger emails that use one of the following template types. 
 flow conditions. The template type (for example `recovery_code_valid`) is passed as the value of the `template_type` field in the
 [HTTP delivery payload](./01_sending-emails-smtp.mdx#payload).
 
-:::note While they refer to the same underlying template, template types are different from template names. The the template type
-(for example , `recovery_code_valid`) is the runtime identifier. The template name (for example, `recovery_code.valid`) is the
-configuration-time identifier. :::
+:::note
+
+While they refer to the same underlying template, template types are different from template names. The template type (for example
+, `recovery_code_valid`) is the runtime identifier. The template name (for example, `recovery_code.valid`) is the
+configuration-time identifier.
+
+:::
 
 The following list of template types is imported directly from the Ory Kratos source code and stays in sync with it:
 
@@ -119,13 +123,6 @@ source file above.
 | `registration_code_valid`    | A registration flow sends a one-time registration code.                             | When the one-time code registration method is enabled.                               |
 | `verifiable_address_changed` | A verifiable address on an identity changes; sent to the previous address(es).      | Only if the `notify_previous_addresses` hook is enabled.                             |
 | `stub`                       | Not sent in production.                                                             | Test stub used by the Ory Kratos test suite. It does not correspond to a real email. |
-
-:::note
-
-The `stub` type appears in the embedded source above because it is part of the `TemplateType` enum, but it is a test stub used by
-the Ory Kratos test suite and never produces a real email.
-
-:::
 
 ## Using custom message templates
 
