@@ -22,11 +22,14 @@ ory create project --name "API keys demo"
 
 Note the project slug — your project's API endpoint is `https://<project-slug>.projects.oryapis.com`.
 
-## Enable API keys
+## Open API keys in the Console
 
-Go to <ConsoleLink route="project.apiKeys.keys" /> and select **Enable API Keys**. This one-time step generates the project's HMAC
-secret and JWT signing key and applies the defaults: key prefix `ory_ak`, default key lifetime of 168 hours, and a maximum
-lifetime of 17520 hours.
+Go to <ConsoleLink route="project.apiKeys.keys" />. New projects come with API key management ready to use: Ory generates the
+project's HMAC secret and JWT signing key at project creation and applies the defaults — key prefix `ory_ak`, default key lifetime
+of 168 hours, and a maximum lifetime of 17520 hours.
+
+If your project was created before API key management launched, the page shows **Enable API Keys** instead. Select it to run the
+same one-time setup.
 
 ## Get an admin credential
 

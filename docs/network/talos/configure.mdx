@@ -39,6 +39,8 @@ ory patch project --project <project-id> --workspace <workspace-id> \
   --add '/services/talos={"config":{"credentials":{"api_keys":{"default_ttl":"168h","max_ttl":"8760h","prefix":{"current":"acme_ak"}},"derived_tokens":{"default_ttl":"1h"}},"cache":{"enabled":true,"ttl":"30s"},"rate_limit":{"enabled":true}}}'
 ```
 
+The example lowers the maximum key lifetime to one year (`8760h`); the Network default is `17520h`.
+
 Or import a full configuration file with `ory update project`:
 
 ```shell

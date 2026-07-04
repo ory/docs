@@ -14,11 +14,11 @@ import MyPartial from "@site/src/components/Shared/talos/index.mdx"
 <MyPartial />
 ```
 
-## Enable API keys in your project
+## API key setup
 
-API key management starts deactivated in every project. Open the
-<ConsoleLink route="project.apiKeys.keys" /> page and select **Enable API Keys**. This one-time step generates the project's HMAC
-secret and JWT signing key and applies the default configuration.
+New projects come with API key management ready to use: Ory generates the project's HMAC secret and JWT signing key when the
+project is created and applies the default configuration. Projects created before API key management launched show an **Enable API
+Keys** button on the <ConsoleLink route="project.apiKeys.keys" /> page instead — selecting it runs the same one-time setup.
 
 ## Plans and quotas
 
