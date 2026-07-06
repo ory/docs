@@ -255,13 +255,11 @@ For security reasons, these Sprig functions are disabled in the Ory Network:
 
 ### Available variables
 
-The variables available for use in email templates depend on the flow and the selected method.
+The variables available for use in email templates depend on the flow and the selected method. The table below lists the most
+commonly used fields.
 
-The authoritative list of fields for each template is the per-template model struct in Ory Kratos, under
-[`courier/template/email/`](https://github.com/ory/kratos/tree/master/courier/template/email) — for example
-[`recovery_code_valid.go`](https://github.com/ory/kratos/blob/master/courier/template/email/recovery_code_valid.go) and
-[`verification_code_valid.go`](https://github.com/ory/kratos/blob/master/courier/template/email/verification_code_valid.go). If a
-The table below lists the most commonly used fields. For the complete and current list, see the struct in GitHub under [`courier/template/email/`], which is the source of truth.
+For the complete and current list, see the structs for each template in GitHub under
+[`courier/template/email/`](https://github.com/ory/kratos/tree/master/courier/template/email), which is the source of truth.
 
 In addition to the variables listed for each template, every template can access `TransientPayload` (see
 [Transient payload in templates](#transient-payload-in-templates)) and `RequestURL` (the URL of the flow request that triggered
