@@ -435,14 +435,15 @@ local claims = std.extVar('claims');
 
 #### Update identity on login
 
-By default, the data mapper runs only when an identity first signs in through the SAML connection. If you want to keep identity
-data in sync with the Identity Provider (IdP), set `update_identity_on_login` to `automatic` on the connection. This re-runs the
-connection's Jsonnet data mapper on every SAML login and updates the identity's traits and metadata when they change.
+By default, Ory runs the data mapper only the first time a user signs in through a SAML connection. To keep identity data in sync
+with the SAML identity provider (IdP), set `update_identity_on_login` to `automatic` on the connection. With this setting, Ory
+re-runs the connection's Jsonnet data mapper on every SAML login and updates the identity's traits and metadata whenever they
+change.
 
-This is useful when the IdP is the source of truth for user attributes such as group memberships, roles, or profile information
-that can change over time.
+Use automatic when the SAML IdP is the source of truth for attributes that change over time, such as group memberships, roles, or
+profile information.
 
-The default is `never`, so existing SAML connections keep their current behavior until you opt in.
+The default is `never`. Existing SAML connections keep their current behavior until you opt in.
 
 ```mdx-code-block
 <Tabs groupId="console-or-api">
@@ -458,8 +459,8 @@ The default is `never`, so existing SAML connections keep their current behavior
 <TabItem value="api" label="API">
 ```
 
-Replace the field on the connection you want to update. Adjust the provider index (`0` below) to match the position of your
-connection in the `providers` array.
+To enable it, set `update_identity_on_login` on the connection you want to update. Change the provider index (0 in the example
+below) to match your connection's position in the providers array.
 
 ```shell
 curl -X PATCH --location "https://api.console.ory.com/projects/$PROJECT_ID" \
@@ -482,9 +483,10 @@ curl -X PATCH --location "https://api.console.ory.com/projects/$PROJECT_ID" \
 
 ##### Access the current identity in the mapper
 
-When `update_identity_on_login` is set to `automatic`, the data mapper receives the current identity as an additional variable
-`std.extVar('identity')`. This lets you write conditional logic — for example, preserving existing trait values or merging data
-selectively. The `identity` variable contains the current `traits`, `metadata_public`, and `metadata_admin`.
+When you set `update_identity_on_login` to automatic, Ory passes the current identity to the data mapper as an additional variable
+`std.extVar('identity')`. Use it to write conditional logic — for example, to preserve trait values a user has already set, or to
+merge SAML IdP data selectively. The `identity` variable holds the identity's current `traits`, `metadata_public`, and
+`metadata_admin`.
 
 ```jsonnet
 local claims = std.extVar('claims');
@@ -508,11 +510,11 @@ local displayName = std.get(identity.traits, "display_name", std.get(claims.raw_
 
 ##### Behavior details
 
-- Metadata preservation. When the mapper omits `metadata_public` or `metadata_admin` from its output, existing values are
-  preserved. When the mapper explicitly outputs `{}`, the field is cleared.
-- Schema validation. The updated identity is validated against the identity schema before it is persisted. If the mapper produces
-  invalid traits, the login fails with a validation error.
-- No credential changes. Credentials and verified addresses are never modified by this feature.
+- Metadata preservation. When the mapper omits `metadata_public` or `metadata_admin` from its output, Ory preserves the existing
+  values. When the mapper explicitly outputs `{}`, the field is cleared.
+- Schema validation. Before Ory persists the identity, it validates the update against the identity schema. If the mapper produces
+  invalid traits, Ory fails the login with a validation error.
+- No credential changes. This feature never modifies credentials or verified addresses.
 
 #### Signing certificate expiry details
 
