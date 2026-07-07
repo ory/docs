@@ -149,6 +149,7 @@ id: excellent_feature
 title: Learn how to use the excellent feature in your implementation
 sidebar_label: Excellent feature
 slug: excellent-feature-for-some-reason
+description: A short summary of the feature and what it does.
 ---
 ```
 
@@ -165,6 +166,12 @@ slug: excellent-feature-for-some-reason
   sentence case.
 - `slug` is an optional property that allows you to customize the document URL.
   Use it to create more meaningful, SEO-friendly URLs.
+- `description` is a one-sentence summary of the page. Any document that appears
+  as a card in a sidebar category (a generated category index) must set it,
+  because Docusaurus derives the card text from `createExcerpt`, which only
+  keeps the first physical line of the first paragraph and truncates at the
+  source line wrap. Setting `description` gives you the full, intended card text
+  and is also used by search engines. Keep it to one short sentence.
 
 ### Bolding, 'code formatting'
 
