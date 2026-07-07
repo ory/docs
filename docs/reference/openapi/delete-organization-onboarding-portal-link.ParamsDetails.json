@@ -1,0 +1,22 @@
+{
+  "parameters": [
+    {
+      "in": "path",
+      "name": "project_id",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "in": "path",
+      "name": "organization_id",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "in": "path",
+      "name": "onboarding_portal_link_id",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

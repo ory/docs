@@ -1,0 +1,115 @@
+{
+  "responses": {
+    "201": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "properties": {
+              "created_at": {
+                "description": "The API key's creation date",
+                "format": "date-time",
+                "readOnly": true,
+                "type": "string"
+              },
+              "expires_at": {
+                "format": "date-time",
+                "type": "string",
+                "title": "Time"
+              },
+              "id": {
+                "description": "The key's ID.",
+                "format": "uuid",
+                "readOnly": true,
+                "type": "string"
+              },
+              "name": {
+                "description": "The API key's Name\n\nSet this to help you remember, for example, where you use the API key.",
+                "type": "string"
+              },
+              "owner_id": {
+                "description": "The key's owner",
+                "format": "uuid",
+                "readOnly": true,
+                "type": "string"
+              },
+              "updated_at": {
+                "description": "The API key's last update date",
+                "format": "date-time",
+                "readOnly": true,
+                "type": "string"
+              },
+              "value": {
+                "description": "The key's value",
+                "readOnly": true,
+                "type": "string"
+              },
+              "workspace_id": {
+                "description": "The API key's workspace ID",
+                "format": "uuid",
+                "readOnly": true,
+                "type": "string"
+              }
+            },
+            "required": ["id", "name", "owner_id"],
+            "type": "object",
+            "title": "workspaceApiKey"
+          }
+        }
+      },
+      "description": "workspaceApiKey"
+    },
+    "default": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "description": "The standard Ory JSON API error format.",
+            "properties": {
+              "error": {
+                "description": "Error response",
+                "properties": {
+                  "debug": {
+                    "description": "Debug contains debug information. This is usually not available and has to be enabled.",
+                    "example": "The database adapter was unable to find the element",
+                    "type": "string"
+                  },
+                  "error": {
+                    "description": "Name is the error name.",
+                    "example": "The requested resource could not be found",
+                    "type": "string"
+                  },
+                  "error_description": {
+                    "description": "Description contains further information on the nature of the error.",
+                    "example": "Object with ID 12345 does not exist",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "ID is a unique error ID.\nfeature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded",
+                    "enum": ["feature_not_available", "quota_exceeded"],
+                    "type": "string",
+                    "x-go-enum-desc": "feature_not_available ErrFeatureNotAvailable\nquota_exceeded ErrQuotaExceeded"
+                  },
+                  "message": {
+                    "description": "Message contains the error message.",
+                    "type": "string"
+                  },
+                  "status_code": {
+                    "description": "Code represents the error status code (404, 403, 401, ...).",
+                    "example": 404,
+                    "format": "int64",
+                    "type": "integer"
+                  }
+                },
+                "type": "object",
+                "title": "genericErrorContent"
+              }
+            },
+            "required": ["error"],
+            "title": "JSON API Error Response",
+            "type": "object"
+          }
+        }
+      },
+      "description": "errorGeneric"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "description": "Create Recovery Code for Identity Request Body",
+          "properties": {
+            "expires_in": {
+              "description": "Code Expires In\n\nThe recovery code will expire after that amount of time has passed. Defaults to the configuration value of\n`selfservice.methods.code.config.lifespan`.",
+              "pattern": "^([0-9]+(ns|us|ms|s|m|h))*$",
+              "type": "string"
+            },
+            "flow_type": {
+              "description": "The flow type can either be `api` or `browser`.",
+              "title": "Type is the flow type.",
+              "type": "string"
+            },
+            "identity_id": {
+              "description": "Identity to Recover\n\nThe identity's ID you wish to recover.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": ["identity_id"],
+          "type": "object",
+          "title": "createRecoveryCodeForIdentityBody"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}

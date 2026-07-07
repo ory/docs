@@ -1,0 +1,11 @@
+{
+  "parameters": [
+    {
+      "description": "The id of the OAuth 2.0 Client.",
+      "in": "path",
+      "name": "id",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

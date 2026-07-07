@@ -1,0 +1,34 @@
+{
+  "parameters": [
+    {
+      "description": "The URL to return the browser to after the flow was completed.",
+      "in": "query",
+      "name": "return_to",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "Ory OAuth 2.0 Login Challenge.\n\nIf set will cooperate with Ory OAuth2 and OpenID to act as an OAuth2 server / OpenID Provider.\n\nThe value for this parameter comes from `login_challenge` URL Query parameter sent to your\napplication (e.g. `/registration?login_challenge=abcde`).\n\nThis feature is compatible with Ory Hydra when not running on the Ory Network.",
+      "in": "query",
+      "name": "login_challenge",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "The URL to return the browser to after the verification flow was completed.\n\nAfter the registration flow is completed, the user will be sent a verification email.\nUpon completing the verification flow, this URL will be used to override the default\n`selfservice.flows.verification.after.default_redirect_to` value.",
+      "in": "query",
+      "name": "after_verification_return_to",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "An optional organization ID that should be used to register this user.\nThis parameter is only effective in the Ory Network.",
+      "in": "query",
+      "name": "organization",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "An optional identity schema to use for the registration flow.",
+      "in": "query",
+      "name": "identity_schema",
+      "schema": { "type": "string" }
+    }
+  ]
+}
