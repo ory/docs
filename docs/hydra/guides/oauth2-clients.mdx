@@ -134,15 +134,14 @@ See [API documentation](../../reference/api#tag/oAuth2/operation/patchOAuth2Clie
 ## Rotate OAuth2 client secret
 
 OAuth2 client secret rotation allows you to change a client's secret without downtime. When you rotate a secret, the old secret
-remains valid until you explicitly clean it up, allowing you to update all services using the client credentials without service
-interruption.
+remains valid until you remove it, allowing you to update all your client services without service interruption.
 
 ##### How secret rotation works
 
-1. Rotate the secret: Generate a new secret for the client
-2. Both secrets work: Old and new secrets both authenticate until cleanup
-3. Update services: Update your applications to use the new secret
-4. Cleanup: Manually remove old rotated secrets once all services are updated
+1. Generate a new secret for the client service. Both the old and the new secret authenticate from this point on.
+2. Update your client services to use the new secret.
+3. Test that the client services can authenticate with the new secret.
+4. Manually remove the old secret. Only the new secret authenticates from this point on.
 
 ##### Rotate client secret
 
@@ -153,11 +152,12 @@ To rotate an OAuth2 client secret, use the following methods:
 <TabItem value="rest" label="REST API">
 
 ```bash
-curl -X POST https://{project.slug}.projects.oryapis.com/admin/clients/{client-id}/secret/rotate \
+curl -X POST https://{project.slug}.projects.oryapis.com/admin/clients/{client-id}/secrets/rotate \
   -H "Authorization: Bearer ory_pat_..."
 ```
 
-The response includes the new `client_secret`. Save this value immediately - it will not be shown again.
+The response includes the new `client_secret`. Ory shows this value only once. Store it immediately in the secret store that your
+client services read from, such as a secrets manager or an encrypted environment configuration.
 
 See [API documentation](../../reference/api#tag/oAuth2/operation/rotateOAuth2ClientSecret).
 
@@ -186,21 +186,20 @@ console.log("New secret:", client.client_secret)
 </Tabs>
 ````
 
-##### Clear rotated secrets
+##### Remove old secret
 
-Once all services have been updated to use the new secret, you can remove the old rotated secrets to revoke access using the old
-credentials:
+Once all services are updated to use the new secret, remove the old secret to revoke access using the old secret:
 
 ````mdx-code-block
 <Tabs>
 <TabItem value="rest" label="REST API">
 
 ```bash
-curl -X DELETE https://{project.slug}.projects.oryapis.com/admin/clients/{client-id}/secret/rotate \
+curl -X DELETE https://{project.slug}.projects.oryapis.com/admin/clients/{client-id}/secrets/rotate \
   -H "Authorization: Bearer ory_pat_..."
 ```
 
-After cleanup, only the current secret will be valid. Old secrets will no longer authenticate.
+After removing the old secret, only the current (new) secret is valid. The old secret can no longer authenticate.
 
 See [API documentation](../../reference/api#tag/oAuth2/operation/deleteRotatedOAuth2ClientSecrets).
 
@@ -212,7 +211,7 @@ await ory.deleteRotatedOAuth2ClientSecrets({
   id: clientId
 })
 
-// Old secrets are now revoked
+// Old secret is now revoked.
 ```
 
 </TabItem>
@@ -228,21 +227,21 @@ Here's a complete workflow for rotating a client secret:
 CLIENT_ID="your-client-id"
 
 # 2. Rotate the secret
-NEW_SECRET=$(curl -X POST "https://{project.slug}.projects.oryapis.com/admin/clients/$CLIENT_ID/secret/rotate" \
+NEW_SECRET=$(curl -X POST "https://{project.slug}.projects.oryapis.com/admin/clients/$CLIENT_ID/secrets/rotate" \
   -H "Authorization: Bearer ory_pat_..." | jq -r '.client_secret')
 
 echo "New secret: $NEW_SECRET"
 
-# 3. Update your applications with the new secret
-# (Both old and new secrets work during this period)
+# 3. Update your client services with the new secret
+# (Both the old and the new secret work during this period)
 
 # 4. Verify the new secret works
 curl -X POST "https://{project.slug}.projects.oryapis.com/oauth2/token" \
   -u "$CLIENT_ID:$NEW_SECRET" \
   -d "grant_type=client_credentials"
 
-# 5. Once all services are updated, clean up old secrets
-curl -X DELETE "https://{project.slug}.projects.oryapis.com/admin/clients/$CLIENT_ID/secret/rotate" \
+# 5. Once all client services are updated, remove the old secret
+curl -X DELETE "https://{project.slug}.projects.oryapis.com/admin/clients/$CLIENT_ID/secrets/rotate" \
   -H "Authorization: Bearer ory_pat_..."
 
 # Old secret is now revoked
@@ -250,15 +249,15 @@ curl -X DELETE "https://{project.slug}.projects.oryapis.com/admin/clients/$CLIEN
 
 :::tip Zero-downtime credential rotation
 
-Secret rotation enables zero-downtime credential updates. Both the old and new secrets remain valid until you manually clean up
-the rotated secrets, allowing you to update all your services without service interruption.
+Secret rotation enables zero-downtime credential updates. Both the old and new secrets remain valid until you manually remove the
+old secret, allowing you to update all your client services without service interruption.
 
 :::
 
 :::warning Security best practice
 
-Rotated secrets remain valid indefinitely until you explicitly clean them up. Always remove old rotated secrets once your
-migration is complete to ensure that compromised credentials cannot be used.
+Secrets remain valid indefinitely until you explicitly remove them. Always remove old secrets once your secret rotation process is
+complete to ensure that compromised credentials cannot be used.
 
 :::
 
