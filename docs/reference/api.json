@@ -1798,6 +1798,10 @@
             },
             "type": "array"
           },
+          "kratos_selfservice_methods_deviceauthn_config_first_factor": {
+            "description": "Configures whether device authentication may be used as the sole first factor.\n\nThis governs the \"selfservice.methods.deviceauthn.config.first_factor\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_deviceauthn_config_insecure_allow_relaxed_attestation": {
             "description": "Configures whether Ory Kratos Device authentication accepts relaxed attestations for testing\n\nOnly allowed on development projects and forced off otherwise. Keys enrolled\nunder relaxation are short-lived and refused once this is turned off.\n\nThis governs the \"selfservice.methods.deviceauthn.config.insecure_allow_relaxed_attestation\" setting.",
             "type": "boolean"
@@ -1808,6 +1812,15 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "kratos_selfservice_methods_deviceauthn_config_ios_biometric_first_factor": {
+            "description": "Configures whether an iOS biometric device key may be used as the sole first factor.\n\nThis governs the \"selfservice.methods.deviceauthn.config.ios_biometric_first_factor\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_deviceauthn_config_pin_max_attempts": {
+            "description": "Configures the consecutive wrong-PIN limit before a device key is locked.\n\nThis governs the \"selfservice.methods.deviceauthn.config.pin_max_attempts\" setting.",
+            "format": "int64",
+            "type": "integer"
           },
           "kratos_selfservice_methods_deviceauthn_enabled": {
             "description": "Configures whether Ory Kratos Device authentication is enabled\n\nThis governs the \"selfservice.methods.deviceauthn.enabled\" setting.",
@@ -2242,6 +2255,9 @@
           "device_type": {
             "$ref": "#/components/schemas/DeviceType"
           },
+          "pin": {
+            "$ref": "#/components/schemas/PINConfig"
+          },
           "public_key": {
             "description": "PublicKey is the device's public key (EC P-256 in v1), used to verify\nsignatures. It is stored in PKIX, ASN.1 DER form (the SubjectPublicKeyInfo\nencoding produced by x509.MarshalPKIXPublicKey). The private key resides\ninside the device and does not exist on the server.",
             "items": {
@@ -2257,6 +2273,9 @@
           },
           "state": {
             "$ref": "#/components/schemas/KeyState"
+          },
+          "user_verification": {
+            "$ref": "#/components/schemas/UserVerification"
           },
           "version": {
             "description": "v1 uses SHA256 + EC256.\nv2 (in the future) may use ML-DSA which is post-quantum resistant.\nThis requires Android/iOS support so we have to wait.\nWe intentionally avoid storing the cryptographic algorithm here a la JWT/TLS\nto avoid security issues and algorithm negotiation.",
@@ -2956,6 +2975,32 @@
         },
         "type": "object"
       },
+      "PINConfig": {
+        "description": "PINConfig is the per-key PIN state. The pin_secret field holds the at-rest\nciphertext; the plaintext exists only transiently in memory during\nverification and is cleared once the key locks.",
+        "properties": {
+          "created_at": {
+            "description": "CreatedAt is when the pin_secret was first issued.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "failed_attempts": {
+            "description": "FailedAttempts counts consecutive wrong-PIN attempts; the key locks when it\nreaches the configured maximum.",
+            "format": "uint64",
+            "type": "integer"
+          },
+          "pin_secret": {
+            "description": "PINSecret is the at-rest pin_secret ciphertext. Server-internal: never\nlogged or transmitted. Empty once the key locks.",
+            "type": "string",
+            "writeOnly": true
+          },
+          "rotated_at": {
+            "description": "RotatedAt is when the pin_secret was last rotated; the zero value means\nnever rotated. omitzero (not omitempty) drops the zero timestamp from the\nJSON, since omitempty never treats a time.Time value as empty.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "ParseError": {
         "properties": {
           "end": {
@@ -3398,6 +3443,12 @@
             "type": "number"
           }
         ]
+      },
+      "UserVerification": {
+        "description": "The empty value marks a legacy key from before user verification existed;\nsuch keys are rejected at login and must be re-enrolled.",
+        "enum": ["pin", "platform", "none"],
+        "title": "UserVerification records how the key's holder is verified at use time.",
+        "type": "string"
       },
       "VerifiableCredentialProof": {
         "properties": {
@@ -3891,6 +3942,7 @@
           "mapping": {
             "redirect_browser_to": "#/components/schemas/continueWithRedirectBrowserTo",
             "set_ory_session_token": "#/components/schemas/continueWithSetOrySessionToken",
+            "show_pin_entry_ui": "#/components/schemas/continueWithDeviceAuthnPinEntryUi",
             "show_recovery_ui": "#/components/schemas/continueWithRecoveryUi",
             "show_settings_ui": "#/components/schemas/continueWithSettingsUi",
             "show_verification_ui": "#/components/schemas/continueWithVerificationUi"
@@ -3912,8 +3964,48 @@
           },
           {
             "$ref": "#/components/schemas/continueWithRedirectBrowserTo"
+          },
+          {
+            "$ref": "#/components/schemas/continueWithDeviceAuthnPinEntryUi"
           }
         ],
+        "type": "object"
+      },
+      "continueWithDeviceAuthnPinEntryUi": {
+        "description": "The enrolled key's client_key_id is not included: it is the SHA-256 fingerprint\nof the device's own public key, which the device derives locally. Non-PIN keys\nneed no client action at all and therefore produce no continue_with.",
+        "properties": {
+          "action": {
+            "description": "Action will always be `show_pin_entry_ui`\nshow_pin_entry_ui ContinueWithActionShowPINEntryUIString",
+            "enum": ["show_pin_entry_ui"],
+            "type": "string",
+            "x-go-enum-desc": "show_pin_entry_ui ContinueWithActionShowPINEntryUIString"
+          },
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/continueWithDeviceAuthnPinEntryUiData"
+              }
+            ],
+            "description": "The one-time HPKE-sealed pin_secret material the device opens to bind the user's PIN after a PIN-protected DeviceAuthn enrollment or secret rotation."
+          }
+        },
+        "required": ["action", "data"],
+        "title": "Instructs the client to show its PIN entry UI after a PIN-protected DeviceAuthn\nenrollment or secret rotation. It carries the one-time HPKE-sealed pin_secret,\nwhich the device opens with the transport private key it generated for this\nenrollment to bind the user's PIN. The plaintext secret never leaves the\ndevice; the server only ever stores its at-rest ciphertext.",
+        "type": "object"
+      },
+      "continueWithDeviceAuthnPinEntryUiData": {
+        "description": "Carries the one-time HPKE-sealed pin_secret material — the encapsulated key and\nthe sealed ciphertext — that the device opens with the transport private key it\ngenerated for this enrollment.",
+        "properties": {
+          "ciphertext": {
+            "description": "Ciphertext is the base64-encoded HPKE-sealed pin_secret.",
+            "type": "string"
+          },
+          "enc": {
+            "description": "Enc is the base64-encoded HPKE encapsulated key.",
+            "type": "string"
+          }
+        },
+        "required": ["enc", "ciphertext"],
         "type": "object"
       },
       "continueWithRecoveryUi": {
@@ -4311,6 +4403,19 @@
           }
         },
         "required": ["enable_sso", "enable_scim"],
+        "type": "object"
+      },
+      "createProjectApiKeyBody": {
+        "properties": {
+          "expires_at": {
+            "$ref": "#/components/schemas/Time"
+          },
+          "name": {
+            "description": "The Token Name\n\nA descriptive name for the token.",
+            "type": "string"
+          }
+        },
+        "required": ["name"],
         "type": "object"
       },
       "createProjectBody": {
@@ -7073,7 +7178,7 @@
             "type": "string"
           },
           "template_type": {
-            "description": "\nrecovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid\nverifiable_address_changed TypeVerifiableAddressChanged",
+            "description": "\nrecovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid\nverifiable_address_changed TypeVerifiableAddressChanged\nauthenticator_key_added TypeAuthenticatorKeyAdded",
             "enum": [
               "recovery_invalid",
               "recovery_valid",
@@ -7086,10 +7191,11 @@
               "stub",
               "login_code_valid",
               "registration_code_valid",
-              "verifiable_address_changed"
+              "verifiable_address_changed",
+              "authenticator_key_added"
             ],
             "type": "string",
-            "x-go-enum-desc": "recovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid\nverifiable_address_changed TypeVerifiableAddressChanged"
+            "x-go-enum-desc": "recovery_invalid TypeRecoveryInvalid\nrecovery_valid TypeRecoveryValid\nrecovery_code_invalid TypeRecoveryCodeInvalid\nrecovery_code_valid TypeRecoveryCodeValid\nverification_invalid TypeVerificationInvalid\nverification_valid TypeVerificationValid\nverification_code_invalid TypeVerificationCodeInvalid\nverification_code_valid TypeVerificationCodeValid\nstub TypeTestStub\nlogin_code_valid TypeLoginCodeValid\nregistration_code_valid TypeRegistrationCodeValid\nverifiable_address_changed TypeVerifiableAddressChanged\nauthenticator_key_added TypeAuthenticatorKeyAdded"
           },
           "type": {
             "$ref": "#/components/schemas/courierMessageType"
@@ -8210,6 +8316,10 @@
             },
             "type": "array"
           },
+          "kratos_selfservice_methods_deviceauthn_config_first_factor": {
+            "description": "Configures whether device authentication may be used as the sole first factor.\n\nThis governs the \"selfservice.methods.deviceauthn.config.first_factor\" setting.",
+            "type": "boolean"
+          },
           "kratos_selfservice_methods_deviceauthn_config_insecure_allow_relaxed_attestation": {
             "description": "Configures whether Ory Kratos Device authentication accepts relaxed attestations for testing\n\nOnly allowed on development projects and forced off otherwise. Keys enrolled\nunder relaxation are short-lived and refused once this is turned off.\n\nThis governs the \"selfservice.methods.deviceauthn.config.insecure_allow_relaxed_attestation\" setting.",
             "type": "boolean"
@@ -8220,6 +8330,15 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "kratos_selfservice_methods_deviceauthn_config_ios_biometric_first_factor": {
+            "description": "Configures whether an iOS biometric device key may be used as the sole first factor.\n\nThis governs the \"selfservice.methods.deviceauthn.config.ios_biometric_first_factor\" setting.",
+            "type": "boolean"
+          },
+          "kratos_selfservice_methods_deviceauthn_config_pin_max_attempts": {
+            "description": "Configures the consecutive wrong-PIN limit before a device key is locked.\n\nThis governs the \"selfservice.methods.deviceauthn.config.pin_max_attempts\" setting.",
+            "format": "int64",
+            "type": "integer"
           },
           "kratos_selfservice_methods_deviceauthn_enabled": {
             "description": "Configures whether Ory Kratos Device authentication is enabled\n\nThis governs the \"selfservice.methods.deviceauthn.enabled\" setting.",
@@ -11053,7 +11172,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ntalos_api_keys TalosAPIKeys\ntalos_rate_limit TalosRateLimit\ntalos_cache TalosCache\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\ndeviceauthn Deviceauthn\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\ntalos_admin_high_rate_limit_tier RateLimitTierTalosAdminHigh\ntalos_admin_medium_rate_limit_tier RateLimitTierTalosAdminMedium\ntalos_admin_low_rate_limit_tier RateLimitTierTalosAdminLow\ntalos_public_high_rate_limit_tier RateLimitTierTalosPublicHigh\ntalos_public_low_rate_limit_tier RateLimitTierTalosPublicLow\nunassigned_rate_limit_tier RateLimitTierUnassigned",
+            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ntalos_api_keys TalosAPIKeys\ntalos_rate_limit TalosRateLimit\ntalos_cache TalosCache\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\ndeviceauthn Deviceauthn\nallow_insecure_origins AllowInsecureOrigins  AllowInsecureOrigins grandfathers a project past strict wildcard  enforcement (CORS origins + return URLs). Override-only; never sold.\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\ntalos_admin_high_rate_limit_tier RateLimitTierTalosAdminHigh\ntalos_admin_medium_rate_limit_tier RateLimitTierTalosAdminMedium\ntalos_admin_low_rate_limit_tier RateLimitTierTalosAdminLow\ntalos_public_high_rate_limit_tier RateLimitTierTalosPublicHigh\ntalos_public_low_rate_limit_tier RateLimitTierTalosPublicLow\nunassigned_rate_limit_tier RateLimitTierUnassigned",
             "enum": [
               "production_projects",
               "staging_projects",
@@ -11097,6 +11216,7 @@
               "graceful_refresh_token_count",
               "hydra_token_prefix",
               "deviceauthn",
+              "allow_insecure_origins",
               "update_self_service_registration_rate_limit_tier",
               "update_self_service_recovery_rate_limit_tier",
               "update_self_service_settings_rate_limit_tier",
@@ -11137,7 +11257,7 @@
               "unassigned_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ntalos_api_keys TalosAPIKeys\ntalos_rate_limit TalosRateLimit\ntalos_cache TalosCache\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\ndeviceauthn Deviceauthn\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\ntalos_admin_high_rate_limit_tier RateLimitTierTalosAdminHigh\ntalos_admin_medium_rate_limit_tier RateLimitTierTalosAdminMedium\ntalos_admin_low_rate_limit_tier RateLimitTierTalosAdminLow\ntalos_public_high_rate_limit_tier RateLimitTierTalosPublicHigh\ntalos_public_low_rate_limit_tier RateLimitTierTalosPublicLow\nunassigned_rate_limit_tier RateLimitTierUnassigned"
+            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ntalos_api_keys TalosAPIKeys\ntalos_rate_limit TalosRateLimit\ntalos_cache TalosCache\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\ndeviceauthn Deviceauthn\nallow_insecure_origins AllowInsecureOrigins  AllowInsecureOrigins grandfathers a project past strict wildcard  enforcement (CORS origins + return URLs). Override-only; never sold.\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\ntalos_admin_high_rate_limit_tier RateLimitTierTalosAdminHigh\ntalos_admin_medium_rate_limit_tier RateLimitTierTalosAdminMedium\ntalos_admin_low_rate_limit_tier RateLimitTierTalosAdminLow\ntalos_public_high_rate_limit_tier RateLimitTierTalosPublicHigh\ntalos_public_low_rate_limit_tier RateLimitTierTalosPublicLow\nunassigned_rate_limit_tier RateLimitTierUnassigned"
           },
           "feature_available": {
             "type": "boolean"
@@ -12849,6 +12969,12 @@
             "description": "Method should be set to \"deviceauthn\" when logging in using the DeviceAuthn strategy.",
             "type": "string"
           },
+          "pin_proof": {
+            "description": "PINProof is an HMAC the client computes using the pin_secret when the key\nis PIN-protected. It proves possession of the PIN without revealing it.\n\nSensitive: a proof of the PIN secret, do not log or transmit. It is marked\nwrite-only in the spec via the OpenAPI patch in\n.schema/openapi/patches/selfservice.yaml.",
+            "format": "byte",
+            "type": "string",
+            "writeOnly": true
+          },
           "signature": {
             "description": "Signature is a ES256 signature of the server-provided challenge.",
             "format": "byte",
@@ -13484,6 +13610,9 @@
             "description": "Method\n\nShould be set to \"deviceauthn\" when trying to add or remove a DeviceAuthn key.",
             "type": "string"
           },
+          "rotate_secret": {
+            "$ref": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethodRotateSecret"
+          },
           "transient_payload": {
             "description": "Transient data to pass along to any webhooks",
             "type": "object"
@@ -13510,6 +13639,23 @@
             "description": "DeviceName is a human-readable name for the device e.g. 'My work phone'.",
             "type": "string"
           },
+          "pin_protected": {
+            "description": "PINProtected indicates that the key is protected by a PIN.\nWhen true, the server must issue a sealed pin_secret in the response.",
+            "type": "boolean"
+          },
+          "transport_public_key": {
+            "description": "TransportPubKey is the transport public key (HPKE) used to seal the\nreturned pin_secret so only this device can open it. It is base64-encoded in\nJSON and decoded to raw bytes here.",
+            "format": "byte",
+            "type": "string"
+          },
+          "user_verification": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserVerification"
+              }
+            ],
+            "description": "Declares how the key's holder is verified at use time. One of \"pin\", \"platform\", or \"none\" (or empty, which maps to \"none\"). \"pin\" is implied by pin_protected and need not be set explicitly. For \"platform\" the server cross-checks the attestation on Android and trusts the declaration on iOS, since App Attest cannot prove biometric gating."
+          },
           "version": {
             "description": "Version is the version number for the cryptography.\nFor now only `1` is supported which corresponds to SHA256 + EC.",
             "format": "int64",
@@ -13527,6 +13673,28 @@
           }
         },
         "required": ["client_key_id"],
+        "type": "object"
+      },
+      "updateSettingsFlowWithDeviceAuthnMethodRotateSecret": {
+        "description": "Re-issues a fresh pin_secret for an existing PIN-protected DeviceAuthn key\nwithout changing the device signing key. It is the recovery path for a\nforgotten PIN or a locked key. The server returns the new secret sealed to the\nsupplied transport_public_key exactly once.",
+        "properties": {
+          "client_key_id": {
+            "description": "ClientKeyID identifies the existing PIN key whose pin_secret should be\nrotated: the lowercase-hex SHA-256 of the device public key in PKIX,\nASN.1 DER (SubjectPublicKeyInfo) form. The device signing key is\nunchanged by the rotation.",
+            "type": "string"
+          },
+          "signature": {
+            "description": "Signature proves current possession of the enrolled device signing key: the\ndevice signs the concatenation of the settings-flow nonce and the transport\npublic key with the key identified by client_key_id — a plain ECDSA\nsignature over the SHA-256 of that challenge on Android, an App Attest\nassertion over it on iOS, exactly as at login. Binding the transport key\ninto the signed challenge ensures a session-level attacker (stolen token,\nXSS) cannot rotate the secret and have it sealed to a transport key they\ncontrol.",
+            "format": "byte",
+            "type": "string"
+          },
+          "transport_public_key": {
+            "description": "TransportPubKey is the transport public key (HPKE) used to seal the\nreturned, freshly issued pin_secret so only this device can open it. It is\nbase64-encoded in JSON and decoded to raw bytes here.",
+            "format": "byte",
+            "type": "string"
+          }
+        },
+        "required": ["client_key_id", "signature"],
+        "title": "Update Settings Flow with DeviceAuthn RotateSecret",
         "type": "object"
       },
       "updateSettingsFlowWithLookupMethod": {
@@ -20524,17 +20692,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "properties": {
-                  "expires_at": {
-                    "$ref": "#/components/schemas/Time"
-                  },
-                  "name": {
-                    "description": "The Token Name\n\nA descriptive name for the token.\n\nin: body",
-                    "type": "string"
-                  }
-                },
-                "required": ["name"],
-                "type": "object"
+                "$ref": "#/components/schemas/createProjectApiKeyBody"
               }
             }
           },
