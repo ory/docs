@@ -1050,3 +1050,49 @@ Second, the sealing key also lands in the software keystore, so the reference `c
 its `requireHardwareBacked` check throws. Temporarily bypass that check in a debug/test build to wire and flow-test the PIN path,
 but never in a release build: the offline-guessing resistance rests entirely on a hardware sealing key. Verify the sealing path on
 a physical device before shipping.
+
+## Recovery and lockout
+
+| Situation                                        | Path                                                                                                                         |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| User wants to change the PIN (knows it)          | Client-only: unseal with the old PIN, re-seal with the new one (fresh salt and IV). No server call.                          |
+| PIN forgotten, or sealed secret lost (reinstall) | Log in with another method, then [rotate the secret](#rotating-the-pin-secret). The device key and its attestation are kept. |
+| Key locked after too many wrong PINs             | Same: another login method, then rotate (clears the lock) — or delete and re-enroll the key.                                 |
+| Device lost or stolen                            | Delete the key from a session on another device, or via the admin identity APIs.                                             |
+
+A locked key is refused for both first-factor login and step-up. Locking destroys the stored secret, so a lock can never be
+silently undone — recovery always issues a fresh secret. Consider notifying users whenever a key is enrolled or its secret
+rotated, and delaying sensitive operations after either event.
+
+## Troubleshooting
+
+- **`Unable to validate the key attestation: wrong challenge` at PIN enrollment** — the attestation was created over the bare
+  nonce. PIN enrollment binds the transport key: use `SHA256(nonce ‖ transport_public_key)` as the challenge. The bare nonce is
+  correct only for second-factor device binding and biometric enrollment.
+- **`The rotation signature is invalid.`** — the rotation signature must cover the raw concatenation
+  `nonce ‖ transport_public_key` (64 bytes, not hashed by the caller, transport key generated fresh for this rotation).
+- **Login always fails with the same generic error** — by design the server returns one identical error for an unknown key, a bad
+  signature, a wrong PIN, and a locked key. Track wrong-PIN retries locally; after `pin_max_attempts` consecutive failures assume
+  the key is locked and offer recovery.
+- **Keys enrolled before user verification existed** — legacy keys cannot log in and must be re-enrolled.
+- **Relaxed-attestation keys stop working** — keys enrolled with relaxed attestation expire after 30 days and are refused as soon
+  as the setting is turned off. See [relaxed attestation](08_deviceauthn.mdx#relaxed-attestation-for-testing).
+
+## Security model
+
+| Attacker has                                         | Outcome                                                                                                           |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Stolen, locked device                                | The sealing key requires an unlocked device; the sealed secret is hardware-bound and PIN guesses can't be tested. |
+| Exfiltrated backup or sealed blob                    | Opaque — the outer layer is sealed by a non-exportable hardware key that never leaves the original device.        |
+| Code execution on the unlocked device                | Can unseal, but a wrong PIN yields garbage; the only oracle is the server, which locks the key after 5 attempts.  |
+| Ory database dump (even with the encryption secrets) | The `pin_secret` — but login still requires the device's hardware key, and the PIN itself is not derivable.       |
+| TLS-terminating intermediary, request logs           | Only HPKE ciphertext of the one-time secret delivery; the PIN never transits at all.                              |
+
+Stated limitations:
+
+- On iOS, biometric gating of a `platform` key cannot be proven by App Attest — it is trusted at enrollment. This is why iOS
+  biometric-only first factor is an explicit opt-in (`ios_biometric_first_factor`).
+- PIN strength cannot be enforced server-side; the server never sees the PIN. Enforce policy in your app and rely on the lockout
+  to bound weak-PIN damage.
+- Locking a key destroys its secret. An attacker with deep device compromise can deliberately burn the attempt budget to force a
+  recovery; recovery paths require a different login method.
