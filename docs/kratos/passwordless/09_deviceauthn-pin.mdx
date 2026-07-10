@@ -699,6 +699,7 @@ the PIN proof, and the login signature. The `PinCeremony` is a fresh object per 
 ```kotlin
 import android.os.Build
 import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyInfo
 import android.security.keystore.KeyProperties
 import android.security.keystore.StrongBoxUnavailableException
 import android.util.Base64
@@ -721,6 +722,7 @@ import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.Mac
 import javax.crypto.SecretKey
+import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
@@ -843,9 +845,10 @@ object PinVault {
     private val random = SecureRandom()
 
     /// Creates the sealing key: AES-256-GCM, StrongBox where available, TEE
-    /// otherwise. Fail closed if neither is available — never a software key.
-    /// No setUserAuthenticationRequired (the PIN is the gate);
-    /// setUnlockedDeviceRequired so a locked stolen device cannot unseal.
+    /// otherwise. Fails closed: after generation the key is verified to be
+    /// hardware-backed (TEE or StrongBox); a software key is deleted and
+    /// enrollment refused. No setUserAuthenticationRequired (the PIN is the
+    /// gate); setUnlockedDeviceRequired so a locked stolen device cannot unseal.
     fun createSealingKey(alias: String) {
         fun spec(strongBox: Boolean) =
             KeyGenParameterSpec.Builder(alias, KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT).run {
@@ -866,6 +869,27 @@ object PinVault {
         } catch (e: StrongBoxUnavailableException) {
             kg.init(spec(strongBox = false))
             kg.generateKey()
+        }
+        requireHardwareBacked(alias)
+    }
+
+    /// Throws unless the key lives in a TEE or StrongBox. The sealing key has
+    /// no server-side attestation backstop — this local check is the only
+    /// enforcement of the "hardware or refuse" rule.
+    private fun requireHardwareBacked(alias: String) {
+        val key = keyStore.getKey(alias, null) as SecretKey
+        val factory = SecretKeyFactory.getInstance(key.algorithm, "AndroidKeyStore")
+        val info = factory.getKeySpec(key, KeyInfo::class.java) as KeyInfo
+        val hardwareBacked = if (Build.VERSION.SDK_INT >= 31) {
+            info.securityLevel == KeyProperties.SECURITY_LEVEL_TRUSTED_ENVIRONMENT ||
+                info.securityLevel == KeyProperties.SECURITY_LEVEL_STRONGBOX
+        } else {
+            @Suppress("DEPRECATION")
+            info.isInsideSecureHardware
+        }
+        if (!hardwareBacked) {
+            keyStore.deleteEntry(alias)
+            throw IllegalStateException("no hardware-backed keystore; refusing PIN enrollment")
         }
     }
 
@@ -1015,10 +1039,14 @@ linked below. The code above zeroizes every PIN, derived key, and secret in a `f
 
 ### Testing in the emulator
 
-The Android emulator produces software-backed attestations, which the server rejects by default. To exercise PIN enrollment on an
-emulator, enable relaxed attestation — a development-only setting. Relaxed-attestation keys expire after 30 days, so re-enroll
-after that. See [Relaxed attestation for testing](08_deviceauthn.mdx#relaxed-attestation-for-testing).
+The Android emulator has no StrongBox or TEE, so exercising the PIN flow on one needs two development-only relaxations — never in
+a release build.
 
-The emulator also has no StrongBox or TEE, so `createPinSigningKey` and `createSealingKey` land in the software keystore. That is
-fine for wiring and flow testing, but it defeats the offline-guessing resistance the PIN path depends on: a real PIN enrollment
-must land its keys in StrongBox or the TEE, never software. Verify the sealing path on a physical device before shipping.
+First, the emulator produces software-backed attestations, which the server rejects by default. Enable relaxed attestation
+server-side to accept the signing key. Relaxed-attestation keys expire after 30 days, so re-enroll after that. See
+[Relaxed attestation for testing](08_deviceauthn.mdx#relaxed-attestation-for-testing).
+
+Second, the sealing key also lands in the software keystore, so the reference `createSealingKey` refuses enrollment by design —
+its `requireHardwareBacked` check throws. Temporarily bypass that check in a debug/test build to wire and flow-test the PIN path,
+but never in a release build: the offline-guessing resistance rests entirely on a hardware sealing key. Verify the sealing path on
+a physical device before shipping.
