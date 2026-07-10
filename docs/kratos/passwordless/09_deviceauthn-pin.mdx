@@ -110,3 +110,187 @@ selfservice:
 
 On Ory Network all of these are available through the project configuration. Relaxed attestation for emulator testing is described
 in [device binding](08_deviceauthn.mdx#relaxed-attestation-for-testing) and only takes effect in development environments.
+
+## Protocol reference
+
+All flows are native (API) flows. The flow's UI contains a hidden `deviceauthn_nonce` node; its value is the base64 encoding of
+the JSON `{"nonce":"<base64 of 32 raw bytes>"}`. Decode twice to obtain the raw nonce bytes. The nonce is single-use and bound to
+the flow.
+
+### PIN enrollment
+
+Runs in a settings flow under a privileged session.
+
+1. Generate an ephemeral X25519 keypair — the transport key (`t_priv`, `t_pub`). It must exist **before** attestation, because its
+   public half is baked into the attestation challenge.
+2. Compute the attestation challenge:
+
+   ```text
+   challenge = SHA256(nonce ‖ t_pub)
+   ```
+
+   The raw 32-byte nonce concatenated with the raw 32-byte transport public key, in that order, hashed once. This binds the
+   transport key to the attested device: an intermediary that swaps `t_pub` invalidates the attestation.
+
+   :::warning
+
+   Do **not** use the bare nonce as the challenge — that is the second-factor device-binding form. Using it here fails with
+   `Unable to validate the key attestation: wrong challenge`.
+
+   :::
+
+3. Create and attest the device signing key with that challenge. For PIN keys, create the key **without** platform
+   user-verification gating — the PIN is the gate. On iOS pass the digest as `clientDataHash` to `attestKey`; on Android pass it
+   to `setAttestationChallenge`.
+4. Complete the settings flow:
+
+   ```json
+   {
+     "method": "deviceauthn",
+     "add": {
+       "device_name": "My work phone",
+       "version": 1,
+       "pin_protected": true,
+       "transport_public_key": "<base64 of t_pub>",
+       "attestation_ios": "<base64 CBOR attestation>"
+     }
+   }
+   ```
+
+   Android submits `certificate_chain_android` (the attestation chain, leaf first) instead of `attestation_ios`.
+   `user_verification` may be omitted: `pin_protected: true` implies `"pin"`.
+
+5. The server verifies the attestation, recomputes the challenge from the nonce it issued and the submitted
+   `transport_public_key`, assigns the key's `client_key_id`, generates the `pin_secret`, stores it encrypted, and returns it —
+   exactly once — HPKE-sealed in the response's `continue_with`:
+
+   ```json
+   {
+     "continue_with": [
+       {
+         "action": "show_pin_entry_ui",
+         "data": {
+           "enc": "<base64 HPKE encapsulated key>",
+           "ciphertext": "<base64 HPKE-sealed pin_secret>"
+         }
+       }
+     ]
+   }
+   ```
+
+   The HPKE parameters are fixed and non-negotiable: DHKEM(X25519, HKDF-SHA256), HKDF-SHA256, AES-128-GCM, with
+   `info = "ory/deviceauthn/pin-secret/v1"` and the `client_key_id` string as AAD.
+
+6. `client_key_id` is the key's deterministic fingerprint — the lowercase-hex SHA-256 of the device public key in PKIX, ASN.1 DER
+   (SubjectPublicKeyInfo) form. It is **not** included in `continue_with`: derive it locally (trivial on Android) or read it from
+   the updated flow's `deviceauthn_remove` node for the new key (see the platform guides).
+7. The client opens the sealed secret with `t_priv`, captures the user's PIN, seals the secret per the
+   [client requirements](#client-implementation-requirements), and destroys the transport keypair. The key is immediately usable
+   (`confirmed`).
+
+<Mermaid
+  chart={`
+sequenceDiagram
+    participant App
+    participant H as Device hardware
+    participant S as Ory
+    App->>S: POST /self-service/settings/api
+    S-->>App: settings flow {deviceauthn_nonce}
+    App->>App: generate transport keypair (t_priv, t_pub)
+    App->>H: create + attest signing key<br/>challenge = SHA256(nonce ‖ t_pub)
+    H-->>App: attestation
+    App->>S: PUT /self-service/settings?flow=… {add: {pin_protected, transport_public_key, attestation}}
+    Note over S: verify attestation, recompute challenge,<br/>assign client_key_id, mint pin_secret,<br/>store encrypted
+    S-->>App: 200 + continue_with {enc, ciphertext} — one-time
+    App->>App: pin_secret = HPKE.Open(t_priv, enc, ciphertext)<br/>AAD = client_key_id
+    App->>App: capture PIN, seal secret, wipe PIN + t_priv
+`}
+/>
+
+### Biometric enrollment
+
+Same settings flow, three differences: the challenge is the **bare nonce**; the signing key is created **with** platform
+user-verification gating (`setUserAuthenticationRequired` on Android, `.biometryCurrentSet` access control on iOS); and the
+payload declares `"user_verification": "platform"` with no `pin_protected` and no `transport_public_key`. There is no secret and
+no `continue_with`. On Android the server cross-checks the declaration against the attestation; on iOS it is trusted at enrollment
+(which is why first-factor use is opt-in there).
+
+### First-factor login
+
+Requires `first_factor: true`. The client creates a native login flow and submits:
+
+```json
+{
+  "method": "deviceauthn",
+  "client_key_id": "<the key's fingerprint>",
+  "signature": "<base64>",
+  "pin_proof": "<base64, PIN keys only>"
+}
+```
+
+- `signature` — the device key over the raw nonce. Android: an ASN.1/DER ECDSA signature over the SHA-256 of the nonce
+  (`Signature("SHA256withECDSA")` fed the nonce bytes). iOS: the CBOR App Attest assertion from
+  `generateAssertion(keyId, clientDataHash: nonce)`.
+- `pin_proof` — PIN keys only:
+
+  ```text
+  pin_proof = HMAC-SHA256(key: pin_secret,
+                          msg: "ory/deviceauthn/pin-proof/v1" ‖ client_key_id ‖ nonce)
+  ```
+
+  The domain string and `client_key_id` as UTF-8 bytes, the nonce raw, concatenated without separators.
+
+The server resolves the identity from `client_key_id`, verifies the signature, and — for PIN keys — verifies the proof. Success
+grants an AAL2 session in this single submission.
+
+Every rejection (unknown key, ineligible key, bad signature, wrong PIN, locked key) returns the same error, so enrollment status
+can't be probed. The lockout counter moves only on a valid signature with a wrong proof — the combination that proves the physical
+device made a wrong-PIN attempt. At the limit the key state becomes `locked` and the stored secret is destroyed. A correct proof
+resets the counter.
+
+<Mermaid
+  chart={`
+sequenceDiagram
+    participant App
+    participant H as Device hardware
+    participant S as Ory
+    App->>S: POST /self-service/login/api
+    S-->>App: login flow {deviceauthn_nonce}
+    App->>App: unseal pin_secret with entered PIN<br/>(wrong PIN → garbage, no local error)
+    App->>H: sign nonce with device key
+    H-->>App: signature
+    App->>S: PUT /self-service/login?flow=… {client_key_id, signature, pin_proof}
+    Note over S: resolve identity, verify signature,<br/>verify proof, count failures
+    S-->>App: 200 {session_token, aal2}
+`}
+/>
+
+### Step-up with a PIN key
+
+At AAL2 step-up, a PIN key must send `pin_proof` alongside the signature — the device signature alone does not bypass the PIN. A
+`pin_proof` submitted for a non-PIN key is rejected as a downgrade attempt. Biometric and `none` keys step up with the signature
+alone, as described in [device binding](08_deviceauthn.mdx).
+
+### Rotating the PIN secret
+
+Re-issues a fresh `pin_secret` for an existing PIN key — the recovery path for a forgotten PIN or a locked key. The device signing
+key is unchanged; no re-attestation happens. Runs in a settings flow under a privileged session and additionally requires proof of
+possession of the enrolled key:
+
+```json
+{
+  "method": "deviceauthn",
+  "rotate_secret": {
+    "client_key_id": "<the key's fingerprint>",
+    "transport_public_key": "<base64 of a fresh t_pub>",
+    "signature": "<base64>"
+  }
+}
+```
+
+- `signature` covers the challenge `nonce ‖ t_pub` — the raw 64-byte concatenation of the settings-flow nonce and the fresh
+  transport public key, **not hashed by the caller**. Android signs it with `SHA256withECDSA` as usual; iOS passes it as
+  `clientDataHash` to `generateAssertion`. This binding ensures a session-level attacker cannot rotate the secret to a transport
+  key they control.
+- Only PIN keys can be rotated.
+- Effects: fresh secret (delivered via the same one-time `continue_with`), failure counter reset, `locked` state cleared.
