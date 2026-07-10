@@ -843,7 +843,7 @@ sequenceDiagram
     S-->>C: 200 settings flow {nonce, existing_keys}
     C->>H: generateKey(nonce)
     H-->>C: {client_key_id, cert_chain}
-    C->>S: PUT /self-service/settings?flow=... {method: deviceauthn, add: {device_name, client_key_id, cert_chain or attestation_ios}}
+    C->>S: POST /self-service/settings?flow=... {method: deviceauthn, add: {device_name, client_key_id, cert_chain or attestation_ios}}
     Note over S: Verify cert chain vs Apple/Google root CAs<br/>Check CRLs<br/>Match challenge to stored nonce<br/>Reject software/emulated keys<br/>Store pubkey, erase challenge
     S-->>C: 200 updated settings flow
 `}
@@ -872,7 +872,7 @@ sequenceDiagram
     C->>H: sign(nonce, client_key_id)
     Note right of H: biometric/PIN prompt<br/>private key never leaves hardware
     H-->>C: ECDSA signature
-    C->>S: PUT /self-service/login?flow=... {method: deviceauthn,<br/>client_key_id, signature}
+    C->>S: POST /self-service/login?flow=... {method: deviceauthn,<br/>client_key_id, signature}
     Note over S: Verify signature with stored pubkey<br/>Check no CA in chain is revoked<br/>Erase challenge
     S-->>C: 200 {session_token, aal: aal2}
 `}

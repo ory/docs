@@ -199,7 +199,7 @@ sequenceDiagram
     App->>App: generate transport keypair (t_priv, t_pub)
     App->>H: create + attest signing key<br/>challenge = SHA256(nonce ‖ t_pub)
     H-->>App: attestation
-    App->>S: PUT /self-service/settings?flow=… {add: {pin_protected, transport_public_key, attestation}}
+    App->>S: POST /self-service/settings?flow=… {add: {pin_protected, transport_public_key, attestation}}
     Note over S: verify attestation, recompute challenge,<br/>assign client_key_id, mint pin_secret,<br/>store encrypted
     S-->>App: 200 + continue_with {enc, ciphertext} — one-time
     App->>App: pin_secret = HPKE.Open(t_priv, enc, ciphertext)<br/>AAD = client_key_id
@@ -259,7 +259,7 @@ sequenceDiagram
     App->>App: unseal pin_secret with entered PIN<br/>(wrong PIN → garbage, no local error)
     App->>H: sign nonce with device key
     H-->>App: signature
-    App->>S: PUT /self-service/login?flow=… {client_key_id, signature, pin_proof}
+    App->>S: POST /self-service/login?flow=… {client_key_id, signature, pin_proof}
     Note over S: resolve identity, verify signature,<br/>verify proof, count failures
     S-->>App: 200 {session_token, aal2}
 `}
@@ -596,10 +596,9 @@ func pinProof(pinSecret: [UInt8], clientKeyId: String, nonce: Data) -> Data {
 }
 
 /// First-factor login with a PIN key.
-func loginWithPin(flowNonce: Data, pin: [UInt8], artifacts: PinArtifacts, sealingKey: SecKey)
+func loginWithPin(flowNonce: Data, pin: inout [UInt8], artifacts: PinArtifacts, sealingKey: SecKey)
     async throws -> UpdateLoginFlowWithDeviceAuthnMethod
 {
-    var pin = pin
     var pinSecret = try PinVault.unseal(artifacts: artifacts, pin: &pin, sealingKey: sealingKey)
     defer { for i in pinSecret.indices { pinSecret[i] = 0 } }
     let proof = pinProof(pinSecret: pinSecret, clientKeyId: artifacts.clientKeyId, nonce: flowNonce)
@@ -669,7 +668,7 @@ let updated = try PinVault.seal(
 5. Capture the user's PIN — a new one if they forgot the old — and `PinVault.seal` the new secret with a fresh salt and IV, then
    replace the stored artifacts.
 
-The signing key and its `client_key_id` never change; only the sealed secret does.
+The signing key and its `client_key_id` never change; only the sealed secret does. Only PIN keys can be rotated.
 
 ## Android guide
 
@@ -728,7 +727,6 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 object DeviceAuthnPin {
-    private const val HPKE_INFO = "ory/deviceauthn/pin-secret/v1"
     private const val PIN_PROOF_DOMAIN = "ory/deviceauthn/pin-proof/v1"
 
     private val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
@@ -811,6 +809,7 @@ object DeviceAuthnPin {
 class PinCeremony {
     // Suite (fixed, non-negotiable): DHKEM(X25519, HKDF-SHA256) / HKDF-SHA256 / AES-128-GCM.
     private val hpke = HPKE(HPKE.mode_base, HPKE.kem_X25519_SHA256, HPKE.kdf_HKDF_SHA256, HPKE.aead_AES_GCM128)
+    private val hpkeInfo = "ory/deviceauthn/pin-secret/v1".toByteArray()
     private val transportKeyPair: AsymmetricCipherKeyPair = hpke.generatePrivateKey()
 
     /// Raw 32 bytes for the transport_public_key payload field (base64-encode it).
@@ -820,7 +819,7 @@ class PinCeremony {
     /// Opens the one-time sealed secret from the response's continue_with item.
     /// AAD is the client_key_id string.
     fun openSealedSecret(enc: ByteArray, ciphertext: ByteArray, clientKeyId: String): ByteArray {
-        val ctx = hpke.setupBaseR(enc, transportKeyPair, "ory/deviceauthn/pin-secret/v1".toByteArray())
+        val ctx = hpke.setupBaseR(enc, transportKeyPair, hpkeInfo)
         return ctx.open(clientKeyId.toByteArray(), ciphertext)
     }
 }
@@ -989,7 +988,7 @@ the `OryApi` from [device binding](08_deviceauthn.mdx#how-to-implement-device-bi
 listing above creates the signing key **without** `setUserAuthenticationRequired` precisely because the PIN — not a platform
 prompt — is its gate.
 
-### Rotating the secret
+### Changing the PIN and rotating the secret
 
 **Changing the PIN is purely local** — no server call. Unseal the secret with the old PIN, then `PinVault.seal` it again with the
 new PIN. `seal` generates a fresh salt and IV, so the whole stored blob changes, while the `pin_secret`, `client_key_id`, and
@@ -1080,13 +1079,13 @@ rotated, and delaying sensitive operations after either event.
 
 ## Security model
 
-| Attacker has                                         | Outcome                                                                                                           |
-| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Stolen, locked device                                | The sealing key requires an unlocked device; the sealed secret is hardware-bound and PIN guesses can't be tested. |
-| Exfiltrated backup or sealed blob                    | Opaque — the outer layer is sealed by a non-exportable hardware key that never leaves the original device.        |
-| Code execution on the unlocked device                | Can unseal, but a wrong PIN yields garbage; the only oracle is the server, which locks the key after 5 attempts.  |
-| Ory database dump (even with the encryption secrets) | The `pin_secret` — but login still requires the device's hardware key, and the PIN itself is not derivable.       |
-| TLS-terminating intermediary, request logs           | Only HPKE ciphertext of the one-time secret delivery; the PIN never transits at all.                              |
+| Attacker has                                         | Outcome                                                                                                                                       |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Stolen, locked device                                | The sealing key requires an unlocked device; the sealed secret is hardware-bound and PIN guesses can't be tested.                             |
+| Exfiltrated backup or sealed blob                    | Opaque — the outer layer is sealed by a non-exportable hardware key that never leaves the original device.                                    |
+| Code execution on the unlocked device                | Can unseal, but a wrong PIN yields garbage; the only oracle is the server, which locks the key after `pin_max_attempts` attempts (default 5). |
+| Ory database dump (even with the encryption secrets) | The `pin_secret` — but login still requires the device's hardware key, and the PIN itself is not derivable.                                   |
+| TLS-terminating intermediary, request logs           | Only HPKE ciphertext of the one-time secret delivery; the PIN never transits at all.                                                          |
 
 Stated limitations:
 
