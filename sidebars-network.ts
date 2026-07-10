@@ -203,6 +203,7 @@ const networkSidebar = [
                   "kratos/passwordless/passkeys",
                   "kratos/passwordless/passkeys-mobile",
                   "kratos/passwordless/deviceauthn",
+                  "kratos/passwordless/deviceauthn-pin",
                   "kratos/organizations/organizations",
                   "kratos/emails-sms/custom-email-templates",
                 ],

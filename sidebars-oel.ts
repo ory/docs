@@ -88,6 +88,7 @@ const oelSidebar = [
               "kratos/guides/hosting-own-have-i-been-pwned-api",
               "kratos/guides/secret-key-rotation",
               "kratos/passwordless/deviceauthn",
+              "kratos/passwordless/deviceauthn-pin",
               {
                 type: "category",
                 label: "Troubleshooting",
