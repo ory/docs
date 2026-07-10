@@ -1,3 +1,11 @@
+.announcementSlot {
+  height: var(--ory-announcement-height, 4rem);
+}
+
+.announcementSlot[data-dismissed="true"] {
+  height: 0;
+}
+
 .announcementContent a {
   text-decoration: underline;
   text-underline-offset: 0.2rem;

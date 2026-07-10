@@ -1,3 +1,6 @@
+// Copyright © 2026 Ory Corp
+// SPDX-License-Identifier: Apache-2.0
+
 import React from "react"
 
 import AnnouncementContent from "@site/src/content/announcement-banner.mdx"
@@ -55,52 +58,63 @@ export default function AnnouncementBanner() {
     }
   }, [enabled, id])
 
+  // When the announcement is disabled or has no id, render nothing at all.
   if (!enabled || !id) return null
-  if (!ready) return null
-  if (dismissed) return null
+
+  const isDismissed = ready && dismissed
 
   return (
     <div
-      role="region"
-      aria-label="Announcement"
-      className={[
-        "border-b",
-        getLevelClasses(level),
-        // keep it readable across layouts
-        "text-base",
-      ].join(" ")}
+      className={styles.announcementSlot}
+      data-dismissed={isDismissed ? "true" : "false"}
     >
-      <div className="mx-auto flex max-w-screen-xl items-start gap-3 px-4 py-1">
+      {!isDismissed && (
         <div
-          className={`min-w-0 flex-1 leading-5 pt-1 text-center ${styles.announcementContent}`}
-        >
-          <AnnouncementContent />
-        </div>
-        <button
-          type="button"
+          role="region"
+          aria-label="Announcement"
           className={[
-            "shrink-0 rounded-md p-1 mt-1",
-            "border-none bg-transparent cursor-pointer",
-            "text-current opacity-60 hover:opacity-100 hover:bg-black/5",
-            "transition-all duration-200",
-            "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white",
-            "focus-visible:ring-purple-600",
+            "border-b",
+            getLevelClasses(level),
+            // keep it readable across layouts
+            "text-base",
           ].join(" ")}
-          aria-label="Dismiss announcement"
-          onClick={() => {
-            setDismissed(true)
-            try {
-              window.localStorage.setItem(getDismissStorageKey(id), "1")
-            } catch {
-              // ignore
-            }
-          }}
         >
-          <span aria-hidden="true" className="text-lg font-light leading-none">
-            ✕
-          </span>
-        </button>
-      </div>
+          <div className="mx-auto flex max-w-screen-xl items-start gap-3 px-4 py-1">
+            <div
+              className={`min-w-0 flex-1 leading-5 pt-1 text-center ${styles.announcementContent}`}
+            >
+              <AnnouncementContent />
+            </div>
+            <button
+              type="button"
+              className={[
+                "shrink-0 rounded-md p-1 mt-1",
+                "border-none bg-transparent cursor-pointer",
+                "text-current opacity-60 hover:opacity-100 hover:bg-black/5",
+                "transition-all duration-200",
+                "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white",
+                "focus-visible:ring-purple-600",
+              ].join(" ")}
+              aria-label="Dismiss announcement"
+              onClick={() => {
+                setDismissed(true)
+                try {
+                  window.localStorage.setItem(getDismissStorageKey(id), "1")
+                } catch {
+                  // ignore
+                }
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="text-lg font-light leading-none"
+              >
+                ✕
+              </span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
