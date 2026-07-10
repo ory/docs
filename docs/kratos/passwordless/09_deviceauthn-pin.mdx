@@ -1,0 +1,112 @@
+---
+id: deviceauthn-pin
+title: Device authentication with PIN and biometrics
+sidebar_label: Device PIN & biometrics
+---
+
+import Mermaid from "@site/src/theme/Mermaid"
+
+Device authentication with PIN and biometrics turns an enrolled device into a complete passwordless login: an app-level PIN or
+platform biometrics (Face ID, fingerprint), combined with the device's hardware-resident key, signs the user in with a single
+request and grants an AAL2 session — no password, no one-time code.
+
+This builds on [device binding](08_deviceauthn.mdx), which covers the underlying strategy, enrollment as a second factor, and
+platform requirements. This page covers the first-factor mode.
+
+Key properties:
+
+- The PIN never leaves the device and is never stored anywhere — not on the device, not on the server. It unlocks a secret on the
+  device; the server verifies a cryptographic proof derived from that secret.
+- The server is the only place a PIN guess can be tested. A stolen device, a stolen backup, or a full database dump cannot be used
+  to guess the PIN offline.
+- Wrong PIN attempts are counted server-side. After `pin_max_attempts` consecutive failures (default 5), the key is locked and its
+  secret destroyed.
+- The secret is delivered to the device exactly once at enrollment, end-to-end encrypted (HPKE) — TLS-terminating intermediaries
+  and request logs only ever see ciphertext.
+
+Availability: Ory Network and Ory Enterprise License. Platform support matches device binding: iOS 14.0+ and Android SDK 24+,
+native apps only (API flows).
+
+## How it works
+
+### Three keys
+
+A PIN-protected enrollment involves three distinct keys:
+
+| Key                    | Purpose                                                 | Lifetime                               | Known to the server |
+| ---------------------- | ------------------------------------------------------- | -------------------------------------- | ------------------- |
+| Device signing key     | Signs the login challenge — the possession factor       | Persistent, hardware-resident          | Public half only    |
+| Sealing key            | Wraps the stored PIN secret on the device               | Persistent, hardware-resident, local   | Never               |
+| Transport key (X25519) | Receives the one-time `pin_secret` at enrollment (HPKE) | Ephemeral — destroyed after enrollment | Public half only    |
+
+### User verification levels
+
+Every key records a `user_verification` level at enrollment. It is fixed at enrollment and not negotiable at login:
+
+| `user_verification` | How the user is verified                 | First factor | Second factor (step-up)  |
+| ------------------- | ---------------------------------------- | ------------ | ------------------------ |
+| `pin`               | App PIN, proven to the server per login  | Yes          | Yes (PIN proof required) |
+| `platform`          | Platform biometrics gate the signing key | Yes¹         | Yes                      |
+| `none`              | Not verified                             | No           | Yes                      |
+
+¹ On iOS, biometric-only first factor requires the `ios_biometric_first_factor` opt-in — see [Configuration](#configuration).
+
+### The PIN mechanism
+
+At enrollment the server generates a random 32-byte `pin_secret`, stores it encrypted, and sends it to the device exactly once,
+sealed to the enrollment's transport key. The device never stores it in the clear: it derives a key from the user's PIN
+(Argon2id), encrypts the secret with it (unauthenticated AES-CTR), and wraps the result under a non-exportable hardware key.
+
+At login the device reverses the wrapping with the entered PIN and proves possession of the secret with an HMAC over the login
+challenge. A wrong PIN yields 32 bytes of garbage — indistinguishable from the real secret on the device — so the resulting proof
+is wrong and the server counts the failure. Nothing on the device (or in a stolen backup) can test whether a PIN guess is correct.
+
+Biometric keys need none of this machinery: the platform gates the signing key itself and shows the biometric prompt when the key
+signs.
+
+### Assurance level
+
+A successful first-factor login records possession (the device signature) plus knowledge (PIN) or inherence (biometrics) and
+grants an AAL2 session in a single submission. This matches NIST SP 800-63B's multi-factor cryptographic authenticator model: the
+PIN acts as an activation secret whose verification failures the server rate-limits.
+
+## Configuration
+
+```yaml
+selfservice:
+  methods:
+    deviceauthn:
+      enabled: true
+      config:
+        # Allow deviceauthn keys with user_verification "pin" or "platform"
+        # to act as a complete first factor. Default: false.
+        first_factor: true
+
+        # Consecutive wrong-PIN attempts before a key is locked and its
+        # secret destroyed. Default 5, hard ceiling 10.
+        pin_max_attempts: 5
+
+        # Allow iOS biometric ("platform") keys as the sole first factor.
+        # Default false: App Attest cannot prove that a Secure Enclave key is
+        # biometric-gated, so this is an explicit opt-in.
+        ios_biometric_first_factor: false
+
+        # Bind enrollments (and iOS logins) to your apps. Empty lists disable
+        # the check — configure both in production.
+        ios_app_ids:
+          - "TEAMID.com.example.app"
+        android_app_ids:
+          - "0123…ef" # lowercase-hex SHA-256 of your app signing certificate
+```
+
+- `first_factor` — enables the first-factor login path and its UI nodes. Without it, all keys are step-up only.
+- `pin_max_attempts` — server-side lockout limit. Values above 10 are clamped (NIST SP 800-63B ceiling).
+- `ios_biometric_first_factor` — on Android, the attestation proves that a `platform` key requires user authentication; on iOS it
+  cannot, so iOS `platform` keys are step-up only unless you opt in. PIN keys are unaffected.
+- `ios_app_ids` / `android_app_ids` — allow-lists checked against the attestation. Use the Apple App ID (`<TeamID>.<BundleID>`)
+  and the SHA-256 digest of the Android app signing certificate (package names are forgeable).
+- PIN length and complexity are client-side concerns — see
+  [Client implementation requirements](#client-implementation-requirements).
+
+On Ory Network all of these are available through the project configuration. Relaxed attestation for emulator testing is described
+in [device binding](08_deviceauthn.mdx#relaxed-attestation-for-testing) and only takes effect in development environments.
