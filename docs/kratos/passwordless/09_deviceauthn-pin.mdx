@@ -294,3 +294,60 @@ possession of the enrolled key:
   key they control.
 - Only PIN keys can be rotated.
 - Effects: fresh secret (delivered via the same one-time `continue_with`), failure counter reset, `locked` state cleared.
+
+## Client implementation requirements
+
+The security of the PIN path depends on the client following this recipe exactly. Each rule exists to preserve one invariant:
+**the server's rate-limited proof check is the only place a PIN guess can be tested.**
+
+### Sealing the secret
+
+After opening the one-time `pin_secret`:
+
+1. Derive a key from the PIN: `pinKey = Argon2id(PIN, salt)` with a **fresh random salt**.
+2. Inner layer: encrypt the secret with **unauthenticated AES-CTR** under `pinKey`, with a **fresh random IV**. CTR is deliberate:
+   a wrong PIN yields plausible garbage, never a locally detectable failure.
+3. Outer layer: seal the result under a **non-exportable hardware key** created without user-verification gating — an AES-256-GCM
+   Android Keystore key (StrongBox where available), or an iOS Secure Enclave P-256 key used via ECIES.
+4. Store the sealed blob together with the salt, KDF parameters, IV, a format version, and the key alias. On iOS use the Keychain
+   with `kSecAttrAccessibleWhenUnlockedThisDeviceOnly` (never `UserDefaults`), so uninstalling the app purges it. Android Keystore
+   keys are purged on uninstall automatically.
+5. Wipe the PIN, `pinKey`, `pin_secret`, and the transport private key from memory.
+
+### Hard rules
+
+- **Hardware sealing key or refuse.** If no StrongBox/TEE/Secure Enclave key is available, refuse PIN enrollment. Never fall back
+  to a software key — the offline-guessing resistance rests entirely on this.
+- **No local PIN-correctness signal.** Never wrap the secret in anything that reveals whether a PIN guess was right: no MAC or
+  AEAD tag on the inner layer, no checksum, magic bytes, length or format marker, and no "did it decrypt sensibly" heuristics. Any
+  such artifact is an offline PIN-testing oracle.
+- **Fresh salt and IV on every seal** — at enrollment, on PIN change, and after secret rotation. Reusing either leaks the secret
+  through CTR keystream reuse.
+- **Zeroize.** Fresh PIN entry for every authentication; never cache the PIN, `pinKey`, or `pin_secret`. Hold them in mutable byte
+  buffers (`ByteArray`, `[UInt8]`, `Data`) — never in immutable strings — and overwrite with zeros after use.
+- **Require an unlocked device.** Create the sealing key so it is usable only while the device is unlocked
+  (`setUnlockedDeviceRequired(true)` on Android; `kSecAttrAccessibleWhenUnlockedThisDeviceOnly` on iOS).
+- **Separate keys.** The signing key and the sealing key are distinct hardware keys; the transport key is ephemeral and destroyed
+  after enrollment.
+
+### PIN policy
+
+The server never sees the PIN, so PIN policy is enforced by your app, not by Ory: require at least 6 digits (recommended; 4 is the
+absolute floor) and reject common values (repeated or sequential digits, `123456`, birthdate shapes). Server-side lockout bounds
+the damage of a weak PIN; it does not make weak PINs safe.
+
+### Argon2id calibration
+
+Mobile hardware varies widely. Ship pre-tuned parameter tiers, benchmark once on first launch to pick a tier, and store the chosen
+parameters with the sealed blob so unsealing always uses the enrollment-time values. As a starting point: 64 MiB memory, 3
+iterations, parallelism 4.
+
+### Error routing
+
+| Symptom                                          | Meaning                      | Action                                  |
+| ------------------------------------------------ | ---------------------------- | --------------------------------------- |
+| Server rejects login; local unseal succeeded     | Wrong PIN (or key locked)    | Let the user retry; count local retries |
+| Repeated rejections despite correct-looking PIN  | Key locked server-side       | Recover: fallback login + rotate secret |
+| Outer unseal fails / sealing key or blob missing | Local state lost (reinstall) | Re-enroll the key                       |
+
+Never present a failed outer unseal as "wrong PIN" — it is structural and retrying cannot fix it.
