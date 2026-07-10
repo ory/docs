@@ -851,6 +851,10 @@
       "CreateProjectNormalizedPayload": {
         "description": "Create project (normalized) request payload",
         "properties": {
+          "account_experience_contact_url": {
+            "description": "Holds the URL to the account experience's Contact page.\nThis governs the \"contact_url\" setting.",
+            "type": "string"
+          },
           "account_experience_custom_translations": {
             "description": "The Account Experience's Custom Translations\n\nContains all Custom Translations for this project.",
             "items": {
@@ -895,6 +899,14 @@
           },
           "account_experience_logo_light": {
             "description": "Holds the URL to the account experience's logo.\nThis governs the \"logo_light\" setting.",
+            "type": "string"
+          },
+          "account_experience_privacy_policy_url": {
+            "description": "Holds the URL to the account experience's Privacy Policy page.\nThis governs the \"privacy_policy_url\" setting.",
+            "type": "string"
+          },
+          "account_experience_terms_of_service_url": {
+            "description": "Holds the URL to the account experience's Terms of Service page.\nThis governs the \"terms_of_service_url\" setting.",
             "type": "string"
           },
           "account_experience_theme_variables_dark": {
@@ -950,6 +962,17 @@
           "hydra_oauth2_client_credentials_default_grant_allowed_scope": {
             "description": "Automatically grant authorized OAuth2 Scope in OAuth2 Client Credentials Flow.\n\nEach OAuth2 Client is allowed to request a predefined OAuth2 Scope (for example `read write`). If this option is enabled, the full\nscope is automatically granted when performing the OAuth2 Client Credentials flow.\n\nIf disabled, the OAuth2 Client has to request the scope in the OAuth2 request by providing the `scope` query parameter.\n\nSetting this option to true is common if you need compatibility with MITREid.\n\nThis governs the \"oauth2.client_credentials.default_grant_allowed_scope\" setting.",
             "type": "boolean"
+          },
+          "hydra_oauth2_device_authorization_token_polling_interval": {
+            "description": "Configures how often a non-interactive device should poll the\nOAuth 2.0 Device Authorization Grant token endpoint. Purely\ninformational — the value is reported to the device in the\n\"interval\" response field of the device authorization response.\nHydra defaults to 5s when this is left empty.\n\nThis is an Enterprise feature.\n\nThis governs the \"oauth2.device_authorization.token_polling_interval\" setting.",
+            "example": "15s",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
+            "type": "string"
+          },
+          "hydra_oauth2_device_authorization_user_code_entropy_preset": {
+            "description": "Picks a preset for the OAuth 2.0 Device Authorization Grant\nuser_code length and character set. \"high\" produces the longest\ncodes (most resistant to brute force); \"low\" the shortest (easiest\nfor the end user to read and enter). Leave empty to keep Hydra's\ndefault preset.\n\nThis is an Enterprise feature.\n\nThis governs the \"oauth2.device_authorization.user_code.entropy_preset\" setting.",
+            "enum": ["high", "medium", "low"],
+            "type": "string"
           },
           "hydra_oauth2_exclude_not_before_claim": {
             "description": "Set to true if you want to omit the `nbf` (not valid before) claim in the access token.\n\nThis governs the \"oauth2.exclude_not_before_claim\" setting.",
@@ -1097,6 +1120,12 @@
             "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
+          "hydra_ttl_device_user_code": {
+            "description": "Configures how long the device_code and user_code in the OAuth 2.0\nDevice Authorization Grant remain valid. Larger values mean more\ndatabase storage; shorter values mean users have less time to\ncomplete the second-device verification. Hydra defaults to 10m\nwhen this is left empty.\n\nThis is an Enterprise feature.\n\nThis governs the \"ttl.device_user_code\" setting.",
+            "example": "30m",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
+            "type": "string"
+          },
           "hydra_ttl_id_token": {
             "default": "30m",
             "description": "This governs the \"ttl.id_token\" setting.",
@@ -1120,6 +1149,14 @@
           },
           "hydra_urls_consent": {
             "description": "Sets the OAuth2 Consent Endpoint URL of the OAuth2 User Login \u0026 Consent flow.\n\nDefaults to the Ory Account Experience if left empty.\n\nThis governs the \"urls.consent\" setting.",
+            "type": "string"
+          },
+          "hydra_urls_device_success": {
+            "description": "Sets the URL the user is redirected to after successfully completing\nthe OAuth 2.0 Device Authorization Grant user verification step.\nDefaults to the Ory Account Experience fallback page if left empty.\n\nThis is an Enterprise feature.\n\nThis governs the \"urls.device.success\" setting.",
+            "type": "string"
+          },
+          "hydra_urls_device_verification": {
+            "description": "Sets the URL of the user verification page for the OAuth 2.0 Device\nAuthorization Grant (RFC 8628). End users are redirected to this URL\nto enter the user_code shown on their device. Defaults to the Ory\nAccount Experience fallback page if left empty.\n\nThis is an Enterprise feature.\n\nThis governs the \"urls.device.verification\" setting.",
             "type": "string"
           },
           "hydra_urls_error": {
@@ -1159,6 +1196,10 @@
           },
           "hydra_webfinger_oidc_discovery_client_registration_url": {
             "description": "Configures OpenID Connect Discovery and overwrites the OpenID Connect Dynamic Client Registration Endpoint.\n\nThis governs the \"webfinger.oidc_discovery.client_registration_url\" setting.",
+            "type": "string"
+          },
+          "hydra_webfinger_oidc_discovery_device_authorization_url": {
+            "description": "Override the OAuth 2.0 Device Authorization Endpoint URL that is\nadvertised in the OpenID Connect discovery document\n(/.well-known/openid-configuration). Defaults to the project's\npublic base URL + /oauth2/device/auth.\n\nThis is an Enterprise feature.\n\nThis governs the \"webfinger.oidc_discovery.device_authorization_url\" setting.",
             "type": "string"
           },
           "hydra_webfinger_oidc_discovery_jwks_url": {
@@ -3663,6 +3704,10 @@
       },
       "accountExperienceConfiguration": {
         "properties": {
+          "contact_url": {
+            "description": "The URL to the project's Contact page.",
+            "type": "string"
+          },
           "default_locale": {
             "type": "string"
           },
@@ -3708,6 +3753,10 @@
           "name": {
             "type": "string"
           },
+          "privacy_policy_url": {
+            "description": "The URL to the project's Privacy Policy page.",
+            "type": "string"
+          },
           "recovery_enabled": {
             "type": "boolean"
           },
@@ -3724,6 +3773,10 @@
             "type": "string"
           },
           "stylesheet": {
+            "type": "string"
+          },
+          "terms_of_service_url": {
+            "description": "The URL to the project's Terms of Service page.",
             "type": "string"
           },
           "translations": {
@@ -5063,6 +5116,10 @@
       "elementsConfiguration": {
         "description": "ElementsConfiguration is the subset of a project's configuration that Ory\nElements consumes to customize its behavior and appearance. It mirrors the\n`ProjectConfiguration` type in `@ory/elements-react` and intentionally omits\naccount-experience-only fields (stylesheet, locales, translations, favicons).",
         "properties": {
+          "contact_url": {
+            "description": "The URL to the project's Contact page.",
+            "type": "string"
+          },
           "default_redirect_url": {
             "description": "The default redirect URL.",
             "type": "string"
@@ -5095,6 +5152,10 @@
             "description": "The name of the project displayed on the auth card.",
             "type": "string"
           },
+          "privacy_policy_url": {
+            "description": "The URL to the project's Privacy Policy page.",
+            "type": "string"
+          },
           "recovery_enabled": {
             "description": "Whether recovery is enabled.",
             "type": "boolean"
@@ -5113,6 +5174,10 @@
           },
           "settings_ui_url": {
             "description": "The URL for the settings UI.",
+            "type": "string"
+          },
+          "terms_of_service_url": {
+            "description": "The URL to the project's Terms of Service page.",
             "type": "string"
           },
           "verification_enabled": {
@@ -7390,6 +7455,10 @@
       },
       "normalizedProjectRevision": {
         "properties": {
+          "account_experience_contact_url": {
+            "description": "Holds the URL to the account experience's Contact page.\nThis governs the \"contact_url\" setting.",
+            "type": "string"
+          },
           "account_experience_custom_translations": {
             "description": "The Account Experience's Custom Translations\n\nContains all Custom Translations for this project.",
             "items": {
@@ -7436,6 +7505,14 @@
             "description": "Holds the URL to the account experience's logo.\nThis governs the \"logo_light\" setting.",
             "type": "string"
           },
+          "account_experience_privacy_policy_url": {
+            "description": "Holds the URL to the account experience's Privacy Policy page.\nThis governs the \"privacy_policy_url\" setting.",
+            "type": "string"
+          },
+          "account_experience_terms_of_service_url": {
+            "description": "Holds the URL to the account experience's Terms of Service page.\nThis governs the \"terms_of_service_url\" setting.",
+            "type": "string"
+          },
           "account_experience_theme_variables_dark": {
             "description": "Holds the URL to the account experience's dark theme variables.\nThis governs the \"theme_variables_dark\" setting.",
             "type": "string"
@@ -7468,6 +7545,17 @@
           "hydra_oauth2_client_credentials_default_grant_allowed_scope": {
             "description": "Automatically grant authorized OAuth2 Scope in OAuth2 Client Credentials Flow.\n\nEach OAuth2 Client is allowed to request a predefined OAuth2 Scope (for example `read write`). If this option is enabled, the full\nscope is automatically granted when performing the OAuth2 Client Credentials flow.\n\nIf disabled, the OAuth2 Client has to request the scope in the OAuth2 request by providing the `scope` query parameter.\n\nSetting this option to true is common if you need compatibility with MITREid.\n\nThis governs the \"oauth2.client_credentials.default_grant_allowed_scope\" setting.",
             "type": "boolean"
+          },
+          "hydra_oauth2_device_authorization_token_polling_interval": {
+            "description": "Configures how often a non-interactive device should poll the\nOAuth 2.0 Device Authorization Grant token endpoint. Purely\ninformational — the value is reported to the device in the\n\"interval\" response field of the device authorization response.\nHydra defaults to 5s when this is left empty.\n\nThis is an Enterprise feature.\n\nThis governs the \"oauth2.device_authorization.token_polling_interval\" setting.",
+            "example": "15s",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
+            "type": "string"
+          },
+          "hydra_oauth2_device_authorization_user_code_entropy_preset": {
+            "description": "Picks a preset for the OAuth 2.0 Device Authorization Grant\nuser_code length and character set. \"high\" produces the longest\ncodes (most resistant to brute force); \"low\" the shortest (easiest\nfor the end user to read and enter). Leave empty to keep Hydra's\ndefault preset.\n\nThis is an Enterprise feature.\n\nThis governs the \"oauth2.device_authorization.user_code.entropy_preset\" setting.",
+            "enum": ["high", "medium", "low"],
+            "type": "string"
           },
           "hydra_oauth2_exclude_not_before_claim": {
             "description": "Set to true if you want to omit the `nbf` (not valid before) claim in the access token.\n\nThis governs the \"oauth2.exclude_not_before_claim\" setting.",
@@ -7615,6 +7703,12 @@
             "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
             "type": "string"
           },
+          "hydra_ttl_device_user_code": {
+            "description": "Configures how long the device_code and user_code in the OAuth 2.0\nDevice Authorization Grant remain valid. Larger values mean more\ndatabase storage; shorter values mean users have less time to\ncomplete the second-device verification. Hydra defaults to 10m\nwhen this is left empty.\n\nThis is an Enterprise feature.\n\nThis governs the \"ttl.device_user_code\" setting.",
+            "example": "30m",
+            "pattern": "^([0-9]+([.][0-9]+)?(ns|us|µs|ms|s|m|h))+$",
+            "type": "string"
+          },
           "hydra_ttl_id_token": {
             "default": "30m",
             "description": "This governs the \"ttl.id_token\" setting.",
@@ -7638,6 +7732,14 @@
           },
           "hydra_urls_consent": {
             "description": "Sets the OAuth2 Consent Endpoint URL of the OAuth2 User Login \u0026 Consent flow.\n\nDefaults to the Ory Account Experience if left empty.\n\nThis governs the \"urls.consent\" setting.",
+            "type": "string"
+          },
+          "hydra_urls_device_success": {
+            "description": "Sets the URL the user is redirected to after successfully completing\nthe OAuth 2.0 Device Authorization Grant user verification step.\nDefaults to the Ory Account Experience fallback page if left empty.\n\nThis is an Enterprise feature.\n\nThis governs the \"urls.device.success\" setting.",
+            "type": "string"
+          },
+          "hydra_urls_device_verification": {
+            "description": "Sets the URL of the user verification page for the OAuth 2.0 Device\nAuthorization Grant (RFC 8628). End users are redirected to this URL\nto enter the user_code shown on their device. Defaults to the Ory\nAccount Experience fallback page if left empty.\n\nThis is an Enterprise feature.\n\nThis governs the \"urls.device.verification\" setting.",
             "type": "string"
           },
           "hydra_urls_error": {
@@ -7677,6 +7779,10 @@
           },
           "hydra_webfinger_oidc_discovery_client_registration_url": {
             "description": "Configures OpenID Connect Discovery and overwrites the OpenID Connect Dynamic Client Registration Endpoint.\n\nThis governs the \"webfinger.oidc_discovery.client_registration_url\" setting.",
+            "type": "string"
+          },
+          "hydra_webfinger_oidc_discovery_device_authorization_url": {
+            "description": "Override the OAuth 2.0 Device Authorization Endpoint URL that is\nadvertised in the OpenID Connect discovery document\n(/.well-known/openid-configuration). Defaults to the project's\npublic base URL + /oauth2/device/auth.\n\nThis is an Enterprise feature.\n\nThis governs the \"webfinger.oidc_discovery.device_authorization_url\" setting.",
             "type": "string"
           },
           "hydra_webfinger_oidc_discovery_jwks_url": {
@@ -11172,7 +11278,7 @@
             "type": "boolean"
           },
           "feature": {
-            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ntalos_api_keys TalosAPIKeys\ntalos_rate_limit TalosRateLimit\ntalos_cache TalosCache\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\ndeviceauthn Deviceauthn\nallow_insecure_origins AllowInsecureOrigins  AllowInsecureOrigins grandfathers a project past strict wildcard  enforcement (CORS origins + return URLs). Override-only; never sold.\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\ntalos_admin_high_rate_limit_tier RateLimitTierTalosAdminHigh\ntalos_admin_medium_rate_limit_tier RateLimitTierTalosAdminMedium\ntalos_admin_low_rate_limit_tier RateLimitTierTalosAdminLow\ntalos_public_high_rate_limit_tier RateLimitTierTalosPublicHigh\ntalos_public_low_rate_limit_tier RateLimitTierTalosPublicLow\nunassigned_rate_limit_tier RateLimitTierUnassigned",
+            "description": "\nproduction_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ntalos_api_keys TalosAPIKeys\ntalos_rate_limit TalosRateLimit\ntalos_cache TalosCache\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\nhydra_device_authorization HydraDeviceAuthorization\ndeviceauthn Deviceauthn\nallow_insecure_origins AllowInsecureOrigins  AllowInsecureOrigins grandfathers a project past strict wildcard  enforcement (CORS origins + return URLs). Override-only; never sold.\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\ntalos_admin_high_rate_limit_tier RateLimitTierTalosAdminHigh\ntalos_admin_medium_rate_limit_tier RateLimitTierTalosAdminMedium\ntalos_admin_low_rate_limit_tier RateLimitTierTalosAdminLow\ntalos_public_high_rate_limit_tier RateLimitTierTalosPublicHigh\ntalos_public_low_rate_limit_tier RateLimitTierTalosPublicLow\nunassigned_rate_limit_tier RateLimitTierUnassigned",
             "enum": [
               "production_projects",
               "staging_projects",
@@ -11215,6 +11321,7 @@
               "talos_cache",
               "graceful_refresh_token_count",
               "hydra_token_prefix",
+              "hydra_device_authorization",
               "deviceauthn",
               "allow_insecure_origins",
               "update_self_service_registration_rate_limit_tier",
@@ -11257,7 +11364,7 @@
               "unassigned_rate_limit_tier"
             ],
             "type": "string",
-            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ntalos_api_keys TalosAPIKeys\ntalos_rate_limit TalosRateLimit\ntalos_cache TalosCache\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\ndeviceauthn Deviceauthn\nallow_insecure_origins AllowInsecureOrigins  AllowInsecureOrigins grandfathers a project past strict wildcard  enforcement (CORS origins + return URLs). Override-only; never sold.\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\ntalos_admin_high_rate_limit_tier RateLimitTierTalosAdminHigh\ntalos_admin_medium_rate_limit_tier RateLimitTierTalosAdminMedium\ntalos_admin_low_rate_limit_tier RateLimitTierTalosAdminLow\ntalos_public_high_rate_limit_tier RateLimitTierTalosPublicHigh\ntalos_public_low_rate_limit_tier RateLimitTierTalosPublicLow\nunassigned_rate_limit_tier RateLimitTierUnassigned"
+            "x-go-enum-desc": "production_projects ProductionProjects\nstaging_projects StagingProjects\ndevelopment_projects DevelopmentProjects\ndaily_active_users DailyActiveUsers\ncustom_domains CustomDomains\nevent_streams EventStreams\nevent_stream_events EventStreamEvents\nsla SLA\ncollaborator_seats CollaboratorSeats\nedge_cache EdgeCache\nbranding_themes BrandingThemes\nzendesk_support ZendeskSupport\nzendesk_support_on_call ZendeskSupportOnCall\nproject_metrics ProjectMetrics\nproject_metrics_time_window ProjectMetricsTimeWindow\nproject_metrics_events_history ProjectMetricsEventsHistory\norganizations Organizations\nrop_grant ResourceOwnerPasswordGrant\nconcierge_onboarding ConciergeOnboarding\ncredit Credit\ndata_location_global DataLocationGlobal\ndata_location_us DataLocationUS\ndata_location_asiane DataLocationAsiaNorthEast\nm2m_token_issuance M2MTokenIssuance\npermission_checks PermissionChecks\ncaptcha Captcha\ncaptcha_byo CaptchaBYO\nhide_ory_branding HideOryBranding\nidentity_search_api IdentitySearchAPI\nsaml_sp SAMLSP\nsaml_idp SAMLIDP\nauto_link_policy AutoLinkPolicy\nscim_clients SCIMClients\ndefault_smtp_email_customization DefaultSMTPEmailCustomization\nonboarding_portal OnboardingPortal\nconsole_organization_sso ConsoleOrganizationSSO\ntalos_api_keys TalosAPIKeys\ntalos_rate_limit TalosRateLimit\ntalos_cache TalosCache\ngraceful_refresh_token_count GracefulRefreshTokenCount\nhydra_token_prefix HydraTokenPrefix\nhydra_device_authorization HydraDeviceAuthorization\ndeviceauthn Deviceauthn\nallow_insecure_origins AllowInsecureOrigins  AllowInsecureOrigins grandfathers a project past strict wildcard  enforcement (CORS origins + return URLs). Override-only; never sold.\nupdate_self_service_registration_rate_limit_tier RateLimitTierUpdateSelfServiceRegistration  Self-service rate limits\nupdate_self_service_recovery_rate_limit_tier RateLimitTierUpdateSelfServiceRecovery\nupdate_self_service_settings_rate_limit_tier RateLimitTierUpdateSelfServiceSettings\nupdate_self_service_verification_rate_limit_tier RateLimitTierUpdateSelfServiceVerification\nidentities_create_rate_limit_tier RateLimitTierIdentitiesCreate\nidentities_import_rate_limit_tier RateLimitTierIdentitiesImport\nfed_cm_parameters_rate_limit_tier RateLimitTierFedCMParameters\ndata_location_regional DataLocationRegional  Required Features\nrate_limit_tier RateLimitTier\nsession_rate_limit_tier RateLimitTierSessions\nidentities_list_rate_limit_tier RateLimitTierIdentitiesList\npermission_checks_rate_limit_tier RateLimitTierPermissionChecks\noauth2_introspect_rate_limit_tier RateLimitTierOAuth2Introspect\ncreate_recovery_admin_rate_limit_tier RateLimitTierCreateAdminRecovery\nscim_rate_limit_tier RateLimitTierSCIM\nhydra_admin_high_rate_limit_tier RateLimitTierHydraAdminHigh  Bucket-specific rate limit tiers\nhydra_admin_medium_rate_limit_tier RateLimitTierHydraAdminMedium\nhydra_admin_low_rate_limit_tier RateLimitTierHydraAdminLow\nhydra_public_high_rate_limit_tier RateLimitTierHydraPublicHigh\nhydra_public_medium_rate_limit_tier RateLimitTierHydraPublicMedium\nhydra_public_low_rate_limit_tier RateLimitTierHydraPublicLow\nketo_admin_low_rate_limit_tier RateLimitTierKetoAdminLow\nketo_admin_medium_rate_limit_tier RateLimitTierKetoAdminMedium\nketo_public_high_rate_limit_tier RateLimitTierKetoPublicHigh\nkratos_admin_high_rate_limit_tier RateLimitTierKratosAdminHigh\nkratos_admin_medium_rate_limit_tier RateLimitTierKratosAdminMedium\nkratos_admin_low_rate_limit_tier RateLimitTierKratosAdminLow\nkratos_public_high_rate_limit_tier RateLimitTierKratosPublicHigh\nkratos_public_medium_rate_limit_tier RateLimitTierKratosPublicMedium\nkratos_public_low_rate_limit_tier RateLimitTierKratosPublicLow\npolis_public_high_rate_limit_tier RateLimitTierPolisPublicHigh\npolis_public_medium_rate_limit_tier RateLimitTierPolisPublicMedium\ntalos_admin_high_rate_limit_tier RateLimitTierTalosAdminHigh\ntalos_admin_medium_rate_limit_tier RateLimitTierTalosAdminMedium\ntalos_admin_low_rate_limit_tier RateLimitTierTalosAdminLow\ntalos_public_high_rate_limit_tier RateLimitTierTalosPublicHigh\ntalos_public_low_rate_limit_tier RateLimitTierTalosPublicLow\nunassigned_rate_limit_tier RateLimitTierUnassigned"
           },
           "feature_available": {
             "type": "boolean"
