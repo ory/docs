@@ -17,8 +17,8 @@ a DeviceAuthn key cannot leave the hardware where it was created.
 
 Using this approach, the system can restrict the use of an application on specific, whitelisted devices.
 
-Currently, this authentication strategy can only be used as a second factor. It may change in the future. That is because there is
-no way to do recovery, since the private key is never readable in clear and cannot be extracted out of the hardware.
+This page covers using device keys as a second factor (step-up). A key protected by an app PIN or platform biometrics can also act
+as a complete passwordless first factor — see [Device authentication with PIN and biometrics](09_deviceauthn-pin.mdx).
 
 Since this is a strategy, it supports all the same hooks as the other strategies.
 
@@ -28,6 +28,8 @@ Since this is a strategy, it supports all the same hooks as the other strategies
 - The settings flow is used to manage keys (create, delete).
 - The login flow is used to step-up the AAL. Hardware-backed keys (TEE) satisfy AAL2, while keys stored in a dedicated security
   chip (StrongBox) may eventually be categorized as AAL3.
+- With `first_factor` enabled, a key protected by an app PIN or platform biometrics is a complete passwordless login granting AAL2
+  — see [Device authentication with PIN and biometrics](09_deviceauthn-pin.mdx).
 - Using the admin API, it is possible to delete all keys for a device on behalf of the user in case of theft or loss.
 - A device may have multiple keys, to support multiple user accounts on the same device.
 - Only these platforms are currently supported, because they offer native APIs, strong hardware, and trust guarantees:
@@ -64,8 +66,9 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    ```
 1. Implement a runtime check for the Android version. If is lower than 24, Device Binding may not be used, and a fallback should
    be found, for example using passkeys.
-1. Device Binding is (currently) only a second factor, the UI should only show existing Device Binding keys and related buttons
-   (e.g. to add a key) if the user is currently logged in. This can be confirmed with a `whoami` call.
+1. This guide covers the second-factor setup: the UI should only show existing Device Binding keys and related buttons (e.g. to
+   add a key) if the user is currently logged in. This can be confirmed with a `whoami` call. For first-factor PIN or biometric
+   login, see [Device authentication with PIN and biometrics](09_deviceauthn-pin.mdx).
 1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
    response contains the list of existing Device Binding keys.
 1. To delete an existing key,
@@ -145,8 +148,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    identity, and there is no point to create multiple keys for the same user on the same device, even though the server allows it.
 
 1. To use a key to step-up the AAL,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
-   payload:
+   [complete the login flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow) with this payload:
 
    ```json
    {
@@ -402,8 +404,9 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
 1. Implement a runtime check for the OS version. If is lower than the
    [documented ones](https://developer.apple.com/documentation/devicecheck/dcappattestservice), Device Binding may not be used,
    and a fallback should be found, for example using passkeys.
-1. Device Binding is (currently) only a second factor, the UI should only show existing Device Binding keys and related buttons
-   (e.g. to add a key) if the user is currently logged in. This can be confirmed with a `whoami` call.
+1. This guide covers the second-factor setup: the UI should only show existing Device Binding keys and related buttons (e.g. to
+   add a key) if the user is currently logged in. This can be confirmed with a `whoami` call. For first-factor PIN or biometric
+   login, see [Device authentication with PIN and biometrics](09_deviceauthn-pin.mdx).
 1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
    response contains the list of existing Device Binding keys.
 1. To delete an existing key,
@@ -500,8 +503,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    multiple keys for the same user on the same device, even though the server allows it.
 
 1. To use a key to step-up the AAL,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
-   payload:
+   [complete the login flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow) with this payload:
 
    ```json
    {
@@ -824,6 +826,10 @@ hardware-binding guarantees that this strategy relies on.
    6. Records the public key in the database
    7. Erases the challenge value in the database to prevent re-use
    8. Replies with 200
+
+Enrollment also records a `user_verification` level (`none`, `platform`, or `pin`) that determines whether the key can act as a
+first factor. PIN enrollment computes the attestation challenge differently — see
+[Device authentication with PIN and biometrics](09_deviceauthn-pin.mdx).
 
 At this point the key is enrolled for the identity.
 
