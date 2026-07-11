@@ -1,0 +1,342 @@
+---
+id: android
+title: Device binding on Android
+sidebar_label: Android
+---
+
+We recommend using the Ory Java SDK to communicate with Kratos, although this is not required. Code snippets here use this SDK,
+and are written in Kotlin.
+
+Since Device Binding only is supported on native devices (not in the browser), all corresponding API calls should be done using
+the endpoints for native apps, to avoid having to pass cookies around manually.
+
+1. Ensure that the `DeviceAuthn` strategy is enabled in the Kratos configuration. This strategy implements the settings and login
+   flow. This is done so:
+   ```yaml
+   selfservice:
+     methods:
+       deviceauthn:
+         enabled: true
+   ```
+1. Implement a runtime check for the Android version. If is lower than 24, Device Binding may not be used, and a fallback should
+   be found, for example using passkeys.
+1. This guide covers the second-factor setup: the UI should only show existing Device Binding keys and related buttons (e.g. to
+   add a key) if the user is currently logged in. This can be confirmed with a `whoami` call. For first-factor PIN or biometric
+   login, see [Device authentication with PIN and biometrics](pin.mdx).
+1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
+   response contains the list of existing Device Binding keys.
+1. To delete an existing key,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
+
+   ```json
+   {
+     "delete": {
+       "client_key_id": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c"
+     },
+     "method": "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
+
+   ```kotlin
+   val clientKeyIdToDelete = "..."
+
+   val apiClient = Configuration.getDefaultApiClient()
+   val apiInstance = FrontendApi(apiClient)
+   val body = UpdateSettingsFlowBody()
+   val method = UpdateSettingsFlowWithDeviceAuthnMethod()
+   method.method = "deviceauthn"
+   method.delete = UpdateSettingsFlowWithDeviceAuthnMethodDelete()
+   method.delete!!.clientKeyId = clientKeyIdToDelete
+   body.actualInstance = method
+   val updatedFlow = apiInstance.updateSettingsFlow(settingsFlow?.id, body, sessionToken, "")
+   ```
+
+   Once the key has been deleted server-side, it is fine (although not required) to also delete it on the device using the
+   KeyStore API.
+
+1. To add a new key,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
+
+   ```json
+   {
+     "method": "deviceauthn",
+     "add": {
+       "device_name": "Pixel 9",
+       "certificate_chain_android": ["...", "...", "..."]
+     }
+   }
+   ```
+
+   Or using the SDK:
+
+   ```kotlin
+   val apiClient = Configuration.getDefaultApiClient()
+   val withStrongbox = false // Better: Detect the presence of StrongBox at runtime.
+
+   val keyAlias = UUID.randomUUID().toString()
+   val nonce = extractNonceFromUiNodes(settingsFlow?.ui?.nodes ?: emptyList())
+   if (nonce == null) {
+       throw Exception("No nonce found in UI. Is DeviceAuthn enabled server-side?")
+   }
+   val keyCertChain = Api.create().createKeyPair(keyAlias, nonce, withStrongbox)
+   val apiInstance = FrontendApi(apiClient)
+   val body = UpdateSettingsFlowBody()
+   val method = UpdateSettingsFlowWithDeviceAuthnMethod()
+   method.method = "deviceauthn"
+   method.add = UpdateSettingsFlowWithDeviceAuthnMethodAdd()
+   method.add!!.deviceName = "My work phone"
+   method.add!!.certificateChainAndroid = keyCertChain.map { it.encoded }.toList()
+   body.actualInstance = method
+   val updatedFlow = apiInstance.updateSettingsFlow(settingsFlow?.id, body, sessionToken, "")
+
+   // The server assigns the key's client_key_id: the lowercase-hex SHA-256 of
+   // the public key in SubjectPublicKeyInfo (DER) form. Derive it locally and
+   // store it with the key alias; later login and delete calls address the key
+   // by this fingerprint.
+   val spki = keyCertChain.first().publicKey.encoded
+   val clientKeyId = MessageDigest.getInstance("SHA-256")
+       .digest(spki)
+       .joinToString("") { "%02x".format(it) }
+   ```
+
+   Once a key is created, the KeyStore APIs can be used to list all keys, query a key using its alias, etc. However we recommend
+   that the application keeps track of the keys it created — including the mapping between the local key alias and the
+   server-assigned `client_key_id` — to know which keys can be used on this device, compared to keys that belong to the same
+   identity but reside on other devices. Note that there is a maximum number of keys that can be created for an identity, and
+   there is no point to create multiple keys for the same user on the same device, even though the server allows it.
+
+1. To use a key to step-up the AAL,
+   [complete the login flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow) with this payload:
+
+   ```json
+   {
+     "signature": "...",
+     "client_key_id": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c",
+     "method": "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
+
+   ```kotlin
+   val keyAlias = "..." // The local KeyStore alias, used to sign.
+   val clientKeyId = "..." // The server-assigned key fingerprint.
+   val nonce = extractNonceFromUiNodes(flow?.ui?.nodes ?: emptyList())
+   if (nonce == null) {
+       throw Exception("No nonce found in UI")
+   }
+
+   val updateMethod = UpdateLoginFlowWithDeviceAuthnMethod()
+   updateMethod.clientKeyId = clientKeyId
+   updateMethod.method = "deviceauthn"
+   updateMethod.signature = Api.create().launchBiometricSigner(
+       context as FragmentActivity,
+       keyAlias,
+       nonce,
+       "Confirm",
+       "Cancel"
+   )
+
+   val updateBody = UpdateLoginFlowBody()
+   updateBody.actualInstance = updateMethod
+
+   val apiClient = Configuration.getDefaultApiClient()
+
+   withContext(Dispatchers.IO) {
+       val apiInstance = FrontendApi(apiClient)
+       val res = apiInstance.updateLoginFlow(
+           /* flow = */ flow.id,
+           /* updateLoginFlowBody = */ updateBody,
+           /* xSessionToken = */ sessionToken,
+           /* cookie = */ ""
+       )
+   }
+   ```
+
+There are two Keystore calls required: one to create the key and one to use it to sign:
+
+```kotlin
+package com.ory.sdk
+
+import android.os.Build
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
+import android.util.Log
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import kotlinx.coroutines.suspendCancellableCoroutine
+import java.security.KeyPairGenerator
+import java.security.KeyStore
+import java.security.PrivateKey
+import java.security.Signature
+import java.security.cert.Certificate
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+
+private const val TAG = "com.ory.sdk"
+
+public interface Api {
+    public companion object {
+        @JvmStatic
+        public fun create(): Api {
+            return OryApi()
+        }
+    }
+
+    public fun createKeyPair(
+        keyAlias: String,
+        challenge: ByteArray,
+        withStrongBox: Boolean
+    ): List<Certificate>
+
+    public suspend fun launchBiometricSigner(
+        activity: FragmentActivity,
+        keyAlias: String,
+        challenge: ByteArray,
+        title: String,
+        negativeButtonText: String,
+    ): ByteArray
+}
+
+internal class OryApi : Api {
+    private val keyStore: KeyStore by lazy {
+        KeyStore.getInstance("AndroidKeyStore").apply {
+            load(null)
+        }
+    }
+
+    private fun getCertificateChain(keyAlias: String): List<Certificate> {
+        return keyStore.getCertificateChain(keyAlias).toList()
+    }
+
+
+    override fun createKeyPair(
+        keyAlias: String,
+        challenge: ByteArray,
+        withStrongBox: Boolean,
+    ): List<Certificate> {
+        val kpg: KeyPairGenerator = KeyPairGenerator.getInstance(
+            KeyProperties.KEY_ALGORITHM_EC,
+            "AndroidKeyStore"
+        )
+
+        val parameterSpec: KeyGenParameterSpec = KeyGenParameterSpec.Builder(
+            keyAlias,
+            KeyProperties.PURPOSE_SIGN
+        ).run {
+            setDigests(KeyProperties.DIGEST_SHA256)
+            if (Build.VERSION.SDK_INT >= 24) {
+                setAttestationChallenge(challenge)
+            }
+
+            if (Build.VERSION.SDK_INT >= 28) {
+                setIsStrongBoxBacked(withStrongBox)
+            }
+            // Require biometric/PIN for every single use.
+            setUserAuthenticationRequired(true)
+            // TODO: Should we use: setInvalidatedByBiometricEnrollment(true) ?
+            build()
+        }
+
+        kpg.initialize(parameterSpec)
+        kpg.generateKeyPair()
+        Log.i(TAG, "created keypair: alias=$keyAlias")
+
+        return getCertificateChain(keyAlias)
+    }
+
+
+    /**
+     * Provides an uninitialized Signature object for the App to use in BiometricPrompt.
+     */
+    private fun getSignatureObject(keyAlias: String): Signature {
+        val privateKey = keyStore.getKey(keyAlias, null) as? PrivateKey
+
+        return Signature.getInstance("SHA256withECDSA").apply {
+            initSign(privateKey)
+        }
+    }
+
+    override suspend fun launchBiometricSigner(
+        activity: FragmentActivity,
+        keyAlias: String,
+        challenge: ByteArray,
+        title: String,
+        negativeButtonText: String,
+    ): ByteArray = suspendCancellableCoroutine { continuation ->
+        val executor = ContextCompat.getMainExecutor(activity)
+
+        val biometricPrompt = BiometricPrompt(
+            activity, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    try {
+                        val signature = result.cryptoObject?.signature
+                        if (signature != null) {
+                            signature.update(challenge)
+                            continuation.resume(signature.sign())
+                        } else {
+                            continuation.resumeWithException(Exception("Signature object is null"))
+                        }
+                    } catch (e: Exception) {
+                        continuation.resumeWithException(e)
+                    }
+                }
+
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    // Wrap the error in a custom Exception or handle specific error codes
+                    continuation.resumeWithException(Exception(errString.toString()))
+                }
+
+                override fun onAuthenticationFailed() {
+                    // Note: onAuthenticationFailed is called for finger-read errors
+                    // but doesn't dismiss the prompt; we usually wait for Error or Success.
+                }
+            }
+        )
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(title)
+            .setNegativeButtonText(negativeButtonText)
+            .build()
+
+        // Cancel the biometric prompt if the coroutine is canceled
+        continuation.invokeOnCancellation {
+            biometricPrompt.cancelAuthentication()
+        }
+
+        biometricPrompt.authenticate(
+            promptInfo,
+            BiometricPrompt.CryptoObject(getSignatureObject(keyAlias))
+        )
+    }
+}
+
+```
+
+## Making it work in the Android emulator
+
+Because the emulator produces software-based attestations, the server only accepts its keys when relaxed attestation is enabled.
+See [Relaxed attestation for testing](index.mdx#relaxed-attestation-for-testing).
+
+1. Create an emulated device in the Android emulator with an Android version which is at least 24.
+1. Start the emulated device.
+1. Inside the emulated device, go to 'Settings > Security & Location > Screen Lock' and set a device PIN (this is required for
+   biometrics).
+1. Inside the emulated device, go to 'Settings > Security & Location > Fingerprints' and add a fingerprint. A biometric prompt
+   will appear on the screen of the emulated device.
+1. In the 'Extended Controls' for the emulated device (not inside the device, but in Android Studio), go to the 'Fingerprints'
+   section and click on 'Touch sensor' to pass the biometrics prompt of the device. This simulates placing your finger on the
+   sensor.
+
+At this point the fingerprint is registered for the emulated device. The process must be repeated for each emulated device.
+
+Then, start the application inside the emulated device. When the biometric prompt appears, repeat step 5. to pass the biometric
+prompt. There are several fingerprints available, so it is possible to test the case of using a registered fingerprint, and the
+case of using an unknown fingerprint. To test the case of no fingerprint registered, remove the registered fingerprint in the
+'Settings' of the emulated device.

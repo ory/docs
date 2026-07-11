@@ -1,5 +1,5 @@
 ---
-id: deviceauthn-pin
+id: pin
 title: Device authentication with PIN and biometrics
 sidebar_label: Device PIN & biometrics
 ---
@@ -10,8 +10,8 @@ Device authentication with PIN and biometrics turns an enrolled device into a co
 platform biometrics (Face ID, fingerprint), combined with the device's hardware-resident key, signs the user in with a single
 request and grants an AAL2 session — no password, no one-time code.
 
-This builds on [device binding](08_deviceauthn.mdx), which covers the underlying strategy, enrollment as a second factor, and
-platform requirements. This page covers the first-factor mode.
+This builds on [device binding](index.mdx), which covers the underlying strategy, enrollment as a second factor, and platform
+requirements. This page covers the first-factor mode.
 
 Key properties:
 
@@ -109,7 +109,7 @@ selfservice:
   [Client implementation requirements](#client-implementation-requirements).
 
 On Ory Network all of these are available through the project configuration. Relaxed attestation for emulator testing is described
-in [device binding](08_deviceauthn.mdx#relaxed-attestation-for-testing) and only takes effect in development environments.
+in [device binding](index.mdx#relaxed-attestation-for-testing) and only takes effect in development environments.
 
 ## Protocol reference
 
@@ -269,7 +269,7 @@ sequenceDiagram
 
 At AAL2 step-up, a PIN key must send `pin_proof` alongside the signature — the device signature alone does not bypass the PIN. A
 `pin_proof` submitted for a non-PIN key is rejected as a downgrade attempt. Biometric and `none` keys step up with the signature
-alone, as described in [device binding](08_deviceauthn.mdx).
+alone, as described in [device binding](index.mdx).
 
 ### Rotating the PIN secret
 
@@ -355,9 +355,9 @@ Never present a failed outer unseal as "wrong PIN" — it is structural and retr
 ## iOS guide
 
 This guide implements PIN enrollment, first-factor login, PIN change, and secret rotation on iOS. It builds on the App Attest
-signing key from [device binding](08_deviceauthn.mdx) and adds the transport, sealing, and PIN layers this page describes. Read it
-together with [Client implementation requirements](#client-implementation-requirements) — the comments in the code below are
-normative and restate those rules inline.
+signing key from [device binding](index.mdx) and adds the transport, sealing, and PIN layers this page describes. Read it together
+with [Client implementation requirements](#client-implementation-requirements) — the comments in the code below are normative and
+restate those rules inline.
 
 ### Prerequisites
 
@@ -632,9 +632,9 @@ flow:
 - At login, submit only `client_key_id` and `signature` (the assertion over the bare nonce) — omit `pin_proof`.
 
 For the App Attest `generateKey` / `attestKey` / `generateAssertion` scaffolding, reuse the `OryApi` helper from
-[device binding](08_deviceauthn.mdx#how-to-implement-device-binding-in-your-iosipados-application). The PIN listing above calls
-`DCAppAttestService` directly only to keep the challenge computation visible. On iOS, biometric first-factor login also requires
-the `ios_biometric_first_factor` opt-in — see [Configuration](#configuration).
+[device binding](ios.mdx). The PIN listing above calls `DCAppAttestService` directly only to keep the challenge computation
+visible. On iOS, biometric first-factor login also requires the `ios_biometric_first_factor` opt-in — see
+[Configuration](#configuration).
 
 ### Changing the PIN and rotating the secret
 
@@ -673,7 +673,7 @@ The signing key and its `client_key_id` never change; only the sealed secret doe
 ## Android guide
 
 This guide implements PIN enrollment, first-factor login, PIN change, and secret rotation on Android. It builds on the
-hardware-attested signing key from [device binding](08_deviceauthn.mdx) and adds the transport, sealing, and PIN layers this page
+hardware-attested signing key from [device binding](index.mdx) and adds the transport, sealing, and PIN layers this page
 describes. Read it together with [Client implementation requirements](#client-implementation-requirements) — the comments in the
 code below are normative and restate those rules inline.
 
@@ -984,9 +984,8 @@ shows the fingerprint or face prompt when the key signs. Three differences from 
   `pin_proof`.
 
 For the key-creation and `BiometricPrompt` signing scaffolding (the `createKeyPair` and `launchBiometricSigner` helpers), reuse
-the `OryApi` from [device binding](08_deviceauthn.mdx#how-to-implement-device-binding-in-your-android-application). The PIN
-listing above creates the signing key **without** `setUserAuthenticationRequired` precisely because the PIN — not a platform
-prompt — is its gate.
+the `OryApi` from [device binding](android.mdx). The PIN listing above creates the signing key **without**
+`setUserAuthenticationRequired` precisely because the PIN — not a platform prompt — is its gate.
 
 ### Changing the PIN and rotating the secret
 
@@ -1043,7 +1042,7 @@ a release build.
 
 First, the emulator produces software-backed attestations, which the server rejects by default. Enable relaxed attestation
 server-side to accept the signing key. Relaxed-attestation keys expire after 30 days, so re-enroll after that. See
-[Relaxed attestation for testing](08_deviceauthn.mdx#relaxed-attestation-for-testing).
+[Relaxed attestation for testing](index.mdx#relaxed-attestation-for-testing).
 
 Second, the sealing key also lands in the software keystore, so the reference `createSealingKey` refuses enrollment by design —
 its `requireHardwareBacked` check throws. Temporarily bypass that check in a debug/test build to wire and flow-test the PIN path,
@@ -1075,7 +1074,7 @@ rotated, and delaying sensitive operations after either event.
   the key is locked and offer recovery.
 - **Keys enrolled before user verification existed** — legacy keys cannot log in and must be re-enrolled.
 - **Relaxed-attestation keys stop working** — keys enrolled with relaxed attestation expire after 30 days and are refused as soon
-  as the setting is turned off. See [relaxed attestation](08_deviceauthn.mdx#relaxed-attestation-for-testing).
+  as the setting is turned off. See [relaxed attestation](index.mdx#relaxed-attestation-for-testing).
 
 ## Security model
 

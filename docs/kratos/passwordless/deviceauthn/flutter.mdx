@@ -1,0 +1,109 @@
+---
+id: flutter
+title: Device binding in Dart/Flutter
+sidebar_label: Dart/Flutter
+---
+
+Dart can call native APIs via message passing. Let's call a function called `generateKey` with the parameter
+`{'alias': 'my_key_01'}`:
+
+```dart
+Future<void> _generateKey() async {
+setState(() => _isLoading = true);
+
+try {
+  // Calling the native method
+  final String result = await platform.invokeMethod('generateKey', {
+    'alias': 'my_key_01',
+  });
+
+  setState(() {
+    _keyStoreResult = result;
+    _isLoading = false;
+  });
+} on PlatformException catch (e) {
+  setState(() {
+    _keyStoreResult = "Failed to generate key: '${e.message}'.";
+    _isLoading = false;
+  });
+}
+}
+```
+
+Since the call might block, it is marked async and a loading indicator is shown in the UI via the `_isLoading` field.
+
+Now to the platform code, for example for Android:
+
+```kotlin
+class MainActivity: FlutterActivity() {
+    private val CHANNEL = "com.example.secure/keystore"
+
+    override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        super.configureFlutterEngine(flutterEngine)
+
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
+            if (call.method == "generateKey") {
+                val alias = call.argument<String>("alias") ?: "default_alias"
+                try {
+                    val keyStoreResult = [..] // Call the KeyStore here.
+
+                    // Send the result back to Flutter.
+                    result.success(keyStoreResult)
+                } catch (e: Exception) {
+                    // If generation fails (e.g., hardware issues), send an error
+                    result.error("KEY_GEN_FAIL", e.localizedMessage, null)
+                }
+            } else {
+                result.notImplemented()
+            }
+        }
+    }
+}
+```
+
+And for iOS:
+
+```swift
+import UIKit
+import Flutter
+
+@main
+@objc class AppDelegate: FlutterAppDelegate {
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
+
+    // 1. Standard plugin registration for things like path_provider, etc.
+    GeneratedPluginRegistrant.register(with: self)
+
+    // 2. Create a registrar for our custom "inline" plugin
+    // The name "SecureKeystorePlugin" can be anything unique.
+    let registrar = self.registrar(forPlugin: "SecureKeystorePlugin")
+
+    // 3. Setup the channel using the registrar's messenger
+    let channel = FlutterMethodChannel(
+        name: "com.example.secure/keystore",
+        binaryMessenger: registrar!.messenger()
+    )
+
+    // 4. Handle the method calls
+    channel.setMethodCallHandler({
+      (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
+
+      if call.method == "generateResidentKey" {
+        let alias = (call.arguments as? [String: Any])?["alias"] as? String ?? "unknown"
+
+        // Just for the example, get the iOS version.
+        result("iOS \(version)")
+      } else {
+        result(FlutterMethodNotImplemented)
+      }
+    })
+
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+}
+```
+
+And the Flutter code gets this result back: `iOS 26.2.1` (for example).

@@ -1,0 +1,287 @@
+---
+id: ios
+title: Device binding on iOS
+sidebar_label: iOS
+---
+
+A notable difference with Android is that Apple's app attestation APIs require a network call to Apple's servers from a real
+device.
+
+This means that the emulator cannot be used.
+
+Since Device Binding only is supported on native devices (not in the browser), all corresponding API calls should be done using
+the endpoints for native apps, to avoid having to pass cookies around manually.
+
+1. Ensure that the `DeviceAuthn` strategy is enabled in the Kratos configuration. This strategy implements the settings and login
+   flow. This is done so:
+   ```yaml
+   selfservice:
+     methods:
+       deviceauthn:
+         enabled: true
+   ```
+1. In XCode, add a permission so that the application is allowed to use FaceID. In
+   `Target settings > Info > Custom iOS Target Properties`, add:
+   - Key: `Privacy - Face ID Usage Description`
+   - Type: `String`
+   - Value: `This app uses FaceID to authenticate signing operations.`
+1. Implement a runtime check for the OS version. If is lower than the
+   [documented ones](https://developer.apple.com/documentation/devicecheck/dcappattestservice), Device Binding may not be used,
+   and a fallback should be found, for example using passkeys.
+1. This guide covers the second-factor setup: the UI should only show existing Device Binding keys and related buttons (e.g. to
+   add a key) if the user is currently logged in. This can be confirmed with a `whoami` call. For first-factor PIN or biometric
+   login, see [Device authentication with PIN and biometrics](pin.mdx).
+1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
+   response contains the list of existing Device Binding keys.
+1. To delete an existing key,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
+
+   ```json
+   {
+     "delete": {
+       "client_key_id": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c"
+     },
+     "method": "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
+
+   ```swift
+   let clientKeyId = "..."
+
+   let flow = try await FrontendAPI.createNativeSettingsFlow(
+       xSessionToken: sessionToken
+   )
+
+   let body: UpdateSettingsFlowBody =
+       .typeUpdateSettingsFlowWithDeviceAuthnMethod(
+           UpdateSettingsFlowWithDeviceAuthnMethod(
+               delete: UpdateSettingsFlowWithDeviceAuthnMethodDelete(
+                   clientKeyId: clientKeyId,
+               ),
+               method: "deviceauthn"
+           )
+       )
+   let finalFlow = try await FrontendAPI.updateSettingsFlow(
+       flow: flow.id,
+       updateSettingsFlowBody: body,
+       xSessionToken: sessionToken
+   )
+   ```
+
+   Once the key has been deleted server-side, it is fine (although not required) to also delete it on the device using the
+   KeyStore API.
+
+1. To add a new key,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
+
+   ```json
+   {
+     "method": "deviceauthn",
+     "add": {
+       "device_name": "iPhone (iPhone14,5)",
+       "attestation_ios": "..."
+     }
+   }
+   ```
+
+   Or using the SDK:
+
+   ```swift
+   let flow = try await FrontendAPI.createNativeSettingsFlow(
+       xSessionToken: sessionToken
+   )
+
+   let nonce = extractNonceFromUiNodes(nodes: flow.ui.nodes) ?? ""
+   let deviceName = "My work phone"
+   let (keyId, attestation) = try await OryApi().createKey(
+       challengeB64: nonce
+   )
+
+   let body: UpdateSettingsFlowBody =
+       .typeUpdateSettingsFlowWithDeviceAuthnMethod(
+           UpdateSettingsFlowWithDeviceAuthnMethod(
+               add: UpdateSettingsFlowWithDeviceAuthnMethodAdd(
+                   attestationIos: attestation,
+                   deviceName: deviceName,
+               ),
+               method: "deviceauthn"
+           )
+       )
+   let finalFlow = try await FrontendAPI.updateSettingsFlow(
+       flow: flow.id,
+       updateSettingsFlowBody: body,
+       xSessionToken: sessionToken
+   )
+
+   // The server assigns the key's client_key_id — the lowercase-hex SHA-256
+   // fingerprint of the public key. Read it from the updated flow (the value
+   // of the new key's `deviceauthn_remove` node) and store it together with
+   // the App Attest keyId: signing uses keyId, API calls use clientKeyId.
+   let clientKeyId = extractClientKeyIdFromUiNodes(nodes: finalFlow.ui.nodes)
+   ```
+
+   Once a key is created, the application must store both identifiers — the App Attest `keyId` (needed to sign) and the
+   server-assigned `client_key_id` (needed to address the key in API calls) — because there are no APIs to list keys or check if a
+   key exists. Note that there is a maximum number of keys that can be created for an identity, and there is no point to create
+   multiple keys for the same user on the same device, even though the server allows it.
+
+1. To use a key to step-up the AAL,
+   [complete the login flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow) with this payload:
+
+   ```json
+   {
+     "signature": "...",
+     "client_key_id": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c",
+     "method": "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
+
+   ```swift
+   let keyId = "..." // The App Attest key id, used to sign.
+   let clientKeyId = "..." // The server-assigned key fingerprint.
+
+   let flow = try await FrontendAPI.createNativeLoginFlow(
+       refresh: false,
+       aal: AuthenticatorAssuranceLevel.aal2.rawValue,
+       xSessionToken: sessionToken
+   )
+   let nonce = extractNonceFromUiNodes(nodes: flow.ui.nodes) ?? ""
+
+   let signature = try await OryApi().signWithKey(
+       keyId: keyId,
+       challengeB64: nonce,
+   )
+
+   let body =
+       UpdateLoginFlowBody
+       .typeUpdateLoginFlowWithDeviceAuthnMethod(
+           UpdateLoginFlowWithDeviceAuthnMethod(
+               clientKeyId: clientKeyId,
+               method: "deviceauthn",
+               signature: signature,
+           )
+       )
+
+   let finalFlow = try await FrontendAPI.updateLoginFlow(
+       flow: flow.id,
+       updateLoginFlowBody: body,
+       xSessionToken: sessionToken
+   )
+   ```
+
+There are two required App Attest calls to create a key and use it to sign:
+
+```swift
+import CryptoKit
+import DeviceCheck
+import Foundation
+import LocalAuthentication
+import OSLog
+import Security
+
+public enum OryApiError: Error, LocalizedError {
+    case secureEnclaveError(String, OSStatus?)
+    case appAttestationNotSupported
+    case appAttestationError(String)
+    case biometricAuthenticationFailed(String?)
+    case biometricAuthenticationCancelled
+
+    public var errorDescription: String? {
+        switch self {
+        case .secureEnclaveError(let message, let status):
+            let statusString = status != nil ? " (Status: \(status!))" : ""
+            return "Secure Enclave Error: \(message)\(statusString)"
+        case .appAttestationNotSupported:
+            return "App Attestation is not supported on this device."
+        case .appAttestationError(let message):
+            return "App Attestation Error: \(message)"
+        case .biometricAuthenticationFailed(let message):
+            return
+                "Biometric authentication failed: \(message ?? "Unknown error")"
+        case .biometricAuthenticationCancelled:
+            return "Biometric authentication canceled by user."
+        }
+    }
+}
+
+public class OryApi {
+    public func createKey(challengeB64: String)
+        async throws -> (keyId: String, attestation: Data)
+    {
+        if #available(iOS 14.0, *) {
+            let service = DCAppAttestService.shared
+            guard service.isSupported else {
+                throw OryApiError.appAttestationNotSupported
+            }
+
+            let keyId: String
+            do {
+                keyId = try await service.generateKey()
+            } catch {
+                let errorMessage =
+                    "Failed to generate key: \(error.localizedDescription)"
+                throw OryApiError.appAttestationError(errorMessage)
+            }
+
+            let challenge = Data(base64Encoded: challengeB64)!
+            let attestation = try await service.attestKey(
+                keyId,
+                clientDataHash: challenge
+            )
+
+            return (keyId, attestation)
+        } else {
+            // Fallback for older iOS versions
+            throw OryApiError.secureEnclaveError(
+                "iOS 14.0 or newer is required for App Attestation.",
+                nil
+            )
+        }
+    }
+
+    public func signWithKey(keyId: String, challengeB64: String)
+        async throws -> Data
+    {
+        if #available(iOS 14.0, watchOS 14.0, *) {
+            let context = LAContext()
+            let reason = "Authenticate to sign in"
+            do {
+                try await context.evaluatePolicy(
+                    .deviceOwnerAuthenticationWithBiometrics,
+                    localizedReason: reason
+                )
+            } catch let error as LAError {
+                switch error.code {
+                case .userCancel, .appCancel, .systemCancel, .userFallback:
+                    throw OryApiError.biometricAuthenticationCancelled
+                default:
+                    throw OryApiError.biometricAuthenticationFailed(
+                        error.localizedDescription
+                    )
+                }
+            } catch {
+                throw OryApiError.biometricAuthenticationFailed(
+                    error.localizedDescription
+                )
+            }
+
+            let challenge = Data(base64Encoded: challengeB64)!
+            let assertion = try await DCAppAttestService.shared
+                .generateAssertion(keyId, clientDataHash: challenge)
+
+            return assertion
+        } else {
+            throw OryApiError.secureEnclaveError(
+                "iOS 14.0 or newer is required for App Attestation.",
+                nil
+            )
+        }
+    }
+}
+```

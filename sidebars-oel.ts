@@ -87,8 +87,17 @@ const oelSidebar = [
               "kratos/guides/https-tls",
               "kratos/guides/hosting-own-have-i-been-pwned-api",
               "kratos/guides/secret-key-rotation",
-              "kratos/passwordless/deviceauthn",
-              "kratos/passwordless/deviceauthn-pin",
+              {
+                type: "category",
+                label: "Device binding",
+                items: [
+                  "kratos/passwordless/deviceauthn/index",
+                  "kratos/passwordless/deviceauthn/android",
+                  "kratos/passwordless/deviceauthn/ios",
+                  "kratos/passwordless/deviceauthn/flutter",
+                  "kratos/passwordless/deviceauthn/pin",
+                ],
+              },
               {
                 type: "category",
                 label: "Troubleshooting",
