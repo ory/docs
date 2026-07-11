@@ -204,7 +204,7 @@ const networkSidebar = [
                   "kratos/passwordless/passkeys-mobile",
                   {
                     type: "category",
-                    label: "Device binding",
+                    label: "Device authentication",
                     items: [
                       "kratos/passwordless/deviceauthn/index",
                       "kratos/passwordless/deviceauthn/android",
