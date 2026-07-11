@@ -24,7 +24,10 @@ Since this is a strategy, it supports all the same hooks as the other strategies
 
 ## Short summary
 
-- This is implemented in the OEL version with the strategy `DeviceAuthn`, in spirit similar to `WebAuthn`.
+- Available on Ory Network and with the Ory Enterprise License; implemented by the `deviceauthn` strategy, in spirit similar to
+  `WebAuthn`.
+- Every key is addressed by its `client_key_id` — a server-assigned fingerprint: the lowercase-hex SHA-256 of the key's public key
+  in SubjectPublicKeyInfo (DER) form. Clients don't choose it; they derive it locally or read it from the settings flow.
 - The settings flow is used to manage keys (create, delete).
 - The login flow is used to step-up the AAL. Hardware-backed keys (TEE) satisfy AAL2, while keys stored in a dedicated security
   chip (StrongBox) may eventually be categorized as AAL3.
@@ -78,7 +81,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    ```json
    {
      "delete": {
-       "client_key_id": "4fcXqFY9kg2unsTCM33GH8ayIWY6WdIGFWXMzhl9Vik="
+       "client_key_id": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c"
      },
      "method": "deviceauthn"
    }
@@ -111,9 +114,8 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    {
      "method": "deviceauthn",
      "add": {
-       "device_name": "iPhone (iPhone14,5)",
-       "attestation_ios": "...",
-       "client_key_id": "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE="
+       "device_name": "Pixel 9",
+       "certificate_chain_android": ["...", "...", "..."]
      }
    }
    ```
@@ -136,16 +138,25 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    method.method = "deviceauthn"
    method.add = UpdateSettingsFlowWithDeviceAuthnMethodAdd()
    method.add!!.deviceName = "My work phone"
-   method.add!!.clientKeyId = keyAlias
    method.add!!.certificateChainAndroid = keyCertChain.map { it.encoded }.toList()
    body.actualInstance = method
    val updatedFlow = apiInstance.updateSettingsFlow(settingsFlow?.id, body, sessionToken, "")
+
+   // The server assigns the key's client_key_id: the lowercase-hex SHA-256 of
+   // the public key in SubjectPublicKeyInfo (DER) form. Derive it locally and
+   // store it with the key alias; later login and delete calls address the key
+   // by this fingerprint.
+   val spki = keyCertChain.first().publicKey.encoded
+   val clientKeyId = MessageDigest.getInstance("SHA-256")
+       .digest(spki)
+       .joinToString("") { "%02x".format(it) }
    ```
 
-   Once a key is created, the KeyStore APIs can be used to list all keys, query a key using its id, etc. However we recommend that
-   the application keeps track of what keys were created to know which ones can be used on the device, compared to which keys
-   belong to the same identity but reside on other devices. Note that there is a maximum number of keys that can be created for an
-   identity, and there is no point to create multiple keys for the same user on the same device, even though the server allows it.
+   Once a key is created, the KeyStore APIs can be used to list all keys, query a key using its alias, etc. However we recommend
+   that the application keeps track of the keys it created — including the mapping between the local key alias and the
+   server-assigned `client_key_id` — to know which keys can be used on this device, compared to keys that belong to the same
+   identity but reside on other devices. Note that there is a maximum number of keys that can be created for an identity, and
+   there is no point to create multiple keys for the same user on the same device, even though the server allows it.
 
 1. To use a key to step-up the AAL,
    [complete the login flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow) with this payload:
@@ -153,7 +164,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    ```json
    {
      "signature": "...",
-     "client_key_id": "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE=",
+     "client_key_id": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c",
      "method": "deviceauthn"
    }
    ```
@@ -161,7 +172,8 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    Or using the SDK:
 
    ```kotlin
-   val clientKeyId = "..."
+   val keyAlias = "..." // The local KeyStore alias, used to sign.
+   val clientKeyId = "..." // The server-assigned key fingerprint.
    val nonce = extractNonceFromUiNodes(flow?.ui?.nodes ?: emptyList())
    if (nonce == null) {
        throw Exception("No nonce found in UI")
@@ -172,7 +184,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    updateMethod.method = "deviceauthn"
    updateMethod.signature = Api.create().launchBiometricSigner(
        context as FragmentActivity,
-       clientKeyId,
+       keyAlias,
        nonce,
        "Confirm",
        "Cancel"
@@ -416,7 +428,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    ```json
    {
      "delete": {
-       "client_key_id": "4fcXqFY9kg2unsTCM33GH8ayIWY6WdIGFWXMzhl9Vik="
+       "client_key_id": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c"
      },
      "method": "deviceauthn"
    }
@@ -459,8 +471,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
      "method": "deviceauthn",
      "add": {
        "device_name": "iPhone (iPhone14,5)",
-       "attestation_ios": "...",
-       "client_key_id": "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE="
+       "attestation_ios": "..."
      }
    }
    ```
@@ -468,15 +479,13 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    Or using the SDK:
 
    ```swift
-   let clientKeyId = "..."
-
    let flow = try await FrontendAPI.createNativeSettingsFlow(
        xSessionToken: sessionToken
    )
 
    let nonce = extractNonceFromUiNodes(nodes: flow.ui.nodes) ?? ""
    let deviceName = "My work phone"
-   let (clientKeyId, attestation) = try await OryApi().createKey(
+   let (keyId, attestation) = try await OryApi().createKey(
        challengeB64: nonce
    )
 
@@ -485,7 +494,6 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
            UpdateSettingsFlowWithDeviceAuthnMethod(
                add: UpdateSettingsFlowWithDeviceAuthnMethodAdd(
                    attestationIos: attestation,
-                   clientKeyId: clientKeyId,
                    deviceName: deviceName,
                ),
                method: "deviceauthn"
@@ -496,9 +504,16 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
        updateSettingsFlowBody: body,
        xSessionToken: sessionToken
    )
+
+   // The server assigns the key's client_key_id — the lowercase-hex SHA-256
+   // fingerprint of the public key. Read it from the updated flow (the value
+   // of the new key's `deviceauthn_remove` node) and store it together with
+   // the App Attest keyId: signing uses keyId, API calls use clientKeyId.
+   let clientKeyId = extractClientKeyIdFromUiNodes(nodes: finalFlow.ui.nodes)
    ```
 
-   Once a key is created, the application must store the key id somewhere, because there are no APIs to list keys or check if a
+   Once a key is created, the application must store both identifiers — the App Attest `keyId` (needed to sign) and the
+   server-assigned `client_key_id` (needed to address the key in API calls) — because there are no APIs to list keys or check if a
    key exists. Note that there is a maximum number of keys that can be created for an identity, and there is no point to create
    multiple keys for the same user on the same device, even though the server allows it.
 
@@ -508,7 +523,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    ```json
    {
      "signature": "...",
-     "client_key_id": "sBS5ZHWqsSRbV6OEvCfsg0+DWa3ERns6JyqRypqccrE=",
+     "client_key_id": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c",
      "method": "deviceauthn"
    }
    ```
@@ -516,7 +531,8 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    Or using the SDK:
 
    ```swift
-   let clientKeyId = "..."
+   let keyId = "..." // The App Attest key id, used to sign.
+   let clientKeyId = "..." // The server-assigned key fingerprint.
 
    let flow = try await FrontendAPI.createNativeLoginFlow(
        refresh: false,
@@ -526,7 +542,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    let nonce = extractNonceFromUiNodes(nodes: flow.ui.nodes) ?? ""
 
    let signature = try await OryApi().signWithKey(
-       keyId: clientKeyId,
+       keyId: keyId,
        challengeB64: nonce,
    )
 
@@ -584,7 +600,7 @@ public enum OryApiError: Error, LocalizedError {
 
 public class OryApi {
     public func createKey(challengeB64: String)
-        async throws -> (clientKeyId: String, attestation: Data)
+        async throws -> (keyId: String, attestation: Data)
     {
         if #available(iOS 14.0, *) {
             let service = DCAppAttestService.shared
@@ -814,8 +830,8 @@ hardware-binding guarantees that this strategy relies on.
    using native mobile APIs.
 4. The client completes the settings flow to enroll a new key by sending these fields:
    1. device name (human readable, picked by the user, for example `My work phone`)
-   2. client key id
-   3. certificate chain, which contains the signature of the server challenge, and the public key (in the leaf certificate)
+   2. certificate chain (Android) or attestation (iOS), which contains the signature of the server challenge, and the public key
+      (in the leaf certificate)
 5. The server:
    1. Checks that the certificate chain is valid, using Google and Apple root CAs
    2. Checks the certificate revocation lists to ensure no root/intermediate CA in the chain has been revoked
@@ -824,8 +840,10 @@ hardware-binding guarantees that this strategy relies on.
       key in the TPM (e.g. Strongbox) may warrant a higher AAL e.g. AAL3 in the future.
    5. Checks that the device is not emulated, modified in some way, etc based on the device attestation information
    6. Records the public key in the database
-   7. Erases the challenge value in the database to prevent re-use
-   8. Replies with 200
+   7. Assigns the key's `client_key_id`: the lowercase-hex SHA-256 fingerprint of the public key in SubjectPublicKeyInfo (DER)
+      form. The device can recompute it locally. Keys enrolled before server-assigned IDs keep their original client-chosen value.
+   8. Erases the challenge value in the database to prevent re-use
+   9. Replies with 200
 
 Enrollment also records a `user_verification` level (`none`, `platform`, or `pin`) that determines whether the key can act as a
 first factor. PIN enrollment computes the attestation challenge differently — see
@@ -842,10 +860,10 @@ sequenceDiagram
     C->>S: POST /self-service/settings/api (xSessionToken)
     S-->>C: 200 settings flow {nonce, existing_keys}
     C->>H: generateKey(nonce)
-    H-->>C: {client_key_id, cert_chain}
-    C->>S: POST /self-service/settings?flow=... {method: deviceauthn, add: {device_name, client_key_id, cert_chain or attestation_ios}}
-    Note over S: Verify cert chain vs Apple/Google root CAs<br/>Check CRLs<br/>Match challenge to stored nonce<br/>Reject software/emulated keys<br/>Store pubkey, erase challenge
-    S-->>C: 200 updated settings flow
+    H-->>C: {public key, cert_chain or attestation}
+    C->>S: POST /self-service/settings?flow=... {method: deviceauthn, add: {device_name, cert_chain or attestation_ios}}
+    Note over S: Verify cert chain vs Apple/Google root CAs<br/>Check CRLs<br/>Match challenge to stored nonce<br/>Reject software/emulated keys<br/>Store pubkey, assign client_key_id, erase challenge
+    S-->>C: 200 updated settings flow {client_key_id}
 `}
 />
 
@@ -869,7 +887,7 @@ sequenceDiagram
     participant S as Kratos server
     C->>S: POST /self-service/login/api {aal: aal2, refresh: false}
     S-->>C: 200 login flow {nonce}
-    C->>H: sign(nonce, client_key_id)
+    C->>H: sign(nonce) with the enrolled key
     Note right of H: biometric/PIN prompt<br/>private key never leaves hardware
     H-->>C: ECDSA signature
     C->>S: POST /self-service/login?flow=... {method: deviceauthn,<br/>client_key_id, signature}
