@@ -18,8 +18,24 @@ a DeviceAuthn key cannot leave the hardware where it was created.
 
 Using this approach, the system can restrict the use of an application on specific, whitelisted devices.
 
-This page covers using device keys as a second factor (step-up). A key protected by an app PIN or platform biometrics can also act
-as a complete passwordless first factor — see [Device authentication with PIN and biometrics](pin.mdx).
+The strategy supports two modes:
+
+- **Second factor (step-up):** an enrolled device key satisfies a higher authenticator assurance level (AAL2 or AAL3) after the
+  user has already signed in with another method.
+- **First factor (passwordless):** with `first_factor` enabled, a device key protected by an app PIN or platform biometrics (Face
+  ID, fingerprint), combined with the device's hardware-resident key, signs the user in with a single request and grants an AAL2
+  session — no password, no one-time code.
+
+Key properties of the PIN and biometric first factor:
+
+- The PIN never leaves the device and is never stored anywhere — not on the device, not on the server. It unlocks a secret on the
+  device; the server verifies a cryptographic proof derived from that secret.
+- The server is the only place a PIN guess can be tested. A stolen device, a stolen backup, or a full database dump cannot be used
+  to guess the PIN offline.
+- Wrong PIN attempts are counted server-side. After `pin_max_attempts` consecutive failures (default 5), the key is locked and its
+  secret destroyed.
+- The secret is delivered to the device exactly once at enrollment, end-to-end encrypted (HPKE) — TLS-terminating intermediaries
+  and request logs only ever see ciphertext.
 
 Since this is a strategy, it supports all the same hooks as the other strategies.
 
@@ -33,7 +49,7 @@ Since this is a strategy, it supports all the same hooks as the other strategies
 - The login flow is used to step-up the AAL. Hardware-backed keys (TEE) satisfy AAL2, while keys stored in a dedicated security
   chip (StrongBox) may eventually be categorized as AAL3.
 - With `first_factor` enabled, a key protected by an app PIN or platform biometrics is a complete passwordless login granting AAL2
-  — see [Device authentication with PIN and biometrics](pin.mdx).
+  — see [How it works](#how-it-works) and [Configuration](#configuration).
 - Using the admin API, it is possible to delete all keys for a device on behalf of the user in case of theft or loss.
 - A device may have multiple keys, to support multiple user accounts on the same device.
 - Only these platforms are currently supported, because they offer native APIs, strong hardware, and trust guarantees:
@@ -50,16 +66,105 @@ Since this is a strategy, it supports all the same hooks as the other strategies
 - CA: Certificate Authority
 - AAL: Authenticator Assurance Level
 
+## How it works
+
+### Three keys
+
+A PIN-protected enrollment involves three distinct keys:
+
+| Key                    | Purpose                                                 | Lifetime                               | Known to the server |
+| ---------------------- | ------------------------------------------------------- | -------------------------------------- | ------------------- |
+| Device signing key     | Signs the login challenge — the possession factor       | Persistent, hardware-resident          | Public half only    |
+| Sealing key            | Wraps the stored PIN secret on the device               | Persistent, hardware-resident, local   | Never               |
+| Transport key (X25519) | Receives the one-time `pin_secret` at enrollment (HPKE) | Ephemeral — destroyed after enrollment | Public half only    |
+
+### User verification levels
+
+Every key records a `user_verification` level at enrollment. It is fixed at enrollment and not negotiable at login:
+
+| `user_verification` | How the user is verified                 | First factor | Second factor (step-up)  |
+| ------------------- | ---------------------------------------- | ------------ | ------------------------ |
+| `pin`               | App PIN, proven to the server per login  | Yes          | Yes (PIN proof required) |
+| `platform`          | Platform biometrics gate the signing key | Yes¹         | Yes                      |
+| `none`              | Not verified                             | No           | Yes                      |
+
+¹ On iOS, biometric-only first factor requires the `ios_biometric_first_factor` opt-in — see [Configuration](#configuration).
+
+### The PIN mechanism
+
+At enrollment the server generates a random 32-byte `pin_secret`, stores it encrypted, and sends it to the device exactly once,
+sealed to the enrollment's transport key. The device never stores it in the clear: it derives a key from the user's PIN
+(Argon2id), encrypts the secret with it (unauthenticated AES-CTR), and wraps the result under a non-exportable hardware key.
+
+At login the device reverses the wrapping with the entered PIN and proves possession of the secret with an HMAC over the login
+challenge. A wrong PIN yields 32 bytes of garbage — indistinguishable from the real secret on the device — so the resulting proof
+is wrong and the server counts the failure. Nothing on the device (or in a stolen backup) can test whether a PIN guess is correct.
+
+Biometric keys need none of this machinery: the platform gates the signing key itself and shows the biometric prompt when the key
+signs.
+
+### Assurance level
+
+A successful first-factor login records possession (the device signature) plus knowledge (PIN) or inherence (biometrics) and
+grants an AAL2 session in a single submission. This matches NIST SP 800-63B's multi-factor cryptographic authenticator model: the
+PIN acts as an activation secret whose verification failures the server rate-limits.
+
 ## Platform guides
 
 Device binding is implemented with native platform APIs. We recommend using the Ory SDK to communicate with Kratos, although this
 is not required. Since device binding is only supported on native devices (not in the browser), all corresponding API calls should
 be done using the endpoints for native apps, to avoid having to pass cookies around manually.
 
+Each platform guide covers the full journey: second-factor device binding, the PIN and biometric first factor, and key recovery.
+
 - [Device binding on Android](android.mdx)
 - [Device binding on iOS](ios.mdx)
 - [Device binding in Dart/Flutter](flutter.mdx)
-- [Device authentication with PIN and biometrics](pin.mdx)
+
+## Configuration
+
+Enable the `deviceauthn` strategy and configure its behavior in the Kratos configuration. This is the canonical configuration
+example — enabling the strategy with no `config` block gives you second-factor device binding; the `config` keys below add the
+first-factor PIN and biometric modes.
+
+```yaml
+selfservice:
+  methods:
+    deviceauthn:
+      enabled: true
+      config:
+        # Allow deviceauthn keys with user_verification "pin" or "platform"
+        # to act as a complete first factor. Default: false.
+        first_factor: true
+
+        # Consecutive wrong-PIN attempts before a key is locked and its
+        # secret destroyed. Default 5, hard ceiling 10.
+        pin_max_attempts: 5
+
+        # Allow iOS biometric ("platform") keys as the sole first factor.
+        # Default false: App Attest cannot prove that a Secure Enclave key is
+        # biometric-gated, so this is an explicit opt-in.
+        ios_biometric_first_factor: false
+
+        # Bind enrollments (and iOS logins) to your apps. Empty lists disable
+        # the check — configure both in production.
+        ios_app_ids:
+          - "TEAMID.com.example.app"
+        android_app_ids:
+          - "0123…ef" # lowercase-hex SHA-256 of your app signing certificate
+```
+
+- `first_factor` — enables the first-factor login path and its UI nodes. Without it, all keys are step-up only.
+- `pin_max_attempts` — server-side lockout limit. Values above 10 are clamped (NIST SP 800-63B ceiling).
+- `ios_biometric_first_factor` — on Android, the attestation proves that a `platform` key requires user authentication; on iOS it
+  cannot, so iOS `platform` keys are step-up only unless you opt in. PIN keys are unaffected.
+- `ios_app_ids` / `android_app_ids` — allow-lists checked against the attestation. Use the Apple App ID (`<TeamID>.<BundleID>`)
+  and the SHA-256 digest of the Android app signing certificate (package names are forgeable).
+- PIN length and complexity are client-side concerns — see
+  [Client implementation requirements](#client-implementation-requirements).
+
+On Ory Network all of these are available through the project configuration. Relaxed attestation for emulator testing is described
+in [Relaxed attestation for testing](#relaxed-attestation-for-testing) and only takes effect in development environments.
 
 ## Relaxed attestation for testing
 
@@ -92,18 +197,16 @@ hardware-binding guarantees that this strategy relies on.
 
 :::
 
-## Reference
+## Protocol reference
+
+All flows are native (API) flows. The flow's UI contains a hidden `deviceauthn_nonce` node; its value is the base64 encoding of
+the JSON `{"nonce":"<base64 of 32 raw bytes>"}`. Decode twice to obtain the raw nonce bytes. The nonce is single-use and bound to
+the flow.
 
 ### Enrollment
 
-1. The `DeviceAuthn` strategy is enabled in the Kratos configuration. This strategy implements the settings and login flow. This
-   is done so:
-   ```yaml
-   selfservice:
-     methods:
-       deviceauthn:
-         enabled: true
-   ```
+1. The `DeviceAuthn` strategy is enabled in the Kratos configuration — see [Configuration](#configuration). This strategy
+   implements the settings and login flow.
 2. The client creates a new settings flow and the existing keys for the identity are in the response. The settings flow has a
    field `nonce` which contains a random nonce. This is the server challenge. This value is opaque and should not be assigned
    meaning. It may be a random string, or a hash of something. The important part is that it is not guessable by an attacker.
@@ -127,8 +230,7 @@ hardware-binding guarantees that this strategy relies on.
    9. Replies with 200
 
 Enrollment also records a `user_verification` level (`none`, `platform`, or `pin`) that determines whether the key can act as a
-first factor. PIN enrollment computes the attestation challenge differently — see
-[Device authentication with PIN and biometrics](pin.mdx).
+first factor. PIN enrollment computes the attestation challenge differently — see [PIN enrollment](#pin-enrollment).
 
 At this point the key is enrolled for the identity.
 
@@ -147,6 +249,104 @@ sequenceDiagram
     S-->>C: 200 updated settings flow {client_key_id}
 `}
 />
+
+### PIN enrollment
+
+Runs in a settings flow under a privileged session.
+
+1. Generate an ephemeral X25519 keypair — the transport key (`t_priv`, `t_pub`). It must exist **before** attestation, because its
+   public half is baked into the attestation challenge.
+2. Compute the attestation challenge:
+
+   ```text
+   challenge = SHA256(nonce ‖ t_pub)
+   ```
+
+   The raw 32-byte nonce concatenated with the raw 32-byte transport public key, in that order, hashed once. This binds the
+   transport key to the attested device: an intermediary that swaps `t_pub` invalidates the attestation.
+
+   :::warning
+
+   Do **not** use the bare nonce as the challenge — that is the second-factor device-binding form. Using it here fails with
+   `Unable to validate the key attestation: wrong challenge`.
+
+   :::
+
+3. Create and attest the device signing key with that challenge. For PIN keys, create the key **without** platform
+   user-verification gating — the PIN is the gate. On iOS pass the digest as `clientDataHash` to `attestKey`; on Android pass it
+   to `setAttestationChallenge`.
+4. Complete the settings flow:
+
+   ```json
+   {
+     "method": "deviceauthn",
+     "add": {
+       "device_name": "My work phone",
+       "version": 1,
+       "pin_protected": true,
+       "transport_public_key": "<base64 of t_pub>",
+       "attestation_ios": "<base64 CBOR attestation>"
+     }
+   }
+   ```
+
+   Android submits `certificate_chain_android` (the attestation chain, leaf first) instead of `attestation_ios`.
+   `user_verification` may be omitted: `pin_protected: true` implies `"pin"`.
+
+5. The server verifies the attestation, recomputes the challenge from the nonce it issued and the submitted
+   `transport_public_key`, assigns the key's `client_key_id`, generates the `pin_secret`, stores it encrypted, and returns it —
+   exactly once — HPKE-sealed in the response's `continue_with`:
+
+   ```json
+   {
+     "continue_with": [
+       {
+         "action": "show_pin_entry_ui",
+         "data": {
+           "enc": "<base64 HPKE encapsulated key>",
+           "ciphertext": "<base64 HPKE-sealed pin_secret>"
+         }
+       }
+     ]
+   }
+   ```
+
+   The HPKE parameters are fixed and non-negotiable: DHKEM(X25519, HKDF-SHA256), HKDF-SHA256, AES-128-GCM, with
+   `info = "ory/deviceauthn/pin-secret/v1"` and the `client_key_id` string as AAD.
+
+6. `client_key_id` is the key's deterministic fingerprint — the lowercase-hex SHA-256 of the device public key in PKIX, ASN.1 DER
+   (SubjectPublicKeyInfo) form. It is **not** included in `continue_with`: derive it locally (trivial on Android) or read it from
+   the updated flow's `deviceauthn_remove` node for the new key (see the platform guides).
+7. The client opens the sealed secret with `t_priv`, captures the user's PIN, seals the secret per the
+   [client requirements](#client-implementation-requirements), and destroys the transport keypair. The key is immediately usable
+   (`confirmed`).
+
+<Mermaid
+  chart={`
+sequenceDiagram
+    participant App
+    participant H as Device hardware
+    participant S as Ory
+    App->>S: POST /self-service/settings/api
+    S-->>App: settings flow {deviceauthn_nonce}
+    App->>App: generate transport keypair (t_priv, t_pub)
+    App->>H: create + attest signing key<br/>challenge = SHA256(nonce ‖ t_pub)
+    H-->>App: attestation
+    App->>S: POST /self-service/settings?flow=… {add: {pin_protected, transport_public_key, attestation}}
+    Note over S: verify attestation, recompute challenge,<br/>assign client_key_id, mint pin_secret,<br/>store encrypted
+    S-->>App: 200 + continue_with {enc, ciphertext} — one-time
+    App->>App: pin_secret = HPKE.Open(t_priv, enc, ciphertext)<br/>AAD = client_key_id
+    App->>App: capture PIN, seal secret, wipe PIN + t_priv
+`}
+/>
+
+### Biometric enrollment
+
+Same settings flow, three differences: the challenge is the **bare nonce**; the signing key is created **with** platform
+user-verification gating (`setUserAuthenticationRequired` on Android, `.biometryCurrentSet` access control on iOS); and the
+payload declares `"user_verification": "platform"` with no `pin_protected` and no `transport_public_key`. There is no secret and
+no `continue_with`. On Android the server cross-checks the declaration against the attestation; on iOS it is trusted at enrollment
+(which is why first-factor use is opt-in there).
 
 ### Proof of device enrollment
 
@@ -177,6 +377,86 @@ sequenceDiagram
 `}
 />
 
+### First-factor login
+
+Requires `first_factor: true`. The client creates a native login flow and submits:
+
+```json
+{
+  "method": "deviceauthn",
+  "client_key_id": "<the key's fingerprint>",
+  "signature": "<base64>",
+  "pin_proof": "<base64, PIN keys only>"
+}
+```
+
+- `signature` — the device key over the raw nonce. Android: an ASN.1/DER ECDSA signature over the SHA-256 of the nonce
+  (`Signature("SHA256withECDSA")` fed the nonce bytes). iOS: the CBOR App Attest assertion from
+  `generateAssertion(keyId, clientDataHash: nonce)`.
+- `pin_proof` — PIN keys only:
+
+  ```text
+  pin_proof = HMAC-SHA256(key: pin_secret,
+                          msg: "ory/deviceauthn/pin-proof/v1" ‖ client_key_id ‖ nonce)
+  ```
+
+  The domain string and `client_key_id` as UTF-8 bytes, the nonce raw, concatenated without separators.
+
+The server resolves the identity from `client_key_id`, verifies the signature, and — for PIN keys — verifies the proof. Success
+grants an AAL2 session in this single submission.
+
+Every rejection (unknown key, ineligible key, bad signature, wrong PIN, locked key) returns the same error, so enrollment status
+can't be probed. The lockout counter moves only on a valid signature with a wrong proof — the combination that proves the physical
+device made a wrong-PIN attempt. At the limit the key state becomes `locked` and the stored secret is destroyed. A correct proof
+resets the counter.
+
+<Mermaid
+  chart={`
+sequenceDiagram
+    participant App
+    participant H as Device hardware
+    participant S as Ory
+    App->>S: POST /self-service/login/api
+    S-->>App: login flow {deviceauthn_nonce}
+    App->>App: unseal pin_secret with entered PIN<br/>(wrong PIN → garbage, no local error)
+    App->>H: sign nonce with device key
+    H-->>App: signature
+    App->>S: POST /self-service/login?flow=… {client_key_id, signature, pin_proof}
+    Note over S: resolve identity, verify signature,<br/>verify proof, count failures
+    S-->>App: 200 {session_token, aal2}
+`}
+/>
+
+### Step-up with a PIN key
+
+At AAL2 step-up, a PIN key must send `pin_proof` alongside the signature — the device signature alone does not bypass the PIN. A
+`pin_proof` submitted for a non-PIN key is rejected as a downgrade attempt. Biometric and `none` keys step up with the signature
+alone, as described in [Proof of device enrollment](#proof-of-device-enrollment).
+
+### Rotating the PIN secret
+
+Re-issues a fresh `pin_secret` for an existing PIN key — the recovery path for a forgotten PIN or a locked key. The device signing
+key is unchanged; no re-attestation happens. Runs in a settings flow under a privileged session and additionally requires proof of
+possession of the enrolled key:
+
+```json
+{
+  "method": "deviceauthn",
+  "rotate_secret": {
+    "client_key_id": "<the key's fingerprint>",
+    "transport_public_key": "<base64 of a fresh t_pub>",
+    "signature": "<base64>"
+  }
+}
+```
+
+- `signature` covers the challenge `nonce ‖ t_pub` — the raw 64-byte concatenation of the settings-flow nonce and the fresh
+  transport public key, **not hashed by the caller**. Android signs it with `SHA256withECDSA` as usual; iOS passes it as
+  `clientDataHash` to `generateAssertion`. This binding ensures a session-level attacker cannot rotate the secret to a transport
+  key they control.
+- Only PIN keys can be rotated.
+- Effects: fresh secret (delivered via the same one-time `continue_with`), failure counter reset, `locked` state cleared.
+
 ### Key Revocation
 
 - The user can revoke a key themselves (e.g. because the device is stolen, lost, broken, etc) using the settings flow. This action
@@ -197,6 +477,95 @@ The settings flow contains all keys for the identity. This is used to present th
   - When the app is uninstalled or when the phone is reset, the mobile OSes automatically remove all keys for the app. This means
     that if the device was enrolled, the public key subsists server-side but the private key does not exist anymore, so no one can
     sign any challenge for this public key. This database entry is thus useless, but poses no security risks.
+
+## Client implementation requirements
+
+The security of the PIN path depends on the client following this recipe exactly. Each rule exists to preserve one invariant:
+**the server's rate-limited proof check is the only place a PIN guess can be tested.**
+
+### Sealing the secret
+
+After opening the one-time `pin_secret`:
+
+1. Derive a key from the PIN: `pinKey = Argon2id(PIN, salt)` with a **fresh random salt**.
+2. Inner layer: encrypt the secret with **unauthenticated AES-CTR** under `pinKey`, with a **fresh random IV**. CTR is deliberate:
+   a wrong PIN yields plausible garbage, never a locally detectable failure.
+3. Outer layer: seal the result under a **non-exportable hardware key** created without user-verification gating — an AES-256-GCM
+   Android Keystore key (StrongBox where available), or an iOS Secure Enclave P-256 key used via ECIES.
+4. Store the sealed blob together with the salt, KDF parameters, IV, a format version, and the key alias. On iOS use the Keychain
+   with `kSecAttrAccessibleWhenUnlockedThisDeviceOnly` (never `UserDefaults`), so uninstalling the app purges it. Android Keystore
+   keys are purged on uninstall automatically.
+5. Wipe the PIN, `pinKey`, `pin_secret`, and the transport private key from memory.
+
+### Hard rules
+
+- **Hardware sealing key or refuse.** If no StrongBox/TEE/Secure Enclave key is available, refuse PIN enrollment. Never fall back
+  to a software key — the offline-guessing resistance rests entirely on this.
+- **No local PIN-correctness signal.** Never wrap the secret in anything that reveals whether a PIN guess was right: no MAC or
+  AEAD tag on the inner layer, no checksum, magic bytes, length or format marker, and no "did it decrypt sensibly" heuristics. Any
+  such artifact is an offline PIN-testing oracle.
+- **Fresh salt and IV on every seal** — at enrollment, on PIN change, and after secret rotation. Reusing either leaks the secret
+  through CTR keystream reuse.
+- **Zeroize.** Fresh PIN entry for every authentication; never cache the PIN, `pinKey`, or `pin_secret`. Hold them in mutable byte
+  buffers (`ByteArray`, `[UInt8]`, `Data`) — never in immutable strings — and overwrite with zeros after use.
+- **Require an unlocked device.** Create the sealing key so it is usable only while the device is unlocked
+  (`setUnlockedDeviceRequired(true)` on Android; `kSecAttrAccessibleWhenUnlockedThisDeviceOnly` on iOS).
+- **Separate keys.** The signing key and the sealing key are distinct hardware keys; the transport key is ephemeral and destroyed
+  after enrollment.
+
+### PIN policy
+
+The server never sees the PIN, so PIN policy is enforced by your app, not by Ory: require at least 6 digits (recommended; 4 is the
+absolute floor) and reject common values (repeated or sequential digits, `123456`, birthdate shapes). Server-side lockout bounds
+the damage of a weak PIN; it does not make weak PINs safe.
+
+### Argon2id calibration
+
+Mobile hardware varies widely. Ship pre-tuned parameter tiers, benchmark once on first launch to pick a tier, and store the chosen
+parameters with the sealed blob so unsealing always uses the enrollment-time values. As a starting point: 64 MiB memory, 3
+iterations, parallelism 4.
+
+### Error routing
+
+| Symptom                                          | Meaning                      | Action                                  |
+| ------------------------------------------------ | ---------------------------- | --------------------------------------- |
+| Server rejects login; local unseal succeeded     | Wrong PIN (or key locked)    | Let the user retry; count local retries |
+| Repeated rejections despite correct-looking PIN  | Key locked server-side       | Recover: fallback login + rotate secret |
+| Outer unseal fails / sealing key or blob missing | Local state lost (reinstall) | Re-enroll the key                       |
+
+Never present a failed outer unseal as "wrong PIN" — it is structural and retrying cannot fix it.
+
+## Recovery and lockout
+
+| Situation                                        | Path                                                                                                                         |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| User wants to change the PIN (knows it)          | Client-only: unseal with the old PIN, re-seal with the new one (fresh salt and IV). No server call.                          |
+| PIN forgotten, or sealed secret lost (reinstall) | Log in with another method, then [rotate the secret](#rotating-the-pin-secret). The device key and its attestation are kept. |
+| Key locked after too many wrong PINs             | Same: another login method, then rotate (clears the lock) — or delete and re-enroll the key.                                 |
+| Device lost or stolen                            | Delete the key from a session on another device, or via the admin identity APIs.                                             |
+
+A locked key is refused for both first-factor login and step-up. Locking destroys the stored secret, so a lock can never be
+silently undone — recovery always issues a fresh secret. Consider notifying users whenever a key is enrolled or its secret
+rotated, and delaying sensitive operations after either event.
+
+## Troubleshooting
+
+- **`Unable to validate the key attestation: wrong challenge` at PIN enrollment** — the attestation was created over the bare
+  nonce. PIN enrollment binds the transport key: use `SHA256(nonce ‖ transport_public_key)` as the challenge. The bare nonce is
+  correct only for second-factor device binding and biometric enrollment.
+- **`The rotation signature is invalid.`** — the rotation signature must cover the raw concatenation
+  `nonce ‖ transport_public_key` (64 bytes, not hashed by the caller, transport key generated fresh for this rotation).
+- **Login always fails with the same generic error** — by design the server returns one identical error for an unknown key, a bad
+  signature, a wrong PIN, and a locked key. Track wrong-PIN retries locally; after `pin_max_attempts` consecutive failures assume
+  the key is locked and offer recovery.
+- **Keys enrolled before user verification existed** — legacy keys cannot log in and must be re-enrolled.
+- **Relaxed-attestation keys stop working** — keys enrolled with relaxed attestation expire after 30 days and are refused as soon
+  as the setting is turned off. See [relaxed attestation](#relaxed-attestation-for-testing).
+
+## Security
+
+This section covers the cryptographic design, the second-factor attack surface, and the security model of the PIN and biometric
+first factor.
 
 ### Cryptography
 
@@ -317,16 +686,35 @@ The security of this design relies on a chain of trust anchored in hardware and 
       the identity is detected from the session token, an attacker cannot tamper with the identity id (unless they steal the
       session token, at which point they _are_ the user, from the server perspective).
 
-### Comparison with WebAuthn and Passkeys
+### Security model for PIN and biometric first factor
+
+| Attacker has                                         | Outcome                                                                                                                                       |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Stolen, locked device                                | The sealing key requires an unlocked device; the sealed secret is hardware-bound and PIN guesses can't be tested.                             |
+| Exfiltrated backup or sealed blob                    | Opaque — the outer layer is sealed by a non-exportable hardware key that never leaves the original device.                                    |
+| Code execution on the unlocked device                | Can unseal, but a wrong PIN yields garbage; the only oracle is the server, which locks the key after `pin_max_attempts` attempts (default 5). |
+| Ory database dump (even with the encryption secrets) | The `pin_secret` — but login still requires the device's hardware key, and the PIN itself is not derivable.                                   |
+| TLS-terminating intermediary, request logs           | Only HPKE ciphertext of the one-time secret delivery; the PIN never transits at all.                                                          |
+
+Stated limitations:
+
+- On iOS, biometric gating of a `platform` key cannot be proven by App Attest — it is trusted at enrollment. This is why iOS
+  biometric-only first factor is an explicit opt-in (`ios_biometric_first_factor`).
+- PIN strength cannot be enforced server-side; the server never sees the PIN. Enforce policy in your app and rely on the lockout
+  to bound weak-PIN damage.
+- Locking a key destroys its secret. An attacker with deep device compromise can deliberately burn the attempt budget to force a
+  recovery; recovery paths require a different login method.
+
+## Comparison with WebAuthn and Passkeys
 
 It is useful to compare this custom implementation with the FIDO WebAuthn standard and the user-facing concept of Passkeys. While
 they share core cryptographic principles, their goals and scope are fundamentally different.
 
-#### Similarities
+### Similarities
 
 - Core Cryptography: Both approaches are built on public-key cryptography (typically ECDSA), and use a challenge-response protocol
 
-#### Key Differences
+### Key Differences
 
 - Standard vs. proprietary:
   - WebAuthn/passkeys: An open, interoperable standard from the W3C and FIDO Alliance, designed to work across different websites,
@@ -348,7 +736,7 @@ they share core cryptographic principles, their goals and scope are fundamentall
   - This design: Attestation is mandatory and central to the entire security model. The main purpose of the enrollment ceremony is
     for the server to validate the device's hardware and software integrity.
 
-### Further reading
+## Further reading
 
 - [Android](https://developer.android.com/privacy-and-security/security-key-attestation)
 - iOS/iPadOS: [1](https://developer.apple.com/documentation/devicecheck/validating-apps-that-connect-to-your-server) and

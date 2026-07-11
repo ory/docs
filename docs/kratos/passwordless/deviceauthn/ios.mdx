@@ -12,6 +12,25 @@ This means that the emulator cannot be used.
 Since Device Binding only is supported on native devices (not in the browser), all corresponding API calls should be done using
 the endpoints for native apps, to avoid having to pass cookies around manually.
 
+## Prerequisites
+
+The [second-factor guide](#second-factor-device-binding) below runs on a real device (App Attest and the Secure Enclave are
+unavailable in the simulator, so device binding cannot run there) with iOS 14 or newer. The first-factor PIN path has the same
+base requirements and additionally needs:
+
+- The App Attest entitlement `com.apple.developer.devicecheck.appattest-environment` set to `production` in your app's
+  entitlements.
+- HPKE for the one-time transport channel: use `HPKE` from CryptoKit on iOS 17+, or the
+  [swift-crypto](https://github.com/apple/swift-crypto) package on iOS 14–16. Do **not** use `SecKey` ECIES for transport — the
+  wire contract fixes the HPKE suite to DHKEM(X25519, HKDF-SHA256) / HKDF-SHA256 / AES-128-GCM, which `SecKey` cannot produce.
+- [swift-sodium](https://github.com/jedisct1/swift-sodium) for Argon2id (`Sodium().pwHash`).
+- CommonCrypto for the unauthenticated AES-CTR inner layer.
+
+The Secure Enclave sealing key uses `SecKey` ECIES (`SecKeyCreateEncryptedData`) — this is separate from transport, and there it
+is the correct API.
+
+## Second-factor device binding
+
 1. Ensure that the `DeviceAuthn` strategy is enabled in the Kratos configuration. This strategy implements the settings and login
    flow. This is done so:
    ```yaml
@@ -30,7 +49,7 @@ the endpoints for native apps, to avoid having to pass cookies around manually.
    and a fallback should be found, for example using passkeys.
 1. This guide covers the second-factor setup: the UI should only show existing Device Binding keys and related buttons (e.g. to
    add a key) if the user is currently logged in. This can be confirmed with a `whoami` call. For first-factor PIN or biometric
-   login, see [Device authentication with PIN and biometrics](pin.mdx).
+   login, see [First factor with PIN](#first-factor-with-pin).
 1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
    response contains the list of existing Device Binding keys.
 1. To delete an existing key,
@@ -285,3 +304,313 @@ public class OryApi {
     }
 }
 ```
+
+## First factor with PIN
+
+:::warning
+
+The first-factor signing key is attested over `SHA256(nonce ‖ transport_public_key)`, **not** the bare nonce used by the
+second-factor guide above. Using the bare nonce here fails with `Unable to validate the key attestation: wrong challenge`.
+
+:::
+
+This section implements PIN enrollment, first-factor login, PIN change, and secret rotation on iOS. It builds on the App Attest
+signing key from the [second-factor guide](#second-factor-device-binding) above and adds the transport, sealing, and PIN layers.
+Read it together with [Client implementation requirements](index.mdx#client-implementation-requirements) — the comments in the
+code below are normative and restate those rules inline.
+
+### Reference implementation
+
+This listing is one complete recipe: nonce decoding, the enrollment and rotation ceremony (transport key, attestation, sealed
+secret), the PIN vault (Secure Enclave sealing key, Argon2id, AES-CTR, seal and unseal), the PIN proof, and first-factor login.
+The `SettingsFlow` and `UpdateLoginFlowWithDeviceAuthnMethod` types are Ory Swift SDK models.
+
+```swift
+import CommonCrypto
+import CryptoKit
+import DeviceCheck
+import Foundation
+import Sodium
+
+enum DeviceAuthnPinError: Error {
+    case attestationUnsupported
+    case secureEnclaveUnavailable // never fall back to software — refuse PIN enrollment
+    case kdfFailed
+    case localStateMissing // sealed blob or sealing key gone → re-enroll, not "wrong PIN"
+}
+
+/// Decodes the value of the flow's hidden `deviceauthn_nonce` UI node:
+/// base64(JSON {"nonce": "<base64 of 32 raw bytes>"}) → raw nonce bytes.
+func decodeNonce(nodeValue: String) -> Data? {
+    guard let json = Data(base64Encoded: nodeValue),
+        let obj = try? JSONSerialization.jsonObject(with: json) as? [String: String],
+        let nonceB64 = obj["nonce"]
+    else { return nil }
+    return Data(base64Encoded: nonceB64)
+}
+
+/// One PIN enrollment (or secret rotation) ceremony. Holds the ephemeral HPKE
+/// transport keypair; create a fresh instance per ceremony and let it go out of
+/// scope afterwards — the transport key must never be reused or persisted.
+final class PinCeremony {
+    private let transportPrivateKey = Curve25519.KeyAgreement.PrivateKey()
+    private(set) var appAttestKeyId: String?
+
+    /// Raw 32 bytes for the `transport_public_key` payload field (base64-encode it).
+    var transportPublicKey: Data { transportPrivateKey.publicKey.rawRepresentation }
+
+    /// Creates and attests the device signing key for a PIN enrollment.
+    /// The challenge binds the transport key: SHA256(nonce ‖ t_pub) — NOT the
+    /// bare nonce (the bare nonce is the second-factor device-binding form).
+    func createPinAttestation(nonce: Data) async throws -> Data {
+        let service = DCAppAttestService.shared
+        guard service.isSupported else { throw DeviceAuthnPinError.attestationUnsupported }
+        let keyId = try await service.generateKey()
+        appAttestKeyId = keyId
+        let challenge = Data(SHA256.hash(data: nonce + transportPublicKey))
+        return try await service.attestKey(keyId, clientDataHash: challenge)
+    }
+
+    /// Signs the rotate-secret challenge with an existing key: the raw
+    /// concatenation nonce ‖ t_pub, NOT pre-hashed.
+    func signRotationChallenge(nonce: Data, appAttestKeyId: String) async throws -> Data {
+        try await DCAppAttestService.shared.generateAssertion(
+            appAttestKeyId, clientDataHash: nonce + transportPublicKey)
+    }
+
+    /// Opens the one-time sealed secret from the response's continue_with item
+    /// {"action": "show_pin_entry_ui", "data": {"enc", "ciphertext"}}.
+    /// Suite (fixed): DHKEM(X25519, HKDF-SHA256) / HKDF-SHA256 / AES-128-GCM.
+    /// AAD is the client_key_id string.
+    func openSealedSecret(enc: Data, ciphertext: Data, clientKeyId: String) throws -> Data {
+        var recipient = try HPKE.Recipient(
+            privateKey: transportPrivateKey,
+            ciphersuite: .Curve25519_SHA256_AES_GCM_128,
+            info: Data("ory/deviceauthn/pin-secret/v1".utf8),
+            encapsulatedKey: enc
+        )
+        return try recipient.open(ciphertext, authenticating: Data(clientKeyId.utf8))
+    }
+}
+
+/// Reads the new key's client_key_id from the updated settings flow: the
+/// deviceauthn_remove node whose meta context has the newest created_at.
+/// (client_key_id is the lowercase-hex SHA-256 of the device public key in
+/// SubjectPublicKeyInfo DER form — the server derives it, and it is NOT part
+/// of continue_with.)
+func clientKeyId(fromUpdatedFlow flow: SettingsFlow) -> String? {
+    flow.ui.nodes
+        .filter { $0.group == "deviceauthn" && $0.attributes.name == "deviceauthn_remove" }
+        .compactMap { node -> (String, String)? in
+            guard let value = node.attributes.value,
+                let createdAt = node.meta.label?.context?["created_at"] as? String
+            else { return nil }
+            return (value, createdAt)
+        }
+        .max { $0.1 < $1.1 }?.0
+}
+
+/// The local artifacts persisted after sealing. Store in the Keychain with
+/// kSecAttrAccessibleWhenUnlockedThisDeviceOnly — never in UserDefaults — so
+/// deleting the app purges them. None of these are secret on their own.
+struct PinArtifacts: Codable {
+    let version: Int // format version of this recipe
+    let clientKeyId: String
+    let appAttestKeyId: String
+    let salt: Data // Argon2id salt — fresh on EVERY seal
+    let iv: Data // AES-CTR IV — fresh on EVERY seal
+    let opsLimit: Int // Argon2id parameters chosen at enrollment
+    let memLimit: Int
+    let sealingKeyTag: String
+    let sealed: Data // ECIES(SE key, AES-CTR(pinKey, pin_secret))
+}
+
+enum PinVault {
+    /// Creates the Secure Enclave sealing key. Fails closed: if the Secure
+    /// Enclave is unavailable, PIN enrollment must be refused — never use a
+    /// software key. No .userPresence/.biometryCurrentSet flag: the PIN is the
+    /// gate, the key must not prompt.
+    static func createSealingKey(tag: String) throws -> SecKey {
+        let access = SecAccessControlCreateWithFlags(
+            nil,
+            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+            [.privateKeyUsage],
+            nil
+        )!
+        let attributes: [String: Any] = [
+            kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
+            kSecAttrKeySizeInBits as String: 256,
+            kSecAttrTokenID as String: kSecAttrTokenIDSecureEnclave,
+            kSecPrivateKeyAttrs as String: [
+                kSecAttrIsPermanent as String: true,
+                kSecAttrApplicationTag as String: Data(tag.utf8),
+                kSecAttrAccessControl as String: access,
+            ],
+        ]
+        var error: Unmanaged<CFError>?
+        guard let key = SecKeyCreateRandomKey(attributes as CFDictionary, &error) else {
+            throw DeviceAuthnPinError.secureEnclaveUnavailable
+        }
+        return key
+    }
+
+    static func argon2id(pin: [UInt8], salt: [UInt8], opsLimit: Int, memLimit: Int) throws -> [UInt8] {
+        guard
+            let key = Sodium().pwHash.hash(
+                outputLength: 32, passwd: pin, salt: salt,
+                opsLimit: opsLimit, memLimit: memLimit, alg: .Argon2ID13)
+        else { throw DeviceAuthnPinError.kdfFailed }
+        return key
+    }
+
+    /// Unauthenticated AES-CTR — encrypt and decrypt are the same operation.
+    /// Deliberately no MAC, checksum, or format marker: a wrong PIN must yield
+    /// plausible garbage, never a locally detectable failure.
+    static func aesCtr(key: [UInt8], iv: [UInt8], data: [UInt8]) -> [UInt8] {
+        var cryptor: CCCryptorRef?
+        CCCryptorCreateWithMode(
+            CCOperation(kCCEncrypt), CCMode(kCCModeCTR), CCAlgorithm(kCCAlgorithmAES128),
+            CCPadding(ccNoPadding), iv, key, key.count, nil, 0, 0, 0, &cryptor)
+        defer { CCCryptorRelease(cryptor) }
+        var out = [UInt8](repeating: 0, count: data.count)
+        var moved = 0
+        CCCryptorUpdate(cryptor, data, data.count, &out, out.count, &moved)
+        return out
+    }
+
+    /// Seals pin_secret under the PIN. Generates a FRESH salt and IV — reusing
+    /// either across seals leaks the secret via CTR keystream reuse.
+    static func seal(
+        pinSecret: inout [UInt8], pin: inout [UInt8], sealingKey: SecKey,
+        clientKeyId: String, appAttestKeyId: String, sealingKeyTag: String,
+        opsLimit: Int, memLimit: Int
+    ) throws -> PinArtifacts {
+        defer {
+            // Zeroize: the PIN and the secret must not outlive the ceremony.
+            for i in pinSecret.indices { pinSecret[i] = 0 }
+            for i in pin.indices { pin[i] = 0 }
+        }
+        var salt = [UInt8](repeating: 0, count: 16)
+        _ = SecRandomCopyBytes(kSecRandomDefault, salt.count, &salt)
+        var iv = [UInt8](repeating: 0, count: 16)
+        _ = SecRandomCopyBytes(kSecRandomDefault, iv.count, &iv)
+
+        var pinKey = try argon2id(pin: pin, salt: salt, opsLimit: opsLimit, memLimit: memLimit)
+        defer { for i in pinKey.indices { pinKey[i] = 0 } }
+        let inner = aesCtr(key: pinKey, iv: iv, data: pinSecret)
+
+        let publicKey = SecKeyCopyPublicKey(sealingKey)!
+        var error: Unmanaged<CFError>?
+        guard
+            let sealed = SecKeyCreateEncryptedData(
+                publicKey, .eciesEncryptionCofactorVariableIVX963SHA256AESGCM,
+                Data(inner) as CFData, &error) as Data?
+        else { throw DeviceAuthnPinError.secureEnclaveUnavailable }
+
+        return PinArtifacts(
+            version: 1, clientKeyId: clientKeyId, appAttestKeyId: appAttestKeyId,
+            salt: Data(salt), iv: Data(iv), opsLimit: opsLimit, memLimit: memLimit,
+            sealingKeyTag: sealingKeyTag, sealed: sealed)
+    }
+
+    /// Unseals with the entered PIN. ALWAYS returns 32 bytes: a wrong PIN
+    /// yields garbage that only the server can falsify. A failure here is
+    /// structural (missing key/blob) and must route to re-enrollment.
+    static func unseal(artifacts: PinArtifacts, pin: inout [UInt8], sealingKey: SecKey) throws -> [UInt8] {
+        defer { for i in pin.indices { pin[i] = 0 } }
+        var error: Unmanaged<CFError>?
+        guard
+            let inner = SecKeyCreateDecryptedData(
+                sealingKey, .eciesEncryptionCofactorVariableIVX963SHA256AESGCM,
+                artifacts.sealed as CFData, &error) as Data?
+        else { throw DeviceAuthnPinError.localStateMissing }
+        var pinKey = try argon2id(
+            pin: pin, salt: [UInt8](artifacts.salt),
+            opsLimit: artifacts.opsLimit, memLimit: artifacts.memLimit)
+        defer { for i in pinKey.indices { pinKey[i] = 0 } }
+        return aesCtr(key: pinKey, iv: [UInt8](artifacts.iv), data: [UInt8](inner))
+    }
+}
+
+/// pin_proof = HMAC-SHA256(pin_secret, "ory/deviceauthn/pin-proof/v1" ‖ client_key_id ‖ nonce).
+func pinProof(pinSecret: [UInt8], clientKeyId: String, nonce: Data) -> Data {
+    var message = Data("ory/deviceauthn/pin-proof/v1".utf8)
+    message.append(Data(clientKeyId.utf8))
+    message.append(nonce)
+    return Data(HMAC<SHA256>.authenticationCode(for: message, using: SymmetricKey(data: pinSecret)))
+}
+
+/// First-factor login with a PIN key.
+func loginWithPin(flowNonce: Data, pin: inout [UInt8], artifacts: PinArtifacts, sealingKey: SecKey)
+    async throws -> UpdateLoginFlowWithDeviceAuthnMethod
+{
+    var pinSecret = try PinVault.unseal(artifacts: artifacts, pin: &pin, sealingKey: sealingKey)
+    defer { for i in pinSecret.indices { pinSecret[i] = 0 } }
+    let proof = pinProof(pinSecret: pinSecret, clientKeyId: artifacts.clientKeyId, nonce: flowNonce)
+    // The login signature covers the RAW nonce (no transport key at login).
+    let assertion = try await DCAppAttestService.shared.generateAssertion(
+        artifacts.appAttestKeyId, clientDataHash: flowNonce)
+    return UpdateLoginFlowWithDeviceAuthnMethod(
+        clientKeyId: artifacts.clientKeyId,
+        method: "deviceauthn",
+        pinProof: proof,
+        signature: assertion
+    )
+}
+```
+
+To wire the enrollment ceremony end to end: decode the flow nonce with `decodeNonce`, create a `PinCeremony`,
+`createPinAttestation`, submit the `add` payload with `transport_public_key` and `attestation_ios` (see
+[PIN enrollment](index.mdx#pin-enrollment)), then `openSealedSecret` on the returned `continue_with`, capture the PIN,
+`PinVault.seal`, and persist the `PinArtifacts`. Let the `PinCeremony` go out of scope so its transport key is destroyed.
+
+## Biometric keys
+
+Biometric (`platform`) keys skip the PIN machinery entirely — no transport key, no sealed secret, no `pin_proof`. The Secure
+Enclave gates the signing key itself and shows the Face ID or Touch ID prompt when the key signs. Three differences from the PIN
+flow:
+
+- The attestation challenge is the **bare nonce**, not `SHA256(nonce ‖ t_pub)`. Pass the raw nonce bytes straight to `attestKey`
+  as `clientDataHash`.
+- Create the signing key with `.biometryCurrentSet` in its access control, and enroll it with `"user_verification": "platform"`
+  and no `pin_protected` or `transport_public_key`.
+- At login, submit only `client_key_id` and `signature` (the assertion over the bare nonce) — omit `pin_proof`.
+
+For the App Attest `generateKey` / `attestKey` / `generateAssertion` scaffolding, reuse the `OryApi` helper from the
+[second-factor guide](#second-factor-device-binding). The PIN listing above calls `DCAppAttestService` directly only to keep the
+challenge computation visible. On iOS, biometric first-factor login also requires the `ios_biometric_first_factor` opt-in — see
+[Configuration](index.mdx#configuration).
+
+## Changing the PIN and rotating the secret
+
+**Changing the PIN is a purely local operation** — no server call. Unseal the secret with the old PIN, then seal it again with the
+new PIN. `PinVault.seal` generates a fresh salt and IV, so the whole stored blob changes, but the `pin_secret`, `client_key_id`,
+and signing key are unchanged. The server never learns that the PIN changed.
+
+```swift
+var oldPin: [UInt8] = /* entered old PIN */
+var pinSecret = try PinVault.unseal(artifacts: artifacts, pin: &oldPin, sealingKey: sealingKey)
+defer { for i in pinSecret.indices { pinSecret[i] = 0 } }
+
+var newPin: [UInt8] = /* entered new PIN */
+let updated = try PinVault.seal(
+    pinSecret: &pinSecret, pin: &newPin, sealingKey: sealingKey,
+    clientKeyId: artifacts.clientKeyId, appAttestKeyId: artifacts.appAttestKeyId,
+    sealingKeyTag: artifacts.sealingKeyTag,
+    opsLimit: artifacts.opsLimit, memLimit: artifacts.memLimit)
+// Persist `updated` in place of the old artifacts.
+```
+
+**Rotating the secret needs the server.** It is the recovery path for a forgotten PIN or a locked key: the server issues a fresh
+`pin_secret` for the same signing key. Start a settings flow under a privileged session, then:
+
+1. Create a fresh `PinCeremony` — a new ephemeral transport key.
+2. Call `signRotationChallenge(nonce:appAttestKeyId:)` with the flow nonce and the key's App Attest key id. It signs the raw
+   `nonce ‖ t_pub` concatenation, unhashed.
+3. Submit the `rotate_secret` payload with `client_key_id`, the fresh `transport_public_key`, and that signature (see
+   [Rotating the PIN secret](index.mdx#rotating-the-pin-secret)).
+4. Open the new secret from the response's `continue_with` with `openSealedSecret`, exactly as at enrollment.
+5. Capture the user's PIN — a new one if they forgot the old — and `PinVault.seal` the new secret with a fresh salt and IV, then
+   replace the stored artifacts.
+
+The signing key and its `client_key_id` never change; only the sealed secret does. Only PIN keys can be rotated.

@@ -95,7 +95,6 @@ const oelSidebar = [
                   "kratos/passwordless/deviceauthn/android",
                   "kratos/passwordless/deviceauthn/ios",
                   "kratos/passwordless/deviceauthn/flutter",
-                  "kratos/passwordless/deviceauthn/pin",
                 ],
               },
               {
