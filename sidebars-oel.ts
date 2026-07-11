@@ -89,16 +89,6 @@ const oelSidebar = [
               "kratos/guides/secret-key-rotation",
               {
                 type: "category",
-                label: "Device authentication",
-                items: [
-                  "kratos/passwordless/deviceauthn/index",
-                  "kratos/passwordless/deviceauthn/android",
-                  "kratos/passwordless/deviceauthn/ios",
-                  "kratos/passwordless/deviceauthn/flutter",
-                ],
-              },
-              {
-                type: "category",
                 label: "Troubleshooting",
                 items: [
                   {
