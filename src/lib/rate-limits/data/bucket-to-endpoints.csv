@@ -108,6 +108,7 @@ GET,/schemas/{id},kratos-admin-medium
 GET,/scim/{name}/v2/Groups/{id},kratos-admin-medium
 GET,/scim/{name}/v2/Schemas/{id},kratos-admin-medium
 GET,/scim/{name}/v2/Users/{id},kratos-admin-medium
+POST,/csp-report,kratos-public-high
 GET,/.well-known/change-password,kratos-public-high
 GET,/self-service/errors,kratos-public-high
 GET,/self-service/fed-cm/parameters,kratos-public-high

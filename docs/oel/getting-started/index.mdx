@@ -1,67 +1,146 @@
 ---
 title: Introduction to Ory Enterprise License
+sidebar_label: Introduction to Ory Enterprise License
+toc_max_heading_level: 3
+description:
+  The Ory Enterprise License (OEL) is the self-hosted, commercially supported deployment of Ory — optimized builds of Ory's open
+  source software with enterprise features, SLAs, and CVE patching for production and mission-critical environments.
 ---
 
-The Ory Enterprise License (OEL) is a commercial license designed for businesses and organizations that rely on Ory's open-source
-identity and access control software (Ory Hydra, Ory Kratos, Ory Keto, Ory Oathkeeper, and Ory Polis) in production and
-mission-critical environments. It grants access to enterprise-grade features, dedicated support, and builds optimized for
-stability, security, and scalability.
+# Introduction to Ory Enterprise License
 
-:::info
+The Ory Enterprise License (OEL) is the self-hosted, commercially supported deployment of Ory: optimized builds of the same open
+source identity and access management (IAM) software, with enterprise features, guaranteed support, and timely security patching.
+You run Ory on your own infrastructure — in your cloud, your private cloud, or an air-gapped environment — and Ory's core
+engineering team backs it with SLAs. OEL gives you the control of self-hosting with the assurance of an enterprise vendor, so you
+can run Ory in production and mission-critical environments with confidence.
 
-Interested in the Ory Enterprise License?  
-[Contact us to discuss your requirements.](https://www.ory.com/contact)
+OpenAI runs Ory Hydra (OEL) to manage authentication for its hundreds of millions of weekly active users — read the
+[OpenAI case study](https://www.ory.com/case-studies/openai). DataRobot runs Ory Hydra (OEL) to secure service-to-service
+authentication, cutting new-service integration from weeks to minutes — read the
+[DataRobot case study](https://www.ory.com/case-studies/datarobot).
 
-:::
+[Talk to an expert](https://www.ory.com/contact) to discuss your requirements, or read the
+[OEL product brief](https://www.ory.com/resources/assets/ory-enterprise-license-product-brief) to compare OEL with Ory Open
+Source.
 
-## When to use the Ory Enterprise License
+## Why Ory Enterprise License
 
-You should consider the Ory Enterprise License if your organization
+OEL builds share the same familiar patterns as the open source software, with significant advantages for organizations running Ory
+at scale:
 
-- operates Ory solutions in critical production environments where downtime is unacceptable.
-- requires timely patches and updates for security vulnerabilities (CVEs) within specific timeframes.
-- needs dedicated support from Ory's core engineering team with guaranteed response times (SLAs) for incident resolution.
-- handles high-traffic volumes and large datasets (100GBs scale) requiring optimized database performance and zero-downtime
+- **Self-hosted control** — Run Ory entirely within your own infrastructure for full control over data residency, networking, and
+  deployment topology, including certified, regulated, and air-gapped environments.
+- **Dedicated support and SLAs** — Get 24/7 access to Ory's core engineering team with guaranteed response times based on incident
+  priority, so critical production issues are resolved quickly.
+- **Frequent, tested releases** — Ory ships enterprise builds frequently, with the latest dependencies and timely patches for
+  known CVEs in Go, third-party libraries, and other components. (Community-only updates can lag and are not tested at the same
+  scale.)
+- **Drop-in replacement** — OEL builds are direct replacements for open source installations. Moving from Ory Open Source requires
+  no special configuration or complex migration path.
+- **Zero-downtime migrations** — OEL builds support zero-downtime upgrades, and the optimized CockroachDB integration adds
+  zero-downtime schema migrations using CockroachDB's online schema changes.
+- **Multi-region deployments** — With CockroachDB, OEL supports true multi-region resilience for high availability and disaster
+  recovery, data domiciling for GDPR, CCPA, and similar regulations, and lower latency for globally distributed users.
+- **Unlocked enterprise features** — OEL activates functionality not available in the open source builds, such as B2B
+  organizations and multi-tenancy in Ory Kratos and the OAuth 2.0 Resource Owner Password Credentials (ROPC) grant in Ory Hydra.
+
+## When to choose OEL
+
+Consider the Ory Enterprise License if your organization:
+
+- Runs Ory in critical production environments where downtime is unacceptable.
+- Needs CVE patches and security updates within guaranteed timeframes.
+- Requires dedicated support with contractual response-time SLAs.
+- Handles high traffic and large datasets (100 GB scale) that benefit from optimized database performance and zero-downtime
   migrations.
-- needs enterprise-specific functionalities not available in the open-source versions, such as the OAuth2 Resource Owner Password
-  Credentials (ROPC) grant in Ory Hydra or multi-tenancy/organizations features in Ory Kratos.
-- requires advanced deployment patterns like multi-region for high availability, disaster recovery, and data domiciling.
+- Needs enterprise-only features such as Ory Kratos multi-tenancy/organizations or the Ory Hydra ROPC grant.
+- Requires advanced deployment patterns like multi-region high availability, disaster recovery, or data domiciling.
 
-In contrast, open-source builds are well-suited for
+Ory Open Source remains a good fit for evaluation, prototyping, development and testing, and deployments where occasional upgrade
+downtime is acceptable and guaranteed CVE patching is not required.
 
-- individuals and researchers exploring Ory's capabilities.
-- development and testing environments.
-- deployments where occasional downtime for upgrades is acceptable and CVE patching is not required.
+## What's included
 
-## Benefits of Ory Enterprise License
+OEL packages Ory's open source servers as optimized, enterprise-grade builds, delivered with the tooling and support you need to
+run them in production. The core services each map to a focused part of the identity and access problem: identity and sessions,
+OAuth2 and OIDC, permissions, enterprise SSO, edge access control, and API key management. Around them, OEL adds the enterprise
+delivery layer:
 
-All Ory Enterprise builds share common advantages over their open-source counterparts:
+- **[Ory Elements](https://www.ory.com/docs/elements)** — An open source component library for integrating your own authentication
+  UI quickly with frameworks like React and Next.js.
+- **[Ory Actions](https://www.ory.com/docs/kratos/hooks/configure-hooks)** — Hooks that extend Ory by running custom business
+  logic and integrating with third-party services such as CRMs, payment gateways, and analytics platforms in response to identity
+  events.
+- **CLIs** — Command-line tools for configuring and operating each self-hosted service.
+- **[SDKs and reference UIs](https://github.com/ory/sdk)** — Client SDKs for popular languages and reference UI implementations
+  for frameworks like React, Next.js, and React Native.
+- **Production Helm charts** — Supported Kubernetes Helm charts for deploying and operating Ory services in your own cluster.
+- **Optimized builds and database integration** — High-performance connection pooling and an enhanced CockroachDB integration for
+  large-scale traffic and datasets.
+- **Enterprise support** — Dedicated channels, onboarding, and SLAs from Ory's engineering team.
 
-- Regular, up-to-date releases: Enterprise builds are released frequently and include the latest dependencies, addressing known
-  CVEs in Golang, third-party libraries, and other components.
-- Dedicated support & SLAs: OEL holders receive dedicated support channels and are covered by Service Level Agreements (SLAs),
-  ensuring qualified responses within defined timeframes based on incident priority.
-- Drop-in replacement: OEL is designed as direct replacements for open-source installations, requiring no special configuration or
-  complex migration paths from existing OSS setups.
-- Unlocked Enterprise features: The OEL activates exclusive functionalities. Specific enterprise features for each Ory service are
-  detailed in their respective documentation sections.
-- Zero-downtime migrations: Unlike open-source versions that require downtime during upgrades, enterprise builds support
-  zero-downtime migrations.
-- Optimized CockroachDB integration: For deployments with large-scale databases and traffic patterns, an enhanced CockroachDB
-  integration is available. This provides not only zero-downtime upgrades but also zero-downtime schema migrations by leveraging
-  CockroachDB's Online schema changes feature.
-- Multi-Region deployments: Enterprise builds, when used with CockroachDB, support multi-region deployments. This enables:
-  - Enhanced high-availability: Go beyond simple Availability Zone (AZ) failover with true multi-region resilience for superior
-    uptime and disaster recovery.
-  - Data domiciling: Comply with data privacy regulations like GDPR, CCPA, and others by keeping data in specific geographic
-    regions while maintaining a global, logical view of all data within a single database.
-  - Lower latency: Improve application performance for globally distributed users by locating data closer to them.
-- Seamless operation: Running, configuring, and using enterprise builds follows the same familiar patterns as the open-source
-  versions.
+### Ory Kratos (Identity & AuthN)
 
-## Use cases
+```mdx-code-block
+import KratosDesc from "@site/src/components/Shared/deploy-intro/kratos-desc.mdx"
 
-The Ory Enterprise License is leveraged by organizations requiring robust and scalable identity infrastructure. For instance,
-OpenAI utilizes the Ory Enterprise License with Ory Hydra Enterprise to manage authentication for its 400 million weekly active
-users, ensuring reliability, massive scale, and uninterrupted service. Read more about
-[OpenAI's use of Ory](https://www.ory.com/case-studies/openai).
+<KratosDesc />
+```
+
+### Ory Hydra (Delegated AuthZ & Federated AuthN)
+
+```mdx-code-block
+import HydraDesc from "@site/src/components/Shared/deploy-intro/hydra-desc.mdx"
+
+<HydraDesc />
+```
+
+### Ory Keto (Fine-grained Permissions)
+
+```mdx-code-block
+import KetoDesc from "@site/src/components/Shared/deploy-intro/keto-desc.mdx"
+
+<KetoDesc />
+```
+
+### Ory Polis (Enterprise SSO AuthZ)
+
+```mdx-code-block
+import PolisDesc from "@site/src/components/Shared/deploy-intro/polis-desc.mdx"
+
+<PolisDesc />
+```
+
+### Ory Oathkeeper (Proxy-based Access Control)
+
+```mdx-code-block
+import OathkeeperDesc from "@site/src/components/Shared/deploy-intro/oathkeeper-desc.mdx"
+
+<OathkeeperDesc />
+```
+
+### Ory Talos (API keys)
+
+```mdx-code-block
+import TalosDesc from "@site/src/components/Shared/deploy-intro/talos-desc.mdx"
+
+<TalosDesc />
+```
+
+## OEL compared to the other deployment models
+
+OEL is one of three ways to run Ory. All three share the same open source core, so you can start with one and move to another as
+your needs change:
+
+```mdx-code-block
+import DeployCompare from "@site/src/components/Shared/deploy-intro/deploy-compare.mdx"
+
+<DeployCompare />
+```
+
+## Next steps
+
+- [Talk to an expert](https://www.ory.com/contact) to discuss requirements and request an OEL license.
+- [Follow a quickstart](../getting-started/overview)
+- [Learn which Ory product to use](../products/products-overview#which-ory-product)

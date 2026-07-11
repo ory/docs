@@ -1,0 +1,15 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "text/plain": {
+        "schema": {
+          "description": "Ory Permission Language Document",
+          "type": "string",
+          "title": "checkOplSyntaxBody"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}

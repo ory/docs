@@ -1,0 +1,34 @@
+{
+  "parameters": [
+    {
+      "description": "Items per Page\n\nThis is the number of items per page to return.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.com/docs/ecosystem/api-design#pagination).",
+      "in": "query",
+      "name": "page_size",
+      "schema": {
+        "default": 250,
+        "format": "int64",
+        "maximum": 1000,
+        "minimum": 1,
+        "type": "integer"
+      }
+    },
+    {
+      "description": "Next Page Token\n\nThe next page token.\nFor details on pagination please head over to the [pagination documentation](https://www.ory.com/docs/ecosystem/api-design#pagination).",
+      "in": "query",
+      "name": "page_token",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "The name of the clients to filter by.",
+      "in": "query",
+      "name": "client_name",
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "The owner of the clients to filter by.",
+      "in": "query",
+      "name": "owner",
+      "schema": { "type": "string" }
+    }
+  ]
+}

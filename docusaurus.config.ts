@@ -8,6 +8,30 @@ import type * as OpenApiPlugin from "docusaurus-plugin-openapi-docs"
 import lightTheme from "./src/utils/prismLight.mjs"
 import darkTheme from "./src/utils/prismDark.mjs"
 import { navbar } from "./src/navbar"
+import postmanGenerators from "postman-code-generators"
+
+const postmanLanguageTabs = postmanGenerators
+  .getLanguageList()
+  .map(
+    (lang: {
+      key: string
+      label: string
+      syntax_mode: string
+      variants: { key: string }[]
+    }) => ({
+      highlight: lang.syntax_mode,
+      language: lang.key,
+      codeSampleLanguage: lang.label,
+      logoClass: lang.key,
+      options: {
+        longFormat: false,
+        followRedirect: true,
+        trimRequestBody: true,
+      },
+      variant: lang.variants[0]?.key,
+      variants: lang.variants.map((v: { key: string }) => v.key),
+    }),
+  )
 const config: Config = {
   customFields: {
     CLOUD_URL: process.env.CLOUD_URL || "https://api.console.ory:8080",
@@ -88,6 +112,34 @@ const config: Config = {
       indexName: "ory",
       contextualSearch: true,
     },
+    languageTabs: [
+      {
+        highlight: "typescript",
+        language: "TypeScript",
+        codeSampleLanguage: "TypeScript",
+        logoClass: "typescript",
+        variant: "fetch",
+        variants: [],
+      },
+      {
+        highlight: "go",
+        language: "go",
+        codeSampleLanguage: "Go",
+        logoClass: "go",
+        variant: "native",
+        variants: [],
+      },
+      {
+        highlight: "python",
+        language: "python",
+        codeSampleLanguage: "Python",
+        logoClass: "python",
+        variant: "requests",
+        variants: [],
+      },
+      // supports TypeScript, Go and Python — drop the rest of the
+      ...postmanLanguageTabs.filter((tab) => tab.language === "curl"),
+    ],
     navbar,
     footer: {
       style: "dark",
@@ -177,6 +229,11 @@ const config: Config = {
         id: "openapi",
         docsPluginId: "default",
         config: {
+          ory: {
+            specPath: "src/static/api.json",
+            outputDir: "docs/reference/openapi",
+            sidebarOptions: { groupPathsBy: "tag" },
+          } satisfies OpenApiPlugin.Options,
           talos: {
             specPath: "docs/talos/reference/api.json",
             outputDir: "docs/talos/reference/api",

@@ -1,0 +1,16 @@
+{
+  "parameters": [
+    {
+      "in": "path",
+      "name": "project",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "in": "path",
+      "name": "member",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

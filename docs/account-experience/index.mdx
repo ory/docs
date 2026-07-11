@@ -14,6 +14,20 @@ The Account Experience can be themed using the Ory Console. Head over to the
 [theming settings](https://console.ory.com/projects/current/account-experience/theming). It is also possible to set a custom logo
 and favicon.
 
+## Legal footer links
+
+The Account Experience can show links to your Terms of Service, Privacy Policy, and Contact pages in the footer of all
+self-service pages. Configure them in <ConsoleLink route="project.accountExperience.theming" /> under **Legal and footer links**:
+
+- **Terms of Service URL** and **Privacy Policy URL** accept `http(s)` URLs.
+- **Contact URL** accepts an `http(s)` URL or a `mailto:` link.
+
+Leave a field empty to hide that link. If no URL is set, the Account Experience doesn't render the footer. All links open in a new
+tab.
+
+The link labels are localized automatically based on the user's language and
+[can be customized per language](#footer-link-labels).
+
 ## Translations (i18n) & Message Customization
 
 The Ory Account Experience is available in 83 languages.
@@ -113,6 +127,24 @@ The source is available in the
 To determine the language to use, the Account Experience uses the `Accept-Language` header. If the language isn't available, the
 fallback language (English) is used. Custom translations are supported as well, use the edit button next to the language to
 override the default translations.
+
+### Footer link labels
+
+The [legal footer links](#legal-footer-links) use these translation keys:
+
+| Key                             | Default (English) |
+| ------------------------------- | ----------------- |
+| `footer.terms_of_service.label` | Terms of Service  |
+| `footer.privacy_policy.label`   | Privacy Policy    |
+| `footer.contact.label`          | Contact           |
+
+Override them like any other message in <ConsoleLink route="project.accountExperience.locales" /> to change a label for a specific
+language. If a language has no override or built-in translation, the English label is used.
+
+A label override can also contain a markdown link, for example `[Nutzungsbedingungen](https://example.com/agb)`. In that case the
+URL from the label replaces the URL configured on the theming page for that language. Use this to point users to a translated
+version of the document. Only `http(s)` and `mailto:` URLs are allowed in markdown links; other URLs render as plain text. The
+corresponding URL must still be set on the theming page — an empty field hides the link for all languages.
 
 ## Custom Domains
 
