@@ -509,7 +509,8 @@ After opening the one-time `pin_secret`:
 - **Zeroize.** Fresh PIN entry for every authentication; never cache the PIN, `pinKey`, or `pin_secret`. Hold them in mutable byte
   buffers (`ByteArray`, `[UInt8]`, `Data`) — never in immutable strings — and overwrite with zeros after use.
 - **Require an unlocked device.** Create the sealing key so it is usable only while the device is unlocked
-  (`setUnlockedDeviceRequired(true)` on Android; `kSecAttrAccessibleWhenUnlockedThisDeviceOnly` on iOS).
+  (`setUnlockedDeviceRequired(true)` on Android — available on API 28+, older levels cannot enforce this gate;
+  `kSecAttrAccessibleWhenUnlockedThisDeviceOnly` on iOS).
 - **Separate keys.** The signing key and the sealing key are distinct hardware keys; the transport key is ephemeral and destroyed
   after enrollment.
 

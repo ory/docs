@@ -336,6 +336,7 @@ enum DeviceAuthnPinError: Error {
     case attestationUnsupported
     case secureEnclaveUnavailable // never fall back to software — refuse PIN enrollment
     case kdfFailed
+    case cryptoFailure // CommonCrypto/SecRandom failure — structural, never PIN-related
     case localStateMissing // sealed blob or sealing key gone → re-enroll, not "wrong PIN"
 }
 
@@ -465,16 +466,24 @@ enum PinVault {
 
     /// Unauthenticated AES-CTR — encrypt and decrypt are the same operation.
     /// Deliberately no MAC, checksum, or format marker: a wrong PIN must yield
-    /// plausible garbage, never a locally detectable failure.
-    static func aesCtr(key: [UInt8], iv: [UInt8], data: [UInt8]) -> [UInt8] {
+    /// plausible garbage, never a locally detectable failure. A thrown error is
+    /// structural — key and IV sizes are fixed, so the status can never depend
+    /// on the PIN — and must not be presented as "wrong PIN".
+    static func aesCtr(key: [UInt8], iv: [UInt8], data: [UInt8]) throws -> [UInt8] {
         var cryptor: CCCryptorRef?
-        CCCryptorCreateWithMode(
+        var status = CCCryptorCreateWithMode(
             CCOperation(kCCEncrypt), CCMode(kCCModeCTR), CCAlgorithm(kCCAlgorithmAES128),
             CCPadding(ccNoPadding), iv, key, key.count, nil, 0, 0, 0, &cryptor)
+        guard status == CCCryptorStatus(kCCSuccess), let cryptor else {
+            throw DeviceAuthnPinError.cryptoFailure
+        }
         defer { CCCryptorRelease(cryptor) }
         var out = [UInt8](repeating: 0, count: data.count)
         var moved = 0
-        CCCryptorUpdate(cryptor, data, data.count, &out, out.count, &moved)
+        status = CCCryptorUpdate(cryptor, data, data.count, &out, out.count, &moved)
+        guard status == CCCryptorStatus(kCCSuccess) else {
+            throw DeviceAuthnPinError.cryptoFailure
+        }
         return out
     }
 
@@ -490,14 +499,17 @@ enum PinVault {
             for i in pinSecret.indices { pinSecret[i] = 0 }
             for i in pin.indices { pin[i] = 0 }
         }
+        // A failed random source must abort the seal: an all-zero salt or IV
+        // would break the fresh-salt-and-IV rule above.
         var salt = [UInt8](repeating: 0, count: 16)
-        _ = SecRandomCopyBytes(kSecRandomDefault, salt.count, &salt)
         var iv = [UInt8](repeating: 0, count: 16)
-        _ = SecRandomCopyBytes(kSecRandomDefault, iv.count, &iv)
+        guard SecRandomCopyBytes(kSecRandomDefault, salt.count, &salt) == errSecSuccess,
+            SecRandomCopyBytes(kSecRandomDefault, iv.count, &iv) == errSecSuccess
+        else { throw DeviceAuthnPinError.cryptoFailure }
 
         var pinKey = try argon2id(pin: pin, salt: salt, opsLimit: opsLimit, memLimit: memLimit)
         defer { for i in pinKey.indices { pinKey[i] = 0 } }
-        let inner = aesCtr(key: pinKey, iv: iv, data: pinSecret)
+        let inner = try aesCtr(key: pinKey, iv: iv, data: pinSecret)
 
         let publicKey = SecKeyCopyPublicKey(sealingKey)!
         var error: Unmanaged<CFError>?
@@ -528,7 +540,7 @@ enum PinVault {
             pin: pin, salt: [UInt8](artifacts.salt),
             opsLimit: artifacts.opsLimit, memLimit: artifacts.memLimit)
         defer { for i in pinKey.indices { pinKey[i] = 0 } }
-        return aesCtr(key: pinKey, iv: [UInt8](artifacts.iv), data: [UInt8](inner))
+        return try aesCtr(key: pinKey, iv: [UInt8](artifacts.iv), data: [UInt8](inner))
     }
 }
 

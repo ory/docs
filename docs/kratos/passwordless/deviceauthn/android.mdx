@@ -116,7 +116,7 @@ additionally needs:
    val spki = keyCertChain.first().publicKey.encoded
    val clientKeyId = MessageDigest.getInstance("SHA-256")
        .digest(spki)
-       .joinToString("") { "%02x".format(it) }
+       .joinToString("") { "%02x".format(it.toInt() and 0xff) }
    ```
 
    Once a key is created, the KeyStore APIs can be used to list all keys, query a key using its alias, etc. However we recommend
@@ -394,7 +394,7 @@ object DeviceAuthnPin {
     /// The flow's hidden deviceauthn_nonce node value:
     /// base64(JSON {"nonce": "<base64 of 32 raw bytes>"}) → raw nonce bytes.
     fun decodeNonce(nodeValue: String): ByteArray {
-        val json = String(Base64.decode(nodeValue, Base64.DEFAULT))
+        val json = String(Base64.decode(nodeValue, Base64.DEFAULT), Charsets.UTF_8)
         return Base64.decode(JSONObject(json).getString("nonce"), Base64.DEFAULT)
     }
 
@@ -409,7 +409,7 @@ object DeviceAuthnPin {
     /// which is exactly PublicKey.getEncoded() on Android.
     fun clientKeyId(signingKeyAlias: String): String =
         sha256(keyStore.getCertificate(signingKeyAlias).publicKey.encoded)
-            .joinToString("") { "%02x".format(it) }
+            .joinToString("") { "%02x".format(it.toInt() and 0xff) }
 
     /// Creates the attested signing key for a PIN enrollment. The challenge
     /// must be SHA256(nonce ‖ t_pub) — NOT the bare nonce (that is the
