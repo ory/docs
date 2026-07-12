@@ -1,25 +1,22 @@
----
-id: passkeys-mobile
-title: Implement passkey authentication in web and mobile applications
-sidebar_label: Passkeys for mobile
-slug: passkeys-mobile-web-implementation
----
-
 ```mdx-code-block
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 ```
 
-This guide covers how to implement passkey authentication in your applications using Ory Kratos or Ory Network. Passkeys provide a
-passwordless authentication experience using WebAuthn across web browsers and mobile platforms.
+This guide covers how to implement passkey authentication in your applications
+using Ory Kratos or Ory Network. Passkeys provide a passwordless authentication
+experience using WebAuthn across web browsers and mobile platforms.
 
-This page assumes you have already configured the passkey method in your Ory configuration. See the
-[Passkeys overview](./05_passkeys.mdx) for initial setup instructions.
+This page assumes you have already configured the passkey method in your Ory
+configuration.
+
+See the <SameDeploymentLink to="kratos/passwordless/passkeys">Passkeys
+overview</SameDeploymentLink> for initial setup instructions.
 
 :::note
 
-Code examples in this guide are illustrative and likely need adjustments based on your specific configuration, identity schema,
-and application requirements.
+Code examples in this guide are illustrative and likely need adjustments based
+on your specific configuration, identity schema, and application requirements.
 
 :::
 
@@ -28,19 +25,23 @@ and application requirements.
 Passkey implementation differs between platforms:
 
 - Web applications use browser-native WebAuthn APIs with JavaScript.
-- Mobile applications use platform-specific credential management APIs (iOS AuthenticationServices, Android CredentialManager)
-  with Ory's JSON API endpoints.
+- Mobile applications use platform-specific credential management APIs (iOS
+  AuthenticationServices, Android CredentialManager) with Ory's JSON API
+  endpoints.
 
 This guide focuses on the integration patterns for each platform.
 
 ## Web implementation
 
-For web applications, you can use the browser's native WebAuthn API to create and authenticate with passkeys.
+For web applications, you can use the browser's native WebAuthn API to create
+and authenticate with passkeys.
 
 ### Using Ory's webauthn.js
 
-Ory provides a `webauthn.js` helper script that simplifies WebAuthn integration in browser flows. When you initialize a
-registration or login flow through the browser, Ory automatically injects the necessary JavaScript to handle passkey operations.
+Ory provides a `webauthn.js` helper script that simplifies WebAuthn integration
+in browser flows. When you initialize a registration or login flow through the
+browser, Ory automatically injects the necessary JavaScript to handle passkey
+operations.
 
 ```html
 <!-- The flow response includes script nodes that handle WebAuthn -->
@@ -54,12 +55,14 @@ The script automatically:
 - Calls `navigator.credentials.get()` for authentication.
 - Submits the WebAuthn response back to Ory.
 
-See [Custom UI Advanced Integration](../bring-your-own-ui/10_custom-ui-advanced-integration.mdx#passwordless-authentication) for
-details on using `webauthn.js` in custom UIs.
+See
+[Custom UI Advanced Integration](/docs/kratos/bring-your-own-ui/custom-ui-advanced-integration#passwordless-authentication)
+for details on using `webauthn.js` in custom UIs.
 
 ### Manual WebAuthn integration
 
-For more control, you can manually integrate the [W3C WebAuthn API](https://www.w3.org/TR/webauthn-2/):
+For more control, you can manually integrate the
+[W3C WebAuthn API](https://www.w3.org/TR/webauthn-2/):
 
 1. Initialize a registration or login flow via Ory's API.
 2. Parse the WebAuthn challenge from the flow response.
@@ -73,23 +76,29 @@ The WebAuthn API is well-documented by the W3C and MDN:
 
 ## Mobile implementation
 
-Mobile passkey implementation requires using platform-specific APIs and Ory's JSON API endpoints. Unlike browser flows, mobile
-apps don't receive the `webauthn.js` script and must handle credential operations manually.
+Mobile passkey implementation requires using platform-specific APIs and Ory's
+JSON API endpoints. Unlike browser flows, mobile apps don't receive the
+`webauthn.js` script and must handle credential operations manually.
 
 ### Platform requirements
 
-Both iOS and Android require configuration to associate your app with your authentication domain.
+Both iOS and Android require configuration to associate your app with your
+authentication domain.
 
 ### iOS Associated Domains
 
-iOS requires an `apple-app-site-association` (AASA) file to create a bidirectional link between your app and your domain. This
-proves that your app and domain are controlled by the same entity.
+iOS requires an `apple-app-site-association` (AASA) file to create a
+bidirectional link between your app and your domain. This proves that your app
+and domain are controlled by the same entity.
 
 #### How iOS association works
 
-1. You add an Associated Domains entitlement to your app: `webcredentials:example.com`
-2. When your app is installed/updated, iOS downloads the AASA file from that domain (via Apple's CDN)
-3. When creating a passkey, iOS verifies the RP ID matches a domain in your entitlements AND the AASA file lists your app
+1. You add an Associated Domains entitlement to your app:
+   `webcredentials:example.com`
+2. When your app is installed/updated, iOS downloads the AASA file from that
+   domain (via Apple's CDN)
+3. When creating a passkey, iOS verifies the RP ID matches a domain in your
+   entitlements AND the AASA file lists your app
 
 #### Add the Associated Domains entitlement
 
@@ -116,12 +125,14 @@ Add the entitlement to your Xcode project. The domain should match your RP ID:
 <string>webcredentials:*.example.com</string>
 ```
 
-This allows your app to work with any subdomain. However, the AASA file must still be served from your RP ID domain.
+This allows your app to work with any subdomain. However, the AASA file must
+still be served from your RP ID domain.
 
 #### Serve the apple-app-site-association file
 
-The AASA file must be hosted at `https://{your-rp-id}/.well-known/apple-app-site-association`. If your RP ID is `example.com`,
-host it at:
+The AASA file must be hosted at
+`https://{your-rp-id}/.well-known/apple-app-site-association`. If your RP ID is
+`example.com`, host it at:
 
 ```
 https://example.com/.well-known/apple-app-site-association
@@ -139,8 +150,10 @@ https://example.com/.well-known/apple-app-site-association
 
 The value format is `{Team_ID}.{Bundle_Identifier}`:
 
-- **Team ID**: Find in [Apple Developer portal](https://developer.apple.com/account) under Membership
-- **Bundle Identifier**: Your app's bundle ID from Xcode (e.g., `com.example.yourapp`)
+- **Team ID**: Find in
+  [Apple Developer portal](https://developer.apple.com/account) under Membership
+- **Bundle Identifier**: Your app's bundle ID from Xcode (e.g.,
+  `com.example.yourapp`)
 
 **File requirements:**
 
@@ -151,8 +164,8 @@ The value format is `{Team_ID}.{Bundle_Identifier}`:
 
 :::warning
 
-Ory Network doesn't host `apple-app-site-association` files automatically. You must host this file on your own domain at the RP ID
-you configured.
+Ory Network doesn't host `apple-app-site-association` files automatically. You
+must host this file on your own domain at the RP ID you configured.
 
 :::
 
@@ -163,8 +176,9 @@ you configured.
 
 ### Android Digital Asset Links
 
-Android uses Digital Asset Links to establish trust between your app and your domain. This verification allows credential sharing
-between your website and app.
+Android uses Digital Asset Links to establish trust between your app and your
+domain. This verification allows credential sharing between your website and
+app.
 
 #### How Android association works
 
@@ -175,11 +189,13 @@ When your app requests passkey operations, Android:
 3. Verifies your app's package name and signing certificate match the file
 4. Grants permission for credential operations if validated
 
-**Important:** Android does **not** support wildcard domains. The `assetlinks.json` file must be hosted at the exact RP ID domain.
+**Important:** Android does **not** support wildcard domains. The
+`assetlinks.json` file must be hosted at the exact RP ID domain.
 
 #### Serve the assetlinks.json file
 
-The file must be hosted at `https://{your-rp-id}/.well-known/assetlinks.json`. If your RP ID is `example.com`, host it at:
+The file must be hosted at `https://{your-rp-id}/.well-known/assetlinks.json`.
+If your RP ID is `example.com`, host it at:
 
 ```
 https://example.com/.well-known/assetlinks.json
@@ -190,7 +206,10 @@ https://example.com/.well-known/assetlinks.json
 ```json
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls", "delegate_permission/common.get_login_creds"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.example.yourapp",
@@ -202,8 +221,8 @@ https://example.com/.well-known/assetlinks.json
 ]
 ```
 
-**Key relation for passkeys:** `delegate_permission/common.get_login_creds` enables credential sharing between your website and
-app.
+**Key relation for passkeys:** `delegate_permission/common.get_login_creds`
+enables credential sharing between your website and app.
 
 #### Generate SHA-256 certificate fingerprint
 
@@ -231,14 +250,15 @@ Copy the SHA-256 fingerprint from the output.
 
 :::warning
 
-Ory Network doesn't host `assetlinks.json` files automatically. You must host this file on your own domain at the RP ID you
-configured.
+Ory Network doesn't host `assetlinks.json` files automatically. You must host
+this file on your own domain at the RP ID you configured.
 
 :::
 
 #### Subdomain handling
 
-Unlike iOS, Android does **not** support wildcard associations. If you need passkeys on multiple subdomains:
+Unlike iOS, Android does **not** support wildcard associations. If you need
+passkeys on multiple subdomains:
 
 1. Use your root domain as the RP ID (recommended)
 2. Host the `assetlinks.json` at the root domain
@@ -250,7 +270,8 @@ Unlike iOS, Android does **not** support wildcard associations. If you need pass
 - `https://login.example.com`
 - `https://app.example.com`
 
-All using the single `assetlinks.json` file at `https://example.com/.well-known/assetlinks.json`.
+All using the single `assetlinks.json` file at
+`https://example.com/.well-known/assetlinks.json`.
 
 #### Validation tools
 
@@ -267,7 +288,8 @@ Test your `assetlinks.json` configuration:
 
 ### iOS implementation
 
-iOS passkey support uses the [AuthenticationServices framework](https://developer.apple.com/documentation/authenticationservices).
+iOS passkey support uses the
+[AuthenticationServices framework](https://developer.apple.com/documentation/authenticationservices).
 Here's how to integrate with Ory's API.
 
 #### Registration flow
@@ -286,7 +308,8 @@ func initializeRegistrationFlow() async throws -> FlowResponse {
 }
 ```
 
-Parse the WebAuthn challenge by extracting the challenge from the `passkey_create_data` node:
+Parse the WebAuthn challenge by extracting the challenge from the
+`passkey_create_data` node:
 
 ```swift
 func extractRegistrationChallenge(_ flow: FlowResponse) -> String? {
@@ -536,8 +559,9 @@ extension Data {
 
 ### Android implementation
 
-Android passkey support uses the [Credential Manager API](https://developer.android.com/training/sign-in/passkeys). The
-integration pattern is similar to iOS.
+Android passkey support uses the
+[Credential Manager API](https://developer.android.com/training/sign-in/passkeys).
+The integration pattern is similar to iOS.
 
 #### Dependencies
 
@@ -785,7 +809,8 @@ On successful authentication, Ory returns a session:
 }
 ```
 
-Store the session token for authenticated requests. On mobile, use secure storage (iOS Keychain, Android Keystore).
+Store the session token for authenticated requests. On mobile, use secure
+storage (iOS Keychain, Android Keystore).
 
 ## Error handling
 
@@ -804,10 +829,12 @@ Store the session token for authenticated requests. On mobile, use secure storag
 }
 ```
 
-This error occurs when there is incorrect Base64URL encoding (using standard Base64 instead), missing required fields in the
-credential response, or malformed JSON in `passkey_register` or `passkey_login` fields.
+This error occurs when there is incorrect Base64URL encoding (using standard
+Base64 instead), missing required fields in the credential response, or
+malformed JSON in `passkey_register` or `passkey_login` fields.
 
-To resolve this, verify your Base64URL encoding and ensure all required WebAuthn response fields are included.
+To resolve this, verify your Base64URL encoding and ensure all required WebAuthn
+response fields are included.
 
 #### Domain mismatch
 
@@ -822,12 +849,16 @@ To resolve this, verify your Base64URL encoding and ensure all required WebAuthn
 }
 ```
 
-This error occurs when the Associated Domains or `assetlinks.json` domain doesn't match Kratos `rp.id`, the AASA or
-`assetlinks.json` file isn't properly served, or the application uses HTTP instead of HTTPS.
+This error occurs when the Associated Domains or `assetlinks.json` domain
+doesn't match Kratos `rp.id`, the AASA or `assetlinks.json` file isn't properly
+served, or the application uses HTTP instead of HTTPS.
 
-To resolve this, verify your Associated Domains entitlement matches your Kratos configuration. Test AASA file accessibility using
-`curl https://ory.your-custom-domain.com/.well-known/apple-app-site-association`. Test `assetlinks.json` using
-`curl https://ory.your-custom-domain.com/.well-known/assetlinks.json`. Ensure HTTPS with valid certificate.
+To resolve this, verify your Associated Domains entitlement matches your Kratos
+configuration. Test AASA file accessibility using
+`curl https://ory.your-custom-domain.com/.well-known/apple-app-site-association`.
+Test `assetlinks.json` using
+`curl https://ory.your-custom-domain.com/.well-known/assetlinks.json`. Ensure
+HTTPS with valid certificate.
 
 #### Flow expired
 
@@ -842,13 +873,15 @@ To resolve this, verify your Associated Domains entitlement matches your Kratos 
 }
 ```
 
-This error occurs when the user took too long to complete the flow (default: 1 hour).
+This error occurs when the user took too long to complete the flow (default: 1
+hour).
 
 To resolve this, initialize a new flow and retry the operation.
 
 #### User canceled
 
-On mobile platforms, users can cancel the passkey prompt. Handle this gracefully.
+On mobile platforms, users can cancel the passkey prompt. Handle this
+gracefully.
 
 ```mdx-code-block
 <Tabs groupId="mobile-platform">
@@ -889,7 +922,8 @@ catch (e: GetCredentialException) {
 
 #### AASA file not found on iOS
 
-The passkey prompt doesn't appear or the user sees "No credentials available" errors.
+The passkey prompt doesn't appear or the user sees "No credentials available"
+errors.
 
 To troubleshoot this issue:
 
@@ -906,37 +940,48 @@ The user sees "No credentials found" errors or the passkey dialog doesn't show.
 To troubleshoot this issue:
 
 1. Verify the `assetlinks.json` file is accessible via browser.
-2. Use the [Statement List Generator and Tester](https://developers.google.com/digital-asset-links/tools/generator) to validate.
+2. Use the
+   [Statement List Generator and Tester](https://developers.google.com/digital-asset-links/tools/generator)
+   to validate.
 3. Verify the SHA-256 fingerprint matches your signing key.
 4. Ensure the package name matches exactly.
 5. Clear app data and retry.
 
 #### Domain not HTTPS
 
-Both iOS and Android require HTTPS for passkeys. HTTP domains fail silently or with cryptic errors.
+Both iOS and Android require HTTPS for passkeys. HTTP domains fail silently or
+with cryptic errors.
 
-To resolve this, use HTTPS with a valid TLS certificate. For local development, use a tool like [ngrok](https://ngrok.com/) to
-create an HTTPS tunnel.
+To resolve this, use HTTPS with a valid TLS certificate. For local development,
+use a tool like [ngrok](https://ngrok.com/) to create an HTTPS tunnel.
 
 ## Best practices
 
 ### Session management
 
-Store session tokens securely using iOS Keychain or Android Keystore. Handle session expiration by checking session validity
-before making authenticated requests. Implement token refresh using Ory's `/sessions/whoami` endpoint to verify sessions.
+Store session tokens securely using iOS Keychain or Android Keystore. Handle
+session expiration by checking session validity before making authenticated
+requests. Implement token refresh using Ory's `/sessions/whoami` endpoint to
+verify sessions.
 
 ### User experience
 
-Provide fallback options to allow users to sign in with other methods if passkeys fail. Handle errors gracefully by showing
-user-friendly error messages. Support AutoFill on iOS 17+ and Android 14+ to enable AutoFill-assisted passkey sign-in for better
-user experience.
+Provide fallback options to allow users to sign in with other methods if
+passkeys fail. Handle errors gracefully by showing user-friendly error messages.
+Support AutoFill on iOS 17+ and Android 14+ to enable AutoFill-assisted passkey
+sign-in for better user experience.
 
 ### Testing
 
-Test on physical devices as passkeys don't work reliably in simulators or emulators. Test with multiple accounts to verify
-credential isolation. Test cross-platform to ensure passkeys created on one platform work on others via cloud sync.
+Test on physical devices as passkeys don't work reliably in simulators or
+emulators. Test with multiple accounts to verify credential isolation. Test
+cross-platform to ensure passkeys created on one platform work on others via
+cloud sync.
 
 ## Next steps
 
-Review the [Passkeys overview](./05_passkeys.mdx) for configuration options. See [Self-Service Flows](../self-service.mdx) for
-more flow details. Check out the [API documentation](../reference/api.mdx) for complete endpoint reference.
+Review the <SameDeploymentLink to="kratos/passwordless/passkeys">Passkeys
+overview</SameDeploymentLink> for configuration options. See
+[Self-Service Flows](/docs/kratos/self-service) for more flow details. Check out
+the [API documentation](/docs/kratos/reference/api) for complete endpoint
+reference.
