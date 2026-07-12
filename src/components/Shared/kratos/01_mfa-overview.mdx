@@ -12,14 +12,14 @@ Nowadays, many of the passwords in use can be easily compromised because:
 By enabling two-factor authentication in your project, you introduce an
 additional verification step that can protect user login or self-service
 actions, such as updating account information or credentials, from malicious
-actors.  
-For example, you might decide to require a user to log in with two factors right
-at the start of the session. Alternatively, you could allow the user to start
-the session by logging in with the first factor and only require the second
-factor at the point where the user is about to perform a security-sensitive
-operation. Read more about dynamic MFA in the
-[step-up authentication](../../../../docs/kratos/mfa/step-up-authentication)
-document.
+actors. For example, you might decide to require a user to log in with two
+factors right at the start of the session. Alternatively, you could allow the
+user to start the session by logging in with the first factor and only require
+the second factor at the point where the user is about to perform a
+security-sensitive operation.
+
+Read the <SameDeploymentLink to="kratos/mfa/step-up-authentication">step-up
+authentication</SameDeploymentLink> guide to learn more about dynamic MFA.
 
 ## Available methods
 
@@ -29,34 +29,52 @@ Ory offers multiple second-factor authentication methods:
 
 Time-based one time passwords (TOTP) are a flexible 2FA authentication method
 based on a shared secret, and can be used both with browser-based apps and
-native apps. Read
-[Time-based one-time passwords (TOTP)](../../../../docs/kratos/mfa/totp) to
-learn more.
+native apps.
+
+Read <SameDeploymentLink to="kratos/mfa/totp">Time-based one-time passwords
+(TOTP)</SameDeploymentLink> to learn more.
 
 ### WebAuthn
 
 This method uses the
 [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API),
 also known as WebAuthn, which allows servers to register and authenticate users
-using public-key cryptography. Read
-[WebAuthn and FIDO2 (YubiKey)](../../../../docs/kratos/mfa/webauthn-fido-yubikey)
-to learn more.
+using public-key cryptography.
+
+Read <SameDeploymentLink to="kratos/mfa/webauthn-fido-yubikey">WebAuthn and
+FIDO2 (YubiKey)</SameDeploymentLink> to learn more.
 
 ### Lookup Secrets
 
 Lookup Secrets, also known as Backup Codes or Recovery Codes, are a 2FA
 fail-safe mechanism, rather than a standalone two-factor authentication method.
 They can be used to complete the second factor when users lose access to their
-selected 2FA method. Read
-[Lookup Secrets (Recovery Codes)](../../../../docs/kratos/mfa/lookup-secrets) to
-learn more.
+selected 2FA method.
+
+Read <SameDeploymentLink to="kratos/mfa/lookup-secrets">Lookup Secrets (Recovery
+Codes)</SameDeploymentLink> to learn more.
 
 ### SMS
 
 SMS for MFA sends a one-time password to the user's registered mobile phone
-number via text message. Read the
-[Code via SMS](../../../../docs/kratos/mfa/mfa-via-sms) documentation to learn
-more.
+number via text message.
+
+Read the <SameDeploymentLink to="kratos/mfa/mfa-via-sms">Code via
+SMS</SameDeploymentLink> documentation to learn more.
+
+### Device authentication
+
+Passwordless authentication where the private key is hardware-resident on the
+user's device. Read the
+[Device authentication](/docs/kratos/passwordless/deviceauthn) documentation to
+learn more.
+
+### Email
+
+Email for MFA sends a one-time code to the user's registered email address.
+
+Read the <SameDeploymentLink to="kratos/mfa/mfa-via-sms">Code via
+Email</SameDeploymentLink> documentation to learn more.
 
 ## Terminology
 
@@ -70,6 +88,7 @@ used over the lifetime of an Ory Session.
 The following methods can be present in a session:
 
 - `password` - When the user authenticated with their password.
+- `code` - When the user authenticated by code sent via email address.
 - `oidc`- When the user authenticated by signing in with a social sign-in
   provider.
 - `totp`- When the user authenticated by entering a time-based one-time
@@ -135,19 +154,22 @@ factors the identity has completed.
 
 Authentication methods are classified into factors:
 
-| Authentication method | Factor |
-| :-------------------- | :----- |
-| `password`            | first  |
-| `oidc`                | first  |
-| `totp`                | second |
-| `webauthn`            | second |
-| `lookup_secret`       | second |
+| Authentication method | Factor       |
+| :-------------------- | :----------- |
+| `password`            | first        |
+| `oidc`                | first        |
+| `code`                | first/second |
+| `totp`                | second       |
+| `webauthn`            | second       |
+| `lookup_secret`       | second       |
 
 :::info
 
-When you enable
-[passwordless authentication with WebAuthn or Passkeys](../../../../docs/kratos/passwordless/passkeys),
-it isn't considered as a second authentication factor.
+You can use `code` as first or second factor but not both at the same time.
+
+Enabling <SameDeploymentLink to="kratos/passwordless/passkeys">passwordless
+authentication with WebAuthn or Passkeys</SameDeploymentLink> isn't considered a
+second authentication factor.
 
 :::
 
