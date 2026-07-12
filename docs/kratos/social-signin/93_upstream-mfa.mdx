@@ -6,10 +6,10 @@ sidebar_label: Upstream MFA carry-over
 
 # Upstream MFA carry-over
 
-When a user signs in through a social sign-in provider that already enforces multi-factor authentication (MFA), Ory can trust that
-second factor instead of asking for another one. This avoids redundant prompts when your project enforces AAL2 through
-[step-up authentication](../mfa/05_step-up-authentication.mdx) and the upstream identity provider has already verified the user
-with a strong factor.
+Your project can enforce AAL2 through <SameDeploymentLink to="kratos/mfa/step-up-authentication">step-up
+authentication</SameDeploymentLink>. When a user signs in through a social sign-in provider that already enforces multi-factor
+authentication (MFA), Ory can trust that second factor instead of asking for another one. This avoids redundant prompts when the
+upstream identity provider has already verified the user with a strong factor.
 
 ## How it works
 
