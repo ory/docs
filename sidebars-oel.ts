@@ -74,6 +74,31 @@ const oelSidebar = [
           },
           {
             type: "category",
+            label: "Authentication",
+            items: [
+              "oel/kratos/passwordless/passwordless",
+              "oel/kratos/passwordless/one-time-code",
+              "oel/kratos/passwordless/passkeys",
+              "oel/kratos/passwordless/passkeys-mobile",
+              {
+                type: "category",
+                label: "Multi-factor authentication",
+                link: {
+                  type: "doc",
+                  id: "oel/kratos/mfa-overview",
+                },
+                items: [
+                  "oel/kratos/mfa/lookup-secrets",
+                  "oel/kratos/mfa/totp",
+                  "oel/kratos/mfa/webauthn-fido-yubikey",
+                  "oel/kratos/mfa/mfa-via-sms",
+                  "oel/kratos/mfa/step-up-authentication",
+                ],
+              },
+            ],
+          },
+          {
+            type: "category",
             label: "Guides",
             items: [
               "kratos/guides/docker",
