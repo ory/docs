@@ -329,9 +329,12 @@ secret rotation on iOS. It builds on the App Attest signing key from the
 [second-factor guide](#second-factor-device-binding) above and adds the
 transport, sealing, and PIN layers.
 
-Read <SameDeploymentLink to="kratos/passwordless/deviceauthn">Client
-implementation requirements</SameDeploymentLink> together with this section —
-the comments in the code below are normative and restate those rules inline.
+- Read
+  <SameDeploymentLink to="kratos/passwordless/deviceauthn#client-implementation-requirements">
+    Client implementation requirements
+  </SameDeploymentLink>
+  together with this section — the comments in the code below are normative and restate
+  those rules inline.
 
 ### Reference implementation
 
@@ -587,7 +590,7 @@ func loginWithPin(flowNonce: Data, pin: inout [UInt8], artifacts: PinArtifacts, 
 }
 ```
 
-See <SameDeploymentLink to="kratos/passwordless/deviceauthn">PIN
+See <SameDeploymentLink to="kratos/passwordless/deviceauthn#pin-enrollment">PIN
 enrollment</SameDeploymentLink> for the payload reference. To wire the
 enrollment ceremony end to end: decode the flow nonce with `decodeNonce`, create
 a `PinCeremony`, `createPinAttestation`, submit the `add` payload with
@@ -617,9 +620,12 @@ scaffolding, reuse the `OryApi` helper from the
 calls `DCAppAttestService` directly only to keep the challenge computation
 visible.
 
-See the <SameDeploymentLink to="kratos/passwordless/deviceauthn">configuration
-reference</SameDeploymentLink> for the `ios_biometric_first_factor` opt-in that
-biometric first-factor login on iOS also requires.
+- See the
+  <SameDeploymentLink to="kratos/passwordless/deviceauthn#configuration">
+    configuration reference
+  </SameDeploymentLink>
+  for the `ios_biometric_first_factor` opt-in that biometric first-factor login on
+  iOS also requires.
 
 ## Changing the PIN and rotating the secret
 
@@ -653,7 +659,7 @@ same signing key. Start a settings flow under a privileged session, then:
    unhashed.
 3. Submit the `rotate_secret` payload with `client_key_id`, the fresh
    `transport_public_key`, and that signature (see
-   <SameDeploymentLink to="kratos/passwordless/deviceauthn">
+   <SameDeploymentLink to="kratos/passwordless/deviceauthn#rotating-the-pin-secret">
      Rotating the PIN secret
    </SameDeploymentLink>
    ).

@@ -362,9 +362,12 @@ secret rotation on Android. It builds on the hardware-attested signing key from
 the [second-factor guide](#second-factor-device-binding) above and adds the
 transport, sealing, and PIN layers.
 
-Read <SameDeploymentLink to="kratos/passwordless/deviceauthn">Client
-implementation requirements</SameDeploymentLink> together with this section —
-the comments in the code below are normative and restate those rules inline.
+- Read
+  <SameDeploymentLink to="kratos/passwordless/deviceauthn#client-implementation-requirements">
+    Client implementation requirements
+  </SameDeploymentLink>
+  together with this section — the comments in the code below are normative and restate
+  those rules inline.
 
 ### Reference implementation
 
@@ -663,7 +666,7 @@ signs. Three differences from the PIN flow:
   `transport_public_key`. The server cross-checks that declaration against the
   attestation, so a `platform` key really is biometric-gated — which is why
   Android biometric keys can be a first factor without an opt-in (see
-  <SameDeploymentLink to="kratos/passwordless/deviceauthn">
+  <SameDeploymentLink to="kratos/passwordless/deviceauthn#biometric-enrollment">
     Biometric enrollment
   </SameDeploymentLink>
   ).
@@ -705,7 +708,7 @@ same signing key. Start a settings flow under a privileged session, then:
    to a transport key they control.
 3. Submit the `rotate_secret` payload with `client_key_id`, the fresh
    `transport_public_key`, and that signature (see
-   <SameDeploymentLink to="kratos/passwordless/deviceauthn">
+   <SameDeploymentLink to="kratos/passwordless/deviceauthn#rotating-the-pin-secret">
      Rotating the PIN secret
    </SameDeploymentLink>
    ).
@@ -720,13 +723,19 @@ does. Only PIN keys can be rotated.
 
 ## Putting it together
 
-See <SameDeploymentLink to="kratos/passwordless/deviceauthn">Protocol
-reference</SameDeploymentLink> for the flow each ceremony maps to; the JSON
-request and response bodies live there, linked below. The code above zeroizes
-every PIN, derived key, and secret in a `finally` block and never persists the
-transport key — keep that discipline when you wire these calls.
+- See
+  <SameDeploymentLink to="kratos/passwordless/deviceauthn#protocol-reference">
+    Protocol reference
+  </SameDeploymentLink>
+  for the flow each ceremony maps to; the JSON request and response bodies live there,
+  linked below.
 
-1. **Enroll** (<SameDeploymentLink to="kratos/passwordless/deviceauthn">PIN
+The code above zeroizes every PIN, derived key, and secret in a `finally` block
+and never persists the transport key — keep that discipline when you wire these
+calls.
+
+1. **Enroll**
+   (<SameDeploymentLink to="kratos/passwordless/deviceauthn#pin-enrollment">PIN
    enrollment</SameDeploymentLink>) — `decodeNonce` the flow's
    `deviceauthn_nonce` node, `createSealingKey`, create a `PinCeremony`, then
    `createPinSigningKey(alias, nonce, transportPublicKey)` and submit the `add`
@@ -736,12 +745,13 @@ transport key — keep that discipline when you wire these calls.
    capture the PIN, `PinVault.seal`, and persist the `PinArtifacts`. Let the
    `PinCeremony` go out of scope so its transport key is destroyed.
 2. **Log in**
-   (<SameDeploymentLink to="kratos/passwordless/deviceauthn">First-factor
+   (<SameDeploymentLink to="kratos/passwordless/deviceauthn#first-factor-login">First-factor
    login</SameDeploymentLink>) — `decodeNonce`, `PinVault.unseal` with the
    entered PIN, `pinProof(pinSecret, clientKeyId, nonce)`, and
    `sign(alias, nonce)` over the raw nonce, then submit `client_key_id`,
    `signature`, and `pin_proof`.
-3. **Rotate** (<SameDeploymentLink to="kratos/passwordless/deviceauthn">Rotating
+3. **Rotate**
+   (<SameDeploymentLink to="kratos/passwordless/deviceauthn#rotating-the-pin-secret">Rotating
    the PIN secret</SameDeploymentLink>) — a fresh `PinCeremony`,
    `sign(alias, nonce + transportPublicKey)` over the unhashed concatenation,
    submit the `rotate_secret` payload, then open and re-seal exactly as at
@@ -756,8 +766,11 @@ First, the emulator produces software-backed attestations, which the server
 rejects by default. Enable relaxed attestation server-side to accept the signing
 key. Relaxed-attestation keys expire after 30 days, so re-enroll after that.
 
-See <SameDeploymentLink to="kratos/passwordless/deviceauthn">Relaxed attestation
-for testing</SameDeploymentLink> to learn more.
+- See
+  <SameDeploymentLink to="kratos/passwordless/deviceauthn#relaxed-attestation-for-testing">
+    Relaxed attestation for testing
+  </SameDeploymentLink>
+  for the details.
 
 To exercise the biometric prompt on the emulated device, register a fingerprint:
 
