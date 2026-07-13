@@ -265,6 +265,23 @@ In addition to the variables listed for each template, every template can access
 [Transient payload in templates](#transient-payload-in-templates)) and `RequestURL` (the URL of the flow request that triggered
 the email).
 
+The `login_code.valid`, `registration_code.valid`, `verification_code.valid`, and `verification.valid` templates can also access
+`OAuth2LoginRequest` when the flow was started through an OAuth2 login challenge, for example when a user signs in to an OAuth2
+client. Because Ory resolves this value server-side, it can't be forged by the end user. Use it to brand messages per OAuth2
+client instead of the end-user-controlled transient payload:
+
+| Variable                               | Description                                      |
+| -------------------------------------- | ------------------------------------------------ |
+| `OAuth2LoginRequest.Challenge`         | the OAuth2 login challenge that started the flow |
+| `OAuth2LoginRequest.Client.ClientID`   | the OAuth2 client ID                             |
+| `OAuth2LoginRequest.Client.ClientName` | the human-readable name of the OAuth2 client     |
+| `OAuth2LoginRequest.Client.ClientURI`  | the URL of the OAuth2 client's homepage          |
+| `OAuth2LoginRequest.Client.LogoURI`    | the URL of the OAuth2 client's logo              |
+| `OAuth2LoginRequest.Client.Metadata`   | the metadata set on the OAuth2 client            |
+
+For example: `{{ if .OAuth2LoginRequest }}{{ .OAuth2LoginRequest.Client.ClientName }}{{ end }}`. The variable is unset when the
+flow wasn't started through an OAuth2 login challenge.
+
 ```mdx-code-block
 <Tabs groupId="email-templates">
 <TabItem value="recovery_code" label="Recovery (via code)" default>
