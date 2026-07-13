@@ -1911,6 +1911,11 @@
       "source": "/docs/network/keto/quickstarts/quickstart",
       "destination": "/docs/network/keto/overview",
       "permanent": true
+    },
+    {
+      "source": "/docs/kratos/passwordless/deviceauthn",
+      "destination": "/docs/network/kratos/passwordless/deviceauthn",
+      "permanent": true
     }
   ],
   "headers": [

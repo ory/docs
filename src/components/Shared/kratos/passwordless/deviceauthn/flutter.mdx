@@ -1,11 +1,5 @@
----
-id: flutter
-title: Device authentication in Dart/Flutter
-sidebar_label: Dart/Flutter
----
-
-Dart can call native APIs via message passing. Let's call a function called `generateKey` with the parameter
-`{'alias': 'my_key_01'}`:
+Dart can call native APIs via message passing. Let's call a function called
+`generateKey` with the parameter `{'alias': 'my_key_01'}`:
 
 ```dart
 Future<void> _generateKey() async {
@@ -30,7 +24,8 @@ try {
 }
 ```
 
-Since the call might block, it is marked async and a loading indicator is shown in the UI via the `_isLoading` field.
+Since the call might block, it is marked async and a loading indicator is shown
+in the UI via the `_isLoading` field.
 
 Now to the platform code, for example for Android:
 

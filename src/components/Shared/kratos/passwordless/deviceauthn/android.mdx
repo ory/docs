@@ -1,49 +1,55 @@
----
-id: android
-title: Device authentication on Android
-sidebar_label: Android
----
+We recommend using the Ory Java SDK to communicate with Kratos, although this is
+not required. Code snippets here use this SDK, and are written in Kotlin.
 
-We recommend using the Ory Java SDK to communicate with Kratos, although this is not required. Code snippets here use this SDK,
-and are written in Kotlin.
-
-Since Device Binding only is supported on native devices (not in the browser), all corresponding API calls should be done using
-the endpoints for native apps, to avoid having to pass cookies around manually.
+Since Device Binding only is supported on native devices (not in the browser),
+all corresponding API calls should be done using the endpoints for native apps,
+to avoid having to pass cookies around manually.
 
 ## Prerequisites
 
-The [second-factor guide](#second-factor-device-binding) below targets Android SDK 24 (Android 7.0) or newer; the signing and
-sealing keys use StrongBox where the device offers it (API 28+) and fall back to the TEE otherwise. The first-factor PIN path
-additionally needs:
+The [second-factor guide](#second-factor-device-binding) below targets Android
+SDK 24 (Android 7.0) or newer; the signing and sealing keys use StrongBox where
+the device offers it (API 28+) and fall back to the TEE otherwise. The
+first-factor PIN path additionally needs:
 
-- HPKE for the one-time transport channel: [BouncyCastle](https://www.bouncycastle.org/) (`org.bouncycastle:bcprov-jdk18on`). The
-  suite is fixed to DHKEM(X25519, HKDF-SHA256) / HKDF-SHA256 / AES-128-GCM with the `client_key_id` string as AAD. Tink's hybrid
-  encryption API cannot pass that AAD, so use BouncyCastle's HPKE directly — do not substitute Tink.
-- Argon2id for the PIN key derivation: [`org.signal:argon2`](https://github.com/signalapp/Argon2) (used below) or a libsodium
-  binding.
-- [AndroidX Biometric](https://developer.android.com/jetpack/androidx/releases/biometric) (`androidx.biometric:biometric`) only
-  for the biometric path — the PIN path never prompts, so it does not need it.
+- HPKE for the one-time transport channel:
+  [BouncyCastle](https://www.bouncycastle.org/)
+  (`org.bouncycastle:bcprov-jdk18on`). The suite is fixed to DHKEM(X25519,
+  HKDF-SHA256) / HKDF-SHA256 / AES-128-GCM with the `client_key_id` string as
+  AAD. Tink's hybrid encryption API cannot pass that AAD, so use BouncyCastle's
+  HPKE directly — do not substitute Tink.
+- Argon2id for the PIN key derivation:
+  [`org.signal:argon2`](https://github.com/signalapp/Argon2) (used below) or a
+  libsodium binding.
+- [AndroidX Biometric](https://developer.android.com/jetpack/androidx/releases/biometric)
+  (`androidx.biometric:biometric`) only for the biometric path — the PIN path
+  never prompts, so it does not need it.
 
 ## Second-factor device binding
 
-1. Ensure that the `DeviceAuthn` strategy is enabled in the Kratos configuration. This strategy implements the settings and login
-   flow. This is done so:
+1. Ensure that the `DeviceAuthn` strategy is enabled in the Kratos
+   configuration. This strategy implements the settings and login flow. This is
+   done so:
    ```yaml
    selfservice:
      methods:
        deviceauthn:
          enabled: true
    ```
-1. Implement a runtime check for the Android version. If is lower than 24, Device Binding may not be used, and a fallback should
-   be found, for example using passkeys.
-1. This guide covers the second-factor setup: the UI should only show existing Device Binding keys and related buttons (e.g. to
-   add a key) if the user is currently logged in. This can be confirmed with a `whoami` call. For first-factor PIN or biometric
-   login, see [First factor with PIN](#first-factor-with-pin).
-1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
-   response contains the list of existing Device Binding keys.
+1. Implement a runtime check for the Android version. If is lower than 24,
+   Device Binding may not be used, and a fallback should be found, for example
+   using passkeys.
+1. This guide covers the second-factor setup: the UI should only show existing
+   Device Binding keys and related buttons (e.g. to add a key) if the user is
+   currently logged in. This can be confirmed with a `whoami` call. For
+   first-factor PIN or biometric login, see
+   [First factor with PIN](#first-factor-with-pin).
+1. Create a
+   [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow).
+   The response contains the list of existing Device Binding keys.
 1. To delete an existing key,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
-   payload:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow)
+   with this payload:
 
    ```json
    {
@@ -70,12 +76,12 @@ additionally needs:
    val updatedFlow = apiInstance.updateSettingsFlow(settingsFlow?.id, body, sessionToken, "")
    ```
 
-   Once the key has been deleted server-side, it is fine (although not required) to also delete it on the device using the
-   KeyStore API.
+   Once the key has been deleted server-side, it is fine (although not required)
+   to also delete it on the device using the KeyStore API.
 
 1. To add a new key,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
-   payload:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow)
+   with this payload:
 
    ```json
    {
@@ -119,14 +125,18 @@ additionally needs:
        .joinToString("") { "%02x".format(it.toInt() and 0xff) }
    ```
 
-   Once a key is created, the KeyStore APIs can be used to list all keys, query a key using its alias, etc. However we recommend
-   that the application keeps track of the keys it created — including the mapping between the local key alias and the
-   server-assigned `client_key_id` — to know which keys can be used on this device, compared to keys that belong to the same
-   identity but reside on other devices. Note that there is a maximum number of keys that can be created for an identity, and
-   there is no point to create multiple keys for the same user on the same device, even though the server allows it.
+   Once a key is created, the KeyStore APIs can be used to list all keys, query
+   a key using its alias, etc. However we recommend that the application keeps
+   track of the keys it created — including the mapping between the local key
+   alias and the server-assigned `client_key_id` — to know which keys can be
+   used on this device, compared to keys that belong to the same identity but
+   reside on other devices. Note that there is a maximum number of keys that can
+   be created for an identity, and there is no point to create multiple keys for
+   the same user on the same device, even though the server allows it.
 
 1. To use a key to step-up the AAL,
-   [complete the login flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow) with this payload:
+   [complete the login flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow)
+   with this payload:
 
    ```json
    {
@@ -173,7 +183,8 @@ additionally needs:
    }
    ```
 
-There are two Keystore calls required: one to create the key and one to use it to sign:
+There are two Keystore calls required: one to create the key and one to use it
+to sign:
 
 ```kotlin
 package com.ory.sdk
@@ -339,21 +350,30 @@ internal class OryApi : Api {
 
 :::warning
 
-The first-factor signing key is attested over `SHA256(nonce ‖ transport_public_key)`, **not** the bare nonce used by the
-second-factor guide above. Using the bare nonce here fails with `Unable to validate the key attestation: wrong challenge`.
+The first-factor signing key is attested over
+`SHA256(nonce ‖ transport_public_key)`, **not** the bare nonce used by the
+second-factor guide above. Using the bare nonce here fails with
+`Unable to validate the key attestation: wrong challenge`.
 
 :::
 
-This section implements PIN enrollment, first-factor login, PIN change, and secret rotation on Android. It builds on the
-hardware-attested signing key from the [second-factor guide](#second-factor-device-binding) above and adds the transport, sealing,
-and PIN layers. Read it together with [Client implementation requirements](index.mdx#client-implementation-requirements) — the
-comments in the code below are normative and restate those rules inline.
+This section implements PIN enrollment, first-factor login, PIN change, and
+secret rotation on Android. It builds on the hardware-attested signing key from
+the [second-factor guide](#second-factor-device-binding) above and adds the
+transport, sealing, and PIN layers.
+
+Read <SameDeploymentLink to="kratos/passwordless/deviceauthn">Client
+implementation requirements</SameDeploymentLink> together with this section —
+the comments in the code below are normative and restate those rules inline.
 
 ### Reference implementation
 
-This listing is one complete recipe: nonce decoding, the enrollment and rotation ceremony (transport key, attestation challenge,
-sealed secret), the PIN vault (Android Keystore sealing key, Argon2id, AES-CTR, seal and unseal), the `client_key_id` derivation,
-the PIN proof, and the login signature. The `PinCeremony` is a fresh object per ceremony; the transport key never outlives it.
+This listing is one complete recipe: nonce decoding, the enrollment and rotation
+ceremony (transport key, attestation challenge, sealed secret), the PIN vault
+(Android Keystore sealing key, Argon2id, AES-CTR, seal and unseal), the
+`client_key_id` derivation, the PIN proof, and the login signature. The
+`PinCeremony` is a fresh object per ceremony; the transport key never outlives
+it.
 
 ```kotlin
 import android.os.Build
@@ -630,28 +650,39 @@ object PinVault {
 
 ## Biometric keys
 
-Biometric (`platform`) keys skip the PIN machinery entirely — no transport key, no sealed secret, no `pin_proof`. Android Keystore
-gates the signing key itself: create it with `setUserAuthenticationRequired(true)` and sign through a `BiometricPrompt`, which
-shows the fingerprint or face prompt when the key signs. Three differences from the PIN flow:
+Biometric (`platform`) keys skip the PIN machinery entirely — no transport key,
+no sealed secret, no `pin_proof`. Android Keystore gates the signing key itself:
+create it with `setUserAuthenticationRequired(true)` and sign through a
+`BiometricPrompt`, which shows the fingerprint or face prompt when the key
+signs. Three differences from the PIN flow:
 
-- The attestation challenge is the **bare nonce**, not `SHA256(nonce ‖ t_pub)`. Pass the raw nonce bytes straight to
-  `setAttestationChallenge`.
-- Create the signing key **with** `setUserAuthenticationRequired(true)` and enroll it with `"user_verification": "platform"` and
-  no `pin_protected` or `transport_public_key`. The server cross-checks that declaration against the attestation, so a `platform`
-  key really is biometric-gated — which is why Android biometric keys can be a first factor without an opt-in (see
-  [Biometric enrollment](index.mdx#biometric-enrollment)).
-- At login, submit only `client_key_id` and `signature` — the `BiometricPrompt` assertion over the bare nonce — and omit
-  `pin_proof`.
+- The attestation challenge is the **bare nonce**, not `SHA256(nonce ‖ t_pub)`.
+  Pass the raw nonce bytes straight to `setAttestationChallenge`.
+- Create the signing key **with** `setUserAuthenticationRequired(true)` and
+  enroll it with `"user_verification": "platform"` and no `pin_protected` or
+  `transport_public_key`. The server cross-checks that declaration against the
+  attestation, so a `platform` key really is biometric-gated — which is why
+  Android biometric keys can be a first factor without an opt-in (see
+  <SameDeploymentLink to="kratos/passwordless/deviceauthn">
+    Biometric enrollment
+  </SameDeploymentLink>
+  ).
+- At login, submit only `client_key_id` and `signature` — the `BiometricPrompt`
+  assertion over the bare nonce — and omit `pin_proof`.
 
-For the key-creation and `BiometricPrompt` signing scaffolding (the `createKeyPair` and `launchBiometricSigner` helpers), reuse
-the `OryApi` from the [second-factor guide](#second-factor-device-binding). The PIN listing above creates the signing key
-**without** `setUserAuthenticationRequired` precisely because the PIN — not a platform prompt — is its gate.
+For the key-creation and `BiometricPrompt` signing scaffolding (the
+`createKeyPair` and `launchBiometricSigner` helpers), reuse the `OryApi` from
+the [second-factor guide](#second-factor-device-binding). The PIN listing above
+creates the signing key **without** `setUserAuthenticationRequired` precisely
+because the PIN — not a platform prompt — is its gate.
 
 ## Changing the PIN and rotating the secret
 
-**Changing the PIN is purely local** — no server call. Unseal the secret with the old PIN, then `PinVault.seal` it again with the
-new PIN. `seal` generates a fresh salt and IV, so the whole stored blob changes, while the `pin_secret`, `client_key_id`, and
-signing key stay the same. The server never learns that the PIN changed.
+**Changing the PIN is purely local** — no server call. Unseal the secret with
+the old PIN, then `PinVault.seal` it again with the new PIN. `seal` generates a
+fresh salt and IV, so the whole stored blob changes, while the `pin_secret`,
+`client_key_id`, and signing key stay the same. The server never learns that the
+PIN changed.
 
 ```kotlin
 val oldSecret = PinVault.unseal(artifacts, oldPin) // oldPin is zeroized by unseal
@@ -662,68 +693,100 @@ val updated = PinVault.seal(
 ) // seal zeroizes oldSecret and newPin; persist `updated` in place of the old artifacts.
 ```
 
-**Rotating the secret needs the server.** It is the recovery path for a forgotten PIN or a locked key: the server issues a fresh
-`pin_secret` for the same signing key. Start a settings flow under a privileged session, then:
+**Rotating the secret needs the server.** It is the recovery path for a
+forgotten PIN or a locked key: the server issues a fresh `pin_secret` for the
+same signing key. Start a settings flow under a privileged session, then:
 
 1. Create a fresh `PinCeremony` — a new ephemeral transport key.
-2. Sign the rotation challenge with the enrolled key: `sign(alias, nonce + transportPublicKey)` over the raw `nonce ‖ t_pub`
-   concatenation, **not pre-hashed** (contrast login, which signs the bare nonce). This binding stops a session-level attacker
-   from rotating the secret to a transport key they control.
-3. Submit the `rotate_secret` payload with `client_key_id`, the fresh `transport_public_key`, and that signature (see
-   [Rotating the PIN secret](index.mdx#rotating-the-pin-secret)).
-4. Open the new secret from the response's `continue_with` with `openSealedSecret`, exactly as at enrollment.
-5. Capture the user's PIN — a new one if they forgot the old — and `PinVault.seal` the new secret with a fresh salt and IV, then
-   replace the stored artifacts.
+2. Sign the rotation challenge with the enrolled key:
+   `sign(alias, nonce + transportPublicKey)` over the raw `nonce ‖ t_pub`
+   concatenation, **not pre-hashed** (contrast login, which signs the bare
+   nonce). This binding stops a session-level attacker from rotating the secret
+   to a transport key they control.
+3. Submit the `rotate_secret` payload with `client_key_id`, the fresh
+   `transport_public_key`, and that signature (see
+   <SameDeploymentLink to="kratos/passwordless/deviceauthn">
+     Rotating the PIN secret
+   </SameDeploymentLink>
+   ).
+4. Open the new secret from the response's `continue_with` with
+   `openSealedSecret`, exactly as at enrollment.
+5. Capture the user's PIN — a new one if they forgot the old — and
+   `PinVault.seal` the new secret with a fresh salt and IV, then replace the
+   stored artifacts.
 
-The signing key and its `client_key_id` never change; only the sealed secret does. Only PIN keys can be rotated.
+The signing key and its `client_key_id` never change; only the sealed secret
+does. Only PIN keys can be rotated.
 
 ## Putting it together
 
-Each ceremony maps to one flow in the [Protocol reference](index.mdx#protocol-reference); the JSON request and response bodies
-live there, linked below. The code above zeroizes every PIN, derived key, and secret in a `finally` block and never persists the
+See <SameDeploymentLink to="kratos/passwordless/deviceauthn">Protocol
+reference</SameDeploymentLink> for the flow each ceremony maps to; the JSON
+request and response bodies live there, linked below. The code above zeroizes
+every PIN, derived key, and secret in a `finally` block and never persists the
 transport key — keep that discipline when you wire these calls.
 
-1. **Enroll** ([PIN enrollment](index.mdx#pin-enrollment)) — `decodeNonce` the flow's `deviceauthn_nonce` node,
-   `createSealingKey`, create a `PinCeremony`, then `createPinSigningKey(alias, nonce, transportPublicKey)` and submit the `add`
-   payload with `transport_public_key` and the returned chain as `certificate_chain_android`. On the response, `openSealedSecret`
-   on the `continue_with` item, derive the fingerprint with `clientKeyId(alias)`, capture the PIN, `PinVault.seal`, and persist
-   the `PinArtifacts`. Let the `PinCeremony` go out of scope so its transport key is destroyed.
-2. **Log in** ([First-factor login](index.mdx#first-factor-login)) — `decodeNonce`, `PinVault.unseal` with the entered PIN,
-   `pinProof(pinSecret, clientKeyId, nonce)`, and `sign(alias, nonce)` over the raw nonce, then submit `client_key_id`,
+1. **Enroll** (<SameDeploymentLink to="kratos/passwordless/deviceauthn">PIN
+   enrollment</SameDeploymentLink>) — `decodeNonce` the flow's
+   `deviceauthn_nonce` node, `createSealingKey`, create a `PinCeremony`, then
+   `createPinSigningKey(alias, nonce, transportPublicKey)` and submit the `add`
+   payload with `transport_public_key` and the returned chain as
+   `certificate_chain_android`. On the response, `openSealedSecret` on the
+   `continue_with` item, derive the fingerprint with `clientKeyId(alias)`,
+   capture the PIN, `PinVault.seal`, and persist the `PinArtifacts`. Let the
+   `PinCeremony` go out of scope so its transport key is destroyed.
+2. **Log in**
+   (<SameDeploymentLink to="kratos/passwordless/deviceauthn">First-factor
+   login</SameDeploymentLink>) — `decodeNonce`, `PinVault.unseal` with the
+   entered PIN, `pinProof(pinSecret, clientKeyId, nonce)`, and
+   `sign(alias, nonce)` over the raw nonce, then submit `client_key_id`,
    `signature`, and `pin_proof`.
-3. **Rotate** ([Rotating the PIN secret](index.mdx#rotating-the-pin-secret)) — a fresh `PinCeremony`,
-   `sign(alias, nonce + transportPublicKey)` over the unhashed concatenation, submit the `rotate_secret` payload, then open and
-   re-seal exactly as at enrollment.
+3. **Rotate** (<SameDeploymentLink to="kratos/passwordless/deviceauthn">Rotating
+   the PIN secret</SameDeploymentLink>) — a fresh `PinCeremony`,
+   `sign(alias, nonce + transportPublicKey)` over the unhashed concatenation,
+   submit the `rotate_secret` payload, then open and re-seal exactly as at
+   enrollment.
 
 ## Testing in the emulator
 
-The Android emulator has no StrongBox or TEE, so exercising the PIN flow on one needs two development-only relaxations — never in
-a release build.
+The Android emulator has no StrongBox or TEE, so exercising the PIN flow on one
+needs two development-only relaxations — never in a release build.
 
-First, the emulator produces software-backed attestations, which the server rejects by default. Enable relaxed attestation
-server-side to accept the signing key. Relaxed-attestation keys expire after 30 days, so re-enroll after that. See
-[Relaxed attestation for testing](index.mdx#relaxed-attestation-for-testing).
+First, the emulator produces software-backed attestations, which the server
+rejects by default. Enable relaxed attestation server-side to accept the signing
+key. Relaxed-attestation keys expire after 30 days, so re-enroll after that.
+
+See <SameDeploymentLink to="kratos/passwordless/deviceauthn">Relaxed attestation
+for testing</SameDeploymentLink> to learn more.
 
 To exercise the biometric prompt on the emulated device, register a fingerprint:
 
-1. Create an emulated device in the Android emulator with an Android version which is at least 24.
+1. Create an emulated device in the Android emulator with an Android version
+   which is at least 24.
 1. Start the emulated device.
-1. Inside the emulated device, go to 'Settings > Security & Location > Screen Lock' and set a device PIN (this is required for
-   biometrics).
-1. Inside the emulated device, go to 'Settings > Security & Location > Fingerprints' and add a fingerprint. A biometric prompt
-   will appear on the screen of the emulated device.
-1. In the 'Extended Controls' for the emulated device (not inside the device, but in Android Studio), go to the 'Fingerprints'
-   section and click on 'Touch sensor' to pass the biometrics prompt of the device. This simulates placing your finger on the
-   sensor.
+1. Inside the emulated device, go to 'Settings > Security & Location > Screen
+   Lock' and set a device PIN (this is required for biometrics).
+1. Inside the emulated device, go to 'Settings > Security & Location >
+   Fingerprints' and add a fingerprint. A biometric prompt will appear on the
+   screen of the emulated device.
+1. In the 'Extended Controls' for the emulated device (not inside the device,
+   but in Android Studio), go to the 'Fingerprints' section and click on 'Touch
+   sensor' to pass the biometrics prompt of the device. This simulates placing
+   your finger on the sensor.
 
-At this point the fingerprint is registered for the emulated device. The process must be repeated for each emulated device.
+At this point the fingerprint is registered for the emulated device. The process
+must be repeated for each emulated device.
 
-Then, start the application inside the emulated device. When the biometric prompt appears, repeat step 5. to pass the biometric
-prompt. There are several fingerprints available, so it is possible to test the case of using a registered fingerprint, and the
-case of using an unknown fingerprint. To test the case of no fingerprint registered, remove the registered fingerprint in the
-'Settings' of the emulated device.
+Then, start the application inside the emulated device. When the biometric
+prompt appears, repeat step 5. to pass the biometric prompt. There are several
+fingerprints available, so it is possible to test the case of using a registered
+fingerprint, and the case of using an unknown fingerprint. To test the case of
+no fingerprint registered, remove the registered fingerprint in the 'Settings'
+of the emulated device.
 
-Second, the sealing key also lands in the software keystore, so the reference `createSealingKey` refuses enrollment by design —
-its `requireHardwareBacked` check throws. Temporarily bypass that check in a debug/test build to wire and flow-test the PIN path,
-but never in a release build: the offline-guessing resistance rests entirely on a hardware sealing key. Verify the sealing path on
+Second, the sealing key also lands in the software keystore, so the reference
+`createSealingKey` refuses enrollment by design — its `requireHardwareBacked`
+check throws. Temporarily bypass that check in a debug/test build to wire and
+flow-test the PIN path, but never in a release build: the offline-guessing
+resistance rests entirely on a hardware sealing key. Verify the sealing path on
 a physical device before shipping.

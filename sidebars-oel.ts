@@ -74,6 +74,22 @@ const oelSidebar = [
           },
           {
             type: "category",
+            label: "Authentication",
+            items: [
+              {
+                type: "category",
+                label: "Device authentication",
+                items: [
+                  "oel/kratos/passwordless/deviceauthn/index",
+                  "oel/kratos/passwordless/deviceauthn/android",
+                  "oel/kratos/passwordless/deviceauthn/ios",
+                  "oel/kratos/passwordless/deviceauthn/flutter",
+                ],
+              },
+            ],
+          },
+          {
+            type: "category",
             label: "Guides",
             items: [
               "kratos/guides/docker",
