@@ -1923,6 +1923,11 @@
       "permanent": true
     },
     {
+      "source": "/docs/kratos/passwordless/07_code",
+      "destination": "/docs/network/kratos/passwordless/one-time-code",
+      "permanent": true
+    },
+    {
       "source": "/docs/kratos/passwordless/passkeys",
       "destination": "/docs/network/kratos/passwordless/passkeys",
       "permanent": true
