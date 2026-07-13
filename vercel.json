@@ -1966,6 +1966,26 @@
       "source": "/docs/kratos/mfa/mfa-via-sms",
       "destination": "/docs/network/kratos/mfa/mfa-via-sms",
       "permanent": true
+    },
+    {
+      "source": "/docs/kratos/debug/csrf",
+      "destination": "/docs/oel/kratos/debug/csrf",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/debug/debug-docker-delve-ory-kratos",
+      "destination": "/docs/oel/kratos/debug/debug-docker-delve-ory-kratos",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/debug/performance-out-of-memory-password-hashing-argon2",
+      "destination": "/docs/oel/kratos/debug/performance-out-of-memory-password-hashing-argon2",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/debug/troubleshooting",
+      "destination": "/docs/oel/kratos/debug/troubleshooting",
+      "permanent": true
     }
   ],
   "headers": [
