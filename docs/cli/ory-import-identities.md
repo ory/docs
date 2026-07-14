@@ -1,7 +1,7 @@
 ---
 id: ory-import-identities
 title: ory import identities
-description: ory import identities Import one or more identities from files or STD_IN
+description: ory import identities
 ---
 
 <!--
@@ -61,7 +61,7 @@ Alternatively:
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory import](ory-import)	 - Import resources
+* [ory import](ory-import) Import resources
 

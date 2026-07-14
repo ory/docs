@@ -23,7 +23,7 @@ kratos serve [flags]
   -c, --config strings   Path to one or more .json, .yaml, .yml, .toml config files. Values are loaded in the order provided, meaning that the last config file overwrites values from the previous config file.
       --dev              Disables critical security features to make development easier
   -h, --help             help for serve
-      --sqa-opt-out      Disable anonymized telemetry reports - for more information please visit https://www.ory.sh/docs/ecosystem/sqa
+      --sqa-opt-out      Disable anonymized telemetry reports - for more information please visit https://www.ory.com/docs/ecosystem/sqa
       --watch-courier    Run the message courier as a background task, to simplify single-instance setup
 ```
 

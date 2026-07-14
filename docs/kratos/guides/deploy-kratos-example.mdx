@@ -9,8 +9,8 @@ import CodeBlock from "@theme/CodeBlock"
 This guide explains how to set up and run Ory Kratos in an exemplary production environment. It uses Postgres as database, Nginx
 as reverse proxy, Digital Ocean as cloud provider, and the
 [Ory Kratos Node.js UI Reference](https://github.com/ory/kratos-selfservice-ui-node) as user interface. You can use another
-[relational database](../../self-hosted/deployment#data-storage-and-persistence), a different reverse proxy, deploy on any other
-cloud host, and [spin up a custom interface in your favorite language](../sdk/overview) - this is just an example!
+[relational database](../../oss/deployment.mdx#data-storage-and-persistence), a different reverse proxy, deploy on any other cloud
+host, and [spin up a custom interface in your favorite language](../sdk/overview) - this is just an example!
 
 ## Create a Droplet
 
@@ -716,3 +716,5 @@ We need to set up secure keys and run Ory Kratos in production mode:
 - [Add Two Factor Authentication (2FA) to your App](../mfa/01_overview.mdx)
 - [Configure The Password Policy](../../concepts/password-policy.mdx)
 - [Integrate using webhooks](../hooks/01_configure-hooks.mdx)
+- Review the [Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx) — Ory Network and OEL binaries restrict
+  `kratos serve` to its config, TLS, schema, courier template, and SQLite database paths at runtime.

@@ -1,7 +1,7 @@
 ---
 id: ory-create
 title: ory create
-description: ory create Create Ory Network resources
+description: ory create
 ---
 
 <!--
@@ -23,14 +23,14 @@ Create Ory Network resources
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory create event-stream](ory-create-event-stream)	 - Create a new event stream
 * [ory create jwk](ory-create-jwk)	 - Create a JSON Web Key Set with a JSON Web Key
 * [ory create oauth2-client](ory-create-oauth2-client)	 - Create an OAuth 2.0 Client
 * [ory create organization](ory-create-organization)	 - Create a new Ory Network organization
 * [ory create project](ory-create-project)	 - Create a new Ory Network project
-* [ory create relationships](ory-create-relationships)	 - Create relationships from JSON files
+* [ory create relationships](ory-create-relationships)	 - Create relationship tuples from inline arguments or JSON files and folders
 * [ory create workspace](ory-create-workspace)	 - Create a new Ory Network workspace
 

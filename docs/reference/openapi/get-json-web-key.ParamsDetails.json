@@ -1,0 +1,18 @@
+{
+  "parameters": [
+    {
+      "description": "JSON Web Key Set ID",
+      "in": "path",
+      "name": "set",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "JSON Web Key ID",
+      "in": "path",
+      "name": "kid",
+      "required": true,
+      "schema": { "type": "string" }
+    }
+  ]
+}

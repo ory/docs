@@ -1,15 +1,18 @@
 ---
 id: overview
-title: Quickstarts & Tutorials
+title: Quickstarts
+displayed_sidebar: quickstartsSidebar
+hide_title: true
 ---
 
-Are you looking for an example to just get started? Check out all available examples!
+import { QuickstartsOverviewHeading } from "@site/src/components/QuickStarts/QuickstartsOverviewHeading"
+
+<QuickstartsOverviewHeading />
+
+Get started with Ory using the guides and examples that best match your use case.
 
 ```mdx-code-block
-import ExampleList from "@site/src/components/Examples/example-list"
-import * as content from "@site/src/pages/_assets/examples-content"
+import { QuickstartFilter } from "@site/src/components/QuickStarts/quickstart-filter"
 
-<ExampleList {...content.basic} />
-<ExampleList {...content.customui} />
-<ExampleList {...content.community} />
+<QuickstartFilter />
 ```

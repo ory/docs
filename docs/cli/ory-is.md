@@ -1,7 +1,7 @@
 ---
 id: ory-is
 title: ory is
-description: ory is Assert the state of Ory Network resources
+description: ory is
 ---
 
 <!--
@@ -23,8 +23,8 @@ Assert the state of Ory Network resources
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory is allowed](ory-is-allowed)	 - Check whether a subject has a relation on an object
 

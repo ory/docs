@@ -7,6 +7,7 @@ title: Email delivery configuration
 import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeBlock from "@theme/CodeBlock"
+import CodeFromRemote from "@theme/CodeFromRemote"
 ```
 
 The Ory Network provides a default SMTP server for sending emails. Ory emails are sent from this address:
@@ -90,6 +91,14 @@ courier:
           in: header
 ```
 
+:::info Self-hosted (Network / OEL)
+
+The `body: file://...` Jsonnet template path is auto-discovered by the
+[Landlock filesystem sandbox](../../security-compliance/landlock-sandbox.mdx): Kratos walks the loaded config at startup and
+allow-lists every `file://` URI it finds. No `security.landlock.allowed_paths` entry is required.
+
+:::
+
 Here is one example of a Jsonnet body:
 
 ```jsonnet
@@ -152,6 +161,107 @@ smtp://{YOUR_POSTMARK_SEVER_API_TOKEN}:{YOUR_POSTMARK_SEVER_API_TOKEN}@smtp.post
 # For example:
 # smtp://thetoken:thetoken@smtp.postmarkapp.com:587/
 ```
+
+### Brevo
+
+[Brevo](https://www.brevo.com) (formerly Sendinblue) is a European email platform with a strong GDPR posture, commonly used when
+EU-hosted email infrastructure is required.
+
+<Tabs>
+<TabItem value="smtp" label="SMTP">
+
+Use the following connection URI to [send emails using Brevo](https://help.brevo.com/hc/en-us/articles/209462765) via SMTP relay:
+
+```
+smtps://<brevo-smtp-login>:<brevo-smtp-key>@smtp-relay.brevo.com:587
+```
+
+The SMTP login is your Brevo account email. The SMTP key is generated under **Brevo → SMTP & API → SMTP** (distinct from Brevo API
+keys).
+
+</TabItem>
+<TabItem value="http" label="HTTP">
+
+Use Brevo's [Transactional Email API](https://developers.brevo.com/reference/sendtransacemail) via the HTTP courier:
+
+```yaml title="kratos.yml"
+courier:
+  delivery_strategy: http
+  http:
+    request_config:
+      url: https://api.brevo.com/v3/smtp/email
+      method: POST
+      body: file:///etc/config/kratos/mail.template.jsonnet
+      headers:
+        "api-key": "<your-brevo-api-key>"
+        "content-type": "application/json"
+```
+
+</TabItem>
+</Tabs>
+
+To configure Brevo as your email provider, go to <ConsoleLink route="project.emailConfiguration" />.
+
+### Mailchimp Transactional (Mandrill)
+
+[Mailchimp Transactional](https://mailchimp.com/developer/transactional/) (formerly Mandrill) is a paid add-on to Mailchimp for
+transactional email — a natural choice when Mailchimp marketing is already in place.
+
+Use the following connection URI:
+
+```
+smtps://apikey:<md-mandrill-api-key>@smtp.mandrillapp.com:465
+```
+
+The SMTP username can be any string (Mandrill ignores it but it must be present — `apikey` is conventional). The password is your
+Mandrill API key from [mandrillapp.com → Settings → SMTP & API Info](https://mandrillapp.com/settings).
+
+Mailchimp Transactional is distinct from the Mailchimp marketing audience integration, which adds users to a Mailchimp list at
+registration via Ory Actions; see [Mailchimp integration with Ory Actions](../../actions/integrations/mailchimp.mdx).
+
+### SparkPost
+
+[SparkPost](https://www.sparkpost.com) (a Bird/MessageBird company) is an enterprise-grade transactional email platform with
+per-region US / EU hosting.
+
+<Tabs>
+<TabItem value="smtp" label="SMTP">
+
+Use the following connection URI:
+
+```
+# US
+smtps://SMTP_Injection:<sparkpost-api-key>@smtp.sparkpostmail.com:587
+
+# EU
+smtps://SMTP_Injection:<sparkpost-api-key>@smtp.eu.sparkpost.com:587
+```
+
+The SMTP login is the literal string `SMTP_Injection` for all customers. The password is your SparkPost API key with the **Send
+via SMTP** permission.
+
+</TabItem>
+<TabItem value="http" label="HTTP">
+
+Use SparkPost's [Transmissions API](https://developers.sparkpost.com/api/transmissions/) via the HTTP courier:
+
+```yaml title="kratos.yml"
+courier:
+  delivery_strategy: http
+  http:
+    request_config:
+      url: https://api.sparkpost.com/api/v1/transmissions # or api.eu.sparkpost.com
+      method: POST
+      body: file:///etc/config/kratos/mail.template.jsonnet
+      headers:
+        "Authorization": "<sparkpost-api-key>"
+        "Content-Type": "application/json"
+```
+
+</TabItem>
+</Tabs>
+
+SparkPost separates US and EU accounts — pick data residency before integration; account migrations are not trivial.
 
 ### Your own server
 
@@ -319,44 +429,59 @@ service that doesn't provide an SMTP server.
 </Tabs>
 ```
 
-### Payload
-
-The payload of the HTTP request is a JSON object that's generated using a Jsonnet template. By default, the following Jsonnet
-template is used:
-
-```jsonnet
-function(ctx) {
-  recipient: ctx.recipient,
-  template_type: ctx.template_type,
-  to: if "template_data" in ctx && "to" in ctx.template_data then ctx.template_data.to else null,
-  recovery_code: if "template_data" in ctx && "recovery_code" in ctx.template_data then ctx.template_data.recovery_code else null,
-  recovery_url: if "template_data" in ctx && "recovery_url" in ctx.template_data then ctx.template_data.recovery_url else null,
-  verification_url: if "template_data" in ctx && "verification_url" in ctx.template_data then ctx.template_data.verification_url else null,
-  verification_code: if "template_data" in ctx && "verification_code" in ctx.template_data then ctx.template_data.verification_code else null,
-  login_code: if "template_data" in ctx && "login_code" in ctx.template_data then ctx.template_data.login_code else null,
-  registration_code: if "template_data" in ctx && "registration_code" in ctx.template_data then ctx.template_data.registration_code else null,
-  subject: if "template_data" in ctx && "subject" in ctx.template_data then ctx.template_data.subject else null,
-  body: if "template_data" in ctx && "body" in ctx.template_data then ctx.template_data.body else null
-}
-```
-
-The courier passes the following object as the `ctx` parameter into the Jsonnet template:
-
-| Variable        | Type   | Description                                                                                                                                                        |
-| --------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `recipient`     | String | The email address of the recipient.                                                                                                                                |
-| `template_type` | String | The type of the template. See the [list of available templates for a full list](./05_custom-email-templates.mdx#built-in-templates)                                |
-| `template_data` | Object | The data that should be included in the email. See the [list of variables for each template for a full list](./05_custom-email-templates.mdx#available-variables). |
-
-In most cases, the default payload should be sufficient.
+The body is built from a Jsonnet template. See [Payload](#payload) for the `ctx` object the template receives and an example
+template.
 
 </TabItem>
 </Tabs>
 
+## Payload {#payload}
+
+When you use the HTTP delivery strategy, Ory Identities sends each email as an HTTP request whose body is built from a Jsonnet
+template. The template receives a `ctx` object that Ory Identities constructs for every message.
+
+### The `ctx` object
+
+The `ctx` properties are defined by the `httpDataModel` struct in Ory Kratos.
+
+<CodeFromRemote
+  lang="go"
+  link="https://github.com/ory/kratos/blob/master/courier/http_channel.go"
+  src="https://raw.githubusercontent.com/ory/kratos/master/courier/http_channel.go"
+  startAt="type httpDataModel struct {"
+  endAt="}"
+/>
+
+The JSON tags on the struct are the field names available in `ctx`:
+
+| Field             | Type   | Description                                                                                                          |
+| ----------------- | ------ | -------------------------------------------------------------------------------------------------------------------- |
+| `recipient`       | String | The email address of the recipient.                                                                                  |
+| `subject`         | String | The rendered email subject.                                                                                          |
+| `body`            | String | The rendered plaintext body.                                                                                         |
+| `html_body`       | String | The rendered HTML body, when available.                                                                              |
+| `template_type`   | String | The template type. See [Events that trigger an email](./05_custom-email-templates.mdx#events-that-trigger-an-email). |
+| `template_data`   | Object | The per-template variables. See [Available variables](./05_custom-email-templates.mdx#available-variables).          |
+| `message_type`    | String | The message channel, for example `email`.                                                                            |
+| `request_headers` | Object | The HTTP headers from the flow request that triggered the email.                                                     |
+
+### Example Jsonnet template
+
+The following is the mailer configuration template shipped with Ory Kratos. It maps the most common fields from `ctx`.
+
+<CodeFromRemote
+  lang="jsonnet"
+  link="https://github.com/ory/kratos/blob/master/courier/stub/request.config.mailer.jsonnet"
+  src="https://raw.githubusercontent.com/ory/kratos/master/courier/stub/request.config.mailer.jsonnet"
+/>
+
+When using your own template, map top-level fields such as `recipient` and `template_type` directly from `ctx`. Map the other
+fields your template needs from `ctx.template_data`.
+
 ## Troubleshooting
 
 In general, if you have problems setting up email delivery, you can view outgoing messages on the **Monitoring** → **Email
-Delivery** page in the [Ory Console](https://console.ory.sh/projects/current/email-delivery).
+Delivery** page in the [Ory Console](https://console.ory.com/projects/current/email-delivery).
 
 :::note
 
@@ -367,8 +492,8 @@ The `Sent` state of an email only indicates whether Ory Identities successfully 
 ### Emails do not arrive
 
 The best way to figure out, why an email did not arrive is checking the
-[**Email Delivery**](https://console.ory.sh/projects/current/email-delivery) dashboard in the Ory Console. It will show all emails
-sent by your project, along with its delivery state. If the Ory Network could not reach your SMTP server or there was an
+[**Email Delivery**](https://console.ory.com/projects/current/email-delivery) dashboard in the Ory Console. It will show all
+emails sent by your project, along with its delivery state. If the Ory Network could not reach your SMTP server or there was an
 authentication failure, it will be indicated here along with the error message.
 
 If the email's status is `Sent`, but it did not arrive, please check the spam folder or the logs of your custom SMTP server (if

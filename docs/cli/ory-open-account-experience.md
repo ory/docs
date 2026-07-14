@@ -1,7 +1,7 @@
 ---
 id: ory-open-account-experience
 title: ory open account-experience
-description: ory open account-experience Open Ory Account Experience Pages
+description: ory open account-experience
 ---
 
 <!--
@@ -32,7 +32,7 @@ ory open account-experience <login|registration|recovery|verification|settings> 
   -y, --yes              Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory open](ory-open)	 - Open Ory Account Experience Pages
+* [ory open](ory-open) Open Ory Account Experience Pages
 

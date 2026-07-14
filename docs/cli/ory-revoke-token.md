@@ -1,7 +1,7 @@
 ---
 id: ory-revoke-token
 title: ory revoke token
-description: ory revoke token Revoke an access or refresh token
+description: ory revoke token
 ---
 
 <!--
@@ -29,7 +29,7 @@ ory revoke token --client-id a0184d6c-b313-4e70-a0b9-905b581e9218 --client-secre
       --client-id string       Use the provided OAuth 2.0 Client ID, defaults to environment variable OAUTH2_CLIENT_ID
       --client-secret string   Use the provided OAuth 2.0 Client Secret, defaults to environment variable OAUTH2_CLIENT_SECRET
   -e, --endpoint string        The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string          Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string          Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                   help for token
       --project string         The project to use, either project ID or a (partial) slug.
   -q, --quiet                  Be quiet with output printing.
@@ -43,7 +43,7 @@ ory revoke token --client-id a0184d6c-b313-4e70-a0b9-905b581e9218 --client-secre
       --skip-tls-verify   Do not verify TLS certificates. Useful when dealing with self-signed certificates. Do not use in production!
 ```
 
-### SEE ALSO
+### See also
 
-* [ory revoke](ory-revoke)	 - Revoke resources
+* [ory revoke](ory-revoke) Revoke resources
 

@@ -1,7 +1,7 @@
 ---
 id: ory-auth
 title: ory auth
-description: ory auth Create a new Ory Network account or sign in to an existing account.
+description: ory auth
 ---
 
 <!--
@@ -21,14 +21,14 @@ ory auth [flags]
 
 ```
   -c, --config string   Path to the Ory Network configuration file.
-      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help            help for auth
   -q, --quiet           Be quiet with output printing.
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory auth logout](ory-auth-logout)	 - Signs you out of your account on this computer.
 

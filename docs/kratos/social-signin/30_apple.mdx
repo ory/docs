@@ -204,6 +204,15 @@ Follow these steps to add Apple as a social sign-in provider to your project usi
 </Tabs>
 ```
 
+## Account linking
+
+Apple supports [automatic account linking](./link-multiple-provider-account#automatic-account-linking-for-google-and-apple). When
+enabled, users who sign in with an Apple account that shares a verified email with an existing identity are automatically linked
+without additional verification.
+
+To enable automatic account linking, set `account_linking_mode` to `automatic` in the provider configuration. Read the
+[account linking documentation](./link-multiple-provider-account#enable-automatic-account-linking) for setup instructions.
+
 ## Using the Apple SDK on native apps
 
 Apple provides a more integrated UX for native apps using the

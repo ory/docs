@@ -3,14 +3,46 @@
 ```ts
 type OryNodeButtonProps = {
   attributes: UiNodeInputAttributes
-  node: UiNode
-} & Omit<ComponentPropsWithoutRef<"button">, "children"> &
-  ButtonVariants
+  buttonProps: OryNodeButtonButtonProps
+  isSubmitting: boolean
+  node: UiNodeInput
+}
 ```
 
-## Type declaration
+## Properties
 
-| Name         | Type                    |
-| ------------ | ----------------------- |
-| `attributes` | `UiNodeInputAttributes` |
-| `node`       | `UiNode`                |
+### ~~attributes~~
+
+```ts
+attributes: UiNodeInputAttributes
+```
+
+#### Deprecated
+
+Use node.attributes instead.
+
+---
+
+### buttonProps
+
+```ts
+buttonProps: OryNodeButtonButtonProps
+```
+
+---
+
+### isSubmitting
+
+```ts
+isSubmitting: boolean
+```
+
+Indicates whether the form is currently being submitted via this button.
+
+---
+
+### node
+
+```ts
+node: UiNodeInput
+```

@@ -1,0 +1,195 @@
+---
+id: upstream-mfa
+title: Carry over upstream multi-factor authentication
+sidebar_label: Upstream MFA carry-over
+---
+
+# Upstream MFA carry-over
+
+When a user signs in through a social sign-in provider that already enforces multi-factor authentication (MFA), Ory can trust that
+second factor instead of asking for another one. This avoids redundant prompts when your project enforces AAL2 through
+[step-up authentication](../mfa/05_step-up-authentication.mdx) and the upstream identity provider has already verified the user
+with a strong factor.
+
+## How it works
+
+Every time a user signs in or registers through an OIDC provider, Ory reads two optional claims from the upstream ID token:
+
+- `acr` — the [Authentication Context Class Reference](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) reported by
+  the provider. It tells the relying party which authentication policy was satisfied (for example `urn:okta:loa:2fa:any` or
+  `http://schemas.openid.net/pape/policies/2007/06/multi-factor`).
+- `amr` — the [Authentication Methods References](https://www.rfc-editor.org/rfc/rfc8176.html) array. Each entry names a factor
+  type the user completed (for example `pwd`, `mfa`, `otp`, `hwk`, `fpt`).
+
+You configure two allowlists per provider:
+
+- `aal2_acr_values` — if the upstream `acr` claim matches any value in this list, Ory marks the resulting session as AAL2.
+- `aal2_amr_values` — if any entry in the upstream `amr` array matches a value in this list, Ory marks the resulting session as
+  AAL2.
+
+When neither list matches, the session stays at AAL1. If your project enforces `session.whoami.required_aal=highest_available`,
+the user is then prompted for a Kratos-managed second factor as usual. Both fields are optional; leaving them empty causes Kratos
+to always issue AAL1 sessions through this provider.
+
+The upstream `acr` and `amr` values are persisted on the session's `authentication_methods` entry as `upstream_acr` and
+`upstream_amr` for auditing. They appear on `/sessions/whoami` and in webhook payloads, so downstream systems can record which
+upstream factors were used.
+
+## Provider support
+
+Not every OIDC provider returns `acr` or `amr`, and the values they emit vary widely. Check your provider's documentation to see
+whether it includes these claims in the ID token and which values map to a multi-factor authentication.
+
+You can still configure the allowlist for any provider — Ory simply records the upstream values and never matches when the
+provider doesn't emit them.
+
+## Configuration
+
+```mdx-code-block
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="console" label="Ory Console" default>
+```
+
+1. Go to <ConsoleLink route="project.socialSignIn" />.
+2. Open the social sign-in provider you want to configure, or add a new one.
+3. In the provider configuration dialog, find the **Upstream MFA** fields:
+   - **Elevate session to AAL2 when `acr` matches** — add the upstream `acr` claim values that should mark the resulting session
+     as AAL2.
+   - **Elevate session to AAL2 when `amr` matches** — add the upstream `amr` values (per RFC 8176) that should mark the session
+     AAL2 when any of them appears in the upstream `amr` array.
+4. Click **Save Configuration**.
+
+```mdx-code-block
+</TabItem>
+<TabItem value="cli" label="Ory CLI">
+```
+
+1. Get the Ory Identities configuration from your project and save it to a file:
+
+   ```shell
+   ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
+   ```
+
+2. Add `aal2_acr_values` and/or `aal2_amr_values` to the provider configuration:
+
+   ```yaml title="identity-config.yaml"
+   selfservice:
+     methods:
+       oidc:
+         enabled: true
+         config:
+           providers:
+             - id: my-okta
+               provider: generic
+               client_id: ...
+               client_secret: ...
+               issuer_url: https://example.okta.com
+               mapper_url: base64://...
+               scope:
+                 - openid
+                 - email
+               # Upstream MFA carry-over: any of these acr values
+               # marks the resulting Ory session as AAL2.
+               aal2_acr_values:
+                 - urn:okta:loa:2fa:any
+                 - http://schemas.openid.net/pape/policies/2007/06/multi-factor
+               # Or match on the upstream amr array. Any entry that
+               # matches one of these values elevates the session.
+               aal2_amr_values:
+                 - mfa
+                 - otp
+                 - hwk
+   ```
+
+3. Update the Ory Identities configuration:
+
+   ```shell
+   ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
+   ```
+
+```mdx-code-block
+</TabItem>
+</Tabs>
+```
+
+### Request a specific ACR from the provider
+
+Some providers (notably Auth0 and Okta) only emit a strong `acr` claim when the relying party explicitly asks for it through the
+`acr_values` parameter. You can do this in two ways:
+
+- Pass `acr_values` as an [upstream parameter](./05_generic.mdx) on the login flow. Ory forwards the value to the provider's
+  authorization endpoint.
+- Use the `requested_claims` field on the provider configuration to ask for the `acr` claim through the OpenID Connect
+  [claims parameter](https://openid.net/specs/openid-connect-core-1_0.html#ClaimsParameter):
+
+  ```yaml
+  selfservice:
+    methods:
+      oidc:
+        config:
+          providers:
+            - id: my-okta
+              provider: generic
+              # ...
+              requested_claims:
+                id_token:
+                  acr:
+                    essential: true
+                    values:
+                      - urn:okta:loa:2fa:any
+              aal2_acr_values:
+                - urn:okta:loa:2fa:any
+  ```
+
+## Inspect the result
+
+After a successful sign-in, the Ory session reflects the upstream MFA decision. For example, fetching `/sessions/whoami` returns:
+
+```json
+{
+  "id": "...",
+  "active": true,
+  "authenticator_assurance_level": "aal2",
+  "authentication_methods": [
+    {
+      "method": "oidc",
+      "aal": "aal2",
+      "completed_at": "2026-04-13T08:23:19Z",
+      "provider": "my-okta",
+      "upstream_acr": "urn:okta:loa:2fa:any",
+      "upstream_amr": ["pwd", "mfa"]
+    }
+  ],
+  "identity": {
+    /* ... */
+  }
+}
+```
+
+When the upstream `acr` or `amr` does not match the configured allowlists, the session stays at AAL1 and the upstream values are
+still recorded under `upstream_acr` / `upstream_amr` for auditing.
+
+## What this does not do
+
+- It does not call the upstream provider to perform MFA on demand. Ory only inspects what the provider already reported.
+- It does not change how Kratos-managed second factors (TOTP, WebAuthn, lookup secrets) work. Local step-up still applies when the
+  upstream did not satisfy the configured allowlist.
+- It does not retroactively re-classify existing sessions. Only sessions issued after the new configuration becomes active are
+  evaluated against the allowlists.
+
+## Troubleshooting
+
+The session is still AAL1 after a successful login: Check that the upstream provider actually emits the claim. You can inspect the
+raw ID token claims from the Jsonnet data mapper through `std.extVar('claims').raw_claims.acr` and
+`std.extVar('claims').raw_claims.amr`. If the provider doesn't surface the claim, request it explicitly through `acr_values` or
+`requested_claims`.
+
+The `upstream_acr` field is empty even though the upstream sent it: Make sure your provider config has `claims_source: id_token`
+(the default) or, if you set `claims_source: userinfo`, that the userinfo endpoint also returns the `acr` claim. Some providers
+only include `acr`/`amr` in the ID token.
+
+The session is AAL2 but the user never completed MFA: Audit the configured allowlists carefully. An `acr` value such as `0` or
+`urn:mace:incommon:iap:bronze` typically means "no MFA was performed" — do not include those values in `aal2_acr_values`.

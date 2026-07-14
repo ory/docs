@@ -1,0 +1,268 @@
+/* Product Selector Graph Styles */
+
+/* Graph Section */
+.graphSection {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.graphTitle {
+  font-size: var(--ifm-h3-font-size);
+  margin-bottom: 1rem;
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+.graphContainer {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  padding: 1.5rem;
+  background-color: var(--ifm-pre-background);
+  overflow-x: auto;
+}
+
+/* Style the "Your Code" subgraph in Mermaid */
+.graphContainer :global(.mermaid) :global(.cluster) {
+  fill: transparent !important;
+  stroke: var(--ifm-color-emphasis-300) !important;
+  stroke-width: 2px !important;
+  stroke-dasharray: 5 5 !important;
+  rx: 8px !important;
+  ry: 8px !important;
+}
+
+.graphContainer :global(.mermaid) :global(.cluster-label) {
+  fill: var(--ifm-color-primary) !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  font-family: var(--ifm-font-family-base) !important;
+}
+
+.graphContainer :global(.mermaid) :global(.cluster-label text) {
+  fill: var(--ifm-color-primary) !important;
+  font-weight: 600 !important;
+}
+
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.cluster) {
+  fill: transparent !important;
+  stroke: var(--ifm-color-emphasis-400) !important;
+  stroke-dasharray: 5 5 !important;
+}
+
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.cluster-label),
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.cluster-label text) {
+  fill: var(--ifm-color-primary) !important;
+}
+
+/* Remove boxes/borders from Ory product icon nodes (nodes with images) */
+.graphContainer :global(.mermaid) :global(.nodeLabel) :global(img) {
+  background: transparent !important;
+}
+
+/* Hide rectangles for nodes containing product logos */
+.graphContainer
+  :global(.mermaid)
+  :global(g)
+  :global(.nodeLabel):has(img)
+  ~ :global(rect),
+.graphContainer
+  :global(.mermaid)
+  :global(g):has(:global(.nodeLabel):has(img))
+  :global(rect) {
+  fill: transparent !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+  opacity: 0 !important;
+}
+
+/* More specific targeting using node IDs */
+.graphContainer
+  :global(.mermaid)
+  :global(g[id*="flowchart-Kratos"])
+  :global(rect),
+.graphContainer
+  :global(.mermaid)
+  :global(g[id*="flowchart-Hydra"])
+  :global(rect),
+.graphContainer
+  :global(.mermaid)
+  :global(g[id*="flowchart-Keto"])
+  :global(rect),
+.graphContainer
+  :global(.mermaid)
+  :global(g[id*="flowchart-Polis"])
+  :global(rect),
+.graphContainer
+  :global(.mermaid)
+  :global(g[id*="flowchart-Oathkeeper"])
+  :global(rect),
+.graphContainer
+  :global(.mermaid)
+  :global(g[id*="flowchart-Elements"])
+  :global(rect) {
+  fill: transparent !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+  opacity: 0 !important;
+}
+
+/* Style Mermaid edges - primary color in light mode, purple in dark mode */
+.graphContainer :global(.mermaid) :global(.flowchart-link) {
+  stroke: var(--ifm-color-primary) !important;
+  stroke-width: 3px !important;
+  fill: none !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+.graphContainer :global(.mermaid) :global(.edgePath) :global(path) {
+  stroke: var(--ifm-color-primary) !important;
+  stroke-width: 3px !important;
+  fill: none !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+
+/* Arrow heads with matching color */
+.graphContainer :global(.mermaid) :global(.arrowheadPath) {
+  fill: var(--ifm-color-primary) !important;
+  stroke: var(--ifm-color-primary) !important;
+}
+
+/* Edge labels with modern styling - transparent background */
+.graphContainer :global(.mermaid) :global(.edgeLabel) {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: var(--ifm-color-emphasis-800) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.graphContainer :global(.mermaid) :global(.edgeLabel) :global(text) {
+  fill: var(--ifm-color-emphasis-800) !important;
+  font-weight: 600 !important;
+  font-family: var(--ifm-font-family-base) !important;
+}
+
+/* Target all possible background elements in edge labels */
+.graphContainer :global(.mermaid) :global(.edgeLabel) :global(rect),
+.graphContainer :global(.mermaid) :global(.edgeLabel) :global(path),
+.graphContainer :global(.mermaid) :global(.edgeLabel) :global(g) :global(rect) {
+  fill: transparent !important;
+  fill-opacity: 0 !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+}
+
+/* Target foreignObject backgrounds if used */
+.graphContainer :global(.mermaid) :global(.edgeLabel) :global(foreignObject),
+.graphContainer
+  :global(.mermaid)
+  :global(.edgeLabel)
+  :global(foreignObject)
+  :global(div) {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Dark mode edge styling - purple */
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.flowchart-link),
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.edgePath)
+  :global(path) {
+  stroke: var(--ifm-color-primary) !important;
+}
+
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.arrowheadPath) {
+  fill: var(--ifm-color-primary) !important;
+  stroke: var(--ifm-color-primary) !important;
+}
+
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.edgeLabel) {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: var(--ifm-color-emphasis-100) !important;
+  border: none !important;
+}
+
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.edgeLabel)
+  :global(text) {
+  fill: var(--ifm-color-emphasis-100) !important;
+}
+
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.edgeLabel)
+  :global(rect),
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.edgeLabel)
+  :global(path),
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.edgeLabel)
+  :global(g)
+  :global(rect) {
+  fill: transparent !important;
+  fill-opacity: 0 !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+}
+
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.edgeLabel)
+  :global(foreignObject),
+:global([data-theme="dark"])
+  .graphContainer
+  :global(.mermaid)
+  :global(.edgeLabel)
+  :global(foreignObject)
+  :global(div) {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 996px) {
+  .graphSection {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .graphContainer {
+    padding: 1rem;
+  }
+}

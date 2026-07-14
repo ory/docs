@@ -1,7 +1,7 @@
 ---
 id: ory-create-organization
 title: ory create organization
-description: ory create organization Create a new Ory Network organization
+description: ory create organization
 ---
 
 <!--
@@ -21,7 +21,7 @@ ory create organization <label> [--project=PROJECT_ID] [--domains=a.example.com,
 
 ```
   -d, --domains strings    A list of domains that will be used for this organization.
-      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help               help for organization
       --project string     The project to use, either project ID or a (partial) slug.
   -q, --quiet              Be quiet with output printing.
@@ -35,7 +35,7 @@ ory create organization <label> [--project=PROJECT_ID] [--domains=a.example.com,
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory create](ory-create)	 - Create Ory Network resources
+* [ory create](ory-create) Create Ory Network resources
 

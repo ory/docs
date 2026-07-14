@@ -1,7 +1,7 @@
 ---
 id: ory-list-projects
 title: ory list projects
-description: ory list projects List your Ory Network projects.
+description: ory list projects
 ---
 
 <!--
@@ -33,7 +33,7 @@ ory list projects [flags]
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory list](ory-list)	 - List resources
+* [ory list](ory-list) List resources
 

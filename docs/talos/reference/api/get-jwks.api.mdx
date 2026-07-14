@@ -1,0 +1,38 @@
+---
+id: get-jwks
+title: "Get JWKS"
+description: "Returns the JSON Web Key Set (RFC 7517) with the public keys needed to"
+sidebar_label: "Get JWKS"
+hide_title: true
+hide_table_of_contents: true
+api: eJzlVcFu4zYQ/ZXBnJJCljdpdxf1qcY2DZKgm8DOIiiiAKGpkcWYIrXkyI5g+N+LkeQ4mxZbFD32JGr4ZoZ6nPe0xZyiDqZm4x1OcEbcBBeBS4LL+fVnuKMFXFELc2I4mv32CT6+P/l4DBvDZQeqm4U1GlbURnBEOeXAPnNrCqZo4fLuFtivyEUwMTaUw6IFLk2ESGFtNKVSPIIKBNYryS6CrzKnvSvMsglKzgVHhbE0GY8TKJnr2K18gIWK9OGnyXgMX2YX8TjNXOYeHx8Fk7nzs1sYr0+VrUt1Ms4pmDXl0mz8tFnF9Cn6Ho0J+pr6Rhc5TnBJfLlZRUwwUKy9ixRxssXTd+/kob1jcixLVdfW6C5xLOUkFnVJlZJVHaQsmz5besrzW7YlCiaC+h7XKUztRrURpLUyTuDRuKUlYF+PLK3JZq4wZHPIUC4iQ9iUPhKslW2oa+BAhaBa8AVc3l2BXzyR5pjCmdJlFylVBMWZq4wzVVOBklrcZghHK2qB25qOE4mZfB+7+PU4AeVyufyRAEaxJm0KozNXKaZglIUjSpepJD5n2IEz1GGdIRQ+wPXVzfgsP33//uRngbgXCA2A2Xx6nGKCUh0n2B8bd7u3kQTZsJXAOfHl3dV8Nlwd7gT8LetTiI3WFGPRWNjfcYodrlCN5f9wz9rnJM/Ch0oxTtA4/vH08AXGMS0p9M1YGdtlGaaqW6g8N9JH2ZvXZXfJmza/9OW2+7KRg3HL7xIzdS0etrtpkPeKYlTLf1lrzoqb+LfcOmgcPdekmXKgEHx4TbHUVMuIk3uc1kbUiA9yBi79ID1MsFZc4gT/QbyYoHgIBam2xSZYnODeHrZ18HLmXTosYupDq2oTU+0rTHCtglEL27M5YHp9DhOArW/CaL/z9jP/8E2A69DCZ+KNDysYgBBtI9TtHhI0rvB/lbwk3SrrB92XZlmOagrdvDhNML25ED1BpZxaUkWOD1Z5wVAql1vq/blorH3BW1OQbrWlSee0xi07T06gd2J555IqUAzWb8AqJqfbBDpuZTeWPvDICtF7yz4S+xZB/q60Ct67Qe+B1n4lOaqTUe+707wy7ofHUR2oMM+Uw+zmU4RAXxsTCJTsgmq4JMeDmFK4LQkW4v2PMylJ/Uw8SmpHzwHe/znq4H0hHlb7GCnG7t8gVAS1AR0oF7SyEEkH4t45hpE98D69uZABoBD7G9mPmaih9pEr1SncqWrwE/HH+dsReOUQ/8+f5uANTM88rq0yTvjrVLgdFHx/oFbIe6mFCR5U/JBg6SMLeruVs30JdreT8NeGQouT+4eDWuVtl2BJKqfQyX5FrbiO1lRzJ2vbdPb21rJ3r23m/OwWd7s/AeYsF+4=
+sidebar_class_name: "get api-method"
+info_path: talos/reference/api/ory-talos-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint"
+import ParamsDetails from "@theme/ParamsDetails"
+import RequestSchema from "@theme/RequestSchema"
+import StatusCodes from "@theme/StatusCodes"
+import OperationTabs from "@theme/OperationTabs"
+import TabItem from "@theme/TabItem"
+import Heading from "@theme/Heading"
+import Translate from "@docusaurus/Translate"
+
+<Heading as={"h1"} className={"openapi__heading"} children={"Get JWKS"}></Heading>
+
+<MethodEndpoint method={"get"} path={"/v2alpha1/derivedKeys/jwks.json"} context={"endpoint"}></MethodEndpoint>
+
+Returns the JSON Web Key Set (RFC 7517) with the public keys needed to verify JWT tokens issued by this service. Keys are loaded
+from configuration (file://, https://, or base64:// URIs).
+
+```http
+GET /v2alpha1/derivedKeys/jwks.json
+```
+
+<ParamsDetails></ParamsDetails>
+
+<RequestSchema {...require("./get-jwks.RequestSchema.json")}></RequestSchema>
+
+<StatusCodes {...require("./get-jwks.StatusCodes.json")}></StatusCodes>

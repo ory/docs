@@ -34,3 +34,9 @@ playwright-report/
 .bin/
 
 screenshots
+
+# Claude Code local files
+**/.claude/settings.local.json
+**/.claude/worktrees/
+**/.claude/scheduled_tasks.lock
+**/.claude/docs/

@@ -1,7 +1,7 @@
 ---
 id: ory-delete-relationships
 title: ory delete relationships
-description: ory delete relationships Delete ALL relationships matching the relation query.
+description: ory delete relationships
 ---
 
 <!--
@@ -29,7 +29,7 @@ ory delete relationships [flags]
       --authority string     Set the authority header for the remote gRPC server.
       --block                Block until the connection is up.
       --force                Force the deletion of relationships
-      --format string        Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string        Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                 help for relationships
       --namespace string     Set the requested namespace
       --object string        Set the requested object
@@ -48,7 +48,7 @@ ory delete relationships [flags]
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory delete](ory-delete)	 - Delete resources
+* [ory delete](ory-delete) Delete resources
 

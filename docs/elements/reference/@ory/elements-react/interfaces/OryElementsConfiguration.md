@@ -7,7 +7,7 @@ The Ory Elements configuration object.
 ### project
 
 ```ts
-project: AccountExperienceConfiguration
+project: ProjectConfiguration
 ```
 
 The project configuration. This includes the project name, URLs, and other settings for the Ory Elements project.

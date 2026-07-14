@@ -1,7 +1,7 @@
 ---
 id: ory-update
 title: ory update
-description: ory update Update resources
+description: ory update
 ---
 
 <!--
@@ -22,9 +22,9 @@ Update resources
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory update event-stream](ory-update-event-stream)	 - Update the event stream with the given ID
 * [ory update identity-config](ory-update-identity-config)	 - Update the Ory Identities configuration of an Ory Network project.
 * [ory update oauth2-client](ory-update-oauth2-client)	 - Update an OAuth 2.0 Client

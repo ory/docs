@@ -3,10 +3,11 @@
 ```ts
 type OrySettingsRecoveryCodesProps = {
   codes: string[]
+  isSubmitting: boolean
   onRegenerate: () => void
   onReveal: () => void
-  regnerateButton: UiNode | undefined
-  revealButton: UiNode | undefined
+  regenerateButton: UiNodeInput | undefined
+  revealButton: UiNodeInput | undefined
 }
 ```
 
@@ -16,6 +17,14 @@ type OrySettingsRecoveryCodesProps = {
 
 ```ts
 codes: string[];
+```
+
+---
+
+### isSubmitting
+
+```ts
+isSubmitting: boolean
 ```
 
 ---
@@ -44,10 +53,10 @@ onReveal: () => void;
 
 ---
 
-### regnerateButton
+### regenerateButton
 
 ```ts
-regnerateButton: UiNode | undefined
+regenerateButton: UiNodeInput | undefined
 ```
 
 ---
@@ -55,5 +64,5 @@ regnerateButton: UiNode | undefined
 ### revealButton
 
 ```ts
-revealButton: UiNode | undefined
+revealButton: UiNodeInput | undefined
 ```

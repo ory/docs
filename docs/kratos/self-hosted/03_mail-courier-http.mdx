@@ -64,12 +64,41 @@ available through a `ctx` object. `recipient` will always be the email address o
   - to
   - verification_url
   - identity
+  - oauth2_login_request (optional)
 - verification_code_invalid
   - to
 - verification_code_valid
   - to
   - verification_code
   - identity
+  - oauth2_login_request (optional)
+- login_code_valid
+  - to
+  - login_code
+  - identity
+  - oauth2_login_request (optional)
+- registration_code_valid
+  - to
+  - registration_code
+  - traits
+  - oauth2_login_request (optional)
+
+The `oauth2_login_request` field is only present when the flow was started through an OAuth2 login challenge, for example when a
+user signs in to an OAuth2 client. Because Ory resolves it server-side, it can't be forged by the end user. Use it to brand
+messages per OAuth2 client:
+
+```json
+"oauth2_login_request": {
+  "challenge": "...",
+  "client": {
+    "client_id": "...",
+    "client_name": "...",
+    "client_uri": "...",
+    "logo_uri": "...",
+    "metadata": {}
+  }
+}
+```
 
 A universal Jsonnet template that works with all flows, would look like this:
 

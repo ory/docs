@@ -3,8 +3,10 @@
 ```ts
 type OryNodeSsoButtonProps = {
   attributes: UiNodeInputAttributes
-  node: UiNode
-  onClick?: () => void
+  buttonProps: OryNodeButtonButtonProps
+  isSubmitting: boolean
+  node: UiNodeInput
+  provider: string
 }
 ```
 
@@ -12,10 +14,30 @@ Props for the OryNodeSsoButton component.
 
 ## Properties
 
-### attributes
+### ~~attributes~~
 
 ```ts
 attributes: UiNodeInputAttributes
+```
+
+#### Deprecated
+
+Use node.attributes instead.
+
+---
+
+### buttonProps
+
+```ts
+buttonProps: OryNodeButtonButtonProps
+```
+
+---
+
+### isSubmitting
+
+```ts
+isSubmitting: boolean
 ```
 
 ---
@@ -23,17 +45,13 @@ attributes: UiNodeInputAttributes
 ### node
 
 ```ts
-node: UiNode
+node: UiNodeInput
 ```
 
 ---
 
-### onClick()?
+### provider
 
 ```ts
-optional onClick: () => void;
+provider: string
 ```
-
-#### Returns
-
-`void`

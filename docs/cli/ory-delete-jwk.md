@@ -1,7 +1,7 @@
 ---
 id: ory-delete-jwk
 title: ory delete jwk
-description: ory delete jwk Delete one or more JSON Web Key Sets by their set ID
+description: ory delete jwk
 ---
 
 <!--
@@ -31,7 +31,7 @@ ory delete jwk <set-1> <set-2> <set-3>
 
 ```
   -e, --endpoint string    The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help               help for jwk
       --project string     The project to use, either project ID or a (partial) slug.
   -q, --quiet              Be quiet with output printing.
@@ -45,7 +45,7 @@ ory delete jwk <set-1> <set-2> <set-3>
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory delete](ory-delete)	 - Delete resources
+* [ory delete](ory-delete) Delete resources
 

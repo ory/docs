@@ -1,7 +1,7 @@
 ---
 id: ory-list-oauth2-clients
 title: ory list oauth2-clients
-description: ory list oauth2-clients List OAuth 2.0 Clients
+description: ory list oauth2-clients
 ---
 
 <!--
@@ -31,7 +31,7 @@ ory list oauth2-clients --page-token eyJwYWdlIjoxfQ --page-size 10
 
 ```
   -e, --endpoint string     The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string       Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string       Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                help for oauth2-clients
       --page-size int       maximum number of items to return (default 100)
       --page-token string   page token acquired from a previous response
@@ -47,7 +47,7 @@ ory list oauth2-clients --page-token eyJwYWdlIjoxfQ --page-size 10
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory list](ory-list)	 - List resources
+* [ory list](ory-list) List resources
 

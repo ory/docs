@@ -1,7 +1,7 @@
 ---
 id: ory-auth-logout
 title: ory auth logout
-description: ory auth logout Signs you out of your account on this computer.
+description: ory auth logout
 ---
 
 <!--
@@ -31,7 +31,7 @@ ory auth logout [flags]
   -y, --yes     Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory auth](ory-auth)	 - Create a new Ory Network account or sign in to an existing account.
+* [ory auth](ory-auth) Create a new Ory Network account or sign in to an existing account.
 

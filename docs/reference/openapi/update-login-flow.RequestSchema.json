@@ -1,0 +1,1025 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "discriminator": {
+            "mapping": {
+              "code": {
+                "description": "Update Login flow using the code method",
+                "properties": {
+                  "address": {
+                    "description": "Address is the address to send the code to, in case that there are multiple addresses. This field\nis only used in two-factor flows and is ineffective for passwordless flows.",
+                    "type": "string"
+                  },
+                  "code": {
+                    "description": "Code is the 6 digits code sent to the user",
+                    "type": "string"
+                  },
+                  "csrf_token": {
+                    "description": "CSRFToken is the anti-CSRF token",
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "description": "Identifier is the code identifier\nThe identifier requires that the user has already completed the registration or settings with code flow.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"code\" when logging in using the code strategy.",
+                    "type": "string"
+                  },
+                  "resend": {
+                    "description": "Resend is set when the user wants to resend the code",
+                    "type": "string"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["method", "csrf_token"],
+                "type": "object",
+                "title": "updateLoginFlowWithCodeMethod"
+              },
+              "identifier_first": {
+                "description": "Update Login Flow with Multi-Step Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "description": "Identifier is the email or username of the user trying to log in.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"password\" when logging in using the identifier and password strategy.",
+                    "type": "string"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["method", "identifier"],
+                "type": "object",
+                "title": "updateLoginFlowWithIdentifierFirstMethod"
+              },
+              "lookup_secret": {
+                "description": "Update Login Flow with Lookup Secret Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "lookup_secret": {
+                    "description": "The lookup secret.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"lookup_secret\" when logging in using the lookup_secret strategy.",
+                    "type": "string"
+                  }
+                },
+                "required": ["method", "lookup_secret"],
+                "type": "object",
+                "title": "updateLoginFlowWithLookupSecretMethod"
+              },
+              "oidc": {
+                "description": "Update Login Flow with OpenID Connect Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "The CSRF Token",
+                    "type": "string"
+                  },
+                  "id_token": {
+                    "description": "IDToken is an optional id token provided by an OIDC provider\n\nIf submitted, it is verified using the OIDC provider's public key set and the claims are used to populate\nthe OIDC credentials of the identity.\nIf the OIDC provider does not store additional claims (such as name, etc.) in the IDToken itself, you can use\nthe `traits` field to populate the identity's traits. Note, that Apple only includes the users email in the IDToken.\n\nSupported providers are\nApple\nGoogle",
+                    "type": "string"
+                  },
+                  "id_token_nonce": {
+                    "description": "IDTokenNonce is the nonce, used when generating the IDToken.\nIf the provider supports nonce validation, the nonce will be validated against this value and required.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method to use\n\nThis field must be set to `oidc` when using the oidc method.",
+                    "type": "string"
+                  },
+                  "provider": {
+                    "description": "The provider to register with",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity traits. This is a placeholder for the registration flow.",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  },
+                  "upstream_parameters": {
+                    "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
+                    "type": "object"
+                  }
+                },
+                "required": ["provider", "method"],
+                "type": "object",
+                "title": "updateLoginFlowWithOidcMethod"
+              },
+              "passkey": {
+                "description": "Update Login Flow with Passkey Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"passkey\" when logging in using the Passkey strategy.",
+                    "type": "string"
+                  },
+                  "passkey_login": {
+                    "description": "Login a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
+                    "type": "string"
+                  }
+                },
+                "required": ["method"],
+                "type": "object",
+                "title": "updateLoginFlowWithPasskeyMethod"
+              },
+              "password": {
+                "description": "Update Login Flow with Password Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "description": "Identifier is the email or username of the user trying to log in.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"password\" when logging in using the identifier and password strategy.",
+                    "type": "string"
+                  },
+                  "password": {
+                    "description": "The user's password.",
+                    "type": "string"
+                  },
+                  "password_identifier": {
+                    "description": "Identifier is the email or username of the user trying to log in.\nThis field is deprecated!",
+                    "type": "string"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["method", "password", "identifier"],
+                "type": "object",
+                "title": "updateLoginFlowWithPasswordMethod"
+              },
+              "saml": {
+                "description": "Update login flow using SAML",
+                "properties": {
+                  "csrf_token": {
+                    "description": "The CSRF Token",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method to use\n\nThis field must be set to `saml` when using the saml method.",
+                    "type": "string"
+                  },
+                  "provider": {
+                    "description": "The provider to register with",
+                    "type": "string"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["provider", "method"],
+                "type": "object",
+                "title": "updateLoginFlowWithSamlMethod"
+              },
+              "totp": {
+                "description": "Update Login Flow with TOTP Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"totp\" when logging in using the TOTP strategy.",
+                    "type": "string"
+                  },
+                  "totp_code": {
+                    "description": "The TOTP code.",
+                    "type": "string"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["method", "totp_code"],
+                "type": "object",
+                "title": "updateLoginFlowWithTotpMethod"
+              },
+              "webauthn": {
+                "description": "Update Login Flow with WebAuthn Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "description": "Identifier is the email or username of the user trying to log in.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"webAuthn\" when logging in using the WebAuthn strategy.",
+                    "type": "string"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  },
+                  "webauthn_login": {
+                    "description": "Login a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
+                    "type": "string"
+                  }
+                },
+                "required": ["identifier", "method"],
+                "type": "object",
+                "title": "updateLoginFlowWithWebAuthnMethod"
+              }
+            },
+            "propertyName": "method"
+          },
+          "oneOf": [
+            {
+              "description": "Update Login Flow with Password Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "identifier": {
+                  "description": "Identifier is the email or username of the user trying to log in.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"password\" when logging in using the identifier and password strategy.",
+                  "type": "string"
+                },
+                "password": {
+                  "description": "The user's password.",
+                  "type": "string"
+                },
+                "password_identifier": {
+                  "description": "Identifier is the email or username of the user trying to log in.\nThis field is deprecated!",
+                  "type": "string"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["method", "password", "identifier"],
+              "type": "object",
+              "title": "updateLoginFlowWithPasswordMethod"
+            },
+            {
+              "description": "Update Login Flow with OpenID Connect Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "The CSRF Token",
+                  "type": "string"
+                },
+                "id_token": {
+                  "description": "IDToken is an optional id token provided by an OIDC provider\n\nIf submitted, it is verified using the OIDC provider's public key set and the claims are used to populate\nthe OIDC credentials of the identity.\nIf the OIDC provider does not store additional claims (such as name, etc.) in the IDToken itself, you can use\nthe `traits` field to populate the identity's traits. Note, that Apple only includes the users email in the IDToken.\n\nSupported providers are\nApple\nGoogle",
+                  "type": "string"
+                },
+                "id_token_nonce": {
+                  "description": "IDTokenNonce is the nonce, used when generating the IDToken.\nIf the provider supports nonce validation, the nonce will be validated against this value and required.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method to use\n\nThis field must be set to `oidc` when using the oidc method.",
+                  "type": "string"
+                },
+                "provider": {
+                  "description": "The provider to register with",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity traits. This is a placeholder for the registration flow.",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                },
+                "upstream_parameters": {
+                  "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
+                  "type": "object"
+                }
+              },
+              "required": ["provider", "method"],
+              "type": "object",
+              "title": "updateLoginFlowWithOidcMethod"
+            },
+            {
+              "description": "Update login flow using SAML",
+              "properties": {
+                "csrf_token": {
+                  "description": "The CSRF Token",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method to use\n\nThis field must be set to `saml` when using the saml method.",
+                  "type": "string"
+                },
+                "provider": {
+                  "description": "The provider to register with",
+                  "type": "string"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["provider", "method"],
+              "type": "object",
+              "title": "updateLoginFlowWithSamlMethod"
+            },
+            {
+              "description": "Update Login Flow with TOTP Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"totp\" when logging in using the TOTP strategy.",
+                  "type": "string"
+                },
+                "totp_code": {
+                  "description": "The TOTP code.",
+                  "type": "string"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["method", "totp_code"],
+              "type": "object",
+              "title": "updateLoginFlowWithTotpMethod"
+            },
+            {
+              "description": "Update Login Flow with WebAuthn Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "identifier": {
+                  "description": "Identifier is the email or username of the user trying to log in.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"webAuthn\" when logging in using the WebAuthn strategy.",
+                  "type": "string"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                },
+                "webauthn_login": {
+                  "description": "Login a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
+                  "type": "string"
+                }
+              },
+              "required": ["identifier", "method"],
+              "type": "object",
+              "title": "updateLoginFlowWithWebAuthnMethod"
+            },
+            {
+              "description": "Update Login Flow with Lookup Secret Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "lookup_secret": {
+                  "description": "The lookup secret.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"lookup_secret\" when logging in using the lookup_secret strategy.",
+                  "type": "string"
+                }
+              },
+              "required": ["method", "lookup_secret"],
+              "type": "object",
+              "title": "updateLoginFlowWithLookupSecretMethod"
+            },
+            {
+              "description": "Update Login flow using the code method",
+              "properties": {
+                "address": {
+                  "description": "Address is the address to send the code to, in case that there are multiple addresses. This field\nis only used in two-factor flows and is ineffective for passwordless flows.",
+                  "type": "string"
+                },
+                "code": {
+                  "description": "Code is the 6 digits code sent to the user",
+                  "type": "string"
+                },
+                "csrf_token": {
+                  "description": "CSRFToken is the anti-CSRF token",
+                  "type": "string"
+                },
+                "identifier": {
+                  "description": "Identifier is the code identifier\nThe identifier requires that the user has already completed the registration or settings with code flow.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"code\" when logging in using the code strategy.",
+                  "type": "string"
+                },
+                "resend": {
+                  "description": "Resend is set when the user wants to resend the code",
+                  "type": "string"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["method", "csrf_token"],
+              "type": "object",
+              "title": "updateLoginFlowWithCodeMethod"
+            },
+            {
+              "description": "Update Login Flow with Passkey Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"passkey\" when logging in using the Passkey strategy.",
+                  "type": "string"
+                },
+                "passkey_login": {
+                  "description": "Login a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
+                  "type": "string"
+                }
+              },
+              "required": ["method"],
+              "type": "object",
+              "title": "updateLoginFlowWithPasskeyMethod"
+            },
+            {
+              "description": "Update Login Flow with Multi-Step Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "identifier": {
+                  "description": "Identifier is the email or username of the user trying to log in.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"password\" when logging in using the identifier and password strategy.",
+                  "type": "string"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["method", "identifier"],
+              "type": "object",
+              "title": "updateLoginFlowWithIdentifierFirstMethod"
+            }
+          ],
+          "title": "updateLoginFlowBody"
+        }
+      },
+      "application/x-www-form-urlencoded": {
+        "schema": {
+          "discriminator": {
+            "mapping": {
+              "code": {
+                "description": "Update Login flow using the code method",
+                "properties": {
+                  "address": {
+                    "description": "Address is the address to send the code to, in case that there are multiple addresses. This field\nis only used in two-factor flows and is ineffective for passwordless flows.",
+                    "type": "string"
+                  },
+                  "code": {
+                    "description": "Code is the 6 digits code sent to the user",
+                    "type": "string"
+                  },
+                  "csrf_token": {
+                    "description": "CSRFToken is the anti-CSRF token",
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "description": "Identifier is the code identifier\nThe identifier requires that the user has already completed the registration or settings with code flow.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"code\" when logging in using the code strategy.",
+                    "type": "string"
+                  },
+                  "resend": {
+                    "description": "Resend is set when the user wants to resend the code",
+                    "type": "string"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["method", "csrf_token"],
+                "type": "object",
+                "title": "updateLoginFlowWithCodeMethod"
+              },
+              "identifier_first": {
+                "description": "Update Login Flow with Multi-Step Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "description": "Identifier is the email or username of the user trying to log in.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"password\" when logging in using the identifier and password strategy.",
+                    "type": "string"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["method", "identifier"],
+                "type": "object",
+                "title": "updateLoginFlowWithIdentifierFirstMethod"
+              },
+              "lookup_secret": {
+                "description": "Update Login Flow with Lookup Secret Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "lookup_secret": {
+                    "description": "The lookup secret.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"lookup_secret\" when logging in using the lookup_secret strategy.",
+                    "type": "string"
+                  }
+                },
+                "required": ["method", "lookup_secret"],
+                "type": "object",
+                "title": "updateLoginFlowWithLookupSecretMethod"
+              },
+              "oidc": {
+                "description": "Update Login Flow with OpenID Connect Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "The CSRF Token",
+                    "type": "string"
+                  },
+                  "id_token": {
+                    "description": "IDToken is an optional id token provided by an OIDC provider\n\nIf submitted, it is verified using the OIDC provider's public key set and the claims are used to populate\nthe OIDC credentials of the identity.\nIf the OIDC provider does not store additional claims (such as name, etc.) in the IDToken itself, you can use\nthe `traits` field to populate the identity's traits. Note, that Apple only includes the users email in the IDToken.\n\nSupported providers are\nApple\nGoogle",
+                    "type": "string"
+                  },
+                  "id_token_nonce": {
+                    "description": "IDTokenNonce is the nonce, used when generating the IDToken.\nIf the provider supports nonce validation, the nonce will be validated against this value and required.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method to use\n\nThis field must be set to `oidc` when using the oidc method.",
+                    "type": "string"
+                  },
+                  "provider": {
+                    "description": "The provider to register with",
+                    "type": "string"
+                  },
+                  "traits": {
+                    "description": "The identity traits. This is a placeholder for the registration flow.",
+                    "type": "object"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  },
+                  "upstream_parameters": {
+                    "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
+                    "type": "object"
+                  }
+                },
+                "required": ["provider", "method"],
+                "type": "object",
+                "title": "updateLoginFlowWithOidcMethod"
+              },
+              "passkey": {
+                "description": "Update Login Flow with Passkey Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"passkey\" when logging in using the Passkey strategy.",
+                    "type": "string"
+                  },
+                  "passkey_login": {
+                    "description": "Login a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
+                    "type": "string"
+                  }
+                },
+                "required": ["method"],
+                "type": "object",
+                "title": "updateLoginFlowWithPasskeyMethod"
+              },
+              "password": {
+                "description": "Update Login Flow with Password Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "description": "Identifier is the email or username of the user trying to log in.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"password\" when logging in using the identifier and password strategy.",
+                    "type": "string"
+                  },
+                  "password": {
+                    "description": "The user's password.",
+                    "type": "string"
+                  },
+                  "password_identifier": {
+                    "description": "Identifier is the email or username of the user trying to log in.\nThis field is deprecated!",
+                    "type": "string"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["method", "password", "identifier"],
+                "type": "object",
+                "title": "updateLoginFlowWithPasswordMethod"
+              },
+              "saml": {
+                "description": "Update login flow using SAML",
+                "properties": {
+                  "csrf_token": {
+                    "description": "The CSRF Token",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method to use\n\nThis field must be set to `saml` when using the saml method.",
+                    "type": "string"
+                  },
+                  "provider": {
+                    "description": "The provider to register with",
+                    "type": "string"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["provider", "method"],
+                "type": "object",
+                "title": "updateLoginFlowWithSamlMethod"
+              },
+              "totp": {
+                "description": "Update Login Flow with TOTP Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"totp\" when logging in using the TOTP strategy.",
+                    "type": "string"
+                  },
+                  "totp_code": {
+                    "description": "The TOTP code.",
+                    "type": "string"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  }
+                },
+                "required": ["method", "totp_code"],
+                "type": "object",
+                "title": "updateLoginFlowWithTotpMethod"
+              },
+              "webauthn": {
+                "description": "Update Login Flow with WebAuthn Method",
+                "properties": {
+                  "csrf_token": {
+                    "description": "Sending the anti-csrf token is only required for browser login flows.",
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "description": "Identifier is the email or username of the user trying to log in.",
+                    "type": "string"
+                  },
+                  "method": {
+                    "description": "Method should be set to \"webAuthn\" when logging in using the WebAuthn strategy.",
+                    "type": "string"
+                  },
+                  "transient_payload": {
+                    "description": "Transient data to pass along to any webhooks",
+                    "type": "object"
+                  },
+                  "webauthn_login": {
+                    "description": "Login a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
+                    "type": "string"
+                  }
+                },
+                "required": ["identifier", "method"],
+                "type": "object",
+                "title": "updateLoginFlowWithWebAuthnMethod"
+              }
+            },
+            "propertyName": "method"
+          },
+          "oneOf": [
+            {
+              "description": "Update Login Flow with Password Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "identifier": {
+                  "description": "Identifier is the email or username of the user trying to log in.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"password\" when logging in using the identifier and password strategy.",
+                  "type": "string"
+                },
+                "password": {
+                  "description": "The user's password.",
+                  "type": "string"
+                },
+                "password_identifier": {
+                  "description": "Identifier is the email or username of the user trying to log in.\nThis field is deprecated!",
+                  "type": "string"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["method", "password", "identifier"],
+              "type": "object",
+              "title": "updateLoginFlowWithPasswordMethod"
+            },
+            {
+              "description": "Update Login Flow with OpenID Connect Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "The CSRF Token",
+                  "type": "string"
+                },
+                "id_token": {
+                  "description": "IDToken is an optional id token provided by an OIDC provider\n\nIf submitted, it is verified using the OIDC provider's public key set and the claims are used to populate\nthe OIDC credentials of the identity.\nIf the OIDC provider does not store additional claims (such as name, etc.) in the IDToken itself, you can use\nthe `traits` field to populate the identity's traits. Note, that Apple only includes the users email in the IDToken.\n\nSupported providers are\nApple\nGoogle",
+                  "type": "string"
+                },
+                "id_token_nonce": {
+                  "description": "IDTokenNonce is the nonce, used when generating the IDToken.\nIf the provider supports nonce validation, the nonce will be validated against this value and required.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method to use\n\nThis field must be set to `oidc` when using the oidc method.",
+                  "type": "string"
+                },
+                "provider": {
+                  "description": "The provider to register with",
+                  "type": "string"
+                },
+                "traits": {
+                  "description": "The identity traits. This is a placeholder for the registration flow.",
+                  "type": "object"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                },
+                "upstream_parameters": {
+                  "description": "UpstreamParameters are the parameters that are passed to the upstream identity provider.\n\nThese parameters are optional and depend on what the upstream identity provider supports.\nSupported parameters are:\n`login_hint` (string): The `login_hint` parameter suppresses the account chooser and either pre-fills the email box on the sign-in form, or selects the proper session.\n`hd` (string): The `hd` parameter limits the login/registration process to a Google Organization, e.g. `mycollege.edu`.\n`prompt` (string): The `prompt` specifies whether the Authorization Server prompts the End-User for reauthentication and consent, e.g. `select_account`.\n`acr_values` (string): The `acr_values` specifies the Authentication Context Class Reference values for the authorization request.",
+                  "type": "object"
+                }
+              },
+              "required": ["provider", "method"],
+              "type": "object",
+              "title": "updateLoginFlowWithOidcMethod"
+            },
+            {
+              "description": "Update login flow using SAML",
+              "properties": {
+                "csrf_token": {
+                  "description": "The CSRF Token",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method to use\n\nThis field must be set to `saml` when using the saml method.",
+                  "type": "string"
+                },
+                "provider": {
+                  "description": "The provider to register with",
+                  "type": "string"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["provider", "method"],
+              "type": "object",
+              "title": "updateLoginFlowWithSamlMethod"
+            },
+            {
+              "description": "Update Login Flow with TOTP Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"totp\" when logging in using the TOTP strategy.",
+                  "type": "string"
+                },
+                "totp_code": {
+                  "description": "The TOTP code.",
+                  "type": "string"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["method", "totp_code"],
+              "type": "object",
+              "title": "updateLoginFlowWithTotpMethod"
+            },
+            {
+              "description": "Update Login Flow with WebAuthn Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "identifier": {
+                  "description": "Identifier is the email or username of the user trying to log in.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"webAuthn\" when logging in using the WebAuthn strategy.",
+                  "type": "string"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                },
+                "webauthn_login": {
+                  "description": "Login a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
+                  "type": "string"
+                }
+              },
+              "required": ["identifier", "method"],
+              "type": "object",
+              "title": "updateLoginFlowWithWebAuthnMethod"
+            },
+            {
+              "description": "Update Login Flow with Lookup Secret Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "lookup_secret": {
+                  "description": "The lookup secret.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"lookup_secret\" when logging in using the lookup_secret strategy.",
+                  "type": "string"
+                }
+              },
+              "required": ["method", "lookup_secret"],
+              "type": "object",
+              "title": "updateLoginFlowWithLookupSecretMethod"
+            },
+            {
+              "description": "Update Login flow using the code method",
+              "properties": {
+                "address": {
+                  "description": "Address is the address to send the code to, in case that there are multiple addresses. This field\nis only used in two-factor flows and is ineffective for passwordless flows.",
+                  "type": "string"
+                },
+                "code": {
+                  "description": "Code is the 6 digits code sent to the user",
+                  "type": "string"
+                },
+                "csrf_token": {
+                  "description": "CSRFToken is the anti-CSRF token",
+                  "type": "string"
+                },
+                "identifier": {
+                  "description": "Identifier is the code identifier\nThe identifier requires that the user has already completed the registration or settings with code flow.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"code\" when logging in using the code strategy.",
+                  "type": "string"
+                },
+                "resend": {
+                  "description": "Resend is set when the user wants to resend the code",
+                  "type": "string"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["method", "csrf_token"],
+              "type": "object",
+              "title": "updateLoginFlowWithCodeMethod"
+            },
+            {
+              "description": "Update Login Flow with Passkey Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"passkey\" when logging in using the Passkey strategy.",
+                  "type": "string"
+                },
+                "passkey_login": {
+                  "description": "Login a WebAuthn Security Key\n\nThis must contain the ID of the WebAuthN connection.",
+                  "type": "string"
+                }
+              },
+              "required": ["method"],
+              "type": "object",
+              "title": "updateLoginFlowWithPasskeyMethod"
+            },
+            {
+              "description": "Update Login Flow with Multi-Step Method",
+              "properties": {
+                "csrf_token": {
+                  "description": "Sending the anti-csrf token is only required for browser login flows.",
+                  "type": "string"
+                },
+                "identifier": {
+                  "description": "Identifier is the email or username of the user trying to log in.",
+                  "type": "string"
+                },
+                "method": {
+                  "description": "Method should be set to \"password\" when logging in using the identifier and password strategy.",
+                  "type": "string"
+                },
+                "transient_payload": {
+                  "description": "Transient data to pass along to any webhooks",
+                  "type": "object"
+                }
+              },
+              "required": ["method", "identifier"],
+              "type": "object",
+              "title": "updateLoginFlowWithIdentifierFirstMethod"
+            }
+          ],
+          "title": "updateLoginFlowBody"
+        }
+      }
+    },
+    "required": true,
+    "x-originalParamName": "Body"
+  }
+}

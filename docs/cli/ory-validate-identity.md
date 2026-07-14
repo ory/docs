@@ -1,7 +1,7 @@
 ---
 id: ory-validate-identity
 title: ory validate identity
-description: ory validate identity Validate local identity files
+description: ory validate identity
 ---
 
 <!--
@@ -38,7 +38,7 @@ ory validate identity file.json [file-2.json] [file-3.json] [file-n.json] [flags
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory validate](ory-validate)	 - Validate resources
+* [ory validate](ory-validate) Validate resources
 

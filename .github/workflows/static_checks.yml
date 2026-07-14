@@ -21,6 +21,18 @@ jobs:
           config: "./docs/.markdownlint.yml"
           args: "./docs/docs/**/*.+(md|mdx)"
 
+  check-console-links:
+    name: Check console links for 404s
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24.x"
+          cache: "npm"
+      - run: npm install
+      - run: npm run check-console-links
+
   misspell:
     name: Check spelling using misspell
     runs-on: ubuntu-latest

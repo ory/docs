@@ -1,7 +1,7 @@
 ---
 id: ory-get-workspace
 title: ory get workspace
-description: ory get workspace Get an Ory Network workspaces
+description: ory get workspace
 ---
 
 <!--
@@ -20,7 +20,7 @@ ory get workspace <id> [flags]
 ### Options
 
 ```
-      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help            help for workspace
   -q, --quiet           Be quiet with output printing.
 ```
@@ -32,7 +32,7 @@ ory get workspace <id> [flags]
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory get](ory-get)	 - Get a resource
+* [ory get](ory-get) Get a resource
 

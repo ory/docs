@@ -1,0 +1,17 @@
+{
+  "parameters": [
+    {
+      "description": "The Flow ID\n\nThe value for this parameter comes from `request` URL Query parameter sent to your\napplication (e.g. `/verification?flow=abcde`).",
+      "in": "query",
+      "name": "id",
+      "required": true,
+      "schema": { "type": "string" }
+    },
+    {
+      "description": "HTTP Cookies\n\nWhen using the SDK on the server side you must include the HTTP Cookie Header\noriginally sent to your HTTP handler here.",
+      "in": "header",
+      "name": "cookie",
+      "schema": { "type": "string" }
+    }
+  ]
+}

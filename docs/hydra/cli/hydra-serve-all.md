@@ -32,7 +32,7 @@ the controls section.
 Ory Hydra can be configured using environment variables as well as a configuration file. For more information
 on configuration options, open the configuration documentation:
 
->> https://www.ory.sh/hydra/docs/reference/configuration <<
+>> https://www.ory.com/hydra/docs/reference/configuration <<
 
 
 ```
@@ -50,7 +50,7 @@ hydra serve all [flags]
 ```
   -c, --config strings   Path to one or more .json, .yaml, .yml, .toml config files. Values are loaded in the order provided, meaning that the last config file overwrites values from the previous config file.
       --dev              Disables critical security checks to improve local development experience. Do not use in production.
-      --sqa-opt-out      Disable anonymized telemetry reports - for more information please visit https://www.ory.sh/docs/ecosystem/sqa
+      --sqa-opt-out      Disable anonymized telemetry reports - for more information please visit https://www.ory.com/docs/ecosystem/sqa
 ```
 
 ### See also

@@ -1,7 +1,7 @@
 ---
 id: ory-list-identities
 title: ory list identities
-description: ory list identities List identities
+description: ory list identities
 ---
 
 <!--
@@ -50,7 +50,7 @@ ory list identities --page-size 100 --consistency eventual
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory list](ory-list)	 - List resources
+* [ory list](ory-list) List resources
 

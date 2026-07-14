@@ -250,19 +250,27 @@ export const deploymentOptions: {
   description: "Choose your deployment option",
   cards: [
     {
+      title: "Ory Network",
+      description:
+        "Use Ory Network to get started quickly without managing infrastructure.",
+      //language: "ory",
+      //languageLogoAlt: "Ory Network icon",
+      docs: "/docs/network/getting-started",
+    },
+    {
       title: "Ory Enterprise License",
       description:
         "Enterprise-grade support and features for self-hosted on-premise Ory deployments.",
-      language: "ory",
-      languageLogoAlt: "Enterprise icon",
-      docs: "/docs/self-hosted/oel/quickstart",
+      //language: "ory",
+      //languageLogoAlt: "Enterprise icon",
+      docs: "/docs/oel/getting-started",
     },
     {
       title: "Open source",
       description: "Ory is open source. Run Ory on your own infrastructure.",
-      language: "github",
-      languageLogoAlt: "GitHub icon",
-      docs: "/docs/open-source",
+      //language: "github",
+      //languageLogoAlt: "GitHub icon",
+      docs: "/docs/oss/getting-started",
     },
   ],
 }

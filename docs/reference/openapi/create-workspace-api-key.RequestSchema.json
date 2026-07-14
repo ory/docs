@@ -1,0 +1,26 @@
+{
+  "title": "Body",
+  "body": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "properties": {
+            "expires_at": {
+              "format": "date-time",
+              "type": "string",
+              "title": "Time"
+            },
+            "name": {
+              "description": "The API Key Name\n\nA descriptive name for the API key.",
+              "type": "string"
+            }
+          },
+          "required": ["name"],
+          "type": "object",
+          "title": "CreateWorkspaceApiKeyBody"
+        }
+      }
+    },
+    "x-originalParamName": "Body"
+  }
+}

@@ -1,7 +1,7 @@
 ---
 id: ory-perform
 title: ory perform
-description: ory perform Perform a flow
+description: ory perform
 ---
 
 <!--
@@ -22,9 +22,9 @@ Perform a flow
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory](ory)	 - The Ory CLI
+* [ory](ory) The Ory CLI
 * [ory perform authorization-code](ory-perform-authorization-code)	 - Example OAuth 2.0 Client performing the OAuth 2.0 Authorize Code Flow
 * [ory perform client-credentials](ory-perform-client-credentials)	 - Perform the OAuth2 Client Credentials Flow
 

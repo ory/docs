@@ -1,4 +1,4 @@
-// Copyright © 2022 Ory Corp
+// Copyright © 2026 Ory Corp
 // SPDX-License-Identifier: Apache-2.0
 
 import React from "react"
@@ -6,7 +6,7 @@ import Tabs from "@theme/Tabs"
 import TabItem from "@theme/TabItem"
 import CodeFromRemote from "../CodeFromRemote"
 
-const CodeTabs = ({ sampleId, version }) => (
+const CodeTabs = ({ sampleId, version, outputExt = "txt" }) => (
   <>
     <Tabs
       values={[
@@ -39,7 +39,7 @@ const CodeTabs = ({ sampleId, version }) => (
       </TabItem>
     </Tabs>
     <CodeFromRemote
-      src={`https://github.com/ory/keto/blob/${version}/contrib/docs-code-samples/${sampleId}/expected_output.txt`}
+      src={`https://github.com/ory/keto/blob/${version}/contrib/docs-code-samples/${sampleId}/expected_output.${outputExt}`}
       title="Result"
     />
   </>

@@ -2,25 +2,26 @@
 
 ```ts
 type OrySettingsSsoProps = {
-  linkButtons: UiNode &
-    {
-      onClick: () => void
-    }[]
-  unlinkButtons: UiNode &
-    {
-      onClick: () => void
-    }[]
+  isSubmitting: boolean
+  linkButtons: OryNodeSettingsButton[]
+  unlinkButtons: OryNodeSettingsButton[]
 }
 ```
 
 ## Properties
 
+### isSubmitting
+
+```ts
+isSubmitting: boolean
+```
+
+---
+
 ### linkButtons
 
 ```ts
-linkButtons: UiNode & {
-  onClick: () => void;
-}[];
+linkButtons: OryNodeSettingsButton[];
 ```
 
 ---
@@ -28,7 +29,5 @@ linkButtons: UiNode & {
 ### unlinkButtons
 
 ```ts
-unlinkButtons: UiNode & {
-  onClick: () => void;
-}[];
+unlinkButtons: OryNodeSettingsButton[];
 ```

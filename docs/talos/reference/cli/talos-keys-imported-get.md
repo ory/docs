@@ -1,0 +1,38 @@
+---
+id: talos-keys-imported-get
+title: talos keys imported get
+description: talos keys imported get
+---
+
+<!--
+This file is auto-generated.
+
+To improve this file please make your change against the appropriate "./cmd/*.go" file.
+-->
+
+## talos keys imported get
+
+Get details of an imported API key
+
+```
+talos keys imported get [key-id] [flags]
+```
+
+### Options
+
+```
+      --format string   Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
+  -h, --help            help for get
+  -q, --quiet           Be quiet with output printing.
+```
+
+### Options inherited from parent commands
+
+```
+      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
+  -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
+```
+
+### See also
+
+- [talos keys imported](talos-keys-imported.md) Manage imported API keys

@@ -1,7 +1,7 @@
 ---
 id: ory-get-identity-config
 title: ory get identity-config
-description: ory get identity-config Get Ory Identities configuration.
+description: ory get identity-config
 ---
 
 <!--
@@ -55,7 +55,7 @@ $ ory get identity-config --format json   # uses currently selected project
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory get](ory-get)	 - Get a resource
+* [ory get](ory-get) Get a resource
 

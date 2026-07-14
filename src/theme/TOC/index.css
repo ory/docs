@@ -1,7 +1,3 @@
-:root {
-  --ory-network-cta-height: 400px;
-}
-
 .ory-toc-wrapper {
   max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
   overflow: auto;
@@ -33,6 +29,13 @@ TOC wrapper.
   position: unset;
   top: unset;
   flex-shrink: 1;
+}
+
+.ory-network-cta-sticky {
+  position: sticky;
+  bottom: 0;
+  padding-top: 8px;
+  background: var(--ifm-background-color);
 }
 
 .kapa-widget-placeholder {

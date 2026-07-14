@@ -15,10 +15,17 @@ Check whether a subject has a relation on an object
 
 ### Synopsis
 
-Check whether a subject has a relation on an object. This method resolves subject sets and subject set rewrites.
+Check whether a subject has a relation on an object.
+
+Example:
+```
+keto check User:Alice view Doc:readme
+```
+
+Legacy format 'keto check <subject_namespace>:<subject_id> <relation> <object_namespace> <object_id>' is deprecated.
 
 ```
-keto check <subject> <relation> <namespace> <object> [flags]
+keto check <subject_namespace>:<subject_id> <relation> <object_namespace>:<object_id> [flags]
 ```
 
 ### Options
@@ -26,7 +33,7 @@ keto check <subject> <relation> <namespace> <object> [flags]
 ```
       --authority string                      Set the authority header for the remote gRPC server.
       --block                                 Block until the connection is up.
-      --format string                         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string                         Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                                  help for check
       --insecure-disable-transport-security   Disables transport security. Do not use this in production.
       --insecure-skip-hostname-verification   Disables hostname verification. Do not use this in production.

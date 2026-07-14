@@ -1,7 +1,7 @@
 ---
 id: ory-get-jwk
 title: ory get jwk
-description: ory get jwk Get one or more JSON Web Key Set by its ID(s)
+description: ory get jwk
 ---
 
 <!--
@@ -38,7 +38,7 @@ To get the JSON Web Key Set as only public keys:
 
 ```
   -e, --endpoint string    The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
-      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "default")
+      --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help               help for jwk
       --project string     The project to use, either project ID or a (partial) slug.
       --public             Only return public keys
@@ -53,7 +53,7 @@ To get the JSON Web Key Set as only public keys:
   -y, --yes             Confirm all dialogs with yes.
 ```
 
-### SEE ALSO
+### See also
 
-* [ory get](ory-get)	 - Get a resource
+* [ory get](ory-get) Get a resource
 

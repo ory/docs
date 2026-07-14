@@ -85,14 +85,12 @@ local claims = std.extVar('claims');
 </TabItem>
 <TabItem value="cli" label="Ory CLI">
 Follow these steps to add Amazon as a social sign-in provider to your project using the Ory CLI:
-3. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
 
-  ```shell
-  cat your-data-mapping.jsonnet | base64
-  ```
-
-4. Download the Ory Identities config from your project and save it to a file:
-
+1. Encode the Jsonnet snippet with [Base64](https://www.base64encode.org/) or host it under an URL accessible to Ory Network.
+   ```shell
+   cat your-data-mapping.jsonnet | base64
+   ```
+1. Download the Ory Identities config from your project and save it to a file:
    ```shell
    ## List all available workspaces
    ory list workspaces
@@ -103,10 +101,8 @@ Follow these steps to add Amazon as a social sign-in provider to your project us
    ## Get config
    ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
    ```
-
-5. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
+1. Add the social sign-in provider configuration to the downloaded config. Add the Jsonnet snippet with mappings as a Base64
    string or provide an URL to the file.
-
    ```yaml
    selfservice:
    methods:
@@ -125,9 +121,7 @@ Follow these steps to add Amazon as a social sign-in provider to your project us
              pkce: "force"
        enabled: true
    ```
-
-6. Update the Ory Identities configuration using the file you worked with:
-
+1. Update the Ory Identities configuration using the file you worked with:
    ```shell
    ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
    ```
