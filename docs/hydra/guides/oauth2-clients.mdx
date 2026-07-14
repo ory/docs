@@ -187,12 +187,20 @@ remains valid until you remove it, allowing you to update all your client servic
 
 ##### How secret rotation works
 
-1. Generate a new secret for the client service. Both the old and the new secret authenticate from this point on.
+1. Generate a new secret for the client service. Both the old and the new secrets can be used to authenticate from this point on.
 2. Update your client services to use the new secret.
 3. Test that the client services can authenticate with the new secret.
 4. Manually remove the old secret. Only the new secret authenticates from this point on.
 
-##### Rotate client secret
+:::info
+
+Secret rotation is available only for clients that use the `client_secret_basic` or `client_secret_post` token endpoint
+authentication method. Ory keeps up to five rotated secrets per client. When you rotate again, the oldest rotated secret is
+dropped and can no longer authenticate. Setting a new secret through the update or patch client APIs clears all rotated secrets.
+
+:::
+
+##### Rotate OAuth2 client secret
 
 To rotate an OAuth2 client secret, use the following methods:
 
@@ -282,7 +290,7 @@ NEW_SECRET=$(curl -X POST "https://{project.slug}.projects.oryapis.com/admin/cli
 echo "New secret: $NEW_SECRET"
 
 # 3. Update your client services with the new secret
-# (Both the old and the new secret work during this period)
+# (Both the old and the new secrets work during this period)
 
 # 4. Verify the new secret works
 curl -X POST "https://{project.slug}.projects.oryapis.com/oauth2/token" \
