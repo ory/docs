@@ -809,6 +809,11 @@
     "type": "error"
   },
   {
+    "id": 4000046,
+    "text": "This DeviceAuthn key was enrolled before user verification was introduced and can no longer be used. Please enroll your device again.",
+    "type": "error"
+  },
+  {
     "id": 4010001,
     "text": "The login flow expired 1.00 minutes ago, please try again.",
     "type": "error",
