@@ -176,8 +176,9 @@ For example:
 ```
 
 You can now save the default Identity Schema and custom Identity Schemas in git. When you make changes, convert the new Identity
-Schema to base64 and update it in the config file. You can only update existing identity schemas, to create a new one use the Ory
-Console. Use the following command to convert a file to base64 and copy it to the clipboard:
+Schema to base64 and update it in the config file. You can update existing identity schemas here, and remove one by leaving it out
+of the `schemas` list (see below); to create a new one, use the Ory Console. Use the following command to convert a file to base64
+and copy it to the clipboard:
 
 ```bash
 base64 < identity-schema.json | pbcopy
@@ -198,6 +199,11 @@ Now add the base64 encoded string to your configuration:
 
 When you update the configuration, Ory Network will automatically decode the base64 string and save the updated Identity Schema in
 the Ory Network backend.
+
+To remove a custom identity schema, delete its entry from the `schemas` list and update the configuration. Ory Network removes it
+from the project, as long as no existing identity still uses it. If an identity does, the update is rejected with a `409 Conflict`
+(`reason: in_use_by_identity`) that lists the affected schemas — remove or migrate those identities first, then apply the change
+again. You can't remove the last remaining schema or the one referenced by `default_schema_id`.
 
 ## Email Templates
 
