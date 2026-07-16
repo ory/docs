@@ -4,14 +4,28 @@ title: Manage OAuth 2.0 and OpenID Connect clients
 sidebar_label: Manage OAuth2 clients
 ---
 
-OAuth2 clients are applications that securely authenticate with the authorization server to obtain access to an HTTP service.
-Confidential clients can use registered client secrets to authenticate, while public clients are unable to use registered client
-secrets. OAuth2 clients can be configured in a secure manner using the Ory OAuth2 and OpenID Connect product. This documentation
-article explains how to manage OAuth2 clients using the Ory Console, Ory SDK, Ory CLI, and Ory REST APIs.
+OAuth2 clients are applications that securely authenticate with an authorization server to obtain access to an HTTP service. Every
+OAuth2 client is either confidential or public, depending on whether it can keep a secret. Applications that run on infrastructure
+you control, for example, backends and services, are confidential clients. They authenticate with a client secret. Applications
+distributed to users, for example, single-page apps, mobile, and native apps, are public clients. Anyone can read the code and
+extract an embedded secret, so they authenticate with PKCE and have no secret at all.
+
+For each of your confidential clients, you register a client record with the client's secret for authentication. Public clients do
+not have a client secret in the registered client record. In Ory, you set whether the client is confidential or public with
+`token_endpoint_auth_method` value, where `none` means public.
+
+This documentation article explains how to manage OAuth2 clients using the Ory Console, Ory SDK, Ory CLI, and Ory REST APIs.
 
 ## Create OAuth2 client
 
 To create a new OAuth2 client, use the following methods:
+
+:::info
+
+Clients that use the `client_secret_basic` or `client_secret_post` `token-endpoint-auth-method` are able to perform secret
+rotation.
+
+:::
 
 ````mdx-code-block
 import Tabs from '@theme/Tabs'
@@ -23,7 +37,7 @@ import TabItem from '@theme/TabItem'
 The Ory Console is a web-based user interface that allows you to manage OAuth2 clients. To create a new client:
 
 1. Go to <ConsoleLink route="project.oauthConfiguration" />
-2. Click **Create OAuth2 Client** and complete the form or update an existing client.
+2. Click **Create OAuth2 Client** and complete the form.
 3. When creating a confidential client, copy the client secret when printed. It is only shown once.
 
 </TabItem>
@@ -110,6 +124,12 @@ across deployments and requires no client updates.
 
 To update an existing OAuth2 client, use the following methods:
 
+:::warning
+
+If you use secret rotation, setting a new secret through the update client API clears all rotated secrets.
+
+:::
+
 ````mdx-code-block
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
@@ -153,6 +173,12 @@ See [API documentation](../../reference/api#tag/oAuth2/operation/setOAuth2Client
 
 To partially update an existing OAuth2 client, use the following methods:
 
+:::warning
+
+If you use secret rotation, setting a new secret through the patch client API clears all rotated secrets.
+
+:::
+
 ````mdx-code-block
 <Tabs>
 <TabItem value="console" label="Ory Console" default>
@@ -179,6 +205,141 @@ See [API documentation](../../reference/api#tag/oAuth2/operation/patchOAuth2Clie
 </TabItem>
 </Tabs>
 ````
+
+## Rotate OAuth2 client secret
+
+OAuth2 client secret rotation allows you to change a client's secret without downtime. When you rotate a secret, the old secret
+remains valid until you remove it. This allows you to update the secret wherever your applications store it, then restart or
+redeploy anything that reads it, without service interruption.
+
+Secret rotation is available only for clients that use the `client_secret_basic` or `client_secret_post` token endpoint
+authentication method. Ory keeps up to five rotated secrets per client. When you rotate again, the oldest rotated secret is
+dropped and can no longer authenticate.
+
+:::warning
+
+If you use secret rotation, setting a new secret through the update or patch client APIs clears all rotated secrets.
+
+:::
+
+### How secret rotation works
+
+1. Rotation generates a new secret for the client. Both the old and the new secrets can be used to authenticate from this point
+   on.
+2. Update the secret wherever it's stored, then restart or redeploy whatever applications read it.
+3. Verify that the application can authenticate with the new secret.
+4. Delete the old secret. Only the new secret authenticates from this point on.
+
+### Rotate OAuth2 client secret
+
+To rotate an OAuth2 client secret, use the following methods:
+
+````mdx-code-block
+<Tabs>
+<TabItem value="rest" label="REST API">
+
+```bash
+curl -X POST https://{project.slug}.projects.oryapis.com/admin/clients/{client-id}/secrets/rotate \
+  -H "Authorization: Bearer ory_pat_..."
+```
+
+The response includes the new `client_secret`. Ory returns this value once and stores only its hash, so it can't be
+retrieved later. Save it now, wherever you keep the current secret.
+
+See [API documentation](../../reference/api#tag/oAuth2/operation/rotateOAuth2ClientSecret).
+
+</TabItem>
+<TabItem value="sdk" label="Ory SDK">
+
+```typescript
+import { Configuration, OAuth2Api } from "@ory/client"
+
+const ory = new OAuth2Api(
+  new Configuration({
+    basePath: `https://${projectSlug}.projects.oryapis.com`,
+    accessToken: "ory_pat_..."
+  })
+)
+
+const { data: client } = await ory.rotateOAuth2ClientSecret({
+  id: clientId
+})
+
+// Save the new client_secret immediately
+console.log("New secret:", client.client_secret)
+```
+
+</TabItem>
+</Tabs>
+````
+
+:::warning Security best practice
+
+Secrets remain valid indefinitely until you explicitly remove them. Always remove old secrets once your secret rotation process is
+complete to ensure that compromised credentials cannot be used.
+
+:::
+
+### Remove old secret
+
+Once your application is authenticating with the new secret everywhere, delete the old secret to revoke access:
+
+````mdx-code-block
+<Tabs>
+<TabItem value="rest" label="REST API">
+
+```bash
+curl -X DELETE https://{project.slug}.projects.oryapis.com/admin/clients/{client-id}/secrets/rotate \
+  -H "Authorization: Bearer ory_pat_..."
+```
+
+After removing the old secret, only the current (new) secret is valid. The old secret can no longer authenticate.
+
+See [API documentation](../../reference/api#tag/oAuth2/operation/deleteRotatedOAuth2ClientSecrets).
+
+</TabItem>
+<TabItem value="sdk" label="Ory SDK">
+
+```typescript
+await ory.deleteRotatedOAuth2ClientSecrets({
+  id: clientId
+})
+
+// Old secret is now revoked.
+```
+
+</TabItem>
+</Tabs>
+````
+
+### Secret rotation workflow example
+
+Here's a complete workflow for rotating a client secret:
+
+```bash
+# 1. Get current client
+CLIENT_ID="your-client-id"
+
+# 2. Rotate the secret
+NEW_SECRET=$(curl -X POST "https://{project.slug}.projects.oryapis.com/admin/clients/$CLIENT_ID/secrets/rotate" \
+  -H "Authorization: Bearer ory_pat_..." | jq -r '.client_secret')
+
+echo "New secret: $NEW_SECRET"
+
+# 3. Update your client's services with the new secret
+# (Both the old and the new secrets work during this period)
+
+# 4. Verify the new secret works
+curl -X POST "https://{project.slug}.projects.oryapis.com/oauth2/token" \
+  -u "$CLIENT_ID:$NEW_SECRET" \
+  -d "grant_type=client_credentials"
+
+# 5. Once all your client's services are updated, remove the old secret
+curl -X DELETE "https://{project.slug}.projects.oryapis.com/admin/clients/$CLIENT_ID/secrets/rotate" \
+  -H "Authorization: Bearer ory_pat_..."
+
+# Old secret is now revoked
+```
 
 ## Delete OAuth2 client
 
