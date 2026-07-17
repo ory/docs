@@ -1913,6 +1913,11 @@
       "permanent": true
     },
     {
+      "source": "/docs/kratos/passwordless/deviceauthn",
+      "destination": "/docs/network/kratos/passwordless/deviceauthn",
+      "permanent": true
+    },
+    {
       "source": "/docs/kratos/passwordless/passwordless",
       "destination": "/docs/network/kratos/passwordless/passwordless",
       "permanent": true

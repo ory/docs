@@ -202,7 +202,16 @@ const networkSidebar = [
                   "network/kratos/passwordless/one-time-code",
                   "network/kratos/passwordless/passkeys",
                   "network/kratos/passwordless/passkeys-mobile",
-                  "kratos/passwordless/deviceauthn",
+                  {
+                    type: "category",
+                    label: "Device authentication",
+                    items: [
+                      "network/kratos/passwordless/deviceauthn/index",
+                      "network/kratos/passwordless/deviceauthn/android",
+                      "network/kratos/passwordless/deviceauthn/ios",
+                      "network/kratos/passwordless/deviceauthn/flutter",
+                    ],
+                  },
                   "kratos/organizations/organizations",
                   "kratos/emails-sms/custom-email-templates",
                 ],
