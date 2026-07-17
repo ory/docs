@@ -61,7 +61,7 @@ export default function SameDeploymentLink({
       plugin?.versions.find((v) => v.isLast) ?? plugin?.versions[0]
     if (!version?.docs?.length) return
 
-    const docId = stripLeadingSlashes(href)
+    const docId = stripLeadingSlashes(href).split("#")[0]
     const found = version.docs.some((d) => d.id === docId)
     if (!found) {
       const overrideMsg = overrideForCurrentDeployment

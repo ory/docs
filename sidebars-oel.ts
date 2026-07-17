@@ -82,6 +82,16 @@ const oelSidebar = [
               "oel/kratos/passwordless/passkeys-mobile",
               {
                 type: "category",
+                label: "Device authentication",
+                items: [
+                  "oel/kratos/passwordless/deviceauthn/index",
+                  "oel/kratos/passwordless/deviceauthn/android",
+                  "oel/kratos/passwordless/deviceauthn/ios",
+                  "oel/kratos/passwordless/deviceauthn/flutter",
+                ],
+              },
+              {
+                type: "category",
                 label: "Multi-factor authentication",
                 link: {
                   type: "doc",
@@ -112,7 +122,6 @@ const oelSidebar = [
               "kratos/guides/https-tls",
               "kratos/guides/hosting-own-have-i-been-pwned-api",
               "kratos/guides/secret-key-rotation",
-              "kratos/passwordless/deviceauthn",
               {
                 type: "category",
                 label: "Troubleshooting",

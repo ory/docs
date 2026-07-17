@@ -1,0 +1,748 @@
+We recommend using the Ory Java SDK to communicate with Kratos, although this is not required. Code snippets here use this SDK,
+and are written in Kotlin.
+
+Since Device Binding only is supported on native devices (not in the browser), all corresponding API calls should be done using
+the endpoints for native apps, to avoid having to pass cookies around manually.
+
+## Prerequisites
+
+The [second-factor guide](#second-factor-device-binding) below targets Android SDK 24 (Android 7.0) or newer; the signing and
+sealing keys use StrongBox where the device offers it (API 28+) and fall back to the TEE otherwise. The first-factor PIN path
+additionally needs:
+
+- HPKE for the one-time transport channel: [BouncyCastle](https://www.bouncycastle.org/) (`org.bouncycastle:bcprov-jdk18on`). The
+  suite is fixed to DHKEM(X25519, HKDF-SHA256) / HKDF-SHA256 / AES-128-GCM with the `client_key_id` string as AAD. Tink's hybrid
+  encryption API cannot pass that AAD, so use BouncyCastle's HPKE directly — do not substitute Tink.
+- Argon2id for the PIN key derivation: [`org.signal:argon2`](https://github.com/signalapp/Argon2) (used below) or a libsodium
+  binding.
+- [AndroidX Biometric](https://developer.android.com/jetpack/androidx/releases/biometric) (`androidx.biometric:biometric`) only
+  for the biometric path — the PIN path never prompts, so it does not need it.
+
+For both factors, pin enrollment to your app: set `android_app_ids` to the lowercase-hex SHA-256 digest of your app signing
+certificate, so that only keys created by your app can be enrolled. Get the digest with `keytool -printcert -jarfile app.apk` (or
+the Gradle `signingReport` task) and strip the colons:
+
+```yaml
+selfservice:
+  methods:
+    deviceauthn:
+      config:
+        android_app_ids:
+          - "3d8f2a6c1b7e4d90a5c8e2f4b6d0a19c7e3f5b8d2a4c6e0f9b1d3a5c7e9f0b2d"
+```
+
+See the <SameDeploymentLink to="kratos/passwordless/deviceauthn#configuration">configuration reference</SameDeploymentLink> for
+all options; an empty list disables the check.
+
+## Second-factor device binding
+
+1. Ensure that the `DeviceAuthn` strategy is enabled in the Kratos configuration. This strategy implements the settings and login
+   flow. This is done so:
+   ```yaml
+   selfservice:
+     methods:
+       deviceauthn:
+         enabled: true
+   ```
+1. Implement a runtime check for the Android version. If is lower than 24, Device Binding may not be used, and a fallback should
+   be found, for example using passkeys.
+1. This guide covers the second-factor setup: the UI should only show existing Device Binding keys and related buttons (e.g. to
+   add a key) if the user is currently logged in. This can be confirmed with a `whoami` call. For first-factor PIN or biometric
+   login, see [First factor with PIN](#first-factor-with-pin).
+1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
+   response contains the list of existing Device Binding keys.
+1. To delete an existing key,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
+
+   ```json
+   {
+     "delete": {
+       "client_key_id": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c"
+     },
+     "method": "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
+
+   ```kotlin
+   val clientKeyIdToDelete = "..."
+
+   val apiClient = Configuration.getDefaultApiClient()
+   val apiInstance = FrontendApi(apiClient)
+   val body = UpdateSettingsFlowBody()
+   val method = UpdateSettingsFlowWithDeviceAuthnMethod()
+   method.method = "deviceauthn"
+   method.delete = UpdateSettingsFlowWithDeviceAuthnMethodDelete()
+   method.delete!!.clientKeyId = clientKeyIdToDelete
+   body.actualInstance = method
+   val updatedFlow = apiInstance.updateSettingsFlow(settingsFlow?.id, body, sessionToken, "")
+   ```
+
+   Once the key has been deleted server-side, it is fine (although not required) to also delete it on the device using the
+   KeyStore API.
+
+1. To add a new key,
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
+
+   ```json
+   {
+     "method": "deviceauthn",
+     "add": {
+       "device_name": "Pixel 9",
+       "certificate_chain_android": ["...", "...", "..."]
+     }
+   }
+   ```
+
+   Or using the SDK:
+
+   ```kotlin
+   val apiClient = Configuration.getDefaultApiClient()
+   val withStrongbox = false // Better: Detect the presence of StrongBox at runtime.
+
+   val keyAlias = UUID.randomUUID().toString()
+   val nonce = extractNonceFromUiNodes(settingsFlow?.ui?.nodes ?: emptyList())
+   if (nonce == null) {
+       throw Exception("No nonce found in UI. Is DeviceAuthn enabled server-side?")
+   }
+   val keyCertChain = Api.create().createKeyPair(keyAlias, nonce, withStrongbox)
+   val apiInstance = FrontendApi(apiClient)
+   val body = UpdateSettingsFlowBody()
+   val method = UpdateSettingsFlowWithDeviceAuthnMethod()
+   method.method = "deviceauthn"
+   method.add = UpdateSettingsFlowWithDeviceAuthnMethodAdd()
+   method.add!!.deviceName = "My work phone"
+   method.add!!.certificateChainAndroid = keyCertChain.map { it.encoded }.toList()
+   body.actualInstance = method
+   val updatedFlow = apiInstance.updateSettingsFlow(settingsFlow?.id, body, sessionToken, "")
+
+   // The server assigns the key's client_key_id: the lowercase-hex SHA-256 of
+   // the public key in SubjectPublicKeyInfo (DER) form. Derive it locally and
+   // store it with the key alias; later login and delete calls address the key
+   // by this fingerprint.
+   val spki = keyCertChain.first().publicKey.encoded
+   val clientKeyId = MessageDigest.getInstance("SHA-256")
+       .digest(spki)
+       .joinToString("") { "%02x".format(it.toInt() and 0xff) }
+   ```
+
+   Once a key is created, the KeyStore APIs can be used to list all keys, query a key using its alias, etc. However we recommend
+   that the application keeps track of the keys it created — including the mapping between the local key alias and the
+   server-assigned `client_key_id` — to know which keys can be used on this device, compared to keys that belong to the same
+   identity but reside on other devices. Note that an identity can hold at most 30 device keys, and there is no point to create
+   multiple keys for the same user on the same device, even though the server allows it.
+
+1. To use a key to step-up the AAL,
+   [complete the login flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow) with this payload:
+
+   ```json
+   {
+     "signature": "...",
+     "client_key_id": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c",
+     "method": "deviceauthn"
+   }
+   ```
+
+   Or using the SDK:
+
+   ```kotlin
+   val keyAlias = "..." // The local KeyStore alias, used to sign.
+   val clientKeyId = "..." // The server-assigned key fingerprint.
+   val nonce = extractNonceFromUiNodes(flow?.ui?.nodes ?: emptyList())
+   if (nonce == null) {
+       throw Exception("No nonce found in UI")
+   }
+
+   val updateMethod = UpdateLoginFlowWithDeviceAuthnMethod()
+   updateMethod.clientKeyId = clientKeyId
+   updateMethod.method = "deviceauthn"
+   updateMethod.signature = Api.create().launchBiometricSigner(
+       context as FragmentActivity,
+       keyAlias,
+       nonce,
+       "Confirm",
+       "Cancel"
+   )
+
+   val updateBody = UpdateLoginFlowBody()
+   updateBody.actualInstance = updateMethod
+
+   val apiClient = Configuration.getDefaultApiClient()
+
+   withContext(Dispatchers.IO) {
+       val apiInstance = FrontendApi(apiClient)
+       val res = apiInstance.updateLoginFlow(
+           /* flow = */ flow.id,
+           /* updateLoginFlowBody = */ updateBody,
+           /* xSessionToken = */ sessionToken,
+           /* cookie = */ ""
+       )
+   }
+   ```
+
+There are two Keystore calls required: one to create the key and one to use it to sign:
+
+```kotlin
+package com.ory.sdk
+
+import android.os.Build
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
+import android.util.Log
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import kotlinx.coroutines.suspendCancellableCoroutine
+import java.security.KeyPairGenerator
+import java.security.KeyStore
+import java.security.PrivateKey
+import java.security.Signature
+import java.security.cert.Certificate
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+
+private const val TAG = "com.ory.sdk"
+
+public interface Api {
+    public companion object {
+        @JvmStatic
+        public fun create(): Api {
+            return OryApi()
+        }
+    }
+
+    public fun createKeyPair(
+        keyAlias: String,
+        challenge: ByteArray,
+        withStrongBox: Boolean
+    ): List<Certificate>
+
+    public suspend fun launchBiometricSigner(
+        activity: FragmentActivity,
+        keyAlias: String,
+        challenge: ByteArray,
+        title: String,
+        negativeButtonText: String,
+    ): ByteArray
+}
+
+internal class OryApi : Api {
+    private val keyStore: KeyStore by lazy {
+        KeyStore.getInstance("AndroidKeyStore").apply {
+            load(null)
+        }
+    }
+
+    private fun getCertificateChain(keyAlias: String): List<Certificate> {
+        return keyStore.getCertificateChain(keyAlias).toList()
+    }
+
+
+    override fun createKeyPair(
+        keyAlias: String,
+        challenge: ByteArray,
+        withStrongBox: Boolean,
+    ): List<Certificate> {
+        val kpg: KeyPairGenerator = KeyPairGenerator.getInstance(
+            KeyProperties.KEY_ALGORITHM_EC,
+            "AndroidKeyStore"
+        )
+
+        val parameterSpec: KeyGenParameterSpec = KeyGenParameterSpec.Builder(
+            keyAlias,
+            KeyProperties.PURPOSE_SIGN
+        ).run {
+            setDigests(KeyProperties.DIGEST_SHA256)
+            if (Build.VERSION.SDK_INT >= 24) {
+                setAttestationChallenge(challenge)
+            }
+
+            if (Build.VERSION.SDK_INT >= 28) {
+                setIsStrongBoxBacked(withStrongBox)
+            }
+            // Require biometric/PIN for every single use.
+            setUserAuthenticationRequired(true)
+            // TODO: Should we use: setInvalidatedByBiometricEnrollment(true) ?
+            build()
+        }
+
+        kpg.initialize(parameterSpec)
+        kpg.generateKeyPair()
+        Log.i(TAG, "created keypair: alias=$keyAlias")
+
+        return getCertificateChain(keyAlias)
+    }
+
+
+    /**
+     * Provides an uninitialized Signature object for the App to use in BiometricPrompt.
+     */
+    private fun getSignatureObject(keyAlias: String): Signature {
+        val privateKey = keyStore.getKey(keyAlias, null) as? PrivateKey
+
+        return Signature.getInstance("SHA256withECDSA").apply {
+            initSign(privateKey)
+        }
+    }
+
+    override suspend fun launchBiometricSigner(
+        activity: FragmentActivity,
+        keyAlias: String,
+        challenge: ByteArray,
+        title: String,
+        negativeButtonText: String,
+    ): ByteArray = suspendCancellableCoroutine { continuation ->
+        val executor = ContextCompat.getMainExecutor(activity)
+
+        val biometricPrompt = BiometricPrompt(
+            activity, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    try {
+                        val signature = result.cryptoObject?.signature
+                        if (signature != null) {
+                            signature.update(challenge)
+                            continuation.resume(signature.sign())
+                        } else {
+                            continuation.resumeWithException(Exception("Signature object is null"))
+                        }
+                    } catch (e: Exception) {
+                        continuation.resumeWithException(e)
+                    }
+                }
+
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    // Wrap the error in a custom Exception or handle specific error codes
+                    continuation.resumeWithException(Exception(errString.toString()))
+                }
+
+                override fun onAuthenticationFailed() {
+                    // Note: onAuthenticationFailed is called for finger-read errors
+                    // but doesn't dismiss the prompt; we usually wait for Error or Success.
+                }
+            }
+        )
+
+        val promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(title)
+            .setNegativeButtonText(negativeButtonText)
+            .build()
+
+        // Cancel the biometric prompt if the coroutine is canceled
+        continuation.invokeOnCancellation {
+            biometricPrompt.cancelAuthentication()
+        }
+
+        biometricPrompt.authenticate(
+            promptInfo,
+            BiometricPrompt.CryptoObject(getSignatureObject(keyAlias))
+        )
+    }
+}
+
+```
+
+## First factor with PIN
+
+:::warning
+
+The first-factor signing key is attested over `SHA256(nonce ‖ transport_public_key)`, **not** the bare nonce used by the
+second-factor guide above. Using the bare nonce here fails with `Unable to validate the key attestation: wrong challenge`.
+
+:::
+
+This section implements PIN enrollment, first-factor login, PIN change, and secret rotation on Android. It builds on the
+hardware-attested signing key from the [second-factor guide](#second-factor-device-binding) above and adds the transport, sealing,
+and PIN layers.
+
+- Read <SameDeploymentLink to="kratos/passwordless/deviceauthn#client-implementation-requirements">Client implementation
+  requirements</SameDeploymentLink> together with this section — the comments in the code below are normative and restate those
+  rules inline.
+
+### Reference implementation
+
+This listing is one complete recipe: nonce decoding, the enrollment and rotation ceremony (transport key, attestation challenge,
+sealed secret), the PIN vault (Android Keystore sealing key, Argon2id, AES-CTR, seal and unseal), the `client_key_id` derivation,
+the PIN proof, and the login signature. The `PinCeremony` is a fresh object per ceremony; the transport key never outlives it.
+
+```kotlin
+import android.os.Build
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyInfo
+import android.security.keystore.KeyProperties
+import android.security.keystore.StrongBoxUnavailableException
+import android.util.Base64
+import org.bouncycastle.crypto.AsymmetricCipherKeyPair
+import org.bouncycastle.crypto.hpke.HPKE
+import org.bouncycastle.crypto.params.X25519PublicKeyParameters
+import org.json.JSONObject
+import org.signal.argon2.Argon2
+import org.signal.argon2.MemoryCost
+import org.signal.argon2.Type
+import org.signal.argon2.Version
+import java.security.KeyPairGenerator
+import java.security.KeyStore
+import java.security.MessageDigest
+import java.security.PrivateKey
+import java.security.SecureRandom
+import java.security.Signature
+import java.security.cert.Certificate
+import javax.crypto.Cipher
+import javax.crypto.KeyGenerator
+import javax.crypto.Mac
+import javax.crypto.SecretKey
+import javax.crypto.SecretKeyFactory
+import javax.crypto.spec.GCMParameterSpec
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
+
+object DeviceAuthnPin {
+    private const val PIN_PROOF_DOMAIN = "ory/deviceauthn/pin-proof/v1"
+
+    private val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+
+    /// The flow's hidden deviceauthn_nonce node value:
+    /// base64(JSON {"nonce": "<base64>"}) → raw nonce bytes. Treat the nonce as
+    /// opaque bytes; do not assume a fixed length.
+    fun decodeNonce(nodeValue: String): ByteArray {
+        val json = String(Base64.decode(nodeValue, Base64.DEFAULT), Charsets.UTF_8)
+        return Base64.decode(JSONObject(json).getString("nonce"), Base64.DEFAULT)
+    }
+
+    fun sha256(vararg parts: ByteArray): ByteArray =
+        MessageDigest.getInstance("SHA-256").run {
+            parts.forEach { update(it) }
+            digest()
+        }
+
+    /// client_key_id is the key's deterministic fingerprint: the lowercase-hex
+    /// SHA-256 of the device public key in SubjectPublicKeyInfo DER form —
+    /// which is exactly PublicKey.getEncoded() on Android.
+    fun clientKeyId(signingKeyAlias: String): String =
+        sha256(keyStore.getCertificate(signingKeyAlias).publicKey.encoded)
+            .joinToString("") { "%02x".format(it.toInt() and 0xff) }
+
+    /// Creates the attested signing key for a PIN enrollment. The challenge
+    /// must be SHA256(nonce ‖ t_pub) — NOT the bare nonce (that is the
+    /// second-factor device-binding form). No setUserAuthenticationRequired:
+    /// the PIN is the gate, the key must sign without a platform prompt.
+    fun createPinSigningKey(alias: String, nonce: ByteArray, transportPublicKey: ByteArray): List<Certificate> {
+        val challenge = sha256(nonce, transportPublicKey)
+        val kpg = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC, "AndroidKeyStore")
+        val spec = KeyGenParameterSpec.Builder(alias, KeyProperties.PURPOSE_SIGN).run {
+            setDigests(KeyProperties.DIGEST_SHA256)
+            setAttestationChallenge(challenge)
+            if (Build.VERSION.SDK_INT >= 28) setIsStrongBoxBacked(true)
+            build()
+        }
+        return try {
+            kpg.initialize(spec)
+            kpg.generateKeyPair()
+            keyStore.getCertificateChain(alias).toList()
+        } catch (e: StrongBoxUnavailableException) {
+            // TEE fallback is fine for the SIGNING key; software is not — the
+            // server rejects software attestations unless relaxed attestation
+            // is enabled for testing.
+            val teeSpec = KeyGenParameterSpec.Builder(alias, KeyProperties.PURPOSE_SIGN).run {
+                setDigests(KeyProperties.DIGEST_SHA256)
+                setAttestationChallenge(challenge)
+                build()
+            }
+            kpg.initialize(teeSpec)
+            kpg.generateKeyPair()
+            keyStore.getCertificateChain(alias).toList()
+        }
+    }
+
+    /// Signs a login or rotation challenge. Login: the raw nonce. Rotation:
+    /// the raw concatenation nonce ‖ t_pub (not pre-hashed).
+    fun sign(alias: String, challenge: ByteArray): ByteArray =
+        Signature.getInstance("SHA256withECDSA").run {
+            initSign(keyStore.getKey(alias, null) as PrivateKey)
+            update(challenge)
+            sign()
+        }
+
+    /// pin_proof = HMAC-SHA256(pin_secret, domain ‖ client_key_id ‖ nonce).
+    fun pinProof(pinSecret: ByteArray, clientKeyId: String, nonce: ByteArray): ByteArray =
+        Mac.getInstance("HmacSHA256").run {
+            init(SecretKeySpec(pinSecret, "HmacSHA256"))
+            update(PIN_PROOF_DOMAIN.toByteArray())
+            update(clientKeyId.toByteArray())
+            update(nonce)
+            doFinal()
+        }
+}
+
+/// One PIN enrollment (or secret rotation) ceremony: holds the ephemeral HPKE
+/// transport keypair. Create a fresh instance per ceremony; never persist or
+/// reuse the transport key.
+class PinCeremony {
+    // Suite (fixed, non-negotiable): DHKEM(X25519, HKDF-SHA256) / HKDF-SHA256 / AES-128-GCM.
+    private val hpke = HPKE(HPKE.mode_base, HPKE.kem_X25519_SHA256, HPKE.kdf_HKDF_SHA256, HPKE.aead_AES_GCM128)
+    private val hpkeInfo = "ory/deviceauthn/pin-secret/v1".toByteArray()
+    private val transportKeyPair: AsymmetricCipherKeyPair = hpke.generatePrivateKey()
+
+    /// Raw 32 bytes for the transport_public_key payload field (base64-encode it).
+    val transportPublicKey: ByteArray =
+        (transportKeyPair.public as X25519PublicKeyParameters).encoded
+
+    /// Opens the one-time sealed secret from the response's continue_with item.
+    /// AAD is the client_key_id string.
+    fun openSealedSecret(enc: ByteArray, ciphertext: ByteArray, clientKeyId: String): ByteArray {
+        val ctx = hpke.setupBaseR(enc, transportKeyPair, hpkeInfo)
+        return ctx.open(clientKeyId.toByteArray(), ciphertext)
+    }
+}
+
+/// Local artifacts persisted after sealing. None are secret on their own.
+/// Android Keystore keys (and app storage) are purged on uninstall.
+data class PinArtifacts(
+    val version: Int, // format version of this recipe
+    val clientKeyId: String,
+    val signingKeyAlias: String,
+    val sealingKeyAlias: String,
+    val salt: ByteArray, // Argon2id salt — fresh on EVERY seal
+    val ctrIv: ByteArray, // AES-CTR IV — fresh on EVERY seal
+    val gcmIv: ByteArray, // outer-layer GCM IV
+    val memoryCostMiB: Int, // Argon2id parameters chosen at enrollment
+    val iterations: Int,
+    val sealed: ByteArray, // KeystoreGCM(AES-CTR(pinKey, pin_secret))
+)
+
+object PinVault {
+    private val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+    private val random = SecureRandom()
+
+    /// Creates the sealing key: AES-256-GCM, StrongBox where available, TEE
+    /// otherwise. Fails closed: after generation the key is verified to be
+    /// hardware-backed (TEE or StrongBox); a software key is deleted and
+    /// enrollment refused. No setUserAuthenticationRequired (the PIN is the
+    /// gate); setUnlockedDeviceRequired so a locked stolen device cannot unseal.
+    fun createSealingKey(alias: String) {
+        fun spec(strongBox: Boolean) =
+            KeyGenParameterSpec.Builder(alias, KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT).run {
+                setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+                setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+                setKeySize(256)
+                setRandomizedEncryptionRequired(false) // we manage the IV in the artifacts
+                if (Build.VERSION.SDK_INT >= 28) {
+                    setUnlockedDeviceRequired(true)
+                    setIsStrongBoxBacked(strongBox)
+                }
+                build()
+            }
+        val kg = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
+        try {
+            kg.init(spec(strongBox = true))
+            kg.generateKey()
+        } catch (e: StrongBoxUnavailableException) {
+            kg.init(spec(strongBox = false))
+            kg.generateKey()
+        }
+        requireHardwareBacked(alias)
+    }
+
+    /// Throws unless the key lives in a TEE or StrongBox. The sealing key has
+    /// no server-side attestation backstop — this local check is the only
+    /// enforcement of the "hardware or refuse" rule.
+    private fun requireHardwareBacked(alias: String) {
+        val key = keyStore.getKey(alias, null) as SecretKey
+        val factory = SecretKeyFactory.getInstance(key.algorithm, "AndroidKeyStore")
+        val info = factory.getKeySpec(key, KeyInfo::class.java) as KeyInfo
+        val hardwareBacked = if (Build.VERSION.SDK_INT >= 31) {
+            info.securityLevel == KeyProperties.SECURITY_LEVEL_TRUSTED_ENVIRONMENT ||
+                info.securityLevel == KeyProperties.SECURITY_LEVEL_STRONGBOX
+        } else {
+            @Suppress("DEPRECATION")
+            info.isInsideSecureHardware
+        }
+        if (!hardwareBacked) {
+            keyStore.deleteEntry(alias)
+            throw IllegalStateException("no hardware-backed keystore; refusing PIN enrollment")
+        }
+    }
+
+    private fun argon2id(pin: ByteArray, salt: ByteArray, memoryCostMiB: Int, iterations: Int): ByteArray =
+        Argon2.Builder(Version.V13)
+            .type(Type.Argon2id)
+            .memoryCost(MemoryCost.MiB(memoryCostMiB))
+            .parallelism(4)
+            .iterations(iterations)
+            .hashLength(32)
+            .build()
+            .hash(pin, salt)
+            .hash
+
+    /// Unauthenticated AES-CTR — encrypt and decrypt are the same operation.
+    /// Deliberately no MAC, checksum, or format marker: a wrong PIN must yield
+    /// plausible garbage, never a locally detectable failure.
+    private fun ctr(key: ByteArray, iv: ByteArray, data: ByteArray): ByteArray =
+        Cipher.getInstance("AES/CTR/NoPadding").run {
+            init(Cipher.ENCRYPT_MODE, SecretKeySpec(key, "AES"), IvParameterSpec(iv))
+            doFinal(data)
+        }
+
+    /// Seals pin_secret under the PIN. Generates a FRESH salt and IV — reusing
+    /// either across seals leaks the secret via CTR keystream reuse. Zeroizes
+    /// the PIN, the derived key, and the secret before returning.
+    fun seal(
+        pinSecret: ByteArray, pin: ByteArray, clientKeyId: String,
+        signingKeyAlias: String, sealingKeyAlias: String,
+        memoryCostMiB: Int = 64, iterations: Int = 3,
+    ): PinArtifacts {
+        val salt = ByteArray(16).also(random::nextBytes)
+        val ctrIv = ByteArray(16).also(random::nextBytes)
+        val gcmIv = ByteArray(12).also(random::nextBytes)
+        val pinKey = argon2id(pin, salt, memoryCostMiB, iterations)
+        try {
+            val inner = ctr(pinKey, ctrIv, pinSecret)
+            val sealingKey = keyStore.getKey(sealingKeyAlias, null) as SecretKey
+            val sealed = Cipher.getInstance("AES/GCM/NoPadding").run {
+                init(Cipher.ENCRYPT_MODE, sealingKey, GCMParameterSpec(128, gcmIv))
+                doFinal(inner)
+            }
+            return PinArtifacts(
+                version = 1, clientKeyId = clientKeyId,
+                signingKeyAlias = signingKeyAlias, sealingKeyAlias = sealingKeyAlias,
+                salt = salt, ctrIv = ctrIv, gcmIv = gcmIv,
+                memoryCostMiB = memoryCostMiB, iterations = iterations, sealed = sealed,
+            )
+        } finally {
+            pinKey.fill(0)
+            pinSecret.fill(0)
+            pin.fill(0)
+        }
+    }
+
+    /// Unseals with the entered PIN. ALWAYS returns 32 bytes: a wrong PIN
+    /// yields garbage that only the server can falsify. An exception here is
+    /// structural (missing key/blob) and must route to re-enrollment — never
+    /// present it as "wrong PIN".
+    fun unseal(artifacts: PinArtifacts, pin: ByteArray): ByteArray {
+        try {
+            val sealingKey = keyStore.getKey(artifacts.sealingKeyAlias, null) as SecretKey
+            val inner = Cipher.getInstance("AES/GCM/NoPadding").run {
+                init(Cipher.DECRYPT_MODE, sealingKey, GCMParameterSpec(128, artifacts.gcmIv))
+                doFinal(artifacts.sealed) // outer tag covers integrity of the blob, not the PIN
+            }
+            val pinKey = argon2id(pin, artifacts.salt, artifacts.memoryCostMiB, artifacts.iterations)
+            try {
+                return ctr(pinKey, artifacts.ctrIv, inner)
+            } finally {
+                pinKey.fill(0)
+            }
+        } finally {
+            pin.fill(0)
+        }
+    }
+}
+```
+
+## Biometric keys
+
+Biometric (`platform`) keys skip the PIN machinery entirely — no transport key, no sealed secret, no `pin_proof`. Android Keystore
+gates the signing key itself: create it with `setUserAuthenticationRequired(true)` and sign through a `BiometricPrompt`, which
+shows the fingerprint or face prompt when the key signs. Three differences from the PIN flow:
+
+- The attestation challenge is the **bare nonce**, not `SHA256(nonce ‖ t_pub)`. Pass the raw nonce bytes straight to
+  `setAttestationChallenge`.
+- Create the signing key **with** `setUserAuthenticationRequired(true)` and enroll it with `"user_verification": "platform"` and
+  no `pin_protected` or `transport_public_key`. The server cross-checks that declaration against the attestation, so a `platform`
+  key really is biometric-gated — which is why Android biometric keys can be a first factor without an opt-in (see
+  <SameDeploymentLink to="kratos/passwordless/deviceauthn#biometric-enrollment">Biometric enrollment</SameDeploymentLink>).
+- At login, submit only `client_key_id` and `signature` — the `BiometricPrompt` assertion over the bare nonce — and omit
+  `pin_proof`.
+
+For the key-creation and `BiometricPrompt` signing scaffolding (the `createKeyPair` and `launchBiometricSigner` helpers), reuse
+the `OryApi` from the [second-factor guide](#second-factor-device-binding). The PIN listing above creates the signing key
+**without** `setUserAuthenticationRequired` precisely because the PIN — not a platform prompt — is its gate.
+
+## Changing the PIN and rotating the secret
+
+**Changing the PIN is purely local** — no server call. Unseal the secret with the old PIN, then `PinVault.seal` it again with the
+new PIN. `seal` generates a fresh salt and IV, so the whole stored blob changes, while the `pin_secret`, `client_key_id`, and
+signing key stay the same. The server never learns that the PIN changed.
+
+```kotlin
+val oldSecret = PinVault.unseal(artifacts, oldPin) // oldPin is zeroized by unseal
+val updated = PinVault.seal(
+    pinSecret = oldSecret, pin = newPin, clientKeyId = artifacts.clientKeyId,
+    signingKeyAlias = artifacts.signingKeyAlias, sealingKeyAlias = artifacts.sealingKeyAlias,
+    memoryCostMiB = artifacts.memoryCostMiB, iterations = artifacts.iterations,
+) // seal zeroizes oldSecret and newPin; persist `updated` in place of the old artifacts.
+```
+
+**Rotating the secret needs the server.** It is the recovery path for a forgotten PIN or a locked key: the server issues a fresh
+`pin_secret` for the same signing key. Start a settings flow under a privileged session, then:
+
+1. Create a fresh `PinCeremony` — a new ephemeral transport key.
+2. Sign the rotation challenge with the enrolled key: `sign(alias, nonce + transportPublicKey)` over the raw `nonce ‖ t_pub`
+   concatenation, **not pre-hashed** (contrast login, which signs the bare nonce). This binding stops a session-level attacker
+   from rotating the secret to a transport key they control.
+3. Submit the `rotate_secret` payload with `client_key_id`, the fresh `transport_public_key`, and that signature (see
+   <SameDeploymentLink to="kratos/passwordless/deviceauthn#rotating-the-pin-secret">Rotating the PIN secret</SameDeploymentLink>).
+4. Open the new secret from the response's `continue_with` with `openSealedSecret`, exactly as at enrollment.
+5. Capture the user's PIN — a new one if they forgot the old — and `PinVault.seal` the new secret with a fresh salt and IV, then
+   replace the stored artifacts.
+
+The signing key and its `client_key_id` never change; only the sealed secret does. Only PIN keys can be rotated.
+
+## Putting it together
+
+- See <SameDeploymentLink to="kratos/passwordless/deviceauthn#protocol-reference">Protocol reference</SameDeploymentLink> for the
+  flow each ceremony maps to; the JSON request and response bodies live there, linked below.
+
+The code above zeroizes every PIN, derived key, and secret in a `finally` block and never persists the transport key — keep that
+discipline when you wire these calls.
+
+1. **Enroll** (<SameDeploymentLink to="kratos/passwordless/deviceauthn#pin-enrollment">PIN enrollment</SameDeploymentLink>) —
+   `decodeNonce` the flow's `deviceauthn_nonce` node, `createSealingKey`, create a `PinCeremony`, then
+   `createPinSigningKey(alias, nonce, transportPublicKey)` and submit the `add` payload with `transport_public_key` and the
+   returned chain as `certificate_chain_android`. On the response, `openSealedSecret` on the `continue_with` item, derive the
+   fingerprint with `clientKeyId(alias)`, capture the PIN, `PinVault.seal`, and persist the `PinArtifacts`. Let the `PinCeremony`
+   go out of scope so its transport key is destroyed.
+2. **Log in** (<SameDeploymentLink to="kratos/passwordless/deviceauthn#first-factor-login">First-factor
+   login</SameDeploymentLink>) — `decodeNonce`, `PinVault.unseal` with the entered PIN, `pinProof(pinSecret, clientKeyId, nonce)`,
+   and `sign(alias, nonce)` over the raw nonce, then submit `client_key_id`, `signature`, and `pin_proof`.
+3. **Rotate** (<SameDeploymentLink to="kratos/passwordless/deviceauthn#rotating-the-pin-secret">Rotating the PIN
+   secret</SameDeploymentLink>) — a fresh `PinCeremony`, `sign(alias, nonce + transportPublicKey)` over the unhashed
+   concatenation, submit the `rotate_secret` payload, then open and re-seal exactly as at enrollment.
+
+## Testing in the emulator
+
+The Android emulator has no StrongBox or TEE, so exercising the PIN flow on one needs two development-only relaxations — never in
+a release build.
+
+First, the emulator produces software-backed attestations, which the server rejects by default. Enable relaxed attestation
+server-side to accept the signing key. Relaxed-attestation keys expire after 30 days, so re-enroll after that.
+
+- See <SameDeploymentLink to="kratos/passwordless/deviceauthn#relaxed-attestation-for-testing">Relaxed attestation for
+  testing</SameDeploymentLink> for the details.
+
+To exercise the biometric prompt on the emulated device, register a fingerprint:
+
+1. Create an emulated device in the Android emulator with an Android version which is at least 24.
+1. Start the emulated device.
+1. Inside the emulated device, go to 'Settings > Security & Location > Screen Lock' and set a device PIN (this is required for
+   biometrics).
+1. Inside the emulated device, go to 'Settings > Security & Location > Fingerprints' and add a fingerprint. A biometric prompt
+   will appear on the screen of the emulated device.
+1. In the 'Extended Controls' for the emulated device (not inside the device, but in Android Studio), go to the 'Fingerprints'
+   section and click on 'Touch sensor' to pass the biometrics prompt of the device. This simulates placing your finger on the
+   sensor.
+
+At this point the fingerprint is registered for the emulated device. The process must be repeated for each emulated device.
+
+Then, start the application inside the emulated device. When the biometric prompt appears, repeat step 5. to pass the biometric
+prompt. There are several fingerprints available, so it is possible to test the case of using a registered fingerprint, and the
+case of using an unknown fingerprint. To test the case of no fingerprint registered, remove the registered fingerprint in the
+'Settings' of the emulated device.
+
+Second, the sealing key also lands in the software keystore, so the reference `createSealingKey` refuses enrollment by design —
+its `requireHardwareBacked` check throws. Temporarily bypass that check in a debug/test build to wire and flow-test the PIN path,
+but never in a release build: the offline-guessing resistance rests entirely on a hardware sealing key. Verify the sealing path on
+a physical device before shipping.
