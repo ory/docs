@@ -1,32 +1,30 @@
----
-id: mfa-via-sms
-title: SMS and Email 2FA
-sidebar_label: SMS and Email
----
-
 ```mdx-code-block
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 ```
 
-SMS and email can be used to deliver one-time codes to users. Ory will deliver a 6-digit code to an SMS / email gateway of your
-choice, such as Twilio, Amazon SNS, SMTP, or your own application. These codes are valid for a short amount of time, usually 15
-minutes or less. Once the user completes the challenge, by entering the code, the AAL of the session is upgraded to AAL2.
+SMS and email can be used to deliver one-time codes to users. Ory will deliver a
+6-digit code to an SMS / email gateway of your choice, such as Twilio, Amazon
+SNS, SMTP, or your own application. These codes are valid for a short amount of
+time, usually 15 minutes or less. Once the user completes the challenge, by
+entering the code, the AAL of the session is upgraded to AAL2.
 
-If MFA via code to sms / email is enabled, this method can not be used for passwordless login.
+If MFA via code to SMS / email is enabled, this method cannot be used for
+passwordless login.
 
 ```mdx-code-block
 <BrowserWindow url="https://playground.projects.oryapis.com/ui/login?aal=aal2&via=phone">
 
-![Recovery Codes generation in Ory Account Experience](../_static/mfa/11.png)
+![Recovery Codes generation in Ory Account Experience](./_static/11.png)
 
 </BrowserWindow>
 ```
 
 ## Configuration
 
-To enable MFA via SMS, you need to configure an SMS channel in the Ory configuration:
+To enable MFA via SMS, you need to configure an SMS channel in the Ory
+configuration:
 
 ```mdx-code-block
 <Tabs groupId="console-or-cli">
@@ -73,7 +71,8 @@ To enable MFA via SMS, you need to configure an SMS channel in the Ory configura
 </Tabs>
 ```
 
-4. Ensure your Identity Schema correctly marks one of the traits as the identifier for `code` method.
+4. Ensure your Identity Schema correctly marks one of the traits as the
+   identifier for `code` method.
 
    ```json title="identity.schema.json" {25-28,45-48}
    {
@@ -136,15 +135,19 @@ To enable MFA via SMS, you need to configure an SMS channel in the Ory configura
    }
    ```
 
-5. To configure the SMS or email gateway, please head over to [Sending emails](../emails-sms/01_sending-emails-smtp.mdx) &
-   [SMS](../emails-sms/10_sending-sms.mdx)
+5. To configure the SMS or email gateway, please head over to
+   [Sending emails](/docs/kratos/emails-sms/sending-emails-smtp) &
+   [SMS](/docs/kratos/emails-sms/sending-sms)
 
 ## Integration
 
-To be able to send codes via SMS, you need to provide a custom SMS sender. Ory simply sends the code, the phone number and other
-metadata to a webhook of your choice. Please read the [SMS documentation](../emails-sms/10_sending-sms.mdx).
+To be able to send codes via SMS, you need to provide a custom SMS sender. Ory
+simply sends the code, the phone number and other metadata to a webhook of your
+choice. Please read the
+[SMS documentation](/docs/kratos/emails-sms/sending-sms).
 
-To start a new MFA flow, for an already existing session, create a new login flow with the `aal` parameter set to `aal2`:
+To start a new MFA flow, for an already existing session, create a new login
+flow with the `aal` parameter set to `aal2`:
 
 ```
 https://$PROJECT_SLUG.projects.oryapis.com/self-service/login/browser?aal=aal2

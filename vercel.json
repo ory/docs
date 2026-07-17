@@ -434,7 +434,7 @@
     },
     {
       "source": "/docs/kratos/guides/two-factor-authentication-2fa-mfa",
-      "destination": "https://www.ory.com/docs/guides/mfa/overview",
+      "destination": "/docs/network/kratos/mfa-overview",
       "permanent": true
     },
     {
@@ -484,12 +484,12 @@
     },
     {
       "source": "/docs/kratos/concepts/credentials/lookup-secrets",
-      "destination": "https://www.ory.com/docs/guides/mfa/lookup-secrets",
+      "destination": "/docs/network/kratos/mfa/lookup-secrets",
       "permanent": true
     },
     {
       "source": "/docs/guides/mfa/lookup_secrets",
-      "destination": "https://www.ory.com/docs/guides/mfa/lookup-secrets",
+      "destination": "/docs/network/kratos/mfa/lookup-secrets",
       "permanent": true
     },
     {
@@ -499,12 +499,12 @@
     },
     {
       "source": "/docs/kratos/concepts/credentials/totp",
-      "destination": "https://www.ory.com/docs/guides/mfa/totp",
+      "destination": "/docs/network/kratos/mfa/totp",
       "permanent": true
     },
     {
       "source": "/docs/kratos/concepts/credentials/webauthn",
-      "destination": "https://www.ory.com/docs/guides/mfa/webauthn-fido-yubikey",
+      "destination": "/docs/network/kratos/mfa/webauthn-fido-yubikey",
       "permanent": true
     },
     {
@@ -564,7 +564,7 @@
     },
     {
       "source": "/docs/kratos/self-service/flows/2fa-mfa-multi-factor-authentication",
-      "destination": "https://www.ory.com/docs/guides/mfa/overview",
+      "destination": "/docs/network/kratos/mfa-overview",
       "permanent": true
     },
     {
@@ -939,12 +939,12 @@
     },
     {
       "source": "/docs/kratos/mfa/enforce-mfa",
-      "destination": "https://www.ory.com/docs/kratos/mfa/step-up-authentication",
+      "destination": "/docs/network/kratos/mfa/step-up-authentication",
       "permanent": true
     },
     {
       "source": "/docs/kratos/mfa/requesting-2fa",
-      "destination": "https://www.ory.com/docs/kratos/mfa/step-up-authentication",
+      "destination": "/docs/network/kratos/mfa/step-up-authentication",
       "permanent": true
     },
     {
@@ -1184,7 +1184,7 @@
     },
     {
       "source": "/docs/kratos/passwordless/webauthn",
-      "destination": "/docs/kratos/passwordless/passkeys",
+      "destination": "/docs/network/kratos/passwordless/passkeys",
       "permanent": true
     },
     {
@@ -1524,7 +1524,7 @@
     },
     {
       "source": "/docs/kratos/passwordless/06_code",
-      "destination": "/docs/kratos/passwordless/07_code",
+      "destination": "/docs/network/kratos/passwordless/one-time-code",
       "permanent": true
     },
     {
@@ -1910,6 +1910,81 @@
     {
       "source": "/docs/network/keto/quickstarts/quickstart",
       "destination": "/docs/network/keto/overview",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/passwordless/passwordless",
+      "destination": "/docs/network/kratos/passwordless/passwordless",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/passwordless/one-time-code",
+      "destination": "/docs/network/kratos/passwordless/one-time-code",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/passwordless/07_code",
+      "destination": "/docs/network/kratos/passwordless/one-time-code",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/passwordless/passkeys",
+      "destination": "/docs/network/kratos/passwordless/passkeys",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/passwordless/passkeys-mobile-web-implementation",
+      "destination": "/docs/network/kratos/passwordless/passkeys-mobile",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/mfa/overview",
+      "destination": "/docs/network/kratos/mfa-overview",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/mfa/step-up-authentication",
+      "destination": "/docs/network/kratos/mfa/step-up-authentication",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/mfa/totp",
+      "destination": "/docs/network/kratos/mfa/totp",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/mfa/webauthn-fido-yubikey",
+      "destination": "/docs/network/kratos/mfa/webauthn-fido-yubikey",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/mfa/lookup-secrets",
+      "destination": "/docs/network/kratos/mfa/lookup-secrets",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/mfa/mfa-via-sms",
+      "destination": "/docs/network/kratos/mfa/mfa-via-sms",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/debug/csrf",
+      "destination": "/docs/oel/kratos/debug/csrf",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/debug/debug-docker-delve-ory-kratos",
+      "destination": "/docs/oel/kratos/debug/debug-docker-delve-ory-kratos",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/debug/performance-out-of-memory-password-hashing-argon2",
+      "destination": "/docs/oel/kratos/debug/performance-out-of-memory-password-hashing-argon2",
+      "permanent": true
+    },
+    {
+      "source": "/docs/kratos/debug/troubleshooting",
+      "destination": "/docs/oel/kratos/debug/troubleshooting",
       "permanent": true
     }
   ],

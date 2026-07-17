@@ -1,26 +1,23 @@
----
-id: totp
-title: Multi-factor authentication with TOTP (Google Authenticator)
-sidebar_label: TOTP (Google Authenticator)
----
-
-# Time-based one-time passwords (TOTP)
-
 ```mdx-code-block
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import BrowserWindow from "@site/src/theme/BrowserWindow"
 ```
 
-Time-based one-time passwords are codes made up of digits, that are valid for a short amount of time, usually 30 seconds or less.
-Users generate these passwords with companion apps such as [Google Authenticator](https://g.co/kgs/YgRFR5) or
-[FreeOTP](https://freeotp.github.io/) and enter them when asked to provide their second authentication factor.
+Time-based one-time passwords are codes made up of digits, that are valid for a
+short amount of time, usually 30 seconds or less. Users generate these passwords
+with companion apps such as [Google Authenticator](https://g.co/kgs/YgRFR5) or
+[FreeOTP](https://freeotp.github.io/) and enter them when asked to provide their
+second authentication factor.
 
-When accessing resources protected with the second-factor requirement, the paired application generates a one-time password that
-expires after a certain time. Users must input this password before it expires to authenticate and perform the protected actions.
+When accessing resources protected with the second-factor requirement, the
+paired application generates a one-time password that expires after a certain
+time. Users must input this password before it expires to authenticate and
+perform the protected actions.
 
-You can enable Time-Based One-Time Password (TOTP) authentication in Ory Identities (Kratos) to allow users to perform 2FA with
-TOTP apps such as Google Authenticator, LastPass, or [FreeOTP](https://freeotp.github.io/).
+You can enable Time-Based One-Time Password (TOTP) authentication in Ory
+Identities (Kratos) to allow users to perform 2FA with TOTP apps such as Google
+Authenticator, LastPass, or [FreeOTP](https://freeotp.github.io/).
 
 When enabled, users can pair a TOTP app to their account:
 
@@ -33,25 +30,27 @@ The example screenshot is captured using the Ory Account Experience.
 ```mdx-code-block
 <BrowserWindow url="https://playground.projects.oryapis.com/ui">
 
-  ![TOTP linking in Ory Account Experience](../_static/mfa/1.png)
+  ![TOTP linking in Ory Account Experience](./_static/1.png)
 
 </BrowserWindow>
 ```
 
-When attempting to perform actions while having 2FA enabled, users are asked to enter the short code in the Ory Identities UI.
-This proves that they have access to their chosen second factor.
+When attempting to perform actions while having 2FA enabled, users are asked to
+enter the short code in the Ory Identities UI. This proves that they have access
+to their chosen second factor.
 
 ```mdx-code-block
 <BrowserWindow url="https://playground.projects.oryapis.com/ui">
 
-![2FA with Google Authenticator](../_static/mfa/2.png)
+![2FA with Google Authenticator](./_static/2.png)
 
 </BrowserWindow>
 ```
 
 :::info
 
-In this example, the user identifier (email - `alice@example.com`) is used. To learn how to enable this behavior, read
+In this example, the user identifier (email - `alice@example.com`) is used. To
+learn how to enable this behavior, read
 [Distinguishing identities requesting TOTP](#distinguishing-identities-requesting-totp).
 
 :::
@@ -65,25 +64,27 @@ In this example, the user identifier (email - `alice@example.com`) is used. To l
 
 1. Go to <ConsoleLink route="project.mfa" />.
 2. In the **TOTP Authenticator App** section, use the switch to enable TOTP.
-3. Define the name of the requesting party in the **Display Name**. The users see this name in the TOTP application when getting a
-   one-time password.
+3. Define the name of the requesting party in the **Display Name**. The users
+   see this name in the TOTP application when getting a one-time password.
 4. Click **Save**.
 
 ```mdx-code-block
    <BrowserWindow url="https://console.ory.com/">
 
-   ![TOTP setup in Ory Console](../_static/mfa/3.png)
+   ![TOTP setup in Ory Console](./_static/3.png)
 
    </BrowserWindow>
 ```
 
-5. After TOTP has been enabled for the Ory Network project, each user is responsible for enabling TOTP in their own account by
-   pairing their account with a TOTP app.
+5. After TOTP has been enabled for the Ory Network project, each user is
+   responsible for enabling TOTP in their own account by pairing their account
+   with a TOTP app.
 
    :::note
 
-   In the Ory Account Experience, users are not automatically prompted to enable TOTP for their accounts. To enable TOTP, users
-   must sign in to their accounts and go to the **Authenticator App** section of the **Account Settings** page.
+   In the Ory Account Experience, users are not automatically prompted to enable
+   TOTP for their accounts. To enable TOTP, users must sign in to their accounts
+   and go to the **Authenticator App** section of the **Account Settings** page.
 
    :::
 
@@ -105,7 +106,8 @@ In this example, the user identifier (email - `alice@example.com`) is used. To l
    ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
    ```
 
-2. Find `totp` in `selfservice/methods`, set `enabled` to `true`, and define the `issuer`:
+2. Find `totp` in `selfservice/methods`, set `enabled` to `true`, and define the
+   `issuer`:
 
    ```yaml title="identity-config.yaml"
    selfservice:
@@ -125,13 +127,15 @@ In this example, the user identifier (email - `alice@example.com`) is used. To l
    ory update identity-config --project <project-id> --workspace <workspace-id> --file identity-config.yaml
    ```
 
-4. After TOTP has been enabled for the Ory Network project, each user is responsible for enabling TOTP in their own account by
-   pairing their account with a TOTP app.
+4. After TOTP has been enabled for the Ory Network project, each user is
+   responsible for enabling TOTP in their own account by pairing their account
+   with a TOTP app.
 
    :::note
 
-   In the Ory Account Experience, users are not automatically prompted to enable TOTP for their accounts. To enable TOTP, users
-   must sign in to their accounts and go to the **Authenticator App** section of the **Account Settings** page.
+   In the Ory Account Experience, users are not automatically prompted to enable
+   TOTP for their accounts. To enable TOTP, users must sign in to their accounts
+   and go to the **Authenticator App** section of the **Account Settings** page.
 
    :::
 
@@ -142,14 +146,16 @@ In this example, the user identifier (email - `alice@example.com`) is used. To l
 
 ## Custom identity schema
 
-By default, the identity schema is preconfigured to display the user's email address when requesting the TOTP short code. If you
-are working with a custom identity schema, however, you must ensure that the identity schema is properly configured to work with
-TOTP.
+By default, the identity schema is preconfigured to display the user's email
+address when requesting the TOTP short code. If you are working with a custom
+identity schema, however, you must ensure that the identity schema is properly
+configured to work with TOTP.
 
 ### Distinguishing identities requesting TOTP
 
-To help users distinguish which identity the registered TOTP code belongs to, add a `totp` section to the identity schema section
-of the trait you want to show up in the TOTP app.
+To help users distinguish which identity the registered TOTP code belongs to,
+add a `totp` section to the identity schema section of the trait you want to
+show up in the TOTP app.
 
 For example, to select the user's email address as the identifier for TOTP:
 
@@ -195,7 +201,8 @@ When writing end-to-end (E2E) tests for TOTP implementation in your app,
 
 ## Identity credentials
 
-When the user enables TOTP, Ory adds the following entries to the `credentials` object of the associated Identity:
+When the user enables TOTP, Ory adds the following entries to the `credentials`
+object of the associated Identity:
 
 ```yaml
 credentials:
