@@ -29,8 +29,8 @@ You add an Ory Action on `login.after` with `can_interrupt: true`:
 4. Your handler polls Okta for the result.
 5. On `SUCCESS` you return success. On `REJECTED` or timeout, you block the sign-in.
 
-For most use cases, native [WebAuthn MFA](../../kratos/mfa/20_webauthn-fido-yubikey.mdx) or TOTP is simpler. Okta Verify makes
-sense primarily when it's already deployed across the workforce.
+For most use cases, native <SameDeploymentLink to="kratos/mfa/webauthn-fido-yubikey">WebAuthn MFA</SameDeploymentLink> or TOTP is
+simpler. Okta Verify makes sense primarily when it's already deployed across the workforce.
 
 ## Notable
 

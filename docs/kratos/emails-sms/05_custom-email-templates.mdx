@@ -64,7 +64,8 @@ To learn more about the verification flow, read
 When you enable the one-time code method the login flow will need to send out an email to users signing in through the one-time
 code method. The system will then use the `login_code.valid` template to send the login code to the user.
 
-To learn more about login via a one-time code, read the [one-time code](../passwordless/07_code.mdx) documentation.
+To learn more about login via a one-time code, read the <SameDeploymentLink to="kratos/passwordless/one-time-code">one-time
+code</SameDeploymentLink> documentation.
 
 ```mdx-code-block
 </TabItem>
@@ -75,7 +76,8 @@ To learn more about login via a one-time code, read the [one-time code](../passw
 When you enable the one-time code method the registration flow will need to send out an email to users signing up using the
 one-time code method. The system will then use the `registration_code.valid` template to send the registration code to the user.
 
-To learn more about registration via a one-time code, read the [one-time code](../passwordless/07_code.mdx) documentation.
+To learn more about registration via a one-time code, read the <SameDeploymentLink to="kratos/passwordless/one-time-code">one-time
+code</SameDeploymentLink> documentation.
 
 ```mdx-code-block
 </TabItem>
@@ -264,6 +266,23 @@ For the complete and current list, see the structs for each template in GitHub u
 In addition to the variables listed for each template, every template can access `TransientPayload` (see
 [Transient payload in templates](#transient-payload-in-templates)) and `RequestURL` (the URL of the flow request that triggered
 the email).
+
+The `login_code.valid`, `registration_code.valid`, `verification_code.valid`, and `verification.valid` templates can also access
+`OAuth2LoginRequest` when the flow was started through an OAuth2 login challenge, for example when a user signs in to an OAuth2
+client. Because Ory resolves this value server-side, it can't be forged by the end user. Use it to brand messages per OAuth2
+client instead of the end-user-controlled transient payload:
+
+| Variable                               | Description                                      |
+| -------------------------------------- | ------------------------------------------------ |
+| `OAuth2LoginRequest.Challenge`         | the OAuth2 login challenge that started the flow |
+| `OAuth2LoginRequest.Client.ClientID`   | the OAuth2 client ID                             |
+| `OAuth2LoginRequest.Client.ClientName` | the human-readable name of the OAuth2 client     |
+| `OAuth2LoginRequest.Client.ClientURI`  | the URL of the OAuth2 client's homepage          |
+| `OAuth2LoginRequest.Client.LogoURI`    | the URL of the OAuth2 client's logo              |
+| `OAuth2LoginRequest.Client.Metadata`   | the metadata set on the OAuth2 client            |
+
+For example: `{{ if .OAuth2LoginRequest }}{{ .OAuth2LoginRequest.Client.ClientName }}{{ end }}`. The variable is unset when the
+flow wasn't started through an OAuth2 login challenge.
 
 ```mdx-code-block
 <Tabs groupId="email-templates">

@@ -306,6 +306,18 @@ If the identity's `organization_id` points to an organization that was deleted, 
 scoped flow. This keeps account recovery and self-service settings working for users who were offboarded from a deleted
 organization.
 
+## Organization ID in OAuth2 and OpenID Connect tokens
+
+When an organization member signs in through an Ory OAuth2 / OpenID Connect flow using the hosted consent screen (Account
+Experience), the issued tokens carry the identity's organization ID:
+
+- `organization_id` in the ID token claims.
+- `organization_id` in the access token session data, surfaced under `ext` in JWT access tokens and promotable to a top-level
+  claim.
+
+Identities that don't belong to an organization get no such claim. For configuration details and behavior, see
+[Organization ID claim](../../oauth2-oidc/jwt-access-token.mdx#organization-id-claim).
+
 ## SAML
 
 SAML (Security Assertion Markup Language) is an XML-based open standard used for exchanging authentication and authorization data

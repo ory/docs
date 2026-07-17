@@ -11,7 +11,7 @@ To improve this file please make your change against the appropriate "./cmd/*.go
 -->
 ## hydra perform device-code
 
-An exemplary OAuth 2.0 Client performing the OAuth 2.0 Device Code Flow
+Example OAuth 2.0 Client performing the OAuth 2.0 Device Code Flow
 
 ### Synopsis
 
@@ -31,13 +31,14 @@ hydra perform device-code --client-id ...
 ### Options
 
 ```
-      --audience strings           Request a specific OAuth 2.0 Access Token Audience
-      --client-id string           Use the provided OAuth 2.0 Client ID, defaults to environment variable OAUTH2_CLIENT_ID
-      --client-secret string       Use the provided OAuth 2.0 Client Secret, defaults to environment variable OAUTH2_CLIENT_SECRET
-      --device-auth-url endpoint   Usually it is enough to specify the endpoint flag, but if you want to force the device authorization url, use this flag
-  -h, --help                       help for device-code
-      --scope strings              Request OAuth2 scope (default [offline,openid])
-      --token-url endpoint         Usually it is enough to specify the endpoint flag, but if you want to force the token url, use this flag
+      --audience strings                Request a specific OAuth 2.0 Access Token Audience
+      --client-id string                Use the provided OAuth 2.0 Client ID, defaults to environment variable OAUTH2_CLIENT_ID
+      --client-secret string            Use the provided OAuth 2.0 Client Secret, defaults to environment variable OAUTH2_CLIENT_SECRET
+      --device-auth-url endpoint        Usually it is enough to specify the endpoint flag, but if you want to force the device authorization url, use this flag
+  -h, --help                            help for device-code
+  -p, --port urls.device.verification   Set this to a port number to start a local server that will serve the device authorization page. You need to configure Hydra's urls.device.verification to point to `http://127.0.0.1:<PORT>/device` in this mode. (default -1)
+      --scope strings                   Request OAuth2 scope (default [offline,openid])
+      --token-url endpoint              Usually it is enough to specify the endpoint flag, but if you want to force the token url, use this flag
 ```
 
 ### Options inherited from parent commands

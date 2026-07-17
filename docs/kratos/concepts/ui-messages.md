@@ -1454,6 +1454,16 @@
 }
 ```
 
+###### This DeviceAuthn key was enrolled before user verification was introduced and can no longer be used. Please enroll your device again. (4000046)
+
+```json
+{
+  "id": 4000046,
+  "text": "This DeviceAuthn key was enrolled before user verification was introduced and can no longer be used. Please enroll your device again.",
+  "type": "error"
+}
+```
+
 ###### The login flow expired 1.00 minutes ago, please try again. (4010001)
 
 ```json
