@@ -132,8 +132,8 @@ all options; an empty list disables the check.
    Once a key is created, the KeyStore APIs can be used to list all keys, query a key using its alias, etc. However we recommend
    that the application keeps track of the keys it created — including the mapping between the local key alias and the
    server-assigned `client_key_id` — to know which keys can be used on this device, compared to keys that belong to the same
-   identity but reside on other devices. Note that there is a maximum number of keys that can be created for an identity, and
-   there is no point to create multiple keys for the same user on the same device, even though the server allows it.
+   identity but reside on other devices. Note that an identity can hold at most 30 device keys, and there is no point to create
+   multiple keys for the same user on the same device, even though the server allows it.
 
 1. To use a key to step-up the AAL,
    [complete the login flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow) with this payload:
@@ -405,7 +405,8 @@ object DeviceAuthnPin {
     private val keyStore = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
 
     /// The flow's hidden deviceauthn_nonce node value:
-    /// base64(JSON {"nonce": "<base64 of 32 raw bytes>"}) → raw nonce bytes.
+    /// base64(JSON {"nonce": "<base64>"}) → raw nonce bytes. Treat the nonce as
+    /// opaque bytes; do not assume a fixed length.
     fun decodeNonce(nodeValue: String): ByteArray {
         val json = String(Base64.decode(nodeValue, Base64.DEFAULT), Charsets.UTF_8)
         return Base64.decode(JSONObject(json).getString("nonce"), Base64.DEFAULT)

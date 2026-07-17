@@ -44,7 +44,8 @@ Since this is a strategy, it supports all the same hooks as the other strategies
 - With `first_factor` enabled, a key protected by an app PIN or platform biometrics is a complete passwordless login granting AAL2
   — see [How it works](#how-it-works) and [Configuration](#configuration).
 - Using the admin API, it is possible to delete all keys for a device on behalf of the user in case of theft or loss.
-- A device may have multiple keys, to support multiple user accounts on the same device.
+- A device may have multiple keys, to support multiple user accounts on the same device. An identity can enroll at most 30 device
+  keys.
 - Only these platforms are currently supported, because they offer native APIs, strong hardware, and trust guarantees:
   - iOS: 14.0+
   - iPadOS: 14.0+
@@ -193,8 +194,9 @@ hardware-binding guarantees that this strategy relies on.
 ## Protocol reference
 
 All flows are native (API) flows. The flow's UI contains a hidden `deviceauthn_nonce` node; its value is the base64 encoding of
-the JSON `{"nonce":"<base64 of 32 raw bytes>"}`. Decode twice to obtain the raw nonce bytes. The nonce is single-use and bound to
-the flow.
+the JSON `{"nonce":"<base64>"}`. Decode twice to obtain the raw nonce bytes. The nonce is single-use and bound to the flow. Treat
+it as opaque bytes: do not hard-code its length, which may change in the future — decode whatever the flow provides and feed it to
+the operations below as-is.
 
 ### Enrollment
 
@@ -255,7 +257,7 @@ Runs in a settings flow under a privileged session.
    challenge = SHA256(nonce ‖ t_pub)
    ```
 
-   The raw 32-byte nonce concatenated with the raw 32-byte transport public key, in that order, hashed once. This binds the
+   The raw nonce bytes concatenated with the raw 32-byte transport public key, in that order, hashed once. This binds the
    transport key to the attested device: an intermediary that swaps `t_pub` invalidates the attestation.
 
    :::warning
@@ -443,10 +445,9 @@ possession of the enrolled key:
 }
 ```
 
-- `signature` covers the challenge `nonce ‖ t_pub` — the raw 64-byte concatenation of the settings-flow nonce and the fresh
-  transport public key, **not hashed by the caller**. Android signs it with `SHA256withECDSA` as usual; iOS passes it as
-  `clientDataHash` to `generateAssertion`. This binding ensures a session-level attacker cannot rotate the secret to a transport
-  key they control.
+- `signature` covers the challenge `nonce ‖ t_pub` — the raw concatenation of the settings-flow nonce and the fresh transport
+  public key, **not hashed by the caller**. Android signs it with `SHA256withECDSA` as usual; iOS passes it as `clientDataHash` to
+  `generateAssertion`. This binding ensures a session-level attacker cannot rotate the secret to a transport key they control.
 - Only PIN keys can be rotated.
 - Effects: fresh secret (delivered via the same one-time `continue_with`), failure counter reset, `locked` state cleared.
 
@@ -548,7 +549,7 @@ rotated, and delaying sensitive operations after either event.
   nonce. PIN enrollment binds the transport key: use `SHA256(nonce ‖ transport_public_key)` as the challenge. The bare nonce is
   correct only for second-factor device binding and biometric enrollment.
 - **`The rotation signature is invalid.`** — the rotation signature must cover the raw concatenation
-  `nonce ‖ transport_public_key` (64 bytes, not hashed by the caller, transport key generated fresh for this rotation).
+  `nonce ‖ transport_public_key` (not hashed by the caller, transport key generated fresh for this rotation).
 - **Login always fails with the same generic error** — by design the server returns one identical error for an unknown key, a bad
   signature, a wrong PIN, and a locked key. Track wrong-PIN retries locally; after `pin_max_attempts` consecutive failures assume
   the key is locked and offer recovery.

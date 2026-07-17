@@ -154,8 +154,8 @@ all options; an empty list disables the check.
 
    Once a key is created, the application must store both identifiers — the App Attest `keyId` (needed to sign) and the
    server-assigned `client_key_id` (needed to address the key in API calls) — because there are no APIs to list keys or check if a
-   key exists. Note that there is a maximum number of keys that can be created for an identity, and there is no point to create
-   multiple keys for the same user on the same device, even though the server allows it.
+   key exists. Note that an identity can hold at most 30 device keys, and there is no point to create multiple keys for the same
+   user on the same device, even though the server allows it.
 
 1. To use a key to step-up the AAL,
    [complete the login flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow) with this payload:
@@ -352,7 +352,8 @@ enum DeviceAuthnPinError: Error {
 }
 
 /// Decodes the value of the flow's hidden `deviceauthn_nonce` UI node:
-/// base64(JSON {"nonce": "<base64 of 32 raw bytes>"}) → raw nonce bytes.
+/// base64(JSON {"nonce": "<base64>"}) → raw nonce bytes. Treat the nonce as
+/// opaque bytes; do not assume a fixed length.
 func decodeNonce(nodeValue: String) -> Data? {
     guard let json = Data(base64Encoded: nodeValue),
         let obj = try? JSONSerialization.jsonObject(with: json) as? [String: String],
