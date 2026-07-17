@@ -18,9 +18,14 @@ user to start the session by logging in with the first factor and only require
 the second factor at the point where the user is about to perform a
 security-sensitive operation.
 
-Read the
-<SameDeploymentLink to="kratos/mfa/step-up-authentication" oss="network/kratos/mfa/step-up-authentication">step-up
-authentication</SameDeploymentLink> guide to learn more about dynamic MFA.
+- Read the
+  <SameDeploymentLink
+    to="kratos/mfa/step-up-authentication"
+    oss="network/kratos/mfa/step-up-authentication"
+  >
+    step-up authentication
+  </SameDeploymentLink>
+  guide to learn more about dynamic MFA.
 
 ## Available methods
 
@@ -32,9 +37,11 @@ Time-based one time passwords (TOTP) are a flexible 2FA authentication method
 based on a shared secret, and can be used both with browser-based apps and
 native apps.
 
-Read
-<SameDeploymentLink to="kratos/mfa/totp" oss="network/kratos/mfa/totp">Time-based
-one-time passwords (TOTP)</SameDeploymentLink> to learn more.
+- Read
+  <SameDeploymentLink to="kratos/mfa/totp" oss="network/kratos/mfa/totp">
+    Time-based one-time passwords (TOTP)
+  </SameDeploymentLink>
+  to learn more.
 
 ### WebAuthn
 
@@ -43,9 +50,14 @@ This method uses the
 also known as WebAuthn, which allows servers to register and authenticate users
 using public-key cryptography.
 
-Read
-<SameDeploymentLink to="kratos/mfa/webauthn-fido-yubikey" oss="network/kratos/mfa/webauthn-fido-yubikey">WebAuthn
-and FIDO2 (YubiKey)</SameDeploymentLink> to learn more.
+- Read
+  <SameDeploymentLink
+    to="kratos/mfa/webauthn-fido-yubikey"
+    oss="network/kratos/mfa/webauthn-fido-yubikey"
+  >
+    WebAuthn and FIDO2 (YubiKey)
+  </SameDeploymentLink>
+  to learn more.
 
 ### Lookup Secrets
 
@@ -54,18 +66,28 @@ fail-safe mechanism, rather than a standalone two-factor authentication method.
 They can be used to complete the second factor when users lose access to their
 selected 2FA method.
 
-Read
-<SameDeploymentLink to="kratos/mfa/lookup-secrets" oss="network/kratos/mfa/lookup-secrets">Lookup
-Secrets (Recovery Codes)</SameDeploymentLink> to learn more.
+- Read
+  <SameDeploymentLink
+    to="kratos/mfa/lookup-secrets"
+    oss="network/kratos/mfa/lookup-secrets"
+  >
+    Lookup Secrets (Recovery Codes)
+  </SameDeploymentLink>
+  to learn more.
 
 ### SMS
 
 SMS for MFA sends a one-time password to the user's registered mobile phone
 number via text message.
 
-Read the
-<SameDeploymentLink to="kratos/mfa/mfa-via-sms" oss="network/kratos/mfa/mfa-via-sms">Code
-via SMS</SameDeploymentLink> documentation to learn more.
+- Read the
+  <SameDeploymentLink
+    to="kratos/mfa/mfa-via-sms"
+    oss="network/kratos/mfa/mfa-via-sms"
+  >
+    Code via SMS
+  </SameDeploymentLink>
+  documentation to learn more.
 
 ### Device authentication
 
@@ -78,9 +100,14 @@ learn more.
 
 Email for MFA sends a one-time code to the user's registered email address.
 
-Read the
-<SameDeploymentLink to="kratos/mfa/mfa-via-sms" oss="network/kratos/mfa/mfa-via-sms">Code
-via Email</SameDeploymentLink> documentation to learn more.
+- Read the
+  <SameDeploymentLink
+    to="kratos/mfa/mfa-via-sms"
+    oss="network/kratos/mfa/mfa-via-sms"
+  >
+    Code via Email
+  </SameDeploymentLink>
+  documentation to learn more.
 
 ## Terminology
 
@@ -173,10 +200,14 @@ Authentication methods are classified into factors:
 
 You can use `code` as first or second factor but not both at the same time.
 
-Enabling
-<SameDeploymentLink to="kratos/passwordless/passkeys" oss="network/kratos/passwordless/passkeys">passwordless
-authentication with WebAuthn or Passkeys</SameDeploymentLink> isn't considered a
-second authentication factor.
+- Enabling
+  <SameDeploymentLink
+    to="kratos/passwordless/passkeys"
+    oss="network/kratos/passwordless/passkeys"
+  >
+    passwordless authentication with WebAuthn or Passkeys
+  </SameDeploymentLink>
+  isn't considered a second authentication factor.
 
 :::
 
