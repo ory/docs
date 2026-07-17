@@ -1,65 +1,69 @@
-A notable difference with Android is that Apple's app attestation APIs require a
-network call to Apple's servers from a real device.
+A notable difference with Android is that Apple's app attestation APIs require a network call to Apple's servers from a real
+device.
 
 This means that the emulator cannot be used.
 
-Since Device Binding only is supported on native devices (not in the browser),
-all corresponding API calls should be done using the endpoints for native apps,
-to avoid having to pass cookies around manually.
+Since Device Binding only is supported on native devices (not in the browser), all corresponding API calls should be done using
+the endpoints for native apps, to avoid having to pass cookies around manually.
 
 ## Prerequisites
 
-The [second-factor guide](#second-factor-device-binding) below runs on a real
-device (App Attest and the Secure Enclave are unavailable in the simulator, so
-device binding cannot run there) with iOS 14 or newer. The first-factor PIN path
-has the same base requirements and additionally needs:
+The [second-factor guide](#second-factor-device-binding) below runs on a real device (App Attest and the Secure Enclave are
+unavailable in the simulator, so device binding cannot run there) with iOS 14 or newer. The first-factor PIN path has the same
+base requirements and additionally needs:
 
-- The App Attest entitlement
-  `com.apple.developer.devicecheck.appattest-environment` set to `production` in
-  your app's entitlements.
-- HPKE for the one-time transport channel: use `HPKE` from CryptoKit on iOS 17+,
-  or the [swift-crypto](https://github.com/apple/swift-crypto) package on iOS
-  14–16. Do **not** use `SecKey` ECIES for transport — the wire contract fixes
-  the HPKE suite to DHKEM(X25519, HKDF-SHA256) / HKDF-SHA256 / AES-128-GCM,
-  which `SecKey` cannot produce.
-- [swift-sodium](https://github.com/jedisct1/swift-sodium) for Argon2id
-  (`Sodium().pwHash`).
+- The App Attest entitlement `com.apple.developer.devicecheck.appattest-environment` set to `production` in your app's
+  entitlements.
+- HPKE for the one-time transport channel: use `HPKE` from CryptoKit on iOS 17+, or the
+  [swift-crypto](https://github.com/apple/swift-crypto) package on iOS 14–16. Do **not** use `SecKey` ECIES for transport — the
+  wire contract fixes the HPKE suite to DHKEM(X25519, HKDF-SHA256) / HKDF-SHA256 / AES-128-GCM, which `SecKey` cannot produce.
+- [swift-sodium](https://github.com/jedisct1/swift-sodium) for Argon2id (`Sodium().pwHash`).
 - CommonCrypto for the unauthenticated AES-CTR inner layer.
 
-The Secure Enclave sealing key uses `SecKey` ECIES (`SecKeyCreateEncryptedData`)
-— this is separate from transport, and there it is the correct API.
+The Secure Enclave sealing key uses `SecKey` ECIES (`SecKeyCreateEncryptedData`) — this is separate from transport, and there it
+is the correct API.
+
+For both factors, pin enrollment and login to your app: set `ios_app_ids` to your App ID (`<TeamID>.<BundleID>`), so that only
+attestations and assertions from your app are accepted:
+
+```yaml
+selfservice:
+  methods:
+    deviceauthn:
+      config:
+        ios_app_ids:
+          - "94KV3E626L.com.example.app"
+```
+
+See the <SameDeploymentLink to="kratos/passwordless/deviceauthn#configuration">configuration reference</SameDeploymentLink> for
+all options; an empty list disables the check.
 
 ## Second-factor device binding
 
-1. Ensure that the `DeviceAuthn` strategy is enabled in the Kratos
-   configuration. This strategy implements the settings and login flow. This is
-   done so:
+1. Ensure that the `DeviceAuthn` strategy is enabled in the Kratos configuration. This strategy implements the settings and login
+   flow. This is done so:
    ```yaml
    selfservice:
      methods:
        deviceauthn:
          enabled: true
    ```
-1. In XCode, add a permission so that the application is allowed to use FaceID.
-   In `Target settings > Info > Custom iOS Target Properties`, add:
+1. In XCode, add a permission so that the application is allowed to use FaceID. In
+   `Target settings > Info > Custom iOS Target Properties`, add:
    - Key: `Privacy - Face ID Usage Description`
    - Type: `String`
    - Value: `This app uses FaceID to authenticate signing operations.`
 1. Implement a runtime check for the OS version. If is lower than the
-   [documented ones](https://developer.apple.com/documentation/devicecheck/dcappattestservice),
-   Device Binding may not be used, and a fallback should be found, for example
-   using passkeys.
-1. This guide covers the second-factor setup: the UI should only show existing
-   Device Binding keys and related buttons (e.g. to add a key) if the user is
-   currently logged in. This can be confirmed with a `whoami` call. For
-   first-factor PIN or biometric login, see
-   [First factor with PIN](#first-factor-with-pin).
-1. Create a
-   [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow).
-   The response contains the list of existing Device Binding keys.
+   [documented ones](https://developer.apple.com/documentation/devicecheck/dcappattestservice), Device Binding may not be used,
+   and a fallback should be found, for example using passkeys.
+1. This guide covers the second-factor setup: the UI should only show existing Device Binding keys and related buttons (e.g. to
+   add a key) if the user is currently logged in. This can be confirmed with a `whoami` call. For first-factor PIN or biometric
+   login, see [First factor with PIN](#first-factor-with-pin).
+1. Create a [settings flow for native apps](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow). The
+   response contains the list of existing Device Binding keys.
 1. To delete an existing key,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow)
-   with this payload:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
 
    ```json
    {
@@ -95,12 +99,12 @@ The Secure Enclave sealing key uses `SecKey` ECIES (`SecKeyCreateEncryptedData`)
    )
    ```
 
-   Once the key has been deleted server-side, it is fine (although not required)
-   to also delete it on the device using the KeyStore API.
+   Once the key has been deleted server-side, it is fine (although not required) to also delete it on the device using the
+   KeyStore API.
 
 1. To add a new key,
-   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow)
-   with this payload:
+   [complete the settings flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateSettingsFlow) with this
+   payload:
 
    ```json
    {
@@ -148,16 +152,13 @@ The Secure Enclave sealing key uses `SecKey` ECIES (`SecKeyCreateEncryptedData`)
    let clientKeyId = extractClientKeyIdFromUiNodes(nodes: finalFlow.ui.nodes)
    ```
 
-   Once a key is created, the application must store both identifiers — the App
-   Attest `keyId` (needed to sign) and the server-assigned `client_key_id`
-   (needed to address the key in API calls) — because there are no APIs to list
-   keys or check if a key exists. Note that there is a maximum number of keys
-   that can be created for an identity, and there is no point to create multiple
-   keys for the same user on the same device, even though the server allows it.
+   Once a key is created, the application must store both identifiers — the App Attest `keyId` (needed to sign) and the
+   server-assigned `client_key_id` (needed to address the key in API calls) — because there are no APIs to list keys or check if a
+   key exists. Note that there is a maximum number of keys that can be created for an identity, and there is no point to create
+   multiple keys for the same user on the same device, even though the server allows it.
 
 1. To use a key to step-up the AAL,
-   [complete the login flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow)
-   with this payload:
+   [complete the login flow](https://www.ory.com/docs/reference/api#tag/frontend/operation/updateLoginFlow) with this payload:
 
    ```json
    {
@@ -317,32 +318,23 @@ public class OryApi {
 
 :::warning
 
-The first-factor signing key is attested over
-`SHA256(nonce ‖ transport_public_key)`, **not** the bare nonce used by the
-second-factor guide above. Using the bare nonce here fails with
-`Unable to validate the key attestation: wrong challenge`.
+The first-factor signing key is attested over `SHA256(nonce ‖ transport_public_key)`, **not** the bare nonce used by the
+second-factor guide above. Using the bare nonce here fails with `Unable to validate the key attestation: wrong challenge`.
 
 :::
 
-This section implements PIN enrollment, first-factor login, PIN change, and
-secret rotation on iOS. It builds on the App Attest signing key from the
-[second-factor guide](#second-factor-device-binding) above and adds the
-transport, sealing, and PIN layers.
+This section implements PIN enrollment, first-factor login, PIN change, and secret rotation on iOS. It builds on the App Attest
+signing key from the [second-factor guide](#second-factor-device-binding) above and adds the transport, sealing, and PIN layers.
 
-- Read
-  <SameDeploymentLink to="kratos/passwordless/deviceauthn#client-implementation-requirements">
-    Client implementation requirements
-  </SameDeploymentLink>
-  together with this section — the comments in the code below are normative and restate
-  those rules inline.
+- Read <SameDeploymentLink to="kratos/passwordless/deviceauthn#client-implementation-requirements">Client implementation
+  requirements</SameDeploymentLink> together with this section — the comments in the code below are normative and restate those
+  rules inline.
 
 ### Reference implementation
 
-This listing is one complete recipe: nonce decoding, the enrollment and rotation
-ceremony (transport key, attestation, sealed secret), the PIN vault (Secure
-Enclave sealing key, Argon2id, AES-CTR, seal and unseal), the PIN proof, and
-first-factor login. The `SettingsFlow` and
-`UpdateLoginFlowWithDeviceAuthnMethod` types are Ory Swift SDK models.
+This listing is one complete recipe: nonce decoding, the enrollment and rotation ceremony (transport key, attestation, sealed
+secret), the PIN vault (Secure Enclave sealing key, Argon2id, AES-CTR, seal and unseal), the PIN proof, and first-factor login.
+The `SettingsFlow` and `UpdateLoginFlowWithDeviceAuthnMethod` types are Ory Swift SDK models.
 
 ```swift
 import CommonCrypto
@@ -590,50 +582,36 @@ func loginWithPin(flowNonce: Data, pin: inout [UInt8], artifacts: PinArtifacts, 
 }
 ```
 
-See <SameDeploymentLink to="kratos/passwordless/deviceauthn#pin-enrollment">PIN
-enrollment</SameDeploymentLink> for the payload reference. To wire the
-enrollment ceremony end to end: decode the flow nonce with `decodeNonce`, create
-a `PinCeremony`, `createPinAttestation`, submit the `add` payload with
-`transport_public_key` and `attestation_ios`, then `openSealedSecret` on the
-returned `continue_with`, capture the PIN, `PinVault.seal`, and persist the
-`PinArtifacts`. Let the `PinCeremony` go out of scope so its transport key is
-destroyed.
+See <SameDeploymentLink to="kratos/passwordless/deviceauthn#pin-enrollment">PIN enrollment</SameDeploymentLink> for the payload
+reference. To wire the enrollment ceremony end to end: decode the flow nonce with `decodeNonce`, create a `PinCeremony`,
+`createPinAttestation`, submit the `add` payload with `transport_public_key` and `attestation_ios`, then `openSealedSecret` on the
+returned `continue_with`, capture the PIN, `PinVault.seal`, and persist the `PinArtifacts`. Let the `PinCeremony` go out of scope
+so its transport key is destroyed.
 
 ## Biometric keys
 
-Biometric (`platform`) keys skip the PIN machinery entirely — no transport key,
-no sealed secret, no `pin_proof`. The Secure Enclave gates the signing key
-itself and shows the Face ID or Touch ID prompt when the key signs. Three
-differences from the PIN flow:
+Biometric (`platform`) keys skip the PIN machinery entirely — no transport key, no sealed secret, no `pin_proof`. The Secure
+Enclave gates the signing key itself and shows the Face ID or Touch ID prompt when the key signs. Three differences from the PIN
+flow:
 
-- The attestation challenge is the **bare nonce**, not `SHA256(nonce ‖ t_pub)`.
-  Pass the raw nonce bytes straight to `attestKey` as `clientDataHash`.
-- Create the signing key with `.biometryCurrentSet` in its access control, and
-  enroll it with `"user_verification": "platform"` and no `pin_protected` or
-  `transport_public_key`.
-- At login, submit only `client_key_id` and `signature` (the assertion over the
-  bare nonce) — omit `pin_proof`.
+- The attestation challenge is the **bare nonce**, not `SHA256(nonce ‖ t_pub)`. Pass the raw nonce bytes straight to `attestKey`
+  as `clientDataHash`.
+- Create the signing key with `.biometryCurrentSet` in its access control, and enroll it with `"user_verification": "platform"`
+  and no `pin_protected` or `transport_public_key`.
+- At login, submit only `client_key_id` and `signature` (the assertion over the bare nonce) — omit `pin_proof`.
 
-For the App Attest `generateKey` / `attestKey` / `generateAssertion`
-scaffolding, reuse the `OryApi` helper from the
-[second-factor guide](#second-factor-device-binding). The PIN listing above
-calls `DCAppAttestService` directly only to keep the challenge computation
-visible.
+For the App Attest `generateKey` / `attestKey` / `generateAssertion` scaffolding, reuse the `OryApi` helper from the
+[second-factor guide](#second-factor-device-binding). The PIN listing above calls `DCAppAttestService` directly only to keep the
+challenge computation visible.
 
-- See the
-  <SameDeploymentLink to="kratos/passwordless/deviceauthn#configuration">
-    configuration reference
-  </SameDeploymentLink>
-  for the `ios_biometric_first_factor` opt-in that biometric first-factor login on
-  iOS also requires.
+- See the <SameDeploymentLink to="kratos/passwordless/deviceauthn#configuration">configuration reference</SameDeploymentLink> for
+  the `ios_biometric_first_factor` opt-in that biometric first-factor login on iOS also requires.
 
 ## Changing the PIN and rotating the secret
 
-**Changing the PIN is a purely local operation** — no server call. Unseal the
-secret with the old PIN, then seal it again with the new PIN. `PinVault.seal`
-generates a fresh salt and IV, so the whole stored blob changes, but the
-`pin_secret`, `client_key_id`, and signing key are unchanged. The server never
-learns that the PIN changed.
+**Changing the PIN is a purely local operation** — no server call. Unseal the secret with the old PIN, then seal it again with the
+new PIN. `PinVault.seal` generates a fresh salt and IV, so the whole stored blob changes, but the `pin_secret`, `client_key_id`,
+and signing key are unchanged. The server never learns that the PIN changed.
 
 ```swift
 var oldPin: [UInt8] = /* entered old PIN */
@@ -649,25 +627,16 @@ let updated = try PinVault.seal(
 // Persist `updated` in place of the old artifacts.
 ```
 
-**Rotating the secret needs the server.** It is the recovery path for a
-forgotten PIN or a locked key: the server issues a fresh `pin_secret` for the
-same signing key. Start a settings flow under a privileged session, then:
+**Rotating the secret needs the server.** It is the recovery path for a forgotten PIN or a locked key: the server issues a fresh
+`pin_secret` for the same signing key. Start a settings flow under a privileged session, then:
 
 1. Create a fresh `PinCeremony` — a new ephemeral transport key.
-2. Call `signRotationChallenge(nonce:appAttestKeyId:)` with the flow nonce and
-   the key's App Attest key id. It signs the raw `nonce ‖ t_pub` concatenation,
-   unhashed.
-3. Submit the `rotate_secret` payload with `client_key_id`, the fresh
-   `transport_public_key`, and that signature (see
-   <SameDeploymentLink to="kratos/passwordless/deviceauthn#rotating-the-pin-secret">
-     Rotating the PIN secret
-   </SameDeploymentLink>
-   ).
-4. Open the new secret from the response's `continue_with` with
-   `openSealedSecret`, exactly as at enrollment.
-5. Capture the user's PIN — a new one if they forgot the old — and
-   `PinVault.seal` the new secret with a fresh salt and IV, then replace the
-   stored artifacts.
+2. Call `signRotationChallenge(nonce:appAttestKeyId:)` with the flow nonce and the key's App Attest key id. It signs the raw
+   `nonce ‖ t_pub` concatenation, unhashed.
+3. Submit the `rotate_secret` payload with `client_key_id`, the fresh `transport_public_key`, and that signature (see
+   <SameDeploymentLink to="kratos/passwordless/deviceauthn#rotating-the-pin-secret">Rotating the PIN secret</SameDeploymentLink>).
+4. Open the new secret from the response's `continue_with` with `openSealedSecret`, exactly as at enrollment.
+5. Capture the user's PIN — a new one if they forgot the old — and `PinVault.seal` the new secret with a fresh salt and IV, then
+   replace the stored artifacts.
 
-The signing key and its `client_key_id` never change; only the sealed secret
-does. Only PIN keys can be rotated.
+The signing key and its `client_key_id` never change; only the sealed secret does. Only PIN keys can be rotated.
