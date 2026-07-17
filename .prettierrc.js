@@ -13,6 +13,7 @@ module.exports = {
         "docs/**/*.md",
         "docs/**/*.mdx",
         "src/components/Shared/kratos/passwordless/deviceauthn/*.mdx",
+        "src/components/Shared/kratos/01_mfa-overview.mdx",
       ],
       options: {
         printWidth: 130,
