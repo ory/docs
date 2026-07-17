@@ -25,7 +25,7 @@ export const identityManagement: {
         "Allow secure login using biometric authentication (fingerprint, face) with industry-standard WebAuthn support",
       language: "fingerprint",
       languageLogoAlt: "Passkey icon",
-      docs: "/docs/kratos/passwordless/passkeys",
+      docs: "/docs/network/kratos/passwordless/passkeys",
     },
     {
       title: "Enable OTP via email or SMS",
@@ -33,7 +33,7 @@ export const identityManagement: {
         "Implement a simple two-step verification process with one-time codes sent to users' email or phone",
       language: "otp",
       languageLogoAlt: "OTP icon",
-      docs: "/docs/kratos/passwordless/one-time-code",
+      docs: "/docs/network/kratos/passwordless/one-time-code",
     },
     {
       title: "Add social sign-in",
@@ -62,7 +62,7 @@ export const identityManagement: {
       description: "Add TOTP, WebAuthn, or SMS verification",
       language: "shield",
       languageLogoAlt: "MFA icon",
-      docs: "/docs/kratos/mfa/overview",
+      docs: "/docs/network/kratos/mfa-overview",
     },
     {
       title: "Enable enterprise SSO login",

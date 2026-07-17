@@ -1,31 +1,30 @@
----
-id: webauthn-fido-yubikey
-title: Multi-factor authentication with WebAuthn
-sidebar_label: WebAuthn and FIDO2 (YubiKey)
----
-
-# WebAuthn and FIDO2 (YubiKey)
-
 ```mdx-code-block
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 ```
 
-WebAuthn uses the [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API) of the
-browser, which allows servers to register and authenticate users using public-key cryptography.
+WebAuthn uses the
+[Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API)
+of the browser, which allows servers to register and authenticate users using
+public-key cryptography.
 
 There are two main categories of authenticators you can use with WebAuthn:
 
-- **On-device authenticators**: platform-based biometric authentication protocols, such as TouchID, FaceID, Windows Hello, or
-  Android Biometric Authentication
-- **External authenticators**: NFC devices, USB keys, or Bluetooth Low Energy (BLE) devices, for example a
+- **On-device authenticators**: platform-based biometric authentication
+  protocols, such as TouchID, FaceID, Windows Hello, or Android Biometric
+  Authentication
+- **External authenticators**: NFC devices, USB keys, or Bluetooth Low Energy
+  (BLE) devices, for example a
   [YubiKey](https://www.yubico.com/why-yubico/how-the-yubikey-works/).
 
-When accessing resources protected with the second-factor requirement, the browser presents the user with a prompt asking to
-confirm their identity with their configured authentication method, for example, by touching the fingerprint reader.
+When accessing resources protected with the second-factor requirement, the
+browser presents the user with a prompt asking to confirm their identity with
+their configured authentication method, for example, by touching the fingerprint
+reader.
 
-You can enable WebAuthn in the Ory Identities (Kratos) to allow users to perform 2FA with physical devices such as USB keys or
-OS-level biometric authentication protocols, such as TouchID.
+You can enable WebAuthn in the Ory Identities (Kratos) to allow users to perform
+2FA with physical devices such as USB keys or OS-level biometric authentication
+protocols, such as TouchID.
 
 When users trigger the WebAuthn process, the web browser displays a prompt:
 
@@ -34,22 +33,26 @@ import BrowserWindow from "@site/src/theme/BrowserWindow"
 
 <BrowserWindow url="https://console.ory.com/">
 
-![WebAuthn prompt in Google Chrome](../_static/mfa/4.png)
+![WebAuthn prompt in Google Chrome](./_static/4.png)
 
 </BrowserWindow>
 ```
 
-The look of the prompt depends on the web browser. The screenshot shows a Google Chrome prompt.
+The look of the prompt depends on the web browser. The screenshot shows a Google
+Chrome prompt.
 
 ## Limitations
 
 - WebAuthn is a browser-only standard. It doesn't work with native mobile apps.
-- WebAuthn is limited to one domain and does not work in a local environment when using CNAME / Ory Tunnel. WebAuthn uses an
-  `https://origin` URL as part of the client-server challenge/response mechanism. This mechanism allows a single URL as the
-  origin. To learn more, read this [WebAuthn discussion and on GitHub](https://github.com/w3c/webauthn/issues/1372).
+- WebAuthn is limited to one domain and does not work in a local environment
+  when using CNAME / Ory Tunnel. WebAuthn uses an `https://origin` URL as part
+  of the client-server challenge/response mechanism. This mechanism allows a
+  single URL as the origin. To learn more, read this
+  [WebAuthn discussion and on GitHub](https://github.com/w3c/webauthn/issues/1372).
 - Implementing WebAuthn in your own UI can be challenging. Check out the
-  [reference implementations](../bring-your-own-ui/20_configure-ory-to-use-your-ui.mdx#reference-implementations-and-examples) to
-  see how you can approach implementation for different app types (web app, SPA).
+  [reference implementations](/docs/kratos/bring-your-own-ui/configure-ory-to-use-your-ui#reference-implementations-and-examples)
+  to see how you can approach implementation for different app types (web app,
+  SPA).
 
 ## Configuration
 
@@ -64,7 +67,8 @@ Follow these steps to enable WebAuthn as the second authentication factor:
 
 1. Go to <ConsoleLink route="project.mfa" />.
 2. In the **WebAuthn** section, use the switch to enable WebAuthn.
-3. Define the hostname of your login page. You must set this to your top-level domain.
+3. Define the hostname of your login page. You must set this to your top-level
+   domain.
 
 :::note
 
@@ -72,8 +76,8 @@ If you are using the Ory Account Experience, skip the 4. step
 
 :::
 
-4. Define the origin of your login page. Set it to the exact URL of the page that prompts the user to use WebAuthn. The relevant
-   items are:
+4. Define the origin of your login page. Set it to the exact URL of the page
+   that prompts the user to use WebAuthn. The relevant items are:
 
    - scheme (`http` or `https`)
    - host (`auth.example.com`)
@@ -84,7 +88,7 @@ If you are using the Ory Account Experience, skip the 4. step
 ```mdx-code-block
 <BrowserWindow url="https://console.ory.com/">
 
-![WebAuthn settings in Ory Console](../_static/mfa/5.png)
+![WebAuthn settings in Ory Console](./_static/5.png)
 
 </BrowserWindow>
 ```
@@ -107,8 +111,8 @@ If you are using the Ory Account Experience, skip the 4. step
    ory get identity-config --project <project-id> --workspace <workspace-id> --format yaml > identity-config.yaml
    ```
 
-2. Find `webauthn` in `selfservice/methods`, set `enabled` to `true`, and define the `id` (hostname) and `origin` of the login
-   page users interact with:
+2. Find `webauthn` in `selfservice/methods`, set `enabled` to `true`, and define
+   the `id` (hostname) and `origin` of the login page users interact with:
 
    ```yaml title="identity-config.yaml"
    webauthn:
@@ -144,8 +148,9 @@ If you are using the Ory Account Experience, skip the 4. step
 
 ### Distinguish identities requesting WebAuthn
 
-To help users distinguish which identity requests for WebAuthn authentication, add a `webauthn` object to the trait which
-represents the WebAuthn account name. This trait's value will show up in the WebAuthn prompt of the browser.
+To help users distinguish which identity requests for WebAuthn authentication,
+add a `webauthn` object to the trait which represents the WebAuthn account name.
+This trait's value will show up in the WebAuthn prompt of the browser.
 
 In this example, the user's email address is the identifier:
 
@@ -190,19 +195,22 @@ This configuration is the default for the Ory Network.
 
 ## Writing E2E tests
 
-When writing end-to-end (E2E) tests for WebAuthn implementation in your app, you can reference the
+When writing end-to-end (E2E) tests for WebAuthn implementation in your app, you
+can reference the
 [Cypress E2E tests used in Ory Identities (Kratos)](https://github.com/ory/kratos/blob/fc2cecfbeab811aa1a851f953b6bc2a4c119c412/test/e2e/cypress/integration/profiles/mfa/webauthn.spec.ts).
 
 :::tip
 
 To learn more about the approach used in Cypress, read
-[this](https://github.com/cypress-io/cypress/issues/6991#issuecomment-612888645) GitHub issue.
+[this](https://github.com/cypress-io/cypress/issues/6991#issuecomment-612888645)
+GitHub issue.
 
 :::
 
 ## Identity credentials
 
-When the user enables WebAuthn, Ory adds the following entries to the `credentials` object of the associated identity:
+When the user enables WebAuthn, Ory adds the following entries to the
+`credentials` object of the associated identity:
 
 ```yaml
 credentials:
