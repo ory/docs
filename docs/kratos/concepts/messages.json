@@ -140,6 +140,11 @@
     "type": "info"
   },
   {
+    "id": 1010026,
+    "text": "Your account is managed by an organization. Please sign in using your organization's single sign-on provider.",
+    "type": "info"
+  },
+  {
     "id": 1040001,
     "text": "Sign up",
     "type": "info"

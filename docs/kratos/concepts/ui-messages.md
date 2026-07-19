@@ -260,6 +260,16 @@
 }
 ```
 
+###### Your account is managed by an organization. Please sign in using your organization's single sign-on provider. (1010026)
+
+```json
+{
+  "id": 1010026,
+  "text": "Your account is managed by an organization. Please sign in using your organization's single sign-on provider.",
+  "type": "info"
+}
+```
+
 ###### Sign up (1040001)
 
 ```json
