@@ -15,7 +15,9 @@ Update an OAuth 2.0 Client
 
 ### Synopsis
 
-This command replaces an OAuth 2.0 Client by its ID. Please be aware that this command replaces the entire client. If only the name flag (-n "my updated app") is provided, the all other fields are updated to their default values.
+This command updates an OAuth 2.0 Client by its ID. Only the fields provided as flags are changed; all other fields keep their current values.
+
+To replace the entire client with a new configuration, use the --file flag. Fields missing from the file are reset to their default values.
 
 ```
 hydra update oauth2-client [id] [flags]
