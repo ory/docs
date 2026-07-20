@@ -87,8 +87,9 @@ URL to make PATCH requests work. This query param update PATCH behavior and ensu
 
 ### Why is a custom attribute not showing up in Ory Polis?
 
-If you map a custom attribute and it doesn't appear in the user record in Ory Polis, the cause is almost always on the Microsoft Entra ID side. Ory Polis stores every attribute it receives under the schema it arrives in, so a missing attribute means Entra ID didn't send it. 
-Check the following in Microsoft Entra ID:
+If you map a custom attribute and it doesn't appear in the user record in Ory Polis, the cause is almost always on the Microsoft
+Entra ID side. Ory Polis stores every attribute it receives under the schema it arrives in, so a missing attribute means Entra ID
+didn't send it. Check the following in Microsoft Entra ID:
 
 - **The source attribute has a value.** Microsoft Entra ID
   [doesn't provision null values](https://learn.microsoft.com/en-us/entra/identity/app-provisioning/customize-application-attributes#what-you-should-know).
