@@ -24,7 +24,7 @@ It provides separate admin and public APIs for key management.
 ### Options
 
 ```
-      --config string     path to a config file (without it, only schema defaults and TALOS_-prefixed env vars apply)
+      --config string     path to a config file (without it, only schema defaults and env vars apply)
   -e, --endpoint string   HTTP server base URL including scheme, e.g. http://host:port (for client commands) (default "http://localhost:4420")
   -h, --help              help for talos
 ```

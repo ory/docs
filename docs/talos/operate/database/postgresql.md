@@ -23,7 +23,7 @@ db:
 Or use an environment variable:
 
 ```shell
-export TALOS_DB_DSN="postgres://talos:secret@db:5432/talos?sslmode=require&max_conns=25&max_conn_lifetime=5m"
+export DB_DSN="postgres://talos:secret@db:5432/talos?sslmode=require&max_conns=25&max_conn_lifetime=5m"
 ```
 
 ## DSN format
