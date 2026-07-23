@@ -1840,7 +1840,7 @@
             "type": "array"
           },
           "kratos_selfservice_methods_deviceauthn_config_first_factor": {
-            "description": "Configures whether device authentication may be used as the sole first factor.\n\nThis governs the \"selfservice.methods.deviceauthn.config.first_factor\" setting.",
+            "description": "Configures whether device authentication may be used as the sole first factor.\n\nWhen enabled, a confirmed device key with PIN or platform user\nverification can complete an AAL2 login in a single submission, without a\npassword or code. Defaults to false, which keeps device keys usable only\nas a second factor (step-up).\n\nThis governs the \"selfservice.methods.deviceauthn.config.first_factor\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_deviceauthn_config_insecure_allow_relaxed_attestation": {
@@ -1855,11 +1855,11 @@
             "type": "array"
           },
           "kratos_selfservice_methods_deviceauthn_config_ios_biometric_first_factor": {
-            "description": "Configures whether an iOS biometric device key may be used as the sole first factor.\n\nThis governs the \"selfservice.methods.deviceauthn.config.ios_biometric_first_factor\" setting.",
+            "description": "Configures whether an iOS biometric device key may be used as the sole first factor.\n\nApple App Attest cannot prove biometric gating, so iOS keys with\n\"platform\" user verification count as a first factor only with this\nexplicit opt-in. Android keys are unaffected, as their user verification\nis attestation-verified. Defaults to false.\n\nThis governs the \"selfservice.methods.deviceauthn.config.ios_biometric_first_factor\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_deviceauthn_config_pin_max_attempts": {
-            "description": "Configures the consecutive wrong-PIN limit before a device key is locked.\n\nThis governs the \"selfservice.methods.deviceauthn.config.pin_max_attempts\" setting.",
+            "description": "Configures the number of consecutive wrong-PIN attempts before a device key is locked.\n\nDefaults to 5; must be between 1 and 10. Once locked, the key's\npin_secret is invalidated and the key can no longer be used to log in\nuntil the user rotates its secret through the fallback login.\n\nThis governs the \"selfservice.methods.deviceauthn.config.pin_max_attempts\" setting.",
             "format": "int64",
             "type": "integer"
           },
@@ -2129,26 +2129,34 @@
             "type": "string"
           },
           "talos_credentials_issuer_retired": {
-            "description": "Talos credentials retired issuer URLs.\n\nPreviously active issuer URLs kept for verification of outstanding tokens.\nTokens signed with these issuers remain valid; new tokens use the current issuer.",
+            "description": "Talos credentials retired issuer URLs (deprecated).\n\nDeprecated: values-only view of talos_credentials_issuer_retired_entries,\nkept so already-released SDKs that decode this field as an array of strings\nkeep working. It is output only: reads are derived from the entries field\nand writes to it are ignored. Use talos_credentials_issuer_retired_entries\ninstead.",
             "items": {
               "type": "string"
             },
+            "readOnly": true,
             "type": "array"
+          },
+          "talos_credentials_issuer_retired_entries": {
+            "$ref": "#/components/schemas/talosRetiredValues"
           },
           "talos_rate_limit_enabled": {
             "description": "Talos rate limit enabled.\n\nWhen true, server-side rate limiting is enforced for API key verifications.",
             "type": "boolean"
           },
           "talos_secrets_hmac_current": {
-            "description": "TalosSecretsHMACCurrent stores the current HMAC symmetric key as a\nplain secret string. Application-layer encryption is handled upstream;\nSanitizeModel (MarshalJSON) redacts this field from API responses.",
+            "description": "TalosSecretsHMACCurrent stores the current HMAC symmetric key as a\nplain secret string.",
             "type": "string"
           },
           "talos_secrets_hmac_retired": {
-            "description": "TalosSecretsHMACRetired stores previously active HMAC symmetric keys as\na JSON array of plain secret strings. Application-layer encryption is\nhandled upstream; SanitizeModel (MarshalJSON) redacts this field from\nAPI responses. The verifier tries all retired secrets when the current\nkey does not produce a matching HMAC.",
+            "description": "TalosSecretsHMACRetired stores previously active HMAC symmetric keys as an\narray of strings (deprecated).\n\nDeprecated: values-only view of talos_secrets_hmac_retired_entries, kept so\nalready-released SDKs that decode this field as an array of strings keep\nworking. It is output only and writes to it are ignored. HMAC secrets are\nserver-managed and redacted on output, so this field is always empty on the\nwire. Use talos_secrets_hmac_retired_entries instead.",
             "items": {
               "type": "string"
             },
+            "readOnly": true,
             "type": "array"
+          },
+          "talos_secrets_hmac_retired_entries": {
+            "$ref": "#/components/schemas/talosRetiredValues"
           },
           "updated_at": {
             "description": "Last Time Project's Revision was Updated",
@@ -2276,21 +2284,22 @@
         "type": "object"
       },
       "DeviceAuthnKey": {
+        "description": "Represents a hardware-backed signing key enrolled from a mobile device.\nThe private key resides inside the device and never exists on the server.\n\nTo list the identity's enrolled keys, fetch a settings flow: each key's\nremove button (a `ui.nodes` entry named `deviceauthn_remove` in group\n`deviceauthn`) carries the key, with its PIN state redacted, in the node\nlabel's `context`.",
         "properties": {
           "attestation": {
             "$ref": "#/components/schemas/deviceAuthnAttestation"
           },
           "client_key_id": {
-            "description": "ClientKeyID is the key's stable, unique-per-identity id, computed as\nhex(SHA-256(PublicKey)) — the lowercase-hex SHA-256 digest of the public\nkey's PKIX, ASN.1 DER (SubjectPublicKeyInfo) encoding, exactly the bytes\nstored in PublicKey. It is a deterministic fingerprint of the enrolled\nsigning key, so the device recomputes the identical value locally instead\nof receiving it from the server. Keys enrolled before the server derived\nthe id keep their original client-chosen value.",
+            "description": "The key's stable id, unique per identity. Submit it as the\n`client_key_id` when logging in with the key, deleting it, or rotating\nits pin_secret.\n\nThe device can also compute the id without reading it back from the\nserver: it is the lowercase-hex SHA-256 of `public_key` (the key's\nPKIX, ASN.1 DER encoding). Keys enrolled before the server derived the\nid keep their original client-chosen value, so prefer reading this\nfield over recomputing it for older keys.",
             "type": "string"
           },
           "created_at": {
-            "description": "CreatedAt is the timestamp of when the key was created.\nOnly used for troubleshooting/UI.",
+            "description": "When the key was enrolled. Only used for troubleshooting and UI.",
             "format": "date-time",
             "type": "string"
           },
           "device_name": {
-            "description": "DeviceName is a human readable name for the device, helping the user to distinguish it from others.",
+            "description": "A human-readable name for the device, helping the user tell this key\napart from others.",
             "type": "string"
           },
           "device_type": {
@@ -2300,15 +2309,12 @@
             "$ref": "#/components/schemas/PINConfig"
           },
           "public_key": {
-            "description": "PublicKey is the device's public key (EC P-256 in v1), used to verify\nsignatures. It is stored in PKIX, ASN.1 DER form (the SubjectPublicKeyInfo\nencoding produced by x509.MarshalPKIXPublicKey). The private key resides\ninside the device and does not exist on the server.",
-            "items": {
-              "format": "uint8",
-              "type": "integer"
-            },
-            "type": "array"
+            "description": "The device's public key (an elliptic-curve key on P-224, P-256, P-384,\nor P-521 in version 1) in PKIX, ASN.1 DER (SubjectPublicKeyInfo) form,\nbase64-encoded. Signatures are verified against this key.",
+            "format": "byte",
+            "type": "string"
           },
           "relaxed_attestation_expires_at": {
-            "description": "RelaxedAttestationExpiresAt is set only when the key's attestation\nchain validated because relaxed attestation was allowed (software\nroots, expired certs, software security level) rather than under\nstrict rules. Such keys are second-class: they are refused at login\nafter this time, or immediately if relaxed attestation is turned off.\nIt is nil for hardware-attested keys that pass strict validation.",
+            "description": "Set only when the key's attestation chain was accepted under relaxed\nrules (software roots, expired certificates, software security level)\nrather than strict hardware attestation. Such keys are refused at login\nafter this time, or immediately once relaxed attestation is turned off.\nAbsent for hardware-attested keys that pass strict validation.",
             "format": "date-time",
             "type": "string"
           },
@@ -2319,16 +2325,20 @@
             "$ref": "#/components/schemas/UserVerification"
           },
           "version": {
-            "description": "v1 uses SHA256 + EC256.\nv2 (in the future) may use ML-DSA which is post-quantum resistant.\nThis requires Android/iOS support so we have to wait.\nWe intentionally avoid storing the cryptographic algorithm here a la JWT/TLS\nto avoid security issues and algorithm negotiation.",
+            "description": "The cryptography version of the key. Version 1 uses ECDSA with SHA-256\non an elliptic curve (P-224, P-256, P-384, or P-521); further versions\nare reserved for future signature suites.",
             "format": "int64",
             "type": "integer"
           }
         },
-        "title": "Key represents an enrolled hardware security key used for device authentication (DeviceAuthn).",
+        "title": "An enrolled device authentication (DeviceAuthn) key.",
         "type": "object"
       },
       "DeviceType": {
-        "type": "string"
+        "description": "\"Android\" and \"iOS\" use different attestation and signature encodings.",
+        "enum": ["Android", "iOS"],
+        "title": "DeviceType is the platform the key was enrolled on.",
+        "type": "string",
+        "x-enum-varnames": ["ANDROID", "IOS"]
       },
       "DeviceUserAuthRequest": {
         "properties": {
@@ -2790,6 +2800,9 @@
         "type": "array"
       },
       "KeyState": {
+        "description": "Only a \"confirmed\" key can be used to authenticate. A \"locked\" key was\ndisabled after too many wrong-PIN attempts; rotating its pin_secret unlocks\nit.",
+        "enum": ["initial", "confirmed", "locked"],
+        "title": "KeyState is the lifecycle state of an enrolled key.",
         "type": "string"
       },
       "KeyStatus": {
@@ -3017,29 +3030,30 @@
         "type": "object"
       },
       "PINConfig": {
-        "description": "PINConfig is the per-key PIN state. The pin_secret field holds the at-rest\nciphertext; the plaintext exists only transiently in memory during\nverification and is cleared once the key locks.",
+        "description": "The pin_secret field holds only the at-rest ciphertext; the plaintext\nexists transiently in server memory during verification and is invalidated\nonce the key locks.",
         "properties": {
           "created_at": {
-            "description": "CreatedAt is when the pin_secret was first issued.",
+            "description": "When the pin_secret was first issued.",
             "format": "date-time",
             "type": "string"
           },
           "failed_attempts": {
-            "description": "FailedAttempts counts consecutive wrong-PIN attempts; the key locks when it\nreaches the configured maximum.",
+            "description": "The number of consecutive wrong-PIN attempts so far; the key locks when\nit reaches the configured maximum (pin_max_attempts, default 5).",
             "format": "uint64",
             "type": "integer"
           },
           "pin_secret": {
-            "description": "PINSecret is the at-rest pin_secret ciphertext. Server-internal: never\nlogged or transmitted. Empty once the key locks.",
+            "description": "The at-rest ciphertext of the pin_secret. It never leaves the server and\nis cleared once the key locks.",
             "type": "string",
             "writeOnly": true
           },
           "rotated_at": {
-            "description": "RotatedAt is when the pin_secret was last rotated; the zero value means\nnever rotated. omitzero (not omitempty) drops the zero timestamp from the\nJSON, since omitempty never treats a time.Time value as empty.",
+            "description": "When the pin_secret was last rotated. Omitted if the secret was never\nrotated.",
             "format": "date-time",
             "type": "string"
           }
         },
+        "title": "PINConfig is the per-key PIN state.",
         "type": "object"
       },
       "ParseError": {
@@ -3486,7 +3500,7 @@
         ]
       },
       "UserVerification": {
-        "description": "The empty value marks a legacy key from before user verification existed;\nsuch keys are rejected at login and must be re-enrolled.",
+        "description": "\"pin\" means the holder proves knowledge of a PIN via pin_proof at login;\n\"platform\" means the device gates key use behind platform biometrics or an\nequivalent lock screen; \"none\" marks a possession-only key, usable as a\nsecond factor but never as the sole first factor. The empty value marks a\nlegacy key from before user verification existed; such keys are rejected at\nlogin and must be re-enrolled.",
         "enum": ["pin", "platform", "none"],
         "title": "UserVerification records how the key's holder is verified at use time.",
         "type": "string"
@@ -4025,7 +4039,7 @@
         "type": "object"
       },
       "continueWithDeviceAuthnPinEntryUi": {
-        "description": "The enrolled key's client_key_id is not included: it is the SHA-256 fingerprint\nof the device's own public key, which the device derives locally. Non-PIN keys\nneed no client action at all and therefore produce no continue_with.",
+        "description": "Returned after a PIN-protected DeviceAuthn enrollment or secret rotation.\nIt carries the one-time HPKE-sealed pin_secret, which the device opens with\nthe transport private key it generated for this enrollment and binds to the\nuser's PIN. The plaintext secret never leaves the device; the server only\never stores its at-rest ciphertext.\n\nThe enrolled key's client_key_id is not included: it is the SHA-256 fingerprint\nof the device's own public key, which the device derives locally. Non-PIN keys\nneed no client action at all and therefore produce no continue_with.",
         "properties": {
           "action": {
             "description": "Action will always be `show_pin_entry_ui`\nshow_pin_entry_ui ContinueWithActionShowPINEntryUIString",
@@ -4043,22 +4057,23 @@
           }
         },
         "required": ["action", "data"],
-        "title": "Instructs the client to show its PIN entry UI after a PIN-protected DeviceAuthn\nenrollment or secret rotation. It carries the one-time HPKE-sealed pin_secret,\nwhich the device opens with the transport private key it generated for this\nenrollment to bind the user's PIN. The plaintext secret never leaves the\ndevice; the server only ever stores its at-rest ciphertext.",
+        "title": "Instructs the client to show its PIN entry UI",
         "type": "object"
       },
       "continueWithDeviceAuthnPinEntryUiData": {
-        "description": "Carries the one-time HPKE-sealed pin_secret material — the encapsulated key and\nthe sealed ciphertext — that the device opens with the transport private key it\ngenerated for this enrollment.",
+        "description": "Contains the encapsulated key and the sealed ciphertext that the device\nopens with the X25519 transport private key it generated for this\nenrollment or rotation. Open it with HPKE (RFC 9180) using the suite\nDHKEM(X25519, HKDF-SHA256), HKDF-SHA256, AES-128-GCM, the ASCII info\nstring \"ory/deviceauthn/pin-secret/v1\", and the key's client_key_id (its\nASCII hex form) as the AAD.",
         "properties": {
           "ciphertext": {
-            "description": "Ciphertext is the base64-encoded HPKE-sealed pin_secret.",
+            "description": "The base64-encoded HPKE ciphertext of the sealed pin_secret.",
             "type": "string"
           },
           "enc": {
-            "description": "Enc is the base64-encoded HPKE encapsulated key.",
+            "description": "The base64-encoded HPKE encapsulated key (the `enc` output of the seal\noperation).",
             "type": "string"
           }
         },
         "required": ["enc", "ciphertext"],
+        "title": "The one-time HPKE-sealed pin_secret material",
         "type": "object"
       },
       "continueWithRecoveryUi": {
@@ -5024,7 +5039,7 @@
         "type": "object"
       },
       "deviceAuthnAttestation": {
-        "description": "Exactly one of Android / IOS is set, matching the key's DeviceType.",
+        "description": "Exactly one of `android` or `ios` is set, matching the key's device_type.",
         "properties": {
           "android": {
             "$ref": "#/components/schemas/deviceAuthnAndroidKeyDescription"
@@ -5572,6 +5587,20 @@
         },
         "required": ["organization"],
         "title": "getOrganizationResponse represents a B2B SSO Organization.",
+        "type": "object"
+      },
+      "getOrganizationsByHostnameResponse": {
+        "description": "getOrganizationsByHostnameResponse is the list of B2B SSO organizations for\nthe project resolved from the request host.",
+        "properties": {
+          "organizations": {
+            "description": "Organizations is the list of organizations for the project.",
+            "items": {
+              "$ref": "#/components/schemas/organizationByHostname"
+            },
+            "type": "array"
+          }
+        },
+        "required": ["organizations"],
         "type": "object"
       },
       "getProjectEvents": {
@@ -8423,7 +8452,7 @@
             "type": "array"
           },
           "kratos_selfservice_methods_deviceauthn_config_first_factor": {
-            "description": "Configures whether device authentication may be used as the sole first factor.\n\nThis governs the \"selfservice.methods.deviceauthn.config.first_factor\" setting.",
+            "description": "Configures whether device authentication may be used as the sole first factor.\n\nWhen enabled, a confirmed device key with PIN or platform user\nverification can complete an AAL2 login in a single submission, without a\npassword or code. Defaults to false, which keeps device keys usable only\nas a second factor (step-up).\n\nThis governs the \"selfservice.methods.deviceauthn.config.first_factor\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_deviceauthn_config_insecure_allow_relaxed_attestation": {
@@ -8438,11 +8467,11 @@
             "type": "array"
           },
           "kratos_selfservice_methods_deviceauthn_config_ios_biometric_first_factor": {
-            "description": "Configures whether an iOS biometric device key may be used as the sole first factor.\n\nThis governs the \"selfservice.methods.deviceauthn.config.ios_biometric_first_factor\" setting.",
+            "description": "Configures whether an iOS biometric device key may be used as the sole first factor.\n\nApple App Attest cannot prove biometric gating, so iOS keys with\n\"platform\" user verification count as a first factor only with this\nexplicit opt-in. Android keys are unaffected, as their user verification\nis attestation-verified. Defaults to false.\n\nThis governs the \"selfservice.methods.deviceauthn.config.ios_biometric_first_factor\" setting.",
             "type": "boolean"
           },
           "kratos_selfservice_methods_deviceauthn_config_pin_max_attempts": {
-            "description": "Configures the consecutive wrong-PIN limit before a device key is locked.\n\nThis governs the \"selfservice.methods.deviceauthn.config.pin_max_attempts\" setting.",
+            "description": "Configures the number of consecutive wrong-PIN attempts before a device key is locked.\n\nDefaults to 5; must be between 1 and 10. Once locked, the key's\npin_secret is invalidated and the key can no longer be used to log in\nuntil the user rotates its secret through the fallback login.\n\nThis governs the \"selfservice.methods.deviceauthn.config.pin_max_attempts\" setting.",
             "format": "int64",
             "type": "integer"
           },
@@ -8712,26 +8741,34 @@
             "type": "string"
           },
           "talos_credentials_issuer_retired": {
-            "description": "Talos credentials retired issuer URLs.\n\nPreviously active issuer URLs kept for verification of outstanding tokens.\nTokens signed with these issuers remain valid; new tokens use the current issuer.",
+            "description": "Talos credentials retired issuer URLs (deprecated).\n\nDeprecated: values-only view of talos_credentials_issuer_retired_entries,\nkept so already-released SDKs that decode this field as an array of strings\nkeep working. It is output only: reads are derived from the entries field\nand writes to it are ignored. Use talos_credentials_issuer_retired_entries\ninstead.",
             "items": {
               "type": "string"
             },
+            "readOnly": true,
             "type": "array"
+          },
+          "talos_credentials_issuer_retired_entries": {
+            "$ref": "#/components/schemas/talosRetiredValues"
           },
           "talos_rate_limit_enabled": {
             "description": "Talos rate limit enabled.\n\nWhen true, server-side rate limiting is enforced for API key verifications.",
             "type": "boolean"
           },
           "talos_secrets_hmac_current": {
-            "description": "TalosSecretsHMACCurrent stores the current HMAC symmetric key as a\nplain secret string. Application-layer encryption is handled upstream;\nSanitizeModel (MarshalJSON) redacts this field from API responses.",
+            "description": "TalosSecretsHMACCurrent stores the current HMAC symmetric key as a\nplain secret string.",
             "type": "string"
           },
           "talos_secrets_hmac_retired": {
-            "description": "TalosSecretsHMACRetired stores previously active HMAC symmetric keys as\na JSON array of plain secret strings. Application-layer encryption is\nhandled upstream; SanitizeModel (MarshalJSON) redacts this field from\nAPI responses. The verifier tries all retired secrets when the current\nkey does not produce a matching HMAC.",
+            "description": "TalosSecretsHMACRetired stores previously active HMAC symmetric keys as an\narray of strings (deprecated).\n\nDeprecated: values-only view of talos_secrets_hmac_retired_entries, kept so\nalready-released SDKs that decode this field as an array of strings keep\nworking. It is output only and writes to it are ignored. HMAC secrets are\nserver-managed and redacted on output, so this field is always empty on the\nwire. Use talos_secrets_hmac_retired_entries instead.",
             "items": {
               "type": "string"
             },
+            "readOnly": true,
             "type": "array"
+          },
+          "talos_secrets_hmac_retired_entries": {
+            "$ref": "#/components/schemas/talosRetiredValues"
           },
           "updated_at": {
             "description": "Last Time Project's Revision was Updated",
@@ -9447,7 +9484,7 @@
             "type": "array"
           },
           "response_types": {
-            "description": "OAuth 2.0 Client Response Types\n\nAn array of the OAuth 2.0 response type strings that the client can\nuse at the authorization endpoint. Can be one of:\n\nNeeded for OpenID Connect Implicit Grant:\nReturns ID Token to redirect URI: `id_token`\nReturns Access token redirect URI: `token`\nNeeded for Authorization Code Grant: `code`",
+            "description": "OAuth 2.0 Client Response Types\n\nAn array of the OAuth 2.0 response type strings that the client can\nuse at the authorization endpoint. Possible values are:\n\n`code` for Authorization Code Grant.\n`token` or `id_token` or `token id_token` for OpenID Connect Implicit Grant (not recommended).\n`code token` or `code id_token` or `code token id_token` for OpenID Connect Hybrid Flow (not recommended).",
             "items": {
               "type": "string"
             },
@@ -10392,6 +10429,24 @@
           }
         },
         "required": ["id", "label", "domains", "created_at"],
+        "type": "object"
+      },
+      "organizationByHostname": {
+        "properties": {
+          "domains": {
+            "description": "Domains are the organization's SSO domains.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "id": {
+            "description": "ID is the organization's unique identifier.",
+            "type": "string"
+          }
+        },
+        "required": ["id", "domains"],
+        "title": "organizationByHostname is a single B2B SSO organization.",
         "type": "object"
       },
       "organizationOnboardingPortalLinksResponse": {
@@ -12329,6 +12384,30 @@
         "required": ["project", "warnings"],
         "type": "object"
       },
+      "talosRetiredValue": {
+        "description": "TalosRetiredValue is one entry of an Ory Talos retired-value array (retired HMAC\nsecrets or retired issuer URLs). Retired values stay valid for verification\nduring rotation.",
+        "properties": {
+          "expires_at": {
+            "description": "Optional RFC 3339 UTC timestamp after which Talos stops accepting this\nretired value during verification. Omit to never expire.",
+            "example": "2026-08-01T00:00:00Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "value": {
+            "description": "The retired secret or issuer URL.",
+            "type": "string"
+          }
+        },
+        "required": ["value"],
+        "type": "object"
+      },
+      "talosRetiredValues": {
+        "description": "TalosRetiredValues is the list of retired values — retired HMAC secrets or\nretired issuer URLs — for a Talos project. A retired value stays valid for\nverification until its optional expiry passes, so operators can bound how long\nan old credential keeps working after a rotation instead of keeping it forever.\nLegacy bare-string entries are accepted on write and normalized to the object\nform.",
+        "items": {
+          "$ref": "#/components/schemas/talosRetiredValue"
+        },
+        "type": "array"
+      },
       "tokenPagination": {
         "properties": {
           "page_size": {
@@ -13066,10 +13145,10 @@
         "type": "object"
       },
       "updateLoginFlowWithDeviceAuthnMethod": {
-        "description": "No CSRF token since this method may not be used from the browser.",
+        "description": "Log in by proving possession of an enrolled device key. The device signs\nthe challenge nonce found in the login flow's hidden `deviceauthn_nonce`\nUI node; a PIN-protected key additionally proves knowledge of the PIN via\n`pin_proof`.\n\nUse it for step-up in a login flow created with `aal=aal2`, or as the sole\nfirst factor (a one-step AAL2 login, for keys with \"pin\" or \"platform\" user\nverification) when the project's deviceauthn first_factor setting is\nenabled. Only API (native) flows support this method.",
         "properties": {
           "client_key_id": {
-            "description": "ClientKeyID identifies the DeviceAuthn key to authenticate with.\n\nIt is the key's deterministic fingerprint — the lowercase-hex SHA-256 of\nthe device public key in PKIX, ASN.1 DER (SubjectPublicKeyInfo) form —\nwhich the device recomputes locally after enrollment. Keys enrolled before\nthe server derived the id use their original client-chosen value.",
+            "description": "The client_key_id of the enrolled key to authenticate with.\n\nIt is the key's deterministic fingerprint: the lowercase-hex SHA-256 of\nthe device public key in PKIX, ASN.1 DER (SubjectPublicKeyInfo) form,\nwhich the device can recompute locally after enrollment. Keys enrolled\nbefore the server derived the id use their original client-chosen value.",
             "type": "string"
           },
           "method": {
@@ -13077,13 +13156,13 @@
             "type": "string"
           },
           "pin_proof": {
-            "description": "PINProof is an HMAC the client computes using the pin_secret when the key\nis PIN-protected. It proves possession of the PIN without revealing it.\n\nSensitive: a proof of the PIN secret, do not log or transmit. It is marked\nwrite-only in the spec via the OpenAPI patch in\n.schema/openapi/patches/selfservice.yaml.",
+            "description": "The proof of the PIN, required if and only if the key is PIN-protected.\n\nTo compute it:\n\n1. Recover the 32-byte pin_secret on the device. It was delivered\nHPKE-sealed exactly once at enrollment or rotation and is bound to the\nuser's PIN locally.\n2. Compute HMAC-SHA256, keyed with the pin_secret, over the\nconcatenation of three byte strings: the ASCII domain prefix\n\"ory/deviceauthn/pin-proof/v1\", the client_key_id exactly as sent (its\n64-character lowercase-hex ASCII form, not hex-decoded), and the raw\nchallenge bytes also covered by `signature`.\n3. Submit the 32-byte MAC output.\n\nThe proof shows knowledge of the PIN without transmitting the PIN or the\npin_secret. After too many wrong attempts (pin_max_attempts, default 5)\nthe key locks and can no longer be used to log in.",
             "format": "byte",
             "type": "string",
             "writeOnly": true
           },
           "signature": {
-            "description": "Signature is a ES256 signature of the server-provided challenge.",
+            "description": "The device's signature over the challenge nonce carried by the login\nflow's hidden `deviceauthn_nonce` UI node.\n\nTo compute it:\n\n1. Base64-decode the `deviceauthn_nonce` node's value and parse the\nresult as JSON.\n2. Base64-decode the JSON's `nonce` field. The decoded raw bytes are the\nchallenge.\n3. On Android, sign the challenge with the enrolled hardware-backed key\nusing `Signature.getInstance(\"SHA256withECDSA\")` (it hashes internally)\nand submit the resulting ASN.1 DER-encoded ECDSA signature. On iOS, call\n`DCAppAttestService.generateAssertion`, passing the raw challenge bytes\nas the `clientDataHash` argument — do not hash them again — and submit\nthe returned CBOR-encoded App Attest assertion unchanged.",
             "format": "byte",
             "type": "string"
           },
@@ -13092,7 +13171,7 @@
             "type": "object"
           }
         },
-        "required": ["method"],
+        "required": ["method", "client_key_id", "signature"],
         "title": "Update Login Flow with DeviceAuthn Method",
         "type": "object"
       },
@@ -13701,24 +13780,35 @@
         ]
       },
       "updateSettingsFlowWithDeviceAuthnMethod": {
-        "description": "Update Settings Flow with DeviceAuthn Method",
+        "description": "Manages the identity's enrolled device keys. Set exactly one of\n`deviceauthn_register` (enroll a new key), `deviceauthn_remove` (remove a\nkey), or `rotate_secret` (re-issue the pin_secret of a PIN-protected key).",
         "properties": {
-          "add": {
-            "$ref": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethodAdd"
-          },
           "csrf_token": {
-            "description": "CSRFToken is the anti-CSRF token\nIt only is required to remove a key from the browser.",
+            "description": "CSRFToken is the anti-CSRF token.\nIt is only required to remove a key from the browser.",
             "type": "string"
           },
-          "delete": {
-            "$ref": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethodDelete"
+          "deviceauthn_register": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethodRegister"
+              }
+            ],
+            "description": "Enrolls a new device key. Set exactly one of deviceauthn_register, deviceauthn_remove, or rotate_secret."
+          },
+          "deviceauthn_remove": {
+            "description": "The client_key_id of the key to remove: the key's deterministic\nfingerprint, the lowercase-hex SHA-256 of the device public key in PKIX,\nASN.1 DER (SubjectPublicKeyInfo) form. Keys enrolled before the server\nderived the id use their original client-chosen value.",
+            "type": "string"
           },
           "method": {
-            "description": "Method\n\nShould be set to \"deviceauthn\" when trying to add or remove a DeviceAuthn key.",
+            "description": "Method\n\nShould be set to \"deviceauthn\" when adding, removing, or rotating the\nsecret of a DeviceAuthn key.",
             "type": "string"
           },
           "rotate_secret": {
-            "$ref": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethodRotateSecret"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/updateSettingsFlowWithDeviceAuthnMethodRotateSecret"
+              }
+            ],
+            "description": "Re-issues the pin_secret of an existing PIN-protected device key. Set exactly one of deviceauthn_register, deviceauthn_remove, or rotate_secret."
           },
           "transient_payload": {
             "description": "Transient data to pass along to any webhooks",
@@ -13726,16 +13816,19 @@
           }
         },
         "required": ["method"],
+        "title": "Update Settings Flow with DeviceAuthn Method",
         "type": "object"
       },
-      "updateSettingsFlowWithDeviceAuthnMethodAdd": {
+      "updateSettingsFlowWithDeviceAuthnMethodRegister": {
+        "description": "Enrolls a new device key from a hardware-backed platform attestation.\nProvide exactly one of certificate_chain_android or attestation_ios. The\nattestation must embed the enrollment challenge, computed as follows:\n\n1. Base64-decode the settings flow's hidden `deviceauthn_nonce` UI node\nvalue, parse the result as JSON, and base64-decode its `nonce` field.\n2. For a key without a PIN, the raw nonce bytes are the challenge. For a\nPIN-protected key, the challenge is the SHA-256 of the raw nonce\nconcatenated with the raw transport_public_key bytes, which binds the\ntransport key into the attestation.\n\nFor a PIN-protected key the server returns a one-time sealed pin_secret in\nthe flow's `continue_with` items (action `show_pin_entry_ui`).",
         "properties": {
           "attestation_ios": {
+            "description": "The CBOR-encoded Apple App Attest attestation object for the new key.\nGenerate the key with `DCAppAttestService.generateKey`, then obtain the\nattestation with `DCAppAttestService.attestKey`, passing the enrollment\nchallenge described above as the `clientDataHash` argument — do not hash\nit again — and submit the result unchanged. Set exactly one of\ncertificate_chain_android or attestation_ios.",
             "format": "byte",
             "type": "string"
           },
           "certificate_chain_android": {
-            "description": "CertificateChainAndroid is a list of base64 strings for creating a key on Android.\nEach element is a certificate.\nThe first element is the leaf, corresponding to the on-device key, the last is the root (Google CA).",
+            "description": "The Android Key Attestation certificate chain for the new key, one\nbase64-encoded DER certificate per element, leaf first: the first element\ncertifies the on-device key, the last is the Google attestation root.\n\nGenerate the key on-device (imported keys are rejected) in the\nhardware-backed keystore as an elliptic-curve (P-224, P-256, P-384, or\nP-521) signing key:\n`KeyGenParameterSpec.Builder(alias, PURPOSE_SIGN)` with `DIGEST_SHA256`\nand `setAttestationChallenge(challenge)`, where challenge is the\nenrollment challenge described above. Then submit the chain returned by\n`KeyStore.getCertificateChain`. Set exactly one of\ncertificate_chain_android or attestation_ios.",
             "items": {
               "format": "byte",
               "type": "string"
@@ -13743,15 +13836,15 @@
             "type": "array"
           },
           "device_name": {
-            "description": "DeviceName is a human-readable name for the device e.g. 'My work phone'.",
+            "description": "A human-readable name for the device, e.g. 'My work phone'. It helps the\nuser tell this key apart from others.",
             "type": "string"
           },
           "pin_protected": {
-            "description": "PINProtected indicates that the key is protected by a PIN.\nWhen true, the server must issue a sealed pin_secret in the response.",
+            "description": "Set to true to enroll the key as PIN-protected. The server then mints a\n32-byte pin_secret and returns it exactly once, in the settings-flow\nresponse: the `continue_with` array contains an item with action\n`show_pin_entry_ui` whose `data.enc` (HPKE encapsulated key) and\n`data.ciphertext` (sealed pin_secret) fields are base64-encoded and\nsealed to transport_public_key. Open them on the device with the\ntransport private key using HPKE with DHKEM(X25519, HKDF-SHA256),\nHKDF-SHA256, AES-128-GCM, the ASCII info string\n\"ory/deviceauthn/pin-secret/v1\", and the client_key_id (its ASCII hex\nform) as the AAD, then bind the secret to the user's PIN locally. The\nsealed secret is never delivered again; logins with the key must then\ninclude a pin_proof.",
             "type": "boolean"
           },
           "transport_public_key": {
-            "description": "TransportPubKey is the transport public key (HPKE) used to seal the\nreturned pin_secret so only this device can open it. It is base64-encoded in\nJSON and decoded to raw bytes here.",
+            "description": "The device's X25519 transport public key (32 bytes, base64-encoded) used\nto seal the returned pin_secret so only this device can open it.\nRequired when pin_protected is true, ignored otherwise.\n\nGenerate a fresh, random X25519 key pair for each request — for example\nwith CryptoKit's `Curve25519.KeyAgreement.PrivateKey()` on iOS or\n`KeyPairGenerator.getInstance(\"XDH\")` on Android — and submit the raw\n32-byte public key. It is a transport-encryption key, distinct from the\nattested signing key. Keep the private key only until the sealed\npin_secret from the response has been opened, then discard it. The HPKE\nsuite is DHKEM(X25519, HKDF-SHA256), HKDF-SHA256, AES-128-GCM.",
             "format": "byte",
             "type": "string"
           },
@@ -13761,46 +13854,37 @@
                 "$ref": "#/components/schemas/UserVerification"
               }
             ],
-            "description": "Declares how the key's holder is verified at use time. One of \"pin\", \"platform\", or \"none\" (or empty, which maps to \"none\"). \"pin\" is implied by pin_protected and need not be set explicitly. For \"platform\" the server cross-checks the attestation on Android and trusts the declaration on iOS, since App Attest cannot prove biometric gating."
+            "description": "Declares how the key's holder is verified at use time. One of \"pin\", \"platform\", or \"none\" (or empty, which maps to \"none\"). \"pin\" is implied by pin_protected and need not be set explicitly.\n\nFor \"platform\" on Android, generate the key with `setUserAuthenticationRequired(true)`: the server rejects the claim unless the attestation shows user-authentication gating (KeyMint user_auth_type). On iOS the declaration is trusted, since App Attest cannot prove biometric gating; iOS platform keys therefore count as a sole first factor only when the project enables ios_biometric_first_factor."
           },
           "version": {
-            "description": "Version is the version number for the cryptography.\nFor now only `1` is supported which corresponds to SHA256 + EC.",
+            "description": "The cryptography version to enroll the key with. Only `1` is currently\nsupported, which corresponds to ECDSA with SHA-256 on an elliptic curve\n(P-224, P-256, P-384, or P-521).",
             "format": "int64",
             "type": "integer"
           }
         },
-        "required": ["device_name"],
-        "type": "object"
-      },
-      "updateSettingsFlowWithDeviceAuthnMethodDelete": {
-        "properties": {
-          "client_key_id": {
-            "description": "ClientKeyID is the deterministic fingerprint of the key to remove: the\nlowercase-hex SHA-256 of the device public key in PKIX, ASN.1 DER\n(SubjectPublicKeyInfo) form. Keys enrolled before the server derived the\nid use their original client-chosen value.",
-            "type": "string"
-          }
-        },
-        "required": ["client_key_id"],
+        "required": ["device_name", "version"],
+        "title": "Update Settings Flow with DeviceAuthn Register",
         "type": "object"
       },
       "updateSettingsFlowWithDeviceAuthnMethodRotateSecret": {
-        "description": "Re-issues a fresh pin_secret for an existing PIN-protected DeviceAuthn key\nwithout changing the device signing key. It is the recovery path for a\nforgotten PIN or a locked key. The server returns the new secret sealed to the\nsupplied transport_public_key exactly once.",
+        "description": "Re-issues a fresh pin_secret for an existing PIN-protected DeviceAuthn key\nwithout changing the device signing key. It is the recovery path for a\nforgotten PIN or a locked key. The server returns the new secret exactly\nonce, HPKE-sealed to the supplied transport_public_key, in the flow's\n`continue_with` items (action `show_pin_entry_ui`).",
         "properties": {
           "client_key_id": {
-            "description": "ClientKeyID identifies the existing PIN key whose pin_secret should be\nrotated: the lowercase-hex SHA-256 of the device public key in PKIX,\nASN.1 DER (SubjectPublicKeyInfo) form. The device signing key is\nunchanged by the rotation.",
+            "description": "The client_key_id of the existing PIN-protected key whose pin_secret to\nrotate: the lowercase-hex SHA-256 of the device public key in PKIX,\nASN.1 DER (SubjectPublicKeyInfo) form. The device signing key is\nunchanged by the rotation.",
             "type": "string"
           },
           "signature": {
-            "description": "Signature proves current possession of the enrolled device signing key: the\ndevice signs the concatenation of the settings-flow nonce and the transport\npublic key with the key identified by client_key_id — a plain ECDSA\nsignature over the SHA-256 of that challenge on Android, an App Attest\nassertion over it on iOS, exactly as at login. Binding the transport key\ninto the signed challenge ensures a session-level attacker (stolen token,\nXSS) cannot rotate the secret and have it sealed to a transport key they\ncontrol.",
+            "description": "Proves current possession of the enrolled device signing key.\n\nTo compute it:\n\n1. Base64-decode the settings flow's hidden `deviceauthn_nonce` UI node\nvalue, parse the result as JSON, and base64-decode its `nonce` field.\n2. Concatenate the raw nonce bytes and the raw transport_public_key\nbytes; this is the challenge.\n3. Sign the challenge exactly as at login: on Android with\n`Signature.getInstance(\"SHA256withECDSA\")`, submitting the resulting\nASN.1 DER-encoded ECDSA signature; on iOS with\n`DCAppAttestService.generateAssertion`, passing the challenge bytes as\nthe `clientDataHash` argument — do not hash them again — and submitting\nthe returned CBOR-encoded App Attest assertion unchanged.\n\nBinding the transport key into the signed challenge ensures a hijacked\nsession (stolen token, XSS) cannot rotate the secret and have it sealed\nto a transport key it controls.",
             "format": "byte",
             "type": "string"
           },
           "transport_public_key": {
-            "description": "TransportPubKey is the transport public key (HPKE) used to seal the\nreturned, freshly issued pin_secret so only this device can open it. It is\nbase64-encoded in JSON and decoded to raw bytes here.",
+            "description": "The device's X25519 transport public key (32 bytes, base64-encoded) used\nto seal the freshly issued pin_secret so only this device can open it.\n\nGenerate a fresh, random X25519 key pair for each rotation — it is a\ntransport-encryption key, distinct from the attested signing key — and\nsubmit the raw 32-byte public key. Keep the private key only until the\nsealed pin_secret from the response has been opened, then discard it.\nThe HPKE suite is DHKEM(X25519, HKDF-SHA256), HKDF-SHA256, AES-128-GCM.",
             "format": "byte",
             "type": "string"
           }
         },
-        "required": ["client_key_id", "signature"],
+        "required": ["client_key_id", "transport_public_key", "signature"],
         "title": "Update Settings Flow with DeviceAuthn RotateSecret",
         "type": "object"
       },
@@ -14142,6 +14226,16 @@
           }
         },
         "required": ["name"],
+        "type": "object"
+      },
+      "updateWorkspaceOrganizationBody": {
+        "properties": {
+          "session_lifespan": {
+            "description": "SessionLifespan overrides the project-level session lifespan for sessions\nissued for this organization. A Go duration string between 1m and 8760h.\nAn empty string clears the override so the project default applies. When\nthe field is omitted, the stored value is left unchanged.",
+            "example": "24h",
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "validateBaseURLRewriteRequest": {
@@ -14863,7 +14957,7 @@
         "x-ory-ratelimit-bucket": "hydra-admin-high"
       },
       "patch": {
-        "description": "Patch an existing OAuth 2.0 Client using JSON Patch. If you pass `client_secret`\nthe secret will be updated and returned via the API. This is the\nonly time you will be able to retrieve the client secret, so write it down and keep it safe.\n\nOAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are\ngenerated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.",
+        "description": "Patch an existing OAuth 2.0 Client using JSON Patch. If you update\n`client_secret`, the secret will be updated and returned via the API. This is\nthe only time you will be able to retrieve the client secret. Passing a new\n`client_secret` will clear all rotated secrets.\n\nTo perform a seamless client secret rotation, use the `rotateOAuth2ClientSecret` endpoint instead.\n\nOAuth 2.0 clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are\ngenerated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.",
         "operationId": "patchOAuth2Client",
         "parameters": [
           {
@@ -14916,7 +15010,7 @@
         "x-ory-ratelimit-bucket": "hydra-admin-low"
       },
       "put": {
-        "description": "Replaces an existing OAuth 2.0 Client with the payload you send. If you pass `client_secret` the secret is used,\notherwise the existing secret is used.\n\nIf set, the secret is echoed in the response. It is not possible to retrieve it later on.\n\nOAuth 2.0 Clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are\ngenerated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.",
+        "description": "Replaces an existing OAuth 2.0 Client with the payload you send. If you pass `client_secret` the secret is used,\notherwise the existing secret is used. Rotated secrets will be cleared if you pass a new `client_secret`.\n\nIf set, the secret is echoed in the response. It is not possible to retrieve it later on.\n\nTo perform a seamless client secret rotation, use the `rotateOAuth2ClientSecret` endpoint instead.\n\nOAuth 2.0 Clients are used to perform OAuth 2.0 and OpenID Connect flows. Usually, OAuth 2.0 clients are\ngenerated for applications which want to consume your OAuth 2.0 or OpenID Connect capabilities.",
         "operationId": "setOAuth2Client",
         "parameters": [
           {
@@ -15027,6 +15121,90 @@
         "summary": "Set OAuth2 Client Token Lifespans",
         "tags": ["oAuth2"],
         "x-ory-ratelimit-bucket": "hydra-admin-low"
+      }
+    },
+    "/admin/clients/{id}/secrets/rotate": {
+      "delete": {
+        "description": "Removes all rotated secrets from an OAuth 2.0 client. This should be called after all services\nhave been updated to use the new secret and the old secrets are no longer needed.",
+        "operationId": "deleteRotatedOAuth2ClientSecrets",
+        "parameters": [
+          {
+            "description": "OAuth 2.0 Client ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/oAuth2Client"
+                }
+              }
+            },
+            "description": "oAuth2Client"
+          },
+          "404": {
+            "$ref": "#/components/responses/errorOAuth2NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/errorOAuth2Default"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Delete Rotated OAuth 2.0 Client Secrets",
+        "tags": ["oAuth2"],
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
+      },
+      "post": {
+        "description": "Rotates an OAuth 2.0 client's secrets. The old secret will remain valid for\nauthentication, allowing for zero-downtime secret rotations. A new secret\nwill be generated and returned in the response.\n\nUp to five rotated secrets are retained. Use the\n`deleteRotatedOAuth2ClientSecrets` endpoint to remove old rotated secrets\nwhen they are no longer needed.",
+        "operationId": "rotateOAuth2ClientSecret",
+        "parameters": [
+          {
+            "description": "OAuth 2.0 Client ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/oAuth2Client"
+                }
+              }
+            },
+            "description": "oAuth2Client"
+          },
+          "404": {
+            "$ref": "#/components/responses/errorOAuth2NotFound"
+          },
+          "default": {
+            "$ref": "#/components/responses/errorOAuth2Default"
+          }
+        },
+        "security": [
+          {
+            "oryAccessToken": []
+          }
+        ],
+        "summary": "Rotate OAuth 2.0 Client Secret",
+        "tags": ["oAuth2"],
+        "x-ory-ratelimit-bucket": "hydra-admin-high"
       }
     },
     "/admin/courier/messages": {
@@ -15843,7 +16021,7 @@
             "x-go-enum-desc": "password CredentialsTypePassword\noidc CredentialsTypeOIDC\ntotp CredentialsTypeTOTP\nlookup_secret CredentialsTypeLookup\nwebauthn CredentialsTypeWebAuthn\ncode CredentialsTypeCodeAuth\npasskey CredentialsTypePasskey\nprofile CredentialsTypeProfile\nsaml CredentialsTypeSAML\ndeviceauthn CredentialsTypeDeviceAuthn\nidentifier_first CredentialsTypeIdentifierFirst\nlink_recovery CredentialsTypeRecoveryLink  CredentialsTypeRecoveryLink is a special credential type linked to the link strategy (recovery flow).  It is not used within the credentials object itself.\ncode_recovery CredentialsTypeRecoveryCode"
           },
           {
-            "description": "Identifier is the identifier of the OIDC/SAML credential to delete.\nFind the identifier by calling the `GET /admin/identities/{id}?include_credential={oidc,saml}` endpoint.",
+            "description": "Identifier is the identifier of the credential to delete. It is required\nfor the `oidc`, `saml`, and `deviceauthn` credential types: for `oidc`\nand `saml` it selects the provider link to remove, for `deviceauthn` it\nis the `client_key_id` of the device key to revoke. Find the identifier\nby calling the `GET /admin/identities/{id}?include_credential={type}`\nendpoint.",
             "in": "query",
             "name": "identifier",
             "schema": {
@@ -15854,6 +16032,16 @@
         "responses": {
           "204": {
             "$ref": "#/components/responses/emptyResponse"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorGeneric"
+                }
+              }
+            },
+            "description": "errorGeneric"
           },
           "404": {
             "content": {
@@ -16148,7 +16336,7 @@
         "x-ory-ratelimit-bucket": "hydra-admin-medium"
       },
       "post": {
-        "description": "This endpoint is capable of generating JSON Web Key Sets for you. There are different strategies available, such as symmetric cryptographic keys (HS256, HS512) and asymmetric cryptographic keys (RS256, ECDSA). If the specified JSON Web Key Set does not exist, it will be created.\n\nA JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.",
+        "description": "This endpoint is capable of generating JSON Web Key Sets for you. There are different strategies available, such as symmetric cryptographic keys (HS256, HS512) and asymmetric cryptographic keys (RS256, ECDSA). If the specified JSON Web Key Set does not exist, it will be created.\n\nIf the set already exists, the newly generated key is added to it and all existing keys are kept. This allows you to rotate keys: tokens signed with an older key in the set remain verifiable. Exception: when Ory Hydra is configured to use a Hardware Security Module (HSM), generating a key replaces the set, which then contains only the new key. To replace a set and all of its keys instead, use the `setJsonWebKeySet` operation (`PUT /admin/keys/{set}`).\n\nA JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.",
         "operationId": "createJsonWebKeySet",
         "parameters": [
           {
@@ -16204,7 +16392,7 @@
         "x-ory-ratelimit-bucket": "hydra-admin-low"
       },
       "put": {
-        "description": "Use this method if you do not want to let Hydra generate the JWKs for you, but instead save your own.\n\nA JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.",
+        "description": "Use this method if you do not want to let Hydra generate the JWKs for you, but instead save your own.\n\nThis operation replaces the entire JSON Web Key Set: keys that exist in the set but are not part of the request body are deleted. To add a newly generated key to the set while keeping the existing keys, use the `createJsonWebKeySet` operation (`POST /admin/keys/{set}`).\n\nA JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.",
         "operationId": "setJsonWebKeySet",
         "parameters": [
           {
@@ -16362,7 +16550,7 @@
         "x-ory-ratelimit-bucket": "hydra-admin-medium"
       },
       "put": {
-        "description": "Use this method if you do not want to let Hydra generate the JWKs for you, but instead save your own.\n\nA JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.",
+        "description": "Use this method if you do not want to let Hydra generate the JWKs for you, but instead save your own.\n\nWarning: the key is created or updated under the `kid` given in the request body. The `{kid}` path parameter exists for historical reasons only: it is ignored and not validated against the body.\n\nA JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key. A JWK Set is a JSON data structure that represents a set of JWKs. A JSON Web Key is identified by its set and key id. ORY Hydra uses this functionality to store cryptographic keys used for TLS and JSON Web Tokens (such as OpenID Connect ID tokens), and allows storing user-defined keys as well.",
         "operationId": "setJsonWebKey",
         "parameters": [
           {
