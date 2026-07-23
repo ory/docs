@@ -1,7 +1,11 @@
 A notable difference with Android is that Apple's app attestation APIs require a network call to Apple's servers from a real
 device.
 
-This means that the emulator cannot be used.
+This means the iOS Simulator cannot produce real attestations. For development and testing you can still run on the Simulator by
+enabling <SameDeploymentLink to="kratos/passwordless/deviceauthn#relaxed-attestation-for-testing">relaxed attestation</SameDeploymentLink>,
+which accepts software-backed attestations. The Ory Swift SDK ships an `OryClientSimulator` product that generates such an
+attestation on the Simulator; its code compiles to nothing in device builds, so it can never ship in production. Relaxed
+attestation is refused once the project leaves the development environment.
 
 Since Device Binding only is supported on native devices (not in the browser), all corresponding API calls should be done using
 the endpoints for native apps, to avoid having to pass cookies around manually.
@@ -424,8 +428,12 @@ func clientKeyId(fromUpdatedFlow flow: SettingsFlow) -> String? {
 }
 
 /// The local artifacts persisted after sealing. Store in the Keychain with
-/// kSecAttrAccessibleWhenUnlockedThisDeviceOnly — never in UserDefaults — so
-/// deleting the app purges them. None of these are secret on their own.
+/// kSecAttrAccessibleWhenUnlockedThisDeviceOnly — never in UserDefaults. The
+/// ThisDeviceOnly attribute keeps the blob off encrypted backups and device
+/// migrations, so it cannot follow the sealed secret onto another device.
+/// Keychain items survive app deletion, so detect a reinstall (for example with
+/// a UserDefaults install marker, which the system does clear on deletion) and
+/// clear any stale artifacts before use. None of these are secret on their own.
 struct PinArtifacts: Codable {
     let version: Int // format version of this recipe
     let clientKeyId: String
@@ -591,14 +599,20 @@ so its transport key is destroyed.
 
 ## Biometric keys
 
-Biometric (`platform`) keys skip the PIN machinery entirely — no transport key, no sealed secret, no `pin_proof`. The Secure
-Enclave gates the signing key itself and shows the Face ID or Touch ID prompt when the key signs. Three differences from the PIN
-flow:
+Biometric (`platform`) keys skip the PIN machinery entirely — no transport key, no sealed secret, no `pin_proof`. Unlike a PIN
+key, the client gates each signature behind a biometric check. App Attest signing is silent, and an App Attest key cannot be
+bound to Face ID or Touch ID through its access control, because App Attest keys are system-managed and accept no access-control
+flags. The app must therefore run the biometric check itself immediately before it signs. The server trusts the `platform`
+declaration on iOS because it cannot verify biometric gating remotely, which makes the client-side gate the security-critical
+part of this mode. Three differences from the PIN flow:
 
 - The attestation challenge is the **bare nonce**, not `SHA256(nonce ‖ t_pub)`. Pass the raw nonce bytes straight to `attestKey`
   as `clientDataHash`.
-- Create the signing key with `.biometryCurrentSet` in its access control, and enroll it with `"user_verification": "platform"`
-  and no `pin_protected` or `transport_public_key`.
+- Enroll with `"user_verification": "platform"` and no `pin_protected` or `transport_public_key`. There is no access-control flag
+  to set on the key; instead, gate signing with a `LocalAuthentication` check
+  (`LAContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics)`) that must succeed before every `generateAssertion` call,
+  at both enrollment and login. To approximate `.biometryCurrentSet` semantics — invalidating the key when the enrolled biometric
+  set changes — pin the context's `evaluatedPolicyDomainState` at enrollment and reject a login when it no longer matches.
 - At login, submit only `client_key_id` and `signature` (the assertion over the bare nonce) — omit `pin_proof`.
 
 For the App Attest `generateKey` / `attestKey` / `generateAssertion` scaffolding, reuse the `OryApi` helper from the
