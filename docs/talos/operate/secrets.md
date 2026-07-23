@@ -103,4 +103,4 @@ export SECRETS_HMAC_RETIRED="previous-hmac-secret-1,previous-hmac-secret-2"
 
 Inject these from a secrets manager (HashiCorp Vault, AWS Secrets Manager, GCP Secret Manager, or Kubernetes `Secret`). Never
 check secrets into version control. See the [Configuration reference](../reference/config.mdx) for the complete env-var mapping
-rules (precedence, underscore-to-dot conversion, and list parsing).
+rules (precedence, dot-to-underscore conversion, and list parsing).
