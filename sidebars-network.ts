@@ -3,8 +3,24 @@ import {
   SidebarItem,
   SidebarItemConfig,
 } from "@docusaurus/plugin-content-docs/src/sidebars/types"
+import talosApiSidebar from "./docs/talos/reference/api/sidebar"
+import talosCliReference from "./docs/talos/reference/cli/sidebar"
 
 type SidebarItemsConfig = SidebarItemConfig[]
+
+// The generated Talos API sidebar is [overview doc, { category "ApiKeys", items: [...methods] }].
+// Lift the methods into a single "API reference" category linked to the overview page so the
+// navigation reads cleanly instead of exposing the raw OpenAPI tag name.
+const talosApiReference = {
+  type: "category",
+  label: "API reference",
+  link: { type: "doc", id: "talos/reference/api/ory-talos-api" },
+  items: talosApiSidebar.flatMap((item: any) =>
+    typeof item === "object" && "items" in item && Array.isArray(item.items)
+      ? item.items
+      : [],
+  ),
+}
 
 const networkSidebar = [
   {
@@ -823,6 +839,63 @@ const networkSidebar = [
                 ],
               },
               "oathkeeper/sdk",
+            ],
+          },
+        ],
+      },
+      {
+        type: "category",
+        label: "Ory Talos",
+        className: "sidebar-icon sidebar-icon-talos",
+        collapsed: true,
+        collapsible: true,
+        items: [
+          "talos/index",
+          {
+            type: "category",
+            label: "Concepts",
+            items: [
+              "talos/concepts/index",
+              "talos/concepts/architecture",
+              "talos/concepts/credential-types",
+              "talos/concepts/token-format",
+              "talos/concepts/security-model",
+              "talos/concepts/caching",
+              "talos/concepts/rate-limiting",
+              "talos/concepts/ip-restrictions",
+            ],
+          },
+          {
+            type: "category",
+            label: "Integrate",
+            items: [
+              "talos/integrate/index",
+              "talos/integrate/issue-and-verify",
+              "talos/integrate/import-keys",
+              "talos/integrate/derive-tokens",
+              "talos/integrate/batch-operations",
+              "talos/integrate/key-lifecycle",
+              "talos/integrate/self-revocation",
+              "talos/integrate/ip-restrictions",
+              "talos/integrate/rate-limiting",
+              "talos/integrate/error-handling",
+              {
+                type: "category",
+                label: "SDKs",
+                items: ["talos/integrate/sdk/go", "talos/integrate/sdk/curl"],
+              },
+            ],
+          },
+          {
+            type: "category",
+            label: "Reference",
+            items: [
+              "talos/reference/index",
+              talosApiReference,
+              talosCliReference,
+              "talos/reference/token-format",
+              "talos/reference/events",
+              "talos/reference/error-codes",
             ],
           },
         ],
