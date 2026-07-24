@@ -67,9 +67,7 @@ all options; an empty list disables the check.
 
    ```json
    {
-     "delete": {
-       "client_key_id": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c"
-     },
+     "deviceauthn_remove": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c",
      "method": "deviceauthn"
    }
    ```
@@ -86,9 +84,7 @@ all options; an empty list disables the check.
    let body: UpdateSettingsFlowBody =
        .typeUpdateSettingsFlowWithDeviceAuthnMethod(
            UpdateSettingsFlowWithDeviceAuthnMethod(
-               delete: UpdateSettingsFlowWithDeviceAuthnMethodDelete(
-                   clientKeyId: clientKeyId,
-               ),
+               deviceauthnRemove: clientKeyId,
                method: "deviceauthn"
            )
        )
@@ -109,8 +105,9 @@ all options; an empty list disables the check.
    ```json
    {
      "method": "deviceauthn",
-     "add": {
+     "deviceauthn_register": {
        "device_name": "iPhone (iPhone14,5)",
+       "version": 1,
        "attestation_ios": "..."
      }
    }
@@ -132,9 +129,10 @@ all options; an empty list disables the check.
    let body: UpdateSettingsFlowBody =
        .typeUpdateSettingsFlowWithDeviceAuthnMethod(
            UpdateSettingsFlowWithDeviceAuthnMethod(
-               add: UpdateSettingsFlowWithDeviceAuthnMethodAdd(
+               deviceauthnRegister: UpdateSettingsFlowWithDeviceAuthnMethodRegister(
                    attestationIos: attestation,
                    deviceName: deviceName,
+                   version: 1,
                ),
                method: "deviceauthn"
            )
@@ -585,7 +583,7 @@ func loginWithPin(flowNonce: Data, pin: inout [UInt8], artifacts: PinArtifacts, 
 
 See <SameDeploymentLink to="kratos/passwordless/deviceauthn#pin-enrollment">PIN enrollment</SameDeploymentLink> for the payload
 reference. To wire the enrollment ceremony end to end: decode the flow nonce with `decodeNonce`, create a `PinCeremony`,
-`createPinAttestation`, submit the `add` payload with `transport_public_key` and `attestation_ios`, then `openSealedSecret` on the
+`createPinAttestation`, submit the `deviceauthn_register` payload with `transport_public_key` and `attestation_ios`, then `openSealedSecret` on the
 returned `continue_with`, capture the PIN, `PinVault.seal`, and persist the `PinArtifacts`. Let the `PinCeremony` go out of scope
 so its transport key is destroyed.
 

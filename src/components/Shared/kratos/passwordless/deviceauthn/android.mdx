@@ -57,9 +57,7 @@ all options; an empty list disables the check.
 
    ```json
    {
-     "delete": {
-       "client_key_id": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c"
-     },
+     "deviceauthn_remove": "9c62918cbbef2e94c3a10238bd57ab196e3a2caae1a44f28b02f2d1a72b1e59c",
      "method": "deviceauthn"
    }
    ```
@@ -74,8 +72,7 @@ all options; an empty list disables the check.
    val body = UpdateSettingsFlowBody()
    val method = UpdateSettingsFlowWithDeviceAuthnMethod()
    method.method = "deviceauthn"
-   method.delete = UpdateSettingsFlowWithDeviceAuthnMethodDelete()
-   method.delete!!.clientKeyId = clientKeyIdToDelete
+   method.deviceauthnRemove = clientKeyIdToDelete
    body.actualInstance = method
    val updatedFlow = apiInstance.updateSettingsFlow(settingsFlow?.id, body, sessionToken, "")
    ```
@@ -90,8 +87,9 @@ all options; an empty list disables the check.
    ```json
    {
      "method": "deviceauthn",
-     "add": {
+     "deviceauthn_register": {
        "device_name": "Pixel 9",
+       "version": 1,
        "certificate_chain_android": ["...", "...", "..."]
      }
    }
@@ -113,9 +111,10 @@ all options; an empty list disables the check.
    val body = UpdateSettingsFlowBody()
    val method = UpdateSettingsFlowWithDeviceAuthnMethod()
    method.method = "deviceauthn"
-   method.add = UpdateSettingsFlowWithDeviceAuthnMethodAdd()
-   method.add!!.deviceName = "My work phone"
-   method.add!!.certificateChainAndroid = keyCertChain.map { it.encoded }.toList()
+   method.deviceauthnRegister = UpdateSettingsFlowWithDeviceAuthnMethodRegister()
+   method.deviceauthnRegister!!.deviceName = "My work phone"
+   method.deviceauthnRegister!!.version = 1
+   method.deviceauthnRegister!!.certificateChainAndroid = keyCertChain.map { it.encoded }.toList()
    body.actualInstance = method
    val updatedFlow = apiInstance.updateSettingsFlow(settingsFlow?.id, body, sessionToken, "")
 
@@ -701,7 +700,7 @@ discipline when you wire these calls.
 
 1. **Enroll** (<SameDeploymentLink to="kratos/passwordless/deviceauthn#pin-enrollment">PIN enrollment</SameDeploymentLink>) —
    `decodeNonce` the flow's `deviceauthn_nonce` node, `createSealingKey`, create a `PinCeremony`, then
-   `createPinSigningKey(alias, nonce, transportPublicKey)` and submit the `add` payload with `transport_public_key` and the
+   `createPinSigningKey(alias, nonce, transportPublicKey)` and submit the `deviceauthn_register` payload with `transport_public_key` and the
    returned chain as `certificate_chain_android`. On the response, `openSealedSecret` on the `continue_with` item, derive the
    fingerprint with `clientKeyId(alias)`, capture the PIN, `PinVault.seal`, and persist the `PinArtifacts`. Let the `PinCeremony`
    go out of scope so its transport key is destroyed.
