@@ -2,10 +2,10 @@ A notable difference with Android is that Apple's app attestation APIs require a
 device.
 
 This means the iOS Simulator cannot produce real attestations. For development and testing you can still run on the Simulator by
-enabling <SameDeploymentLink to="kratos/passwordless/deviceauthn#relaxed-attestation-for-testing">relaxed attestation</SameDeploymentLink>,
-which accepts software-backed attestations. The Ory Swift SDK ships an `OryClientSimulator` product that generates such an
-attestation on the Simulator; its code compiles to nothing in device builds, so it can never ship in production. Relaxed
-attestation is refused once the project leaves the development environment.
+enabling <SameDeploymentLink to="kratos/passwordless/deviceauthn#relaxed-attestation-for-testing">relaxed
+attestation</SameDeploymentLink>, which accepts software-backed attestations. The Ory Swift SDK ships an `OryClientSimulator`
+product that generates such an attestation on the Simulator; its code compiles to nothing in device builds, so it can never ship
+in production. Relaxed attestation is refused once the project leaves the development environment.
 
 Since Device Binding only is supported on native devices (not in the browser), all corresponding API calls should be done using
 the endpoints for native apps, to avoid having to pass cookies around manually.
@@ -600,11 +600,11 @@ so its transport key is destroyed.
 ## Biometric keys
 
 Biometric (`platform`) keys skip the PIN machinery entirely — no transport key, no sealed secret, no `pin_proof`. Unlike a PIN
-key, the client gates each signature behind a biometric check. App Attest signing is silent, and an App Attest key cannot be
-bound to Face ID or Touch ID through its access control, because App Attest keys are system-managed and accept no access-control
-flags. The app must therefore run the biometric check itself immediately before it signs. The server trusts the `platform`
-declaration on iOS because it cannot verify biometric gating remotely, which makes the client-side gate the security-critical
-part of this mode. Three differences from the PIN flow:
+key, the client gates each signature behind a biometric check. App Attest signing is silent, and an App Attest key cannot be bound
+to Face ID or Touch ID through its access control, because App Attest keys are system-managed and accept no access-control flags.
+The app must therefore run the biometric check itself immediately before it signs. The server trusts the `platform` declaration on
+iOS because it cannot verify biometric gating remotely, which makes the client-side gate the security-critical part of this mode.
+Three differences from the PIN flow:
 
 - The attestation challenge is the **bare nonce**, not `SHA256(nonce ‖ t_pub)`. Pass the raw nonce bytes straight to `attestKey`
   as `clientDataHash`.
