@@ -700,10 +700,10 @@ discipline when you wire these calls.
 
 1. **Enroll** (<SameDeploymentLink to="kratos/passwordless/deviceauthn#pin-enrollment">PIN enrollment</SameDeploymentLink>) —
    `decodeNonce` the flow's `deviceauthn_nonce` node, `createSealingKey`, create a `PinCeremony`, then
-   `createPinSigningKey(alias, nonce, transportPublicKey)` and submit the `deviceauthn_register` payload with `transport_public_key` and the
-   returned chain as `certificate_chain_android`. On the response, `openSealedSecret` on the `continue_with` item, derive the
-   fingerprint with `clientKeyId(alias)`, capture the PIN, `PinVault.seal`, and persist the `PinArtifacts`. Let the `PinCeremony`
-   go out of scope so its transport key is destroyed.
+   `createPinSigningKey(alias, nonce, transportPublicKey)` and submit the `deviceauthn_register` payload with
+   `transport_public_key` and the returned chain as `certificate_chain_android`. On the response, `openSealedSecret` on the
+   `continue_with` item, derive the fingerprint with `clientKeyId(alias)`, capture the PIN, `PinVault.seal`, and persist the
+   `PinArtifacts`. Let the `PinCeremony` go out of scope so its transport key is destroyed.
 2. **Log in** (<SameDeploymentLink to="kratos/passwordless/deviceauthn#first-factor-login">First-factor
    login</SameDeploymentLink>) — `decodeNonce`, `PinVault.unseal` with the entered PIN, `pinProof(pinSecret, clientKeyId, nonce)`,
    and `sign(alias, nonce)` over the raw nonce, then submit `client_key_id`, `signature`, and `pin_proof`.

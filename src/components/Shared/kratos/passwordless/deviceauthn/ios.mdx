@@ -583,9 +583,9 @@ func loginWithPin(flowNonce: Data, pin: inout [UInt8], artifacts: PinArtifacts, 
 
 See <SameDeploymentLink to="kratos/passwordless/deviceauthn#pin-enrollment">PIN enrollment</SameDeploymentLink> for the payload
 reference. To wire the enrollment ceremony end to end: decode the flow nonce with `decodeNonce`, create a `PinCeremony`,
-`createPinAttestation`, submit the `deviceauthn_register` payload with `transport_public_key` and `attestation_ios`, then `openSealedSecret` on the
-returned `continue_with`, capture the PIN, `PinVault.seal`, and persist the `PinArtifacts`. Let the `PinCeremony` go out of scope
-so its transport key is destroyed.
+`createPinAttestation`, submit the `deviceauthn_register` payload with `transport_public_key` and `attestation_ios`, then
+`openSealedSecret` on the returned `continue_with`, capture the PIN, `PinVault.seal`, and persist the `PinArtifacts`. Let the
+`PinCeremony` go out of scope so its transport key is destroyed.
 
 ## Biometric keys
 
