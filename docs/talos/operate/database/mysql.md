@@ -21,7 +21,7 @@ db:
 Or set it through an environment variable:
 
 ```shell
-export TALOS_DB_DSN="mysql://talos:secret@tcp(db:3306)/talos?tls=true&parseTime=true"
+export DB_DSN="mysql://talos:secret@tcp(db:3306)/talos?tls=true&parseTime=true"
 ```
 
 ## DSN format

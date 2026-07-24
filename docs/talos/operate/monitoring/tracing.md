@@ -43,10 +43,10 @@ Talos has no `tracing.tls` configuration block today. Rely on transport-layer co
 ## Environment variables
 
 ```shell
-export TALOS_TRACING_ENABLED=true
-export TALOS_TRACING_EXPORTER=otlp
-export TALOS_TRACING_ENDPOINT=otel-collector:4317
-export TALOS_TRACING_SAMPLE_RATE=0.01
+export TRACING_ENABLED=true
+export TRACING_EXPORTER=otlp
+export TRACING_ENDPOINT=otel-collector:4317
+export TRACING_SAMPLE_RATE=0.01
 ```
 
 The default `sample_rate` is `0.001` (0.1%). For a new deployment, set `0.1` (10%) or `1.0` (100%) until you have an SLO baseline,

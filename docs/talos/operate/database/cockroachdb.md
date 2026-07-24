@@ -23,7 +23,7 @@ db:
 Or use an environment variable:
 
 ```shell
-export TALOS_DB_DSN="cockroach://talos@crdb:26257/talos?sslmode=verify-full&max_conns=50"
+export DB_DSN="cockroach://talos@crdb:26257/talos?sslmode=verify-full&max_conns=50"
 ```
 
 ## DSN format

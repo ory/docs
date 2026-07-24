@@ -58,8 +58,8 @@ Talos exits with `project has no HMAC key configured` if it's unset.
 openssl rand -base64 48 | tr -d '\n+/=' | cut -c1-64
 ```
 
-Inject as `TALOS_SECRETS_HMAC_CURRENT`. Don't use `talos jwk generate hmac` for this field: it produces a JWK JSON object, not a
-raw string.
+Inject as `SECRETS_HMAC_CURRENT`. Don't use `talos jwk generate hmac` for this field: it produces a JWK JSON object, not a raw
+string.
 
 ### Pagination cursor key (derived automatically)
 
