@@ -91,16 +91,8 @@ export const navbar: Navbar = {
       position: "left",
       items: [
         {
-          to: "/docs/reference/api",
-          label: "REST API",
-        },
-        {
-          to: "/docs/category/ory-cli-reference",
-          label: "Ory CLI",
-        },
-        {
-          to: "/docs/sdk",
-          label: "Ory SDKs",
+          to: "/docs/reference/reference-overview",
+          label: "REST APIs, SDKs, and CLIs references",
         },
         {
           to: "/docs/category/operations-reference",
