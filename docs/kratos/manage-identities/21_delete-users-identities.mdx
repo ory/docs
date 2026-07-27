@@ -1,0 +1,71 @@
+---
+id: delete-users-identities
+title: Learn how to delete user accounts and let users delete their own account
+sidebar_label: Delete identities
+---
+
+# Delete identities
+
+Ory Identities doesn't expose account deletion as a self-service flow, to prevent users from accidentally and irrecoverably
+destroying their account and to avoid an attack surface for deleting accounts on a user's behalf.
+
+Instead, deleting an identity is an administrative operation. Call the
+[`DELETE /admin/identities/{id}`](../../reference/api.mdx#operation/deleteIdentity) endpoint with the identity's ID. Deletion is
+permanent and can't be undone.
+
+````mdx-code-block
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+<Tabs
+  defaultValue="cloud"
+  values={[
+    {label: 'Ory Network', value: 'cloud'},
+  ]}>
+  <TabItem value="cloud">
+
+```shell
+curl --request DELETE -sL \
+  --header "Authorization: Bearer ory_pat_xRKLsFEOUFQFVBjd6o3FQDifaLYhabGd" \
+  https://playground.projects.oryapis.com/admin/identities/{id}
+```
+
+</TabItem>
+</Tabs>
+````
+
+:::info
+
+The Admin API is protected by your project API key, so all calls must be made from your server. Never expose the API key or call
+the Admin API from a browser or mobile client. See [Authorization with API Keys](../../concepts/personal-access-token.mdx).
+
+:::
+
+## Let users delete their own account
+
+To offer a "Delete my account" option in your UI, build it in your own backend:
+
+1. Expose a button in your application's UI, for example on the settings page.
+2. On click, have your **server-side** application call
+   [`DELETE /admin/identities/{id}`](../../reference/api.mdx#operation/deleteIdentity) with the logged-in identity's ID, which you
+   get from the user's session via [`toSession`](../../reference/api#tag/frontend/operation/toSession) or `/sessions/whoami`.
+3. Require a fresh [privileged session](../session-management/session-lifespan#privileged-sessions) so the user re-authenticates
+   before deletion.
+4. Add an explicit confirmation step with CSRF protection, so a deletion can't be triggered accidentally or by a forged request.
+
+## Account deletion and GDPR
+
+Deleting the Ory identity alone rarely satisfies a GDPR "right to erasure" request. User data usually also lives in your own
+databases, CRM, analytics, email provider, logs, and backups, and all of it must be cleaned up. GDPR was among the first such
+regulations, but the same applies to a number of similar data protection laws in other countries.
+
+Track and orchestrate deletion requests in your own system, treating the Ory identity as one of several data stores. Your endpoint
+can then:
+
+- Delete or pseudonymize the user's data across your services and databases.
+- Call [`DELETE /admin/identities/{id}`](../../reference/api.mdx#operation/deleteIdentity) to remove the identity from Ory.
+
+To keep a record of the user instead of deleting it, strip the credentials and PII but keep a skeleton record: use
+[`PUT /admin/identities/{id}`](../../reference/api.mdx#operation/updateIdentity) to update the traits and
+[`DELETE /admin/identities/{id}/credentials/{type}`](../../reference/api.mdx#operation/deleteIdentityCredentials) to remove
+credentials.
