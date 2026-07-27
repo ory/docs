@@ -488,9 +488,10 @@ After opening the one-time `pin_secret`:
    Android Keystore key (StrongBox where available), or an iOS Secure Enclave P-256 key used via ECIES.
 4. Store the sealed blob together with the salt, KDF parameters, IV, a format version, and the key alias. On iOS use the Keychain
    with `kSecAttrAccessibleWhenUnlockedThisDeviceOnly` (never `UserDefaults`) so the blob stays off encrypted backups and device
-   migrations. Keychain items survive app deletion, so detect a reinstall — for example with a `UserDefaults` install marker,
-   which the system clears on deletion — and drop any stale artifacts before use. Android Keystore keys are purged on uninstall
-   automatically, along with their hardware-backed sealing key.
+   migrations. Keychain items survive app deletion, so you must detect a reinstall yourself and delete the stale artifacts before
+   the app uses them: write a marker to `UserDefaults` at first launch, which the system clears on deletion, and treat a stored
+   blob without its marker as a reinstall. Android Keystore keys are purged on uninstall automatically, along with their
+   hardware-backed sealing key.
 5. Wipe the PIN, `pinKey`, `pin_secret`, and the transport private key from memory.
 
 ### Hard rules
