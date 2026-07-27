@@ -8,7 +8,7 @@ The Ory Console uses role-based access control enforced through Ory Keto. Roles 
 
 ## Workspace roles
 
-A workspace has two roles: Owner and Developer.
+A workspace has three roles: Owner, Developer, and Viewer.
 
 ### Owner
 
@@ -37,25 +37,43 @@ Developers cannot:
 - Manage workspace members
 - Create or delete workspace API keys
 
+### Viewer
+
+The Viewer role provides read-only access to the workspace.
+
+- View workspace metadata
+- View members
+- View workspace API keys
+- View the projects list
+
+Viewers also get read-only access to the settings of every project in the workspace. See [project Viewer](#viewer-1) for what that
+includes.
+
+Viewers cannot:
+
+- Create projects
+- View or manage billing
+- Change any workspace setting
+
 ### Workspace permission matrix
 
-| Permission                       | Developer | Owner |
-| -------------------------------- | --------- | ----- |
-| View workspace metadata          | Yes       | Yes   |
-| Edit workspace metadata          | No        | Yes   |
-| Upgrade workspace plan           | No        | Yes   |
-| View billing                     | No        | Yes   |
-| Manage billing                   | No        | Yes   |
-| View members                     | Yes       | Yes   |
-| Manage members                   | No        | Yes   |
-| View workspace API keys          | Yes       | Yes   |
-| Create/delete workspace API keys | No        | Yes   |
-| Create projects                  | Yes       | Yes   |
-| View projects list               | Yes       | Yes   |
+| Permission                       | Viewer | Developer | Owner |
+| -------------------------------- | ------ | --------- | ----- |
+| View workspace metadata          | Yes    | Yes       | Yes   |
+| Edit workspace metadata          | No     | No        | Yes   |
+| Upgrade workspace plan           | No     | No        | Yes   |
+| View billing                     | No     | No        | Yes   |
+| Manage billing                   | No     | No        | Yes   |
+| View members                     | Yes    | Yes       | Yes   |
+| Manage members                   | No     | No        | Yes   |
+| View workspace API keys          | Yes    | Yes       | Yes   |
+| Create/delete workspace API keys | No     | No        | Yes   |
+| Create projects                  | No     | Yes       | Yes   |
+| View projects list               | Yes    | Yes       | Yes   |
 
 ## Project roles
 
-A project has two roles: Owner and Developer.
+A project has three roles: Owner, Developer, and Viewer.
 
 ### Owner
 
@@ -89,28 +107,56 @@ Developers cannot:
 - Add or remove collaborators
 - Modify project workspace settings
 
+### Viewer
+
+The Viewer role provides read-only access to project settings.
+
+- Read project configuration
+- View collaborators
+- View project API keys
+- View custom domains (CNAMEs)
+- View event streams
+
+Viewers have no access to data managed by Ory services. They cannot read or write identities, sessions, message delivery, OAuth2
+clients, permission relationships, or issued and imported API keys.
+
+In the Ory Console, the actions that would change a resource — such as save, create, delete, and invite — are disabled for
+Viewers, with a tooltip explaining the missing permission.
+
 ### Project permission matrix
 
-| Permission                        | Owner | Developer |
-| --------------------------------- | ----- | --------- |
-| Read project configuration        | Yes   | Yes       |
-| Write project configuration       | Yes   | Yes       |
-| View collaborators                | Yes   | Yes       |
-| Add/remove collaborators          | Yes   | No        |
-| Manage project API keys           | Yes   | Yes       |
-| Manage custom domains (CNAMEs)    | Yes   | Yes       |
-| Manage event streams              | Yes   | Yes       |
-| Ory Identities (full read/write)  | Yes   | Yes       |
-| Ory Permissions (full read/write) | Yes   | Yes       |
-| Ory OAuth2 (full read/write)      | Yes   | Yes       |
-| Delete project                    | Yes   | No        |
-| Move project                      | Yes   | No        |
-| Upgrade project plan              | Yes   | No        |
-| Modify workspace settings         | Yes   | No        |
+| Permission                          | Viewer | Developer | Owner |
+| ----------------------------------- | ------ | --------- | ----- |
+| Read project configuration          | Yes    | Yes       | Yes   |
+| Write project configuration         | No     | Yes       | Yes   |
+| View collaborators                  | Yes    | Yes       | Yes   |
+| Add/remove collaborators            | No     | No        | Yes   |
+| View project API keys               | Yes    | Yes       | Yes   |
+| Manage project API keys             | No     | Yes       | Yes   |
+| View issued and imported API keys   | No     | Yes       | Yes   |
+| Manage issued and imported API keys | No     | Yes       | Yes   |
+| View custom domains (CNAMEs)        | Yes    | Yes       | Yes   |
+| Manage custom domains (CNAMEs)      | No     | Yes       | Yes   |
+| View event streams                  | Yes    | Yes       | Yes   |
+| Manage event streams                | No     | Yes       | Yes   |
+| Ory Identities (full read/write)    | No     | Yes       | Yes   |
+| Ory Permissions (full read/write)   | No     | Yes       | Yes   |
+| Ory OAuth2 (full read/write)        | No     | Yes       | Yes   |
+| Delete project                      | No     | No        | Yes   |
+| Move project                        | No     | No        | Yes   |
+| Upgrade project plan                | No     | No        | Yes   |
+| Modify workspace settings           | No     | No        | Yes   |
 
 ## Managing roles
 
 To change a member's role, a workspace Owner can go to <ConsoleLink route="workspace.settings.members" />.
+
+When inviting a member to a workspace or a collaborator to a project, you select the role as part of the invitation.
+
+Project roles are additive to workspace roles. A member's effective role on a project is the higher of their workspace role and
+any role they hold directly on that project. To raise a workspace Viewer to Developer on a single project, invite that member to
+the project with the Developer role — the role is chosen in the invitation and can't be changed afterwards. They then have
+Developer access on that project while staying read-only across the rest of the workspace.
 
 ![Workspace members](./_static/workspace-settings-members-page.png)
 
