@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Enterprise SSO & Directory Sync",
-    "version": "1.52.2",
+    "version": "26.2.0",
     "description": "This is the API documentation for Polis.",
     "termsOfService": "/tos",
     "contact": {
@@ -110,6 +110,10 @@
                     "type": "string",
                     "description": "Override the global ACS URL on a per connection basis"
                   },
+                  "acsUrlId": {
+                    "type": "string",
+                    "description": "An identifier that allows multiple SAML connections to share the same IdP entity ID. When set, the ACS URL includes this ID to route responses to the correct connection."
+                  },
                   "samlAudienceOverride": {
                     "type": "string",
                     "description": "Override the global SAML Audience on a per connection basis"
@@ -141,7 +145,8 @@
           "401": {
             "description": "Unauthorized"
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-medium"
       },
       "patch": {
         "tags": ["Single Sign-On"],
@@ -233,6 +238,10 @@
                     "type": "string",
                     "description": "Override the global ACS URL on a per connection basis"
                   },
+                  "acsUrlId": {
+                    "type": "string",
+                    "description": "An identifier that allows multiple SAML connections to share the same IdP entity ID. When set, the ACS URL includes this ID to route responses to the correct connection."
+                  },
                   "samlAudienceOverride": {
                     "type": "string",
                     "description": "Override the global SAML Audience on a per connection basis"
@@ -248,6 +257,16 @@
           "required": true
         },
         "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Connection"
+                }
+              }
+            }
+          },
           "204": {
             "description": "Success",
             "content": {}
@@ -263,7 +282,8 @@
             "description": "Please set OpenID response handler path (oidcPath) on Jackson",
             "content": {}
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-medium"
       },
       "get": {
         "tags": ["Single Sign-On"],
@@ -323,7 +343,8 @@
           "401": {
             "$ref": "#/components/responses/401Get"
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       },
       "delete": {
         "tags": ["Single Sign-On"],
@@ -381,7 +402,8 @@
           "401": {
             "description": "Unauthorized"
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-medium"
       }
     },
     "/api/v1/sso/product": {
@@ -413,7 +435,8 @@
           "401": {
             "$ref": "#/components/responses/401Get"
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/oauth/token": {
@@ -492,7 +515,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-medium"
       }
     },
     "/oauth/userinfo": {
@@ -553,7 +577,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/sso/setuplinks": {
@@ -780,7 +805,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-medium"
       },
       "delete": {
         "tags": ["Setup Links | Directory Sync"],
@@ -828,7 +854,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-medium"
       },
       "get": {
         "tags": ["Setup Links | Directory Sync"],
@@ -873,7 +900,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/sso/setuplinks/product": {
@@ -945,7 +973,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/sso-traces": {
@@ -974,7 +1003,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/sso-traces/product": {
@@ -1018,7 +1048,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/dsync": {
@@ -1073,7 +1104,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-medium"
       },
       "get": {
         "tags": ["Directory Sync"],
@@ -1110,7 +1142,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/dsync/{directoryId}": {
@@ -1139,7 +1172,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       },
       "patch": {
         "tags": ["Directory Sync"],
@@ -1206,7 +1240,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-medium"
       },
       "delete": {
         "tags": ["Directory Sync"],
@@ -1227,7 +1262,8 @@
             "description": "Success",
             "content": {}
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-medium"
       }
     },
     "/api/v1/dsync/product": {
@@ -1271,7 +1307,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/dsync/groups/{groupId}": {
@@ -1324,7 +1361,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/dsync/groups": {
@@ -1374,7 +1412,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/dsync/groups/{groupId}/members": {
@@ -1423,7 +1462,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/dsync/users/{userId}": {
@@ -1476,7 +1516,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/dsync/users": {
@@ -1526,7 +1567,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/dsync/events": {
@@ -1576,7 +1618,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     },
     "/api/v1/identity-federation": {
@@ -1605,7 +1648,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-medium"
       },
       "get": {
         "tags": ["Identity Federation"],
@@ -1648,7 +1692,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       },
       "patch": {
         "tags": ["Identity Federation"],
@@ -1675,7 +1720,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-medium"
       },
       "delete": {
         "tags": ["Identity Federation"],
@@ -1723,7 +1769,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-medium"
       }
     },
     "/api/v1/identity-federation/product": {
@@ -1776,7 +1823,8 @@
               }
             }
           }
-        }
+        },
+        "x-ory-ratelimit-bucket": "polis-public-high"
       }
     }
   },
@@ -1846,6 +1894,10 @@
             "type": "string",
             "description": "Override the global ACS URL on a per connection basis"
           },
+          "acsUrlId": {
+            "type": "string",
+            "description": "An identifier that allows multiple SAML connections to share the same IdP entity ID. When set, the ACS URL includes this ID to route responses to the correct connection."
+          },
           "samlAudienceOverride": {
             "type": "string",
             "description": "Override the global SAML Audience on a per connection basis"
@@ -1862,12 +1914,12 @@
             "loginType": "idp",
             "provider": "okta.com"
           },
-          "defaultRedirectUrl": "https://hoppscotch.io/",
-          "redirectUrl": ["https://hoppscotch.io/"],
-          "tenant": "hoppscotch.io",
+          "defaultRedirectUrl": "http://localhost:3000/default",
+          "redirectUrl": ["http://localhost:3000/default"],
+          "tenant": "example.com",
           "product": "API Engine",
           "name": "Hoppscotch-SP",
-          "description": "SP for hoppscotch.io",
+          "description": "SP for example.com",
           "clientID": "Xq8AJt3yYAxmXizsCWmUBDRiVP1iTC8Y/otnvFIMitk",
           "clientSecret": "00e3e11a3426f97d8000000738300009130cd45419c5943",
           "deactivated": false
