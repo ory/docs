@@ -34,7 +34,7 @@ ory perform client-credentials --client-id ... --client-secret
       --audience strings       Request a specific OAuth 2.0 Access Token Audience.
       --client-id string       Use the provided OAuth 2.0 Client ID, defaults to environment variable OAUTH2_CLIENT_ID.
       --client-secret string   Use the provided OAuth 2.0 Client Secret, defaults to environment variable OAUTH2_CLIENT_SECRET.
-  -e, --endpoint string        The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+  -e, --endpoint string        The API URL this command should target. Alternatively set using the ORY_SDK_URL environmental variable.
       --format string          Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help                   help for client-credentials
       --project string         The project to use, either project ID or a (partial) slug.

@@ -16,7 +16,6 @@ Create relationship tuples from inline arguments or JSON files and folders
 ### Synopsis
 
 Create relationship tuples from inline arguments or JSON files and folders.
-
 Inline example:
 ```
 keto relation-tuple create User:alice owner Doc:readme

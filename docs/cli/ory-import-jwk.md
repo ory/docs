@@ -35,7 +35,7 @@ ory import jwk my-set ./path/to/rsa.key ./path/to/rsa.pub --use enc
 
 ```
       --alg string         Sets the "alg" value of the JSON Web Key if not "alg" value was defined by the key itself. Required when importing PEM/DER encoded data.
-  -e, --endpoint string    The URL of Ory Kratos' Admin API. Alternatively set using the KRATOS_ADMIN_URL environmental variable.
+  -e, --endpoint string    The API URL this command should target. Alternatively set using the ORY_SDK_URL environmental variable.
       --format string      Set the output format. One of table, json, yaml, json-pretty, jsonpath and jsonpointer. (default "table")
   -h, --help               help for jwk
       --project string     The project to use, either project ID or a (partial) slug.
