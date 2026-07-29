@@ -487,8 +487,11 @@ After opening the one-time `pin_secret`:
 3. Outer layer: seal the result under a **non-exportable hardware key** created without user-verification gating — an AES-256-GCM
    Android Keystore key (StrongBox where available), or an iOS Secure Enclave P-256 key used via ECIES.
 4. Store the sealed blob together with the salt, KDF parameters, IV, a format version, and the key alias. On iOS use the Keychain
-   with `kSecAttrAccessibleWhenUnlockedThisDeviceOnly` (never `UserDefaults`), so uninstalling the app purges it. Android Keystore
-   keys are purged on uninstall automatically.
+   with `kSecAttrAccessibleWhenUnlockedThisDeviceOnly` (never `UserDefaults`) so the blob stays off encrypted backups and device
+   migrations. Keychain items survive app deletion, so you must detect a reinstall yourself and delete the stale artifacts before
+   the app uses them: write a marker to `UserDefaults` at first launch, which the system clears on deletion, and treat a stored
+   blob without its marker as a reinstall. Android Keystore keys are purged on uninstall automatically, along with their
+   hardware-backed sealing key.
 5. Wipe the PIN, `pinKey`, `pin_secret`, and the transport private key from memory.
 
 ### Hard rules
