@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content="light" />
     <title>This should be the Error UI | Ory</title>
     <meta
       name="description"
@@ -15,9 +15,9 @@
     />
     <link rel="icon" href="/docs/img/favico.png" />
     <style>
-      /* Ory docs tokens — src/css/theme.css. Light is the default; dark
-         mirrors html[data-theme="dark"]. No JS here, so the theme follows the
-         OS setting rather than the docs theme toggle. */
+      /* Ory docs tokens — src/css/theme.css. Light only: with no JS there is no
+         way to read the docs theme preference, so the page renders the same for
+         everyone rather than following the OS setting. */
       :root {
         --bg: #fff;
         --footer-bg: #f8fafc;
@@ -31,25 +31,6 @@
         --code-text: #393a34;
         --code-key: #22863a;
         --code-border: rgba(15, 23, 42, 0.08);
-      }
-
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --bg: #0f172a;
-          --footer-bg: #020617;
-          --text: #fff;
-          --text-muted: #94a3b8;
-          --heading: #a5a7fc;
-          /* Docs uses indigo-500 here in both themes; on this background that
-             lands at ~4:1, so the dark brand token is used instead. */
-          --link: #a5a7fc;
-          --border: #334155;
-          --inline-bg: #020617;
-          --code-bg: #212121;
-          --code-text: #d4d4d4;
-          --code-key: #569cd6;
-          --code-border: rgba(255, 255, 255, 0.08);
-        }
       }
 
       *,
@@ -133,7 +114,9 @@
         border: 1px solid var(--border);
         border-radius: 4px;
         background: var(--inline-bg);
-        white-space: nowrap;
+        overflow-wrap: anywhere;
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
       }
 
       .snippet {
@@ -150,12 +133,19 @@
         font-size: 0.875rem;
       }
 
+      /* tabindex="0" in the markup keeps the clipped snippet scrollable by
+         keyboard on narrow viewports, matching Docusaurus' own CodeBlock. */
       .snippet pre {
         margin: 0;
         padding: 16px;
         overflow-x: auto;
         color: var(--code-text);
         line-height: 1.6;
+      }
+
+      .snippet pre:focus-visible {
+        outline: 2px solid var(--link);
+        outline-offset: -2px;
       }
 
       .snippet .key {
@@ -190,8 +180,11 @@
         line-height: 1.5;
       }
 
+      /* Underlined, unlike WelcomeFooter.tsx: the links share their color with
+         the adjacent text, so without one nothing marks them as clickable. */
       .footer__legal a {
         color: var(--text-muted);
+        text-decoration: underline;
       }
 
       .footer__sep {
@@ -253,7 +246,7 @@
 
       <div class="snippet">
         <div class="snippet__title">path/to/kratos/config.yml</div>
-        <pre><code><span class="key">selfservice</span>:
+        <pre tabindex="0"><code><span class="key">selfservice</span>:
   <span class="key">flows</span>:
     <span class="key">error</span>:
       <span class="key">ui_url</span>: http://my-app.com/error</code></pre>
