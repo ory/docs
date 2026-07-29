@@ -1,0 +1,83 @@
+---
+id: mcp-server
+title: Ory MCP server
+sidebar_label: MCP server
+---
+
+`@ory/mcp-server` exposes the [Ory CLI](https://www.ory.com/docs/guides/cli/installation)
+and the [Ory Network REST API](https://www.ory.com/docs/reference/api) as
+[Model Context Protocol (MCP)](https://modelcontextprotocol.io) tools. Every
+plugin's `install` command registers it automatically; the harness fetches it
+via `npx` on demand, so the agent can manage identities, OAuth2 clients,
+projects, permissions, and configuration without leaving the chat.
+
+:::note
+
+This is **not** the same as the
+[Ory Docs MCP Server](../../ecosystem/mcp.mdx), which answers questions about
+the Ory documentation. The server described here manages your Ory **project**.
+
+:::
+
+## Prerequisites
+
+- The `ory` CLI on `PATH` for CLI-backed tools. Install from
+  [ory.com/docs/guides/cli/installation](https://www.ory.com/docs/guides/cli/installation),
+  then run `ory auth`.
+- `ORY_PROJECT_URL` + `ORY_API_KEY` for the generic `ory_api_request` tool (the
+  CLI is not required for that one).
+
+## Standalone use
+
+Although it's bundled with every plugin, you can also use the MCP server on its
+own:
+
+```bash
+npm install @ory/mcp-server
+```
+
+Add it to your harness's MCP config. Example for Claude Code
+(`.claude/settings.json`):
+
+```json
+{ "mcpServers": { "ory": { "command": "ory-mcp-server" } } }
+```
+
+## Tools
+
+- **Identities**: `ory_list_identities`, `ory_get_identity`,
+  `ory_delete_identity`, `ory_import_identities`, `ory_validate_identity`
+- **OAuth2 / OIDC**: list, get, create, update, import, and delete
+  clients; `ory_introspect_token`, `ory_revoke_token`,
+  `ory_perform_client_credentials`, `ory_delete_oauth2_access_tokens`
+- **Relationships & permissions**: `ory_list_relationships`,
+  `ory_create_relationship`, `ory_create_relationships_from_file`,
+  `ory_parse_relationships`, `ory_delete_relationships`, `ory_check_permission`
+- **Projects**: list, get, create, update, patch, and `ory_use_project`
+- **Configuration**: get / update / patch the identity, OAuth2, and
+  permission configs; `ory_update_opl`, `ory_patch_opl`
+- **Workspaces**: `ory_list_workspaces`, `ory_get_workspace`,
+  `ory_create_workspace`
+- **Organizations (B2B)**: list, create, update, delete
+- **JWKs**: create, get, delete, import
+- **Event streams**: list, create, update, delete
+- **Generic REST**: `ory_api_request` makes authenticated calls against
+  any Ory Network REST endpoint
+
+CLI-backed tools accept optional `project` and `workspace` parameters; defaults
+come from `ORY_PROJECT` / `ORY_WORKSPACE` or `ory use project`.
+
+## Environment
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `ORY_CLI_PATH` | `ory` | CLI binary path |
+| `ORY_PROJECT` | (none) | Default project for CLI tools |
+| `ORY_WORKSPACE` | (none) | Default workspace for CLI tools |
+| `ORY_CLI_TIMEOUT` | `30000` | CLI command timeout (ms) |
+| `ORY_PROJECT_URL` | (none) | Base URL for `ory_api_request` |
+| `ORY_SDK_URL` | (none) | Fallback base URL when `ORY_PROJECT_URL` is unset |
+| `ORY_API_KEY` | (none) | Bearer for `ory_api_request` |
+| `ORY_ACCESS_TOKEN` | (none) | Fallback bearer when `ORY_API_KEY` is unset |
+| `ORY_HTTP_TIMEOUT` | `30000` | REST timeout (ms) |
+| `ORY_MCP_DEBUG` | `false` | stderr debug logging |

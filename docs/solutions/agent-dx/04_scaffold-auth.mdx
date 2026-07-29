@@ -1,0 +1,45 @@
+---
+id: scaffold-auth
+title: Scaffold Ory auth into your app
+sidebar_label: Scaffold auth
+---
+
+The plugins ship a catalog of **skills**: vetted, end-to-end playbooks the agent
+follows to scaffold Ory authentication into the codebase you're working in.
+Skills are model-invoked: ask the agent in natural language and the
+matching skill takes over.
+
+The catalog is materialized from a single canonical set of `SKILL.md` templates
+in `@ory/argus` and expressed through each harness's native mechanism (Claude
+Code slash commands, Codex and OpenClaw user-invocable skills, Gemini CLI TOML
+commands, OpenCode markdown commands), so the guidance is identical across every
+agent.
+
+## Start here: add Ory auth to your app
+
+- **`ory-auth-setup`** *(e.g. "set up Ory auth in this project")*: full
+  project setup: install the Ory CLI, create an Ory Network project (or use the
+  [local stack](03_local-stack.mdx)), add
+  [Ory Elements](https://github.com/ory/elements), configure the SDK, build the
+  auth pages, and wire session middleware.
+- **`ory-login-flow`** *(e.g. "add login and registration pages")*: login,
+  registration, recovery, verification, and settings pages with Ory
+  Elements. Next.js App Router and React SPA variants.
+- **`ory-social-login`** *(e.g. "add Google sign-in via Ory")*: Google,
+  GitHub, Apple, Microsoft, Discord, and other OIDC providers with Jsonnet data
+  mappers.
+- **`ory-local-dev`** *(e.g. "run the local Ory stack")*: drive the
+  [local Ory stack](03_local-stack.mdx) from within the agent to prototype and
+  test without a remote project.
+
+## Typical flow
+
+1. Bring up the [local Ory stack](03_local-stack.mdx) so scaffolding has a
+   backend to target.
+2. Ask the agent to *"add Ory auth to this app"*. `ory-auth-setup` installs Ory
+   Elements, wires the SDK, generates the auth pages, and sets up session
+   middleware.
+3. Start your app, open the generated login page, and sign in with the seeded
+   credentials.
+
+From here you can layer on [integrations](05_integrations.mdx).

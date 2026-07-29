@@ -1,0 +1,128 @@
+---
+id: install
+title: Install the Ory Agent Plugin
+sidebar_label: Install
+---
+
+Each harness has its own package and install path, but the post-install
+experience is the same: skills and commands to scaffold Ory into your codebase
+and a one-command local Ory stack.
+
+## Prerequisites
+
+- The agent harness installed and signed in.
+- Node.js **&ge; 22**.
+- [Docker](https://docs.docker.com/get-docker/): only needed for the
+  local Ory stack.
+- macOS or Linux. Windows works via WSL2.
+
+You do **not** need an Ory account to get started: the bundled local stack runs
+a complete Ory on your laptop, fully offline.
+
+## Claude Code
+
+Inside Claude Code:
+
+```text
+/plugin marketplace add ory/claude-plugins
+/plugin install ory-agent-plugin@ory
+```
+
+Confirm everything landed:
+
+```bash
+npx -y -p @ory/claude-code ory-claude status
+```
+
+`status` is the single source of truth: it prints configuration, user
+and agent identity, per-tool permission coverage, hook and skill registration,
+and a tail of recent debug logs.
+
+You can also install without a Claude Code session (requires the `claude` CLI on
+`PATH`):
+
+```bash
+npx -y -p @ory/claude-code ory-claude install            # current project
+npx -y -p @ory/claude-code ory-claude install --global   # all projects (user scope)
+```
+
+## Codex
+
+```bash
+npx -y -p @ory/codex ory-codex install
+npx -y -p @ory/codex ory-codex status
+```
+
+## Gemini CLI
+
+```bash
+gemini extensions install https://github.com/ory/gemini-cli-extension
+```
+
+## OpenClaw
+
+```bash
+npx -y -p @ory/openclaw ory-openclaw install
+```
+
+## OpenCode
+
+```bash
+npx -y -p @ory/opencode ory-opencode install
+```
+
+## Continue
+
+```bash
+npx -y -p @ory/continue ory-cn install
+```
+
+## Goose
+
+```bash
+npx -y -p @ory/goose ory-goose install
+```
+
+## Cline
+
+```bash
+npx -y -p @ory/cline ory-cline install
+```
+
+## Amp
+
+```bash
+npx -y -p @ory/amp ory-amp install
+```
+
+## Pi
+
+```bash
+npx -y -p @ory/pi ory-pi install
+```
+
+## Google Antigravity
+
+```bash
+npx -y -p @ory/antigravity ory-agy install
+```
+
+## Verify the install
+
+Every plugin ships the same CLI shape. Run `status` to see configuration,
+identities, permission coverage, and registration in one place:
+
+```bash
+npx -y -p @ory/<harness> ory-<harness> status
+```
+
+Replace `<harness>` with `claude-code`, `codex`, `gemini-cli`, `openclaw`,
+`opencode`, `continue`, `goose`, `cline`, `amp`, `pi`, or `antigravity`, and the
+binary `ory-<harness>` with `ory-claude`, `ory-codex`, `ory-gemini`,
+`ory-openclaw`, `ory-opencode`, `ory-cn`, `ory-goose`, `ory-cline`,
+`ory-amp`, `ory-pi`, or `ory-agy` respectively.
+
+## Next steps
+
+- Spin up the [local Ory stack](03_local-stack.mdx): no account needed.
+- [Scaffold Ory auth](04_scaffold-auth.mdx) into your app.

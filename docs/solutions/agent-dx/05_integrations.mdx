@@ -1,0 +1,35 @@
+---
+id: integrations
+title: Build and contribute Ory integrations
+sidebar_label: Integrations
+---
+
+Beyond scaffolding auth pages, two skills help you wire Ory into the rest of your
+app and contribute back to the Ory ecosystem. Both are model-invoked: ask
+the agent in natural language.
+
+## Pull a template into your app
+
+- **`ory-build-integration`** *(e.g. "wire an Ory webhook into my app")*: pulls the runnable subset of an [`ory/integrates`](https://github.com/ory/integrates)
+  template (webhook, config, or HTTP-event) into your own app and wires it to
+  your Ory project. No contribution or registry concerns: just working
+  code in your codebase.
+
+## Author a new integration
+
+- **`ory-contribute-integration`** *(e.g. "contribute a new Ory integration")*:
+  authors a brand-new integration as a contribution to `ory/integrates`,
+  including the `registry.entry.yaml`, the `Maintained by:` footer, DCO
+  sign-off, and registry regeneration.
+
+## When to use which
+
+| You want to… | Use |
+|--------------|-----|
+| Add a webhook / config / event handler to *your* app | `ory-build-integration` |
+| Publish a reusable integration for *others* | `ory-contribute-integration` |
+
+Both can run against the [local Ory stack](03_local-stack.mdx) or a hosted
+project. To manage the project itself from inside the chat, creating clients,
+seeding identities, checking permissions, use the
+[Ory MCP server](06_mcp-server.mdx).

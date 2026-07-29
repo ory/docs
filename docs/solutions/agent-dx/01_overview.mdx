@@ -1,0 +1,72 @@
+---
+id: overview
+title: Ory Agent DX
+sidebar_label: Overview
+---
+
+Ory Agent DX is the developer-experience side of the
+[Ory Agent Plugins](https://github.com/ory/claude-plugins): you point your AI
+coding agent at your project and have it scaffold real Ory authentication into
+the codebase (login, registration, social sign-in, recovery, and permissions)
+backed by a complete Ory stack running locally in Docker.
+
+You don't need an Ory account, an API key, or any prior Ory experience to start.
+Everything in the Quickstart works against the local stack, fully offline.
+
+## What you get
+
+- **Scaffolding skills**: model-invoked playbooks. Ask your agent in plain
+  language (*"add Ory auth to this app"*) and the matching skill installs
+  [Ory Elements](https://github.com/ory/elements), wires the SDK, generates the
+  auth pages, and sets up session middleware.
+- **A local Ory stack**: a complete Ory running on your laptop in Docker.
+  One command brings it up with a seeded test user; no signup, no API key.
+- **Integration templates**: pull a runnable `ory/integrates` template
+  (webhook, config, HTTP event) into your app, or author a new one as a
+  contribution.
+- **The Ory MCP server**: bundled and registered automatically, so your
+  agent can manage identities, OAuth2 clients, projects, and permissions
+  without leaving the chat.
+
+## The Quickstart path
+
+From any project where you want Ory authentication, inside your agent:
+
+1. **Start the local Ory stack.** *(~1 min, needs Docker.)* Ask *"start the local
+   Ory stack"*. A banner prints the seeded user's email and password.
+2. **Scaffold Ory into your project.** *(~5&ndash;10 min.)* Ask *"add Ory auth to
+   this app"*. The `ory-auth-setup` skill installs Ory Elements, wires the SDK,
+   and generates the login / registration / recovery / verification / settings
+   pages: all targeting the local stack, so no signup or API key is
+   needed.
+3. **Sign in.** Start your app, open the login page the agent added, and sign in
+   with the seeded credentials. You now have a real Ory session backed by a real
+   Ory stack: locally, offline, with zero configuration.
+
+That's the full DX path.
+
+## Supported agents
+
+| Harness | Package | Integration model |
+|---------|---------|-------------------|
+| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | `@ory/claude-code` | Subprocess plugin (marketplace) |
+| [Codex](https://github.com/openai/codex) | `@ory/codex` | Subprocess plugin |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | `@ory/gemini-cli` | Subprocess extension |
+| [OpenClaw](https://github.com/openclaw/openclaw) | `@ory/openclaw` | In-process plugin |
+| [OpenCode](https://opencode.ai) | `@ory/opencode` | In-process plugin |
+| [Continue](https://continue.dev) | `@ory/continue` | Subprocess plugin |
+| [Goose](https://github.com/block/goose) | `@ory/goose` | Subprocess plugin (shell hook) |
+| [Cline](https://github.com/cline/cline) | `@ory/cline` | Subprocess plugin (file-based hooks) |
+| [Amp](https://ampcode.com) | `@ory/amp` | Hybrid (permission delegate + in-process) |
+| [Pi](https://pi.dev) | `@ory/pi` | In-process plugin |
+| [Google Antigravity](https://antigravity.google) | `@ory/antigravity` | Subprocess plugin |
+
+A bundled MCP server (`@ory/mcp-server`) and the shared client (`@ory/argus`)
+round out the set.
+
+## Next steps
+
+- [Install the plugin](02_install.mdx) for your agent.
+- Spin up the [local Ory stack](03_local-stack.mdx).
+- [Scaffold authentication](04_scaffold-auth.mdx) into your app.
+- Pull in [integrations](05_integrations.mdx).

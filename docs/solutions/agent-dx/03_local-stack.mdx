@@ -1,0 +1,64 @@
+---
+id: local-stack
+title: The local Ory stack
+sidebar_label: Local Ory stack
+---
+
+Every plugin bundles a complete Ory you can run on your laptop in Docker: no
+account, no signup, no API key. It's the backend the scaffolding
+skills target by default, so you can build and test login, registration, social
+sign-in, MFA, recovery, and permissions entirely offline before pointing at a
+real project.
+
+## Start and stop the stack
+
+Ask the agent to *"start the local Ory stack"*, or run the command directly
+(Claude Code syntax shown; other harnesses expose the equivalent in their native
+command mechanism):
+
+```text
+/ory-agent-plugin:local-up      # start a local Ory instance in Docker
+/ory-agent-plugin:local-down    # tear it all down
+/ory-agent-plugin:temporal-up   # start a local Temporal dev server
+```
+
+`local-up` runs a complete Ory on your laptop:
+
+- The Identities, OAuth2, and Permissions APIs behind one gateway at
+  `http://localhost:4000` (use this as your `ORY_PROJECT_URL`).
+- The Ory Console Lite management UI on `:4100`.
+- The login and consent UI on `:4455`.
+- [Jaeger](https://www.jaegertracing.io) (the trace viewer) on `:16686`.
+
+A test user (`user@ory-local.dev`) is seeded and its credentials are printed in
+the banner, along with the `ORY_OAUTH2_CLIENT_ID` export you'll need to wire up
+user login. Make sure Docker is running and ports `4000`, `4100`, `4455`, and
+`16686` are free.
+
+## The `local` CLI
+
+The same actions are available on every plugin CLI:
+
+```bash
+npx -y -p @ory/<harness> ory-<harness> local up        # start the stack
+npx -y -p @ory/<harness> ory-<harness> local down       # stop the stack (keeps data)
+npx -y -p @ory/<harness> ory-<harness> local status      # is it running?
+npx -y -p @ory/<harness> ory-<harness> local seed         # reseed the test user
+npx -y -p @ory/<harness> ory-<harness> local env          # print env for other tools
+npx -y -p @ory/<harness> ory-<harness> local logs          # tail container logs
+npx -y -p @ory/<harness> ory-<harness> local configure      # (re)write local config
+npx -y -p @ory/<harness> ory-<harness> local reset          # stop and wipe all local data
+```
+
+`local env` prints the environment variables that point any other tool (or a
+second plugin) at the running stack: handy when wiring a scaffolded app
+to the same backend the agent is using.
+
+## What it's for
+
+The local stack is the fastest way to learn Ory hands-on and to prototype flows
+end-to-end before pushing anything to a real environment. It's the backend for
+the [scaffolding skills](04_scaffold-auth.mdx).
+
+The `ory-local-dev` skill drives all of this from natural language: ask
+the agent to *"run the local Ory stack"* and it takes over.
