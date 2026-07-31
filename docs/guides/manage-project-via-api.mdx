@@ -107,6 +107,14 @@ curl --location --request GET "https://api.console.ory.com/projects/${ORY_PROJEC
   --header "Authorization: Bearer ${WORKSPACE_API_KEY}" | jq
 ```
 
+:::note
+
+The response does not include the password segment of the SMTP `connection_uri`, the OIDC provider `client_secret`, or the Apple
+`apple_private_key`. These fields are returned empty even when a value is stored. The stored value is still used at runtime. See
+the [stored secrets note](./cli/config-with-cli#stored-secrets) for the behavior when writing the configuration back.
+
+:::
+
 ### Update an Ory Network project Configuration
 
 You can use Workspace API keys to change a projects configuration through the API.

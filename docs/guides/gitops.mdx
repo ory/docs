@@ -8,6 +8,14 @@ This guide will walk you through the process of managing your Ory Network config
 these steps, you'll be able to track changes, review, and approve them through pull requests, and automatically update the
 configuration upon merge.
 
+:::note
+
+When you export the configuration with `ory get ...`, the SMTP `connection_uri` password, OIDC provider `client_secret`, and
+`apple_private_key` are returned empty even when a value is stored. See the
+[stored secrets note](./cli/config-with-cli#stored-secrets) for the behavior when writing the configuration back.
+
+:::
+
 This guide uses the GitHub Actions to update the configuration and manage changes through pull requests. You can adapt this to
 GitLab CI, TravisCI, CircleCI, and other CI/CD systems.
 
