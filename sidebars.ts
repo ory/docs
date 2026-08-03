@@ -44,21 +44,7 @@ const api: SidebarItemsConfig = [
           type: "doc",
           id: "guides/rate-limits",
         },
-        items: [
-          "guides/rate-limits-legacy",
-          {
-            type: "category",
-            label: "Rate limits - New",
-            link: {
-              type: "doc",
-              id: "guides/rate-limits-new",
-            },
-            items: [
-              "guides/rate-limits-project",
-              "guides/rate-limits-endpoint",
-            ],
-          },
-        ],
+        items: ["guides/rate-limits-project", "guides/rate-limits-endpoint"],
       },
       "guides/load-performance-testing",
       "guides/ip-allowlist",
