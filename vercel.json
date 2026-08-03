@@ -6,6 +6,16 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/docs/guides/rate-limits-legacy",
+      "destination": "/docs/guides/rate-limits",
+      "permanent": false
+    },
+    {
+      "source": "/docs/guides/rate-limits-new",
+      "destination": "/docs/guides/rate-limits",
+      "permanent": false
+    },
+    {
       "source": "/",
       "destination": "/docs",
       "permanent": true
