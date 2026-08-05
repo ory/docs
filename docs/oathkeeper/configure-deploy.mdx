@@ -376,6 +376,33 @@ serve:
 EOF
 ```
 
+### Controlling request path labels
+
+By default, Oathkeeper includes the full request path as a label on Prometheus metrics. For high-cardinality APIs this can
+produce an unbounded number of label values, which increases Prometheus memory usage. Three configuration options let you
+control this behavior:
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `hide_request_paths` | bool | `false` | When `true`, the request path label is omitted entirely. |
+| `collapse_request_paths` | bool | `true` | When `true`, the path is truncated to the first N segments (controlled by `collapse_request_paths_depth`). |
+| `collapse_request_paths_depth` | int | `1` | Number of path segments to keep when `collapse_request_paths` is enabled. |
+
+For example, with `collapse_request_paths: true` and `collapse_request_paths_depth: 2`, a request to
+`/decisions/my-service/some-resource` is recorded as `/decisions/my-service`, keeping cardinality low while still
+distinguishing between top-level services.
+
+```yaml
+serve:
+  prometheus:
+    port: 9000
+    host: localhost
+    metrics_path: /metrics
+    hide_request_paths: false
+    collapse_request_paths: true
+    collapse_request_paths_depth: 2
+```
+
 Prometheus can be run as a Docker container. More information are available on
 [https://github.com/prometheus/prometheus](https://github.com/prometheus/prometheus). Start with setting up a Prometheus
 configuration:
