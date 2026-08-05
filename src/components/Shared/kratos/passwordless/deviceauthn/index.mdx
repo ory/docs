@@ -146,6 +146,11 @@ selfservice:
           - "TEAMID.com.example.app"
         android_app_ids:
           - "0123…ef" # lowercase-hex SHA-256 of your app signing certificate
+
+        # Accept expired certificates in Android factory attestation chains
+        # that lead to a pinned Google root key. Needed for devices launched
+        # before 2021. Default: false.
+        android_allow_expired_factory_certificates: true
 ```
 
 - `first_factor` — enables the first-factor login path and its UI nodes. Without it, all keys are step-up only.
@@ -154,11 +159,33 @@ selfservice:
   cannot, so iOS `platform` keys are step-up only unless you opt in. PIN keys are unaffected.
 - `ios_app_ids` / `android_app_ids` — allow-lists checked against the attestation. Use the Apple App ID (`<TeamID>.<BundleID>`)
   and the SHA-256 digest of the Android app signing certificate (package names are forgeable).
+- `android_allow_expired_factory_certificates` — accepts enrollments from older Android devices whose factory attestation
+  certificates have expired. See
+  [Expired factory certificates on older Android devices](#expired-factory-certificates-on-older-android-devices).
 - PIN length and complexity are client-side concerns — see
   [Client implementation requirements](#client-implementation-requirements).
 
 On Ory Network all of these are available through the project configuration. Relaxed attestation for emulator testing is described
 in [Relaxed attestation for testing](#relaxed-attestation-for-testing) and only takes effect in development environments.
+
+## Expired factory certificates on older Android devices
+
+Android devices launched before 2021 ship a factory-provisioned attestation keybox whose certificates — including the 2016
+issuance of Google's hardware attestation root — have expired. Google
+[documents these chains as still trustworthy](https://developer.android.com/privacy-and-security/security-key-attestation) unless
+a certificate appears in the revocation list, and re-issues the attestation root with the same key. By default, Ory rejects any
+expired certificate, so enrollment fails on these devices.
+
+Set `config.android_allow_expired_factory_certificates: true` to accept them. The check follows Google's guidance:
+
+- Only factory-provisioned chains qualify, and only when the chain leads to a pinned Google root key. Remote Key Provisioning
+  (RKP) chains keep full validity enforcement — their certificates are short-lived by design.
+- Signature verification, the certificate revocation list, and all hardware attestation checks (security level, verified boot)
+  still apply.
+- Keys enrolled this way are regular hardware-attested keys: unlike relaxed attestation, they don't expire and work in every
+  environment.
+
+On Ory Network, this is a toggle in the **Device Authentication** section of <ConsoleLink route="project.passwordless" />.
 
 ## Relaxed attestation for testing
 
@@ -175,8 +202,8 @@ selfservice:
         insecure_allow_relaxed_attestation: true
 ```
 
-On Ory Network, this is exposed as a toggle in the Console under **MFA → Device Authentication**, and is only available on
-development projects.
+On Ory Network, this is a toggle in the **Device Authentication** section of <ConsoleLink route="project.passwordless" />, and is
+only available on development projects.
 
 Keep the following in mind when using relaxed attestation:
 
