@@ -1,0 +1,6 @@
+server:
+  port: ${EXAMPLES_TEST_APP_PORT:3000}
+
+ory:
+  sdk:
+    url: ${ORY_SDK_URL:http://localhost:4000}

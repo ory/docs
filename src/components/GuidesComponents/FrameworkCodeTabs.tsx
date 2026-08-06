@@ -6,6 +6,7 @@ const DEFAULT_FRAMEWORKS = [
   { value: "javascript", label: "Express (JS)" },
   { value: "nextjs", label: "Next.js" },
   { value: "go", label: "Go" },
+  { value: "java", label: "Java" },
 ]
 
 export const FrameworkCodeTabs = ({ children }) => {
