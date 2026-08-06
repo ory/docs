@@ -278,11 +278,8 @@ with the original body request as body. If the endpoint returns a "200 OK" respo
   [Session](../pipeline.md#session) for more details.
 - `forward_response_headers_to_upstream` (slice of strings, optional) - The HTTP headers that will be allowed from remote
   authorizer responses. If returned, headers on this list will be forward to upstream services.
-- `retry` (object, optional) - Configures timeout and delay settings for the request against the token endpoint
-  - `give_up_after` (string) max delay duration of retry. The value will be parsed by the Go
-    [duration parser](https://pkg.go.dev/time#ParseDuration).
-  - `max_delay` (string) time to wait between retries and max service response time. The value will be parsed by the Go
-    [duration parser](https://pkg.go.dev/time#ParseDuration).
+- `retry` (object, optional) - Configures the [shared retry policy](../pipeline.md#retry-policy-for-external-http-handlers) for
+  requests to the remote authorizer.
 
 #### `remote` example
 
@@ -297,6 +294,12 @@ authorizers:
       remote: http://my-remote-authorizer/authorize
       headers:
         X-Subject: "{{ print .Subject }}"
+      retry:
+        deadline: 2s
+        max_backoff_delay: 100ms
+        max_attempts: 3
+        initial_backoff_delay: 50ms
+        per_attempt_timeout: 500ms
 ```
 
 ```yaml
@@ -310,6 +313,12 @@ authorizers:
       remote: http://my-remote-authorizer/authorize
       headers:
         X-Subject: "{{ print .Subject }}"
+      retry:
+        deadline: 2s
+        max_backoff_delay: 100ms
+        max_attempts: 3
+        initial_backoff_delay: 50ms
+        per_attempt_timeout: 500ms
 ```
 
 ### `remote` access rule example
@@ -369,11 +378,8 @@ response code, the access is denied.
   [Session](../pipeline.md#session) for more details.
 - `forward_response_headers_to_upstream` (slice of strings, optional) - The HTTP headers that will be allowed from remote
   authorizer responses. If returned, headers on this list will be forward to upstream services.
-- `retry` (object, optional) - Configures timeout and delay settings for the request against the token endpoint
-  - `give_up_after` (string) max delay duration of retry. The value will be parsed by the Go
-    [duration parser](https://pkg.go.dev/time#ParseDuration).
-  - `max_delay` (string) time to wait between retries and max service response time. The value will be parsed by the Go
-    [duration parser](https://pkg.go.dev/time#ParseDuration).
+- `retry` (object, optional) - Configures the [shared retry policy](../pipeline.md#retry-policy-for-external-http-handlers) for
+  requests to the remote authorizer.
 
 #### `remote_json` example
 
@@ -393,6 +399,12 @@ authorizers:
           "subject": "{{ print .Subject }}",
           "resource": "{{ printIndex .MatchContext.RegexpCaptureGroups 0 }}"
         }
+      retry:
+        deadline: 2s
+        max_backoff_delay: 100ms
+        max_attempts: 3
+        initial_backoff_delay: 50ms
+        per_attempt_timeout: 500ms
 ```
 
 ```yaml
@@ -411,6 +423,12 @@ authorizers:
           "subject": "{{ print .Subject }}",
           "resource": "{{ printIndex .MatchContext.RegexpCaptureGroups 0 }}"
         }
+      retry:
+        deadline: 2s
+        max_backoff_delay: 100ms
+        max_attempts: 3
+        initial_backoff_delay: 50ms
+        per_attempt_timeout: 500ms
 ```
 
 ### `remote_json` access rule example
