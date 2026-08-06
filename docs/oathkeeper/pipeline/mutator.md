@@ -476,7 +476,8 @@ Because the cache key is quite complex, the caching handler has a higher chance 
 
 - `api.url` (string - required) - The API URL.
 - `api.auth.basic.*` (optional) - Enables HTTP Basic Authorization.
-- `api.auth.retry.*` (optional) - Configures the retry logic.
+- `api.retry` (object, optional) - Configures the [shared retry policy](../pipeline.md#retry-policy-for-external-http-handlers)
+  for requests to the hydrator API.
 - `cache.ttl` (optional) - Configures how long to cache hydrate requests
 
 ```yaml
@@ -493,8 +494,11 @@ mutators:
             username: someUserName
             password: somePassword
         retry:
-          give_up_after: 2s
-          max_delay: 100ms
+          deadline: 2s
+          max_backoff_delay: 100ms
+          max_attempts: 3
+          initial_backoff_delay: 50ms
+          per_attempt_timeout: 500ms
       cache:
         ttl: 60s
 ```
@@ -514,8 +518,11 @@ mutators:
             username: someUserName
             password: somePassword
         retry:
-          give_up_after: 2s
-          max_delay: 100ms
+          deadline: 2s
+          max_backoff_delay: 100ms
+          max_attempts: 3
+          initial_backoff_delay: 50ms
+          per_attempt_timeout: 500ms
       cache:
         ttl: 60s
 ```

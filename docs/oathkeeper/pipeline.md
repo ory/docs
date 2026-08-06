@@ -19,6 +19,48 @@ This chapter explains the different pipeline handlers available to you:
 - [Error handlers](pipeline/error.md): are responsible for executing logic after, for example, authentication or authorization
   failed. Ory Oathkeeper supports different error handlers and we will add more as the project progresses.
 
+## Retry policy for external HTTP handlers
+
+The `oauth2_client_credentials` and `oauth2_introspection` authenticators, the `remote` and `remote_json` authorizers, and the
+`hydrator` mutator make outbound HTTP requests and share the same retry policy. Configure the policy under `config.retry` for the
+authenticators and authorizers. For the hydrator, configure it under `config.api.retry`.
+
+The bounded retry policy is opt-in. Set both `deadline` and `max_backoff_delay` to enable it; setting only one is invalid. The
+optional corrected-policy fields are also invalid unless both required fields are present.
+
+| Field                   | Description                                                                                                                                          |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `deadline`              | Maximum duration of the complete operation, including all attempts, backoff, and the final response body. Must be greater than zero.                 |
+| `max_backoff_delay`     | Maximum delay between attempts. Must be greater than zero.                                                                                           |
+| `max_attempts`          | Total attempts, including the initial request. Defaults to `5` and must be between `1` and `5`.                                                      |
+| `initial_backoff_delay` | Initial exponential backoff delay. Defaults to the smaller of `1s` and `max_backoff_delay`, and can't exceed `max_backoff_delay`.                    |
+| `per_attempt_timeout`   | Optional timeout for each attempt, including its response body. Without it, an individual attempt can use the entire remaining operation `deadline`. |
+
+Retries stop when either `max_attempts` is reached or the operation `deadline` expires. `429 Too Many Requests` responses aren't
+retried. Their status and `Retry-After` header remain available to the pipeline handler, which determines how to represent the
+failure to Oathkeeper's caller.
+
+```yaml
+retry:
+  deadline: 2s
+  max_backoff_delay: 100ms
+  max_attempts: 3
+  initial_backoff_delay: 50ms
+  per_attempt_timeout: 500ms
+```
+
+The legacy `max_delay` and `give_up_after` fields remain accepted for compatibility when the bounded policy isn't enabled. They
+are deprecated, their historical behavior and defaults differ by handler, and they are ignored when `deadline` and
+`max_backoff_delay` are set.
+
+| Handler                     | Legacy `max_delay` | Legacy `give_up_after` |
+| --------------------------- | ------------------ | ---------------------- |
+| `oauth2_client_credentials` | `1s`               | `2s`                   |
+| `oauth2_introspection`      | `500ms`            | `1s`                   |
+| `remote`                    | `500ms`            | `1s`                   |
+| `remote_json`               | `500ms`            | `1s`                   |
+| `hydrator`                  | `100ms`            | `1s`                   |
+
 ## Templating
 
 Some handlers such as the [ID Token Mutator](pipeline/mutator.md#id_token) support templating using

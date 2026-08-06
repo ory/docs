@@ -491,9 +491,8 @@ This authenticator will use the username from the HTTP Basic Authorization heade
 ### `oauth2_client_credentials` configuration
 
 - `token_url` (string, required) - The OAuth 2.0 Token Endpoint that will be used to validate the client credentials.
-- `retry` (object, optional) - Configures timeout and delay settings for the request against the token endpoint
-  - `give_up_after` (string) timeout
-  - `max_delay` (string) time to wait between retries
+- `retry` (object, optional) - Configures the [shared retry policy](../pipeline.md#retry-policy-for-external-http-handlers) for
+  requests to the token endpoint.
 - `cache` (object, optional) - Enables caching of requested tokens
   - `enabled` (bool, optional) - Enable the cache, will use exp time of token to determine when to evict from cache. Defaults to
     false.
@@ -512,6 +511,12 @@ authenticators:
 
     config:
       token_url: https://my-website.com/oauth2/token
+      retry:
+        deadline: 2s
+        max_backoff_delay: 100ms
+        max_attempts: 3
+        initial_backoff_delay: 50ms
+        per_attempt_timeout: 500ms
 ```
 
 ```yaml
@@ -523,6 +528,12 @@ authenticators:
   - handler: oauth2_client_credentials
     config:
       token_url: https://my-website.com/oauth2/token
+      retry:
+        deadline: 2s
+        max_backoff_delay: 100ms
+        max_attempts: 3
+        initial_backoff_delay: 50ms
+        per_attempt_timeout: 500ms
 ```
 
 ### `oauth2_client_credentials` access rule example
@@ -619,9 +630,8 @@ Token Introspection to check if the token is valid and if the token was granted 
   - `cookie` (string, required, one of) - The cookie (case sensitive) that must contain a Bearer token for request authentication.
     It can't be set along with `header` or `query_parameter`
 - `introspection_request_headers` (object, optional) - Additional headers to add to the introspection request.
-- `retry` (object, optional) - Configure the retry policy
-  - `max_delay` (string, optional, default to 500ms) - Maximum delay to wait before retrying the request
-  - `give_up_after` (string, optional, default to 1s) - Maximum delay allowed for retries
+- `retry` (object, optional) - Configures the [shared retry policy](../pipeline.md#retry-policy-for-external-http-handlers) for
+  requests to the introspection endpoint.
 - `cache` (object, optional) - Enables caching of incoming tokens
   - `enabled` (bool, optional) - Enable the cache, will use exp time of token to determine when to evict from cache. Defaults to
     false.
@@ -665,8 +675,11 @@ authenticators:
       introspection_request_headers:
         x-forwarded-proto: https
       retry:
-        max_delay: 300ms
-        give_up_after: 2s
+        deadline: 2s
+        max_backoff_delay: 100ms
+        max_attempts: 3
+        initial_backoff_delay: 50ms
+        per_attempt_timeout: 500ms
       cache:
         enabled: true
         ttl: 60s
@@ -706,8 +719,11 @@ authenticators:
         x-forwarded-proto: https
         x-foo: bar
       retry:
-        max_delay: 300ms
-        give_up_after: 2s
+        deadline: 2s
+        max_backoff_delay: 100ms
+        max_attempts: 3
+        initial_backoff_delay: 50ms
+        per_attempt_timeout: 500ms
 ```
 
 ### `oauth2_introspection` access rule example
