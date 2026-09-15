@@ -514,7 +514,7 @@ Bitte geben Sie den folgenden Code ein, um Ihr Konto wiederherzustellen:
 {{ .RecoveryURL }}
 {{end}}
 
-{{- else if eq .Identity.traits.lang "fr" -}}
+{{- if eq .Identity.traits.lang "fr" -}}
 {{ template "fr" . }}
 {{- else if eq .Identity.traits.lang "de" -}}
 {{ template "de" . }}
